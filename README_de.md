@@ -1,5 +1,7 @@
 # Warteschlangensimulator
 
+([English version of this readme.](README_en.md))
+
 Der Warteschlangensimulator ist ein freier, plattformunabhängiger, [ereignisorientierter, stochastischer Simulator](https://en.wikipedia.org/wiki/Discrete-event_simulation "Wikipedia").
 
 Im Simulator können Warteschlangenmodelle in Form von Fließbildern modelliert und anschließend simuliert werden. Während der Simulation kann optional eine Animation der Prozesse in dem Modell dargestellt werden. Im Anschluss an eine Simulation stehen eine Vielzahl an Kenngrößen für die statistische Auswertung zur Verfügung. Der Simulator kann sowohl interaktiv als auch im Kommandozeilenbetrieb verwendet werden. Auch stehen Funktionen zur automatisierten Durchführung von Parameterstudien zur Verfügung.

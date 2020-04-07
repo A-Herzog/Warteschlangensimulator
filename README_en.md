@@ -1,5 +1,7 @@
 # Warteschlangensimulator
 
+([Deutsche Version dieser Readme.](README_de.md))
+
 Warteschlangensimulator is a free, platform independent, [event-oriented, stochastic simulator](https://en.wikipedia.org/wiki/Discrete-event_simulation "Wikipedia").
 
 In the simulator, queueing systems can be modelled and afterwards be simulated in form of flowcharts. During the simulation an optional animation of the processes in the model can be shown. Following a simulation, a large number of indicators are available for statistical evaluation. The simulator can be used both interactively and in command line mode. Functions for the automated execution of parameter studies are also available.
