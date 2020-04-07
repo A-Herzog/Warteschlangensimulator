@@ -83,7 +83,7 @@ During the simulation of a model, all relevant performance indicators are automa
 
 [<img src="Images/Screenshot_en_parameterseries.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_parameterseries.png "Click for large view")
 To investigate the effects of changes in individual parameters, these can be varied automatically within a certain range and the simulation results for these parameter series can be displayed in table or graphic form.
-[Mehr Informationen](#Automation)
+[Further information](#Automation)
 <br clear="both">
 
 #### Queueing networks and complex control strategies
