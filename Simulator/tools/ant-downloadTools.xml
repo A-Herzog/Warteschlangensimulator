@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="downloadTools" name="Download libraries needed for Simulator" xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+	<property name="Simulator.location" location=".." />
+	
+	<available file="${Simulator.location}/tools/JDDE/pretty-tools-JDDE.jar" property="jdde.present"/>
+	
+	<target name="downloadTools" description="Download libraries needed for Simulator">
+		<antcall target="downloadJDDE" unless:set="jdde.present"/>
+	</target>
+	
+	<target name="downloadJDDE">
+		<property name="tempZipFile" value="${Simulator.location}/tools/JDDE/pretty-tools-JDDE-2.1.0.zip"/>		
+		<mkdir dir="${Simulator.location}/tools/JDDE"/>
+		<get src="https://sourceforge.net/projects/jdde/files/JDDE-2.1.0/pretty-tools-JDDE-2.1.0.zip/download" dest="${tempZipFile}" skipexisting="true"/>
+		<unzip src="${tempZipFile}" dest="${Simulator.location}/tools/JDDE"/>
+		<delete file="${tempZipFile}"/>
+		<move file="${Simulator.location}/tools/JDDE/pretty-tools-JDDE-2.1.0.jar" tofile="${Simulator.location}/tools/JDDE/pretty-tools-JDDE.jar"/>
+		<get src="https://sourceforge.net/projects/jdde/files/JDDE-2.1.0/pretty-tools-JDDE-2.1.0-javadoc.jar/download" dest="${Simulator.location}/tools/JDDE/pretty-tools-JDDE-javadoc.jar" skipexisting="true"/>
+		<get src="https://sourceforge.net/projects/jdde/files/JDDE-2.1.0/pretty-tools-JDDE-2.1.0-src.zip/download" dest="${Simulator.location}/tools/JDDE/pretty-tools-JDDE-src.zip" skipexisting="true"/>
+	</target>
+		
+	<target name="cleanTools" description="Cleans the libraries needed for Simulator">
+		<delete dir="${Simulator.location}/tools/JDDE" />
+	</target>
+</project>

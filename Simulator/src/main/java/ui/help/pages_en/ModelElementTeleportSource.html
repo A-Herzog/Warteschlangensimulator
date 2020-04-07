@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Teleport transport source</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Teleport transport source</h1>
+
+<p>
+Teleport transports allow to timeless transport a client from a teleport transport source
+to a <a href="ModelElementTeleportDestination.html">teleport transport destination</a>.
+In contrast to normal transports, this is not about modeling a clients's actual transport
+(which may takes a certain amount of time and requires some resources), but to keep the model clear.
+If a client enters a teleport transport source, he is immediately transported to the specified
+teleport transport destination. Start and end points can be located in different places in the model;
+unlike a transport over an edge, no connection line between start and finish is drawn.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the teleport transport source element has no further meaning for the simulation.
+However, the name of a <a href="ModelElementTeleportDestination.html">Teleport transport destination</a>
+to which the arriving clients are to be transported has to be specified.
+</p>
+
+</body>
+</html>

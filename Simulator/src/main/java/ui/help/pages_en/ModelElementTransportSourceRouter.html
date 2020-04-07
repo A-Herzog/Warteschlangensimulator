@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Transport origin (sequence)</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Transport origin (sequence)</h1>
+
+<p>
+<b>
+This station type is no longer supported by the simulator.
+The functionality of this station type is available directly in the
+<a href="ModelElementTransportSource.html">transport start</a> element
+now. 
+</b>
+</p>
+
+<p>
+A transport origin (sequence) element allows to transport a client to any
+<a href="ModelElementTransportDestination.html">transport destination</a>
+element. How much time is needed for the transport can be set up
+in the transport start element. The transport destination is in contrast to the
+<a href="ModelElementTransportSource.html">transport start</a> element
+not determined in the station itself, but read out of the sequence plan
+for the respective client object.
+There is no need for a connection edge between the transport origin element
+and the transport destination element for routing clients from the origin to the
+destination.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the transport origin (sequence) element has no further meaning. On the dialog page
+<b>Transport times</b> one can define how long the transportation of a client will
+take. The transport times can be defined by a probability distriution or by an
+expression. Additionally it can be set up if the transport time should be recorded
+as waiting time, transfer time (default) oder process time. On the dialog page
+<b>Routing destinations</b> a target station which is used if there is not sequence
+plan for the current client or the sequence plan has already ended.
+</p>
+
+</body>
+</html>

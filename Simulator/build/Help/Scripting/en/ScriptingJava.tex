@@ -1,0 +1,690 @@
+\part{Java commands reference}
+
+Scripts can be used at different points in the simulator.
+The script language is \textbf{Javascript} or \textbf{Java}.
+
+In this section the additional \textbf{Java} commands which
+are available when using Java to access the
+simulation or statistics data and to output filtered data are
+presented.
+
+The \textbf{Java} code has to be embedded in a
+\begin{verbatim}
+void function(SimulationInterface sim) {
+
+}
+\end{verbatim}
+method. In addition to the standard language commands you can access
+the simulation or statistics data depending on the context in which the script is executed
+via the \texttt{SimulationInterface} interface which is given as a parameter.
+The \texttt{SimulationInterface} has some methods which allow to get sub-interfaces
+which offer these data:
+
+
+
+\chapter{\texttt{StatisticsInterface} accessible via \texttt{sim.getStatistics()}}
+
+The \texttt{sim.getStatistics()} methods returns a {StatisticsInterface} interface
+which offers read access to the xml elements which are the base of the statistics data.
+The \texttt{StatisticsInterface} interface is only available after the
+simulation while filtering the results while and when running a parameter series scripts.
+The following methods are in this object available:
+
+\section{Definition of the output format}
+
+\begin{itemize}
+
+\item
+\cmd{void setFormat(final String format)}:\\
+This command allows to setup the format that is used in \cmd{Statistics.xml} for outputing numbers
+as strings. You can specify whether to use a floating point notation or percent notation or interpreting
+the value as a time. As default floating point notation is used.
+\begin{itemize}
+\item
+\cmd{System}:
+Using floating point notation for numbers and percent values.
+\item
+\item
+\cmd{Fraction}:
+Using floating point notation for numbers ($0.375$ for example).
+\item
+\cmd{Percent}:
+Using percent notation for numbers ($35.7\%$ for example).
+\item
+\cmd{Time}:
+Interpreting numbers as times ($00{:}03{:}25{,}87$ for example).
+\item
+\cmd{Number}:
+Interpreting time values as normal numbers (format defined by \cm{Percent} or \cm{Fraction}).
+\end{itemize}
+	
+\item
+\cmd{void setSeparator(final String separator)}:\\
+This command allows to select the separator to be used when printing out distributions of measured values.
+\begin{itemize}
+\item
+\cmd{Semicolon}:
+Semicolons as separators
+\item
+\cmd{Line}:
+Line break as separators
+\item
+\cmd{Tabs}:
+Tabulators as separators
+\end{itemize}
+
+\end{itemize}
+
+\section{Accessing statistics xml data}
+
+\begin{itemize}
+
+\item
+\cmd{String xml(final String path)}:\\
+Loads the xml field which is specified by the parameter and returns the data in the format
+defined by \cm{sim.getStatistics().setFormat} and \cm{sim.getStatistics().setSeparator} as a string.
+
+Example: \cm{String name=sim.getStatistics().xml("{}Model->ModelName")}
+
+\item
+\cmd{Object xmlNumber(final String path)}:\\
+Loads the xml field which is specified by the parameter and returns the value as a \cm{Double} number.
+If the field cannot be interpreted as a number, a string containing an error message will be returned.  
+
+\item
+\cmd{Object xmlArray(final String path)}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the values as an array of numbers (\cm{double[]}).
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:\\
+\cm{sim.getStatistics().xmlArray("{}StatisticsProcessTimesClients->\\{}ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->[Distribution]")}
+
+\item
+\cmd{Object xmlSum(final String path)}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the sum of all values as a \cm{Double} number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:\\
+\cm{sim.getStatistics().xmlSum("{}StatisticsProcessTimesClients->\\{}ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->[Distribution]")}
+
+\item
+\cmd{Object xmlMean(final String path)}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the mean of values as a \cm{Double} number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:\\
+\cm{sim.getStatistics().xmlMean("{}StatisticsProcessTimesClients->\\{}ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->[Distribution]")}
+
+\item
+\cmd{Object xmlSD(final String path)}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the standard deviation of values as a \cm{Double} number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:
+\cm{sim.getStatistics().xmlSD("{}StatisticsProcessTimesClients->\\{}ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->[Distribution]")}
+
+\item
+\cmd{Object xmlCV(final String path)}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the coefficient of variation of values as a \cm{Double} number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:\\
+\cm{sim.getStatistics().xmlCV("{}StatisticsProcessTimesClients->\\{}ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->[Distribution]")}
+
+\item
+\cmd{boolean translate(final String language)}:\\
+Translates the statistics data to English ("{}en") or German ("{}de") so the preferred xml tag names can be
+used independent of the language setting under which the statistics file was generated.
+
+\end{itemize}
+
+\section{Saving the statistics data to files}
+
+\begin{itemize}
+
+\item
+\cmd{boolean save(final String fileName)}:\\
+Saves the entry statistics data under the next available file name in the given folder.\\
+This function is only available in the Run script panel.
+
+\item
+\cmd{boolean saveNext(final String folderName)}:\\
+Saves the entry statistics data under the next available file name in the given folder.\\
+This function is only available in the Run script panel.
+
+\item
+\cmd{String filter(final String fileName)}:\\
+Applies the selected script on the statistics data and returns the results.\\
+This function is only available in the Run script panel.
+
+\item
+\cmd{void cancel()}:\\
+Sets the cancel status. (When output is canceled to further file output will be performed.)
+
+\end{itemize}
+
+
+
+\chapter{\texttt{RuntimeInterface} accessible via \texttt{sim.getRuntime()}}
+
+The \texttt{RuntimeInterface} interface allows to access some general program functions.\\
+The \texttt{RuntimeInterface} is always available. The following methods are available in this interface:
+
+\begin{itemize}
+
+\item
+\cmd{Object calc(final String expression)}:\\
+Calculates the expression passed as a string by means of the term evaluation function,
+which is also used in various other places in the program (see part \ref{part:Rechenbefehle}), and returns the result as a \cm{Double} number.
+If the expression can not be calculated, an error message is returned as a string.
+The term evaluation function allows access to all known probability distributions,
+the Erlang C calculator, etc.
+
+\item
+\cmd{long getTime()}:\\
+Returns the current system time as a milliseconds value. This functions can be used to measure
+the runtime of a script.
+
+\item
+\cmd{double getInput(final String url, final double errorValue)}:\\
+Loads a numerical value via the specified address and returns it.
+If no value could be loaded, the error value specified in the second parameter is returned.
+
+\end{itemize}
+
+
+
+\chapter{\texttt{SystemInterface} accessible via \texttt{sim.getSystem()}}
+
+The \texttt{SystemInterface} interface allows to access the model data while simulation is running.
+It is not available for filtering the results after simulation has terminated.
+The following methods are available in this interface:
+
+\section{Base functions}
+
+\begin{itemize}
+
+\item
+\cmd{double getTime()}:\\
+Gets the current time in the simulation as a seconds numerical value.
+  
+\item
+\cmd{Object calc(final String expression)}:\\
+Calculates the expression passed as a string by means of the term evaluation function,
+which is also used in various other places in the program (see part \ref{part:Rechenbefehle}), and returns the result as a \cm{Double} number.
+If the expression can not be calculated, an error message is returned as a string.
+The term evaluation function allows access to all known probability distributions,
+the Erlang C calculator, etc.
+  
+\item
+\cmd{boolean isWarmUp()}:\\
+Gets true of false depending if the simulation is in the warm-up phase.
+	
+\end{itemize}
+
+\section{Accessing parameters of the simulation model}
+
+\begin{itemize}
+
+\item
+\cmd{void set(final String varName, final Object varValue)}:\\
+Sets the simulation variable which is specified as the first parameter to the value specified as the second parameter.  
+\cm{varValue} can be a number or a string. The case of a number the value will be assigned directly.
+Strings will be interpreted like \cm{calc(final String expression)} does and the result will be assigned to the variable. \cm{varName}
+can either be the name of an already defined simulation variable or of a client data field in the form
+\cm{ClientData(index)} with $index\ge0$. 
+  
+\item
+\cmd{void setAnalogValue(final Object elementID, final Object value)}:\\
+Sets the value at the "Analog value" or "Tank" element with the specified id.
+  
+\item
+\cmd{void setAnalogRate(final Object elementID, final Object value)}:\\
+Sets the change rate (per second) at the "Analog value" element with the specified id.
+  
+\item
+\cmd{void setAnalogValveMaxFlow(final Object elementID, final Object valveNr,\\final Object value)}:\\
+Sets the maximum flow (per second) at the specified valve (1 based) of the "Tank" element
+with the specified id. The maximum flow has to be a non-negative number.  
+  
+\item
+\cmd{int getWIP(final int id)}:\\
+Gets the current number of clients at the station with the specified id.
+  
+\item
+\cmd{int getNQ(final int id)}:\\
+Gets the current number of clients in the queue at the station with the specified id.
+
+\item
+\cmd{int getWIP()}:\\
+Gets the current number of clients in the system.
+  
+\item
+\cmd{int getNQ()}:\\
+Gets the current number of waiting clients in the system.
+
+\end{itemize}
+
+\section{Number of operators in a resource}
+
+\begin{itemize}
+
+\item
+\cmd{int getAllResourceCount()}:\\
+Returns the current number of operators in all resources together.
+  
+\item
+\cmd{int getResourceCount(final int resourceId)}:\\
+Returns the current number of operators in the resource with the specified id.  
+  
+\item
+\cmd{boolean setResourceCount(final int resourceId, final int count)}:\\
+Sets the number of operators in the resource with the specified id.
+To be able to set the number of operators in a resource at runtime,
+the initial number of operators in the resource has to be a fixed number
+(not infinite many and not by a time table). Additionally no down times
+are allowed for this resource.
+The function returns \cm{true} if the number of operators has successfully 
+been changed. If the new number of operators is less than the previous number,
+the new number may is not instantly visible in the simulation system because
+removed but working operators will finish their current tasks before they are
+actually removed.
+
+\item
+\cmd{int getAllResourceDown()}:\\
+Returns the current number of operators in down time in all resources together.
+
+\item
+\cmd{int getResourceDown(final int resourceId)}:\\
+Returns the current number of operators in down time in the resource with the specified id.
+
+\end{itemize}
+
+\section{Fire signal}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.signal(final String signalName)}:\\
+Fires the signal with the given name.
+
+\end{itemize}
+
+
+\chapter{\texttt{ClientInterface} accessible via \texttt{sim.getClient()}}
+
+The \texttt{ClientInterface} interface allows to access the data of the current
+client while the simulation is running. It is only available if the execution
+was triggered by a client. The following methods are available in this interface:
+
+\begin{itemize}
+
+\item
+\cmd{Object calc(final String expression)}:\\
+Calculates the expression passed as a string by means of the term evaluation function,
+which is also used in various other places in the program (see part \ref{part:Rechenbefehle}), and returns the result as a \cm{Double} number.
+If the expression can not be calculated, an error message is returned as a string.
+The term evaluation function allows access to all known probability distributions,
+the Erlang C calculator, etc.
+
+\item
+\cmd{String getTypeName()}:\\
+Gets the name of the type of the client who has triggered the processing of the script.
+  
+\item
+\cmd{boolean isWarmUp()}:\\
+Gets \cm{true} of \cm{false} depending if the current client was generated during the warm-up phase and
+therefore will not be recorded in the statistics.
+  
+\item
+\cmd{boolean isInStatistics()}:\\
+Gets true of false depending if the current client is to be recorded in the statistics.
+This value is independent of the warm-up phase. A client will only be recorded if he was
+generated after the warm-up phase and this value is true.
+  
+\item
+\cmd{void setInStatistics(final boolean inStatistics)}:\\
+Sets if a client is to be recorded in the statistics.
+This value is independent of the warm-up phase. A client will only be recorded if he was
+generated after the warm-up phase and this value is not set to false.
+  
+\item
+\cmd{long getNumber()}:\\
+Get the 1 based consecutive number of the current client.
+When using multiple simulation threads this number is thread local.
+  
+\item
+\cmd{double getWaitingSeconds()}:\\
+Gets the current waiting time of the client who has triggered the processing of the script as a seconds numerical value.
+  
+\item
+\cmd{String getWaitingTime()}:\\
+Gets the current waiting time of the client who has triggered the processing of the script as a formated time value as a string.
+    
+\item
+\cmd{void setWaitingSeconds(final double seconds)}:\\
+Sets the current waiting time of the client who has triggered the processing of the script.
+  
+\item
+\cmd{double getTransferSeconds()}:\\
+Gets the current transfer time of the client who has triggered the processing of the script as a seconds numerical value.
+  
+\item
+\cmd{String getTransferTime()}:\\
+Gets the current transfer time of the client who has triggered the processing of the script as a formated time value as a string.
+  
+\item
+\cmd{void setTransferSeconds(final double seconds)}:\\
+Sets the current transfer time of the client who has triggered the processing of the script.
+  
+\item
+\cmd{double getProcessSeconds()}:\\
+Gets the current processing time of the client who has triggered the processing of the script as a seconds numerical value.
+  
+\item
+\cmd{String getProcessTime()}:\\
+Gets the current processing time of the client who has triggered the processing of the script as a formated time value as a string.
+  
+\item
+\cmd{void setProcessSeconds(final double seconds)}:\\
+Sets the current processing time of the client who has triggered the processing of the script.
+  
+\item
+\cmd{double getResidenceSeconds()}:\\
+Gets the current residence time of the client who has triggered the processing of the script as a seconds numerical value.
+
+\item
+\cmd{String getResidenceTime()}:\\
+Gets the current residence time of the client who has triggered the processing of the script as a formated time value as a string.
+
+\item
+\cmd{void setResidenceSeconds(final double seconds)}:\\
+Sets the current residence time of the client who has triggered the processing of the script.
+  
+\item
+\cmd{double getValue(final int index)}:\\
+Gets for the current client the numerical value which is stored by the index \cm{index}.
+  
+\item
+\cmd{void setValue(final int index, final int value)},\\
+\cmd{void setValue(final int index, final double value)},\\
+\cmd{void setValue(final int index, final String value)}:\\
+Sets for the current client the \cm{value} for the index \cm{index}.
+If \cm{value} is a string, the string is interpreted by
+\cm{calc(final String expression)} before assigning the result.
+  
+\item
+\cmd{String getText(final String key)}:\\
+Gets for the current client the string which is stored by the key \cm{key}.
+  
+\item
+\cmd{void setText(final String key, final String value)}:\\
+Sets for the current client string \cm{value} for the key \cm{key}.
+	
+\end{itemize}
+
+
+
+\chapter{\texttt{InputValueInterface} accessible via \texttt{sim.getInputValue()}}
+
+The \texttt{InputValueInterface} interface allows to access the next input value
+if the processing was triggered by a Input (Script) element.
+The following methods are available in this interface:
+
+\begin{itemize}
+\item
+\cmd{double get()}:\\
+This function returns the current input value.
+\end{itemize}
+
+
+
+\chapter{\texttt{ClientsInterface} accessible via \texttt{sim.getClients()}}
+
+The \texttt{ClientsInterface} object is only available within a hold by script condition element
+and allows to access the waiting clients and to release them.
+
+\begin{itemize}
+
+\item
+\cmd{int count()}:\\
+Returns the current number of waiting clients. For the other
+methods a single client can be accessed via the index parameter
+(valued from 0 to \cm{count()}-1).
+
+\item
+\cmd{String clientTypeName(final int index)}:\\
+Gets the name of the type of the client.
+
+\item
+\cmd{double clientWaitingSeconds(final int index)}:\\
+Gets the current waiting time of the client as a seconds numerical value.
+
+\item
+\cmd{String clientWaitingTime(final int index)}:\\
+Gets the current waiting time of the client as a formated time value as a string.
+
+\item
+\cmd{double clientTransferSeconds(final int index)}:\\
+Gets the current transfer time of the client as a seconds numerical value.
+
+\item
+\cmd{String clientTransferTime(final int index)}:\\
+Gets the current transfer time of the client as a formated time value as a string.
+
+\item
+\cmd{double clientProcessSeconds(final int index)}:\\
+Gets the current processing time of the client as a seconds numerical value.
+
+\item
+\cmd{String clientProcessTime(final int index)}:\\
+Gets the current processing time of the client as a formated time value as a string.
+
+\item
+\cmd{double clientResidenceSeconds(final int index)}:\\
+Gets the current residence time of the client as a seconds numerical value.
+
+\item
+\cmd{String clientResidenceTime(final int index)}:\\
+Gets the current residence time of the client as a formated time value as a string.
+
+\item
+\cmd{double clientData(final int index, final int data)}:\\
+Returns the data element which index is specified via the second parameter of the selected client.
+
+\item
+\cmd{String clientTextData(final int index, final String key)}:\\
+Returns the data element which key is specified via the second parameter of the selected client.
+
+\item
+\cmd{void release(final int index)}:\\
+Causes the forwarding of the specified client.
+
+\end{itemize}
+
+
+\chapter{\texttt{OutputInterface} accessible via \texttt{sim.getOutput()}}
+
+The \texttt{OutputInterface} interface provides functions for output of filtered results:
+
+\begin{itemize}
+
+\item
+\cmd{void setFormat(final String format)}:\\
+This command allows to setup the format that is used in \cm{print} and \cm{println}
+for outputing numbers as strings. You can specify whether to use a floating point notation or percent notation or interpreting
+the value as a time. As default floating point notation is used.
+
+\begin{itemize}
+\item
+\cmd{Fraction}:\\
+Using floating point notation for numbers ($0.375$ for example).
+\item
+\cmd{Percent}:\\
+Using percent notation for numbers ($35.7\%$ for example).
+\item
+\cmd{Number}:\\
+Interpreting numbers as normal number values (decimal or percent).
+\item
+\cmd{Time}:\\
+Interpreting numbers as time values.
+\end{itemize}
+
+\item
+\cmd{void setSeparator(final String separator)}:\\
+This command allows to select the separator to be used when printing out arrays.
+\begin{itemize}
+
+\item
+\cmd{Semicolon}:\\
+Semicolons as separators.
+
+\item
+\cmd{Line}:\\
+Line break as separators.
+
+\item
+\cmd{Tabs}:\\
+Tabulators as separators.
+\end{itemize}
+
+\item
+\cmd{void print(final Object obj)}:\\
+Outputs the passed expression.
+Strings will be written directly. Numbers are formated according to the format
+defined via \cm{setFormat}.
+
+\item
+\cmd{void println(final Object obj)}:\\
+Outputs the passed expression and adds a line break after the expression.
+Strings will be written directly. Numbers are formated according to the format
+defined via \cm{setFormat}.
+
+\item
+\cmd{void newLine()}:\\
+Outputs a line break. This functions is equivalent to calling
+\cm{println("{}"{})}.
+
+\item
+\cmd{void tab()}:\\
+Outputs a tabulator.
+
+\item
+\cmd{void cancel()}:\\
+Sets the cancel status. (When output is canceled to further file output will be performed.)
+
+\end{itemize}
+
+
+
+\chapter{\texttt{FileOutputInterface} accessible via \texttt{sim.getFileOutput()}}
+
+The \texttt{FileOutputInterface} interface offers all function the \texttt{OutputInterface} interface has
+but is only available when running a parameter series script. In opposite
+to the \texttt{OutputInterface} interface the output of the \texttt{FileOutputInterface} interface
+is not written to the default output but is appended to a file which has
+to be specified by \texttt{sim.getFileOutput().setFile("{}Filename")} before.
+
+
+
+\chapter{\texttt{ModelInterface} accessible via \texttt{sim.getModel()}}
+
+The \texttt{ModelInterface} interface is only available during parameter series
+script execution and offers functions for accessing the model
+properties and for starting simulations.
+
+\begin{itemize}
+
+\item
+\cmd{void reset()}:\\
+Resets the model to the initial state.
+
+\item
+\cmd{void run()}:\\
+Simulates the current model.
+The results can be accessed by the \cm{StatisticsInterface} interface after the simulation.
+
+\item
+\cmd{boolean setDistributionParameter(final String xmlName, final int number,\\final double value)}:\\
+Sets the distribution parameter \cm{number} (from 1 to 4) of the distribution referred
+to by \cm{xmlName}.
+
+\item
+\cmd{boolean setMean(final String xmlName, final double value)}:\\
+Sets the mean of the distribution referred to by \cm{xmlName} to the specified value.
+
+\item
+\cmd{boolean setSD(final String xmlName, final double value)}:\\
+Sets the standard deviation of the distribution referred to by \cm{xmlName} to the specified value.  
+
+\item
+\cmd{boolean setString(final String xmlName, final String value)}:\\
+Writes the string \cm{value} to the location referred to by \cm{xmlName}.
+
+\item
+\cmd{boolean setValue(final String xmlName, final double value)}:\\
+Writes the number \cm{value} to the location referred to by \cm{xmlName}.  
+
+\item
+\cmd{String xml(final String xmlName)}:\\
+Loads the xml field which is specified by the parameter and returns the data 
+as String. This function is the equivalent of \cm{sim.getStatistics().xml(xmlName)}
+for models.
+
+\item
+\cmd{getResourceCount(final String resourceName)}:\\
+Gets the number of operations in the resource with name \cm{resourceName}.
+If the resource does not exist or is not defined by a fixed number of operators
+the function will return -1.
+
+\item
+\cmd{boolean setResourceCount(final String resourceName, final int count)}:\\
+Sets the number of operations in the resource with name \cm{resourceName}.
+
+\item
+\cmd{String getGlobalVariableInitialValue(final String variableName)}:\\
+Gets the expression by which the initial value of the global variable with
+name \cm{variableName} is calculated. If the is no global variable with
+this name the function will return an empty string.
+
+\item
+\cmd{boolean setGlobalVariableInitialValue(final String variableName,\\final String expression)}:\\
+Sets the expression by which the initial value of the global variable with
+name \cm{variableName} is calculated.
+
+\item
+\cmd{void cancel()}:\\
+Sets the cancel status. (When processing is canceled to further simulations will be performed.)
+
+\end{itemize}
+
+
+
+\chapter{XML selection commands}
+
+By the parameters of the functions of the \cmd{StatisticsInterface} interface the content of the
+value or of an attribute of an XML element can be read.
+The selection of an XML element is done multistaged step by step divided by
+"\texttt{->}" characters. Between the "\texttt{->}" characters the names of the individual XML nodes are
+noted. In addition in square brackets names and values of attributes can be specified to filter by whom.
+
+Examples:
+
+\begin{itemize}
+
+\item
+\cmd{sim.getStatistics().xml("{}Model->ModellName")}:\\
+Shows the content of the element \cm{ModelName}, which is a child element of \cm{Model}.
+
+\item
+\cmd{sim.getStatistics().xml("{}StatisticsInterArrivalTimesClients->\\{}Station[Type=$\backslash$"{}Source id=1$\backslash$"]->[Mean]")}:\\
+Selects the \cm{Station} sub element of the \cm{StatisticsInterArrivalTimesClients} element, for
+which the \cm{Type} attribute is set to \cm{Source id=1}. And returns the value of the
+\cm{Mean} attribute.
+
+\end{itemize}

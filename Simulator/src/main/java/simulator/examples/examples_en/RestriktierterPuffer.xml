@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>1.0.0</ModelVersion>
+  <ModelName>Restricted buffer between the stations</ModelName>
+  <ModelDescription/>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationCondition Active="0"/>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelRandomNumbersSeed Active="0">0</ModelRandomNumbersSeed>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementDecide id="2">
+      <ModelElementSize h="50" w="100" x="250" y="200"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Condition="WIP($(&quot;Station A&quot;))+WIP($(&quot;Ausgabepuffer&quot;))&lt;maxA" Element="11" Type="Out"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>Station A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="200"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (55)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementCounter id="4">
+      <ModelElementName>Canceled</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="300"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementCounterGroup>Status</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementDispose id="5">
+      <ModelElementSize h="50" w="100" x="250" y="400"/>
+      <ModelElementConnection Element="13" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementCounter id="6">
+      <ModelElementName>Successful</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementCounterGroup>Status</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementHold id="7">
+      <ModelElementName>Output buffer</ModelElementName>
+      <ModelElementSize h="50" w="100" x="800" y="200"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementHoldCondition>WIP($("Station B"))&lt;maxB</ModelElementHoldCondition>
+    </ModelElementHold>
+    <ModelElementProcessStation id="8">
+      <ModelElementName>Station B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="200"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (59)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="9">
+      <ModelElementSize h="50" w="100" x="1255" y="200"/>
+      <ModelElementConnection Element="17" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="11">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="4" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="6" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementConnection Element1="3" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="7" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementConnection Element1="8" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="18">
+      <ModelElementSize h="150" w="350" x="600" y="150"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="19">
+      <ModelElementSize h="150" w="200" x="1000" y="150"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementAnimationTrafficLights id="20">
+      <ModelElementSize h="50" w="25" x="1000" y="175"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">WIP($("Station B"))&gt;=maxB</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementAnimationTrafficLights id="41">
+      <ModelElementSize h="50" w="25" x="600" y="175"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">WIP($("Station A"))+WIP($("Output buffer"))&gt;=maxA</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementText id="21">
+      <ModelElementSize h="28" w="185" x="765" y="270"/>
+      <ModelElementTextLine>Gibt Kunden nur frei, wenn an</ModelElementTextLine>
+      <ModelElementTextLine>Station B höchsten maxB Kunden sind.</ModelElementTextLine>
+      <ModelElementFontSize>10</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="63">
+      <ModelElementSize h="42" w="196" x="250" y="150"/>
+      <ModelElementTextLine>Only if there are no more then maxA</ModelElementTextLine>
+      <ModelElementTextLine>clients in station A and the output</ModelElementTextLine>
+      <ModelElementTextLine>buffer, clients are forewarded to station A.</ModelElementTextLine>
+      <ModelElementFontSize>10</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="127">
+      <ModelElementSize h="28" w="169" x="50" y="300"/>
+      <ModelElementTextLine>The values maxA and maxB can be</ModelElementTextLine>
+      <ModelElementTextLine>defined in the model properties.</ModelElementTextLine>
+      <ModelElementFontSize>10</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="24">
+      <ModelElementName>maxA</ModelElementName>
+      <ModelElementSize h="30" w="55" x="600" y="320"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">maxA</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="25">
+      <ModelElementName>maxB</ModelElementName>
+      <ModelElementSize h="30" w="55" x="1000" y="320"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">maxB</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="26">
+      <ModelElementName>currentA</ModelElementName>
+      <ModelElementSize h="30" w="55" x="700" y="320"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP($("Station A"))+WIP($("Output buffer"))</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="27">
+      <ModelElementName>currentB</ModelElementName>
+      <ModelElementSize h="30" w="55" x="1100" y="320"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP($("Station B"))</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationBar id="28">
+      <ModelElementName>Part canceled</ModelElementName>
+      <ModelElementSize h="50" w="20" x="355" y="300"/>
+      <ModelElementDataExpression>Part($("Canceled"))</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Maximum="1" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBarColor>255,0,0</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementAnimationLineDiagram id="29">
+      <ModelElementSize h="500" w="600" x="600" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="3" Maximum="10" Minimum="0">WIP($("Station B"))</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="10" Minimum="0">WIP($("Station A"))+WIP($("Output buffer"))</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="10" Minimum="0">maxA</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="10" Minimum="0">maxB</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>3000</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="30">
+      <ModelElementSize h="19" w="338" x="600" y="955"/>
+      <ModelElementTextLine>Thin line = maxmum values, thick line = current values</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBar id="31">
+      <ModelElementName>Part successful</ModelElementName>
+      <ModelElementSize h="50" w="20" x="555" y="170"/>
+      <ModelElementDataExpression>Part($("Successful"))</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Maximum="1" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBarColor>0,150,0</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementText id="32">
+      <ModelElementSize h="23" w="335" x="50" y="50"/>
+      <ModelElementTextLine>Restricted buffer between the stations</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="33">
+      <ModelElementSize h="19" w="262" x="600" y="430"/>
+      <ModelElementTextLine>Number of clients in sections A and B</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationTextSelect id="34">
+      <ModelElementName>Station B</ModelElementName>
+      <ModelElementSize h="30" w="38" x="600" y="100"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <TextDefault>At station B capacity is available. Clients from station A and from the output buffer can be routed to station B.</TextDefault>
+      <TextExpression Expression="WIP($(&quot;Station B&quot;))&gt;=maxB">Station B is fully utilized. Incoming clients from Station A have to wait in the ouput buffer.</TextExpression>
+    </ModelElementAnimationTextSelect>
+    <ModelElementAnimationTextSelect id="193">
+      <ModelElementName>Station A</ModelElementName>
+      <ModelElementSize h="30" w="38" x="600" y="50"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <TextDefault>At station A capacity is available. Incoming clients can enter the station or queue.</TextDefault>
+      <TextExpression Expression="WIP($(&quot;Station A&quot;))+WIP($(&quot;Output buffer&quot;))&gt;=maxA">Station A (incl. output buffer) is fully utilized. Incoming clients are rejected.</TextExpression>
+    </ModelElementAnimationTextSelect>
+    <ModelElementEdge id="10">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+  </ModelElements>
+  <Resources>
+    <Resource Name="Bediener A" Type="Number" Value="1"/>
+    <Resource Name="Bediener B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelSchedules/>
+  <InitialVariable Name="maxA">5</InitialVariable>
+  <InitialVariable Name="maxB">3</InitialVariable>
+</Model>

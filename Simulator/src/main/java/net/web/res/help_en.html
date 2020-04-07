@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="language" content="en">
+  <meta name="title" content="Warteschlangensimulator">  
+  <link rel="stylesheet" type="text/css" href="/css.css">
+  <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+  <title>Warteschlangensimulator - API documentation</title>
+</head>
+
+<body>
+
+<h1>Warteschlangensimulator - API documentation</h1>
+
+<div class="page">
+
+<a href="/" class="button" style="margin-left: 0;"><b>Back to status</b></a>
+
+<h2>System status</h2>
+
+<p>
+<span class="cmd">/</span><br>
+Shows the system status of the simulator as a html page.
+</p>
+
+<p>
+<span class="cmd">/status</span><br>
+Returns the system status of the simulator as JSON objekt.
+</p>
+
+<h2>Help</h2>
+
+<p>
+<span class="cmd">/help</span><br>
+Shows this help as a html page.
+</p>
+
+<h2>Upload and download model</h2>
+
+<p>
+<span class="cmd">/xml</span><br>
+Returns the current model as xml file.
+</p>
+
+<p>
+<span class="cmd">/json</span><br>
+Returns the current model as json file.
+</p>
+
+<p>
+<span class="cmd">/json_variable</span><br>
+Returns the current model as json file
+but with an additional leading "<tt>var qs_model=</tt>"
+so the file can be loaded as Javascript code directly.
+</p>
+
+<p>
+<span class="cmd">/image</span><br>
+Returns the current model as png graphics.
+</p>
+
+<p>
+<span class="cmd">/upload</span><br>
+When calling this URL the xml or json model
+to be loaded has to be send in
+"multipart/form-data" format as a POST object.
+</p>
+
+<h2>Animation</h2>
+
+<p>
+<span class="cmd">/animation</span><br>
+Returns a html page for running animations in the browser.
+</p>
+
+<p>
+<span class="cmd">/animation?command=model</span><br>
+Returns the current model as js file.<br>
+The js code will paint the model on a canvas element.
+</p>
+
+<p>
+<span class="cmd">/animation?command=quit</span><br>
+Terminates the animation (if its active).
+</p>
+
+<p>
+<span class="cmd">/animation?command=image</span><br>
+Returns the current state of the model in the animation as png graphics.
+</p>
+
+<p>
+<span class="cmd">/animation?command=step</span><br>
+Executes an animation step (and at first starts the animation if needed).
+If the animation step was successful, an empty string is returned.
+Otherwise an error message is returned.
+If the animation step was executed successfully by using the "status"
+command the system status can be queried.
+</p>
+
+<p>
+<span class="cmd">/animation?command=status</span><br>
+Returns the animation status after executing an animation step.
+The data is returned as a JSON object.
+</p>
+
+<p>
+The JSON object contains the following properties:
+</p>
+
+<ul>
+  <li><b>time</b>:
+  Current simulation time after the animation step.
+  <li><b>static</b>:
+  Contains a sub object which holds (with names "0", "1" etc). the static
+  icons for the clients, operators and transporters.</li>
+  <li><b>moving</b>:
+  Contains a sub object which holds (with names "0", "1" etc). the
+  just moving icons for clients and transporters.</li>
+  <li><b>logs</b>:
+  Contains the status information of the last animation step as a HTML formated text.</li>
+</ul>
+
+<p>
+The above data for the animation step is available only
+if the step was performed through the step command above.
+For animation steps that were initiated via the user interface
+of the simulator itself, no data is collected that could be retrieved
+via this web interface.
+</p>
+
+<p>
+<span class="cmd">/animation?command=stations</span><br>
+Return a list of all stations in the model as a json object.
+</p>
+
+<p>
+<span class="cmd">/animation?command=calc&amp;expression=<i>text</i></span><br>
+Will evaluate <i>text</i> in the context of the simulation
+(this means all commands for accessing station parameters etc. are available)
+and return the result.
+</p>
+
+</div>
+
+<script type="text/javascript">
+<!--
+'use strict';
+var server=document.location.protocol+"//"+document.location.host;
+var nodes=document.getElementsByClassName("cmd");
+for (var i=0;i<nodes.length;i++) nodes[i].innerHTML=server+nodes[i].innerHTML;
+//-->
+</script>
+
+</body>
+</html>

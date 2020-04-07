@@ -1,0 +1,690 @@
+\part{Javascript commands reference}
+
+Scripts can be used at different points in the simulator.
+The script language is \textbf{Javascript} or \textbf{Java}.
+
+In this section the additional \textbf{Javascript} commands which
+are available when using Javascript to access the
+simulation or statistics data and to output filtered data are
+presented.
+
+
+
+\chapter{\texttt{Statistics} object}
+
+The \cmd{Statistics} object offers read access to the xml elements which are the
+base of the statistics data. The \cmd{Statistics} object is only available after the
+simulation while filtering the results while and when running a parameter series script.
+The following methods are in this object available:
+
+\section{Definition of the output format}
+
+\begin{itemize}
+
+\item
+\cmd{Statistics.setFormat("{}Format")}:\\
+This command allows to setup the format that is used in \cmd{Statistics.xml} for outputing numbers
+as strings. You can specify whether to use a floating point notation or percent notation or interpreting
+the value as a time. As default floating point notation is used.
+\begin{itemize}
+\item
+\cmd{System}:
+Using floating point notation for numbers and percent values.
+\item
+\item
+\cmd{Fraction}:
+Using floating point notation for numbers ($0.375$ for example).
+\item
+\cmd{Percent}:
+Using percent notation for numbers ($35.7\%$ for example).
+\item
+\cmd{Time}:
+Interpreting numbers as times ($00{:}03{:}25{,}87$ for example).
+\item
+\cmd{Number}:
+Interpreting time values as normal numbers (format defined by \cm{Percent} or \cm{Fraction}).
+\end{itemize}
+	
+\item
+\cmd{Statistics.setSeparator("{}Format")}:\\
+This command allows to select the separator to be used when printing out distributions of measured values.
+\begin{itemize}
+\item
+\cmd{Semicolon}:
+Semicolons as separators
+\item
+\cmd{Line}:
+Line break as separators
+\item
+\cmd{Tabs}:
+Tabulators as separators
+\end{itemize}
+
+\end{itemize}
+
+\section{Accessing statistics xml data}
+
+\begin{itemize}
+	
+\item
+\cmd{Statistics.xml("{}Path")}:\\
+Loads the xml field which is specified by the parameter and returns the data in the format
+defined by \cmd{Statistics.setFormat} and \cmd{Statistics.setSeparator} as a string.
+
+Example:\\
+\cm{var name=Statistics.xml("{}Model->ModelName")}
+  
+\item
+\cmd{Statistics.xmlNumber("{}Path")}:\\
+Loads the xml field which is specified by the parameter and returns the value as a number.
+If the field cannot be interpreted as a number, a string containing an error message will be returned.  
+	
+\item
+\cmd{Statistics.xmlArray("{}Path")}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the values as an array of numbers.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:\\
+\cm{Statistics.xmlArray("{}StatisticsProcessTimesClients->ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->\\{}[Distribution]")}
+
+\item
+\cmd{Statistics.xmlSum("{}Path")}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the sum of all values as a number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.	
+
+Example:\\
+\cm{Statistics.xmlSum("{}StatisticsProcessTimesClients->ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->\\{}[Distribution]")}
+
+\item
+\cmd{Statistics.xmlMean("{}Path")}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the mean of values as a number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+	
+Example:\\
+\cm{Statistics.xmlMean("{}StatisticsProcessTimesClients->ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->\\{}[Distribution]")}
+  
+\item
+\cmd{Statistics.xmlSD("{}Path")}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the standard deviation of values as a number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+
+Example:\\
+\cm{Statistics.xmlSD("{}StatisticsProcessTimesClients->ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->\\{}[Distribution]")}
+
+\item
+\cmd{Statistics.xmlCV("{}Path")}:\\
+Loads the xml field which is specified by the parameter, interprets it as a distribution and
+returns the coefficient of variation of values as a number.
+If the field cannot be interpreted as a distribution, a string containing an error message will be returned.
+	
+Example:\\
+\cm{Statistics.xmlCV("{}StatisticsProcessTimesClients->ClientType[Type=$\backslash$"{}ClientsA$\backslash$"]->\\{}[Distribution]")}
+
+\item
+\cmd{Statistics.translate("{}de")}:\\
+Translates the statistics data to English ("{}en") or German ("{}de") so the preferred xml tag names can be
+used independent of the language setting under which the statistics file was generated.
+
+\end{itemize}
+
+\section{Saving the statistics data to files}
+
+\begin{itemize}
+
+\item
+\cmd{Statistics.save("{}FileName")}:\\
+Saves the entry statistics data under the next available file name in the given folder.\\
+This function is only available in the Run script panel.
+
+\item
+\cmd{Statistics.saveNext("{}FolderName")}:\\
+Saves the entry statistics data under the next available file name in the given folder.\\
+This function is only available in the Run script panel.
+
+\item
+\cmd{Statistics.filter("{}FileName")}:\\
+Applies the selected script on the statistics data and returns the results.\\
+This function is only available in the Run script panel.
+
+\item
+\cmd{Statistics.cancel()}:\\
+Sets the cancel status. (When output is canceled to further file output will be performed.)
+	
+\end{itemize}
+
+
+
+\chapter{\texttt{System} object}
+
+The \cmd{System} object allows to access some general program functions.
+The \cmd{System} object is only available after the simulation while filtering the results
+or when running parameter series scripts.
+The following methods are available in this object:
+
+\begin{itemize}
+
+\item
+\cmd{System.calc("{}Expression")}:\\
+Calculates the expression passed as a string by means of the term evaluation function,
+which is also used in various other places in the program (see part \ref{part:Rechenbefehle}),
+and returns the result as a number. If the expression can not be calculated, an error message is returned as a string.
+The term evaluation function allows access to all known probability distributions,
+the Erlang C calculator, etc.
+
+\item
+\cmd{System.time()}:\\
+Returns the current system time as a milliseconds value. This functions can be used to measure
+the runtime of a script.
+
+\item
+\cmd{System.getInput("http://Adresse",-1)}:\\
+Loads a numerical value via the specified address and returns it.
+If no value could be loaded, the error value specified in the second parameter is returned.
+
+\end{itemize}
+
+
+
+\chapter{\texttt{Simulation} object}
+
+The \cmd{Simulation} object allows to access the model data while simulation is running.
+It is not available for filtering the results after simulation has terminated.
+The following methods are available in this object:
+
+\section{Base functions}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.time()}:\\
+Gets the current time in the simulation as a seconds numerical value.
+
+\item
+\cmd{Simulation.calc("{}Expression")}:\\
+Calculates the expression passed as a string by means of the term evaluation function,
+which is also used in various other places in the program (see part \ref{part:Rechenbefehle}),
+and returns the result as a number. If the expression can not be calculated, an error message is returned as a string.
+The term evaluation function allows access to all known probability distributions,
+the Erlang C calculator, etc.
+
+\item
+\cmd{Simulation.getInput("http://Adresse",-1)}:\\
+Loads a numerical value via the specified address and returns it.
+If no value could be loaded, the error value specified in the second parameter is returned.
+
+\item
+\cmd{Simulation.isWarmUp()}:\\
+Gets true of false depending if the simulation is in the warm-up phase.
+
+\end{itemize}
+
+\section{Accessing client-specific data}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.clientTypeName()}:\\
+Gets the name of the type of the client who has triggered the processing of the script.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.isWarmUpClient()}:\\
+Gets true of false depending if the current client was generated during the warm-up phase and
+therefore will not be recorded in the statistics.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.isClientInStatistics()}:\\
+Gets true of false depending if the current client is to be recorded in the statistics.
+This value is independent of the warm-up phase. A client will only be recorded if he was
+generated after the warm-up phase and this value is true.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.setClientInStatistics(inStatistics)}:\\
+Sets if a client is to be recorded in the statistics.
+This value is independent of the warm-up phase. A client will only be recorded if he was
+generated after the warm-up phase and this value is not set to false.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientNumber()}:\\
+Get the 1-based consecutive number of the current client.
+When using multiple simulation threads this number is thread local.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientWaitingSeconds()}:\\
+Gets the current waiting time of the client who has triggered the processing of the script as a seconds numerical value.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientWaitingTime()}:\\
+Gets the current waiting time of the client who has triggered the processing of the script as a formated time value as a string.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientWaitingSecondsSet(seconds)}:\\
+Sets the current waiting time of the client who has triggered the processing of the script.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientTransferSeconds()}:\\
+Gets the current transfer time of the client who has triggered the processing of the script as a seconds numerical value.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientTransferTime()}:\\
+Gets the current transfer time of the client who has triggered the processing of the script as a formated time value as a string.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientTransferSecondsSet(seconds)}:\\
+Sets the current transder time of the client who has triggered the processing of the script.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientProcessSeconds()}:\\
+Gets the current processing time of the client who has triggered the processing of the script as a seconds numerical value.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientProcessTime()}:\\
+Gets the current processing time of the client who has triggered the processing of the script as a formated time value as a string.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientProcessSecondsSet(seconds)}:\\
+Sets the current processing time of the client who has triggered the processing of the script.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientResidenceSeconds()}:\\
+Gets the current residence time of the client who has triggered the processing of the script as a seconds numerical value.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientResidenceTime()}:\\
+Gets the current residence time of the client who has triggered the processing of the script as a formated time value as a string.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientResidenceSecondsSet(seconds)}:\\
+Sets the current residence time of the client who has triggered the processing of the script.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.getClientValue(index)}:\\
+Gets for the current client the numerical value which is stored by the index \cm{index}.\\
+(If the event was triggered by a client.)
+  
+\item
+\cmd{Simulation.setClientValue(index,value)}:\\
+Sets for the current client the numerical \cm{value} for the index \cm{index}.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.getClientText("{}key")}:\\
+Gets for the current client the string which is stored by the key \cm{key}.\\
+(If the event was triggered by a client.)
+  
+\item
+\cmd{Simulation.setClientText("{}key","{}value")}:\\
+Sets for the current client string \cm{value} for the key \cm{key}.\\
+(If the event was triggered by a client.)
+
+\end{itemize}
+
+\section{Accessing parameters of the simulation model}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.set("{}Name",Value)}:\\
+Sets the simulation variable which is specified as the first parameter to the value specified as the second parameter.  
+\cm{Value} can be a number or a string. The case of a number the value will be assigned directly.
+Strings will be interpreted like \cm{Simulation.calc} does and the result will be assigned to the variable. \cm{Name}
+can either be the name of an already defined simulation variable or of a client data field in the form
+\cm{ClientData(index)} with $index\ge0$.
+
+\item
+\cmd{Simulation.setValue(id,Value)}:\\
+Sets the value at the "Analog value" or "Tank" element with the specified \cm{id}.
+  
+\item
+\cmd{Simulation.setRate(id,Value)}:\\
+Sets the change rate (per second) at the "Analog value" element with the specified \cm{id}.
+  
+\item
+\cmd{Simulation.setValveMaxFlow(id,ValveNr,Vale)}:\\
+Sets the maximum flow (per second) at the specified valve (1 based) of the "Tank" element
+with the specified \cm{id}. The maximum flow has to be a non-negative number.  
+
+\item
+\cmd{Simulation.getWIP(id)}:\\
+Gets the current number of clients at the station with the specified id.
+  
+\item
+\cmd{Simulation.getNQ(id)}:\\
+Gets the current number of clients in the queue at the station with the specified id.
+
+\item
+\cmd{Simulation.getWIP()}:\\
+Gets the current number of clients in the system.
+  
+\item
+\cmd{Simulation.getNQ()}:\\
+Gets the current number of waiting clients in the system.
+
+\end{itemize}
+
+\section{Accessing the current input value}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.getInput()}:\\
+If the Javascript code is being executed from a Input (Script) element,
+this function returns the current input value. Otherwise it will just return  0. 
+
+\end{itemize}
+
+\section{Number of operators in a resource}
+
+\begin{itemize}
+	
+\item
+\cmd{Simulation.getAllResourceCount()}:\\
+Returns the current number of operators in all resources together.
+  
+\item
+\cmd{Simulation.getResourceCount(id)}:\\
+Returns the current number of operators in the resource with the specified id.  
+  
+\item
+\cmd{Simulation.setResourceCount(id,count)}:\\
+Sets the number of operators in the resource with the specified id.
+To be able to set the number of operators in a resource at runtime,
+the initial number of operators in the resource has to be a fixed number
+(not infinite many and not by a time table). Additionally no down times
+are allowed for this resource.
+The function returns \cm{true} if the number of operators has successfully 
+been changed. If the new number of operators is less than the previous number,
+the new number may is not instantly visible in the simulation system because
+removed but working operators will finish their current tasks before they are
+actually removed.
+
+\item
+\cmd{Simulation.getAllResourceDown()}:\\
+Returns the current number of operators in down time in all resources together.
+
+\item
+\cmd{Simulation.getResourceDown(id)}:\\
+Returns the current number of operators in down time in the resource with the specified id.  
+	
+\end{itemize}
+
+\section{Fire signal}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.signal(name)}:\\
+Fires the signal with the given name.
+
+\end{itemize}
+
+
+
+\chapter{\texttt{Clients} object}
+
+The \cmd{Clients} object is only available within a hold by script condition element
+and allows to access the waiting clients and to release them.
+
+\begin{itemize}
+
+\item
+\cmd{Clients.count()}:\\
+Returns the current number of waiting clients. For the other
+methods a single client can be accessed via the index parameter
+(valued from 0 to \cm{count()}-1).
+
+\item
+\cmd{Clients.clientTypeName(index)}:\\
+Gets the name of the type of the client.
+
+\item
+\cmd{Clients.clientWaitingSeconds(index)}:\\
+Gets the current waiting time of the client as a seconds numerical value.
+
+\item
+\cmd{Clients.clientWaitingTime(index)}:\\
+Gets the current waiting time of the client as a formated time value as a string.
+
+\item
+\cmd{Clients.clientTransferSeconds(index)}:\\
+Gets the current transfer time of the client as a seconds numerical value.
+
+\item
+\cmd{Clients.clientTransferTime(index)}:\\
+Gets the current transfer time of the client as a formated time value as a string.
+
+\item
+\cmd{Clients.clientProcessSeconds(index)}:\\
+Gets the current processing time of the client as a seconds numerical value.
+
+\item
+\cmd{Clients.clientProcessTime(index)}:\\
+Gets the current processing time of the client as a formated time value as a string.
+
+\item
+\cmd{Clients.clientResidenceSeconds(index)}:\\
+Gets the current residence time of the client as a seconds numerical value.
+
+\item
+\cmd{Clients.clientResidenceTime(index)}:\\
+Gets the current residence time of the client as a formated time value as a string.
+
+\item
+\cmd{Clients.clientData(index,data)}:\\
+Returns the data element which index is specified via the second parameter of the selected client.
+
+\item
+\cmd{Clients.clientTextData(index,key)}:\\
+Returns the data element which key is specified via the second parameter of the selected client.
+
+\item
+\cmd{Clients.release(index)}:\\
+Causes the forwarding of the specified client.
+	
+\end{itemize}
+
+
+
+\chapter{\texttt{Output} object}
+
+The \cmd{Output} object provides functions for output of filtered results:
+
+\begin{itemize}
+
+\item
+\cmd{Output.setFormat("{}Format")}:\\
+This command allows to setup the format that is used in \cmd{Output.print} and \cmd{Output.println}
+for outputing numbers as strings. You can specify whether to use a floating point notation or percent notation or interpreting
+the value as a time. As default floating point notation is used.
+
+\begin{itemize}
+\item
+\cmd{Fraction}:\\
+Using floating point notation for numbers ($0.375$ for example).
+\item
+\cmd{Percent}:\\
+Using percent notation for numbers ($35.7\%$ for example).
+\item
+\cmd{Number}:\\
+Interpreting numbers as normal number values (decimal or percent).
+\item
+\cmd{Time}:\\
+Interpreting numbers as time values.
+\end{itemize}
+
+\item
+\cmd{Output.setSeparator("{}Format")}:\\
+This command allows to select the separator to be used when printing out arrays.
+\begin{itemize}
+
+\item
+\cmd{Semicolon}:\\
+Semicolons as separators.
+
+\item
+\cmd{Line}:\\
+Line break as separators.
+
+\item
+\cmd{Tabs}:\\
+Tabulators as separators.
+
+\item
+\cmd{Output.cancel()}:\\
+Sets the cancel status. (When output is canceled to further file output will be performed.)
+\end{itemize}
+
+\item
+\cmd{Output.print("{}Expression")}:\\
+Outputs the passed expression.
+Strings will be written directly. Numbers are formated according to the format
+defined via \cmd{Output.setFormat}.
+
+\item
+\cmd{Output.println("{}Expression")}:\\
+Outputs the passed expression and adds a line break after the expression.
+Strings will be written directly. Numbers are formated according to the format
+defined via \cmd{Output.setFormat}.
+
+\item
+\cmd{Output.newLine()}:\\
+Outputs a line break. This functions is equivalent to calling\\
+\cmd{Output.println("{}"{})}.
+
+\item
+\cmd{Output.tab()}:\\
+Outputs a tabulator.
+
+\item
+\cmd{Output.cancel()}:\\
+Sets the cancel status. (When output is canceled to further file output will be performed.)
+
+\end{itemize}
+
+
+
+\chapter{\texttt{FileOutput} object}
+
+The \cmd{FileOutput} object offers all function the \cmd{Output} has
+but is only available when running a parameter series script. In opposite
+to the \cmd{Output} object the output of the \cmd{FileOutput} object
+is not written to the default output but is appended to a file which has
+to be specified by \cmd{FileOutput.setFile("{}Filename")} before.
+
+
+
+\chapter{\texttt{Model} object}
+
+Th \cmd{Model} object is only available during parameter series
+script execution and offers functions for accessing the model
+properties and for starting simulations.
+
+\begin{itemize}
+
+\item
+\cmd{Model.reset()}:\\
+Resets the model to the initial state.
+
+\item
+\cmd{Model.run()}:\\
+Simulates the current model.
+The results can be accessed by the \cmd{Statistics} object after the simulation.
+
+\item
+\cmd{Model.setDistributionParameter("{}Path",Index,Value)}:\\
+Sets the distribution parameter \cm{Index} (from 1 to 4) of the distribution referred
+to by \cm{Path}.
+
+\item
+\cmd{Model.setMean("{}Path",Value)}:\\
+Sets the mean of the distribution referred to by \cm{Path} to the specified value.
+
+\item
+\cmd{Model.setSD("{}Path",Value)}:\\
+Sets the standard deviation of the distribution referred to by \cm{Path} to the specified value.  
+
+\item
+\cmd{Model.setString("{}Path","{}Text)"}:\\
+Writes the string \cm{Text} to the location referred to by \cm{Path}.
+
+\item
+\cmd{Model.setValue("{}Path",Value)}:\\
+Writes the number \cm{Value} to the location referred to by \cm{Path}.
+
+\item
+\cmd{Model.xml("{}Path")}:\\
+Loads the xml field which is specified by the parameter and returns the data 
+as String. This function is the equivalent of \cmd{Statistics.xml("{}Path")} for models.
+
+\item
+\cmd{Model.getResourceCount("{}ResourceName")}:\\
+Gets the number of operations in the resource with name \cm{ResourceName}.
+If the resource does not exist or is not defined by a fixed number of operators
+the function will return -1.
+
+\item
+\cmd{Model.setResourceCount("{}ResourceName",Count)}:\\
+Sets the number of operations in the resource with name \cm{ResourceName}.
+
+\item
+\cmd{Model.getGlobalVariableInitialValue("{}VariableName")}:\\
+Gets the expression by which the initial value of the global variable with
+name \cm{VariableName} is calculated. If the is no global variable with
+this name the function will return an empty string.
+
+\item
+\cmd{Model.setGlobalVariableInitialValue("{}VariableName","{}Expression")}:\\
+Sets the expression by which the initial value of the global variable with
+name \cm{VariableName} is calculated.
+
+\item
+\cmd{Model.cancel()}:\\
+Sets the cancel status. (When processing is canceled to further simulations will be performed.)
+
+\end{itemize}
+
+
+
+\chapter{XML selection commands}
+
+By the parameters of the functions of the \cmd{Statistics} object the content of the
+value or of an attribute of an XML element can be read.
+The selection of an XML element is done multistaged step by step divided by
+"\texttt{->}" characters. Between the "\texttt{->}" characters the names of the individual XML nodes are
+noted. In addition in square brackets names and values of attributes can be specified to filter by whom.
+
+Examples:
+
+\begin{itemize}
+
+\item
+\cmd{Statistics.xml("{}Model->ModellName")}:\\
+Shows the content of the element \cm{ModelName}, which is a child element of \cm{Model}.
+
+\item
+\cmd{Statistics.xml("{}StatisticsInterArrivalTimesClients->\\{}Station[Type=$\backslash$"{}Source id=1$\backslash$"]->[Mean]")}:\\
+Selects the \cm{Station} sub element of the \cm{StatisticsInterArrivalTimesClients} element, for
+which the \cm{Type} attribute is set to \cm{Source id=1}. And returns the value of the
+\cm{Mean} attribute.
+
+\end{itemize}

@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>1.5.0</ModellVersion>
+  <ModellName>Transport von Werkstücken mit Transportern</ModellName>
+  <ModellBeschreibung/>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchbedingung Aktiv="0"/>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellZufallszahlenStartwert Aktiv="0">0</ModellZufallszahlenStartwert>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Material A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Material B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="400"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementFertigungsplanZuweisung id="3">
+      <ModellElementName>Plan A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="200"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementFertigungsplan>Plan A</ModellElementFertigungsplan>
+    </ModellElementFertigungsplanZuweisung>
+    <ModellElementFertigungsplanZuweisung id="4">
+      <ModellElementName>Plan B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="400"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementFertigungsplan>Plan B</ModellElementFertigungsplan>
+    </ModellElementFertigungsplanZuweisung>
+    <ModellElementTransportParkplatz id="5">
+      <ModellElementName>Parken</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="300"/>
+      <ModellElementTransporterTyp>Transporter</ModellElementTransporterTyp>
+      <ModellElementTransporterWarteplaetze>3</ModellElementTransporterWarteplaetze>
+      <ModellElementTransporterWartePrioritaet>2,5</ModellElementTransporterWartePrioritaet>
+    </ModellElementTransportParkplatz>
+    <ModellElementTransporterStart id="6">
+      <ModellElementName>Start A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementTransportRouteNachSequenz>1</ModellElementTransportRouteNachSequenz>
+      <ModellElementTransportRoute>Ende</ModellElementTransportRoute>
+      <ModellElementTransporterTyp>Transporter</ModellElementTransporterTyp>
+      <ModellElementTransporterMindestWartezahl>1</ModellElementTransporterMindestWartezahl>
+      <ModellElementTransporterAnforderungsPrioritaet>5</ModellElementTransporterAnforderungsPrioritaet>
+      <ModellElementTransporterWarteplaetze>1</ModellElementTransporterWarteplaetze>
+      <ModellElementTransporterWartePrioritaet>1</ModellElementTransporterWartePrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material A">w</ModellElementTransporterPrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material B">w</ModellElementTransporterPrioritaet>
+    </ModellElementTransporterStart>
+    <ModellElementTransporterStart id="7">
+      <ModellElementName>Start B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="400"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementTransportRouteNachSequenz>1</ModellElementTransportRouteNachSequenz>
+      <ModellElementTransportRoute>Ende</ModellElementTransportRoute>
+      <ModellElementTransporterTyp>Transporter</ModellElementTransporterTyp>
+      <ModellElementTransporterMindestWartezahl>1</ModellElementTransporterMindestWartezahl>
+      <ModellElementTransporterAnforderungsPrioritaet>5</ModellElementTransporterAnforderungsPrioritaet>
+      <ModellElementTransporterWarteplaetze>1</ModellElementTransporterWarteplaetze>
+      <ModellElementTransporterWartePrioritaet>1</ModellElementTransporterWartePrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material A">w</ModellElementTransporterPrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material B">w</ModellElementTransporterPrioritaet>
+    </ModellElementTransporterStart>
+    <ModellElementTransportZiel id="8">
+      <ModellElementName>Station 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="751" y="200"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementTransporterStart id="9">
+      <ModellElementName>Abholung 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="951" y="200"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementTransportRouteNachSequenz>1</ModellElementTransportRouteNachSequenz>
+      <ModellElementTransportRoute>Ende</ModellElementTransportRoute>
+      <ModellElementTransporterTyp>Transporter</ModellElementTransporterTyp>
+      <ModellElementTransporterMindestWartezahl>1</ModellElementTransporterMindestWartezahl>
+      <ModellElementTransporterAnforderungsPrioritaet>3</ModellElementTransporterAnforderungsPrioritaet>
+      <ModellElementTransporterWarteplaetze>1</ModellElementTransporterWarteplaetze>
+      <ModellElementTransporterWartePrioritaet>2</ModellElementTransporterWartePrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material A">w</ModellElementTransporterPrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material B">w</ModellElementTransporterPrioritaet>
+    </ModellElementTransporterStart>
+    <ModellElementBedienstation id="10">
+      <ModellElementName>Maschine 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="850" y="95"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Material A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Material B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Ressource 1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="8" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="10" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementName>Ankünfte (Material A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="3" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementName>Ankünfte (Material B)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="4" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementTransportZiel id="17">
+      <ModellElementName>Station 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="750" y="400"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementTransporterStart id="18">
+      <ModellElementName>Abholung 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="400"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementTransportRouteNachSequenz>1</ModellElementTransportRouteNachSequenz>
+      <ModellElementTransportRoute>Ende</ModellElementTransportRoute>
+      <ModellElementTransporterTyp>Transporter</ModellElementTransporterTyp>
+      <ModellElementTransporterMindestWartezahl>1</ModellElementTransporterMindestWartezahl>
+      <ModellElementTransporterAnforderungsPrioritaet>3</ModellElementTransporterAnforderungsPrioritaet>
+      <ModellElementTransporterWarteplaetze>1</ModellElementTransporterWarteplaetze>
+      <ModellElementTransporterWartePrioritaet>2</ModellElementTransporterWartePrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material A">w</ModellElementTransporterPrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material B">w</ModellElementTransporterPrioritaet>
+    </ModellElementTransporterStart>
+    <ModellElementBedienstation id="20">
+      <ModellElementName>Maschine 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="850" y="505"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Material A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Material B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Ressource 2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="17" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="20" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementTransportZiel id="22">
+      <ModellElementName>Station 3</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1201" y="200"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementTransporterStart id="23">
+      <ModellElementName>Abholung 3</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1401" y="200"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementTransportRouteNachSequenz>1</ModellElementTransportRouteNachSequenz>
+      <ModellElementTransportRoute>Ende</ModellElementTransportRoute>
+      <ModellElementTransporterTyp>Transporter</ModellElementTransporterTyp>
+      <ModellElementTransporterMindestWartezahl>1</ModellElementTransporterMindestWartezahl>
+      <ModellElementTransporterAnforderungsPrioritaet>3</ModellElementTransporterAnforderungsPrioritaet>
+      <ModellElementTransporterWarteplaetze>1</ModellElementTransporterWarteplaetze>
+      <ModellElementTransporterWartePrioritaet>2</ModellElementTransporterWartePrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material A">w</ModellElementTransporterPrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material B">w</ModellElementTransporterPrioritaet>
+    </ModellElementTransporterStart>
+    <ModellElementBedienstation id="24">
+      <ModellElementName>Maschine 3</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1300" y="95"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Material A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Material B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Ressource 3"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="25">
+      <ModellElementVerbindung Element1="22" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementVerbindung Element1="24" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementTransportZiel id="44">
+      <ModellElementName>Station 4</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1200" y="402"/>
+      <ModellElementVerbindung Element="46" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementTransporterStart id="45">
+      <ModellElementName>Abholung 4</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1400" y="402"/>
+      <ModellElementVerbindung Element="48" Typ="Einlaufend"/>
+      <ModellElementTransportRouteNachSequenz>1</ModellElementTransportRouteNachSequenz>
+      <ModellElementTransportRoute>Ende</ModellElementTransportRoute>
+      <ModellElementTransporterTyp>Transporter</ModellElementTransporterTyp>
+      <ModellElementTransporterMindestWartezahl>1</ModellElementTransporterMindestWartezahl>
+      <ModellElementTransporterAnforderungsPrioritaet>3</ModellElementTransporterAnforderungsPrioritaet>
+      <ModellElementTransporterWarteplaetze>1</ModellElementTransporterWarteplaetze>
+      <ModellElementTransporterWartePrioritaet>2</ModellElementTransporterWartePrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material A">w</ModellElementTransporterPrioritaet>
+      <ModellElementTransporterPrioritaet Name="Material B">w</ModellElementTransporterPrioritaet>
+    </ModellElementTransporterStart>
+    <ModellElementBedienstation id="47">
+      <ModellElementName>Maschine 4</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1300" y="505"/>
+      <ModellElementVerbindung Element="46" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="48" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Material A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Material B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Ressource 4"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="46">
+      <ModellElementVerbindung Element1="44" Element2="47" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="48">
+      <ModellElementVerbindung Element1="47" Element2="45" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementTransportZiel id="27">
+      <ModellElementName>Ende</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1650" y="300"/>
+      <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementEnde id="28">
+      <ModellElementGroesse h="50" w="100" x="1850" y="300"/>
+      <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="29">
+      <ModellElementVerbindung Element1="27" Element2="28" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="38">
+      <ModellElementGroesse h="350" w="250" x="400" y="150"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,225,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementWegpunkt id="39">
+      <ModellElementName>Wegpunkt 1</ModellElementName>
+      <ModellElementGroesse h="16" w="16" x="630" y="320"/>
+      <ModellElementWegpunktIcon>flag_red</ModellElementWegpunktIcon>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Parken">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Start A">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Start B">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Parken">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Start A">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Start B">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Parken">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Start A">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Start B">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Parken">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start A">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start B">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Parken">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Start A">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Start B">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Parken">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start A">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start B">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Parken">6</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start A">6</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start B">6</ModellElementWegpunktEintrag>
+    </ModellElementWegpunkt>
+    <ModellElementWegpunkt id="49">
+      <ModellElementName>Wegpunkt 4</ModellElementName>
+      <ModellElementGroesse h="16" w="16" x="1605" y="320"/>
+      <ModellElementWegpunktIcon>flag_red</ModellElementWegpunktIcon>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Ende">6</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Ende">6</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Ende">6</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Ende">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Ende">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Ende">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Ende">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+    </ModellElementWegpunkt>
+    <ModellElementKasten id="52">
+      <ModellElementGroesse h="150" w="400" x="1600" y="250"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,225,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementAnimationLinienDiagramm id="30">
+      <ModellElementGroesse h="250" w="350" x="250" y="600"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="1" Minimum="0">Resource()/Resource_count()</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="1" Minimum="0">Resource_avg()/Resource_count()</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>300</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="59">
+      <ModellElementGroesse h="23" w="392" x="50" y="50"/>
+      <ModellElementTextzeile>Transport von Werkstücken mit Transportern</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="67">
+      <ModellElementGroesse h="38" w="222" x="400" y="510"/>
+      <ModellElementTextzeile>Es stehen insgesamt 6 Transporter</ModellElementTextzeile>
+      <ModellElementTextzeile>zur Verfügung.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="31">
+      <ModellElementGroesse h="550" w="400" x="700" y="50"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="32">
+      <ModellElementGroesse h="550" w="400" x="1150" y="50"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="57" w="372" x="700" y="615"/>
+      <ModellElementTextzeile>Innerhalb eines Abschnitts beträgt die Fahrtzeit</ModellElementTextzeile>
+      <ModellElementTextzeile>5 Sekunden. Von einem Abschnitt zum nächsten fallen</ModellElementTextzeile>
+      <ModellElementTextzeile>20 Sekunden bzw. 40 Sekunden zu übernächsten usw. an.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="57" w="313" x="1150" y="620"/>
+      <ModellElementTextzeile>An jeder Haltestelle kann ein Transporter warten.</ModellElementTextzeile>
+      <ModellElementTextzeile>Sind alle Warteplätze belegt, steuern Transporter</ModellElementTextzeile>
+      <ModellElementTextzeile>den Parkplatz an.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="77">
+      <ModellElementGroesse h="19" w="305" x="250" y="580"/>
+      <ModellElementTextzeile>Auslastung der Maschinen (aktuell und im Mittel)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="35">
+      <ModellElementGroesse h="100" w="200" x="700" y="750"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Balkenfarbe="0,255,0">NQ_avg(6)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,255,0">NQ_avg(7)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">NQ_avg(9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">NQ_avg(18)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">NQ_avg(23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">NQ_avg(45)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementAnimationText id="36">
+      <ModellElementName>Haltestellen 3+4</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="935" y="825"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NQ_avg(23)+NQ_avg(45)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="37">
+      <ModellElementName>Haltestellen 1+2</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="935" y="790"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NQ_avg(9)+NQ_avg(18)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="40">
+      <ModellElementName>Start A+B</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="935" y="755"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NQ_avg(6)+NQ_avg(7)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="155">
+      <ModellElementGroesse h="19" w="330" x="700" y="730"/>
+      <ModellElementTextzeile>Wartende Werkstücke an den Haltestellen (im Mittel)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="41">
+      <ModellElementGroesse h="57" w="246" x="140" y="300"/>
+      <ModellElementTextzeile>Je mehr Parkplätze nahe bei Start A+B</ModellElementTextzeile>
+      <ModellElementTextzeile>vorhanden sind, desto kürzer sind hier</ModellElementTextzeile>
+      <ModellElementTextzeile>die Warteschlangen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementWegpunkt id="42">
+      <ModellElementName>Wegpunkt 2a</ModellElementName>
+      <ModellElementGroesse h="16" w="16" x="750" y="315"/>
+      <ModellElementWegpunktIcon>flag_red</ModellElementWegpunktIcon>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Parken">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Start A">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Start B">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Station 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Station 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Parken">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start A">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start B">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 1">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 2">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Parken">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Start A">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Start B">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Station 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Station 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Parken">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start A">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start B">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 1">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 2">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Parken">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start A">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start B">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 1">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 2">5</ModellElementWegpunktEintrag>
+    </ModellElementWegpunkt>
+    <ModellElementWegpunkt id="43">
+      <ModellElementName>Wegpunkt 2b</ModellElementName>
+      <ModellElementGroesse h="16" w="16" x="1035" y="315"/>
+      <ModellElementWegpunktIcon>flag_red</ModellElementWegpunktIcon>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Parken">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start A">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start B">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Abholung 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Abholung 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Parken">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start A">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start B">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Abholung 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Abholung 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Parken">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start A">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start B">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 1">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 1">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 2">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 2">4</ModellElementWegpunktEintrag>
+    </ModellElementWegpunkt>
+    <ModellElementWegpunkt id="50">
+      <ModellElementName>Wegpunkt 3a</ModellElementName>
+      <ModellElementGroesse h="16" w="16" x="1200" y="315"/>
+      <ModellElementWegpunktIcon>flag_red</ModellElementWegpunktIcon>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 3">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 3">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Station 4">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 4">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Ende">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 3">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 3">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Station 4">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 4">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Ende">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 3">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 3">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Station 4">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 4">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Ende">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Station 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Station 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Station 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Station 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Parken">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start A">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start B">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 1">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 2">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 4">3</ModellElementWegpunktEintrag>
+    </ModellElementWegpunkt>
+    <ModellElementWegpunkt id="51">
+      <ModellElementName>Wegpunkt 3b</ModellElementName>
+      <ModellElementGroesse h="16" w="16" x="1485" y="315"/>
+      <ModellElementWegpunktIcon>flag_red</ModellElementWegpunktIcon>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 3">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Abholung 4">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Parken" Zielstation="Ende">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 3">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Abholung 4">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start A" Zielstation="Ende">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 3">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Abholung 4">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Start B" Zielstation="Ende">5</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 3">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Abholung 4">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 1" Zielstation="Ende">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Abholung 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Abholung 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 1" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 3">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Abholung 4">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 2" Zielstation="Ende">4</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Abholung 3">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Abholung 4">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 2" Zielstation="Ende">3</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 3" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Abholung 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 3" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Station 4" Zielstation="Ende">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Parken">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start A">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Start B">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Abholung 1">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Abholung 2">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Abholung 3">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Station 4">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Abholung 4" Zielstation="Ende">1</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Parken">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start A">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Start B">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 1">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 2">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 3">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Station 4">2</ModellElementWegpunktEintrag>
+      <ModellElementWegpunktEintrag Ausgangsstation="Ende" Zielstation="Abholung 4">2</ModellElementWegpunktEintrag>
+    </ModellElementWegpunkt>
+    <ModellElementText id="53">
+      <ModellElementGroesse h="19" w="174" x="1100" y="730"/>
+      <ModellElementTextzeile>Auslastung der Transporter</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="54">
+      <ModellElementGroesse h="100" w="350" x="1100" y="750"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="1" Minimum="0">Transporter()/Transporter_count()</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="1" Minimum="0">Transporter_avg()/Transporter_count()</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>300</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+  </ModellElemente>
+  <Ressourcen>
+    <Ressource Name="Ressource 1" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Ressource 3" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Ressource 2" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Ressource 4" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellFertigungsplaene>
+    <ModellFertigungsplan Name="Plan A">
+      <ModellFertigungsplanSchritt Ziel="Station 1"/>
+      <ModellFertigungsplanSchritt Ziel="Station 3"/>
+      <ModellFertigungsplanSchritt Ziel="Ende"/>
+    </ModellFertigungsplan>
+    <ModellFertigungsplan Name="Plan B">
+      <ModellFertigungsplanSchritt Ziel="Station 2"/>
+      <ModellFertigungsplanSchritt Ziel="Station 4"/>
+      <ModellFertigungsplanSchritt Ziel="Ende"/>
+    </ModellFertigungsplan>
+  </ModellFertigungsplaene>
+  <ModellTransporterListe>
+    <ModellTransporter Icon="lorry" IconLeer="lorry-empty" IconLinks="lorry-left" IconLinksLeer="lorry-left-empty" Name="Transporter">
+      <ModellTransporterAnzahl Anzahl="2" Station="Parken"/>
+      <ModellTransporterAnzahl Anzahl="2" Station="Start A"/>
+      <ModellTransporterAnzahl Anzahl="2" Station="Start B"/>
+      <ModellTransporterKapazitaet>1</ModellTransporterKapazitaet>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Abholung 2">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Abholung 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Abholung 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Ende">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Parken">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Start A">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Start B">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Station 1">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Station 2">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Station 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 1" Ziel="Station 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Abholung 1">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Abholung 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Abholung 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Ende">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Parken">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Start A">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Start B">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Station 1">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Station 2">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Station 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 2" Ziel="Station 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Abholung 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Abholung 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Abholung 4">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Ende">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Parken">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Start A">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Start B">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Station 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Station 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Station 3">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 3" Ziel="Station 4">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Abholung 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Abholung 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Abholung 3">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Ende">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Parken">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Start A">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Start B">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Station 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Station 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Station 3">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Abholung 4" Ziel="Station 4">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Abholung 1">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Abholung 2">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Abholung 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Abholung 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Parken">60</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Start A">60</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Start B">60</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Station 1">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Station 2">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Station 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Ende" Ziel="Station 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Abholung 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Abholung 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Abholung 3">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Abholung 4">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Ende">60</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Start A">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Start B">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Station 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Station 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Station 3">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Parken" Ziel="Station 4">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Abholung 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Abholung 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Abholung 3">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Abholung 4">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Ende">60</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Parken">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Start B">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Station 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Station 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Station 3">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start A" Ziel="Station 4">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Abholung 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Abholung 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Abholung 3">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Abholung 4">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Ende">60</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Parken">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Start A">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Station 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Station 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Station 3">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Start B" Ziel="Station 4">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Abholung 1">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Abholung 2">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Abholung 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Abholung 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Ende">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Parken">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Start A">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Start B">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Station 2">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Station 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 1" Ziel="Station 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Abholung 1">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Abholung 2">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Abholung 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Abholung 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Ende">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Parken">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Start A">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Start B">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Station 1">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Station 3">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 2" Ziel="Station 4">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Abholung 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Abholung 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Abholung 3">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Abholung 4">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Ende">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Parken">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Start A">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Start B">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Station 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Station 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 3" Ziel="Station 4">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Abholung 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Abholung 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Abholung 3">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Abholung 4">5</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Ende">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Parken">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Start A">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Start B">40</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Station 1">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Station 2">20</ModellTransporterEntfernung>
+      <ModellTransporterEntfernung Start="Station 4" Ziel="Station 3">5</ModellTransporterEntfernung>
+      <ModellTransporterTransferzeiten>distance</ModellTransporterTransferzeiten>
+    </ModellTransporter>
+  </ModellTransporterListe>
+  <ModellPfadsegmente>
+    <ModellPfadVerbindung Nach="Wegpunkt 1" Von="Start A"/>
+    <ModellPfadVerbindung Nach="Ende" Von="Wegpunkt 4"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 3b" Von="Wegpunkt 4"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 1" Von="Parken"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 2a" Von="Station 2"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 3a" Von="Station 3"/>
+    <ModellPfadVerbindung Nach="Parken" Von="Wegpunkt 1"/>
+    <ModellPfadVerbindung Nach="Start A" Von="Wegpunkt 1"/>
+    <ModellPfadVerbindung Nach="Start B" Von="Wegpunkt 1"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 2a" Von="Wegpunkt 1"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 1" Von="Start B"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 2a" Von="Station 1"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 3b" Von="Abholung 3"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 2b" Von="Abholung 2"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 3a" Von="Station 4"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 3b" Von="Abholung 4"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 4" Von="Ende"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 2b" Von="Abholung 1"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 2b" Von="Wegpunkt 3a"/>
+    <ModellPfadVerbindung Nach="Station 3" Von="Wegpunkt 3a"/>
+    <ModellPfadVerbindung Nach="Station 4" Von="Wegpunkt 3a"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 3b" Von="Wegpunkt 3a"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 2a" Von="Wegpunkt 2b"/>
+    <ModellPfadVerbindung Nach="Abholung 1" Von="Wegpunkt 2b"/>
+    <ModellPfadVerbindung Nach="Abholung 2" Von="Wegpunkt 2b"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 3a" Von="Wegpunkt 2b"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 1" Von="Wegpunkt 2a"/>
+    <ModellPfadVerbindung Nach="Station 1" Von="Wegpunkt 2a"/>
+    <ModellPfadVerbindung Nach="Station 2" Von="Wegpunkt 2a"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 2b" Von="Wegpunkt 2a"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 3a" Von="Wegpunkt 3b"/>
+    <ModellPfadVerbindung Nach="Abholung 3" Von="Wegpunkt 3b"/>
+    <ModellPfadVerbindung Nach="Abholung 4" Von="Wegpunkt 3b"/>
+    <ModellPfadVerbindung Nach="Wegpunkt 4" Von="Wegpunkt 3b"/>
+  </ModellPfadsegmente>
+</Modell>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Standard deviations and variances</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Standard deviations and variances</h1>
+
+<p>
+In addition to the <a href="statistik_mittelwert.html">average value</a>,
+standard deviation and variance together are the second important parameters
+of a measurement series. The two values indicate how far the concrete values
+deviate on average from the average value. A standard deviation of 0 means
+that the measurement series consists of only one value. Negative standard
+deviations are not possible. The greater the standard deviation, the more
+the measured values of a measurement series vary.
+</p>
+
+<p>
+In many cases it is very useful to consider the standard deviation of a series
+of measurements in addition to the average value, because when a series of
+measurements is compressed to only one parameter (the average value), too much
+information that would be interesting for the analysis is often lost.
+</p>
+
+<h3>Relationship between standard deviation and variance</h3>
+<p>
+The variance is the squared standard deviation or the standard deviation
+is the square root of the variance. When dealing analytically with
+probability distributions, the variance is usually easier to calculate
+than the standard deviation, so in stochastic formulas usually the 
+variance is given first. From a practical point of view, the
+standard deviation is usually easier to understand.
+</p>
+
+<h3>Identifier</h3>
+<p>
+The standard deviation of the measurement series X is usually
+designated by Std[X] and the variance by Var[X].
+</p>
+
+<h3>Criticism</h3>
+<p>
+If different series of measurements are to be compared with
+regard to their fluctuations, standard deviation and variance
+can give a biased impression. These two quantities must always
+be considered in relation to the associated average value.
+If the service times of average 60 seconds fluctuate with
+a standard deviation of 30 seconds, this represents a greater
+fluctuation than service times of 3600 seconds which have
+a standard deviation of 40 seconds. 
+</p>
+<p>
+The <a href="statistik_CV.html">coefficient of variation</a>
+addresses exactly this problem. It provides a possibility
+to compare different measurement series directly with respect
+to their relative dispersion.
+</p>
+
+<h3>Further information</h3>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Variance">Wikipedia page about standard deviations and variances</a></li>
+</ul>
+
+</body>
+</html>

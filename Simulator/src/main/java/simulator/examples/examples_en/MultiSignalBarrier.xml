@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.3.0</ModelVersion>
+  <ModelName>Combining client orders and items from the warehouse</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Product A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="150"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Product B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="250"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementBarrier id="3">
+      <ModelElementName>Store</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="200"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementBarrierOption>
+        <ModelElementSignalName>Request A</ModelElementSignalName>
+        <ModelElementRelease Count="1"/>
+        <ModelElementClientType>Product A</ModelElementClientType>
+      </ModelElementBarrierOption>
+      <ModelElementBarrierOption>
+        <ModelElementSignalName>Request B</ModelElementSignalName>
+        <ModelElementRelease Count="1"/>
+        <ModelElementClientType>Product B</ModelElementClientType>
+      </ModelElementBarrierOption>
+    </ModelElementBarrier>
+    <ModelElementSource id="4">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="450"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="5">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="550"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSignal id="6">
+      <ModelElementName>Request A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="450"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+    </ModelElementSignal>
+    <ModelElementSignal id="7">
+      <ModelElementName>Request B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="550"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementSignal>
+    <ModelElementMatch id="9">
+      <ModelElementName>Delivery A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="450"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementBatchMode>Collect</ModelElementBatchMode>
+    </ModelElementMatch>
+    <ModelElementDecide id="8">
+      <ModelElementSize h="50" w="100" x="600" y="500"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection ClientType="Product A" Element="15" Type="Out"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="10">
+      <ModelElementName>Arrivals (Product A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementName>Arrivals (Product B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementName>Arrivals (Clients A)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementName>Arrivals (Clients B)</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementName>Product A</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="9" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="6" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementMatch id="17">
+      <ModelElementName>Delivery B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="550"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+      <ModelElementBatchMode>Collect</ModelElementBatchMode>
+    </ModelElementMatch>
+    <ModelElementEdge id="18">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="17" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="7" Element2="17" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="20">
+      <ModelElementSize h="50" w="100" x="1100" y="500"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="22" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="9" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="17" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="23">
+      <ModelElementSize h="250" w="450" x="50" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="24">
+      <ModelElementSize h="23" w="231" x="55" y="105"/>
+      <ModelElementTextLine>Production and warehouse</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="25">
+      <ModelElementSize h="250" w="450" x="50" y="400"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="26">
+      <ModelElementSize h="23" w="163" x="55" y="405"/>
+      <ModelElementTextLine>Clients order items</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementVertex id="12">
+      <ModelElementSize h="10" w="10" x="645" y="220"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="3" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementConnection Element1="12" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="29">
+      <ModelElementSize h="255" w="300" x="750" y="400"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="30">
+      <ModelElementSize h="23" w="167" x="755" y="405"/>
+      <ModelElementTextLine>Waiting for delivery</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="31">
+      <ModelElementSize h="145" w="100" x="750" y="150"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementMaximumValue>5</ModelElementMaximumValue>
+      <ModelElementDiagramElement BarColor="0,180,0">WIP(3)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WIP(9)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">WIP(17)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementText id="32">
+      <ModelElementSize h="38" w="85" x="750" y="110"/>
+      <ModelElementTextLine>Waiting items</ModelElementTextLine>
+      <ModelElementTextLine>and clients</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="39">
+      <ModelElementSize h="23" w="472" x="50" y="50"/>
+      <ModelElementTextLine>Combining client orders and items from the warehouse</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementImage id="36">
+      <ModelElementSize h="25" w="25" x="350" y="425"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACBElEQVR4Xu2Q30tTYRjHzx/QVRCEiBAVnrMtcJEkuE5jGm5jW1IZJYNEjgW1VKaSPxptUjtbDp0goqGmJdM0zhJXDp2M5hgohejC5lyKwjJcetNVF/Ht7US7OBfddtMHvvDC532e530fivpPFp0zcsTgjgV1fDStfRjJXLCHM5r7ocz55uC34sbAQVHd1ELhbUErrctidMdSrqkkgisZzK58xczyHqbf7yFAIizuwiMkUFDz4oe0TqTCHj5U3hGD96kfN6xODIU/o949hjtOH8pvtcPp3wLXxCOnqArSWkr/eOmono++c0x+RL2tA3ddPnjf7KDG8RxGzgFdtR33RjdQbeVRaKpFrroBx6/0J46ZevPFBuTPAi+s4+3agTi5M7AN16sttL/cRNtYCo3PkqgdWodtPIXhcBoDoTQ4TwR5xp5FsQFZ2PdQfB9PiPBMb+MRee6DiU9o8W3AOpKEZTCBm31rqOr5ALM3jsquOHpndnDicj9yyzoPU2TbmFvdR9fwa5RoTdBdvIo2zwjGo18wGtkVpw7Op9Ha7QdbaoBGXwFb3xxk1waQY+zOo5Sl13HqrAaMTAGWZaFWq8EoCiArvgTmNAtaeU4MI5OLXqVSgVYocfKM4XeDPzAMs8lxHCwWC8g5nhUSbzabQdP0vNRTcrlcRS7FfkmSyr/5fILU/zt+AjtSI+fYrji2AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementImage>
+    <ModelElementImage id="110">
+      <ModelElementSize h="25" w="25" x="350" y="525"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACH0lEQVR4XtWR20vTYRzG/Vc66aYV0YWWs2Z5CEqXs5SoBVmmUjMLsbSNZtlBSlJikafKTlKWljps2jZXUzFdnrY5GzpaGZqmiy68Cj799huV2U130QMvfHmfw/t9eENC/jnct49POmtzGak+wuCNLOz6DHorVHSVpWMtVWI6v4PnugRaNfL2pV4RAfOMu41Po61MO5qZGm7k42ADk/Z6Pry+g6/nJu9sVTSdjGKpV8RQZQ7TrhZBWCkI9Xg7yxk3XcZjvMCYQcfosyImLNfYVvKShGILW7UvkBcav8XkG7LEALv+IH+D+DNmXrn9dLrmuWd9T2Tu0zkxINBXa5hgd/UQSv0AyVf72V7aS+LZbuI0NuQFVrLL+4ktasfkmGfqK3xZgPXZDcFKtitpYte3bedwt2hxNZ1ipOEEQ/VHGbh7GPutA4w265DlG+gb99PrmccvBKzJeBAMsFxU4OuqEbs6nuQz/PAYg/dzeFN3iP7a/fRV7cHZeDqwMt1jc9SYfHQ6Z5HsqwsGGIsT8VqvM26uwNNRJmxyCXdrifiqs0mD43EhjkcF4spW52fMI7N0DM+wMr02GJAev460uLXs2rKa1NhwlJslpGwKRRGzimTZCpKil5O0cRnhslSk0UokG1IIi9pJaKTi17dKpVJvZmYmarUaYV7Iy8tDpVIhkUjMP0WLdH9wERERMQLZE7gUzt4fc5iARf7fdEu5/xjfAY/giQeARl3IAAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementImage>
+    <ModelElementImage id="37">
+      <ModelElementSize h="25" w="25" x="790" y="300"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACdUlEQVR4XrWOXUiTUQCGF1RSaGtTg0JYLYs09CL1IirzH+fcWKhkWWtTMVfMUAyd/6lpDbSwaC6Hk6VNNzOmpaaSRZomallmdSWUQQguJDdl6nn7tovRPruLHnjhHHif9xwG439wKcSruCaWvXSbvxPKWCaKI1iWlCPelfTeX7kYxMq7J2SRhmQ21FTuJLBQHcdEdugOwg/wukbvb0DFZ0JLiUpKqubbw8L1eG9cDWfjXBBzkd7fQHWoO3pVRZjrUWJUk42sMG/kRO3G5WguMo6xbHVynhvdcaFBzFlY/vEFi8MqfO+vxVRbKWaf3oR5dgL6zP2LHw1JW+mOC3Up/kPmsYeYHzfC+k5PpdVxNk/ocT81YJzedyVIveXgcZlOLw/GyrgGy9OPHbG+bUFHbjACQ2WPfI7WbqNrDnx53W6evBaZT+wApr8uoa1QiNZCgSP286uZX/CJeQ52pObKHoF6O03HJo9og4QTP4SZOSua54CcaUD2Bkh7AVzoBspeAq8/WcHhDcP9ZKOMEVa22an7JWhFUYlKGEfXUD8FyEcIMgcJ0p8RiE0EZ1oJEpvWUdBDDbURRIhu4LBAKXEOTBYdWpvvysfdxi5IqFIa9aK0k+B8OyW3ECQ0rkOoIoisAcpvDWChtwQjuX4258BUsR8x95UjOUOLyn4LUtqBs9Srp3WUrCFIegCItEB+xwrixM34OVCBsTx/4hz4oMtSTCgOrEqlVashkkFIqa+n/hH73R5fngny9ALLZEngynudvMI5YOezKdVDoajy3HvqST0nrOkbN9pg4ca027hRRtu+cL2Vc0I77yvq7MvNLN1l77rI/8JvUn9yn6Qzt9YAAAAASUVORK5CYII=</ModelElementImageData>
+    </ModelElementImage>
+    <ModelElementImage id="38">
+      <ModelElementSize h="25" w="25" x="820" y="300"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACZElEQVR4XrWSa0iTURzGpQ99KKdbl08FfYhAoySKGqOaWSxR2/ZusQ2XozW1Wpc1m02naVOjbM4uGoKmjSwv2FVMzFqFWYhjs3JddKBQSIXmBhkq5M7Tuw2svfot+sED54Xn9z/nPZyIiP+BNk1Rnhe/FAV8FozbIqHlLUG6XFTH7M3LkQy1uUAYA0tSNErpFAmiYOBHQr19BdJVyovM/hxMUi4u0aKRlgKigR8FfTwHB7ZEg9qwjDD7czBw2aS9MhcjHRZ0Vx7Cvs0c7OctRypvJWQb2SjLVi1mOmFUp63y+T4+xXjvTXx7ZYPrRjaGHhRhzN2BW5mrJ963yBYynTBqlOscXkcjRp23MfmmiU5zcO11NaFGE+dk9sNoEwoX2RMSuzoPczHtrMXUu/vBTL5uwDM9F83xSc/rtopYTC9IVYqS0yUQ1o5KxZjyDKL/RDLac1KCCax/OnrxhRKje1fyZdsONTtMNpvNCwb1BttXCQV4PgA9L4BGG3CtAqTiAkhpIfzXq0B6X+IzRZHWBFF5i+yvu7AnUsVEIwce3g2FFlFpAazFwNk8ID8LOHkQ5KoVfmsJfqjl5N5u8fnZAX2nY2ZG23KBM6cAizmUc/mhb5MOyMoEtCr4VRJAl47xR4XoyY6dnh3wtiCWeB8Xg6joX6i+AkKLJLCr8SiIPgPEeAx++gSB3b8rpPDZS+DIWfvnUbnrdSaXac2vGXrA2F4xUFY0b0bEFDxCCn2FcdP99cdLZgcEGGjVsJ7IZOsbBKpPA1IFGRZLMSySYEgogWePFG6RnNzZmTrRSck2Bbph8r/wG8AqfvOED7DVAAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementImage>
+    <ModelElementImage id="40">
+      <ModelElementSize h="25" w="25" x="755" y="300"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACBElEQVR4Xu2Q30tTYRjHzx/QVRCEiBAVnrMtcJEkuE5jGm5jW1IZJYNEjgW1VKaSPxptUjtbDp0goqGmJdM0zhJXDp2M5hgohejC5lyKwjJcetNVF/Ht7US7OBfddtMHvvDC532e530fivpPFp0zcsTgjgV1fDStfRjJXLCHM5r7ocz55uC34sbAQVHd1ELhbUErrctidMdSrqkkgisZzK58xczyHqbf7yFAIizuwiMkUFDz4oe0TqTCHj5U3hGD96kfN6xODIU/o949hjtOH8pvtcPp3wLXxCOnqArSWkr/eOmono++c0x+RL2tA3ddPnjf7KDG8RxGzgFdtR33RjdQbeVRaKpFrroBx6/0J46ZevPFBuTPAi+s4+3agTi5M7AN16sttL/cRNtYCo3PkqgdWodtPIXhcBoDoTQ4TwR5xp5FsQFZ2PdQfB9PiPBMb+MRee6DiU9o8W3AOpKEZTCBm31rqOr5ALM3jsquOHpndnDicj9yyzoPU2TbmFvdR9fwa5RoTdBdvIo2zwjGo18wGtkVpw7Op9Ha7QdbaoBGXwFb3xxk1waQY+zOo5Sl13HqrAaMTAGWZaFWq8EoCiArvgTmNAtaeU4MI5OLXqVSgVYocfKM4XeDPzAMs8lxHCwWC8g5nhUSbzabQdP0vNRTcrlcRS7FfkmSyr/5fILU/zt+AjtSI+fYrji2AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementImage>
+    <ModelElementImage id="41">
+      <ModelElementSize h="25" w="25" x="755" y="330"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACH0lEQVR4XtWR20vTYRzG/Vc66aYV0YWWs2Z5CEqXs5SoBVmmUjMLsbSNZtlBSlJikafKTlKWljps2jZXUzFdnrY5GzpaGZqmiy68Cj799huV2U130QMvfHmfw/t9eENC/jnct49POmtzGak+wuCNLOz6DHorVHSVpWMtVWI6v4PnugRaNfL2pV4RAfOMu41Po61MO5qZGm7k42ADk/Z6Pry+g6/nJu9sVTSdjGKpV8RQZQ7TrhZBWCkI9Xg7yxk3XcZjvMCYQcfosyImLNfYVvKShGILW7UvkBcav8XkG7LEALv+IH+D+DNmXrn9dLrmuWd9T2Tu0zkxINBXa5hgd/UQSv0AyVf72V7aS+LZbuI0NuQFVrLL+4ktasfkmGfqK3xZgPXZDcFKtitpYte3bedwt2hxNZ1ipOEEQ/VHGbh7GPutA4w265DlG+gb99PrmccvBKzJeBAMsFxU4OuqEbs6nuQz/PAYg/dzeFN3iP7a/fRV7cHZeDqwMt1jc9SYfHQ6Z5HsqwsGGIsT8VqvM26uwNNRJmxyCXdrifiqs0mD43EhjkcF4spW52fMI7N0DM+wMr02GJAev460uLXs2rKa1NhwlJslpGwKRRGzimTZCpKil5O0cRnhslSk0UokG1IIi9pJaKTi17dKpVJvZmYmarUaYV7Iy8tDpVIhkUjMP0WLdH9wERERMQLZE7gUzt4fc5iARf7fdEu5/xjfAY/giQeARl3IAAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementImage>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData>
+    <ClientData Icon="user_red" Name="Clients B"/>
+    <ClientData Icon="user_red" Name="Kunden B"/>
+    <ClientData Icon="car" Name="Product A"/>
+    <ClientData Icon="lorry" Name="Product B"/>
+    <ClientData Icon="car" Name="Produkt A"/>
+    <ClientData Icon="lorry" Name="Produkt B"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

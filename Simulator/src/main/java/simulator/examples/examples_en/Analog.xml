@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>4.1.0</ModelVersion>
+  <ModelName>Use of continuous time values</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">1000000</ModelClients>
+  <ModelWarmUpPhase>0.05</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="150"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds">900</ModelElementExpression>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementAnalogValueAssignment id="2">
+      <ModelElementName>Rate=1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="150"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementAnalogValueAssignmentRate TargetID="4">1/60</ModelElementAnalogValueAssignmentRate>
+    </ModelElementAnalogValueAssignment>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnalogValue id="4">
+      <ModelElementName>Value</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="400"/>
+      <ModelElementAnalogValueInitialValue>0</ModelElementAnalogValueInitialValue>
+      <ModelElementAnalogValueMinimum>0</ModelElementAnalogValueMinimum>
+      <ModelElementAnalogValueMaximum>10</ModelElementAnalogValueMaximum>
+      <ModelElementAnalogValueRate>0</ModelElementAnalogValueRate>
+      <ModelElementAnalogValueUpdateStepWide>6</ModelElementAnalogValueUpdateStepWide>
+    </ModelElementAnalogValue>
+    <ModelElementDelay id="5">
+      <ModelElementSize h="50" w="100" x="400" y="150"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds" Type="ProcessTime">300</ModelElementExpression>
+    </ModelElementDelay>
+    <ModelElementAnalogValueAssignment id="6">
+      <ModelElementName>Rate=-1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="150"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementAnalogValueAssignmentRate TargetID="4">-1/60</ModelElementAnalogValueAssignmentRate>
+    </ModelElementAnalogValueAssignment>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="2" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="5" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDelay id="9">
+      <ModelElementSize h="50" w="100" x="800" y="150"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds" Type="ProcessTime">300</ModelElementExpression>
+    </ModelElementDelay>
+    <ModelElementDispose id="10">
+      <ModelElementSize h="50" w="100" x="1250" y="150"/>
+      <ModelElementConnection Element="14" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="6" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnalogValueAssignment id="11">
+      <ModelElementName>Rate=0</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="150"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementAnalogValueAssignmentRate TargetID="4">0</ModelElementAnalogValueAssignmentRate>
+    </ModelElementAnalogValueAssignment>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="9" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="11" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationLineDiagram id="15">
+      <ModelElementSize h="250" w="550" x="450" y="350"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="10" Minimum="0">AnalogWert(4)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>3600</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="22">
+      <ModelElementSize h="23" w="265" x="50" y="50"/>
+      <ModelElementTextLine>Use of continuous time values</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="16">
+      <ModelElementName>Current value</ModelElementName>
+      <ModelElementSize h="30" w="57" x="250" y="470"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">AnalogValue(4)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="39">
+      <ModelElementName>Change rate (per min.)</ModelElementName>
+      <ModelElementSize h="30" w="94" x="250" y="520"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">AnalogRate(4)*60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="49">
+      <ModelElementSize h="19" w="267" x="450" y="330"/>
+      <ModelElementTextLine>Current value of the continuous time value</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="17">
+      <ModelElementSize h="245" w="200" x="200" y="355"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="18">
+      <ModelElementSize h="19" w="166" x="205" y="360"/>
+      <ModelElementTextLine>Continuous time values</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="19">
+      <ModelElementSize h="150" w="350" x="200" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,195,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="20">
+      <ModelElementSize h="38" w="198" x="205" y="105"/>
+      <ModelElementTextLine>Set flow rate to 1 per minute</ModelElementTextLine>
+      <ModelElementTextLine>wait 5 minutes</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,195,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="21">
+      <ModelElementSize h="150" w="350" x="600" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="23">
+      <ModelElementSize h="38" w="203" x="605" y="105"/>
+      <ModelElementTextLine>Set flow rate to -1 per minute</ModelElementTextLine>
+      <ModelElementTextLine>wait 5 minutes</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="24">
+      <ModelElementSize h="150" w="200" x="1000" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="25">
+      <ModelElementSize h="19" w="118" x="1005" y="105"/>
+      <ModelElementTextLine>Set flow rate to 0</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationPointerMeasuring id="26">
+      <ModelElementName>Analog value "Value" (id=4) - Current value</ModelElementName>
+      <ModelElementSize h="100" w="200" x="1050" y="350"/>
+      <ModelElementAnimationPointerMeasuringExpression MaxValue="10">AnalogValue(4)</ModelElementAnimationPointerMeasuringExpression>
+    </ModelElementAnimationPointerMeasuring>
+    <ModelElementText id="99">
+      <ModelElementSize h="19" w="267" x="1050" y="455"/>
+      <ModelElementTextLine>Current value of the continuous time value</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

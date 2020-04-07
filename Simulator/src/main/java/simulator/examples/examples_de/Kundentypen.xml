@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.3.0</ModellVersion>
+  <ModellName>Mehrere Kundentypen mit verschiedenen Prioritäten an der Bedienstation</ModellName>
+  <ModellBeschreibung>Die Kunden vom Typ B besitzen eine höhere Basispriorität
+als die Kunden vom Typ A. (50 Punkte zu 0 Punkten.)
+Daher ist die Wartezeit der Kunden vom Typ B kürzer.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementBedienstation id="1">
+      <ModellElementGroesse h="50" w="100" x="350" y="150"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (25)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w+50</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Neue Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="3">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="195"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="4">
+      <ModellElementGroesse h="50" w="100" x="550" y="150"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="1" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="8">
+      <ModellElementGroesse h="23" w="631" x="50" y="50"/>
+      <ModellElementTextzeile>Mehrere Kundentypen mit verschiedenen Prioritäten an der Bedienstation</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="9">
+      <ModellElementGroesse h="19" w="656" x="50" y="300"/>
+      <ModellElementTextzeile>Kundentyp B wird höher priorisiert als Kundentyp A. Daher sind die Wartezeiten für Kundentyp B kürzer.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="22">
+      <ModellElementGroesse h="230" w="600" x="50" y="370"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="250" Minimum="0">Wartezeit_avg(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,135,0" Maximum="250" Minimum="0">Wartezeit_avg(3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="23">
+      <ModellElementGroesse h="19" w="111" x="50" y="350"/>
+      <ModellElementTextzeile>Mittlere Wartezeit</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="14">
+      <ModellElementName>Mittlere Wartezeit Kunden A</ModellElementName>
+      <ModellElementGroesse h="30" w="117" x="700" y="370"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="38">
+      <ModellElementName>Mittlere Wartezeit Kunden B</ModellElementName>
+      <ModellElementGroesse h="30" w="117" x="700" y="450"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,135,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(3)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementKante id="5">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="1" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="1" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Neue Bedienergruppe" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Farbe="255,0,0" Icon="user_red" Name="Kunden A"/>
+    <KundenDaten Farbe="0,195,0" Icon="user_green" Name="Kunden B"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

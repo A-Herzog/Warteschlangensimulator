@@ -1,0 +1,3639 @@
+<!-- German XML Data / Deutsche XML Daten -->
+
+
+
+<!-- Beschreibung der Modell-Dateien -->
+
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | Benutzervorlagen | ExterneDaten)*>
+
+<!ELEMENT ModellVersion (#PCDATA)>
+<!ELEMENT ModellName (#PCDATA)>
+<!ELEMENT ModellAutor (#PCDATA)>
+<!ELEMENT ModellBeschreibung (#PCDATA)>
+<!ELEMENT ModellAufwaermphase (#PCDATA)>
+<!ELEMENT ModellWiederholungen (#PCDATA)>
+
+<!ELEMENT ModellKunden (#PCDATA)>
+<!ATTLIST ModellKunden
+  Aktiv	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModellAbbruchbedingung (#PCDATA)>
+<!ATTLIST ModellAbbruchbedingung
+  Aktiv	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModellAbbruchzeit (#PCDATA)>
+<!ATTLIST ModellAbbruchzeit
+  Aktiv	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModellZufallszahlenStartwert (#PCDATA)>
+<!ATTLIST ModellZufallszahlenStartwert
+  Aktiv	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModellAutokorrelation (#PCDATA)>
+<!ATTLIST ModellAutokorrelation
+  Alle	(0|1)	#IMPLIED
+>
+
+<!ELEMENT ModellBatchGroesse (#PCDATA)>
+
+<!ELEMENT Ressourcen (Ressource)*>
+<!ATTLIST Ressourcen
+  UntergeordnetePrioritaet	CDATA				#IMPLIED
+>
+
+<!ELEMENT Ressource (RessourceAusfall)*>
+<!ATTLIST Ressource
+  Name						    CDATA				#REQUIRED
+  Icon						    CDATA				#IMPLIED
+  Typ						    (Anzahl|Zeitplan)	#REQUIRED
+  Wert                          CDATA               #REQUIRED
+  KostenProBetriebsstunde	    CDATA				#IMPLIED
+  KostenProArbeitsstunde	    CDATA				#IMPLIED
+  KostenProLeerlaufstunde	    CDATA				#IMPLIED
+  RuestzeitenVerteilung         CDATA				#IMPLIED
+  RuestzeitenAusdruck           CDATA				#IMPLIED
+  Zeitbasis                     CDATA				#IMPLIED
+>
+
+<!ELEMENT RessourceAusfall EMPTY>
+<!ATTLIST RessourceAusfall
+  AusfallNachKundenanzahl   	CDATA				#IMPLIED
+  AusfallNachZeit           	CDATA				#IMPLIED
+  AusfallNachGearbeiteterZeit  	CDATA				#IMPLIED
+  AusfallGemaessVerteilung  	CDATA				#IMPLIED
+  AusfallGemaessAusdruck  		CDATA				#IMPLIED
+  AusfallVerteilung            	CDATA				#IMPLIED
+  AusfallAusdruck           	CDATA				#IMPLIED
+>
+
+<!ELEMENT KundentypenDaten (KundenDaten)*>
+
+<!ELEMENT KundenDaten EMPTY>
+<!ATTLIST KundenDaten
+  Name		CDATA	#REQUIRED
+  Farbe		CDATA	#IMPLIED
+  Icon		CDATA	#IMPLIED
+  Kosten	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellZeitplaene (ModellZeitplan)*>
+
+<!ELEMENT ModellZeitplan (#PCDATA)>
+<!ATTLIST ModellZeitplan
+  Name				CDATA												#REQUIRED
+  DauerProSlot		CDATA												#REQUIRED
+  EditorMaxY		CDATA												#REQUIRED
+  PlanFortsetzen	(Wiederholen|TageweiseWiederholen|LetzterWert|0)	#REQUIRED
+>
+
+<!ELEMENT ModellZusatzStatistik (ModellZusatzStatistikElement)*>
+<!ATTLIST ModellZusatzStatistik
+  Schrittweite	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellZusatzStatistikElement (#PCDATA)>
+<!ATTLIST ModellZusatzStatistikElement
+  Modus	CDATA	#REQUIRED
+>
+
+<!ELEMENT InitialeVariable (#PCDATA)*>
+<!ATTLIST InitialeVariable
+  Name	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellFarbe EMPTY>
+<!ATTLIST ModellFarbe
+  Hintergrund				CDATA	#IMPLIED
+  Raster	   				CDATA	#IMPLIED
+  HintergrundFarbverlauf	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellFertigungsplaene (ModellFertigungsplan)*>
+<!ELEMENT ModellFertigungsplan (ModellFertigungsplanSchritt)*>
+<!ATTLIST ModellFertigungsplan
+  Name	CDATA	#REQUIRED
+>
+<!ELEMENT ModellFertigungsplanSchritt (ModellFertigungsplanSchrittZuweisung)*>
+<!ATTLIST ModellFertigungsplanSchritt
+  NaechsterSchritt	CDATA	#REQUIRED
+  Ziel				CDATA	#IMPLIED
+>
+<!ELEMENT ModellFertigungsplanSchrittZuweisung (#PCDATA)*>
+<!ATTLIST ModellFertigungsplanSchrittZuweisung
+  Nummer	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellTransporterListe (ModellTransporter)*>
+<!ELEMENT ModellTransporter (ModellTransporterAnzahl | ModellTransporterKapazitaet | ModellTransporterTransferzeiten | ModellTransporterEntfernung | TransporterAusfall | ModellTransporterBeladezeitVerteilung | ModellTransporterBeladezeitAusdruck | ModellTransporterEntladezeitVerteilung | ModellTransporterEntladezeitAusdruck)*>
+<!ATTLIST ModellTransporter
+  Name	        CDATA	#REQUIRED
+  Icon	        CDATA	#IMPLIED
+  IconLinks	    CDATA	#IMPLIED
+  IconLeer	    CDATA	#IMPLIED
+  IconLinksLeer CDATA	#IMPLIED
+>
+<!ELEMENT ModellTransporterAnzahl EMPTY>
+<!ATTLIST ModellTransporterAnzahl
+  Station	CDATA	#REQUIRED
+  Anzahl	CDATA	#REQUIRED
+>
+<!ELEMENT ModellTransporterKapazitaet (#PCDATA)>
+<!ELEMENT ModellTransporterTransferzeiten (#PCDATA)>
+<!ELEMENT ModellTransporterEntfernung (#PCDATA)>
+<!ATTLIST ModellTransporterEntfernung
+  Start	CDATA	#REQUIRED
+  Ziel	CDATA	#REQUIRED
+>
+<!ELEMENT TransporterAusfall EMPTY>
+<!ATTLIST TransporterAusfall
+  AusfallGemaessFahrtstrecke    CDATA	#IMPLIED
+  AusfallGemaessVerteilung      CDATA	#IMPLIED
+  AusfallGemaessAusdruck        CDATA	#IMPLIED
+  AusfallNachKundenanzahl       CDATA	#IMPLIED
+  AusfallNachGearbeiteterZeit   CDATA	#IMPLIED
+  AusfallVerteilung             CDATA	#IMPLIED
+  AusfallAusdruck               CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellTransporterBeladezeitVerteilung (#PCDATA)>
+<!ELEMENT ModellTransporterBeladezeitAusdruck (#PCDATA)>
+<!ELEMENT ModellTransporterEntladezeitVerteilung (#PCDATA)>
+<!ELEMENT ModellTransporterEntladezeitAusdruck (#PCDATA)>
+
+<!ELEMENT ModellPfadsegmente (ModellPfadVerbindung)*>
+<!ELEMENT ModellPfadVerbindung EMPTY>
+<!ATTLIST  ModellPfadVerbindung
+  Von	CDATA	#REQUIRED
+  Nach	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellAnimationsBilder (ModellAnimationsBild)*>
+<!ELEMENT ModellAnimationsBild (#PCDATA)>
+<!ATTLIST ModellAnimationsBild
+  Name  CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellStatistikVerteilungStunden (#PCDATA)>
+
+<!ELEMENT ModellBeiRechenfehlerAbbrechen (#PCDATA)>
+
+<!ELEMENT ModellKantenNormal EMPTY>
+<!ATTLIST ModellKantenNormal
+  Farbe     CDATA	#IMPLIED
+  Typ       CDATA	#IMPLIED
+  Breite    CDATA	#IMPLIED
+>
+<!ELEMENT ModellKantenSelektiert EMPTY>
+<!ATTLIST ModellKantenSelektiert
+  Typ       CDATA	#IMPLIED
+  Breite    CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellPfadaufzeichnung EMPTY>
+<!ATTLIST ModellPfadaufzeichnung
+  Stationsuebergaenge	CDATA	#IMPLIED
+  Kundenpfade			CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementVerbindungsdarstellungsart (#PCDATA)>
+
+<!ELEMENT ModellZeitabhaengigePruefungen (#PCDATA)>
+
+<!ELEMENT Benutzervorlagen (Benutzervorlage)*>
+<!ELEMENT Benutzervorlage (ModellElemente)>
+<!ATTLIST Benutzervorlage
+  Name  CDATA	#REQUIRED
+>
+
+<!ELEMENT ExterneDaten (ExterneDatenEintrag)*>
+<!ATTLIST ExterneDaten
+  Aktiv			CDATA	#IMPLIED
+  Modus			CDATA	#REQUIRED
+  Arbeitsmappe	CDATA	#REQUIRED
+  Tabelle		CDATA	#IMPLIED
+>
+<!ELEMENT ExterneDatenEintrag (ExterneDatenZelle | ModelleVergleichenEingabe)>
+<!ELEMENT ExterneDatenZelle (#PCDATA)>
+<!ELEMENT ModelleVergleichenEingabe (ModelleVergleichenName | ModelleVergleichenEingabeDaten)>
+<!ELEMENT ModelleVergleichenName (#PCDATA)>
+<!ELEMENT ModelleVergleichenEingabeDaten (#PCDATA)>
+<!ATTLIST ModelleVergleichenEingabeDaten
+  Modus	CDATA	#REQUIRED
+>
+
+
+
+<!-- Beschreibung der Modell-Elemente: Allgemeine Eigenschaften -->
+
+<!ELEMENT ModellElementName (#PCDATA)>
+
+<!ELEMENT ModellElementBeschreibung (#PCDATA)>
+
+<!ELEMENT ModellElementGroesse EMPTY>
+<!ATTLIST ModellElementGroesse
+  x	CDATA	#REQUIRED
+  y	CDATA	#REQUIRED
+  w	CDATA	#REQUIRED
+  h	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementVerbindung EMPTY>
+<!ATTLIST ModellElementVerbindung
+  Element	        		CDATA	#IMPLIED
+  Element1	        		CDATA	#IMPLIED
+  Element2	        		CDATA	#IMPLIED
+  Typ		        		CDATA	#REQUIRED
+  Rate		        		CDATA	#IMPLIED
+  Bedingung	        		CDATA	#IMPLIED
+  ZeitabhaengigePruefungen	CDATA	#IMPLIED
+  Kundentyp	        		CDATA	#IMPLIED
+  Status	        		CDATA	#IMPLIED
+  NeuerKundentyp    		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementFarbe (#PCDATA)>
+<!ELEMENT ModellElementLinienBreite (#PCDATA)>
+<!ELEMENT ModellElementHintergrundfarbe (#PCDATA)>
+<!ATTLIST ModellElementHintergrundfarbe
+  Alpha	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementHintergrundfarbeFarbverlauf (#PCDATA)>
+<!ELEMENT ModellElementStationsbild (#PCDATA)>
+<!ELEMENT ModellElementLinienFarbe (#PCDATA)>
+
+<!ELEMENT ModellElementSchriftart (#PCDATA)>
+
+<!ELEMENT ModellElementSchriftgrosse (#PCDATA)>
+<!ATTLIST ModellElementSchriftgrosse
+  fett		(0|1)	#IMPLIED
+  kursiv	(0|1)	#IMPLIED
+>
+
+<!ELEMENT ModellElementVerteilung (#PCDATA)>
+<!ATTLIST ModellElementVerteilung
+  Zeitbasis			CDATA	#IMPLIED
+  Typ				CDATA	#IMPLIED
+  Kundentyp			CDATA	#IMPLIED
+  Ziel				CDATA	#IMPLIED
+  Status			CDATA	#IMPLIED
+  IstTransferzeit	CDATA	#IMPLIED
+  Anzahl            CDATA	#IMPLIED
+  Kundenanzahl		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementAusdruck (#PCDATA)>
+<!ATTLIST ModellElementAusdruck
+  Zeitbasis			CDATA	#IMPLIED
+  Typ				CDATA	#IMPLIED
+  Kundentyp			CDATA	#IMPLIED
+  Ziel				CDATA	#IMPLIED
+  IstTransferzeit	CDATA	#IMPLIED
+  Status			CDATA	#IMPLIED
+  Anzahl            CDATA	#IMPLIED
+  Kundenanzahl		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementRuestzeitVerteilung (#PCDATA)>
+<!ATTLIST ModellElementRuestzeitVerteilung
+  Kundentyp1		CDATA	#REQUIRED
+  Kundentyp2		CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementRuestzeitAusdruck (#PCDATA)>
+<!ATTLIST ModellElementRuestzeitAusdruck
+  Kundentyp1		CDATA	#REQUIRED
+  Kundentyp2		CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementBatch (#PCDATA)>
+<!ATTLIST ModellElementBatch
+  Groesse	CDATA	#IMPLIED
+  Minimum	CDATA	#IMPLIED
+  Maximum	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementKundentyp (#PCDATA)>
+
+<!ELEMENT ModellElementBediener EMPTY>
+<!ATTLIST ModellElementBediener
+  Gruppe		CDATA	#REQUIRED
+  Anzahl		CDATA	#REQUIRED
+  Alternative	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementBedienerPrioritaet (#PCDATA)>
+
+<!-- Beschreibung der Modell-Elemente: Einzelne Elemente -->
+
+<!ELEMENT ModellElemente (ModellElementKante | ModellElementText | ModellElementEcke | ModellElementLinie | ModellElementKasten | ModellElementEllipse | ModellElementBild | ModellElementQuelle | ModellElementMehrfachQuelle | ModellElementTabellenQuelle | ModellElementDatenbankQuelle | ModellElementDDEQuelle | ModellElementEnde | ModellElementZuweisung | ModellElementZuweisungText | ModellElementFertigungsplanZuweisung | ModellElementKosten | ModellElementVerzoegerung | ModellElementTrennen | ModellElementZusammenfassen | ModellElementMehrfachZusammenfassen | ModellElementZusammenfuehren | ModellElementZerteilen | ModellElementDuplizieren | ModellElementVerzweigen | ModellElementVerzweigenJS | ModellElementZurueckschrecken | ModellElementBedienstation | ModellElementBedingung | ModellElementBedingungMehrfach | ModellElementBedingungScript | ModellElementSignal | ModellElementSchranke | ModellElementSchrankePull | ModellElementRessourceBelegen | ModellElementRessourceFreigeben | ModellElementKundenstatistik | ModellElementVariable | ModellElementSkript | ModellElementZaehler | ModellElementZaehlerMehrfach | ModellElementDurchsatz | ModellElementZustandsstatistik | ModellElementAufzeichnung | ModellElementDateiausgabe | ModellElementEingabe | ModellElementEingabeScript | ModellElementEingabeDB | ModellElementEingabeDDE | ModellElementScriptDateiausgabe | ModellElementDatenbankausgabe | ModellElementAusgabeDDE | ModellElementBenutzerstatistik | ModellElementDifferenzZaehler | ModellElementBereichStart | ModellElementBereichEnde | ModellElementAusleiten | ModellElementLogikIf | ModellElementLogikElseIf | ModellElementLogikElse | ModellElementLogikEndIf | ModellElementLogikWhile | ModellElementLogikEndWhile | ModellElementLogikDo | ModellElementLogikUntil | ModellElementTransportStart | ModellElementTransportZiel | ModellElementTransporterStart | ModellElementTransportParkplatz | ModellElementWegpunkt | ModellElementTeleportStart | ModellElementTeleportZiel | ModellElementFliessband | ModellElementAnalogerWert | ModellElementAnalogWertZuweisung | ModellElementTank | ModellElementFluss | ModellElementFlussSignal | ModellElementSensor | ModellElementVentilSetups | ModellElementAktion | ModellElementIcon | ModellElementAnimationText | ModellElementAnimationTextJS | ModellElementAnimationTextAuswahl | ModellElementAnimationBalken | ModellElementAnimationStapelBalken | ModellElementAnimationAmpel | ModellElementAnimationLCD | ModellElementAnimationAnalogSkala | ModellElementAnimationBalkenDiagramm | ModellElementAnimationLinienDiagramm | ModellElementAnimationTortenDiagramm | ModellElementAnimationUhr | ModellElementAnimationBild | ModellElementAnimationAufzeichnung | ModellElementUntermodell | ModellElementUntermodellEingang | ModellElementUntermodellAusgang | ModellElementReferenz | ModellElementSchaltflaeche | ModellElementSchieberegler | ModellElementCheckbox | ModellElementRadiobutton)*>
+
+<!ELEMENT ModellElementKante (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementVerbindung | ModellElementVerbindungsdarstellungsart)*>
+<!ATTLIST ModellElementKante
+  id			CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe)*>
+<!ATTLIST ModellElementText
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTextzeile (#PCDATA)>
+
+<!ELEMENT ModellElementEcke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementVerbindung)*>
+<!ATTLIST ModellElementEcke
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementLinie (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementLinienBreite | ModellElementFarbe | ModellElementLinienTyp | ModellElementLiniePfeilStart | ModellElementLiniePfeilEnde)*>
+<!ATTLIST ModellElementLinie
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementLinienTyp (#PCDATA)>
+<!ELEMENT ModellElementLiniePfeilStart (#PCDATA)>
+<!ELEMENT ModellElementLiniePfeilEnde (#PCDATA)>
+
+<!ELEMENT ModellElementKasten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementLinienBreite | ModellElementFarbe | ModellElementHintergrundfarbe | ModellElementHintergrundfarbeFarbverlauf | ModellElementRundung)*>
+<!ATTLIST ModellElementKasten
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementRundung (#PCDATA)>
+
+<!ELEMENT ModellElementEllipse (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementLinienBreite | ModellElementFarbe | ModellElementHintergrundfarbe | ModellElementHintergrundfarbeFarbverlauf)*>
+<!ATTLIST ModellElementEllipse
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementBild (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementLinienBreite | ModellElementFarbe | ModellElementBildDaten)*>
+<!ATTLIST ModellElementBild
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementBildDaten (#PCDATA)>
+<!ATTLIST ModellElementBildDaten
+  Ausdruck	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementBatch | ModellElementStartZeitpunkt)*>
+<!ATTLIST ModellElementQuelle
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementZeitplan (#PCDATA)>
+<!ATTLIST ModellElementZeitplan
+  Anzahl		CDATA	#IMPLIED
+  Kundenanzahl	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementStartZeitpunkt (#PCDATA)>
+
+<!ELEMENT ModellElementAnkunftsbedingung (#PCDATA)>
+<!ATTLIST ModellElementAnkunftsbedingung
+  MinimalerAbstand	CDATA	#IMPLIED
+  Anzahl			CDATA	#IMPLIED
+  Kundenanzahl		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementAnkunftsschwellenwert (#PCDATA)>
+<!ATTLIST ModellElementAnkunftsbedingung
+  Wert			CDATA	#REQUIRED
+  Richtung		CDATA	#IMPLIED
+  Anzahl		CDATA	#IMPLIED
+  Kundenanzahl	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementAnkunftssignal (#PCDATA)>
+<!ATTLIST ModellElementAnkunftssignal
+  Anzahl		CDATA	#IMPLIED
+  Kundenanzahl	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementMehrfachQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementMehrfachQuelleDaten)*>
+<!ATTLIST ModellElementMehrfachQuelle
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementMehrfachQuelleDaten (ModellElementName | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
+
+<!ELEMENT ModellElementTabellenQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTabellenDatei | ModellElementTabellenKundentyp)*>
+<!ATTLIST ModellElementTabellenQuelle
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTabellenDatei (#PCDATA)>
+<!ATTLIST ModellElementTabellenDatei
+  Zahlenwerte	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTabellenKundentyp (#PCDATA)>
+
+<!ELEMENT ModellElementDatenbankQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | DatenbankVerbindung | ModellElementDatenbankTabelle | ModellElementDatenbankKundentyp | ModellElementDatenbankAnkuenfteSpalte | ModellElementDatenbankKundentypSpalte | ModellElementDatenbankInformationenSpalte)*>
+<!ATTLIST ModellElementDatenbankQuelle
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT DatenbankVerbindung EMPTY>
+<!ATTLIST DatenbankVerbindung
+  Typ	        CDATA	#IMPLIED
+  Konfiguration	CDATA	#IMPLIED
+  Nutzername	CDATA	#IMPLIED
+  Passwort	    CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementDatenbankTabelle (#PCDATA)>
+<!ELEMENT ModellElementDatenbankKundentyp (#PCDATA)>
+<!ELEMENT ModellElementDatenbankAnkuenfteSpalte (#PCDATA)>
+<!ELEMENT ModellElementDatenbankKundentypSpalte (#PCDATA)>
+<!ELEMENT ModellElementDatenbankInformationenSpalte (#PCDATA)>
+
+<!ELEMENT ModellElementDDEQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementDDEQuelleArbeitsmappe | ModellElementDDEQuelleTabelle | ModellElementDDEQuelleStartzeile | ModellElementDDEQuelleSpalte | ModellElementDDEQuelleKundentyp)*>
+<!ATTLIST ModellElementDDEQuelle
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementDDEQuelleArbeitsmappe (#PCDATA)>
+<!ELEMENT ModellElementDDEQuelleTabelle (#PCDATA)>
+<!ELEMENT ModellElementDDEQuelleStartzeile (#PCDATA)>
+<!ELEMENT ModellElementDDEQuelleSpalte (#PCDATA)>
+<!ELEMENT ModellElementDDEQuelleKundentyp (#PCDATA)>
+
+<!ELEMENT ModellElementEnde (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementEndeStopp)*>
+<!ATTLIST ModellElementEnde
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementEndeStopp (#PCDATA)>
+
+<!ELEMENT ModellElementZuweisung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementZuweisung
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementZuweisungText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZuweisungTextEintrag)*>
+<!ATTLIST ModellElementZuweisungText
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementZuweisungTextEintrag (#PCDATA)>
+<!ATTLIST ModellElementZuweisungTextEintrag
+  schluessel    CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementFertigungsplanZuweisung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementFertigungsplan)*>
+<!ATTLIST ModellElementFertigungsplanZuweisung
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementFertigungsplan (#PCDATA)>
+
+<!ELEMENT ModellElementKosten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKostenKundenWartezeit | ModellElementKostenKundenTransferzeit | ModellElementKostenKundenBedienzeit | ModellElementKostenStation)*>
+<!ATTLIST ModellElementKosten
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementKostenKundenWartezeit (#PCDATA)>
+<!ELEMENT ModellElementKostenKundenTransferzeit (#PCDATA)>
+<!ELEMENT ModellElementKostenKundenBedienzeit (#PCDATA)>
+<!ELEMENT ModellElementKostenStation (#PCDATA)>
+
+<!ELEMENT ModellElementVerzoegerung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementVerzoegerungKosten)*>
+<!ATTLIST ModellElementVerzoegerung
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementVerzoegerungKosten (#PCDATA)>
+
+<!ELEMENT ModellElementTrennen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementTrennen
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch)*>
+<!ATTLIST ModellElementZusammenfassen
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementBatchModus (#PCDATA)>
+
+<!ELEMENT ModellElementMehrfachZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZusammenfassenKundentyp)*>
+<!ATTLIST ModellElementMehrfachZusammenfassen
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementZusammenfassenKundentyp (ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch)*>
+<!ATTLIST ModellElementZusammenfassenKundentyp
+  name	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementZusammenfuehren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementMatchEigenschaft)*>
+<!ATTLIST ModellElementZusammenfuehren
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementMatchEigenschaft (#PCDATA)>
+<!ATTLIST ModellElementMatchEigenschaft
+  Typ   CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementZerteilen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZerteilenDaten)*>
+<!ATTLIST ModellElementZerteilen
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementZerteilenDaten (ModellElementName | ModellElementBatch | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
+
+<!ELEMENT ModellElementDuplizieren (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementDuplizieren
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementVerzweigen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerzweigungsmodus | ModellElementVerzweigSchluessel)*>
+<!ATTLIST ModellElementVerzweigen
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementVerzweigungsmodus (#PCDATA)>
+<!ELEMENT ModellElementVerzweigSchluessel (#PCDATA)>
+
+<!ELEMENT ModellElementVerzweigenJS (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerzweigenSkript)*>
+<!ATTLIST ModellElementVerzweigenJS
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementVerzweigenSkript (#PCDATA)>
+<!ATTLIST ModellElementVerzweigenSkript
+  Sprache	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementZurueckschrecken (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZurueckschreckenAusdruck)*>
+<!ATTLIST ModellElementZurueckschrecken
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementZurueckschreckenAusdruck (#PCDATA)>
+<!ATTLIST ModellElementZurueckschreckenAusdruck
+  Kundentyp CDATA	#IMPLIED
+  Modus     CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
+<!ATTLIST ModellElementBedienstation
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementPrioritaet (#PCDATA)>
+<!ATTLIST ModellElementPrioritaet
+  Kundentyp CDATA	#REQUIRED
+>
+<!ELEMENT ModellElementBedienstationKosten (#PCDATA)>
+<!ELEMENT ModellElementKostenZeit EMPTY>
+<!ATTLIST ModellElementKostenZeit
+  Bediensekunde				CDATA	#IMPLIED
+  Nachbearbeitungssekunde	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementBedingung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungText)*>
+<!ATTLIST ModellElementBedingung
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementBedingungText (#PCDATA)>
+<!ATTLIST ModellElementBedingungText
+  Kundenbasierend   		CDATA	#IMPLIED
+  ZeitabhaengigePruefungen	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementBedingungMehrfach (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementBedingungMehrfach
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementBedingungScript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungScriptText)*>
+<!ATTLIST ModellElementBedingungScript
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementBedingungScriptText (#PCDATA)>
+<!ATTLIST ModellElementBedingungScriptText
+  Sprache					CDATA	#IMPLIED
+  ZeitabhaengigePruefungen	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementSignal (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementSignal
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementSchranke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankeOption)*>
+<!ATTLIST ModellElementSchranke
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementSchrankeOption (ModellElementSignalname | ModellElementInitialeFreigabe | ModellElementFreigabe | ModellElementKundentyp)*>
+<!ELEMENT ModellElementSignalname (#PCDATA)>
+<!ELEMENT ModellElementInitialeFreigabe EMPTY>
+<!ATTLIST ModellElementInitialeFreigabe
+  Anzahl	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementFreigabe EMPTY>
+<!ATTLIST ModellElementFreigabe
+	Anzahl	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementSchrankePull (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankePullKontrolle)*>
+<!ATTLIST ModellElementSchrankePull
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementSchrankePullKontrolle (#PCDATA)>
+<!ATTLIST ModellElementSchrankePullKontrolle
+  Maximum	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementRessourceBelegen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBediener | ModellElementBedienerPrioritaet)*>
+<!ATTLIST ModellElementRessourceBelegen
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementRessourceFreigeben (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBelegteRessource | ModellElementVerteilung | ModellElementAusdruck)*>
+<!ATTLIST ModellElementRessourceFreigeben
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementBelegteRessource (#PCDATA)>
+
+<!ELEMENT ModellElementKundenstatistik (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundenstatistikModus)*>
+<!ATTLIST ModellElementKundenstatistik
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementKundenstatistikModus (#PCDATA)>
+<!ATTLIST ModellElementKundenstatistikModus
+  Modus	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementVariable (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVariablenzuweisung)*>
+<!ATTLIST ModellElementVariable
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementVariablenzuweisung (#PCDATA)>
+<!ATTLIST ModellElementVariablenzuweisung
+  Variable	CDATA	#REQUIRED
+  Wert		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementSkript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSkriptText)*>
+<!ATTLIST ModellElementSkript
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementSkriptText (#PCDATA)>
+<!ATTLIST ModellElementSkriptText
+  Sprache		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementZaehler (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZaehlerGruppe)*>
+<!ATTLIST ModellElementZaehler
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementZaehlerGruppe (#PCDATA)>
+
+<!ELEMENT ModellElementZaehlerMehrfach (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZaehlerGruppe | ModellElementZaehlerMehrfachZaehler)*>
+<!ATTLIST ModellElementZaehlerMehrfach
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementZaehlerMehrfachZaehler (#PCDATA)>
+<!ATTLIST ModellElementZaehlerMehrfachZaehler
+  Bedingung CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementDurchsatz (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementDurchsatz
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementZustandsstatistik (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZustandsstatistikGruppe)*>
+<!ATTLIST ModellElementZustandsstatistik
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementZustandsstatistikGruppe (#PCDATA)>
+
+<!ELEMENT ModellElementEingabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementEingabeDatei | ModellElementEingabeVariable | ModellElementEingabeVorgabewert)*>
+<!ATTLIST ModellElementEingabe
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementEingabeDatei (#PCDATA)>
+<!ATTLIST ModellElementEingabeDatei
+  Dateiende	CDATA	#REQUIRED
+>
+<!ELEMENT ModellElementEingabeVariable (#PCDATA)>
+<!ELEMENT ModellElementEingabeVorgabewert (#PCDATA)>
+
+<!ELEMENT ModellElementEingabeScript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSkript | ModellElementEingabeScriptDatei | ModellElementEingabeJSVorgabewert)*>
+<!ATTLIST ModellElementEingabeScript
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementEingabeScriptDatei (#PCDATA)>
+<!ATTLIST ModellElementEingabeScriptDatei
+  Dateiende	CDATA	#REQUIRED
+>
+<!ELEMENT ModellElementEingabeJSVorgabewert (#PCDATA)>
+
+<!ELEMENT ModellElementEingabeDB (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | DatenbankVerbindung | ModellElementEingabeDBTabelle | ModellElementEingabeDBSpalte | ModellElementEingabeDBSortierSpalte | ModellElementEingabeDBTabellenende | ModellElementEingabeDBVorgabewert | ModellElementEingabeDBVariable)*>
+<!ATTLIST ModellElementEingabeDB
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementEingabeDBTabelle (#PCDATA)>
+<!ELEMENT ModellElementEingabeDBSpalte (#PCDATA)>
+<!ELEMENT ModellElementEingabeDBSortierSpalte (#PCDATA)>
+<!ATTLIST ModellElementEingabeDBSortierSpalte
+  Sortierung	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementEingabeDBTabellenende (#PCDATA)>
+<!ELEMENT ModellElementEingabeDBVorgabewert (#PCDATA)>
+<!ELEMENT ModellElementEingabeDBVariable (#PCDATA)>
+
+<!ELEMENT ModellElementEingabeDDE (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementEingabeDDEArbeitsmappe | ModellElementEingabeDDETabelle | ModellElementEingabeDDEStartzeile | ModellElementEingabeDDESpalte | ModellElementEingabeDDEVariable | ModellElementEingabeDDEVorgabewert | ModellElementEingabeDDETabellenende)*>
+<!ATTLIST ModellElementEingabeDDE
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementEingabeDDEArbeitsmappe (#PCDATA)>
+<!ELEMENT ModellElementEingabeDDETabelle (#PCDATA)>
+<!ELEMENT ModellElementEingabeDDEStartzeile (#PCDATA)>
+<!ELEMENT ModellElementEingabeDDESpalte (#PCDATA)>
+<!ELEMENT ModellElementEingabeDDEVariable (#PCDATA)>
+<!ELEMENT ModellElementEingabeDDEVorgabewert (#PCDATA)>
+<!ELEMENT ModellElementEingabeDDETabellenende (#PCDATA)>
+
+<!ELEMENT ModellElementAufzeichnung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAufzeichnungAusdruck1 | ModellElementAufzeichnungAusdruck2)*>
+<!ATTLIST ModellElementAufzeichnung
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAufzeichnungAusdruck1 (#PCDATA)>
+<!ELEMENT ModellElementAufzeichnungAusdruck2 (#PCDATA)>
+
+<!ELEMENT ModellElementDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabedatei | ModellElementAusgabeelement)*>
+<!ATTLIST ModellElementDateiausgabe
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAusgabedatei (#PCDATA)>
+<!ELEMENT ModellElementAusgabeelement EMPTY>
+<!ATTLIST ModellElementAusgabeelement
+  Typ	CDATA	#REQUIRED
+  Wert	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementScriptDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabedatei | ModellElementAusgabeskript)*>
+<!ATTLIST ModellElementScriptDateiausgabe
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAusgabeskript (#PCDATA)>
+
+<!ELEMENT ModellElementDatenbankausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | DatenbankVerbindung | ModellElementDatenbankausgabeTabelle | ModellElementDatenbankausgabeElement)*>
+<!ATTLIST ModellElementDatenbankausgabe
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementDatenbankausgabeTabelle (#PCDATA)>
+<!ELEMENT ModellElementDatenbankausgabeElement EMPTY>
+<!ATTLIST ModellElementDatenbankausgabeElement
+  Spalte	CDATA	#IMPLIED
+  Daten		CDATA	#IMPLIED
+  Typ		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementAusgabeDDE (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabeDDEArbeitsmappe | ModellElementAusgabeDDETabelle | ModellElementAusgabeDDEStartSpalte | ModellElementAusgabeDDEStartzeile | ModellElementAusgabeDDEElement)*>
+<!ATTLIST ModellElementAusgabeDDE
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAusgabeDDEArbeitsmappe (#PCDATA)>
+<!ELEMENT ModellElementAusgabeDDETabelle (#PCDATA)>
+<!ELEMENT ModellElementAusgabeDDEStartSpalte (#PCDATA)>
+<!ELEMENT ModellElementAusgabeDDEStartzeile (#PCDATA)>
+<!ELEMENT ModellElementAusgabeDDEElement EMPTY>
+<!ATTLIST ModellElementAusgabeDDEElement
+  Daten		CDATA	#IMPLIED
+  Typ		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementBenutzerstatistik (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBenutzerstatistikEintrag)*>
+<!ATTLIST ModellElementBenutzerstatistik
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementBenutzerstatistikEintrag (#PCDATA)>
+<!ATTLIST ModellElementBenutzerstatistikEintrag
+  Bezeichner	CDATA	#REQUIRED
+  IstZeitangabe	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementDifferenzZaehler (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementDifferenzZaehlerInkrement)*>
+<!ATTLIST ModellElementDifferenzZaehler
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementDifferenzZaehlerInkrement (#PCDATA)>
+
+<!ELEMENT ModellElementBereichStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementBereichStart
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementBereichEnde (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBereichStartName)*>
+<!ATTLIST ModellElementBereichEnde
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementBereichStartName (#PCDATA)>
+
+<!ELEMENT ModellElementAusleiten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementWarteschlange | ModellElementKundentyp | ModellElementBatchModus)*>
+<!ATTLIST ModellElementAusleiten
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementWarteschlange (#PCDATA)>
+<!ATTLIST ModellElementWarteschlange
+  IgnorierenWennLeer	(0|1)	#IMPLIED
+>
+
+<!ELEMENT ModellElementLogikIf (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementLogikBedingung)*>
+<!ATTLIST ModellElementLogikIf
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementLogikBedingung (#PCDATA)>
+
+<!ELEMENT ModellElementLogikElseIf (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementLogikBedingung)*>
+<!ATTLIST ModellElementLogikElseIf
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementLogikElse (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementLogikElse
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementLogikEndIf (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementLogikEndIf
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementLogikWhile (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementLogikBedingung)*>
+<!ATTLIST ModellElementLogikWhile
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementLogikEndWhile (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementLogikEndWhile
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementLogikDo (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementLogikDo
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementLogikUntil (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementLogikBedingung)*>
+<!ATTLIST ModellElementLogikUntil
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementTransportStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementTransportRoute | ModellElementTransportRouteNachSequenz | ModellElementTransportRouteNachEigenschaft | ModellElementTransportRessource | ModellElementTransportRessourcePrioritaet | ModellElementTransportRessourceVerzoegerteFreigabe | ModellElementTransportBereichStartName)*>
+<!ATTLIST ModellElementTransportStart
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTransportRoute (#PCDATA)>
+<!ATTLIST ModellElementTransportRoute
+  Kundentyp	CDATA	#IMPLIED
+  Ausdruck	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTransportRouteNachSequenz (#PCDATA)>
+<!ELEMENT ModellElementTransportRouteNachEigenschaft (#PCDATA)>
+<!ELEMENT ModellElementTransportRessource EMPTY>
+<!ATTLIST ModellElementTransportRessource
+  Name	    CDATA	#REQUIRED
+  Anzahl    CDATA	#REQUIRED
+>
+<!ELEMENT ModellElementTransportRessourcePrioritaet (#PCDATA)>
+<!ELEMENT ModellElementTransportRessourceVerzoegerteFreigabe (ModellElementVerteilung | ModellElementAusdruck)*>
+<!ATTLIST ModellElementTransportRessourceVerzoegerteFreigabe
+  Zeitbasis	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTransportBereichStartName (#PCDATA)>
+
+<!ELEMENT ModellElementTransportZiel (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementTransportZiel
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementTransporterStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTransportRoute | ModellElementTransportRouteNachSequenz | ModellElementTransportRouteNachEigenschaft | ModellElementTransporterTyp | ModellElementTransporterMindestWartezahl | ModellElementTransporterAnforderungsPrioritaet | ModellElementTransporterWarteplaetze | ModellElementTransporterWartePrioritaet | ModellElementTransporterPrioritaet | ModellElementTransporterBereichStartName)*>
+<!ATTLIST ModellElementTransporterStart
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTransporterTyp (#PCDATA)>
+<!ELEMENT ModellElementTransporterMindestWartezahl (#PCDATA)>
+<!ELEMENT ModellElementTransporterAnforderungsPrioritaet (#PCDATA)>
+<!ELEMENT ModellElementTransporterWarteplaetze (#PCDATA)>
+<!ELEMENT ModellElementTransporterWartePrioritaet (#PCDATA)>
+<!ELEMENT ModellElementTransporterPrioritaet (#PCDATA)>
+<!ATTLIST ModellElementTransporterPrioritaet
+  Name	CDATA	#REQUIRED
+>
+<!ELEMENT ModellElementTransporterBereichStartName (#PCDATA)>
+
+<!ELEMENT ModellElementTransportParkplatz (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTransporterTyp | ModellElementTransporterWarteplaetze | ModellElementTransporterWartePrioritaet)*>
+<!ATTLIST ModellElementTransportParkplatz
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementWegpunkt (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementWegpunktIcon | ModellElementWegpunktEintrag)*>
+<!ATTLIST ModellElementWegpunkt
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementWegpunktIcon (#PCDATA)>
+<!ELEMENT ModellElementWegpunktEintrag (#PCDATA)>
+<!ATTLIST ModellElementWegpunktEintrag
+  Ausgangsstation	CDATA	#REQUIRED
+  Zielstation		CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementTeleportStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTeleportStartZuZiel)*>
+<!ATTLIST ModellElementTeleportStart
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTeleportStartZuZiel (#PCDATA)>
+
+<!ELEMENT ModellElementTeleportZiel (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementTeleportZiel
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementFliessband (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementFliessbandKapazitaetVerfuegbar | ModellElementFliessbandKapazitaetBenoetigt | ModellElementFliessbandRichtung  | ModellElementFliessbandTransportzeit)*>
+<!ATTLIST ModellElementFliessband
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementFliessbandKapazitaetVerfuegbar (#PCDATA)>
+<!ELEMENT ModellElementFliessbandKapazitaetBenoetigt (#PCDATA)>
+<!ATTLIST ModellElementFliessbandKapazitaetBenoetigt
+  Kundentyp CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementFliessbandRichtung (#PCDATA)>
+<!ELEMENT ModellElementFliessbandTransportzeit (#PCDATA)>
+<!ATTLIST ModellElementFliessbandTransportzeit
+  Zeitbasis   CDATA	#REQUIRED
+  Typ         CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementAnalogerWert (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAnalogerWertStartwert | ModellElementAnalogerWertRate | ModellElementAnalogerWertAktualisierungsschrittweite | ModellElementAnalogerWertMinimum | ModellElementAnalogerWertMaximum)*>
+<!ATTLIST ModellElementAnalogerWert
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnalogerWertStartwert (#PCDATA)>
+<!ELEMENT ModellElementAnalogerWertRate (#PCDATA)>
+<!ELEMENT ModellElementAnalogerWertAktualisierungsschrittweite (#PCDATA)>
+<!ELEMENT ModellElementAnalogerWertMinimum (#PCDATA)>
+<!ELEMENT ModellElementAnalogerWertMaximum (#PCDATA)>
+
+<!ELEMENT ModellElementAnalogWertZuweisung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAnalogWertZuweisungWert | ModellElementAnalogWertZuweisungRate)*>
+<!ATTLIST ModellElementAnalogWertZuweisung
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnalogWertZuweisungWert (#PCDATA)>
+<!ATTLIST ModellElementAnalogWertZuweisungWert
+  ZielID    	CDATA	#REQUIRED
+>
+<!ELEMENT ModellElementAnalogWertZuweisungRate (#PCDATA)>
+<!ATTLIST ModellElementAnalogWertZuweisungWert
+  ZielID    	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementTank (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementTankKapazitaet | ModellElementTankStartwert | ModellElementTankAktualisierungsschrittweite | ModellElementTankVentil)*>
+<!ATTLIST ModellElementTank
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTankKapazitaet (#PCDATA)>
+<!ELEMENT ModellElementTankStartwert (#PCDATA)>
+<!ELEMENT ModellElementTankAktualisierungsschrittweite (#PCDATA)>
+<!ELEMENT ModellElementTankVentil (#PCDATA)>
+<!ATTLIST ModellElementTankVentil
+  Zeiteinheit   CDATA   #IMPLIED
+>
+
+<!ELEMENT ModellElementFluss (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementFlussQuelle | ModellElementFlussZiel | ModellElementFlussZeit | ModellElementFlussMenge | ModellElementFlussStopSignal | ModellElementFlussStopSignal)*>
+<!ATTLIST ModellElementFluss
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementFlussQuelle (#PCDATA)>
+<!ATTLIST ModellElementFlussQuelle
+  id	    CDATA	#REQUIRED
+  Ventil	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementFlussZiel (#PCDATA)>
+<!ATTLIST ModellElementFlussZiel
+  id	    CDATA	#REQUIRED
+  Ventil	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementFlussZeit (#PCDATA)>
+<!ELEMENT ModellElementFlussMenge (#PCDATA)>
+<!ELEMENT ModellElementFlussStopSignal (#PCDATA)>
+
+<!ELEMENT ModellElementFlussSignal (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementFlussSignalName | ModellElementFlussQuelle | ModellElementFlussZiel | ModellElementFlussZeit | ModellElementFlussMenge | ModellElementFlussSignal | ModellElementFlussStopSignal)*>
+<!ATTLIST ModellElementFlussSignal
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementFlussSignalName (#PCDATA)>
+
+<!ELEMENT ModellElementSensor (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementSensorTankID | ModellElementSensorSchwellenwert)*>
+<!ATTLIST ModellElementSensor
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementSensorTankID (#PCDATA)>
+<!ELEMENT ModellElementSensorSchwellenwert (#PCDATA)>
+<!ATTLIST ModellElementSensorSchwellenwert
+  Richtung  CDATA	#IMPLIED
+  Prozent   CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementVentilSetups (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVentilSetup)*>
+<!ATTLIST ModellElementVentilSetups 
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementVentilSetup (#PCDATA)>
+<!ATTLIST ModellElementVentilSetup
+  Tank      CDATA	#REQUIRED
+  Ventil    CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementAktion (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementAktionDatensatz)*>
+<!ATTLIST ModellElementAktion 
+  id	CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAktionDatensatz (#PCDATA)>
+<!ATTLIST ModellElementAktionDatensatz
+  Bedingungstyp             CDATA	#REQUIRED
+  Aktionstyp                CDATA	#IMPLIED
+  Bedingung                 CDATA   #IMPLIED
+  BedingungMindestabstand   CDATA   #IMPLIED
+  Schwellenwert             CDATA   #IMPLIED
+  Wert                      CDATA   #IMPLIED
+  SchwellenwertRichtung     CDATA   #IMPLIED
+  AnalogID                  CDATA   #IMPLIED
+  Variable                  CDATA   #IMPLIED
+>
+
+<!ELEMENT ModellElementIcon (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementIconName)*>
+<!ATTLIST ModellElementIcon
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementIconName (#PCDATA)>
+
+<!ELEMENT ModellElementAnimationText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationsmodus)*>
+<!ATTLIST ModellElementAnimationText
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnimationsmodus (#PCDATA)>
+<!ATTLIST ModellElementAnimationsmodus
+  Art	            CDATA	#REQUIRED
+  Nachkommastellen  CDATA   #IMPLIED
+>
+
+<!ELEMENT ModellElementAnimationTextJS (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationTextJSSkript)*>
+<!ATTLIST ModellElementAnimationTextJS
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnimationTextJSSkript (#PCDATA)>
+<!ATTLIST ModellElementAnimationTextJSSkript
+  Sprache   CDATA   #IMPLIED
+>
+
+<!ELEMENT ModellElementAnimationTextAuswahl (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | TextVorgabe | TextAusdruck)*>
+<!ATTLIST ModellElementAnimationTextAuswahl
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT TextVorgabe (#PCDATA)>
+<!ELEMENT TextAusdruck (#PCDATA)>
+<!ATTLIST TextAusdruck
+  Ausdruck	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementAnimationBalken (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementDatenausdruck | ModellElementDatenbereich | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementBalkenFarbe)*>
+<!ATTLIST ModellElementAnimationBalken
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementDatenausdruck (#PCDATA)>
+<!ELEMENT ModellElementDatenbereich EMPTY>
+<!ATTLIST ModellElementDatenbereich
+  Minimum	CDATA	#IMPLIED
+  Maximum	CDATA	#IMPLIED
+  Richtung	CDATA	#REQUIRED
+>
+<!ELEMENT ModellElementBalkenFarbe (#PCDATA)>
+
+<!ELEMENT ModellElementAnimationStapelBalken (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementDatenausdruck | ModellElementDatenbereich | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementBalkenFarbe)*>
+<!ATTLIST ModellElementAnimationStapelBalken
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementAnimationAmpel (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementAmpelBedingung)*>
+<!ATTLIST ModellElementAnimationAmpel
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAmpelBedingung (#PCDATA)>
+<!ATTLIST ModellElementAmpelBedingung
+  Licht	(rot|gelb)	#REQUIRED
+>
+
+<!ELEMENT ModellElementAnimationLCD (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementAnimationLCDAusdruck | ModellElementAnimationLCDZiffern | ModellElementAnimationLCDFarbe)*>
+<!ATTLIST ModellElementAnimationLCD
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnimationLCDAusdruck (#PCDATA)>
+<!ELEMENT ModellElementAnimationLCDZiffern (#PCDATA)>
+<!ELEMENT ModellElementAnimationLCDFarbe (#PCDATA)>
+
+<!ELEMENT ModellElementAnimationAnalogSkala (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementAnimationAnalogSkalaAusdruck | ModellElementAnimationAnalogSkalaFarbe)*>
+<!ATTLIST ModellElementAnimationAnalogSkala
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnimationAnalogSkalaAusdruck (#PCDATA)>
+<!ATTLIST ModellElementAnimationAnalogSkalaAusdruck
+  MinimalWert	CDATA	#IMPLIED
+  MaximalWert	CDATA	#REQUIRED
+>
+<!ELEMENT ModellElementAnimationAnalogSkalaFarbe (#PCDATA)>
+
+<!ELEMENT ModellElementAnimationBalkenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementMinimalwert | ModellElementMaximalwert)*>
+<!ATTLIST ModellElementAnimationBalkenDiagramm
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementMinimalwert (#PCDATA)>
+<!ELEMENT ModellElementMaximalwert (#PCDATA)>
+<!ELEMENT ModellElementDiagrammElement (#PCDATA)>
+<!ATTLIST ModellElementDiagrammElement
+  Minimum		CDATA	#IMPLIED
+  Maximum		CDATA	#IMPLIED
+  Linienfarbe	CDATA	#IMPLIED
+  Linienbreite	CDATA	#IMPLIED
+  Balkenfarbe	CDATA	#IMPLIED
+  Segmentfarbe	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementAnimationLinienDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementDiagrammZeitbereich)*>
+<!ATTLIST ModellElementAnimationLinienDiagramm
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementDiagrammZeitbereich (#PCDATA)>
+
+<!ELEMENT ModellElementAnimationTortenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementSegmentBeschriftung)*>
+<!ATTLIST ModellElementAnimationTortenDiagramm
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementSegmentBeschriftung (#PCDATA)>
+
+<!ELEMENT ModellElementAnimationUhr (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementFarbe | ModellElementAusdruck)*>
+<!ATTLIST ModellElementAnimationUhr
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementAnimationBild (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementFarbe | ModellElementLinienBreite | ModellElementBildDaten | ModellElementVerbindung)*>
+<!ATTLIST ModellElementAnimationBild
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementAnimationAufzeichnung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementAnimationAufzeichnungElementID | ModellElementAnimationAufzeichnungAnzahlPunkte | ModellElementAnimationAufzeichnungDatenfarbe)*>
+<!ATTLIST ModellElementAnimationAufzeichnung
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementAnimationAufzeichnungElementID (#PCDATA)>
+<!ELEMENT ModellElementAnimationAufzeichnungAnzahlPunkte (#PCDATA)>
+<!ELEMENT ModellElementAnimationAufzeichnungDatenfarbe (#PCDATA)>
+
+<!ELEMENT ModellElementUntermodell (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementUntermodellVerbindungen | ModellElemente)*>
+<!ATTLIST ModellElementUntermodell
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementUntermodellVerbindungen EMPTY>
+<!ATTLIST ModellElementUntermodellVerbindungen
+  einlaufend	CDATA	#REQUIRED
+  auslaufend	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModellElementUntermodellEingang (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementUntermodellEingang
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementUntermodellAusgang (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementUntermodellAusgang
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementReferenz (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementReferenzID)*>
+<!ATTLIST ModellElementReferenz
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementReferenzID (#PCDATA)>
+
+<!ELEMENT ModellElementSchaltflaeche (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementAktionDatensatz)*>
+<!ATTLIST ModellElementSchaltflaeche 
+  id	CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModellElementSchieberegler (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementSchiebereglerMinimum | ModellElementSchiebereglerMaximum | ModellElementSchiebereglerSchrittweite | ModellElementSchiebereglerVariable)*>
+<!ATTLIST ModellElementSchieberegler
+  id	CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementSchiebereglerMinimum (#PCDATA)>
+<!ELEMENT ModellElementSchiebereglerMaximum (#PCDATA)>
+<!ELEMENT ModellElementSchiebereglerSchrittweite (#PCDATA)>
+<!ELEMENT ModellElementSchiebereglerVariable (#PCDATA)>
+
+<!ELEMENT ModellElementCheckbox (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementCheckboxVariable | ModellElementCheckboxWertAusgewaehlt | ModellElementCheckboxWertUnausgewaehlt)*>
+<!ATTLIST ModellElementCheckbox
+  id	CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementCheckboxVariable (#PCDATA)>
+<!ELEMENT ModellElementCheckboxWertAusgewaehlt (#PCDATA)>
+<!ELEMENT ModellElementCheckboxWertUnausgewaehlt (#PCDATA)>
+
+<!ELEMENT ModellElementRadiobutton (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementRadiobuttonVariable | ModellElementRadiobuttonWert)*>
+<!ATTLIST ModellElementRadiobutton
+  id	CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementRadiobuttonVariable (#PCDATA)>
+<!ELEMENT ModellElementRadiobuttonWert (#PCDATA)>
+
+
+
+<!-- Beschreibung der Statistik-Dateien -->
+
+<!ELEMENT Statistik (Modell | Simulation | StatistikThreadBasierendeWartzeitKonfidenz | StatistikZwischenankunftszeitenKunden | StatistikZwischenankunftszeitenStationen | StatistikZwischenankunftszeitenStationenKunden | StatistikZwischenabgangszeitenKunden | StatistikZwischenabgangszeitenStationen | StatistikZwischenabgangszeitenStationenKunden | StatistikKundenbewegung | StatistikKundenpfade | StatistikWartezeitenKunden | StatistikTransferzeitenKunden | StatistikBedienzeitenKunden | StatistikVerweilzeitenKunden | StatistikWartezeitenAlleKunden | StatistikTransferzeitenAlleKunden | StatistikBedienzeitenAlleKunden | StatistikVerweilzeitenAlleKunden | StatistikWartezeitenStationen | StatistikTransferzeitenStationen | StatistikBedienzeitenStationen | StatistikVerweilzeitenStationen | StatistikWartezeitenStationenKunden | StatistikTransferzeitenStationenKunden | StatistikBedienzeitenStationenKunden | StatistikVerweilzeitenStationenKunden | StatistikKundenImSystem | StatistikKundentypenImSystemWartendUeberall | StatistikKundenAnStation | StatistikKundentypenImSystem | StatistikKundenAnStationWartend |StatistikKundentypenImSystemWartend | StatistikRessourceAnzahlen | StatistikAuslastung | StatistikPausenzeiten | StatistikTransporterAuslastung | StatistikTransporterPausenzeiten | StatistikZaehler | StatistikDifferenzZaehler | StatistikKundenWartezeitKosten | StatistikKundenTransferzeitKosten | StatistikKundenBedienzeitKosten | StatistikStationenKosten | StatistikRessourcenArbeitszeitKosten | StatistikRessourcenAuslastungsKosten | StatistikRessourcenLeerlaufKosten | StatistikLaufzeitWerte | StatistikBenutzerdefiniert | StatistikStatusZeit | StatistikAnalogWert | StatistikDurchsatz | StatistikWerteaufzeichnung | StatistikKundendaten)*>
+
+<!ELEMENT Simulation (StatistikLaufdatum | StatistikLaufzeit | StatistikSystem | StatistikNutzer | StatistikThreads | StatistikEreignisse | StatistikInternerAbbruch | StatistikWiederholungen | StatistikThreadLaufzeiten)*>
+
+<!ELEMENT StatistikLaufdatum (#PCDATA)>
+<!ELEMENT StatistikLaufzeit (#PCDATA)>
+<!ELEMENT StatistikSystem (#PCDATA)>
+<!ELEMENT StatistikNutzer (#PCDATA)>
+<!ELEMENT StatistikThreads (#PCDATA)>
+<!ATTLIST StatistikThreads
+  NUMAModus  CDATA	#IMPLIED
+>
+<!ELEMENT StatistikEreignisse (#PCDATA)>
+<!ELEMENT StatistikInternerAbbruch (#PCDATA)>
+<!ELEMENT StatistikWiederholungen (#PCDATA)>
+<!ELEMENT StatistikThreadLaufzeiten (#PCDATA)>
+
+<!ELEMENT StatistikThreadBasierendeWartzeitKonfidenz (StatistikThreadBasierendeWartzeitKonfidenzLevelHalbeBreite)*>
+
+<!ELEMENT StatistikThreadBasierendeWartzeitKonfidenzLevelHalbeBreite EMPTY>
+<!ATTLIST StatistikThreadBasierendeWartzeitKonfidenzLevelHalbeBreite
+  Typ	CDATA	#REQUIRED
+  Wert	CDATA	#REQUIRED
+>
+
+<!ELEMENT Station (#PCDATA)>
+<!ATTLIST Station
+  Anzahl						CDATA	#IMPLIED
+  Maximum						CDATA	#REQUIRED
+  Minimum						CDATA	#REQUIRED
+  Mittelwert					CDATA	#REQUIRED
+  Standardabweichung			CDATA	#REQUIRED
+  Summe							CDATA	#REQUIRED
+  Summe2						CDATA	#IMPLIED
+  Typ							CDATA	#REQUIRED
+  Variationskoeffizient			CDATA	#REQUIRED
+  Verteilung					CDATA	#IMPLIED
+  Autokorrelation				CDATA	#IMPLIED
+  Autokorrelation0100			CDATA	#IMPLIED
+  Autokorrelation0050			CDATA	#IMPLIED
+  Autokorrelation0010			CDATA	#IMPLIED
+  Autokorrelation0005			CDATA	#IMPLIED
+  Autokorrelation0001			CDATA	#IMPLIED
+  BatchGroesse					CDATA	#IMPLIED
+  BatchAnzahl					CDATA	#IMPLIED
+  BatchVarianz					CDATA	#IMPLIED
+  MittelwertKonfidenzRadius90	CDATA	#IMPLIED
+  MittelwertKonfidenzRadius95	CDATA	#IMPLIED
+  MittelwertKonfidenzRadius99	CDATA	#IMPLIED
+  WerteSumme                    CDATA	#IMPLIED
+  WerteSumme2                   CDATA	#IMPLIED
+  Quantil10						CDATA	#IMPLIED
+  Quantil25						CDATA	#IMPLIED
+  Quantil50						CDATA	#IMPLIED
+  Quantil75						CDATA	#IMPLIED
+  Quantil90						CDATA	#IMPLIED
+>
+
+<!ELEMENT Kundentyp (#PCDATA)>
+<!ATTLIST Kundentyp
+  Anzahl						CDATA	#IMPLIED
+  Maximum						CDATA	#REQUIRED
+  Minimum						CDATA	#REQUIRED
+  Mittelwert					CDATA	#REQUIRED
+  Standardabweichung			CDATA	#REQUIRED
+  Summe							CDATA	#REQUIRED
+  Summe2						CDATA	#IMPLIED
+  Typ							CDATA	#REQUIRED
+  Variationskoeffizient			CDATA	#REQUIRED
+  Verteilung					CDATA	#IMPLIED
+  Autokorrelation				CDATA	#IMPLIED
+  Autokorrelation0100			CDATA	#IMPLIED
+  Autokorrelation0050			CDATA	#IMPLIED
+  Autokorrelation0010			CDATA	#IMPLIED
+  Autokorrelation0005			CDATA	#IMPLIED
+  Autokorrelation0001			CDATA	#IMPLIED
+  BatchGroesse					CDATA	#IMPLIED
+  BatchAnzahl					CDATA	#IMPLIED
+  BatchVarianz					CDATA	#IMPLIED
+  MittelwertKonfidenzRadius90	CDATA	#IMPLIED
+  MittelwertKonfidenzRadius95	CDATA	#IMPLIED
+  MittelwertKonfidenzRadius99	CDATA	#IMPLIED
+  WerteSumme                    CDATA	#IMPLIED
+  WerteSumme2                   CDATA	#IMPLIED
+  Quantil10						CDATA	#IMPLIED
+  Quantil25						CDATA	#IMPLIED
+  Quantil50						CDATA	#IMPLIED
+  Quantil75						CDATA	#IMPLIED
+  Quantil90						CDATA	#IMPLIED
+>
+
+<!ELEMENT Bewegung EMPTY>
+<!ATTLIST Bewegung
+  Typ		CDATA	#REQUIRED
+  Anzahl	CDATA	#REQUIRED
+>
+
+<!ELEMENT Pfad EMPTY>
+<!ATTLIST Pfad
+  Typ		CDATA	#REQUIRED
+  Anzahl	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatistikKundendatenfeld (#PCDATA)>
+<!ATTLIST StatistikKundendatenfeld
+  Anzahl						CDATA	#IMPLIED
+  Maximum						CDATA	#REQUIRED
+  Minimum						CDATA	#REQUIRED
+  Mittelwert					CDATA	#REQUIRED
+  Standardabweichung			CDATA	#REQUIRED
+  Summe							CDATA	#REQUIRED
+  Summe2						CDATA	#IMPLIED
+  Typ							CDATA	#REQUIRED
+  Variationskoeffizient			CDATA	#REQUIRED
+  Verteilung					CDATA	#IMPLIED
+  Quantil10						CDATA	#IMPLIED
+  Quantil25						CDATA	#IMPLIED
+  Quantil50						CDATA	#IMPLIED
+  Quantil75						CDATA	#IMPLIED
+  Quantil90						CDATA	#IMPLIED
+>
+
+<!ELEMENT StatistikRessourceAnzahl (#PCDATA)>
+<!ATTLIST StatistikRessourceAnzahl
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Typ					CDATA	#REQUIRED
+  Variationskoeffizient	CDATA	#REQUIRED
+  WerteSumme            CDATA	#IMPLIED
+  WerteSumme2           CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED
+>
+
+<!ELEMENT StatistikRessource (#PCDATA)>
+<!ATTLIST StatistikRessource
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Typ					CDATA	#REQUIRED
+  Variationskoeffizient	CDATA	#REQUIRED
+  WerteSumme            CDATA	#IMPLIED
+  WerteSumme2           CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED  
+>
+
+<!ELEMENT StatistikTransporter (#PCDATA)>
+<!ATTLIST StatistikTransporter
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Typ					CDATA	#REQUIRED
+  Variationskoeffizient	CDATA	#REQUIRED
+  WerteSumme            CDATA	#IMPLIED
+  WerteSumme2           CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED
+>
+
+<!ELEMENT StatistikZaehlerName EMPTY>
+<!ATTLIST StatistikZaehlerName
+  Anzahl	CDATA	#REQUIRED
+  Anteil	CDATA	#IMPLIED
+>
+
+<!ELEMENT StatistikDifferenzZaehlerName (#PCDATA)>
+<!ATTLIST StatistikDifferenzZaehlerName
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Typ					CDATA	#REQUIRED
+  Variationskoeffizient	CDATA	#REQUIRED
+  WerteSumme            CDATA	#IMPLIED
+  WerteSumme2           CDATA	#IMPLIED
+>
+
+<!ELEMENT StatistikKosten EMPTY>
+<!ATTLIST StatistikKosten
+  Typ	CDATA	#REQUIRED
+  Wert	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatistikLaufzeitWert (#PCDATA)>
+<!ATTLIST StatistikLaufzeitWert
+  Typ			CDATA	#REQUIRED
+  Schrittweite	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatistikZwischenankunftszeitenKunden (Station)*>
+<!ELEMENT StatistikZwischenankunftszeitenStationen (Station)*>
+<!ELEMENT StatistikZwischenankunftszeitenStationenKunden (Station)*>
+<!ELEMENT StatistikZwischenabgangszeitenKunden (Kundentyp)*>
+<!ELEMENT StatistikZwischenabgangszeitenStationen (Station)*>
+<!ELEMENT StatistikZwischenabgangszeitenStationenKunden (Station)*>
+<!ELEMENT StatistikKundenbewegung (Bewegung)*>
+<!ELEMENT StatistikKundenpfade (Pfad)*>
+<!ELEMENT StatistikWartezeitenKunden (Kundentyp)*>
+<!ELEMENT StatistikTransferzeitenKunden (Kundentyp)*>
+<!ELEMENT StatistikBedienzeitenKunden (Kundentyp)*>
+<!ELEMENT StatistikVerweilzeitenKunden (Kundentyp)*>
+<!ELEMENT StatistikWartezeitenAlleKunden (#PCDATA)>
+<!ATTLIST StatistikWartezeitenAlleKunden
+  Anzahl						CDATA	#IMPLIED
+  Maximum						CDATA	#REQUIRED
+  Minimum						CDATA	#REQUIRED
+  Mittelwert					CDATA	#REQUIRED
+  Standardabweichung			CDATA	#REQUIRED
+  Summe							CDATA	#REQUIRED
+  Summe2						CDATA	#IMPLIED
+  Variationskoeffizient			CDATA	#REQUIRED
+  Verteilung					CDATA	#IMPLIED
+  Autokorrelation				CDATA	#IMPLIED
+  Autokorrelation0100			CDATA	#IMPLIED
+  Autokorrelation0050			CDATA	#IMPLIED
+  Autokorrelation0010			CDATA	#IMPLIED
+  Autokorrelation0005			CDATA	#IMPLIED
+  Autokorrelation0001			CDATA	#IMPLIED
+  BatchGroesse					CDATA	#IMPLIED
+  BatchAnzahl					CDATA	#IMPLIED
+  BatchVarianz					CDATA	#IMPLIED
+  MittelwertKonfidenzRadius90	CDATA	#IMPLIED
+  MittelwertKonfidenzRadius95	CDATA	#IMPLIED
+  MittelwertKonfidenzRadius99	CDATA	#IMPLIED
+  Quantil10						CDATA	#IMPLIED
+  Quantil25						CDATA	#IMPLIED
+  Quantil50						CDATA	#IMPLIED
+  Quantil75						CDATA	#IMPLIED
+  Quantil90						CDATA	#IMPLIED  
+>
+<!ELEMENT StatistikTransferzeitenAlleKunden (#PCDATA)>
+<!ATTLIST StatistikTransferzeitenAlleKunden
+  Anzahl				CDATA	#IMPLIED
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Variationskoeffizient	CDATA	#REQUIRED
+  Verteilung			CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED  
+>
+<!ELEMENT StatistikBedienzeitenAlleKunden (#PCDATA)>
+<!ATTLIST StatistikBedienzeitenAlleKunden
+  Anzahl				CDATA	#IMPLIED
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Variationskoeffizient	CDATA	#REQUIRED
+  Verteilung			CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED
+>
+<!ELEMENT StatistikVerweilzeitenAlleKunden (#PCDATA)>
+<!ATTLIST StatistikVerweilzeitenAlleKunden
+  Anzahl				CDATA	#IMPLIED
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Variationskoeffizient	CDATA	#REQUIRED
+  Verteilung			CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED
+>
+<!ELEMENT StatistikWartezeitenStationen (Station)*>
+<!ELEMENT StatistikTransferzeitenStationen (Station)*>
+<!ELEMENT StatistikBedienzeitenStationen (Station)*>
+<!ELEMENT StatistikVerweilzeitenStationen (Station)*>
+<!ELEMENT StatistikWartezeitenStationenKunden (Station)*>
+<!ELEMENT StatistikTransferzeitenStationenKunden (Station)*>
+<!ELEMENT StatistikBedienzeitenStationenKunden (Station)*>
+<!ELEMENT StatistikVerweilzeitenStationenKunden (Station)*>
+<!ELEMENT StatistikKundenImSystem (#PCDATA)>
+<!ATTLIST StatistikKundenImSystem
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Variationskoeffizient	CDATA	#REQUIRED
+  WerteSumme            CDATA	#IMPLIED
+  WerteSumme2           CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED
+>
+<!ELEMENT StatistikKundentypenImSystemWartendUeberall (#PCDATA)>
+<!ATTLIST StatistikKundentypenImSystemWartendUeberall
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Variationskoeffizient	CDATA	#REQUIRED
+  WerteSumme            CDATA	#IMPLIED
+  WerteSumme2           CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED
+>
+<!ELEMENT StatistikKundenAnStation (Station)*>
+<!ELEMENT StatistikKundentypenImSystem (Station)*>
+<!ELEMENT StatistikKundenAnStationWartend (Station)*>
+<!ELEMENT StatistikKundentypenImSystemWartend (Kundentyp)*>
+<!ELEMENT StatistikRessourceAnzahlen (StatistikRessourceAnzahl)*>
+<!ELEMENT StatistikAuslastung (StatistikRessource)*>
+<!ELEMENT StatistikPausenzeiten (StatistikRessource)*>
+<!ELEMENT StatistikTransporterAuslastung (StatistikTransporter)*>
+<!ELEMENT StatistikTransporterPausenzeiten (StatistikTransporter)*>
+<!ELEMENT StatistikZaehler (StatistikZaehlerName)*>
+<!ELEMENT StatistikDifferenzZaehler (StatistikDifferenzZaehlerName)*>
+<!ELEMENT StatistikKundenWartezeitKosten (StatistikKosten)*>
+<!ELEMENT StatistikKundenTransferzeitKosten (StatistikKosten)*>
+<!ELEMENT StatistikKundenBedienzeitKosten (StatistikKosten)*>
+<!ELEMENT StatistikStationenKosten (StatistikKosten)*>
+<!ELEMENT StatistikRessourcenArbeitszeitKosten (StatistikKosten)*>
+<!ELEMENT StatistikRessourcenAuslastungsKosten (StatistikKosten)*>
+<!ELEMENT StatistikRessourcenLeerlaufKosten (StatistikKosten)*>
+<!ELEMENT StatistikLaufzeitWerte (StatistikLaufzeitWert)*>
+<!ELEMENT StatistikBenutzerdefiniert (StatistikBenutzerdefiniertDatensatz)*>
+<!ELEMENT StatistikBenutzerdefiniertDatensatz (#PCDATA)>
+<!ATTLIST StatistikBenutzerdefiniertDatensatz
+  Anzahl						CDATA	#IMPLIED
+  Maximum						CDATA	#REQUIRED
+  Minimum						CDATA	#REQUIRED
+  Mittelwert					CDATA	#REQUIRED
+  Standardabweichung			CDATA	#REQUIRED
+  Summe							CDATA	#REQUIRED
+  Summe2						CDATA	#IMPLIED
+  Variationskoeffizient			CDATA	#REQUIRED
+  Verteilung					CDATA	#IMPLIED
+  Autokorrelation				CDATA	#IMPLIED
+  Autokorrelation0100			CDATA	#IMPLIED
+  Autokorrelation0050			CDATA	#IMPLIED
+  Autokorrelation0010			CDATA	#IMPLIED
+  Autokorrelation0005			CDATA	#IMPLIED
+  Autokorrelation0001			CDATA	#IMPLIED
+  BatchGroesse					CDATA	#IMPLIED
+  BatchAnzahl					CDATA	#IMPLIED
+  BatchVarianz					CDATA	#IMPLIED
+  MittelwertKonfidenzRadius90	CDATA	#IMPLIED
+  MittelwertKonfidenzRadius95	CDATA	#IMPLIED
+  MittelwertKonfidenzRadius99	CDATA	#IMPLIED
+  Quantil10						CDATA	#IMPLIED
+  Quantil25						CDATA	#IMPLIED
+  Quantil50						CDATA	#IMPLIED
+  Quantil75						CDATA	#IMPLIED
+  Quantil90						CDATA	#IMPLIED
+>
+<!ELEMENT StatistikStatusZeit (StatistikStatusZeitEintrag)*>
+<!ELEMENT StatistikStatusZeitEintrag (StatistikStatusZeitStatus)*>
+<!ATTLIST StatistikStatusZeitEintrag
+  Typ	CDATA	#REQUIRED
+>
+<!ELEMENT StatistikStatusZeitStatus (#PCDATA)>
+<!ATTLIST StatistikStatusZeitStatus
+  Name	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatistikAnalogWert (StatistikAnalogWertName)*>
+<!ELEMENT StatistikAnalogWertName EMPTY>
+<!ATTLIST StatistikAnalogWertName
+  Typ	        CDATA	#REQUIRED
+  Zeit          CDATA	#REQUIRED
+  Summe         CDATA	#REQUIRED
+  Mittelwert    CDATA	#REQUIRED
+  Minimum       CDATA	#REQUIRED
+  Maximum       CDATA	#REQUIRED
+>
+
+<!ELEMENT StatistikDurchsatz (StatistikDurchsatzName)*>
+<!ELEMENT StatistikDurchsatzName EMPTY>
+<!ATTLIST StatistikDurchsatzName
+  Typ		CDATA	#REQUIRED
+  Zaehler	CDATA	#REQUIRED
+  Nenner	CDATA	#REQUIRED
+  Quotient	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatistikWerteaufzeichnung (StatistikWerteaufzeichnungName)*>
+<!ELEMENT StatistikWerteaufzeichnungName (#PCDATA)>
+<!ATTLIST StatistikWerteaufzeichnungName
+  Type	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatistikKundendaten (StatistikKundendatenfeld)*>
+
+
+
+<!-- Beschreibung der Optimierer-Einstellungen-Dateien -->
+
+<!ELEMENT OptimiererEinstellungen (OptimiererKontrollvariable | OptimiererNebenbedingung | OptimiererZiel | OptimiererAusgabeverzeichnis | OptimiererKern | OptimiererKernSeriell | OptimiererKernGenetisch)*>
+
+<!ELEMENT OptimiererKontrollvariable (#PCDATA)>
+<!ATTLIST OptimiererKontrollvariable
+  Modus				CDATA	#REQUIRED
+  BereichMinimum	CDATA	#REQUIRED
+  BereichMaximum	CDATA	#REQUIRED
+  Ganzzahl			CDATA	#IMPLIED
+  Startwert			CDATA	#REQUIRED
+  Typ   			CDATA	#IMPLIED
+>
+<!ELEMENT OptimiererNebenbedingung (#PCDATA)>
+<!ELEMENT OptimiererZiel (#PCDATA)>
+<!ATTLIST OptimiererZiel
+  Modus				CDATA	#REQUIRED
+  Richtung			CDATA	#REQUIRED
+  BereichMinimum	CDATA	#IMPLIED
+  BereichMaximum	CDATA	#IMPLIED
+>
+<!ELEMENT OptimiererAusgabeverzeichnis (#PCDATA)>
+<!ATTLIST OptimiererAusgabeverzeichnis
+  Modus	CDATA	#IMPLIED
+>
+
+<!ELEMENT OptimiererKern (#PCDATA)>
+
+<!ELEMENT OptimiererKernSeriell EMPTY>
+<!ATTLIST OptimiererKernSeriell
+  Aenderungsrate1	CDATA	#IMPLIED
+  Aenderungsrate2	CDATA	#IMPLIED
+  Aenderungsrate3	CDATA	#IMPLIED
+  Aenderungsrate4	CDATA	#IMPLIED
+>
+
+<!ELEMENT OptimiererKernGenetisch EMPTY>
+<!ATTLIST OptimiererKernGenetisch
+  Aenderungsrate1		CDATA	#IMPLIED
+  Aenderungsrate2		CDATA	#IMPLIED
+  Aenderungsrate3		CDATA	#IMPLIED
+  Aenderungsrate4		CDATA	#IMPLIED
+  Aenderungsrate5		CDATA	#IMPLIED
+  Populationsgroesse	CDATA	#IMPLIED
+  EvolutionaererDruck	CDATA	#IMPLIED
+>
+
+
+
+<!-- English XML Data / Englische XML Daten -->
+
+
+
+<!-- Documentation of the model files -->
+
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | UserTemplates | ExternalData)*>
+
+<!ELEMENT ModelVersion (#PCDATA)>
+<!ELEMENT ModelName (#PCDATA)>
+<!ELEMENT ModelAuthor (#PCDATA)>
+<!ELEMENT ModelDescription (#PCDATA)>
+<!ELEMENT ModelWarmUpPhase (#PCDATA)>
+<!ELEMENT ModelRepeats (#PCDATA)>
+
+<!ELEMENT ModelClients (#PCDATA)>
+<!ATTLIST ModelClients
+  Active	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModelTerminationCondition (#PCDATA)>
+<!ATTLIST ModelTerminationCondition
+  Active	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModelTerminationTime (#PCDATA)>
+<!ATTLIST ModelTerminationTime
+  Active	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModelRandomNumbersSeed (#PCDATA)>
+<!ATTLIST ModelRandomNumbersSeed
+  Active	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModelAutocorrelation (#PCDATA)>
+<!ATTLIST ModelAutocorrelation
+  All	(0|1)	#IMPLIED
+>
+
+<!ELEMENT ModelBatchSize (#PCDATA)>
+
+<!ELEMENT Resources (Resource)*>
+<!ATTLIST Resources
+  SecondaryPriority	CDATA				#IMPLIED
+>
+
+<!ELEMENT Resource (ResourceFailure)*>
+<!ATTLIST Resource
+  Name					        CDATA				#REQUIRED
+  Icon					        CDATA				#IMPLIED
+  Type					        (Number|Schedule)	#REQUIRED
+  Value                         CDATA               #REQUIRED
+  CostsPerHour			        CDATA				#IMPLIED
+  CostsPerWorkingHour	        CDATA				#IMPLIED
+  CostsPerIdleHour		        CDATA				#IMPLIED
+  SetUpTimesDistribution        CDATA				#IMPLIED
+  SetUpTimesExpression          CDATA				#IMPLIED
+  TimeBase                      CDATA				#IMPLIED
+>
+
+<!ELEMENT ResourceFailure EMPTY>
+<!ATTLIST ResourceFailure
+  FailureAfterNumberOfClients   CDATA				#IMPLIED
+  FailureAfterWorkingTime       CDATA				#IMPLIED
+  FailureAfterTime              CDATA				#IMPLIED
+  FailureByDistribution     	CDATA				#IMPLIED
+  FailureByExpression    	    CDATA				#IMPLIED
+  FailureDistribution           CDATA				#IMPLIED
+  FailureExpression             CDATA				#IMPLIED
+>
+
+<!ELEMENT ClientTypeData (ClientData)*>
+
+<!ELEMENT ClientData EMPTY>
+<!ATTLIST ClientData
+  Name	CDATA	#REQUIRED
+  Color	CDATA	#IMPLIED
+  Icon	CDATA	#IMPLIED
+  Costs	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelSchedules (ModelSchedule)*>
+
+<!ELEMENT ModelSchedule (#PCDATA)>
+<!ATTLIST ModelSchedule
+  Name				CDATA							#REQUIRED
+  DurationPerSlot	CDATA							#REQUIRED
+  EditorMaxY		CDATA							#REQUIRED
+  ContinueSchedule	(Repeat|RepeatDays|LastValue|0)	#REQUIRED
+>
+
+<!ELEMENT ModelAdditionalStatistics (ModelAdditionalStatisticsElement)*>
+<!ATTLIST ModelAdditionalStatistics
+  StepWide	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelAdditionalStatisticsElement (#PCDATA)>
+<!ATTLIST ModelAdditionalStatisticsElement
+  Mode	CDATA	#REQUIRED
+>
+
+<!ELEMENT InitialVariable (#PCDATA)*>
+<!ATTLIST InitialVariable
+  Name	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelColor EMPTY>
+<!ATTLIST ModelColor
+  Background    		CDATA	#IMPLIED
+  Raster	    		CDATA	#IMPLIED
+  BackgroundGradient	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelSequences (ModelSequence)*>
+<!ELEMENT ModelSequence (ModelSequenceStep)*>
+<!ATTLIST ModelSequence
+  Name	CDATA	#REQUIRED
+>
+<!ELEMENT ModelSequenceStep (ModelSequenceStepAssignment)*>
+<!ATTLIST ModelSequenceStep
+  NextStep	CDATA	#REQUIRED
+  Target	CDATA	#IMPLIED
+>
+<!ELEMENT ModelSequenceStepAssignment (#PCDATA)*>
+<!ATTLIST ModelSequenceStepAssignment
+  Number	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelTransporters (ModelTransporter)*>
+<!ELEMENT ModelTransporter (ModelTransporterCount | ModelTransporterCapacity | ModelTransporterTransferTimes | ModelTransporterDistance | TransporterFailure | ModelTransporterLoadingDistribution | ModelTransporterLoadingExpression | ModelTransporterUnloadingDistribution | ModelTransporterUnloadingExpression)*>
+<!ATTLIST ModelTransporter
+  Name	        CDATA	#REQUIRED
+  Icon	        CDATA	#IMPLIED
+  IconLeft      CDATA	#IMPLIED
+  IconEmpty     CDATA	#IMPLIED
+  IconLeftEmpty CDATA	#IMPLIED
+>
+<!ELEMENT ModelTransporterCount EMPTY>
+<!ATTLIST ModelTransporterCount
+  Station	CDATA	#REQUIRED
+  Count		CDATA	#REQUIRED
+>
+<!ELEMENT ModelTransporterCapacity (#PCDATA)>
+<!ELEMENT ModelTransporterTransferTimes (#PCDATA)>
+<!ELEMENT ModelTransporterDistance (#PCDATA)>
+<!ATTLIST ModelTransporterDistance
+  Origin		CDATA	#REQUIRED
+  Destination	CDATA	#REQUIRED
+>
+<!ELEMENT TransporterFailure EMPTY>
+<!ATTLIST TransporterFailure
+  FailureByDistance             CDATA	#IMPLIED
+  FailureByDistribution         CDATA	#IMPLIED
+  FailureByExpression           CDATA	#IMPLIED
+  FailureAfterNumberOfClients   CDATA	#IMPLIED
+  FailureAfterWorkingTime       CDATA	#IMPLIED
+  FailureDistribution           CDATA	#IMPLIED
+  FailureExpression             CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelTransporterLoadingDistribution (#PCDATA)>
+<!ELEMENT ModelTransporterLoadingExpression (#PCDATA)>
+<!ELEMENT ModelTransporterUnloadingDistribution (#PCDATA)>
+<!ELEMENT ModelTransporterUnloadingExpression (#PCDATA)>
+
+<!ELEMENT ModelPathSegments (ModelPathConnection)*>
+<!ELEMENT ModelPathConnection EMPTY>
+<!ATTLIST ModelPathConnection
+  From  CDATA	#REQUIRED
+  To    CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelAnimationImages (ModelAnimationImage)*>
+<!ELEMENT ModelAnimationImage (#PCDATA)>
+<!ATTLIST ModelAnimationImage
+  Name  CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelStatisticsDistributionHours (#PCDATA)>
+
+<!ELEMENT ModelStoppOnCalcError (#PCDATA)>
+
+<!ELEMENT ModelEdgesNormal EMPTY>
+<!ATTLIST ModelEdgesNormal
+  Color CDATA	#IMPLIED
+  Type  CDATA	#IMPLIED
+  Width CDATA	#IMPLIED
+>
+<!ELEMENT ModelEdgesSelected EMPTY>
+<!ATTLIST ModelEdgesSelected
+  Type  CDATA	#IMPLIED
+  Width CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelPathRecording EMPTY>
+<!ATTLIST ModelPathRecording
+  StationTransitions	CDATA	#IMPLIED
+  ClientPaths			CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementConnectionDrawStyle (#PCDATA)>
+
+<!ELEMENT ModelTimedChecks (#PCDATA)>
+
+<!ELEMENT UserTemplates (UserTemplate)*>
+<!ELEMENT UserTemplate (ModelElements)>
+<!ATTLIST UserTemplate
+  Name  CDATA	#REQUIRED
+>
+
+<!ELEMENT ExternalData (ExternalDataRecord)*>
+<!ATTLIST ExternalData
+  Active	CDATA	#IMPLIED
+  Mode		CDATA	#REQUIRED
+  Workbook	CDATA	#REQUIRED
+  Table		CDATA	#IMPLIED
+>
+<!ELEMENT ExternalDataRecord (ExternalDataCell | CompareModelsInput)>
+<!ELEMENT ExternalDataCell (#PCDATA)>
+<!ELEMENT CompareModelsInput (CompareModelsName | CompareModelsInputData)>
+<!ELEMENT CompareModelsName (#PCDATA)>
+<!ELEMENT CompareModelsInputData (#PCDATA)>
+<!ATTLIST CompareModelsInputData
+  Mode	CDATA	#REQUIRED
+>
+
+
+
+<!-- Documentation of the model elements: general properties -->
+
+<!ELEMENT ModelElementName (#PCDATA)>
+
+<!ELEMENT ModelElementDescription (#PCDATA) >
+
+<!ELEMENT ModelElementSize EMPTY>
+<!ATTLIST ModelElementSize
+  x	CDATA	#REQUIRED
+  y	CDATA	#REQUIRED
+  w	CDATA	#REQUIRED
+  h	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementConnection EMPTY>
+<!ATTLIST ModelElementConnection
+  Element		CDATA	#IMPLIED
+  Element1		CDATA	#IMPLIED
+  Element2		CDATA	#IMPLIED
+  Type			CDATA	#REQUIRED
+  Rate			CDATA	#IMPLIED
+  Condition		CDATA	#IMPLIED
+  TimedChecks	CDATA	#IMPLIED
+  ClientType	CDATA	#IMPLIED
+  Status		CDATA	#IMPLIED
+  NewClientType CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementColor (#PCDATA)>
+<!ELEMENT ModelElementLineWidth (#PCDATA)>
+<!ELEMENT ModelElementBackgroundColor (#PCDATA)>
+<!ATTLIST ModelElementBackgroundColor
+  Alpha	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementBackgroundColorGradient (#PCDATA)>
+<!ELEMENT ModelElementStationimage (#PCDATA)>
+<!ELEMENT ModelElementLineColor (#PCDATA)>
+
+<!ELEMENT ModelElementFontFamily (#PCDATA)>
+
+<!ELEMENT ModelElementFontSize (#PCDATA)>
+<!ATTLIST ModelElementFontSize
+  bold		(0|1)	#IMPLIED
+  italic	(0|1)	#IMPLIED
+>
+
+<!ELEMENT ModelElementDistribution (#PCDATA)>
+<!ATTLIST ModelElementDistribution
+  TimeBase			CDATA	#IMPLIED
+  Type				CDATA	#IMPLIED
+  ClientType		CDATA	#IMPLIED
+  Destination		CDATA	#IMPLIED
+  Status			CDATA	#IMPLIED
+  IsTransferTime	CDATA	#IMPLIED
+  Count         	CDATA	#IMPLIED
+  ClientCount      	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementExpression (#PCDATA)>
+<!ATTLIST ModelElementExpression
+  TimeBase			CDATA	#IMPLIED
+  Type				CDATA	#IMPLIED
+  ClientType		CDATA	#IMPLIED
+  Destination		CDATA	#IMPLIED
+  IsTransferTime	CDATA	#IMPLIED
+  Status			CDATA	#IMPLIED
+  Count         	CDATA	#IMPLIED
+  ClientCount      	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementSetupTimesDistribution (#PCDATA)>
+<!ATTLIST ModelElementSetupTimesDistribution
+  ClientType1		CDATA	#REQUIRED
+  ClientType2		CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementSetupTimesExpression (#PCDATA)>
+<!ATTLIST ModelElementSetupTimesExpression
+  ClientType1		CDATA	#REQUIRED
+  ClientType2		CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementBatchData (#PCDATA)>
+<!ATTLIST ModelElementBatchData
+  Size		CDATA	#IMPLIED
+  Minimum	CDATA	#IMPLIED
+  Maximum	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementClientType (#PCDATA)>
+
+<!ELEMENT ModelElementOperators EMPTY>
+<!ATTLIST ModelElementOperators
+  Group			CDATA	#REQUIRED
+  Count			CDATA	#REQUIRED
+  Alternative	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementOperatorsPriority (#PCDATA)>
+
+<!-- Documentation of the model elements: individual elements -->
+
+<!ELEMENT ModelElements (ModelElementEdge | ModelElementText | ModelElementVertex | ModelElementLine | ModelElementRectangle | ModelElementEllipse | ModelElementImage | ModelElementSource | ModelElementMultiSource | ModelElementTableSource | ModelElementDatabaseSource | ModelElementDDESource | ModelElementDispose | ModelElementAssignment | ModelElementAssignmentText | ModelElementSequenceAssignment | ModelElementCosts | ModelElementDelay | ModelElementSeparate | ModelElementBatch | ModelElementMultiBatch | ModelElementMatch | ModelElementSplit | ModelElementDuplicate | ModelElementDecide | ModelElementDecideJS | ModelElementBalking | ModelElementProcessStation | ModelElementHold | ModelElementHoldMulti | ModelElementHoldScript | ModelElementSignal | ModelElementBarrier | ModelElementBarrierPull | ModelElementSeizeResource | ModelElementReleaseResource | ModelElementClientStatistics | ModelElementVariable | ModelElementScript | ModelElementCounter | ModelElementCounterMulti | ModelElementThroughput | ModelElementStateStatistics | ModelElementInput | ModelElementInputScript | ModelElementInputDB | ModelElementInputDDE | ModelElementRecord | ModelElementOutput | ModelElementScriptOutput | ModelElementDatabaseOutput | ModelElementOutputDDE | ModelElementUserStatistics | ModelElementDifferenceCounter | ModelElementSectionStart | ModelElementSectionEnd | ModelElementPickUp | ModelElementLogicIf | ModelElementLogicElseIf | ModelElementLogicElse | ModelElementLogicEndIf | ModelElementLogicWhile | ModelElementLogicEndWhile | ModelElementLogicDo | ModelElementLogicUntil | ModelElementTransportOrigin | ModelElementTransportDestination | ModelElementTransporterOrigin | ModelElementTransportParkingLot | ModelElementWayPoint | ModelElementTeleportOrigin | ModelElementTeleportDestination | ModelElementConveyor | ModelElementAnalogValue | ModelElementAnalogValueAssignment | ModelElementTank | ModelElementFlow | ModelElementFlowSignal | ModelElementSensor | ModelElementValveSetups | ModelElementAction | ModelElementIcon | ModelElementAnimationText | ModelElementAnimationTextJS | ModelElementAnimationTextSelect | ModelElementAnimationBar | ModelElementAnimationStackBar | ModelElementAnimationTrafficLights | ModelElementAnimationLCD | ModelElementAnimationPointerMeasuring | ModelElementAnimationBarDiagram | ModelElementAnimationLineDiagram | ModelElementAnimationPieDiagram | ModelElementAnimationClock | ModelElementAnimationImage | ModelElementAnimationRecord | ModelElementSubModel | ModelElementSubModelInput | ModelElementSubModelOutput | ModelElementReference | ModelElementButton | ModelElementSlider | ModelElementCheckbox | ModelElementRadiobutton)*>
+
+<!ELEMENT ModelElementEdge (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementConnection | ModelElementConnectionDrawStyle)*>
+<!ATTLIST ModelElementEdge
+  id	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor)*>
+<!ATTLIST ModelElementText
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTextLine (#PCDATA)>
+
+<!ELEMENT ModelElementVertex (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementConnection)*>
+<!ATTLIST ModelElementVertex
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementLine (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLineWidth | ModelElementColor | ModelElementLineType | ModelElementLineArrowStart | ModelElementLineArrowEnd)*>
+<!ATTLIST ModelElementLine
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementLineType (#PCDATA)>
+<!ELEMENT ModelElementLineArrowStart (#PCDATA)>
+<!ELEMENT ModelElementLineArrowEnd (#PCDATA)>
+
+<!ELEMENT ModelElementRectangle (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLineWidth | ModelElementColor | ModelElementBackgroundColor | ModelElementBackgroundColorGradient | ModelElementRounding)*>
+<!ATTLIST ModelElementRectangle
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementRounding (#PCDATA)>
+
+<!ELEMENT ModelElementEllipse (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLineWidth | ModelElementColor | ModelElementBackgroundColor | ModelElementBackgroundColorGradient)*>
+<!ATTLIST ModelElementEllipse
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementImage (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLineWidth | ModelElementColor | ModelElementImageData)*>
+<!ATTLIST ModelElementImage
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementImageData (#PCDATA)>
+<!ATTLIST ModelElementImageData
+  Expression	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalThreshold | ModelElementArrivalSignal | ModelElementBatchData | ModelElementStartTime)*>
+<!ATTLIST ModelElementSource
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementSchedule (#PCDATA)>
+<!ATTLIST ModelElementSchedule
+  Count			CDATA	#IMPLIED
+  ClientCount	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementStartTime (#PCDATA)>
+
+<!ELEMENT ModelElementArrivalCondition (#PCDATA)>
+<!ATTLIST ModelElementArrivalCondition
+  MinimumDistance	CDATA	#IMPLIED
+  Count				CDATA	#IMPLIED
+  ClientCount		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementArrivalThreshold (#PCDATA)>
+<!ATTLIST ModelElementArrivalThreshold
+  Value			CDATA	#REQUIRED
+  Direction		CDATA	#IMPLIED
+  Count			CDATA	#IMPLIED
+  ClientCount	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementArrivalSignal (#PCDATA)>
+<!ATTLIST ModelElementArrivalSignal
+  Count			CDATA	#IMPLIED
+  ClientCount	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementMultiSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementMultiSourceData)*>
+<!ATTLIST ModelElementMultiSource
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementMultiSourceData (ModelElementName | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalSignal | ModelElementBatchData | ModelElementStartTime | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
+
+<!ELEMENT ModelElementTableSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTableFile | ModelElementTableClientType)*>
+<!ATTLIST ModelElementTableSource
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTableFile (#PCDATA)>
+<!ATTLIST ModelElementTableFile
+  NumberValues	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTableClientType (#PCDATA)>
+
+<!ELEMENT ModelElementDatabaseSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | DatabaseConnection | ModelElementDatabaseTable | ModelElementDatabaseClientType | ModelElementDatabaseArrivalsColumn | ModelElementDatabaseClientTypeColumn | ModelElementDatabaseInfoColumn)*>
+<!ATTLIST ModelElementDatabaseSource
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT DatabaseConnection EMPTY>
+<!ATTLIST DatabaseConnection
+  Type      	CDATA	#IMPLIED
+  Configuration	CDATA	#IMPLIED
+  UserName	    CDATA	#IMPLIED
+  Password	    CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDatabaseTable (#PCDATA)>
+<!ELEMENT ModelElementDatabaseClientType (#PCDATA)>
+<!ELEMENT ModelElementDatabaseArrivalsColumn (#PCDATA)>
+<!ELEMENT ModelElementDatabaseClientTypeColumn (#PCDATA)>
+<!ELEMENT ModelElementDatabaseInfoColumn (#PCDATA)>
+
+<!ELEMENT ModelElementDDESource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDDESourceWorkbook | ModelElementDDESourceTable | ModelElementDDESourceStartRow | ModelElementDDESourceColumn | ModelElementDDESourceClientType)*>
+<!ATTLIST ModelElementDDESource
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDDESourceWorkbook (#PCDATA)>
+<!ELEMENT ModelElementDDESourceTable (#PCDATA)>
+<!ELEMENT ModelElementDDESourceStartRow (#PCDATA)>
+<!ELEMENT ModelElementDDESourceColumn (#PCDATA)>
+<!ELEMENT ModelElementDDESourceClientType (#PCDATA)>
+
+<!ELEMENT ModelElementDispose (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDisposeStopp)*>
+<!ATTLIST ModelElementDispose
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDisposeStopp (#PCDATA)>
+
+<!ELEMENT ModelElementAssignment (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementAssignment
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementAssignmentText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentTextRecord)*>
+<!ATTLIST ModelElementAssignmentText
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAssignmentTextRecord (#PCDATA)>
+<!ATTLIST ModelElementAssignmentTextRecord
+  key   CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementSequenceAssignment (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSequence)*>
+<!ATTLIST ModelElementSequenceAssignment
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementSequence (#PCDATA)>
+
+<!ELEMENT ModelElementCosts (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCostsClientsWaitingTime | ModelElementCostsClientsTransferTime | ModelElementCostsClientsProcessingTime | ModelElementCostsStation)*>
+<!ATTLIST ModelElementCosts
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementCostsClientsWaitingTime (#PCDATA)>
+<!ELEMENT ModelElementCostsClientsTransferTime (#PCDATA)>
+<!ELEMENT ModelElementCostsClientsProcessingTime (#PCDATA)>
+<!ELEMENT ModelElementCostsStation (#PCDATA)>
+
+<!ELEMENT ModelElementDelay (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementDelayCosts)*>
+<!ATTLIST ModelElementDelay
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDelayCosts (#PCDATA)>
+
+<!ELEMENT ModelElementSeparate (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementSeparate
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementBatchData)*>
+<!ATTLIST ModelElementBatch
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementBatchMode (#PCDATA)>
+
+<!ELEMENT ModelElementMultiBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchClientType)*>
+<!ATTLIST ModelElementMultiBatch
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementBatchClientType (ModelElementClientType | ModelElementBatchMode | ModelElementBatchData)*>
+<!ATTLIST ModelElementBatchClientType
+  name	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementMatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementMatchProperty)*>
+<!ATTLIST ModelElementMatch
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementMatchProperty (#PCDATA)>
+<!ATTLIST ModelElementMatchProperty
+  Type  CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementSplit (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSplitData)*>
+<!ATTLIST ModelElementSplit
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementSplitData (ModelElementName | ModelElementBatchData | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
+
+<!ELEMENT ModelElementDuplicate (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementDuplicate
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementDecide (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDecideMode | ModelElementDecideKey)*>
+<!ATTLIST ModelElementDecide
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDecideMode (#PCDATA)>
+<!ELEMENT ModelElementDecideKey (#PCDATA)>
+
+<!ELEMENT ModelElementDecideJS (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDecideScript)*>
+<!ATTLIST ModelElementDecideJS
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDecideScript (#PCDATA)>
+<!ATTLIST ModelElementDecideScript
+  Language	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementBalking (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBalkingExpression)*>
+<!ATTLIST ModelElementBalking
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementBalkingExpression (#PCDATA)>
+<!ATTLIST ModelElementBalkingExpression
+  ClientType    CDATA	#IMPLIED
+  Mode          CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementProcessStation (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchData | ModelElementDistribution | ModelElementExpression | ModelElementSetupTimesDistribution | ModelElementSetupTimesExpression | ModelElementPriority | ModelElementOperators | ModelElementOperatorsPriority | ModelElementStationCosts | ModelElementTimeCosts)*>
+<!ATTLIST ModelElementProcessStation
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementPriority (#PCDATA)>
+<!ATTLIST ModelElementPriority
+  ClientType CDATA	#REQUIRED
+>
+<!ELEMENT ModelElementStationCosts (#PCDATA)>
+<!ELEMENT ModelElementTimeCosts EMPTY>
+<!ATTLIST ModelElementTimeCosts
+  ProcessingSecond		CDATA	#IMPLIED
+  PostProcessingSecond	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementHold (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldCondition)*>
+<!ATTLIST ModelElementHold
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementHoldCondition (#PCDATA)>
+<!ATTLIST ModelElementHoldCondition
+  ClientBased   CDATA	#IMPLIED
+  TimedChecks	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementHoldMulti (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementHoldMulti
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementHoldScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldScriptCondition)*>
+<!ATTLIST ModelElementHoldScript
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementHoldScriptCondition (#PCDATA)>
+<!ATTLIST ModelElementHoldScriptCondition
+  Language		CDATA	#IMPLIED
+  TimedChecks	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementSignal (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementSignal
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementBarrier (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierOption)*>
+<!ATTLIST ModelElementBarrier
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementBarrierOption (ModelElementSignalname | ModelElementInitialRelease | ModelElementRelease | ModelElementClientType)*>
+<!ELEMENT ModelElementSignalname (#PCDATA)>
+<!ELEMENT ModelElementInitialRelease EMPTY>
+<!ATTLIST ModelElementInitialRelease
+  Count	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementRelease EMPTY>
+<!ATTLIST ModelElementRelease
+  Count	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementBarrierPull (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierPullControl)*>
+<!ATTLIST ModelElementBarrierPull
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementBarrierPullControl (#PCDATA)>
+<!ATTLIST ModelElementBarrierPullControl
+  Maximum	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementSeizeResource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOperators | ModelElementOperatorsPriority)*>
+<!ATTLIST ModelElementSeizeResource
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementReleaseResource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSeizedResource | ModelElementDistribution | ModelElementExpression)*>
+<!ATTLIST ModelElementReleaseResource
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementSeizedResource (#PCDATA)>
+
+<!ELEMENT ModelElementClientStatistics (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientStatisticsMode)*>
+<!ATTLIST ModelElementClientStatistics
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementClientStatisticsMode (#PCDATA)>
+<!ATTLIST ModelElementClientStatisticsMode
+  Mode	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementVariable (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentData)*>
+<!ATTLIST ModelElementVariable
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAssignmentData (#PCDATA)>
+<!ATTLIST ModelElementAssignmentData
+  Variable	CDATA	#REQUIRED
+  Value		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementScriptText)*>
+<!ATTLIST ModelElementScript
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementScriptText (#PCDATA)>
+<!ATTLIST ModelElementScriptText
+  Language	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementCounter (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCounterGroup)*>
+<!ATTLIST ModelElementCounter
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementCounterGroup (#PCDATA)>
+
+<!ELEMENT ModelElementCounterMulti (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCounterGroup | ModelElementCounterMultiCounter)*>
+<!ATTLIST ModelElementCounterMulti
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementCounterMultiCounter (#PCDATA)>
+<!ATTLIST ModelElementCounterMultiCounter
+  Condition CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementThroughput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementThroughput
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementStateStatistics (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementStateStatisticsGroup)*>
+<!ATTLIST ModelElementStateStatistics
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementStateStatisticsGroup (#PCDATA)>
+
+<!ELEMENT ModelElementInput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementInputFile | ModelElementInputVariable | ModelElementInputDefaultValue)*>
+<!ATTLIST ModelElementInput
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementInputFile (#PCDATA)>
+<!ATTLIST ModelElementInputFile
+  EndOfFile	CDATA	#REQUIRED
+>
+<!ELEMENT ModelElementInputVariable (#PCDATA)>
+<!ELEMENT ModelElementInputDefaultValue (#PCDATA)>
+
+<!ELEMENT ModelElementInputScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementScript | ModelElementInputScriptFile | ModelElementInputJSDefaultValue)*>
+<!ATTLIST ModelElementInputScript
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementInputScriptFile (#PCDATA)>
+<!ATTLIST ModelElementInputScriptFile
+  EndOfFile	CDATA	#REQUIRED
+>
+<!ELEMENT ModelElementInputJSDefaultValue (#PCDATA)>
+
+<!ELEMENT ModelElementInputDB (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | DatabaseConnection | ModelElementInputDBTable | ModelElementInputDBColumn | ModelElementInputDBSortColumn | ModelElementInputDBEndOfTable | ModelElementInputDBDefaultValue | ModelElementInputDBVariable)*>
+<!ATTLIST ModelElementInputDB
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementInputDBTable (#PCDATA)>
+<!ELEMENT ModelElementInputDBColumn (#PCDATA)>
+<!ELEMENT ModelElementInputDBSortColumn (#PCDATA)>
+<!ATTLIST ModelElementInputDBSortColumn
+  Sorting	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementInputDBEndOfTable (#PCDATA)>
+<!ELEMENT ModelElementInputDBDefaultValue (#PCDATA)>
+<!ELEMENT ModelElementInputDBVariable (#PCDATA)>
+
+<!ELEMENT ModelElementInputDDE (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementInputDDEWorkbook | ModelElementInputDDETable | ModelElementInputDDEStartRow | ModelElementInputDDEColumn | ModelElementInputDDEVariable | ModelElementInputDDEDefaultValue | ModelElementInputDDEEndOfTable)*>
+<!ATTLIST ModelElementInputDDE
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementInputDDEWorkbook (#PCDATA)>
+<!ELEMENT ModelElementInputDDETable (#PCDATA)>
+<!ELEMENT ModelElementInputDDEStartRow (#PCDATA)>
+<!ELEMENT ModelElementInputDDEColumn (#PCDATA)>
+<!ELEMENT ModelElementInputDDEVariable (#PCDATA)>
+<!ELEMENT ModelElementInputDDEDefaultValue (#PCDATA)>
+<!ELEMENT ModelElementInputDDEEndOfTable (#PCDATA)>
+
+<!ELEMENT ModelElementRecord (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementRecordExpression1 | ModelElementRecordExpression2)*>
+<!ATTLIST ModelElementRecord
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementRecordExpression1 (#PCDATA)>
+<!ELEMENT ModelElementRecordExpression2 (#PCDATA)>
+
+<!ELEMENT ModelElementOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputFile | ModelElementOutputElement)*>
+<!ATTLIST ModelElementOutput
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementOutputFile (#PCDATA)>
+<!ELEMENT ModelElementOutputElement EMPTY>
+<!ATTLIST ModelElementOutputElement
+  Type	CDATA	#REQUIRED
+  Value	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementScriptOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputFile | ModelElementOutputScript)*>
+<!ATTLIST ModelElementScriptOutput
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementOutputScript (#PCDATA)>
+
+<!ELEMENT ModelElementDatabaseOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | DatabaseConnection | ModelElementDatabaseOutputTable | ModelElementDatabaseOutputElement)*>
+<!ATTLIST ModelElementDatabaseOutput
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDatabaseOutputTable (#PCDATA)>
+<!ELEMENT ModelElementDatabaseOutputElement EMPTY>
+<!ATTLIST ModelElementDatabaseOutputElement
+  Column	CDATA	#IMPLIED
+  Data		CDATA	#IMPLIED
+  Type		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementOutputDDE (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputDDEWorkbook | ModelElementOutputDDETable | ModelElementOutputDDEStartColumn | ModelElementOutputDDEStartRow | ModelElementOutputDDEElement)*>
+<!ATTLIST ModelElementOutputDDE
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementOutputDDEWorkbook (#PCDATA)>
+<!ELEMENT ModelElementOutputDDETable (#PCDATA)>
+<!ELEMENT ModelElementOutputDDEStartColumn (#PCDATA)>
+<!ELEMENT ModelElementOutputDDEStartRow (#PCDATA)>
+<!ELEMENT ModelElementOutputDDEElement EMPTY>
+<!ATTLIST ModelElementOutputDDEElement
+   Data		CDATA	#IMPLIED
+  Type		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementUserStatistics (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementUserStatisticsRecord)*>
+<!ATTLIST ModelElementUserStatistics
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementUserStatisticsRecord (#PCDATA)>
+<!ATTLIST ModelElementUserStatisticsRecord
+  Bezeichner    CDATA	#REQUIRED
+  IsTime	    CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementDifferenceCounter (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDifferenceCounterIncrement)*>
+<!ATTLIST ModelElementDifferenceCounter
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDifferenceCounterIncrement (#PCDATA)>
+
+<!ELEMENT ModelElementSectionStart (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementSectionStart
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementSectionEnd (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSectionStartName)*>
+<!ATTLIST ModelElementSectionEnd
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementSectionStartName (#PCDATA)>
+
+<!ELEMENT ModelElementPickUp (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementQueue | ModelElementClientType | ModelElementBatchMode)*>
+<!ATTLIST ModelElementPickUp
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementQueue (#PCDATA)>
+<!ATTLIST ModelElementQueue
+  IgnoreIfEmpty	(0|1)	#IMPLIED
+>
+
+<!ELEMENT ModelElementLogicIf (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementLogicCondition)*>
+<!ATTLIST ModelElementLogicIf
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementLogicCondition (#PCDATA)>
+
+<!ELEMENT ModelElementLogicElseIf (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementLogicCondition)*>
+<!ATTLIST ModelElementLogicElseIf
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementLogicElse (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementLogicElse
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementLogicEndIf (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementLogicEndIf
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementLogicWhile (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementLogicCondition)*>
+<!ATTLIST ModelElementLogicWhile
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementLogicEndWhile (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementLogicEndWhile
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementLogicDo (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementLogicDo
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementLogicUntil (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementLogicCondition)*>
+<!ATTLIST ModelElementLogicUntil
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementTransportOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementTransportRoute | ModelElementTransportRouteBySequence | ModelElementTransportRouteByProperty | ModelElementTransportResource | ModelElementTransportResourcePriority | ModelElementTransportResourceDelayedRelease | ModelElementTransportSectionStartName)*>
+<!ATTLIST ModelElementTransportOrigin
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTransportRoute (#PCDATA)>
+<!ATTLIST ModelElementTransportRoute
+  ClientType	CDATA	#IMPLIED
+  Expression	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTransportRouteBySequence (#PCDATA)>
+<!ELEMENT ModelElementTransportRouteByProperty (#PCDATA)>
+<!ELEMENT ModelElementTransportResource EMPTY>
+<!ATTLIST ModelElementTransportResource
+  Name	  CDATA	#REQUIRED
+  Count   CDATA	#REQUIRED
+>
+<!ELEMENT ModelElementTransportResourcePriority (#PCDATA)>
+<!ELEMENT ModelElementTransportResourceDelayedRelease (ModelElementDistribution | ModelElementExpression)*>
+<!ATTLIST ModelElementTransportResourceDelayedRelease
+  TimeBase	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTransportSectionStartName (#PCDATA)>
+
+<!ELEMENT ModelElementTransportDestination (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementTransportDestination
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementTransporterOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTransportRoute | ModelElementTransportRouteBySequence | ModelElementTransportRouteByProperty | ModelElementTransporterType | ModelElementTransporterMinimumWaiting | ModelElementTransporterRequestPriority | ModelElementTransporterWaitingCapacity | ModelElementTransporterWaitingPriority | ModelElementTransporterPriority | ModelElementTransporterSectionStartName)*>
+<!ATTLIST ModelElementTransporterOrigin
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTransporterType (#PCDATA)>
+<!ELEMENT ModelElementTransporterMinimumWaiting (#PCDATA)>
+<!ELEMENT ModelElementTransporterRequestPriority (#PCDATA)>
+<!ELEMENT ModelElementTransporterWaitingCapacity (#PCDATA)>
+<!ELEMENT ModelElementTransporterWaitingPriority (#PCDATA)>
+<!ELEMENT ModelElementTransporterPriority (#PCDATA)>
+<!ATTLIST ModelElementTransporterPriority
+  Name	CDATA	#REQUIRED
+>
+<!ELEMENT ModelElementTransporterSectionStartName (#PCDATA)>
+
+<!ELEMENT ModelElementTransportParkingLot (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTransporterType | ModelElementTransporterWaitingCapacity | ModelElementTransporterWaitingPriority)*>
+<!ATTLIST ModelElementTransportParkingLot
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementWayPoint (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementWayPointIcon | ModelElementWayPointRecord)*>
+<!ATTLIST ModelElementWayPoint
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementWayPointIcon (#PCDATA)>
+<!ELEMENT ModelElementWayPointRecord (#PCDATA)>
+<!ATTLIST ModelElementWayPointRecord
+  OriginStation			CDATA	#REQUIRED
+  DestinationStation	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementTeleportOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTeleportOriginToTarget)*>
+<!ATTLIST ModelElementTeleportOrigin
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTeleportOriginToTarget (#PCDATA)>
+
+<!ELEMENT ModelElementTeleportDestination (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementTeleportDestination
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementConveyor (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementConveyorCapacityAvailable | ModelElementConveyorCapacityNeeded | ModelElementConveyorDirection  | ModelElementConveyorTransportTime)*>
+<!ATTLIST ModelElementConveyor
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementConveyorCapacityAvailable (#PCDATA)>
+<!ELEMENT ModelElementConveyorCapacityNeeded (#PCDATA)>
+<!ATTLIST ModelElementConveyorCapacityNeeded
+  ClientType    CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementConveyorDirection (#PCDATA)>
+<!ELEMENT ModelElementConveyorTransportTime (#PCDATA)>
+<!ATTLIST ModelElementConveyorTransportTime
+  TimeBase  CDATA	#REQUIRED
+  Type      CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementAnalogValue (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAnalogValueInitialValue | ModelElementAnalogValueRate | ModelElementAnalogValueUpdateStepWide | ModelElementAnalogValueMinimum | ModelElementAnalogValueMaximum)*>
+<!ATTLIST ModelElementAnalogValue
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnalogValueInitialValue (#PCDATA)>
+<!ELEMENT ModelElementAnalogValueRate (#PCDATA)>
+<!ELEMENT ModelElementAnalogValueUpdateStepWide (#PCDATA)>
+<!ELEMENT ModelElementAnalogValueMinimum (#PCDATA)>
+<!ELEMENT ModelElementAnalogValueMaximum (#PCDATA)>
+
+<!ELEMENT ModelElementAnalogValueAssignment (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAnalogValueAssignmentValue | ModelElementAnalogValueAssignmentRate)*>
+<!ATTLIST ModelElementAnalogValueAssignment
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnalogValueAssignmentValue (#PCDATA)>
+<!ATTLIST ModelElementAnalogValueAssignmentValue
+  TargetID	CDATA	#REQUIRED
+>
+<!ELEMENT ModelElementAnalogValueAssignmentRate (#PCDATA)>
+<!ATTLIST ModelElementAnalogValueAssignmentRate 
+  TargetID	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementTank (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementTankCapacity | ModelElementTankInitialValue | ModelElementTankUpdateStepWide | ModelElementTankValve)*>
+<!ATTLIST ModelElementTank
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTankCapacity (#PCDATA)>
+<!ELEMENT ModelElementTankInitialValue (#PCDATA)>
+<!ELEMENT ModelElementTankUpdateStepWide (#PCDATA)>
+<!ELEMENT ModelElementTankValve (#PCDATA)>
+<!ATTLIST ModelElementTankValve
+  TimeBase  CDATA   #IMPLIED
+>
+
+<!ELEMENT ModelElementFlow (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementFlowSource | ModelElementFlowDestination | ModelElementFlowTime | ModelElementFlowQuantity | ModelElementFlowStopSignal)*>
+<!ATTLIST ModelElementFlow
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementFlowSource (#PCDATA)>
+<!ATTLIST ModelElementFlowSource
+  id    CDATA	#REQUIRED
+  Valve CDATA   #IMPLIED
+>
+<!ELEMENT ModelElementFlowDestination (#PCDATA)>
+<!ATTLIST ModelElementFlowDestination
+  id    CDATA	#REQUIRED
+  Valve CDATA   #IMPLIED
+>
+<!ELEMENT ModelElementFlowTime (#PCDATA)>
+<!ELEMENT ModelElementFlowQuantity (#PCDATA)>
+<!ELEMENT ModelElementFlowStopSignal (#PCDATA)>
+
+<!ELEMENT ModelElementFlowSignal (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementFlowSignalName | ModelElementFlowSource | ModelElementFlowDestination | ModelElementFlowTime | ModelElementFlowQuantity | ModelElementFlowStopSignal)*>
+<!ATTLIST ModelElementFlowSignal
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementFlowSignalName (#PCDATA)>
+
+<!ELEMENT ModelElementSensor (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementSensorTankID | ModelElementSensorThreshold)*>
+<!ATTLIST ModelElementSensor
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementSensorTankID (#PCDATA)>
+<!ELEMENT ModelElementSensorThreshold (#PCDATA)>
+<!ATTLIST ModelElementSensorThreshold
+  Direction CDATA   #IMPLIED
+  Percent   CDATA   #IMPLIED
+>
+
+<!ELEMENT ModelElementValveSetups (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementValveSetup)*>
+<!ATTLIST ModelElementValveSetups
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementValveSetup (#PCDATA)>
+<!ATTLIST ModelElementValveSetup
+  Tank  CDATA	#REQUIRED
+  Valve CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementAction (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementActionRecord)*>
+<!ATTLIST ModelElementAction
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementActionRecord (#PCDATA)>
+<!ATTLIST ModelElementActionRecord
+  ConditionType             CDATA	#IMPLIED
+  ActionType                CDATA	#REQUIRED
+  Condition                 CDATA   #IMPLIED
+  ConditionMinimumDistance  CDATA   #IMPLIED
+  Threshold                 CDATA   #IMPLIED
+  Value                     CDATA   #IMPLIED
+  ThresholdDirection        CDATA   #IMPLIED
+  AnalogID                  CDATA   #IMPLIED
+  Variable                  CDATA   #IMPLIED
+>
+
+<!ELEMENT ModelElementIcon (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementIconName)*>
+<!ATTLIST ModelElementIcon
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementIconName (#PCDATA)>
+
+<!ELEMENT ModelElementAnimationText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationMode)*>
+<!ATTLIST ModelElementAnimationText
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnimationMode (#PCDATA)>
+<!ATTLIST ModelElementAnimationMode
+  Type	    CDATA	#REQUIRED
+  Digits    CDATA   #IMPLIED
+>
+
+<!ELEMENT ModelElementAnimationTextJS (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationTextJSScript)*>
+<!ATTLIST ModelElementAnimationTextJS
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnimationTextJSScript (#PCDATA)>
+<!ATTLIST ModelElementAnimationTextJSScript
+  Language  CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementAnimationTextSelect (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | TextDefault | TextExpression)*>
+<!ATTLIST ModelElementAnimationTextSelect
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT TextDefault (#PCDATA)>
+<!ELEMENT TextExpression (#PCDATA)>
+<!ATTLIST TextExpression
+  Expression	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementAnimationBar (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementDataExpression | ModelElementDataArea | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementBarColor)*>
+<!ATTLIST ModelElementAnimationBar
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDataExpression (#PCDATA)>
+<!ELEMENT ModelElementDataArea EMPTY>
+<!ATTLIST ModelElementDataArea
+  Minimum	CDATA	#IMPLIED
+  Maximum	CDATA	#IMPLIED
+  Direction	CDATA	#REQUIRED
+>
+<!ELEMENT ModelElementBarColor (#PCDATA)>
+
+<!ELEMENT ModelElementAnimationStackBar (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementDataExpression | ModelElementDataArea | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementBarColor)*>
+<!ATTLIST ModelElementAnimationStackBar
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementAnimationTrafficLights (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementAnimationTrafficLightsCondition)*>
+<!ATTLIST ModelElementAnimationTrafficLights
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnimationTrafficLightsCondition (#PCDATA)>
+<!ATTLIST ModelElementAnimationTrafficLightsCondition
+  Light	(red|yellow)	#REQUIRED
+>
+
+<!ELEMENT ModelElementAnimationLCD (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementAnimationLCDExpression | ModelElementAnimationLCDDigits | ModelElementAnimationLCDColor)*>
+<!ATTLIST ModelElementAnimationLCD
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnimationLCDExpression (#PCDATA)>
+<!ELEMENT ModelElementAnimationLCDDigits (#PCDATA)>
+<!ELEMENT ModelElementAnimationLCDColor (#PCDATA)>
+
+<!ELEMENT ModelElementAnimationPointerMeasuring (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementAnimationPointerMeasuringExpression | ModelElementAnimationPointerMeasuringColor)*>
+<!ATTLIST ModelElementAnimationPointerMeasuring
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnimationPointerMeasuringExpression (#PCDATA)>
+<!ATTLIST ModelElementAnimationPointerMeasuringExpression
+  MinValue	CDATA	#IMPLIED
+  MaxValue	CDATA	#REQUIRED
+>
+<!ELEMENT ModelElementAnimationPointerMeasuringColor (#PCDATA)>
+
+<!ELEMENT ModelElementAnimationBarDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementMinimumValue | ModelElementMaximumValue)*>
+<!ATTLIST ModelElementAnimationBarDiagram
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementMinimumValue (#PCDATA)>
+<!ELEMENT ModelElementMaximumValue (#PCDATA)>
+<!ELEMENT ModelElementDiagramElement (#PCDATA)>
+<!ATTLIST ModelElementDiagramElement
+  Minimum		CDATA	#IMPLIED
+  Maximum		CDATA	#IMPLIED
+  LineColor		CDATA	#IMPLIED
+  LineWidth		CDATA	#IMPLIED
+  BarColor		CDATA	#IMPLIED
+  SegmentColor	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementAnimationLineDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementDiagramTimeRange)*>
+<!ATTLIST ModelElementAnimationLineDiagram
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementDiagramTimeRange (#PCDATA)>
+
+<!ELEMENT ModelElementAnimationPieDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementSegmentLabel)*>
+<!ATTLIST ModelElementAnimationPieDiagram
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementSegmentLabel (#PCDATA)>
+
+<!ELEMENT ModelElementAnimationClock (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementColor | ModelElementExpression)*>
+<!ATTLIST ModelElementAnimationClock
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementAnimationImage (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementColor | ModelElementLineWidth | ModelElementImageData | ModelElementConnection)*>
+<!ATTLIST ModelElementAnimationImage
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementAnimationRecord (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementAnimationRecordStationID | ModelElementAnimationRecordDataPoints | ModelElementAnimationRecordDataColor)*>
+<!ATTLIST ModelElementAnimationRecord
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementAnimationRecordStationID (#PCDATA)>
+<!ELEMENT ModelElementAnimationRecordDataPoints (#PCDATA)>
+<!ELEMENT ModelElementAnimationRecordDataColor (#PCDATA)>
+
+<!ELEMENT ModelElementSubModel (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSubModelConnections | ModelElements)*>
+<!ATTLIST ModelElementSubModel
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementSubModelConnections EMPTY>
+<!ATTLIST ModelElementSubModelConnections
+  in	CDATA	#REQUIRED
+  out	CDATA	#REQUIRED
+>
+
+<!ELEMENT ModelElementSubModelInput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementSubModelInput
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementSubModelOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementSubModelOutput
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED  
+>
+
+<!ELEMENT ModelElementReference (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementReferenceID)*>
+<!ATTLIST ModelElementReference
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementReferenceID (#PCDATA)>
+
+<!ELEMENT ModelElementButton (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementActionRecord)*>
+<!ATTLIST ModelElementButton
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementSlider (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementSliderMinimum | ModelElementSliderMaximum | ModelElementSliderStepWide | ModelElementSliderVariable)*>
+<!ATTLIST ModelElementSlider
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementSliderMinimum (#PCDATA)>
+<!ELEMENT ModelElementSliderMaximum (#PCDATA)>
+<!ELEMENT ModelElementSliderStepWide (#PCDATA)>
+<!ELEMENT ModelElementSliderVariable (#PCDATA)>
+
+<!ELEMENT ModelElementCheckbox (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementCheckboxVariable | ModelElementCheckboxValueChecked | ModelElementCheckboxValueUnchecked)*>
+<!ATTLIST ModelElementCheckbox
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementCheckboxVariable (#PCDATA)>
+<!ELEMENT ModelElementCheckboxValueChecked (#PCDATA)>
+<!ELEMENT ModelElementCheckboxValueUnchecked (#PCDATA)>
+
+<!ELEMENT ModelElementRadiobutton (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementRadiobuttonVariable | ModelElementRadiobuttonValue)*>
+<!ATTLIST ModelElementRadiobutton
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementRadiobuttonVariable (#PCDATA)>
+<!ELEMENT ModelElementRadiobuttonValue (#PCDATA)>
+
+
+
+<!-- Documentation of the statistics data -->
+
+<!ELEMENT Statistics (Model | SimulationData | StatisticsThreadBasedWaitingTimeConfidence | StatisticsInterArrivalTimesClients | StatisticsInterArrivalTimesStations | StatisticsInterArrivalTimesStationsClients | StatisticsInterLeavingTimesClients | StatisticsInterLeavingTimesStations | StatisticsInterLeavingTimesStationsClients | StatisticsClientMovement | StatisticsClientPaths | StatisticsWaitingTimesClients | StatisticsTransferTimesClients | StatisticsProcessTimesClients | StatisticsResidenceTimesClients | StatisticsWaitingTimesAllClients | StatisticsTransferTimesAllClients | StatisticsProcessTimesAllClients | StatisticsResidenceTimesAllClients | StatisticsWaitingTimesStations | StatisticsTransferTimesStations | StatisticsProcessTimesStations | StatisticsResidenceTimesStations | StatisticsWaitingTimesStationsClients | StatisticsTransferTimesStationsClients | StatisticsProcessTimesStationsClients | StatisticsResidenceTimesStationsClients | StatisticsClientsInSystem | StatisticsClientsInSystemAllQueues | StatisticsClientsAtStation | StatisticsClienttypesInSystem | StatisticsClientsAtStationQueue |StatisticsClientsInSystemQueue | StatisticsResourceNumbers | StatisticsUtilization | StatisticsDownTime | StatisticsTransporterUtilization | StatisticsTransporterDownTimes | StatisticsCounter | StatisticsDifferenceCounter | StatisticsClientWaitingTimeCosts | StatisticsClientTransferTimeCosts | StatisticsClientProcessTimeCosts | StatisticsStationsCosts | StatisticsResourcesAvailabilityCosts | StatisticsResourcesWorkTimeCosts | StatisticsResourcesIdleTimeCosts | StatisticsRunTimeValues | StatisticsUserDefined | StatisticsStatusTime | StatisticsAnalogValue | StatisticsThroughput | StatisticsValueRecordingName | StatisticsClientData)*>
+
+<!ELEMENT SimulationData (StatisticsRunDate | StatisticsRunTime | StatisticsSystem | StatisticsUser | StatisticsThreads | StatisticsEvents | StatisticsInternalTermination | StatisticsRepeats | StatisticsThreadRunTimes)*>
+
+<!ELEMENT StatisticsRunDate (#PCDATA)>
+<!ELEMENT StatisticsRunTime (#PCDATA)>
+<!ELEMENT StatisticsSystem (#PCDATA)>
+<!ELEMENT StatisticsUser (#PCDATA)>
+<!ELEMENT StatisticsThreads (#PCDATA)>
+<!ATTLIST StatisticsThreads
+  NUMAMode  CDATA	#IMPLIED
+>
+<!ELEMENT StatisticsEvents (#PCDATA)>
+<!ELEMENT StatisticsInternalTermination (#PCDATA)>
+<!ELEMENT StatisticsRepeats (#PCDATA)>
+<!ELEMENT StatisticsThreadRunTimes (#PCDATA)>
+
+<!ELEMENT StatisticsThreadBasedWaitingTimeConfidence (StatisticsThreadBasedWaitingTimeConfidenceLevelHalfWidth)*>
+
+<!ELEMENT StatisticsThreadBasedWaitingTimeConfidenceLevelHalfWidth EMPTY>
+<!ATTLIST StatisticsThreadBasedWaitingTimeConfidenceLevelHalfWidth
+  Type	CDATA	#REQUIRED
+  Value	CDATA	#REQUIRED
+>
+
+<!ELEMENT StationData (#PCDATA)>
+<!ATTLIST StationData
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Autocorrelation			CDATA	#IMPLIED
+  Autocorrelation0100		CDATA	#IMPLIED
+  Autocorrelation0050		CDATA	#IMPLIED
+  Autocorrelation0010		CDATA	#IMPLIED
+  Autocorrelation0005		CDATA	#IMPLIED
+  Autocorrelation0001		CDATA	#IMPLIED
+  BatchSize					CDATA	#IMPLIED
+  BatchCount				CDATA	#IMPLIED
+  BatchVariance				CDATA	#IMPLIED
+  MeanConfidenceRadius90	CDATA	#IMPLIED
+  MeanConfidenceRadius95	CDATA	#IMPLIED
+  MeanConfidenceRadius99	CDATA	#IMPLIED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+
+<!ELEMENT ClientType (#PCDATA)>
+<!ATTLIST ClientType
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Autocorrelation			CDATA	#IMPLIED
+  Autocorrelation0100		CDATA	#IMPLIED
+  Autocorrelation0050		CDATA	#IMPLIED
+  Autocorrelation0010		CDATA	#IMPLIED
+  Autocorrelation0005		CDATA	#IMPLIED
+  Autocorrelation0001		CDATA	#IMPLIED
+  BatchSize					CDATA	#IMPLIED
+  BatchCount				CDATA	#IMPLIED
+  BatchVariance				CDATA	#IMPLIED
+  MeanConfidenceRadius90	CDATA	#IMPLIED
+  MeanConfidenceRadius95	CDATA	#IMPLIED
+  MeanConfidenceRadius99	CDATA	#IMPLIED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+
+<!ELEMENT Movement EMPTY>
+<!ATTLIST Movement
+  Type	CDATA	#REQUIRED
+  Count	CDATA	#REQUIRED
+>
+
+<!ELEMENT Path EMPTY>
+<!ATTLIST Path
+  Type	CDATA	#REQUIRED
+  Count	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatisticsClientDataField (#PCDATA)>
+<!ATTLIST StatisticsClientDataField
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+
+<!ELEMENT StatisticsResourceNumber (#PCDATA)>
+<!ATTLIST StatisticsResourceNumber
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+
+<!ELEMENT StatisticsResource (#PCDATA)>
+<!ATTLIST StatisticsResource
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+
+<!ELEMENT StatisticsTransporter (#PCDATA)>
+<!ATTLIST StatisticsTransporter
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+
+<!ELEMENT StatisticsCounterName EMPTY>
+<!ATTLIST StatisticsCounterName
+  Count	CDATA	#REQUIRED
+  Part	CDATA	#IMPLIED
+>
+
+<!ELEMENT StatisticsDifferenceCounterName (#PCDATA)>
+<!ATTLIST StatisticsDifferenceCounterName
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+>
+
+<!ELEMENT StatisticsCosts EMPTY>
+<!ATTLIST StatisticsCosts
+  Type	CDATA	#REQUIRED
+  Value	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatisticsRunTimeValue (#PCDATA)>
+<!ATTLIST StatisticsRunTimeValue
+  Type		CDATA	#REQUIRED
+  StepWide	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatisticsInterArrivalTimesClients (StationData)*>
+<!ELEMENT StatisticsInterArrivalTimesStations (StationData)*>
+<!ELEMENT StatisticsInterArrivalTimesStationsClients (StationData)*>
+<!ELEMENT StatisticsInterLeavingTimesClients (StationData)*>
+<!ELEMENT StatisticsInterLeavingTimesStations (StationData)*>
+<!ELEMENT StatisticsInterLeavingTimesStationsClients (StationData)*>
+<!ELEMENT StatisticsClientMovement (Movement)*>
+<!ELEMENT StatisticsClientPaths (Path)*>
+<!ELEMENT StatisticsWaitingTimesClients (ClientType)*>
+<!ELEMENT StatisticsTransferTimesClients (ClientType)*>
+<!ELEMENT StatisticsProcessTimesClients (ClientType)*>
+<!ELEMENT StatisticsResidenceTimesClients (ClientType)*>
+<!ELEMENT StatisticsWaitingTimesAllClients (#PCDATA)>
+<!ATTLIST StatisticsWaitingTimesAllClients
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Autocorrelation			CDATA	#IMPLIED
+  Autocorrelation0100		CDATA	#IMPLIED
+  Autocorrelation0050		CDATA	#IMPLIED
+  Autocorrelation0010		CDATA	#IMPLIED
+  Autocorrelation0005		CDATA	#IMPLIED
+  Autocorrelation0001		CDATA	#IMPLIED
+  BatchSize					CDATA	#IMPLIED
+  BatchCount				CDATA	#IMPLIED
+  BatchVariance				CDATA	#IMPLIED
+  MeanConfidenceRadius90	CDATA	#IMPLIED
+  MeanConfidenceRadius95	CDATA	#IMPLIED
+  MeanConfidenceRadius99	CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+<!ELEMENT StatisticsTransferTimesAllClients (#PCDATA)>
+<!ATTLIST StatisticsTransferTimesAllClients
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+<!ELEMENT StatisticsProcessTimesAllClients (#PCDATA)>
+<!ATTLIST StatisticsProcessTimesAllClients
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+<!ELEMENT StatisticsResidenceTimesAllClients (#PCDATA)>
+<!ATTLIST StatisticsResidenceTimesAllClients
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+<!ELEMENT StatisticsWaitingTimesStations (StationData)*>
+<!ELEMENT StatisticsTransferTimesStations (StationData)*>
+<!ELEMENT StatisticsProcessTimesStations (StationData)*>
+<!ELEMENT StatisticsResidenceTimesStations (StationData)*>
+<!ELEMENT StatisticsWaitingTimesStationsClients (StationData)*>
+<!ELEMENT StatisticsTransferTimesStationsClients (StationData)*>
+<!ELEMENT StatisticsProcessTimesStationsClients (StationData)*>
+<!ELEMENT StatisticsResidenceTimesStationsClients (StationData)*>
+<!ELEMENT StatisticsClientsInSystem (#PCDATA)>
+<!ATTLIST StatisticsClientsInSystem
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+<!ELEMENT StatisticsClientsInSystemAllQueues (#PCDATA)>
+<!ATTLIST StatisticsClientsInSystemAllQueues
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  ValuesSum                 CDATA	#IMPLIED
+  ValuesSum2                CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+<!ELEMENT StatisticsClientsAtStation (StationData)*>
+<!ELEMENT StatisticsClienttypesInSystem (StationData)*>
+<!ELEMENT StatisticsClientsAtStationQueue (StationData)*>
+<!ELEMENT StatisticsClientsInSystemQueue (ClientType)*>
+<!ELEMENT StatisticsResourceNumbers (StatisticsResourceNumber)*>
+<!ELEMENT StatisticsUtilization (StatisticsResource)*>
+<!ELEMENT StatisticsDownTime (StatisticsResource)*>
+<!ELEMENT StatisticsTransporterUtilization (StatisticsTransporter)*>
+<!ELEMENT StatisticsTransporterDownTimes (StatisticsTransporter)*>
+<!ELEMENT StatisticsCounter (StatisticsCounterName)*>
+<!ELEMENT StatisticsDifferenceCounter (StatisticsDifferenceCounterName)*>
+<!ELEMENT StatisticsClientWaitingTimeCosts (StatisticsCosts)*>
+<!ELEMENT StatisticsClientTransferTimeCosts (StatisticsCosts)*>
+<!ELEMENT StatisticsClientProcessTimeCosts (StatisticsCosts)*>
+<!ELEMENT StatisticsStationsCosts (StatisticsCosts)*>
+<!ELEMENT StatisticsResourcesAvailabilityCosts (StatisticsCosts)*>
+<!ELEMENT StatisticsResourcesWorkTimeCosts (StatisticsCosts)*>
+<!ELEMENT StatisticsResourcesIdleTimeCosts (StatisticsCosts)*>
+<!ELEMENT StatisticsRunTimeValues (StatisticsRunTimeValue)*>
+<!ELEMENT StatisticsUserDefined (StatisticsUserDefinedRecord)*>
+<!ELEMENT StatisticsUserDefinedRecord (#PCDATA)>
+<!ATTLIST StatisticsUserDefinedRecord
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Autocorrelation			CDATA	#IMPLIED
+  Autocorrelation0100		CDATA	#IMPLIED
+  Autocorrelation0050		CDATA	#IMPLIED
+  Autocorrelation0010		CDATA	#IMPLIED
+  Autocorrelation0005		CDATA	#IMPLIED
+  Autocorrelation0001		CDATA	#IMPLIED
+  BatchSize					CDATA	#IMPLIED
+  BatchCount				CDATA	#IMPLIED
+  BatchVariance				CDATA	#IMPLIED
+  MeanConfidenceRadius90	CDATA	#IMPLIED
+  MeanConfidenceRadius95	CDATA	#IMPLIED
+  MeanConfidenceRadius99	CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+<!ELEMENT StatisticsStatusTime (StatisticsStatusTimeRecord)*>
+<!ELEMENT StatisticsStatusTimeRecord (StatisticsStatusTimeStatus)*>
+<!ATTLIST StatisticsStatusTimeRecord
+  Type	CDATA	#REQUIRED
+>
+<!ELEMENT StatisticsStatusTimeStatus (#PCDATA)>
+<!ATTLIST StatisticsStatusTimeStatus
+  Name	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatisticsAnalogValue (StatisticsAnalogValueName)*>
+<!ELEMENT StatisticsAnalogValueName EMPTY>
+<!ATTLIST StatisticsAnalogValueName
+  Type      CDATA	#REQUIRED
+  Time      CDATA	#REQUIRED
+  Sum       CDATA	#REQUIRED
+  Mean      CDATA	#REQUIRED
+  Minimum   CDATA	#REQUIRED
+  Maximum   CDATA	#REQUIRED
+>
+
+<!ELEMENT StatisticsThroughput (StatisticsThroughputName)*>
+<!ELEMENT StatisticsThroughputName EMPTY>
+<!ATTLIST StatisticsThroughputName
+  Type			CDATA	#REQUIRED
+  Numerator		CDATA	#REQUIRED
+  Denominator	CDATA	#REQUIRED
+  Quotient	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatisticsValueRecording (StatisticsValueRecordingName)*>
+<!ELEMENT StatisticsValueRecordingName (#PCDATA)>
+<!ATTLIST StatisticsValueRecordingName
+  Type	CDATA	#REQUIRED
+>
+
+<!ELEMENT StatisticsClientData (StatisticsClientDataField)*>
+
+
+
+<!-- Documentation of the optimizer setup data -->
+
+<!ELEMENT OptimizerSettings (OptimizerControlVariable | OptimizerConstrain | OptimizerTarget | OptimizerOutputFolder | OptimizerKernel | OptimizerKernelSerial | OptimizerKernelGenetic)*>
+
+<!ELEMENT OptimizerControlVariable (#PCDATA)>
+<!ATTLIST OptimizerControlVariable
+  Mode			CDATA	#REQUIRED
+  RangeMinimum	CDATA	#REQUIRED
+  RangeMaximum	CDATA	#REQUIRED
+  IntegerValue	CDATA	#IMPLIED
+  StartValue	CDATA	#REQUIRED
+  Type      	CDATA	#IMPLIED
+>
+<!ELEMENT OptimizerConstrain (#PCDATA)>
+<!ELEMENT OptimizerTarget (#PCDATA)>
+<!ATTLIST OptimizerTarget
+  Mode			CDATA	#REQUIRED
+  Direction		CDATA	#REQUIRED
+  RangeMinimum	CDATA	#IMPLIED
+  RangeMaximum	CDATA	#IMPLIED  
+>
+
+<!ELEMENT OptimizerOutputFolder (#PCDATA)>
+<!ATTLIST OptimizerOutputFolder
+  Mode	CDATA	#IMPLIED
+>
+
+<!ELEMENT OptimizerKernel (#PCDATA)>
+
+<!ELEMENT OptimizerKernelSerial EMPTY>
+
+<!ATTLIST OptimizerKernelSerial
+  ChangeRate1	CDATA	#IMPLIED
+  ChangeRate2	CDATA	#IMPLIED
+  ChangeRate3	CDATA	#IMPLIED
+  ChangeRate4	CDATA	#IMPLIED
+>
+
+<!ELEMENT OptimizerKernelGenetic EMPTY>
+<!ATTLIST OptimizerKernelGenetic
+  ChangeRate1		CDATA	#IMPLIED
+  ChangeRate2		CDATA	#IMPLIED
+  ChangeRate3		CDATA	#IMPLIED
+  ChangeRate4		CDATA	#IMPLIED
+  ChangeRate5		CDATA	#IMPLIED
+  PopulationSize	CDATA	#IMPLIED
+  EvolutionPressure	CDATA	#IMPLIED
+>

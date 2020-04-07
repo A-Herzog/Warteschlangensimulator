@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Ressourcen belegen</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Ressourcen belegen</h1>
+
+<p>
+Damit ein Kunde dieses Element passieren kann, müssen entsprechende Ressourcen verfügbar sein, die durch die Bewegung des
+Kunden durch das Element belegt, aber nicht wieder freigegeben werden.
+</p>
+
+<p>
+Die Freigabe muss später durch ein <a href="ModelElementRelease.html">Ressourcen freigeben</a> Element erfolgen.
+</p>
+
+<p>
+Die drei Elemente <b>Ressourcen belegen</b>, <a href="ModelElementDelay.html">Verzögerung</a> und
+<a href="ModelElementRelease.html">Ressourcen freigeben</a> in dieser Reihenfolge arbeiten damit
+insgesamt ähnlich wie ein <a href="ModelElementProcess.html">Bedienstation</a> Element.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Für das Ressourcen belegen Elements muss ein Name angegeben werden, da sich die
+<a href="ModelElementRelease.html">Ressourcen freigeben</a> Elemente über die Namen
+der Ressourcen belegen Elemente auf diese beziehen.
+</p>
+
+<p>
+Um einen Kunden weiter zu leiten können mehrere Bediener aus mehreren Gruppen benötigt werden. Die Freigabe erfolgt
+nur dann, wenn gleichzeitig alle notwendigen Bediener verfügbar werden und alle gleichzeitig belegt werden können.
+</p>
+
+<p>
+Über die Ressourcen-Priorität kann festgelegt werden, mit welcher Priorität dieses Ressourcen belegen Element
+berücksichtigt werden soll, wenn eine Ressource, die an dieser Station notwendig ist,
+frei wird. Größere Werte bedeuten eine höhere Priorität bzw. eine höhere Wahrscheinlichkeit, dass dieses Element
+die entsprechenden Ressourcen erhält, wenn es mehrere Stationen gibt, die dieselbe Ressource benötigen.
+</p>
+
+</body>
+</html>

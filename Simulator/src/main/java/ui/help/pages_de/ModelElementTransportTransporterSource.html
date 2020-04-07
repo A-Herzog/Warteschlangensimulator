@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Haltestelle</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Haltestelle</h1>
+
+<p>
+Ein Haltestelle-Element ermöglicht den Transport eines Kunden zu einem beliebigen
+<a href="ModelElementTransportDestination.html">Transportziel</a>-Element. Wie viel
+Zeit der Transport beansprucht und zu welchem Zielelement der Kunde transportiert
+wird, kann dabei in dem Haltestelle-Element eingestellt werden.
+Für den Transport eines Kunden von einem Transportstart- zu einem Transportzielelement
+muss keine Verbindungskante zwischen den Elementen bestehen.
+Im Gegensatz zu dem <a href="ModelElementTransportSource.html">Transportstart</a>-Element
+werden im Haltestelle-Element keine Ressourcen (die keinen bestimmten Ort besitzen),
+sondern Transporter, die sich zwischen den Stationen bewegen, verwendet.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Haltestellen-Elements besitzt keine weitere Bedeutung.
+</p>
+
+<p>
+Auf der Dialogseite <b>Transporter</b> kann festgelegt werden, welchen
+Typ der Transporter zum abholen der wartenden Kunden besitzen muss,
+wie viele Kunden warten müssen, bevor ein Transporter angefordert wird
+und welche Priorität das Haltenstellen-Element in Bezug auf die
+Anforderung von Transportern besitzen soll.
+Des Weiteren können auch ohne wartende Kunden Transporter angefordert
+werden, die dann in dem Element parken. Auch hierfür kann eine Priorität
+und eine maximale Kapazität angegeben werden.
+</p>
+
+<p>
+Auf der Dialogseite <b>Transportziele</b> können ein oder mehrere
+mögliche Ziel für den Transport des Kunden angegeben werden. Für die Ziele können dabei
+Bedingungen oder Kundentypen angegeben werden. Alternativ kann eingestellt werden, dass
+das anzusteuernde Ziel aus dem Fertigungsplan des Kunden oder aus einer Texteigenschaft
+des Kunden entnommen werden soll.
+</p>
+ 
+<p>
+Auf der Dialogseite <b>Prioritäten</b> kann angegeben werden, welche
+Kunden mit welcher Priorität einen Platz in einem eintreffenden
+Transporter erhalten sollen.
+Die Variable "w" gibt dabei abweichend von der sonst üblichen Belegung die bisherige
+Wartezeit des Kunden an der aktuellen Station an (und nicht die gesamte bisherige
+Wartezeit des Kunden).
+</p>
+
+<p>
+Auf der Dialogseite <b>Bereich verlassen</b> kann optional eine
+Bereich-betreten-Station angegeben werden. Beim Start des Transports
+wird dann der angegebene Bereich verlassen.
+</p>
+
+</body>
+</html>

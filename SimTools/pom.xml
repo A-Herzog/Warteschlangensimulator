@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>simzentrum</groupId>
+  <artifactId>simtools</artifactId>
+  <version>20.3</version>
+  <packaging>jar</packaging>
+  
+  <properties>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>WINDOWS-1252</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>simzentrum</groupId>
+  		<artifactId>simsystem</artifactId>
+  		<version>[20.1,)</version>
+  	</dependency>
+  	<!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
+  	<dependency>
+    	<groupId>org.jfree</groupId>
+    	<artifactId>jfreechart</artifactId>
+    	<version>1.5.0</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+	<dependency>
+    	<groupId>org.apache.pdfbox</groupId>
+    	<artifactId>pdfbox</artifactId>
+    	<version>2.0.19</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/xmpbox -->
+	<dependency>
+    	<groupId>org.apache.pdfbox</groupId>
+    	<artifactId>xmpbox</artifactId>
+    	<version>2.0.19</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.bidib.org.oxbow/swingbits -->
+	<dependency>
+    	<groupId>org.bidib.org.oxbow</groupId>
+    	<artifactId>swingbits</artifactId>
+    	<version>1.2.2</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
+	<dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-nop</artifactId>
+    	<version>1.7.30</version>
+	</dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <excludes><exclude>**/*.java</exclude></excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <developers>
+    <developer>
+      <id>Alexander Herzog</id>
+      <name>Alexander Herzog</name>
+      <email>alexander.herzog@tu-clausthal.de</email>
+      <organization>Simulationswissenschaftliches Zentrum Clausthal-Göttingen</organization>
+      <organizationUrl>https://www.simtentrum.de</organizationUrl>
+      <roles><role>architect</role><role>developer</role></roles>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+  </developers>
+</project>

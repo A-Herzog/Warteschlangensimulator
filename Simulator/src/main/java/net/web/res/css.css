@@ -1,0 +1,120 @@
+body {
+  font:82% Verdana,Lucida,sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: white;  
+}
+
+.page {
+  min-width: 400px;
+  max-width: 800px;
+  margin: 10px 20px;
+  padding: 0px 10px 5px 10px;
+}
+	
+h1 {
+  color: white;
+  background-color: blue;
+  margin-top: 0px;
+  padding: 5px 25px;
+  position: sticky;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+h2 {
+  margin-bottom: 3px;
+}
+	
+.button {
+  color: blue;
+  background-color: white;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  text-decoration: none;
+  transition-duration: 0.25s;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+}
+
+.button:visited {
+  color: blue;
+  background-color: white;
+}
+
+.button:hover {
+  color: white;
+  background-color: blue;  
+  transition-duration: 0.25s;
+}
+
+.buttonframe {
+  color: blue;
+  background-color: white;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  text-decoration: none;  
+  display: inline-block;  
+  font-size: 14px;	
+}
+
+.cmd {
+  display: inline-block;
+  font-family:'Lucida Console', monospace;
+  border: 1px solid gray;
+  color: #555;
+  background-color: #F0F0F0;
+  padding: 3px 5px;
+  margin-bottom: 5px;
+}
+
+.toolbar {
+  font-size: 50%;
+  margin-left: 15px;
+}
+
+.toolbar a {
+  color: white;
+  text-decoration: none;
+  border: 1px solid #DDD;
+  border-radius: 2px;
+  padding: 3px 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition-duration: 0.25s;
+}
+
+.toolbar a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.toolbar a:hover {
+  color: blue;
+  background-color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+div.animation_box {
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin: 0px 15px;
+}
+
+div.animation_box div {
+  position: relative;  
+}
+
+div.animation_status {
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin: 0px 15px;
+}

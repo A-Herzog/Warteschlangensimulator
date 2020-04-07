@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Parking lot</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Parking lot</h1>
+
+<p>
+If there is no station requesting a transporter after it has reached its
+destination station the transporter will stay at the destination station. 
+If the transporter is requested later it will may have to move a far distance
+to the requsting origin station. A parking lot station can requst a transporter
+just like a origin station. But the transporter will not be loaded at a parking lot;
+it will just stay there and wait. The advantage of using parking lots is that
+a parking lot can be much closer to a origin station. So if a transporter
+already waiting at a parking lot is requested by an origin station the
+travel distance may be much shorter.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the parking lot element has no further meaning.
+The <b>Transporter type</b> drop down box allows to define which
+type of transporters is to be attracted by the parking lot station.
+The <b>Parking lot capacity</b> defined the maximum number of
+transporters which can wait at the station. The
+<b>Priority for requesting free transporters</b> should always be
+smaller than the priority for requesting free transporters of
+origin stations. Otherwise free transporters will head to parking
+lots instead of moving to origin stations where they are needed
+for transporting.
+</p>
+
+</body>
+</html>

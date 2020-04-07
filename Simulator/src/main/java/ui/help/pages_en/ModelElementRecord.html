@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Data recording</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Data recording</h1>
+
+<p>
+If a client passes through this element, the values of one or two user-defined expressions
+are recorded to the statistics. If one expression is given, the values will be presented
+as a line diagrame. On two expressions a X-Y points diagram will be created.
+</p>
+
+<h2>Limitations</h2>
+
+In contrast to an <a href="ModelElementOutput.html">Output</a> element the data recoding element
+is no recording to an external file but will keep the recorded values in memory to be able to
+directly present them in the statistics viewer. For this reason the maximum number of recorded
+values is limited to 2 million. When storing the statistics to a xml file and when displaying
+line diagrams, up to 2 million values are used. For X-Y point diagrams and in tables only up to
+2<sup>17</sup> values will be used.
+
+<h2>Settings</h2>
+
+<p>
+The data will be recorded in the statistics under the name of the data recording element. 
+At least one expression whose values are to be recorded has to be specified.
+The second expression is optional.
+</p>
+ 
+</body>
+</html>

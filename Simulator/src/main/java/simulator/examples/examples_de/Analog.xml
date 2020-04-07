@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>4.1.0</ModellVersion>
+  <ModellName>Verwendung von zeitkontinuierlichen Werten</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">1000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementAusdruck Zeitbasis="Sekunden">900</ModellElementAusdruck>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementAnalogWertZuweisung id="2">
+      <ModellElementName>Rate=1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementAnalogWertZuweisungRate ZielID="4">1/60</ModellElementAnalogWertZuweisungRate>
+    </ModellElementAnalogWertZuweisung>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnalogerWert id="4">
+      <ModellElementName>Wert</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="400"/>
+      <ModellElementAnalogerWertStartwert>0</ModellElementAnalogerWertStartwert>
+      <ModellElementAnalogerWertMinimum>0</ModellElementAnalogerWertMinimum>
+      <ModellElementAnalogerWertMaximum>10</ModellElementAnalogerWertMaximum>
+      <ModellElementAnalogerWertRate>0</ModellElementAnalogerWertRate>
+      <ModellElementAnalogerWertAktualisierungsschrittweite>6</ModellElementAnalogerWertAktualisierungsschrittweite>
+    </ModellElementAnalogerWert>
+    <ModellElementVerzoegerung id="5">
+      <ModellElementGroesse h="50" w="100" x="400" y="150"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Bedienzeit" Zeitbasis="Sekunden">300</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementAnalogWertZuweisung id="6">
+      <ModellElementName>Rate=-1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementAnalogWertZuweisungRate ZielID="4">-1/60</ModellElementAnalogWertZuweisungRate>
+    </ModellElementAnalogWertZuweisung>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="2" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="5" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzoegerung id="9">
+      <ModellElementGroesse h="50" w="100" x="800" y="150"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Bedienzeit" Zeitbasis="Sekunden">300</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementEnde id="10">
+      <ModellElementGroesse h="50" w="100" x="1250" y="150"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="6" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnalogWertZuweisung id="11">
+      <ModellElementName>Rate=0</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1050" y="150"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementAnalogWertZuweisungRate ZielID="4">0</ModellElementAnalogWertZuweisungRate>
+    </ModellElementAnalogWertZuweisung>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="9" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="11" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationLinienDiagramm id="15">
+      <ModellElementGroesse h="250" w="550" x="450" y="350"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="10" Minimum="0">AnalogWert(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>3600</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="22">
+      <ModellElementGroesse h="23" w="395" x="50" y="50"/>
+      <ModellElementTextzeile>Verwendung von zeitkontinuierlichen Werten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>Aktueller Wert</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="250" y="470"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">AnalogWert(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="39">
+      <ModellElementName>Änderungsrate (pro Min.)</ModellElementName>
+      <ModellElementGroesse h="30" w="102" x="250" y="520"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">AnalogRate(4)*60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="49">
+      <ModellElementGroesse h="19" w="289" x="450" y="330"/>
+      <ModellElementTextzeile>Aktueller Wert des zeitkontinuierlichen Wertes</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="17">
+      <ModellElementGroesse h="245" w="200" x="200" y="355"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="19" w="175" x="205" y="360"/>
+      <ModellElementTextzeile>Zeitkontinuierlicher Wert</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="19">
+      <ModellElementGroesse h="150" w="350" x="200" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,195,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="20">
+      <ModellElementGroesse h="38" w="249" x="205" y="105"/>
+      <ModellElementTextzeile>Zuflussrate auf 1 pro Minute setzen</ModellElementTextzeile>
+      <ModellElementTextzeile>5 Minuten warten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,195,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="21">
+      <ModellElementGroesse h="150" w="350" x="600" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="23">
+      <ModellElementGroesse h="38" w="254" x="605" y="105"/>
+      <ModellElementTextzeile>Zuflussrate auf -1 pro Minute setzen</ModellElementTextzeile>
+      <ModellElementTextzeile>5 Minuten warten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="24">
+      <ModellElementGroesse h="150" w="200" x="1000" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="19" w="168" x="1005" y="105"/>
+      <ModellElementTextzeile>Zuflussrate auf 0 setzen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationAnalogSkala id="26">
+      <ModellElementName>Analoger Wert "Wert" (id=4) - Aktueller Wert</ModellElementName>
+      <ModellElementGroesse h="100" w="200" x="1050" y="350"/>
+      <ModellElementAnimationAnalogSkalaAusdruck MaximalWert="10">AnalogValue(4)</ModellElementAnimationAnalogSkalaAusdruck>
+    </ModellElementAnimationAnalogSkala>
+    <ModellElementText id="99">
+      <ModellElementGroesse h="19" w="289" x="1050" y="455"/>
+      <ModellElementTextzeile>Aktueller Wert des zeitkontinuierlichen Wertes</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

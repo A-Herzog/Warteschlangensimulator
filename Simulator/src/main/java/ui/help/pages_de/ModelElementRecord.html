@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Datenaufzeichnung</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Datenaufzeichnung</h1>
+
+<p>
+Durchläuft ein Kunde dieses Element, so werden die Werte von ein oder zwei frei definierbaren Ausdrücken
+in der Statistik erfasst. Wird ein Ausdruck verwendet, so stehen die Werte später als Verlaufsdiagramm
+zur Verfügung. Bei zwei Werten wird ein X-Y-Punktediagramm gebildet.
+</p>
+
+<h2>Einschränkungen</h2>
+
+<p>
+Im Gegensatz zu der Aufzeichnung von Werten über ein <a href="ModelElementOutput.html">Ausgabe</a>-Element
+direkt in eine Datei werden die Daten hier im Arbeitsspeicher gehalten, um im Anschluss an die Simulation
+direkt in der Statistikansicht zur Verfügung zu stehen. Daher ist die Anzahl an Datenpunkten, die erfasst
+werden auf 2 Millionen beschränkt. Beim Speichern der Statistikdaten als xml-Datei und bei der Anzeige eines
+Verlaufsdiagramms werden diese maximal 2 Millionen Datenpunkte berücksichtigt. In X-Y-Punktediagrammen und
+in Tabellen werden jedoch nur maximal 2<sup>17</sup> Datenpunkte ausgegeben.
+
+<h2>Einstellungen</h2>
+
+<p>
+Die Daten werden in der Statistik unter dem Namen des Datenaufzeichnung-Elements erfasst. Mindestens
+ein Ausdruck, dessen Werte erfasst werden sollen, muss angegeben werden. Der zweite Ausdruck ist
+optional.
+</p>
+ 
+</body>
+</html>

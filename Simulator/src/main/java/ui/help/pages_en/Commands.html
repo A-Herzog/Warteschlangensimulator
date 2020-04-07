@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Commnand-line commands</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Commnand-line commands</h1>
+
+<p>
+The simulator can be ran in three ways with additional parameters:
+</p>
+
+<ul>
+  <li><tt>&lt;Simulator program file&gt; &lt;Model file&gt;</tt></li>
+  <li><tt>&lt;Simulator program file&gt; &lt;Statistics file&gt;</tt></li>
+  <li><tt>&lt;Simulator program file&gt; &lt;Command&gt; &lt;Parameters&gt;</tt></li>
+</ul>
+
+<p>
+In the first two cases, the specified simulation model or the specified statistics file is
+loaded into the simulator.
+</p>
+
+<h2>Executing commands using the command line</h2>
+
+<p>
+<tt>&lt;Command&gt;</tt> can be one of the following terms.
+The additional parameters which can be specified at the <tt>&lt;Parameters&gt;</tt> placeholder depend on the <tt>&lt;Command&gt;</tt>:
+</p>
+
+<h3>HELP</h3>
+<p>
+<b>Shows this help.</b><br>
+This command expects one or no additional parameters.<br>
+If a command is enters as additional parameter, the help information for this command is displayed.<br>
+Otherwise a list with all available commands is displayed.
+</p>
+
+<h3>SIMULATION</h3>
+<p>
+<b>Start a simulation run.</b><br>
+This command expects exactly two additional parameters:<br>
+1. Input model file<br>
+2. Output statistic file<br>
+The input file has to be existent, the output has to be non existent.
+</p>
+
+<h3>REPORT</h3>
+<p>
+<b>Exports the whole report or a part of it.</b><br>
+This command expects exactly three additionall parameters:<br>
+1. "Inline", "SingleFiles", "List", "Text", "PDF" or a list entry, depending if<br>
+a) a html report with inline images,<br>
+b) a html teport with separate images,<br>
+c) an overview of all available individual documents,<br>
+d) a docx report<br>
+e) a pdf report or<br>
+f) an individual document is to be reported.<br>
+2. File name of the input file<br>
+3. File name of the output file
+</p>
+
+<h3>FILTER</h3>
+<p>
+<b>Filter statistic file.</b><br>
+The command expects exactly three additional parameters:<br>
+1. Name of the input statistic file<br>
+2. Name of the input filter configuration file<br>
+3. Name of the output file which will contain the filtered results<br>
+If the output file already exists, the new results will be added.<br>
+Otherwise the file will be created.
+</p>
+
+<h3>PARAMETERSERIES</h3>
+<p>
+<b>Run a parameter series simulation.</b><br>
+This command expects exactly two additional parameters:<br>
+1. Input parameter series file<br>
+2. Output parameter series file<br>
+The input file has to exist.<br>
+The output has to be non existent.<br>
+</p>
+
+<h3>PARAMETERSERIESTABLE</h3>
+<p>
+<b>Exports the results table of a parameter series.</b><br>
+This command expects exactly two additional parameters:<br>
+1. Input parameter series file<br>
+2. Output table file<br>
+The input file has to exist.<br>
+The output has to be non existent.
+</p>
+
+<h3>PARAMETERSERIESVARIANCEANALYSIS</h3>
+<p>
+<b>Creates a parameter series configuration for a variance analysis</b><br>
+This command expects three or four additional parameters:<br>
+1. Input model file<br>
+2. Output parameter series file<br>
+3. Number of repetitions or the model<br>
+4. New value for the number of arrivals (optional)<br>
+The input file has to exist.<br>
+The output has to be non existent.
+</p>
+
+<h3>OPTIMIZER</h3>
+<p>
+<b>Starts a model optimization.</b><br>
+This command expects exactly two additional parameters:<br>
+1. Input model file<br>
+2. Optimizer configuration file<br>
+Both input files have to exist.
+</p>
+
+<h3>SERVER</h3>
+<p>
+<b>Starts the program as simulation server.</b><br>
+This command expects 0 to 2 additional parameters.<br>
+If these parameters exist they have the following meaning:<br>
+1. Port to be used<br>
+2. Password for encrypted data transfer<br>
+If no parameters are specified, the simulator will ask for the port via the console.<br>
+</p>
+
+<h3>SERVERLIMITED</h3>
+<p>
+<b>Starts the program as simulation server.</b><br>
+This command expects 0 to 2 additional parameters.<br>
+If these parameters exist they have the following meaning:<br>
+1. Port to be used<br>
+2. Password for encrypted data transfer<br>
+If no parameters are specified, the simulator will ask for the port via the console.<br>
+The server will limit the number of simultaneous requests depending on the number of available CPU cores."
+</p>
+
+<h3>SERVERWEB</h3>
+<p>
+<b>Starts the program as web-based simulation server.</b><br>
+This command expects one additional parameter:<br>
+the port to be used.
+</p>
+
+</body>
+</html>

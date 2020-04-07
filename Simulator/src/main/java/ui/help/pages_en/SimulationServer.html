@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Network server services</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Network server services</h1>
+
+<p>
+The Warteschlangensimulator provides two network server services that can be configured,
+started, and stopped in this dialog. The two services are not connected to each other
+and can be used independently.
+</p>
+
+<h2>Simulation network server</h2>
+
+<p>
+The simulation network server service allows to use the current Warteschlangensimulator instance
+as a calculation server for remote installations. If the server service is started, the program
+dialog page can be closed; the server is running until the program is closed.
+</p>
+
+<p>
+To access the server from a Warteschlangensimulator installation, the server connection data
+has to be specified in the <a href="Setup.html">setup</a> dialog.
+</p>
+
+<h2>Web server</h2>
+
+<p>
+The web server allows to submit work orders in the form of model xml files and parameter series xml files
+via a web interface to Warteschlangensimulator. The requests are processed in order of receipt and the
+results are offered for download as statistics xml files.
+</p>
+
+<h2>Remote control server</h2>
+
+<p>
+The web server allows to query the status of an animation via the http protocol in the form
+of json objects and also to control the animation via this interface.
+</p>
+
+<h2>DDE-Server</h2>
+
+<p>
+The DDE server allows to query the status of an animation via the dynamic data exchange protocol
+and also to control the animation via this interface. The simulator registers itself as service "QS"
+and offers the topics "Status" and "Calc". "Status" contains the four items
+"Version", "Model", "Changed" und "Mode". "Calc" can be used to calculate expressions in the
+context of the animation by offering them as DDE items. Additionally the two DDE commands
+"step" and "quit" can be used to control active animations.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Down time</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>Bedeutung der Spalten in dieser Tabelle:</p>
+
+<ul>
+  <li><b>Resource</b>:
+  Operator group to which the respective line refers.  
+  </li>
+  <li><b>Number of operators</b>:
+  Number of operators in the respective group, if this is determined by
+  a fixed number (and not, for example, by a shift schedule).
+  </li>  
+  <li><b>Share in down time</b>:
+  If the number of operators in this group is a fixed value during simulation,
+  this cell indicates the <a href="help:statistik_mittelwert">average share of operators</a> in the operator group who are in down time.
+  </li>    
+  <li><b>Mean</b>:
+  <a href="help:statistik_mittelwert">Average absolute number</a> of operators in this group in down time.
+  </li>
+  <li><b>Std</b>:
+  <a href="help:statistik_standardabweichung">Standard deviation</a> of the absolute number of operators in down time in this group.
+  </li>
+  <li><b>Var</b>:
+  <a href="help:statistik_standardabweichung">Variance</a> of the absolute number of operators in down time in this group.
+  </li>
+  <li><b>CV</b>:
+  <a href="help:statistik_CV">Coefficient of variation</a> of the absolute number of operators in down time in this group.
+  </li>
+  <li><b>Min</b>:
+  Minimum absolute number of operators in down time during the simulation in this group.
+  </li>
+  <li><b>Max</b>:
+  Maximum absolute number of operators in down time during the simulation in this group.
+  </li>
+</ul>
+
+<p>
+The value <b>share in down time</b> indicates the ratio between the operators in down time and the total number of available operators.
+If the number of available operators in the group is either variable (defined by a shift plan)
+or if the group consists of an infinite number of operators, no share can be determined.
+</p>
+<p>
+Values that refer to the <b>absolute number of operators in down time</b>, however, are always available.
+</p>
+  
+</body></html>

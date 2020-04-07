@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Versionsgeschichte</title>
+<link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+<body>
+
+<h1>Versionsgeschichte</h1>
+
+<h2>Version 4.3.0 (xx.x.2020)</h2>
+<ul>
+  <li>Der Warteschlangensimulator steht nun unter der Apache 2.0 Lizenz zur freien Verwendung zur Verfügung.</li>
+  <li>Es können nun zusätzliche externe Daten definiert werden, die zu Simulationsbeginn als Parameter in das Modell geladen werden.</li>
+  <li>Es steht nun eine pdf-Referenz über die Kommandozeilen-Befehle des Warteschlangensimulators zur Verfügung.</li>
+  <li>Der eingebaute Webserver nimmt nun Modell und Parameterreihen-Konfigurationen auch in den anderen neben xml unterstützten Formaten entgegen. Die Ergebnisse werden nun in dem eingestellten Format für den jeweiligen Dateityp zurückgegeben.</li>
+  <li>Über den eingebauten Webserver können nun Simulationsergebnisse direkt im Browser angezeigt werden.</li>
+  <li>Als Zeichenflächenraster kann nun alternativ zu dem Linien- auch ein Punktraster angezeigt werden.</li>
+  <li>Bei der Parametervariation können nun alle vier Parameter einer Beta-Verteilung verändert werden.</li>
+  <li>Schnellere Simulation bei der Verwendung von Beta-Verteilungen.</li>
+  <li>[Fix] Im Verteilungseditor wurden die Kenngrößen der Beta-Verteilung nicht korrekt angezeigt.</li>  
+  <li>[Fix] Bei der Durchführung von Optimierungen wurden arbeitsspeicherbedingte Restriktionen der Anzahl an Threads bislang teilweise nicht berücksichtigt.</li>
+  <li>[Fix] Der Wikipedia-Hilfe-Link im Verteilungseditor funktionierte nicht mehr korrekt.</li>
+</ul>
+
+<h2>Version 4.2.0 (23.3.2020)</h2>
+<ul>
+  <li>Neuer Stationstyp: Simulationsdatentortendiagramm</li>
+  <li>Daten für die Simulation können nun auch aus Access-Datenbanken geladen werden.</li> 
+  <li>Stationsabhängige Kenngrößen (Zwischenankunfts- und Zwischenabgangszeiten sowie Warte-, Transfer-, Bedien- und Verweilzeiten) werden nun zusätzlich auch noch nach Kundentypen ausdifferenziert erfasst.</li>
+  <li>Ist die Pfadaufzeichnung aktiviert, so werden in der Statistik nun auch Kenngrößen zur Pfadlänge ausgegeben.</li>
+  <li>Bei Analogskalaanzeige-Elementen kann nun auch ein von 0 abweichender Minimalwert für die Skala vorgegeben werden.</li>
+  <li>In der Statistikansicht können nun jeweils die Ergebnisse zum vorherigen Simulationslauf eingeblendet werden.</li>
+  <li>Statistikergebnisse (Texte und Tabellen) könne nun auch als OpenOffice/LibreOffice-Dokumente gespeichert werden.</li>
+  <li>Beim Export von Modellen als docx-Dateien werden nun mehr Informationen zu dem Modell ausgegeben.</li>
+  <li>In der Statistikansicht stehen nun mehr Möglichkeiten zur direkten Anzeige der Daten in externen Programmen zur Verfügung.</li> 
+  <li>Sankey-Diagramme können nun, ohne zuvor als Datei gespeichert werden zu müssen, direct angezeigt werden.</li>
+  <li>Zu den Diagrammen in der Statistik können nun optional Erklärungstexte eingeblendet werden.</li>
+  <li>In dem vom Fernsteuerungsserver angebotenen Webinterface steht nun auch eine 3D-Visualisierung der Animation zur Verfügung.</li>
+  <li>Über das Kontextmenü des Schnellzugrifffeldes kann nun konfiguriert werden, welche Datenquellen für den Schnellzugriff verwendet werden sollen.</li>
+  <li>Das LCD-Anzeige-Element kann nun auch negative Werte darstellen und stellt zu große positive Werte nun besser dar.</li>
+  <li>Schnellere Simulation bei der Verwendung von Gamma- und Erlang-Verteilungen.</li>
+  <li>Bei allen Zeichenflächendiagrammen sowie bei Rechtecken und Ellipsen auf der Zeichenfläche kann nun auch eine Rahmenbreite von 0 eingestellt werden.</li>
+  <li>[Fix] Bei der Verwendung von Java-Versionen kleiner als 11 konnten an verschiedenen Stellen Fehler auftreten.</li>
+  <li>[Fix] Die vom Fernsteuerungsserver gelieferten Bewegungsdaten der Kunden während der Animation waren teilweise falsch.</li>
+  <li>[Fix] Vom Fernsteuerungsserver wurden während einer Animation keine Daten zu den Kundenicons geliefert, wenn das Programmfenster minimiert war.</li>
+  <li>[Fix] Beim Speichern von Statistik-Zusammenfassungsdaten als Web-Apps konnte es zu Out-of-memory-Fehlern kommen.</li>
+  <li>[Fix] Nach dem Wechsel der Programmsprache konnte es passieren, dass der Fernsteuerungsserver und der DDE-Server bis zum nächsten Start des Simulators keine validen Daten lieferten.</li>
+  <li>[Fix] Wurde der Dateiauswahldialog zum Speichern von Simulationsdatentabellen zur Animationselementen während einer Animation ohne Dateiauswahl abgebrochen, so konnte ein Fehler angezeigt werden.</li> 
+  <li>[Fix] Wurde der Maximalwert oder die Zeigerfarbe einer Analogskalaanzeige geändert, so wurde das Element nicht sofort mit den neuen Werten neu gezeichnet.</li>  
+</ul>
+
+<h2>Version 4.1.0 (17.2.2020)</h2>
+<ul>
+  <li>Neue Stationstypen: Kunden nach Typen zusammenfassen, LCD-Anzeige und Analogskalaanzeige</li>
+  <li>Optional können nun während der Simulation die Pfade der Kunden durch das System aufgezeichnet werden.</li>
+  <li>Zu Statistiktext- und Statistiktabellenseiten können nun optional Erklärungstexte eingeblendet werden.</li>
+  <li>Einzelne Informationen können aus den Statistiktextseiten nun über das Kontextmenü direkt in den Schnellzugriff übernommen werden.</li>
+  <li>Es werden nun auch die Zwischenabgangszeiten aus dem System auf Kundentypbasis erfasst.</li>  
+  <li>Tabellen können aus der Statistikansicht heraus jetzt direkt in Excel angezeigt werden.</li>
+  <li>Interaktive Laufzeitstatistikdiagramme können nun als Videos gespeichert werden.</li>
+  <li>Tabellen können nun in einem R-kompatiblen csv-Format exportiert werden.</li>
+  <li>Über Skriptbefehle können nun auch Werte für die Simulation von http-Servern bezogen werden.</li>
+  <li>Wenn keine Batch-Means-Konfidenzintervallerfassung aktiviert ist, so werden auf Basis der Multi-Thread-Simulation zumindest obere Abschätzungen für Konfidenzintervalle erfasst.</li>
+  <li>Modelle können nun auch als PowerPoint-Folien exportiert werden.</li> 
+  <li>Statistiktextseiten und Modellbeschreibungen können nun auch im Markdown-Format gespeichert werden.</li>
+  <li>Über das Modell-Menü können nun für einfache Modelle direkt die Kenngrößen gemäß verschiedener analytischer Formeln abgerufen werden.</li>
+  <li>Die Statistikseite zum Vergleich von Simulationsergebnissen und analytischen Modellen unterstützt nun ein größeres Spektrum an Modellen.</li>
+  <li>Modelle und Statistikdaten können nun auch in tar.gz-Dateien gespeichert und aus diesen geladen werden.</li>
+  <li>Alle Text-Dateiausgaben erfolgen nun utf-8-kodiert.</li>
+  <li>Geringerer Speicherbedarf und damit auch etwas schnellere Simulation von Modellen mit Batch-Bildung.</li>
+  <li>Geringerer Speicherbedarf und damit auch etwas schnellere Simulation bei der Erzeugung von Zufallszahlen über Rechenausdrücke.</li>
+  <li>Das in den "Speichern unter"-Dialogen initial auszuwählende Dateiformat kann nun konfiguriert werden.</li>
+  <li>Etwas schnellere Simulation bei Verwendung von Exponential-, Lognormal- und Gammaverteilungen.</li>
+  <li>Es stehen nun mehr Icons für die Animation der Kundentypen zur Verfügung.</li>
+  <li>[Fix] Beim Hinzufügen von neuen Durchsatz-Stationen zu einem Modell konnten Fehler auftreten.</li>
+  <li>[Fix] Die Auslastung von Transportern wurde nicht korrekt in der Statistik aufgezeichnet.</li>
+  <li>[Fix] Wurden die Zwischenankunftszeiten an einer Quelle-Station über einen Rechenausdruck definiert, so konnte die Anzeige der Simulationsergebnisse fehlschlagen.</li>
+  <li>[Fix] Wurde im Modell-Editor die Kopierenfunktion aktiviert während keine Elemente selektiert waren, so konnten Fehler auftreten.</li>
+  <li>[Fix] Wurde für die Behandlung der Einschwingphase in der Animation "Ohne Ausgabe vorab simulieren" gewählt, so erfolgte diese Simulation erst, wenn die Animation einmal komplett gestartet wurde (nicht nur Einzelschrittmodus).</li>
+  <li>[Fix] Das automatische Update konnte aufgrund eines Fehler in der Initialisierungsreihenfolge für die grafische Oberfläche fehlschlagen.</li>
+</ul>
+
+<h2>Version 4.0.0 (6.1.2020)</h2>
+<ul>
+  <li>Simulationsaufträge können nun über ein Webinterface an eine entfernt laufende Instanz des Simulators zur Berechnung übermittelt werden.</li>
+  <li>Die Parameterreihenfunktion kann nun auch genutzt werden, um Varianzanalysen für ein Modell durchzuführen.</li>
+  <li>Modellierungsfehler können nun in vielen Fällen direkt über eine Schnellkorrektur-Funktion des Kontextmenü der betreffenden Station behoben werden.</li>
+  <li>Bei der Optimierung kann nun eingestellt werden, ob die Statistikdaten zu jedem Zwischenschritt oder nur für das finale Modell gespeichert werden sollen.</li>
+  <li>Alle Kommandozeilen-Befehle können nun auch über einen Dialog ausgewählt, konfiguriert und ausprobiert werden.</li>
+  <li>Beim Hinzufügen von Kontrollvariablen für die Optimierung können nun auch Zwischenankunftszeiten, Bedienzeiten usw. direkt gewählt werden.</li>
+  <li>Die Funktion zum automatischen Hinzufügen von Verbindungskanten kann nun wahlweise auch die Abstände der Elemente berücksichtigen.</li>
+  <li>Bei der Simulation kann nun erkannt werden, wenn die gewählte Anzahl an Kundenankünften für statistisch stabile Ergebnisse zu gering gewählt ist.</li>
+  <li>Die Möglichkeit zum seitlichen Scrollen bei Mäusen mir einem seitlich klickbaren Scrollrad wird nun auch unterstützt.</li>
+  <li>Im Dialog zur Bearbeitung von Kontrollvariablen für die Optimierung wird nun der Wert der jeweiligen Kontrollvariable im Ausgangsmodell ausgewiesen.</li>
+  <li>Die Schnellzugriff-Funktion ist nun auch vollständig tastatursteuerbar.</li>
+  <li>Die Funktion zum Hinzufügen von Kanten kann nun direkt über die mittlere Maustaste aktiviert werden.</li>
+  <li>Die Schnellzugriff-Funktion kann nun auch Formelausdrücke berechnen.</li>
+  <li>Die Funktion zur Anzeige der zuletzt verwendeten Modelle zum Landen im Dateimenü kann nun ausgeschaltet werden.</li>
+  <li>Geringe Geschwindigkeitssteigerungen bei der Simulation</li>
+  <li>Etwas schnellerer Programmstart</li>
+  <li>Alle im Simulator genutzten externen Bibliotheken wurden auf die jeweils neusten Versionen aktualisiert.</li>
+  <li>[Fix] Die Rechenbefehle zur Abfrage der aktuellen Anzahl an wartenden Kunden oder an Kunden pro Kundentyp über eine Quell-ID funktionierten nicht korrekt.</li>
+  <li>[Fix] Bei der Aufzeichnung der Anzahl an Kunden im System (gesamt und pro Kundentyp) wurde die Einschwingphase nicht korrekt berücksichtigt.</li> 
+  <li>[Fix] Die automatische Hintergrundsimulation wurde nicht immer ausgeführt, wenn sie aktiviert war.</li>
+  <li>[Fix] Beim Laden von Modellen mit Bedienstationen mit ungültigen Werte für die Batch-Größe wurde keine korrekte Fehlermeldung ausgegeben.</li>
+  <li>[Fix] Beim automatischen Hinzufügen von Kanten wurden Verbindungsecken-Elemente nicht berücksichtigt.</li>
+  <li>[Fix] Einstellungen zu Bereich und Schrittweite von Schiebereglern wurden bislang beim Öffnen des zugehörigen Einstellungendialogs auf eine Nachkommastelle gerundet.</li>
+  <li>[Fix] Im Warteschlangenrechner wurde auf der Dialogseite zur Allen-Cunneen-Formel bislang der eingegebene Variationskoeffizient der Bedienzeiten nicht berücksichtigt.</li> 
+</ul>
+
+<h2>Version 3.9.0 (5.11.2019)</h2>
+<ul>
+  <li>In der Statistik werden nun Quantile für alle Kenngrößen ausgewiesen.</li>
+  <li>Schnellzugriff-Eingabefeld im Hauptfenster zum direkten Zugriff auf Programmfunktionen, Elemente, Beispielmodelle usw.</li>
+  <li>Der "Ausdruck bearbeiten"-Dialog verfügt nun über einen Schnellfilter.</li>
+  <li>Bei der Definition der Kundentypenprioritäten für eine Bedienstation steht nun auch der "Ausdruck bearbeiten"-Dialog zur Verfügung.</li>
+  <li>Im Schnellfilter-Skripteditor steht nun auch der "Ausdruck bearbeiten"-Dialog zur Verfügung.</li> 
+  <li>Übersichtstabellen können nun auch per Kommandozeile aus Parameterreihen-Dateien extrahiert werden.</li>
+  <li>In kopierten und gespeicherten Parameterreihen-Übersichtstabellen werden nun am Ende Informationszeilen mit Minimum, Mittelwert und Maximum der jeweiligen Spalte ausgegeben.</li>
+  <li>Es stehen nun Rechenausdrücke zur Abfrage von Median und Quantilen für alle aufgezeichneten Kenngrößen zur Verfügung.</li>
+  <li>In der listenbasierenden Ergebnisfilterung stehen nun auch Rechenausdrücke zur Verfügung.</li>
+  <li>Der Modellgenerator bietet nun mehr Konfigurationsmöglichkeiten.</li>
+  <li>Linien-, Balken- und Tortendiagramme können nun auch als Excel-Tabellen mit eingebetteten Diagrammen gespeichert werden.</li> 
+  <li>Tabellen können nun auch im LaTeX-Format gespeichert werden.</li>
+  <li>Das Optimierungsergebnis-Diagramm kann nun kopiert und gespeichert werden.</li>
+  <li>In dem Ergebnisdiagramme-Dialog der Parameterreihenfunktion kann nun zwischen den verschiedenen verfügbaren Ausgabegrößen gewählt werden, ohne den Dialog schließen zu müssen.</li>
+  <li>Etwas geringerer Speicherverbrauch bei der Animation und beim Speichern von Statistikdaten.</li>
+  <li>[Fix] Als minimale Anzahl an vorhandenen Bedienern wurde in der Statistik bislang stets -1 ausgewiesen.</li>
+  <li>[Fix] Die Erfassung der Häufigkeitsverteilung der Kundendatenfelder funktionierte nicht.</li>
+  <li>[Fix] Beim Speichern von Tabellen im Excel-Format wurden Zellen mit negativen Zahlen nicht korrekt als Zahlenwert-Zellen formatiert.</li>
+  <li>[Fix] Wurde unter Windows eine Umgebungsvariable JAVA_HOME gesetzt, die auf eine nichtexistente Java-Installation verwies, so konnte der Simulator nicht gestartet werden.</li>
+  <li>[Fix] Beim Kopieren von Grafiken in die Zwischenablage konnten bei der Verwendung von Java 11 oder höher Fehler auftreten.</li>  
+  <li>[Fix] War der verfügbare Speicher während des Ladens einer xml-Datei erschöpft, so wurde keine entsprechende Fehlermeldung angezeigt.</li>
+</ul>
+
+<h2>Version 3.8.0 (15.10.2019)</h2>
+<ul>
+  <li>Der Simulator kann nun unter Windows für den aktuellen Nutzer oder auch für alle Nutzer installiert werden.</li>
+  <li>Es werden nun auch die Anzahlen an Kunden im System pro Kundentyp erfasst.</li>
+  <li>In der Parameterreihen-Funktion kann nun einfacher auf das jeweilige Basismodell zugegriffen werden.</li>
+  <li>Über Rechenbefehle kann nun auch auf die Kenngrößen der Anzahl an Kunden im System und in Warteschlangen global und pro Kundentyp zugegriffen werden.</li>
+  <li>Der Modellgenerator kann nun auch direkt eine Visualisierung der Anzahl an Kunden im System zu neuen Modellen hinzufügen.</li>
+  <li>Etwas geringerer Speicherbedarf bei der Simulation.</li>
+  <li>[Fix] In der pdf-Elementreferenz bislang fehlende Stationen wurden ergänzt.</li>
+</ul>
+
+<h2>Version 3.7.0 (25.9.2019)</h2>
+<ul>
+  <li>An Bedingung-Stationen können die Bedingungen nun zusätzlich optional zeitgesteuert geprüft werden.</li>
+  <li>Signifikante Beschleunigung der Simulation von komplexeren Modellen.</li>
+  <li>Parameterreihensimulationen können nun auch per Kommandozeile durchgeführt werden.</li>
+  <li>Bessere Ausnutzung der Rechenleistung auf NUMA-Systemen.</li>
+  <li>Geringerer Speicherbedarf für die Simulation und etwas geringerer Speicherbedarf für die grafische Oberfläche.</li>
+  <li>Bei den Simulationssystemdaten wird nun auch der Laufzeitunterschied zwischen dem schnellsten und dem langsamsten Thread ausgegeben.</li>
+  <li>Die Kenngrößen von empirischen Wahrscheinlichkeitsverteilungen können nun auch direkt über Rechenausdrücke abgefragt werden.</li>
+  <li>Im Rechnerdialog stehen nun auch die Funktionen zur dialogbasierten Auswahl und Bearbeitung von Rechenausdrücken zur Verfügung.</li>
+  <li>Als initiale Spracheinstellung wird nun die für den Installer gewählte Sprache übernommen.</li>
+  <li>Die Liste der nächsten während einer Animation geplanten Ereignisse kann aus dem zugehörigen Dialog heraus nun in die Zwischenablage kopiert werden.</li>
+  <li>Alle im Simulator genutzten externen Bibliotheken wurden auf die jeweils neusten Versionen aktualisiert.</li>
+  <li>[Fix] Beim Hinzufügen von aus einer Mehrfach-Bedingung-Station auslaufenden Kanten konnten Fehler auftreten.</li>
+  <li>[Fix] Die Abfrage von Verteilungsdaten als Arrays aus den Simulationsergebnissen per Javascript oder Java funktionierte nicht, wenn die empirische Verteilung nur aus einem Wert bestand.</li>
+  <li>[Fix] Die Erfassung der Nutzungsstatistik des Simulators (Anzahl an simulierten Kunden insgesamt) funktionierte nicht korrekt.</li> 
+</ul>
+
+<h2>Version 3.6.0 (15.8.2019)</h2>
+<ul>
+  <li>Die Funktion zum Laden eines Beispiels in den Editor kann nun eine Vorschau des jeweils gewählten Beispiels anzeigen.</li>
+  <li>In dem Fenster zur skriptbasierten Verarbeitung von Parameterreihenergebnissen kann nun ein Beispielskript, welches die gewählten Ausgabegrößen ausgibt, geladen werden.</li>
+  <li>Schnellere Simulation von Modellen mit Stationen an denen es keine Verzögerungen gibt.</li>
+  <li>Bei der Anzeige der Autokorrelation wird nun deutlicher darauf hingewiesen, wenn für ein Korrelationsniveau kein Abstand bestimmt werden konnte.</li>
+  <li>Etwas geringerer Speicherbedarf bei der Anzeige der grafischen Oberfläche.</li>
+  <li>[Fix] Der Aufruf der Funktion zum Vergleich verschiedener Statistikergebnisse führte evtl. zu keiner Ergebnisansicht.</li>  
+  <li>[Fix] Beim Schnellzugriff in der Statistik wurde die Kompilierung des eingegebenen Java-Codes nach jedem Tastendruck ausgelöst, so dass evtl. viele Fehlerdialoge angezeigt wurden.</li>
+  <li>[Fix] Wurde nach einer Simulation über die Javascript System.calc() Funktion auf die Statistikdaten zugegriffen, so führte dies zu einem Fehler.</li>
+  <li>[Fix] Nach dem Einfügen eines Skript-Befehl über das Befehle-Menü sprang der Cursor stets an das Ende des Skripts.</li>  
+
+</ul>
+
+<h2>Version 3.5.1 (8.8.2019)</h2>
+<ul>
+  <li>Im Modelleigenschaften-Dialog kann nun automatisch eine Beschreibung für das aktuelle Modell erstellt werden.</li>
+  <li>[Fix] Die Erfassung der Verteilung der Anzahl an ausgelasteten Bedienern war fehlerhaft.</li>
+  <li>[Fix] Das Laden von Parameterreihen-Konfigurationen, die mit Version 3.4 oder früher erstellt wurden, funktionierte nicht per Drag&amp;Drop.</li>
+</ul>
+
+<h2>Version 3.5.0 (1.8.2019)</h2>
+<ul>
+  <li>An verschiedenen Stationen können nun Modellparameter direkt über das Kontextmenü verändert werden.</li>
+  <li>Während sich die Animation im Pausemodus befindet, kann eine Liste der nächsten geplanten Ereignisse angezeigt werden.</li>
+  <li>Bei Zeichenflächendiagrammen können nun, wie auch bei Stationen, während der Animation in einem Dialog die zugrunde liegenden aktuellen Daten angezeigt werden.</li>
+  <li>Das Ausgangsmodell wird nun auch in die Parameterreihendateien eingebettet, so dass diese später erweitert werden können, ohne dass dafür das Ausgangsmodell separat aufgehoben werden müsste.</li>
+  <li>Die Funktion zur automatischen Korrektur von Modellen vor dem Start einer Simulation oder Animation erkennt und behebt nun mehr mögliche Fehler.</li>
+  <li>Logging-Aufzeichnungen können nun statt in Dateien auch direkt über eine DDE-Verbindung nach Excel erfolgen.</li>
+  <li>Die Erlang-C-Vergleichsfunktion in der Statistikansicht kann nun mit einem weiteren Spektrum von Modellen umgehen.</li>
+  <li>Die während einer Animation auftretenden Ereignisse können nun genauso wie bei einer Simulation ohne Animation optional in einer Logdatei aufgezeichnet werden.</li>
+  <li>Als Hintergrund der Zeichenfläche kann nun auch ein Farbverlauf definiert werden.</li>
+  <li>Bei Rechtecken und Ellipsen können nun ein Farbverläufe als Hintergrund festgelegt werden und es kann die Deckkraft der Hintergrundfarbe eingestellt werden.</li>
+  <li>Im Rechner-Dialog können nun auch Funktionsgraphen dargestellt werden.</li>
+  <li>Die Verbindung zum Simulationsserver kann nun direkt vom Einstellungen-Dialog aus geprüft werden.</li>
+  <li>[Fix] Die in Statistikdateien gespeicherten Anteilwerte von Zählern waren bislang fehlerhaft, wenn in dem Modell mehrere Zählergruppen existierten.</li>
+  <li>[Fix] Bei der Netzwerksimulation konnte bei der Verwendung eines Passworts teilweise keine Verbindung hergestellt werden.</li>
+  <li>[Fix] Bei Laden von Tabellendaten im DIF-Format wurde am Tabellenanfang eine leere Zeile eingefügt.</li> 
+  <li>[Fix] Bei der Darstellung der Linien innerhalb eines Liniendiagramms wurde bislang der Zoomfaktor nicht berücksichtigt.</li>
+</ul>
+
+<h2>Version 3.4.0 (8.7.2019)</h2>
+<ul>
+  <li>Neue Stationstypen: Fließband, Mehrfachzähler</li> 
+  <li>Neue unterstützte Wahrscheinlichkeitsverteilungen: Potenzverteilung, Chi-Verteilung, Gumbel-Verteilung, Fatigue-Life-Verteilung, Frechet-Verteilung und hyperbolische Sekanten-Verteilung</li>
+  <li>Bei Zusammenführen-Elementen kann nun optional eine Eigenschaft der eintreffenden Kunden abgeprüft werden und auf dieser Basis Kunden zusammengeführt werden.</li>
+  <li>In der Statistikansicht werden nun, wenn möglich, Vergleichswerte gemäß Erlang-C-Formal und Allen-Cunneen-Näherungsformel angezeigt.</li>
+  <li>Die Skript-Eingabefelder liefern nun Vorschläge zur Autovervollständigung von Befehlen.</li> 
+  <li>Es kann nun ein Proxy-Server konfiguriert werden, über den Updates und Lizenzen geladen werden.</li>
+  <li>Das letzte Modell im Editor kann nun beim nächsten Programmstart optional automatisch wiederhergestellt werden.</li>
+  <li>Der Warteschlangenrechner kann die Eingangsgrößen nun in verschiedenen Einheiten entgegen nehmen.</li> 
+  <li>Wird eine Animation im Single-Core-Modus im Einzelschrittbetrieb durchgeführt, so werden nun genauso wie im Multi-Core-Modus mehrere Schritte zusammengefasst, bis Logging-Ausgaben auftreten.</li>
+  <li>[Fix] Bei der Verwendung von Ausleiten-Stationen konnte es zu Fehlern inder Zählung der Anzahl an Kunden in der Station, aus der Kunden ausgeleitet wurden, kommen.</li>
+  <li>[Fix] In den Bearbeiten-Dialogen für Variable-Stationen wurden Variablennamen, die über modellweite initiale Werte definiert waren, in Ausdrücken nicht als gültige Namen akzeptiert.</li>
+  <li>[Fix] Existierte in einem Modell eine Verzweigen-Station im "Verzweigen nach Bedingung"-Modus und besaß diese keine auslaufende Kante, so konnte die Modellprüfung mit einem internen Fehler scheitern.</li>  
+  <li>[Fix] Bei der Darstellung von Animationen im Einzelschrittmodus wurde das Endergebnis des Schritts teilweise erst nach einem Neuzeichnen des Fensters korrekt dargestellt.</li>
+  <li>[Fix] Wurde ein Kundentyp-Icon über den Bearbeitendialog einer Station geändert, so wurde das Icon an anderen Stationen, die sich auf denselben Kundentyp beziehen, nicht sofort neu gezeichnet.</li>
+</ul>
+
+<h2>Version 3.3.0 (12.6.2019)</h2>
+<ul>
+  <li>Neue Stationstypen: Datenaufzeichnung, Datenaufzeichnung anzeigen</li>
+  <li>Neue unterstützte Wahrscheinlichkeitsverteilungen: Rayleigh-Verteilung und Log-Logistische Verteilung</li>
+  <li>Syntax-Hervorhebung in den Skript-Editor-Feldern</li>
+  <li>Stationen können nun benutzerdefinierte Bilder verwenden.</li>
+  <li>Die Kantenführung kann nun konfiguriert werden.</li>
+  <li>Bei Kundenquellen kann nun neben einer Maximalanzahl an Ankunftsereignissen auch eine Maximalanzahl an Kunden gewählt werden.</li>
+  <li>Bessere Darstellung von Animationen im Einzelschrittmodus.</li>
+  <li>Für Textausgaben auf der Zeichenfläche kann nun die Schriftart eingestellt werden.</li>
+  <li>Bei Rechtecken können die Ecken nun abgerundet werden.</li>
+  <li>Über den Abschluss einer Simulation, einer Parameterreihen-Simulation oder einer Optimierung kann nun über eine Systemmeldung informiert werden.</li>
+  <li>Schnellerer Generator für Cauchy-verteilte Zufallszahlen</li>
+  <li>Schnellere Ausführung von Javascripten über die GraalJS-Engine (bei Verwendung von GraalVM).</li>
+  <li>Die interne Rhino-Javascript-Engine wurde auf Version 1.7.11 aktualisiert.</li>
+  <li>[Fix] Bei Ausgang-Stationen wurde der im Dialog eingestellte Name und die eingestellte Farbe nicht korrekt übernommen.</li>
+  <li>[Fix] In den "Aktuelle Simulationsdaten"-Dialogen wurden während der Animation die jeweils letzten Kundenabgangszeitpunkte nicht korrekt ausgewiesen.</li>
+</ul>  
+
+<h2>Version 3.2.0 (16.5.2019)</h2>
+<ul>
+  <li>Neue Stationstypen: Mehrfachbedingung, Teleport-Start- und Teleport-Ziel-Stationen</li>
+  <li>Der Warteschlangensimulator kann nun auch unter GraalVM ausgeführt werden.</li>
+  <li>Zusätzliche Informationstexte in den Konfigurationsdialogen der Stationen</li>
+  <li>Geschwindigkeitssteigerungen bei der Simulation</li>
+  <li>Feinere Abstimmung der Animationsgeschwindigkeitsstufen</li>
+  <li>Im Statistik-Schnellzugriff und als Parameterreihenausgabewerte kann nun auch direkt auf den Anteil eines Zählers in seiner Zählergruppe zugegriffen werden.</li>
+  <li>Amazon Corretto-Laufzeitumgebungen werden nun unter Windows auch dann erkannt, wenn diese weder im Suchpfad noch in der Java-Home-Umgebungsvariable vermerkt sind.</li>
+  <li>[Fix] Wenn eine Station von mehreren Bedingung-Stationen aus mit Kunden versorgt wurde, so konnte es passieren, dass beide Bedingung-Stationen gleichzeitig eine Kunden freigegeben haben, obwohl nach der ersten Kundenankunft die zweite Station keinen Kunden mehr hätte freigeben dürfen (Bewegungen von Kunden sind keine atomaren Aktionen).</li>
+  <li>[Fix] Wurde als fester Startwert für den Zufallszahlengenerator eine 20-stellige Zahl eingegeben, so wurden nicht alle Ziffern korrekt gespeichert.</li>
+  <li>[Fix] Bei der Verwendung von Java 8 oder 9 funktionierte die Javascript Umgebung Mozilla Rhino nicht.</li>
+  <li>[Fix] Wenn das Modell verändert wurde, während gerade die Hintergrundsimulation eines Modells startete, wurden teilweise mögliche Fehleranmerkungen unter den Stationen auf der Zeichenfläche nicht angezeigt.</li>
+</ul>
+
+<h2>Version 3.1.0 (2.5.2019)</h2>
+<ul>
+  <li>Optional einblendbarer Modell-Navigator</li>
+  <li>Die ausgewählten Elemente können nun horizontal oder vertikal aneinander ausgerichtet werden.</li>
+  <li>Ausgang-Stationen können nun so konfiguriert werden, dass die Simulation beendet wird, wenn an ihnen ein Kunde eintrifft.</li>
+  <li>Das Aussehen der Verbindungskanten kann nun konfiguriert werden.</li>
+  <li>Es kann nun eingestellt werden, dass die Simulation abgebrochen werden soll, wenn ein Rechenausdruck nicht berechnet werden kann.</li>
+  <li>Aufzuzeichnende Laufzeitstatistikwerte können nun direkt über das Kontextmenü von Stationen eingestellt werden.</li>
+  <li>Über das Kontextmenü der Stationen können nun direkt typische Folgestationen eingefügt werden.</li>
+  <li>Bei Dekorationslinien können nun auch Pfeilspitzen an den Linienenden angezeigt werden.</li> 
+  <li>Die Anzahl an Bedienern pro Ressource, die sich momentan in Ausfallzeit befinden, kann nun auch über Skriptbefehle ausgelesen werden.</li>
+  <li>Geschwindigkeitssteigerung beim Laden von Modelldateien</li>
+  <li>Während laufenden Animationen wird ein Fortschrittsbalken in der Statusleiste angezeigt.</li>
+  <li>Die Anzeige von Hinweismeldungen in den Dialogen kann nun feingranularer konfiguriert werden.</li>
+  <li>[Fix] Unter bestimmten Umständen wurden explizite Simulationsendebedingungen im Simulationsmodus nicht berücksichtigt.</li>
+  <li>[Fix] Beim Laden großer Modelldateien per Drag&amp;Drop blockierte das Explorer-Fenster bis zum Abschluss des Ladevorgangs.</li>
+</ul>
+
+<h2>Version 3.0.1 (8.4.2019)</h2>
+<ul>
+  <li>[Fix] Zu Beginn einer Animation wurden teilweise auf Quelle-, Kundentyp zuweisen- usw. Stationen nicht die korrekten Kundentyp-Icons dargestellt.</li>
+</ul>
+
+<h2>Version 3.0.0 (29.3.2019)</h2>
+<ul>
+  <li>Neue Stationstypen: Checkbox und Radiobutton</li>
+  <li>Laufzeitstatistikwerte können nun auch als interaktive Balkendiagramme angezeigt werden.</li>
+  <li>Auf den Elementen Quelle, Kundentyp zuweisen, Icon zuweisen, Zusammenfassen, Zusammenführen, Parkplatz und Haltestelle werden nun die Icons der zugehörigen Kunden- bzw. Transportertypen angezeigt.</li> 
+  <li>In der Statistik werden nun nur noch Informationen zu den Nutzerdatenfeldern ausgewiesen, auf die wirklich schreibend zugegriffen wurde.</li>
+  <li>Die Parameter der Optimierungsalgorithmen können nun individuell eingestellt werden.</li>
+  <li>Beim Laden von Modellen mit potentiell gefährlichen Stationen (Skriptausführung, Dateiausgabe) wird nun eine entsprechende Warnung ausgegeben.</li>
+  <li>Die einzelnen Modelle einer Parameterreihe können nun gemäß den Werten eines Eingabeparameter sortiert werden.</li>
+  <li>Die Statistikbaumstruktur ist nun übersichtlicher.</li>
+  <li>AdoptOpenJDK-Laufzeitumgebungen werden nun unter Windows auch dann erkannt, wenn diese weder im Suchpfad noch in der Java-Home-Umgebungsvariable vermerkt sind.</li> 
+  <li>[Fix] Für die Kosten über alle Stationen zusammen wurde in der Statistik bislang ein falscher Wert ausgewiesen.</li>
+  <li>[Fix] Wurde eine Parameterreihe über das Kontextmenü der Zeichenoberfläche erstellt, so bekamen die individuellen Modelle innerhalb der Parameterreihe keine Namen zugewiesen.</li>
+</ul>
+
+<h2>Version 2.9.1 (4.3.2019)</h2>
+<ul>
+  <li>CSV-Tabellen werden nun schneller gelesen und geschrieben.</li>
+  <li>[Fix] Bei der Aufzeichnung der Kundendatenfelder wurden bislang keine negativen Werte erfasst.</li>
+</ul>
+
+<h2>Version 2.9.0 (25.2.2019)</h2>
+<ul>
+  <li>Visualisierungen von Werten zu Stationen (zur Anzeige während der Animation) können nun direkt über das Kontextmenü eingefügt werden.</li>
+  <li>Parameterreihen-Konfigurationen können nun direkt über das Kontextmenü von Stationen als Vorlagen erstellt werden.</li>
+  <li>Es werden nun auch die Werte der Kundendatenfelder in der Statistik erfasst.</li>
+  <li>Vom Modelleigenschaftendialog aus kann der Name des Modells nun direkt auf der Zeichenfläche eingefügt werden.</li>
+  <li>Die Modellvergleichsfunktion ermöglicht es nun auch, direkt zu dem festgehaltenen Originalmodell zurückzukehren.</li> 
+  <li>[Fix] Bedingungen mit vorangestellten Negationen konnten teilweise nicht interpretiert werden.</li>
+  <li>[Fix] In Abhängigkeit vom Inhalt konnten vom Simulator erzeugte gültige csv-Dateien in einigen Fällen von Excel nicht korrekt interpretiert werden.</li>
+</ul>
+
+<h2>Version 2.8.0 (22.1.2019)</h2>
+<ul>
+  <li>Beim Verzweigen und Duplizieren von Kunden kann nun optional sofort ein neuer Kundentyp (pro Richtung) zugewiesen werden.</li>
+  <li>Parameterreiheneinstellungen können nun über Vorlagen automatisch erstellt werden.</li>
+  <li>Geringer Speicherverbrauch und schnelle Ausführung von Javascript-Code in der Mozilla Rhino Engine.</li>
+  <li>Geschwindigkeitssteigerungen bei der Simulation</li>
+  <li>In der Statistik wird die Anzahl an wartenden Kunden nun nicht nur pro Station und pro Kundentyp sondern auch global ausgewiesen.</li>
+  <li>Zusätzlich zu Warte-, Transfer- und Bedienzeiten werden in der Statistik nun auch direkt die Verweilzeiten ausgewiesen.</li>
+  <li>Erweiterung der Möglichkeiten des Modellgenerators</li>
+  <li>Verbesserter Algorithmus zum Auffinden der zu verwendenden Java-Umgebung</li>
+  <li>[Fix] Die Erfassung der Kosten für die Ressourcen funktionierte teilweise nicht korrekt.</li>
+  <li>[Fix] Das Einfügen von Stationen aus Vorlagen funktionierte nicht korrekt.</li>
+  <li>[Fix] Bei Modellen, die ein DDE- oder Datenbank-Ausgabeelement besaßen konnte es während der Erstellung einer Modellbeschreibung zu Fehlern kommen.</li>
+  <li>[Fix] Beim Logging der einzelnen Simulationsschritte wurde nach einer Typzuweisung für einen Kunden dennoch der alte Name angezeigt.</li>
+  <li>[Fix] Bei der Animation von Modellen Typ- oder Icon-Zuweisen-Stationen wurde das neue Icon des jeweiligen Kunden bereits auf der zu der Station einlaufenden Kante verwendet.</li>
+</ul>
+
+<h2>Version 2.7.0 (2.1.2019)</h2>
+<ul>
+  <li>Während der Animation eines Modells können nun auch Texte auf Basis von Skripten auf der Zeichenfläche angezeigt werden.</li>
+  <li>Bei Bedienstation, Verzögerung- und Transportstart-Stationen kann nun über die bisherigen Möglichkeiten hinaus auch eingestellt werden, dass die Bedien-/Verzögerungs-/Transportzeit nicht in der Statistik erfasst wird.</li>
+  <li>Es können nun auch ressourcenabhängige Rüstzeiten definiert werden, die immer dann zum tragen kommen, wenn eine Ressource nacheinander an verschiedenen Stationen eingesetzt wird.</li>
+  <li>Es kann nun eingestellt werden, wie lange Zeiträume in den Häufigkeitsverteilungen erfasst werden sollen.</li>
+  <li>Für Bereiche wird nun in der Statistik ausgegeben, wie viel Warte-, Transfer- und Bedienzeit in diesen entstanden ist.</li>
+  <li>Bei Kundenquellen und Typzuweisung-Stationen können nun neben dem Kundentypnamen direkt die weiteren kundentypspezifischen Einstellungen verändert werden.</li>
+  <li>Beim Anlegen von Bedienergruppen direkt über einen Bedienstationen-Dialog kann nun auch eine Gruppengröße angegeben werden.</li>
+  <li>Aktionen können nun auch über Signale ausgelöst werden.</li>
+  <li>Beim Start eines Transports kann nun optional ein Bereich verlassen werden.</li>
+  <li>Es kann nun zwischen der Java-internen und der Mozilla Rhino Javascript-Umgebung zur Ausführung von Javascript-Code gewählt werden.</li> 
+  <li>Beim Laden von Modelldateien werden nun Pfade zu SQLite-Datenbankdateien wenn möglich automatisch angepasst.</li>
+  <li>Im Fenstertitel wird nun durch ein "*" vor dem Dateinamen des aktuellen Modells signalisiert, dass dieses seit dem letzten Speichern verändert wurde.</li>
+  <li>[Fix] Während der Simulation konnten die Ergebnisse einer Javascript-Ausführung als Fehler interpretiert werden, obwohl das Skript korrekt ausgeführt wurde.</li>
+  <li>[Fix] Der Kommandozeilenbefehl zur Filterung von Statistikergebnissen konnte bislang nicht mit listenbasierten Filterdaten umgehen.</li>
+  <li>[Fix] Die Funktion zur Bestimmung der notwendigen Einschwingphase funktionierte nicht bei der Verwendung einer Netzwerk-Simulation.</li>
+  <li>[Fix] Bei der Verwendung von Oracle Java 11 fehlten die deutschen Übersetzungen in den Lade/Speicher-Dialogen.</li>
+</ul>  
+
+<h2>Version 2.6.0 (4.12.2018)</h2>
+<ul>
+  <li>Modellgenerator zur schnellen Erstellung von einfachen Modellen.</li>
+  <li>Signale können nun auch über Skriptbefehle ausgelöst werden.</li>
+  <li>Die Möglichkeit, Java-Code statt Javascript-Code einzusetzen, steht nun auch auf Nicht-Windows-Plattformen zur Verfügung.</li> 
+  <li>Die Funktion zur Ausführung von skriptbasierenden Parameterreihen bietet nun mehr Befehlsvorlagen für den Skripteditor.</li>
+  <li>[Fix] Die Verwendung von Flusssteuerungselementen konnte den Start der Simulation verhindern.</li>
+  <li>[Fix] Besaß ein Untermodell mehr als eine einlaufende oder mehr als eine auslaufende Kante, so wurde das Modell nicht korrekt gespeichert.</li>
+  <li>[Fix] Bei der Ausführung von Java-basierten Parameterreihen funktionierte das Einstellen einer Datei zur direkten Ausgabe nicht.</li>
+  <li>[Fix] Wurden in dem Untermodell-Editor das Modell so verändert, dass bezogen auf das Untermodell-Element ein Fehler aufgetreten oder behoben wurde, so wurde die Meldung direkt unter dem Element nicht sofort aktualisiert.</li>
+  <li>[Fix] Bei der Verwendung von Java-basierenden Parameterreihen stand der Befehl zur Javascript-basierenden Filterung der Statistikdaten bislang nicht zur Verfügung. (Bei Javascript-basierende Parameterreihen war der entsprechende Befehl vorhanden.)</li> 
+  <li>[Fix] Wenn beim Start des Simulators das Simulator-Programmverzeichnis nicht das aktuelle Verzeichnis war, wurde die Einstellungendatei im falschen Verzeichnis gesucht.</li>
+</ul>
+
+<h2>Version 2.5.0 (20.11.2018)</h2>
+<ul>
+  <li>Ankunfts-Batch-Größen können jetzt über Rechenausdrücke, die bei jeder Ankunft erneut ausgewertet werden, definiert werden.</li>
+  <li>Bei einfachen Modellen können fehlende Ressourcen optional beim Start einer Simulation oder einer Animation automatisch hinzugefügt werden.</li>
+  <li>Optional können Modelle nun nach jeder Änderung automatisch gespeichert werden.</li>
+  <li>Nach einer Simulation werden Statistikdaten direkt in den Tooltips auf der Zeichenoberfläche angezeigt.</li>
+  <li>Schnellere Initialisierung von Java-Code-Elementen.</li>
+  <li>[Fix] Beim Auflösen temporärer Batches wurden die Transfer- und die Bedienzeit der Kunden in dem Batch, die diese vor der Batchbildung gesammelt haben, nicht berücksichtigt.</li>
+  <li>[Fix] Auf der Dialogseite zum Bearbeiten von Transporzielen wurden die Dialogseiten zur manuellen Konfiguration und zur Verwendung eines Fertigungsplanes vertauscht angezeigt.</li> 
+  <li>[Fix] Das Variieren der Abbruchzeiten innerhalb der Parameterreihenfunktion war nicht möglich.</li>
+  <li>[Fix] Bei der Anzeige von Zeitangaben mit Nachkommastellen konnte es in der Statistik in einigen Fällen zu Darstellungsfehlern kommen.</li>
+  <li>[Fix] Auf der Ergebnisübersichtszeite in der Statistik wurden einige Zeitangaben auf ganze Sekunden gerundet und andere auf 10tel.</li>
+  <li>[Fix] Im Kommandozeilenbetrieb konnte es passieren, dass sich das Programm nach dem Abschluss einer Simulation nicht sofort beendete.</li>
+  <li>[Fix] Die Funktion zum automatischen Erstellen der Transportzeitenmatrix auf Basis der Abstände der Stationen auf der Zeichenfläche funktionierte nicht, wenn nur zwei Transportstationen auf der Zeichenfläche vorhanden waren.</li>  
+</ul>  
+
+<h2>Version 2.4.0 (29.10.2018)</h2>
+<ul>
+  <li>An allen Stellen, an denen bislang Javascript-Code eingesetzt werden konnte, kann nun zusätzlich auch Java-Code verwendet werden.</li>
+  <li>Neues Rechensymbol zur Abfrage der bisherigen Wartezeit eines Kunden in einer Warteschlange.</li>
+  <li>Die Parameterreihenfunktion kann nun auch bei Gamma-, Erlang- und Pareto-verteilten Eingangsgrößen Erwartungswert und Standardabweichung direkt ändern.</li>
+  <li>Die Parameterreihenfunktion kann nun auch bei gleichverteilten und bei logistisch verteilten Eingangsgrößen die Standardabweichung direkt ändern. (Änderung des Erwartungswertes war bei diesen Verteilungen schon früher möglich.)</li>
+  <li>Geringerer Speicherverbrauch bei der Erfassung von Laufzeitstatistikdaten während der Simulation sowie Erhöhung der Anzahl an maximal erfassbaren Werten auf 2.000.000.</li>
+  <li>Neuer Dialog zur direkten Berechnung von Ausdrücken</li>
+  <li>Höhere Geschwindigkeit bei der Statistikerfassung während der Simulation.</li>
+  <li>[Fix] Die Kontextmenü-Vorlagen zur Verwendung der Bedienzeitenverteilung an einer Bedienstation als Eingabegröße sowie zur Verwendung der mittleren Anzahl an belegten Bedienern als Ausgabewert waren nicht korrekt.</li>
+  <li>[Fix] Die Variation der Standardabweichung bei Laplace- oder invers Gauß-verteilten Eingangsgrößen funktionierte in der Parameterreihenfunktion nicht korrekt.</li> 
+  <li>[Fix] Bei der Verarbeitung von Parameterreihen aus vielen Modellen reagierte die grafische Oberfläche teilweise sehr träge.</li>
+  <li>[Fix] Die automatische Hintergrundsimulation hat das Modell bislang unnötig häufig neu simuliert.</li>
+</ul>  
+
+<h2>Version 2.3.0 (1.10.2018)</h2>
+<ul>
+  <li>Neue Stationstypen: Schaltfläche und Schieberegler</li>
+  <li>Wenn zwei Stationen dieselbe Ressourcenpriorität besitzen, kann eingestellt werden, ob die Kundenprioritäten der wartenden Kunden als nachgeordnete Ressourcenpriorität verwendet werden sollen.</li>
+  <li>[Fix] Das Laden von Modellen über Kommandozeilenparameter funktionierte nicht korrekt.</li>
+  <li>[Fix] Wenn keine Internetverbindung bestand, wurde der Einstellungen-Dialog nur sehr verzögert geöffnet.</li>
+</ul>
+
+<h2>Version 2.2.0 (20.9.2018)</h2>
+<ul>
+  <li>Neuer Stationstyp: Zerteilen</li> 
+  <li>Die Anzahl an Bedienern in einer Ressource kann nun zur Laufzeit über Javascript-Befehle verändert werden.</li>
+  <li>Transportziele können nun aus Kunden-Texteigenschaften ausgelesen werden.</li>
+  <li>Schnellere Simulation und geringerer Speicherverbrauch bei der Verwendung von Tabellen- und Datenbankbasierenden Kundenquellen.</li>
+  <li>Parameterreihen- und Optimierer-Einstellungendateien können nun auch per Drag&amp;Drop geladen werden.</li>
+  <li>Schnellerer Start der Parameterreihen- und der Optimierer-Funktion, wenn bereits Statistikdaten zu dem aktuellen Modell vorliegen.</li>
+  <li>[Fix] Wenn sich mehrere Stationen eine Ressource teilen und an einer Station jeweils mehrere Bediener gleichzeitig benötigte Bediener dieser Ressource freigegeben wurden, so wurde an der anderen Station teilweise nicht erkannt, dass mehrere Bedienvorgänge gleichzeitig gestartet werden konnten.</li>
+  <li>[Fix] Wenn Kunden an einer Quelle gemäß einer Bedingung, eines Signals oder eines Schwellenwertes erzeugt wurden, wurde eine möglicherweise eingestellte Maximalanzahl an zu generierenden Kunden ignoriert.</li> 
+  <li>[Fix] Wenn die Anzeige von ids unter den Station eingeschaltet war, wurden keine Fehlermeldungen mehr unter den Stationen angezeigt.</li>
+  <li>[Fix] Bei der Simulation von Parameterreihen wurde der Fortschrittsindikator nicht immer angezeigt.</li>
+</ul>
+
+<h2>Version 2.1.0 (3.9.2018)</h2>
+<ul>
+  <li>Die Statistik-Ergebnisse einer Simulation können nun auch über eine Listenzusammenstellung statt über Javascripte gefiltert werden.</li>
+  <li>In Kundenquellen und Mehrfachquellen können neuen Kunden jetzt direkt Zahlen und Texte zugewiesen werden.</li> 
+  <li>Bei dem Bedingung-Element kann nun eingestellt werden, ob die Bedingung global oder individuell für jeden wartenden Kunden geprüft werden soll.</li>
+  <li>In Textzuweisung-Elementen können nun jeweils mehrere Zuweisungen vorgenommen werden.</li>
+  <li>Es stehen nun Javascript-Befehle zum direkten Abfragen und Ändern der kundenbasierenden Zahleneigenschaften zur Verfügung.</li>
+  <li>Beim Laden von Modelldateien werden nun Pfade zu Ein- und Ausgabedateien wenn möglich automatisch angepasst.</li>
+  <li>Schnellerer Aufruf von Javascript-Code-Segmenten</li>
+  <li>Bei der Verwendung von Modellen, die ausschließlich tabellenbasierende Kundenquellen verwenden, wird nun während der Simulation die Anzahl der zu simulierenden Kunden gemäß der Summe der Tabellenzeilen angezeigt.</li>
+  <li>Das Auswahlmenü zum Hinzufügen von Einträgen zur Schnellzugriff-Ausgabe enthält nun deutlich mehr Vorschläge.</li>
+  <li>[Fix] Wenn in einer Parameterreihe für einzelne Ausgabewerte kein Zahlenwert vorlag, konnte das Speichern fehlschlagen.</li>
+  <li>[Fix] Beim Speichern von Statistikergebnissen mit extrem hohen Standardabweichungen, die auf sehr vielen Messwerten basieren, konnte es sein, dass der Wert für die quadrierte Summe der Messwerte falsch gespeichert wurde.</li>
+  <li>[Fix] Bei der Ausgabe von Simulationsdaten über das Ausgabe-Element in Tabellenform wurde bei Spalten, die Ergebnisse von berechneten Ausdrücken enthalten, kein Spaltentitel ausgegeben.</li>
+  <li>[Fix] Beim Laden von individuellen Parameterreihen-Ergebnissen in den Modell-Editor wurde nur das Modell geladen und nicht auch die zugehörigen Statistikdaten.</li>
+  <li>[Fix] Teilweise trat eine hohe CPU-Auslastung während der Anzeige von individuellen Parameterreihen-Ergebnissen auf.</li>
+  <li>[Fix] Beim erneuten Speichern von zuvor aus einer XML-Datei geladenen Parameterreihen-Ergebnissen wurden unnötige Leerzeilen in die Datei eingefügt.</li> 
+</ul>
+
+<h2>Version 2.0.2 (22.8.2018)</h2>
+<ul>
+  <li>Schnellerer Start der Simulation und der Animation bei Modellen, die Tabellenquellen in Verbindung mit großen Tabellen verwenden.</li>
+  <li>[Fix] Die Auswahl mehrerer Elemente mit gedrückter Umschalttaste funktionierte nicht.</li>
+  <li>[Fix] Das Einfügen von Texten aus der Zwischenablage funktionierte nicht.</li>
+  <li>[Fix] Das Öffnen des Modelleigenschaften-Dialogs und das Durchführen einer Modellprüfung war teilweise bei Modellen, die externe Datenquellen nutzen, langsam.</li>
+  <li>[Fix] Bei der Animation von Modellen, die ausschließlich Datenquellen-basierende Kundenquellen besitzen, wurde die Animationsgeschwindigkeit nicht immer sinnvoll gewählt.</li>
+  <li>[Fix] Das Deaktivieren des automatischen Einfügens von Verbindungskanten wurde nicht automatisch an weitere gleichzeitig laufende Instanzen des Simulators übermittelt.</li> 
+</ul>
+
+<h2>Version 2.0.1 (20.8.2018)</h2>
+<ul>
+  <li>[Fix] Das Duplizieren von Batchen funktionierte nicht korrekt.</li>
+  <li>[Fix] Falsche Anzeige der aktuellen Anzahl an Kunden an Zusammenführen-Stationen während der Animation.</li>
+  <li>[Fix] War beim Drag&amp;Drop-Kopieren eines Elements ein Zoomfaktor ungleich 100% eingestellt, so wurde das Element nicht an der Mauszeigerposition angezeigt.</li>
+  <li>[Fix] Beim Verschieben von vielen Elementen gleichzeitig reagierte die Programmoberfläche träge.</li>
+</ul>  
+
+<h2>Version 2.0.0 (16.8.2018)</h2>
+<ul>
+  <li>Neue Stationstypen: Textzuweisung und Referenz</li>
+  <li>Es können nun globale und modell-basierende Elementenvorlagen gespeichert werden.</li> 
+  <li>Die Parameterreihenfunktion kann nun die Veränderung einer Ausgabegröße direkt als Liniendiagramm darstellen.</li>
+  <li>Beim Kopieren von Modellelementen von der Zeichenfläche werden dazu auch Beschreibungstexte und ein Bild in die Zwischenablage kopiert.</li>
+  <li>Für jedes Element kann nun optional eine Beschreibung angegeben werden.</li>
+  <li>Modelle können optional vor dem Start einer Simulation/Animation automatisch gespeichert werden.</li>
+  <li>Schnelleres Laden von Modellen und Statistikdaten via Drag&amp;Drop</li>
+  <li>[Fix] Bei Modellen, die Daten aus Tabellen laden, reagiere die Programmoberfläche teilweise sehr träge, wenn die Konsistenzprüfung aktiviert war.</li>
+  <li>[Fix] In einem Modell gespeicherte große Bilder wurden beim erneuten Laden des Modells teilweise nicht wiederhergestellt.</li>  
+  <li>[Fix] Beim Bewegen von größeren Bildern auf der Zeichenoberfläche reagiere die Programmoberfläche teilweise träge.</li>
+  <li>[Fix] Wurde nach dem Aufziehen eines Markierungsrahmens ein weiteres Element angeklickt, ohne dass dabei die Umschalt-Taste gedrückt gehalten wurde, so wurde dieses Element dennoch zur Selektion hinzugefügt anstatt die Selektion der anderen Elemente aufzuheben.</li>
+</ul>
+
+<h2>Version 1.9.0 (17.7.2018)</h2>
+<ul>
+  <li>Neuer Stationstyp: Kundenstatistik</li> 
+  <li>Animationen können über einen DDE-Serverdienst gesteuert werden und der aktuelle Zustand kann entsprechend ausgelesen werden.</li>
+  <li>Die in einzelnen Stationen verwendeten Datenquellen können nun alle gleichzeitig auf Verfügbarkeit hin geprüft werden.</li>
+  <li>Während die Animation im Einzelschrittmodus ausgeführt wird, können nun Ausdrücke im Simulationskontext berechnet werden und Skripte ausgeführt werden.</li>
+  <li>Über den http-Serverdienst können nun auch Ausdrücke berechnet werden.</li>
+  <li>Die Serverdienste können nun so konfiguriert werden, dass diese beim Programmstart automatisch starten.</li>
+  <li>In der Suchfunktion können Elemente nun auch über ihren Namen gesucht werden.</li>
+  <li>Über das Extras-Menü aufrufbarer Warteschlangenrechner, der die direkte Berechnung von Kenngrößen auf Basis verschiedener theoretischer Formeln erlaubt.</li>
+  <li>Viele Verbesserungen an der Programmoberfläche.</li>
+  <li>Es kann nun in der Simulation für jeden Kunden eingestellt werden, ob dieser in der Statistik erfasst werden soll.</li>
+  <li>In der Statistik wird nun bei vielen Informationen angegeben, wie viele konkrete Datensätze die Basis für die Kennzahlen bilden.</li>  
+  <li>[Fix] Einstellungen zur Hintergrundfarbe der Zeichenfläche wurden nicht immer korrekt übernommen.</li>
+  <li>[Fix] Teilweise wurden die Flaggen in dem Programmsprache-Auswahlfeld falsch angezeigt.</li>
+</ul>
+
+<h2>Version 1.8.1 (2.7.2018)</h2>
+<ul>
+  <li>Auf der Statistik-Ergebnisübersichts-Seite befinden sich nun bei den einzelnen Rubriken Links, die direkt auf die jeweils zugehörigen Detailsseiten verweisen.</li>
+  <li>Über den http-Serverdienst können nun Modelle auch im json-Format geladen und gespeichert werden.</li>
+  <li>Tabellen-Quellen und Eingabe-Elemente können nun direkt durch das Ziehen und Ablegen von Tabellen auf die Modell-Zeichenfläche angelegt werden.</li>
+  <li>Beim Speichern von Modellen und Statistikdaten im json-Format zum beim Erstellen von html-Reports wird nun der UTF-8-Zeichensatz verwendet.</li>
+  <li>Verbesserte Kompatibilität mit dem Firefox-json-Parser beim Speichern von Modellen und Statistikdaten im json-Format.</li>
+  <li>[Fix] Der Bearbeiten-Dialog von Dekorations-Elemente konnte teilweise nicht per "Ok" geschlossen werden.</li>
+  <li>[Fix] Beim Laden von zuvor im json-Format gespeicherten Modellen konnten Fehler auftreten.</li>
+  <li>[Fix] Beim Erstellen von html-Statistik-Reports mit eingebetteten Grafiken ist das Programm bislang dauerhaft blockiert.</li>
+  <li>[Fix] Die automatische Modellprüfung zeigte in der Statuszeile teilweise keine Ergebnisse an.</li> 
+</ul>
+
+<h2>Version 1.8.0 (19.6.2018)</h2>
+<ul>
+  <li>Animationen können über einen http-Serverdienst per Netzwerk gesteuert werden und der aktuelle Zustand kann entsprechend ausgelesen werden.</li>
+  <li>Tabellen können nun auch im Symbolic Link Format (sylk) gelesen und geschrieben werden.</li>
+  <li>Im Formelparser stehen nun auch empirische Wahrscheinlichkeitsverteilungen zur Verfügung.</li>
+  <li>Etwas geringerer Speicherverbrauch bei der Animation.</li>
+</ul>
+
+<h2>Version 1.7.0 (7.6.2018)</h2>
+<ul>
+  <li>Neue Stationstypen: Datenbankquelle, Excel-DDE-Quelle, Eingabe (DB), Eingabe (DDE), Ausgabe (DB) und Ausgabe (DDE)</li>
+  <li>Die Simulation kann nun auch auf einem entfernten Server durchgeführt werden.</li>  
+  <li>Die Stationen Eingabe und Eingabe (JS) können nun auch Tabellendateien lesen.</li>
+  <li>Histogramm-Assistent zur schnelleren Erstellung von Histogrammen in Balkendiagramm-Elementen.</li>
+  <li>Tabellen können nun auch im Data Interchange Format (dif) gelesen und geschrieben werden und im dbf-Datenbankformat gelesen werden.</li>
+  <li>In der Statistik werden nun auch die Zwischenabgangszeiten von den Stationen erfasst.</li>
+  <li>Bei der Parameterreihenfunktion können nun auch Rechenausdrücke als Ausgabegrößen verwendet werden.</li>
+  <li>Elemente können nun direkt über ihre ID gesucht werden.</li>
+  <li>Elemente können nun vor Löschversuchen geschützt werden.</li>
+  <li>Das Tabellen-Ausgabeelement kann nun auch in HTML- und DOCX-Dateien eingebettete Tabellen generieren.</li>
+  <li>In der Statistikansicht werden nun auch innerhalb einzelner Kategorien Bereiche, zu denen keine Daten vorliegen, ausgeblendet.</li> 
+  <li>[Fix] Im Kommandozeilenbetrieb beendete sich das Programm nach Ausführung des gewählten Befehls nicht immer.</li>
+  <li>[Fix] Wurden mehrere Instanzen des Simulators gleichzeitig verwendet, so konnte es passieren, dass Teile der Konfiguration zurückgesetzt wurden.</li>
+  <li>[Fix] Wurde die Animation im Einzelschrittmodus ausgeführt, so wurde das Ende der Simulation nicht immer korrekt erkannt.</li>
+  <li>[Fix] Der Rechenbefehl "NumberOut" hat bislang falsche Werte geliefert.</li>
+  <li>[Fix] Beim Exportieren eines Modells als eps-Datei konnte es beim Verwenden von Farbverläufen zu falschen Farbdarstellungen kommen.</li> 
+</ul>
+
+<h2>Version 1.6.0 (7.5.2018)</h2>
+<ul>
+  <li>Neue Stationstypen: Aktion und Durchsatz</li>
+  <li>Bei der Optimierung können nun zusätzliche Nebenbedingungen für die Kontrollvariablen definiert werden.</li>
+  <li>Die "Analoger Wert ändern"-Stationen können nun auch den Füllstand von Tanks ändern.</li>
+  <li>Bei Pull-Schranken kann nun für die Maximalanzahl an Kunden in dem überwachten Bereich auch ein Ausdruck statt nur einer Zahl angegeben werden.</li>
+  <li>Während der Einzelschritt-Animation können nun auch die Rückgabewerte von Javascript-Ausführungen angezeigt werden.</li>
+  <li>Modelle können nun auch als html-Dateien exportiert werden.</li>
+  <li>Werden mehrere Instanzen des Simulators gleichzeitig verwendet, so synchronisieren diese untereinander Veränderungen an den Einstellungen.</li>
+  <li>[Fix] Bei der Optimierung wurden einige zulässige XML-Tags nicht als Zielgrößen akzeptiert.</li>
+  <li>[Fix] Wurde während der Animation der Zoomfaktor verändert, so wurde der neue Wert nicht immer in der Statuszeile angezeigt und es wurde nach Beendigung der Animation wieder der alte Wert verwendet.</li>
+  <li>[Fix] In einigen Einstellungsdialogen für Modellelemente wurden neu hinzugefügte Stationen in Auswahllisten nicht sofort angeboten.</li>
+  <li>[Fix] Wurde die Simulation im Animationsmodus ausgeführt und vorzeitig abgebrochen, so wurden die Ausgaben von Ausgabestationen nicht immer vollständig gespeichert.</li>
+  <li>[Fix] Bei der schrittweisen Optimierung konnte der Optimierungsprozess vorzeitig abgebrochen werden, wenn eine Variable ihren Maximalwert erreicht hatte.</li>
+</ul> 
+
+<h2>Version 1.5.1 (24.4.2018)</h2>
+<ul>
+  <li>Für Transporter können nun verschiedene Animationssymbole für den beladenen und den entladenen Zustand festgelegt werden.</li>
+  <li>Die bisherige Wartezeit eines Kunden an einer Station wird nun schon während seiner Verarbeitung an der Station in der Pseudovariable "w" erfasst statt bislang erst, wenn er die Station verlässt.</li>
+  <li>[Fix] Wenn die Animation nicht im Einzelschrittmodus gestartet wurde, konnte die Animation nicht direkt durch das Klicken auf "Beenden" abgebrochen werden, sondern es musste zusätzlich noch auf Pause und auf Start geklickt werden.</li>
+  <li>[Fix] Die Rechenbefehle zur Abfrage von Standardabweichung, Varianz, Variationskoeffizient und quadriertem Variationskoeffizient der Warte-, Transfer- und Bedienzeiten im Mittel über alle Kundentypen funktionierten nicht.</li> 
+  <li>[Fix] Die vom "Ausdruck bearbeiten"-Dialog vorgeschlagenen Befehle zur Berechnung der Standardabweichung wurden teilweise nicht als korrekt angenommen.</li>
+  <li>[Fix] Wurde bei den Elementen "Simulationsdaten als Balken" und "Simulationsdaten als gestapelter Balken" der linke obere Anfasspunkt mit der Maus verschoben, so hat sich die Größe des Elements in einem falschen Verhältnis verändert.</li>
+  <li>[Fix] In dem Bearbeitendialog für ein Simulationsdatenelement wurde die gewählte Schriftgröße direkt nach dem öffnen des Dialogs teilweise als fehlerhaft markiert, obwohl diese korrekt war.</li>
+</ul>
+
+<h2>Version 1.5.0 (23.4.2018)</h2>
+<ul>
+  <li>Neue Analoge-Werte-Stationstypen: Tank, Fluss, Fluss (Signal), Sensor und Ventil-Setup</li>
+  <li>Schnellere Simulation von Modellen mit analogen Werten.</li>
+  <li>Während der Animation wird jetzt unter "Analoger Wert"-Elementen der aktuelle Wert angezeigt.</li>
+  <li>Sind bei einem "Analoger Wert"-Element ein minimaler und ein maximaler Wert eingestellt, so wird in das Element der aktuelle Füllstand eingezeichnet.</li>
+  <li>Bei Elementen zur Anzeige von Zahlenwerten während der Animation kann nun die Anzahl an anzuzeigenden Nachkommastellen eingestellt werden.</li>
+  <li>Es kann nun eine optionale Verzögerung der Animation eingestellt werden, um die Änderung kontinuierlicher Werte besser abzubilden.</li>
+  <li>Die Übersicht und Beschreibung über alle Elemente steht nun auch als separate pdf-Datei zur Verfügung.</li>
+  <li>Bei der Verteilungsanpassung werden nun p-Werte gemäß dem chi<sup>2</sup>-Anpassungstest und dem Anderson-Darling-Test bestimmt.</li>
+  <li>Die Schriftgrößen im gesamten Programm können nun nutzerdefiniert skaliert werden.</li>
+  <li>Die Darstellung der Zeichenoberfläche kann auf einen hohen Kontrast umgestellt werden.</li>
+  <li>Schnellere Videoaufzeichnung von Animationen und geringere Dateigröße der aufgezeichneten Videos.</li>
+  <li>Der zuletzt eingestellte Zoomfaktor wird nun beim nächsten Programmstart wiederhergestellt.</li>   
+  <li>[Fix] Wurde die Mehrkern-Unterstützung für die Animation abgeschaltet, so konnte das Programm im Animations-Einzelschrittmodus blockieren.</li>
+  <li>[Fix] Die Aufzeichnung von Animationen als Video konnte zum Flackern sowohl auf dem Bildschirm als auch im Video und zu Fehlern führen.</li>
+  <li>[Fix] Das Einschalten der automatischen Aktualisierung im "Analoger Wert"-Simulationsdaten-Dialog während der Animation konnte dazu führen, dass der Wert oder die Änderungsrate auf den Startwert zurückgesetzt wurde.</li>
+  <li>[Fix] Das wiederholte Ein- und Ausschalten der automatischen Aktualisierung der Daten in den Stations-Simulationsdaten-Dialogen während der Animation funktionierte nicht immer korrekt.</li>
+  <li>[Fix] Wenn sich der Wert an einem "Analoger Wert"-Element nach dem Ende der Einschwingphase nicht mehr verändert hat, wurde der Wert nicht korrekt in der Statistik erfasst.</li>
+  <li>[Fix] Wenn sich bei der Verteilungsanpassung ein p-Wert gemäß dem Kolmogorov-Smirnov-Anpassungstest von 100% ergeben hat, so wurde teilweise ein Wert &gt;100% angezeigt.</li>
+  <li>[Fix] In der Modellbeschreibung wurden bislang die Daten der letzten Station nicht angezeigt.</li>
+</ul>
+
+<h2>Version 1.4.0 (5.4.2018)</h2>
+<ul>
+  <li>Neue Flusssteuerungslogik-Stationstypen: If, ElseIf, Else, EndIf, While, EndWhile, Do und Until</li>
+  <li>Neue Analoge-Werte-Stationstypen: Analoger Wert und Analogen Wert ändern</li>
+  <li>Neue Stationstypen: Zurückschrecken vor Warteschlange, Eingabe und Eingabe (JS)</li>
+  <li>Beim Laden von Kundenankünften aus einer Tabelle können die Zeitangaben jetzt wahlweise als Zeitpunkte oder als Zwischenankunftszeiten interpretiert werden.</li>
+  <li>Kundenquellen können nun auch Ankünfte beim Über- oder Unterschreiten eines Schwellenwertes auslösen.</li>
+  <li>Optische Verbesserungen bei der Darstellung der Stationen auf der Zeichenfläche</li>
+  <li>In der Statistikansicht werden nun Kategorien, zu denen keine Daten vorliegen, automatisch ausgeblendet.</li>
+  <li>Geringerer Speicherverbrauch bei der Animation in höchster Geschwindigkeit.</li>
+  <li>[Fix] Im Bearbeitendialog des Ausgabe(JS)-Elements wurde die Eingabezeile zur Auswahl einer Ausgabedatei nicht korrekt angezeigt.</li>  
+  <li>[Fix] Wurde die Animation im Einzelschrittmodus ausgeführt, so wurde das Ende der Simulation nicht immer korrekt erkannt.</li>
+  <li>[Fix] Der Mindestabstand für Kundenankünfte, die über eine Bedingung ausgelöst werden, wurde bisher nicht korrekt aus Modelldateien geladen.</li>
+  <li>[Fix] Beim Laden von Kundenankünften aus einer Tabelle wurden die Zeitangaben bislang als Millisekundenwerte interpretiert und nicht wie dokumentiert als Sekundenwerte.</li>
+  <li>[Fix] In einigen Dialogen zur Bearbeitung von Stationen wurden bei der Prüfung der Eingaben nicht alle nutzerdefinierten Variablennamen berücksichtigt.</li>
+  <li>[Fix] In Rechenausdrücken wurden bislang der Cotangens und die 0! falsch berechnet.</li>
+  <li>[Fix] Kompatibilitätsverbesserungen beim Laden von csv-Dateien.</li>
+  <li>[Fix] Korrekturen an der xsd- und der dtd-Datei zur Beschreibung der Dateiformate.</li>
+  <li>[Fix] Um Textelemente wurden kein Markierungsrahmen gezeichnet.</li> 
+</ul>
+
+<h2>Version 1.3.1 (12.3.2018)</h2>
+<ul>  
+  <li>Höhere Geschwindigkeit und geringerer Speicherverbrauch bei der Auswertung von Formelausdrücken.</li>
+  <li>Geringerer Speicherverbrauch bei der Animation.</li>
+  <li>[Fix] Wurde bei der Abfrage von Histogramm-Bereichs-Werten für die obere Grenze ein Wert, der größer als der bisher größte aufgetretene Wert ist, angegeben, so wurde stets 0 zurückgeliefert.</li>
+  <li>[Fix] Die Kategorienauswahlliste zur Reporterstellung wurde nicht korrekt angezeigt.</li>
+  <li>[Fix] Wenn für eine Kundengruppe in einer Modelldatei kein Icon definiert war, konnte es passieren, dass während der Animation ein Fehler-Icon statt des Standard-Kunden-Icons angezeigt wurde.</li>
+</ul>
+
+<h2>Version 1.3.0 (8.3.2018)</h2>
+<ul>
+  <li>Neue Stationstypen: Pull-Schranke, Zustandsstatistik</li>  
+  <li>Für die Transporter können nun Ausfallbedingungen definiert werden.</li>
+  <li>Für die Animation von Kunden, Ressourcen und Transportern können nun benutzerdefinierte Bilder geladen werden.</li>
+  <li>Kundenankünfte können nun über Signale ausgelöst werden.</li>
+  <li>Verzweigungen können nun auch nach Anzahl der Kunden an den nachfolgenden Stationen erfolgen.</li>
+  <li>Neue Rechensymbole zur Abfrage der Auslastung und des Ausfallstatus der Transporter sowie zur Modulo-Rechnung.</li>
+  <li>Die Anzahl an insgesamt simulierten Kundenankünften wird nun in der Nutzungsstatistik erfasst.</li>
+  <li>Höhere Geschwindigkeit bei der Simulation von Transportern.</li>
+  <li>Geringerer Speicherbedarf bei der Darstellung von Liniendiagrammen in der Animation.</li>
+  <li>[Fix] Anwesenheitsbedingt und arbeitszeitbedingte Ressourcen-Ausfälle wurden bisher in der Simulation zum Teil nicht korrekt verarbeitet.</li>
+  <li>[Fix] Wurde die Umrechnung von Transporterwegstrecken in Transportzeiten von Zufallszahlen beeinflusst (z.B. Verwendung von Wahrscheinlichkeitsverteilungen), so konnte es vorkommen, dass die in der Statistik erfassten Transportzeiten für Transporter und Kunden voneinander abwichen.</li>
+  <li>[Fix] Beim Duplizieren von Kunden wurde das Icon nicht korrekt auf den geklonten Kunden übertragen.</li>
+  <li>[Fix] Bei der Verwendung von Bedingung- und Bedingung(JS)-Elementen konnte es in der Animation im Einzelschrittmodus passieren, dass ein Schritt keine Veränderung des Modells zeigte, da nur interne Verarbeitungen, die keine Wirkung hatten, vorgenommen wurden.</li> 
+</ul>
+
+<h2>Version 1.2.1 (19.2.2018)</h2>
+<ul>
+  <li>Die Simulation von Modellen kann nun automatisch im Hintergrund starten.</li>
+  <li>Zusätzliche Hilfsfunktionen zur Konfiguration der Wegpunkte.</li>
+  <li>Zusätzliche Hilfsfunktionen zur Erstellung und Bearbeitung der Abstände-Matrizen für die Transporterwege.</li>
+  <li>Für die Animation von Transportern können nun unabhängige Bilder für die Fahrt nach rechts und nach links definiert werden.</li>  
+  <li>[Fix] Wenn mehrere Stationen dieselbe Priorität für einen frei werdenden Transporter besaßen, erfolgte die Zuweisung nicht vollständig fair.</li>
+  <li>[Fix] Wenn eine Station, die die Mehrkern-Unterstützung für die Simulation verhindert, in einem Unterelement enthalten war, so wurde dies nicht korrekt erkannt.</li>
+  <li>[Fix] Der im Bearbeiten-Dialog angegebene Name eines Wegpunktes wurde bislang nicht gespeichert.</li>
+</ul>
+
+<h2>Version 1.2.0 (12.2.2018)</h2>
+<ul>
+  <li>Neue Stationstypen: Transporter Haltestelle, Parkplatz, Transporter Wegpunkt, Bereich betreten, Bereich verlassen</li> 
+  <li>Transportquellen können nun optional Ressourcen für einen Transport benötigen.</li>
+  <li>Die Funktionalität des Stationstyps "Transportquelle (Fertigungsplan)" wurde als Option in den Stationstyp "Transportquelle" integriert.
+  <li>Die Belegung von Ressourcen und Transportern kann nun während der Animation direkt an den Stationen angezeigt werden.</li>
+  <li>Die Auslastung und die Ausfallzeiten der Ressourcen werden in der Statistik nun auch als Balkendiagramm dargestellt.</li>
+  <li>Es kann nun eine Modellbeschreibung, die alle für die Simulation wesentlichen Modellinformationen enthält, generiert werden.</li> 
+  <li>Die Stationselemente auf der Zeichenfläche können nun optional mit einem Farbverlauf gefüllt werden und mit einem Schlagschatten dargestellt werden.</li>
+  <li>Im während der Animation angezeigten Simulationsdaten-Dialog können die Werte nun aktualisiert werden, ohne den Dialog dafür zu schließen.</li>
+  <li>Die Ausgabe-Station kann nun auch Tabellendateien erstellen.</li> 
+  <li>Einige kleinere Optimierungen in Bezug auf den Speicherverbrauch bei der Nutzung von Kundendaten-Variablen, bei der Verwendung von Rechenausdrücken und bei der Animation.</li>  
+  <li>Bilder können nun auch aus bmp-Dateien geladen werden und auch in diesem Format gespeichert werden.</li>
+  <li>[Fix] Bei der Simulation von Modellen bei denen Ausfallbedingungen für die Bediener definiert wurden, wurden Variablen in den Ausfallbedingungs-Ausdrücken nicht korrekt verarbeitet.</li>
+  <li>[Fix] In einigen Rechenausdrücken lieferte die Abfrage von kundenspezifischen Informationen keine korrekten Werte.</li> 
+  <li>[Fix] Wurden Kunde über Transportelemente in oder aus Unterelementen bewegt, so wurde die Zählung der aktuell in dem Unterelement befindlichen Kunden nicht korrekt aktualisiert.</li> 
+  <li>[Fix] Bei Bedienstationen wurde leere Bedienalternativen zwar im Editor als Fehler angezeigt, die Simulation wurde aber trotzdem gestartet.</li>
+  <li>[Fix] Das Ausgabe- und das Ausgabe(JS)-Element haben bislang die Einschwingphase nicht korrekt berücksichtigt.</li>
+  <li>[Fix] Bei sehr selten Modellkonstellationen konnte es auftreten, dass bei der Animation die Kundenobjekte nicht oder nicht vollständig dargestellt wurden.</li>
+  <li>[Fix] Beim Speichern von Bildern eingebettet in Word-Dokumenten wurde das Seitenverhältnis bisher nicht immer korrekt eingestellt.</li>
+</ul>
+
+<h2>Version 1.1.0 (22.1.2018)</h2>
+<ul>
+  <li>Neue Stationstypen: Transportquelle (Fertigungsplan), Fertigungsplan zuweisen</li>
+  <li>Die Parameterreihenfunktion wurde vollständig überarbeitet und der Funktionsumfang stark erweitert.</li>
+  <li>Bei Transporten können sich Quelle und Ziel nun in verschiedenen Untermodellen bzw. in Hauptebene und einem Untermodell befinden.</li>
+  <li>Bei den Funktionen, die Javascript-Skripte verwenden, werden nun mehr Vorlagen zum Auslesen von Statistikdaten angeboten.</li>
+  <li>Die Übersicht über die Rechen- und die Scripting-Befehle steht nun auch als separate pdf-Datei zur Verfügung.</li>
+  <li>Die Javascript-Parameterreihen-Funtkion bietet nun einige Beispielvorlagen an.</li>
+  <li>In mehr Dialogen werden zusätzliche Informationen zur Verwendung der jeweiligen Funktion angezeigt.</li>
+  <li>[Fix] Wurden XML-Elemente über ihre Position innerhalb des jeweiligen Elternelements adressiert, so wurde der Inhalt des Elements nicht korrekt zurückgeliefert.</li> 
+  <li>[Fix] Wurden an einer Station individuelle Werte für bestimmte Kundentypen hinterlegt und wurden diesen individuellen Werte später wieder entfernt. So wurden diese Einstellungen beim Schließen des Dialogs nicht dauerhaft entfernt.</li>
+  <li>[Fix] Bei der Beta- und der F-Verteilung funktionierte die Variation eines Parameters in der Parameterreihen-Funktion und im Optimierer nicht korrekt.</li>
+  <li>[Fix] Beim Öffnen des Bearbeiten-Dialog für eine Transportstart-Station wurde die zuvor eingestellte Standard-Zielstation nicht wieder korrekt ausgewählt.</li>
+  <li>[Fix] Beim Laden von Modellen wurde die Konsistenz bzgl. der Verbindungskanten nicht bei allen Elementen geprüft.</li>
+</ul>
+
+<h2>Version 1.0.0 (5.1.2018)</h2>
+<ul>
+  <li>Neuer Stationstyp: Tabellenquelle</li> 
+  <li>Bei den Bedienstationen können nun optionale Rüstzeiten definiert werden.</li>
+  <li>Die Ankünfte von Kunden können nun auch über Bedingungen ausgelöst werden.</li>
+  <li>Für jede Ressource können nun mehrere Ausfallbedingungen definiert werden.</li>  
+  <li>Für die Optimierung von Modellen kann nun wahlweise auch auf genetische Algorithmen zurückgegriffen werden.</li>
+  <li>Der Optimierer speichert die Ergebnisse etwas schneller und gibt im Verlauf mehr Informationen aus.</li>
+  <li>Die Javascript-Parameterreihen-Funktion unterstützt nun mehr Befehle zur Veränderung von Modellen und Filterung und Ausgabe der Statistikergebnisse.</li>
+  <li>Neue Rechensymbole zur Abfrage der Simulationswiederholung, zur Abfrage der Daten aus Statistik-Elementen, zur Abfrage der ID der vorherigen Station eines Kunden sowie zur Abfrage von Histogrammwerten über die Warte-, Transfer- und Bedienzeiten über alle Kundentypen.</li>
+  <li>Bei den Benutzerstatistik-Datensätzen kann nun angegeben werden, ob diese jeweils einen Zeit- oder Zahlenwert repräsentieren.</li>
+  <li>Die IDs der Stationen können nun nachträglich verändert werden.</li>
+  <li>Bei der Erstellung von Parameterreihen und bei der Optimierung können nun die Anzahl an Bedienern in einer Ressource und die Werte von globalen Variablen direkt verändert werden, ohne dafür die zugehörigen XML-Tags angeben zu müssen.</li>
+  <li>Im "Ausdruck bearbeiten"-Dialog wird bei Variablen jetzt der Startwert zu Beginn der Simulation angezeigt.</li>
+  <li>Es kann nun optional dauerhaft eine kontextbezogene Hilfe im Modell-Editor eingeblendet werden.</li>
+  <li>Das Ein- und Ausklappen der Rubriken in der Vorlagenleiste kann nun detaillierter gesteuert werden.</li>
+  <li>Die Hintergrund- und die Rasterfarbe der Zeichenoberfläche können nun verändert werden.</li>
+  <li>Mit jedem Modell kann nun der Name des jeweiligen Autors gespeichert werden.</li>
+  <li>Kleinere Geschwindigkeitssteigerungen bei der Simulations</li>
+  <li>[Fix] Bei Bedienstationen, bei denen die Warteschlangenlänge nie auf 0 zurückging, wurde bisher wie Warteschlangenlänge falsch aufgezeichnet, wenn eine Einschwingphase verwendet wurde.</li>
+  <li>[Fix] Waren bei einer Bedienstation keine notwendigen Ressourcen definiert, so wurde dies beim Simulationsstart nicht korrekt als Fehler erkannt.</li>
+  <li>[Fix] Die Logdatei-Meldungen für Ressourcen-Ausfälle nach einer bestimmten Arbeitszeit und nach einer bestimmten Anzahl an bedienten Kunden waren vertauscht.</li>
+  <li>[Fix] Die Einstellungen-Dialog Vorgabe zum Anzeigen oder Ausblenden der Vorlagenleiste wurde nicht korrekt gespeichert.</li>
+  <li>[Fix] Beim Laden von beschädigten Modelldateien konnten Fehler auftreten.</li>
+</ul>
+
+<h2>Version 0.9.2 (15.12.2017)</h2>
+<ul>
+  <li>In den Modelleigenschaften können nun initiale Variablenwerte definiert werden, die ab Start der Simulation gelten.</li>
+  <li>In der Statistik werden nun auch die Pausenzeiten der Bediener eigenständig ausgewiesen.</li>
+  <li>[Fix] Wurde bei einem neuen Untermodell der Dialog zum Bearbeiten des Modells geöffnet, ohne vorher einmal den Untermodell-Einstellungen-Dialog geöffnet zu haben, so wurden keine Ein- und Ausgänge angezeigt.</li>
+  <li>[Fix] Kleine Korrekturen und Verbesserungen in Bezug auf die Darstellung der Dialoge</li>
+</ul>
+
+<h2>Version 0.9.1 (8.12.2017)</h2>
+<ul>
+  <li>Bei Ressourcen mit Ausfällen können die Abstände zwischen zwei Ausfällen nun auch über eine Verteilung oder über einen Ausdruck definiert werden.</li>
+  <li>In der Statistikansicht werden nun mehr Informationen zu den benutzerdefinierten Statistikdaten angezeigt.</li>
+  <li>Die Simulation mit aktivierter Autokorrelationaufzeichnung wurde beschleunigt.</li>
+  <li>[Fix] Bei der Erfassung der Laufzeitstatistik und der benutzerdefinierten Statistikdaten wurde die Einschwingpase bisher nicht berücksichtigt.</li>
+  <li>[Fix] Wurde für die Erfassung der Autokorrelation ein Maximalwert gewählt, der kleiner als die tatsächliche Korrelation der Werte ist, so konnten Fehler auftreten.</li>
+  <li>[Fix] Bei Rechtecken und Ellipsen ließ sich eine einmal gewählte Hintergrundfarbe nicht mehr abschalten.</li> 
+</ul>
+
+<h2>Version 0.9.0 (1.12.2017)</h2>
+<ul>
+  <li>Neue Stationstypen: Bedingung (JS) und Benutzerdefinierte Statistikdaten</li>
+  <li>Während der Simulation kann optional die Autokorrelation der Wartezeiten erfasst werden.</li>
+  <li>Mit Hilfe von Batch-Means können nun auch Konfidenzintervalle für verschiedene Kenngrößen berechnet werden.</li>
+  <li>Es kann jetzt automatisiert auf Basis der Cramer-von Mises Statistik eine optimale Einschwingphase ermittelt werden.</li>
+  <li>Bei der Optimierung kann nun eingestellt werden, ob jeweils zunächst eine Variable vollständig optimiert werden soll oder ob die Variablen jeweils reihum verbessert werden sollen.</li>
+  <li>Bei der Verteilungsanpassung werden nun p-Werte gemäß dem Kolmogorov-Smirnov-Anpassungstest bestimmt.</li>
+  <li>Das interaktive Tutorial wurde erweitert.</li>
+  <li>Wird während der Animation eines Modell ein Untermodell-Dialog geöffnet, so wird auch in diesem das Untermodell animiert.</li>
+  <li>Über die Befehle WIP() und NQ() kann in Ausdrücken nun auch die Gesamtzahl an Kunden im System bzw. an wartenden Kunden ermittelt werden.</li> 
+  <li>Bei der Verteilungsanpassung werden nun auch die Dreiecksverteilung, die Paretoverteilung, die Inverse Gauß-Verteilung und die F-Verteilung berücksichtigt.</li>  
+  <li>Die Statistikausgaben zu den Warte-, Transfer- und Bedienzeiten der Kunden wurden erweitert.</li>
+  <li>Kleine Optimierungen zur Geschwindigkeitssteigerungen bei der Simulation großer Modelle</li>
+  <li>[Fix] Beim ersten Schritt der Optimierung wurden bisher die gewählten Startwerte nicht korrekt eingestellt.</li>
+  <li>[Fix] Wurde ein XML-Element als Optimierungszielgröße verwendet, so sind bisher im Optimierer Fehler aufgetreten.</li>
+  <li>[Fix] Bei der Funktion zur Verteilungsanpassung wurde die Abweichung zur Gamma-Verteilung nicht korrekt bestimmt.</li>   
+  <li>[Fix] Für die Standardabweichungen und Varianzen wurden bei sehr kurzen Simulationsläufen geringfügig zu kleine Werte ausgewiesen.</li>
+  <li>[Fix] Beim Aufruf der Schnellzugriffseite in der Statistik wurden die Filterergebnisse teilweise erst nach einem Tastendruck angezeigt.</li>
+  <li>[Fix] In dem Balkendiagramm zu den Zwischenankunftszeiten pro Kundenquelle wurden bisher nicht die für die Kundentypen definierten Farben verwendet.</li>
+  <li>[Fix] Bei der Verteilungsanpassung funktionierte die Schaltfläche zum Kopieren der Ergebnisse bisher nicht.</li>
+  <li>[Fix] Während der Animation konnte der Zoomfaktor bisher nicht über Klick auf den aktuellen Zoomfaktor-Wert in der Statuszeile verändert werden.</li> 
+</ul>
+
+<h2>Version 0.8.1 (9.11.2017)</h2>
+<ul>
+  <li>Es kann jetzt die Veränderung von beliebigen Ausdrücken über die Simulationszeit in der Statistik erfasst werden.</li>
+  <li>Ein Modell kann nun innerhalb einer Gesamt-Simulation mehrfach simuliert werden.</li> 
+  <li>Neue unterstützte Wahrscheinlichkeitsverteilungen: Logistische Verteilung und Inverse Gauß-Verteilung</li>
+  <li>In der Vorlagenleiste können nun einzelne Elementegruppen ein- und ausgeblendet und ein- und ausgeklappt werden.</li> 
+  <li>[Fix] Beim Laden von Modellen mit mehreren Zeitplänen wurde nur der erste Zeitplan geladen.</li>
+  <li>[Fix] Das Laden von Statistikdateien von sehr langen Simulationsläufen wurde bisher teilweise verweigert.</li>
+</ul>
+
+<h2>Version 0.8.0 (26.10.2017)</h2>
+<ul>
+  <li>Für Ressourcen können nun Ausfälle definiert werden.</li>
+  <li>Optionale variable Batch-Größe im Zusammenfassen-Element</li>
+  <li>Es können nun ganze Reihen von Modellen über Javascript Skripte simuliert werden.</li>
+  <li>Neue Stationstypen: Mehrfachquelle, Verzweigung per Javascript</li>
+  <li>Neue Animationselemente: Simulationsdaten als gestapelter Balken und Text gemäß Simulationsdaten</li>
+  <li>Verzweigungen können nun nach Ankunftsreihenfolge erfolgen.</li>
+  <li>Neue unterstützte Wahrscheinlichkeitsverteilungen: Laplace-Verteilung, Pareto-Verteilung</li>
+  <li>Im Hilfemenü steht nun eine interaktive Einführung zur Verfügung.</li>
+  <li>Das pdf-Tutorial steht nun auch auf Englisch zur Verfügung.</li>
+  <li>Im Animations-Einzelschrittmodus kann nun zu vorherigen Statusmeldungen zurückgeblättert werden.</li>
+  <li>Während der Animation kann über das Kontextmenü der Stationen direkt auf die aktuellen Statistikdaten zugegriffen werden.</li>
+  <li>Statistik-Textausgaben werden nun beim Kopieren parallel als formatierter und unformatierter Text in der Zwischenablage zur Verfügung gestellt.</li>
+  <li>Schnellere Auswertung von Formeln in Javascript-Elementen</li>
+  <li>In allen mehrzeiligen Textfeldern stehen nun die Rückgängig/Wiederholen-Hotkeys zur Verfügung.</li>  
+  <li>[Fix] Bei der Verwendung von Schichtplänen wurden Stationen, die auf Bediener warten, nicht in allen Fällen korrekt über den Arbeitszeitbeginn zusätzlicher Bediener informiert.</li> 
+  <li>[Fix] Bei der Parameterreihen-Funktion wurden XML-Selektoren, die sich auf die Reihenfolge von XML-Kindeelementen beziehen, nicht korrekt ausgewertet.</li>
+  <li>[Fix] Bei der Auswahl eines XML-Elements im Schnellzugriff wurde die gewählte Einfügeart nicht immer korrekt berücksichtigt.</li>
+</ul>
+
+<h2>Version 0.7.0 (27.9.2017)</h2>
+<ul>
+  <li>Schranken-Elemente können nun von verschiedenen Signalen ausgelöst werden und es können auch jeweils verschiedene Kundentypen freigegeben werden.</li>
+  <li>Die Elemente, die Kunden zu Batches zusammenfassen, können nun auch temporäre, wieder zerlegbare Batches bilden.</li>
+  <li>Neu Rechensymbol zur Abfrage welche Bedieneralternative an einer Bedienstation gewählt wurde.</li>
+  <li>In Rechenausdrücken kann auf Stationen nicht nur über ihre IDs, sondern auch über ihre Namen zugegriffen werden.</li>
+  <li>Bei Bedienstationen kann nun auch eingestellt werden, dass die Bedienzeit als Wartezeit in der Statistik erfasst wird.</li>
+  <li>Als Animation gestartete Simulationsläufe können nun optional als klassische Simulationen ohne Animation zu Ende geführt werden.</li>
+  <li>Bei der Animation kann die Einschwingphase jetzt optional vorab ohne Animationsausgabe simuliert werden.</li>
+  <li>Die Hintergrundmodellprüfung zeigt nun Fehlermeldungen direkt an den jeweiligen Elementen an.</li>
+  <li>Beim Umbenennen von Kundentypen, Signalen und Transportzielen werden die Einträge bei den Elementen, die darauf verweisen nun automatisch entsprechend angepasst.</li>
+  <li>Höhere Leistung bei der Animation von Modellen</li>
+  <li>Es kann nun optional ein fester Startwert für den Zufallszahlengenerator eingestellt werden (um reproduzierbare Ergebnisse zu erzielen).</li>
+  <li>Schnellere Speicherung von aufgezeichneten Animationen</li>
+  <li>Detailliertere Logging-Informationen im Animations-Einzelschrittmodus</li>
+  <li>Zusätzliche Informationen beim Hinzufügen von Verbindungskanten</li>
+  <li>Bessere Glättung der Schriften auf der Modell-Editor Zeichenfläche</li>
+  <li>[Fix] Bei der Verwendung von Untermodellen konnten im Modell-Editor Fehler auftreten.</li>
+  <li>[Fix] Bei der Verwendung einer Einschwingphase wurde die Anzahl an Kunden im System sowie die Auslastung der Ressourcen evtl. falsch erfasst.</li>
+  <li>[Fix] Wurde die Anzahl an Ein- oder Ausgängen in ein Untermodell reduziert, so wurden die entsprechenden Verknüpfungspunkte im Untermodell nicht angepasst.</li>
+  <li>[Fix] Auch bei korrekter Ausführung des Ausgabeskriptes zeigte die Parameterserien-Funktion, dass es zu einem Fehler bei der Skriptausführung gab.</li>  
+  <li>[Fix] Unter bestimmten Bedingungen wurde beim Beenden des Programmes gefragt, ob das Modell jetzt gespeichert werden solle, obwohl es nicht verändert wurde.</li>
+  <li>[Fix] Wurden in einer Bedienstation keine notwendigen Ressourcen definiert, so wurde dies zwar im Dialog und am Element als Fehler angemerkt, aber die Modellprüfung hat dies nicht als Fehler gemeldet.</li>
+  <li>[Fix] Die Linienbreite von Rechtecken, Ellipsen und Linien wurde bei Veränderung des Zoomfaktors nicht korrekt angepasst.</li>
+  <li>[Fix] Wenn das Laden eines Modells aus einer json-Datei scheiterte, wurde bisher in dem Fehlermeldungsdialog kein Grund für den Fehler angezeigt.</li>
+</ul>
+
+<h2>Version 0.6.0 (8.9.2017)</h2>
+<ul>
+  <li>Neue Stationen zum Transport von Kunden</li>
+  <li>Die Animation von Modellen kann nun unterbrochen und im Einzelschrittmodus ausgeführt werden.</li>
+  <li>Neues Element zur Anzeige von verschiedenen Bildern in Abhängigkeit von den Simulationsdaten</li>
+  <li>Bei dem Ressourcen-Freigabe-Element kann nun eine Zeitverzögerung zur Freigabe der Ressourcen eingestellt werden.</li>
+  <li>Neue Rechensymbole zur Abfrage der Kosten</li>
+  <li>Es können jetzt während der Animation Screenshots erstellt werden.</li>
+  <li>[Fix] Bei Bedienstationen wurde bei der Definition von Zeitdauern über Rechenausdrücke Zeitbasis-Werte abweichend von "Sekunde" bisher ignoriert.</li>
+  <li>[Fix] Simulationsdatenliniendiagramme wurden nicht korrekt dargestellt, wenn während der Animation der Zoomfaktor geändert wurde.</li>
+  <li>[Fix] Das Skalieren von Elementen über den linken oberen Eckpunkt funktioniert nicht korrekt.</li> 
+  <li>[Fix] Beim Laden und Bearbeiten von beschädigten Modelldateien konnten Fehler auftreten.</li>
+  <li>[Fix] Bei der Aufzeichnung einer Simulation in einer Logdatei wurde den Ereignissen zur Ankunft an einer Station bisher die Farbe der vorherigen und nicht aktuellen Station zugeordnet.</li> 
+  <li>[Fix] Im "Ausdruck bearbeiten"-Dialog wurden die Kundendaten-Peudovariablen "p", "t" und "w" nicht an allen Stellen, an denen diese verfügbar sind, angeboten.</li> 
+</ul>
+
+<h2>Version 0.5.0 (29.8.2017)</h2>
+<ul>
+  <li>Es können in Bedienstationen verschiedene Bedienerbelegungen definiert werden, von denen eines für die Bedienung eines Kunden verfügbar sein muss.</li>
+  <li>Neue unterstützte Wahrscheinlichkeitsverteilung: Dreiecksverteilung</li>
+  <li>Neues Animationselement zur Anzeige der Simulationszeit in Form einer Analoguhr</li>
+  <li>Optionale Anzeige der Anzahl an Kunden die die einzelnen Stationen passiert haben bzw. sich in ihnen aufhalten während der Animation</li>
+  <li>Reduktion des Arbeitsspeicherverbrauchs während der Animation</li>
+  <li>In aufgezeichnete Animationen kann die aktuelle Simulationszeit eingeblendet werden.</li> 
+  <li>Beschleunigung der Ausgabe von Zeitangaben über das Ausgabe-Element.</li>
+  <li>[Fix] Bei der Verwendung einer Einschwingphase wurde die Anzahl an wartenden Kunden im System auf Kundenbasis evtl. falsch erfasst.</li>
+  <li>[Fix] Das Entfernen von verknüpften Bedienstationen konnte zu Fehlern führen.</li>
+  <li>[Fix] Wenn eine in ein Zusammenführen-Element einlaufende Kante mit einer Verbindungsecke verbunden war, trat ein Fehler bei der Initialisierung der Simulation auf.</li> 
+  <li>[Fix] Die Animation von verschiedenen Modellen, ohne das Programm zwischenzeitlich neu zu starten, konnte zu einem Fehler führen.</li>
+  <li>[Fix] Wenn während der Animation Kunden an der Station mit der höchsten id warten müssen, konnte dies zu einem Fehler führen.</li>
+  <li>[Fix] Wurde die Einschwingphase deaktiviert, so wurde dennoch der erste Kunde nicht als Ankunft an den Stationen in der Statistik erfasst.</li> 
+  <li>[Fix] Darstellungsfehler im Modell-Editor bei der Verwendung von Linienbreiten größer 1 für Rechtecke usw.</li>
+  <li>[Fix] Fehlende Darstellung der Kunden während der Animation, wenn ein Element selektiert war.</li>
+  <li>[Fix] Leerzeilen in Textelementen wurden nicht korrekt gespeichert und nicht korrekt geladen.</li>
+</ul>
+
+<h2>Version 0.4.0 (21.8.2017)</h2>
+<ul>
+  <li>Das Schnellzugriff-System verwendet nun Javascript als Skriptsprache.</li>
+  <li>Modelle mit Elementen ohne auslaufende Kante (oder mit anderen Konfigurationsfehlern) werden nun akzeptiert, wenn diese Elemente auch keine einlaufende Kante besitzen, also in der Simulation überhaupt nicht erreicht werden können.</li>
+  <li>Datenausgaben während der Simulation können nun auch in Javascript definiert werden.</li>
+  <li>Variablenzuweisungen können nun auch in Javascript definiert werden.</li>
+  <li>Neues Element für Animationen: Balkendiagramm</li>
+  <li>Bei Bedienstationen können die Bedienzeiten, die Nachbearbeitungszeiten und die Wartezeittoleranzen optional über Rechenausdrücke definiert werden.</li>  
+  <li>Bei Kundenquellen kann nun ein Startzeitpunkt für die Generierung von Kundenankünften angegeben werden.</li>
+  <li>Neue Rechensymbole zur Abfrage ob sich die Simulation noch in der Einschwingphase befindet, zur Anzahl der Bediener in einer Ressource und zur Abfrage von Statistik-Verteilungsdaten.</li>
+  <li>Verbesserung der Oberfläche des Hilfesystems</li>
+  <li>Möglichkeit zur automatisch Verknüpfung von neu eingefügten Elementen</li>
+  <li>Die Element-Vorlagenleiste besitzt nun eine Schnellfilter-Funktion</li>
+  <li>Reduktion des Arbeitsspeicherverbrauchs während der Animation</li>  
+  <li>Kleine Ergänzungen in der Statistikanzeige</li>
+  <li>Es stehen nun mehr Icons für die Animation der Kundentypen zur Verfügung.</li>
+  <li>Untermodelle können nun mit einer zusätzlichen Beschreibung versehen werden.</li>
+  <li>Drastische Reduktion des Arbeitsspeicherverbrauchs bei der Erzeugung von Zufallszahlen über Rechenausdrücken während der Simulation.</li>
+  <li>[Fix] Fehlende englische Übersetzung für den XML-Element Auswahldialog</li>
+  <li>[Fix] Unter Mac OS wurden in der deutschen Version die Umlaute in der Online-Hilfe nicht korrekt dargestellt.</li>
+  <li>[Fix] Der Menüpunkt Hilfe|Hilfe-Inhalt funktionierte nicht.</li>
+  <li>[Fix] Das Laden von Modellen und Statistikdateien per Drag&amp;Drop funktionierte nicht so lange die Begrüßungsseite angezeigt wurde.</li>
+  <li>[Fix] In Text-Elementen wurden Leerzeilen bisher nicht korrekt angezeigt.</li>
+  <li>[Fix] Die Hintergrund-Modellprüfung wurde nach dem Entfernen eines Elements nicht immer sofort ausgelöst.</li>
+</ul>
+
+<h2>Version 0.3.1 (30.7.2017)</h2>
+<ul>
+  <li>Hintergrund Modellprüfung</li>
+  <li>Erhöhung der Simulationsgeschwindigkeit in Modellen mit langen FCFS-Warteschlangen</li>
+  <li>Erkennung, wenn die Anzahl an Kunden im System während der Simulation aufgrund eines Fehlers im Modell unaufhaltsam anwächst, und Abbruch der Simulation in diesem Fall.</li>
+  <li>Kleine Verbesserungen bei Arbeitsspeicherbedarf und Geschwindigkeit der Animation</li>
+  <li>Begrüßungsseite, die Optionen für erste Schritte mit dem Programm anbietet.</li>
+</ul>
+
+<h2>Version 0.3.0 (24.7.2017)</h2>
+<ul>
+  <li>Neue Rechensymbole zur Abfrage der Auslastung der Ressourcen</li>
+  <li>Neues Rechensymbol zur Abfrage der Anzahl an Kunden, die momentan an einer Station in Bedienung sind</li>
+  <li>Mit jedem Kunden-Objekt können nun beliebig definierbare Nutzerdaten mitgeführt, auf die in den "Variable"-Elementen lesend und schreibend und in den "Ausgabe"-Elementen lesend zugegriffen werden kann.</li>
+  <li>Das "Verzögern"-Element kann nun Kunden auch gemäß eines Ausdrucks statt gemäß einer Verteilung verzögern. </li>
+  <li>Bei Variablenzuweisungen kann nun über die Pseudo-Variablen "w", "t" und "p" sowohl lesend als auch schreibend auf die Warte-, Transfer- und Bedienzeiten eines Kunden zugegriffen werden.</li>
+  <li>Kleine Verbesserungen in den Dialogen des Modell-Editors</li>
+  <li>Geringerer Arbeitsspeicherbedarf für die Animation von Modellen</li>
+  <li>[Fix] Die Rechensymbole zur Abfrage von Warte-, Transfer- und Bedienzeiten auf Stationsbasis haben bisher stets nur 0 geliefert.</li>
+  <li>[Fix] Funktionen, die leere Parametermengen erlauben, wurden bisher in zusammengesetzten Formeln nicht immer als gültig erkannt, wenn eine leere Parametermenge übergeben wurde.</li>
+  <li>[Fix] Beim Entfernen der auslaufenden Kanten aus einem Bedienstation-Elemente konnte es bisher zu Fehlern kommen.</li>
+  <li>[Fix] Animations-Ampeln haben bisher keine zusammengesetzten Vergleiche als Bedingungen akzeptiert.</li>
+  <li>[Fix] Bei der Aufzeichnung einer Simulation in einer Logdatei wurden die Bezeichnungen der Stationen bisher nicht korrekt ausgegeben.</li>
+</ul>
+
+<h2>Version 0.2.0 (17.7.2017)</h2>
+<ul>
+  <li>Englische Übersetzung</li>  
+  <li>Über das Hilfe-Menü kann ein Tutorial aufgerufen werden</li>
+  <li>Optimierungen im Simulationsprozess</li>
+  <li>[Fix] Bei der Zuweisung eines neuen Kundentyps wurde das Icon der Kunden nicht auf das Vorgabe-Icon des Typs eingestellt.</li>
+</ul>
+
+<h2>Version 0.1.1 (28.6.2017)</h2>
+<ul>
+  <li>Initiale Version</li>
+</ul>
+
+<!--
+0.1.1o (28.6.2017)
+- Funktion zur Optimierung von Modellen
+- Die Windows-Version des Simulators kann sich nun selbstständig aktualisieren.
+- Wird ein nicht parallelisierbares Modell in einer Parameterreihe verwendet, so werden mehrere Schritte in der Parameterreihe parallel simuliert.
+
+0.1.1m (19.6.2017)
+- Dialog zum Erstellen von Ausdrücken und Vergleichen
+- Funktion zur Erstellung von Parameterreihen
+- [Fix] Bei der Erhebung der Zwischenankunftszeiten (global und pro Station) wurde die Einschwingphase bisher nicht korrekt berücksichtigt.
+
+0.1.1l (16.6.2017)
+- Schnellzugriffsfunktion in der Ergebnisansicht zum Filtern der Statistikdaten
+- Abbildung von Kosten für Kunden und Ressourcen
+- Elemente können auf der Zeichenfläche nach vorne oder hinten verschoben werden.
+- Es kann eine Modellübersicht angezeigt werden, um den sichtbaren Bereich schnell zu verschieben.
+- Verschiedene Linien-Zeichentypen
+- Neue Verteilung im Verteilungseditor: Johnson-SU-Verteilung
+
+0.1.1k (4.6.2017)
+- Es können nun Zeitpläne für die Kundenankünfte und die Anzahl an Bedienern angegeben werden.
+- Es kann nun auch ein Zeitpunkt als Simulationsende angegeben werden.
+- Zwischenakunftszeiten von Kunden können nun statt nur über eine Verteilung auch über einen Ausdruck angegeben werden.
+- Die Funktionen zur Bestimmung von Warte-, Transfer- und Bedienzeiten können nun statt auf Stationen auch auf Kundentypen angewandt werden. 
+- Wird eine in Nutzung befindliche Bedienergruppe umbenannt, so wird angeboten, den Namen in den entsprechenden Stationen ebenfalls anzupassen.
+- Modelle können nun auch als eps-Dateien exportiert werden.
+- [Fix] Die Funktionen zur Bestimmung der Standardabweichung der Warte-, Transfer- und Bedienzeiten an den Station in Ausdrücken hat bisher falsche Werte geliefert. 
+
+0.1.1j (31.5.2017)
+- Neue Elemente: "Differenzzähler", "Ausleiten", "Untermodell", "Ellipse" sowie alle Elemente aus dem Bereich Animation
+- Möglichkeit zur Animation von Simulationsmodellen
+- Rückgängig/Wiederholen-Funktion für Modell-Editor
+- Bei der Berechnung bzw. Bewertung von Ausdrücken stehen nun mehr Funktionen zur Ermittlung des Warte- und Bedienverhaltens an den Stationen zur Verfügung.
+- Bei der Berechnung bzw. Bewertung von Ausdrücken mit einem konkreten Kundenbezug stehen neben "w" für die Wartezeit nun auch "t" für die bisherige Transferzeit und "p" für die bisherige Bedienzeit zur Verfügung.
+- Bilder und Modelle können nun auch per Copy&Paste geladen werden
+- Die Zeit, die ein Kunde im Verzögern-Element verbringt kann nun optional auch als Wartezeit (statt bisher Transfer- oder Bedienzeit) gezählt werden.
+- Möglichkeit den einzelnen Elementen benutzerdefinierte Farben zuzuweisen
+- Mehr Dateiformate für die Aufzeichnung von Simulationsläufen
+- Laden von Modellen und Statistikdateien sowie Durchführung von Simulationen per Kommandozeilenbefehl
+- Kundentypen können nun für die Statistik explizit bestimmte Farben zugewiesen werden
+- Funktion zum Suchen von Elementen über ihre ID
+- Modelle können nun auch als svg-Dateien exportiert werden
+- Funktion zum Ausdrucken von Modellen
+- [Fix] Bei der Erhebung einiger Stations-abhängiger Statistikdaten wurde die Einschwingphase bisher nicht korrekt berücksichtigt.
+- [Fix] Die aus einem Zusammenführen-Element auslaufende Kante wurde bisher in der Modelldarstellung falsch beschriftet.
+
+0.1.1i (12.5.2017)
+- Neue Elemente: "Zusammenführen", "Ausgabe" und "Bild"
+- Neben der Anzahl an zu simulierenden Kunden kann nun auch eine Bedingung als Kriterium zum Beenden der Simulation angegeben werden
+- Bei den Kundenankunftselementen kann nun eine Höchstzahl an zu generierenden Kunden eingestellt werden
+- Es können nun auch die bisherige Warte-, Transfer- und Bedienzeit des aktuellen Kunden an eine Variable zugewiesen werden.
+- Die Elemente zur Verzweigung gemäß Zufall, Bedingung und Kundentyp wurden zu einem Element zusammengefasst
+- Bei dem "Zusammenfassen"-Element kann nun eingestellt werden, dass die Kunden nicht gebündelt weitergeleitet werden, sondern stattdessen ein neuer Kunde weitergeleitet wird.
+- Die Modellelemente besitzen nun verschiedene Formen, die das jeweilige Verhalten andeuten
+- [Fix] Bei sehr langen Zeitspannen (>130 Jahre) wurden die hh:mm:ss Zeitangaben bisher fehlerhaft dargestellt.
+
+0.1.1h (8.5.2017)
+- Neue Elemente: "Linie", "Kasten" und "Verzweigung nach Kundentyp"
+- Neue Funktion zum Finden von Verteilungen, die gegebene Messwerte möglichst gut nachmodellieren
+- Bei Verzögerungs- und Verarbeitungs-Elementen kann nun auch eingestellt werden, dass die Zeit nicht als Bedien- sondern Transferzeit erfasst wird.
+- Bei Beschreibungstexten kann nun die Textfarbe eingestellt werden
+- Dokumentation der Funktionen zur Berechnung von Ausdrücken in der Hilfe
+- Optimierung der Simulationsgeschwindigkeit
+- [Fix] Ist ein Zoomfaktor gleich 100% gewählt, so funktionierte das Verschieben per Drag&Drop nicht korrekt.
+- [Fix] Die Schaltflächen "Zoomfaktor auf 100% einstellen" und "Modell zentrieren" in der Statuszeile funktionierten nicht.
+
+0.1.1g (5.5.2017)
+- Neue Elemente: "Variable" und "Zähler"
+
+0.1.1f (1.5.2017)
+- Neue Elemente: "Bedingung", "Signal", "Schranke", "Ressource belegen" und "Ressource freigeben"
+- Zusammengesetzte Bedingungen mit || und && sind nun möglich
+- Bei Verteilungen (Zwischenankunftszeiten, Bedienzeiten) kann nun als Zeitbasis Sekunden, Minuten oder Stunden gewählt werden.
+- [Fix] Die Ressourcen-Belegung von Ressourcen, von denen unbegrenzt viele zur Verfügung stehen, funktionierte bisher nicht korrekt. 
+
+0.1.1e (26.4.2017)
+- Variable Ankunfts-Batch-Größen wählbar
+- Prioritäten für die Ressourcen bei den Bedienstationen wählbar
+
+0.1.1d (23.4.2017)
+ - Neues Element: "Bedienstation"
+ - [Fix] Nach dem Aufruf von Datei|Neu wurde der Dateiname des letzten Modells nicht aus dem Fenstertitel entfernt.
+ - [Fix] Beim Laden von Modellen via Drag&Drop wurde bisher das beim nächsten Laden/Speichern-Dialog-Aufruf als Vorgabe anzuzeigende Verzeichnis nicht von dieser Datei verwendet.
+ - [Fix] Das laden der zuletzt verwendeten Modelle über Datei|Zuletzt verwendet funktionierte nicht.
+ - [Fix] Die Wahl einer von 1 abweichenden Batch-Größe in den Kundenankunftselementen führte bisher zu einer höher als eingestellten Anzahl an insgesamt simulierten Kunden
+ - [Fix] Das Löschen von Ressourcen, die aus einem Bediener bestehen, funktionierte bisher nicht.
+ - [Fix] Bei Vergleichsoperationen lieferte NQ(id) nicht die Anzahl an Kunden in der Warteschlange von Station id, sondern die Anzahl an Kunden insgesamt an der Station.
+ - [Fix] Bei der Nutzung aller CPU-Kerne zur Simulation funktionierte die Bestimmung der Anzahl an Kunden an einer Station und in der Warteschlange einer Station nicht. 
+
+0.1.1c (15.4.2017)
+ - [Fix] Beispielmodelle konnten nicht geladen werden
+ - [Fix] Beim Strg+Drag&Drop-Kopieren wurden ungültige Objekte erzeugt
+
+0.1.1b (11.4.2017)
+ - Bedienergruppen können im Modell-Einstellungen-Dialog hinterlegt werden (noch ohne Bedeutung für die Simulation).
+ - Die Symbolleisteneinträge zum Zoomen der Modellansicht befinden sich jetzt in der Statusleiste.
+ - Es können jetzt mehrere Kanten direkt nacheinander hinzugefügt werden, ohne dafür die Symbolleistenschaltfläche mehrfach anklicken zu müssen.
+
+0.1.1a (7.4.2017)
+ - Blaue Schattierung im Rahmen, wenn ein Markierungsrahmen aufgezogen wird.
+ - Eine manuell beschädigte Konfigurationsdatei konnte den Start verhindern.
+ - In der "Modell zu diesen Ergebnissen"-Ansicht konnte bisher im Einstellungen-Dialog zu "Verzweigung (Zufall)" die Raten verändert werden (obwohl hier alles readonly sein sollte).
+ - Das "Verzweigung" (gemäß Bedingung) Element war bisher funktionslos und ist nun implementiert.
+
+0.1.1 (3.4.2017)
+Start der Entwicklung: etwa 29.3.2017 
+ -->
+  
+</body>
+</html>

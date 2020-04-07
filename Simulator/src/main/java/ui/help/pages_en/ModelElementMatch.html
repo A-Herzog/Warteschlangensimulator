@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Match</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Match</h1>
+
+<p>
+The match element has two or more inputs. If a client is present at each of the inputs, they are forwarded simultaneously
+at the same time or a temporary or a permanent batch is built. If clients are only present at one input line, they have
+to wait until clients have also arrived at the other input lines.
+In addition, a restriction can be made to only match clients in which a particular client data field has the same
+numeric or text value.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the match element has no further meaning. For the match element it can be set whether the combined
+clients simply leave the station again (at the same time), or whether a temporary batch (which
+can be dissolved by the <a href="ModelElementSeparate.html">Dissolve batch</a> element) or whether the route
+through the network ends for the clients ends at this point (because the two clients, for example, represent
+partial components that are combined into a larger element) and instead a new client object is created and
+started from this point. Additionally a client data field can be defined to be used for matching.
+</p> 
+
+</body>
+</html>

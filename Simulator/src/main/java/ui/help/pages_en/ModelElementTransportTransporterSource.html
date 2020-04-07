@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Transporter start</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Transporter start</h1>
+
+
+<p>
+A transporter start element allows to transport a client to any
+<a href="ModelElementTransportDestination.html">transport destination</a>
+element. How much time is needed for the transport and to which
+transport destination element the client is transported can be set up
+in the transporter start element. 
+There is no need for a connection edge between the transport origin element
+and the transport destination element for routing clients from the origin to the
+destination.
+In comparison to the  <a href="ModelElementTransportSource.html">transport origin</a>
+element at a transporter start element no resources (which do not have a physical location)
+are used but transporters which move between the stations.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the transporter start element has no further meaning.
+</p>
+
+<p>
+On the dialog page <b>Transporter</b>, it is possible to specify which type
+of transporter is to be used to pick up for waiting clients, how many clients
+have to wait before a transporter is being requested, and what priority the
+transporter start element should have when requesting transporters.
+Furthermore, even without waiting clients, transporters can be requested,
+which then park in the element. Again, a priority and maximum capacity can be specified.
+</p>
+
+<p>
+On the dialog page <b>Routing destinations</b> target stations for transfering the
+clients can be registered. Conditions or client types can be specified for the transport
+destinations. Alternatively the clients sequence or a clients text property can be used to determine
+the transport destination.
+</p>
+
+<p>
+On the dialog page <b>Priorities</b> a priority for waiting clients
+to get a place in an arriving transporter can be defined.
+The variable "w" indicates here the client's previous waiting time at the current station.
+(In all other cases "w" is the total waiting time of the current client.)
+</p>
+
+<p>
+On the dialog page <b>Leave section</b> optionally an enter section station can be specified.
+When the transport of the client starts, the corresponding section will be left.
+</p>
+
+</body>
+</html>

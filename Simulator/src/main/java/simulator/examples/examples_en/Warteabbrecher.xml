@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.0.0</ModelVersion>
+  <ModelName>Queue model with waiting cancelations and repeaters</ModelName>
+  <ModelDescription>There are two types of clients with different waiting time tolerances.
+With a probability of 50%, a client who has canceled waiting will
+later start another call attempt.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="17">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementName>Station</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="250"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+      <ModelElementConnection Element="22" Status="WaitingCancelation" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (500;300)</ModelElementDistribution>
+      <ModelElementDistribution Type="CancelationTime">Exponential distribution (600)</ModelElementDistribution>
+      <ModelElementDistribution ClientType="Clients A" Type="CancelationTime">Exponential distribution (150)</ModelElementDistribution>
+      <ModelElementDistribution ClientType="Kunden A" Type="CancelationTime">Exponential distribution (150)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="800" y="250"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="24" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDelay id="15">
+      <ModelElementName>Retry</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="450"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (900)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementText id="18">
+      <ModelElementSize h="23" w="514" x="50" y="50"/>
+      <ModelElementTextLine>Queue model with waiting cancelations and repeatersholern</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDecide id="19">
+      <ModelElementSize h="50" w="100" x="450" y="450"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="9" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="8" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementIcon id="11">
+      <ModelElementSize h="50" w="100" x="50" y="350"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementIconName>user_red</ModelElementIconName>
+    </ModelElementIcon>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="15" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementCounter id="16">
+      <ModelElementName>Success</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="250"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementCounterGroup>Output counter</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="20">
+      <ModelElementName>Retrys</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="350"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+      <ModelElementCounterGroup>Calls</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="21">
+      <ModelElementName>Cancel (final)</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="450"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementCounterGroup>Output counter</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="16" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="4">
+      <ModelElementName>Success</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="16" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementName>Waiting cancelation</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="19" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="19" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="10">
+      <ModelElementSize h="10" w="10" x="845" y="470"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="21" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="10" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="25">
+      <ModelElementName>Share of finally successful clients</ModelElementName>
+      <ModelElementSize h="30" w="140" x="650" y="350"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,195,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(16)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementCounter id="5">
+      <ModelElementName>Fresh calls</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="150"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+      <ModelElementCounterGroup>Calls</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="6">
+      <ModelElementName>Arrivals (Clients A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementConnection Element1="5" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementName>Arrivals (Clients B)</ModelElementName>
+      <ModelElementConnection Element1="17" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>Share of retryers of all calls</ModelElementName>
+      <ModelElementSize h="30" w="115" x="200" y="270"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(20)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementEdge id="8">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="19" Element2="15" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="11" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="20" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="29">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="450" y="200"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationBar id="61">
+      <ModelElementName>Auslastung</ModelElementName>
+      <ModelElementSize h="100" w="50" x="950" y="400"/>
+      <ModelElementDataExpression>process(2)</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Maximum="20" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBarColor>0,180,0</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementAnimationBar id="60">
+      <ModelElementName>Wartende Kunden</ModelElementName>
+      <ModelElementSize h="200" w="50" x="950" y="200"/>
+      <ModelElementDataExpression>NQ(2)</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Maximum="40" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBarColor>255,0,0</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementText id="62">
+      <ModelElementSize h="38" w="177" x="1015" y="400"/>
+      <ModelElementTextLine>Clients in service process</ModelElementTextLine>
+      <ModelElementTextLine>(max=20)</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="63">
+      <ModelElementSize h="19" w="102" x="1015" y="380"/>
+      <ModelElementTextLine>Waiting clients</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="98">
+      <ModelElementName>Average operator utilization</ModelElementName>
+      <ModelElementSize h="30" w="113" x="550" y="200"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">resource_avg()/20</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="99">
+      <ModelElementName>Current operator utilization</ModelElementName>
+      <ModelElementSize h="30" w="110" x="550" y="150"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">resource()/20</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener" Type="Number" Value="20"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="user_green" Name="Clients A"/>
+    <ClientData Icon="user_green" Name="Kunden A"/>
+  </ClientTypeData>
+</Model>

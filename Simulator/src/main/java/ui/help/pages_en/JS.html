@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javascript Scripting</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+
+<h1>Javascript Scripting</h1>
+
+<p>
+Scripts can be used at different locations in the simulator.
+As scripting language <b>Javascript</b> and <b>Java</b> can be used in all cases.
+</p>
+
+<p>
+When using <b>Javascript</b> in addition to the standard language commands, the following special
+objects are available for accessing the simulation or statistics data and the output
+of the filtered data, depending on the context in which the script is executed:
+</p>
+
+
+
+<h2>Statistics</h2>
+
+<p>
+The <tt>Statistics</tt> object offers read access to the xml elements which are the
+base of the statistics data. The <tt>Statistics</tt> object is only available after the
+simulation while filtering the results while and when running a parameter series Javascript.
+The following methods are in this object available:
+</p>
+
+<ul>
+  <li><tt>Statistics.setFormat("Format")</tt><br>
+  This command allows to setup the format that is used in <tt>Statistics.xml</tt> for outputing numbers
+  as strings. You can specify whether to use a floating point notation or percent notation or interpreting
+  the value as a time. As default floating point notation is used.
+  <ul>
+    <li><tt>"System"</tt>: Using floating point notation for numbers and percent values</li>
+    <li><tt>"Fraction"</tt>: Using floating point notation for numbers (<tt>0.375</tt> for example)</li>
+    <li><tt>"Percent":</tt> Using percent notation for numbers (<tt>35.7%</tt> for example)</li>
+    <li><tt>"Time"</tt>: Interpreting numbers as times (<tt>00:03:25.87</tt> for example)</li>
+    <li><tt>"Number"</tt>:Interpreting time values as normal numbers (format defined by <tt>Percent</tt> or <tt>Fraction</tt>)</li>
+  </ul>
+  </li>
+  <li><tt>Statistics.setSeparator("Format")</tt><br>
+  This command allows to select the separator to be used when printing out distributions of measured values.
+  <ul>
+    <li><tt>"Semicolon"</tt>: Semicolons as separators</li>
+    <li><tt>"Line"</tt>: Line break as separators</li>
+    <li><tt>"Tabs"</tt>: Tabulators as separators</li>
+  </ul>
+  </li>
+  <li><tt>Statistics.xml("Path")</tt><br>
+  Loads the xml field which is specified by the parameter and returns the data in the format
+  defined by <tt>Statistics.setFormat</tt> and <tt>Statistics.setSeparator</tt> as a string.<br>
+  Example: <tt>var name=Statistics.xml("Model-&gt;ModelName")</tt>
+  </li>
+  <li><tt>Statistics.xmlNumber("Path")</tt><br>
+  Loads the xml field which is specified by the parameter and returns the value as a number.
+  If the field cannot be interpreted as a number, a string containing an error message will be returned.  
+  </li>
+  <li><tt>Statistics.xmlArray("Path")</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the values as an array of numbers.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example: <tt>Statistics.xmlArray("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Statistics.xmlSum("Path")</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the sum of all values as a number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example: <tt>Statistics.xmlSum("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Statistics.xmlMean("Path")</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the mean of values as a number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example:
+  <tt>Statistics.xmlMean("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Statistics.xmlSD("Path")</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the standard deviation of values as a number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example:
+  <tt>Statistics.xmlSD("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Statistics.xmlCV("Path")</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the coefficient of variation of values as a number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example:
+  <tt>Statistics.xmlCV("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Statistics.save("FileName")</tt><br>
+  Saves the entry statistics data in the given file. This function is only available in the
+  <a href="JSRunner.html">Run script</a> panel.
+  </li>
+  <li><tt>Statistics.saveNext("FolderName")</tt><br>
+  Saves the entry statistics data under the next available file name in the given folder.
+  This function is only available in the <a href="JSRunner.html">Run script</a> panel.
+  </li>
+  <li><tt>Statistics.filter("FileName")</tt><br>
+  Applies the selected script on the statistics data and returns the results.
+  This function is only available in the <a href="JSRunner.html">Run script</a> panel.
+  </li>
+  <li><tt>Statistics.cancel()</tt><br>
+  Sets the cancel status. (When output is canceled to further file output will be performed.)
+  </li>
+  <li><tt>Statistics.translate("de")</tt><br>
+  Translates the statistics data to English ("en") or German ("de") so the preferred xml tag names can be
+  used independent of the language setting under which the statistics file was generated.
+  </li>
+</ul>
+
+
+
+<h2>System</h2>
+
+<p>
+The <tt>System</tt> object allows to access some general program functions.
+The <tt>System</tt> object is only available after the simulation while filtering the results
+or when running parameter series Javascripts.
+The following methods are available in this object:
+</p>
+
+<ul>
+  <li><tt>System.calc("Expression")</tt><br>
+  Calculates the expression passed as a string by means of the term evaluation function,
+  which is also used in various other places in the program, and returns the result as a number.
+  If the expression can not be calculated, an error message is returned as a string.
+  The term evaluation function allows access to all known probability distributions,
+  the Erlang C calculator, etc. (see also <a href="Expressions.html">calculation commands</a> help page).    
+  </li>
+  <li><tt>System.time()</tt><br>
+  Returns the current system time as a milliseconds value. This functions can be used the measure
+  the runtime of a script.
+  </li>
+  <li><tt>System.getInput("http://Adresse",-1)</tt><br>
+  Loads a numerical value via the specified address and returns it.
+  If no value could be loaded, the error value specified in the second parameter is returned.
+  </li>
+</ul>
+
+
+
+<h2>Simulation</h2>
+
+<p>
+The <tt>Simulation</tt> object allows to access the model data while simulation is running.
+It is not available for filtering the results after simulation has terminated.
+The following methods are in this object available:
+</p>
+
+<h3>Base functions</h3>
+
+<ul>
+  <li><tt>Simulation.time()</tt><br>
+  Gets the current time in the simulation as a seconds numerical value.
+  </li>
+  
+  <li><tt>Simulation.calc("Expression")</tt><br>
+  Calculates the expression passed as a string by means of the term evaluation function,
+  which is also used in various other places in the program, and returns the result as a number.
+  If the expression can not be calculated, an error message is returned as a string.
+  The term evaluation function allows access to all known probability distributions,
+  the Erlang C calculator, etc. (see also <a href="Expressions.html">calculation commands</a> help page).    
+  </li>
+  
+  <li><tt>Simulation.getInput("http://Adresse",-1)</tt><br>
+  Loads a numerical value via the specified address and returns it.
+  If no value could be loaded, the error value specified in the second parameter is returned.
+  </li>
+  
+  <li><tt>Simulation.isWarmUp()</tt><br>
+  Gets true of false depending if the simulation is in the warm-up phase.
+  </li>
+</ul>
+
+<h3>Accessing client-specific data</h3>
+
+<ul>  
+  <li><tt>Simulation.clientTypeName()</tt><br>
+  Gets the name of the type of the client who has triggered the processing of the script.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.isWarmUpClient()</tt><br>
+  Gets true of false depending if the current client was generated during the warm-up phase and
+  therefore will not be recorded in the statistics.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.isClientInStatistics()</tt><br>
+  Gets true of false depending if the current client is to be recorded in the statistics.
+  This value is independent of the warm-up phase. A client will only be recorded if he was
+  generated after the warm-up phase and this value is true.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.setClientInStatistics(inStatistics)</tt><br>
+  Sets if a client is to be recorded in the statistics.
+  This value is independent of the warm-up phase. A client will only be recorded if he was
+  generated after the warm-up phase and this value is not set to false.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientNumber()</tt><br>
+  Get the 1-based consecutive number of the current client.
+  When using multiple simulation threads this number is thread local.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientWaitingSeconds()</tt><br>
+  Gets the current waiting time of the client who has triggered the processing of the script as a seconds numerical value.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientWaitingTime()</tt><br>
+  Gets the current waiting time of the client who has triggered the processing of the script as a formated time value as a string.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientWaitingSecondsSet(seconds)</tt><br>
+  Sets the current waiting time of the client who has triggered the processing of the script.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientTransferSeconds()</tt><br>
+  Gets the current transfer time of the client who has triggered the processing of the script as a seconds numerical value.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientTransferTime()</tt><br>
+  Gets the current transfer time of the client who has triggered the processing of the script as a formated time value as a string.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientTransferSecondsSet(seconds)</tt><br>
+  Sets the current transfer time of the client who has triggered the processing of the script.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientProcessSeconds()</tt><br>
+  Gets the current processing time of the client who has triggered the processing of the script as a seconds numerical value.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientProcessTime()</tt><br>
+  Gets the current processing time of the client who has triggered the processing of the script as a formated time value as a string.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientProcessSecondsSet(seconds)</tt><br>
+  Sets the current processing time of the client who has triggered the processing of the script.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientResidenceSeconds()</tt><br>
+  Gets the current residence time of the client who has triggered the processing of the script as a seconds numerical value.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientResidenceTime()</tt><br>
+  Gets the current residence time of the client who has triggered the processing of the script as a formated time value as a string.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.clientResidenceSecondsSet(seconds)</tt><br>
+  Sets the current residence time of the client who has triggered the processing of the script.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.getClientValue(index)</tt><br>
+  Gets for the current client the numerical value which is stored by the index <tt>index</tt>.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.setClientValue(index,value)</tt><br>
+  Sets for the current client the numerical <tt>value</tt> for the index <tt>index</tt>.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.getClientText("key")</tt><br>
+  Gets for the current client the string which is stored by the key <tt>key</tt>.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
+  <li><tt>Simulation.setClientText("key","value")</tt><br>
+  Sets for the current client string <tt>value</tt> for the key <tt>key</tt>.<br>
+  (If the event was triggered by a client.)
+  </li>
+</ul>
+
+<h3>Accessing parameters of the simulation model</h3>
+
+<ul>
+  <li><tt>Simulation.set("Name",Value)</tt><br>
+  Sets the simulation variable which is specified as the first parameter to the value specified as the second parameter.  
+  <tt>Value</tt> can be a number or a string. The case of a number the value will be assigned directly.
+  Strings will be interpreted like <tt>Simulation.calc</tt> does and the result will be assigned to the variable. <tt>Name</tt>
+  can either be the name of an already defined simulation variable or of a client data field in the form
+  <tt>ClientData(index)</tt> with <tt>index&ge;0</tt>. 
+  </li>
+  
+  <li><tt>Simulation.setValue(id,Value)</tt><br>
+  Sets the value at the "Analog value" or "Tank" element with the specified id.
+  </li>
+  
+  <li><tt>Simulation.setRate(id,Value)</tt><br>
+  Sets the change rate (per second) at the "Analog value" element with the specified id.
+  </li>
+  
+  <li><tt>Simulation.setValveMaxFlow(id,ValveNr,Value)</tt><br>
+  Sets the maximum flow (per second) at the specified valve (1 based) of the "Tank" element
+  with the specified id. The maximum flow has to be a non-negative number.  
+  </li>
+  
+  <li><tt>Simulation.getWIP(id)</tt><br>
+  Gets the current number of clients at the station with the specified id.
+  </li>
+  
+  <li><tt>Simulation.getNQ(id)</tt><br>
+  Gets the current number of clients in the queue at the station with the specified id.
+  </li>
+  
+  <li><tt>Simulation.getWIP()</tt><br>
+  Gets the current number of clients in the system.
+  </li>
+  
+  <li><tt>Simulation.getNQ()</tt><br>
+  Gets the current number of waiting clients in the system.
+  </li>
+</ul>
+
+<h3>Accessing the current input value</h3>
+  
+<ul>
+  <li><tt>Simulation.getInput()</tt><br>
+  If the Javascript code is being executed from a <a href="ModelElementInputJS.html">Input (Script)</a> element,
+  this function returns the current input value. Otherwise it will just return  0.
+  </li>
+</ul>
+
+<h3>Number of operators in a resource</h3>
+  
+<ul>
+  <li><tt>Simulation.getAllResourceCount()</tt><br>
+  Returns the current number of operators in all resources together.
+  </li>
+  
+  <li><tt>Simulation.getResourceCount(id)</tt><br>
+  Returns the current number of operators in the resource with the specified id.  
+  </li>
+  
+  <li><tt>Simulation.setResourceCount(id,count)</tt><br>
+  Sets the number of operators in the resource with the specified id.
+  To be able to set the number of operators in a resource at runtime,
+  the initial number of operators in the resource has to be a fixed number
+  (not infinite many and not by a time table). Additionally no down times
+  are allowed for this resource.
+  The function returns <tt>true</tt> if the number of operators has successfully 
+  been changed. If the new number of operators is less than the previous number,
+  the new number may is not instantly visible in the simulation system because
+  removed but working operators will finish their current tasks before they are
+  actually removed.  
+  </li>
+  
+  <li><tt>Simulation.getAllResourceDown()</tt><br>
+  Returns the current number of operators in down time in all resources together.
+  </li>
+  
+  <li><tt>Simulation.getResourceDown(id)</tt><br>
+  Returns the current number of operators in down time in the resource with the specified id.
+  </li>  
+</ul>
+
+<h3>Fire signal</h3>
+  
+<ul>
+  <li><tt>Simulation.signal(name)</tt><br>
+  Fires the signal with the given name.
+  </li>
+</ul>
+
+
+
+<h2>Clients</h2>
+
+<p>
+The <tt>Clients</tt> object is only available within a hold by script condition element
+and allows to access the waiting clients and to release them.
+</p>
+
+<ul>
+  <li><tt>Clients.count()</tt><br>
+  Returns the current number of waiting clients. For the other
+  methods a single client can be accessed via the index parameter
+  (valued from 0 to <tt>count()</tt>-1).
+  </li>
+  <li><tt>Clients.clientTypeName(index)</tt><br>
+  Gets the name of the type of the client.
+  </li>
+  <li><tt>Clients.clientWaitingSeconds(index)</tt><br>
+  Gets the current waiting time of the client as a seconds numerical value.
+  </li>
+  <li><tt>Clients.clientWaitingTime(index)</tt><br>
+  Gets the current waiting time of the client as a formated time value as a string.
+  </li>
+  <li><tt>Clients.clientTransferSeconds(index)</tt><br>
+  Gets the current transfer time of the client as a seconds numerical value.
+  </li>
+  <li><tt>Clients.clientTransferTime(index)</tt><br>
+  Gets the current transfer time of the client as a formated time value as a string.
+  </li>
+  <li><tt>Clients.clientProcessSeconds(index)</tt><br>
+  Gets the current processing time of the client as a seconds numerical value.
+  </li>
+  <li><tt>Clients.clientProcessTime(index)</tt><br>
+  Gets the current processing time of the client as a formated time value as a string.
+  </li>
+  <li><tt>Clients.clientResidenceSeconds(index)</tt><br>
+  Gets the current residence time of the client as a seconds numerical value.
+  </li>
+  <li><tt>Clients.clientResidenceTime(index)</tt><br>
+  Gets the current residencetime of the client as a formated time value as a string.
+  </li>
+  <li><tt>Clients.clientData(index,data)</tt><br>
+  Returns the data element which index is specified via the second parameter of the selected client.
+  </li>
+  <li><tt>Clients.clientTextData(index,key)</tt><br>
+  Returns the data element which key is specified via the second parameter of the selected client.
+  </li>  
+  <li><tt>Clients.release(index)</tt><br>
+  Causes the forwarding of the specified client.
+  </li>
+</ul>
+
+
+
+<h2>Output</h2>
+
+<p>
+The <tt>Output</tt> object provides functions for output of filtered results:
+</p>
+
+<ul>
+  <li><tt>Output.setFormat("Format")</tt><br>
+  This command allows to setup the format that is used in <tt>Output.print</tt> and <tt>Output.println</tt>
+  for outputing numbers   as strings. You can specify whether to use a floating point notation or percent notation or interpreting
+  the value as a time. As default floating point notation is used.
+  <ul>    
+    <li><tt>"Fraction"</tt>: Using floating point notation for numbers (<tt>0.375</tt> for example)</li>
+    <li><tt>"Percent":</tt> Using percent notation for numbers (<tt>35.7%</tt> for example)</li>
+    <li><tt>"Number"</tt>: Interpreting numbers as normal number values (decimal or percent).</li>
+    <li><tt>"Time"</tt>: Interpreting numbers as time values.</li>
+  </ul>
+  </li>  
+  <li><tt>Output.setSeparator("Format")</tt><br>
+  This command allows to select the separator to be used when printing out arrays.
+  <ul>
+    <li><tt>"Semicolon"</tt>: Semicolons as separators</tt>
+    <li><tt>"Line"</tt>: Line break as separators</tt>
+    <li><tt>"Tabs"</tt>: Tabulators as separators</tt>
+  </ul>
+  </li>  
+  <li><tt>Output.print("Expression")</tt><br>
+  Outputs the passed expression.
+  Strings will be written directly. Numbers are formated according to the format
+  defined via <tt>Output.setFormat</tt>.
+  </li>
+  <li><tt>Output.println("Expression")</tt><br>
+  Outputs the passed expression and adds a line break after the expression.
+  Strings will be written directly. Numbers are formated according to the format
+  defined via <tt>Output.setFormat</tt>.
+  </li>
+  <li><tt>Output.newLine()</tt><br>
+  Outputs a line break. This functions is equivalent to calling
+  <tt>Output.println("")</tt>.  
+  </li>
+  <li><tt>Output.tab()</tt><br>
+  Outputs a tabulator.
+  </li>
+  <li><tt>Output.cancel()</tt><br>
+  Sets the cancel status. (When output is canceled to further file output will be performed.)
+  </li>
+</ul>
+
+
+
+<h2>FileOutput</h2>
+
+<p>
+The <tt>FileOutput</tt> object offers all function the <tt>Output</tt> has
+but is only available when running a parameter series script. In opposite
+to the <tt>Output</tt> object the output of the <tt>FileOutput</tt> object
+is not written to the default output but is appended to a file which has
+to be specified by <tt>FileOutput.setFile("Filename")</tt> before.
+</p>
+
+
+
+<h2>Model</h2>
+
+<p>
+Th <tt>Model</tt> object ist only available during parameter series
+Javascript execution and offeres functions for accessing the model
+properties and for starting simulations.
+</p>
+
+<ul>
+  <li><tt>Model.reset()</tt><br>
+  Resets the model to the initial state.
+  </li>
+  <li><tt>Model.run()</tt><br>
+  Simulates the current model.
+  The results can be accessed by the <tt>Statistics</tt> object after the simulation.
+  </li>
+  <li><tt>Model.setDistributionParameter("Path",Index,Value)</tt><br>
+  Sets the distribution parameter <tt>Index</tt> (from 1 to 4) of the distribution referred
+  to by <tt>Path</tt>.
+  </li>
+  <li><tt>Model.setMean("Path",Value)</tt><br>
+  Sets the mean of the distribution referred to by <tt>Path</tt> to the specified value.
+  </li>
+  <li><tt>Model.setSD("Path",Value)</tt><br>
+  Sets the standard deviation of the distribution referred to by <tt>Path</tt> to the specified value.  
+  </li>
+  <li><tt>Model.setString("Path","Text")</tt><br>
+  Writes the string <tt>Text</tt> to the location referred to by <tt>Path</tt>.
+  </li>
+  <li><tt>Model.setValue("Path",Value)</tt><br>
+  Writes the number <tt>Value</tt> to the location referred to by <tt>Path</tt>.  
+  </li>
+  <li><tt>Model.xml("Path")</tt><br>
+  Loads the xml field which is specified by the parameter and returns the data 
+  as String. This function is the equivalent of <tt>Statistics.xml("Path")</tt>
+  for models.
+  </li>
+  <li><tt>Model.getResourceCount("ResourceName")</tt><br>
+  Gets the number of operations in the resource with name <tt>ResourceName</tt>.
+  If the resource does not exist or is not defined by a fixed number of operators
+  the function will return -1.
+  </li>
+  <li><tt>Model.setResourceCount("ResourceName",Count)</tt><br>
+  Sets the number of operations in the resource with name <tt>ResourceName</tt>.
+  </li>
+  <li><tt>Model.getGlobalVariableInitialValue("VariableName")</tt><br>
+  Gets the expression by which the initial value of the global variable with
+  name <tt>VariableName</tt> is calculated. If the is no global variable with
+  this name the function will return an empty string.
+  </li>
+  <li><tt>Model.setGlobalVariableInitialValue("VariableName","Expression")</tt><br>
+  Sets the expression by which the initial value of the global variable with
+  name <tt>VariableName</tt> is calculated.
+  </li>
+  <li><tt>Model.cancel()</tt><br>
+  Sets the cancel status. (When processing is canceled to further simulations will be performed.)
+  </li>
+</ul>
+
+
+
+<h2>XML selection commands</h2>
+
+<p>
+By the parameters of the functions of the <tt>Statistics</tt> object the content of the
+value or of an attribute of an XML element can be read.
+The selection of an XML element is done multistaged step by step divided by
+"-&gt;" characters. Between the "-&gt;" characters the names of the individual XML nodes are
+noted. In addition in square brackets names and values of attributes can be specified to filter by whom.
+</p>
+<p>
+Examples:
+</p>
+<ul>
+  <li>
+    <tt>Statistics.xml("Model-&gt;ModelName")</tt><br>
+    Shows the content of the element <tt>ModelName</tt>, which is a child element of <tt>Model</tt>.
+  </li>
+  <li>
+    <tt>Statistics.xml("StatisticsInterArrivalTimesClients-&gt;Station[Type=\"Source id=1\"]-&gt;[Mean]")</tt><br>
+	Selects the <tt>Station</tt> sub element of the <tt>StatisticsInterArrivalTimesClients</tt> element, for
+	which the <tt>Type</tt> attribute is set to <tt>Source id=1</tt>. And returns the value of the
+	<tt>Mean</tt> attribute.
+  </li>
+</ul>
+
+</body>
+</html>
+  

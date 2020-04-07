@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>1.5.0</ModelVersion>
+  <ModelName>Transporting workpieces with transporters</ModelName>
+  <ModelDescription/>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationCondition Active="0"/>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelRandomNumbersSeed Active="0">0</ModelRandomNumbersSeed>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Material A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Material B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="400"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementSequenceAssignment id="3">
+      <ModelElementName>Plan A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="200"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementSequence>Plan A</ModelElementSequence>
+    </ModelElementSequenceAssignment>
+    <ModelElementSequenceAssignment id="4">
+      <ModelElementName>Plan B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="400"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementSequence>Plan B</ModelElementSequence>
+    </ModelElementSequenceAssignment>
+    <ModelElementTransportParkingLot id="5">
+      <ModelElementName>Parking</ModelElementName>
+      <ModelElementSize h="50" w="100" x="500" y="300"/>
+      <ModelElementTransporterType>Transporter</ModelElementTransporterType>
+      <ModelElementTransporterWaitingCapacity>3</ModelElementTransporterWaitingCapacity>
+      <ModelElementTransporterWaitingPriority>2,5</ModelElementTransporterWaitingPriority>
+    </ModelElementTransportParkingLot>
+    <ModelElementTransporterOrigin id="6">
+      <ModelElementName>Start A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementTransportRouteBySequence>1</ModelElementTransportRouteBySequence>
+      <ModelElementTransportRoute>End</ModelElementTransportRoute>
+      <ModelElementTransporterType>Transporter</ModelElementTransporterType>
+      <ModelElementTransporterMinimumWaiting>1</ModelElementTransporterMinimumWaiting>
+      <ModelElementTransporterRequestPriority>5</ModelElementTransporterRequestPriority>
+      <ModelElementTransporterWaitingCapacity>1</ModelElementTransporterWaitingCapacity>
+      <ModelElementTransporterWaitingPriority>1</ModelElementTransporterWaitingPriority>
+      <ModelElementTransporterPriority Name="Material A">w</ModelElementTransporterPriority>
+      <ModelElementTransporterPriority Name="Material B">w</ModelElementTransporterPriority>
+    </ModelElementTransporterOrigin>
+    <ModelElementTransporterOrigin id="7">
+      <ModelElementName>Start B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="400"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementTransportRouteBySequence>1</ModelElementTransportRouteBySequence>
+      <ModelElementTransportRoute>End</ModelElementTransportRoute>
+      <ModelElementTransporterType>Transporter</ModelElementTransporterType>
+      <ModelElementTransporterMinimumWaiting>1</ModelElementTransporterMinimumWaiting>
+      <ModelElementTransporterRequestPriority>5</ModelElementTransporterRequestPriority>
+      <ModelElementTransporterWaitingCapacity>1</ModelElementTransporterWaitingCapacity>
+      <ModelElementTransporterWaitingPriority>1</ModelElementTransporterWaitingPriority>
+      <ModelElementTransporterPriority Name="Material A">w</ModelElementTransporterPriority>
+      <ModelElementTransporterPriority Name="Material B">w</ModelElementTransporterPriority>
+    </ModelElementTransporterOrigin>
+    <ModelElementTransportDestination id="8">
+      <ModelElementName>Station 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="751" y="200"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementTransporterOrigin id="9">
+      <ModelElementName>Pickup 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="951" y="200"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementTransportRouteBySequence>1</ModelElementTransportRouteBySequence>
+      <ModelElementTransportRoute>End</ModelElementTransportRoute>
+      <ModelElementTransporterType>Transporter</ModelElementTransporterType>
+      <ModelElementTransporterMinimumWaiting>1</ModelElementTransporterMinimumWaiting>
+      <ModelElementTransporterRequestPriority>3</ModelElementTransporterRequestPriority>
+      <ModelElementTransporterWaitingCapacity>1</ModelElementTransporterWaitingCapacity>
+      <ModelElementTransporterWaitingPriority>2</ModelElementTransporterWaitingPriority>
+      <ModelElementTransporterPriority Name="Material A">w</ModelElementTransporterPriority>
+      <ModelElementTransporterPriority Name="Material B">w</ModelElementTransporterPriority>
+    </ModelElementTransporterOrigin>
+    <ModelElementProcessStation id="10">
+      <ModelElementName>Machine 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="95"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Material A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Material B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Ressource 1"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="8" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="10" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementName>Arrivals (Material A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="3" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementName>Arrivals (Material B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="4" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTransportDestination id="17">
+      <ModelElementName>Station 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="750" y="400"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementTransporterOrigin id="18">
+      <ModelElementName>Pickup 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="400"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementTransportRouteBySequence>1</ModelElementTransportRouteBySequence>
+      <ModelElementTransportRoute>End</ModelElementTransportRoute>
+      <ModelElementTransporterType>Transporter</ModelElementTransporterType>
+      <ModelElementTransporterMinimumWaiting>1</ModelElementTransporterMinimumWaiting>
+      <ModelElementTransporterRequestPriority>3</ModelElementTransporterRequestPriority>
+      <ModelElementTransporterWaitingCapacity>1</ModelElementTransporterWaitingCapacity>
+      <ModelElementTransporterWaitingPriority>2</ModelElementTransporterWaitingPriority>
+      <ModelElementTransporterPriority Name="Material A">w</ModelElementTransporterPriority>
+      <ModelElementTransporterPriority Name="Material B">w</ModelElementTransporterPriority>
+    </ModelElementTransporterOrigin>
+    <ModelElementProcessStation id="20">
+      <ModelElementName>Machine 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="505"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Material A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Material B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Ressource 2"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="17" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="20" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTransportDestination id="22">
+      <ModelElementName>Station 3</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1201" y="200"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementTransporterOrigin id="23">
+      <ModelElementName>Pickup 3</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1401" y="200"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementTransportRouteBySequence>1</ModelElementTransportRouteBySequence>
+      <ModelElementTransportRoute>End</ModelElementTransportRoute>
+      <ModelElementTransporterType>Transporter</ModelElementTransporterType>
+      <ModelElementTransporterMinimumWaiting>1</ModelElementTransporterMinimumWaiting>
+      <ModelElementTransporterRequestPriority>3</ModelElementTransporterRequestPriority>
+      <ModelElementTransporterWaitingCapacity>1</ModelElementTransporterWaitingCapacity>
+      <ModelElementTransporterWaitingPriority>2</ModelElementTransporterWaitingPriority>
+      <ModelElementTransporterPriority Name="Material A">w</ModelElementTransporterPriority>
+      <ModelElementTransporterPriority Name="Material B">w</ModelElementTransporterPriority>
+    </ModelElementTransporterOrigin>
+    <ModelElementProcessStation id="24">
+      <ModelElementName>Machine 3</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1300" y="95"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Material A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Material B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Ressource 3"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="25">
+      <ModelElementConnection Element1="22" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementConnection Element1="24" Element2="23" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTransportDestination id="44">
+      <ModelElementName>Station 4</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1200" y="402"/>
+      <ModelElementConnection Element="46" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementTransporterOrigin id="45">
+      <ModelElementName>Pickup 4</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1400" y="402"/>
+      <ModelElementConnection Element="48" Type="In"/>
+      <ModelElementTransportRouteBySequence>1</ModelElementTransportRouteBySequence>
+      <ModelElementTransportRoute>End</ModelElementTransportRoute>
+      <ModelElementTransporterType>Transporter</ModelElementTransporterType>
+      <ModelElementTransporterMinimumWaiting>1</ModelElementTransporterMinimumWaiting>
+      <ModelElementTransporterRequestPriority>3</ModelElementTransporterRequestPriority>
+      <ModelElementTransporterWaitingCapacity>1</ModelElementTransporterWaitingCapacity>
+      <ModelElementTransporterWaitingPriority>2</ModelElementTransporterWaitingPriority>
+      <ModelElementTransporterPriority Name="Material A">w</ModelElementTransporterPriority>
+      <ModelElementTransporterPriority Name="Material B">w</ModelElementTransporterPriority>
+    </ModelElementTransporterOrigin>
+    <ModelElementProcessStation id="47">
+      <ModelElementName>Machine 4</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1300" y="505"/>
+      <ModelElementConnection Element="46" Type="In"/>
+      <ModelElementConnection Element="48" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Material A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Material B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Ressource 4"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="46">
+      <ModelElementConnection Element1="44" Element2="47" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="48">
+      <ModelElementConnection Element1="47" Element2="45" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTransportDestination id="27">
+      <ModelElementName>End</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1650" y="300"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementDispose id="28">
+      <ModelElementSize h="50" w="100" x="1850" y="300"/>
+      <ModelElementConnection Element="29" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="27" Element2="28" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="38">
+      <ModelElementSize h="350" w="250" x="400" y="150"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,225,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementWayPoint id="39">
+      <ModelElementName>Way point 1</ModelElementName>
+      <ModelElementSize h="16" w="16" x="630" y="320"/>
+      <ModelElementWayPointIcon>flag_red</ModelElementWayPointIcon>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Parking">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start A">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start B">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 3">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 3">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 3">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 3">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 3">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 3">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 4">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 4">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 4">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 4">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 4">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 4">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="End">6</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="End">6</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="End">6</ModelElementWayPointRecord>
+    </ModelElementWayPoint>
+    <ModelElementWayPoint id="49">
+      <ModelElementName>Way point 4</ModelElementName>
+      <ModelElementSize h="16" w="16" x="1605" y="320"/>
+      <ModelElementWayPointIcon>flag_red</ModelElementWayPointIcon>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Parking">6</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start A">6</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start B">6</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 1">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 1">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 2">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 2">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="End">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="End">1</ModelElementWayPointRecord>
+    </ModelElementWayPoint>
+    <ModelElementRectangle id="52">
+      <ModelElementSize h="150" w="400" x="1600" y="250"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,225,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementAnimationLineDiagram id="30">
+      <ModelElementSize h="250" w="350" x="250" y="600"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="1" Minimum="0">Resource()/Resource_count()</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="1" Minimum="0">Resource_avg()/Resource_count()</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>300</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="59">
+      <ModelElementSize h="23" w="371" x="50" y="50"/>
+      <ModelElementTextLine>Transporting workpieces with transporters</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="67">
+      <ModelElementSize h="19" w="219" x="400" y="510"/>
+      <ModelElementTextLine>There are 6 transporters available.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="31">
+      <ModelElementSize h="550" w="400" x="700" y="50"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="32">
+      <ModelElementSize h="550" w="400" x="1150" y="50"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="33">
+      <ModelElementSize h="57" w="321" x="700" y="615"/>
+      <ModelElementTextLine>In one segment the driving time is 5 seconds. From</ModelElementTextLine>
+      <ModelElementTextLine>one segment to the next the time is 20 seconds.</ModelElementTextLine>
+      <ModelElementTextLine>To the second next 40 second and so on.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="34">
+      <ModelElementSize h="57" w="348" x="1150" y="620"/>
+      <ModelElementTextLine>At each transport start station one transporter can wait.</ModelElementTextLine>
+      <ModelElementTextLine>If all waiting places are occupied, transporters will</ModelElementTextLine>
+      <ModelElementTextLine>drive to the parking lot.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="77">
+      <ModelElementSize h="19" w="359" x="250" y="580"/>
+      <ModelElementTextLine>Utilization of the machines (current value and in average)</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="35">
+      <ModelElementSize h="100" w="200" x="700" y="750"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement BarColor="0,255,0">NQ_avg(6)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,255,0">NQ_avg(7)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">NQ_avg(9)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">NQ_avg(18)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">NQ_avg(23)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">NQ_avg(45)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationText id="36">
+      <ModelElementName>Transport start 3+4</ModelElementName>
+      <ModelElementSize h="30" w="79" x="935" y="825"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NQ_avg(23)+NQ_avg(45)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="37">
+      <ModelElementName>Transport start 1+2</ModelElementName>
+      <ModelElementSize h="30" w="79" x="935" y="790"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NQ_avg(9)+NQ_avg(18)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="40">
+      <ModelElementName>Start A+B</ModelElementName>
+      <ModelElementSize h="30" w="49" x="935" y="755"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NQ_avg(6)+NQ_avg(7)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="155">
+      <ModelElementSize h="19" w="284" x="700" y="730"/>
+      <ModelElementTextLine>Workpieces waiting for transport (in average)</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="41">
+      <ModelElementSize h="57" w="239" x="140" y="300"/>
+      <ModelElementTextLine>The more parking space there is near</ModelElementTextLine>
+      <ModelElementTextLine>to Start A and B, the shorter the</ModelElementTextLine>
+      <ModelElementTextLine>queues will be here.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementWayPoint id="42">
+      <ModelElementName>Way point 2a</ModelElementName>
+      <ModelElementSize h="16" w="16" x="750" y="315"/>
+      <ModelElementWayPointIcon>flag_red</ModelElementWayPointIcon>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Parking">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start A">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start B">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Station 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Station 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 3">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 3">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 3">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 3">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 3">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Station 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Station 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 4">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 4">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 4">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 4">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 4">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="End">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="End">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="End">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="End">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="End">5</ModelElementWayPointRecord>
+    </ModelElementWayPoint>
+    <ModelElementWayPoint id="43">
+      <ModelElementName>Way point 2b</ModelElementName>
+      <ModelElementSize h="16" w="16" x="1035" y="315"/>
+      <ModelElementWayPointIcon>flag_red</ModelElementWayPointIcon>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Parking">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Parking">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Parking">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Parking">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Parking">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Parking">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Parking">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Start A">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Start A">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Start A">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start A">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Start A">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start A">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start A">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Start B">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Start B">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Start B">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start B">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Start B">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start B">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start B">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 1">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 2">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Pickup 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Pickup 3">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Pickup 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Pickup 4">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="End">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="End">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="End">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="End">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="End">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="End">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="End">4</ModelElementWayPointRecord>
+    </ModelElementWayPoint>
+    <ModelElementWayPoint id="50">
+      <ModelElementName>Way point 3a</ModelElementName>
+      <ModelElementSize h="16" w="16" x="1200" y="315"/>
+      <ModelElementWayPointIcon>flag_red</ModelElementWayPointIcon>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Parking">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Parking">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Parking">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Parking">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Parking">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Start A">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start A">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Start A">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start A">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start A">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Start B">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start B">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Start B">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start B">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start B">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Station 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Station 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 1">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Station 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Station 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 2">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Pickup 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Pickup 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="End">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="End">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="End">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="End">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="End">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="End">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="End">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="End">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="End">3</ModelElementWayPointRecord>
+    </ModelElementWayPoint>
+    <ModelElementWayPoint id="51">
+      <ModelElementName>Way point 3b</ModelElementName>
+      <ModelElementSize h="16" w="16" x="1485" y="315"/>
+      <ModelElementWayPointIcon>flag_red</ModelElementWayPointIcon>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Parking">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Parking">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Parking">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start A">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start A">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start A">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Start B">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Start B">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Start B">5</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 1">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 1">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 1">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Pickup 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Pickup 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 1">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 2">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 2">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 2">4</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Pickup 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Pickup 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 2">3</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 3">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 3">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Station 4">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="End" OriginStation="Pickup 4">1</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Parking" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start A" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Start B" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 1" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 1" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 2" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 2" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 3" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 3" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Station 4" OriginStation="End">2</ModelElementWayPointRecord>
+      <ModelElementWayPointRecord DestinationStation="Pickup 4" OriginStation="End">2</ModelElementWayPointRecord>
+    </ModelElementWayPoint>
+    <ModelElementText id="209">
+      <ModelElementSize h="19" w="180" x="1100" y="730"/>
+      <ModelElementTextLine>Utilization of the transporters</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="210">
+      <ModelElementSize h="100" w="350" x="1100" y="750"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="1" Minimum="0">Transporter()/Transporter_count()</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="1" Minimum="0">Transporter_avg()/Transporter_count()</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>300</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+  </ModelElements>
+  <Resources>
+    <Resource Name="Ressource 1" Type="Number" Value="1"/>
+    <Resource Name="Ressource 3" Type="Number" Value="1"/>
+    <Resource Name="Ressource 2" Type="Number" Value="1"/>
+    <Resource Name="Ressource 4" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelSequences>
+    <ModelSequence Name="Plan A">
+      <ModelSequenceStep Target="Station 1"/>
+      <ModelSequenceStep Target="Station 3"/>
+      <ModelSequenceStep Target="End"/>
+    </ModelSequence>
+    <ModelSequence Name="Plan B">
+      <ModelSequenceStep Target="Station 2"/>
+      <ModelSequenceStep Target="Station 4"/>
+      <ModelSequenceStep Target="End"/>
+    </ModelSequence>
+  </ModelSequences>
+  <ModelTransporters>
+    <ModelTransporter Icon="lorry" IconEmpty="lorry-empty" IconLeft="lorry-left" IconLeftEmpty="lorry-left-empty" Name="Transporter">
+      <ModelTransporterCount Count="2" Station="Parking"/>
+      <ModelTransporterCount Count="2" Station="Start A"/>
+      <ModelTransporterCount Count="2" Station="Start B"/>
+      <ModelTransporterCapacity>1</ModelTransporterCapacity>
+      <ModelTransporterDistance Destination="Parking" Origin="End">60</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="End">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="End">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="End">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="End">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="End">60</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="End">60</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="End">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="End">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="End">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="End">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Parking">60</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Parking">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Parking">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Parking">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Parking">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Parking">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Parking">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Parking">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Parking">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Parking">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Parking">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Pickup 1">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Pickup 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Pickup 1">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Pickup 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Pickup 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Pickup 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Pickup 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Pickup 1">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Pickup 1">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Pickup 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Pickup 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Pickup 2">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Pickup 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Pickup 2">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Pickup 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Pickup 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Pickup 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Pickup 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Pickup 2">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Pickup 2">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Pickup 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Pickup 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Pickup 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Pickup 3">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Pickup 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Pickup 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Pickup 3">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Pickup 3">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Pickup 3">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Pickup 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Pickup 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Pickup 3">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Pickup 3">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Pickup 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Pickup 4">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Pickup 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Pickup 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Pickup 4">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Pickup 4">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Pickup 4">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Pickup 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Pickup 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Pickup 4">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Pickup 4">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Start A">60</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Start A">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Start A">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Start A">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Start A">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Start A">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Start A">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Start A">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Start A">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Start A">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Start A">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Start B">60</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Start B">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Start B">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Start B">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Start B">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Start B">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Start B">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Start B">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Start B">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Start B">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Start B">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Station 1">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Station 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Station 1">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Station 1">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Station 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Station 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Station 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Station 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Station 1">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Station 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Station 1">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Station 2">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Station 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Station 2">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Station 2">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Station 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Station 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Station 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Station 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Station 2">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Station 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Station 2">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Station 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Station 3">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Station 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Station 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Station 3">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Station 3">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Station 3">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Station 3">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Station 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Station 3">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 4" Origin="Station 3">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="End" Origin="Station 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Parking" Origin="Station 4">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 1" Origin="Station 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 2" Origin="Station 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 3" Origin="Station 4">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Pickup 4" Origin="Station 4">5</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start A" Origin="Station 4">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Start B" Origin="Station 4">40</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 1" Origin="Station 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 2" Origin="Station 4">20</ModelTransporterDistance>
+      <ModelTransporterDistance Destination="Station 3" Origin="Station 4">5</ModelTransporterDistance>
+      <ModelTransporterTransferTimes>distance</ModelTransporterTransferTimes>
+    </ModelTransporter>
+  </ModelTransporters>
+  <ModelPathSegments>
+    <ModelPathConnection From="Start A" To="Way point 1"/>
+    <ModelPathConnection From="Way point 2a" To="Way point 1"/>
+    <ModelPathConnection From="Way point 2a" To="Station 1"/>
+    <ModelPathConnection From="Way point 2a" To="Station 2"/>
+    <ModelPathConnection From="Way point 2a" To="Way point 2b"/>
+    <ModelPathConnection From="Way point 3b" To="Way point 3a"/>
+    <ModelPathConnection From="Way point 3b" To="Pickup 3"/>
+    <ModelPathConnection From="Way point 3b" To="Pickup 4"/>
+    <ModelPathConnection From="Way point 3b" To="Way point 4"/>
+    <ModelPathConnection From="Way point 2b" To="Way point 2a"/>
+    <ModelPathConnection From="Way point 2b" To="Pickup 1"/>
+    <ModelPathConnection From="Way point 2b" To="Pickup 2"/>
+    <ModelPathConnection From="Way point 2b" To="Way point 3a"/>
+    <ModelPathConnection From="Station 2" To="Way point 2a"/>
+    <ModelPathConnection From="Station 3" To="Way point 3a"/>
+    <ModelPathConnection From="Pickup 4" To="Way point 3b"/>
+    <ModelPathConnection From="Start B" To="Way point 1"/>
+    <ModelPathConnection From="Station 1" To="Way point 2a"/>
+    <ModelPathConnection From="Parking" To="Way point 1"/>
+    <ModelPathConnection From="Station 4" To="Way point 3a"/>
+    <ModelPathConnection From="Pickup 2" To="Way point 2b"/>
+    <ModelPathConnection From="Way point 1" To="Parking"/>
+    <ModelPathConnection From="Way point 1" To="Start A"/>
+    <ModelPathConnection From="Way point 1" To="Start B"/>
+    <ModelPathConnection From="Way point 1" To="Way point 2a"/>
+    <ModelPathConnection From="Pickup 3" To="Way point 3b"/>
+    <ModelPathConnection From="Way point 4" To="End"/>
+    <ModelPathConnection From="Way point 4" To="Way point 3b"/>
+    <ModelPathConnection From="End" To="Way point 4"/>
+    <ModelPathConnection From="Pickup 1" To="Way point 2b"/>
+    <ModelPathConnection From="Way point 3a" To="Way point 2b"/>
+    <ModelPathConnection From="Way point 3a" To="Station 3"/>
+    <ModelPathConnection From="Way point 3a" To="Station 4"/>
+    <ModelPathConnection From="Way point 3a" To="Way point 3b"/>
+  </ModelPathSegments>
+</Model>

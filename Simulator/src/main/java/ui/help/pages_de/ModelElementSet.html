@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Variable</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Variable</h1>
+
+<p>
+Durchläuft ein Kunde dieses Element, so werden die in ihm definierten Variablenzuweisungen durchgeführt.
+In allen anderen Elementen, in denen Ausdrücke ausgewertet werden, allem voran in dem
+<a href="ModelElementHold.html">Bedingung</a>-Element, kann auf diese Variablen zugegriffen werden.
+</p>
+
+<p>
+Initial werden alle neuen Variablen mit 0 belegt. Durch die Zuweisung <tt>a:=a+1</tt> lassen sich
+Zähler realisieren.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Variable-Elements hat keine weitere Bedeutung. Die Zuweisungen werden in der Reihenfolge, in der
+sie in dem Element definiert sind, abgearbeitet, wenn ein Kunde das Element durchquert.
+</p>
+
+<p>
+Über die drei Pseudo-Variablennamen "w", "t" und "p" kann lesend und schreibend auf die Wartezeit, die Transferzeit
+und die Bedienzeit des aktuellen Kunden (jeweils auf Sekundenbasis) zugegriffen werden. Außerdem kann statt eines
+Variablennamens ein Kundenobjekt-Datenfeld über "ClientData(index)" beschrieben werden.
+</p> 
+
+<h2>Alternative</h2>
+
+<p>
+Mit dem <a href="ModelElementSetJS.html">Javascript</a>-Element besteht die Möglichkeit, weit komplexere
+Zuweisungen zu definieren. Allerdings benötigt der Simulator für die Ausführung
+des Javascript-Elements deutlich mehr Rechenzeit.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Tank</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Tank</h1>
+
+<p>
+Dieses Element hält einen Wert, der sich gemäß bestimmter Raten über die Zeit ändert, vor.
+Jeder Tank verfügt über ein oder mehrere Ventile. An diese Ventile können Flüsse
+(siehe <a href="ModelElementTankFlowByClient.html">Fluss</a>- und
+<a href="ModelElementTankFlowBySignal.html">Fluss (Signal)</a>-Elemente) angeschlossen werden.
+Die Ventile geben vor, wie viel Einheiten des Tankinhalts pro Zeiteinheit durch diese
+fließen können, die Flüsse geben vor, wie viel Einheiten transportiert werden sollen oder
+wie lange der Fluss aktiv sein soll.
+</p>
+
+<p>
+Im Gegensatz zu den <a href="ModelElementAnalogValue.html">Analoger Wert</a>-Elementen
+kann der Wert nicht negativ sein und es ist immer eine obere Grenze (die Kapazität des Tanks)
+anzugeben.
+</p>
+
+<p>
+An ein Ventil muss nicht zu jedem Zeitpunkt ein Fluss angedockt werden.
+Ist ein Fluss an ein Ventil angedockt, so wird dieser direkt bedient.
+Sind mehrere Flüsse angedockt, so wird zu jeder Zeit immer nur ein Fluss bedient.
+Erst wenn der zeitlich zu erst eingetroffene Fluss abgearbeitet wurde, wird der nächste
+aktiviert. D.h. es ist nicht so, dass mehrere Flüsse sich die verfügbare Durchflussmenge
+eines Ventils auf irgendeine Weise teilen.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des "Tank"-Elements besitzt keine weitere Bedeutung für die Simulation.
+Neben der Kapazität, dem initialen Wert und den Ventile mit ihren maximalen Durchflüssen
+pro Zeiteinheit kann eingestellt werden, wie häufig die diskret verlaufende Simulation über die kontinuierliche
+erfolgende Veränderung des Wertes benachrichtigt werden soll.
+</p> 
+
+</body>
+</html>

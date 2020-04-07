@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Balking</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Balking</h1>
+
+<p>
+The Balking element checks if clients are waiting at the next process station reachable
+on the direct way. In this case the condition (which may contain random expressions depending
+on some client properties) is evaluated. If the condition is true, the client will balk to
+enter the queue and leaves the Balking element by the connection which is intended for this
+case.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the Balking element has no further meaning for the simulation.
+The entered expression will be evaluated if there is a queue of waiting
+clients on the next process station and determines if the client is willing
+to enter the queue or if he is balking to do so. As expression a condition or
+a balking probability can be entered. The value can also be set up global or
+by client type.
+</p> 
+
+</body>
+</html>

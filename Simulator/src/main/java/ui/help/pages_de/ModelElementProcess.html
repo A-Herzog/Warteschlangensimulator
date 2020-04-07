@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Bedienstation</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Bedienstation</h1>
+
+<p>
+Die Bedienstation ist das zentrale Element eines jeden Simulationsmodells. In einer Bedienstation warten Kunden darauf,
+dass ein Bediener verfügbar wird, und werden dann von diesem Bediener eine bestimmte Zeit lang bedient. Kunden, deren
+(optionale) Warteteittoleranz überschritten wurde, werden zu Warteabbrechern und geben das Warten auf, ohne bedient
+worden zu sein. Ein Bediener kann (ebenfalls optional) nach der Bedienung in eine Nachbearbeitungszeit gehen, bevor
+er wieder bereit ist, den nächsten Kunden zu bedienen.
+</p>
+
+<p>
+Es kann angegeben werden, dass statt eines Bedieners mehrere Bediener optional aus mehreren verschiedenen Gruppen zur Bedienung
+eines Kunden benötigt werden.
+</p>
+
+<p>
+Des Weiteren kann eingestellt werden, dass die Kunden nicht einzeln, sondern in Gruppen bedient werden. In diesem Fall
+beziehen sich die notwendigen Anzahlen an Bedienern darauf, eine ganze Gruppe zu bedienen.
+</p>  
+
+<h2>Einstellungen</h2>
+
+<h3>Name</h3>
+<p>
+Der Name des Bedienstation-Elements hat keine weitere Bedeutung.
+</p>
+
+<h3>Bedienzeiten</h3>
+<p>
+Auf dieser Dialogseite kann die Wahrscheinlichkeitsverteilung für die Bedienzeiten oder der Ausdruck gemäß
+dessen die Bedienzeiten der Kunden bestimmt werden eingestellt werden. Optional
+kann hier für jeden Kundentyp eine individuelle Verteilung bzw. ein individueller Ausdruck hinterlegt werden.
+</p>
+
+<p>
+<u>Hinweis zu individuellen Bedienzeiten und Batch-Verarbeitung:</u><br>
+Prinzipiell widersprechen sich pro Kundentyp individuelle Bedienzeiten und die gleichzeitige Bedienung von mehreren Kunden
+(von möglicherweise verschiedenen Typen). Dennoch kann dies in der Simulation verwendet werden. In diesem Fall wird für jeden
+in dem Batch enthaltenen Kundentyp eine Bedienzeit gemäß der vorgegebenen Verteilung bestimmt. Diese Bedienzeit gilt dann
+für alle in dem Batch enthaltenen Kunden des jeweiligen Kundentyps. Die Ressourcen werden so lange belegt, bis das
+Maximum der Bedienzeiten der enthaltenen Kundentypen erreicht ist.
+</p>
+
+<h3>Rüstzeiten</h3>
+<p>
+Auf dieser Dialogseite können zusätzliche Zeiten, die zwischen der Bedienung gleich oder - was meist der Fall ist -
+Kunden verschiedener Typen auftreten definiert werden. Diese für jeden Kundentyp-Übergang optionalen Rüstzeiten
+können jeweils entweder über eine Wahrscheinlichkeitsverteilung oder einen Ausdruck definiert werden.
+</p>
+
+<p>
+<u>Hinweis Rüstzeiten und Batch-Verarbeitung:</u><br>
+Rüstzeiten und Batch-Verarbeitung können an einer Bedienstation nicht gleichzeitig
+verwendet werden. Eine Bedienstation mit Rüstzeiten kann sehr wohl temporär oder permanent
+zu einem Batch zusammengefasste Kunden verarbeiten, allerdings eine Batch-Bildung direkt an
+der Bedienstation ist nicht möglich, da in diesem Fall nicht eindeutig zu klären wäre,
+welche Rüstzeit jeweils zum Tragen kommt.
+</p>
+
+<h3>Nachbearbeitungszeiten</h3>
+<p>
+Über die optionalen Nachbearbeitungszeiten kann eine Wahrscheinlichkeitsverteilung oder ein Ausdruck angegeben werden, gemäß
+dieser bzw. dessen die Bediener nach Abschluss der Bedienung eines Kunden zusätzliche Zeit benötigen, bevor sie wieder für
+die Bearbeitung des nächsten Kunden zur Verfügung stehen. Optional kann auch hier für jeden Kundentyp eine individuelle Verteilung
+bzw. ein individueller Ausdruck hinterlegt werden.
+</p>
+
+<p>
+<u>Hinweis zu individuellen Nachbearbeitungszeiten und Batch-Verarbeitung:</u><br>
+Prinzipiell widersprechen sich pro Kundentyp individuelle Nachbearbeitungszeiten und die gleichzeitige Bedienung von mehreren Kunden
+(von möglicherweise verschiedenen Typen). Dennoch kann dies in der Simulation verwendet werden. In diesem Fall wird für jeden
+in dem Batch enthaltenen Kundentyp eine Nachbearbeitungszeiten gemäß der vorgegebenen Verteilung bestimmt. Die Ressourcen werden
+dann nach dem Maximum der einzelnen Nachbearbeitungszeiten nach dem Ende der Bedienung freigegeben.
+</p>
+
+<h3>Wartezeittoleranzen</h3>
+<p>
+Ist eingestellt, dass die Kunden nur begrenzt lange bereit sind zu warten, so wird für jeden Kunden gemäß der (global oder optional
+pro Kundentyp einstellbaren) Wartezeittoleranzverteilung bzw. dem Wartezeittoleranz-Ausdruck eine Zeitspanne ermittelt, die der
+Kunde zu warten bereit ist. Wird diese Zeit überschritten, so gibt der Kunde das Warten auf und verlässt das System,
+ohne bedient worden zu sein.
+</p>
+
+<h3>Prioritäten und Batch-Größe</h3>
+<p>
+Warten mehrere Kunden und wird ein Bediener verfügbar, so kann über die Prioritäten festgelegt werden, welcher Kunde als nächstes
+bedient wird. Es wird jeweils der Kunde mit der höchsten Priorität als nächstes bedient.
+"w" gibt dabei abweichend von der sonst üblichen Belegung die bisherige Wartezeit des Kunden an der aktuellen Station an (und nicht
+die gesamte bisherige Wartezeit des Kunden). Das bedeutet, dass die Formel "w" für die Priorität zu einer
+First-in-first-out-Warteschlange führt. "-w" hätte ein Last-in-first-out-System zur Folge.
+Die Batch-Größe gibt an, wie viele Kunden jeweils gleichzeitig von einem Bediener bedient werden können. Offensichtlich kann die
+minimale Batch-Größe höchsten so groß wie die maximale Batch-Größe sein. Sind beide Werte identisch, so ergibt sich eine feste
+Batch-Größe. Ist die minimale Batch-Größe echt kleiner als die maximale Batch-Größe, so wird nach dem Erreichen dieser Mindestanzahl
+an wartenden Kunden noch eine Millisekunde abgewartet, ob weitere Kunden eintreffen. Dann werden mindestens so viele Kunden wie zuvor
+eingetroffen (=minimale Batch-Größe) und höchstens so viele der dann wartenden Kunden wie die maximale Batch-Größe vorgibt, bedient. 
+</p>
+
+<p>
+<u>Hinweis zu variablen Batch-Größen in der Simulation:</u><br>
+Kunden bewegen sich grundsätzlich als individuelle Objekte durch das Warteschlangennetz. Dies hat zur Folge, dass bei Verwendung
+einer variablen Batch-Größe die Bedienung der Kundengruppe theoretisch immer mit der minimalen Batch-Größe starten würde. - Auch
+wenn unmittelbar die nächsten Kunden des virtuellen Batch eintreffen würden. Um dieser Tatsache Rechnung zu tragen, wartet der
+Simulator nach dem Eintreffen eines Kunden, der die Anzahl an wartenden Kunden auf die minimal notwendige Batch-Größe erhöht,
+noch eine Millisekunde, um so das hinzufügen von weiteren unmittelbar eintreffenden Kunden zu dem Batch zu ermöglichen.
+</p>
+
+<h3>Bediener</h3>
+<p>
+Zur Bedienung eines Kunden (bzw. eines Kunden-Batch) können mehrere Bediener aus mehreren Gruppen benötigt werden. Die Bedienung
+startet nur dann, wenn gleichzeitig alle notwendigen Bediener verfügbar werden und alle gleichzeitig belegt werden können.
+Darüberhinaus können mehrere Gruppenzusammenstellungs-Alternativen definiert werden. Es müssen alle Gruppen in einer der
+Alternativen verfügbar sein, damit die eine Bedienung starten kann. Die Alternativen werden in der definierten Reihenfolge
+auf Verfügbarkeit geprüft. 
+</p>
+
+<p>
+Über die Ressourcen-Priorität kann schließlich noch festgelegt werden, mit welcher Priorität diese Bedienstation
+berücksichtigt werden soll, wenn eine Ressource, die für die Bedienung der Kunden an dieser Station notwendig ist,
+frei wird. Größere Werte bedeuten eine höhere Priorität bzw. eine höhere Wahrscheinlichkeit, dass diese Bedienstation
+die entsprechenden Ressourcen erhält, wenn es mehrere Bedienstationen gibt, die dieselbe Ressource benötigen.
+</p>
+
+<h3>Kosten</h3>
+<p>
+Auf dieser Seite kann optional eingestellt werden, welche Kosten durch die Bedienungen der Kunden entstehen.
+Es handelt sich hierbei um die Kosten aus Sicht der Bedienstation. Für die Warte-, Transfer- und Bedienzeiten pro
+Kunde kann in den Kundeneinstellungen pro Kundentyp ein Kostenwert hinterlegt werden. Auch können die Kosten durch
+die Belegung und Bereithaltung der Ressourcen in den Ressourceneinstellungen festgelegt werden.
+</p>
+
+</body>
+</html>

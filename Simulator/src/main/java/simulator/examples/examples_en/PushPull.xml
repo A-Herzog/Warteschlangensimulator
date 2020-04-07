@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>2.4.1</ModelVersion>
+  <ModelName>Push and pull production</ModelName>
+  <ModelDescription>In the case of push production, incoming clients are immediately led
+into the operating process, resulting in a higher volume of clients.
+In the case of pull production, the next client is only led into the
+operating process as long as there are only two or fewer clients in it.
+This results in shorter waiting times in the system and a smaller number
+of clients in the productive portion of the system.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementDuplicate id="2">
+      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>Pull 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="100"/>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener 2"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>Push 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="300"/>
+      <ModelElementConnection Element="31" Type="In"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener 5"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="6">
+      <ModelElementSize h="50" w="100" x="1700" y="200"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="34" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="7">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAssignment id="8">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="10">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="300"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="13">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="17">
+      <ModelElementSize h="23" w="217" x="45" y="50"/>
+      <ModelElementTextLine>Push and pull production</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementProcessStation id="11">
+      <ModelElementName>Pull 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1200" y="100"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="32" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener 3"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="12">
+      <ModelElementName>Push 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1200" y="300"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="33" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener 6"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="18">
+      <ModelElementConnection Element1="3" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementConnection Element1="4" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="26">
+      <ModelElementSize h="76" w="115" x="700" y="160"/>
+      <ModelElementTextLine>Only if two or less</ModelElementTextLine>
+      <ModelElementTextLine>clients are in the</ModelElementTextLine>
+      <ModelElementTextLine>section, clients will</ModelElementTextLine>
+      <ModelElementTextLine>be forwarded.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDifferenceCounter id="28">
+      <ModelElementName>Pull</ModelElementName>
+      <ModelElementSize h="50" w="100" x="900" y="100"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDifferenceCounter id="23">
+      <ModelElementName>Push</ModelElementName>
+      <ModelElementSize h="50" w="100" x="900" y="300"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="31" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDifferenceCounter id="19">
+      <ModelElementName>Pull</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1350" y="100"/>
+      <ModelElementConnection Element="32" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDifferenceCounter id="21">
+      <ModelElementName>Push</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1350" y="300"/>
+      <ModelElementConnection Element="33" Type="In"/>
+      <ModelElementConnection Element="30" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementEdge id="31">
+      <ModelElementConnection Element1="23" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="32">
+      <ModelElementConnection Element1="11" Element2="19" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="33">
+      <ModelElementConnection Element1="12" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="36">
+      <ModelElementSize h="145" w="650" x="850" y="80"/>
+      <ModelElementLineWidth>5</ModelElementLineWidth>
+      <ModelElementColor>0,150,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="37">
+      <ModelElementSize h="100" w="650" x="850" y="275"/>
+      <ModelElementLineWidth>5</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="28" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="40">
+      <ModelElementSize h="23" w="119" x="850" y="55"/>
+      <ModelElementTextLine>Pull production</ModelElementTextLine>
+      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementColor>0,150,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="41">
+      <ModelElementSize h="23" w="130" x="850" y="250"/>
+      <ModelElementTextLine>Push production</ModelElementTextLine>
+      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationTrafficLights id="42">
+      <ModelElementSize h="50" w="25" x="810" y="65"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">Counter(28)&gt;=3</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementAnimationLineDiagram id="43">
+      <ModelElementSize h="150" w="650" x="850" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,180,0" LineWidth="2" Maximum="10" Minimum="0">Counter(28)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="10" Minimum="0">Counter(23)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>600</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="44">
+      <ModelElementSize h="19" w="209" x="850" y="430"/>
+      <ModelElementTextLine>Clients in the push or pull section</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="9">
+      <ModelElementName>New client type: Clients B</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="23" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="61">
+      <ModelElementName>Waiting at barrier</ModelElementName>
+      <ModelElementSize h="30" w="71" x="700" y="50"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NQ(5)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementCounter id="16">
+      <ModelElementName>Pull</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1550" y="100"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementCounterGroup>Throughput</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="22">
+      <ModelElementName>Push</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1550" y="300"/>
+      <ModelElementConnection Element="30" Type="In"/>
+      <ModelElementConnection Element="34" Type="Out"/>
+      <ModelElementCounterGroup>Throughput</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="19" Element2="16" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="16" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="30">
+      <ModelElementConnection Element1="21" Element2="22" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="34">
+      <ModelElementConnection Element1="22" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="100">
+      <ModelElementName>Throughput  Pull</ModelElementName>
+      <ModelElementSize h="30" w="67" x="1550" y="170"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,195,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter(16)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="101">
+      <ModelElementName>Throughput Push</ModelElementName>
+      <ModelElementSize h="30" w="70" x="1550" y="250"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter(22)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementBarrierPull id="5">
+      <ModelElementSize h="50" w="100" x="700" y="100"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+      <ModelElementBarrierPullControl Maximum="3">Pull 2</ModelElementBarrierPullControl>
+    </ModelElementBarrierPull>
+    <ModelElementEdge id="15">
+      <ModelElementName>New client type: Clients A</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="25">
+      <ModelElementConnection Element1="5" Element2="28" Type="Edge"/>
+    </ModelElementEdge>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener 1" Type="Number" Value="1"/>
+    <Resource Name="Bediener 2" Type="Number" Value="1"/>
+    <Resource Name="Bediener 3" Type="Number" Value="1"/>
+    <Resource Name="Bediener 4" Type="Number" Value="1"/>
+    <Resource Name="Bediener 5" Type="Number" Value="1"/>
+    <Resource Name="Bediener 6" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Color="0,195,0" Icon="user_green" Name="Clients A"/>
+    <ClientData Color="255,0,0" Icon="user_red" Name="Clients B"/>
+  </ClientTypeData>
+</Model>

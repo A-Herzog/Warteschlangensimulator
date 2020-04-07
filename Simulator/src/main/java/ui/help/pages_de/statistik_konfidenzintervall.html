@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Konfidenzintervalle</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Konfidenzintervalle</h1>
+
+<p>
+Die einzelnen Messwerte, die sich in der Simulation ergeben und auf
+deren Basis z.B. <a href="statistik_mittelwert.html">Mittelwerte</a>
+berechnet werden, stellen nur einige der möglichen Realisierungen,
+die sich in der Realität ergeben können dar. Daher wird häufig die
+Frage gestellt, wie nah der per Simulation ermittelte Mittelwert
+an dem tatsächlichen Mittelwert des Modells liegt. Hierüber geben
+die Konfidenzintervalle Aufschluss.
+</p>
+
+<p>
+Ein Konfidenzintervall ist der Zahlenbereich um einen gemessenen Mittelwert
+herum, in dem sich der tatsächliche Mittelwert mit einer bestimmten
+Wahrscheinlichkeit befindet. Je kleiner das Konfidenzintervall gewählt
+werden soll, desto geringer ist die Wahrscheinlichkeit, dass der tatsächliche
+Mittelwert in diesem Intervall liegt oder umso mehr Messwerte sind erforderlich,
+um diese Bedienung zu erfüllen. Dasselbe gilt für die Wahrscheinlichkeit,
+dass der tatsächliche Mittelwert in dem Intervall liegt (auch Konfidenzniveau genannt):
+Je höher das Konfidenzniveau gewählt wird, desto größer fällt das zugehörige
+Konfidenzintervall aus oder wiederum desto mehr Messwerte sind erforderlich.
+</p>
+
+<h3>Einschränkungen</h3>
+
+<p>
+Zur Berechnung eines Konfidenzintervall ist es erforderlich, dass die
+einzelnen Messwerte <b>unabhängig</b> von einander sind. Bei den
+Wartezeiten der unmittelbar aufeinander folgenden Kunden ist dies
+üblicherweise nicht der Fall. Daher wird hier auf die Batch-Means-Methode
+zurückgegriffen: Es wird identifiziert, wie weit diese Abhängigkeiten
+reichen. Die Anzahl an Kunden, ab deren Abstand die Rest-Abhängigkeit
+unterhalb einer vertretbaren Schwelle liegt, wird dann für die Berechnung
+des Konfidenzintervalls als ein Messwert verwendet, d.h. die Anzahl an
+Messwerten wird durch diese Anzahl geteilt. Das Ergebnis wird als die
+Anzahl an unabhängigen Messungen verwendet. 
+</p>
+
+<h3>Weitere Informationen</h3>
+<ul>
+  <li><a href="https://de.wikipedia.org/wiki/Konfidenzintervall">Wikipedia-Seite zum Thema Konfidenzintervalle</a></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Multi counter</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Multi counter</h1>
+
+<p>
+If a client passes through this element, depending on different conditions the value
+of one counter is incremented by one. In this way, it is possible to measure how many
+clients have chosen a specific path in the simulation model. A multi counter works
+like a <a href="ModelElementDecide.html">decision</a> by expression element followed
+by some normal <a href="ModelElementCounter.html">counter</a> elements.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the multi counter element has no meaning for the simulation. By choosing
+a common group name for the counters in the statistics not only the absolute values
+of the counters will be reported but also the relative part of each counter in its
+group. If a client passes through this element, the given expressions will be checked
+one after each other. The value of the counter for the first fullfilled condition will
+be increased by one. If non of the conditions it met, the counter for the "else" case
+will be increased.
+</p>
+
+</body>
+</html>

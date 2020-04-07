@@ -1,0 +1,274 @@
+/**
+ * Copyright 2020 Alexander Herzog
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package tools.help;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JComponent;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.events.Event;
+import org.w3c.dom.events.EventListener;
+import org.w3c.dom.events.EventTarget;
+import org.w3c.dom.html.HTMLAnchorElement;
+import org.w3c.dom.html.HTMLElement;
+import org.w3c.dom.html.HTMLHeadElement;
+import org.w3c.dom.html.HTMLImageElement;
+import org.w3c.dom.html.HTMLLinkElement;
+
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
+/**
+ * Kapselt einen Webbrowser auf Basis eines JavaFX-Panels
+ * @author Alexander Herzog
+ * @version 1.1
+ * @see HTMLBrowserPanel
+ */
+public class HTMLBrowserFXPane extends JFXPanel implements HTMLBrowserPanel {
+	private static final long serialVersionUID = 7408886244984244837L;
+
+	private Timer loadReadyWaitTimer;
+
+	private Runnable linkClickListener;
+	private Runnable pageLoadListener;
+
+	private final List<String> headings;
+	private final List<Integer> headingsLevels;
+	private final List<HTMLElement> headingsElements;
+
+	private WebEngine engine;
+	private boolean engineReady=false;
+
+	private URL lastClickedURL;
+	private String lastClickedURLDescription;
+
+	private String lastPath=null;
+
+	private String userStyleSheet;
+
+	public HTMLBrowserFXPane() {
+		super();
+
+		headings=new ArrayList<String>();
+		headingsLevels=new ArrayList<Integer>();
+		headingsElements=new ArrayList<HTMLElement>();
+
+		Platform.setImplicitExit(false); /* GANZ WICHTIG, sonst Crash beim zweiten Aufruf */
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				WebView view=new WebView();
+				engine=view.getEngine();
+
+				engine.getLoadWorker().workDoneProperty().addListener(new ChangeListener<Number>() {
+					@Override
+					public void changed(ObservableValue<? extends Number> arg0,	Number arg1, Number arg2) {
+						if (arg0!=null && arg0.getValue()!=null) {
+							double d=(double)arg0.getValue(); if (d>=100.0) processPage(engine.getDocument());
+						}
+					}
+				});
+				setScene(new Scene(view));
+				engineReady=true;
+			}
+		});
+	}
+
+	@Override
+	public void init(Runnable linkClickListener, Runnable pageLoadListener) {
+		this.linkClickListener=linkClickListener;
+		this.pageLoadListener=pageLoadListener;
+	}
+
+	private void processPage(Document doc) {
+		/* Neue Stylesheets aktivieren */
+		if (userStyleSheet!=null && !userStyleSheet.trim().isEmpty()) {
+			NodeList headList=doc.getElementsByTagName("head");
+			if (headList!=null && headList.getLength()>0 && headList.item(0) instanceof HTMLHeadElement) {
+				HTMLHeadElement head=(HTMLHeadElement)(headList.item(0));
+				NodeList linkList=head.getElementsByTagName("link");
+				if (linkList!=null && linkList.getLength()>0 && linkList.item(0) instanceof HTMLLinkElement) {
+					final HTMLLinkElement link=(HTMLLinkElement)(linkList.item(0));
+					if (link.getRel().equalsIgnoreCase("stylesheet")) {
+						String s=userStyleSheet;
+						if (lastPath!=null) s=lastPath+s;
+						link.setHref(s);
+					}
+				}
+			}
+		}
+
+		/* Bilder ggf. umschreiben */
+		NodeList imgList=doc.getElementsByTagName("img");
+		for (int i=0;i<imgList.getLength();i++) if (imgList.item(i) instanceof HTMLImageElement) {
+			final HTMLImageElement img=(HTMLImageElement)imgList.item(i);
+			final String s=img.getSrc();
+			if (s.indexOf('/')<0 && lastPath!=null) img.setSrc(lastPath+s);
+		}
+
+		/* Links umschreiben */
+		NodeList list=doc.getElementsByTagName("a");
+		for (int i=0;i<list.getLength();i++) if (list.item(i) instanceof HTMLAnchorElement && list.item(i) instanceof EventTarget) {
+
+			final HTMLAnchorElement anchor=(HTMLAnchorElement)list.item(i);
+			final EventTarget anchorListener=(EventTarget)list.item(i);
+			anchorListener.addEventListener("click",new EventListener() {
+				@Override
+				public void handleEvent(Event evt) {
+					lastClickedURL=null;
+					lastClickedURLDescription="";
+					String s=anchor.getHref();
+					if (s.indexOf('/')<0 && lastPath!=null && !s.startsWith("special:")) s=lastPath+s;
+					try {lastClickedURL=new URL(s);} catch (MalformedURLException e) {lastClickedURLDescription=s;}
+					if (linkClickListener!=null) linkClickListener.run();
+					evt.stopPropagation();
+					evt.preventDefault();
+				}
+			},true);
+		}
+
+		/* Überschriften extrahieren */
+		headings.clear();
+		headingsLevels.clear();
+		headingsElements.clear();
+		processHeadings(doc.getChildNodes());
+
+		/* Load-Listener aufrufen */
+		if (pageLoadListener!=null) pageLoadListener.run();
+	}
+
+	private void processHeadings(NodeList list) {
+		if (list==null) return;
+		for (int i=0;i<list.getLength();i++) if (list.item(i).getNodeType()==Node.ELEMENT_NODE && list.item(i) instanceof HTMLElement) {
+			HTMLElement element=(HTMLElement)list.item(i);
+			String name=element.getNodeName().toLowerCase();
+			String text=element.getTextContent();
+			for (int j=1;j<=9;j++) if (name.equals("h"+j)) {
+				headings.add(text);
+				headingsLevels.add(j);
+				headingsElements.add(element);
+				element.setAttribute("id","scrollID"+headingsElements.size());
+			}
+			processHeadings(element.getChildNodes());
+		}
+	}
+
+	@Override
+	public JComponent asScrollableJComponent() {
+		return this;
+	}
+
+	@Override
+	public JComponent asInnerJComponent() {
+		return this;
+	}
+
+	@Override
+	public boolean showPage(final URL url) {
+		if (loadReadyWaitTimer!=null) {
+			loadReadyWaitTimer.cancel();
+			loadReadyWaitTimer=null;
+		}
+
+		if (url==null) return false;
+
+		String path=url.toString();
+		int i=path.lastIndexOf('/');
+		if (i>=0) {
+			lastPath=path.substring(0,i+1);
+		}
+
+		if (engine!=null && engineReady) {
+			Platform.runLater(new Runnable() {
+				@Override public void run() {
+					if (engine!=null) engine.load(url.toString());
+				}
+			});
+		} else {
+			loadReadyWaitTimer=new Timer("FXLoadReadyWait");
+			loadReadyWaitTimer.schedule(new TimerTask() {@Override public void run() {showPage(url);}},150);
+		}
+
+		return true;
+	}
+
+	@Override
+	public URL getLastClickedURL() {
+		return lastClickedURL;
+	}
+
+	@Override
+	public String getLastClickedURLDescription() {
+		return lastClickedURLDescription;
+	}
+
+	@Override
+	public List<String> getPageContent() {
+		return headings;
+	}
+
+	@Override
+	public List<Integer> getPageContentLevel() {
+		return headingsLevels;
+	}
+
+	@Override
+	public boolean scrollToPageContent(int index) {
+		if (index<0 || index>=headingsElements.size()) return false;
+
+		if (headingsElements.get(index) instanceof HTMLElement) {
+			final HTMLElement e=headingsElements.get(index);
+			if (e!=null) {
+				final String id="jumpID"+Math.round(Math.random()*100000);
+				Platform.runLater(()->{
+					e.setId(id);
+					engine.executeScript("window.location.hash='"+id+"';");
+				});
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean needsLoadLock() {
+		return true;
+	}
+
+	@Override
+	public boolean setUserDefinedStyleSheet(String styleSheet) {
+		userStyleSheet=styleSheet;
+		return true;
+	}
+
+	@Override
+	public boolean needsBorder() {
+		return true;
+	}
+}

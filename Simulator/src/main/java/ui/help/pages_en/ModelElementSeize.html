@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Seize resource</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Seize resource</h1>
+
+<p>
+In order for a client to be able to pass this element, appropriate resources have to be available,
+which are seized by the movement of the client through the element but are not released again.
+</p>
+
+<p>
+The resources have to be released later by a <a href="ModelElementRelease.html">Release resource</a> element.
+</p>
+
+<p>
+The three elements <a href="ModelElementSeize.html">Seize resource</a>, <a href="ModelElementDelay.html">Delay</a> and
+<b>release resource</b> in this order therefore work together similar to a
+<a href="ModelElementProcess.html">process station</a> element.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The seize resource element needs a name because the <a href="ModelElementRelease.html">Release resource</a> elements
+for this resources need to refer to the element.
+</p>
+
+<p>
+In order to forward a client may several operators from several groups are required.
+The client is only relased if all the necessary operators are available at the same
+time and all can be seized simultaneously.
+</p>
+
+<p>
+The resource priority can be used to define the priority of this element when a resource that
+is necessary at this station becomes free. Larger values mean a higher priority or a higher probability
+that this element receives the corresponding resources if there are several stations that need the same resource.
+</p>
+
+</body>
+</html>

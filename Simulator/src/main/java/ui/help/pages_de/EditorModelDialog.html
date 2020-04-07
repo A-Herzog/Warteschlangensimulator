@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modelleigenschaften-Dialog</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modelleigenschaften-Dialog</h1>
+
+<p><i>
+Der Modelleigenschaften-Dialog kann über den Menüpunkt Datei|Modelleigenschaften aufgerufen werden.
+</i></p>
+
+<p>
+Im Gegensatz zu den Programmeinstellungen werden die Modelleigenschaften mit dem jeweiligen Modell gespeichert.
+Die Modelleigenschaften dienen zum einen zur näheren Beschreibung des Modells und zum anderen zur Konfiguration
+des Ablaufs der Simulation.
+</p>
+
+
+
+<h2><img src="../images/brick_edit.png">&nbsp; Modellbeschreibung</h2>
+
+<h3>Name des Modells</h3>
+<p>
+Der in diesem Freitextfeld angegebene Name wird mit dem Modell gespeichert und dient (ähnlich dem Dateinamen)
+der späteren Zuordnung der Modelle.
+</p>
+
+<h3>Autor des Modells</h3>
+<p>
+Der in diesem Freitextfeld angegebene Name wird mit dem Modell gespeichert und dient der der Dokumentation,
+wer das Modell erstellt hat.
+</p>
+
+<h3>Modellbeschreibung</h3>
+<p>
+Die in diesem Freitextfeld angebare Beschreibung des Modells wird mit dem Modell gespeichert und ermöglicht es,
+eine Beschreibung bzw. Erklärung zu dem Modell direkt in der Modelldatei zu hinterlegen.
+</p>
+
+
+
+<h2><img src="../images/action_go.gif">&nbsp; Simulation</h2>
+
+<h3>Anzahl an Kundenankünften als Kriterium für das Simulationsende verwenden</h3>
+<p>
+Ist diese Option aktiviert, so wird die im Folgenden einzustellende <b>zu simulierende Ankünfte</b>
+als Kriterium zur Beendung der Simulation verwendet.
+</p> 
+
+<h3>Zu simulierende Ankünfte</h3>
+<p>
+Ist die hier angegebene Anzahl an Ankünften erreicht und ist die Option
+<b>Anzahl an Kundenankünften als Kriterium für das Simulationsende verwenden</b> aktiviert,
+so wird der Simulationsprozess beendet.
+Für statistisch stabile Ergebnisse sollte hier ein möglichst großer Wert angegeben werden.
+Während der Simulation wird auf jedem CPU-Kern ein Simulationsprozess gestartet, auf dem jeweils
+nur ein Anteil der hier angegebenen Ankünfte simuliert wird.
+</p>
+
+<h3>Einschwingphase</h3>
+<p>
+Bevor die Warte- und Bedienzeiten für die Statistik gezählt werden, können eine bestimmte Anzahl
+an Kunden das System durchlaufen, die nicht für die Statistik gezählt werden. In diesem Feld kann
+angegeben werden, wie viele Kunden bezogen auf die Gesamtzahl an Kunden nicht für die Statistik
+gezählt werden sollen. Diese Anzahl wird nicht von der Anzahl an zu simulierenden Kunden abgezogen,
+sondern dieser vorangestellt bzw. auf diese aufgeschlagen.
+</p>
+<p>
+Die Einschwingphase kommt auch dann zum Tragen, wenn die Gesamtanzahl an zu simulierenden Ankünften
+nicht als Abbruchkriterium für die Simulation verwendet wird.
+</p>
+
+<h3>Zu prüfende Bedingung als Kriterium für das Simulationsende verwenden</h3>
+<p>
+Ist diese Option aktiviert, so wird während der Simulation fortwährend die im Folgenden einzustellende
+<b>Bedingung für Simulationsende</b> geprüft. Ist diese erfüllt, so wird die Simulation beendet.
+</p>
+
+<h3>Bedingung für Simulationsende</h3>
+<p>
+Ist diese Bedingung erfüllt und ist die Option
+<b>Zu prüfende Bedingung als Kriterium für das Simulationsende verwenden</b> aktiviert,
+so wird die Simulation beendet.
+</p>
+
+<h3>Simulation nach bestimmter Zeit beenden</h3>
+<p>
+Ist diese Option aktiviert, so wird die Simulation beendet, wenn der im folgenden Feld eingestellte
+Zeitpunkt erreicht bzw. überschritten wurde.
+</p>
+
+<h3>Zeitpunkt an dem die Simulation endet</h3>
+<p>
+Ist dieser Zeitpunkt in der Simulation erreicht bzw. überschritten und ist die Option
+<b>Simulation nach bestimmter Zeit beenden</b> aktiviert,
+so wird die Simulation beendet.
+</p>
+
+<h3>Fester Startwert für Zufallszahlengenerator</h3>
+<p>
+Ist diese Option aktiviert, so wird der Zufallszahlengenerator vor jedem Simulations- bzw.
+Animationslauf mit demselben, festen in diesem Feld eingestellten Startwert initialisiert.
+Dies hat zur Folge des jeweils dieselbe Folge von Zufallszahlen entsteht und damit bei
+einem wiederholten Start z.B. der Animation exakt dieselben Ereignisse in exakt derselben
+Reihenfolge auftreten. Allerdings verhindert die Verwendung eines festen Startwertes für
+den Zufallszahlengenerator die Verteilung der Simulation auf mehrere CPU-Kerne.
+</p>
+
+<h3>Anzahl an Wiederholungen des gesamten Simulationslaufs</h3>
+<p>
+Über dieses Feld kann eingestellt werden, dass der gesamte Simulationslauf
+mehrfach wiederholt wird. In der Statistik werden dann die Daten der
+Wiederholungen zusammengefasst.
+</p>
+
+<h3>In Verteilung aufzuzeichnende Stunden</h3>
+<p>
+In diesem Feld kann eingestellt werden, wie weit die Verteilung zur Erfassung
+der Häufigkeit von konkreten Zeitwerten wie Wartezeiten usw. reichen soll.
+Der Standardwert beträgt eine Stunde, d.h. alle Wartezeiten, die länger als
+eine Stunde gedauert haben, werden der Häufigkeit von einer Stunde zugeordnet.
+Je höher also dieser Wert gewählt wird, für desto größere Werte können noch
+die Häufigkeiten exakt erfasst werden, aber auch desto mehr Speicher wird
+für die Simulation benötigt. Die Erfassung der übrigen Kenngrößen
+(wie Mittelwerten usw.) erfolgt unabhängig von dieser Einstellung immer exakt. 
+</p>
+
+<h3>Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann.</h3>
+<p>
+Kann während einer laufenden Simulation ein Rechenausdruck nicht ausgewertet werden,
+so wird normalerweise das Ergebnis als 0 angenommen. Genauso wird ein Vergleich
+als nicht zutreffend angenommen, wenn eine oder beide Seiten nicht ausgewertet
+werden können. Ist jedoch diese Option aktiviert, so wird in solch einem Fall
+die Simulation mit einer entsprechenden Fehlermeldung abgebrochen.
+</p>
+
+<h3>Zeitabhängige Bedingungsprüfungen</h3>
+<p>
+Ist diese Option aktiviert, so können an den Bedingung-Stationen zusätzliche
+zeitgesteuerte, nicht ereignisgesteuerte Prüfungen der Bedingungen ausgelöst werden.
+Die verlangsamt den Simulationsprozess erheblich, ermöglicht es aber auch Bedingungen,
+in die die Simulationszeit direkt eingeht, korrekt abzubilden.
+</p>
+
+
+
+<h2><img src="../images/user.png">&nbsp; Kunden</h2>
+
+<p>
+Auf dieser Dialogseite können für die im Modell enthaltenen Kunden weitere Daten hinterlegt werden.
+Es kann pro Kundentyp eine Farbe angegeben werden, die in den Diagrammen in der Simulationsergebnis-Ansicht
+für diesen Kundentyp verwendet werden soll. Es kann ein initialer Icontyp für den Kundentyp in der Animation
+eingestellt werden. Und es kann angegeben werden, wie viel Kosten pro Warte-, Transfer- und Bedienzeitsekunde
+für Kundendes gewählten Typs entstehen. 
+</p>
+
+
+
+<h2><img src="../images/group.png">&nbsp; Bediener</h2>
+
+<p>
+Auf dieser Seite kann festgelegt werden, wie viele Bediener von welchen Typen in dem Modell vorhanden sein
+sollen. Die Bediener werden an den Bedienstationen zur Bedienung der Kunden eingesetzt. Es können dabei für
+die Bedienung eines Kunden mehrere Bediener (ggf. verschiedener Typen) notwendig sein oder aber es können sich
+auch mehrere Bedienstationen bestimmte Bedienergruppen teilen.
+</p>
+
+<p>
+Für den Fall, dass die Bediener während der Animation an den Stationen angezeigt werden sollen,
+kann außerdem ein entsprechendes Icon für die Bedienergruppe festgelegt werden.
+</p>
+
+<p>
+Zusätzlich können pro Bedienergruppe optional drei Kostenwerte angegeben werden: Es kann eingestellt werden,
+wie viele Kosten durch die Anwesenheit pro Bediener der Gruppe pro Stunde entstehen (unabhängig davon, ob die
+Bediener arbeiten oder nicht), es kann eingestellt werden, wie viele Kosten durch die Nutzung der Bedienergruppe
+entstehen (z.B. zusätzliche Stromkosten, wenn es sich um eine technische Ressource handelt) und wie viele
+Kosten pro Leerlauf-Stunde entstehen.
+</p>
+
+<p>
+Es kann auch eingestellt werden, dass die Bediener nicht immer verfügbar sind, sondern jeweils
+nach eine bestimmten Anzahl an bedienten Kunden oder aber nach einer bestimmten Anwesenheitszeit
+oder geleisteter Bedienzeit oder gemäß einer Abstände-Verteilung oder gemäß eines Abstände-Ausdrucks
+in eine Pause oder Ausfallzeit gehen.
+</p>
+
+<p>
+Global für alle Bedienergruppen kann in dem Feld <b>Ressourcenpriorität an einer Station bei Gleichstand</b>
+angegeben werden, nach welchen Regeln freie Bediener an einzelne Stationen geleitet werden, wenn in Bezug
+auf die Ressourcenpriorität zwischen den Stationen Gleichstand herrscht. Es kann eingestellt werden, dass
+freie Bediener dann zufällig zwischen den Stationen aufgeteilt werden sollen oder aber dass in diesem Fall
+die Kundenpriorität desjenigen dort wartenden Kunden mit der höchsten Priorität als untergeordnete
+Ressourcenpriorität gelten soll.
+</p>
+
+<p>
+Werden die Bediener der Gruppe an verschiedenen Stationen eingesetzt, so kann des Weiteren eingestellt werden,
+dass bei einem Wechsel der Bedienstation eine gewisse Rüstzeit anfällt.
+</p>
+
+
+
+<h2><img src="../images/lorry.png">&nbsp; Transporter</h2>
+
+<p>
+Transporter können eingesetzt werden, um Kunden von
+<a href="ModelElementTransportTransporterSource.html">Haltestellen</a> zu
+<a href="ModelElementTransportSource.html">Transportziel</a>-Stationen zu
+transportieren. Transporter verhalten sich dabei ähnlich wie Ressourcen.
+Allerdings besitzen Transporter im Gegensatz zu Ressourcen einen definierten
+Aufenthaltsort. Dies bedeutet, dass die Transportzeit nicht über eine Verteilung
+definiert werden muss, sondern sich aus der Entfernung der Start- zur Zielstation
+ergibt. (Die Entfernungsmatrix zwischen den jeweiligen Stationen kann pro Transportertyp
+definiert werden.) Zusätzlich können pro Transportergruppe Lade- und Entladezeilen
+definiert werden, die auf die Transportzeit aufaddiert werden, wenn Kunden
+transportiert wurden.
+</p>
+
+<p>
+Für den Fall, dass die Transporter während der Animation an den Stationen angezeigt werden sollen,
+kann außerdem ein entsprechendes Icon pro Transportergruppe festgelegt werden.
+</p>
+
+<p>
+Es kann auch eingestellt werden, dass die Transporter nicht immer verfügbar sind, sondern jeweils
+nach eine bestimmten Anzahl an bedienten Kunden oder aber nach einer bestimmten Fahrtstrecke
+oder einer bestimmten geleisteter Bedienzeit oder gemäß einer Abstände-Verteilung oder
+gemäß eines Abstände-Ausdrucks in eine Pause oder Ausfallzeit gehen.
+</p>
+
+
+
+<h2><img src="../images/time.png">&nbsp; Zeitpläne</h2>
+
+<p>
+Auf der Zeitpläne Seite können Zeitpläne erstellt werden, die für die Planung der Ankünfte in den
+Quelle-Elementen sowie in Bezug auf die Bediener-Verfügbarkeiten verwendet werden können.
+</p>
+
+
+
+<h2><img src="../images/text_list_numbers.png">&nbsp; Fertigungspläne</h2>
+
+<p>
+Auf dieser Dialogseite können Fertigungspläne festgelegt werden, die den Kundenobjekten
+später über ein <a href="ModelElementAssignSequence.html">Fertigungsplan zuweisen</a>-Element
+zugewiesen werden können. Fertigungspläne steuern, an welche Stationen Kunden in den
+<a href="ModelElementTransportSource.html">Transportstart</a> und in den
+<a href="ModelElementTransportTransporterSource.html">Haltestelle</a>
+Elementen verwiesen werden. Auf diese Weise lässt sich die Information, welche Stationen
+Kunden in welcher Reihenfolge ansteuern sollen, komplett auf Kundenseite definieren. Diese
+Stationen führen die Pläne nur aus; hier muss nicht hinterlegt sein, welche Objekte zu
+welchen Zielen geleitet werden sollen. 
+</p>
+
+
+
+<h2><img src="../images/font.png">&nbsp; Initiale Variablenwerte</h2>
+
+<p>
+Auf dieser Dialogseite können Variablen und deren Werte definiert werden, die bereits
+ab Beginn der Simulation zur Verfügung stehen sollen sollen. Auf diese Weise können
+z.B. Konstanten definiert werden, die an verschiedenen Stellen in Rechenausdrücken
+verwendet werden.
+</p>
+
+
+
+<h2><img src="../images/chart_curve_add.png">&nbsp; Lautzeitstatistik</h2>
+
+<p>
+Auf dieser Seite können verschiedene Ausdrücke definiert werden, die während der Simulation laufend
+ausgewertet und erfasst werden sollen. Auf diese Weise kann die Veränderung von bestimmten Größen
+über die Simulationszeit hinweg erfasst werden.
+</p>
+
+<p>
+Die Verwendung dieser Funktion verlangsamt den Simulationsprozess. Außerdem können, wenn die Schrittweite
+zu klein gewählt ist, erhebliche Datenmengen entstehen.
+</p>
+
+
+
+<h2><img src="../images/chart_curve.png">&nbsp; Ausgabeanalyse</h2>
+
+<h3>Autokorrelation der Wartezeiten erfassen</h3>
+
+<p>
+Ist diese Option aktiviert, so werden während der Simulation Daten
+zur Autokorrelation der Wartezeiten der Kunden erfasst und stehen
+nach Abschluss der Simulation in der Statistik zur Verfügung.
+Wichtig dabei ist eine sinnvoll Wahl des Wertes für den
+maximalen Kundenabstand für für die Autokorrelationserfassung.
+Je größer dieser Wert ist, desto stärker wird die Simulation
+verlangsamt. Ist er jedoch kleiner als die tatsächlich
+Autokorrelationsdistanz gewählt, so wird diese nicht mehr korrekt erfasst.
+</p>
+
+<p>
+Die Verwendung dieser Funktion verlangsamt den Simulationsprozess.
+Insbesondere die Erfassung der Autokorrelation für alle Wartezeiten
+(d.h. nach Kundengruppen und Stationen) sowie die Wahl einer hohen
+maximal zu erfassenden Autokorrelation führen zu einer starken
+Verlangsamung der Simulation.
+</p>
+
+<h3>Batch-Größe für Konfidenzintervall-Berechnungen</h3>
+
+<p>
+Konfidenzintervalle können nur berechnet werden, wenn die einzelnen Messwerte
+unabhängig voneinander sind. Bei den Wartezeiten aufeinander folgender
+Kunden ist dies üblicherweise nicht der Fall. Daher betrachtet man statt der
+Zeiten einzelner Kunden die Mittelwerte über sogenannte Batche. Die Batche
+sollten groß genug gewählt werden, dass für Kunden, die sich in zwei aufeinander
+folgenden Batches befinden, die Autokorrelation ihrer Wartezeiten unterhalb
+eines gewählten Schwellenwertes (z.B. 5%) liegt.
+</p>
+
+<p>
+Diese Batchgröße zur Berechnung von Konfidenzintervallen für Warte-, Transfer-
+und Bedienzeiten kann in diesem Feld eingestellt werden.
+Alternativ kann die Batchgröße über die
+<a href="FindBatchSize.html">Statistik-Batch-Größe bestimmen</a>
+Funktion auch automatisch in Abhängigkeit von einem Schwellenwert bestimmt werden.  
+</p>
+
+
+
+<h2><img src="../images/Vertex.png">&nbsp; Pfadaufzeichnung</h2>
+
+<p>
+Die auf dieser Dialogseite angebotenen zusätzlichen Aufzeichnungsmöglichkeiten
+während der Simulation ermöglichen es, die Wege der Kunden durch das System
+besser nachzuvollziehen. Auf Basis dieser Aufzeichnungen können später zur
+Visualisierung dieser Daten auch <a href="Sankey.html">Sankey-Diagramme</a>
+erstellt werden. Allerdings wird der Simulationsprozess durch diese
+zusätzlichen Aufzeichnungen auch verlangsamt.
+</p>
+
+<h3>Stationsübergänge zählen</h3>
+
+<p>
+Diese Option aktiviert die Zählung, wie häufig in der Simulation ein
+Kunde von einer bestimmten Station zu einer anderen gewechselt ist.
+Wenn in dem Modell Stationen existieren, an denen mehrere Kundenstränge
+zusammenlaufen oder sich trennen, so kann auf Basis dieser Daten
+noch nicht vollständig nachvollzogen werden, welche Kundenstränge
+sich wie durch das System bewegen, aber die Zusammenhänge zwischen
+den einzelnen Stationen werden deutlich.
+</p>
+
+<h3>Pfade der Kunden aufzeichnen</h3>
+
+<p>
+Ist diese Option aktiviert, so werden alle Pfade der Kunden durch das
+System erfasst. In der Statistik wird ausgewiesen, welche Pfade von
+jeweils wie vielen Kunden gewählt wurden. Auf diese Weise lassen sich
+Zusammenhänge auch über Stationen, an denen verschiedene Kundenstränge
+zusammenlaufen oder sich trennen, hinweg verfolgen. Allerdings führt
+die Aufzeichnung der Pfade der Kunden insbesondere bei komplexeren
+Modellen zu einer stärkeren Verlangsamung der Simulation, so dass
+diese nur aktiviert werden sollte, wenn dies so zu gewinnenden
+Informationen für die Untersuchung von Interesse sind.
+</p>
+
+
+
+<h2><img src="../images/computer.png">&nbsp; Simulationssystem</h2>
+
+<p>
+Auf dieser Seite wird angezeigt, ob das Simulationsmodell über alle verfügbaren CPU-Kerne parallelisiert werden kann
+oder, wenn nicht, welche Modelleigenschaften dies verhindern.
+</p>
+
+</body>
+</html>

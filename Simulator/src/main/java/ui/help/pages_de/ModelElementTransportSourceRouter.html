@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Transportstart (Fertigungsplan)</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Transportstart (Fertigungsplan)</h1>
+
+<p>
+<b>
+Dieser Stationstyp wird vom Simulator nicht mehr unterstützt.
+Die Funktionalität dieses Stationstyps ist jetzt direkt über das
+<a href="ModelElementTransportSource.html">Transportstart</a>-Element
+verfügbar. 
+</b>
+</p>
+
+<p>
+Ein Transportstartelement (Fertigungsplan) ermöglicht den Transport eines Kunden zu einem beliebigen
+<a href="ModelElementTransportDestination.html">Transportziel</a>-Element. Wie viel
+Zeit der Transport beansprucht , kann dabei in dem Transportstartelement (Fertigungsplan) eingestellt werden.
+Das Transportziel wird im Gegensatz zu dem <a href="ModelElementTransportSource.html">Transportstart</a>-Element
+nicht in der Station selbst festgelegt, sondern aus dem Fertigungsplan für das jeweilige Kundenobjekt ausgelesen.
+Für den Transport eines Kunden von einem Transportstart- zu einem Transportzielelement
+muss keine Verbindungskante zwischen den Elementen bestehen.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Elements besitzt keine weitere Bedeutung. Auf der Dialogseite
+<b>Transportzeiten</b> kann festgelegt werden, wie lange der Transport eines Kunden
+von diesem Transportstartelement zu dem jeweiligen Ziel dauern soll. Die Transportzeit
+kann dabei als Verteilung oder als Ausdruck angegeben werden. Des Weiteren kann eingestellt
+werden, ob die Transportzeit als Wartezeit, Transferzeit (Standard) oder Bedienzeit
+erfasst werden soll. Auf der Dialogseite <b>Transportziele</b> kann ein Standardziel,
+welches angesteuert wird, wenn für den jeweiligen Kunden kein Fertigungsplan
+hinterlegt ist oder dieser bereits vollständig durchlaufen ist, festgelegt werden.
+</p> 
+
+</body>
+</html>

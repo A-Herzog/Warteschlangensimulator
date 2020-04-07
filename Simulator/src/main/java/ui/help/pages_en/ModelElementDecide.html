@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Decide</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Decide</h1>
+
+<p>
+This element allows to forward the incoming clients to several different possible output directions.
+The branching can be carried out according to the following criteria:
+</p>
+
+<ul>
+  <li>
+    <b>Random:</b>
+    For each exit direction a rate is specified, which determines the probability for this route.
+  </li>
+  <li>
+    <b>Condition:</b>
+    Conditions are defined for all output directions (except for the last direction).
+    If a client arrives, these conditions are checked from top to bottom.
+    The client is forwarded in the direction in which the condition was fulfilled for the first time.
+    If none of the conditions apply, the customer is forwarded in the last direction
+    (for which no condition is specified).
+  </li>
+  <li>
+    <b>Client type:</b>
+    Client types are defined for all output directions (except for the last direction).
+    If an arriving client is of one of these types, it is forwarded in the corresponding direction.
+    If the type of the arrived client does not correspond to any of the specified client types,
+    the client is forwarded in the last direction (for which no client type is specified).
+  </li>
+  <li>
+    <b>Sequence:</b>
+    One of the clients is directed to one of the outputs in sequence. After a client is routed to the last
+    connected output, the next client is routed back to the first output.
+  </li>
+  <li>
+    <b>Shortest queue at the next station:</b>
+    Routes the client to the path where the next station
+    has the shortest queue. In the case of the same value
+    for multiple paths, a random decision will be made.
+  </li>
+  <li>
+    <b>Shortest queue at the next process station:</b>
+    Routes the client to the path where the next process station
+    has the shortest queue. Stations between the decide element
+    and the process station on the path will be ignored when
+    calculating the queue length. In the case of the same value
+    for multiple paths, a random decision will be made.
+    
+  </li>
+  <li> 
+    <b>Least number of clients at the next station:</b>
+    Routes the client to the path where the next station
+    has the least current number of clients. In the case of the same value
+    for multiple paths, a random decision will be made.    
+  </li>
+  <li>
+    <b>Least number of clients at the next process station:</b>
+    Routes the client to the path where the next process station
+    has the least current number of clients. Stations between the decide element
+    and the process station on the path will be ignored when
+    calculating the number of clients at the process station.    
+    In the case of the same value
+    for multiple paths, a random decision will be made.    
+  </li>
+  <li>
+    <b>Text property:</b>
+    Values are defined for all output directions (except for the last direction).
+    If some special key of an arriving client has the specified value , the client
+    is forwarded in the corresponding direction.
+    If the value of the arrived client does not correspond to any of the specified values,
+    the client is forwarded in the last direction (for which no value is specified).
+  </li>
+</ul>
+
+<h2>Settings</h2>
+
+<h3>Mode "Random"</h3>
+<p>
+The forwarding probabilities in the various possible output directions need not be given in the form
+of probabilities which have to sum up to 1, but it is sufficient to specify rates. These rates are
+automatically normalized by the program to probabilities. The following prerequisites apply:
+The rates may not be negative and at least one of the specified rates has to be greater than 0.
+</p>
+
+<h3>Mode "Condition"</h3>
+<p>
+For each existing direction, a condition has to be specified under which the clients are routed in this
+direction. The conditions do not have to be mutually exclusive and are tested from top to bottom.
+No condition can be specified for the last direction. This direction is selected in the simulation
+whenever none of the previous conditions were true.
+</p>
+
+<h3>Mode "Client type"</h3>
+<p>
+For each direction, a client type has to be specified whose clients are routed in this direction.
+No client type can be specified for the last direction. This direction is selected in the simulation
+whenever none of the previous conditions were true.
+</p>
+
+<h3>Mode "Text property"</h3>
+<p>
+A clients key from which the values are to be read has to be specified.
+Additionally for each direction, a value has to be specified. If the client key has this value the client
+is routed in this direction. No value can be specified for the last direction. This direction is selected in the simulation
+whenever none of the previous conditions were true.
+</p>
+
+<p>
+Additionally client types for each outgoing edges can be
+defined which will be assigned to the clients leaving the station.
+</p>
+
+</body>
+</html>

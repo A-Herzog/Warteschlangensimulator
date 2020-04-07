@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Allen-Cunneen</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Allen-Cunneen</h2>
+
+<p>
+The Allen-Cunneen formula, in contrast to the Erlang formulas, is only
+an <b>approximate formula</b>. This means that the results that this formula
+provides will not be absolutely identical to reality, even if all the
+conditions for using the formula are met.
+</p>
+
+<p>
+In contrast to the Erlang formulas, the Allen-Cunneen queueing model no longer
+assumes that inter-arrival times and the service times are distributed exponentially.
+Instead, <b>any distributions</b> are now allowed, which are characterized only by
+their <b>expected values</b> (&lambda; or &mu; as reciprocals of the expected values)
+and their <b>coefficients of variation</b> (CV[I] and CV[S]). Furthermore, the clients
+can arrive in groups (<b>arrival batch size b(I)</b>) and be served in groups
+(<b>service batch size b(S)</b>).
+</p>
+
+<h3>Performance indicators</h3>
+
+<p>
+The following parameters are calculated on the basis of the inputs:
+</p>
+
+<ul>
+  <li><b>Offered work load a</b>:
+  This value indicates how many operators are needed in any case to serve
+  the arriving clients on a long-term average. The offered work load is the
+  quotient of the arrival and service rate: a=&lambda;/&mu;.</li>
+  <li><b>Work load &rho;</b>:
+  The work load is the quotient of offered work load and the specified number
+  of operators (&rho;=a/c). The work load must always be &lt;1, so that the
+  operators can serve the arriving clients on a long-term average. However,
+  a work load of less than 1 alone is not a statement that the system is sensibly
+  dimensioned, since the work load does not provide any information about how
+  long the clients will have to wait on average in the system.</li>
+  <li><b>Average queue length E[N<sub>Q</sub>]</b>:
+  The average queue length indicates the average number of clients waiting
+  (i.e. not yet served) in a correspondingly configured system.</li>
+  <li><b>Average number of clients in the system E[N]</b>:
+  This value indicates the average total number of clients in the system,
+  i.e. it is the sum of waiting and currently served clients.</li>
+  <li><b>Average waiting time E[W]</b>:
+  Using Little's formula, the average queue length E [N<sub>Q</sub>]
+  (and the arrival rate &lambda;) can be used to calculate how long clients
+  will have to wait on average before they are served.</li>
+  <li><b>Average residence time E[V]</b>:
+  The residence time is the sum of the average waiting time E[W] and the average
+  service time E[S]. The average service time is the reciprocal of the service rate
+  (E[S]=1/&mu;).</li>
+</ul>
+  
+</body></html>

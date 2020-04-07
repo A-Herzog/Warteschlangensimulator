@@ -1,0 +1,126 @@
+body {
+  font: 90% Verdana, Lucida, sans-serif;
+  background: linear-gradient(#E0E0FF, #FAFAFF 150px);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 10px 15px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+}
+
+a.box {
+  margin-top: 10px;
+  margin-botton: 10px;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: rgba(0,255,0,0.1);
+  transition: background-color .5s ease-in-out;
+}
+
+a.box:hover {
+  background-color: rgba(0,255,0,0.5);
+  color: blue;
+}
+
+ul.big li {margin-bottom: 5px;}
+ol.big li {margin-bottom: 5px;}
+ul.medium li {margin-bottom: 3px;}
+ol.medium li {margin-bottom: 3px;}
+
+div.menu, div.model, div.plaininfo {
+  border: 1px solid lightgray;
+  background-color: #F0F0F0;
+  border-radius: 5px;
+  padding: 5px;
+  opacity: 0.4;
+  transition: opacity .5s ease-in-out;
+  margin-bottom: 20px;
+}
+
+div.menu:before {
+  font-weight: bold;
+  content: url("mouse.png") " Menü:  ";
+}
+
+div.model:before {
+  font-weight: bold;
+  content: url("brick.png") " Modell-Editor:  ";
+}
+
+div.plaininfo:before {
+  font-weight: bold;
+  content: "Programmseite:  ";
+}
+
+div.menu:hover, div.model:hover, div.plaininfo:hover {
+  opacity: 1;
+}
+
+div.menu img, div.model img, div.plaininfo img {
+  position: relative;
+  top: 2px;
+}
+
+h1 {
+  font-weight: normal;
+  border-bottom: 1px dashed #D0D0D0;
+  font-size: 220%;
+  margin-top: 5px;
+}
+
+h2 {
+  font-weight: normal;
+  margin-bottom: 0px;
+  font-size: 165%;
+}
+
+h2:before {
+  content:url("../images/resultset_next.png");
+}
+
+h3 {
+  font-weight: normal;  
+  font-size: 130%;
+}
+
+table h3 {
+	font-size: 110%;
+	font-weight: bold;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+p.red {
+  color: red;
+  background-color: rgba(255,0,0,0.075);
+  padding: 8px;
+  border: 1px solid red;
+  border-radius: 3px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  padding: 2px;
+}
+
+.border {
+	margin-top: 10px;
+}
+
+.border td {
+	border: 1px solid #333;
+	padding: 5px;
+}

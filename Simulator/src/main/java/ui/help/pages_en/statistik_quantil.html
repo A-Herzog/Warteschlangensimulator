@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Quantiles</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Quantiles</h1>
+
+<p>
+The quantiles provide information on how the concrete values of a series of measurements
+are distributed over the value range and thus represent a supplement to the
+<a href="statistik_standardabweichung.html">standard deviation</a> but also to the
+<a href="statistik_mittelwert.html value.html">average value</a>.
+</p>
+<p>
+Quantiles indicate how large a proportion of the measured values is that is
+less than or equal to a certain value. For example, if the 75% quantile of
+the waiting times is 100 seconds, this means that 75% of the clients had to
+wait for a maximum time of 100 seconds.
+</p>
+
+<h3>Median</h3>
+<p>
+In connection with the <a href="statistik_mittelwert.html">average value</a>,
+the median is also often mentioned. While the average value has the advantage
+that it can be easily calculated and is required in many other formulas for
+calculating statistical key indicators, it has the disadvantage that it is
+susceptible to outliers. If a single value in the measurement series is
+increased massively, this has a major impact on the average value - although
+the rest of the measurement series has not changed at all except for the
+single outlier. The median, however, indicates "the value in the middle"
+of a measurement series. If the value of a single outlier is changed,
+this has no effect on the median.
+</p>
+<p>
+Mathematically, the median is just the 50% quantile, i.e. the measured value
+for which half of the measured values are less than or equal to this value
+(and consequently the other 50% of the measured values are greater than this value).
+</p>
+
+<h3>Further information</h3>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Percentile">Wikipedia page about quantiles</a></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Average values</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Average values</h1>
+
+<p>
+The average value is the most frequently used statistical parameter.
+It specifies the average of the values considered and is formed by
+summing up all measured values and dividing by the number of values.
+</p>
+
+<h3>Example</h3>
+<p>
+The following 4 values were measured: 3, 5, 7, 5. The sum of these
+values is 20, resulting in the mean value of (3+5+7+5)/4=5.
+</p>
+
+<h3>Identifier</h3>
+<p>
+In stochastics, a formal distinction is made between the average value
+of a series of measurements and the expected value of the probability
+distribution on which the experiment is based. The expected value of
+X is designated by E[X]. Since measurement series and distributions
+are treated very closely in simulation, the E[X] notation is also used
+for the average value. If N denotes the number of clients in the system,
+the mean number of clients in the system is denoted by E[N]. In the
+mathematical literature, average values are usually represented by a
+bar above the corresponding identifier.
+</p>
+
+<h3>Criticism</h3>
+<ul>
+  <li>The use of statistical parameters means that a large number of measured
+  values are compressed to a single quantity. Information is inevitably lost
+  during this compression. For example, the mean value does not provide
+  information about how the values are distributed. For example, the measurement
+  series 0, 10, 0, 10, 0, 10 and 5, 5, 5, 5, 5, 5 both have the same average
+  value 5, although they are completely different. To also map the distribution
+  of the values, the <a href="statistik_standardabweichung.html deviation.html">standard deviation</a>
+  is therefore often used.</li>
+  <li>The average value is susceptible to individual outliers. The measurement series
+  5, 5, 5, 5, 100 has the average value 20, even if all measurements except one have
+  delivered the value 5. The average value therefore does not correspond to "the value
+  in the middle". If this value in the middle of the measurement series is required,
+  the <a href="statistik_quantil.html">50% quantile</a> or, equivalently, the
+  <a href="statistik_quantil.html">median</a> should be considered.</li>
+</ul>
+
+<h3>Further information</h3>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Mean">Wikipedia page about average values</a></li>
+</ul>
+
+</body>
+</html>

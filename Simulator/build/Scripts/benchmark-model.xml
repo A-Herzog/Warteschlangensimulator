@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.7.0</ModellVersion>
+  <ModellAutor>Alexa</ModellAutor>
+  <ModellKunden Aktiv="1">500000000</ModellKunden>
+  <ModellAufwaermphase>0</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="50"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementAusdruck Zeitbasis="Sekunden">60</ModellElementAusdruck>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzoegerung id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="50"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Bedienzeit" Zeitbasis="Sekunden">50</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="3">
+      <ModellElementGroesse h="50" w="100" x="400" y="50"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Bedienzeit" Zeitbasis="Sekunden">50</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="4">
+      <ModellElementGroesse h="50" w="100" x="550" y="50"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Bedienzeit" Zeitbasis="Sekunden">50</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementEnde id="5">
+      <ModellElementGroesse h="50" w="100" x="700" y="50"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="4" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

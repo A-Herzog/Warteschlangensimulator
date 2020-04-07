@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Process station</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Process station</h1>
+
+<p>
+The process station is the central element of each simulation model. In an process station, clients wait for an operator
+to become available and then are served by this operator for a certain time. Clients whose (optional) limited waiting time
+tolerance has been exceeded will cancel waiting without having been served. An operator (also optionally) can go into
+a post-processing time after serving a client, before he is again ready to serve the next client.
+</p>
+
+<p>
+It can be stated that, instead of one operator, several operators are optionally required from several different groups
+to serve a client.
+</p>
+
+<p>
+Additionally it can also be set up that clients are not served individually, but in groups.
+In this case, the necessary numbers of operators refer to operating a whole group.
+</p>  
+
+<h2>Settings</h2>
+
+<h3>Name</h3>
+<p>
+The name of the process station element has no further meaning.
+</p>
+
+<h3>Processing times</h3>
+<p>
+On this dialog page, the probability distribution or the expression for the clients's processing times can be set.
+Optionally, an individual distribution or expressions can be defined for each client type.
+</p>
+
+<p>
+<u>Note on individual processing times and batch processing:</u><br>
+In principle, individual client processing times and the simultaneous operation of several clients
+(of possibly different types) contradict each. Nevertheless, this can be used in the simulation.
+In this case, an processing time according to the predefined distribution is determined for each
+client type contained in the batch. This processing time then applies to all clients in the batch
+of client's type. The resources are seized until the maximum of the processing times for all
+clients included in the batch is reached.
+</p>
+
+<h3>Setup times</h3>
+<p>
+On this dialog page, additional times between the service processes of clients of the same
+or - which is usually the case - of different types can be defined. These setup times,
+which are optional for each client type transition, can be defined each using either a
+probability distribution or an expression.
+</p>
+
+<p>
+<u>Note on setup times and batch processing:</u><br>
+Setup times and batching cannot be used at the same time at one process station.
+A process station with setup times can serve clients which are temporary or
+permanently batched but creating batches directly at the process station is
+not possible in this case, because the simulator would not be able to determine
+which setup time is in charge in this case.
+</p>
+
+<h3>Post processing times</h3>
+<p>
+The optional post-processing times can be used to specify a probability distribution or an expression
+according to which the operator will require additional time after the client has been served before they are
+available to process the next client. Optionally, an individual distribution can also be set
+for each client type.
+</p>
+
+<p>
+<u>Note about individual post-processing times and batch processing:</u><br>
+In principle, individual client post-processing times and the simultaneous operation of several clients
+(of possibly different types) contradict each. Nevertheless, this can be used in the simulation.
+In this case, an post-processing time according to the predefined distribution is determined for each
+client type contained in the batch. The resources are seized until the maximum of the post-processing times
+for all clients included in the batch is reached.
+</p>
+
+<h3>Waiting time tolerances</h3>
+<p>
+If the clients are only willing to wait for a limited period of time, a waiting time tolerance (based on a distribution
+or on an expression) is determined for each client according to the waiting time tolerance distribution
+(globally or optionally individual per client type). If this time is exceeded, the client cancels waiting and leaves
+the system without being served.
+</p>
+
+<h3>Priorities and batch sizes</h3>
+<p>
+If more than one client is waiting and an operator is available, the client to be served next is determined by the 
+priorities. The client with the highest priority will be served next. 
+"w" indicates here the client's previous waiting time at the current station. (In all other cases "w" is the total
+waiting time of the current client.) This means that the formula "w" for the priority results
+in a first-in-first-out queue. "-w" would result in a last-in-first-out system.
+The batch size indicates how many clients can be operated simultaneously by an operator. Obviously, the minimum batch
+size can not be larger as the maximum batch size. If both values are identical, a fixed batch size is obtained.
+If the minimum batch size is actually smaller than the maximum batch size, after waiting for this minimum number of
+waiting customers, a millisecond is still waited to see if further customers arrive. Then at least as many clients
+as before (= minimum batch size) and at most as many of the waiting clients as the maximum batch size are served.
+</p>
+
+<p>
+<u>Note about variable batch sizes in the simulation:</u><br>
+Clients are basically moving through the queueing network as individual objects.
+As a result, when a variable batch size is used, the client group operation would theoretically always
+start with the minimum batch size. - Even if the next client of the virtual batch would arrive immediately.
+In order to accommodate this fact, the simulator waits a millisecond after the arrival of a client, which
+increases the number of waiting clients to the minimum necessary batch size, so as to allow the addition
+of further directly incoming clients to the batch.
+</p>
+
+<h3>Operators</h3>
+<p>
+To operate a client (or a client batch) several operators from several groups can be required.
+The operation starts only if all necessary operators are available at the same time and all can be seized
+simultaneously.
+Additionally alternative group setups can be defined. All groups of one setup have to be available in order
+to start the service of a client. The alternatives will be checked for availability in the defined order.
+</p>
+
+<p>
+The resource priority can be used to determine the priority of this process station when a resource
+which is necessary for processing the clients at this station becomes free. Larger values mean a
+higher priority, or a higher probability, that this process station gets the appropriate resources
+if there are multiple process stations that need the same resource.
+</p>
+
+<h3>Costs</h3>
+<p>
+On this page, you can optionally set the costs incurred by the clients. This are costs of the process station.
+For the waiting, transfer and operating times costs per client can be defined in the clients settings for each
+client type. Also the costs for allocation and availability of the resources can be defined in the resource settings.
+</p>
+
+</body>
+</html>

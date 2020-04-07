@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.0.0</ModelVersion>
+  <ModelName>Transport of components between multiple factories</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Raw material A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="150"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Raw material B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="550"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>Station A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="150"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Bauteil A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Bauteil B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Component A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Component B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Raw material A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Raw material B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Rohstoff A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Rohstoff B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Zwischenprod. A">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>Station B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="550"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Bauteil A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Bauteil B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Component A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Component B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Raw material A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Raw material B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Rohstoff A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Rohstoff B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Zwischenprod. A">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementTransportOrigin id="5">
+      <ModelElementName>Departure A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="350"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementDistribution TimeBase="Minutes" Type="TransferTime">Lognormal distribution (10;5)</ModelElementDistribution>
+      <ModelElementTransportRoute>Ankunft C</ModelElementTransportRoute>
+      <ModelElementTransportResource Count="1" Name="Transporter A"/>
+      <ModelElementTransportResourcePriority>1</ModelElementTransportResourcePriority>
+    </ModelElementTransportOrigin>
+    <ModelElementTransportOrigin id="6">
+      <ModelElementName>Departure B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="750"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementDistribution TimeBase="Minutes" Type="TransferTime">Lognormal distribution (2;1)</ModelElementDistribution>
+      <ModelElementTransportRoute>Ankunft C</ModelElementTransportRoute>
+      <ModelElementTransportResource Count="1" Name="Transporter B"/>
+      <ModelElementTransportResourcePriority>1</ModelElementTransportResourcePriority>
+    </ModelElementTransportOrigin>
+    <ModelElementRectangle id="7">
+      <ModelElementSize h="350" w="650" x="50" y="100"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="8">
+      <ModelElementSize h="350" w="650" x="50" y="500"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementEdge id="9">
+      <ModelElementName>Arrivals (Raw material A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementName>Arrivals (Raw material B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="13">
+      <ModelElementSize h="23" w="83" x="55" y="105"/>
+      <ModelElementTextLine>Factory A</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="14">
+      <ModelElementSize h="23" w="88" x="55" y="505"/>
+      <ModelElementTextLine>Factory  B</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementTransportDestination id="15">
+      <ModelElementName>Ankunft C</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1000" y="650"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementAssignment id="16">
+      <ModelElementName>Component A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="250"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="10">
+      <ModelElementName>Component B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="650"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="3" Element2="16" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementConnection Element1="4" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="20">
+      <ModelElementSize h="76" w="116" x="750" y="375"/>
+      <ModelElementTextLine>Factory A is far</ModelElementTextLine>
+      <ModelElementTextLine>from factory C.</ModelElementTextLine>
+      <ModelElementTextLine>10 minutes driving</ModelElementTextLine>
+      <ModelElementTextLine>time per direction.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="27">
+      <ModelElementSize h="57" w="90" x="550" y="290"/>
+      <ModelElementTextLine>20 transporter</ModelElementTextLine>
+      <ModelElementTextLine>resources are</ModelElementTextLine>
+      <ModelElementTextLine>available.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="34">
+      <ModelElementSize h="57" w="88" x="550" y="690"/>
+      <ModelElementTextLine>4 transporter</ModelElementTextLine>
+      <ModelElementTextLine>resources are</ModelElementTextLine>
+      <ModelElementTextLine>available.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementProcessStation id="35">
+      <ModelElementName>Station C</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1200" y="650"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="63" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Bauteil A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Bauteil B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Component A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Component B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Raw material A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Raw material B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Rohstoff A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Rohstoff B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator C"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="39">
+      <ModelElementName>Target</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1550" y="850"/>
+      <ModelElementConnection Element="69" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementText id="52">
+      <ModelElementSize h="23" w="83" x="955" y="605"/>
+      <ModelElementTextLine>Factory C</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="53">
+      <ModelElementSize h="350" w="750" x="950" y="600"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="54">
+      <ModelElementSize h="76" w="114" x="730" y="775"/>
+      <ModelElementTextLine>Factory B is near</ModelElementTextLine>
+      <ModelElementTextLine>to factory C.</ModelElementTextLine>
+      <ModelElementTextLine>2 minutes driving</ModelElementTextLine>
+      <ModelElementTextLine>time per direction.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDecide id="56">
+      <ModelElementName>Check</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="350"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="26" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="19" Rate="19" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDispose id="23">
+      <ModelElementName>Rejects</ModelElementName>
+      <ModelElementSize h="50" w="100" x="150" y="350"/>
+      <ModelElementConnection Element="26" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="26">
+      <ModelElementName>Rate 1 (5%)</ModelElementName>
+      <ModelElementConnection Element1="56" Element2="23" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="29">
+      <ModelElementName>Rejects</ModelElementName>
+      <ModelElementSize h="50" w="100" x="150" y="750"/>
+      <ModelElementConnection Element="58" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDecide id="31">
+      <ModelElementName>Check</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="750"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="58" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="21" Rate="19" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="58">
+      <ModelElementName>Rate 1 (5%)</ModelElementName>
+      <ModelElementConnection Element1="31" Element2="29" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="60">
+      <ModelElementSize h="38" w="115" x="1000" y="110"/>
+      <ModelElementTextLine>Busy transporter</ModelElementTextLine>
+      <ModelElementTextLine>resources</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="61">
+      <ModelElementSize h="300" w="100" x="1000" y="150"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>20</ModelElementMaximumValue>
+      <ModelElementDiagramElement BarColor="0,180,0">Resource(3)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Resource(4)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementIcon id="62">
+      <ModelElementName>Product</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1200" y="750"/>
+      <ModelElementConnection Element="63" Type="In"/>
+      <ModelElementConnection Element="64" Type="Out"/>
+      <ModelElementIconName>cake</ModelElementIconName>
+    </ModelElementIcon>
+    <ModelElementDecide id="51">
+      <ModelElementName>Check</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1200" y="850"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="64" Type="In"/>
+      <ModelElementConnection Element="67" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="68" Rate="19" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="63">
+      <ModelElementConnection Element1="35" Element2="62" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="64">
+      <ModelElementConnection Element1="62" Element2="51" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="66">
+      <ModelElementName>Rejects</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1000" y="850"/>
+      <ModelElementConnection Element="67" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="67">
+      <ModelElementName>Rate 1 (5%)</ModelElementName>
+      <ModelElementConnection Element1="51" Element2="66" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementCounter id="65">
+      <ModelElementName>Products</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1400" y="850"/>
+      <ModelElementConnection Element="68" Type="In"/>
+      <ModelElementConnection Element="69" Type="Out"/>
+      <ModelElementCounterGroup>Counter group</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="68">
+      <ModelElementName>Rate 19 (95%)</ModelElementName>
+      <ModelElementConnection Element1="51" Element2="65" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="69">
+      <ModelElementConnection Element1="65" Element2="39" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementLine id="70">
+      <ModelElementSize h="-50" w="205" x="715" y="760"/>
+      <ModelElementLineWidth>21</ModelElementLineWidth>
+      <ModelElementColor>90,90,90</ModelElementColor>
+      <ModelElementLineType>7</ModelElementLineType>
+    </ModelElementLine>
+    <ModelElementLine id="71">
+      <ModelElementSize h="205" w="215" x="705" y="460"/>
+      <ModelElementLineWidth>21</ModelElementLineWidth>
+      <ModelElementColor>90,90,90</ModelElementColor>
+      <ModelElementLineType>7</ModelElementLineType>
+    </ModelElementLine>
+    <ModelElementText id="78">
+      <ModelElementSize h="23" w="449" x="50" y="50"/>
+      <ModelElementTextLine>Transport of components between multiple factories</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="19">
+      <ModelElementName>Rate 19 (95%)</ModelElementName>
+      <ModelElementConnection Element1="56" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementName>Rate 19 (95%)</ModelElementName>
+      <ModelElementConnection Element1="31" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="15" Element2="35" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementName>New client type: Component A</ModelElementName>
+      <ModelElementConnection Element1="16" Element2="56" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementName>New client type: Component B</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="31" Type="Edge"/>
+    </ModelElementEdge>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Operator A" Type="Number" Value="1"/>
+    <Resource Name="Operator B" Type="Number" Value="1"/>
+    <Resource Name="Transporter A" Type="Number" Value="20"/>
+    <Resource Name="Transporter B" Type="Number" Value="4"/>
+    <Resource Name="Operator C" Type="Number" Value="2"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="key" Name="Bauteil A"/>
+    <ClientData Icon="cd" Name="Bauteil B"/>
+    <ClientData Icon="key" Name="Component A"/>
+    <ClientData Icon="cd" Name="Component B"/>
+    <ClientData Icon="Ball_green" Name="Raw material A"/>
+    <ClientData Icon="Ball_red" Name="Raw material B"/>
+    <ClientData Icon="Ball_green" Name="Rohstoff A"/>
+    <ClientData Icon="Ball_red" Name="Rohstoff B"/>
+  </ClientTypeData>
+</Model>

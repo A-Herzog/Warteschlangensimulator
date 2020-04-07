@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.3.0</ModelVersion>
+  <ModelName>Central limit theorem</ModelName>
+  <ModelDescription>see:
+https://www.mathematik.tu-clausthal.de/interaktiv/stochastik/zentralergrenzwertsatz/</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">1000000</ModelClients>
+  <ModelWarmUpPhase>0.05</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDelay id="2">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="WaitingTime">Exponential distribution (20)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="4">
+      <ModelElementName>Counter&gt;=10</ModelElementName>
+      <ModelElementSize h="50" w="100" x="500" y="100"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Condition="ClientData(1)&gt;=10" Element="9" Type="Out"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVariable id="6">
+      <ModelElementName>Counter++</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">ClientData(1)+1</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementDispose id="8">
+      <ModelElementSize h="50" w="100" x="750" y="100"/>
+      <ModelElementConnection Element="9" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="9">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="17">
+      <ModelElementSize h="23" w="180" x="50" y="50"/>
+      <ModelElementTextLine>Central limit theorem</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementVertex id="11">
+      <ModelElementSize h="10" w="10" x="195" y="220"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="12">
+      <ModelElementSize h="10" w="10" x="545" y="220"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="7">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="12" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="10">
+      <ModelElementConnection Element1="6" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="11" Element2="2" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementAnimationBarDiagram id="15">
+      <ModelElementSize h="200" w="450" x="50" y="350"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementMaximumValue>0.2</ModelElementMaximumValue>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(0;20)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(20;40)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(40;60)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(60;80)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(80;100)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(100;120)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(120;140)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(140;160)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(160;180)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(180;200)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(200;220)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(220;240)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(240;260)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(260;280)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(280;300)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(300;320)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(320;340)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(340;360)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(360;380)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WaitingTime_histAll(380;400)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementText id="25">
+      <ModelElementSize h="38" w="379" x="50" y="260"/>
+      <ModelElementTextLine>All clients have to pass 10 times through the "Delay" station.</ModelElementTextLine>
+      <ModelElementTextLine>Every time they are delayed in average 10 seconds.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="37">
+      <ModelElementSize h="19" w="289" x="50" y="330"/>
+      <ModelElementTextLine>Time shares of the waiting times of the clients</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="63">
+      <ModelElementSize h="114" w="276" x="505" y="350"/>
+      <ModelElementTextLine>All delays are distributed exponentially.</ModelElementTextLine>
+      <ModelElementTextLine>This means the total delay per client is</ModelElementTextLine>
+      <ModelElementTextLine>distributed by the Erlang distribution.</ModelElementTextLine>
+      <ModelElementTextLine>As larger as the number of delays per client</ModelElementTextLine>
+      <ModelElementTextLine>is the more the distribution tends to the</ModelElementTextLine>
+      <ModelElementTextLine>Normal distribution.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

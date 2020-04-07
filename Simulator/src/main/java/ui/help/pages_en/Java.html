@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Java Scripting</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+
+<h1>Javas Scripting</h1>
+
+<p>
+Scripts can be used at different locations in the simulator.
+As scripting language <b>Javascript</b> and <b>Java</b> can be used in all cases.
+</p>
+
+<p>
+The <b>Java</b> code has to be embedded in a
+<pre>
+void function(SimulationInterface sim) {
+}
+</pre>
+method. In addition to the standard language commands you can access
+the simulation or statistics data depending on the context in which the script is executed
+via the <tt>SimulationInterface</tt> interface which is given as a parameter.
+The <tt>SimulationInterface</tt> has some methods which allow to get sub-interfaces
+which offer these data:
+</p>
+
+<h2>StatisticsInterface accessible via sim.getStatistics()</h2>
+
+<p>
+The <tt>sim.getStatistics()</tt> methods returns a <tt>StatisticsInterface</tt> interface
+which offers read access to the xml elements which are the base of the statistics data.
+The <tt>StatisticsInterface</tt> interface is only available after the
+simulation while filtering the results while and when running a parameter series scripts.
+The following methods are in this object available:
+</p>
+
+<ul>
+  <li><tt>void setFormat(final String format)</tt><br>
+  This command allows to setup the format that is used in <tt>Statistics.xml</tt> for outputing numbers
+  as strings. You can specify whether to use a floating point notation or percent notation or interpreting
+  the value as a time. As default floating point notation is used.
+  <ul>
+    <li><tt>"System"</tt>: Using floating point notation for numbers and percent values</li>
+    <li><tt>"Fraction"</tt>: Using floating point notation for numbers (<tt>0.375</tt> for example)</li>
+    <li><tt>"Percent":</tt> Using percent notation for numbers (<tt>35.7%</tt> for example)</li>
+    <li><tt>"Time"</tt>: Interpreting numbers as times (<tt>00:03:25.87</tt> for example)</li>
+    <li><tt>"Number"</tt>:Interpreting time values as normal numbers (format defined by <tt>Percent</tt> or <tt>Fraction</tt>)</li>
+  </ul>
+  </li>
+  <li><tt>void setSeparator(final String separator)</tt><br>
+  This command allows to select the separator to be used when printing out distributions of measured values.
+  <ul>
+    <li><tt>"Semicolon"</tt>: Semicolons as separators</li>
+    <li><tt>"Line"</tt>: Line break as separators</li>
+    <li><tt>"Tabs"</tt>: Tabulators as separators</li>
+  </ul>
+  </li>
+  <li><tt>String xml(final String path)</tt><br>
+  Loads the xml field which is specified by the parameter and returns the data in the format
+  defined by <tt>sim.getStatistics().setFormat</tt> and <tt>sim.getStatistics().setSeparator</tt> as a string.<br>
+  Example: <tt>String name=sim.getStatistics().xml("Model-&gt;ModelName")</tt>
+  </li>
+  <li><tt>Object xmlNumber(final String path)</tt><br>
+  Loads the xml field which is specified by the parameter and returns the value as a <tt>Double</tt> number.
+  If the field cannot be interpreted as a number, a string containing an error message will be returned.  
+  </li>
+  <li><tt>Object xmlArray(final String path)</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the values as an array of numbers (<tt>double[]</tt>).
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example: <tt>sim.getStatistics().xmlArray("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Object xmlSum(final String path)</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the sum of all values as a <tt>Double</tt> number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example: <tt>sim.getStatistics().xmlSum("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Object xmlMean(final String path)</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the mean of values as a <tt>Double</tt> number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example:
+  <tt>sim.getStatistics().xmlMean("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Object xmlSD(final String path)</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the standard deviation of values as a <tt>Double</tt> number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example:
+  <tt>sim.getStatistics().xmlSD("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>Object xmlCV(final String path)</tt><br>
+  Loads the xml field which is specified by the parameter, interprets it as a distribution and
+  returns the coefficient of variation of values as a <tt>Double</tt> number.
+  If the field cannot be interpreted as a distribution, a string containing an error message will be returned.<br>
+  Example:
+  <tt>sim.getStatistics().xmlCV("StatisticsProcessTimesClients-&gt;ClientType[Type=\"ClientsA\"]-&gt;[Distribution]")</tt>
+  </li>
+  <li><tt>boolean save(final String fileName)</tt><br>
+  Saves the entry statistics data in the given file. This function is only available in the
+  <a href="JSRunner.html">Run script</a> panel.
+  </li>
+  <li><tt>boolean saveNext(final String folderName)</tt><br>
+  Saves the entry statistics data under the next available file name in the given folder.
+  This function is only available in the <a href="JSRunner.html">Run script</a> panel.
+  </li>
+  <li><tt>String filter(final String fileName)</tt><br>
+  Applies the selected script on the statistics data and returns the results.
+  This function is only available in the <a href="JSRunner.html">Run script</a> panel.
+  </li>
+  <li><tt>void cancel()</tt><br>
+  Sets the cancel status. (When output is canceled to further file output will be performed.)
+  </li>
+  <li><tt>boolean translate(final String language)</tt><br>
+  Translates the statistics data to English ("en") or German ("de") so the preferred xml tag names can be
+  used independent of the language setting under which the statistics file was generated.
+  </li>
+</ul>
+
+
+
+<h2>RuntimeInterface accessible via sim.getRuntime()</h2>
+
+<p>
+The <tt>RuntimeInterface</tt> interface allows to access some general program functions.
+The <tt>RuntimeInterface</tt> is always available. The following methods are available in this interface:
+</p>
+
+<ul>
+  <li><tt>Object calc(final String expression)</tt><br>
+  Calculates the expression passed as a string by means of the term evaluation function,
+  which is also used in various other places in the program, and returns the result as a <tt>Double</tt> number.
+  If the expression can not be calculated, an error message is returned as a string.
+  The term evaluation function allows access to all known probability distributions,
+  the Erlang C calculator, etc. (see also <a href="Expressions.html">calculation commands</a> help page).    
+  </li>
+  <li><tt>long getTime()</tt><br>
+  Returns the current system time as a milliseconds value. This functions can be used to measure
+  the runtime of a script.</li>
+  <li><tt>double getInput(final String url, final double errorValue)</tt><br>
+  Loads a numerical value via the specified address and returns it.
+  If no value could be loaded, the error value specified in the second parameter is returned.
+  </li>
+</ul>
+
+
+
+<h2>SystemInterface accessible via sim.getSystem()</h2>
+
+<p>
+The <tt>SystemInterface</tt> interface allows to access the model data while simulation is running.
+It is not available for filtering the results after simulation has terminated.
+The following methods are available in this interface:
+</p>
+
+<h3>Base functions</h3>
+
+<ul>
+  <li><tt>double getTime()</tt><br>
+  Gets the current time in the simulation as a seconds numerical value.
+  </li>
+  
+  <li><tt>Object calc(final String expression)</tt><br>
+  Calculates the expression passed as a string by means of the term evaluation function,
+  which is also used in various other places in the program, and returns the result as a <tt>Double</tt> number.
+  If the expression can not be calculated, an error message is returned as a string.
+  The term evaluation function allows access to all known probability distributions,
+  the Erlang C calculator, etc. (see also <a href="Expressions.html">calculation commands</a> help page).    
+  </li>
+  
+  <li><tt>boolean isWarmUp()</tt><br>
+  Gets true of false depending if the simulation is in the warm-up phase.
+  </li>
+</ul>
+
+<h3>Accessing parameters of the simulation model</h3>
+
+<ul>
+  <li><tt>void set(final String varName, final Object varValue)</tt><br>
+  Sets the simulation variable which is specified as the first parameter to the value specified as the second parameter.  
+  <tt>varValue</tt> can be a number or a string. The case of a number the value will be assigned directly.
+  Strings will be interpreted like <tt>calc(final String expression)</tt> does and the result will be assigned to the variable. <tt>varName</tt>
+  can either be the name of an already defined simulation variable or of a client data field in the form
+  <tt>ClientData(index)</tt> with <tt>index&ge;0</tt>. 
+  </li>
+  
+  <li><tt>void setAnalogValue(final Object elementID, final Object value)</tt><br>
+  Sets the value at the "Analog value" or "Tank" element with the specified id.
+  </li>
+  
+  <li><tt>void setAnalogRate(final Object elementID, final Object value)</tt><br>
+  Sets the change rate (per second) at the "Analog value" element with the specified id.
+  </li>
+  
+  <li><tt>void setAnalogValveMaxFlow(final Object elementID, final Object valveNr, final Object value)</tt><br>
+  Sets the maximum flow (per second) at the specified valve (1 based) of the "Tank" element
+  with the specified id. The maximum flow has to be a non-negative number.  
+  </li>
+  
+  <li><tt>int getWIP(final int id)</tt><br>
+  Gets the current number of clients at the station with the specified id.
+  </li>
+  
+  <li><tt>int getNQ(final int id)</tt><br>
+  Gets the current number of clients in the queue at the station with the specified id.
+  </li>
+  
+  <li><tt>int getWIP()</tt><br>
+  Gets the current number of clients in the system.
+  </li>
+  
+  <li><tt>int getNQ()</tt><br>
+  Gets the current number of waiting clients in the system.
+  </li>
+</ul>
+
+<h3>Number of operators in a resource</h3>
+  
+<ul>
+  <li><tt>int getAllResourceCount()</tt><br>
+  Returns the current number of operators in all resources together.
+  </li>
+  
+  <li><tt>int getResourceCount(final int resourceId)</tt><br>
+  Returns the current number of operators in the resource with the specified id.  
+  </li>
+  
+  <li><tt>boolean setResourceCount(final int resourceId, final int count)</tt><br>
+  Sets the number of operators in the resource with the specified id.
+  To be able to set the number of operators in a resource at runtime,
+  the initial number of operators in the resource has to be a fixed number
+  (not infinite many and not by a time table). Additionally no down times
+  are allowed for this resource.
+  The function returns <tt>true</tt> if the number of operators has successfully 
+  been changed. If the new number of operators is less than the previous number,
+  the new number may is not instantly visible in the simulation system because
+  removed but working operators will finish their current tasks before they are
+  actually removed.  
+  </li>
+  
+  <li><tt>int getAllResourceDown()</tt><br>
+  Returns the current number of operators in down time in all resources together.
+  </li>
+  
+  <li><tt>int getResourceDown(final int resourceId)</tt><br>
+  Returns the current number of operators in down time in the resource with the specified id.
+  </li>
+</ul>
+
+<ul>
+  <li><tt>Simulation.signal(final String signalName)</tt><br>
+  Fires the signal with the given name.
+  </li>
+</ul>
+
+
+
+<h2>ClientInterface accessible via sim.getClient()</h2>
+
+<p>
+The <tt>ClientInterface</tt> interface allows to access the data of the current
+client while the simulation is running. It is only available if the execution
+was triggered by a client. The following methods are available in this interface:
+</p>
+
+<ul>
+  <li><tt>Object calc(final String expression)</tt><br>
+  Calculates the expression passed as a string by means of the term evaluation function,
+  which is also used in various other places in the program, and returns the result as a <tt>Double</tt> number.
+  If the expression can not be calculated, an error message is returned as a string.
+  The term evaluation function allows access to all known probability distributions,
+  the Erlang C calculator, etc. (see also <a href="Expressions.html">calculation commands</a> help page).    
+  </li>
+
+  <li><tt>String getTypeName()</tt><br>
+  Gets the name of the type of the client who has triggered the processing of the script.
+  </li>
+  
+  <li><tt>boolean isWarmUp()</tt><br>
+  Gets true of false depending if the current client was generated during the warm-up phase and
+  therefore will not be recorded in the statistics.
+  </li>
+  
+  <li><tt>boolean isInStatistics()</tt><br>
+  Gets true of false depending if the current client is to be recorded in the statistics.
+  This value is independent of the warm-up phase. A client will only be recorded if he was
+  generated after the warm-up phase and this value is true.
+  </li>
+  
+  <li><tt>void setInStatistics(final boolean inStatistics)</tt><br>
+  Sets if a client is to be recorded in the statistics.
+  This value is independent of the warm-up phase. A client will only be recorded if he was
+  generated after the warm-up phase and this value is not set to false.
+  </li>
+  
+  <li><tt>long getNumber()</tt><br>
+  Get the 1 based consecutive number of the current client.
+  When using multiple simulation threads this number is thread local.
+  </li>
+  
+  <li><tt>double getWaitingSeconds()</tt><br>
+  Gets the current waiting time of the client who has triggered the processing of the script as a seconds numerical value.
+  </li>
+  
+  <li><tt>String getWaitingTime()</tt><br>
+  Gets the current waiting time of the client who has triggered the processing of the script as a formated time value as a string.
+  </li>
+  
+  <li><tt>void setWaitingSeconds(final double seconds)</tt><br>
+  Sets the current waiting time of the client who has triggered the processing of the script.
+  </li>
+  
+  <li><tt>double getTransferSeconds()</tt><br>
+  Gets the current transfer time of the client who has triggered the processing of the script as a seconds numerical value.
+  </li>
+  
+  <li><tt>String getTransferTime()</tt><br>
+  Gets the current transfer time of the client who has triggered the processing of the script as a formated time value as a string.
+  </li>
+  
+  <li><tt>void setTransferSeconds(final double seconds)</tt><br>
+  Sets the current transfer time of the client who has triggered the processing of the script.
+  </li>
+  
+  <li><tt>double getProcessSeconds()</tt><br>
+  Gets the current processing time of the client who has triggered the processing of the script as a seconds numerical value.
+  </li>
+  
+  <li><tt>String getProcessTime()</tt><br>
+  Gets the current processing time of the client who has triggered the processing of the script as a formated time value as a string.
+  </li>
+  
+  <li><tt>void setProcessSeconds(final double seconds)</tt><br>
+  Sets the current processing time of the client who has triggered the processing of the script.
+  </li>
+  
+  <li><tt>double getResidenceSeconds()</tt><br>
+  Gets the current residence time of the client who has triggered the processing of the script as a seconds numerical value.
+  </li>
+  
+  <li><tt>String getResidenceTime()</tt><br>
+  Gets the current residence time of the client who has triggered the processing of the script as a formated time value as a string.
+  </li>
+  
+  <li><tt>void setResidenceSeconds(final double seconds)</tt><br>
+  Sets the current residence time of the client who has triggered the processing of the script.
+  </li>
+  
+  <li><tt>double getValue(final int index)</tt><br>
+  Gets for the current client the numerical value which is stored by the index <tt>index</tt>.
+  </li>
+  
+  <li><tt>void setValue(final int index, final int value)</tt><br>
+  <tt>void setValue(final int index, final double value)</tt><br>
+  <tt>void setValue(final int index, final String value)</tt><br>
+  Sets for the current client the <tt>value</tt> for the index <tt>index</tt>.
+  If <tt>value</tt> is a string, the string is interpreted by
+  <tt>calc(final String expression)</tt> before assigning the result.
+  </li>
+  
+  <li><tt>String getText(final String key)</tt><br>
+  Gets for the current client the string which is stored by the key <tt>key</tt>.
+  </li>
+  
+  <li><tt>void setText(final String key, final String value)</tt><br>
+  Sets for the current client string <tt>value</tt> for the key <tt>key</tt>.
+  </li>
+</ul>
+
+
+
+<h2>InputValueInterface accessible via sim.getInputValue()</h2>
+
+<p>
+The <tt>InputValueInterface</tt> interface allows to access the next input value
+if the processing was triggered by a <a href="ModelElementInputJS.html">Input (Script)</a> element.
+The following methods are available in this interface:
+</p>
+
+<ul>
+  <li><tt>double get()</tt><br>
+  This function returns the current input value.
+  </li>
+</ul>
+
+
+
+<h2>ClientsInterface accessible via sim.getClients()</h2>
+
+<p>
+The <tt>ClientsInterface</tt> object is only available within a hold by script condition element
+and allows to access the waiting clients and to release them.
+</p>
+
+<ul>
+  <li><tt>int count()</tt><br>
+  Returns the current number of waiting clients. For the other
+  methods a single client can be accessed via the index parameter
+  (valued from 0 to <tt>count()</tt>-1).
+  </li>
+  <li><tt>String clientTypeName(final int index)</tt><br>
+  Gets the name of the type of the client.
+  </li>
+  <li><tt>double clientWaitingSeconds(final int index)</tt><br>
+  Gets the current waiting time of the client as a seconds numerical value.
+  </li>
+  <li><tt>String clientWaitingTime(final int index)</tt><br>
+  Gets the current waiting time of the client as a formated time value as a string.
+  </li>
+  <li><tt>double clientTransferSeconds(final int index)</tt><br>
+  Gets the current transfer time of the client as a seconds numerical value.
+  </li>
+  <li><tt>String clientTransferTime(final int index)</tt><br>
+  Gets the current transfer time of the client as a formated time value as a string.
+  </li>
+  <li><tt>double clientProcessSeconds(final int index)</tt><br>
+  Gets the current processing time of the client as a seconds numerical value.
+  </li>
+  <li><tt>String clientProcessTime(final int index)</tt><br>
+  Gets the current processing time of the client as a formated time value as a string.
+  </li>
+  <li><tt>double clientResidenceSeconds(final int index)</tt><br>
+  Gets the current residence time of the client as a seconds numerical value.
+  </li>
+  <li><tt>String clientResidenceTime(final int index)</tt><br>
+  Gets the current residence time of the client as a formated time value as a string.
+  </li>
+  <li><tt>double clientData(final int index, final int data)</tt><br>
+  Returns the data element which index is specified via the second parameter of the selected client.
+  </li>
+  <li><tt>String clientTextData(final int index, final String key)</tt><br>
+  Returns the data element which key is specified via the second parameter of the selected client.
+  </li>  
+  <li><tt>void release(final int index)</tt><br>
+  Causes the forwarding of the specified client.
+  </li>
+</ul>
+
+
+
+<h2>OutputInterface accessible via sim.getOutput()</h2>
+
+<p>
+The <tt>OutputInterface</tt> interface provides functions for output of filtered results:
+</p>
+
+<ul>
+  <li><tt>void setFormat(final String format)</tt><br>
+  This command allows to setup the format that is used in <tt>print</tt> and <tt>println</tt>
+  for outputing numbers as strings. You can specify whether to use a floating point notation or percent notation or interpreting
+  the value as a time. As default floating point notation is used.
+  <ul>    
+    <li><tt>"Fraction"</tt>: Using floating point notation for numbers (<tt>0.375</tt> for example)</li>
+    <li><tt>"Percent":</tt> Using percent notation for numbers (<tt>35.7%</tt> for example)</li>
+    <li><tt>"Number"</tt>: Interpreting numbers as normal number values (decimal or percent).</li>
+    <li><tt>"Time"</tt>: Interpreting numbers as time values.</li>
+  </ul>
+  </li>  
+  <li><tt>void setSeparator(final String separator)</tt><br>
+  This command allows to select the separator to be used when printing out arrays.
+  <ul>
+    <li><tt>"Semicolon"</tt>: Semicolons as separators</tt>
+    <li><tt>"Line"</tt>: Line break as separators</tt>
+    <li><tt>"Tabs"</tt>: Tabulators as separators</tt>
+  </ul>
+  </li>  
+  <li><tt>void print(final Object obj)</tt><br>
+  Outputs the passed expression.
+  Strings will be written directly. Numbers are formated according to the format
+  defined via <tt>setFormat</tt>.
+  </li>
+  <li><tt>void println(final Object obj)</tt><br>
+  Outputs the passed expression and adds a line break after the expression.
+  Strings will be written directly. Numbers are formated according to the format
+  defined via <tt>setFormat</tt>.
+  </li>
+  <li><tt>void newLine()</tt><br>
+  Outputs a line break. This functions is equivalent to calling
+  <tt>println("")</tt>.  
+  </li>
+  <li><tt>void tab()</tt><br>
+  Outputs a tabulator.
+  </li>
+  <li><tt>void cancel()</tt><br>
+  Sets the cancel status. (When output is canceled to further file output will be performed.)
+  </li>
+</ul>
+
+
+
+<h2>FileOutputInterface accessible via sim.getFileOutput()</h2>
+
+<p>
+The <tt>FileOutputInterface</tt> interface offers all function the <tt>Output</tt> has
+but is only available when running a parameter series script. In opposite
+to the <tt>Output</tt> interface the output of the <tt>FileOutput</tt> interface
+is not written to the default output but is appended to a file which has
+to be specified by <tt>sim.getFileOutput().setFile("Filename")</tt> before.
+</p>
+
+
+
+<h2>ModelInterface accessible via sim.getModel()</h2>
+
+<p>
+The <tt>ModelInterface</tt> interface is only available during parameter series
+script execution and offers functions for accessing the model
+properties and for starting simulations.
+</p>
+
+<ul>
+  <li><tt>void reset()</tt><br>
+  Resets the model to the initial state.
+  </li>
+  <li><tt>void run()</tt><br>
+  Simulates the current model.
+  The results can be accessed by the <tt>StatisticsInterface</tt> interface after the simulation.
+  </li>
+  <li><tt>boolean setDistributionParameter(final String xmlName, final int number, final double value)</tt><br>
+  Sets the distribution parameter <tt>number</tt> (from 1 to 4) of the distribution referred
+  to by <tt>xmlName</tt>.
+  </li>
+  <li><tt>boolean setMean(final String xmlName, final double value)</tt><br>
+  Sets the mean of the distribution referred to by <tt>xmlName</tt> to the specified value.
+  </li>
+  <li><tt>boolean setSD(final String xmlName, final double value)</tt><br>
+  Sets the standard deviation of the distribution referred to by <tt>xmlName</tt> to the specified value.  
+  </li>
+  <li><tt>boolean setString(final String xmlName, final String value)</tt><br>
+  Writes the string <tt>value</tt> to the location referred to by <tt>xmlName</tt>.
+  </li>
+  <li><tt>boolean setValue(final String xmlName, final double value)</tt><br>
+  Writes the number <tt>value</tt> to the location referred to by <tt>xmlName</tt>.  
+  </li>
+  <li><tt>String xml(final String xmlName)</tt><br>
+  Loads the xml field which is specified by the parameter and returns the data 
+  as String. This function is the equivalent of <tt>sim.getStatistics().xml(xmlName)</tt>
+  for models.
+  </li>
+  <li><tt>getResourceCount(final String resourceName)</tt><br>
+  Gets the number of operations in the resource with name <tt>resourceName</tt>.
+  If the resource does not exist or is not defined by a fixed number of operators
+  the function will return -1.
+  </li>
+  <li><tt>boolean setResourceCount(final String resourceName, final int count)</tt><br>
+  Sets the number of operations in the resource with name <tt>resourceName</tt>.
+  </li>
+  <li><tt>String getGlobalVariableInitialValue(final String variableName)</tt><br>
+  Gets the expression by which the initial value of the global variable with
+  name <tt>variableName</tt> is calculated. If the is no global variable with
+  this name the function will return an empty string.
+  </li>
+  <li><tt>boolean setGlobalVariableInitialValue(final String variableName, final String expression)</tt><br>
+  Sets the expression by which the initial value of the global variable with
+  name <tt>variableName</tt> is calculated.
+  </li>
+  <li><tt>void cancel()</tt><br>
+  Sets the cancel status. (When processing is canceled to further simulations will be performed.)
+  </li>
+</ul>
+
+
+
+<h2>XML selection commands</h2>
+
+<p>
+By the parameters of the functions of the <tt>StatisticsInterface</tt> interface the content of the
+value or of an attribute of an XML element can be read.
+The selection of an XML element is done multistaged step by step divided by
+"-&gt;" characters. Between the "-&gt;" characters the names of the individual XML nodes are
+noted. In addition in square brackets names and values of attributes can be specified to filter by whom.
+</p>
+<p>
+Examples:
+</p>
+<ul>
+  <li>
+    <tt>sim.getStatistics().xml("Model-&gt;ModelName")</tt><br>
+    Shows the content of the element <tt>ModelName</tt>, which is a child element of <tt>Model</tt>.
+  </li>
+  <li>
+    <tt>sim.getStatistics().xml("StatisticsInterArrivalTimesClients-&gt;Station[Type=\"Source id=1\"]-&gt;[Mean]")</tt><br>
+	Selects the <tt>Station</tt> sub element of the <tt>StatisticsInterArrivalTimesClients</tt> element, for
+	which the <tt>Type</tt> attribute is set to <tt>Source id=1</tt>. And returns the value of the
+	<tt>Mean</tt> attribute.
+  </li>
+</ul>
+
+</body>
+</html>
+  

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.3.0</ModelVersion>
+  <ModelName>Law of large numbers</ModelName>
+  <ModelDescription>After a long period of time, the shares of all 4 counters shoud converge
+to 25% each.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="49" y="250"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (10)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="751" y="250"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="17" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementText id="6">
+      <ModelElementSize h="23" w="186" x="50" y="50"/>
+      <ModelElementTextLine>Law of large numbers</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDecide id="1">
+      <ModelElementSize h="50" w="100" x="300" y="250"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="10" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="11" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="12" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="13" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementCounter id="4">
+      <ModelElementName>Way 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementCounterGroup>Countergroup</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="5">
+      <ModelElementName>Way 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="200"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+      <ModelElementCounterGroup>Countergroup</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="7">
+      <ModelElementName>Way 3</ModelElementName>
+      <ModelElementSize h="50" w="100" x="551" y="300"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementCounterGroup>Countergroup</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="8">
+      <ModelElementName>Way 4</ModelElementName>
+      <ModelElementSize h="50" w="100" x="551" y="400"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+      <ModelElementCounterGroup>Countergroup</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="9">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="10">
+      <ModelElementName>Rate 1 (25%)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="4" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementName>Rate 1 (25%)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="5" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementName>Rate 1 (25%)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementName>Rate 1 (25%)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="8" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="4" Element2="3" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementConnection Element1="5" Element2="3" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="7" Element2="3" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementConnection Element1="8" Element2="3" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementAnimationLineDiagram id="18">
+      <ModelElementSize h="200" w="400" x="50" y="400"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="1" Minimum="0">Part(4)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>10800</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="19">
+      <ModelElementSize h="19" w="200" x="50" y="380"/>
+      <ModelElementTextLine>Share of clients choosing way 1</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="21">
+      <ModelElementSize h="38" w="148" x="500" y="500"/>
+      <ModelElementTextLine>After a long term, the</ModelElementTextLine>
+      <ModelElementTextLine>value stabilizes to 25%.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="42">
+      <ModelElementName>Way 1</ModelElementName>
+      <ModelElementSize h="30" w="87" x="750" y="605"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(4)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationBarDiagram id="44">
+      <ModelElementSize h="200" w="200" x="750" y="400"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementDiagramElement BarColor="0,0,255">Part(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,195,0">Part(5)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Part(7)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,165,0">Part(8)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationText id="45">
+      <ModelElementName>Way 2</ModelElementName>
+      <ModelElementSize h="30" w="87" x="805" y="605"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,195,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(5)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="46">
+      <ModelElementName>Way 3</ModelElementName>
+      <ModelElementSize h="30" w="87" x="860" y="605"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(7)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="47">
+      <ModelElementName>Way 4</ModelElementName>
+      <ModelElementSize h="30" w="87" x="915" y="605"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(8)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

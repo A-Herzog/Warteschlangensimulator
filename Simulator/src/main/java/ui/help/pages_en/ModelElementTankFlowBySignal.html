@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Flow (Signal)</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Flow (Signal)</h1>
+
+<p>
+A flow is a connection between two <a href="ModelElementTank.html">Tanks</a>
+(or to be more precise between two valves at two different tanks).
+Or between the flow source and a tank or between a tank and a flow destination.
+</p>
+
+<p>
+A flow defines how many unit are to be transported from the source to the target
+or how long the flow is to be active.
+</p>
+
+<p>
+The flow will be activated by a signal.
+</p> 
+
+<h2>Settings</h2>
+
+<p>
+The name of the flow element has no further meaning for the simulation.
+For each flow, a starting signal has to be specified.
+Additionally a source and a destination have to be specified for each flow
+and it is also necessary to define how long the flow should be active.
+The duration of activity can be defined as a time span, a flow quantity or by a stop signal.
+</p>
+
+</body>
+</html>

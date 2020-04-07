@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Inter-arrival times</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+The value specified by <b>Arrivals according to model</b> corresponds to
+the number of clients to be simulated as specified in the model properties.
+However, the value <b>Arrivals according to simulation</b> can deviate slightly.
+The background is the way in which the simulation is ended: Unless otherwise
+configured, all arrivals are counted. If the target number is reached, the
+system continues to generate arrivals, but marks these clients as "last client".
+As soon as one of these "last clients" has reached an exit, the simulation is
+terminated. By then, in most cases some more clients beyond the defined number
+will have been generated.
+</p>
+
+<h3>Inter-arrival times</h3>
+
+<p>
+An inter-arrival time is the time span <b>between the arrival</b> of
+two immediately consecutive clients at the system.
+<a href="help:statistik_mittelwert">Average value</a>,
+<a href="help:statistik_standardabweichung">standard deviation</a>,
+<a href="help:statistik_standardabweichung">variances</a>,
+<a href="help:statistik_CV">coefficients of variation</a> and
+<a href="help:statistik_quantil">quantiles</a> are displayed.
+</p>
+
+<p>
+The average inter-arrival time is designated by <b>E[I]</b>
+(and is measured in seconds or minutes, for example). The
+reciprocal of E[I] is the <b>arrival rate</b>. It is
+designated by <b>lambda</b> (&lambda;) (measured in e.g.
+1/second or 1/minute). Small values of E[I] or large values
+of lambda mean that many clients arrive within a short time.
+</p> 
+  
+</body></html>

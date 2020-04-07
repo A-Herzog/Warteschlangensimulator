@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Parkplatz</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Parkplatz</h1>
+
+<p>
+Gibt es keine Station, die einen Transporter nach dem er sein Ziel erreicht hat
+anfordert, so verbleibt der Transporter zunächst an der Zielstation. Wird er später
+von einer Quellstation angefordert, so muss er ggf. einen weiten Weg zu ihr zurücklegen.
+Ein Parkplatz-Element kann Transporter genauso wie eine Quellstation anfordern.
+Allerdings erfolgt auf einem Parkplatz keine Beladung des Transporters, sondern er
+bleibt hier einfach stehen. Der Vorteil besteht darin, dass ein Parkplatz deutlich
+näher an einer Quellstation angeordent sein kann, so dass keine lange Anfahrtzeit
+notwendig ist, wenn der Transporter benötigt wird.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Parkplatzelements besitzt keine weitere Bedeutung.
+Über das <b>Transportertyp</b>-Auswahlfeld kann festgelegt werden, welchen
+Transportertyp dieser Parkplatz jeweils anziehen soll. Die <b>Parkplatzkapazität</b>
+gibt an, wie viele Transporter maximal auf dem Parkplatz stehen können.
+Die <b>Priorität zum Anfordern freier Transporter</b> sollte stets niedriger
+gewählt sein, als die Priorität zum Anfordern freier Transporter von Quellstationen.
+Andernfalls steuert einer freier Transporter eher einen Parkplatz an als eine
+Station an der er benötigt wird.
+</p>
+
+</body>
+</html>

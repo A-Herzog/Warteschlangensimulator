@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.0.0</ModellVersion>
+  <ModellName>Javascript-gesteuerte Freigabe von Kunden</ModellName>
+  <ModellBeschreibung>Es wird immer dann ein Kunden vom Typ A freigegeben,
+wenn sich an Station A höchstens noch ein Kunde befindet.
+(Für Kunden vom Typ B und Station B analog.)</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (55)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (55)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>Station A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="100"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>Station B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="300"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVerzweigen id="5">
+      <ModellElementGroesse h="50" w="100" x="400" y="200"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Kundentyp="Kunden A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEnde id="6">
+      <ModellElementGroesse h="50" w="100" x="750" y="200"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementBedingungScript id="7">
+      <ModellElementGroesse h="50" w="100" x="250" y="200"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementBedingungScriptText Sprache="Javascript">var WIP_A=Simulation.getWIP(3);
+var WIP_B=Simulation.getWIP(4);
+
+var count=Clients.count();
+for (var i=0;i&lt;count;i++) {
+  if (WIP_A&gt;=2 &amp;&amp; WIP_B&gt;=2) break;
+  var type=Clients.clientTypeName(i);  
+  if (WIP_A&lt;2 &amp;&amp; type=="Kunden A") {Clients.release(i); WIP_A++; continue;}
+  if (WIP_B&lt;2 &amp;&amp; type=="Kunden B") {Clients.release(i); WIP_B++; continue;}
+}</ModellElementBedingungScriptText>
+    </ModellElementBedingungScript>
+    <ModellElementKante id="8">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="7" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="12">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="3" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="21">
+      <ModellElementGroesse h="24" w="376" x="50" y="50"/>
+      <ModellElementTextzeile>Javascript-gesteuerte Freigabe von Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="43">
+      <ModellElementGroesse h="113" w="191" x="250" y="300"/>
+      <ModellElementTextzeile>Es wird immer dann ein Kunden</ModellElementTextzeile>
+      <ModellElementTextzeile>vom Typ A freigegeben, wenn</ModellElementTextzeile>
+      <ModellElementTextzeile>sich an Station A höchstens</ModellElementTextzeile>
+      <ModellElementTextzeile>noch ein Kunde befindet.</ModellElementTextzeile>
+      <ModellElementTextzeile>(Für Kunden vom Typ B und</ModellElementTextzeile>
+      <ModellElementTextzeile>Station B analog.)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Farbe="255,0,0" Icon="user_red" Name="Kunden A"/>
+    <KundenDaten Farbe="0,180,0" Icon="user_green" Name="Kunden B"/>
+  </KundentypenDaten>
+</Modell>

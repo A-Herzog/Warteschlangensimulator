@@ -1,0 +1,177 @@
+\section{\texttt{Benchmark}}
+
+\textbf{Performs a speed test of the computer.}
+
+The command expected zero or one additional parameters.\\
+If a parameter is passed, this is either the maximum number of threads\\
+to be used, or the file name of the model to be used.
+
+\section{\texttt{BuildCLIReference}}
+
+\textbf{Generates LaTeX code from the command line help.}
+
+The command expects two additional parameters:\\
+1. Language "`en"' or "`de"'\\
+2. Output folder for the LaTeX
+
+\section{\texttt{BuildElementGroupImages}}
+
+\textbf{Generates per element group an image in the desktop folder.}
+
+The command expects one additional parameter:\\
+1. Language "`en"' or "`de"'
+
+\section{\texttt{BuildLaTeXReference}}
+
+\textbf{Generates LaTeX code from the html-based station help.}
+
+The command expects two additional parameters:\\
+1. Language "`en"' or "`de"'\\
+2. Output folder for the LaTeX and image files
+
+\section{\texttt{Filter}}
+
+\textbf{Filter statistic file.}
+
+The command expects exactly three additional parameters:\\
+1. Name of the input statistic file\\
+2. Name of the input filter configuration file\\
+3. Name of the output file which will contain the filtered results\\
+If the output file already exists, the new results will be added.\\
+Otherwise the file will be created.
+
+\section{\texttt{GC}}
+
+\textbf{Lists the currently active garbage collectors.}
+
+This command expects no additional parameters.
+
+\section{\texttt{Help}}
+
+\textbf{Shows this help.}
+
+This command expects one or no additional parameters.\\
+If a command is enters as additional parameter, the help information for this command is displayed.\\
+Otherwise a list with all available commands is displayed.
+
+\section{\texttt{Optimizer}}
+
+\textbf{Starts a model optimization.}
+
+This command expects exactly two additional parameters:\\
+1. Input model file\\
+2. Optimizer configuration file\\
+Both input files have to exist.
+
+\section{\texttt{ParameterSeriesVarianceAnalysis}}
+
+\textbf{Creates a parameter series configuration for a variance analysis}
+
+This command expects three or four additional parameters:\\
+1. Input model file\\
+2. Output parameter series file\\
+3. Number of repetitions or the model\\
+4. New value for the number of arrivals (optional)\\
+The input file has to exist.\\
+The output has to be non existent.
+
+\section{\texttt{Parameterseries}}
+
+\textbf{Run a parameter series simulation.}
+
+This command expects exactly two additional parameters:\\
+1. Input parameter series file\\
+2. Output parameter series file\\
+The input file has to exist.\\
+The output has to be non existent.
+
+\section{\texttt{ParameterseriesTable}}
+
+\textbf{Exports the results table of a parameter series.}
+
+This command expects exactly two additional parameters:\\
+1. Input parameter series file\\
+2. Output table file\\
+The input file has to exist.\\
+The output has to be non existent.
+
+\section{\texttt{Report}}
+
+\textbf{Exports the whole report or a part of it.}
+
+This command expects exactly three additionall parameters:\\
+1. "`Inline"`, "`SingleFiles"`, "`List"`, "`Text"`, "`PDF"' or a list entry, depending if\\
+a) a html report with inline images,\\
+b) a html teport with separate images,\\
+c) an overview of all available individual documents,\\
+d) a docx report\\
+e) a pdf report or\\
+f) an individual document is to be reported.\\
+2. File name of the input file\\
+3. File name of the output file
+
+\section{\texttt{Reset}}
+
+\textbf{Resets the program configuration.}
+
+Resets the configuration of the simulator.\\
+Only the entered license keys will be kept.
+
+\section{\texttt{Server}}
+
+\textbf{Starts the program as simulation server.}
+
+This command expects 0 to 2 additional parameters.\\
+If these parameters exist they have the following meaning:\\
+1. Port to be used\\
+2. Password for encrypted data transfer\\
+If no parameters are specified, the simulator will ask for the port via the console.
+
+\section{\texttt{ServerLimited}}
+
+\textbf{Starts the program as simulation server.}
+
+This command expects 0 to 2 additional parameters.\\
+If these parameters exist they have the following meaning:\\
+1. Port to be used\\
+2. Password for encrypted data transfer\\
+If no parameters are specified, the simulator will ask for the port via the console.\\
+The server will limit the number of simultaneous requests depending on the\\
+number of available CPU cores.
+
+\section{\texttt{ServerWeb}}
+
+\textbf{Starts the program as web-based simulation server.}
+
+This command expects one additional parameter:\\
+the port to be used.
+
+\section{\texttt{SetMaxThreads}}
+
+\textbf{Set the maximum number of threads}
+
+The function expects the maximum number of threads to be used as parameter.\\
+Values less or equal 0 will be interpreted as unlimited.
+
+\section{\texttt{SetNUMAMode}}
+
+\textbf{Set NUMA mode}
+
+The function expects a "`1"' or a "`0"' as parameter.
+
+\section{\texttt{Simulation}}
+
+\textbf{Start a simulation run.}
+
+This command expects exactly two additional parameters:\\
+1. Input model file\\
+2. Output statistic file\\
+The input file has to be existent, the output has to be non existent.
+
+\section{\texttt{Version}}
+
+\textbf{Displays the current version number.}
+
+Outputs only the version number of the Warteschlangensimulators.\\
+No further processing will be done.
+

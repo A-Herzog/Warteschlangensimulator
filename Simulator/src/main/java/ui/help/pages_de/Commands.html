@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Kommandozeilen-Befehle</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Kommandozeilen-Befehle</h1>
+
+<p>
+Der Simulator kann auf drei Arten mit zusätzlichen Parametern aufgerufen werden:
+</p>
+
+<ul>
+  <li><tt>&lt;SimulatorProgrammdatei&gt; &lt;Simulationsmodell&gt;</tt></li>
+  <li><tt>&lt;SimulatorProgrammdatei&gt; &lt;Statistikdaten&gt;</tt></li>
+  <li><tt>&lt;SimulatorProgrammdatei&gt; &lt;Befehl&gt; &lt;Parameter&gt;</tt></li>
+</ul>
+
+<p>
+In den ersten zwei Fällen wird das angegebene Simulationsmodell bzw. die angegebene Statistikdatei
+in den Simulator geladen.
+</p>
+
+<h2>Ausführen von Befehlen über die Kommandozeile</h2>
+
+<p>
+<tt>&lt;Befehl&gt;</tt> kann einer der folgenden Begriffe sein.
+Die im Bereich <tt>&lt;Parameter&gt;</tt> anzugebenen zusätzlichen Parameter hängen vom <tt>&lt;Befehl&gt;</tt> ab:
+</p>
+
+<h3>HILFE</h3>
+<p>
+<b>Zeigt diese Hilfe an.</b><br>
+Dieser Befehl erwartet einen oder keine weiteren Parameter.<br>
+Wird ein Befehl als zusätzlicher Parameter angegeben, so wird die Hilfe zu diesem Befehl angezeigt.<br>
+Ansonsten wird die Hilfe zu allen Befehlen angezeigt.
+</p>
+
+<h3>SIMULATION</h3>
+<p>
+<b>Führt einen einzelnen Simulationslauf durch.</b><br>
+Dieser Befehl erwartet genau zwei weitere Parameter:<br>
+1. Eingabe-Modell-Datei<br>
+2. Ausgabe-Statstik-Datei<br>
+Die Eingabedatei muss existieren, die Ausgabedatei darf nicht existieren.
+</p>
+
+<h3>ZUSAMMENFASSUNG</h3>
+<p>
+<b>Exportiert einen Teil oder die gesamten Simulationsergebnisse für ein Modell.</b><br>
+Dieser Befehl erwartet genau drei weitere Parameter:<br>
+1. "Inline", "Einzeldateien", "Liste", "Text", "PDF" oder ein Listeneintrag je nach dem, ob<br>
+a) ein HTML-Report mit eingebetteten Bildern,<br>
+b) ein HTML-Report mit Bildern in separaten Dateien,<br>
+c) eine Übersicht über alle verfügbaren Einzeldokumente<br>
+d) ein DOCX-Report,<br>
+e) ein PDF-Report oder<br>
+f) ein bestimmtes Einzeldokument ausgegeben werden soll.<br>
+2. Dateiname der Eingabedatei<br>
+3. Dateiname der Ausgabedatei
+</p>
+
+<h3>FILTER</h3>
+<p>
+<b>Datei mit Statistikergebnissen filtern.</b><br>
+Dieser Befehl erwartet genau drei weitere Parameter:<br>
+1. Name der Eingabe-Statistik-Datei<br>
+2. Name der Eingabe-Filterkonfigurationsdatei<br>
+3. Name der Ausgabedatei, die die Filterergebnisse aufnehmen soll<br>
+Wenn die Ausgabedatei bereits existiert, werden die neuen Ergebnisse angehängt.<br>
+Ansonsten wird die Datei neu angelegt.
+</p>
+
+<h3>PARAMETERREIHE</h3>
+<p>
+<b>Führt eine Parameterreihen-Simulation durch.</b><br>
+Dieser Befehl erwartet genau zwei weitere Parameter:<br>
+1. Eingabe-Parameterreihen-Datei<br>
+2. Ausgabe-Parameterreihen-Datei<br>
+Die Eingabedatei muss existieren.<br>
+Die Ausgabedatei darf nicht existieren.<br>
+</p>
+
+<h3>PARAMETERREIHETABELLE</h3>
+<p>
+<b>	Exportiert die Ergebnistabelle einer Parameterreihe.</b><br>
+Dieser Befehl erwartet genau zwei weitere Parameter:<br>
+1. Eingabe-Parameterreihen-Datei<br>
+2. Ausgabe-TabellenDatei<br>
+Die Eingabedatei muss existieren.<br>
+Die Ausgabedatei darf nicht existieren.
+</p>
+
+<h3>PARAMETERREIHEVARIANZANALYSE</h3>
+<p>
+<b>Erstellt eine Parameterreihen-Konfiguration für eine Varianzanalyse</b><br>
+Dieser Befehl erwartet drei oder vier weitere Parameter:<br>
+1. Eingabe-Modell-Datei<br>
+2. Ausgabe-Parameterreihen-Datei<br>
+3. Anzahl an Wiederholungen des Modells<br>
+4. Neuer Wert für die Anzahl an Ankünften (optional)<br>
+Die Eingabedatei muss existieren.<br>
+Die Ausgabedatei darf nicht existieren.
+</p>
+
+<h3>OPTIMIERUNG</h3>
+<p>
+<b>Führt eine Modell-Optimierung durch.</b><br>
+Dieser Befehl erwartet genau zwei weitere Parameter:<br>
+1. Eingabe-Modell-Datei<br>
+2. Optimiererkonfigurations-Datei<br>
+Beide Eingabedateien müssen existieren.
+</p>
+
+<h3>SERVER</h3>
+<p>
+<b>Simulator als Rechenserver starten.</b><br>
+Dieser Befehl erwartet 0 bis 2 weitere Parameter.<br>
+Werden entsprechend viele Parameter angegeben, so haben diese folgende Bedeutungen:<br>
+1. Zu verwendender Port<br>
+2. Passwort für die verschlüsselte Datenübertragung<br>
+Wird kein Parameter übergeben, so wird der Port per Kommandozeile abgefragt.
+</p>
+
+<h3>SERVERLIMITED</h3>
+<p>
+<b>Simulator als Rechenserver starten.</b><br>
+Dieser Befehl erwartet 0 bis 2 weitere Parameter.<br>
+Werden entsprechend viele Parameter angegeben, so haben diese folgende Bedeutungen:<br>
+1. Zu verwendender Port<br>
+2. Passwort für die verschlüsselte Datenübertragung<br>
+Wird kein Parameter übergeben, so wird der Port per Kommandozeile abgefragt.<br>
+Der Server begrenzt die Anzahl an gleichzeitigen Anfragen basierend auf der Anzahl an verfügbaren CPU-Kernen.
+</p>
+
+<h3>SERVERWEB</h3>
+<p>
+<b>Simulator als webbasierten Rechenserver starten.</b><br>
+Dieser Befehl erwartet einen weiteren Parameter:<br>
+den zu verwendenden Port.
+</p>
+
+</body>
+</html>

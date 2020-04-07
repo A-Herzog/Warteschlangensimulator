@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Conveyor</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Conveyor</h1>
+
+<p>
+A conveyor delays all arriving clients for a fixed time.
+Additionally a conveyor has a limited capacity and each
+arriving client can need a different amount of this capacity.
+Clients for which there is not enough free transport capacity
+will need to wait in a queue.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the conveyor element has no further meaning for the simulation.
+For each conveyor an available transport capacity and a needed capacity for
+transporting a single client (optional per client type) can be defined.
+Transporting a client along the conveyor will take some defineable fixed
+time. This means a client cannot overtake another client on the conveyor.
+Additionally the movement direction of the clients on the conveyor during
+the animation can be set up.
+</p>
+
+</body>
+</html>

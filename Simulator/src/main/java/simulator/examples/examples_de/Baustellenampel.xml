@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>2.6.0</ModellVersion>
+  <ModellName>Baustellenampel</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>KundenA</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementAnimationAmpel id="2">
+      <ModellElementGroesse h="100" w="50" x="350" y="50"/>
+      <ModellElementAmpelBedingung Licht="rot">Richtung!=1</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementAnimationAmpel id="3">
+      <ModellElementGroesse h="100" w="50" x="1200" y="300"/>
+      <ModellElementAmpelBedingung Licht="rot">Richtung!=2</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementEnde id="4">
+      <ModellElementGroesse h="50" w="100" x="1450" y="150"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementQuelle id="5">
+      <ModellElementName>KundenB</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1450" y="250"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="6">
+      <ModellElementGroesse h="50" w="100" x="50" y="250"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementBedingung id="13">
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementBedingungText>Richtung==1 || Resource(1)==0</ModellElementBedingungText>
+    </ModellElementBedingung>
+    <ModellElementBedingung id="14">
+      <ModellElementGroesse h="50" w="100" x="1250" y="250"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementBedingungText>Richtung==2 || Resource(1)==0</ModellElementBedingungText>
+    </ModellElementBedingung>
+    <ModellElementKante id="15">
+      <ModellElementName>Ankünfte (KundenA)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementName>Ankünfte (KundenB)</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementRessourceBelegen id="21">
+      <ModellElementName>Richtung1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="150"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+      <ModellElementBediener Anzahl="1" Gruppe="Straße"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementRessourceBelegen>
+    <ModellElementRessourceFreigeben id="22">
+      <ModellElementGroesse h="50" w="100" x="900" y="150"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementBelegteRessource>Richtung1</ModellElementBelegteRessource>
+    </ModellElementRessourceFreigeben>
+    <ModellElementRessourceBelegen id="7">
+      <ModellElementName>Richtung2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="250"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+      <ModellElementBediener Anzahl="1" Gruppe="Straße"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementRessourceBelegen>
+    <ModellElementRessourceFreigeben id="8">
+      <ModellElementGroesse h="50" w="100" x="600" y="250"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementBelegteRessource>Richtung2</ModellElementBelegteRessource>
+    </ModellElementRessourceFreigeben>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="22" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="8" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzoegerung id="9">
+      <ModellElementGroesse h="50" w="100" x="750" y="150"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (25)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="16">
+      <ModellElementGroesse h="50" w="100" x="750" y="250"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (25)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="21" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementVerbindung Element1="9" Element2="22" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="7" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementVerbindung Element1="16" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="25">
+      <ModellElementGroesse h="50" w="100" x="400" y="150"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="Richtung">1</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="17">
+      <ModellElementVerbindung Element1="13" Element2="25" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementVerbindung Element1="25" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="11">
+      <ModellElementGroesse h="50" w="100" x="1100" y="250"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="Richtung">2</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="14" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementVerbindung Element1="11" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="59">
+      <ModellElementGroesse h="23" w="147" x="50" y="50"/>
+      <ModellElementTextzeile>Baustellenampel</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="29">
+      <ModellElementGroesse h="250" w="500" x="550" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="119">
+      <ModellElementGroesse h="23" w="232" x="555" y="105"/>
+      <ModellElementTextzeile>Einspuriger Straßenabschnitt</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Straße" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="car" Name="KundenA"/>
+    <KundenDaten Icon="lorry-left" Name="KundenB"/>
+  </KundentypenDaten>
+</Modell>

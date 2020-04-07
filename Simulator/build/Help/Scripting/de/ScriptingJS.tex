@@ -1,0 +1,718 @@
+\part{Referenz der Javascript-Befehle}
+
+An verschiedenen Stellen im Simulator können Skripte verwendet werden.
+Als Skriptsprachen wird dabei entweder \textbf{Javascript} oder \textbf{Java} verwendet.
+
+In diesem Abschnitt werden die zusätzlichen \textbf{Javascript}-Befehle, die den
+Zugriff auf die Simulations- oder Statistikdaten ermöglichen und zur Ausgabe
+der gefilterten Daten zur Verfügung stehen vorgestellt.
+
+
+
+\chapter{\texttt{Statistics}-Objekt}
+
+Das \cmd{Statistics}-Objekt ermöglicht den Lesezugriff auf alle Elemente der XML-Datei, die den Statistikdaten
+zu Grunde liegt. Es ist nur verfügbar, wenn das Skript zum Filtern von Statistikdaten verwendet wird oder innerhalb
+der Umgebung zur Ausführung von Parameterreihen-Javascripten verwendet wird. Während der
+Simulation steht das \cmd{Statistics}-Objekt nicht zur Verfügung. Das Objekt stellt folgende Methoden zur Verfügung:
+
+\section{Definition des Ausgabeformats}
+
+\begin{itemize}
+
+\item
+\cmd{Statistics.setFormat("{}Format")}:\\
+Über diesen Befehl kann das Format, in dem \cmd{Statistics.xml} Zahlen zur Ausgabe als Zeichenkette
+formatiert, eingestellt werden. Es kann dabei für Zahlenwerte die lokaler Notation (im deutschsprachigen
+Raum mit einem Dezimalkomma) oder die System-Notation mit einem Dezimalpunkt ausgegeben werden. Außerdem
+kann angegeben werden, ob Zahlenwerte als Prozentangabe ausgegeben werden sollen. In diesem Fall wird
+der Wert mit 100 multipliziert und ein ,,\%''-Zeichen an die Zahl angefügt. Voreingestellt ist stets die
+Ausgabe in lokaler Notation und die Ausgabe als normale Fließkommazahl (also nicht als Prozentwert).
+
+Folgende Parameter können \cmd{Statistics.setFormat} übergeben werden:
+\begin{itemize}
+\item
+\cmd{System}:
+Wahl der System-Notation für Zahlen und Prozentwerte.
+\item
+\cmd{Local}:
+Wahl der lokalen Notation für Zahlen und Prozentwerte.
+\item
+\cmd{Fraction}:
+Wahl der Ausgabe als normale Zahl (z.B.\ $0{,}357$ oder $0.375$).
+\item
+\cmd{Percent}:
+Wahl der Ausgabe als Prozentwert (z.B.\ $35{,}7\%$ oder $35.7\%$).
+\item
+\cmd{Time}:
+Ausgabe der Zahlenwerte als Zeitangaben (z.B.\ $00{:}03{:}25{,}87$).
+\item
+\cmd{Number}:
+Ausgabe der Zahlenwerte als normale Zahlen (Ausgabe gemäß Angabe \cm{Percent} oder \cm{Fraction}).
+\end{itemize}
+	
+\item
+\cmd{Statistics.setSeparator("{}Format")}:\\
+Über diesen Befehl kann eingestellt werden, durch welches Zeichen die einzelnen Einträge
+einer Verteilung getrennt werden soll, wenn diese über \cmd{Statistics.xml} ausgegeben wird.
+Vorgabe ist die Trennung durch ein Semikolon.
+
+Folgende Parameter können \cmd{Statistics.setSeparator} übergeben werden:
+\begin{itemize}
+\item
+\cmd{Semicolon}:
+Semikolons als Trenner
+\item
+\cmd{Line}:
+Zeilenumbrüche als Trenner
+\item
+\cmd{Tabs}:
+Tabulatoren als Trenner
+\end{itemize}
+
+\end{itemize}
+
+\section{Zugriff auf die Statistik-XML-Daten}
+
+\begin{itemize}
+	
+\item
+\cmd{Statistics.xml("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde und gibt dieses gemäß den Vorgaben,
+die per \cmd{Statistics.setFormat} und \cmd{Statistics.setSeparator} eingestellt wurden,
+als formatierte Zeichenkette zurück.
+	
+Beispiel:\\
+\cm{var name=Statistics.xml("{}Modell->ModellName")}
+  
+\item
+\cmd{Statistics.xmlNumber("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde und gibt den Inhalt als Zahl zurück.
+Konnte das Feld nicht als Zahlenwert interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.  
+	
+\item
+\cmd{Statistics.xmlArray("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung
+und gibt die Werte als Array aus Zahlenwerten zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+	
+Beispiel:\\
+\cm{Statistics.xmlArray("{}StatistikBedienzeitenKunden->Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->\\{}[Verteilung]")}
+  
+\item
+\cmd{Statistics.xmlSum("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+summiert die Werte auf und liefert die Summe als Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+	
+Beispiel:\\
+\cm{Statistics.xmlSum("{}StatistikBedienzeitenKunden->Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->\\{}[Verteilung]")}
+
+\item
+\cmd{Statistics.xmlMean("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+bildet den Mittelwert der Werte und liefert diesen als Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+	
+Beispiel:\\
+\cm{Statistics.xmlMean("{}StatistikBedienzeitenKunden->Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->\\{}[Verteilung]")}
+  
+\item
+\cmd{Statistics.xmlSD("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+bildet die Standardabweichung der Werte und liefert diesen als Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+
+Beispiel:\\
+\cm{Statistics.xmlSD("{}StatistikBedienzeitenKunden->Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->\\{}[Verteilung]")}
+
+\item
+\cmd{Statistics.xmlCV("{}Pfad")}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+bildet den Variationskoeffizienten der Werte und liefert diesen als Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+	
+Beispiel:\\
+\cm{Statistics.xmlCV("{}StatistikBedienzeitenKunden->Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->\\{}[Verteilung]")}
+
+\item
+\cmd{Statistics.translate("{}en")}:\\
+Übersetzt die Statistikdaten ins Deutsche ("{}de") oder ins Englische ("{}en"), so dass jeweils die gewünschten
+xml-Bezeichner verwendet werden können, auch wenn die Statistikdaten evtl.\ mit einer anderen Spracheinstellung
+erstellt wurden.
+
+\end{itemize}
+
+\section{Speichern der Statistikdaten in Dateien}
+
+\begin{itemize}
+
+\item
+\cmd{Statistics.save("{}Dateiname")}:\\
+Speichert die kompletten Statistikdaten in der angegebenen Datei.\\
+Diese Funktion steht nur in der Funktion zur Ausführung von Skripten zur Verfügung.
+
+\item
+\cmd{Statistics.saveNext("{}Pfad")}:\\
+Speichert die kompletten Statistikdaten unter dem nächsten verfügbaren Dateinamen in dem angegebenen Verzeichnis.\\
+Diese Funktion steht nur in der Funktion zur Ausführung von Skripten zur Verfügung.
+
+\item
+\cmd{Statistics.filter("{}Dateiname")}:\\
+Wendet das angegebene Skript auf die Statistikdaten an und gibt das Ergebnis zurück.\\
+Diese Funktion steht nur in der Funktion zur Ausführung von Skripten zur Verfügung.
+
+\item
+\cmd{Statistics.cancel()}:\\
+Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
+
+\end{itemize}
+
+
+
+\chapter{\texttt{System}-Objekt}
+
+Das \cmd{System}-Objekt ermöglicht den Zugriff auf einige allgemeine Programmfunktionen.
+Es ist nur verfügbar, wenn das Skript zum Filtern von Statistikdaten verwendet wird oder
+die Funktion zur Ausführung von Parameterreihen-Javascripten aktiv ist. Während der
+Simulation steht das \cmd{System}-Objekt nicht zur Verfügung. Das Objekt stellt folgende Methoden zur Verfügung:
+
+\begin{itemize}
+
+\item
+\cmd{System.calc("{}Ausdruck")}:\\
+Berechnet den als Zeichenkette übergebenen Ausdruck mit Hilfe der Termauswertungsfunktion, die
+auch an verschiedenen anderen Stellen im Programm zur Anwendung kommt (siehe Teil \ref{part:Rechenbefehle})	
+und liefert das Ergebnis   als Zahl zurück. Konnte der Ausdruck nicht berechnet werden, so wird eine Fehlermeldung als
+Zeichenkette zurückgeliefert. Die Termauswertung ermöglicht den Zugriff auf alle bekannten
+Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
+
+\item
+\cmd{System.time()}:\\
+Liefert die aktuelle Systemzeit als Millisekunden-Wert zurück. Diese Funktion kann zur Messung der
+Laufzeit des Skriptes verwendet werden.
+
+\item
+\cmd{System.getInput("http://Adresse",-1)}:\\
+Lädt einen Zahlenwert über die angegebene Adresse und liefert diesen zurück.
+Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
+Fehlerwert zurückgeliefert.
+	
+\end{itemize}
+
+
+
+\chapter{\texttt{Simulation}-Objekt}
+
+Das \cmd{Simulation}-Objekt ermöglicht den Zugriff auf die aktuellen Simulationsdaten während
+der Laufzeit der Simulation. Es ist nur verfügbar während die Simulation läuft und kann bei der
+späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt folgende Methoden zur Verfügung:
+
+\section{Basisfunktionen}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.time()}:\\
+Liefert die aktuelle Zeit in der Simulation als Sekunden-Zahlenwert.
+
+\item
+\cmd{Simulation.calc("{}Ausdruck")}:\\
+Berechnet den als Zeichenkette übergebenen Ausdruck mit Hilfe der Termauswertungsfunktion, die
+auch an verschiedenen anderen Stellen im Programm zur Anwendung kommt (siehe Teil \ref{part:Rechenbefehle})	
+und liefert das Ergebnis als Zahl zurück. Konnte der Ausdruck nicht berechnet werden, so wird eine Fehlermeldung als
+Zeichenkette zurückgeliefert. Die Termauswertung ermöglicht den Zugriff auf alle bekannten
+Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
+
+\item
+\cmd{Simulation.getInput("http://Adresse",-1)}:\\
+Lädt einen Zahlenwert über die angegebene Adresse und liefert diesen zurück.
+Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
+Fehlerwert zurückgeliefert.
+
+\item
+\cmd{Simulation.isWarmUp()}:\\
+Liefert wahr oder falsch zurück in Abhängigkeit, ob sich die Simulation noch in der Einschwingphase befindet.
+
+\end{itemize}
+
+\section{Zugriff auf kundenspezifische Daten}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.clientTypeName()}:\\
+Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelöst hat.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.isWarmUpClient()}:\\
+Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde während der Einschwingphase generiert wurde und
+daher nicht in der Statistik erfasst werden soll.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+	
+\item
+\cmd{Simulation.isClientInStatistics()}:\\
+Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde in der Statistik erfasst werden soll.
+Diese Einstellung ist unabhängig von der Einschwingphase. Ein Kunde wird nur erfasst, wenn er außerhalb
+der Einschwingphase generiert wurde und hier nicht falsch zurückgeliefert wird.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  
+\item
+\cmd{Simulation.setClientInStatistics(inStatistics)}:\\
+Stellt ein, ob ein Kunde in der Statistik erfasst werden soll.
+Diese Einstellung ist unabhängig von der Einschwingphase. Ein Kunde wird nur erfasst, wenn er außerhalb
+der Einschwingphase generiert wurde und hier nicht falsch eingestellt wurde.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  
+\item
+\cmd{Simulation.clientNumber()}:\\
+Liefert die bei 1 beginnende, fortlaufende Nummer des aktuellen Kunden.
+Werden mehrere Simulationsthreads verwendet, so ist dieser Wert thread-lokal.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientWaitingSeconds()}:\\
+Liefert die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientWaitingTime()}:\\
+Liefert die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientWaitingSecondsSet(seconds)}:\\
+Stellt die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientTransferSeconds()}:\\
+Liefert die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientTransferTime()}:\\
+Liefert die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientTransferSecondsSet(seconds)}:\\
+Stellt die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientProcessSeconds()}:\\
+Liefert die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientProcessTime()}:\\
+Liefert die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientProcessSecondsSet(seconds)}:\\
+Stellt die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientResidenceSeconds()}:\\
+Liefert die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientResidenceTime()}:\\
+Liefert die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.clientResidenceSecondsSet(seconds)}:\\
+Stellt die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.getClientValue(Index)}:\\
+Liefert den zu dem \cm{Index} für den aktuellen Kunden hinterlegten Zahlenwert.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  
+\item
+\cmd{Simulation.setClientValue(Index,Wert)}:\\
+Stellt für den aktuellen Kunden für \cm{Index} den Zahlenwert \cm{Wert} ein.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
+\cmd{Simulation.getClientText("{}Schlüssel")}:\\
+Liefert die zu \cm{Schlüssel} für den aktuellen Kunden hinterlegte Zeichenkette.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  
+\item
+\cmd{Simulation.setClientText("{}Schlüssel","{}Wert")}:\\
+Stellt für den aktuellen Kunden für \cm{Schlüssel} die Zeichenkette \cm{Wert} ein.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\end{itemize}
+
+\section{Zugriff auf Parameter des Simulationsmodells}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.set("{}Name",Wert)}:\\
+Setzt die Simulationsvariable, deren Name im ersten Parameter angegeben wurde auf den im zweiten Parameter angegebenen Wert.
+\cm{Wert} kann dabei eine Zahl oder eine Zeichenkette sein. Im Falle einer Zahl erfolgt eine direkte Zuweisung.
+Zeichenketten werden gemäß \cm{Simulation.calc} interpretiert und das Ergebnis an die Variable zugewiesen. Bei \cm{Name}
+muss es sich um entweder eine an anderer Stelle definierte Simulationsvariable handeln oder um ein Kundendaten-Feld der Form
+\cm{ClientData(index)} mit $index\ge0$.
+
+\item
+\cmd{Simulation.setValue(id,Wert)}:\\
+Stellt den Wert an dem ,,Analoger Wert''- oder ,,Tank''-Element mit der angegebenen \cm{id} ein.
+  
+\item
+\cmd{Simulation.setRate(id,Wert)}:\\
+Stellt die Änderungsrate (pro Sekunde) an dem ,,Analoger Wert''-Element mit der angegebenen \cm{id} ein.
+  
+\item
+\cmd{Simulation.setValveMaxFlow(id,VentilNr,Wert)}:\\
+Stellt den maximalen Durchfluss (pro Sekunde) an dem angegebenen Ventil (1-basierend) des ,,Tank''-Elements mit der angegebenen \cm{id} ein.
+Der maximale Durchfluss muss dabei eine nichtnegative Zahl sein. 
+
+\item
+\cmd{Simulation.getWIP(id)}:\\
+Liefert die aktuelle Anzahl an Kunden an der Station mit der angegebenen Id.
+  
+\item
+\cmd{Simulation.getNQ(id)}:\\
+Liefert die aktuelle Anzahl an Kunden in der Warteschlange an der Station mit der angegebenen Id.
+
+\item
+\cmd{Simulation.getWIP()}:\\
+Liefert die aktuelle Anzahl an Kunden im System.
+  
+\item
+\cmd{Simulation.getNQ()}:\\
+Liefert die aktuelle Anzahl an im System wartenden Kunden.
+
+\end{itemize}
+
+\section{Zugriff auf den aktuellen Eingabewert}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.getInput()}:\\
+Erfolgt die Javascript-Verarbeitung innerhalb eines ,,Eingabe (Skript)''-Elements,
+so kann über diese Funktion der aktuelle Eingabewert abgerufen werden. Andernfalls liefert diese Funktion lediglich den Wert 0. 
+
+\end{itemize}
+
+\section{Anzahl an Bedienern in einer Ressource}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.getAllResourceCount()}:\\
+Liefert die aktuelle Anzahl an Bedienern in allen Ressourcen zusammen.
+  
+\item
+\cmd{Simulation.getResourceCount(id)}:\\
+Liefert die aktuelle Anzahl an Bedienern in der Ressource mit der angegebenen Id.
+  
+\item
+\cmd{Simulation.setResourceCount(id,count)}:\\
+Stellt die Anzahl an Bedienern an der Ressource mit der angegebenen Id ein.
+Damit die Anzahl an Bedienern in der Ressource zur Laufzeit verändert werden kann,
+muss initial eine feste Anzahl an Bedienern (nicht unendliche viele und nicht über einen Zeitplan)
+in der Ressource definiert sein. Außerdem dürfen keine Ausfälle für die Ressource eingestellt sein.
+Die Funktion liefert \cm{true} zurück, wenn die Anzahl an Bedienern erfolgreich geändert
+werden konnte. Wenn der neue Wert geringer als der bisherige Wert ist, so ist der neue Wert
+evtl.\ nicht sofort im Simulationssystem ersichtlich, da eigentlich nicht mehr vorhandene Bediener
+zunächst aktuelle Bedienungen zu Ende führen, bevor diese entfernt werden. 
+
+\item
+\cmd{Simulation.getAllResourceDown()}:\\
+Liefert die aktuelle Anzahl an Bedienern in Ausfallzeit über alle Ressourcen.
+
+\item
+\cmd{Simulation.getResourceDown(id)}:\\
+Liefert die aktuelle Anzahl an Bedienern in Ausfallzeit in der Ressource mit der angegebenen Id.
+
+\end{itemize}
+
+\section{Signale auslösen}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.signal(name)}:\\
+Löst das Signal mit dem angegebenen Namen aus.
+
+\end{itemize}
+
+\chapter{\texttt{Clients}-Objekt}
+
+Das \cmd{Clients}-Objekt steht nur innerhalb des Skript-Bedingung-Elements zur Verfügung
+und hält alle Informationen zu den wartenden Kunden vor. Des Weiteren ermöglicht es,
+einzelne Kunden freizugeben.
+
+\begin{itemize}
+
+\item
+\cmd{Clients.count()}:\\
+Liefert die Anzahl an wartenden Kunden. Bei den anderen Methode kann
+über den Index-Parameter (Wert 0 bis \cm{count()}-1)auf einen bestimmten
+Kunden zugegriffen werden.
+
+\item
+\cmd{Clients.clientTypeName(index)}:\\
+Liefert den Namen des Typs des Kunden.
+
+\item
+\cmd{Clients.clientWaitingSeconds(index)}:\\
+Liefert die bisherige Wartezeit des Kunden als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{Clients.clientWaitingTime(index)}:\\
+Liefert die bisherige Wartezeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{Clients.clientTransferSeconds(index)}:\\
+Liefert die bisherige Transferzeit des Kunden als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{Clients.clientTransferTime(index)}:\\
+Liefert die bisherige Transferzeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{Clients.clientProcessSeconds(index)}:\\
+Liefert die bisherige Bedienzeit des Kunden als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{Clients.clientProcessTime(index)}:\\
+Liefert die bisherige Bedienzeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{Clients.clientResidenceSeconds(index)}:\\
+Liefert die bisherige Verweilzeit des Kunden als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{Clients.clientResidenceTime(index)}:\\
+Liefert die bisherige Verweilzeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{Clients.clientData(index,data)}:\\
+Liefert das über den zweiten Parameter adressierte Datum des angegebenen Kunden zurück.
+
+\item
+\cmd{Clients.clientTextData(index,key)}:\\
+Liefert den Wert es über den zweiten Parameter adressierte Schlüssels des angegebenen Kunden zurück.
+
+\item
+\cmd{Clients.release(index)}:\\
+Veranlasst die Weiterleitung des angegebenen Kunden.
+	
+\end{itemize}
+
+
+
+\chapter{\texttt{Output}-Objekt}
+
+Das \cmd{Output}-Objekt stellt Funktionen zur Ausgabe der gefilterten Ergebnisse zur Verfügung:
+
+\begin{itemize}
+
+\item
+\cmd{Output.setFormat("{}Format")}:\\
+Über diesen Befehl kann das Format, in dem \cmd{Output.print} und \cmd{Output.println}
+Zahlen formatieren, eingestellt werden. Es kann dabei für Zahlenwerte die lokaler Notation (im deutschsprachigen
+Raum mit einem Dezimalkomma) oder die System-Notation mit einem Dezimalpunkt ausgegeben werden. Außerdem
+kann angegeben werden, ob Zahlenwerte als Prozentangabe ausgegeben werden sollen. In diesem Fall wird
+der Wert mit 100 multipliziert und ein "\%"-Zeichen an die Zahl angefügt. Voreingestellt ist stets die
+Ausgabe in lokaler Notation und die Ausgabe als normale Fließkommazahl (also nicht als Prozentwert).
+
+Folgende Parameter können \cmd{Output.setFormat} übergeben werden:
+\begin{itemize}
+\item
+\cmd{System}:\\
+Wahl der System-Notation für Zahlen und Prozentwerte.
+\item
+\cmd{Local}:\\
+Wahl der lokalen Notation für Zahlen und Prozentwerte.
+\item
+\cmd{Fraction}:\\
+Wahl der Ausgabe als normale Zahl (z.B.\ $0{,}357$ oder $0.375$).
+\item
+\cmd{Percent}:\\
+Wahl der Ausgabe als Prozentwert (z.B.\ $35,7\%$ oder $35.7\%$).
+\item
+\cmd{Number}:\\
+Interpretation von Zahlenwerten als normale Zahlen (Dezimalwert oder Prozentwert).
+\item
+\cmd{Time}:\\
+Interpretation von Zahlenwerten als Zeitangaben.
+
+\end{itemize}
+
+\item
+\cmd{Output.setSeparator("{}Format")}:\\
+Über diesen Befehl kann eingestellt werden, durch welches Zeichen die einzelnen Einträge
+eines Arrays getrennt werden soll, wenn diese über \cmd{Output.print} oder
+\cmd{Output.println} ausgegeben werden.
+Vorgabe ist die Trennung durch ein Semikolon.
+
+Folgende Parameter können \cmd{Output.setSeparator} übergeben werden:
+\begin{itemize}
+\item
+\cmd{Semicolon}:\\
+Semikolons als Trenner.
+\item
+\cmd{Line}:\\
+Zeilenumbrüche als Trenner.
+\item
+\cmd{Tabs}:\\
+Tabulatoren als Trenner.
+\end{itemize}
+
+\item
+\cmd{Output.print("{}Ausdruck")}:\\
+Gibt den übergebenen Ausdruck aus.
+Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per
+\cmd{Output.setFormat} vorgenommenen Einstellungen formatiert.
+
+\item
+\cmd{Output.println("{}Ausdruck")}:\\
+Gibt den übergebenen Ausdruck aus und fügt dabei einen Zeilenumbruch an.
+Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per
+\cmd{Output.setFormat} vorgenommenen Einstellungen formatiert.
+
+\item
+\cmd{Output.newLine()}:\\
+Gibt einen Zeilenumbruch aus. Diese Funktion ist gleichwertig zu dem Aufruf von\\
+\cmd{Output.println("{}"{})}.
+
+\item
+\cmd{Output.tab()}:\\
+Gibt einen Tabulator aus.
+
+\item
+\cmd{Output.cancel()}:\\
+Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
+
+\end{itemize}
+
+
+
+\chapter{\texttt{FileOutput}-Objekt}
+
+Das \cmd{FileOutput}-Objekt stellt alle Funktionen, die auch das
+\cmd{Output}-Objekt anbietet, zur Verfügung und ist nur während
+der Parameterreihen-Skript-Ausführung verfügbar. Im Unterschied
+zum \cmd{Output}-Objekt werden die Ausgaben nicht auf die Standardausgabe
+geleitet, sondern es muss zunächst per \cmd{FileOutput.setFile("{}Dateiname")}
+eine Ausgabedatei definiert werden. Alle Ausgaben werden dann an diese
+Datei angehängt.
+
+
+
+\chapter{\texttt{Model}-Objekt}
+
+Das \cmd{Model}-Objekt steht nur während der Parameterreihen-Javascript-Ausführung
+zur verfügbar und bietet Funktionen, um auf Modelleigenschaften zuzugreifen und
+Simulationen zu initiieren.
+
+\begin{itemize}
+
+\item
+\cmd{Model.reset()}:\\
+Stellt das Modell auf den Ausgangszustand zurück.
+
+\item
+\cmd{Model.run()}:\\
+Simuliert das aktuelle Modell.
+Auf die Ergebnisse kann im Folgenden über das \cmd{Statistics}-Objekt zugegriffen werden.
+
+\item
+\cmd{Model.setDistributionParameter("{}Pfad",Index,Zahl)}:\\
+Stellt einen Verteilungsparameter \cm{Index} (zwischen 1 und 4) der über \cm{Pfad}
+angegebenen Wahrscheinlichkeitsverteilung ein.
+
+\item
+\cmd{Model.setMean("{}Pfad",Zahl)}:\\
+Stellt den Mittelwert der über \cm{"{}Pfad"} angegebenen Wahrscheinlichkeitsverteilung auf den angegebenen Wert.
+
+\item
+\cmd{Model.setSD("{}Pfad",Zahl)}:\\
+Stellt die Standardabweichung der über \cm{Pfad} angegebenen Wahrscheinlichkeitsverteilung auf den angegebenen Wert.
+
+\item
+\cmd{Model.setString("{}Pfad","{}Text")}:\\
+Schreibt an die über \cm{Pfad} angegebene Stelle im Modell die angegebene Zeichenkette.
+
+\item
+\cmd{Model.setValue("{}Pfad",Zahl)}:\\
+Schreibt an die über \cm{Pfad} angegebene Stelle im Modell den angegebenen Wert.
+
+\item
+\cmd{Model.xml("{}Pfad")}:\\
+Liefert den über \cm{Pfad} erreichbaren Wert.\\
+Diese Funktion ist das Äquivalent zu \cmd{Statistics.xml("{}Pfad")} für Modelldaten.
+
+\item
+\cmd{Model.getResourceCount("{}RessourcenName")}:\\
+Liefert die Anzahl an Bedienern in der Ressource mit Namen \cm{RessourcenName}.
+Existiert die Ressource nicht oder ist in ihr die Bedieneranzahl nicht als Zahlenwert
+hinterlegt, so liefert die Funktion -1. Ansonsten die Anzahl an Bedienern in der
+Ressource.
+
+\item
+\cmd{Model.setResourceCount("{}RessourcenName",Anzahl)}:\\
+Stellt die Anzahl an Bedienern in der Ressource mit Namen \cm{RessourcenName} ein.
+
+\item
+\cmd{Model.getGlobalVariableInitialValue("{}VariablenName")}:\\
+Liefert den Ausdruck zur Bestimmung des initialen Wertes der globalen Variable
+\cm{VariablenName}. Existiert die globale Variable nicht, so wird
+eine leere Zeichenkette geliefert.
+
+\item
+\cmd{Model.setGlobalVariableInitialValue("{}VariablenName","{}Ausdruck")}:\\
+Stellt den Ausdruck zur Bestimmung des initialen Wertes der globalen Variable
+\cm{VariablenName} ein.
+
+\item
+\cmd{Model.cancel()}:\\
+Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationen mehr ausgeführt.)
+
+\end{itemize}
+
+
+
+\chapter{XML-Auswahlbefehle}
+
+Über die Parameter der Funktionen des \cmd{Statistics}-Objektes kann der Inhalt eines XML-Elements oder der Wert eines
+Attributes eines XML-Elements ausgelesen werden. Die Selektion eines XML-Elements erfolgt dabei mehrstufig
+getrennt durch "\texttt{->}"-Zeichen. Zwischen den "\texttt{->}"-Zeichen stehen jeweils die Namen von XML-Elementen.
+Zusätzlich können in eckigen Klammern Namen und Werte von Attributen angegeben werden, nach denen gefiltert werden soll.
+
+Beispiele:
+
+\begin{itemize}
+
+\item
+\cmd{Statistics.xml("{}Modell->ModellName")}:\\
+Liefert den Inhalt des Elements \cm{ModellName}, welches ein Unterelement von \cm{Modell} ist.	
+
+\item
+\cmd{Statistics.xml("{}StatistikZwischenankunftszeitenKunden->\\{}Station[Typ=$\backslash$"{}Quelle id=1$\backslash$"]->[Mittelwert]")}:\\
+Selektiert das \cm{Station}-Unterelement des \cm{StatistikZwischenankunftszeitenKunden}-Elements, bei
+dem das \cm{Typ}-Attribut auf den Wert \cm{Quelle id=1} gesetzt ist. Und liefert dann den Inhalt des Attributs
+\cm{Mittelwert}.
+
+\end{itemize}

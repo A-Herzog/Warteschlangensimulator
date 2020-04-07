@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Queueing calculator dialog</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Queueing calculator dialog</h1>
+
+<p>
+Mit Hilfe des Warteschlangenrechners können mit Hilfe analytischer Formeln
+Kenngrößen für einfache Warteschlangensysteme berechnet werden.
+</p>
+
+<p>
+The queueing calculator allows to use analytical formulas to 
+get performance indicators for some simple queueing models.
+</p>
+
+<h2>Work load</h2>
+<p>
+The work load &rho; is calculated as the ratio of arrival rate &lambda;
+and the service rate &middot; number of agents &mu; &middot; c.
+By term change the necessary number of agents can be determined 
+to achieve a given work load for a given arrival and service rate.
+</p>
+
+<h2>Erlang B</h2>
+<p>
+The Erlang B formula gives the part of clients who will 
+receives a busy signal when the traffic offered (=&lambda;/&mu;)
+and the number of phone lines is known.
+</p>
+
+<h2>Erlang C</h2>
+<p>
+Using the Erlang C formula, you can calculate the part of clients who
+will have to wait longer than a certain number of seconds.
+For the Erlang C formula is assumed that both the interarrival times
+and the service times are exponentially distributed. Neither forwarding nor
+canceling clients nor retryers are considered.
+</p>
+
+<h2>Erlang C (extended)</h2>
+<p>
+The extended Erlang C formula differs from the ordinary Erlang C formula
+that it models cancel waiting clients. It is assumed that the wait time tolerances
+of the clients are exponentially distributed.
+</p>
+
+<h2>Allen-Cunneen</h2>
+<p>
+The Allen-Cunneen formula is an approximation formula for the parameters of a queuing system.
+In contrast to the Erlang formulas it does not require that interarrival and service times are
+exponentially distributed. Therefore here the coefficient of variation of these two parameters
+has to be set explicitly.
+</p>
+
+<h2>Wartezeittoleranz</h2>
+<p>
+Assuming that the waiting time tolerance is exponentially distributed (which usually is
+not the case), the average waiting time tolerance of the clients E[WT] can be calculated
+as the quotient of the mean waiting time E[W] and the cancelation rate P(A).
+This calculated value can be used as a first approximation for the waiting time tolerance
+calibration.
+</p>
+
+<div class="more">
+<ul>
+  <li><a href="http://en.wikipedia.org/wiki/Erlang_(unit)#Erlang_B_formula">Erlang B formula</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/Erlang_(unit)#Erlang_C_formula">Erlang C formula</a></li>
+</ul>
+</div>
+
+</body>
+</html>

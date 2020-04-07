@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Fit distribution dialog</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Fit distribution dialog</h1>
+
+<p>
+The distribution fit function allows you to find a distribution based on a series of measured values
+that best reflects the values. For this purpose, the mean value and the standard deviation of the
+measured values are initially determined and distributing functions for all built-in probability
+distributions are generated with these values. Finally, all these concrete distribution functions
+are compared with the empirical distribution of the measured values and the deviation is determined
+in each case. The distribution function, which has the smallest deviation from the measured values,
+is recommended as an fitted distribution function.
+</p>
+
+<p>
+In addition for all distributions p-values for various fitting tests are calculated.
+The higher a p-value, the harder it is to reject the hypothesis that the measured samples are
+based on the respective distribution. For all distributions, the Kolmogorov-Smirnov fit test
+and the Chi<sup>2</sup> fit test are performed. While the Kolmogorov-Smirnov fit test evaluates
+the maximum deviations between the measured samples and distribution function,
+the Chi<sup>2</sup> fit test considers the mean deviations. For the normal distribution,
+the Anderson-Darling test, which is a modification of the Kolmogorov-Smirnov test, is also performed.
+</p>
+
+</body>
+</html>

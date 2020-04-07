@@ -1,0 +1,1 @@
+s/^\s*public static final String VERSION=\(.*\);$/!define VERSION \1/p

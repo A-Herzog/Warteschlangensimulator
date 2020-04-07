@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Netzwerkserverdienste</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Netzwerkserverdienste</h1>
+
+<p>
+Der Warteschlangensimulator bietet zwei Netzwerkserverdienste an, die
+über diesen Dialog konfiguriert und gestartet und gestoppt werden können.
+Die beiden Dienste stehen nicht in Verbindung miteinander und können 
+unabhängig voneinander verwendet werden.
+</p> 
+
+<h2>Simulationsnetzwerkserver</h2>
+
+<p>
+Der Simulationsnetzwerkserver-Dienst ermöglichst es, die aktuelle Warteschlangensimulator Instanz
+als Rechenserver für entfernte Installationen zu verwenden. Wenn der Serverdienst gestartet
+wurde, kann die Programmdialogseite geschlossen werden; der Server läuft bis zum Programmende
+im Hintergrund weiter.
+</p>
+
+<p>
+Soll eine Warteschlangensimulator Installation auf diesen Server zugreifen, so muss dies
+über den <a href="Setup.html">Einstellungen</a>-Dialog konfiguriert werden.
+</p>
+
+<h2>Webserver</h2>
+
+<p>
+Der Webserver ermöglicht es dem Warteschlangensimulator über ein Webinterface Arbeitsaufträge
+in Form von Modell-xml-Dateien und Parameterreihen-xml-Dateien zu übermitteln. Die Anfragen
+werden in Eingangsreihenfolge bearbeitet und die Ergebnisse als Statistik-xml-Dateien
+zum Download angeboten.
+</p>
+
+<h2>Fernsteuerungs-Server</h2>
+
+<p>
+Der Fernsteuerungs-Server ermöglicht es, den Status einer Animation über das http-Protokoll
+in Form von json-Objekten abzufragen und die Animation ebenfalls über diese Schnittstelle
+zu steuern.
+</p>
+
+<h2>DDE-Server</h2>
+
+<p>
+Der DDE-Server ermöglicht es, den Status einer Animation über das Dynamic Data Exchange Protokoll
+abzufragen und die Animation ebenfalls über diese Schnittstelle zu steuern. Der Simulator
+registriert sich dabei als Service "QS" und bietet die Themen "Status" und "Calc" an.
+"Status" besitzt die vier Datenfelder "Version", "Model", "Changed" und "Mode". An das Thema "Calc"
+können als anzufragende Datenfelder Rechenbefehle, die dann im Kontext der Animation berechnet
+werden, übergeben werden. Des Weiteren stehen die beiden DDE-Befehle "step" und "quit" zur
+Steuerung einer laufenden Animation zur Verfügung.
+</p> 
+
+</body>
+</html>

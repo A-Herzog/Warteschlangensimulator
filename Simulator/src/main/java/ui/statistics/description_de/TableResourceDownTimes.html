@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Pausenzeit</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>Bedeutung der Spalten in dieser Tabelle:</p>
+
+<ul>
+  <li><b>Ressource</b>:
+  Bedienergruppe auf die sich die jeweilige Zeile bezieht.  
+  </li>
+  <li><b>Anzahl Bediener</b>:
+  Anzahl an Bedienern in der jeweiligen Gruppe, sofern diese durch eine 
+  feste Zahl (und nicht z.B. über einen variablen Schichtplan) festgelegt ist.
+  </li>
+  <li><b>Anteil in Pause</b>:
+  Ist die Anzahl an Bedienern in dieser Gruppe ein während der Simulation fester
+  Wert, so gibt diese Zelle den <a href="help:statistik_mittelwert">mittleren Anteil an Bedienern</a> in der Bedienergruppe an, die sich in Pausezeit befinden.
+  </li>    
+  <li><b>Mittelwert</b>:
+  Gibt die <a href="help:statistik_mittelwert">mittlere absolute Anzahl</a> an Bedienern in dieser Gruppe an, die sich in Pausezeit befinden.
+  </li>
+  <li><b>Std</b>:
+  <a href="help:statistik_standardabweichung">Standardabweichung</a> der absoluten Anzahl an Bedienern in dieser Gruppe an, die sich in Pausezeit befinden.
+  </li>
+  <li><b>Var</b>:
+  <a href="help:statistik_standardabweichung">Varianz</a> der absoluten Anzahl an Bedienern in dieser Gruppe an, die sich in Pausezeit befinden.
+  </li>
+  <li><b>CV</b>:
+  <a href="help:statistik_CV">Variationskoeffizient</a> der absoluten Anzahl an Bedienern in dieser Gruppe an, die sich in Pausezeit befinden.
+  </li>
+  <li><b>Min</b>:
+  Minimale absolute Anzahl an während der Simulation gleichzeitig in Pausezeit befindliche Bediener in dieser Gruppe.
+  </li>
+  <li><b>Max</b>:
+  Maximale absolute Anzahl an während der Simulation gleichzeitig in Pausezeit befindliche Bediener in dieser Gruppe.
+  </li>
+</ul>
+
+<p>
+Die Größe <b>Anteil in Pause</b> gibt das Verhältnis von in Pausezeit befindlichen und insgesamt verfügbaren Bedienern an.
+Ist die Anzahl an verfügbaren Bedienern in der Gruppe entweder variable (Definition über einen Schichtplan) oder aber besteht
+die Gruppe aus unendlich vielen Bedienern, so kann für den Anteil kein Wert bestimmt werden.
+</p>
+<p>
+Werte, die sich auf die <b>absolute Anzahl an Bedienern in Pausezeit</b> beziehen, stehen jedoch immer zur Verfügung.
+</p>
+  
+</body></html>

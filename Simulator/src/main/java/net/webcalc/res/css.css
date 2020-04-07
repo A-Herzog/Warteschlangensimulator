@@ -1,0 +1,137 @@
+body {
+  font:82% Verdana,Lucida,sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: white;  
+}
+
+.page {
+  min-width: 400px;
+  max-width: 800px;
+  margin: 10px 20px;
+  padding: 0px 10px 5px 10px;
+}
+	
+h1 {
+  color: white;
+  background-color: blue;
+  margin-top: 0px;
+  padding: 5px 25px;
+  position: sticky;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+}
+
+h2 {
+  margin-bottom: 3px;
+}
+	
+.button {
+  color: blue;
+  background-color: white;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  text-decoration: none;
+  transition-duration: 0.25s;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+}
+
+.button:visited {
+  color: blue;
+  background-color: white;
+}
+
+.button:hover {
+  color: white;
+  background-color: blue;  
+  transition-duration: 0.25s;
+}
+
+.buttonframe {
+  color: blue;
+  background-color: white;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  text-decoration: none;  
+  display: inline-block;  
+  font-size: 14px;	
+}
+
+.uploadbuttonframe {
+  color: blue;
+  background-color: #EEE;
+  margin: 10px;
+  padding: 20px;
+  border: 2px dashed gray;
+  border-radius: 3px;
+  text-decoration: none;  
+  display: inline-block;  
+  font-size: 14px;	
+}
+
+.toolbar {
+  font-size: 50%;
+  margin-left: 15px;
+}
+
+.toolbar a {
+  color: white;
+  text-decoration: none;
+  border: 1px solid #DDD;
+  border-radius: 2px;
+  padding: 3px 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition-duration: 0.25s;
+}
+
+.toolbar a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.toolbar a:hover {
+  color: blue;
+  background-color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+ul.tab {
+	padding-left: 2px;
+}
+
+ul.tab li {
+  border: 1px solid gray;
+  padding: 5px;	
+  display: block;
+}
+
+div.messages {
+	font-family: monospace;
+	background-color: #EEE;
+	padding: 2px 5px;
+	margin-top: 5px;
+}
+
+#status_system {
+	margin-top: 20px;
+	font-size: smaller;
+	font-color: gray;
+}
+
+#UploadInfo {
+	border: 2px dashed green;
+	padding: 5px;
+	margin-top: 10px;
+	background-color: lightgreen;
+	font-weight: bold;		
+}

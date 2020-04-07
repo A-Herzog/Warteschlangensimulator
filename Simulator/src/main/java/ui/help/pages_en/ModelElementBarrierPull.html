@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Pull barrier</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Pull barrier</h1>
+
+<p>
+Pull barriers allow to control the number of clients in some segment.
+he pull barrier will only release clients to the next station, if
+the total number of clients beginning at this next station to another
+(controlled) stations is smaller than a threshold value. This allows to
+run some pull effect on the controlled station: If there are
+fewer clients at the controlled station than the threshold value allows
+at maximum and there are also not enough clients at the next station
+following the pull barrier to fill up the queue at the controlled station,
+then clients are released from the pull barrier station.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the pull barrier element has no further meaning. The name of
+the station at which the number of clients is to be controlled has
+to be specified and also the maximum number of clients at this controlled
+station.
+</p>
+
+
+</body>
+</html>

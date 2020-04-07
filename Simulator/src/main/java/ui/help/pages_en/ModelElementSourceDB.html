@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Database source</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Database source</h1>
+
+<p>
+The client source represents the starting point of the movement of a client through the system.
+A simulation model can consist of one or more source elements.
+At a table-based source clients are not created based on inter-arrival times but the
+times are loaded from a database table.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the database source element has no meaning for the simulation.
+At each database source next to the database connection settings the
+name of a database table from which the arrivals are to be loaded and
+the names of the row containing the arrival times (in seconds), the
+corresponding client types and optional a column for additional client
+data have to be specified. Additional the names of the client types
+which are to be respected when loading the database table have to
+be specified.
+</p>
+
+<p>
+The client data column has to contain expressions of the form 
+"<tt>ClientData(1)=5</tt>" or "<tt>ClientData('key')=TextValue</tt>".
+If multiple assignments are to be made for an arriving client
+the expressions can be split by <b>tabs</b> in the cell.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Confidence intervals</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Confidence intervals</h1>
+
+<p>
+The individual measured values that result from the simulation and on the basis of which,
+for example, <a href="statistik_mittelwert.html">average values</a> are calculated, represent
+only some of the possible realizations that can occur in reality. Therefore the question is
+often asked how close the mean value determined by simulation is to the actual mean value of
+the model. The confidence intervals provide information on this.
+</p>
+
+<p>
+A confidence interval is the interval around a measured average value in which the actual
+average value is located with a certain probability. The smaller the confidence interval
+is to be selected, the lower the probability that the actual average value lies within
+this interval or the more measured values are required to fulfill this requirement. The
+same applies to the probability that the actual average value lies within the interval
+(also called confidence level): The higher the confidence level is selected, the larger the
+associated confidence interval will be or, again, the more measured values will be required.
+</p>
+
+<h3>Restrictions</h3>
+
+<p>
+To calculate a confidence interval it is necessary that the individual measured values are
+<b>independent</b> of each other. This is usually not the case for the waiting times of
+clients who follow each other directly. Therefore, the batch-means method is used here:
+It is identified how far these dependencies extend. The number of clients from whose
+distance the remaining dependency is below a reasonable threshold is then used as one
+measured value to calculate the confidence interval, that is, the number of measured values
+is divided by this number. The result is used as the number of independent measurements. 
+</p>
+
+<h3>Further information</h3>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Confidence_interval">Wikipedia page about confidence intervals</a></li>
+</ul>
+
+</body>
+</html>

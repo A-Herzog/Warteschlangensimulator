@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Batch</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Batch</h1>
+
+<p>
+In this element, incoming clients have to wait until a certain number of clients are available.
+These are then forwarded simultaneously or a temporary or a permanent batch is built.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the batch element has no further meaning. The minimum and the maximum batch size can be used
+to set the number of clients that have to have arrived at minimum at the batch element before they are
+forwarded (in batches with maximum the number of specified clients). Furthermore, it can be set whether
+the combined clients simply leave the station again (at the same time), or whether a temporary batch (which
+can be dissolved by the <a href="ModelElementSeparate.html">Dissolve batch</a> element) or whether the route
+through the network ends for the clients ends at this point (because the two clients, for example, represent
+partial components that are combined into a larger element) and instead a new client object is created and
+started from this point.
+</p> 
+
+</body>
+</html>

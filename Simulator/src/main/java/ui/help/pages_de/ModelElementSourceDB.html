@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Datenbankquelle</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Datenbankquelle</h1>
+
+<p>
+Die Quelle stellt den Startpunkt der Bewegung eines Kunden durch das System dar.
+Ein Simulationsmodell kann aus einer oder mehreren Quellen bestehen.
+Eine datenbankbasierte Quelle erstellt Kundenankünfte nicht basierend auf
+Zeitabständen oder ähnlichem, sondern lädt die konkreten Zeitpunkte aus einer
+Tabelle einer Datenbank.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name der Datenbankquelle besitzt keine Bedeutung für die Simulation.
+Bei jeder Datenbankquelle müssen neben den Einstellungen zur Verbindung mit
+der Datenbank der Name der Tabelle, aus der die Ankünfte geladen werden sollen
+sowie die Spalten für die Ankunftszeiten (in Sekunden), die jeweiligen Kundentypen
+und optional für Kundendaten angegeben werden. Des weiteren muss angegeben werden,
+welche Kundentypen in der Tabelle berücksichtigt werden sollen.
+</p>
+
+<p>
+Bei der Kundendaten-Spalte handelt es sich um eine Tabellenspalte die Ausdrücke
+der Form "<tt>ClientData(1)=5</tt>" oder "<tt>ClientData('Schlüssel')=Textwert</tt>"
+enthält. Es können auch mehrere Kundendatenfelder gesetzt werden.
+Die Ausdrücke müssen dann innerhalb der Zelle durch <b>Tabulatoren</b> getrennt werden. 
+</p>
+
+</body>
+</html>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.3.0</ModellVersion>
+  <ModellName>Restaurant als Bediensystem</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="250"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (300)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzoegerung id="2">
+      <ModellElementName>Auswahl</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="250"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (180)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>Bestelluing</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="250"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Nachbearbeitungszeiten">Exponentialverteilung (45)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kellner"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="6">
+      <ModellElementName>Varianten</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="250"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="14" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="15" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementBedienstation id="12">
+      <ModellElementName>Kochen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1295" y="250"/>
+      <ModellElementVerbindung Element="39" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Wartezeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementVerteilung Kundentyp="Gericht A" Typ="Bedienzeiten">Exponentialverteilung (300)</ModellElementVerteilung>
+      <ModellElementVerteilung Kundentyp="Gericht B" Typ="Bedienzeiten">Exponentialverteilung (600)</ModellElementVerteilung>
+      <ModellElementVerteilung Kundentyp="Gericht C" Typ="Bedienzeiten">Exponentialverteilung (900)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Gericht A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Gericht B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Gericht C">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Koch"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="18">
+      <ModellElementName>Auslieferung</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1550" y="250"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="32" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Gericht A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Gericht B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Gericht C">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kellner"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="3" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="12" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzoegerung id="11">
+      <ModellElementName>Verzehr</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1800" y="250"/>
+      <ModellElementVerbindung Element="32" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="33" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (1500)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementBedienstation id="19">
+      <ModellElementName>Bezahlen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="2050" y="250"/>
+      <ModellElementVerbindung Element="33" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="35" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Gericht A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Gericht B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Gericht C">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kellner"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKasten id="20">
+      <ModellElementGroesse h="150" w="400" x="50" y="200"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="21">
+      <ModellElementGroesse h="23" w="40" x="55" y="205"/>
+      <ModellElementTextzeile>Gast</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="22">
+      <ModellElementGroesse h="350" w="700" x="500" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="23">
+      <ModellElementGroesse h="23" w="61" x="505" y="105"/>
+      <ModellElementTextzeile>Kellner</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="24">
+      <ModellElementGroesse h="200" w="200" x="1250" y="200"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="23" w="55" x="1255" y="205"/>
+      <ModellElementTextzeile>Küche</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="26">
+      <ModellElementGroesse h="200" w="200" x="1500" y="200"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="27">
+      <ModellElementGroesse h="23" w="61" x="1505" y="205"/>
+      <ModellElementTextzeile>Kellner</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="28">
+      <ModellElementGroesse h="200" w="200" x="1750" y="200"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="29">
+      <ModellElementGroesse h="23" w="40" x="1755" y="205"/>
+      <ModellElementTextzeile>Gast</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="30">
+      <ModellElementGroesse h="200" w="200" x="2000" y="200"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="31">
+      <ModellElementGroesse h="23" w="61" x="2005" y="205"/>
+      <ModellElementTextzeile>Kellner</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="32">
+      <ModellElementVerbindung Element1="18" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="33">
+      <ModellElementVerbindung Element1="11" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="34">
+      <ModellElementGroesse h="50" w="100" x="2250" y="250"/>
+      <ModellElementVerbindung Element="35" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="35">
+      <ModellElementVerbindung Element1="19" Element2="34" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZuweisung id="36">
+      <ModellElementName>Gericht A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="150"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="37" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="9">
+      <ModellElementName>Gericht B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="895" y="250"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="38" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="10">
+      <ModellElementName>Gericht C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="350"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="13">
+      <ModellElementName>Rate 1 (33,3%)</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="36" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementName>Rate 1 (33,3%)</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementName>Rate 1 (33,3%)</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="10" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementEcke id="16">
+      <ModellElementGroesse h="10" w="10" x="1145" y="270"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="37" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="38" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="39" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="17">
+      <ModellElementName>Neuer Kundentyp: Gericht C</ModellElementName>
+      <ModellElementVerbindung Element1="10" Element2="16" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="37">
+      <ModellElementName>Neuer Kundentyp: Gericht A</ModellElementName>
+      <ModellElementVerbindung Element1="36" Element2="16" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="38">
+      <ModellElementName>Neuer Kundentyp: Gericht B</ModellElementName>
+      <ModellElementVerbindung Element1="9" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="39">
+      <ModellElementVerbindung Element1="16" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationLinienDiagramm id="41">
+      <ModellElementGroesse h="150" w="450" x="500" y="550"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="3" Minimum="0">Resource(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="3" Minimum="0">Resource(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="3" Minimum="0">Resource_avg(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="3" Minimum="0">Resource_avg(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>1800</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="40">
+      <ModellElementGroesse h="19" w="357" x="55" y="325"/>
+      <ModellElementTextzeile>Studium der Speisekarte ist aus Kundensicht Bedienzeit.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="42">
+      <ModellElementGroesse h="38" w="337" x="505" y="405"/>
+      <ModellElementTextzeile>Warten auf Bedienung ist aus Kundensicht Wartezeit.</ModellElementTextzeile>
+      <ModellElementTextzeile>Bestellung ist aus Kundensicht Bedienzeit.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="43">
+      <ModellElementGroesse h="57" w="189" x="1255" y="335"/>
+      <ModellElementTextzeile>Warten auf Zubereitung und</ModellElementTextzeile>
+      <ModellElementTextzeile>Zubereitung des Essens sind</ModellElementTextzeile>
+      <ModellElementTextzeile>aus Kundensicht Wartezeiten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="44">
+      <ModellElementGroesse h="76" w="173" x="1505" y="320"/>
+      <ModellElementTextzeile>Warten auf Bedienung ist</ModellElementTextzeile>
+      <ModellElementTextzeile>aus Kundensicht Wartezeit.</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienung ist aus</ModellElementTextzeile>
+      <ModellElementTextzeile>Kundensicht Bedienzeit.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="45">
+      <ModellElementGroesse h="76" w="173" x="2005" y="320"/>
+      <ModellElementTextzeile>Warten auf Bedienung ist</ModellElementTextzeile>
+      <ModellElementTextzeile>aus Kundensicht Wartezeit.</ModellElementTextzeile>
+      <ModellElementTextzeile>Der Bezahlvorgang ist aus</ModellElementTextzeile>
+      <ModellElementTextzeile>Kundensicht Bedienzeit.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="46">
+      <ModellElementGroesse h="38" w="152" x="1755" y="355"/>
+      <ModellElementTextzeile>Verzehr ist aus</ModellElementTextzeile>
+      <ModellElementTextzeile>Kundensicht Bedienzeit.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="47">
+      <ModellElementGroesse h="19" w="462" x="500" y="530"/>
+      <ModellElementTextzeile>Auslastung der Kellner (2 vorhanden) und der Köche (3 vorhanden)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="48">
+      <ModellElementGroesse h="23" w="251" x="50" y="50"/>
+      <ModellElementTextzeile>Restaurant als Bediensystem</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationUhr id="49">
+      <ModellElementGroesse h="100" w="100" x="50" y="450"/>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAusdruck>TNow()</ModellElementAusdruck>
+    </ModellElementAnimationUhr>
+    <ModellElementAnimationText id="54">
+      <ModellElementName>Mittlere Wartezeit der Kunden (Min.)</ModellElementName>
+      <ModellElementGroesse h="34" w="151" x="1000" y="565"/>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg()/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Kellner" Typ="Anzahl" Wert="2"/>
+    <Ressource Name="Koch" Typ="Anzahl" Wert="3"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="Ball_blue" Name="Gericht A"/>
+    <KundenDaten Icon="emoticon_smile" Name="Gericht B"/>
+    <KundenDaten Icon="cake" Name="Gericht C"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

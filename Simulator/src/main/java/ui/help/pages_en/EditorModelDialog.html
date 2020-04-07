@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model properties dialog</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model properties dialog</h1>
+
+<p><i>
+The model properties dialog can be accessed via the menu item File|Model properties.
+</i></p>
+
+<p>
+In contrast to the program settings, the model properties are stored with the respective model.
+The model properties are used to describe the model more closely and to configure the course of the simulation.
+</p>
+
+
+
+<h2><img src="../images/brick_edit.png">&nbsp; Model description</h2>
+
+<h3>Name of the model</h3>
+<p>
+The name given in this free text field is stored with the model and can be used (similar to the filename)
+as a short description of the model.
+</p>
+
+<h3>Author of the model</h3>
+<p>
+The name given in this free text field is stored with the model and can be used for documenting who has
+created the model.
+</p>
+
+<h3>Model description</h3>
+<p>
+The description of the model contained in this free-text field is stored with the model and allows to store
+a description or explanation of the model directly in the model file.
+</p>
+
+
+
+<h2><img src="../images/action_go.gif">&nbsp; Simulation</h2>
+
+<h3>Use number of client arrivals as criterion for the end of the simulation</h3>
+<p>
+If this option is activated, the <b>Number of arrivals to be simulated</b>
+will be used as a criterion for terminating the simulation.
+</p> 
+
+<h3>Number of arrivals to be simulated</h3>
+<p>
+if the number of arrivals is reached and if the option
+<b>Use number of client arrivals as criterion for the end of the simulation</b>
+is activated, the simulation process will be terminated.
+In order to get statistically stable results, a value as large as possible should be entered here.
+During the simulation, a simulation process is started on each CPU core, on each of which only
+a portion of the arrivals indicated here to be simulated.
+</p>
+
+<h3>Warm-up phase</h3>
+<p>
+Before the counting of the waiting and processing times for the statistics starts, 
+a certain number of clients can pass through the system and will not be counted for the statistics.
+In this field you can specify the number of clients who are not counted for the statistics
+in relation to the total number of clients. This number is not subtracted from the number
+of clients to be simulated, but it is preempted to it.
+</p>
+<p>
+The warm-up phase will also be applied if the total number of arrivals to be simulated
+is not used as an termination criterion for the simulation.
+</p>
+
+<h3>Use condition as a criterion for the end of the simulation</h3>
+<p>
+If this option is active, the condition enter at <b>Condition for end of simulation</b>
+will be evaluated during the simulation. If the condition is true, the simulation will
+be terminated.
+</p>
+
+<h3>Condition for end of simulation</h3>
+<p>
+If this condition is met and if the option
+<B>Use condition as a criterion for the end of the simulation</b>
+if activated, the simulation process will be terminated.
+</p>
+
+<h3>Stop simulation after a certain time</h3>
+<p>
+If this option is activated, the simulation process will be terminated when the time
+specified in the following field has been reached or exceeded.
+</p>
+
+<h3>Time at which the simulation ends</h3>
+<p>
+If this time is reached or exceeded and if the option
+<b>Stop simulation after a certain time</b> is activated,
+the simulation process will be terminated.
+</p>
+
+<h3>Fixed seed value for random number generator</h3>
+<p>
+If this option is activated, the random numbers generator is initialized
+with the same fixed seed value as set in this field before each simulation
+or animation run. This results in the same sequence of random numbers for
+each simulation or animation run. For example, in the animation exactly
+the same events will occur in exactly the same order. However, the use of a
+fixed seed value for the random numbers generator prevents the distribution
+of the simulation over multiple CPU cores.
+</p>
+
+<h3>Number of repetitions of the entire simulation run</h3>
+<p>
+This field can be used to repeat the entire simulation run several times.
+In the statistics the data of the repetitions are summarized.
+</p>
+
+<h3>Hours to be recorded in distributions</h3>
+<p>
+This field can be used to define a maximum value for recording quantity
+distributions. The default value is one hour. This means all
+waiting times etc. longer than one hour will be recorded as one hour
+in the values distribution. The larger this value is, the more exact
+large values can be recorded in the distribution of the values but
+also the more memory will be needed for simulation. The recording of
+the performance indicators (like mean etc.) will always be exact
+independent of the size of the values distribution.
+</p>
+
+<h3>Cancel simulation, if a calculation expression cannot be evaluated</h3>
+
+<p>
+If a calculation expression can not be evaluated during a running simulation,
+the result is usually assumed to be 0. Likewise, a comparison is considered
+to be false if one or both sides can not be evaluated. If this option is
+activated, the simulation will be aborted with a corresponding error message
+instead in such a case.
+</p>
+
+<h3>Use time based checks</h3>
+<p>
+If this option is activated, additional time-based, non-event-based checks
+of the conditions can be triggered at the condition stations.
+This slows down the simulation process considerably, but also makes it possible
+to correctly map conditions in which the simulation time is used directly.
+</p>
+
+
+
+<h2><img src="../images/user.png">&nbsp; Clients</h2>
+
+<p>
+On this dialog page additional data for the client types used in the model can be entered.
+A color can be specified for each client type, which will be used in the diagrams in the simulation
+result view for this client type. An initial icon type for the client type to be used while animation
+can be defined. And it can be specified how much costs are incurred per waiting, transfer and process
+time for the chosen type.
+</p>
+
+
+
+<h2><img src="../images/group.png">&nbsp; Operators</h2>
+
+<p>
+This page can you can set up how many operators of which types should be available in the model.
+The operators are used at the operating stations to serve the clients. Several operators
+(possibly different types) may be necessary to process a client, or several operator stations
+can also share certain operator groups.
+</p>
+
+<p>
+For the case the operators are displayed during animation at the stations an icon for
+the operators group can be defined.
+</p>
+
+<p>
+In addition three cost values can be specified per operators group: You can define how many costs
+are generated by the presence of the operators in the group per hour (regardless of whether
+the operators are working or not), you can define the additional costs per utilization hour
+(for example additional costs for electrical power or technical resources) and the additional
+costs for idle time.
+</p>
+
+<p>
+For each resource failures can be defined. In this case the operators in this resource
+are going into a down time after a defined number of served clients or after a certain
+available time or a certain busy time or by a distribution defining the distances between
+two down times or by an expression defining the distances between two down times.
+</p>
+
+<p>
+The field <b>Resource priority at a station in case of a tie</b> allows to define in a global
+manner how free operators should be routed to the stations if some stations have the same
+resource priority. In this case a station can be chosen by random or the client priority
+of the there waiting client with the highest client priority can be used as a secondary resource
+priority.
+</p> 
+
+<p>
+If the operators of the chosen resource group are used at multiple process stations additional
+a set up time when switching from one to another station can be defined.
+</p>
+
+
+
+<h2><img src="../images/lorry.png">&nbsp; Transporters</h2>
+
+<p>
+Transporters are used to carry client from
+<a href="ModelElementTransportTransporterSource.html">Transporter start</a>
+to <a href="ModelElementTransportSource.html">Transport destination</a>
+stations. Transporters behave similar to resources. But in contrast to
+resources they have a defined location. This means the transporting times
+need not to be defined by distributions by are calculated from the distance
+between origin and destination station. (A distance matrix for all origin
+and destination stations can be set up per transporter type.) Additionally
+loading and unloading times which apply if the transporter was carrying
+clients can be defined per transporter type.
+</p>
+
+<p>
+For the case the transporters are displayed during animation an icon for
+each transporter group can be defined.
+</p>
+
+<p>
+For each transporter group failures can be defined. In this case the transporters in this group
+are going into a down time after a defined number of served clients or after a certain
+driven distance or a certain busy time or by a distribution defining the distances between
+two down times or by an expression defining the distances between two down times.
+</p>
+
+
+
+<h2><img src="../images/time.png">&nbsp; Schedules</h2>
+
+<p>
+On the schedules page you can define schedules for the arrivals and for the operator availability.
+</p>
+
+
+
+<h2><img src="../images/text_list_numbers.png">&nbsp; Sequences</h2>
+
+<p>
+On the sequences dialog page, sequences which can be assigned to clients by
+<a href="ModelElementAssignSequence.html">Assign sequence</a> elements can be
+defined. Sequences control the transport destinations used by
+<a href="ModelElementTransportSource.html">Transport origin</a> and
+<a href="ModelElementTransportTransporterSource.html">Transporter start</a>
+elements. In this way, the information to which stations clients should be
+transported can be completely controlled on the client side. These stations only
+execute the plans. You do not need to define the destination stations for the
+individual client types at the stations. 
+</p>
+
+
+
+<h2><img src="../images/font.png">&nbsp; Initial variablen values</h2>
+
+<p>
+On this dialog page variables and their values can be defined, which should
+be available already from the beginning of the simulation. In this way, e.g.
+constants that are used in different places in calculation expressions can
+be defined.
+</p>
+
+
+
+<h2><img src="../images/chart_curve_add.png">&nbsp; Run time statistics</h2>
+
+<p>
+On this page expressions can be defined, which should be continuously evaluated and recorded during the simulation.
+In this way, the course of certain quantities over the simulation time can be recorded.
+</p>
+
+<p>
+Using this feature slows down the simulation process. In addition, if the step size is chosen too small,
+considerable amounts of data can arise.
+</p>
+
+
+
+<h2><img src="../images/chart_curve.png">&nbsp; Output analysis</h2>
+
+<h3>Record autocorrelation of the waiting times</h3>
+
+<p>
+If this option is selected, the autocorrelation of the waiting times
+of the clients will be recorded during the simulation and then will
+be available in the statistics. Selecting a sensible value for
+the  maximum clients distance for the autocorrelation recording
+is very important. The larger this value is, the more the simulation
+will slows down. But if the selected value is smaller than the actual
+autocorrelation distance of the clients, then this is no longer detected correctly.
+</p>
+
+<p>
+Using this feature slows down the simulation process. 
+In particular, the detection of the autocorrelation for all waiting times
+(i.e. for each clients group and for each station individual) and the
+selection of a large maximum autocorrelation values to be detected
+results in significant slowing of the simulation.
+</p>
+
+<h3>Batch sizes for confidence interval calculations</h3>
+
+<p>
+Confidence intervals can only be calculated if the individual measurements are
+independent of each other. For the waiting times of successive clients, this is
+usually not the case. Therefore, instead of using the times of individual clients,
+the average values over so-called batches are considered. The batches should be
+chosen large enough that for clients who are in two consecutive batches, the
+autocorrelation of their waiting times is below a selected threshold (e.g., 5%).
+</p>
+
+<p>
+This batch size for calculating confidence intervals for waiting, transfer and
+process times can be set in this field.
+Alternatively the batch size can also be determined automatically
+via the <a href="FindBatchSize.html">Determine statistics batch size</a>
+function in dependence of a selected threshold value.
+</p>
+
+
+
+<h2><img src="../images/Vertex.png">&nbsp; Path recording</h2>
+
+<p>
+The additional recording options offered on this dialog page make it easier
+to follow the paths taken by clients through the system. On the basis of these
+recordings, <a href="Sankey.html">Sankey diagrams</a> can be created later to
+visualize this data. However, the simulation process is also slowed down by
+these additional recordings.
+</p>
+
+<h3>Count station transitions</h3>
+
+<p>
+This option activates the counting of how often a client has
+changed from a certain station to another in the simulation.
+If there are stations in the model where several lines of clients
+converge or separate, it is not possible to fully understand how
+the lines of clients move through the system, but the relationship
+between the individual stations becomes clear.
+</p>
+
+<h3>Record client paths</h3>
+
+<p>
+If this option is activated, all paths of the clients are recorded.
+The statistics show which paths were chosen by how many clients.
+In this way, relationships can be tracked even across stations where
+different client lines converge or separate. However, recording the
+paths of clients leads to a greater slowdown in the simulation,
+especially in the case of more complex models, so that this option
+should only be activated if the information thus obtained is
+of interest for the investigation.
+</p>
+
+
+
+<h2><img src="../images/computer.png">&nbsp; Simulation system</h2>
+
+<p>
+This page shows whether the simulation model can be parallelized across all available CPU cores or,
+if not, which model properties prevent this.
+</p>
+
+</body>
+</html>

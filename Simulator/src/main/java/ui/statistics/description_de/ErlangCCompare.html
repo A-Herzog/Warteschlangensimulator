@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Erlang-C-Vergleich</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h3>Erlang-C-Formel</h3>
+
+<p>
+Mit Hilfe der <a href="https://de.wikipedia.org/wiki/Erlang_C">Erlang-C-Formel</a>
+lassen sich in einfachen Warteschlangenmodellen die relevanten Kenngrößen
+mittlere Warte-, Bedien- und Verweilzeiten (E[W], E[S] und E[V]),
+Anzahl an Kunden im System, in der Warteschlange und in Bedienung (E[N], E[NQ] und E[NS])
+sowie die Auslastung der Bediener &rho; exakt berechnen. "Einfach" bedeutet dabei, dass
+ das Modell wie folgt aufgebaut sein muss:
+</p>
+
+<ul>
+  <li>Die Zwischenankunftszeiten sind exponentiell verteilt.</li>
+  <li>Die Bedienzeiten sind exponentiell verteilt.</li>
+  <li>Es existiert eine feste Anzahl von Bedienern.</li>
+  <li>Es bestehen keine weiteren Besonderheiten (Kundentypen, Batch-Ankünfte
+  oder -Bedienungen, Verzweigungen zwischen mehreren Stationen, ...).</li>
+</ul>
+
+<p>
+Die klassische Erlang-C-Formel kann Ungeduld der Kunden nicht abbilden,
+sehr wohl jedoch die erweiterte Erlang-C-Formel, so dass außerdem folgende
+Eigenschaft in einem einfachen Modell vorherrschen darf:
+</p>
+
+<ul>
+  <li>Optional sind die Kunden nur begrenzt lange bereit zu warten. Ist dies der Fall,
+  so muss die Wartezeittoleranz durch die Exponentialverteilung beschrieben werden können.</li>
+</ul>
+
+<p>
+Ein entsprechendes Modell wird dann als <b>M/M/c</b> bzw. <b>M/M/c/unendlich+M</b> Modell
+bezeichnet.
+</p>
+
+<p>
+Ist das zu simulierende Warteschlangenmodell einfach genug aufgebaut, so dass der Simulator
+eindeutige Bezüge zwischen simuliertem Modell und Erlang-C-Modell herstellen kann,
+so stellt er die Simulationskenngrößen den Erlang-C-Werten gegenüber. Erfüllt das simulierte
+Modell allen oben genannten Bedingungen an ein Erlang-C-Modell, so fallen die Abweichungen
+zwischen Simulationdergebnissen und theoretischen Ergebnissen sehr gering aus
+(typisch &lt;1%). Existieren in dem simulierten Modell Eigenschaften, die die Erlang-C-Formel
+nicht erfasst, so können signifikante Abweichung zwischen den Formel-Ergebnissen und
+den Simulationsergebnissen erwartet werden.
+</p> 
+
+<h3>Allen-Cunneen-Näherungsformel</h3>
+
+<p>
+Die Allen-Cunneen-Näherungsformel lässt eine Lockerung der im Erlang-C-Modell definierten
+Einschränkungen zu: Statt exponentiell verteilten Zwischenankunfts- und Bedienzeiten
+werden jetzt <b>beliebige Verteilungen</b>, die durch ihren Erwartungswert und ihren
+Variationskoeffizient charakterisiert sind, zugelassen. Außerdem sind <b>Batch-Ankünfte</b>
+und <b>Batch-Bedienungen</b> zulässig. (Die Batch-Größen werden dabei mit b(I) und b(S) bezeichnet.)
+Dafür muss die Exaktheit aufgegeben werden, d.h. selbst bei einem Modell, welches alle Vorgaben
+der Allen-Cunneen-Näherungsformel einhält, muss mit Abweichungen zwischen Näherungsformel-Ergebnis
+und Simulationsrealität gerechnet werden.
+</p>
+
+<p>
+Auch für die Allen-Cunneen-Näherungsformel werden die Ergebnisse ausgewiesen und es wird auch
+hier die Abweichung zwischen Formel-Ergebnissen und Simulationsergebnissen ausgegeben.
+</p>
+  
+</body></html>

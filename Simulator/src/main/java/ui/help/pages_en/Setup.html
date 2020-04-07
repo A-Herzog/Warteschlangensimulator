@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Settings dialog</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Settings dialog</h1>
+
+<p><i>
+The settings dialog can be accessed via the File|Settings menu item.
+</i></p>
+
+<p>
+In the settings dialog, the basic configuration of the simulator can be performed.
+The dialog consists of the following tabs:
+</p>
+
+
+
+<h2><img src="../images/application_go.png">&nbsp; User interface</h2>
+
+<h3>Program language</h3>
+<p>
+In the field can be select whether the program interface should be displayed in English or in German.
+</p>
+<p>
+(If German is selected as the system language, the default value is "German", otherwise it is "English".)
+</p>
+
+<h3>Font sizes</h3>
+<p>
+From this combo box the font sizes (and hence the dialog window sizes)
+can be configured for an optimal readability.
+Changing the font sizes will take effect after a restart of the program.
+</p>
+<p>
+(Default value for this option: "Normal".)
+</p>
+
+<h3>Use high contrasts</h3>
+<p>
+If this option is activated, the elements on the surface are displayed with a consistently high contrast.
+For this, individual colors for the stations as well as color gradients are deactivated.
+</p>
+<p>
+(This option is disabled by default.)
+</p>
+
+<h3>Save model automatically</h3>
+<p>
+This combo box allows to set whether the model is to be automatically saved
+never, before each start of a simulation or an animation or after each change to the model.
+</p>
+<p>
+(By default automatic saving is disabled.)
+</p>
+
+<h3>Offer recently used files for loading</h3>
+<p>
+If this option is activated in the file menu
+in the submenu "Recently used" the previous
+loaded or saved models are offered for loading.
+</p>
+<p>
+(By default offering the recently used files for loading is enabled.)
+</p>
+
+<h3>Restore last edited model at next program start</h3>
+<p>
+If this option is activated, the last model in the editor before the program quits is automatically
+saved internally and loaded back into the editor the next time the program is started. An explicit
+saving of the model as a file is not necessary for this function.
+</p>
+<p>
+(By default automatic restore is disabled.)
+</p>
+
+<h3>Window size on program start</h3>
+<p>
+In this selection field, you can set how the program window should look at the start of the simulator.
+In addition to "Default window size" and "Full screen", the option "Restore last window size" provides
+the option to save the window size at the end of the program and restore it at the next startup.
+</p>
+<p>
+(Default value for this option: "Default window size".)
+</p>
+
+<h3>Templates panel on program start</h3>
+<p>
+This selection field can be used to specify whether the element templates panel should be displayed or hidden
+at the left edge of the model editor window at the start of the program. The panel can be turned on or off at
+any time using the "Element" button on the left vertical toolbar.
+</p>
+<p>
+(Default value for this option: "Hide".)
+</p>
+
+<h3>Load model on program start</h3>
+<p>
+When you start the program, an example model can be loaded directly instead of an empty drawing surface.
+In this selection field, you can set whether such an example model is to be loaded.
+</p>
+<p>
+(Default value for this option: "Empty model".)
+</p>
+
+<h3>Models containing potentially critical stations</h3>
+<p>
+From this dropdown box one can select the program behavior when trying to load a
+model containing stations which can have influences on the system (this are stations
+with script execution and with file or database output). The available options are
+to always allow loading, to always deny loading or to ask the user.
+</p>
+<p>
+(Default value for this option: "ask user".)
+</p>
+
+<h3>Show hints on drawing surface</h3>
+<p>
+If the drawing surface is empty, hints for the usage of the vertical
+toolbar and for receiving help can be displayed.
+</p>
+<p>
+(By default hints will only by shown right after program start on the drawing surface.)
+</p>
+
+<h3>Show notification when simulation is done</h3>
+<p>
+This option allows to define if a system notification is to be displayed
+when a simulation, a parameter series simulation or an optimization is completed.
+</p>
+<p>
+(By default notification will only be displayed when the simulation takes a longer time.)
+</p>
+
+<h3>Show advises in dialogs</h3>
+<p>
+This button opens a dialog to configure if additional information panels are to be
+displayed in the top area of some dialogs and if a welcome page is to be displayed
+on program start.
+</p>
+<p>
+(By default all information panels will be displayed but the welcome page will not be used.)
+</p>
+
+
+
+<h2><img src="../images/computer.png">&nbsp; Performance</h2>
+
+<h3>Background processing</h3>
+<p>
+From this combo box one can choose how much (pre-) processing the simulator should already
+perform in the background for a model. The more steps there are performed in the background
+during the work in the model editor, the less time is needed later on the simulation but
+also the more computer power is necessary.
+</p>
+<p>
+(The default value for this option is "Simulate model in the background if appropriate".)
+</p>
+
+<h3>Use multiple CPU cores for simulation</h3>
+<p>
+If this option is activated, the simulation is distributed over all available CPU cores.
+As a result, the required computing time drops significantly, but at the same time the memory requirement increases.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>Use multiple CPU cores for animation</h3>
+<p>
+If this option is activated, the animation is distributed over multiple CPU cores.
+Simulation and displaying the animation progress is done by two different threads.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>High priority for simulation</h3>
+<p>
+If this option is activated, the simulation is performed with a higher priority with respect to the available computing power.
+This can slightly accelerate the simulation, but can also lead to other applications running in parallel being delayed
+during the simulation.
+</p>
+<p>
+(This option is disabled by default.)
+</p>
+
+<h3>NUMA-aware simulation</h3>
+<p>
+If this option is activated, the simulator uses a separate, independent data model for each simulation thread.
+This increases the memory consumption. But on the other side it allows to distribute the data in the memory in
+such a way that on systems where not all memory areas can be accessed by all CPU cores at the same speed
+(NUMA systems), the data can accessed as efficiently as possible.
+</p>
+<p>
+(This option is disabled by default.)
+</p>
+
+<h3>Preferred Javascript engine</h3>
+<p>
+There are three engines available for executing Javascript code in the simulator: One engine
+is provided by the Java runtime environment. This engine is faster but may will not be
+available in further Java versions. The second engine is the Mozilla Rhino engine with is
+integrated into the simulator. This engine is slower but is always available. When using
+GraalVM also the GraalJS engine is available. If "Select automatically" is selected,
+the fastest available engine will be used.
+</p>
+<p>
+(As default "Select automatically" is selected.)
+</p>
+<p>
+The name of the currently active engine can be received via the global
+Javascript variable <tt>JS_ENGINE_NAME</tt>.
+</p>
+
+
+
+<h3>Run simulations on remote server</h3>
+<p>
+If this option is activated and if correct access information for a simulation server
+are set up, the simulator will try to run each simulation on this server.
+If the server is not accessible, the simulation is run local. Also the animation is
+always executed locally.
+</p>
+<p>
+(This option is disabled by default.)
+</p>
+
+<!--
+<h3>Path to Java Development Kit (JDK) / Java compiler</h3>
+<p>
+For stations which execute user defined Java code the Warteschlangensimulator needs to
+be able to run the Java compiler "javac". In this input field the path to the
+Java Development Kit (JDK) installation, from which the Java compiler is to be used,
+can be specified.
+</p>
+-->
+
+
+
+<h2><img src="../images/film_go.png">&nbsp; Animation</h2>
+
+<h3>Warm-up phase at animation</h3>
+<p>
+During the warm-up phase no statistics are recorded. If the model is not simulated,
+but visualized as an animation, statistical visualization elements
+(diagrams, numeric values, bar plot visualizations) will not display any meaningful values
+if these statistics (for example, the average number of clients at an process station) are to be displayed.
+Therefore, it is useful to skip the warm-up phase or to previously simulate the warm-up phase without
+animation output.
+</p>
+<p>
+(The default value for this option is: Always skip if statistics visualizations are active.)
+</p>
+
+<h3>Show runtime data for the stations</h3>
+<p>
+If this option is activated, below the station boxes additional data about how many clients
+have passed the station and how many clients are currently in the corresponding station
+are displayed during the animation.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>Show logging information in single step mode</h3>
+<p>
+If the animation is paused and now is executed in single step mode, if this option is active
+the events just executed will be displayed in the program window's status line.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>Start animation in single step mode</h3>
+<p>
+If this option is activated, the animation is paused immediately after the start,
+so that it can be executed in single step mode.
+</p>
+<p>
+(This option is disabled by default.)
+</p>
+
+<h3>Show resources and transporters in animation</h3>
+<p>
+If this option is activated, not only clients but also resources
+at stations and transporter are displayed during the animation.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>Slow down animation to better reflect the change of analog values</h3>
+<p>
+If this option is activated, the animation is not running at maximum speed
+and the model contains time continuous values values, the animation is slowed down
+to better reflect the changing of this values. (This has no influence on the
+statistics collection in the simulation.)
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+
+
+<h2><img src="../images/sum.png">&nbsp; Statistics</h2>
+
+<h3>Show quantiles</h3>
+<p>
+If this option is activated, the 10%, 25%, 50%, 75% and 90% quantiles
+are displayed on the statistics pages in addition to the usual statistics
+parameters.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>Show Erlang C comparison</h3>
+<p>
+If this option is activated, a statistics page is displayed on which the
+results of the simulation are compared with those of an Erlang C model
+derived from the simulation model.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>Always expand the statistics tree completely</h3>
+<p>
+In the default case, for reasons of clarity, some rarely used
+categories are first displayed collapsed in the statistics tree
+after a simulation. If this option is activated, however, all
+categories are always expanded immediately.
+</p>
+<p>
+(This option is disabled by default.)
+</p>
+
+<h3>Open results in external applications</h3>
+<p>
+In this section, you can set which external programs should be offered
+for directly transferring data from the text and table statistics viewers.
+</p>
+<p>
+(By default Word and Excel are selected.)
+</p>
+
+
+
+<h2><img src="../images/folder_wrench.png">&nbsp; File formats</h2>
+
+<h3>Default author name for new models</h3>
+<p>
+The name specified in this input field is used as the author name when
+creating new models and is registered when running as a simulation as
+the simulation user name. The author name can be changed for individual
+models via the model properties. The name entered in this field only
+represents the default value.
+</p>
+
+<h3>Default file formats when saving</h3>
+<p>
+In these selection fields it can be determined which file format
+is to be displayed initially selected in the "Save as" dialogs
+for the respective data types.
+</p>
+<p>
+(Default values: "xml" for models and statistics and "zip-compressed xml"
+for parameter series and optimiser settings.)
+</p>
+
+<h3>User-defined row identifier</h3>
+<p>
+When accessing an Excel table via DDE the simulator uses an identifier for
+selecting a row. For English Excel versions this a "R" (for row). The
+simulator selects the identifier letter depending on the program language.
+If the program language of the simulator and of Excel differ, it is may be
+needed to explicitly define an identifier.
+</p>
+<p>
+(Default value for this option is an empty field.)
+</p>
+
+<h3>User-defined column identifier</h3>
+<p>
+When accessing an Excel table via DDE the simulator uses an identifier for
+selecting a column. For English Excel versions this a "C" (for column). The
+simulator selects the identifier letter depending on the program language.
+If the program language of the simulator and of Excel differ, it is may be
+needed to explicitly define an identifier.
+</p>
+<p>
+(Default value for this option is an empty field.)
+</p>
+
+<h3>Resolution when saving images</h3>
+<p>
+In this field can be specified which resolution should be used in pixels
+both in the horizontal and in the vertical direction when storing graphics
+from the statistics results as pixel graphics.
+</p>
+<p>
+(Default value for this option: 2000 x 2000 pixel.)
+</p>
+ 
+<h3>Saving images during animation</h3>
+<p>
+If images are saved during the animation by clicking the corresponding toolbar button,
+they are stored in the directory defined in this field without any further user interaction.
+This allows to keep the interruption of the animation as short as possible.
+</p>
+<p>
+(Default value for this option is to use the home directory.)
+</p>
+
+<h3>Show simulation time in recorded animation</h3>
+<p>
+If this function is activated, the current simulation time is displayed at the bottom left
+in the animations recorded as videos. When an animation is executed in the simulator,
+the simulation time is displayed in the status bar, but the status bar is not part of the recorded video.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+
+
+<h2><img src="../images/action_refresh.gif">&nbsp; Updates</h2>
+ 
+<h3>Check installed Java version and warn if outdated and insecure</h3>
+<p>
+If this option is activated, the simulator checks whether the currently installed and used
+Java version was still up to date when the simulator was delivered and, if necessary, issued a safety warning.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+<h3>Update program automatically</h3>
+<p>
+If this option is activated, the simulator periodically checks if a new version has been released
+and installs it automatically.
+This requires the use of the Windows version of the simulator.
+</p>
+<p>
+(This option is enabled by default.)
+</p>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Schranke</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Schranke</h1>
+
+<p>
+An diesem Element werden eintreffende Kunden aufgehalten, bis ein Signal eintrifft, welches auf dessen Basis
+eine Freigabe erfolgt. Entsprechende Signale werden durch <a href="ModelElementSignal.html">Signal</a>-Elemente
+generiert, wenn sie von einem Kunden passiert werden.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Schranke-Elements hat keine weitere Bedeutung. Es muss jedoch mindestens ein
+<a href="ModelElementSignal.html">Signal</a>-Element angegeben werden, welches die Freigabe
+von hier wartenden Kunden signalisiert. Es kann dabei eingestellt werden,
+wie viele wartende Kunden pro eintreffendem Signal maximal freigegeben werden sollen und ob sich
+die Freigabe auf alle wartenden Kundentypen oder nur einen bestimmten Kundentyp beziehen soll.
+Des Weiteren kann eine Anzahl an Kunden festgelegt werden, die die Schranke passieren dürfen,
+bevor die Zählung beginnt.
+</p>
+
+</body>
+</html>

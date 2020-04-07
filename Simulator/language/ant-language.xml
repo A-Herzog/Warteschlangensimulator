@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="updateLanguage" name="Language services" xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+	<property name="Simulator.location" location=".." />
+	<property name="Language.location" location="." />
+	
+	<property name="mirror.apache" value="http://apache.mirror.digionline.de"/>
+	<property name="mirror.maven" value="http://repo2.maven.org/maven2"/>
+
+	<available file="${Language.location}/gettext/bin/xgettext.exe" property="lang.gettext.present"/>
+	<available file="${Language.location}/sed/bin/sed.exe" property="lang.sed.present"/>
+	
+	<target name="downloadLanguageTools" description="Download language tools">
+		<antcall target="downloadGetText" unless:set="lang.gettext.present"/>
+		<antcall target="downloadSed" unless:set="lang.sed.present"/>
+	</target>
+		
+	<target name="downloadGetText">
+		<property name="tempZipFile" value="${Language.location}/gettext/gettext.zip"/>
+		<mkdir dir="${Language.location}/gettext"/>
+
+		<get src="https://github.com/mlocati/gettext-iconv-windows/releases/download/v0.20.1-v1.16/gettext0.20.1-iconv1.16-shared-64.zip" dest="${tempZipFile}" skipexisting="true"/>
+		<unzip src="${tempZipFile}" dest="${Language.location}/gettext"/>
+		<delete file="${tempZipFile}"/>
+	</target>
+	
+	<target name="downloadSed">
+		<property name="tempZipFile1" value="${Language.location}/sed/sed-4.2.1-bin.zip"/>
+		<property name="tempZipFile2" value="${Language.location}/sed/sed-4.2.1-dep.zip"/>
+		<mkdir dir="${Language.location}/sed"/>
+		<get src="http://sourceforge.net/projects/gnuwin32/files//sed/4.2.1/sed-4.2.1-bin.zip/download" dest="${tempZipFile1}" skipexisting="true"/>
+		<get src="http://gnuwin32.sourceforge.net/downlinks/sed-dep-zip.php" dest="${tempZipFile2}" skipexisting="true"/>
+		<unzip src="${tempZipFile1}" dest="${Language.location}/sed"/>
+		<unzip src="${tempZipFile2}" dest="${Language.location}/sed"/>
+		<delete file="${tempZipFile1}"/>
+		<delete file="${tempZipFile2}"/>
+	</target>
+	
+	<target name="cleanLanguageTools" description="Cleans language tools">
+		<delete dir="${Language.location}/gettext" />
+		<delete dir="${Language.location}/sed" />
+	</target>
+	
+	<target name="updateLanguage" description="Update language files">
+		<echo message="Prepare" />
+		<delete file="${Language.location}/gettext_list.txt" />
+		<delete file="${Language.location}/gettext_keys.pot" />
+					
+		<echo message="Collect files to process" />		
+		<exec dir="${Simulator.location}/src/main/java" executable="cmd" output="${Language.location}/gettext_list.txt">
+			<arg line="/c dir *.java /B /S"/>
+		</exec>
+			
+		<echo message="Scan files for language strings" />
+		<exec dir="${Language.location}" executable="${Language.location}/gettext/bin/xgettext">
+			<arg line="-s -ktrc:1c,2 -ktrnc:1c,2,3 -ktr -kmarktr -ktrn:1,2 -ktrPrimary:1 -ktrAll:1 -ktrAllAttribute:1 --from-code=UTF-8 -o gettext_keys.pot --files-from=gettext_list.txt"/>
+		</exec>
+			
+		<echo message="Merge new and already existing language strings" />
+		<parallel>
+			<exec dir="${Language.location}" executable="${Language.location}/gettext/bin/msgmerge">
+				<arg line="-N --no-wrap --no-location -s -U gettext_de.po gettext_keys.pot"/>
+			</exec>
+			<exec dir="${Language.location}" executable="${Language.location}/gettext/bin/msgmerge">
+				<arg line="-N --no-wrap --no-location -s -U gettext_en.po gettext_keys.pot"/>
+			</exec>
+		</parallel>
+			
+		<echo message="Create resource java files" />
+		<parallel>
+			<exec dir="${Language.location}" executable="${Language.location}/gettext/bin/msgfmt">
+				<arg line=" --java2 -d &quot;${Simulator.location}\src\main\java&quot; -r Messages -l de --source gettext_de.po"/>
+			</exec>
+			<exec dir="${Language.location}" executable="${Language.location}/gettext/bin/msgfmt">
+				<arg line=" --java2 -d &quot;${Simulator.location}\src\main\java&quot; -r Messages -l en --source gettext_en.po"/>
+			</exec>
+		</parallel>
+			
+		<echo message="Fix resource java files" />
+		<delete file="${Simulator.location}/src/main/java/language/Messages_de.java" />
+		<delete file="${Simulator.location}/src/main/java/language/Messages_en.java" />
+		<parallel>
+			<exec dir="${Language.location}" executable="${Language.location}/sed/bin/sed.exe" output="${Simulator.location}/src/main/java/language/Messages_de.java">
+				<arg line="-f gettext_sed.txt &quot;${Simulator.location}/src/main/java/Messages_de.java&quot;" />
+			</exec>
+			<exec dir="${Language.location}" executable="${Language.location}/sed/bin/sed.exe" output="${Simulator.location}/src/main/java/language/Messages_en.java">
+				<arg line="-f gettext_sed.txt &quot;${Simulator.location}/src/main/java/Messages_en.java&quot;" />
+			</exec>
+		</parallel>
+			
+		<echo message="Clean up" />
+		<delete file="${Simulator.location}/src/main/java/Messages_de.java" />
+		<delete file="${Simulator.location}/src/main/java/Messages_en.java" />
+		<delete file="${Language.location}/gettext_list.txt" />
+		<delete file="${Language.location}/gettext_keys.pot" />
+		<delete file="${Language.location}/gettext_de.po~" />
+		<delete file="${Language.location}/gettext_en.po~" />
+	</target>
+</project>

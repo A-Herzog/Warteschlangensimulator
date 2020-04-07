@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Number of clients in the queues at the stations</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+Bei der <b>Anzahl an Kunden in den Warteschlangen an einer Station</b> (bzw. im System)
+werden nur die wartenden Kunden erfasst. Kunden, die sich momentan an einer Station
+in Bedienung befinden, sind nicht in der Warteschlange und werden hier nicht gezählt.
+</p>
+
+<p>Meaning of the columns in this table:</p>
+
+<ul>
+  <li><b>Station</b>:
+  Model station for which the number of clients is displayed in the corresponding row.
+  "System" stands for the number of waiting clients in the entire system.
+  </li>
+  <li><b>E[NQ]</b>:
+  <a href="help:statistik_mittelwert">Average number</a> of clients in the queue at this station.
+  </li>
+  <li><b>Std[NQ]</b>:
+  <a href="help:statistik_standardabweichung">Standard deviation</a> of the number of clients in the queue at this station.
+  </li>
+  <li><b>Var[NQ]</b>:
+  <a href="help:statistik_standardabweichung">Variance</a> of the number of clients in the queue at this station.
+  </li>
+  <li><b>CV[NQ]</b>:
+  <a href="help:statistik_CV">Coefficient of variation</a> of the number of clients in the queue at this station.
+  </li>
+  <li><b>Min[NQ]</b>:
+  Minimum recorded number of clients in the queue at this station during the simulation. 
+  </li>
+  <li><b>Max[NQ]</b>:
+  Maximum recorded number of clients in the queue at this station during the simulation.
+  </li>
+  <li><b>10%-Quantil[NQ]</b>:
+  <a href="help:statistik_quantil">10% quantile</a> of the number of clients in the queue at this station during the simulation.
+  10% of the time at most as displayed in this cell clients have been in the queue at this station.
+  </li>
+  <li><b>25-Quantil[NQ]</b>:
+  <a href="help:statistik_quantil">25% quantile</a> of the number of clients in the queue at this station during the simulation.
+  25% of the time at most as displayed in this cell clients have been in the queue at this station.
+  </li>
+  <li><b>50%-Quantil[NQ]</b>:
+  <a href="help:statistik_quantil">50% quantile</a> of the number of clients in the queue at this station during the simulation.
+  50% of the time at most as displayed in this cell clients have been in the queue at this station.
+  This value is also the <a href="help:statistik_quantil"><b>median</b></a> of the number of clients in the queue at this station.  
+  </li>
+  <li><b>75%-Quantil[NQ]</b>:
+  <a href="help:statistik_quantil">75% quantile</a> of the number of clients in the queue at this station during the simulation.
+  75% of the time at most as displayed in this cell clients have been in the queue at this station.
+  </li>
+  <li><b>90%-Quantil[NQ]</b>:
+  <a href="help:statistik_quantil">90% quantile</a> of the number of clients in the queue at this station during the simulation.
+  90% of the time at most as displayed in this cell clients have been in the queue at this station.
+  </li>
+</ul>
+
+</body></html>

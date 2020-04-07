@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>2.4.1</ModellVersion>
+  <ModellName>Push- und Pull-Produktion</ModellName>
+  <ModellBeschreibung>Bei der Push-Produktion werden eintreffende Kunden sofort in den
+Bedienprozess geführt, was zu einem höheren Umlaufbestand an Kunden führt.
+Bei der Pull-Produktion wird jeweils erst dann der nächste Kunde in den
+Bedienprozess geführt, wenn sich nur noch zwei oder weniger Kunden darin
+befinden. Dies führt zu geringeren Wartezeiten im System bzw. einer geringeren
+Anzahl an Kunden im produktiven Anteil des Systems.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementDuplizieren id="2">
+      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>Pull 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1050" y="100"/>
+      <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener 2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>Push 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1050" y="300"/>
+      <ModellElementVerbindung Element="31" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener 5"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="6">
+      <ModellElementGroesse h="50" w="100" x="1700" y="200"/>
+      <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="35" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZuweisung id="8">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="10">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="300"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="13">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="23" w="227" x="45" y="50"/>
+      <ModellElementTextzeile>Push- und Pull-Produktion</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementBedienstation id="11">
+      <ModellElementName>Pull 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1200" y="100"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="32" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener 3"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="12">
+      <ModellElementName>Push 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1200" y="300"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="33" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener 6"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="18">
+      <ModellElementVerbindung Element1="3" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementVerbindung Element1="4" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="26">
+      <ModellElementGroesse h="76" w="142" x="700" y="160"/>
+      <ModellElementTextzeile>Nur wenn höchstens</ModellElementTextzeile>
+      <ModellElementTextzeile>zwei Kunden in dem</ModellElementTextzeile>
+      <ModellElementTextzeile>Abschnitt sind, werden</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden weitergeleitet.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementDifferenzZaehler id="28">
+      <ModellElementName>Pull</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="100"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementDifferenzZaehler id="23">
+      <ModellElementName>Push</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="300"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="31" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementDifferenzZaehler id="19">
+      <ModellElementName>Pull</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="100"/>
+      <ModellElementVerbindung Element="32" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementDifferenzZaehler id="21">
+      <ModellElementName>Push</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="300"/>
+      <ModellElementVerbindung Element="33" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="34" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementKante id="31">
+      <ModellElementVerbindung Element1="23" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="32">
+      <ModellElementVerbindung Element1="11" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="33">
+      <ModellElementVerbindung Element1="12" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="36">
+      <ModellElementGroesse h="145" w="650" x="850" y="80"/>
+      <ModellElementLinienBreite>5</ModellElementLinienBreite>
+      <ModellElementFarbe>0,150,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="37">
+      <ModellElementGroesse h="100" w="650" x="850" y="275"/>
+      <ModellElementLinienBreite>5</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKante id="29">
+      <ModellElementVerbindung Element1="28" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="40">
+      <ModellElementGroesse h="23" w="122" x="850" y="55"/>
+      <ModellElementTextzeile>Pull-Produktion</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,150,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="41">
+      <ModellElementGroesse h="23" w="133" x="850" y="250"/>
+      <ModellElementTextzeile>Push-Produktion</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationAmpel id="42">
+      <ModellElementGroesse h="50" w="25" x="810" y="65"/>
+      <ModellElementAmpelBedingung Licht="rot">Counter(28)&gt;=3</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementAnimationLinienDiagramm id="43">
+      <ModellElementGroesse h="150" w="650" x="850" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,180,0" Maximum="10" Minimum="0">Counter(28)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="10" Minimum="0">Counter(23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>600</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="44">
+      <ModellElementGroesse h="19" w="229" x="850" y="430"/>
+      <ModellElementTextzeile>Kunden im Pull- bzw. Push-Abschnitt</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="9">
+      <ModellElementName>Neuer Kundentyp: Kunden B</ModellElementName>
+      <ModellElementVerbindung Element1="10" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>An der Schranke wartend</ModellElementName>
+      <ModellElementGroesse h="30" w="104" x="700" y="50"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NQ(5)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementZaehler id="22">
+      <ModellElementName>Pull</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1550" y="100"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Durchsatz</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="24">
+      <ModellElementName>Push</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1550" y="300"/>
+      <ModellElementVerbindung Element="34" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="35" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Durchsatz</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="19" Element2="22" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="30">
+      <ModellElementVerbindung Element1="22" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="34">
+      <ModellElementVerbindung Element1="21" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="35">
+      <ModellElementVerbindung Element1="24" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="38">
+      <ModellElementName>Durchsatz Pull</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="1550" y="170"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,195,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter(22)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="39">
+      <ModellElementName>Durchsatz Push</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="1550" y="250"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter(24)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementSchrankePull id="5">
+      <ModellElementGroesse h="50" w="100" x="700" y="100"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+      <ModellElementSchrankePullKontrolle Maximum="3">Pull 2</ModellElementSchrankePullKontrolle>
+    </ModellElementSchrankePull>
+    <ModellElementKante id="15">
+      <ModellElementName>Neuer Kundentyp: Kunden A</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementVerbindung Element1="5" Element2="28" Typ="Kante"/>
+    </ModellElementKante>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener 1" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener 2" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener 3" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener 4" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener 5" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener 6" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Farbe="0,195,0" Icon="user_green" Name="Kunden A"/>
+    <KundenDaten Farbe="255,0,0" Icon="user_red" Name="Kunden B"/>
+  </KundentypenDaten>
+</Modell>

@@ -1,0 +1,73 @@
+body {
+  font-family: Verdana, Lucida, sans-serif; 
+  background-color: #FFFFF8;
+  margin: 0;
+  padding: 0px 5px;
+  font-size: 100%;
+}
+
+a {
+  text-decoration: none;
+  border: 0;
+}
+
+a.box {
+  margin: 10px;
+  padding: 15px;
+  background-color: #DDDDDD;
+  border: 1px solid gray;
+  font-weight: bold;
+}
+
+ul.big li {margin-bottom: 5px;}
+ol.big li {margin-bottom: 5px;}
+ul.medium li {margin-bottom: 3px;}
+ol.medium li {margin-bottom: 3px;}
+
+div.menu, div.model, div.plaininfo {
+  background-color: #EEEEEE;
+}
+
+h1 {
+  font-weight: normal;
+  border-bottom: 1px dashed #D0D0D0;
+  font-size: 120%;
+  margin-top: 0px;
+}
+
+h2 {
+  font-weight: bold;
+  margin-bottom: 0px;
+  font-size: 110%;
+}
+
+h3 {
+  font-weight: bold;  
+  font-size: 100%;
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+table h3 {
+	font-size: 100%;
+	font-weight: bold;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+p{
+	margin: 1px 0 2px 0;
+	
+}
+
+p.red {
+  color: red;
+  padding: 8px;
+}
+
+img {border: 0px;}
+
+table.border {margin-top: 10px; border-collapse: collapse;}
+.border td {border: 1px solid #333; padding: 5px; margin: 0px;}

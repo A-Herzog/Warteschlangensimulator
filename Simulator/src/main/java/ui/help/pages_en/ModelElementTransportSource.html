@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Transport origin</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Transport origin</h1>
+
+<p>
+A transport origin element allows to transport a client to any
+<a href="ModelElementTransportDestination.html">transport destination</a>
+element. How much time is needed for the transport and to which
+transport destination element the client is transported can be set up
+in the transport origin element. 
+There is no need for a connection edge between the transport origin element
+and the transport destination element for routing clients from the origin to the
+destination.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the transport origin element has no further meaning.
+</p>
+
+<p>
+On the dialog page <b>Transport times</b> one can define how long the transportation
+of a client will take. The transport times can be defined by a probability distribution
+or by an expression. Additionally it can be set up if the transport time should be recorded
+as waiting time, transfer time (default) oder process time.
+</p>
+
+<p>
+On the dialog page <b>Routing destinations</b> target stations for transfering the
+clients can be registered. Conditions or client types can be specified for the transport
+destinations. Alternatively the clients sequence or a clients text property can be used to determine
+the transport destination.
+</p>
+
+<p>
+On the dialog page <b>Needed resource</b> a resource which is needed to transport
+the client to the destination station can be selected. Next to the type of the
+resource the quantity of operators from the resource needed to transport one
+client can be defined. Additionally a delayed release time can be set up.
+If a delayed release is selected the resource will not be released immediately
+after arrival of the client on the destination station but some time later.
+This can be used to model the return time of the resource to the origin
+station.
+</p>
+
+<p>
+On the dialog page <b>Leave section</b> optionally an enter section station can be specified.
+When the transport of the client starts, the corresponding section will be left.
+</p>
+
+</body>
+</html>

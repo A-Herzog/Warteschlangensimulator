@@ -1,0 +1,1566 @@
+\chapter{Zugriff auf die Modelleigenschaften}
+
+
+
+\section{Allgemeine Simulationsdaten}
+
+\begin{itemize}
+
+\item
+\cmd{SimTime()} oder \cmd{TNow()}:\\
+Liefert die aktuelle Simulationszeit in Sekunden.
+
+\item
+\cmd{WarmUp()} oder \cmd{isWarmUp()}:\\
+Liefert 1 zurück, wenn sich die Simulation noch in der Einschwingphase befindet, sonst 0.
+
+\item
+\cmd{WiederholungNummer()} oder \cmd{RepeatCurrent()}:\\
+Liefert die aktuell in Bearbeitung befindliche Wiederholung der Simulation (1-basierender Wert).
+
+\item
+\cmd{WiederholungenAnzahl()} oder \cmd{RepeatCount()}:\\
+Liefert die geplante Anzahl an Wiederholungen der Simulation.
+
+\item
+\cmd{\$("Name")}:\\
+Liefert die ID des Elements mit dem Namen, der innerhalb der Anführungszeichen steht.
+Existiert keine Station mit dem angegebenen Namen, so liefert die Funktion -1.
+
+\end{itemize}
+
+
+
+
+
+\section{Kunden im System}
+
+
+
+\subsection{Anzahl an Kunden im System}
+
+\begin{itemize}
+
+\item
+\cmd{WIP()} oder \cmd{N()} oder \cmd{Station()}:\\
+Liefert die aktuelle Gesamtanzahl an Kunden im System.
+
+\item
+\cmd{WIP\_avg()} oder \cmd{Station\_avg()} oder \cmd{N\_avg()} oder \cmd{WIP\_Mittelwert()} oder\\
+\cmd{Station\_Mittelwert()} oder \cmd{N\_Mittelwert()}:\\
+Liefert die mittlere Anzahl an Kunden im System.
+
+\item
+\cmd{WIP\_median()} oder \cmd{Station\_median()} oder \cmd{N\_median()}:\\	
+Liefert den Median der Anzahl an Kunden im System.
+
+\item
+\cmd{WIP\_quantil(p)} oder \cmd{Station\_quantil(p)} oder \cmd{N\_quantil(p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden im System.
+
+\item
+\cmd{WIP\_min()} oder \cmd{Station\_min()} oder \cmd{N\_min()} oder \cmd{WIP\_Minimum()} oder\\
+\cmd{Station\_Minimum()} oder \cmd{N\_Minimum()}:\\
+Liefert die minimale Anzahl an Kunden im System.
+
+\item
+\cmd{WIP\_max()} oder \cmd{Station\_max()} oder \cmd{N\_max()} oder \cmd{WIP\_Maximum()} oder\\
+\cmd{Station\_Maximum()} oder \cmd{N\_Maximum()}:\\
+Liefert die maximale Anzahl an Kunden im System.
+
+\item
+\cmd{WIP\_var()} oder \cmd{Station\_var()} oder \cmd{N\_var()} oder \cmd{WIP\_Varianz()} oder\\
+\cmd{Station\_Varianz()} oder \cmd{N\_Varianz()}:\\
+Liefert die Varianz der Anzahl an Kunden im System.
+
+\item
+\cmd{WIP\_sd()} oder \cmd{Station\_sd()} oder \cmd{N\_sd()} oder \cmd{WIP\_Standardabweichung()} oder\\
+\cmd{Station\_Standardabweichung()} oder \cmd{N\_Standardabweichung()}:\\
+Liefert die Standardabweichung der Anzahl an Kunden im System.
+
+\item
+\cmd{WIP\_cv()} oder \cmd{Station\_cv()} oder \cmd{N\_cv()}:\\
+Liefert den Variationskoeffizienten der Anzahl an Kunden im System.
+
+\item
+\cmd{WIP\_scv()} oder \cmd{Station\_scv()} oder \cmd{N\_scv()}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden im System.
+
+\end{itemize}
+
+
+
+\subsection{Anzahl an wartenden Kunden im System}
+
+\begin{itemize}    
+
+\item
+\cmd{NQ()} oder \cmd{Queue()} oder \cmd{Schlange()} oder \cmd{Warteschlange()}:\\
+Liefert die aktuelle Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_avg()} oder \cmd{Queue\_avg()} oder \cmd{Schlange\_avg()} oder \cmd{Warteschlange\_avg()} oder\\
+\cmd{NQ\_Mittelwert()} oder \cmd{Queue\_Mittelwert()} oder \cmd{Schlange\_Mittelwert()} oder\\
+\cmd{Warteschlange\_Mittelwert()}:\\
+Liefert die mittlere Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_median()} oder \cmd{Queue\_median()} oder \cmd{Schlange\_median()} oder\\
+\cmd{Warteschlange\_median()}:\\
+Liefert den Median der Anzahl an Kunden in allen Warteschlange zusammen.
+
+\item
+\cmd{NQ\_quantil(p)} oder \cmd{Queue\_quantil(p)} oder \cmd{Schlange\_quantil(p)} oder\\
+\cmd{Warteschlange\_quantil(p)}:
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden in allen Warteschlange zusammen.
+
+\item
+\cmd{NQ\_min()} oder \cmd{Queue\_min()} oder \cmd{Schlange\_min()} oder \cmd{Warteschlange\_min()} oder\\
+\cmd{NQ\_Minimum()} oder \cmd{Queue\_Minimum()} oder \cmd{Schlange\_Minimum()} oder\\
+\cmd{Warteschlange\_Minimum()}:\\
+Liefert die minimale Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_max()} oder \cmd{Queue\_max()} oder \cmd{Schlange\_max()} oder \cmd{Warteschlange\_max()} oder\\
+\cmd{NQ\_Maximum()} oder \cmd{Queue\_Maximum()} oder \cmd{Schlange\_Maximum()} oder\\
+\cmd{Warteschlange\_Maximum()}:\\
+Liefert die maximale Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_var()} oder \cmd{Queue\_var()} oder \cmd{Schlange\_var()} oder \cmd{Warteschlange\_var()} oder\\
+\cmd{NQ\_Varianz()} oder \cmd{Queue\_Varianz()} oder \cmd{Schlange\_Varianz()} oder\\
+\cmd{Warteschlange\_Varianz()}:\\
+Liefert die Varianz der Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_sd()} oder \cmd{Queue\_sd()} oder \cmd{Schlange\_sd()} oder \cmd{Warteschlange\_sd()} oder\\
+\cmd{NQ\_Standardabweichung()} oder \cmd{Queue\_Standardabweichung()} oder\\
+\cmd{Schlange\_Standardabweichung()} oder \cmd{Warteschlange\_Standardabweichung()}:\\
+Liefert die Standardabweichung der Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_cv()} oder \cmd{Queue\_cv()} oder \cmd{Schlange\_cv()} oder \cmd{Warteschlange\_cv()}:\\
+Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden im System.
+
+\item
+\cmd{NQ\_scv()} oder \cmd{Queue\_scv()} oder \cmd{Schlange\_scv()} oder \cmd{Warteschlange\_scv()}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden im System.
+
+\end{itemize}
+
+
+
+
+
+\section{Kunden an den Stationen}
+
+
+
+\subsection{Anzahl an Kunden an einer Station}
+
+\begin{itemize}
+
+\item
+\cmd{WIP(id)} oder \cmd{N(id)} oder \cmd{Station(id)}:\\
+Liefert die aktuelle Gesamtanzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_avg(id)} oder \cmd{Station\_avg(id)} oder \cmd{N\_avg(id)} oder \cmd{WIP\_Mittelwert(id)} oder\\
+\cmd{Station\_Mittelwert(id)} oder \cmd{N\_Mittelwert(id)}:\\
+Liefert die mittlere Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_median(id)} oder \cmd{Station\_median(id)} oder \cmd{N\_median(id)}:\\
+Liefert den Median der Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_quantil(p;id)} oder \cmd{Station\_quantil(p;id)} oder \cmd{N\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_min(id)} oder \cmd{Station\_min(id)} oder \cmd{N\_min(id)} oder \cmd{WIP\_Minimum(id)} oder\\
+\cmd{Station\_Minimum(id)} oder \cmd{N\_Minimum(id)}:\\
+Liefert die minimale Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_max(id)} oder \cmd{Station\_max(id)} oder \cmd{N\_max(id)} oder \cmd{WIP\_Maximum(id)} oder\\
+\cmd{Station\_Maximum(id)} oder \cmd{N\_Maximum(id)}:\\
+Liefert die maximale Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_var(id)} oder \cmd{Station\_var(id)} oder \cmd{N\_var(id)} oder \cmd{WIP\_Varianz(id)} oder\\
+\cmd{Station\_Varianz(id)} oder \cmd{N\_Varianz(id)}:\\
+Liefert die Varianz der Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_sd(id)} oder \cmd{Station\_sd(id)} oder \cmd{N\_sd(id)} oder \cmd{WIP\_Standardabweichung(id)} oder\\
+\cmd{Station\_Standardabweichung(id)} oder \cmd{N\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_cv(id)} oder \cmd{Station\_cv(id)} oder \cmd{N\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_scv(id)} oder \cmd{Station\_scv(id)} oder \cmd{N\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden an Station \cm{id}.
+
+\item
+\cmd{WIP\_hist(id;state)} oder \cmd{Station\_hist(id;state)} oder \cmd{N\_hist(id;state)}:\\
+Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden an Station \cm{id} im Zustand \cm{state} befunden hat.
+
+\item
+\cmd{WIP\_hist(id;stateA;stateB)} oder \cmd{Station\_hist(id;stateA;stateB)} oder\\
+\cmd{N\_hist(id;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden an Station \cm{id} in einem Zustand größer als \cm{stateA} und kleiner oder gleich \cm{stateB} befunden hat.
+
+\end{itemize}
+
+
+
+\subsection{Anzahl an Kunden in der Warteschlange an einer Station}
+
+\begin{itemize}    
+
+\item
+\cmd{NQ(id)} oder \cmd{Queue(id)} oder \cmd{Schlange(id)} oder \cmd{Warteschlange(id)}:\\
+Liefert die aktuelle Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ(id;nr)} oder \cmd{Queue(id;nr)} oder \cmd{Schlange(id;nr)} oder \cmd{Warteschlange(id;nr)}:\\
+Liefert die aktuelle Anzahl an Kunden in der Teilwarteschlange \cm{nr} (1-basierend) an Station \cm{id}.
+(Dieser Befehl kann nur auf ,,Zusammenführen''-Elemente angewandt werden.)
+ 
+\item
+\cmd{NQ\_avg(id)} oder \cmd{Queue\_avg(id)} oder \cmd{Schlange\_avg(id)} oder \cmd{Warteschlange\_avg(id)} oder \cmd{NQ\_Mittelwert(id)} oder \cmd{Queue\_Mittelwert(id)} oder \cmd{Schlange\_Mittelwert(id)} oder \cmd{Warteschlange\_Mittelwert(id)}:\\
+Liefert die mittlere Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_median(id)} oder \cmd{Queue\_median(id)} oder \cmd{Schlange\_median(id)} oder\\
+\cmd{Warteschlange\_median(id)}:\\
+Liefert den Median der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_quantil(p;id)} oder \cmd{Queue\_quantil(p;id)} oder \cmd{Schlange\_quantil(p;id)} oder\\
+\cmd{Warteschlange\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_min(id)} oder \cmd{Queue\_min(id)} oder \cmd{Schlange\_min(id)} oder \cmd{Warteschlange\_min(id)} oder \cmd{NQ\_Minimum(id)} oder \cmd{Queue\_Minimum(id)} oder \cmd{Schlange\_Minimum(id)} oder\\
+\cmd{Warteschlange\_Minimum(id)}:\\
+Liefert die minimale Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_max(id)} oder \cmd{Queue\_max(id)} oder \cmd{Schlange\_max(id)} oder \cmd{Warteschlange\_max(id)} oder \cmd{NQ\_Maximum(id)} oder \cmd{Queue\_Maximum(id)} oder \cmd{Schlange\_Maximum(id)} oder\\
+\cmd{Warteschlange\_Maximum(id)}:\\
+Liefert die maximale Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_var(id)} oder \cmd{Queue\_var(id)} oder \cmd{Schlange\_var(id)} oder \cmd{Warteschlange\_var(id)} oder \cmd{NQ\_Varianz(id)} oder \cmd{Queue\_Varianz(id)} oder \cmd{Schlange\_Varianz(id)} oder\\
+\cmd{Warteschlange\_Varianz(id)}:\\
+Liefert die Varianz der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_sd(id)} oder \cmd{Queue\_sd(id)} oder \cmd{Schlange\_sd(id)} oder \cmd{Warteschlange\_sd(id)} oder \cmd{NQ\_Standardabweichung(id)} oder \cmd{Queue\_Standardabweichung(id)} oder\\ \cmd{Schlange\_Standardabweichung(id)} oder \cmd{Warteschlange\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_cv(id)} oder \cmd{Queue\_cv(id)} oder \cmd{Schlange\_cv(id)} oder \cmd{Warteschlange\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_scv(id)} oder \cmd{Queue\_scv(id)} oder \cmd{Schlange\_scv(id)} oder \cmd{Warteschlange\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden in der Warteschlange an Station \cm{id}.
+
+\item
+\cmd{NQ\_hist(id;state)} oder \cmd{Queue\_hist(id;state)} oder \cmd{Schlange\_hist(id;state)} oder\\ \cmd{Warteschlange\_hist(id;state)}:\\
+Liefert den Anteil der Zeit, in der sich \cm{state} Kunden in der Warteschlange an Station \cm{id} befunden haben.
+
+\item
+\cmd{NQ\_hist(id;stateA;stateB)} oder \cmd{Queue\_hist(id;stateA;stateB)} oder\\ \cmd{Schlange\_hist(id;stateA;stateB)} oder \cmd{Warteschlange\_hist(id;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, in der sich mehr als \cm{stateA} und höchsten \cm{stateB} Kunden in der Warteschlange an Station \cm{id} befunden haben.
+
+\end{itemize}
+
+
+
+\subsection{Anzahl an Kunden in Bedienung an einer Station}
+
+\begin{itemize}
+
+\item
+\cmd{Process(id)}:\\
+Liefert die aktuelle Anzahl an Kunden, die gerade an Station \cm{id} bedient werden.
+
+\end{itemize}  
+
+
+
+\subsection{Anzahl an Ankünften und Abhängen an einer Station}
+
+\begin{itemize}
+
+\item
+\cmd{NumberIn(id)} oder \cmd{CountIn(id)}:\\
+Liefert die Anzahl an Kundenankünften an Station \cm{id}.
+
+\item
+\cmd{NumberOut(id)} oder \cmd{CountOut(id)}:\\
+Liefert die Anzahl an Kundenabgängen von Station \cm{id}.
+
+\end{itemize}  
+
+
+
+
+
+\section{Kunden nach Kundentypen}
+
+
+
+\subsection{Anzahl an Kunden im System nach Kundentypen}
+
+\begin{itemize}
+
+\item
+\cmd{WIP(id)} oder \cmd{N(id)} oder \cmd{Station(id)}:\\
+Liefert die aktuelle Gesamtanzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_avg(id)} oder \cmd{Station\_avg(id)} oder \cmd{N\_avg(id)} oder \cmd{WIP\_Mittelwert(id)} oder\\
+\cmd{Station\_Mittelwert(id)} oder \cmd{N\_Mittelwert(id)}:\\
+Liefert die mittlere Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_median(id)} oder \cmd{Station\_median(id)} oder \cmd{N\_median(id)}:\\
+Liefert den Median der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_quantil(p;id)} oder \cmd{Station\_quantil(p;id)} oder \cmd{N\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_min(id)} oder \cmd{Station\_min(id)} oder \cmd{N\_min(id)} oder \cmd{WIP\_Minimum(id)} oder\\
+\cmd{Station\_Minimum(id)} oder \cmd{N\_Minimum(id)}:\\
+Liefert die minimale Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_max(id)} oder \cmd{Station\_max(id)} oder \cmd{N\_max(id)} oder \cmd{WIP\_Maximum(id)} oder\\
+\cmd{Station\_Maximum(id)} oder \cmd{N\_Maximum(id)}:\\
+Liefert die maximale Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_var(id)} oder \cmd{Station\_var(id)} oder \cmd{N\_var(id)} oder \cmd{WIP\_Varianz(id)} oder\\
+\cmd{Station\_Varianz(id)} oder \cmd{N\_Varianz(id)}:\\
+Liefert die Varianz der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_sd(id)} oder \cmd{Station\_sd(id)} oder \cmd{N\_sd(id)} oder \cmd{WIP\_Standardabweichung(id)} oder\\
+\cmd{Station\_Standardabweichung(id)} oder \cmd{N\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_cv(id)} oder \cmd{Station\_cv(id)} oder \cmd{N\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_scv(id)} oder \cmd{Station\_scv(id)} oder \cmd{N\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{WIP\_hist(id;state)} oder \cmd{Station\_hist(id;state)} oder \cmd{N\_hist(id;state)}:\\
+Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, im Zustand \cm{state} befunden hat.
+
+\item
+\cmd{WIP\_hist(id;stateA;stateB)} oder \cmd{Station\_hist(id;stateA;stateB)} oder\\
+\cmd{N\_hist(id;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, in einem Zustand größer als \cm{stateA} und kleiner oder gleich \cm{stateB} befunden hat.
+
+\end{itemize}
+
+
+
+\subsection{Anzahl an wartenden Kunden im System nach Kundentypen}
+
+\begin{itemize}    
+
+\item
+\cmd{NQ(id)} oder \cmd{Queue(id)} oder \cmd{Schlange(id)} oder \cmd{Warteschlange(id)}:\\
+Liefert die aktuelle Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+ 
+\item
+\cmd{NQ\_avg(id)} oder \cmd{Queue\_avg(id)} oder \cmd{Schlange\_avg(id)} oder \cmd{Warteschlange\_avg(id)} oder \cmd{NQ\_Mittelwert(id)} oder \cmd{Queue\_Mittelwert(id)} oder \cmd{Schlange\_Mittelwert(id)} oder \cmd{Warteschlange\_Mittelwert(id)}:\\
+Liefert die mittlere Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_median(id)} oder \cmd{Queue\_median(id)} oder \cmd{Schlange\_median(id)} oder\\
+\cmd{Warteschlange\_median(id)}:\\
+Liefert den Median der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_quantil(p;id)} oder \cmd{Queue\_quantil(p;id)} oder \cmd{Schlange\_quantil(p;id)} oder\\
+\cmd{Warteschlange\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_min(id)} oder \cmd{Queue\_min(id)} oder \cmd{Schlange\_min(id)} oder \cmd{Warteschlange\_min(id)} oder \cmd{NQ\_Minimum(id)} oder \cmd{Queue\_Minimum(id)} oder \cmd{Schlange\_Minimum(id)} oder\\
+\cmd{Warteschlange\_Minimum(id)}:\\
+Liefert die minimale Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_max(id)} oder \cmd{Queue\_max(id)} oder \cmd{Schlange\_max(id)} oder \cmd{Warteschlange\_max(id)} oder \cmd{NQ\_Maximum(id)} oder \cmd{Queue\_Maximum(id)} oder \cmd{Schlange\_Maximum(id)} oder\\
+\cmd{Warteschlange\_Maximum(id)}:\\
+Liefert die maximale Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_var(id)} oder \cmd{Queue\_var(id)} oder \cmd{Schlange\_var(id)} oder \cmd{Warteschlange\_var(id)} oder \cmd{NQ\_Varianz(id)} oder \cmd{Queue\_Varianz(id)} oder \cmd{Schlange\_Varianz(id)} oder\\
+\cmd{Warteschlange\_Varianz(id)}:\\
+Liefert die Varianz der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_sd(id)} oder \cmd{Queue\_sd(id)} oder \cmd{Schlange\_sd(id)} oder \cmd{Warteschlange\_sd(id)} oder \cmd{NQ\_Standardabweichung(id)} oder \cmd{Queue\_Standardabweichung(id)} oder\\ \cmd{Schlange\_Standardabweichung(id)} oder \cmd{Warteschlange\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_cv(id)} oder \cmd{Queue\_cv(id)} oder \cmd{Schlange\_cv(id)} oder \cmd{Warteschlange\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_scv(id)} oder \cmd{Queue\_scv(id)} oder \cmd{Schlange\_scv(id)} oder \cmd{Warteschlange\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{NQ\_hist(id;state)} oder \cmd{Queue\_hist(id;state)} oder \cmd{Schlange\_hist(id;state)} oder\\ \cmd{Warteschlange\_hist(id;state)}:\\
+Liefert den Anteil der Zeit, in der sich \cm{state} wartende Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, im System befunden haben.
+
+\item
+\cmd{NQ\_hist(id;stateA;stateB)} oder \cmd{Queue\_hist(id;stateA;stateB)} oder\\ \cmd{Schlange\_hist(id;stateA;stateB)} oder \cmd{Warteschlange\_hist(id;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, in der sich mehr als \cm{stateA} und höchsten \cm{stateB} wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt, im System befunden haben.
+
+\end{itemize}
+
+
+
+
+
+\section{Zähler und Durchsatz}
+
+\begin{itemize}
+
+\item
+\cmd{Zähler(id)} oder \cmd{Counter(id)} oder \cmd{Value(id)} oder \cmd{Wert(id)}:\\
+Liefert den Wert des Zählers in Station \cm{id}.\\
+(Kann nur auf ,,Differenzzähler''- auf ,,Zähler''- und ,,Durchsatz''-Elemente angewandt werden.)
+
+\item
+\cmd{Anteil(id)} oder \cmd{Part(id)}:\\
+Liefert den Anteil des Zählerwertes innerhalb der Zählergruppe, in der er sich befindet.\\
+(Kann nur auf ,,Zähler''-Elemente angewandt werden.)
+
+\end{itemize}  
+
+
+
+\section{Wartezeiten}
+
+
+
+\subsection{Wartezeiten an einer Station}
+
+\begin{itemize}
+
+\item \cmd{Wartezeit\_sum(id)} oder \cmd{Wartezeit\_gesamt(id)} oder \cmd{Wartezeit\_summe(id)}:\\
+Liefert die Summe der an Station \cm{id} bisher angefallenen Wartezeiten (in Sekunden).
+
+\item
+\cmd{Wartezeit\_avg(id)} oder \cmd{Wartezeit\_average(id)} oder \cmd{Wartezeit\_Mittelwert(id)}:\\
+Liefert die mittlere Wartezeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Wartezeit\_median(id)}:\\
+Liefert den Median der Wartezeiten der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Wartezeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Wartezeiten der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Wartezeit\_min(id)} oder \cmd{Wartezeit\_Minimum(id)}:\\  
+Liefert die minimale Wartezeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Wartezeit\_max(id)} oder \cmd{Wartezeit\_Maximum(id)}:\\
+Liefert die maximale Wartezeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Wartezeit\_var(id)} oder \cmd{Wartezeit\_Varianz(id)}:\\
+Liefert die Varianz der Wartezeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Wartezeit\_sd(id)} oder \cmd{Wartezeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Wartezeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Wartezeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Wartezeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Wartezeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Wartezeit\_hist(id;time)}:\\
+Liefert den Anteil der Kunden, für den die Wartezeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Wartezeit\_hist(id;timeA;timeB)}:\\
+Liefert den Anteil der Kunden, für den die Wartezeit an Station \cm{id} mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}
+
+
+
+\subsection{Wartezeiten über alle Kundentypen}
+  
+\begin{itemize}
+
+\item
+\cmd{Wartezeit\_avg()} oder \cmd{Wartezeit\_average()} oder \cmd{Wartezeit\_Mittelwert()}:\\
+Liefert die mittlere Wartezeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Wartezeit\_median()}:\\
+Liefert den Median der Wartezeiten über alle Kunden (in Sekunden).
+
+\item
+\cmd{Wartezeit\_quntil(p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Wartezeiten über alle Kunden (in Sekunden).
+
+\item
+\cmd{Wartezeit\_min()} oder \cmd{Wartezeit\_Minimum()}:\\
+Liefert die minimale Wartezeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Wartezeit\_max()} oder \cmd{Wartezeit\_Maximum()}:\\
+Liefert die maximale Wartezeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Wartezeit\_var()} oder \cmd{Wartezeit\_Varianz()}:\\
+Liefert die Varianz der Wartezeiten über alle Kunden (bezogen auf Sekunden).
+
+\item
+\cmd{Wartezeit\_sd()} oder \cmd{Wartezeit\_Standardabweichung()}:\\
+Liefert die Standardabweichung der Wartezeiten über alle Kunden (bezogen auf Sekunden).
+
+\item
+\cmd{Wartezeit\_cv()}:\\
+Liefert den Variationskoeffizienten der Wartezeiten über alle Kunden.
+
+\item
+\cmd{Wartezeit\_scv()}:\\
+Liefert den quadrierten Variationskoeffizienten über alle Kunden.
+
+\item
+\cmd{Wartezeit\_histAll(time)}:\\
+Liefert den Anteil der Kunden, für den die Wartezeit \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Wartezeit\_histAll(timeA;timeB)}:\\
+Liefert den Anteil der Kunden, für den die Wartezeit mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}  
+
+
+
+\subsection{Wartezeiten für einen Kundentypen}
+
+\begin{itemize}
+
+\item
+\cmd{Wartezeit\_sum(id)} oder \cmd{Wartezeit\_gesamt(id)} oder \cmd{Wartezeit\_summe(id)}:\
+Liefert die Summe der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Wartezeit\_avg(id)} oder \cmd{Wartezeit\_average(id)} oder \cmd{Wartezeit\_Mittelwert(id)}:\\
+Liefert die mittlere Wartezeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Wartezeit\_median(id)}:\\
+Liefert den Median der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Wartezeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Wartezeit\_min(id)} oder \cmd{Wartezeit\_Minimum(id)}:\\
+Liefert die minimale Wartezeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Wartezeit\_max(id)} oder \cmd{Wartezeit\_Maximum(id)}:\\
+Liefert die maximale Wartezeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Wartezeit\_var(id)} oder \cmd{Wartezeit\_Varianz(id)}:\\
+Liefert die Varianz der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+
+\item
+\cmd{Wartezeit\_sd(id)} oder \cmd{Wartezeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+
+\item
+\cmd{Wartezeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Wartezeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\end{itemize}
+
+
+
+\section{Transferzeiten}
+
+
+
+\subsection{Transferzeiten an einer Station}
+
+\begin{itemize}
+
+\item
+\cmd{Transferzeit\_sum(id)} oder \cmd{Transferzeit\_gesamt(id)} oder \cmd{Transferzeit\_summe(id)}:\\
+Liefert die Summe der an Station \cm{id} bisher angefallenen Transferzeiten (in Sekunden).
+
+\item
+\cmd{Transferzeit\_avg(id)} oder \cmd{Transferzeit\_average(id)} oder\\
+\cmd{Transferzeit\_Mittelwert(id)}:\\
+Liefert die mittlere Transferzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Transferzeit\_median(id)}:\\
+Liefert den Median der Transferzeiten der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Transferzeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Transferzeiten der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Transferzeit\_min(id)} oder \cmd{Transferzeit\_Minimum(id)}:\\
+Liefert die minimale Transferzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Transferzeit\_max(id)} oder \cmd{Transferzeit\_Maximum(id)}:\\
+Liefert die maximale Transferzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Transferzeit\_var(id)} oder \cmd{Transferzeit\_Varianz(id)}:\\
+Liefert die Varianz der Transferzeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Transferzeit\_sd(id)} oder \cmd{Transferzeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Transferzeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Transferzeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Transferzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Transferzeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Transferzeit\_hist(id;time)}:\\
+Liefert den Anteil der Kunden, für den die Transferzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Transferzeit\_hist(id;timeA;timeB)}:\\
+Liefert den Anteil der Kunden, für den die Transferzeit an Station \cm{id} mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}  
+
+
+
+\subsection{Transferzeiten über alle Kundentypen}
+
+\begin{itemize}
+
+\item
+\cmd{Transferzeit\_avg()} oder \cmd{Transferzeit\_average()} oder \cmd{Transferzeit\_Mittelwert()}:\\
+Liefert die mittlere Transferzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Transferzeit\_median()}:\\
+Liefert den Median der Transferzeiten über alle Kunden (in Sekunden).
+
+\item
+\cmd{Transferzeit\_quantil(p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Transferzeiten über alle Kunden (in Sekunden).
+
+\item
+\cmd{Transferzeit\_min()} oder \cmd{Transferzeit\_Minimum()}:\\
+Liefert die minimale Transferzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Transferzeit\_max()} oder \cmd{Transferzeit\_Maximum()}:\\
+Liefert die maximale Transferzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Transferzeit\_var()} oder \cmd{Transferzeit\_Varianz()}:\\
+Liefert die Varianz der Transferzeiten über alle Kunden (bezogen auf Sekunden).
+
+\item
+\cmd{Transferzeit\_sd()} oder \cmd{Transferzeit\_Standardabweichung()}:\\
+Liefert die Standardabweichung der Transferzeiten über alle Kunden (bezogen auf Sekunden).
+
+\item
+\cmd{Transferzeit\_cv()}:\\
+Liefert den Variationskoeffizienten der Transferzeiten über alle Kunden.
+
+\item
+\cmd{Transferzeit\_scv()}:\\
+Liefert den quadrierten Variationskoeffizienten der Transferzeiten über alle Kunden.
+
+\item
+\cmd{Transferzeit\_histAll(time)}:\\
+Liefert den Anteil der Kunden, für den die Transferzeit \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Transferzeit\_histAll(timeA;timeB)}:\\
+Liefert den Anteil der Kunden, für den die Transferzeit mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}  
+
+
+
+\subsection{Transferzeiten für einen Kundentypen}
+
+\begin{itemize}
+
+\item
+\cmd{Transferzeit\_sum(id)} oder \cmd{Transferzeit\_gesamt(id)} oder \cmd{Transferzeit\_summe(id)}:\\
+Liefert die Summe der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Transferzeit\_avg(id)} oder \cmd{Transferzeit\_average(id)} oder\\
+\cmd{Transferzeit\_Mittelwert(id)}:\\
+Liefert die mittlere Transferzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Transferzeit\_median(id)}:\\
+Liefert den Median der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Transferzeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Transferzeit\_min(id)} oder \cmd{Transferzeit\_Minimum(id)}:\\
+Liefert die minimale Transferzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Transferzeit\_max(id)} oder \cmd{Transferzeit\_Maximum(id)}:\\
+Liefert die maximale Transferzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Transferzeit\_var(id)} oder \cmd{Transferzeit\_Varianz(id)}:\\
+Liefert die Varianz der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+
+\item
+\cmd{Transferzeit\_sd(id)} oder \cmd{Transferzeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+
+\item
+\cmd{Transferzeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Transferzeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\end{itemize}
+
+
+
+\section{Bedienzeiten}
+
+
+
+\subsection{Bedienzeiten an einer Station}
+
+\begin{itemize}
+
+\item
+\cmd{Bedienzeit\_sum(id)} oder \cmd{Bedienzeit\_gesamt(id)} oder \cmd{Bedienzeit\_summe(id)}:\\
+Liefert die Summe der an Station \cm{id} bisher angefallenen Bedienzeiten (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_avg(id)} oder \cmd{Bedienzeit\_average(id)} oder \cmd{Bedienzeit\_Mittelwert(id)}:\\
+Liefert die mittlere Bedienzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_median(id)}:\\
+Liefert den Median der Bedienzeiten der Kunden an Station id (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Bedienzeiten der Kunden an Station id (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_min(id)} oder \cmd{Bedienzeit\_Minimum(id)}:\\
+Liefert die minimale Bedienzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_max(id)} oder \cmd{Bedienzeit\_Maximum(id)}:\\
+Liefert die maximale Bedienzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_var(id)} oder \cmd{Bedienzeit\_Varianz(id)}:\\
+Liefert die Varianz der Bedienzeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Bedienzeit\_sd(id)} oder \cmd{Bedienzeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Bedienzeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Bedienzeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Bedienzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Bedienzeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Bedienzeit\_hist(id;time)}:\\
+Liefert den Anteil der Kunden, für den die Bedienzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Bedienzeit\_hist(id;timeA;timeB)}:\\
+Liefert den Anteil der Kunden, für den die Bedienzeit an Station \cm{id} mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}
+
+
+
+\subsection{Bedienzeiten über alle Kundentypen}
+
+\begin{itemize}
+
+\item
+\cmd{Bedienzeit\_avg()} oder \cmd{Bedienzeit\_average()} oder \cmd{Bedienzeit\_Mittelwert()}:\\
+Liefert die mittlere Bedienzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_median()}:\\
+Liefert den Median der Bedienzeiten über alle Kunden (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_quantil(p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Bedienzeiten über alle Kunden (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_min()} oder \cmd{Bedienzeit\_Minimum()}:\\
+Liefert die mittlere Bedienzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_max()} oder \cmd{Bedienzeit\_Maximum()}:\\
+Liefert die maximale Bedienzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_var()} oder \cmd{Bedienzeit\_Varianz()}:\\
+Liefert die Varianz der Bedienzeiten über alle Kunden (bezogen auf Sekunden).
+
+\item
+\cmd{Bedienzeit\_sd()} oder \cmd{Bedienzeit\_Standardabweichung()}:\\
+Liefert die Standardabweichung der Bedienzeiten über alle Kunden (bezogen auf Sekunden).
+
+\item
+\cmd{Bedienzeit\_cv()}:\\
+Liefert den Variationskoeffizienten der Bedienzeiten über alle Kunden.
+
+\item
+\cmd{Bedienzeit\_scv()}:\\
+Liefert den quadrierten Variationskoeffizienten der Bedienzeiten über alle Kunden.
+
+\item
+\cmd{Bedienzeit\_histAll(time)}:\\
+Liefert den Anteil der Kunden, für den die Bedienzeit \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Bedienzeit\_histAll(timeA;timeB)}:\\
+Liefert den Anteil der Kunden, für den die Bedienzeit mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}
+
+
+
+\subsection{Bedienzeiten für einen Kundentypen}
+
+\begin{itemize}
+
+\item
+\cmd{Bedienzeit\_sum(id)} oder \cmd{Bedienzeit\_gesamt(id)} oder \cmd{Bedienzeit\_summe(id)}:\\
+Liefert die Summe der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_avg(id)} oder \cmd{Bedienzeit\_average(id)} oder \cmd{Bedienzeit\_Mittelwert(id)}:\\
+Liefert die mittlere Bedienzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_median(id)}:\\
+Liefert den Median der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_min(id)} oder \cmd{Bedienzeit\_Minimum(id)}:\\
+Liefert die minimale Bedienzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_max(id)} oder \cmd{Bedienzeit\_Maximum(id)}:\\
+Liefert die maximale Bedienzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Bedienzeit\_var(id)} oder \cmd{Bedienzeit\_Varianz(id)}:\\
+Liefert die Varianz der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+
+\item
+\cmd{Bedienzeit\_sd(id)} oder \cmd{Bedienzeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+
+\item
+\cmd{Bedienzeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Bedienzeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\end{itemize}
+
+
+
+\section{Verweilzeiten}
+
+
+
+\subsection{Verweilzeiten an einer Station}
+
+\begin{itemize}
+
+\item \cmd{Verweilzeit\_sum(id)} oder \cmd{Verweilzeit\_gesamt(id)} oder \cmd{Verweilzeit\_summe(id)}:\\
+Liefert die Summe der an Station \cm{id} bisher angefallenen Verweilzeiten (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_avg(id)} oder \cmd{Verweilzeit\_average(id)} oder \cmd{Verweilzeit\_Mittelwert(id)}:\\
+Liefert die mittlere Verweilzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_median(id)}:\\
+Liefert den Median der Verweilzeiten der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Verweilzeiten der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_min(id)} oder \cmd{Verweilzeit\_Minimum(id)}:\\  
+Liefert die minimale Verweilzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_max(id)} oder \cmd{Verweilzeit\_Maximum(id)}:\\
+Liefert die maximale Verweilzeit der Kunden an Station \cm{id} (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_var(id)} oder \cmd{Verweilzeit\_Varianz(id)}:\\
+Liefert die Varianz der Verweilzeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Verweilzeit\_sd(id)} oder \cmd{Verweilzeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Verweilzeiten der Kunden an Station \cm{id} (bezogen auf Sekunden).
+
+\item
+\cmd{Verweilzeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Verweilzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Verweilzeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden an Station \cm{id}.
+
+\item
+\cmd{Verweilzeit\_hist(id;time)}:\\
+Liefert den Anteil der Kunden, für den die Verweilzeit an Station \cm{id} \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Verweilzeit\_hist(id;timeA;timeB)}:\\
+Liefert den Anteil der Kunden, für den die Verweilzeit an Station \cm{id} mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}
+
+
+
+\subsection{Verweilzeiten über alle Kundentypen}
+  
+\begin{itemize}
+
+\item
+\cmd{Verweilzeit\_avg()} oder \cmd{Verweilzeit\_average()} oder \cmd{Verweilzeit\_Mittelwert()}:\\
+Liefert die mittlere Verweilzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_median()}:\\
+Liefert den Median der Verweilzeiten über alle Kunden (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_quantil(p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Verweilzeiten über alle Kunden (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_min()} oder \cmd{Verweilzeit\_Minimum()}:\\
+Liefert die minimale Verweilzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_max()} oder \cmd{Verweilzeit\_Maximum()}:\\
+Liefert die maximale Verweilzeit über alle Kunden (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_var()} oder \cmd{Verweilzeit\_Varianz()}:\\
+Liefert die Varianz der Verweilzeiten über alle Kunden (bezogen auf Sekunden).
+
+\item
+\cmd{Verweilzeit\_sd()} oder \cmd{Verweilzeit\_Standardabweichung()}:\\
+Liefert die Standardabweichung der Verweilzeiten über alle Kunden (bezogen auf Sekunden).
+
+\item
+\cmd{Verweilzeit\_cv()}:\\
+Liefert den Variationskoeffizienten der Verweilzeiten über alle Kunden.
+
+\item
+\cmd{Verweilzeit\_scv()}:\\
+Liefert den quadrierten Variationskoeffizienten über alle Kunden.
+
+\item
+\cmd{Verweilzeit\_histAll(time)}:\\
+Liefert den Anteil der Kunden, für den die Verweilzeit \cm{time} Sekunden gedauert hat.
+
+\item
+\cmd{Verweilzeit\_histAll(timeA;timeB)}:\\
+Liefert den Anteil der Kunden, für den die Verweilzeit mehr als \cm{timeA} und höchstens \cm{timeB} Sekunden gedauert hat.
+
+\end{itemize}  
+
+
+
+\subsection{Verweilzeiten für einen Kundentypen}
+
+\begin{itemize}
+
+\item
+\cmd{Verweilzeit\_sum(id)} oder \cmd{Verweilzeit\_gesamt(id)} oder \cmd{Verweilzeit\_summe(id)}:\
+Liefert die Summe der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_avg(id)} oder \cmd{Verweilzeit\_average(id)} oder \cmd{Verweilzeit\_Mittelwert(id)}:\\
+Liefert die mittlere Verweilzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_median(id)}:\\
+Liefert den Median der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_quantil(p;id)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_min(id)} oder \cmd{Verweilzeit\_Minimum(id)}:\\
+Liefert die minimale Verweilzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_max(id)} oder \cmd{Verweilzeit\_Maximum(id)}:\\
+Liefert die maximale Verweilzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+
+\item
+\cmd{Verweilzeit\_var(id)} oder \cmd{Verweilzeit\_Varianz(id)}:\\
+Liefert die Varianz der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+
+\item
+\cmd{Verweilzeit\_sd(id)} oder \cmd{Verweilzeit\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+
+\item
+\cmd{Verweilzeit\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{Verweilzeit\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\end{itemize}  
+
+
+
+\section{Auslastung der Ressourcen}
+
+
+
+\subsection{Auslastung einer Ressource}
+
+\begin{itemize}
+
+\item
+\cmd{resource\_count(id)} oder \cmd{resource\_capacity(id)} oder \cmd{MR(id)}:\\
+Liefert die Anzahl der momentan vorhandenen Bediener in der angegebenen Ressource.
+
+\item
+\cmd{resource\_down(id)}:\\
+Liefert die Anzahl der momentan in Ausfallzeit befindlichen Bediener in der angegebenen Ressource.
+
+\item
+\cmd{resource(id)} oder \cmd{utilization(id)} oder \cmd{NR(id)}:\\
+Liefert die Anzahl der momentan belegten Bediener in der angegebenen Ressource.
+
+\item
+\cmd{resource\_avg(id)} oder \cmd{resource\_average(id)} oder \cmd{resource\_Mittelwert(id)} oder\\
+\cmd{utilization\_avg(id)} oder \cmd{utilization\_average(id)} oder \cmd{utilization\_Mittelwert(id)}:\\
+Liefert die mittlere Anzahl an belegten Bedienern in der angegebenen Ressource.
+
+\item
+\cmd{resource\_min(id)} oder \cmd{resource\_Minimum(id)} oder \cmd{utilization\_min(id)} oder\\
+\cmd{utilization\_Minimum(id)}:\\
+Liefert die minimale Anzahl an belegten Bedienern in der angegebenen Ressource.
+
+\item
+\cmd{resource\_max(id)} oder \cmd{resource\_Maximum(id)} oder \cmd{utilization\_max(id)} oder\\
+\cmd{utilization\_Maximum(id)}:\\
+Liefert die maximale Anzahl an belegten Bedienern in der angegebenen Ressource.
+
+\item
+\cmd{resource\_var(id)} oder \cmd{resource\_Varianz(id)} oder \cmd{utilization\_var(id)} oder\\
+\cmd{utilization\_Varianz(id)}:\\
+Liefert die Varianz der Anzahl an belegten Bedienern in der angegebenen Ressource.
+
+\item
+\cmd{resource\_sd(id)} oder \cmd{resource\_Standardabweichung(id)} oder \cmd{utilization\_sd(id)} oder\\
+\cmd{utilization\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Anzahl an belegten Bedienern in der angegebenen Ressource.
+
+\item
+\cmd{resource\_cv(id)} oder \cmd{utilization\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Anzahl an belegten Bedienern in der angegebenen Ressource.
+
+\item
+\cmd{resource\_scv(id)} oder \cmd{utilization\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Bedienern in der angegebenen Ressource.  
+
+\item
+\cmd{resource\_hist(id;state)} oder \cmd{utilization\_hist(id;state)}:\\
+Liefert den Anteil der Zeit, in der \cm{state} Bediener der angegebenen Ressource ausgelastet waren.
+
+\item
+\cmd{resource\_hist(id;stateA;stateB)} oder \cmd{utilization\_hist(id;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, mehr als \cm{stateA} und höchstens \cm{stateB} Bediener der angegebenen Ressource ausgelastet waren.
+
+\end{itemize}
+
+
+
+\subsection{Auslastung aller Ressourcen zusammen}
+
+\begin{itemize}
+
+\item
+\cmd{resource\_count()} oder \cmd{resource\_capacity()} oder \cmd{MR()}:\\
+Liefert die Anzahl der momentan vorhandenen Bedienern in allen Ressourcen zusammen.
+
+\item
+\cmd{resource\_down()}:\\
+Liefert die Anzahl der momentan in Ausfallzeit befindlichen Bediener in allen Ressourcen zusammen. 
+
+\item
+\cmd{resource()} oder \cmd{utilization()} oder \cmd{NR()}:\\
+Liefert die Anzahl der momentan belegten Bediener in allen Ressourcen zusammen.
+
+\item
+\cmd{resource\_avg()} oder \cmd{resource\_average()} oder \cmd{resource\_Mittelwert()} oder\\
+\cmd{utilization\_avg()} oder \cmd{utilization\_average()} oder \cmd{utilization\_Mittelwert()}:\\
+Liefert die mittlere Anzahl an belegten Bedienern in allen Ressourcen zusammen.
+
+\item
+\cmd{resource\_min()} oder \cmd{resource\_Minimum()} oder \cmd{utilization\_min()} oder\\
+\cmd{utilization\_Minimum()}:\\
+Liefert die minimale Anzahl an belegten Bedienern in allen Ressourcen zusammen.
+
+\item
+\cmd{resource\_max()} oder \cmd{resource\_Maximum()} oder \cmd{utilization\_max()} oder\\
+\cmd{utilization\_Maximum()}:\\
+Liefert die maximale Anzahl an belegten Bedienern in allen Ressourcen zusammen.
+
+\end{itemize}  
+
+
+
+\section{Auslastung der Transporter}
+
+
+
+\subsection{Auslastung einer Transportergruppe}
+
+\begin{itemize}
+  
+\item
+\cmd{transporter\_count(id)}:\\
+Liefert die Anzahl der vorhandenen Transporter in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_capacity(id)}:\\
+Liefert die Kapazität an beförderbaren Kunden eines Transporters in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_down(id)}:\\
+Liefert die Anzahl der momentan in Ausfallzeit befindlichen Transporter in der angegebenen Transportergruppe.
+
+\item
+\cmd{transporter(id)} oder \cmd{transporter\_utilization(id)}:\\
+Liefert die Anzahl der momentan belegten Transporter in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_avg(id)} oder \cmd{transporter\_average(id)} oder \cmd{transporter\_Mittelwert(id)} oder \cmd{transporter\_utilization\_avg(id)} oder \cmd{transporter\_utilization\_average(id)} oder \cmd{transporter\_utilization\_Mittelwert(id)}:\\
+Liefert die mittlere Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_min(id)} oder \cmd{transporter\_Minimum(id)} oder\\
+\cmd{transporter\_utilization\_min(id)} oder \cmd{transporter\_utilization\_Minimum(id)}:\\
+Liefert die minimale Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_max(id)} oder \cmd{transporter\_Maximum(id)} oder\\
+\cmd{transporter\_utilization\_max(id)} oder \cmd{transporter\_utilization\_Maximum(id)}:\\
+Liefert die maximale Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_var(id)} oder \cmd{transporter\_Varianz(id)} oder\\
+\cmd{transporter\_utilization\_var(id)} oder \cmd{transporter\_utilization\_Varianz(id)}:\\
+Liefert die Varianz der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_sd(id)} oder \cmd{transporter\_Standardabweichung(id)} oder\\
+\cmd{transporter\_utilization\_sd(id)} oder\\
+\cmd{transporter\_utilization\_Standardabweichung(id)}:\\
+Liefert die Standardabweichung der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_cv(id)} oder \cmd{transporter\_utilization\_cv(id)}:\\
+Liefert den Variationskoeffizienten der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_scv(id)} oder \cmd{transporter\_utilization\_scv(id)}:\\
+Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+  
+\item
+\cmd{transporter\_hist(id;state)} oder \cmd{transporter\_utilization\_hist(id;state)}:\\
+Liefert den Anteil der Zeit, in der \cm{state} Transporter der angegebenen Transportergruppe ausgelastet waren.
+  
+\item
+\cmd{transporter\_hist(id;stateA;stateB)} oder\\
+\cmd{transporter\_utilization\_hist(id;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, mehr als \cm{stateA} und höchstens \cm{stateB} Transporter der angegebenen Transportergruppe ausgelastet waren.
+
+\end{itemize}
+
+
+
+\subsection{Auslastung aller Transporter zusammen}
+
+\begin{itemize}
+  
+\item
+\cmd{transporter\_count()}:\\
+Liefert die Anzahl der vorhandenen Transportern in allen Transportergruppen zusammen.
+  
+\item
+\cmd{transporter\_down()}:\\
+Liefert die Anzahl der momentan in Ausfallzeit befindlichen Transporter in allen Transportergruppen zusammen. 
+
+\item
+\cmd{transporter()} oder \cmd{transporter\_utilization()}:\\
+Liefert die Anzahl der momentan belegten Transporter in allen Transportergruppen zusammen.
+  
+\item
+\cmd{transporter\_avg()} oder \cmd{transporter\_average()} oder \cmd{transporter\_Mittelwert()} oder \cmd{transporter\_utilization\_avg()} oder \cmd{transporter\_utilization\_average()} oder\\
+\cmd{transporter\_utilization\_Mittelwert()}:\\
+Liefert die mittlere Anzahl an belegten Transportern in allen Transportergruppen zusammen.
+  
+\item
+\cmd{transporter\_min()} oder \cmd{transporter\_Minimum()} oder \cmd{transporter\_utilization\_min()} oder \cmd{transporter\_utilization\_Minimum()}:\\
+Liefert die minimale Anzahl an belegten Transportern in allen Transportergruppen zusammen.
+  
+\item
+\cmd{transporter\_max()} oder \cmd{transporter\_Maximum()} oder \cmd{transporter\_utilization\_max()} oder \cmd{transporter\_utilization\_Maximum()}:\\
+Liefert die maximale Anzahl an belegten Transportern in allen Transportergruppen zusammen.
+
+\end{itemize}
+
+
+
+\section{Zugriff auf Statistik-Stationen Datenfelder}
+
+\begin{itemize}
+
+\item
+\cmd{Statistik(id;nr)} oder \cmd{Statistics(id;nr)}:\\
+Liefert den aktuellen Wert des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_avg(id;nr)} oder \cmd{Statistics\_avg(id;nr)} oder \cmd{Statistik\_Mittelwert(id;nr)} oder \cmd{Statistics\_average(id;nr)}:\\
+Liefert den Mittelwert des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_median(id;nr)} oder \cmd{Statistics\_median(id;nr)}:\\
+Liefert den Median des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_quantil(id;nr;p)} oder \cmd{Statistics\_quantil(id;nr;p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_min(id;nr)} oder \cmd{Statistics\_min(id;nr)} oder \cmd{Statistik\_Minimum(id;nr)} oder \cmd{Statistics\_Minimum(id;nr)}:\\
+Liefert den Minimalwert des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_max(id;nr)} oder \cmd{Statistics\_max(id;nr)} oder \cmd{Statistik\_Maximum(id;nr)} oder \cmd{Statistics\_Maximum(id;nr)}:\\
+Liefert den Maximalwert des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_var(id;nr)} oder \cmd{Statistics\_var(id;nr)} oder \cmd{Statistik\_Varianz(id;nr)}:\\
+Liefert die Varianz des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_std(id;nr)} oder \cmd{Statistics\_std(id;nr)} oder\\
+\cmd{Statistik\_Standardabweichung(id;nr)}:\\
+Liefert die Standardabweichung des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_cv(id;nr)} oder \cmd{Statistics\_cv(id;nr)}:\\
+Liefert den Variationskoeffizienten des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_scv(id;nr)} oder \cmd{Statistics\_scv(id;nr)}:\\
+Liefert den quadrierten Variationskoeffizienten des Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id}.
+
+\item
+\cmd{Statistik\_hist(id;nr;state)} oder \cmd{Statistics\_hist(id;nr;state)}:\\
+Liefert den Anteil der Zeit, in der sich das System in Bezug auf Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id} in Zustand \cm{state} befunden hat.
+
+\item
+\cmd{Statistik\_hist(id;nr;stateA;stateB)} oder \cmd{Statistics\_hist(id;nr;stateA;stateB)}:\\
+Liefert den Anteil der Zeit, in der sich das System in Bezug auf Statistikeintrags \cm{nr} (1-basierend) an Statistik-Station \cm{id} in einem Zustand größer als \cm{stateA} und kleiner oder gleich \cm{stateB} befunden hat.
+
+\end{itemize}
+
+
+\section{Zugriff auf Analogwerte}
+  
+\begin{itemize}
+
+\item
+\cmd{AnalogWert(id)} oder \cmd{AnalogValue(id)}:\\
+Liefert den aktuellen Wert des ,,Analoger Wert''-Elements oder des ,,Tank''-Elements \cm{id}.
+
+\item
+\cmd{AnalogRate(id)}:\\
+Liefert die aktuelle Änderungsrate des Wertes des ,,Analoger Wert''-Elements \cm{id}.
+
+\item
+\cmd{VentilMaximalDurchfluss(id;nr)} oder \cmd{ValveMaximumFlow(id;nr)}:\\
+Liefert den aktuellen maximalen Durchfluss an Ventil \cm{nr} (1-basierend) an ,,Tank''-Element \cm{id}.
+
+\end{itemize}
+
+
+
+\section{Zugriff auf Kundenobjekt-spezifische Datenfelder}
+
+\begin{itemize}
+
+\item
+\cmd{WarmUpKunde()} oder \cmd{WarmUpClient()} oder \cmd{isWarmUpClient()}:\\
+Liefert 0 oder 1 zurück in Abhängigkeit davon, ob der Kunde während der Einschwingphase generiert wurde (1) oder nicht (0).
+
+\item
+\cmd{KundeInStatistik()} oder \cmd{ClientInStatistics()} oder \cmd{isClientInStatistics()}:\\
+Liefert 0 oder 1 zurück in Abhängigkeit davon, ob der Kunde in der Statistik erfasst werden soll (1) oder nicht (0). Der Kunde muss außerdem außerhalb der Einschwingphase generiert worden sein, um tatsächlich erfasst zu werden.
+
+\item
+\cmd{KundeNummer()} oder \cmd{ClientNumber()}:\\
+Liefert die 1-basierende fortlaufende Nummer des aktuellen Kunden. Bei der Verwendung von mehreren Simulationsthreads ist diese Zahl thread-lokal.
+
+\item
+\cmd{ClientData(index)} oder \cmd{KundenDaten(index)}:\\
+Liefert das an Stelle \cm{index} im aktuellen Kundenobjekt hinterlegte Datenfeld.\\
+In den ,,Variable''-Elementen kann schreibend auf diese Felder zugegriffen werden.
+
+\item
+\cmd{Alternative()}:\\
+Gibt an, welche Bedieneralternative an der letzten Bedienstation, die dieser Kunde durchlaufen hat, gewählt wurde. Hat der Kunde noch keine Bedienstation durchlaufen, so liefert die Funktion 0. Ansonsten einen Wert größer oder gleich 1.
+
+\item
+\cmd{PreviousStation()} oder \cmd{VorherigeStation()}:\\
+Liefert die ID der Station, an der sich der Kunde vor der aktuellen Station aufgehalten hat.
+
+\item
+\cmd{CurrentWaitingTime()} oder \cmd{AktuelleWartezeit()}:\\
+Liefert die bisherige Wartezeit des aktuellen Kunden an der aktuellen Station.
+
+\end{itemize}
+
+
+
+\section{Zugriff auf die Kosten}
+
+\begin{itemize}
+
+\item
+\cmd{costs\_waiting\_sum(id)} oder \cmd{Kosten\_Wartezeit\_Summe(id)}:\\
+Liefert die Summe der Wartezeitkosten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.  
+
+\item
+\cmd{costs\_waiting\_avg(id)} oder \cmd{costs\_waiting\_average(id)} oder\\
+\cmd{Kosten\_Wartezeit\_Mittelwert(id)}:\\
+Liefert die durchschnittlichen Wartezeitkosten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{costs\_waiting\_sum()} oder \cmd{Kosten\_Wartezeit\_Summe()}:\\
+Liefert die Summe der Wartezeitkosten über alle Kunden.
+
+\item
+\cmd{costs\_waiting\_avg()} oder \cmd{costs\_waiting\_average()} oder\\
+\cmd{Kosten\_Wartezeit\_Mittelwert()}:\\
+Liefert die durchschnittlichen Wartezeitkosten über alle Kunden.
+
+\item
+\cmd{costs\_waiting()} oder \cmd{Kosten\_Wartezeit()}:\\
+Liefert die Wartezeitkosten des aktuellen Kunden.
+
+\item
+\cmd{costs\_transfer\_sum(id)} oder \cmd{Kosten\_Transferzeit\_Summe(id)}:\\
+Liefert die Summe der Transferzeitkosten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{costs\_transfer\_avg(id)} oder \cmd{costs\_transfer\_average(id)} oder\\
+\cmd{Kosten\_Transferzeit\_Mittelwert(id)}:\\
+Liefert die durchschnittlichen Transferzeitkosten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{costs\_transfer\_sum()} oder \cmd{Kosten\_Transferzeit\_Summe()}:\\
+Liefert die Summe der Transferzeitkosten über alle Kunden.
+
+\item
+\cmd{costs\_transfer\_avg()} oder \cmd{costs\_transfer\_average()} oder\\
+\cmd{Kosten\_Transferzeit\_Mittelwert()}:\\
+Liefert die durchschnittlichen Transferzeitkosten über alle Kunden.
+
+\item
+\cmd{costs\_transfer()} oder \cmd{Kosten\_Transferzeit()}:\\
+Liefert die Transferzeitkosten des aktuellen Kunden.
+
+\item
+\cmd{costs\_process\_sum(id)} oder \cmd{Kosten\_Bedienzeit\_Summe(id)}:\\
+Liefert die Summe der Bedienzeitkosten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{costs\_process\_avg(id)} oder \cmd{costs\_process\_average(id)} oder\\
+\cmd{Kosten\_Bedienzeit\_Mittelwert(id)}:\\
+Liefert die durchschnittlichen Bedienzeitkosten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+
+\item
+\cmd{costs\_process\_sum()} oder \cmd{Kosten\_Bedienzeit\_Summe()}:\\
+Liefert die Summe der Bedienzeitkosten über alle Kunden.
+
+\item
+\cmd{costs\_process\_avg()} oder \cmd{costs\_process\_average()} oder\\
+\cmd{Kosten\_Bedienzeit\_Mittelwert()}:\\
+Liefert die durchschnittlichen Bedienzeitkosten über alle Kunden.
+
+\item
+\cmd{costs\_process()} oder \cmd{Kosten\_Bedienzeit()}:\\
+Liefert die Bedienzeitkosten des aktuellen Kunden.
+
+\item
+\cmd{costs(id)} oder \cmd{Kosten(id)}:\\
+Liefert die Stationskosten, die bisher in Summe an Station \cm{id} aufgetreten sind.
+
+\item
+\cmd{costs()} oder \cmd{Kosten()}:\\
+Liefert die Stationskosten, die bisher in Summe an allen Stationen aufgetreten sind.
+
+\item
+\cmd{costs\_resource(id)} oder \cmd{Kosten\_Ressource(id)}:\\
+Liefert die Kosten, die durch die angegebene Ressource bisher entstanden sind.
+
+\item
+\cmd{costs\_resource()} oder \cmd{Kosten\_Ressource()}:\\
+Liefert die Kosten, die durch alle Ressourcen bisher entstanden sind.
+
+\end{itemize}
+
+
+
+\chapter{Vergleiche}
+
+\begin{itemize}
+
+\item
+\cmd{a == b}:\\
+Liefert wahr zurück, wenn $a$ denselben Wert hat wie $b$.
+
+\item
+\cmd{a != b} oder \cmd{a <> b}:\\
+Liefert wahr zurück, wenn $a$ und $b$ unterschiedliche Werte aufweisen.
+
+\item
+\cmd{a < b}:\\
+Liefert wahr zurück, wenn $a$ echt kleiner als $b$ ist.
+
+\item
+\cmd{a <= b} oder \cmd{a =< b}:\\
+Liefert wahr zurück, wenn $a$ echt kleiner oder gleich $b$ ist.
+
+\item
+\cmd{a > b}:\\
+Liefert wahr zurück, wenn $a$ echt größer als $b$ ist.
+
+\item
+\cmd{a >= b} oder \cmd{a => b}:\\
+Liefert wahr zurück, wenn $a$ echt größer oder gleich $b$ ist.
+
+\item
+\cmd{A || B}:\\
+Liefert wahr zurück, wenn $A$ oder $B$ (oder beide) erfüllt sind.
+
+\item
+\cmd{A \&\& B}:\\
+Liefert wahr zurück, wenn $A$ und $B$ erfüllt sind.
+
+\item
+\cmd{!(A)}:\\
+Liefert wahr zurück, wenn $A$ nicht erfüllt ist.
+
+\end{itemize}
+
+Die Kleinbuchstaben $a$ und $b$ sind dabei Platzhalter für Rechenausdrücke wie \cmd{WIP()}.
+Die Großbuchstaben $A$ und $B$ stehen für Vergleiche wie \cmd{WIP()<5}.
+
+
+
+\section{Vergleichsfunktion}
+
+Außerdem steht in normalen Rechenausdrücken die \cmd{If}-Funktion zur Verfügung. Diese erwartet eine
+ungerade Anzahl an Parametern:
+
+\cmd{If(bedingung1;wert1;bedingung2;wert2;...;wertSonst)}
+
+Ist \cm{bedingung1}$>0$, so liefert die Funktion \cm{wert1} zurück.
+Andernfalls prüft sie, ob \cm{bedingung2}$>0$ ist und liefert, wenn dies zutrifft, \cm{wert2} zurück usw.
+Trifft keine der Bedingungen zu, so liefert die Funktion \cm{wertSonst} zurück.

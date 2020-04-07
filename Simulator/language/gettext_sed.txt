@@ -1,0 +1,6 @@
+1i\package language;
+1i\@SuppressWarnings("javadoc")
+/public java.util.Enumeration/i\  @SuppressWarnings({ "rawtypes", "unchecked" }) @Override
+/public boolean hasMoreElements/i\  		@Override
+/public java.lang.Object nextElement/i\  		@Override
+/public java.lang.Object handleGetObject/i\  @Override

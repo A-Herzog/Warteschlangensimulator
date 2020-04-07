@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Zerteilen</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Zerteilen</h1>
+
+<p>
+Trifft ein Kunde an einer Zerteilen-Station ein, so endet an dieser sein
+Lebenszyklus vergleichbar einem <a href="ModelElementDispose.html">Ausgang</a>-Element.
+Dafür werden an der Station einer oder mehrere neue Kunden generiert, vergleichbar
+einer <a href="ModelElementSourceMulti.html">Mehrfachquelle</a>.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Zerteilen-Elements besitzt keine weitere Bedeutung für die Simulation.
+</p>
+
+<p>
+Pro Kunden-Teilquelle können folgende Eigenschaften eingestellt werden: 
+</p>
+
+<p>
+Zunächst muss ein <b>Name</b> für den Typ der zu generierenden Kunden angegeben werden.
+Der Dialog besitzt eine Reihe von Registerkarten, über die die verschiedenen Eigenschaften
+der Kundenquelle konfiguriert werden können:
+</p>
+
+<h3>Batch-Größe</h3>
+
+<p>
+Über die Batch-Größe kann zusätzlich
+angegeben werden, dass pro Ankunft nicht ein einzelner Kunde, sondern zeitgleich jeweils
+mehrere Kunden eintreffen sollen. Dabei kann eingestellt werden, dass immer gleich
+viele Kunden pro Ankunft eintreffen (fest Batch-Größe) oder aber es kann eine Verteilung
+der Raten, gemäß denen die jeweilige Größe des Ankunfts-Batches bestimmt werden soll,
+angegeben werden.
+</p>
+
+<h3>Zuweisung von Kundenvariablen</h3>
+
+<p>
+Auf dieser Registerkarte können Kundenvariablen vom Typ <tt>ClientData(nr)</tt> eingetragen werden,
+die jedem neu erstellten Kunden automatisch zugewiesen werden sollen.
+</p>
+
+<h3>Zuweisung von Texten</h3>
+
+<p>
+Auf dieser Registerkarte können Textzuweisungen vom Typ Schlüssel:=Text eingetragen werden,
+die jedem neu erstellten Kunden automatisch zugewiesen werden sollen.
+</p>
+
+</body>
+</html>

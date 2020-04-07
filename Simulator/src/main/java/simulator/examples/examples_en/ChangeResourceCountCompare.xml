@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>2.2.0</ModelVersion>
+  <ModelName>Workload depending number of operators</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementProcessStation id="1">
+      <ModelElementName>variabel</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="150"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenB">w+1000</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Group variabel"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="250"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (55)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="900" y="150"/>
+      <ModelElementConnection Element="19" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementText id="6">
+      <ModelElementSize h="23" w="364" x="50" y="50"/>
+      <ModelElementTextLine>Workload depending number of operators</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="7">
+      <ModelElementSize h="32" w="458" x="450" y="100"/>
+      <ModelElementTextLine>Number of available operators: 5 or less clients: 1 operator,</ModelElementTextLine>
+      <ModelElementTextLine>6 to 9 clients at the station: 2 operators, 10 or more clients at the station: 3 operators</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="8">
+      <ModelElementSize h="200" w="700" x="50" y="500"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="15" Minimum="0">WIP(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="15" Minimum="0">WIP_avg(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,255" LineWidth="1" Maximum="15" Minimum="0">WIP(20)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,255" LineWidth="3" Maximum="15" Minimum="0">WIP_avg(20)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="9">
+      <ModelElementSize h="19" w="437" x="50" y="480"/>
+      <ModelElementTextLine>Number of clients at the process stations (current value and average)</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementJavascript id="4">
+      <ModelElementSize h="50" w="100" x="450" y="150"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementScript>var wip=Simulation.getWIP(1);
+
+var count=1;
+if (wip&gt;=5) count=2;
+if (wip&gt;=10) count=3;
+
+Simulation.setResourceCount(1,count);</ModelElementScript>
+    </ModelElementJavascript>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="4" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationLineDiagram id="12">
+      <ModelElementSize h="200" w="700" x="50" y="800"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="4" Minimum="0">Resource(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="4" Minimum="0">Resource_count(1)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="13">
+      <ModelElementSize h="19" w="385" x="50" y="780"/>
+      <ModelElementTextLine>Current number of operators at the process station "variabel"</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="14">
+      <ModelElementName>Number of operators</ModelElementName>
+      <ModelElementSize h="30" w="87" x="600" y="220"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource_count(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Working operators</ModelElementName>
+      <ModelElementSize h="30" w="76" x="700" y="220"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="16">
+      <ModelElementSize h="16" w="274" x="50" y="1000"/>
+      <ModelElementTextLine>(blue=available operators, red=working operators)</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="17">
+      <ModelElementSize h="56" w="272" x="800" y="225"/>
+      <ModelElementTextLine>(If an operator is removed from a station, he will finish</ModelElementTextLine>
+      <ModelElementTextLine>this current service task anyway. So for a short amount of</ModelElementTextLine>
+      <ModelElementTextLine>time the current number of operators at the station can be</ModelElementTextLine>
+      <ModelElementTextLine>smaller than the number of working operators.)</ModelElementTextLine>
+      <ModelElementFontSize>10</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementJavascript id="5">
+      <ModelElementSize h="50" w="100" x="750" y="150"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+      <ModelElementScript>var wip=Simulation.getWIP(1);
+
+var count=1;
+if (wip&gt;=5) count=2;
+if (wip&gt;=10) count=3;
+
+Simulation.setResourceCount(1,count);</ModelElementScript>
+    </ModelElementJavascript>
+    <ModelElementEdge id="18">
+      <ModelElementConnection Element1="1" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="5" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="20">
+      <ModelElementName>fixed</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="350"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Group fix"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDuplicate id="21">
+      <ModelElementSize h="50" w="100" x="250" y="250"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementEdge id="10">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="24">
+      <ModelElementSize h="50" w="100" x="900" y="350"/>
+      <ModelElementConnection Element="25" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="25">
+      <ModelElementConnection Element1="20" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="26">
+      <ModelElementSize h="16" w="515" x="50" y="700"/>
+      <ModelElementTextLine>(blue=station with variable number of operators, purple=station with fixed number of operators)</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="27">
+      <ModelElementName>Number of operators</ModelElementName>
+      <ModelElementSize h="30" w="87" x="600" y="420"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource_count(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>Working operators</ModelElementName>
+      <ModelElementSize h="30" w="76" x="700" y="420"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="29">
+      <ModelElementName>E[N_variabel]</ModelElementName>
+      <ModelElementSize h="30" w="57" x="800" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">N_Avg(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="30">
+      <ModelElementName>CV[N_variabel]</ModelElementName>
+      <ModelElementSize h="30" w="64" x="900" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">N_cv(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="60">
+      <ModelElementName>E[N_fixed]</ModelElementName>
+      <ModelElementSize h="30" w="55" x="800" y="575"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">N_Avg(20)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="61">
+      <ModelElementName>CV[N_fixed]</ModelElementName>
+      <ModelElementSize h="30" w="55" x="900" y="575"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">N_cv(20)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="31">
+      <ModelElementName>E[W_variabel]</ModelElementName>
+      <ModelElementSize h="30" w="59" x="1000" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_Avg(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="32">
+      <ModelElementName>CV[W_variabel]</ModelElementName>
+      <ModelElementSize h="30" w="66" x="1100" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_cv(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="122">
+      <ModelElementName>E[W_fixed]</ModelElementName>
+      <ModelElementSize h="30" w="55" x="1000" y="570"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_Avg(20)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="123">
+      <ModelElementName>CV[W_fixed]</ModelElementName>
+      <ModelElementSize h="30" w="55" x="1100" y="570"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_cv(20)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+  </ModelElements>
+  <Resources>
+    <Resource Icon="status_online" Name="Group variabel" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Group fix" Type="Number" Value="2"/>
+  </Resources>
+  <ClientTypeData/>
+</Model>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Zurückschrecken</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Zurückschrecken</h1>
+
+<p>
+Das Zurückschrecken-Element prüft, ob an der auf direktem Weg folgenden Bedienstation Kunden warten.
+Wenn nein, wird der Kunde über den normalen Weg weitergeleitet.
+Wenn ja, wird die Bedingung (die z.B. Zufallsausdrücke in Abhängigkeit von Kundeneigenschaften usw.
+enthalten kann) ausgewertet. Trifft diese zu, so schreckt der Kunde davor zurück, sich an die
+Warteschlange anzustellen und verlässt das Zurückschrecken-Element über den für diesen Fall
+vorgesehenen zweiten Weg.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Zurückschrecken-Elements hat keine weitere Bedeutung für die Simulation.
+Der angegebene Ausdruck wird immer dann ausgewertet, wenn an der folgenden Bedienstation
+eine Warteschlange vorhanden ist, und bestimmt, ob der Kunde bereit ist, sich anzustellen
+oder ob er davor zurückschreckt. Als Ausdruck kann entweder eine Bedingung oder eine
+Zurückschreckwahrscheinlichkeit angegeben werden. Die Angabe kann dabei global oder per
+Kundentyp erfolgen.
+</p> 
+
+</body>
+</html>

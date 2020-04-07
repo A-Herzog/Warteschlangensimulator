@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Mehrfachzähler</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Mehrfachzähler</h1>
+
+<p>
+Durchläuft ein Kunde dieses Element, so wird in Abhängigkeit von verschiedenen Bedingungen
+der Wert eines Zählers um eins erhöht. Auf diese Weise kann erfasst werden, wie viele Kunden
+jeweils einen bestimmten Weg in dem Simulationsmodell gewählt haben. Ein Mehrfachzähler
+entspricht einer <a href="ModelElementDecide.html">Verzweigung</a> auf Basis von Bedingungen
+gefolgt von jeweils normalen <a href="ModelElementCounter.html">Zähler</a>-Elementen.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Mehrfachzähler-Elements besitzt keine weitere Bedeutung für die Simulation.
+Über einen Gruppennamen werden die Zähler in dem Elemente zu einer Gruppe zusammengefasst,
+so dass in der Statistik neben dem Absolutwert der jeweiligen Zähler auch ein relativer
+Wert angegeben werden kann. Passiert ein Kunde das Mehrfachzähler-Element, so werden die
+angegebenen Bedingungen der Reihe nach geprüft. Bei der ersten erfüllten Bedingung wird
+der entsprechende Zähler um eins erhöht. Ist keine der Bedingungen erfüllt, so wird der
+für den "sonst"-Fall angegebene Zähler erhöht. 
+</p>
+
+</body>
+</html>

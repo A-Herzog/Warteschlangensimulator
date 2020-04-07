@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Bedingung</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Bedingung</h1>
+
+<p>
+Bei dem Durchlaufen des Bedingung-Elements werden die Kunden so lange aufgehalten, bis die eingestellte Bedingung erfüllt ist. 
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Bedingung-Elements hat keine weitere Bedeutung. Befinden sich Kunden in der Warteschlange, so wird ständig geprüft,
+ob die Bedingung erfüllt ist. Wenn ja, wird der nächste Kunde freigegeben. Danach wird eine (Simulationszeit) Millisekunde gewartet bis die nächste
+Prüfung erfolgt und ggf. der nächste Kunde freigegeben wird. Es kann dabei eingestellt werden, ob die Bedingung global betrachtet werden soll
+(ohne die Möglichkeit, kundenspezifische Variablen zu verwenden) oder ob die Bedingung kundenspezifisch interpretiert werden soll (inkl. der
+Möglichkeit, kundenspezifische Variablen zu verwenden). Im Falle einer globalen Interpretation wird die Bedingung nur einmal ausgewertet; wenn
+sie nicht zutrifft, wird die Verarbeitung in diesem Schritt abgeschlossen. Im Falle der kundenspezifischen Interpretation wird die Bedingung
+in jedem Schritt für jeden wartenden Kunden einzeln ausgewertet (was die Simulation verlangsamt).
+Gehen in die Bedingung Werte ein, die sich unabhängig von Ereignissen verändern können (z.B. die simulierte Zeit), so kann es notwendig sein,
+die Option "Bedingung zusätzlich zeitgesteuert prüfen" zu aktivieren. In diesem Fall wird der Wert der Bedingung zusätzlich in bestimmten
+Zeitabständen geprüft. Wie lange diese Abstände sind, kann im <a href="EditorModelDialog.html">Modelleigenschaften</a>-Dialog konfiguriert
+werden. Eine zusätzlich zeitabhängige Prüfung verlangsamt die Simulation signifikant und sollte nur aktiviert werden, wenn dies für die
+jeweilige Bedingung zwingend erforderlich ist. 
+</p> 
+
+</body>
+</html>

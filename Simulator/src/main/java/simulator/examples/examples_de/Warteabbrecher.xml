@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.0.0</ModellVersion>
+  <ModellName>Modell mit Warteabbrechern</ModellName>
+  <ModellBeschreibung>Es existieren zwei Kundentypen mit unterschiedlichen Wartezeittoleranzen.
+Mit einer Wahrscheinlichkeit von 50% startet ein Warteabbrecher zu einem
+späteren Zeitpunkt einen weiteren Anrufversuch.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="17">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementName>Station</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="250"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="22" Status="Warteabbruch" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (500;300)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Abbruchzeiten">Exponentialverteilung (600)</ModellElementVerteilung>
+      <ModellElementVerteilung Kundentyp="Kunden A" Typ="Abbruchzeiten">Exponentialverteilung (150)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="800" y="250"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementVerzoegerung id="15">
+      <ModellElementName>Wiederanrufer</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="450"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (900)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="23" w="540" x="50" y="50"/>
+      <ModellElementTextzeile>Warteschlangenmodell mit Warteabbrechern und Wiederholern</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="19">
+      <ModellElementGroesse h="50" w="100" x="450" y="450"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="8" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementIcon id="11">
+      <ModellElementGroesse h="50" w="100" x="50" y="350"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementIconName>user_red</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="15" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZaehler id="16">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="250"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Ausgangzähler</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="20">
+      <ModellElementName>Wiederholung</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="350"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Anrufer</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="21">
+      <ModellElementName>Abbruch (final)</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="450"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Ausgangzähler</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="16" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="4">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementName>Warteabbruch</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="19" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="10">
+      <ModellElementGroesse h="10" w="10" x="845" y="470"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="21" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementVerbindung Element1="10" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="25">
+      <ModellElementName>Anteil letztendlich erfolgreicher Kunden</ModellElementName>
+      <ModellElementGroesse h="30" w="161" x="650" y="350"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,195,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(16)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementZaehler id="5">
+      <ModellElementName>Erstanrufer</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="150"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Anrufer</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementVerbindung Element1="5" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="17" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="28">
+      <ModellElementName>Anteil Wiederholer unter den Anrufern</ModellElementName>
+      <ModellElementGroesse h="30" w="155" x="200" y="270"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(20)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementKante id="8">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="19" Element2="15" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="11" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="20" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="29">
+      <ModellElementName>Mittlere Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="450" y="200"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationBalken id="31">
+      <ModellElementName>Auslastung</ModellElementName>
+      <ModellElementGroesse h="100" w="50" x="950" y="400"/>
+      <ModellElementDatenausdruck>process(2)</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="20" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementBalkenFarbe>0,180,0</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementAnimationBalken id="30">
+      <ModellElementName>Wartende Kunden</ModellElementName>
+      <ModellElementGroesse h="200" w="50" x="950" y="200"/>
+      <ModellElementDatenausdruck>NQ(2)</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="40" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementBalkenFarbe>255,0,0</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="38" w="150" x="1015" y="400"/>
+      <ModellElementTextzeile>Kunden in Bedienung</ModellElementTextzeile>
+      <ModellElementTextzeile>(max=20)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="19" w="123" x="1015" y="380"/>
+      <ModellElementTextzeile>Wartende Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="34">
+      <ModellElementName>Mittlere Auslastung der Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="135" x="550" y="200"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">resource_avg()/20</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="35">
+      <ModellElementName>Aktuelle Auslastung der Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="137" x="550" y="150"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">resource()/20</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener" Typ="Anzahl" Wert="20"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="user_green" Name="Kunden A"/>
+  </KundentypenDaten>
+</Modell>

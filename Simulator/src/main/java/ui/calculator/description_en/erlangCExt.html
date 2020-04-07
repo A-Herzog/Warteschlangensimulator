@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Erlang C (extended)</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Erlang C (extended)</h2>
+
+<p>
+The extended Erlang-C formula extends the modelling scope of the Erlang-C formula
+to include wait cancellers, which are caused by a limited waiting time tolerance
+of the clients. To use the enhanced Erlang-C formula, you need a model which is
+structured as follows:
+</p>
+<ul>
+  <li>Exponential distributed inter-arrival times</li>
+  <li>Exponential distributed service times</li>
+  <li>Exponential distributed waiting time tolerances</li>
+  <li>A fixed number of operators</li>
+  <li>No other special properties</li>
+</ul>
+
+<h3>Performance indicators</h3>
+
+<p>
+The following parameters are calculated on the basis of the inputs:
+</p>
+
+<ul>
+  <li><b>Offered work load a</b>:
+  This value indicates how many operators are needed in any case to serve
+  the arriving clients on a long-term average in case there is not
+  waiting time cancelation. The offered work load is the
+  quotient of the arrival and service rate: a=&lambda;/&mu;.</li>
+  <li><b>Work load &rho;</b>:
+  The work load is the quotient of offered work load and the specified number
+  of operators (&rho;=a/c). The work load must always be &lt;1, so that the
+  operators can serve the arriving clients on a long-term average. However,
+  a work load of less than 1 alone is not a statement that the system is sensibly
+  dimensioned, since the work load does not provide any information about how
+  long the clients will have to wait on average in the system.</li>
+  <li><b>Average queue length E[N<sub>Q</sub>]</b>:
+  The average queue length indicates the average number of clients waiting
+  (i.e. not yet served) in a correspondingly configured system.</li>
+  <li><b>Average number of clients in the system E[N]</b>:
+  This value indicates the average total number of clients in the system,
+  i.e. it is the sum of waiting and currently served clients.</li>
+  <li><b>Average waiting time E[W]</b>:
+  Using Little's formula, the average queue length E [N<sub>Q</sub>]
+  (and the arrival rate &lambda;) can be used to calculate how long clients
+  will have to wait on average before they are served.</li>
+  <li><b>Average residence time E[V]</b>:
+  The residence time is the sum of the average waiting time E[W] and the average
+  service time E[S]. The average service time is the reciprocal of the service rate
+  (E[S]=1/&mu;).</li>
+  <li><b>Cancel rate P(A)</b>:
+  This value indicates the percentage of clients who give up waiting early and
+  leave the system without being served.</li>
+  <li><b>Service level P(W&le;t)</b>:
+  Frequently, one is not only interested in the average waiting time of clients,
+  but also in the proportion of clients who had to wait for a certain, predetermined
+  period of time at most. This information is provided by the service level.
+  P(W&le;t) is the proportion of clients who had to wait at most t seconds.</li>
+</ul>
+  
+<h3>Criticism</h3>
+
+<p>
+In contrast to a simulation, the extended Erlang-C formula provides exact results
+with a very low computational effort. However, the results only describe reality
+accurately if the above properties are exactly fulfilled. Especially the following
+properties are often critical in reality:
+</p>
+<ul>
+  <li>The service times are usually not exponentially distributed, but are subject
+  to a different distribution with usually a different coefficient of variation than
+  is the case with the exponential distribution (there always CV[S]=1).</li>
+  <li>Several clients are served simultaneously (batch service), the clients are
+  divided into different types with different service times or the number of
+  operators varies over time.</li>
+  <li>Also network effects ( waiting cancelers start another attempt later, already
+  served clients are referred again to the queue or several stations play together)
+  are not mapped by the Erlang-C formula.</li>
+</ul>
+  
+</body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Bedienstation konfigurieren</title>
+<link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+<body>
+
+<h1>Bedienstation konfigurieren</h1>
+
+<p>
+Bei den meisten Stationen kann konfiguriert werden, wie die Verarbeitung der
+Kunden an diesen erfolgen soll. Bei einer Bedienstation kann z.B. eingestellt
+werden, wie lange die Bedienungen dauern sollen, und bei einer Kundenquelle
+kann eingestellt, werden wie viele Kunden und mit welchen Abständen und welchen
+Typs in ihr generiert werden sollen.
+</p>
+
+<p>
+Nach der Konfiguration der Quelle muss nun die <b>Bedienstation</b>
+konfiguriert werden. (Der Ausgang besitzt keine weiteren Einstellungen.)
+Der Konfigurationsdialog eines Elements wird Doppelklick auf das Element geöffnet.
+Im Bedienstation-Konfigurationsdialog besteht aus mehreren Rubriken:
+</p>
+
+<ul>
+  <li><b>Bedienzeiten</b>:
+  Stellen Sie hier in ähnlicher Weise wie bei der Quelle
+  <span style="color: orange;">eine exponentiell verteilte mittlere Bediendauer von 80 Sekunden ein.</span>
+  <span style="color: green;">Zeitbasis (Sekunden) und die Erfassung der Prozesszeiten als Bedienzeiten können unverändert beibehalten werden.</span>
+  </li>
+  <li><b>Rüstzeiten</b>:
+  Zwischen der Bedienung von Kunden unterschiedlicher Typen werden teilweise Rüstzeiten benötigt.
+  <span style="color: green;">In diesem Beispiel sollen diese Rüstzeiten jedoch deaktiviert bleiben.</span> 
+  </li>
+  <li><b>Nachbearbeitungszeiten</b>:
+  Nach der Bedienung eines Kunden kann eine Nachbearbeitungszeit notwendig sein, bevor der Bediener
+  wieder verfügbar ist.
+  <span style="color: green;">In diesem Beispiel sollen die Nachbearbeitungszeiten jedoch deaktiviert bleiben.</span> 
+  </li>
+  <li><b>Wartezeittoleranzen</b>:
+  Wenn ein Kunde zu lange warten muss, kann es vorkommen, dass dieser das Warten aufgibt
+  (weil seine Wartezeittoleranz überschritten wurde).
+  <span style="color: green;">In diesem Beispiel soll die Verwendung von Wartezeittoleranzen jedoch deaktiviert bleiben.</span> 
+  </li>
+  <li><b>Prioritäten und Batchgrößen</b>:
+  Auf dieser Seite kann eingestellt werden, nach welcher Strategie Kunden aus der Warteschlange entnommen werden
+  sollen und ob Batch-Bedienungen erfolgen sollen. Die Bedienreihenfolge "w" bedeutet eine Priorisierung der Kunden
+  nach Wartezeit, d.h. es wird eine FIFO-Warteschlange verwendet.
+  <span style="color: green;">In diesem Beispiel sollen der Wert "w" für die Prioritätsbestimmung der Kunden und eine Batch-Größe von 1 beibehalten werden.</span> 
+  </li>
+  <li><b>Bediener</b>:
+  Auf dieser Seite kann eingestellt werden, wie viele Bediener welcher Typen zur Bedienung eines Kunden benötigt
+  werden. <span style="color: orange;">Klicken Sie auf "Notwendige Bedienergruppe hinzufügen" und bestätigen Sie
+  den Dialog mit "Ok", um eine Gruppe bestehend aus einem Bediener zu erzeugen und als notwenige Bedienergruppe
+  hinzuzufügen.</span>
+  </li>
+  <li><b>Kosten</b>:
+  Auf dieser Seite können optional Kosten für die Bedienungen eingestellt werden.
+  </li>
+</ul>
+
+<p><b>Konkrete Schritte:</b></p>
+
+<ul>
+<li>Klicken Sie doppelt auf die Bedienstation:<br>
+<img src="Process.png" style="border: 1px solid black; padding: 5px; margin-top: 15px; margin-bottom: 30px;"></li>
+<li>Klicken Sie auf der Seite "<b>Bedienzeiten</b>" über dem Verteilungsdiagramm rechts auf "<b>Bearbeiten</b>" und
+wählen Sie im Verteilungseditor <b>80</b> (Sekunden) als mittlere Bedienzeit.</li>
+<li>Klicken Sie auf der Seite "<b>Bediener</b>" auf "<b>Notwendige Bedienergruppe hinzufügen</b>" und bestätigen Sie den Dialog mit "Ok".</li>
+</ul>
+ 
+</body>
+</html>

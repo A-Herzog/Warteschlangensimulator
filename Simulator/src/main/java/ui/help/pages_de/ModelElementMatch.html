@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Zusammenführen</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Zusammenführen</h1>
+
+<p>
+Das Zusammenführen-Element besitzt zwei oder mehr Eingänge. Wenn an jedem der Eingänge ein Kunde vorhanden ist,
+werden diese zeitgleich gemeinsam weitergeleitet oder zu einen temporären oder dauerhaften Batch zusammengefasst.
+Sind nur an einem Eingang Kunden vorhanden, so müssen diese warten, bis auch an den anderen Eingängen Kunden eingetroffen sind.
+Zusätzlich kann als Einschränkung eingestellt werden, dass nur Kunden zusammengeführt werden, bei denen ein bestimmtes
+Kundendatenfeld denselben Zahlen- oder Textwert aufweist.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Zusammenführen-Elements hat keine weitere Bedeutung. Es kann eingestellt werden, ob die zusammengeführten
+Kunden die Station einfach wieder (zeitlich gemeinsam) verlassen, ob die Kunden zu einem temporären
+Batch zusammengefasst werden sollen (der später über das <a href="ModelElementSeparate.html">Batch auflösen</a> Element
+wieder aufgelöst werden kann) oder ob für die Kunden der Weg durch das Netz an
+dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten darstellen, die zu einem größeren Element zusammengesetzt
+werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
+Außerdem kann optional ein Kundendatenfeld angegeben werden, welches beim Abgleich der Kunden berücksichtigt werden soll,
+so dass Kunden nur dann gemeinsam weitergeleitet werden, wenn für sie der Wert dieses Feldes identisch ist.
+</p> 
+
+</body>
+</html>

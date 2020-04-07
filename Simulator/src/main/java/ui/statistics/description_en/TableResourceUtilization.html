@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Resource utilization</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>Meaning of the columns in this table:</p>
+
+<ul>
+  <li><b>Resource</b>:
+  Operator group to which the respective line refers.  
+  </li>
+  <li><b>Number of operators</b>:
+  Number of operators in the respective group, if this is determined by
+  a fixed number (and not, for example, by a shift schedule).
+  </li>
+  <li><b>rho</b>:
+  If the number of operators in this group is a fixed value during simulation,
+  rho indicates the <a href="help:statistik_mittelwert">average utilization</a> of the operator group.
+  </li>    
+  <li><b>Average busy</b>:
+  <a href="help:statistik_mittelwert">Average absolute number</a> of working operators in this group.
+  </li>
+  <li><b>Std</b>:
+  <a href="help:statistik_standardabweichung">Standard deviation</a> of the absolute number of working operators in this group.
+  </li>
+  <li><b>Var</b>:
+  <a href="help:statistik_standardabweichung">Variance</a> of the absolute number of working operators in this group.
+  </li>
+  <li><b>CV</b>:
+  <a href="help:statistik_CV">Coefficient of variation</a> of the absolute number of working operators in this group.
+  </li>
+  <li><b>Min</b>:
+  Minimum absolute number of working operators during the simulation in this group.
+  </li>
+  <li><b>Max</b>:
+  Maximum absolute number of working operators during the simulation in this group.
+  </li>
+  <li><b>Idle share (all operators)</b>:
+  Outputs the part of time during which not a single operator in the group was working.
+  </li>
+  <li><b>Full busy share</b>:
+  If the number of operators in this group is a fixed value during the simulation,
+  this cell indicates the part of time during which all operators were busy.
+  </li>
+</ul>
+
+<p>
+The value <b>rho</b> indicates the ratio between busy and total available operators.
+If the number of available operators in the group is either variable (defined by a shift plan)
+or if the group consists of an infinite number of operators, no value can be determined for rho.
+The same applies to the <b>full load share</b>: If there is no fixed number of available operators,
+no time share in which this number was busy can be output.
+</p>
+<p>
+Values that refer to the <b>absolute number of busy operators</b>, however, are always available.
+</p>
+  
+</body></html>

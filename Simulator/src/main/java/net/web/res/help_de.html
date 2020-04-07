@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="language" content="de">
+  <meta name="title" content="Warteschlangensimulator">  
+  <link rel="stylesheet" type="text/css" href="/css.css">
+  <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+  <title>Warteschlangensimulator - API-Dokumentation</title>
+</head>
+
+<body>
+
+<h1>Warteschlangensimulator - API-Dokumentation</h1>
+
+<div class="page">
+
+<a href="/" class="button" style="margin-left: 0;"><b>Zurück zum Status</b></a>
+
+<h2>Systemstatus</h2>
+
+<p>
+<span class="cmd">/</span><br>
+Zeigt den Systemstatus des Simulators als HTML-Seite an.
+</p>
+
+<p>
+<span class="cmd">/status</span><br>
+Liefert den Status des Simulators als JSON-Objekt.
+</p>
+
+<h2>Hilfe</h2>
+
+<p>
+<span class="cmd">/help</span><br>
+Zeigt diese Hilfe als HTML-Seite an.
+</p>
+
+<h2>Modell hoch- und herunterladen</h2>
+
+<p>
+<span class="cmd">/xml</span><br>
+Liefert das aktuelle Modell als xml-Datei.
+</p>
+
+<p>
+<span class="cmd">/json</span><br>
+Liefert das aktuelle Modell als json-Datei.
+</p>
+
+<p>
+<span class="cmd">/json_variable</span><br>
+Liefert das aktuelle Modell als json-Datei
+jedoch mit vorangestelltem "<tt>var qs_model=</tt>",
+so dass die Datei als Javascript-Code direkt geladen werden kann.
+</p>
+
+<p>
+<span class="cmd">/image</span><br>
+Liefert das aktuelle Modell als png-Grafik.
+</p>
+
+<p>
+<span class="cmd">/upload</span><br>
+Beim Aufruf dieser URL muss das zu ladende
+xml- oder json-Modell im "multipart/form-data"-Format
+als Formular POST-Objekt übergeben werden.
+</p>
+
+<h2>Animation</h2>
+
+<p>
+<span class="cmd">/animation</span><br>
+Liefert eine html-Seite die eine Animation im Browser ermöglicht.
+</p>
+
+<p>
+<span class="cmd">/animation?command=model</span><br>
+Liefert das aktuelle Modell als js-Datei.<br>
+Der js-Code zeichnet dabei das Modell in ein Canvas-Element.
+</p>
+
+<p>
+<span class="cmd">/animation?command=quit</span><br>
+Beendet die Animation (sofern diese gerade aktiv ist).
+</p>
+
+<p>
+<span class="cmd">/animation?command=image</span><br>
+Liefert den aktuellen Zustand des Modells in der Animation als png-Grafik.
+</p>
+
+<p>
+<span class="cmd">/animation?command=step</span><br>
+Führt einen Animationsschritt durch (und startet notwendigenfalls zunächst die Animation).
+Wurde der Animationsschritt erfolgreich durchgeführt, so wird eine leere Zeichenkette
+zurück geliefert. Andernfalls wird eine Fehlermeldung geliefert.
+Wenn der Animationsschritt erfolgreich durchgeführt werden konnte, kann
+über den "status"-Befehl der Zustand der Animation abgefragt werden.
+</p>
+
+<p>
+<span class="cmd">/animation?command=status</span><br>
+Liefert nach der Ausführung eines Animationsschritt den
+Systemzustand als JSON-Objekt.
+</p>
+
+<p>
+Das JSON-Objekt besitzt dabei die folgenden Eigenschaften:
+</p>
+
+<ul>
+  <li><b>time</b>:
+  Aktuelle Zeit nach dem Animationsschritt.
+  <li><b>static</b>:
+  Enthält ein Unterobjekt, welches als Eigenschaften (mit den Namen "0", "1", usw.) die
+  statischen Icons für Kunden, Bediener und Transporter beinhaltet.</li>
+  <li><b>moving</b>:
+  Enthält ein Unterobjekt, welches als Eigenschaften (mit den Namen "0", "1", usw.) die
+  gerade in Bewegung befindlichen Icons für Kunden und Transporter beinhaltet.</li>
+  <li><b>logs</b>:
+  Enthält einen Text mit den HTML-formatiert Statusausgaben des letzten Animationsschritts.</li>
+</ul>
+
+<p>
+Die obigen Daten zu dem Animationsschritt stehen nur zur Verfügung, wenn
+der Schritt über den obigen step-Befehl ausgeführt wurde. Zu Animationsschritten
+die über die Oberfläche des Simulators selber initiiert wurden werden keine
+Daten erfasst, die über diese Schnittstelle abgerufen werden könnten.
+</p>
+
+<p>
+<span class="cmd">/animation?command=stations</span><br>
+Liefert eine Liste aller in dem Modell enthaltenen Stationen
+als json-Object.
+</p>
+
+<p>
+<span class="cmd">/animation?command=calc&amp;expression=<i>text</i></span><br>
+Berechnet <i>text</i> im Kontext der Simulation
+(d.h. die Befehle zum Zugriff auf die Stationseigenschaften stehen zur Verfügung)
+und lieft das Ergebnis zurück.
+
+</div>
+
+<script type="text/javascript">
+<!--
+'use strict';
+var server=document.location.protocol+"//"+document.location.host;
+var nodes=document.getElementsByClassName("cmd");
+for (var i=0;i<nodes.length;i++) nodes[i].innerHTML=server+nodes[i].innerHTML;
+//-->
+</script>
+
+</body>
+</html>

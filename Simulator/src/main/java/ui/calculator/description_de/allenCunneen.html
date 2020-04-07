@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Allen-Cunneen</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Allen-Cunneen</h2>
+
+<p>
+Bei der Allen-Cunneen Formel handelt es sich im Gegensatz zu den
+Erlang-Formeln nur um eine <b>Näherungsformel</b>. Das bedeutet,
+dass die Ergebnisse, die diese Formel liefert, selbst dann nicht
+absolut mit der Realität übereinstimmen werden, wenn alle
+Voraussetzungen für die Anwendung der Formel erfüllt sind.
+</p>
+
+<p>
+Im Gegensatz zu den Erlang-Formeln wird in dem Allen-Cunneen-Warteschlangenmodell
+nicht mehr davon ausgegangen, dass die Zwischenankunftszeiten und die Bediendauern
+der Exponentialverteilung unterliegen. Stattdessen sind nun <b>beliebige Verteilungen</b>
+zugelassen, die nur noch über ihre <b>Erwartungswerte</b> (&lambda; bzw. &mu; als Kehrwerte
+der Erwartungswerte) und ihre <b>Variationskoeffizienten</b> (CV[I] und CV[S])
+charakterisiert werden. Des Weiteren können die Kunden in Gruppen eintreffen
+(<b>Ankunfts-Batch-Größe b(I)</b>) und in Gruppen bedient werden (<b>Bedien-Batch-Größe b(S)</b>).
+</p>
+
+<h3>Kenngrößen</h3>
+
+<p>
+Auf Basis der Eingaben werden die folgenden Kenngrößen berechnet:
+</p>
+
+<ul>
+  <li><b>Verkehrsangebot a</b>:
+  Dieser Wert gibt an, wie viele Bediener auf jeden Fall benötigt werden,
+  um die eintreffenden Kunden im langfristigen Mittel bedienen zu können.
+  Das Verkehrsangebot ist der Quotient aus Ankunfts- und Bedienrate:
+  a=&lambda;/&mu;.</li>
+  <li><b>Auslastung &rho;</b>:
+  Die Auslastung ist der Quotient aus Verkehrsangebot und angegebener Anzahl
+  an Bedienern (&rho;=a/c). Die Auslastung muss immer &lt;1 sein, damit die
+  Bediener die eintreffenden Kunden im langfristigen Mittel überhaupt bedienen
+  können. Eine Auslastung von unter 1 allein ist jedoch noch keine Aussage,
+  dass das System sinnvoll dimensioniert ist, da die Auslastung keine 
+  Informationen darüber liefert, wie lang die Kunden in einem entsprechend
+  dimensionierten System im Mittel warten müssen.</li>
+  <li><b>Mittlere Warteschlangenlänge E[N<sub>Q</sub>]</b>:
+  Die mittlere Warteschlangenlänge gibt an, wie viele Kunden in einem
+  entsprechend konfigurierten System im Mittel warten (also noch nicht bedient werden).</li>
+  <li><b>Mittlere Anzahl an Kunden im System E[N]</b>:
+  Dieser Wert gibt die mittlere Gesamtanzahl an Kunden im System an,
+  d.h. es handelt sich hier um die Summe aus wartenden und in Bedienung
+  befindlichen Kunden.</li>
+  <li><b>Mittlere Wartezeit E[W]</b>:
+  Mit Hilfe der Formel von Little lässt sich aus der mittleren Warteschlangenlänge
+  E[N<sub>Q</sub>] (und der Ankunftsrate &lambda;) berechnen, wie lange die Kunden
+  im Mittel warten müssen, bevor sie bedient werden.</li>
+  <li><b>Mittlere Verweilzeit E[V]</b>:
+  Die Verweilzeit ist die Summe aus der mittleren Wartezeit E[W] und der mittleren
+  Bediendauer E[S]. Die mittlere Bediendauer ist dabei der Kehrwert der Bedienrate
+  (E[S]=1/&mu;).</li>
+</ul>
+  
+</body></html>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="Release services" xmlns:if="ant:if">
+
+	<property name="Simulator.location" location=".." />
+	<property name="SimTools.location" location="../../SimTools" />
+	<property name="SimSystem.location" location="../../SimSystem" />
+	<property name="BuildTools.location" location="." />
+	<property name="NSIS.location" location="C:\Program Files (x86)\NSIS" />
+	<property name="sed.location" location="../language/sed/bin" />
+	<property name="pdfLaTeX32.location" location="C:/Program Files (x86)/MiKTeX 2.9/miktex/bin"/>
+	<property name="pdfLaTeX64.location" location="C:/Program Files/MiKTeX 2.9/miktex/bin/x64"/>
+	<property name="Release.location" location="../../Release" />
+	
+	<!-- Build reference -->
+	<target name="reference" description="Build reference">
+		<echo message="Clean up old files" />
+		<delete file="${BuildTools.location}/Help/Reference/de/Reference.tex" />
+		<delete file="${BuildTools.location}/Help/Reference/en/Reference.tex" />
+		<delete>
+			<fileset dir="${BuildTools.location}/Help/Reference/de" includes="**/*.png"/>
+		</delete>
+		<delete>
+			<fileset dir="${BuildTools.location}/Help/Reference/en" includes="**/*.png"/>
+		</delete>
+
+		<echo message="Prepearing environment" />
+		<copy file="${Simulator.location}/tools/JDDE/JavaDDE.dll" todir="${Simulator.location}/target" />
+		<copy file="${Simulator.location}/tools/JDDE/JavaDDEx64.dll" todir="${Simulator.location}/target" />
+		
+		<echo message="Building elements de" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildLaTeXReference"/>
+			<arg value="de"/>
+			<arg value="${BuildTools.location}/Help/Reference/de"/>
+		</java>
+			
+		<echo message="Building elements en" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildLaTeXReference"/>
+			<arg value="en"/>
+			<arg value="${BuildTools.location}/Help/Reference/en"/>
+		</java>
+		
+		<echo message="Building commandline de" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildCLIReference"/>
+			<arg value="de"/>
+			<arg value="${BuildTools.location}/Help/Commandline/de"/>
+		</java>
+		
+		<echo message="Building commandline en" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildCLIReference"/>
+			<arg value="en"/>
+			<arg value="${BuildTools.location}/Help/Commandline/en"/>
+		</java>
+			
+		<echo message="Clean up" />
+		<delete file="${Simulator.location}/target/JavaDDE.dll" />
+		<delete file="${Simulator.location}/target/JavaDDEx64.dll" />
+	</target>
+	
+	<!-- Build catalog images -->
+	<target name="images" description="Build images">
+		<echo message="Prepearing environment" />
+		<copy file="${Simulator.location}/tools/JDDE/JavaDDE.dll" todir="${Simulator.location}/target" />
+		<copy file="${Simulator.location}/tools/JDDE/JavaDDEx64.dll" todir="${Simulator.location}/target" />
+			
+		<echo message="Building de" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildElementGroupImages"/>
+			<arg value="de"/>
+		</java>
+			
+		<echo message="Building en" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildElementGroupImages"/>
+			<arg value="en"/>
+		</java>
+				
+		<echo message="Clean up" />
+		<delete file="${Simulator.location}/target/JavaDDE.dll" />
+		<delete file="${Simulator.location}/target/JavaDDEx64.dll" />
+	</target>
+	
+	<!-- Build pdf documentation -->
+	<target name="latex" description="Build pdf documentation">
+		<available file="${pdfLaTeX32.location}/pdflatex.exe" property="pdflatex32.present"/>
+		<available file="${pdfLaTeX64.location}/pdflatex.exe" property="pdflatex64.present"/>
+		
+		<echo message="Set version in tex files" />
+		<delete file="${BuildTools.location}/Help/Version.tex"/>
+		<exec dir="${BuildTools.location}/Help" executable="${sed.location}/sed.exe" output="${BuildTools.location}/Help/Version.tex">
+			<arg line="-nf &quot;${BuildTools.location}/Help/Version_sed.txt&quot; &quot;${Simulator.location}/src/main/java/ui/MainPanel.java&quot;" />
+		</exec>
+		
+		<echo message="Build reference - de" />		
+		<exec dir="${BuildTools.location}/Help/Reference/de" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Reference-de.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Reference/de" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Reference-de.tex"/>
+		</exec>
+		
+		<echo message="Build reference - en" />
+		<exec dir="${BuildTools.location}/Help/Reference/en" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Reference-en.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Reference/en" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Reference-en.tex"/>
+		</exec>
+		
+		<echo message="Build scripting reference - de" />
+		<exec dir="${BuildTools.location}/Help/Scripting/de" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Scripting-de.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Scripting/de" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Scripting-de.tex"/>
+		</exec>
+
+		<echo message="Build scripting reference - en" />
+		<exec dir="${BuildTools.location}/Help/Scripting/en" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Scripting-en.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Scripting/en" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Scripting-en.tex"/>
+		</exec>
+
+		<echo message="Build tutorial - de" />
+		<exec dir="${BuildTools.location}/Help/Tutorial/de" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>			
+			<arg value="Warteschlangensimulator-de.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Tutorial/de" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-de.tex"/>
+		</exec>
+
+		<echo message="Build tutorial - en" />
+		<exec dir="${BuildTools.location}/Help/Tutorial/en" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-en.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Tutorial/en" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-en.tex"/>
+		</exec>
+		
+		<echo message="Build command-line reference - de" />
+		<exec dir="${BuildTools.location}/Help/Commandline/de" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Commandline-de.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Commandline/de" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Commandline-de.tex"/>
+		</exec>
+
+		<echo message="Build command-line reference - en" />
+		<exec dir="${BuildTools.location}/Help/Commandline/en" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Commandline-en.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Commandline/en" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Commandline-en.tex"/>
+		</exec>
+	</target>
+	
+	<!-- Full simulator build process -->
+	<target name="build" description="Build simulator">
+		<delete file="${Release.location}/Simulator.exe" />
+		<delete file="${Release.location}/SimulatorSetup.exe" />
+		<delete file="${Release.location}/SimulatorSetup.sig" />
+
+		<echo message="Set version in wrapper/installer scripts" />
+		<delete file="${BuildTools.location}/Version.nsi"/>
+		<exec dir="${BuildTools.location}" executable="${sed.location}/sed.exe" output="${BuildTools.location}/Version.nsi">
+			<arg line="-nf &quot;${BuildTools.location}/Version_sed.txt&quot; &quot;${Simulator.location}/src/main/java/ui/MainPanel.java&quot;" />
+		</exec>
+
+		<echo message="Copy program files" />
+		<copy file="${Simulator.location}/target/Simulator.jar" todir="${Release.location}"/>
+		<copy todir="${Release.location}/libs">
+			<fileset dir="${Simulator.location}/target/libs"/>
+		</copy>
+		<echo file="${Release.location}/libs/LICENSES" append="false">The licenses of the libraries stored in this directory can be found in detail in ../docs/license_components_*.md</echo>
+		<copy todir="${Release.location}">
+			<fileset dir="${Simulator.location}/tools/JDDE">
+				<include name="*.dll"/>
+			</fileset>
+		</copy>
+		
+		<echo message="Copy help files" />		
+		<copy todir="${Release.location}/docs" flatten="true">
+			<fileset dir="${BuildTools.location}/Help" includes="**/*.pdf"/> 
+		</copy>
+		<copy todir="${Release.location}/docs">
+			<fileset dir="${BuildTools.location}/XML documentation"/>
+		</copy>
+		<copy file="${Simulator.location}/LICENSE_COMPONENTS.md" tofile="${Release.location}/docs/license_components_simulator.md"/>
+		<copy file="${SimTools.location}/LICENSE_COMPONENTS.md" tofile="${Release.location}/docs/license_components_simtools.md"/>
+		<copy file="${SimSystem.location}/LICENSE_COMPONENTS.md" tofile="${Release.location}/docs/license_components_simsystem.md"/>
+		<copy file="${Simulator.location}/../LICENSE" tofile="${Release.location}/docs/license.txt"/>
+		
+		<echo message="Copy tools files" />
+		<copy todir="${Release.location}/tools">
+			<fileset dir="${BuildTools.location}/Scripts"/>
+		</copy>
+	
+		<echo message="Generate exe wrapper" />
+		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}">
+			<arg value="Launcher.nsi" />
+		</exec>
+		<move file="${BuildTools.location}/Simulator.exe" tofile="${Release.location}/Simulator.exe" />
+
+		<echo message="Generate installer" />
+		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}">
+			<arg value="Setup.nsi" />
+		</exec>
+		
+		<echo message="Sign installer (if signer is available)" />
+		<available file="${BuildTools.location}/Signer/Signer.jar" property="signer.present"/>
+		<java jar="${BuildTools.location}/Signer/Signer.jar" fork="true" if:set="signer.present">
+		  	<arg value="${Release.location}/SimulatorSetup.exe"/>
+		</java>		
+				
+		<echo message="Generate zip package" />
+		<zip destfile="${Release.location}/Simulator.zip">
+		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,docs/**,libs/**,tools/**"/>
+		  <zipfileset dir="${Simulator.location}/tools/JDDE" includes="*.dll"/>
+		</zip>
+
+		<echo message="Clean up" />
+		<delete file="${Release.location}/Simulator.exe" />
+		<delete file="${Release.location}/Simulator.jar" />
+		<delete file="${Release.location}/JavaDDEx64.dll" />
+		<delete file="${Release.location}/JavaDDE.dll" />
+		<delete dir="${Release.location}/docs" />
+		<delete dir="${Release.location}/libs" />
+		<delete dir="${Release.location}/tools" />
+	</target>
+		
+</project>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.0.0</ModellVersion>
+  <ModellName>Geteilte Ressource</ModellName>
+  <ModellBeschreibung>Es gibt zwei getrennte Kundenankunftsströme, die an zwei getrennten
+Bediensystemen bedient werden. Allerdings teilen sich die Bediensysteme
+zwei Bediener, d.h. es gilt:
+
+Ankünfte pro Ankunftsstrom:
+lambda=0,6 (pro Minute)
+1/mu=1,333 (Minuten)
+1/nu=infty (Minuten)
+
+Bediener (zusammen über beide Stationen):
+c=2</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="550" y="150"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementQuelle id="6">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="7">
+      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenB">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="8">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="7" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="1">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenB">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="1" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="10">
+      <ModellElementGroesse h="23" w="174" x="50" y="50"/>
+      <ModellElementTextzeile>Geteilte Ressourcen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="11">
+      <ModellElementGroesse h="19" w="557" x="50" y="300"/>
+      <ModellElementTextzeile>Es existieren zwei Bediener, die beide an beiden Bedienstationen zum Einsatz kommen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationAmpel id="12">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementGroesse h="100" w="50" x="50" y="400"/>
+      <ModellElementAmpelBedingung Licht="rot">resource()==2</ModellElementAmpelBedingung>
+      <ModellElementAmpelBedingung Licht="gelb">resource()==1</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="19" w="170" x="50" y="380"/>
+      <ModellElementTextzeile>Auslastung der Bediener</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="14">
+      <ModellElementGroesse h="19" w="172" x="105" y="480"/>
+      <ModellElementTextzeile>Beide Bediener im Leerlauf</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,150,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="29">
+      <ModellElementGroesse h="19" w="154" x="105" y="445"/>
+      <ModellElementTextzeile>Ein Bediener beschäftigt</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="59">
+      <ModellElementGroesse h="19" w="170" x="105" y="410"/>
+      <ModellElementTextzeile>Beide Bediener beschäftigt</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="15">
+      <ModellElementGroesse h="105" w="250" x="400" y="400"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementMaximalwert>1</ModellElementMaximalwert>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">resource_hist(1;0)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,165,0">resource_hist(1;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">resource_hist(1;2)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="19" w="250" x="400" y="380"/>
+      <ModellElementTextzeile>Häufigkeit der Auslastungszustände</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="17">
+      <ModellElementName>Auslastung=0</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="400" y="510"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">resource_hist(1;0)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="18">
+      <ModellElementName>Auslastung=1</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="485" y="510"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">resource_hist(1;1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="19">
+      <ModellElementName>Auslastung=2</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="570" y="510"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">resource_hist(1;2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bedienergruppe" Typ="Anzahl" Wert="2"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="user_green" Name="Kunden B"/>
+  </KundentypenDaten>
+</Modell>

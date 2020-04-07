@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Ressourcenauslastung</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>Bedeutung der Spalten in dieser Tabelle:</p>
+
+<ul>
+  <li><b>Ressource</b>:
+  Bedienergruppe auf die sich die jeweilige Zeile bezieht.  
+  </li>
+  <li><b>Anzahl Bediener</b>:
+  Anzahl an Bedienern in der jeweiligen Gruppe, sofern diese durch eine 
+  feste Zahl (und nicht z.B. über einen variablen Schichtplan) festgelegt ist.
+  </li>
+  <li><b>rho</b>:
+  Ist die Anzahl an Bedienern in dieser Gruppe ein während der Simulation fester
+  Wert, so gibt rho die <a href="help:statistik_mittelwert">mittlere Auslastung</a> der Bedienergruppe an.
+  </li>    
+  <li><b>Im Mittel belegt</b>:
+  Gibt die <a href="help:statistik_mittelwert">mittlere absolute Anzahl</a> an ausgelasteten Bedienern in dieser Gruppe an.
+  </li>
+  <li><b>Std</b>:
+  <a href="help:statistik_standardabweichung">Standardabweichung</a> der absoluten Anzahl an ausgelasteten Bedienern in dieser Gruppe an.
+  </li>
+  <li><b>Var</b>:
+  <a href="help:statistik_standardabweichung">Varianz</a> der absoluten Anzahl an ausgelasteten Bedienern in dieser Gruppe an.
+  </li>
+  <li><b>CV</b>:
+  <a href="help:statistik_CV">Variationskoeffizient</a> der absoluten Anzahl an ausgelasteten Bedienern in dieser Gruppe an.
+  </li>
+  <li><b>Min</b>:
+  Minimale absolute Anzahl an während der Simulation ausgelasteten Bedienern in dieser Gruppe an.
+  </li>
+  <li><b>Max</b>:
+  Maximale absolute Anzahl an während der Simulation ausgelasteten Bedienern in dieser Gruppe an.
+  </li>
+  <li><b>Leerlaufanteil (aller Bediener)</b>:
+  Gibt den Zeitanteil aus, während der kein einziger Bediener der Gruppe arbeitete.
+  </li>
+  <li><b>Volllastanteil</b>:
+  Ist die Anzahl an Bedienern in dieser Gruppe ein während der Simulation fester
+  Wert, so gibt diese Zelle den Zeitanteil an, während der alle Bediener beschäftigt waren.
+  </li>
+</ul>
+
+<p>
+Die Größe <b>rho</b> gibt das Verhältnis von ausgelasteten und insgesamt verfügbaren Bedienern an. Ist die Anzahl
+an verfügbaren Bedienern in der Gruppe entweder variable (Definition über einen Schichtplan) oder aber besteht
+die Gruppe aus unendlich vielen Bedienern, so kann für rho kein Wert bestimmt werden. Dasselbe gilt für den
+<b>Volllastanteil</b>: Existiert keine feste Anzahl an vorhandenen Bedienern, so kann auch kein Zeitanteil in
+dem diese Anzahl beschäftigt war, ausgegeben werden.
+</p>
+<p>
+Werte, die sich auf die <b>absolute Anzahl an ausgelasteten Bedienern</b> beziehen, stehen jedoch immer zur Verfügung.
+</p>
+  
+</body></html>

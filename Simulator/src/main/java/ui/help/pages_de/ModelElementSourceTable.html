@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Tabellenquelle</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Tabellenquelle</h1>
+
+<p>
+Die Quelle stellt den Startpunkt der Bewegung eines Kunden durch das System dar.
+Ein Simulationsmodell kann aus einer oder mehreren Quellen bestehen.
+Eine tabellenbasierte Quelle erstellt Kundenankünfte nicht basierend auf
+Zeitabständen oder ähnlichem, sondern lädt die konkreten Zeitpunkte aus einer
+Tabelle.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name der Tabellenquelle besitzt keine Bedeutung für die Simulation.
+Bei jeder Tabellenquelle müssen der <b>Dateiname der Tabelle</b>, aus
+der die Ankünfte geladen werden sollen, sowie die <b>Liste der Kundentypnamen</b>,
+für die Ankünfte aus der Tabelle geladen werden sollen, angegeben werden.
+</p>
+
+<p>
+<u>Aufbau der Tabelle:</u><br>
+Die Tabelle muss aus mindestens zwei Spalten bestehen. Die erste Spalte enthält die Ankunftszeitpunkte
+der Kunden gemessen in Sekunden beginnend mit dem Start der Simulation oder aber die Abstände
+der Ankünfte der Kunden untereinander ebenfalls gemessen in Sekunden. Die zweite Spalte
+enthält zu jedem Ankunftszeitpunkt den Namen des Kundentyps des Kunden, der an dem
+angegebenen Zeitpunkt eintreffen soll. Zeilen, bei denen der angegebene Kundentyp
+nicht in der im Element eingestellten Liste der Kundentypnamen enthalten ist, werden ignoriert.
+Alle weiteren Spalten enthalten optional Ausdrücke der Form <tt>ClientData(nr)=Formel</tt>
+oder <tt>ClientData('Schlüssel')=Textwert</tt>.
+Auf diese Weise können in den neu erstellten Kundenobjekten direkt kundenspezifische Daten
+hinterlegt werden. 
+</p>  
+
+</body>
+</html>

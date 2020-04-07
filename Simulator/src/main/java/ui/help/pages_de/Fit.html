@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Verteilung anpassen Dialog</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Verteilung anpassen Dialog</h1>
+
+<p>
+Die Funktion zur Verteilungsanpassung ermöglicht es, basierend auf einer Reihe von Messwerten
+eine Verteilung zu finden, die die Werte jeweils bestmöglich widerspiegelt.
+Es werden dafür zunächst Mittelwert und Standardabweichung der Messwerte bestimmt und basieren
+darauf für alle in das Programm eingebaute Wahrscheinlichkeitsverteilungen entsprechende
+Verteilungsfunktionen aufgestellt. Zum Abschluss werden alle diese konkreten Verteilungsfunktionen
+mit der empirischen Verteilung der Messwerte verglichen und es wird jeweils die Abweichung
+bestimmt. Die Verteilungsfunktion, die die geringste Abweichung zu den Messwerten aufweist,
+wird als angepasste Verteilungsfunktion empfohlen.  
+</p>
+
+<p>
+Zusätzlich werden bei allen Verteilungen p-Werte für verschiedene Anpassungstests ausgegeben.
+Je höher ein p-Wert ist, desto schwerer ist es, die Hypothese abzulehnen, dass der Messreihe
+die jeweilige Verteilung zugrunde liegt. Für alle Verteilungen werden der 
+Kolmogorov-Smirnov-Anpassungstest und der Chi<sup>2</sup>-Anpassungstest durchgeführt.
+Während der Kolmogorov-Smirnov-Anpassungstest insbesondere die maximalen Abweichungen
+zwischen Messreihe und Verteilungsfunktion bewertet, betrachtet der Chi<sup>2</sup>-Anpassungstest
+die mittleren Abweichungen. Für die Normalverteilung wird zusätzlich der 
+Anderson-Darling-Test, der eine Modifikation des Kolmogorov-Smirnov-Tests darstellt,
+durchgeführt.
+</p>
+
+
+</body>
+</html>

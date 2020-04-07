@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Eingabe</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Eingabe</h1>
+
+<p>
+Durchläuft ein Kunde dieses Element, so wird eine Zahl aus einer Datei gelesen und einer
+Variable zugewiesen. Die Leseposition in der Datei wird dabei um eine Zeile weiter bewegt.
+Wird durch einen Kunden das Dateiende erreicht, so kann eingestellt werden, wie sich
+das Element verhalten soll.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Eingabe-Elements besitzt keine weitere Bedeutung. Es müssen der Name der zu lesenden
+Datei, das gewünschte Verhalten am Dateiende sowie der Name der Variable, an die die Zuweisungen
+erfolgen sollen, eingestellt werden.
+</p>
+
+<p>
+Über die drei Pseudo-Variablennamen "w", "t" und "p" kann lesend und schreibend auf die Wartezeit, die Transferzeit
+und die Bedienzeit des aktuellen Kunden (jeweils auf Sekundenbasis) zugegriffen werden. Außerdem kann statt eines
+Variablennamens ein Kundenobjekt-Datenfeld über "ClientData(index)" beschrieben werden oder über "ClientData('Schlüssel')"
+ein Textwert in einem kundenbasierenden Schlüssel hinterlegt werden.
+</p> 
+
+<h2>Alternative</h2>
+
+<p>
+Mit dem <a href="ModelElementInputJS.html">Eingabe (JS)</a>-Element besteht die Möglichkeit, weit komplexere
+Verarbeitungen auf Basis der Eingabewerte vorzunehmen. Allerdings benötigt der Simulator für die Ausführung
+des dann zugehörigen Javascript-Elements deutlich mehr Rechenzeit.
+</p>
+
+</body>
+</html>

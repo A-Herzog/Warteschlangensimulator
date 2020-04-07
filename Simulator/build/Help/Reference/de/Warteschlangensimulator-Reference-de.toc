@@ -1,0 +1,116 @@
+\babel@toc {ngerman}{}
+\contentsline {chapter}{\numberline {1}Eingang/Ausgang}{1}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}Ausgang}{1}{section.1.1}% 
+\contentsline {section}{\numberline {1.2}Datenbankquelle}{1}{section.1.2}% 
+\contentsline {section}{\numberline {1.3}Excel-DDE-Quelle}{2}{section.1.3}% 
+\contentsline {section}{\numberline {1.4}Mehrfachquelle}{2}{section.1.4}% 
+\contentsline {section}{\numberline {1.5}Quelle}{3}{section.1.5}% 
+\contentsline {section}{\numberline {1.6}Tabellenquelle}{4}{section.1.6}% 
+\contentsline {chapter}{\numberline {2}Verarbeitung}{7}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}Bedienstation}{7}{section.2.1}% 
+\contentsline {section}{\numberline {2.2}Verz\IeC {\"o}gerung}{9}{section.2.2}% 
+\contentsline {chapter}{\numberline {3}Zuweisungen}{11}{chapter.3}% 
+\contentsline {section}{\numberline {3.1}Bereich betreten}{11}{section.3.1}% 
+\contentsline {section}{\numberline {3.2}Bereich verlassen}{11}{section.3.2}% 
+\contentsline {section}{\numberline {3.3}Differenzz\IeC {\"a}hler}{11}{section.3.3}% 
+\contentsline {section}{\numberline {3.4}Durchsatz}{12}{section.3.4}% 
+\contentsline {section}{\numberline {3.5}Kosten}{12}{section.3.5}% 
+\contentsline {section}{\numberline {3.6}Kundenstatistik}{12}{section.3.6}% 
+\contentsline {section}{\numberline {3.7}Multiz\IeC {\"a}hler}{12}{section.3.7}% 
+\contentsline {section}{\numberline {3.8}Script}{13}{section.3.8}% 
+\contentsline {section}{\numberline {3.9}Textzuweisung}{13}{section.3.9}% 
+\contentsline {section}{\numberline {3.10}Typzuweisung}{13}{section.3.10}% 
+\contentsline {section}{\numberline {3.11}Variable}{14}{section.3.11}% 
+\contentsline {section}{\numberline {3.12}Zustand}{14}{section.3.12}% 
+\contentsline {section}{\numberline {3.13}Z\IeC {\"a}hler}{15}{section.3.13}% 
+\contentsline {chapter}{\numberline {4}Verzweigungen}{17}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}Duplizieren}{17}{section.4.1}% 
+\contentsline {section}{\numberline {4.2}Verzweigen}{17}{section.4.2}% 
+\contentsline {section}{\numberline {4.3}Verzweigen (Skript)}{19}{section.4.3}% 
+\contentsline {section}{\numberline {4.4}Zur\IeC {\"u}ckschrecken}{19}{section.4.4}% 
+\contentsline {chapter}{\numberline {5}Schranken}{21}{chapter.5}% 
+\contentsline {section}{\numberline {5.1}Bedingung}{21}{section.5.1}% 
+\contentsline {section}{\numberline {5.2}Bedingung (Skript)}{21}{section.5.2}% 
+\contentsline {section}{\numberline {5.3}Multibedingung}{22}{section.5.3}% 
+\contentsline {section}{\numberline {5.4}Pull-Schranke}{22}{section.5.4}% 
+\contentsline {section}{\numberline {5.5}Ressource belegen}{22}{section.5.5}% 
+\contentsline {section}{\numberline {5.6}Ressource freigeben}{23}{section.5.6}% 
+\contentsline {section}{\numberline {5.7}Schranke}{23}{section.5.7}% 
+\contentsline {section}{\numberline {5.8}Signal}{24}{section.5.8}% 
+\contentsline {chapter}{\numberline {6}Kunden verbinden}{25}{chapter.6}% 
+\contentsline {section}{\numberline {6.1}Ausleiten}{25}{section.6.1}% 
+\contentsline {section}{\numberline {6.2}Multizusammenfassen}{25}{section.6.2}% 
+\contentsline {section}{\numberline {6.3}Trennen}{26}{section.6.3}% 
+\contentsline {section}{\numberline {6.4}Zerteilen}{26}{section.6.4}% 
+\contentsline {section}{\numberline {6.5}Zusammenfassen}{27}{section.6.5}% 
+\contentsline {section}{\numberline {6.6}Zusammenf\IeC {\"u}hren}{27}{section.6.6}% 
+\contentsline {chapter}{\numberline {7}Transport}{29}{chapter.7}% 
+\contentsline {section}{\numberline {7.1}Flie\IeC {\ss }band}{29}{section.7.1}% 
+\contentsline {section}{\numberline {7.2}Haltestelle}{29}{section.7.2}% 
+\contentsline {section}{\numberline {7.3}Parkplatz}{30}{section.7.3}% 
+\contentsline {section}{\numberline {7.4}Plan zuweisen}{30}{section.7.4}% 
+\contentsline {section}{\numberline {7.5}Teleport-Transport Startpunkt}{30}{section.7.5}% 
+\contentsline {section}{\numberline {7.6}Teleport-Transport Zielpunkt}{31}{section.7.6}% 
+\contentsline {section}{\numberline {7.7}Transporter Wegpunkt}{31}{section.7.7}% 
+\contentsline {section}{\numberline {7.8}Transportstart}{32}{section.7.8}% 
+\contentsline {section}{\numberline {7.9}Transportziel}{32}{section.7.9}% 
+\contentsline {chapter}{\numberline {8}Daten Ein-/Ausgabe}{33}{chapter.8}% 
+\contentsline {section}{\numberline {8.1}Aufzeichnung}{33}{section.8.1}% 
+\contentsline {section}{\numberline {8.2}Ausgabe}{33}{section.8.2}% 
+\contentsline {section}{\numberline {8.3}Ausgabe (DB)}{34}{section.8.3}% 
+\contentsline {section}{\numberline {8.4}Ausgabe (DDE)}{34}{section.8.4}% 
+\contentsline {section}{\numberline {8.5}Ausgabe (Skript)}{34}{section.8.5}% 
+\contentsline {section}{\numberline {8.6}Eingabe}{35}{section.8.6}% 
+\contentsline {section}{\numberline {8.7}Eingabe (DB)}{35}{section.8.7}% 
+\contentsline {section}{\numberline {8.8}Eingabe (DDE)}{35}{section.8.8}% 
+\contentsline {section}{\numberline {8.9}Eingabe (Skript)}{36}{section.8.9}% 
+\contentsline {chapter}{\numberline {9}Flusssteuerungslogik}{37}{chapter.9}% 
+\contentsline {section}{\numberline {9.1}Do}{37}{section.9.1}% 
+\contentsline {section}{\numberline {9.2}Else}{37}{section.9.2}% 
+\contentsline {section}{\numberline {9.3}ElseIf}{37}{section.9.3}% 
+\contentsline {section}{\numberline {9.4}EndIf}{38}{section.9.4}% 
+\contentsline {section}{\numberline {9.5}EndWhile}{38}{section.9.5}% 
+\contentsline {section}{\numberline {9.6}If}{38}{section.9.6}% 
+\contentsline {section}{\numberline {9.7}Until}{38}{section.9.7}% 
+\contentsline {section}{\numberline {9.8}While}{39}{section.9.8}% 
+\contentsline {chapter}{\numberline {10}Analoge Werte}{41}{chapter.10}% 
+\contentsline {section}{\numberline {10.1}Analogen W. \IeC {\"a}ndern}{41}{section.10.1}% 
+\contentsline {section}{\numberline {10.2}Analoger Wert}{41}{section.10.2}% 
+\contentsline {section}{\numberline {10.3}Fluss}{41}{section.10.3}% 
+\contentsline {section}{\numberline {10.4}Fluss (Signal)}{42}{section.10.4}% 
+\contentsline {section}{\numberline {10.5}Sensor}{42}{section.10.5}% 
+\contentsline {section}{\numberline {10.6}Tank}{42}{section.10.6}% 
+\contentsline {section}{\numberline {10.7}Ventil-Setup}{43}{section.10.7}% 
+\contentsline {chapter}{\numberline {11}Animation}{45}{chapter.11}% 
+\contentsline {section}{\numberline {11.1}Analogskalaanzeige}{45}{section.11.1}% 
+\contentsline {section}{\numberline {11.2}Animationsbild}{45}{section.11.2}% 
+\contentsline {section}{\numberline {11.3}Datenaufzeichnung anzeigen}{45}{section.11.3}% 
+\contentsline {section}{\numberline {11.4}Icon: Person - Blau}{46}{section.11.4}% 
+\contentsline {section}{\numberline {11.5}LCD-Anzeige}{46}{section.11.5}% 
+\contentsline {section}{\numberline {11.6}Simulationsdaten als Balken}{46}{section.11.6}% 
+\contentsline {section}{\numberline {11.7}Simulationsdaten als gestapelter Balken}{46}{section.11.7}% 
+\contentsline {section}{\numberline {11.8}Simulationsdaten als Text}{47}{section.11.8}% 
+\contentsline {section}{\numberline {11.9}Simulationsdatenampel}{47}{section.11.9}% 
+\contentsline {section}{\numberline {11.10}Simulationsdatenbalkendiagramm}{47}{section.11.10}% 
+\contentsline {section}{\numberline {11.11}Simulationsdatenliniendiagramm}{48}{section.11.11}% 
+\contentsline {section}{\numberline {11.12}Simulationsdatentortendiagramm}{48}{section.11.12}% 
+\contentsline {section}{\numberline {11.13}Simulationszeit}{48}{section.11.13}% 
+\contentsline {section}{\numberline {11.14}Skriptergebnis als Text}{49}{section.11.14}% 
+\contentsline {section}{\numberline {11.15}Text gem\IeC {\"a}\IeC {\ss } Simulationsdaten}{49}{section.11.15}% 
+\contentsline {chapter}{\numberline {12}Animation - Interaktiv}{51}{chapter.12}% 
+\contentsline {section}{\numberline {12.1}Checkbox}{51}{section.12.1}% 
+\contentsline {section}{\numberline {12.2}Radiobutton}{51}{section.12.2}% 
+\contentsline {section}{\numberline {12.3}Schaltfl\IeC {\"a}che}{51}{section.12.3}% 
+\contentsline {section}{\numberline {12.4}Schieberegler}{52}{section.12.4}% 
+\contentsline {chapter}{\numberline {13}Optische Gestaltung}{53}{chapter.13}% 
+\contentsline {section}{\numberline {13.1}Beschreibungstext}{53}{section.13.1}% 
+\contentsline {section}{\numberline {13.2}Bild}{53}{section.13.2}% 
+\contentsline {section}{\numberline {13.3}Ellipse}{53}{section.13.3}% 
+\contentsline {section}{\numberline {13.4}Linie}{54}{section.13.4}% 
+\contentsline {section}{\numberline {13.5}Rechteck}{54}{section.13.5}% 
+\contentsline {section}{\numberline {13.6}Verbindungsecke}{54}{section.13.6}% 
+\contentsline {chapter}{\numberline {14}Sonstiges}{55}{chapter.14}% 
+\contentsline {section}{\numberline {14.1}Aktion}{55}{section.14.1}% 
+\contentsline {section}{\numberline {14.2}Referenz}{55}{section.14.2}% 
+\contentsline {section}{\numberline {14.3}Statistik}{56}{section.14.3}% 
+\contentsline {section}{\numberline {14.4}Untermodell}{56}{section.14.4}% 

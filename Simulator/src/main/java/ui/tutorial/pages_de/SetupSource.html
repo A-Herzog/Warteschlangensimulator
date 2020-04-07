@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Quelle konfigurieren</title>
+<link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+<body>
+
+<h1>Quelle konfigurieren</h1>
+
+<p>
+Bei den meisten Stationen kann konfiguriert werden, wie die Verarbeitung der
+Kunden an diesen erfolgen soll. Bei einer Bedienstation kann z.B. eingestellt
+werden, wie lange die Bedienungen dauern sollen, und bei einer Kundenquelle
+kann eingestellt, werden wie viele Kunden und mit welchen Abständen und welchen
+Typs in ihr generiert werden sollen.
+</p>
+
+<p>
+Im ersten Schritt konfigurieren wir die <b>Quelle</b>. Der Konfigurationsdialog
+eines Elements wird Doppelklick auf das Element geöffnet. Im Quelle-Konfigurationsdialog
+können folgende Einstellungen vorgenommen werden:
+</p>
+
+<ul>
+  <li><b>Name</b>:
+  Der Name der Quelle bestimmt zugleich den Typ der Kunden, die in ihr generiert
+  werden. Hier können Sie einen beliebigen Namen eingeben oder auch den bisherigen
+  beibehalten. Lediglich leer darf das Feld nicht sein.</li>
+  <li><b>Berechnung der Zwischenankunftszeiten</b>:
+  In diesem Auswahlfeld kann eingestellt werden, ob die Zwischenankunftszeiten über eine
+  Wahrscheinlichkeitsverteilung, einen Ausdruck oder einen Zeitplan festgelegt werden sollen.
+  <span style="color: green;">In diesem Beispiel behalten wir den Wert "Wahrscheinlichkeitsverteilung" bei.</span>
+  </li>
+  <li><b>Zeitbasis</b>:
+  Bei der Bestimmung der Zwischenankunftszeiten über eine Wahrscheinlichkeitsverteilung oder
+  einen Ausdruck kann eingestellt werden, ob der sich jeweils ergebende Zahlenwert als Anzahl
+  an Sekunden, Minuten oder Stunden interpretiert werden soll. <span style="color: green;">Auch hier kann der Vorgabewert
+  "Sekunden" beibehalten werden.</span>
+  </li>
+  <li><b>Verteilung</b>:
+  Über die Schaltfläche "Bearbeiten" rechts über der Ansicht der Wahrscheinlichkeitsverteilung
+  kann diese bearbeitet werden. <span style="color: orange;">In dem Beispielmodell soll die
+  Exponentialverteilung beibehalten werden, aber als mittlerer Abstand zwischen zwei Ankünften
+  sollen 50 Sekunden eingetragen werden.</span> 
+  </li>
+  <li><b>Anzahl an Kunden pro Ankunftsereignis</b>:
+  Pro Ankunftsereignis können mehrere Kunden am System eintreffen (Batch-Ankünfte).
+  <span style="color: green;">In diesem Beispiel soll jedoch die Batch-Größe von 1 beibehalten werden.</span>
+  </li>
+  <li><b>Anzahl an Ankunftsereignis insgesamt</b>:
+  Die Anzahl Ankunftsereignis, die diese Quelle generiert, kann generell limitiert
+  werden. <span style="color: green;">In diesem Beispiel soll jedoch keine Begrenzung der Anzahl an Ankünften vorgenommen werden.</span>
+  </li>
+  <li><b>Startzeitpunkt für erste Zwischenankunftszeit</b>:
+  Optional kann angegeben werden, dass die Quelle erst ab einem bestimmten Zeitpunkt beginnt,
+  Ankünfte zu generieren. <span style="color: green;">In diesem Beispiel soll jedoch der Startzeitpunkt 0 beibehalten werden.</span> 
+  </li>
+</ul> 
+
+<p><b>Konkrete Schritte:</b></p>
+
+<ul>
+<li>Klicken Sie doppelt auf die Quelle:<br>
+<img src="Source.png" style="border: 1px solid black; padding: 5px; margin-top: 15px; margin-bottom: 30px;"></li>
+<li>Klicken Sie in dem Dialog über dem Verteilungsdiagramm rechts auf "<b>Bearbeiten</b>" und
+wählen Sie im Verteilungseditor <b>50</b> (Sekunden) als mittlere Zwischenankunftszeit.
+(Behalten Sie die Exponentialverteilung als Zwischenankunftszeitenverteilung bei.)</li>
+<li>Schließen Sie den Verteilungseditor und den Dialog zum Bearbeiten der Quelle jeweils mit "Ok".</li>
+</ul>
+ 
+</body>
+</html>

@@ -1,0 +1,123 @@
+\BOOKMARK [0][-]{Table of contents.0}{Table of contents}{}% 1
+\BOOKMARK [0][-]{chapter.1}{1 Calculation commands and scripting in Warteschlangensimulator}{}% 2
+\BOOKMARK [1][-]{section.1.1}{1.1 Create expressions}{chapter.1}% 3
+\BOOKMARK [-1][-]{part.1}{I Calculation commands reference}{}% 4
+\BOOKMARK [0][-]{chapter.2}{2 Constants}{part.1}% 5
+\BOOKMARK [0][-]{chapter.3}{3 Variables}{part.1}% 6
+\BOOKMARK [0][-]{chapter.4}{4 Basic arithmetic operations}{part.1}% 7
+\BOOKMARK [0][-]{chapter.5}{5 Trailing instructions}{part.1}% 8
+\BOOKMARK [0][-]{chapter.6}{6 General functions}{part.1}% 9
+\BOOKMARK [1][-]{section.6.1}{6.1 Random numbers}{chapter.6}% 10
+\BOOKMARK [0][-]{chapter.7}{7 Trigonometric functions}{part.1}% 11
+\BOOKMARK [1][-]{section.7.1}{7.1 Elementary trigonometric functions}{chapter.7}% 12
+\BOOKMARK [1][-]{section.7.2}{7.2 Hyperbolic trigonometric functions}{chapter.7}% 13
+\BOOKMARK [1][-]{section.7.3}{7.3 Inverse of the elementary trigonometric functions}{chapter.7}% 14
+\BOOKMARK [1][-]{section.7.4}{7.4 Inverse of the hyperbolic trigonometric functions}{chapter.7}% 15
+\BOOKMARK [0][-]{chapter.8}{8 Funktionen mit mehreren Parametern}{part.1}% 16
+\BOOKMARK [0][-]{chapter.9}{9 Probability distributions}{part.1}% 17
+\BOOKMARK [1][-]{section.9.1}{9.1 Exponential distribution with mean a}{chapter.9}% 18
+\BOOKMARK [1][-]{section.9.2}{9.2 Uniform distribution in the interval [a;b]}{chapter.9}% 19
+\BOOKMARK [1][-]{section.9.3}{9.3 Normal distribution with mean a and standard deviation b}{chapter.9}% 20
+\BOOKMARK [1][-]{section.9.4}{9.4 Log-normal distribution with mean a and standard deviation b}{chapter.9}% 21
+\BOOKMARK [1][-]{section.9.5}{9.5 Gamma distribution with parameters a and b}{chapter.9}% 22
+\BOOKMARK [1][-]{section.9.6}{9.6 Erlang distribution with parameters n and l}{chapter.9}% 23
+\BOOKMARK [1][-]{section.9.7}{9.7 Beta distribution in the interval [a;b] and with parameters c and d}{chapter.9}% 24
+\BOOKMARK [1][-]{section.9.8}{9.8 Weibull distribution with parameters Scale=a and Form=b}{chapter.9}% 25
+\BOOKMARK [1][-]{section.9.9}{9.9 Cauchy distribution with mean a and Scale=b}{chapter.9}% 26
+\BOOKMARK [1][-]{section.9.10}{9.10 Chi2 distribution with n degrees of freedom}{chapter.9}% 27
+\BOOKMARK [1][-]{section.9.11}{9.11 Chi distribution with n degrees of freedom}{chapter.9}% 28
+\BOOKMARK [1][-]{section.9.12}{9.12 F distribution with a degrees of freedom for the numerator and b degrees of freedom for the denominator}{chapter.9}% 29
+\BOOKMARK [1][-]{section.9.13}{9.13 Johnson SU distribution with parameters a, b, c and d}{chapter.9}% 30
+\BOOKMARK [1][-]{section.9.14}{9.14 Triangular distribution over [a;c] with most likely value b}{chapter.9}% 31
+\BOOKMARK [1][-]{section.9.15}{9.15 Laplace distribution with mean mu and scale factor b}{chapter.9}% 32
+\BOOKMARK [1][-]{section.9.16}{9.16 Pareto distribution with scale parameter xmin and shape parameter a}{chapter.9}% 33
+\BOOKMARK [1][-]{section.9.17}{9.17 Logistic distribution with mean mu and scale parameter s}{chapter.9}% 34
+\BOOKMARK [1][-]{section.9.18}{9.18 Inverse gaussian distribution with l and mean mu}{chapter.9}% 35
+\BOOKMARK [1][-]{section.9.19}{9.19 Rayleigh distribution with mean mu}{chapter.9}% 36
+\BOOKMARK [1][-]{section.9.20}{9.20 Log-Logistic distribution with alpha and mean beta}{chapter.9}% 37
+\BOOKMARK [1][-]{section.9.21}{9.21 Power distribution on [a;b] with exponent c}{chapter.9}% 38
+\BOOKMARK [1][-]{section.9.22}{9.22 Gumbel distribution with expected value a and standard deviation b}{chapter.9}% 39
+\BOOKMARK [1][-]{section.9.23}{9.23 Fatigue life distribution with location parameter mu, scale parameter beta and form parameter gamma}{chapter.9}% 40
+\BOOKMARK [1][-]{section.9.24}{9.24 Frechet distribution with location parameter delta, scale parameter beta and form parameter alpha}{chapter.9}% 41
+\BOOKMARK [1][-]{section.9.25}{9.25 Hyperbolic secant distribution with mean a and standard deviation b}{chapter.9}% 42
+\BOOKMARK [1][-]{section.9.26}{9.26 Distribution based on empirical values}{chapter.9}% 43
+\BOOKMARK [0][-]{chapter.10}{10 Erlang C calculator}{part.1}% 44
+\BOOKMARK [0][-]{chapter.11}{11 Allen-Cunneen approximation formula}{part.1}% 45
+\BOOKMARK [0][-]{chapter.12}{12 Accessing model properties}{part.1}% 46
+\BOOKMARK [1][-]{section.12.1}{12.1 General simulation data}{chapter.12}% 47
+\BOOKMARK [1][-]{section.12.2}{12.2 Clients in the system}{chapter.12}% 48
+\BOOKMARK [2][-]{subsection.12.2.1}{12.2.1 Number of clients in the system}{section.12.2}% 49
+\BOOKMARK [2][-]{subsection.12.2.2}{12.2.2 Number of waiting clients in the system}{section.12.2}% 50
+\BOOKMARK [1][-]{section.12.3}{12.3 Clients at the stations}{chapter.12}% 51
+\BOOKMARK [2][-]{subsection.12.3.1}{12.3.1 Number of clients at a station}{section.12.3}% 52
+\BOOKMARK [2][-]{subsection.12.3.2}{12.3.2 Number of clients at the queue at a station}{section.12.3}% 53
+\BOOKMARK [2][-]{subsection.12.3.3}{12.3.3 Number of clients just being served at a station}{section.12.3}% 54
+\BOOKMARK [2][-]{subsection.12.3.4}{12.3.4 Number of arrivals and departures at a station}{section.12.3}% 55
+\BOOKMARK [1][-]{section.12.4}{12.4 Clients in system by client type}{chapter.12}% 56
+\BOOKMARK [2][-]{subsection.12.4.1}{12.4.1 Number of clients in the system by client type}{section.12.4}% 57
+\BOOKMARK [2][-]{subsection.12.4.2}{12.4.2 Number of waiting clients in the system by client type}{section.12.4}% 58
+\BOOKMARK [1][-]{section.12.5}{12.5 Counter and throughput}{chapter.12}% 59
+\BOOKMARK [1][-]{section.12.6}{12.6 Waiting times}{chapter.12}% 60
+\BOOKMARK [2][-]{subsection.12.6.1}{12.6.1 Waiting times at a station}{section.12.6}% 61
+\BOOKMARK [2][-]{subsection.12.6.2}{12.6.2 Waiting times over all client types}{section.12.6}% 62
+\BOOKMARK [2][-]{subsection.12.6.3}{12.6.3 Waiting times for a specific client type}{section.12.6}% 63
+\BOOKMARK [1][-]{section.12.7}{12.7 Transfer times}{chapter.12}% 64
+\BOOKMARK [2][-]{subsection.12.7.1}{12.7.1 Transfer times at a station}{section.12.7}% 65
+\BOOKMARK [2][-]{subsection.12.7.2}{12.7.2 Transfer times over all client types}{section.12.7}% 66
+\BOOKMARK [2][-]{subsection.12.7.3}{12.7.3 Transfer times for a specific client type}{section.12.7}% 67
+\BOOKMARK [1][-]{section.12.8}{12.8 Process times}{chapter.12}% 68
+\BOOKMARK [2][-]{subsection.12.8.1}{12.8.1 Process times at a station}{section.12.8}% 69
+\BOOKMARK [2][-]{subsection.12.8.2}{12.8.2 Process times over all client types}{section.12.8}% 70
+\BOOKMARK [2][-]{subsection.12.8.3}{12.8.3 Process times for a specific client type}{section.12.8}% 71
+\BOOKMARK [1][-]{section.12.9}{12.9 Residence times}{chapter.12}% 72
+\BOOKMARK [2][-]{subsection.12.9.1}{12.9.1 Residence times at a station}{section.12.9}% 73
+\BOOKMARK [2][-]{subsection.12.9.2}{12.9.2 Residence times over all client types}{section.12.9}% 74
+\BOOKMARK [2][-]{subsection.12.9.3}{12.9.3 Residence times for a specific client type}{section.12.9}% 75
+\BOOKMARK [1][-]{section.12.10}{12.10 Utilization of the resources}{chapter.12}% 76
+\BOOKMARK [2][-]{subsection.12.10.1}{12.10.1 Utilization of a resource}{section.12.10}% 77
+\BOOKMARK [2][-]{subsection.12.10.2}{12.10.2 Utilization of all resource together}{section.12.10}% 78
+\BOOKMARK [1][-]{section.12.11}{12.11 Utilization of the transporters}{chapter.12}% 79
+\BOOKMARK [2][-]{subsection.12.11.1}{12.11.1 Utilization of a transporter group}{section.12.11}% 80
+\BOOKMARK [2][-]{subsection.12.11.2}{12.11.2 Utilization of all transporters together}{section.12.11}% 81
+\BOOKMARK [1][-]{section.12.12}{12.12 Accessing the Statistics stations records}{chapter.12}% 82
+\BOOKMARK [1][-]{section.12.13}{12.13 Accessing analog values}{chapter.12}% 83
+\BOOKMARK [1][-]{section.12.14}{12.14 Accessing the client object specific data fields}{chapter.12}% 84
+\BOOKMARK [1][-]{section.12.15}{12.15 Accessing the costs}{chapter.12}% 85
+\BOOKMARK [0][-]{chapter.13}{13 Comparison}{part.1}% 86
+\BOOKMARK [1][-]{section.13.1}{13.1 Comparison function}{chapter.13}% 87
+\BOOKMARK [-1][-]{part.2}{II Javascript commands reference}{}% 88
+\BOOKMARK [0][-]{chapter.14}{14 Statistics object}{part.2}% 89
+\BOOKMARK [1][-]{section.14.1}{14.1 Definition of the output format}{chapter.14}% 90
+\BOOKMARK [1][-]{section.14.2}{14.2 Accessing statistics xml data}{chapter.14}% 91
+\BOOKMARK [1][-]{section.14.3}{14.3 Saving the statistics data to files}{chapter.14}% 92
+\BOOKMARK [0][-]{chapter.15}{15 System object}{part.2}% 93
+\BOOKMARK [0][-]{chapter.16}{16 Simulation object}{part.2}% 94
+\BOOKMARK [1][-]{section.16.1}{16.1 Base functions}{chapter.16}% 95
+\BOOKMARK [1][-]{section.16.2}{16.2 Accessing client-specific data}{chapter.16}% 96
+\BOOKMARK [1][-]{section.16.3}{16.3 Accessing parameters of the simulation model}{chapter.16}% 97
+\BOOKMARK [1][-]{section.16.4}{16.4 Accessing the current input value}{chapter.16}% 98
+\BOOKMARK [1][-]{section.16.5}{16.5 Number of operators in a resource}{chapter.16}% 99
+\BOOKMARK [1][-]{section.16.6}{16.6 Fire signal}{chapter.16}% 100
+\BOOKMARK [0][-]{chapter.17}{17 Clients object}{part.2}% 101
+\BOOKMARK [0][-]{chapter.18}{18 Output object}{part.2}% 102
+\BOOKMARK [0][-]{chapter.19}{19 FileOutput object}{part.2}% 103
+\BOOKMARK [0][-]{chapter.20}{20 Model object}{part.2}% 104
+\BOOKMARK [0][-]{chapter.21}{21 XML selection commands}{part.2}% 105
+\BOOKMARK [-1][-]{part.3}{III Java commands reference}{}% 106
+\BOOKMARK [0][-]{chapter.22}{22 StatisticsInterface accessible via sim.getStatistics\(\)}{part.3}% 107
+\BOOKMARK [1][-]{section.22.1}{22.1 Definition of the output format}{chapter.22}% 108
+\BOOKMARK [1][-]{section.22.2}{22.2 Accessing statistics xml data}{chapter.22}% 109
+\BOOKMARK [1][-]{section.22.3}{22.3 Saving the statistics data to files}{chapter.22}% 110
+\BOOKMARK [0][-]{chapter.23}{23 RuntimeInterface accessible via sim.getRuntime\(\)}{part.3}% 111
+\BOOKMARK [0][-]{chapter.24}{24 SystemInterface accessible via sim.getSystem\(\)}{part.3}% 112
+\BOOKMARK [1][-]{section.24.1}{24.1 Base functions}{chapter.24}% 113
+\BOOKMARK [1][-]{section.24.2}{24.2 Accessing parameters of the simulation model}{chapter.24}% 114
+\BOOKMARK [1][-]{section.24.3}{24.3 Number of operators in a resource}{chapter.24}% 115
+\BOOKMARK [1][-]{section.24.4}{24.4 Fire signal}{chapter.24}% 116
+\BOOKMARK [0][-]{chapter.25}{25 ClientInterface accessible via sim.getClient\(\)}{part.3}% 117
+\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface accessible via sim.getInputValue\(\)}{part.3}% 118
+\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface accessible via sim.getClients\(\)}{part.3}% 119
+\BOOKMARK [0][-]{chapter.28}{28 OutputInterface accessible via sim.getOutput\(\)}{part.3}% 120
+\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface accessible via sim.getFileOutput\(\)}{part.3}% 121
+\BOOKMARK [0][-]{chapter.30}{30 ModelInterface accessible via sim.getModel\(\)}{part.3}% 122
+\BOOKMARK [0][-]{chapter.31}{31 XML selection commands}{part.3}% 123

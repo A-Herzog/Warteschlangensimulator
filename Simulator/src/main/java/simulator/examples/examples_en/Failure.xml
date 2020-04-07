@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>1.2.0</ModelVersion>
+  <ModelName>Model with break times for the operator</ModelName>
+  <ModelDescription/>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationCondition Active="0"/>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelRandomNumbersSeed Active="0">0</ModelRandomNumbersSeed>
+  <ModelElements>
+    <ModelElementProcessStation id="1">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (300)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenB">w+1000</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operators group"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="4">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="6">
+      <ModelElementSize h="23" w="354" x="50" y="50"/>
+      <ModelElementTextLine>Model with break times for the operators</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="7">
+      <ModelElementSize h="38" w="418" x="50" y="180"/>
+      <ModelElementTextLine>After each 20 served clients (each about 5 minutes) each operator</ModelElementTextLine>
+      <ModelElementTextLine>will have a break for about 10 minutes.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="8">
+      <ModelElementSize h="230" w="600" x="50" y="270"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="10" Minimum="0">WIP(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="10" Minimum="0">WIP_avg(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="10" Minimum="0">Resource_down()</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="9">
+      <ModelElementSize h="19" w="602" x="50" y="250"/>
+      <ModelElementTextLine>Number of clients at the process station (current value and average over the complete run time)</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="11">
+      <ModelElementSize h="19" w="138" x="700" y="250"/>
+      <ModelElementTextLine>State of the operators</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationStackBar id="10">
+      <ModelElementSize h="230" w="100" x="700" y="270"/>
+      <ModelElementDataExpression>Resource_down()</ModelElementDataExpression>
+      <ModelElementDataExpression>Resource()</ModelElementDataExpression>
+      <ModelElementDataExpression>Resource_count()-Resource()</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBarColor>255,0,0</ModelElementBarColor>
+      <ModelElementBarColor>255,165,0</ModelElementBarColor>
+      <ModelElementBarColor>0,180,0</ModelElementBarColor>
+      <ModelElementBarColor>0,180,0</ModelElementBarColor>
+    </ModelElementAnimationStackBar>
+    <ModelElementText id="12">
+      <ModelElementSize h="42" w="77" x="700" y="500"/>
+      <ModelElementTextLine>green=idle,</ModelElementTextLine>
+      <ModelElementTextLine>orange=working,</ModelElementTextLine>
+      <ModelElementTextLine>red=break</ModelElementTextLine>
+      <ModelElementFontSize>10</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources>
+    <Resource Name="Operators group" Type="Number" Value="4">
+      <ResourceFailure FailureAfterNumberOfClients="20" FailureDistribution="Exponential distribution (600)"/>
+    </Resource>
+  </Resources>
+  <ClientTypeData/>
+</Model>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.0.0</ModellVersion>
+  <ModellName>Transport von Bauteilen zwischen mehreren Fabriken</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Rohstoff A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="150"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Rohstoff B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="550"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>Station A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="150"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Bauteil A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Bauteil B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Rohstoff A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Rohstoff B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Zwischenprod. A">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>Station B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="550"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Bauteil A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Bauteil B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Rohstoff A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Rohstoff B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Zwischenprod. A">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementTransportStart id="5">
+      <ModellElementName>Abfahrt A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="350"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerteilung Typ="Transferzeit" Zeitbasis="Minuten">Lognormalverteilung (10;5)</ModellElementVerteilung>
+      <ModellElementTransportRoute>Ankunft C</ModellElementTransportRoute>
+      <ModellElementTransportRessource Anzahl="1" Name="Transporter A"/>
+      <ModellElementTransportRessourcePrioritaet>1</ModellElementTransportRessourcePrioritaet>
+      <ModellElementTransportRessourceVerzoegerteFreigabe Zeitbasis="Minuten">
+        <ModellElementVerteilung>Lognormalverteilung (10;5)</ModellElementVerteilung>
+      </ModellElementTransportRessourceVerzoegerteFreigabe>
+    </ModellElementTransportStart>
+    <ModellElementTransportStart id="6">
+      <ModellElementName>Abfahrt B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="750"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerteilung Typ="Transferzeit" Zeitbasis="Minuten">Lognormalverteilung (2;1)</ModellElementVerteilung>
+      <ModellElementTransportRoute>Ankunft C</ModellElementTransportRoute>
+      <ModellElementTransportRessource Anzahl="1" Name="Transporter B"/>
+      <ModellElementTransportRessourcePrioritaet>1</ModellElementTransportRessourcePrioritaet>
+      <ModellElementTransportRessourceVerzoegerteFreigabe Zeitbasis="Minuten">
+        <ModellElementVerteilung>Lognormalverteilung (2;1)</ModellElementVerteilung>
+      </ModellElementTransportRessourceVerzoegerteFreigabe>
+    </ModellElementTransportStart>
+    <ModellElementKasten id="7">
+      <ModellElementGroesse h="350" w="650" x="50" y="100"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="8">
+      <ModellElementGroesse h="350" w="650" x="50" y="500"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKante id="9">
+      <ModellElementName>Ankünfte (Rohstoff A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementName>Ankünfte (Rohstoff B)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="23" w="72" x="55" y="105"/>
+      <ModellElementTextzeile>Fabrik A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="14">
+      <ModellElementGroesse h="23" w="72" x="55" y="505"/>
+      <ModellElementTextzeile>Fabrik B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementTransportZiel id="15">
+      <ModellElementName>Ankunft C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1000" y="650"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementZuweisung id="16">
+      <ModellElementName>Bauteil A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="250"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="10">
+      <ModellElementName>Bauteil B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="650"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="3" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementVerbindung Element1="4" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="20">
+      <ModellElementGroesse h="76" w="138" x="750" y="375"/>
+      <ModellElementTextzeile>Fabrik A ist weit</ModellElementTextzeile>
+      <ModellElementTextzeile>entfernt von Fabrik C.</ModellElementTextzeile>
+      <ModellElementTextzeile>10 Minuten Fahrtzeit</ModellElementTextzeile>
+      <ModellElementTextzeile>pro Richtung.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="27">
+      <ModellElementGroesse h="57" w="156" x="535" y="290"/>
+      <ModellElementTextzeile>Es sind 20</ModellElementTextzeile>
+      <ModellElementTextzeile>Transporter-Ressourcen</ModellElementTextzeile>
+      <ModellElementTextzeile>vorhanden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="57" w="156" x="530" y="690"/>
+      <ModellElementTextzeile>Es sind 4</ModellElementTextzeile>
+      <ModellElementTextzeile>Transporter-Ressourcen</ModellElementTextzeile>
+      <ModellElementTextzeile>vorhanden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementBedienstation id="35">
+      <ModellElementName>Station C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1200" y="650"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="63" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Bauteil A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Bauteil B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Rohstoff A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Rohstoff B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener C"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="39">
+      <ModellElementName>Ziel</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1550" y="850"/>
+      <ModellElementVerbindung Element="69" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementText id="52">
+      <ModellElementGroesse h="23" w="72" x="955" y="605"/>
+      <ModellElementTextzeile>Fabrik C</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="53">
+      <ModellElementGroesse h="350" w="750" x="950" y="600"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="54">
+      <ModellElementGroesse h="76" w="123" x="730" y="775"/>
+      <ModellElementTextzeile>Fabrik B ist</ModellElementTextzeile>
+      <ModellElementTextzeile>nahe bei Fabrik C.</ModellElementTextzeile>
+      <ModellElementTextzeile>2 Minuten Fahrtzeit</ModellElementTextzeile>
+      <ModellElementTextzeile>pro Richtung.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="56">
+      <ModellElementName>Prüfen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="350"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="19" Rate="19" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEnde id="23">
+      <ModellElementName>Ausschuss</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="150" y="350"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="26">
+      <ModellElementName>Rate 1 (5%)</ModellElementName>
+      <ModellElementVerbindung Element1="56" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="29">
+      <ModellElementName>Ausschuss</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="150" y="750"/>
+      <ModellElementVerbindung Element="58" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementVerzweigen id="31">
+      <ModellElementName>Prüfen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="750"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="58" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="21" Rate="19" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="58">
+      <ModellElementName>Rate 1 (5%)</ModellElementName>
+      <ModellElementVerbindung Element1="31" Element2="29" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="60">
+      <ModellElementGroesse h="38" w="167" x="1000" y="110"/>
+      <ModellElementTextzeile>Transporter-Ressourcen</ModellElementTextzeile>
+      <ModellElementTextzeile>im Einsatz</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="61">
+      <ModellElementGroesse h="300" w="100" x="1000" y="150"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>20</ModellElementMaximalwert>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">Resource(3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Resource(4)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementIcon id="62">
+      <ModellElementName>Produkt</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1200" y="750"/>
+      <ModellElementVerbindung Element="63" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="64" Typ="Auslaufend"/>
+      <ModellElementIconName>cake</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementVerzweigen id="51">
+      <ModellElementName>Prüfen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1200" y="850"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="64" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="67" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="68" Rate="19" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="63">
+      <ModellElementVerbindung Element1="35" Element2="62" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="64">
+      <ModellElementVerbindung Element1="62" Element2="51" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="66">
+      <ModellElementName>Ausschuss</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1000" y="850"/>
+      <ModellElementVerbindung Element="67" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="67">
+      <ModellElementName>Rate 1 (5%)</ModellElementName>
+      <ModellElementVerbindung Element1="51" Element2="66" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZaehler id="65">
+      <ModellElementName>Produkte</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1400" y="850"/>
+      <ModellElementVerbindung Element="68" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="69" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Zählergruppe</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="68">
+      <ModellElementName>Rate 19 (95%)</ModellElementName>
+      <ModellElementVerbindung Element1="51" Element2="65" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="69">
+      <ModellElementVerbindung Element1="65" Element2="39" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementLinie id="70">
+      <ModellElementGroesse h="-50" w="205" x="715" y="760"/>
+      <ModellElementLinienBreite>21</ModellElementLinienBreite>
+      <ModellElementFarbe>90,90,90</ModellElementFarbe>
+      <ModellElementLinienTyp>7</ModellElementLinienTyp>
+    </ModellElementLinie>
+    <ModellElementLinie id="71">
+      <ModellElementGroesse h="205" w="215" x="705" y="460"/>
+      <ModellElementLinienBreite>21</ModellElementLinienBreite>
+      <ModellElementFarbe>90,90,90</ModellElementFarbe>
+      <ModellElementLinienTyp>7</ModellElementLinienTyp>
+    </ModellElementLinie>
+    <ModellElementText id="78">
+      <ModellElementGroesse h="23" w="459" x="50" y="50"/>
+      <ModellElementTextzeile>Transport von Bauteilen zwischen mehreren Fabriken</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="19">
+      <ModellElementName>Rate 19 (95%)</ModellElementName>
+      <ModellElementVerbindung Element1="56" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementName>Rate 19 (95%)</ModellElementName>
+      <ModellElementVerbindung Element1="31" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="15" Element2="35" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementName>Neuer Kundentyp: Bauteil A</ModellElementName>
+      <ModellElementVerbindung Element1="16" Element2="56" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementName>Neuer Kundentyp: Bauteil B</ModellElementName>
+      <ModellElementVerbindung Element1="10" Element2="31" Typ="Kante"/>
+    </ModellElementKante>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Transporter A" Typ="Anzahl" Wert="20"/>
+    <Ressource Name="Transporter B" Typ="Anzahl" Wert="4"/>
+    <Ressource Name="Bediener C" Typ="Anzahl" Wert="2"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="key" Name="Bauteil A"/>
+    <KundenDaten Icon="cd" Name="Bauteil B"/>
+    <KundenDaten Icon="Ball_green" Name="Rohstoff A"/>
+    <KundenDaten Icon="Ball_red" Name="Rohstoff B"/>
+  </KundentypenDaten>
+</Modell>

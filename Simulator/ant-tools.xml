@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE project>
+<project basedir="." default="full-clean" name="Helper services">
+
+	<property name="SimSystem.location" location="../SimSystem" />
+	<property name="SimTools.location" location="../SimTools" />
+	<property name="Simulator.location" location="." />
+	
+	<target name="full-clean">
+		<delete dir="${SimSystem.location}/target" />
+		<delete dir="${SimTools.location}/target" />
+		<delete dir="${Simulator.location}/target" />
+		<delete>
+			<fileset dir="${Simulator.location}/../.metadata/.plugins/org.eclipse.jdt.core">
+				<include name="*.index"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="${Simulator.location}/../.metadata">
+				<include name=".bak_*.log"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="${Simulator.location}/build/Help">
+				<include name="**/*.pdf"/>
+			</fileset>
+		</delete>
+	</target>
+	
+</project>

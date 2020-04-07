@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Split</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Split</h1>
+
+<p>
+If a client arrives at a Split station, its live cycle ends there just like
+at an  <a href="ModelElementDispose.html">Exit</a>-Element.
+Therefore one or more new clients are generated just like at a
+einer <a href="ModelElementSourceMulti.html">Multi source</a> element.
+
+<h2>Settings</h2>
+
+<p>
+The name of the split element has no meaning for the simulation.
+</p>
+
+<p>
+Per individual sub source the following settings can be made:
+</p>
+
+<p>
+Per sub source a <b>name</b> for the client type of the clients to be generated has to be defined.
+The dialog consists of a number of tabs which allow to setup the different properties of the client source:
+</p>
+
+<h3>Batch size</h3>
+
+<p>
+A batch size larger than 1 can be used to specify that, per arrival, not a single client,
+but several clients should arrive at the same time. It is possible to set up the same number
+of clients per arrival (fixed batch size) or a distribution of the rates according to which
+the respective sizes of the arrival batches are to be determined.
+</p>
+
+<h3>Assignment of client variables</h3>
+
+<p>
+On this tab client variable assignment to variables like <tt>ClientData(nr)</tt> can be setup.
+These assignments are applied to each client created by this source.
+</p>
+
+<h3>Assignment of texts</h3>
+
+<p>
+On this tab client text assignments like key:=value can be setup.
+These assignments are applied to each client created by this source.
+</p>
+
+</body>
+</html>

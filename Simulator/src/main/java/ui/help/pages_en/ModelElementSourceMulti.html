@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Multi source</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Multi source</h1>
+
+<p>
+The multi source represents the starting point of the movement of a client through the system.
+A simulation model can consist of one or more source or multi source elements.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the multi source element has no meaning for the simulation.
+</p>
+
+<p>
+Per individual sub source the following settings can be made:
+</p>
+
+<p>
+Per sub source a <b>name</b> for the client type of the clients to be generated has to be defined.
+The dialog consists of a number of tabs which allow to setup the different properties of the client source:
+</p>
+
+<h3>Inter-arrival time</h3>
+
+<p>
+With respect to the inter-arrival times, it is possible to determine whether these
+should be determined according to a <b>distribution</b>, according to an <b>expression</b>,
+on a <b>schedule</b> or by a <b>release condition</b>, a <b>thresholdvalue</b> or by
+one or multiple <b>signals</b>.
+</p>
+
+<h3>Batch size</h3>
+
+<p>
+A batch size larger than 1 can be used to specify that, per arrival, not a single client,
+but several clients should arrive at the same time. It is possible to set up the same number
+of clients per arrival (fixed batch size) or a distribution of the rates according to which
+the respective sizes of the arrival batches are to be determined.
+</p>
+
+<h3>Number of arrivals</h3>
+
+<p>
+In the general case, a source element generates constantly arrivals according to the
+inter-arrival time distribution until the total number of clients in the simulation has been reached
+or the simulation has been terminated by an expression. But it can also be defined that the
+source element stops generating clients after a specified number of clients.
+Alternatively, a maximum number of clients to be generated can be specified.
+If no batch arrivals are used, the number of arrival events equals the
+number of clients. For batch arrivals, more clients will arrive than there are arrival events.
+</p> 
+
+<h3>Starting time</h3>
+
+<p>
+In the default case the source elements starts generating arrivals immediately after
+starting the simulation. By defining some other start time the client generation
+(e.g. the first inter-arrival time before the first client arrival) will start at a later
+point of time.
+</p>
+
+<h3>Assignment of client variables</h3>
+
+<p>
+On this tab client variable assignment to variables like <tt>ClientData(nr)</tt> can be setup.
+These assignments are applied to each client created by this source.
+</p>
+
+<h3>Assignment of texts</h3>
+
+<p>
+On this tab client text assignments like key:=value can be setup.
+These assignments are applied to each client created by this source.
+</p>
+
+</body>
+</html>

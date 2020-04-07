@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Variable</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Variable</h1>
+
+<p>
+If a client passes through this element, the variable assignments defined in
+this element are executed. In all other elements in which expressions are evaluated,
+especially in the <a href="ModelElementHold.html">Condition</a> element, these variables can be accessed.
+</p>
+
+<p>
+Initial all variables are set to 0. By using assignments like <tt>a:=a+1</tt> counters can be realized.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the variable element has no further meaning.
+The assignments are processed in the order in which they are defined in the element when a client passes the element.
+</p> 
+
+<p>
+By using the pseudo variables "w", "t" and "p" you can access the waiting time, the transfer time and the
+process time of the current client (each on second base) for reading and for writing. Additionally you can
+write to a client object data field by using "ClientData(index)" as target variable.
+</p>
+
+<h2>Alternative</h2>
+
+<p>
+The <a href="ModelElementSetJS.html">Javascript</a> element allows to define more complex assignment.
+On the other side the Javascript element will need much more computing time to be executed during simulation.
+</p>
+
+</body>
+</html>

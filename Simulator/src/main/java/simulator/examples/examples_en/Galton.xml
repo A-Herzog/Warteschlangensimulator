@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.3.0</ModelVersion>
+  <ModelName>Galtonbrett</ModelName>
+  <ModelDescription>see also:
+https://en.wikipedia.org/wiki/Bean_machine</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementDecide id="2">
+      <ModelElementName>Level 2a</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="250"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="19" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="20" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="3">
+      <ModelElementName>Level 2b</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="250"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="17" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="21" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="4">
+      <ModelElementName>Level 3a</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="350"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="26" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="27" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="5">
+      <ModelElementName>Level 3b</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="350"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="24" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="25" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="6">
+      <ModelElementName>Level 3c</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="350"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="22" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="23" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="7">
+      <ModelElementName>Level 4a</ModelElementName>
+      <ModelElementSize h="50" w="100" x="150" y="450"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="28" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="29" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="8">
+      <ModelElementName>Level 4b</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="450"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="30" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="31" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="9">
+      <ModelElementName>Level 4c</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="450"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="32" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="33" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="10">
+      <ModelElementName>Level 4d</ModelElementName>
+      <ModelElementSize h="50" w="100" x="750" y="450"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="34" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="35" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementCounter id="11">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="550"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="48" Type="Out"/>
+      <ModelElementCounterGroup>Zählergruppe</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="12">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="550"/>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Element="30" Type="In"/>
+      <ModelElementConnection Element="47" Type="Out"/>
+      <ModelElementCounterGroup>Zählergruppe</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="13">
+      <ModelElementName>C</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="550"/>
+      <ModelElementConnection Element="31" Type="In"/>
+      <ModelElementConnection Element="32" Type="In"/>
+      <ModelElementConnection Element="46" Type="Out"/>
+      <ModelElementCounterGroup>Zählergruppe</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="14">
+      <ModelElementName>D</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="550"/>
+      <ModelElementConnection Element="33" Type="In"/>
+      <ModelElementConnection Element="34" Type="In"/>
+      <ModelElementConnection Element="45" Type="Out"/>
+      <ModelElementCounterGroup>Zählergruppe</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="15">
+      <ModelElementName>E</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="550"/>
+      <ModelElementConnection Element="35" Type="In"/>
+      <ModelElementConnection Element="44" Type="Out"/>
+      <ModelElementCounterGroup>Zählergruppe</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="17">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="1">
+      <ModelElementName>Level 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="150"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="37" Type="In"/>
+      <ModelElementConnection Element="16" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="18" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="16">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="6" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="6" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="25">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="7" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="29">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="7" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="30">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="31">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="32">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="33">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="34">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="35">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="15" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementSource id="36">
+      <ModelElementName>Ball</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="50"/>
+      <ModelElementConnection Element="37" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">One point distribution (1)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementEdge id="37">
+      <ModelElementName>Arrivals (Ball)</ModelElementName>
+      <ModelElementConnection Element1="36" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="49">
+      <ModelElementName>Partl A</ModelElementName>
+      <ModelElementSize h="30" w="87" x="650" y="205"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(11)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="50">
+      <ModelElementName>Part B</ModelElementName>
+      <ModelElementSize h="30" w="87" x="700" y="205"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(12)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="51">
+      <ModelElementName>Part C</ModelElementName>
+      <ModelElementSize h="30" w="87" x="750" y="205"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(13)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="52">
+      <ModelElementName>Part D</ModelElementName>
+      <ModelElementSize h="30" w="87" x="800" y="205"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(14)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="53">
+      <ModelElementName>Part E</ModelElementName>
+      <ModelElementSize h="30" w="87" x="850" y="205"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(15)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="54">
+      <ModelElementSize h="23" w="94" x="50" y="50"/>
+      <ModelElementTextLine>Galton box</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="55">
+      <ModelElementSize h="100" w="250" x="650" y="100"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementDiagramElement BarColor="0,180,0">Part(11)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,165,0">Part(12)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Part(13)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,165,0">Part(14)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,180,0">Part(15)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementDispose id="38">
+      <ModelElementSize h="50" w="100" x="50" y="650"/>
+      <ModelElementConnection Element="48" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDispose id="39">
+      <ModelElementSize h="50" w="100" x="250" y="650"/>
+      <ModelElementConnection Element="47" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDispose id="40">
+      <ModelElementSize h="50" w="100" x="450" y="650"/>
+      <ModelElementConnection Element="46" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDispose id="41">
+      <ModelElementSize h="50" w="100" x="650" y="650"/>
+      <ModelElementConnection Element="45" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDispose id="42">
+      <ModelElementSize h="50" w="100" x="850" y="650"/>
+      <ModelElementConnection Element="44" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementRectangle id="43">
+      <ModelElementSize h="205" w="160" x="820" y="520"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementEdge id="44">
+      <ModelElementConnection Element1="15" Element2="42" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="45">
+      <ModelElementConnection Element1="14" Element2="41" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="46">
+      <ModelElementConnection Element1="13" Element2="40" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="47">
+      <ModelElementConnection Element1="12" Element2="39" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="48">
+      <ModelElementConnection Element1="11" Element2="38" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="56">
+      <ModelElementSize h="205" w="160" x="20" y="520"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="57">
+      <ModelElementSize h="205" w="160" x="215" y="520"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="58">
+      <ModelElementSize h="205" w="160" x="620" y="520"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="59">
+      <ModelElementSize h="205" w="160" x="415" y="520"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="60">
+      <ModelElementSize h="38" w="184" x="650" y="60"/>
+      <ModelElementTextLine>Distribution of the balls to the</ModelElementTextLine>
+      <ModelElementTextLine>different exits</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData>
+    <ClientData Icon="emoticon_smile" Name="Ball"/>
+    <ClientData Icon="emoticon_smile" Name="Kugeln"/>
+    <ClientData Icon="emoticon_smile" Name="Kunden"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+</Model>

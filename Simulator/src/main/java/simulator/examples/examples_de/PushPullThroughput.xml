@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.0.0</ModellVersion>
+  <ModellName>Wartezeitabhängige Bedienzeiten</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Quelle</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementAnkunftsbedingung MinimalerAbstand="20">WIP(2)+WIP(9)&lt;10</ModellElementAnkunftsbedingung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementName>Station 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (50;10)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Adjustage">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Quelle">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener 1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementAnimationBild id="4">
+      <ModellElementGroesse h="25" w="25" x="495" y="175"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Resource(1)==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAM0lEQVR4XqXIoREAMBAEoeu/6U8Bq5gIDNvu/iRUQiVUQiVUQiVUQiVUQiVUQiVUQiXMAzKm/hBGzPzFAAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten Ausdruck="Resource_down(1)==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVR4XmP4z8DwnxLMgC5AKh41YNSAUQMGiwEAMMT+EINtPrUAAAAASUVORK5CYII=</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAOElEQVR4XqXIoREAMBDDMI+ezfvczFcgIra9HzgqHBWOCkeFo8JR4ahwVDgqHBWOCkeFo8JR4agOiY9/H4N0VAAAAAAASUVORK5CYII=</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementText id="5">
+      <ModellElementGroesse h="44" w="67" x="525" y="155"/>
+      <ModellElementTextzeile>Status Station 1</ModellElementTextzeile>
+      <ModellElementTextzeile>grau: Leerlauf</ModellElementTextzeile>
+      <ModellElementTextzeile>blau: Betrieb</ModellElementTextzeile>
+      <ModellElementTextzeile>rot: Ausfall</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>9</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEnde id="6">
+      <ModellElementGroesse h="50" w="100" x="1200" y="200"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementAnimationBalken id="8">
+      <ModellElementName>Warteschlange Station 1</ModellElementName>
+      <ModellElementGroesse h="50" w="20" x="500" y="300"/>
+      <ModellElementDatenausdruck>NQ(2)+NQ(9)</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="20" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementBalkenFarbe>70,130,180</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementSchrankePull id="9">
+      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementSchrankePullKontrolle Maximum="Pull">Station 2</ModellElementSchrankePullKontrolle>
+    </ModellElementSchrankePull>
+    <ModellElementBedienstation id="10">
+      <ModellElementName>Station 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="200"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">LogNormalDist(50;10)+Min(NQ(10)*2;100)</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Adjustage">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Quelle">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener 2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Quelle)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="9" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="13">
+      <ModellElementName>Warteschlange Station 1</ModellElementName>
+      <ModellElementGroesse h="30" w="102" x="495" y="350"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NQ(2)+NQ(9)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="14">
+      <ModellElementGroesse h="33" w="159" x="300" y="160"/>
+      <ModellElementTextzeile>Sicherstellen, dass im Puffer</ModellElementTextzeile>
+      <ModellElementTextzeile>vor Station 2 nie mehr als die</ModellElementTextzeile>
+      <ModellElementTextzeile>eingestellte Anzahl an Kunden warten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>9</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="28">
+      <ModellElementName>Warteschlange Station 2</ModellElementName>
+      <ModellElementGroesse h="30" w="102" x="700" y="355"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NQ(10)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="15">
+      <ModellElementName>Durchsatz (Kunden/Stunde)</ModellElementName>
+      <ModellElementGroesse h="32" w="115" x="1050" y="320"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter(21)*3600</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationLinienDiagramm id="18">
+      <ModellElementGroesse h="100" w="400" x="250" y="455"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="2" Minimum="0">Resource_down(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>7200</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementAnimationLinienDiagramm id="47">
+      <ModellElementGroesse h="100" w="400" x="250" y="605"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="2" Minimum="0">1-Resource(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>7200</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="19">
+      <ModellElementGroesse h="19" w="140" x="250" y="435"/>
+      <ModellElementTextzeile>Ausfallstatus Station 1</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="67">
+      <ModellElementGroesse h="19" w="112" x="250" y="585"/>
+      <ModellElementTextzeile>Leerlauf Station 2</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="20">
+      <ModellElementGroesse h="33" w="154" x="50" y="160"/>
+      <ModellElementTextzeile>Wenn sich weniger als 10 Kunden an</ModellElementTextzeile>
+      <ModellElementTextzeile>Station 1 befinden, wird die nächste</ModellElementTextzeile>
+      <ModellElementTextzeile>Ankunft generiert.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>9</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="82">
+      <ModellElementGroesse h="19" w="95" x="50" y="300"/>
+      <ModellElementTextzeile>Pull-Schranke</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,210,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="97">
+      <ModellElementGroesse h="22" w="152" x="700" y="170"/>
+      <ModellElementTextzeile>Lange Warteschlangen führen zu</ModellElementTextzeile>
+      <ModellElementTextzeile>einer Verlängerung der Bedienzeiten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>9</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="103">
+      <ModellElementGroesse h="33" w="66" x="180" y="455"/>
+      <ModellElementTextzeile>Station 1 fällt</ModellElementTextzeile>
+      <ModellElementTextzeile>ca. 5 Minuten</ModellElementTextzeile>
+      <ModellElementTextzeile>pro Stunde aus.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>9</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="24">
+      <ModellElementGroesse h="300" w="350" x="250" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="19" w="233" x="255" y="105"/>
+      <ModellElementTextzeile>Station 1 mit vorgelagertem Puffer</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="26">
+      <ModellElementGroesse h="300" w="300" x="650" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="129">
+      <ModellElementGroesse h="19" w="233" x="655" y="105"/>
+      <ModellElementTextzeile>Station 2 mit vorgelagertem Puffer</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="27">
+      <ModellElementGroesse h="44" w="184" x="300" y="305"/>
+      <ModellElementTextzeile>Durch die Pull-Schranke kann eingestellt</ModellElementTextzeile>
+      <ModellElementTextzeile>werden, dass die vorhandenen Puffergrößen</ModellElementTextzeile>
+      <ModellElementTextzeile>an der nachgelagerten Station 2 nicht</ModellElementTextzeile>
+      <ModellElementTextzeile>überschritten wird.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>9</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalken id="29">
+      <ModellElementName>Warteschlange Station 2</ModellElementName>
+      <ModellElementGroesse h="50" w="20" x="700" y="300"/>
+      <ModellElementDatenausdruck>NQ(10)</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="20" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementBalkenFarbe>70,130,180</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementAnimationText id="30">
+      <ModellElementName>CV[W]</ModellElementName>
+      <ModellElementGroesse h="32" w="84" x="1050" y="370"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="3">Wartezeit_cv()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationLinienDiagramm id="31">
+      <ModellElementGroesse h="250" w="400" x="700" y="455"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="15" Minimum="0">NQ(10)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="15" Minimum="0">NQ_avg(10)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>7200</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="19" w="198" x="700" y="435"/>
+      <ModellElementTextzeile>Warteschlangenlänge Station 2</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="2" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementDurchsatz id="21">
+      <ModellElementName>Durchsatz</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1050" y="200"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+    </ModellElementDurchsatz>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="10" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="21" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="17">
+      <ModellElementName>Maximale Anzahl an Kunden  im überwachten Bereich</ModellElementName>
+      <ModellElementGroesse h="30" w="224" x="300" y="270"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Pull</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="271">
+      <ModellElementGroesse h="23" w="286" x="50" y="50"/>
+      <ModellElementTextzeile>Wartezeitabhängige Bedienzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="22">
+      <ModellElementGroesse h="57" w="331" x="250" y="720"/>
+      <ModellElementTextzeile>Ist die Maximalgröße des Puffers zwischen Station 1</ModellElementTextzeile>
+      <ModellElementTextzeile>und Station 2 gering ausgelegt, so führt ein Ausfall</ModellElementTextzeile>
+      <ModellElementTextzeile>von Station 1 schnell zu Leerlaufzeiten an Station 2.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="294">
+      <ModellElementGroesse h="57" w="371" x="700" y="720"/>
+      <ModellElementTextzeile>Auf der anderen nehmen die Bedienzeiten an Station 2 zu,</ModellElementTextzeile>
+      <ModellElementTextzeile>wenn die Warteschlange lang ist (Zeitaufwand, den jeweils</ModellElementTextzeile>
+      <ModellElementTextzeile>nächsten Kunden aus der Warteschlange zu entnehmen).</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="23">
+      <ModellElementGroesse h="38" w="633" x="250" y="800"/>
+      <ModellElementTextzeile>Ein großer Puffer zwischen den Stationen 1 und 2 kann also Ausfälle von Station 1 gut überbrücken,</ModellElementTextzeile>
+      <ModellElementTextzeile>führt aber zu einer generell ineffizienteren Arbeit an Station 2.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementRadiobutton id="35">
+      <ModellElementName>Max=15</ModellElementName>
+      <ModellElementGroesse h="19" w="74" x="50" y="325"/>
+      <ModellElementRadiobuttonVariable>Pull</ModellElementRadiobuttonVariable>
+      <ModellElementRadiobuttonWert>15</ModellElementRadiobuttonWert>
+    </ModellElementRadiobutton>
+    <ModellElementRadiobutton id="36">
+      <ModellElementName>Max=5</ModellElementName>
+      <ModellElementGroesse h="19" w="66" x="50" y="350"/>
+      <ModellElementRadiobuttonVariable>Pull</ModellElementRadiobuttonVariable>
+      <ModellElementRadiobuttonWert>5</ModellElementRadiobuttonWert>
+    </ModellElementRadiobutton>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Icon="status_online" Name="Bediener 1" Typ="Anzahl" Wert="1">
+      <RessourceAusfall AusfallGemaessVerteilung="Exponentialverteilung (3600)" AusfallVerteilung="Exponentialverteilung (300)"/>
+    </Ressource>
+    <Ressource Icon="status_online" Name="Bediener 2" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="bricks" Name="Adjustage"/>
+  </KundentypenDaten>
+  <InitialeVariable Name="Pull">5</InitialeVariable>
+</Modell>

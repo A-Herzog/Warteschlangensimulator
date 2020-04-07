@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.0.0</ModellVersion>
+  <ModellName>Bediener als Simulationsobjekte</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Auftrag</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="50"/>
+      <ModellElementVerbindung Element="38" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="3">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="350"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Anzahl="3" Zeitbasis="Sekunden">Ein-Punkt-Verteilung (0)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzweigen id="4">
+      <ModellElementGroesse h="50" w="100" x="600" y="800"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Kundentyp="Bediener" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementZusammenfuehren id="5">
+      <ModellElementGroesse h="50" w="100" x="600" y="350"/>
+      <ModellElementVerbindung Element="40" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="43" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Sammeln</ModellElementBatchModus>
+    </ModellElementZusammenfuehren>
+    <ModellElementEcke id="12">
+      <ModellElementGroesse h="10" w="10" x="495" y="820"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEnde id="13">
+      <ModellElementGroesse h="50" w="100" x="600" y="950"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementIcon id="14">
+      <ModellElementName>Produkt</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1450" y="700"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementIconName>icon_package</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementKante id="15">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="19">
+      <ModellElementGroesse h="50" w="100" x="1350" y="350"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="49" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Kundentyp="Bediener" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementSchranke id="2">
+      <ModellElementName>Fertig</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1450" y="600"/>
+      <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementSchrankeOption>
+        <ModellElementSignalname>Fertig</ModellElementSignalname>
+        <ModellElementFreigabe Anzahl="1"/>
+      </ModellElementSchrankeOption>
+    </ModellElementSchranke>
+    <ModellElementSignal id="10">
+      <ModellElementName>Fertig</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1250" y="600"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+    </ModellElementSignal>
+    <ModellElementVerzoegerung id="11">
+      <ModellElementName>Bearbeitung</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1250" y="500"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="21">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementVerbindung Element1="19" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="11" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="24">
+      <ModellElementGroesse h="10" w="10" x="1395" y="820"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="25">
+      <ModellElementVerbindung Element1="10" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="24" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementVerbindung Element1="2" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementVerbindung Element1="14" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="23">
+      <ModellElementGroesse h="10" w="10" x="1495" y="495"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="28">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="19" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="29">
+      <ModellElementVerbindung Element1="23" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="30">
+      <ModellElementGroesse h="550" w="400" x="1200" y="300"/>
+      <ModellElementLinienBreite>5</ModellElementLinienBreite>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="31">
+      <ModellElementGroesse h="23" w="119" x="1205" y="305"/>
+      <ModellElementTextzeile>Bedienstation</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="32">
+      <ModellElementGroesse h="200" w="300" x="50" y="250"/>
+      <ModellElementLinienBreite>5</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="46" w="236" x="55" y="255"/>
+      <ModellElementTextzeile>Generierung von 3 Bedienern</ModellElementTextzeile>
+      <ModellElementTextzeile>zu Beginn der Simulation</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="38" w="104" x="600" y="410"/>
+      <ModellElementTextzeile>Aufträge oder</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediener warten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="41">
+      <ModellElementGroesse h="23" w="277" x="50" y="50"/>
+      <ModellElementTextzeile>Bediener als Simulationsobjekte</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalken id="35">
+      <ModellElementName>Wartende Kunden</ModellElementName>
+      <ModellElementGroesse h="150" w="20" x="100" y="550"/>
+      <ModellElementDatenausdruck>Counter(6)</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="9" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementBalkenFarbe>255,0,0</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementDifferenzZaehler id="36">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="350"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="40" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementVerzweigen id="9">
+      <ModellElementGroesse h="50" w="100" x="750" y="350"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="43" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="44" Kundentyp="Bediener" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="45" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementDifferenzZaehler id="6">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="250"/>
+      <ModellElementVerbindung Element="38" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementDifferenzZaehler id="20">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="300"/>
+      <ModellElementVerbindung Element="44" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="48" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementDifferenzZaehler id="37">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="400"/>
+      <ModellElementVerbindung Element="45" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="47" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementKante id="38">
+      <ModellElementName>Ankünfte (Auftrag)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="40">
+      <ModellElementVerbindung Element1="36" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="42">
+      <ModellElementVerbindung Element1="6" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="43">
+      <ModellElementVerbindung Element1="5" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="44">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementVerbindung Element1="9" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="45">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="9" Element2="37" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="46">
+      <ModellElementGroesse h="10" w="10" x="1095" y="370"/>
+      <ModellElementVerbindung Element="47" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="48" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="49" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="47">
+      <ModellElementVerbindung Element1="37" Element2="46" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="48">
+      <ModellElementVerbindung Element1="20" Element2="46" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="49">
+      <ModellElementVerbindung Element1="46" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Bediener)</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="36" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="12" Element2="36" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="16">
+      <ModellElementGroesse h="300" w="750" x="400" y="200"/>
+      <ModellElementLinienBreite>5</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="39">
+      <ModellElementGroesse h="46" w="224" x="405" y="205"/>
+      <ModellElementTextzeile>Aufträge und</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediener zusammenfühen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="50">
+      <ModellElementGroesse h="76" w="204" x="600" y="700"/>
+      <ModellElementTextzeile>Produkte verlassen das System.</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediener werden zum</ModellElementTextzeile>
+      <ModellElementTextzeile>Zusammenführen-Element</ModellElementTextzeile>
+      <ModellElementTextzeile>zurück geleitet.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalken id="51">
+      <ModellElementName>Wartende Bediener</ModellElementName>
+      <ModellElementGroesse h="50" w="20" x="150" y="650"/>
+      <ModellElementDatenausdruck>Counter(36)</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="3" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementBalkenFarbe>0,0,255</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementText id="52">
+      <ModellElementGroesse h="19" w="115" x="100" y="530"/>
+      <ModellElementTextzeile>Wartende Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="53">
+      <ModellElementGroesse h="19" w="123" x="150" y="630"/>
+      <ModellElementTextzeile>Wartende Bediener</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="54">
+      <ModellElementGroesse h="114" w="207" x="50" y="100"/>
+      <ModellElementTextzeile>Normalerweise werden Bediener</ModellElementTextzeile>
+      <ModellElementTextzeile>über die Modelleigenschaften</ModellElementTextzeile>
+      <ModellElementTextzeile>abgebildet. Sie können jedoch</ModellElementTextzeile>
+      <ModellElementTextzeile>auch (vergleichbar mit normalen</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden) als Simulationsobjekte</ModellElementTextzeile>
+      <ModellElementTextzeile>dargestellt werden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten>
+    <KundenDaten Icon="email" Name="Auftrag"/>
+    <KundenDaten Icon="user_suit" Name="Bediener"/>
+  </KundentypenDaten>
+</Modell>

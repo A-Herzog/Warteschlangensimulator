@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>1.0.0</ModelVersion>
+  <ModelName>PASTA (Poisson arrivals see time averages)</ModelName>
+  <ModelDescription>Performance indicators of the model (for the Erlang C formula):
+
+lambda=0.6 (per minute)
+1/mu=1.333 (minutes)
+1/nu=infty (minutes)
+c=1
+
+Erlang C calculator comparison results:
+
+Work load a=0,8
+Utilization (rho)=79.98%
+Utilization (rho)=79.98% (after subtracting waiting cancelations)
+Average queue lenght E[NQ]=3.19
+Average number of clients in the system E[N]=3.99
+Average waiting time E[W]=319.5 (in seconds)
+Average residence time E[V]=399.48 (in seconds)
+Cancelation rate P(A)=0%
+
+see also:
+https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c/</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationCondition Active="0"/>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelRandomNumbersSeed Active="0">0</ModelRandomNumbersSeed>
+  <ModelElements>
+    <ModelElementProcessStation id="1">
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenB">w+1000</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bedienergruppe"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="800" y="100"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="6">
+      <ModelElementSize h="23" w="385" x="50" y="50"/>
+      <ModelElementTextLine>PASTA (Poisson arrivals see time averages)</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="7">
+      <ModelElementSize h="19" w="712" x="50" y="180"/>
+      <ModelElementTextLine>The average number of clients at the process station can be calculated exactly by the Erlang-C formula: 4 clients.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementUserStatistics id="4">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsTime="0" Key="Kunden an Bedienstation">WIP(1)</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementEdge id="13">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="4" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationLineDiagram id="8">
+      <ModelElementSize h="250" w="750" x="50" y="250"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="10" Minimum="0">WIP_avg(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="10" Minimum="0">WIP(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="3" Maximum="10" Minimum="0">Statistik_avg(4;1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="10" Minimum="0">Statistik(4;1)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>7200</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="24">
+      <ModelElementSize h="19" w="602" x="50" y="230"/>
+      <ModelElementTextLine>Number of clients at the process station (current value and average over the complete run time)</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="37">
+      <ModelElementSize h="16" w="596" x="50" y="500"/>
+      <ModelElementTextLine>(blue=time average, red=recorded at client arrival times, thick lines=average values, thin lines=current values)</ModelElementTextLine>
+      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="9">
+      <ModelElementSize h="95" w="826" x="50" y="550"/>
+      <ModelElementTextLine>Whenever a client arrives at the system, the "Statistic" element records the average number of clients at the process station.</ModelElementTextLine>
+      <ModelElementTextLine>The mean over this (only determined at certain times) indicator corresponds exactly to the overall mean.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>This is the testimony of the PASTA theorem: clients whose inter-arrival times are exponentially distributed</ModelElementTextLine>
+      <ModelElementTextLine>(i.e., the times of arrivals are Poisson distributed) "see" the system on average in the values which correspond to the time averages.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="10">
+      <ModelElementName>WIP_avg(1)</ModelElementName>
+      <ModelElementSize h="30" w="55" x="820" y="250"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP_avg(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="48">
+      <ModelElementName>Statistik_avg(4;1)</ModelElementName>
+      <ModelElementSize h="30" w="74" x="820" y="320"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Statistik_avg(4;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+  </ModelElements>
+  <Resources>
+    <Resource Name="Bedienergruppe" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelSchedules/>
+</Model>

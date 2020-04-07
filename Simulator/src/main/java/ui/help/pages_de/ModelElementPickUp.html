@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Ausleiten</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Ausleiten</h1>
+
+<p>
+Passiert ein Kunde dieses Element, so wird aus der Warteschlange eines anderen Elements ebenfalls ein Kunde entnommen
+und gemeinsam mit dem aktuellen Kunden auf dem neuen Weg weitergeleitet oder wird mit dem aktuellen Kunden
+zu einen temporären oder dauerhaften Batch zusammengefasst.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Ausleiten-Elements hat keine weitere Bedeutung. Über die Angabe eines 
+<a href="ModelElementProcess.html">Bedienstation</a>-, <a href="ModelElementHold.html">Bedingung</a>-
+oder <a href="ModelElementBarrier.html">Schranke</a>-Elements kann angegeben werden, aus welcher Warteschlange
+der Kunde, der gemeinsam mit dem aktuellen Kunden weitergeleitet werden soll, bezogen werden soll.
+Es kann angegeben werden, ob der aktuelle Kunde, wenn sich in der Warteschlange des anderen Elements kein
+Kunde befindet, alleine weitergeleitet werden soll, oder ob solange gewartet werden soll, bis in der
+anderen Warteschlange ein Kunde vorhanden ist. Des Weiteren kann eingestellt werden,
+ob die zusammengeführten Kunden die Station einfach wieder (zeitlich gemeinsam) verlassen, ob die Kunden zu einem temporären
+Batch zusammengefasst werden sollen (der später über das <a href="ModelElementSeparate.html">Batch auflösen</a> Element
+wieder aufgelöst werden kann) oder ob für die Kunden der Weg durch
+das Netz an dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten darstellen, die zu einem größeren Element
+zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird. 
+</p> 
+
+</body>
+</html>

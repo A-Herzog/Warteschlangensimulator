@@ -1,0 +1,1011 @@
+\part{Referenz der Rechenbefehle}\label{part:Rechenbefehle}
+
+Bei der Verwendung von Rechenbefehlen im Warteschlangensimulator ist zwischen
+\textbf{Ausdrücken} und \textbf{Vergleichen} zu unterscheiden. Ausdrücke dienen
+dazu, einen Zahlenwert zu berechnen, der dann z.B.\ als Zeitdauer verwendet wird.
+Vergleiche liefern eine ja/nein Entscheidung (z.B.\ ob ein Kunde in eine bestimmte
+Richtung geleitet werden soll). Im Gegensatz zu Ausdrücken besitzen Vergleiche immer
+mindestens einen Vergleichsoperator.
+
+Alle im Folgenden vorgestellten Befehle werden jeweils in jeder beliebigen
+\textbf{Groß- und Kleinschreibung} erkannt, d.h.\ es wird nicht zwischen
+verschiedenen Groß-/Kleinschreibweisen unterschieden.
+
+
+
+\chapter{Konstanten}
+
+Folgende Konstanten stehen in den allen Rechenbefehlen zur Verfügung:
+
+\begin{itemize}
+
+\item
+\cmd{e}: Liefert die Basis der Exponentialfunktion $e^x$. Es gilt
+$e\approx 2,718281828459$.
+
+\item
+\cmd{pi}: Liefert den Wert der Kreiskonstante $\pi$. Es gilt
+$\pi\approx 3,1415926535898$.
+
+\end{itemize}
+
+
+
+\chapter{Variablen}
+
+Werden Ausdrücke im Kontext eines Kunden berechnet, so stehen die Variablen
+\begin{itemize}
+\item
+\cmd{w} für die \textbf{bisherige Wartezeit} des Kunden,
+\item
+\cmd{t} für die \textbf{bisherige Transferzeit} des Kunden und
+\item
+\cmd{p} für die \textbf{bisherige Bedienzeit} des Kunden zur Verfügung.
+\end{itemize}
+
+Bei der Berechnung von Score-Werten wird \cmd{w} abweichend nicht mit der bisherigen
+gesamten Wartezeit des Kunden belegt, sondern mit der bisherigen Wartezeit an der aktuellen Station.
+
+Des weiteren stehen stets alle Variablen, die über ein Zuweisungselement definiert werden, zur Verfügung.
+Vor der ersten Zuweisung eines Wertes an eine Variable hat diese den Wert 0.
+
+
+
+\chapter{Grundrechenarten}
+
+Es werden die üblichen Grundrechenarten unterstützt:
+\begin{itemize}
+\item Addition: \cmd{$+$}
+\item Subtraktion: \cmd{$-$}
+\item Multiplikation: \cmd{$*$}
+\item Division: \cmd{$/$}
+\item Potenzieren: \cmd{$\hat~$}
+\end{itemize}
+
+Die Regel \textbf{Punkt- vor Strichrechnung} wird dabei berücksichtigt.
+Um davon abweichende Auswertungen zu erzwingen, können \textbf{Klammern}
+gesetzt werden.
+
+
+
+\chapter{Nachgestellte Anweisungen}
+
+Folgende Ausdrücke können unmittelbar hinter eine Zahl geschrieben werden:
+
+\begin{itemize}
+\item
+\cmd{\%}:
+Der Zahlenwert vor diesem Symbol wird als Prozentwert interpretiert,
+z.B.\ $30\%=0{,}3$.
+
+\item
+\cmd{$^2$}:
+Potenziert die Zahl vor diesem Symbol mit 2.
+
+\item
+\cmd{$^3$}:
+Potenziert die Zahl vor diesem Symbol mit 3.
+
+\item
+\cmd{!}:
+Berechnet die Fakultät der Zahl vor diesem Ausdruck, z.B.\ $4!=1\cdot2\cdot3\cdot4=24$.
+
+\item
+\cmd{$^{\circ}$}:
+Rechnet die Zahl vor diesem Symbol von Grad nach Bogenmaß um, z.B.\ $180^{\circ}=3{,}1415\ldots$.\\
+(Siehe hierzu auch Abschnitt \ref{sec:Winkelfunktionen} in dem die vom
+Warteschlangensimulator unterstützten Winkelfunktionen vorgestellt werden.)
+\end{itemize}
+
+
+
+\chapter{Allgemeine Funktionen}
+
+\begin{itemize}
+
+\item
+\cmd{abs(x)}:
+Absolutbetrag, z.B.\ \cm{abs(-5)=5}.
+
+\item
+\cmd{ceil(x)}:
+Aufrunden, z.B.\ \cm{ceil(2{,}1)=3}
+
+\item
+\cmd{exp(x)}:
+Exponentialfunktion $e^x$.
+
+\item
+\cmd{factorial(x)}:
+Fakultät, z.B.\ $4!=1\cdot2\cdot3\cdot4=24$.
+
+\item
+\cmd{floor(x)}:
+Abrunden, z.B.\ \cm{floor(2{,}9)=2}
+
+\item
+\cmd{frac(x)}:
+Nachkommaanteil, z.B.\ \cm{frac(1{,}3)=0,3}
+
+\item
+\cmd{gamma(x)}:
+Gamma-Funktion, z.B.\ \cm{gamma(5)=4!=24}
+
+\item
+\cmd{int(x)}:
+Ganzzahlanteil, z.B.\ \cm{int(2{,}9)=2}
+
+\item
+\cmd{log(x)}:
+Logarithmus zur Basis $e$.
+
+\item
+\cmd{log(x;b)}:
+Logarithmus zur Basis $b$.
+
+\item
+\cmd{ld(x)}:
+Logarithmus zur Basis $2$, z.B.\ \cm{ld(256)=8}.
+
+\item
+\cmd{lg(x)}:
+Logarithmus zur Basis $10$, z.B.\ \cm{lg(100)=2}.
+
+\item
+\cmd{ln(x)}:
+Logarithmus zur Basis $e$.
+
+\item
+\cmd{modulo(a;b)} oder \cmd{mod(a;b)}:
+Divisionsrest bei Division a/b
+
+\item
+\cmd{pow(x;y)}:
+Potenzieren $x^y$.
+
+\item
+\cmd{round(x)}:
+Runden, z.B.\ \cm{round(4{,}4)=4} und \cm{round(4{,}5)=5}.
+
+\item
+\cmd{sign(x)}:
+Vorzeichen einer Zahl, z.B.\ \cm{sign(3)=1} und \cm{sign(-3)=-1}.
+
+\item
+\cmd{sqrt(x)}:
+Quadratwurzel, z.B.\ \cm{sqrt{81}=9}.
+
+\item
+\cmd{sqr(x)}:
+Zahl quadrieren, z.B.\ \cm{sqr(4)=16}.
+
+\end{itemize}
+
+
+
+\section{Zufallszahlen}
+
+Mit den folgenden Befehlen können Zufallszahlen, die in einem bestimmten
+Bereich \textbf{gleichverteilt} sind erzeugt werden. Im Abschnitt
+\ref{sec:Wahrscheinlichkeitsverteilungen} werden weitere Funktionen zur
+Erzeugung von Zufallszahlen gemäß bestimmten Verteilungsfunktionen vorgestellt.
+
+\begin{itemize}
+
+\item
+\cmd{random()}:
+Liefert eine Zufallszahl zwischen 0 (einschließlich) und 1 (ausschließlich).
+
+\item
+\cmd{random(x)}:
+Liefert eine Zufallszahl zwischen 0 (einschließlich) und x (ausschließlich).
+
+\end{itemize}
+
+
+
+
+
+\chapter{Winkelfunktionen}\label{sec:Winkelfunktionen}
+
+Die Winkelfunktionen beziehen sich immer auf $2\pi$ als Vollkreis (Bogenmaß, ,,Rad'').
+Wenn Winkel in Grad ($360^\circ$ für den Vollkreis) angegeben werden sollen, so müssen
+diese bei der Verwendung der elementaren Winkelfunktionen in Bodenmaß umgerechnet werden,
+z.B.\ \cm{sin($90^\circ$)=1}.
+
+
+
+\section{Elementare Winkelfunktionen}
+
+\begin{itemize}
+
+\item
+\cmd{sin(x)}:
+Sinus
+
+\item
+\cmd{cos(x)}:
+Cosinus
+
+\item
+\cmd{tan(x)}:
+Tangens
+
+\item
+\cmd{cot(x)}:
+Cotangens
+
+\end{itemize}
+
+
+
+\section{Hyperbolische Winkelfunktionen}
+
+\begin{itemize}
+
+\item
+\cmd{sinh(x)}:
+Sinus hyperbolicus
+
+\item
+\cmd{cosh(x)}:
+Cosinus hyperbolicus
+
+\item
+\cmd{tanh(x)}:
+Tangens hyperbolicus
+
+\item
+\cmd{coth(x)}:
+Cotangens hyperbolicus
+
+\end{itemize}
+
+
+
+\section{Umkehrfunktionen der elementaren Winkelfunktionen}
+
+\begin{itemize}
+
+\item
+\cmd{arcsin(x)}:
+Arcus-Sinus
+
+\item
+\cmd{arccos(x)}:
+Arcus-Cosinus
+
+\item
+\cmd{arctan(x)}:
+Arcus-Tangens
+
+\item
+\cmd{arccot(x)}:
+Arcus-Cotangens
+
+\end{itemize}
+
+
+
+\section{Umkehrfunktionen der hyperbolischen Winkelfunktionen}
+
+\begin{itemize}
+
+\item
+\cmd{arcsinh(x)}:
+Arcus-Sinus hyperbolicus
+
+\item
+\cmd{arccosh(x)}:
+Arcus-Cosinus hyperbolicus
+
+\item
+\cmd{arctanh(x)}:
+Arcus-Tangens hyperbolicus
+
+\item
+\cmd{arccoth(x)}:
+Arcus-Cotangens hyperbolicus
+
+\end{itemize}
+
+
+
+\chapter{Funktionen mit mehreren Parametern}
+
+Die folgenden Funktionen können beliebig viele Parameter entgegennehmen.
+Die einzelnen Parameter müssen dabei durch Semikolon ,,;'' getrennt
+angegeben werden.
+
+\begin{itemize}
+
+\item
+\cmd{Min(a;b;c;...)}:
+Berechnet das Minimum der übergebenen Zahlen.
+
+\item
+\cmd{Max(a;b;c;...)}:
+Berechnet das Maximum der übergebenen Zahlen.
+
+\item
+\cmd{Sum(a;b;c;...)}:
+Berechnet die Summe der übergebenen Zahlen.
+
+\item
+\cmd{Mean(a;b;c;...)}:
+Berechnet das arithmetische Mittel der übergebenen Zahlen.
+
+\item
+\cmd{Median(a;b;c;...)}:
+Berechnet den Median der übergebenen Zahlen.
+
+\item
+\cmd{Var(a;b;c;...)}:
+Berechnet die korrigierte Stichprobenvarianz der übergebenen Zahlen.
+
+\item
+\cmd{SD(a;b;c;...)}:
+Berechnet die korrigierte Stichprobenstandardabweichung der übergebenen Zahlen.
+
+\item
+\cmd{SCV(a;b;c;...)}:
+Berechnet den quadrierten Variationskoeffizient der übergebenen Zahlen.
+
+\item
+\cmd{CV(a;b;c;...)}:
+Berechnet den Variationskoeffizient der übergebenen Zahlen.
+
+\end{itemize}
+
+
+
+\chapter{Wahrscheinlichkeitsverteilungen}\label{sec:Wahrscheinlichkeitsverteilungen}
+
+Mit Hilfe der folgenden Befehle können sowohl Werte der Dichte und der Verteilungsfunktion
+der folgenden Wahrscheinlichkeitsverteilungen berechnet werden als auch Zufallszahlen
+auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
+
+
+
+\section{Exponentialverteilung mit Mittelwert \texorpdfstring{$a$}{a}}
+
+\begin{itemize}
+
+\item
+\cmd{ExpDist(x;a;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{ExpDist(x;a;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{ExpDist(a)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Gleichverteilung über das Intervall \texorpdfstring{$[a;b]$}{[a;b]}}
+
+\begin{itemize}
+
+\item
+\cmd{UniformDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{UniformDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{UniformDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Normalverteilung mit Mittelwert \texorpdfstring{$a$}{a} und Standardabweichung \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{NormalDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{NormalDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{NormalDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Lognormalverteilung mit Mittelwert \texorpdfstring{$a$}{a} und Standardabweichung \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{LogNormalDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{LogNormalDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{LogNormalDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Gamma-Verteilung mit Parametern \texorpdfstring{$\alpha=a$}{a} und \texorpdfstring{$\beta=b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{GammaDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{GammaDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{GammaDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+\end{itemize}
+
+
+
+\section{Erlang-Verteilung mit Parametern \texorpdfstring{$n$}{n} und \texorpdfstring{$\lambda=l$}{l}}
+
+\begin{itemize}
+
+\item
+\cmd{ErlangDist(x;n;l;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{ErlangDist(x;n;l;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{ErlangDist(n;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Beta-Verteilung in dem Intervall \texorpdfstring{$[a;b]$}{[a;b]} und mit Parametern \texorpdfstring{$\alpha=c$}{c} und \texorpdfstring{$\beta=d$}{d}}
+
+\begin{itemize}
+
+\item
+\cmd{BetaDist(x;a;b;c;d;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{BetaDist(x;a;b;c;d;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{BetaDist(a;b;c;d)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Weibull-Verteilung mit Parametern Scale=\texorpdfstring{$a$}{a} und Form=\texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{WeibullDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{WeibullDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{WeibullDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Cauchy-Verteilung mit Mittelwert \texorpdfstring{$a$}{a} und Scale=\texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{CauchyDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{CauchyDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{CauchyDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{\texorpdfstring{Chi$^2$}{Chi2}-Verteilung mit \texorpdfstring{$n$}{n} Freiheitsgraden}
+
+\begin{itemize}
+
+\item
+\cmd{ChiSquareDist(x;n;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{ChiSquareDist(x;n;1)}:
+Chi$^2$-Verteilung mit $n$ Freiheitsgraden.
+
+\item
+\cmd{ChiSquareDist(n)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Chi-Verteilung mit \texorpdfstring{$n$}{n} Freiheitsgraden}
+
+\begin{itemize}
+
+\item
+\cmd{ChiDist(x;n;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{ChiDist(x;n;1)}:
+Chi-Verteilung mit $n$ Freiheitsgraden.
+
+\item
+\cmd{ChiDist(n)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{F-Verteilung mit \texorpdfstring{$a$}{a} Freiheitsgraden im Zähler und \texorpdfstring{$b$}{b} Freiheitsgraden im Nenner}
+
+\begin{itemize}
+
+\item
+\cmd{FDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{FDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{FDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Johnson-SU-Verteilung mit den Parametern \texorpdfstring{$\gamma=a$}{a}, \texorpdfstring{$\xi=b$}{b}, \texorpdfstring{$\delta=c$}{c} und \texorpdfstring{$\lambda=d$}{d}}
+
+\begin{itemize}
+
+\item
+\cmd{JohnsonSUDist(x;a;b;c;d;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{JohnsonSUDist(x;a;b;c;d;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{JohnsonSUDist(a;b;c;d)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.  
+
+\end{itemize}
+
+
+
+\section{Dreiecksverteilung über \texorpdfstring{$[a;c]$}{[a;c]} mit der höchsten Wahrscheinlichkeitsdichte bei \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{TriangularDist(x;a;b;c;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{TriangularDist(x;a;b;c;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{TriangularDist(a;b;c)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Laplace-Verteilung mit Mittelwert \texorpdfstring{$mu$}{mu} und Skalierungsfaktor \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{LaplaceDist(x;mu;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{LaplaceDist(x;mu;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{LaplaceDist(mu;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Pareto-Verteilung mit Skalierungsparameter \texorpdfstring{$x_{\rm min}=xmin$}{xmin} und Formparameter \texorpdfstring{$\alpha=a$}{a}}
+
+\begin{itemize}
+
+\item
+\cmd{ParetoDist(x;xmin;a;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{ParetoDist(x;xmin;a;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{ParetoDist(xmin;a)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Logistische Verteilung mit Mittelwert \texorpdfstring{$\mu=mu$}{mu} und Skalierungsparameter \texorpdfstring{$s$}{s}}
+
+\begin{itemize}
+
+\item
+\cmd{LogisticDist(x;mu;s;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{LogisticDist(x;mu;s;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{LogisticDist(mu;s)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+	
+\section{Inverse Gauß-Verteilung mit \texorpdfstring{$\lambda=l$}{l} und Mittelwert \texorpdfstring{$mu$}{mu}}
+
+\begin{itemize}
+
+\item
+\cmd{InverseGaussianDist(x;l;mu;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{InverseGaussianDist(x;l;mu;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{InverseGaussianDist(l;mu)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Rayleigh-Verteilung mit Mittelwert \texorpdfstring{$mu$}{mu}}
+
+\begin{itemize}
+
+\item
+\cmd{RayleighDist(x;mu;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{RayleighDist(x;mu;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{RayleighDist(mu)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Log-Logistische Verteilung mit \texorpdfstring{$\alpha$}{alpha} und Mittelwert \texorpdfstring{$\beta$}{beta}}
+
+\begin{itemize}
+
+\item
+\cmd{LogLogisticDist(x;alpha;beta;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{LogLogisticDist(x;alpha;beta;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{LogLogisticDist(alpha;beta)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Potenzverteilung auf dem Bereich \texorpdfstring{$[a;b]$}{[a;b]} mit Exponent \texorpdfstring{$c$}{c}}
+
+\begin{itemize}
+
+\item
+\cmd{PowerDist(x;a;b;c;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{PowerDist(x;a;b;c;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{PowerDist(a;b;c)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Gumbel-Verteilung mit Erwartungswert \texorpdfstring{$a$}{a} und Standardabweichung \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{GumbelDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{GumbelDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{GumbelDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Fatigue-Life-Verteilung mit Lageparameter \texorpdfstring{$\mu$}{mu}, Skalierungsparameter \texorpdfstring{$\beta$}{beta} und Formparameter \texorpdfstring{$\gamma$}{gamma}}
+
+\begin{itemize}
+
+\item
+\cmd{FatigueLifeDist(x;mu;beta;gamma;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{FatigueLifeDist(x;mu;beta;gamma;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{FatigueLifeDist(mu;beta;gamma)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Frechet-Verteilung mit Lageparameter \texorpdfstring{$\delta$}{delta}, Skalierungsparameter \texorpdfstring{$\beta$}{beta} und Formparameter \texorpdfstring{$\alpha$}{alpha}}
+
+\begin{itemize}
+
+\item
+\cmd{FrechetDist(x;delta;beta;alpha;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{FrechetDist(x;delta;beta;alpha;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{FrechetDist(delta;beta;alpha)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Hyperbolische Sekanten-Verteilung mit Mittelwert \texorpdfstring{$a$}{a} und Standardabweichung \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{HyperbolicSecantDist(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{HyperbolicSecantDist(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{HyperbolicSecantDist(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\end{itemize}
+
+
+
+\section{Verteilung aus empirischen Daten}
+
+\begin{itemize}
+
+\item
+\cmd{EmpirischeDichte(x;wert1;wert2;wert3;...;max)}:\\
+Berechnet die Dichte an der Stelle $x$.
+Die angegebenen Werte werden dabei auf den Bereich von 0 bis $max$ verteilt.
+
+\item
+\cmd{EmpirischeVerteilung(x;wert1;wert2;wert3;...;max)}:\\
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+Die angegebenen Werte werden dabei auf den Bereich von 0 bis $max$ verteilt.
+
+\item
+\cmd{EmpirischeZufallszahl(wert1;wert2;wert3;...;max)}:\\
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+Die angegebenen Werte werden dabei auf den Bereich von 0 bis $max$ verteilt.
+
+\item
+\cmd{EmpirischeVerteilungMittelwert(wert1;wert2;wert3;...;max)}:\\
+Liefert den Erwartungswert der Verteilung.
+
+\item
+\cmd{EmpirischeVerteilungMedian(wert1;wert2;wert3;...;max)}:\\
+Liefert den Median der Verteilung.
+
+\item
+\cmd{EmpirischeVerteilungQuantil(wert1;wert2;wert3;...;max;p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Verteilung.
+
+\item
+\cmd{EmpirischeVerteilungSD(wert1;wert2;wert3;...;max)}:\\
+Liefert die Standardabweichung der Verteilung.
+
+\item
+\cmd{EmpirischeVerteilungVar(wert1;wert2;wert3;...;max)}:\\
+Liefert die Varianz der Verteilung.
+
+\item
+\cmd{EmpirischeVerteilungCV(wert1;wert2;wert3;...;max)}:\\
+Liefert den Variationskoeffizient der Verteilung.
+
+\end{itemize}
+
+
+
+\chapter{Erlang-C-Rechner}
+
+Mit Hilfe des folgenden Befehls können verschiedene Kenngrößen auf Basis der
+erweiterten Erlang-C-Formel berechnet werden:
+
+\begin{itemize}
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-1)}:\\
+Berechnet die mittlere Warteschlangenlänge $\E[N_Q]$. 
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-2)}:\\
+Berechnet die mittlere Anzahl an Kunden im System $\E[N]$.
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-3)}:\\
+Berechnet die mittlere Wartezeit $\E[W]$.
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-4)}:\\
+Berechnet die mittlere Verweilzeit $\E[V]$.
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-5)}:\\
+Berechnet die mittlere Erreichbarkeit $1-P(A)$.
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;t)}:\\
+Berechnet die Wahrscheinlichkeit für den Service-Level an der $t$-Sekunden-Schranke $P(W\le t)$.
+
+\end{itemize}
+
+Die Parameter haben dabei folgende Bedeutungen:
+\begin{itemize}
+\item
+\cm{lambda}:\\
+Ankunftsrate $\lambda$ (in Kunden pro Zeiteinheit), d.h.\ Kehrwert der mittleren Zwischenankunftszeit.
+\item
+\cm{mu}:\\
+Bedienrate $\mu$ (in Kunden pro Zeiteinheit), d.h.\ Kehrwert der mittleren Bediendauer.
+\item
+\cm{nu}:\\
+Abbruchrate $\nu$ (in Kunden pro Zeiteinheit), d.h.\ Kehrwert der mittleren Wartezeittoleranz.
+\item
+\cm{c}:\\
+Anzahl an verfügbaren parallel arbeitenden Bedienern.
+\item
+\cm{K}:\\
+Anzahl an verfügbaren Plätzen im System (Warte- und Bedienplätze zusammen, d.h.\ es gilt $K\ge c$).
+\end{itemize}
+
+
+
+\chapter{Allen-Cunneen-Approximationsformel}
+
+Mit Hilfe des folgenden Befehls können verschiedene Kenngrößen auf Basis der
+Allen-Cunneen-Approxi\-ma\-ti\-ons\-for\-mel berechnet werden:
+
+\begin{itemize}
+
+\item
+\cmd{AllenCunneen(lambda;mu;cvI;cvS;c;-1)}:\\
+Berechnet die mittlere Warteschlangenlänge $E[N_Q]$. 
+
+\item
+\cmd{AllenCunneen(lambda;mu;cvI;cvS;c;-2)}:\\
+Berechnet die mittlere Anzahl an Kunden im System $\E[N]$.
+
+\item
+\cmd{AllenCunneen(lambda;mu;cvI;cvS;c;-3)}:\\
+Berechnet die mittlere Wartezeit $\E[W]$.
+
+\item
+\cmd{AllenCunneen(lambda;mu;cvI;cvS;c;-4)}:\\
+Berechnet die mittlere Verweilzeit $\E[V]$.
+\end{itemize}
+
+Die Parameter haben dabei folgende Bedeutungen:
+\begin{itemize}
+\item
+\cm{lambda}:\\
+Ankunftsrate $\lambda$ (in Kunden pro Zeiteinheit), d.h.\ Kehrwert der mittleren Zwischenankunftszeit.
+\item
+\cm{mu}:\\
+Bedienrate $\mu$ (in Kunden pro Zeiteinheit), d.h.\ Kehrwert der mittleren Bediendauer.
+\item
+\cm{cvI}:\\
+Variationskoeffizient der Zwischenankunftszeiten $\CV[I]$ (kleine Werte bedeuten, dass die Ankünfte sehr gleichmäßig erfolgen).
+\item
+\cm{cvS}:\\
+Variationskoeffizient der Bedienzeiten $\CV[S]$ (kleine Werte bedeuten, dass die Bedienung sehr gleichmäßig erfolgen).
+\item
+\cm{c}:\\
+Anzahl an verfügbaren parallel arbeitenden Bedienern.
+\end{itemize}

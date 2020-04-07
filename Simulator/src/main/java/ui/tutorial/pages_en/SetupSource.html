@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Setup source</title>
+<link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+<body>
+
+<h1>Setup source</h1>
+
+<p>
+At most stations, it is possible to configure how clients are to be processed.
+In a process station, e.g. one can setup how long the service process should last,
+and at a client source can be set, how many clients are to be generated, at which
+inter-arrival times and of which types.
+</p>
+
+<p>
+The first step is to configure the <b>source</b>. The configuration dialog
+of an element can be opened by double clicking on it. The following settings
+can be made in the source configuration dialog:
+</p>
+
+<ul>
+  <li><b>Name</b>:
+  The name of the source also determines the type of clients that are generated in it.
+  Here you can enter any name or keep the previous name. The field may not be empty.</li>
+  <li><b>Calculation of the inter-arrival times</b>:
+  This selection field can be used to specify whether the inter-arrival times should
+  be defined by a probability distribution, an expression or a schedule.
+  <span style="color: green;">In this example we will keep the value "Probability distribution".</span>
+  </li>
+  <li><b>Time base</b>:
+  When determining the inter-arrival times by means of a probability distribution or an expression,
+  it can be set whether the respective numerical value is to be interpreted as the number of
+  seconds, minutes or hours.<span style="color: green;">The default value "seconds"
+  can also be retained here.</span>
+  </li>
+  <li><b>Distribution</b>:
+  By clicking "Edit" button on the right above the probability distribution the distribution
+  can be edited. <span style="color: orange;">In the example model, the exponential distribution
+  is to be maintained, but the average distance between two arrivals should be 50 seconds.</span> 
+  </li>
+  <li><b>Number of clients per arrival event</b>:
+  At each arrival event multiple clients can arrive (batch arrival).
+  <span style="color: green;">In this example the batch size of 1 should be maintained.</span>
+  </li>
+  <li><b>Number of arrival events in total</b>:
+  The number of arrival events that this source generates can generally be limited.
+  <span style="color: green;">In this example no limitation of the number of arrivals is to be made.</span>
+  </li>
+  <li><b>Start time for the first inter-arrival time</b>:
+  Optionally, you can specify that the source will start generating arrivals only from a certain point in time.
+  <span style="color: green;">In this example the start time 0 is to be maintained.</span> 
+  </li>
+</ul> 
+
+<p><b>Concrete steps:</b></p>
+
+<ul>
+<li>Double click on the source:<br>
+<img src="Source.png" style="border: 1px solid black; padding: 5px; margin-top: 15px; margin-bottom: 30px;"></li>
+<li>In the dialog, click <b>Edit</b> on the right side of the distribution diagram and select
+<b>50</b> (seconds) as the average inter-arrival time in the distribution editor.
+(Keep the exponential distribution as the inter-arrival time distribution.)</li>
+<li>Close the distribution editor and the dialog for editing the source with "Ok".</li>
+</ul>
+ 
+</body>
+</html>

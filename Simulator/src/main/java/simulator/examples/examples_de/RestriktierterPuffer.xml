@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>1.0.0</ModellVersion>
+  <ModellName>Begrenzter Puffer zwischen Maschinen</ModellName>
+  <ModellBeschreibung/>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchbedingung Aktiv="0"/>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellZufallszahlenStartwert Aktiv="0">0</ModellZufallszahlenStartwert>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementVerzweigen id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="200"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="WIP($(&quot;Station A&quot;))+WIP($(&quot;Ausgabepuffer&quot;))&lt;maxA" Element="11" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>Station A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="200"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (55)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementZaehler id="4">
+      <ModellElementName>Abbruch</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="300"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Status</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementEnde id="5">
+      <ModellElementGroesse h="50" w="100" x="250" y="400"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementZaehler id="6">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Status</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementBedingung id="7">
+      <ModellElementName>Ausgabepuffer</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="200"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementBedingungText>WIP($("Station B"))&lt;maxB</ModellElementBedingungText>
+    </ModellElementBedingung>
+    <ModellElementBedienstation id="8">
+      <ModellElementName>Station B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1050" y="200"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (59)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="9">
+      <ModellElementGroesse h="50" w="100" x="1255" y="200"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="11">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="12">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="4" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="6" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="3" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="7" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementVerbindung Element1="8" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="18">
+      <ModellElementGroesse h="150" w="350" x="600" y="150"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="19">
+      <ModellElementGroesse h="150" w="200" x="1000" y="150"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementAnimationAmpel id="20">
+      <ModellElementGroesse h="50" w="25" x="1000" y="175"/>
+      <ModellElementAmpelBedingung Licht="rot">WIP($("Station B"))&gt;=maxB</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementAnimationAmpel id="41">
+      <ModellElementGroesse h="50" w="25" x="600" y="175"/>
+      <ModellElementAmpelBedingung Licht="rot">WIP($("Station A"))+WIP($("Ausgabepuffer"))&gt;=maxA</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementText id="21">
+      <ModellElementGroesse h="28" w="185" x="765" y="270"/>
+      <ModellElementTextzeile>Gibt Kunden nur frei, wenn an</ModellElementTextzeile>
+      <ModellElementTextzeile>Station B höchsten maxB Kunden sind.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>10</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="63">
+      <ModellElementGroesse h="42" w="194" x="250" y="150"/>
+      <ModellElementTextzeile>Leitet Kunden nur zu Station A,</ModellElementTextzeile>
+      <ModellElementTextzeile>wenn an Station A und im Ausgabepuffer</ModellElementTextzeile>
+      <ModellElementTextzeile>zusammen höchsten maxA Kunden sind.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>10</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="127">
+      <ModellElementGroesse h="42" w="166" x="50" y="300"/>
+      <ModellElementTextzeile>Wie Werte maxA und maxB können</ModellElementTextzeile>
+      <ModellElementTextzeile>über die Modelleigenschaften</ModellElementTextzeile>
+      <ModellElementTextzeile>eingestellt werden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>10</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="24">
+      <ModellElementName>maxA</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="600" y="320"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">maxA</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="25">
+      <ModellElementName>maxB</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="1000" y="320"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">maxB</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="26">
+      <ModellElementName>istA</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="700" y="320"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP($("Station A"))+WIP($("Ausgabepuffer"))</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="27">
+      <ModellElementName>istB</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="1100" y="320"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP($("Station B"))</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationBalken id="28">
+      <ModellElementName>Anteil Abbruch</ModellElementName>
+      <ModellElementGroesse h="50" w="20" x="355" y="300"/>
+      <ModellElementDatenausdruck>Part($("Abbruch"))</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="1" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementBalkenFarbe>255,0,0</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementAnimationLinienDiagramm id="29">
+      <ModellElementGroesse h="500" w="600" x="600" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="255,0,0" Maximum="10" Minimum="0">WIP($("Station B"))</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP($("Station A"))+WIP($("Ausgabepuffer"))</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="10" Minimum="0">maxA</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="10" Minimum="0">maxB</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>3000</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="30">
+      <ModellElementGroesse h="19" w="378" x="600" y="955"/>
+      <ModellElementTextzeile>Dünne Linien = Maximalwerte, dicke Linien = aktuelle Werte</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalken id="31">
+      <ModellElementName>Anteil Erfolg</ModellElementName>
+      <ModellElementGroesse h="50" w="20" x="555" y="170"/>
+      <ModellElementDatenausdruck>Part($("Erfolg"))</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="1" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementBalkenFarbe>0,150,0</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="23" w="341" x="50" y="50"/>
+      <ModellElementTextzeile>Begrenzter Puffer zwischen Maschinen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="19" w="327" x="600" y="430"/>
+      <ModellElementTextzeile>Anzahl der Kunden in den Abschnitten A und B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTextAuswahl id="34">
+      <ModellElementName>Station B</ModellElementName>
+      <ModellElementGroesse h="30" w="38" x="600" y="100"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <TextVorgabe>An Station B ist Kapazität verfügbar. Kunden von Station A und dem Ausgabepuffer können zu Station B geleitet werden.</TextVorgabe>
+      <TextAusdruck Ausdruck="WIP($(&quot;Station B&quot;))&gt;=maxB">Station B ist voll ausgelastet. Kunden aus Station A müssen im Ausgabepuffer warten.</TextAusdruck>
+    </ModellElementAnimationTextAuswahl>
+    <ModellElementAnimationTextAuswahl id="193">
+      <ModellElementName>Station A</ModellElementName>
+      <ModellElementGroesse h="30" w="38" x="600" y="50"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <TextVorgabe>An Station A ist Kapazität verfügbar. Eintreffende Kunden können die Station bzw. die Warteschlange betreten.</TextVorgabe>
+      <TextAusdruck Ausdruck="WIP($(&quot;Station A&quot;))+WIP($(&quot;Ausgabepuffer&quot;))&gt;=maxA">Station A (inkl. Ausgabepuffer) ist voll ausgelastet. Eintreffende Kunden werden abgewiesen.</TextAusdruck>
+    </ModellElementAnimationTextAuswahl>
+    <ModellElementKante id="10">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+  </ModellElemente>
+  <Ressourcen>
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellZeitplaene/>
+  <InitialeVariable Name="maxA">5</InitialeVariable>
+  <InitialeVariable Name="maxB">3</InitialeVariable>
+</Modell>

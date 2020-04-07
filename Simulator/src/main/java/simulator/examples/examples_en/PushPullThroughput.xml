@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.0.0</ModelVersion>
+  <ModelName>Waiting time depending process times</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Source</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementArrivalCondition MinimumDistance="20">WIP(2)+WIP(9)&lt;10</ModelElementArrivalCondition>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementName>Station 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (50;10)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Adjustage">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Quelle">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Source">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener 1"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementAnimationImage id="4">
+      <ModelElementSize h="25" w="25" x="495" y="175"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Resource(1)==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAM0lEQVR4XqXIoREAMBAEoeu/6U8Bq5gIDNvu/iRUQiVUQiVUQiVUQiVUQiVUQiVUQiXMAzKm/hBGzPzFAAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData Expression="Resource_down(1)==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVR4XmP4z8DwnxLMgC5AKh41YNSAUQMGiwEAMMT+EINtPrUAAAAASUVORK5CYII=</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAOElEQVR4XqXIoREAMBDDMI+ezfvczFcgIra9HzgqHBWOCkeFo8JR4ahwVDgqHBWOCkeFo8JR4agOiY9/H4N0VAAAAAAASUVORK5CYII=</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementText id="5">
+      <ModelElementSize h="44" w="61" x="525" y="155"/>
+      <ModelElementTextLine>Station 1 state</ModelElementTextLine>
+      <ModelElementTextLine>gray: idle</ModelElementTextLine>
+      <ModelElementTextLine>blue: working</ModelElementTextLine>
+      <ModelElementTextLine>red: failure</ModelElementTextLine>
+      <ModelElementFontSize>9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDispose id="6">
+      <ModelElementSize h="50" w="100" x="1200" y="200"/>
+      <ModelElementConnection Element="16" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementAnimationBar id="8">
+      <ModelElementName>Queue at station 1</ModelElementName>
+      <ModelElementSize h="50" w="20" x="500" y="300"/>
+      <ModelElementDataExpression>NQ(2)+NQ(9)</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Maximum="20" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementBarColor>70,130,180</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementBarrierPull id="9">
+      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementBarrierPullControl Maximum="Pull">Station 2</ModelElementBarrierPullControl>
+    </ModelElementBarrierPull>
+    <ModelElementProcessStation id="10">
+      <ModelElementName>Station 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="200"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">LogNormalDist(50;10)+Min(NQ(10)*2;100)</ModelElementExpression>
+      <ModelElementPriority ClientType="Adjustage">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Quelle">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Source">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener 2"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Source)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="9" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="13">
+      <ModelElementName>Queue at station 1</ModelElementName>
+      <ModelElementSize h="30" w="77" x="495" y="350"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NQ(2)+NQ(9)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="14">
+      <ModelElementSize h="33" w="145" x="300" y="160"/>
+      <ModelElementTextLine>Ensurce there are never more than</ModelElementTextLine>
+      <ModelElementTextLine>the selected number of clients in</ModelElementTextLine>
+      <ModelElementTextLine>the buffer at station 2.</ModelElementTextLine>
+      <ModelElementFontSize>9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>Queue at station 2</ModelElementName>
+      <ModelElementSize h="30" w="77" x="700" y="355"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NQ(10)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Throughput (clients/hour)</ModelElementName>
+      <ModelElementSize h="32" w="104" x="1050" y="320"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter(21)*3600</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationLineDiagram id="18">
+      <ModelElementSize h="100" w="400" x="250" y="455"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="2" Minimum="0">Resource_down(1)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>7200</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementAnimationLineDiagram id="47">
+      <ModelElementSize h="100" w="400" x="250" y="605"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="2" Minimum="0">1-Resource(2)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>7200</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="19">
+      <ModelElementSize h="19" w="153" x="250" y="435"/>
+      <ModelElementTextLine>Failure state of station 1</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="67">
+      <ModelElementSize h="19" w="132" x="250" y="585"/>
+      <ModelElementTextLine>Idle state of station 2</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="20">
+      <ModelElementSize h="33" w="131" x="50" y="160"/>
+      <ModelElementTextLine>If there are less than 10 clients</ModelElementTextLine>
+      <ModelElementTextLine>at station 1, the next arrival will</ModelElementTextLine>
+      <ModelElementTextLine>be triggered.</ModelElementTextLine>
+      <ModelElementFontSize>9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="82">
+      <ModelElementSize h="19" w="74" x="50" y="300"/>
+      <ModelElementTextLine>Pull barrier</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,210,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="97">
+      <ModelElementSize h="22" w="140" x="700" y="170"/>
+      <ModelElementTextLine>Long queues lead to an extension</ModelElementTextLine>
+      <ModelElementTextLine>of the process times.</ModelElementTextLine>
+      <ModelElementFontSize>9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="103">
+      <ModelElementSize h="44" w="67" x="180" y="455"/>
+      <ModelElementTextLine>Station 1 will be</ModelElementTextLine>
+      <ModelElementTextLine>in down time for</ModelElementTextLine>
+      <ModelElementTextLine>approx. 5 min.</ModelElementTextLine>
+      <ModelElementTextLine>per hour.</ModelElementTextLine>
+      <ModelElementFontSize>9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="24">
+      <ModelElementSize h="300" w="350" x="250" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="25">
+      <ModelElementSize h="19" w="207" x="255" y="105"/>
+      <ModelElementTextLine>Station 1 with upstream buffer</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="26">
+      <ModelElementSize h="300" w="300" x="650" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="129">
+      <ModelElementSize h="19" w="207" x="655" y="105"/>
+      <ModelElementTextLine>Station 2 with upstream buffer</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="27">
+      <ModelElementSize h="22" w="161" x="300" y="305"/>
+      <ModelElementTextLine>The pull barrier ensures the buffer limit</ModelElementTextLine>
+      <ModelElementTextLine>at station 2 is never exceeded.</ModelElementTextLine>
+      <ModelElementFontSize>9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBar id="29">
+      <ModelElementName>Queue at station 2</ModelElementName>
+      <ModelElementSize h="50" w="20" x="700" y="300"/>
+      <ModelElementDataExpression>NQ(10)</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Maximum="20" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementBarColor>70,130,180</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementAnimationText id="30">
+      <ModelElementName>CV[W]</ModelElementName>
+      <ModelElementSize h="32" w="61" x="1050" y="370"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="3" Type="Number">Wartezeit_cv()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationLineDiagram id="31">
+      <ModelElementSize h="250" w="400" x="700" y="455"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="15" Minimum="0">NQ(10)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="15" Minimum="0">NQ_avg(10)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>7200</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="32">
+      <ModelElementSize h="19" w="160" x="700" y="435"/>
+      <ModelElementTextLine>Queue length at station 2</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="2" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementThroughput id="21">
+      <ModelElementName>Throughput</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="200"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+    </ModelElementThroughput>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="10" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="21" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="17">
+      <ModelElementName>Maximum number of clients in the monitored area</ModelElementName>
+      <ModelElementSize h="30" w="207" x="300" y="270"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Pull</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="271">
+      <ModelElementSize h="23" w="329" x="50" y="50"/>
+      <ModelElementTextLine>Waiting time depending process times</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="22">
+      <ModelElementSize h="57" w="312" x="250" y="720"/>
+      <ModelElementTextLine>If the maximum buffer size between station 1 and</ModelElementTextLine>
+      <ModelElementTextLine>station 2 is low, a down time of station 2 will</ModelElementTextLine>
+      <ModelElementTextLine>quickly lead to idle times at station 2.</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="294">
+      <ModelElementSize h="57" w="342" x="700" y="720"/>
+      <ModelElementTextLine>On the other side the processing times at station 2 will</ModelElementTextLine>
+      <ModelElementTextLine>increase if the queue gets longer (time needed to pick</ModelElementTextLine>
+      <ModelElementTextLine>the next client from the queue).</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="23">
+      <ModelElementSize h="38" w="446" x="250" y="800"/>
+      <ModelElementTextLine>A larger buffer between station 1 and 2 can bridge failures of station 1,</ModelElementTextLine>
+      <ModelElementTextLine>but leads to a generally more inefficient work at station 2.</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRadiobutton id="330">
+      <ModelElementName>Max=15</ModelElementName>
+      <ModelElementSize h="19" w="74" x="50" y="325"/>
+      <ModelElementRadiobuttonVariable>Pull</ModelElementRadiobuttonVariable>
+      <ModelElementRadiobuttonValue>15</ModelElementRadiobuttonValue>
+    </ModelElementRadiobutton>
+    <ModelElementRadiobutton id="331">
+      <ModelElementName>Max=5</ModelElementName>
+      <ModelElementSize h="19" w="66" x="50" y="350"/>
+      <ModelElementRadiobuttonVariable>Pull</ModelElementRadiobuttonVariable>
+      <ModelElementRadiobuttonValue>5</ModelElementRadiobuttonValue>
+    </ModelElementRadiobutton>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Bediener 1" Type="Number" Value="1">
+      <ResourceFailure FailureByDistribution="Exponential distribution (3600)" FailureDistribution="Exponential distribution (300)"/>
+    </Resource>
+    <Resource Icon="status_online" Name="Bediener 2" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="bricks" Name="Adjustage"/>
+  </ClientTypeData>
+  <InitialVariable Name="Pull">5</InitialVariable>
+</Model>

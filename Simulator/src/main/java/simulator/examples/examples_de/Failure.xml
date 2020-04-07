@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>1.2.0</ModellVersion>
+  <ModellName>Modell mit Pausenzeiten für die Bediener</ModellName>
+  <ModellBeschreibung/>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchbedingung Aktiv="0"/>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellZufallszahlenStartwert Aktiv="0">0</ModellZufallszahlenStartwert>
+  <ModellElemente>
+    <ModellElementBedienstation id="1">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (300)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="KundenB">w+1000</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="1" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="360" x="50" y="50"/>
+      <ModellElementTextzeile>Modell mit Pausenzeiten für die Bediener</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="38" w="486" x="50" y="180"/>
+      <ModellElementTextzeile>Nach jeweils 20 Bedienungen (zu je ca. 5 Minuten) geht jeder der 4 Bediener</ModellElementTextzeile>
+      <ModellElementTextzeile>für jeweils ca. 10 Minuten in eine Pause.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="8">
+      <ModellElementGroesse h="230" w="600" x="50" y="270"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP_avg(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="10" Minimum="0">Resource_down()</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="9">
+      <ModellElementGroesse h="19" w="610" x="50" y="250"/>
+      <ModellElementTextzeile>Anzahl an Kunden an der Bedienstation (aktueller Wert und Mittelwert über die gesamte Laufzeit)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="11">
+      <ModellElementGroesse h="19" w="126" x="700" y="250"/>
+      <ModellElementTextzeile>Status der Bediener</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationStapelBalken id="10">
+      <ModellElementGroesse h="230" w="100" x="700" y="270"/>
+      <ModellElementDatenausdruck>Resource_down()</ModellElementDatenausdruck>
+      <ModellElementDatenausdruck>Resource()</ModellElementDatenausdruck>
+      <ModellElementDatenausdruck>Resource_count()-Resource()</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementBalkenFarbe>255,0,0</ModellElementBalkenFarbe>
+      <ModellElementBalkenFarbe>255,165,0</ModellElementBalkenFarbe>
+      <ModellElementBalkenFarbe>0,180,0</ModellElementBalkenFarbe>
+      <ModellElementBalkenFarbe>0,180,0</ModellElementBalkenFarbe>
+    </ModellElementAnimationStapelBalken>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="42" w="70" x="700" y="500"/>
+      <ModellElementTextzeile>grün=Leerlauf,</ModellElementTextzeile>
+      <ModellElementTextzeile>orange=Arbeit,</ModellElementTextzeile>
+      <ModellElementTextzeile>rot=Pause</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>10</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen>
+    <Ressource Name="Bedienergruppe" Typ="Anzahl" Wert="4">
+      <RessourceAusfall AusfallNachKundenanzahl="20" AusfallVerteilung="Exponentialverteilung (600)"/>
+    </Ressource>
+  </Ressourcen>
+  <KundentypenDaten/>
+</Modell>

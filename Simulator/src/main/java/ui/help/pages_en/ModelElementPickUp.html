@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Pick up</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Pick up</h1>
+
+<p>
+If a client passes this element, a client is also taken from the queue of another element and forwarded
+along the new path together with the current client or a temporary or a permanent batch is built with the
+current client.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the pick up element has no further meaning. By specifying a
+<a href="ModelElementProcess.html">process station</a>, a <a href="ModelElementHold.html">condition</a>
+or a <a href="ModelElementBarrier.html">barrier</a> element, you can select from which queue the client,
+who is to be forwarded together with the current client, should be picked up. You can specify whether
+the current client, if there is no client in the queue of the other element, is to be forwarded alone, or
+whether the client will wait until another client is present in the other queue. Furthermore, it can be set whether
+the combined clients simply leave the station again (at the same time), or whether a temporary batch (which
+can be dissolved by the <a href="ModelElementSeparate.html">Dissolve batch</a> element) or whether the route
+through the network ends for the clients ends at this point (because the two clients, for example, represent
+partial components that are combined into a larger element) and instead a new client object is created and
+started from this point.
+</p> 
+
+</body>
+</html>

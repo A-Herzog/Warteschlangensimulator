@@ -1,0 +1,722 @@
+\part{Referenz der Java-Befehle}
+
+An verschiedenen Stellen im Simulator können Skripte verwendet werden.
+Als Skriptsprachen wird dabei entweder \textbf{Javascript} oder \textbf{Java} verwendet.
+
+In diesem Abschnitt werden die zusätzlichen \textbf{Java}-Befehle, die den
+Zugriff auf die Simulations- oder Statistikdaten ermöglichen und zur Ausgabe
+der gefilterten Daten zur Verfügung stehen vorgestellt.
+
+Der \textbf{Java}-Code muss in eine Methode der Form
+\begin{verbatim}
+void function(SimulationInterface sim) {
+
+}
+\end{verbatim}
+eingebettet werden. Neben den Standardsprachbefehlen kann
+abhängig vom Kontext, in dem das Skript ausgeführt wird,
+über die Methoden des übergebenen \texttt{SimulationInterface}
+weitere Interfaces, die ihrerseits weitere Methoden mitbringen,
+auf die Simulations- oder Statistikdaten zugegriffen werden:
+
+\chapter{\texttt{StatisticsInterface} abrufbar über \texttt{sim.getStatistics()}}
+
+Das über \texttt{sim.getStatistics()} gelieferte \texttt{StatisticsInterface}-Interface
+ermöglicht den Lesezugriff auf alle Elemente der XML-Datei, die den Statistikdaten
+zu Grunde liegt. Es ist nur verfügbar, wenn das Skript zum Filtern von Statistikdaten verwendet wird oder innerhalb
+der Umgebung zur Ausführung von Parameterreihen-Skripten verwendet wird. Während der
+Simulation liefert \texttt{sim.getStatistics()} lediglich \texttt{null}.
+Das Interface stellt folgende Methoden zur Verfügung:
+
+
+
+\section{Definition des Ausgabeformats}
+
+\begin{itemize}
+
+\item
+\cmd{void setFormat(final String format)}:\\
+Über diesen Befehl kann das Format, in dem \cmd{Statistics.xml} Zahlen zur Ausgabe als Zeichenkette
+formatiert, eingestellt werden. Es kann dabei für Zahlenwerte die lokaler Notation (im deutschsprachigen
+Raum mit einem Dezimalkomma) oder die System-Notation mit einem Dezimalpunkt ausgegeben werden. Außerdem
+kann angegeben werden, ob Zahlenwerte als Prozentangabe ausgegeben werden sollen. In diesem Fall wird
+der Wert mit 100 multipliziert und ein ,,\%''-Zeichen an die Zahl angefügt. Voreingestellt ist stets die
+Ausgabe in lokaler Notation und die Ausgabe als normale Fließkommazahl (also nicht als Prozentwert).
+Folgende Parameter können \cmd{Statistics.setFormat} übergeben werden:
+\begin{itemize}
+\item
+\cmd{System}:
+Wahl der System-Notation für Zahlen und Prozentwerte.
+\item
+\cmd{Local}:
+Wahl der lokalen Notation für Zahlen und Prozentwerte.
+\item
+\cmd{Fraction}:
+Wahl der Ausgabe als normale Zahl (z.B.\ $0{,}357$ oder $0.375$).
+\item
+\cmd{Percent}:
+Wahl der Ausgabe als Prozentwert (z.B.\ $35{,}7\%$ oder $35.7\%$).
+\item
+\cmd{Time}:
+Ausgabe der Zahlenwerte als Zeitangaben (z.B.\ $00{:}03{:}25{,}87$).
+\item
+\cmd{Number}:
+Ausgabe der Zahlenwerte als normale Zahlen (Ausgabe gemäß Angabe \cm{Percent} oder \cm{Fraction}).
+\end{itemize}
+
+\item
+\cmd{void setSeparator(final String separator)}:\\
+Über diesen Befehl kann eingestellt werden, durch welches Zeichen die einzelnen Einträge
+einer Verteilung getrennt werden soll, wenn diese über \cmd{Statistics.xml} ausgegeben wird.
+Vorgabe ist die Trennung durch ein Semikolon.
+Folgende Parameter können \cmd{Statistics.setSeparator} übergeben werden:
+\begin{itemize}
+\item
+\cmd{Semicolon}:
+Semikolons als Trenner
+\item
+\cmd{Line}:
+Zeilenumbrüche als Trenner
+\item
+\cmd{Tabs}:
+Tabulatoren als Trenner
+\end{itemize}
+
+\end{itemize}
+
+\section{Zugriff auf die Statistik-XML-Daten}
+
+\begin{itemize}
+
+\item
+\cmd{String xml(final String path)}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde und gibt dies gemäß den Vorgaben,
+die per \cm{sim.getStatistics().setFormat} und \cm{sim.getStatistics().setSeparator} eingestellt wurden,
+als formatierte Zeichenkette zurück.
+
+Beispiel: \cm{String name=sim.getStatistics().xml("{}Modell->ModellName")}
+
+\item
+\cmd{Object xmlNumber(final String path)}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde und gibt den Inhalt als \cm{Double}-Zahl zurück.
+Konnte das Feld nicht als Zahlenwert interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.  
+
+\item
+\cmd{Object xmlArray(final String path)}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung
+und gibt die Werte als Array aus Zahlenwerten (\cm{double[]}) zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+
+Beispiel:\\
+\cm{sim.getStatistics().xmlArray("{}StatistikBedienzeitenKunden->\\{}Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->[Verteilung]")}
+
+\item
+\cmd{Object xmlSum(final String path)}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+summiert die Werte auf und liefert die Summe als \cm{Double}-Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+
+Beispiel:\\
+\cm{sim.getStatistics().xmlSum("{}StatistikBedienzeitenKunden->\\{}Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->[Verteilung]")}
+
+\item
+\cmd{Object xmlMean(final String path)}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+bildet den Mittelwert der Werte und liefert diesen als \cm{Double}-Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+
+Beispiel:\\
+\cm{sim.getStatistics().xmlMean("{}StatistikBedienzeitenKunden->\\{}Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->[Verteilung]")}
+
+\item
+\cmd{Object xmlSD(final String path)}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+bildet die Standardabweichung der Werte und liefert diesen als \cm{Double}-Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+
+Beispiel:\\
+\cm{sim.getStatistics().xmlSD("{}StatistikBedienzeitenKunden->\\{}Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->[Verteilung]")}
+
+\item
+\cmd{Object xmlCV(final String path)}:\\
+Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+bildet den Variationskoeffizienten der Werte und liefert diesen als \cm{Double}-Zahl zurück.
+Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+zurückgegeben.
+
+Beispiel:\\
+\cm{sim.getStatistics().xmlCV("{}StatistikBedienzeitenKunden->\\{}Kundentyp[Typ=$\backslash$"{}KundenA$\backslash$"]->[Verteilung]")}
+
+\item
+\cmd{boolean translate(final String language)}:\\
+Übersetzt die Statistikdaten ins Deutsche ("{}de") oder ins Englische ("{}en"), so dass jeweils die gewünschten
+xml-Bezeichner verwendet werden können, auch wenn die Statistikdaten evtl.\ mit einer anderen Spracheinstellung
+erstellt wurden.
+
+\end{itemize}
+
+\section{Speichern der Statistikdaten in Dateien}
+
+\begin{itemize}
+
+\item
+\cmd{boolean save(final String fileName)}:\\
+Speichert die kompletten Statistikdaten in der angegebenen Datei.\\
+Diese Funktion steht nur in der Funktion zur Ausführung von Skripten zur Verfügung.
+
+\item
+\cmd{boolean saveNext(final String folderName)}:\\
+Speichert die kompletten Statistikdaten unter dem nächsten verfügbaren Dateinamen in dem angegebenen Verzeichnis.\\
+Diese Funktion steht nur in der Funktion zur Ausführung von Skripten zur Verfügung.
+
+\item
+\cmd{String filter(final String fileName)}:\\
+Wendet das angegebene Skript auf die Statistikdaten an und gibt das Ergebnis zurück.\\
+Diese Funktion steht nur in der Funktion zur Ausführung von Skripten zur Verfügung.
+
+\item
+\cmd{void cancel()}:\\
+Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
+
+\end{itemize}
+
+
+
+\chapter{\texttt{RuntimeInterface} abrufbar über \texttt{sim.getRuntime}}
+
+Das \texttt{RuntimeInterface}-Interface ermöglicht den Zugriff auf einige allgemeine Programmfunktionen.
+Es ist immer verfügbar. Das Interface stellt folgende Methoden zur Verfügung:
+
+\begin{itemize}
+
+\item
+\cmd{Object calc(final String expression)}:\\
+Berechnet den als Zeichenkette übergebenen Ausdruck mit Hilfe der Termauswertungsfunktion, die
+auch an verschiedenen anderen Stellen im Programm zur Anwendung kommt (siehe Teil \ref{part:Rechenbefehle}) und liefert das Ergebnis
+als \cm{Double}-Zahl zurück. Konnte der Ausdruck nicht berechnet werden, so wird eine Fehlermeldung als
+Zeichenkette zurückgeliefert. Die Termauswertung ermöglicht den Zugriff auf alle bekannten
+Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
+
+\item
+\cmd{long getTime()}:\\
+Liefert die aktuelle Systemzeit als Millisekunden-Wert zurück. Diese Funktion kann zur Messung der
+Laufzeit des Skriptes verwendet werden.
+
+\item
+\cmd{double getInput(final String url, final double errorValue)}:\\
+Lädt einen Zahlenwert über die angegebene Adresse und liefert diesen zurück.
+Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
+Fehlerwert zurückgeliefert.
+	
+\end{itemize}
+
+
+
+\chapter{\texttt{SystemInterface} abrufbar über \texttt{sim.getSystem()}}
+
+Das \texttt{SystemInterface}-Interface ermöglicht den Zugriff auf die aktuellen Simulationsdaten während
+der Laufzeit der Simulation. Es ist nur verfügbar während die Simulation läuft und kann bei der
+späteren Filterung der Ergebnisse nicht verwendet werden. Das Interface stellt folgende Methoden zur Verfügung:
+
+\section{Basisfunktionen}
+
+\begin{itemize}
+
+\item
+\cmd{double getTime()}:\\
+Liefert die aktuelle Zeit in der Simulation als Sekunden-Zahlenwert.
+
+\item
+\cmd{Object calc(final String expression)}:\\
+Berechnet den als Zeichenkette übergebenen Ausdruck mit Hilfe der Termauswertungsfunktion, die
+auch an verschiedenen anderen Stellen im Programm zur Anwendung kommt (siehe Teil \ref{part:Rechenbefehle}) und liefert das Ergebnis
+als \cm{Double}-Zahl zurück. Konnte der Ausdruck nicht berechnet werden, so wird eine Fehlermeldung als
+Zeichenkette zurückgeliefert. Die Termauswertung ermöglicht den Zugriff auf alle bekannten
+Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
+  
+\item
+\cmd{boolean isWarmUp()}:\\
+Liefert wahr oder falsch zurück in Abhängigkeit, ob sich die Simulation noch in der Einschwingphase befindet.
+
+\end{itemize}
+
+\section{Zugriff auf Parameter des Simulationsmodells}
+
+\begin{itemize}
+
+\item
+\cmd{void set(final String varName, final Object varValue)}:\\
+Setzt die Simulationsvariable, deren Name im ersten Parameter angegeben wurde auf den im zweiten Parameter angegebenen Wert.
+\cm{varValue} kann dabei eine Zahl oder eine Zeichenkette sein. Im Falle einer Zahl erfolgt eine direkte Zuweisung.
+Zeichenketten werden gemäß \cm{calc(final String expression)} interpretiert und das Ergebnis an die Variable zugewiesen. Bei \cm{varName}
+muss es sich um entweder eine an anderer Stelle definierte Simulationsvariable handeln oder um ein Kundendaten-Feld der Form
+\cm{ClientData(index)} mit $index\ge0$. 
+  
+\item
+\cmd{void setAnalogValue(final Object elementID, final Object value)}:\\
+Stellt den Wert an dem ,,Analoger Wert''- oder ,,Tank''-Element mit der angegebenen Id ein.
+  
+\item
+\cmd{void setAnalogRate(final Object elementID, final Object value)}:\\
+Stellt die Änderungsrate (pro Sekunde) an dem ,,Analoger Wert''-Element mit der angegebenen Id ein.
+  
+\item
+\cmd{void setAnalogValveMaxFlow(final Object elementID, final Object valveNr,\\final Object value)}:\\
+Stellt den maximalen Durchfluss (pro Sekunde) an dem angegebenen Ventil (1-basierend) des ,,Tank''-Elements mit der angegebenen Id ein.
+Der maximale Durchfluss muss dabei eine nichtnegative Zahl sein. 
+  
+\item
+\cmd{int getWIP(final int id)}:\\
+Liefert die aktuelle Anzahl an Kunden an der Station mit der angegebenen Id.
+  
+\item
+\cmd{int getNQ(final int id)}:\\
+Liefert die aktuelle Anzahl an Kunden in der Warteschlange an der Station mit der angegebenen Id.
+
+\item
+\cmd{int getWIP()}:\\
+Liefert die aktuelle Anzahl an Kunden im System.
+  
+\item
+\cmd{int getNQ()}:\\
+Liefert die aktuelle Anzahl an im System wartenden Kunden.
+
+\end{itemize}
+
+\section{Anzahl an Bedienern in einer Ressource}
+
+\begin{itemize}
+
+\item
+\cmd{int getAllResourceCount()}:\\
+Liefert die aktuelle Anzahl an Bedienern in allen Ressourcen zusammen.
+  
+\item
+\cmd{int getResourceCount(final int resourceId)}:\\
+Liefert die aktuelle Anzahl an Bedienern in der Ressource mit der angegebenen Id.
+  
+\item
+\cmd{boolean setResourceCount(final int resourceId, final int count)}:\\
+Stellt die Anzahl an Bedienern an der Ressource mit der angegebenen Id ein.
+Damit die Anzahl an Bedienern in der Ressource zur Laufzeit verändert werden kann,
+muss initial eine feste Anzahl an Bedienern (nicht unendliche viele und nicht über einen Zeitplan)
+in der Ressource definiert sein. Außerdem dürfen keine Ausfälle für die Ressource eingestellt sein.
+Die Funktion liefert \cm{true} zurück, wenn die Anzahl an Bedienern erfolgreich geändert
+werden konnte. Wenn der neue Wert geringer als der bisherige Wert ist, so ist der neue Wert
+evtl.\ nicht sofort im Simulationssystem ersichtlich, da eigentlich nicht mehr vorhandene Bediener
+zunächst aktuelle Bedienungen zu Ende führen, bevor diese entfernt werden.
+
+\item
+\cmd{int getAllResourceDown()}:\\
+Liefert die aktuelle Anzahl an Bedienern in Ausfallzeit über alle Ressourcen.
+
+\item
+\cmd{int getResourceDown(final int resourceId)}:\\
+Liefert die aktuelle Anzahl an Bedienern in Ausfallzeit in der Ressource mit der angegebenen Id.
+
+\end{itemize}
+
+\section{Signale auslösen}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.signal(final String signalName)}:\\
+Löst das Signal mit dem angegebenen Namen aus.
+
+\end{itemize}
+
+
+
+\chapter{\texttt{ClientInterface} abrufbar über \texttt{sim.getClient()}}
+
+Das \texttt{ClientInterface}-Interface ermöglicht den Zugriff auf die Simulationsdaten des aktuellen Kunden während
+der Laufzeit der Simulation. Es ist nur verfügbar während die Simulation läuft die Verarbeitung durch
+einen Kunden ausgelöst wurde. Das Interface stellt folgende Methoden zur Verfügung:
+
+\begin{itemize}
+
+\item
+\cmd{Object calc(final String expression)}:\\
+Berechnet den als Zeichenkette übergebenen Ausdruck mit Hilfe der Termauswertungsfunktion, die
+auch an verschiedenen anderen Stellen im Programm zur Anwendung kommt (siehe Teil \ref{part:Rechenbefehle}) und liefert das Ergebnis
+als \cm{Double}-Zahl zurück. Konnte der Ausdruck nicht berechnet werden, so wird eine Fehlermeldung als
+Zeichenkette zurückgeliefert. Die Termauswertung ermöglicht den Zugriff auf alle bekannten
+Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
+
+\item
+\cmd{String getTypeName()}:\\
+Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelöst hat.
+    
+\item
+\cmd{boolean isWarmUp()}:\\
+Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde während der Einschwingphase generiert wurde und
+daher nicht in der Statistik erfasst werden soll.
+  
+\item
+\cmd{boolean isInStatistics()}:\\
+Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde in der Statistik erfasst werden soll.
+Diese Einstellung ist unabhängig von der Einschwingphase. Ein Kunde wird nur erfasst, wenn er außerhalb
+der Einschwingphase generiert wurde und hier nicht falsch zurückgeliefert wird.
+  
+\item
+\cmd{void setInStatistics(final boolean inStatistics)}:\\
+Stellt ein, ob ein Kunde in der Statistik erfasst werden soll.
+Diese Einstellung ist unabhängig von der Einschwingphase. Ein Kunde wird nur erfasst, wenn er außerhalb
+der Einschwingphase generiert wurde und hier nicht falsch eingestellt wurde.
+  
+\item
+\cmd{long getNumber()}:\\
+Liefert die bei 1 beginnende, fortlaufende Nummer des aktuellen Kunden.
+Werden mehrere Simulationsthreads verwendet, so ist dieser Wert Thread-lokal.
+  
+\item
+\cmd{double getWaitingSeconds()}:\\
+Liefert die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.
+  
+\item
+\cmd{String getWaitingTime()}:\\
+Liefert die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.
+  
+\item
+\cmd{void setWaitingSeconds(final double seconds)}:\\
+Stellt die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.
+  
+\item
+\cmd{double getTransferSeconds()}:\\
+Liefert die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.
+  
+\item
+\cmd{String getTransferTime()}:\\
+Liefert die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.
+  
+\item
+\cmd{void setTransferSeconds(final double seconds)}:\\
+Stellt die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.
+  
+\item
+\cmd{double getProcessSeconds()}:\\
+Liefert die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.
+  
+\item
+\cmd{String getProcessTime()}:\\
+Liefert die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.
+  
+\item
+\cmd{void setProcessSeconds(final double seconds)}:\\
+Stellt die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.
+
+\item
+\cmd{double getResidenceSeconds()}:\\
+Liefert die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{String getResidenceTime()}:\\
+Liefert die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{void setResidenceSeconds(final double seconds)}:\\
+Stellt die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.
+
+\item
+\cmd{double getValue(final int index)}:\\
+Liefert den zu dem \cm{index} für den aktuellen Kunden hinterlegten Zahlenwert.
+  
+\item
+\cmd{void setValue(final int index, final int value)},\\
+\cmd{void setValue(final int index, final double value)},\\
+\cmd{void setValue(final int index, final String value)}:\\
+Stellt für den aktuellen Kunden für \cm{index} den Wert \cm{value} ein.
+Wird als \cm{value} eine Zeichenkette übergeben, so wird diese zunächst über die
+\cm{calc(final String expression)}-Funktion ausgewertet.
+  
+\item
+\cmd{String getText(final String key)}:\\
+Liefert die zu \cm{key} für den aktuellen Kunden hinterlegte Zeichenkette.
+  
+\item
+\cmd{void setText(final String key, final String value)}:\\
+Stellt für den aktuellen Kunden für \cm{key} die Zeichenkette \cm{value} ein.
+	
+\end{itemize}
+
+
+\chapter{\texttt{InputValueInterface} abrufbar über \texttt{sim.getInputValue()}}
+
+Das \texttt{InputValueInterface}-Interface ermöglicht das Abrufen des nächsten Eingabewertes,
+sofern die Skript-Verarbeitung innerhalb eines Eingabe (Skript)-Elements
+angestoßen wurde. Das Interface stellt folgende Methode zur Verfügung:
+
+\begin{itemize}
+\item
+\cm{double get()}:\\
+Über diese Funktion kann der aktuelle Eingabewert abgerufen werden.
+\end{itemize}
+
+
+
+\chapter{\texttt{ClientsInterface} abrufbar über \texttt{sim.getClients()}}
+
+Das \texttt{ClientsInterface}-Interface steht nur innerhalb des Skript-Bedingung-Elements zur Verfügung
+und hält alle Informationen zu den wartenden Kunden vor. Des Weiteren ermöglicht es, einzelne Kunden freizugeben.
+
+\begin{itemize}
+
+\item
+\cmd{int count()}:\\
+Liefert die Anzahl an wartenden Kunden. Bei den anderen Methode kann
+über den Index-Parameter (Wert 0 bis \cm{count()}-1)auf einen bestimmten
+Kunden zugegriffen werden.
+
+\item
+\cmd{String clientTypeName(final int index)}:\\
+Liefert den Namen des Typs des Kunden.
+
+\item
+\cmd{double clientWaitingSeconds(final int index)}:\\
+Liefert die bisherige Wartezeit des Kunden als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{String clientWaitingTime(final int index)}:\\
+Liefert die bisherige Wartezeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{double clientTransferSeconds(final int index)}:\\
+Liefert die bisherige Transferzeit des Kunden als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{String clientTransferTime(final int index)}:\\
+Liefert die bisherige Transferzeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{double clientProcessSeconds(final int index)}:\\
+Liefert die bisherige Bedienzeit des Kunden als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{String clientProcessTime(final int index)}:\\
+Liefert die bisherige Bedienzeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{double clientResidenceSeconds(final int index)}:\\
+Liefert die bisherige Verweilzeit des Kunden als Sekunden-Zahlenwert zurück.
+
+\item
+\cmd{String clientResidenceTime(final int index)}:\\
+Liefert die bisherige Verweilzeit des Kunden als formatierte Zeitangabe als String zurück.
+
+\item
+\cmd{double clientData(final int index, final int data)}:\\
+Liefert das über den zweiten Parameter adressierte Datum des angegebenen Kunden zurück.
+
+\item
+\cmd{String clientTextData(final int index, final String key)}:\\
+  Liefert den Wert es über den zweiten Parameter adressierte Schlüssels des angegebenen Kunden zurück.
+
+\item
+\cmd{void release(final int index)}:\\
+Veranlasst die Weiterleitung des angegebenen Kunden.
+
+\end{itemize}
+
+
+
+\chapter{\texttt{OutputInterface} abrufbar über \texttt{sim.getOutput()}}
+
+Das \texttt{OutputInterface}-Interface stellt Funktionen zur Ausgabe der gefilterten Ergebnisse zur Verfügung:
+
+\begin{itemize}
+
+\item
+\cmd{void setFormat(final String format)}:\\
+Über diesen Befehl kann das Format, in dem \cm{print} und \cm{println}
+Zahlen formatieren, eingestellt werden. Es kann dabei für Zahlenwerte die lokaler Notation (im deutschsprachigen
+Raum mit einem Dezimalkomma) oder die System-Notation mit einem Dezimalpunkt ausgegeben werden. Außerdem
+kann angegeben werden, ob Zahlenwerte als Prozentangabe ausgegeben werden sollen. In diesem Fall wird
+der Wert mit 100 multipliziert und ein "\%"-Zeichen an die Zahl angefügt. Voreingestellt ist stets die
+Ausgabe in lokaler Notation und die Ausgabe als normale Fließkommazahl (also nicht als Prozentwert).
+
+Folgende Parameter können \cm{setFormat} übergeben werden:	
+\begin{itemize}
+\item
+\cmd{System}:\\
+Wahl der System-Notation für Zahlen und Prozentwerte.
+\item
+\cmd{Local}:\\
+Wahl der lokalen Notation für Zahlen und Prozentwerte.
+\item
+\cmd{Fraction}:\\
+Wahl der Ausgabe als normale Zahl (z.B.\ $0{,}357$ oder $0.375$).
+\item
+\cmd{Percent}:\\
+Wahl der Ausgabe als Prozentwert (z.B.\ $35,7\%$ oder $35.7\%$).
+\item
+\cmd{Number}:\\
+Interpretation von Zahlenwerten als normale Zahlen (Dezimalwert oder Prozentwert).
+\item
+\cmd{Time}:\\
+Interpretation von Zahlenwerten als Zeitangaben.
+
+\end{itemize}
+
+\item
+\cmd{void setSeparator(final String separator)}:\\
+Über diesen Befehl kann eingestellt werden, durch welches Zeichen die einzelnen Einträge
+eines Arrays getrennt werden soll, wenn diese über \cm{print} oder
+\cm{println} ausgegeben werden.
+Vorgabe ist die Trennung durch ein Semikolon.
+
+Folgende Parameter können \cm{setSeparator} übergeben werden:
+\begin{itemize}
+\item
+\cmd{Semicolon}:\\
+Semikolons als Trenner.
+\item
+\cmd{Line}:\\
+Zeilenumbrüche als Trenner.
+\item
+\cmd{Tabs}:\\
+Tabulatoren als Trenner.
+\end{itemize}
+
+\item
+\cmd{void print(final Object obj)}:\\
+Gibt den übergebenen Ausdruck aus.
+Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per
+\cm{setFormat} vorgenommenen Einstellungen formatiert.
+
+\item
+\cmd{void println(final Object obj)}:\\
+Gibt den übergebenen Ausdruck aus und fügt dabei einen Zeilenumbruch an.
+Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per
+\cm{setFormat} vorgenommenen Einstellungen formatiert.
+
+\item
+\cmd{void newLine()}:\\
+Gibt einen Zeilenumbruch aus. Diese Funktion ist gleichwertig zu dem Aufruf von
+\cm{println("{}"{})}.
+
+\item
+\cmd{void tab()}:\\
+Gibt einen Tabulator aus.
+
+\item
+\cmd{void cancel()}:\\
+Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
+
+\end{itemize}
+
+
+
+\chapter{\texttt{FileOutputInterface} abrufbar über \texttt{sim.getFileOutput()}}
+
+Das \texttt{FileOutputInterface}-Interface stellt alle Funktionen, die auch das
+\texttt{OutputInterface}-Interface anbietet, zur Verfügung und ist nur während
+der Parameterreihen-Skript-Ausführung verfügbar. Im Unterschied
+zum \texttt{OutputInterface}-Interface werden die Ausgaben nicht auf die Standardausgabe
+geleitet, sondern es muss zunächst per \texttt{sim.getFileOutput().setFile("{}Dateiname")}
+eine Ausgabedatei definiert werden. Alle Ausgaben werden dann an diese
+Datei angehängt.
+
+
+
+\chapter{\texttt{ModelInterface} abrufbar über \texttt{sim.getModel()}}
+
+Das \texttt{ModelInterface}-Interface steht nur während der Parameterreihen-Skript-Ausführung
+zur verfügbar und bietet Funktionen, um auf Modelleigenschaften zuzugreifen und
+Simulationen zu initiieren.
+
+\begin{itemize}
+
+\item
+\cmd{void reset()}:\\
+Stellt das Modell auf den Ausgangszustand zurück.
+
+\item
+\cmd{void  run()}:\\
+Simuliert das aktuelle Modell.
+Auf die Ergebnisse kann im Folgenden über das\\
+<tt>StatisticsInterface</tt>-Interface zugegriffen werden.
+
+\item
+\cmd{boolean setDistributionParameter(final String xmlName, final int number,\\final double value)}:\\
+Stellt einen Verteilungsparameter \cm{number} (zwischen 1 und 4) der über \cm{xmlName}
+angegebenen Wahrscheinlichkeitsverteilung ein.
+
+\item
+\cmd{boolean setMean(final String xmlName, final double value)}:\\
+Stellt den Mittelwert der über \cm{xmlName} angegebenen Wahrscheinlichkeitsverteilung auf den angegebenen Wert.
+
+\item
+\cmd{boolean setSD(final String xmlName, final double value)}:\\
+Stellt die Standardabweichung der über \cm{xmlName} angegebenen Wahrscheinlichkeitsverteilung auf den angegebenen Wert.
+
+\item
+\cmd{boolean setString(final String xmlName, final String value)}:\\
+Schreibt an die über \cm{xmlName} angegebene Stelle im Modell die angegebene Zeichenkette.
+
+\item
+\cmd{boolean setValue(final String xmlName, final double value)}:\\
+Schreibt an die über \cm{xmlName} angegebene Stelle im Modell den angegebenen Wert.
+
+\item
+\cmd{String xml(final String xmlName)}:\\
+Liefert den über \cm{xmlName} erreichbaren Wert.\\
+Diese Funktion ist das Äquivalent zu \cm{sim.getStatistics().xml(xmlName)} für Modelldaten.
+
+\item
+\cmd{getResourceCount(final String resourceName)}:\\
+Liefert die Anzahl an Bedienern in der Ressource mit Namen \cm{resourceName}.
+Existiert die Ressource nicht oder ist in ihr die Bedieneranzahl nicht als Zahlenwert
+hinterlegt, so liefert die Funktion -1. Ansonsten die Anzahl an Bedienern in der
+Ressource.
+
+\item
+\cmd{boolean setResourceCount(final String resourceName, final int count)}:\\
+Stellt die Anzahl an Bedienern in der Ressource mit Namen \cm{resourceName} ein.
+
+\item
+\cmd{String getGlobalVariableInitialValue(final String variableName)}:\\
+Liefert den Ausdruck zur Bestimmung des initialen Wertes der globalen Variable
+mit Namen\\\cm{variableName}. Existiert die globale Variable nicht, so wird
+eine leere Zeichenkette geliefert.
+
+\item
+\cmd{boolean setGlobalVariableInitialValue(final String variableName,\\final String expression)}:\\
+Stellt den Ausdruck zur Bestimmung des initialen Wertes der globalen Variable
+mit Namen\\\cm{variableName} ein. 
+
+\item
+\cmd{void cancel()}:\\
+Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationen mehr ausgeführt.)
+
+\end{itemize}
+
+
+
+\chapter{XML-Auswahlbefehle}
+
+Über die Parameter der Funktionen des \cmd{StatisticsInterface}-Interfaces kann der Inhalt eines XML-Elements oder der Wert eines
+Attributes eines XML-Elements ausgelesen werden. Die Selektion eines XML-Elements erfolgt dabei mehrstufig
+getrennt durch "\texttt{->}"-Zeichen. Zwischen den "\texttt{->}"-Zeichen stehen jeweils die Namen von XML-Elementen.
+Zusätzlich können in eckigen Klammern Namen und Werte von Attributen angegeben werden, nach denen gefiltert werden soll.
+
+Beispiele:
+
+\begin{itemize}
+
+\item
+\cmd{sim.getStatistics().xml("{}Modell->ModellName")}:\\
+Liefert den Inhalt des Elements \cm{ModellName}, welches ein Unterelement von \cm{Modell} ist.	
+
+\item
+\cmd{sim.getStatistics().xml("{}StatistikZwischenankunftszeitenKunden->\\{}Station[Typ=$\backslash$"{}Quelle id=1$\backslash$"]->[Mittelwert]")}:\\
+Selektiert das \cm{Station}-Unterelement des \cm{StatistikZwischenankunftszeitenKunden}-Elements, bei
+dem das \cm{Typ}-Attribut auf den Wert \cm{Quelle id=1} gesetzt ist. Und liefert dann den Inhalt des Attributs
+\cm{Mittelwert}.
+
+\end{itemize}

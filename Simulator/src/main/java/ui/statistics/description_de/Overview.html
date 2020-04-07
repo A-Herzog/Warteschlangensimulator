@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Ergebnisübersicht</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+Auf dieser Statistikseite werden die <a href="help:statistik_mittelwert">Mittelwerte</a> der wichtigsten
+der in der Simulation erhobenen Kenngrößen ausgegeben. Der Bezeichner <b>E[...]</b> steht dabei
+jeweils für den Mittelwert (mathematisch exakt: Erwartungswert der zugehörigen Verteilung) der
+in der Klammer angegebenen Kenngröße. Die Kürzel korrespondieren mit den in den Überschriften
+der jeweiligen Abschnitte angegebenen Kenngrößen.
+</p>
+
+<h3>Abrufen weiterer Informationen</h3>
+<p>
+Unter dem Texten in jedem Abschnitt steht jeweils in blau dargestellt das Wort "<b>Details</b>".
+Ein Klick auf diesen Link führt zu einer Statistikseite, die mehr Informationen
+(z.B. <a href="help:statistik_standardabweichung">Standardabweichungen</a> usw.) zu dem jeweiligen
+Thema liefert.
+</p>
+
+<h3>Mittlere Anzahl an Kunden</h3>
+<p>
+Die mittlere Anzahl an Kunden im System bzw. an einer Station wird mit <b>E[N]</b>
+bezeichnet. Für die Erhebung der Daten für diesen <a href="help:statistik_mittelwert">Mittelwert</a>
+ist es unerheblich, ob sich die Kunden in der Warteschlange oder in Bedienung befinden.
+</p>
+<p>
+Die Kenngröße <b>E[NQ]</b> bezeichnet hingegen den <a href="help:statistik_mittelwert">Mittelwert</a>
+der Anzahl an <b>wartenden</b> Kunden (also nicht in Bedienung) in dem jeweiligen
+Abschnitt.
+</p>
+
+<h3>Zeiten</h3>
+<p>
+Die Zeiten werden sowohl über die Kundengruppen hinweg als auch von Stationsseite
+aus gesehen erfasst. Erfasst werden die mittleren Wartezeiten (<b>E[W]</b>), die
+mittleren Transportzeiten (<b>E[T]</b>), sofern diese auftreten, die mittleren
+Service- bzw. Bedienzeiten (<b>E[S]</b>) und die mittlere Verweilzeit (<b>E[V]</b>).
+Die Verweilzeit eines Kunden im System ist dabei die Summe aus der Wartezeit,
+der Transportzeit und der Bedienzeit.
+</p>
+
+<h3>Auslastungen</h3>
+<p>
+Werden im Simulationsmodell <b>Bediener</b> oder <b>Transporter</b> verwendet,
+so wird deren Auslastung angegeben. Der Wert <b>rho</b> gibt dabei die mittlere
+Auslastung der jeweiligen Gruppe an.
+</p>
+
+<h3>Zähler und Durchsatz</h3>
+<p>
+Werden in dem Modell normale oder Durchsatz-Zähler verwendet, so werden die
+Basiskenngrößen auch dieser Elemente auf der Übersichtsseite angezeigt.
+</p>
+  
+</body></html>

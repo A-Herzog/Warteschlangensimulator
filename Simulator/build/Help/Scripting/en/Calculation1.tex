@@ -1,0 +1,1010 @@
+\part{Calculation commands reference}\label{part:Rechenbefehle}
+
+When using calculation commands in Warteschlangensimulator,
+it is distinguished between \textbf{expressions} and \textbf{comparisons}.
+Expressions are used to calculate a numerical values, which are e.g.\ used as periods of time.
+Comparisons provide a yes/no decision (for example, whether a client should be directed
+in a particular direction). Unlike expressions, comparisons always contain at least one comparison operator.
+
+All commands presented below are each recognized in \textbf{any case}.
+There is no distinction between different case types.
+
+
+
+\chapter{Constants}
+
+The following constants are available in all calculation commands:
+
+\begin{itemize}
+
+\item
+\cmd{e}: Returns the basis of the exponential function $e^x$. It is
+$e\approx 2.718281828459$.
+
+\item
+\cmd{pi}: Returns the value of the circle constant $\pi$. It is
+$\pi\approx 3.1415926535898$.
+
+\end{itemize}
+
+
+
+\chapter{Variables}
+
+When calculating values in the context of a concrete client, the variables
+\begin{itemize}
+\item
+\cmd{w} for the \textbf{previous waiting time} of the client,
+\item
+\cmd{t} for the \textbf{previous transfer time} of the client ant
+\item
+\cmd{p} for the \textbf{previous operating time} of the client are always available.
+\end{itemize}
+
+If the calculation is done for getting a clients score, the variable \cmd{w} does not contain
+the total waiting time of the current client but the waiting time of the current client at the
+current station.
+
+Furthermore, all variables that are defined by an assignment element are always available.
+Before the first assignment of a value to a variable, it has the value 0.
+
+
+
+\chapter{Basic arithmetic operations}
+
+Supported instructions for the basic arithmetic operations:
+\begin{itemize}
+\item Addition: \cmd{$+$}
+\item Subtraction: \cmd{$-$}
+\item Multiplication: \cmd{$*$}
+\item Division: \cmd{$/$}
+\item Potentiate: \cmd{$\hat~$}
+\end{itemize}
+
+The rule \textbf{point before line calculation} is taken into account.
+To enforce deviating evaluations, \textbf{brackets} can be set.
+
+
+
+\chapter{Trailing instructions}
+
+The following expressions can be written directly behind a number:
+
+\begin{itemize}
+\item
+\cmd{\%}:
+The numerical value left to this symbol is interpreted as a percent value,
+for example $30\%=0.3$.
+
+\item
+\cmd{$^2$}:
+Exponentiate number by 2.
+
+\item
+\cmd{$^3$}:
+Exponentiate number by 3.
+
+\item
+\cmd{!}:
+Calculate factorial of the number, for example\ $4!=1\cdot2\cdot3\cdot4=24$.
+
+\item
+\cmd{$^{\circ}$}:
+Converts the value left to this symbol from grad to radian, for example $180^{\circ}=3.1415\ldots$.\\
+(See also section \ref{sec:Winkelfunktionen} in which the supported
+trigonometric functions are presented.)
+\end{itemize}
+
+
+
+\chapter{General functions}
+
+\begin{itemize}
+
+\item
+\cmd{abs(x)}:
+Absolute value, for example \cm{abs(-5)=5}.
+
+\item
+\cmd{ceil(x)}:
+Round to next bigger integer number, for example \cm{ceil(2.1)=3}
+
+\item
+\cmd{exp(x)}:
+Exponential function $e^x$.
+
+\item
+\cmd{factorial(x)}:
+Factorial, for example $4!=1\cdot2\cdot3\cdot4=24$.
+
+\item
+\cmd{floor(x)}:
+Round to next smaller integer number, for example \cm{floor(2.9)=2}
+
+\item
+\cmd{frac(x)}:
+Fraction part, for example \cm{frac(1.3)=0,3}
+
+\item
+\cmd{gamma(x)}:
+Gamma funkcion, for example \cm{gamma(5)=4!=24}
+
+\item
+\cmd{int(x)}:
+Integer part, for example \cm{int(2.9)=2}
+
+\item
+\cmd{log(x)}:
+Logarithm to the base $e$.
+
+\item
+\cmd{log(x;b)}:
+Logarithm to the base $b$.
+
+\item
+\cmd{ld(x)}:
+Logarithm to the base $2$, for example \cm{ld(256)=8}.
+
+\item
+\cmd{lg(x)}:
+Logarithm to the base $10$, for example \cm{lg(100)=2}.
+
+\item
+\cmd{ln(x)}:
+Logarithm to the base $e$.
+
+\item
+\cmd{modulo(a;b)} oder \cmd{mod(a;b)}:
+Division reminder when dividing a/b
+
+\item
+\cmd{pow(x;y)}:
+Exponentiate $x^y$.
+
+\item
+\cmd{round(x)}:
+Round, for example \cm{round(4.4)=4} and \cm{round(4.5)=5}.
+
+\item
+\cmd{sign(x)}:
+Sign of a number, for example \cm{sign(3)=1} and \cm{sign(-3)=-1}.
+
+\item
+\cmd{sqrt(x)}:
+Square root, for example \cm{sqrt{81}=9}.
+
+\item
+\cmd{sqr(x)}:
+Square the number, for example \cm{sqr(4)=16}.
+
+\end{itemize}
+
+
+
+\section{Random numbers}
+
+The following commands can be used to generate random numbers
+that are \textbf{equally distributed} in a certain area.
+Section \ref{sec:Wahrscheinlichkeitsverteilungen} introduces
+additional functions for generating random numbers according
+to certain distribution functions.
+
+\begin{itemize}
+
+\item
+\cmd{random()}:
+Random number between 0 (inclusive) and 1 (exclusive).
+
+\item
+\cmd{random(x)}:
+Random number between 0 (inclusive) and x (exclusive).
+
+\end{itemize}
+
+
+
+
+
+\chapter{Trigonometric functions}\label{sec:Winkelfunktionen}
+
+The trigonometric functions always refer to $2\pi$ as a full circle (radians).
+If angles in degrees ($360^\circ$ for the full circle) are to be specified
+in the elementary trigonometric functions,
+these have to be converted to radians using the angle functions, for example
+\cm{sin($90^\circ$)=1}.
+
+
+
+\section{Elementary trigonometric functions}
+
+\begin{itemize}
+
+\item
+\cmd{sin(x)}:
+Sine
+
+\item
+\cmd{cos(x)}:
+Cosine
+
+\item
+\cmd{tan(x)}:
+Tangent
+
+\item
+\cmd{cot(x)}:
+Cotangent
+
+\end{itemize}
+
+
+
+\section{Hyperbolic trigonometric functions}
+
+\begin{itemize}
+
+\item
+\cmd{sinh(x)}:
+Sine hyperbolicus
+
+\item
+\cmd{cosh(x)}:
+Cosine hyperbolicus
+
+\item
+\cmd{tanh(x)}:
+Tangent hyperbolicus
+
+\item
+\cmd{coth(x)}:
+Cotangent hyperbolicus
+
+\end{itemize}
+
+
+
+\section{Inverse of the elementary trigonometric functions}
+
+\begin{itemize}
+
+\item
+\cmd{arcsin(x)}:
+Arcus sine
+
+\item
+\cmd{arccos(x)}:
+Arcus cosine
+
+\item
+\cmd{arctan(x)}:
+Arcus tangent
+
+\item
+\cmd{arccot(x)}:
+Arcus cotangent
+
+\end{itemize}
+
+
+
+\section{Inverse of the hyperbolic trigonometric functions}
+
+\begin{itemize}
+
+\item
+\cmd{arcsinh(x)}:
+Arcus sine hyperbolicus
+
+\item
+\cmd{arccosh(x)}:
+Arcus cosine hyperbolicus
+
+\item
+\cmd{arctanh(x)}:
+Arcus-Tangent hyperbolicus
+
+\item
+\cmd{arccoth(x)}:
+Arcus-Cotangent hyperbolicus
+
+\end{itemize}
+
+
+
+\chapter{Funktionen mit mehreren Parametern}
+
+The following functions can accept any number of parameters.
+The individual parameters have to be specified separately by semicolon ";".
+
+\begin{itemize}
+
+\item
+\cmd{Min(a;b;c;...)}:
+Calculates the minimum of the given numbers.
+
+\item
+\cmd{Max(a;b;c;...)}:
+Calculates the maximum of the given numbers.
+
+\item
+\cmd{Sum(a;b;c;...)}:
+Calculates the sum of the given numbers.
+
+\item
+\cmd{Mean(a;b;c;...)}:
+Calculates the mean value of the given numbers.
+
+\item
+\cmd{Median(a;b;c;...)}:
+Calculates the median of the given numbers.
+
+\item
+\cmd{Var(a;b;c;...)}:
+Calculates the sample variance of the given numbers.
+
+\item
+\cmd{SD(a;b;c;...)}:
+Calculates the sample standard deviation of the given numbers.
+
+\item
+\cmd{SCV(a;b;c;...)}:
+Calculates the squared coefficient of variation of the given numbers.
+
+\item
+\cmd{CV(a;b;c;...)}:
+Calculates the coefficient of variation of the given numbers.
+
+\end{itemize}
+
+
+
+\chapter{Probability distributions}\label{sec:Wahrscheinlichkeitsverteilungen}
+
+By using the following commands both values of the density and the cumulative distribution function
+of the following probability distributions can be calculated as well as random numbers are based on
+one of these probability distributions:
+
+
+
+\section{Exponential distribution with mean \texorpdfstring{$a$}{a}}
+
+\begin{itemize}
+
+\item
+\cmd{ExpDist(x;a;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{ExpDist(x;a;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{ExpDist(a)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Uniform distribution in the interval \texorpdfstring{$[a;b]$}{[a;b]}}
+
+\begin{itemize}
+
+\item
+\cmd{UniformDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{UniformDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{UniformDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Normal distribution with mean \texorpdfstring{$a$}{a} and standard deviation \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{NormalDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{NormalDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{NormalDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Log-normal distribution with mean \texorpdfstring{$a$}{a} and standard deviation \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{LogNormalDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{LogNormalDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{LogNormalDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Gamma distribution with parameters \texorpdfstring{$\alpha=a$}{a} and \texorpdfstring{$\beta=b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{GammaDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{GammaDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{GammaDist(a;b)}:
+Generates a random number based on this distribution.
+\end{itemize}
+
+
+
+\section{Erlang distribution with parameters \texorpdfstring{$n$}{n} and \texorpdfstring{$\lambda=l$}{l}}
+
+\begin{itemize}
+
+\item
+\cmd{ErlangDist(x;n;l;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{ErlangDist(x;n;l;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{ErlangDist(n;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Beta distribution in the interval \texorpdfstring{$[a;b]$}{[a;b]} and with parameters \texorpdfstring{$\alpha=c$}{c} and \texorpdfstring{$\beta=d$}{d}}
+
+\begin{itemize}
+
+\item
+\cmd{BetaDist(x;a;b;c;d;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{BetaDist(x;a;b;c;d;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{BetaDist(a;b;c;d)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Weibull distribution with parameters Scale=\texorpdfstring{$a$}{a} and Form=\texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{WeibullDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{WeibullDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{WeibullDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Cauchy distribution with mean \texorpdfstring{$a$}{a} and Scale=\texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{CauchyDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{CauchyDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{CauchyDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{\texorpdfstring{Chi$^2$}{Chi2} distribution with \texorpdfstring{$n$}{n} degrees of freedom}
+
+\begin{itemize}
+
+\item
+\cmd{ChiSquareDist(x;n;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{ChiSquareDist(x;n;1)}:
+Chi$^2$ distribution with $n$ degrees of freedom.
+
+\item
+\cmd{ChiSquareDist(n)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Chi distribution with \texorpdfstring{$n$}{n} degrees of freedom}
+
+\begin{itemize}
+
+\item
+\cmd{ChiDist(x;n;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{ChiDist(x;n;1)}:
+Chi distribution with $n$ degrees of freedom.
+
+\item
+\cmd{ChiDist(n)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{F distribution with \texorpdfstring{$a$}{a} degrees of freedom for the numerator and \texorpdfstring{$b$}{b} degrees of freedom for the denominator}
+
+\begin{itemize}
+
+\item
+\cmd{FDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{FDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{FDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Johnson SU distribution with parameters \texorpdfstring{$\gamma=a$}{a}, \texorpdfstring{$\xi=b$}{b}, \texorpdfstring{$\delta=c$}{c} and \texorpdfstring{$\lambda=d$}{d}}
+
+\begin{itemize}
+
+\item
+\cmd{JohnsonSUDist(x;a;b;c;d;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{JohnsonSUDist(x;a;b;c;d;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{JohnsonSUDist(a;b;c;d)}:
+Generates a random number based on this distribution.  
+
+\end{itemize}
+
+
+
+\section{Triangular distribution over \texorpdfstring{$[a;c]$}{[a;c]} with most likely value \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{TriangularDist(x;a;b;c;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{TriangularDist(x;a;b;c;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{TriangularDist(a;b;c)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Laplace distribution with mean \texorpdfstring{$mu$}{mu} and scale factor \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{LaplaceDist(x;mu;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{LaplaceDist(x;mu;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{LaplaceDist(mu;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Pareto distribution with scale parameter \texorpdfstring{$x_{\rm min}=xmin$}{xmin} and shape parameter \texorpdfstring{$\alpha=a$}{a}}
+
+\begin{itemize}
+
+\item
+\cmd{ParetoDist(x;xmin;a;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{ParetoDist(x;xmin;a;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{ParetoDist(xmin;a)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Logistic distribution with mean \texorpdfstring{$\mu=mu$}{mu} and scale parameter \texorpdfstring{$s$}{s}}
+
+\begin{itemize}
+
+\item
+\cmd{LogisticDist(x;mu;s;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{LogisticDist(x;mu;s;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{LogisticDist(mu;s)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+	
+\section{Inverse gaussian distribution with \texorpdfstring{$\lambda=l$}{l} and mean \texorpdfstring{$mu$}{mu}}
+
+\begin{itemize}
+
+\item
+\cmd{InverseGaussianDist(x;l;mu;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{InverseGaussianDist(x;l;mu;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{InverseGaussianDist(l;mu)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Rayleigh distribution with mean \texorpdfstring{$mu$}{mu}}
+
+\begin{itemize}
+
+\item
+\cmd{RayleighDist(x;mu;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{RayleighDist(x;mu;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{RayleighDist(mu)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Log-Logistic distribution with \texorpdfstring{$\alpha$}{alpha} and mean \texorpdfstring{$\beta$}{beta}}
+
+\begin{itemize}
+
+\item
+\cmd{LogLogisticDist(x;alpha;beta;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{LogLogisticDist(x;alpha;beta;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{LogLogisticDist(alpha;beta)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Power distribution on \texorpdfstring{$[a;b]$}{[a;b]} with exponent \texorpdfstring{$c$}{c}}
+
+\begin{itemize}
+
+\item
+\cmd{PowerDist(x;a;b;c;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{PowerDist(x;a;b;c;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{PowerDist(a;b;c)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Gumbel distribution with expected value \texorpdfstring{$a$}{a} and standard deviation \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{GumbelDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{GumbelDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{GumbelDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Fatigue life distribution with location parameter \texorpdfstring{$\mu$}{mu}, scale parameter \texorpdfstring{$\beta$}{beta} and form parameter \texorpdfstring{$\gamma$}{gamma}}
+
+\begin{itemize}
+
+\item
+\cmd{FatigueLifeDist(x;mu;beta;gamma;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{FatigueLifeDist(x;mu;beta;gamma;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{FatigueLifeDist(mu;beta;gamma)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Frechet distribution with location parameter \texorpdfstring{$\delta$}{delta}, scale parameter \texorpdfstring{$\beta$}{beta} and form parameter \texorpdfstring{$\alpha$}{alpha}}
+
+\begin{itemize}
+
+\item
+\cmd{FrechetDist(x;delta;beta;alpha;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{FrechetDist(x;delta;beta;alpha;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{FrechetDist(delta;beta;alpha)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Hyperbolic secant distribution with mean \texorpdfstring{$a$}{a} and standard deviation \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{HyperbolicSecantDist(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{HyperbolicSecantDist(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{HyperbolicSecantDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Distribution based on empirical values}
+
+\begin{itemize}
+
+\item
+\cmd{EmpiricalDensity(x;value1;value2;value3;...;max)}:\\
+Calculates the probability density at $x$.
+The specified values will be used for the density in the range from 0 to $max$.
+
+\item
+\cmd{EmpiricalDistribution(x;value1;value2;value3;...;max)}:\\
+Calculates the cumulative distribution function at $x$.
+The specified values will be used for the density in the range from 0 to $max$.
+
+\item
+\cmd{EmpiricalRandom(value1;value2;value3;...;max)}:\\
+Generates a random number based on this distribution.
+The specified values will be used for the density in the range from 0 to $max$.
+
+\item
+\cmd{EmpiricalDistributionMean(value1;value2;value3;...;max)}:\\
+Calculates the expected value of the distribution.
+
+\item
+\cmd{EmpiricalDistributionMedian(value1;value2;value3;...;max)}:\\
+Calculates the median of the distribution.
+
+\item
+\cmd{EmpiricalDistributionQuantil(value1;value2;value3;...;max;p)}:\\
+Calculates the quantil for the probability p of the distribution.
+
+\item
+\cmd{EmpiricalDistributionSD(value1;value2;value3;...;max)}:\\
+Calculates the standard deviation of the distribution.
+
+\item
+\cmd{EmpiricalDistributionVar(value1;value2;value3;...;max)}:\\
+Calculates the variance of the distribution.
+
+\item
+\cmd{EmpiricalDistributionCV(value1;value2;value3;...;max)}:\\
+Calculates the coefficient of variation of the distribution.
+
+\end{itemize}
+
+
+
+\chapter{Erlang C calculator}
+
+By using the following command some performance indicators can be calculated
+using the extended Erlang C formula:
+
+\begin{itemize}
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-1)}:\\
+Calculates the average queue length $\E[N_Q]$. 
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-2)}:\\
+Calculates the average number of clients in the system $\E[N]$.
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-3)}:\\
+Calculates the average waiting time $\E[W]$.
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-4)}:\\
+Calculates the average residence time $\E[V]$.
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;-5)}:\\
+Calculates the average accessibility $1-P(A)$.
+
+\item
+\cmd{ErlangC(lambda;mu;nu;c;K;t)}:\\
+Calculates the the probability for the service level at the $t$ seconds threshold $P(W\le t)$.
+
+\end{itemize}
+
+The parameters have the following meanings:
+\begin{itemize}
+\item
+\cm{lambda}:\\
+Arrival rate $\lambda$ (in clients per time unit), i.e.\ inverse of the mean inter-arrival time.
+\item
+\cm{mu}:\\
+Service rate $\mu$ (in clients per time unit), i.e.\ inverse of the mean service time.
+\item
+\cm{nu}:\\
+Cancelation rate $\nu$ (in clients per time unit), i.e.\ inverse of the mean waiting time tolerance.
+\item
+\cm{c}:\\
+Number of available parallel operating servers.
+\item
+\cm{K}:\\
+Number of available places in the system (waiting and processing places together, i.e.\ it is $K\ge c$).
+\end{itemize}
+
+
+
+\chapter{Allen-Cunneen approximation formula}
+
+By using the following command some performance indicators can be calculated
+using the Allen-Cunneen approximation formula:
+
+\begin{itemize}
+
+\item
+\cmd{AllenCunneen(lambda;mu;cvI;cvS;c;-1)}:\\
+Calculates the average queue length $E[N_Q]$. 
+
+\item
+\cmd{AllenCunneen(lambda;mu;cvI;cvS;c;-2)}:\\
+Calculates the average number of clients in the system $\E[N]$.
+
+\item
+\cmd{AllenCunneen(lambda;mu;cvI;cvS;c;-3)}:\\
+Calculates the average waiting time $\E[W]$.
+
+\item
+\cmd{AllenCunneen(lambda;mu;cvI;cvS;c;-4)}:\\
+Calculates the average residence time $\E[V]$.
+\end{itemize}
+
+The parameters have the following meanings:
+\begin{itemize}
+\item
+\cm{lambda}:\\
+Arrival rate $\lambda$ (in clients per time unit), i.e.\ inverse of the mean inter-arrival time.
+\item
+\cm{mu}:\\
+Service rate $\mu$ (in clients per time unit), i.e.\ inverse of the mean service time.
+\item
+\cm{cvI}:\\
+Coefficient of variation of the inter-arrival times $\CV[I]$ (small values mean that the inter-arrival times are very homogeneous).
+\item
+\cm{cvS}:\\
+Coefficient of variation of the service times $\CV[S]$ (small values mean that the operations are very homogeneous).
+\item
+\cm{c}:\\
+Number of available parallel operating servers.
+\end{itemize}

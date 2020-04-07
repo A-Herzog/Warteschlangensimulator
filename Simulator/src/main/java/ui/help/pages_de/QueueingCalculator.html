@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Warteschlangenrechner Dialog</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Warteschlangenrechner Dialog</h1>
+
+<p>
+Mit Hilfe des Warteschlangenrechners können mit Hilfe analytischer Formeln
+Kenngrößen für einfache Warteschlangensysteme berechnet werden.</p>
+
+<h2>Auslastung</h2>
+<p>
+Die Auslastung &rho; berechnet sich als Quotient aus Ankunftsrate &lambda; und
+Bedienrate&middot;Agentenanzahl &mu;&middot;c. Durch Termumstellung lässt sich so
+die notwendige Agentenanzahl bestimmen, um bei einer vorgegebenen Ankunfts- und
+Bedienrate eine bestimmte Auslastung zu erreichen.
+</p>
+
+<h2>Erlang B Formel</h2>
+<p>
+Die Erlang B Formel gibt an, ein wie großer Anteil an Kunden bei bekanntem
+Verkehrsangebot (=&lambda;/&mu;) und bekannter Anzahl an Telefonleitungen
+ein Besetztzeichen erhält.
+</p>
+
+<h2>Erlang C Formel</h2>
+<p>
+Mit Hilfe der Erlang C Formel lässt sich berechnen, ein wie großer Anteil der Kunden
+höchstens eine gewisse Anzahl an Sekunden warten muss. Für die Erlang C Formel wird
+angenommen, dass sowohl die Zwischenankunftszeiten als auch die Bedienzeiten
+exponentiell verteilt sind. Auch werden weder Weiterleitungen noch Warteabbrecher
+noch Wiederholer berücksichtigt.
+</p>
+
+<h2>Erweiterte Erlang C Formel</h2>
+<p>
+Die erweiterte Erlang C Formel unterscheidet sich darin von der gewöhnlichen Erlang C Formel,
+dass sie Warteabbrecher modelliert. Dabei wird angenommen, dass die Wartezeittoleranzen
+der Kunden exponentiell verteilt sind.
+</p>
+
+<h2>Allen-Cunneen</h2>
+<p>
+Die Allen-Cunneen Formel ist eine Näherungsformel für die Kenngrößen eines Warteschlangensystems.
+Im Gegensatz zu den Erlang-Formeln setzt sie nicht voraus, dass Zwischenankunfts- und Bedienzeiten
+exponentiell verteilt sind. Dafür kann hier der Variationskoeffizient dieser beiden Parameter
+explizit eingestellt werden.
+</p>
+
+<h2>Wartezeittoleranz</h2>
+<p>
+Nimmt man an, dass die Wartezeittoleranz exponentiell verteilt ist (was üblicher Weise
+nicht der Fall ist), so lässt sich die mittlere Wartezeittoleranz der Kunden E[WT]
+berechnen als Quotient der mittleren Wartezeit E[W] und der Abbruchrate P(A). Der
+so berechnete Wert kann als erste Näherung bei der Wartezeittoleranz-Kalibrierung
+verwendet werden.
+</p>
+
+<div class="more">
+<ul>
+  <li><a href="http://de.wikipedia.org/wiki/Erlang_B">Erlang B Formel</a></li>
+  <li><a href="http://de.wikipedia.org/wiki/Erlang_C">Erlang C Formel</a></li>
+</ul>
+</div>
+
+</body>
+</html>

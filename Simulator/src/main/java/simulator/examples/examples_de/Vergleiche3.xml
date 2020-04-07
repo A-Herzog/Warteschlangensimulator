@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.3.0</ModellVersion>
+  <ModellName>Warteschlangensystemdesign - Warteschlangen mit Steuerung</ModellName>
+  <ModellBeschreibung>Vergleich mit diesen analytischen Modellen:
+https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/warteschlangenrechnerdesign/
+mit lambda=1,8 (Kunden/Minute) und mu=1 (Kunde/Minute).
+
+Analytische Ergebnisse:
+
+Gemeinsame Warteschlange:
+Mittlere Anzahl an Kunden im System E[N]=9,47
+Mittlere Wartezeit E[W]=4,26
+
+Getrennte Warteschlangen (50%/50%-Aufteilung):
+Mittlere Anzahl an Kunden im System E[N]=18
+Mittlere Wartezeit E[W]=9
+
+Getrennte Warteschlangen (Wahl der kürzeren Warteschlange):
+keine analytischen Ergebnisse vorhanden</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="385"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (33.33)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementDuplizieren id="2">
+      <ModellElementGroesse h="50" w="100" x="350" y="385"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>2 Bediener</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1150" y="85"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kasse1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="5">
+      <ModellElementName>1 Bediener (a)</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1150" y="235"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kasse2a"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="6">
+      <ModellElementName>1 Bediener (b)</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1150" y="335"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kasse2b"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="22">
+      <ModellElementGroesse h="50" w="100" x="1500" y="385"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="4" Element2="22" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementVerbindung Element1="5" Element2="22" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementVerbindung Element1="6" Element2="22" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementText id="28">
+      <ModellElementGroesse h="19" w="217" x="50" y="350"/>
+      <ModellElementTextzeile>Zwischenankunftszeit E[I]=33 Sek.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="57">
+      <ModellElementGroesse h="19" w="350" x="655" y="55"/>
+      <ModellElementTextzeile>2 parallele Bediener, 1 Warteschlange, E[S]=60 Sek.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,150,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="29">
+      <ModellElementGroesse h="19" w="359" x="655" y="205"/>
+      <ModellElementTextzeile>2 parallele Bediener, 2 Warteschlangen, E[S]=60 Sek.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="23" w="540" x="50" y="50"/>
+      <ModellElementTextzeile>Warteschlangensystemdesign - Warteschlangen mit Steuerung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementZuweisung id="33">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="85"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="34">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="285"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="12">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="33" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementName>Neuer Kundentyp: Kunden A</ModellElementName>
+      <ModellElementVerbindung Element1="33" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="34" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementBedienstation id="63">
+      <ModellElementName>1 Bediener (c)</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1150" y="485"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden C">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kasse3a"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="64">
+      <ModellElementName>1 Bediener (d)</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1150" y="585"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden C">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Kasse3b"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementText id="87">
+      <ModellElementGroesse h="19" w="359" x="705" y="455"/>
+      <ModellElementTextzeile>2 parallele Bediener, 2 Warteschlangen, E[S]=60 Sek.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementZuweisung id="92">
+      <ModellElementName>Kunden C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="535"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="14">
+      <ModellElementName>Kopie 2</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="92" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="63" Element2="22" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="30">
+      <ModellElementVerbindung Element1="64" Element2="22" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementText id="31">
+      <ModellElementGroesse h="19" w="158" x="920" y="370"/>
+      <ModellElementTextzeile>Zufällige Wahl der Kasse</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="35">
+      <ModellElementGroesse h="76" w="261" x="400" y="635"/>
+      <ModellElementTextzeile>Die Wahl der kürzeren Warteschlange</ModellElementTextzeile>
+      <ModellElementTextzeile>(Kunden C) ist fast so gut, wie eine</ModellElementTextzeile>
+      <ModellElementTextzeile>gemeinsame Warteschlange (Kunden A),</ModellElementTextzeile>
+      <ModellElementTextzeile>aber nur fast so gut.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="36">
+      <ModellElementName>50% / 50%</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="285"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="9" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="7">
+      <ModellElementName>Neuer Kundentyp: Kunden B</ModellElementName>
+      <ModellElementVerbindung Element1="34" Element2="36" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="36" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="36" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="21">
+      <ModellElementName>Kürzere Schl.</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="535"/>
+      <ModellElementVerzweigungsmodus>BedienstationMinimumNQ</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="10">
+      <ModellElementName>Neuer Kundentyp: Kunden C</ModellElementName>
+      <ModellElementVerbindung Element1="92" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="21" Element2="63" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="21" Element2="64" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="19">
+      <ModellElementGroesse h="200" w="700" x="650" y="200"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="26">
+      <ModellElementGroesse h="200" w="650" x="700" y="450"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="38">
+      <ModellElementGroesse h="100" w="700" x="650" y="50"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,150,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementAnimationLinienDiagramm id="361">
+      <ModellElementGroesse h="170" w="300" x="50" y="630"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,120,0" Maximum="18" Minimum="0">NQ_avg(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="18" Minimum="0">NQ_avg(5)+NQ_avg(6)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,165,0" Maximum="18" Minimum="0">NQ_avg(63)+NQ_avg(64)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>1200</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="362">
+      <ModellElementGroesse h="19" w="333" x="50" y="610"/>
+      <ModellElementTextzeile>Mittlere Anzahlen an Kunden in den Warteschlangen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Kasse1" Typ="Anzahl" Wert="2"/>
+    <Ressource Name="Kasse2a" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Kasse2b" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Kasse3a" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Kasse3b" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Farbe="0,150,0" Name="Kunden A"/>
+    <KundenDaten Farbe="255,0,0" Name="Kunden B"/>
+    <KundenDaten Farbe="255,165,0" Name="Kunden C"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

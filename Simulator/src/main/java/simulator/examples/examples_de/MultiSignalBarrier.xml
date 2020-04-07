@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.3.0</ModellVersion>
+  <ModellName>Zusammenführen von Kundenanfragen und Waren aus dem Lager</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Produkt A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="150"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Produkt B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="250"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementSchranke id="3">
+      <ModellElementName>Lager</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="200"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementSchrankeOption>
+        <ModellElementSignalname>Anfrage A</ModellElementSignalname>
+        <ModellElementFreigabe Anzahl="1"/>
+        <ModellElementKundentyp>Produkt A</ModellElementKundentyp>
+      </ModellElementSchrankeOption>
+      <ModellElementSchrankeOption>
+        <ModellElementSignalname>Anfrage B</ModellElementSignalname>
+        <ModellElementFreigabe Anzahl="1"/>
+        <ModellElementKundentyp>Produkt B</ModellElementKundentyp>
+      </ModellElementSchrankeOption>
+    </ModellElementSchranke>
+    <ModellElementQuelle id="4">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="450"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="5">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="550"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementSignal id="6">
+      <ModellElementName>Anfrage A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="450"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+    </ModellElementSignal>
+    <ModellElementSignal id="7">
+      <ModellElementName>Anfrage B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="550"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+    </ModellElementSignal>
+    <ModellElementZusammenfuehren id="9">
+      <ModellElementName>Auslieferung A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="850" y="450"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Sammeln</ModellElementBatchModus>
+    </ModellElementZusammenfuehren>
+    <ModellElementVerzweigen id="8">
+      <ModellElementGroesse h="50" w="100" x="600" y="500"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Kundentyp="Produkt A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="10">
+      <ModellElementName>Ankünfte (Produkt A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementName>Ankünfte (Produkt B)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementName>Produkt A</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="9" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="6" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZusammenfuehren id="17">
+      <ModellElementName>Auslieferung B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="850" y="550"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Sammeln</ModellElementBatchModus>
+    </ModellElementZusammenfuehren>
+    <ModellElementKante id="18">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="17" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="7" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="20">
+      <ModellElementGroesse h="50" w="100" x="1100" y="500"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="9" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="17" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="23">
+      <ModellElementGroesse h="250" w="450" x="50" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="24">
+      <ModellElementGroesse h="23" w="236" x="55" y="105"/>
+      <ModellElementTextzeile>Produktion und Warenlager</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="25">
+      <ModellElementGroesse h="250" w="450" x="50" y="400"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="26">
+      <ModellElementGroesse h="23" w="211" x="55" y="405"/>
+      <ModellElementTextzeile>Kunden bestellen Artikel</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEcke id="12">
+      <ModellElementGroesse h="10" w="10" x="645" y="220"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="3" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementVerbindung Element1="12" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="29">
+      <ModellElementGroesse h="250" w="300" x="750" y="400"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="30">
+      <ModellElementGroesse h="23" w="208" x="755" y="405"/>
+      <ModellElementTextzeile>Warten auf Auslieferung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="31">
+      <ModellElementGroesse h="145" w="100" x="750" y="150"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementMaximalwert>5</ModellElementMaximalwert>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">WIP(3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WIP(9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">WIP(17)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="38" w="123" x="750" y="110"/>
+      <ModellElementTextzeile>Wartende Produkte</ModellElementTextzeile>
+      <ModellElementTextzeile>und Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="39">
+      <ModellElementGroesse h="23" w="566" x="50" y="50"/>
+      <ModellElementTextzeile>Zusammenführen von Kundenanfragen und Waren aus dem Lager</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementBild id="36">
+      <ModellElementGroesse h="25" w="25" x="350" y="425"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACBElEQVR4Xu2Q30tTYRjHzx/QVRCEiBAVnrMtcJEkuE5jGm5jW1IZJYNEjgW1VKaSPxptUjtbDp0goqGmJdM0zhJXDp2M5hgohejC5lyKwjJcetNVF/Ht7US7OBfddtMHvvDC532e530fivpPFp0zcsTgjgV1fDStfRjJXLCHM5r7ocz55uC34sbAQVHd1ELhbUErrctidMdSrqkkgisZzK58xczyHqbf7yFAIizuwiMkUFDz4oe0TqTCHj5U3hGD96kfN6xODIU/o949hjtOH8pvtcPp3wLXxCOnqArSWkr/eOmono++c0x+RL2tA3ddPnjf7KDG8RxGzgFdtR33RjdQbeVRaKpFrroBx6/0J46ZevPFBuTPAi+s4+3agTi5M7AN16sttL/cRNtYCo3PkqgdWodtPIXhcBoDoTQ4TwR5xp5FsQFZ2PdQfB9PiPBMb+MRee6DiU9o8W3AOpKEZTCBm31rqOr5ALM3jsquOHpndnDicj9yyzoPU2TbmFvdR9fwa5RoTdBdvIo2zwjGo18wGtkVpw7Op9Ha7QdbaoBGXwFb3xxk1waQY+zOo5Sl13HqrAaMTAGWZaFWq8EoCiArvgTmNAtaeU4MI5OLXqVSgVYocfKM4XeDPzAMs8lxHCwWC8g5nhUSbzabQdP0vNRTcrlcRS7FfkmSyr/5fILU/zt+AjtSI+fYrji2AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementBild>
+    <ModellElementBild id="110">
+      <ModellElementGroesse h="25" w="25" x="350" y="525"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACH0lEQVR4XtWR20vTYRzG/Vc66aYV0YWWs2Z5CEqXs5SoBVmmUjMLsbSNZtlBSlJikafKTlKWljps2jZXUzFdnrY5GzpaGZqmiy68Cj799huV2U130QMvfHmfw/t9eENC/jnct49POmtzGak+wuCNLOz6DHorVHSVpWMtVWI6v4PnugRaNfL2pV4RAfOMu41Po61MO5qZGm7k42ADk/Z6Pry+g6/nJu9sVTSdjGKpV8RQZQ7TrhZBWCkI9Xg7yxk3XcZjvMCYQcfosyImLNfYVvKShGILW7UvkBcav8XkG7LEALv+IH+D+DNmXrn9dLrmuWd9T2Tu0zkxINBXa5hgd/UQSv0AyVf72V7aS+LZbuI0NuQFVrLL+4ktasfkmGfqK3xZgPXZDcFKtitpYte3bedwt2hxNZ1ipOEEQ/VHGbh7GPutA4w265DlG+gb99PrmccvBKzJeBAMsFxU4OuqEbs6nuQz/PAYg/dzeFN3iP7a/fRV7cHZeDqwMt1jc9SYfHQ6Z5HsqwsGGIsT8VqvM26uwNNRJmxyCXdrifiqs0mD43EhjkcF4spW52fMI7N0DM+wMr02GJAev460uLXs2rKa1NhwlJslpGwKRRGzimTZCpKil5O0cRnhslSk0UokG1IIi9pJaKTi17dKpVJvZmYmarUaYV7Iy8tDpVIhkUjMP0WLdH9wERERMQLZE7gUzt4fc5iARf7fdEu5/xjfAY/giQeARl3IAAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementBild>
+    <ModellElementBild id="37">
+      <ModellElementGroesse h="25" w="25" x="790" y="300"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACdUlEQVR4XrWOXUiTUQCGF1RSaGtTg0JYLYs09CL1IirzH+fcWKhkWWtTMVfMUAyd/6lpDbSwaC6Hk6VNNzOmpaaSRZomallmdSWUQQguJDdl6nn7tovRPruLHnjhHHif9xwG439wKcSruCaWvXSbvxPKWCaKI1iWlCPelfTeX7kYxMq7J2SRhmQ21FTuJLBQHcdEdugOwg/wukbvb0DFZ0JLiUpKqubbw8L1eG9cDWfjXBBzkd7fQHWoO3pVRZjrUWJUk42sMG/kRO3G5WguMo6xbHVynhvdcaFBzFlY/vEFi8MqfO+vxVRbKWaf3oR5dgL6zP2LHw1JW+mOC3Up/kPmsYeYHzfC+k5PpdVxNk/ocT81YJzedyVIveXgcZlOLw/GyrgGy9OPHbG+bUFHbjACQ2WPfI7WbqNrDnx53W6evBaZT+wApr8uoa1QiNZCgSP286uZX/CJeQ52pObKHoF6O03HJo9og4QTP4SZOSua54CcaUD2Bkh7AVzoBspeAq8/WcHhDcP9ZKOMEVa22an7JWhFUYlKGEfXUD8FyEcIMgcJ0p8RiE0EZ1oJEpvWUdBDDbURRIhu4LBAKXEOTBYdWpvvysfdxi5IqFIa9aK0k+B8OyW3ECQ0rkOoIoisAcpvDWChtwQjuX4258BUsR8x95UjOUOLyn4LUtqBs9Srp3WUrCFIegCItEB+xwrixM34OVCBsTx/4hz4oMtSTCgOrEqlVashkkFIqa+n/hH73R5fngny9ALLZEngynudvMI5YOezKdVDoajy3HvqST0nrOkbN9pg4ca027hRRtu+cL2Vc0I77yvq7MvNLN1l77rI/8JvUn9yn6Qzt9YAAAAASUVORK5CYII=</ModellElementBildDaten>
+    </ModellElementBild>
+    <ModellElementBild id="38">
+      <ModellElementGroesse h="25" w="25" x="820" y="300"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACZElEQVR4XrWSa0iTURzGpQ99KKdbl08FfYhAoySKGqOaWSxR2/ZusQ2XozW1Wpc1m02naVOjbM4uGoKmjSwv2FVMzFqFWYhjs3JddKBQSIXmBhkq5M7Tuw2svfot+sED54Xn9z/nPZyIiP+BNk1Rnhe/FAV8FozbIqHlLUG6XFTH7M3LkQy1uUAYA0tSNErpFAmiYOBHQr19BdJVyovM/hxMUi4u0aKRlgKigR8FfTwHB7ZEg9qwjDD7czBw2aS9MhcjHRZ0Vx7Cvs0c7OctRypvJWQb2SjLVi1mOmFUp63y+T4+xXjvTXx7ZYPrRjaGHhRhzN2BW5mrJ963yBYynTBqlOscXkcjRp23MfmmiU5zcO11NaFGE+dk9sNoEwoX2RMSuzoPczHtrMXUu/vBTL5uwDM9F83xSc/rtopYTC9IVYqS0yUQ1o5KxZjyDKL/RDLac1KCCax/OnrxhRKje1fyZdsONTtMNpvNCwb1BttXCQV4PgA9L4BGG3CtAqTiAkhpIfzXq0B6X+IzRZHWBFF5i+yvu7AnUsVEIwce3g2FFlFpAazFwNk8ID8LOHkQ5KoVfmsJfqjl5N5u8fnZAX2nY2ZG23KBM6cAizmUc/mhb5MOyMoEtCr4VRJAl47xR4XoyY6dnh3wtiCWeB8Xg6joX6i+AkKLJLCr8SiIPgPEeAx++gSB3b8rpPDZS+DIWfvnUbnrdSaXac2vGXrA2F4xUFY0b0bEFDxCCn2FcdP99cdLZgcEGGjVsJ7IZOsbBKpPA1IFGRZLMSySYEgogWePFG6RnNzZmTrRSck2Bbph8r/wG8AqfvOED7DVAAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementBild>
+    <ModellElementBild id="40">
+      <ModellElementGroesse h="25" w="25" x="755" y="300"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACBElEQVR4Xu2Q30tTYRjHzx/QVRCEiBAVnrMtcJEkuE5jGm5jW1IZJYNEjgW1VKaSPxptUjtbDp0goqGmJdM0zhJXDp2M5hgohejC5lyKwjJcetNVF/Ht7US7OBfddtMHvvDC532e530fivpPFp0zcsTgjgV1fDStfRjJXLCHM5r7ocz55uC34sbAQVHd1ELhbUErrctidMdSrqkkgisZzK58xczyHqbf7yFAIizuwiMkUFDz4oe0TqTCHj5U3hGD96kfN6xODIU/o949hjtOH8pvtcPp3wLXxCOnqArSWkr/eOmono++c0x+RL2tA3ddPnjf7KDG8RxGzgFdtR33RjdQbeVRaKpFrroBx6/0J46ZevPFBuTPAi+s4+3agTi5M7AN16sttL/cRNtYCo3PkqgdWodtPIXhcBoDoTQ4TwR5xp5FsQFZ2PdQfB9PiPBMb+MRee6DiU9o8W3AOpKEZTCBm31rqOr5ALM3jsquOHpndnDicj9yyzoPU2TbmFvdR9fwa5RoTdBdvIo2zwjGo18wGtkVpw7Op9Ha7QdbaoBGXwFb3xxk1waQY+zOo5Sl13HqrAaMTAGWZaFWq8EoCiArvgTmNAtaeU4MI5OLXqVSgVYocfKM4XeDPzAMs8lxHCwWC8g5nhUSbzabQdP0vNRTcrlcRS7FfkmSyr/5fILU/zt+AjtSI+fYrji2AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementBild>
+    <ModellElementBild id="41">
+      <ModellElementGroesse h="25" w="25" x="755" y="330"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACH0lEQVR4XtWR20vTYRzG/Vc66aYV0YWWs2Z5CEqXs5SoBVmmUjMLsbSNZtlBSlJikafKTlKWljps2jZXUzFdnrY5GzpaGZqmiy68Cj799huV2U130QMvfHmfw/t9eENC/jnct49POmtzGak+wuCNLOz6DHorVHSVpWMtVWI6v4PnugRaNfL2pV4RAfOMu41Po61MO5qZGm7k42ADk/Z6Pry+g6/nJu9sVTSdjGKpV8RQZQ7TrhZBWCkI9Xg7yxk3XcZjvMCYQcfosyImLNfYVvKShGILW7UvkBcav8XkG7LEALv+IH+D+DNmXrn9dLrmuWd9T2Tu0zkxINBXa5hgd/UQSv0AyVf72V7aS+LZbuI0NuQFVrLL+4ktasfkmGfqK3xZgPXZDcFKtitpYte3bedwt2hxNZ1ipOEEQ/VHGbh7GPutA4w265DlG+gb99PrmccvBKzJeBAMsFxU4OuqEbs6nuQz/PAYg/dzeFN3iP7a/fRV7cHZeDqwMt1jc9SYfHQ6Z5HsqwsGGIsT8VqvM26uwNNRJmxyCXdrifiqs0mD43EhjkcF4spW52fMI7N0DM+wMr02GJAev460uLXs2rKa1NhwlJslpGwKRRGzimTZCpKil5O0cRnhslSk0UokG1IIi9pJaKTi17dKpVJvZmYmarUaYV7Iy8tDpVIhkUjMP0WLdH9wERERMQLZE7gUzt4fc5iARf7fdEu5/xjfAY/giQeARl3IAAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementBild>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten>
+    <KundenDaten Icon="user_red" Name="Kunden B"/>
+    <KundenDaten Icon="car" Name="Produkt A"/>
+    <KundenDaten Icon="lorry" Name="Produkt B"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

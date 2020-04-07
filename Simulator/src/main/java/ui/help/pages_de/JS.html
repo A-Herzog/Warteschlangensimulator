@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Javascript Scripting</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+
+<h1>Javascript Scripting</h1>
+
+<p>
+An verschiedenen Stellen im Simulator können Skripte verwendet werden.
+Als Skriptsprache wird dabei jeweils <b>Javascript</b> or <b>Java</b> verwendet.
+</p>
+
+<p>
+Bei der Verwendung von <b>Javascript</b> stehen neben den Standardsprachbefehlen abhängig vom Kontext,
+in dem das Skript ausgeführt wird, folgende besondere Objekte zum Zugriff auf die Simulations-
+oder Statistikdaten und zur Ausgabe der gefilterten Daten zur Verfügung:
+</p>
+
+
+
+<h2>Statistics</h2>
+
+<p>
+Das <tt>Statistics</tt>-Objekt ermöglicht den Lesezugriff auf alle Elemente der XML-Datei, die den Statistikdaten
+zu Grunde liegt. Es ist nur verfügbar, wenn das Skript zum Filtern von Statistikdaten verwendet wird oder innerhalb
+der Umgebung zur Ausführung von Parameterreihen-Javascripten verwendet wird. Während der
+Simulation steht das <tt>Statistics</tt>-Objekt nicht zur Verfügung. Das Objekt stellt folgende Methoden zur Verfügung:
+</p>
+
+<ul>
+  <li><tt>Statistics.setFormat("Format")</tt><br>
+  Über diesen Befehl kann das Format, in dem <tt>Statistics.xml</tt> Zahlen zur Ausgabe als Zeichenkette
+  formatiert, eingestellt werden. Es kann dabei für Zahlenwerte die lokaler Notation (im deutschsprachigen
+  Raum mit einem Dezimalkomma) oder die System-Notation mit einem Dezimalpunkt ausgegeben werden. Außerdem
+  kann angegeben werden, ob Zahlenwerte als Prozentangabe ausgegeben werden sollen. In diesem Fall wird
+  der Wert mit 100 multipliziert und ein "%"-Zeichen an die Zahl angefügt. Voreingestellt ist stets die
+  Ausgabe in lokaler Notation und die Ausgabe als normale Fließkommazahl (also nicht als Prozentwert).
+  Folgende Parameter können <tt>Statistics.setFormat</tt> übergeben werden:
+  <ul>
+    <li><tt>"System"</tt>: Wahl der System-Notation für Zahlen und Prozentwerte</li>
+    <li><tt>"Local"</tt>: Wahl der lokalen Notation für Zahlen und Prozentwerte</li>
+    <li><tt>"Fraction"</tt>: Wahl der Ausgabe als normale Zahl (z.B. <tt>0,357</tt> oder <tt>0.375</tt>)</li>
+    <li><tt>"Percent"</tt>: Wahl der Ausgabe als Prozentwert (z.B. <tt>35,7%</tt> oder <tt>35.7%</tt>)</li>
+    <li><tt>"Time"</tt>: Ausgabe der Zahlenwerte als Zeitangaben (z.B. <tt>00:03:25,87</tt>)</li>
+    <li><tt>"Number"</tt>: Ausgabe der Zahlenwerte als normale Zahlen (Ausgabe gemäß Angabe <tt>"Percent"</tt> oder <tt>"Fraction"</tt>)</li>
+  </ul>
+  </li>
+  <li><tt>Statistics.setSeparator("Format")</tt><br>
+  Über diesen Befehl kann eingestellt werden, durch welches Zeichen die einzelnen Einträge
+  einer Verteilung getrennt werden soll, wenn diese über <tt>Statistics.xml</tt> ausgegeben wird.
+  Vorgabe ist die Trennung durch ein Semikolon.
+  Folgende Parameter können <tt>Statistics.setSeparator</tt> übergeben werden:
+  <ul>  
+    <li><tt>"Semicolon"</tt>: Semikolons als Trenner</li>
+    <li><tt>"Line"</tt>: Zeilenumbrüche als Trenner</li>
+    <li><tt>"Tabs"</tt>: Tabulatoren als Trenner</li>
+  </ul>
+  </li>
+  <li><tt>Statistics.xml("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde und gibt dies gemäß den Vorgaben,
+  die per <tt>Statistics.setFormat</tt> und <tt>Statistics.setSeparator</tt> eingestellt wurden,
+  als formatierte Zeichenkette zurück.<br>
+  Beispiel: <tt>var name=Statistics.xml("Modell-&gt;ModellName")</tt>
+  </li>
+  <li><tt>Statistics.xmlNumber("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde und gibt den Inhalt als Zahl zurück.
+  Konnte das Feld nicht als Zahlenwert interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+  zurückgegeben.  
+  </li>
+  <li><tt>Statistics.xmlArray("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung
+  und gibt die Werte als Array aus Zahlenwerten zurück.
+  Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+  zurückgegeben.<br>
+  Beispiel: <tt>Statistics.xmlArray("StatistikBedienzeitenKunden-&gt;Kundentyp[Typ=\"KundenA\"]-&gt;[Verteilung]")</tt>
+  </li>
+  <li><tt>Statistics.xmlSum("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+  summiert die Werte auf und liefert die Summe als Zahl zurück.
+  Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+  zurückgegeben.<br>
+  Beispiel: <tt>Statistics.xmlSum("StatistikBedienzeitenKunden-&gt;Kundentyp[Typ=\"KundenA\"]-&gt;[Verteilung]")</tt>
+  </li>
+  <li><tt>Statistics.xmlMean("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+  bildet den Mittelwert der Werte und liefert diesen als Zahl zurück.
+  Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+  zurückgegeben.<br>
+  Beispiel:
+  <tt>Statistics.xmlMean("StatistikBedienzeitenKunden-&gt;Kundentyp[Typ=\"KundenA\"]-&gt;[Verteilung]")</tt>
+  </li>
+  <li><tt>Statistics.xmlSD("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+  bildet die Standardabweichung der Werte und liefert diesen als Zahl zurück.
+  Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+  zurückgegeben.<br>
+  Beispiel:
+  <tt>Statistics.xmlSD("StatistikBedienzeitenKunden-&gt;Kundentyp[Typ=\"KundenA\"]-&gt;[Verteilung]")</tt>
+  </li>
+  <li><tt>Statistics.xmlCV("Pfad")</tt><br>
+  Lädt das XML-Datenfeld, dessen Pfad als Parameter angegeben wurde, interpretiert dieses als Verteilung,
+  bildet den Variationskoeffizienten der Werte und liefert diesen als Zahl zurück.
+  Konnte das Feld nicht als Verteilung interpretiert werden, so wird eine Zeichenkette mit einer Fehlermeldung
+  zurückgegeben.<br>
+  Beispiel:
+  <tt>Statistics.xmlCV("StatistikBedienzeitenKunden-&gt;Kundentyp[Typ=\"KundenA\"]-&gt;[Verteilung]")</tt>
+  </li>
+  <li><tt>Statistics.save("Dateiname")</tt><br>
+  Speichert die kompletten Statistikdaten in der angegebenen Datei. Diese Funktion steht nur in der Funktion zur
+  <a href="JSRunner.html">Ausführung von Skripten</a> zur Verfügung.
+  </li>  
+  <li><tt>Statistics.saveNext("Pfad")</tt><br>
+  Speichert die kompletten Statistikdaten unter dem nächsten verfügbaren Dateinamen in dem angegebenen Verzeichnis.
+  Diese Funktion steht nur in der Funktion zur <a href="JSRunner.html">Ausführung von Skripten</a> zur Verfügung.
+  </li>
+  <li><tt>Statistics.filter("Dateiname")</tt><br>
+  Wendet das angegebene Skript auf die Statistikdaten an und gibt das Ergebnis zurück.
+  Diese Funktion steht nur in der Funktion zur <a href="JSRunner.html">Ausführung von Skripten</a> zur Verfügung.
+  </li>
+  <li><tt>Statistics.cancel()</tt><br>
+  Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
+  </li>
+  <li><tt>Statistics.translate("en")</tt><br>
+  Übersetzt die Statistikdaten ins Deutsche ("de") oder ins Englische ("en"), so dass jeweils die gewünschten
+  xml-Bezeichner verwendet werden können, auch wenn die Statistikdaten evtl. mit einer anderen Spracheinstellung
+  erstellt wurden.
+  </li>
+</ul>
+
+
+
+<h2>System</h2>
+
+<p>
+Das <tt>System</tt>-Objekt ermöglicht den Zugriff auf einige allgemeine Programmfunktionen.
+Es ist nur verfügbar, wenn das Skript zum Filtern von Statistikdaten verwendet wird oder
+die Funktion zur Ausführung von Parameterreihen-Javascripten aktiv ist. Während der
+Simulation steht das <tt>System</tt>-Objekt nicht zur Verfügung. Das Objekt stellt folgende Methoden zur Verfügung:
+</p>
+
+<ul>
+  <li><tt>System.calc("Ausdruck")</tt><br>
+  Berechnet den als Zeichenkette übergebenen Ausdruck mit Hilfe der Termauswertungsfunktion, die
+  auch an verschiedenen anderen Stellen im Programm zur Anwendung kommt und liefert das Ergebnis
+  als Zahl zurück. Konnte der Ausdruck nicht berechnet werden, so wird eine Fehlermeldung als
+  Zeichenkette zurückgeliefert. Die Termauswertung ermöglicht den Zugriff auf alle bekannten
+  Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
+  (siehe auch <a href="Expressions.html">Rechenbefehle</a>-Hilfeseite).    
+  </li>
+  <li><tt>System.time()</tt><br>
+  Liefert die aktuelle Systemzeit als Millisekunden-Wert zurück. Diese Funktion kann zur Messung der
+  Laufzeit des Skriptes verwendet werden.
+  </li>
+  <li><tt>System.getInput("http://Adresse",-1)</tt><br>
+  Lädt einen Zahlenwert über die angegebene Adresse und liefert diesen zurück.
+  Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
+  Fehlerwert zurückgeliefert.
+  </li>
+</ul>
+
+
+
+<h2>Simulation</h2>
+
+<p>
+Das <tt>Simulation</tt>-Objekt ermöglicht den Zugriff auf die aktuellen Simulationsdaten während
+der Laufzeit der Simulation. Es ist nur verfügbar während die Simulation läuft und kann bei der
+späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt folgende Methoden zur Verfügung:
+</p>
+
+<h3>Basisfunktionen</h3>
+
+<ul>
+  <li><tt>Simulation.time()</tt><br>
+  Liefert die aktuelle Zeit in der Simulation als Sekunden-Zahlenwert.
+  </li>
+  
+  <li><tt>Simulation.calc("Ausdruck")</tt><br>
+  Berechnet den als Zeichenkette übergebenen Ausdruck mit Hilfe der Termauswertungsfunktion, die
+  auch an verschiedenen anderen Stellen im Programm zur Anwendung kommt und liefert das Ergebnis
+  als Zahl zurück. Konnte der Ausdruck nicht berechnet werden, so wird eine Fehlermeldung als
+  Zeichenkette zurückgeliefert. Die Termauswertung ermöglicht den Zugriff auf alle bekannten
+  Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
+  (siehe auch <a href="Expressions.html">Rechenbefehle</a>-Hilfeseite).    
+  </li>
+  
+  <li><tt>Simulation.getInput("http://Adresse",-1)</tt><br>
+  Lädt einen Zahlenwert über die angegebene Adresse und liefert diesen zurück.
+  Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
+  Fehlerwert zurückgeliefert.
+  </li>
+
+  <li><tt>Simulation.isWarmUp()</tt><br>
+  Liefert wahr oder falsch zurück in Abhängigkeit, ob sich die Simulation noch in der Einschwingphase befindet.
+  </li>
+</ul>
+
+<h3>Zugriff auf kundenspezifische Daten</h3>
+
+<ul>  
+  <li><tt>Simulation.clientTypeName()</tt><br>
+  Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelöst hat.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+
+  <li><tt>Simulation.isWarmUpClient()</tt><br>
+  Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde während der Einschwingphase generiert wurde und
+  daher nicht in der Statistik erfasst werden soll.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.isClientInStatistics()</tt><br>
+  Liefert wahr oder falsch zurück in Abhängigkeit, ob der Kunde in der Statistik erfasst werden soll.
+  Diese Einstellung ist unabhängig von der Einschwingphase. Ein Kunde wird nur erfasst, wenn er außerhalb
+  der Einschwingphase generiert wurde und hier nicht falsch zurückgeliefert wird.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.setClientInStatistics(inStatistics)</tt><br>
+  Stellt ein, ob ein Kunde in der Statistik erfasst werden soll.
+  Diese Einstellung ist unabhängig von der Einschwingphase. Ein Kunde wird nur erfasst, wenn er außerhalb
+  der Einschwingphase generiert wurde und hier nicht falsch eingestellt wurde.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientNumber()</tt><br>
+  Liefert die bei 1 beginnende, fortlaufende Nummer des aktuellen Kunden.
+  Werden mehrere Simulationsthreads verwendet, so ist dieser Wert Thread-lokal.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientWaitingSeconds()</tt><br>
+  Liefert die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientWaitingTime()</tt><br>
+  Liefert die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientWaitingSecondsSet(seconds)</tt><br>
+  Stellt die bisherige Wartezeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientTransferSeconds()</tt><br>
+  Liefert die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientTransferTime()</tt><br>
+  Liefert die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientTransferSecondsSet(seconds)</tt><br>
+  Stellt die bisherige Transferzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientProcessSeconds()</tt><br>
+  Liefert die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientProcessTime()</tt><br>
+  Liefert die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientProcessSecondsSet(seconds)</tt><br>
+  Stellt die bisherige Bedienzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientResidenceSeconds()</tt><br>
+  Liefert die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als Sekunden-Zahlenwert zurück.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientResidenceTime()</tt><br>
+  Liefert die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, als formatierte Zeitangabe als String zurück.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.clientResidenceSecondsSet(seconds)</tt><br>
+  Stellt die bisherige Verweilzeit des Kunden, der die Verarbeitung des Skripts ausgelöst hat, ein.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+
+  <li><tt>Simulation.getClientValue(Index)</tt><br>
+  Liefert den zu dem <tt>Index</tt> für den aktuellen Kunden hinterlegten Zahlenwert.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.setClientValue(Index,Wert)</tt><br>
+  Stellt für den aktuellen Kunden für <tt>Index</tt> den Zahlenwert <tt>Wert</tt> ein.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.getClientText("Schlüssel")</tt><br>
+  Liefert die zu <tt>Schlüssel</tt> für den aktuellen Kunden hinterlegte Zeichenkette.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
+  <li><tt>Simulation.setClientText("Schlüssel","Wert")</tt><br>
+  Stellt für den aktuellen Kunden für <tt>Schlüssel</tt> die Zeichenkette <tt>Wert</tt> ein.<br>
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+</ul>
+
+<h3>Zugriff auf Parameter des Simulationsmodells</h3>
+
+<ul>
+  <li><tt>Simulation.set("Name",Wert)</tt><br>
+  Setzt die Simulationsvariable, deren Name im ersten Parameter angegeben wurde auf den im zweiten Parameter angegebenen Wert.
+  <tt>Wert</tt> kann dabei eine Zahl oder eine Zeichenkette sein. Im Falle einer Zahl erfolgt eine direkte Zuweisung.
+  Zeichenketten werden gemäß <tt>Simulation.calc</tt> interpretiert und das Ergebnis an die Variable zugewiesen. Bei <tt>Name</tt>
+  muss es sich um entweder eine an anderer Stelle definierte Simulationsvariable handeln oder um ein Kundendaten-Feld der Form
+  <tt>ClientData(index)</tt> mit <tt>index&ge;0</tt>. 
+  </li>
+  
+  <li><tt>Simulation.setValue(id,Wert)</tt><br>
+  Stellt den Wert an dem "Analoger Wert"- oder "Tank"-Element mit der angegebenen Id ein.
+  </li>
+  
+  <li><tt>Simulation.setRate(id,Wert)</tt><br>
+  Stellt die Änderungsrate (pro Sekunde) an dem "Analoger Wert"-Element mit der angegebenen Id ein.
+  </li>
+  
+  <li><tt>Simulation.setValveMaxFlow(id,VentilNr,Wert)</tt><br>
+  Stellt den maximalen Durchfluss (pro Sekunde) an dem angegebenen Ventil (1-basierend) des "Tank"-Elements mit der angegebenen Id ein.
+  Der maximale Durchfluss muss dabei eine nichtnegative Zahl sein. 
+  </li>
+  
+  <li><tt>Simulation.getWIP(id)</tt><br>
+  Liefert die aktuelle Anzahl an Kunden an der Station mit der angegebenen Id.
+  </li>
+  
+  <li><tt>Simulation.getNQ(id)</tt><br>
+  Liefert die aktuelle Anzahl an Kunden in der Warteschlange an der Station mit der angegebenen Id.
+  </li>
+  
+  <li><tt>Simulation.getWIP()</tt><br>
+  Liefert die aktuelle Anzahl an Kunden im System.
+  </li>
+  
+  <li><tt>Simulation.getNQ()</tt><br>
+  Liefert die aktuelle Anzahl an im System wartenden Kunden.
+  </li>
+</ul>
+
+<h3>Zugriff auf den aktuellen Eingabewert</h3>
+  
+<ul>
+  <li><tt>Simulation.getInput()</tt><br>
+  Erfolgt die Javascript-Verarbeitung innerhalb eines <a href="ModelElementInputJS.html">Eingabe (Skript)</a>-Elements,
+  so kann über diese Funktion der aktuelle Eingabewert abgerufen werden. Andernfalls liefert diese Funktion lediglich den Wert 0.
+  </li>
+</ul>
+
+<h3>Anzahl an Bedienern in einer Ressource</h3>
+  
+<ul>
+  <li><tt>Simulation.getAllResourceCount()</tt><br>
+  Liefert die aktuelle Anzahl an Bedienern in allen Ressourcen zusammen.
+  </li>
+  
+  <li><tt>Simulation.getResourceCount(id)</tt><br>
+  Liefert die aktuelle Anzahl an Bedienern in der Ressource mit der angegebenen Id.
+  </li>
+  
+  <li><tt>Simulation.setResourceCount(id,count)</tt><br>
+  Stellt die Anzahl an Bedienern an der Ressource mit der angegebenen Id ein.
+  Damit die Anzahl an Bedienern in der Ressource zur Laufzeit verändert werden kann,
+  muss initial eine feste Anzahl an Bedienern (nicht unendliche viele und nicht über einen Zeitplan)
+  in der Ressource definiert sein. Außerdem dürfen keine Ausfälle für die Ressource eingestellt sein.
+  Die Funktion liefert <tt>true</tt> zurück, wenn die Anzahl an Bedienern erfolgreich geändert
+  werden konnte. Wenn der neue Wert geringer als der bisherige Wert ist, so ist der neue Wert
+  evtl. nicht sofort im Simulationssystem ersichtlich, da eigentlich nicht mehr vorhandene Bediener
+  zunächst aktuelle Bedienungen zu Ende führen, bevor diese entfernt werden. 
+  </li>
+  
+  <li><tt>Simulation.getAllResourceDown()</tt><br>
+  Liefert die aktuelle Anzahl an Bedienern in Ausfallzeit über alle Ressourcen.
+  </li>
+  
+  <li><tt>Simulation.getResourceDown(id)</tt><br>
+  Liefert die aktuelle Anzahl an Bedienern in Ausfallzeit in der Ressource mit der angegebenen Id.
+  </li>
+</ul> 
+  
+<h3>Signale auslösen</h3>
+  
+<ul>
+  <li><tt>Simulation.signal(name)</tt><br>
+  Löst das Signal mit dem angegebenen Namen aus.
+  </li>
+</ul>
+
+
+
+<h2>Clients</h2>
+
+<p>
+Das <tt>Clients</tt>-Objekt steht nur innerhalb des Skript-Bedingung-Elements zur Verfügung
+und hält alle Informationen zu den wartenden Kunden vor. Des Weiteren ermöglicht es,
+einzelne Kunden freizugeben.
+</p>
+
+<ul>
+  <li><tt>Clients.count()</tt><br>
+  Liefert die Anzahl an wartenden Kunden. Bei den anderen Methode kann
+  über den Index-Parameter (Wert 0 bis <tt>count()</tt>-1)auf einen bestimmten
+  Kunden zugegriffen werden.
+  </li>  
+  <li><tt>Clients.clientTypeName(index)</tt><br>
+  Liefert den Namen des Typs des Kunden.
+  </li>
+  <li><tt>Clients.clientWaitingSeconds(index)</tt><br>
+  Liefert die bisherige Wartezeit des Kunden als Sekunden-Zahlenwert zurück.
+  </li>
+  <li><tt>Clients.clientWaitingTime(index)</tt><br>
+  Liefert die bisherige Wartezeit des Kunden als formatierte Zeitangabe als String zurück.
+  </li>
+  <li><tt>Clients.clientTransferSeconds(index)</tt><br>
+  Liefert die bisherige Transferzeit des Kunden als Sekunden-Zahlenwert zurück.
+  </li>
+  <li><tt>Clients.clientTransferTime(index)</tt><br>
+  Liefert die bisherige Transferzeit des Kunden als formatierte Zeitangabe als String zurück.
+  </li>
+  <li><tt>Clients.clientProcessSeconds(index)</tt><br>
+  Liefert die bisherige Bedienzeit des Kunden als Sekunden-Zahlenwert zurück.
+  </li>
+  <li><tt>Clients.clientProcessTime(index)</tt><br>
+  Liefert die bisherige Bedienzeit des Kunden als formatierte Zeitangabe als String zurück.
+  </li>
+  <li><tt>Clients.clientResidenceSeconds(index)</tt><br>
+  Liefert die bisherige Verweilzeit des Kunden als Sekunden-Zahlenwert zurück.
+  </li>
+  <li><tt>Clients.clientResidenceTime(index)</tt><br>
+  Liefert die bisherige Verweilzeit des Kunden als formatierte Zeitangabe als String zurück.
+  </li>
+  <li><tt>Clients.clientData(index,data)</tt><br>
+  Liefert das über den zweiten Parameter adressierte Datum des angegebenen Kunden zurück.
+  </li>
+  <li><tt>Clients.clientTextData(index,key)</tt><br>
+  Liefert den Wert es über den zweiten Parameter adressierte Schlüssels des angegebenen Kunden zurück.
+  </li>
+  <li><tt>Clients.release(index)</tt><br>
+  Veranlasst die Weiterleitung des angegebenen Kunden.
+  </li> 
+</ul>
+
+
+
+<h2>Output</h2>
+
+<p>
+Das <tt>Output</tt>-Objekt stellt Funktionen zur Ausgabe der gefilterten Ergebnisse zur Verfügung:
+</p>
+
+<ul>
+  <li><tt>Output.setFormat("Format")</tt><br>
+  Über diesen Befehl kann das Format, in dem <tt>Output.print</tt> und <tt>Output.println</tt>
+  Zahlen formatieren, eingestellt werden. Es kann dabei für Zahlenwerte die lokaler Notation (im deutschsprachigen
+  Raum mit einem Dezimalkomma) oder die System-Notation mit einem Dezimalpunkt ausgegeben werden. Außerdem
+  kann angegeben werden, ob Zahlenwerte als Prozentangabe ausgegeben werden sollen. In diesem Fall wird
+  der Wert mit 100 multipliziert und ein "%"-Zeichen an die Zahl angefügt. Voreingestellt ist stets die
+  Ausgabe in lokaler Notation und die Ausgabe als normale Fließkommazahl (also nicht als Prozentwert).
+  Folgende Parameter können <tt>Output.setFormat</tt> übergeben werden:
+  <ul>
+    <li><tt>"System"</tt>: Wahl der System-Notation für Zahlen und Prozentwerte</li>
+    <li><tt>"Local"</tt>: Wahl der lokalen Notation für Zahlen und Prozentwerte</li>
+    <li><tt>"Fraction"</tt>: Wahl der Ausgabe als normale Zahl (z.B. <tt>0,357</tt> oder <tt>0.375</tt>)</li>
+    <li><tt>"Percent"</tt>: Wahl der Ausgabe als Prozentwert (z.B. <tt>35,7%</tt> oder <tt>35.7%</tt>)</li>
+    <li><tt>"Number"</tt>: Interpretation von Zahlenwerten als normale Zahlen (Dezimalwert oder Prozentwert).</li>
+    <li><tt>"Time"</tt>: Interpretation von Zahlenwerten als Zeitangaben.</li>
+  </ul>
+  </li>
+  <li><tt>Output.setSeparator("Format")</tt><br>
+  Über diesen Befehl kann eingestellt werden, durch welches Zeichen die einzelnen Einträge
+  eines Arrays getrennt werden soll, wenn diese über <tt>Output.print</tt> oder
+  <tt>Output.println</tt> ausgegeben werden.
+  Vorgabe ist die Trennung durch ein Semikolon.
+  Folgende Parameter können <tt>Output.setSeparator</tt> übergeben werden:
+  <ul>  
+    <li><tt>"Semicolon"</tt>: Semikolons als Trenner</tt>
+    <li><tt>"Line"</tt>: Zeilenumbrüche als Trenner</tt>
+    <li><tt>"Tabs"</tt>: Tabulatoren als Trenner</tt>
+  </ul>  
+  </li>
+  <li><tt>Output.print("Ausdruck")</tt><br>
+  Gibt den übergebenen Ausdruck aus.
+  Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per
+  <tt>Output.setFormat</tt> vorgenommenen Einstellungen formatiert.
+  </li>
+  <li><tt>Output.println("Ausdruck")</tt><br>
+  Gibt den übergebenen Ausdruck aus und fügt dabei einen Zeilenumbruch an.
+  Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per
+  <tt>Output.setFormat</tt> vorgenommenen Einstellungen formatiert.
+  </li>
+  <li><tt>Output.newLine()</tt><br>
+  Gibt einen Zeilenumbruch aus. Diese Funktion ist gleichwertig zu dem Aufruf von
+  <tt>Output.println("")</tt>.  
+  </li>
+  <li><tt>Output.tab()</tt><br>
+  Gibt einen Tabulator aus.
+  </li>
+  <li><tt>Output.cancel()</tt><br>
+  Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)
+  </li>
+</ul>
+
+
+
+<h2>FileOutput</h2>
+
+<p>
+Das <tt>FileOutput</tt>-Objekt stellt alle Funktionen, die auch das
+<tt>Output</tt>-Objekt anbietet, zur Verfügung und ist nur während
+der Parameterreihen-Skript-Ausführung verfügbar. Im Unterschied
+zum <tt>Output</tt>-Objekt werden die Ausgaben nicht auf die Standardausgabe
+geleitet, sondern es muss zunächst per <tt>FileOutput.setFile("Dateiname")</tt>
+eine Ausgabedatei definiert werden. Alle Ausgaben werden dann an diese
+Datei angehängt.
+</p>
+
+
+
+<h2>Model</h2>
+
+<p>
+Das <tt>Model</tt>-Objekt steht nur während der Parameterreihen-Javascript-Ausführung
+zur verfügbar und bietet Funktionen, um auf Modelleigenschaften zuzugreifen und
+Simulationen zu initiieren.
+</p>
+
+<ul>
+  <li><tt>Model.reset()</tt><br>
+  Stellt das Modell auf den Ausgangszustand zurück.
+  </li>
+  <li><tt>Model.run()</tt><br>
+  Simuliert das aktuelle Modell.
+  Auf die Ergebnisse kann im Folgenden über das <tt>Statistics</tt>-Objekt zugegriffen werden.
+  </li>
+  <li><tt>Model.setDistributionParameter("Pfad",Index,Zahl)</tt><br>
+  Stellt einen Verteilungsparameter <tt>Index</tt> (zwischen 1 und 4) der über <tt>Pfad</tt>
+  angegebenen Wahrscheinlichkeitsverteilung ein.
+  </li>
+  <li><tt>Model.setMean("Pfad",Zahl)</tt><br>
+  Stellt den Mittelwert der über <tt>Pfad</tt> angegebenen Wahrscheinlichkeitsverteilung auf den angegebenen Wert.
+  </li>
+  <li><tt>Model.setSD("Pfad",Zahl)</tt><br>
+  Stellt die Standardabweichung der über <tt>Pfad</tt> angegebenen Wahrscheinlichkeitsverteilung auf den angegebenen Wert.
+  </li>
+  <li><tt>Model.setString("Pfad","Text")</tt><br>
+  Schreibt an die über <tt>Pfad</tt> angegebene Stelle im Modell die angegebene Zeichenkette.
+  </li>
+  <li><tt>Model.setValue("Pfad",Zahl)</tt><br>
+  Schreibt an die über <tt>Pfad</tt> angegebene Stelle im Modell den angegebenen Wert.
+  </li>
+  <li><tt>Model.xml("Pfad")</tt><br>
+  Liefert den über <tt>Pfad</tt> erreichbaren Wert. Diese Funktion ist das
+  Äquivalent zu <tt>Statistics.xml("Pfad")</tt> für Modelldaten.
+  </li>
+  <li><tt>Model.getResourceCount("RessourcenName")</tt><br>
+  Liefert die Anzahl an Bedienern in der Ressource mit Namen <tt>RessourcenName</tt>.
+  Existiert die Ressource nicht oder ist in ihr die Bedieneranzahl nicht als Zahlenwert
+  hinterlegt, so liefert die Funktion -1. Ansonsten die Anzahl an Bedienern in der
+  Ressource.
+  </li>
+  <li><tt>Model.setResourceCount("RessourcenName",Anzahl)</tt><br>
+  Stellt die Anzahl an Bedienern in der Ressource mit Namen <tt>RessourcenName</tt> ein.
+  </li>
+  <li><tt>Model.getGlobalVariableInitialValue("VariablenName")</tt><br>
+  Liefert den Ausdruck zur Bestimmung des initialen Wertes der globalen Variable
+  mit Namen <tt>VariablenName</tt>. Existiert die globale Variable nicht, so wird
+  eine leere Zeichenkette geliefert.
+  </li>
+  <li><tt>Model.setGlobalVariableInitialValue("VariablenName","Ausdruck")</tt><br>
+  Stellt den Ausdruck zur Bestimmung des initialen Wertes der globalen Variable
+  mit Namen <tt>VariablenName</tt> ein. 
+  </li>
+  <li><tt>Model.cancel()</tt><br>
+  Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationen mehr ausgeführt.)
+  </li>
+</ul>
+
+
+
+<h2>XML-Auswahlbefehle</h2>
+
+<p>
+Über die Parameter der Funktionen des <tt>Statistics</tt>-Objektes kann der Inhalt eines XML-Elements oder der Wert eines
+Attributes eines XML-Elements ausgelesen werden. Die Selektion eines XML-Elements erfolgt dabei mehrstufig
+getrennt durch "-&gt;"-Zeichen. Zwischen den "-&gt;"-Zeichen stehen jeweils die Namen von XML-Elementen.
+Zusätzlich können in eckigen Klammern Namen und Werte von Attributen angegeben werden, nach denen gefiltert werden soll.
+</p>
+<p>
+Beispiele:
+</p>
+<ul>
+  <li>
+    <tt>Statistics.xml("Modell-&gt;ModellName")</tt><br>
+	Liefert den Inhalt des Elements <tt>ModellName</tt>, welches ein Unterelement von <tt>Modell</tt> ist.	
+  </li>
+  <li>
+    <tt>Statistics.xml("StatistikZwischenankunftszeitenKunden-&gt;Station[Typ=\"Quelle id=1\"]-&gt;[Mittelwert]")</tt><br>
+	Selektiert das <tt>Station</tt>-Unterelement des <tt>StatistikZwischenankunftszeitenKunden</tt>-Elements, bei
+	 dem das <tt>Typ</tt>-Attribut auf den Wert	<tt>Quelle id=1</tt> gesetzt ist. Und liefert dann den Inhalt des Attributs
+	<tt>Mittelwert</tt>.
+  </li>
+</ul>
+
+</body>
+</html>
+  

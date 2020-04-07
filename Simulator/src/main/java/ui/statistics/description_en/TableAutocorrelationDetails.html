@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Auto correlation - details</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+This table shows which <b>autocorrelation</b> results for which
+distance of consecutive clients.
+</p>
+
+<h3>Auto correlation</h3>
+
+<p>
+It is often desirable not only to output characteristics such as the
+<a href="help:statistik_mittelwert value">average value</a> over the
+measured values recorded during a simulation (e.g. for the
+average waiting times of the clients), but also to be able to evaluate
+with what degree of certainty the actual, long-term average value of
+this quantity is located with what probability and how close to the
+experimentally determined value. This is achieved by the so-called
+<a href="help:statistik_konfidenzintervall"><b>confidence intervals</b></a>.
+</p>
+
+<p>
+The formula for calculating a confidence interval uses the measured average value,
+the measured <a href="help:statistik_standardabweichung deviation">standard deviation</a>
+of the values and the number of independent measured values. The first two characteristics
+are recorded for all relevant properties during the simulation. However, determining how
+many <b>independent</b> measured values there are is less easy: If a client had to wait
+a long time, it is highly probable that the next client will also have to wait quite a
+long time. Conversely, a short waiting time for one client means that the immediately
+following client will also not have to wait very long. This dependency between the waiting
+times of clients is called the <b>autocorrelation</b>. For the determination of confidence
+intervals it is therefore of relevance to know, the distance from which on
+the <b>remaining autocorrelation</b> is below a value
+that can be considered acceptable. The total number of arrivals is then divided
+by this distance to obtain a number of at least approximately independent measured values.
+</p>
+  
+</body></html>

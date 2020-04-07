@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Optimizer</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Optimizer</h1>
+
+<p>
+In the optimizer, areas to vary some model parameters within can be defined.
+Furthermore, a target variable can be specified and set whether it should be
+maximized, minimized or maintain a certain range. The optimizer then tries
+to vary the predetermined model parameters within the respective permissible
+ranges in such a way that the desired optimum is achieved.
+</p>
+
+<p>
+The optimizer window consists of three pages:
+</p>
+
+
+<h2>Control variables</h2>
+
+<p>
+On this page you can set which variables in the model can be varied in
+which range to achieve the desired goal. In addition, it can be specified
+per variable whether it can accept any numerical values (in the specified range)
+or only integers.
+</p>
+
+<h2>Target</h2>
+
+<p>
+On this page the optimization target is defined. The target value can either 
+be the value of an XML statistic element or the return value of a script.
+Furthermore, it can be set whether the target value should be as large as possible
+or as small as possible or should be within a certain target range.
+</p>
+
+<h2>Optimization</h2>
+
+<p>
+The main section of the optimization page is used to display status output
+during the optimization process. Above this main area you can set up the
+directory in which the statistics files representing the individual optimization
+steps are to be saved and whether during optimization a variable should first
+be changed to its best possible value and then switched to the next variable
+or whether all variables are only to be changed one piece in each turn.  
+</p> 
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.3.0</ModellVersion>
+  <ModellName>Zusammenfassen von Elementen zu temporären Batchen</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Artikel A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Artikel B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="3">
+      <ModellElementName>Artikel C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzweigen id="4">
+      <ModellElementGroesse h="50" w="100" x="300" y="300"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="24" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementVerzweigen id="5">
+      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="23" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementVerzweigen id="6">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="22" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementZusammenfassen id="7">
+      <ModellElementName>Versand 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="150"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Zeitweise</ModellElementBatchModus>
+      <ModellElementKundentyp>Paket 1</ModellElementKundentyp>
+      <ModellElementBatch Maximum="2" Minimum="2"/>
+    </ModellElementZusammenfassen>
+    <ModellElementZusammenfassen id="8">
+      <ModellElementName>Versand 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="250"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Zeitweise</ModellElementBatchModus>
+      <ModellElementKundentyp>Paket 2</ModellElementKundentyp>
+      <ModellElementBatch Maximum="2" Minimum="2"/>
+    </ModellElementZusammenfassen>
+    <ModellElementTransportZiel id="9">
+      <ModellElementName>Empfänger</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="500"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementTransportStart id="10">
+      <ModellElementName>Lieferung</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="200"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerteilung Typ="Transferzeit" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementTransportRoute>Empfänger</ModellElementTransportRoute>
+    </ModellElementTransportStart>
+    <ModellElementTrennen id="11">
+      <ModellElementName>Auspacken</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="500"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+    </ModellElementTrennen>
+    <ModellElementEnde id="12">
+      <ModellElementGroesse h="50" w="100" x="450" y="500"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="16">
+      <ModellElementName>Ankünfte (Artikel A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementName>Ankünfte (Artikel B)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementName>Ankünfte (Artikel C)</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="7" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="7" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="7" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="8" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="8" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="8" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementName>Neuer Kundentyp "Paket 1"</ModellElementName>
+      <ModellElementVerbindung Element1="7" Element2="10" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementName>Neuer Kundentyp "Paket 2"</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="10" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="9" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementVerbindung Element1="11" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="37">
+      <ModellElementGroesse h="23" w="490" x="50" y="50"/>
+      <ModellElementTextzeile>Zusammenfassen von Elementen zu temporären Batchen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten>
+    <KundenDaten Icon="clock" Name="Artikel A"/>
+    <KundenDaten Icon="cd" Name="Artikel B"/>
+    <KundenDaten Icon="book" Name="Artikel C"/>
+    <KundenDaten Icon="icon_package" Name="Paket 1"/>
+    <KundenDaten Icon="email" Name="Paket 2"/>
+    <KundenDaten Icon="clock" Name="Ware A"/>
+    <KundenDaten Icon="cd" Name="Ware B"/>
+    <KundenDaten Icon="book" Name="Ware C"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

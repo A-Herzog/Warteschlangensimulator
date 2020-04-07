@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.3.0</ModelVersion>
+  <ModelName>Building temporary batches</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Item A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Item B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="3">
+      <ModelElementName>Item C</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDecide id="4">
+      <ModelElementSize h="50" w="100" x="300" y="300"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="21" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="24" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="5">
+      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="20" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="23" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="6">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="19" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="22" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementBatch id="7">
+      <ModelElementName>Shipping 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="150"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+      <ModelElementBatchMode>Temporary</ModelElementBatchMode>
+      <ModelElementClientType>Paket 1</ModelElementClientType>
+      <ModelElementBatchData Maximum="2" Minimum="2"/>
+    </ModelElementBatch>
+    <ModelElementBatch id="8">
+      <ModelElementName>Shipping 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="250"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+      <ModelElementBatchMode>Temporary</ModelElementBatchMode>
+      <ModelElementClientType>Paket 2</ModelElementClientType>
+      <ModelElementBatchData Maximum="2" Minimum="2"/>
+    </ModelElementBatch>
+    <ModelElementTransportDestination id="9">
+      <ModelElementName>Receiver</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="500"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementTransportOrigin id="10">
+      <ModelElementName>Delivery</ModelElementName>
+      <ModelElementSize h="50" w="100" x="800" y="200"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="TransferTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementTransportRoute>Receiver</ModelElementTransportRoute>
+    </ModelElementTransportOrigin>
+    <ModelElementSeparate id="11">
+      <ModelElementName>Unpacking</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="500"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+    </ModelElementSeparate>
+    <ModelElementDispose id="12">
+      <ModelElementSize h="50" w="100" x="450" y="500"/>
+      <ModelElementConnection Element="28" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="16">
+      <ModelElementName>Arrivals (Item A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementName>Arrivals (Item B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementName>Arrivals (Item C)</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="6" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="6" Element2="8" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="8" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="8" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="25">
+      <ModelElementName>New client type "Paket 1"</ModelElementName>
+      <ModelElementConnection Element1="7" Element2="10" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementName>New client type "Paket 2"</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="10" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="9" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementConnection Element1="11" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="37">
+      <ModelElementSize h="23" w="238" x="50" y="50"/>
+      <ModelElementTextLine>Building temporary batches</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData>
+    <ClientData Icon="clock" Name="Articlel A"/>
+    <ClientData Icon="clock" Name="Artikel A"/>
+    <ClientData Icon="cd" Name="Artikel B"/>
+    <ClientData Icon="book" Name="Artikel C"/>
+    <ClientData Icon="clock" Name="Item A"/>
+    <ClientData Icon="cd" Name="Item B"/>
+    <ClientData Icon="book" Name="Item C"/>
+    <ClientData Icon="icon_package" Name="Paket 1"/>
+    <ClientData Icon="email" Name="Paket 2"/>
+    <ClientData Icon="clock" Name="Ware A"/>
+    <ClientData Icon="cd" Name="Ware B"/>
+    <ClientData Icon="book" Name="Ware C"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

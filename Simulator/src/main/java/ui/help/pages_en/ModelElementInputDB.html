@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Input (DB)</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Input (DB)</h1>
+
+<p>
+If a client passes through this element, a numerical value is read from a
+database table and assigned to a variable. The reading position then is moved by one line.
+If a client is reaching the end of the file, different actions can be processed.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the input element has no further meaning for the simulation.
+Next to the database connection settings, the table and the column to load
+the intended behavior at the end of the file and the name of the variable
+where the value is to be assigned to have to be specified.
+</p> 
+
+<p>
+By using the pseudo variables "w", "t" and "p" you can access the waiting time, the transfer time and the
+process time of the current client (each on second base) for reading and for writing. Additionally you can
+write to a client object data field by using "ClientData(index)" as target variable or a text to a client-based
+key by using "ClientData('key')".
+</p>
+
+</body>
+</html>

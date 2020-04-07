@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>1.0.0</ModellVersion>
+  <ModellName>Maschine mit Rüstzeiten</ModellName>
+  <ModellBeschreibung/>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">1000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchbedingung Aktiv="0"/>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellZufallszahlenStartwert Aktiv="0">0</ModellZufallszahlenStartwert>
+  <ModellElemente>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Werkstücke A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="64" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (120)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Werkstücke B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
+      <ModellElementVerbindung Element="65" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (120)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementVerzweigenJS id="4">
+      <ModellElementGroesse h="50" w="100" x="1200" y="200"/>
+      <ModellElementVerzweigenSkript>var type=Simulation.calc("ClientData(1)");
+var modus=Simulation.calc("Modus");
+
+switch (modus) {
+  case 0:
+    if (type==1) {ausgang=1; modus=1;} else {ausgang=3; modus=2;}
+    break;
+  case 1:
+    if (type==1) {ausgang=2;} else {ausgang=3; modus=2;}  
+    break;
+  case 2:
+    if (type==1) {ausgang=1; modus=1;} else {ausgang=4;}
+    break;
+}
+
+Simulation.set("Modus",modus);
+Output.print(ausgang);</ModellElementVerzweigenSkript>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+    </ModellElementVerzweigenJS>
+    <ModellElementVerzoegerung id="5">
+      <ModellElementName>Rüstzeit A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="100"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="56" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="6">
+      <ModellElementName>Rüstzeit B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="305"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="58" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementRessourceFreigeben id="7">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1650" y="200"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="50" Typ="Auslaufend"/>
+      <ModellElementBelegteRessource>Bediener</ModellElementBelegteRessource>
+    </ModellElementRessourceFreigeben>
+    <ModellElementRessourceBelegen id="8">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="200"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="35" Typ="Auslaufend"/>
+      <ModellElementBediener Anzahl="1" Gruppe="Bediener"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementRessourceBelegen>
+    <ModellElementBedienstation id="9">
+      <ModellElementName>Modus A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1500" y="150"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="57" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Werkstücke A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Werkstücke B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Pseudo Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="10">
+      <ModellElementGroesse h="50" w="100" x="1850" y="200"/>
+      <ModellElementVerbindung Element="50" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="14">
+      <ModellElementName>Ausgang 1</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="15">
+      <ModellElementName>Modus B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1505" y="250"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="59" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Werkstücke A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Werkstücke B">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Pseudo Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="16">
+      <ModellElementName>Ausgang 2</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementName>Ausgang 3</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementName>Ausgang 4</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="15" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="9" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="15" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="30">
+      <ModellElementGroesse h="23" w="214" x="50" y="50"/>
+      <ModellElementTextzeile>Maschine mit Rüstzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="11">
+      <ModellElementGroesse h="50" w="100" x="550" y="200"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="41" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Kundentyp="Werkstücke A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementDifferenzZaehler id="26">
+      <ModellElementName>Wartend A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementDifferenzZaehler id="12">
+      <ModellElementName>Wartend B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="300"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="69" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementKante id="13">
+      <ModellElementName>Werkstücke A</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="26" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementDifferenzZaehler id="29">
+      <ModellElementName>Wartend A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="100"/>
+      <ModellElementVerbindung Element="36" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="47" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementVerzweigen id="31">
+      <ModellElementGroesse h="50" w="100" x="950" y="200"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="35" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="36" Kundentyp="Werkstücke A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="37" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementDifferenzZaehler id="32">
+      <ModellElementName>Wartend B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="300"/>
+      <ModellElementVerbindung Element="37" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="48" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementKante id="35">
+      <ModellElementVerbindung Element1="8" Element2="31" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="36">
+      <ModellElementName>Werkstücke A</ModellElementName>
+      <ModellElementVerbindung Element1="31" Element2="29" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="37">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="31" Element2="32" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="33">
+      <ModellElementGroesse h="10" w="10" x="470" y="220"/>
+      <ModellElementVerbindung Element="66" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="67" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="41" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="34">
+      <ModellElementGroesse h="10" w="10" x="1070" y="220"/>
+      <ModellElementVerbindung Element="49" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="51" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="38">
+      <ModellElementGroesse h="10" w="10" x="1070" y="120"/>
+      <ModellElementVerbindung Element="47" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="51" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="39">
+      <ModellElementGroesse h="10" w="10" x="1070" y="320"/>
+      <ModellElementVerbindung Element="48" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="49" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="41">
+      <ModellElementVerbindung Element1="33" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="47">
+      <ModellElementVerbindung Element1="29" Element2="38" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="48">
+      <ModellElementVerbindung Element1="32" Element2="39" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="49">
+      <ModellElementVerbindung Element1="39" Element2="34" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="51">
+      <ModellElementVerbindung Element1="38" Element2="34" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="54">
+      <ModellElementGroesse h="355" w="600" x="500" y="50"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="55">
+      <ModellElementGroesse h="350" w="650" x="1150" y="50"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,165,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementEcke id="18">
+      <ModellElementGroesse h="10" w="10" x="1550" y="325"/>
+      <ModellElementVerbindung Element="58" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="59" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="20">
+      <ModellElementGroesse h="10" w="10" x="1545" y="120"/>
+      <ModellElementVerbindung Element="56" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="57" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="56">
+      <ModellElementVerbindung Element1="5" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="57">
+      <ModellElementVerbindung Element1="20" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="58">
+      <ModellElementVerbindung Element1="6" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="59">
+      <ModellElementVerbindung Element1="18" Element2="15" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationTextAuswahl id="60">
+      <ModellElementName>Aktueller Betriebszustand</ModellElementName>
+      <ModellElementGroesse h="30" w="105" x="1200" y="120"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <TextVorgabe>keine Konfiguration</TextVorgabe>
+      <TextAusdruck Ausdruck="Modus==1">Werkstücke A</TextAusdruck>
+      <TextAusdruck Ausdruck="Modus==2">Werkstücke B</TextAusdruck>
+    </ModellElementAnimationTextAuswahl>
+    <ModellElementAnimationText id="62">
+      <ModellElementName>Werkstücke A in Warteschlange</ModellElementName>
+      <ModellElementGroesse h="30" w="134" x="780" y="160"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter(26)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="63">
+      <ModellElementName>Werkstücke B in Warteschlange</ModellElementName>
+      <ModellElementGroesse h="30" w="134" x="785" y="260"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter(12)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementVariable id="52">
+      <ModellElementName>Typ A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="64" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="66" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">1</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementVariable id="53">
+      <ModellElementName>Typ B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="300"/>
+      <ModellElementVerbindung Element="65" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="67" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">2</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="64">
+      <ModellElementName>Ankünfte (Werkstücke A)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="52" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="65">
+      <ModellElementName>Ankünfte (Werkstücke B)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="53" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="66">
+      <ModellElementVerbindung Element1="52" Element2="33" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="67">
+      <ModellElementVerbindung Element1="53" Element2="33" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedingung id="61">
+      <ModellElementName>Wenn Modus B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="300"/>
+      <ModellElementVerbindung Element="69" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementBedingungText>Modus==0 || Modus==2 || Resource(1)==0</ModellElementBedingungText>
+    </ModellElementBedingung>
+    <ModellElementBedingung id="68">
+      <ModellElementName>Wenn Modus A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="100"/>
+      <ModellElementVerbindung Element="42" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+      <ModellElementBedingungText>Modus==0 || Modus==1 || Resource(1)==0</ModellElementBedingungText>
+    </ModellElementBedingung>
+    <ModellElementKante id="42">
+      <ModellElementVerbindung Element1="26" Element2="68" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="69">
+      <ModellElementVerbindung Element1="12" Element2="61" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="34" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="50">
+      <ModellElementVerbindung Element1="7" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="61" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementVerbindung Element1="68" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationBalkenDiagramm id="40">
+      <ModellElementGroesse h="150" w="100" x="500" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>10</ModellElementMaximalwert>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Counter(26)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Counter(12)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementAnimationAmpel id="43">
+      <ModellElementGroesse h="75" w="35" x="805" y="75"/>
+      <ModellElementAmpelBedingung Licht="rot">Modus==2 &amp;&amp;  Resource(1)&gt;0</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementAnimationAmpel id="44">
+      <ModellElementGroesse h="75" w="35" x="805" y="300"/>
+      <ModellElementAmpelBedingung Licht="rot">Modus==1 &amp;&amp;  Resource(1)&gt;0</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementText id="45">
+      <ModellElementGroesse h="19" w="116" x="500" y="430"/>
+      <ModellElementTextzeile>Wartende Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="46">
+      <ModellElementGroesse h="150" w="450" x="650" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="3" Minimum="0">3-Modus</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>3000</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="70">
+      <ModellElementGroesse h="19" w="102" x="650" y="430"/>
+      <ModellElementTextzeile>Betriebszustand</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="71">
+      <ModellElementGroesse h="19" w="55" x="1105" y="540"/>
+      <ModellElementTextzeile>Modus B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="72">
+      <ModellElementGroesse h="19" w="55" x="1105" y="490"/>
+      <ModellElementTextzeile>Modus A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="73">
+      <ModellElementGroesse h="23" w="120" x="505" y="55"/>
+      <ModellElementTextzeile>Warteschlange</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="74">
+      <ModellElementGroesse h="23" w="86" x="1155" y="55"/>
+      <ModellElementTextzeile>Bedienung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen>
+    <Ressource Name="Bediener" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Pseudo Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Pseudo Bediener B" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Farbe="0,0,255" Icon="Ball_blue" Name="Werkstücke A"/>
+    <KundenDaten Farbe="255,0,0" Icon="Ball_red" Name="Werkstücke B"/>
+  </KundentypenDaten>
+  <ModellZeitplaene/>
+  <InitialeVariable Name="Modus">0</InitialeVariable>
+</Modell>

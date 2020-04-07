@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Erlang-C comparison</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h3>Erlang-C formula</h3>
+
+<p>
+By using the <a href="https://en.wikipedia.org/wiki/Erlang_distribution">Erlang-C formula</a>
+the relevant performance indicators of simple queueing models like average waiting, service
+and residence times (E[W], E[S] and E[V]), the number of clients in the system, in the
+queue and in the service process (E[N], E[NQ] and E[NS]) as well as the utilization of the
+operators &rho; can be calculated exactly. In this context "simple" means the model needs
+to have the following properties:
+</p>
+
+<ul>
+  <li>The inter-arrival times are exponential distributed.</li>
+  <li>The service times are exponential distributed.</li>
+  <li>There is a fixed number of operators.</li>
+  <li>There are not other special properties (like different client types, batch arrival,
+  batch service, branching between stations, ...).</li>
+</ul>
+
+<p>
+The classical Erlang-C formula cannot represent clients impatience.
+But the extended Erlang-C formula can represent impatience, so the
+following property may also prevail in a simple model:
+</p>
+
+<ul>
+  <li>Optionally, clients are only willing to wait for a limited time. If this is the case,
+  it waiting time tolerance has to be exponential distributed.</li>
+</ul>
+
+<p>
+A corresponding model is then called <b>M/M/c</b> or <b>M/M/c/ infinity+M</b> model.
+</p>
+
+<p>
+If the queueing model to be simulated is simple enough so that the simulator can establish
+a clear relationship between the simulated model and the Erlang-C model, it compares the
+simulation results with the Erlang-C values. If the simulated model fulfills all above
+mentioned conditions to an Erlang-C model, the differences between simulation results
+and theoretical results are very small (typically &lt;1%). If there are properties in the
+simulated model that are not covered by the Erlang-C formula, significant deviations between
+the formula results and the simulation results can be expected.
+</p> 
+
+<h3>Allen-Cunneen approximation formula</h3>
+
+<p>
+The Allen-Cunneen approximation formula allows a relaxation of the restrictions defined
+in the Erlang-C model: Instead of exponentially distributed inter-arrival and service times,
+<b>any distributions</b> characterized by their expected value and coefficient of variation
+are now allowed. In addition, <b>batch arrivals</b> and <b>batch service</b> are allowed.
+(The batch sizes are denoted by b(I) and b(S).) For this, the absolute accuracy has to be
+given up, i.e. even with a model which complies with all specifications of the Allen-Cunneen
+approximation formula, differences between the approximation formula results and the
+simulation reality have to be expected.
+</p>
+
+<p>
+Also for the Allen-Cunneen approximation formula the results are also shown and the
+deviation between the formula results and the simulation results are shown here.
+</p>
+  
+</body></html>

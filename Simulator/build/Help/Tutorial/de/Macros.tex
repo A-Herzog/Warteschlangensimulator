@@ -1,0 +1,286 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Alexanders Standardmacros - Version 3.0 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Farben für Links definieren                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifdefined\ColoredLinks
+  \def\linkColorLinkR{0}
+  \def\linkColorLinkG{0}
+  \def\linkColorLinkB{0.55}
+	\def\linkColorCiteR{0}
+  \def\linkColorCiteG{0}
+  \def\linkColorCiteB{0.55}
+	\def\linkColorUrlR{0}
+  \def\linkColorUrlG{0}
+  \def\linkColorUrlB{0.55}
+\else
+  \def\linkColorLinkR{0}
+  \def\linkColorLinkG{0}
+  \def\linkColorLinkB{0}
+	\def\linkColorCiteR{0.3}
+  \def\linkColorCiteG{0.3}
+  \def\linkColorCiteB{0.3}
+	\def\linkColorUrlR{0}
+  \def\linkColorUrlG{0}
+  \def\linkColorUrlB{0}
+\fi
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Packages einbinden                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{makeidx} - unterschägt manchmal Einträge
+\usepackage{imakeidx} % Speziellen Features eigentlicht nicht verwendet, aber hat die makeidx-Fehler nicht
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage[ngerman]{babel}
+\usepackage{epsf}
+\usepackage[dvips]{rotating}
+\usepackage{amsmath,amsfonts}
+\usepackage[amsmath,thmmarks,noconfig]{ntheorem}
+\usepackage{nameref}
+\usepackage{hycolor}
+\usepackage{hyperxmp}
+\usepackage{hyperref}
+\hypersetup{pdfauthor={Alexander Herzog},
+            pdftitle={Warteschlangensimulator - Kurzeinführung},
+            %pdfsubject={},
+            %pdfkeywords={},
+            pdfproducer={LaTeX},
+            pdfcreator={pdfLaTeX},
+						pdfcopyright={Copyright Alexander Herzog},
+						pdfcontactcity={Clausthal-Zellerfeld},
+						pdfcontactpostcode={38678},
+						pdfcontactcountry={Deutschland},
+						pdfcontactemail={alexander.herzog@tu-clausthal.de},
+						pdfcontacturl={https://www.simzentrum.de,https://www.tu-clausthal.de},
+						pdflang={de},
+						bookmarksnumbered,
+						colorlinks=true,
+						filecolor=[rgb]{0,0,0},  % \href-Links nicht hervorheben
+						linkcolor=[rgb]{\linkColorLinkR,\linkColorLinkG,\linkColorLinkB},
+						citecolor=[rgb]{\linkColorCiteR,\linkColorCiteG,\linkColorCiteB},
+						urlcolor=[rgb]{\linkColorUrlR,\linkColorUrlG,\linkColorUrlB} %\url{}, nur für E-Mail-Link genutzt
+					}
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t
+  \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D
+  \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N
+  \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X
+  \do\Y\do\Z}
+\usepackage{float}
+\usepackage{fancyvrb}
+\restylefloat{figure}
+\restylefloat{table}
+\usepackage{sectsty}
+%\allsectionsfont{\fontfamily{cmss}\selectfont} - das führt zu Type 3 Fonts
+\allsectionsfont{\sffamily\selectfont}
+\usepackage{framed}
+\usepackage[toc,page]{appendix}
+\renewcommand\appendixname{Anhang}
+\let\appendixtocname\appendixname\let\appendixpagename\appendixname
+\usepackage[T1]{fontenc} % aus der pdf kopierbare Umlaute
+\usepackage{eurosym}
+\usepackage{longtable}
+
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Rotierte Tabellenüberschriften              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{|R{90}{1em}|}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Symbole definieren                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\setH}{\mathbb{H}}
+\newcommand{\setC}{\mathbb{C}}
+\newcommand{\setR}{\mathbb{R}}
+\newcommand{\setQ}{\mathbb{Q}}
+\newcommand{\setZ}{\mathbb{Z}}
+\newcommand{\setN}{\mathbb{N}}
+\newcommand{\comp}{\complement}
+\newcommand{\Umg}{{\cal U}}
+
+\newcommand{\calA}{{\cal A}}
+\newcommand{\calB}{{\cal B}}
+\newcommand{\calC}{{\cal C}}
+\newcommand{\calD}{{\cal D}}
+\newcommand{\calE}{{\cal E}}
+\newcommand{\calF}{{\cal F}}
+\newcommand{\calG}{{\cal G}}
+\newcommand{\calH}{{\cal H}}
+\newcommand{\calI}{{\cal I}}
+\newcommand{\calJ}{{\cal J}}
+\newcommand{\calK}{{\cal K}}
+\newcommand{\calL}{{\cal L}}
+\newcommand{\calM}{{\cal M}}
+\newcommand{\calN}{{\cal N}}
+\newcommand{\calO}{{\cal O}}
+\newcommand{\calP}{{\cal P}}
+\newcommand{\calQ}{{\cal Q}}
+\newcommand{\calR}{{\cal R}}
+\newcommand{\calS}{{\cal S}}
+\newcommand{\calT}{{\cal T}}
+\newcommand{\calU}{{\cal U}}
+\newcommand{\calV}{{\cal V}}
+\newcommand{\calW}{{\cal W}}
+\newcommand{\calX}{{\cal X}}
+\newcommand{\calY}{{\cal Y}}
+\newcommand{\calZ}{{\cal Z}}
+
+\def\arccot{\mathop{\rm arccot}}
+\def\Arcoth{\mathop{\rm Arcoth}}
+\def\Arsinh{\mathop{\rm Arsinh}}
+\def\Artanh{\mathop{\rm Artanh}}
+\def\Arcosh{\mathop{\rm Arcosh}}
+
+\def\d{{\rm d}}
+\def\dx{\d x}
+\def\dy{\d y}
+\def\dz{\d z}
+\def\dt{\d t}
+\def\euler{\mathrm{e}}
+
+\def\id{{\rm id}}
+\def\Kern{{\rm Kern}}
+
+\def\ra{\Rightarrow}
+
+\def\oversym#1#2{\mathop{#1}\limits^{#2}}
+\def\Inneres#1{\oversym{#1}\circ}
+
+
+\def\TO#1{\oversym\longrightarrow{#1}}
+\def\RA#1{\oversym\Longrightarrow{#1}}
+\def\IFF#1{\oversym\iff{#1}}
+\def\gleich#1{\oversym={#1}}
+
+\def\oBdA{o.\,B.\,d.\,A.\ }
+
+\renewcommand{\qed}{\begin{flushright} $\square$ \end{flushright}}
+
+\def\Definition#1{{\bf #1}}
+
+\def\E{{\bf E}}
+\def\Var{{\bf Var}}
+\def\Std{{\bf Std}}
+\def\CV{{\bf CV}}
+\def\SCV{{\bf SCV}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Umgebungen definieren                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\theoremstyle{changebreak}
+%\theoremheaderfont{\normalfont\bfseries}
+%\theoremseparator{:}
+%\theoremsymbol{}
+%\newtheorem{definition}{Definition}[chapter]
+%\newtheorem{satz}[definition]{Satz}
+%\newtheorem{hilfssatz}[definition]{Hilfssatz}
+%\newtheorem{lemma}[definition]{Lemma}
+%\newtheorem{beispiel}[definition]{Beispiel}
+%\newtheorem{beispiele}[definition]{Beispiele}
+%\newtheorem{bezeichnung}[definition]{Bezeichnung}
+%\theorembodyfont{\rmfamily}
+%\newtheorem{bemerkung}[definition]{Bemerkung}
+%\newtheorem{vereinbarung}[definition]{Vereinbarung}
+%\newtheorem{folgerung}[definition]{Folgerung}
+%\theoremheaderfont{\normalfont\bfseries}
+%\theoremstyle{nonumberchangebreak}
+%\theorembodyfont{\rmfamily}
+%\theoremsymbol{$\blacksquare$}
+%\newtheorem{beweis}{Beweis}
+%\theoremsymbol{}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Standard epsilon durch schöneres ersetzen   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\epsilon{\varepsilon}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Verbatim-Umgebungen für verschiedene Zwecke %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DefineVerbatimEnvironment{ExcelVerbatim}{Verbatim}{frame=single,label=Excel-Befehl,fontsize=\small}
+\DefineVerbatimEnvironment{ExcelVerbatimWithMath}{Verbatim}{frame=single,label=Excel-Befehl,commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7},fontsize=\small}
+\DefineVerbatimEnvironment{ExcelVerbatimWithFormat}{Verbatim}{frame=single,label=Excel-Befehl,fontsize=\small,commandchars=\\\{\}}
+\DefineVerbatimEnvironment{RVerbatim}{Verbatim}{frame=single,label=R-Code,fontsize=\small}
+\DefineVerbatimEnvironment{ExcelMacroVerbatim}{Verbatim}{frame=single,label=Excel-Makro,fontsize=\small} % ,numbers=left
+\DefineVerbatimEnvironment{ExcelMarcroVerbatimWithMath}{Verbatim}{frame=single,label=Excel-Makro,commandchars=\\\{\},codes={\catcode`$=3\catcode`^=7},fontsize=\small}
+\DefineVerbatimEnvironment{ExcelMacroVerbatimWithFormat}{Verbatim}{frame=single,label=Excel-Makro,fontsize=\small,commandchars=\\\{\}}
+\newcommand{\sub}[2]{{#1_#2}}
+
+\newcommand{\newlinesymbol}{\rotatebox[origin=c]{270}{$\curvearrowright$}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Formatierungen                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\def\emphasis#1{\textbf{#1}}
+%\def\emphasisBFOnly#1{\textbf{#1}}
+\def\emphasis#1{\emph{#1}}
+\def\emphasisBFOnly#1{#1}
+
+\def\emphasisIT#1{\textit{#1}}
+\def\emphasisEnglish#1{\textit{#1}}
+
+%\font\deutschfont=suet14
+%\def\deutsch#1{\hbox{\deutschfont #1}}
+
+\parindent0pt
+\parskip5pt
+
+%\oddsidemargin4.6mm
+%\evensidemargin-5.4mm
+%\textwidth160mm

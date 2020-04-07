@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Excel DDE source</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Excel DDE source</h1>
+
+<p>
+The client source represents the starting point of the movement of a client through the system.
+A simulation model can consist of one or more source elements.
+At a DDE table-based source clients are not created based on inter-arrival times but the
+times are loaded via DDE from a table.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the Excel DDE source element has no meaning for the simulation.
+At a Excel DDE source the <b>DDE connection settings</b>
+(workbook, table, starting cell) via which the arrivals are to be loaded and the
+<b>list of the client types</b> for which client
+arrivals are to be loaded from the table have to be specified.
+</p>
+
+<p>
+<u>Format of the table:</u><br>
+Tables to be used at a Excel DDE source element have to consist of at least two columns.
+The first column has to contain the time stamps of the individual client arrivals
+or the inter-arrival times. The values represent the number of seconds since the
+start of the simulation or since the last client arrival.
+In the second column the client type names of clients which arrive at the times
+noted in the first column are defined. Rows containing a client type which is
+not in the client types list in the table source element are ignored.
+All optional further columns have to contain expressions of the form
+<tt>ClientData(nr)=Formula</tt> or <tt>ClientData('key')=TextValue</tt>.
+Using these expression new client objects can get client-specific data directly.
+</p>
+
+</body>
+</html>

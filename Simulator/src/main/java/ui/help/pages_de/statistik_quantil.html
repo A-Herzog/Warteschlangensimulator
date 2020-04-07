@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Quantile</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Quantile</h1>
+
+<p>
+Die Quantile geben Aufschluss darüber, wie sich die konkreten Werte einer
+Messreihe über den Wertebereich verteilen und stellen damit eine Ergänzung
+zur <a href="statistik_standardabweichung.html">Standardabweichung</a> aber
+auch zum <a href="statistik_mittelwert.html">Mittelwert</a> dar.
+</p>
+
+<p>
+Quantile geben an, ein wie großer Anteil der Messwerte jeweils kleiner oder gleich
+einem bestimmten Wert ist. Beträgt das 75%-Quantil der Wartezeiten z.B. 100 Sekunden,
+so bedeutet dies, dass 75% der Kunden höchstens 100 Sekunden warten mussten.  
+</p>
+
+<h3>Median</h3>
+<p>
+Im Zusammenhang mit dem <a href="statistik_mittelwert.html">Mittelwert</a>
+ist auch häufig vom Median die Rede. Während der Mittelwert die Vorteile
+mit sich bringt, dass er leicht berechnet werden kann und in vielen weiteren
+Formeln zur Berechnung statistischer Kennzahlen benötigt wird, besitzt er
+den Nachteil, dass er anfällig für Ausreißer ist. Wird in der Messreihe
+ein einziger Wert massiv erhöht, so hat dies große Auswirkungen auf den
+Mittelwert - obwohl sich bis auf den einen einzigen Ausreißer der Rest
+der Messreihe überhaupt nicht verändert hat. Der Median hingegen gibt
+"den Wert in der Mitte" einer Messreihe an. Wird der Wert eines einzelnen
+Ausreißers verändert, so hat dies keine Auswirkungen auf den Median.
+</p>
+<p>
+Mathematisch handelt es sich bei dem Median einfach um das 50%-Quantil,
+d.h. den Messwert für den gilt, dass die Hälfte der Messwerte kleiner
+oder gleich diesem Wert ist (und folglich die anderen 50% der Messwerte
+größer als dieser Wert sind).
+</p>
+
+<h3>Weitere Informationen</h3>
+<ul>
+  <li><a href="https://de.wikipedia.org/wiki/Empirisches_Quantil">Wikipedia-Seite zum Thema Quantile</a></li>
+</ul>
+
+</body>
+</html>

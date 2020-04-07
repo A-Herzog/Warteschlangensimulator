@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Erlang-C</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Erlang-C</h2>
+
+<p>
+Die Erlang-C-Formel stellt die Standardformel zur Berechnung der Kenngrößen
+in einfachen Warteschlangenmodellen dar. Voraussetzung für die Verwendung
+der Erlang-C-Formel ist ein wie folgt aufgebautes Modell:
+</p>
+<ul>
+  <li>Exponentiell verteilte Zwischenankunftszeiten</li>
+  <li>Exponentiell verteilte Bedienzeiten</li>
+  <li>Eine feste Anzahl an Bedienern</li>
+  <li>Keine sonstigen besonderen weiteren Eigenschaften</li>
+</ul>
+
+<h3>Kenngrößen</h3>
+
+<p>
+Auf Basis der Eingaben werden die folgenden Kenngrößen berechnet:
+</p>
+
+<ul>
+  <li><b>Verkehrsangebot a</b>:
+  Dieser Wert gibt an, wie viele Bediener auf jeden Fall benötigt werden,
+  um die eintreffenden Kunden im langfristigen Mittel bedienen zu können.
+  Das Verkehrsangebot ist der Quotient aus Ankunfts- und Bedienrate:
+  a=&lambda;/&mu;.</li>
+  <li><b>Auslastung &rho;</b>:
+  Die Auslastung ist der Quotient aus Verkehrsangebot und angegebener Anzahl
+  an Bedienern (&rho;=a/c). Die Auslastung muss immer &lt;1 sein, damit die
+  Bediener die eintreffenden Kunden im langfristigen Mittel überhaupt bedienen
+  können. Eine Auslastung von unter 1 allein ist jedoch noch keine Aussage,
+  dass das System sinnvoll dimensioniert ist, da die Auslastung keine 
+  Informationen darüber liefert, wie lang die Kunden in einem entsprechend
+  dimensionierten System im Mittel warten müssen.</li>
+  <li><b>P1</b>:
+  Dieser Wert ist eine Hilfsgröße, die in der Erlang-C-Formel auftritt. Sie
+  ist nur von Bedeutung, manuell mit den Teilergebnissen weitergerechnet werden soll.</li>
+  <li><b>Mittlere Warteschlangenlänge E[N<sub>Q</sub>]</b>:
+  Die mittlere Warteschlangenlänge gibt an, wie viele Kunden in einem
+  entsprechend konfigurierten System im Mittel warten (also noch nicht bedient werden).</li>
+  <li><b>Mittlere Anzahl an Kunden im System E[N]</b>:
+  Dieser Wert gibt die mittlere Gesamtanzahl an Kunden im System an,
+  d.h. es handelt sich hier um die Summe aus wartenden und in Bedienung
+  befindlichen Kunden.</li>
+  <li><b>Mittlere Wartezeit E[W]</b>:
+  Mit Hilfe der Formel von Little lässt sich aus der mittleren Warteschlangenlänge
+  E[N<sub>Q</sub>] (und der Ankunftsrate &lambda;) berechnen, wie lange die Kunden
+  im Mittel warten müssen, bevor sie bedient werden.</li>
+  <li><b>Mittlere Verweilzeit E[V]</b>:
+  Die Verweilzeit ist die Summe aus der mittleren Wartezeit E[W] und der mittleren
+  Bediendauer E[S]. Die mittlere Bediendauer ist dabei der Kehrwert der Bedienrate
+  (E[S]=1/&mu;).</li>
+  <li><b>Service-Level P(W&le;t)</b>:
+  Häufig interessiert man sich nicht nur für die mittlere Wartezeit der Kunden,
+  sondern auch dafür, wie hoch der Anteil der Kunden ist, der höchstens eine bestimmte,
+  vorgegebene Zeitdauer warten musste. Diese Information liefert der Service-Level.
+  P(W&le;t) ist der Anteil an Kunden, der höchstens t Sekunden warten musste.</li>
+</ul>
+  
+<h3>Kritik</h3>
+
+<p>
+Die Erlang-C-Formel liefert zwar im Gegensatz zu einer Simulation
+exakte Ergebnisse und dies mit einem sehr geringen Rechenaufwand.
+Allerdings beschrieben die Ergebnisse die Realität nur dann exakt,
+wenn die obigen Eigenschaften exakt eingehalten werden. Insbesondere
+folgende Eigenschaften sind in der Realität häufig kritisch:
+</p>
+<ul>
+  <li>Die Bediendauern sind meist nicht exponentiell verteilt, sondern
+  unterliegen einer anderen Verteilung mit meist einem anderen
+  Variationskoeffizieten als dies bei der Exponentialverteilung der
+  Fall ist (dort immer CV[S]=1).</li>
+  <li>Die Kunden sind nicht bereit beliebig lange zu warten und verlassen
+  das System (ohne bedient worden zu sein), wenn ihnen die Wartezeit
+  zu lang wird. Dies nennt man Ungeduld und spricht davon, dass die
+  Kunden nur eine begrenzte Wartezeittoleranz besitzen. (Dieser
+  Aspekt lässt sich mit der erweiterten Erlang-C-Formel adressieren.)</li>
+  <li>Es werden mehrere Kunden gleichzeitig bedient (Batch-Bedienungen),
+  die Kunden untergliedern sich in verschiedene Typen mit unterschiedlichen
+  Bediendauern oder die Anzahl an Bedienern variiert über die Zeit.</li>
+  <li>Auch Netzwerk-Effekte (Warteabbrecher starten später einen weiteren
+  Versuch, bereits bediente Kunden werden erneut an die Warteschlange verwiesen
+  oder es spielen mehrere Bedienstationen zusammen) werden durch die Erlang-C-Formel
+  nicht abgebildet.</li>  
+</ul>
+  
+</body></html>

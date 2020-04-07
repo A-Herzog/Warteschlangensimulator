@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Waiting time tolerance</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Waiting time tolerance</h2>
+
+<p>
+The waiting time tolerance of the clients in a real system cannot be measured directly.
+It is only known from the wait cancellers how long they have been willing to wait.
+Only a lower estimate of the waiting time tolerance is known from the successful clients:
+They were apparently willing to wait in any case as long as it was necessary for them to
+be served. The reasonable estimation of the waiting time tolerance (which is necessary,
+for example, to use the extended Erlang-C formula) is therefore a difficult problem.
+</p>
+
+<p>
+One possible approach is to assume that the waiting time tolerances are exponentially
+distributed (which is also assumed by the extended Erlang-C formula anyway).
+In this case, the <b>average waiting time tolerance E[WT]</b> can be determined directly
+as the quotient of the <b>average waiting time of the clients E[W]</b> and the
+<b>cancelation rate P(A)</b>.
+</p>
+  
+</body></html>

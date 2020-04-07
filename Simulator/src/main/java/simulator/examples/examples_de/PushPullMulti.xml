@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>1.3.0</ModellVersion>
+  <ModellName>Push- und Pull-Produktion mit mehreren Abschnitten</ModellName>
+  <ModellBeschreibung>Bei der Push-Produktion werden eintreffende Kunden sofort in den
+Bedienprozess geführt, was zu einem höheren Umlaufbestand an Kunden führt.
+Bei der Pull-Produktion wird jeweils erst dann der nächste Kunde in den
+Bedienprozess geführt, wenn sich nur noch eine bestimmte Anzahl an Kunden darin
+befinden. Dies führt zu geringeren Wartezeiten im System bzw. einer geringeren
+Anzahl an Kunden im produktiven Anteil des Systems.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchbedingung Aktiv="0"/>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellZufallszahlenStartwert Aktiv="0">0</ModellZufallszahlenStartwert>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementAnkunftssignal>Quellsignal</ModellElementAnkunftssignal>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Anzahl="10" Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementIcon id="3">
+      <ModellElementGroesse h="50" w="100" x="250" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementIconName>user_red</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="5">
+      <ModellElementGroesse h="10" w="10" x="295" y="120"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="47" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="6">
+      <ModellElementVerbindung Element1="3" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementSchrankePull id="8">
+      <ModellElementName>Schranke B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="100"/>
+      <ModellElementVerbindung Element="45" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementSchrankePullKontrolle Maximum="3">Station B</ModellElementSchrankePullKontrolle>
+    </ModellElementSchrankePull>
+    <ModellElementBedienstation id="9">
+      <ModellElementName>Station A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="750" y="100"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="8" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementSignal id="12">
+      <ModellElementName>Quellsignal</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="100"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+    </ModellElementSignal>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="9" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementSchrankePull id="14">
+      <ModellElementName>Schranke C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1150" y="100"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementSchrankePullKontrolle Maximum="3">Station C</ModellElementSchrankePullKontrolle>
+    </ModellElementSchrankePull>
+    <ModellElementBedienstation id="15">
+      <ModellElementName>Station B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1300" y="100"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="14" Element2="15" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="17">
+      <ModellElementName>Station C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1550" y="100"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener C"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="18">
+      <ModellElementVerbindung Element1="12" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="15" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="20">
+      <ModellElementGroesse h="50" w="100" x="1750" y="100"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="17" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationLinienDiagramm id="22">
+      <ModellElementGroesse h="200" w="600" x="1100" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="4" Minimum="0">N(14)+N(15)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="4" Minimum="0">N(17)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementKasten id="23">
+      <ModellElementGroesse h="150" w="200" x="1500" y="50"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="24">
+      <ModellElementGroesse h="150" w="350" x="1100" y="50"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="15" w="136" x="50" y="160"/>
+      <ModellElementTextzeile>Generiert Kunden auf Signal</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="26">
+      <ModellElementGroesse h="15" w="151" x="50" y="260"/>
+      <ModellElementTextzeile>Generiert zu Beginn 10 Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="27">
+      <ModellElementGroesse h="150" w="350" x="550" y="50"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,195,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="28">
+      <ModellElementGroesse h="19" w="102" x="555" y="175"/>
+      <ModellElementTextzeile>Max. 10 Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="29">
+      <ModellElementGroesse h="19" w="94" x="1105" y="175"/>
+      <ModellElementTextzeile>Max. 3 Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="30">
+      <ModellElementGroesse h="19" w="94" x="1505" y="175"/>
+      <ModellElementTextzeile>Max. 3 Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="31">
+      <ModellElementName>N(8)+N(9)</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="825" y="165"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">N(8)+N(9)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="63">
+      <ModellElementName>N(14)+N(15)</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="1375" y="165"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">N(14)+N(15)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="32">
+      <ModellElementName>N(17)</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="1625" y="165"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">N(17)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="35">
+      <ModellElementGroesse h="19" w="8" x="1705" y="490"/>
+      <ModellElementTextzeile>3</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="36">
+      <ModellElementGroesse h="38" w="235" x="555" y="55"/>
+      <ModellElementTextzeile>Abschnitt A</ModellElementTextzeile>
+      <ModellElementTextzeile>(gesteuert durch Quelle &amp; Signal)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="37">
+      <ModellElementGroesse h="38" w="222" x="1105" y="55"/>
+      <ModellElementTextzeile>Abschnitt B</ModellElementTextzeile>
+      <ModellElementTextzeile>(gesteuert durch "Schranke B")</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="38">
+      <ModellElementGroesse h="38" w="158" x="1505" y="55"/>
+      <ModellElementTextzeile>Abschnitt C (gesteuert</ModellElementTextzeile>
+      <ModellElementTextzeile>durch "Schranke C")</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="40">
+      <ModellElementGroesse h="19" w="244" x="1100" y="430"/>
+      <ModellElementTextzeile>Anzahl Kunden in Abschnitten B und C</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementDuplizieren id="11">
+      <ModellElementGroesse h="50" w="100" x="350" y="100"/>
+      <ModellElementVerbindung Element="47" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="45" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="46" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementBedienstation id="33">
+      <ModellElementName>Station D</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="350"/>
+      <ModellElementVerbindung Element="46" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="39" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener D"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="34">
+      <ModellElementName>Station E</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="350"/>
+      <ModellElementVerbindung Element="39" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener E"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="39">
+      <ModellElementVerbindung Element1="33" Element2="34" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="41">
+      <ModellElementName>Station F</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="350"/>
+      <ModellElementVerbindung Element="42" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="44" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener F"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="42">
+      <ModellElementVerbindung Element1="34" Element2="41" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="43">
+      <ModellElementGroesse h="50" w="100" x="800" y="350"/>
+      <ModellElementVerbindung Element="44" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="44">
+      <ModellElementVerbindung Element1="41" Element2="43" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="45">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="46">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="33" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="47">
+      <ModellElementVerbindung Element1="5" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationLinienDiagramm id="48">
+      <ModellElementGroesse h="200" w="600" x="350" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="4" Minimum="0">N(34)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="4" Minimum="0">N(41)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="49">
+      <ModellElementGroesse h="19" w="262" x="350" y="430"/>
+      <ModellElementTextzeile>Anzahl Kunden an den Stationen E und F</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="50">
+      <ModellElementGroesse h="19" w="8" x="955" y="490"/>
+      <ModellElementTextzeile>3</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="51">
+      <ModellElementGroesse h="19" w="332" x="435" y="300"/>
+      <ModellElementTextzeile>Zu Vergleich: Push-Produktion ohne Schranken</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="52">
+      <ModellElementGroesse h="19" w="385" x="435" y="320"/>
+      <ModellElementTextzeile>Allerdings werden die Ankünfte durch das Pull-Signal limitiert.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="53">
+      <ModellElementGroesse h="45" w="324" x="550" y="205"/>
+      <ModellElementTextzeile>"Schranke B" gibt nur Kunden für die Bedienung an Station A frei,</ModellElementTextzeile>
+      <ModellElementTextzeile>wenn sich danach in Abschnitt B und an Station A zusammen nicht</ModellElementTextzeile>
+      <ModellElementTextzeile>mehr als 3 Kunden befinden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="54">
+      <ModellElementGroesse h="45" w="323" x="1100" y="205"/>
+      <ModellElementTextzeile>"Schranke C" gibt nur Kunden für die Bedienung an Station B frei,</ModellElementTextzeile>
+      <ModellElementTextzeile>wenn sich danach in Abschnitt C und an Station B zusammen nicht</ModellElementTextzeile>
+      <ModellElementTextzeile>mehr als 3 Kunden befinden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="55">
+      <ModellElementName>Variationskoeffizient WIP an Station C</ModellElementName>
+      <ModellElementGroesse h="30" w="161" x="1100" y="300"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_cv(17)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="56">
+      <ModellElementName>Variationskoeffizient WIP an Station F</ModellElementName>
+      <ModellElementGroesse h="30" w="160" x="1100" y="350"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_cv(41)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="57">
+      <ModellElementGroesse h="60" w="126" x="950" y="165"/>
+      <ModellElementTextzeile>Wenn ein Kunde dieses</ModellElementTextzeile>
+      <ModellElementTextzeile>Signal passiert, wird</ModellElementTextzeile>
+      <ModellElementTextzeile>an der Quelle eine</ModellElementTextzeile>
+      <ModellElementTextzeile>Kundenankunft ausgelöst.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="81">
+      <ModellElementGroesse h="23" w="461" x="50" y="50"/>
+      <ModellElementTextzeile>Push- und Pull-Produktion mit mehreren Abschnitten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationAmpel id="124">
+      <ModellElementGroesse h="50" w="25" x="1470" y="50"/>
+      <ModellElementAmpelBedingung Licht="rot">N(17)&gt;=3</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementAnimationAmpel id="58">
+      <ModellElementGroesse h="50" w="25" x="1070" y="50"/>
+      <ModellElementAmpelBedingung Licht="rot">N(14)+N(15)&gt;=3</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementAnimationAmpel id="59">
+      <ModellElementGroesse h="50" w="25" x="520" y="50"/>
+      <ModellElementAmpelBedingung Licht="rot">N(8)+N(9)&gt;=10</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+  </ModellElemente>
+  <Ressourcen>
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener C" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener D" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener E" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener F" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+</Modell>

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>1.0.0</ModelVersion>
+  <ModelName>Machine with set up times</ModelName>
+  <ModelDescription/>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">1000000</ModelClients>
+  <ModelWarmUpPhase>0.05</ModelWarmUpPhase>
+  <ModelTerminationCondition Active="0"/>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelRandomNumbersSeed Active="0">0</ModelRandomNumbersSeed>
+  <ModelElements>
+    <ModelElementSource id="2">
+      <ModelElementName>Workpieces A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="64" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (120)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementSource id="1">
+      <ModelElementName>Workpieces B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
+      <ModelElementConnection Element="65" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (120)</ModelElementDistribution>
+    </ModelElementSource>
+    <ModelElementDecideJS id="4">
+      <ModelElementSize h="50" w="100" x="1200" y="200"/>
+      <ModelElementDecideScript>var type=Simulation.calc("ClientData(1)");
+var mode=Simulation.calc("Mode");
+
+switch (mode) {
+  case 0:
+    if (type==1) {exit=1; mode=1;} else {exit=3; mode=2;}
+    break;
+  case 1:
+    if (type==1) {exit=2;} else {exit=3; mode=2;}
+    break;
+  case 2:
+    if (type==1) {exit=1; mode=1;} else {exit=4;}
+    break;
+}
+
+Simulation.set("Mode",mode);
+Output.print(exit);</ModelElementDecideScript>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementDecideJS>
+    <ModelElementDelay id="5">
+      <ModelElementName>Set up time A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1350" y="100"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="56" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementDelay id="6">
+      <ModelElementName>Set up time B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1350" y="305"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="58" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementReleaseResource id="7">
+      <ModelElementName>Operator</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1650" y="200"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="50" Type="Out"/>
+      <ModelElementSeizedResource>Operator</ModelElementSeizedResource>
+    </ModelElementReleaseResource>
+    <ModelElementSeizeResource id="8">
+      <ModelElementName>Operator</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="200"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="35" Type="Out"/>
+      <ModelElementOperators Count="1" Group="Operator"/>
+      <ModelElementOperatorPriority>1</ModelElementOperatorPriority>
+    </ModelElementSeizeResource>
+    <ModelElementProcessStation id="9">
+      <ModelElementName>Mode A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1500" y="150"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="57" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Werkstücke A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Werkstücke B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Workpieces A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Workpieces B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Pseudo operator A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="10">
+      <ModelElementSize h="50" w="100" x="1850" y="200"/>
+      <ModelElementConnection Element="50" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="14">
+      <ModelElementName>Exit 1</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="15">
+      <ModelElementName>Mode B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1505" y="250"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="59" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Werkstücke A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Werkstücke B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Workpieces A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Workpieces B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Pseudo operator B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="16">
+      <ModelElementName>Exit 2</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementName>Exit 3</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementName>Exit 4</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="15" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="9" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="15" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="30">
+      <ModelElementSize h="23" w="228" x="50" y="50"/>
+      <ModelElementTextLine>Machine with set up times</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDecide id="11">
+      <ModelElementSize h="50" w="100" x="550" y="200"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="41" Type="In"/>
+      <ModelElementConnection ClientType="Workpieces A" Element="13" Type="Out"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDifferenceCounter id="26">
+      <ModelElementName>Waiting A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="42" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDifferenceCounter id="12">
+      <ModelElementName>Waiting B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="300"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="69" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementEdge id="13">
+      <ModelElementName>Workpieces A</ModelElementName>
+      <ModelElementConnection Element1="11" Element2="26" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="25">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="11" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDifferenceCounter id="29">
+      <ModelElementName>Waiting A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="100"/>
+      <ModelElementConnection Element="36" Type="In"/>
+      <ModelElementConnection Element="47" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDecide id="31">
+      <ModelElementSize h="50" w="100" x="950" y="200"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="35" Type="In"/>
+      <ModelElementConnection ClientType="Workpieces A" Element="36" Type="Out"/>
+      <ModelElementConnection Element="37" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDifferenceCounter id="32">
+      <ModelElementName>Waiting B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="300"/>
+      <ModelElementConnection Element="37" Type="In"/>
+      <ModelElementConnection Element="48" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementEdge id="35">
+      <ModelElementConnection Element1="8" Element2="31" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="36">
+      <ModelElementName>Workpieces A</ModelElementName>
+      <ModelElementConnection Element1="31" Element2="29" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="37">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="31" Element2="32" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="33">
+      <ModelElementSize h="10" w="10" x="470" y="220"/>
+      <ModelElementConnection Element="66" Type="In"/>
+      <ModelElementConnection Element="67" Type="In"/>
+      <ModelElementConnection Element="41" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="34">
+      <ModelElementSize h="10" w="10" x="1070" y="220"/>
+      <ModelElementConnection Element="49" Type="In"/>
+      <ModelElementConnection Element="51" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="38">
+      <ModelElementSize h="10" w="10" x="1070" y="120"/>
+      <ModelElementConnection Element="47" Type="In"/>
+      <ModelElementConnection Element="51" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="39">
+      <ModelElementSize h="10" w="10" x="1070" y="320"/>
+      <ModelElementConnection Element="48" Type="In"/>
+      <ModelElementConnection Element="49" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="41">
+      <ModelElementConnection Element1="33" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="47">
+      <ModelElementConnection Element1="29" Element2="38" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="48">
+      <ModelElementConnection Element1="32" Element2="39" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="49">
+      <ModelElementConnection Element1="39" Element2="34" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="51">
+      <ModelElementConnection Element1="38" Element2="34" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="54">
+      <ModelElementSize h="355" w="600" x="500" y="50"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="55">
+      <ModelElementSize h="350" w="650" x="1150" y="50"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,165,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementVertex id="18">
+      <ModelElementSize h="10" w="10" x="1550" y="325"/>
+      <ModelElementConnection Element="58" Type="In"/>
+      <ModelElementConnection Element="59" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="20">
+      <ModelElementSize h="10" w="10" x="1545" y="120"/>
+      <ModelElementConnection Element="56" Type="In"/>
+      <ModelElementConnection Element="57" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="56">
+      <ModelElementConnection Element1="5" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="57">
+      <ModelElementConnection Element1="20" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="58">
+      <ModelElementConnection Element1="6" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="59">
+      <ModelElementConnection Element1="18" Element2="15" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationTextSelect id="60">
+      <ModelElementName>Current operation mode</ModelElementName>
+      <ModelElementSize h="30" w="98" x="1200" y="120"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <TextDefault>no configuration</TextDefault>
+      <TextExpression Expression="Mode==1">Workpiece A</TextExpression>
+      <TextExpression Expression="Mode==2">Workpiece B</TextExpression>
+    </ModelElementAnimationTextSelect>
+    <ModelElementAnimationText id="62">
+      <ModelElementName>Workpieces A in queue</ModelElementName>
+      <ModelElementSize h="30" w="96" x="780" y="160"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter(26)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="63">
+      <ModelElementName>Workpieces B in queue</ModelElementName>
+      <ModelElementSize h="30" w="96" x="785" y="260"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter(12)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementVariable id="52">
+      <ModelElementName>Type A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="64" Type="In"/>
+      <ModelElementConnection Element="66" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">1</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementVariable id="53">
+      <ModelElementName>Type B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="300"/>
+      <ModelElementConnection Element="65" Type="In"/>
+      <ModelElementConnection Element="67" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">2</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="64">
+      <ModelElementName>Arrivals (Workpieces A)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="52" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="65">
+      <ModelElementName>Arrivals (Workpieces B)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="53" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="66">
+      <ModelElementConnection Element1="52" Element2="33" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="67">
+      <ModelElementConnection Element1="53" Element2="33" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementHold id="61">
+      <ModelElementName>If mode B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="300"/>
+      <ModelElementConnection Element="69" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementHoldCondition>Mode==0 || Mode==2 || Resource(1)==0</ModelElementHoldCondition>
+    </ModelElementHold>
+    <ModelElementHold id="68">
+      <ModelElementName>If modeA</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="100"/>
+      <ModelElementConnection Element="42" Type="In"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+      <ModelElementHoldCondition>Mode==0 || Mode==1 || Resource(1)==0</ModelElementHoldCondition>
+    </ModelElementHold>
+    <ModelElementEdge id="42">
+      <ModelElementConnection Element1="26" Element2="68" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="69">
+      <ModelElementConnection Element1="12" Element2="61" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="34" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="50">
+      <ModelElementConnection Element1="7" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="61" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementConnection Element1="68" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationBarDiagram id="40">
+      <ModelElementSize h="150" w="100" x="500" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>10</ModelElementMaximumValue>
+      <ModelElementDiagramElement BarColor="0,0,255">Counter(26)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Counter(12)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationTrafficLights id="43">
+      <ModelElementSize h="75" w="35" x="805" y="75"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">Mode==2 &amp;&amp;  Resource(1)&gt;0</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementAnimationTrafficLights id="44">
+      <ModelElementSize h="75" w="35" x="805" y="300"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">Mode==1 &amp;&amp;  Resource(1)&gt;0</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementText id="45">
+      <ModelElementSize h="19" w="92" x="500" y="430"/>
+      <ModelElementTextLine>Waiting clients</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="46">
+      <ModelElementSize h="150" w="450" x="650" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="3" Minimum="0">3-Mode</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>3000</ModelElementDiagramTimeRange>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="70">
+      <ModelElementSize h="19" w="102" x="650" y="430"/>
+      <ModelElementTextLine>Operation mode</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="71">
+      <ModelElementSize h="19" w="48" x="1105" y="540"/>
+      <ModelElementTextLine>Mode B</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="72">
+      <ModelElementSize h="19" w="48" x="1105" y="490"/>
+      <ModelElementTextLine>Mode A</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="73">
+      <ModelElementSize h="23" w="54" x="505" y="55"/>
+      <ModelElementTextLine>Queue</ModelElementTextLine>
+      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="74">
+      <ModelElementSize h="23" w="65" x="1155" y="55"/>
+      <ModelElementTextLine>Process</ModelElementTextLine>
+      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources>
+    <Resource Name="Operator" Type="Number" Value="1"/>
+    <Resource Name="Pseudo operator A" Type="Number" Value="1"/>
+    <Resource Name="Pseudo operator B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Color="0,0,255" Icon="Ball_blue" Name="Werkstücke A"/>
+    <ClientData Color="255,0,0" Icon="Ball_red" Name="Werkstücke B"/>
+    <ClientData Color="0,0,255" Icon="Ball_blue" Name="Workpieces A"/>
+    <ClientData Color="255,0,0" Icon="Ball_red" Name="Workpieces B"/>
+  </ClientTypeData>
+  <ModelSchedules/>
+  <InitialVariable Name="Mode">0</InitialVariable>
+</Model>

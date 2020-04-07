@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Tank</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Tank</h1>
+
+<p>
+The element contains a value which can change over the time.
+Each tank contains one or more valves. Flows (see <a href="ModelElementTankFlowByClient.html">Flow</a>
+and <a href="ModelElementTankFlowBySignal.html">Flow (Signal)</a> elements)
+can be connected to the valves.The valves define how much of the content of the tank
+can flow per time unit, the flows define how much is to be transported or how long
+the flow should be active.
+</p>
+
+<p>
+In contrast to the <a href="ModelElementAnalogValue.html">Analog value</a> elements
+the value of a tank can never be negative and always has an upper limit (the capacity of the tank).
+</p>
+
+<p>
+It is not necessary to connect a flow to a valve at all times.
+If a flow is connect to a valve, it will be served directly.
+If several flows are connect, only one flow will be served at any one time.
+Only when the first time flow has been processed, the next is activated.
+This means multiple flows will not share the available flow rate of a valve.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the tank element has no further meaning for the simulation.
+Next to the capacity, the initial value and the valves with their maximum flow per time unit
+one can specify how often the discreet simulation should be informed about the change of
+the continuous value.
+</p> 
+
+</body>
+</html>

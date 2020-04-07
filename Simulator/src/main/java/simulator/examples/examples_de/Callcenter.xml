@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.3.0</ModellVersion>
+  <ModellName>Modell eines komplexen Callcenter-Systems</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="300"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="450"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="3">
+      <ModellElementName>Kunden C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="600"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (30)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementZaehler id="4">
+      <ModellElementName>Erstanrufer</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="450"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Anrufart</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="5">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="4" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Kunden C)</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="8">
+      <ModellElementGroesse h="50" w="100" x="700" y="450"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="32" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Kundentyp="Kunden A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="20" Kundentyp="Kunden B" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementVerzoegerung id="9">
+      <ModellElementGroesse h="50" w="100" x="1000" y="1050"/>
+      <ModellElementVerbindung Element="52" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (900)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementZaehler id="10">
+      <ModellElementName>Wiederholer</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="1050"/>
+      <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Anrufart</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="11">
+      <ModellElementName>Weiterleitungen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="150"/>
+      <ModellElementVerbindung Element="73" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Anrufart</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementBedienstation id="16">
+      <ModellElementName>Thema A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="300"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="79" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="42" Status="Warteabbruch" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (300;150)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Nachbearbeitungszeiten">Lognormalverteilung (30;20)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Abbruchzeiten">Exponentialverteilung (600)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden C">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="17">
+      <ModellElementName>Thema B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="450"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="78" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="44" Status="Warteabbruch" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (600;450)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Nachbearbeitungszeiten">Lognormalverteilung (30;20)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Abbruchzeiten">Exponentialverteilung (600)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden C">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBediener Alternative="2" Anzahl="1" Gruppe="Multi-Skill B+C"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="18">
+      <ModellElementName>Thema C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="600"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="77" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="46" Status="Warteabbruch" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (180;60)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Nachbearbeitungszeiten">Lognormalverteilung (60;45)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Abbruchzeiten">Exponentialverteilung (600)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden C">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener C"/>
+      <ModellElementBediener Alternative="2" Anzahl="1" Gruppe="Multi-Skill B+C"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="19">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="8" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="22">
+      <ModellElementName>Weiterleitung?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1600" y="350"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="109" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="128" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="129" Rate="3" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEnde id="23">
+      <ModellElementGroesse h="50" w="100" x="2300" y="600"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementZaehler id="24">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="2050" y="450"/>
+      <ModellElementVerbindung Element="126" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Erfolgstyp</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="25">
+      <ModellElementName>Abbruch</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="2050" y="800"/>
+      <ModellElementVerbindung Element="53" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Erfolgstyp</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="26">
+      <ModellElementVerbindung Element1="24" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="25" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="28">
+      <ModellElementGroesse h="10" w="10" x="945" y="395"/>
+      <ModellElementVerbindung Element="42" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="43" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKasten id="29">
+      <ModellElementGroesse h="450" w="405" x="50" y="250"/>
+      <ModellElementLinienBreite>5</ModellElementLinienBreite>
+      <ModellElementFarbe>0,255,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementEcke id="13">
+      <ModellElementGroesse h="10" w="10" x="545" y="470"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="32" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="4" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="11" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="10" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="30">
+      <ModellElementVerbindung Element1="9" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="31">
+      <ModellElementGroesse h="23" w="97" x="55" y="255"/>
+      <ModellElementTextzeile>Erstanrufer</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,225,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="32">
+      <ModellElementVerbindung Element1="13" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="33">
+      <ModellElementName>Callcenter-System</ModellElementName>
+      <ModellElementGroesse h="500" w="500" x="650" y="250"/>
+      <ModellElementLinienBreite>5</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementEcke id="34">
+      <ModellElementGroesse h="10" w="10" x="945" y="545"/>
+      <ModellElementVerbindung Element="44" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="45" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="35">
+      <ModellElementGroesse h="10" w="10" x="945" y="695"/>
+      <ModellElementVerbindung Element="46" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="47" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="36">
+      <ModellElementGroesse h="10" w="10" x="1045" y="395"/>
+      <ModellElementVerbindung Element="43" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="49" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="37">
+      <ModellElementGroesse h="10" w="10" x="1045" y="545"/>
+      <ModellElementVerbindung Element="45" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="49" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="50" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="38">
+      <ModellElementGroesse h="10" w="10" x="1045" y="695"/>
+      <ModellElementVerbindung Element="47" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="50" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="51" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="42">
+      <ModellElementName>Warteabbruch</ModellElementName>
+      <ModellElementVerbindung Element1="16" Element2="28" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="43">
+      <ModellElementVerbindung Element1="28" Element2="36" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="44">
+      <ModellElementName>Warteabbruch</ModellElementName>
+      <ModellElementVerbindung Element1="17" Element2="34" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="45">
+      <ModellElementVerbindung Element1="34" Element2="37" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="46">
+      <ModellElementName>Warteabbruch</ModellElementName>
+      <ModellElementVerbindung Element1="18" Element2="35" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="47">
+      <ModellElementVerbindung Element1="35" Element2="38" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="48">
+      <ModellElementName>Wiederholung?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1000" y="800"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="51" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="52" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="53" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="49">
+      <ModellElementVerbindung Element1="36" Element2="37" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="50">
+      <ModellElementVerbindung Element1="37" Element2="38" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="51">
+      <ModellElementVerbindung Element1="38" Element2="48" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="52">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="48" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="53">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="48" Element2="25" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="58">
+      <ModellElementGroesse h="150" w="700" x="450" y="1000"/>
+      <ModellElementLinienBreite>5</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="59">
+      <ModellElementGroesse h="23" w="385" x="455" y="1005"/>
+      <ModellElementTextzeile>Wiederholer (warten außerhalb des Systems)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="60">
+      <ModellElementGroesse h="23" w="157" x="655" y="255"/>
+      <ModellElementTextzeile>Callcenter-System</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="61">
+      <ModellElementGroesse h="26" w="423" x="50" y="50"/>
+      <ModellElementTextzeile>Modell eines komplexen Callcenter-Systems</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">20</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="62">
+      <ModellElementGroesse h="95" w="267" x="50" y="750"/>
+      <ModellElementTextzeile>Ankunftsraten der Erstanrufer:</ModellElementTextzeile>
+      <ModellElementTextzeile>E[I_A]=1 Kunden/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile>E[I_B]=0,75 Kunden/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile>E[I_C]=2 Kunden/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile>(Zwischenankunftszeiten sind Exp-verteilt)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="63">
+      <ModellElementGroesse h="38" w="221" x="50" y="860"/>
+      <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
+      <ModellElementTextzeile>Ankünfte über Zeitpläne</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>180,0,180</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="55">
+      <ModellElementName>Neuer Typ</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1600" y="150"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="120" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="66" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="67" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="68" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementZuweisung id="56">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="50"/>
+      <ModellElementVerbindung Element="66" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="70" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="57">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="150"/>
+      <ModellElementVerbindung Element="67" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="71" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="65">
+      <ModellElementName>Kunden C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="250"/>
+      <ModellElementVerbindung Element="68" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="72" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="66">
+      <ModellElementName>Rate 1 (33,3%)</ModellElementName>
+      <ModellElementVerbindung Element1="55" Element2="56" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="67">
+      <ModellElementName>Rate 1 (33,3%)</ModellElementName>
+      <ModellElementVerbindung Element1="55" Element2="57" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="68">
+      <ModellElementName>Rate 1 (33,3%)</ModellElementName>
+      <ModellElementVerbindung Element1="55" Element2="65" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementEcke id="69">
+      <ModellElementGroesse h="10" w="10" x="1145" y="170"/>
+      <ModellElementVerbindung Element="70" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="71" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="72" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="73" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="70">
+      <ModellElementName>Neuer Kundentyp: Kunden A</ModellElementName>
+      <ModellElementVerbindung Element1="56" Element2="69" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="71">
+      <ModellElementName>Neuer Kundentyp: Kunden B</ModellElementName>
+      <ModellElementVerbindung Element1="57" Element2="69" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="72">
+      <ModellElementName>Neuer Kundentyp: Kunden C</ModellElementName>
+      <ModellElementVerbindung Element1="65" Element2="69" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="73">
+      <ModellElementVerbindung Element1="69" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="75">
+      <ModellElementGroesse h="38" w="292" x="1800" y="315"/>
+      <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
+      <ModellElementTextzeile>Weiterleitungsquote abhängig vom Kundentyp</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>180,0,180</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="76">
+      <ModellElementGroesse h="38" w="341" x="1600" y="65"/>
+      <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
+      <ModellElementTextzeile>Kundentyp-Änderungsraten abhängig vom Kundentyp</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>180,0,180</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEcke id="39">
+      <ModellElementGroesse h="10" w="10" x="1095" y="320"/>
+      <ModellElementVerbindung Element="79" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="80" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="40">
+      <ModellElementGroesse h="10" w="10" x="1095" y="470"/>
+      <ModellElementVerbindung Element="78" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="80" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="81" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="112" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="41">
+      <ModellElementGroesse h="10" w="10" x="1095" y="620"/>
+      <ModellElementVerbindung Element="77" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="81" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="77">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="18" Element2="41" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="78">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="17" Element2="40" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="79">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="16" Element2="39" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="80">
+      <ModellElementVerbindung Element1="39" Element2="40" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="81">
+      <ModellElementVerbindung Element1="41" Element2="40" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationBalken id="83">
+      <ModellElementGroesse h="100" w="25" x="700" y="600"/>
+      <ModellElementDatenausdruck>NQ(16)+NQ(17)+NQ(18)</ModellElementDatenausdruck>
+      <ModellElementDatenbereich Maximum="25" Minimum="0" Richtung="nach oben"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementBalkenFarbe>255,0,0</ModellElementBalkenFarbe>
+    </ModellElementAnimationBalken>
+    <ModellElementText id="84">
+      <ModellElementGroesse h="32" w="53" x="700" y="700"/>
+      <ModellElementTextzeile>Wartende</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="85">
+      <ModellElementGroesse h="76" w="351" x="650" y="800"/>
+      <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
+      <ModellElementTextzeile>Kosten</ModellElementTextzeile>
+      <ModellElementTextzeile>Individuelle Schichtpläne für die Agenten</ModellElementTextzeile>
+      <ModellElementTextzeile>Multi-Skill-Agenten, die an mehreren Stationen arbeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>180,0,180</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="86">
+      <ModellElementGroesse h="247" w="240" x="1200" y="500"/>
+      <ModellElementTextzeile>Bedienraten:</ModellElementTextzeile>
+      <ModellElementTextzeile>E[S_A]=0,2 Kunden/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile>E[S_B]=0,1 Kunden/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile>E[S_C]=0,33 Kunden/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Nachbearbeitungsraten:</ModellElementTextzeile>
+      <ModellElementTextzeile>E[S2_A]=2 Kunden/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile>E[S2_B]=2 Kunden/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile>E[S2_C]=1 Kunde/Minute</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>(Bedien- und Nachbearbeitungszeiten</ModellElementTextzeile>
+      <ModellElementTextzeile>sind Log-Normal-verteilt mit</ModellElementTextzeile>
+      <ModellElementTextzeile>verschiedenen CV.)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="87">
+      <ModellElementGroesse h="19" w="250" x="855" y="1110"/>
+      <ModellElementTextzeile>Mittlerer Wiederholabstand: 15 Minuten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="88">
+      <ModellElementGroesse h="38" w="340" x="1800" y="900"/>
+      <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
+      <ModellElementTextzeile>Zählung von Erfolg und Abbruch auf Kundentyp-Basis</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>180,0,180</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="90">
+      <ModellElementName>Anteil Abbrecher</ModellElementName>
+      <ModellElementGroesse h="30" w="81" x="2050" y="750"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(25)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="91">
+      <ModellElementName>Anteil Erfolg</ModellElementName>
+      <ModellElementGroesse h="30" w="81" x="2050" y="400"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(24)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="92">
+      <ModellElementName>Anzahl Erstanrufer</ModellElementName>
+      <ModellElementGroesse h="30" w="77" x="325" y="400"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationLinienDiagramm id="93">
+      <ModellElementGroesse h="150" w="350" x="1250" y="900"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="1" Minimum="0">Resource()/(Resource_count(1)+Resource_count(2)+Resource_count(3)+Resource_count(4))</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>300</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="94">
+      <ModellElementGroesse h="19" w="156" x="1250" y="880"/>
+      <ModellElementTextzeile>Auslastung der Bediener</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="95">
+      <ModellElementName>Anzahl Weiterleitungen</ModellElementName>
+      <ModellElementGroesse h="30" w="95" x="500" y="370"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter(11)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="96">
+      <ModellElementName>Anzahl Wiederholungen</ModellElementName>
+      <ModellElementGroesse h="30" w="97" x="500" y="550"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter(10)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationBalkenDiagramm id="97">
+      <ModellElementGroesse h="130" w="150" x="350" y="770"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementMaximalwert>1</ModellElementMaximalwert>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">Part(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Part(10)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,165,0">Part(11)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="98">
+      <ModellElementGroesse h="19" w="139" x="350" y="750"/>
+      <ModellElementTextzeile>Anteile der Anrufarten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="99">
+      <ModellElementName>Erstanrufer</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="350" y="910"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="100">
+      <ModellElementName>Weiterleitungen</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="470" y="910"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(11)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="101">
+      <ModellElementName>Wiederholungen</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="400" y="910"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(10)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="102">
+      <ModellElementName>Mittlere Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="1250" y="1070"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg()/(Resource_count(1)+Resource_count(2)+Resource_count(3)+Resource_count(4))</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="64">
+      <ModellElementName>Single-Skill A Agenten</ModellElementName>
+      <ModellElementGroesse h="30" w="91" x="785" y="320"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="89">
+      <ModellElementName>Single-Skill B Agenten</ModellElementName>
+      <ModellElementGroesse h="30" w="91" x="1200" y="370"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="103">
+      <ModellElementGroesse h="19" w="83" x="785" y="295"/>
+      <ModellElementTextzeile>Callcenter A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="104">
+      <ModellElementGroesse h="19" w="83" x="1200" y="350"/>
+      <ModellElementTextzeile>Callcenter B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="105">
+      <ModellElementName>Multi-Skill B+C Agenten (gemeinsam mit Callcenter C)</ModellElementName>
+      <ModellElementGroesse h="30" w="226" x="1200" y="405"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="106">
+      <ModellElementName>Multi-Skill B+C Agenten (gemeinsam mit Callcenter B)</ModellElementName>
+      <ModellElementGroesse h="30" w="225" x="785" y="715"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="107">
+      <ModellElementName>Single-Skill C Agenten</ModellElementName>
+      <ModellElementGroesse h="30" w="92" x="785" y="685"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(3)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="108">
+      <ModellElementGroesse h="19" w="83" x="780" y="665"/>
+      <ModellElementTextzeile>Callcenter C</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="54">
+      <ModellElementName>Multskill?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1450" y="450"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="112" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="Alternative()==2" Element="109" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="110" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementVerzweigen id="82">
+      <ModellElementName>Weiterleitung?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1600" y="550"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="110" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="114" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="122" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="109">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="54" Element2="22" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="110">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="54" Element2="82" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="112">
+      <ModellElementVerbindung Element1="40" Element2="54" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="113">
+      <ModellElementGroesse h="10" w="10" x="1645" y="475"/>
+      <ModellElementVerbindung Element="114" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="118" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="114">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="82" Element2="113" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="116">
+      <ModellElementGroesse h="10" w="10" x="1745" y="475"/>
+      <ModellElementVerbindung Element="118" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="121" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="117">
+      <ModellElementGroesse h="10" w="10" x="1745" y="170"/>
+      <ModellElementVerbindung Element="131" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="120" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="118">
+      <ModellElementVerbindung Element1="113" Element2="116" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="120">
+      <ModellElementVerbindung Element1="117" Element2="55" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="111">
+      <ModellElementGroesse h="10" w="10" x="1845" y="370"/>
+      <ModellElementVerbindung Element="129" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="125" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="115">
+      <ModellElementGroesse h="10" w="10" x="1845" y="570"/>
+      <ModellElementVerbindung Element="122" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="124" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="122">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="82" Element2="115" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="123">
+      <ModellElementGroesse h="10" w="10" x="1845" y="470"/>
+      <ModellElementVerbindung Element="124" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="125" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="126" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="124">
+      <ModellElementVerbindung Element1="115" Element2="123" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="125">
+      <ModellElementVerbindung Element1="111" Element2="123" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="126">
+      <ModellElementVerbindung Element1="123" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="127">
+      <ModellElementGroesse h="57" w="359" x="1500" y="650"/>
+      <ModellElementTextzeile>Wurde der Kunde von einem Multi-Skill-Agenten bedient,</ModellElementTextzeile>
+      <ModellElementTextzeile>so wird er nur mit einer geringeren Wahrscheinlichkeit</ModellElementTextzeile>
+      <ModellElementTextzeile>weitergeleitet.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEcke id="74">
+      <ModellElementGroesse h="10" w="10" x="1645" y="270"/>
+      <ModellElementVerbindung Element="128" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="130" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="119">
+      <ModellElementGroesse h="10" w="10" x="1745" y="270"/>
+      <ModellElementVerbindung Element="121" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="130" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="131" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="121">
+      <ModellElementVerbindung Element1="116" Element2="119" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="130">
+      <ModellElementVerbindung Element1="74" Element2="119" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="131">
+      <ModellElementVerbindung Element1="119" Element2="117" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="128">
+      <ModellElementName>Rate 1 (25%)</ModellElementName>
+      <ModellElementVerbindung Element1="22" Element2="74" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="129">
+      <ModellElementName>Rate 3 (75%)</ModellElementName>
+      <ModellElementVerbindung Element1="22" Element2="111" Typ="Kante"/>
+    </ModellElementKante>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="8"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="8"/>
+    <Ressource Name="Bediener C" Typ="Anzahl" Wert="7"/>
+    <Ressource Name="Multi-Skill B+C" Typ="Anzahl" Wert="5"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Farbe="0,0,255" Name="Kunden A"/>
+    <KundenDaten Farbe="255,0,0" Icon="user_red" Name="Kunden B"/>
+    <KundenDaten Farbe="0,225,0" Icon="user_green" Name="Kunden C"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

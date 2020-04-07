@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Setup process station</title>
+<link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+<body>
+
+<h1>Setup process station</h1>
+
+<p>
+At most stations, it is possible to configure how clients are to be processed.
+In a process station, e.g. one can setup how long the service process should last,
+and at a client source can be set, how many clients are to be generated, at which
+interarrival times and of which types.
+</p>
+
+<p>
+After configuring the source, the <b>process station</b> has to be
+configured. (The exit element has no settings.) The configuration dialog
+of an element is opened by double-clicking on the element.
+The process station configuration dialog consists of several pages:
+</p>
+
+<ul>
+  <li><b>Processing times</b>:
+  <span style="color: orange;">Set an exponentially distributed with average duration of 80 seconds here,</span>
+  similar to the source.
+  <span style="color: green;">Time base (seconds) and recording the delay times as process times can be kept without any change.</span>
+  </li>
+  <li><b>Setup times</b>:
+  When serving clients of different types may be setup times between clients of different types are needed.  
+  <span style="color: green;">In this example, setup times should be kept disabled.</span> 
+  </li>  
+  <li><b>Post processing times</b>:
+  After a client has been served, a post processing time may be necessary before the operator will be available again.  
+  <span style="color: green;">In this example, post processing times should be kept disabled.</span> 
+  </li>
+  <li><b>Waiting time tolerances</b>:
+  If a client has to wait too long, he may cancels waiting (because his waiting time tolerance has been exceeded).
+  <span style="color: green;">In this example, the waiting time tolerances should be kept disabled.</span> 
+  </li>
+  <li><b>Priorities and batch sizes</b>:
+  On this page you can specify by which strategy clients are taken from the queue and whether batch operations
+  are to be performed. The selection order "w" means a priorization of the clients by their waiting times,
+  that is, using a FIFO queue.
+  <span style="color: green;">In this example, the value "w" should be maintained for the priority determination of the clients and a batch size of 1.</span> 
+  </li>
+  <li><b>Operators</b>:
+  This page can be used to determine which numbers of which types of operators are required to serve a client.
+  <span style="color: orange;">Click "Add needed operators group" and confirm with "OK" to create a group consisting
+  of one operator and add it as a necessary operator group.</span>
+  </li>
+  <li><b>Costs</b>:
+  On this page you can optionally set costs for the operations.
+  </li>
+</ul>
+
+<p><b>Concrete steps:</b></p>
+
+<ul>
+<li>Double click on the process station:<br>
+<img src="Process.png" style="border: 1px solid black; padding: 5px; margin-top: 15px; margin-bottom: 30px;"></li>
+<li>On the "<b>Processing times</b>" page click on <b>Edit</b> above the distribution diagram and select
+<b>80</b> (seconds) as the average operating time.</li>
+<li>On the "<b>Operators</b>" page, click "<b>Add needed operators group</b>", and close the dialog by clicking on "OK".</li>
+</ul>
+ 
+</body>
+</html>

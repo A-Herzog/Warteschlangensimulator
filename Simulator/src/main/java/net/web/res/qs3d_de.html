@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <title>Warteschlangensimulator</title>
+  <style type="text/css">
+  body {font-family: sans-serif; margin: 0; padding: 0;}
+  
+  .button {
+  color: white;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  text-decoration: none;
+  transition-duration: 0.25s;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: white;
+  background-color: blue;  
+  transition-duration: 0.25s;
+}
+  
+  </style>
+  <script type="text/javascript" src="3d/three.min.js"></script>
+  <script type="text/javascript" src="3d/binary.js"></script>
+  <script type="text/javascript" src="3d/viewer.js"></script>  
+  <script type="text/javascript" src="3d/language.js"></script>
+  <script type="text/javascript" src="3d/scene.js"></script>  
+  <script type="text/javascript" src="3d/model.js"></script>
+  <script type="text/javascript" src="json_variable"></script>
+
+</head>
+
+<body onresize="resizeWindow();">
+
+<div id="viewerArea" style="overflow: hidden;"></div>
+<span id="viewerTitle" style="position: absolute; top: 5px; left: 5px; z-index: 1000; color: blue; font-size: 150%; font-weight: bold;"></span>
+<span style="position: absolute; top: 5px; right: 5px; z-index: 1000;">
+<a class="button" id="PlayPause" onclick="scene.playPause(document.getElementById('PlayPause'));">Start</a>
+<a class="button" onclick="scene.requestStep();">Schritt</a>
+<a class="button" onclick="scene.quit();">Beenden</a>
+</span>
+<span id="viewerInfo" style="position: absolute; bottom: 5px; left: 5px; z-index: 1000; color: #DDD; font-size: 75%;"></span>
+
+<script>
+'use strict';
+
+function resizeWindow() {
+  document.getElementById('viewerArea').style.height=window.innerHeight+'px';
+}
+resizeWindow();
+
+var model=new ModelReader(qs_model);
+
+var modelName=model.getAny(model.nodes,Language.xmlModelName);
+if (modelName!=null && typeof(modelName.xmlcontent)!='undefined') document.getElementById('viewerTitle').innerHTML=modelName.xmlcontent;
+
+var modelSize=model.getModelSize();
+var margin=2000;
+var scale=3;
+var rangeX=[-margin,modelSize[0]*scale+margin];
+var rangeZ=[-margin,modelSize[1]*scale+margin];
+var viewer=new Viewer3D(document.getElementById('viewerArea'),rangeX,[1,2000],rangeZ,[(rangeX[1]+rangeX[0])/2,500,rangeZ[1]]);
+var frame=new FrameBuilder(viewer.scene,textureFloor,rangeX,rangeZ,3000);
+var scene=new SceneBuilder(viewer.scene,model,scale);
+frame.build();
+scene.build();
+viewer.addControls();
+viewer.start();
+resizeWindow();
+
+setInterval(function(){
+var p=viewer.camera.position;
+  var info="";
+  info+=Language.info1+"<br>"+Language.info2+"<br>"+Language.info3+"<br>";
+  info+=viewer.currentFPS+" fps; "+Language.infoCamera+": ("+Math.round(p.x/scale)+","+Math.round(p.z/scale)+")";
+  info+="&nbsp;&nbsp; <a onclick='document.getElementById(\"viewerInfo\").style.display=\"none\";' style='color: #77F; cursor: pointer;'>"+Language.infoHide+"</a>";
+  document.getElementById("viewerInfo").innerHTML=info;
+},1000);
+
+</script>
+
+</body>
+</html>

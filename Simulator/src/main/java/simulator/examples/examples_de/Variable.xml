@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>2.3.0</ModellVersion>
+  <ModellName>Begrenzung der Anzahl an Kunden an der Bedienstation mit Hilfe einer Variable</ModellName>
+  <ModellBeschreibung>Mit Hilfe einer Zählvariable wird sichergestellt, dass sich stets maximal
+m Kunden in der Bedienstation befinden. Alle weiteren bereits eingetroffenen
+Kunden müssen an der Bedingung "a&lt;m" warten.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (55)</ModellElementVerteilung>
+    </ModellElementQuelle>
+    <ModellElementBedingung id="2">
+      <ModellElementName>a&lt;m</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="200" y="200"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementBedingungText>a&lt;m</ModellElementBedingungText>
+    </ModellElementBedingung>
+    <ModellElementVariable id="3">
+      <ModellElementName>a++</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="200"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="a">a+1</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>Bedienung</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="100"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVariable id="5">
+      <ModellElementName>a--</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="200"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="a">a-1</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementEnde id="6">
+      <ModellElementName>Ende</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="100"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="4" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="5" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="23" w="604" x="50" y="50"/>
+      <ModellElementTextzeile>Begrenzung der Kunden an der Bedienstation mit Hilfe einer Variable</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="38" w="398" x="200" y="300"/>
+      <ModellElementTextzeile>An der Bedienstation können sich maximal m Kunden befinden.</ModellElementTextzeile>
+      <ModellElementTextzeile>Alle anderen werden bereits an der Bedingung aufgehalten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="15">
+      <ModellElementGroesse h="150" w="550" x="50" y="400"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="10" Minimum="0">a</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="10" Minimum="0">m</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>9000</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="19" w="127" x="50" y="380"/>
+      <ModellElementTextzeile>Werte der Variablen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationAmpel id="17">
+      <ModellElementGroesse h="50" w="25" x="275" y="140"/>
+      <ModellElementAmpelBedingung Licht="rot">a&gt;=5</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementSchieberegler id="14">
+      <ModellElementGroesse h="50" w="150" x="650" y="400"/>
+      <ModellElementSchiebereglerVariable>m</ModellElementSchiebereglerVariable>
+      <ModellElementSchiebereglerMinimum>1</ModellElementSchiebereglerMinimum>
+      <ModellElementSchiebereglerMaximum>10</ModellElementSchiebereglerMaximum>
+      <ModellElementSchiebereglerSchrittweite>1</ModellElementSchiebereglerSchrittweite>
+    </ModellElementSchieberegler>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="19" w="126" x="650" y="380"/>
+      <ModellElementTextzeile>Wert der Variable m</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="18">
+      <ModellElementName>a=</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="650" y="475"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">a</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="53">
+      <ModellElementName>m=</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="650" y="520"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">m</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="m">5</InitialeVariable>
+</Modell>

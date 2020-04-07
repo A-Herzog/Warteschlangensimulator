@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Results overview</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+This statistics page displays the <a href="help:statistik_mittelwert">average values</a>
+of the most important indicators collected during the simulation. The identifier
+<b>E[...]</b> stands for the average value (mathematically exact: expected value of
+the corresponding distribution) of the parameter specified in brackets. The abbreviations
+correspond to the parameters specified in the headings of the respective sections.
+</p>
+
+<h3>Retrieving further information</h3>
+<p>
+Below the texts in each sections, the word "<b>details</b>" is displayed in blue.
+A click on this link leads to a statistics page, which provides further information
+(e.g. <a href="help:statistik_standardabweichung deviation">standard deviations</a> etc.)
+on the respective topic.
+</p>
+
+<h3>Average number of clients</h3>
+<p>
+The average number of clients in the system or at a station is designated by <b>E[N]</b>.
+For the collection of data for this <a href="help:statistik_mittelwert">average value</a>
+it is irrelevant whether the clients are in the queue or in the service process.
+</p>
+<p>
+The indicator <b>E[NQ]</b>, on the other hand, denotes the
+<a href="help:statistik_mittelwert">average value</a> of the number of <b>waiting</b> clients
+(i.e. not in the service process) in the respective section.
+</p>
+
+<h3>Times</h3>
+<p>
+The times are recorded both across client types and from the station side.
+The average waiting times (<b>E[W]</b>), the average transport times (<b>E[T]</b>),
+if they occur, the average service or operating times (<b>E[S]</b>) and the average
+residence time (<b>E[V]</b>) are recorded. The residence time of a client in the
+system is the sum of the waiting time, the transfer time and the service time.
+der Transportzeit und der Bedienzeit.
+</p>
+
+<h3>Utilization</h3>
+<p>
+If <b>operators</b> or <b>transporters</b> are used in the simulation model,
+their utilization is indicated. The value <b>rho</b> indicates the
+average utilization of the respective group.
+</p>
+
+<h3>Counters and throughput</h3>
+<p>
+If counters or throughput counters are used in the model,
+the basic parameters of these elements are also displayed on the overview page.
+</p>
+  
+</body></html>

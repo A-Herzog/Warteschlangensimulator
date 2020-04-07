@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.3.0</ModellVersion>
+  <ModellName>Gesetz der großen Zahlen</ModellName>
+  <ModellBeschreibung>Nach langer Laufzeit sollten sich die Anteile aller 4 Zähler
+gegen jeweils 25% stabilisieren.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="49" y="250"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (10)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="751" y="250"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="221" x="50" y="50"/>
+      <ModellElementTextzeile>Gesetz der großen Zahlen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="1">
+      <ModellElementGroesse h="50" w="100" x="300" y="250"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="11" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="12" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="13" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementZaehler id="4">
+      <ModellElementName>Weg 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="551" y="100"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Zählergruppe</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="5">
+      <ModellElementName>Weg 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="551" y="200"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Zählergruppe</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="7">
+      <ModellElementName>Weg 3</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="551" y="300"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Zählergruppe</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="8">
+      <ModellElementName>Weg 4</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="551" y="400"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Zählergruppe</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="9">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="1" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementName>Rate 1 (25%)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="4" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementName>Rate 1 (25%)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="5" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="12">
+      <ModellElementName>Rate 1 (25%)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="7" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementName>Rate 1 (25%)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="8" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="4" Element2="3" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="5" Element2="3" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="7" Element2="3" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementVerbindung Element1="8" Element2="3" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementAnimationLinienDiagramm id="18">
+      <ModellElementGroesse h="200" w="400" x="50" y="400"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="1" Minimum="0">Part(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>10800</ModellElementDiagrammZeitbereich>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="19">
+      <ModellElementGroesse h="19" w="263" x="50" y="380"/>
+      <ModellElementTextzeile>Anteil der Kunden, die Weg 1 beschreiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="20">
+      <ModellElementName>Weg 1</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="750" y="605"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="21">
+      <ModellElementGroesse h="38" w="198" x="500" y="500"/>
+      <ModellElementTextzeile>Nach langer Laufzeit stabilisiert</ModellElementTextzeile>
+      <ModellElementTextzeile>sich der Wert gegen 25%.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="22">
+      <ModellElementGroesse h="200" w="200" x="750" y="400"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementMaximalwert>1</ModellElementMaximalwert>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Part(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,195,0">Part(5)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Part(7)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,165,0">Part(8)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementAnimationText id="23">
+      <ModellElementName>Weg 2</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="805" y="605"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,195,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(5)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="24">
+      <ModellElementName>Weg 3</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="860" y="605"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(7)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="25">
+      <ModellElementName>Weg 4</ModellElementName>
+      <ModellElementGroesse h="30" w="76" x="915" y="605"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(8)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

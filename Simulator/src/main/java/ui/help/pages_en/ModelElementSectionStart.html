@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Enter section</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Enter section</h1>
+
+<p>
+By using sections the residence time of a client in some segment of the model can be measured.
+A client passing through this station is immediately forwarded to the next station.
+However, leaving the station is not recorded in the station statistics, so from the station
+statistics point of view the client is still at this station. Only when the client moves through
+an appropriate <a href="ModelElementSectionEnd.html">Leave section</a> element it will be
+virtually removed from the station.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+Stations of this type must have a name which allows them to be addressed by
+<a href="ModelElementSectionEnd.html">Leave section</a> elements to signal
+that the client has now left the section.
+</p>
+
+</body>
+</html>

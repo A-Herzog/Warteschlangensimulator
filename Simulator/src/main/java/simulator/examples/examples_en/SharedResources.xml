@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.0.0</ModelVersion>
+  <ModelName>Shared resources</ModelName>
+  <ModelDescription>There are two separate client arrival lines, which are operated on two
+separate process stations. However, the process stations share two
+operators.
+
+Arrivals per line:
+lambda=0,6 (per minute)
+1/mu=1,333 (minutes)
+1/nu=infty (minutes)
+
+Operators (on both stations together):
+c=2</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="550" y="150"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementSource id="6">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="7">
+      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenB">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator group"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="8">
+      <ModelElementName>Arrivals (Clients B)</ModelElementName>
+      <ModelElementConnection Element1="6" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementConnection Element1="7" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="1">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="KundenB">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator group"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="4">
+      <ModelElementName>Arrivals (Clients A)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="10">
+      <ModelElementSize h="23" w="152" x="50" y="50"/>
+      <ModelElementTextLine>Shared resources</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="11">
+      <ModelElementSize h="19" w="465" x="50" y="300"/>
+      <ModelElementTextLine>There are two operators, both of which are used at both process stations.</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationTrafficLights id="12">
+      <ModelElementName>Bediener</ModelElementName>
+      <ModelElementSize h="100" w="50" x="50" y="400"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">resource()==2</ModelElementAnimationTrafficLightsCondition>
+      <ModelElementAnimationTrafficLightsCondition Light="yellow">resource()==1</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementText id="13">
+      <ModelElementSize h="19" w="183" x="50" y="380"/>
+      <ModelElementTextLine>Utilization of the operators</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="14">
+      <ModelElementSize h="19" w="120" x="105" y="480"/>
+      <ModelElementTextLine>Both operators idle</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,150,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="29">
+      <ModelElementSize h="19" w="119" x="105" y="445"/>
+      <ModelElementTextLine>One operator busy</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="59">
+      <ModelElementSize h="19" w="128" x="105" y="410"/>
+      <ModelElementTextLine>Both operators busy</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="75">
+      <ModelElementSize h="105" w="250" x="400" y="395"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementDiagramElement BarColor="0,180,0">resource_hist(1;0)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,165,0">resource_hist(1;1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">resource_hist(1;2)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementText id="76">
+      <ModelElementSize h="19" w="201" x="400" y="375"/>
+      <ModelElementTextLine>Frequency of the busy states</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="77">
+      <ModelElementName>0 busy operators</ModelElementName>
+      <ModelElementSize h="30" w="87" x="400" y="505"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">resource_hist(1;0)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="78">
+      <ModelElementName>1 busy operators</ModelElementName>
+      <ModelElementSize h="30" w="87" x="485" y="505"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">resource_hist(1;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="79">
+      <ModelElementName>2 busy operators</ModelElementName>
+      <ModelElementSize h="30" w="87" x="570" y="505"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">resource_hist(1;2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Operator group" Type="Number" Value="2"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="user_green" Name="Clients B"/>
+  </ClientTypeData>
+</Model>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.0.0</ModelVersion>
+  <ModelName>Releasing clients based on Javascript</ModelName>
+  <ModelDescription>Each time there are no more than one clients at station A,
+a client of type A will be released.
+(For clients of type B and station B the same.)</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (55)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (55)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>Station A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="100"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>Station B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="300"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDecide id="5">
+      <ModelElementSize h="50" w="100" x="400" y="200"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection ClientType="Clients A" Element="11" Type="Out"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDispose id="6">
+      <ModelElementSize h="50" w="100" x="750" y="200"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementHoldScript id="7">
+      <ModelElementSize h="50" w="100" x="250" y="200"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementHoldScriptCondition Language="Javascript"/>
+    </ModelElementHoldScript>
+    <ModelElementEdge id="8">
+      <ModelElementName>Arrivals (Clients A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementName>Arrivals (Clients B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="10">
+      <ModelElementConnection Element1="7" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="3" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="4" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="21">
+      <ModelElementSize h="24" w="326" x="50" y="50"/>
+      <ModelElementTextLine>Releasing clients based on Javascript</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="43">
+      <ModelElementSize h="94" w="190" x="250" y="300"/>
+      <ModelElementTextLine>Each time there are no more</ModelElementTextLine>
+      <ModelElementTextLine>than one clients at station A,</ModelElementTextLine>
+      <ModelElementTextLine>a client of type A will be</ModelElementTextLine>
+      <ModelElementTextLine>released. (For clients of</ModelElementTextLine>
+      <ModelElementTextLine>type B and station B the same.)</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener A" Type="Number" Value="1"/>
+    <Resource Name="Bediener B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Color="255,0,0" Icon="user_red" Name="Clients A"/>
+    <ClientData Color="0,180,0" Icon="user_green" Name="Clients B"/>
+    <ClientData Color="255,0,0" Icon="user_red" Name="Kunden A"/>
+    <ClientData Color="0,180,0" Icon="user_green" Name="Kunden B"/>
+  </ClientTypeData>
+</Model>

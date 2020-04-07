@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Verzweigung</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Verzweigung</h1>
+
+<p>
+Dieses Element ermöglicht es, die eintreffenden Kunden in mehrere mögliche Ausgangsrichtungen weiter zu leiten.
+Die Verzweigung kann dabei nach folgenden Kriterien erfolgen:
+</p>
+
+<ul>
+  <li>
+    <b>Zufällig:</b>
+    Pro Ausgangsrichtung wird eine Rate angegeben, die die Wahrscheinlichkeit für diesen Weg bestimmt.
+  </li>
+  <li>
+    <b>Bedingung:</b>
+    Für alle Ausgangsrichtungen (außer für die letzte Richtung) wird eine Bedingung definiert. Trifft ein
+    Kunde ein, so werden von oben nach unten diese Bedingungen geprüft. Der Kunde wird in die Richtung,
+    bei der zum ersten Mal die Bedingung erfüllt war, weitergeleitet. Trifft keine der Bedingungen zu,
+    so wird der Kunde in die letzte Richtung (für die keine Bedingung angegeben ist) weitergeleitet.    
+  </li>
+  <li>
+    <b>Kundentyp:</b>
+    Für alle Ausgangsrichtungen (außer für die letzte Richtung) wird ein Kundentyp festgelegt. Ist ein
+    eintreffender Kunde von einem dieser Typen, so wird er in die entsprechende Richtung weitergeleitet.
+    Stimmt der Typ des eingetroffenen Kunden mit keinem der angegebenen Kundentypen überein,
+    so wird der Kunde in die letzte Richtung (für die kein Kundentyp angegeben ist) weitergeleitet.
+  </li>
+  <li>
+    <b>Reihenfolge:</b>
+    Es wird jeweils der Reihe nach einer der Kunden an einen der Ausgänge geleitet. Nachdem ein Kunde
+    an den als letztes angebundenen Ausgang geleitet wurde, wird der nächste Kunde wieder an den
+    ersten Ausgang geleitet. 
+  </li>
+  <li>
+    <b>Kürzeste Warteschlange an der nächsten Station:</b>
+    Leitet den Kunden über den Pfad weiter, bei dem an der direkten Folgestation
+    die Warteschlangenlänge minimal ist. Bei Gleichstand zwischen zwei Pfaden wird
+    zufällig entschieden.
+  </li>
+  <li>
+    <b>Kürzeste Warteschlange an der nächsten Bedienstation:</b>
+    Leitet den Kunden über den Pfad weiter, bei dem an der nächsten
+    darin auftretenden Bedienstation die Warteschlangenlänge minimal ist.
+    Andere Stationen, die zwischen dem Verzweigen-Element und der
+    Bedienstation liegen, werden bei der Bestimmung der Warteschlangenlänge
+    nicht berücksichtigt. Bei Gleichstand zwischen zwei Pfaden wird
+    zufällig entschieden.
+  </li>
+  <li>
+    <b>Geringste Anzahl an Kunden an der nächsten Station:</b>
+    Leitet den Kunden über den Pfad weiter, bei dem sich an der direkten Folgestation
+    die geringste Anzahl an Kunden befinden. Bei Gleichstand zwischen zwei Pfaden wird
+    zufällig entschieden.
+  </li>
+  <li>
+    <b>Geringste Anzahl an Kunden an der nächsten Bedienstation:</b>
+    Leitet den Kunden über den Pfad weiter, bei dem sich an der nächsten
+    darin auftretenden Bedienstation die geringste Anzahl an Kunden befinden.
+    Andere Stationen, die zwischen dem Verzweigen-Element und der
+    Bedienstation liegen, werden bei der Bestimmung der Anzahl an Kunden
+    nicht berücksichtigt. Bei Gleichstand zwischen zwei Pfaden wird
+    zufällig entschieden.
+  </li>
+  <li>
+    <b>Texteigenschaft:</b>
+    Für alle Ausgangsrichtungen (außer für die letzte Richtung) wird ein Wert festgelegt.
+    Wenn die Texteigenschaft des jeweiligen Kunden den jeweiligen Wert aufweist,
+    so wird er in die entsprechende Richtung weitergeleitet.
+    Stimmt der Wert mit keinem der angegebenen Wert überein,
+    so wird der Kunde in die letzte Richtung (für die kein Wert angegeben ist) weitergeleitet.
+  </li>  
+</ul>
+
+<h2>Einstellungen</h2>
+
+<h3>Modus "Zufall"</h3>
+<p>
+Die Weiterleitungswahrscheinlichkeiten in die verschiedenen möglichen Ausgangsrichtungen müssen nicht in
+Form von Wahrscheinlichkeiten, die sich in ihrer Summe zu 1 aufaddieren müssen, angegeben werden, sondern
+es genügt, Raten anzugeben. Diese Raten werden vom Programm automatisch zu Wahrscheinlichkeiten normiert.
+Es gelten lediglich folgende Voraussetzungen: Die Raten dürfen nicht negativ sein und mindestens eine der
+angegebenen Raten muss echt größer als 0 sein.
+</p>
+
+<h3>Modus "Bedingung"</h3>
+<p>
+Pro vorhandener Verzweigung muss eine Bedingung angegeben werden, unter der die Kunden in diese Richtung
+geleitet werden. Die Bedingungen müssen sich nicht gegenseitig ausschließen und werden von oben nach unten
+abgearbeitet. Für die letzte Verzweigungsmöglichkeit kann keine Bedingung angegeben werden. Diese Verzweigung
+wird in der Simulation immer dann gewählt, wenn keine der vorherigen Bedingungen zutreffend war.
+</p>
+
+<h3>Modus "Kundentyp"</h3>
+<p>
+Pro vorhandener Verzweigung muss ein Kundentyp angegeben werden, dessen Kunden in diese Richtung
+geleitet werden. Für die letzte Verzweigungsmöglichkeit kann kein Kundentyp angegeben werden. Diese Verzweigung
+wird in der Simulation immer dann gewählt, wenn keine der vorherigen Bedingungen zutreffend war.
+</p>
+
+<h3>Modus "Texteigenschaft"</h3>
+<p>
+Es muss ein Schlüssel, dessen Werte bei den Kunden betrachtet werden sollen, angegeben werden.
+Außerdem muss pro vorhandener Verzweigung ein Wert angegeben werden. Kunden bei denen der Schlüssel
+den angegebenen Wert besitzt, werden in diese Richtung geleitet. Für die letzte Verzweigungsmöglichkeit
+kann kein Wert angegeben werden. Diese Verzweigung wird in der Simulation immer dann gewählt,
+wenn keine der vorherigen Bedingungen zutreffend war.
+</p>
+
+<p>
+Des Weiteren können in jedem Modus optionale Kundentypen für die auslaufenden Kanten angegeben
+werden, die den Kunden, die das Element verlassen, zugewiesen werden.
+</p>
+
+</body>
+</html>

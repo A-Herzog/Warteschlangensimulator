@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Berechnung von Ausdrücken</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Berechnung von Ausdrücken</h1>
+
+<p>
+In dem <b>Ausdruck bearbeiten</b>-Dialog können zu berechnende Ausdrücke zusammengestellt werden.
+Es stehen dabei die folgenden Rechenbefehle für mathematische Ausdrücke zur Verfügung.
+Handelt es sich bei dem Eingabefeld um ein Feld für einen Ausdruck, der zu wahr oder falsch berechnet werden soll, so stehen
+die unten unter "Vergleiche" verfügbaren Vergleichsoperationen zu Verfügung. Andernfalls (z.B. für die
+Berechnung der Score eines Kunden) stehen nur die Rechenbefehle, die am Ende eine Zahl liefern, zur Verfügung.
+</p>
+
+
+
+
+
+<h2>Konstanten</h2>
+
+<table class="border">
+  <tr><td>e</td><td>e&asymp;2,718281828459</td></tr>
+  <tr><td>pi</td><td>&pi;&asymp;3,1415926535898</td></tr>
+</table>
+
+
+
+
+
+<h2>Variablen</h2>
+
+<p>
+Werden Ausdrücke im Kontext eines Kunden berechnet, so stehen die Variablen <tt>w</tt> für die bisherige Wartezeit
+des Kunden, <tt>t</tt> für die bisherige Transferzeit des Kunden und <tt>p</tt> für die bisherige Bedienzeit des
+Kunden zur Verfügung. Bei der Berechnung von Scorewerten wird <tt>w</tt> abweichend nicht mit der bisherigen
+gesamten Wartezeit des Kunden belegt, sondern mit der bisherigen Wartezeit an der aktuellen Station.
+</p>
+
+<p>
+Des weiteren stehen stets alle Variablen, die über ein Zuweisungselement definiert werden, zur Verfügung.
+Vor der ersten Zuweisung eines Wertes an eine Variable hat diese den Wert 0.
+</p>
+
+
+
+
+
+<h2>Grundrechenarten</h2>
+
+<p>
+Unterstützte Anweisungen für die Grundrechenarten:
+<tt>+</tt>, <tt>-</tt>, <tt>*</tt>, <tt>/</tt> und <tt>^</tt>.
+</p>
+
+<p>
+Außerdem steht die <tt>If</tt>-Funktion zur Verfügung. Diese erwartet eine
+ungerade Anzahl an Parametern:
+</p>
+<p><tt>If(bedingung1;wert1;bedingung2;wert2;...;wertSonst)</tt></p>
+<p>
+Ist <tt>bedingung1</tt>&gt;0, so liefert die Funktion <tt>wert1</tt> zurück.<br>
+Andernfalls prüft sie, ob <tt>bedingung2</tt>&gt;0 ist und liefert, wenn dies zutrifft, <tt>wert2</tt> zurück usw.<br>
+Trifft keine der Bedingungen zu, so liefert die Funktion <tt>wertSonst</tt> zurück.
+</p>
+
+
+
+
+
+<h2>Nachgestellte Anweisungen</h2>
+
+<p>
+Folgende Ausdrücke können unmittelbar hinter eine Zahl geschrieben werden:
+</p>
+
+<table class="border">
+  <tr><td>%</td><td>Als Prozentwert interpretieren, z.B. 30%=0,3.</td></tr>
+  <tr><td>²</td><td>Zahl mit 2 potenzieren</td></tr>
+  <tr><td>³</td><td>Zahl mit 3 potenzieren</td></tr>
+  <tr><td>!</td><td>Fakultät der Zahl berechnen, 4!=1*2*3*4=24</td></tr>
+  <tr><td>°</td><td>Zahl von Grad in Bogenmaß umrechnen, 180°=3,1415...</td></tr>
+</table>
+
+
+
+
+
+<h2>Allgemeine Funktionen</h2>
+
+<table class="border">
+  <tr><td>abs(x)</td><td>Absolutbetrag, abs(-5)=5</td></tr>
+  <tr><td>ceil(x)</td><td>Aufrunden, ceil(2,1)=3</td></tr>
+  <tr><td>exp(x)</td><td>Exponentialfunktion e<sup>x</sup></td></tr>
+  <tr><td>factorial(x)</td><td>Fakultät, 4!=1*2*3*4=24</td></tr>  
+  <tr><td>floor(x)</td><td>Abrunden, floor(2,9)=2</td></tr>
+  <tr><td>frac(x)</td><td>Nachkommaanteil, frac(1,3)=0,3</td></tr>
+  <tr><td>gamma(x)</td><td>Gamma-Funktion, gamma(5)=4!=24</td></tr>
+  <tr><td>int(x)</td><td>Ganzzahlanteil, int (2,9)=2</td></tr>
+  <tr><td>log(x)</td><td>Logarithmus zur Basis e</td></tr>
+  <tr><td>log(x;b)</td><td>Logarithmus zur Basis b</td></tr>
+  <tr><td>ld(x)</td><td>Logarithmus zur Basis 2</td></tr>
+  <tr><td>lg(x)</td><td>Logarithmus zur Basis 10</td></tr>
+  <tr><td>ln(x)</td><td>Logarithmus zur Basis e</td></tr>
+  <tr><td>modulo(a;b)</td><td rowspan="2">Divisionsrest bei Division a/b</td></tr>
+  <tr><td>mod(a;b)</td></tr>
+  <tr><td>pow(x;y)</td><td>Potenzieren x<sup>y</sup></td></tr>
+  <tr><td>round(x)</td><td>Runden, round(4,4)=4, round(4,5)=5</td></tr>
+  <tr><td>sign(x)</td><td>Vorzeichen einer Zahl, sign(3)=1, sign(-3)=-1</td></tr>
+  <tr><td>sqrt(x)</td><td>Quadratwurzel</td></tr>
+  <tr><td>sqr(x)</td><td>Zahl quadrieren</td></tr>
+  <tr><td>random()</td><td>Liefert eine Zufallszahl zwischen 0 (einschließlich) und 1 (ausschließlich).</td></tr>
+  <tr><td>random(x)</td><td>Liefert eine Zufallszahl zwischen 0 (einschließlich) und x (ausschließlich).</td></tr>
+</table>  
+
+
+
+
+
+<h2>Winkelfunktionen</h2>
+
+<table class="border">
+  <tr><td>sin(x)</td><td>Sinus</td></tr>
+  <tr><td>cos(x)</td><td>Cosinus</td></tr>
+  <tr><td>tan(x)</td><td>Tangens</td></tr>
+  <tr><td>cot(x)</td><td>Cotangens</td></tr>
+  <tr><td>sinh(x)</td><td>Sinus hyperbolicus</td></tr>
+  <tr><td>cosh(x)</td><td>Cosinus hyperbolicus</td></tr>
+  <tr><td>tanh(x)</td><td>Tangens hyperbolicus</td></tr>
+  <tr><td>coth(x)</td><td>Cotangens hyperbolicus</td></tr>
+  <tr><td>arcsin(x)</td><td>Arcus-Sinus</td></tr>
+  <tr><td>arccos(x)</td><td>Arcus-Cosinus</td></tr>
+  <tr><td>arctan(x)</td><td>Arcus-Tangens</td></tr>
+  <tr><td>arccot(x)</td><td>Arcus-Cotangens</td></tr>
+  <tr><td>arcsinh(x)</td><td>Arcus-Sinus hyperbolicus</td></tr>
+  <tr><td>arccosh(x)</td><td>Arcus-Cosinus hyperbolicus</td></tr>
+  <tr><td>arctanh(x)</td><td>Arcus-Tangens hyperbolicus</td></tr>
+  <tr><td>arccoth(x)</td><td>Arcus-Cotangens hyperbolicus</td></tr>
+</table>
+
+
+
+
+
+<h2>Funktionen mit mehreren Parametern</h2>
+
+<table class="border">
+  <tr><td>Min(a;b;c;...)</td><td>Berechnet das Minimum der übergebenen Zahlen</td></tr>
+  <tr><td>Max(a;b;c;...)</td><td>Berechnet das Maximum der übergebenen Zahlen</td></tr>
+  <tr><td>Sum(a;b;c;...)</td><td>Berechnet die Summe der übergebenen Zahlen</td></tr>
+  <tr><td>Mean(a;b;c;...)</td><td>Berechnet das arithmetische Mittel der übergebenen Zahlen</td></tr>
+  <tr><td>Median(a;b;c;...)</td><td>Berechnet den Median der übergebenen Zahlen</td></tr>
+  <tr><td>Var(a;b;c;...)</td><td>Berechnet die korrigierte Stichprobenvarianz der übergebenen Zahlen</td></tr>
+  <tr><td>SD(a;b;c;...)</td><td>Berechnet die korrigierte Stichprobenstandardabweichung der übergebenen Zahlen</td></tr>
+  <tr><td>SCV(a;b;c;...)</td><td>Berechnet den quadrierten Variationskoeffizient der übergebenen Zahlen</td></tr>
+  <tr><td>CV(a;b;c;...)</td><td>Berechnet den Variationskoeffizient der übergebenen Zahlen</td></tr>
+</table>
+
+
+
+
+
+<h2>Wahrscheinlichkeitsverteilungen</h2>
+
+<p>
+Mit Hilfe der folgenden Befehle können sowohl Werte der Dichte und der Verteilungsfunktion
+der folgenden Wahrscheinlichkeitsverteilungen berechnet werden als auch Zufallszahlen
+auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
+</p>
+
+<table class="border">
+  <tr><td colspan="2"><b>Exponentialverteilung mit Mittelwert a</b></td></tr>
+  <tr><td>ExpDist(x;a;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>ExpDist(x;a;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>ExpDist(a)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Gleichverteilung über das Intervall [a;b]</b></td></tr>
+  <tr><td>UniformDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>UniformDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>UniformDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Normalverteilung mit Mittelwert a und Standardabweichung b</b></td></tr>
+  <tr><td>NormalDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>NormalDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>NormalDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Lognormalverteilung mit Mittelwert a und Standardabweichung b</b></td></tr>
+  <tr><td>LogNormalDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>LogNormalDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>LogNormalDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Gamma-Verteilung mit Parametern &alpha;=a und &beta;=b</b></td></tr>
+  <tr><td>GammaDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>GammaDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>GammaDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Erlang-Verteilung mit Parametern n und &lambda;=l</b></td></tr>
+  <tr><td>ErlangDist(x;n;l;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>ErlangDist(x;n;l;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>ErlangDist(n;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Beta-Verteilung in dem Intervall [a;b] und mit Parametern &alpha;=c und &beta;=d</b></td></tr>
+  <tr><td>BetaDist(x;a;b;c;d;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>BetaDist(x;a;b;c;d;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>BetaDist(a;b;c;d)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Weibull-Verteilung mit Parametern Scale=a und Form=b</b></td></tr>
+  <tr><td>WeibullDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>WeibullDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>WeibullDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Cauchy-Verteilung mit Mittelwert a und Scale=b</b></td></tr>
+  <tr><td>CauchyDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>CauchyDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>CauchyDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Chi<sup>2</sup>-Verteilung mit n Freiheitsgraden</b></td></tr>
+  <tr><td>ChiSquareDist(x;n;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>  
+  <tr><td>ChiSquareDist(x;n;1)</td><td>Chi<sup>2</sup>-Verteilung mit n Freiheitsgraden</td></tr>
+  <tr><td>ChiSquareDist(n)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Chi-Verteilung mit n Freiheitsgraden</b></td></tr>
+  <tr><td>ChiDist(x;n;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>  
+  <tr><td>ChiDist(x;n;1)</td><td>Chi<sup>2</sup>-Verteilung mit n Freiheitsgraden</td></tr>
+  <tr><td>ChiDist(n)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+    
+  <tr><td colspan="2"><b>F-Verteilung mit a Freiheitsgraden im Zähler und b Freiheitsgraden im Nenner</b></td></tr>
+  <tr><td>FDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>FDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>FDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Johnson-SU-Verteilung mit den Parametern a=&gamma;, b=&xi;, c=&delta; und d=&lambda;</b></td></tr>
+  <tr><td>JohnsonSUDist(x;a;b;c;d;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>JohnsonSUDist(x;a;b;c;d;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>JohnsonSUDist(a;b;c;d)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>  
+  
+  <tr><td colspan="2"><b>Dreiecksverteilung über [a;c] mit der höchsten Wahrscheinlichkeitsdichte bei b</b></td></tr>
+  <tr><td>TriangularDist(x;a;b;c;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>TriangularDist(x;a;b;c;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>TriangularDist(a;b;c)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Laplace-Verteilung mit Mittelwert mu und Skalierungsfaktor b</b></td></tr>
+  <tr><td>LaplaceDist(x;mu;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>LaplaceDist(x;mu;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>LaplaceDist(mu;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Pareto-Verteilung mit Skalierungsparameter x<sub>min</sub> und Formparameter &alpha;</b></td></tr>
+  <tr><td>ParetoDist(x;xmin;alpha;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>ParetoDist(x;xmin;alpha;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>ParetoDist(xmin;alpha)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Logistische Verteilung mit Mittelwert &mu; und Skalierungsparameter s</b></td></tr>
+  <tr><td>LogisticDist(x;mu;s;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>LogisticDist(x;mu;s;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>LogisticDist(mu;s)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Inverse Gauß-Verteilung mit &lambda; und Mittelwert &mu;</b></td></tr>
+  <tr><td>InverseGaussianDist(x;lambda;mu;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>InverseGaussianDist(x;lambda;mu;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>InverseGaussianDist(lambda;mu)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+
+  <tr><td colspan="2"><b>Rayleigh-Verteilung mit Mittelwert &mu;</b></td></tr>
+  <tr><td>RayleighDist(x;mu;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>RayleighDist(x;mu;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>RayleighDist(mu)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Log-Logistische Verteilung mit &alpha; und &beta;</b></td></tr>
+  <tr><td>LogLogisticDist(x;alpha;beta;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>LogLogisticDist(x;alpha;beta;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>LogLogisticDist(alpha;beta)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Potenzverteilung über [a;b] mit Exponent c</b></td></tr>
+  <tr><td>PowerDist(x;a;b;c;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>PowerDist(x;a;b;c;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>PowerDist(a;b;c)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Gumbel-Verteilung mit Mittelwert a und Standardabweichung b</b></td></tr>
+  <tr><td>GumbelDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>GumbelDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>GumbelDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Fatigue-Life-Verteilung mit Lageparameter mu, Skalierungsparameter beta und Formparameter gamma</b></td></tr>
+  <tr><td>FatigueLifeDist(x;mu;beta;gamma;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>FatigueLifeDist(x;mu;beta;gamma;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>FatigueLifeDist(mu;beta;gamma)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  
+  <tr><td colspan="2"><b>Frechet-Verteilung mit Lageparameter delta, Skalierungsparameter beta und Formparameter alpha</b></td></tr>
+  <tr><td>FrechetDist(x;delta;beta;alpha;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>FrechetDist(x;delta;beta;alpha;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>FrechetDist(delta;beta;alpha)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+
+  <tr><td colspan="2"><b>Hyperbolische Sekanten-Verteilung mit Mittelwert a und Standardabweichung b</b></td></tr>
+  <tr><td>HyperbolicSecantDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
+  <tr><td>HyperbolicSecantDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
+  <tr><td>HyperbolicSecantDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+
+  <tr><td colspan="2"><b>Verteilung aus empirischen Daten</b></td></tr>
+  <tr><td>EmpirischeDichte(x;wert1;wert2;wert3;...;max)</td><td>Berechnet die Dichte an der Stelle x. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
+  <tr><td>EmpirischeVerteilung(x;wert1;wert2;wert3;...;max)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
+  <tr><td>EmpirischeZufallszahl(wert1;wert2;wert3;...;max)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
+  <tr><td>EmpirischeVerteilungMittelwert(wert1;wert2;wert3;...;max)</td><td>Liefert den Erwartungswert der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungMedian(wert1;wert2;wert3;...;max)</td><td>Liefert den Median der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungQuantil(wert1;wert2;wert3;...;max;p)</td><td>Liefert das Quantil zur Wahrscheinlichkeit p der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungSD(wert1;wert2;wert3;...;max)</td><td>Liefert die Standardabweichung der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungVar(wert1;wert2;wert3;...;max)</td><td>Liefert die Varianz der Verteilung.</td></tr>
+  <tr><td>EmpirischeVerteilungCV(wert1;wert2;wert3;...;max)</td><td>Liefert den Variationskoeffizient der Verteilung.</td></tr>
+
+</table>
+
+
+
+
+
+<h2>Erlang-C-Rechner</h2>
+
+<p>
+Mit Hilfe des folgenden Befehls können verschiedene Kenngrößen auf Basis der
+erweiterten Erlang-C-Formel berechnet werden:
+</p>
+
+<table class="border">
+  <tr><td>ErlangC(lambda;mu;nu;c;K;-1)</td><td>Berechnet die mittlere Warteschlangenlänge E[N<sub>Q</sub>]</td></tr> 
+  <tr><td>ErlangC(lambda;mu;nu;c;K;-2)</td><td>Berechnet die mittlere Anzahl an Kunden im System E[N]</td></tr>
+  <tr><td>ErlangC(lambda;mu;nu;c;K;-3)</td><td>Berechnet die mittlere Wartezeit E[W]</td></tr>
+  <tr><td>ErlangC(lambda;mu;nu;c;K;-4)</td><td>Berechnet die mittlere Verweilzeit E[V]</td></tr>
+  <tr><td>ErlangC(lambda;mu;nu;c;K;-5)</td><td>Berechnet die mittlere Erreichbarkeit 1-P(A)</td></tr>
+  <tr><td>ErlangC(lambda;mu;nu;c;K;t)</td><td>Berechnet die Wahrscheinlichkeit für den Service-Level an der t Sekunden Schranke P(W&le;t)</td></tr>
+</table>
+
+
+
+
+
+<h2>Allen-Cunneen-Approximationsformel</h2>
+
+<p>
+Mit Hilfe des folgenden Befehls können verschiedene Kenngrößen auf Basis der
+Allen-Cunneen-Approximationsformel berechnet werden:
+</p>
+
+<table class="border">
+  <tr><td>AllenCunneen(lambda;mu;cvI;cvS;c;-1)</td><td>Berechnet die mittlere Warteschlangenlänge E[N<sub>Q</sub>]</td></tr> 
+  <tr><td>AllenCunneen(lambda;mu;cvI;cvS;c;-2)</td><td>Berechnet die mittlere Anzahl an Kunden im System E[N]</td></tr>
+  <tr><td>AllenCunneen(lambda;mu;cvI;cvS;c;-3)</td><td>Berechnet die mittlere Wartezeit E[W]</td></tr>
+  <tr><td>AllenCunneen(lambda;mu;cvI;cvS;c;-4)</td><td>Berechnet die mittlere Verweilzeit E[V]</td></tr>
+</table>
+
+
+
+
+
+<h2>Zugriff auf Modelleigenschaften</h2>
+
+<table class="border">
+  <tr><td colspan="2"><h3>Allgemeine Simulationsdaten</h3></td></tr>
+
+  <tr><td>SimTime()</td><td rowspan="2">Liefert die aktuelle Simulationszeit in Sekunden.</td></tr>
+  <tr><td>TNow()</td></tr>
+  
+  <tr><td>WarmUp()</td><td rowspan="2">Liefert 1 zurück, wenn sich die Simulation noch in der Einschwingphase befindet, sonst 0.</td></tr>
+  <tr><td>isWarmUp()</td></tr>
+  
+  <tr><td>WiederholungNummer()</td><td rowspan="2">Liefert die aktuell in Bearbeitung befindliche Wiederholung der Simulation  (1-basierender Wert).</td></tr>
+  <tr><td>RepeatCurrent()</td></tr>
+  
+  <tr><td>WiederholungenAnzahl()</td><td rowspan="2">Liefert die geplante Anzahl an Wiederholungen der Simulation.</td></tr>
+  <tr><td>RepeatCount()</td></tr>
+  
+  <tr><td>$("Name")</td><td>Liefert die ID des Elements mit dem Namen, der innerhalb der Anführungszeichen steht. Existiert keine Station mit dem angegebenen Namen, so liefert die Funktion -1.</td></tr>
+  
+  
+  
+  <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden im System</h3></td></tr>
+
+  <tr><td>WIP()</td><td rowspan="2">Liefert die aktuelle Gesamtanzahl an Kunden im System.</td></tr>
+  <tr><td>N()</td></tr>
+  
+  <tr><td>WIP_avg()</td><td rowspan="6">Liefert die mittlere Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_avg()</td></tr>
+  <tr><td>N_avg()</td></tr>
+  <tr><td>WIP_Mittelwert()</td></tr>
+  <tr><td>Station_Mittelwert()</td></tr>
+  <tr><td>N_Mittelwert()</td></tr>
+  
+  <tr><td>WIP_median()</td><td rowspan="3">Liefert den Median der Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_median()</td></tr>
+  <tr><td>N_median()</td></tr>
+  
+  <tr><td>WIP_quantil(p)</td><td rowspan="3">Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_quantil(p)</td></tr>
+  <tr><td>N_quantil(p)</td></tr>
+  
+  <tr><td>WIP_min()</td><td rowspan="6">Liefert die minimale Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_min()</td></tr>
+  <tr><td>N_min()</td></tr>
+  <tr><td>WIP_Minimum()</td></tr>
+  <tr><td>Station_Minimum()</td></tr>
+  <tr><td>N_Minimum()</td></tr>
+  
+  <tr><td>WIP_max()</td><td rowspan="6">Liefert die maximale Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_max()</td></tr>
+  <tr><td>N_max()</td></tr>
+  <tr><td>WIP_Maximum()</td></tr>
+  <tr><td>Station_Maximum()</td></tr>
+  <tr><td>N_Maximum()</td></tr>
+  
+  <tr><td>WIP_var()</td><td rowspan="6">Liefert die Varianz der Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_var()</td></tr>
+  <tr><td>N_var()</td></tr>
+  <tr><td>WIP_Varianz()</td></tr>
+  <tr><td>Station_Varianz()</td></tr>
+  <tr><td>N_Varianz()</td></tr>
+  
+  <tr><td>WIP_sd()</td><td rowspan="6">Liefert die Standardabweichung der Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_sd()</td></tr>
+  <tr><td>N_sd()</td></tr>
+  <tr><td>WIP_Standardabweichung()</td></tr>
+  <tr><td>Station_Standardabweichung()</td></tr>
+  <tr><td>N_Standardabweichung()</td></tr>
+  
+  <tr><td>WIP_cv()</td><td rowspan="3">Liefert den Variationskoeffizienten der Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_cv()</td></tr>
+  <tr><td>N_cv()</td></tr>
+  
+  <tr><td>WIP_scv()</td><td rowspan="3">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden im System.</td></tr>
+  <tr><td>Station_scv()</td></tr>
+  <tr><td>N_scv()</td></tr>
+
+
+
+  <tr><td colspan="2"><h3 style="margin">Anzahl an wartenden Kunden im System</h3></td></tr>
+
+  <tr><td>NQ()</td><td rowspan="4">Liefert die aktuelle Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>   
+  <tr><td>Queue()</td></tr>
+  <tr><td>Schlange()</td></tr>
+  <tr><td>Warteschlange()</td></tr>
+  
+  <tr><td>NQ_avg()</td><td rowspan="8">Liefert die mittlere Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_avg()</td></tr>
+  <tr><td>Schlange_avg()</td></tr>
+  <tr><td>Warteschlange_avg()</td></tr>
+  <tr><td>NQ_Mittelwert()</td></tr>
+  <tr><td>Queue_Mittelwert()</td></tr>
+  <tr><td>Schlange_Mittelwert()</td></tr>
+  <tr><td>Warteschlange_Mittelwert()</td></tr>
+  
+  <tr><td>NQ_median()</td><td rowspan="4">Liefert den Median der Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_median()</td></tr>
+  <tr><td>Schlange_median()</td></tr>
+  <tr><td>Warteschlange_median()</td></tr>
+  
+  <tr><td>NQ_quantil(p)</td><td rowspan="4">Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_quantil(p)</td></tr>
+  <tr><td>Schlange_quantil(p)</td></tr>
+  <tr><td>Warteschlange_quantil(p)</td></tr>  
+  
+  <tr><td>NQ_min()</td><td rowspan="8">Liefert die minimale Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_min()</td></tr>
+  <tr><td>Schlange_min()</td></tr>
+  <tr><td>Warteschlange_min()</td></tr>
+  <tr><td>NQ_Minimum()</td></tr>
+  <tr><td>Queue_Minimum()</td></tr>
+  <tr><td>Schlange_Minimum()</td></tr>
+  <tr><td>Warteschlange_Minimum()</td></tr>
+  
+  <tr><td>NQ_max()</td><td rowspan="8">Liefert die maximale Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_max()</td></tr>
+  <tr><td>Schlange_max()</td></tr>
+  <tr><td>Warteschlange_max()</td></tr>
+  <tr><td>NQ_Maximum()</td></tr>
+  <tr><td>Queue_Maximum()</td></tr>
+  <tr><td>Schlange_Maximum()</td></tr>
+  <tr><td>Warteschlange_Maximum()</td></tr>
+  
+  <tr><td>NQ_var()</td><td rowspan="8">Liefert die Varianz der Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_var()</td></tr>
+  <tr><td>Schlange_var()</td></tr>
+  <tr><td>Warteschlange_var()</td></tr>
+  <tr><td>NQ_Varianz()</td></tr>
+  <tr><td>Queue_Varianz()</td></tr>
+  <tr><td>Schlange_Varianz()</td></tr>
+  <tr><td>Warteschlange_Varianz()</td></tr>
+  
+  <tr><td>NQ_sd()</td><td rowspan="8">Liefert die Standardabweichung der Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_sd()</td></tr>
+  <tr><td>Schlange_sd()</td></tr>
+  <tr><td>Warteschlange_sd()</td></tr>
+  <tr><td>NQ_Standardabweichung()</td></tr>
+  <tr><td>Queue_Standardabweichung()</td></tr>
+  <tr><td>Schlange_Standardabweichung()</td></tr>
+  <tr><td>Warteschlange_Standardabweichung()</td></tr>
+  
+  <tr><td>NQ_cv()</td><td rowspan="4">Liefert den Variationskoeffizienten der Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_cv()</td></tr>
+  <tr><td>Schlange_cv()</td></tr>
+  <tr><td>Warteschlange_cv()</td></tr>
+  
+  <tr><td>NQ_scv()</td><td rowspan="4">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden in allen Warteschlange zusammen.</td></tr>
+  <tr><td>Queue_scv()</td></tr>
+  <tr><td>Schlange_scv()</td></tr>
+  <tr><td>Warteschlange_scv()</td></tr>
+  
+
+
+  <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden an einer Station</h3></td></tr>
+
+  <tr><td>WIP(id)</td><td rowspan="3">Liefert die aktuelle Gesamtanzahl an Kunden an Station id.</td></tr>
+  <tr><td>N(id)</td></tr>
+  <tr><td>Station(id)</td></tr>
+  
+  <tr><td>WIP_avg(id)</td><td rowspan="6">Liefert die mittlere Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_avg(id)</td></tr>
+  <tr><td>N_avg(id)</td></tr>
+  <tr><td>WIP_Mittelwert(id)</td></tr>
+  <tr><td>Station_Mittelwert(id)</td></tr>
+  <tr><td>N_Mittelwert(id)</td></tr>
+  
+  <tr><td>WIP_median(id)</td><td rowspan="3">Liefert den Median der Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_median(id)</td></tr>
+  <tr><td>N_median(id)</td></tr>
+  
+  <tr><td>WIP_quantil(p;id)</td><td rowspan="3">Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_quantil(p;id)</td></tr>
+  <tr><td>N_quantil(p;id)</td></tr>  
+  
+  <tr><td>WIP_min(id)</td><td rowspan="6">Liefert die minimale Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_min(id)</td></tr>
+  <tr><td>N_min(id)</td></tr>
+  <tr><td>WIP_Minimum(id)</td></tr>
+  <tr><td>Station_Minimum(id)</td></tr>
+  <tr><td>N_Minimum(id)</td></tr>
+  
+  <tr><td>WIP_max(id)</td><td rowspan="6">Liefert die maximale Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_max(id)</td></tr>
+  <tr><td>N_max(id)</td></tr>
+  <tr><td>WIP_Maximum(id)</td></tr>
+  <tr><td>Station_Maximum(id)</td></tr>
+  <tr><td>N_Maximum(id)</td></tr>
+  
+  <tr><td>WIP_var(id)</td><td rowspan="6">Liefert die Varianz der Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_var(id)</td></tr>
+  <tr><td>N_var(id)</td></tr>
+  <tr><td>WIP_Varianz(id)</td></tr>
+  <tr><td>Station_Varianz(id)</td></tr>
+  <tr><td>N_Varianz(id)</td></tr>
+  
+  <tr><td>WIP_sd(id)</td><td rowspan="6">Liefert die Standardabweichung der Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_sd(id)</td></tr>
+  <tr><td>N_sd(id)</td></tr>
+  <tr><td>WIP_Standardabweichung(id)</td></tr>
+  <tr><td>Station_Standardabweichung(id)</td></tr>
+  <tr><td>N_Standardabweichung(id)</td></tr>
+  
+  <tr><td>WIP_cv(id)</td><td rowspan="3">Liefert den Variationskoeffizienten der Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_cv(id)</td></tr>
+  <tr><td>N_cv(id)</td></tr>
+  
+  <tr><td>WIP_scv(id)</td><td rowspan="3">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden an Station id.</td></tr>
+  <tr><td>Station_scv(id)</td></tr>
+  <tr><td>N_scv(id)</td></tr>
+  
+  <tr><td>WIP_hist(id;state)</td><td rowspan="3">Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden an Station id im Zustand state befunden hat.</td></tr>
+  <tr><td>Station_hist(id;state)</td></tr>
+  <tr><td>N_hist(id;state)</td></tr>
+  
+  <tr><td>WIP_hist(id;stateA;stateB)</td><td rowspan="3">Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden an Station id in einem Zustand größer als stateA und kleiner oder gleich stateB befunden hat.</td></tr>
+  <tr><td>Station_hist(id;stateA;stateB)</td></tr>
+  <tr><td>N_hist(id;stateA;stateB)</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Anzahl an Kunden in der Warteschlange an einer Station</h3></td></tr>
+    
+  <tr><td>NQ(id)</td><td rowspan="4">Liefert die aktuelle Anzahl an Kunden in der Warteschlange an Station id.</td></tr>   
+  <tr><td>Queue(id)</td></tr>
+  <tr><td>Schlange(id)</td></tr>
+  <tr><td>Warteschlange(id)</td></tr>
+  
+  <tr><td>NQ(id;nr)</td><td rowspan="4">Liefert die aktuelle Anzahl an Kunden in der Teilwarteschlange <tt>nr</tt> (1-basierend) an Station id.<br>(Kann nur auf "Zusammenführen"-Elemente angewandt werden.)</td></tr>
+  <tr><td>Queue(id;nr)</td></tr>
+  <tr><td>Schlange(id;nr)</td></tr>
+  <tr><td>Warteschlange(id;nr)</td></tr>  
+  
+  <tr><td>NQ_avg(id)</td><td rowspan="8">Liefert die mittlere Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_avg(id)</td></tr>
+  <tr><td>Schlange_avg(id)</td></tr>
+  <tr><td>Warteschlange_avg(id)</td></tr>
+  <tr><td>NQ_Mittelwert(id)</td></tr>
+  <tr><td>Queue_Mittelwert(id)</td></tr>
+  <tr><td>Schlange_Mittelwert(id)</td></tr>
+  <tr><td>Warteschlange_Mittelwert(id)</td></tr>
+  
+  <tr><td>NQ_median(id)</td><td rowspan="4">Liefert den Median der Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_median(id)</td></tr>
+  <tr><td>Schlange_median(id)</td></tr>
+  <tr><td>Warteschlange_median(id)</td></tr>
+  
+  <tr><td>NQ_quantil(p;id)</td><td rowspan="4">Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_quantil(p;id)</td></tr>
+  <tr><td>Schlange_quantil(p;id)</td></tr>
+  <tr><td>Warteschlange_quantil(p;id)</td></tr>
+  
+  <tr><td>NQ_min(id)</td><td rowspan="8">Liefert die minimale Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_min(id)</td></tr>
+  <tr><td>Schlange_min(id)</td></tr>
+  <tr><td>Warteschlange_min(id)</td></tr>
+  <tr><td>NQ_Minimum(id)</td></tr>
+  <tr><td>Queue_Minimum(id)</td></tr>
+  <tr><td>Schlange_Minimum(id)</td></tr>
+  <tr><td>Warteschlange_Minimum(id)</td></tr>
+  
+  <tr><td>NQ_max(id)</td><td rowspan="8">Liefert die maximale Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_max(id)</td></tr>
+  <tr><td>Schlange_max(id)</td></tr>
+  <tr><td>Warteschlange_max(id)</td></tr>
+  <tr><td>NQ_Maximum(id)</td></tr>
+  <tr><td>Queue_Maximum(id)</td></tr>
+  <tr><td>Schlange_Maximum(id)</td></tr>
+  <tr><td>Warteschlange_Maximum(id)</td></tr>
+  
+  <tr><td>NQ_var(id)</td><td rowspan="8">Liefert die Varianz der Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_var(id)</td></tr>
+  <tr><td>Schlange_var(id)</td></tr>
+  <tr><td>Warteschlange_var(id)</td></tr>
+  <tr><td>NQ_Varianz(id)</td></tr>
+  <tr><td>Queue_Varianz(id)</td></tr>
+  <tr><td>Schlange_Varianz(id)</td></tr>
+  <tr><td>Warteschlange_Varianz(id)</td></tr>
+  
+  <tr><td>NQ_sd(id)</td><td rowspan="8">Liefert die Standardabweichung der Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_sd(id)</td></tr>
+  <tr><td>Schlange_sd(id)</td></tr>
+  <tr><td>Warteschlange_sd(id)</td></tr>
+  <tr><td>NQ_Standardabweichung(id)</td></tr>
+  <tr><td>Queue_Standardabweichung(id)</td></tr>
+  <tr><td>Schlange_Standardabweichung(id)</td></tr>
+  <tr><td>Warteschlange_Standardabweichung(id)</td></tr>
+  
+  <tr><td>NQ_cv(id)</td><td rowspan="4">Liefert den Variationskoeffizienten der Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_cv(id)</td></tr>
+  <tr><td>Schlange_cv(id)</td></tr>
+  <tr><td>Warteschlange_cv(id)</td></tr>
+  
+  <tr><td>NQ_scv(id)</td><td rowspan="4">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden in der Warteschlange an Station id.</td></tr>
+  <tr><td>Queue_scv(id)</td></tr>
+  <tr><td>Schlange_scv(id)</td></tr>
+  <tr><td>Warteschlange_scv(id)</td></tr>
+
+  <tr><td>NQ_hist(id;state)</td><td rowspan="4">Liefert den Anteil der Zeit, in der sich state Kunden in der Warteschlange an Station id befunden haben.</td></tr>
+  <tr><td>Queue_hist(id;state)</td></tr>
+  <tr><td>Schlange_hist(id;state)</td></tr>
+  <tr><td>Warteschlange_hist(id;state)</td></tr>
+
+  <tr><td>NQ_hist(id;stateA;stateB)</td><td rowspan="4">Liefert den Anteil der Zeit, in der sich mehr als stateA und höchsten stateB Kunden in der Warteschlange an Station id befunden haben.</td></tr>
+  <tr><td>Queue_hist(id;stateA;stateB)</td></tr>
+  <tr><td>Schlange_hist(id;stateA;stateB)</td></tr>
+  <tr><td>Warteschlange_hist(id;stateA;stateB)</td></tr>
+
+
+
+  <tr><td colspan="2"><h3 style="margin">Anzahl an Kunden eines Typs im System</h3></td></tr>
+
+  <tr><td>WIP(id)</td><td rowspan="3">Liefert die aktuelle Gesamtanzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>N(id)</td></tr>
+  <tr><td>Station(id)</td></tr>
+  
+  <tr><td>WIP_avg(id)</td><td rowspan="6">Liefert die mittlere Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_avg(id)</td></tr>
+  <tr><td>N_avg(id)</td></tr>
+  <tr><td>WIP_Mittelwert(id)</td></tr>
+  <tr><td>Station_Mittelwert(id)</td></tr>
+  <tr><td>N_Mittelwert(id)</td></tr>
+  
+  <tr><td>WIP_median(id)</td><td rowspan="3">Liefert den Median der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_median(id)</td></tr>
+  <tr><td>N_median(id)</td></tr>
+  
+  <tr><td>WIP_quantil(p;id)</td><td rowspan="3">Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_quantil(p;id)</td></tr>
+  <tr><td>N_quantil(p;id)</td></tr>
+  
+  <tr><td>WIP_min(id)</td><td rowspan="6">Liefert die minimale Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_min(id)</td></tr>
+  <tr><td>N_min(id)</td></tr>
+  <tr><td>WIP_Minimum(id)</td></tr>
+  <tr><td>Station_Minimum(id)</td></tr>
+  <tr><td>N_Minimum(id)</td></tr>
+  
+  <tr><td>WIP_max(id)</td><td rowspan="6">Liefert die maximale Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_max(id)</td></tr>
+  <tr><td>N_max(id)</td></tr>
+  <tr><td>WIP_Maximum(id)</td></tr>
+  <tr><td>Station_Maximum(id)</td></tr>
+  <tr><td>N_Maximum(id)</td></tr>
+  
+  <tr><td>WIP_var(id)</td><td rowspan="6">Liefert die Varianz der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_var(id)</td></tr>
+  <tr><td>N_var(id)</td></tr>
+  <tr><td>WIP_Varianz(id)</td></tr>
+  <tr><td>Station_Varianz(id)</td></tr>
+  <tr><td>N_Varianz(id)</td></tr>
+  
+  <tr><td>WIP_sd(id)</td><td rowspan="6">Liefert die Standardabweichung der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_sd(id)</td></tr>
+  <tr><td>N_sd(id)</td></tr>
+  <tr><td>WIP_Standardabweichung(id)</td></tr>
+  <tr><td>Station_Standardabweichung(id)</td></tr>
+  <tr><td>N_Standardabweichung(id)</td></tr>
+  
+  <tr><td>WIP_cv(id)</td><td rowspan="3">Liefert den Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_cv(id)</td></tr>
+  <tr><td>N_cv(id)</td></tr>
+  
+  <tr><td>WIP_scv(id)</td><td rowspan="3">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Station_scv(id)</td></tr>
+  <tr><td>N_scv(id)</td></tr>
+  
+  <tr><td>WIP_hist(id;state)</td><td rowspan="3">Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt, im Zustand state befunden hat.</td></tr>
+  <tr><td>Station_hist(id;state)</td></tr>
+  <tr><td>N_hist(id;state)</td></tr>
+  
+  <tr><td>WIP_hist(id;stateA;stateB)</td><td rowspan="3">Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt, in einem Zustand größer als stateA und kleiner oder gleich stateB befunden hat.</td></tr>
+  <tr><td>Station_hist(id;stateA;stateB)</td></tr>
+  <tr><td>N_hist(id;stateA;stateB)</td></tr>
+
+
+
+  <tr><td colspan="2"><h3 style="margin">Anzahl an wartenden Kunden eines Typs im System</h3></td></tr>
+  
+  <tr><td>NQ(id)</td><td rowspan="4">Liefert die aktuelle Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>   
+  <tr><td>Queue(id)</td></tr>
+  <tr><td>Schlange(id)</td></tr>
+  <tr><td>Warteschlange(id)</td></tr>
+
+  <tr><td>NQ_avg(id)</td><td rowspan="8">Liefert die mittlere Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_avg(id)</td></tr>
+  <tr><td>Schlange_avg(id)</td></tr>
+  <tr><td>Warteschlange_avg(id)</td></tr>
+  <tr><td>NQ_Mittelwert(id)</td></tr>
+  <tr><td>Queue_Mittelwert(id)</td></tr>
+  <tr><td>Schlange_Mittelwert(id)</td></tr>
+  <tr><td>Warteschlange_Mittelwert(id)</td></tr>
+
+  <tr><td>NQ_median(id)</td><td rowspan="4">Liefert den Median der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_median(id)</td></tr>
+  <tr><td>Schlange_median(id)</td></tr>
+  <tr><td>Warteschlange_median(id)</td></tr>
+  
+  <tr><td>NQ_quantil(p;id)</td><td rowspan="4">Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_quantil(p;id)</td></tr>
+  <tr><td>Schlange_quantil(p;id)</td></tr>
+  <tr><td>Warteschlange_quantil(p;id)</td></tr>
+
+  <tr><td>NQ_min(id)</td><td rowspan="8">Liefert die minimale Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_min(id)</td></tr>
+  <tr><td>Schlange_min(id)</td></tr>
+  <tr><td>Warteschlange_min(id)</td></tr>
+  <tr><td>NQ_Minimum(id)</td></tr>
+  <tr><td>Queue_Minimum(id)</td></tr>
+  <tr><td>Schlange_Minimum(id)</td></tr>
+  <tr><td>Warteschlange_Minimum(id)</td></tr>
+  
+  <tr><td>NQ_max(id)</td><td rowspan="8">Liefert die maximale Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_max(id)</td></tr>
+  <tr><td>Schlange_max(id)</td></tr>
+  <tr><td>Warteschlange_max(id)</td></tr>
+  <tr><td>NQ_Maximum(id)</td></tr>
+  <tr><td>Queue_Maximum(id)</td></tr>
+  <tr><td>Schlange_Maximum(id)</td></tr>
+  <tr><td>Warteschlange_Maximum(id)</td></tr>
+  
+  <tr><td>NQ_var(id)</td><td rowspan="8">Liefert die Varianz der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_var(id)</td></tr>
+  <tr><td>Schlange_var(id)</td></tr>
+  <tr><td>Warteschlange_var(id)</td></tr>
+  <tr><td>NQ_Varianz(id)</td></tr>
+  <tr><td>Queue_Varianz(id)</td></tr>
+  <tr><td>Schlange_Varianz(id)</td></tr>
+  <tr><td>Warteschlange_Varianz(id)</td></tr>
+  
+  <tr><td>NQ_sd(id)</td><td rowspan="8">Liefert die Standardabweichung der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_sd(id)</td></tr>
+  <tr><td>Schlange_sd(id)</td></tr>
+  <tr><td>Warteschlange_sd(id)</td></tr>
+  <tr><td>NQ_Standardabweichung(id)</td></tr>
+  <tr><td>Queue_Standardabweichung(id)</td></tr>
+  <tr><td>Schlange_Standardabweichung(id)</td></tr>
+  <tr><td>Warteschlange_Standardabweichung(id)</td></tr>
+  
+  <tr><td>NQ_cv(id)</td><td rowspan="4">Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_cv(id)</td></tr>
+  <tr><td>Schlange_cv(id)</td></tr>
+  <tr><td>Warteschlange_cv(id)</td></tr>
+  
+  <tr><td>NQ_scv(id)</td><td rowspan="4">Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Queue_scv(id)</td></tr>
+  <tr><td>Schlange_scv(id)</td></tr>
+  <tr><td>Warteschlange_scv(id)</td></tr>
+
+  <tr><td>NQ_hist(id;state)</td><td rowspan="4">Liefert den Anteil der Zeit, in der sich state wartende Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt, im System befanden.</td></tr>
+  <tr><td>Queue_hist(id;state)</td></tr>
+  <tr><td>Schlange_hist(id;state)</td></tr>
+  <tr><td>Warteschlange_hist(id;state)</td></tr>
+
+  <tr><td>NQ_hist(id;stateA;stateB)</td><td rowspan="4">Liefert den Anteil der Zeit, in der sich mehr als stateA und höchsten stateB wartende Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt, im System befanden.</td></tr>
+  <tr><td>Queue_hist(id;stateA;stateB)</td></tr>
+  <tr><td>Schlange_hist(id;stateA;stateB)</td></tr>
+  <tr><td>Warteschlange_hist(id;stateA;stateB)</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Anzahl an Kunden in Bedienung an einer Station</h3></td></tr>
+
+  <tr><td>Process(id)</td><td>Liefert die aktuelle Anzahl an Kunden, die gerade an Station id bedient werden.</td></tr>  
+  
+  
+  
+  <tr><td colspan="2"><h3>Anzahl an Ankünften und Abhängen an einer Station</h3></td></tr>
+  
+  <tr><td>NumberIn(id)</td><td rowspan="2">Liefert die Anzahl an Kundenankünften an Station id.</td></tr>
+  <tr><td>CountIn(id)</td></tr>
+  
+  <tr><td>NumberOut(id)</td><td rowspan="2">Liefert die Anzahl an Kundenabgängen von Station id.</td></tr>
+  <tr><td>CountOut(id)</td></tr>
+  
+  
+  
+  <tr><td colspan="2"><h3>Zähler und Durchsatz</h3></td></tr>
+    
+  <tr><td>Zähler(id)</td><td rowspan="4">Liefert den Wert des Zählers in Station id.<br>(Kann nur auf "Differenzzähler"-, "Zähler"- und "Durchsatz"-Elemente angewandt werden.)</td></tr>
+  <tr><td>Counter(id)</td></tr>
+  <tr><td>Value(id)</td></tr>
+  <tr><td>Wert(id)</td></tr>
+
+  <tr><td>Anteil(id)</td><td rowspan="2">Liefert den Anteil des Zählerwertes innerhalb der Zählergruppe, in der er sich befindet.<br>(Kann nur auf "Zähler"-Elemente angewandt werden.)</td></tr>
+  <tr><td>Part(id)</td></tr>
+  
+  
+  
+  <tr><td colspan="2"><h3>Wartezeiten an einer Station</h3></td></tr>
+
+  <tr><td>Wartezeit_sum(id)</td><td rowspan="3">Liefert die Summe der an Station id bisher angefallenen Wartezeiten (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_gesamt(id)</td></tr>
+  <tr><td>Wartezeit_summe(id)</td></tr>
+  
+  <tr><td>Wartezeit_avg(id)</td><td rowspan="3">Liefert die mittlere Wartezeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_average(id)</td></tr>
+  <tr><td>Wartezeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Wartezeit_median(id)</td><td rowspan="1">Liefert den Median der Wartezeiten der Kunden an Station id (in Sekunden).</td></tr>
+  
+  <tr><td>Wartezeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Wartezeiten der Kunden an Station id (in Sekunden).</td></tr>
+  
+  <tr><td>Wartezeit_min(id)</td><td rowspan="2">Liefert die minimale Wartezeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_Minimum(id)</td></tr>
+  
+  <tr><td>Wartezeit_max(id)</td><td rowspan="2">Liefert die maximale Wartezeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_Maximum(id)</td></tr>
+  
+  <tr><td>Wartezeit_var(id)</td><td rowspan="2">Liefert die Varianz der Wartezeiten der Kunden an Station id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Wartezeit_Varianz(id)</td></tr>
+  
+  <tr><td>Wartezeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Wartezeiten der Kunden an Station id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Wartezeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Wartezeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Wartezeiten der Kunden an Station id.</td></tr>
+  
+  <tr><td>Wartezeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden an Station id.</td></tr>
+  
+  <tr><td>Wartezeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Wartezeit an Station id time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Wartezeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Wartezeit an Station id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Wartezeiten über alle Kundentypen</h3></td></tr>
+  
+  <tr><td>Wartezeit_avg()</td><td rowspan="3">Liefert die mittlere Wartezeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_average()</td></tr>
+  <tr><td>Wartezeit_Mittelwert()</td></tr>
+  
+  <tr><td>Wartezeit_median()</td><td rowspan="1">Liefert den Median der Wartezeiten über alle Kunden (in Sekunden).</td></tr>
+  
+  <tr><td>Wartezeit_quntil(p)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Wartezeiten über alle Kunden (in Sekunden).</td></tr>
+  
+  <tr><td>Wartezeit_min()</td><td rowspan="2">Liefert die minimale Wartezeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_Minimum()</td></tr>
+  
+  <tr><td>Wartezeit_max()</td><td rowspan="2">Liefert die maximale Wartezeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_Maximum()</td></tr>
+  
+  <tr><td>Wartezeit_var()</td><td rowspan="2">Liefert die Varianz der Wartezeiten über alle Kunden (bezogen auf Sekunden).</td></tr>
+  <tr><td>Wartezeit_Varianz()</td></tr>
+  
+  <tr><td>Wartezeit_sd()</td><td rowspan="2">Liefert die Standardabweichung der Wartezeiten über alle Kunden (bezogen auf Sekunden).</td></tr>
+  <tr><td>Wartezeit_Standardabweichung()</td></tr>
+  
+  <tr><td>Wartezeit_cv()</td><td>Liefert den Variationskoeffizienten der Wartezeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Wartezeit_scv()</td><td>Liefert den quadrierten Variationskoeffizienten der Wartezeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Wartezeit_histAll(time)</td><td>Liefert den Anteil der Kunden, für den die Wartezeit time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Wartezeit_histAll(timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Wartezeit mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
+  
+  
+  
+  <tr><td colspan="2"><h3>Wartezeiten für einen Kundentypen</h3></td></tr>
+  
+  <tr><td>Wartezeit_sum(id)</td><td rowspan="3">Liefert die Summe der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_gesamt(id)</td></tr>
+  <tr><td>Wartezeit_summe(id)</td></tr>
+  
+  <tr><td>Wartezeit_avg(id)</td><td rowspan="3">Liefert die mittlere Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_average(id)</td></tr>
+  <tr><td>Wartezeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Wartezeit_median(id)</td><td rowspan="1">Liefert den Median der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  
+  <tr><td>Wartezeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  
+  <tr><td>Wartezeit_min(id)</td><td rowspan="2">Liefert die minimale Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_Minimum(id)</td></tr>
+  
+  <tr><td>Wartezeit_max(id)</td><td rowspan="2">Liefert die maximale Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_Maximum(id)</td></tr>
+  
+  <tr><td>Wartezeit_var(id)</td><td rowspan="2">Liefert die Varianz der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Wartezeit_Varianz(id)</td></tr>
+  
+  <tr><td>Wartezeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Wartezeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Wartezeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  <tr><td>Wartezeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  
+  
+  <tr><td colspan="2"><h3>Transferzeiten an einer Station</h3></td></tr>
+
+  <tr><td>Transferzeit_sum(id)</td><td rowspan="3">Liefert die Summe der an Station id bisher angefallenen Transferzeiten (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_gesamt(id)</td></tr>
+  <tr><td>Transferzeit_summe(id)</td></tr>
+  
+  <tr><td>Transferzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Transferzeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_average(id)</td></tr>
+  <tr><td>Transferzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Transferzeit_median(id)</td><td rowspan="1">Liefert den Median der Transferzeiten der Kunden an Station id (in Sekunden).</td></tr>
+  
+  <tr><td>Transferzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Transferzeiten der Kunden an Station id (in Sekunden).</td></tr>
+  
+  <tr><td>Transferzeit_min(id)</td><td rowspan="2">Liefert die minimale Transferzeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_Minimum(id)</td></tr>
+  
+  <tr><td>Transferzeit_max(id)</td><td rowspan="2">Liefert die maximale Transferzeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_Maximum(id)</td></tr>
+  
+  <tr><td>Transferzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Transferzeiten der Kunden an Station id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Transferzeit_Varianz(id)</td></tr>
+  
+  <tr><td>Transferzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Transferzeiten der Kunden an Station id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Transferzeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Transferzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Transferzeiten der Kunden an Station id.</td></tr>
+  
+  <tr><td>Transferzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden an Station id.</td></tr>
+  
+  <tr><td>Transferzeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Transferzeit an Station id time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Transferzeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Transferzeit an Station id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
+  
+    
+  
+  <tr><td colspan="2"><h3>Transferzeiten über alle Kundentypen</h3></td></tr>
+  
+  <tr><td>Transferzeit_avg()</td><td rowspan="3">Liefert die mittlere Transferzeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_average()</td></tr>
+  <tr><td>Transferzeit_Mittelwert()</td></tr>
+  
+  <tr><td>Transferzeit_median()</td><td rowspan="1">Liefert den Median der Transferzeiten über alle Kunden (in Sekunden).</td></tr>
+  
+  <tr><td>Transferzeit_quantil(p)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Transferzeiten über alle Kunden (in Sekunden).</td></tr>
+  
+  <tr><td>Transferzeit_min()</td><td rowspan="2">Liefert die mittlere Transferzeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_Minimum()</td></tr>
+  
+  <tr><td>Transferzeit_max()</td><td rowspan="2">Liefert die maximale Transferzeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_Maximum()</td></tr>
+  
+  <tr><td>Transferzeit_var()</td><td rowspan="2">Liefert die Varianz der Transferzeiten über alle Kunden (bezogen auf Sekunden).</td></tr>
+  <tr><td>Transferzeit_Varianz()</td></tr>
+  
+  <tr><td>Transferzeit_sd()</td><td rowspan="2">Liefert die Standardabweichung der Transferzeiten über alle Kunden (bezogen auf Sekunden).</td></tr>
+  <tr><td>Transferzeit_Standardabweichung()</td></tr>
+  
+  <tr><td>Transferzeit_cv()</td><td>Liefert den Variationskoeffizienten der Transferzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Transferzeit_scv()</td><td>Liefert den quadrierten Variationskoeffizienten der Transferzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Transferzeit_histAll(time)</td><td>Liefert den Anteil der Kunden, für den die Transferzeit time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Transferzeit_histAll(timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Transferzeit mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
+  
+
+
+  <tr><td colspan="2"><h3>Transferzeiten für einen Kundentypen</h3></td></tr>
+
+  <tr><td>Transferzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_gesamt(id)</td></tr>
+  <tr><td>Transferzeit_summe(id)</td></tr>
+  
+  <tr><td>Transferzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_average(id)</td></tr>
+  <tr><td>Transferzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Transferzeit_median(id)</td><td rowspan="1">Liefert den Median der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  
+  <tr><td>Transferzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  
+  <tr><td>Transferzeit_min(id)</td><td rowspan="2">Liefert die minimale Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_Minimum(id)</td></tr>
+  
+  <tr><td>Transferzeit_max(id)</td><td rowspan="2">Liefert die maximale Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_Maximum(id)</td></tr>
+  
+  <tr><td>Transferzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Transferzeit_Varianz(id)</td></tr>
+  
+  <tr><td>Transferzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Transferzeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Transferzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  <tr><td>Transferzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Bedienzeiten an einer Station</h3></td></tr>
+
+  <tr><td>Bedienzeit_sum(id)</td><td rowspan="3">Liefert die Summe der an Station id bisher angefallenen Bedienzeiten (in Sekunden).</td></tr>
+  <tr><td>Bedienzeit_gesamt(id)</td></tr>
+  <tr><td>Bedienzeit_summe(id)</td></tr>
+  
+  <tr><td>Bedienzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Bedienzeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Bedienzeit_average(id)</td></tr>  
+  <tr><td>Bedienzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Bedienzeit_median(id)</td><td rowspan="1">Liefert den Median der Bedienzeiten der Kunden an Station id (in Sekunden).</td></tr>
+  
+  <tr><td>Bedienzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Bedienzeiten der Kunden an Station id (in Sekunden).</td></tr>
+  
+  <tr><td>Bedienzeit_min(id)</td><td rowspan="2">Liefert die minimale Bedienzeit der Kunden an Station id (in Sekunden).</td></tr>  
+  <tr><td>Bedienzeit_Minimum(id)</td></tr>
+  
+  <tr><td>Bedienzeit_max(id)</td><td rowspan="2">Liefert die maximale Bedienzeit der Kunden an Station id (in Sekunden).</td></tr>  
+  <tr><td>Bedienzeit_Maximum(id)</td></tr>
+  
+  <tr><td>Bedienzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Bedienzeiten der Kunden an Station id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Bedienzeit_Varianz(id)</td></tr>
+  
+  <tr><td>Bedienzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Bedienzeiten der Kunden an Station id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Bedienzeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Bedienzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Bedienzeiten der Kunden an Station id.</td></tr>
+  
+  <tr><td>Bedienzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden an Station id.</td></tr>
+  
+  <tr><td>Bedienzeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Bedienzeit an Station id time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Bedienzeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Bedienzeit an Station id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Bedienzeiten über alle Kundentypen</h3></td></tr>
+  
+  <tr><td>Bedienzeit_avg()</td><td rowspan="3">Liefert die mittlere Bedienzeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Bedienzeit_average()</td></tr>  
+  <tr><td>Bedienzeit_Mittelwert()</td></tr>
+  
+  <tr><td>Bedienzeit_median()</td><td rowspan="1">Liefert den Median der Bedienzeiten über alle Kunden (in Sekunden).</td></tr>
+  
+  <tr><td>Bedienzeit_quantil(p)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Bedienzeiten über alle Kunden (in Sekunden).</td></tr>
+  
+  <tr><td>Bedienzeit_min()</td><td rowspan="2">Liefert die mittlere Bedienzeit über alle Kunden (in Sekunden).</td></tr>  
+  <tr><td>Bedienzeit_Minimum()</td></tr>
+  
+  <tr><td>Bedienzeit_max()</td><td rowspan="2">Liefert die maximale Bedienzeit über alle Kunden (in Sekunden).</td></tr>  
+  <tr><td>Bedienzeit_Maximum()</td></tr>
+  
+  <tr><td>Bedienzeit_var()</td><td rowspan="2">Liefert die Varianz der Bedienzeiten über alle Kunden (bezogen auf Sekunden).</td></tr>
+  <tr><td>Bedienzeit_Varianz()</td></tr>
+  
+  <tr><td>Bedienzeit_sd()</td><td rowspan="2">Liefert die Standardabweichung der Bedienzeiten über alle Kunden (bezogen auf Sekunden).</td></tr>
+  <tr><td>Bedienzeit_Standardabweichung()</td></tr>
+  
+  <tr><td>Bedienzeit_cv()</td><td>Liefert den Variationskoeffizienten der Bedienzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Bedienzeit_scv()</td><td>Liefert den quadrierten Variationskoeffizienten der Bedienzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Bedienzeit_histAll(time)</td><td>Liefert den Anteil der Kunden, für den die Bedienzeit time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Bedienzeit_histAll(timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Bedienzeit mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
+  
+
+
+  <tr><td colspan="2"><h3>Bedienzeiten für einen Kundentypen</h3></td></tr>
+
+  <tr><td>Bedienzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Bedienzeit_gesamt(id)</td></tr>
+  <tr><td>Bedienzeit_summe(id)</td></tr>
+  
+  <tr><td>Bedienzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Bedienzeit_average(id)</td></tr>  
+  <tr><td>Bedienzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Bedienzeit_median(id)</td><td rowspan="1">Liefert den Median der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  
+  <tr><td>Bedienzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  
+  <tr><td>Bedienzeit_min(id)</td><td rowspan="2">Liefert die minimale Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>  
+  <tr><td>Bedienzeit_Minimum(id)</td></tr>
+  
+  <tr><td>Bedienzeit_max(id)</td><td rowspan="2">Liefert die maximale Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>  
+  <tr><td>Bedienzeit_Maximum(id)</td></tr>
+  
+  <tr><td>Bedienzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Bedienzeit_Varianz(id)</td></tr>
+  
+  <tr><td>Bedienzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Bedienzeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Bedienzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  <tr><td>Bedienzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Verweilzeiten an einer Station</h3></td></tr>
+
+  <tr><td>Verweilzeit_sum(id)</td><td rowspan="3">Liefert die Summe der an Station id bisher angefallenen Verweilzeiten (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_gesamt(id)</td></tr>
+  <tr><td>Verweilzeit_summe(id)</td></tr>
+  
+  <tr><td>Verweilzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Verweilzeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_average(id)</td></tr>
+  <tr><td>Verweilzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Verweilzeit_median(id)</td><td rowspan="1">Liefert den Median der Verweilzeiten der Kunden an Station id (in Sekunden).</td></tr>
+  
+  <tr><td>Verweilzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Verweilzeiten der Kunden an Station id (in Sekunden).</td></tr>
+  
+  <tr><td>Verweilzeit_min(id)</td><td rowspan="2">Liefert die minimale Verweilzeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Minimum(id)</td></tr>
+  
+  <tr><td>Verweilzeit_max(id)</td><td rowspan="2">Liefert die maximale Verweilzeit der Kunden an Station id (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Maximum(id)</td></tr>
+  
+  <tr><td>Verweilzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Verweilzeiten der Kunden an Station id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Varianz(id)</td></tr>
+  
+  <tr><td>Verweilzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Verweilzeiten der Kunden an Station id (bezogen auf Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Verweilzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Verweilzeiten der Kunden an Station id.</td></tr>
+  
+  <tr><td>Verweilzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden an Station id.</td></tr>
+  
+  <tr><td>Verweilzeit_hist(id;time)</td><td>Liefert den Anteil der Kunden, für den die Verweilzeit an Station id time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Verweilzeit_hist(id;timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Verweilzeit an Station id mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Verweilzeiten über alle Kundentypen</h3></td></tr>
+  
+  <tr><td>Verweilzeit_avg()</td><td rowspan="3">Liefert die mittlere Verweilzeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_average()</td></tr>
+  <tr><td>Verweilzeit_Mittelwert()</td></tr>
+  
+  <tr><td>Verweilzeit_median()</td><td rowspan="1">Liefert den Median der Verweilzeiten über alle Kunden (in Sekunden).</td></tr>
+  
+  <tr><td>Verweilzeit_quantil(p)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Verweilzeiten über alle Kunden (in Sekunden).</td></tr>
+  
+  <tr><td>Verweilzeit_min()</td><td rowspan="2">Liefert die minimale Verweilzeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Minimum()</td></tr>
+  
+  <tr><td>Verweilzeit_max()</td><td rowspan="2">Liefert die maximale Verweilzeit über alle Kunden (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Maximum()</td></tr>
+  
+  <tr><td>Verweilzeit_var()</td><td rowspan="2">Liefert die Varianz der Verweilzeiten über alle Kunden (bezogen auf Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Varianz()</td></tr>
+  
+  <tr><td>Verweilzeit_sd()</td><td rowspan="2">Liefert die Standardabweichung der Verweilzeiten über alle Kunden (bezogen auf Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Standardabweichung()</td></tr>
+  
+  <tr><td>Verweilzeit_cv()</td><td>Liefert den Variationskoeffizienten der Verweilzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Verweilzeit_scv()</td><td>Liefert den quadrierten Variationskoeffizienten der Verweilzeiten über alle Kunden.</td></tr>
+  
+  <tr><td>Verweilzeit_histAll(time)</td><td>Liefert den Anteil der Kunden, für den die Verweilzeit time Sekunden gedauert hat.</td></tr>
+
+  <tr><td>Verweilzeit_histAll(timeA;timeB)</td><td>Liefert den Anteil der Kunden, für den die Verweilzeit mehr als timeA und höchstens timeB Sekunden gedauert hat.</td></tr>
+  
+  
+  
+  <tr><td colspan="2"><h3>Verweilzeiten für einen Kundentypen</h3></td></tr>
+  
+  <tr><td>Verweilzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_gesamt(id)</td></tr>
+  <tr><td>Verweilzeit_summe(id)</td></tr>
+  
+  <tr><td>Verweilzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_average(id)</td></tr>
+  <tr><td>Verweilzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>Verweilzeit_median(id)</td><td rowspan="1">Liefert den Median der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  
+  <tr><td>Verweilzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  
+  <tr><td>Verweilzeit_min(id)</td><td rowspan="2">Liefert die minimale Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Minimum(id)</td></tr>
+  
+  <tr><td>Verweilzeit_max(id)</td><td rowspan="2">Liefert die maximale Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Maximum(id)</td></tr>
+  
+  <tr><td>Verweilzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Varianz(id)</td></tr>
+  
+  <tr><td>Verweilzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Verweilzeit_Standardabweichung(id)</td></tr>
+  
+  <tr><td>Verweilzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  
+  <tr><td>Verweilzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Auslastung einer Ressource</h3></td></tr>
+  
+  <tr><td>resource_count(id)</td><td rowspan="3">Liefert die Anzahl der momentan vorhandenen Bediener in der angegebenen Ressource.</td></tr>
+  <tr><td>resource_capacity(id)</td></tr>
+  <tr><td>MR(id)</td></tr>
+  
+  <tr><td>resource_down(id)</td><td rowspan="1">Liefert die Anzahl der momentan in Ausfallzeit befindlichen Bediener in der angegebenen Ressource.</td></tr>
+  
+  <tr><td>resource(id)</td><td rowspan="3">Liefert die Anzahl der momentan belegten Bediener in der angegebenen Ressource.</td></tr>
+  <tr><td>utilization(id)</td></tr>
+  <tr><td>NR(id)</td></tr>
+  
+  <tr><td>resource_avg(id)</td><td rowspan="6">Liefert die mittlere Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
+  <tr><td>resource_average(id)</td></tr>
+  <tr><td>resource_Mittelwert(id)</td></tr>
+  <tr><td>utilization_avg(id)</td></tr>
+  <tr><td>utilization_average(id)</td></tr>
+  <tr><td>utilization_Mittelwert(id)</td></tr>
+  
+  <tr><td>resource_min(id)</td><td rowspan="4">Liefert die minimale Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
+  <tr><td>resource_Minimum(id)</td></tr>
+  <tr><td>utilization_min(id)</td></tr>
+  <tr><td>utilization_Minimum(id)</td></tr>
+  
+  <tr><td>resource_max(id)</td><td rowspan="4">Liefert die maximale Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
+  <tr><td>resource_Maximum(id)</td></tr>
+  <tr><td>utilization_max(id)</td></tr>
+  <tr><td>utilization_Maximum(id)</td></tr>
+  
+  <tr><td>resource_var(id)</td><td rowspan="4">Liefert die Varianz der Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
+  <tr><td>resource_Varianz(id)</td></tr>
+  <tr><td>utilization_var(id)</td></tr>
+  <tr><td>utilization_Varianz(id)</td></tr>
+  
+  <tr><td>resource_sd(id)</td><td rowspan="4">Liefert die Standardabweichung der Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
+  <tr><td>resource_Standardabweichung(id)</td></tr>
+  <tr><td>utilization_sd(id)</td></tr>
+  <tr><td>utilization_Standardabweichung(id)</td></tr>
+  
+  <tr><td>resource_cv(id)</td><td rowspan="2">Liefert den Variationskoeffizienten der Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
+  <tr><td>utilization_cv(id)</td></tr>
+  
+  <tr><td>resource_scv(id)</td><td rowspan="2">Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Bedienern in der angegebenen Ressource.</td></tr>
+  <tr><td>utilization_scv(id)</td></tr>
+  
+  <tr><td>resource_hist(id;state)</td><td rowspan="2">Liefert den Anteil der Zeit, in der state Bediener der angegebenen Ressource ausgelastet waren.</td></tr>
+  <tr><td>utilization_hist(id;state)</td></tr>
+  
+  <tr><td>resource_hist(id;stateA;stateB)</td><td rowspan="2">Liefert den Anteil der Zeit, mehr als stateA und höchstens stateB Bediener der angegebenen Ressource ausgelastet waren.</td></tr>
+  <tr><td>utilization_hist(id;stateA;stateB)</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Auslastung aller Ressourcen zusammen</h3></td></tr>
+  
+  <tr><td>resource_count()</td><td rowspan="3">Liefert die Anzahl der momentan vorhandenen Bedienern in allen Ressourcen zusammen.</td></tr>
+  <tr><td>resource_capacity()</td></tr>
+  <tr><td>MR()</td></tr>
+  
+  <tr><td>resource_down()</td><td rowspan="1">Liefert die Anzahl der momentan in Ausfallzeit befindlichen Bediener in allen Ressourcen zusammen.</td></tr>
+ 
+  <tr><td>resource()</td><td rowspan="3">Liefert die Anzahl der momentan belegten Bediener in allen Ressourcen zusammen.</td></tr>
+  <tr><td>utilization()</td></tr>
+  <tr><td>NR()</td></tr>
+  
+  <tr><td>resource_avg()</td><td rowspan="6">Liefert die mittlere Anzahl an belegten Bedienern in allen Ressourcen zusammen.</td></tr>
+  <tr><td>resource_average()</td></tr>
+  <tr><td>resource_Mittelwert()</td></tr>
+  <tr><td>utilization_avg()</td></tr>
+  <tr><td>utilization_average()</td></tr>
+  <tr><td>utilization_Mittelwert()</td></tr>
+  
+  <tr><td>resource_min()</td><td rowspan="4">Liefert die minimale Anzahl an belegten Bedienern in allen Ressourcen zusammen.</td></tr>
+  <tr><td>resource_Minimum()</td></tr>
+  <tr><td>utilization_min()</td></tr>
+  <tr><td>utilization_Minimum()</td></tr>
+  
+  <tr><td>resource_max()</td><td rowspan="4">Liefert die maximale Anzahl an belegten Bedienern in allen Ressourcen zusammen.</td></tr>
+  <tr><td>resource_Maximum()</td></tr>
+  <tr><td>utilization_max()</td></tr>
+  <tr><td>utilization_Maximum()</td></tr>
+  
+  
+  
+  <tr><td colspan="2"><h3>Auslastung einer Transportergruppe</h3></td></tr>
+  
+  <tr><td>transporter_count(id)</td><td rowspan="1">Liefert die Anzahl der vorhandenen Transporter in der angegebenen Transportergruppe.</td></tr>
+  
+  <tr><td>transporter_capacity(id)</td><td rowspan="1">Liefert die Kapazität an beförderbaren Kunden eines Transporters in der angegebenen Transportergruppe.</td></tr>
+  
+  <tr><td>transporter_down(id)</td><td rowspan="1">Liefert die Anzahl der momentan in Ausfallzeit befindlichen Transporter in der angegebenen Transportergruppe.</td></tr>
+  
+  <tr><td>transporter(id)</td><td rowspan="2">Liefert die Anzahl der momentan belegten Transporter in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_utilization(id)</td></tr>
+  
+  <tr><td>transporter_avg(id)</td><td rowspan="6">Liefert die mittlere Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_average(id)</td></tr>
+  <tr><td>transporter_Mittelwert(id)</td></tr>
+  <tr><td>transporter_utilization_avg(id)</td></tr>
+  <tr><td>transporter_utilization_average(id)</td></tr>
+  <tr><td>transporter_utilization_Mittelwert(id)</td></tr>
+  
+  <tr><td>transporter_min(id)</td><td rowspan="4">Liefert die minimale Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_Minimum(id)</td></tr>
+  <tr><td>transporter_utilization_min(id)</td></tr>
+  <tr><td>transporter_utilization_Minimum(id)</td></tr>
+  
+  <tr><td>transporter_max(id)</td><td rowspan="4">Liefert die maximale Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_Maximum(id)</td></tr>
+  <tr><td>transporter_utilization_max(id)</td></tr>
+  <tr><td>transporter_utilization_Maximum(id)</td></tr>
+  
+  <tr><td>transporter_var(id)</td><td rowspan="4">Liefert die Varianz der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_Varianz(id)</td></tr>
+  <tr><td>transporter_utilization_var(id)</td></tr>
+  <tr><td>transporter_utilization_Varianz(id)</td></tr>
+  
+  <tr><td>transporter_sd(id)</td><td rowspan="4">Liefert die Standardabweichung der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_Standardabweichung(id)</td></tr>
+  <tr><td>transporter_utilization_sd(id)</td></tr>
+  <tr><td>transporter_utilization_Standardabweichung(id)</td></tr>
+  
+  <tr><td>transporter_cv(id)</td><td rowspan="2">Liefert den Variationskoeffizienten der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_utilization_cv(id)</td></tr>
+  
+  <tr><td>transporter_scv(id)</td><td rowspan="2">Liefert den quadrierten Variationskoeffizienten der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</td></tr>
+  <tr><td>transporter_utilization_scv(id)</td></tr>
+  
+  <tr><td>transporter_hist(id;state)</td><td rowspan="2">Liefert den Anteil der Zeit, in der state Transporter der angegebenen Transportergruppe ausgelastet waren.</td></tr>
+  <tr><td>transporter_utilization_hist(id;state)</td></tr>
+  
+  <tr><td>transporter_hist(id;stateA;stateB)</td><td rowspan="2">Liefert den Anteil der Zeit, mehr als stateA und höchstens stateB Transporter der angegebenen Transportergruppe ausgelastet waren.</td></tr>
+  <tr><td>transporter_utilization_hist(id;stateA;stateB)</td></tr>
+
+
+
+  <tr><td colspan="2"><h3>Auslastung aller Transporter zusammen</h3></td></tr>
+  
+  <tr><td>transporter_count()</td><td rowspan="1">Liefert die Anzahl der vorhandenen Transportern in allen Transportergruppen zusammen.</td></tr>
+  
+  <tr><td>transporter_down()</td><td rowspan="1">Liefert die Anzahl der momentan in Ausfallzeit befindlichen Transporter in allen Transportergruppen zusammen.</td></tr>
+ 
+  <tr><td>transporter()</td><td rowspan="2">Liefert die Anzahl der momentan belegten Transporter in allen Transportergruppen zusammen.</td></tr>
+  <tr><td>transporter_utilization()</td></tr>
+  
+  <tr><td>transporter_avg()</td><td rowspan="6">Liefert die mittlere Anzahl an belegten Transportern in allen Transportergruppen zusammen.</td></tr>
+  <tr><td>transporter_average()</td></tr>
+  <tr><td>transporter_Mittelwert()</td></tr>
+  <tr><td>transporter_utilization_avg()</td></tr>
+  <tr><td>transporter_utilization_average()</td></tr>
+  <tr><td>transporter_utilization_Mittelwert()</td></tr>
+  
+  <tr><td>transporter_min()</td><td rowspan="4">Liefert die minimale Anzahl an belegten Transportern in allen Transportergruppen zusammen.</td></tr>
+  <tr><td>transporter_Minimum()</td></tr>
+  <tr><td>transporter_utilization_min()</td></tr>
+  <tr><td>transporter_utilization_Minimum()</td></tr>
+  
+  <tr><td>transporter_max()</td><td rowspan="4">Liefert die maximale Anzahl an belegten Transportern in allen Transportergruppen zusammen.</td></tr>
+  <tr><td>transporter_Maximum()</td></tr>
+  <tr><td>transporter_utilization_max()</td></tr>
+  <tr><td>transporter_utilization_Maximum()</td></tr>
+  
+   
+  
+  <tr><td colspan="2"><h3>Zugriff auf Statistik-Stationen Datenfelder</h3></td></tr>
+  
+  <tr><td>Statistik(id;nr)</td><td rowspan="2">Liefert den aktuellen Wert des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics(id;nr)</td></tr>
+  
+  <tr><td>Statistik_avg(id;nr)</td><td rowspan="4">Liefert den Mittelwert des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_avg(id;nr)</td></tr>
+  <tr><td>Statistik_Mittelwert(id;nr)</td></tr>
+  <tr><td>Statistics_average(id;nr)</td></tr>
+  
+  <tr><td>Statistik_median(id;nr)</td><td rowspan="2">Liefert den Median des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_median(id;nr)</td></tr>
+  
+  <tr><td>Statistik_quantil(id;nr;p)</td><td rowspan="2">Liefert das Quantil zur Wahrscheinlichkeit p des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_quantil(id;nr;p)</td></tr>
+  
+  <tr><td>Statistik_min(id;nr)</td><td rowspan="4">Liefert den Minimalwert des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_min(id;nr)</td></tr>
+  <tr><td>Statistik_Minimum(id;nr)</td></tr>
+  <tr><td>Statistics_Minimum(id;nr)</td></tr>
+  
+  <tr><td>Statistik_max(id;nr)</td><td rowspan="4">Liefert den Maximalwert des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_max(id;nr)</td></tr>
+  <tr><td>Statistik_Maximum(id;nr)</td></tr>
+  <tr><td>Statistics_Maximum(id;nr)</td></tr>
+  
+  <tr><td>Statistik_var(id;nr)</td><td rowspan="3">Liefert die Varianz des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_var(id;nr)</td></tr>
+  <tr><td>Statistik_Varianz(id;nr)</td></tr>
+  
+  <tr><td>Statistik_std(id;nr)</td><td rowspan="3">Liefert die Standardabweichung des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_std(id;nr)</td></tr>
+  <tr><td>Statistik_Standardabweichung(id;nr)</td></tr>
+  
+  <tr><td>Statistik_cv(id;nr)</td><td rowspan="2">Liefert den Variationskoeffizienten des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_cv(id;nr)</td></tr>
+
+  <tr><td>Statistik_scv(id;nr)</td><td rowspan="2">Liefert den quadrierten Variationskoeffizienten des Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id.</td></tr>  
+  <tr><td>Statistics_scv(id;nr)</td></tr>
+  
+  <tr><td>Statistik_hist(id;nr;state)</td><td rowspan="2">Liefert den Anteil der Zeit, in der sich das System in Bezug auf Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id in Zustand state befunden hat.</td></tr>
+  <tr><td>Statistics_hist(id;nr;state)</td></tr>
+  
+  <tr><td>Statistik_hist(id;nr;stateA;stateB)</td><td rowspan="2">Liefert den Anteil der Zeit, in der sich das System in Bezug auf Statistikeintrags <tt>nr</tt> (1-basierend) an Statistik-Station id in einem Zustand größer als stateA und kleiner oder gleich stateB befunden hat.</td></tr>
+  <tr><td>Statistics_hist(id;nr;stateA;stateB)</td></tr>
+  
+  
+  
+  <tr><td colspan="2"><h3>Zugriff auf Analogwerte</h3></td></tr>
+  
+  <tr><td>AnalogWert(id)</td><td rowspan="2">Liefert den aktuellen Wert des "Analoger Wert"-Elements oder des "Tank"-Elements id.</td></tr>  
+  <tr><td>AnalogValue(id)</td></tr>
+  
+  <tr><td>AnalogRate(id)</td><td rowspan="1">Liefert die aktuelle Änderungsrate des Wertes des "Analoger Wert"-Elements id.</td></tr>  
+
+  <tr><td>VentilMaximalDurchfluss(id;nr)</td><td rowspan="2">Liefert den aktuellen maximalen Durchfluss an Ventil <tt>nr</tt> (1-basierend) an "Tank"-Element id.</td></tr>  
+  <tr><td>ValveMaximumFlow(id;nr)</td></tr>
+ 
+  
+  
+  <tr><td colspan="2"><h3>Zugriff auf Kundenobjekt-spezifische Datenfelder</h3></td></tr>
+  
+  <tr><td>WarmUpKunde()</td><td rowspan="3">Liefert 0 oder 1 zurück in Abhängigkeit davon, ob der Kunde während der Einschwingphase generiert wurde (1) oder nicht (0).</td></tr>
+  <tr><td>WarmUpClient()</td></tr>
+  <tr><td>isWarmUpClient()</td></tr>
+
+  <tr><td>KundeInStatistik()</td><td rowspan="3">Liefert 0 oder 1 zurück in Abhängigkeit davon, ob der Kunde in der Statistik erfasst werden soll (1) oder nicht (0). Der Kunde muss außerdem außerhalb der Einschwingphase generiert worden sein, um tatsächlich erfasst zu werden.</td></tr>
+  <tr><td>ClientInStatistics()</td></tr>
+  <tr><td>isClientInStatistics()</td></tr>
+
+  <tr><td>KundeNummer()</td><td rowspan="2">Liefert die 1-basierende fortlaufende Nummer des aktuellen Kunden. Bei der Verwendung von mehreren Simulationsthreads ist diese Zahl thread-lokal.</td></tr>
+  <tr><td>ClientNumber()</td></tr>
+  
+  <tr><td>ClientData(index)</td><td rowspan="2">Liefert das an Stelle <tt>index</tt> im aktuellen Kundenobjekt hinterlegte Datenfeld.<br>In den "Variable"-Elementen kann schreibend auf diese Felder zugegriffen werden.</td></tr>
+  <tr><td>KundenDaten(index)</td></tr>
+  
+  <tr><td>Alternative()</td><td rowspan="1">Gibt an, welche Bedieneralternative an der letzten Bedienstation, die dieser Kunde durchlaufen hat, gewählt wurde. Hat der Kunde noch keine Bedienstation durchlaufen, so liefert die Funktion 0. Ansonsten einen Wert größer oder gleich 1.</td></tr>
+  
+  <tr><td>PreviousStation()</td><td rowspan="2">Liefert die ID der Station, an der sich der Kunde vor der aktuellen Station aufgehalten hat.</td></tr>
+  <tr><td>VorherigeStation()</td></tr>
+  
+  <tr><td>CurrentWaitingTime()</td><td rowspan="2">Liefert die bisherige Wartezeit des aktuellen Kunden an der aktuellen Station.</td></tr>
+  <tr><td>AktuelleWartezeit()</td></tr>
+
+  
+  
+  <tr><td colspan="2"><h3>Zugriff auf die Kosten</h3></td></tr>
+  
+  <tr><td>costs_waiting_sum(id)</td><td rowspan="2">Liefert die Summe der Wartezeitkosten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Kosten_Wartezeit_Summe(id)</td></tr>
+  
+  <tr><td>costs_waiting_avg(id)</td><td rowspan="3">Liefert die durchschnittlichen Wartezeitkosten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>costs_waiting_average(id)</td></tr>
+  <tr><td>Kosten_Wartezeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>costs_waiting_sum()</td><td rowspan="2">Liefert die Summe der Wartezeitkosten über alle Kunden.</td></tr>
+  <tr><td>Kosten_Wartezeit_Summe()</td></tr>
+  
+  <tr><td>costs_waiting_avg()</td><td rowspan="3">Liefert die durchschnittlichen Wartezeitkosten über alle Kunden.</td></tr>
+  <tr><td>costs_waiting_average()</td></tr>
+  <tr><td>Kosten_Wartezeit_Mittelwert()</td></tr>
+  
+  <tr><td>costs_waiting()</td><td rowspan="2">Liefert die Wartezeitkosten des aktuellen Kunden.</td></tr>
+  <tr><td>Kosten_Wartezeit()</td></tr>
+  
+  <tr><td>costs_transfer_sum(id)</td><td rowspan="2">Liefert die Summe der Transferzeitkosten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Kosten_Transferzeit_Summe(id)</td></tr>
+  
+  <tr><td>costs_transfer_avg(id)</td><td rowspan="3">Liefert die durchschnittlichen Transferzeitkosten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>costs_transfer_average(id)</td></tr>
+  <tr><td>Kosten_Transferzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>costs_transfer_sum()</td><td rowspan="2">Liefert die Summe der Transferzeitkosten über alle Kunden.</td></tr>
+  <tr><td>Kosten_Transferzeit_Summe()</td></tr>
+  
+  <tr><td>costs_transfer_avg()</td><td rowspan="3">Liefert die durchschnittlichen Transferzeitkosten über alle Kunden.</td></tr>
+  <tr><td>costs_transfer_average()</td></tr>
+  <tr><td>Kosten_Transferzeit_Mittelwert()</td></tr>
+  
+  <tr><td>costs_transfer()</td><td rowspan="2">Liefert die Transferzeitkosten des aktuellen Kunden.</td></tr>
+  <tr><td>Kosten_Transferzeit()</td></tr>
+  
+  <tr><td>costs_process_sum(id)</td><td rowspan="2">Liefert die Summe der Bedienzeitkosten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Kosten_Bedienzeit_Summe(id)</td></tr>
+  
+  <tr><td>costs_process_avg(id)</td><td rowspan="3">Liefert die durchschnittlichen Bedienzeitkosten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>costs_process_average(id)</td></tr>
+  <tr><td>Kosten_Bedienzeit_Mittelwert(id)</td></tr>
+  
+  <tr><td>costs_process_sum()</td><td rowspan="2">Liefert die Summe der Bedienzeitkosten über alle Kunden.</td></tr>
+  <tr><td>Kosten_Bedienzeit_Summe()</td></tr>
+  
+  <tr><td>costs_process_avg()</td><td rowspan="3">Liefert die durchschnittlichen Bedienzeitkosten über alle Kunden.</td></tr>
+  <tr><td>costs_process_average()</td></tr>
+  <tr><td>Kosten_Bedienzeit_Mittelwert()</td></tr>
+  
+  <tr><td>costs_process()</td><td rowspan="2">Liefert die Bedienzeitkosten des aktuellen Kunden.</td></tr>
+  <tr><td>Kosten_Bedienzeit()</td></tr>
+  
+  <tr><td>costs(id)</td><td rowspan="2">Liefert die Stationskosten, die bisher in Summe an Station id aufgetreten sind.</td></tr> 
+  <tr><td>Kosten(id)</td></tr>
+  
+  <tr><td>costs()</td><td rowspan="2">Liefert die Stationskosten, die bisher in Summe an allen Stationen aufgetreten sind.</td></tr>
+  <tr><td>Kosten()</td></tr>
+  
+  <tr><td>costs_resource(id)</td><td rowspan="2">Liefert die Kosten, die durch die angegebene Ressource bisher entstanden sind.</td></tr>
+  <tr><td>Kosten_Ressource(id)</td></tr>
+  
+  <tr><td>costs_resource()</td><td rowspan="2">Liefert die Kosten, die durch alle Ressourcen bisher entstanden sind.</td></tr>
+  <tr><td>Kosten_Ressource()</td></tr>
+
+</table>
+
+
+
+
+
+<h2>Vergleiche</h2>
+
+<table class="border">
+  <tr><td>a == b</td><td>Liefert wahr zurück, wenn a denselben Wert hat wie b</td></tr>
+  <tr><td>a != b</td><td>Liefert wahr zurück, wenn a und b unterschiedliche Werte aufweisen</td></tr>
+  <tr><td>a &lt;&gt; b</td><td>Liefert wahr zurück, wenn a und b unterschiedliche Werte aufweisen</td></tr>
+  <tr><td>a &lt; b</td><td>Liefert wahr zurück, wenn a echt kleiner als b ist</td></tr>
+  <tr><td>a &lt;= b</td><td>Liefert wahr zurück, wenn a echt kleiner oder gleich b ist</td></tr>
+  <tr><td>a =&lt; b</td><td>Liefert wahr zurück, wenn a echt kleiner oder gleich b ist</td></tr>
+  <tr><td>a &gt; b</td><td>Liefert wahr zurück, wenn a echt größer als b ist</td></tr>
+  <tr><td>a &gt;= b</td><td>Liefert wahr zurück, wenn a echt größer oder gleich b ist</td></tr>
+  <tr><td>a =&gt; b</td><td>Liefert wahr zurück, wenn a echt größer oder gleich b ist</td></tr>
+  <tr><td>A || B</td><td>Liefert wahr zurück, wenn A oder B (oder beide) erfüllt sind</td></tr>
+  <tr><td>A &amp;&amp; B</td><td>Liefert wahr zurück, wenn A und B erfüllt sind</td></tr>
+  <tr><td>!(A)</td><td>Liefert wahr zurück, wenn A nicht erfüllt ist</td></tr>
+</table>
+
+</body>
+</html>

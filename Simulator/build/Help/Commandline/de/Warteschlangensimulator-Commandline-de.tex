@@ -1,0 +1,67 @@
+\RequirePackage{amsmath}
+\RequirePackage{fix-cm}
+\documentclass[deutsch]{svmono}
+
+\def\ColoredLinks{}
+\input{Macros.tex}
+\usepackage{xcolor}
+\usepackage{lmodern}
+\usepackage{wrapfig}
+\textwidth160mm
+\textheight220mm
+\oddsidemargin0mm
+\evensidemargin0mm
+\topmargin0mm
+
+\def\cmd#1{\textbf{,,\texttt{#1}''}}
+\def\cm#1{\textbf{\texttt{#1}}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\vskip5cm {\Huge\textbf{Kommandozeilenbefehlsreferenz \vskip.1cm Warteschlangensimulator}}
+\vskip.5cm \hrule
+\vskip.5cm {\large \textsc{Alexander Herzog} (\href{mailto:alexander.herzog@tu-clausthal.de}{alexander.herzog@tu-clausthal.de})}
+\IfFileExists{../../Warteschlangennetz-mittel.png}{
+\vskip2cm \centerline{\fbox{\includegraphics[width=16cm]{../../Warteschlangennetz-mittel.png}}}
+}{}
+\vskip2cm {\color{gray}
+Diese Referenz bezieht sich auf die Version \input{../../Version.tex} des Warteschlangensimulators.\\
+Download-Adresse: \href{https://github.com/A-Herzog/Warteschlangensimulator/}{https://github.com/A-Herzog/Warteschlangensimulator/}.
+}
+\renewcommand{\thepage}{\roman{page}}
+
+{
+\clearpage
+\pdfbookmark{Inhaltsverzeichnis}{Inhaltsverzeichnis}
+\begingroup \let\cleardoublepage\relax \tableofcontents \endgroup
+}
+
+\renewcommand{\thepage}{\arabic{page}}
+\setcounter{page}{1}
+
+\chapter{Allgemeines}
+
+Bei dem Warteschlangensimulator handelt es sich um ein Java-Programm, d.\,h.\ zur Ausführung wird eine
+Java-Laufzeitumgebung benötigt. Ist diese vorhanden, so kann der Simulator über folgenden Befehl gestartet
+werden:
+
+\texttt{java -jar Simulator.jar}
+
+Wird an diese Befehlszeile durch ein Leerzeichen abgetrennt der Dateiname einer Model-, Statistik-,
+Parameterreihen- oder Optimiererdatei angehängt, so wird diese unmittelbar nach dem Programmstart geladen.
+
+\chapter{Liste der Befehle}
+
+Alternativ kann der Warteschlangensimulator mit einem der in den folgenden Abschnitten beschriebenen Befehle
+aufgerufen werden. In diesem Fall wird kein Programmfenster angezeigt, sondern alle Ausgaben erfolgen direkt
+auf der Kommandozeile. Das Aufrufschema der Befehle lautet dabei:
+
+\texttt{java -jar Simulator.jar Befehl OptionenFürBefehl}
+
+Alle im Folgenden beschriebenen Befehle können auch direkt über die grafische Programmoberfläche über den
+Befehl "`Kommandozeilenbefehl ausführen..."' im "`Extras"'-Menü ausprobiert werden.
+
+\input{Reference.tex}
+
+\end{document}

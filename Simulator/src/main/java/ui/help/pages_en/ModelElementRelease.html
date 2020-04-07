@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Release resource</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Release resource</h1>
+
+<p>
+In a release resource element resources, that have von previously seized by a
+<a href="ModelElementSeize.html">Seize resource</a> element, are released again.
+</p>
+
+<p>
+The three elements <a href="ModelElementSeize.html">Seize resource</a>, <a href="ModelElementDelay.html">Delay</a> and
+<b>release resource</b> in this order therefore work together similar to a
+<a href="ModelElementProcess.html">process station</a> element.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+The name of the release resource element has no further meaning. But it is necessary to specify
+which <a href="ModelElementSeize.html">Seize resources</a> should work together with this element.
+In addition, a time span can be specified between the arrival of a client at the station and
+the release of the resources. If such a time period has been defined, the client will already have
+left the release element when the relevant resources are actually released.
+</p>
+ 
+</body>
+</html>

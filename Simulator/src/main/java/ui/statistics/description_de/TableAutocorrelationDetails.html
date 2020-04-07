@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Autokorrelation - Details</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+In dieser Tabelle wird angezeigt, bei welchem Abstand von aufeinander folgenden
+Kunden sich jeweils welche <b>Autokorrelation</b> ergibt.
+</p>
+
+<h3>Autokorrelation</h3>
+
+<p>
+Häufig ist es wünschenswert, nicht nur Kenngrößen wie den
+<a href="help:statistik_mittelwert">Mittelwert</a> über die während
+einer Simulation erfassten Messwerte (z.B. für die mittleren
+Wartezeiten der Kunden) auszugeben, sondern auch bewerten zu können,
+mit einer wie hohen Sicherheit sich der tatsächliche, langfristige
+Mittelwert dieser Größe mit welcher Wahrscheinlichkeit wie nah an
+dem experimentell ermittelten Wert befindet. Dies leisten die
+sogenannten <a href="help:statistik_konfidenzintervall"><b>Konfidenzintervalle</b></a>.
+</p>
+
+<p>
+In die Formel zur Berechnung eines Konfidenzintervalls geht der
+gemessene Mittelwert, die gemessene Streuung der Werte
+(<a href="help:statistik_standardabweichung">Standardabweichung</a>)
+und die Anzahl an unabhängigen Messwerten ein. Die ersten beiden
+Kenngrößen werden für alle relevanten Eigenschaften während der
+Simulation erfasst. Die Festlegung, wie viele <b>unabhängige</b>
+Messwerte es gab, ist jedoch weniger einfach: Musste ein Kunde
+lange warten, so ist die Wahrscheinlichkeit hoch, dass auch der
+nächste Kunde recht lange wird warten müssen. Umgekehrt bedeutet
+eine kurze Wartezeit für einen Kunden, dass der unmittelbar folgende
+Kunde ebenfalls wird nicht sehr lange warten müssen. Diese Abhängigkeit
+zwischen den Wartezeiten der Kunden wird die <b>Autokorrelation</b>
+genannt. Für die Bestimmung von Konfidenzintervallen ist es daher
+von Interesse zu wissen, ab
+welchem Abstand die <b>Rest-Autokorrelation</b> unterhalb eines
+als akzeptabel einzustufenden Wertes liegt. Die Gesamtanzahl an
+Ankünften wird dann durch diesen Abstand dividiert, um so eine
+Anzahl an zumindest näherungsweise unabhängigen Messwerten zu
+erhalten.
+</p>
+  
+</body></html>

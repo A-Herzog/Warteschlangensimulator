@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModellVersion>3.3.0</ModellVersion>
+  <ModellName>Zentraler Grenzwertsatz</ModellName>
+  <ModellBeschreibung>Siehe auch:
+https://www.mathematik.tu-clausthal.de/interaktiv/stochastik/zentralergrenzwertsatz/</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">1000000</ModellKunden>
+  <ModellAufwaermphase>0.05</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzoegerung id="2">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Wartezeit" Zeitbasis="Sekunden">Exponentialverteilung (20)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="4">
+      <ModellElementName>Zähler&gt;=10</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="100"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="ClientData(1)&gt;=10" Element="9" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="6">
+      <ModellElementName>Zähler++</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">ClientData(1)+1</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementEnde id="8">
+      <ModellElementGroesse h="50" w="100" x="750" y="100"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="9">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="23" w="205" x="50" y="50"/>
+      <ModellElementTextzeile>Zentraler Grenzwertsatz</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEcke id="11">
+      <ModellElementGroesse h="10" w="10" x="195" y="220"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="12">
+      <ModellElementGroesse h="10" w="10" x="545" y="220"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="7">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="12" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="6" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="11" Element2="2" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementAnimationBalkenDiagramm id="15">
+      <ModellElementGroesse h="200" w="450" x="50" y="350"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementMaximalwert>0.2</ModellElementMaximalwert>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(0;20)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(20;40)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(40;60)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(60;80)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(80;100)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(100;120)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(120;140)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(140;160)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(160;180)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(180;200)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(200;220)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(220;240)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(240;260)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(260;280)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(280;300)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(300;320)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(320;340)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(340;360)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(360;380)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WaitingTime_histAll(380;400)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="38" w="462" x="50" y="260"/>
+      <ModellElementTextzeile>Alle Kunden werden jeweils 10x durch die "Verzögerung"-Station geleitet.</ModellElementTextzeile>
+      <ModellElementTextzeile>Jedes Mal müssen sie dort im Mittel 10 Sekunden warten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="37">
+      <ModellElementGroesse h="19" w="249" x="50" y="330"/>
+      <ModellElementTextzeile>Zeitanteile der Wartezeiten der Kunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="63">
+      <ModellElementGroesse h="76" w="400" x="505" y="350"/>
+      <ModellElementTextzeile>Die einzelnen Verzögerungen sind exponentialverteilt.</ModellElementTextzeile>
+      <ModellElementTextzeile>Damit ist die Gesamtwartezeit Erlang-verteilt.</ModellElementTextzeile>
+      <ModellElementTextzeile>Je größer die Anzahl der Verzögerungen pro Kunde ist,</ModellElementTextzeile>
+      <ModellElementTextzeile>desto stärker nähert sich die Verteilung einer Normalverteilung.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

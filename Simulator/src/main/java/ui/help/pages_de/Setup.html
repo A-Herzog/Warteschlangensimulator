@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Einstellungen-Dialog</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Einstellungen-Dialog</h1>
+
+<p><i>
+Der Einstellungen-Dialog kann über den Menüpunkt Datei|Einstellungen aufgerufen werden.
+</i></p>
+
+<p>
+In dem Einstellungen-Dialog kann die Basiskonfiguration des Simulators vorgenommen werden.
+Der Dialog besteht aus folgenden Registerreitern:
+</p>
+
+<h2><img src="../images/application_go.png">&nbsp; Benutzeroberfläche</h2>
+
+<h3>Anzeigesprache</h3>
+<p>
+In dem Feld kann ausgewählt werden, ob die Programmoberfläche auf Deutsch oder auf Englisch angezeigt werden soll.
+</p>
+<p>
+(Ist als Systemsprache Deutsch gewählt, so wird als Vorgabewert "Deutsch" eingestellt, sonst "Englisch".)
+</p>
+
+<h3>Schriftgrößen</h3>
+<p>
+In diesem Auswahlfeld kann eingestellt werden, ob die Schriftgrößen (und damit auch die Fenstergrößen)
+in der grafischen Oberfläche des Programms für eine bessere Lesbarkeit skaliert werden sollen.
+Veränderungen der Schriftgröße werden erst nach einem Neustart des Programms wirksam.
+</p>
+<p>
+(Vorgabewert ist für diese Option: "Normal".)
+</p>
+
+<h3>Hohe Kontraste verwenden</h3>
+<p>
+Wird diese Option aktiviert, so werden die Elemente auf der Zeichenfläche mit einem durchgängig
+hohen Kontrast dargestellt. Dafür werden individuelle Farben für die Stationen sowie Farbverläufe deaktiviert.
+</p>
+<p>
+(Diese Option ist als Vorgabewert deaktiviert.)
+</p>
+
+<h3>Modell automatisch speichern</h3>
+<p>
+In diesem Auswahlfeld kann eingestellt werden, ob das Modell nie, vor dem Start von
+Simulationen/Animationen oder nach jeder Änderung am Modell automatisch gespeichert
+werden soll. 
+</p>
+<p>
+(Als Vorgabewert ist die automatische Speicherung deaktiviert.)
+</p>
+
+<h3>Zuletzt verwendete Modelle zum Laden anbieten</h3>
+<p>
+Ist diese Option aktiviert, so werden im Dateimenü im Untermenü
+"Zuletzt verwendet" Menü die als letztes geladen oder gespeicherten
+Modell zum erneuten Laden angeboten.
+</p>
+<p>
+(Als Vorgabeeinstellung werden die zuletzt verwendeten Modelle im Dateimenü zum Laden angeboten.)
+</p>
+
+<h3>Zuletzt bearbeitetes Modell beim nächsten Programmstart wiederherstellen</h3>
+<p>
+Ist diese Option aktiviert, so wird das zuletzt im Editor befindliche Modell
+beim Beenden automatisch intern gespeichert und beim nächsten Programmstart
+wieder in den Editor geladen. Ein explizites Speichern des Modells als Datei
+ist dafür nicht erforderlich.
+</p>
+<p>
+(Als Vorgabewert ist die automatische Wiederherstellung deaktiviert.)
+</p>
+
+<h3>Fenstergröße beim Programmstart</h3>
+<p>
+In diesem Auswahlfeld kann eingestellt werden, wie das Programmfenster beim Start des Simulators aussehen soll.
+Neben "Vorgabefenstergröße" und "Vollbildmodus" steht über die Funktion "Letzte Fenstergröße wiederherstellen" insbesondere
+die Option zur Verfügung, die Größe des Fensters beim Programmende zu speichern und diese beim nächsten Start wiederherzustellen.
+</p>
+<p>
+(Vorgabewert für diese Option: "Vorgabefenstergröße".)
+</p>
+
+<h3>Element-Vorlagen beim Programmstart</h3>
+<p>
+Über dieses Auswahlfeld kann eingestellt werden, ob die Element-Vorlagen-Leiste am linken Rand des Modell-Editor-Fensters
+beim Programmstart angezeigt oder ausgeblendet werden soll. Die Leiste kann jederzeit über die Schaltfläche "Elemente" in
+der linken vertikalen Symbolleiste ein- oder ausgeblendet werden.
+</p>
+<p>
+(Vorgabewert für diese Option: "Ausblenden".)
+</p>
+
+<h3>Modell beim Starten öffnen</h3>
+<p>
+Beim Programmstart kann statt einer leeren Zeichenfläche auch direkt ein Beispielmodell geladen werden. In diesem Auswahlfeld
+kann eingestellt werden, ob ein solches Beispielmodell geladen werden soll.
+</p>
+<p>
+(Vorgabewert für diese Option: "Leeres Modell".)
+</p>
+
+<h3>Modelle mit potentiell kritische Stationen</h3>
+<p>
+Über dieses Auswahlfeld kann eingestellt werden, wie sich das Programm verhalten soll,
+wenn ein Modell geladen werden soll, welche Elemente enthält, die evtl. Auswirkungen
+auf das System haben können (Stationen, die Skriptausführung beinhalten oder die Daten
+in Dateien oder Datenbanken ausgeben). Es kann gewählt werden, das Laden immer zu erlauben
+oder immer zu verbieten oder aber den Nutzer zu fragen.
+</p>
+<p>
+(Vorgabewert für diese Option: "Nachfragen".)
+</p>
+
+<h3>Hinweise auf Zeichenfläche anzeigen</h3>
+<p>
+Auf der Zeichenfläche können, wenn diese leer ist, optional Hinweise
+zur Verwendung der vertikalen Symbolleiste und zum Abruf von Hilfe-Informationen
+angezeigt werden.
+</p>
+<p>
+(Als Vorgabe werden Hinweise auf der Zeichenfläche nur direkt nach dem Programmstart angezeigt.)
+</p>
+
+<h3>Benachrichtigung zu Simulationsende anzeigen</h3>
+<p>
+Über dieses Auswahlfeld kann eingestellt werden, ob nach dem Ende einer
+Simulationsende, einer Parameterreihen-Simulation oder einer Optimierung eine
+Systembenachrichtigung angezeigt werden soll.
+</p>
+<p>
+(Als Vorgabe werden Benachrichtigung nur bei langen Simulationsläufen ausgegeben.) 
+</p>
+
+<h3>Hinweise in Dialogen anzeigen</h3>
+<p>
+Über diese Schaltfläche kann ein Dialog geöffnet werden in dem konfiguriert
+werden kann in welchen Dialogen zusätzliche Hinweismeldungen im oberen Fensterbereich
+eingeblendet werden sollen und ob beim Programmstart eine Begrüßungsseite angezeigt
+werden soll.
+</p>
+<p>
+(Als Vorgabe sind alle Hinweismeldungen aktiviert, die Begrüßungsseite jedoch deaktiviert.)
+</p>
+
+
+
+<h2><img src="../images/computer.png">&nbsp; Leistung</h2>
+
+<h3>Hintergrundverarbeitung</h3>
+<p>
+Über dieses Auswahlfeld kann eingestellt werden, wie viel (Vor-)Verarbreitung der
+Simulator bereits im Hintergrund für ein Modell durchführen soll. Je mehr Schritte
+bereits während der Arbeit im Modell-Editor im Hintergrund durchgeführt werden,
+desto weniger Zeit benötigt später die Simulation aber auch desto mehr Computerleistung
+ist notwendig.
+</p>
+<p>
+(Der Vorgabewert für diese Option lautet "Modell im Hintergrund simulieren wenn sinnvoll".)
+</p>
+
+<h3>Mehrere CPU-Kerne für Simulation nutzen</h3>
+<p>
+Ist diese Option aktiviert, so wird die Simulation über alle verfügbaren CPU-Kerne verteilt.
+Dies führt dazu, dass die benötigte Rechenzeit deutlich sinkt, gleichzeitig aber der Arbeitsspeicherbedarf steigt.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+<h3>Mehrere CPU-Kerne für Animation nutzen</h3>
+<p>
+Ist diese Option aktiviert, so wird die Animation über mehrere verfügbaren CPU-Kerne verteilt.
+Es werden dabei Simulation und Anzeige in separaten Threads ausgeführt.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+<h3>Hohe Priorität für Simulation</h3>
+<p>
+Ist diese Option aktiviert, so wird die Simulation mit einer höheren Priorität in Bezug auf die verfügbare Rechenleistung
+durchgeführt. Dies kann die Simulation geringfügig beschleunigen, aber auch dazu führen, dass andere parallel ausgeführte
+Anwendungen während der Simulation verzögert reagieren.
+</p>
+<p>
+(Diese Option ist als Vorgabewert deaktiviert.)
+</p>
+
+<h3>NUMA-Unterstützung für Simulation</h3>
+<p>
+Ist diese Option aktiviert, so verwendet der Simulator für jeden Simulationsthread ein eigenes, unabhängiges
+Datenmodell. Dadurch erhöht sich der Speicherverbrauch. Allerdings kann so auf Systemen, bei denen nicht alle
+Speicherbereiche von allen CPU-Kernen mit derselben Geschwindigkeit angesprochen werden können (NUMA-Systeme),
+die Daten so im Speicher verteilt werden, dass sie möglichst effizient angesprochen werden können.</p>
+<p>
+(Diese Option ist als Vorgabewert deaktiviert.)
+</p>
+
+<h3>Bevorzugte Javascript-Umgebung</h3>
+<p>
+Über dieses Auswahlfeld kann eingestellt werden, welche Javascript-Umgebung verwendet werden soll,
+um Javascript-Code im Warteschlangensimulator auszuführen. Zur Auswahl steht die in die
+Java-Laufzeitumgebung eingebaute Javascript-Umgebung (schneller, aber evtl. in zukünftigen Java-Versionen
+nicht mehr vorhanden), die Mozilla Rhino Umgebung (langsamer, immer verfügbar) sowie die GraalJS-Umgebung
+(nur verfügbar, wenn unter GraalVM ausgeführt). Ist "Automatisch wählen" gewählt, so wird die jeweils
+schnellste verfügbare Umgebung verwendet.
+</p>
+<p>
+(Als Vorgabewert ist "Automatisch wählen" gewählt.)
+</p>
+<p>
+Der Name der jeweils verwendeten Umgebung kann über die globale Javascript-Variable
+<tt>JS_ENGINE_NAME</tt> abgefragt werden.
+</p>  
+
+<h3>Simulationen auf entferntem Server durchführen</h3>
+<p>
+Ist diese Option aktiviert und sind passende Zugangsdaten zu einem Simulationsserver
+eingetragen, so versucht der Simulator jede Simulation auf diesem Server auszuführen.
+Ist der Server nicht erreichbar, so erfolgt die Simulation lokal. Die Animation wird
+ebenfalls stets lokal ausgeführt.
+</p>
+<p>
+(Diese Option ist als Vorgabewert deaktiviert.)
+</p>
+
+<!--
+<h3>Pfad zum Java Development Kit (JDK) / Java-Kompiler</h3>
+<p>
+Für Stationen, die direkt nutzerdefinierten Java-Code ausführen sollen, ist es notwendig,
+dass der Warteschlangensimulator den Java-Kompiler "javac" aufrufen kann. In diesem Eingabefeld
+kann der Pfad zu der Java Development Kit (JDK) Installation, dessen Java-Kompiler
+verwendet werden soll, angegeben werden.
+</p>
+-->
+
+
+
+<h2><img src="../images/film_go.png">&nbsp; Animation</h2>
+
+<h3>Einschwingphase während der Animation</h3>
+<p>
+Während der Einschwingphase erfolgt noch keine Erfassung von Statistikdaten. Wird das Modell nicht simuliert,
+sondern als Animation dargestellt, so zeigen evtl. enthaltene Statistik-Visualisierungselemente
+(Diagramme, Zahlwertdarstellungen, Balkenvisualisierungen) keine sinnvollen Werte an, wenn diese Statistikdaten
+(z.B. mittlere Anzahl an Kunden an einer Bedienstation) anzeigen sollen. Daher ist es sinnvoll, in diesem
+Fall die Einschwingphase zu überspringen oder vorab ohne Animationsanzeige zu simulieren.
+</p>
+<p>
+(Vorgabewert für diese Option: Überspringen, wenn Statistikvisualisierungen verwendet werden.)
+</p>
+
+<h3>Lautzeitdaten zu den Stationen anzeigen</h3>
+<p>
+Ist diese Option aktiviert, so werden während der Animation unter den Stationen Daten zu der
+Anzahl an Kunden die die jeweilige Station bisher passiert haben und ggf. auch dazu, wie viele
+Kunden sich momentan in der Station aufhalten, angezeigt.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+<h3>Logging-Daten im Einzelschrittmodus anzeigen</h3>
+<p>
+Wenn diese Option aktiv ist, werden, wenn diese Animation pausiert wurde und nun im
+Einzelschrittmodus ausgeführt wird, nach jedem Animationsschritt die Ereignisse, die
+bearbeitet wurden, in der Statuszeile des Programmfensters angezeigt.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+<h3>Animation im Einzelschrittmodus starten</h3>
+<p>
+Ist diese Option aktiviert, so wird die Animation direkt nach dem Start auf Pause geschaltet,
+so dass sie im Einzelschrittmodus ausgeführt werden kann.
+</p>
+<p>
+(Diese Option ist als Vorgabewert deaktiviert.)
+</p>
+
+<h3>Ressourcen und Transporter in der Animation anzeigen</h3>
+<p>
+Ist diese Option aktiviert, so werden während der Animation nicht
+nur die Kunden dargestellt, sondern auch die Nutzung von Ressourcen
+an den Stationen sowie die Transporter.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+<h3>Animation verlangsamen um die Veränderung analoger Werte besser abzubilden</h3>
+<p>
+Wenn diese Option aktiviert ist, die Animation nicht im höchsten Geschwindigkeitsmodus
+läuft und das Modell zeitkontinuierliche Werte enthält, so wird die Animation verlangsamt,
+um die Veränderung dieser Werte exakter darzustellen. (Auf die Statistikerfassung in der
+Simulation hat dies keinen Einfluss.) 
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+
+
+<h2><img src="../images/sum.png">&nbsp; Statistik</h2>
+
+<h3>Quantile anzeigen</h3>
+<p>
+Ist diese Option aktiviert, so werden auf den Statistikseiten zusätzlich
+zu den üblichen Statistikkenngrößen auch die 10%-, 25%-, 50%-, 75%- und 90%-Quantile
+ausgegeben.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+<h3>Erlang-C-Vergleich anzeigen</h3>
+<p>
+Ist diese Option aktiviert, so wird eine Statistikseite angeboten, auf der
+die Ergebnisse der Simulation denen eines von dem Simulationsmodell
+abgeleiteten Erlang-C-Modells gegenübergestellt werden.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+<h3>Statistikbaum immer sofort vollständig ausklappen</h3>
+<p>
+Im Normalfall werden im Statistikbaum aus Übersichtlichkeitsgründen
+einige eher selten genutzte Rubriken nach einer Simulation zunächst
+eingeklappt dargestellt. Ist diese Option aktiviert, so werden
+jedoch alle Rubriken immer sofort ausgeklappt.
+</p>
+<p>
+(Diese Option ist als Vorgabewert deaktiviert.)
+</p>
+
+<h3>Ergebnisse in externen Anwendungen öffnen</h3>
+<p>
+In dieser Rubrik kann eingestellt werden, welche externen Programme zur Übernahme
+der Daten in den Text- und Tabellen-Statistikansichten angeboten werden sollen.
+</p>
+<p>
+(Als Vorgabe sind Word und Excel gewählt.)
+</p>
+
+
+
+<h2><img src="../images/folder_wrench.png">&nbsp; Dateiformate</h2>
+
+<h3>Vorgabe-Autorenname für neue Modelle</h3>
+<p>
+Der in diesem Eingabefeld eingetragene Name wird als Autorenname beim
+Anlegen von neuen Modellen verwendet und wird bei der Durchführung
+von als Simulationsanwender erfasst. Der Autorenname kann für individuelle
+Modelle über die Modelleigenschaften verändert werden. Der in diesem
+Feld eingetragene Name stellt lediglich den Vorgabewert dar.
+</p>
+
+<h3>Vorgabedateiformate beim Speichern</h3>
+<p>
+In diesen Auswahlfeldern kann festgelegt werden, welches Dateiformat
+jeweils in den "Speichern unter"-Dialogen für die jeweiligen Datenarten
+initial ausgewählt angezeigt werden soll.
+</p>
+<p>
+(Vorgabewerte: "xml" für Modelle und Statistiken und "zip-komprimiertes xml"
+für Parameterreihen und Optimierereinstellungen.)
+</p>
+
+<h3>Benutzerdefinierter Zeilenbezeichner</h3>
+<p>
+Beim DDE-Zugriff auf eine Excel-Tabelle verwendet der Simulator einen Bezeichner
+für die Auswahl der Zeile. Für deutsche Excel-Versionen ist dies ein "Z" (wie Zeile)
+und für englische Versionen ein "R" (wie row). Im Normalfall verwendet der
+Simulator die deutsche oder die englische Version in Abhängigkeit von der gewählten
+Programmsprache. Weiche Excel-Programmsprache und Simulator-Programmsprache
+von einander ab, so kann es erforderlich sein, hier einen expliziten Wert für den
+Zeilenbezeichner anzugeben.
+</p>
+<p>
+(Vorgabewert für diese Option ist ein leeres Feld.)
+</p>
+
+<h3>Benutzerdefinierter Spaltenbezeichner</h3>
+<p>
+Beim DDE-Zugriff auf eine Excel-Tabelle verwendet der Simulator einen Bezeichner
+für die Auswahl der Spalte. Für deutsche Excel-Versionen ist dies ein "S" (wie Spalte)
+und für englische Versionen ein "C" (wie column). Im Normalfall verwendet der
+Simulator die deutsche oder die englische Version in Abhängigkeit von der gewählten
+Programmsprache. Weiche Excel-Programmsprache und Simulator-Programmsprache
+von einander ab, so kann es erforderlich sein, hier einen expliziten Wert für den
+Spaltenbezeichner anzugeben.
+</p>
+<p>
+(Vorgabewert für diese Option ist ein leeres Feld.)
+</p>
+
+<h3>Auflösung beim Speichern von Bildern</h3>
+<p>
+In diesem Feld kann angegeben werden, welche Auflösung in Pixeln sowohl in horizontaler als auch in vertikaler Richtung beim Speichern
+von Grafiken aus den Statistikergebnissen als Pixelgrafiken verwendet werden soll.
+</p>
+<p>
+(Vorgabewert für diese Option: 2000 x 2000 Pixel.)
+</p>
+
+<h3>Bilder während der Animation speichern</h3>
+<p>
+Werden Screenshots über die entsprechende Symbolleistenschaltfläche direkt während der Animation eines
+Modells gespeichert, so werden diese ohne weitere Rückfrage in das hier angegebene Verzeichnis
+geschrieben. Auf diese Weise wird die Unterbrechung der Animation so kurz wie möglich gehalten.
+</p>
+<p>
+(Vorgabewert für diese Option ist die Verwendung des Nutzerverzeichnisses.)
+</p>
+
+<h3>Simulationszeit in aufgezeichneter Animation einblenden</h3>
+<p>
+Wenn diese Funktion aktiviert ist, wird unten links in die als Video aufgezeichneten Animationen
+die aktuelle Simulationszeit eingeblendet. Während der Ausführung einer Animation im
+Simulator wird die Simulationszeit in der Statusleiste angezeigt. Die Statusleiste ist jedoch
+nicht Bestandteil des aufgezeichneten Videos. 
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+ 
+ 
+ 
+<h2><img src="../images/action_refresh.gif">&nbsp; Update</h2>
+ 
+<h3>Java-Version prüfen und warnen, wenn veraltet und unsicher</h3>
+<p>
+Ist diese Option aktiviert, so prüft der Simulator beim Programmstart, ob die aktuell installierte und verwendete Java-Version
+zum Zeitpunkt der Auslieferung des Simulators noch aktuell war und gibt ggf. eine Sicherheitswarnung aus.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+<h3>Programm automatisch aktualisieren</h3>
+<p>
+Wenn diese Option aktiviert ist, prüft der Simulator in regelmäßigen Abständen, ob eine
+neue Version veröffentlicht wurde und installiert diese automatisch.
+Voraussetzung hierfür ist die Verwendung der Windows-Version des Simulators.
+</p>
+<p>
+(Diese Option ist als Vorgabewert aktiviert.)
+</p>
+
+</body>
+</html>

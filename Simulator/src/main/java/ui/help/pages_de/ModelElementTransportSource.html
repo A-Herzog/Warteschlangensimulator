@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Modell-Element: Transportstart</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Modell-Element: Transportstart</h1>
+
+<p>
+Ein Transportstartelement ermöglicht den Transport eines Kunden zu einem beliebigen
+<a href="ModelElementTransportDestination.html">Transportziel</a>-Element. Wie viel
+Zeit der Transport beansprucht und zu welchem Zielelement der Kunde transportiert
+wird, kann dabei in dem Transportstartelement eingestellt werden.
+Für den Transport eines Kunden von einem Transportstart- zu einem Transportzielelement
+muss keine Verbindungskante zwischen den Elementen bestehen.
+</p>
+
+<h2>Einstellungen</h2>
+
+<p>
+Der Name des Transportstartelements besitzt keine weitere Bedeutung.
+</p>
+
+<p>
+Auf der Dialogseite <b>Transportzeiten</b> kann festgelegt werden, wie lange der Transport
+eines Kunden von diesem Transportstartelement zu dem jeweiligen Ziel dauern soll. Die Transportzeit
+kann dabei als Verteilung oder als Ausdruck angegeben werden. Des Weiteren kann eingestellt
+werden, ob die Transportzeit als Wartezeit, Transferzeit (Standard) oder Bedienzeit
+erfasst werden soll.
+</p>
+
+<p>
+Auf der Dialogseite <b>Transportziele</b> können ein oder mehrere
+mögliche Ziel für den Transport des Kunden angegeben werden. Für die Ziele können dabei
+Bedingungen oder Kundentypen angegeben werden. Alternativ kann eingestellt werden, dass
+das anzusteuernde Ziel aus dem Fertigungsplan des Kunden oder aus einer Texteigenschaft
+des Kunden entnommen werden soll.
+</p>
+ 
+<p>
+Auf der Dialogseite <b>Benötigte Ressource</b> kann angegeben werden, ob
+für den Transport eines Kunden eine Ressource benötigt. Neben dem Typ der
+Ressource kann angegeben werden, wie viele Bediener der Ressource für den
+Transport eines Kunden benötigt werden und ob die Ressource sofort nach dem
+Eintreffen an der Zielstation freigegeben werden soll oder ggf. erst nach
+einer bestimmten Verzögerungszeit (z.B. um die Rückfahrt der Ressource
+zur Ausgangsstation zu modellieren).
+</p>
+
+<p>
+Auf der Dialogseite <b>Bereich verlassen</b> kann optional eine
+Bereich-betreten-Station angegeben werden. Beim Start des Transports
+wird dann der angegebene Bereich verlassen.
+</p>
+
+</body>
+</html>

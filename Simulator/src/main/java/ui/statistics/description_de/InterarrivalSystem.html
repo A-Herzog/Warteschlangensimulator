@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Zwischenankunftszeiten</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+Der unter <b>Ankünfte laut Modell</b> angegebene Wert entspricht der in den
+Modelleigenschaften angegebenen Anzahl an zu simulierenden Kunden. Der Wert
+<b>Ankünfte laut Simulation</b> kann jedoch leicht davon abweichen. Hintergrund
+ist, auf welche Art die Simulation beendet wird: Sofern nicht anders konfiguriert
+werden alle Ankünfte gezählt. Ist die Soll-Anzahl erreicht, so werden weiterhin
+Ankünfte generiert, diese Kunden jedoch als "letzter Kunde" markiert. Sobald
+einer dieser "letzten Kunden" einen Ausgang erreicht hat, wird die Simulation
+beendet. Bis dahin werden in den meisten Fällen bereits einige weitere, über
+die eingestellte Anzahl hinausgehende Kunden generiert worden sein.
+</p>
+
+<h3>Zwischenankunftszeiten</h3>
+
+<p>
+Eine Zwischenankunftszeit ist die Zeitspanne <b>zwischen dem Eintreffen</b> von
+zwei unmittelbar aufeinander folgenden Kunden am System. Es werden
+hier <a href="help:statistik_mittelwert">Mittelwerte</a>,
+<a href="help:statistik_standardabweichung">Standardabweichungen</a>,
+<a href="help:statistik_standardabweichung">Varianzen</a>,
+<a href="help:statistik_CV">Variationskoeffizienten</a> und
+<a href="help:statistik_quantil">Quantile</a> ausgegeben.
+</p>
+
+<p>
+Die mittlere Zwischenankunftszeit wird mit <b>E[I]</b> bezeichnet
+(und z.B. in Sekunden oder Minuten gemessen). Der Kehrwert von E[I]
+ist die <b>Ankunftsrate</b>. Sie wird mit <b>lambda</b> (&lambda;)
+(in in z.B. 1/Sekunde oder 1/Minute gemessen). Kleine Werte von
+E[I] bzw. große Werte von lambda bedeuten, dass innerhalb kurzer
+Zeit viele Kunden eintreffen.
+</p> 
+  
+</body></html>

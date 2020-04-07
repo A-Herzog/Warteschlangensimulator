@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
+<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+  <ModelVersion>3.0.0</ModelVersion>
+  <ModelName>Operators as simulation objects</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Order</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="50"/>
+      <ModelElementConnection Element="38" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="3">
+      <ModelElementName>Operator</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="350"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementDistribution Count="3" TimeBase="Seconds">One point distribution (0)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDecide id="4">
+      <ModelElementSize h="50" w="100" x="600" y="800"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection ClientType="Operator" Element="15" Type="Out"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementMatch id="5">
+      <ModelElementSize h="50" w="100" x="600" y="350"/>
+      <ModelElementConnection Element="40" Type="In"/>
+      <ModelElementConnection Element="42" Type="In"/>
+      <ModelElementConnection Element="43" Type="Out"/>
+      <ModelElementBatchMode>Collect</ModelElementBatchMode>
+    </ModelElementMatch>
+    <ModelElementVertex id="12">
+      <ModelElementSize h="10" w="10" x="495" y="820"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementDispose id="13">
+      <ModelElementSize h="50" w="100" x="600" y="950"/>
+      <ModelElementConnection Element="26" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementIcon id="14">
+      <ModelElementName>Product</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1450" y="700"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementIconName>icon_package</ModelElementIconName>
+    </ModelElementIcon>
+    <ModelElementEdge id="15">
+      <ModelElementName>Operator</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="19">
+      <ModelElementSize h="50" w="100" x="1350" y="350"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="49" Type="In"/>
+      <ModelElementConnection ClientType="Operator" Element="21" Type="Out"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementBarrier id="2">
+      <ModelElementName>Done</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1450" y="600"/>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+      <ModelElementBarrierOption>
+        <ModelElementSignalName>Done</ModelElementSignalName>
+        <ModelElementRelease Count="1"/>
+      </ModelElementBarrierOption>
+    </ModelElementBarrier>
+    <ModelElementSignal id="10">
+      <ModelElementName>Done</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1250" y="600"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+    </ModelElementSignal>
+    <ModelElementDelay id="11">
+      <ModelElementName>Processing</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1250" y="500"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementEdge id="21">
+      <ModelElementName>Operator</ModelElementName>
+      <ModelElementConnection Element1="19" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="11" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="24">
+      <ModelElementSize h="10" w="10" x="1395" y="820"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="25">
+      <ModelElementConnection Element1="10" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="24" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementConnection Element1="2" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementConnection Element1="14" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="23">
+      <ModelElementSize h="10" w="10" x="1495" y="495"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="28">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="19" Element2="23" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="23" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="30">
+      <ModelElementSize h="550" w="400" x="1200" y="300"/>
+      <ModelElementLineWidth>5</ModelElementLineWidth>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="31">
+      <ModelElementSize h="24" w="128" x="1205" y="305"/>
+      <ModelElementTextLine>Service station</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="32">
+      <ModelElementSize h="200" w="300" x="50" y="250"/>
+      <ModelElementLineWidth>5</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="33">
+      <ModelElementSize h="48" w="243" x="55" y="260"/>
+      <ModelElementTextLine>Generatin 3 operators at</ModelElementTextLine>
+      <ModelElementTextLine>the beginning of the simulation</ModelElementTextLine>
+      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="34">
+      <ModelElementSize h="38" w="101" x="600" y="410"/>
+      <ModelElementTextLine>Orders or</ModelElementTextLine>
+      <ModelElementTextLine>operators wating</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="41">
+      <ModelElementSize h="24" w="274" x="50" y="50"/>
+      <ModelElementTextLine>Operators as simulation objects</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBar id="35">
+      <ModelElementName>Wartende Kunden</ModelElementName>
+      <ModelElementSize h="150" w="20" x="100" y="550"/>
+      <ModelElementDataExpression>Counter(6)</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Maximum="9" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBarColor>255,0,0</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementDifferenceCounter id="36">
+      <ModelElementName>Operators</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="350"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="40" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDecide id="9">
+      <ModelElementSize h="50" w="100" x="750" y="350"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="43" Type="In"/>
+      <ModelElementConnection ClientType="Operator" Element="44" Type="Out"/>
+      <ModelElementConnection Element="45" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDifferenceCounter id="6">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="250"/>
+      <ModelElementConnection Element="38" Type="In"/>
+      <ModelElementConnection Element="42" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDifferenceCounter id="20">
+      <ModelElementName>Operators</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="300"/>
+      <ModelElementConnection Element="44" Type="In"/>
+      <ModelElementConnection Element="48" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDifferenceCounter id="37">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="400"/>
+      <ModelElementConnection Element="45" Type="In"/>
+      <ModelElementConnection Element="47" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementEdge id="38">
+      <ModelElementName>Arrivals (Order)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="40">
+      <ModelElementConnection Element1="36" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="42">
+      <ModelElementConnection Element1="6" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="43">
+      <ModelElementConnection Element1="5" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="44">
+      <ModelElementName>Operator</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="45">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="37" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="46">
+      <ModelElementSize h="10" w="10" x="1095" y="370"/>
+      <ModelElementConnection Element="47" Type="In"/>
+      <ModelElementConnection Element="48" Type="In"/>
+      <ModelElementConnection Element="49" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="47">
+      <ModelElementConnection Element1="37" Element2="46" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="48">
+      <ModelElementConnection Element1="20" Element2="46" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="49">
+      <ModelElementConnection Element1="46" Element2="19" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementName>Arrivals (Operator)</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="36" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="12" Element2="36" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="16">
+      <ModelElementSize h="300" w="750" x="400" y="200"/>
+      <ModelElementLineWidth>5</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="39">
+      <ModelElementSize h="48" w="223" x="405" y="205"/>
+      <ModelElementTextLine>Aufträge und</ModelElementTextLine>
+      <ModelElementTextLine>Bediener zusammenfühen</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="50">
+      <ModelElementSize h="56" w="176" x="600" y="700"/>
+      <ModelElementTextLine>Products leaving the system.</ModelElementTextLine>
+      <ModelElementTextLine>Operators are reouted back</ModelElementTextLine>
+      <ModelElementTextLine>to the mach element.</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBar id="51">
+      <ModelElementName>Wartende Bediener</ModelElementName>
+      <ModelElementSize h="50" w="20" x="150" y="650"/>
+      <ModelElementDataExpression>Counter(36)</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Maximum="3" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBarColor>0,0,255</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementText id="52">
+      <ModelElementSize h="19" w="86" x="100" y="530"/>
+      <ModelElementTextLine>Waiting clients</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="53">
+      <ModelElementSize h="19" w="106" x="150" y="630"/>
+      <ModelElementTextLine>Waiting operators</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="54">
+      <ModelElementSize h="94" w="180" x="50" y="100"/>
+      <ModelElementTextLine>Usually operators are defined</ModelElementTextLine>
+      <ModelElementTextLine>in the model settings. But</ModelElementTextLine>
+      <ModelElementTextLine>operators can also be defined</ModelElementTextLine>
+      <ModelElementTextLine>as simulation object</ModelElementTextLine>
+      <ModelElementTextLine>(just as to usual clients).</ModelElementTextLine>
+      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData>
+    <ClientData Icon="email" Name="Auftrag"/>
+    <ClientData Icon="user_suit" Name="Bediener"/>
+    <ClientData Icon="user_suit" Name="Operator"/>
+    <ClientData Icon="user_suit" Name="Operators"/>
+    <ClientData Icon="email" Name="Order"/>
+  </ClientTypeData>
+</Model>
