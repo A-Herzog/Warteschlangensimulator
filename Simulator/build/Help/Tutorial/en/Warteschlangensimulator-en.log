@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.26)  27 MAR 2020 16:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.26)  7 APR 2020 23:37
 entering extended mode
 **./Warteschlangensimulator-en.tex
 (Warteschlangensimulator-en.tex
@@ -1081,7 +1081,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 431.
 Here is how much of TeX's memory you used:
  11219 strings out of 492895
  167325 string characters out of 3133479
- 293131 words of memory out of 3000000
+ 293130 words of memory out of 3000000
  14774 multiletter control sequences out of 15000+200000
  57991 words of font info for 45 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1094,7 +1094,7 @@ gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX
 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
 blic/lm/lmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
-Output written on Warteschlangensimulator-en.pdf (27 pages, 4730495 bytes).
+Output written on Warteschlangensimulator-en.pdf (27 pages, 4730512 bytes).
 PDF statistics:
  285 PDF objects out of 1000 (max. 8388607)
  58 named destinations out of 1000 (max. 500000)
