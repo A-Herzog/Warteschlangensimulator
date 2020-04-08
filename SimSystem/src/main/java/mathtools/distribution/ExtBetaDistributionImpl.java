@@ -135,7 +135,6 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 	 * @param alpha distribution first shape parameter
 	 * @param beta distribution second shape parameter
 	 * @return sampled value
-	 * @see BetaDistribution#ChengBetaSampler
 	 */
 	static double sampleBeta(RandomGenerator random, final double alpha, final double beta) {
 		final double a = FastMath.min(alpha, beta);
@@ -155,7 +154,6 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 	 * @param a min(&alpha;, &beta;) where &alpha;, &beta; are the two distribution shape parameters
 	 * @param b max(&alpha;, &beta;) where &alpha;, &beta; are the two distribution shape parameters
 	 * @return sampled value
-	 * @see BetaDistribution#ChengBetaSampler
 	 */
 	private static double algorithmBB(RandomGenerator random,
 			final double a0,
@@ -197,7 +195,6 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 	 * @param a max(&alpha;, &beta;) where &alpha;, &beta; are the two distribution shape parameters
 	 * @param b min(&alpha;, &beta;) where &alpha;, &beta; are the two distribution shape parameters
 	 * @return sampled value
-	 * @see BetaDistribution#ChengBetaSampler
 	 */
 	private static double algorithmBC(RandomGenerator random,
 			final double a0,

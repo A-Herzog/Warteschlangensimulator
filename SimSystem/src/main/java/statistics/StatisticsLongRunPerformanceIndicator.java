@@ -33,7 +33,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Sollen alle Werte (z.B. einzelne Wartezeiten) einer Messreihe erfasst werden, so kann dafür die
  * {@link StatisticsDataCollector}-Klasse verwendet werden, die allerdings sehr speicherintensiv ist.
  * @author Alexander Herzog
- * @version 2.0
+ * @version 2.1
  */
 public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** Fehlermeldung, wenn der Inhalt des XML-Elements nicht gelesen werden konnte. */
@@ -94,12 +94,13 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 		if (!(moreStatistics instanceof StatisticsLongRunPerformanceIndicator)) return;
 		StatisticsLongRunPerformanceIndicator moreLongRunStatistics=(StatisticsLongRunPerformanceIndicator)moreStatistics;
 
+		mode=moreLongRunStatistics.mode;
+		step=moreLongRunStatistics.step;
 		if (moreLongRunStatistics.dataUsed>dataUsed) {
-			data=Arrays.copyOf(moreLongRunStatistics.data,moreLongRunStatistics.data.length);
+			data=Arrays.copyOf(data,moreLongRunStatistics.data.length);
 			dataUsed=moreLongRunStatistics.dataUsed;
-			step=moreLongRunStatistics.step;
-			mode=moreLongRunStatistics.mode;
 		}
+		for (int i=0;i<moreLongRunStatistics.data.length;i++) data[i]+=moreLongRunStatistics.data[i];
 	}
 
 	/**
