@@ -30,6 +30,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -41,11 +42,16 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.math3.distribution.ExponentialDistribution;
+
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.distribution.swing.JDistributionEditorPanel;
+import mathtools.distribution.swing.JDistributionPanel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
 import systemtools.SmallColorChooser;
+import tools.SetupData;
 import ui.expressionbuilder.ExpressionBuilder;
 import ui.help.Help;
 import ui.images.Images;
@@ -65,6 +71,9 @@ public class CalculatorDialog extends BaseDialog {
 
 	private final PlotterPanel plotter;
 	private final List<JTextField> plotterField;
+
+	private final JDistributionPanel distributionPlotter;
+	private final JDistributionEditorPanel distributionEditor;
 
 	/**
 	 * Konstruktor der Klasse
@@ -94,7 +103,7 @@ public class CalculatorDialog extends BaseDialog {
 		Dimension size;
 
 		/* Tab "Rechner" */
-		tabs.addTab("Rechner",tab=new JPanel(new BorderLayout()));
+		tabs.addTab(Language.tr("CalculatorDialog.Tab.Calculator"),tab=new JPanel(new BorderLayout()));
 
 		final JPanel lines=new JPanel();
 		tab.add(lines,BorderLayout.NORTH);
@@ -144,7 +153,7 @@ public class CalculatorDialog extends BaseDialog {
 		line.add(button,BorderLayout.EAST);
 
 		/* Tab "Funktionsplotter" */
-		tabs.addTab("Funktionsplotter",tab=new JPanel(new BorderLayout()));
+		tabs.addTab(Language.tr("CalculatorDialog.Tab.Plotter"),tab=new JPanel(new BorderLayout()));
 		plotterField=new ArrayList<>();
 		tab.add(plotter=new PlotterPanel(),BorderLayout.CENTER);
 		final JPanel plotterInput=new JPanel();
@@ -163,15 +172,28 @@ public class CalculatorDialog extends BaseDialog {
 		});
 		plotter.reload();
 
+		/* Tab "Wahrscheinlichkeitsverteilungen" */
+		tabs.addTab(Language.tr("CalculatorDialog.Tab.Distributions"),tab=new JPanel(new BorderLayout()));
+		tab.add(distributionPlotter=new JDistributionPanel(new ExponentialDistribution(100),100,false),BorderLayout.CENTER);
+		distributionPlotter.setImageSaveSize(SetupData.getSetup().imageSize);
+		distributionPlotter.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+		distributionPlotter.setPlotType(JDistributionPanel.BOTH);
+		tab.add(distributionEditor=new JDistributionEditorPanel(new ExponentialDistribution(100),1000,e->updateDistribution(),true),BorderLayout.SOUTH);
+
 		/* Icons auf den Tabs */
 		tabs.setIconAt(0,Images.EXTRAS_CALCULATOR.getIcon());
 		tabs.setIconAt(1,Images.EXTRAS_CALCULATOR_PLOTTER.getIcon());
+		tabs.setIconAt(2,Images.EXTRAS_CALCULATOR_DISTRIBUTION.getIcon());
 
 		/* Dialog vorbereiten */
 		setMinSizeRespectingScreensize(600,400);
 		setSizeRespectingScreensize(800,600);
 		setResizable(true);
 		setLocationRelativeTo(getOwner());
+	}
+
+	private void updateDistribution() {
+		if (distributionEditor!=null) distributionPlotter.setDistribution(distributionEditor.getDistribution());
 	}
 
 	private static final Object[] getInputPanel(final String labelText, final String value, final int size) {

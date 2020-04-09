@@ -5504,6 +5504,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12907] = "<p>Returns the fraction of clients, who had spent at the station whose ID is specified the specified number of seconds as residence time.</p>";
     t[12908] = "Window.Check.AutoFixDispose.Title";
     t[12909] = "Missing exit";
+    t[12910] = "Surface.Set.Table.Edit.VariableName.WaitingTime";
+    t[12911] = "The pseudo variable \"w\" stands for the waiting time of the client.";
     t[12912] = "Surface.Source.Dialog.Title";
     t[12913] = "Edit source";
     t[12914] = "Surface.InteractiveSlider.XML.MaxValue";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14077] = "Balck";
     t[14084] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
     t[14085] = "Invalid step wide";
-    t[14088] = "Main.Menu.View.ShowRaster.Off.Mnemonic";
-    t[14089] = "N";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14088] = "Main.Menu.View.ShowRaster.Off.Mnemonic";
+    t[14089] = "N";
     t[14090] = "Simulation.Log.Batching";
     t[14091] = "Batching";
     t[14094] = "Surface.AnimationTextJS.XML.Script.Javascript";
@@ -7528,8 +7530,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17655] = "Queue with impatient clients and retry";
     t[17656] = "Surface.OutputJS.XML.Root";
     t[17657] = "ModelElementScriptOutput";
-    t[17660] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Add";
-    t[17661] = "Add transport target";
+    t[17660] = "CalculatorDialog.Tab.Calculator";
+    t[17661] = "Calculator";
     t[17664] = "Surface.OutputDDE.XML.Workbook";
     t[17665] = "ModelElementOutputDDEWorkbook";
     t[17670] = "Dialog.SaveNow.No.Info";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18791] = "No client types specified";
     t[18796] = "Surface.LogicWhile.XML.Root";
     t[18797] = "ModelElementLogicWhile";
-    t[18800] = "ExpressionBuilder.SimulationCharacteristics.AnalogValues.Valve";
-    t[18801] = "Gets the current maximum flow at valve nr (1 based) at the selected tank.";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18800] = "ExpressionBuilder.SimulationCharacteristics.AnalogValues.Valve";
+    t[18801] = "Gets the current maximum flow at valve nr (1 based) at the selected tank.";
     t[18802] = "Window.Simulation.ErrorInitializatingSimulation";
     t[18803] = "Error initializing the simulation";
     t[18806] = "ModelGenerator.Title";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23435] = "Auto start";
     t[23436] = "Surface.ExpressionTableModel.SetupArea";
     t[23437] = "Setup area";
-    t[23438] = "Main.Menu.View.ShowGradients";
-    t[23439] = "Use color gradients";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23438] = "Main.Menu.View.ShowGradients";
+    t[23439] = "Use color gradients";
     t[23448] = "Optimizer.Tab.Target.Value.Range.InvalidRange";
     t[23449] = "Invalid target range";
     t[23450] = "Simulation.Log.FlowData.Source";
@@ -10970,8 +10972,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25681] = "Moves to the first time slot of the schedule.";
     t[25684] = "Surface.AnimationPointerMeasuring.Infotext";
     t[25685] = "Displays the value of an expression as a pointer setting on an analog scale during animation.";
-    t[25686] = "Surface.Set.Table.Edit.VariableName.WaitingTime";
-    t[25687] = "The pseudo variable \"w\" stands for the waiting time of the client.";
+    t[25686] = "CalculatorDialog.Tab.Plotter";
+    t[25687] = "Function plotter";
     t[25692] = "Simulation.Log.EndOfSimulation.Time";
     t[25693] = "Condition \"%s\" is fulfilled.";
     t[25698] = "Statistics.ProcessTimesByClientType";
@@ -11692,6 +11694,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27347] = "ModelElementFontFamily";
     t[27348] = "Surface.InteractiveCheckbox.Dialog.ValueUnchecked.ErrorTitle";
     t[27349] = "Invalid value for \"checkbox not activated\"";
+    t[27350] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Add";
+    t[27351] = "Add transport target";
     t[27360] = "Surface.Source.Dialog.Tab.NumberOfArrivals.Clients";
     t[27361] = "Number of clients";
     t[27362] = "Surface.BarrierPull.Name";
@@ -12010,12 +12014,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28151] = "Maximum";
     t[28154] = "Surface.HoldJS.XML.Condition.Java";
     t[28155] = "Java";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[28160] = "LogSimulation.LogFile";
     t[28161] = "Log file";
     t[28164] = "Statistics.NoWaitingTransferProcessingTimes";
     t[28165] = "There are no waiting or transfer or processing or residence times.";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[28166] = "Simulation.Output.ResidenceTime";
     t[28167] = "Residence time";
     t[28168] = "Dialog.InvalidFile.Info";
@@ -14012,12 +14016,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32923] = "The scripting environment could not be initialized.";
     t[32928] = "ModelDescription.BarrierPull.ControlledStation";
     t[32929] = "Controlled station";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32930] = "Simulation.Java.Error.RunError";
     t[32931] = "Run time error";
     t[32932] = "CommandLine.Error.LoadingModel";
     t[32933] = "The following error occured while loading the model:";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32936] = "Surface.TransportSource.Dialog.Tab.TransportTimes";
     t[32937] = "Transport times";
     t[32938] = "ModelDescription.Tank.InitialValue";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37609] = "No key specified";
     t[37610] = "Simulation.Log.ArrivalClientCount";
     t[37611] = "No further clients";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37612] = "SimulationServer.Setup.Port";
     t[37613] = "Port";
     t[37616] = "Surface.Release.XML.Root";
     t[37617] = "ModelElementReleaseResource";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37624] = "Surface.Reference.Dialog.Element";
     t[37625] = "Element to be referenced";
     t[37628] = "Simulation.Element.SetJS.Name";
@@ -16280,6 +16284,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38235] = "New operator group";
     t[38238] = "Main.Menu.RecordAnimation.Mnemonic";
     t[38239] = "R";
+    t[38242] = "CalculatorDialog.Tab.Distributions";
+    t[38243] = "Probability distributions";
     t[38250] = "Statistic.FastAccess.FilterList.XML";
     t[38251] = "Statistics XML element";
     t[38252] = "AutoRestore.Dialog.ClearAll";
