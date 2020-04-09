@@ -3679,7 +3679,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[8550] = "Surface.XML.Resource.FailureDistribution";
     t[8551] = "AusfallVerteilung";
     t[8566] = "Statistics.Confidence.InfoThread";
-    t[8567] = "Die Batch-Means-Erfassung der Konfidenzintervalle ist deaktiviert. Die obigen Absch\u00e4tzungen durch unter Ausnutzung der Multi-Thread Simulation ermittelt. Die tats\u00e4chlichen, per Batch-Means ermittelten Konfidenzintervalle fallen \u00fcblicherweise kleiner aus.";
+    t[8567] = "Die Batch-Means-Erfassung der Konfidenzintervalle ist deaktiviert. Die obigen Absch\u00e4tzungen wurden unter Ausnutzung der Multi-Thread Simulation ermittelt. Die tats\u00e4chlichen, per Batch-Means ermittelten Konfidenzintervalle fallen \u00fcblicherweise kleiner aus.";
     t[8570] = "Surface.TransportSource.Dialog.DelayTimeIs.ProcessTime";
     t[8571] = "Bedienzeit";
     t[8582] = "CalculatorDialog.Expression.CalcError";
