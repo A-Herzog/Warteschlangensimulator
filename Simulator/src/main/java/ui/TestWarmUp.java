@@ -25,8 +25,8 @@ import statistics.StatisticsDataCollector;
 
 /**
  * Prüft, wie viele Werte als Einschwingphase für die
- * Statistik verworfen werden sollten.
- * (Verfahren basiert auf Ripley "Stochastic Simulation" (1987) und auf Schwindt "Simulation und Analyse von Produktionssystemen" (2017)
+ * Statistik verworfen werden sollten.<br>
+ * Verfahren basiert auf Ripley "Stochastic Simulation" (1987) und auf Schwindt "Simulation und Analyse von Produktionssystemen" (2017)
  * @author Alexander Herzog
  */
 public class TestWarmUp {
