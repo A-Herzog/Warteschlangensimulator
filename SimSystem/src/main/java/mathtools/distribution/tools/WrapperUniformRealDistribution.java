@@ -52,7 +52,8 @@ public class WrapperUniformRealDistribution extends AbstractDistributionWrapper 
 	@Override
 	public AbstractRealDistribution getDistribution(final double mean, final double sd) {
 		final double a=mean-sd*Math.sqrt(12)/2;
-		final double b=2*mean-a;
+		double b=2*mean-a;
+		if (b<=a) b=b+0.01;
 		return new UniformRealDistribution(a,b);
 	}
 
