@@ -606,7 +606,7 @@ public class ModelGeneratorPanel extends JPanel {
 			/* Erst in drawToGraphics wird die Größe von Textfeldern berechnet, daher muss für ein valides Ergebnis in model.surface.getLowerRightModelCorner() das Modell einmal gezeichnet werden. */
 			final JPanel dummy=new JPanel();
 			add(dummy);
-			model.surface.drawToGraphics(dummy.getGraphics(),new Rectangle(1000,1000),1.0,false,false,ModelSurface.Raster.OFF,new Color[] {Color.GRAY,Color.WHITE},false);
+			model.surface.drawToGraphics(dummy.getGraphics(),new Rectangle(1000,1000),1.0,false,false,ModelSurface.Grid.OFF,new Color[] {Color.GRAY,Color.WHITE},false);
 			remove(dummy);
 
 			yPosition=model.surface.getLowerRightModelCorner().y+50;

@@ -261,7 +261,7 @@ public class SetupData extends SetupBase {
 	/**
 	 * Anzeige eines Rasters auf der Zeichenfläche
 	 */
-	public ModelSurface.Raster raster;
+	public ModelSurface.Grid grid;
 
 	/**
 	 * Anzeige der IDs unter den Station im Edit-Modus
@@ -725,7 +725,7 @@ public class SetupData extends SetupBase {
 		hintDialogs="";
 		imageSize=2000;
 		imagePathAnimation="";
-		raster=ModelSurface.Raster.RASTER;
+		grid=ModelSurface.Grid.LINES;
 		showIDs=false;
 		antialias=true;
 		imagesInline=true;
@@ -1043,13 +1043,13 @@ public class SetupData extends SetupBase {
 			if (name.equals("raster")) {
 				final String rasterID=e.getTextContent();
 				if (rasterID.equals("1")) {
-					raster=ModelSurface.Raster.RASTER;
+					grid=ModelSurface.Grid.LINES;
 				} else {
 					if (rasterID.equals("0")) {
-						raster=ModelSurface.Raster.OFF;
+						grid=ModelSurface.Grid.OFF;
 					} else {
-						for (ModelSurface.Raster r: ModelSurface.Raster.values()) if (r.id.equalsIgnoreCase(rasterID)) {
-							raster=r;
+						for (ModelSurface.Grid r: ModelSurface.Grid.values()) if (r.id.equalsIgnoreCase(rasterID)) {
+							grid=r;
 							break;
 						}
 					}
@@ -1499,9 +1499,9 @@ public class SetupData extends SetupBase {
 			node.setTextContent(imagePathAnimation);
 		}
 
-		if (raster!=ModelSurface.Raster.RASTER) {
+		if (grid!=ModelSurface.Grid.LINES) {
 			root.appendChild(node=doc.createElement("Raster"));
-			node.setTextContent(raster.id);
+			node.setTextContent(grid.id);
 		}
 
 		if (showIDs) {

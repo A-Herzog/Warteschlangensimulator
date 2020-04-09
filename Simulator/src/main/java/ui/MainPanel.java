@@ -210,7 +210,8 @@ public class MainPanel extends MainPanelBase {
 	private JMenuItem menuEditUndo, menuEditRedo;
 	private JRadioButtonMenuItem menuEditAutoConnectOff, menuEditAutoConnectAuto, menuEditAutoConnectSmart;
 	private JCheckBoxMenuItem menuViewTemplatesBar, menuViewNavigator;
-	private JCheckBoxMenuItem menuViewRasterOff, menuViewRasterDots, menuViewRasterRaster, menuViewShowIDs, menuViewGradients, menuViewShadows;
+	private JRadioButtonMenuItem menuViewGridOff, menuViewGridDots, menuViewGridLines;
+	private JCheckBoxMenuItem menuViewShowIDs, menuViewGradients, menuViewShadows;
 	private JCheckBoxMenuItem menuModelLoadExternalDataOnStart;
 	private JMenuItem menuModelCompareKept, menuModelCompareReturn;
 	private JRadioButtonMenuItem menuSimulationAnimationStartModeRun, menuSimulationAnimationStartModePause;
@@ -410,9 +411,9 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewStatistics",e->setCurrentPanel(statisticsPanel));
 		addAction("ViewTemplatesBar",e->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible()));
 		addAction("ViewNavigator",e->editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible()));
-		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Raster.OFF));
-		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Raster.DOTS));
-		addAction("ViewRasterRaster",e->commandViewRaster(ModelSurface.Raster.RASTER));
+		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Grid.OFF));
+		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Grid.DOTS));
+		addAction("ViewRasterRaster",e->commandViewRaster(ModelSurface.Grid.LINES));
 		addAction("ViewShowIDs",e->commandViewIDs());
 		addAction("ViewGradients",e->commandViewGradients());
 		addAction("ViewShadows",e->commandViewShadows());
@@ -534,9 +535,9 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.setAutoConnect(setup.autoConnect);
 		menuViewTemplatesBar.setState(editorPanel.isTemplatesVisible());
 		menuViewNavigator.setState(editorPanel.isNavigatorVisible());
-		menuViewRasterOff.setState(setup.raster==ModelSurface.Raster.OFF);
-		menuViewRasterDots.setState(setup.raster==ModelSurface.Raster.DOTS);
-		menuViewRasterRaster.setState(setup.raster==ModelSurface.Raster.RASTER);
+		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
+		menuViewGridDots.setSelected(setup.grid==ModelSurface.Grid.DOTS);
+		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
 		menuViewShowIDs.setState(setup.showIDs);
 		menuViewGradients.setState(setup.useGradients);
 		menuViewShadows.setState(setup.useShadows);
@@ -775,12 +776,12 @@ public class MainPanel extends MainPanelBase {
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.View.ShowRaster")));
 		setMnemonic(submenu,Language.tr("Main.Menu.View.ShowRaster.Mnemonic"));
 		submenu.setIcon(Images.EDIT_VIEW_RASTER.getIcon());
-		enabledOnEditorPanel.add(menuViewRasterOff=createCheckBoxMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Off"),Language.tr("Main.Menu.View.ShowRaster.Off.Mnemonic"),"ViewRasterOff"));
-		enabledOnEditorPanel.add(menuViewRasterDots=createCheckBoxMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Dots"),Language.tr("Main.Menu.View.ShowRaster.Dots.Mnemonic"),"ViewRasterDots"));
-		enabledOnEditorPanel.add(menuViewRasterRaster=createCheckBoxMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Raster"),Language.tr("Main.Menu.View.ShowRaster.Raster.Mnemonic"),"ViewRasterRaster"));
-		menuViewRasterOff.setState(setup.raster==ModelSurface.Raster.OFF);
-		menuViewRasterDots.setState(setup.raster==ModelSurface.Raster.DOTS);
-		menuViewRasterRaster.setState(setup.raster==ModelSurface.Raster.RASTER);
+		enabledOnEditorPanel.add(menuViewGridOff=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Off"),Language.tr("Main.Menu.View.ShowRaster.Off.Mnemonic"),"ViewRasterOff"));
+		enabledOnEditorPanel.add(menuViewGridDots=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Dots"),Language.tr("Main.Menu.View.ShowRaster.Dots.Mnemonic"),"ViewRasterDots"));
+		enabledOnEditorPanel.add(menuViewGridLines=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Raster"),Language.tr("Main.Menu.View.ShowRaster.Raster.Mnemonic"),"ViewRasterRaster"));
+		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
+		menuViewGridDots.setSelected(setup.grid==ModelSurface.Grid.DOTS);
+		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
 		enabledOnEditorPanel.add(menuViewShowIDs=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowIDs"),Language.tr("Main.Menu.View.ShowIDs.Mnemonic"),"ViewShowIDs"));
 		menuViewShowIDs.setState(setup.showIDs);
 		enabledOnEditorPanel.add(menuViewGradients=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowGradients"),Language.tr("Main.Menu.View.ShowGradients.Mnemonic"),"ViewGradients"));
@@ -1491,11 +1492,11 @@ public class MainPanel extends MainPanelBase {
 		setup.saveSetup();
 	}
 
-	private void commandViewRaster(final ModelSurface.Raster raster) {
-		menuViewRasterOff.setState(raster==ModelSurface.Raster.OFF);
-		menuViewRasterDots.setState(raster==ModelSurface.Raster.DOTS);
-		menuViewRasterRaster.setState(raster==ModelSurface.Raster.RASTER);
-		setup.raster=raster;
+	private void commandViewRaster(final ModelSurface.Grid raster) {
+		menuViewGridOff.setSelected(raster==ModelSurface.Grid.OFF);
+		menuViewGridDots.setSelected(raster==ModelSurface.Grid.DOTS);
+		menuViewGridLines.setSelected(raster==ModelSurface.Grid.LINES);
+		setup.grid=raster;
 		setup.saveSetup();
 		editorPanel.setRaster(raster);
 	}

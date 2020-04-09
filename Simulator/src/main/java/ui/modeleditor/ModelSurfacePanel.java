@@ -226,7 +226,7 @@ public final class ModelSurfacePanel extends JPanel {
 	private final transient Runnable requestCopyListener;
 	private final transient Runnable requestCutListener;
 	private double zoom;
-	private ModelSurface.Raster raster;
+	private ModelSurface.Grid raster;
 	private Color[] colors=new Color[]{ModelSurface.DEFAULT_BACKGROUND_COLOR,ModelSurface.DEFAULT_RASTER_COLOR};
 	private Point dragStartMousePosition=null;
 	private transient ModelElement dragElement;
@@ -280,7 +280,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 		redrawListener=()->{repaint();};
 		setZoom(SetupData.getSetup().lastZoom);
-		raster=ModelSurface.Raster.RASTER;
+		raster=ModelSurface.Grid.LINES;
 
 		requestCopyListener=()->{copyToClipboard();};
 		requestCutListener=()->{copyToClipboard(); deleteSelectedElements();};
@@ -484,7 +484,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Gibt an, ob ein Raster auf der Zeichenfläche angezeigt wird
 	 * @return	Rasteranzeige
 	 */
-	public ModelSurface.Raster getRaster() {
+	public ModelSurface.Grid getRaster() {
 		return raster;
 	}
 
@@ -492,7 +492,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Stellt ein, ob ein Raster auf der Zeichenfläche angezeigt wird
 	 * @param raster	Rasteranzeige
 	 */
-	public void setRaster(final ModelSurface.Raster raster) {
+	public void setRaster(final ModelSurface.Grid raster) {
 		if (raster==this.raster || raster==null) return;
 		this.raster=raster;
 		repaint();
@@ -976,7 +976,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @param colors	2- oder 3-elementiges Array aus Hintergrund-, Raster- und optional oberer Gradienthintergrundfarbe
 	 * @param showSelectionFrames	Rahmen anzeigen, wenn etwas ausgewählt ist
 	 */
-	public void paintElements(final Graphics g, final Rectangle viewArea, final boolean showBackground, final boolean showBoundingBox, final ModelSurface.Raster raster, final Color[] colors, final boolean showSelectionFrames) {
+	public void paintElements(final Graphics g, final Rectangle viewArea, final boolean showBackground, final boolean showBoundingBox, final ModelSurface.Grid raster, final Color[] colors, final boolean showSelectionFrames) {
 		if (SetupData.getSetup().antialias) ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		/* Surface zeichnet alle Elemente in Graphics-Objekt */
@@ -1205,7 +1205,7 @@ public final class ModelSurfacePanel extends JPanel {
 		Graphics g=image.getGraphics();
 		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,false,true,ModelSurface.Raster.OFF,null,false);
+		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,false,true,ModelSurface.Grid.OFF,null,false);
 		if (additionalUserPaint!=null) {
 			g.setClip(new Rectangle(0,0,xSurfaceImage,ySurfaceImage));
 			additionalUserPaint.paint(g,imageZoom);
@@ -1240,7 +1240,7 @@ public final class ModelSurfacePanel extends JPanel {
 		svgGenerator.setSVGCanvasSize(new Dimension(maxX+minX,maxY+minY));
 
 		final Rectangle area=new Rectangle(0,0,maxX*10,maxY*10);
-		paintElements(svgGenerator,area,false,false,ModelSurface.Raster.OFF,null,false);
+		paintElements(svgGenerator,area,false,false,ModelSurface.Grid.OFF,null,false);
 
 		try (FileOutputStream fileWriter=new FileOutputStream(file)) {
 			final Writer out=new OutputStreamWriter(fileWriter,"UTF-8");
@@ -1278,7 +1278,7 @@ public final class ModelSurfacePanel extends JPanel {
 		};
 
 		final Rectangle area=new Rectangle(0,0,maxX*10,maxY*10);
-		paintElements(vg2d,area,false,false,ModelSurface.Raster.OFF,null,false);
+		paintElements(vg2d,area,false,false,ModelSurface.Grid.OFF,null,false);
 
 		final CommandSequence commands=((VectorGraphics2D)vg2d).getCommands();
 		final EPSProcessor epsProcessor=new EPSProcessor();

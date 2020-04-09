@@ -122,20 +122,20 @@ public final class ModelSurface {
 	/**
 	 * Rasteranzeige auf der Zeichenfläche
 	 * @author Alexander Herzog
-	 * @see ModelSurface#drawToGraphics(Graphics, Rectangle, double, boolean, boolean, Raster, Color[], boolean)
+	 * @see ModelSurface#drawToGraphics(Graphics, Rectangle, double, boolean, boolean, Grid, Color[], boolean)
 	 */
-	public enum Raster {
+	public enum Grid {
 		/** Keine Rasteranzeige */
 		OFF("off"),
 		/** Punktraster anzeigen */
 		DOTS("dots"),
 		/** Linienraster anzeigen */
-		RASTER("raster");
+		LINES("raster");
 
 		/** ID der Raster-Anzeige-Art für das Setup */
 		public final String id;
 
-		Raster(final String id) {
+		Grid(final String id) {
 			this.id=id;
 		}
 	}
@@ -447,7 +447,7 @@ public final class ModelSurface {
 
 	private final GradientFill gradient=new GradientFill();
 
-	private void drawBackgroundToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showBackground, final boolean showBoundingBox, final Raster raster, final Color[] colors) {
+	private void drawBackgroundToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors) {
 		Color backgroundColor=DEFAULT_BACKGROUND_COLOR;
 		Color backgroundColorGradient=null;
 		Color rasterColor=DEFAULT_RASTER_COLOR;
@@ -490,7 +490,7 @@ public final class ModelSurface {
 				graphics.drawLine(x,y-pointSize,x,y+pointSize);
 			}
 			break;
-		case RASTER:
+		case LINES:
 			for (int x=xStart;x<=xEnd;x+=step) graphics.drawLine(x,drawRect.y,x,drawRect.y+drawRect.height);
 			for (int y=yStart;y<=yEnd;y+=step) graphics.drawLine(drawRect.x,y,drawRect.x+drawRect.width,y);
 			break;
@@ -551,7 +551,9 @@ public final class ModelSurface {
 	 * @param colors	2- oder 3-elementiges Array aus Hintergrund-, Raster- und optional oberer Gradienthintergrundfarbe
 	 * @param showSelectionFrames	Rahmen anzeigen, wenn etwas ausgewählt ist
 	 */
-	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showBackground, final boolean showBoundingBox, final Raster raster, final Color[] colors, final boolean showSelectionFrames) {
+	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final boolean showSelectionFrames) {
+		if (graphics==null) return;
+
 		delayFireStateChangeListener=true;
 		needToFireStateChangeListener=false;
 		try {
@@ -1068,7 +1070,7 @@ public final class ModelSurface {
 		Graphics g=image.getGraphics();
 		g.setClip(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-		drawToGraphics(g,new Rectangle(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y),1.0,false,true,Raster.OFF,null,false);
+		drawToGraphics(g,new Rectangle(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y),1.0,false,true,Grid.OFF,null,false);
 
 		return image.getSubimage(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
 	}

@@ -417,7 +417,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @param startFullRecording	Wird die Animation im Pausemodus gestartet, so wird direkt der erste Schritt ausgeführt. Über diese Funktion kann angegeben werden, dass dieser Schritt im vollständigen Erfassungsmodus durchgeführt werden soll.
 	 * @see #makeAnimationModel(EditModel)
 	 */
-	public void setSimulator(final EditModel model, final Simulator simulator, final CallbackLoggerWithJS logger, final File recordFile, final boolean paintTimeStamp, final boolean fastWarmUp, final double zoom, final ModelSurface.Raster raster, final Point position, final Runnable animationDone, final Runnable sendToSimulation, final boolean startPaused, final boolean startFullRecording) {
+	public void setSimulator(final EditModel model, final Simulator simulator, final CallbackLoggerWithJS logger, final File recordFile, final boolean paintTimeStamp, final boolean fastWarmUp, final double zoom, final ModelSurface.Grid raster, final Point position, final Runnable animationDone, final Runnable sendToSimulation, final boolean startPaused, final boolean startFullRecording) {
 		this.model=model;
 		this.startPaused=startPaused;
 		this.fastWarmUp=fastWarmUp;

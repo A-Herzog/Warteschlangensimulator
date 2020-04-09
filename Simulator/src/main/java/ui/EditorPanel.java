@@ -247,7 +247,7 @@ public class EditorPanel extends EditorPanelBase {
 	 * Gibt an, ob ein Raster auf der Zeichenfläche angezeigt wird
 	 * @return	Rasteranzeige
 	 */
-	public ModelSurface.Raster getRaster() {
+	public ModelSurface.Grid getRaster() {
 		return surfacePanel.getRaster();
 	}
 
@@ -255,7 +255,7 @@ public class EditorPanel extends EditorPanelBase {
 	 * Stellt ein, ob ein Raster auf der Zeichenfläche angezeigt wird
 	 * @param raster	Rasteranzeige
 	 */
-	public void setRaster(final ModelSurface.Raster raster) {
+	public void setRaster(final ModelSurface.Grid raster) {
 		surfacePanel.setRaster(raster);
 	}
 
@@ -808,7 +808,7 @@ public class EditorPanel extends EditorPanelBase {
 		surfacePanel.setAdditionalTooltipGetter(box->getStatisticsInfoForElement(box));
 		surfacePanel.addSelectionListener(e->fireSelectionListener());
 		surfacePanel.addLinkListener(link->fireLinkListener(link));
-		surfacePanel.setRaster(SetupData.getSetup().raster);
+		surfacePanel.setRaster(SetupData.getSetup().grid);
 		if (model!=null) surfacePanel.setColors(model.surfaceColors);
 		final JScrollPane scrollPane=new JScrollPane(surfacePanel);
 		surfacePanel.addStateChangeListener(e->updateStatusBar());
