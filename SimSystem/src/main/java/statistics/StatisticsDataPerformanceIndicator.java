@@ -28,7 +28,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Dies ist die Standard-Klasse zur Erfassung von Wartezeiten usw.<br>
  * Die Zählung wird über die Funktion {@link StatisticsDataPerformanceIndicator#add(double)} realisiert.
  * @author Alexander Herzog
- * @version 1.9
+ * @version 2.0
  */
 public final class StatisticsDataPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -207,6 +207,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 	private final double upperBound;
 	private final int steps;
+	private final boolean hasDistribution;
+	private long distributionZeroCount;
 
 	/**
 	 * Konstruktor der Klasse <code>StatisticsDataPerformanceIndicator</code>
@@ -248,11 +250,11 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		this.steps=steps;
 
 		if (steps>0 && !isEmpty) {
-			dist=new DataDistributionImpl(upperBound,steps);
-			densityData=dist.densityData;
-			densityDataLength=densityData.length;
+			hasDistribution=true;
 			argumentScaleFactor=steps/((upperBound==86399)?86400:upperBound);
 			argumentScaleFactorIsOne=(Math.abs(argumentScaleFactor-1)<1E-10);
+		} else {
+			hasDistribution=false;
 		}
 
 		if (correlationRange>0) correlationTempValues=new double[correlationRange+CORRELATION_RANGE_STEPPING];
@@ -260,6 +262,13 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		this.batchSize=batchSize;
 
 		reset();
+	}
+
+	private void initDistribution() {
+		dist=new DataDistributionImpl(upperBound,steps);
+		densityData=dist.densityData;
+		densityDataLength=densityData.length;
+		densityData[0]=distributionZeroCount;
 	}
 
 	/**
@@ -275,7 +284,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			/* Summe (entfällt), quadrierte Summe (entfällt), Minimum, Maximum, Verteilung der Werte */
 			min=0;
 			if (count==1) max=0;
-			if (dist!=null) densityData[0]++;
+			if (dist==null) distributionZeroCount++; else densityData[0]++;
 		} else {
 			/* Summe, quadrierte Summe */
 			sum+=value;
@@ -293,7 +302,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			}
 
 			/* Verteilung der Werte */
-			if (dist!=null) {
+			if (hasDistribution) {
 				final long l;
 				if (argumentScaleFactorIsOne) {
 					/* langsamer:  l=FastMath.round(value); */
@@ -303,8 +312,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 					l=(long)((argumentScaleFactor*value)+0.5);
 				}
 				if (l<=0) {
-					densityData[0]++;
+					if (dist==null) distributionZeroCount++; else densityData[0]++;
 				} else {
+					if (dist==null) initDistribution();
 					if (l>=densityDataLength) {
 						densityData[densityDataLength-1]++;
 					} else {
@@ -368,7 +378,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			/* Summe (entfällt), quadrierte Summe (entfällt), Minimum, Maximum, Verteilung der Werte */
 			min=0;
 			if (this.count==1) max=0;
-			if (dist!=null) densityData[0]+=count;
+			if (dist==null) distributionZeroCount++; else densityData[0]++;
 		} else {
 			/* Summe, quadrierte Summe */
 			sum+=value*count;
@@ -386,7 +396,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			}
 
 			/* Verteilung der Werte */
-			if (dist!=null) {
+			if (hasDistribution) {
 				final long l;
 				if (argumentScaleFactorIsOne) {
 					/* langsamer:  l=FastMath.round(value); */
@@ -396,8 +406,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 					l=(long)((argumentScaleFactor*value)+0.5);
 				}
 				if (l<=0) {
-					densityData[0]+=count;
+					if (dist==null) distributionZeroCount++; else densityData[0]++;
 				} else {
+					if (dist==null) initDistribution();
 					if (l>=densityDataLength) {
 						densityData[densityDataLength-1]+=count;
 					} else {
@@ -434,10 +445,15 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		squaredSum+=moreDataStatistics.squaredSum;
 
 		/* Verteilung der Werte */
-		if (dist!=null && moreDataStatistics.dist!=null) {
-			dist.addToThis(moreDataStatistics.dist);
-			densityData=dist.densityData;
-			densityDataLength=densityData.length;
+		if (hasDistribution && moreDataStatistics.hasDistribution) {
+			if (dist==null) initDistribution();
+			if (moreDataStatistics.dist==null) {
+				densityData[0]+=moreDataStatistics.distributionZeroCount;
+			} else {
+				dist.addToThis(moreDataStatistics.dist);
+				densityData=dist.densityData;
+				densityDataLength=densityData.length;
+			}
 		}
 
 		/* Autokorrelation */
@@ -481,6 +497,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		/* Verteilung der Werte */
 		if (dist!=null) dist.setToValue(0.0);
+		distributionZeroCount=0;
 
 		/* Autokorrelation */
 		if (correlationTempValues!=null) {
@@ -522,6 +539,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			argumentScaleFactor=data.argumentScaleFactor;
 			argumentScaleFactorIsOne=data.argumentScaleFactorIsOne;
 		}
+		distributionZeroCount=data.distributionZeroCount;
 
 		/* Autokorrelation */
 		if (data.correlationTempValues!=null) correlationTempValues=Arrays.copyOf(data.correlationTempValues,data.correlationTempValues.length);
@@ -702,6 +720,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @return	Häufigkeitsverteilung der Messwerte in der Messreihe
 	 */
 	public DataDistributionImpl getDistribution() {
+		if (hasDistribution && dist==null) initDistribution();
 		return dist;
 	}
 
@@ -711,6 +730,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @return	Normalisierte Häufigkeitsverteilung der Messwerte in der Messreihe
 	 */
 	public DataDistributionImpl getNormalizedDistribution() {
+		if (hasDistribution && dist==null) initDistribution();
 		if (dist==null) return null;
 		DataDistributionImpl normalized=dist.clone();
 		normalized.normalizeDensityOnly();
@@ -977,7 +997,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			}
 		}
 
-		if (dist!=null) {
+		if (hasDistribution) {
+			if (dist==null) initDistribution();
 			final double[] quantils=getQuantil(storeQuantilValues);
 			for (int i=0;i<storeQuantilValues.length;i++) {
 				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),NumberTools.formatSystemNumber(quantils[i]));
@@ -1029,7 +1050,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			this.max=max;
 		}
 
-		if (dist!=null) {
+		if (hasDistribution) {
+			if (dist==null) initDistribution();
 			value=getAttributeValue(node,xmlNameDistribution);
 			if (!value.isEmpty()) {
 				final DataDistributionImpl distLoaded=DataDistributionImpl.createFromString(value,dist.upperBound);
@@ -1041,8 +1063,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		}
 
 		value=getAttributeValue(node,xmlNameCorrelation);
-		if (!value.isEmpty()) {
-			final DataDistributionImpl temp =DataDistributionImpl.createFromString(value,dist.upperBound);
+		if (!value.isEmpty() && hasDistribution) {
+			if (dist==null) initDistribution();
+			final DataDistributionImpl temp=DataDistributionImpl.createFromString(value,dist.upperBound);
 			if (temp==null) return String.format(xmlNameCorrelationError,node.getNodeName());
 			correlation=temp.densityData;
 		}

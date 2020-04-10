@@ -27,7 +27,7 @@ import mathtools.distribution.DataDistributionImpl;
  * auch negative Werte. Verteilungen enthalten allerdings trotzdem nur positive Werte.<br>
  * Die Zählung wird über die Funktion {@link StatisticsDataPerformanceIndicatorWithNegativeValues#add(double)} realisiert.
  * @author Alexander Herzog
- * @version 1.3
+ * @version 1.4
  */
 public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -128,6 +128,8 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 
 	private final double upperBound;
 	private final int steps;
+	private final boolean hasDistribution;
+	private long distributionZeroCount;
 
 	/**
 	 * Konstruktor der Klasse <code>StatisticsDataPerformanceIndicatorWthNegativeValues</code>
@@ -154,14 +156,21 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		this.steps=steps;
 
 		if (steps>0 && !isEmpty) {
-			dist=new DataDistributionImpl(upperBound,steps);
-			densityData=dist.densityData;
-			densityDataLength=densityData.length;
+			hasDistribution=true;
 			argumentScaleFactor=steps/((upperBound==86399)?86400:upperBound);
 			argumentScaleFactorIsOne=(Math.abs(argumentScaleFactor-1)<1E-10);
+		} else {
+			hasDistribution=false;
 		}
 
 		reset();
+	}
+
+	private void initDistribution() {
+		dist=new DataDistributionImpl(upperBound,steps);
+		densityData=dist.densityData;
+		densityDataLength=densityData.length;
+		densityData[0]=distributionZeroCount;
 	}
 
 	/**
@@ -189,9 +198,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		squaredSum+=(value*value);
 
 		/* Verteilung der Werte */
-		if (dist!=null) {
+		if (hasDistribution) {
 			if (value<=0.0d) {
-				densityData[0]++;
+				if (dist==null) distributionZeroCount++; else densityData[0]++;
 			} else {
 				final long l;
 				if (argumentScaleFactorIsOne) {
@@ -202,8 +211,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 					l=(long)((argumentScaleFactor*value)+0.5);
 				}
 				if (l<=0) {
-					densityData[0]++;
+					if (dist==null) distributionZeroCount++; else densityData[0]++;
 				} else {
+					if (dist==null) initDistribution();
 					if (l>=densityDataLength) {
 						densityData[densityDataLength-1]++;
 					} else {
@@ -243,9 +253,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		squaredSum+=(value*value)*count;
 
 		/* Verteilung der Werte */
-		if (dist!=null) {
+		if (hasDistribution) {
 			if (value<=0.0d) {
-				densityData[0]+=count;
+				if (dist==null) distributionZeroCount++; else densityData[0]++;
 			} else {
 				final long l;
 				if (argumentScaleFactorIsOne) {
@@ -256,8 +266,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 					l=(long)((argumentScaleFactor*value)+0.5);
 				}
 				if (l<=0) {
-					densityData[0]+=count;
+					if (dist==null) distributionZeroCount++; else densityData[0]++;
 				} else {
+					if (dist==null) initDistribution();
 					if (l>=densityDataLength) {
 						densityData[densityDataLength-1]+=count;
 					} else {
@@ -294,10 +305,15 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		squaredSum+=moreDataStatistics.squaredSum;
 
 		/* Verteilung der Werte */
-		if (dist!=null && moreDataStatistics.dist!=null) {
-			dist.addToThis(moreDataStatistics.dist);
-			densityData=dist.densityData;
-			densityDataLength=densityData.length;
+		if (hasDistribution && moreDataStatistics.hasDistribution) {
+			if (dist==null) initDistribution();
+			if (moreDataStatistics.dist==null) {
+				densityData[0]+=moreDataStatistics.distributionZeroCount;
+			} else {
+				dist.addToThis(moreDataStatistics.dist);
+				densityData=dist.densityData;
+				densityDataLength=densityData.length;
+			}
 		}
 	}
 
@@ -315,6 +331,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 
 		/* Verteilung der Werte */
 		if (dist!=null) dist.setToValue(0.0);
+		distributionZeroCount=0;
 	}
 
 	/**
@@ -341,6 +358,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 			argumentScaleFactor=data.argumentScaleFactor;
 			argumentScaleFactorIsOne=data.argumentScaleFactorIsOne;
 		}
+		distributionZeroCount=data.distributionZeroCount;
 	}
 
 	/**
@@ -512,6 +530,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 * @return	Häufigkeitsverteilung der Messwerte in der Messreihe
 	 */
 	public DataDistributionImpl getDistribution() {
+		if (hasDistribution && dist==null) initDistribution();
 		return dist;
 	}
 
@@ -521,6 +540,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 * @return	Normalisierte Häufigkeitsverteilung der Messwerte in der Messreihe
 	 */
 	public DataDistributionImpl getNormalizedDistribution() {
+		if (hasDistribution && dist==null) initDistribution();
 		if (dist==null) return null;
 		DataDistributionImpl normalized=dist.clone();
 		normalized.normalizeDensityOnly();
@@ -581,9 +601,11 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin()));
 		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax()));
 
-		if (dist!=null) node.setAttribute(xmlNameDistribution[0],dist.storeToString());
+		if (hasDistribution) {
+			if (dist==null) initDistribution();
 
-		if (dist!=null) {
+			node.setAttribute(xmlNameDistribution[0],dist.storeToString());
+
 			final double[] quantils=getQuantil(storeQuantilValues);
 			for (int i=0;i<storeQuantilValues.length;i++) {
 				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),NumberTools.formatSystemNumber(quantils[i]));
@@ -635,7 +657,8 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 			this.max=max;
 		}
 
-		if (dist!=null) {
+		if (hasDistribution) {
+			if (dist==null) initDistribution();
 			value=getAttributeValue(node,xmlNameDistribution);
 			if (!value.isEmpty()) {
 				final DataDistributionImpl distLoaded=DataDistributionImpl.createFromString(value,dist.upperBound);
