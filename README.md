@@ -1,5 +1,9 @@
 # Warteschlangensimulator
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator)
+![GitHub](https://img.shields.io/github/license/a-herzog/warteschlangensimulator)
+![GitHub All Releases](https://img.shields.io/github/downloads/a-herzog/warteschlangensimulator/total)
+
 ([Deutsche Version dieser Readme.](README_de.md))
 
 Warteschlangensimulator is a free, platform independent, [event-oriented, stochastic simulator](https://en.wikipedia.org/wiki/Discrete-event_simulation "Wikipedia").
