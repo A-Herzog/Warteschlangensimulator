@@ -20,11 +20,6 @@
 				<include name=".bak_*.log"/>
 			</fileset>
 		</delete>
-		<delete>
-			<fileset dir="${Simulator.location}/build/Help">
-				<include name="**/*.pdf"/>
-			</fileset>
-		</delete>
 	</target>
 	
 </project>

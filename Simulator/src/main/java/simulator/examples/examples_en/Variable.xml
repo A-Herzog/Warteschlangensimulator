@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE Model SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
-<Model xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
+<!DOCTYPE CallcenterModell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <ModelVersion>2.3.0</ModelVersion>
   <ModelName>Limiting the number of clients at the process station by using a variable</ModelName>
   <ModelDescription>A counting variable ensures that a maximum of m clients are located

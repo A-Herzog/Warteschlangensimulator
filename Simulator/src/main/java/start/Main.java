@@ -80,7 +80,7 @@ public class Main {
 
 		/* Basiseinstellungen zu den xml-Dateiformaten */
 		XMLTools.homeURL=MainPanel.HOME_URL;
-		XMLTools.mediaURL="https://"+XMLTools.homeURL+"/xml/";
+		XMLTools.mediaURL="https://"+XMLTools.homeURL+"/Warteschlangensimulator/";
 		XMLTools.dtd="Simulator.dtd";
 		XMLTools.xsd="Simulator.xsd";
 

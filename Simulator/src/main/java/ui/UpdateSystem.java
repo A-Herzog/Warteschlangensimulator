@@ -186,11 +186,11 @@ public class UpdateSystem {
 	 * @param request	Update-Request
 	 * @return	Serververbindung oder <code>null</code>, wenn die Verbindung fehlgeschlagen ist.
 	 */
-	private InputStream openServerFile(final String request) {
+	private InputStream openServerFile(final String urlString) {
 		/* URL zusammenbauen */
 		URL url;
 		try {
-			url=new URL("https://"+MainPanel.HOME_URL+"/update/?id="+request);
+			url=new URL("https://"+urlString);
 		} catch (MalformedURLException e1) {return null;}
 
 		try {
@@ -246,7 +246,7 @@ public class UpdateSystem {
 	private void checkUpdateAvailable(final boolean force) {
 		if (!firstStartToday && !force) return;
 
-		final String line=downloadTextFile("version");
+		final String line=downloadTextFile(MainPanel.HOME_URL+"/version.txt");
 		if (line==null) {
 			checkFailed=true;
 			newVersionAvailable=null;
@@ -257,10 +257,10 @@ public class UpdateSystem {
 		}
 	}
 
-	private String downloadTextFile(final String request) {
+	private String downloadTextFile(final String urlString) {
 		URL url;
 		try {
-			url=new URL("https://"+MainPanel.HOME_URL+"/update/?id="+request);
+			url=new URL("https://"+urlString);
 		} catch (MalformedURLException e1) {return null;}
 
 		return NetHelper.loadText(url,false,true);
@@ -289,8 +289,8 @@ public class UpdateSystem {
 		return true;
 	}
 
-	private boolean downloadFile(final String request, final File outputFile) {
-		try (InputStream inputStream=openServerFile(request)) {
+	private boolean downloadFile(final String urlString, final File outputFile) {
+		try (InputStream inputStream=openServerFile(urlString)) {
 			return downloadFile(inputStream,outputFile);
 		} catch (IOException e1) {
 			return false;
@@ -311,12 +311,12 @@ public class UpdateSystem {
 		updateDownloadStatus=UpdateStatus.STATUS_LOADING;
 		new Thread(()->{
 			/* Updater laden */
-			if (!downloadFile("update-installer",updateInstallerPart)) {setFailedStatus(); return;}
+			if (!downloadFile(MainPanel.UPDATE_URL+"/SimulatorSetup.exe",updateInstallerPart)) {setFailedStatus(); return;}
 
 			updateDownloadStatus=UpdateStatus.STATUS_CHECKING;
 
 			/* Signatur laden */
-			final String signature=downloadTextFile("signature-installer");
+			final String signature=downloadTextFile(MainPanel.UPDATE_URL+"/SimulatorSetup.sig");
 			if (signature==null) {setFailedStatus(); return;}
 
 			/* Signatur prüfen */

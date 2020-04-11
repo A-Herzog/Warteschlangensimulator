@@ -1,6 +1,0 @@
-Homepage:
-- ui.MainPanel (Domain) und evtl. start.Main (nur Pfad) anpassen
-- Hilfeseiten anapssen: ui.help.pages_*.Proxy.html
-- Simulator/build/XML documentation/*.xsd
-- Beispiel anpassen: simulator.examples.examples_*
-- Links zu Referenz-pdfs: README_MODELING_*.md

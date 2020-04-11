@@ -9,6 +9,7 @@
 	<property name="sed.location" location="../language/sed/bin" />
 	<property name="pdfLaTeX32.location" location="C:/Program Files (x86)/MiKTeX 2.9/miktex/bin"/>
 	<property name="pdfLaTeX64.location" location="C:/Program Files/MiKTeX 2.9/miktex/bin/x64"/>
+	<property name="Homepage.location" location="../../docs" />
 	<property name="Release.location" location="../../Release" />
 	
 	<!-- Build reference -->
@@ -173,6 +174,11 @@
 			<arg value="-interaction=nonstopmode"/>
 			<arg value="Warteschlangensimulator-Commandline-en.tex"/>
 		</exec>
+		
+		<echo message="Move files to destination" />
+		<move todir="${Homepage.location}" flatten="true" overwrite="true">
+			<fileset dir="${BuildTools.location}/Help" includes="**/*.pdf"/> 
+		</move>
 	</target>
 	
 	<!-- Full simulator build process -->
@@ -200,12 +206,9 @@
 		</copy>
 		
 		<echo message="Copy help files" />		
-		<copy todir="${Release.location}/docs" flatten="true">
-			<fileset dir="${BuildTools.location}/Help" includes="**/*.pdf"/> 
-		</copy>
 		<copy todir="${Release.location}/docs">
-			<fileset dir="${BuildTools.location}/XML documentation"/>
-		</copy>
+            <fileset dir="${Homepage.location}" includes="*.dtd,*.xsd,*.pdf"/>
+        </copy>
 		<copy file="${Simulator.location}/LICENSE_COMPONENTS.md" tofile="${Release.location}/docs/license_components_simulator.md"/>
 		<copy file="${SimTools.location}/LICENSE_COMPONENTS.md" tofile="${Release.location}/docs/license_components_simtools.md"/>
 		<copy file="${SimSystem.location}/LICENSE_COMPONENTS.md" tofile="${Release.location}/docs/license_components_simsystem.md"/>

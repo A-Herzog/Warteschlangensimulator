@@ -157,6 +157,9 @@ import ui.tools.WaitPanel;
 import ui.tutorial.TutorialWindow;
 import xml.XMLTools;
 
+// TODO Update-System testen
+// TODO Release date eintragen
+
 /**
  * Diese Klasse stellt den Arbeitsbereich innerhalb des Programmfensters dar.
  *
@@ -177,9 +180,14 @@ public class MainPanel extends MainPanelBase {
 	public static final String AUTHOR_EMAIL="alexander.herzog@tu-clausthal.de";
 
 	/**
-	 * Base-Homepage-Adresse für das Programm
+	 * Basis-Homepage-Adresse für das Programm
 	 */
-	public static final String HOME_URL="qs.highfives.io";
+	public static final String HOME_URL="a-herzog.github.io";
+
+	/**
+	 * Basis-Homepage-Adresse für das Updates
+	 */
+	public static final String UPDATE_URL="github.com/A-Herzog/Warteschlangensimulator/releases/latest/download";
 
 	/**
 	 * Programmversion
