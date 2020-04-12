@@ -27,6 +27,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -65,6 +66,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
 import javax.swing.JViewport;
+import javax.swing.KeyStroke;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -548,6 +550,17 @@ public class EditorPanel extends EditorPanelBase {
 		return toolbar;
 	}
 
+	private String keyStrokeToString(final KeyStroke key) {
+		int modifiers=key.getModifiers();
+		final StringBuilder text=new StringBuilder();
+		if (modifiers > 0) {
+			text.append(InputEvent.getModifiersExText(modifiers));
+			text.append('+');
+		}
+		text.append(KeyEvent.getKeyText(key.getKeyCode()));
+		return text.toString();
+	}
+
 	private JComponent createLeftToolBar() {
 		final SetupData setup=SetupData.getSetup();
 
@@ -557,9 +570,11 @@ public class EditorPanel extends EditorPanelBase {
 		leftArea.add(leftToolbar,BorderLayout.WEST);
 		leftToolbar.setFloatable(false);
 
-		buttonProperties=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelProperties.Short"),Language.tr("Editor.ModelProperties.Info"),Images.MODEL.getIcon());
+		final String hotkeyProperties=keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,InputEvent.CTRL_DOWN_MASK));
+		buttonProperties=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelProperties.Short"),Language.tr("Editor.ModelProperties.Info")+" ("+hotkeyProperties+")",Images.MODEL.getIcon());
 		if (!readOnly) {
-			buttonTemplates=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ToggleTemplates.Short"),Language.tr("Editor.ToggleTemplates.Info"),Images.ELEMENTTEMPLATES.getIcon());
+			final String hotkeyToggleTemplates=keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0));
+			buttonTemplates=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ToggleTemplates.Short"),Language.tr("Editor.ToggleTemplates.Info")+" ("+hotkeyToggleTemplates+")",Images.ELEMENTTEMPLATES.getIcon());
 			buttonAddEdge=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.AddEdge.Short"),Language.tr("Editor.AddEdge.Info"),Images.EDIT_EDGES_ADD.getIcon());
 			buttonAddEdge.setEnabled(!readOnly);
 		}
