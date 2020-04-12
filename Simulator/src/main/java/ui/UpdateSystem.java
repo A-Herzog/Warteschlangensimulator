@@ -43,11 +43,6 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class UpdateSystem {
-	/**
-	 * Herausgeber des auf dem Lizenzservers eingesetzten Zertifikats
-	 */
-	public static final String certAuthority="Let's Encrypt Authority";
-
 	private static final File updateInstallerPart=new File(System.getProperty("java.io.tmpdir"),"SimulatorSetup.exe.part");
 	private static final File updateInstaller=new File(System.getProperty("java.io.tmpdir"),"SimulatorSetup.exe");
 	private static final File updateInstallerRun=new File(System.getProperty("java.io.tmpdir"),"SimulatorSetupWork.exe");

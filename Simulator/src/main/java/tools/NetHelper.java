@@ -24,17 +24,10 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
-import java.security.cert.Certificate;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
-
-import ui.MainPanel;
-import ui.UpdateSystem;
 
 /**
  * Diese Klasse bietet Hilfsroutinen zur Herstellung von Netzwerkverbindungen an.
@@ -84,16 +77,6 @@ public class NetHelper {
 		return new Proxy(Proxy.Type.HTTP, new InetSocketAddress(setup.proxyHost,setup.proxyPort));
 	}
 
-	private static boolean checkCertificate(final Certificate[] certificate) {
-		if (certificate==null || certificate.length==0) return false;
-
-		if (!(certificate[0] instanceof X509Certificate)) return false;
-
-		final String certAuthority=(((X509Certificate)certificate[0]).getIssuerDN().getName());
-		if (certAuthority!=null && UpdateSystem.certAuthority!=null && certAuthority.indexOf(UpdateSystem.certAuthority)<0) return false;
-		return true;
-	}
-
 	/**
 	 * Öffnet die Verbindung zum Server, um eine Datei herunterzuladen
 	 * @param url	Request-URL
@@ -110,15 +93,6 @@ public class NetHelper {
 			if (onlySecuredURLs) {
 				/* Nur https */
 				if (!(connect instanceof HttpsURLConnection)) return null;
-				final HttpsURLConnection https=(HttpsURLConnection)connect;
-
-				/* Hostname prüfen */
-				https.setHostnameVerifier(new HostnameVerifier() {
-					@Override
-					public boolean verify(String hostname, SSLSession session) {
-						return hostname.equalsIgnoreCase(MainPanel.HOME_URL) && session.getPeerHost().equals(MainPanel.HOME_URL);
-					}
-				});
 			}
 
 			/* Verbindung öffnen */
@@ -126,8 +100,6 @@ public class NetHelper {
 
 			if (onlySecuredURLs) {
 				if (!(connect instanceof HttpsURLConnection)) return null;
-				final HttpsURLConnection https=(HttpsURLConnection)connect;
-				if (!checkCertificate(https.getServerCertificates())) return null;
 			}
 
 			return connect;

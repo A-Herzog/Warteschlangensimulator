@@ -157,9 +157,6 @@ import ui.tools.WaitPanel;
 import ui.tutorial.TutorialWindow;
 import xml.XMLTools;
 
-// TODO Update-System testen
-// TODO Release date eintragen
-
 /**
  * Diese Klasse stellt den Arbeitsbereich innerhalb des Programmfensters dar.
  *
