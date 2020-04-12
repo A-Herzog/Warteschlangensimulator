@@ -246,7 +246,7 @@ public class UpdateSystem {
 	private void checkUpdateAvailable(final boolean force) {
 		if (!firstStartToday && !force) return;
 
-		final String line=downloadTextFile(MainPanel.HOME_URL+"/version.txt");
+		final String line=downloadTextFile(MainPanel.HOME_URL+"/Warteschlangensimulator/version.txt");
 		if (line==null) {
 			checkFailed=true;
 			newVersionAvailable=null;
