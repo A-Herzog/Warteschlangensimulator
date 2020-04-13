@@ -641,7 +641,7 @@ public class EditorPanel extends EditorPanelBase {
 		if (!readOnly) setTemplatesVisible(setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_VISIBLE || (setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_LASTSTATE && setup.showTemplates)); else setTemplatesVisible(false);
 
 		leftToolbar.add(Box.createVerticalGlue());
-		buttonExplorer=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelOverview.Short"),Language.tr("Editor.ModelOverview.Info"),Images.GENERAL_FIND.getIcon()); // XXX Hotkey
+		buttonExplorer=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelOverview.Short"),Language.tr("Editor.ModelOverview.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK))+")",Images.GENERAL_FIND.getIcon());
 
 		return leftArea;
 	}
