@@ -17,12 +17,16 @@ package ui.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +41,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
@@ -57,6 +63,7 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import tools.SetupData;
+import ui.MainPanel;
 import ui.UpdateSystem;
 import ui.help.Help;
 import ui.images.Images;
@@ -140,6 +147,7 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox programStartJavaCheck;
 	private final JCheckBox autoUpdate;
 	private final JLabel updateInfo;
+	private final JButton manualUpdateButton;
 
 	/**
 	 * Konstruktor der Klasse
@@ -698,6 +706,10 @@ public final class SetupDialog extends BaseDialog {
 		button.setIcon(Images.SETUP_PROXY.getIcon());
 		button.addActionListener(e->showProxySettingsDialog());
 		p.add(button);
+		p.add(manualUpdateButton=new JButton(Language.tr("SettingsDialog.ManualUpdate")));
+		manualUpdateButton.setIcon(Images.SETUP_PAGE_UPDATE.getIcon());
+		manualUpdateButton.setVisible(false);
+		manualUpdateButton.addActionListener(e->showManualUpdateMenu());
 
 		/* Icons auf den Tabreitern einfügen */
 
@@ -875,23 +887,27 @@ public final class SetupDialog extends BaseDialog {
 
 		/* Seite: Updates */
 
+		final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
 		programStartJavaCheck.setSelected(setup.testJavaVersion);
-		autoUpdate.setEnabled(UpdateSystem.getUpdateSystem().isAutomaticUpdatePossible());
+		autoUpdate.setEnabled(updateSystem.isAutomaticUpdatePossible());
 		autoUpdate.setSelected(autoUpdate.isEnabled() && setup.autoUpdate);
 		updateInfo.setText("<html><b>"+Language.tr("SettingsDialog.Tabs.Updates.ConnectingServer")+"</b></html>");
 		new Thread(()->{
-			UpdateSystem.getUpdateSystem().checkUpdateNow(true);
-			updateInfo.setText("<html><b>"+UpdateSystem.getUpdateSystem().getInfoString()+"</b></html>");
-			if (UpdateSystem.getUpdateSystem().isLoading()) {
-				final Timer timer=new Timer();
-				timer.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						if (!UpdateSystem.getUpdateSystem().isLoading()) timer.cancel();
-						updateInfo.setText("<html><b>"+UpdateSystem.getUpdateSystem().getInfoString()+"</b></html>");
+			updateSystem.checkUpdateNow(true);
+			updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
+			final Timer timer=new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					if (!updateSystem.isLoading()) {
+						timer.cancel();
+						if (updateSystem.isNewVersionAvailable()==UpdateSystem.NewVersionAvailableStatus.NEW_VERSION_AVAILABLE) {
+							manualUpdateButton.setVisible(true);
+						}
 					}
-				},1000,1000);
-			}
+					updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
+				}
+			},1000,1000);
 		}).start();
 
 		/* Dialog anzeigen */
@@ -1103,6 +1119,50 @@ public final class SetupDialog extends BaseDialog {
 
 	private void showProxySettingsDialog() {
 		new ProxyDialog(this);
+	}
+
+	private void showManualUpdateMenu() {
+		final JPopupMenu menu=new JPopupMenu();
+		JMenuItem item;
+
+		menu.add(item=new JMenuItem(Language.tr("SettingsDialog.ManualUpdate.Homepage")));
+		item.setIcon(Images.HELP_HOMEPAGE.getIcon());
+		item.addActionListener(e->{
+			final String network="https://"+MainPanel.WEB_URL;
+			try {
+				Desktop.getDesktop().browse(new URI(network));
+			} catch (IOException | URISyntaxException e1) {
+				MsgBox.error(getOwner(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),network));
+			}
+		});
+		menu.add(item=new JMenuItem(Language.tr("SettingsDialog.ManualUpdate.Download")));
+		item.setIcon(Images.GENERAL_SAVE.getIcon());
+		item.addActionListener(e->{
+			final JFileChooser fc=new JFileChooser();
+			CommonVariables.initialDirectoryToJFileChooser(fc);
+			fc.setDialogTitle(Language.tr("SettingsDialog.ManualUpdate.Download.Folder"));
+			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
+			CommonVariables.initialDirectoryFromJFileChooser(fc);
+			final File file=fc.getSelectedFile();
+			if (file==null) return;
+			final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
+			updateSystem.downloadUpdateToFolder(file);
+			updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
+			manualUpdateButton.setVisible(false);
+			final Timer timer=new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					if (!updateSystem.isLoading()) {
+						timer.cancel();
+						manualUpdateButton.setVisible(true);
+					}
+					updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
+				}
+			},1000,1000);
+		});
+		menu.show(manualUpdateButton,0,manualUpdateButton.getHeight());
 	}
 
 	@Override

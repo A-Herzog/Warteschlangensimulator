@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-13 15:53+0200\n"
+"POT-Creation-Date: 2020-04-13 18:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11557,6 +11557,18 @@ msgstr "Load model on program start"
 
 msgid "SettingsDialog.LoadModelOnProgramStart.EmptyModel"
 msgstr "Empty model"
+
+msgid "SettingsDialog.ManualUpdate"
+msgstr "Update manually"
+
+msgid "SettingsDialog.ManualUpdate.Download"
+msgstr "Download and store updater"
+
+msgid "SettingsDialog.ManualUpdate.Download.Folder"
+msgstr "Destination folder for updater download"
+
+msgid "SettingsDialog.ManualUpdate.Homepage"
+msgstr "Open homepage"
 
 msgid "SettingsDialog.ModellSecurity"
 msgstr "Models containing potentially critical stations"
@@ -25362,6 +25374,9 @@ msgstr "The downloaded version %s is being checked."
 
 msgid "Update.Status.Done"
 msgstr "On next start the program is updated to version %s."
+
+msgid "Update.Status.DoneManual"
+msgstr "The update installer was downloaded."
 
 msgid "Update.Status.Failed"
 msgstr "The download of the new version %s failed."

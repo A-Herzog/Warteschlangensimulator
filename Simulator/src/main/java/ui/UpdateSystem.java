@@ -55,7 +55,8 @@ public class UpdateSystem {
 		STATUS_LOADING,
 		STATUS_CHECKING,
 		STATUS_FAILED,
-		STATUS_SUCCESS
+		STATUS_SUCCESS,
+		STATUS_SUCCESS_MANUAL
 	}
 
 	private boolean automaticUpdatePossible;
@@ -396,15 +397,23 @@ public class UpdateSystem {
 		case VERSION_IS_UPTODATE:
 			return Language.tr("Update.Status.UpToDate");
 		}
-		if (!isAutomaticUpdatePossible()) return String.format(Language.tr("Update.Status.NewVersionNoAutomaticUpdate"),getNewVersion());
 
 		switch (updateDownloadStatus) {
-		case STATUS_NOTHING: return String.format(Language.tr("Update.Status.NewVersion"),getNewVersion());
-		case STATUS_LOADING: return String.format(Language.tr("Update.Status.Loading"),getNewVersion(),updateDownloadStatusPercent);
-		case STATUS_CHECKING: return String.format(Language.tr("Update.Status.Checking"),getNewVersion());
-		case STATUS_FAILED: return String.format(Language.tr("Update.Status.Failed"),getNewVersion());
-		case STATUS_SUCCESS: return String.format(Language.tr("Update.Status.Done"),getNewVersion());
-		default: return String.format(Language.tr("Update.Status.NewVersion"),getNewVersion());
+		case STATUS_NOTHING:
+			if (!isAutomaticUpdatePossible()) return String.format(Language.tr("Update.Status.NewVersionNoAutomaticUpdate"),getNewVersion());
+			return String.format(Language.tr("Update.Status.NewVersion"),getNewVersion());
+		case STATUS_LOADING:
+			return String.format(Language.tr("Update.Status.Loading"),getNewVersion(),updateDownloadStatusPercent);
+		case STATUS_CHECKING:
+			return String.format(Language.tr("Update.Status.Checking"),getNewVersion());
+		case STATUS_FAILED:
+			return String.format(Language.tr("Update.Status.Failed"),getNewVersion());
+		case STATUS_SUCCESS:
+			return String.format(Language.tr("Update.Status.Done"),getNewVersion());
+		case STATUS_SUCCESS_MANUAL:
+			return Language.tr("Update.Status.DoneManual");
+		default:
+			return String.format(Language.tr("Update.Status.NewVersion"),getNewVersion());
 		}
 	}
 
@@ -418,6 +427,33 @@ public class UpdateSystem {
 		if (newVersionAvailable!=null && automaticUpdatePossible) {
 			if (SetupData.getSetup().autoUpdate || !checkOnly) downloadUpdate();
 		}
+	}
+
+	/**
+	 * Lädt die aktueller Installer-Datei in den angegebenen Ordner herunter.
+	 * Es erfolgt dabei keine Prüfung, ob die angebotene Fassung wirklich neuer
+	 * als die aktuelle Fassung ist.
+	 * @param folder	Zielordner für den Download
+	 */
+	public void downloadUpdateToFolder(final File folder) {
+		updateDownloadStatus=UpdateStatus.STATUS_LOADING;
+		new Thread(()->{
+			/* Updater laden */
+			if (!downloadFile(MainPanel.UPDATE_URL+"/SimulatorSetup.exe",updateInstallerPart)) {setFailedStatus(); return;}
+
+			updateDownloadStatus=UpdateStatus.STATUS_CHECKING;
+
+			/* Signatur laden */
+			final String signature=downloadTextFile(MainPanel.UPDATE_URL+"/SimulatorSetup.sig");
+			if (signature==null) {setFailedStatus(); return;}
+
+			/* Signatur prüfen */
+			final UpdateSystemSignature checker=new UpdateSystemSignature(updateInstallerPart);
+			if (!checker.verify(signature.trim())) {setFailedStatus(); return;}
+
+			/* Update vorbereiten */
+			if (updateInstallerPart.renameTo(new File(folder,updateInstaller.getName()))) updateDownloadStatus=UpdateStatus.STATUS_SUCCESS_MANUAL;
+		},"UpdateLoader").start();
 	}
 
 	/**

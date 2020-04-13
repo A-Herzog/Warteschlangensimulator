@@ -157,8 +157,6 @@ import ui.tools.WaitPanel;
 import ui.tutorial.TutorialWindow;
 import xml.XMLTools;
 
-// TODO Option zum Download in Verzeichnis oder Aufruf der Homepage auf Update-Seite im Setup-Dialog
-
 /**
  * Diese Klasse stellt den Arbeitsbereich innerhalb des Programmfensters dar.
  *
@@ -196,7 +194,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Programmversion
 	 */
-	public static final String VERSION="4.3.0";
+	public static final String VERSION="4.4.0";
 
 	private static final int JAVA8_SECURE_MIN_VERSION=242;
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
