@@ -157,6 +157,8 @@ import ui.tools.WaitPanel;
 import ui.tutorial.TutorialWindow;
 import xml.XMLTools;
 
+// TODO Option zum Download in Verzeichnis oder Aufruf der Homepage auf Update-Seite im Setup-Dialog
+
 /**
  * Diese Klasse stellt den Arbeitsbereich innerhalb des Programmfensters dar.
  *
@@ -421,6 +423,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewStatistics",e->setCurrentPanel(statisticsPanel));
 		addAction("ViewTemplatesBar",e->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible()));
 		addAction("ViewNavigator",e->editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible()));
+		addAction("ViewExplorer",e->editorPanel.showExplorer());
 		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Grid.OFF));
 		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Grid.DOTS));
 		addAction("ViewRasterRaster",e->commandViewRaster(ModelSurface.Grid.LINES));
@@ -783,6 +786,7 @@ public class MainPanel extends MainPanelBase {
 		menuViewTemplatesBar.setState(editorPanel.isTemplatesVisible());
 		enabledOnEditorPanel.add(menuViewNavigator=createCheckBoxMenuItemIcon(menu,Language.tr("Main.Menu.View.NavigatorBar"),Images.NAVIGATOR.getIcon(),Language.tr("Main.Menu.View.NavigatorBar.Mnemonic"),KeyEvent.VK_F12,"ViewNavigator"));
 		menuViewNavigator.setState(editorPanel.isNavigatorVisible());
+		createMenuItemCtrl(menu,Language.tr("Main.Menu.View.Explorer"),Images.MODE_OVERVIEW.getIcon(),Language.tr("Main.Menu.View.Explorer.Mnemonic"),KeyEvent.VK_F12,"ViewExplorer");
 		menu.addSeparator();
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.View.ShowRaster")));
 		setMnemonic(submenu,Language.tr("Main.Menu.View.ShowRaster.Mnemonic"));

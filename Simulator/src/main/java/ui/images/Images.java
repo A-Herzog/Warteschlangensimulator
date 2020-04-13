@@ -236,6 +236,9 @@ public enum Images {
 	/** Symbol "Auf Modell zoomen" */
 	ZOOM_CENTER_MODEL("image.gif"),
 
+	/** Symbol "Modellüberblick" */
+	MODE_OVERVIEW("find.png"),
+
 	/* Expression Builder */
 
 	/** Symbol "Expression-Builder" */

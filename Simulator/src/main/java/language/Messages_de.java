@@ -2284,8 +2284,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5297] = "In dem Modell werden externe Daten verwendet. Diese werden vor einer Parameterreihensimulation nicht aktualisiert.";
     t[5298] = "Surface.InputJS.Dialog.Mode.Loop";
     t[5299] = "Datei nach Ende erneut von vorne einlesen.";
-    t[5300] = "Statistics.XML.Time.Error";
-    t[5301] = "Das \"Zeit\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
+    t[5300] = "Statistic.Viewer.Toolbar.OpenODS";
+    t[5301] = "OpenOffice/LibreOffice";
     t[5310] = "Statistic.Viewer.Chart.InMinutes";
     t[5311] = "in Minuten";
     t[5316] = "Main.Menu.RecordAnimationLog";
@@ -7022,6 +7022,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[16415] = "Zahlenwerte in Spalte 1 sind Abst\u00e4nde zwischen Ankunftszeitpunkten";
     t[16422] = "Statistic.FastAccess.Template.Parameter.Number";
     t[16423] = "Zahl";
+    t[16424] = "Main.Menu.View.Explorer";
+    t[16425] = "Modell\u00fcberblick";
     t[16432] = "Surface.PopupMenu.MoveToBack";
     t[16433] = "In den Hintergrund";
     t[16438] = "Surface.CounterMulti.Dialog.GroupName.Short";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18789] = "Die Modellbeschreibung besitzt keine Bedeutung f\u00fcr die Simulation selbst. Auf dieser Dialogseite k\u00f6nnen Sie zus\u00e4tzliche Informationen, die mit dem Modell gespeichert werden, hinterlegen.";
     t[18790] = "Surface.SourceTable.Dialog.ClientTypes.ErrorTitle";
     t[18791] = "Keine Kundentypen angegeben";
-    t[18796] = "Surface.LogicWhile.XML.Root";
-    t[18797] = "ModellElementLogikWhile";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18796] = "Surface.LogicWhile.XML.Root";
+    t[18797] = "ModellElementLogikWhile";
     t[18800] = "ExpressionBuilder.SimulationCharacteristics.AnalogValues.Valve";
     t[18801] = "Liefert den aktuell an Ventil nr (1-basierend) maximal m\u00f6glichen Durchfluss an dem angegebenen Tank.";
     t[18802] = "Window.Simulation.ErrorInitializatingSimulation";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23423] = "Kunde: %s, Station: %s";
     t[23432] = "Statistic.Description.Show.Hint";
     t[23433] = "Zeigt zus\u00e4tzliche Erkl\u00e4rungen zu dieser Statistikseiten an.";
-    t[23434] = "SimulationServer.Setup.WebAutoStart";
-    t[23435] = "Autostart";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23434] = "SimulationServer.Setup.WebAutoStart";
+    t[23435] = "Autostart";
     t[23436] = "Surface.ExpressionTableModel.SetupArea";
     t[23437] = "Bereich einstellen";
     t[23438] = "Main.Menu.View.ShowGradients";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28129] = "F\u00fcgt ein Modell zu der Liste der zu simulierenden Modelle hinzu";
     t[28146] = "Surface.AnimationBarStack.Dialog.Bar.left";
     t[28147] = "von rechts nach links";
-    t[28150] = "ExpressionBuilder.StatisticalFunctions.Maximum";
-    t[28151] = "Maximum";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28150] = "ExpressionBuilder.StatisticalFunctions.Maximum";
+    t[28151] = "Maximum";
     t[28154] = "Surface.HoldJS.XML.Condition.Java";
     t[28155] = "Java";
     t[28160] = "LogSimulation.LogFile";
@@ -13944,6 +13946,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32727] = "Wartezeiten an den Stationen";
     t[32740] = "SettingsDialog.AnimationWarmUp.Ask";
     t[32741] = "Bei Statistik-Visualisierung fragen, ob sie \u00fcbersprungen werden soll";
+    t[32748] = "Statistics.XML.Time.Error";
+    t[32749] = "Das \"Zeit\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
     t[32758] = "ModelDescription.Conveyor.CapacityNeededGlobal";
     t[32759] = "Ben\u00f6tigte Kapazit\u00e4t pro Kunde (Standard)";
     t[32764] = "Statistic.FastAccess.Template.UserStatistics";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32913] = "Wegpunkte nicht ver\u00e4ndern.";
     t[32914] = "ScriptPopup.Statistics.Hint";
     t[32915] = "Simulationsergebnisse abrufen";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32920] = "Color.B0E0E6";
     t[32921] = "Powder Blau";
     t[32922] = "Statistics.Filter.EngineInitError.General";
     t[32923] = "Die Skriptumgebung konnte nicht initialisiert werden.";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32928] = "ModelDescription.BarrierPull.ControlledStation";
     t[32929] = "\u00dcberwachte Station";
     t[32930] = "Simulation.Java.Error.RunError";
@@ -15360,8 +15364,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36209] = "Modellpr\u00fcfung";
     t[36212] = "QuickAccess.RecentlyUsed";
     t[36213] = "Zuletzt verwendete Dateien";
-    t[36224] = "Statistic.Viewer.Toolbar.OpenODS";
-    t[36225] = "OpenOffice/LibreOffice";
+    t[36224] = "Main.Menu.View.Explorer.Mnemonic";
+    t[36225] = "\u00fc";
     t[36226] = "Statistic.Viewer.Toolbar.OpenODT";
     t[36227] = "OpenOffice/LibreOffice";
     t[36230] = "Statistics.FailureTime.CV.Transporters";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37597] = "Logik Else";
     t[37598] = "Surface.AssignString.Table.Up";
     t[37599] = "Nach oben verschieben";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37600] = "Surface.AnimationRecord.ValueNumber";
     t[37601] = "Datenpunkt";
     t[37604] = "Surface.TankSensor.Dialog.Threshold";
     t[37605] = "Schwellenwert";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37608] = "Surface.Match.Dialog.OptionProperty.Text.Error.Title";
     t[37609] = "Kein Schl\u00fcssel angegeben";
     t[37610] = "Simulation.Log.ArrivalClientCount";

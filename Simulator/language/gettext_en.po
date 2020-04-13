@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-13 13:37+0200\n"
+"POT-Creation-Date: 2020-04-13 15:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6858,6 +6858,12 @@ msgstr "Setup connection edges..."
 
 msgid "Main.Menu.View.EdgeSettings.Mnemonic"
 msgstr "C"
+
+msgid "Main.Menu.View.Explorer"
+msgstr "Model overview"
+
+msgid "Main.Menu.View.Explorer.Mnemonic"
+msgstr "o"
 
 msgid "Main.Menu.View.FindElement"
 msgstr "Find element by ID or name..."

@@ -641,7 +641,7 @@ public class EditorPanel extends EditorPanelBase {
 		if (!readOnly) setTemplatesVisible(setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_VISIBLE || (setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_LASTSTATE && setup.showTemplates)); else setTemplatesVisible(false);
 
 		leftToolbar.add(Box.createVerticalGlue());
-		buttonExplorer=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelOverview.Short"),Language.tr("Editor.ModelOverview.Info"),Images.GENERAL_FIND.getIcon());
+		buttonExplorer=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelOverview.Short"),Language.tr("Editor.ModelOverview.Info"),Images.GENERAL_FIND.getIcon()); // XXX Hotkey
 
 		return leftArea;
 	}
@@ -1469,6 +1469,13 @@ public class EditorPanel extends EditorPanelBase {
 	 */
 	public void setElementListCallback(final Runnable callbackElementList) {
 		this.callbackElementList=callbackElementList;
+	}
+
+	/**
+	 * Zeigt die Modellübersicht an.
+	 */
+	public void showExplorer() {
+		showExplorer(buttonExplorer);
 	}
 
 	private void showExplorer(final Component parent) {
