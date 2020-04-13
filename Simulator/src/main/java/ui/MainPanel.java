@@ -182,6 +182,11 @@ public class MainPanel extends MainPanelBase {
 	public static final String HOME_URL="a-herzog.github.io";
 
 	/**
+	 * Homepage-Adresse für Webbrowseraufrufe
+	 */
+	public static final String WEB_URL="github.com/A-Herzog/Warteschlangensimulator";
+
+	/**
 	 * Basis-Homepage-Adresse für das Updates
 	 */
 	public static final String UPDATE_URL="github.com/A-Herzog/Warteschlangensimulator/releases/latest/download";
@@ -489,6 +494,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpCommandLineReference",e->commandHelpCommandLineReference());
 		addAction("HelpLiteratureGrossHarris",e->commandHelpLiterature(0));
 		addAction("HelpSupport",e->commandHelpSupport());
+		addAction("HelpHomepage",e->commandHelpHomepage());
 		addAction("HelpUsageStatistics",e->commandHelpUsageStatistics());
 		addAction("HelpLicense",e->commandHelpLicenseInfo());
 		addAction("HelpInfo",e->commandHelpInfo());
@@ -925,7 +931,9 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.GrossHarris"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.GrossHarris"),"HelpLiteratureGrossHarris");
 		 */
 
+		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.Homepage"),Images.HELP_HOMEPAGE.getIcon(),Language.tr("Main.Menu.Help.Homepage.Mnemonic"),"HelpHomepage");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.UsageStatistics"),Language.tr("Main.Menu.Help.UsageStatistics.Mnemonic"),"HelpUsageStatistics");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.LicenseInformation"),Language.tr("Main.Menu.Help.LicenseInformation.Mnemonic"),"HelpLicense");
@@ -2471,6 +2479,15 @@ public class MainPanel extends MainPanelBase {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoEMailProgram.Title"),String.format(Language.tr("Window.Info.NoEMailProgram.Info"),"mailto:"+MainPanel.AUTHOR_EMAIL));
 		}
 		return;
+	}
+
+	private void commandHelpHomepage() {
+		final String network="https://"+WEB_URL;
+		try {
+			Desktop.getDesktop().browse(new URI(network));
+		} catch (IOException | URISyntaxException e1) {
+			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),network));
+		}
 	}
 
 	private void commandHelpUsageStatistics() {

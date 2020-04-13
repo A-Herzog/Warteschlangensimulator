@@ -3362,8 +3362,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7819] = "Invalid image name";
     t[7820] = "Main.Menu.View.ShowRaster.Off";
     t[7821] = "No grid";
-    t[7830] = "Surface.AnimationClock.XML.Expression";
-    t[7831] = "ModelElementExpression";
+    t[7830] = "Statistics.NumberOfClientsAtStationQueues.Short";
+    t[7831] = "Number of clients in the queues";
     t[7832] = "Surface.WayPoint.XML.Record.StationFrom";
     t[7833] = "OriginStation";
     t[7836] = "Simulation.Creator.RadiobuttonNoVariable";
@@ -9346,8 +9346,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21805] = "Number of arrivals";
     t[21812] = "JDistributionEditor.Copy.Graphics";
     t[21813] = "Graphics";
-    t[21816] = "Surface.Match.XML.ClientType";
-    t[21817] = "ModelElementClientType";
+    t[21816] = "Main.Menu.Help.Homepage";
+    t[21817] = "Homepage";
     t[21832] = "Surface.OutputDDE.Table.ExpressionError.Info";
     t[21833] = "The specified expression \"%s\" is invalid at character %d.";
     t[21842] = "Dialog.Title.Warning";
@@ -9854,6 +9854,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23067] = "Zul\u00e4ssiger Bereich von";
     t[23070] = "ParameterCompare.Settings.List.AddExpression";
     t[23071] = "Expression";
+    t[23078] = "Surface.Match.XML.ClientType";
+    t[23079] = "ModelElementClientType";
     t[23080] = "Surface.TransportDestination.Tooltip";
     t[23081] = "Destination station for transporting a client.";
     t[23088] = "ScriptPopup.SelectVariableDialog.ErrorNoVariables.Title";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23433] = "Shows additional descriptions for the current statistics page.";
     t[23434] = "SimulationServer.Setup.WebAutoStart";
     t[23435] = "Auto start";
-    t[23436] = "Surface.ExpressionTableModel.SetupArea";
-    t[23437] = "Setup area";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23436] = "Surface.ExpressionTableModel.SetupArea";
+    t[23437] = "Setup area";
     t[23438] = "Main.Menu.View.ShowGradients";
     t[23439] = "Use color gradients";
     t[23448] = "Optimizer.Tab.Target.Value.Range.InvalidRange";
@@ -11694,8 +11696,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27347] = "ModelElementFontFamily";
     t[27348] = "Surface.InteractiveCheckbox.Dialog.ValueUnchecked.ErrorTitle";
     t[27349] = "Invalid value for \"checkbox not activated\"";
-    t[27350] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Add";
-    t[27351] = "Add transport target";
+    t[27350] = "Surface.AnimationClock.XML.Expression";
+    t[27351] = "ModelElementExpression";
     t[27360] = "Surface.Source.Dialog.Tab.NumberOfArrivals.Clients";
     t[27361] = "Number of clients";
     t[27362] = "Surface.BarrierPull.Name";
@@ -11752,8 +11754,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27465] = "<p>Returns the quantil for probability p of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[27466] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.RandomNumberInfo";
     t[27467] = "<p>Generates a random number based on this distribution. The specified values will be used for the density in the range from 0 to max.</p>";
-    t[27470] = "Statistics.NumberOfClientsAtStationQueues.Short";
-    t[27471] = "Number of clients in the queues";
+    t[27470] = "Main.Menu.Help.Homepage.Mnemonic";
+    t[27471] = "H";
     t[27474] = "SimulationServer.Setup.OpenBrowser.Hint";
     t[27475] = "Opens the website provided by the simulator";
     t[27480] = "Statistic.FastAccess.SelectXMLTag.ElementContent";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28147] = "from right to left";
     t[28150] = "ExpressionBuilder.StatisticalFunctions.Maximum";
     t[28151] = "Maximum";
-    t[28154] = "Surface.HoldJS.XML.Condition.Java";
-    t[28155] = "Java";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28154] = "Surface.HoldJS.XML.Condition.Java";
+    t[28155] = "Java";
     t[28160] = "LogSimulation.LogFile";
     t[28161] = "Log file";
     t[28164] = "Statistics.NoWaitingTransferProcessingTimes";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32921] = "Powder blue";
     t[32922] = "Statistics.Filter.EngineInitError.General";
     t[32923] = "The scripting environment could not be initialized.";
-    t[32928] = "ModelDescription.BarrierPull.ControlledStation";
-    t[32929] = "Controlled station";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32928] = "ModelDescription.BarrierPull.ControlledStation";
+    t[32929] = "Controlled station";
     t[32930] = "Simulation.Java.Error.RunError";
     t[32931] = "Run time error";
     t[32932] = "CommandLine.Error.LoadingModel";
@@ -15770,6 +15772,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37029] = "Priorities";
     t[37032] = "Surface.ExpressionTableModelText.MoveDown";
     t[37033] = "Move condition down";
+    t[37040] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Add";
+    t[37041] = "Add transport target";
     t[37042] = "ModelDescription.InputDDE.Workbook";
     t[37043] = "Workbook";
     t[37048] = "Surface.Process.Dialog.Tab.Operators.Alternative.Up";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37601] = "Value number";
     t[37604] = "Surface.TankSensor.Dialog.Threshold";
     t[37605] = "Threshold";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37608] = "Surface.Match.Dialog.OptionProperty.Text.Error.Title";
     t[37609] = "No key specified";
     t[37610] = "Simulation.Log.ArrivalClientCount";
     t[37611] = "No further clients";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37612] = "SimulationServer.Setup.Port";
     t[37613] = "Port";
     t[37616] = "Surface.Release.XML.Root";

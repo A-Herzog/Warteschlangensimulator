@@ -739,6 +739,9 @@ public enum Images {
 	/** Symbol "E-Mail" */
 	HELP_EMAIL("icon_mail.gif"),
 
+	/** Symbol "Homepage" */
+	HELP_HOMEPAGE("world.png"),
+
 	/* Bilder */
 
 	/** Symbol "Bild - Laden" */
