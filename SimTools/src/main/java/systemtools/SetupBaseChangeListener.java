@@ -32,11 +32,12 @@ import java.util.concurrent.Semaphore;
  * Diese Klasse wird von {@link SetupBase} intern verwendet, um
  * Veränderungsnachrichten anbieten zu können.
  * @author Alexander Herzog
- * @version 1.3
+ * @version 1.4
  * @see SetupBase
  */
 public class SetupBaseChangeListener {
-	private final File watchFile;
+	private final File watchFilePath;
+	private final String watchFileName;
 	private final Runnable notify;
 	private volatile Thread worker=null;
 	private final Semaphore mutex;
@@ -49,7 +50,8 @@ public class SetupBaseChangeListener {
 	 * @param notify	Runnable, das aufgerufen wird, wenn die Datei verändert wurde
 	 */
 	public SetupBaseChangeListener(final File watchFile, final Runnable notify) {
-		this.watchFile=watchFile;
+		watchFilePath=watchFile.getParentFile();
+		watchFileName=watchFile.getName();
 		this.notify=notify;
 		mutex=new Semaphore(1);
 	}
@@ -89,15 +91,13 @@ public class SetupBaseChangeListener {
 	}
 
 	private void work() {
-		final File filePath=watchFile.getParentFile();
-		final String fileName=watchFile.getName();
-		if (filePath==null || fileName==null || fileName.isEmpty()) return;
-		final Path path=filePath.toPath();
+		if (watchFilePath==null || watchFileName==null || watchFileName.isEmpty()) return;
+		final Path path=watchFilePath.toPath();
 		long lastChange=0;
 
 		try {Thread.sleep(3000);} catch (InterruptedException e) {return;}
 
-		final Set<Thread> threadsBefore = Thread.getAllStackTraces().keySet();
+		final Set<Thread> threadsBefore=Thread.getAllStackTraces().keySet();
 
 		try (@SuppressWarnings("resource") final WatchService watcher=FileSystems.getDefault().newWatchService()) {
 			if (watcher==null) return;
@@ -120,7 +120,7 @@ public class SetupBaseChangeListener {
 				for (WatchEvent<?> event: key.pollEvents()) {
 					if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY) && event.context() instanceof Path) {
 						final Path changed=(Path)event.context();
-						if (changed.toString().equals(fileName)) {
+						if (changed.toString().equals(watchFileName)) {
 							if (System.currentTimeMillis()-lastChange>=10)  changedNotify();
 							break;
 						}
