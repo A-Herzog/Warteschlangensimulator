@@ -2412,7 +2412,7 @@ public class MainPanel extends MainPanelBase {
 			if (ok) return;
 		}
 
-		final String network="https://"+HOME_URL+"/docs/"+fileName;
+		final String network="https://"+HOME_URL+"/Warteschlangensimulator/"+fileName;
 		try {
 			Desktop.getDesktop().browse(new URI(network));
 		} catch (IOException | URISyntaxException e1) {
