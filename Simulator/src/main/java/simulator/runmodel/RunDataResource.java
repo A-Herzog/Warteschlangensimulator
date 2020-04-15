@@ -444,6 +444,7 @@ public final class RunDataResource implements Cloneable {
 		if (value>0 && operators!=null) {
 			value=0;
 			for (RunDataResourceOperatorFull operator: operators) if (operator.isAvailableOrWorking(this,simData)) value++;
+			return value;
 		}
 
 		if (value==-1) return 0; /* unendlich viele */
