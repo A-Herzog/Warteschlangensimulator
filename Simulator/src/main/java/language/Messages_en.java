@@ -14576,6 +14576,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34251] = "Load client types from database table";
     t[34252] = "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPI";
     t[34253] = "Current simulation time";
+    t[34254] = "Statistics.ClientPathRecording.Info";
+    t[34255] = "There are many different paths.\nOnly the first %s paths are displayed.";
     t[34256] = "Statistics.XML.Station";
     t[34257] = "StationData";
     t[34262] = "Statistics.DistributionOfTheInterArrivalTimes";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37571] = "Sets for the clients arriving at this station whether they should be included in the statistics.";
     t[37572] = "Simulation.Creator.SelectedSequenceDoesNotExist";
     t[37573] = "The sequence %s selected at element id=%d does not exist.";
-    t[37574] = "Surface.BatchMulti.Dialog.Title";
-    t[37575] = "Edit batching by client type";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37574] = "Surface.BatchMulti.Dialog.Title";
+    t[37575] = "Edit batching by client type";
     t[37584] = "Surface.PopupMenu.ParameterCompare.ChangeServiceTime";
     t[37585] = "Parameter series: change average service time";
     t[37590] = "Surface.Process.Dialog.Tab.Operators";

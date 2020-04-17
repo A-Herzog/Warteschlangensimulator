@@ -145,19 +145,27 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		addDescription("ClientMovement");
 	}
 
+	private final static int MAX_ROWS=2_000;
+
 	private void buildPathText() {
 		addHeading(1,Language.tr("Statistics.ClientPathRecording"));
 
 		final Table table=StatisticViewerMovementTable.getClientPathsTable(statistics,true);
 		final int rows=table.getSize(0);
 
-		for (int i=0;i<rows;i++) {
+		final int showRows=Math.min(MAX_ROWS,rows);
+		for (int i=0;i<showRows;i++) {
 			final List<String> row=table.getLine(i);
 			if (row==null || row.size()!=3) continue;
 			beginParagraph();
 			addLine(row.get(0));
 			final Long count=NumberTools.getLong(row.get(1));
 			addLine(String.format("%s, %s",NumberTools.formatLong(count.longValue()),row.get(2)));
+			endParagraph();
+		}
+		if (rows!=showRows) {
+			beginParagraph();
+			addLine(String.format(Language.tr("Statistics.ClientPathRecording.Info"),NumberTools.formatLong(MAX_ROWS)));
 			endParagraph();
 		}
 
