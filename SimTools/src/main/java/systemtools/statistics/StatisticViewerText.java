@@ -162,7 +162,9 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		StyleConstants.setForeground(s,Color.BLUE);
 
 		/* Text einfügen */
-		for (int i=0;i<lines.size();i++) {
+		final int size=lines.size();
+		final Style defaultStyle2=doc.getStyle("default");
+		for (int i=0;i<size;i++) {
 			final String line=lines.get(i);
 			final String hint=hints.get(i);
 			final int type=lineTypes.get(i);
@@ -173,16 +175,18 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			}
 			if (type==-2) {
 				/* Absatzende */
-				try {doc.insertString(doc.getLength(),"\n",doc.getStyle("default"));} catch (BadLocationException e) {}
+				try {doc.insertString(doc.getLength(),"\n",defaultStyle2);} catch (BadLocationException e) {}
 				continue;
 			}
 			if (type==0) {
 				/* Normaler Text */
-				final SimpleAttributeSet attrSet=new SimpleAttributeSet(doc.getStyle("default"));
 				if (hint!=null && !hint.trim().isEmpty()) {
+					final SimpleAttributeSet attrSet=new SimpleAttributeSet(defaultStyle2);
 					attrSet.addAttribute("Hint",hint);
+					try {doc.insertString(doc.getLength(),line+"\n",attrSet);} catch (BadLocationException e) {}
+				} else {
+					try {doc.insertString(doc.getLength(),line+"\n",defaultStyle2);} catch (BadLocationException e) {}
 				}
-				try {doc.insertString(doc.getLength(),line+"\n",attrSet);} catch (BadLocationException e) {}
 				continue;
 			}
 			if (type==-3) {
@@ -197,7 +201,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			if (type>0) {
 				/* Überschriften */
 				try {
-					if (i>0 && lineTypes.get(i-1)!=-2) doc.insertString(doc.getLength(),"\n",doc.getStyle("default"));
+					if (i>0 && lineTypes.get(i-1)!=-2) doc.insertString(doc.getLength(),"\n",defaultStyle2);
 					doc.insertString(doc.getLength(),line+"\n",doc.getStyle("h"+type));
 				} catch (BadLocationException e) {}
 				continue;
