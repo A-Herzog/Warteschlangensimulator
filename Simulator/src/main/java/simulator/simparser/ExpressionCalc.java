@@ -127,7 +127,7 @@ public class ExpressionCalc extends CalcSystem {
 
 	@Override
 	protected List<CalcSymbolPreOperator> getUserFunctions() {
-		List<CalcSymbolPreOperator> functions=new ArrayList<>(128);
+		List<CalcSymbolPreOperator> functions=new ArrayList<>(256);
 
 		functions.add(new CalcSymbolStationText());
 
