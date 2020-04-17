@@ -108,6 +108,37 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		return table;
 	}
 
+	private static class PathRecord implements Comparable<PathRecord> {
+		public final String name;
+		public final long count;
+		public PathRecord(final String name, final long count) {
+			this.name=name;
+			this.count=count;
+		}
+		@Override
+		public int compareTo(PathRecord o) {
+			final long delta=o.count-count;
+			if (delta>0) return 1;
+			if (delta<0) return -1;
+			return 0;
+		}
+
+		public String[] getLine() {
+			final String[] line=new String[2];
+			line[0]=name;
+			line[1]=NumberTools.formatLongNoGrouping(count);
+			return line;
+		}
+
+		public String[] getLine(final long sum) {
+			final String[] line=new String[3];
+			line[0]=name;
+			line[1]=NumberTools.formatLongNoGrouping(count);
+			line[2]=NumberTools.formatPercent(((double)count)/sum);
+			return line;
+		}
+	}
+
 	/**
 	 * Erstellt eine Tabelle mit den Kundenpfaden.
 	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
@@ -123,15 +154,16 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 			sum+=counter.get();
 		}
 
-		for (String name: statistics.clientPaths.getNames()) {
-			final String[] line=(addPercentColumn)?new String[3]:new String[2];
-			line[0]=name;
-			final StatisticsSimpleCountPerformanceIndicator counter=(StatisticsSimpleCountPerformanceIndicator)statistics.clientPaths.get(name);
-			final long value=counter.get();
-			line[1]=NumberTools.formatLongNoGrouping(value);
-			if (addPercentColumn) line[2]=NumberTools.formatPercent(((double)value)/sum);
-			table.addLine(line);
+		final String[] names=statistics.clientPaths.getNames();
+		final PathRecord[] records=new PathRecord[names.length];
+		for (int i=0;i<names.length;i++) records[i]=new PathRecord(names[i],((StatisticsSimpleCountPerformanceIndicator)statistics.clientPaths.get(names[i])).get());
+
+		Arrays.sort(records);
+
+		for (PathRecord record: records) {
+			table.addLine(addPercentColumn?record.getLine(sum):record.getLine());
 		}
+
 		return table;
 	}
 
