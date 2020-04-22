@@ -321,6 +321,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String fileTypeBMP="bmp-Dateien";
 	/** Bezeichner für Dateiformat docx(+Bild) (im Dateiauswahldialog) */
 	public static String fileTypeWordWithImage="Word-Text mit eingebettetem Bild";
+	/** Bezeichner für Dateiformat SciLab-Skript */
+	public static String fileTypeSCE="SciLab-Skript";
 
 	/** Der hier eingetragene Programmname wird in html-Reports verwendet. */
 	public static String program_name="";

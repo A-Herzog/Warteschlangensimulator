@@ -640,6 +640,7 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.fileTypePNG=Language.tr("FileType.png");
 		StatisticsBasePanel.fileTypeBMP=Language.tr("FileType.bmp");
 		StatisticsBasePanel.fileTypeWordWithImage=Language.tr("FileType.WordImage");
+		StatisticsBasePanel.fileTypeSCE=Language.tr("FileType.SciLabScript");
 
 		/* Kommandozeilen-System */
 		BaseCommandLineSystem.errorBig=Language.tr("Dialog.Title.Error").toUpperCase();

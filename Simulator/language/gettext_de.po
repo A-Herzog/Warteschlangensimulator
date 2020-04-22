@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-17 23:04+0200\n"
+"POT-Creation-Date: 2020-04-22 12:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5563,6 +5563,9 @@ msgstr "Tabelle speichern"
 
 msgid "FileType.Save.Text"
 msgstr "Text speichern"
+
+msgid "FileType.SciLabScript"
+msgstr "SciLab-Skript"
 
 msgid "FileType.Text"
 msgstr "Textdateien"

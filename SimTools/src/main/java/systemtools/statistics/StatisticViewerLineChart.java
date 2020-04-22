@@ -16,14 +16,22 @@
 package systemtools.statistics;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Paint;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.jfree.chart.ChartFactory;
@@ -44,12 +52,14 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TableChart;
 import mathtools.distribution.DataDistributionImpl;
+import mathtools.distribution.swing.CommonVariables;
+import systemtools.MsgBox;
 
 /**
  * Basisklasse zur Anzeige von {@link JFreeChart}-basierenden Liniendiagrammen
  * @see StatisticViewerJFreeChart
  * @author Alexander Herzog
- * @version 1.6
+ * @version 1.7
  */
 public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 	private boolean domainIsDay=false;
@@ -742,5 +752,180 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		tableChart.setupChart(TableChart.ChartMode.LINE);
 
 		return tableChart;
+	}
+
+	@Override
+	protected File showSaveDialog(final Component owner) {
+		final JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(StatisticsBasePanel.viewersSaveImage);
+		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
+		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
+		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
+		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		final FileFilter sce=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeSCE+" (*.sce)","sce");
+		fc.addChoosableFileFilter(png);
+		fc.addChoosableFileFilter(jpg);
+		fc.addChoosableFileFilter(gif);
+		fc.addChoosableFileFilter(bmp);
+		fc.addChoosableFileFilter(docx);
+		fc.addChoosableFileFilter(pdf);
+		fc.addChoosableFileFilter(sce);
+		fc.setFileFilter(png);
+
+		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		File file=fc.getSelectedFile();
+
+		if (file.getName().indexOf('.')<0) {
+			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
+			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
+			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
+			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
+			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
+			if (fc.getFileFilter()==sce) file=new File(file.getAbsoluteFile()+".sce");
+		}
+
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(owner,file)) return null;
+		}
+
+		return file;
+	}
+
+	private String saveSCE() {
+		final StringBuilder result=new StringBuilder();
+
+		List<Double> dataX=null;
+		final Map<String,List<Double>> dataY=new HashMap<>();
+		final Map<String,Paint> dataPaint=new HashMap<>();
+
+		boolean isFirstSeries=true;
+
+		if (data!=null) for (int i=0;i<data.getSeriesCount();i++) {
+			final XYSeries series=data.getSeries(i);
+			final String name=series.getKey().toString();
+			if (dataX==null) dataX=new ArrayList<>(1+series.getItemCount());
+			final List<Double> line=new ArrayList<>(1+series.getItemCount());
+			for (Object obj: series.getItems()) if (obj instanceof XYDataItem) {
+				final XYDataItem data=(XYDataItem)obj;
+				if (isFirstSeries) dataX.add(data.getXValue());
+				line.add(data.getYValue());
+			}
+			isFirstSeries=false;
+			if (name!=null) dataY.put(name,line);
+			final Paint paint=plot.getRendererForDataset(data).getSeriesPaint(i);
+			if (name!=null && paint!=null) dataPaint.put(name,paint);
+		}
+
+		if (data2!=null) for (int i=0;i<data2.getSeriesCount();i++) {
+			final XYSeries series=data2.getSeries(i);
+			final String name=series.getKey().toString();
+			if (dataX==null) dataX=new ArrayList<>(1+series.getItemCount());
+			final List<Double> line=new ArrayList<>(1+series.getItemCount());
+			for (Object obj: series.getItems()) if (obj instanceof XYDataItem) {
+				final XYDataItem data=(XYDataItem)obj;
+				if (isFirstSeries) dataX.add(data.getXValue());
+				line.add(data.getYValue());
+			}
+			isFirstSeries=false;
+			if (name!=null) dataY.put(name,line);
+			final Paint paint=plot.getRendererForDataset(data2).getSeriesPaint(i);
+			if (name!=null && paint!=null) dataPaint.put(name,paint);
+		}
+
+		int nr;
+
+		result.append("// "+chart.getTitle().getText()+"\n");
+		result.append("\n");
+
+		result.append("// Data\n");
+		result.append("x=[\n");
+		if (dataX!=null) for (double d: dataX) {
+			result.append("  "+NumberTools.formatSystemNumber(d)+"\n");
+		}
+		result.append("];\n");
+		result.append("\n");
+
+		nr=1;
+		for (String name: dataY.keySet()) {
+			result.append("y"+nr+"=[\n");
+			final List<Double> list=dataY.get(name);
+			for (double d: list) {
+				result.append("  "+NumberTools.formatSystemNumber(d)+"\n");
+			}
+			if (dataX!=null) for (int i=0;i<dataX.size()-list.size();i++) result.append("  0\n");
+			result.append("];\n");
+			result.append("\n");
+			nr++;
+		}
+
+		result.append("// Clear\n");
+		result.append("clf();\n");
+		result.append("\n");
+		result.append("// Draw\n");
+		result.append("plot(");
+		for (int i=1;i<=dataY.size();i++) {
+			if (i!=1) result.append(",");
+			result.append("x,y"+i);
+		}
+		result.append(");\n");
+		result.append("\n");
+
+		result.append("// Setup frame\n");
+		result.append("title(\""+chart.getTitle().getText().replace("\"","'")+"\",\"fontsize\",4);\n");
+		result.append("xlabel(\""+plot.getDomainAxis().getLabel().replace("\"","'")+"\",\"fontsize\",3);\n");
+		result.append("ylabel(\""+plot.getRangeAxis().getLabel().replace("\"","'")+"\",\"fontsize\",3);\n");
+		result.append("legend(");
+		boolean first=true;
+		for (String name: dataY.keySet()) {
+			if (first) first=false; else result.append(",");
+			result.append("\"");
+			result.append(name.replace("\"","'"));
+			result.append("\"");
+		}
+		result.append(")\n");
+		result.append("\n");
+
+		result.append("// Setup background\n");
+		result.append("f=gcf();\n");
+		result.append("f.background=color(245,245,245);\n");
+		result.append("\n");
+
+		result.append("// Setup axis\n");
+		result.append("a=gca();\n");
+		result.append("a.font_size=2;\n");
+		result.append("\n");
+
+		result.append("// Setup series\n");
+		result.append("s=a.children(2).children;\n");
+		result.append("\n");
+
+		nr=dataY.size();
+		for (String name: dataY.keySet()) {
+			result.append("// "+name.replace("\"","'")+"\n");
+			final Paint paint=dataPaint.get(name);
+			if (paint instanceof Color) {
+				final Color c=(Color)paint;
+				result.append("s("+nr+").foreground=color("+c.getRed()+","+c.getGreen()+","+c.getBlue()+");\n");
+			}
+			result.append("s("+nr+").thickness=2;\n");
+			result.append("\n");
+			nr--;
+		}
+
+		return result.toString();
+	}
+
+	@Override
+	public boolean save(Component owner, File file) {
+		if (file.toString().toLowerCase().endsWith(".sce")) {
+			return Table.saveTextToFile(saveSCE(),file);
+		} else {
+			return super.save(owner,file);
+		}
 	}
 }

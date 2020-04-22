@@ -163,9 +163,18 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 		return image;
 	}
 
+	/**
+	 * Zeigt einen Datei-Speicher-Dialog an
+	 * @param owner	Übergeordnetes Element
+	 * @return	Ausgewählte Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
+	 */
+	protected File showSaveDialog(final Component owner) {
+		return ImageTools.showSaveDialog(owner,false);
+	}
+
 	@Override
 	public void save(Component owner) {
-		final File file=ImageTools.showSaveDialog(owner,false);
+		final File file=showSaveDialog(owner);
 		if (file==null) return;
 
 		if (!save(owner,file)) {

@@ -198,9 +198,18 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		return tableChart.save(title,file);
 	}
 
+	/**
+	 * Zeigt einen Datei-Speicher-Dialog an
+	 * @param owner	Übergeordnetes Element
+	 * @return	Ausgewählte Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
+	 */
+	protected File showSaveDialog(final Component owner) {
+		return ImageTools.showSaveDialog(owner,false);
+	}
+
 	@Override
 	public void save(Component owner) {
-		final File file=ImageTools.showSaveDialog(owner,canStoreExcelFile());
+		final File file=showSaveDialog(owner);
 		if (file==null) return;
 
 		if (!save(owner,file)) {
