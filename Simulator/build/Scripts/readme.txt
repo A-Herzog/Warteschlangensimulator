@@ -8,6 +8,18 @@ Die Ergebnisse werden an die Datei benchmark-result.txt angehängt.
 
 
 
+benchmark-native-upto:
+
+Uses Graal native image version of simulator (created by compile-native.sh).
+
+Performs benchmarks runs using the 1,2,... up to the specified number of CPU cores.
+Results are appended to benchmark-result.txt.
+
+Führt einen Benchmark-Läufe unter Verwendung von 1,2,... bis zur angegebenen Anzahl an CPU-Kernen durch.
+Die Ergebnisse werden an die Datei benchmark-result.txt angehängt.
+
+
+
 bechmark-multi:
 
 Performs multiple benchmarks runs each using the same specified number of CPU cores.
