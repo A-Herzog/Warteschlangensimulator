@@ -41,7 +41,7 @@ import mathtools.distribution.tools.FileDropperData;
  * Basisklasse für die Anzeige eines Programmfensters
  * Sie verbindet sich mit einem Objekt vom Type <code>MainPanelBase</code>, um Fenster-Nachrichten austauschen zu können.
  * @see MainPanelBase
- * @version 1.6
+ * @version 1.7
  * @author Alexander Herzog
  */
 public class MainFrameBase extends JFrame {
@@ -143,14 +143,24 @@ public class MainFrameBase extends JFrame {
 
 		saveWindowSize();
 
-		final boolean fireEventAgain=(getDefaultCloseOperation()!=WindowConstants.EXIT_ON_CLOSE);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); /* <- besser als: System.exit(0); */
+		final int operation=getDefaultCloseOperation();
+		final boolean fireEventAgain=(operation!=WindowConstants.EXIT_ON_CLOSE && operation!=WindowConstants.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(exitProgramOnCloseWindow()?WindowConstants.EXIT_ON_CLOSE:WindowConstants.DISPOSE_ON_CLOSE); /* <- besser als: System.exit(0); */
 		setVisible(false);
 		dispose();
 		if (fireEventAgain) { /* Wird quitProgram() über den WindowListener aufgerufen, so ist das setzen von EXIT_ON_CLOSE schon zu spät, daher muss das Event noch mal losgeschickt werden... */
 			removeWindowListener(closeListener); /* ... aber ohne noch mal den "Wollen Sie jetzt speichern"-Listener zu aktivieren. */
 			processWindowEvent(new WindowEvent(this,WindowEvent.WINDOW_CLOSING));
 		}
+	}
+
+	/**
+	 * Soll das Programm beendet werden, wenn das Fenster geschlossen wird?<br>
+	 * Im Normalfall <code>true</code>, nur wenn mehrere Fenster verwendet werden ggf. für das nicht-letzte Fenster <code>false</code>.
+	 * @return	Programm beim Schließen des Fensters beenden?
+	 */
+	protected boolean exitProgramOnCloseWindow() {
+		return true;
 	}
 
 	/**
