@@ -13314,6 +13314,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31201] = "Invalid change notify distance";
     t[31204] = "Surface.Output.XML.Element.Type.ResidenceTime";
     t[31205] = "ResidenceTime";
+    t[31208] = "Main.Menu.File.NewWindow.Mnemonic";
+    t[31209] = "w";
     t[31212] = "ParameterCompare.Settings.Input.List.Templates.GlobalVariable.Title";
     t[31213] = "Initial value of a global variable";
     t[31224] = "Surface.Decide.ByClientType";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32889] = "Preferred Javascript engine";
     t[32890] = "Color.D2B48C";
     t[32891] = "Tan";
-    t[32892] = "ParameterCompare.Toolbar.ProcessResults.ClearStatistics.InfoNo";
-    t[32893] = "Keep results.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32892] = "ParameterCompare.Toolbar.ProcessResults.ClearStatistics.InfoNo";
+    t[32893] = "Keep results.";
     t[32894] = "Optimizer.AllModelsBad";
     t[32895] = "Non of the models from the population resulted valid statistics results.";
     t[32908] = "Simulation.Creator.AnalogFlow.NoStopSignal";
@@ -14724,6 +14726,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34585] = "Shows the current value of a calculation expression in the form of an analogue scale display.";
     t[34590] = "Statistics.StationsResidenceTimes";
     t[34591] = "Residence times at the stations";
+    t[34592] = "Main.Menu.File.NewWindow";
+    t[34593] = "New window";
     t[34598] = "Surface.Batch.Dialog.SendTemporaryBatched";
     t[34599] = "Send as temporary batch; client type for batch:";
     t[34608] = "Surface.Batch.Dialog.BatchSizeMin";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37555] = "Always use defined warm-up phase";
     t[37558] = "Simulation.Log.ReleaseNotLocked.Info";
     t[37559] = "Client: %s, station: %s";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37566] = "Color.3CB371";
     t[37567] = "Medium sea green";
     t[37570] = "Surface.SetStatisticsMode.Infotext";
     t[37571] = "Sets for the clients arriving at this station whether they should be included in the statistics.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37572] = "Simulation.Creator.SelectedSequenceDoesNotExist";
     t[37573] = "The sequence %s selected at element id=%d does not exist.";
     t[37574] = "Surface.BatchMulti.Dialog.Title";

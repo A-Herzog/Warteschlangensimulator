@@ -13314,6 +13314,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31201] = "Ung\u00fcltiger \u00c4nderungsbenachrichtigungsabstand";
     t[31204] = "Surface.Output.XML.Element.Type.ResidenceTime";
     t[31205] = "Verweilzeit";
+    t[31208] = "Main.Menu.File.NewWindow.Mnemonic";
+    t[31209] = "F";
     t[31212] = "ParameterCompare.Settings.Input.List.Templates.GlobalVariable.Title";
     t[31213] = "Startwert einer globalen Variable";
     t[31224] = "Surface.Decide.ByClientType";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32889] = "Bevorzugte Javascript-Umgebung";
     t[32890] = "Color.D2B48C";
     t[32891] = "Tan";
-    t[32892] = "ParameterCompare.Toolbar.ProcessResults.ClearStatistics.InfoNo";
-    t[32893] = "Ergebnisse beibehalten.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32892] = "ParameterCompare.Toolbar.ProcessResults.ClearStatistics.InfoNo";
+    t[32893] = "Ergebnisse beibehalten.";
     t[32894] = "Optimizer.AllModelsBad";
     t[32895] = "Keines der Modell aus der Population hat g\u00fcltige Statistikergebnisse geliefert.";
     t[32908] = "Simulation.Creator.AnalogFlow.NoStopSignal";
@@ -14724,6 +14726,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34585] = "Zeigt den aktuellen Wert eines Rechenausdrucks in Form einer Analogskalaanzeige an.";
     t[34590] = "Statistics.StationsResidenceTimes";
     t[34591] = "Verweilzeiten an den Stationen";
+    t[34592] = "Main.Menu.File.NewWindow";
+    t[34593] = "Neues Fenster";
     t[34598] = "Surface.Batch.Dialog.SendTemporaryBatched";
     t[34599] = "Tempor\u00e4ren Batch bilden; Kundentyp f\u00fcr Batch:";
     t[34608] = "Surface.Batch.Dialog.BatchSizeMin";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37555] = "Immer wie angegeben durchf\u00fchren";
     t[37558] = "Simulation.Log.ReleaseNotLocked.Info";
     t[37559] = "Kunde: %s, Station: %s";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37566] = "Color.3CB371";
     t[37567] = "Mittleres Seegr\u00fcn";
     t[37570] = "Surface.SetStatisticsMode.Infotext";
     t[37571] = "Stellt bei den an dieser Station eintreffenden Kunden ein, ob diese in der Statistik erfasst werden sollen.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37572] = "Simulation.Creator.SelectedSequenceDoesNotExist";
     t[37573] = "Der Fertigungsplan %s, der an Station id=%d gew\u00e4hlt wurde, existiert nicht.";
     t[37574] = "Surface.BatchMulti.Dialog.Title";

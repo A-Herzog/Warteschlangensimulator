@@ -22,6 +22,8 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
 
+import javax.swing.SwingUtilities;
+
 import language.Language;
 import language.LanguageStaticLoader;
 import language.Messages_Java11;
@@ -66,6 +68,7 @@ public class MainFrame extends MainFrameBase {
 		if (loadExample!=null) ((MainPanel)panel).editorPanel.setModel(loadExample);
 
 		setVisible(true);
+		ReloadManager.add(this);
 	}
 
 	private static Dimension minMainWindowSize=new Dimension(1024,768);
@@ -138,18 +141,57 @@ public class MainFrame extends MainFrameBase {
 	private class ReloadWindow implements Runnable {
 		@Override
 		public void run() {
-			if (!(getMainPanel() instanceof MainPanel)) return;
-
-			final Object[] store=((MainPanel)getMainPanel()).getAllData();
-
-			Language.init(SetupData.getSetup().language);
-			LanguageStaticLoader.setLanguage();
-			if (Messages_Java11.isFixNeeded()) Messages_Java11.setupMissingSwingMessages();
-
-			final MainPanel newMainPanel=new MainPanel(MainFrame.this,PROGRAM_NAME,true);
-			setMainPanel(newMainPanel);
-			newMainPanel.setReloadWindow(new ReloadWindow());
-			newMainPanel.setAllData(store);
+			processReload();
+			ReloadManager.notify(MainFrame.this,MainFrame.ReloadMode.FULL);
 		}
+	}
+
+	private void processReload() {
+		if (!(getMainPanel() instanceof MainPanel)) return;
+
+		final Object[] store=((MainPanel)getMainPanel()).getAllData();
+
+		Language.init(SetupData.getSetup().language);
+		LanguageStaticLoader.setLanguage();
+		if (Messages_Java11.isFixNeeded()) Messages_Java11.setupMissingSwingMessages();
+
+		final MainPanel newMainPanel=new MainPanel(MainFrame.this,PROGRAM_NAME,true);
+		setMainPanel(newMainPanel);
+		newMainPanel.setReloadWindow(new ReloadWindow());
+		newMainPanel.setAllData(store);
+	}
+
+	/**
+	 * Welche Einstellungen sollen neu geladen werden?
+	 * @author Alexander Herzog
+	 * @see MainFrame#reload(ReloadMode)
+	 */
+	public enum ReloadMode {
+		/** Daten aus Setup auslesen, Menüpunkte konfigurieren, Zeichenfläche neu zeichnen */
+		SETUP,
+		/** Alles neu aufbauen (z.B. nach dem Sprachwechsel notwendig) */
+		FULL
+	}
+
+	/**
+	 * Lädt das Fenster neu.
+	 * @param reloadMode	Welche Einstellungen sollen neu geladen werden?
+	 * @see MainFrame.ReloadMode
+	 */
+	public void reload(final ReloadMode reloadMode) {
+		switch (reloadMode) {
+		case SETUP:
+			((MainPanel)getMainPanel()).reloadSetup(false);
+			break;
+		case FULL:
+			SwingUtilities.invokeLater(()->processReload());
+			break;
+		}
+	}
+
+	@Override
+	protected boolean exitProgramOnCloseWindow() {
+		ReloadManager.remove(this);
+		return ReloadManager.isEmpty();
 	}
 }

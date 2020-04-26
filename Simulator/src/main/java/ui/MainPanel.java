@@ -375,6 +375,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("FileNew",e->commandFileModelNew());
 		addAction("FileNewExample",e->commandFileModeExample());
 		addAction("FileNewGenerator",e->commandFileModelGenerator());
+		addAction("FileNewWindow",e->commandFileNewWindow());
 		addAction("FileLoad",e->commandFileModelLoad(null,null));
 		/* Letzte Modell -> über action(Object) */
 		addAction("FileSave",e->commandFileModelSave(false));
@@ -524,45 +525,70 @@ public class MainPanel extends MainPanelBase {
 		this.reloadWindow=reloadWindow;
 	}
 
-	private void reloadSetup() {
+	/**
+	 * Lädt die Einstellungen neu und benachrichtigt die anderen Fenster.
+	 */
+	public void reloadSetup() {
+		reloadSetup(true);
+	}
+
+	/**
+	 * Lädt die Einstellungen neu.
+	 * @param updateOtherFrames	Sollen die anderen Fenster ebenfalls benachrichtigt werden?
+	 */
+	public void reloadSetup(final boolean updateOtherFrames) {
 		String custom;
 
-		/* Einstellungen, die im Setup-Dialog verändert werden können */
-		menuViewGradients.setVisible(!setup.useHighContrasts);
-		menuSimulationAnimationStartModeRun.setSelected(!setup.animationStartPaused);
-		menuSimulationAnimationStartModePause.setSelected(setup.animationStartPaused);
-		menuSimulationAnimationAnalogValuesFast.setSelected(!setup.useSlowModeAnimation);
-		menuSimulationAnimationAnalogValuesExact.setSelected(setup.useSlowModeAnimation);
-		menuSimulationAnimationScreenshotModeHome.setSelected(setup.imagePathAnimation==null || setup.imagePathAnimation.trim().isEmpty());
-		menuSimulationAnimationScreenshotModeCustom.setSelected(setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty());
-		custom="";
-		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty()) custom=" ("+setup.imagePathAnimation.trim()+")";
-		menuSimulationAnimationScreenshotModeCustom.setText(Language.tr("Main.Menu.AnimationScreenshotMode.Custom")+custom);
-		menuSimulationCheckServerConnection.setVisible(setup.serverUse);
+		/* Datei - Zuletzt verwendete Modelle */
+		updateRecentlyUsedList();
 
-		/* Einstellungen, die per Notify verändert werden können */
+		/* Bearbeiten - Automatisch verbinden */
 		menuEditAutoConnectOff.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.OFF);
 		menuEditAutoConnectAuto.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.AUTO);
 		menuEditAutoConnectSmart.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.SMART);
 		editorPanel.setAutoConnect(setup.autoConnect);
+
+		/* Ansicht - Vorlagen */
 		menuViewTemplatesBar.setState(editorPanel.isTemplatesVisible());
+
+		/* Ansicht - Navigator */
 		menuViewNavigator.setState(editorPanel.isNavigatorVisible());
+
+		/* Ansicht - Raster */
 		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
 		menuViewGridDots.setSelected(setup.grid==ModelSurface.Grid.DOTS);
 		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
+		editorPanel.setRaster(setup.grid);
+
+		/* Ansicht - IDs */
 		menuViewShowIDs.setState(setup.showIDs);
+
+		/* Ansicht - Gradienten */
+		menuViewGradients.setVisible(!setup.useHighContrasts);
 		menuViewGradients.setState(setup.useGradients);
+
+		/* Ansicht - Schatten */
 		menuViewShadows.setState(setup.useShadows);
+
+		/* Simulation - Animation - Start */
 		menuSimulationAnimationStartModeRun.setSelected(!setup.animationStartPaused);
 		menuSimulationAnimationStartModePause.setSelected(setup.animationStartPaused);
+
+		/* Simulation - Animation - Analoge Werte */
 		menuSimulationAnimationAnalogValuesFast.setSelected(!setup.useSlowModeAnimation);
 		menuSimulationAnimationAnalogValuesExact.setSelected(setup.useSlowModeAnimation);
+
+		/* Simulation - Animation - Screenshots */
 		menuSimulationAnimationScreenshotModeHome.setSelected(setup.imagePathAnimation==null || setup.imagePathAnimation.trim().isEmpty());
 		menuSimulationAnimationScreenshotModeCustom.setSelected(setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty());
 		custom="";
 		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty()) custom=" ("+setup.imagePathAnimation.trim()+")";
 		menuSimulationAnimationScreenshotModeCustom.setText(Language.tr("Main.Menu.AnimationScreenshotMode.Custom")+custom);
 
+		/* Simulation - Serververbindung */
+		menuSimulationCheckServerConnection.setVisible(setup.serverUse);
+
+		/* Nutzungsstatistik */
 		UsageStatistics.getInstance().loadFromSetup();
 
 		/* Sprache neu laden? */
@@ -591,8 +617,15 @@ public class MainPanel extends MainPanelBase {
 		if (setup.openExcel) StatisticsBasePanel.viewerPrograms.add(StatisticsBasePanel.ViewerPrograms.EXCEL);
 		if (setup.openODS) StatisticsBasePanel.viewerPrograms.add(StatisticsBasePanel.ViewerPrograms.ODS);
 
-		/* Zuletzt verwendete Modelle */
-		updateRecentlyUsedList();
+
+		/* Alles neu zeichnen */
+		getOwnerWindow().repaint();
+		editorPanel.repaint();
+
+		/* Ggf. andere Fenster benachrichtigen */
+		if (updateOtherFrames) {
+			ReloadManager.notify((MainFrame)getOwnerWindow(),MainFrame.ReloadMode.SETUP);
+		}
 	}
 
 	/**
@@ -712,6 +745,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(submenu,Language.tr("Main.Menu.File.LoadExample.ByPreview"),Language.tr("Main.Menu.File.LoadExample.ByPreview.Mnemonic"),"FileNewExample");
 		EditModelExamples.addToMenu(this,submenu,newModel->commandFileModelExample(newModel));
 		createMenuItemCtrlShift(menu,Language.tr("Main.Menu.File.Generator"),Images.MODEL_GENERATOR.getIcon(),Language.tr("Main.Menu.File.Generator.Mnemonic"),KeyEvent.VK_N,"FileNewGenerator");
+		createMenuItem(menu,Language.tr("Main.Menu.File.NewWindow"),Images.GENERAL_APPLICATION.getIcon(),Language.tr("Main.Menu.File.NewWindow.Mnemonic"),"FileNewWindow");
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.File.Load"),Images.MODEL_LOAD.getIcon(),Language.tr("Main.Menu.File.Load.Mnemonic"),KeyEvent.VK_L,"FileLoad");
 		menu.add(menuFileModelRecentlyUsed=new JMenu(Language.tr("Main.Menu.File.RecentlyUsed")));
 		setMnemonic(menuFileModelRecentlyUsed,Language.tr("Main.Menu.File.RecentlyUsed.Mnemonic"));
@@ -1144,8 +1178,7 @@ public class MainPanel extends MainPanelBase {
 			setup.lastFiles=null;
 		}
 		setup.saveSetup();
-
-		updateRecentlyUsedList();
+		reloadSetup();
 	}
 
 	private boolean isDiscardModelOk() {
@@ -1374,6 +1407,10 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	private void commandFileNewWindow() {
+		new MainFrame(null,null);
+	}
+
 	private boolean commandFileModelLoad(final Element rootOptional, final File file) {
 		if (!isDiscardModelOk()) return true;
 		final String error;
@@ -1497,44 +1534,33 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	private void commandEditToggleAutoConnect(final ModelSurfacePanel.ConnectMode connectMode) {
-		editorPanel.setAutoConnect(connectMode);
-
-		menuEditAutoConnectOff.setSelected(connectMode==ModelSurfacePanel.ConnectMode.OFF);
-		menuEditAutoConnectAuto.setSelected(connectMode==ModelSurfacePanel.ConnectMode.AUTO);
-		menuEditAutoConnectSmart.setSelected(connectMode==ModelSurfacePanel.ConnectMode.SMART);
-
 		setup.autoConnect=connectMode;
 		setup.saveSetup();
+		reloadSetup();
 	}
 
 	private void commandViewRaster(final ModelSurface.Grid raster) {
-		menuViewGridOff.setSelected(raster==ModelSurface.Grid.OFF);
-		menuViewGridDots.setSelected(raster==ModelSurface.Grid.DOTS);
-		menuViewGridLines.setSelected(raster==ModelSurface.Grid.LINES);
 		setup.grid=raster;
 		setup.saveSetup();
-		editorPanel.setRaster(raster);
+		reloadSetup();
 	}
 
 	private void commandViewIDs() {
-		final boolean b=menuViewShowIDs.getState();
-		setup.showIDs=b;
+		setup.showIDs=!setup.showIDs;
 		setup.saveSetup();
-		editorPanel.repaint();
+		reloadSetup();
 	}
 
 	private void commandViewGradients() {
-		final boolean b=menuViewGradients.getState();
-		setup.useGradients=b;
+		setup.useGradients=!setup.useGradients;
 		setup.saveSetup();
-		getOwnerWindow().repaint();
+		reloadSetup();
 	}
 
 	private void commandViewShadows() {
-		final boolean b=menuViewShadows.getState();
-		setup.useShadows=b;
+		setup.useShadows=!setup.useShadows;
 		setup.saveSetup();
-		getOwnerWindow().repaint();
+		reloadSetup();
 	}
 
 	private void commandViewBackgroundColor() {
@@ -1938,12 +1964,14 @@ public class MainPanel extends MainPanelBase {
 		if (setup.animationStartPaused==paused) return;
 		setup.animationStartPaused=paused;
 		setup.saveSetup();
+		reloadSetup();
 	}
 
 	private void commandSimulationAnalogValuesSlow(final boolean useSlowModeAnimation) {
 		if (setup.useSlowModeAnimation==useSlowModeAnimation) return;
 		setup.useSlowModeAnimation=useSlowModeAnimation;
 		setup.saveSetup();
+		reloadSetup();
 	}
 
 	private void commandSimulationAnimationScreenshotModeHome() {
