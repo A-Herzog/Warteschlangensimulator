@@ -53,7 +53,7 @@ public class MainFrame extends MainFrameBase {
 	public static final URL ICON_URL=MainFrame.class.getResource(ICON);
 
 	/**
-	 * Konstruktor der Klasse <code>SimulatorFrame</code>
+	 * Konstruktor der Klasse
 	 * @param loadFile	Datei, die beim Start geladen werden soll. Wird <code>null</code> übergeben, so wird nichts weiter geladen.
 	 * @param loadExample	Beispielmodell, das beim Start geladen werden soll. Wird <code>null</code> übergeben, so wird nichts weiter geladen.
 	 */
@@ -65,7 +65,10 @@ public class MainFrame extends MainFrameBase {
 
 		if (panel instanceof MainPanel) ((MainPanel)getMainPanel()).setReloadWindow(new ReloadWindow());
 		setIcon(ICON_URL);
-		if (loadExample!=null) ((MainPanel)panel).editorPanel.setModel(loadExample);
+		if (loadExample!=null) {
+			((MainPanel)panel).editorPanel.setModel(loadExample);
+			((MainPanel)panel).fileLoadedOnLoad=true;
+		}
 
 		setVisible(true);
 		ReloadManager.add(this);

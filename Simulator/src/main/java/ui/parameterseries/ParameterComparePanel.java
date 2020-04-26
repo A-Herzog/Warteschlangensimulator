@@ -79,6 +79,7 @@ import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.Notifier;
 import tools.SetupData;
+import ui.MainFrame;
 import ui.ModelChanger;
 import ui.ModelViewerFrame;
 import ui.help.Help;
@@ -539,10 +540,15 @@ public class ParameterComparePanel extends SpecialPanel {
 		close();
 	}
 
-	private void commandLoadToEditor(final EditModel editModel) {
-		if (!allowDispose()) return;
-		loadModelIntoEditor=editModel;
-		close();
+	private void commandLoadToEditor(final EditModel editModel, final boolean newWindow) {
+		if (newWindow) {
+			final MainFrame frame=new MainFrame(null,editModel);
+			SwingUtilities.invokeLater(()->frame.toFront());
+		} else {
+			if (!allowDispose()) return;
+			loadModelIntoEditor=editModel;
+			close();
+		}
 	}
 
 	private void commandLoadFromEditor() {
@@ -799,7 +805,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			item.setToolTipText(Language.tr("ParameterCompare.Toolbar.ShowBaseModel.Show.Tooltip"));
 			item.setIcon(Images.PARAMETERSERIES_SETUP_SHOW_BASE_MODEL.getIcon());
 			item.addActionListener(e->{
-				final ModelViewerFrame viewer=new ModelViewerFrame(getOwnerWindow(),setup.getEditModel(),null,()->commandLoadToEditor(setup.getEditModel()));
+				final ModelViewerFrame viewer=new ModelViewerFrame(getOwnerWindow(),setup.getEditModel(),null,()->commandLoadToEditor(setup.getEditModel(),false));
 				viewer.setVisible(true);
 			});
 
@@ -808,7 +814,12 @@ public class ParameterComparePanel extends SpecialPanel {
 			popup.add(item=new JMenuItem(Language.tr("ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor")));
 			item.setToolTipText(Language.tr("ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.Tooltip"));
 			item.setIcon(Images.PARAMETERSERIES_SETUP_SHOW_BASE_MODEL_LOAD_TO_EDITOR.getIcon());
-			item.addActionListener(e->commandLoadToEditor(setup.getEditModel()));
+			item.addActionListener(e->commandLoadToEditor(setup.getEditModel(),false));
+
+			popup.add(item=new JMenuItem(Language.tr("ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow")));
+			item.setToolTipText(Language.tr("ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow.Tooltip"));
+			item.setIcon(Images.GENERAL_APPLICATION.getIcon());
+			item.addActionListener(e->commandLoadToEditor(setup.getEditModel(),true));
 
 			if (modelFromEditor!=null) {
 				popup.add(item=new JMenuItem(Language.tr("ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditor")));

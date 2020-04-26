@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-26 18:35+0200\n"
+"POT-Creation-Date: 2020-04-26 19:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10161,8 +10161,14 @@ msgstr "The base model already equals the model editor model."
 msgid "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor"
 msgstr "Load model to editor"
 
+msgid "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow"
+msgstr "Load model to new editor"
+
+msgid "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow.Tooltip"
+msgstr "Transfers this model in a new window to the model editor."
+
 msgid "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.Tooltip"
-msgstr "Transfers this model to the model editor"
+msgstr "Transfers this model to the model editor."
 
 msgid "ParameterCompare.Toolbar.ShowBaseModel.Show"
 msgstr "Show base model"
@@ -25519,7 +25525,13 @@ msgid "Viewer.LoadModel"
 msgstr "Load model to editor"
 
 msgid "Viewer.LoadModel.Hint"
-msgstr "Loads the model to the model editor"
+msgstr "Loads the model to the model editor."
+
+msgid "Viewer.LoadModel.NewWindow"
+msgstr "Load model to new editor"
+
+msgid "Viewer.LoadModel.NewWindow.Hint"
+msgstr "Loads the model in a new window to the model editor."
 
 msgid "Viewer.Title"
 msgstr "View model"

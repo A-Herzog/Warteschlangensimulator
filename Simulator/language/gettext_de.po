@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-26 18:35+0200\n"
+"POT-Creation-Date: 2020-04-26 19:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10163,8 +10163,14 @@ msgstr "Das Basismodell stimmt mit dem Modell im Modell-Editor überein."
 msgid "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor"
 msgstr "Modell in Editor laden"
 
+msgid "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow"
+msgstr "Modell in neuen Editor laden"
+
+msgid "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow.Tooltip"
+msgstr "Überträgt dieses Modell in einem neuen Fenster in den Modell-Editor."
+
 msgid "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.Tooltip"
-msgstr "Überträgt dieses Modell in den Modell-Editor"
+msgstr "Überträgt dieses Modell in den Modell-Editor."
 
 msgid "ParameterCompare.Toolbar.ShowBaseModel.Show"
 msgstr "Basismodell anzeigen"
@@ -25534,7 +25540,13 @@ msgid "Viewer.LoadModel"
 msgstr "Modell in Editor laden"
 
 msgid "Viewer.LoadModel.Hint"
-msgstr "Lädt dieses Modell in den Modell-Editor"
+msgstr "Lädt dieses Modell in den Modell-Editor."
+
+msgid "Viewer.LoadModel.NewWindow"
+msgstr "Modell in neuen Editor laden"
+
+msgid "Viewer.LoadModel.NewWindow.Hint"
+msgstr "Lädt dieses Modell einem neuen Fenster in den Modell-Editor."
 
 msgid "Viewer.Title"
 msgstr "Modell betrachten"

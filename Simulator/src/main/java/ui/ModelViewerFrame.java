@@ -31,6 +31,7 @@ import javax.swing.JDialog;
 import javax.swing.JRootPane;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import simulator.editmodel.EditModel;
@@ -48,7 +49,7 @@ import ui.statistics.StatisticsPanel;
 public class ModelViewerFrame extends JDialog {
 	private static final long serialVersionUID = 7004585654111284032L;
 
-	private final EditModel model;
+	private EditModel model;
 	private final Runnable loadModel;
 
 	private final EditorPanel editorPanel;
@@ -57,7 +58,8 @@ public class ModelViewerFrame extends JDialog {
 	private final JButton buttonClose;
 	private final JButton buttonFileSaveModel, buttonFileSaveStatistics;
 	private final JButton buttonViewEditor, buttonViewStatistics;
-	private final JButton buttonLoadToEditor;
+	private final JButton buttonLoadToCurrentEditor;
+	private final JButton buttonLoadToNewEditor;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelViewerFrame</code>
@@ -99,9 +101,11 @@ public class ModelViewerFrame extends JDialog {
 
 		if (loadModel!=null) {
 			toolbar.addSeparator();
-			buttonLoadToEditor=createToolbarButton(toolbar,Language.tr("Viewer.LoadModel"),Language.tr("Viewer.LoadModel.Hint"),Images.MODEL_LOAD.getIcon());
+			buttonLoadToCurrentEditor=createToolbarButton(toolbar,Language.tr("Viewer.LoadModel"),Language.tr("Viewer.LoadModel.Hint"),Images.MODEL_LOAD.getIcon());
+			buttonLoadToNewEditor=createToolbarButton(toolbar,Language.tr("Viewer.LoadModel.NewWindow"),Language.tr("Viewer.LoadModel.NewWindow.Hint"),Images.GENERAL_APPLICATION.getIcon());
 		} else {
-			buttonLoadToEditor=null;
+			buttonLoadToCurrentEditor=null;
+			buttonLoadToNewEditor=null;
 		}
 
 		editorPanel=new EditorPanel(this,model,true,true,false);
@@ -111,6 +115,7 @@ public class ModelViewerFrame extends JDialog {
 			statisticsPanel=new StatisticsPanel(1);
 			statisticsPanel.setStatistics(statistics);
 			editorPanel.setStatisticsGetter(()->statistics);
+			if (this.model==null) this.model=statistics.editModel;
 		} else {
 			statisticsPanel=null;
 		}
@@ -224,8 +229,15 @@ public class ModelViewerFrame extends JDialog {
 				statisticsPanel.setVisible(true);
 				return;
 			}
-			if (sender==buttonLoadToEditor) {
+			if (sender==buttonLoadToCurrentEditor) {
 				loadModel.run();
+				setVisible(false);
+				dispose();
+				return;
+			}
+			if (sender==buttonLoadToNewEditor) {
+				final MainFrame frame=new MainFrame(null,model);
+				SwingUtilities.invokeLater(()->frame.toFront());
 				setVisible(false);
 				dispose();
 				return;
