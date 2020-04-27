@@ -203,7 +203,7 @@
       <ModelElementConnection Element1="9" Element2="10" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="31">
-      <ModelElementSize h="23" w="95" x="50" y="260"/>
+      <ModelElementSize h="23" w="95" x="55" y="255"/>
       <ModelElementTextLine>Fresh calls</ModelElementTextLine>
       <ModelElementFontSize bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,225,0</ModelElementColor>
