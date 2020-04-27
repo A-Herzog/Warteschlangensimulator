@@ -1341,8 +1341,12 @@ public class MainPanel extends MainPanelBase {
 
 	private void javaVersionCheck() {
 		if (setup.languageWasAutomaticallySet()) {
-			setMessagePanel("",Language.tr("Window.LanguageAutomatic"),MessagePanelIcon.INFO).setBackground(new Color(255,255,240));
-			new Timer().schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
+			final JPanel infoPanel=setMessagePanel("",Language.tr("Window.LanguageAutomatic"),MessagePanelIcon.INFO);
+			infoPanel.setBackground(new Color(255,255,240));
+			new Timer().schedule(new TimerTask() {@Override public void run() {
+				setMessagePanel(null,null,null);
+				infoPanel.setBackground(new Color(255,240,0));
+			}},7500);
 		} else {
 			if (!setup.testJavaVersion) return;
 			final int[] ver=getJavaVersion();
