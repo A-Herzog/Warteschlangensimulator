@@ -59,8 +59,7 @@ public class CommandGC extends AbstractCommand {
 			final List<GarbageCollectorMXBean> gcMxBeans=ManagementFactory.getGarbageCollectorMXBeans();
 
 			for (GarbageCollectorMXBean gcMxBean: gcMxBeans) {
-				System.out.println(gcMxBean.getName());
-				/* System.out.println(gcMxBean.getObjectName()); */
+				out.println(gcMxBean.getName());
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
