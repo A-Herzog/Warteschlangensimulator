@@ -2680,7 +2680,7 @@ public final class ModelSurfacePanel extends JPanel {
 				return;
 			}
 
-			if (e.getKeyCode()==KeyEvent.VK_ESCAPE && mode==ClickMode.MODE_NORMAL) {
+			if (e.getKeyCode()==KeyEvent.VK_ESCAPE && mode==ClickMode.MODE_NORMAL && !readOnly) {
 				setElementTemplatesVisibility(ElementTemplatesVisibility.TOGGLE);
 				e.consume();
 				return;
