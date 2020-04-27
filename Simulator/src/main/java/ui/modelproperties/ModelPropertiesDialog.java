@@ -338,7 +338,8 @@ public class ModelPropertiesDialog extends BaseDialog {
 		case INITIAL_VALUES: tabs.setSelectedIndex(7); break;
 		case RUN_TIME_STATISTICS: tabs.setSelectedIndex(8); break;
 		case OUTPUT_ANALYSIS: tabs.setSelectedIndex(9); break;
-		case INFO: tabs.setSelectedIndex(10); break;
+		case PATH_RECORDING: tabs.setSelectedIndex(10); break;
+		case INFO: tabs.setSelectedIndex(11); break;
 		default: break;
 		}
 	}
@@ -1002,7 +1003,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		sb.append("<html><body style=\"margin: 10px;\">");
 		if (error!=null) {
 			sb.append("<p style=\"margin-bottom: 10px\">"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Error")+"</p>");
-			sb.append("<p>Beschreibung des Fehlers:<br><b>"+error+"</b></p>");
+			sb.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.ErrorInfo")+":<br><b>"+error+"</b></p>");
 		} else {
 			sb.append("<p style=\"margin-bottom: 10px\">"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Ok")+"</p>");
 
