@@ -196,13 +196,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	public static final String VERSION="4.4.0";
 
-	private static final int JAVA8_SECURE_MIN_VERSION=242;
+	private static final int JAVA8_SECURE_MIN_VERSION=252;
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
 	private static final int JAVA10_SECURE_MIN_VERSION=2;
-	private static final int JAVA11_SECURE_MIN_VERSION=6;
+	private static final int JAVA11_SECURE_MIN_VERSION=7;
 	private static final int JAVA12_SECURE_MIN_VERSION=2;
 	private static final int JAVA13_SECURE_MIN_VERSION=2;
-	private static final int JAVA14_SECURE_MIN_VERSION=0;
+	private static final int JAVA14_SECURE_MIN_VERSION=1;
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
@@ -1356,7 +1356,7 @@ public class MainPanel extends MainPanelBase {
 			if (ver[0]==14 && ver[1]<JAVA14_SECURE_MIN_VERSION) ok=false;
 			if (ok) return;
 
-			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),MessagePanelIcon.WARNING);
+			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),Language.tr("Window.JavaSecurityWarnung.Link"),MessagePanelIcon.WARNING);
 			new Timer().schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
 		}
 	}

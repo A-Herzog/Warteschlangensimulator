@@ -19,13 +19,19 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.function.Consumer;
 
@@ -58,7 +64,7 @@ import systemtools.images.SimToolsImages;
  * @see #connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
  * @see MainFrameBase
  * @author Alexander Herzog
- * @version 1.8
+ * @version 1.9
  */
 public abstract class MainPanelBase extends JPanel {
 	private static final long serialVersionUID = -7372341094781006117L;
@@ -1597,13 +1603,40 @@ public abstract class MainPanelBase extends JPanel {
 	 * @return Gibt das Panel zurück, in dem die Meldung angezeigt wird
 	 */
 	protected final JPanel setMessagePanel(final String title, final String message, final MessagePanelIcon icon) {
+		return setMessagePanel(title,message,null,icon);
+	}
 
-
+	/**
+	 * Zeigt oben in diesem Panel eine Fehlermeldung (z.B. Fehler im Simulationsmodell, die den Start der Simulation verhindern) an.
+	 * @param title	Titel der Nachricht (kann <code>null</code> sein)
+	 * @param message	Anzuzeigende Meldung oder <code>null</code>, um die Anzeige zu deaktivieren.
+	 * @param link	Optionaler Link, der hinter der Meldung angezeigt werden soll und der beim Anklicken des Labels aufgerufen werden soll
+	 * @param icon	Anzuzeigendes Icon (kann <code>null</code> sein, dann wird kein Icon angezeigt)
+	 * @return Gibt das Panel zurück, in dem die Meldung angezeigt wird
+	 */
+	protected final JPanel setMessagePanel(final String title, final String message, final String link, final MessagePanelIcon icon) {
 		errorPanel.setVisible(message!=null && !message.isEmpty());
 		if (message!=null) {
 			String intro="";
 			if (title!=null && !title.isEmpty()) intro="<b>"+title+":</b> ";
-			errorLabel.setText("<html>"+intro+message+"</html>");
+			final String htmlLink;
+			if (link==null || link.trim().isEmpty()) {
+				htmlLink="";
+			} else {
+				htmlLink=" <a href=\""+link+"\">"+link+"</a>";
+				errorLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+				errorLabel.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(final MouseEvent e) {
+						if (SwingUtilities.isLeftMouseButton(e)) {
+							try {
+								Desktop.getDesktop().browse(new URI(link));
+							} catch (IOException | URISyntaxException e1) {}
+						}
+					}
+				});
+			}
+			errorLabel.setText("<html>"+intro+message+htmlLink+"</html>");
 			errorLabel.setIcon(icon.icon);
 		}
 		return errorPanel;

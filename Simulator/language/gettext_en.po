@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-26 19:27+0200\n"
+"POT-Creation-Date: 2020-04-27 13:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2812,6 +2812,9 @@ msgstr "Simulation system"
 
 msgid "Editor.Dialog.Tab.SimulationSystem.Error"
 msgstr "The model is invalid and can not be simulated."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.ErrorInfo"
+msgstr "Description of the error"
 
 msgid "Editor.Dialog.Tab.SimulationSystem.InfoText"
 msgstr "This dialog page displays information about the current model. Nothing can be set here."
@@ -25811,7 +25814,10 @@ msgstr ""
 "%s."
 
 msgid "Window.JavaSecurityWarnung"
-msgstr "The Java version you ware using is outdated and may be contains security vulnerabilities."
+msgstr "The Java version you ware using is outdated and may be contains security vulnerabilities. Update:"
+
+msgid "Window.JavaSecurityWarnung.Link"
+msgstr "https://adoptopenjdk.net/"
 
 msgid "Window.LanguageAutomatic"
 msgstr "The program language was set to <b>English</b>. You can change this via <b>File|Preferences</b>."

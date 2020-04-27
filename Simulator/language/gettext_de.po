@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-26 19:27+0200\n"
+"POT-Creation-Date: 2020-04-27 13:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2813,6 +2813,9 @@ msgstr "Simulationssystem"
 
 msgid "Editor.Dialog.Tab.SimulationSystem.Error"
 msgstr "Das Modell ist fehlerhalt und kann nicht simuliert werden."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.ErrorInfo"
+msgstr "Beschreibung des Fehlers"
 
 msgid "Editor.Dialog.Tab.SimulationSystem.InfoText"
 msgstr "Auf dieser Dialogseite werden Informationen zum aktuellen Modell angezeigt. Hier kann nichts eingestellt werden."
@@ -25828,7 +25831,10 @@ msgstr ""
 "konnte nicht aufgerufen werden."
 
 msgid "Window.JavaSecurityWarnung"
-msgstr "Die von Ihnen verwendete Java-Version ist veraltet und enthält möglicherweise Sicherheitslücken."
+msgstr "Die von Ihnen verwendete Java-Version ist veraltet und enthält möglicherweise Sicherheitslücken. Update:"
+
+msgid "Window.JavaSecurityWarnung.Link"
+msgstr "https://adoptopenjdk.net/"
 
 msgid "Window.LanguageAutomatic"
 msgstr "Die Programmsprache wurde passend zur Betriebssystemsprache auf <b>Deutsch</b> eingestellt. Sie können dies über <b>Datei|Einstellungen</b> verändern."
