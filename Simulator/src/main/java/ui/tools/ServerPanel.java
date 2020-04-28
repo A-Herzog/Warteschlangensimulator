@@ -55,6 +55,7 @@ import net.webcalc.CalcWebServer;
 import systemtools.MsgBox;
 import tools.SetupData;
 import ui.MainPanel;
+import ui.ReloadManager;
 import ui.help.Help;
 import ui.images.Images;
 
@@ -103,6 +104,8 @@ public final class ServerPanel extends SpecialPanel {
 	private final JLabel webStatusBar;
 	private final JLabel ddeStatusBar;
 
+	private final NotifyRunner notifyRunner;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param doneNotify	Runnable, das aufgerufen wird, wenn das Panel geschlossen werden soll
@@ -114,6 +117,8 @@ public final class ServerPanel extends SpecialPanel {
 		serverCalcWeb=CalcWebServer.getInstance();
 		serverWeb=SimulatorWebServer.getInstance(mainPanel);
 		serverDDE=SimulationDDEServer.getInstance(mainPanel);
+		notifyRunner=new NotifyRunner();
+		ReloadManager.addBroadcastReceiver(NotifyRunner.id,notifyRunner);
 
 		JPanel line;
 		JLabel label;
@@ -273,7 +278,7 @@ public final class ServerPanel extends SpecialPanel {
 
 		/* Start der Verarbeitung */
 
-		setupButton();
+		setupButtons();
 	}
 
 	private String getServerStatus(final boolean running, final String name) {
@@ -294,7 +299,11 @@ public final class ServerPanel extends SpecialPanel {
 		return sb.toString();
 	}
 
-	private void setupButton() {
+	private void setupButtons() {
+		setupButtons(true);
+	}
+
+	private void setupButtons(final boolean triggerNotifiy) {
 		URL imgURL;
 
 		/* Simulationssserver */
@@ -367,6 +376,11 @@ public final class ServerPanel extends SpecialPanel {
 		calcWebStatusBar.setText(getServerStatus(serverCalcWeb.isRunning(),Language.tr("SimulationServer.Status.CalcWeb")));
 		webStatusBar.setText(getServerStatus(serverWeb.isRunning(),Language.tr("SimulationServer.Status.Web")));
 		ddeStatusBar.setText(getServerStatus(serverDDE.isRunning(),Language.tr("SimulationServer.Status.DDE")));
+
+		/* Andere Fenster benachrichtigen */
+		if (triggerNotifiy) {
+			ReloadManager.notify(notifyRunner);
+		}
 	}
 
 	private int checkCalcPort(final boolean showErrorMessage) {
@@ -395,7 +409,7 @@ public final class ServerPanel extends SpecialPanel {
 			final int port=checkCalcPort(true);
 			if (port>0) serverCalc.startServer(port,calcPasswordEdit.getText(),calcLimitThreadsCheckBox.isSelected());
 		}
-		setupButton();
+		setupButtons();
 	}
 
 	private int checkCalcWebPort(final boolean showErrorMessage) {
@@ -429,7 +443,7 @@ public final class ServerPanel extends SpecialPanel {
 				}
 			}
 		}
-		setupButton();
+		setupButtons();
 	}
 
 	private int checkWebPort(final boolean showErrorMessage) {
@@ -465,7 +479,7 @@ public final class ServerPanel extends SpecialPanel {
 				}
 			}
 		}
-		setupButton();
+		setupButtons();
 	}
 
 	private void commandStartStopDDE() {
@@ -476,7 +490,7 @@ public final class ServerPanel extends SpecialPanel {
 				MsgBox.error(this,Language.tr("SimulationServer.Setup.DDEServer"),Language.tr("SimulationServer.Setup.DDEServer.MessageStartError"));
 			}
 		}
-		setupButton();
+		setupButtons();
 	}
 
 	private void commandHelp() {
@@ -522,6 +536,8 @@ public final class ServerPanel extends SpecialPanel {
 		setup.ddeServerAutoStart=ddeAutoStartCheckBox.isSelected();
 
 		setup.saveSetup();
+
+		ReloadManager.removeBroadcastReceiver(notifyRunner);
 
 		close();
 	}
@@ -570,5 +586,13 @@ public final class ServerPanel extends SpecialPanel {
 	public static void updateRunningServers(final MainPanel mainPanel) {
 		SimulatorWebServer.updatePanel(mainPanel);
 		SimulationDDEServer.updatePanel(mainPanel);
+	}
+
+	private class NotifyRunner implements Runnable {
+		public final static String id="server";
+		@Override
+		public void run() {
+			setupButtons(false);
+		}
 	}
 }

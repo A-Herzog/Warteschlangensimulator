@@ -1,6 +1,8 @@
 package ui;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,6 +18,7 @@ import java.util.Set;
  */
 public class ReloadManager {
 	private final static Set<MainFrame> frames=new HashSet<>();
+	private final static Map<String,Set<Runnable>> broadcastReceivers=new HashMap<>();
 
 	/**
 	 * Diese Klasse stellt nur statische Methoden bereit
@@ -58,5 +61,42 @@ public class ReloadManager {
 	 */
 	public static void notify(final MainFrame sender, final MainFrame.ReloadMode reloadMode) {
 		for (MainFrame frame: frames) if (frame!=sender) frame.reload(reloadMode);
+	}
+
+	/**
+	 * Fügt einen neuen Empfänger zu einer Benachrichtigungsgruppe hinzu
+	 * @param id	Benachrichtigungsgruppe
+	 * @param broadcastReceiver	Empfänger für Benachrichtigungen
+	 */
+	public static void addBroadcastReceiver(final String id, final Runnable broadcastReceiver) {
+		Set<Runnable> set=broadcastReceivers.get(id);
+		if (set==null) broadcastReceivers.put(id,set=new HashSet<>());
+		set.add(broadcastReceiver);
+	}
+
+	/**
+	 * Entfernt einen Empfänger aus den Listen aller Benachrichtigungsgruppe
+	 * @param broadcastReceiver	Nicht mehr zu benachrichtigender Empfänger
+	 */
+	public static void removeBroadcastReceiver(final Runnable broadcastReceiver) {
+		final Set<String> ids=new HashSet<>();
+		for (Map.Entry<String,Set<Runnable>> entry: broadcastReceivers.entrySet()) {
+			if (entry.getValue().contains(broadcastReceiver)) ids.add(entry.getKey());
+		}
+		for (String id: ids) {
+			final Set<Runnable> set=broadcastReceivers.get(id);
+			set.remove(broadcastReceiver);
+			if (set.isEmpty()) broadcastReceivers.remove(id);
+		}
+	}
+
+	/**
+	 * Löst die Benachrichtigungen in einer oder mehreren Benachrichtigungsgruppe
+	 * @param sender	Sender; alle Benachrichtigungsgruppen, in denen dieser Sender enthalten ist, werden aktiviert. Der Sender selbst wird nicht benachrichtigt.
+	 */
+	public static void notify(final Runnable sender) {
+		for (Set<Runnable> set: broadcastReceivers.values()) if (set.contains(sender)) {
+			set.stream().filter(r->r!=sender).forEach(r->r.run());
+		}
 	}
 }
