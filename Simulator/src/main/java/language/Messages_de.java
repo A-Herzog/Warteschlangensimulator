@@ -4968,6 +4968,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11609] = "ModellElementDatenbankQuelle";
     t[11610] = "Surface.Conveyor.Dialog.Time";
     t[11611] = "Transportzeit";
+    t[11612] = "Simulation.ClientMovement.OutputFile.NoSaveErrorTitle";
+    t[11613] = "Fehler beim Speichern";
     t[11614] = "Surface.AnimationImage.Dialog.Images.Edit";
     t[11615] = "Bedinung und Bild bearbeiten";
     t[11618] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14073] = "Das \"Minimum\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
     t[14074] = "Simulation.Creator.InvalidTeleportDestination";
     t[14075] = "An Station id=%d wurde die Teleport-Zielstation \"%s\" angegeben, die jedoch nicht existiert.";
-    t[14076] = "Color.000000";
-    t[14077] = "Schwarz";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14076] = "Color.000000";
+    t[14077] = "Schwarz";
     t[14084] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
     t[14085] = "Schrittweite ung\u00fcltig";
     t[14088] = "Main.Menu.View.ShowRaster.Off.Mnemonic";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18751] = "DauerProSlot";
     t[18752] = "Animation.Icon.WaterDrop";
     t[18753] = "Wassertropfen";
-    t[18762] = "Statistics.CVUser";
-    t[18763] = "Variationskoeffizient";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18762] = "Statistics.CVUser";
+    t[18763] = "Variationskoeffizient";
     t[18770] = "Surface.LogicDo.Infotext";
     t[18771] = "Do-Stationen leiten Kunden stets an die n\u00e4chste Station weiter. Do-Stationen dienen als Startpunkt f\u00fcr eine durch ein sp\u00e4teres Until-Element initiierte Schleife.";
     t[18772] = "ModelDescription.Expression";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23391] = "Bedingung";
     t[23392] = "Animation.Icon.Bug";
     t[23393] = "K\u00e4fer";
-    t[23402] = "Surface.AnimationBar.XML.LineColor";
-    t[23403] = "ModellElementLinienFarbe";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23402] = "Surface.AnimationBar.XML.LineColor";
+    t[23403] = "ModellElementLinienFarbe";
     t[23406] = "CommandLine.Count.ThenN";
     t[23407] = "m\u00fcssen genau %d weitere Parameter folgen";
     t[23408] = "Simulation.Creator.SourceNoName";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28067] = "ID \u00e4ndern";
     t[28068] = "Statistics.InterArrivalTimesAtTheSystem";
     t[28069] = "Zwischenankunftszeiten am System";
-    t[28076] = "Surface.Source.Dialog.Condition.MinDistance";
-    t[28077] = "Minimaler Abstand zwischen zwei Ank\u00fcnften";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28076] = "Surface.Source.Dialog.Condition.MinDistance";
+    t[28077] = "Minimaler Abstand zwischen zwei Ank\u00fcnften";
     t[28078] = "ExpressionCalculator.Toolbar.ToolsJava";
     t[28079] = "Befehl";
     t[28084] = "Surface.TransportSource.Dialog.SectionEnd.SectionStart";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32833] = "Maximalwert auf %s stellen";
     t[32836] = "ExpressionCalculator.Toolbar.LoadJava";
     t[32837] = "Laden";
-    t[32838] = "Resources.Group.ID";
-    t[32839] = "(Ressourcen id=%d)";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32838] = "Resources.Group.ID";
+    t[32839] = "(Ressourcen id=%d)";
     t[32850] = "Transporters.Group.Edit.Dialog.Times.Mode.Loading.Expression";
     t[32851] = "Beladezeit gem\u00e4\u00df Ausdruck";
     t[32854] = "Surface.Output.XML.Element.TypeDescription.ProcessTimeNumber";
@@ -15524,8 +15526,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36475] = "Liefert den Inhalt eines XML-Elements als Array.";
     t[36476] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberInfo";
     t[36477] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Logistischen Verteilung mit den Parametern gem\u00e4\u00df dem ersten (Mittelwert) und zweiten (Skalierungsfaktor) Parameter.</p>";
-    t[36478] = "Simulation.ClientMovement.OutputFile.NoSaveErrorTitle";
-    t[36479] = "Fehler beim Speichern";
+    t[36478] = "ParameterCompare.Table.Column.Output.IsTime";
+    t[36479] = "Ausgabe als Zeit";
     t[36490] = "Surface.Process.Dialog.BatchSize";
     t[36491] = "Batch-Gr\u00f6\u00dfe";
     t[36492] = "Surface.Output.Name";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37501] = "von id";
     t[37502] = "ExpressionBuilder.SimulationCharacteristics.ClientData.TransferTime";
     t[37503] = "Bisherige Transferzeit";
-    t[37504] = "Optimizer.Tab.ControlVariables.MoveUp.Hint";
-    t[37505] = "Verschiebt die aktuelle Kontrollvariable um eine Position nach oben in der Liste";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37504] = "Optimizer.Tab.ControlVariables.MoveUp.Hint";
+    t[37505] = "Verschiebt die aktuelle Kontrollvariable um eine Position nach oben in der Liste";
     t[37510] = "Surface.ExpressionTableModel.MoveDown";
     t[37511] = "Reihen nach unten schieben";
     t[37514] = "Surface.Hold.Tooltip";

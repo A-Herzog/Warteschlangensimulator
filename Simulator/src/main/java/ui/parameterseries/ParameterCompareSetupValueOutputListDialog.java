@@ -99,7 +99,9 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 			final StringBuilder sb=new StringBuilder();
 			sb.append("<html><body>");
 			sb.append(Language.tr("ParameterCompare.Table.Column.Output")+"<br>");
-			sb.append("<b>"+record.getName()+"</b><br>");
+			String time="";
+			if (record.getIsTime()) time=" ("+Language.tr("ParameterCompare.Table.Column.Output.IsTime")+")";
+			sb.append("<b>"+record.getName()+"</b>"+time+"<br>");
 			sb.append(getOutputInfo(record));
 			sb.append("</html></body>");
 			label.setText(sb.toString());
