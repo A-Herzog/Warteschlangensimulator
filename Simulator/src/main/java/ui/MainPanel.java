@@ -244,9 +244,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	public final EditorPanel editorPanel;
 
+	/**
+	 * Statistik-Panel
+	 */
+	public final StatisticsPanel statisticsPanel;
+
 	private JPanel welcomePanel;
 	private final WaitPanel waitPanel;
-	private final StatisticsPanel statisticsPanel;
 	private final AnimationPanel animationPanel;
 	private SpecialPanel specialPanel;
 
@@ -496,6 +500,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpCommandLineReference",e->commandHelpCommandLineReference());
 		addAction("HelpLiteratureGrossHarris",e->commandHelpLiterature(0));
 		addAction("HelpSupport",e->commandHelpSupport());
+		addAction("HelpSupportData",e->commandHelpSupportData());
 		addAction("HelpHomepage",e->commandHelpHomepage());
 		addAction("HelpUsageStatistics",e->commandHelpUsageStatistics());
 		addAction("HelpLicense",e->commandHelpLicenseInfo());
@@ -969,6 +974,7 @@ public class MainPanel extends MainPanelBase {
 
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Homepage"),Images.HELP_HOMEPAGE.getIcon(),Language.tr("Main.Menu.Help.Homepage.Mnemonic"),"HelpHomepage");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.UsageStatistics"),Language.tr("Main.Menu.Help.UsageStatistics.Mnemonic"),"HelpUsageStatistics");
@@ -2513,6 +2519,14 @@ public class MainPanel extends MainPanelBase {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoEMailProgram.Title"),String.format(Language.tr("Window.Info.NoEMailProgram.Info"),"mailto:"+MainPanel.AUTHOR_EMAIL));
 		}
 		return;
+	}
+
+	private void commandHelpSupportData() {
+		final File file=ProblemReporter.selectOutputFile(this);
+		if (file==null) return;
+
+		final ProblemReporter reporter=new ProblemReporter(file);
+		if (!reporter.process()) MsgBox.error(this,Language.tr("ProblemReporter.SaveError.Title"),String.format(Language.tr("ProblemReporter.SaveError.Info"),file.toString()));
 	}
 
 	private void commandHelpHomepage() {

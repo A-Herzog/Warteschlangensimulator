@@ -1,7 +1,9 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -61,6 +63,14 @@ public class ReloadManager {
 	 */
 	public static void notify(final MainFrame sender, final MainFrame.ReloadMode reloadMode) {
 		for (MainFrame frame: frames) if (frame!=sender) frame.reload(reloadMode);
+	}
+
+	/**
+	 * Listet alle aktiven Programmfenster auf.
+	 * @return	Liste aller Programmfenster
+	 */
+	public static List<MainFrame> getMainFrames() {
+		return new ArrayList<>(frames);
 	}
 
 	/**

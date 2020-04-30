@@ -17,6 +17,7 @@ package systemtools;
 
 import java.awt.Component;
 import java.io.File;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,7 @@ import xml.XMLTools;
 /**
  * Basisklasse zum Verwalten von Setup-Daten
  * @author Alexander Herzog
- * @version 2.2
+ * @version 2.3
  */
 public abstract class SetupBase {
 	/**
@@ -207,7 +208,7 @@ public abstract class SetupBase {
 	/**
 	 * Speichert das Setup
 	 * Gibt im Fehlerfall keine Warnung aus
-	 * @return	Liefert <code>true</code>, wenn die Setup-Daten erfolgreich gespeichert werden konnen.
+	 * @return	Liefert <code>true</code>, wenn die Setup-Daten erfolgreich gespeichert werden konnten.
 	 */
 	public final boolean saveSetup() {
 		if (memoryOnly) return true;
@@ -225,6 +226,21 @@ public abstract class SetupBase {
 		} finally {
 			startChangeListener();
 		}
+	}
+
+	/**
+	 * Speichert das Setup in einem Stream
+	 * @param output	Stream in den die xml-Daten  geschrieben werden sollen
+	 * @return	Liefert <code>true</code>, wenn die Setup-Daten erfolgreich gespeichert werden konnten.
+	 */
+	public final boolean saveToStream(final OutputStream output) {
+		final XMLTools xml=new XMLTools(output);
+		final Element root=xml.generateRoot("Setup",true);
+		final Document doc=root.getOwnerDocument();
+
+		saveSetupToXML(doc,root);
+
+		return xml.save(doc);
 	}
 
 	/**

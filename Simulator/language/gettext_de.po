@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 13:11+0200\n"
+"POT-Creation-Date: 2020-04-30 19:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6698,6 +6698,12 @@ msgstr "Unterstützung & Support"
 msgid "Main.Menu.Help.Support.Mnemonic"
 msgstr "U"
 
+msgid "Main.Menu.Help.SupportData"
+msgstr "Problemreport erstellen..."
+
+msgid "Main.Menu.Help.SupportData.Mnemonic"
+msgstr "P"
+
 msgid "Main.Menu.Help.Tutorial"
 msgstr "Tutorial (pdf)"
 
@@ -10332,6 +10338,21 @@ msgstr "Verknüpfungen bearbeiten"
 
 msgid "PathEditor.Title"
 msgstr "Transporterstrecken bearbeiten"
+
+msgid "ProblemReporter.Dialog.FileTypeZip"
+msgstr "zip-Datei"
+
+msgid "ProblemReporter.Dialog.Title"
+msgstr "Ausgabedatei wählen"
+
+msgid "ProblemReporter.SaveError.Info"
+msgstr ""
+"Das Speichern der Problemreportdaten in\n"
+"%s\n"
+"ist fehlgeschlagen."
+
+msgid "ProblemReporter.SaveError.Title"
+msgstr "Speichern fehlgeschlagen"
 
 msgid "ProxySettings.ProxyHost"
 msgstr "Adresse des HTTPS-Proxy-Servers"

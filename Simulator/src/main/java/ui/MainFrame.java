@@ -28,6 +28,7 @@ import language.Language;
 import language.LanguageStaticLoader;
 import language.Messages_Java11;
 import simulator.editmodel.EditModel;
+import simulator.statistics.Statistics;
 import systemtools.MainFrameBase;
 import systemtools.MainPanelBase;
 import tools.SetupData;
@@ -196,5 +197,21 @@ public class MainFrame extends MainFrameBase {
 	protected boolean exitProgramOnCloseWindow() {
 		ReloadManager.remove(this);
 		return ReloadManager.isEmpty();
+	}
+
+	/**
+	 * Liefert das aktuell in dem Fenster dargestellte Modell
+	 * @return	Aktuelles Modell
+	 */
+	public EditModel getModel() {
+		return ((MainPanel)getMainPanel()).editorPanel.model;
+	}
+
+	/**
+	 * Liefert die Statistikdaten aus der Statistikansicht in diesem Fenster
+	 * @return	Aktuelle Statistikdaten (kann <code>null</code> sein)
+	 */
+	public Statistics getStatistics() {
+		return ((MainPanel)getMainPanel()).statisticsPanel.getStatistics();
 	}
 }

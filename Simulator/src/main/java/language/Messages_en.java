@@ -6202,6 +6202,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14481] = "<p>Calculates the value of the distribution function of the Chi distribution at the location specified as first parameter with the number of degrees of freedom according to the second parameter.</p>";
     t[14488] = "Animation.CreatingVideo";
     t[14489] = "Creating the video";
+    t[14494] = "ProblemReporter.Dialog.Title";
+    t[14495] = "Select output file";
     t[14502] = "LoadCalculator.Units.InSeconds";
     t[14503] = "in seconds";
     t[14504] = "Animation.Icon.LightbulbOff";
@@ -6462,6 +6464,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15109] = "ModelElementButton";
     t[15110] = "Distribution.Weibull";
     t[15111] = "Weibull distribution";
+    t[15112] = "Surface.Process.Dialog.TimeBase";
+    t[15113] = "Time base";
     t[15114] = "CheckData.Model";
     t[15115] = "Model";
     t[15126] = "ModelDescription.Process.Costs.PerClient";
@@ -8006,12 +8010,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18753] = "Water drop";
     t[18762] = "Statistics.CVUser";
     t[18763] = "Coefficient of variation";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18770] = "Surface.LogicDo.Infotext";
     t[18771] = "Do stations always forward clients to the next station. They are used as starting points of loops and as jump target for until stations.";
     t[18772] = "ModelDescription.Expression";
     t[18773] = "Expression";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18774] = "ModelDescription.Sub.EdgeOut";
     t[18775] = "Next station as output %d";
     t[18778] = "Examples.ClientTypePriorities";
@@ -10008,12 +10012,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23393] = "Bug";
     t[23402] = "Surface.AnimationBar.XML.LineColor";
     t[23403] = "ModelElementLineColor";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23406] = "CommandLine.Count.ThenN";
     t[23407] = "exactly %d additional parameters have to be entered";
     t[23408] = "Simulation.Creator.SourceNoName";
     t[23409] = "The clients created by element id=%d have no name.";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23410] = "ParameterCompare.Toolbar.Start.Hint";
     t[23411] = "Start processing";
     t[23412] = "Resources.Failure.RowTitle.Buttons";
@@ -11116,6 +11120,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25995] = "The old schedule name will be kept in the elements.";
     t[25998] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.Mean";
     t[25999] = "Mean";
+    t[26000] = "Surface.InputDB.Dialog.ColumnSort";
+    t[26001] = "Sort column";
     t[26006] = "Statistic.FastAccess.FilterList.Up";
     t[26007] = "Up";
     t[26008] = "Simulation.Creator.ReleaseDelayed";
@@ -12008,14 +12014,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28069] = "Inter-arrival times at the system";
     t[28076] = "Surface.Source.Dialog.Condition.MinDistance";
     t[28077] = "Minimum distance between arrivals";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[28078] = "ExpressionCalculator.Toolbar.ToolsJava";
     t[28079] = "Commands";
     t[28084] = "Surface.TransportSource.Dialog.SectionEnd.SectionStart";
     t[28085] = "Section to be left";
     t[28088] = "ExpressionBuilder.SimulationCharacteristics.TimesOverAll";
     t[28089] = "Times oer all client types and stations";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[28092] = "Statistics.TransporterUtilization.Minimum";
     t[28093] = "Minimum number of driving transports";
     t[28096] = "SettingsDialog.JSEngine.Rhino";
@@ -12756,6 +12762,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29903] = "StatisticsTransporterUtilization";
     t[29908] = "CommandLine.BuildCommandlineDescriptions.Description.Short";
     t[29909] = "Generates LaTeX code from the command line help.";
+    t[29912] = "Main.Menu.Help.SupportData.Mnemonic";
+    t[29913] = "p";
     t[29914] = "ParameterCompare.Settings.Output.Mode.XML.ErrorTitle";
     t[29915] = "No xml element selected";
     t[29916] = "Surface.ExpressionTableModel.Dialog.LineColor";
@@ -13468,6 +13476,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31563] = "Maximum number of transporters in down time";
     t[31572] = "Statistics.ArrivalsAtStations";
     t[31573] = "Arrivals at the stations";
+    t[31574] = "Main.Menu.Help.SupportData";
+    t[31575] = "Generate problem report...";
     t[31576] = "Surface.AnalogAssign.Dialog.ModeRate";
     t[31577] = "Set change rate";
     t[31578] = "Surface.Process.Dialog.UsePostProcessingTimes";
@@ -13504,6 +13514,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31643] = "Station: %s";
     t[31644] = "Statistics.VarianceTransferTime";
     t[31645] = "Variance of the transfer times";
+    t[31664] = "ProblemReporter.SaveError.Info";
+    t[31665] = "Saving the problem report data to\n%s\nfailed.";
     t[31672] = "Dialog.Button.Load.InfoImage";
     t[31673] = "Loads an image from file";
     t[31676] = "Surface.BarrierPull.XML.Next";
@@ -14004,6 +14016,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32837] = "Load";
     t[32838] = "Resources.Group.ID";
     t[32839] = "(resource id=%d)";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32850] = "Transporters.Group.Edit.Dialog.Times.Mode.Loading.Expression";
     t[32851] = "Loading time by expression";
     t[32854] = "Surface.Output.XML.Element.TypeDescription.ProcessTimeNumber";
@@ -14016,8 +14030,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32875] = "Performance";
     t[32876] = "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution";
     t[32877] = "Weibull distribution";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32878] = "LicenseViewer.Part.Components.Simulator";
     t[32879] = "Licenses of the components used by simulator";
     t[32880] = "Statistics.Transporter.InfoType";
@@ -14034,8 +14046,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32895] = "Non of the models from the population resulted valid statistics results.";
     t[32908] = "Simulation.Creator.AnalogFlow.NoStopSignal";
     t[32909] = "At element id=%d no signal name for stopping the flow was specified.";
-    t[32910] = "Surface.Process.Dialog.TimeBase";
-    t[32911] = "Time base";
+    t[32910] = "ProblemReporter.SaveError.Title";
+    t[32911] = "Saving failed";
     t[32912] = "PathEditor.ProcessConfirm.NoInfo";
     t[32913] = "Do not change way points.";
     t[32914] = "ScriptPopup.Statistics.Hint";
@@ -15130,8 +15142,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35529] = "Invalid step width";
     t[35532] = "Surface.Process.Dialog.Tab.WaitingTimeTolerances";
     t[35533] = "Waiting time tolerances";
-    t[35536] = "Surface.InputDB.Dialog.ColumnSort";
-    t[35537] = "Sort column";
+    t[35536] = "ProblemReporter.Dialog.FileTypeZip";
+    t[35537] = "zip file";
     t[35538] = "Statistic.FastAccess.Template.ResidenceTime.ByClientType";
     t[35539] = "Residence time by client type";
     t[35542] = "Surface.OutputDB.Table.HeaderAdditionalData";
@@ -16006,6 +16018,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37503] = "Transfer time";
     t[37504] = "Optimizer.Tab.ControlVariables.MoveUp.Hint";
     t[37505] = "Moves the current control variable one position up in the list";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37510] = "Surface.ExpressionTableModel.MoveDown";
     t[37511] = "Move row down";
     t[37514] = "Surface.Hold.Tooltip";
@@ -16018,8 +16032,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37527] = "Start animation in single step mode";
     t[37540] = "ParameterCompare.Table.Column.Output";
     t[37541] = "Output value";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37544] = "Transporters.Group.Edit.Dialog.Table.FillDown";
     t[37545] = "Fill down";
     t[37548] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate4.ErrorTitle";

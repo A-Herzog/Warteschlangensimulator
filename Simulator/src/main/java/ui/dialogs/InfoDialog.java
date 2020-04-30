@@ -100,6 +100,37 @@ public class InfoDialog extends JDialog {
 	public boolean showLicenses;
 
 	/**
+	 * Liefert eine Zusammenstellung der System-Informationen.
+	 * @return	Liste mit System-Informationen
+	 */
+	public static List<String> getSystemInfo() {
+		final List<String> list=new ArrayList<>();
+
+		/* Java-Version */
+		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")");
+		list.add(Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No")));
+
+		/* Java-Kompiler verfügbar? */
+		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
+		final String compilerName=System.getProperty("jvmci.Compiler");
+		list.add(Language.tr("InfoDialog.JavaCompiler")+": "+((compiler==null)?Language.tr("InfoDialog.JavaCompiler.No"):Language.tr("InfoDialog.JavaCompiler.Yes"))+((compilerName!=null)?(", "+compilerName):""));
+
+		/* JS-Engines */
+		list.add(Language.tr("InfoDialog.JSEngine")+": "+String.join(", ",JSEngineNames.available().stream().map(e->e.name).toArray(String[]::new)));
+
+		/* Speicherverbrauch */
+		final long l1=ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();
+		final long l2=ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getUsed();
+		list.add(Language.tr("InfoDialog.MemoryUsage")+": "+NumberTools.formatLong((l1+l2)/1024/1024)+" MB");
+		list.add(Language.tr("InfoDialog.MemoryAvailable")+": "+NumberTools.formatLong(Runtime.getRuntime().maxMemory()/1024/1024)+" MB");
+		final int maxThreadsByMemory=(int)Math.max(1,Runtime.getRuntime().maxMemory()/1024/1024/100);
+		final int maxThreadByCPU=Runtime.getRuntime().availableProcessors();
+		if (maxThreadsByMemory<maxThreadByCPU) list.add(String.format(Language.tr("InfoDialog.ThreadMemoryLimitation"),maxThreadsByMemory,maxThreadByCPU));
+
+		return list;
+	}
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param version	Anzuzeigende Versionsnummer
@@ -142,26 +173,8 @@ public class InfoDialog extends JDialog {
 
 		text.add("");
 
-		/* Java-Version */
-		text.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")");
-		text.add(Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No")));
-
-		/* Java-Kompiler verfügbar? */
-		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
-		final String compilerName=System.getProperty("jvmci.Compiler");
-		text.add(Language.tr("InfoDialog.JavaCompiler")+": "+((compiler==null)?Language.tr("InfoDialog.JavaCompiler.No"):Language.tr("InfoDialog.JavaCompiler.Yes"))+((compilerName!=null)?(", "+compilerName):""));
-
-		/* JS-Engines */
-		text.add(Language.tr("InfoDialog.JSEngine")+": "+String.join(", ",JSEngineNames.available().stream().map(e->e.name).toArray(String[]::new)));
-
-		/* Speicherverbrauch */
-		final long l1=ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed();
-		final long l2=ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage().getUsed();
-		text.add(Language.tr("InfoDialog.MemoryUsage")+": "+NumberTools.formatLong((l1+l2)/1024/1024)+" MB");
-		text.add(Language.tr("InfoDialog.MemoryAvailable")+": "+NumberTools.formatLong(Runtime.getRuntime().maxMemory()/1024/1024)+" MB");
-		final int maxThreadsByMemory=(int)Math.max(1,Runtime.getRuntime().maxMemory()/1024/1024/100);
-		final int maxThreadByCPU=Runtime.getRuntime().availableProcessors();
-		if (maxThreadsByMemory<maxThreadByCPU) text.add(String.format(Language.tr("InfoDialog.ThreadMemoryLimitation"),maxThreadsByMemory,maxThreadByCPU));
+		/* System-Informationen */
+		text.addAll(getSystemInfo());
 
 		/* Ausgabe */
 		StringBuilder sb=new StringBuilder();
