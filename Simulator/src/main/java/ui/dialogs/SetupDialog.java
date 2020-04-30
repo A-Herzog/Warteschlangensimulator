@@ -23,6 +23,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -51,6 +53,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileSystemView;
 
 import language.Language;
@@ -694,6 +697,22 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(programStartJavaCheck=new JCheckBox(Language.tr("SettingsDialog.TestJavaVersionOnProgramStart")));
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(new JLabel(Language.tr("SettingsDialog.JDK.Info")+": ")); // Empfohlene Download-Adresse für Java-Laufzeitumgebungen
+		p.add(label=new JLabel("<html><body><a href=\""+Language.tr("SettingsDialog.JDK.Link")+"\">"+Language.tr("SettingsDialog.JDK.Link")+"</a></body></html>")); // "https://adoptopenjdk.net/"
+		label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				if (SwingUtilities.isLeftMouseButton(e)) {
+					try {
+						Desktop.getDesktop().browse(new URI(Language.tr("SettingsDialog.JDK.Link")));
+					} catch (IOException | URISyntaxException e1) {}
+				}
+			}
+		});
+
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(autoUpdate=new JCheckBox(Language.tr("SettingsDialog.AutoUpdate")));

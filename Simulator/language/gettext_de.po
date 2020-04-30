@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 19:29+0200\n"
+"POT-Creation-Date: 2020-04-30 19:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11568,6 +11568,12 @@ msgstr "Die Bildgröße beim Speichern muss eine Ganzzahl zwischen 50 und 5000 s
 
 msgid "SettingsDialog.ImageResolution.Invalid.Title"
 msgstr "Ungültige Bildgröße angegeben"
+
+msgid "SettingsDialog.JDK.Info"
+msgstr "Empfohlene Download-Adresse für Java-Laufzeitumgebungen"
+
+msgid "SettingsDialog.JDK.Link"
+msgstr "https://adoptopenjdk.net/"
 
 msgid "SettingsDialog.JSEngine"
 msgstr "Bevorzugte Javascript-Umgebung"

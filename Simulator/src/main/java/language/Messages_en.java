@@ -1972,6 +1972,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4539] = "disabled";
     t[4540] = "Animation.Log.Expression";
     t[4541] = "Evaluate expression";
+    t[4542] = "SettingsDialog.JDK.Link";
+    t[4543] = "https://adoptopenjdk.net/";
     t[4544] = "ParameterCompare.XML.Inputs.Root";
     t[4545] = "CompareModelsInput";
     t[4546] = "CommandLine.ServerWeb.Description.Long";
@@ -2002,10 +2004,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4581] = "Integers only";
     t[4586] = "LogSimulation.Mode.File";
     t[4587] = "File";
-    t[4588] = "FileType.Save.Java";
-    t[4589] = "Save Java code";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4588] = "FileType.Save.Java";
+    t[4589] = "Save Java code";
     t[4592] = "Simulation.Log.OutputDDE";
     t[4593] = "Output (DDE)";
     t[4594] = "Main.Menu.AnimationScreenshotMode";
@@ -4004,10 +4006,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9353] = "ElseIf";
     t[9354] = "Statistic.Viewer.Report.HTMLApp.Info";
     t[9355] = "Please select the category to be displayed from the tree structure on the left.";
-    t[9362] = "Editor.Dialog.Sequences.Edit.Column.Next.Step";
-    t[9363] = "Step %d";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9362] = "Editor.Dialog.Sequences.Edit.Column.Next.Step";
+    t[9363] = "Step %d";
     t[9366] = "DistributionFitter.FitError";
     t[9367] = "Error";
     t[9368] = "Statistic.Viewer.Report.NoTablesSelected.Title";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14071] = "Transporters";
     t[14072] = "Statistics.XML.Minimum.Error";
     t[14073] = "The \"minimum\" attribute in the \"%s\" element has to be a number but is \"%s\".";
-    t[14074] = "Simulation.Creator.InvalidTeleportDestination";
-    t[14075] = "At station id=%d the teleport destination station \"%s\" was specified. But there is no teleport destination station with this namen.";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14074] = "Simulation.Creator.InvalidTeleportDestination";
+    t[14075] = "At station id=%d the teleport destination station \"%s\" was specified. But there is no teleport destination station with this namen.";
     t[14076] = "Color.000000";
     t[14077] = "Balck";
     t[14084] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18745] = "Transfer times for clients of type \"%s\"";
     t[18750] = "Surface.XML.Schedule.DurationPerSlot";
     t[18751] = "DurationPerSlot";
-    t[18752] = "Animation.Icon.WaterDrop";
-    t[18753] = "Water drop";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18752] = "Animation.Icon.WaterDrop";
+    t[18753] = "Water drop";
     t[18762] = "Statistics.CVUser";
     t[18763] = "Coefficient of variation";
     t[18770] = "Surface.LogicDo.Infotext";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23389] = "The specified maximum value \"%s\" has to be larger than the minimum value \"%s\".";
     t[23390] = "Surface.SetStatisticsMode.XML.StatisticsMode.Mode.Condition";
     t[23391] = "Condition";
-    t[23392] = "Animation.Icon.Bug";
-    t[23393] = "Bug";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23392] = "Animation.Icon.Bug";
+    t[23393] = "Bug";
     t[23402] = "Surface.AnimationBar.XML.LineColor";
     t[23403] = "ModelElementLineColor";
     t[23406] = "CommandLine.Count.ThenN";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28057] = "Cauchy distribution";
     t[28066] = "Editor.DialogBase.ID.Title";
     t[28067] = "Change ID";
-    t[28068] = "Statistics.InterArrivalTimesAtTheSystem";
-    t[28069] = "Inter-arrival times at the system";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28068] = "Statistics.InterArrivalTimesAtTheSystem";
+    t[28069] = "Inter-arrival times at the system";
     t[28076] = "Surface.Source.Dialog.Condition.MinDistance";
     t[28077] = "Minimum distance between arrivals";
     t[28078] = "ExpressionCalculator.Toolbar.ToolsJava";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32827] = "no line";
     t[32832] = "Surface.PopupMenu.QuickFix.Analog.SetMaxValue";
     t[32833] = "Set maximum value to %s";
-    t[32836] = "ExpressionCalculator.Toolbar.LoadJava";
-    t[32837] = "Load";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32836] = "ExpressionCalculator.Toolbar.LoadJava";
+    t[32837] = "Load";
     t[32838] = "Resources.Group.ID";
     t[32839] = "(resource id=%d)";
     t[32850] = "Transporters.Group.Edit.Dialog.Times.Mode.Loading.Expression";
@@ -14626,6 +14628,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34299] = "There are other factors influencing the waiting time tolerances. Estimated parameters";
     t[34302] = "Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto";
     t[34303] = "Generate automatically";
+    t[34308] = "SettingsDialog.JDK.Info";
+    t[34309] = "Recommended download address for Java runtime environments";
     t[34310] = "Optimizer.Tab.Target.Value.Range.InvalidRange.LowerBound";
     t[34311] = "The entered value for the lower bound of the target range is invalid. A valid number has to be specified.";
     t[34314] = "Surface.TankSensor.XML.Threshold.Direction.Down";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37497] = "Delete";
     t[37498] = "ParameterCompare.Settings.Input.Mode.XML.Info";
     t[37499] = "Current value of the xml element: %s";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37500] = "Surface.SubConnect.FromID.Small";
     t[37501] = "from id";
     t[37502] = "ExpressionBuilder.SimulationCharacteristics.ClientData.TransferTime";
     t[37503] = "Transfer time";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37504] = "Optimizer.Tab.ControlVariables.MoveUp.Hint";
     t[37505] = "Moves the current control variable one position up in the list";
     t[37510] = "Surface.ExpressionTableModel.MoveDown";

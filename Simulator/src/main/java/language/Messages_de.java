@@ -1972,6 +1972,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4539] = "deaktiviert";
     t[4540] = "Animation.Log.Expression";
     t[4541] = "Ausdruck berechnen";
+    t[4542] = "SettingsDialog.JDK.Link";
+    t[4543] = "https://adoptopenjdk.net/";
     t[4544] = "ParameterCompare.XML.Inputs.Root";
     t[4545] = "ModelleVergleichenEingabe";
     t[4546] = "CommandLine.ServerWeb.Description.Long";
@@ -2002,10 +2004,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4581] = "Nur Ganzzahlen";
     t[4586] = "LogSimulation.Mode.File";
     t[4587] = "Datei";
-    t[4588] = "FileType.Save.Java";
-    t[4589] = "Java-Code speichern";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4588] = "FileType.Save.Java";
+    t[4589] = "Java-Code speichern";
     t[4592] = "Simulation.Log.OutputDDE";
     t[4593] = "Ausgabe (DDE)";
     t[4594] = "Main.Menu.AnimationScreenshotMode";
@@ -4004,10 +4006,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9353] = "ElseIf";
     t[9354] = "Statistic.Viewer.Report.HTMLApp.Info";
     t[9355] = "W\u00e4hlen Sie in der Baumstruktur links die anzuzeigende Rubrik aus.";
-    t[9362] = "Editor.Dialog.Sequences.Edit.Column.Next.Step";
-    t[9363] = "Schritt %d";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9362] = "Editor.Dialog.Sequences.Edit.Column.Next.Step";
+    t[9363] = "Schritt %d";
     t[9366] = "DistributionFitter.FitError";
     t[9367] = "Abweichung";
     t[9368] = "Statistic.Viewer.Report.NoTablesSelected.Title";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14071] = "Transporter";
     t[14072] = "Statistics.XML.Minimum.Error";
     t[14073] = "Das \"Minimum\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
-    t[14074] = "Simulation.Creator.InvalidTeleportDestination";
-    t[14075] = "An Station id=%d wurde die Teleport-Zielstation \"%s\" angegeben, die jedoch nicht existiert.";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14074] = "Simulation.Creator.InvalidTeleportDestination";
+    t[14075] = "An Station id=%d wurde die Teleport-Zielstation \"%s\" angegeben, die jedoch nicht existiert.";
     t[14076] = "Color.000000";
     t[14077] = "Schwarz";
     t[14084] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18745] = "Transferzeiten f\u00fcr Kunden vom Typ \"%s\"";
     t[18750] = "Surface.XML.Schedule.DurationPerSlot";
     t[18751] = "DauerProSlot";
-    t[18752] = "Animation.Icon.WaterDrop";
-    t[18753] = "Wassertropfen";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18752] = "Animation.Icon.WaterDrop";
+    t[18753] = "Wassertropfen";
     t[18762] = "Statistics.CVUser";
     t[18763] = "Variationskoeffizient";
     t[18770] = "Surface.LogicDo.Infotext";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23389] = "Der angegebene Maximum-Wert \"%s\" muss gr\u00f6\u00dfer als der Minimum-Wert \"%s\" sein.";
     t[23390] = "Surface.SetStatisticsMode.XML.StatisticsMode.Mode.Condition";
     t[23391] = "Bedingung";
-    t[23392] = "Animation.Icon.Bug";
-    t[23393] = "K\u00e4fer";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23392] = "Animation.Icon.Bug";
+    t[23393] = "K\u00e4fer";
     t[23402] = "Surface.AnimationBar.XML.LineColor";
     t[23403] = "ModellElementLinienFarbe";
     t[23406] = "CommandLine.Count.ThenN";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28057] = "Cauchy-Verteilung";
     t[28066] = "Editor.DialogBase.ID.Title";
     t[28067] = "ID \u00e4ndern";
-    t[28068] = "Statistics.InterArrivalTimesAtTheSystem";
-    t[28069] = "Zwischenankunftszeiten am System";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28068] = "Statistics.InterArrivalTimesAtTheSystem";
+    t[28069] = "Zwischenankunftszeiten am System";
     t[28076] = "Surface.Source.Dialog.Condition.MinDistance";
     t[28077] = "Minimaler Abstand zwischen zwei Ank\u00fcnften";
     t[28078] = "ExpressionCalculator.Toolbar.ToolsJava";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32827] = "keine Linie";
     t[32832] = "Surface.PopupMenu.QuickFix.Analog.SetMaxValue";
     t[32833] = "Maximalwert auf %s stellen";
-    t[32836] = "ExpressionCalculator.Toolbar.LoadJava";
-    t[32837] = "Laden";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32836] = "ExpressionCalculator.Toolbar.LoadJava";
+    t[32837] = "Laden";
     t[32838] = "Resources.Group.ID";
     t[32839] = "(Ressourcen id=%d)";
     t[32850] = "Transporters.Group.Edit.Dialog.Times.Mode.Loading.Expression";
@@ -14626,6 +14628,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34299] = "Es liegen weitere Einflussfaktoren f\u00fcr die Wartezeittoleranzen vor. Gesch\u00e4tze Parameter";
     t[34302] = "Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto";
     t[34303] = "Automatisch erstellen";
+    t[34308] = "SettingsDialog.JDK.Info";
+    t[34309] = "Empfohlene Download-Adresse f\u00fcr Java-Laufzeitumgebungen";
     t[34310] = "Optimizer.Tab.Target.Value.Range.InvalidRange.LowerBound";
     t[34311] = "Der angegebene Wert f\u00fcr die untere Grenze des Zielbereichs ist ung\u00fcltig. Es muss eine Zahl angegeben werden.";
     t[34314] = "Surface.TankSensor.XML.Threshold.Direction.Down";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37497] = "L\u00f6schen";
     t[37498] = "ParameterCompare.Settings.Input.Mode.XML.Info";
     t[37499] = "Aktueller Wert des XML-Elements: %s";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37500] = "Surface.SubConnect.FromID.Small";
     t[37501] = "von id";
     t[37502] = "ExpressionBuilder.SimulationCharacteristics.ClientData.TransferTime";
     t[37503] = "Bisherige Transferzeit";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37504] = "Optimizer.Tab.ControlVariables.MoveUp.Hint";
     t[37505] = "Verschiebt die aktuelle Kontrollvariable um eine Position nach oben in der Liste";
     t[37510] = "Surface.ExpressionTableModel.MoveDown";

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 19:29+0200\n"
+"POT-Creation-Date: 2020-04-30 19:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11566,6 +11566,12 @@ msgstr "The size for saving images has to be an interger number between 50 and 5
 
 msgid "SettingsDialog.ImageResolution.Invalid.Title"
 msgstr "Invalid image size entered"
+
+msgid "SettingsDialog.JDK.Info"
+msgstr "Recommended download address for Java runtime environments"
+
+msgid "SettingsDialog.JDK.Link"
+msgstr "https://adoptopenjdk.net/"
 
 msgid "SettingsDialog.JSEngine"
 msgstr "Preferred Javascript engine"
