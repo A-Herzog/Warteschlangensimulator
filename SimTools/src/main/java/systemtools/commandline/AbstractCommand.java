@@ -82,8 +82,8 @@ public abstract class AbstractCommand {
 
 	/**
 	 * Prüft, ob die angegebene Parameteranzahl korrekt ist und generiert ggf. eine passende Fehlermeldung.
-	 * @param min	Minimale Anzahl an weiteren Parmetern (nach dem Befehls-Parameter)
-	 * @param max	Maximale Anzahl an weiteren Parmetern (nach dem Befehls-Parameter)
+	 * @param min	Minimale Anzahl an weiteren Parametern (nach dem Befehls-Parameter)
+	 * @param max	Maximale Anzahl an weiteren Parametern (nach dem Befehls-Parameter)
 	 * @param additionalArguments	Übergebene weitere Parameter
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung als String.
 	 */
@@ -117,7 +117,7 @@ public abstract class AbstractCommand {
 
 	/**
 	 * Prüft, ob die angegebene Parameteranzahl korrekt ist und generiert ggf. eine passende Fehlermeldung.
-	 * @param count	Geforderte Anzahl an weiteren Parmetern (nach dem Befehls-Parameter)
+	 * @param count	Geforderte Anzahl an weiteren Parametern (nach dem Befehls-Parameter)
 	 * @param additionalArguments	Übergebene weitere Parameter
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung als String.
 	 */
