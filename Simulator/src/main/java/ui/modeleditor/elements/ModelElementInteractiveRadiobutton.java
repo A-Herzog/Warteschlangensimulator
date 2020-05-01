@@ -69,6 +69,7 @@ public class ModelElementInteractiveRadiobutton extends ModelElementPosition imp
 	 */
 	public ModelElementInteractiveRadiobutton(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(0,0),Shapes.ShapeType.SHAPE_RECTANGLE);
+		useSizeOnCompare=false;
 		setName(Language.tr("Surface.InteractiveRadiobutton.DefaultText"));
 		variable="";
 		valueChecked=1;
