@@ -212,7 +212,7 @@
       <ModelElementConnection Element1="13" Element2="8" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementRectangle id="33">
-      <ModelElementName>Callcenter-System</ModelElementName>
+      <ModelElementName>Call center system</ModelElementName>
       <ModelElementSize h="500" w="500" x="650" y="250"/>
       <ModelElementLineWidth>5</ModelElementLineWidth>
       <ModelElementColor>0,0,255</ModelElementColor>
