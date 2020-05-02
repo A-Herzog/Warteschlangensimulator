@@ -95,6 +95,8 @@ public class RunElementDecideByScriptData extends RunElementData {
 		if (!jsRunner.getLastSuccess()) {
 			/* Logging */
 			if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.DecideByScript"),String.format(Language.tr("Simulation.Log.DecideByScript.ErrorScript"),station.name));
+			/* Evtl. Abbruch der Simulation */
+			if (simData.runModel.canelSimulationOnScriptError) simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.DecideByScript.ErrorScript"),station.name)+" "+result);
 			return 0;
 		} else {
 			if (jsRunner.isOutputDouble()) return (int)FastMath.round(jsRunner.getOutputDouble());
@@ -103,6 +105,8 @@ public class RunElementDecideByScriptData extends RunElementData {
 			if (D==null) {
 				/* Logging */
 				if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.DecideByScript"),String.format(Language.tr("Simulation.Log.DecideByScript.ErrorNoNumber"),station.name,result));
+				/* Evtl. Abbruch der Simulation */
+				if (simData.runModel.canelSimulationOnScriptError) simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.DecideByScript.ErrorNoNumber"),station.name,result));
 				return 0;
 			}
 			return (int)FastMath.round(D);
@@ -115,6 +119,8 @@ public class RunElementDecideByScriptData extends RunElementData {
 		if (javaRunner.getStatus()!=DynamicStatus.OK) {
 			/* Logging */
 			if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.DecideByScript"),String.format(Language.tr("Simulation.Log.DecideByScript.ErrorScript"),station.name)+"\n"+DynamicFactory.getLongStatusText(javaRunner));
+			/* Evtl. Abbruch der Simulation */
+			if (simData.runModel.canelSimulationOnScriptError) simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.DecideByScript.ErrorScript"),station.name)+"\n"+DynamicFactory.getLongStatusText(javaRunner));
 			return 0;
 		} else {
 			output.setLength(0);
@@ -124,6 +130,8 @@ public class RunElementDecideByScriptData extends RunElementData {
 			if (D==null) {
 				/* Logging */
 				if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.DecideByScript"),String.format(Language.tr("Simulation.Log.DecideByScript.ErrorNoNumber"),station.name,result));
+				/* Evtl. Abbruch der Simulation */
+				if (simData.runModel.canelSimulationOnScriptError) simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.DecideByScript.ErrorNoNumber"),station.name,result));
 				return 0;
 			}
 			return (int)FastMath.round(D);

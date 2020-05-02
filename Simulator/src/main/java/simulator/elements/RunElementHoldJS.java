@@ -164,6 +164,10 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 					JSRunSimulationData jsRunner=data.jsRunner;
 					jsRunner.setSimulationData(simData,data.waitingClients);
 					final String result=jsRunner.runCompiled();
+					if (!jsRunner.getLastSuccess() && simData.runModel.canelSimulationOnScriptError) {
+						simData.doEmergencyShutDown(result);
+						return false;
+					}
 					logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
 					final boolean[] release=jsRunner.getSimulationDataClients(); /* Achtung: Release kann länger sein als das Kunden-Array ... */
 					final int size=data.waitingClients.size(); /* ... daher nehmen wir die Länge des Kunden-Arrays als Referenz. */
@@ -177,7 +181,10 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 					final DynamicRunner javaRunner=data.javaRunner;
 					javaRunner.parameter.clients.setClients(data.waitingClients);
 					final Object result=javaRunner.run();
-					if (javaRunner.getStatus()!=DynamicStatus.OK) simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+					if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.canelSimulationOnScriptError) {
+						simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+						return false;
+					}
 					logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
 					final boolean[] release=javaRunner.parameter.clients.getSimulationData(); /* Achtung: Release kann länger sein als das Kunden-Array ... */
 					final int size=data.waitingClients.size(); /* ... daher nehmen wir die Länge des Kunden-Arrays als Referenz. */

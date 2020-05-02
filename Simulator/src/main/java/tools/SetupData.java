@@ -582,6 +582,11 @@ public class SetupData extends SetupBase {
 	public String jsEngine;
 
 	/**
+	 * Simulation bei einem Scripting-Fehler abbrechen
+	 */
+	public boolean canelSimulationOnScriptError;
+
+	/**
 	 * Wie soll beim Laden von Modellen mit potentiell sicherheitskritischen Elementen verfahren werden?
 	 */
 	public ModelSecurity modelSecurity;
@@ -787,6 +792,7 @@ public class SetupData extends SetupBase {
 		customExcelColName="";
 		javaJDKPath="";
 		jsEngine="";
+		canelSimulationOnScriptError=true;
 		modelSecurity=ModelSecurity.ASK;
 		notifyMode=NotifyMode.LONGRUN;
 		useProxy=false;
@@ -1318,6 +1324,11 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("canelsimulationonscripterror")) {
+				canelSimulationOnScriptError=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
 			if (name.equals("modelsecurity")) {
 				final String text=e.getTextContent().toLowerCase();
 				if (text.equals("allowall")) {modelSecurity=ModelSecurity.ALLOWALL; continue;}
@@ -1756,6 +1767,11 @@ public class SetupData extends SetupBase {
 		if (!jsEngine.isEmpty())  {
 			root.appendChild(node=doc.createElement("jsEngine"));
 			node.setTextContent(jsEngine);
+		}
+
+		if (!canelSimulationOnScriptError) {
+			root.appendChild(node=doc.createElement("canelSimulationOnScriptError"));
+			node.setTextContent("0");
 		}
 
 		if (modelSecurity!=ModelSecurity.ASK) {

@@ -515,11 +515,16 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		if (jsRunner!=null) {
 			jsRunner.setSimulationDataNoClient(simData);
 			result=jsRunner.runCompiled();
+			if (!jsRunner.getLastSuccess() && simData.runModel.canelSimulationOnScriptError) {
+				simData.doEmergencyShutDown(result);
+			}
 		}
 		if (javaRunner!=null) {
 			animationOutput.setLength(0);
 			javaRunner.run();
-			if (javaRunner.getStatus()!=DynamicStatus.OK) simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.canelSimulationOnScriptError) {
+				simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+			}
 			result=animationOutput.toString();
 		}
 

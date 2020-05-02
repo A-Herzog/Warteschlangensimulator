@@ -37,7 +37,7 @@ public enum JSEngineNames {
 	RHINO("Rhino"),
 
 	/**
-	 * Nashorn-Engine des JDK (in Zukunft evtl. nicht mehr unterstützt; scnell)
+	 * Nashorn-Engine des JDK (in Zukunft nicht mehr unterstützt; schnell)
 	 */
 	NASHORN("Nashorn"),
 

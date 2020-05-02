@@ -109,6 +109,7 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox highPriority;
 	private final JCheckBox useNUMAMode;
 	private final JComboBox<String> jsEngine;
+	private final JCheckBox canelSimulationOnScriptError;
 	private final JCheckBox serverUse;
 	private final JTextField serverName;
 	private final SpinnerModel serverPort;
@@ -388,6 +389,10 @@ public final class SetupDialog extends BaseDialog {
 		button.setToolTipText(Language.tr("SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort"));
 		button.addActionListener(e->MsgBox.info(this,Language.tr("SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort"),Language.tr("SettingsDialog.Tabs.Simulation.UseNUMA.InfoLong")));
 
+		mainarea.add(Box.createVerticalStrut(15));
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.Performance.Scripting")+"</b></body></html>"));
+
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.JSEngine")+":"));
 		p.add(jsEngine=new JComboBox<String>(new String[] {
@@ -403,6 +408,9 @@ public final class SetupDialog extends BaseDialog {
 				Images.SETUP_ENGINE_GRAAL
 		}));
 		label.setLabelFor(jsEngine);
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(canelSimulationOnScriptError=new JCheckBox(Language.tr("SettingsDialog.Tabs.Performance.CanelSimulationOnScriptError")));
 
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -807,6 +815,7 @@ public final class SetupDialog extends BaseDialog {
 		highPriority.setSelected(setup.highPriority);
 		useNUMAMode.setSelected(setup.useNUMAMode);
 		JSEngineNames engine=JSEngineNames.fromName(setup.jsEngine);
+		canelSimulationOnScriptError.setSelected(setup.canelSimulationOnScriptError);
 		if (engine==null) engine=JSEngineNames.DEFAULT;
 		switch (engine) {
 		case DEFAULT: jsEngine.setSelectedIndex(0); break;
@@ -1022,6 +1031,7 @@ public final class SetupDialog extends BaseDialog {
 		case 2: setup.jsEngine=JSEngineNames.RHINO.name; break;
 		case 3: setup.jsEngine=JSEngineNames.GRAALJSNative.name; break;
 		}
+		setup.canelSimulationOnScriptError=canelSimulationOnScriptError.isSelected();
 
 		setup.serverUse=serverUse.isSelected();
 		final StringBuilder sb=new StringBuilder();
@@ -1206,6 +1216,7 @@ public final class SetupDialog extends BaseDialog {
 			highPriority.setSelected(false);
 			useNUMAMode.setSelected(false);
 			jsEngine.setSelectedIndex(0);
+			canelSimulationOnScriptError.setSelected(true);
 			serverPort.setValue(8183);
 			serverUse.setSelected(false);
 			break;

@@ -35,6 +35,7 @@ import simulator.simparser.ExpressionEval;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import simulator.statistics.Statistics;
 import simulator.statistics.Statistics.CorrelationMode;
+import tools.SetupData;
 import ui.modeleditor.ModelSequence;
 import ui.modeleditor.ModelSequenceStep;
 import ui.modeleditor.coreelements.ModelElement;
@@ -259,6 +260,11 @@ public class RunModel {
 	public boolean recordClientPaths;
 
 	/**
+	 * Simulation bei einem Scripting-Fehler abbrechen
+	 */
+	public boolean canelSimulationOnScriptError;
+
+	/**
 	 * Ein <code>RunModel</code> kann nicht direkt erzeugt werden, sondern es kann nur ein <code>EditModel</code>
 	 * mittels der Funktion <code>getRunModel</code> in ein <code>RunModel</code> umgeformt werden. Dabei wird das
 	 * Modell auf Konsistenz geprüft und alle notwendigen Verknüpfungen werden hergestellt.
@@ -436,6 +442,9 @@ public class RunModel {
 		/* Aufzeichnung der Kundenbewegungen */
 		runModel.recordStationTransitions=editModel.recordStationTransitions;
 		runModel.recordClientPaths=editModel.recordClientPaths;
+
+		/* Scripting */
+		runModel.canelSimulationOnScriptError=SetupData.getSetup().canelSimulationOnScriptError;
 
 		return null;
 	}

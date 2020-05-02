@@ -404,12 +404,18 @@ public class RunElementActionRecord {
 				if (simData.logging!=null && (simData.logging instanceof CallbackLoggerWithJS)) {
 					((CallbackLoggerWithJS)simData.logging).logJS(simData.currentTime,stationLogName,stationLogColor,script,result);
 				}
+				if (!jsRunner.getLastSuccess() && simData.runModel.canelSimulationOnScriptError) {
+					simData.doEmergencyShutDown(result);
+				}
 			}
 			if (javaRunner!=null) {
 				final Object result=javaRunner.run();
 				if (javaRunner.getStatus()!=DynamicStatus.OK) simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
 				if (simData.logging!=null && (simData.logging instanceof CallbackLoggerWithJS)) {
 					((CallbackLoggerWithJS)simData.logging).logJS(simData.currentTime,stationLogName,stationLogColor,script,(result==null)?"":result.toString());
+				}
+				if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.canelSimulationOnScriptError) {
+					simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
 				}
 			}
 			break;

@@ -107,6 +107,10 @@ public class RunElementSetJS extends RunElementPassThrough {
 			final JSRunSimulationData jsRunner=data.jsRunner;
 			jsRunner.setSimulationData(simData,client);
 			final String result=jsRunner.runCompiled();
+			if (!jsRunner.getLastSuccess() && simData.runModel.canelSimulationOnScriptError) {
+				simData.doEmergencyShutDown(result);
+				return;
+			}
 			logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
 		}
 		if (data.javaRunner!=null) {
@@ -114,7 +118,10 @@ public class RunElementSetJS extends RunElementPassThrough {
 			final DynamicRunner javaRunner=data.javaRunner;
 			javaRunner.parameter.client.setClient(client);
 			final Object result=javaRunner.run();
-			if (javaRunner.getStatus()!=DynamicStatus.OK) simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.canelSimulationOnScriptError) {
+				simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
+				return;
+			}
 			logJS(simData,data.script,result); /* Immer ausführen; Entscheidung Erfassen ja/nein erfolgt in logJS */
 		}
 
