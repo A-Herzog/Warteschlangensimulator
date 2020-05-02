@@ -320,9 +320,11 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		if (update==null) updateTable(); else update.run();
 	}
 
-	private void commandEdit(final ParameterCompareSetupModel simModel) {
-		if (!editModel(simModel)) return;
+	private boolean commandEdit(final ParameterCompareSetupModel simModel, final int rowIndex) {
+		if (!editModel(simModel)) return false;
+		panelCache.remove(rowIndex);
 		if (update==null) updateTable(); else update.run();
+		return true;
 	}
 
 	private void commandDelete(final int index, final ParameterCompareSetupModel simModel) {
@@ -440,7 +442,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			toolbar.setFloatable(false);
 			add(toolbar);
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.EditModel.Hint"),Images.GENERAL_SETUP.getIcon(),()->commandEdit(panelModel)));
+			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.EditModel.Hint"),Images.GENERAL_SETUP.getIcon(),()->commandEdit(panelModel,rowIndex)));
 			buttons[0]=b;
 
 			toolbar.add(getButton("",(panelModel==null)?Language.tr("ParameterCompare.Table.DeleteModel.HintAll"):Language.tr("ParameterCompare.Table.DeleteModel.Hint"),Images.EDIT_DELETE.getIcon(),()->commandDelete(rowIndex,model)));
