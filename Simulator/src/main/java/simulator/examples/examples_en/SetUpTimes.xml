@@ -26,7 +26,8 @@
     <ModelElementDecideJS id="4">
       <ModelElementSize h="50" w="100" x="1200" y="200"/>
       <ModelElementDecideScript>var type=Simulation.calc("ClientData(1)");
-var mode=Simulation.calc("Mode");
+var mode=parseInt(Simulation.calc("Mode"));
+var exit;
 
 switch (mode) {
   case 0:

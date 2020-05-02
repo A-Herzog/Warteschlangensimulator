@@ -26,7 +26,8 @@
     <ModellElementVerzweigenJS id="4">
       <ModellElementGroesse h="50" w="100" x="1200" y="200"/>
       <ModellElementVerzweigenSkript>var type=Simulation.calc("ClientData(1)");
-var modus=Simulation.calc("Modus");
+var modus=parseInt(Simulation.calc("Modus"));
+var ausgang;
 
 switch (modus) {
   case 0:
