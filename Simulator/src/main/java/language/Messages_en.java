@@ -10496,8 +10496,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24443] = "Maximum residence time";
     t[24448] = "SimulationServer.Setup.LimitThreadCount";
     t[24449] = "Limit requests";
-    t[24450] = "Statistics.Autokorrelation.ModeByClients";
-    t[24451] = "Waiting times by client types";
+    t[24450] = "FileType.LaTeX";
+    t[24451] = "LaTeX files";
     t[24456] = "Surface.DecideJS.XML.Script.Javascript";
     t[24457] = "Javascript";
     t[24458] = "Color.FF8C00";
@@ -12560,6 +12560,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29327] = "%s-%d: down time after number of served clients starts at %s, duration: %s";
     t[29330] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution,DensityInfo";
     t[29331] = "<p>Calculates the value of the density of the uniform distribution at the location specified as the first parameter and the range [a;b] specified as second and third parameters.</p>\n<p>Example: <tt>UniformDist(2.5;2;4;0)</tt> returns 0.5.</p>";
+    t[29334] = "Statistics.Autokorrelation.ModeByClients";
+    t[29335] = "Waiting times by client types";
     t[29336] = "Surface.XML.Transporter.FailureByNumber";
     t[29337] = "FailureAfterNumberOfClients";
     t[29344] = "UserTemplates.TemplatesDialog.Delete.ConfirmInfoNo";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32817] = "Dou you really want to delete the selected action?";
     t[32822] = "Optimizer.XML.Kernel";
     t[32823] = "OptimizerKernel";
-    t[32824] = "Animation.IconDialog.Single.Icon.Error.NoIcon";
-    t[32825] = "No image has been selected.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32824] = "Animation.IconDialog.Single.Icon.Error.NoIcon";
+    t[32825] = "No image has been selected.";
     t[32826] = "Editor.DialogBase.LineWidth.No";
     t[32827] = "no line";
     t[32832] = "Surface.PopupMenu.QuickFix.Analog.SetMaxValue";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37483] = "<p>Returns the variation of the number of busy transporters in the specified transporter group.</p>";
     t[37490] = "ParameterCompare.Select.All";
     t[37491] = "Select all";
-    t[37492] = "Optimizer.Prepare.Info.ParameterCompare";
-    t[37493] = "Please wait while the parameter series is prepared...";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37492] = "Optimizer.Prepare.Info.ParameterCompare";
+    t[37493] = "Please wait while the parameter series is prepared...";
     t[37496] = "Editor.Delete";
     t[37497] = "Delete";
     t[37498] = "ParameterCompare.Settings.Input.Mode.XML.Info";

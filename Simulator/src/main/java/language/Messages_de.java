@@ -10496,8 +10496,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24443] = "Maximale Verweilzeit";
     t[24448] = "SimulationServer.Setup.LimitThreadCount";
     t[24449] = "Anfragen limitieren";
-    t[24450] = "Statistics.Autokorrelation.ModeByClients";
-    t[24451] = "Wartezeiten nach Kundentypen";
+    t[24450] = "FileType.LaTeX";
+    t[24451] = "LaTeX-Dateien";
     t[24456] = "Surface.DecideJS.XML.Script.Javascript";
     t[24457] = "Javascript";
     t[24458] = "Color.FF8C00";
@@ -12560,6 +12560,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29327] = "%s-%d: Pause nach Anzahl an bedienten Kunden beginnt bei %s, Dauer: %s";
     t[29330] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution,DensityInfo";
     t[29331] = "<p>Berechnet den Wert der Dichte der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(2.5;2;4;0)</tt> liefert 0,5.</p>";
+    t[29334] = "Statistics.Autokorrelation.ModeByClients";
+    t[29335] = "Wartezeiten nach Kundentypen";
     t[29336] = "Surface.XML.Transporter.FailureByNumber";
     t[29337] = "AusfallNachKundenanzahl";
     t[29344] = "UserTemplates.TemplatesDialog.Delete.ConfirmInfoNo";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32817] = "Soll die gew\u00e4hlte Aktion wirklich gel\u00f6scht werden?";
     t[32822] = "Optimizer.XML.Kernel";
     t[32823] = "OptimiererKern";
-    t[32824] = "Animation.IconDialog.Single.Icon.Error.NoIcon";
-    t[32825] = "Es wurde kein Bild ausgew\u00e4hlt.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32824] = "Animation.IconDialog.Single.Icon.Error.NoIcon";
+    t[32825] = "Es wurde kein Bild ausgew\u00e4hlt.";
     t[32826] = "Editor.DialogBase.LineWidth.No";
     t[32827] = "keine Linie";
     t[32832] = "Surface.PopupMenu.QuickFix.Analog.SetMaxValue";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37483] = "<p>Liefert die Varianz der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>";
     t[37490] = "ParameterCompare.Select.All";
     t[37491] = "Alle ausw\u00e4hlen";
-    t[37492] = "Optimizer.Prepare.Info.ParameterCompare";
-    t[37493] = "Bitte warten, das Modell wird f\u00fcr die Parameterreihe vorbereitet...";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37492] = "Optimizer.Prepare.Info.ParameterCompare";
+    t[37493] = "Bitte warten, das Modell wird f\u00fcr die Parameterreihe vorbereitet...";
     t[37496] = "Editor.Delete";
     t[37497] = "L\u00f6schen";
     t[37498] = "ParameterCompare.Settings.Input.Mode.XML.Info";

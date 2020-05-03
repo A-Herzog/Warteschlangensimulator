@@ -58,7 +58,7 @@ import systemtools.images.SimToolsImages;
  * Abstrakte Basisklasse zur Anzeige von {@link JFreeChart}-Diagrammen
  * @see JFreeChart
  * @author Alexander Herzog
- * @version 1.4
+ * @version 1.5
  */
 public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	/**
@@ -279,6 +279,26 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 
 			return nextImageNr+1;
 		}
+	}
+
+	@Override
+	public int saveLaTeX(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException {
+		if (chartPanel==null) firstChartRequest();
+
+		String s=mainFile.getName();
+		int i=s.lastIndexOf('.');
+		if (i>=0) s=s.substring(0,i);
+
+		File bildFile=new File(mainFile.getParent(),s+String.format("%03d",nextImageNr)+".png");
+
+		bw.write("\\begin{figure}[ht]"); bw.newLine();
+		bw.write("  \\parbox{\\textwidth}{\\includegraphics[width=\\textwidth]{"+bildFile.getName()+"}}"); bw.newLine();
+		bw.write("\\end{figure}"); bw.newLine();
+		bw.newLine();
+
+		new SaveImageThread(bildFile);
+
+		return nextImageNr+1;
 	}
 
 	@Override

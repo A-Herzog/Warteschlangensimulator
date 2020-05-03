@@ -79,7 +79,7 @@ import systemtools.images.SimToolsImages;
  * Diese Klasse stellt Implementierung des {@link StatisticViewer}-Interfaces zur
  * Anzeige von Text dar.
  * @author Alexander Herzog
- * @version 2.3
+ * @version 2.4
  */
 public abstract class StatisticViewerText implements StatisticViewer {
 	private JTextPane textPane=null;
@@ -404,6 +404,52 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return result.toString();
 	}
 
+	private String getLaTeXText() {
+		StringBuilder result=new StringBuilder();
+
+		boolean inParagraph=false;
+
+		for (int i=0;i<lines.size();i++) {
+			final String line=lines.get(i);
+			final int type=lineTypes.get(i);
+			final int indent=indentLevel.get(i);
+
+			if (type==-1) {
+				/* Absatzanfang */
+				if (inParagraph) result.append("\n");
+				result.append("\n");
+				inParagraph=true;
+				continue;
+			}
+			if (type==-2) {
+				/* Absatzende */
+				if (inParagraph) result.append("\n");
+				inParagraph=false;
+				continue;
+			}
+			if (type==0) {
+				/* Normaler Text */
+				if (!inParagraph) {result.append("\n"); inParagraph=true;}
+				for (int j=0;j<indent;j++) result.append("  ");
+				result.append(line.replace("%","\\%")+"\\\\\n");
+				continue;
+			}
+			if (type>0) {
+				/* Überschriften */
+				if (inParagraph) {result.append("\n"); inParagraph=false;}
+				switch (type) {
+				case 1: result.append("\\section{"+line+"}\n"); break;
+				case 2: result.append("\\subsection{"+line+"}\n"); break;
+				case 3: result.append("\\subsubsection{"+line+"}\n"); break;
+				default: result.append("\\paragraph{"+line+"}~\\\n"); break;
+				}
+				continue;
+			}
+		}
+
+		return result.toString();
+	}
+
 	private String getFullHTMLText() {
 		final StringBuilder result=new StringBuilder();
 
@@ -533,6 +579,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		final FileFilter txt=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTXT+" (*.txt)","txt");
 		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
 		final FileFilter md=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeMD+" (*.md)","md");
+		final FileFilter tex=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(odt);
 		fc.addChoosableFileFilter(rtf);
@@ -540,6 +587,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		fc.addChoosableFileFilter(pdf);
 		fc.addChoosableFileFilter(txt);
 		fc.addChoosableFileFilter(md);
+		fc.addChoosableFileFilter(tex);
 		fc.setFileFilter(docx);
 
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
@@ -554,6 +602,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 			if (fc.getFileFilter()==md) file=new File(file.getAbsoluteFile()+".md");
+			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
 		}
 
 		if (file.exists()) {
@@ -653,6 +702,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		if (filename.endsWith(".RTF")) text=getRTFText();
 		if (filename.endsWith(".HTML") || filename.endsWith(".HTM")) text=getFullHTMLText();
 		if (filename.endsWith(".MD")) text=getMarkdownText();
+		if (filename.endsWith(".TEX")) text=getLaTeXText();
 		if (text.isEmpty()) text=getPlainText();
 
 		return Table.saveTextToFile(text,file);
@@ -666,6 +716,18 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			reset();
 		} else {
 			bw.write(getHTMLText());
+		}
+		return nextImageNr;
+	}
+
+	@Override
+	public int saveLaTeX(final BufferedWriter bw, final File mainFile, final int nextImageNr) throws IOException {
+		if (textPane==null) {
+			buildText();
+			bw.write(getLaTeXText());
+			reset();
+		} else {
+			bw.write(getLaTeXText());
 		}
 		return nextImageNr;
 	}

@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -72,7 +73,7 @@ import mathtools.distribution.swing.CommonVariables;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.1
+ * @version 4.2
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -1605,7 +1606,7 @@ public final class Table implements Cloneable {
 		for (int i=0;i<lines;i++) {
 			final List<String> line=data.get(i);
 			for (int j=0;j<cols;j++) {
-				sb.append(line.get(j).replace(",","{,}"));
+				sb.append(line.get(j).replace(",","{,}").replace("%","\\%"));
 				if (j<cols-1) sb.append("&");
 			}
 			if (i<lines-1) sb.append("\\\\\n"); else sb.append("\n");
@@ -1695,6 +1696,117 @@ public final class Table implements Cloneable {
 		sb.append("E\n");
 
 		return sb.toString();
+	}
+
+	/**
+	 * Speichert den Inhalt der Tabelle in einem Stream.
+	 * @param stream	Ausgabestream
+	 * @param saveMode	Gibt an, ob der Stream als CSV-Datei, mit Tabulatoren getrennt oder als Excel-Datei gespeichert werden soll.
+	 * @return	Liefert <code>true</code> zurück, wenn die Tabelle erfolgreich gespeichert wurde.
+	 */
+	public boolean save(final OutputStream stream, SaveMode saveMode) {
+		if (stream==null) return false;
+
+		if (mode==IndexMode.COLS) {final Table t=transpose(); return t.save(stream,saveMode);}
+
+		if (saveMode==SaveMode.SAVEMODE_TABS) {
+			return saveTextToOutputStream(toStringTabs(),stream);
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_CSV) {
+			int maxCols=0;
+			for (int i=0;i<data.size();i++) maxCols=Math.max(maxCols,data.get(i).size());
+			return saveTextToOutputStream(toStringCSV(),stream);
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_CSVR) {
+			int maxCols=0;
+			for (int i=0;i<data.size();i++) maxCols=Math.max(maxCols,data.get(i).size());
+			return saveTextToOutputStream(toStringCSVR(),stream);
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_ODS) {
+			try (SpreadsheetDocument ods=SpreadsheetDocument.newSpreadsheetDocument()) {
+				final org.odftoolkit.simple.table.Table table;
+				if (ods.getTableList().size()==0) {
+					table=ods.appendSheet(TableFileTableName);
+				} else {
+					table=ods.getSheetByIndex(0);
+				}
+				saveToSheet(table);
+				ods.save(stream);
+			} catch (Exception ex) {return false;}
+			return true;
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_XLSX) {
+			try (Workbook wb=new XSSFWorkbook()) {
+				final Sheet sheet=wb.createSheet(TableFileTableName);
+				saveToSheet(wb,sheet);
+				wb.write(stream);
+			} catch (IOException e) {return false;}
+			return true;
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_XLS) {
+			try (Workbook wb=new HSSFWorkbook()) {
+				final Sheet sheet=wb.createSheet(TableFileTableName);
+				saveToSheet(wb,sheet);
+				wb.write(stream);
+			} catch (IOException e) {return false;}
+			return true;
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_DOCX) {
+			try (XWPFDocument doc=new XWPFDocument()) {
+				saveToDOCX(doc);
+				doc.write(stream);
+			} catch (IOException e) {return false;}
+			return true;
+		}
+
+		/*
+		if (saveMode==SaveMode.SAVEMODE_ODT) {
+			try(TextDocument odt=TextDocument.newTextDocument()) {
+				saveToODT(odt);
+				odt.save(file);
+			} catch (Exception e) {return false;}
+		}
+		 */
+
+		if (saveMode==SaveMode.SAVEMODE_HTML) {
+			final StringBuilder html=new StringBuilder();
+			html.append("<!DOCTYPE html>\n");
+			html.append("<html>\n");
+			html.append("<head>\n");
+			html.append("  <meta charset=\"utf-8\">\n");
+			html.append("  <title>"+ExportTitle+"</title>\n");
+			html.append("  <meta name=\"author\" content=\"Alexander Herzog\">\n");
+			html.append("  <style type=\"text/css\">\n");
+			html.append("    body {font-family: Verdana, Lucida, sans-serif;}\n");
+			html.append("    table {border: 1px solid black; border-collapse: collapse;}\n");
+			html.append("    td {border: 1px solid black; padding: 2px 5px;}\n");
+			html.append("  </style>\n");
+			html.append("</head>\n");
+			html.append("<body>\n");
+			html.append(saveToHTML());
+			html.append("</body>\n</html>\n");
+			return saveTextToOutputStream(html.toString(),stream);
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_TEX) {
+			return saveTextToOutputStream(saveToLaTeX(),stream);
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_DIF) {
+			return saveTextToOutputStream(saveToDIF(ExportTitle),stream);
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_SYLK) {
+			return saveTextToOutputStream(saveToSYLK(),stream);
+		}
+
+		return false;
 	}
 
 	/**
@@ -1842,6 +1954,21 @@ public final class Table implements Cloneable {
 	public static boolean saveTextToFile(final String text, final File file) {
 		try {
 			Files.write(file.toPath(),text.getBytes(StandardCharsets.UTF_8),StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Speichert einen Text in einem UTF-8 formatierten Stream
+	 * @param text	Zu speichernder Text
+	 * @param stream	Ausgabestream
+	 * @return	Gibt an, ob das Speichern erfolgreich war.
+	 */
+	public static boolean saveTextToOutputStream(final String text, final OutputStream stream) {
+		try {
+			stream.write(text.getBytes(StandardCharsets.UTF_8));
 		} catch (IOException e) {
 			return false;
 		}

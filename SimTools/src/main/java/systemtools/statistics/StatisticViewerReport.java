@@ -88,6 +88,11 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		FORMAT_HTML_JS,
 
 		/**
+		 * html-Datei, die eine interaktive js-basierende App bildet
+		 */
+		FORMAT_LATEX,
+
+		/**
 		 * Word-docx-Datei
 		 */
 		FORMAT_DOCX,
@@ -169,7 +174,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	@Override
 	public void copyToClipboard(Clipboard clipboard) {
 		final StringWriter st=new StringWriter();
-		writeReportToHTMLBufferedWriter(st,null,FileFormat.FORMAT_HTML_INLINE,false);
+		writeReportToBufferedWriter(st,null,FileFormat.FORMAT_HTML_INLINE,false);
 		clipboard.setContents(new StringSelection(st.toString()),null);
 	}
 
@@ -192,7 +197,10 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 
 	private enum InlineReportThreadStatus {WAITING, RUNNING, DONE}
 
+	private enum ExportMode {HTML, LATEX}
+
 	private class InlineReportThread extends Thread {
+		private final ExportMode mode;
 		private final StatisticViewer viewer;
 		private final String name;
 
@@ -200,8 +208,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 
 		public InlineReportThreadStatus status;
 
-		public InlineReportThread(ThreadGroup group, StatisticViewer viewer, String name) {
+		public InlineReportThread(final ExportMode mode, final ThreadGroup group, final StatisticViewer viewer, final String name) {
 			super(group,"Report "+name);
+			this.mode=mode;
 			this.viewer=viewer;
 			this.name=name;
 			status=InlineReportThreadStatus.WAITING;
@@ -219,10 +228,20 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 			final BufferedWriter bw=new BufferedWriter(st);
 
 			try {
-				bw.write("<h1>"+name+"</h1>");
-				bw.newLine();
-				viewer.saveHtml(bw,null,1,true);
-				bw.newLine();
+				switch (mode) {
+				case HTML:
+					bw.write("<h1>"+name+"</h1>");
+					bw.newLine();
+					viewer.saveHtml(bw,null,1,true);
+					bw.newLine();
+					break;
+				case LATEX:
+					bw.write("\\section{"+name+"}");
+					bw.newLine();
+					viewer.saveLaTeX(bw,null,1);
+					bw.newLine();
+					break;
+				}
 				bw.flush();
 			} catch (IOException e) {return;}
 
@@ -231,14 +250,29 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		}
 	}
 
-	private boolean writeReportNodesToBufferedWriterFile(final List<StatisticViewer> viewers, final List<String> names, final BufferedWriter bw, final File baseFileName) throws IOException {
+	private boolean writeReportNodesToBufferedWriterFile(final ExportMode mode, final List<StatisticViewer> viewers, final List<String> names, final BufferedWriter bw, final File baseFileName) throws IOException {
 		int nextImageNr=1;
 		for (int i=0;i<viewers.size();i++) {
 			if (i>0) bw.newLine();
-			bw.write("<h1>"+names.get(i)+"</h1>");
+			switch (mode) {
+			case HTML:
+				bw.write("<h1>"+names.get(i)+"</h1>");
+				break;
+			case LATEX:
+				bw.write("\\section{"+names.get(i)+"}");
+				break;
+			}
+
 			bw.newLine();
 
-			nextImageNr=viewers.get(i).saveHtml(bw,baseFileName,nextImageNr,false);
+			switch (mode) {
+			case HTML:
+				nextImageNr=viewers.get(i).saveHtml(bw,baseFileName,nextImageNr,false);
+				break;
+			case LATEX:
+				nextImageNr=viewers.get(i).saveLaTeX(bw,baseFileName,nextImageNr);
+				break;
+			}
 			bw.newLine();
 		}
 		return true;
@@ -249,7 +283,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	private List<String> buildInlineData(final List<StatisticViewer> viewers, final List<String> names) {
 		final ThreadGroup group=new ThreadGroup("Report");
 		final List<InlineReportThread> list=new ArrayList<>();
-		for (int i=0;i<viewers.size();i++) list.add(new InlineReportThread(group,viewers.get(i),names.get(i)));
+		for (int i=0;i<viewers.size();i++) list.add(new InlineReportThread(ExportMode.HTML,group,viewers.get(i),names.get(i)));
 
 		while (true) {
 			/* Threads starten */
@@ -392,6 +426,29 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		bw.newLine();
 	}
 
+	private void writeLaTeXHead(final BufferedWriter bw) throws IOException {
+		bw.write("\\documentclass{article}"); bw.newLine();
+		bw.newLine();
+		bw.write("\\usepackage[utf8]{inputenc}"); bw.newLine();
+		bw.write("\\usepackage[T1]{fontenc}"); bw.newLine();
+		bw.write("\\usepackage{lmodern}"); bw.newLine();
+		bw.write("\\usepackage[english]{babel}"); bw.newLine();
+		bw.write("\\usepackage{amssymb,amsmath,amsfonts}"); bw.newLine();
+		bw.write("\\usepackage{graphicx}"); bw.newLine();
+		bw.write("\\usepackage{float}"); bw.newLine();
+		bw.newLine();
+		bw.write("\\parindent0pt"); bw.newLine();
+		bw.newLine();
+		bw.write("\\begin{document}"); bw.newLine();
+		bw.newLine();
+	}
+
+	private void writeLaTeXFoot(final BufferedWriter bw) throws IOException {
+		bw.newLine();
+		bw.write("\\end{document}");
+		bw.newLine();
+	}
+
 	private static String[] addStyles=new String[] {
 			"body {margin: 0; padding: 0; height: 100%; width: 100%; position: absolute;}",
 			"h1.main {color: white; background-color: blue; margin: 0px; padding: 5px 25px;}",
@@ -410,21 +467,30 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	 */
 	public boolean writeReportHTMLApp(final OutputStream stream) {
 		try (OutputStreamWriter writer=new OutputStreamWriter(stream,StandardCharsets.UTF_8)) {
-			return writeReportToHTMLBufferedWriter(writer,null,FileFormat.FORMAT_HTML_JS,true);
+			return writeReportToBufferedWriter(writer,null,FileFormat.FORMAT_HTML_JS,true);
 		} catch (IOException e) {
 			return false;
 		}
 	}
 
-	private boolean writeReportToHTMLBufferedWriter(Writer writer, File baseFileName, FileFormat fileFormat, boolean exportAllItems) {
+	private boolean writeReportToBufferedWriter(Writer writer, File baseFileName, FileFormat fileFormat, boolean exportAllItems) {
 		if (table==null) getViewer(false);
 
 		try {
 			try (BufferedWriter bw=new BufferedWriter(writer)) {
-				if (fileFormat==FileFormat.FORMAT_HTML_JS) {
-					writeHTMLHead(bw,addStyles);
-				} else {
+				switch (fileFormat) {
+				case FORMAT_HTML:
+				case FORMAT_HTML_INLINE:
 					writeHTMLHead(bw,null);
+					break;
+				case FORMAT_HTML_JS:
+					writeHTMLHead(bw,addStyles);
+					break;
+				case FORMAT_LATEX:
+					writeLaTeXHead(bw);
+					break;
+				default:
+					break;
 				}
 
 				final boolean[] select=table.getSelected();
@@ -439,7 +505,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 
 				switch (fileFormat) {
 				case FORMAT_HTML:
-					if (!writeReportNodesToBufferedWriterFile(selectedViewers,selectedNames,bw,baseFileName)) return false;
+					if (!writeReportNodesToBufferedWriterFile(ExportMode.HTML,selectedViewers,selectedNames,bw,baseFileName)) return false;
 					break;
 				case FORMAT_HTML_INLINE:
 					if (!writeReportNodesToBufferedWriterInline(selectedViewers,selectedNames,bw)) return false;
@@ -447,11 +513,26 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 				case FORMAT_HTML_JS:
 					if (!writeReportNodesToBufferedWriterApp(modelName,selectedViewers,selectedNames,selectedFullPathes,bw)) return false;
 					break;
+				case FORMAT_LATEX:
+					if (!writeReportNodesToBufferedWriterFile(ExportMode.LATEX,selectedViewers,selectedNames,bw,baseFileName)) return false;
+					break;
 				default:
 					return false;
 				}
 
-				writeHTMLFoot(bw);
+				switch (fileFormat) {
+				case FORMAT_HTML:
+				case FORMAT_HTML_INLINE:
+				case FORMAT_HTML_JS:
+					writeHTMLFoot(bw);
+					break;
+				case FORMAT_LATEX:
+					writeLaTeXFoot(bw);
+					break;
+				default:
+					break;
+
+				}
 			}
 		} catch (IOException e) {return false;}
 		return true;
@@ -500,6 +581,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		if (name.endsWith(".docx")) return FileFormat.FORMAT_DOCX;
 		if (name.endsWith(".pdf")) return FileFormat.FORMAT_PDF;
 		if (name.endsWith(".html") || name.endsWith(".htm")) return FileFormat.FORMAT_HTML_INLINE;
+		if (name.endsWith(".tex")) return FileFormat.FORMAT_LATEX;
 
 		return null;
 	}
@@ -525,8 +607,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		case FORMAT_HTML:
 		case FORMAT_HTML_INLINE:
 		case FORMAT_HTML_JS:
+		case FORMAT_LATEX:
 			try (final OutputStreamWriter fw=new OutputStreamWriter(new FileOutputStream(file),StandardCharsets.UTF_8)) {
-				return writeReportToHTMLBufferedWriter(fw,file,fileFormat,exportAllItems);
+				return writeReportToBufferedWriter(fw,file,fileFormat,exportAllItems);
 			} catch (IOException e) {return false;}
 		case FORMAT_FROM_FILEEXTENSION:
 			return false; /* Sollte es an dieser Stelle nicht mehr geben. */
@@ -564,10 +647,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		FileFilter htmljs=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeHTMLJS+" (*.html, *.htm)","html","htm");
 		FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeDOCX+" (*.docx)","docx");
 		FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		FileFilter tex=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		fc.addChoosableFileFilter(html);
 		fc.addChoosableFileFilter(htmljs);
+		fc.addChoosableFileFilter(tex);
 
 		fc.setFileFilter(docx);
 
@@ -580,6 +665,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 			if (fc.getFileFilter()==htmljs) file=new File(file.getAbsoluteFile()+".html");
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
+			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
 		}
 
 		if (file.exists()) {
@@ -595,6 +681,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		if (file.getName().toLowerCase().endsWith(".pdf")) {
 			/* Export als PDF */
 			if (!save(owner,file,FileFormat.FORMAT_PDF,false)) MsgBox.error(owner,StatisticsBasePanel.writeErrorTitle,String.format(StatisticsBasePanel.writeErrorInfo,file.toString()));
+			return;
+		}
+
+		if (file.getName().toLowerCase().endsWith(".tex")) {
+			/* Export als LaTeX-Dokument */
+			if (!save(owner,file,FileFormat.FORMAT_LATEX,false)) MsgBox.error(owner,StatisticsBasePanel.writeErrorTitle,String.format(StatisticsBasePanel.writeErrorInfo,file.toString()));
 			return;
 		}
 

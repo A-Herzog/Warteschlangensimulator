@@ -22,6 +22,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.print.PrinterException;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -61,7 +62,7 @@ import systemtools.images.SimToolsImages;
  * Anzeige von Tabellen dar.
  * @author Alexander Herzog
  * @see StatisticViewer
- * @version 1.2
+ * @version 1.3
  */
 public class StatisticViewerTable implements StatisticViewer {
 	/**
@@ -432,6 +433,21 @@ public class StatisticViewerTable implements StatisticViewer {
 		for (int i=0;i<data.size();i++) saveLineToTable(bw,data.get(i));
 		bw.write("</table>");
 		bw.newLine();
+		return nextImageNr;
+	}
+
+	@Override
+	public int saveLaTeX(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException {
+		if (columnNames.isEmpty()) buildTable();
+
+		try (final ByteArrayOutputStream stream=new ByteArrayOutputStream()) {
+			toTable().save(stream,Table.SaveMode.SAVEMODE_TEX);
+			final byte[] b=stream.toByteArray();
+			char[] c=new char[b.length];
+			for (int i=0;i<b.length;i++) c[i]=(char)b[i];
+			bw.write(c);
+		}
+
 		return nextImageNr;
 	}
 

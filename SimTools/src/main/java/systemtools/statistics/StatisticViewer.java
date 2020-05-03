@@ -35,7 +35,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
  * innerhalb eines <code>StatisticsBasePanel</code> anzuzeigen.
  * @see StatisticsBasePanel
  * @author Alexander Herzog
- * @version 1.2
+ * @version 1.3
  */
 public interface StatisticViewer {
 	/**
@@ -181,6 +181,16 @@ public interface StatisticViewer {
 	 * @throws IOException	Die Exception wird ausgelöst, wenn die Dateiausgabe nicht durchgeführt werden konnte.
 	 */
 	int saveHtml(BufferedWriter bw, File mainFile, int nextImageNr, boolean imagesInline) throws IOException;
+
+	/**
+	 * Schreibt die Daten in ein LaTeX-Dokument
+	 * @param bw	Ausgabestream, der später zur LaTeX-Datei wird
+	 * @param mainFile	Name der Hauptdatei (zur Bestimmung der Namen von externen Bildern)
+	 * @param nextImageNr	Nummer für das nächste (externe) Bild
+	 * @return	Nummer des nächsten Bildes (entspricht <code>nextImageNr</code>, wenn kein Bild ausgegeben wurde)
+	 * @throws IOException	Die Exception wird ausgelöst, wenn die Dateiausgabe nicht durchgeführt werden konnte.
+	 */
+	int saveLaTeX(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException;
 
 	/**
 	 * Schreibt die Daten in ein docx-Dokument

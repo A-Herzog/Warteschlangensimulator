@@ -177,6 +177,18 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	}
 
 	@Override
+	public int saveLaTeX(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException {
+		if (textPane==null) initTextPane();
+
+		for (String line: infoText.split("\\n")) {
+			bw.write("% ");
+			bw.write(line);
+			bw.newLine();
+		}
+		return nextImageNr;
+	}
+
+	@Override
 	public boolean saveDOCX(XWPFDocument doc) {
 		doc.createParagraph().createRun().setText(infoText);
 		return true;
