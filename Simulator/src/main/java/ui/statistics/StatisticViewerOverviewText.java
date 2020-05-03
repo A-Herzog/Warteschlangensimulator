@@ -1153,7 +1153,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		beginParagraph();
 		addLine(Language.tr("Statistics.SystemData.SimulatedEvents")+": "+NumberTools.formatLong(statistics.simulationData.runEvents));
-		addLine(Language.tr("Statistics.SystemData.EventsPerSecond")+": "+NumberTools.formatLong(statistics.simulationData.runEvents*1000/statistics.simulationData.runTime));
+		if (statistics.simulationData.runTime>0) {
+			addLine(Language.tr("Statistics.SystemData.EventsPerSecond")+": "+NumberTools.formatLong(statistics.simulationData.runEvents*1000/statistics.simulationData.runTime));
+		}
 		double time=((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/statistics.simulationData.runEvents;
 		if (time>=1) {
 			addLine(Language.tr("Statistics.SystemData.TimePerEvent")+" (*): "+NumberTools.formatNumber(time,2)+" ms");
