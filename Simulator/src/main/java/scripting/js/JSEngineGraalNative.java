@@ -78,7 +78,8 @@ public class JSEngineGraalNative extends JSEngine {
 			if (classContext==null) return false;
 			final Method method=classContext.getMethod("newBuilder",String[].class);
 			if (method==null) return false;
-			builder=method.invoke(null,"js");
+			final Object obj=new String[] {"js"};
+			builder=method.invoke(null,obj);
 			if (builder==null) return false;
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)  {
 			return false;
