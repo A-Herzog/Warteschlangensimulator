@@ -558,7 +558,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			}
 		}
 
-		node.setAttribute(xmlNameSum,NumberTools.formatSystemNumber(getSum(),recycleStringBuilder)); // XXX
+		node.setAttribute(xmlNameSum,NumberTools.formatSystemNumber(getSum(),recycleStringBuilder));
 		node.setAttribute(xmlNameValues[0],NumberTools.formatSystemNumber(valueSum,recycleStringBuilder));
 		node.setAttribute(xmlNameValuesSquared[0],NumberTools.formatSystemNumber(valueSumSquared,recycleStringBuilder));
 		node.setAttribute(xmlNameMean,NumberTools.formatSystemNumber(getTimeMean(),recycleStringBuilder));
