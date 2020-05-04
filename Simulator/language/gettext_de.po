@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-03 17:13+0200\n"
+"POT-Creation-Date: 2020-05-04 13:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12178,6 +12178,9 @@ msgstr "In Station id=%d wurde kein Zählername für den Fall, dass keine Beding
 msgid "Simulation.Creator.HoldCondition"
 msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
+msgid "Simulation.Creator.HoldJSCondition"
+msgstr "Die zusätzliche Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
+
 msgid "Simulation.Creator.HoldMultiCondition"
 msgstr "Die %d. Übergangsbedingung \"%s\" von Element id=%d aus enthält an Position %d eine Fehler."
 
@@ -19948,6 +19951,15 @@ msgstr "ZeitabhaengigePruefungen"
 msgid "Surface.Hold.XML.Root"
 msgstr "ModellElementBedingung"
 
+msgid "Surface.HoldJS.Dialog.Condition"
+msgstr "Bedingung für Skriptausführung"
+
+msgid "Surface.HoldJS.Dialog.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.HoldJS.Dialog.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
 msgid "Surface.HoldJS.Dialog.Language.JavaError"
 msgstr "Java-Fehler"
 
@@ -19968,6 +19980,9 @@ msgstr "Bedingung (Skript)"
 
 msgid "Surface.HoldJS.Tooltip"
 msgstr "Blockiert die weitere Bewegung der Kunden bis eine skript-definierte Bedingung erfüllt ist."
+
+msgid "Surface.HoldJS.XML.AdditionalCondition"
+msgstr "ModellElementBedingungScriptBedingung"
 
 msgid "Surface.HoldJS.XML.Condition"
 msgstr "ModellElementBedingungScriptText;ModellElementBedingungJSText"

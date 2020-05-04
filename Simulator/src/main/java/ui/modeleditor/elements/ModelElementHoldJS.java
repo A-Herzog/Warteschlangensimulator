@@ -56,6 +56,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 		Java
 	}
 
+	private String condition;
 	private String script;
 	private ScriptMode mode;
 	private boolean useTimedChecks;
@@ -67,6 +68,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	 */
 	public ModelElementHoldJS(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
+		condition="";
 		script="";
 		mode=ScriptMode.Javascript;
 		useTimedChecks=false;
@@ -88,6 +90,22 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public String getToolTip() {
 		return Language.tr("Surface.HoldJS.Tooltip");
+	}
+
+	/**
+	 * Liefert die optionale zusätzliche Bedingung, um überhaupt eine Skriptausführung zu starten.
+	 * @return	Optionale zusätzliche Bedingung
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die optionale zusätzliche Bedingung, um überhaupt eine Skriptausführung zu starten, ein.
+	 * @param condition	Optionale zusätzliche Bedingung
+	 */
+	public void setCondition(String condition) {
+		this.condition=(condition==null)?"":condition;
 	}
 
 	/**
@@ -150,6 +168,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementHoldJS)) return false;
 
+		if (!((ModelElementHoldJS)element).condition.equalsIgnoreCase(condition)) return false;
 		if (!((ModelElementHoldJS)element).script.equalsIgnoreCase(script)) return false;
 		if (((ModelElementHoldJS)element).mode!=mode) return false;
 		if (((ModelElementHoldJS)element).useTimedChecks!=useTimedChecks) return false;
@@ -165,6 +184,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementHoldJS) {
+			condition=((ModelElementHoldJS)element).condition;
 			script=((ModelElementHoldJS)element).script;
 			mode=((ModelElementHoldJS)element).mode;
 			useTimedChecks=((ModelElementHoldJS)element).useTimedChecks;
@@ -301,8 +321,13 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 		super.addPropertiesDataToXML(doc,node);
 
 		Element sub;
-		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.HoldJS.XML.Condition")));
 
+		if (condition!=null && !condition.trim().isEmpty()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.HoldJS.XML.AdditionalCondition")));
+			sub.setTextContent(condition);
+		}
+
+		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.HoldJS.XML.Condition")));
 		switch (mode) {
 		case Java:
 			sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.Language"),Language.trPrimary("Surface.HoldJS.XML.Condition.Java"));
@@ -311,9 +336,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 			sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.Language"),Language.trPrimary("Surface.HoldJS.XML.Condition.Javascript"));
 			break;
 		}
-
 		if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.TimedChecks"),"1");
-
 		sub.setTextContent(script);
 	}
 
@@ -329,8 +352,13 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
 
+		if (Language.trAll("Surface.HoldJS.XML.AdditionalCondition",name)) {
+			condition=content;
+			return null;
+		}
+
 		if (Language.trAll("Surface.HoldJS.XML.Condition",name)) {
-			script=node.getTextContent();
+			script=content;
 
 			final String langName=Language.trAllAttribute("Surface.HoldJS.XML.Condition.Language",node);
 			if (Language.trAll("Surface.HoldJS.XML.Condition.Java",langName)) mode=ScriptMode.Java;

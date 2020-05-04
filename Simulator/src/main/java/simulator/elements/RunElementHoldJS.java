@@ -27,6 +27,7 @@ import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementHoldJS;
 import ui.modeleditor.elements.ModelElementSub;
@@ -37,6 +38,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementHoldJS
  */
 public class RunElementHoldJS extends RunElementPassThrough implements StateChangeListener, PickUpQueue {
+	private String condition;
 	private String script;
 	private ModelElementHoldJS.ScriptMode mode;
 	private boolean useTimedChecks;
@@ -58,6 +60,16 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		/* Auslaufende Kante */
 		final String edgeError=hold.buildEdgeOut(holdElement);
 		if (edgeError!=null) return edgeError;
+
+		/* Optionale Bedingung */
+		String condition=holdElement.getCondition();
+		if (condition==null || condition.trim().isEmpty()) {
+			hold.condition=null;
+		} else {
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldJSCondition"),condition,element.getId(),error+1);
+			hold.condition=condition;
+		}
 
 		/* Skript */
 		hold.script=holdElement.getScript();
@@ -92,7 +104,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		RunElementHoldJSData data;
 		data=(RunElementHoldJSData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementHoldJSData(this,script,mode,simData);
+			data=new RunElementHoldJSData(this,condition,script,mode,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -115,7 +127,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 			simData.runData.fireStateChangeNotify(simData);
 
 			/* Interesse an zeitabhängigen Prüfungen anmelden */
-			simData.runData.requestTimedChecks(simData,this);
+			if (useTimedChecks) simData.runData.requestTimedChecks(simData,this);
 		} finally {
 			data.queueLockedForPickUp=false;
 		}
@@ -135,7 +147,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		client.residenceTime+=waitingTime;
 
 		/* Kunden an Station in Statistik */
-		if (useTimedChecks) simData.runData.logClientLeavesStationQueue(simData,this,data,client);
+		simData.runData.logClientLeavesStationQueue(simData,this,data,client);
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Hold"),String.format(Language.tr("Simulation.Log.Hold.Info"),client.logInfo(simData),name));
@@ -153,6 +165,12 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 
 		/* Warten überhaupt Kunden? */
 		if (data.waitingClients.size()==0) return false;
+
+		/* Zusätzliche Bedingung prüfen */
+		if (data.condition!=null) {
+			simData.runData.setClientVariableValues(null);
+			if (!data.condition.eval(simData.runData.variableValues,simData,null)) return false;
+		}
 
 		data.queueLockedForPickUp=true;
 		try {

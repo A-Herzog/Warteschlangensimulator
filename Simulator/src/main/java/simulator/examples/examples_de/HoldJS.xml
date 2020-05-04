@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.0.0</ModellVersion>
+  <ModellVersion>4.4.0</ModellVersion>
   <ModellName>Javascript-gesteuerte Freigabe von Kunden</ModellName>
   <ModellBeschreibung>Es wird immer dann ein Kunden vom Typ A freigegeben,
 wenn sich an Station A höchstens noch ein Kunde befindet.
@@ -64,6 +64,7 @@ wenn sich an Station A höchstens noch ein Kunde befindet.
       <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementBedingungScriptBedingung>WIP(3)&lt;2 || WIP(4)&lt;2</ModellElementBedingungScriptBedingung>
       <ModellElementBedingungScriptText Sprache="Javascript">var WIP_A=Simulation.getWIP(3);
 var WIP_B=Simulation.getWIP(4);
 
@@ -101,13 +102,13 @@ for (var i=0;i&lt;count;i++) {
       <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="21">
-      <ModellElementGroesse h="24" w="376" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="384" x="50" y="50"/>
       <ModellElementTextzeile>Javascript-gesteuerte Freigabe von Kunden</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="43">
-      <ModellElementGroesse h="113" w="191" x="250" y="300"/>
+      <ModellElementGroesse h="114" w="199" x="250" y="300"/>
       <ModellElementTextzeile>Es wird immer dann ein Kunden</ModellElementTextzeile>
       <ModellElementTextzeile>vom Typ A freigegeben, wenn</ModellElementTextzeile>
       <ModellElementTextzeile>sich an Station A höchstens</ModellElementTextzeile>
@@ -126,4 +127,7 @@ for (var i=0;i&lt;count;i++) {
     <KundenDaten Farbe="255,0,0" Icon="user_red" Name="Kunden A"/>
     <KundenDaten Farbe="0,180,0" Icon="user_green" Name="Kunden B"/>
   </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
 </Modell>

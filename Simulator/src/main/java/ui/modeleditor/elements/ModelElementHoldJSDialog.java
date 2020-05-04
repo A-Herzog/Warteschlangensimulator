@@ -16,14 +16,22 @@
 package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.SystemColor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import language.Language;
+import simulator.simparser.ExpressionMultiEval;
+import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.script.ScriptEditorPanel;
@@ -38,6 +46,7 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 
 	private ScriptEditorPanel editor;
 	private JCheckBox useTimedChecks;
+	private JTextField condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -66,10 +75,24 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			}
 			final JPanel content=new JPanel(new BorderLayout());
 			content.add(editor=new ScriptEditorPanel(script,mode,readOnly,Language.tr("Surface.HoldJS.Dialog.Script"),element.getModel(),helpRunnable,ScriptEditorPanel.featuresClientStationHold),BorderLayout.CENTER);
-			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			content.add(line,BorderLayout.SOUTH);
+
+			final JPanel setup=new JPanel();
+			setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
+			content.add(setup,BorderLayout.SOUTH);
+
+			JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			setup.add(line);
 			line.add(useTimedChecks=new JCheckBox(Language.tr("Surface.HoldJS.Dialog.TimeBasedCheck"),((ModelElementHoldJS)element).isUseTimedChecks()));
 			useTimedChecks.setEnabled(!readOnly);
+
+			final Object[] obj=getInputPanel(Language.tr("Surface.HoldJS.Dialog.Condition")+":",((ModelElementHoldJS)element).getCondition());
+			setup.add(line=(JPanel)obj[0]);
+			condition=(JTextField)obj[1];
+			line.add(getExpressionEditButton(this,condition,true,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
+			condition.addKeyListener(new KeyAdapter() {
+				@Override public void keyReleased(KeyEvent e) {checkCondition(false);}
+			});
+
 			return content;
 		} else {
 			return new JPanel();
@@ -86,9 +109,30 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	private boolean checkCondition(final boolean showErrorMessage) {
+		final String text=condition.getText().trim();
+
+		if (text.isEmpty()) {
+			condition.setBackground(SystemColor.text);
+			return true;
+		}
+
+		final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+		if (error>=0) {
+			condition.setBackground(Color.red);
+			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.HoldJS.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.HoldJS.Dialog.Condition.Error.Info"),text,error+1));
+			return false;
+		}
+		condition.setBackground(SystemColor.text);
+		return true;
+	}
+
 	@Override
 	protected boolean checkData() {
-		return editor.checkData();
+		if (!editor.checkData()) return false;
+		if (!checkCondition(true)) return false;
+
+		return true;
 	}
 
 	/**
@@ -107,6 +151,7 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			case Java: ((ModelElementHoldJS)element).setMode(ModelElementHoldJS.ScriptMode.Java); break;
 			}
 			((ModelElementHoldJS)element).setUseTimedChecks(useTimedChecks.isSelected());
+			((ModelElementHoldJS)element).setCondition(condition.getText());
 		}
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-03 17:13+0200\n"
+"POT-Creation-Date: 2020-05-04 13:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12173,6 +12173,9 @@ msgstr "At station id=%d no counter name for the case that no condition is met w
 msgid "Simulation.Creator.HoldCondition"
 msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
+msgid "Simulation.Creator.HoldJSCondition"
+msgstr "The additional condition \"%s\" at element id=%d is invalid at character %d."
+
 msgid "Simulation.Creator.HoldMultiCondition"
 msgstr "The %d. branching condition \"%s\" at element id=%d is invalid at character %d."
 
@@ -19935,6 +19938,15 @@ msgstr "TimedChecks"
 msgid "Surface.Hold.XML.Root"
 msgstr "ModelElementHold"
 
+msgid "Surface.HoldJS.Dialog.Condition"
+msgstr "Condition for script executing"
+
+msgid "Surface.HoldJS.Dialog.Condition.Error.Info"
+msgstr "The condition \"%s\" is invalid at character %d."
+
+msgid "Surface.HoldJS.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
 msgid "Surface.HoldJS.Dialog.Language.JavaError"
 msgstr "Java error"
 
@@ -19955,6 +19967,9 @@ msgstr "Condition (Script)"
 
 msgid "Surface.HoldJS.Tooltip"
 msgstr "Holds clients until a script-based condition is met."
+
+msgid "Surface.HoldJS.XML.AdditionalCondition"
+msgstr "ModelElementHoldScriptAdditionalCondition"
 
 msgid "Surface.HoldJS.XML.Condition"
 msgstr "ModelElementHoldScriptCondition"

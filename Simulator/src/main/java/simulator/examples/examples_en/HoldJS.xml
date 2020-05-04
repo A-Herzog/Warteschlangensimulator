@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.0.0</ModelVersion>
+  <ModelVersion>4.4.0</ModelVersion>
   <ModelName>Releasing clients based on Javascript</ModelName>
   <ModelDescription>Each time there are no more than one clients at station A,
 a client of type A will be released.
@@ -68,6 +68,7 @@ a client of type A will be released.
       <ModelElementConnection Element="8" Type="In"/>
       <ModelElementConnection Element="9" Type="In"/>
       <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementHoldScriptAdditionalCondition>WIP(3)&lt;2 || WIP(4)&lt;2</ModelElementHoldScriptAdditionalCondition>
       <ModelElementHoldScriptCondition Language="Javascript"/>
     </ModelElementHoldScript>
     <ModelElementEdge id="8">
@@ -96,13 +97,13 @@ a client of type A will be released.
       <ModelElementConnection Element1="4" Element2="6" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="21">
-      <ModelElementSize h="24" w="326" x="50" y="50"/>
+      <ModelElementSize h="23" w="330" x="50" y="50"/>
       <ModelElementTextLine>Releasing clients based on Javascript</ModelElementTextLine>
       <ModelElementFontSize bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="43">
-      <ModelElementSize h="94" w="190" x="250" y="300"/>
+      <ModelElementSize h="95" w="198" x="250" y="300"/>
       <ModelElementTextLine>Each time there are no more</ModelElementTextLine>
       <ModelElementTextLine>than one clients at station A,</ModelElementTextLine>
       <ModelElementTextLine>a client of type A will be</ModelElementTextLine>
@@ -122,4 +123,7 @@ a client of type A will be released.
     <ClientData Color="255,0,0" Icon="user_red" Name="Kunden A"/>
     <ClientData Color="0,180,0" Icon="user_green" Name="Kunden B"/>
   </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
 </Model>

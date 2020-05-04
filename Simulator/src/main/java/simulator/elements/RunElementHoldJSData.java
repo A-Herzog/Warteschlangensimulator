@@ -27,6 +27,7 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.elements.ModelElementHoldJS;
 
 /**
@@ -36,6 +37,11 @@ import ui.modeleditor.elements.ModelElementHoldJS;
  * @see RunElementData
  */
 public class RunElementHoldJSData extends RunElementData {
+	/**
+	 * Optionale vorab zu prüfende Bedingung. Nur wenn diese Erfüllt ist, startet die Skriptausführung.
+	 */
+	public final ExpressionMultiEval condition;
+
 	/**
 	 * Das auszuführende Skript.
 	 */
@@ -73,12 +79,21 @@ public class RunElementHoldJSData extends RunElementData {
 	/**
 	 * Konstruktor der Klasse <code>RunElementHoldJSData</code>
 	 * @param station	Station zu diesem Datenelement
+	 * @param condition	Optionale vorab zu prüfende Bedingung. Nur wenn diese Erfüllt ist, startet die Skriptausführung.
 	 * @param script	Bei der Verzögerung von Kunden auszuführendes Skript
 	 * @param mode	Skriptsprache
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementHoldJSData(final RunElement station, final String script, final ModelElementHoldJS.ScriptMode mode, final SimulationData simData) {
+	public RunElementHoldJSData(final RunElement station, final String condition, final String script, final ModelElementHoldJS.ScriptMode mode, final SimulationData simData) {
 		super(station);
+
+		if (condition==null) {
+			this.condition=null;
+		} else {
+			this.condition=new ExpressionMultiEval(simData.runModel.variableNames);
+			this.condition.parse(condition);
+		}
+
 		this.script=script;
 		queueLockedForPickUp=false;
 		waitingClients=new ArrayList<>();
