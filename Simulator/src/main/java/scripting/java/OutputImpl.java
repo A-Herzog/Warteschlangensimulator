@@ -45,6 +45,8 @@ public class OutputImpl implements OutputInterface {
 	private boolean isOutputPlainDouble=true;
 	private double outputPlainDouble;
 
+	private StringBuilder outputTemp;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param output	Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen
@@ -154,17 +156,19 @@ public class OutputImpl implements OutputInterface {
 				addOutputMain(TimeTools.formatExactTime(value));
 			}
 		} else {
+			if (outputTemp==null) outputTemp=new StringBuilder();
+
 			if (systemNumbers) {
 				if (percent) {
-					addOutputMain(NumberTools.formatSystemNumber(value*100)+"%");
+					addOutputMain(NumberTools.formatSystemNumber(value*100,outputTemp)+"%");
 				} else {
-					addOutputMain(NumberTools.formatSystemNumber(value));
+					addOutputMain(NumberTools.formatSystemNumber(value,outputTemp));
 				}
 			} else {
 				if (percent) {
-					addOutputMain(NumberTools.formatNumberMax(value*100)+"%");
+					addOutputMain(NumberTools.formatNumberMax(value*100,outputTemp)+"%");
 				} else {
-					addOutputMain(NumberTools.formatNumberMax(value));
+					addOutputMain(NumberTools.formatNumberMax(value,outputTemp));
 				}
 			}
 		}

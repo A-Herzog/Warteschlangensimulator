@@ -387,6 +387,36 @@ public final class NumberTools {
 	}
 
 	/**
+	 * Wandelt eine Fließkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform).
+	 * Es wird die maximal mögliche Anzahl an Nachkommastellen ausgegeben.
+	 * @param d Umzuwandelnde Zahl
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
+	 * @return Zahl als Zeichenkette
+	 */
+	public static String formatNumberMax(double d, final StringBuilder recycleStringBuilder) {
+		if (Math.abs(d)<10E-16) return nullString;
+
+		if (d%1==0.0) {
+			if (d>=0) {
+				if (d<=1_000_000_000) return formatLongNoGrouping(Math.round(d),recycleStringBuilder);
+			} else {
+				if (d>-1_000_000_000) return formatLongNoGrouping(Math.round(d),recycleStringBuilder);
+			}
+		}
+
+		boolean minus=false;
+		if (d<0) {minus=true; d=-d;}
+		String s=String.format(activeLocale,formatFloat14Digits,d);
+		if (s.contains(activeSeparatorString)) {
+			int len=s.length();
+			while (s.charAt(len-1)=='0') len--;
+			if (s.charAt(len-1)==activeSeparator) len--;
+			if (len<s.length()) s=s.substring(0,len);
+		}
+		return minus?("-"+s):s;
+	}
+
+	/**
 	 * Wandelt eine Fließkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
 	 * @param d Umzuwandelnde Zahl
 	 * @param n Anzahl an Nachkommastellen
