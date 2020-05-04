@@ -871,6 +871,7 @@
 <xs:element name="ModellElementBedingungScript"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModellElementBedingungScriptText"/>
+	<xs:element name="ModellElementBedingungScriptBedingung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -2839,6 +2840,7 @@
 <xs:element name="ModelElementHoldScript"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModelElementHoldScriptCondition"/>
+	<xs:element name="ModelElementHoldScriptAdditionalCondition" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

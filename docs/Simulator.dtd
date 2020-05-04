@@ -618,7 +618,7 @@
   geschuetzt	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedingungScript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungScriptText)*>
+<!ELEMENT ModellElementBedingungScript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungScriptText | ModellElementBedingungScriptBedingung)*>
 <!ATTLIST ModellElementBedingungScript
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -628,6 +628,7 @@
   Sprache					CDATA	#IMPLIED
   ZeitabhaengigePruefungen	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementBedingungScriptBedingung (#PCDATA)>
 
 <!ELEMENT ModellElementSignal (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementSignal
@@ -2438,7 +2439,7 @@
   protected	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementHoldScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldScriptCondition)*>
+<!ELEMENT ModelElementHoldScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldScriptCondition | ModelElementHoldScriptAdditionalCondition)*>
 <!ATTLIST ModelElementHoldScript
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -2448,6 +2449,7 @@
   Language		CDATA	#IMPLIED
   TimedChecks	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementHoldScriptAdditionalCondition (#PCDATA)>
 
 <!ELEMENT ModelElementSignal (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementSignal
