@@ -399,7 +399,7 @@ public class StatisticsDataPerformanceIndicatorTest {
 		Document doc=db.newDocument();
 		final Element root=doc.createElement("root"); doc.appendChild(root);
 
-		Element xmlNode=collector.addToXML(doc,root);
+		Element xmlNode=collector.addToXML(doc,root,null);
 		assertNotNull(xmlNode);
 
 		collector=new StatisticsDataPerformanceIndicator(new String[]{"xml"},100,100);

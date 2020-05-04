@@ -196,12 +196,12 @@ public final class StatisticsStateTimePerformanceIndicator extends StatisticsPer
 	}
 
 	@Override
-	protected void addToXMLIntern(Element node) {
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		for (Map.Entry<String,Double> entry: map.entrySet()) {
 			Element sub;
 			node.appendChild(sub=node.getOwnerDocument().createElement(xmlChild[0]));
 			sub.setAttribute(xmlChildName[0],entry.getKey());
-			sub.setTextContent(NumberTools.formatSystemNumber(entry.getValue()));
+			sub.setTextContent(NumberTools.formatSystemNumber(entry.getValue(),recycleStringBuilder));
 		}
 	}
 

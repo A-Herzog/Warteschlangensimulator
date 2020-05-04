@@ -330,9 +330,9 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 	}
 
 	@Override
-	protected void addToXMLIntern(Element node) {
-		node.setTextContent(getDistribution().storeToString());
-		if (step>0) node.setAttribute(xmlNameStep[0],NumberTools.formatSystemNumber(step/1000.0));
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
+		node.setTextContent(getDistribution().storeToString(recycleStringBuilder));
+		if (step>0) node.setAttribute(xmlNameStep[0],NumberTools.formatSystemNumber(step/1000.0,recycleStringBuilder));
 	}
 
 	@Override

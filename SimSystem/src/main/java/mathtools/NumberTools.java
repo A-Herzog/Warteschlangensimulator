@@ -33,7 +33,7 @@ import parser.CalcSystem;
  * Enthält einige statische Routinen zur Umwandlung von Zeichenketten in Zahlen
  * und umgekehrt.
  * @author Alexander Herzog
- * @version 2.2
+ * @version 2.3
  */
 public final class NumberTools {
 	private static final String nullString="0";
@@ -563,6 +563,45 @@ public final class NumberTools {
 	 * Wandelt eine Fließkommazahl in eine System-Zeichenkette um, d.h. ohne Berücksichtigung lokaler
 	 * Darstellungsformen
 	 * @param d Umzuwandelnde Zahl
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
+	 * @return Zahl als Zeichenkette
+	 */
+	public static String formatSystemNumber(double d, final StringBuilder recycleStringBuilder) {
+		if (Math.abs(d)<10E-16) return nullString;
+
+		if (d%1==0.0) {
+			if (d>=0) {
+				if (d<=1_000_000_000) return formatLongNoGrouping(Math.round(d),recycleStringBuilder);
+			} else {
+				if (d>-1_000_000_000) return formatLongNoGrouping(Math.round(d),recycleStringBuilder);
+			}
+		}
+
+		boolean minus=false;
+		if (d<0) {minus=true; d=-d;}
+
+		String s;
+
+		if (Math.abs(Math.floor(d)-d)<10E-16 && d<2_000_000_000) {
+			s=""+Math.round(Math.floor(d));
+		} else {
+			s=String.format(Locale.US,formatFloat14Digits,d);
+			if (s.contains(separator2)) {
+				int len=s.length();
+				while (s.charAt(len-1)=='0') len--;
+				final char c=s.charAt(len-1);
+				if (c=='.') len--;
+				if (len<s.length()) s=s.substring(0,len);
+			}
+		}
+
+		return minus?("-"+s):s;
+	}
+
+	/**
+	 * Wandelt eine Fließkommazahl in eine System-Zeichenkette um, d.h. ohne Berücksichtigung lokaler
+	 * Darstellungsformen
+	 * @param d Umzuwandelnde Zahl
 	 * @param n Anzahl an Nachkommastellen
 	 * @return Zahl als Zeichenkette
 	 */
@@ -574,6 +613,46 @@ public final class NumberTools {
 				if (d<=1_000_000_000) return formatLongNoGrouping(Math.round(d));
 			} else {
 				if (d>-1_000_000_000) return formatLongNoGrouping(Math.round(d));
+			}
+		}
+
+		boolean minus=false;
+		if (d<0) {minus=true; d=-d;}
+
+		String s;
+
+		if (Math.abs(Math.floor(d)-d)<10E-16 && d<2_000_000_000) {
+			s=""+Math.round(Math.floor(d));
+		} else {
+			s=String.format(Locale.US,"%."+n+"f",d);
+			if (s.contains(separator2)) {
+				int len=s.length();
+				while (s.charAt(len-1)=='0') len--;
+				final char c=s.charAt(len-1);
+				if (c=='.') len--;
+				if (len<s.length()) s=s.substring(0,len);
+			}
+		}
+
+		return minus?("-"+s):s;
+	}
+
+	/**
+	 * Wandelt eine Fließkommazahl in eine System-Zeichenkette um, d.h. ohne Berücksichtigung lokaler
+	 * Darstellungsformen
+	 * @param d Umzuwandelnde Zahl
+	 * @param n Anzahl an Nachkommastellen
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
+	 * @return Zahl als Zeichenkette
+	 */
+	public static String formatSystemNumber(double d, final int n, final StringBuilder recycleStringBuilder) {
+		if (Math.abs(d)<10E-16) return nullString;
+
+		if (d%1==0.0) {
+			if (d>=0) {
+				if (d<=1_000_000_000) return formatLongNoGrouping(Math.round(d),recycleStringBuilder);
+			} else {
+				if (d>-1_000_000_000) return formatLongNoGrouping(Math.round(d),recycleStringBuilder);
 			}
 		}
 

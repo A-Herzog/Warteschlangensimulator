@@ -158,12 +158,13 @@ public final class StatisticsQuotientPerformanceIndicator extends StatisticsPerf
 	 * Speichert eine Kenngröße in einem xml-Knoten.
 	 * Es wird dabei zusätzlich der Anteil an erfolgreichen Ereignissen berechnet und gespeichert
 	 * @param node	Neuer xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
 	 */
 	@Override
-	protected void addToXMLIntern(Element node) {
-		node.setAttribute(xmlNameNumerator[0],NumberTools.formatSystemNumber(numerator));
-		node.setAttribute(xmlNameDenominator[0],NumberTools.formatSystemNumber(denominator));
-		node.setAttribute(xmlNameQuotient[0],NumberTools.formatSystemNumber(getQuotient()));
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
+		node.setAttribute(xmlNameNumerator[0],NumberTools.formatSystemNumber(numerator,recycleStringBuilder));
+		node.setAttribute(xmlNameDenominator[0],NumberTools.formatSystemNumber(denominator,recycleStringBuilder));
+		node.setAttribute(xmlNameQuotient[0],NumberTools.formatSystemNumber(getQuotient(),recycleStringBuilder));
 	}
 
 	/**

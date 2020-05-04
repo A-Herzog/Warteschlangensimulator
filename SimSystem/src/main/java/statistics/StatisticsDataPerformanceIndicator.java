@@ -959,19 +959,20 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * Speichert eine Kenngröße, die intern aus Anzahl, Summe und Summe der quadrierten Werte besteht, in einem xml-Knoten.
 	 * Es werden dabei zusätzlich Mittelwert, Standardabweichung und Variationskoeffizient berechnet und gespeichert
 	 * @param node	Neuer xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
 	 */
 	@Override
-	public void addToXMLIntern(final Element node) {
+	public void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		node.setAttribute(xmlNameCount[0],""+count);
-		node.setAttribute(xmlNameSum[0],NumberTools.formatSystemNumber(sum));
-		node.setAttribute(xmlNameSumSquared[0],NumberTools.formatSystemNumber(squaredSum));
-		node.setAttribute(xmlNameMean[0],NumberTools.formatSystemNumber(getMean()));
-		node.setAttribute(xmlNameSD[0],NumberTools.formatSystemNumber(getSD()));
-		node.setAttribute(xmlNameCV[0],NumberTools.formatSystemNumber(getCV()));
-		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin()));
-		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax()));
+		node.setAttribute(xmlNameSum[0],NumberTools.formatSystemNumber(sum,recycleStringBuilder));
+		node.setAttribute(xmlNameSumSquared[0],NumberTools.formatSystemNumber(squaredSum,recycleStringBuilder));
+		node.setAttribute(xmlNameMean[0],NumberTools.formatSystemNumber(getMean(),recycleStringBuilder));
+		node.setAttribute(xmlNameSD[0],NumberTools.formatSystemNumber(getSD(),recycleStringBuilder));
+		node.setAttribute(xmlNameCV[0],NumberTools.formatSystemNumber(getCV(),recycleStringBuilder));
+		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin(),recycleStringBuilder));
+		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax(),recycleStringBuilder));
 
-		if (dist!=null) node.setAttribute(xmlNameDistribution[0],dist.storeToString());
+		if (dist!=null) node.setAttribute(xmlNameDistribution[0],dist.storeToString(recycleStringBuilder));
 
 		calcCorrelation();
 		if (correlation!=null) {

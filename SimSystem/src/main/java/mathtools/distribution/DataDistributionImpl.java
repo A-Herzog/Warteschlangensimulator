@@ -839,13 +839,46 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 * @see #densityData
 	 */
 	public String storeToString(final String separator) {
+		return storeToString(separator,null);
+	}
+
+	/**
+	 * Wandelt das in <code>densityData</code> gespeicherte Array aus Dichtewerten in eine Zeichenkette um.
+	 * Dabei werden Zahlen in System-Form ausgegeben.
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
+	 * @return Dichte-Array als durch den Separator getrennte Zeichenkette
+	 * @see #densityData
+	 */
+	public String storeToString(final StringBuilder recycleStringBuilder) {
+		return storeToString(";",recycleStringBuilder);
+	}
+
+	/**
+	 * Wandelt das in <code>densityData</code> gespeicherte Array aus Dichtewerten in eine Zeichenkette um.
+	 * Dabei werden Zahlen in System-Form ausgegeben.
+	 * @param separator	Trennzeichen für die Werte der Verteilung
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
+	 * @return Dichte-Array als durch den Separator getrennte Zeichenkette
+	 * @see #densityData
+	 */
+	public String storeToString(final String separator, final StringBuilder recycleStringBuilder) {
 		if (densityData.length==0) return "";
-		final StringBuilder sb=new StringBuilder(densityData.length*(separator.length()+5));
-		sb.append(NumberTools.formatSystemNumber(densityData[0]));
+
+		final StringBuilder sb;
+		if (recycleStringBuilder==null) {
+			sb=new StringBuilder(densityData.length*(separator.length()+2));
+		} else {
+			sb=recycleStringBuilder;
+			sb.setLength(0);
+		}
+
+		final StringBuilder reuseSB=new StringBuilder();
+		sb.append(NumberTools.formatSystemNumber(densityData[0],reuseSB));
 		for (int i=1;i<densityData.length;i++) {
 			sb.append(separator);
-			sb.append(NumberTools.formatSystemNumber(densityData[i]));
+			sb.append(NumberTools.formatSystemNumber(densityData[i],reuseSB));
 		}
+
 		return sb.toString();
 	}
 
@@ -870,7 +903,7 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 * @see #densityData
 	 */
 	public String storeToString() {
-		return storeToString(";");
+		return storeToString(";",null);
 	}
 
 	/**

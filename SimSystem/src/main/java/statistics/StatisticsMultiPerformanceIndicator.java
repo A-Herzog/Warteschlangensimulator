@@ -188,9 +188,9 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	}
 
 	@Override
-	protected void addToXMLIntern(Element node) {
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		for (Map.Entry<String,StatisticsPerformanceIndicator> entry : indicators.entrySet()) {
-			Element sub=entry.getValue().addToXML(node.getOwnerDocument(),node);
+			Element sub=entry.getValue().addToXML(node.getOwnerDocument(),node,recycleStringBuilder);
 			if (!entry.getKey().trim().isEmpty()) sub.setAttribute(xmlTypeName[0],entry.getKey());
 		}
 	}

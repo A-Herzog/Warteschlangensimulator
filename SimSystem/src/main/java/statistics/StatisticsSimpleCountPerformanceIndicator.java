@@ -69,7 +69,7 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	/**
 	 * Fügt einen Wert zu der Messreihe hinzu
 	 */
-	public final void add() {
+	public void add() {
 		count++;
 	}
 
@@ -78,7 +78,7 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	 * @param moreStatistics	Statistikobjekt, dessen Daten zu diesem hinzugefügt werden sollen
 	 */
 	@Override
-	public final void add(final StatisticsPerformanceIndicator moreStatistics) {
+	public void add(final StatisticsPerformanceIndicator moreStatistics) {
 		if (!(moreStatistics instanceof StatisticsSimpleCountPerformanceIndicator)) return;
 		StatisticsSimpleCountPerformanceIndicator moreCountStatistics=(StatisticsSimpleCountPerformanceIndicator)moreStatistics;
 
@@ -89,7 +89,7 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	 * Setzt alle Teil-Kenngrößen auf 0 zurück.
 	 */
 	@Override
-	public final void reset() {
+	public void reset() {
 		count=0;
 	}
 
@@ -131,7 +131,7 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	 * Liefert die Anzahl an erfassten Ereignissen zurück.
 	 * @return	Anzahl an erfassten Ereignissen
 	 */
-	public final long get() {
+	public long get() {
 		return count;
 	}
 
@@ -147,7 +147,7 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	 * Liefert den Anteil an durch diesen Zähler in der Zählergruppe erfassten Ereignissen zurück.
 	 * @return Anteil dieses Zählers in der Zählergruppe
 	 */
-	public final double getPart() {
+	public double getPart() {
 		final String group=groupNameFromName(getOwnNameInGroup());
 		if (group==null) return 1.0;
 		final long sum=getGroupStream().map(indicator->(StatisticsSimpleCountPerformanceIndicator)indicator).filter(counter->group.equals(groupNameFromName(counter.getOwnNameInGroup()))).mapToLong(counter->counter.get()).sum();
@@ -158,11 +158,12 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	 * Speichert eine Kenngröße in einem xml-Knoten.
 	 * Es wird dabei zusätzlich der Anteil an erfolgreichen Ereignissen berechnet und gespeichert
 	 * @param node	Neuer xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
 	 */
 	@Override
-	protected final void addToXMLIntern(final Element node) {
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		node.setAttribute(xmlNameCount[0],""+get());
-		if (useGrouping) node.setAttribute(xmlNamePart[0],""+NumberTools.formatSystemNumber(getPart()));
+		if (useGrouping) node.setAttribute(xmlNamePart[0],""+NumberTools.formatSystemNumber(getPart(),recycleStringBuilder));
 	}
 
 	/**
@@ -171,7 +172,7 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
 	@Override
-	public final String loadFromXML(final Element node) {
+	public String loadFromXML(final Element node) {
 		Long count;
 		String value;
 

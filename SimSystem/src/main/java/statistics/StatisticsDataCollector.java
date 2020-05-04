@@ -109,7 +109,7 @@ public final class StatisticsDataCollector extends StatisticsPerformanceIndicato
 	 * Setzt alle Teil-Kenngrößen auf 0 zurück.
 	 */
 	@Override
-	public final void reset() {
+	public void reset() {
 		count=0;
 		data=null;
 		cacheCount=-1;
@@ -363,17 +363,24 @@ public final class StatisticsDataCollector extends StatisticsPerformanceIndicato
 	}
 
 	/**
-	 * Speichert eine Kenngröße, die intern aus Anzahl, Summe und Summe der quadrierten Werte besteht, in einem xml-Knoten.
-	 * Es werden dabei zusätzlich Mittelwert, Standardabweichung und Variationskoeffizient berechnet und gespeichert
+	 * Speichert eine Kenngröße in einem xml-Knoten.
 	 * @param node	Neuer xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
 	 */
 	@Override
-	protected void addToXMLIntern(Element node) {
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		if (data==null) return;
-		final StringBuilder sb=new StringBuilder();
+		final StringBuilder sb;
+		if (recycleStringBuilder==null) {
+			sb=new StringBuilder();
+		} else {
+			sb=recycleStringBuilder;
+			sb.setLength(0);
+		}
+		final StringBuilder reuseSB=new StringBuilder();
 		for (int i=0;i<count;i++) {
 			if (i>0) sb.append(";");
-			sb.append(NumberTools.formatSystemNumber(data[i]));
+			sb.append(NumberTools.formatSystemNumber(data[i],reuseSB));
 		}
 		node.setTextContent(sb.toString());
 	}

@@ -152,7 +152,7 @@ public class StatisticsQuotientPerformanceIndicatorTest {
 		Document doc=db.newDocument();
 		final Element root=doc.createElement("root"); doc.appendChild(root);
 
-		Element xmlNode=collector.addToXML(doc,root);
+		Element xmlNode=collector.addToXML(doc,root,null);
 		assertNotNull(xmlNode);
 
 		collector=new StatisticsQuotientPerformanceIndicator(new String[]{"xml"});

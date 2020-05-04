@@ -95,13 +95,14 @@ public abstract class StatisticsPerformanceIndicator {
 	 * Speichert eine Kenngröße in einem xml-Knoten.
 	 * @param doc	Übergeordnetes xml-Dokument
 	 * @param parent	Übergeordneter xml-Knoten
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
 	 * @return	Liefert das hinzugefügte xml-Element zurück (kann <code>null</code> sein, wenn Speichern nicht vorgesehen ist)
 	 */
-	public final Element addToXML(final Document doc, final Element parent) {
+	public final Element addToXML(final Document doc, final Element parent, final StringBuilder recycleStringBuilder) {
 		if (xmlNodeNames==null || xmlNodeNames.length==0) return null;
 		final Element node=doc.createElement(xmlNodeNames[0]);
 		parent.appendChild(node);
-		addToXMLIntern(node);
+		addToXMLIntern(node,recycleStringBuilder);
 		return node;
 	}
 
@@ -109,8 +110,9 @@ public abstract class StatisticsPerformanceIndicator {
 	 * Speichert in abgeleiteten Klassen die eigentlichen Statistikdaten
 	 * in dem übergebenen xml-Knoten.
 	 * @param node	Knoten in dem die Daten gespeichert werden sollen.
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
 	 */
-	protected abstract void addToXMLIntern(final Element node);
+	protected abstract void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder);
 
 	/**
 	 * Versucht eine Kenngröße aus einem xml-Knoten zu laden.

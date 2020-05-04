@@ -232,9 +232,10 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 	 * Speichert eine Kenngröße, die intern aus Gesamtanzahl und Anzahl der erfolgreichen Ereignisse besteht, in einem xml-Knoten.
 	 * Es wird dabei zusätzlich der Anteil an erfolgreichen Ereignissen berechnet und gespeichert
 	 * @param node	Neuer xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
 	 */
 	@Override
-	protected void addToXMLIntern(final Element node) {
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		Element child;
 		Document doc=node.getOwnerDocument();
 

@@ -591,24 +591,24 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 * @param node	Neuer xml-Knotens, in dem die Daten gespeichert werden sollen
 	 */
 	@Override
-	public void addToXMLIntern(final Element node) {
+	public void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		node.setAttribute(xmlNameCount[0],""+count);
-		node.setAttribute(xmlNameSum[0],NumberTools.formatSystemNumber(sum));
-		node.setAttribute(xmlNameSumSquared[0],NumberTools.formatSystemNumber(squaredSum));
-		node.setAttribute(xmlNameMean[0],NumberTools.formatSystemNumber(getMean()));
-		node.setAttribute(xmlNameSD[0],NumberTools.formatSystemNumber(getSD()));
-		node.setAttribute(xmlNameCV[0],NumberTools.formatSystemNumber(getCV()));
-		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin()));
-		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax()));
+		node.setAttribute(xmlNameSum[0],NumberTools.formatSystemNumber(sum,recycleStringBuilder));
+		node.setAttribute(xmlNameSumSquared[0],NumberTools.formatSystemNumber(squaredSum,recycleStringBuilder));
+		node.setAttribute(xmlNameMean[0],NumberTools.formatSystemNumber(getMean(),recycleStringBuilder));
+		node.setAttribute(xmlNameSD[0],NumberTools.formatSystemNumber(getSD(),recycleStringBuilder));
+		node.setAttribute(xmlNameCV[0],NumberTools.formatSystemNumber(getCV(),recycleStringBuilder));
+		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(getMin(),recycleStringBuilder));
+		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(getMax(),recycleStringBuilder));
 
 		if (hasDistribution) {
 			if (dist==null) initDistribution();
 
-			node.setAttribute(xmlNameDistribution[0],dist.storeToString());
+			node.setAttribute(xmlNameDistribution[0],dist.storeToString(recycleStringBuilder));
 
 			final double[] quantils=getQuantil(storeQuantilValues);
 			for (int i=0;i<storeQuantilValues.length;i++) {
-				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),NumberTools.formatSystemNumber(quantils[i]));
+				node.setAttribute(xmlNameQuantil+Math.round(storeQuantilValues[i]*100),NumberTools.formatSystemNumber(quantils[i],recycleStringBuilder));
 			}
 		}
 	}

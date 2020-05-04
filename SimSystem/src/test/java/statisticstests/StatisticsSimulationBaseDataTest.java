@@ -129,7 +129,7 @@ public class StatisticsSimulationBaseDataTest {
 		Document doc=db.newDocument();
 		final Element root=doc.createElement("root"); doc.appendChild(root);
 
-		Element xmlNode=collector.addToXML(doc,root);
+		Element xmlNode=collector.addToXML(doc,root,null);
 		assertNotNull(xmlNode);
 
 		collector=new StatisticsSimulationBaseData(new String[]{"xml"});

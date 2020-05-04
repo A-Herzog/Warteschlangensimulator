@@ -115,10 +115,11 @@ public final class StatisticsSimpleValuePerformanceIndicator extends StatisticsP
 	 * Speichert eine Kenngröße in einem xml-Knoten.
 	 * Es wird dabei zusätzlich der Anteil an erfolgreichen Ereignissen berechnet und gespeichert
 	 * @param node	Neuer xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
 	 */
 	@Override
-	protected void addToXMLIntern(final Element node) {
-		node.setAttribute(xmlNameValue[0],NumberTools.formatSystemNumber(NumberTools.reduceDigits(value,10)));
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
+		node.setAttribute(xmlNameValue[0],NumberTools.formatSystemNumber(NumberTools.reduceDigits(value,10),recycleStringBuilder));
 	}
 
 	/**

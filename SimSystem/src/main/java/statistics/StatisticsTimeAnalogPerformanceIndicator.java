@@ -210,13 +210,13 @@ public final class StatisticsTimeAnalogPerformanceIndicator extends StatisticsPe
 	}
 
 	@Override
-	protected void addToXMLIntern(Element node) {
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 
-		node.setAttribute(xmlNameSum[0],NumberTools.formatSystemNumber(sum));
-		node.setAttribute(xmlNameTime[0],NumberTools.formatSystemNumber(lastTime-startTime));
-		node.setAttribute(xmlNameMean,NumberTools.formatSystemNumber(getMean()));
-		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(min));
-		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(max));
+		node.setAttribute(xmlNameSum[0],NumberTools.formatSystemNumber(sum,recycleStringBuilder));
+		node.setAttribute(xmlNameTime[0],NumberTools.formatSystemNumber(lastTime-startTime,recycleStringBuilder));
+		node.setAttribute(xmlNameMean,NumberTools.formatSystemNumber(getMean(),recycleStringBuilder));
+		node.setAttribute(xmlNameMin[0],NumberTools.formatSystemNumber(min,recycleStringBuilder));
+		node.setAttribute(xmlNameMax[0],NumberTools.formatSystemNumber(max,recycleStringBuilder));
 	}
 
 	@Override

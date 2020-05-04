@@ -534,9 +534,15 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	}
 
 	@Override
-	protected void addToXMLIntern(Element node) {
+	protected void addToXMLIntern(final Element node, final StringBuilder recycleStringBuilder) {
 		if (stateTime==null) {
-			final StringBuilder sb=new StringBuilder();
+			final StringBuilder sb;
+			if (recycleStringBuilder==null) {
+				sb=new StringBuilder();
+			} else {
+				sb=recycleStringBuilder;
+				sb.setLength(0);
+			}
 			sb.append(NumberTools.formatSystemNumber(time0>0?time0:0));
 			if (timeMaxState>0) {
 				sb.append(";");
@@ -552,12 +558,12 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			}
 		}
 
-		node.setAttribute(xmlNameSum,NumberTools.formatSystemNumber(getSum()));
-		node.setAttribute(xmlNameValues[0],NumberTools.formatSystemNumber(valueSum));
-		node.setAttribute(xmlNameValuesSquared[0],NumberTools.formatSystemNumber(valueSumSquared));
-		node.setAttribute(xmlNameMean,NumberTools.formatSystemNumber(getTimeMean()));
-		node.setAttribute(xmlNameSD,NumberTools.formatSystemNumber(getTimeSD()));
-		node.setAttribute(xmlNameCV,NumberTools.formatSystemNumber(getTimeCV()));
+		node.setAttribute(xmlNameSum,NumberTools.formatSystemNumber(getSum(),recycleStringBuilder)); // XXX
+		node.setAttribute(xmlNameValues[0],NumberTools.formatSystemNumber(valueSum,recycleStringBuilder));
+		node.setAttribute(xmlNameValuesSquared[0],NumberTools.formatSystemNumber(valueSumSquared,recycleStringBuilder));
+		node.setAttribute(xmlNameMean,NumberTools.formatSystemNumber(getTimeMean(),recycleStringBuilder));
+		node.setAttribute(xmlNameSD,NumberTools.formatSystemNumber(getTimeSD(),recycleStringBuilder));
+		node.setAttribute(xmlNameCV,NumberTools.formatSystemNumber(getTimeCV(),recycleStringBuilder));
 		node.setAttribute(xmlNameMin[0],""+Math.max(0,getTimeMin()));
 		node.setAttribute(xmlNameMax[0],""+Math.max(0,getTimeMax()));
 
