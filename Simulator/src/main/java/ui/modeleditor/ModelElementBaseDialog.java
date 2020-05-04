@@ -338,7 +338,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		}
 
 		label.setLabelFor(field);
-		field.setText(value);
+		if (value!=null) field.setText(value);
 		return new Object[]{panel,field};
 	}
 
