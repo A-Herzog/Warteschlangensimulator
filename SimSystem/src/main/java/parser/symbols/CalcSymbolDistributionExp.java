@@ -26,7 +26,7 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 public final class CalcSymbolDistributionExp extends CalcSymbolDistribution {
 	@Override
 	public String[] getNames() {
-		return new String[]{"ExpDistribution","ExpDist","ExpVerteilung"};
+		return new String[]{"ExpDistribution","ExpDist","ExpVerteilung","Expo"};
 	}
 
 	@Override
