@@ -220,6 +220,7 @@ public class MainPanel extends MainPanelBase {
 	private JMenuItem menuEditUndo, menuEditRedo;
 	private JRadioButtonMenuItem menuEditAutoConnectOff, menuEditAutoConnectAuto, menuEditAutoConnectSmart;
 	private JCheckBoxMenuItem menuViewTemplatesBar, menuViewNavigator;
+	private JCheckBoxMenuItem menuViewRulers;
 	private JRadioButtonMenuItem menuViewGridOff, menuViewGridDots, menuViewGridLines;
 	private JCheckBoxMenuItem menuViewShowIDs, menuViewGradients, menuViewShadows;
 	private JCheckBoxMenuItem menuModelLoadExternalDataOnStart;
@@ -427,6 +428,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewTemplatesBar",e->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible()));
 		addAction("ViewNavigator",e->editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible()));
 		addAction("ViewExplorer",e->editorPanel.showExplorer());
+		addAction("ViewRulers",e->commandViewRulers());
 		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Grid.OFF));
 		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Grid.DOTS));
 		addAction("ViewRasterRaster",e->commandViewRaster(ModelSurface.Grid.LINES));
@@ -558,6 +560,10 @@ public class MainPanel extends MainPanelBase {
 
 		/* Ansicht - Navigator */
 		menuViewNavigator.setState(editorPanel.isNavigatorVisible());
+
+		/* Ansicht - Lineale */
+		menuViewRulers.setSelected(setup.showRulers);
+		editorPanel.setRulersVisible(setup.showRulers);
 
 		/* Ansicht - Raster */
 		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
@@ -825,6 +831,8 @@ public class MainPanel extends MainPanelBase {
 		menuViewNavigator.setState(editorPanel.isNavigatorVisible());
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.View.Explorer"),Images.MODE_OVERVIEW.getIcon(),Language.tr("Main.Menu.View.Explorer.Mnemonic"),KeyEvent.VK_F12,"ViewExplorer");
 		menu.addSeparator();
+		enabledOnEditorPanel.add(menuViewRulers=createCheckBoxMenuItemIcon(menu,Language.tr("Main.Menu.View.ShowRulers"),Images.EDIT_VIEW_RULERS.getIcon(),Language.tr("Main.Menu.View.ShowIDs.Mnemonic"),"ViewRulers"));
+		menuViewRulers.setState(setup.showRulers);
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.View.ShowRaster")));
 		setMnemonic(submenu,Language.tr("Main.Menu.View.ShowRaster.Mnemonic"));
 		submenu.setIcon(Images.EDIT_VIEW_RASTER.getIcon());
@@ -1545,6 +1553,12 @@ public class MainPanel extends MainPanelBase {
 
 	private void commandEditToggleAutoConnect(final ModelSurfacePanel.ConnectMode connectMode) {
 		setup.autoConnect=connectMode;
+		setup.saveSetup();
+		reloadSetup();
+	}
+
+	private void commandViewRulers() {
+		setup.showRulers=!setup.showRulers;
 		setup.saveSetup();
 		reloadSetup();
 	}

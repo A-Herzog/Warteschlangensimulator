@@ -15830,6 +15830,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37011] = "ModellElementEingabeDBSortierSpalte";
     t[37012] = "ParameterCompare.ReRunConfirm.InfoYes";
     t[37013] = "Bisherige Ergebnisse verwerfen. Alle Modell neu simulieren.";
+    t[37020] = "Main.Menu.View.ShowRulers";
+    t[37021] = "Lineale anzeigen";
     t[37024] = "Simulation.Java.Error.UnsupportedOS";
     t[37025] = "Das aktuelle Betriebssystem wird f\u00fcr dynamische Kompilierungen nicht unterst\u00fctzt.";
     t[37028] = "Surface.TransportTransporterSource.Dialog.Tab.Priorities";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37457] = "Statistik%04d.xml";
     t[37462] = "Surface.Action.Dialog.Info.Condition";
     t[37463] = "Bedingung";
-    t[37468] = "CommandLine.Help.Help.Long";
-    t[37469] = "Dieser Befehl erwartet einen oder keine weiteren Parameter.\nWird ein Befehl als zus\u00e4tzlicher Parameter angegeben, so wird die Hilfe zu diesem Befehl angezeigt.\nAnsonsten wird die Hilfe zu allen Befehlen angezeigt.";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37468] = "CommandLine.Help.Help.Long";
+    t[37469] = "Dieser Befehl erwartet einen oder keine weiteren Parameter.\nWird ein Befehl als zus\u00e4tzlicher Parameter angegeben, so wird die Hilfe zu diesem Befehl angezeigt.\nAnsonsten wird die Hilfe zu allen Befehlen angezeigt.";
     t[37470] = "Main.Menu.AnalogValues.Exact";
     t[37471] = "\u00c4nderungen exakt anzeigen (langsam)";
     t[37474] = "Statistics.DistributionOfStationsWaitingTimes";

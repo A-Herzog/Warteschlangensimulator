@@ -60,7 +60,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
 import javax.swing.JViewport;
@@ -252,7 +251,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		buttonProperties=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.ModelProperties.Short"),Language.tr("Editor.ModelProperties.Info"),Images.MODEL.getIcon());
 
 		/* Surface in der Mitte */
-		content.add(new JScrollPane(surfacePanel=new ModelSurfacePanel(true,false)),BorderLayout.CENTER);
+		content.add(new RulerPanel(surfacePanel=new ModelSurfacePanel(true,false),SetupData.getSetup().showRulers),BorderLayout.CENTER);
 		surfacePanel.addZoomChangeListener(e->zoomChanged());
 
 		/* Statusbar unten */

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 13:26+0200\n"
+"POT-Creation-Date: 2020-05-10 00:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6972,6 +6972,9 @@ msgstr "Line grid"
 
 msgid "Main.Menu.View.ShowRaster.Raster.Mnemonic"
 msgstr "L"
+
+msgid "Main.Menu.View.ShowRulers"
+msgstr "Show rulers"
 
 msgid "Main.Menu.View.ShowShadows"
 msgstr "Use station shadows"

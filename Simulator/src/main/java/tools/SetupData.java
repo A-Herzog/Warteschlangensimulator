@@ -698,6 +698,11 @@ public class SetupData extends SetupBase {
 	public boolean openODS;
 
 	/**
+	 * Lineale um die Zeichenfläche anzeigen.
+	 */
+	public boolean showRulers;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -815,6 +820,7 @@ public class SetupData extends SetupBase {
 		openODT=false;
 		openExcel=true;
 		openODS=false;
+		showRulers=false;
 		lastError=null;
 	}
 
@@ -1414,6 +1420,11 @@ public class SetupData extends SetupBase {
 				openODS=loadBoolean(e.getAttribute("ods"),true);
 				continue;
 			}
+
+			if (name.equals("showrulers")) {
+				showRulers=loadBoolean(e.getTextContent(),false);
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -1855,6 +1866,11 @@ public class SetupData extends SetupBase {
 			node.setAttribute("odt",openODT?"1":"0");
 			node.setAttribute("xlsx",openExcel?"1":"0");
 			node.setAttribute("ods",openODS?"1":"0");
+		}
+
+		if (showRulers) {
+			root.appendChild(node=doc.createElement("ShowRulers"));
+			node.setTextContent("1");
 		}
 	}
 

@@ -1926,6 +1926,31 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Liefert den Bereich der markierten Elemente.
+	 * @return	Bereich der markierten Elemente oder <code>null</code>, wenn keine Elemente markiert sind.
+	 */
+	public Rectangle getSelectedArea() {
+		int minX=Integer.MAX_VALUE;
+		int minY=Integer.MAX_VALUE;
+		int maxX=-Integer.MAX_VALUE;
+		int maxY=-Integer.MAX_VALUE;
+
+		for (ModelElement element: surface.getElements()) if ((element.isSelected() || element.isSelectedArea()) && (element instanceof ModelElementPosition)) {
+			final ModelElementPosition pos=((ModelElementPosition)element);
+			final Point p1=pos.getPosition(true);
+			final Point p2=pos.getLowerRightPosition();
+			if (p1.x<minX) minX=p1.x;
+			if (p1.y<minY) minY=p1.y;
+			if (p2.x>maxX) maxX=p2.x;
+			if (p2.y>maxY) maxY=p2.y;
+		}
+
+		if (minX==Integer.MAX_VALUE) return null;
+
+		return new Rectangle(minX,minY,maxX-minX,maxY-minY);
+	}
+
+	/**
 	 * Liefert die momentane Hintergrund- und Rasterfarbe
 	 * @return	2-elementiges Array aus Hintergrund- und Rasterfarbe
 	 */

@@ -15830,6 +15830,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37011] = "ModelElementInputDBSortColumn";
     t[37012] = "ParameterCompare.ReRunConfirm.InfoYes";
     t[37013] = "Discard current results. Re-simulate all models.";
+    t[37020] = "Main.Menu.View.ShowRulers";
+    t[37021] = "Show rulers";
     t[37024] = "Simulation.Java.Error.UnsupportedOS";
     t[37025] = "The current operating system is not supported for dynamic compilations.";
     t[37028] = "Surface.TransportTransporterSource.Dialog.Tab.Priorities";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37457] = "Statistic%04d.xml";
     t[37462] = "Surface.Action.Dialog.Info.Condition";
     t[37463] = "Condition";
-    t[37468] = "CommandLine.Help.Help.Long";
-    t[37469] = "This command expects one or no additional parameters.\nIf a command is enters as additional parameter, the help information for this command is displayed.\nOtherwise a list with all available commands is displayed.";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37468] = "CommandLine.Help.Help.Long";
+    t[37469] = "This command expects one or no additional parameters.\nIf a command is enters as additional parameter, the help information for this command is displayed.\nOtherwise a list with all available commands is displayed.";
     t[37470] = "Main.Menu.AnalogValues.Exact";
     t[37471] = "Displayes changes exactly (slow)";
     t[37474] = "Statistics.DistributionOfStationsWaitingTimes";

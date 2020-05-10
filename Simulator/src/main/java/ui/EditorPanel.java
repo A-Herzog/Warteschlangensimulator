@@ -157,6 +157,7 @@ public class EditorPanel extends EditorPanelBase {
 	private JButton buttonExplorer;
 
 	private ModelSurfacePanel surfacePanel;
+	private RulerPanel rulerPanel;
 
 	private JToolBar additionalInfoArea;
 	private JLabel additionalInfoLabel;
@@ -825,7 +826,7 @@ public class EditorPanel extends EditorPanelBase {
 		surfacePanel.addLinkListener(link->fireLinkListener(link));
 		surfacePanel.setRaster(SetupData.getSetup().grid);
 		if (model!=null) surfacePanel.setColors(model.surfaceColors);
-		final JScrollPane scrollPane=new JScrollPane(surfacePanel);
+		rulerPanel=new RulerPanel(surfacePanel,SetupData.getSetup().showRulers);
 		surfacePanel.addStateChangeListener(e->updateStatusBar());
 		surfacePanel.addUndoRedoDoneListener(e->updateCanUndoRedo());
 		surfacePanel.setDropAccept(true);
@@ -864,7 +865,7 @@ public class EditorPanel extends EditorPanelBase {
 		case SHOW: setTemplatesVisible(true); break;
 		case TOGGLE: setTemplatesVisible(!isTemplatesVisible()); break;
 		}});
-		main.add(scrollPane,BorderLayout.CENTER);
+		main.add(rulerPanel,BorderLayout.CENTER);
 
 		main.add(createNavigatorPanel(),BorderLayout.EAST);
 
@@ -1744,6 +1745,14 @@ public class EditorPanel extends EditorPanelBase {
 	 */
 	public ModelSurface getOriginalSurface() {
 		return surfacePanel.getSurface();
+	}
+
+	/**
+	 * Stellt ein, ob die Lineale sichtbar sein sollen.
+	 * @param visible	Lineale sichtbar
+	 */
+	public void setRulersVisible(final boolean visible) {
+		rulerPanel.setRulerVisible(visible);
 	}
 
 	/**

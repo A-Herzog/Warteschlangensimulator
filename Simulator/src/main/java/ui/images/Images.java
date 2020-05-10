@@ -194,6 +194,9 @@ public enum Images {
 	/** Symbol für "Raster anzeigen" */
 	EDIT_VIEW_RASTER("Raster.gif"),
 
+	/** Symbol für "Lineale anzeigen" */
+	EDIT_VIEW_RULERS("Ruler.png"),
+
 	/** Symbol "Vertikal ausrichten - Oberkante */
 	ALIGN_TOP("shape_align_top.png"),
 
