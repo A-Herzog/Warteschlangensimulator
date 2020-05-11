@@ -50,6 +50,14 @@ public interface AbstractReportCommandConnect {
 	boolean runReportGeneratorPDF(File output, boolean exportAllItems);
 
 	/**
+	 * Ruft den LaTeX-Report-Generator auf und speichert den Report in der angegebenen Form in der angegebenen Datei.
+	 * @param output	Dateiname, in der der LaTeX-Report gespeichert werden soll.
+	 * @param exportAllItems	Wird dieser Parameter auf <code>true</code> gesetzt, so werden die Einstellungen, welche Daten exportiert werden sollen, ignoriert und es werden alle verfügbaren Daten in den Report geschrieben.
+	 * @return	Gibt an, ob der Report erfolgreich erstellt werden konnte.
+	 */
+	boolean runReportGeneratorLaTeX(File output, boolean exportAllItems);
+
+	/**
 	 * Speichert eine Liste aller Einträge im Statistikbaum als Datei
 	 * @param output	Dateiname, in der die Liste gespeichert werden soll.
 	 * @return	Gibt an, ob die Liste erfolgreich gespeichert werden konnte.

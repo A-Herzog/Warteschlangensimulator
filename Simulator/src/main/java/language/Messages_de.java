@@ -13381,7 +13381,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31276] = "Color.00CED1";
     t[31277] = "Dunkel Turquoise";
     t[31286] = "CommandLine.ReportBase.Help";
-    t[31287] = "Dieser Befehl erwartet genau drei weitere Parameter:\n1. \"Inline\", \"Einzeldateien\", \"Liste\", \"Text\", \"PDF\" oder ein Listeneintrag je nach dem, ob\na) ein HTML-Report mit eingebetteten Bildern,\nb) ein HTML-Report mit Bildern in separaten Dateien,\nc) eine \u00dcbersicht \u00fcber alle verf\u00fcgbaren Einzeldokumente\nd) ein DOCX-Report,\ne) ein PDF-Report oder\nf) ein bestimmtes Einzeldokument ausgegeben werden soll.\n2. Dateiname der Eingabedatei\n3. Dateiname der Ausgabedatei";
+    t[31287] = "Dieser Befehl erwartet genau drei weitere Parameter:\n1. \"Inline\", \"Einzeldateien\", \"Liste\", \"Text\", \"PDF\" , \"LaTeX\" oder ein Listeneintrag je nach dem, ob\na) ein HTML-Report mit eingebetteten Bildern,\nb) ein HTML-Report mit Bildern in separaten Dateien,\nc) eine \u00dcbersicht \u00fcber alle verf\u00fcgbaren Einzeldokumente,\nd) ein DOCX-Report,\ne) ein PDF-Report,\nf) ein LaTeX-Report oder\ng) ein bestimmtes Einzeldokument ausgegeben werden soll.\n2. Dateiname der Eingabedatei\n3. Dateiname der Ausgabedatei";
     t[31290] = "Simulation.Creator.AnalogAssignTargetIDNotExistent";
     t[31291] = "An Element id=%d wurde f\u00fcr eine Analogwertzuweisung die ID %d als Ziel angegeben. Es existiert jedoch keine Element mit dieser ID.";
     t[31292] = "ModelDescription.Input.Variable";

@@ -33,8 +33,9 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 	private static final int MODE_REPORT_FILES=1;
 	private static final int MODE_DOCX=2;
 	private static final int MODE_PDF=3;
-	private static final int MODE_LIST=4;
-	private static final int MODE_SINGLE_DOCUMENT=5;
+	private static final int MODE_LATEX=4;
+	private static final int MODE_LIST=5;
+	private static final int MODE_SINGLE_DOCUMENT=6;
 
 	private File input;
 	private File output;
@@ -62,6 +63,10 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 
 		list=new ArrayList<>();
 		list.add("PDF");
+		keys.add(list);
+
+		list=new ArrayList<>();
+		list.add("LaTeX");
 		keys.add(list);
 
 		list=new ArrayList<>();
@@ -102,6 +107,7 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 		case MODE_REPORT_FILES:  return reportGeneratorConnect.runReportGeneratorHTML(output,false,false);
 		case MODE_DOCX: return reportGeneratorConnect.runReportGeneratorDOCX(output,false);
 		case MODE_PDF: return reportGeneratorConnect.runReportGeneratorPDF(output,false);
+		case MODE_LATEX: return reportGeneratorConnect.runReportGeneratorLaTeX(output,false);
 		case MODE_LIST: return reportGeneratorConnect.getReportList(output);
 		case MODE_SINGLE_DOCUMENT: return reportGeneratorConnect.getReportListEntry(output,listEntry);
 		}

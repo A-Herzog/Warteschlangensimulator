@@ -1202,6 +1202,13 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		return report.save(null,output,FileFormat.FORMAT_PDF,exportAllItems);
 	}
 
+	@Override
+	public boolean runReportGeneratorLaTeX(File output, boolean exportAllItems) {
+		final StatisticViewerReport report=getStatisticViewerReport();
+		if (report==null) return false;
+		return report.save(null,output,FileFormat.FORMAT_LATEX,exportAllItems);
+	}
+
 	private void getViewersAndNames(String parentName, DefaultMutableTreeNode parent, List<StatisticViewer> viewers, List<String> types, List<String> names) {
 		if (parent==null) return;
 		int count=parent.getChildCount();

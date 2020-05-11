@@ -13381,7 +13381,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31276] = "Color.00CED1";
     t[31277] = "Dark turquoise";
     t[31286] = "CommandLine.ReportBase.Help";
-    t[31287] = "This command expects exactly three additionall parameters:\n1. \"Inline\", \"SingleFiles\", \"List\", \"Text\", \"PDF\" or a list entry, depending if\na) a html report with inline images,\nb) a html teport with separate images,\nc) an overview of all available individual documents,\nd) a docx report\ne) a pdf report or\nf) an individual document is to be reported.\n2. File name of the input file\n3. File name of the output file";
+    t[31287] = "This command expects exactly three additionall parameters:\n1. \"Inline\", \"SingleFiles\", \"List\", \"Text\", \"PDF\", \"LaTeX\" or a list entry, depending if\na) a html report with inline images,\nb) a html teport with separate images,\nc) an overview of all available individual documents,\nd) a docx report,\ne) a pdf report,\nf) a LaTeX report or\ng) an individual document is to be reported.\n2. File name of the input file\n3. File name of the output file";
     t[31290] = "Simulation.Creator.AnalogAssignTargetIDNotExistent";
     t[31291] = "At element id=%d for an analog value assignment ID %d was specified. But there is not element with this ID.";
     t[31292] = "ModelDescription.Input.Variable";
