@@ -1,34 +1,3 @@
-\section{\texttt{Benchmark}}
-
-\textbf{Führt einen Geschwindigkeitstest des Rechners aus.}
-
-Dieser Befehl erwartet einen oder keine weiteren Parameter.\\
-Wird ein Parameter übergeben, so gibt dieser entweder die maximale Thread-Anzahl an,\\
-die verwendet werden sollen, oder den Dateinamen des zu verwendenden Modells.
-
-\section{\texttt{BuildCLIReference}}
-
-\textbf{Generiert aus der Kommandozeilebefehle-Hilfe LaTeX-Code.}
-
-Der Befehl erwartet zwei Parameter:\\
-1. Sprache "`de"' oder "`en"'\\
-2. Ausgabeverzeichnis für die LaTeX-Dateien
-
-\section{\texttt{BuildElementGroupImages}}
-
-\textbf{Erzeugt pro Elementgruppe ein Bild im Desktop-Ordner.}
-
-Der Befehl erwartet einen Parameter:\\
-1. Sprache "`de"' oder "`en"'
-
-\section{\texttt{BuildLaTeXReference}}
-
-\textbf{Generiert aus der HTML-Hilfe zu den Stationen LaTeX-Code.}
-
-Der Befehl erwartet zwei Parameter:\\
-1. Sprache "`de"' oder "`en"'\\
-2. Ausgabeverzeichnis für die LaTeX-Dateien und Bilder
-
 \section{\texttt{Filter}}
 
 \textbf{Datei mit Statistikergebnissen filtern.}
@@ -39,12 +8,6 @@ Dieser Befehl erwartet genau drei weitere Parameter:\\
 3. Name der Ausgabedatei, die die Filterergebnisse aufnehmen soll\\
 Wenn die Ausgabedatei bereits existiert, werden die neuen Ergebnisse angehängt.\\
 Ansonsten wird die Datei neu angelegt.
-
-\section{\texttt{GC}}
-
-\textbf{Listet die aktiven Garbage Collectors auf.}
-
-Dieser Befehl erwartet keine weiteren Parameter.
 
 \section{\texttt{Hilfe}}
 
@@ -95,13 +58,6 @@ Dieser Befehl erwartet drei oder vier weitere Parameter:\\
 Die Eingabedatei muss existieren.\\
 Die Ausgabedatei darf nicht existieren.
 
-\section{\texttt{Reset}}
-
-\textbf{Konfiguration zurücksetzen.}
-
-Setzt die Konfiguration des Simulators auf den Auslieferungszustand zurück.\\
-Lediglich die eingetragenen Lizenzschlüssel bleiben erhalten.
-
 \section{\texttt{Server}}
 
 \textbf{Simulator als Rechenserver starten.}
@@ -131,19 +87,6 @@ an verfügbaren CPU-Kernen.
 Dieser Befehl erwartet einen weiteren Parameter:\\
 den zu verwendenden Port.
 
-\section{\texttt{SetMaxThreads}}
-
-\textbf{Maximalanzahl an Threads festlegen}
-
-Die Funktion erwartet als Parameter die erlaubte Maximalanzahl an Threads.\\
-Werte kleiner oder gleich 0 werden als unlimitiert interpretiert.
-
-\section{\texttt{SetNUMAMode}}
-
-\textbf{NUMA-Modus festlegen}
-
-Diese Funktion erwartet eine "`1"' oder eine "`0"' als Parameter.
-
 \section{\texttt{Simulation}}
 
 \textbf{Führt einen einzelnen Simulationslauf durch.}
@@ -153,25 +96,19 @@ Dieser Befehl erwartet genau zwei weitere Parameter:\\
 2. Ausgabe-Statstik-Datei\\
 Die Eingabedatei muss existieren, die Ausgabedatei darf nicht existieren.
 
-\section{\texttt{Version}}
-
-\textbf{Gibt die aktuelle Versionsnummer aus.}
-
-Gibt lediglich die Versionsnummer des Warteschlangensimulators aus.\\
-Führt keine weiteren Verarbeitungen durch.
-
 \section{\texttt{Zusammenfassung}}
 
 \textbf{Exportiert einen Teil oder die gesamten Simulationsergebnisse für ein Modell.}
 
 Dieser Befehl erwartet genau drei weitere Parameter:\\
-1. "`Inline"`, "`Einzeldateien"`, "`Liste"`, "`Text"`, "`PDF"' oder ein Listeneintrag je nach dem, ob\\
+1. "`Inline"`, "`Einzeldateien"`, "`Liste"`, "`Text"`, "`PDF"' , "`LaTeX"' oder ein Listeneintrag je nach dem, ob\\
 a) ein HTML-Report mit eingebetteten Bildern,\\
 b) ein HTML-Report mit Bildern in separaten Dateien,\\
-c) eine Übersicht über alle verfügbaren Einzeldokumente\\
+c) eine Übersicht über alle verfügbaren Einzeldokumente,\\
 d) ein DOCX-Report,\\
-e) ein PDF-Report oder\\
-f) ein bestimmtes Einzeldokument ausgegeben werden soll.\\
+e) ein PDF-Report,\\
+f) ein LaTeX-Report oder\\
+g) ein bestimmtes Einzeldokument ausgegeben werden soll.\\
 2. Dateiname der Eingabedatei\\
 3. Dateiname der Ausgabedatei
 

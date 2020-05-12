@@ -1,2 +1,4 @@
 Release/
 .metadata/
+Simulator/build/Help/*/de/*.log
+Simulator/build/Help/*/en/*.log

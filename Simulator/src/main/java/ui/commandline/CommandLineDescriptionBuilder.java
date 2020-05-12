@@ -60,7 +60,7 @@ public class CommandLineDescriptionBuilder {
 	private String run(final File output) {
 		final StringBuilder text=new StringBuilder();
 
-		new CommandLineSystem().getCommands().stream().sorted((cmd1,cmd2)->cmd1.getName().compareTo(cmd2.getName())).forEach(command->{
+		new CommandLineSystem().getCommands().stream().filter(command->!command.isHidden()).sorted((cmd1,cmd2)->cmd1.getName().compareTo(cmd2.getName())).forEach(command->{
 			text.append("\\section{\\texttt{"+command.getName()+"}}\n\n");
 			text.append("\\textbf{"+replaceQuotationMarks(command.getShortDescription())+"}\n\n");
 			final String[] lines=command.getLongDescription();
