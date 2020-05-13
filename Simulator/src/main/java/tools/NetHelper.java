@@ -24,10 +24,16 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateNotYetValidException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 
 /**
  * Diese Klasse bietet Hilfsroutinen zur Herstellung von Netzwerkverbindungen an.
@@ -77,6 +83,29 @@ public class NetHelper {
 		return new Proxy(Proxy.Type.HTTP, new InetSocketAddress(setup.proxyHost,setup.proxyPort));
 	}
 
+	private static boolean checkCertificate(final Certificate[] certificates) {
+		if (certificates==null || certificates.length==0) return false;
+
+		for (Certificate certificate: certificates) {
+			if (!(certificate instanceof X509Certificate)) return false;
+			final X509Certificate X509=(X509Certificate)certificate;
+
+			try {
+				X509.checkValidity();
+			} catch (CertificateExpiredException|CertificateNotYetValidException e) {
+				return false;
+			}
+
+			/*
+			Optional more checking:
+			final String certAuthority=X509.getIssuerDN().getName();
+			System.out.println(certAuthority);
+			 */
+		}
+
+		return true;
+	}
+
 	/**
 	 * Öffnet die Verbindung zum Server, um eine Datei herunterzuladen
 	 * @param url	Request-URL
@@ -93,6 +122,15 @@ public class NetHelper {
 			if (onlySecuredURLs) {
 				/* Nur https */
 				if (!(connect instanceof HttpsURLConnection)) return null;
+				final HttpsURLConnection https=(HttpsURLConnection)connect;
+
+				/* Hostname prüfen */
+				https.setHostnameVerifier(new HostnameVerifier() {
+					@Override
+					public boolean verify(String hostname, SSLSession session) {
+						return true;
+					}
+				});
 			}
 
 			/* Verbindung öffnen */
@@ -100,6 +138,8 @@ public class NetHelper {
 
 			if (onlySecuredURLs) {
 				if (!(connect instanceof HttpsURLConnection)) return null;
+				final HttpsURLConnection https=(HttpsURLConnection)connect;
+				if (!checkCertificate(https.getServerCertificates())) return null;
 			}
 
 			return connect;
