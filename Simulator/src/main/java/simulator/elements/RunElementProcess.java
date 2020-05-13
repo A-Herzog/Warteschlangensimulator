@@ -86,9 +86,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	/** Ressourcenbedarf pro Ressourcen-Alternative */
 	public int[][] resources;
 
-	private double costs;
-	private double costsPerProcessSecond;
-	private double costsPerPostProcessSecond;
+	private String costs;
+	private String costsPerProcessSecond;
+	private String costsPerPostProcessSecond;
 
 	/**
 	 * Konstruktor der Klasse
@@ -211,7 +211,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		}
 
 		/* Ressourcen-Priorität */
-		final int error=ExpressionCalc.check(processElement.getResourcePriority(),runModel.variableNames);
+		int error=ExpressionCalc.check(processElement.getResourcePriority(),runModel.variableNames);
 		if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessResourcePriority"),element.getId(),processElement.getResourcePriority());
 		process.resourcePriority=processElement.getResourcePriority();
 
@@ -222,9 +222,34 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		process.resources=res;
 
 		/* Kosten */
-		process.costs=processElement.getCosts();
-		process.costsPerProcessSecond=processElement.getCostsPerProcessSecond();
-		process.costsPerPostProcessSecond=processElement.getCostsPerPostProcessSecond();
+		String text;
+
+		text=processElement.getCosts();
+		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+			process.costs=null;
+		} else {
+			error=ExpressionCalc.check(text,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcess"),text,element.getId(),error+1);
+			process.costs=text;
+		}
+
+		text=processElement.getCostsPerProcessSecond();
+		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+			process.costsPerProcessSecond=null;
+		} else {
+			error=ExpressionCalc.check(text,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcessPerProcessSecond"),text,element.getId(),error+1);
+			process.costsPerProcessSecond=text;
+		}
+
+		text=processElement.getCostsPerPostProcessSecond();
+		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+			process.costsPerPostProcessSecond=null;
+		} else {
+			error=ExpressionCalc.check(text,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcessPerPostProcessSecond"),text,element.getId(),error+1);
+			process.costsPerPostProcessSecond=text;
+		}
 
 		return process;
 	}
@@ -270,7 +295,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		RunElementProcessData data;
 		data=(RunElementProcessData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementProcessData(this,simData.runModel.variableNames);
+			data=new RunElementProcessData(this,simData.runModel.variableNames,costs,costsPerProcessSecond,costsPerPostProcessSecond);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -290,6 +315,69 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				return calc.calcOrDefault(simData.runData.variableValues,simData,client,0);
 			}
 		}
+	}
+
+	private void logCosts(final SimulationData simData, final RunElementProcessData data, final RunDataClient client, final double timeProcess, final double timePostProcess) {
+		boolean clientVariablesSet=false;
+
+		/* Kosten pro Bedienung */
+		final double costsValue;
+		if (data.costs==null) {
+			costsValue=0.0;
+		} else {
+			simData.runData.setClientVariableValues(client);
+			clientVariablesSet=true;
+
+			if (simData.runModel.stoppOnCalcError) {
+				final Double D=data.costs.calc(simData.runData.variableValues,simData,client);
+				if (D==null) simData.calculationErrorStation(data.costs,this);
+				costsValue=(D==null)?0.0:D.doubleValue();
+			} else {
+				costsValue=data.costs.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			}
+		}
+
+		/* Kosten pro Bediensekunde */
+		final double costsPerProcessSecondValue;
+		if (timeProcess==0.0 || data.costsPerProcessSecond==null) {
+			costsPerProcessSecondValue=0.0; /* Wir können uns die Berechnung sparen, wenn überhaupt keine entsprechende Zeit angefallen ist. */
+		} else {
+			if (!clientVariablesSet) {
+				simData.runData.setClientVariableValues(client);
+				clientVariablesSet=true;
+			}
+
+			if (simData.runModel.stoppOnCalcError) {
+				final Double D=data.costsPerProcessSecond.calc(simData.runData.variableValues,simData,client);
+				if (D==null) simData.calculationErrorStation(data.costsPerProcessSecond,this);
+				costsPerProcessSecondValue=(D==null)?0.0:D.doubleValue();
+			} else {
+				costsPerProcessSecondValue=data.costsPerProcessSecond.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			}
+		}
+
+		/* Kosten pro Nachbearbeitungssekunde */
+		final double costsPerPostProcessSecondValue;
+		if (timePostProcess==0.0 || data.costsPerPostProcessSecond==null) {
+			costsPerPostProcessSecondValue=0.0;  /* Wir können uns die Berechnung sparen, wenn überhaupt keine entsprechende Zeit angefallen ist. */
+		} else {
+			if (!clientVariablesSet) {
+				simData.runData.setClientVariableValues(client);
+				clientVariablesSet=true;
+			}
+
+			if (simData.runModel.stoppOnCalcError) {
+				final Double D=data.costsPerPostProcessSecond.calc(simData.runData.variableValues,simData,client);
+				if (D==null) simData.calculationErrorStation(data.costsPerPostProcessSecond,this);
+				costsPerPostProcessSecondValue=(D==null)?0.0:D.doubleValue();
+			} else {
+				costsPerPostProcessSecondValue=data.costsPerPostProcessSecond.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			}
+		}
+
+		/* Kosten erfassen */
+		final double costs=costsValue+timeProcess*costsPerProcessSecondValue+timePostProcess*costsPerPostProcessSecondValue;
+		if (costs!=0.0) simData.runData.logStationCosts(simData,this,costs);
 	}
 
 	private void startProcessingSingle(final SimulationData simData, final RunElementProcessData data, final int resourceAlternative, final double additionalPrepareTime) {
@@ -359,8 +447,8 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		StationLeaveEvent.addLeaveEvent(simData,selected,this,setupTimeMS+processingTimeMS);
 
 		/* Kosten in Statistik erfassen */
-		if (costs!=0.0 || costsPerProcessSecond!=0.0 || costsPerPostProcessSecond!=0.0) {
-			simData.runData.logStationCosts(simData,this,costs+(setupTime+processingTime)*costsPerProcessSecond+postProcessingTime*costsPerPostProcessSecond);
+		if (processData.hasCosts) {
+			logCosts(simData,processData,selected,setupTime+processingTime,postProcessingTime);
 		}
 
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */
@@ -483,8 +571,8 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		for (double d: processData.postProcessingTimes) resourcesBlockedTimePostProcessing=FastMath.max(resourcesBlockedTimePostProcessing,d);
 
 		/* Kosten in Statistik erfassen */
-		if (costs!=0.0 || costsPerProcessSecond!=0.0 || costsPerPostProcessSecond!=0.0) {
-			simData.runData.logStationCosts(simData,this,costs+resourcesBlockedTimeProcessing*costsPerProcessSecond+resourcesBlockedTimePostProcessing*costsPerPostProcessSecond);
+		if (processData.hasCosts) {
+			logCosts(simData,processData,null,resourcesBlockedTimeProcessing,resourcesBlockedTimePostProcessing);
 		}
 
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */

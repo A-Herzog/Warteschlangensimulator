@@ -33,6 +33,7 @@ import javax.swing.JPopupMenu;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.util.FastMath;
+import org.apache.jena.ext.com.google.common.base.Objects;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -111,9 +112,9 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	private final Map<String,String> priority; /*  Kundentyp, Priorität-Formel */
 	private final List<Map<String,Integer>> resources; /* Name der Ressource, benötigte Anzahl */
 	private String resourcePriority;
-	private double costs;
-	private double costsPerProcessSecond;
-	private double costsPerPostProcessSecond;
+	private String costs;
+	private String costsPerProcessSecond;
+	private String costsPerPostProcessSecond;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementProcess</code>
@@ -144,7 +145,9 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		resources=new ArrayList<>();
 		resourcePriority=DEFAULT_RESOURCE_PRIORITY;
 
-		costs=0;
+		costs="0";
+		costsPerProcessSecond="0";
+		costsPerPostProcessSecond="0";
 	}
 
 	/**
@@ -259,9 +262,9 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		if (!resourcePriority.equalsIgnoreCase(process.resourcePriority)) return false;
 
 		/* Kosten */
-		if (costs!=process.costs) return false;
-		if (costsPerProcessSecond!=process.costsPerProcessSecond) return false;
-		if (costsPerPostProcessSecond!=process.costsPerPostProcessSecond) return false;
+		if (!Objects.equal(costs,process.costs)) return false;
+		if (!Objects.equal(costsPerProcessSecond,process.costsPerProcessSecond)) return false;
+		if (!Objects.equal(costsPerPostProcessSecond,process.costsPerPostProcessSecond)) return false;
 
 		return true;
 	}
@@ -515,15 +518,15 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.OperatorsPriority")));
 		sub.setTextContent(resourcePriority);
 
-		if (costs!=0.0) {
+		if (costs!=null && !costs.trim().isEmpty() && ! costs.trim().equals("0")) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.StationCosts")));
-			sub.setTextContent(NumberTools.formatSystemNumber(costs));
+			sub.setTextContent(costs);
 		}
 
-		if (costsPerProcessSecond!=0.0 || costsPerPostProcessSecond!=0.0) {
+		if ((costsPerProcessSecond!=null && !costsPerProcessSecond.trim().isEmpty() && !costsPerProcessSecond.trim().equals("0")) || (costsPerPostProcessSecond!=null && !costsPerPostProcessSecond.trim().isEmpty() && !costsPerPostProcessSecond.trim().equals("0"))) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.TimeCosts")));
-			sub.setAttribute(Language.trPrimary("Surface.Process.XML.TimeCosts.ProcessingSecond"),NumberTools.formatSystemNumber(costsPerProcessSecond));
-			sub.setAttribute(Language.trPrimary("Surface.Process.XML.TimeCosts.PostProcessingSecond"),NumberTools.formatSystemNumber(costsPerPostProcessSecond));
+			sub.setAttribute(Language.trPrimary("Surface.Process.XML.TimeCosts.ProcessingSecond"),costsPerProcessSecond);
+			sub.setAttribute(Language.trPrimary("Surface.Process.XML.TimeCosts.PostProcessingSecond"),costsPerPostProcessSecond);
 		}
 	}
 
@@ -649,9 +652,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 
 		if (Language.trAll("Surface.Process.XML.StationCosts",name)) {
-			final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(content));
-			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
-			costs=D;
+			if (!content.isEmpty()) costs=content;
 			return null;
 		}
 
@@ -659,15 +660,11 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			String s;
 			s=Language.trAllAttribute("Surface.Process.XML.TimeCosts.ProcessingSecond",node);
 			if (!s.isEmpty()) {
-				final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(s));
-				if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Process.XML.TimeCosts.ProcessingSecond"),name,node.getParentNode().getNodeName());
-				costsPerProcessSecond=D;
+				costsPerProcessSecond=s;
 			}
 			s=Language.trAllAttribute("Surface.Process.XML.TimeCosts.PostProcessingSecond",node);
 			if (!s.isEmpty()) {
-				final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(s));
-				if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Process.XML.TimeCosts.PostProcessingSecond"),name,node.getParentNode().getNodeName());
-				costsPerPostProcessSecond=D;
+				costsPerPostProcessSecond=s;
 			}
 			return null;
 		}
@@ -1130,48 +1127,63 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	 * Liefert die eingestellten Kosten pro Bedienvorgang in der Station
 	 * @return	Kosten pro Bedienvorgang
 	 */
-	public double getCosts() {
-		return costs;
+	public String getCosts() {
+		if (costs==null || costs.trim().isEmpty()) return "0";
+		return costs.trim();
 	}
 
 	/**
 	 * Stellt die Kosten pro Bedienvorgang in der Station ein
 	 * @param costs	Kosten pro Bedienvorgang
 	 */
-	public void setCosts(final double costs) {
-		this.costs=costs;
+	public void setCosts(final String costs) {
+		if (costs==null || costs.trim().isEmpty()) {
+			this.costs="0";
+		} else {
+			this.costs=costs.trim();
+		}
 	}
 
 	/**
 	 * Liefert die eingestellten Kosten pro Bediensekunde in der Station
 	 * @return	Kosten pro Bediensekunde
 	 */
-	public double getCostsPerProcessSecond() {
-		return costsPerProcessSecond;
+	public String getCostsPerProcessSecond() {
+		if (costsPerProcessSecond==null || costsPerProcessSecond.trim().isEmpty()) return "0";
+		return costsPerProcessSecond.trim();
 	}
 
 	/**
 	 * Stellt die Kosten pro Bediensekunde in der Station ein
 	 * @param costsPerProcessSecond	Kosten pro Bediensekunde
 	 */
-	public void setCostsPerProcessSecond(final double costsPerProcessSecond) {
-		this.costsPerProcessSecond=costsPerProcessSecond;
+	public void setCostsPerProcessSecond(final String costsPerProcessSecond) {
+		if (costsPerProcessSecond==null || costsPerProcessSecond.trim().isEmpty()) {
+			this.costsPerProcessSecond="0";
+		} else {
+			this.costsPerProcessSecond=costsPerProcessSecond.trim();
+		}
 	}
 
 	/**
 	 * Liefert die eingestellten Kosten pro Nachbearbeitungssekunde in der Station
 	 * @return	Kosten pro Nachbearbeitungssekunde
 	 */
-	public double getCostsPerPostProcessSecond() {
-		return costsPerPostProcessSecond;
+	public String getCostsPerPostProcessSecond() {
+		if (costsPerPostProcessSecond==null || costsPerPostProcessSecond.trim().isEmpty()) return "0";
+		return costsPerPostProcessSecond.trim();
 	}
 
 	/**
 	 * Stellt die Kosten pro Nachbearbeitungssekunde in der Station ein
 	 * @param costsPerPostProcessSecond	Kosten pro Nachbearbeitungssekunde
 	 */
-	public void setCostsPerPostProcessSecond(final double costsPerPostProcessSecond) {
-		this.costsPerPostProcessSecond=costsPerPostProcessSecond;
+	public void setCostsPerPostProcessSecond(final String costsPerPostProcessSecond) {
+		if (costsPerPostProcessSecond==null || costsPerPostProcessSecond.trim().isEmpty()) {
+			this.costsPerPostProcessSecond="0";
+		} else {
+			this.costsPerPostProcessSecond=costsPerPostProcessSecond.trim();
+		}
 	}
 
 	/**
@@ -1327,9 +1339,9 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		}
 
 		/* Kosten */
-		if (costs!=0.0) descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.Costs.PerClient"),NumberTools.formatNumber(costs),20000);
-		if (costsPerProcessSecond!=0.0) descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.Costs.PerProcessSecond"),NumberTools.formatNumber(costsPerProcessSecond),20000);
-		if (costsPerPostProcessSecond!=0.0) descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.Costs.PerPostProcessSecond"),NumberTools.formatNumber(costsPerPostProcessSecond),20000);
+		if (costs!=null && !costs.trim().isEmpty() && ! costs.trim().equals("0")) descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.Costs.PerClient"),costs,20000);
+		if (costsPerProcessSecond!=null && !costsPerProcessSecond.trim().isEmpty() && !costsPerProcessSecond.trim().equals("0")) descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.Costs.PerProcessSecond"),costsPerProcessSecond,20000);
+		if (costsPerPostProcessSecond!=null && !costsPerPostProcessSecond.trim().isEmpty() && !costsPerPostProcessSecond.trim().equals("0")) descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.Costs.PerPostProcessSecond"),costsPerPostProcessSecond,20000);
 
 		/* Nächste Stationen */
 		descriptionBuilder.addEdgeOut(connectionOutSuccess);

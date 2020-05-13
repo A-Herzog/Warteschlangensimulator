@@ -87,14 +87,37 @@ public class RunElementProcessData extends RunElementData {
 	 */
 	public boolean queueLockedForPickUp;
 
+	/**
+	 * Kosten pro Bedienung
+	 */
+	public final ExpressionCalc costs;
+
+	/**
+	 * Kosten pro Bediensekunde
+	 */
+	public final ExpressionCalc costsPerProcessSecond;
+
+	/**
+	 * Kosten pro Nachbearbeitungssekunde
+	 */
+	public final ExpressionCalc costsPerPostProcessSecond;
+
+	/**
+	 * Wurden überhaupt Kosten definiert?
+	 */
+	public final boolean hasCosts;
+
 	private int lastClientIndex=-1;
 
 	/**
 	 * Konstruktor der Klasse <code>RunElementProcessData</code>
 	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementProcess</code>-Element
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param costs	Kosten pro Bedienvorgang (kann <code>null</code> sein)
+	 * @param costsPerProcessSecond	Kosten pro Bediensekunde (kann <code>null</code> sein)
+	 * @param costsPerPostProcessSecond	Kosten pro Nachbearbeitungssekunde (kann <code>null</code> sein)
 	 */
-	public RunElementProcessData(final RunElementProcess station, final String[] variableNames) {
+	public RunElementProcessData(final RunElementProcess station, final String[] variableNames, final String costs, final String costsPerProcessSecond, final String costsPerPostProcessSecond) {
 		super(station);
 		allFirstComeFirstServe=true;
 		queueLockedForPickUp=false;
@@ -151,6 +174,29 @@ public class RunElementProcessData extends RunElementData {
 		if (!b) for (ExpressionCalc expression: expressionCancel) if (expression!=null) {b=true; break;}
 		hasWaitingCancelations=b;
 		if (hasWaitingCancelations) waitingCancelEvents=new ArrayList<>(DEFAULT_QUEUE_SIZE); else waitingCancelEvents=null;
+
+		if (costs==null || costs.trim().isEmpty()) {
+			this.costs=null;
+		} else {
+			this.costs=new ExpressionCalc(variableNames);
+			this.costs.parse(costs);
+		}
+
+		if (costsPerProcessSecond==null || costsPerProcessSecond.trim().isEmpty()) {
+			this.costsPerProcessSecond=null;
+		} else {
+			this.costsPerProcessSecond=new ExpressionCalc(variableNames);
+			this.costsPerProcessSecond.parse(costsPerProcessSecond);
+		}
+
+		if (costsPerPostProcessSecond==null || costsPerPostProcessSecond.trim().isEmpty()) {
+			this.costsPerPostProcessSecond=null;
+		} else {
+			this.costsPerPostProcessSecond=new ExpressionCalc(variableNames);
+			this.costsPerPostProcessSecond.parse(costsPerPostProcessSecond);
+		}
+
+		hasCosts=(this.costs!=null || this.costsPerProcessSecond!=null || this.costsPerPostProcessSecond!=null);
 	}
 
 	/**

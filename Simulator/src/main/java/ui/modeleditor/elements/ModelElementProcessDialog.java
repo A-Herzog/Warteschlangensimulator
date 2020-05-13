@@ -54,6 +54,8 @@ import ui.modeleditor.ModelSurface;
 public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = -86922871601132368L;
 
+	private String[] variables;
+
 	private JTabbedPane tabs;
 	private JComboBox<String>[] timeBase;
 	private JComboBox<String> processTimeType;
@@ -124,6 +126,8 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	@Override
 	protected JComponent getContentPanel() {
 		final ModelElementProcess process=(ModelElementProcess)element;
+
+		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
 
 		tabs=new JTabbedPane();
 		JPanel tab, area, sub;
@@ -251,7 +255,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tab.add(sub=new JPanel(),BorderLayout.NORTH);
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
 
-		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerClient")+":",NumberTools.formatNumber(process.getCosts()),10);
+		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerClient")+":",process.getCosts());
 		textCosts=(JTextField)data[1];
 		sub.add((JPanel)data[0]);
 		textCosts.setEditable(!readOnly);
@@ -260,8 +264,9 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
 			@Override public void keyPressed(KeyEvent e) {checkInput(false);}
 		});
+		((JPanel)data[0]).add(getExpressionEditButton(this,textCosts,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
 
-		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerProcessingSecond")+":",NumberTools.formatNumber(process.getCostsPerProcessSecond()),10);
+		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerProcessingSecond")+":",process.getCostsPerProcessSecond());
 		textCostsPerProcessSecond=(JTextField)data[1];
 		sub.add((JPanel)data[0]);
 		textCostsPerProcessSecond.setEditable(!readOnly);
@@ -270,8 +275,9 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
 			@Override public void keyPressed(KeyEvent e) {checkInput(false);}
 		});
+		((JPanel)data[0]).add(getExpressionEditButton(this,textCostsPerProcessSecond,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
 
-		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerPostProcessingSecond")+":",NumberTools.formatNumber(process.getCostsPerPostProcessSecond()),10);
+		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerPostProcessingSecond")+":",process.getCostsPerPostProcessSecond());
 		textCostsPerPostProcessSecond=(JTextField)data[1];
 		sub.add((JPanel)data[0]);
 		textCostsPerPostProcessSecond.setEditable(!readOnly);
@@ -280,6 +286,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
 			@Override public void keyPressed(KeyEvent e) {checkInput(false);}
 		});
+		((JPanel)data[0]).add(getExpressionEditButton(this,textCostsPerPostProcessSecond,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
 
 		/* System vorbereiten */
 
@@ -312,7 +319,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		if (readOnly) return false;
 
 		boolean ok=true;
-		Double D;
+		String text;
 
 		final Long LbatchMin=NumberTools.getPositiveLong(textBatchMin,true);
 		if (LbatchMin==null) {
@@ -343,7 +350,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			}
 		}
 
-		final int error=ExpressionCalc.check(textResourcePriority.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+		int error=ExpressionCalc.check(textResourcePriority.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
 		if (error>=0) {
 			textResourcePriority.setBackground(Color.red);
 			if (showErrorMessage) {
@@ -360,31 +367,55 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			ok=false;
 		}
 
-		D=NumberTools.getDouble(textCosts,true);
-		if (D==null) {
-			if (showErrorMessage) {
-				MsgBox.error(this,Language.tr("Surface.Process.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Process.Dialog.CostsPerClient.ErrorInfo"),textCosts.getText()));
-				return false;
+		text=textCosts.getText();
+		if (!text.trim().isEmpty()) {
+			error=ExpressionCalc.check(text,variables);
+			if (error>=0) {
+				textCosts.setBackground(Color.red);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Process.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Process.Dialog.CostsPerClient.ErrorInfo"),text,error+1));
+					return false;
+				}
+				ok=false;
+			} else {
+				textCosts.setBackground(SystemColor.text);
 			}
-			ok=false;
+		} else {
+			textCosts.setBackground(SystemColor.text);
 		}
 
-		D=NumberTools.getDouble(textCostsPerProcessSecond,true);
-		if (D==null) {
-			if (showErrorMessage) {
-				MsgBox.error(this,Language.tr("Surface.Process.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Process.Dialog.CostsPerProcessingSecond.ErrorInfo"),textCosts.getText()));
-				return false;
+		text=textCostsPerProcessSecond.getText();
+		if (!text.trim().isEmpty()) {
+			error=ExpressionCalc.check(text,variables);
+			if (error>=0) {
+				textCostsPerProcessSecond.setBackground(Color.red);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Process.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Process.Dialog.CostsPerProcessingSecond.ErrorInfo"),text,error+1));
+					return false;
+				}
+				ok=false;
+			} else {
+				textCostsPerProcessSecond.setBackground(SystemColor.text);
 			}
-			ok=false;
+		} else {
+			textCostsPerProcessSecond.setBackground(SystemColor.text);
 		}
 
-		D=NumberTools.getDouble(textCostsPerPostProcessSecond,true);
-		if (D==null) {
-			if (showErrorMessage) {
-				MsgBox.error(this,Language.tr("Surface.Process.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo"),textCosts.getText()));
-				return false;
+		text=textCostsPerPostProcessSecond.getText();
+		if (!text.trim().isEmpty()) {
+			error=ExpressionCalc.check(text,variables);
+			if (error>=0) {
+				textCostsPerPostProcessSecond.setBackground(Color.red);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Process.Dialog.CostsError.Title"),String.format(Language.tr("Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo"),text,error+1));
+					return false;
+				}
+				ok=false;
+			} else {
+				textCostsPerPostProcessSecond.setBackground(SystemColor.text);
 			}
-			ok=false;
+		} else {
+			textCostsPerPostProcessSecond.setBackground(SystemColor.text);
 		}
 
 		return ok;
@@ -432,9 +463,9 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		process.setResourcePriority(textResourcePriority.getText());
 		resourceData.store();
 
-		process.setCosts(NumberTools.getDouble(textCosts,true));
-		process.setCostsPerProcessSecond(NumberTools.getDouble(textCostsPerProcessSecond,true));
-		process.setCostsPerPostProcessSecond(NumberTools.getDouble(textCostsPerPostProcessSecond,true));
+		process.setCosts(textCosts.getText());
+		process.setCostsPerProcessSecond(textCostsPerProcessSecond.getText());
+		process.setCostsPerPostProcessSecond(textCostsPerPostProcessSecond.getText());
 	}
 
 	private void updateTabTitles() {

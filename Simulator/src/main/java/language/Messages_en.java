@@ -12078,6 +12078,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28193] = "Internal error: No assignment to variable \"%s\" is possible.";
     t[28200] = "Statistic.Viewer.Chart.Part";
     t[28201] = "Part";
+    t[28202] = "Simulation.Creator.CostsErrorProcessPerPostProcessSecond";
+    t[28203] = "The process time costs \"%s\" per post-processing second of element id=%d are invalid at character %d.";
     t[28204] = "Surface.TankFlowPanel.Destination.ErrorNoValveTitle";
     t[28205] = "No valve selected";
     t[28206] = "FileType.Save.Table";
@@ -13126,6 +13128,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30691] = "Repeat schedule, but fill up current day with 0 values";
     t[30694] = "Surface.OutputJS.Name.Short";
     t[30695] = "Output (Script)";
+    t[30698] = "Simulation.Creator.CostsErrorProcessPerProcessSecond";
+    t[30699] = "The process time costs \"%s\" per service second of element id=%d are invalid at character %d.";
     t[30706] = "Simulation.Element.BatchMulti.Name";
     t[30707] = "Batch by client type";
     t[30720] = "Optimizer.Toolbar.Save";
@@ -14012,12 +14016,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32795] = "Load client arrivals from table";
     t[32798] = "Compare.Error.ModelError.Title";
     t[32799] = "Model is incorrect";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32800] = "Surface.Process.Dialog.Priority.Priority";
     t[32801] = "Priority";
     t[32804] = "Statistic.Viewer.Tools.HideAll";
     t[32805] = "Close all categories";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32814] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate5.ErrorTitle";
     t[32815] = "Invalid change rate after the eighth round";
     t[32816] = "Surface.Action.Dialog.Delete.ConfirmInfo";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37445] = "No";
     t[37446] = "ExpressionBuilder.SimulationCharacteristics.ClientData.Alternative";
     t[37447] = "Operator alternative";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37456] = "Optimizer.OutputFileFormat";
     t[37457] = "Statistic%04d.xml";
     t[37462] = "Surface.Action.Dialog.Info.Condition";
     t[37463] = "Condition";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37468] = "CommandLine.Help.Help.Long";
     t[37469] = "This command expects one or no additional parameters.\nIf a command is enters as additional parameter, the help information for this command is displayed.\nOtherwise a list with all available commands is displayed.";
     t[37470] = "Main.Menu.AnalogValues.Exact";

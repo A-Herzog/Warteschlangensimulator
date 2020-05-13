@@ -12078,6 +12078,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28193] = "Interner Fehler: Keine Zuweisung an Variable \"%s\" m\u00f6glich.";
     t[28200] = "Statistic.Viewer.Chart.Part";
     t[28201] = "Anteil";
+    t[28202] = "Simulation.Creator.CostsErrorProcessPerPostProcessSecond";
+    t[28203] = "Die Bedienzeit-Kosten \"%s\" pro Nachbearbeitungssekunde von Element id=%d enthalten an Position %d einen Fehler.";
     t[28204] = "Surface.TankFlowPanel.Destination.ErrorNoValveTitle";
     t[28205] = "Kein Ventil gew\u00e4hlt";
     t[28206] = "FileType.Save.Table";
@@ -13126,6 +13128,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30691] = "Zeitplan wiederholen, aber vorher Tag mit 0 auff\u00fcllen";
     t[30694] = "Surface.OutputJS.Name.Short";
     t[30695] = "Ausgabe (Skript)";
+    t[30698] = "Simulation.Creator.CostsErrorProcessPerProcessSecond";
+    t[30699] = "Die Bedienzeit-Kosten \"%s\" pro Bediensekunde von Element id=%d enthalten an Position %d einen Fehler.";
     t[30706] = "Simulation.Element.BatchMulti.Name";
     t[30707] = "Zusammenfassen nach Kundentypen";
     t[30720] = "Optimizer.Toolbar.Save";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32795] = "Kundenank\u00fcnfte aus Tabelle laden";
     t[32798] = "Compare.Error.ModelError.Title";
     t[32799] = "Modell ist fehlerhaft";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32800] = "Surface.Process.Dialog.Priority.Priority";
     t[32801] = "Priorit\u00e4t";
     t[32804] = "Statistic.Viewer.Tools.HideAll";
     t[32805] = "Alle Kategorien einklappen";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32814] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate5.ErrorTitle";
     t[32815] = "Ung\u00fcltige \u00c4nderungsrate ab der neunten Runde";
     t[32816] = "Surface.Action.Dialog.Delete.ConfirmInfo";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37445] = "Nein";
     t[37446] = "ExpressionBuilder.SimulationCharacteristics.ClientData.Alternative";
     t[37447] = "Bedieneralternative";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37456] = "Optimizer.OutputFileFormat";
     t[37457] = "Statistik%04d.xml";
     t[37462] = "Surface.Action.Dialog.Info.Condition";
     t[37463] = "Bedingung";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37468] = "CommandLine.Help.Help.Long";
     t[37469] = "Dieser Befehl erwartet einen oder keine weiteren Parameter.\nWird ein Befehl als zus\u00e4tzlicher Parameter angegeben, so wird die Hilfe zu diesem Befehl angezeigt.\nAnsonsten wird die Hilfe zu allen Befehlen angezeigt.";
     t[37470] = "Main.Menu.AnalogValues.Exact";

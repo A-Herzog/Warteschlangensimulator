@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-11 16:15+0200\n"
+"POT-Creation-Date: 2020-05-13 20:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12130,6 +12130,12 @@ msgstr "An Station id=%d wurde kein Name für die zu ändernde Variable angegebe
 
 msgid "Simulation.Creator.CostsErrorProcess"
 msgstr "Die Bedienzeit-Kosten \"%s\" von Element id=%d enthalten an Position %d einen Fehler."
+
+msgid "Simulation.Creator.CostsErrorProcessPerPostProcessSecond"
+msgstr "Die Bedienzeit-Kosten \"%s\" pro Nachbearbeitungssekunde von Element id=%d enthalten an Position %d einen Fehler."
+
+msgid "Simulation.Creator.CostsErrorProcessPerProcessSecond"
+msgstr "Die Bedienzeit-Kosten \"%s\" pro Bediensekunde von Element id=%d enthalten an Position %d einen Fehler."
 
 msgid "Simulation.Creator.CostsErrorStation"
 msgstr "Die Stationskosten \"%s\" von Element id=%d enthalten an Position %d einen Fehler."
