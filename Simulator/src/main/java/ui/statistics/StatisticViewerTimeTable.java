@@ -189,7 +189,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		line.add(NumberTools.formatNumber(data.getCV()));
 		line.add(NumberTools.formatNumber(data.getMin()));
 		line.add(NumberTools.formatNumber(data.getMax()));
-		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
+		if (SetupData.getSetup().showQuantils && data.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
 			line.add(NumberTools.formatNumber(data.getQuantil(p)));
 		}
 

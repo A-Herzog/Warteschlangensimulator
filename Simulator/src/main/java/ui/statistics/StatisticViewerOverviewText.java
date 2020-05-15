@@ -798,6 +798,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 	private void outputQuantilInfoTime(final String identifier, final StatisticsDataPerformanceIndicator indicator) {
 		if (!SetupData.getSetup().showQuantils) return;
+		if (indicator.getDistribution()==null) return;
 
 		double upperBound=Double.MAX_VALUE;
 		if (indicator.getDistribution()!=null) upperBound=indicator.getDistribution().upperBound-1;
@@ -821,6 +822,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 	private void outputQuantilInfoNumber(final String identifier, final StatisticsDataPerformanceIndicator indicator) {
 		if (!SetupData.getSetup().showQuantils) return;
+		if (indicator.getDistribution()==null) return;
 
 		double upperBound=Double.MAX_VALUE;
 		if (indicator.getDistribution()!=null) upperBound=indicator.getDistribution().upperBound-1;

@@ -188,10 +188,8 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		addLine(Language.tr("Statistics.MaximalPathLength")+": Max="+NumberTools.formatNumber(indicator.getMax()));
 		endParagraph();
 
-		if (SetupData.getSetup().showQuantils) {
-			double upperBound=Double.MAX_VALUE;
-			if (indicator.getDistribution()!=null) upperBound=indicator.getDistribution().upperBound-1;
-
+		if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {
+			final double upperBound=indicator.getDistribution().upperBound-1;
 			beginParagraph();
 			boolean hitMax=false;
 			for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {

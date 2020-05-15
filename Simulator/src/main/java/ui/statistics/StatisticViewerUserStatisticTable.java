@@ -116,7 +116,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 				row.add(NumberTools.formatNumber(indicator.getCV()));
 				row.add(TimeTools.formatExactTime(indicator.getMin()));
 				row.add(TimeTools.formatExactTime(indicator.getMax()));
-				if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
+				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
 					row.add(NumberTools.formatNumber(indicator.getQuantil(p)));
 				}
 			} else {
@@ -126,7 +126,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 				row.add(NumberTools.formatNumber(indicator.getCV()));
 				row.add(NumberTools.formatNumber(indicator.getMin()));
 				row.add(NumberTools.formatNumber(indicator.getMax()));
-				if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
+				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
 					row.add(NumberTools.formatNumber(indicator.getQuantil(p)));
 				}
 			}
