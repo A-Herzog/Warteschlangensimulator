@@ -573,6 +573,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkDistributionRecordHours();}
 			@Override public void keyReleased(KeyEvent e) {checkDistributionRecordHours();}
 		});
+		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
 
 		/* Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann. */
 
@@ -1057,7 +1058,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 	}
 
 	private boolean checkDistributionRecordHours() {
-		return (NumberTools.getPositiveLong(distributionRecordHours,true)!=null);
+		return (NumberTools.getNotNegativeLong(distributionRecordHours,true)!=null);
 	}
 
 	private boolean checkTimedChecks() {
@@ -1222,7 +1223,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		if (L!=null) model.fixedSeed=L;
 		L=NumberTools.getPositiveLong(repeatCount,true);
 		if (L!=null) model.repeatCount=(int)L.longValue();
-		L=NumberTools.getPositiveLong(distributionRecordHours,true);
+		L=NumberTools.getNotNegativeLong(distributionRecordHours,true);
 		if (L!=null) model.distributionRecordHours=(int)L.longValue();
 		model.stoppOnCalcError=stoppOnCalcError.isSelected();
 		if (useTimedChecks.isSelected()) {

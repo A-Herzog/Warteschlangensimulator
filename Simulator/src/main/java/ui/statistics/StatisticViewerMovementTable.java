@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
+import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
@@ -217,14 +218,17 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		final Table table=new Table();
 
 		final double count=indicator.getCount();
-		final double[] density=indicator.getDistribution().densityData;
-		final int max=Math.min(density.length-1,(int)Math.ceil(indicator.getMax()));
-		for (int i=0;i<=max;i++) {
-			final List<String> row=new ArrayList<>();
-			row.add(NumberTools.formatLongNoGrouping(i));
-			row.add(NumberTools.formatLongNoGrouping(Math.round(density[i])));
-			row.add(NumberTools.formatPercent(density[i]/count));
-			table.addLine(row);
+		final DataDistributionImpl dist=indicator.getDistribution();
+		if (dist!=null) {
+			final double[] density=dist.densityData;
+			final int max=Math.min(density.length-1,(int)Math.ceil(indicator.getMax()));
+			for (int i=0;i<=max;i++) {
+				final List<String> row=new ArrayList<>();
+				row.add(NumberTools.formatLongNoGrouping(i));
+				row.add(NumberTools.formatLongNoGrouping(Math.round(density[i])));
+				row.add(NumberTools.formatPercent(density[i]/count));
+				table.addLine(row);
+			}
 		}
 		return table;
 	}

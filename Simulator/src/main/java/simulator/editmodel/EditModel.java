@@ -702,7 +702,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		}
 
 		if (Language.trAll("Surface.XML.DistributionRecordHours",name)) {
-			final Long L=NumberTools.getPositiveLong(text);
+			final Long L=NumberTools.getNotNegativeLong(text);
 			if (L==null) return String.format(Language.tr("Surface.Model.DistributionRecordHours"),text);
 			distributionRecordHours=L.intValue();
 			return null;

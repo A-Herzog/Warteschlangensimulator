@@ -42,6 +42,7 @@ public class CalcSymbolUserStatistics_hist extends CalcSymbolUserStatistics {
 	@Override
 	protected double processHistogram(final StatisticsDataPerformanceIndicator indicator, final int value) {
 		final DataDistributionImpl dist=indicator.getDistribution();
+		if (dist==null) return 0.0;
 		if (value<0 || value>=dist.densityData.length) return 0.0;
 		final double sum=dist.sum();
 		if (sum==0.0) return 0.0;
@@ -51,6 +52,7 @@ public class CalcSymbolUserStatistics_hist extends CalcSymbolUserStatistics {
 	@Override
 	protected double processHistogram(final StatisticsDataPerformanceIndicator indicator, int value1, int value2) {
 		final DataDistributionImpl dist=indicator.getDistribution();
+		if (dist==null) return 0.0;
 
 		value1=FastMath.max(-1,value1);
 		value2=FastMath.max(0,value2);

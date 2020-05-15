@@ -439,7 +439,7 @@ public class Statistics extends StatisticsBase {
 	 * @param correlationMode	Art der Erfassung der Autokorrelation
 	 * @param batchSize	Wird hier ein Wert &gt;1 übergeben, so werden Batch-Means erfasst, auf deren Basis später Konfidenzintervalle bestimmt werden können
 	 * @param collectWaitingTimes	Statistik für die Aufzeichnung der Einzel-Wartezeiten vorbereiten?
-	 * @param distributionRecordHours	Wie lang sollen die Verteilungen der Werte ausfallen (in Stunden)?
+	 * @param distributionRecordHours	Wie lang sollen die Verteilungen der Werte ausfallen (in Stunden)? (Werte kleiner oder gleich 0 schalten die Erfassung ab.)
 	 * @see CorrelationMode#CORRELATION_MODE_OFF
 	 * @see CorrelationMode#CORRELATION_MODE_FAST
 	 * @see CorrelationMode#CORRELATION_MODE_FULL
@@ -454,7 +454,7 @@ public class Statistics extends StatisticsBase {
 		final int rangeFast=(correlationMode==CorrelationMode.CORRELATION_MODE_OFF)?-1:correlationRange;
 		final int rangeFull=(correlationMode!=CorrelationMode.CORRELATION_MODE_FULL)?-1:correlationRange;
 
-		final int secondsToRecordInDistributions=3600*Math.max(1,Math.min(MAX_DISTRIBUTION_RECORD_HOURS,distributionRecordHours));
+		final int secondsToRecordInDistributions=(distributionRecordHours<=0)?-1:(3600*Math.max(1,Math.min(MAX_DISTRIBUTION_RECORD_HOURS,distributionRecordHours)));
 
 		/* Basisdaten */
 		editModel=new EditModel();
@@ -486,7 +486,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(clientsAllResidenceTimes=new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.ResidenceAllClients"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize));
 
 		/* Kundendatenfelder */
-		addPerformanceIndicator(clientData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientData"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,secondsToRecordInDistributions,secondsToRecordInDistributions,true)));
+		addPerformanceIndicator(clientData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientData"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,1000,1000,true)));
 
 		/* Zeiten auf Seiten der Stationen */
 		addPerformanceIndicator(stationsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,rangeFull,batchSize,true)));

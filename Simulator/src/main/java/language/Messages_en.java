@@ -3214,6 +3214,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7453] = "Invalid down time duration expression";
     t[7454] = "Surface.Source.Dialog.Tab.StartingTime.AfterTime";
     t[7455] = "After %s";
+    t[7460] = "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info";
+    t[7461] = "\"0\" disables recording distribution data.";
     t[7462] = "Editor.Operator.Singular";
     t[7463] = "operator";
     t[7470] = "Surface.AnimationBarChart.HistogramWizard.Count.ErrorTitle";
@@ -4004,10 +4006,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9345] = "Text";
     t[9346] = "SettingsDialog.AutoRestore";
     t[9347] = "Restore last edited model at next program start";
-    t[9348] = "Surface.XML.EdgePainter.Selected";
-    t[9349] = "ModelEdgesSelected";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9348] = "Surface.XML.EdgePainter.Selected";
+    t[9349] = "ModelEdgesSelected";
     t[9350] = "Surface.Source.Dialog.ErrorName.Title";
     t[9351] = "No client type name";
     t[9352] = "Surface.LogicElseIf.Name";
@@ -4793,7 +4795,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11216] = "Notifier.Message.OptimizationDone";
     t[11217] = "Optimization is completed.";
     t[11224] = "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error";
-    t[11225] = "The value \"%s\" for number of hours to be recorded in distributions is invalid. A positive integer value has to be specified.";
+    t[11225] = "The value \"%s\" for number of hours to be recorded in distributions is invalid. A non-negative integer value has to be specified.";
     t[11230] = "Simulation.Creator.ProcessResourcePriority";
     t[11231] = "At element id=%d the invalid resource priority \"%s\" is specified.";
     t[11238] = "Animation.SimulatedTime.Limited";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14049] = "Select XML element";
     t[14050] = "Animation.Icon.Lightning";
     t[14051] = "Lightning";
-    t[14052] = "ParameterCompare.Settings.Output.List.InfoCommand";
-    t[14053] = "Result of calculation expression %s";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14052] = "ParameterCompare.Settings.Output.List.InfoCommand";
+    t[14053] = "Result of calculation expression %s";
     t[14062] = "Editor.AddEdge.PlacePoint2.Long";
     t[14063] = "Now Click on the destination element to be connected by the new edge.";
     t[14068] = "Editor.Dialog.Tab.Clients.InfoText";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18717] = "Remove the hints from all dialogs.";
     t[18720] = "Surface.XML.RootName.AdditionalStatistics.StepWide";
     t[18721] = "StepWide";
-    t[18722] = "Color.FFFAFA";
-    t[18723] = "Snow";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18722] = "Color.FFFAFA";
+    t[18723] = "Snow";
     t[18724] = "Surface.Process.Dialog.CostsPerProcessingSecond.ErrorInfo";
     t[18725] = "The specified costs per processing second \"%s\" are invalid. A number has to be entered.";
     t[18730] = "Surface.Process.XML.Operators";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23371] = "The different select statistics results will be displayed side by side in a common view. The statistic files to be compared can also be added by drag & drop to this dialog.";
     t[23374] = "Notifier.Message.SimulationDone";
     t[23375] = "Simulation is completed.";
-    t[23376] = "ScriptPopup.Clients.TransferTime.Hint";
-    t[23377] = "Gets the transfer time of a waiting client";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23376] = "ScriptPopup.Clients.TransferTime.Hint";
+    t[23377] = "Gets the transfer time of a waiting client";
     t[23382] = "ParameterCompare.Toolbar.New";
     t[23383] = "New";
     t[23384] = "ParameterCompare.Select.None";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28025] = "Sky blue";
     t[28026] = "Surface.Seize.Dialog.ResourcePriority.Error.Info";
     t[28027] = "The specified resource priority \"%s\" is invalid.";
-    t[28028] = "Surface.Line.Tooltip";
-    t[28029] = "Line to the optical design, without further function for the simulation model.";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28028] = "Surface.Line.Tooltip";
+    t[28029] = "Line to the optical design, without further function for the simulation model.";
     t[28034] = "Optimizer.Tab.Optimization.BadResult";
     t[28035] = "Models not used for next generation";
     t[28036] = "Statistics.XML.Mean";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32773] = "Step wide";
     t[32794] = "Surface.SourceTable.Dialog.Title";
     t[32795] = "Load client arrivals from table";
-    t[32798] = "Compare.Error.ModelError.Title";
-    t[32799] = "Model is incorrect";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32798] = "Compare.Error.ModelError.Title";
+    t[32799] = "Model is incorrect";
     t[32800] = "Surface.Process.Dialog.Priority.Priority";
     t[32801] = "Priority";
     t[32804] = "Statistic.Viewer.Tools.HideAll";
@@ -14366,6 +14368,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33647] = "Word text with embedded table";
     t[33648] = "ParameterCompare.Settings.Input.List.Delete.Confirm.YesInfo";
     t[33649] = "Remove the selected input parameter from list.";
+    t[33654] = "Statistics.DistributionsNumbers";
+    t[33655] = "Distributions by state";
     t[33658] = "Animation.Icon.Computer";
     t[33659] = "Computer";
     t[33662] = "ExpressionCalculator.Toolbar.Save";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37437] = "The table to be pasted is not square.";
     t[37442] = "Main.Menu.Model.Mnemonic";
     t[37443] = "M";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37444] = "Dialog.Button.No";
     t[37445] = "No";
     t[37446] = "ExpressionBuilder.SimulationCharacteristics.ClientData.Alternative";
     t[37447] = "Operator alternative";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37456] = "Optimizer.OutputFileFormat";
     t[37457] = "Statistic%04d.xml";
     t[37462] = "Surface.Action.Dialog.Info.Condition";

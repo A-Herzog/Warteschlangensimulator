@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-13 20:02+0200\n"
+"POT-Creation-Date: 2020-05-15 17:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2739,7 +2739,10 @@ msgid "Editor.Dialog.Tab.Simulation.Criteria.Title"
 msgstr "Kriterium für Simulationsende"
 
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error"
-msgstr "Die angegebene Anzahl an Stunden, die in der Statistik erfasst werden sollen, \"%s\" ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+msgstr "Die angegebene Anzahl an Stunden, die in der Statistik erfasst werden sollen, \"%s\" ist ungültig. Es muss eine nichtnegative Ganzzahl angegeben werden."
+
+msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info"
+msgstr "\"0\" schaltet die Erfassung von Verteilungsdaten ab."
 
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Value"
 msgstr "In Verteilung aufzuzeichnende Stunden"
@@ -15317,6 +15320,9 @@ msgstr "Verteilung der Zeitdauern"
 
 msgid "Statistics.Distributions"
 msgstr "Verteilungen der Zeiten"
+
+msgid "Statistics.DistributionsNumbers"
+msgstr "Verteilungen der Zustände"
 
 msgid "Statistics.EmergencyShutDown"
 msgstr "Die Simulation wurde vorzeitig abgebrochen. Die Statistik-Ergebnisse sind daher evtl. nicht valide."

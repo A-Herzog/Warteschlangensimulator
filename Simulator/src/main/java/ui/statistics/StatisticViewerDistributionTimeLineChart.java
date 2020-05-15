@@ -145,7 +145,7 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			if (color==null) color=COLORS[i%COLORS.length];
 
 			final DataDistributionImpl dist=indicators[i].getNormalizedDistribution();
-			addSeriesTruncated(title+" - "+names[i],color,dist,1800);
+			if (dist!=null) addSeriesTruncated(title+" - "+names[i],color,dist,1800);
 		}
 
 		smartZoom(1);
@@ -153,7 +153,7 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 
 	private void requestDiagrammStateDistribution(final String title, StatisticsMultiPerformanceIndicator indicator, final StatisticsTimePerformanceIndicator system, final String xLabel, final Map<String,Color> colorMap) {
 		initLineChart(title);
-		setupChartTimePercent(title,xLabel,Language.tr("Statistics.Part"));
+		setupChartValuePercent(title,xLabel,Language.tr("Statistics.Part"));
 
 		final String[] names=indicator.getNames();
 		final StatisticsPerformanceIndicator[] indicators=indicator.getAll();
@@ -175,11 +175,11 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			}
 			if (indicators[i] instanceof StatisticsDataPerformanceIndicator) {
 				dist=((StatisticsDataPerformanceIndicator)indicators[i]).getNormalizedDistribution();
-				addSeries(names[i],color,dist);
+				if (dist!=null) addSeries(names[i],color,dist);
 			}
 			if (indicators[i] instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
 				dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)indicators[i]).getNormalizedDistribution();
-				addSeries(names[i],color,dist);
+				if (dist!=null) addSeries(names[i],color,dist);
 			}
 		}
 

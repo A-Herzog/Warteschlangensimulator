@@ -283,7 +283,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		for (String type: types) {
 			headers.add(Language.tr("Statistics.NumberOfClients")+" - "+type);
 			headers.add(Language.tr("Statistics.PartOfClients")+" - "+type);
-			dists.add(((StatisticsDataPerformanceIndicator)(indicator.get(type))).getDistribution());
+			final DataDistributionImpl dist=((StatisticsDataPerformanceIndicator)(indicator.get(type))).getDistribution();
+			if (dist!=null) dists.add(dist);
 		}
 
 		final List<Double> sum=new ArrayList<>();
@@ -619,7 +620,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			final String field=String.format(Language.tr("Statistics.ClientData.Field"),name);
 			headers.add(Language.tr("Statistics.Number")+" - "+field);
 			headers.add(Language.tr("Statistics.Part")+" - "+field);
-			dists.add(((StatisticsDataPerformanceIndicatorWithNegativeValues)(statistics.clientData.get(name))).getDistribution());
+			final DataDistributionImpl dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)(statistics.clientData.get(name))).getDistribution();
+			if (dist!=null) dists.add(dist);
 		}
 
 		final List<Double> sum=new ArrayList<>();

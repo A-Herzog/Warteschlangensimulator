@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-13 20:02+0200\n"
+"POT-Creation-Date: 2020-05-15 17:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2738,7 +2738,10 @@ msgid "Editor.Dialog.Tab.Simulation.Criteria.Title"
 msgstr "Criteria for the end of the simulation"
 
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error"
-msgstr "The value \"%s\" for number of hours to be recorded in distributions is invalid. A positive integer value has to be specified."
+msgstr "The value \"%s\" for number of hours to be recorded in distributions is invalid. A non-negative integer value has to be specified."
+
+msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info"
+msgstr "\"0\" disables recording distribution data."
 
 msgid "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Value"
 msgstr "Hours to be recorded in distributions"
@@ -15310,6 +15313,9 @@ msgstr "Distribution of time periods"
 
 msgid "Statistics.Distributions"
 msgstr "Distributions by time"
+
+msgid "Statistics.DistributionsNumbers"
+msgstr "Distributions by state"
 
 msgid "Statistics.EmergencyShutDown"
 msgstr "The simulation was terminated prematurely. The statistics results may not be valid therefore."

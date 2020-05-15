@@ -150,7 +150,8 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		for (String type: types) {
 			headers.add(Language.tr("Statistics.NumberOfClients")+" - "+type);
 			headers.add(Language.tr("Statistics.PartOfClients")+" - "+type);
-			dists.add(((StatisticsDataPerformanceIndicator)(statistics.userStatistics.get(type))).getDistribution());
+			final DataDistributionImpl dist=((StatisticsDataPerformanceIndicator)(statistics.userStatistics.get(type))).getDistribution();
+			if (dist!=null) dists.add(dist);
 		}
 
 		List<Double> sum=new ArrayList<>();
