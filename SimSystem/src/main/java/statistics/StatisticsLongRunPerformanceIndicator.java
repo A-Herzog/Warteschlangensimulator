@@ -69,6 +69,7 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 		MODE_MAX
 	}
 
+	private int initialSize;
 	private double[] data;
 	private int dataUsed;
 	private long step;
@@ -84,7 +85,19 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 	 */
 	public StatisticsLongRunPerformanceIndicator(final String[] xmlNodeNames) {
 		super(xmlNodeNames);
-		data=new double[initialValues];
+		initialSize=initialValues;
+		dataUsed=0;
+		reset();
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>StatisticsLongRunPerformanceIndicator</code>
+	 * @param xmlNodeNames	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param initialSize	Anfängliche Länge der Aufzeichnungsliste
+	 */
+	public StatisticsLongRunPerformanceIndicator(final String[] xmlNodeNames, final int initialSize) {
+		super(xmlNodeNames);
+		this.initialSize=Math.max(initialSize,10);
 		dataUsed=0;
 		reset();
 	}
@@ -97,10 +110,14 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 		mode=moreLongRunStatistics.mode;
 		step=moreLongRunStatistics.step;
 		if (moreLongRunStatistics.dataUsed>dataUsed) {
-			data=Arrays.copyOf(data,moreLongRunStatistics.data.length);
+			if (data==null) {
+				data=new double[moreLongRunStatistics.data.length];
+			} else {
+				data=Arrays.copyOf(data,moreLongRunStatistics.data.length);
+			}
 			dataUsed=moreLongRunStatistics.dataUsed;
 		}
-		for (int i=0;i<moreLongRunStatistics.data.length;i++) data[i]+=moreLongRunStatistics.data[i];
+		if (moreLongRunStatistics.data!=null) for (int i=0;i<moreLongRunStatistics.data.length;i++) data[i]+=moreLongRunStatistics.data[i];
 	}
 
 	/**
@@ -149,9 +166,13 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 	}
 
 	private void dataAdd(final double value) {
-		if (dataUsed==data.length) {
+		if (data==null || dataUsed==data.length) {
 			if (dataUsed>=maxValues) return; /* Ende, wenn zu viel Speicher belegt wird */
-			data=Arrays.copyOf(data,data.length+initialValues);
+			if (data==null) {
+				data=new double[initialSize];
+			} else {
+				data=Arrays.copyOf(data,data.length+initialSize);
+			}
 		}
 		data[dataUsed++]=value;
 	}
@@ -301,10 +322,12 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 	@Override
 	protected void copyDataFrom(final StatisticsPerformanceIndicator indicator) {
 		if (!(indicator instanceof StatisticsLongRunPerformanceIndicator)) return;
-		data=Arrays.copyOf(((StatisticsLongRunPerformanceIndicator)indicator).data,((StatisticsLongRunPerformanceIndicator)indicator).data.length);
-		dataUsed=((StatisticsLongRunPerformanceIndicator)indicator).dataUsed;
-		step=((StatisticsLongRunPerformanceIndicator)indicator).step;
-		mode=((StatisticsLongRunPerformanceIndicator)indicator).mode;
+		final StatisticsLongRunPerformanceIndicator source=(StatisticsLongRunPerformanceIndicator)indicator;
+		initialSize=source.initialSize;
+		if (source.data!=null) data=Arrays.copyOf(source.data,source.data.length);
+		dataUsed=source.dataUsed;
+		step=source.step;
+		mode=source.mode;
 		lastTime=-1;
 	}
 
@@ -326,7 +349,7 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 	 */
 	@Override
 	public StatisticsLongRunPerformanceIndicator cloneEmpty() {
-		return new StatisticsLongRunPerformanceIndicator(xmlNodeNames);
+		return new StatisticsLongRunPerformanceIndicator(xmlNodeNames,initialSize);
 	}
 
 	@Override
