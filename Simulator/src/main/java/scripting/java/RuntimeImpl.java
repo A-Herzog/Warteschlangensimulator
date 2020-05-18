@@ -22,6 +22,7 @@ import java.util.Map;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import tools.NetHelper;
 
@@ -52,10 +53,11 @@ public class RuntimeImpl implements RuntimeInterface {
 		if (result instanceof String) return result;
 		final ExpressionCalc calc=(ExpressionCalc)result;
 
-		final Double D=calc.calc();
-		if (D==null) return Language.tr("Statistics.Filter.CoundNotProcessExpression.Title");
-
-		return D;
+		try {
+			return NumberTools.fastBoxedValue(calc.calc());
+		} catch (MathCalcError e) {
+			return Language.tr("Statistics.Filter.CoundNotProcessExpression.Title");
+		}
 	}
 
 	@Override

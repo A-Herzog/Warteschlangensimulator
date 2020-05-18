@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -24,11 +25,11 @@ import parser.coresymbols.CalcSymbolPreOperator;
  */
 public final class CalcSymbolPreOperatorMax extends CalcSymbolPreOperator {
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length==0) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length==0) throw error();
 		double max=parameters[0];
 		for (double d:parameters) if (d>max) max=d;
-		return fastBoxedValue(max);
+		return max;
 	}
 
 	@Override

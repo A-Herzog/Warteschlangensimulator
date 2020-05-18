@@ -228,12 +228,14 @@ public final class ModelLoadData implements Cloneable {
 		parent.appendChild(node);
 
 		node.setAttribute(Language.tr("ModelLoadData.XML.Active"),active?"1":"0");
-		String modeString=null;
-		switch (mode) {
-		case FILE: modeString=Language.tr("ModelLoadData.XML.Mode.File"); break;
-		case DDE: modeString=Language.tr("ModelLoadData.XML.Mode.DDE"); break;
+		if (mode!=null) {
+			String modeString=null;
+			switch (mode) {
+			case FILE: modeString=Language.tr("ModelLoadData.XML.Mode.File"); break;
+			case DDE: modeString=Language.tr("ModelLoadData.XML.Mode.DDE"); break;
+			}
+			node.setAttribute(Language.tr("ModelLoadData.XML.Mode"),modeString);
 		}
-		if (mode!=null) node.setAttribute(Language.tr("ModelLoadData.XML.Mode"),modeString);
 		if (!workbook.isEmpty()) node.setAttribute(Language.tr("ModelLoadData.XML.Workbook"),workbook);
 		if (!table.isEmpty()) node.setAttribute(Language.tr("ModelLoadData.XML.Table"),table);
 

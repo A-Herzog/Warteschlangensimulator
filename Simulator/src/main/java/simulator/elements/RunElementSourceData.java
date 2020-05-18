@@ -15,6 +15,7 @@
  */
 package simulator.elements;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.SimulationData;
@@ -118,8 +119,10 @@ public class RunElementSourceData extends RunElementData {
 
 		/* Schwellenwert prüfen */
 		simData.runData.setClientVariableValues(null);
-		final Double check=threshold.calc(simData.runData.variableValues,simData,null);
-		if (check==null) {
+		double check=0;
+		try {
+			check=threshold.calc(simData.runData.variableValues,simData,null);
+		} catch (MathCalcError e) {
 			simData.calculationErrorStation(threshold,this);
 			return false;
 		}
@@ -127,12 +130,12 @@ public class RunElementSourceData extends RunElementData {
 		boolean trigger=false;
 		if (thresholdIsLastValueAvailable) {
 			if (thresholdIsDirectionUp) {
-				if (thresholdLastValue<=thresholdValue && check.doubleValue()>thresholdValue) trigger=true;
+				if (thresholdLastValue<=thresholdValue && check>thresholdValue) trigger=true;
 			} else {
-				if (thresholdLastValue>=thresholdValue && check.doubleValue()<thresholdValue) trigger=true;
+				if (thresholdLastValue>=thresholdValue && check<thresholdValue) trigger=true;
 			}
 		}
-		thresholdLastValue=check.doubleValue();
+		thresholdLastValue=check;
 		thresholdIsLastValueAvailable=true;
 		return trigger;
 	}

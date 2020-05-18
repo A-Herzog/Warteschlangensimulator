@@ -66,6 +66,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
+import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
@@ -544,13 +545,12 @@ public class PlotterPanel extends JPanel {
 			for (int i=0;i<steps;i++) {
 				double x=xMin+i*(xMax-xMin)/(steps-1);
 				variableValue[0]=x;
-				final Double D=calc.calc(variableValue);
-				if (D!=null) {
-					final double d=D.doubleValue();
+				try {
+					final double d=calc.calc(variableValue);
 					if (d>max) max=d;
 					if (d<min) min=d;
 					atLeastOneValueOk=true;
-				}
+				} catch (MathCalcError e) {}
 			}
 			if (!atLeastOneValueOk) lastPlotOk=false;
 
@@ -569,11 +569,10 @@ public class PlotterPanel extends JPanel {
 			for (int i=0;i<steps;i++) {
 				double x=xMin+i*(xMax-xMin)/(steps-1);
 				variableValue[0]=x;
-				final Double D=calc.calc(variableValue);
-				if (D!=null) {
-					series.add(x,D.doubleValue());
+				try {
+					series.add(x,calc.calc(variableValue));
 					atLeastOneValueOk=true;
-				}
+				} catch (MathCalcError e) {}
 			}
 			if (!atLeastOneValueOk) lastPlotOk=false;
 

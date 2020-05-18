@@ -28,12 +28,13 @@ import javax.swing.JTextField;
 import org.apache.commons.math3.util.FastMath;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 
 /**
  * Enthält einige statische Routinen zur Umwandlung von Zeichenketten in Zahlen
  * und umgekehrt.
  * @author Alexander Herzog
- * @version 2.3
+ * @version 2.4
  */
 public final class NumberTools {
 	private static final String nullString="0";
@@ -1081,7 +1082,13 @@ public final class NumberTools {
 		for (int i=0;i<fastPositiveFractionalResults.length;i++) fastPositiveFractionalResults[i]=i/1000.0;
 	}
 
-	private static Double fastBoxedValue(final long value) {
+	/**
+	 * Packt eine Zahl in ein {@link Double}-Objekt ein und versucht dabei
+	 * Objekte zu recyclen.
+	 * @param value	Zu verpackende Zahl
+	 * @return	Zahl in einem {@link Double}-Objekt
+	 */
+	public static Double fastBoxedValue(final long value) {
 		if (value>0) {
 			if (value>=fastPositiveResults.length) return ((double)value);
 			return fastPositiveResults[(int)value];
@@ -1091,7 +1098,13 @@ public final class NumberTools {
 		}
 	}
 
-	private static Double fastBoxedValue(final double value) {
+	/**
+	 * Packt eine Zahl in ein {@link Double}-Objekt ein und versucht dabei
+	 * Objekte zu recyclen.
+	 * @param value	Zu verpackende Zahl
+	 * @return	Zahl in einem {@link Double}-Objekt
+	 */
+	public static Double fastBoxedValue(final double value) {
 		if (FastMath.floor(value)!=value) {
 			if (value>0) {
 				final double scaled=value*1000;
@@ -1152,7 +1165,11 @@ public final class NumberTools {
 
 		final CalcSystem calc=calcSystem.get();
 		if (calc.parse(s)>=0) return null;
-		return calc.calc();
+		try {
+			return fastBoxedValue(calc.calc());
+		} catch (MathCalcError e) {
+			return null;
+		}
 	}
 
 	/**

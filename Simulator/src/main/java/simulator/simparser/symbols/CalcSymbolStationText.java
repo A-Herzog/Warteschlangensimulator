@@ -17,6 +17,7 @@ package simulator.simparser.symbols;
 
 import org.apache.commons.math3.util.FastMath;
 
+import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
 
@@ -38,12 +39,12 @@ public class CalcSymbolStationText extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=1) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=1) throw error();
 
 		final int index=(int)FastMath.round(parameters[0]);
 
-		return fastBoxedValue(((ExpressionCalc)calcSystem).getStationIDFromTranslationIndex(index));
+		return ((ExpressionCalc)calcSystem).getStationIDFromTranslationIndex(index);
 	}
 
 	@Override

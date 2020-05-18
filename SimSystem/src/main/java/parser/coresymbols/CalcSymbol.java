@@ -15,14 +15,13 @@
  */
 package parser.coresymbols;
 
-import org.apache.commons.math3.util.FastMath;
-
 import parser.CalcSystem;
+import parser.MathCalcError;
 
 /**
  * Basis-Symbol für den Formelparser
  * @author Alexander Herzog
- * @version 1.1
+ * @version 1.2
  * @see CalcSystem
  */
 public abstract class CalcSymbol implements Cloneable {
@@ -60,54 +59,6 @@ public abstract class CalcSymbol implements Cloneable {
 	}
 
 	/**
-	 * Versucht statt dem automatischen Boxing ein vorgefertigtes <code>Double</code>-Objekt für die <code>long</code>-Zahl zu liefern.
-	 * @param value	Zu boxende Zahl
-	 * @return	Geboxte Zahl (entweder per automatischem Boxing oder wenn möglich über das Caching-System)
-	 */
-	protected Double fastBoxedValue(final long value) {
-		if (value>0) {
-			if (value>=CalcSystem.fastPositiveResults.length) return ((double)value);
-			return CalcSystem.fastPositiveResults[(int)value];
-		} else {
-			if ((-value)>=CalcSystem.fastNegativeResults.length) return ((double)value);
-			return CalcSystem.fastNegativeResults[(int)(-value)];
-		}
-	}
-
-	private Double lastValue=null;
-
-	/**
-	 * Versucht statt dem automatischen Boxing ein vorgefertigtes <code>Double</code>-Objekt für die <code>double</code>-Zahl zu liefern.
-	 * @param value	Zu boxende Zahl
-	 * @return	Geboxte Zahl (entweder per automatischem Boxing oder wenn möglich über das Caching-System)
-	 */
-	protected Double fastBoxedValue(final double value) {
-		if (lastValue!=null && lastValue.doubleValue()==value) return lastValue;
-
-		if (FastMath.floor(value)!=value) {
-			if (value>0) {
-				final double scaled=value*1000;
-				if(scaled%1==0) {
-					final long scaledIndex=(long)FastMath.floor(scaled);
-					if (scaledIndex<CalcSystem.fastPositiveFractionalResults.length)
-						return CalcSystem.fastPositiveFractionalResults[(int)scaledIndex];
-				}
-			}
-
-			return lastValue=value;
-		}
-
-		final long l=(long)value;
-		if (l>0) {
-			if (l>=CalcSystem.fastPositiveResults.length) return lastValue=value;
-			return CalcSystem.fastPositiveResults[(int)l];
-		} else {
-			if ((-l)>=CalcSystem.fastNegativeResults.length) return lastValue=value;
-			return CalcSystem.fastNegativeResults[(int)(-l)];
-		}
-	}
-
-	/**
 	 * Liefert eine Liste mit den möglichen Namen des Symbols
 	 * @return	Liste mit den möglichen Namen des Symbols
 	 */
@@ -128,8 +79,9 @@ public abstract class CalcSymbol implements Cloneable {
 	 * Liefert den Wert des Symbols
 	 * @param calc	Rechensystem (zum Abfragen der aktuellen Werte von Variablen usw.)
 	 * @return	Aktueller Wert des Symbols
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
-	public abstract Double getValue(final CalcSystem calc);
+	public abstract double getValue(final CalcSystem calc) throws MathCalcError;
 
 	/**
 	 * Versucht den Ausdruck (und seine Kind-Elemente) zu vereinfachen
@@ -147,5 +99,13 @@ public abstract class CalcSymbol implements Cloneable {
 			clone.position=position;
 			return clone;
 		} catch (CloneNotSupportedException e) {return null;}
+	}
+
+	/**
+	 * Erstellt ein {@link MathCalcError}-Objekt, welches per <code>throw</code> zurückgegeben werden kann.
+	 * @return	{@link MathCalcError}-Objekt
+	 */
+	protected final MathCalcError error() {
+		return new MathCalcError(this);
 	}
 }

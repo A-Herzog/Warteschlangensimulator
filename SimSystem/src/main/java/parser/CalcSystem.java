@@ -21,7 +21,6 @@ import mathtools.NumberTools;
 import parser.coresymbols.CalcSymbol;
 import parser.coresymbols.CalcSymbolMiddleOperator;
 import parser.coresymbols.CalcSymbolPreOperator;
-import parser.coresymbols.CalcSymbolVariable;
 
 /**
  * Formel-Praser
@@ -175,21 +174,18 @@ public class CalcSystem extends CalcSystemBase {
 		return -1;
 	}
 
-	private Double plainNumberCache=null;
-
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und der hier angegebenen Werte.
 	 * @param variableValues	Liste mit den Werten der Variablen
 	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
 	@Override
-	public Double calc(double[] variableValues) {
+	public double calc(double[] variableValues) throws MathCalcError {
 		if (isConstValue()) {
-			final double constValue=getConstValue();
-			if (plainNumberCache==null || plainNumberCache.doubleValue()!=constValue) plainNumberCache=constValue;
-			return plainNumberCache;
+			return getConstValue();
 		}
-		if (root==null) return null;
+		if (root==null) throw new MathCalcError(this);
 		if (variableValues!=null) values=variableValues;
 		return root.getValue(this);
 	}
@@ -206,11 +202,6 @@ public class CalcSystem extends CalcSystemBase {
 		if (root==null) return fallbackValue;
 		if (variableValues!=null) values=variableValues;
 
-		if (root instanceof CalcSymbolVariable) {
-			if (!((CalcSymbolVariable)root).getValueDirectOk(this)) return fallbackValue;
-			return ((CalcSymbolVariable)root).getValueDirect(this);
-		}
-
 		if (root instanceof CalcSymbolMiddleOperator) {
 			return ((CalcSymbolMiddleOperator)root).getValueOrDefault(this,fallbackValue);
 		}
@@ -219,7 +210,11 @@ public class CalcSystem extends CalcSystemBase {
 			return ((CalcSymbolPreOperator)root).getValueOrDefault(this,fallbackValue);
 		}
 
-		return root.getValue(this);
+		try {
+			return root.getValue(this);
+		} catch (MathCalcError e) {
+			return fallbackValue;
+		}
 	}
 
 	/**
@@ -230,7 +225,11 @@ public class CalcSystem extends CalcSystemBase {
 	public static Double calcSimple(String text) {
 		CalcSystem calc=new CalcSystem(text);
 		if (calc.parse()>=0) return null;
-		return calc.calc();
+		try {
+			return NumberTools.fastBoxedValue(calc.calc());
+		} catch (MathCalcError e) {
+			return null;
+		}
 	}
 
 	/**

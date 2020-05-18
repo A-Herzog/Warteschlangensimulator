@@ -17,6 +17,7 @@ package simulator.elements;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -129,52 +130,48 @@ public class RunElementCosts extends RunElementPassThrough {
 
 		simData.runData.setClientVariableValues(client);
 
-		final double stationCosts;
+		double stationCosts;
 		if (data.stationCosts==null) {
 			stationCosts=0.0;
 		} else {
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.stationCosts.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.stationCosts,this);
-				stationCosts=(D==null)?0.0:D.doubleValue();
-			} else {
-				stationCosts=data.stationCosts.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				stationCosts=data.stationCosts.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.stationCosts,this);
+				stationCosts=0;
 			}
 		}
-		final double clientWaitingCosts;
+		double clientWaitingCosts;
 		if (data.clientWaitingCosts==null) {
 			clientWaitingCosts=0.0;
 		} else {
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.clientWaitingCosts.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.clientWaitingCosts,this);
-				clientWaitingCosts=(D==null)?0.0:D.doubleValue();
-			} else {
-				clientWaitingCosts=data.clientWaitingCosts.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				clientWaitingCosts=data.clientWaitingCosts.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.clientWaitingCosts,this);
+				clientWaitingCosts=0;
 			}
 		}
-		final double clientTransferCosts;
+		double clientTransferCosts;
 		if (data.clientTransferCosts==null) {
 			clientTransferCosts=0.0;
 		} else {
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.clientTransferCosts.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.clientTransferCosts,this);
-				clientTransferCosts=(D==null)?0.0:D.doubleValue();
-			} else {
-				clientTransferCosts=data.clientTransferCosts.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				clientTransferCosts=data.clientTransferCosts.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.clientTransferCosts,this);
+				clientTransferCosts=0;
 			}
 		}
-		final double clientProcessCosts;
+		double clientProcessCosts;
 		if (data.clientProcessCosts==null) {
 			clientProcessCosts=0.0;
 		} else {
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.clientProcessCosts.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.clientProcessCosts,this);
-				clientProcessCosts=(D==null)?0.0:D.doubleValue();
-			} else {
-				clientProcessCosts=data.clientProcessCosts.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				clientProcessCosts=data.clientProcessCosts.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.clientProcessCosts,this);
+				clientProcessCosts=0;
 			}
 		}
 

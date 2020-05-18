@@ -20,6 +20,7 @@ import java.util.List;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.events.ConveyorSystemChangeEvent;
@@ -140,12 +141,11 @@ public class RunElementConveyorData extends RunElementData {
 
 		final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
 		simData.runData.setClientVariableValues(client,additionalWaitingTime);
-		if (simData.runModel.stoppOnCalcError) {
-			final Double D=capacityNeeded[type].calc(simData.runData.variableValues,simData,client);
-			if (D==null) simData.calculationErrorStation(capacityNeeded[type],this);
-			return ((D==null)?0.0:D.doubleValue());
-		} else {
-			return capacityNeeded[type].calcOrDefault(simData.runData.variableValues,simData,client,0);
+		try {
+			return capacityNeeded[type].calc(simData.runData.variableValues,simData,client);
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(capacityNeeded[type],this);
+			return 0;
 		}
 	}
 

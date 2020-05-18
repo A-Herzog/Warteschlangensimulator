@@ -22,6 +22,7 @@ import language.Language;
 import mathtools.TimeTools;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -152,12 +153,11 @@ public class RunElementRelease extends RunElementPassThrough {
 				final ExpressionCalc calc=getData(simData).delayExpression[client.type];
 				if (calc!=null) {
 					simData.runData.setClientVariableValues(client);
-					if (simData.runModel.stoppOnCalcError) {
-						final Double D=getData(simData).delayExpression[client.type].calc(simData.runData.variableValues,simData,client);
-						if (D==null) simData.calculationErrorStation(getData(simData).delayExpression[client.type],this);
-						value=(D==null)?0.0:D.doubleValue();
-					} else {
-						value=getData(simData).delayExpression[client.type].calcOrDefault(simData.runData.variableValues,simData,client,0);
+					try {
+						value=getData(simData).delayExpression[client.type].calc(simData.runData.variableValues,simData,client);
+					} catch (MathCalcError e) {
+						simData.calculationErrorStation(getData(simData).delayExpression[client.type],this);
+						value=0;
 					}
 				}
 			}

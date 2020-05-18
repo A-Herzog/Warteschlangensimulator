@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.commons.math3.util.FastMath;
 
 import parser.CalcSystemBase;
+import parser.MathCalcError;
 
 /**
  * Einfacher Formel-Praser
@@ -299,21 +300,18 @@ public class SimpleParser extends CalcSystemBase {
 		return -1;
 	}
 
-	private Double plainNumberCache=null;
-
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und der hier angegebenen Werte.
 	 * @param variableValues	Liste mit den Werten der Variablen
-	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
+	 * @return	Zahlenwert des Ergebnisses.
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
 	@Override
-	public Double calc(double[] variableValues) {
+	public double calc(double[] variableValues) throws MathCalcError {
 		if (isConstValue()) {
-			final double constValue=getConstValue();
-			if (plainNumberCache==null || plainNumberCache.doubleValue()!=constValue) plainNumberCache=constValue;
-			return plainNumberCache;
+			return getConstValue();
 		}
-		if (root==null) return null;
+		if (root==null) throw new MathCalcError(this);
 		return root.calc(variableValues);
 	}
 
@@ -321,30 +319,35 @@ public class SimpleParser extends CalcSystemBase {
 	public double calcOrDefault(double[] variableValues, double fallbackValue) {
 		if (isConstValue()) return getConstValue();
 		if (root==null) return fallbackValue;
-		final Double D=root.calc(variableValues);
-		return (D==null)?fallbackValue:D.doubleValue();
+		try {
+			return root.calc(variableValues);
+		} catch (MathCalcError e) {
+			return fallbackValue;
+		}
 	}
 
 	private abstract class Symbol {
-		public abstract Double calc(final double[] variableValues);
+		public abstract double calc(final double[] variableValues) throws MathCalcError;
 		public Symbol simplify() {return this;}
+		protected final MathCalcError error() {return new MathCalcError(this);}
 	}
 
 	private class NumberSymbol extends Symbol {
 		public final double value;
 		public NumberSymbol(final double value) {this.value=value;}
 		@Override
-		public Double calc(final double[] variableValues) {return value;}
+		public double calc(final double[] variableValues) {return value;}
 	}
 
 	private class VariableSymbol extends Symbol {
 		public final int variableIndex;
 		public VariableSymbol(final int variableIndex) {this.variableIndex=variableIndex;}
 		@Override
-		public Double calc(final double[] variableValues) {
+		public double calc(final double[] variableValues) throws MathCalcError {
 			if (variableIndex==-2) return Math.PI;
 			if (variableIndex==-3) return Math.E;
-			return (variableIndex<0 || variableIndex>=variableValues.length)?null:variableValues[variableIndex];
+			if (variableIndex<0 || variableIndex>=variableValues.length) throw error();
+			return variableValues[variableIndex];
 		}
 		@Override
 		public Symbol simplify() {
@@ -362,24 +365,24 @@ public class SimpleParser extends CalcSystemBase {
 		public final Symbol left, right;
 		public OperatorSymbol(final char operator, final Symbol left, final Symbol right) {this.operator=operator; this.left=left; this.right=right;}
 		@Override
-		public Double calc(final double[] variableValues) {
-			Double l=null, r=null;
-			if (left!=null) {l=left.calc(variableValues); if (l==null) return null;}
-			if (right!=null) {r=right.calc(variableValues); if (r==null) return null;}
-			final double l2=(l!=null)?l.doubleValue():0.0;
-			final double r2=(r!=null)?r.doubleValue():0.0;
+		public double calc(final double[] variableValues) throws MathCalcError {
+			double l2=0;
+			if (left!=null) l2=left.calc(variableValues);
+			double r2=0;
+			if (right!=null) r2=right.calc(variableValues);
+
 			switch (operator) {
 			case '+': return l2+r2;
 			case '-': return l2-r2;
 			case '*': return l2*r2;
 			case '/':
-			case ':': return (r2==0)?null:(l2/r2);
-			case '^': return (r2<0)?null:Math.pow(l2,r2);
+			case ':': if (r2==0) throw error(); else return (l2/r2);
+			case '^': if (r2<0) throw error(); else return Math.pow(l2,r2);
 			case '%': return l2/100;
 			case '²': return l2*l2;
 			case '³': return l2*l2*l2;
 			case '!': if (l2==0.0) return 1.0; else return Math.signum(l2)*Functions.getFactorial((int)Math.round(Math.abs(l2)));
-			default: return null;
+			default: throw error();
 			}
 		}
 		@Override
@@ -388,8 +391,11 @@ public class SimpleParser extends CalcSystemBase {
 			final Symbol r=(right==null)?null:right.simplify();
 			if ((l==null || l instanceof NumberSymbol) && (r==null || r instanceof NumberSymbol)) {
 				final OperatorSymbol o=new OperatorSymbol(operator,l,r);
-				final Double d=o.calc(new double[0]);
-				if (d!=null) return new NumberSymbol(d);
+				try {
+					return new NumberSymbol(o.calc(new double[0]));
+				} catch (MathCalcError e) {
+					return this;
+				}
 			}
 			return this;
 		}
@@ -402,25 +408,25 @@ public class SimpleParser extends CalcSystemBase {
 		public final Symbol sub;
 		public FunctionSymbol(final String name, final Symbol sub) {this.name=name.toLowerCase(); this.sub=sub;}
 		@Override
-		public Double calc(final double[] variableValues) {
-			if (sub==null) return null;
-			final Double subValue=sub.calc(variableValues); if (subValue==null) return null;
+		public double calc(final double[] variableValues) throws MathCalcError {
+			if (sub==null) throw error();
+			final double subValue=sub.calc(variableValues);
 			double d;
 			switch (name) {
 			case "sqr" : return subValue*subValue;
 			case "wurzel":
 			case "quadratwurzel":
 			case "\\":
-			case "sqrt" : return (subValue>=0)?Math.sqrt(subValue):null;
+			case "sqrt" : if (subValue<0) throw error(); else return Math.sqrt(subValue);
 			case "sin" : return Math.sin(subValue);
 			case "cos" : return Math.cos(subValue);
-			case "tan" : d=Math.tan(subValue); return (Double.isNaN(d))?null:d;
-			case "cot" : d=Math.tan(subValue); return (Double.isNaN(d) || Math.abs(d)<0.000001)?null:(1/d);
+			case "tan" : d=Math.tan(subValue); if (Double.isNaN(d)) throw error(); else return d;
+			case "cot" : d=Math.tan(subValue); if (Double.isNaN(d) || Math.abs(d)<0.000001) throw error(); else return 1/d;
 			case "exp" : return FastMath.exp(subValue);
 			case "log" :
-			case "ln" : return (subValue>0)?Math.log(subValue):null;
-			case "lg" : return (subValue>0)?Math.log10(subValue):null;
-			case "ld" : return (subValue>0)?(Math.log(subValue)/Math.log(2)):null;
+			case "ln" : if (subValue<=0) throw error(); else return Math.log(subValue);
+			case "lg" : if (subValue<=0) throw error(); else return Math.log10(subValue);
+			case "ld" : if (subValue<=0) throw error(); else return Math.log(subValue)/Math.log(2);
 			case "absolutbetrag":
 			case "betrag":
 			case "abs" : return StrictMath.abs(subValue);
@@ -428,7 +434,7 @@ public class SimpleParser extends CalcSystemBase {
 			case "int": return subValue-subValue%1;
 			case "round" :
 			case "rnd":
-			case "runden" : return (double)Math.round(subValue);
+			case "runden" : return Math.round(subValue);
 			case "abrunden":
 			case "floor" : return Math.floor(subValue);
 			case "aufrunden":
@@ -438,16 +444,21 @@ public class SimpleParser extends CalcSystemBase {
 			case "sign":
 			case "signum":
 			case "sgn": return Math.signum(subValue);
-			default: return null;
+			default: throw error();
 			}
 		}
+
 		@Override
 		public Symbol simplify() {
 			final Symbol s=sub.simplify();
 			if (s instanceof NumberSymbol) {
 				final FunctionSymbol f=new FunctionSymbol(name,s);
-				final Double d=f.calc(new double[0]);
-				if (d!=null) return new NumberSymbol(d);
+				try {
+					return new NumberSymbol(f.calc(new double[0]));
+				} catch (MathCalcError e) {
+					return this;
+				}
+
 			}
 			return this;
 		}
@@ -461,6 +472,10 @@ public class SimpleParser extends CalcSystemBase {
 	public static Double calcSimple(final String text) {
 		final SimpleParser parser=new SimpleParser(text);
 		if (parser.parse()!=-1) return null;
-		return parser.calc();
+		try {
+			return parser.calc();
+		} catch (MathCalcError e) {
+			return null;
+		}
 	}
 }

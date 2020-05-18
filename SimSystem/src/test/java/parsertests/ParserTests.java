@@ -17,6 +17,7 @@ package parsertests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -26,6 +27,7 @@ import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -81,7 +83,7 @@ public class ParserTests {
 		final String[] variablesNull=null;
 		final List<String> variablesList=Arrays.asList(variables);
 		final List<String> variablesListNull=null;
-		final List<Double> valuesList=Arrays.asList(new Double[]{1.0,2.0,3.0,null,4.0,5.0});
+		final List<Double> valuesList=Arrays.asList(1.0,2.0,3.0,null,4.0,5.0);
 		final List<Double> valuesListNull=null;
 
 		constructorTest(new CalcSystem(),null,null,null);
@@ -214,49 +216,64 @@ public class ParserTests {
 	@Test
 	void calcTest() {
 		CalcSystem calc;
-		Double D;
+		double d;
 
 		calc=new CalcSystem("5");
 		assertTrue(calc.parse()<0);
 		assertTrue(calc.isConstValue());
 		assertEquals(5.0,calc.getConstValue());
-		D=calc.calc();
-		assertNotNull(D);
-		assertEquals(5,D.doubleValue());
+		try {
+			d=calc.calc();
+			assertEquals(5,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("5,25");
 		assertTrue(calc.parse()<0);
 		assertTrue(calc.isConstValue());
 		assertEquals(5.25,calc.getConstValue());
-		D=calc.calc();
-		assertNotNull(D);
-		assertEquals(5.25,D.doubleValue());
+		try {
+			d=calc.calc();
+			assertEquals(5.25,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("5.75");
 		assertTrue(calc.parse()<0);
 		assertTrue(calc.isConstValue());
 		assertEquals(5.75,calc.getConstValue());
-		D=calc.calc();
-		assertNotNull(D);
-		assertEquals(5.75,D.doubleValue());
+		try {
+			d=calc.calc();
+			assertEquals(5.75,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("sqrt(25)");
 		assertTrue(calc.parse()<0);
 		assertTrue(calc.isConstValue());
 		assertEquals(5.0,calc.getConstValue());
-		D=calc.calc();
-		assertNotNull(D);
-		assertEquals(5.0,D.doubleValue());
+		try {
+			d=calc.calc();
+			assertEquals(5.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
-		calc=new CalcSystem();
-		assertTrue(calc.calc()==null);
+		final CalcSystem calc1=new CalcSystem();
+		assertThrows(MathCalcError.class,()->calc1.calc());
 
 		calc=new CalcSystem("a+3",new String[]{null,"a",""});
 		assertTrue(calc.parse()<0);
 		assertTrue(!calc.isConstValue());
-		D=calc.calc(new double[]{1,2,3});
-		assertNotNull(D);
-		assertEquals(5.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{1,2,3});
+			assertEquals(5.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("|-7|");
 		assertTrue(calc.parse()<0);
@@ -295,9 +312,12 @@ public class ParserTests {
 
 		calc=new CalcSystem("min(2;3;4)");
 		assertTrue(calc.parse()<0);
-		D=calc.calc();
-		assertNotNull(D);
-		assertEquals(2.0,D.doubleValue());
+		try {
+			d=calc.calc();
+			assertEquals(2.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 	}
 
 	/**
@@ -361,9 +381,9 @@ public class ParserTests {
 								return new String[]{"TestFunction"};
 							}
 							@Override
-							protected Double calc(double[] parameters) {
-								if (parameters.length!=1) return null;
-								return fastBoxedValue(parameters[0]+1);
+							protected double calc(double[] parameters) throws MathCalcError {
+								if (parameters.length!=1) throw error();
+								return parameters[0]+1;
 							}
 						}
 				};

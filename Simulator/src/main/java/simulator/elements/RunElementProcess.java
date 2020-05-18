@@ -26,6 +26,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.TimeTools;
 import mathtools.distribution.tools.DistributionTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -307,12 +308,11 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			return (((double)simData.currentTime)-client.lastWaitingStart)/1000.0;
 		} else {
 			simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=calc.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(calc,this);
-				return (D==null)?0.0:D.doubleValue();
-			} else {
-				return calc.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				return calc.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(calc,this);
+				return 0;
 			}
 		}
 	}
@@ -321,24 +321,23 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		boolean clientVariablesSet=false;
 
 		/* Kosten pro Bedienung */
-		final double costsValue;
+		double costsValue;
 		if (data.costs==null) {
 			costsValue=0.0;
 		} else {
 			simData.runData.setClientVariableValues(client);
 			clientVariablesSet=true;
 
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.costs.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.costs,this);
-				costsValue=(D==null)?0.0:D.doubleValue();
-			} else {
-				costsValue=data.costs.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				costsValue=data.costs.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.costs,this);
+				costsValue=0;
 			}
 		}
 
 		/* Kosten pro Bediensekunde */
-		final double costsPerProcessSecondValue;
+		double costsPerProcessSecondValue;
 		if (timeProcess==0.0 || data.costsPerProcessSecond==null) {
 			costsPerProcessSecondValue=0.0; /* Wir können uns die Berechnung sparen, wenn überhaupt keine entsprechende Zeit angefallen ist. */
 		} else {
@@ -347,17 +346,16 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				clientVariablesSet=true;
 			}
 
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.costsPerProcessSecond.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.costsPerProcessSecond,this);
-				costsPerProcessSecondValue=(D==null)?0.0:D.doubleValue();
-			} else {
-				costsPerProcessSecondValue=data.costsPerProcessSecond.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				costsPerProcessSecondValue=data.costsPerProcessSecond.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.costsPerProcessSecond,this);
+				costsPerProcessSecondValue=0;
 			}
 		}
 
 		/* Kosten pro Nachbearbeitungssekunde */
-		final double costsPerPostProcessSecondValue;
+		double costsPerPostProcessSecondValue;
 		if (timePostProcess==0.0 || data.costsPerPostProcessSecond==null) {
 			costsPerPostProcessSecondValue=0.0;  /* Wir können uns die Berechnung sparen, wenn überhaupt keine entsprechende Zeit angefallen ist. */
 		} else {
@@ -366,12 +364,11 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				clientVariablesSet=true;
 			}
 
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.costsPerPostProcessSecond.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.costsPerPostProcessSecond,this);
-				costsPerPostProcessSecondValue=(D==null)?0.0:D.doubleValue();
-			} else {
-				costsPerPostProcessSecondValue=data.costsPerPostProcessSecond.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				costsPerPostProcessSecondValue=data.costsPerPostProcessSecond.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.costsPerPostProcessSecond,this);
+				costsPerPostProcessSecondValue=0;
 			}
 		}
 
@@ -477,12 +474,11 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 					processData.score[i]=waitingTime;
 				} else {
 					simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);
-					if (simData.runModel.stoppOnCalcError) {
-						final Double D=calc.calc(simData.runData.variableValues,simData,client);
-						if (D==null) simData.calculationErrorStation(calc,this);
-						processData.score[i]=(D==null)?0.0:D.doubleValue();
-					} else {
-						processData.score[i]=calc.calcOrDefault(simData.runData.variableValues,simData,client,0);
+					try {
+						processData.score[i]=calc.calc(simData.runData.variableValues,simData,client);
+					} catch (MathCalcError e) {
+						simData.calculationErrorStation(calc,this);
+						processData.score[i]=0;
 					}
 				}
 			}

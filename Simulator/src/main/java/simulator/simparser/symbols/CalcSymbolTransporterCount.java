@@ -17,6 +17,7 @@ package simulator.simparser.symbols;
 
 import org.apache.commons.math3.util.FastMath;
 
+import parser.MathCalcError;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
 
@@ -34,20 +35,20 @@ public class CalcSymbolTransporterCount extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
+	protected double calc(double[] parameters) throws MathCalcError {
 		final SimulationData simData=getSimData();
-		if (simData==null) return null;
+		if (simData==null) throw error();
 
 		if (parameters.length==0) {
-			return fastBoxedValue(simData.runData.transporters.getTransporterCount());
+			return simData.runData.transporters.getTransporterCount();
 		}
 
 		if (parameters.length==1) {
 			final int id=(int)FastMath.round(parameters[0])-1;
-			return fastBoxedValue(simData.runData.transporters.getTransporterCount(id));
+			return simData.runData.transporters.getTransporterCount(id);
 		}
 
-		return null;
+		throw error();
 	}
 
 	@Override

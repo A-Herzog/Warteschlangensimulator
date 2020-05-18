@@ -22,6 +22,7 @@ import language.Language;
 import mathtools.TimeTools;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -177,12 +178,11 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 		if (releaseDelayExpressions!=null && releaseDelayExpressions[targetID]!=null) {
 			final RunElementTransportSourceData data=getData(simData);
 			simData.runData.setClientVariableValues(null);
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.releaseDelayExpressions[targetID].calc(simData.runData.variableValues,simData,null);
-				if (D==null) simData.calculationErrorStation(data.releaseDelayExpressions[targetID],this);
-				return ((D==null)?0.0:D.doubleValue())*releaseDelayTimeBaseMultiply;
-			} else {
-				return data.releaseDelayExpressions[targetID].calcOrDefault(simData.runData.variableValues,simData,null,0)*releaseDelayTimeBaseMultiply;
+			try {
+				return data.releaseDelayExpressions[targetID].calc(simData.runData.variableValues,simData,null)*releaseDelayTimeBaseMultiply;
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.releaseDelayExpressions[targetID],this);
+				return 0;
 			}
 		}
 		return 0.0;

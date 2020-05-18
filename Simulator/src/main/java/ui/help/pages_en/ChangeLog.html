@@ -20,9 +20,12 @@
   <li>Reports can now also be saved in LaTeX format.</li>
   <li>Rulers can now be displayed around the drawing area.</li>
   <li>Recording the waiting, transfer and process times distributions can now be disabled.</li>
+  <li>Slightly faster and less memory consuming calculation of arithmetic expressions.</li>
   <li>Reduced memory requirements on parameter series simulations.</li>
   <li>[Fix] The queue length at hold (script) station was recorded invalid in statistics.</li>
   <li>[Fix] The call center example model was damaged in the English language version.</li>
+  <li>[Fix] Using expressions for calculating the inter-arrival times did not work correctly in all cases.</li>
+  <li>[Fix] If the service times at a process station were calculated by an expression and if it was defined not to cancel the simulation on an calculation error, wrong service times were calculated if another time base than "seconds" was used at the station.</li>
   <li>[Fix] Double clicking the status bar opened the wrong model properties dialog page.</li>
   <li>[Fix] Fixed scripting code in example models for better compatibility with Rhino and GraalJS.</li>
   <li>[Fix] After renaming a model in a parameter series list, the new name did not immediately appear in the table.</li>

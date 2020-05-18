@@ -15,6 +15,7 @@
  */
 package simulator.simparser.coresymbols;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementAssign;
@@ -74,34 +75,34 @@ public abstract class CalcSymbolStationDataQuantil extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (getSimData()==null) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (getSimData()==null) throw error();
 
 		/* Wert p für Quantil */
-		if (parameters.length<1) return null;
+		if (parameters.length<1) throw error();
 		double p=parameters[0];
 		if (p<0) p=0;
 		if (p>1) p=1;
 
 		/* Kundentyp? */
-		if (parameters.length==1 && hasAllData()) return fastBoxedValue(calcAll(p));
-		if (parameters.length!=2) return null;
+		if (parameters.length==1 && hasAllData()) return calcAll(p);
+		if (parameters.length!=2) throw error();
 
 		if (hasSingleClientData()) {
 			final RunElement element=getRunElementForID(parameters[1]);
-			if (element==null) return null;
+			if (element==null) throw error();
 
 			String name=null;
 			if (element instanceof RunElementSource) name=((RunElementSource)element).clientTypeName;
 			if (element instanceof RunElementAssign) name=((RunElementAssign)element).clientTypeName;
-			if (name!=null) return fastBoxedValue(calcSingleClient(p,name));
+			if (name!=null) return calcSingleClient(p,name);
 			/* name==null: Evtl. nicht pro Kundentyp sondern pro Station */
 		}
 
 		/* Station? */
 		final RunElementData data=getRunElementDataForID(parameters[1]);
-		if (data==null) return fastBoxedValue(0);
-		return fastBoxedValue(calc(p,data));
+		if (data==null) return 0.0;
+		return calc(p,data);
 	}
 
 	@Override

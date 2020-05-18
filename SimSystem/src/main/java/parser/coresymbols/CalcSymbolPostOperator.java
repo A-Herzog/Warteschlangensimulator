@@ -16,6 +16,7 @@
 package parser.coresymbols;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 
 /**
  * Abstrakte Basisklasse für nachgestellte Operatoren (wie "%")
@@ -47,28 +48,14 @@ public abstract class CalcSymbolPostOperator extends CalcSymbolFunction {
 	 * Versucht den Operator zu berechnen, wenn der Zahlenwert des Parameters bekannt ist
 	 * @param parameter 	Zahlenwert des Parameters
 	 * @return	Liefert im Erfolgsfall das Ergebnis, sonst <code>null</code>
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
-	protected abstract Double calc(final double parameter);
+	protected abstract double calc(final double parameter) throws MathCalcError;
 
 	@Override
-	public final Double getValue(final CalcSystem calc) {
-
-		Double value;
-		if (sub instanceof CalcSymbolConst) {
-			value=((CalcSymbolConst)sub).getValue();
-		} else {
-			if (sub instanceof CalcSymbolVariable) {
-				if (!((CalcSymbolVariable)sub).getValueDirectOk(calc)) return null;
-				value=((CalcSymbolVariable)sub).getValueDirect(calc);
-			} else {
-				if (sub==null) return null;
-				final Double val=sub.getValue(calc);
-				if (val==null) return null;
-				value=val;
-			}
-		}
-
-		return calc(value);
+	public final double getValue(final CalcSystem calc) throws MathCalcError {
+		if (sub==null) throw error();
+		return calc(sub.getValue(calc));
 	}
 
 	@Override
@@ -90,8 +77,10 @@ public abstract class CalcSymbolPostOperator extends CalcSymbolFunction {
 	public Object getSimplify() {
 		final Double sub=getSimpleConstSub();
 		if (sub==null) return this;
-		final Double result=calc(sub);
-		if (result!=null) return result;
-		return this;
+		try {
+			return calc(sub);
+		} catch (MathCalcError e) {
+			return this;
+		}
 	}
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import language.Language;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -178,10 +179,10 @@ public class RunElementTransportSourceTargets {
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 		}
 		for (int i=0;i<assignmentNr.length;i++) {
-			final Double value=simData.runData.sequenceStepAssignmentExpression[nr][step][i].calc();
-			if (value!=null) {
-				client.setUserData(assignmentNr[i],value.doubleValue());
-			}
+			try {
+				final double value=simData.runData.sequenceStepAssignmentExpression[nr][step][i].calc();
+				client.setUserData(assignmentNr[i],value);
+			} catch (MathCalcError e) {}
 		}
 
 		client.sequenceStep=simData.runModel.sequenceStepNext[nr][step];

@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -25,9 +26,9 @@ public final class CalcSymbolPreOperatorLd extends CalcSymbolPreOperator {
 	private static final double log2=Math.log(2);
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=1) return null;
-		if (parameters[0]<=0) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=1) throw error();
+		if (parameters[0]<=0) throw error();
 		return Math.log(parameters[0])/log2;
 	}
 

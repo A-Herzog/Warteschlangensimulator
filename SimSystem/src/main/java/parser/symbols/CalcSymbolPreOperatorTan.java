@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -23,15 +24,18 @@ import parser.coresymbols.CalcSymbolPreOperator;
  */
 public final class CalcSymbolPreOperatorTan extends CalcSymbolPreOperator {
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=1) return null;
-		double d=Math.tan(parameters[0]); return (Double.isNaN(d))?null:d;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=1) throw error();
+		double d=Math.tan(parameters[0]);
+		if (Double.isNaN(d)) throw error();
+		return d;
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length!=1) return fallbackValue;
-		double d=Math.tan(parameters[0]); return (Double.isNaN(d))?fallbackValue:d;
+		double d=Math.tan(parameters[0]);
+		return (Double.isNaN(d))?fallbackValue:d;
 	}
 
 	@Override

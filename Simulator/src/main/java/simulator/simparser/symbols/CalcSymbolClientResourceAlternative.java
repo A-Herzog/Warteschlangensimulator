@@ -15,6 +15,7 @@
  */
 package simulator.simparser.symbols;
 
+import parser.MathCalcError;
 import simulator.runmodel.RunDataClient;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
 
@@ -30,11 +31,11 @@ public class CalcSymbolClientResourceAlternative extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=0) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=0) throw error();
 		final RunDataClient client=getCurrentClient();
-		if (client==null) return null;
-		return fastBoxedValue(client.lastAlternative);
+		if (client==null) throw error();
+		return client.lastAlternative;
 	}
 
 	@Override

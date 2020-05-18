@@ -19,6 +19,7 @@ import java.awt.Window;
 
 import org.w3c.dom.Document;
 
+import parser.MathCalcError;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -57,7 +58,11 @@ public class ParameterCompareTools {
 	private static Double calcValue(final EditModel model, final String expression) {
 		final ExpressionCalc calc=new ExpressionCalc(model.getModelVariableNames());
 		if (calc.parse(expression)>=0) return null;
-		return calc.calc();
+		try {
+			return calc.calc();
+		} catch (MathCalcError e) {
+			return null;
+		}
 	}
 
 	/**

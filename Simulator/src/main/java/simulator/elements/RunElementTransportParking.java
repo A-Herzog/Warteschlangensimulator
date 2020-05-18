@@ -16,6 +16,8 @@
 package simulator.elements;
 
 import language.Language;
+import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -171,12 +173,12 @@ public class RunElementTransportParking extends RunElement implements Transporte
 	private double getRequestPriorityInt(final SimulationData simData) {
 		final RunElementTransportParkingData data=getData(simData);
 
-		if (simData.runModel.stoppOnCalcError) {
-			final Double D=data.priority.calc(simData.runData.variableValues,simData,null);
-			if (D==null) simData.calculationErrorStation(data.priority,this);
-			return (D==null)?0.0:D.doubleValue();
+		try {
+			return data.priority.calc(simData.runData.variableValues,simData,null);
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(data.priority,this);
+			return 0;
 		}
-		return data.priority.calcOrDefault(simData.runData.variableValues,simData,null,0);
 	}
 
 	@Override
@@ -187,9 +189,12 @@ public class RunElementTransportParking extends RunElement implements Transporte
 		final RunElementTransportParkingData data=getData(simData);
 		if (data.count+data.moving>=capacity) return null; /* Kein Platz mehr. */
 
-		final Double D=data.priority.calc(simData.runData.variableValues,simData,null);
-		if (D==null) simData.calculationErrorStation(data.priority,this);
-		return D;
+		try {
+			return NumberTools.fastBoxedValue(data.priority.calc(simData.runData.variableValues,simData,null));
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(data.priority,this);
+			return NumberTools.fastBoxedValue(0);
+		}
 	}
 
 	@Override
@@ -199,9 +204,12 @@ public class RunElementTransportParking extends RunElement implements Transporte
 		final RunElementTransportParkingData data=getData(simData);
 		if (data.count+data.moving>capacity) return null; /* Kein Platz mehr, wir wollen den überzähligen Transporter gerne loswerden. */
 
-		final Double D=data.priority.calc(simData.runData.variableValues,simData,null);
-		if (D==null) simData.calculationErrorStation(data.priority,this);
-		return D;
+		try {
+			return NumberTools.fastBoxedValue(data.priority.calc(simData.runData.variableValues,simData,null));
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(data.priority,this);
+			return NumberTools.fastBoxedValue(0);
+		}
 	}
 
 	@Override

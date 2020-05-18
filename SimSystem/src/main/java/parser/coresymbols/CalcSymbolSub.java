@@ -16,6 +16,7 @@
 package parser.coresymbols;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 
 /**
  * Diese Klasse wird intern verwendet, um mehrere Parameter einer Funktion zusammenzufassen.
@@ -55,9 +56,9 @@ public final class CalcSymbolSub extends CalcSymbol {
 	}
 
 	@Override
-	public Double getValue(final CalcSystem calc) {
-		if (sub==null) return null;
-		if (sub.length!=1) return null;
+	public double getValue(final CalcSystem calc) throws MathCalcError {
+		if (sub==null) throw error();
+		if (sub.length!=1) throw error();
 		return sub[0].getValue(calc);
 	}
 

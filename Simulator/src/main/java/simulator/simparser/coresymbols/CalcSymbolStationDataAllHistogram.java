@@ -18,6 +18,7 @@ package simulator.simparser.coresymbols;
 import org.apache.commons.math3.util.FastMath;
 
 import mathtools.distribution.DataDistributionImpl;
+import parser.MathCalcError;
 import simulator.runmodel.SimulationData;
 import simulator.statistics.Statistics;
 
@@ -36,27 +37,27 @@ public abstract class CalcSymbolStationDataAllHistogram extends CalcSymbolSimDat
 	protected abstract DataDistributionImpl getDistribution(final Statistics statistics);
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length<1 || parameters.length>2) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length<1 || parameters.length>2) throw error();
 
 		final DataDistributionImpl dist=getDistribution(getSimData().statistics);
-		if (dist==null) return fastBoxedValue(0);
+		if (dist==null) return 0.0;
 		final double sum=dist.sum();
-		if (sum<1) return fastBoxedValue(0);
+		if (sum<1) return 0.0;
 
 		if (parameters.length==1) {
 			final int index=(int)FastMath.round(parameters[0]);
-			if (index<0 || index>=dist.densityData.length) return fastBoxedValue(0);
-			return fastBoxedValue(dist.densityData[index]/sum);
+			if (index<0 || index>=dist.densityData.length) return 0.0;
+			return dist.densityData[index]/sum;
 		} else {
 			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[0]));
 			final int index2=FastMath.max(0,(int)FastMath.round(parameters[1]));
-			if (index1>=dist.densityData.length) return fastBoxedValue(0);
-			if (index2>=dist.densityData.length) return fastBoxedValue(0);
-			if (index2<=index1) return fastBoxedValue(0);
+			if (index1>=dist.densityData.length) return 0.0;
+			if (index2>=dist.densityData.length) return 0.0;
+			if (index2<=index1) return 0.0;
 			double part=0;
 			for (int i=index1+1;i<=index2;i++) part+=dist.densityData[i];
-			return fastBoxedValue(part/sum);
+			return part/sum;
 		}
 	}
 

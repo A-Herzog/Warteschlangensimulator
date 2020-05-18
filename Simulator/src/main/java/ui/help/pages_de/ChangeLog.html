@@ -20,9 +20,12 @@
   <li>Zusammenfassungen können nun auch im LaTeX-Format gespeichert werden.</li>
   <li>Um die Zeichenfläche herum können nun auch Lineale angezeigt werden.</li>
   <li>Die Aufzeichnung von Verteilungen von Warte-, Transfer- und Bedienzeiten kann nun optional deaktiviert werden.</li>
+  <li>Etwas schnellere und speichersparamere Berechnung von Rechenausdrücken.</li>
   <li>Geringerer Speicherbedarf für die Durchführung von Parameterreihen-Simulationen.</li>
   <li>[Fix] Die Warteschlangenlänge an Bedingung (Skript) Stationen wurde in der Statistik falsch ausgewiesen.</li>
   <li>[Fix] Das Callcenter-Beispielmodell war in der englischen Sprachfassung fehlerhaft.</li>
+  <li>[Fix] Die Bestimmung von Zwischenankunftszeiten über Rechenausdrücke funktionierte nicht in allen Fällen korrekt.</li>
+  <li>[Fix] Wurde an einer Bedienstation die Bedienzeit über einen Rechenausdruck festgelegt und wurde eingestellt, dass die Simulation bei Rechenfehlern nicht abgebrochen werden soll, so wurden bei der Verwendung einer anderen Zeitbasis als "Sekunden" fehlerhafte Bedienzeiten berechnet.</li>
   <li>[Fix] Ein Doppelklick auf die Statuszeile öffnete die falsche Seite im Modelleigenschaften-Dialog.</li>
   <li>[Fix] Scripting-Code in Beispielmodellen für bessere Kompatibilität mit Rhino und GraalJS korrigiert.</li>
   <li>[Fix] Nach dem Umbenennen eines Modells in einer Parameterreihe erschien der neue Name nicht sofort in der Tabelle.</li>

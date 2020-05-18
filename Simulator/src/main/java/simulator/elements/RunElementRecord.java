@@ -17,6 +17,7 @@ package simulator.elements;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -143,28 +144,26 @@ public class RunElementRecord extends RunElementPassThrough {
 
 		simData.runData.setClientVariableValues(client);
 
-		final double value1;
-		if (simData.runModel.stoppOnCalcError) {
-			final Double D=data.expression1.calc(simData.runData.variableValues,simData,client);
-			if (D==null) simData.calculationErrorStation(data.expression1,this);
-			value1=(D==null)?0.0:D.doubleValue();
-		} else {
-			value1=data.expression1.calcOrDefault(simData.runData.variableValues,simData,client,0);
+		double value1;
+		try {
+			value1=data.expression1.calc(simData.runData.variableValues,simData,client);
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(data.expression1,this);
+			value1=0;
 		}
 
-		final double value2;
+		double value2;
 		final boolean hasValue2;
 		if (data.expression2==null) {
 			hasValue2=false;
 			value2=0;
 		} else {
 			hasValue2=true;
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.expression2.calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.expression1,this);
-				value2=(D==null)?0.0:D.doubleValue();
-			} else {
-				value2=data.expression2.calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				value2=data.expression2.calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.expression1,this);
+				value2=0;
 			}
 		}
 

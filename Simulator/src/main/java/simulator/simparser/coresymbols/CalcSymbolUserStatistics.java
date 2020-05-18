@@ -17,6 +17,7 @@ package simulator.simparser.coresymbols;
 
 import org.apache.commons.math3.util.FastMath;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementUserStatisticData;
 import simulator.runmodel.SimulationData;
@@ -66,28 +67,28 @@ public abstract class CalcSymbolUserStatistics extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
+	protected double calc(double[] parameters) throws MathCalcError {
 		if (isHistogram()) {
-			if (parameters.length<3 || parameters.length>4) return null;
+			if (parameters.length<3 || parameters.length>4) throw error();
 		} else {
-			if (parameters.length!=2) return null;
+			if (parameters.length!=2) throw error();
 		}
 
 		final RunElementData data=getRunElementDataForID(parameters[0]);
-		if (data==null) return null;
-		if (!(data instanceof RunElementUserStatisticData)) return null;
+		if (data==null) throw error();
+		if (!(data instanceof RunElementUserStatisticData)) throw error();
 		final StatisticsDataPerformanceIndicator[] indicators=((RunElementUserStatisticData)data).getIndicators();
 		final int index=(int)FastMath.round(parameters[1]);
-		if (index<=0 || indicators.length<index) return null;
-		if (indicators[index-1]==null) return fastBoxedValue(0);
+		if (index<=0 || indicators.length<index) throw error();
+		if (indicators[index-1]==null) return 0.0;
 		if (isHistogram()) {
 			if (parameters.length==3) {
-				return fastBoxedValue(processHistogram(indicators[index-1],(int)FastMath.round(parameters[2])));
+				return processHistogram(indicators[index-1],(int)FastMath.round(parameters[2]));
 			} else {
-				return fastBoxedValue(processHistogram(indicators[index-1],(int)FastMath.round(parameters[2]),(int)FastMath.round(parameters[3])));
+				return processHistogram(indicators[index-1],(int)FastMath.round(parameters[2]),(int)FastMath.round(parameters[3]));
 			}
 		} else {
-			return fastBoxedValue(processIndicator(indicators[index-1]));
+			return processIndicator(indicators[index-1]);
 		}
 	}
 

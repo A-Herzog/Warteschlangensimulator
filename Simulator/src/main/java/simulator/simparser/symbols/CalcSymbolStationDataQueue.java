@@ -17,6 +17,7 @@ package simulator.simparser.symbols;
 
 import org.apache.commons.math3.util.FastMath;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.coreelements.RunElementMultiQueueData;
@@ -43,9 +44,9 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
+	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length==0) {
-			return fastBoxedValue(getSimData().statistics.clientsInSystemQueues.getCurrentState());
+			return getSimData().statistics.clientsInSystemQueues.getCurrentState();
 		}
 
 		if (parameters.length==1) {
@@ -53,30 +54,30 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 			if (element instanceof RunElementSource) {
 				final String name=((RunElementSource)element).clientTypeName;
 				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
-				if (indicator==null) return fastBoxedValue(0);
-				return fastBoxedValue(indicator.getCurrentState());
+				if (indicator==null) return 0.0;
+				return indicator.getCurrentState();
 			}
 			if (element instanceof RunElementAssign) {
 				final String name=((RunElementAssign)element).clientTypeName;
 				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
-				if (indicator==null) return fastBoxedValue(0);
-				return fastBoxedValue(indicator.getCurrentState());
+				if (indicator==null) return 0.0;
+				return indicator.getCurrentState();
 			}
 
 			final RunElementData data=getRunElementDataForID(parameters[0]);
-			if (data==null) return fastBoxedValue(0);
-			return fastBoxedValue(data.clientsAtStationQueue);
+			if (data==null) return 0.0;
+			return data.clientsAtStationQueue;
 		}
 
 		if (parameters.length==2) {
 			RunElementData data=getRunElementDataForID(parameters[0]);
-			if (!(data instanceof RunElementMultiQueueData)) return null;
+			if (!(data instanceof RunElementMultiQueueData)) throw error();
 			int nr=(int)FastMath.round(parameters[1])-1;
-			if (nr<0 || nr>=((RunElementMultiQueueData)data).getQueueCount()) return fastBoxedValue(0);
-			return fastBoxedValue(((RunElementMultiQueueData)data).getQueueSize(nr));
+			if (nr<0 || nr>=((RunElementMultiQueueData)data).getQueueCount()) return 0.0;
+			return ((RunElementMultiQueueData)data).getQueueSize(nr);
 		}
 
-		return null;
+		throw error();
 	}
 
 	@Override

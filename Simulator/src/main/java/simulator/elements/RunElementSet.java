@@ -19,6 +19,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -125,12 +126,11 @@ public class RunElementSet extends RunElementPassThrough {
 			switch (data.mode[i]) {
 			case MODE_EXPRESSION:
 				simData.runData.setClientVariableValues(client);
-				final Double D=data.expressions[i].calc(simData.runData.variableValues,simData,client);
-				if (D==null) {
+				try {
+					d=data.expressions[i].calc(simData.runData.variableValues,simData,client);
+				} catch (MathCalcError e) {
 					ok=false;
 					simData.calculationErrorStation(data.expressions[i],this);
-				} else {
-					d=D;
 				}
 				break;
 			case MODE_WAITING_TIME:

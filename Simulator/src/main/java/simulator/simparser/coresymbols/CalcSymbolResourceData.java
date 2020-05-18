@@ -17,6 +17,7 @@ package simulator.simparser.coresymbols;
 
 import org.apache.commons.math3.util.FastMath;
 
+import parser.MathCalcError;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsTimePerformanceIndicator;
 
@@ -55,19 +56,19 @@ public abstract class CalcSymbolResourceData extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
+	protected double calc(double[] parameters) throws MathCalcError {
 		final StatisticsTimePerformanceIndicator[] statistics=getUsageStatistics();
-		if (statistics==null) return null;
+		if (statistics==null) throw error();
 
-		if (parameters.length==0 && hasAllResourceData()) return fastBoxedValue(calcAllResources(statistics));
+		if (parameters.length==0 && hasAllResourceData()) return calcAllResources(statistics);
 
 		if (parameters.length==1) {
 			final int id=(int)FastMath.round(parameters[0])-1;
-			if (id<0 || id>=statistics.length) return null;
-			return fastBoxedValue(calcSingleResource(statistics[id]));
+			if (id<0 || id>=statistics.length) throw error();
+			return calcSingleResource(statistics[id]);
 		}
 
-		return null;
+		throw error();
 	}
 
 	@Override

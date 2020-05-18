@@ -16,6 +16,7 @@
 package parser.coresymbols;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 
 /**
  * Objekte dieser Klasse repräsentieren einen konstanten Wert
@@ -35,12 +36,9 @@ public abstract class CalcSymbolConst extends CalcSymbol {
 		return CalcSymbol.SymbolType.TYPE_CONST;
 	}
 
-	private Double lastBoxedValue=null;
-
 	@Override
-	public final Double getValue(final CalcSystem calc) {
-		if (lastBoxedValue==null || lastBoxedValue!=value) lastBoxedValue=value;
-		return lastBoxedValue;
+	public final double getValue(final CalcSystem calc) throws MathCalcError {
+		return value;
 	}
 
 	@Override

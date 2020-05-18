@@ -17,6 +17,7 @@ package simulator.simparser.symbols;
 
 import org.apache.commons.math3.util.FastMath;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementUserStatisticData;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
@@ -33,17 +34,17 @@ public class CalcSymbolUserStatistics_quantil extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=3) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=3) throw error();
 
 		/* Station und Indikator innerhalb der Station wählen */
 		final RunElementData data=getRunElementDataForID(parameters[0]);
-		if (data==null) return null;
-		if (!(data instanceof RunElementUserStatisticData)) return null;
+		if (data==null) throw error();
+		if (!(data instanceof RunElementUserStatisticData)) throw error();
 		final StatisticsDataPerformanceIndicator[] indicators=((RunElementUserStatisticData)data).getIndicators();
 		final int index=(int)FastMath.round(parameters[1]);
-		if (index<=0 || indicators.length<index) return null;
-		if (indicators[index-1]==null) return fastBoxedValue(0);
+		if (index<=0 || indicators.length<index) throw error();
+		if (indicators[index-1]==null) return 0.0;
 		final StatisticsDataPerformanceIndicator indicator=indicators[index-1];
 
 		/* Wert p für Quantil */
@@ -52,7 +53,7 @@ public class CalcSymbolUserStatistics_quantil extends CalcSymbolSimData {
 		if (p>1) p=1;
 
 		/* Quantil berechnen */
-		return fastBoxedValue(indicator.getQuantil(p));
+		return indicator.getQuantil(p);
 	}
 
 	@Override

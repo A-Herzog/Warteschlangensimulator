@@ -15,6 +15,7 @@
  */
 package simulator.simparser.symbols;
 
+import parser.MathCalcError;
 import simulator.runmodel.RunDataClient;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
 
@@ -30,11 +31,11 @@ public class CalcSymbolClientCostTransfer_current extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=0) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=0) throw error();
 		final RunDataClient client=getCurrentClient();
-		if (client==null) return null;
+		if (client==null) throw error();
 
-		return fastBoxedValue((client.transferTime/1000.0)*getSimData().runModel.clientCosts[client.type][1]+client.transferAdditionalCosts);
+		return (client.transferTime/1000.0)*getSimData().runModel.clientCosts[client.type][1]+client.transferAdditionalCosts;
 	}
 }

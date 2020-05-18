@@ -16,6 +16,7 @@
 package simulator.elements;
 
 import language.Language;
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunModel;
@@ -84,13 +85,12 @@ public class RunElementLongRunStatisticsData extends RunElementData {
 		final long time=simData.currentTime;
 		final double[] variableValues=simData.runData.variableValues;
 		for (int i=0;i<expressions.length;i++) {
-			final double value;
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=expressions[i].calc(variableValues,simData,null);
-				if (D==null) simData.calculationErrorStation(expressions[i],this);
-				value=(D==null)?0.0:D.doubleValue();
-			} else {
-				value=expressions[i].calcOrDefault(variableValues,simData,null,0);
+			double value;
+			try {
+				value=expressions[i].calc(variableValues,simData,null);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(expressions[i],this);
+				value=0.0;
 			}
 			if (value==lastValue[i] && time==lastTime[i]) continue;
 			lastValue[i]=value;

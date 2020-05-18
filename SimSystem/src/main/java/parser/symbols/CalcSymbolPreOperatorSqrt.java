@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -28,16 +29,16 @@ public final class CalcSymbolPreOperatorSqrt extends CalcSymbolPreOperator {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=1) return null;
-		if (parameters[0]<0) return null;
-		return fastBoxedValue(Math.sqrt(parameters[0]));
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=1) throw error();
+		if (parameters[0]<0) throw error();
+		return Math.sqrt(parameters[0]);
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length!=1) return fallbackValue;
 		if (parameters[0]<0) return fallbackValue;
-		return fastBoxedValue(Math.sqrt(parameters[0]));
+		return Math.sqrt(parameters[0]);
 	}
 }

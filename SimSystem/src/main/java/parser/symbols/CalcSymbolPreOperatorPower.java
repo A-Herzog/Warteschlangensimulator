@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -25,9 +26,9 @@ import parser.coresymbols.CalcSymbolPreOperator;
 public final class CalcSymbolPreOperatorPower extends CalcSymbolPreOperator {
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=2) return null;
-		if (parameters[1]<0) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=2) throw error();
+		if (parameters[1]<0) throw error();
 		return Math.pow(parameters[0],parameters[1]);
 	}
 

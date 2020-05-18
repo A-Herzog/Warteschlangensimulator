@@ -16,6 +16,7 @@
 package parser.symbols;
 
 import mathtools.Functions;
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPostOperator;
 
 /**
@@ -25,10 +26,10 @@ import parser.coresymbols.CalcSymbolPostOperator;
 public final class CalcSymbolPostOperatorFactorial extends CalcSymbolPostOperator {
 
 	@Override
-	protected Double calc(double parameter) {
+	protected double calc(double parameter) throws MathCalcError {
 		double signum=Math.signum(parameter);
 		if (signum==0.0) signum=1;
-		return fastBoxedValue(signum*Math.round(Functions.getFactorial((int)Math.round(Math.abs(parameter)))));
+		return signum*Math.round(Functions.getFactorial((int)Math.round(Math.abs(parameter))));
 	}
 
 	@Override

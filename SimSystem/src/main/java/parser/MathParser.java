@@ -21,8 +21,9 @@ package parser;
  * Konkrete Parser müssen dieses Interface implementieren.
  * Anwendungen können dieses Interface nutzen, um von der
  * konkreten Implementierung des Parsers unabhängig zu sein.
- * @author Alexa
+ * @author Alexander Herzog
  * @see CalcSystemBase
+ * @version 2.0
  */
 public interface MathParser {
 
@@ -32,21 +33,22 @@ public interface MathParser {
 	 * @param text	Ausdruck, der verarbeitet werden soll
 	 * @return	Gibt <code>-1</code> zurück, wenn der Ausdruck verarbeitet werden konnte.
 	 */
-	public int parse(String text);
+	int parse(String text);
 
 	/**
 	 * Versucht den im Konstruktor übergebenen Ausdruck zu interpretieren, dabei werden
 	 * Variablennamen erkannt usw., es wird aber noch kein konkreter Wert berechnet.
 	 * @return	Gibt <code>-1</code> zurück, wenn der Ausdruck verarbeitet werden konnte.
 	 */
-	public int parse();
+	int parse();
 
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und der hier angegebenen Werte.
 	 * @param variableValues	Liste mit den Werten der Variablen
-	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
+	 * @return	Zahlenwert des Ergebnisses.
+	 * @throws  MathCalcError	Fehler während der Berechnung
 	 */
-	public Double calc(double[] variableValues);
+	double calc(double[] variableValues) throws MathCalcError;
 
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und der hier angegebenen Werte.
@@ -54,24 +56,25 @@ public interface MathParser {
 	 * @param	fallbackValue	Wert, der zurückgegeben werden soll, wenn der Ausdruck nicht berechnet werden konnte
 	 * @return	Berechneter Wert oder im Fehlerfall der Vorgabewert
 	 */
-	public double calcOrDefault(double[] variableValues, double fallbackValue);
+	double calcOrDefault(double[] variableValues, double fallbackValue);
 
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und Werte.
-	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
+	 * @return	Zahlenwert des Ergebnisses.
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
-	public Double calc();
+	double calc() throws MathCalcError;
 
 	/**
 	 * Gibt an, ob sich die Formel auf eine konstante Zahl reduzieren lässt (also keine Variablen enthält).
 	 * @return Gibt <code>true</code> zurück, wenn es sich um eine konstante Zahl handelt.
 	 */
-	public boolean isConstValue();
+	boolean isConstValue();
 
 	/**
 	 * Handelt es sich bei der Formel um eine konstante Zahl, so kann diese über diese Methode abgefragt werden.
 	 * @return	Konstanter Wert der Formel
 	 * @see #isConstValue()
 	 */
-	public double getConstValue();
+	double getConstValue();
 }

@@ -18,6 +18,8 @@ package ui.modeleditor.coreelements;
 import java.awt.Dimension;
 import java.util.Objects;
 
+import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
@@ -102,7 +104,11 @@ public abstract class ModelElementAnimationCustomDrawExpression extends ModelEle
 	protected final Double getDrawExpression(final SimulationData simData) {
 		if (drawExpression==null) return null;
 		simData.runData.setClientVariableValues(null);
-		return drawExpression.calc(simData.runData.variableValues,simData,null);
+		try {
+			return NumberTools.fastBoxedValue(drawExpression.calc(simData.runData.variableValues,simData,null));
+		} catch (MathCalcError e) {
+			return null;
+		}
 	}
 
 	@Override

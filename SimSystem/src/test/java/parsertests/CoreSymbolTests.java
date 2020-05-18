@@ -16,12 +16,12 @@
 package parsertests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 
 /**
  * Prüft die Funktionsweise der Basissymbole von {@link CalcSystem} (Addition, Subtraktion, ...)
@@ -35,56 +35,79 @@ public class CoreSymbolTests {
 	@Test
 	void symbolTest() {
 		CalcSystem calc;
-		Double D;
+		double d;
 
 		calc=new CalcSystem("a+1",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{3});
-		assertNotNull(D);
-		assertEquals(4.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{3});
+			assertEquals(4.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("a+1",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{10_000});
-		assertNotNull(D);
-		assertEquals(10_001.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{10_000});
+			assertEquals(10_001.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("a+1",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{-3});
-		assertNotNull(D);
-		assertEquals(-2.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{-3});
+			assertEquals(-2.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("a+1",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{-10_000});
-		assertNotNull(D);
-		assertEquals(-9_999.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{-10_000});
+			assertEquals(-9_999.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("sqrt(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{36});
-		assertNotNull(D);
-		assertEquals(6.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{36});
+			assertEquals(6.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("sqrt(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{30.25});
-		assertNotNull(D);
-		assertEquals(5.5,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{30.25});
+			assertEquals(5.5,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("round(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{3.2});
-		assertNotNull(D);
-		assertEquals(3.0,D.doubleValue());
-
+		try {
+			d=calc.calc(new double[]{3.2});
+			assertEquals(3.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("round(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{-3.2});
-		assertNotNull(D);
-		assertEquals(-3.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{-3.2});
+			assertEquals(-3.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 	}
 
 	/**
@@ -93,19 +116,25 @@ public class CoreSymbolTests {
 	@Test
 	void constTest() {
 		CalcSystem calc;
-		Double D;
+		double d;
 
 		calc=new CalcSystem("a+Pi",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{0});
-		assertNotNull(D);
-		assertEquals(Math.PI,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{0});
+			assertEquals(Math.PI,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("a+e",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{0});
-		assertNotNull(D);
-		assertEquals(Math.E,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{0});
+			assertEquals(Math.E,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 	}
 
 	/**
@@ -114,31 +143,43 @@ public class CoreSymbolTests {
 	@Test
 	void middleOperatorTest() {
 		CalcSystem calc;
-		Double D;
+		double d;
 
 		calc=new CalcSystem("a+b",new String[]{"a","b"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{2,3});
-		assertNotNull(D);
-		assertEquals(5.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{2,3});
+			assertEquals(5.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("sqr(a)+sqr(b)",new String[]{"a","b"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{2,3});
-		assertNotNull(D);
-		assertEquals(13.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{2,3});
+			assertEquals(13.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("sqr(a)+7",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{2});
-		assertNotNull(D);
-		assertEquals(11.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{2});
+			assertEquals(11.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("7+sqr(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{2});
-		assertNotNull(D);
-		assertEquals(11.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{2});
+			assertEquals(11.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("a+b",new String[]{"a","b"});
 		assertTrue(calc.parse()<0);
@@ -163,24 +204,33 @@ public class CoreSymbolTests {
 	@Test
 	void subTest() {
 		CalcSystem calc;
-		Double D;
+		double d;
 
 		calc=new CalcSystem("min(1+2;3+4)");
 		assertTrue(calc.parse()<0);
-		D=calc.calc();
-		assertNotNull(D);
-		assertEquals(3.0,D.doubleValue());
+		try {
+			d=calc.calc();
+			assertEquals(3.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("min(a+1;b+2)",new String[]{"a","b"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{7,3});
-		assertNotNull(D);
-		assertEquals(5.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{7,3});
+			assertEquals(5.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		calc=new CalcSystem("min(a+1)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		D=calc.calc(new double[]{5});
-		assertNotNull(D);
-		assertEquals(6.0,D.doubleValue());
+		try {
+			d=calc.calc(new double[]{5});
+			assertEquals(6.0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 	}
 }

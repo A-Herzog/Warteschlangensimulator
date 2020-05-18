@@ -18,6 +18,7 @@ package simulator.simparser.coresymbols;
 import org.apache.commons.math3.util.FastMath;
 
 import mathtools.distribution.DataDistributionImpl;
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementAssign;
@@ -122,24 +123,24 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 	private double lastResult;
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length<2 || parameters.length>3) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length<2 || parameters.length>3) throw error();
 
 		final DataDistributionImpl dist=getDistributionByID(parameters[0]);
-		if (dist==null) return fastBoxedValue(0);
+		if (dist==null) return 0.0;
 		final double sum=getDistributionSumByID(parameters[0]);
-		if (sum<1) return fastBoxedValue(0);
+		if (sum<1) return 0.0;
 
 		if (parameters.length==2) {
 			final int index=(int)FastMath.round(parameters[1]);
-			if (index<0 || index>=dist.densityData.length) return fastBoxedValue(0);
-			return fastBoxedValue(dist.densityData[index]/sum);
+			if (index<0 || index>=dist.densityData.length) return 0.0;
+			return dist.densityData[index]/sum;
 		} else {
 			final int index1=FastMath.max(-1,(int)FastMath.round(parameters[1]));
 			int index2=FastMath.max(0,(int)FastMath.round(parameters[2]));
-			if (index1<0 || index1>=dist.densityData.length) return fastBoxedValue(0);
+			if (index1<0 || index1>=dist.densityData.length) return 0.0;
 			if (index2>=dist.densityData.length) index2=dist.densityData.length-1;
-			if (index2<=index1) return fastBoxedValue(0);
+			if (index2<=index1) return 0.0;
 
 			if (lastSum!=sum || lastParam1!=index1 || lastParam2!=index2) {
 				double part=0;
@@ -149,7 +150,7 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 				lastParam2=index2;
 				lastResult=part/sum;
 			}
-			return fastBoxedValue(lastResult);
+			return lastResult;
 		}
 	}
 

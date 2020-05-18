@@ -17,6 +17,7 @@ package mathtoolstests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import mathtools.SimpleParser;
+import parser.MathCalcError;
 
 /**
  * Prüft die Funktionsweise von {@link SimpleParser}
@@ -56,19 +58,19 @@ class SimpleParserTest {
 		sp=new SimpleParser(new String[]{"a"});
 		assertEquals(0,sp.parse());
 
-		sp=new SimpleParser(Arrays.asList(new String[]{"a"}));
+		sp=new SimpleParser(Arrays.asList("a"));
 		assertEquals(0,sp.parse());
 
-		sp=new SimpleParser(Arrays.asList(new String[]{"a"}),Arrays.asList(new Double[]{1.5}));
+		sp=new SimpleParser(Arrays.asList("a"),Arrays.asList(1.5));
 		assertEquals(0,sp.parse());
 
 		sp=new SimpleParser("1+2",new String[]{"a"});
 		assertEquals(-1,sp.parse());
 
-		sp=new SimpleParser("1+2",Arrays.asList(new String[]{"a"}));
+		sp=new SimpleParser("1+2",Arrays.asList("a"));
 		assertEquals(-1,sp.parse());
 
-		sp=new SimpleParser("1+2",Arrays.asList(new String[]{"a"}),Arrays.asList(new Double[]{1.5}));
+		sp=new SimpleParser("1+2",Arrays.asList("a"),Arrays.asList(1.5));
 		assertEquals(-1,sp.parse());
 	}
 
@@ -91,71 +93,127 @@ class SimpleParserTest {
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1+(2*(3-4/5))"));
-		assertEquals(Double.valueOf(5.4),sp.calc());
+		try {
+			assertEquals(5.4,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Alle möglichen Zeichen */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("01,2+3.4+1:2+2^3+5%+2²+2³"));
-		assertEquals(Double.valueOf(25.15),sp.calc());
+		try {
+			assertEquals(25.15,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Klammern */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1+{2*[3-4/5}]"));
-		assertEquals(Double.valueOf(5.4),sp.calc());
+		try {
+			assertEquals(5.4,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(0,sp.parse("1+}2"));
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1+2)"));
-		assertEquals(Double.valueOf(3),sp.calc());
+		try {
+			assertEquals(3,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1+2]"));
-		assertEquals(Double.valueOf(3),sp.calc());
+		try {
+			assertEquals(3,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1+2}"));
-		assertEquals(Double.valueOf(3),sp.calc());
+		try {
+			assertEquals(3,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("(1+2"));
-		assertEquals(Double.valueOf(3),sp.calc());
+		try {
+			assertEquals(3,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(0,sp.parse("cos(1.2.3)"));
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sgn(1+(2+3))"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sgn(1+{2+3))"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sgn(1+[2+3))"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Zahlen */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1,2"));
-		assertEquals(Double.valueOf(1.2),sp.calc());
+		try {
+			assertEquals(1.2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1.2"));
-		assertEquals(Double.valueOf(1.2),sp.calc());
+		try {
+			assertEquals(1.2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse(",2"));
-		assertEquals(Double.valueOf(0.2),sp.calc());
+		try {
+			assertEquals(0.2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse(".2"));
-		assertEquals(Double.valueOf(0.2),sp.calc());
+		try {
+			assertEquals(0.2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(0,sp.parse("1,2.3"));
@@ -164,17 +222,29 @@ class SimpleParserTest {
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("2 3"));
-		assertEquals(Double.valueOf(6),sp.calc());
+		try {
+			assertEquals(6,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("2 + 3"));
-		assertEquals(Double.valueOf(5),sp.calc());
+		try {
+			assertEquals(5,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Verknüpfung von Zahlen mit Funktionen */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("2cos(0)"));
-		assertEquals(Double.valueOf(2),sp.calc());
+		try {
+			assertEquals(2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(0,sp.parse("2.3.4cos(0)"));
@@ -203,7 +273,11 @@ class SimpleParserTest {
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("cos(0)²"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(0,sp.parse("sin cos(0)"));
@@ -218,13 +292,21 @@ class SimpleParserTest {
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("-cos(0)"));
-		assertEquals(Double.valueOf(-1),sp.calc());
+		try {
+			assertEquals(-1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Automatisch Multiplikationszeichen einfügen */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("3cos(0)"));
-		assertEquals(Double.valueOf(3),sp.calc());
+		try {
+			assertEquals(3,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("3pi"));
@@ -232,7 +314,11 @@ class SimpleParserTest {
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("3 4"));
-		assertEquals(Double.valueOf(12),sp.calc());
+		try {
+			assertEquals(12,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 	}
 
 	/**
@@ -244,21 +330,25 @@ class SimpleParserTest {
 
 		/* Kein Ausdruck */
 
-		sp=new SimpleParser();
-		assertEquals(null,sp.calc());
-		assertEquals(17,sp.calcOrDefault(new double[0],17),0.0001);
+		final SimpleParser sp1=new SimpleParser();
+		assertThrows(MathCalcError.class,()->sp1.calc());
+		assertEquals(17,sp1.calcOrDefault(new double[0],17),0.0001);
 
 		/* Ausdruck, der nicht plainNumber ist */
 
 		sp=new SimpleParser(new String[]{"a"});
 		assertEquals(-1,sp.parse("sqrt(a-(1+2))"));
-		assertEquals(Double.valueOf(4),sp.calc(new double[]{19.0}));
+		try {
+			assertEquals(4,sp.calc(new double[]{19.0}));
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Vorgabewert für Fehlerfall */
 
-		sp=new SimpleParser(new String[]{"a"});
-		assertEquals(-1,sp.parse("sqrt(a))"));
-		assertEquals(null,sp.calc(new double[]{-1.0}));
+		final SimpleParser sp2=new SimpleParser(new String[]{"a"});
+		assertEquals(-1,sp2.parse("sqrt(a))"));
+		assertThrows(MathCalcError.class,()->sp2.calc(new double[]{-1.0}));
 
 		sp=new SimpleParser(new String[]{"a"});
 		assertEquals(-1,sp.parse("sqrt(a))"));
@@ -304,46 +394,58 @@ class SimpleParserTest {
 	@Test
 	void testOperators() {
 		SimpleParser sp;
-		Double D;
+		double D;
 
 		/* Division durch 0 */
 
-		sp=new SimpleParser();
-		assertEquals(-1,sp.parse("1/0"));
-		assertEquals(null,sp.calc());
+		final SimpleParser sp1=new SimpleParser();
+		assertEquals(-1,sp1.parse("1/0"));
+		assertThrows(MathCalcError.class,()->sp1.calc());
 
 		/* Negativer Exponent */
 
-		sp=new SimpleParser();
-		assertEquals(-1,sp.parse("1^(-2)"));
-		assertEquals(null,sp.calc());
+		final SimpleParser sp2=new SimpleParser();
+		assertEquals(-1,sp2.parse("1^(-2)"));
+		assertThrows(MathCalcError.class,()->sp2.calc());
 
 		/* Fakultät */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("10!"));
-		assertNotNull(D=sp.calc());
-		assertEquals(3628800,D.doubleValue(),0.0001);
+		try {
+			assertNotNull(D=sp.calc());
+			assertEquals(3628800,D,0.0001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1!"));
-		assertNotNull(D=sp.calc());
-		assertEquals(1,D.doubleValue(),0.0001);
+		try {
+			assertNotNull(D=sp.calc());
+			assertEquals(1,D,0.0001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("0!"));
-		assertNotNull(D=sp.calc());
-		assertEquals(1,D.doubleValue(),0.0001);
+		try {
+			assertNotNull(D=sp.calc());
+			assertEquals(1,D,0.0001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Nicht berechenbare Teil-Zweige */
 
-		sp=new SimpleParser(new String[]{"a"});
-		assertEquals(-1,sp.parse("sqrt(a)+1"));
-		assertEquals(null,sp.calc(new double[]{-1}));
+		final SimpleParser sp3=new SimpleParser(new String[]{"a"});
+		assertEquals(-1,sp3.parse("sqrt(a)+1"));
+		assertThrows(MathCalcError.class,()->sp3.calc(new double[]{-1}));
 
-		sp=new SimpleParser(new String[]{"a"});
-		assertEquals(-1,sp.parse("1+sqrt(a)"));
-		assertEquals(null,sp.calc(new double[]{-1}));
+		final SimpleParser sp4=new SimpleParser(new String[]{"a"});
+		assertEquals(-1,sp4.parse("1+sqrt(a)"));
+		assertThrows(MathCalcError.class,()->sp4.calc(new double[]{-1}));
 
 	}
 
@@ -359,246 +461,430 @@ class SimpleParserTest {
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sqr(7)"));
-		assertEquals(Double.valueOf(49),sp.calc());
+		try {
+			assertEquals(49,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Wurzel */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sqrt(625)"));
-		assertEquals(Double.valueOf(25),sp.calc());
+		try {
+			assertEquals(25,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
-		sp=new SimpleParser();
-		assertEquals(-1,sp.parse("sqrt(-1)"));
-		assertEquals(null,sp.calc());
+		final SimpleParser sp1=new SimpleParser();
+		assertEquals(-1,sp1.parse("sqrt(-1)"));
+		assertThrows(MathCalcError.class,()->sp1.calc());
 
 		/* Sinus */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sin(0)"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sin(pi/2)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Tangens */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("round(tan(0))"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e1) {
+			assertTrue(false);
+		}
 
 		/* Cotangens */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("round(cot(pi/2))"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Exponentialfunktion */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("exp(0)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e1) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("exp(1)-e"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Natürlicher Logarithmus */
 
-		sp=new SimpleParser();
-		assertEquals(-1,sp.parse("ln(0)"));
-		assertEquals(null,sp.calc());
+		final SimpleParser sp2=new SimpleParser();
+		assertEquals(-1,sp2.parse("ln(0)"));
+		assertThrows(MathCalcError.class,()->sp2.calc());
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ln(1)"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e2) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ln(e)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e1) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ln(e^2)"));
-		assertEquals(Double.valueOf(2),sp.calc());
+		try {
+			assertEquals(2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* 10er Logarithmus */
 
-		sp=new SimpleParser();
-		assertEquals(-1,sp.parse("lg(0)"));
-		assertEquals(null,sp.calc());
+		final SimpleParser sp3=new SimpleParser();
+		assertEquals(-1,sp3.parse("lg(0)"));
+		assertThrows(MathCalcError.class,()->sp3.calc());
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("lg(1)"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e2) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("lg(10)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e1) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("lg(100)"));
-		assertEquals(Double.valueOf(2),sp.calc());
+		try {
+			assertEquals(2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* 2er Logarithmus */
 
-		sp=new SimpleParser();
-		assertEquals(-1,sp.parse("ld(0)"));
-		assertEquals(null,sp.calc());
+		final SimpleParser sp4=new SimpleParser();
+		assertEquals(-1,sp4.parse("ld(0)"));
+		assertThrows(MathCalcError.class,()->sp4.calc());
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ld(1)"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e2) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ld(2)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e1) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ld(4)"));
-		assertEquals(Double.valueOf(2),sp.calc());
+		try {
+			assertEquals(2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Betrag */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("abs(0)"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e2) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("abs(5)"));
-		assertEquals(Double.valueOf(5),sp.calc());
+		try {
+			assertEquals(5,sp.calc());
+		} catch (MathCalcError e1) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("abs(-5)"));
-		assertEquals(Double.valueOf(5),sp.calc());
+		try {
+			assertEquals(5,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Nachkommaanteil */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("frac(123,456)"));
-		assertNotNull(D=sp.calc());
-		assertEquals(0.456,D.doubleValue(),0.001);
+		try {
+			assertNotNull(D=sp.calc());
+			assertEquals(0.456,D.doubleValue(),0.001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("frac(-123,456)"));
-		assertNotNull(D=sp.calc());
-		assertEquals(-0.456,D.doubleValue(),0.001);
+		try {
+			assertNotNull(D=sp.calc());
+			assertEquals(-0.456,D.doubleValue(),0.001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Ganzzahlanteil */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("int(1234,567)"));
-		assertEquals(Double.valueOf(1234),sp.calc());
+		try {
+			assertEquals(1234,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("int(-1234,567)"));
-		assertEquals(Double.valueOf(-1234),sp.calc());
+		try {
+			assertEquals(-1234,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Runden */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("round(1,4)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("round(1,5)"));
-		assertEquals(Double.valueOf(2),sp.calc());
+		try {
+			assertEquals(2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("round(-1,5)"));
-		assertEquals(Double.valueOf(-1),sp.calc());
+		try {
+			assertEquals(-1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("round(-1,6)"));
-		assertEquals(Double.valueOf(-2),sp.calc());
+		try {
+			assertEquals(-2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Abrunden */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("floor(1,0)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("floor(1,4)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("floor(1,5)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("floor(-1,0)"));
-		assertEquals(Double.valueOf(-1),sp.calc());
+		try {
+			assertEquals(-1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("floor(-1,5)"));
-		assertEquals(Double.valueOf(-2),sp.calc());
+		try {
+			assertEquals(-2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("floor(-1,6)"));
-		assertEquals(Double.valueOf(-2),sp.calc());
+		try {
+			assertEquals(-2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Aufrunden */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ceil(1,0)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ceil(1,4)"));
-		assertEquals(Double.valueOf(2),sp.calc());
+		try {
+			assertEquals(2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ceil(1,5)"));
-		assertEquals(Double.valueOf(2),sp.calc());
+		try {
+			assertEquals(2,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ceil(-1,0)"));
-		assertEquals(Double.valueOf(-1),sp.calc());
+		try {
+			assertEquals(-1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ceil(-1,5)"));
-		assertEquals(Double.valueOf(-1),sp.calc());
+		try {
+			assertEquals(-1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("ceil(-1,6)"));
-		assertEquals(Double.valueOf(-1),sp.calc());
+		try {
+			assertEquals(-1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Fakultät */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("factorial(10)"));
-		assertNotNull(D=sp.calc());
-		assertEquals(3628800,D.doubleValue(),0.0001);
+		try {
+			assertNotNull(D=sp.calc());
+			assertEquals(3628800,D.doubleValue(),0.0001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("factorial(1)"));
-		assertNotNull(D=sp.calc());
-		assertEquals(1,D.doubleValue(),0.0001);
+		try {
+			assertNotNull(D=sp.calc());
+			assertEquals(1,D.doubleValue(),0.0001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("factorial(0)"));
-		assertNotNull(D=sp.calc());
-		assertEquals(1,D.doubleValue(),0.0001);
+		try {
+			assertNotNull(D=sp.calc());
+			assertEquals(1,D.doubleValue(),0.0001);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Signum */
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sign(5)"));
-		assertEquals(Double.valueOf(1),sp.calc());
+		try {
+			assertEquals(1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sign(-5)"));
-		assertEquals(Double.valueOf(-1),sp.calc());
+		try {
+			assertEquals(-1,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("sign(0)"));
-		assertEquals(Double.valueOf(0),sp.calc());
+		try {
+			assertEquals(0,sp.calc());
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
 
 		/* Nicht berechenbare Teil-Zweige */
 
-		sp=new SimpleParser(new String[]{"a"});
-		assertEquals(-1,sp.parse("cos(sqrt(a))"));
-		assertEquals(null,sp.calc(new double[]{-1}));
+		final SimpleParser sp5=new SimpleParser(new String[]{"a"});
+		assertEquals(-1,sp5.parse("cos(sqrt(a))"));
+		assertThrows(MathCalcError.class,()->sp5.calc(new double[]{-1}));
 
 		/* Unbekannte Funktionen */
 

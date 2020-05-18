@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -33,15 +34,15 @@ public class CalcSymbolPreOperatorIf extends CalcSymbolPreOperator {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length%2!=1) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length%2!=1) throw error();
 
 		int index=0;
 		while (index<parameters.length-1) {
-			if (parameters[index]>0) return fastBoxedValue(parameters[index+1]);
+			if (parameters[index]>0) return parameters[index+1];
 			index+=2;
 		}
 
-		return fastBoxedValue(parameters[parameters.length-1]);
+		return parameters[parameters.length-1];
 	}
 }

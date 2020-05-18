@@ -21,6 +21,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
 import scripting.java.DynamicStatus;
@@ -131,7 +132,11 @@ public class ParameterCompareRunnerModel {
 		case MODE_COMMAND:
 			ExpressionCalc calc=new ExpressionCalc(null);
 			if (calc.parse(output.getTag())>=0) return null;
-			return calc.calc(statistics);
+			try {
+				return calc.calc(statistics);
+			} catch (MathCalcError e) {
+				return null;
+			}
 		default:
 			return null;
 		}

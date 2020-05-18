@@ -26,6 +26,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.TransporterPosition;
 import simulator.simparser.ExpressionCalc;
@@ -293,12 +294,11 @@ public final class RunDataTransporters implements Cloneable {
 		if (variableValues==null) variableValues=new double[simData.runData.variableValues.length+1];
 		for (int i=0;i<simData.runData.variableValues.length;i++) variableValues[i]=simData.runData.variableValues[i];
 		variableValues[variableValues.length-1]=distance;
-		if (simData.runModel.stoppOnCalcError) {
-			final Double D=expression.calc(variableValues,simData,null);
-			if (D==null) simData.calculationErrorStation(expression,type[transporter.type]);
-			time+=(D==null)?0.0:D.doubleValue();
-		} else {
-			time+=expression.calcOrDefault(variableValues,simData,null,0);
+		try {
+			final double d=expression.calc(variableValues,simData,null);
+			time+=d;
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(expression,type[transporter.type]);
 		}
 
 		if (carriesClients) {

@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
+import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import simulator.statistics.Statistics;
 import ui.ModelChanger;
@@ -271,8 +272,11 @@ public final class FilterListRecord {
 		final ExpressionCalc expression=new ExpressionCalc(new String[0]);
 		final int errorPos=expression.parse(text);
 		if (errorPos>=0) return text+"\n"+String.format(Language.tr("Statistics.Filter.CoundNotProcessExpression.Info"),errorPos+1);
-		final Double D=expression.calc(statistics);
-		if (D==null) return text; return formatNumber(D.doubleValue(),format);
+		try {
+			return formatNumber(expression.calc(statistics),format);
+		} catch (MathCalcError e) {
+			return text;
+		}
 	}
 
 	/**

@@ -17,6 +17,7 @@ package simulator.simparser.symbols;
 
 import org.apache.commons.math3.util.FastMath;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementTank;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
@@ -32,18 +33,18 @@ public class CalcSymbolAnalogValve extends CalcSymbolSimData {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=2) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=2) throw error();
 
 		final RunElement element=getRunElementForID(parameters[0]);
-		if (element==null) return null;
-		if (!(element instanceof RunElementTank)) return null;
+		if (element==null) throw error();
+		if (!(element instanceof RunElementTank)) throw error();
 		final double[] maxFlow=((RunElementTank)element).getData(getSimData()).getValveValues();
 
 		final int nr=(int)FastMath.round(parameters[1])-1;
-		if (nr<0 || nr>=maxFlow.length) return null;
+		if (nr<0 || nr>=maxFlow.length) throw error();
 
-		return fastBoxedValue(maxFlow[nr]);
+		return maxFlow[nr];
 	}
 
 	@Override

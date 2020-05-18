@@ -64,6 +64,7 @@ import mathtools.TableChartBase;
 import mathtools.TimeTools;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
+import parser.MathCalcError;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
 import scripting.java.DynamicStatus;
@@ -276,7 +277,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		case MODE_COMMAND:
 			ExpressionCalc calc=new ExpressionCalc(null);
 			if (calc.parse(output.getTag())>=0) return null;
-			return calc.calc(statistics);
+			try {
+				return calc.calc(statistics);
+			} catch (MathCalcError e) {
+				return null;
+			}
 		default:
 			return null;
 		}

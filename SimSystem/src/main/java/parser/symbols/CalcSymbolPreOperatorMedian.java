@@ -17,6 +17,7 @@ package parser.symbols;
 
 import java.util.Arrays;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -36,9 +37,9 @@ public final class CalcSymbolPreOperatorMedian extends CalcSymbolPreOperator {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length==0) return null;
-		return fastBoxedValue(calcMedian(Arrays.copyOf(parameters,parameters.length)));
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length==0) throw error();
+		return calcMedian(Arrays.copyOf(parameters,parameters.length));
 	}
 
 	@Override

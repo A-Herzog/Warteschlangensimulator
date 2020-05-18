@@ -18,6 +18,7 @@ package simulator.runmodel;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.distribution.tools.DistributionRandomNumber;
+import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.ModelSurface;
 
@@ -122,12 +123,11 @@ public class RunDataResourceOperator {
 						moveExpressionObj.parse(moveExpression);
 					}
 					simData.runData.setClientVariableValues(null);
-					if (simData.runModel.stoppOnCalcError) {
-						final Double D=moveExpressionObj.calc(simData.runData.variableValues,simData,null);
-						if (D==null) simData.calculationErrorRessource(moveExpressionObj,name);
-						additionalTime=(D==null)?0.0:D.doubleValue();
-					} else {
-						additionalTime=moveExpressionObj.calcOrDefault(simData.runData.variableValues,simData,null,0.0);
+					try {
+						additionalTime=moveExpressionObj.calc(simData.runData.variableValues,simData,null);
+					} catch (MathCalcError e) {
+						simData.calculationErrorRessource(moveExpressionObj,name);
+						additionalTime=0;
 					}
 				}
 			}

@@ -16,6 +16,7 @@
 package parser.symbols;
 
 import mathtools.distribution.DataDistributionImpl;
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -29,17 +30,17 @@ public class CalcSymbolEmpiricalDistributionPDF extends CalcSymbolPreOperator {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length<3) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length<3) throw error();
 		final double upper=Math.max(0.00001,parameters[parameters.length-1]);
 		final double x=parameters[0];
-		if (x<0) return fastBoxedValue(0);
-		if (x>upper) return fastBoxedValue(0);
+		if (x<0) return 0;
+		if (x>upper) return 0;
 
 		final double[] data=new double[parameters.length-2];
 		for (int i=1;i<parameters.length-1;i++) data[i-1]=parameters[i];
 		final DataDistributionImpl dist=new DataDistributionImpl(upper,data);
 		dist.normalizeDensityOnly();
-		return fastBoxedValue(dist.density(x));
+		return dist.density(x);
 	}
 }

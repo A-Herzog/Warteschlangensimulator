@@ -24,6 +24,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.TimeTools;
 import mathtools.distribution.tools.DistributionRandomNumber;
+import parser.MathCalcError;
 import simulator.coreelements.RunElementData;
 import simulator.events.WaitingCancelEvent;
 import simulator.runmodel.RunDataClient;
@@ -224,12 +225,11 @@ public class RunElementProcessData extends RunElementData {
 				maxWaitingTime=DistributionRandomNumber.randomNonNegative(distributionCancel[client.type]);
 			} else {
 				simData.runData.setClientVariableValues(client);
-				if (simData.runModel.stoppOnCalcError) {
-					final Double D=expressionCancel[client.type].calc(simData.runData.variableValues,simData,client);
-					if (D==null) simData.calculationErrorStation(expressionCancel[client.type],this);
-					maxWaitingTime=(D==null)?-1.0:D.doubleValue();
-				} else {
-					maxWaitingTime=expressionCancel[client.type].calcOrDefault(simData.runData.variableValues,simData,client,-1);
+				try {
+					maxWaitingTime=expressionCancel[client.type].calc(simData.runData.variableValues,simData,client);
+				} catch (MathCalcError e) {
+					simData.calculationErrorStation(expressionCancel[client.type],this);
+					maxWaitingTime=-1;
 				}
 			}
 			maxWaitingTime=maxWaitingTime*station.timeBaseMultiply;
@@ -304,12 +304,11 @@ public class RunElementProcessData extends RunElementData {
 		} else {
 			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=expressionProcess[type].calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(expressionProcess[type],this);
-				return ((D==null)?0.0:D.doubleValue())*station.timeBaseMultiply;
-			} else {
-				return expressionProcess[type].calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				return expressionProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(expressionProcess[type],this);
+				return 0;
 			}
 		}
 	}
@@ -331,11 +330,11 @@ public class RunElementProcessData extends RunElementData {
 			} else {
 				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
 				simData.runData.setClientVariableValues(client,additionalWaitingTime);
-				final Double D=expressionSetup[lastClientIndex][nextClientIndex].calc(simData.runData.variableValues,simData,client);
-				if (D==null) {
+				try {
+					time=expressionSetup[lastClientIndex][nextClientIndex].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
+				} catch (MathCalcError e) {
 					simData.calculationErrorStation(expressionSetup[lastClientIndex][nextClientIndex],this);
-				} else {
-					time=D*station.timeBaseMultiply;
+					time=0;
 				}
 			}
 		}
@@ -344,7 +343,7 @@ public class RunElementProcessData extends RunElementData {
 	}
 
 	/**
-	 * Liefert die Nachbearbeitungs für einen Kunden (über eine Verteilungsfunktion oder durch Auswertung eines Ausdrucks)
+	 * Liefert die Nachbearbeitungszeit für einen Kunden (über eine Verteilungsfunktion oder durch Auswertung eines Ausdrucks)
 	 * @param simData	Simulationsdaten (wird benötigt, falls die Zeit per Auswertung eines Ausdrucks bestimmt werden soll)
 	 * @param client	Kunde, für die die Nachbearbeitungszeit bestimmt werden soll (wird benötigt, falls die Zeit per Auswertung eines Ausdrucks bestimmt werden soll)
 	 * @return	Nachbearbeitungszeit in Sekunden
@@ -357,12 +356,11 @@ public class RunElementProcessData extends RunElementData {
 		} else {
 			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=expressionPostProcess[type].calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(expressionPostProcess[type],this);
-				return ((D==null)?0.0:D.doubleValue())*station.timeBaseMultiply;
-			} else {
-				return expressionPostProcess[type].calcOrDefault(simData.runData.variableValues,simData,client,0)*station.timeBaseMultiply;
+			try {
+				return expressionPostProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(expressionPostProcess[type],this);
+				return 0;
 			}
 		}
 	}

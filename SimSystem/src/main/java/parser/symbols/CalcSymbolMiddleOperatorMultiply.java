@@ -24,8 +24,8 @@ import parser.coresymbols.CalcSymbolMiddleOperator;
 public class CalcSymbolMiddleOperatorMultiply extends CalcSymbolMiddleOperator {
 
 	@Override
-	protected Double calc(final double left, final double right) {
-		return fastBoxedValue(left*right);
+	protected double calc(final double left, final double right) {
+		return left*right;
 	}
 
 	@Override

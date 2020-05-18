@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -23,9 +24,11 @@ import parser.coresymbols.CalcSymbolPreOperator;
  */
 public final class CalcSymbolPreOperatorCot extends CalcSymbolPreOperator {
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=1) return null;
-		double d=Math.tan(parameters[0]); return (Double.isNaN(d) || Math.abs(d)<0.000001)?null:(1/d);
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=1) throw error();
+		double d=Math.tan(parameters[0]);
+		if (Double.isNaN(d) || Math.abs(d)<0.000001) throw error();
+		return 1/d;
 	}
 
 	@Override

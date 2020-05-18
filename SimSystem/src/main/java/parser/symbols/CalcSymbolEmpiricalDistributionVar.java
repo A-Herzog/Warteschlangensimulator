@@ -18,6 +18,7 @@ package parser.symbols;
 import java.util.Arrays;
 
 import mathtools.distribution.DataDistributionImpl;
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -31,13 +32,13 @@ public class CalcSymbolEmpiricalDistributionVar extends CalcSymbolPreOperator {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length<2) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length<2) throw error();
 		final double upper=Math.max(0.00001,parameters[parameters.length-1]);
 
 		final double[] data=Arrays.copyOf(parameters,parameters.length-1);
 		final DataDistributionImpl dist=new DataDistributionImpl(upper,data);
 		dist.normalizeDensity();
-		return fastBoxedValue(dist.getNumericalVariance());
+		return dist.getNumericalVariance();
 	}
 }

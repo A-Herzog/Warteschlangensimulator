@@ -22,6 +22,7 @@ import language.Language;
 import mathtools.TimeTools;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -136,19 +137,19 @@ public class RunElementDelay extends RunElementPassThrough {
 	@Override
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
 		/* Verzögerung bestimmen */
-		final double value;
+		double value;
 		if (distribution[client.type]!=null) {
 			value=DistributionRandomNumber.randomNonNegative(distribution[client.type]);
 		} else {
 			simData.runData.setClientVariableValues(client);
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=getData(simData).expression[client.type].calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(getData(simData).expression[client.type],this);
-				value=(D==null)?0.0:D.doubleValue();
-			} else {
-				value=getData(simData).expression[client.type].calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				value=getData(simData).expression[client.type].calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(getData(simData).expression[client.type],this);
+				value=0;
 			}
 		}
+
 		final double delayTime=FastMath.max(0,value)*timeBaseMultiply;
 		final long delayTimeMS=FastMath.round(delayTime*1000);
 

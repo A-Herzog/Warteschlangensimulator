@@ -26,6 +26,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.events.StationLeaveEvent;
@@ -258,11 +259,11 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			/* langsam: final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames); - stattdessen verwenden wir das Objekt wieder. */
 			if (data.calc.parse(arrival.dataFormula[i])<0) {
 				simData.runData.setClientVariableValues(newClient);
-				final Double D=data.calc.calc(simData.runData.variableValues,simData,newClient);
-				if (D==null) {
+				try {
+					final double d=data.calc.calc(simData.runData.variableValues,simData,newClient);
+					newClient.setUserData(arrival.dataIndex[i],d);
+				} catch (MathCalcError e) {
 					simData.calculationErrorStation(data.calc,this);
-				} else {
-					newClient.setUserData(arrival.dataIndex[i],D.doubleValue());
 				}
 			}
 		}

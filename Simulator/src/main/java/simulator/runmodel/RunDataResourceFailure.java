@@ -21,6 +21,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
+import parser.MathCalcError;
 import simcore.SimData;
 import simulator.events.ResourcesReCheckEvent;
 import simulator.simparser.ExpressionCalc;
@@ -137,13 +138,13 @@ public class RunDataResourceFailure {
 		}
 
 		if (failureMode==ModelResourceFailure.FailureMode.FAILURE_BY_EXPRESSION) {
-			final Double D=failureExpression.calc(simData.runData.variableValues,simData,null);
-			if (D==null) {
-				simData.calculationErrorRessource(failureExpression,resourceName);
-			} else {
-				pauseStartTime=availableStartTime+FastMath.round(D.doubleValue()*1000);
+			try {
+				final double d=failureExpression.calc(simData.runData.variableValues,simData,null);
+				pauseStartTime=availableStartTime+FastMath.round(d*1000);
 				if (pauseStartTime<=simData.currentTime) pauseStartTime=simData.currentTime+1;
 				scheduleResourceCheckEvent(simData,pauseStartTime);
+			} catch (MathCalcError e) {
+				simData.calculationErrorRessource(failureExpression,resourceName);
 			}
 		}
 
@@ -156,12 +157,12 @@ public class RunDataResourceFailure {
 
 	private long getDownTime(final SimulationData simData, final String resourceName) {
 		if (downTimeExpression!=null) {
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=downTimeExpression.calc(simData.runData.variableValues,simData,null);
-				if (D==null) simData.calculationErrorRessource(downTimeExpression,resourceName);
-				return FastMath.round(((D==null)?0.0:D.doubleValue())*1000);
-			} else {
-				return FastMath.round(downTimeExpression.calcOrDefault(simData.runData.variableValues,simData,null,0)*1000);
+			try {
+				final double d=downTimeExpression.calc(simData.runData.variableValues,simData,null);
+				return FastMath.round(d*1000);
+			} catch (MathCalcError e) {
+				simData.calculationErrorRessource(downTimeExpression,resourceName);
+				return 0;
 			}
 		} else {
 			return FastMath.round(DistributionRandomNumber.randomNonNegative(downTimeDistribution)*1000);

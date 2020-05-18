@@ -21,7 +21,9 @@ import java.util.Map;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.TimeTools;
+import parser.MathCalcError;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
@@ -71,10 +73,11 @@ public class ClientImpl implements ClientInterface {
 		if (result instanceof String) return result;
 		final ExpressionCalc calc=(ExpressionCalc)result;
 
-		final Double D=calc.calc(simData.runData.variableValues,simData,client);
-		if (D==null) return Language.tr("Statistics.Filter.CoundNotProcessExpression.Title");
-
-		return D;
+		try {
+			return NumberTools.fastBoxedValue(calc.calc(simData.runData.variableValues,simData,client));
+		} catch (MathCalcError e) {
+			return Language.tr("Statistics.Filter.CoundNotProcessExpression.Title");
+		}
 	}
 
 	@Override

@@ -16,6 +16,7 @@
 package parser.coresymbols;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 
 /**
  * Abstrakte Basisklasse für Funktionen (d.h. vorangestellte Operatoren)
@@ -67,9 +68,10 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 	/**
 	 * Versucht die Funktion zu berechnen, wenn die Zahlenwerte der Parameter bekannt sind
 	 * @param parameters 	Zahlenwerte der Parameter
-	 * @return	Liefert im Erfolgsfall das Ergebnis, sonst <code>null</code>
+	 * @return	Ergebnis
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
-	protected abstract Double calc(final double[] parameters);
+	protected abstract double calc(final double[] parameters) throws MathCalcError;
 
 	/**
 	 * Versucht die Funktion zu berechnen, wenn die Zahlenwerte der Parameter bekannt sind
@@ -78,9 +80,11 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 	 * @return	Liefert im Erfolgsfall das Ergebnis der Berechnung, sonst den angegebenen Vorgabewert
 	 */
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
-		final Double D=calc(parameters);
-		if (D==null) return fallbackValue;
-		return D.doubleValue();
+		try {
+			return calc(parameters);
+		} catch (MathCalcError e) {
+			return fallbackValue;
+		}
 	}
 
 	private double[] lastValues;
@@ -94,9 +98,10 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 	/**
 	 * Berechnet die Werte der Parameter der Funktion
 	 * @param calc	Rechensystem (zum Abfragen der aktuellen Werte von Variablen usw.)
-	 * @return	Array mit den Werten der Parameter (kann als Ganzes <code>null</code> sein, wenn die Berechnung fehlgeschlagen ist)
+	 * @return	Array mit den Werten der Parameter
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
-	protected final double[] getParameterValues(final CalcSystem calc) {
+	protected final double[] getParameterValues(final CalcSystem calc) throws MathCalcError {
 		double[] values;
 		if (lastValues==null || lastValues.length!=symbols.length) {
 			values=new double[symbols.length];
@@ -115,32 +120,19 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 				values[i]=((CalcSymbolConst)symbol).getValue();
 			} else {
 				allValuesConst=false;
-				if (symbol instanceof CalcSymbolDirectValue) {
-					if (((CalcSymbolDirectValue)symbol).getValueDirectOk(calc)) {
-						values[i]=((CalcSymbolDirectValue)symbol).getValueDirect(calc);
-					} else {
-						final Double value=symbol.getValue(calc);
-						if (value==null) return null;
-						values[i]=value;
-					}
-				} else {
-					final Double value=symbol.getValue(calc);
-					if (value==null) return null;
-					values[i]=value;
-				}
+				values[i]=symbol.getValue(calc);
 			}
 		}
 		return values;
 	}
 
 	@Override
-	public final Double getValue(final CalcSystem calc) {
-		if (symbols==null) return null;
-
+	public final double getValue(final CalcSystem calc) throws MathCalcError {
 		calcSystem=calc;
-		final double[] values=getParameterValues(calc);
-		if (values==null) return null;
 
+		if (symbols==null) throw error();
+
+		final double[] values=getParameterValues(calc);
 		return calc(values);
 	}
 
@@ -153,9 +145,9 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 	 * @see CalcSystem#calcOrDefault(double[], double)
 	 */
 	public double getValueOrDefault(final CalcSystem calc, final double fallbackValue) {
-		if (symbols==null) return fallbackValue;
-
 		calcSystem=calc;
+
+		if (symbols==null) return fallbackValue;
 
 		double[] values;
 		if (lastValues==null || lastValues.length!=symbols.length) {
@@ -168,17 +160,15 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 		if (!allValuesConst) {
 			allValuesConst=true;
 			for (int i=0;i<symbols.length;i++) {
-				if (symbols[i] instanceof CalcSymbolConst) {
-					values[i]=((CalcSymbolConst)symbols[i]).getValue();
+				final CalcSymbol symbol=symbols[i];
+				if (symbol instanceof CalcSymbolConst) {
+					values[i]=((CalcSymbolConst)symbol).getValue();
 				} else {
 					allValuesConst=false;
-					if (symbols[i] instanceof CalcSymbolVariable) {
-						if (!((CalcSymbolVariable)symbols[i]).getValueDirectOk(calc)) return fallbackValue;
-						values[i]=((CalcSymbolVariable)symbols[i]).getValueDirect(calc);
-					} else {
-						Double value=symbols[i].getValue(calc);
-						if (value==null) return fallbackValue;
-						values[i]=value;
+					try {
+						values[i]=symbol.getValue(calc);
+					} catch (MathCalcError e) {
+						return fallbackValue;
 					}
 				}
 			}
@@ -218,8 +208,11 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 		if (isDeterministic()) {
 			final Double sub=getSimpleConstSub();
 			if (sub!=null) {
-				final Double result=calc(new double[]{sub.doubleValue()});
-				if (result!=null) return result;
+				try {
+					return calc(new double[]{sub.doubleValue()});
+				} catch (MathCalcError e) {
+					/* Unten weiter versuchen */
+				}
 			}
 		}
 

@@ -174,17 +174,19 @@ public abstract class CalcSystemBase implements MathParser {
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und der hier angegebenen Werte.
 	 * @param variableValues	Liste mit den Werten der Variablen
-	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
+	 * @return	Zahlenwert des Ergebnisses.
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
 	@Override
-	public abstract Double calc(double[] variableValues);
+	public abstract double calc(double[] variableValues) throws MathCalcError;
 
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und Werte.
-	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
+	 * @return	Zahlenwert des Ergebnisses.
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
 	@Override
-	public Double calc() {
+	public double calc() throws MathCalcError {
 		return calc(null);
 	}
 

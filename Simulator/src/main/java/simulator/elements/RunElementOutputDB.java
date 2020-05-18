@@ -21,6 +21,7 @@ import java.util.List;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
+import parser.MathCalcError;
 import simcore.SimData;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
@@ -148,12 +149,11 @@ public class RunElementOutputDB extends RunElementPassThrough {
 			return (String)data[index];
 		case MODE_EXPRESSION:
 			simData.runData.setClientVariableValues(client);
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=((ExpressionCalc)data[index]).calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation((ExpressionCalc)data[index],this);
-				return NumberTools.formatSystemNumber((D==null)?0.0:D.doubleValue());
-			} else {
-				return NumberTools.formatSystemNumber(((ExpressionCalc)data[index]).calcOrDefault(simData.runData.variableValues,simData,client,0));
+			try {
+				return NumberTools.formatSystemNumber(((ExpressionCalc)data[index]).calc(simData.runData.variableValues,simData,client));
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation((ExpressionCalc)data[index],this);
+				return NumberTools.formatSystemNumber(0);
 			}
 		case MODE_CLIENT:
 			return simData.runModel.clientTypes[client.type];

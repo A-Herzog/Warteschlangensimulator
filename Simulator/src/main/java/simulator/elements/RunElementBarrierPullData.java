@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.apache.commons.math3.util.FastMath;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
@@ -123,13 +124,13 @@ public class RunElementBarrierPullData extends RunElementData {
 
 		/* Erlaubte Maximalanzahl */
 		simData.runData.setClientVariableValues(null);
-		final int maxClients;
-		if (simData.runModel.stoppOnCalcError) {
-			final Double D=this.maxClients.calc(simData.runData.variableValues,simData,null);
-			if (D==null) simData.calculationErrorStation(this.maxClients,this);
-			maxClients=(int)FastMath.round((D==null)?1.0:D.doubleValue());
-		} else {
-			maxClients=(int)FastMath.round(this.maxClients.calcOrDefault(simData.runData.variableValues,simData,null,1));
+		int maxClients;
+		try {
+			final double d=this.maxClients.calc(simData.runData.variableValues,simData,null);
+			maxClients=(int)FastMath.round(d);
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(this.maxClients,this);
+			maxClients=1;
 		}
 
 		/* Dürfen wir noch Kunden freigeben? */

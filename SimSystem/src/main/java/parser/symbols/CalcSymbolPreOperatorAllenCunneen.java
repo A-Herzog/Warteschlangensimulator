@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -42,15 +43,15 @@ public class CalcSymbolPreOperatorAllenCunneen extends CalcSymbolPreOperator {
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=6) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=6) throw error();
 
-		double lambda=parameters[0]; if (lambda<=0) return null;
-		double mu=parameters[1]; if (mu<=0) return null;
-		double cvI=parameters[2]; if (cvI<=0) return null;
-		double cvS=parameters[3]; if (cvS<=0) return null;
-		int c=(int)Math.round(parameters[4]); if (c<=0) return null;
-		int mode=(int)Math.round(-parameters[5]); if (mode<1 || mode>4) return null;
+		double lambda=parameters[0]; if (lambda<=0) throw error();
+		double mu=parameters[1]; if (mu<=0) throw error();
+		double cvI=parameters[2]; if (cvI<=0) throw error();
+		double cvS=parameters[3]; if (cvS<=0) throw error();
+		int c=(int)Math.round(parameters[4]); if (c<=0) throw error();
+		int mode=(int)Math.round(-parameters[5]); if (mode<1 || mode>4) throw error();
 
 		double rho=lambda/mu/c;
 
@@ -70,6 +71,6 @@ public class CalcSymbolPreOperatorAllenCunneen extends CalcSymbolPreOperator {
 		case 4: return EV;
 		}
 
-		return null;
+		throw error();
 	}
 }

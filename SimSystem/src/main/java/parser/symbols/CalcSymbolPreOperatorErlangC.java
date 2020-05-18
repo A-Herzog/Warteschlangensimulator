@@ -18,6 +18,7 @@ package parser.symbols;
 import org.apache.commons.math3.special.Gamma;
 
 import mathtools.ErlangC;
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -36,19 +37,19 @@ import parser.coresymbols.CalcSymbolPreOperator;
 public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=6) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=6) throw error();
 
-		double lambda=parameters[0]; if (lambda<=0) return null;
-		double mu=parameters[1]; if (mu<=0) return null;
+		double lambda=parameters[0]; if (lambda<=0) throw error();
+		double mu=parameters[1]; if (mu<=0) throw error();
 		double nu=parameters[2]; if (nu<0) nu=0;
-		int c=(int)Math.round(parameters[3]); if (c<=0) return null;
+		int c=(int)Math.round(parameters[3]); if (c<=0) throw error();
 		int K=(int)Math.round(parameters[4]); if (K<=0) K=100000000;
 		double t=0; int mode;
 		if (parameters[5]>=0) {
 			mode=0; t=parameters[5];
 		} else {
-			mode=(int)Math.round(-parameters[5]); if (mode<1 || mode>5) return null;
+			mode=(int)Math.round(-parameters[5]); if (mode<1 || mode>5) throw error();
 		}
 
 		double[] Cn=ErlangC.extErlangCCn(lambda,mu,nu,c,K);
@@ -79,7 +80,7 @@ public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
 		case 5: return 1-PA;
 		}
 
-		return null;
+		throw error();
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
+import parser.MathCalcError;
 import simcore.SimData;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
@@ -466,15 +467,14 @@ public class RunElementSourceRecord {
 
 		if (expression!=null) {
 			simData.runData.setClientVariableValues(null);
-			final double rawTimeDelta;
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=expression.calc(simData.runData.variableValues,simData,null);
-				if (D==null) simData.calculationErrorStation(expression,stationName);
-				rawTimeDelta=(D==null)?0.0:D.doubleValue();
-			} else {
-				rawTimeDelta=expression.calcOrDefault(simData.runData.variableValues,simData,null,0);
-				return scheduleNextArrivalTime(simData,rawTimeDelta,isFirstArrival,element,stationName);
+			double rawTimeDelta;
+			try {
+				rawTimeDelta=expression.calc(simData.runData.variableValues,simData,null);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(expression,stationName);
+				rawTimeDelta=0;
 			}
+			return scheduleNextArrivalTime(simData,rawTimeDelta,isFirstArrival,element,stationName);
 		}
 
 		if (schedule!=null) {
@@ -606,12 +606,11 @@ public class RunElementSourceRecord {
 				switch (mode[i]) {
 				case MODE_EXPRESSION:
 					simData.runData.setClientVariableValues(client);
-					final Double D=expressions[i].calc(simData.runData.variableValues,simData,client);
-					if (D==null) {
+					try {
+						d=expressions[i].calc(simData.runData.variableValues,simData,client);
+					} catch (MathCalcError e) {
 						simData.calculationErrorStation(expressions[i],stationName);
 						ok=false;
-					} else {
-						d=D;
 					}
 					break;
 				case MODE_WAITING_TIME:

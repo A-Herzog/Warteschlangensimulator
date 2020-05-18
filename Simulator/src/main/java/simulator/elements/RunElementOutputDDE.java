@@ -23,6 +23,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
 import net.dde.DDEConnect;
+import parser.MathCalcError;
 import simcore.SimData;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
@@ -156,12 +157,11 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 			break;
 		case MODE_EXPRESSION:
 			simData.runData.setClientVariableValues(client);
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=((ExpressionCalc)data[i]).calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation((ExpressionCalc)data[i],this);
-				line[i]=NumberTools.formatNumberMax((D==null)?0.0:D.doubleValue());
-			} else {
-				line[i]=NumberTools.formatNumberMax(((ExpressionCalc)data[i]).calcOrDefault(simData.runData.variableValues,simData,client,0));
+			try {
+				line[i]=NumberTools.formatNumberMax(((ExpressionCalc)data[i]).calc(simData.runData.variableValues,simData,client));
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation((ExpressionCalc)data[i],this);
+				line[i]=NumberTools.formatNumberMax(0);
 			}
 			break;
 		case MODE_CLIENT:

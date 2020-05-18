@@ -15,6 +15,7 @@
  */
 package simulator.simparser.coresymbols;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAssign;
 import simulator.elements.RunElementSource;
@@ -97,23 +98,23 @@ public abstract class CalcSymbolClientCosts extends CalcSymbolSimData {
 	protected abstract double calcSingleClient(final String name);
 
 	@Override
-	protected Double calc(double[] parameters) {
+	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length==0) {
-			if (!hasAllClientData()) return null;
-			return fastBoxedValue(calcAllClients());
+			if (!hasAllClientData()) throw error();
+			return calcAllClients();
 		}
 		if (parameters.length==1) {
 			final RunElement element=getRunElementForID(parameters[0]);
-			if (element==null) return null;
+			if (element==null) throw error();
 
 			String name=null;
 			if (element instanceof RunElementSource) name=((RunElementSource)element).clientTypeName;
 			if (element instanceof RunElementAssign) name=((RunElementAssign)element).clientTypeName;
-			if (name!=null) return fastBoxedValue(calcSingleClient(name));
-			return null;
+			if (name!=null) return calcSingleClient(name);
+			throw error();
 		}
 
-		return null;
+		throw error();
 	}
 
 	@Override

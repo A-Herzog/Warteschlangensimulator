@@ -18,8 +18,7 @@ package simulator.simparser.symbols;
 import org.apache.commons.math3.util.FastMath;
 
 import mathtools.NumberTools;
-import parser.CalcSystem;
-import parser.coresymbols.CalcSymbolDirectValue;
+import parser.MathCalcError;
 import simulator.runmodel.RunDataClient;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
 
@@ -29,7 +28,7 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  *
  */
-public class CalcSymbolClientUserData extends CalcSymbolSimData implements CalcSymbolDirectValue {
+public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 	/**
 	 * Name des Befehls zum Abfragen eines Kunden-Datenfeldes
 	 */
@@ -41,9 +40,9 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData implements CalcS
 	}
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=1) return null;
-		return fastBoxedValue(getClientData((int)FastMath.round(parameters[0])));
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=1) throw error();
+		return getClientData((int)FastMath.round(parameters[0]));
 	}
 
 	@Override
@@ -124,17 +123,5 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData implements CalcS
 		final String result=parameter.substring(1,parameter.length()-1).trim();
 		if (result.isEmpty()) return null;
 		return result;
-	}
-
-	@Override
-	public boolean getValueDirectOk(CalcSystem calc) {
-		return allValuesConst;
-	}
-
-	@Override
-	public double getValueDirect(CalcSystem calc) {
-		calcSystem=calc;
-		final double[] values=getParameterValues(calc);
-		return calcOrDefault(values,0.0);
 	}
 }

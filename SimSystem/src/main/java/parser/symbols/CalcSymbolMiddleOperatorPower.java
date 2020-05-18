@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolMiddleOperator;
 
 /**
@@ -24,9 +25,9 @@ import parser.coresymbols.CalcSymbolMiddleOperator;
 public final class CalcSymbolMiddleOperatorPower extends CalcSymbolMiddleOperator {
 
 	@Override
-	protected Double calc(double left, double right) {
-		if (right<0) return null;
-		return fastBoxedValue(Math.pow(left,right));
+	protected double calc(double left, double right) throws MathCalcError {
+		if (right<0) throw error();
+		return Math.pow(left,right);
 	}
 
 	@Override

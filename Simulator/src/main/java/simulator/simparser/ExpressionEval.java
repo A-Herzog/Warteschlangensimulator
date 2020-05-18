@@ -15,6 +15,7 @@
  */
 package simulator.simparser;
 
+import parser.MathCalcError;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
 
@@ -104,22 +105,22 @@ public class ExpressionEval {
 		if (calcLeftIsConst) {
 			left=calcLeftConst;
 		} else {
-			final Double Dleft=calcLeft.calc(variableValues,simData,client);
-			if (Dleft==null) {
+			try {
+				left=calcLeft.calc(variableValues,simData,client);
+			} catch (MathCalcError e) {
 				simData.calculationErrorEval(calcLeft);
 				return false;
 			}
-			left=Dleft;
 		}
 		if (calcRightIsConst) {
 			right=calcRightConst;
 		} else {
-			final Double Dright=calcRight.calc(variableValues,simData,client);
-			if (Dright==null) {
+			try {
+				right=calcRight.calc(variableValues,simData,client);
+			} catch (MathCalcError e) {
 				simData.calculationErrorEval(calcRight);
 				return false;
 			}
-			right=Dright;
 		}
 
 		if (left<right) return okWhenLess;

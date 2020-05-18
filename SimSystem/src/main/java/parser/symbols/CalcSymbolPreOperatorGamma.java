@@ -17,6 +17,7 @@ package parser.symbols;
 
 import org.apache.commons.math3.special.Gamma;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -26,11 +27,11 @@ import parser.coresymbols.CalcSymbolPreOperator;
 public class CalcSymbolPreOperatorGamma extends CalcSymbolPreOperator {
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=1) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=1) throw error();
 		double d=parameters[0];
-		if (d==0) return null;
-		if (d<0 && (-d)%1==0.0) return null;
+		if (d==0) throw error();
+		if (d<0 && (-d)%1==0.0) throw error();
 		return Gamma.gamma(d);
 	}
 

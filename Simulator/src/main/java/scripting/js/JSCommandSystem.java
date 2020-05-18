@@ -25,6 +25,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
 import simulator.elements.RunElementTank;
@@ -102,15 +103,15 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (result instanceof String) return result;
 		final ExpressionCalc calc=(ExpressionCalc)result;
 
-		final Double D;
-		if (simData==null) {
-			D=calc.calc();
-		} else {
-			D=calc.calc(simData.runData.variableValues,simData,client); /* Client kann evtl. nicht gesetzt und damit <code>null</code> sein. Das ist ok. */
+		try {
+			if (simData==null) {
+				return NumberTools.fastBoxedValue(calc.calc());
+			} else {
+				return NumberTools.fastBoxedValue(calc.calc(simData.runData.variableValues,simData,client)); /* Client kann evtl. nicht gesetzt und damit <code>null</code> sein. Das ist ok. */
+			}
+		} catch (MathCalcError e) {
+			return Language.tr("Statistics.Filter.CoundNotProcessExpression.Title");
 		}
-		if (D==null) return Language.tr("Statistics.Filter.CoundNotProcessExpression.Title");
-
-		return D;
 	}
 
 	/**
@@ -483,8 +484,10 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (varValue instanceof String) {
 			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
 			if (calc.parse((String)varValue)>=0) return;
-			final Double D=calc.calc(simData.runData.variableValues,simData,null);
-			if (D!=null) setValueInt(index,D);
+			try {
+				final double d=calc.calc(simData.runData.variableValues,simData,null);
+				setValueInt(index,d);
+			} catch (MathCalcError e) {}
 			return;
 		}
 	}
@@ -501,9 +504,12 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (id instanceof String) {
 			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
 			if (calc.parse((String)id)>=0) return null;
-			final Double D=calc.calc(simData.runData.variableValues,simData,null);
-			if (D==null) return null;
-			return getRunElement((int)FastMath.round(D));
+			try {
+				final double d=calc.calc(simData.runData.variableValues,simData,null);
+				return getRunElement((int)FastMath.round(d));
+			} catch (MathCalcError e) {
+				return null;
+			}
 		}
 		return null;
 	}
@@ -514,7 +520,12 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (value instanceof String) {
 			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
 			if (calc.parse((String)value)>=0) return null;
-			return calc.calc(simData.runData.variableValues,simData,null);
+			try {
+				final Double D=NumberTools.fastBoxedValue(calc.calc(simData.runData.variableValues,simData,null));
+				return D;
+			} catch (MathCalcError e) {
+				return null;
+			}
 		}
 		return null;
 	}

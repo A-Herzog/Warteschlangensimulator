@@ -16,6 +16,7 @@
 package parser.coresymbols;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 
 /**
  * Abstrakte Basisklasse für zweiwertige, in der Mitte stehende Operatoren (wie z.B. "+")
@@ -42,9 +43,10 @@ public abstract class CalcSymbolMiddleOperator extends CalcSymbolFunction {
 	 * Parameters bekannt sind
 	 * @param left	Zahlenwert des linken Parameters
 	 * @param right	Zahlenwert des rechten Parameters
-	 * @return	Liefert im Erfolgsfall das Ergebnis, sonst <code>null</code>
+	 * @return	Liefert das Ergebnis
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
-	protected abstract Double calc(final double left, final double right);
+	protected abstract double calc(final double left, final double right) throws MathCalcError;
 
 	/**
 	 * Versucht den Operator zu berechnen, wenn die Zahlenwerte des linken und des rechten
@@ -57,51 +59,11 @@ public abstract class CalcSymbolMiddleOperator extends CalcSymbolFunction {
 	protected abstract double calcOrDefault(final double left, final double right, final double fallbackValue);
 
 	@Override
-	public final Double getValue(final CalcSystem calc) {
-		if (left==null || right==null) return null;
+	public final double getValue(final CalcSystem calc) throws MathCalcError {
+		if (left==null || right==null) throw error();
 
-		double valLeft;
-		if (left instanceof CalcSymbolConst) {
-			valLeft=((CalcSymbolConst)left).getValue();
-		} else {
-			if (left instanceof CalcSymbolVariable) {
-				if (!((CalcSymbolVariable)left).getValueDirectOk(calc)) return null;
-				valLeft=((CalcSymbolVariable)left).getValueDirect(calc);
-			} else {
-				if (left instanceof CalcSymbolNumber) {
-					valLeft=((CalcSymbolNumber)left).getValue();
-				} else {
-					Double value=left.getValue(calc);
-					if (value==null) return null;
-					valLeft=value;
-				}
-			}
-		}
-
-		double valRight;
-		if (right instanceof CalcSymbolConst) {
-			valRight=((CalcSymbolConst)right).getValue();
-		} else {
-			if (right instanceof CalcSymbolVariable) {
-				if (!((CalcSymbolVariable)right).getValueDirectOk(calc)) return null;
-				valRight=((CalcSymbolVariable)right).getValueDirect(calc);
-			} else {
-				if (right instanceof CalcSymbolNumber) {
-					valRight=((CalcSymbolNumber)right).getValue();
-				} else {
-					Double value=right.getValue(calc);
-					if (value==null) return null;
-					valRight=value;
-				}
-			}
-		}
-
-		/*
-		Double l=left.getValue(calc);
-		if (l==null) return null;
-		Double r=right.getValue(calc);
-		if (r==null) return null;
-		 */
+		final double valLeft=left.getValue(calc);
+		final double valRight=right.getValue(calc);
 
 		return calc(valLeft,valRight);
 	}
@@ -117,58 +79,18 @@ public abstract class CalcSymbolMiddleOperator extends CalcSymbolFunction {
 	public double getValueOrDefault(final CalcSystem calc, final double fallbackValue) {
 		if (left==null || right==null) return fallbackValue;
 
-		/* Linke Seite */
-
-		boolean okLeft=false;
-		double valLeft=0;
-
-		if (left instanceof CalcSymbolConst) {
-			valLeft=((CalcSymbolConst)left).getValue();
-			okLeft=true;
+		double valLeft;
+		try {
+			valLeft=left.getValue(calc);
+		} catch (MathCalcError e) {
+			return fallbackValue;
 		}
 
-		if (!okLeft && (left instanceof CalcSymbolVariable)) {
-			if (!((CalcSymbolVariable)left).getValueDirectOk(calc)) return fallbackValue;
-			valLeft=((CalcSymbolVariable)left).getValueDirect(calc);
-			okLeft=true;
-		}
-
-		if (!okLeft && (left instanceof CalcSymbolNumber)) {
-			valLeft=((CalcSymbolNumber)left).getValue();
-			okLeft=true;
-		}
-
-		if (!okLeft) {
-			Double value=left.getValue(calc);
-			if (value==null) return fallbackValue;
-			valLeft=value;
-		}
-
-		/* Rechte Seite */
-
-		boolean okRight=false;
-		double valRight=0;
-
-		if (right instanceof CalcSymbolConst) {
-			valRight=((CalcSymbolConst)right).getValue();
-			okRight=true;
-		}
-
-		if (!okRight && (right instanceof CalcSymbolVariable)) {
-			if (!((CalcSymbolVariable)right).getValueDirectOk(calc)) return fallbackValue;
-			valRight=((CalcSymbolVariable)right).getValueDirect(calc);
-			okRight=true;
-		}
-
-		if (!okRight && (right instanceof CalcSymbolNumber)) {
-			valRight=((CalcSymbolNumber)right).getValue();
-			okRight=true;
-		}
-
-		if (!okRight) {
-			Double value=right.getValue(calc);
-			if (value==null) return fallbackValue;
-			valRight=value;
+		double valRight;
+		try {
+			valRight=right.getValue(calc);
+		} catch (MathCalcError e) {
+			return fallbackValue;
 		}
 
 		return calcOrDefault(valLeft,valRight,fallbackValue);
@@ -187,7 +109,13 @@ public abstract class CalcSymbolMiddleOperator extends CalcSymbolFunction {
 		if (left==null || right==null) return this;
 		Object l=left.getSimplify();
 		Object r=right.getSimplify();
-		if (l instanceof Double && r instanceof Double) return calc((Double)l,(Double)r);
+		if (l instanceof Double && r instanceof Double) {
+			try {
+				return calc((Double)l,(Double)r);
+			} catch (MathCalcError e) {
+				return this;
+			}
+		}
 		if (l instanceof Double) {
 			CalcSymbolMiddleOperator clone;
 			try {clone=(CalcSymbolMiddleOperator)clone();} catch (CloneNotSupportedException e) {return null;}

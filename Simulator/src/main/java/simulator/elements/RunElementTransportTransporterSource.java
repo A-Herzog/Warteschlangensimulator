@@ -18,6 +18,8 @@ package simulator.elements;
 import java.util.List;
 
 import language.Language;
+import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -224,12 +226,11 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 					score[i]=waitingTime;
 				} else {
 					simData.runData.setClientVariableValues(simData.currentTime-current.lastWaitingStart,current.transferTime,current.processTime);
-					if (simData.runModel.stoppOnCalcError) {
-						final Double D=calc.calc(simData.runData.variableValues,simData,current);
-						if (D==null) simData.calculationErrorStation(calc,this);
-						score[i]=(D==null)?0.0:D.doubleValue();
-					} else {
-						score[i]=calc.calcOrDefault(simData.runData.variableValues,simData,current,0);
+					try {
+						score[i]=calc.calc(simData.runData.variableValues,simData,current);
+					} catch (MathCalcError e) {
+						simData.calculationErrorStation(calc,this);
+						score[i]=0;
 					}
 				}
 
@@ -419,20 +420,18 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		final RunElementTransportTransporterSourceData data=getData(simData);
 
 		if (data.queue.size()>=requestingMinNumber) {
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.priorityRequest.calc(simData.runData.variableValues,simData,null);
-				if (D==null) simData.calculationErrorStation(data.priorityRequest,this);
-				return (D==null)?0.0:D.doubleValue();
-			} else {
-				return data.priorityRequest.calcOrDefault(simData.runData.variableValues,simData,null,0);
+			try {
+				return data.priorityRequest.calc(simData.runData.variableValues,simData,null);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.priorityRequest,this);
+				return 0;
 			}
 		} else {
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.priorityParking.calc(simData.runData.variableValues,simData,null);
-				if (D==null) simData.calculationErrorStation(data.priorityParking,this);
-				return (D==null)?0.0:D.doubleValue();
-			} else {
-				return data.priorityParking.calcOrDefault(simData.runData.variableValues,simData,null,0);
+			try {
+				return data.priorityParking.calc(simData.runData.variableValues,simData,null);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.priorityParking,this);
+				return 0;
 			}
 		}
 	}
@@ -446,13 +445,19 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		if (data.count+data.moving>=waitingCapacity) return null; /* Kein Platz mehr. */
 
 		if (data.queue.size()>=requestingMinNumber) {
-			final Double D=data.priorityRequest.calc(simData.runData.variableValues,simData,null);
-			if (D==null) simData.calculationErrorStation(data.priorityRequest,this);
-			return D;
+			try {
+				return NumberTools.fastBoxedValue(data.priorityRequest.calc(simData.runData.variableValues,simData,null));
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.priorityRequest,this);
+				return null;
+			}
 		} else {
-			final Double D=data.priorityParking.calc(simData.runData.variableValues,simData,null);
-			if (D==null) simData.calculationErrorStation(data.priorityParking,this);
-			return D;
+			try {
+				return NumberTools.fastBoxedValue(data.priorityParking.calc(simData.runData.variableValues,simData,null));
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.priorityParking,this);
+				return null;
+			}
 		}
 	}
 
@@ -463,9 +468,12 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		final RunElementTransportTransporterSourceData data=getData(simData);
 		if (data.count+data.moving>waitingCapacity) return null; /* Kein Platz mehr, wir wollen den überzähligen Transporter gerne loswerden. */
 
-		final Double D=data.priorityParking.calc(simData.runData.variableValues,simData,null);
-		if (D==null) simData.calculationErrorStation(data.priorityParking,this);
-		return D;
+		try {
+			return NumberTools.fastBoxedValue(data.priorityParking.calc(simData.runData.variableValues,simData,null));
+		} catch (MathCalcError e) {
+			simData.calculationErrorStation(data.priorityParking,this);
+			return null;
+		}
 	}
 
 	@Override

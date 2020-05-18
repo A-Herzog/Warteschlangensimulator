@@ -17,6 +17,7 @@ package simulator.elements;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -120,13 +121,12 @@ public class RunElementTankValveSetup extends RunElementPassThrough {
 			final ModelElementTankValveSetup.ValveSetup valveSetup=valveSetups[i];
 			final RunElementTank tank=tanks[i];
 			simData.runData.setClientVariableValues(client);
-			final double maxFlow;
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=data.maxFlow[i].calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(data.maxFlow[i],this);
-				maxFlow=(D==null)?-1.0:D.doubleValue();
-			} else {
-				maxFlow=data.maxFlow[i].calcOrDefault(simData.runData.variableValues,simData,client,-1);
+			double maxFlow;
+			try {
+				maxFlow=data.maxFlow[i].calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(data.maxFlow[i],this);
+				maxFlow=-1;
 			}
 			if (maxFlow<0) continue;
 			tank.getData(simData).getValveValues()[valveSetup.valveNr]=maxFlow;

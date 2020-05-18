@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import parser.CalcSystem;
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 import simulator.Simulator;
 import simulator.coreelements.RunElement;
@@ -287,9 +288,10 @@ public class ExpressionCalc extends CalcSystem {
 	 * @param variableValues	Liste mit den Werten der Variablen
 	 * @param simData	Simulationsdatenobjekt
 	 * @param client	Aktueller Kunde
-	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
+	 * @return	Zahlenwert des Ergebnisses.
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
-	public Double calc(double[] variableValues, final SimulationData simData, final RunDataClient client) {
+	public double calc(double[] variableValues, final SimulationData simData, final RunDataClient client) throws MathCalcError {
 		if (simData!=null && (runElementData==null || runElements==null || this.simData!=simData)) {
 			this.simData=simData;
 			prepareRunElementData();
@@ -320,12 +322,13 @@ public class ExpressionCalc extends CalcSystem {
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und der hier angegebenen Werte.
 	 * @param statistics	Statistikobjekt dem die Daten für die Simulationsdaten-Funktionen entnommen werden sollen
-	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
+	 * @return	Zahlenwert des Ergebnisses
+	 * @throws	MathCalcError	Fehler während der Berechnung
 	 */
-	public Double calc(final Statistics statistics) {
-		if (statistics==null) return null;
+	public double calc(final Statistics statistics) throws MathCalcError {
+		if (statistics==null) throw new MathCalcError(this);
 		final SimulationData simData=Simulator.getSimulationDataFromStatistics(statistics);
-		if (simData==null) return null;
+		if (simData==null) throw new MathCalcError(this);
 
 		simData.runData.initRun(0,simData);
 		for (RunElement station: simData.runModel.elementsFast) if (station!=null) simData.runData.explicitInitStatistics(simData,station);
@@ -484,6 +487,10 @@ public class ExpressionCalc extends CalcSystem {
 		final ExpressionCalc calc=new ExpressionCalc(null);
 		if (calc.parse(expression)>=0) return null;
 		if (!calc.isConstValue()) return null;
-		return calc.calc();
+		try {
+			return calc.calc();
+		} catch (MathCalcError e) {
+			return null;
+		}
 	}
 }

@@ -15,8 +15,8 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolMiddleOperator;
-
 
 /**
  * Divisionsoperator
@@ -25,9 +25,9 @@ import parser.coresymbols.CalcSymbolMiddleOperator;
 public final class CalcSymbolMiddleOperatorDivide extends CalcSymbolMiddleOperator {
 
 	@Override
-	protected Double calc(double left, double right) {
-		if (right==0.0) return null;
-		return fastBoxedValue(left/right);
+	protected double calc(double left, double right) throws MathCalcError {
+		if (right==0.0) throw error();
+		return left/right;
 	}
 
 	@Override

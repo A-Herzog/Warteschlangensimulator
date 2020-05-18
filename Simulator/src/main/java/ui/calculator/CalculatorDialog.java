@@ -48,6 +48,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
+import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
 import systemtools.SmallColorChooser;
@@ -237,9 +238,13 @@ public class CalculatorDialog extends BaseDialog {
 		final ExpressionCalc calc=new ExpressionCalc(null);
 		final int error=calc.parse(expression);
 		if (error>=0) return String.format(Language.tr("CalculatorDialog.Expression.ParseError"),error+1);
-		final Double D=calc.calc();
-		if (D==null) return Language.tr("CalculatorDialog.Expression.CalcError");
-		return NumberTools.formatNumberMax(D.doubleValue());
+		double d;
+		try {
+			d=calc.calc();
+		} catch (MathCalcError e) {
+			return Language.tr("CalculatorDialog.Expression.CalcError");
+		}
+		return NumberTools.formatNumberMax(d);
 	}
 
 	private JPanel getPlotterInputLine(final PlotterPanel plotter, final String expression, final Color color) {

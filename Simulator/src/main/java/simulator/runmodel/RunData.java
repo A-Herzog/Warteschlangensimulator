@@ -28,7 +28,9 @@ import java.util.Set;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionRandomNumber;
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementAnalogProcessing;
 import simulator.coreelements.RunElementAnalogProcessingData;
@@ -212,8 +214,9 @@ public class RunData {
 		for (int i=0;i<variableValues.length;i++) {
 			variableValues[i]=0;
 			if (runModel.variableInitialValues[i]!=null) {
-				final Double D=runModel.variableInitialValues[i].calc();
-				if (D!=null) variableValues[i]=D.doubleValue();
+				try {
+					variableValues[i]=runModel.variableInitialValues[i].calc();
+				} catch (MathCalcError e) {}
 			}
 		}
 
@@ -805,7 +808,9 @@ public class RunData {
 			freeResourcesListenerPriorityConst=new Double[freeResourcesListener.length];
 			for (int i=0;i<freeResourcesListener.length;i++) {
 				freeResourcesListenerPriority[i]=freeResourcesListener[i].getResourcePriority(simData);
-				if (freeResourcesListenerPriority[i].isConstValue()) freeResourcesListenerPriorityConst[i]=freeResourcesListenerPriority[i].calc(variableValues,simData,null);
+				if (freeResourcesListenerPriority[i].isConstValue()) try {
+					freeResourcesListenerPriorityConst[i]=freeResourcesListenerPriority[i].calc(variableValues,simData,null);
+				} catch (MathCalcError e) {}
 			}
 		}
 
@@ -831,8 +836,11 @@ public class RunData {
 				if (freeResourcesListenerPriorityConst[i]!=null) {
 					freeResourcesListenerCurrentPriority[i]=freeResourcesListenerPriorityConst[i];
 				} else {
-					final Double D=freeResourcesListenerPriority[i].calc(variableValues,simData,null);
-					freeResourcesListenerCurrentPriority[i]=(D==null)?0.0:D;
+					try {
+						freeResourcesListenerCurrentPriority[i]=NumberTools.fastBoxedValue(freeResourcesListenerPriority[i].calc(variableValues,simData,null));
+					} catch (MathCalcError e) {
+						freeResourcesListenerCurrentPriority[i]=0;
+					}
 				}
 			}
 

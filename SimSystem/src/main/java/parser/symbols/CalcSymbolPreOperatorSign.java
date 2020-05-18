@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -28,11 +29,11 @@ public final class CalcSymbolPreOperatorSign extends CalcSymbolPreOperator {
 	private static Double minus=-1.0;
 
 	@Override
-	protected Double calc(double[] parameters) {
-		if (parameters.length!=1) return null;
+	protected double calc(double[] parameters) throws MathCalcError {
+		if (parameters.length!=1) throw error();
 		final double sign=Math.signum(parameters[0]);
 		if (sign<0) return minus;
-		return fastBoxedValue(sign);
+		return sign;
 	}
 
 	@Override

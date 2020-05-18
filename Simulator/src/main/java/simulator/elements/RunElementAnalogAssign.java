@@ -20,6 +20,7 @@ import java.util.List;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementAnalogProcessing;
 import simulator.coreelements.RunElementAnalogProcessingData;
@@ -154,12 +155,13 @@ public class RunElementAnalogAssign extends RunElementPassThrough {
 			final RunElementAnalogProcessingData changeData=(RunElementAnalogProcessingData)changeElement[i].getData(simData);
 
 			/* Wert berechnen */
-			final Double D=data.expressions[i].calc(simData.runData.variableValues,simData,client);
-			if (D==null) {
+			double value=0;
+			try {
+				value=data.expressions[i].calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
 				simData.calculationErrorStation(data.expressions[i],this);
 				continue;
 			}
-			double value=D.doubleValue();
 
 			if (changeRate[i]) {
 				((RunElementAnalogValueData)changeData).setRate(simData,value);

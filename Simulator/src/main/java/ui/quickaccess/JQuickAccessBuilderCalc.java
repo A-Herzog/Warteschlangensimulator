@@ -19,6 +19,7 @@ import java.util.function.Consumer;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import ui.images.Images;
 
@@ -55,10 +56,14 @@ public class JQuickAccessBuilderCalc extends JQuickAccessBuilder {
 		final int error=calc.parse(quickAccessText);
 		if (error>=0) return;
 
-		final Double result=calc.calc();
-		if (result==null) return;
+		double result;
+		try {
+			result=calc.calc();
+		} catch (MathCalcError e) {
+			return;
+		}
 
-		final String text=quickAccessText+"="+NumberTools.formatNumberMax(result.doubleValue());
+		final String text=quickAccessText+"="+NumberTools.formatNumberMax(result);
 
 		getList().add(new JQuickAccessRecord(category,text,text,categoryTooltip,Images.EXTRAS_CALCULATOR.getIcon(),record->openCalculationDialog.accept((String)record.data),quickAccessText));
 	}

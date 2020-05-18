@@ -15,6 +15,7 @@
  */
 package parser.symbols;
 
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPostOperator;
 
 /**
@@ -29,7 +30,7 @@ public final class CalcSymbolPostOperatorPercent extends CalcSymbolPostOperator 
 	}
 
 	@Override
-	protected Double calc(final double parameter) {
+	protected double calc(final double parameter) throws MathCalcError {
 		return parameter/100;
 	}
 }

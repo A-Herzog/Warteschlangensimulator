@@ -21,6 +21,8 @@ import java.util.Map;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
+import mathtools.NumberTools;
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.RunElementAnalogValue;
 import simulator.elements.RunElementTank;
@@ -65,11 +67,11 @@ public class SystemImpl implements SystemInterface {
 		final Object result=getExpression(expression);
 		if (result instanceof String) return result;
 		final ExpressionCalc calc=(ExpressionCalc)result;
-
-		final Double D=calc.calc(simData.runData.variableValues,simData,null);
-		if (D==null) return Language.tr("Statistics.Filter.CoundNotProcessExpression.Title");
-
-		return D;
+		try {
+			return NumberTools.fastBoxedValue(calc.calc(simData.runData.variableValues,simData,null));
+		} catch (MathCalcError e) {
+			return Language.tr("Statistics.Filter.CoundNotProcessExpression.Title");
+		}
 	}
 
 	@Override
@@ -132,8 +134,10 @@ public class SystemImpl implements SystemInterface {
 		if (varValue instanceof String) {
 			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
 			if (calc.parse((String)varValue)>=0) return;
-			final Double D=calc.calc(simData.runData.variableValues,simData,null);
-			if (D!=null) simData.runData.variableValues[index]=D;
+			try {
+				final double d=calc.calc(simData.runData.variableValues,simData,null);
+				simData.runData.variableValues[index]=d;
+			} catch (MathCalcError e) {}
 			return;
 		}
 	}
@@ -151,9 +155,12 @@ public class SystemImpl implements SystemInterface {
 		if (id instanceof String) {
 			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
 			if (calc.parse((String)id)>=0) return null;
-			final Double D=calc.calc(simData.runData.variableValues,simData,null);
-			if (D==null) return null;
-			return getRunElement((int)FastMath.round(D));
+			try {
+				final double d=calc.calc(simData.runData.variableValues,simData,null);
+				return getRunElement((int)FastMath.round(d));
+			} catch (MathCalcError e) {
+				return null;
+			}
 		}
 		return null;
 	}
@@ -165,7 +172,12 @@ public class SystemImpl implements SystemInterface {
 		if (value instanceof String) {
 			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
 			if (calc.parse((String)value)>=0) return null;
-			return calc.calc(simData.runData.variableValues,simData,null);
+			try {
+				final Double D=calc.calc(simData.runData.variableValues,simData,null);
+				return D;
+			} catch (MathCalcError e) {
+				return null;
+			}
 		}
 		return null;
 	}

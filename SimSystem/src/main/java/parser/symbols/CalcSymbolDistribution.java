@@ -20,6 +20,7 @@ import java.util.Arrays;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.distribution.tools.DistributionRandomNumber;
+import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
@@ -62,14 +63,14 @@ public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
 	}
 
 	@Override
-	protected final Double calc(double[] parameters) {
+	protected final double calc(double[] parameters) throws MathCalcError {
 		int distParameterCount=getParameterCount();
 
 		/* Zufallszahl */
 		if (parameters.length==distParameterCount) {
 			AbstractRealDistribution distribution=fastGetDistribution(parameters);
-			if (distribution==null) return null;
-			return fastBoxedValue(DistributionRandomNumber.randomNonNegative(distribution));
+			if (distribution==null) throw error();
+			return DistributionRandomNumber.randomNonNegative(distribution);
 		}
 
 		/* Dichte oder Verteilung */
@@ -77,21 +78,21 @@ public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
 			double type=parameters[parameters.length-1];
 			double[] distParameters=Arrays.copyOfRange(parameters,1,parameters.length-1);
 			AbstractRealDistribution distribution=fastGetDistribution(distParameters);
-			if (distribution==null) return null;
+			if (distribution==null) throw error();
 
 			if (Math.abs(type-0)<0.0001) {
 				final double d=distribution.density(parameters[0]);
-				if (Double.isNaN(d) || Double.isInfinite(d)) return fastBoxedValue(0.0);
-				return fastBoxedValue(d);
+				if (Double.isNaN(d) || Double.isInfinite(d)) return 0.0;
+				return d;
 			}
 			if (Math.abs(type-1)<0.0001) {
 				final double d=distribution.cumulativeProbability(parameters[0]);
-				if (Double.isNaN(d) || Double.isInfinite(d)) return fastBoxedValue(0.0);
-				return fastBoxedValue(d);
+				if (Double.isNaN(d) || Double.isInfinite(d)) return 0.0;
+				return d;
 			}
-			return null;
+			throw error();
 		}
-		return null;
+		throw error();
 	}
 
 	@Override

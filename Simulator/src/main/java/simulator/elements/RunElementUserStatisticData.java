@@ -15,6 +15,7 @@
  */
 package simulator.elements;
 
+import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
@@ -65,13 +66,12 @@ public class RunElementUserStatisticData extends RunElementData {
 
 		for (int i=0;i<keys.length;i++) {
 			/* Wert berechnen */
-			final double value;
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=expressions[i].calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(expressions[i],this);
-				value=(D==null)?0.0:D.doubleValue();
-			} else {
-				value=expressions[i].calcOrDefault(simData.runData.variableValues,simData,client,0);
+			double value;
+			try {
+				value=expressions[i].calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(expressions[i],this);
+				value=0;
 			}
 
 			/* Indikator holen wenn nötig */

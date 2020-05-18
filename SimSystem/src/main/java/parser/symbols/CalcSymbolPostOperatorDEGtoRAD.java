@@ -28,7 +28,7 @@ public class CalcSymbolPostOperatorDEGtoRAD extends CalcSymbolPostOperator {
 	}
 
 	@Override
-	protected Double calc(double parameter) {
-		return fastBoxedValue(parameter/180*Math.PI);
+	protected double calc(double parameter) {
+		return parameter/180*Math.PI;
 	}
 }

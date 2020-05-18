@@ -19,6 +19,7 @@ import java.awt.Color;
 
 import language.Language;
 import mathtools.NumberTools;
+import parser.MathCalcError;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
 import scripting.java.DynamicStatus;
@@ -313,12 +314,13 @@ public class RunElementActionRecord {
 	}
 
 	private boolean checkTriggerThreshold(final SimulationData simData, final String stationLogName) {
-		final Double D=thresholdExpressionObj.calc(simData.runData.variableValues,simData,null);
-		if (D==null) {
+		double newValue=0;
+		try {
+			newValue=thresholdExpressionObj.calc(simData.runData.variableValues,simData,null);
+		} catch (MathCalcError e) {
 			simData.calculationErrorStation(thresholdExpressionObj,stationLogName);
 			return false;
 		}
-		final double newValue=D.doubleValue();
 
 		boolean trigger=false;
 		if (lastThresholdCheckTime<0 || lastThresholdCheckTime>simData.currentTime) {
@@ -376,24 +378,20 @@ public class RunElementActionRecord {
 	 * @param stationLogColor	Farbe beim Logging für die Station an der die Aktion ausgelöst wird
 	 */
 	public void runAction(final SimulationData simData, final String stationLogName, final Color stationLogColor) {
-		Double D;
-
 		switch (actionType) {
 		case ACTION_ANALOG_VALUE:
 			simData.runData.setClientVariableValues(null);
-			D=analogValueObj.calc(simData.runData.variableValues,simData,null);
-			if (D==null) {
+			try {
+				analogData.setValue(simData,analogValueObj.calc(simData.runData.variableValues,simData,null));
+			} catch (MathCalcError e) {
 				simData.calculationErrorStation(analogValueObj,stationLogName);
-			} else {
-				analogData.setValue(simData,D.doubleValue());
 			}
 			break;
 		case ACTION_ASSIGN:
 			simData.runData.setClientVariableValues(null);
-			D=assignExpressionObj.calc(simData.runData.variableValues,simData,null);
-			if (D!=null) {
-				simData.runData.variableValues[assignVariableIndex]=D.doubleValue();
-			} else {
+			try {
+				simData.runData.variableValues[assignVariableIndex]=assignExpressionObj.calc(simData.runData.variableValues,simData,null);
+			} catch (MathCalcError e) {
 				simData.calculationErrorStation(assignExpressionObj,stationLogName);
 			}
 			break;

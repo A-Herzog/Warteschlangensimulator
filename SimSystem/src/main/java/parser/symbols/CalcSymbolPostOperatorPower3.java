@@ -28,7 +28,7 @@ public final class CalcSymbolPostOperatorPower3 extends CalcSymbolPostOperator {
 	}
 
 	@Override
-	protected Double calc(final double parameter) {
+	protected double calc(final double parameter) {
 		return parameter*parameter*parameter;
 	}
 }

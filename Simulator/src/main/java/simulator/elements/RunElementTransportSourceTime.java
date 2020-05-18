@@ -21,6 +21,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
+import parser.MathCalcError;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
@@ -107,18 +108,17 @@ public class RunElementTransportSourceTime {
 	 * @return	Transportzeit in Sekunden
 	 */
 	public double getTransportTime(final SimulationData simData, final RunDataClient client, final ExpressionCalc[] delayExpression, final String stationName) {
-		final double value;
+		double value;
 		if (distribution[client.stationInformationInt]!=null) {
 			value=DistributionRandomNumber.randomNonNegative(distribution[client.stationInformationInt]);
 		} else {
 			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
-			if (simData.runModel.stoppOnCalcError) {
-				final Double D=delayExpression[client.stationInformationInt].calc(simData.runData.variableValues,simData,client);
-				if (D==null) simData.calculationErrorStation(delayExpression[client.stationInformationInt],stationName);
-				value=(D==null)?0.0:D.doubleValue();
-			} else {
-				value=delayExpression[client.stationInformationInt].calcOrDefault(simData.runData.variableValues,simData,client,0);
+			try {
+				value=delayExpression[client.stationInformationInt].calc(simData.runData.variableValues,simData,client);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(delayExpression[client.stationInformationInt],stationName);
+				value=0;
 			}
 		}
 		return FastMath.max(0,value)*timeBaseMultiply;
