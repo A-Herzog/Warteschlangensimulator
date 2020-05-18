@@ -56,7 +56,6 @@ import tools.SetupData;
 import ui.expressionbuilder.ExpressionBuilder;
 import ui.help.Help;
 import ui.images.Images;
-import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Zeigt einen Dialog zur Berechnung von mathematischen Ausdrücken an.<br>
@@ -251,7 +250,7 @@ public class CalculatorDialog extends BaseDialog {
 		final PlotterPanel.Graph graph=new PlotterPanel.Graph(expression,color);
 		plotter.getGraphs().add(graph);
 
-		final Object[] data=ModelElementBaseDialog.getInputPanel(null,expression==null?"":expression);
+		final Object[] data=getInputPanel(null,expression==null?"":expression,-1);
 		final JPanel panel=(JPanel)data[0];
 		final JTextField field=(JTextField)data[1];
 		field.addKeyListener(new KeyAdapter() {
