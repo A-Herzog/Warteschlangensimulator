@@ -265,6 +265,13 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	private int[] drawCacheXValues;
 	private int[] drawCacheYValues;
 
+	private static Integer[] drawIntegersPlus=new Integer[1000];
+	private static Integer[] drawIntegersMinus=new Integer[1000];
+	static {
+		for (int i=0;i<drawIntegersPlus.length;i++) drawIntegersPlus[i]=i;
+		for (int i=0;i<drawIntegersMinus.length;i++) drawIntegersMinus[i]=-i;
+	}
+
 	@Override
 	protected void drawDiagramData(final Graphics2D g, final Rectangle rectangle, final double zoom) {
 		if (recordedValues==null) {
@@ -318,7 +325,11 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 					if (needRecalcAll || I==null) {
 						final double d=recordedValues.get(j)[i];
 						yInt=rectangle.y+1+rectangle.height-2-(int)FastMath.round((d-min)*scaleY);
-						recordedDrawValues.get(j)[i]=yInt;
+						Integer J=null;
+						if (yInt>=0 && yInt<drawIntegersPlus.length) J=drawIntegersPlus[yInt];
+						if (yInt<0 && -yInt<drawIntegersMinus.length) J=drawIntegersMinus[-yInt];
+						if (J==null) J=yInt;
+						recordedDrawValues.get(j)[i]=J;
 					} else {
 						yInt=I.intValue();
 					}
@@ -493,7 +504,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 		drawLock.acquireUninterruptibly();
 		try {
-			final int size=recordedValues.size();
+			int size=recordedValues.size();
 			if (size>0 && recordedTimeStamps[size-1]==simData.currentTime) {
 				cacheDouble.add(recordedValues.set(size-1,data));
 				cacheInteger.add(recordedDrawValues.set(size-1,drawData));
@@ -509,13 +520,20 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 				}
 				recordedTimeStamps[recordedDrawValues.size()-1]=simData.currentTime;
 
-				while (recordedValues.size()>0) {
-					long l=recordedTimeStamps[0];
-					if (l>=simData.currentTime-timeArea*1000) break;
-					cacheDouble.add(recordedValues.remove(0));
-					cacheInteger.add(recordedDrawValues.remove(0));
-					final int len=recordedValues.size();
-					for (int i=1;i<=len;i++) recordedTimeStamps[i-1]=recordedTimeStamps[i];
+				int removeCount=0;
+				size=recordedValues.size();
+				final long limitValue=simData.currentTime-timeArea*1000;
+				for (int i=0;i<size;i++) {
+					long l=recordedTimeStamps[i];
+					if (l>=limitValue) break;
+					removeCount++;
+				}
+				if (removeCount>0) {
+					for (int i=0;i<removeCount;i++) {
+						cacheDouble.add(recordedValues.remove(0));
+						cacheInteger.add(recordedDrawValues.remove(0));
+					}
+					for (int i=removeCount;i<size;i++) recordedTimeStamps[i-removeCount]=recordedTimeStamps[i];
 				}
 			}
 		} finally {
