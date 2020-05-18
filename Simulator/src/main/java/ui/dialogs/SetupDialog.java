@@ -707,7 +707,7 @@ public final class SetupDialog extends BaseDialog {
 		p.add(programStartJavaCheck=new JCheckBox(Language.tr("SettingsDialog.TestJavaVersionOnProgramStart")));
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		p.add(new JLabel(Language.tr("SettingsDialog.JDK.Info")+": ")); // Empfohlene Download-Adresse für Java-Laufzeitumgebungen
+		p.add(new JLabel(Language.tr("SettingsDialog.JDK.Info")+": "));
 		p.add(label=new JLabel("<html><body><a href=\""+Language.tr("SettingsDialog.JDK.Link")+"\">"+Language.tr("SettingsDialog.JDK.Link")+"</a></body></html>")); // "https://adoptopenjdk.net/"
 		label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		label.addMouseListener(new MouseAdapter() {
@@ -720,7 +720,6 @@ public final class SetupDialog extends BaseDialog {
 				}
 			}
 		});
-
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(autoUpdate=new JCheckBox(Language.tr("SettingsDialog.AutoUpdate")));
