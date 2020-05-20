@@ -88,7 +88,7 @@ public final class RunDataClients {
 		/* Erfassung Anzahl an Kunden im System */
 		clientsInSystem++;
 		if (!simData.runData.isWarmUp) {
-			simData.statistics.clientsInSystem.set(simData.currentTime/1000.0,clientsInSystem);
+			simData.statistics.clientsInSystem.set(simData.currentTime*scale,clientsInSystem);
 		}
 
 		simData.runData.logClientsInSystemChange(simData,type,1);
@@ -168,7 +168,7 @@ public final class RunDataClients {
 		}
 		final long last=lastInterLeaveByClientType[clientType];
 		final long now=simData.currentTime;
-		if (last>0 && last<=now) ((StatisticsDataPerformanceIndicator)cacheClientsInterleaveTime.get(clientType)).add((now-last)/1000.0);
+		if (last>0 && last<=now) ((StatisticsDataPerformanceIndicator)cacheClientsInterleaveTime.get(clientType)).add((now-last)*scale);
 		lastInterLeaveByClientType[clientType]=now;
 	}
 
@@ -217,7 +217,7 @@ public final class RunDataClients {
 		/* Erfassung Anzahl an Kunden im System */
 		clientsInSystem--;
 		if (!simData.runData.isWarmUp) {
-			simData.statistics.clientsInSystem.set(simData.currentTime/1000.0,clientsInSystem);
+			simData.statistics.clientsInSystem.set(simData.currentTime*scale,clientsInSystem);
 		}
 		simData.runData.logClientsInSystemChange(simData,client.type,-1);
 	}

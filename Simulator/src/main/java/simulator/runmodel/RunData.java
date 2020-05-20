@@ -373,52 +373,57 @@ public class RunData {
 	public void logStationProcess(final SimulationData simData, final RunElement station, final RunDataClient client, final long waitingTime, final long transferTime, final long processingTime, final long residenceTime) {
 		if (isWarmUp) return;
 
+		final double waitingTimeScaled=(waitingTime==0)?0:scale*waitingTime;
+		final double transferTimeScaled=(transferTime==0)?0:scale*transferTime;
+		final double processingTimeScaled=(processingTime==0)?0:scale*processingTime;
+		final double residenceTimeScaled=(residenceTime==0)?0:scale*residenceTime;
+
 		StatisticsDataPerformanceIndicator indicator;
 		final RunElementData stationData=station.getData(simData);
 
 		indicator=stationData.statisticWaiting;
 		if (indicator==null) indicator=stationData.statisticWaiting=(StatisticsDataPerformanceIndicator)(cacheStationsWaitingTimes.get(station));
-		if (!isWarmUp) indicator.add(scale*waitingTime);
+		indicator.add(waitingTimeScaled);
 
 		indicator=stationData.statisticTransfer;
 		if (indicator==null) indicator=stationData.statisticTransfer=(StatisticsDataPerformanceIndicator)(cacheStationsTransferTimes.get(station));
-		if (!isWarmUp) indicator.add(scale*transferTime);
+		indicator.add(transferTimeScaled);
 
 		indicator=stationData.statisticProcess;
 		if (indicator==null) indicator=stationData.statisticProcess=(StatisticsDataPerformanceIndicator)(cacheStationsProcessingTimes.get(station));
-		if (!isWarmUp) indicator.add(scale*processingTime);
+		indicator.add(processingTimeScaled);
 
 		indicator=stationData.statisticResidence;
 		if (indicator==null) indicator=stationData.statisticResidence=(StatisticsDataPerformanceIndicator)(cacheStationsResidenceTimes.get(station));
-		if (!isWarmUp) indicator.add(scale*residenceTime);
+		indicator.add(residenceTimeScaled);
 
 		indicator=(stationData.statisticWaitingByClientType==null)?null:stationData.statisticWaitingByClientType[client.type];
 		if (indicator==null) {
 			if (stationData.statisticWaitingByClientType==null) stationData.statisticWaitingByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
 			indicator=stationData.statisticWaitingByClientType[client.type]=(StatisticsDataPerformanceIndicator)(cacheStationsWaitingTimesByClientType.get(simData,station,client));
 		}
-		if (!isWarmUp) indicator.add(scale*waitingTime);
+		indicator.add(waitingTimeScaled);
 
 		indicator=(stationData.statisticTransferByClientType==null)?null:stationData.statisticTransferByClientType[client.type];
 		if (indicator==null) {
 			if (stationData.statisticTransferByClientType==null) stationData.statisticTransferByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
 			indicator=stationData.statisticTransferByClientType[client.type]=(StatisticsDataPerformanceIndicator)(cacheStationsTransferTimesByClientType.get(simData,station,client));
 		}
-		if (!isWarmUp) indicator.add(scale*transferTime);
+		indicator.add(transferTimeScaled);
 
 		indicator=(stationData.statisticProcessByClientType==null)?null:stationData.statisticProcessByClientType[client.type];
 		if (indicator==null) {
 			if (stationData.statisticProcessByClientType==null) stationData.statisticProcessByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
 			indicator=stationData.statisticProcessByClientType[client.type]=(StatisticsDataPerformanceIndicator)(cacheStationsProcessingTimesByClientType.get(simData,station,client));
 		}
-		if (!isWarmUp) indicator.add(scale*processingTime);
+		indicator.add(processingTimeScaled);
 
 		indicator=(stationData.statisticResidenceByClientType==null)?null:stationData.statisticResidenceByClientType[client.type];
 		if (indicator==null) {
 			if (stationData.statisticResidenceByClientType==null) stationData.statisticResidenceByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
 			indicator=stationData.statisticResidenceByClientType[client.type]=(StatisticsDataPerformanceIndicator)(cacheStationsResidenceTimesByClientType.get(simData,station,client));
 		}
-		if (!isWarmUp) indicator.add(scale*residenceTime);
+		indicator.add(residenceTimeScaled);
 	}
 
 	/**
@@ -435,7 +440,7 @@ public class RunData {
 
 		StatisticsTimePerformanceIndicator indicator=stationData.statisticClientsAtStation;
 		if (indicator==null) indicator=stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
-		indicator.set(simData.currentTime/1000.0,count);
+		indicator.set(simData.currentTime*scale,count);
 	}
 
 	/**
@@ -452,7 +457,7 @@ public class RunData {
 
 		StatisticsTimePerformanceIndicator indicator=stationData.statisticClientsAtStation;
 		if (indicator==null) indicator=stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
-		indicator.set(simData.currentTime/1000.0,count);
+		indicator.set(simData.currentTime*scale,count);
 	}
 
 	/**
@@ -468,7 +473,7 @@ public class RunData {
 
 		if (!isWarmUp) {
 			final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)cacheClientsInSystemByType.get(clientType);
-			indicator.set(simData.currentTime/1000.0,clientsInSystemByType[clientType]);
+			indicator.set(simData.currentTime*scale,clientsInSystemByType[clientType]);
 		}
 	}
 
@@ -1173,9 +1178,9 @@ public class RunData {
 			variableValues[len-2]=0;
 			variableValues[len-1]=0;
 		} else {
-			variableValues[len-3]=client.waitingTime/1000.0;
-			variableValues[len-2]=client.transferTime/1000.0;
-			variableValues[len-1]=client.processTime/1000.0;
+			variableValues[len-3]=client.waitingTime*scale;
+			variableValues[len-2]=client.transferTime*scale;
+			variableValues[len-1]=client.processTime*scale;
 		}
 	}
 
@@ -1191,9 +1196,9 @@ public class RunData {
 			variableValues[len-2]=0;
 			variableValues[len-1]=0;
 		} else {
-			variableValues[len-3]=client.waitingTime/1000.0+additionalWaitingTime;
-			variableValues[len-2]=client.transferTime/1000.0;
-			variableValues[len-1]=client.processTime/1000.0;
+			variableValues[len-3]=client.waitingTime*scale+additionalWaitingTime;
+			variableValues[len-2]=client.transferTime*scale;
+			variableValues[len-1]=client.processTime*scale;
 		}
 	}
 
@@ -1205,9 +1210,9 @@ public class RunData {
 	 */
 	public void setClientVariableValues(final long waitingTime, final long transferTime, final long processTime) {
 		final int len=variableValues.length;
-		variableValues[len-3]=waitingTime/1000.0;
-		variableValues[len-2]=transferTime/1000.0;
-		variableValues[len-1]=processTime/1000.0;
+		variableValues[len-3]=waitingTime*scale;
+		variableValues[len-2]=transferTime*scale;
+		variableValues[len-1]=processTime*scale;
 	}
 
 	/**
