@@ -1712,7 +1712,7 @@ public class MainPanel extends MainPanelBase {
 		}
 		AnalyticInfo.SimulationResults simulationResults=null;
 		final Statistics statistics=statisticsPanel.getStatistics();
-		if (statistics!=null && model.equalsEditModel(statistics.editModel)) {
+		if (statistics!=null && model.equalsEditModel(statistics.editModel,true)) {
 			simulationResults=new AnalyticInfo.SimulationResults(statistics);
 		}
 

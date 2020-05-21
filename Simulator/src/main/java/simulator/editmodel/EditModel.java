@@ -454,13 +454,26 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 * @return	Liefert <code>true</code> zurück, wenn die beiden Modelle identisch sind
 	 */
 	public boolean equalsEditModel(final EditModel otherModel) {
+		return equalsEditModel(otherModel,false);
+	}
+
+	/**
+	 * Vergleicht das Editor-Modell mit einem anderen Editor-Modell
+	 * (z.B. um zu prüfen, ob das Modell vor dem Verlassen des Programms gespeichert werden muss)
+	 * @param otherModel	Editor-Modell, mit dem dieses Modell verglichen werden soll
+	 * @param ignoreAnimationData	Warm-Up-Zeit und {@link ModelElementAnimationConnect}-Elemente ignorieren?
+	 * @return	Liefert <code>true</code> zurück, wenn die beiden Modelle identisch sind
+	 */
+	public boolean equalsEditModel(final EditModel otherModel, final boolean ignoreAnimationData) {
 		/* if (!version.equalsIgnoreCase(otherModel.version)) return false; - Laden eines Beispiel (=alt Versionskennung), store to stream, load from stream würde sonst zu not equal führen */
 		if (!name.equals(otherModel.name)) return false;
 		if (!description.equals(otherModel.description)) return false;
 		if (!author.equals(otherModel.author)) return false;
 		if (useClientCount!=otherModel.useClientCount) return false;
 		if (clientCount!=otherModel.clientCount) return false;
-		if (warmUpTime!=otherModel.warmUpTime) return false;
+		if (!ignoreAnimationData) {
+			if (warmUpTime!=otherModel.warmUpTime) return false;
+		}
 		if (repeatCount!=otherModel.repeatCount) return false;
 		if (useTerminationCondition!=otherModel.useTerminationCondition) return false;
 		if (!terminationCondition.equalsIgnoreCase(otherModel.terminationCondition)) return false;
@@ -468,7 +481,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (finishTime!=otherModel.finishTime) return false;
 		if (useFixedSeed!=otherModel.useFixedSeed) return false;
 		if (fixedSeed!=otherModel.fixedSeed) return false;
-		if (!surface.equalsModelSurface(otherModel.surface)) return false;
+		if (!surface.equalsModelSurface(otherModel.surface,ignoreAnimationData)) return false;
 		if (!resources.equalsResources(otherModel.resources)) return false;
 		if (!clientData.equalsModelClientData(otherModel.clientData)) return false;
 		if (!schedules.equalsSchedules(otherModel.schedules)) return false;

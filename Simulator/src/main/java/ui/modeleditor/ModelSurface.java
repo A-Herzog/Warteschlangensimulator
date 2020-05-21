@@ -50,6 +50,7 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
 import ui.modeleditor.elements.ElementWithNewClientNames;
 import ui.modeleditor.elements.ElementWithNewVariableNames;
+import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSignalTrigger;
 import ui.modeleditor.elements.ModelElementSub;
@@ -437,9 +438,35 @@ public final class ModelSurface {
 	 * @return	Gibt <code>true</code> zurück, wenn beide Modell exakt übereinstimmen.
 	 */
 	public boolean equalsModelSurface(final ModelSurface surface) {
-		final int size=elements.size();
-		if (size!=surface.elements.size()) return false;
-		for (int i=0; i<size;i++) {
+		return equalsModelSurface(surface,false);
+	}
+
+	/**
+	 * Prüft, ob das Modell mit dem angegebenen Modell übereinstimmt.
+	 * @param surface	Modell, welches mit dem Ausgangsmodell verglichen werden soll
+	 * @param ignoreAnimationConnect	Sollen am Ende angefügte {@link ModelElementAnimationConnect}-Elemente ignoriert werden?
+	 * @return	Gibt <code>true</code> zurück, wenn beide Modell exakt übereinstimmen.
+	 */
+	public boolean equalsModelSurface(final ModelSurface surface, final boolean ignoreAnimationConnect) {
+		final int size1=elements.size();
+		final int size2=surface.elements.size();
+		final int size;
+		if (ignoreAnimationConnect) {
+			final int delta=Math.abs(size1-size2);
+			if (delta>1) return false;
+			if (delta==1) {
+				if (size1<size2) {
+					if (!(surface.elements.get(size2-1) instanceof ModelElementAnimationConnect)) return false;
+				} else {
+					if (!(elements.get(size1-1) instanceof ModelElementAnimationConnect)) return false;
+				}
+			}
+			size=Math.min(size1,size2);
+		} else {
+			if (size1!=size2) return false;
+			size=size1;
+		}
+		for (int i=0;i<size;i++) {
 			if (!elements.get(i).equalsModelElement(surface.elements.get(i))) return false;
 		}
 		return true;
