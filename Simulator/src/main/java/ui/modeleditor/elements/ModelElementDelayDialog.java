@@ -16,8 +16,10 @@
 package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Map;
@@ -31,7 +33,7 @@ import javax.swing.JTextField;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import language.Language;
-import mathtools.NumberTools;
+import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -44,6 +46,8 @@ import ui.modeleditor.ModelSurface;
  */
 public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 491234735571463778L;
+
+	private String[] variables;
 
 	private JComboBox<String> timeBase;
 	private JComboBox<String> processTimeType;
@@ -82,6 +86,8 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 
+		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
+
 		JPanel sub;
 		JLabel label;
 
@@ -117,7 +123,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 
 
 		/* Kosten */
-		final Object[] data=getInputPanel(Language.tr("Surface.Delay.Dialog.CostsPerClient")+":",NumberTools.formatNumber(((ModelElementDelay)element).getCosts()),10);
+		final Object[] data=getInputPanel(Language.tr("Surface.Delay.Dialog.CostsPerClient")+":",((ModelElementDelay)element).getCosts());
 		textCosts=(JTextField)data[1];
 		content.add(sub=(JPanel)data[0],BorderLayout.SOUTH);
 		textCosts.setEditable(!readOnly);
@@ -126,6 +132,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+		((JPanel)data[0]).add(getExpressionEditButton(this,textCosts,false,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
 
 		/* GUI aufbauen */
 		distributions.start();
@@ -138,13 +145,21 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 
 		boolean ok=true;
 
-		final Double D=NumberTools.getDouble(textCosts,true);
-		if (D==null) {
-			if (showErrorMessage) {
-				MsgBox.error(this,Language.tr("Surface.Delay.Dialog.CostsPerClient.Error.Title"),String.format(Language.tr("Surface.Delay.Dialog.CostsPerClient.Error.Info"),textCosts.getText()));
-				return false;
+		final String text=textCosts.getText();
+		if (!text.trim().isEmpty()) {
+			final int error=ExpressionCalc.check(text,variables);
+			if (error>=0) {
+				textCosts.setBackground(Color.red);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Delay.Dialog.CostsPerClient.Error.Title"),String.format(Language.tr("Surface.Delay.Dialog.CostsPerClient.Error.Info"),text,error+1));
+					return false;
+				}
+				ok=false;
+			} else {
+				textCosts.setBackground(SystemColor.text);
 			}
-			ok=false;
+		} else {
+			textCosts.setBackground(SystemColor.text);
 		}
 
 		return ok;
@@ -178,6 +193,6 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 		}
 		for(Map.Entry<String,AbstractRealDistribution> entry: distributions.getDistributions().entrySet()) ((ModelElementDelay)element).setDelayTime(entry.getKey(),entry.getValue(),null);
 		for(Map.Entry<String,String> entry: distributions.getExpressions().entrySet()) ((ModelElementDelay)element).setDelayTime(entry.getKey(),null,entry.getValue());
-		((ModelElementDelay)element).setCosts(NumberTools.getDouble(textCosts,true));
+		((ModelElementDelay)element).setCosts(textCosts.getText());
 	}
 }

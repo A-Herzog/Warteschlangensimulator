@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-15 17:02+0200\n"
+"POT-Creation-Date: 2020-05-21 21:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12131,6 +12131,9 @@ msgstr "Für Element id=%d wurde eine Ausgangskante für Warteabbrecher eingetra
 msgid "Simulation.Creator.CheckboxNoVariable"
 msgstr "An Station id=%d wurde kein Name für die zu ändernde Variable angegeben."
 
+msgid "Simulation.Creator.CostsErrorDelay"
+msgstr "Die angegebenen Kosten pro Kunde \\\"%s\\\" sind ab Zeichen %d ungültig."
+
 msgid "Simulation.Creator.CostsErrorProcess"
 msgstr "Die Bedienzeit-Kosten \"%s\" von Element id=%d enthalten an Position %d einen Fehler."
 
@@ -19530,7 +19533,7 @@ msgid "Surface.Delay.Dialog.CostsPerClient"
 msgstr "Kosten pro Kunde"
 
 msgid "Surface.Delay.Dialog.CostsPerClient.Error.Info"
-msgstr "Die angegebenen Kosten pro Kunde \"%s\" sind ungültig. Es muss ein Zahlenwert angegeben werden."
+msgstr "Die angegebenen Kosten pro Kunde \"%s\" sind ab Zeichen %d ungültig."
 
 msgid "Surface.Delay.Dialog.CostsPerClient.Error.Title"
 msgstr "Ungültige Kosten"
@@ -21767,19 +21770,19 @@ msgid "Surface.Process.Dialog.CostsPerClient"
 msgstr "Kosten pro Bedienvorgang"
 
 msgid "Surface.Process.Dialog.CostsPerClient.ErrorInfo"
-msgstr "Die angegebenen Kosten pro Bedienung \"%s\" sind ungültig. Es muss ein Zahlenwert angegeben werden."
+msgstr "Die angegebenen Kosten pro Bedienung \"%s\" sind ab Zeichen %d ungültig."
 
 msgid "Surface.Process.Dialog.CostsPerPostProcessingSecond"
 msgstr "Kosten pro Nachbearbeitungssekunde"
 
 msgid "Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo"
-msgstr "Die angegebenen Kosten pro Nachbearbeitungssekunde \"%s\" sind ungültig. Es muss ein Zahlenwert angegeben werden."
+msgstr "Die angegebenen Kosten pro Nachbearbeitungssekunde \"%s\" sind ab Zeichen %d ungültig."
 
 msgid "Surface.Process.Dialog.CostsPerProcessingSecond"
 msgstr "Kosten pro Bediensekunde"
 
 msgid "Surface.Process.Dialog.CostsPerProcessingSecond.ErrorInfo"
-msgstr "Die angegebenen Kosten pro Bediensekunde \"%s\" sind ungültig. Es muss ein Zahlenwert angegeben werden."
+msgstr "Die angegebenen Kosten pro Bediensekunde \"%s\" sind ab Zeichen %d ungültig."
 
 msgid "Surface.Process.Dialog.DistributionOfPostProcessingTimes"
 msgstr "Nachbearbeitungszeiten"

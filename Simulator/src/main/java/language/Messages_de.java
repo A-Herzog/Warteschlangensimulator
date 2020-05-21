@@ -2525,7 +2525,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5868] = "Simulation.Creator.OnlyOneEdgeIn";
     t[5869] = "Element id=%d besitzt nur eine Eingangskante.";
     t[5870] = "Surface.Process.Dialog.CostsPerClient.ErrorInfo";
-    t[5871] = "Die angegebenen Kosten pro Bedienung \"%s\" sind ung\u00fcltig. Es muss ein Zahlenwert angegeben werden.";
+    t[5871] = "Die angegebenen Kosten pro Bedienung \"%s\" sind ab Zeichen %d ung\u00fcltig.";
     t[5882] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Median";
     t[5883] = "<p>Liefert den Median der Dauern \u00fcber alle Transferzeiten aller Kunden.</p>";
     t[5884] = "Editor.DialogBase.ID.Tooltip";
@@ -8015,7 +8015,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18722] = "Color.FFFAFA";
     t[18723] = "Schnee";
     t[18724] = "Surface.Process.Dialog.CostsPerProcessingSecond.ErrorInfo";
-    t[18725] = "Die angegebenen Kosten pro Bediensekunde \"%s\" sind ung\u00fcltig. Es muss ein Zahlenwert angegeben werden.";
+    t[18725] = "Die angegebenen Kosten pro Bediensekunde \"%s\" sind ab Zeichen %d ung\u00fcltig.";
     t[18730] = "Surface.Process.XML.Operators";
     t[18731] = "ModellElementBediener";
     t[18734] = "Surface.AnalogAssign.Dialog.ID.NoName";
@@ -8557,7 +8557,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19942] = "Transporter.Group.Edit.Dialog.Failure.Working.Error.Title";
     t[19943] = "Ung\u00fcltiger Ausfall nach gearbeiteter Zeit Wert";
     t[19952] = "Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo";
-    t[19953] = "Die angegebenen Kosten pro Nachbearbeitungssekunde \"%s\" sind ung\u00fcltig. Es muss ein Zahlenwert angegeben werden.";
+    t[19953] = "Die angegebenen Kosten pro Nachbearbeitungssekunde \"%s\" sind ab Zeichen %d ung\u00fcltig.";
     t[19954] = "Surface.XML.Resource.Type.Number";
     t[19955] = "Anzahl";
     t[19956] = "ModelDescription.Decide.Rate";
@@ -10738,6 +10738,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25097] = "Abrunden";
     t[25104] = "Surface.AssignSequence.Name.Short";
     t[25105] = "Plan zuweisen";
+    t[25108] = "Simulation.Creator.CostsErrorDelay";
+    t[25109] = "Die angegebenen Kosten pro Kunde \\\"%s\\\" sind ab Zeichen %d ung\u00fcltig.";
     t[25114] = "ParameterCompare.Table.DeleteModel.Confirm.InfoYes";
     t[25115] = "Modell aus Liste entfernen.";
     t[25116] = "Simulation.Creator.Action.ErrorUnknownTrigger";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28015] = "Auslaufend";
     t[28024] = "Color.87CEEB";
     t[28025] = "Himmelsblau";
-    t[28026] = "Surface.Seize.Dialog.ResourcePriority.Error.Info";
-    t[28027] = "Die eingegebene Ressourcen-Priorit\u00e4t \"%s\" ist nicht g\u00fcltig.";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28026] = "Surface.Seize.Dialog.ResourcePriority.Error.Info";
+    t[28027] = "Die eingegebene Ressourcen-Priorit\u00e4t \"%s\" ist nicht g\u00fcltig.";
     t[28028] = "Surface.Line.Tooltip";
     t[28029] = "Linie zur optischen Gestaltung, ohne weitere Funktion f\u00fcr das Simulationsmodell.";
     t[28034] = "Optimizer.Tab.Optimization.BadResult";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32769] = "Zusammenfassung erstellen";
     t[32772] = "Surface.InteractiveSlider.Dialog.StepWide";
     t[32773] = "Schrittweite";
-    t[32794] = "Surface.SourceTable.Dialog.Title";
-    t[32795] = "Kundenank\u00fcnfte aus Tabelle laden";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32794] = "Surface.SourceTable.Dialog.Title";
+    t[32795] = "Kundenank\u00fcnfte aus Tabelle laden";
     t[32798] = "Compare.Error.ModelError.Title";
     t[32799] = "Modell ist fehlerhaft";
     t[32800] = "Surface.Process.Dialog.Priority.Priority";
@@ -15605,7 +15607,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36564] = "Surface.Set.Table.Special.WaitingTime";
     t[36565] = "Bisherige Wartezeit des Kunden";
     t[36568] = "Surface.Delay.Dialog.CostsPerClient.Error.Info";
-    t[36569] = "Die angegebenen Kosten pro Kunde \"%s\" sind ung\u00fcltig. Es muss ein Zahlenwert angegeben werden.";
+    t[36569] = "Die angegebenen Kosten pro Kunde \"%s\" sind ab Zeichen %d ung\u00fcltig.";
     t[36574] = "Surface.Seize.Dialog.ResourcePriority.Error.Title";
     t[36575] = "Ung\u00fcltige Ressourcen-Priorit\u00e4t";
     t[36576] = "Simulation.Log.BatchedForwarding.InfoNoNewClient";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37431] = "Variablenzuweisung beibehalten.";
     t[37436] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTableNotSquare";
     t[37437] = "Die einzuf\u00fcgende Tabelle ist nicht quadratisch.";
-    t[37442] = "Main.Menu.Model.Mnemonic";
-    t[37443] = "M";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37442] = "Main.Menu.Model.Mnemonic";
+    t[37443] = "M";
     t[37444] = "Dialog.Button.No";
     t[37445] = "Nein";
     t[37446] = "ExpressionBuilder.SimulationCharacteristics.ClientData.Alternative";

@@ -2525,7 +2525,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5868] = "Simulation.Creator.OnlyOneEdgeIn";
     t[5869] = "Element id=%d has only one input edge.";
     t[5870] = "Surface.Process.Dialog.CostsPerClient.ErrorInfo";
-    t[5871] = "The specified costs per client \"%s\" are invalid. A number has to be entered.";
+    t[5871] = "The specified costs per client \"%s\" are invalid at character %d.";
     t[5882] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Median";
     t[5883] = "<p>Returns the median of the durations over all transfer times for all clients.</p>";
     t[5884] = "Editor.DialogBase.ID.Tooltip";
@@ -8015,7 +8015,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18722] = "Color.FFFAFA";
     t[18723] = "Snow";
     t[18724] = "Surface.Process.Dialog.CostsPerProcessingSecond.ErrorInfo";
-    t[18725] = "The specified costs per processing second \"%s\" are invalid. A number has to be entered.";
+    t[18725] = "The specified costs per processing second \"%s\" are invalid at character %d.";
     t[18730] = "Surface.Process.XML.Operators";
     t[18731] = "ModelElementOperators";
     t[18734] = "Surface.AnalogAssign.Dialog.ID.NoName";
@@ -8557,7 +8557,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19942] = "Transporter.Group.Edit.Dialog.Failure.Working.Error.Title";
     t[19943] = "Invalid failure by busy time value";
     t[19952] = "Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo";
-    t[19953] = "The specified costs per post processing second \"%s\" are invalid. A number has to be entered.";
+    t[19953] = "The specified costs per post processing second \"%s\" are invalid at character %d.";
     t[19954] = "Surface.XML.Resource.Type.Number";
     t[19955] = "Number";
     t[19956] = "ModelDescription.Decide.Rate";
@@ -10738,6 +10738,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25097] = "Round down";
     t[25104] = "Surface.AssignSequence.Name.Short";
     t[25105] = "Assign sequence";
+    t[25108] = "Simulation.Creator.CostsErrorDelay";
+    t[25109] = "The specified costs per client \\\"%s\\\" are invalid at character %d.";
     t[25114] = "ParameterCompare.Table.DeleteModel.Confirm.InfoYes";
     t[25115] = "Remove model from list.";
     t[25116] = "Simulation.Creator.Action.ErrorUnknownTrigger";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28015] = "Out";
     t[28024] = "Color.87CEEB";
     t[28025] = "Sky blue";
-    t[28026] = "Surface.Seize.Dialog.ResourcePriority.Error.Info";
-    t[28027] = "The specified resource priority \"%s\" is invalid.";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28026] = "Surface.Seize.Dialog.ResourcePriority.Error.Info";
+    t[28027] = "The specified resource priority \"%s\" is invalid.";
     t[28028] = "Surface.Line.Tooltip";
     t[28029] = "Line to the optical design, without further function for the simulation model.";
     t[28034] = "Optimizer.Tab.Optimization.BadResult";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32769] = "Generate report";
     t[32772] = "Surface.InteractiveSlider.Dialog.StepWide";
     t[32773] = "Step wide";
-    t[32794] = "Surface.SourceTable.Dialog.Title";
-    t[32795] = "Load client arrivals from table";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32794] = "Surface.SourceTable.Dialog.Title";
+    t[32795] = "Load client arrivals from table";
     t[32798] = "Compare.Error.ModelError.Title";
     t[32799] = "Model is incorrect";
     t[32800] = "Surface.Process.Dialog.Priority.Priority";
@@ -15605,7 +15607,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36564] = "Surface.Set.Table.Special.WaitingTime";
     t[36565] = "Waiting time of the current client";
     t[36568] = "Surface.Delay.Dialog.CostsPerClient.Error.Info";
-    t[36569] = "The specified costs per client \"%s\" are invalid. A number has to be entered.";
+    t[36569] = "The specified costs per client \"%s\" are invalid at character %d.";
     t[36574] = "Surface.Seize.Dialog.ResourcePriority.Error.Title";
     t[36575] = "Invalid resource priority";
     t[36576] = "Simulation.Log.BatchedForwarding.InfoNoNewClient";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37431] = "Keep variable assignment.";
     t[37436] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTableNotSquare";
     t[37437] = "The table to be pasted is not square.";
-    t[37442] = "Main.Menu.Model.Mnemonic";
-    t[37443] = "M";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37442] = "Main.Menu.Model.Mnemonic";
+    t[37443] = "M";
     t[37444] = "Dialog.Button.No";
     t[37445] = "No";
     t[37446] = "ExpressionBuilder.SimulationCharacteristics.ClientData.Alternative";

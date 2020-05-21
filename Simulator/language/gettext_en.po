@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-15 17:02+0200\n"
+"POT-Creation-Date: 2020-05-21 21:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12126,6 +12126,9 @@ msgstr "For element id=%d an output edge for waiting cancelation is conencted. B
 msgid "Simulation.Creator.CheckboxNoVariable"
 msgstr "At station id=%d no name was specified for the variable to be changed."
 
+msgid "Simulation.Creator.CostsErrorDelay"
+msgstr "The specified costs per client \\\"%s\\\" are invalid at character %d."
+
 msgid "Simulation.Creator.CostsErrorProcess"
 msgstr "The process time costs \"%s\" of element id=%d are invalid at character %d."
 
@@ -19517,7 +19520,7 @@ msgid "Surface.Delay.Dialog.CostsPerClient"
 msgstr "Costs per client"
 
 msgid "Surface.Delay.Dialog.CostsPerClient.Error.Info"
-msgstr "The specified costs per client \"%s\" are invalid. A number has to be entered."
+msgstr "The specified costs per client \"%s\" are invalid at character %d."
 
 msgid "Surface.Delay.Dialog.CostsPerClient.Error.Title"
 msgstr "Invalid costs"
@@ -21753,19 +21756,19 @@ msgid "Surface.Process.Dialog.CostsPerClient"
 msgstr "Costs per client"
 
 msgid "Surface.Process.Dialog.CostsPerClient.ErrorInfo"
-msgstr "The specified costs per client \"%s\" are invalid. A number has to be entered."
+msgstr "The specified costs per client \"%s\" are invalid at character %d."
 
 msgid "Surface.Process.Dialog.CostsPerPostProcessingSecond"
 msgstr "Costs per post processing second"
 
 msgid "Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo"
-msgstr "The specified costs per post processing second \"%s\" are invalid. A number has to be entered."
+msgstr "The specified costs per post processing second \"%s\" are invalid at character %d."
 
 msgid "Surface.Process.Dialog.CostsPerProcessingSecond"
 msgstr "Costs per processing second"
 
 msgid "Surface.Process.Dialog.CostsPerProcessingSecond.ErrorInfo"
-msgstr "The specified costs per processing second \"%s\" are invalid. A number has to be entered."
+msgstr "The specified costs per processing second \"%s\" are invalid at character %d."
 
 msgid "Surface.Process.Dialog.DistributionOfPostProcessingTimes"
 msgstr "Post processing times"

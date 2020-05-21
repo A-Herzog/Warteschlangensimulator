@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.function.Consumer;
 
@@ -36,7 +37,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
-import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import ui.ModelChanger;
@@ -87,7 +87,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	private Map<String,AbstractRealDistribution> distributionByType;
 	private Map<String,String> expressionByType;
 
-	private double costs;
+	private String costs;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementDelay</code>
@@ -102,6 +102,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		expressionGlobal=null;
 		distributionByType=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		expressionByType=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		costs="";
 	}
 
 	/**
@@ -235,16 +236,16 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	 * Liefert die eingestellten Kosten pro Bedienvorgang in der Station
 	 * @return	Kosten pro Bedienvorgang
 	 */
-	public double getCosts() {
-		return costs;
+	public String getCosts() {
+		return (costs==null)?"":costs;
 	}
 
 	/**
 	 * Stellt die Kosten pro Bedienvorgang in der Station ein
 	 * @param costs	Kosten pro Bedienvorgang
 	 */
-	public void setCosts(final double costs) {
-		this.costs=costs;
+	public void setCosts(final String costs) {
+		this.costs=(costs==null)?"":costs;
 	}
 
 	/**
@@ -304,7 +305,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			}
 		}
 
-		if (((ModelElementDelay)element).costs!=costs) return false;
+		if (!Objects.equals(costs,((ModelElementDelay)element).costs)) return false;
 
 		return true;
 	}
@@ -557,9 +558,9 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			sub.setTextContent(entry.getValue());
 		}
 
-		if (costs!=0.0) {
+		if (costs!=null && !costs.trim().isEmpty() && !costs.trim().equals("0")) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Delay.XML.Costs")));
-			sub.setTextContent(NumberTools.formatSystemNumber(costs));
+			sub.setTextContent(costs);
 		}
 	}
 
@@ -611,9 +612,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		}
 
 		if (Language.trAll("Surface.Delay.XML.Costs",name)) {
-			final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(content));
-			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
-			costs=D;
+			costs=content;
 			return null;
 		}
 
@@ -700,8 +699,8 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		descriptionBuilder.addTimeBaseProperty(timeBase,5000);
 
 		/* Kosten an der Station */
-		if (costs!=0.0) {
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.StationCostsPerClient"),NumberTools.formatNumber(costs),1000);
+		if (costs!=null && !costs.trim().isEmpty() && !costs.trim().equals("0")) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.StationCostsPerClient"),costs,1000);
 		}
 	}
 }

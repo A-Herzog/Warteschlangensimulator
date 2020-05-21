@@ -45,7 +45,7 @@ public class RunElementDelay extends RunElementPassThrough {
 	private AbstractRealDistribution[] distribution;
 	private String[] expression;
 	private ModelElementDelay.DelayType delayType;
-	private double costs;
+	private String costs;
 
 	/**
 	 * Konstruktor der Klasse
@@ -106,7 +106,14 @@ public class RunElementDelay extends RunElementPassThrough {
 		}
 
 		/* Kosten */
-		delay.costs=delayElement.getCosts();
+		final String text=delayElement.getCosts();
+		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+			delay.costs=null;
+		} else {
+			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorDelay"),text,element.getId(),error+1);
+			delay.costs=text;
+		}
 
 		return delay;
 	}
@@ -128,7 +135,7 @@ public class RunElementDelay extends RunElementPassThrough {
 		RunElementDelayData data;
 		data=(RunElementDelayData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDelayData(this,expression,simData.runModel.variableNames);
+			data=new RunElementDelayData(this,expression,simData.runModel.variableNames,costs);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -190,7 +197,17 @@ public class RunElementDelay extends RunElementPassThrough {
 		}
 
 		/* Kosten in Statistik erfassen */
-		if (costs!=0.0) simData.runData.logStationCosts(simData,this,costs);
+		if (costs!=null) {
+			simData.runData.setClientVariableValues(client);
+			double c=0;
+			try {
+				c=getData(simData).costs.calc(simData.runData.variableValues);
+			} catch (MathCalcError e) {
+				simData.calculationErrorStation(getData(simData).expression[client.type],this);
+				c=0;
+			}
+			simData.runData.logStationCosts(simData,this,c);
+		}
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,delayTimeMS);
