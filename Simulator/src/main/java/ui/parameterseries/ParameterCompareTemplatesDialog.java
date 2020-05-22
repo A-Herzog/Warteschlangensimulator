@@ -57,6 +57,7 @@ import ui.modeleditor.elements.ModelElementSourceMulti;
 import ui.modeleditor.elements.ModelElementSourceRecord;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementTank;
+import ui.statistics.analyticcompare.AnalyticInfo;
 
 /**
  * Dialog zur automatischen Erstellung von Parameterreiheneinstellungen
@@ -114,6 +115,8 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	private final JTextField editMin;
 	private final JTextField editMax;
 	private final JTextField editStep;
+	private final JLabel infoMin;
+	private final JLabel infoMax;
 
 	/**
 	 * Liefert den Namen zu einem Vorlagentyp
@@ -463,6 +466,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+		((JPanel)data[0]).add(infoMin=new JLabel());
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("ParameterCompare.Templates.Maximum")+":",maxValue,10);
 		main.add((JPanel)data[0]);
@@ -472,6 +476,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+		((JPanel)data[0]).add(infoMax=new JLabel());
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("ParameterCompare.Templates.Step")+":",stepValue,10);
 		main.add((JPanel)data[0]);
@@ -489,12 +494,23 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			editMax.setEnabled(buildModels.isSelected());
 			editStep.setEnabled(buildModels.isSelected());
 		});
+		checkData(false);
 
 		/* Dialog starten */
 
 		pack();
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
+	}
+
+	private Double getRho(final double value) {
+		final Object obj=ParameterCompareTools.setModelValue(model,inputRecord,value);
+		if (!(obj instanceof EditModel)) return null;
+
+		final AnalyticInfo analyticInfo=new AnalyticInfo();
+		if (!analyticInfo.build((EditModel)obj)) return null;
+
+		return analyticInfo.getRho();
 	}
 
 	private boolean checkData(final boolean showErrorMessages) {
@@ -509,7 +525,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 				MsgBox.error(this,Language.tr("ParameterCompare.Templates.Minimum.ErrorTitle"),String.format(Language.tr("ParameterCompare.Templates.Minimum.ErrorInfo"),editMin.getText()));
 				return false;
 			}
+			infoMin.setText("");
+		} else {
+			final Double info=getRho(D);
+			if (info==null) infoMin.setText(""); else infoMin.setText(" ("+Language.tr("ParameterCompare.Templates.rho")+"="+NumberTools.formatPercent(info)+")");
 		}
+
 
 		D=NumberTools.getDouble(editMax,true);
 		if (D==null) {
@@ -518,6 +539,10 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 				MsgBox.error(this,Language.tr("ParameterCompare.Templates.Maximum.ErrorTitle"),String.format(Language.tr("ParameterCompare.Templates.Maximum.ErrorInfo"),editMax.getText()));
 				return false;
 			}
+			infoMax.setText("");
+		} else {
+			final Double info=getRho(D);
+			if (info==null) infoMax.setText(""); else infoMax.setText(" ("+Language.tr("ParameterCompare.Templates.rho")+"="+NumberTools.formatPercent(info)+")");
 		}
 
 		D=NumberTools.getPositiveDouble(editStep,true);

@@ -98,25 +98,25 @@ public class AnalyticInfo {
 
 	private boolean analyticTests(final InfoResult info) {
 		if (source.distribution==null) {
-			info.input.append(Language.tr("Statistics.ErlangCompare.NoSourceDistribution"));
+			if (info!=null) info.input.append(Language.tr("Statistics.ErlangCompare.NoSourceDistribution"));
 			return false;
 		}
 		if (process.distribution==null) {
-			info.input.append(Language.tr("Statistics.ErlangCompare.NoProcessDistribution"));
+			if (info!=null) info.input.append(Language.tr("Statistics.ErlangCompare.NoProcessDistribution"));
 			return false;
 		}
 		if (process.cAvailable<=0) {
-			info.input.append(Language.tr("Statistics.ErlangCompare.NoFixedNumberOfOperators"));
+			if (info!=null) info.input.append(Language.tr("Statistics.ErlangCompare.NoFixedNumberOfOperators"));
 			return false;
 		}
 
 		if (source.batch<1) {
-			info.input.append(Language.tr("Statistics.ErlangCompare.UnknownSourceBatchSize"));
+			if (info!=null) info.input.append(Language.tr("Statistics.ErlangCompare.UnknownSourceBatchSize"));
 			return false;
 		}
 
 		if (process.batchMin<1 || process.batchMax<1) {
-			info.input.append(Language.tr("Statistics.ErlangCompare.UnknownProcessBatchSize"));
+			if (info!=null) info.input.append(Language.tr("Statistics.ErlangCompare.UnknownProcessBatchSize"));
 			return false;
 		}
 
@@ -163,6 +163,20 @@ public class AnalyticInfo {
 		}
 		result.append("\n");
 		return result.toString();
+	}
+
+	/**
+	 * Versucht die Auslastung rho zu berechnen.
+	 * @return	Liefert im Erfolgsfall die Auslastung, sonst <code>null</code>.
+	 */
+	public Double getRho() {
+		if (!analyticTests(null)) return null;
+		final double lambda=source.lambda;
+		final double mu=process.mu;
+
+		final long c=process.cAvailable*process.batchMean;
+		final double a=lambda/mu;
+		return a/c;
 	}
 
 	/**

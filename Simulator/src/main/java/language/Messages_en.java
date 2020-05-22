@@ -5638,8 +5638,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13167] = "Client: %s, station: %s, state name: %s, group name: %s";
     t[13170] = "Statistics.ClientsInQueue";
     t[13171] = "Clients in queue";
-    t[13176] = "XML.EnterPassword";
-    t[13177] = "Plase enter password:";
+    t[13176] = "ParameterCompare.Templates.rho";
+    t[13177] = "rho";
     t[13180] = "Simulation.Log.ConveyorArrival.Info";
     t[13181] = "Client: %s, station: %s, needed transport capacity: %s";
     t[13184] = "ExpressionBuilder.Rounding";
@@ -13682,6 +13682,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31993] = "Java compiler";
     t[32004] = "ParameterCompare.Templates.Title";
     t[32005] = "Create parameter series setup from template";
+    t[32006] = "XML.EnterPassword";
+    t[32007] = "Plase enter password:";
     t[32008] = "Surface.Costs.Dialog.StationCosts";
     t[32009] = "Costs at the station";
     t[32010] = "Editor.Dialog.Tab.Simulation.Criteria.ErrorCondition";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32767] = "Condition";
     t[32768] = "Statistic.Viewer.Report";
     t[32769] = "Generate report";
-    t[32772] = "Surface.InteractiveSlider.Dialog.StepWide";
-    t[32773] = "Step wide";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32772] = "Surface.InteractiveSlider.Dialog.StepWide";
+    t[32773] = "Step wide";
     t[32794] = "Surface.SourceTable.Dialog.Title";
     t[32795] = "Load client arrivals from table";
     t[32798] = "Compare.Error.ModelError.Title";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37429] = "Reference";
     t[37430] = "Surface.Set.Table.Delete.Error.NoInfo";
     t[37431] = "Keep variable assignment.";
-    t[37436] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTableNotSquare";
-    t[37437] = "The table to be pasted is not square.";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37436] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTableNotSquare";
+    t[37437] = "The table to be pasted is not square.";
     t[37442] = "Main.Menu.Model.Mnemonic";
     t[37443] = "M";
     t[37444] = "Dialog.Button.No";
