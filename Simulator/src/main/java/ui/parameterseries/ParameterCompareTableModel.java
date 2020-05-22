@@ -20,8 +20,10 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -64,6 +66,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	private final Runnable update;
 	private final Consumer<Statistics> loadToEditor;
 	private final Runnable compareResults;
+	private final Consumer<Integer> showResultsChart;
 
 	/**
 	 * Konstruktor der Klasse
@@ -73,8 +76,9 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * @param update	Runnable, das aufgerufen wird, wenn sich die Tabellendaten verändert haben
 	 * @param loadToEditor	Wird aufgerufen, wenn der Nutzer die Funktion zum Laden eines Modells aus den Ergebnissen in den Editor gewählt hat.
 	 * @param compareResults	Wird aufgerufen, wenn der Nutzer den Button zum Vergleichen der Statistikergebnisse verschiedener Modell anklickt
+	 * @param showResultsChart	Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Anzeige der Vergleichsdiagramme) klickt
 	 */
-	public ParameterCompareTableModel(final JTableExt table, final ParameterCompareSetup setup, final Runnable help, final Runnable update, final Consumer<Statistics> loadToEditor, final Runnable compareResults) {
+	public ParameterCompareTableModel(final JTableExt table, final ParameterCompareSetup setup, final Runnable help, final Runnable update, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Consumer<Integer> showResultsChart) {
 		super();
 		digits=1;
 		this.table=table;
@@ -83,6 +87,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		this.update=update;
 		this.loadToEditor=loadToEditor;
 		this.compareResults=compareResults;
+		this.showResultsChart=showResultsChart;
 	}
 
 	/**
@@ -181,11 +186,18 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	}
 
 	private JPanel[] lastRow=null;
+	private List<JButton> lastRowChartButtons=new ArrayList<>();
 
 	private Object getValueInLastRow(int columnIndex) {
 		if (columnIndex==getColumnCount()-1) return getValueInLastCol(null,-1);
 
-		if (lastRow==null || lastRow.length!=getColumnCount()) lastRow=new JPanel[getColumnCount()];
+		if (lastRow==null || lastRow.length!=getColumnCount()) {
+			lastRow=new JPanel[getColumnCount()];
+			lastRowChartButtons.clear();
+		}
+		final boolean hasStatistics=hasResults();
+		for (JButton button: lastRowChartButtons) button.setEnabled(hasStatistics);
+
 		if (lastRow[columnIndex]!=null) return lastRow[columnIndex];
 
 		final JPanel panel=new JPanel(new BorderLayout());
@@ -197,6 +209,14 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.AddModel.Hint"),Images.EDIT_ADD.getIcon(),()->commandAdd()));
 			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.AddModelByAssistant.Hint"),Images.PARAMETERSERIES_ADD_BY_ASSISTANT.getIcon(),()->commandAddByAssistant()));
 			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.SortModels.Hint"),Images.PARAMETERSERIES_SORT_TABLE.getIcon(),()->commandSortByInputParameter()));
+		}
+
+		if (columnIndex>setup.getInput().size() && columnIndex<lastRow.length-1) {
+			final int nr=columnIndex-setup.getInput().size()-1;
+			JButton b=getButton("",Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),()->commandShowResultsChart(nr));
+			toolbar.add(b);
+			lastRowChartButtons.add(b);
+			b.setEnabled(hasStatistics);
 		}
 
 		return lastRow[columnIndex]=panel;
@@ -409,6 +429,10 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		if (!statistics.saveToFile(file)) {
 			MsgBox.error(table,Language.tr("XML.SaveErrorTitle"),Language.tr("Main.Statistic.ErrorSaving"));
 		}
+	}
+
+	private void commandShowResultsChart(final int index) {
+		if (showResultsChart!=null) showResultsChart.accept(index);
 	}
 
 	/**

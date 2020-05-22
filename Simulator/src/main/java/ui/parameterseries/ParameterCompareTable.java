@@ -46,10 +46,11 @@ public class ParameterCompareTable extends JPanel {
 	 * @param help	Hilfe-Runnable
 	 * @param loadToEditor	Wird aufgerufen, wenn der Nutzer die Funktion zum Laden eines Modells aus den Ergebnissen in den Editor gewählt hat.
 	 * @param compareResults	Wird aufgerufen, wenn der Nutzer den Button zum Vergleichen der Statistikergebnisse verschiedener Modell anklickt
+	 * @param showResultsChart	Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Anzeige der Vergleichsdiagramme) klickt
 	 * @param setupInput	Wird aufgerufen, wenn der Nutzer auf die Spaltenüberschrift einer Eingabeparameter-Spalte doppelt klickt.
 	 * @param setupOutput	Wird aufgerufen, wenn der Nutzer auf die Spaltenüberschrift einer Ausgabeparameter-Spalte doppelt klickt.
 	 */
-	public ParameterCompareTable(final ParameterCompareSetup setup, final Runnable help, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Runnable setupInput, final Runnable setupOutput) {
+	public ParameterCompareTable(final ParameterCompareSetup setup, final Runnable help, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Consumer<Integer> showResultsChart, final Runnable setupInput, final Runnable setupOutput) {
 		super();
 
 		setLayout(new BorderLayout());
@@ -65,7 +66,7 @@ public class ParameterCompareTable extends JPanel {
 			}
 		});
 
-		table.setModel(tableModel=new ParameterCompareTableModel(table,setup,help,()->{updateTable(); table.setIsPanelCellTable();},loadToEditor,compareResults));
+		table.setModel(tableModel=new ParameterCompareTableModel(table,setup,help,()->{updateTable(); table.setIsPanelCellTable();},loadToEditor,compareResults,showResultsChart));
 		table.setIsPanelCellTable();
 		table.getTableHeader().addMouseListener(new MouseAdapter() {
 			@Override

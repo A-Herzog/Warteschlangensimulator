@@ -166,6 +166,7 @@ public class ParameterComparePanel extends SpecialPanel {
 				()->commandHelp(),
 				m->commandLoadToEditor(m),
 				()->commandPopupCompareStatistics(),
+				i->commandShowResultsChart(i),
 				()->commandSetupInput(),
 				()->commandSetupOutput()));
 		table.setDisplayDigits(SetupData.getSetup().parameterSeriesTableDigits);
@@ -653,6 +654,10 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 
 		return results;
+	}
+
+	private void commandShowResultsChart(final int index) {
+		commandShowResultsChart(setup.getOutput().get(index));
 	}
 
 	private void commandShowResultsChart(final ParameterCompareSetupValueOutput output) {
