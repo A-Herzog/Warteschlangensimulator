@@ -55,7 +55,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[100] = "Simulation.Element.InputDB.Name";
     t[101] = "Eingabe (DB)";
     t[102] = "Window.Check.AutoFixConnection.InfoDelayDispose";
-    t[103] = "Zwischen der Verz\u00f6gerung-Station und dem Ausgang fehlt eine Verbindungskante.\nDiese kann automatisch hinzugef\u00fcgt werden.";
+    t[103] = "Zwischen der Verz\u00f6gerung-Station id=%d und dem Ausgang fehlt eine Verbindungskante.\nDiese kann automatisch hinzugef\u00fcgt werden.";
     t[108] = "Surface.Process.Dialog.Priority.ClientType";
     t[109] = "Kundentyp";
     t[110] = "Simulation.Creator.DatabaseError.NoRows";
@@ -3051,7 +3051,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7074] = "LoadCalculator.Tab.ErlangB.Link";
     t[7075] = "http://de.wikipedia.org/wiki/Erlang_B";
     t[7080] = "Window.Check.AutoFixConnection.InfoSourceProcess";
-    t[7081] = "Zwischen der Kundenquelle und der Bedienstation fehlt eine Verbindungskante.\nDiese kann automatisch hinzugef\u00fcgt werden.";
+    t[7081] = "Zwischen der Kundenquelle id=%d und der Bedienstation fehlt eine Verbindungskante.\nDiese kann automatisch hinzugef\u00fcgt werden.";
     t[7082] = "ParameterCompare.XML.Models.OutputValue";
     t[7083] = "ModelleVergleichenModellAusgabe";
     t[7086] = "Simulation.Log.TankSensor";
@@ -3935,7 +3935,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9210] = "LogSimulation.Mode.Excel";
     t[9211] = "Excel-DDE-Verbindung";
     t[9216] = "Window.Check.AutoFixConnection.InfoProcessDispose";
-    t[9217] = "Zwischen der Bedienstation und dem Ausgang fehlt eine Verbindungskante.\nDiese kann automatisch hinzugef\u00fcgt werden.";
+    t[9217] = "Zwischen der Bedienstation id=%d und dem Ausgang fehlt eine Verbindungskante.\nDiese kann automatisch hinzugef\u00fcgt werden.";
     t[9218] = "Simulation.Log.TransportSource.Release";
     t[9219] = "Ressourcenfreigabe";
     t[9220] = "Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation.Info";

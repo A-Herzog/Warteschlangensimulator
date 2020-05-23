@@ -55,7 +55,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[100] = "Simulation.Element.InputDB.Name";
     t[101] = "Input (DB)";
     t[102] = "Window.Check.AutoFixConnection.InfoDelayDispose";
-    t[103] = "There is not connection between the delay station and the exit station.\nThis connection can be added automatically.";
+    t[103] = "There is no connection between the delay station id=%d and the exit station.\nThis connection can be added automatically.";
     t[108] = "Surface.Process.Dialog.Priority.ClientType";
     t[109] = "Client type";
     t[110] = "Simulation.Creator.DatabaseError.NoRows";
@@ -3051,7 +3051,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7074] = "LoadCalculator.Tab.ErlangB.Link";
     t[7075] = "http://en.wikipedia.org/wiki/Erlang_(unit)#Erlang_B_formula";
     t[7080] = "Window.Check.AutoFixConnection.InfoSourceProcess";
-    t[7081] = "There is not connection between the source and the process station.\nThis connection can be added automatically.";
+    t[7081] = "There is no connection between the source id=%d and the process station.\nThis connection can be added automatically.";
     t[7082] = "ParameterCompare.XML.Models.OutputValue";
     t[7083] = "CompareModelsModelOutput";
     t[7086] = "Simulation.Log.TankSensor";
@@ -3935,7 +3935,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9210] = "LogSimulation.Mode.Excel";
     t[9211] = "Excel DDE connection";
     t[9216] = "Window.Check.AutoFixConnection.InfoProcessDispose";
-    t[9217] = "There is not connection between the process station and the exit station.\nThis connection can be added automatically.";
+    t[9217] = "There is no connection between the process station id=%d and the exit station.\nThis connection can be added automatically.";
     t[9218] = "Simulation.Log.TransportSource.Release";
     t[9219] = "Resources release";
     t[9220] = "Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation.Info";

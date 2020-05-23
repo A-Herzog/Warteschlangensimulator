@@ -59,36 +59,44 @@ public class EditorPanelRepair {
 
 	private RepairState fixResources(final EditModel model) {
 		/* Enthält das Modell eine einzelne Bedienstation? */
-		ModelElementProcess process=null;
+		final List<ModelElementProcess> process=new ArrayList<>();
 		for (ModelElement element: model.surface.getElements()) if (element instanceof ModelElementProcess) {
-			if (process==null) process=(ModelElementProcess)element; else return RepairState.NOT_CHANGED;
+			process.add((ModelElementProcess)element);
 		}
-		if (process==null) return RepairState.NOT_CHANGED;
-		final String processName=(process.getName().trim().isEmpty())?("id="+process.getId()):("\""+process.getName()+"\" (id="+process.getId()+")");
 
-		/* Keine Bediener? */
-		if (process.getNeededResources().size()!=1) return RepairState.NOT_CHANGED;
-		if (process.getNeededResources().get(0).size()!=0) return RepairState.NOT_CHANGED;
+		RepairState state=RepairState.NOT_CHANGED;
 
-		/* Name der AutoAdd-Ressource festlegen. */
-		String resourceName=String.format(Language.tr("Window.Check.AutoFixResources.ResourceName"),process.getId());
+		for (ModelElementProcess p: process) {
 
-		/* Kein AutoAdd, wenn es die Ressource schon gibt. */
-		ModelResource resource=model.resources.getNoAutoAdd(resourceName);
-		if (resource!=null) return RepairState.NOT_CHANGED;
+			if (process.size()==0) return RepairState.NOT_CHANGED;
+			final String processName=(p.getName().trim().isEmpty())?("id="+p.getId()):("\""+p.getName()+"\" (id="+p.getId()+")");
 
-		/* Nutzer fragen */
-		if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixResources.Title"),String.format(Language.tr("Window.Check.AutoFixResources.Info"),processName),Language.tr("Window.Check.AutoFixResources.YesInfo"),Language.tr("Window.Check.AutoFixResources.NoInfo"))) return RepairState.USER_CANCELED;
+			/* Keine Bediener? */
+			if (p.getNeededResources().size()!=1) continue;
+			if (p.getNeededResources().get(0).size()!=0) continue;
 
-		/* Ressource anlegen */
-		resource=model.resources.get(resourceName);
-		resource.clear();
-		resource.setName(resourceName);
+			/* Name der AutoAdd-Ressource festlegen. */
+			final String resourceName=String.format(Language.tr("Window.Check.AutoFixResources.ResourceName"),p.getId());
 
-		/* Ressource in Station eintragen */
-		process.getNeededResources().get(0).put(resourceName,1);
+			/* Kein AutoAdd, wenn es die Ressource schon gibt. */
+			ModelResource resource=model.resources.getNoAutoAdd(resourceName);
+			if (resource!=null) continue;
 
-		return RepairState.FIXED;
+			/* Nutzer fragen */
+			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixResources.Title"),String.format(Language.tr("Window.Check.AutoFixResources.Info"),processName),Language.tr("Window.Check.AutoFixResources.YesInfo"),Language.tr("Window.Check.AutoFixResources.NoInfo"))) return RepairState.USER_CANCELED;
+
+			/* Ressource anlegen */
+			resource=model.resources.get(resourceName);
+			resource.clear();
+			resource.setName(resourceName);
+
+			/* Ressource in Station eintragen */
+			p.getNeededResources().get(0).put(resourceName,1);
+
+			state=RepairState.FIXED;
+		}
+
+		return state;
 	}
 
 	private RepairState fixRepeatCount(final EditModel model) {
@@ -108,10 +116,10 @@ public class EditorPanelRepair {
 	}
 
 	private RepairState fixConnections(final EditModel model) {
-		ModelElementSource source=null;
-		ModelElementDelay delay=null;
-		ModelElementProcess process=null;
-		ModelElementDispose dispose=null;
+		final List<ModelElementSource> source=new ArrayList<>();
+		final List<ModelElementDelay> delay=new ArrayList<>();
+		final List<ModelElementProcess> process=new ArrayList<>();
+		final List<ModelElementDispose> dispose=new ArrayList<>();
 		int maxX=0;
 
 		/* Elemente finden */
@@ -123,54 +131,57 @@ public class EditorPanelRepair {
 			}
 
 			if (element instanceof ModelElementSource) {
-				if (source!=null) return RepairState.NOT_CHANGED;
-				source=(ModelElementSource)element;
+				source.add((ModelElementSource)element);
+				continue;
 			}
 			if (element instanceof ModelElementProcess) {
-				if (process!=null || delay!=null) return RepairState.NOT_CHANGED;
-				process=(ModelElementProcess)element;
+				process.add((ModelElementProcess)element);
+				continue;
 			}
 			if (element instanceof ModelElementDelay) {
-				if (process!=null || delay!=null) return RepairState.NOT_CHANGED;
-				delay=(ModelElementDelay)element;
+				delay.add((ModelElementDelay)element);
+				continue;
 			}
 			if (element instanceof ModelElementDispose) {
-				if (dispose!=null) return RepairState.NOT_CHANGED;
-				dispose=(ModelElementDispose)element;
+				dispose.add((ModelElementDispose)element);
+				continue;
 			}
 		}
-		if (source==null) return RepairState.NOT_CHANGED;
-		if (process==null && delay==null) return RepairState.NOT_CHANGED;
+		if (source.size()==0) return RepairState.NOT_CHANGED;
+		if (process.size()==0 && delay.size()==0) return RepairState.NOT_CHANGED;
 
 		RepairState state=RepairState.NOT_CHANGED;
 
 		/* Modell hat kein Ausgang-Element? */
-		if (dispose==null) {
+		if (dispose.size()==0) {
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixDispose.Title"),Language.tr("Window.Check.AutoFixDispose.Info"),Language.tr("Window.Check.AutoFixDispose.YesInfo"),Language.tr("Window.Check.AutoFixDispose.NoInfo"))) return RepairState.USER_CANCELED;
 			final int x=maxX+100;
-			final int y;
-			if (process!=null) y=process.getPosition(true).y; else {
-				if (delay!=null) y=delay.getPosition(true).y; else y=0;
-			}
-			dispose=new ModelElementDispose(model,model.surface);
-			dispose.setPosition(new Point(x,y));
-			model.surface.add(dispose);
+			int y=0;
+			int ySum=0;
+			for (ModelElementProcess p: process) {y=+p.getPosition(true).y; ySum++;}
+			for (ModelElementDelay d: delay) {y=+d.getPosition(true).y; ySum++;}
+			final ModelElementDispose d=new ModelElementDispose(model,model.surface);
+			d.setPosition(new Point(x,y/ySum));
+			model.surface.add(d);
 			state=RepairState.FIXED;
+			dispose.add(d);
 		}
 
 		/* Quelle hat keinen Ausgang? */
-		if (source.getEdgeOut()==null) {
-			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),Language.tr("Window.Check.AutoFixConnection.InfoSourceProcess"),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
+		for (ModelElementSource s: source) if (s.getEdgeOut()==null) {
+			if (process.size()+delay.size()!=1) continue; /* Unklar, wohin wir verbinden wollen. */
+			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoSourceProcess"),s.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
 			ModelElementEdge edge=null;
-			if (process!=null) {
-				edge=new ModelElementEdge(model,model.surface,source,process);
-				source.addEdgeOut(edge);
-				process.addEdgeIn(edge);
-			}
-			if (delay!=null) {
-				edge=new ModelElementEdge(model,model.surface,source,delay);
-				source.addEdgeOut(edge);
-				delay.addEdgeIn(edge);
+			if (process.size()>0) {
+				edge=new ModelElementEdge(model,model.surface,s,process.get(0));
+				s.addEdgeOut(edge);
+				process.get(0).addEdgeIn(edge);
+			} else {
+				if (delay.size()>0) {
+					edge=new ModelElementEdge(model,model.surface,s,delay.get(0));
+					s.addEdgeOut(edge);
+					delay.get(0).addEdgeIn(edge);
+				}
 			}
 			if (edge!=null) {
 				model.surface.add(edge);
@@ -179,21 +190,21 @@ public class EditorPanelRepair {
 		}
 
 		/* Verzögerungstation hat keinen Ausgang? */
-		if (delay!=null && delay.getEdgeOut()==null) {
-			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),Language.tr("Window.Check.AutoFixConnection.InfoDelayDispose"),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
-			final ModelElementEdge edge=new ModelElementEdge(model,model.surface,delay,dispose);
-			delay.addEdgeOut(edge);
-			dispose.addEdgeIn(edge);
+		for (ModelElementDelay d: delay) if (d.getEdgeOut()==null) {
+			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoDelayDispose"),d.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
+			final ModelElementEdge edge=new ModelElementEdge(model,model.surface,d,dispose.get(0));
+			d.addEdgeOut(edge);
+			dispose.get(0).addEdgeIn(edge);
 			model.surface.add(edge);
 			state=RepairState.FIXED;
 		}
 
 		/* Bedienstation hat keinen Ausgang? */
-		if (process!=null && process.getEdgeOutSuccess()==null) {
-			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),Language.tr("Window.Check.AutoFixConnection.InfoProcessDispose"),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
-			final ModelElementEdge edge=new ModelElementEdge(model,model.surface,process,dispose);
-			process.addEdgeOut(edge);
-			dispose.addEdgeIn(edge);
+		for (ModelElementProcess p: process) if (p.getEdgeOutSuccess()==null) {
+			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoProcessDispose"),p.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
+			final ModelElementEdge edge=new ModelElementEdge(model,model.surface,p,dispose.get(0));
+			p.addEdgeOut(edge);
+			dispose.get(0).addEdgeIn(edge);
 			model.surface.add(edge);
 			state=RepairState.FIXED;
 		}
