@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.net.URL;
+import java.util.List;
 import java.util.function.Consumer;
 
 import javax.swing.JMenu;
@@ -28,6 +29,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -35,6 +37,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -365,5 +368,10 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 		if (!clientWaitingCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientWaiting"),clientWaitingCosts,2000);
 		if (!clientTransferCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientTransfer"),clientTransferCosts,3000);
 		if (!clientProcessCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientProcess"),clientProcessCosts,4000);
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(QuickFixNextElements.hold,fixer);
 	}
 }

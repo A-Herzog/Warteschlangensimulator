@@ -35,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -44,6 +45,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -569,5 +571,10 @@ public class ModelElementDuplicate extends ModelElementBox implements ModelDataR
 		final Set<String> set=new HashSet<>();
 		if (newClientTypes!=null) for (String newClientType: newClientTypes) set.add(newClientType);
 		return set.toArray(new String[0]);
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(QuickFixNextElements.duplicate,fixer);
 	}
 }

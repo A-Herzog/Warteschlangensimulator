@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.net.URL;
+import java.util.List;
 import java.util.function.Consumer;
 
 import javax.swing.JMenu;
@@ -30,6 +31,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.elements.RunElementCounterData;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -38,6 +40,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -304,5 +307,10 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 		super.buildDescription(descriptionBuilder);
 
 		if (!groupName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Counter.Group"),groupName,1000);
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(QuickFixNextElements.hold,fixer);
 	}
 }

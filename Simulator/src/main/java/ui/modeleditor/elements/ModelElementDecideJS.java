@@ -33,6 +33,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -41,6 +42,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -562,5 +564,10 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 		this.connectionsOut.addAll(connectionsOut);
 
 		return true;
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(QuickFixNextElements.duplicate,fixer);
 	}
 }

@@ -43,6 +43,7 @@ import ui.modeleditor.coreelements.DataCheckResult;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -558,6 +559,6 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
-		findEdgesTo(new Class[]{ModelElementProcess.class,ModelElementDelay.class},fixer);
+		findEdgesTo(QuickFixNextElements.source,fixer);
 	}
 }

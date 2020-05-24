@@ -53,6 +53,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
@@ -1366,6 +1367,6 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
-		findEdgesTo(new Class[]{ModelElementDispose.class},fixer);
+		findEdgesTo(QuickFixNextElements.process,fixer);
 	}
 }

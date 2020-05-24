@@ -50,6 +50,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
@@ -707,6 +708,6 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
-		findEdgesTo(new Class[]{ModelElementDispose.class},fixer);
+		findEdgesTo(QuickFixNextElements.process,fixer);
 	}
 }

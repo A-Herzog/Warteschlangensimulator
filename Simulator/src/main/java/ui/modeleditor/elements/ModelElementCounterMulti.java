@@ -34,6 +34,7 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.elements.RunElementCounterMulti;
 import simulator.elements.RunElementCounterMultiData;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -41,6 +42,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -344,6 +346,10 @@ public class ModelElementCounterMulti extends ModelElementMultiInSingleOutBox {
 		} else {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.CounterMulti.ConditionElse"),counterNames.get(i),2000);
 		}
+	}
 
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(QuickFixNextElements.hold,fixer);
 	}
 }

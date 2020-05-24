@@ -38,6 +38,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -356,6 +357,6 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
-		findEdgesTo(new Class[]{ModelElementProcess.class,ModelElementDelay.class},fixer);
+		findEdgesTo(QuickFixNextElements.hold,fixer);
 	}
 }

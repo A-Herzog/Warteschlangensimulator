@@ -44,6 +44,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
@@ -559,6 +560,6 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
-		findEdgesTo(new Class[]{ModelElementProcess.class},fixer);
+		findEdgesTo(QuickFixNextElements.balking,fixer);
 	}
 }

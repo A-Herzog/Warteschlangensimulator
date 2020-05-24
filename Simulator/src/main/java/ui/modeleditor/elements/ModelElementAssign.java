@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.net.URL;
+import java.util.List;
 import java.util.function.Consumer;
 
 import javax.swing.JMenu;
@@ -25,6 +26,7 @@ import javax.swing.JPopupMenu;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -33,6 +35,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -235,5 +238,10 @@ public class ModelElementAssign extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public String getHelpPageName() {
 		return "ModelElementAssign";
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(QuickFixNextElements.hold,fixer);
 	}
 }
