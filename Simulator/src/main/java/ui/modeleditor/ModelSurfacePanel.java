@@ -18,6 +18,7 @@ package ui.modeleditor;
 import java.awt.AWTEvent;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -2598,6 +2599,14 @@ public final class ModelSurfacePanel extends JPanel {
 					point.translate(10,10);
 					element.setModel(model);
 					element.showContextMenu(ModelSurfacePanel.this,point,readOnly,allowChangeOperationsOnReadOnly,ModelSurfacePanel.this,template->fireBuildParameterSeries(template),clientData,sequences,simData);
+				} else {
+					if (showEditModelProperties) {
+						Container c=getParent();
+						if (c!=null) {
+							c=c.getParent();
+							if (c!=null) showModelContextMenu(new Point(c.getWidth()/2,c.getHeight()/2));
+						}
+					}
 				}
 				e.consume();
 				return;
