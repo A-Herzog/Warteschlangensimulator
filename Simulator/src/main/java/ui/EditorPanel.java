@@ -1764,6 +1764,30 @@ public class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Liefert eine Liste der Elemente, die über eine Bereichsselektion markiert sind.
+	 * @param addRegularSelectedElement	Auch die normal ausgewählten Objekte hinzufügen?
+	 * @return	Liste der markierten Elemente (ist nie <code>null</code>, kann aber leer sein)
+	 */
+	public List<ModelElement> getSelectedArea(final boolean addRegularSelectedElement) {
+		return surfacePanel.getSelectedArea(addRegularSelectedElement);
+	}
+
+	/**
+	 * Liefert das aktuelle selektierte Element. Ist kein Element direkt selektiert,
+	 * so wird das erste Element einer Bereichsselektion geliefert.
+	 * @return	Aktuell selektiertes Element oder <code>null</code>, falls nichts selektiert ist.
+	 */
+	public ModelElement getSelectedElementDirectOrArea() {
+		final ModelElement element=getSelectedElement();
+		if (element!=null) return element;
+
+		final List<ModelElement> list=getSelectedArea(false);
+		if (list.size()==1) return list.get(0);
+
+		return null;
+	}
+
+	/**
 	 * Stellt ein Callback ein, welches im Bedarfsfall (zur Anzeige von Tooltipdaten) ein Statistik-Objekt liefert
 	 * @param statisticsGetter	Callback, welches ein Statistik-Objekt liefert (das Callback kann <code>null</code> sein und auch das zurückgelieferte Statistik-Objekt kann <code>null</code> sein)
 	 */

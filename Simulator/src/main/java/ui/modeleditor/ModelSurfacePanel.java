@@ -1926,6 +1926,15 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Liefert eine Liste der Elemente, die über eine Bereichsselektion markiert sind.
+	 * @param addRegularSelectedElement	Auch die normal ausgewählten Objekte hinzufügen?
+	 * @return	Liste der markierten Elemente (ist nie <code>null</code>, kann aber leer sein)
+	 */
+	public List<ModelElement> getSelectedArea(final boolean addRegularSelectedElement) {
+		return surface.getSelectedArea(addRegularSelectedElement);
+	}
+
+	/**
 	 * Liefert den Bereich der markierten Elemente.
 	 * @return	Bereich der markierten Elemente oder <code>null</code>, wenn keine Elemente markiert sind.
 	 */

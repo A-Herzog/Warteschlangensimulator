@@ -34,6 +34,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -553,5 +554,10 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 		this.connection=connectionsOut.get(0);
 
 		return true;
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(new Class[]{ModelElementProcess.class,ModelElementDelay.class},fixer);
 	}
 }

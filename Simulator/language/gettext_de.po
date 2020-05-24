@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-23 18:45+0200\n"
+"POT-Creation-Date: 2020-05-24 15:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7028,6 +7028,12 @@ msgstr "Feedback"
 
 msgid "Main.Toolbar.Feedback.Hint"
 msgstr "Feedback (Fehlerberichte, Featurewünsche, Kritik usw.) zum Warteschlangensimulator geben"
+
+msgid "Main.Toolbar.Fix"
+msgstr "Korrektur"
+
+msgid "Main.Toolbar.Fix.Hint"
+msgstr "Schnellkorrektur-Vorschläge für das gewählte Element anzeigen"
 
 msgid "Main.Toolbar.Help"
 msgstr "Hilfe"
@@ -21591,6 +21597,15 @@ msgstr "Eigenschaften"
 
 msgid "Surface.PopupMenu.QuickFix"
 msgstr "Schnellkorrektur"
+
+msgid "Surface.PopupMenu.QuickFix.AddEdgeTo"
+msgstr "Verbindungskante zu %s hinzufügen"
+
+msgid "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName"
+msgstr "%s \"%s\" (id=%d)"
+
+msgid "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementNoName"
+msgstr "%s (id=%d)"
 
 msgid "Surface.PopupMenu.QuickFix.Analog.NotifyValue"
 msgstr "Analog-Benachrichtigungsabstand auf %s Sekunden stellen"

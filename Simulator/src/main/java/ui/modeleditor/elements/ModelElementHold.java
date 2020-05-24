@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.net.URL;
+import java.util.List;
 import java.util.function.Consumer;
 
 import javax.swing.JMenu;
@@ -28,6 +29,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -350,5 +352,10 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		super.buildDescription(descriptionBuilder);
 
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Hold.Condition"),condition,1000);
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(new Class[]{ModelElementProcess.class,ModelElementDelay.class},fixer);
 	}
 }

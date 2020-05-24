@@ -30,6 +30,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -312,5 +313,10 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 		for (ModelElementBarrierSignalOption option: options) option.buildDescriptionProperty(descriptionBuilder);
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(new Class[]{ModelElementProcess.class,ModelElementDelay.class},fixer);
 	}
 }

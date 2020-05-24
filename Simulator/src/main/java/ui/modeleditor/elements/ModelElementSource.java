@@ -37,6 +37,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import simulator.simparser.ExpressionCalc;
 import ui.ModelChanger;
 import ui.images.Images;
@@ -485,5 +486,10 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	@Override
 	public String[] getVariables() {
 		return record.getSetRecord().getVariables();
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(new Class[]{ModelElementProcess.class,ModelElementDelay.class},fixer);
 	}
 }

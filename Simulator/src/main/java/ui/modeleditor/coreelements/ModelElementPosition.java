@@ -25,6 +25,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Icon;
@@ -495,6 +496,51 @@ public class ModelElementPosition extends ModelElement {
 		for (RunModelFixer fix: fixer) menu.add(getQuickFixItem(fix));
 	}
 
+	private final static int MAX_EDGE_FIX_OPTIONS=10;
+
+	/**
+	 * Sucht mögliche Folgeelemente und bietet als Korrekturen das Hinzufügen von Kanten zu diesen Elementen an.
+	 * @param types	Typen der Elemente zu denen das hinzufügen von Kanten angeboten werden soll
+	 * @param fixer	Liste der Korrektoren die erweitert werden soll
+	 * @see #addEdgeOutFixes(List)
+	 */
+	@SuppressWarnings("rawtypes")
+	protected final void findEdgesTo(Class[] types, final List<RunModelFixer> fixer) {
+		if (types==null || types.length==0) return;
+		int count=0;
+		for (ModelElement element: surface.getElements()) {
+			for (Class cls: types) {
+				if (cls.isInstance(element)) {
+					final String elementName;
+					if (element.getName().isEmpty()) {
+						elementName=String.format(Language.tr("Surface.PopupMenu.QuickFix.AddEdgeTo.ElementNoName"),((ModelElementBox)element).getTypeName(),element.getId());
+					} else {
+						elementName=String.format(Language.tr("Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName"),((ModelElementBox)element).getTypeName(),element.getName(),element.getId());
+					}
+					final ModelElementPosition connectionEnd=(ModelElementPosition)element;
+					final RunModelFixer fix=new RunModelFixer(this,RunModelCreatorStatus.noEdgeOut(this),String.format(Language.tr("Surface.PopupMenu.QuickFix.AddEdgeTo"),elementName),f->{
+						final ModelSurface surface=f.element.getSurface();
+						final ModelElementEdge edge=new ModelElementEdge(f.model,surface,f.element,connectionEnd);
+						f.element.addEdgeOut(edge);
+						connectionEnd.addEdgeIn(edge);
+						surface.add(edge);
+					});
+					fixer.add(fix);
+					count++;
+					if (count>=MAX_EDGE_FIX_OPTIONS) return;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Fügt optionale Korrekturen zum Hinzufügen von (bislang fehlenden) Auslaufenden Kanten hinzu
+	 * @param fixer	Erweiterbare Liste der möglichen Korrekturen
+	 * @see #findEdgesTo(Class[], List)
+	 */
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+	}
+
 	/**
 	 * Fügt ein QuickFix-Untermenü oder QuickFix-Menüpunkte selbst zu einem Menü hinzu
 	 * @param menu	Menü zu dem das Untermenü oder die Menüpunkte hinzugefügt werden sollen
@@ -505,6 +551,7 @@ public class ModelElementPosition extends ModelElement {
 		final RunModelCreatorStatus status=RunModelCreator.testElementStatus(this);
 		if (status!=null && !status.isOk()) {
 			final List<RunModelFixer> fixer=status.getFix(this);
+			if (status.status==RunModelCreatorStatus.Status.NO_EDGE_OUT) addEdgeOutFixes(fixer);
 			if (fixer!=null && fixer.size()>0) {
 				if (asSubMenu) {
 					final JMenu sub=new JMenu(Language.tr("Surface.PopupMenu.QuickFix"));
@@ -519,8 +566,28 @@ public class ModelElementPosition extends ModelElement {
 	}
 
 	/**
+	 * Existieren QuickFix-Korrekturen für das aktuelle Element?
+	 * @return	QuickFix-Korrekturen vorhanden?
+	 * @see #getQuickFixPopupMenu()
+	 */
+	public boolean hasQuickFix() {
+		final RunModelCreatorStatus status=RunModelCreator.testElementStatus(this);
+		if (status==null || status.isOk()) return false;
+
+		final List<RunModelFixer> fixer;
+		if (status.status==RunModelCreatorStatus.Status.NO_EDGE_OUT) {
+			fixer=new ArrayList<>();
+			addEdgeOutFixes(fixer);
+		} else {
+			fixer=status.getFix(this);
+		}
+		return fixer.size()>0;
+	}
+
+	/**
 	 * Liefert ein Popupmenü mit QuickFix-Korrekturvorschlägen
 	 * @return	Popupmenü oder <code>null</code>, wenn das Element in Ordnung ist oder zumindest keine QuickFix-Korrekturen vorhanden sind
+	 * @see #hasQuickFix()
 	 */
 	public JPopupMenu getQuickFixPopupMenu() {
 		final JPopupMenu popupMenu=new JPopupMenu();

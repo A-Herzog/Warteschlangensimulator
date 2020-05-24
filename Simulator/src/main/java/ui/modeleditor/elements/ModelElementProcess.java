@@ -41,6 +41,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.ModelChanger;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -1361,5 +1362,10 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		if (connectionsOut.size()>1) this.connectionOutCancel=connectionsOut.get(0);
 
 		return true;
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(new Class[]{ModelElementDispose.class},fixer);
 	}
 }

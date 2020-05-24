@@ -128,6 +128,8 @@ import ui.modeleditor.ModelLoadData;
 import ui.modeleditor.ModelLoadDataDialog;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.templates.EditTemplateDialog;
 import ui.modeleditor.templates.TemplatesListDialog;
 import ui.optimizer.OptimizerPanel;
@@ -232,6 +234,8 @@ public class MainPanel extends MainPanelBase {
 
 	private JQuickAccessTextField quickAccess;
 
+	private JButton fixButton;
+
 	private final SetupData setup;
 	private Runnable reloadWindow;
 
@@ -281,6 +285,7 @@ public class MainPanel extends MainPanelBase {
 			menuEditUndo.setEnabled(editorPanel.canUndo());
 			menuEditRedo.setEnabled(editorPanel.canRedo());
 		});
+		editorPanel.addSelectionListener(e->selectionChanged());
 		editorPanel.addLinkListener(link->{switch (link) {
 		case 0: commandHelpInteractiveTutorial(); break;
 		case 1: commandHelpTutorial(); break;
@@ -290,6 +295,7 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.addChangedStateListeners(()->{
 			setAdditionalTitleChangedMarker(editorPanel.isModelChanged());
 			menuModelLoadExternalDataOnStart.setSelected(editorPanel.getModelExternalData().isActive());
+			selectionChanged();
 
 		});
 		editorPanel.addBuildParameterSeriesListener(template->commandSimulationParameterSeriesNew(template));
@@ -507,6 +513,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpUsageStatistics",e->commandHelpUsageStatistics());
 		addAction("HelpLicense",e->commandHelpLicenseInfo());
 		addAction("HelpInfo",e->commandHelpInfo());
+		addAction("HelpFix",e->commandHelpFix(fixButton));
 	}
 
 	private class SpecialLink implements Help.SpecialLinkListener {
@@ -674,6 +681,7 @@ public class MainPanel extends MainPanelBase {
 		if (selectOnStatisticsPanel!=null) for (AbstractButton button: selectOnStatisticsPanel) button.setSelected(statisticsPanelActive);
 		if (visibleOnEditorPanel!=null) for (JButton button: visibleOnEditorPanel) button.setVisible(editorPanelActive || welcomePanelActive);
 		if (visibleOnStatisticsPanel!=null) for (JButton button: visibleOnStatisticsPanel) button.setVisible(statisticsPanelActive);
+		selectionChanged();
 	}
 
 	@Override
@@ -711,6 +719,9 @@ public class MainPanel extends MainPanelBase {
 		enabledOnStatisticsAvailable.add(button);
 		toolbar.addSeparator();
 		createToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon(),"HelpHelp");
+
+		fixButton=createToolbarButton(toolbar,Language.tr("Main.Toolbar.Fix"),Language.tr("Main.Toolbar.Fix.Hint"),Images.GENERAL_WARNING_BUG.getIcon(),"HelpFix");
+		fixButton.setVisible(false);
 
 		/*
 		toolbar.add(button=new JButton("Test"));
@@ -2576,6 +2587,14 @@ public class MainPanel extends MainPanelBase {
 		if (dialog.showLicenses) commandHelpLicenseInfo();
 	}
 
+	private void commandHelpFix(final JButton button) {
+		final ModelElement element=editorPanel.getSelectedElementDirectOrArea();
+		if (element instanceof ModelElementBox) {
+			final JPopupMenu popup=((ModelElementBox)element).getQuickFixPopupMenu();
+			if (popup!=null) popup.show(button,0,button.getHeight());
+		}
+	}
+
 	@Override
 	protected void action(final Object sender) {
 		/* Datei - Letzte Dokumente */
@@ -2631,5 +2650,15 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		return true;
+	}
+
+	private void selectionChanged() {
+		if (currentPanel!=editorPanel) {
+			fixButton.setVisible(false);
+			return;
+		}
+
+		final ModelElement element=editorPanel.getSelectedElementDirectOrArea();
+		fixButton.setVisible((element instanceof ModelElementBox) && (((ModelElementBox)element).hasQuickFix()));
 	}
 }

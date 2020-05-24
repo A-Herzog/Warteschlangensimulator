@@ -39,6 +39,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.RunModelFixer;
 import ui.ModelChanger;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
@@ -702,5 +703,10 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		if (costs!=null && !costs.trim().isEmpty() && !costs.trim().equals("0")) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.StationCostsPerClient"),costs,1000);
 		}
+	}
+
+	@Override
+	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
+		findEdgesTo(new Class[]{ModelElementDispose.class},fixer);
 	}
 }
