@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-24 15:41+0200\n"
+"POT-Creation-Date: 2020-05-25 12:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6668,6 +6668,15 @@ msgstr "Homepage"
 
 msgid "Main.Menu.Help.Homepage.Mnemonic"
 msgstr "H"
+
+msgid "Main.Menu.Help.HotkeyReference"
+msgstr "Tastenkombinationsreferenz (pdf)"
+
+msgid "Main.Menu.Help.HotkeyReference.Mnemonic"
+msgstr "T"
+
+msgid "Main.Menu.Help.HotkeyReference.pdf"
+msgstr "Warteschlangensimulator-Hotkeys-de.pdf"
 
 msgid "Main.Menu.Help.InteractiveTutorial"
 msgstr "Interaktive Einführung"

@@ -506,6 +506,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpScriptingReference",e->commandHelpScriptingReference());
 		addAction("HelpElementReference",e->commandHelpElementReference());
 		addAction("HelpCommandLineReference",e->commandHelpCommandLineReference());
+		addAction("HelpHotkeyReference",e->commandHelpHotkeyReference());
 		addAction("HelpLiteratureGrossHarris",e->commandHelpLiterature(0));
 		addAction("HelpSupport",e->commandHelpSupport());
 		addAction("HelpSupportData",e->commandHelpSupportData());
@@ -985,6 +986,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Help.ScriptingReference"),Images.HELP_SCRIPTING.getIcon(),Language.tr("Main.Menu.Help.ScriptingReference.Mnemonic"),"HelpScriptingReference");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.ElementReference"),Language.tr("Main.Menu.Help.ElementReference.Mnemonic"),"HelpElementReference");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.CommandLineReference"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Help.CommandLineReference.Mnemonic"),"HelpCommandLineReference");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.HotkeyReference"),Language.tr("Main.Menu.Help.HotkeyReference.Mnemonic"),"HelpHotkeyReference");
 
 		/*
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.RecommendedLiterature")));
@@ -2516,6 +2518,10 @@ public class MainPanel extends MainPanelBase {
 
 	private void commandHelpCommandLineReference() {
 		openPDF(Language.tr("Main.Menu.Help.CommandLineReference.pdf"));
+	}
+
+	private void commandHelpHotkeyReference() {
+		openPDF(Language.tr("Main.Menu.Help.HotkeyReference.pdf"));
 	}
 
 	private void commandHelpLiterature(final int index) {

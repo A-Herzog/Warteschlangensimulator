@@ -13136,6 +13136,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30683] = "<p>Returns the coefficient of variation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
     t[30686] = "Animation.Toolbar.Tools";
     t[30687] = "Settings";
+    t[30688] = "Main.Menu.Help.HotkeyReference.Mnemonic";
+    t[30689] = "H";
     t[30690] = "Schedule.SettingsDialog.RepeatMode.RepeatByDay";
     t[30691] = "Repeat schedule, but fill up current day with 0 values";
     t[30694] = "Surface.OutputJS.Name.Short";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32727] = "Waiting times at stations";
     t[32740] = "SettingsDialog.AnimationWarmUp.Ask";
     t[32741] = "Ask if to skip at statistics visualizations";
-    t[32748] = "Statistics.XML.Time.Error";
-    t[32749] = "The \"time\" attribute in the \"%s\" element has to be a number but is \"%s\".";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32748] = "Statistics.XML.Time.Error";
+    t[32749] = "The \"time\" attribute in the \"%s\" element has to be a number but is \"%s\".";
     t[32758] = "ModelDescription.Conveyor.CapacityNeededGlobal";
     t[32759] = "Needed capacity per client (for client type \"%s\")";
     t[32764] = "Statistic.FastAccess.Template.UserStatistics";
@@ -15566,6 +15568,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36477] = "<p>Generates a random number according to the Logistic distribution with the parameters according to the first (mean) and second (scale) parameters.</p>";
     t[36478] = "ParameterCompare.Table.Column.Output.IsTime";
     t[36479] = "display as time";
+    t[36484] = "Surface.AnimationBarStack.Dialog.Bar.right";
+    t[36485] = "from left to right";
     t[36490] = "Surface.Process.Dialog.BatchSize";
     t[36491] = "Batch size";
     t[36492] = "Surface.Output.Name";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37399] = "Clients in queue at";
     t[37402] = "Statistics.XML.Element.CostsStations";
     t[37403] = "StatisticsStationsCosts";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37410] = "PathEditor.Builder.Log.PathIndex.Title";
     t[37411] = "Setup of the way points:";
     t[37414] = "Surface.Resource.EditName.Dialog.AddNew.ErrorSize.Title";
     t[37415] = "Invalid group size";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37418] = "ExpressionBuilder.SimulationCharacteristics.Costs.TransferAvgAll";
     t[37419] = "Sum of transfer time costs";
     t[37422] = "CommandLine.Dialog.Tab.Description";
@@ -16396,8 +16400,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38271] = "Client: %s, station: %s";
     t[38278] = "Main.Menu.ParameterSeriesVariance.Mnemonic";
     t[38279] = "V";
-    t[38280] = "Surface.AnimationBarStack.Dialog.Bar.right";
-    t[38281] = "from left to right";
+    t[38280] = "Main.Menu.Help.HotkeyReference.pdf";
+    t[38281] = "Warteschlangensimulator-Hotkeys-en.pdf";
     t[38282] = "Server.Log.ConnectionStop";
     t[38283] = "[%06d] Connection to %s closed.";
     t[38284] = "JDistributionEditor.Load.Error";
@@ -16672,6 +16676,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38925] = "For element id=%d a negative batch size was specified.";
     t[38926] = "Transporter.Group.Edit.Dialog.Failure.Number.Error.Title";
     t[38927] = "Invalid failure by number of served clients value";
+    t[38954] = "Main.Menu.Help.HotkeyReference";
+    t[38955] = "Hotkey reference (pdf)";
     t[38958] = "CommandLine.Simulation.Description.Short";
     t[38959] = "Start a simulation run.";
     t[38964] = "Surface.XML.DistributionRecordHours";

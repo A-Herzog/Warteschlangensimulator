@@ -13136,6 +13136,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30683] = "<p>Liefert den Variationskoeffizienten \u00fcber die Wartezeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
     t[30686] = "Animation.Toolbar.Tools";
     t[30687] = "Einstellungen";
+    t[30688] = "Main.Menu.Help.HotkeyReference.Mnemonic";
+    t[30689] = "T";
     t[30690] = "Schedule.SettingsDialog.RepeatMode.RepeatByDay";
     t[30691] = "Zeitplan wiederholen, aber vorher Tag mit 0 auff\u00fcllen";
     t[30694] = "Surface.OutputJS.Name.Short";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32727] = "Wartezeiten an den Stationen";
     t[32740] = "SettingsDialog.AnimationWarmUp.Ask";
     t[32741] = "Bei Statistik-Visualisierung fragen, ob sie \u00fcbersprungen werden soll";
-    t[32748] = "Statistics.XML.Time.Error";
-    t[32749] = "Das \"Zeit\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32748] = "Statistics.XML.Time.Error";
+    t[32749] = "Das \"Zeit\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
     t[32758] = "ModelDescription.Conveyor.CapacityNeededGlobal";
     t[32759] = "Ben\u00f6tigte Kapazit\u00e4t pro Kunde (Standard)";
     t[32764] = "Statistic.FastAccess.Template.UserStatistics";
@@ -15566,6 +15568,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36477] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Logistischen Verteilung mit den Parametern gem\u00e4\u00df dem ersten (Mittelwert) und zweiten (Skalierungsfaktor) Parameter.</p>";
     t[36478] = "ParameterCompare.Table.Column.Output.IsTime";
     t[36479] = "Ausgabe als Zeit";
+    t[36484] = "Surface.AnimationBarStack.Dialog.Bar.right";
+    t[36485] = "von links nach rechts";
     t[36490] = "Surface.Process.Dialog.BatchSize";
     t[36491] = "Batch-Gr\u00f6\u00dfe";
     t[36492] = "Surface.Output.Name";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37399] = "Kunden in Warteschlange an";
     t[37402] = "Statistics.XML.Element.CostsStations";
     t[37403] = "StatistikStationenKosten";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37410] = "PathEditor.Builder.Log.PathIndex.Title";
     t[37411] = "Konfiguration der Wegpunkte:";
     t[37414] = "Surface.Resource.EditName.Dialog.AddNew.ErrorSize.Title";
     t[37415] = "Ung\u00fcltige Gruppengr\u00f6\u00dfe";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37418] = "ExpressionBuilder.SimulationCharacteristics.Costs.TransferAvgAll";
     t[37419] = "Summe der Transferzeitkosten";
     t[37422] = "CommandLine.Dialog.Tab.Description";
@@ -16396,8 +16400,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38271] = "Kunde: %s, Station: %s";
     t[38278] = "Main.Menu.ParameterSeriesVariance.Mnemonic";
     t[38279] = "V";
-    t[38280] = "Surface.AnimationBarStack.Dialog.Bar.right";
-    t[38281] = "von links nach rechts";
+    t[38280] = "Main.Menu.Help.HotkeyReference.pdf";
+    t[38281] = "Warteschlangensimulator-Hotkeys-de.pdf";
     t[38282] = "Server.Log.ConnectionStop";
     t[38283] = "[%06d] Verbindung mit %s beendet.";
     t[38284] = "JDistributionEditor.Load.Error";
@@ -16672,6 +16676,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38925] = "F\u00fcr Element id=%d ist eine negative minimale Batch-Gr\u00f6\u00dfe angegeben.";
     t[38926] = "Transporter.Group.Edit.Dialog.Failure.Number.Error.Title";
     t[38927] = "Ung\u00fcltiger Wert f\u00fcr Ausfall nach Anzahl bedienter Kunden";
+    t[38954] = "Main.Menu.Help.HotkeyReference";
+    t[38955] = "Tastenkombinationsreferenz (pdf)";
     t[38958] = "CommandLine.Simulation.Description.Short";
     t[38959] = "F\u00fchrt einen einzelnen Simulationslauf durch.";
     t[38964] = "Surface.XML.DistributionRecordHours";

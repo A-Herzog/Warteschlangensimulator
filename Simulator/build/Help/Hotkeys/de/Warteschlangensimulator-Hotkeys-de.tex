@@ -1,0 +1,213 @@
+\RequirePackage{amsmath}
+\RequirePackage{fix-cm}
+\documentclass[deutsch]{svmono}
+
+\def\ColoredLinks{}
+\input{Macros.tex}
+\usepackage{xcolor}
+\usepackage{lmodern}
+\usepackage{wrapfig}
+\usepackage[german]{keystroke}
+\textwidth160mm
+\textheight220mm
+\oddsidemargin0mm
+\evensidemargin0mm
+\topmargin0mm
+
+\def\cmd#1{\textbf{,,\texttt{#1}''}}
+\def\cm#1{\textbf{\texttt{#1}}}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\thispagestyle{empty}
+\vskip5cm {\Huge\textbf{Referenz der Tastenkombinationen \vskip.1cm im Warteschlangensimulator}}
+\vskip.5cm \hrule
+\vskip.5cm {\large \textsc{Alexander Herzog} (\href{mailto:alexander.herzog@tu-clausthal.de}{alexander.herzog@tu-clausthal.de})}
+\IfFileExists{../../Warteschlangennetz-mittel.png}{
+\vskip2cm \centerline{\fbox{\includegraphics[width=16cm]{../../Warteschlangennetz-mittel.png}}}
+}{}
+\vskip2cm {\color{gray}
+Diese Referenz bezieht sich auf die Version \input{../../Version.tex} des Warteschlangensimulators.\\
+Download-Adresse: \href{https://github.com/A-Herzog/Warteschlangensimulator/}{https://github.com/A-Herzog/Warteschlangensimulator/}.
+}
+
+\vfill
+\pagebreak
+
+\setcounter{page}{1}
+
+\renewcommand{\arraystretch}{2}
+
+
+
+\part{Tastenkombinationen}
+
+Die im Folgenden aufgelisteten Tastenkombinationen beziehen sich auf die Zeichenfläche des Warteschlangensimulators. Zusätzlich zu diesen Tastenkombinationen können viele Menüpunkte per Tastenkombination aktiviert werden. Welche Tastenkombination jeweils welchen Menüpunkt auslöst, wird dabei direkt im Menü angezeigt.
+
+\vskip1em
+\begin{tabular}{|p{4cm}|p{11.5cm}|}
+\hline
+\textbf{Tastenkombination}&\textbf{Wirkung}\\
+\hline\hline
+\keystroke{Menü}&
+Öffnet das Kontextmenü für das selektierte Element oder für die gesamte Zeichenfläche, wenn kein Element selektiert ist.\\
+\hline
+\Del&
+Löscht das selektierte oder die oder selektierten Elemente.\\
+\hline
+\Ctrl + \Enter&
+Öffnet den Bearbeiten-Dialog für das selektierte Element.\\
+\hline
+\Ctrl + \Shift + \Enter&
+Zeigt die Simulationsdaten während der Animation für das selektierte Element an.\\
+\hline
+\Shift + \Enter&
+Öffnet den Untermodell-bearbeiten-Dialog (wenn ein Untermodell-Element selektiert ist).\\
+\hline
+\Alt + Cursor&
+Verschiebt das selektierte Element auf der Zeichenfläche.\\
+\hline
+\Alt + \Shift + Cursor&
+Verschiebt das selektierte Element pixelgenau auf der Zeichenfläche.\\
+\hline
+\Ctrl + \keystroke{C} oder&
+Kopiert das selektierte oder die selektierten Elemente in die Zwischenablage.\\
+\Ctrl + \Ins&~\\
+\hline
+\Ctrl + \keystroke{V} oder&
+Fügt den Inhalt der Zwischenablage auf der Zeichenfläche ein.\\
+\Shift + \Ins&~\\
+\hline
+\PgUp&
+Verschiebt das selektierte Element eine Stufe nach vorne.\\
+\hline
+\Ctrl + \PgUp&
+Verschiebt das selektierte Element ganz nach vorne.\\
+\hline
+\PgDown&
+Verschiebt das selektierte Element eine Stufe nach hinten.\\
+\hline
+\Ctrl + \PgDown&
+Verschiebt das selektierte Element ganz nach hinten.\\
+\hline
+\Esc&
+Im Modus zum Einfügen von Verbindungskanten: Einfügen abbrechen.
+Sonst: Vorlagenleiste ein- oder ausblenden.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|p{4cm}|p{11.5cm}|}
+\hline
+\textbf{Tastenkombination}&\textbf{Wirkung}\\
+\hline\hline
+\keystroke{F2}&
+Blendet die Vorlagenleiste ein oder aus.\\
+\hline
+\Ctrl + \keystroke{F2}&
+Öffnet den Modelleigenschaften-Dialog.\\
+\hline
+\keystroke{F12}&
+Blendet den Navigator ein oder aus.\\
+\hline
+\Ctrl + \keystroke{F12}&
+Blendet den Modellüberblick ein oder aus.\\
+\hline
+\Ctrl + \keystroke{1}&
+Zeigt ein Kontextmenü mit Schnellkorrektur-Vorschlägen für das selektierte Element an.\\
+\hline
+\Ctrl + \keystroke{3} oder&
+Selektiert das Schnellzugriff-Eingabefeld.\\
+\Ctrl + \keystroke{E}&~\\
+\hline
+\Ctrl + \keystroke{+} (Num-Pad)&
+Vergrößert den Zoomfaktor.\\
+\hline
+\Ctrl + \keystroke{-} (Num-Pad)&
+Verkleinert den Zoomfaktor.\\
+\hline
+\Ctrl + \keystroke{*} (Num-Pad)&
+Stellt 100\,\% als Zoomfaktor ein.\\
+\hline
+\Ctrl + \keystroke{0} (Num-Pad)&
+Zentriert das Modell auf der Zeichenfläche.\\
+\hline	
+\Ctrl + \Home&
+Scrollt nach oben links.\\	
+\hline
+\end{tabular}
+
+
+
+\part{Maus-Interaktionen}
+
+\begin{tabular}{|p{3cm}|p{3cm}|p{9.5cm}|}
+\hline
+\textbf{Maustaste}&\textbf{Auf}&\textbf{Wirkung}\\
+\hline\hline
+Links&
+Zeichenfläche&
+Alle Selektionen abwählen.\\
+\hline
+Links&
+Element&
+Element selektieren, alle vorherigen Selektionen aufheben.\\
+\hline
+\Shift + Links&
+Element&
+Element zur Selektion hinzufügen.\\
+\hline
+Doppelklick links&
+Element&
+Öffnet den Bearbeiten-Dialog für das selektierte Element.\\
+\hline
+Rechts&
+Element&
+Kontextmenü für das selektierte Element anzeigen.\\
+\hline
+Rechts&
+Zeichenfläche&
+Kontextmenü für die Zeichenfläche anzeigen.\\
+\hline
+Links gedrückt halten&
+Element&
+Selektiertes Element oder selektierte Elemente auf der Zeichenfläche verschieben.\\
+\hline
+\Shift + Links gedrückt halten&
+Element&
+Selektiertes Element oder selektierte Elemente pixelgenau auf der Zeichenfläche verschieben.\\
+\hline
+\Ctrl + Links gedrückt halten&
+Element&
+Kopie des selektierten Elements auf der Zeichenfläche platzieren.\\
+\hline
+Links gedrückt halten&
+Zeichenfläche&
+Rahmen zum Selektieren von Elementen aufziehen.\\
+\hline
+Mausrad&
+Zeichenfläche&
+Verschiebt die Zeichenfläche vertikal.\\
+\hline
+\Alt + Mausrad&
+Zeichenfläche&
+Verschiebt die Zeichenfläche horizontal.\\
+\hline
+\Ctrl + Mausrad&
+Zeichenfläche&
+Verändert den Zoomfaktor.\\
+\hline
+Mittlere&
+Zeichenfläche&
+Beendet den Modus zum Einfügen von Verbindungskanten.\\
+\hline
+Mittlere&
+Element&
+Startet den Modus zum Einfügen von Verbindungskanten oder wählt ein Element für die Verbindung.\\
+\hline
+\end{tabular}
+
+\vskip1em
+Es werden auch Mäuse, bei denen das Mausrad nach links und rechts gedrückt werden kann, unterstützt. Durch das Drücken des Mausrades nach links oder rechts wird dann die Zeichenfläche nach links oder rechts verschoben (vergleichbar der Mausradaktion \Alt + Mausrad).
+
+\end{document}

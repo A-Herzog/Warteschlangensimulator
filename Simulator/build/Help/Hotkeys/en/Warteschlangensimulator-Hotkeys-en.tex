@@ -1,0 +1,213 @@
+\RequirePackage{amsmath}
+\RequirePackage{fix-cm}
+\documentclass{svmono}
+
+\def\ColoredLinks{}
+\input{Macros.tex}
+\usepackage{xcolor}
+\usepackage{lmodern}
+\usepackage{wrapfig}
+\usepackage[english]{keystroke}
+\textwidth160mm
+\textheight220mm
+\oddsidemargin0mm
+\evensidemargin0mm
+\topmargin0mm
+
+\def\cmd#1{\textbf{"\texttt{#1}"}}
+\def\cm#1{\textbf{\texttt{#1}}}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\thispagestyle{empty}
+\vskip5cm {\Huge\textbf{Hotkey reference for \vskip.1cm Warteschlangensimulator}}
+\vskip.5cm \hrule
+\vskip.5cm {\large \textsc{Alexander Herzog} (\href{mailto:alexander.herzog@tu-clausthal.de}{alexander.herzog@tu-clausthal.de})}
+\IfFileExists{../../Warteschlangennetz-mittel.png}{
+\vskip2cm \centerline{\fbox{\includegraphics[width=16cm]{../../Warteschlangennetz-mittel.png}}}
+}{}
+\vskip2cm {\color{gray}
+This reference refers to version \input{../../Version.tex} of Warteschlangensimulator.\\
+Download address: \href{https://github.com/A-Herzog/Warteschlangensimulator/}{https://github.com/A-Herzog/Warteschlangensimulator/}.
+}
+
+\vfill
+\pagebreak
+
+\setcounter{page}{1}
+
+\renewcommand{\arraystretch}{2}
+
+
+
+\part{Hotkeys}
+
+The hotkeys listed below refer to the drawing area of Warteschlangensimulator. In addition to these hotkeys, many menu items can be activated with a key combination. Which key combination triggers which menu item is displayed directly in the menu.
+
+\vskip1em
+\begin{tabular}{|p{4cm}|p{11.5cm}|}
+\hline
+\textbf{Hotkey}&\textbf{Action}\\
+\hline\hline
+\keystroke{Menu}&
+Opens the context menu for the selected element or the selected elements or for the drawing area if no element is selected.\\
+\hline
+\Del&
+Deletes the selected element or the selected elements.\\
+\hline
+\Ctrl + \Enter&
+Opens the edit dialog for the selected element.\\
+\hline
+\Ctrl + \Shift + \Enter&
+Shows the simulation data during an animation for the selected element.\\
+\hline
+\Shift + \Enter&
+Opens the sub-model edit dialog (if a sub-model element is selected).\\
+\hline
+\Alt + Cursor&
+Moves the selected element on the drawing area.\\
+\hline
+\Alt + \Shift + Cursor&
+Moves the selected element on the drawing area with pixel accuracy.\\
+\hline
+\Ctrl + \keystroke{C} or&
+Copies the selected element or the selected elements to the clipboard.\\
+\Ctrl + \Ins&~\\
+\hline
+\Ctrl + \keystroke{V} or&
+Pastes the content of the clipboard to the drawing area.\\
+\Shift + \Ins&~\\
+\hline
+\PgUp&
+Moves the selected element on step forward.\\
+\hline
+\Ctrl + \PgUp&
+Moves the selected element to the front.\\
+\hline
+\PgDown&
+Moves the selected element on step backwards.\\
+\hline
+\Ctrl + \PgDown&
+Moves the selected element to the back.\\
+\hline
+\Esc&
+In insert edge mode: Cancels mode for inserting edges.
+Else: Shows or hides the templates panel.\\
+\hline
+\end{tabular}
+
+\begin{tabular}{|p{4cm}|p{11.5cm}|}
+\hline
+\textbf{Hotkey}&\textbf{Action}\\
+\hline\hline
+\keystroke{F2}&
+Show or hide the templates panel.\\
+\hline
+\Ctrl + \keystroke{F2}&
+Opens the model properties dialog.\\
+\hline
+\keystroke{F12}&
+Shows or hides the navigator panel.\\
+\hline
+\Ctrl + \keystroke{F12}&
+Shows or hides the model overview.\\
+\hline
+\Ctrl + \keystroke{1}&
+Show a quick fix context menu with suggestions for the selected element.\\
+\hline
+\Ctrl + \keystroke{3} oder&
+Selects the quick access input field.\\
+\Ctrl + \keystroke{E}&~\\
+\hline
+\Ctrl + \keystroke{+} (Num-Pad)&
+Increases the zoom factor.\\
+\hline
+\Ctrl + \keystroke{-} (Num-Pad)&
+Decreases the zoom factor.\\
+\hline
+\Ctrl + \keystroke{*} (Num-Pad)&
+Set the zoom factor to 100\,\%.\\
+\hline
+\Ctrl + \keystroke{0} (Num-Pad)&
+Centers the model on the drawing area.\\
+\hline	
+\Ctrl + \Home&
+Scrolls to top left.\\	
+\hline
+\end{tabular}
+
+
+
+\part{Mouse interactions}
+
+\begin{tabular}{|p{4.2cm}|p{2.3cm}|p{9cm}|}
+\hline
+\textbf{Mouse key}&\textbf{on}&\textbf{Action}\\
+\hline\hline
+Left&
+Drawing area&
+Unselects all elements.\\
+\hline
+Left&
+Element&
+Selects the element, all previous selections will be cleared.\\
+\hline
+\Shift + Left&
+Element&
+Adds the element to the selection.\\
+\hline
+Double click left&
+Element&
+Opens the edit dialog for the selected element.\\
+\hline
+Right&
+Element&
+Shows the context menu for the selected element.\\
+\hline
+Right&
+Drawing area&
+Shows the context menu for the drawing area.\\
+\hline
+Keep left pressed&
+Element&
+Moves the selected element or the selected elements on the drawing surface.\\
+\hline
+\Shift + Keep left pressed&
+Element&
+Moves the selected element or the selected elements with pixel accuracy on the drawing surface.\\
+\hline
+\Ctrl + Keep left pressed&
+Element&
+Place a copy of the selected element on the drawing area.\\
+\hline
+Keep left pressed&
+Drawing area&
+Drawing a frame for selecting elements.\\
+\hline
+Mouse wheel&
+Drawing area&
+Moves the drawing area vertically.\\
+\hline
+\Alt + Mouse wheel&
+Drawing area&
+Moves the drawing area horizontally.\\
+\hline
+\Ctrl + Mouse wheel&
+Drawing area&
+Changes the zoom factor.\\
+\hline
+Middle&
+Drawing area&
+Ends the mode for inserting connection edges.\\
+\hline
+Middle&
+Element&
+Starts the mode for inserting connection edges or selects an element for the connection.\\
+\hline
+\end{tabular}
+
+\vskip1em
+Mice where the mouse wheel can be pressed left and right are also supported. Pressing the mouse wheel to the left or right then moves the drawing area to the left or right (comparable to the mouse wheel action \Alt + mouse wheel).
+
+\end{document}
