@@ -527,6 +527,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	private String runDataCurrentString;
 	private String runDataSumString;
 	private StringBuilder runDataInfo;
+	private String runDataInfoString;
 	private boolean runDataFullInformation;
 
 	/**
@@ -545,8 +546,10 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		}
 		runDataDrawLock.acquireUninterruptibly();
 		try {
-			if (runDataInfo==null) return null;
-			return runDataInfo.toString();
+			if (runDataInfoString==null) {
+				if (runDataInfo!=null) runDataInfoString=runDataInfo.toString();
+			}
+			return runDataInfoString;
 		} finally {
 			runDataDrawLock.release();
 		}
@@ -608,39 +611,44 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {
 		if (runData==null || isPreview) return false;
 
-		final int clientsAtStation=runData.reportedClientsAtStation(simData);
-		if (clientsAtStation==lastClientsAtStation && runData.clients==lastClients) return false;
-		lastClientsAtStation=clientsAtStation;
-		lastClients=runData.clients;
+		if (runDataFullInformation) {
+			final int clientsAtStation=runData.reportedClientsAtStation(simData);
+			if (clientsAtStation==lastClientsAtStation && runData.clients==lastClients) return false;
+			lastClientsAtStation=clientsAtStation;
+			lastClients=runData.clients;
+		} else {
+			if (runData.clients==lastClients) return false;
+			lastClients=runData.clients;
+		}
 
 		if (animationFormatLongSB==null) animationFormatLongSB=new StringBuilder();
+
 		if (runDataFullInformation) {
-			final String s1=NumberTools.formatLong(lastClientsAtStation,animationFormatLongSB);
-			final String s2=NumberTools.formatLong(lastClients,animationFormatLongSB);
 			if (animationSB==null) {
 				animationSB=new StringBuilder[2];
-				animationSB[0]=new StringBuilder(runDataCurrentString.length()+s1.length()+2+runDataSumString.length()+s2.length());
-				animationSB[1]=new StringBuilder(runDataCurrentString.length()+s1.length()+2+runDataSumString.length()+s2.length());
+				animationSB[0]=new StringBuilder(runDataCurrentString.length()+10+2+runDataSumString.length()+10);
+				animationSB[1]=new StringBuilder(runDataCurrentString.length()+10+2+runDataSumString.length()+10);
 			} else {
 				animationSB[animationSBNext].setLength(0);
 			}
-			animationSB[animationSBNext].append(runDataCurrentString);
-			animationSB[animationSBNext].append(s1);
-			animationSB[animationSBNext].append(',');
-			animationSB[animationSBNext].append(' ');
-			animationSB[animationSBNext].append(runDataSumString);
-			animationSB[animationSBNext].append(s2);
+			final StringBuilder sb=animationSB[animationSBNext];
+			sb.append(runDataCurrentString);
+			NumberTools.formatLongAndAppendToBuilder(lastClientsAtStation,sb);
+			sb.append(',');
+			sb.append(' ');
+			sb.append(runDataSumString);
+			NumberTools.formatLongAndAppendToBuilder(lastClients,sb);
 		} else {
-			final String s1=NumberTools.formatLong(lastClients,animationFormatLongSB);
 			if (animationSB==null) {
 				animationSB=new StringBuilder[2];
-				animationSB[0]=new StringBuilder(runDataSumString.length()+s1.length());
-				animationSB[1]=new StringBuilder(runDataSumString.length()+s1.length());
+				animationSB[0]=new StringBuilder(runDataSumString.length()+10);
+				animationSB[1]=new StringBuilder(runDataSumString.length()+10);
 			} else {
 				animationSB[animationSBNext].setLength(0);
 			}
-			animationSB[animationSBNext].append(runDataSumString);
-			animationSB[animationSBNext].append(s1);
+			final StringBuilder sb=animationSB[animationSBNext];
+			sb.append(runDataSumString);
+			NumberTools.formatLongAndAppendToBuilder(lastClients,sb);
 		}
 
 		setAnimationStringBuilder(animationSB[animationSBNext],updateSimulationDataRunnableInstance);
@@ -659,6 +667,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		runDataDrawLock.acquireUninterruptibly();
 		try {
 			runDataInfo=sb;
+			runDataInfoString=null;
 			if (processLocked!=null) processLocked.run();
 		} finally {
 			runDataDrawLock.release();

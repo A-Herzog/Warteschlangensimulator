@@ -573,7 +573,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_EXPRESSION_NUMBER:
 			if (isPreview) return false;
 			d=calcExpression(simData);
-			if (simTextValue!=null && simTextValueDouble==d) return false;
+			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<Math.pow(10,-(digits+1))) return false;
 			if (animationSB==null) animationSB=new StringBuilder();
 			s=NumberTools.formatNumber(d,digits,animationSB);
 			simTextValueDouble=d;
@@ -581,7 +581,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_EXPRESSION_PERCENT:
 			if (isPreview) return false;
 			d=calcExpression(simData);
-			if (simTextValue!=null && simTextValueDouble==d) return false;
+			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<Math.pow(10,-(digits+4))) return false;
 			if (animationSB==null) animationSB=new StringBuilder();
 			s=NumberTools.formatPercent(d,digits,animationSB);
 			simTextValueDouble=d;

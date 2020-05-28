@@ -34,7 +34,7 @@ import parser.MathCalcError;
  * Enthält einige statische Routinen zur Umwandlung von Zeichenketten in Zahlen
  * und umgekehrt.
  * @author Alexander Herzog
- * @version 2.4
+ * @version 2.5
  */
 public final class NumberTools {
 	private static final String nullString="0";
@@ -262,6 +262,36 @@ public final class NumberTools {
 			l-=firstDigitNumber;
 		}
 		return recycleStringBuilder.toString();
+	}
+
+	/**
+	 * Wandelt eine Ganzzahl in eine Zeichenkette um und fügt in den Ergebnisstring dabei 1000er-Punkte ein.
+	 * @param l	Umzuwandelnde Zahl
+	 * @param stringBuilder	StringBuilder an den die Ausgabe angehängt werden soll
+	 */
+	public static void formatLongAndAppendToBuilder(long l, final StringBuilder stringBuilder) {
+		final boolean minus=(l<0);
+		if (minus) l=-l;
+
+		/* sollte eigentlich aus dem Cache kommen, braucht aber dennoch viel Speicher: if (l<1000) return Long.toString(minus?-l:l); */
+		if (!minus && l<longCache.length) {
+			stringBuilder.append(longCache[(int)l]); /* longCache!=null ist hier (im Gegensatz zu oben) garantiert. */
+			return;
+		}
+
+		int digits=getDigits(l);
+		if (minus) stringBuilder.append('-');
+		while (digits>0) {
+			long firstDigit=l;
+			for (int i=0;i<digits-1;i++) firstDigit/=10;
+			byte b=(byte)(firstDigit+48);
+			long firstDigitNumber=firstDigit;
+			for (int i=0;i<digits-1;i++) firstDigitNumber*=10;
+			stringBuilder.append((char)b);
+			digits--;
+			if (digits%3==0 && digits>0) stringBuilder.append(activeGrouping);
+			l-=firstDigitNumber;
+		}
 	}
 
 	/**
