@@ -126,23 +126,24 @@ public final class ComplexLine implements Cloneable {
 	private int cacheStrokeType;
 
 	private void setStroke(final Graphics2D g2, final double zoom) {
-		float[] dash=null;
-		switch (type) {
-		case 0: dash=null; break; /* durchgezogen */
-		case 1: dash=new float[]{3*width*(float)zoom}; break; /* gestrichelt (kurz) */
-		case 2: dash=new float[]{5*width*(float)zoom}; break; /* gestrichelt (mittel) */
-		case 3: dash=new float[]{7*width*(float)zoom}; break; /* gestrichelt (lang) */
-		case 4: dash=new float[]{width*(float)zoom}; break; /* gepunktet */
-		case 5: dash=new float[]{width*(float)zoom,2*width*(float)zoom}; break; /* gepunktet (lang) */
-		case 6: dash=new float[]{5*width*(float)zoom,3*width*(float)zoom,width*(float)zoom,3*width*(float)zoom}; break; /* strichpunktiert */
-		case 7: dash=null; break; /* Straﬂe 1 */
-		case 8: dash=null; break; /* Straﬂe 2 */
-		case 9: dash=null; break; /* Bahnschienen */
-		case 10: dash=null; break; /* Warteschlange */
-		}
-
 		float strokeWide=width*(float)zoom;
-		if (cacheStroke==null || Math.abs(cacheStrokeWidth-strokeWide)<0.0001 || cacheStrokeType!=type) {
+		if (cacheStroke==null || Math.abs(cacheStrokeWidth-strokeWide)>0.0001 || cacheStrokeType!=type) {
+
+			float[] dash=null;
+			switch (type) {
+			case 0: dash=null; break; /* durchgezogen */
+			case 1: dash=new float[]{3*width*(float)zoom}; break; /* gestrichelt (kurz) */
+			case 2: dash=new float[]{5*width*(float)zoom}; break; /* gestrichelt (mittel) */
+			case 3: dash=new float[]{7*width*(float)zoom}; break; /* gestrichelt (lang) */
+			case 4: dash=new float[]{width*(float)zoom}; break; /* gepunktet */
+			case 5: dash=new float[]{width*(float)zoom,2*width*(float)zoom}; break; /* gepunktet (lang) */
+			case 6: dash=new float[]{5*width*(float)zoom,3*width*(float)zoom,width*(float)zoom,3*width*(float)zoom}; break; /* strichpunktiert */
+			case 7: dash=null; break; /* Straﬂe 1 */
+			case 8: dash=null; break; /* Straﬂe 2 */
+			case 9: dash=null; break; /* Bahnschienen */
+			case 10: dash=null; break; /* Warteschlange */
+			}
+
 			cacheStroke=new BasicStroke(strokeWide,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER,10.0f,dash,0.0f);
 			cacheStrokeWidth=strokeWide;
 			cacheStrokeType=type;
