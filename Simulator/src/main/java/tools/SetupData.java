@@ -703,6 +703,11 @@ public class SetupData extends SetupBase {
 	public boolean showRulers;
 
 	/**
+	 * Zeigt den aktuellen Speicherbedarf in der Menüzeile an.
+	 */
+	public boolean showMemoryUsage;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -821,6 +826,7 @@ public class SetupData extends SetupBase {
 		openExcel=true;
 		openODS=false;
 		showRulers=false;
+		showMemoryUsage=false;
 		lastError=null;
 	}
 
@@ -1425,6 +1431,11 @@ public class SetupData extends SetupBase {
 				showRulers=loadBoolean(e.getTextContent(),false);
 				continue;
 			}
+
+			if (name.equals("showmemory")) {
+				showMemoryUsage=loadBoolean(e.getTextContent(),false);
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -1870,6 +1881,11 @@ public class SetupData extends SetupBase {
 
 		if (showRulers) {
 			root.appendChild(node=doc.createElement("ShowRulers"));
+			node.setTextContent("1");
+		}
+
+		if (showMemoryUsage) {
+			root.appendChild(node=doc.createElement("ShowMemory"));
 			node.setTextContent("1");
 		}
 	}

@@ -32,6 +32,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -231,6 +233,8 @@ public class MainPanel extends MainPanelBase {
 	private JRadioButtonMenuItem menuSimulationAnimationAnalogValuesFast, menuSimulationAnimationAnalogValuesExact;
 	private JRadioButtonMenuItem menuSimulationAnimationScreenshotModeHome, menuSimulationAnimationScreenshotModeCustom;
 	private JMenuItem menuSimulationCheckServerConnection;
+
+	private JLabel memoryUsage;
 
 	private JQuickAccessTextField quickAccess;
 
@@ -1004,8 +1008,28 @@ public class MainPanel extends MainPanelBase {
 
 		final SetupData setup=SetupData.getSetup(); /* Diese Methode wird vom Konstruktor aufgerufen, daher ist das Feld "setup" noch nicht gesetzt. */
 
-		if (setup.showQuickAccess || setup.showFeedbackButton) {
+		if (setup.showMemoryUsage || setup.showQuickAccess || setup.showFeedbackButton) {
 			menubar.add(Box.createHorizontalGlue());
+		}
+
+		/* Speicher */
+		if (setup.showMemoryUsage) {
+			menubar.add(memoryUsage=new JLabel());
+			final Timer timer=new Timer("MemoryUsage",true);
+			timer.schedule(new TimerTask() {
+				private long last=-1;
+				@Override
+				public void run() {
+					final MemoryMXBean memory=ManagementFactory.getMemoryMXBean();
+					final long l1=memory.getHeapMemoryUsage().getUsed();
+					final long l2=memory.getNonHeapMemoryUsage().getUsed();
+					final long l=(l1+l2)/1024/1024;
+					if (l!=last) {
+						memoryUsage.setText(NumberTools.formatLong(l)+" MB ");
+						last=l;
+					}
+				}
+			},1000,500);
 		}
 
 		/* QuickAccess */
