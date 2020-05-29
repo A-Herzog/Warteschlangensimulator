@@ -44,7 +44,7 @@ public final class RunDataResource implements Cloneable {
 	private String icon;
 	private String[] variables;
 
-	private AbstractRealDistribution moveDisttribution;
+	private AbstractRealDistribution moveDistribution;
 	private String moveExpression;
 	private ModelSurface.TimeBase moveTimeBase;
 
@@ -58,6 +58,8 @@ public final class RunDataResource implements Cloneable {
 
 	private RunDataResourceOperatorFull[] operators;
 	private RunDataResourceOperator[] operatorsThin;
+
+	private boolean needToFullCount;
 
 	private StatisticsTimePerformanceIndicator statisticsCount;
 	private StatisticsTimePerformanceIndicator statisticsUsage;
@@ -149,7 +151,7 @@ public final class RunDataResource implements Cloneable {
 		/* Rüstzeiten beim Stationswechsel */
 		final Object moveTimes=resource.getMoveTimes();
 		if (moveTimes instanceof AbstractRealDistribution) {
-			moveDisttribution=(AbstractRealDistribution)moveTimes;
+			moveDistribution=(AbstractRealDistribution)moveTimes;
 		}
 		if (moveTimes instanceof String) {
 			moveExpression=(String)moveTimes;
@@ -168,19 +170,22 @@ public final class RunDataResource implements Cloneable {
 	 * @see RunDataResources#prepareOperatorObjects(SimulationData)
 	 */
 	public void prepareOperatorObjects(final SimulationData simData) {
-		if (failuresGlobal.length>0 || moveDisttribution!=null || moveExpression!=null) initOperators(simData);
+		if (failuresGlobal.length>0 || moveDistribution!=null || moveExpression!=null) {
+			needToFullCount=true;
+			initOperators(simData);
+		}
 	}
 
 	private void initOperators(final SimulationData simData) {
 		if (available>0) {
 			operators=new RunDataResourceOperatorFull[available];
-			for (int i=0;i<operators.length;i++) operators[i]=new RunDataResourceOperatorFull(i,name,icon,moveDisttribution,moveExpression,moveTimeBase,simData,failuresGlobal);
+			for (int i=0;i<operators.length;i++) operators[i]=new RunDataResourceOperatorFull(i,name,icon,moveDistribution,moveExpression,moveTimeBase,simData,failuresGlobal);
 			operatorsThin=operators;
 			for (int i=0;i<FastMath.min(inUse,operators.length);i++) operators[i].startWorking(simData,simData.runModel.elementsFast.length+1);
 		}
 		if (available==-2) {
 			operatorsThin=new RunDataResourceOperator[availableSchedule.getMaxValue()];
-			for (int i=0;i<operatorsThin.length;i++) operatorsThin[i]=new RunDataResourceOperator(i,name,icon,moveDisttribution,moveExpression,moveTimeBase);
+			for (int i=0;i<operatorsThin.length;i++) operatorsThin[i]=new RunDataResourceOperator(i,name,icon,moveDistribution,moveExpression,moveTimeBase);
 		}
 	}
 
@@ -203,7 +208,7 @@ public final class RunDataResource implements Cloneable {
 		clone.costsPerIdleHour=costsPerIdleHour;
 
 		/* Rüstzeiten beim Stationswechsel */
-		clone.moveDisttribution=moveDisttribution;
+		clone.moveDistribution=moveDistribution;
 		clone.moveExpression=moveExpression;
 		clone.moveTimeBase=moveTimeBase;
 
@@ -441,7 +446,7 @@ public final class RunDataResource implements Cloneable {
 	public int getCount(final SimulationData simData) {
 		int value=available;
 
-		if (value>0 && operators!=null) {
+		if (value>0 && (operators!=null && needToFullCount)) {
 			value=0;
 			for (RunDataResourceOperatorFull operator: operators) if (operator.isAvailableOrWorking(this,simData)) value++;
 			return value;
@@ -492,6 +497,7 @@ public final class RunDataResource implements Cloneable {
 		/* Wenn Schichtpläne, unendlich viele Bediener oder Ausfälle aktiv sind, kann die Anzahl nicht verändert werden. */
 		if (available<0) return false;
 		if (failuresGlobal.length>0) return false;
+		needToFullCount=true;
 
 		/* Neue Anzahl gültig? */
 		if (count<=0) return false;
@@ -509,7 +515,7 @@ public final class RunDataResource implements Cloneable {
 			/* Weitere Bediener hinzufügen */
 			final int oldRealCount=operators.length;
 			operators=Arrays.copyOf(operators,FastMath.max(oldRealCount,count));
-			for (int i=oldRealCount;i<count;i++) operators[i]=new RunDataResourceOperatorFull(i,name,icon,moveDisttribution,moveExpression,moveTimeBase,simData,failuresGlobal);
+			for (int i=oldRealCount;i<count;i++) operators[i]=new RunDataResourceOperatorFull(i,name,icon,moveDistribution,moveExpression,moveTimeBase,simData,failuresGlobal);
 			operatorsThin=operators;
 			available=count;
 
