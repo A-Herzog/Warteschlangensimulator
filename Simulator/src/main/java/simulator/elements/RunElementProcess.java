@@ -201,19 +201,22 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		for (int i=0;i<process.priority.length;i++) {
 			String priorityString=processElement.getPriority(runModel.clientTypes[i]);
 			if (priorityString==null || priorityString.trim().isEmpty()) priorityString=ModelElementProcess.DEFAULT_CLIENT_PRIORITY;
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
-			final int error=calc.parse(priorityString);
-			if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessClientPriority"),element.getId(),runModel.clientTypes[i],priorityString,error+1);
 			if (priorityString.equalsIgnoreCase(ModelElementProcess.DEFAULT_CLIENT_PRIORITY)) {
 				process.priority[i]=null; /* Default Priorität als null vermerken */
 			} else {
+				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+				final int error=calc.parse(priorityString);
+				if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessClientPriority"),element.getId(),runModel.clientTypes[i],priorityString,error+1);
+
 				process.priority[i]=priorityString;
 			}
 		}
 
 		/* Ressourcen-Priorität */
-		int error=ExpressionCalc.check(processElement.getResourcePriority(),runModel.variableNames);
-		if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessResourcePriority"),element.getId(),processElement.getResourcePriority());
+		if (!processElement.getResourcePriority().equals("1")) {
+			final int error=ExpressionCalc.check(processElement.getResourcePriority(),runModel.variableNames);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessResourcePriority"),element.getId(),processElement.getResourcePriority());
+		}
 		process.resourcePriority=processElement.getResourcePriority();
 
 		/* Ressourcen */
@@ -229,7 +232,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
 			process.costs=null;
 		} else {
-			error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcess"),text,element.getId(),error+1);
 			process.costs=text;
 		}
@@ -238,7 +241,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
 			process.costsPerProcessSecond=null;
 		} else {
-			error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcessPerProcessSecond"),text,element.getId(),error+1);
 			process.costsPerProcessSecond=text;
 		}
@@ -247,7 +250,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
 			process.costsPerPostProcessSecond=null;
 		} else {
-			error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcessPerPostProcessSecond"),text,element.getId(),error+1);
 			process.costsPerPostProcessSecond=text;
 		}

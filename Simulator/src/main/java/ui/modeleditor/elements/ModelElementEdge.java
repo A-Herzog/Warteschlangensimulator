@@ -430,14 +430,14 @@ public final class ModelElementEdge extends ModelElement {
 
 	private void drawArrow(final Graphics graphics, final ComplexLine painter, final Point point1, final Point point2, final double zoom) {
 		/* Pfeile berechnen */
-		double[] v=new double[]{point2.x-point1.x,point2.y-point1.y};
-		final double length=Math.sqrt(v[0]*v[0]+v[1]*v[1]);
-		v=new double[]{v[0]/length,v[1]/length};
-		final double[] w=new double[]{v[1],-v[0]};
-		arrow1.x=(int)FastMath.round(point2.x-ARROW_SIZE*zoom*v[0]+ARROW_SIZE*zoom*w[0]);
-		arrow1.y=(int)FastMath.round(point2.y-ARROW_SIZE*zoom*v[1]+ARROW_SIZE*zoom*w[1]);
-		arrow2.x=(int)FastMath.round(point2.x-ARROW_SIZE*zoom*v[0]-ARROW_SIZE*zoom*w[0]);
-		arrow2.y=(int)FastMath.round(point2.y-ARROW_SIZE*zoom*v[1]-ARROW_SIZE*zoom*w[1]);
+		double v0=point2.x-point1.x, v1=point2.y-point1.y;
+		final double length=Math.sqrt(v0*v0+v1*v1);
+		v0=v0/length; v1=v1/length;
+		final double w0=v1, w1=-v0;
+		arrow1.x=(int)FastMath.round(point2.x-ARROW_SIZE*zoom*v0+ARROW_SIZE*zoom*w0);
+		arrow1.y=(int)FastMath.round(point2.y-ARROW_SIZE*zoom*v1+ARROW_SIZE*zoom*w1);
+		arrow2.x=(int)FastMath.round(point2.x-ARROW_SIZE*zoom*v0-ARROW_SIZE*zoom*w0);
+		arrow2.y=(int)FastMath.round(point2.y-ARROW_SIZE*zoom*v1-ARROW_SIZE*zoom*w1);
 
 		/* Linien zeichnen */
 		painter.draw(graphics,point1,point2,zoom);

@@ -200,9 +200,11 @@ public class RunElementSourceRecord {
 				if (i>0) batchSizesPSums[i]+=batchSizesPSums[i-1];
 			}
 		} else {
-			final ExpressionCalc batchSizeTest=new ExpressionCalc(runModel.variableNames);
-			final int batchError=batchSizeTest.parse(batchSize);
-			if (batchError>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceInvalidBatchSize"),id,batchSize,batchError+1));
+			if (!batchSize.equals("1")) {
+				final ExpressionCalc batchSizeTest=new ExpressionCalc(runModel.variableNames);
+				final int batchError=batchSizeTest.parse(batchSize);
+				if (batchError>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceInvalidBatchSize"),id,batchSize,batchError+1));
+			}
 		}
 		maxArrivalCount=record.getMaxArrivalCount();
 		maxArrivalClientCount=record.getMaxArrivalClientCount();

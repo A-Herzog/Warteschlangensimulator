@@ -60,6 +60,7 @@ public class BackgroundPrepareCompiledClasses {
 	private void work() {
 		final EditModel model=EditModelExamples.getExampleByIndex(null,0);
 		model.clientCount=250_000;
+		model.distributionRecordHours=0;
 
 		final Simulator simulator=new Simulator(1,model,null);
 		if (simulator.prepare()==null) {

@@ -1018,9 +1018,9 @@ public class MainPanel extends MainPanelBase {
 			final Timer timer=new Timer("MemoryUsage",true);
 			timer.schedule(new TimerTask() {
 				private long last=-1;
+				private final MemoryMXBean memory=ManagementFactory.getMemoryMXBean();
 				@Override
 				public void run() {
-					final MemoryMXBean memory=ManagementFactory.getMemoryMXBean();
 					final long l1=memory.getHeapMemoryUsage().getUsed();
 					final long l2=memory.getNonHeapMemoryUsage().getUsed();
 					final long l=(l1+l2)/1024/1024;
