@@ -1015,6 +1015,11 @@ public class MainPanel extends MainPanelBase {
 		/* Speicher */
 		if (setup.showMemoryUsage) {
 			menubar.add(memoryUsage=new JLabel());
+			final Font font=memoryUsage.getFont();
+			memoryUsage.setFont(new Font(font.getFontName(),0,font.getSize()-2));
+			memoryUsage.addMouseListener(new MouseAdapter() {
+				@Override public void mousePressed(MouseEvent e) {System.gc();}
+			});
 			final Timer timer=new Timer("MemoryUsage",true);
 			timer.schedule(new TimerTask() {
 				private long last=-1;

@@ -506,7 +506,7 @@ public class AnimationImageSource {
 	 * @return	Bild in der angegebenen Größe (existiert das Bild nicht, wird ein Fehler-Bild geliefert, d.h. es wird immer ein Bild geliefert)
 	 */
 	public BufferedImage get(final String name, final ModelAnimationImages modelImages, final int size) {
-		final Long key=name.hashCode()*1000L+size;
+		final long key=name.hashCode()*1000L+size;
 		/* verbraucht mehr Speicher: final String key=name+"-"+size; */
 		BufferedImage image=cache.get(key);
 		if (image!=null) return image;
