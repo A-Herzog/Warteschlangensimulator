@@ -34,13 +34,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
+import java.lang.management.ThreadMXBean;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -1022,19 +1025,32 @@ public class MainPanel extends MainPanelBase {
 			});
 			final Timer timer=new Timer("MemoryUsage",true);
 			timer.schedule(new TimerTask() {
-				private long last=-1;
+				private long lastTimeStamp=0;
+				private Map<Long,Long> lastLoad;
 				private final MemoryMXBean memory=ManagementFactory.getMemoryMXBean();
+				private final ThreadMXBean threads=ManagementFactory.getThreadMXBean();
+				private final int count=Runtime.getRuntime().availableProcessors();
 				@Override
 				public void run() {
+					final long timeStamp=System.currentTimeMillis();
+					long sum=0;
+					final Map<Long,Long> load=new HashMap<>();
+					for (long id: threads.getAllThreadIds()) {
+						final long l=threads.getThreadCpuTime(id);
+						load.put(id,l);
+						sum+=(lastLoad==null)?l:(l-lastLoad.getOrDefault(id,0L));
+					}
+					lastLoad=load;
+					final long delta=(timeStamp-lastTimeStamp)*1_000_000;
+					final long factor=Math.min(100,Math.round(((double)sum)/count/delta*100));
+					lastTimeStamp=timeStamp;
+
 					final long l1=memory.getHeapMemoryUsage().getUsed();
 					final long l2=memory.getNonHeapMemoryUsage().getUsed();
 					final long l=(l1+l2)/1024/1024;
-					if (l!=last) {
-						memoryUsage.setText(NumberTools.formatLong(l)+" MB ");
-						last=l;
-					}
+					memoryUsage.setText(NumberTools.formatLong(l)+" MB "+NumberTools.formatNumber(factor)+"% ");
 				}
-			},1000,500);
+			},1000,1000);
 		}
 
 		/* QuickAccess */
