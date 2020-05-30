@@ -209,6 +209,7 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		fc.addChoosableFileFilter(pdf);
 		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
 		fc.setFileFilter(avi);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

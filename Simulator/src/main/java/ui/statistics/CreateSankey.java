@@ -263,6 +263,7 @@ public final class CreateSankey extends BaseDialog {
 		fc.addChoosableFileFilter(html);
 		fc.addChoosableFileFilter(r);
 		fc.setFileFilter(html);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

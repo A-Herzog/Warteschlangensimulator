@@ -147,6 +147,7 @@ public class ScriptTools {
 		final FileFilter js=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
 		fc.addChoosableFileFilter(js);
 		fc.setFileFilter(js);
+		fc.setAcceptAllFileFilterUsed(false);
 		if (oldFileName!=null && !oldFileName.isEmpty()) {
 			File oldFile=new File(oldFileName);
 			fc.setCurrentDirectory(oldFile.getParentFile());
@@ -173,6 +174,7 @@ public class ScriptTools {
 		final FileFilter java=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
 		fc.addChoosableFileFilter(java);
 		fc.setFileFilter(java);
+		fc.setAcceptAllFileFilterUsed(false);
 		if (oldFileName!=null && !oldFileName.isEmpty()) {
 			File oldFile=new File(oldFileName);
 			fc.setCurrentDirectory(oldFile.getParentFile());
@@ -199,6 +201,7 @@ public class ScriptTools {
 		final FileFilter js=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
 		fc.addChoosableFileFilter(js);
 		fc.setFileFilter(js);
+		fc.setAcceptAllFileFilterUsed(false);
 		if (oldFileName!=null && !oldFileName.isEmpty()) {
 			File oldFile=new File(oldFileName);
 			fc.setCurrentDirectory(oldFile.getParentFile());

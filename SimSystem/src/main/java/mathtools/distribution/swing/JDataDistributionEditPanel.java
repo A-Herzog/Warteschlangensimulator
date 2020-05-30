@@ -465,6 +465,7 @@ public class JDataDistributionEditPanel extends JPanel {
 		}
 
 		fc.setFileFilter(xlsx);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

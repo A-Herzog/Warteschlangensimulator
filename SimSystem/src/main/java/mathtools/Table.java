@@ -2308,6 +2308,7 @@ public final class Table implements Cloneable {
 		if (custom!=null) fc.addChoosableFileFilter(custom);
 
 		fc.setFileFilter(xlsx);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);
@@ -2359,8 +2360,8 @@ public final class Table implements Cloneable {
 		final FileFilter xlsx=new FileNameExtensionFilter(FileTypeExcel+" (*.xlsx)","xlsx");
 
 		fc.addChoosableFileFilter(xlsx);
-
 		fc.setFileFilter(xlsx);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

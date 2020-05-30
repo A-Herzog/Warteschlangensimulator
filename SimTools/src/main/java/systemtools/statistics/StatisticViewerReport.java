@@ -653,8 +653,8 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		fc.addChoosableFileFilter(html);
 		fc.addChoosableFileFilter(htmljs);
 		fc.addChoosableFileFilter(tex);
-
 		fc.setFileFilter(docx);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

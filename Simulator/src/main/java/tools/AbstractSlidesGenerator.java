@@ -296,6 +296,7 @@ public abstract class AbstractSlidesGenerator {
 		final FileFilter pptx=new FileNameExtensionFilter(Language.tr("SlidesGenerator.FileTypePPTX")+" (*.pptx)","pptx");
 		fc.addChoosableFileFilter(pptx);
 		fc.setFileFilter(pptx);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showOpenDialog(c)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

@@ -678,6 +678,7 @@ public class StyledTextBuilder {
 		fc.addChoosableFileFilter(txt);
 		fc.addChoosableFileFilter(md);
 		fc.setFileFilter(docx);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

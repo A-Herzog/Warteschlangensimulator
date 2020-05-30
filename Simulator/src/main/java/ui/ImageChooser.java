@@ -288,6 +288,7 @@ public class ImageChooser extends JPanel {
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
 		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return false;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

@@ -589,6 +589,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		fc.addChoosableFileFilter(md);
 		fc.addChoosableFileFilter(tex);
 		fc.setFileFilter(docx);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

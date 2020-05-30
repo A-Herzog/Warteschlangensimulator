@@ -575,6 +575,7 @@ public class OptimizerPanel extends SpecialPanel {
 			FileFilter txt=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTXT+" (*.txt)","txt");
 			fc.addChoosableFileFilter(txt);
 			fc.setFileFilter(txt);
+			fc.setAcceptAllFileFilterUsed(false);
 
 			if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
 			CommonVariables.initialDirectoryFromJFileChooser(fc);

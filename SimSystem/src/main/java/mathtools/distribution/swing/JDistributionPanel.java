@@ -569,6 +569,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
 		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

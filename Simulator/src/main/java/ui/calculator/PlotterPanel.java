@@ -262,6 +262,7 @@ public class PlotterPanel extends JPanel {
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return false;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

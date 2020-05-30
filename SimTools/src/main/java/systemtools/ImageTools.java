@@ -127,6 +127,7 @@ public class ImageTools {
 		fc.addChoosableFileFilter(pdf);
 		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
 		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

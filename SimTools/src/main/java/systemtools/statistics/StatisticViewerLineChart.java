@@ -774,6 +774,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		fc.addChoosableFileFilter(pdf);
 		fc.addChoosableFileFilter(sce);
 		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

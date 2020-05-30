@@ -135,6 +135,7 @@ public class ProblemReporter {
 
 		fc.addChoosableFileFilter(zip);
 		fc.setFileFilter(zip);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

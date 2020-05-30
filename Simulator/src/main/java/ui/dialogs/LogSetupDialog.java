@@ -191,6 +191,7 @@ public class LogSetupDialog extends BaseDialog {
 			fc.addChoosableFileFilter(pdf);
 			fc.addChoosableFileFilter(odt);
 			fc.setFileFilter(txt);
+			fc.setAcceptAllFileFilterUsed(false);
 
 			if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
 			CommonVariables.initialDirectoryFromJFileChooser(fc);

@@ -897,6 +897,7 @@ public final class MultiTable {
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(html);
 		fc.setFileFilter(xlsx);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

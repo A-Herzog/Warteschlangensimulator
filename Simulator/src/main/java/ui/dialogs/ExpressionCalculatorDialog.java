@@ -411,6 +411,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		filter=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
 		fc.addChoosableFileFilter(filter);
 		fc.setFileFilter(filter);
+		fc.setAcceptAllFileFilterUsed(false);
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);
 		File file=fc.getSelectedFile();
@@ -433,6 +434,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		filter=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
 		fc.addChoosableFileFilter(filter);
 		fc.setFileFilter(filter);
+		fc.setAcceptAllFileFilterUsed(false);
 		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);
 		File file=fc.getSelectedFile();

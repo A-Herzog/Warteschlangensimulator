@@ -406,6 +406,7 @@ public class ScriptEditorPanel extends JPanel {
 		}
 		fc.addChoosableFileFilter(filter);
 		fc.setFileFilter(filter);
+		fc.setAcceptAllFileFilterUsed(false);
 		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return false;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);
 		File file=fc.getSelectedFile();
