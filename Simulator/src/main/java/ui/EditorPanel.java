@@ -94,6 +94,7 @@ import tools.SlidesGenerator;
 import ui.dialogs.BackgroundColorDialog;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
+import ui.modeleditor.DrawIOExport;
 import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelElementCatalogListCellRenderer;
 import ui.modeleditor.ModelElementCatalogTransferHandler;
@@ -1202,6 +1203,7 @@ public class EditorPanel extends EditorPanelBase {
 		final FileFilter docx=new FileNameExtensionFilter(Language.tr("FileType.WordImage")+" (*.docx)","docx");
 		final FileFilter pptx=new FileNameExtensionFilter(Language.tr("SlidesGenerator.FileTypePPTX")+" (*.pptx)","pptx");
 		final FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html)","html");
+		final FileFilter drawio=new FileNameExtensionFilter(Language.tr("FileType.drawio")+" (*.drawio)","drawio");
 		fc.addChoosableFileFilter(png);
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
@@ -1212,7 +1214,9 @@ public class EditorPanel extends EditorPanelBase {
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pptx);
 		fc.addChoosableFileFilter(html);
+		fc.addChoosableFileFilter(drawio);
 		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);
@@ -1229,6 +1233,7 @@ public class EditorPanel extends EditorPanelBase {
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==pptx) file=new File(file.getAbsoluteFile()+".pptx");
 			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
+			if (fc.getFileFilter()==drawio) file=new File(file.getAbsoluteFile()+".drawio");
 		}
 
 		return file;
@@ -1259,6 +1264,7 @@ public class EditorPanel extends EditorPanelBase {
 		if (file.getName().toLowerCase().endsWith(".docx")) format="docx";
 		if (file.getName().toLowerCase().endsWith(".pptx")) format="pptx";
 		if (file.getName().toLowerCase().endsWith(".html")) format="html";
+		if (file.getName().toLowerCase().endsWith(".drawio")) format="drawio";
 
 		if (format.equalsIgnoreCase("html")) {
 			/* HTML-Modus */
@@ -1270,6 +1276,15 @@ public class EditorPanel extends EditorPanelBase {
 			/* pptx-Modus */
 			final SlidesGenerator slides=new SlidesGenerator(getModel(),getExportImage());
 			if (!slides.save(file)) return Language.tr("Editor.ExportModel.Error");
+			return null;
+		}
+
+		if (format.equalsIgnoreCase("drawio")) {
+			/* draw.io-Modus */
+			final DrawIOExport export=new DrawIOExport(file);
+			final EditModel model=getModel();
+			export.process(model.surface,model);
+			if (!export.save()) return Language.tr("Editor.ExportModel.Error");
 			return null;
 		}
 

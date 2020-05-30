@@ -7644,6 +7644,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17831] = "Change value";
     t[17832] = "Editor.Dialog.Tab.Simulation.NumberOfArrivals";
     t[17833] = "Number of arrivals to be simulated";
+    t[17834] = "Surface.InteractiveSlider.Dialog.Variable";
+    t[17835] = "Variable";
     t[17838] = "Surface.HoldMulti.Dialog.OutgoingEdge.Condition";
     t[17839] = "Condition";
     t[17840] = "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient.Info";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18703] = "<p>Returns the minimal number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[18704] = "Surface.ScriptEditor.Load";
     t[18705] = "Load";
-    t[18708] = "Transporters.Group.Edit.Dialog.Times.LoadingExpression.ErrorInfoEmpty";
-    t[18709] = "No expression has been entered.";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18708] = "Transporters.Group.Edit.Dialog.Times.LoadingExpression.ErrorInfoEmpty";
+    t[18709] = "No expression has been entered.";
     t[18716] = "HintsDialog.Button.HideAll.Hint";
     t[18717] = "Remove the hints from all dialogs.";
     t[18720] = "Surface.XML.RootName.AdditionalStatistics.StepWide";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23349] = "exactly one more parameter has to be entered";
     t[23356] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation";
     t[23357] = "Record autocorrelation of the waiting times";
-    t[23366] = "Surface.SetStatisticsMode.Dialog.Title";
-    t[23367] = "Client statistics";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23366] = "Surface.SetStatisticsMode.Dialog.Title";
+    t[23367] = "Client statistics";
     t[23368] = "Statistics.Utilization.CV";
     t[23369] = "Coefficient of variation of the number of busy operators";
     t[23370] = "Compare.DialogHint";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27995] = "Calculations in simulation context";
     t[27998] = "Surface.Costs.Dialog.Title";
     t[27999] = "Edit costs";
-    t[28004] = "Optimizer.ControlVariableEdit.Info.Resource";
-    t[28005] = "Number of operators in the group in the base model: %d";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28004] = "Optimizer.ControlVariableEdit.Info.Resource";
+    t[28005] = "Number of operators in the group in the base model: %d";
     t[28010] = "Surface.AnimationBar.Infotext";
     t[28011] = "Displays a value as a bar during animation.";
     t[28012] = "Surface.Decide.Dialog.DecideBy.ClientType";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32725] = "Workbook";
     t[32726] = "Statistics.ResultsAutocorrelation.WaitingTime.ByStations";
     t[32727] = "Waiting times at stations";
-    t[32740] = "SettingsDialog.AnimationWarmUp.Ask";
-    t[32741] = "Ask if to skip at statistics visualizations";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32740] = "SettingsDialog.AnimationWarmUp.Ask";
+    t[32741] = "Ask if to skip at statistics visualizations";
     t[32748] = "Statistics.XML.Time.Error";
     t[32749] = "The \"time\" attribute in the \"%s\" element has to be a number but is \"%s\".";
     t[32758] = "ModelDescription.Conveyor.CapacityNeededGlobal";
@@ -15214,8 +15216,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35599] = "ModelElementAnimationImage";
     t[35600] = "Simulation.Creator.InvalidMatchPropertyText";
     t[35601] = "At station id=%d no key for client data matching was defined.";
-    t[35604] = "Surface.InteractiveSlider.Dialog.Variable";
-    t[35605] = "Variable";
+    t[35604] = "FileType.drawio";
+    t[35605] = "Draw.io files";
     t[35606] = "Color.E0FFFF";
     t[35607] = "Light cyan";
     t[35610] = "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.DistributionFunctionInfo";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37397] = "Direction";
     t[37398] = "Statistics.ClientsInQueueAt";
     t[37399] = "Clients in queue at";
-    t[37402] = "Statistics.XML.Element.CostsStations";
-    t[37403] = "StatisticsStationsCosts";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37402] = "Statistics.XML.Element.CostsStations";
+    t[37403] = "StatisticsStationsCosts";
     t[37410] = "PathEditor.Builder.Log.PathIndex.Title";
     t[37411] = "Setup of the way points:";
     t[37414] = "Surface.Resource.EditName.Dialog.AddNew.ErrorSize.Title";

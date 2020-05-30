@@ -2014,6 +2014,7 @@ public class MainPanel extends MainPanelBase {
 		final FileFilter avi=new FileNameExtensionFilter(Language.tr("FileType.VideoFile")+" (*.avi)","avi");
 		fc.addChoosableFileFilter(avi);
 		fc.setFileFilter(avi);
+		fc.setAcceptAllFileFilterUsed(false);
 
 		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
 		CommonVariables.initialDirectoryFromJFileChooser(fc);

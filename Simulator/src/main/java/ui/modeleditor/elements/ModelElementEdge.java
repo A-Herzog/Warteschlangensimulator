@@ -504,6 +504,17 @@ public final class ModelElementEdge extends ModelElement {
 	}
 
 	/**
+	 * Liefert den Start- und den Endpunkt der Verbindungskante.
+	 * @param zoom	Zoomfaktor
+	 * @return	Im Erfolgsfall ein Array aus zwei Elementen; im Fehlerfall <code>null</code>.
+	 */
+	public Point[] getConnectionLine(final double zoom) {
+		final Connect[] points=getLine(zoom);
+		if (points==null) return null;
+		return new Point[] {points[0].p,points[1].p};
+	}
+
+	/**
 	 * Prüft, ob sich ein Punkt innerhalb des Elements befindet
 	 * @param point	Punkt, bei dem geprüft werden soll, ob er sich innerhalb des Elements befindet
 	 * @param zoom	Zoomfaktor

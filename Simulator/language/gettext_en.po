@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 12:48+0200\n"
+"POT-Creation-Date: 2020-05-30 21:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5602,6 +5602,9 @@ msgstr "bmp files"
 
 msgid "FileType.cs"
 msgstr "Encrypted xml files"
+
+msgid "FileType.drawio"
+msgstr "Draw.io files"
 
 msgid "FileType.eps"
 msgstr "Encapsulated postscript files"
