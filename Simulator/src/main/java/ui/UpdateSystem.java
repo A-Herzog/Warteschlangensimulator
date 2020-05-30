@@ -30,6 +30,8 @@ import java.util.Calendar;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.w3c.dom.Element;
+
 import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.GUITools;
@@ -37,6 +39,7 @@ import systemtools.MsgBox;
 import systemtools.MsgBoxBackendTaskDialog;
 import tools.NetHelper;
 import tools.SetupData;
+import xml.XMLTools;
 
 /**
  * Update-System
@@ -242,7 +245,14 @@ public class UpdateSystem {
 	private void checkUpdateAvailable(final boolean force) {
 		if (!firstStartToday && !force) return;
 
-		final String line=downloadTextFile(MainPanel.HOME_URL+"/Warteschlangensimulator/version.txt");
+		String line=null;
+		final String json=downloadTextFile(MainPanel.UPDATE_API_URL);
+		if (json!=null) {
+			final Element root=XMLTools.jsonToXml("{root: "+json+"}",true);
+			if (root!=null) line=root.getAttribute("tag_name");
+		}
+		/* alt: final String line=downloadTextFile(MainPanel.HOME_URL+"/Warteschlangensimulator/version.txt"); */
+
 		if (line==null) {
 			checkFailed=true;
 			newVersionAvailable=null;

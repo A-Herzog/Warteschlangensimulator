@@ -61,7 +61,7 @@ import mathtools.distribution.swing.CommonVariables;
 /**
  * Diese Klasse enthält Funktionen zum Laden und Speichern von Daten aus bzw. in XML-Dateien
  * @author Alexander Herzog
- * @version 1.8
+ * @version 1.9
  */
 public final class XMLTools {
 	/**
@@ -628,26 +628,49 @@ public final class XMLTools {
 			try (Reader r=new InputStreamReader(stream)) {
 				char[] buf=new char[100*1024];
 				int i=r.read(buf); while(i>0) {sb.append(buf,0,i); i=r.read(buf);}
-			} catch (IOException e) {lastError=String.format(errorXMLProcessFile,file.toString()); return null;}
+			} catch (IOException e) {
+				final String s=(file==null)?"":file.toString();
+				lastError=String.format(errorXMLProcessFile,s);
+				return null;
+			}
 			final Element result=jsonToXml(sb.toString(),true);
-			if (result==null) lastError=String.format(errorXMLProcessFile,file.toString());
+			if (result==null) {
+				final String s=(file==null)?"":file.toString();
+				lastError=String.format(errorXMLProcessFile,s);
+			}
 			return result;
 		}
 
 		if (type==FileType.ZIP_XML) {
 			try (ZipInputStream zipInput=new ZipInputStream(stream)) {
-				try {zipInput.getNextEntry();} catch (IOException e) {lastError=String.format(errorXMLProcessFile,file.toString()); return null;}
+				try {zipInput.getNextEntry();} catch (IOException e) {
+					final String s=(file==null)?"":file.toString();
+					lastError=String.format(errorXMLProcessFile,s);
+					return null;
+				}
 				return loadFromStream(zipInput,FileType.XML);
-			} catch (IOException e) {lastError=String.format(errorClosingFile,file.toString()); return null;}
+			} catch (IOException e) {
+				final String s=(file==null)?"":file.toString();
+				lastError=String.format(errorXMLProcessFile,s);
+				return null;
+			}
 		}
 
 		if (type==FileType.TAR_XML) {
 			try (GzipCompressorInputStream gzip=new GzipCompressorInputStream(stream)) {
 				try (TarArchiveInputStream tarInput=new TarArchiveInputStream(gzip)) {
-					try {tarInput.getNextEntry();} catch (IOException e) {lastError=String.format(errorXMLProcessFile,file.toString()); return null;}
+					try {tarInput.getNextEntry();} catch (IOException e) {
+						final String s=(file==null)?"":file.toString();
+						lastError=String.format(errorXMLProcessFile,s);
+						return null;
+					}
 					return loadFromStream(tarInput,FileType.XML);
 				}
-			} catch (IOException e) {lastError=String.format(errorClosingFile,file.toString()); return null;}
+			} catch (IOException e) {
+				final String s=(file==null)?"":file.toString();
+				lastError=String.format(errorClosingFile,s);
+				return null;
+			}
 		}
 
 		if (fileType==FileType.CRYPT_XML) {
@@ -657,19 +680,37 @@ public final class XMLTools {
 			ByteArrayOutputStream byteOutput1;
 			try {
 				byte[] buf=new byte[stream.available()];
-				if (stream.read(buf)!=buf.length) {lastError=String.format(errorXMLProcessFile,file.toString()); return null;}
+				if (stream.read(buf)!=buf.length) {
+					final String s=(file==null)?"":file.toString();
+					lastError=String.format(errorXMLProcessFile,s);
+					return null;
+				}
 				byteOutput1=new ByteArrayOutputStream();
 				byteOutput1.write(buf);
 			} catch (IOException e1) {
-				lastError=String.format(errorXMLProcessFile,file.toString()); return null;
+				final String s=(file==null)?"":file.toString();
+				lastError=String.format(errorXMLProcessFile,s);
+				return null;
 			}
 			ByteArrayOutputStream byteOutput2=ChiperTools.decrypt(byteOutput1,password);
-			if (byteOutput2==null) {lastError=String.format(errorDecryptingFile,file.toString()); return null;}
+			if (byteOutput2==null) {
+				final String s=(file==null)?"":file.toString();
+				lastError=String.format(errorDecryptingFile,s);
+				return null;
+			}
 
 			try (ZipInputStream zipInput=new ZipInputStream(new ByteArrayInputStream(byteOutput2.toByteArray()))) {
-				try {zipInput.getNextEntry();} catch (IOException e) {lastError=String.format(errorXMLProcessFile,file.toString()); return null;}
+				try {zipInput.getNextEntry();} catch (IOException e) {
+					final String s=(file==null)?"":file.toString();
+					lastError=String.format(errorXMLProcessFile,s);
+					return null;
+				}
 				return loadFromStream(zipInput,FileType.XML);
-			} catch (IOException e) {lastError=String.format(errorClosingFile,file.toString()); return null;}
+			} catch (IOException e) {
+				final String s=(file==null)?"":file.toString();
+				lastError=String.format(errorClosingFile,s);
+				return null;
+			}
 		}
 
 		DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
@@ -1163,15 +1204,21 @@ public final class XMLTools {
 				param=param.substring(1,param.length()-1);
 				String[] children=splitData(param);
 				for (int k=0;k<children.length;k++) {
-					if (loadJsonObject(element,children[k])==null) {
-						System.out.println(children[k]);
-						return false;
-					}
+					if (loadJsonObject(element,children[k])==null) return false;
 				}
 				continue;
 			}
-			if (param.charAt(0)!='"' || param.charAt(param.length()-1)!='"') return false;
-			param=param.substring(1,param.length()-1);
+			if (param.charAt(0)=='{' && param.charAt(param.length()-1)=='}') {
+				param=param.substring(1,param.length()-1);
+				Element sub=element.getOwnerDocument().createElement(name);
+				element.appendChild(sub);
+				if (!loadJsonContent(sub,param)) return false;
+				continue;
+			}
+
+			if (param.charAt(0)=='"' && param.charAt(param.length()-1)=='"') {
+				param=param.substring(1,param.length()-1);
+			}
 			element.setAttribute(name,param.replace("\\n","\n").replace("\\\"","\""));
 		}
 

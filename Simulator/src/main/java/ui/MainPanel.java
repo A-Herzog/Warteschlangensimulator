@@ -199,6 +199,11 @@ public class MainPanel extends MainPanelBase {
 	public static final String UPDATE_URL="github.com/A-Herzog/Warteschlangensimulator/releases/latest/download";
 
 	/**
+	 * Adresse zum Abfragen der jeweils neusten Version
+	 */
+	public static final String UPDATE_API_URL="api.github.com/repos/A-Herzog/Warteschlangensimulator/releases/latest";
+
+	/**
 	 * Programmversion
 	 */
 	public static final String VERSION="4.4.0";
