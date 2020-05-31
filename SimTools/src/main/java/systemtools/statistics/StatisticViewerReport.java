@@ -53,11 +53,12 @@ import mathtools.MultiTable;
 import mathtools.distribution.swing.CommonVariables;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import xml.XMLData;
 
 /**
  * Diese Klasse kapselt den Reportgenerator, der innerhalb von <code>StatisticPanel</code> verwendet wird.
  * @author Alexander Herzog
- * @version 1.2
+ * @version 1.3
  * @see StatisticViewer
  */
 public class StatisticViewerReport extends StatisticViewerSpecialBase {
@@ -103,6 +104,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		FORMAT_PDF
 	}
 
+	private final XMLData statisticsXml;
 	private final Runnable helpRunnable;
 	private final String modelName;
 	private final List<String> names;
@@ -113,12 +115,14 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	/**
 	 * Konstruktor der Klasse <code>StatisticViewerReport</code>
 	 * @param root	Referenz auf das innerhalb von <code>StatisticPanel</code> verwendete Basis-<code>StatisticNode</code>-Objekt
+	 * @param statisticsXml	Optionales Statistik-XML-Objekt welches beim Report-Export als html-Datei base64-codiert eingebettet werden soll (darf <code>null</code> sein)
 	 * @param modelName	Optional Titel für den html-Web-App-Export (kann auch <code>null</code> sein)
 	 * @param viewerIndex Gibt an, auf welchen der möglicherweise mehreren Viewer in den <code>StatisticNode</code> sich dieses Report-Objekt beziehen soll
 	 * @param helpRunnable Runnable, das aufgerufen wird, wenn die Hilfe-Schaltfläche angeklickt wird. (Wenn <code>null</code> übergeben wird, erscheint keine Hilfe-Schaltfläche.)
 	 * @see StatisticNode
 	 */
-	public StatisticViewerReport(final StatisticNode root, final String modelName, final int viewerIndex, final Runnable helpRunnable) {
+	public StatisticViewerReport(final StatisticNode root, final XMLData statisticsXml, final String modelName, final int viewerIndex, final Runnable helpRunnable) {
+		this.statisticsXml=statisticsXml;
 		this.helpRunnable=helpRunnable;
 		this.modelName=modelName;
 		names=new ArrayList<>();
@@ -274,6 +278,21 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 				break;
 			}
 			bw.newLine();
+		}
+		return true;
+	}
+
+	private boolean writeBase64StatisticsData(final BufferedWriter bw, final XMLData statistics) {
+		try {
+			bw.write("<!--\n");
+			bw.write("QSModel\n");
+			final ByteArrayOutputStream out=new ByteArrayOutputStream();
+			statistics.saveToStream(out);
+			final String base64bytes=Base64.getEncoder().encodeToString(out.toByteArray());
+			bw.write("data:application/xml;base64,"+base64bytes+"\n");
+			bw.write("-->\n");
+		} catch (IOException e) {
+			return false;
 		}
 		return true;
 	}
@@ -473,7 +492,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		}
 	}
 
-	private boolean writeReportToBufferedWriter(Writer writer, File baseFileName, FileFormat fileFormat, boolean exportAllItems) {
+	private boolean writeReportToBufferedWriter(final Writer writer, final File baseFileName, final FileFormat fileFormat, final boolean exportAllItems) {
 		if (table==null) getViewer(false);
 
 		try {
@@ -506,12 +525,14 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 				switch (fileFormat) {
 				case FORMAT_HTML:
 					if (!writeReportNodesToBufferedWriterFile(ExportMode.HTML,selectedViewers,selectedNames,bw,baseFileName)) return false;
+					if (statisticsXml!=null) writeBase64StatisticsData(bw,statisticsXml);
 					break;
 				case FORMAT_HTML_INLINE:
 					if (!writeReportNodesToBufferedWriterInline(selectedViewers,selectedNames,bw)) return false;
 					break;
 				case FORMAT_HTML_JS:
 					if (!writeReportNodesToBufferedWriterApp(modelName,selectedViewers,selectedNames,selectedFullPathes,bw)) return false;
+					if (statisticsXml!=null) writeBase64StatisticsData(bw,statisticsXml);
 					break;
 				case FORMAT_LATEX:
 					if (!writeReportNodesToBufferedWriterFile(ExportMode.LATEX,selectedViewers,selectedNames,bw,baseFileName)) return false;

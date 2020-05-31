@@ -279,7 +279,10 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		}
 		lastRoot=root;
 
-		if (updateTree) setData(root,modelName);
+		if (updateTree) {
+			setStatistics(statistics);
+			setData(root,modelName);
+		}
 	}
 
 	private boolean testClientMovement(final Statistics[] statistics) {

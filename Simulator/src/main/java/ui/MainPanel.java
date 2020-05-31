@@ -1295,10 +1295,10 @@ public class MainPanel extends MainPanelBase {
 		return true;
 	}
 
-	private boolean processBase64ModelData(final String base64data) {
+	private boolean processBase64ModelData(final File file, final String base64data) {
 		try {
 			final ByteArrayInputStream in=new ByteArrayInputStream(Base64.getDecoder().decode(base64data));
-			return commandFileModelLoadFromStream(in);
+			return commandFileModelLoadFromStream(file,in);
 		} catch (IllegalArgumentException e) {return false;}
 	}
 
@@ -1315,7 +1315,7 @@ public class MainPanel extends MainPanelBase {
 			} else {
 				if (modelDataFollow) {
 					if (!line.trim().startsWith("data:application/xml;base64,")) return false;
-					return processBase64ModelData(line.trim().substring("data:application/xml;base64,".length()));
+					return processBase64ModelData(file,line.trim().substring("data:application/xml;base64,".length()));
 				} else {
 					if (line.trim().equalsIgnoreCase("QSModel")) modelDataFollow=true;
 				}
@@ -1516,23 +1516,29 @@ public class MainPanel extends MainPanelBase {
 		return error==null;
 	}
 
-	private boolean commandFileModelLoadFromStream(final InputStream stream) {
+	private boolean commandFileModelLoadFromStream(final File file, final InputStream stream) {
 		if (!isDiscardModelOk()) return true;
-		final String error=editorPanel.loadModelFromStream(stream);
-		if (error==null) {
-			statisticsPanel.setStatistics(null);
-			for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(false);
-			setCurrentPanel(editorPanel);
-			editorPanel.centerModel();
-		} else {
-			MsgBox.error(getOwnerWindow(),Language.tr("XML.LoadErrorTitle"),error);
+
+		final XMLTools xml=new XMLTools(stream);
+		final Element root=xml.load();
+		if (root==null) {
+			MsgBox.error(getOwnerWindow(),Language.tr("XML.LoadErrorTitle"),xml.getError());
+			return false;
 		}
-		if (editorPanel.getLastFile()!=null) {
-			addFileToRecentlyUsedList(editorPanel.getLastFile().toString());
-			setAdditionalTitle(editorPanel.getLastFile().getName());
-			CommonVariables.setInitialDirectoryFromFile(editorPanel.getLastFile());
+
+		final String name=root.getNodeName();
+
+		for (String test: new EditModel().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
+			if (currentPanel!=editorPanel && currentPanel!=statisticsPanel && (welcomePanel==null || currentPanel!=welcomePanel)) return false; /* Nur wenn Hauptpanel aktiv */
+			return commandFileModelLoad(root,file);
 		}
-		return error==null;
+		for (String test: new Statistics().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
+			if (currentPanel!=editorPanel && currentPanel!=statisticsPanel && (welcomePanel==null || currentPanel!=welcomePanel)) return false; /* Nur wenn Hauptpanel aktiv */
+			return commandFileStatisticsLoad(root,file);
+		}
+
+		MsgBox.error(getOwnerWindow(),Language.tr("XML.LoadErrorTitle"),Language.tr("XML.UnknownFileFormat"));
+		return false;
 	}
 
 	private boolean commandFileModelSave(final boolean saveAs) {

@@ -70,6 +70,7 @@ import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticViewer.CanDoAction;
 import systemtools.statistics.StatisticViewerReport.FileFormat;
 import systemtools.statistics.StatisticViewerSpecialText.SpecialMode;
+import xml.XMLData;
 
 /**
  * Diese Klasse stellt Basisfunktionen zur Anzeige von Statistikdaten bereit
@@ -357,6 +358,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	private final JPopupMenu[] settingsMenu;
 	private final JMenuItem[] settingsItem;
 
+	private final XMLData[] statisticsXml;
+
 	private final boolean storeLastRoot;
 	private StatisticNode lastRoot;
 	private StatisticNode currentRoot;
@@ -390,6 +393,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		if (numberOfViewers<1) numberOfViewers=1;
 		this.numberOfViewers=numberOfViewers;
 		this.storeLastRoot=storeLastRoot;
+
+		statisticsXml=new XMLData[numberOfViewers];
 
 		/* Splitter initialisieren */
 
@@ -681,6 +686,30 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	}
 
 	/**
+	 * Hinterlegt zusätzliche Statistik-XML-Daten in dem Panel, die beim html-Export mit eingebettet werden.<br>
+	 * Sind keine Statistik-XML-Daten hinterlegt, so erfolgt keine Einbettung.<br>
+	 * Diese Methode muss <b>vor</b> {@link #setData(StatisticNode, String)} aufgerufen werden.
+	 * @param statisticsXml	Statistik-XML-Daten
+	 * @see #setData(StatisticNode, String)
+	 */
+	protected final void setStatistics(final XMLData[] statisticsXml) {
+		Arrays.fill(this.statisticsXml,null);
+		if (statisticsXml!=null) for (int i=0;i<Math.min(statisticsXml.length,this.statisticsXml.length);i++) this.statisticsXml[i]=statisticsXml[i];
+	}
+
+	/**
+	 * Hinterlegt zusätzliche Statistik-XML-Daten in dem Panel, die beim html-Export mit eingebettet werden.<br>
+	 * Sind keine Statistik-XML-Daten hinterlegt, so erfolgt keine Einbettung.<br>
+	 * Diese Methode muss <b>vor</b> {@link #setData(StatisticNode, String)} aufgerufen werden.
+	 * @param statisticsXml	Statistik-XML-Daten
+	 * @see #setData(StatisticNode, String)
+	 */
+	protected final void setStatistics(final XMLData statisticsXml) {
+		Arrays.fill(this.statisticsXml,null);
+		this.statisticsXml[0]=statisticsXml;
+	}
+
+	/**
 	 * Setzt eine Baumstruktur aus <code>StatisticNode</code>-Elementen als Inhalt der Baumstruktur
 	 * @param root Basis der <code>StatisticNode</code>-Elemente, die die Baumstruktur enthalten
 	 * @param reportTitle	Optional Titel für den html-Web-App-Export (kann auch <code>null</code> sein)
@@ -712,7 +741,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		reportNode=null;
 		if (root!=null && root.getChildCount()>0) {
 			final List<StatisticViewer> list=new ArrayList<>();
-			for (int i=0;i<dataPanel.length;i++) list.add(new StatisticViewerReport(root,reportTitle,i,helpRunnable){
+			for (int i=0;i<dataPanel.length;i++) list.add(new StatisticViewerReport(root,statisticsXml[i],reportTitle,i,helpRunnable){
 				@Override
 				protected String getSelectSettings() {return getReportSelectSettings();}
 				@Override

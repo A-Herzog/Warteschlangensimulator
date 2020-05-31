@@ -368,7 +368,7 @@ public class CalcFuture {
 		if (statistics==null) return null;
 		final StatisticsPanel panel=new StatisticsPanel(1);
 		panel.setStatistics(statistics,false);
-		final StatisticViewerReport viewer=new StatisticViewerReport(panel.getStatisticNodeRoot(),statistics.editModel.name,0,null);
+		final StatisticViewerReport viewer=new StatisticViewerReport(panel.getStatisticNodeRoot(),statistics,statistics.editModel.name,0,null);
 		try (ByteArrayOutputStream stream=new ByteArrayOutputStream()) {
 			viewer.writeReportHTMLApp(stream);
 			return viewerData=stream.toByteArray();
