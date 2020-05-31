@@ -529,6 +529,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 					break;
 				case FORMAT_HTML_INLINE:
 					if (!writeReportNodesToBufferedWriterInline(selectedViewers,selectedNames,bw)) return false;
+					if (statisticsXml!=null) writeBase64StatisticsData(bw,statisticsXml);
 					break;
 				case FORMAT_HTML_JS:
 					if (!writeReportNodesToBufferedWriterApp(modelName,selectedViewers,selectedNames,selectedFullPathes,bw)) return false;
