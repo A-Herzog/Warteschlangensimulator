@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.26)  11 APR 2020 18:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.26)  1 JUN 2020 16:20
 entering extended mode
 **./Warteschlangensimulator-Commandline-en.tex
 (Warteschlangensimulator-Commandline-en.tex
@@ -908,7 +908,7 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-<../../Warteschlangennetz-mittel.png, id=96, 2902.33244pt x 1981.27437pt>
+<../../Warteschlangennetz-mittel.png, id=60, 2902.33244pt x 1981.27437pt>
 File: ../../Warteschlangennetz-mittel.png Graphic file (type png)
 <use ../../Warteschlangennetz-mittel.png>
 Package pdftex.def Info: ../../Warteschlangennetz-mittel.png  used on input lin
@@ -987,28 +987,27 @@ File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1.
  [5]
-[6] [7])
+[6])
 \tf@thm=\write6
 \openout6 = `Warteschlangensimulator-Commandline-en.thm'.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 67.
- [8]
-Package atenddvi Info: Last page = 10.
- [9]
+Package atenddvi Info: Last page = 8.
+ [7]
 Package atveryend Info: Executing hook `AfterLastShipout' on input line 67.
  (Warteschlangensimulator-Commandline-en.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 67.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
 Package rerunfilecheck Info: File `Warteschlangensimulator-Commandline-en.out' 
 has not changed.
-(rerunfilecheck)             Checksum: A14E588136F9AD32C32A00259109A5CC;1465.
+(rerunfilecheck)             Checksum: 0BAD1853464866E09BD081EA1B3628F7;873.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
  ) 
 Here is how much of TeX's memory you used:
- 11745 strings out of 492895
- 174698 string characters out of 3133479
- 305049 words of memory out of 3000000
- 15310 multiletter control sequences out of 15000+200000
+ 11725 strings out of 492895
+ 174452 string characters out of 3133479
+ 304644 words of memory out of 3000000
+ 15301 multiletter control sequences out of 15000+200000
  53181 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,7n,37p,370b,497s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1021,10 +1020,10 @@ ram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2
 ic/lm/lmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Fil
 es/MiKTeX 2.9/fonts/type1/public/lm/lmtt9.pfb>
-Output written on Warteschlangensimulator-Commandline-en.pdf (10 pages, 4534161
- bytes).
+Output written on Warteschlangensimulator-Commandline-en.pdf (8 pages, 4518449 
+bytes).
 PDF statistics:
- 218 PDF objects out of 1000 (max. 8388607)
- 35 named destinations out of 1000 (max. 500000)
- 194 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 163 PDF objects out of 1000 (max. 8388607)
+ 24 named destinations out of 1000 (max. 500000)
+ 122 words of extra memory for PDF output out of 10000 (max. 10000000)
 

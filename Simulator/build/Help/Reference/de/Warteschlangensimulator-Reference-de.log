@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.26)  11 APR 2020 18:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.26)  1 JUN 2020 16:19
 entering extended mode
 **./Warteschlangensimulator-Reference-de.tex
 (Warteschlangensimulator-Reference-de.tex
@@ -1177,52 +1177,52 @@ Package pdftex.def Info: imageModelElementHoldJS.png  used on input line 901.
 <imageModelElementHoldMulti.png, id=826, 481.8pt x 258.9675pt>
 File: imageModelElementHoldMulti.png Graphic file (type png)
 <use imageModelElementHoldMulti.png>
-Package pdftex.def Info: imageModelElementHoldMulti.png  used on input line 925
+Package pdftex.def Info: imageModelElementHoldMulti.png  used on input line 930
 .
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementBarrierPull.png, id=827, 481.8pt x 258.9675pt>
 File: imageModelElementBarrierPull.png Graphic file (type png)
 <use imageModelElementBarrierPull.png>
 Package pdftex.def Info: imageModelElementBarrierPull.png  used on input line 9
-50.
+55.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementSeize.png, id=828, 481.8pt x 258.9675pt>
 File: imageModelElementSeize.png Graphic file (type png)
 <use imageModelElementSeize.png>
-Package pdftex.def Info: imageModelElementSeize.png  used on input line 975.
+Package pdftex.def Info: imageModelElementSeize.png  used on input line 980.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
- [22 <./imageModelElementHoldMulti.png> <./imageModelElementBarrierPull.png> <.
-/imageModelElementSeize.png>]
-<imageModelElementRelease.png, id=843, 481.8pt x 258.9675pt>
+ [22 <./imageModelElementHoldMulti.png> <./imageModelElementBarrierPull.png>]
+<imageModelElementRelease.png, id=842, 481.8pt x 258.9675pt>
 File: imageModelElementRelease.png Graphic file (type png)
 <use imageModelElementRelease.png>
-Package pdftex.def Info: imageModelElementRelease.png  used on input line 1008.
+Package pdftex.def Info: imageModelElementRelease.png  used on input line 1013.
 
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
-<imageModelElementBarrier.png, id=849, 481.8pt x 258.9675pt>
+<imageModelElementBarrier.png, id=848, 481.8pt x 258.9675pt>
 File: imageModelElementBarrier.png Graphic file (type png)
 <use imageModelElementBarrier.png>
-Package pdftex.def Info: imageModelElementBarrier.png  used on input line 1033.
+Package pdftex.def Info: imageModelElementBarrier.png  used on input line 1038.
 
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
- [23 <./imageModelElementRelease.png> <./imageModelElementBarrier.png>]
-<imageModelElementSignal.png, id=861, 481.8pt x 258.9675pt>
+ [23 <./imageModelElementSeize.png> <./imageModelElementRelease.png> <./imageMo
+delElementBarrier.png>]
+<imageModelElementSignal.png, id=860, 481.8pt x 258.9675pt>
 File: imageModelElementSignal.png Graphic file (type png)
 <use imageModelElementSignal.png>
-Package pdftex.def Info: imageModelElementSignal.png  used on input line 1057.
+Package pdftex.def Info: imageModelElementSignal.png  used on input line 1062.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
  [24 <./imageModelElementSignal.png>]
 Kapitel 6.
 <imageModelElementPickUp.png, id=869, 481.8pt x 258.9675pt>
 File: imageModelElementPickUp.png Graphic file (type png)
 <use imageModelElementPickUp.png>
-Package pdftex.def Info: imageModelElementPickUp.png  used on input line 1080.
+Package pdftex.def Info: imageModelElementPickUp.png  used on input line 1085.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementBatchMulti.png, id=874, 481.8pt x 258.9675pt>
 File: imageModelElementBatchMulti.png Graphic file (type png)
 <use imageModelElementBatchMulti.png>
 Package pdftex.def Info: imageModelElementBatchMulti.png  used on input line 11
-09.
+14.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [25
 
@@ -1231,25 +1231,25 @@ Package pdftex.def Info: imageModelElementBatchMulti.png  used on input line 11
 <imageModelElementSeparate.png, id=886, 481.8pt x 258.9675pt>
 File: imageModelElementSeparate.png Graphic file (type png)
 <use imageModelElementSeparate.png>
-Package pdftex.def Info: imageModelElementSeparate.png  used on input line 1136
+Package pdftex.def Info: imageModelElementSeparate.png  used on input line 1141
 .
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementSplit.png, id=890, 481.8pt x 258.9675pt>
 File: imageModelElementSplit.png Graphic file (type png)
 <use imageModelElementSplit.png>
-Package pdftex.def Info: imageModelElementSplit.png  used on input line 1155.
+Package pdftex.def Info: imageModelElementSplit.png  used on input line 1160.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 
 [26 <./imageModelElementSeparate.png> <./imageModelElementSplit.png>]
 <imageModelElementBatch.png, id=903, 481.8pt x 258.9675pt>
 File: imageModelElementBatch.png Graphic file (type png)
 <use imageModelElementBatch.png>
-Package pdftex.def Info: imageModelElementBatch.png  used on input line 1199.
+Package pdftex.def Info: imageModelElementBatch.png  used on input line 1204.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementMatch.png, id=905, 481.8pt x 258.9675pt>
 File: imageModelElementMatch.png Graphic file (type png)
 <use imageModelElementMatch.png>
-Package pdftex.def Info: imageModelElementMatch.png  used on input line 1223.
+Package pdftex.def Info: imageModelElementMatch.png  used on input line 1228.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
  [27 <./imageModelElementBatch.png> <./imageModelElementMatch.png>] [28
 
@@ -1259,7 +1259,7 @@ Kapitel 7.
 <imageModelElementConveyor.png, id=920, 682.55pt x 158.5925pt>
 File: imageModelElementConveyor.png Graphic file (type png)
 <use imageModelElementConveyor.png>
-Package pdftex.def Info: imageModelElementConveyor.png  used on input line 1255
+Package pdftex.def Info: imageModelElementConveyor.png  used on input line 1260
 .
 (pdftex.def)             Requested size: 56.9055pt x 13.22003pt.
 <imageModelElementTransportTransporterSource.png, id=921, 481.8pt x 258.9675pt>
@@ -1267,7 +1267,7 @@ Package pdftex.def Info: imageModelElementConveyor.png  used on input line 1255
 File: imageModelElementTransportTransporterSource.png Graphic file (type png)
 <use imageModelElementTransportTransporterSource.png>
 Package pdftex.def Info: imageModelElementTransportTransporterSource.png  used 
-on input line 1283.
+on input line 1288.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [29 <./imageModelElementConveyor.png> <./imageModelElementTransportTransporterS
 ource.png>]
@@ -1275,10 +1275,10 @@ ource.png>]
 File: imageModelElementTransportParking.png Graphic file (type png)
 <use imageModelElementTransportParking.png>
 Package pdftex.def Info: imageModelElementTransportParking.png  used on input l
-ine 1333.
+ine 1338.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 
-Overfull \hbox (3.25618pt too wide) in paragraph at lines 1348--1356
+Overfull \hbox (3.25618pt too wide) in paragraph at lines 1353--1361
 \T1/lmr/m/n/10 Der Na-me des Park-plat-z-ele-ments be-sitzt kei-ne wei-te-re Be
 -deu-tung. Über das \T1/lmr/bx/n/10 Trans-por-ter-typ\T1/lmr/m/n/10 -Auswahlfel
 d
@@ -1288,17 +1288,17 @@ d
 File: imageModelElementAssignSequence.png Graphic file (type png)
 <use imageModelElementAssignSequence.png>
 Package pdftex.def Info: imageModelElementAssignSequence.png  used on input lin
-e 1363.
+e 1368.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementTeleportSource.png, id=935, 180.675pt x 158.5925pt>
 File: imageModelElementTeleportSource.png Graphic file (type png)
 <use imageModelElementTeleportSource.png>
 Package pdftex.def Info: imageModelElementTeleportSource.png  used on input lin
-e 1382.
+e 1387.
 (pdftex.def)             Requested size: 56.9055pt x 49.94963pt.
 [30 <./imageModelElementTransportParking.png> <./imageModelElementAssignSequenc
 e.png>]
-Underfull \hbox (badness 1365) in paragraph at lines 1386--1397
+Underfull \hbox (badness 1365) in paragraph at lines 1391--1402
 []\T1/lmr/m/n/10 Teleport-Transporte er-mög-li-chen es, einen Kun-den oh-ne Zei
 t-ver-zug von ei-nem
  []
@@ -1307,10 +1307,10 @@ t-ver-zug von ei-nem
 File: imageModelElementTeleportDestination.png Graphic file (type png)
 <use imageModelElementTeleportDestination.png>
 Package pdftex.def Info: imageModelElementTeleportDestination.png  used on inpu
-t line 1411.
+t line 1416.
 (pdftex.def)             Requested size: 56.9055pt x 49.94963pt.
 
-Underfull \hbox (badness 1365) in paragraph at lines 1415--1426
+Underfull \hbox (badness 1365) in paragraph at lines 1420--1431
 []\T1/lmr/m/n/10 Teleport-Transporte er-mög-li-chen es, einen Kun-den oh-ne Zei
 t-ver-zug von ei-nem
  []
@@ -1318,14 +1318,14 @@ t-ver-zug von ei-nem
 <imageModelElementWayPoint.png, id=948, 144.54pt x 122.4575pt>
 File: imageModelElementWayPoint.png Graphic file (type png)
 <use imageModelElementWayPoint.png>
-Package pdftex.def Info: imageModelElementWayPoint.png  used on input line 1438
+Package pdftex.def Info: imageModelElementWayPoint.png  used on input line 1443
 .
 (pdftex.def)             Requested size: 56.9055pt x 48.2104pt.
 <imageModelElementTransportSource.png, id=949, 481.8pt x 258.9675pt>
 File: imageModelElementTransportSource.png Graphic file (type png)
 <use imageModelElementTransportSource.png>
 Package pdftex.def Info: imageModelElementTransportSource.png  used on input li
-ne 1462.
+ne 1467.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [31 <./imageModelElementTeleportSource.png> <./imageModelElementTeleportDestina
 tion.png> <./imageModelElementWayPoint.png>]
@@ -1333,7 +1333,7 @@ tion.png> <./imageModelElementWayPoint.png>]
 File: imageModelElementTransportDestination.png Graphic file (type png)
 <use imageModelElementTransportDestination.png>
 Package pdftex.def Info: imageModelElementTransportDestination.png  used on inp
-ut line 1507.
+ut line 1512.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
  [32 <./imageModelElementTransportSource.png> <./imageModelElementTransportDest
 ination.png>]
@@ -1341,12 +1341,12 @@ Kapitel 8.
 <imageModelElementRecord.png, id=972, 481.8pt x 258.9675pt>
 File: imageModelElementRecord.png Graphic file (type png)
 <use imageModelElementRecord.png>
-Package pdftex.def Info: imageModelElementRecord.png  used on input line 1532.
+Package pdftex.def Info: imageModelElementRecord.png  used on input line 1537.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementOutput.png, id=974, 481.8pt x 258.9675pt>
 File: imageModelElementOutput.png Graphic file (type png)
 <use imageModelElementOutput.png>
-Package pdftex.def Info: imageModelElementOutput.png  used on input line 1561.
+Package pdftex.def Info: imageModelElementOutput.png  used on input line 1566.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [33
 
@@ -1355,17 +1355,17 @@ Package pdftex.def Info: imageModelElementOutput.png  used on input line 1561.
 <imageModelElementOutputDB.png, id=986, 481.8pt x 258.9675pt>
 File: imageModelElementOutputDB.png Graphic file (type png)
 <use imageModelElementOutputDB.png>
-Package pdftex.def Info: imageModelElementOutputDB.png  used on input line 1587
+Package pdftex.def Info: imageModelElementOutputDB.png  used on input line 1592
 .
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementOutputDDE.png, id=987, 481.8pt x 258.9675pt>
 File: imageModelElementOutputDDE.png Graphic file (type png)
 <use imageModelElementOutputDDE.png>
-Package pdftex.def Info: imageModelElementOutputDDE.png  used on input line 160
-7.
+Package pdftex.def Info: imageModelElementOutputDDE.png  used on input line 161
+2.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 
-Overfull \hbox (29.73335pt too wide) in paragraph at lines 1616--1620
+Overfull \hbox (29.73335pt too wide) in paragraph at lines 1621--1625
 \T1/lmr/m/n/10 Der Na-me des Aus-ga-be (DDE) Ele-ments hat kei-ne wei-te-re Be-
 deu-tung. Es müs-sen DDE-Verbindungseinstellungen
  []
@@ -1373,31 +1373,31 @@ deu-tung. Es müs-sen DDE-Verbindungseinstellungen
 <imageModelElementOutputJS.png, id=988, 481.8pt x 258.9675pt>
 File: imageModelElementOutputJS.png Graphic file (type png)
 <use imageModelElementOutputJS.png>
-Package pdftex.def Info: imageModelElementOutputJS.png  used on input line 1627
+Package pdftex.def Info: imageModelElementOutputJS.png  used on input line 1632
 .
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementInput.png, id=990, 481.8pt x 258.9675pt>
 File: imageModelElementInput.png Graphic file (type png)
 <use imageModelElementInput.png>
-Package pdftex.def Info: imageModelElementInput.png  used on input line 1654.
+Package pdftex.def Info: imageModelElementInput.png  used on input line 1659.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [34 <./imageModelElementOutputDB.png> <./imageModelElementOutputDDE.png> <./ima
 geModelElementOutputJS.png>]
 <imageModelElementInputDB.png, id=1004, 481.8pt x 258.9675pt>
 File: imageModelElementInputDB.png Graphic file (type png)
 <use imageModelElementInputDB.png>
-Package pdftex.def Info: imageModelElementInputDB.png  used on input line 1686.
+Package pdftex.def Info: imageModelElementInputDB.png  used on input line 1691.
 
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementInputDDE.png, id=1005, 481.8pt x 258.9675pt>
 File: imageModelElementInputDDE.png Graphic file (type png)
 <use imageModelElementInputDDE.png>
-Package pdftex.def Info: imageModelElementInputDDE.png  used on input line 1712
+Package pdftex.def Info: imageModelElementInputDDE.png  used on input line 1717
 .
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
  [35 <./imageModelElementInput.png> <./imageModelElementInputDB.png> <./imageMo
 delElementInputDDE.png>]
-Overfull \hbox (13.04004pt too wide) in paragraph at lines 1723--1726
+Overfull \hbox (13.04004pt too wide) in paragraph at lines 1728--1731
 \T1/lmr/m/n/10 Der Na-me des Eingabe-Elements be-sitzt kei-ne wei-te-re Be-deu-
 tung. Ne-ben den DDE-Verbindungseinstellungen
  []
@@ -1405,7 +1405,7 @@ tung. Ne-ben den DDE-Verbindungseinstellungen
 <imageModelElementInputJS.png, id=1016, 481.8pt x 258.9675pt>
 File: imageModelElementInputJS.png Graphic file (type png)
 <use imageModelElementInputJS.png>
-Package pdftex.def Info: imageModelElementInputJS.png  used on input line 1738.
+Package pdftex.def Info: imageModelElementInputJS.png  used on input line 1743.
 
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [36 <./imageModelElementInputJS.png>]
@@ -1413,20 +1413,20 @@ Kapitel 9.
 <imageModelElementLogicDo.png, id=1026, 281.05pt x 258.9675pt>
 File: imageModelElementLogicDo.png Graphic file (type png)
 <use imageModelElementLogicDo.png>
-Package pdftex.def Info: imageModelElementLogicDo.png  used on input line 1771.
+Package pdftex.def Info: imageModelElementLogicDo.png  used on input line 1776.
 
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementLogicElse.png, id=1028, 281.05pt x 258.9675pt>
 File: imageModelElementLogicElse.png Graphic file (type png)
 <use imageModelElementLogicElse.png>
-Package pdftex.def Info: imageModelElementLogicElse.png  used on input line 178
-9.
+Package pdftex.def Info: imageModelElementLogicElse.png  used on input line 179
+4.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementLogicElseIf.png, id=1032, 281.05pt x 258.9675pt>
 File: imageModelElementLogicElseIf.png Graphic file (type png)
 <use imageModelElementLogicElseIf.png>
 Package pdftex.def Info: imageModelElementLogicElseIf.png  used on input line 1
-811.
+816.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 [37
 
@@ -1437,25 +1437,25 @@ delElementLogicElseIf.png>]
 File: imageModelElementLogicEndIf.png Graphic file (type png)
 <use imageModelElementLogicEndIf.png>
 Package pdftex.def Info: imageModelElementLogicEndIf.png  used on input line 18
-38.
+43.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementLogicEndWhile.png, id=1050, 281.05pt x 258.9675pt>
 File: imageModelElementLogicEndWhile.png Graphic file (type png)
 <use imageModelElementLogicEndWhile.png>
 Package pdftex.def Info: imageModelElementLogicEndWhile.png  used on input line
- 1856.
+ 1861.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementLogicIf.png, id=1052, 281.05pt x 258.9675pt>
 File: imageModelElementLogicIf.png Graphic file (type png)
 <use imageModelElementLogicIf.png>
-Package pdftex.def Info: imageModelElementLogicIf.png  used on input line 1878.
+Package pdftex.def Info: imageModelElementLogicIf.png  used on input line 1883.
 
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementLogicUntil.png, id=1056, 281.05pt x 258.9675pt>
 File: imageModelElementLogicUntil.png Graphic file (type png)
 <use imageModelElementLogicUntil.png>
 Package pdftex.def Info: imageModelElementLogicUntil.png  used on input line 19
-01.
+06.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
  [38 <./imageModelElementLogicEndIf.png> <./imageModelElementLogicEndWhile.png>
  <./imageModelElementLogicIf.png> <./imageModelElementLogicUntil.png>]
@@ -1463,7 +1463,7 @@ Package pdftex.def Info: imageModelElementLogicUntil.png  used on input line 19
 File: imageModelElementLogicWhile.png Graphic file (type png)
 <use imageModelElementLogicWhile.png>
 Package pdftex.def Info: imageModelElementLogicWhile.png  used on input line 19
-21.
+26.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
  [39 <./imageModelElementLogicWhile.png>] [40
 
@@ -1474,19 +1474,19 @@ Kapitel 10.
 File: imageModelElementAnalogAssign.png Graphic file (type png)
 <use imageModelElementAnalogAssign.png>
 Package pdftex.def Info: imageModelElementAnalogAssign.png  used on input line 
-1947.
+1952.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementAnalogValue.png, id=1086, 481.8pt x 258.9675pt>
 File: imageModelElementAnalogValue.png Graphic file (type png)
 <use imageModelElementAnalogValue.png>
 Package pdftex.def Info: imageModelElementAnalogValue.png  used on input line 1
-967.
+972.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementTankFlowByClient.png, id=1088, 481.8pt x 258.9675pt>
 File: imageModelElementTankFlowByClient.png Graphic file (type png)
 <use imageModelElementTankFlowByClient.png>
 Package pdftex.def Info: imageModelElementTankFlowByClient.png  used on input l
-ine 1991.
+ine 1996.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [41 <./imageModelElementAnalogAssign.png> <./imageModelElementAnalogValue.png> 
 <./imageModelElementTankFlowByClient.png>]
@@ -1494,18 +1494,18 @@ ine 1991.
 File: imageModelElementTankFlowBySignal.png Graphic file (type png)
 <use imageModelElementTankFlowBySignal.png>
 Package pdftex.def Info: imageModelElementTankFlowBySignal.png  used on input l
-ine 2017.
+ine 2022.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementTankSensor.png, id=1101, 481.8pt x 258.9675pt>
 File: imageModelElementTankSensor.png Graphic file (type png)
 <use imageModelElementTankSensor.png>
 Package pdftex.def Info: imageModelElementTankSensor.png  used on input line 20
-44.
+49.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementTank.png, id=1104, 481.8pt x 258.9675pt>
 File: imageModelElementTank.png Graphic file (type png)
 <use imageModelElementTank.png>
-Package pdftex.def Info: imageModelElementTank.png  used on input line 2065.
+Package pdftex.def Info: imageModelElementTank.png  used on input line 2070.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
  [42 <./imageModelElementTankFlowBySignal.png> <./imageModelElementTankSensor.p
 ng>]
@@ -1513,7 +1513,7 @@ ng>]
 File: imageModelElementTankValveSetup.png Graphic file (type png)
 <use imageModelElementTankValveSetup.png>
 Package pdftex.def Info: imageModelElementTankValveSetup.png  used on input lin
-e 2101.
+e 2106.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
  [43 <./imageModelElementTank.png> <./imageModelElementTankValveSetup.png>] [44
 
@@ -1525,19 +1525,19 @@ Kapitel 11.
 File: imageModelElementAnimationPointerMeasuring.png Graphic file (type png)
 <use imageModelElementAnimationPointerMeasuring.png>
 Package pdftex.def Info: imageModelElementAnimationPointerMeasuring.png  used o
-n input line 2125.
+n input line 2130.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementAnimationImage.png, id=1133, 281.05pt x 258.9675pt>
 File: imageModelElementAnimationImage.png Graphic file (type png)
 <use imageModelElementAnimationImage.png>
 Package pdftex.def Info: imageModelElementAnimationImage.png  used on input lin
-e 2144.
+e 2149.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementAnimationRecord.png, id=1134, 381.425pt x 359.3425pt>
 File: imageModelElementAnimationRecord.png Graphic file (type png)
 <use imageModelElementAnimationRecord.png>
 Package pdftex.def Info: imageModelElementAnimationRecord.png  used on input li
-ne 2167.
+ne 2172.
 (pdftex.def)             Requested size: 56.9055pt x 53.60843pt.
 [45 <./imageModelElementAnimationPointerMeasuring.png> <./imageModelElementAnim
 ationImage.png> <./imageModelElementAnimationRecord.png>]
@@ -1545,25 +1545,25 @@ ationImage.png> <./imageModelElementAnimationRecord.png>]
 File: imageModelElementClientIcon.png Graphic file (type png)
 <use imageModelElementClientIcon.png>
 Package pdftex.def Info: imageModelElementClientIcon.png  used on input line 21
-91.
+96.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementAnimationLCD.png, id=1146, 180.675pt x 258.9675pt>
 File: imageModelElementAnimationLCD.png Graphic file (type png)
 <use imageModelElementAnimationLCD.png>
 Package pdftex.def Info: imageModelElementAnimationLCD.png  used on input line 
-2208.
+2213.
 (pdftex.def)             Requested size: 56.9055pt x 81.56332pt.
 <imageModelElementAnimationBar.png, id=1147, 281.05pt x 258.9675pt>
 File: imageModelElementAnimationBar.png Graphic file (type png)
 <use imageModelElementAnimationBar.png>
 Package pdftex.def Info: imageModelElementAnimationBar.png  used on input line 
-2229.
+2234.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementAnimationBarStack.png, id=1148, 281.05pt x 258.9675pt>
 File: imageModelElementAnimationBarStack.png Graphic file (type png)
 <use imageModelElementAnimationBarStack.png>
 Package pdftex.def Info: imageModelElementAnimationBarStack.png  used on input 
-line 2250.
+line 2255.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
  [46 <./imageModelElementClientIcon.png> <./imageModelElementAnimationLCD.png> 
 <./imageModelElementAnimationBar.png>]
@@ -1571,19 +1571,19 @@ line 2250.
 File: imageModelElementAnimationText.png Graphic file (type png)
 <use imageModelElementAnimationText.png>
 Package pdftex.def Info: imageModelElementAnimationText.png  used on input line
- 2273.
+ 2278.
 (pdftex.def)             Requested size: 56.9055pt x 37.7939pt.
 <imageModelElementAnimationTrafficLights.png, id=1161, 281.05pt x 459.7175pt>
 File: imageModelElementAnimationTrafficLights.png Graphic file (type png)
 <use imageModelElementAnimationTrafficLights.png>
 Package pdftex.def Info: imageModelElementAnimationTrafficLights.png  used on i
-nput line 2296.
+nput line 2301.
 (pdftex.def)             Requested size: 56.9055pt x 93.07825pt.
 <imageModelElementAnimationBarChart.png, id=1162, 381.425pt x 359.3425pt>
 File: imageModelElementAnimationBarChart.png Graphic file (type png)
 <use imageModelElementAnimationBarChart.png>
 Package pdftex.def Info: imageModelElementAnimationBarChart.png  used on input 
-line 2318.
+line 2323.
 (pdftex.def)             Requested size: 56.9055pt x 53.60843pt.
  [47 <./imageModelElementAnimationBarStack.png> <./imageModelElementAnimationTe
 xt.png> <./imageModelElementAnimationTrafficLights.png>]
@@ -1591,19 +1591,19 @@ xt.png> <./imageModelElementAnimationTrafficLights.png>]
 File: imageModelElementAnimationDiagram.png Graphic file (type png)
 <use imageModelElementAnimationDiagram.png>
 Package pdftex.def Info: imageModelElementAnimationDiagram.png  used on input l
-ine 2341.
+ine 2346.
 (pdftex.def)             Requested size: 56.9055pt x 53.60843pt.
 <imageModelElementAnimationPieChart.png, id=1174, 381.425pt x 359.3425pt>
 File: imageModelElementAnimationPieChart.png Graphic file (type png)
 <use imageModelElementAnimationPieChart.png>
 Package pdftex.def Info: imageModelElementAnimationPieChart.png  used on input 
-line 2364.
+line 2369.
 (pdftex.def)             Requested size: 56.9055pt x 53.60843pt.
 <imageModelElementAnimationClock.png, id=1175, 281.05pt x 258.9675pt>
 File: imageModelElementAnimationClock.png Graphic file (type png)
 <use imageModelElementAnimationClock.png>
 Package pdftex.def Info: imageModelElementAnimationClock.png  used on input lin
-e 2384.
+e 2389.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 
 [48 <./imageModelElementAnimationBarChart.png> <./imageModelElementAnimationDia
@@ -1613,13 +1613,13 @@ ionClock.png>]
 File: imageModelElementAnimationTextJS.png Graphic file (type png)
 <use imageModelElementAnimationTextJS.png>
 Package pdftex.def Info: imageModelElementAnimationTextJS.png  used on input li
-ne 2403.
+ne 2408.
 (pdftex.def)             Requested size: 56.9055pt x 32.4641pt.
 <imageModelElementAnimationTextSelect.png, id=1188, 289.08pt x 178.6675pt>
 File: imageModelElementAnimationTextSelect.png Graphic file (type png)
 <use imageModelElementAnimationTextSelect.png>
 Package pdftex.def Info: imageModelElementAnimationTextSelect.png  used on inpu
-t line 2422.
+t line 2427.
 (pdftex.def)             Requested size: 56.9055pt x 35.16852pt.
  [49 <./imageModelElementAnimationTextJS.png> <./imageModelElementAnimationText
 Select.png>] [50
@@ -1631,19 +1631,19 @@ Kapitel 12.
 File: imageModelElementInteractiveCheckbox.png Graphic file (type png)
 <use imageModelElementInteractiveCheckbox.png>
 Package pdftex.def Info: imageModelElementInteractiveCheckbox.png  used on inpu
-t line 2450.
+t line 2455.
 (pdftex.def)             Requested size: 56.9055pt x 18.13074pt.
 <imageModelElementInteractiveRadiobutton.png, id=1204, 329.23pt x 130.4875pt>
 File: imageModelElementInteractiveRadiobutton.png Graphic file (type png)
 <use imageModelElementInteractiveRadiobutton.png>
 Package pdftex.def Info: imageModelElementInteractiveRadiobutton.png  used on i
-nput line 2471.
+nput line 2476.
 (pdftex.def)             Requested size: 56.9055pt x 22.55292pt.
 <imageModelElementInteractiveButton.png, id=1205, 481.8pt x 258.9675pt>
 File: imageModelElementInteractiveButton.png Graphic file (type png)
 <use imageModelElementInteractiveButton.png>
 Package pdftex.def Info: imageModelElementInteractiveButton.png  used on input 
-line 2491.
+line 2496.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [51 <./imageModelElementInteractiveCheckbox.png> <./imageModelElementInteractiv
 eRadiobutton.png> <./imageModelElementInteractiveButton.png>]
@@ -1651,30 +1651,30 @@ eRadiobutton.png> <./imageModelElementInteractiveButton.png>]
 File: imageModelElementInteractiveSlider.png Graphic file (type png)
 <use imageModelElementInteractiveSlider.png>
 Package pdftex.def Info: imageModelElementInteractiveSlider.png  used on input 
-line 2521.
+line 2526.
 (pdftex.def)             Requested size: 56.9055pt x 21.58714pt.
  [52 <./imageModelElementInteractiveSlider.png>]
 Kapitel 13.
 <imageModelElementText.png, id=1225, 542.025pt x 130.4875pt>
 File: imageModelElementText.png Graphic file (type png)
 <use imageModelElementText.png>
-Package pdftex.def Info: imageModelElementText.png  used on input line 2546.
+Package pdftex.def Info: imageModelElementText.png  used on input line 2551.
 (pdftex.def)             Requested size: 56.9055pt x 13.6986pt.
 <imageModelElementImage.png, id=1226, 281.05pt x 258.9675pt>
 File: imageModelElementImage.png Graphic file (type png)
 <use imageModelElementImage.png>
-Package pdftex.def Info: imageModelElementImage.png  used on input line 2563.
+Package pdftex.def Info: imageModelElementImage.png  used on input line 2568.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementEllipse.png, id=1227, 281.05pt x 258.9675pt>
 File: imageModelElementEllipse.png Graphic file (type png)
 <use imageModelElementEllipse.png>
-Package pdftex.def Info: imageModelElementEllipse.png  used on input line 2583.
+Package pdftex.def Info: imageModelElementEllipse.png  used on input line 2588.
 
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementLine.png, id=1230, 281.05pt x 258.9675pt>
 File: imageModelElementLine.png Graphic file (type png)
 <use imageModelElementLine.png>
-Package pdftex.def Info: imageModelElementLine.png  used on input line 2600.
+Package pdftex.def Info: imageModelElementLine.png  used on input line 2605.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 [53
 
@@ -1684,13 +1684,13 @@ entEllipse.png>]
 <imageModelElementRectangle.png, id=1244, 281.05pt x 258.9675pt>
 File: imageModelElementRectangle.png Graphic file (type png)
 <use imageModelElementRectangle.png>
-Package pdftex.def Info: imageModelElementRectangle.png  used on input line 261
-8.
+Package pdftex.def Info: imageModelElementRectangle.png  used on input line 262
+3.
 (pdftex.def)             Requested size: 56.9055pt x 52.43272pt.
 <imageModelElementVertex.png, id=1247, 120.45pt x 98.3675pt>
 File: imageModelElementVertex.png Graphic file (type png)
 <use imageModelElementVertex.png>
-Package pdftex.def Info: imageModelElementVertex.png  used on input line 2635.
+Package pdftex.def Info: imageModelElementVertex.png  used on input line 2640.
 (pdftex.def)             Requested size: 56.9055pt x 46.47287pt.
  [54 <./imageModelElementLine.png> <./imageModelElementRectangle.png> <./imageM
 odelElementVertex.png>]
@@ -1698,19 +1698,19 @@ Kapitel 14.
 <imageModelElementAction.png, id=1258, 481.8pt x 258.9675pt>
 File: imageModelElementAction.png Graphic file (type png)
 <use imageModelElementAction.png>
-Package pdftex.def Info: imageModelElementAction.png  used on input line 2659.
+Package pdftex.def Info: imageModelElementAction.png  used on input line 2664.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementReference.png, id=1261, 481.8pt x 258.9675pt>
 File: imageModelElementReference.png Graphic file (type png)
 <use imageModelElementReference.png>
-Package pdftex.def Info: imageModelElementReference.png  used on input line 268
-9.
+Package pdftex.def Info: imageModelElementReference.png  used on input line 269
+4.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 <imageModelElementUserStatistic.png, id=1262, 481.8pt x 258.9675pt>
 File: imageModelElementUserStatistic.png Graphic file (type png)
 <use imageModelElementUserStatistic.png>
 Package pdftex.def Info: imageModelElementUserStatistic.png  used on input line
- 2708.
+ 2713.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 [55
 
@@ -1719,7 +1719,7 @@ Package pdftex.def Info: imageModelElementUserStatistic.png  used on input line
 <imageModelElementSub.png, id=1272, 481.8pt x 258.9675pt>
 File: imageModelElementSub.png Graphic file (type png)
 <use imageModelElementSub.png>
-Package pdftex.def Info: imageModelElementSub.png  used on input line 2728.
+Package pdftex.def Info: imageModelElementSub.png  used on input line 2733.
 (pdftex.def)             Requested size: 56.9055pt x 30.58476pt.
 )
 \tf@thm=\write6
@@ -1742,7 +1742,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 46.
 Here is how much of TeX's memory you used:
  12743 strings out of 492895
  199833 string characters out of 3133479
- 319611 words of memory out of 3000000
+ 319499 words of memory out of 3000000
  15925 multiletter control sequences out of 15000+200000
  61078 words of font info for 47 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1758,7 +1758,7 @@ Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
 e1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt
 10.pfb>
-Output written on Warteschlangensimulator-Reference-de.pdf (62 pages, 5147236 b
+Output written on Warteschlangensimulator-Reference-de.pdf (62 pages, 5147449 b
 ytes).
 PDF statistics:
  1386 PDF objects out of 1440 (max. 8388607)
