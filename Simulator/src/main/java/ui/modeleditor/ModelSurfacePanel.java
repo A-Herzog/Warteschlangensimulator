@@ -2335,6 +2335,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 				if (dragElement!=null && dragCopyElement!=null) {
 					surface.setSelectedArea(null,zoom);
+					surface.smartRename(dragCopyElement);
 					surface.setSelectedElement(dragCopyElement);
 				}
 				if (selectBox!=null) {

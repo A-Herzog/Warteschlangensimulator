@@ -206,7 +206,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Programmversion
 	 */
-	public static final String VERSION="4.4.0";
+	public static final String VERSION="4.5.0";
 
 	private static final int JAVA8_SECURE_MIN_VERSION=252;
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
@@ -231,6 +231,7 @@ public class MainPanel extends MainPanelBase {
 	private JMenuItem menuFileModelRecentlyUsed;
 	private JMenuItem menuEditUndo, menuEditRedo;
 	private JRadioButtonMenuItem menuEditAutoConnectOff, menuEditAutoConnectAuto, menuEditAutoConnectSmart;
+	private JRadioButtonMenuItem menuEditRenameOnCopyOff, menuEditRenameOnCopySmart, menuEditRenameOnCopyAlways;
 	private JCheckBoxMenuItem menuViewTemplatesBar, menuViewNavigator;
 	private JCheckBoxMenuItem menuViewRulers;
 	private JRadioButtonMenuItem menuViewGridOff, menuViewGridDots, menuViewGridLines;
@@ -439,6 +440,9 @@ public class MainPanel extends MainPanelBase {
 		addAction("EditAutoConnectOff",e->commandEditToggleAutoConnect(ModelSurfacePanel.ConnectMode.OFF));
 		addAction("EditAutoConnectAuto",e->commandEditToggleAutoConnect(ModelSurfacePanel.ConnectMode.AUTO));
 		addAction("EditAutoConnectSmart",e->commandEditToggleAutoConnect(ModelSurfacePanel.ConnectMode.SMART));
+		addAction("EditRenameOnCopyOff",e->commandEditToggleRenameOnCopy(SetupData.RenameOnCopyMode.OFF));
+		addAction("EditRenameOnCopySmart",e->commandEditToggleRenameOnCopy(SetupData.RenameOnCopyMode.SMART));
+		addAction("EditRenameOnCopyAlways",e->commandEditToggleRenameOnCopy(SetupData.RenameOnCopyMode.ALWAYS));
 
 		/* Ansicht */
 		addAction("ViewEditor",e->setCurrentPanel(editorPanel));
@@ -574,6 +578,11 @@ public class MainPanel extends MainPanelBase {
 		menuEditAutoConnectAuto.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.AUTO);
 		menuEditAutoConnectSmart.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.SMART);
 		editorPanel.setAutoConnect(setup.autoConnect);
+
+		/* Bearbeiten - Stationen beim Kopieren umbenennen */
+		menuEditRenameOnCopyOff.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.OFF);
+		menuEditRenameOnCopySmart.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.SMART);
+		menuEditRenameOnCopyAlways.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.ALWAYS);
 
 		/* Ansicht - Vorlagen */
 		menuViewTemplatesBar.setState(editorPanel.isTemplatesVisible());
@@ -841,6 +850,13 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(menuEditAutoConnectSmart=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.Edit.AutoConnect.Smart"),Language.tr("Main.Menu.Edit.AutoConnect.Smart.Mnemonic"),"EditAutoConnectSmart"));
 		menuEditAutoConnectSmart.setSelected(setup.autoConnect==ModelSurfacePanel.ConnectMode.SMART);
 		editorPanel.setAutoConnect(setup.autoConnect);
+		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Edit.RenameOnCopy")));
+		enabledOnEditorPanel.add(menuEditRenameOnCopyOff=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.Edit.RenameOnCopy.Off"),Language.tr("Main.Menu.Edit.RenameOnCopy.Off.Mnemonic"),"EditRenameOnCopyOff"));
+		menuEditRenameOnCopyOff.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.OFF);
+		enabledOnEditorPanel.add(menuEditRenameOnCopySmart=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.Edit.RenameOnCopy.Smart"),Language.tr("Main.Menu.Edit.RenameOnCopy.Smart.Mnemonic"),"EditRenameOnCopySmart"));
+		menuEditRenameOnCopySmart.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.SMART);
+		enabledOnEditorPanel.add(menuEditRenameOnCopyAlways=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.Edit.RenameOnCopy.Always"),Language.tr("Main.Menu.Edit.RenameOnCopy.Always.Mnemonic"),"EditRenameOnCopyAlways"));
+		menuEditRenameOnCopyAlways.setSelected(setup.renameOnCopy==SetupData.RenameOnCopyMode.ALWAYS);
 
 		/* Ansicht */
 		menubar.add(menu=new JMenu(Language.tr("Main.Menu.View")));
@@ -1622,6 +1638,12 @@ public class MainPanel extends MainPanelBase {
 
 	private void commandEditToggleAutoConnect(final ModelSurfacePanel.ConnectMode connectMode) {
 		setup.autoConnect=connectMode;
+		setup.saveSetup();
+		reloadSetup();
+	}
+
+	private void commandEditToggleRenameOnCopy(final SetupData.RenameOnCopyMode renameOnCopy) {
+		setup.renameOnCopy=renameOnCopy;
 		setup.saveSetup();
 		reloadSetup();
 	}

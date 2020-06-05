@@ -441,6 +441,26 @@ public class SetupData extends SetupBase {
 	public ModelSurfacePanel.ConnectMode autoConnect;
 
 	/**
+	 * Beim Einfügen einer Kopie einer Stationen Namen ändern
+	 * @author Alexander Herzog
+	 * @see SetupData#renameOnCopy
+	 */
+	public enum RenameOnCopyMode {
+		/** Nicht umbenennen */
+		OFF,
+		/** Umbenennen, wenn Name auf Zahl endet */
+		SMART,
+		/** Umbenennen, wenn Name nicht leer ist */
+		ALWAYS
+	}
+
+	/**
+	 * Beim Einfügen einer Kopie einer Stationen Namen ändern
+	 * @see SetupData.RenameOnCopyMode
+	 */
+	public RenameOnCopyMode renameOnCopy;
+
+	/**
 	 * Fügt bei der Aufzeichnung in das Video den jeweils aktuellen Simulationszeit-Wert ein
 	 */
 	public boolean paintTimeStamp;
@@ -775,6 +795,7 @@ public class SetupData extends SetupBase {
 		javascript="";
 		backgroundSimulation=BackgroundProcessingMode.BACKGROUND_SIMULATION;
 		autoConnect=ModelSurfacePanel.ConnectMode.OFF;
+		renameOnCopy=RenameOnCopyMode.SMART;
 		paintTimeStamp=true;
 		animationStartPaused=false;
 		lastStart="";
@@ -1246,6 +1267,16 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equalsIgnoreCase("renameoncopy")) {
+				final Integer I=NumberTools.getNotNegativeInteger(e.getTextContent());
+				if (I!=null) switch (I.intValue()) {
+				case 0: renameOnCopy=RenameOnCopyMode.OFF; break;
+				case 1: renameOnCopy=RenameOnCopyMode.SMART; break;
+				case 2: renameOnCopy=RenameOnCopyMode.ALWAYS; break;
+				}
+				continue;
+			}
+
 			if (name.equals("timestampinvideo")) {
 				paintTimeStamp=loadBoolean(e.getTextContent(),true);
 				continue;
@@ -1701,6 +1732,15 @@ public class SetupData extends SetupBase {
 			case OFF: node.setTextContent("0"); break;
 			case AUTO: node.setTextContent("1"); break;
 			case SMART: node.setTextContent("2"); break;
+			}
+		}
+
+		if (renameOnCopy!=RenameOnCopyMode.SMART) {
+			root.appendChild(node=doc.createElement("RenameOnCopy"));
+			switch (renameOnCopy) {
+			case OFF: node.setTextContent("0"); break;
+			case SMART: node.setTextContent("1"); break;
+			case ALWAYS: node.setTextContent("2"); break;
 			}
 		}
 

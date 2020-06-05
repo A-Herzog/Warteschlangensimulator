@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-30 21:52+0200\n"
+"POT-Creation-Date: 2020-06-05 18:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6445,6 +6445,27 @@ msgstr "Redo"
 
 msgid "Main.Menu.Edit.Redo.Mnemonic"
 msgstr "R"
+
+msgid "Main.Menu.Edit.RenameOnCopy"
+msgstr "Rename stations on copy"
+
+msgid "Main.Menu.Edit.RenameOnCopy.Always"
+msgstr "If station has name"
+
+msgid "Main.Menu.Edit.RenameOnCopy.Always.Mnemonic"
+msgstr "n"
+
+msgid "Main.Menu.Edit.RenameOnCopy.Off"
+msgstr "Off"
+
+msgid "Main.Menu.Edit.RenameOnCopy.Off.Mnemonic"
+msgstr "O"
+
+msgid "Main.Menu.Edit.RenameOnCopy.Smart"
+msgstr "If station name ends with number"
+
+msgid "Main.Menu.Edit.RenameOnCopy.Smart.Mnemonic"
+msgstr "n"
 
 msgid "Main.Menu.Edit.SelectAll"
 msgstr "Select all"

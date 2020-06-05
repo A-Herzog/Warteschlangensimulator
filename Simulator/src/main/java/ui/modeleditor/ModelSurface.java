@@ -39,6 +39,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
@@ -1177,6 +1178,9 @@ public final class ModelSurface {
 			newElements.add(newElement);
 		}
 
+		/* Nur ein Element eingefügt? */
+		if (newElements.size()==1) smartRename(newElements.get(0));
+
 		for (ModelElement element: newElements) element.initAfterLoadOrClone();
 	}
 
@@ -1613,5 +1617,57 @@ public final class ModelSurface {
 		for (ModelElement element: elements) if (element instanceof ModelElementBox) {
 			((ModelElementBox)element).updateAdditionalIcon();
 		}
+	}
+
+	private boolean isNameInUse(final String name, final ModelElement ignoreElement) {
+		return elements.stream().filter(e->(e instanceof ModelElementBox) && e!=ignoreElement).map(e->((ModelElementBox)e).getName()).filter(s->s.equals(name)).findFirst().isPresent();
+	}
+
+	private Object[] splitName(final String name) {
+		final int len=name.length();
+		if (len<2) return null;
+
+		int i=len-1;
+		while (i>=0) {
+			final char c=name.charAt(i);
+			if (c<'0' || c>'9') {i++; break;}
+			i--;
+		}
+		if (i<0 || i==len) return null;
+
+		final Integer I=NumberTools.getInteger(name.substring(i));
+		if (I==null) return null;
+		return new Object[] {name.subSequence(0,i),I};
+	}
+
+	/**
+	 * Benennt ein Element evtl. nach dem Kopieren um
+	 * @param element	Neues Element, das durch Kopieren entstanden ist
+	 * @see SetupData#renameOnCopy
+	 */
+	public void smartRename(final ModelElement element) {
+		final SetupData.RenameOnCopyMode mode=SetupData.getSetup().renameOnCopy;
+
+		if (mode==SetupData.RenameOnCopyMode.OFF) return;
+
+		if (element==null || !elements.contains(element) || !(element instanceof ModelElementBox)) return;
+		final ModelElementBox box=(ModelElementBox)element;
+		if (box.getName().trim().isEmpty()) return;
+
+		final Object[] parts=splitName(box.getName());
+		final String str;
+		int nr;
+		if (parts==null) {
+			if (mode==SetupData.RenameOnCopyMode.SMART) return;
+			str=box.getName();
+			nr=0;
+		} else {
+			str=(String)parts[0];
+			nr=(Integer)parts[1];
+		}
+
+		nr++;
+		while (isNameInUse(str+nr,element)) nr++;
+		box.setName(str+nr);
 	}
 }
