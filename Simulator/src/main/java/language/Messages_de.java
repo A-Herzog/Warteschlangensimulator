@@ -738,6 +738,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[1713] = "Start";
     t[1714] = "Statistics.XML.Element.ResidenceAllClients";
     t[1715] = "StatistikVerweilzeitenAlleKunden";
+    t[1716] = "Main.Menu.Help.Updates.Mnemonic";
+    t[1717] = "U";
     t[1718] = "ModelDescription.Arrival.BatchSize.Multi";
     t[1719] = "Batchgr\u00f6\u00dfen";
     t[1720] = "Surface.AnimationTextSelect.Dialog.FontSize.Error.Info";
@@ -2002,10 +2004,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4575] = "Simulierte Zeit: %s, Ank\u00fcnfte: %s %s";
     t[4578] = "Surface.Balking.XML.ErrorWhileLoadingData";
     t[4579] = "Beim Laden eines ModellElementZurueckschrecken-Elements.";
-    t[4580] = "ParameterCompare.Table.AddModelByAssistant.Column.Integer";
-    t[4581] = "Nur Ganzzahlen";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4580] = "ParameterCompare.Table.AddModelByAssistant.Column.Integer";
+    t[4581] = "Nur Ganzzahlen";
     t[4586] = "LogSimulation.Mode.File";
     t[4587] = "Datei";
     t[4588] = "FileType.Save.Java";
@@ -4004,10 +4006,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9331] = "Zus\u00e4tzlich vorab als Einschwingphase";
     t[9332] = "Surface.ExpressionTableModel.Delete.Confirmation.Title";
     t[9333] = "Datenreihe entfernen";
-    t[9340] = "Surface.OutputJS.XML.Script.Language";
-    t[9341] = "Sprache";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9340] = "Surface.OutputJS.XML.Script.Language";
+    t[9341] = "Sprache";
     t[9344] = "Surface.ExpressionTableModelText.Dialog.Value";
     t[9345] = "Text";
     t[9346] = "SettingsDialog.AutoRestore";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14035] = "Initialwert auf %s stellen";
     t[14036] = "Dialog.InvalidFile.Title";
     t[14037] = "Ung\u00fcltige Datei";
-    t[14038] = "Surface.Counter.Dialog.GroupName";
-    t[14039] = "Name der Z\u00e4hlergruppe";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14038] = "Surface.Counter.Dialog.GroupName";
+    t[14039] = "Name der Z\u00e4hlergruppe";
     t[14044] = "Statistic.Viewer.Toolbar.Copy.Hint";
     t[14045] = "Kopiert die Ergebnisse von dieser Seite in die Zwischenablage.";
     t[14048] = "Statistic.FastAccess.FilterList.Edit.Dialog.Select.Hint";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18675] = "AusfallNachGearbeiteterZeit";
     t[18682] = "Compare.Error.ModelError.CannotKeep";
     t[18683] = "Das aktuelle Modell ist fehlerhaft und kann nicht simuliert werden. Daher kann es nicht f\u00fcr Vergleiche mit sp\u00e4teren Modellen festgehalten werden.";
-    t[18686] = "Statistics.AnalogValue.Flow.Stop.Done";
-    t[18687] = "beendet";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18686] = "Statistics.AnalogValue.Flow.Stop.Done";
+    t[18687] = "beendet";
     t[18688] = "Color.FFFAF0";
     t[18689] = "Bl\u00fctenwei\u00df";
     t[18690] = "Distribution.StdDev";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23337] = "Kunden an";
     t[23338] = "SimulationServer.Status.Web";
     t[23339] = "Fernsteuerung";
-    t[23340] = "ExpressionBuilder.ClientsAtQueue.Median";
-    t[23341] = "<p>Liefert den Median der Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23340] = "ExpressionBuilder.ClientsAtQueue.Median";
+    t[23341] = "<p>Liefert den Median der Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[23342] = "Dialog.Button.Copy.InfoImage";
     t[23343] = "Kopiert das Bild in die Zwischenablage";
     t[23346] = "CommandLine.Count.Then0";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27959] = "Kein Kundentypname";
     t[27964] = "ModelDescription.Set.ProcessTime";
     t[27965] = "Bedienzeit";
-    t[27966] = "Optimizer.XML.GlobalMode";
-    t[27967] = "Typ";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27966] = "Optimizer.XML.GlobalMode";
+    t[27967] = "Typ";
     t[27984] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Number";
     t[27985] = "<p>Liefert die Anzahl an Transportern in der angegebenen Transportergruppe.</p>";
     t[27990] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Condition";
@@ -13026,6 +13028,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30397] = "Von Element id=%d aus f\u00fchrt \u00dcbergangskante id=%d nach nirgendwo.";
     t[30398] = "Surface.TankValveSetup.Table.Delete.ConfirmTitle";
     t[30399] = "Ventil konfiguration l\u00f6schen";
+    t[30400] = "Main.Menu.Help.Updates";
+    t[30401] = "Nach Updates suchen...";
     t[30404] = "Simulation.Log.Batching.MinMaxInfo";
     t[30405] = "Kunde: %s, Station: %s, wartende Kunden: %d/%d - Minimale Batchgr\u00f6\u00dfe erreicht, aber maximale Batch-Gr\u00f6\u00dfe noch nicht";
     t[30408] = "CommandLine.ReportBase.Error.Input";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32693] = "ModellElementFlussSignalName";
     t[32694] = "Surface.Rectangle.Dialog.Rounding";
     t[32695] = "Ecken abrunden";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32696] = "Animation.Toolbar.Stop.Info";
     t[32697] = "Beendet die Animation";
     t[32704] = "ParameterCompare.XML.Outputs.Data.IsScript";
     t[32705] = "IstSkript";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32710] = "Simulation.Log.ProcessCancelation";
     t[32711] = "Kunde verl\u00e4sst die Warteschlange (Warteabbruch)";
     t[32712] = "Surface.AnimationBar.Dialog.Expression.ErrorNoExpression.Info";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37359] = "Keine Internet-Verbindung m\u00f6glich";
     t[37372] = "Surface.Release.XML.TimeBase";
     t[37373] = "Zeitbasis";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37374] = "Transporter.Group.Edit.Dialog.Failure.Number";
     t[37375] = "Ausfall nach Anzahl bedienter Kunden; Anzahl:";
     t[37376] = "FindElementDirect.Option";
     t[37377] = "Surche nach";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37380] = "Statistics.XML.ThroughputStatistics";
     t[37381] = "StatistikDurchsatz";
     t[37384] = "JSRunner.Toolbar.Clear.Hint";

@@ -156,9 +156,9 @@ public final class SetupDialog extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
-	 * @param showLicensePage	Soll die Lizenz-Seite direkt beim Aufruf ausgewählt werden?
+	 * @param showUpdatesPage	Soll die Updates-Seite direkt beim Aufruf ausgewählt werden?
 	 */
-	public SetupDialog(final Component owner, final boolean showLicensePage) {
+	public SetupDialog(final Component owner, final boolean showUpdatesPage) {
 		super(owner,Language.tr("SettingsDialog.Title"));
 
 		addUserButton(Language.tr("SettingsDialog.Default"),Language.tr("SettingsDialog.Default.Hint"),Images.EDIT_UNDO.getURL());
@@ -939,8 +939,8 @@ public final class SetupDialog extends BaseDialog {
 
 		/* Dialog anzeigen */
 
-		if (showLicensePage) {
-			tabs.setSelectedIndex(4);
+		if (showUpdatesPage) {
+			tabs.setSelectedIndex(5);
 		}
 
 		setMinSizeRespectingScreensize(650,0);

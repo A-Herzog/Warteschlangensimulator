@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-05 18:05+0200\n"
+"POT-Creation-Date: 2020-06-05 23:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6757,6 +6757,12 @@ msgstr "T"
 
 msgid "Main.Menu.Help.Tutorial.pdf"
 msgstr "Warteschlangensimulator-en.pdf"
+
+msgid "Main.Menu.Help.Updates"
+msgstr "Search for updates..."
+
+msgid "Main.Menu.Help.Updates.Mnemonic"
+msgstr "u"
 
 msgid "Main.Menu.Help.UsageStatistics"
 msgstr "Usage statistics..."

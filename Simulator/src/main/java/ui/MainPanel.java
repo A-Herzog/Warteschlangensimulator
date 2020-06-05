@@ -527,6 +527,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpSupport",e->commandHelpSupport());
 		addAction("HelpSupportData",e->commandHelpSupportData());
 		addAction("HelpHomepage",e->commandHelpHomepage());
+		addAction("HelpUpdates",e->commandFileSetup(true));
 		addAction("HelpUsageStatistics",e->commandHelpUsageStatistics());
 		addAction("HelpLicense",e->commandHelpLicenseInfo());
 		addAction("HelpInfo",e->commandHelpInfo());
@@ -1025,6 +1026,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Homepage"),Images.HELP_HOMEPAGE.getIcon(),Language.tr("Main.Menu.Help.Homepage.Mnemonic"),"HelpHomepage");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.Updates"),Images.SETUP_PAGE_UPDATE.getIcon(),Language.tr("Main.Menu.Help.Updates.Mnemonic"),"HelpUpdates");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.UsageStatistics"),Language.tr("Main.Menu.Help.UsageStatistics.Mnemonic"),"HelpUsageStatistics");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.LicenseInformation"),Language.tr("Main.Menu.Help.LicenseInformation.Mnemonic"),"HelpLicense");
@@ -1618,11 +1620,11 @@ public class MainPanel extends MainPanelBase {
 		return error==null;
 	}
 
-	private void commandFileSetup(final boolean showLicensePage) {
+	private void commandFileSetup(final boolean showUpdatesPage) {
 		TutorialWindow.closeTutorialWindow();
 
 		BackgroundSystem.getBackgroundSystem().stop();
-		new SetupDialog(this,showLicensePage);
+		new SetupDialog(this,showUpdatesPage);
 
 		reloadSetup();
 	}
