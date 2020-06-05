@@ -166,7 +166,7 @@ public class NetHelper {
 				while (lines.size()<128) {
 					String inputLine=in.readLine();
 					if (inputLine==null) break;
-					if (inputLine.length()>8192) inputLine=inputLine.substring(0,8192);
+					if (inputLine.length()>65535) inputLine=inputLine.substring(0,65535);
 					lines.add(inputLine);
 				}
 				return lines.toArray(new String[0]);
