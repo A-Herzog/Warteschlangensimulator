@@ -3906,6 +3906,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9085] = "Load from file";
     t[9092] = "Surface.Resource.EditName.Dialog.AddNew.ErrorSize.Info";
     t[9093] = "The specified group size %s is invalid. A positive integer number has to be specified.";
+    t[9094] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DistributionFunctionInfo";
+    t[9095] = "<p>Calculates the value of the distribution function of the Pert distribution at the location specified as the first parameter with the parameters [a;c] and most likely value b according to the second (a), third (b) and fourth (c) parameter.</p>";
     t[9106] = "Surface.TransportSource.XML.TimeBase";
     t[9107] = "TimeBase";
     t[9110] = "Statistics.ClientMovement.Heading.To";
@@ -4004,10 +4006,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9329] = "Set number of operators in a group";
     t[9330] = "Statistics.SimulatedClients.WarmUp";
     t[9331] = "Additionally in advance as warm-up phase";
-    t[9332] = "Surface.ExpressionTableModel.Delete.Confirmation.Title";
-    t[9333] = "Remove data row";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9332] = "Surface.ExpressionTableModel.Delete.Confirmation.Title";
+    t[9333] = "Remove data row";
     t[9340] = "Surface.OutputJS.XML.Script.Language";
     t[9341] = "Language";
     t[9344] = "Surface.ExpressionTableModelText.Dialog.Value";
@@ -5846,6 +5848,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13621] = "The frist table row to be used \"%s\" is invalid. A positive integer number has to be specified.";
     t[13622] = "Surface.PopupMenu.QuickFix.SectionEnd.Section";
     t[13623] = "Set section to leave to \"%s\"";
+    t[13624] = "Surface.AnalogAssign.Dialog.Columns.Edit";
+    t[13625] = "Edit";
     t[13626] = "SettingsDialog.Tabs.DefaultFormats";
     t[13627] = "Default file formats when saving";
     t[13636] = "Animation.Icon.Attach";
@@ -6004,12 +6008,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14001] = "No key for the decision was specified.";
     t[14010] = "Simulation.Log.EndOfSimulation.LastClientStillInSystem";
     t[14011] = "The simulation should be over for a long time. But the client marked as the end client has still not left the system. Therefore, the creation of additional clients is stopped to complete the simulation in this way.";
+  }
+  static void clinit_part_3 (java.lang.String[] t) {
     t[14034] = "Surface.PopupMenu.QuickFix.Analog.SetInitialValue";
     t[14035] = "Set initial value to %s";
     t[14036] = "Dialog.InvalidFile.Title";
     t[14037] = "Invalid file";
-  }
-  static void clinit_part_3 (java.lang.String[] t) {
     t[14038] = "Surface.Counter.Dialog.GroupName";
     t[14039] = "Name of the counter group";
     t[14044] = "Statistic.Viewer.Toolbar.Copy.Hint";
@@ -6384,6 +6388,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14867] = "Time";
     t[14872] = "Statistics.MinimumUserTime";
     t[14873] = "Minimum time";
+    t[14878] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DensityInfo";
+    t[14879] = "<p>Calculates the value of the density of the Pert distribution at the location specified as the first parameter with the parameters [a;c] and most likely value b according to the second (a), third (b) and fourth (c) parameter.</p>";
     t[14894] = "Surface.AnimationPieChart.XML.Root";
     t[14895] = "ModelElementAnimationPieDiagram";
     t[14896] = "Statistic.FastAccess.Template.Format";
@@ -8004,14 +8010,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18655] = "Flask";
     t[18658] = "Main.Menu.Edit.AutoConnect";
     t[18659] = "Auto connect new elements";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18660] = "Surface.TankFlowPanel.Destination";
     t[18661] = "Destination";
     t[18674] = "Surface.XML.Resource.FailureByWorkingTime";
     t[18675] = "FailureAfterWorkingTime";
     t[18682] = "Compare.Error.ModelError.CannotKeep";
     t[18683] = "The current model cannot be simulated and therefore cannot be kept for comparison with further models.";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18686] = "Statistics.AnalogValue.Flow.Stop.Done";
     t[18687] = "terminated";
     t[18688] = "Color.FFFAF0";
@@ -10006,14 +10012,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23325] = "Share of clients";
     t[23326] = "Surface.Resource.Header.Type";
     t[23327] = "Operator type";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23328] = "Statistic.Viewer.Report.SaveHTMLImages";
     t[23329] = "Please choose how images should be saved in the report";
     t[23336] = "Statistics.ClientsAt";
     t[23337] = "Clients at";
     t[23338] = "SimulationServer.Status.Web";
     t[23339] = "Remote control";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23340] = "ExpressionBuilder.ClientsAtQueue.Median";
     t[23341] = "<p>Returns the median of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[23342] = "Dialog.Button.Copy.InfoImage";
@@ -10360,8 +10366,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24071] = "no fixed number of operators.";
     t[24072] = "Animation.Icon.BallBlue";
     t[24073] = "Ball - Blue";
-    t[24074] = "Surface.AnalogAssign.Dialog.Columns.Edit";
-    t[24075] = "Edit";
+    t[24074] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo";
+    t[24075] = "<p>Generates a random number according to the Pert distribution with the parameters [a;c] and most likely value b according to the first (a), second (b) and third (c) parameter.</p>";
     t[24076] = "Main.Menu.Edit.SelectAll.Mnemonic";
     t[24077] = "A";
     t[24082] = "ModelDescription.Decide.StringProperty";
@@ -11360,6 +11366,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26449] = "Replace current description";
     t[26454] = "PathEditor.ResetAll.ConfirmInfoYes";
     t[26455] = "Delete connections.";
+    t[26462] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution";
+    t[26463] = "Pert distribution";
     t[26464] = "Surface.CounterMulti.Table.Heading.Condition.Add";
     t[26465] = "Add condition/counter";
     t[26466] = "Surface.AnimationBar.Dialog.Expression.Error.Title";
@@ -12006,6 +12014,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27945] = "At end of file";
     t[27948] = "Statistics.XML.Element.UtilizationTransporterType";
     t[27949] = "StatisticsTransporter";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27954] = "Optimizer.Error.NoVariableNameForControlVariables";
     t[27955] = "For control variable %d no global variable was selected.";
     t[27956] = "Surface.Action.Dialog.Info.Signal";
@@ -12014,8 +12024,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27959] = "The current client type has no name under which additional settings could be saved.";
     t[27964] = "ModelDescription.Set.ProcessTime";
     t[27965] = "Process time";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27966] = "Optimizer.XML.GlobalMode";
     t[27967] = "Type";
     t[27984] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Number";
@@ -13054,6 +13062,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30453] = "ModelElementBatchData";
     t[30456] = "Optimizer.Tab.Target.Value.Range.InvalidRange.LowerBoundInteger";
     t[30457] = "The entered value for the lower bound of the target range is invalid. A valid integer number has to be specified.";
+    t[30458] = "Distribution.Pert";
+    t[30459] = "Pert distribution";
     t[30470] = "Compare.ReplaceKeptModel.Title";
     t[30471] = "Replacing the kept model";
     t[30472] = "Surface.Database.TestDialog.Info.Connection";
@@ -14006,6 +14016,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32677] = "Ranged right";
     t[32682] = "Surface.Source.Dialog.ClientTypeSettings";
     t[32683] = "Edit client type settings";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32684] = "ParameterCompare.XML.Inputs.Data.Mode";
     t[32685] = "Mode";
     t[32686] = "JDistributionEditor.Save.Graphics";
@@ -14016,8 +14028,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32693] = "ModelElementFlowSignalName";
     t[32694] = "Surface.Rectangle.Dialog.Rounding";
     t[32695] = "round off corners";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32696] = "Animation.Toolbar.Stop.Info";
     t[32697] = "Terminates the animation";
     t[32704] = "ParameterCompare.XML.Outputs.Data.IsScript";
@@ -16008,6 +16018,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37341] = "Do you really want to delete the client source \"%s\"?";
     t[37342] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.CoefficientOfVariationOfTheTime";
     t[37343] = "<p>Returns the coefficient of variation over all waiting times for all clients.</p>";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37344] = "Main.Menu.File";
     t[37345] = "File";
     t[37346] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingSumAll.Info";
@@ -16018,8 +16030,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37359] = "No Internet connection available";
     t[37372] = "Surface.Release.XML.TimeBase";
     t[37373] = "TimeBase";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37374] = "Transporter.Group.Edit.Dialog.Failure.Number";
     t[37375] = "Failure by number of served clients; number:";
     t[37376] = "FindElementDirect.Option";

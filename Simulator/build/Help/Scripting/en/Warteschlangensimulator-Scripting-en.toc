@@ -28,18 +28,19 @@
 \contentsline {section}{\numberline {9.12}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{21}{section.9.12}% 
 \contentsline {section}{\numberline {9.13}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{21}{section.9.13}% 
 \contentsline {section}{\numberline {9.14}Triangular distribution over $[a;c]$ with most likely value $b$}{21}{section.9.14}% 
-\contentsline {section}{\numberline {9.15}Laplace distribution with mean $mu$ and scale factor $b$}{21}{section.9.15}% 
-\contentsline {section}{\numberline {9.16}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{21}{section.9.16}% 
-\contentsline {section}{\numberline {9.17}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{22}{section.9.17}% 
-\contentsline {section}{\numberline {9.18}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{22}{section.9.18}% 
-\contentsline {section}{\numberline {9.19}Rayleigh distribution with mean $mu$}{22}{section.9.19}% 
-\contentsline {section}{\numberline {9.20}Log-Logistic distribution with $\alpha $ and mean $\beta $}{22}{section.9.20}% 
-\contentsline {section}{\numberline {9.21}Power distribution on $[a;b]$ with exponent $c$}{22}{section.9.21}% 
-\contentsline {section}{\numberline {9.22}Gumbel distribution with expected value $a$ and standard deviation $b$}{22}{section.9.22}% 
-\contentsline {section}{\numberline {9.23}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{23}{section.9.23}% 
-\contentsline {section}{\numberline {9.24}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{23}{section.9.24}% 
-\contentsline {section}{\numberline {9.25}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{23}{section.9.25}% 
-\contentsline {section}{\numberline {9.26}Distribution based on empirical values}{23}{section.9.26}% 
+\contentsline {section}{\numberline {9.15}Pert distribution over $[a;c]$ with most likely value $b$}{21}{section.9.15}% 
+\contentsline {section}{\numberline {9.16}Laplace distribution with mean $mu$ and scale factor $b$}{21}{section.9.16}% 
+\contentsline {section}{\numberline {9.17}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{22}{section.9.17}% 
+\contentsline {section}{\numberline {9.18}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{22}{section.9.18}% 
+\contentsline {section}{\numberline {9.19}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{22}{section.9.19}% 
+\contentsline {section}{\numberline {9.20}Rayleigh distribution with mean $mu$}{22}{section.9.20}% 
+\contentsline {section}{\numberline {9.21}Log-Logistic distribution with $\alpha $ and mean $\beta $}{22}{section.9.21}% 
+\contentsline {section}{\numberline {9.22}Power distribution on $[a;b]$ with exponent $c$}{22}{section.9.22}% 
+\contentsline {section}{\numberline {9.23}Gumbel distribution with expected value $a$ and standard deviation $b$}{23}{section.9.23}% 
+\contentsline {section}{\numberline {9.24}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{23}{section.9.24}% 
+\contentsline {section}{\numberline {9.25}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{23}{section.9.25}% 
+\contentsline {section}{\numberline {9.26}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{23}{section.9.26}% 
+\contentsline {section}{\numberline {9.27}Distribution based on empirical values}{23}{section.9.27}% 
 \contentsline {chapter}{\numberline {10}Erlang C calculator}{25}{chapter.10}% 
 \contentsline {chapter}{\numberline {11}Allen-Cunneen approximation formula}{27}{chapter.11}% 
 \contentsline {chapter}{\numberline {12}Accessing model properties}{29}{chapter.12}% 

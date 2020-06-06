@@ -148,6 +148,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistF=Language.trAll("Distribution.F");
 		DistributionTools.DistJohnson=Language.trAll("Distribution.DistJohnsonSU");
 		DistributionTools.DistTriangular=Language.trAll("Distribution.Triangular");
+		DistributionTools.DistPert=Language.trAll("Distribution.Pert");
 		DistributionTools.DistLaplace=Language.trAll("Distribution.Laplace");
 		DistributionTools.DistPareto=Language.trAll("Distribution.Pareto");
 		DistributionTools.DistLogistic=Language.trAll("Distribution.Logistic");

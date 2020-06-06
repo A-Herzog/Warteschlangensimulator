@@ -187,7 +187,7 @@ public final class DistributionRandomNumber {
 			return ((CauchyDistribution)distribution).getScale()*x+((CauchyDistribution)distribution).getMedian();
 		}
 
-		/* Für die folgenden Verteilungen muss auf die Umkehrung per Bisektion zurückgegriffen werden: ChiSquaredDistribution, FDistribution, ChiDistribution */
+		/* Für die folgenden Verteilungen muss auf die Umkehrung per Bisektion zurückgegriffen werden: ChiSquaredDistribution, FDistribution, ChiDistribution, PertDistribution */
 		/* Für folgende Verteilungen ist inverseCumulativeProbability eine direkte Funktion: Weibull */
 		return distribution.inverseCumulativeProbability(generator.nextDouble());
 	}

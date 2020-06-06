@@ -42,6 +42,7 @@ import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.LogisticDistributionImpl;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.ParetoDistributionImpl;
+import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.PowerDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
@@ -69,6 +70,7 @@ import mathtools.distribution.tools.WrapperLogisticDistribution;
 import mathtools.distribution.tools.WrapperNormalDistribution;
 import mathtools.distribution.tools.WrapperOnePointDistribution;
 import mathtools.distribution.tools.WrapperParetoDistribution;
+import mathtools.distribution.tools.WrapperPertDistribution;
 import mathtools.distribution.tools.WrapperPowerDistribution;
 import mathtools.distribution.tools.WrapperRayleighDistribution;
 import mathtools.distribution.tools.WrapperTriangularDistribution;
@@ -185,6 +187,7 @@ public abstract class JDistributionEditorPanelRecord {
 		list.add(new FDistribution());
 		list.add(new JohnsonDistribution());
 		list.add(new TriangularDistribution());
+		list.add(new PertDistribution());
 		list.add(new LaplaceDistribution());
 		list.add(new ParetoDistribution());
 		list.add(new LogisticDistribution());
@@ -634,18 +637,47 @@ public abstract class JDistributionEditorPanelRecord {
 		@Override
 		public String[] getValues(AbstractRealDistribution distribution) {
 			return new String[] {
-					NumberTools.formatNumberMax(((TriangularDistributionImpl)distribution).lowerBound),
-					NumberTools.formatNumberMax(((TriangularDistributionImpl)distribution).mostLikelyX),
-					NumberTools.formatNumberMax(((TriangularDistributionImpl)distribution).upperBound)
+					NumberTools.formatNumberMax(Math.max(0,((TriangularDistributionImpl)distribution).lowerBound)),
+					NumberTools.formatNumberMax(Math.max(0,((TriangularDistributionImpl)distribution).mostLikelyX)),
+					NumberTools.formatNumberMax(Math.max(0,((TriangularDistributionImpl)distribution).upperBound))
 			};
 		}
 
 		@Override
 		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
-			final Double d1=NumberTools.getPositiveIntDouble(fields[0],true); if (d1==null) return null;
-			final Double d2=NumberTools.getPositiveIntDouble(fields[1],true); if (d2==null) return null;
-			final Double d3=NumberTools.getPositiveIntDouble(fields[2],true); if (d3==null) return null;
+			final Double d1=NumberTools.getNotNegativeDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getNotNegativeDouble(fields[1],true); if (d2==null) return null;
+			final Double d3=NumberTools.getNotNegativeDouble(fields[2],true); if (d3==null) return null;
 			return new TriangularDistributionImpl(d1,d2,d3);
+		}
+	}
+
+	/** Pert-Verteilung */
+	private static class PertDistribution extends JDistributionEditorPanelRecord {
+		public PertDistribution() {
+			super(new WrapperPertDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistMostLikely,JDistributionEditorPanel.DistUniformEnd});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{lower,NumberTools.formatNumberMax(maxXValue/2),upper};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(Math.max(0,((PertDistributionImpl)distribution).lowerBound)),
+					NumberTools.formatNumberMax(Math.max(0,((PertDistributionImpl)distribution).mostLikely)),
+					NumberTools.formatNumberMax(Math.max(0,((PertDistributionImpl)distribution).upperBound))
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double d1=NumberTools.getNotNegativeDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getNotNegativeDouble(fields[1],true); if (d2==null) return null;
+			final Double d3=NumberTools.getNotNegativeDouble(fields[2],true); if (d3==null) return null;
+			return new PertDistributionImpl(d1,d2,d3);
 		}
 	}
 

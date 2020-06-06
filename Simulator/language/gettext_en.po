@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-06 15:39+0200\n"
+"POT-Creation-Date: 2020-06-06 18:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2129,6 +2129,9 @@ msgstr "Normal distribution"
 msgid "Distribution.Pareto"
 msgstr "Pareto distribution"
 
+msgid "Distribution.Pert"
+msgstr "Pert distribution"
+
 msgid "Distribution.Point"
 msgstr "One point distribution"
 
@@ -4066,6 +4069,18 @@ msgstr "<p>Calculates the value of the distribution function of the Pareto distr
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ParetoDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Pareto distribution with the parameters according to the first (scale) and second (shape) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution"
+msgstr "Pert distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Pert distribution at the location specified as the first parameter with the parameters [a;c] and most likely value b according to the second (a), third (b) and fourth (c) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Pert distribution at the location specified as the first parameter with the parameters [a;c] and most likely value b according to the second (a), third (b) and fourth (c) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Pert distribution with the parameters [a;c] and most likely value b according to the first (a), second (b) and third (c) parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PowerDistribution"
 msgstr "Power distribution"

@@ -29,95 +29,96 @@
 \BOOKMARK [1][-]{section.9.12}{9.12 F-Verteilung mit a Freiheitsgraden im Z\344hler und b Freiheitsgraden im Nenner}{chapter.9}% 29
 \BOOKMARK [1][-]{section.9.13}{9.13 Johnson-SU-Verteilung mit den Parametern a, b, c und d}{chapter.9}% 30
 \BOOKMARK [1][-]{section.9.14}{9.14 Dreiecksverteilung \374ber [a;c] mit der h\366chsten Wahrscheinlichkeitsdichte bei b}{chapter.9}% 31
-\BOOKMARK [1][-]{section.9.15}{9.15 Laplace-Verteilung mit Mittelwert mu und Skalierungsfaktor b}{chapter.9}% 32
-\BOOKMARK [1][-]{section.9.16}{9.16 Pareto-Verteilung mit Skalierungsparameter xmin und Formparameter a}{chapter.9}% 33
-\BOOKMARK [1][-]{section.9.17}{9.17 Logistische Verteilung mit Mittelwert mu und Skalierungsparameter s}{chapter.9}% 34
-\BOOKMARK [1][-]{section.9.18}{9.18 Inverse Gau\337-Verteilung mit l und Mittelwert mu}{chapter.9}% 35
-\BOOKMARK [1][-]{section.9.19}{9.19 Rayleigh-Verteilung mit Mittelwert mu}{chapter.9}% 36
-\BOOKMARK [1][-]{section.9.20}{9.20 Log-Logistische Verteilung mit alpha und Mittelwert beta}{chapter.9}% 37
-\BOOKMARK [1][-]{section.9.21}{9.21 Potenzverteilung auf dem Bereich [a;b] mit Exponent c}{chapter.9}% 38
-\BOOKMARK [1][-]{section.9.22}{9.22 Gumbel-Verteilung mit Erwartungswert a und Standardabweichung b}{chapter.9}% 39
-\BOOKMARK [1][-]{section.9.23}{9.23 Fatigue-Life-Verteilung mit Lageparameter mu, Skalierungsparameter beta und Formparameter gamma}{chapter.9}% 40
-\BOOKMARK [1][-]{section.9.24}{9.24 Frechet-Verteilung mit Lageparameter delta, Skalierungsparameter beta und Formparameter alpha}{chapter.9}% 41
-\BOOKMARK [1][-]{section.9.25}{9.25 Hyperbolische Sekanten-Verteilung mit Mittelwert a und Standardabweichung b}{chapter.9}% 42
-\BOOKMARK [1][-]{section.9.26}{9.26 Verteilung aus empirischen Daten}{chapter.9}% 43
-\BOOKMARK [0][-]{chapter.10}{10 Erlang-C-Rechner}{part.1}% 44
-\BOOKMARK [0][-]{chapter.11}{11 Allen-Cunneen-Approximationsformel}{part.1}% 45
-\BOOKMARK [0][-]{chapter.12}{12 Zugriff auf die Modelleigenschaften}{part.1}% 46
-\BOOKMARK [1][-]{section.12.1}{12.1 Allgemeine Simulationsdaten}{chapter.12}% 47
-\BOOKMARK [1][-]{section.12.2}{12.2 Kunden im System}{chapter.12}% 48
-\BOOKMARK [2][-]{subsection.12.2.1}{12.2.1 Anzahl an Kunden im System}{section.12.2}% 49
-\BOOKMARK [2][-]{subsection.12.2.2}{12.2.2 Anzahl an wartenden Kunden im System}{section.12.2}% 50
-\BOOKMARK [1][-]{section.12.3}{12.3 Kunden an den Stationen}{chapter.12}% 51
-\BOOKMARK [2][-]{subsection.12.3.1}{12.3.1 Anzahl an Kunden an einer Station}{section.12.3}% 52
-\BOOKMARK [2][-]{subsection.12.3.2}{12.3.2 Anzahl an Kunden in der Warteschlange an einer Station}{section.12.3}% 53
-\BOOKMARK [2][-]{subsection.12.3.3}{12.3.3 Anzahl an Kunden in Bedienung an einer Station}{section.12.3}% 54
-\BOOKMARK [2][-]{subsection.12.3.4}{12.3.4 Anzahl an Ank\374nften und Abh\344ngen an einer Station}{section.12.3}% 55
-\BOOKMARK [1][-]{section.12.4}{12.4 Kunden nach Kundentypen}{chapter.12}% 56
-\BOOKMARK [2][-]{subsection.12.4.1}{12.4.1 Anzahl an Kunden im System nach Kundentypen}{section.12.4}% 57
-\BOOKMARK [2][-]{subsection.12.4.2}{12.4.2 Anzahl an wartenden Kunden im System nach Kundentypen}{section.12.4}% 58
-\BOOKMARK [1][-]{section.12.5}{12.5 Z\344hler und Durchsatz}{chapter.12}% 59
-\BOOKMARK [1][-]{section.12.6}{12.6 Wartezeiten}{chapter.12}% 60
-\BOOKMARK [2][-]{subsection.12.6.1}{12.6.1 Wartezeiten an einer Station}{section.12.6}% 61
-\BOOKMARK [2][-]{subsection.12.6.2}{12.6.2 Wartezeiten \374ber alle Kundentypen}{section.12.6}% 62
-\BOOKMARK [2][-]{subsection.12.6.3}{12.6.3 Wartezeiten f\374r einen Kundentypen}{section.12.6}% 63
-\BOOKMARK [1][-]{section.12.7}{12.7 Transferzeiten}{chapter.12}% 64
-\BOOKMARK [2][-]{subsection.12.7.1}{12.7.1 Transferzeiten an einer Station}{section.12.7}% 65
-\BOOKMARK [2][-]{subsection.12.7.2}{12.7.2 Transferzeiten \374ber alle Kundentypen}{section.12.7}% 66
-\BOOKMARK [2][-]{subsection.12.7.3}{12.7.3 Transferzeiten f\374r einen Kundentypen}{section.12.7}% 67
-\BOOKMARK [1][-]{section.12.8}{12.8 Bedienzeiten}{chapter.12}% 68
-\BOOKMARK [2][-]{subsection.12.8.1}{12.8.1 Bedienzeiten an einer Station}{section.12.8}% 69
-\BOOKMARK [2][-]{subsection.12.8.2}{12.8.2 Bedienzeiten \374ber alle Kundentypen}{section.12.8}% 70
-\BOOKMARK [2][-]{subsection.12.8.3}{12.8.3 Bedienzeiten f\374r einen Kundentypen}{section.12.8}% 71
-\BOOKMARK [1][-]{section.12.9}{12.9 Verweilzeiten}{chapter.12}% 72
-\BOOKMARK [2][-]{subsection.12.9.1}{12.9.1 Verweilzeiten an einer Station}{section.12.9}% 73
-\BOOKMARK [2][-]{subsection.12.9.2}{12.9.2 Verweilzeiten \374ber alle Kundentypen}{section.12.9}% 74
-\BOOKMARK [2][-]{subsection.12.9.3}{12.9.3 Verweilzeiten f\374r einen Kundentypen}{section.12.9}% 75
-\BOOKMARK [1][-]{section.12.10}{12.10 Auslastung der Ressourcen}{chapter.12}% 76
-\BOOKMARK [2][-]{subsection.12.10.1}{12.10.1 Auslastung einer Ressource}{section.12.10}% 77
-\BOOKMARK [2][-]{subsection.12.10.2}{12.10.2 Auslastung aller Ressourcen zusammen}{section.12.10}% 78
-\BOOKMARK [1][-]{section.12.11}{12.11 Auslastung der Transporter}{chapter.12}% 79
-\BOOKMARK [2][-]{subsection.12.11.1}{12.11.1 Auslastung einer Transportergruppe}{section.12.11}% 80
-\BOOKMARK [2][-]{subsection.12.11.2}{12.11.2 Auslastung aller Transporter zusammen}{section.12.11}% 81
-\BOOKMARK [1][-]{section.12.12}{12.12 Zugriff auf Statistik-Stationen Datenfelder}{chapter.12}% 82
-\BOOKMARK [1][-]{section.12.13}{12.13 Zugriff auf Analogwerte}{chapter.12}% 83
-\BOOKMARK [1][-]{section.12.14}{12.14 Zugriff auf Kundenobjekt-spezifische Datenfelder}{chapter.12}% 84
-\BOOKMARK [1][-]{section.12.15}{12.15 Zugriff auf die Kosten}{chapter.12}% 85
-\BOOKMARK [0][-]{chapter.13}{13 Vergleiche}{part.1}% 86
-\BOOKMARK [1][-]{section.13.1}{13.1 Vergleichsfunktion}{chapter.13}% 87
-\BOOKMARK [-1][-]{part.2}{II Referenz der Javascript-Befehle}{}% 88
-\BOOKMARK [0][-]{chapter.14}{14 Statistics-Objekt}{part.2}% 89
-\BOOKMARK [1][-]{section.14.1}{14.1 Definition des Ausgabeformats}{chapter.14}% 90
-\BOOKMARK [1][-]{section.14.2}{14.2 Zugriff auf die Statistik-XML-Daten}{chapter.14}% 91
-\BOOKMARK [1][-]{section.14.3}{14.3 Speichern der Statistikdaten in Dateien}{chapter.14}% 92
-\BOOKMARK [0][-]{chapter.15}{15 System-Objekt}{part.2}% 93
-\BOOKMARK [0][-]{chapter.16}{16 Simulation-Objekt}{part.2}% 94
-\BOOKMARK [1][-]{section.16.1}{16.1 Basisfunktionen}{chapter.16}% 95
-\BOOKMARK [1][-]{section.16.2}{16.2 Zugriff auf kundenspezifische Daten}{chapter.16}% 96
-\BOOKMARK [1][-]{section.16.3}{16.3 Zugriff auf Parameter des Simulationsmodells}{chapter.16}% 97
-\BOOKMARK [1][-]{section.16.4}{16.4 Zugriff auf den aktuellen Eingabewert}{chapter.16}% 98
-\BOOKMARK [1][-]{section.16.5}{16.5 Anzahl an Bedienern in einer Ressource}{chapter.16}% 99
-\BOOKMARK [1][-]{section.16.6}{16.6 Signale ausl\366sen}{chapter.16}% 100
-\BOOKMARK [0][-]{chapter.17}{17 Clients-Objekt}{part.2}% 101
-\BOOKMARK [0][-]{chapter.18}{18 Output-Objekt}{part.2}% 102
-\BOOKMARK [0][-]{chapter.19}{19 FileOutput-Objekt}{part.2}% 103
-\BOOKMARK [0][-]{chapter.20}{20 Model-Objekt}{part.2}% 104
-\BOOKMARK [0][-]{chapter.21}{21 XML-Auswahlbefehle}{part.2}% 105
-\BOOKMARK [-1][-]{part.3}{III Referenz der Java-Befehle}{}% 106
-\BOOKMARK [0][-]{chapter.22}{22 StatisticsInterface abrufbar \374ber sim.getStatistics\(\)}{part.3}% 107
-\BOOKMARK [1][-]{section.22.1}{22.1 Definition des Ausgabeformats}{chapter.22}% 108
-\BOOKMARK [1][-]{section.22.2}{22.2 Zugriff auf die Statistik-XML-Daten}{chapter.22}% 109
-\BOOKMARK [1][-]{section.22.3}{22.3 Speichern der Statistikdaten in Dateien}{chapter.22}% 110
-\BOOKMARK [0][-]{chapter.23}{23 RuntimeInterface abrufbar \374ber sim.getRuntime}{part.3}% 111
-\BOOKMARK [0][-]{chapter.24}{24 SystemInterface abrufbar \374ber sim.getSystem\(\)}{part.3}% 112
-\BOOKMARK [1][-]{section.24.1}{24.1 Basisfunktionen}{chapter.24}% 113
-\BOOKMARK [1][-]{section.24.2}{24.2 Zugriff auf Parameter des Simulationsmodells}{chapter.24}% 114
-\BOOKMARK [1][-]{section.24.3}{24.3 Anzahl an Bedienern in einer Ressource}{chapter.24}% 115
-\BOOKMARK [1][-]{section.24.4}{24.4 Signale ausl\366sen}{chapter.24}% 116
-\BOOKMARK [0][-]{chapter.25}{25 ClientInterface abrufbar \374ber sim.getClient\(\)}{part.3}% 117
-\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface abrufbar \374ber sim.getInputValue\(\)}{part.3}% 118
-\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface abrufbar \374ber sim.getClients\(\)}{part.3}% 119
-\BOOKMARK [0][-]{chapter.28}{28 OutputInterface abrufbar \374ber sim.getOutput\(\)}{part.3}% 120
-\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface abrufbar \374ber sim.getFileOutput\(\)}{part.3}% 121
-\BOOKMARK [0][-]{chapter.30}{30 ModelInterface abrufbar \374ber sim.getModel\(\)}{part.3}% 122
-\BOOKMARK [0][-]{chapter.31}{31 XML-Auswahlbefehle}{part.3}% 123
+\BOOKMARK [1][-]{section.9.15}{9.15 Pert-Verteilung \374ber [a;c] mit der h\366chsten Wahrscheinlichkeitsdichte bei b}{chapter.9}% 32
+\BOOKMARK [1][-]{section.9.16}{9.16 Laplace-Verteilung mit Mittelwert mu und Skalierungsfaktor b}{chapter.9}% 33
+\BOOKMARK [1][-]{section.9.17}{9.17 Pareto-Verteilung mit Skalierungsparameter xmin und Formparameter a}{chapter.9}% 34
+\BOOKMARK [1][-]{section.9.18}{9.18 Logistische Verteilung mit Mittelwert mu und Skalierungsparameter s}{chapter.9}% 35
+\BOOKMARK [1][-]{section.9.19}{9.19 Inverse Gau\337-Verteilung mit l und Mittelwert mu}{chapter.9}% 36
+\BOOKMARK [1][-]{section.9.20}{9.20 Rayleigh-Verteilung mit Mittelwert mu}{chapter.9}% 37
+\BOOKMARK [1][-]{section.9.21}{9.21 Log-Logistische Verteilung mit alpha und Mittelwert beta}{chapter.9}% 38
+\BOOKMARK [1][-]{section.9.22}{9.22 Potenzverteilung auf dem Bereich [a;b] mit Exponent c}{chapter.9}% 39
+\BOOKMARK [1][-]{section.9.23}{9.23 Gumbel-Verteilung mit Erwartungswert a und Standardabweichung b}{chapter.9}% 40
+\BOOKMARK [1][-]{section.9.24}{9.24 Fatigue-Life-Verteilung mit Lageparameter mu, Skalierungsparameter beta und Formparameter gamma}{chapter.9}% 41
+\BOOKMARK [1][-]{section.9.25}{9.25 Frechet-Verteilung mit Lageparameter delta, Skalierungsparameter beta und Formparameter alpha}{chapter.9}% 42
+\BOOKMARK [1][-]{section.9.26}{9.26 Hyperbolische Sekanten-Verteilung mit Mittelwert a und Standardabweichung b}{chapter.9}% 43
+\BOOKMARK [1][-]{section.9.27}{9.27 Verteilung aus empirischen Daten}{chapter.9}% 44
+\BOOKMARK [0][-]{chapter.10}{10 Erlang-C-Rechner}{part.1}% 45
+\BOOKMARK [0][-]{chapter.11}{11 Allen-Cunneen-Approximationsformel}{part.1}% 46
+\BOOKMARK [0][-]{chapter.12}{12 Zugriff auf die Modelleigenschaften}{part.1}% 47
+\BOOKMARK [1][-]{section.12.1}{12.1 Allgemeine Simulationsdaten}{chapter.12}% 48
+\BOOKMARK [1][-]{section.12.2}{12.2 Kunden im System}{chapter.12}% 49
+\BOOKMARK [2][-]{subsection.12.2.1}{12.2.1 Anzahl an Kunden im System}{section.12.2}% 50
+\BOOKMARK [2][-]{subsection.12.2.2}{12.2.2 Anzahl an wartenden Kunden im System}{section.12.2}% 51
+\BOOKMARK [1][-]{section.12.3}{12.3 Kunden an den Stationen}{chapter.12}% 52
+\BOOKMARK [2][-]{subsection.12.3.1}{12.3.1 Anzahl an Kunden an einer Station}{section.12.3}% 53
+\BOOKMARK [2][-]{subsection.12.3.2}{12.3.2 Anzahl an Kunden in der Warteschlange an einer Station}{section.12.3}% 54
+\BOOKMARK [2][-]{subsection.12.3.3}{12.3.3 Anzahl an Kunden in Bedienung an einer Station}{section.12.3}% 55
+\BOOKMARK [2][-]{subsection.12.3.4}{12.3.4 Anzahl an Ank\374nften und Abh\344ngen an einer Station}{section.12.3}% 56
+\BOOKMARK [1][-]{section.12.4}{12.4 Kunden nach Kundentypen}{chapter.12}% 57
+\BOOKMARK [2][-]{subsection.12.4.1}{12.4.1 Anzahl an Kunden im System nach Kundentypen}{section.12.4}% 58
+\BOOKMARK [2][-]{subsection.12.4.2}{12.4.2 Anzahl an wartenden Kunden im System nach Kundentypen}{section.12.4}% 59
+\BOOKMARK [1][-]{section.12.5}{12.5 Z\344hler und Durchsatz}{chapter.12}% 60
+\BOOKMARK [1][-]{section.12.6}{12.6 Wartezeiten}{chapter.12}% 61
+\BOOKMARK [2][-]{subsection.12.6.1}{12.6.1 Wartezeiten an einer Station}{section.12.6}% 62
+\BOOKMARK [2][-]{subsection.12.6.2}{12.6.2 Wartezeiten \374ber alle Kundentypen}{section.12.6}% 63
+\BOOKMARK [2][-]{subsection.12.6.3}{12.6.3 Wartezeiten f\374r einen Kundentypen}{section.12.6}% 64
+\BOOKMARK [1][-]{section.12.7}{12.7 Transferzeiten}{chapter.12}% 65
+\BOOKMARK [2][-]{subsection.12.7.1}{12.7.1 Transferzeiten an einer Station}{section.12.7}% 66
+\BOOKMARK [2][-]{subsection.12.7.2}{12.7.2 Transferzeiten \374ber alle Kundentypen}{section.12.7}% 67
+\BOOKMARK [2][-]{subsection.12.7.3}{12.7.3 Transferzeiten f\374r einen Kundentypen}{section.12.7}% 68
+\BOOKMARK [1][-]{section.12.8}{12.8 Bedienzeiten}{chapter.12}% 69
+\BOOKMARK [2][-]{subsection.12.8.1}{12.8.1 Bedienzeiten an einer Station}{section.12.8}% 70
+\BOOKMARK [2][-]{subsection.12.8.2}{12.8.2 Bedienzeiten \374ber alle Kundentypen}{section.12.8}% 71
+\BOOKMARK [2][-]{subsection.12.8.3}{12.8.3 Bedienzeiten f\374r einen Kundentypen}{section.12.8}% 72
+\BOOKMARK [1][-]{section.12.9}{12.9 Verweilzeiten}{chapter.12}% 73
+\BOOKMARK [2][-]{subsection.12.9.1}{12.9.1 Verweilzeiten an einer Station}{section.12.9}% 74
+\BOOKMARK [2][-]{subsection.12.9.2}{12.9.2 Verweilzeiten \374ber alle Kundentypen}{section.12.9}% 75
+\BOOKMARK [2][-]{subsection.12.9.3}{12.9.3 Verweilzeiten f\374r einen Kundentypen}{section.12.9}% 76
+\BOOKMARK [1][-]{section.12.10}{12.10 Auslastung der Ressourcen}{chapter.12}% 77
+\BOOKMARK [2][-]{subsection.12.10.1}{12.10.1 Auslastung einer Ressource}{section.12.10}% 78
+\BOOKMARK [2][-]{subsection.12.10.2}{12.10.2 Auslastung aller Ressourcen zusammen}{section.12.10}% 79
+\BOOKMARK [1][-]{section.12.11}{12.11 Auslastung der Transporter}{chapter.12}% 80
+\BOOKMARK [2][-]{subsection.12.11.1}{12.11.1 Auslastung einer Transportergruppe}{section.12.11}% 81
+\BOOKMARK [2][-]{subsection.12.11.2}{12.11.2 Auslastung aller Transporter zusammen}{section.12.11}% 82
+\BOOKMARK [1][-]{section.12.12}{12.12 Zugriff auf Statistik-Stationen Datenfelder}{chapter.12}% 83
+\BOOKMARK [1][-]{section.12.13}{12.13 Zugriff auf Analogwerte}{chapter.12}% 84
+\BOOKMARK [1][-]{section.12.14}{12.14 Zugriff auf Kundenobjekt-spezifische Datenfelder}{chapter.12}% 85
+\BOOKMARK [1][-]{section.12.15}{12.15 Zugriff auf die Kosten}{chapter.12}% 86
+\BOOKMARK [0][-]{chapter.13}{13 Vergleiche}{part.1}% 87
+\BOOKMARK [1][-]{section.13.1}{13.1 Vergleichsfunktion}{chapter.13}% 88
+\BOOKMARK [-1][-]{part.2}{II Referenz der Javascript-Befehle}{}% 89
+\BOOKMARK [0][-]{chapter.14}{14 Statistics-Objekt}{part.2}% 90
+\BOOKMARK [1][-]{section.14.1}{14.1 Definition des Ausgabeformats}{chapter.14}% 91
+\BOOKMARK [1][-]{section.14.2}{14.2 Zugriff auf die Statistik-XML-Daten}{chapter.14}% 92
+\BOOKMARK [1][-]{section.14.3}{14.3 Speichern der Statistikdaten in Dateien}{chapter.14}% 93
+\BOOKMARK [0][-]{chapter.15}{15 System-Objekt}{part.2}% 94
+\BOOKMARK [0][-]{chapter.16}{16 Simulation-Objekt}{part.2}% 95
+\BOOKMARK [1][-]{section.16.1}{16.1 Basisfunktionen}{chapter.16}% 96
+\BOOKMARK [1][-]{section.16.2}{16.2 Zugriff auf kundenspezifische Daten}{chapter.16}% 97
+\BOOKMARK [1][-]{section.16.3}{16.3 Zugriff auf Parameter des Simulationsmodells}{chapter.16}% 98
+\BOOKMARK [1][-]{section.16.4}{16.4 Zugriff auf den aktuellen Eingabewert}{chapter.16}% 99
+\BOOKMARK [1][-]{section.16.5}{16.5 Anzahl an Bedienern in einer Ressource}{chapter.16}% 100
+\BOOKMARK [1][-]{section.16.6}{16.6 Signale ausl\366sen}{chapter.16}% 101
+\BOOKMARK [0][-]{chapter.17}{17 Clients-Objekt}{part.2}% 102
+\BOOKMARK [0][-]{chapter.18}{18 Output-Objekt}{part.2}% 103
+\BOOKMARK [0][-]{chapter.19}{19 FileOutput-Objekt}{part.2}% 104
+\BOOKMARK [0][-]{chapter.20}{20 Model-Objekt}{part.2}% 105
+\BOOKMARK [0][-]{chapter.21}{21 XML-Auswahlbefehle}{part.2}% 106
+\BOOKMARK [-1][-]{part.3}{III Referenz der Java-Befehle}{}% 107
+\BOOKMARK [0][-]{chapter.22}{22 StatisticsInterface abrufbar \374ber sim.getStatistics\(\)}{part.3}% 108
+\BOOKMARK [1][-]{section.22.1}{22.1 Definition des Ausgabeformats}{chapter.22}% 109
+\BOOKMARK [1][-]{section.22.2}{22.2 Zugriff auf die Statistik-XML-Daten}{chapter.22}% 110
+\BOOKMARK [1][-]{section.22.3}{22.3 Speichern der Statistikdaten in Dateien}{chapter.22}% 111
+\BOOKMARK [0][-]{chapter.23}{23 RuntimeInterface abrufbar \374ber sim.getRuntime}{part.3}% 112
+\BOOKMARK [0][-]{chapter.24}{24 SystemInterface abrufbar \374ber sim.getSystem\(\)}{part.3}% 113
+\BOOKMARK [1][-]{section.24.1}{24.1 Basisfunktionen}{chapter.24}% 114
+\BOOKMARK [1][-]{section.24.2}{24.2 Zugriff auf Parameter des Simulationsmodells}{chapter.24}% 115
+\BOOKMARK [1][-]{section.24.3}{24.3 Anzahl an Bedienern in einer Ressource}{chapter.24}% 116
+\BOOKMARK [1][-]{section.24.4}{24.4 Signale ausl\366sen}{chapter.24}% 117
+\BOOKMARK [0][-]{chapter.25}{25 ClientInterface abrufbar \374ber sim.getClient\(\)}{part.3}% 118
+\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface abrufbar \374ber sim.getInputValue\(\)}{part.3}% 119
+\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface abrufbar \374ber sim.getClients\(\)}{part.3}% 120
+\BOOKMARK [0][-]{chapter.28}{28 OutputInterface abrufbar \374ber sim.getOutput\(\)}{part.3}% 121
+\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface abrufbar \374ber sim.getFileOutput\(\)}{part.3}% 122
+\BOOKMARK [0][-]{chapter.30}{30 ModelInterface abrufbar \374ber sim.getModel\(\)}{part.3}% 123
+\BOOKMARK [0][-]{chapter.31}{31 XML-Auswahlbefehle}{part.3}% 124

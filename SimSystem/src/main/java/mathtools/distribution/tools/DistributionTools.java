@@ -86,6 +86,9 @@ public final class DistributionTools {
 	/** Dreiecksverteilung */
 	public static String[] DistTriangular=new String[]{"Dreiecksverteilung"};
 
+	/** Pert-Verteilung */
+	public static String[] DistPert=new String[]{"Pert-Verteilung"};
+
 	/** Laplace-Verteilung */
 	public static String[] DistLaplace=new String[]{"Laplace-Verteilung"};
 
@@ -179,6 +182,7 @@ public final class DistributionTools {
 				new WrapperFDistribution(),
 				new WrapperJohnsonDistribution(),
 				new WrapperTriangularDistribution(),
+				new WrapperPertDistribution(),
 				new WrapperLaplaceDistribution(),
 				new WrapperParetoDistribution(),
 				new WrapperLogisticDistribution(),

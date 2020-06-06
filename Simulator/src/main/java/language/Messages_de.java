@@ -3906,6 +3906,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9085] = "Aus Datei laden";
     t[9092] = "Surface.Resource.EditName.Dialog.AddNew.ErrorSize.Info";
     t[9093] = "Die angegebene Gruppengr\u00f6\u00dfe %s ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
+    t[9094] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DistributionFunctionInfo";
+    t[9095] = "<p>Berechnet den Wert der Verteilungsfunktion der Pert-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der h\u00f6chsten Wahrscheinlichkeitsdichte gem\u00e4\u00df dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>";
     t[9106] = "Surface.TransportSource.XML.TimeBase";
     t[9107] = "Zeitbasis";
     t[9110] = "Statistics.ClientMovement.Heading.To";
@@ -4004,10 +4006,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9329] = "Bediener in einer Gruppe einstellen";
     t[9330] = "Statistics.SimulatedClients.WarmUp";
     t[9331] = "Zus\u00e4tzlich vorab als Einschwingphase";
-    t[9332] = "Surface.ExpressionTableModel.Delete.Confirmation.Title";
-    t[9333] = "Datenreihe entfernen";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9332] = "Surface.ExpressionTableModel.Delete.Confirmation.Title";
+    t[9333] = "Datenreihe entfernen";
     t[9340] = "Surface.OutputJS.XML.Script.Language";
     t[9341] = "Sprache";
     t[9344] = "Surface.ExpressionTableModelText.Dialog.Value";
@@ -5846,6 +5848,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13621] = "Die erste zu verwendende Tabellenzeile \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[13622] = "Surface.PopupMenu.QuickFix.SectionEnd.Section";
     t[13623] = "Zu verlassenden Abschnitt auf \"%s\" einstellen";
+    t[13624] = "Surface.AnalogAssign.Dialog.Columns.Edit";
+    t[13625] = "Bearbeiten";
     t[13626] = "SettingsDialog.Tabs.DefaultFormats";
     t[13627] = "Vorgabedateiformate beim Speichern";
     t[13636] = "Animation.Icon.Attach";
@@ -6004,12 +6008,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14001] = "Es wurde kein Schl\u00fcssel angegeben.";
     t[14010] = "Simulation.Log.EndOfSimulation.LastClientStillInSystem";
     t[14011] = "Eigentlich sollte die Simulation schon lange zu Ende sein. Aber der als End-Kunde markierte Kunde hat das System immer noch nicht verlassen. Daher wird die Erstellung weiterer Kunden eingestellt, um die Simulation auf diese Weise zu beenden.";
+  }
+  static void clinit_part_3 (java.lang.String[] t) {
     t[14034] = "Surface.PopupMenu.QuickFix.Analog.SetInitialValue";
     t[14035] = "Initialwert auf %s stellen";
     t[14036] = "Dialog.InvalidFile.Title";
     t[14037] = "Ung\u00fcltige Datei";
-  }
-  static void clinit_part_3 (java.lang.String[] t) {
     t[14038] = "Surface.Counter.Dialog.GroupName";
     t[14039] = "Name der Z\u00e4hlergruppe";
     t[14044] = "Statistic.Viewer.Toolbar.Copy.Hint";
@@ -6384,6 +6388,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14867] = "Zeit";
     t[14872] = "Statistics.MinimumUserTime";
     t[14873] = "Minimale Zeit";
+    t[14878] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DensityInfo";
+    t[14879] = "<p>Berechnet den Wert der Dichte der Pert-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der h\u00f6chsten Wahrscheinlichkeitsdichte gem\u00e4\u00df dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>";
     t[14894] = "Surface.AnimationPieChart.XML.Root";
     t[14895] = "ModellElementAnimationTortenDiagramm";
     t[14896] = "Statistic.FastAccess.Template.Format";
@@ -8004,14 +8010,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18655] = "Glaskolben";
     t[18658] = "Main.Menu.Edit.AutoConnect";
     t[18659] = "Neue Elemente automatisch verbinden";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18660] = "Surface.TankFlowPanel.Destination";
     t[18661] = "Ziel";
     t[18674] = "Surface.XML.Resource.FailureByWorkingTime";
     t[18675] = "AusfallNachGearbeiteterZeit";
     t[18682] = "Compare.Error.ModelError.CannotKeep";
     t[18683] = "Das aktuelle Modell ist fehlerhaft und kann nicht simuliert werden. Daher kann es nicht f\u00fcr Vergleiche mit sp\u00e4teren Modellen festgehalten werden.";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18686] = "Statistics.AnalogValue.Flow.Stop.Done";
     t[18687] = "beendet";
     t[18688] = "Color.FFFAF0";
@@ -10006,14 +10012,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23325] = "Anteil an Kunden";
     t[23326] = "Surface.Resource.Header.Type";
     t[23327] = "Bedienertyp";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23328] = "Statistic.Viewer.Report.SaveHTMLImages";
     t[23329] = "Bitte w\u00e4hlen Sie aus, wie Bilder in der Zusammenfassung gespeichert werden sollen";
     t[23336] = "Statistics.ClientsAt";
     t[23337] = "Kunden an";
     t[23338] = "SimulationServer.Status.Web";
     t[23339] = "Fernsteuerung";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23340] = "ExpressionBuilder.ClientsAtQueue.Median";
     t[23341] = "<p>Liefert den Median der Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[23342] = "Dialog.Button.Copy.InfoImage";
@@ -10360,8 +10366,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24071] = "Keine konstante Anzahl an Bedienern.";
     t[24072] = "Animation.Icon.BallBlue";
     t[24073] = "Kreis - Blau";
-    t[24074] = "Surface.AnalogAssign.Dialog.Columns.Edit";
-    t[24075] = "Bearbeiten";
+    t[24074] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo";
+    t[24075] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Pert-Verteilung mit den Parametern [a;c] und dem Wert b mit der h\u00f6chsten Wahrscheinlichkeitsdichte gem\u00e4\u00df dem ersten (a), dem zweiten (b) und dem dritten (c) Parameter.</p>";
     t[24076] = "Main.Menu.Edit.SelectAll.Mnemonic";
     t[24077] = "S";
     t[24082] = "ModelDescription.Decide.StringProperty";
@@ -11360,6 +11366,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26449] = "Bisherige Beschreibung ersetzen";
     t[26454] = "PathEditor.ResetAll.ConfirmInfoYes";
     t[26455] = "Verbindungen l\u00f6schen.";
+    t[26462] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution";
+    t[26463] = "Pert-Verteilung";
     t[26464] = "Surface.CounterMulti.Table.Heading.Condition.Add";
     t[26465] = "Bedingung/Z\u00e4hler hinzuf\u00fcgen";
     t[26466] = "Surface.AnimationBar.Dialog.Expression.Error.Title";
@@ -12006,6 +12014,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27945] = "Am Dateiende";
     t[27948] = "Statistics.XML.Element.UtilizationTransporterType";
     t[27949] = "StatistikTransporter";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27954] = "Optimizer.Error.NoVariableNameForControlVariables";
     t[27955] = "F\u00fcr die %d. Kontrollvariable wurde keine globale Variable angegeben.";
     t[27956] = "Surface.Action.Dialog.Info.Signal";
@@ -12014,8 +12024,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27959] = "Kein Kundentypname";
     t[27964] = "ModelDescription.Set.ProcessTime";
     t[27965] = "Bedienzeit";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27966] = "Optimizer.XML.GlobalMode";
     t[27967] = "Typ";
     t[27984] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Number";
@@ -13054,6 +13062,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30453] = "ModellElementBatch";
     t[30456] = "Optimizer.Tab.Target.Value.Range.InvalidRange.LowerBoundInteger";
     t[30457] = "Der angegebene Wert f\u00fcr die untere Grenze des Zielbereichs ist ung\u00fcltig. Es muss eine ganze Zahl angegeben werden.";
+    t[30458] = "Distribution.Pert";
+    t[30459] = "Pert-Verteilung";
     t[30470] = "Compare.ReplaceKeptModel.Title";
     t[30471] = "Festgehaltenes Modell ersetzen";
     t[30472] = "Surface.Database.TestDialog.Info.Connection";
@@ -14006,6 +14016,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32677] = "Rechtsb\u00fcndig";
     t[32682] = "Surface.Source.Dialog.ClientTypeSettings";
     t[32683] = "Kundentypeigenschaften bearbeiten";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32684] = "ParameterCompare.XML.Inputs.Data.Mode";
     t[32685] = "Modus";
     t[32686] = "JDistributionEditor.Save.Graphics";
@@ -14016,8 +14028,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32693] = "ModellElementFlussSignalName";
     t[32694] = "Surface.Rectangle.Dialog.Rounding";
     t[32695] = "Ecken abrunden";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32696] = "Animation.Toolbar.Stop.Info";
     t[32697] = "Beendet die Animation";
     t[32704] = "ParameterCompare.XML.Outputs.Data.IsScript";
@@ -16008,6 +16018,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37341] = "Soll die Kundenquelle \"%s\" wirklich gel\u00f6scht werden?";
     t[37342] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.CoefficientOfVariationOfTheTime";
     t[37343] = "<p>Liefert den Variationskoeffizienten \u00fcber alle Wartezeiten aller Kunden.</p>";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37344] = "Main.Menu.File";
     t[37345] = "Datei";
     t[37346] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingSumAll.Info";
@@ -16018,8 +16030,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37359] = "Keine Internet-Verbindung m\u00f6glich";
     t[37372] = "Surface.Release.XML.TimeBase";
     t[37373] = "Zeitbasis";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37374] = "Transporter.Group.Edit.Dialog.Failure.Number";
     t[37375] = "Ausfall nach Anzahl bedienter Kunden; Anzahl:";
     t[37376] = "FindElementDirect.Option";

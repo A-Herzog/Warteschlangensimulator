@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-06 15:39+0200\n"
+"POT-Creation-Date: 2020-06-06 18:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2129,6 +2129,9 @@ msgstr "Normalverteilung"
 msgid "Distribution.Pareto"
 msgstr "Pareto-Verteilung"
 
+msgid "Distribution.Pert"
+msgstr "Pert-Verteilung"
+
 msgid "Distribution.Point"
 msgstr "Ein-Punkt-Verteilung"
 
@@ -4063,6 +4066,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Pareto-Verteilung an d
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ParetoDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Pareto-Verteilung mit den Parametern gemäß dem ersten (Skalierung) und zweiten (Form) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution"
+msgstr "Pert-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Pert-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der höchsten Wahrscheinlichkeitsdichte gemäß dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Pert-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der höchsten Wahrscheinlichkeitsdichte gemäß dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Pert-Verteilung mit den Parametern [a;c] und dem Wert b mit der höchsten Wahrscheinlichkeitsdichte gemäß dem ersten (a), dem zweiten (b) und dem dritten (c) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PowerDistribution"
 msgstr "Potenzverteilung"

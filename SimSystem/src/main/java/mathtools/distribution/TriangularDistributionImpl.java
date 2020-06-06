@@ -51,7 +51,7 @@ public final class TriangularDistributionImpl extends AbstractRealDistribution i
 	/**
 	 * Konstruktor der Klasse
 	 * @param lowerBound	Untere Grenze des Trägers
-	 * @param mostLikely	x-Wert des Hochpunkts des Dreiecks
+	 * @param mostLikely	x-Wert des Hochpunkt des Dreiecks
 	 * @param upperBound	Obere Grenze des Trägers
 	 */
 	public TriangularDistributionImpl(final double lowerBound, final double mostLikely, final double upperBound) {
@@ -100,7 +100,7 @@ public final class TriangularDistributionImpl extends AbstractRealDistribution i
 	}
 
 	@Override
-	public final double inverseCumulativeProbability(final double p) {
+	public double inverseCumulativeProbability(final double p) {
 		if (p<0) return -Double.MAX_VALUE;
 		if (p>1) return Double.MAX_VALUE;
 
@@ -116,7 +116,7 @@ public final class TriangularDistributionImpl extends AbstractRealDistribution i
 	}
 
 	@Override
-	public final TriangularDistributionImpl clone() {
+	public TriangularDistributionImpl clone() {
 		return new TriangularDistributionImpl(lowerBound,mostLikelyX,upperBound);
 	}
 
@@ -172,7 +172,7 @@ public final class TriangularDistributionImpl extends AbstractRealDistribution i
 	}
 
 	@Override
-	public final double random(final RandomGenerator generator) {
+	public double random(final RandomGenerator generator) {
 		return inverseCumulativeProbability(generator.nextDouble());
 	}
 }

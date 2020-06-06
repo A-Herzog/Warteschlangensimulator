@@ -48,6 +48,7 @@ import parser.symbols.CalcSymbolDistributionLogNormal;
 import parser.symbols.CalcSymbolDistributionLogistic;
 import parser.symbols.CalcSymbolDistributionNormal;
 import parser.symbols.CalcSymbolDistributionPareto;
+import parser.symbols.CalcSymbolDistributionPert;
 import parser.symbols.CalcSymbolDistributionPower;
 import parser.symbols.CalcSymbolDistributionRayleigh;
 import parser.symbols.CalcSymbolDistributionTriangular;
@@ -195,6 +196,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionF());
 			addSymbol(new CalcSymbolDistributionJohnsonSU());
 			addSymbol(new CalcSymbolDistributionTriangular());
+			addSymbol(new CalcSymbolDistributionPert());
 			addSymbol(new CalcSymbolDistributionLaplace());
 			addSymbol(new CalcSymbolDistributionPareto());
 			addSymbol(new CalcSymbolDistributionLogistic());

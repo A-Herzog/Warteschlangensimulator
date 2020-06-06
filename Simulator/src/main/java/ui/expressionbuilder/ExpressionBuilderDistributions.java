@@ -202,6 +202,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.TriangularDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.TriangularDistribution.RandomNumberInfo"));
 
+		/* Pert-Verteilung */
+
+		addDist(group,filterUpper,"PertDist","lower;mostLikely;upper",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PertDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PertDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PertDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo"));
+
 		/* Laplace-Verteilung */
 
 		addDist(group,filterUpper,"LaplaceDist","mu;b",
