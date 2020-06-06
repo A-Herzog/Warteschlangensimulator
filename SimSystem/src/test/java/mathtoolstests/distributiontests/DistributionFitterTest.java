@@ -22,11 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.junit.jupiter.api.Test;
 
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.LogNormalDistributionImpl;
+import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.tools.DistributionFitter;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperLogNormalDistribution;
@@ -223,7 +225,8 @@ public class DistributionFitterTest {
 		assertNotNull(fitter.getResultList());
 		assertNotNull(fitter.getResultListDist());
 		assertNotNull(fitter.getResultListError());
-		assertNotNull(fitter.getFitDistribution());
-		assertTrue(fitter.getFitDistribution() instanceof NormalDistribution);
+		final AbstractRealDistribution dist=fitter.getFitDistribution();
+		assertNotNull(dist);
+		assertTrue((dist instanceof NormalDistribution) || (dist instanceof PertDistributionImpl));
 	}
 }

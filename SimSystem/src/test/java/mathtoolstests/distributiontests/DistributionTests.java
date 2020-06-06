@@ -45,6 +45,7 @@ import mathtools.distribution.LogisticDistributionImpl;
 import mathtools.distribution.NeverDistributionImpl;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.ParetoDistributionImpl;
+import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.PowerDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
@@ -681,6 +682,67 @@ public class DistributionTests {
 
 		testDistributionTools(triangular);
 		testDistributionParameters(triangular,new double[] {2,5,10});
+	}
+
+	/**
+	 * Test: Dreiecksverteilung
+	 * @see PertDistributionImpl
+	 */
+	@Test
+	void testPertDistribution() {
+		PertDistributionImpl pert;
+
+		pert=new PertDistributionImpl(2,5,10);
+		assertEquals(2,pert.lowerBound);
+		assertEquals(10,pert.upperBound);
+		assertEquals(5,pert.mostLikely);
+		assertEquals(0,pert.density(1));
+		assertEquals(0,pert.density(11));
+		assertTrue(pert.density(4)>0);
+		assertTrue(pert.density(6)>0);
+		assertEquals(0,pert.cumulativeProbability(1));
+		assertEquals(1,pert.cumulativeProbability(11));
+		assertEquals((2+4*5+10)/6.0,pert.getNumericalMean());
+		assertEquals(2,pert.getSupportLowerBound());
+		assertEquals(10,pert.getSupportUpperBound());
+		assertTrue(pert.isSupportLowerBoundInclusive());
+		assertTrue(pert.isSupportUpperBoundInclusive());
+		assertTrue(pert.isSupportConnected());
+
+		pert=pert.clone();
+
+		assertEquals(2,pert.lowerBound);
+		assertEquals(10,pert.upperBound);
+		assertEquals(5,pert.mostLikely);
+		assertEquals(0,pert.density(1));
+		assertEquals(0,pert.density(11));
+		assertEquals(0,pert.cumulativeProbability(1));
+		assertEquals(1,pert.cumulativeProbability(11));
+		assertEquals((2+4*5+10)/6.0,pert.getNumericalMean());
+		assertEquals(2,pert.getSupportLowerBound());
+		assertEquals(10,pert.getSupportUpperBound());
+		assertTrue(pert.isSupportLowerBoundInclusive());
+		assertTrue(pert.isSupportUpperBoundInclusive());
+		assertTrue(pert.isSupportConnected());
+
+		pert=(PertDistributionImpl)DistributionTools.cloneDistribution(pert);
+
+		assertEquals(2,pert.lowerBound);
+		assertEquals(10,pert.upperBound);
+		assertEquals(5,pert.mostLikely);
+		assertEquals(0,pert.density(1));
+		assertEquals(0,pert.density(11));
+		assertEquals(0,pert.cumulativeProbability(1));
+		assertEquals(1,pert.cumulativeProbability(11));
+		assertEquals((2+4*5+10)/6.0,pert.getNumericalMean());
+		assertEquals(2,pert.getSupportLowerBound());
+		assertEquals(10,pert.getSupportUpperBound());
+		assertTrue(pert.isSupportLowerBoundInclusive());
+		assertTrue(pert.isSupportUpperBoundInclusive());
+		assertTrue(pert.isSupportConnected());
+
+		testDistributionTools(pert);
+		testDistributionParameters(pert,new double[] {2,5,10});
 	}
 
 	/**
