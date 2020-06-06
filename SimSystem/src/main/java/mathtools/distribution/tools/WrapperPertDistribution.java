@@ -41,7 +41,7 @@ public class WrapperPertDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected String getThumbnailImageName() {
-		return "pert.png"; // FIXME Bild
+		return "pert.png";
 	}
 
 	@Override
