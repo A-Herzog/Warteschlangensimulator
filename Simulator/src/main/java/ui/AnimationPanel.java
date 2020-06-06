@@ -673,16 +673,25 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			double d=(delaySystem>0)?(0.04/delaySystem):0.2;
 			d=FastMath.max(d,0.1);
 
-			if (timeStepDelay>10) timeStepDelay=(int)Math.pow(timeStepDelay,1.2);
-
-			long delayMS=FastMath.round(d*timeStepDelay*seconds);
-
-			int steps=(int)FastMath.round(delayMS/50.0);
-			if (steps<1) steps=1;
-			if (steps>40) steps=40;
-			delayMS=FastMath.min(FastMath.round(FastMath.sqrt(100.0*delayMS/steps)/100),500);
-			if (timeStepDelay>10) delayMS=FastMath.max(delay,timeStepDelay/2);
-			if (delayMS>0) delayMS=FastMath.max(delayMS,10);
+			int steps;
+			long delayMS;
+			if (delay>100) {
+				delayMS=100;
+				steps=(int)Math.round(seconds*10);
+				if (steps<1) {
+					steps=1;
+					delayMS=Math.round(seconds*1000);
+				}
+			} else {
+				if (timeStepDelay>10) timeStepDelay=(int)Math.pow(timeStepDelay,1.2);
+				delayMS=FastMath.round(d*timeStepDelay*seconds);
+				steps=(int)FastMath.round(delayMS/50.0);
+				if (steps<1) steps=1;
+				if (steps>40) steps=40;
+				delayMS=FastMath.min(FastMath.round(FastMath.sqrt(100.0*delayMS/steps)/100),500);
+				if (timeStepDelay>10) delayMS=FastMath.max(delay,timeStepDelay/2);
+				if (delayMS>0) delayMS=FastMath.max(delayMS,10);
+			}
 
 			final long save_currentTime=simData.currentTime;
 			for (int i=1;i<=steps;i++) {
@@ -894,21 +903,22 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private void animationSpeedPopup() {
 		final JPopupMenu popup=new JPopupMenu();
 
-		final JSlider slider=new JSlider(SwingConstants.VERTICAL,0,10,5);
+		final JSlider slider=new JSlider(SwingConstants.VERTICAL,0,11,6);
 		slider.setMinorTickSpacing(1);
 		slider.setPaintTicks(true);
 		final Dictionary<Integer,JComponent> labels=new Hashtable<>();
-		labels.put(10,new JLabel(Language.tr("Animation.Toolbar.Speed.Maximal")));
-		labels.put(9, new JLabel(Language.tr("Animation.Toolbar.Speed.Fast")));
-		labels.put(6,new JLabel(Language.tr("Animation.Toolbar.Speed.Normal")));
-		labels.put(0,new JLabel(Language.tr("Animation.Toolbar.Speed.Slow")));
+		labels.put(11,new JLabel(Language.tr("Animation.Toolbar.Speed.Maximal")));
+		labels.put(10, new JLabel(Language.tr("Animation.Toolbar.Speed.Fast")));
+		labels.put(7,new JLabel(Language.tr("Animation.Toolbar.Speed.Normal")));
+		labels.put(1,new JLabel(Language.tr("Animation.Toolbar.Speed.Slow")));
+		labels.put(0,new JLabel(Language.tr("Animation.Toolbar.Speed.RealTime")));
 		slider.setLabelTable(labels);
 		slider.setPaintLabels(true);
-		slider.setValue(FastMath.min(10,FastMath.max(0,10-delay/10)));
+		slider.setValue(FastMath.min(11,FastMath.max(0,11-delay/10)));
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				delay=(10-slider.getValue())*10;
+				delay=(11-slider.getValue())*10;
 				delayInt=delay;
 				animationDelayChanged();
 			}

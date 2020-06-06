@@ -16328,6 +16328,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38079] = "Process time";
     t[38084] = "Surface.AnimationLCD.Tooltip";
     t[38085] = "Shows a value by using one ore more digits of a 7 segment LCD display.";
+    t[38086] = "Animation.Toolbar.Speed.RealTime";
+    t[38087] = "Real time (1:1)";
     t[38090] = "Simulation.Element.StateStatistics.Name";
     t[38091] = "State statistics";
     t[38092] = "Window.Info.NoInternetConnection.ModelOverview";
