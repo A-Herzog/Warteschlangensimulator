@@ -15,34 +15,45 @@
  */
 package parser.symbols;
 
-import mathtools.Functions;
+import org.apache.commons.math3.util.CombinatoricsUtils;
+import org.apache.commons.math3.util.FastMath;
+
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
- * Fakultätsfunktion
+ * Binomialkoeffizient
  * @author Alexander Herzog
- * @see CalcSymbolPostOperatorFactorial
  */
-public final class CalcSymbolPreOperatorFactorial extends CalcSymbolPreOperator {
+public class CalcSymbolPreOperatorBinomial extends CalcSymbolPreOperator {
 	@Override
 	public String[] getNames() {
-		return new String[]{"factorial","fact","fakultät"};
+		return new String[]{"binom","binomial","binomialkoeffizient","binomialcoefficient"};
 	}
 
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
-		if (parameters.length!=1) throw error();
-		double signum=Math.signum(parameters[0]);
-		if (signum==0.0) signum=1;
-		return Math.round(signum*Functions.getFactorial((int)Math.round(Math.abs(parameters[0]))));
+		if (parameters.length!=2) throw error();
+
+		try {
+			final int n=(int)FastMath.round(parameters[0]);
+			final int k=(int)FastMath.round(parameters[1]);
+			return CombinatoricsUtils.binomialCoefficient(n,k);
+		} catch (Exception e) {
+			throw error();
+		}
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
-		if (parameters.length!=1) return fallbackValue;
-		double signum=Math.signum(parameters[0]);
-		if (signum==0.0) signum=1;
-		return Math.round(signum*Functions.getFactorial((int)Math.round(Math.abs(parameters[0]))));
+		if (parameters.length!=2) return fallbackValue;
+
+		try {
+			final int n=(int)FastMath.round(parameters[0]);
+			final int k=(int)FastMath.round(parameters[1]);
+			return CombinatoricsUtils.binomialCoefficient(n,k);
+		} catch (Exception e) {
+			return fallbackValue;
+		}
 	}
 }

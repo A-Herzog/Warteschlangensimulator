@@ -77,6 +77,29 @@ public class ExpressionBuilderDistributions {
 		if (sub.getChildCount()>0) group.add(sub);
 	}
 
+	private static void addDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langPDF, final String langRND) {
+		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
+		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
+		final String value=Language.tr("ExpressionBuilder.Value");
+
+		final DefaultMutableTreeNode sub=new DefaultMutableTreeNode(langName);
+
+		addTreeNode(
+				sub,
+				filterUpper,
+				langName+", "+pdf+" ("+name+")",
+				name+"("+value+";"+param+";0)",
+				langPDF);
+		addTreeNode(
+				sub,
+				filterUpper,
+				langName+", "+rnd+" ("+name+")",
+				name+"("+param+")",
+				langRND);
+
+		if (sub.getChildCount()>0) group.add(sub);
+	}
+
 	/**
 	 * Fügt die Rechensymbole in die Baumstruktur eines {@link ExpressionBuilder}-Objektes ein.
 	 * @param root	Wurzelelement der Baumstruktur
@@ -89,6 +112,27 @@ public class ExpressionBuilderDistributions {
 		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
 
 		final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions"));
+
+		/* Hypergeometrische Verteilung */
+
+		addDist(group,filterUpper,"HypergeometricDist","N;K;n",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.RandomNumberInfo"));
+
+		/* Binomial-Verteilung */
+
+		addDist(group,filterUpper,"BinomialDist","n;p",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.RandomNumberInfo"));
+
+		/* Poisson-Verteilung */
+
+		addDist(group,filterUpper,"PoissonDist","l",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PoissonDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.RandomNumberInfo"));
 
 		/* Exponentialverteilung */
 

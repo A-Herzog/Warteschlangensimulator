@@ -15,33 +15,36 @@
 \contentsline {section}{\numberline {7.4}Umkehrfunktionen der hyperbolischen Winkelfunktionen}{15}{section.7.4}% 
 \contentsline {chapter}{\numberline {8}Funktionen mit mehreren Parametern}{17}{chapter.8}% 
 \contentsline {chapter}{\numberline {9}Wahrscheinlichkeitsverteilungen}{19}{chapter.9}% 
-\contentsline {section}{\numberline {9.1}Exponentialverteilung mit Mittelwert $a$}{19}{section.9.1}% 
-\contentsline {section}{\numberline {9.2}Gleichverteilung \IeC {\"u}ber das Intervall $[a;b]$}{19}{section.9.2}% 
-\contentsline {section}{\numberline {9.3}Normalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{19}{section.9.3}% 
-\contentsline {section}{\numberline {9.4}Lognormalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{19}{section.9.4}% 
-\contentsline {section}{\numberline {9.5}Gamma-Verteilung mit Parametern $\alpha =a$ und $\beta =b$}{20}{section.9.5}% 
-\contentsline {section}{\numberline {9.6}Erlang-Verteilung mit Parametern $n$ und $\lambda =l$}{20}{section.9.6}% 
-\contentsline {section}{\numberline {9.7}Beta-Verteilung in dem Intervall $[a;b]$ und mit Parametern $\alpha =c$ und $\beta =d$}{20}{section.9.7}% 
-\contentsline {section}{\numberline {9.8}Weibull-Verteilung mit Parametern Scale=$a$ und Form=$b$}{20}{section.9.8}% 
-\contentsline {section}{\numberline {9.9}Cauchy-Verteilung mit Mittelwert $a$ und Scale=$b$}{20}{section.9.9}% 
-\contentsline {section}{\numberline {9.10}Chi$^2$-Verteilung mit $n$ Freiheitsgraden}{20}{section.9.10}% 
-\contentsline {section}{\numberline {9.11}Chi-Verteilung mit $n$ Freiheitsgraden}{21}{section.9.11}% 
-\contentsline {section}{\numberline {9.12}F-Verteilung mit $a$ Freiheitsgraden im Z\IeC {\"a}hler und $b$ Freiheitsgraden im Nenner}{21}{section.9.12}% 
-\contentsline {section}{\numberline {9.13}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{21}{section.9.13}% 
-\contentsline {section}{\numberline {9.14}Dreiecksverteilung \IeC {\"u}ber $[a;c]$ mit der h\IeC {\"o}chsten Wahrscheinlichkeitsdichte bei $b$}{21}{section.9.14}% 
-\contentsline {section}{\numberline {9.15}Pert-Verteilung \IeC {\"u}ber $[a;c]$ mit der h\IeC {\"o}chsten Wahrscheinlichkeitsdichte bei $b$}{21}{section.9.15}% 
-\contentsline {section}{\numberline {9.16}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{21}{section.9.16}% 
-\contentsline {section}{\numberline {9.17}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{22}{section.9.17}% 
-\contentsline {section}{\numberline {9.18}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{22}{section.9.18}% 
-\contentsline {section}{\numberline {9.19}Inverse Gau\IeC {\ss }-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{22}{section.9.19}% 
-\contentsline {section}{\numberline {9.20}Rayleigh-Verteilung mit Mittelwert $mu$}{22}{section.9.20}% 
-\contentsline {section}{\numberline {9.21}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{22}{section.9.21}% 
-\contentsline {section}{\numberline {9.22}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{22}{section.9.22}% 
-\contentsline {section}{\numberline {9.23}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{23}{section.9.23}% 
-\contentsline {section}{\numberline {9.24}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{23}{section.9.24}% 
-\contentsline {section}{\numberline {9.25}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{23}{section.9.25}% 
-\contentsline {section}{\numberline {9.26}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.9.26}% 
-\contentsline {section}{\numberline {9.27}Verteilung aus empirischen Daten}{23}{section.9.27}% 
+\contentsline {section}{\numberline {9.1}Hypergeometrische Verteilung $Hg(N,K,n)$}{19}{section.9.1}% 
+\contentsline {section}{\numberline {9.2}Binomial-Verteilung $B(n,p)$}{19}{section.9.2}% 
+\contentsline {section}{\numberline {9.3}Poisson-Verteilung $P(l)$}{19}{section.9.3}% 
+\contentsline {section}{\numberline {9.4}Exponentialverteilung mit Mittelwert $a$}{19}{section.9.4}% 
+\contentsline {section}{\numberline {9.5}Gleichverteilung \IeC {\"u}ber das Intervall $[a;b]$}{19}{section.9.5}% 
+\contentsline {section}{\numberline {9.6}Normalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{20}{section.9.6}% 
+\contentsline {section}{\numberline {9.7}Lognormalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{20}{section.9.7}% 
+\contentsline {section}{\numberline {9.8}Gamma-Verteilung mit Parametern $\alpha =a$ und $\beta =b$}{20}{section.9.8}% 
+\contentsline {section}{\numberline {9.9}Erlang-Verteilung mit Parametern $n$ und $\lambda =l$}{20}{section.9.9}% 
+\contentsline {section}{\numberline {9.10}Beta-Verteilung in dem Intervall $[a;b]$ und mit Parametern $\alpha =c$ und $\beta =d$}{20}{section.9.10}% 
+\contentsline {section}{\numberline {9.11}Weibull-Verteilung mit Parametern Scale=$a$ und Form=$b$}{20}{section.9.11}% 
+\contentsline {section}{\numberline {9.12}Cauchy-Verteilung mit Mittelwert $a$ und Scale=$b$}{21}{section.9.12}% 
+\contentsline {section}{\numberline {9.13}Chi$^2$-Verteilung mit $n$ Freiheitsgraden}{21}{section.9.13}% 
+\contentsline {section}{\numberline {9.14}Chi-Verteilung mit $n$ Freiheitsgraden}{21}{section.9.14}% 
+\contentsline {section}{\numberline {9.15}F-Verteilung mit $a$ Freiheitsgraden im Z\IeC {\"a}hler und $b$ Freiheitsgraden im Nenner}{21}{section.9.15}% 
+\contentsline {section}{\numberline {9.16}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{21}{section.9.16}% 
+\contentsline {section}{\numberline {9.17}Dreiecksverteilung \IeC {\"u}ber $[a;c]$ mit der h\IeC {\"o}chsten Wahrscheinlichkeitsdichte bei $b$}{21}{section.9.17}% 
+\contentsline {section}{\numberline {9.18}Pert-Verteilung \IeC {\"u}ber $[a;c]$ mit der h\IeC {\"o}chsten Wahrscheinlichkeitsdichte bei $b$}{22}{section.9.18}% 
+\contentsline {section}{\numberline {9.19}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{22}{section.9.19}% 
+\contentsline {section}{\numberline {9.20}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{22}{section.9.20}% 
+\contentsline {section}{\numberline {9.21}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{22}{section.9.21}% 
+\contentsline {section}{\numberline {9.22}Inverse Gau\IeC {\ss }-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{22}{section.9.22}% 
+\contentsline {section}{\numberline {9.23}Rayleigh-Verteilung mit Mittelwert $mu$}{22}{section.9.23}% 
+\contentsline {section}{\numberline {9.24}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{23}{section.9.24}% 
+\contentsline {section}{\numberline {9.25}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{23}{section.9.25}% 
+\contentsline {section}{\numberline {9.26}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{23}{section.9.26}% 
+\contentsline {section}{\numberline {9.27}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{23}{section.9.27}% 
+\contentsline {section}{\numberline {9.28}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{23}{section.9.28}% 
+\contentsline {section}{\numberline {9.29}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.9.29}% 
+\contentsline {section}{\numberline {9.30}Verteilung aus empirischen Daten}{24}{section.9.30}% 
 \contentsline {chapter}{\numberline {10}Erlang-C-Rechner}{25}{chapter.10}% 
 \contentsline {chapter}{\numberline {11}Allen-Cunneen-Approximationsformel}{27}{chapter.11}% 
 \contentsline {chapter}{\numberline {12}Zugriff auf die Modelleigenschaften}{29}{chapter.12}% 

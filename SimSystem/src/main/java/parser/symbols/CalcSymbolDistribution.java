@@ -64,7 +64,7 @@ public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
 
 	@Override
 	protected final double calc(double[] parameters) throws MathCalcError {
-		int distParameterCount=getParameterCount();
+		final int distParameterCount=getParameterCount();
 
 		/* Zufallszahl */
 		if (parameters.length==distParameterCount) {
@@ -97,7 +97,7 @@ public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
-		int distParameterCount=getParameterCount();
+		final int distParameterCount=getParameterCount();
 
 		/* Zufallszahl */
 		if (parameters.length==distParameterCount) {

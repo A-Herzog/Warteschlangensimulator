@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-06 18:54+0200\n"
+"POT-Creation-Date: 2020-06-07 18:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3684,6 +3684,12 @@ msgstr "Absolutbetrag"
 msgid "ExpressionBuilder.MathematicalFunctions.AbsolutValue.Info"
 msgstr "<p>Berechnet den Absolutbetrag des als Parameter übergebenen Wertes.</p><p>Beispiel: <tt>abs(5)</tt> und <tt>abs(-5)</tt> liefern beide 5.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.Binomial"
+msgstr "Binomialkoeffizient"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Binomial.Info"
+msgstr "<p>Berechnet den Binomialkoeffizient.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Factorial"
 msgstr "Fakultät"
 
@@ -3754,6 +3760,15 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Beta-Verteilung über das Intervall [a;b] mit den Parametern &alpha; und &beta; gemäß dem ersten bis vierten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution"
+msgstr "Binomial-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der Binomial-Verteilung an der als ersten Parameter angegebenen Stelle mit den Verteilungsparametern gemäß den weiteren Funktionsparametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Binomial-Verteilung mit den angegebenen Parametern.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution"
 msgstr "Cauchy-Verteilung"
@@ -3959,6 +3974,15 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der hyperbolischen Sekante
 msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der hyperbolischen Sekanten-Verteilung mit den Parametern &mu; und &sigma; gemäß dem ersten und zweiten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution"
+msgstr "Hypergeometrische Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der Hypergeometrischen Verteilung an der als ersten Parameter angegebenen Stelle mit den Verteilungsparametern gemäß den weiteren Funktionsparametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Hypergeometrischen Verteilung mit den angegebenen Parametern.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"
 msgstr "Inverse Gauß-Verteilung"
 
@@ -4078,6 +4102,15 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Pert-Verteilung an der
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Pert-Verteilung mit den Parametern [a;c] und dem Wert b mit der höchsten Wahrscheinlichkeitsdichte gemäß dem ersten (a), dem zweiten (b) und dem dritten (c) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution"
+msgstr "Poisson-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der Poisson-Verteilung an der als ersten Parameter angegebenen Stelle mit den Verteilungsparametern gemäß den weiteren Funktionsparametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Poisson-Verteilung mit den angegebenen Parametern.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PowerDistribution"
 msgstr "Potenzverteilung"

@@ -118,6 +118,10 @@ Exponential function $e^x$.
 Factorial, for example $4!=1\cdot2\cdot3\cdot4=24$.
 
 \item
+\cmd{binom(n;k)}:
+Binomial coefficient
+
+\item
 \cmd{floor(x)}:
 Round to next smaller integer number, for example \cm{floor(2.9)=2}
 
@@ -311,7 +315,7 @@ Arcus-Cotangent hyperbolicus
 
 
 
-\chapter{Funktionen mit mehreren Parametern}
+\chapter{Functions with multiple parameters}
 
 The following functions can accept any number of parameters.
 The individual parameters have to be specified separately by semicolon ";".
@@ -363,6 +367,54 @@ Calculates the coefficient of variation of the given numbers.
 By using the following commands both values of the density and the cumulative distribution function
 of the following probability distributions can be calculated as well as random numbers are based on
 one of these probability distributions:
+
+
+
+\section{Hypergeometric distribution \texorpdfstring{$Hg(N,K,n)$}{Hg(N,K,n)}}
+
+\begin{itemize}
+
+\item
+\cmd{HypergeometricDist(k;N;K;n)}:
+Calculates the counting probability density at $k$.
+
+\item
+\cmd{HypergeometricDist(N;K;n)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Binomial distribution \texorpdfstring{$B(n,p)$}{B(n,p)}}
+
+\begin{itemize}
+
+\item
+\cmd{BinomialDist(k;n;p)}:
+Calculates the counting probability density at $k$.
+
+\item
+\cmd{BinomialDist(n;p)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Poisson distribution \texorpdfstring{$P(l)$}{P(l)}}
+
+\begin{itemize}
+
+\item
+\cmd{PoissonDist(k;l)}:
+Calculates the counting probability density at $k$.
+
+\item
+\cmd{PoissonDist(l)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
 
 
 

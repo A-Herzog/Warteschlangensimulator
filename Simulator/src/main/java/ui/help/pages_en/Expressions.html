@@ -99,7 +99,8 @@ The following expressions can be written directly behind a number:
   <tr><td>abs(x)</td><td>Absolute value, abs(-5)=5</td></tr>
   <tr><td>ceil(x)</td><td>Round to next bigger integer number, ceil(2.1)=3</td></tr>
   <tr><td>exp(x)</td><td>Exponential function e<sup>x</sup></td></tr>
-  <tr><td>factorial(x)</td><td>Factorial, 4!=1*2*3*4=24</td></tr>  
+  <tr><td>factorial(x)</td><td>Factorial, 4!=1*2*3*4=24</td></tr>
+  <tr><td>binom(n;k)</td><td>Binomial coefficient</td></tr>  
   <tr><td>floor(x)</td><td>Round to next smaller integer number, floor(2.9)=2</td></tr>
   <tr><td>frac(x)</td><td>Fraction part, frac(1.3)=0.3</td></tr>
   <tr><td>gamma(x)</td><td>Gamma function, gamma(5)=4!=24</td></tr>
@@ -176,6 +177,18 @@ one of these probability distributions:
 </p>
 
 <table class="border">
+  <tr><td colspan="2"><b>Hypergeometric distribution <tt>Hg(N,K,n)</tt></b></td></tr>
+  <tr><td>HypergeometricDist(k;N;K;n)</td><td>Calculates the counting probability density at k</td></tr>
+  <tr><td>HypergeometricDist(N;K;n)</td><td>Generates a random number based on this distribution</td></tr>
+  
+  <tr><td colspan="2"><b>Binomial distribution <tt>B(n,p)</tt></b></td></tr>
+  <tr><td>BinomialDist(k;n;p)</td><td>Calculates the counting probability density at k</td></tr>
+  <tr><td>BinomialDist(n;p)</td><td>Generates a random number based on this distribution</td></tr>
+  
+  <tr><td colspan="2"><b>Poisson distribution <tt>P(l)</tt></b></td></tr>
+  <tr><td>PoissonDist(k;l)</td><td>Calculates the counting probability density at k</td></tr>
+  <tr><td>PoissonDist(l)</td><td>Generates a random number based on this distribution</td></tr>
+
   <tr><td colspan="2"><b>Exponential distribution with mean a</b></td></tr>
   <tr><td>ExpDist(x;a;0)</td><td>Calculates the probability density at x</td></tr>
   <tr><td>ExpDist(x;a;1)</td><td>Calculates the cumulative distribution function at x</td></tr>

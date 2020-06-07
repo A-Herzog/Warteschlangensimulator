@@ -29,6 +29,9 @@ import parser.coresymbols.CalcSymbolPreOperator;
 import parser.coresymbols.CalcSymbolVariable;
 import parser.symbols.CalcSymbolConstE;
 import parser.symbols.CalcSymbolConstPi;
+import parser.symbols.CalcSymbolDiscreteDistributionBinomial;
+import parser.symbols.CalcSymbolDiscreteDistributionHyperGeom;
+import parser.symbols.CalcSymbolDiscreteDistributionPoisson;
 import parser.symbols.CalcSymbolDistributionBeta;
 import parser.symbols.CalcSymbolDistributionCauchy;
 import parser.symbols.CalcSymbolDistributionChi;
@@ -83,6 +86,7 @@ import parser.symbols.CalcSymbolPreOperatorArcSin;
 import parser.symbols.CalcSymbolPreOperatorArcSinh;
 import parser.symbols.CalcSymbolPreOperatorArcTan;
 import parser.symbols.CalcSymbolPreOperatorArcTanh;
+import parser.symbols.CalcSymbolPreOperatorBinomial;
 import parser.symbols.CalcSymbolPreOperatorCV;
 import parser.symbols.CalcSymbolPreOperatorCeil;
 import parser.symbols.CalcSymbolPreOperatorCos;
@@ -183,6 +187,10 @@ public class CalcSymbolList {
 		try {
 			if (!listConst.isEmpty()) return;
 
+			addSymbol(new CalcSymbolDiscreteDistributionHyperGeom());
+			addSymbol(new CalcSymbolDiscreteDistributionBinomial());
+			addSymbol(new CalcSymbolDiscreteDistributionPoisson());
+
 			addSymbol(new CalcSymbolDistributionExp());
 			addSymbol(new CalcSymbolDistributionUniform());
 			addSymbol(new CalcSymbolDistributionNormal());
@@ -252,6 +260,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorFloor());
 			addSymbol(new CalcSymbolPreOperatorCeil());
 			addSymbol(new CalcSymbolPreOperatorFactorial());
+			addSymbol(new CalcSymbolPreOperatorBinomial());
 			addSymbol(new CalcSymbolPreOperatorRandom());
 			addSymbol(new CalcSymbolPreOperatorSum());
 			addSymbol(new CalcSymbolPreOperatorMean());

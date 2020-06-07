@@ -100,6 +100,7 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.IntegerPart")+" (int)","int("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.FractionPart")+" (frac)","frac("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.FractionPart.info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Factorial")+" (!)","!",Language.tr("ExpressionBuilder.MathematicalFunctions.Factorial.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Binomial")+" (binom)","binom(n;k)",Language.tr("ExpressionBuilder.MathematicalFunctions.Binomial.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction")+" (gamma)","gamma("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Random")+" (random)","random()",Language.tr("ExpressionBuilder.MathematicalFunctions.Random.Info"));
 

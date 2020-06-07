@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-06 18:54+0200\n"
+"POT-Creation-Date: 2020-06-07 18:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3687,11 +3687,17 @@ msgstr "Absolut value"
 msgid "ExpressionBuilder.MathematicalFunctions.AbsolutValue.Info"
 msgstr "<p>Calculates the absolute value of the parameter passed as parameter.</p> <p>Example: <tt>abs(5)</tt> and <tt>abs(-5)</tt> will both return 5.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.Binomial"
+msgstr "Binomial coefficient"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Binomial.Info"
+msgstr "<p>Calculates the binomial coefficient.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Factorial"
 msgstr "Factorial"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Factorial.Info"
-msgstr "<p>Calculates the factorial of the value preceding the ! sign.</p> <p>Example: <tt>6!</tt> returns 720. </p>"
+msgstr "<p>Calculates the factorial of the value preceding the ! sign.</p> <p>Example: <tt>6!</tt> returns 720.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.FractionPart"
 msgstr "Fraction part"
@@ -3757,6 +3763,15 @@ msgstr "<p>Calculates the value of the distribution function of the beta distrib
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the beta distribution over the interval [a;b] with the parameters &alpha; and &beta; according to the first to fourth parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution"
+msgstr "Binomial distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the Binomial distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Binomial distribution with the given parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution"
 msgstr "Cauchy distribution"
@@ -3962,6 +3977,15 @@ msgstr "<p>Calculates the value of the distribution function of the hyperbolic s
 msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberInfo"
 msgstr "<p>Calculates the value of the desity of the hyperbolic secant distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution"
+msgstr "Hypergeometric distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the Hypergeometrical distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Hypergeometric distribution with the given parameters.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"
 msgstr "Inverse gaussian distribution"
 
@@ -4081,6 +4105,15 @@ msgstr "<p>Calculates the value of the distribution function of the Pert distrib
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Pert distribution with the parameters [a;c] and most likely value b according to the first (a), second (b) and third (c) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution"
+msgstr "Poisson distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the Poisson distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Poisson distribution with the given parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PowerDistribution"
 msgstr "Power distribution"
