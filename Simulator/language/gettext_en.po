@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-07 18:54+0200\n"
+"POT-Creation-Date: 2020-06-09 18:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3785,6 +3785,11 @@ msgstr "<p>Calculates the value of the distribution function of the Cauchy distr
 msgid "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Cauchy distribution with mean and shape parameters according to the first and second parameters.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Cauchy distribution with mean and shape parameters according to the third and forth parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.ChiDistribution"
 msgstr "Chi distribution"
 
@@ -3797,6 +3802,11 @@ msgstr "<p>Calculates the value of the distribution function of the Chi distribu
 msgid "ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Chi distribution with the number of degrees of freedom according to the parameter.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Chi distribution with the number of degrees of freedom according to the third parameter.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution"
 msgstr "Chi^2 distribution"
 
@@ -3808,6 +3818,11 @@ msgstr "<p>Calculates the value of the distribution function of the Chi<sup>2</s
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Chi<sup>2</sup> distribution with the number of degrees of freedom according to the parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Chi<sup>2</sup> distribution with the number of degrees of freedom according to third parameter.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.Density"
 msgstr "density"
@@ -3881,6 +3896,11 @@ msgstr ""
 "<p>Generates a random number according to the Erlang distribution with the parameters n and &lambda; according to the first and second parameters.</p>\n"
 "<p>Example: <tt>ErlangDist(5;3)</tt>.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Erlang distribution with the parameters n and &lambda; according to the third and fourth parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution"
 msgstr "Exponential distribution"
 
@@ -3899,6 +3919,11 @@ msgstr ""
 "<p>Generates a random number according to the exponential distribution with the distribution parameter &lambda; according to the reciprocal of the parameter.</p>\n"
 "<p>Example: <tt>ExpDist(2)</tt>.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the exponential distribution with the distribution parameter &lambda; according to the reciprocal of the third parameter.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.FDistribution"
 msgstr "F distribution"
 
@@ -3911,6 +3936,11 @@ msgstr "<p>Calculates the value of the distribution function of the F distributi
 msgid "ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the F distribution with the parameters according to the first and second parameters.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the F distribution with the parameters according to the third and fourth parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution"
 msgstr "Fatigue life distribution"
 
@@ -3921,7 +3951,12 @@ msgid "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.Distri
 msgstr "<p>Calculates the value of the distribution function of the Fatigue life distribution at the location specified as the first parameter with location parameter, scale parameter and form parameter as second to fourth parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberInfo"
-msgstr "<p>Generates a random number according to the Fatigue life distribution with location parameter, scale parameter and form parameter as firth to third parameter.</p>"
+msgstr "<p>Generates a random number according to the Fatigue life distribution with location parameter, scale parameter and form parameter as first to third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Fatigue life distribution with location parameter, scale parameter and form parameter as third to fiveth parameter.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution"
 msgstr "Frechet distribution"
@@ -3933,7 +3968,12 @@ msgid "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.Distributi
 msgstr "<p>Calculates the value of the distribution function of the Frechet distribution at the location specified as the first parameter with location parameter, scale parameter and form parameter as second to fourth parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberInfo"
-msgstr "<p>Generates a random number according to the Frechet distribution with location parameter, scale parameter and form parameter as firth to third parameter.</p>"
+msgstr "<p>Generates a random number according to the Frechet distribution with location parameter, scale parameter and form parameter as first to third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Frechet distribution with location parameter, scale parameter and form parameter as third to fiveth parameter.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution"
 msgstr "Gamma distribution"
@@ -3953,6 +3993,11 @@ msgstr ""
 "<p>Generates a random number according to the gamma distribution with the parameters &alpha; and &beta; according to the first and second parameters.</p>\n"
 "<p>Example: <tt>GammaDist(5;3)</tt>.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the gamma distribution with the parameters &alpha; and &beta; according to the third and fourth parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution"
 msgstr "Gumbel distribution"
 
@@ -3965,6 +4010,11 @@ msgstr "<p>Calculates the value of the distribution function of the Gumbel distr
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Gumbel distribution with the expected value and the standard deviation defined by parameters one and two.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Gumbel distribution with the expected value and the standard deviation defined by parameters three and four.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution"
 msgstr "Hyperbolic secant distribution"
 
@@ -3976,6 +4026,11 @@ msgstr "<p>Calculates the value of the distribution function of the hyperbolic s
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberInfo"
 msgstr "<p>Calculates the value of the desity of the hyperbolic secant distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Calculates the value of the desity of the hyperbolic secant distribution at the location specified as the third parameter with the parameters &mu; and &sigma; according to the fourth and fiveth parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution"
 msgstr "Hypergeometric distribution"
@@ -3998,6 +4053,11 @@ msgstr "<p>Calculates the value of the distribution function of the inverse gaus
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the inverse gaussian distribution with the parameters according to the first (lambda) and second (mu; mean) parameters.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the inverse gaussian distribution with the parameters according to the third (lambda) and fourth (mu; mean) parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution"
 msgstr "Johnson SU distribution"
 
@@ -4009,6 +4069,11 @@ msgstr "<p>Calculates the value of the distribution function of the Johnson SU d
 
 msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Johnson SU distribution with the parameters &gamma;, &xi;, &delta; and &lambda; according to the first to fourth parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Johnson SU distribution with the parameters &gamma;, &xi;, &delta; and &lambda; according to the third to sixth parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution"
 msgstr "Laplace distribution"
@@ -4022,6 +4087,11 @@ msgstr "<p>Calculates the value of the distribution function of the Laplace dist
 msgid "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Laplace distribution with the parameters according to the first (mean) and second (scale) parameters.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Laplace distribution with the parameters according to the third (mean) and fourth (scale) parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-logistic distribution"
 
@@ -4033,6 +4103,11 @@ msgstr "<p>Calculates the value of the distribution function of the log-logistic
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the log-logistic distribution with the parameters according to the first (alpha) and second (beta) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the log-logistic distribution with the parameters according to the third (alpha) and fourth (beta) parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution"
 msgstr "Log-normal distribution"
@@ -4052,6 +4127,11 @@ msgstr ""
 "<p>Generates a random number according to the log-normal distribution with the parameters &mu; and &sigma; according to the first and second parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
 "<p>Example: <tt>LogNormalDist(5;3)</tt>.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the log-normal distribution with the parameters &mu; and &sigma; according to the third and fourth parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution"
 msgstr "Logistic distribution"
 
@@ -4063,6 +4143,11 @@ msgstr "<p>Calculates the value of the distribution function of the Logistic dis
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Logistic distribution with the parameters according to the first (mean) and second (scale) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Logistic distribution with the parameters according to the third (mean) and fourth (scale) parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution"
 msgstr "Normal distribution"
@@ -4081,6 +4166,11 @@ msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumbe
 msgstr ""
 "<p>Generates a random number according to the normal distribution with the parameters &mu; and &sigma; according to the first and second parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
 "<p>Example: <tt>NormalDist(5;3)</tt>.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the normal distribution with the parameters &mu; and &sigma; according to the third and fourth parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ParetoDistribution"
 msgstr "Pareto distribution"
@@ -4130,6 +4220,9 @@ msgstr "<p>Generates a random number according to the power distribution at the 
 msgid "ExpressionBuilder.ProbabilityDistributions.RandomNumber"
 msgstr "random number"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.RandomNumberRange"
+msgstr "random number (truncated)"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution"
 msgstr "Rayleigh distribution"
 
@@ -4141,6 +4234,11 @@ msgstr "<p>Calculates the value of the distribution function of the Rayleigh dis
 
 msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Rayleigh distribution with the parameters according to the (mean) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Rayleigh distribution with the parameters according to the (mean) third parameter.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution"
 msgstr "Triangular distribution"
@@ -4183,6 +4281,11 @@ msgstr "<p>Calculates the value of the distribution function of the Weibull dist
 
 msgid "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Weibull distribution with the scaling and form parameters according to the first and second parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the Weibull distribution with the scaling and form parameters according to the third and fourth parameters.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.Repeats"
 msgstr "Simulation repeats"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-07 18:54+0200\n"
+"POT-Creation-Date: 2020-06-09 18:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3782,6 +3782,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Cauchy-Verteilung an d
 msgid "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Cauchy-Verteilung mit Mittelwert und Form-Parameter gemäß dem ersten und zweiten Parameter.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Cauchy-Verteilung mit Mittelwert und Form-Parameter gemäß dem dritten und vierten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.ChiDistribution"
 msgstr "Chi-Verteilung"
 
@@ -3794,6 +3799,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Chi-Verteilung an der 
 msgid "ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Chi-Verteilung mit der Anzahl an Freiheitsgraden gemäß dem Parameter.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Chi-Verteilung mit der Anzahl an Freiheitsgraden gemäß dritten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution"
 msgstr "Chi^2-Verteilung"
 
@@ -3805,6 +3815,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Chi<sup>2</sup>-Vertei
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Chi<sup>2</sup>-Verteilung mit der Anzahl an Freiheitsgraden gemäß dem Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Chi<sup>2</sup>-Verteilung mit der Anzahl an Freiheitsgraden gemäß dritten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.Density"
 msgstr "Dichte"
@@ -3878,6 +3893,11 @@ msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Erlang-Verteilung mit den Parametern n; und &lambda; gemäß dem ersten und zweiten Parameter.</p>\n"
 "<p>Beispiel: <tt>ErlangDist(5;3)</tt>.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Erlang-Verteilung mit den Parametern n; und &lambda; gemäß dem ditten und vierten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution"
 msgstr "Exponentialverteilung"
 
@@ -3896,6 +3916,11 @@ msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Exponentialverteilung mit dem Verteilungsparameter &lambda; gemäß dem Kehrwert des zweiten Parameters.</p>\n"
 "<p>Beispiel: <tt>ExpDist(2)</tt>.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Exponentialverteilung mit dem Verteilungsparameter &lambda; gemäß dem Kehrwert des vierten Parameters.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.FDistribution"
 msgstr "F-Verteilung"
 
@@ -3908,6 +3933,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der F-Verteilung an der al
 msgid "ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der F-Verteilung mit den Parametern gemäß dem ersten und zweiten Parameter.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der F-Verteilung mit den Parametern gemäß dem dritten und vierten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution"
 msgstr "Fatigue-Life-Verteilung"
 
@@ -3918,7 +3948,12 @@ msgid "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.Distri
 msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Fatigue-Live-Verteilung an der als ersten Parameter angegebenen Stelle mit Lage. Skalierung und Form gemäß dem zweiten bis vierten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberInfo"
-msgstr "<p>Erzeugt eine Zufallszahl gemäß der Fatigue-Live-Verteilung mit Lage. Skalierung und Form gemäß den drei Parametern.</p>"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Fatigue-Live-Verteilung mit Lage, Skalierung und Form gemäß den drei Parametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Fatigue-Live-Verteilung mit Lage, Skalierung und Form gemäß den Parametern drei bis fünf.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution"
 msgstr "Frechet-Verteilung"
@@ -3930,6 +3965,11 @@ msgid "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.Distributi
 msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Frechet-Verteilung an der als ersten Parameter angegebenen Stelle mit Lage. Skalierung und Form gemäß dem zweiten bis vierten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Frechet-Verteilung mit Lage, Skalierung und Form gemäß den Parametern drei bis fünf.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberRangeInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Frechet-Verteilung mit Lage. Skalierung und Form gemäß den drei Parametern.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution"
@@ -3950,6 +3990,11 @@ msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Gamma-Verteilung mit den Parametern &alpha; und &beta; gemäß dem ersten und zweiten Parameter.</p>\n"
 "<p>Beispiel: <tt>GammaDist(5;3)</tt>.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Gamma-Verteilung mit den Parametern &alpha; und &beta; gemäß dem dritten und vierten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution"
 msgstr "Gumbel-Verteilung"
 
@@ -3962,6 +4007,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Gumbel-Verteilung an d
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Gumbel-Verteilung mit Erwartungswert und Standardabweichung gemäß den Parametern eins und zwei.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Gumbel-Verteilung mit Erwartungswert und Standardabweichung gemäß den Parametern drei und vier.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution"
 msgstr "Hyperbolische Sekanten-Verteilung"
 
@@ -3973,6 +4023,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der hyperbolischen Sekante
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der hyperbolischen Sekanten-Verteilung mit den Parametern &mu; und &sigma; gemäß dem ersten und zweiten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der hyperbolischen Sekanten-Verteilung mit den Parametern &mu; und &sigma; gemäß dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution"
 msgstr "Hypergeometrische Verteilung"
@@ -3995,6 +4050,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der inversen Gauß-Verteil
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der inversen Gauß-Verteilung mit den Parametern gemäß dem ersten (lambda) und zweiten (mu; Mittelwert) Parameter.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der inversen Gauß-Verteilung mit den Parametern gemäß dem dritten (lambda) und viertem (mu; Mittelwert) Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution"
 msgstr "Johnson-SU-Verteilung"
 
@@ -4006,6 +4066,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Johnson-SU-Verteilung 
 
 msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Johnson-SU-Verteilung mit den Parametern &gamma;, &xi;, &delta; und &lambda; gemäß dem ersten bis vierten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Johnson-SU-Verteilung mit den Parametern &gamma;, &xi;, &delta; und &lambda; gemäß dem dritten bis siebten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution"
 msgstr "Laplace-Verteilung"
@@ -4019,6 +4084,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Laplace-Verteilung an 
 msgid "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Laplace-Verteilung mit den Parametern gemäß dem ersten (Mittelwert) und zweiten (Skalierungsfaktor) Parameter.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Laplace-Verteilung mit den Parametern gemäß dem dritten(Mittelwert) und viertem (Skalierungsfaktor) Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-Logistische Verteilung"
 
@@ -4030,6 +4100,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Log-Logistischen Verte
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Log-Logistischen Verteilung mit den Parametern gemäß dem ersten (alpha) und zweiten (beta) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Log-Logistischen Verteilung mit den Parametern gemäß dem dritten (alpha) und viertem (beta) Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution"
 msgstr "Log-Normalverteilung"
@@ -4049,6 +4124,11 @@ msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Log-Normalverteilung mit den Parametern &mu; und &sigma; gemäß dem ersten und zweiten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
 "<p>Beispiel: <tt>LogNormalDist(5;3)</tt>.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Log-Normalverteilung mit den Parametern &mu; und &sigma; gemäß dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution"
 msgstr "Logistische Verteilung"
 
@@ -4060,6 +4140,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Logistischen Verteilun
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Logistischen Verteilung mit den Parametern gemäß dem ersten (Mittelwert) und zweiten (Skalierungsfaktor) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Logistischen Verteilung mit den Parametern gemäß dem dritten (Mittelwert) und vierten (Skalierungsfaktor) Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution"
 msgstr "Normalverteilung"
@@ -4078,6 +4163,11 @@ msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumbe
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Normalverteilung mit den Parametern &mu; und &sigma; gemäß dem ersten und zweiten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
 "<p>Beispiel: <tt>NormalDist(5;3)</tt>.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Normalverteilung mit den Parametern &mu; und &sigma; gemäß dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ParetoDistribution"
 msgstr "Pareto-Verteilung"
@@ -4127,6 +4217,9 @@ msgstr "<p>Erzeugt eine Zufallszahl gemäß der Potenzerteilung an der als erste
 msgid "ExpressionBuilder.ProbabilityDistributions.RandomNumber"
 msgstr "Zufallszahl"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.RandomNumberRange"
+msgstr "Zufallszahl (begrenzt)"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution"
 msgstr "Rayleigh-Verteilung"
 
@@ -4138,6 +4231,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Rayleigh-Verteilung an
 
 msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Rayleigh-Verteilung mit dem Parameter gemäß dem (Mittelwert) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Rayleigh-Verteilung mit dem Parameter gemäß dem (Mittelwert) dritten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution"
 msgstr "Dreiecksverteilung"
@@ -4180,6 +4278,11 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Weibull-Verteilung an 
 
 msgid "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Weibull-Verteilung mit dem Skalierungs- und dem Form-Parameter gemäß dem ersten und zweiten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Weibull-Verteilung mit dem Skalierungs- und dem Form-Parameter gemäß dem dritten und vierten Parameter.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.Repeats"
 msgstr "Wiederholungen der Simulation"

@@ -234,6 +234,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[475] = "Der angegebene Variablenname \"%s\" ist ung\u00fcltig.";
     t[480] = "ParameterCompare.Toolbar.Stop";
     t[481] = "Simulation abbrechen";
+    t[484] = "ExpressionBuilder.ProbabilityDistributions.RandomNumberRange";
+    t[485] = "Zufallszahl (begrenzt)";
     t[498] = "ParameterCompare.ScriptRunner.Script.Example.Hint";
     t[499] = "Beispiel laden";
     t[502] = "Simulation.Creator.InvalidVariableName";
@@ -392,8 +394,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[839] = "ModellElementBenutzerstatistikEintrag";
     t[848] = "ModelGenerator.ServiceDistribution.Deterministic";
     t[849] = "Deterministisch";
-    t[850] = "Surface.AnimationTrafficLights.Dialog.NumberOfLights.2Lights";
-    t[851] = "2 Lichter (Rot und Gr\u00fcn)";
+    t[850] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberRangeInfo";
+    t[851] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Exponentialverteilung mit dem Verteilungsparameter &lambda; gem\u00e4\u00df dem Kehrwert des vierten Parameters.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[852] = "Surface.DifferentialCounter.XML.Root";
     t[853] = "ModellElementDifferenzZaehler";
     t[854] = "Simulation.Creator.NoFailureAndSchedule";
@@ -516,6 +518,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[1131] = "Der angegebene Wert \"%s\" f\u00fcr die Verteilung der Abst\u00e4nde der Ausf\u00e4lle f\u00fcr die Transportergruppe \"%s\" ist ung\u00fcltig.";
     t[1134] = "Statistics.AnalogValue.Flow.SourceSystem";
     t[1135] = "Systemeingang";
+    t[1138] = "Surface.PopupMenu.SimulationStatisticsData.Data.LastArrivalByClientTypeType";
+    t[1139] = "Letzte Kundenankunft von Kundentyp \"%s\": %s";
     t[1140] = "Surface.LogicElse.XML.Root";
     t[1141] = "ModellElementLogikElse";
     t[1148] = "SettingsDialog.AnimationWarmUp.FastForward";
@@ -670,6 +674,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[1565] = "Mittlere Wartezeitkosten";
     t[1568] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmText";
     t[1569] = "Soll der Ausdruck \"%s\" wirklich aus der Liste gel\u00f6scht werden.";
+    t[1570] = "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberRangeInfo";
+    t[1571] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Log-Logistischen Verteilung mit den Parametern gem\u00e4\u00df dem dritten (alpha) und viertem (beta) Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[1584] = "Resources.Group.EditName.Dialog.Tab.Count";
     t[1585] = "Anzahl und Aussehen";
     t[1588] = "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.DensityInfo";
@@ -924,8 +930,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[2101] = "Anzahl";
     t[2102] = "SettingsDialog.TemplatesPanel.LastState";
     t[2103] = "Letzten Zustand wiederherstellen";
-    t[2110] = "Main.Menu.File.SaveStatistics";
-    t[2111] = "Statistik speichern unter...";
+    t[2110] = "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberRangeInfo";
+    t[2111] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Cauchy-Verteilung mit Mittelwert und Form-Parameter gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[2114] = "Surface.OutputJS.XML.Script";
     t[2115] = "ModellElementAusgabeskript";
     t[2116] = "Surface.AnimationBarChart.Dialog.Data";
@@ -1939,7 +1945,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4426] = "ModelDescription.Decide.ClientType.Else";
     t[4427] = "Folgestation f\u00fcr andere Kundentypen";
     t[4430] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberInfo";
-    t[4431] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Frechet-Verteilung mit Lage. Skalierung und Form gem\u00e4\u00df den drei Parametern.</p>";
+    t[4431] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Frechet-Verteilung mit Lage, Skalierung und Form gem\u00e4\u00df den Parametern drei bis f\u00fcnf.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[4448] = "Transporters.Group.InUse.Single";
     t[4449] = "<b>Achtung:</b><br>\nDer gew\u00e4hlte Transporter wird durch das Element mit der folgenden ID verwendet:";
     t[4452] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTableSize";
@@ -1998,14 +2004,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4561] = "An Element %s wurde das Eingabedateiende erreicht. Die Simulation wird abgebrochen.";
     t[4564] = "Animation.Toolbar.Step";
     t[4565] = "Einzelschritt";
+  }
+  static void clinit_part_1 (java.lang.String[] t) {
     t[4568] = "Surface.XML.Resource.Name";
     t[4569] = "Name";
     t[4570] = "Surface.Source.Dialog.ArrivalCount.Number";
     t[4571] = "Anzahl an Ankunftsereignissen";
     t[4574] = "Animation.SimulatedTime.Unlimited";
     t[4575] = "Simulierte Zeit: %s, Ank\u00fcnfte: %s %s";
-  }
-  static void clinit_part_1 (java.lang.String[] t) {
     t[4578] = "Surface.Balking.XML.ErrorWhileLoadingData";
     t[4579] = "Beim Laden eines ModellElementZurueckschrecken-Elements.";
     t[4580] = "ParameterCompare.Table.AddModelByAssistant.Column.Integer";
@@ -3784,8 +3790,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[8775] = "Der f\u00fcr Ressource \"%s\" angegebene Ausfallzeitenausdruck \"%s\" ist ab Zeichen %d ung\u00fcltig.";
     t[8780] = "ExpressionBuilder.SimulationCharacteristics.Costs.Station.Info";
     t[8781] = "<p>Liefert die bisher durch die angegebene Station entstandenen Kosten.</p>";
-    t[8784] = "Surface.Popup.AddLongRunStatistics.Error.Info";
-    t[8785] = "Der Wert \"%s\" kann nicht zur Laufzeitstatistik hinzugef\u00fcgt werden, da er sich bereits in der Liste der aufzuzeichnenden Werte befindet.";
+    t[8784] = "Statistics.MaximumResidenceTime";
+    t[8785] = "Maximale Verweilzeit";
     t[8786] = "ScriptPopup.Output";
     t[8787] = "Ausgabe";
     t[8790] = "Surface.Barrier.Dialog.Delete.Confirm.Info";
@@ -4000,14 +4006,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9309] = "Schriftart";
     t[9312] = "Resources.Group.EditName.Dialog.CostsPerIdleHour.Error.Info";
     t[9313] = "Die angegebenen Kosten pro Stunde Leerlauf sind ung\u00fcltig. Es muss ein Zahlenwert angegeben werden.";
+  }
+  static void clinit_part_2 (java.lang.String[] t) {
     t[9314] = "ExpressionBuilder.BasicArithmetics";
     t[9315] = "Grundrechenarten";
     t[9318] = "Statistics.CVProcessTime";
     t[9319] = "Variationskoeffizient der Bedienzeiten";
     t[9328] = "ScriptPopup.Simulation.setResourceCount";
     t[9329] = "Bediener in einer Gruppe einstellen";
-  }
-  static void clinit_part_2 (java.lang.String[] t) {
     t[9330] = "Statistics.SimulatedClients.WarmUp";
     t[9331] = "Zus\u00e4tzlich vorab als Einschwingphase";
     t[9332] = "Surface.ExpressionTableModel.Delete.Confirmation.Title";
@@ -4224,8 +4230,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9775] = "Soll der Teilbalken mit dem Ausdruck \"%s\" wirklich aus der Liste gel\u00f6scht werden?";
     t[9776] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Condition.ErrorTitle";
     t[9777] = "Ung\u00fcltige Bedingung";
-    t[9778] = "Statistics.AverageNumberOfClientsInQueue";
-    t[9779] = "Mittlere Anzahl an Kunden in der Warteschlange";
+    t[9778] = "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberRangeInfo";
+    t[9779] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der hyperbolischen Sekanten-Verteilung mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[9782] = "Surface.Source.Dialog.Condition";
     t[9783] = "Bedingung zur Ausl\u00f6sung einer Ankunft";
     t[9784] = "Surface.HoldJS.Dialog.Condition";
@@ -4584,8 +4590,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10661] = "von unten nach oben";
     t[10662] = "ParameterCompare.Select.Title.Compare";
     t[10663] = "Statistikergebnisse vergleichen";
-    t[10668] = "Surface.AnimationBarChart.HistogramWizard.StepWidth";
-    t[10669] = "Schrittweite pro Balken";
+    t[10668] = "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumberRangeInfo";
+    t[10669] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Weibull-Verteilung mit dem Skalierungs- und dem Form-Parameter gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[10672] = "ParameterCompare.Settings.Output.IsTime";
     t[10673] = "Anzeige des Ergebniswertes als Zeit";
     t[10682] = "Simulation.Log.OutputDDE.Info";
@@ -5280,6 +5286,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12283] = "Ausgabe (DB)";
     t[12286] = "Simulation.ClientMovement.OutputFile.OutputFile";
     t[12287] = "Sankey-Diagramm in Datei speichern";
+    t[12296] = "Surface.AnimationTrafficLights.Dialog.NumberOfLights.2Lights";
+    t[12297] = "2 Lichter (Rot und Gr\u00fcn)";
     t[12304] = "Compare.Error.IdenticalModels.Info";
     t[12305] = "Das festgehaltene und das aktuelle Modell sind identisch.";
     t[12310] = "Statistics.Utilization.NumberOfOperators.StdDev";
@@ -5354,12 +5362,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12447] = "Die Zelle %s liegt au\u00dferhalb der Tabelle. Die Tabelle geht nur bis %s.";
     t[12454] = "ModelGenerator.PrioritiesStrategy";
     t[12455] = "Kundenpriorisierung";
+    t[12458] = "Surface.SourceMulti.Tooltip";
+    t[12459] = "Quelle, die Ank\u00fcnfte mehrerer Typen generiert.";
     t[12462] = "Surface.PickUp.Dialog.SendTemporaryBatched";
     t[12463] = "Tempor\u00e4ren Batch bilden; Kundentyp f\u00fcr Batch:";
     t[12464] = "Surface.Decide.ByCondition";
     t[12465] = "Bedingung";
     t[12466] = "Wait.Status.LongRunK.WIPZero";
     t[12467] = "%sK von %sK Kundenank\u00fcnfte simuliert / %sK Ereignisse / %sK Ereignisse pro Sekunde";
+    t[12470] = "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberRangeInfo";
+    t[12471] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Laplace-Verteilung mit den Parametern gem\u00e4\u00df dem dritten(Mittelwert) und viertem (Skalierungsfaktor) Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[12472] = "Surface.Action.XML.Record.ActionType.Assign";
     t[12473] = "Zuweisung";
     t[12476] = "Statistic.FastAccess.Template.TransferTime.ByStation";
@@ -5996,6 +6008,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13969] = "Schluessel";
     t[13972] = "Surface.PickUp.Dialog.Mode.Forward";
     t[13973] = "Kunden nach Zusammenfassen weiterleiten";
+  }
+  static void clinit_part_3 (java.lang.String[] t) {
     t[13978] = "Surface.InteractiveSlider.XML.Variable";
     t[13979] = "ModellElementSchiebereglerVariable";
     t[13984] = "Surface.PopupMenu.QuickFix.Process.SetupOff";
@@ -6008,8 +6022,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13991] = "V";
     t[13994] = "Editor.Dialog.Tab.Clients.Color.UserDefined";
     t[13995] = "Benutzerdefinierte Farbe in den Diagrammen";
-  }
-  static void clinit_part_3 (java.lang.String[] t) {
     t[13998] = "Simulation.Output.TransferTime";
     t[13999] = "Transferzeit";
     t[14000] = "Surface.Decide.Dialog.OutgoingEdge.Key.ErrorMissing.Info";
@@ -6142,6 +6154,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14275] = "\u00c4nderungsrate (pro Sekunde)";
     t[14276] = "Surface.ExpressionTableModelText.Add";
     t[14277] = "Bedingung hinzuf\u00fcgen";
+    t[14284] = "Surface.AnimationBarChart.HistogramWizard.StepWidth";
+    t[14285] = "Schrittweite pro Balken";
     t[14286] = "Editor.Dialog.Sequences.Edit.Assignments.Edit";
     t[14287] = "Bearbeiten";
     t[14288] = "Surface.UserStatistic.Table.HeaderKey";
@@ -6396,6 +6410,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14873] = "Minimale Zeit";
     t[14878] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DensityInfo";
     t[14879] = "<p>Berechnet den Wert der Dichte der Pert-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der h\u00f6chsten Wahrscheinlichkeitsdichte gem\u00e4\u00df dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>";
+    t[14888] = "Statistics.AverageNumberOfClientsInQueue";
+    t[14889] = "Mittlere Anzahl an Kunden in der Warteschlange";
     t[14894] = "Surface.AnimationPieChart.XML.Root";
     t[14895] = "ModellElementAnimationTortenDiagramm";
     t[14896] = "Statistic.FastAccess.Template.Format";
@@ -7086,6 +7102,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[16453] = "Es wurde keine Zielstation angegeben.";
     t[16454] = "Optimizer.Tab.ControlVariables.Range";
     t[16455] = "Bereich";
+    t[16456] = "LogSimulation.LargeModelWarning.NoInfo";
+    t[16457] = "Simulation nicht starten.";
     t[16464] = "Statistics.ErlangCompare.UnknownSourceBatchSize";
     t[16465] = "Unbekannte Ankunfts-Batch-Gr\u00f6\u00dfe.";
     t[16466] = "ExpressionBuilder.BasicArithmetics.Plus.Info";
@@ -7992,6 +8010,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18577] = "Kundentypname";
     t[18580] = "ModelDescription.AssignString.Assignment";
     t[18581] = "Zuweisung";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18584] = "Simulation.Log.Matching";
     t[18585] = "Zusammenf\u00fchren - Kunde muss warten";
     t[18586] = "FindElementDirect.ElementsFound";
@@ -8010,8 +8030,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18627] = "Im Mittel belegt";
     t[18634] = "Statistics.Counter";
     t[18635] = "Z\u00e4hler";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18648] = "Statistic.FastAccess.Template.Resource.Set.Tooltip";
     t[18649] = "Stellt die Anzahl an Bedienern in einer bestimmten Ressource ein.";
     t[18652] = "Surface.Barrier.Dialog.ClientType.All";
@@ -8444,6 +8462,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19607] = "Ung\u00fcltiger Ausdruck f\u00fcr Ausfallabst\u00e4nde";
     t[19610] = "Surface.Source.DialogBatchSize.Minimum";
     t[19611] = "Minimale Batch-Gr\u00f6\u00dfe";
+    t[19612] = "Surface.Popup.AddLongRunStatistics.Error.Info";
+    t[19613] = "Der Wert \"%s\" kann nicht zur Laufzeitstatistik hinzugef\u00fcgt werden, da er sich bereits in der Liste der aufzuzeichnenden Werte befindet.";
     t[19614] = "Surface.Match.NewClientType";
     t[19615] = "Neuer Kundentyp";
     t[19616] = "Editor.Dialog.Tab.Simulation.WarmUpPhase";
@@ -9172,6 +9192,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21279] = "Fertigungsplan l\u00f6schen";
     t[21284] = "Transporters.Group.Edit.Dialog.Distances.Paste.ErrorTitle";
     t[21285] = "Fehler beim Einf\u00fcgen der Daten";
+    t[21288] = "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNumberRangeInfo";
+    t[21289] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Rayleigh-Verteilung mit dem Parameter gem\u00e4\u00df dem (Mittelwert) dritten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[21292] = "Surface.OutputDDE.XML.Table";
     t[21293] = "ModellElementAusgabeDDETabelle";
     t[21294] = "Schedule.Dialog.Name.InUse.Info";
@@ -9594,8 +9616,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22269] = "Name";
     t[22272] = "ExpressionBuilder.SimulationCharacteristics.Quantil";
     t[22273] = "Quantil";
-    t[22276] = "Surface.SourceMulti.Tooltip";
-    t[22277] = "Quelle, die Ank\u00fcnfte mehrerer Typen generiert.";
+    t[22276] = "ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberRangeInfo";
+    t[22277] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der F-Verteilung mit den Parametern gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[22280] = "Optimizer.Toolbar.Start.Hint";
     t[22281] = "Startet die Optimierung des Modells";
     t[22286] = "ModelDescription.InteractiveSlider.Description.Variable";
@@ -9690,6 +9712,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22533] = "Eintrag nicht l\u00f6schen.";
     t[22538] = "ParameterCompare.Mode.Interarrival";
     t[22539] = "Zwischenankunftszeiten";
+    t[22540] = "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo";
+    t[22541] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gumbel-Verteilung mit Erwartungswert und Standardabweichung gem\u00e4\u00df den Parametern drei und vier.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[22542] = "Update.Status.Done";
     t[22543] = "Beim n\u00e4chsten Programmstart wird auf Version %s aktualisiert.";
     t[22556] = "LogSimulation.OptionColor.Info";
@@ -9988,6 +10012,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23247] = "Ressourcenauslastung und -ausf\u00e4lle";
     t[23250] = "CommandLine.GC.Description.Short";
     t[23251] = "Listet die aktiven Garbage Collectors auf.";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23252] = "Surface.XML.Schedule.RepeatSchedule";
     t[23253] = "PlanFortsetzen";
     t[23258] = "ModelDescription.Arrival.NumberOfClientArrivals";
@@ -10012,8 +10038,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23303] = "Lognormalverteilte Bedienzeiten (CV[S]=0,25)";
     t[23304] = "UsageStatistics.Title";
     t[23305] = "Nutzungsstatistik";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23316] = "Distribution.Normal";
     t[23317] = "Normalverteilung";
     t[23318] = "ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance";
@@ -10536,8 +10560,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24439] = "Schwellenwert";
     t[24440] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.Median";
     t[24441] = "<p>Liefert den Median der Dauer \u00fcber alle Transferzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (\u00fcber alle Kundentypen).</p>";
-    t[24442] = "Statistics.MaximumResidenceTime";
-    t[24443] = "Maximale Verweilzeit";
+    t[24442] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberRangeInfo";
+    t[24443] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Logistischen Verteilung mit den Parametern gem\u00e4\u00df dem dritten (Mittelwert) und vierten (Skalierungsfaktor) Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
+    t[24444] = "Main.Menu.File.SaveStatistics";
+    t[24445] = "Statistik speichern unter...";
     t[24448] = "SimulationServer.Setup.LimitThreadCount";
     t[24449] = "Anfragen limitieren";
     t[24450] = "FileType.LaTeX";
@@ -10644,6 +10670,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24729] = "Ausdruck fehlerhaft";
     t[24730] = "Surface.AnimationBarStack.XML.BarColor";
     t[24731] = "ModellElementBalkenFarbe";
+    t[24734] = "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberRangeInfo";
+    t[24735] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Chi<sup>2</sup>-Verteilung mit der Anzahl an Freiheitsgraden gem\u00e4\u00df dritten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[24738] = "Surface.MultiSourceTable.ColumnData";
     t[24739] = "Konfiguration";
     t[24748] = "Surface.XML.Schedule.RepeatSchedule.RepeatDays";
@@ -10900,10 +10928,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25365] = "Anzahl";
     t[25368] = "Distribution.Gumbel";
     t[25369] = "Gumbel-Verteilung";
+    t[25372] = "SettingsDialog.JSEngine.Automatic";
+    t[25373] = "Automatisch w\u00e4hlen";
     t[25378] = "ModelDescription.Conveyor.Mode.Transfer";
     t[25379] = "Transferzeit";
-    t[25382] = "LogSimulation.LargeModelWarning.NoInfo";
-    t[25383] = "Simulation nicht starten.";
+    t[25382] = "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberRangeInfo";
+    t[25383] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Johnson-SU-Verteilung mit den Parametern &gamma;, &xi;, &delta; und &lambda; gem\u00e4\u00df dem dritten bis siebten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[25384] = "Surface.Delay.Dialog.Title";
     t[25385] = "Kundenverz\u00f6gerung bearbeiten";
     t[25388] = "CommandLine.Optimizer.Description.Short";
@@ -10947,7 +10977,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25448] = "Color.696969";
     t[25449] = "Schwaches Grau";
     t[25452] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberInfo";
-    t[25453] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Fatigue-Live-Verteilung mit Lage. Skalierung und Form gem\u00e4\u00df den drei Parametern.</p>";
+    t[25453] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Fatigue-Live-Verteilung mit Lage, Skalierung und Form gem\u00e4\u00df den drei Parametern.</p>";
     t[25456] = "Surface.Sub.Dialog.OkAndOpenEditor";
     t[25457] = "Ok & Editor \u00f6ffnen";
     t[25460] = "ParameterCompare.Table.Column.Input";
@@ -11490,8 +11520,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26707] = "Auf dieser Dialogseite werden Informationen zum aktuellen Modell angezeigt. Hier kann nichts eingestellt werden.";
     t[26710] = "Simulation.Log.BatchedForwarding.Info";
     t[26711] = "Kunde: %s, Station: %s, Batch-Gr\u00f6\u00dfe erreicht, Kunden werden weitergeleitet: %s";
-    t[26716] = "ModelDescription.Action.Action.Java";
-    t[26717] = "Java-Programm ausf\u00fchren";
+    t[26716] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo";
+    t[26717] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[26720] = "Simulation.Creator.Transporter.InvalidCountAtStation";
     t[26721] = "F\u00fcr Transportertyp \"%s\" wurde f\u00fcr Station \"%s\" der ung\u00fcltige initiale Bestand von %d angegeben. Es muss eine nichtnegative Ganzzahl angegeben werden.";
     t[26722] = "Statistics.Filter.NoStatisticsAvailable";
@@ -11984,6 +12014,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27851] = "Als Ausgangselement f\u00fcr Verbindungskante nutzbar";
     t[27852] = "Editor.SurfaceTooltip.InsertEdge2";
     t[27853] = "Als Zielelement f\u00fcr Verbindungskante nutzbar";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27856] = "Color.483D8B";
     t[27857] = "Dunkel Slateblau";
     t[27860] = "Statistics.ErlangCCompare.Results.Calculated";
@@ -12014,8 +12046,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27917] = "K";
     t[27920] = "Statistics.InterArrivalTimesAtTheStationsByClientTypes.Short";
     t[27921] = "Zwischenankunftszeiten nach Kundentypen";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27924] = "Simulation.ClientMovement.OutputFile.NoFileErrorInfo";
     t[27925] = "Es wurde keine Ausgabedatei angegeben.";
     t[27936] = "ModelDescription.Decide.Condition";
@@ -12094,6 +12124,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28119] = "Name des Bildes";
     t[28128] = "ParameterCompare.Table.AddModel.Hint";
     t[28129] = "F\u00fcgt ein Modell zu der Liste der zu simulierenden Modelle hinzu";
+    t[28134] = "ModelDescription.Action.Action.Java";
+    t[28135] = "Java-Programm ausf\u00fchren";
     t[28146] = "Surface.AnimationBarStack.Dialog.Bar.left";
     t[28147] = "von rechts nach links";
     t[28150] = "ExpressionBuilder.StatisticalFunctions.Maximum";
@@ -13968,8 +14000,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32555] = "<p>Berechnet die Fakult\u00e4t des vor dem !-Zeichen stehenden Wertes.</p><p>Beispiel: <tt>6!</tt> liefert 720.</p>";
     t[32558] = "Surface.Counter.XML.Root";
     t[32559] = "ModellElementZaehler";
-    t[32562] = "Surface.PopupMenu.SimulationStatisticsData.Data.LastArrivalByClientTypeType";
-    t[32563] = "Letzte Kundenankunft von Kundentyp \"%s\": %s";
+    t[32562] = "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo";
+    t[32563] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Erlang-Verteilung mit den Parametern n; und &lambda; gem\u00e4\u00df dem ditten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[32564] = "Surface.CounterMulti.Table.Heading.Condition.ErrorInfo";
     t[32565] = "Die Bedingung f\u00fcr Z\u00e4hler %d \"%s\" ist ab Zeichen %d ung\u00fcltig.";
     t[32570] = "CheckData.ColumnTitle.Element";
@@ -13984,6 +14016,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32581] = "Neue Kundentyp f\u00fcr Batch";
     t[32590] = "Surface.DecideJS.Dialog.Title";
     t[32591] = "Javascript-basierende Verzweidung bearbeiten";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32602] = "Main.Menu.SimulationFindWarmUpSize.Mnemonic";
     t[32603] = "E";
     t[32610] = "Statistics.XML.RunEvents.Error";
@@ -14016,8 +14050,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32659] = "Startet den Webserver";
     t[32662] = "ScriptPopup.Output.Separator.Semicolon";
     t[32663] = "Semikolon";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32664] = "Surface.Delay.XML.Type.Nothing";
     t[32665] = "nichts";
     t[32668] = "ExpressionBuilder.SimulationCharacteristics.Resources";
@@ -14294,8 +14326,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33343] = "Keine Proxy-Adresse";
     t[33350] = "Simulation.Log.SetStatisticsMode.Off";
     t[33351] = "Statistik aus f\u00fcr Kunde: %s, Station: %s";
-    t[33356] = "SettingsDialog.JSEngine.Automatic";
-    t[33357] = "Automatisch w\u00e4hlen";
+    t[33356] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberRangeInfo";
+    t[33357] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Frechet-Verteilung mit Lage. Skalierung und Form gem\u00e4\u00df den drei Parametern.</p>";
     t[33360] = "ModelGenerator.Model.Description.Properties.ServiceRandom";
     t[33361] = "Bedienung der Kunden in zuf\u00e4lliger Reihenfolge";
     t[33370] = "Statistics.ClientData.Field.Maximum";
@@ -15170,6 +15202,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35407] = "Sensor bearbeiten";
     t[35408] = "UserTemplates.TemplatesDialog.ContentInfo.Stations.Singular";
     t[35409] = "1 Station";
+    t[35412] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberRangeInfo";
+    t[35413] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der inversen Gau\u00df-Verteilung mit den Parametern gem\u00e4\u00df dem dritten (lambda) und viertem (mu; Mittelwert) Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[35414] = "Distribution.Infinite";
     t[35415] = "unendlich";
     t[35422] = "Main.Menu.File.Quit";
@@ -15360,6 +15394,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35837] = "In System einleiten.";
     t[35842] = "ModelDescription.NextElement";
     t[35843] = "Folgestation";
+    t[35846] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberRangeInfo";
+    t[35847] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Normalverteilung mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[35852] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.VarianceOfTheTime";
     t[35853] = "<p>Liefert die Varianz \u00fcber die Transferzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
     t[35862] = "ModelDescription.Decide.Mode.ShortestQueueNextProcessStation";
@@ -15754,6 +15790,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36739] = "Verzweigen (Javascript)";
     t[36740] = "Batch.Parameter.Changed.Variable";
     t[36741] = "Der Startwert der globalen Variable \"%s\" wurde auf %s gesetzt.";
+    t[36742] = "LoadCalculator.Tab.AllenCunneen";
+    t[36743] = "Erweiterte Allen-Cunneen N\u00e4herungsformel f\u00fcr Warteschlangensysteme";
     t[36744] = "Surface.TransportSource.Dialog.Tab.Ressource";
     t[36745] = "Ben\u00f6tigte Ressource";
     t[36748] = "ScriptPopup.Simulation.IsWarmUp.Hint";
@@ -15798,8 +15836,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36823] = "Bedingung fehlerhaft";
     t[36826] = "ExpressionBuilder.Rounding.floor.Info";
     t[36827] = "<p>Rundet den als Parameter \u00fcbergebenen Wert zur n\u00e4chsten ganzen Zahl ab.</p><p>Beispiel: <tt>floor(1,9)</tt> liefert 1.</p>";
-    t[36830] = "LoadCalculator.Tab.AllenCunneen";
-    t[36831] = "Erweiterte Allen-Cunneen N\u00e4herungsformel f\u00fcr Warteschlangensysteme";
+    t[36830] = "ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberRangeInfo";
+    t[36831] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Chi-Verteilung mit der Anzahl an Freiheitsgraden gem\u00e4\u00df dritten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[36832] = "Surface.Source.XML.Schedule.ClientCount";
     t[36833] = "Kundenanzahl";
     t[36834] = "Surface.InputDB.Dialog.Table";
@@ -15980,6 +16018,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37181] = "Ventil-Setup";
     t[37192] = "Statistics.ClientPathRecording.PathLength";
     t[37193] = "Pfadl\u00e4nge";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37194] = "Optimizer.Error.CouldNotStart";
     t[37195] = "Die Optimierung konnte nicht gestartet werden";
     t[37196] = "ModelDescription.OutputDDE.Column";
@@ -16004,6 +16044,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37241] = "Maximaler Durchfluss an Ventil %d";
     t[37242] = "Surface.Batch.XML.Batch.SizeMax";
     t[37243] = "Maximum";
+    t[37256] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo";
+    t[37257] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Fatigue-Live-Verteilung mit Lage, Skalierung und Form gem\u00e4\u00df den Parametern drei bis f\u00fcnf.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[37258] = "SettingsDialog.Tabs.Simulation.ExpandAllStatistics";
     t[37259] = "Statistikbaum immer sofort vollst\u00e4ndig ausklappen";
     t[37262] = "Statistics.WaitingAndProcessTimesByStations";
@@ -16018,8 +16060,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37291] = "Videodatei w\u00e4hlen";
     t[37296] = "Surface.AnalogAssign.XML.ModeRate";
     t[37297] = "ModellElementAnalogWertZuweisungRate";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37298] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.HistogramMultiple";
     t[37299] = "<p>Liefert den Anteil der Kunden, der einen bestimmten Zeitbereich (in Sekunden) als Bedienzeit verbracht hat (ausschlie\u00dflich der unteren angegebenen und einschlie\u00dflich der oberen angegebenen Grenze).</p>";
     t[37302] = "Simulation.Element.DecideByChance.Name";
@@ -16044,6 +16084,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37345] = "Datei";
     t[37346] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingSumAll.Info";
     t[37347] = "<p>Liefert die Summe der wartezeit-bedingten Kosten \u00fcber alle Kunden.</p>";
+    t[37348] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo";
+    t[37349] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Log-Normalverteilung mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[37354] = "Main.Menu.View.ModelEditor.Mnemonic";
     t[37355] = "E";
     t[37358] = "Statistic.Viewer.NoInternet.Title";

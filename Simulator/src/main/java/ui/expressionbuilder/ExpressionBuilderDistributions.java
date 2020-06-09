@@ -77,6 +77,43 @@ public class ExpressionBuilderDistributions {
 		if (sub.getChildCount()>0) group.add(sub);
 	}
 
+	private static void addDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langPDF, final String langCDF, final String langRND, final String langRNDRange) {
+		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
+		final String cdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.DistributionFunction");
+		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
+		final String rndRange=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumberRange");
+		final String value=Language.tr("ExpressionBuilder.Value");
+
+		final DefaultMutableTreeNode sub=new DefaultMutableTreeNode(langName);
+
+		addTreeNode(
+				sub,
+				filterUpper,
+				langName+", "+pdf+" ("+name+")",
+				name+"("+value+";"+param+";0)",
+				langPDF);
+		addTreeNode(
+				sub,
+				filterUpper,
+				langName+", "+cdf+" ("+name+")",
+				name+"("+value+";"+param+";1)",
+				langCDF);
+		addTreeNode(
+				sub,
+				filterUpper,
+				langName+", "+rnd+" ("+name+")",
+				name+"("+param+")",
+				langRND);
+		addTreeNode(
+				sub,
+				filterUpper,
+				langName+", "+rndRange+" ("+name+"Range)",
+				name+"Range(min;max;"+param+")",
+				langRNDRange);
+
+		if (sub.getChildCount()>0) group.add(sub);
+	}
+
 	private static void addDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langPDF, final String langRND) {
 		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
 		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
@@ -140,7 +177,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberRangeInfo"));
 
 		/* Gleichverteilung */
 
@@ -156,7 +194,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberRangeInfo"));
 
 		/* Lognormalverteilung */
 
@@ -164,7 +203,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo"));
 
 		/* Gamma-Verteilung */
 
@@ -172,7 +212,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo"));
 
 		/* Erlang-Verteilung */
 
@@ -180,7 +221,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo"));
 
 		/* Beta-Verteilung */
 
@@ -196,7 +238,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.WeibullDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumberRangeInfo"));
 
 		/* Cauchy-Verteilung */
 
@@ -204,7 +247,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.CauchyDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.RandomNumberRangeInfo"));
 
 		/* Chi≤-Verteilung */
 
@@ -212,7 +256,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberRangeInfo"));
 
 		/* Chi-Verteilung */
 
@@ -220,7 +265,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ChiDistribution.RandomNumberRangeInfo"));
 
 		/* F-Verteilung */
 
@@ -228,7 +274,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.FDistribution.RandomNumberRangeInfo"));
 
 		/* Johnson-SU-Verteilung */
 
@@ -236,7 +283,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberRangeInfo"));
 
 		/* Dreiecksverteilung */
 
@@ -260,7 +308,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.RandomNumberRangeInfo"));
 
 		/* Pareto-Verteilung */
 
@@ -276,7 +325,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogisticDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberRangeInfo"));
 
 		/* Inverse Gauﬂ-Verteilung */
 
@@ -284,7 +334,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberRangeInfo"));
 
 		/* Rayleigh-Verteilung */
 
@@ -292,7 +343,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.RayleighDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNumberRangeInfo"));
 
 		/* Log-logistische Verteilung */
 
@@ -300,7 +352,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution.RandomNumberRangeInfo"));
 
 		/* Potenzverteilung */
 
@@ -316,7 +369,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo"));
 
 		/* Fatigue-Life-Verteilung */
 
@@ -324,7 +378,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo"));
 
 		/* Frechet-Verteilung */
 
@@ -332,6 +387,7 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FrechetDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberRangeInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberInfo"));
 
 		/* Hyperbolische Sekanten-Verteilung */
@@ -340,7 +396,8 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.DistributionFunctionInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberInfo"));
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution.RandomNumberRangeInfo"));
 
 		/* Empirische Verteilung */
 

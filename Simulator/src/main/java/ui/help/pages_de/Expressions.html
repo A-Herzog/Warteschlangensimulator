@@ -190,6 +190,7 @@ auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
   <tr><td>ExpDist(x;a;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>ExpDist(x;a;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>ExpDist(a)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>ExpDistRange(min;max;a)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Gleichverteilung über das Intervall [a;b]</b></td></tr>
   <tr><td>UniformDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
@@ -200,21 +201,25 @@ auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
   <tr><td>NormalDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>NormalDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>NormalDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>NormalDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Lognormalverteilung mit Mittelwert a und Standardabweichung b</b></td></tr>
   <tr><td>LogNormalDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>LogNormalDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>LogNormalDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>LogNormalDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Gamma-Verteilung mit Parametern &alpha;=a und &beta;=b</b></td></tr>
   <tr><td>GammaDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>GammaDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>GammaDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>GammaDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Erlang-Verteilung mit Parametern n und &lambda;=l</b></td></tr>
   <tr><td>ErlangDist(x;n;l;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>ErlangDist(x;n;l;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>ErlangDist(n;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>ErlangDistRange(min;max;n;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Beta-Verteilung in dem Intervall [a;b] und mit Parametern &alpha;=c und &beta;=d</b></td></tr>
   <tr><td>BetaDist(x;a;b;c;d;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
@@ -225,31 +230,37 @@ auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
   <tr><td>WeibullDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>WeibullDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>WeibullDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>WeibullDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Cauchy-Verteilung mit Mittelwert a und Scale=b</b></td></tr>
   <tr><td>CauchyDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>CauchyDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>CauchyDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>CauchyDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Chi<sup>2</sup>-Verteilung mit n Freiheitsgraden</b></td></tr>
   <tr><td>ChiSquareDist(x;n;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>  
   <tr><td>ChiSquareDist(x;n;1)</td><td>Chi<sup>2</sup>-Verteilung mit n Freiheitsgraden</td></tr>
   <tr><td>ChiSquareDist(n)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>ChiSquareDistRange(min;max;n)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Chi-Verteilung mit n Freiheitsgraden</b></td></tr>
   <tr><td>ChiDist(x;n;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>  
   <tr><td>ChiDist(x;n;1)</td><td>Chi<sup>2</sup>-Verteilung mit n Freiheitsgraden</td></tr>
   <tr><td>ChiDist(n)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>ChiDistRange(min;max;n)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
     
   <tr><td colspan="2"><b>F-Verteilung mit a Freiheitsgraden im Zähler und b Freiheitsgraden im Nenner</b></td></tr>
   <tr><td>FDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>FDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>FDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>FDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Johnson-SU-Verteilung mit den Parametern a=&gamma;, b=&xi;, c=&delta; und d=&lambda;</b></td></tr>
   <tr><td>JohnsonSUDist(x;a;b;c;d;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>JohnsonSUDist(x;a;b;c;d;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>JohnsonSUDist(a;b;c;d)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>  
+  <tr><td>JohnsonSUDistRange(min;max;a;b;c;d)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Dreiecksverteilung über [a;c] mit der höchsten Wahrscheinlichkeitsdichte bei b</b></td></tr>
   <tr><td>TriangularDist(x;a;b;c;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
@@ -265,6 +276,7 @@ auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
   <tr><td>LaplaceDist(x;mu;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>LaplaceDist(x;mu;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>LaplaceDist(mu;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>LaplaceDistRange(min;max;mu;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Pareto-Verteilung mit Skalierungsparameter x<sub>min</sub> und Formparameter &alpha;</b></td></tr>
   <tr><td>ParetoDist(x;xmin;alpha;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
@@ -275,46 +287,54 @@ auf Basis einer dieser Wahrscheinlichkeitsverteilungen berechnet werden:
   <tr><td>LogisticDist(x;mu;s;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>LogisticDist(x;mu;s;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>LogisticDist(mu;s)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>LogisticDistRange(min;max;mu;s)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Inverse Gauß-Verteilung mit &lambda; und Mittelwert &mu;</b></td></tr>
   <tr><td>InverseGaussianDist(x;lambda;mu;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>InverseGaussianDist(x;lambda;mu;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>InverseGaussianDist(lambda;mu)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>InverseGaussianDistRange(min;max;lambda;mu)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
 
   <tr><td colspan="2"><b>Rayleigh-Verteilung mit Mittelwert &mu;</b></td></tr>
   <tr><td>RayleighDist(x;mu;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>RayleighDist(x;mu;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>RayleighDist(mu)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>RayleighDistRange(min;max;mu)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Log-Logistische Verteilung mit &alpha; und &beta;</b></td></tr>
   <tr><td>LogLogisticDist(x;alpha;beta;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>LogLogisticDist(x;alpha;beta;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>LogLogisticDist(alpha;beta)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>LogLogisticDistRange(min;max;alpha;beta)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Potenzverteilung über [a;b] mit Exponent c</b></td></tr>
   <tr><td>PowerDist(x;a;b;c;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>PowerDist(x;a;b;c;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
-  <tr><td>PowerDist(a;b;c)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>PowerDist(a;b;c)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>  
   
   <tr><td colspan="2"><b>Gumbel-Verteilung mit Mittelwert a und Standardabweichung b</b></td></tr>
   <tr><td>GumbelDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>GumbelDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>GumbelDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>GumbelDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Fatigue-Life-Verteilung mit Lageparameter mu, Skalierungsparameter beta und Formparameter gamma</b></td></tr>
   <tr><td>FatigueLifeDist(x;mu;beta;gamma;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>FatigueLifeDist(x;mu;beta;gamma;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>FatigueLifeDist(mu;beta;gamma)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>FatigueLifeDistRange(min;max;mu;beta;gamma)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
   
   <tr><td colspan="2"><b>Frechet-Verteilung mit Lageparameter delta, Skalierungsparameter beta und Formparameter alpha</b></td></tr>
   <tr><td>FrechetDist(x;delta;beta;alpha;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>FrechetDist(x;delta;beta;alpha;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>FrechetDist(delta;beta;alpha)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>FrechetDistRange(min;max;delta;beta;alpha)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
 
   <tr><td colspan="2"><b>Hyperbolische Sekanten-Verteilung mit Mittelwert a und Standardabweichung b</b></td></tr>
   <tr><td>HyperbolicSecantDist(x;a;b;0)</td><td>Berechnet die Dichte an der Stelle x</td></tr>
   <tr><td>HyperbolicSecantDist(x;a;b;1)</td><td>Berechnet den Wert der Verteilungsfunktion an der Stelle x</td></tr>
   <tr><td>HyperbolicSecantDist(a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung</td></tr>
+  <tr><td>HyperbolicSecantDistRange(min;max;a;b)</td><td>Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von min bis max befindet.</td></tr>
 
   <tr><td colspan="2"><b>Verteilung aus empirischen Daten</b></td></tr>
   <tr><td>EmpirischeDichte(x;wert1;wert2;wert3;...;max)</td><td>Berechnet die Dichte an der Stelle x. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</td></tr>
