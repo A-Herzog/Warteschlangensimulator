@@ -179,7 +179,8 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 			final RunElementTransportSourceData data=getData(simData);
 			simData.runData.setClientVariableValues(null);
 			try {
-				return data.releaseDelayExpressions[targetID].calc(simData.runData.variableValues,simData,null)*releaseDelayTimeBaseMultiply;
+				final double time=data.releaseDelayExpressions[targetID].calc(simData.runData.variableValues,simData,null)*releaseDelayTimeBaseMultiply;
+				return (time>=0)?time:0;
 			} catch (MathCalcError e) {
 				simData.calculationErrorStation(data.releaseDelayExpressions[targetID],this);
 				return 0;

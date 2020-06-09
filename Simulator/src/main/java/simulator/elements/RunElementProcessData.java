@@ -305,7 +305,8 @@ public class RunElementProcessData extends RunElementData {
 			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 			try {
-				return expressionProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
+				final double time=expressionProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
+				return (time>=0)?time:0;
 			} catch (MathCalcError e) {
 				simData.calculationErrorStation(expressionProcess[type],this);
 				return 0;
@@ -339,7 +340,7 @@ public class RunElementProcessData extends RunElementData {
 			}
 		}
 		lastClientIndex=nextClientIndex;
-		return time;
+		return (time>=0)?time:0;
 	}
 
 	/**
@@ -357,7 +358,8 @@ public class RunElementProcessData extends RunElementData {
 			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 			try {
-				return expressionPostProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
+				final double time=expressionPostProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
+				return (time>=0)?time:0;
 			} catch (MathCalcError e) {
 				simData.calculationErrorStation(expressionPostProcess[type],this);
 				return 0;

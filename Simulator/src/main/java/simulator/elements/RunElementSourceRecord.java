@@ -327,6 +327,7 @@ public class RunElementSourceRecord {
 	private int scheduleNextArrivalTime(final SimulationData simData, final double rawTimeDelta, final boolean isFirstArrival, final RunElement element, final String stationName) {
 		/* Zwischenankunftszeit */
 		long timeMS=FastMath.round(1000*rawTimeDelta*timeBaseMultiply);
+		if (timeMS<0) timeMS=0;
 
 		/* Bei erster Ankunft optionale Startzeit addieren */
 		if (isFirstArrival) timeMS+=arrivalStartMS;

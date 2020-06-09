@@ -296,7 +296,7 @@ public final class RunDataTransporters implements Cloneable {
 		variableValues[variableValues.length-1]=distance;
 		try {
 			final double d=expression.calc(variableValues,simData,null);
-			time+=d;
+			if (d>0) time+=d;
 		} catch (MathCalcError e) {
 			simData.calculationErrorStation(expression,type[transporter.type]);
 		}
@@ -307,13 +307,13 @@ public final class RunDataTransporters implements Cloneable {
 				time+=DistributionRandomNumber.randomNonNegative(transporter.loadDistribution);
 			}
 			if (transporter.loadExpression!=null) {
-				time+=transporter.loadExpression.calcOrDefault(simData.runData.variableValues,0.0);
+				time+=FastMath.max(0,transporter.loadExpression.calcOrDefault(simData.runData.variableValues,0.0));
 			}
 			if (transporter.unloadDistribution!=null) {
 				time+=DistributionRandomNumber.randomNonNegative(transporter.unloadDistribution);
 			}
 			if (transporter.unloadExpression!=null) {
-				time+=transporter.unloadExpression.calcOrDefault(simData.runData.variableValues,0.0);
+				time+=FastMath.max(0,transporter.unloadExpression.calcOrDefault(simData.runData.variableValues,0.0));
 			}
 		}
 

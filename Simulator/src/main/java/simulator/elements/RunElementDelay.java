@@ -151,6 +151,7 @@ public class RunElementDelay extends RunElementPassThrough {
 			simData.runData.setClientVariableValues(client);
 			try {
 				value=getData(simData).expression[client.type].calc(simData.runData.variableValues,simData,client);
+				if (value<0) value=0;
 			} catch (MathCalcError e) {
 				simData.calculationErrorStation(getData(simData).expression[client.type],this);
 				value=0;

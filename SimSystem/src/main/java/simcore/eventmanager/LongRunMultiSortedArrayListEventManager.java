@@ -24,7 +24,7 @@ import simcore.Event;
  * Implementierung des <code>EventManager</code>-Interface mit Hilfe mehrerer
  * <code>SortedArrayList</code>-Objekte
  * @author Alexander Herzog
- * @version 1.1
+ * @version 1.2
  * @see EventManager
  * @see SortedEventArrayList
  */
@@ -85,7 +85,11 @@ public class LongRunMultiSortedArrayListEventManager extends EventManagerBase {
 			return;
 		}
 
-		queues[(int)(time%queuesLength)].add(event);
+		if (time>=0) {
+			queues[(int)(time%queuesLength)].add(event);
+		} else {
+			queues[(int)((-time)%queuesLength)].add(event);
+		}
 	}
 
 	@Override
@@ -107,7 +111,11 @@ public class LongRunMultiSortedArrayListEventManager extends EventManagerBase {
 			}
 		}
 
-		return queues[(int)(time%queuesLength)].remove(event);
+		if (time>=0) {
+			return queues[(int)(time%queuesLength)].remove(event);
+		} else {
+			return queues[(int)((-time)%queuesLength)].remove(event);
+		}
 	}
 
 	@Override
