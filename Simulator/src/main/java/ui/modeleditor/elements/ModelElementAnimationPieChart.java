@@ -417,7 +417,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		g.drawString(text,mx-width/2,my-(ascent+descent)/2+ascent);
 	}
 
-	private void drawDummyDiagramSegments(final Graphics2D g, final Rectangle rectangle) {
+	private void drawDummyDiagramSegments(final Graphics2D g, final Rectangle rectangle, final double zoom) {
 		double sum=0;
 		for (double value: dummyValue) sum+=value;
 		if (sum==0) return;
@@ -426,6 +426,8 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			filler=new GradientFill[dummyValue.length];
 			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill();
 		}
+
+		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom)));
 
 		int startAngle=90;
 		for (int i=0;i<dummyValue.length;i++) {
@@ -440,9 +442,9 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		}
 	}
 
-	private void drawDiagramSegments(final Graphics2D g, final Rectangle rectangle) {
+	private void drawDiagramSegments(final Graphics2D g, final Rectangle rectangle, final double zoom) {
 		if (recordedValues==null) {
-			drawDummyDiagramSegments(g,rectangle);
+			drawDummyDiagramSegments(g,rectangle,zoom);
 			return;
 		}
 
@@ -456,6 +458,8 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 				filler=new GradientFill[recordedValues.length];
 				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill();
 			}
+
+			g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(11*zoom)));
 
 			int startAngle=90;
 			for (int i=0;i<recordedValues.length;i++) {
@@ -497,7 +501,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		}
 
 		setClip(g2,drawRect,rectangle);
-		drawDiagramSegments(g2,rectangle);
+		drawDiagramSegments(g2,rectangle,zoom);
 		setClip(g2,drawRect,null);
 
 		boolean drawBorder=false;
