@@ -461,7 +461,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			for (int i=0;i<recordedValues.length;i++) {
 				final double value=recordedValues[i]/sum;
 				final int angle=-(int)Math.round(value*360);
-				filler[i].set(g,rectangle,dummyColor[i%dummyColor.length],true);
+				filler[i].set(g,rectangle,expressionColor.get(i),true);
 				g.fillArc(rectangle.x+1,rectangle.y+1,rectangle.width-2,rectangle.height-2,startAngle,angle);
 				if (labelMode==LabelMode.ALL_PARTS || (labelMode==LabelMode.BIG_PARTS && value>=0.2)) {
 					drawLabel(g,rectangle,startAngle+angle/2,value);
