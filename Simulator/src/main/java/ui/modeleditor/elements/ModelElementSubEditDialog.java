@@ -159,6 +159,13 @@ public class ModelElementSubEditDialog extends BaseDialog {
 			}
 		}
 
+		/* Ebenen */
+		prepared.getLayers().clear();
+		prepared.getLayers().addAll(mainSurface.getLayers());
+		prepared.getVisibleLayers().clear();
+		prepared.getVisibleLayers().addAll(mainSurface.getVisibleLayers());
+		prepared.setActiveLayer(mainSurface.getActiveLayer());
+
 		return prepared;
 	}
 

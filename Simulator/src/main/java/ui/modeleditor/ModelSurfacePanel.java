@@ -735,6 +735,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 		ModelElement element=surface.getById(id);
 		if (element==null) return;
+		if (!surface.isVisibleOnLayer(element)) return;
 		surface.setSelectedElement(element);
 		fireSelectionListener();
 
@@ -1564,11 +1565,19 @@ public final class ModelSurfacePanel extends JPanel {
 	public static String PROPERTIES_TYPE_BACKGROUND="showModelBackgroundColor";
 
 	/**
+	 * Es soll der Dialog zur Konfiguration der Ebenen anzeigt werden (wird als {@link ActionEvent#getActionCommand()} übergeben).
+	 * @see #addShowModelPropertiesListener(ActionListener)
+	 * @see #fireShowPropertiesDialog(String)
+	 */
+	public static String PROPERTIES_TYPE_LAYERS="showLayers";
+
+	/**
 	 * Fügt einen Listener hinzu, der benachrichtigt wird, wenn die Modelleigenschaften aufgerufen werden sollen
 	 * @param showModelPropertiesListener	Zu benachrichtigender Listener
 	 * @see #PROPERTIES_TYPE_PROPERTIES
 	 * @see #PROPERTIES_TYPE_PROPERTIES_OPERATORS
 	 * @see #PROPERTIES_TYPE_BACKGROUND
+	 * @see #PROPERTIES_TYPE_LAYERS
 	 */
 	public void addShowModelPropertiesListener(final ActionListener showModelPropertiesListener) {
 		if (showModelPropertiesListeners.indexOf(showModelPropertiesListener)<0) showModelPropertiesListeners.add(showModelPropertiesListener);
@@ -1725,6 +1734,10 @@ public final class ModelSurfacePanel extends JPanel {
 		menu.add(item=new JMenuItem(Language.tr("Main.Menu.File.ModelProperties")));
 		item.setIcon(Images.MODEL.getIcon());
 		item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_PROPERTIES));
+
+		menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.Layers")));
+		item.setIcon(Images.EDIT_LAYERS.getIcon());
+		item.addActionListener(e->fireShowPropertiesDialog(PROPERTIES_TYPE_LAYERS));
 
 		menu.add(item=new JMenuItem(Language.tr("Main.Menu.View.BackgroundColor")));
 		item.setIcon(Images.EDIT_BACKGROUND_COLOR.getIcon());
@@ -2109,6 +2122,7 @@ public final class ModelSurfacePanel extends JPanel {
 				dragStartMousePosition=e.getPoint();
 				if (surface==null) return;
 				ModelElement element=surface.getElementAtPosition(e.getPoint(),zoom);
+				if (element!=null && !surface.isVisibleOnLayer(element)) element=null;
 				if (element==null) {
 					final int link=emptyScreenLinkPosition(e.getPoint());
 					if (link>=0) {
@@ -2472,6 +2486,7 @@ public final class ModelSurfacePanel extends JPanel {
 			switch (mode) {
 			case MODE_NORMAL:
 				element=surface.getElementAtPosition(e.getPoint(),zoom);
+				if (element!=null && !surface.isVisibleOnLayer(element)) element=null;
 				if (element==null) {
 					setToolTipText(null);
 					final boolean handCursor=(emptyScreenLinkPosition(e.getPoint())>=0);

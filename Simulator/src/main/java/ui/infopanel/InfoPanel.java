@@ -136,6 +136,15 @@ public class InfoPanel {
 	/** Info-ID für den "Externe Modelldaten bearbeiten"-Dialog */
 	public static final String globalModelLoadData="ModelLoadDataDialog";
 
+	/** Info-ID für den "Element suchen"-Dialog */
+	public static final String globalFindElement="FindElement";
+
+	/** Info-ID für den "Verteilung anpassen"-Dialog */
+	public static final String globalFit="Fit";
+
+	/** Info-ID für den "Varianzanalyse"-Dialog */
+	public static final String globalVarianceAnalysis="VarianceAnalysis";
+
 	/* Stationen - Eingang/Ausgang */
 
 	/** Info-ID für den "Quelle"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
@@ -609,6 +618,24 @@ public class InfoPanel {
 		register(globalModelLoadData,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("ModelLoadData.EditDialog.Title"),
 				()->Language.tr("ModelLoadData.EditDialog.DialogHint"));
+
+		/* Element suchen */
+
+		register(globalFindElement,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("FindElementDirect.Title"),
+				()->Language.tr("FindElementDirect.DialogHint"));
+
+		/* Verteilung anpassen */
+
+		register(globalFit,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("FitDialog.Title"),
+				()->Language.tr("FitDialog.DialogHint"));
+
+		/* Varianzanalyse */
+
+		register(globalVarianceAnalysis,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("ParameterCompare.Settings.VarianceAnalysis.Title"),
+				()->Language.tr("ParameterCompare.Settings.VarianceAnalysis.DialogHint"));
 
 		/* Stationen - Eingang/Ausgang */
 

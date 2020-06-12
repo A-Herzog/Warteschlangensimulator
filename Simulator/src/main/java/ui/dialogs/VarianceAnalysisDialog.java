@@ -15,6 +15,7 @@
  */
 package ui.dialogs;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -28,6 +29,7 @@ import mathtools.NumberTools;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
+import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.parameterseries.ParameterComparePanel;
 
@@ -47,13 +49,16 @@ public class VarianceAnalysisDialog extends BaseDialog {
 	 */
 	public VarianceAnalysisDialog(final Component owner) {
 		super(owner,Language.tr("ParameterCompare.Settings.VarianceAnalysis.Title"));
-
-		final JPanel content=createGUI(()->Help.topic(this,"ParameterSeries"));
+		final JPanel all=createGUI(()->Help.topic(this,"ParameterSeries"));
+		all.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(all,InfoPanel.globalVarianceAnalysis);
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Eingabefeld */
 
-		final Object[] obj=ModelElementBaseDialog.getInputPanel(Language.tr("ParameterCompare.Settings.VarianceAnalysis.Label")+":","100",5);
+		final Object[] obj=ModelElementBaseDialog.getInputPanel(Language.tr("ParameterCompare.Settings.VarianceAnalysis.Label")+":","100",7);
 		content.add((JPanel)obj[0]);
 		edit=(JTextField)obj[1];
 		edit.addKeyListener(new KeyListener() {
@@ -64,6 +69,7 @@ public class VarianceAnalysisDialog extends BaseDialog {
 
 		/* Dialog starten */
 
+		setMinSizeRespectingScreensize(500,175);
 		pack();
 		setLocationRelativeTo(getOwner());
 		setVisible(true);

@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.commons.math3.util.FastMath;
@@ -167,6 +168,10 @@ public final class ModelSurface {
 
 	private AnimationPanel animationPanel;
 
+	private final List<String> layers;
+	private final List<String> visibleLayers;
+	private String activeLayer;
+
 	/**
 	 * Konstruktor der Klasse <code>ModelSurface</code>
 	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
@@ -184,6 +189,10 @@ public final class ModelSurface {
 		this.resources=resources;
 		this.schedules=schedules;
 		this.parentSurface=parentSurface;
+
+		layers=new ArrayList<>();
+		visibleLayers=new ArrayList<>();
+		activeLayer=null;
 	}
 
 	/**
@@ -192,6 +201,10 @@ public final class ModelSurface {
 	public void clear() {
 		elements.clear();
 		fireStateChangeListener();
+
+		layers.clear();
+		visibleLayers.clear();
+		activeLayer=null;
 	}
 
 	/**
@@ -277,6 +290,7 @@ public final class ModelSurface {
 	public void add(final ModelElement element) {
 		elements.add(element);
 		element.addedToSurface();
+		if (activeLayer!=null && !activeLayer.trim().isEmpty()) element.getLayers().add(activeLayer);
 		fireRedraw();
 		fireStateChangeListener();
 	}
@@ -398,6 +412,10 @@ public final class ModelSurface {
 			clonedModelSurface.turnOffIDScanner=false;
 		}
 
+		clonedModelSurface.layers.addAll(layers);
+		clonedModelSurface.visibleLayers.addAll(visibleLayers);
+		clonedModelSurface.activeLayer=activeLayer;
+
 		clonedModelSurface.initAfterLoad();
 		if (copyRedrawListeners) {
 			for (Runnable listener : redrawListeners) clonedModelSurface.addRedrawListener(listener);
@@ -470,6 +488,11 @@ public final class ModelSurface {
 		for (int i=0;i<size;i++) {
 			if (!elements.get(i).equalsModelElement(surface.elements.get(i))) return false;
 		}
+
+		if (!Objects.deepEquals(layers,surface.layers)) return false;
+		if (!Objects.deepEquals(visibleLayers,surface.visibleLayers)) return false;
+		if (!Objects.equals(activeLayer,surface.activeLayer)) return false;
+
 		return true;
 	}
 
@@ -569,6 +592,27 @@ public final class ModelSurface {
 	}
 
 	/**
+	 * Prüft, ob ein Element auf der Zeichenfläche sichtbar ist.
+	 * @param element	Zu prüfendes Element (Kanten werden relativ zu ihren zugehörigen Ecken bewertet)
+	 * @return	Gibt an, ob das Element sichtbar sein soll.
+	 * @see ModelElement#isVisibleOnLayer(List, List)
+	 * @see #getLayers()
+	 * @see #getVisibleLayers()
+	 */
+	public boolean isVisibleOnLayer(final ModelElement element) {
+		if (element==null) return false;
+		if (element instanceof ModelElementEdge) {
+			final ModelElementEdge edge=(ModelElementEdge)element;
+			final ModelElement e1=edge.getConnectionStart();
+			final ModelElement e2=edge.getConnectionEnd();
+			if (e1==null || e2==null) return true;
+			return e1.isVisibleOnLayer(layers,visibleLayers) && e2.isVisibleOnLayer(layers,visibleLayers);
+		} else {
+			return element.isVisibleOnLayer(layers,visibleLayers);
+		}
+	}
+
+	/**
 	 * Zeichnet die Elemente in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt, in das die Elemente gezeichnet werden sollen
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -589,7 +633,7 @@ public final class ModelSurface {
 			/* final Rectangle smallerDrawRect=new Rectangle(drawRect.x,drawRect.y,drawRect.width-1,drawRect.height-1); */ /* sonst gibt's beim initialen Zeichnen evtl. eine Pixelzeile unter dem Scrollbalken */
 			drawRect.width--;
 			drawRect.height--;
-			if (graphics!=null) for (ModelElement element : elements) {
+			if (graphics!=null) for (ModelElement element : elements) if (isVisibleOnLayer(element)) {
 				element.drawToGraphics(graphics,/*smallerDrawRect*/drawRect,zoom,showSelectionFrames);
 			}
 			drawRect.width++;
@@ -639,8 +683,11 @@ public final class ModelSurface {
 		ModelElement selectedElement=getSelectedElement();
 		if (element==selectedElement) return;
 		if (selectedElement!=null) selectedElement.setSelected(false);
-		if (element!=null && indexOf(element)>=0) element.setSelected(true);
-		if (element!=null) {
+
+		if (element==null) return;
+
+		if (isVisibleOnLayer(element)) {
+			if (indexOf(element)>=0) element.setSelected(true);
 			saveLastSelected=element;
 			if (element instanceof ModelElementPosition) saveLastSelectedPosition=(ModelElementPosition)element;
 		}
@@ -659,14 +706,14 @@ public final class ModelSurface {
 			zoomArea=new Rectangle((int)FastMath.round(area.x/zoom),(int)FastMath.round(area.y/zoom),(int)FastMath.round(area.width/zoom),(int)FastMath.round(area.height/zoom));
 		}
 
-		for (ModelElement element : elements) element.setSelectedArea(zoomArea);
+		for (ModelElement element : elements) if (isVisibleOnLayer(element)) element.setSelectedArea(zoomArea);
 	}
 
 	/**
 	 * Wählt alle Elemente aus.
 	 */
 	public void setSelectedAreaAll() {
-		for (ModelElement element : elements) element.setSelectedArea(true);
+		for (ModelElement element : elements) if (isVisibleOnLayer(element)) element.setSelectedArea(true);
 	}
 
 	/**
@@ -754,10 +801,18 @@ public final class ModelSurface {
 	 * @param parent	Übergeordneter Knoten
 	 */
 	public void addDataToXML(final Document doc, final Element parent) {
-		Element node=doc.createElement(XML_NODE_NAME[0]);
+		final Element node=doc.createElement(XML_NODE_NAME[0]);
 		parent.appendChild(node);
 
 		for (ModelElement element : elements) element.addDataToXML(doc,node);
+
+		for (String layer: layers) {
+			final Element sub=doc.createElement(Language.tr("Surface.XML.Layer"));
+			node.appendChild(sub);
+			sub.setTextContent(layer);
+			if (visibleLayers.contains(layer)) sub.setAttribute(Language.tr("Surface.XML.Layer.Visible"),"1");
+			if (Objects.equals(layer,activeLayer)) sub.setAttribute(Language.tr("Surface.XML.Layer.NewElements"),"1");
+		}
 	}
 
 	private ModelElementCatalog catalog=null;
@@ -785,6 +840,18 @@ public final class ModelSurface {
 	 */
 	private String loadElementFromXML(final String name, final Element node) {
 		ModelElement element=null;
+
+		if (Language.trAll("Surface.XML.Layer",name)) {
+			final String layer=node.getTextContent();
+			if (!layer.trim().isEmpty()) {
+				layers.add(layer);
+				final String visible=Language.trAllAttribute("Surface.XML.Layer.Visible",node);
+				if (!visible.isEmpty() && !visible.equals("0")) visibleLayers.add(layer);
+				final String newElements=Language.trAllAttribute("Surface.XML.Layer.NewElements",node);
+				if (!newElements.isEmpty() && !newElements.equals("0")) activeLayer=layer;
+			}
+			return null;
+		}
 
 		turnOffIDScanner=true;
 		try {
@@ -911,10 +978,23 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Liefert eine Liste aller Modell-Elemente
+	 * Liefert eine Liste aller Modell-Elemente.
 	 * @return	Liste mit allen Modell-Elementen
 	 */
 	public List<ModelElement> getElements() {
+		return elements;
+	}
+
+	/**
+	 * Liefert eine Liste aller Modell-Elemente auf dieser Zeichenfläche und auch auf möglichen Unter-Zeichenflächen.
+	 * @return	Liste mit allen Modell-Elementen auf dieser und auf Unter-Zeichenflächen
+	 */
+	public List<ModelElement> getElementsIncludingSubModels() {
+		final List<ModelElement> elements=new ArrayList<>();
+		elements.addAll(this.elements);
+		for (ModelElement element: this.elements) if (element instanceof ModelElementSub) {
+			elements.addAll(((ModelElementSub)element).getSubSurface().getElements());
+		}
 		return elements;
 	}
 
@@ -1669,5 +1749,41 @@ public final class ModelSurface {
 		nr++;
 		while (isNameInUse(str+nr,element)) nr++;
 		box.setName(str+nr);
+	}
+
+	/**
+	 * Liefert eine Liste mit allen verfügbaren Ebenen.<br>
+	 * Es wird die Originalliste geliefert, d.h. es können direkt Veränderungen vorgenommen werden.
+	 * @return	Liste mit allen verfügbaren Ebenen (kann leer sein, aber ist nie <code>null</code>)
+	 */
+	public List<String> getLayers() {
+		return layers;
+	}
+
+	/**
+	 * Liefert eine Liste mit allen sichtbaren Ebenen.<br>
+	 * Diese Liste sollte ein Teilliste von {@link #getLayers()} sein.<br>
+	 * Es wird die Originalliste geliefert, d.h. es können direkt Veränderungen vorgenommen werden.
+	 * @return	Liste mit allen sichtbaren Ebenen (kann leer sein, aber ist nie <code>null</code>)
+	 */
+	public List<String> getVisibleLayers() {
+		return visibleLayers;
+	}
+
+	/**
+	 * Name der aktuellen Ebene, auf die neue Elemente eingefügt werden.
+	 * @return	Name der Ebene für neue Elemente (kann <code>null</code> sein)
+	 */
+	public String getActiveLayer() {
+		if (activeLayer!=null && activeLayer.trim().isEmpty()) return null;
+		return activeLayer;
+	}
+
+	/**
+	 * Stellt den Namen der aktuellen Ebene, auf die neue Elemente eingefügt werden soll, ein.
+	 * @param layer	Name der Ebene für neue Elemente (kann <code>null</code> sein)
+	 */
+	public void setActiveLayer(final String layer) {
+		if (layer!=null && layer.trim().isEmpty()) activeLayer=null; else activeLayer=(layer==null)?null:layer.trim();
 	}
 }

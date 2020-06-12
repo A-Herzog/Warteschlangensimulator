@@ -462,6 +462,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewZoomIn",e->editorPanel.zoomIn());
 		addAction("ViewCenterModel",e->editorPanel.centerModel());
 		addAction("ViewTop",e->editorPanel.scrollToTop());
+		addAction("ViewLayers",e->commandLayers());
 		addAction("ViewBackgroundColor",e->commandViewBackgroundColor());
 		addAction("ViewEdgeSettings",e->commandViewEdgeSettings());
 		addAction("ViewUserDefinedAnimationIcons",e->commandViewUserDefinedAnimationIcons());
@@ -897,6 +898,7 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.CenterModel"),Images.ZOOM_CENTER_MODEL.getIcon(),Language.tr("Main.Menu.View.CenterModel.Mnemonic"),KeyEvent.VK_NUMPAD0,"ViewCenterModel"));
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.ScrollTopLeft"),Language.tr("Main.Menu.View.ScrollTopLeft.Mnemonic"),KeyEvent.VK_HOME,"ViewTop"));
 		menu.addSeparator();
+		enabledOnEditorPanel.add(createMenuItemCtrlShift(menu,Language.tr("Main.Menu.View.Layers"),Images.EDIT_LAYERS.getIcon(),Language.tr("Main.Menu.View.Layers.Mnemonic"),KeyEvent.VK_F9,"ViewLayers"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.BackgroundColor"),Images.EDIT_BACKGROUND_COLOR.getIcon(),Language.tr("Main.Menu.View.BackgroundColor.Mnemonic"),"ViewBackgroundColor"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.EdgeSettings"),Images.EDIT_EDGES.getIcon(),Language.tr("Main.Menu.View.EdgeSettings.Mnemonic"),"ViewEdgeSettings"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.UserDefinedAnimationIcons"),Language.tr("Main.Menu.View.UserDefinedAnimationIcons.Mnemonic"),"ViewUserDefinedAnimationIcons"));
@@ -1678,6 +1680,10 @@ public class MainPanel extends MainPanelBase {
 		setup.useShadows=!setup.useShadows;
 		setup.saveSetup();
 		reloadSetup();
+	}
+
+	private void commandLayers() {
+		editorPanel.showLayersDialog();
 	}
 
 	private void commandViewBackgroundColor() {

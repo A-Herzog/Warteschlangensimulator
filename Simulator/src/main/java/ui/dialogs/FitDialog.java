@@ -45,6 +45,7 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
+import ui.infopanel.InfoPanel;
 
 /**
  * Diese Klasse stellt einen Dialog zur Anpassung einer Verteilung
@@ -92,6 +93,7 @@ public class FitDialog extends BaseDialog {
 		super(owner,Language.tr("FitDialog.Title"),false);
 		JPanel content=createGUI(()->Help.topicModal(FitDialog.this,"Fit"));
 		content.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(content,InfoPanel.globalFit);
 		content.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
 		createTabs(tabs);
 		setSizeRespectingScreensize(725,500);

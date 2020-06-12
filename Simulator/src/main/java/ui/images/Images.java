@@ -176,6 +176,15 @@ public enum Images {
 	/** Symbol "Bearbeiten - Löschen" */
 	EDIT_DELETE("delete.png"),
 
+	/** Symbol "Ebenen" */
+	EDIT_LAYERS("layers.png"),
+
+	/** Symbol "Ebene - sichtbar" */
+	EDIT_LAYERS_VISIBLE("lightbulb.png"),
+
+	/** Symbol "Ebene - unsichtbar" */
+	EDIT_LAYERS_INVISIBLE("lightbulb_off.png"),
+
 	/** Symbol "Hintergrundfarbe" */
 	EDIT_BACKGROUND_COLOR("color_wheel.png"),
 

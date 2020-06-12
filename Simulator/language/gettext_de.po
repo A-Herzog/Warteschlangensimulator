@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-09 18:02+0200\n"
+"POT-Creation-Date: 2020-06-12 13:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5815,6 +5815,9 @@ msgstr "Statistik-Batch-Größe bestimmen"
 msgid "FindElement.Info"
 msgstr "Das Modell besteht aus %d Stationen, %d Verbindungskanten und %d weiteren Elementen.<br>Insgesamt sind %d Elemente enthalten."
 
+msgid "FindElement.Invisible"
+msgstr "Element ist ausgeblendet"
+
 msgid "FindElement.Level.Sub"
 msgstr "Element befindet sich in Unterelement id=%s"
 
@@ -5830,11 +5833,20 @@ msgstr "Element über ID auswählen"
 msgid "FindElementDirect.ClickInfo"
 msgstr "Per Doppelklick auf ein Suchergebis kann das jeweilige Element im Editor angezeigt werden."
 
+msgid "FindElementDirect.DialogHint"
+msgstr "In diesem Dialog können Elemente basierend auf ihrem Namen oder ihrer ID gesucht werden."
+
 msgid "FindElementDirect.ElementsFound"
 msgstr "Es wurden %d Elemente gefunden, die zu dem Suchbegriff passen."
 
 msgid "FindElementDirect.IdOrName"
 msgstr "Suchbegriff"
+
+msgid "FindElementDirect.IncludeHidden"
+msgstr "Ausgeblendete Elemente einschließen"
+
+msgid "FindElementDirect.IncludeHidden.Info"
+msgstr "Auch Elemente, die sich auf ausgeblendeten Ebenen befinden, in die Suche einbeziehen."
 
 msgid "FindElementDirect.InvalidNumber.Info"
 msgstr "Die angegebene ID \"%s\" ist ungültig. Es muss eine nichtnegative ganze Zahl angegeben werden."
@@ -5914,6 +5926,9 @@ msgstr "Ergebnis kopieren"
 
 msgid "FitDialog.CopyResults.Tooltip"
 msgstr "Kopiert die Ergebnisse der Anpassung in die Zwischenablage"
+
+msgid "FitDialog.DialogHint"
+msgstr "Die Funktion zur Verteilungsanpassung sucht zu vorgegebenen Messwerten eine analytische Wahrscheinlichkeitsverteilung, die diese möglichst gut beschreibt. Dieser Vorgang wird auch Input-Analyse genannt."
 
 msgid "FitDialog.InfoValuesRounded"
 msgstr "Die Eingabewerte wurden auf ganze Zahlen gerundet."
@@ -7083,6 +7098,12 @@ msgstr "Element über ID oder Namen suchen..."
 
 msgid "Main.Menu.View.FindElement.Mnemonic"
 msgstr "I"
+
+msgid "Main.Menu.View.Layers"
+msgstr "Ebenen..."
+
+msgid "Main.Menu.View.Layers.Mnemonic"
+msgstr "E"
 
 msgid "Main.Menu.View.ListElements"
 msgstr "Elementeliste..."
@@ -10014,6 +10035,9 @@ msgstr ""
 
 msgid "ParameterCompare.Settings.Save.Error.Title"
 msgstr "Fehler beim Speichern der Einstellungen"
+
+msgid "ParameterCompare.Settings.VarianceAnalysis.DialogHint"
+msgstr "Bei der Varianzanalyse wird dasselbe Modell ohne jegliche Veränderung mehrfach simuliert. Auf diese Weise können die Schwankungen zwischen den Ergebnissen untersucht werden."
 
 msgid "ParameterCompare.Settings.VarianceAnalysis.ErrorInfo"
 msgstr "Die angegebene Anzahl an Wiederholungen \"%s\" ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
@@ -21749,6 +21773,9 @@ msgstr "Letzte Werte anzeigen"
 msgid "Surface.PopupMenu.Arrange"
 msgstr "Anordnen"
 
+msgid "Surface.PopupMenu.Layers"
+msgstr "Ebenen"
+
 msgid "Surface.PopupMenu.MoveBackwards"
 msgstr "Eine Stufe nach hinten"
 
@@ -24902,6 +24929,15 @@ msgstr "InitialeVariable"
 msgid "Surface.XML.GlobalVariable.Name"
 msgstr "Name"
 
+msgid "Surface.XML.Layer"
+msgstr "ModellEbene"
+
+msgid "Surface.XML.Layer.NewElements"
+msgstr "NeueElemente"
+
+msgid "Surface.XML.Layer.Visible"
+msgstr "Sichtbar"
+
 msgid "Surface.XML.LineMode"
 msgstr "ModellElementVerbindungsdarstellungsart"
 
@@ -24943,6 +24979,9 @@ msgstr "ModellBeschreibung"
 
 msgid "Surface.XML.ModelElementDescription"
 msgstr "ModellElementBeschreibung"
+
+msgid "Surface.XML.ModelElementLayer"
+msgstr "ModellElementEbene"
 
 msgid "Surface.XML.ModelFixedSeed"
 msgstr "ModellZufallszahlenStartwert"
@@ -26122,6 +26161,92 @@ msgstr "https://adoptopenjdk.net/"
 
 msgid "Window.LanguageAutomatic"
 msgstr "Die Programmsprache wurde passend zur Betriebssystemsprache auf <b>Deutsch</b> eingestellt. Sie können dies über <b>Datei|Einstellungen</b> verändern."
+
+msgid "Window.Layers.Active.Hint"
+msgstr "Neue Elemente auf dieser Ebene einfügen."
+
+msgid "Window.Layers.Active.Title"
+msgstr "Aktiv"
+
+msgid "Window.Layers.Add.DefaultName"
+msgstr "Ebene"
+
+msgid "Window.Layers.Add.ErrorInfo"
+msgstr "Der angegebene Name für die neue Ebene wird bereits für eine andere Ebene verwendet."
+
+msgid "Window.Layers.Add.ErrorTitle"
+msgstr "Ungültiger Name für neue Ebene"
+
+msgid "Window.Layers.Add.Hint"
+msgstr "Neue Ebene hinzufügen."
+
+msgid "Window.Layers.Add.NewLayerLabel"
+msgstr "Name für die neue Ebene"
+
+msgid "Window.Layers.Add.Title"
+msgstr "Hinzufügen"
+
+msgid "Window.Layers.Delete.ConfirmInfo"
+msgstr ""
+"Soll die Ebene %s wirklich gelöscht werden?\n"
+"Die Elemente, die dieser Ebene zugeordnet sind, bleiben dabei erhalten."
+
+msgid "Window.Layers.Delete.ConfirmInfo.No"
+msgstr "Ebene beibehalten."
+
+msgid "Window.Layers.Delete.ConfirmInfo.Yes"
+msgstr "Ebene löschen."
+
+msgid "Window.Layers.Delete.ConfirmTitle"
+msgstr "Ebene löschen"
+
+msgid "Window.Layers.Delete.Hint"
+msgstr "Ebene löschen."
+
+msgid "Window.Layers.Delete.Title"
+msgstr "Löschen"
+
+msgid "Window.Layers.Invisible.Hint"
+msgstr "Blendet die Elemente, die sich auf dieser Ebene befinden, aus."
+
+msgid "Window.Layers.Invisible.Title"
+msgstr "Unsichtbar machen"
+
+msgid "Window.Layers.List.Active"
+msgstr "<b>Ziel für neue Elemente</b>"
+
+msgid "Window.Layers.List.IsNotVisible"
+msgstr "Elemente der Ebene sind <b>nicht</b> sichtbar"
+
+msgid "Window.Layers.List.IsVisible"
+msgstr "Elemente der Ebene sind sichtbar"
+
+msgid "Window.Layers.List.Layer"
+msgstr "Ebene"
+
+msgid "Window.Layers.Rename.ErrorInfo"
+msgstr "Der angegebene neue Name für die Ebene wird bereits für eine andere Ebene verwendet."
+
+msgid "Window.Layers.Rename.ErrorTitle"
+msgstr "Ungültiger Name für Ebene"
+
+msgid "Window.Layers.Rename.Hint"
+msgstr "Ebene umbenennen."
+
+msgid "Window.Layers.Rename.RenameLayerLabel"
+msgstr "Neuer Name für die Ebene"
+
+msgid "Window.Layers.Rename.Title"
+msgstr "Umbenennen"
+
+msgid "Window.Layers.Title"
+msgstr "Ebenen"
+
+msgid "Window.Layers.Visible.Hint"
+msgstr "Blendet die Elemente, die sich auf dieser Ebene befinden, ein."
+
+msgid "Window.Layers.Visible.Title"
+msgstr "Sichtbar machen"
 
 msgid "Window.LoadImage"
 msgstr "Bild laden"

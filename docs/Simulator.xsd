@@ -502,13 +502,22 @@
   <xs:element ref="ModellElementSchieberegler"/>  
   <xs:element ref="ModellElementCheckbox"/>
   <xs:element ref="ModellElementRadiobutton"/>
+  <xs:element ref="ModellEbene"/> 
 </xs:choice></xs:sequence></xs:complexType></xs:element>
+
+<xs:element name="ModellEbene"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="sichtbar" type="xs:string"/>
+	<xs:attribute name="neueelemente" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:complexType name="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModellElementName" type="xs:string"/>
 	<xs:element name="ModellElementBeschreibung" type="xs:string"/>
 	<xs:element ref="ModellElementGroesse"/>
+	<xs:element name="ModellElementEbene" type="xs:string"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="geschuetzt" type="xs:integer"/>
@@ -2471,13 +2480,22 @@
   <xs:element ref="ModelElementSlider"/>
   <xs:element ref="ModelElementCheckbox"/>
   <xs:element ref="ModelElementRadiobutton"/>
+  <xs:element ref="ModelLayer"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
+
+<xs:element name="ModelLayer"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="visible" type="xs:string"/>
+	<xs:attribute name="newelements" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:complexType name="ModelElementSimpleBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModelElementName" type="xs:string"/>
 	<xs:element name="ModelElementDescription" type="xs:string"/>
 	<xs:element ref="ModelElementSize"/>
+	<xs:element name="ModelElementLayer" type="xs:string"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="protected" type="xs:integer"/>

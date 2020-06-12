@@ -33,6 +33,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -47,6 +48,7 @@ import systemtools.BaseDialog;
 import tools.IconListCellRenderer;
 import ui.help.Help;
 import ui.images.Images;
+import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ScaledImageCache;
@@ -63,6 +65,7 @@ public class FindElementDialog extends BaseDialog {
 	private final ModelSurface surface;
 	private final JTextField searchEdit;
 	private final JComboBox<String> optionsCombo;
+	private final JCheckBox includeHidden;
 	private final JList<JLabel> resultsList;
 	private final DefaultListModel<JLabel> resultsModel;
 	private final List<Integer> resultsIds;
@@ -78,8 +81,11 @@ public class FindElementDialog extends BaseDialog {
 		this.surface=surface;
 
 		showCloseButton=true;
-		final JPanel content=createGUI(()->Help.topicModal(getOwner(),"FindElement"));
-		content.setLayout(new BorderLayout());
+		final JPanel all=createGUI(()->Help.topicModal(getOwner(),"FindElement"));
+		all.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(all,InfoPanel.globalFindElement);
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
 
 		final JPanel setupArea=new JPanel();
 		setupArea.setLayout(new BoxLayout(setupArea,BoxLayout.PAGE_AXIS));
@@ -114,6 +120,11 @@ public class FindElementDialog extends BaseDialog {
 		}));
 		optionsCombo.setSelectedIndex(2);
 		optionsCombo.addActionListener(e->search());
+
+		includeHidden=new JCheckBox(Language.tr("FindElementDirect.IncludeHidden"));
+		if (surface.getLayers().size()>0) line.add(includeHidden);
+		includeHidden.setToolTipText(Language.tr("FindElementDirect.IncludeHidden.Info"));
+		includeHidden.addActionListener(e->search());
 
 		setupArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(resultsInfo=new JLabel());
@@ -212,6 +223,7 @@ public class FindElementDialog extends BaseDialog {
 		sb.append("id="+element.getId());
 		sb.append("</span><br><span style=\"color: blue;\"><i>");
 		if (parent==null) sb.append(Language.tr("FindElement.Level.Top")); else sb.append(String.format(Language.tr("FindElement.Level.Sub"),parent.getId()));
+		if (!element.getSurface().isVisibleOnLayer(element)) sb.append(", "+Language.tr("FindElement.Invisible"));
 		sb.append("</span></i>");
 
 		/* Bild aufbauen */
@@ -252,7 +264,8 @@ public class FindElementDialog extends BaseDialog {
 					return;
 				}
 			} else {
-				final ModelElement element=surface.getByIdIncludingSubModels(I.intValue());
+				ModelElement element=surface.getByIdIncludingSubModels(I.intValue());
+				if (!includeHidden.isSelected() && !surface.isVisibleOnLayer(element)) element=null;
 				if (element==null) {
 					if (optionsCombo.getSelectedIndex()==0) {
 						setInfo("red",String.format(Language.tr("FindElementDirect.UnknownId.Info"),I.intValue()));
@@ -268,8 +281,10 @@ public class FindElementDialog extends BaseDialog {
 
 		if (optionsCombo.getSelectedIndex()==1 || optionsCombo.getSelectedIndex()==2) {
 			for (ModelElement element1: surface.getElements()) {
+				if (!includeHidden.isSelected() && !surface.isVisibleOnLayer(element1)) continue;
 				if (!resultsIds.contains(element1.getId()) && testName(element1,search)) resultsIds.add(element1.getId());
 				if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+					if (!includeHidden.isSelected() && !((ModelElementSub)element1).getSubSurface().isVisibleOnLayer(element2)) continue;
 					if (!resultsIds.contains(element2.getId()) && testName(element2,search)) resultsIds.add(element2.getId());
 				}
 			}

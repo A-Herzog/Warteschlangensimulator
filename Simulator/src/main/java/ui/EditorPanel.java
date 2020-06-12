@@ -92,6 +92,7 @@ import tools.ButtonRotator;
 import tools.SetupData;
 import tools.SlidesGenerator;
 import ui.dialogs.BackgroundColorDialog;
+import ui.dialogs.LayersDialog;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.DrawIOExport;
@@ -850,6 +851,10 @@ public class EditorPanel extends EditorPanelBase {
 				showBackgroundColorDialog();
 				return;
 			}
+			if (cmd.equals(ModelSurfacePanel.PROPERTIES_TYPE_LAYERS)) {
+				showLayersDialog();
+				return;
+			}
 		});
 		surfacePanel.addResourceCountSetter((name,count)->changeResourceCount(name,count.intValue()));
 		surfacePanel.addZoomChangeListener(e->{
@@ -930,7 +935,11 @@ public class EditorPanel extends EditorPanelBase {
 		if (surfacePanel.isOperationRunning()) return;
 		final ModelSurface surface=surfacePanel.getSurface();
 
-		final List<ModelElementBox> boxElements=surface.getElements().stream().filter(element->element instanceof ModelElementBox).map(element->(ModelElementBox)element).collect(Collectors.toList());
+		final List<ModelElementBox> boxElements=surface.getElements().stream()
+				.filter(element->surface.isVisibleOnLayer(element))
+				.filter(element->element instanceof ModelElementBox)
+				.map(element->(ModelElementBox)element)
+				.collect(Collectors.toList());
 		if (navigatorModel.getSize()!=boxElements.size()) {
 			navigatorModel.clear();
 			for (ModelElementBox element: boxElements) navigatorModel.addElement(element);
@@ -1097,6 +1106,20 @@ public class EditorPanel extends EditorPanelBase {
 	 */
 	public void showModelPropertiesDialog(final ModelPropertiesDialog.InitialPage initialPage) {
 		final ModelPropertiesDialog dialog=new ModelPropertiesDialog(owner,getModel(),readOnly,initialPage);
+		dialog.setVisible(true);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK && !getModel().equalsEditModel(dialog.getModel())) {
+			File file=getLastFile();
+			setModel(dialog.getModel());
+			setModelChanged(true);
+			setLastFile(file);
+		}
+	}
+
+	/**
+	 * Zeigt den Dialog zum Bearbeiten der Ebenen an.
+	 */
+	public void showLayersDialog() {
+		final LayersDialog dialog=new LayersDialog(owner,getModel(),readOnly);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK && !getModel().equalsEditModel(dialog.getModel())) {
 			File file=getLastFile();

@@ -24,8 +24,10 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -94,6 +96,8 @@ public class ModelElement {
 	private boolean selected;
 	private boolean selectedArea;
 
+	private final List<String> layers;
+
 	/**
 	 * Konstruktor der Klasse <code>ModelElement</code>
 	 * @param model	Modell zu dem diese Element gehören soll (kann später nicht mehr geändert werden).
@@ -108,6 +112,7 @@ public class ModelElement {
 		deleteProtection=false;
 		selected=false;
 		selectedArea=false;
+		layers=new ArrayList<>();
 	}
 
 	/**
@@ -290,6 +295,9 @@ public class ModelElement {
 			if (!description.equals(element.description)) return false;
 		}
 		if (deleteProtection!=element.deleteProtection) return false;
+
+		if (!Objects.deepEquals(layers,element.layers)) return false;
+
 		return true;
 	}
 
@@ -307,6 +315,9 @@ public class ModelElement {
 		name=element.name;
 		description=element.description;
 		selected=element.selected;
+
+		layers.clear();
+		layers.addAll(element.getLayers());
 	}
 
 	/**
@@ -961,6 +972,33 @@ public class ModelElement {
 			item.setIcon(Images.MOVE_BACK.getIcon());
 			sub.add(item);
 
+			if (surface.getLayers().size()>0) {
+				popupMenu.add(sub=new JMenu(Language.tr("Surface.PopupMenu.Layers")));
+				sub.setIcon(Images.EDIT_LAYERS.getIcon());
+				for (final String layer: surface.getLayers()) {
+					final JCheckBoxMenuItem check=new JCheckBoxMenuItem(layer);
+					final boolean onLayer=layers.size()==0 || layers.contains(layer);
+					check.setSelected(onLayer);
+					if (onLayer) {
+						check.addActionListener(e->{
+							if (layers.size()==0) {
+								layers.addAll(surface.getLayers());
+								layers.remove(layer);
+							} else {
+								layers.remove(layer);
+							}
+							fireChanged();
+						});
+					} else {
+						check.addActionListener(e->{
+							layers.add(layer);
+							fireChanged();
+						});
+					}
+					sub.add(check);
+				}
+			}
+
 		}
 
 		/* Popupmenü anzeigen */
@@ -1005,6 +1043,12 @@ public class ModelElement {
 			node.appendChild(sub);
 			sub.setTextContent(description);
 		}
+
+		for (String layer: layers) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.XML.ModelElementLayer"));
+			node.appendChild(sub);
+			sub.setTextContent(layer);
+		}
 	}
 
 	/**
@@ -1037,6 +1081,10 @@ public class ModelElement {
 		if (Language.trAll("Surface.XML.ModelElementDescription",name) && content!=null) {
 			this.description=content.trim();
 			return null;
+		}
+
+		if (Language.trAll("Surface.XML.ModelElementLayer",name) && content!=null && !content.trim().isEmpty()) {
+			layers.add(content);
 		}
 
 		return null;
@@ -1152,5 +1200,37 @@ public class ModelElement {
 	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
 	 */
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
+	}
+
+	/**
+	 * Liefert die Liste der Ebenen auf denen dieses Element dargestellt werden soll.<br>
+	 * Diese Liste kann leer (aber nicht <code>null</code>) sein; in diesem Fall ist das
+	 * Element auf allen Ebenen sichtbar.
+	 * @return	Liste der Ebenen, auf denen sich dieses Element befindet (Originalliste, kann direkt verändert werden)
+	 */
+	public List<String> getLayers() {
+		return layers;
+	}
+
+	/**
+	 * Prüft, ob das Element momentan sichtbar sein soll.
+	 * @param layers	Liste mit allen verfügbaren Ebenen (siehe {@link ModelSurface#getLayers()}
+	 * @param visibleLayers	Liste der sichtbaren Ebenen (siehe {@link ModelSurface#getVisibleLayers()}
+	 * @return	Gibt an, ob das Element moment sichtbar ist. (Achtung: Funktioniert nicht für Kanten; deren Sichtbarkeit muss relativ zu den Elementen geprüft werden)
+	 * @see ModelSurface#isVisibleOnLayer(ModelElement)
+	 * @see ModelSurface#getLayers()
+	 * @see ModelSurface#getVisibleLayers()
+	 */
+	public boolean isVisibleOnLayer(final List<String> layers, final List<String> visibleLayers) {
+		if (layers.size()==0 || this.layers.size()==0 || visibleLayers.size()==0) return true;
+
+		boolean isOnLayer=false; /* Ist das Element zumindest auf irgendeinem Layer? */
+		for (String layer: this.layers) {
+			if (visibleLayers.contains(layer)) return true;
+			if (layers.contains(layer)) isOnLayer=true;
+		}
+		if (!isOnLayer) return true; /* Wenn das Element nur Layer kennt, die es gar nicht gibt, ist das gleichwertig dazu, dass das Element nicht gelistet ist. */
+
+		return false;
 	}
 }

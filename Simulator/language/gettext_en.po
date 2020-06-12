@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-09 18:02+0200\n"
+"POT-Creation-Date: 2020-06-12 13:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5820,6 +5820,9 @@ msgstr "Determine statistics batch size"
 msgid "FindElement.Info"
 msgstr "The model consists of %d stations, %d connection edges and %d other elements.<br>All together there are %d elements in the model."
 
+msgid "FindElement.Invisible"
+msgstr "element is hidden"
+
 msgid "FindElement.Level.Sub"
 msgstr "Element in in sub element id=%s"
 
@@ -5835,11 +5838,20 @@ msgstr "Select element by ID"
 msgid "FindElementDirect.ClickInfo"
 msgstr "By dobble clicking a search result the corresponding element can be shown in the editor."
 
+msgid "FindElementDirect.DialogHint"
+msgstr "In this dialog you can search for elements based on their name or ID."
+
 msgid "FindElementDirect.ElementsFound"
 msgstr "%d elements were found matching the search string."
 
 msgid "FindElementDirect.IdOrName"
 msgstr "Search string"
+
+msgid "FindElementDirect.IncludeHidden"
+msgstr "Include hidden elements"
+
+msgid "FindElementDirect.IncludeHidden.Info"
+msgstr "Also include elements on hidden layers in search results."
 
 msgid "FindElementDirect.InvalidNumber.Info"
 msgstr "The specified id \"%s\" is invalid. A non-negative integer number has to be specified."
@@ -5919,6 +5931,9 @@ msgstr "Copy result"
 
 msgid "FitDialog.CopyResults.Tooltip"
 msgstr "Copies the results of the fit to the clipboard"
+
+msgid "FitDialog.DialogHint"
+msgstr "The distribution fitting function trys to find an analytical probability distribution for given measured values that describes them as well as possible. This process is also called input analysis."
 
 msgid "FitDialog.InfoValuesRounded"
 msgstr "The input values have been rounded to integer numbers."
@@ -7088,6 +7103,12 @@ msgstr "Find element by ID or name..."
 
 msgid "Main.Menu.View.FindElement.Mnemonic"
 msgstr "I"
+
+msgid "Main.Menu.View.Layers"
+msgstr "Layers..."
+
+msgid "Main.Menu.View.Layers.Mnemonic"
+msgstr "L"
 
 msgid "Main.Menu.View.ListElements"
 msgstr "Elements list..."
@@ -10013,6 +10034,9 @@ msgstr ""
 
 msgid "ParameterCompare.Settings.Save.Error.Title"
 msgstr "Error saving the settings"
+
+msgid "ParameterCompare.Settings.VarianceAnalysis.DialogHint"
+msgstr "The variance analysis allows to simulate the same model several times without any changes. In this way, the fluctuations between the results can be examined."
 
 msgid "ParameterCompare.Settings.VarianceAnalysis.ErrorInfo"
 msgstr "The number of repeatations \"%s\" is invalid. A positive integer number has to be specified."
@@ -21736,6 +21760,9 @@ msgstr "Show recent values"
 msgid "Surface.PopupMenu.Arrange"
 msgstr "Arrange"
 
+msgid "Surface.PopupMenu.Layers"
+msgstr "Layers"
+
 msgid "Surface.PopupMenu.MoveBackwards"
 msgstr "Move backwards"
 
@@ -24887,6 +24914,15 @@ msgstr "InitialVariable"
 msgid "Surface.XML.GlobalVariable.Name"
 msgstr "Name"
 
+msgid "Surface.XML.Layer"
+msgstr "ModelLayer"
+
+msgid "Surface.XML.Layer.NewElements"
+msgstr "newelements"
+
+msgid "Surface.XML.Layer.Visible"
+msgstr "visible"
+
 msgid "Surface.XML.LineMode"
 msgstr "ModelElementConnectionDrawStyle"
 
@@ -24928,6 +24964,9 @@ msgstr "ModelDescription"
 
 msgid "Surface.XML.ModelElementDescription"
 msgstr "ModelElementDescription"
+
+msgid "Surface.XML.ModelElementLayer"
+msgstr "ModelElementLayer"
 
 msgid "Surface.XML.ModelFixedSeed"
 msgstr "ModelRandomNumbersSeed"
@@ -26105,6 +26144,92 @@ msgstr "https://adoptopenjdk.net/"
 
 msgid "Window.LanguageAutomatic"
 msgstr "The program language was set to <b>English</b>. You can change this via <b>File|Preferences</b>."
+
+msgid "Window.Layers.Active.Hint"
+msgstr "Add new elements to this layer."
+
+msgid "Window.Layers.Active.Title"
+msgstr "Active"
+
+msgid "Window.Layers.Add.DefaultName"
+msgstr "Layer"
+
+msgid "Window.Layers.Add.ErrorInfo"
+msgstr "The specified name for the new layer is already in use by another layer."
+
+msgid "Window.Layers.Add.ErrorTitle"
+msgstr "Invalid name for new layer"
+
+msgid "Window.Layers.Add.Hint"
+msgstr "Add new layer."
+
+msgid "Window.Layers.Add.NewLayerLabel"
+msgstr "Name for new layer"
+
+msgid "Window.Layers.Add.Title"
+msgstr "Add"
+
+msgid "Window.Layers.Delete.ConfirmInfo"
+msgstr ""
+"Do you really want to delete the layer %s?\n"
+"The elements assigned to this layer will not be deleted."
+
+msgid "Window.Layers.Delete.ConfirmInfo.No"
+msgstr "Keep layer."
+
+msgid "Window.Layers.Delete.ConfirmInfo.Yes"
+msgstr "Delete layer."
+
+msgid "Window.Layers.Delete.ConfirmTitle"
+msgstr "Ebene löschen"
+
+msgid "Window.Layers.Delete.Hint"
+msgstr "Delete layer."
+
+msgid "Window.Layers.Delete.Title"
+msgstr "Delete"
+
+msgid "Window.Layers.Invisible.Hint"
+msgstr "Make invisible"
+
+msgid "Window.Layers.Invisible.Title"
+msgstr "Hides the elements on this layer."
+
+msgid "Window.Layers.List.Active"
+msgstr "<b>target for new elements</b>"
+
+msgid "Window.Layers.List.IsNotVisible"
+msgstr "Elements of this layer are <b>not</b> visible"
+
+msgid "Window.Layers.List.IsVisible"
+msgstr "Elements of this layer are visible"
+
+msgid "Window.Layers.List.Layer"
+msgstr "Layer"
+
+msgid "Window.Layers.Rename.ErrorInfo"
+msgstr "The specified new name for the layer is already in use by another layer."
+
+msgid "Window.Layers.Rename.ErrorTitle"
+msgstr "Invalid name for layer"
+
+msgid "Window.Layers.Rename.Hint"
+msgstr "Rename layer."
+
+msgid "Window.Layers.Rename.RenameLayerLabel"
+msgstr "New name for layer"
+
+msgid "Window.Layers.Rename.Title"
+msgstr "Rename"
+
+msgid "Window.Layers.Title"
+msgstr "Layers"
+
+msgid "Window.Layers.Visible.Hint"
+msgstr "Shows the elements on this layer."
+
+msgid "Window.Layers.Visible.Title"
+msgstr "Make visible"
 
 msgid "Window.LoadImage"
 msgstr "Load image"
