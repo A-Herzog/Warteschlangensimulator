@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>4.4.0</ModelVersion>
+  <ModelVersion>4.5.0</ModelVersion>
   <ModelName>Model of a complex call center system</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
@@ -152,11 +152,12 @@
       <ModelElementSize h="50" w="100" x="2300" y="600"/>
       <ModelElementConnection Element="26" Type="In"/>
       <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="110" Type="In"/>
     </ModelElementDispose>
     <ModelElementCounter id="24">
-      <ModelElementName>Success</ModelElementName>
+      <ModelElementName>Success W&lt;=20</ModelElementName>
       <ModelElementSize h="50" w="100" x="2050" y="450"/>
-      <ModelElementConnection Element="54" Type="In"/>
+      <ModelElementConnection Element="82" Type="In"/>
       <ModelElementConnection Element="26" Type="Out"/>
       <ModelElementCounterGroup>Success type</ModelElementCounterGroup>
     </ModelElementCounter>
@@ -507,8 +508,8 @@
       <ModelElementAnimationMode Type="Percent value">Part(25)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="91">
-      <ModelElementName>Fraction success</ModelElementName>
-      <ModelElementSize h="30" w="98" x="2050" y="400"/>
+      <ModelElementName>Fraction success W&lt;=20</ModelElementName>
+      <ModelElementSize h="30" w="104" x="2050" y="400"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(24)</ModelElementAnimationMode>
@@ -547,15 +548,6 @@
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Counter(10)</ModelElementAnimationMode>
     </ModelElementAnimationText>
-    <ModelElementAnimationBarDiagram id="97">
-      <ModelElementSize h="130" w="150" x="350" y="770"/>
-      <ModelElementLineWidth>1</ModelElementLineWidth>
-      <ModelElementLineColor>0,0,0</ModelElementLineColor>
-      <ModelElementMaximumValue>1</ModelElementMaximumValue>
-      <ModelElementDiagramElement BarColor="0,180,0">Part(4)</ModelElementDiagramElement>
-      <ModelElementDiagramElement BarColor="255,0,0">Part(10)</ModelElementDiagramElement>
-      <ModelElementDiagramElement BarColor="255,165,0">Part(11)</ModelElementDiagramElement>
-    </ModelElementAnimationBarDiagram>
     <ModelElementText id="98">
       <ModelElementSize h="19" w="162" x="350" y="750"/>
       <ModelElementTextLine>Fractions of the call types</ModelElementTextLine>
@@ -754,9 +746,6 @@
     <ModelElementEdge id="22">
       <ModelElementConnection Element1="40" Element2="163" Type="Edge"/>
     </ModelElementEdge>
-    <ModelElementEdge id="54">
-      <ModelElementConnection Element1="232" Element2="24" Type="Edge"/>
-    </ModelElementEdge>
     <ModelElementText id="368">
       <ModelElementSize h="38" w="279" x="1500" y="650"/>
       <ModelElementTextLine>If the client was served by a multi-skill agent,</ModelElementTextLine>
@@ -767,6 +756,65 @@
     <ModelElementEdge id="74">
       <ModelElementConnection Element1="226" Element2="55" Type="Edge"/>
     </ModelElementEdge>
+    <ModelElementAnimationPieDiagram id="501">
+      <ModelElementSize h="130" w="140" x="350" y="770"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementDiagramElement SegmentColor="0,180,0">Part(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="255,0,0">Part(10)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="255,165,0">Part(11)</ModelElementDiagramElement>
+    </ModelElementAnimationPieDiagram>
+    <ModelElementDecide id="599">
+      <ModelElementSize h="50" w="100" x="1900" y="450"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="54" Type="In"/>
+      <ModelElementConnection Condition="w&lt;=20" Element="82" Type="Out"/>
+      <ModelElementConnection Element="109" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="54">
+      <ModelElementConnection Element1="232" Element2="599" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="82">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="599" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementCounter id="97">
+      <ModelElementName>Success W&lt;=21</ModelElementName>
+      <ModelElementSize h="50" w="100" x="2050" y="600"/>
+      <ModelElementConnection Element="109" Type="In"/>
+      <ModelElementConnection Element="110" Type="Out"/>
+      <ModelElementCounterGroup>Success type</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="109">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="599" Element2="97" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="110">
+      <ModelElementConnection Element1="97" Element2="23" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="738">
+      <ModelElementName>Fraction success W&gt;20</ModelElementName>
+      <ModelElementSize h="30" w="99" x="2050" y="670"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,255,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(97)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationPieDiagram id="876">
+      <ModelElementSize h="130" w="135" x="2250" y="320"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementDiagramElement SegmentColor="0,180,0">Part(24)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="0,255,0">Part(97)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="255,0,0">Part(25)</ModelElementDiagramElement>
+    </ModelElementAnimationPieDiagram>
+    <ModelElementText id="976">
+      <ModelElementSize h="19" w="196" x="2250" y="300"/>
+      <ModelElementTextLine>Fraction success and canceled</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Name="Bediener A" Type="Number" Value="8"/>

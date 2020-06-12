@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.3.0</ModellVersion>
+  <ModellVersion>4.5.0</ModellVersion>
   <ModellName>Modell eines komplexen Callcenter-Systems</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">10000000</ModellKunden>
@@ -151,11 +151,12 @@
       <ModellElementGroesse h="50" w="100" x="2300" y="600"/>
       <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="135" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementZaehler id="24">
-      <ModellElementName>Erfolg</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="2050" y="450"/>
-      <ModellElementVerbindung Element="126" Typ="Einlaufend"/>
+      <ModellElementName>Erfolg W&lt;=20</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="2045" y="450"/>
+      <ModellElementVerbindung Element="133" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
       <ModellElementZaehlerGruppe>Erfolgstyp</ModellElementZaehlerGruppe>
     </ModellElementZaehler>
@@ -202,7 +203,7 @@
       <ModellElementVerbindung Element1="9" Element2="10" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="31">
-      <ModellElementGroesse h="23" w="97" x="55" y="255"/>
+      <ModellElementGroesse h="23" w="98" x="55" y="255"/>
       <ModellElementTextzeile>Erstanrufer</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,225,0</ModellElementFarbe>
@@ -295,25 +296,25 @@
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="59">
-      <ModellElementGroesse h="23" w="385" x="455" y="1005"/>
+      <ModellElementGroesse h="23" w="396" x="455" y="1005"/>
       <ModellElementTextzeile>Wiederholer (warten außerhalb des Systems)</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="60">
-      <ModellElementGroesse h="23" w="157" x="655" y="255"/>
+      <ModellElementGroesse h="23" w="162" x="655" y="255"/>
       <ModellElementTextzeile>Callcenter-System</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="61">
-      <ModellElementGroesse h="26" w="423" x="50" y="50"/>
+      <ModellElementGroesse h="26" w="415" x="50" y="50"/>
       <ModellElementTextzeile>Modell eines komplexen Callcenter-Systems</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">20</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="62">
-      <ModellElementGroesse h="95" w="267" x="50" y="750"/>
+      <ModellElementGroesse h="95" w="263" x="50" y="750"/>
       <ModellElementTextzeile>Ankunftsraten der Erstanrufer:</ModellElementTextzeile>
       <ModellElementTextzeile>E[I_A]=1 Kunden/Minute</ModellElementTextzeile>
       <ModellElementTextzeile>E[I_B]=0,75 Kunden/Minute</ModellElementTextzeile>
@@ -323,7 +324,7 @@
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="63">
-      <ModellElementGroesse h="38" w="221" x="50" y="860"/>
+      <ModellElementGroesse h="38" w="220" x="50" y="860"/>
       <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
       <ModellElementTextzeile>Ankünfte über Zeitpläne</ModellElementTextzeile>
       <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
@@ -395,14 +396,14 @@
       <ModellElementVerbindung Element1="69" Element2="11" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="75">
-      <ModellElementGroesse h="38" w="292" x="1800" y="315"/>
+      <ModellElementGroesse h="38" w="291" x="1800" y="315"/>
       <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
       <ModellElementTextzeile>Weiterleitungsquote abhängig vom Kundentyp</ModellElementTextzeile>
       <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>180,0,180</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="76">
-      <ModellElementGroesse h="38" w="341" x="1600" y="65"/>
+      <ModellElementGroesse h="38" w="339" x="1600" y="65"/>
       <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
       <ModellElementTextzeile>Kundentyp-Änderungsraten abhängig vom Kundentyp</ModellElementTextzeile>
       <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
@@ -468,7 +469,7 @@
       <ModellElementFarbe>180,0,180</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="86">
-      <ModellElementGroesse h="247" w="240" x="1200" y="500"/>
+      <ModellElementGroesse h="247" w="238" x="1200" y="500"/>
       <ModellElementTextzeile>Bedienraten:</ModellElementTextzeile>
       <ModellElementTextzeile>E[S_A]=0,2 Kunden/Minute</ModellElementTextzeile>
       <ModellElementTextzeile>E[S_B]=0,1 Kunden/Minute</ModellElementTextzeile>
@@ -486,13 +487,13 @@
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="87">
-      <ModellElementGroesse h="19" w="250" x="855" y="1110"/>
+      <ModellElementGroesse h="19" w="248" x="855" y="1110"/>
       <ModellElementTextzeile>Mittlerer Wiederholabstand: 15 Minuten</ModellElementTextzeile>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="88">
-      <ModellElementGroesse h="38" w="340" x="1800" y="900"/>
+      <ModellElementGroesse h="38" w="339" x="1800" y="900"/>
       <ModellElementTextzeile>Mögliche Erweiterung des Modells:</ModellElementTextzeile>
       <ModellElementTextzeile>Zählung von Erfolg und Abbruch auf Kundentyp-Basis</ModellElementTextzeile>
       <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
@@ -500,14 +501,14 @@
     </ModellElementText>
     <ModellElementAnimationText id="90">
       <ModellElementName>Anteil Abbrecher</ModellElementName>
-      <ModellElementGroesse h="30" w="81" x="2050" y="750"/>
+      <ModellElementGroesse h="30" w="85" x="2050" y="750"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(25)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="91">
-      <ModellElementName>Anteil Erfolg</ModellElementName>
-      <ModellElementGroesse h="30" w="81" x="2050" y="400"/>
+      <ModellElementName>Anteil Erfolg W&lt;=20</ModellElementName>
+      <ModellElementGroesse h="30" w="85" x="2050" y="400"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(24)</ModellElementAnimationsmodus>
@@ -534,27 +535,18 @@
     </ModellElementText>
     <ModellElementAnimationText id="95">
       <ModellElementName>Anzahl Weiterleitungen</ModellElementName>
-      <ModellElementGroesse h="30" w="95" x="500" y="370"/>
+      <ModellElementGroesse h="30" w="94" x="500" y="370"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Counter(11)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="96">
       <ModellElementName>Anzahl Wiederholungen</ModellElementName>
-      <ModellElementGroesse h="30" w="97" x="500" y="550"/>
+      <ModellElementGroesse h="30" w="96" x="500" y="550"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Counter(10)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
-    <ModellElementAnimationBalkenDiagramm id="97">
-      <ModellElementGroesse h="130" w="150" x="350" y="770"/>
-      <ModellElementLinienBreite>1</ModellElementLinienBreite>
-      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
-      <ModellElementMaximalwert>1</ModellElementMaximalwert>
-      <ModellElementDiagrammElement Balkenfarbe="0,180,0">Part(4)</ModellElementDiagrammElement>
-      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Part(10)</ModellElementDiagrammElement>
-      <ModellElementDiagrammElement Balkenfarbe="255,165,0">Part(11)</ModellElementDiagrammElement>
-    </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="98">
       <ModellElementGroesse h="19" w="139" x="350" y="750"/>
       <ModellElementTextzeile>Anteile der Anrufarten</ModellElementTextzeile>
@@ -563,28 +555,28 @@
     </ModellElementText>
     <ModellElementAnimationText id="99">
       <ModellElementName>Erstanrufer</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="350" y="910"/>
+      <ModellElementGroesse h="30" w="74" x="350" y="910"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(4)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="100">
       <ModellElementName>Weiterleitungen</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="470" y="910"/>
+      <ModellElementGroesse h="30" w="74" x="470" y="910"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(11)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="101">
       <ModellElementName>Wiederholungen</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="400" y="910"/>
+      <ModellElementGroesse h="30" w="74" x="400" y="910"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(10)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="102">
       <ModellElementName>Mittlere Auslastung</ModellElementName>
-      <ModellElementGroesse h="30" w="80" x="1250" y="1070"/>
+      <ModellElementGroesse h="30" w="79" x="1250" y="1070"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg()/(Resource_count(1)+Resource_count(2)+Resource_count(3)+Resource_count(4))</ModellElementAnimationsmodus>
@@ -604,27 +596,27 @@
       <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(2)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementText id="103">
-      <ModellElementGroesse h="19" w="83" x="785" y="295"/>
+      <ModellElementGroesse h="19" w="85" x="785" y="295"/>
       <ModellElementTextzeile>Callcenter A</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="104">
-      <ModellElementGroesse h="19" w="83" x="1200" y="350"/>
+      <ModellElementGroesse h="19" w="86" x="1200" y="350"/>
       <ModellElementTextzeile>Callcenter B</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="105">
       <ModellElementName>Multi-Skill B+C Agenten (gemeinsam mit Callcenter C)</ModellElementName>
-      <ModellElementGroesse h="30" w="226" x="1200" y="405"/>
+      <ModellElementGroesse h="30" w="225" x="1200" y="405"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(4)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="106">
       <ModellElementName>Multi-Skill B+C Agenten (gemeinsam mit Callcenter B)</ModellElementName>
-      <ModellElementGroesse h="30" w="225" x="785" y="715"/>
+      <ModellElementGroesse h="30" w="224" x="785" y="715"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(4)</ModellElementAnimationsmodus>
@@ -637,7 +629,7 @@
       <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(3)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementText id="108">
-      <ModellElementGroesse h="19" w="83" x="780" y="665"/>
+      <ModellElementGroesse h="19" w="86" x="780" y="665"/>
       <ModellElementTextzeile>Callcenter C</ModellElementTextzeile>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
@@ -712,7 +704,7 @@
       <ModellElementGroesse h="10" w="10" x="1845" y="470"/>
       <ModellElementVerbindung Element="124" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="125" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="126" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="136" Typ="Auslaufend"/>
     </ModellElementEcke>
     <ModellElementKante id="124">
       <ModellElementVerbindung Element1="115" Element2="123" Typ="Kante"/>
@@ -720,11 +712,8 @@
     <ModellElementKante id="125">
       <ModellElementVerbindung Element1="111" Element2="123" Typ="Kante"/>
     </ModellElementKante>
-    <ModellElementKante id="126">
-      <ModellElementVerbindung Element1="123" Element2="24" Typ="Kante"/>
-    </ModellElementKante>
     <ModellElementText id="127">
-      <ModellElementGroesse h="57" w="359" x="1500" y="650"/>
+      <ModellElementGroesse h="57" w="357" x="1500" y="650"/>
       <ModellElementTextzeile>Wurde der Kunde von einem Multi-Skill-Agenten bedient,</ModellElementTextzeile>
       <ModellElementTextzeile>so wird er nur mit einer geringeren Wahrscheinlichkeit</ModellElementTextzeile>
       <ModellElementTextzeile>weitergeleitet.</ModellElementTextzeile>
@@ -759,6 +748,65 @@
       <ModellElementName>Rate 3 (75%)</ModellElementName>
       <ModellElementVerbindung Element1="22" Element2="111" Typ="Kante"/>
     </ModellElementKante>
+    <ModellElementAnimationTortenDiagramm id="132">
+      <ModellElementGroesse h="130" w="140" x="350" y="770"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>GrosseSegmente</ModellElementSegmentBeschriftung>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">Part(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">Part(10)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="255,165,0">Part(11)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementVerzweigen id="97">
+      <ModellElementGroesse h="50" w="100" x="1900" y="450"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="136" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="w&lt;=20" Element="133" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="134" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementZaehler id="126">
+      <ModellElementName>Erfolg W&gt;20</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="2050" y="600"/>
+      <ModellElementVerbindung Element="134" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="135" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Erfolgstyp</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="133">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="97" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="134">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="97" Element2="126" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="135">
+      <ModellElementVerbindung Element1="126" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="136">
+      <ModellElementVerbindung Element1="123" Element2="97" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationTortenDiagramm id="137">
+      <ModellElementGroesse h="130" w="135" x="2250" y="320"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>GrosseSegmente</ModellElementSegmentBeschriftung>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">Part(24)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="0,255,0">Part(126)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">Part(25)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementAnimationText id="138">
+      <ModellElementName>Anteil Erfolg W&gt;20</ModellElementName>
+      <ModellElementGroesse h="30" w="85" x="2050" y="670"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,255,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(126)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="237">
+      <ModellElementGroesse h="19" w="169" x="2250" y="300"/>
+      <ModellElementTextzeile>Anteile Erfolg und Abbruch</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Bediener A" Typ="Anzahl" Wert="8"/>
