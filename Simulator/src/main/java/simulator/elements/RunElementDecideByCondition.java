@@ -74,6 +74,7 @@ public class RunElementDecideByCondition extends RunElement {
 
 			if (i<edges.length-1) {
 				String condition=((ModelElementDecide)element).getConditions().get(edge.getId());
+				if (condition==null) condition="";
 				final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.DecideCondition"),i+1,condition,element.getId(),error+1);
 				decide.conditions[i]=condition;
