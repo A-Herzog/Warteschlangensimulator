@@ -35,6 +35,7 @@ import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import tools.DateTools;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -60,24 +61,30 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	 */
 	public enum ModeExpression {
 		/**
-		 * Berechnet einen Ausdruck und zeigt diesen als Zahlenwert an
+		 * Berechnet einen Ausdruck und zeigt diesen als Zahlenwert an.
 		 */
 		MODE_EXPRESSION_NUMBER,
 
 		/**
-		 * Berechnet einen Ausdruck und zeigt diesen als Prozentwert an
+		 * Berechnet einen Ausdruck und zeigt diesen als Prozentwert an.
 		 */
 		MODE_EXPRESSION_PERCENT,
 
 		/**
-		 * Zeigt die aktuelle Simulationszeit an
+		 * Zeigt die Tage, Stunden, Minuten und Sekunden seit Simulationsstart an.
 		 */
-		MODE_TIME
+		MODE_TIME,
+
+		/**
+		 * Zeigt einen Datumswert an, der sich relativ zum Simulationsstart ergibt.
+		 */
+		MODE_DATE
 	}
 
 	private ModeExpression mode=ModeExpression.MODE_EXPRESSION_NUMBER;
 	private String expression="123";
 	private int digits=1;
+	private long dateZero=0;
 
 	private Semaphore drawLock=new Semaphore(1);
 	private String simTextValue=null;
@@ -172,6 +179,22 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	 */
 	public void setDigits(final int digits) {
 		if (digits>=0 && digits<=15) this.digits=digits;
+	}
+
+	/**
+	 * Liefert den Unix-Zeitstempel (in Sekunden) der dem Start der Simulation entsprechen soll.
+	 * @return	Unix-Zeitstempel (in Sekunden) der dem Start der Simulation entspricht
+	 */
+	public long getDateZero() {
+		return Math.max(0,dateZero);
+	}
+
+	/**
+	 * Stellt den Unix-Zeitstempel (in Sekunden) der dem Start der Simulation entsprechen soll ein.
+	 * @param dateZero	Unix-Zeitstempel (in Sekunden) der dem Start der Simulation entspricht
+	 */
+	public void setDateZero(long dateZero) {
+		this.dateZero=Math.max(0,dateZero);
 	}
 
 	/**
@@ -272,9 +295,14 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		final ModelElementAnimationTextValue otherText=(ModelElementAnimationTextValue)element;
 
 		if (mode!=otherText.mode) return false;
+
 		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT) {
 			if (!expression.equals(otherText.expression)) return false;
 			if (digits!=otherText.digits) return false;
+		}
+
+		if (mode==ModeExpression.MODE_DATE) {
+			if (dateZero!=otherText.dateZero) return false;
 		}
 
 		if (!otherText.color.equals(color)) return false;
@@ -298,6 +326,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			mode=copySource.mode;
 			expression=copySource.expression;
 			digits=copySource.digits;
+			dateZero=copySource.dateZero;
 			fontFamily=copySource.fontFamily;
 			textSize=copySource.textSize;
 			bold=copySource.bold;
@@ -336,6 +365,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_EXPRESSION_NUMBER: return Language.tr("Surface.AnimationText.Type.Number");
 		case MODE_EXPRESSION_PERCENT: return Language.tr("Surface.AnimationText.Type.PercentValue");
 		case MODE_TIME: return Language.tr("Surface.AnimationText.Type.SimulationTime");
+		case MODE_DATE: return Language.tr("Surface.AnimationText.Type.Date");
 		default: return Language.tr("Surface.AnimationText.Type.Error");
 		}
 	}
@@ -492,10 +522,16 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_TIME:
 			sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.Mode.Type"),Language.trPrimary("Surface.AnimationText.XML.Mode.Type.Time"));
 			break;
+		case MODE_DATE:
+			sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.Mode.Type"),Language.trPrimary("Surface.AnimationText.XML.Mode.Type.Date"));
+			break;
 		}
 		if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT) {
 			sub.setTextContent(expression);
 			if (digits!=1) sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.Digits"),""+digits);
+		}
+		if (mode==ModeExpression.MODE_DATE) {
+			sub.setTextContent(NumberTools.formatLongNoGrouping(dateZero));
 		}
 	}
 
@@ -538,6 +574,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.Number",art)) mode=ModeExpression.MODE_EXPRESSION_NUMBER;
 			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.Percent",art)) mode=ModeExpression.MODE_EXPRESSION_PERCENT;
 			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.Time",art)) mode=ModeExpression.MODE_TIME;
+			if (Language.trAll("Surface.AnimationText.XML.Mode.Type.Date",art)) mode=ModeExpression.MODE_DATE;
 			if (mode==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.Mode.Type"),name,node.getParentNode().getNodeName());
 			if (mode==ModeExpression.MODE_EXPRESSION_NUMBER || mode==ModeExpression.MODE_EXPRESSION_PERCENT) {
 				expression=content;
@@ -547,6 +584,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 					if (I==null || I.intValue()>15) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.Digits"),name,node.getParentNode().getNodeName());
 					digits=I.intValue();
 				}
+			}
+			if (mode==ModeExpression.MODE_DATE) {
+				final Long L=NumberTools.getNotNegativeLong(content);
+				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.Digits"),name,node.getParentNode().getNodeName());
+				dateZero=L.longValue();
 			}
 			return null;
 		}
@@ -590,6 +632,12 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			l=simData.currentTime/1000;
 			if (simTextValue!=null && simTextValueLong==l) return false;
 			s=TimeTools.formatLongTime(l);
+			simTextValueLong=l;
+			break;
+		case MODE_DATE:
+			l=simData.currentTime/1000;
+			if (simTextValue!=null && simTextValueLong==l) return false;
+			s=DateTools.formatUserDate((l+dateZero)*1000);
 			simTextValueLong=l;
 			break;
 		default:

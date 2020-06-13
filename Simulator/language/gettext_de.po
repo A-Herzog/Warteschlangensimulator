@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-12 13:57+0200\n"
+"POT-Creation-Date: 2020-06-13 20:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1881,6 +1881,15 @@ msgstr "Die angegebene Eingabedatei existiert nicht."
 
 msgid "DataCheck.NoInputFile"
 msgstr "Keine Eingabedatei angegeben."
+
+msgid "DateTimeEditor.Month"
+msgstr "Monat"
+
+msgid "DateTimeEditor.Today"
+msgstr "Heute"
+
+msgid "DateTimeEditor.Year"
+msgstr "Jahr"
 
 msgid "Dialog.Button.Abort"
 msgstr "Abbruch"
@@ -18250,8 +18259,17 @@ msgstr "ModellElementAnimationAufzeichnungElementID"
 msgid "Surface.AnimationRecord.XML.Root"
 msgstr "ModellElementAnimationAufzeichnung"
 
+msgid "Surface.AnimationText.Dialog.CurrentSimulationDate"
+msgstr "Aktuelles Datum; Simulationsstart:"
+
 msgid "Surface.AnimationText.Dialog.CurrentSimulationTime"
-msgstr "Aktuelle Simulationszeit"
+msgstr "Aktuelle Simulationszeit (Tage, Stunden, Minuten, Sekunden)"
+
+msgid "Surface.AnimationText.Dialog.Date.Error.InfoInvalid"
+msgstr "Der angegebene Datum-/Zeitwert ist ungültig."
+
+msgid "Surface.AnimationText.Dialog.Date.Error.Title"
+msgstr "Ungültige Datumsangabe"
 
 msgid "Surface.AnimationText.Dialog.Digits"
 msgstr "Nachkommastellen"
@@ -18304,6 +18322,9 @@ msgstr "Simulationsdaten als Text"
 msgid "Surface.AnimationText.Tooltip"
 msgstr "Textinformationen, die während der Animation des Modells aktualisiert werden."
 
+msgid "Surface.AnimationText.Type.Date"
+msgstr "Datum"
+
 msgid "Surface.AnimationText.Type.Error"
 msgstr "Fehler"
 
@@ -18345,6 +18366,9 @@ msgstr "ModellElementAnimationsmodus"
 
 msgid "Surface.AnimationText.XML.Mode.Type"
 msgstr "Art"
+
+msgid "Surface.AnimationText.XML.Mode.Type.Date"
+msgstr "Datum"
 
 msgid "Surface.AnimationText.XML.Mode.Type.Number"
 msgstr "Zahlenwert"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-12 13:57+0200\n"
+"POT-Creation-Date: 2020-06-13 20:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1881,6 +1881,15 @@ msgstr "The specified input file does not exist."
 
 msgid "DataCheck.NoInputFile"
 msgstr "No input file defined."
+
+msgid "DateTimeEditor.Month"
+msgstr "Month"
+
+msgid "DateTimeEditor.Today"
+msgstr "Today"
+
+msgid "DateTimeEditor.Year"
+msgstr "Year"
 
 msgid "Dialog.Button.Abort"
 msgstr "Abort"
@@ -18243,8 +18252,17 @@ msgstr "ModelElementAnimationRecordStationID"
 msgid "Surface.AnimationRecord.XML.Root"
 msgstr "ModelElementAnimationRecord"
 
+msgid "Surface.AnimationText.Dialog.CurrentSimulationDate"
+msgstr "Current date; simulation start at:"
+
 msgid "Surface.AnimationText.Dialog.CurrentSimulationTime"
-msgstr "Current simulation time"
+msgstr "Current simulation time (days, hours, minutes, seconds)"
+
+msgid "Surface.AnimationText.Dialog.Date.Error.InfoInvalid"
+msgstr "The specified date and time value is invalid."
+
+msgid "Surface.AnimationText.Dialog.Date.Error.Title"
+msgstr "Invalid date"
 
 msgid "Surface.AnimationText.Dialog.Digits"
 msgstr "Digits"
@@ -18297,6 +18315,9 @@ msgstr "Simulation data as text"
 msgid "Surface.AnimationText.Tooltip"
 msgstr "Text information that is updated during animation of the model."
 
+msgid "Surface.AnimationText.Type.Date"
+msgstr "Date"
+
 msgid "Surface.AnimationText.Type.Error"
 msgstr "Error"
 
@@ -18338,6 +18359,9 @@ msgstr "ModelElementAnimationMode"
 
 msgid "Surface.AnimationText.XML.Mode.Type"
 msgstr "Type"
+
+msgid "Surface.AnimationText.XML.Mode.Type.Date"
+msgstr "Date"
 
 msgid "Surface.AnimationText.XML.Mode.Type.Number"
 msgstr "Number"

@@ -42,8 +42,10 @@ import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
+import tools.DateTools;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.tools.DateTimePanel;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementAnimationTextValue}-Element anbietet
@@ -55,9 +57,11 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 
 	private JRadioButton optionExpression;
 	private JRadioButton optionTime;
+	private JRadioButton optionDate;
 	private JTextField editExpression;
 	private JSpinner digits;
 	private JCheckBox optionPercent;
+	private DateTimePanel dateTime;
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
 	private JTextField sizeField;
 	private JCheckBox optionBold;
@@ -130,13 +134,20 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionTime=new JRadioButton(Language.tr("Surface.AnimationText.Dialog.CurrentSimulationTime")));
 		optionTime.setEnabled(!readOnly);
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionDate=new JRadioButton(Language.tr("Surface.AnimationText.Dialog.CurrentSimulationDate")+":"));
+		optionDate.setEnabled(!readOnly);
+		line.add(dateTime=new DateTimePanel(readOnly,DateTools.getNow(false)));
 
 		final ButtonGroup buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionExpression);
 		buttonGroup.add(optionTime);
+		buttonGroup.add(optionDate);
 
 		/* Schritftart */
-		data=getFontFamilyComboBoxPanel(Language.tr("Surface.AnimationText.Dialog.FontFamily")+":",((ModelElementAnimationTextValue)element).getFontFamily());
+		FontCache.FontFamily fontFamily=null;
+		if (element instanceof ModelElementAnimationTextValue) fontFamily=((ModelElementAnimationTextValue)element).getFontFamily();
+		data=getFontFamilyComboBoxPanel(Language.tr("Surface.AnimationText.Dialog.FontFamily")+":",fontFamily);
 		fontFamilyComboBox=(JComboBox<FontCache.FontFamily>)data[1];
 		fontFamilyComboBox.setEnabled(!readOnly);
 		content.add((JPanel)data[0]);
@@ -165,33 +176,48 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 
 		/* Werte initialisieren */
 		if (element instanceof ModelElementAnimationTextValue) {
-			switch (((ModelElementAnimationTextValue)element).getMode()) {
+			final ModelElementAnimationTextValue text=(ModelElementAnimationTextValue)element;
+			switch (text.getMode()) {
 			case MODE_EXPRESSION_NUMBER:
 				optionExpression.setSelected(true);
-				editExpression.setText(((ModelElementAnimationTextValue)element).getExpression());
+				editExpression.setText(text.getExpression());
 				optionPercent.setSelected(false);
+				digits.setValue(text.getDigits());
 				optionTime.setSelected(false);
-				digits.setValue(((ModelElementAnimationTextValue)element).getDigits());
+				optionDate.setSelected(false);
+				dateTime.setDate(DateTools.getNow(false));
 				break;
 			case MODE_EXPRESSION_PERCENT:
 				optionExpression.setSelected(true);
-				editExpression.setText(((ModelElementAnimationTextValue)element).getExpression());
+				editExpression.setText(text.getExpression());
 				optionPercent.setSelected(true);
+				digits.setValue(text.getDigits());
 				optionTime.setSelected(false);
-				digits.setValue(((ModelElementAnimationTextValue)element).getDigits());
+				optionDate.setSelected(false);
+				dateTime.setDate(DateTools.getNow(false));
 				break;
 			case MODE_TIME:
 				optionExpression.setSelected(false);
 				editExpression.setText("123");
 				optionPercent.setSelected(false);
 				optionTime.setSelected(true);
+				optionDate.setSelected(false);
+				dateTime.setDate(DateTools.getNow(false));
+				break;
+			case MODE_DATE:
+				optionExpression.setSelected(false);
+				editExpression.setText("123");
+				optionPercent.setSelected(false);
+				optionTime.setSelected(false);
+				optionDate.setSelected(true);
+				dateTime.setDate(text.getDateZero()*1000);
 				break;
 			}
 
-			sizeField.setText(""+((ModelElementAnimationTextValue)element).getTextSize());
-			optionBold.setSelected(((ModelElementAnimationTextValue)element).getTextBold());
-			optionItalic.setSelected(((ModelElementAnimationTextValue)element).getTextItalic());
-			colorChooser.setColor(((ModelElementAnimationTextValue)element).getColor());
+			sizeField.setText(""+text.getTextSize());
+			optionBold.setSelected(text.getTextBold());
+			optionItalic.setSelected(text.getTextItalic());
+			colorChooser.setColor(text.getColor());
 		}
 
 		checkData(false);
@@ -234,6 +260,16 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			}
 		}
 
+		if (optionDate.isSelected()) {
+			if (!dateTime.check()) {
+				ok=false;
+				if (showErrorMessages) {
+					MsgBox.error(this,Language.tr("Surface.AnimationText.Dialog.Date.Error.Title"),Language.tr("Surface.AnimationText.Dialog.Date.Error.InfoInvalid"));
+					return false;
+				}
+			}
+		}
+
 		Integer I=NumberTools.getNotNegativeInteger(sizeField,true);
 		if (I==null) {
 			ok=false;
@@ -265,26 +301,32 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 	protected void storeData() {
 		super.storeData();
 
-		if (element instanceof ModelElementAnimationTextValue) {
-			if (optionExpression.isSelected()) {
-				((ModelElementAnimationTextValue)element).setDigits((Integer)digits.getValue());
-				if (optionPercent.isSelected()) {
-					((ModelElementAnimationTextValue)element).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
-					((ModelElementAnimationTextValue)element).setExpression(editExpression.getText().trim());
-				} else {
-					((ModelElementAnimationTextValue)element).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_NUMBER);
-					((ModelElementAnimationTextValue)element).setExpression(editExpression.getText().trim());
-				}
-			} else {
-				((ModelElementAnimationTextValue)element).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_TIME);
-			}
+		if (!(element instanceof ModelElementAnimationTextValue)) return;
+		final ModelElementAnimationTextValue text=(ModelElementAnimationTextValue)element;
 
-			((ModelElementAnimationTextValue)element).setFontFamily((FontCache.FontFamily)fontFamilyComboBox.getSelectedItem());
-			Integer I=NumberTools.getNotNegativeInteger(sizeField,true);
-			if (I!=null) ((ModelElementAnimationTextValue)element).setTextSize(I);
-			((ModelElementAnimationTextValue)element).setTextBold(optionBold.isSelected());
-			((ModelElementAnimationTextValue)element).setTextItalic(optionItalic.isSelected());
-			((ModelElementAnimationTextValue)element).setColor(colorChooser.getColor());
+		if (optionExpression.isSelected()) {
+			text.setDigits((Integer)digits.getValue());
+			if (optionPercent.isSelected()) {
+				text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+				text.setExpression(editExpression.getText().trim());
+			} else {
+				text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_NUMBER);
+				text.setExpression(editExpression.getText().trim());
+			}
+		} else {
+			if (optionTime.isSelected()) {
+				text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_TIME);
+			} else {
+				text.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_DATE);
+				text.setDateZero(dateTime.getDate()/1000);
+			}
 		}
+
+		text.setFontFamily((FontCache.FontFamily)fontFamilyComboBox.getSelectedItem());
+		Integer I=NumberTools.getNotNegativeInteger(sizeField,true);
+		if (I!=null) text.setTextSize(I);
+		text.setTextBold(optionBold.isSelected());
+		text.setTextItalic(optionItalic.isSelected());
+		text.setColor(colorChooser.getColor());
 	}
 }

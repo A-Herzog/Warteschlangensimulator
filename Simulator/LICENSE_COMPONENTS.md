@@ -56,6 +56,13 @@ This file lists the third-party components used by "Simulator" project and their
 - License URL: https://opensource.org/licenses/LGPL-3.0
 - Homepage: https://www.firebirdsql.org/en/devel-jdbc-driver/
 
+### JDateTimePicker
+
+- Repository: https://mvnrepository.com/artifact/org.jdatepicker/jdatepicker
+- License: BSD 2-clause
+- License URL: https://opensource.org/licenses/BSD-2-Clause
+- Homepage: https://jdatepicker.org/
+
 ### JDDE
 
 - License: Apache 2.0
