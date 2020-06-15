@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package simulator;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -346,5 +348,25 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	public void doNotRecordSimulatedClientsToStatistics() {
 		recordSimulatedClientsToStatistics=false;
+	}
+
+	private long[] nanos;
+
+	/**
+	 * Summe der Nanosekunden, die die Rechenthreads aktiv waren.
+	 * @return	Mit Simulation verbrachte Nanosekunden über alle Threads zusammen
+	 */
+	public long getNanos() {
+		long sum=0;
+		final ThreadMXBean bean=ManagementFactory.getThreadMXBean();
+		if (threads!=null) {
+			if (nanos==null) nanos=new long[threadCount];
+			for (int i=0;i<threadCount;i++) {
+				final Thread thread=threads[i];
+				if (thread!=null) nanos[i]=FastMath.max(nanos[i],bean.getThreadCpuTime(thread.getId()));
+				sum+=nanos[i];
+			}
+		}
+		return sum;
 	}
 }
