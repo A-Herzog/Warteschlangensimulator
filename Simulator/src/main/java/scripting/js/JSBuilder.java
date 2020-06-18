@@ -22,8 +22,6 @@ import java.util.function.Consumer;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-import org.mozilla.javascript.Context;
-
 import tools.SetupData;
 
 /**
@@ -52,7 +50,7 @@ public class JSBuilder {
 	 * Konstruktor der Klasse
 	 * @param maxExecutionTimeMS	Maximale Skriptlaufzeit
 	 * @param engineName	Nutzerwunsch bzgl. der zu verwendenden Engine
-	 * @param outputCallback	Optiones Callback welches die Daten des Ausgabeobjektes erhalten soll
+	 * @param outputCallback	Optionales Callback welches die Daten des Ausgabeobjektes erhalten soll
 	 */
 	public JSBuilder(final int maxExecutionTimeMS, final JSEngineNames engineName, final Consumer<String> outputCallback) {
 		this.maxExecutionTimeMS=maxExecutionTimeMS;
@@ -81,7 +79,7 @@ public class JSBuilder {
 	/**
 	 * Konstruktor der Klasse
 	 * @param maxExecutionTimeMS	Maximale Skriptlaufzeit
-	 * @param outputCallback	Optiones Callback welches die Daten des Ausgabeobjektes erhalten soll
+	 * @param outputCallback	Optionales Callback welches die Daten des Ausgabeobjektes erhalten soll
 	 */
 	public JSBuilder(final int maxExecutionTimeMS, final Consumer<String> outputCallback) {
 		this(maxExecutionTimeMS,getEngineFromSetup(),outputCallback);
@@ -108,6 +106,7 @@ public class JSBuilder {
 		return runner;
 	}
 
+	/*
 	private JSEngine buildRhinoEngine() {
 		try {
 			phobos_fast.script.javascript.RhinoScriptEngineFactory factory=new phobos_fast.script.javascript.RhinoScriptEngineFactory();
@@ -120,6 +119,13 @@ public class JSBuilder {
 		} catch (Exception | UnsupportedClassVersionError e) {
 			return null;
 		}
+	}
+	 */
+
+	private JSEngine buildRhinoEngineDirect() {
+		final JSEngineRhinoDirect runner=new JSEngineRhinoDirect(maxExecutionTimeMS,output);
+		if (!runner.initEngine(binding)) return null;
+		return runner;
 	}
 
 	private JSEngine buildGraalNative() {
@@ -135,7 +141,8 @@ public class JSBuilder {
 	public JSEngine build() {
 		switch (engineName) {
 		case RHINO:
-			return buildRhinoEngine();
+			/* return buildRhinoEngine(); */
+			return buildRhinoEngineDirect();
 		case NASHORN:
 			return buildScriptEngineBased(JSEngineNames.NASHORN);
 		case GRAALJS:

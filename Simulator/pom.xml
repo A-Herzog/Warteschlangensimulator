@@ -118,12 +118,6 @@
 		<artifactId>JDDE</artifactId>
 		<version>2.1.0</version>
 	</dependency>
-	<!-- local -->
-	<dependency>
-		<groupId>fast-rhino-js-engine.group</groupId>
-		<artifactId>fast-rhino-js-engine</artifactId>
-		<version>1.7.10</version>
-	</dependency>
   </dependencies>
 
   <build>
@@ -146,25 +140,10 @@
       			<id>install-external-JDDE-jar</id>
       			<phase>clean</phase>
       			<configuration>
-      				<repositoryLayout>default</repositoryLayout>
       				<groupId>JDDE.group</groupId>
       				<artifactId>JDDE</artifactId>
       				<version>2.1.0</version>
       				<file>${project.basedir}/tools/JDDE/pretty-tools-JDDE.jar</file>
-      				<packaging>jar</packaging>
-      				<generatePom>true</generatePom>
-      			</configuration>
-      			<goals><goal>install-file</goal></goals>
-      		</execution>
-      		<execution>
-      			<id>install-external-fast-rhino-js-engine-jar</id>
-      			<phase>clean</phase>
-      			<configuration>
-      				<repositoryLayout>default</repositoryLayout>
-					<groupId>fast-rhino-js-engine.group</groupId>
-					<artifactId>fast-rhino-js-engine</artifactId>
-					<version>1.7.10</version>
-      				<file>${project.basedir}/tools/Rhino/rhino-js-engine-1.7.10_fast.jar</file>
       				<packaging>jar</packaging>
       				<generatePom>true</generatePom>
       			</configuration>
