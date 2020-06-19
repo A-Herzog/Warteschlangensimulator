@@ -1250,6 +1250,9 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		Alternative "viewToModel2D" gibt's erst seit Java 9.
 		Bei Code Style Level = 1.8 ist das ein Problem.
 		 */
+
+		if (point.x>100) return null; /* Der "Details"-Link ist eher 20 Pixel breit. Bei 100 sind wir definitiv auﬂerhalb des Textes. */
+
 		final int offset=textPane.getCaretPosition();
 
 		if (offset<0) return null;
