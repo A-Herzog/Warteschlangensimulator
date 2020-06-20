@@ -1526,6 +1526,7 @@
     <xs:element ref="ModellElementDiagrammElement"/>
 	<xs:element name="ModellElementMinimalwert" type="xs:string"/>
     <xs:element name="ModellElementMaximalwert" type="xs:string"/>
+	<xs:element name="ModellElement3DEffekt" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementDiagrammElement"><xs:complexType><xs:simpleContent>
@@ -3504,6 +3505,7 @@
     <xs:element ref="ModelElementDiagramElement"/>
 	<xs:element name="ModelElementMinimumValue" type="xs:string"/>
     <xs:element name="ModelElementMaximumValue" type="xs:string"/>
+	<xs:element name="ModelElementUse3D" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementDiagramElement"><xs:complexType><xs:simpleContent>

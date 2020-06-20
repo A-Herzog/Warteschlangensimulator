@@ -1230,13 +1230,14 @@
 >
 <!ELEMENT ModellElementAnimationAnalogSkalaFarbe (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationBalkenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementMinimalwert | ModellElementMaximalwert)*>
+<!ELEMENT ModellElementAnimationBalkenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementMinimalwert | ModellElementMaximalwert | ModellElement3DEffekt)*>
 <!ATTLIST ModellElementAnimationBalkenDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementMinimalwert (#PCDATA)>
 <!ELEMENT ModellElementMaximalwert (#PCDATA)>
+<!ELEMENT ModellElement3DEffekt (#PCDATA)>
 <!ELEMENT ModellElementDiagrammElement (#PCDATA)>
 <!ATTLIST ModellElementDiagrammElement
   Minimum		CDATA	#IMPLIED
@@ -3059,13 +3060,14 @@
 >
 <!ELEMENT ModelElementAnimationPointerMeasuringColor (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationBarDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementMinimumValue | ModelElementMaximumValue)*>
+<!ELEMENT ModelElementAnimationBarDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementMinimumValue | ModelElementMaximumValue | ModelElementUse3D)*>
 <!ATTLIST ModelElementAnimationBarDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementMinimumValue (#PCDATA)>
 <!ELEMENT ModelElementMaximumValue (#PCDATA)>
+<!ELEMENT ModelElementUse3D (#PCDATA)>
 <!ELEMENT ModelElementDiagramElement (#PCDATA)>
 <!ATTLIST ModelElementDiagramElement
   Minimum		CDATA	#IMPLIED
