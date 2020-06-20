@@ -11396,6 +11396,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26277] = "Do not load parameter series settings file.";
     t[26282] = "Surface.AssignString.Table.Heading";
     t[26283] = "Assignments";
+    t[26286] = "CalculatorDialog.Tab.Skript";
+    t[26287] = "Script";
     t[26294] = "Statistics.Utilization.FailureInfo";
     t[26295] = "For this operators group failures / down times are defined. Because the operators do not work during these times, these times are recorded as idle times.";
     t[26298] = "Wait.Status.LongRunNoEstimation";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27641] = "Continuous time values";
     t[27646] = "Surface.Tank.Dialog.Valve.Control";
     t[27647] = "Control";
-    t[27650] = "Surface.Costs.Name";
-    t[27651] = "Costs";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27650] = "Surface.Costs.Name";
+    t[27651] = "Costs";
     t[27658] = "ModelSecurityCheck.ScriptViewer";
     t[27659] = "Script viewer";
     t[27664] = "Statistics.NumberOfClientsAtStations.Singular";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32385] = "Invalid expression";
     t[32386] = "WebServer.Animation.StartError.WrongMode";
     t[32387] = "The program has to be in model editor or statistics viewer mode to start an animation.";
-    t[32402] = "Surface.SetJS.Dialog.Script";
-    t[32403] = "Script to be executed";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32402] = "Surface.SetJS.Dialog.Script";
+    t[32403] = "Script to be executed";
     t[32406] = "Surface.Connection.LineMode.MultiLine";
     t[32407] = "Angled";
     t[32408] = "Surface.XML.Transporter.Icon";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36989] = "Potentiate";
     t[36990] = "Animation.SkipWarmUp.OptionDefault.Info";
     t[36991] = "The visulaization elments will not show data at once.";
-    t[36992] = "LoadCalculator.ProbabilityOfBlocking";
-    t[36993] = "Probability of blocking";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36992] = "LoadCalculator.ProbabilityOfBlocking";
+    t[36993] = "Probability of blocking";
     t[36994] = "Surface.Decide.Dialog.OutgoingEdge.Key";
     t[36995] = "Key";
     t[36996] = "Main.Menu.ParameterSeriesNew";

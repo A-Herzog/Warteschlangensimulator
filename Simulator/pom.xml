@@ -62,7 +62,7 @@
 	<dependency>
     	<groupId>org.postgresql</groupId>
     	<artifactId>postgresql</artifactId>
-    	<version>42.2.12</version>
+    	<version>42.2.14</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/net.sf.ucanaccess/ucanaccess -->
 	<dependency>
@@ -98,13 +98,13 @@
 	<dependency>
     	<groupId>com.atlassian.commonmark</groupId>
     	<artifactId>commonmark</artifactId>
-    	<version>0.14.0</version>
+    	<version>0.15.1</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.atlassian.commonmark/commonmark-ext-autolink -->
 	<dependency>
     	<groupId>com.atlassian.commonmark</groupId>
     	<artifactId>commonmark-ext-autolink</artifactId>
-    	<version>0.14.0</version>
+    	<version>0.15.1</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.jdatepicker/jdatepicker -->
 	<dependency>

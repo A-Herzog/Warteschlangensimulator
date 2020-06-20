@@ -56,6 +56,7 @@ import tools.SetupData;
 import ui.expressionbuilder.ExpressionBuilder;
 import ui.help.Help;
 import ui.images.Images;
+import ui.scriptrunner.JSModelRunnerPanel;
 
 /**
  * Zeigt einen Dialog zur Berechnung von mathematischen Ausdrücken an.<br>
@@ -180,10 +181,16 @@ public class CalculatorDialog extends BaseDialog {
 		distributionPlotter.setPlotType(JDistributionPanel.BOTH);
 		tab.add(distributionEditor=new JDistributionEditorPanel(new ExponentialDistribution(100),1000,e->updateDistribution(),true),BorderLayout.SOUTH);
 
+		/* Tab "Skript" */
+		tabs.addTab(Language.tr("CalculatorDialog.Tab.Skript"),tab=new JPanel(new BorderLayout()));
+		tab.add(new JSModelRunnerPanel(this,null,null,null,false));
+
+
 		/* Icons auf den Tabs */
 		tabs.setIconAt(0,Images.EXTRAS_CALCULATOR.getIcon());
 		tabs.setIconAt(1,Images.EXTRAS_CALCULATOR_PLOTTER.getIcon());
 		tabs.setIconAt(2,Images.EXTRAS_CALCULATOR_DISTRIBUTION.getIcon());
+		tabs.setIconAt(3,Images.EXTRAS_CALCULATOR_SCRIPT.getIcon());
 
 		/* Dialog vorbereiten */
 		setMinSizeRespectingScreensize(600,400);

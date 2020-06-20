@@ -707,6 +707,9 @@ public enum Images {
 	/** Symbol "Rechner - Wahrscheinlichkeitsverteilungen" */
 	EXTRAS_CALCULATOR_DISTRIBUTION("chart_curve.png"),
 
+	/** Symbol "Rechner - Skript" */
+	EXTRAS_CALCULATOR_SCRIPT("page_white_code_red.png"),
+
 	/** Symbol "Rechner - Funktionsplotter - Funktion löschen" */
 	EXTRAS_CALCULATOR_PLOTTER_CLEAR("chart_curve_delete.png"),
 

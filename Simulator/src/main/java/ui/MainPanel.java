@@ -2440,7 +2440,7 @@ public class MainPanel extends MainPanelBase {
 		setCurrentPanel(new JSModelRunnerPanel(getOwnerWindow(),editModel,miniStatistics,()->{
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
-		}));
+		},true));
 	}
 
 	private boolean commandSimulationOptimizer() {

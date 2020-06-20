@@ -11396,6 +11396,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26277] = "Parameterreihen-Einstellungendatei nicht laden.";
     t[26282] = "Surface.AssignString.Table.Heading";
     t[26283] = "Zuweisungen";
+    t[26286] = "CalculatorDialog.Tab.Skript";
+    t[26287] = "Skript";
     t[26294] = "Statistics.Utilization.FailureInfo";
     t[26295] = "F\u00fcr diese Bedienergruppe sind Ausf\u00e4lle/Pausenzeiten definiert. Da die Bediener w\u00e4hrend dieser Zeit nicht arbeiten, werden diese Zeiten als Leerlaufzeiten gez\u00e4hlt.";
     t[26298] = "Wait.Status.LongRunNoEstimation";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27641] = "Zeitkontinuierliche Werte";
     t[27646] = "Surface.Tank.Dialog.Valve.Control";
     t[27647] = "Steuerung";
-    t[27650] = "Surface.Costs.Name";
-    t[27651] = "Kosten";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27650] = "Surface.Costs.Name";
+    t[27651] = "Kosten";
     t[27658] = "ModelSecurityCheck.ScriptViewer";
     t[27659] = "Skriptansicht";
     t[27664] = "Statistics.NumberOfClientsAtStations.Singular";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32385] = "Ung\u00fcltiger Ausdruck";
     t[32386] = "WebServer.Animation.StartError.WrongMode";
     t[32387] = "Das Programm muss sich im Modell-Editor- oder im Statistikanzeige-Modus befinden, um eine Animation starten zu k\u00f6nnen.";
-    t[32402] = "Surface.SetJS.Dialog.Script";
-    t[32403] = "Auszuf\u00fchrendes Skript";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32402] = "Surface.SetJS.Dialog.Script";
+    t[32403] = "Auszuf\u00fchrendes Skript";
     t[32406] = "Surface.Connection.LineMode.MultiLine";
     t[32407] = "Abgewinkelt";
     t[32408] = "Surface.XML.Transporter.Icon";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36989] = "Potenzieren";
     t[36990] = "Animation.SkipWarmUp.OptionDefault.Info";
     t[36991] = "Simuliert das unver\u00e4nderte Modell. Die Visualisierungselemente werden zun\u00e4chst keinen Inhalt anzeigen.";
-    t[36992] = "LoadCalculator.ProbabilityOfBlocking";
-    t[36993] = "Blockierwahrscheinlichkeit";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36992] = "LoadCalculator.ProbabilityOfBlocking";
+    t[36993] = "Blockierwahrscheinlichkeit";
     t[36994] = "Surface.Decide.Dialog.OutgoingEdge.Key";
     t[36995] = "Schl\u00fcssel";
     t[36996] = "Main.Menu.ParameterSeriesNew";

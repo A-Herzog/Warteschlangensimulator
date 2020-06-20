@@ -68,6 +68,8 @@ public class JSModelRunner {
 	 * @return	Gibt <code>null</code> zurück, wenn das Modell in Ordnung ist, sonst eine Fehlermeldung.
 	 */
 	public String check() {
+		if (model==null) return null;
+
 		Object obj=RunModel.getRunModel(model,true);
 		if (obj instanceof String) return (String)obj;
 
@@ -92,7 +94,9 @@ public class JSModelRunner {
 					runner.parameter.output=new OutputImpl(line->output(line),false);
 					runner.parameter.fileoutput=new OutputImpl(line->output(line),true);
 					runner.parameter.statistics=new StatisticsImpl(line->output(line),null,true);
-					runner.parameter.model=new ModelImpl(line->output(line),model,runner.parameter.statistics);
+					if (model!=null) {
+						runner.parameter.model=new ModelImpl(line->output(line),model,runner.parameter.statistics);
+					}
 					runner.run();
 					if (runner.getStatus()!=DynamicStatus.OK) output(DynamicFactory.getLongStatusText(runner));
 					dynamicRunner=runner;

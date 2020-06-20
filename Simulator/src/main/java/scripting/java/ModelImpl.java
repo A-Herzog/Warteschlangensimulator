@@ -48,7 +48,7 @@ public class ModelImpl implements ModelInterface {
 		canceled=false;
 		this.output=output;
 		this.original=original;
-		this.model=original.clone();
+		this.model=(original==null)?null:original.clone();
 		this.statisticsConnect=statisticsConnect;
 	}
 

@@ -51,6 +51,8 @@ public class JSModelRunnerPanel extends SpecialPanel {
 	private ScriptPanel scriptPanel;
 	private JSModelRunner runner;
 
+	private final boolean fullMode;
+
 	/**
 	 * Konstruktor der Klasse <code>JSModelRunnerPanel</code>
 	 * @param owner	Übergeordnetes Fenster
@@ -58,21 +60,28 @@ public class JSModelRunnerPanel extends SpecialPanel {
 	 * @param miniStatistics	Minimales Statistik-Objekt, um XML-Elemente auswählen zu können
 	 * @param doneNotify	Wird aufgerufen, wenn sich das Panel schließen möchte
 	 */
-	public JSModelRunnerPanel(final Window owner, final EditModel model, final Statistics miniStatistics, final Runnable doneNotify) {
+	public JSModelRunnerPanel(final Window owner, final EditModel model, final Statistics miniStatistics, final Runnable doneNotify, final boolean fullMode) {
 		super(doneNotify);
 		this.model=model;
+		this.fullMode=fullMode;
 
 		/* Haupttoolbar */
 		startButton=addUserButton(Language.tr("JSRunner.Toolbar.Start"),Language.tr("JSRunner.Toolbar.Start.Hint"),Images.SCRIPT_RUN.getURL());
-		addSeparator();
-		addCloseButton();
-		addSeparator();
-		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getURL());
+		if (fullMode) {
+			addSeparator();
+			addCloseButton();
+			addSeparator();
+			helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getURL());
+		} else {
+			helpButton=null;
+		}
 
 		final JPanel content=new JPanel(new BorderLayout());
 		add(content,BorderLayout.CENTER);
 
-		InfoPanel.addTopPanel(content,InfoPanel.globalScriptRunner);
+		if (fullMode) {
+			InfoPanel.addTopPanel(content,InfoPanel.globalScriptRunner);
+		}
 
 		content.add(scriptPanel=new ScriptPanel(model,false,ScriptEditorPanel.featuresScriptRunner,null) {
 			private static final long serialVersionUID = -4514089397823686283L;
@@ -89,8 +98,10 @@ public class JSModelRunnerPanel extends SpecialPanel {
 		});
 
 		/* Skript laden */
-		final SetupData setup=SetupData.getSetup();
-		scriptPanel.setEditorScript(setup.javascript);
+		if (fullMode) {
+			final SetupData setup=SetupData.getSetup();
+			scriptPanel.setEditorScript(setup.javascript);
+		}
 	}
 
 	@Override
@@ -100,9 +111,11 @@ public class JSModelRunnerPanel extends SpecialPanel {
 
 	@Override
 	protected void close() {
-		final SetupData setup=SetupData.getSetup();
-		setup.javascript=scriptPanel.getEditorScript();
-		setup.saveSetup();
+		if (fullMode) {
+			final SetupData setup=SetupData.getSetup();
+			setup.javascript=scriptPanel.getEditorScript();
+			setup.saveSetup();
+		}
 
 		super.close();
 	}
@@ -113,9 +126,11 @@ public class JSModelRunnerPanel extends SpecialPanel {
 
 		if (start) {
 			/* Skript speichern */
-			final SetupData setup=SetupData.getSetup();
-			setup.javascript=scriptPanel.getEditorScript();
-			setup.saveSetup();
+			if (fullMode) {
+				final SetupData setup=SetupData.getSetup();
+				setup.javascript=scriptPanel.getEditorScript();
+				setup.saveSetup();
+			}
 
 			final JSModelRunner newRunner=new JSModelRunner(model,scriptPanel.getEditorMode(),scriptPanel.getEditorScript(),(text)->scriptPanel.addOutput(text),()->commandRun(false));
 			String error=newRunner.check();
