@@ -122,13 +122,8 @@ public final class JSCommandOutput extends JSBaseCommand {
 			return;
 		}
 
-		if (obj instanceof Double) {
-			printDouble((Double)obj);
-			return;
-		}
-
-		if (obj instanceof Integer) {
-			printDouble((Integer)obj);
+		if (obj instanceof Number) {
+			printDouble(((Number)obj).doubleValue());
 			return;
 		}
 

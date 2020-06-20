@@ -3,9 +3,11 @@ package scripting.js;
 import java.util.Map;
 
 import org.mozilla.javascript.Context;
+import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.Script;
 import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.WrapFactory;
 
 /**
  * Ausführung von JS-Code über das Rhino-API
@@ -16,6 +18,9 @@ public class JSEngineRhinoDirect extends JSEngine {
 	private Script script;
 	private String compileError;
 
+	private final FastWrapFactory wrapFactory=new FastWrapFactory();
+	private final FastContextFactory contextFactory=new FastContextFactory();
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param maxExecutionTimeMS	Maximale Skriptlaufzeit
@@ -24,7 +29,7 @@ public class JSEngineRhinoDirect extends JSEngine {
 	public JSEngineRhinoDirect(final int maxExecutionTimeMS, final JSOutputWriter output) {
 		super(maxExecutionTimeMS,output);
 
-		final Context cx=Context.enter();
+		final Context cx=contextFactory.enterContext();
 		try {
 			scope=cx.initSafeStandardObjects(null,true);
 		} finally {
@@ -40,7 +45,7 @@ public class JSEngineRhinoDirect extends JSEngine {
 	 * @return	Gibt an, ob die Skripting-Engine erfolgreich initialisiert werden konnte (bzw. also vorhanden ist)
 	 */
 	public boolean initEngine(final Map<String,Object> javaObjects) {
-		final Context cx=Context.enter();
+		final Context cx=contextFactory.enterContext();
 		try {
 
 			for (Map.Entry<String,Object> entry: javaObjects.entrySet()) {
@@ -72,7 +77,7 @@ public class JSEngineRhinoDirect extends JSEngine {
 
 	@Override
 	public boolean initScript(final String script) {
-		final Context cx=Context.enter();
+		final Context cx=contextFactory.enterContext();
 		try {
 			cx.setOptimizationLevel(9);
 			this.script=cx.compileString(script,"script",1,null);
@@ -88,13 +93,35 @@ public class JSEngineRhinoDirect extends JSEngine {
 	@Override
 	protected void execute() throws Exception {
 		if (compileError!=null) throw new Exception(compileError);
-		final Context cx=Context.enter();
+		final Context cx=contextFactory.enterContext();
 		try {
-			cx.getWrapFactory().setJavaPrimitiveWrap(false);
+			cx.setWrapFactory(wrapFactory);
 			cx.setOptimizationLevel(9);
 			script.exec(cx,scope);
 		} finally {
 			Context.exit();
+		}
+	}
+
+	private static final class FastWrapFactory extends WrapFactory {
+		public FastWrapFactory() {
+			super();
+			setJavaPrimitiveWrap(false);
+		}
+	}
+
+	private static final class FastContextFactory extends ContextFactory {
+		@Override
+		protected boolean hasFeature(Context cx, int featureIndex) {
+			if (featureIndex==Context.FEATURE_INTEGER_WITHOUT_DECIMAL_PLACE) return true;
+			return super.hasFeature(cx,featureIndex);
+		}
+
+		@Override
+		protected void onContextCreated(Context cx) {
+			cx.setLanguageVersion(Context.VERSION_ES6);
+			cx.setOptimizationLevel(9);
+			cx.setGeneratingDebug(false);
 		}
 	}
 }

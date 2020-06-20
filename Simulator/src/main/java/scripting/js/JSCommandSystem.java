@@ -96,6 +96,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	public Object calc(final Object obj) {
 		if (obj instanceof Integer) return obj;
 		if (obj instanceof Double) return obj;
+		if (obj instanceof Long) return obj;
 
 		if (!(obj instanceof String)) return null;
 
@@ -354,6 +355,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 		final Object result=calc(value);
 		if (result instanceof Double) client.setUserData(index,((Double)result).doubleValue());
 		if (result instanceof Integer) client.setUserData(index,((Integer)result).intValue());
+		if (result instanceof Long) client.setUserData(index,((Long)result).intValue());
 	}
 
 	/**
@@ -460,11 +462,12 @@ public final class JSCommandSystem extends JSBaseCommand {
 	public void set(final Object varName, final Object varValue) {
 		if (simData==null) return;
 		if (varName==null || varValue==null || !(varName instanceof String)) return;
-		if (!(varValue instanceof String) && !(varValue instanceof Double) && !(varValue instanceof Integer)) return;
+		if (!(varValue instanceof String) && !(varValue instanceof Double) && !(varValue instanceof Integer) && !(varValue instanceof Long)) return;
 
 		final String clientKey=CalcSymbolClientUserData.testClientDataString((String)varName);
 		if (clientKey!=null) {
 			if (varValue instanceof Integer) setClientText(clientKey,NumberTools.formatLong((Integer)varValue));
+			if (varValue instanceof Long) setClientText(clientKey,NumberTools.formatLong((Long)varValue));
 			if (varValue instanceof Double) setClientText(clientKey,NumberTools.formatNumber((Double)varValue));
 			if (varValue instanceof String) setClientText(clientKey,(String)varValue);
 			return;
@@ -473,12 +476,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 		final int index=getVariableIndex((String)varName);
 		if (index==-1) return;
 
-		if (varValue instanceof Integer) {
-			setValueInt(index,(Integer)varValue);
-			return;
-		}
-		if (varValue instanceof Double) {
-			setValueInt(index,(Double)varValue);
+		if (varValue instanceof Number) {
+			setValueInt(index,((Number)varValue).doubleValue());
 			return;
 		}
 		if (varValue instanceof String) {
@@ -500,6 +499,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	private RunElement getRunElement(final Object id) {
 		if (id==null) return null;
 		if (id instanceof Integer) return getRunElement(((Integer)id).intValue());
+		if (id instanceof Long) return getRunElement(((Long)id).intValue());
 		if (id instanceof Double) return getRunElement((int)FastMath.round((Double)id));
 		if (id instanceof String) {
 			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
@@ -517,6 +517,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	private Double evaluateValue(final Object value) {
 		if (value instanceof Double) return (Double)value;
 		if (value instanceof Integer) return ((Integer)value).doubleValue();
+		if (value instanceof Long) return ((Long)value).doubleValue();
 		if (value instanceof String) {
 			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
 			if (calc.parse((String)value)>=0) return null;
