@@ -62,6 +62,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 	private JComboBox<JLabel> lineWidth;
 	private SmallColorChooser colorChooserLine;
 	private JCheckBox background;
+	private JCheckBox use3D;
 	private SmallColorChooser colorChooserBackground;
 
 	/**
@@ -133,13 +134,16 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 
 		/* Darstellung: Farben und Linienbreiten */
 		tabs.addTab(Language.tr("Surface.AnimationBarChart.Dialog.Appearance"),content=new JPanel(new BorderLayout()));
+		final JPanel contentInnter=new JPanel();
+		contentInnter.setLayout(new BoxLayout(contentInnter,BoxLayout.PAGE_AXIS));
+		content.add(contentInnter,BorderLayout.NORTH);
 
 		data=getLineWidthInputPanel(Language.tr("Surface.AnimationBarChart.Dialog.Appearance.FrameWidth")+":",0,15,5);
-		content.add((JPanel)data[0],BorderLayout.NORTH);
+		contentInnter.add((JPanel)data[0]);
 		lineWidth=(JComboBox<JLabel>)data[1];
 		lineWidth.setEnabled(!readOnly);
 
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
+		contentInnter.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(label=new JLabel(Language.tr("Surface.AnimationBarChart.Dialog.Appearance.FrameColor")+":"),BorderLayout.NORTH);
@@ -153,6 +157,9 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
 		colorChooserBackground.addClickListener((e)->background.setSelected(true));
+
+		contentInnter.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(use3D=new JCheckBox(Language.tr("Surface.AnimationBarChart.Dialog.Appearance.Use3D")));
 
 		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
 
@@ -175,6 +182,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 			lineWidth.setSelectedIndex(diagram.getBorderWidth());
 			colorChooserLine.setColor(diagram.getBorderColor());
 			background.setSelected(diagram.getBackgroundColor()!=null);
+			use3D.setSelected(diagram.isUse3D());
 			colorChooserBackground.setColor(diagram.getBackgroundColor());
 		}
 
@@ -275,6 +283,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 			} else {
 				diagram.setBackgroundColor(null);
 			}
+			diagram.setUse3D(use3D.isSelected());
 		}
 	}
 

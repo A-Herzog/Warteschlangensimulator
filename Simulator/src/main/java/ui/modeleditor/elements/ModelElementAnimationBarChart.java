@@ -73,6 +73,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	private int borderWidth=1;
 	private Color borderColor=Color.BLACK;
 	private Color backgroundColor=null;
+	private boolean use3D=true;
 
 	private GradientFill[] filler;
 
@@ -224,6 +225,23 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	}
 
 	/**
+	 * Sollen 3D-Effekte für die Balken verwendet werden?
+	 * @return	3D-Effekte für die Balken
+	 */
+	public boolean isUse3D() {
+		return use3D;
+	}
+
+	/**
+	 * Sollen 3D-Effekte für die Balken verwendet werden?
+	 * @param use3d	3D-Effekte für die Balken
+	 */
+	public void setUse3D(boolean use3d) {
+		this.use3D=use3d;
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -260,6 +278,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			if (other.backgroundColor==null || backgroundColor==null) return false;
 			if (!other.backgroundColor.equals(backgroundColor)) return false;
 		}
+		if (use3D!=other.use3D) return false;
 
 		return true;
 	}
@@ -283,6 +302,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			borderWidth=source.borderWidth;
 			borderColor=source.borderColor;
 			backgroundColor=source.backgroundColor;
+			use3D=source.use3D;
 		}
 	}
 
@@ -432,6 +452,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	}
 
 	private Rectangle barDrawRect;
+	private int[] xPoints=new int[4];
+	private int[] yPoints=new int[4];
 
 	private void drawDiagramBars(final Graphics2D g, final Rectangle rectangle) {
 		if (recordedValues==null) {
@@ -461,8 +483,11 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			if (max<min) {final double d=min; min=max; max=d;}
 			if (max==min) return;
 
-			final int w=(rectangle.width-2*10-(recordedValues.length-1)*5)/recordedValues.length;
+			final int gap=use3D?10:5;
+
+			final int w=(rectangle.width-2*10-(recordedValues.length-1)*gap)/recordedValues.length;
 			int x=rectangle.x+10;
+			final int shadow=w/5;
 
 			if (filler==null || filler.length!=recordedValues.length) {
 				filler=new GradientFill[recordedValues.length];
@@ -472,10 +497,44 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			for (int i=0;i<recordedValues.length;i++) {
 				final double value=recordedValues[i];
 				final int h=(int)FastMath.round(rectangle.height*(value-min)/(max-min));
-				barDrawRect.setBounds(x,rectangle.y+rectangle.height-h,w,h);
-				filler[i].set(g,barDrawRect,expressionColor.get(i%expressionColor.size()),true);
+				final Color c=expressionColor.get(i%expressionColor.size());
+
+				final int startX=x;
+				final int startY=rectangle.y+rectangle.height-h;
+
+				if (use3D) {
+					/* Rechte Seite des Balkens */
+					xPoints[0]=startX+w;
+					yPoints[0]=startY+h;
+					xPoints[1]=startX+w+shadow;
+					yPoints[1]=startY+h-shadow;
+					xPoints[2]=startX+w+shadow;
+					yPoints[2]=startY-shadow;
+					xPoints[3]=startX+w;
+					yPoints[3]=startY;
+					g.setColor(c);
+					g.fillPolygon(xPoints,yPoints,4);
+
+					/* Obere Seite des Balkens */
+					xPoints[0]=startX;
+					yPoints[0]=startY;
+					xPoints[1]=startX+w;
+					yPoints[1]=startY;
+					xPoints[2]=startX+w+shadow;
+					yPoints[2]=startY-shadow;
+					xPoints[3]=startX+shadow;
+					yPoints[3]=startY-shadow;
+					g.setColor(c);
+					g.fillPolygon(xPoints,yPoints,4);
+				}
+
+				/* Vorderseite des Balkens */
+				barDrawRect.setBounds(startX,startY,w,h);
+				filler[i].set(g,barDrawRect,c,true);
 				g.fill(barDrawRect);
-				x+=w+5;
+
+				/* Abstand zwischen den Balken */
+				x+=w+gap;
 			}
 		} finally {
 			drawLock.release();
@@ -601,6 +660,10 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			sub.setTextContent(EditModel.saveColor(backgroundColor));
 		}
 
+		sub=doc.createElement(Language.trPrimary("Surface.AnimationBarChart.XML.Use3D"));
+		node.appendChild(sub);
+		sub.setTextContent(use3D?"1":"0");
+
 		if (minValue!=null) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationBarChart.XML.MinValue"));
 			node.appendChild(sub);
@@ -650,6 +713,11 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		if (Language.trAll("Surface.AnimationBarChart.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationBarChart.XML.Use3D",name)) {
+			use3D=(!content.trim().isEmpty() && !content.equals("0"));
 			return null;
 		}
 

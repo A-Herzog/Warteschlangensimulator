@@ -4992,6 +4992,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11537] = "Simulation beenden";
     t[11538] = "SettingsDialog.ExcelDDEConnection.CustomColumn.Info";
     t[11539] = "(Wenn leer, wird der Standard f\u00fcr ein deutsches Excel verwendet: \"S\".)";
+    t[11542] = "Surface.AnimationBarChart.XML.Use3D";
+    t[11543] = "ModellElement3DEffekt";
     t[11544] = "ModelGenerator.ServiceDiscipline.FIFO";
     t[11545] = "FIFO (in Ankunftsreihenfolge)";
     t[11550] = "Surface.Process.XML.TimeCosts";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13887] = "Es wurde keine zu kontrollierende Station gew\u00e4hlt.";
     t[13888] = "ParameterCompare.Settings.Save.Error.Title";
     t[13889] = "Fehler beim Speichern der Einstellungen";
-    t[13908] = "Surface.AnimationImage.Dialog.Images.Down";
-    t[13909] = "Bedingung sp\u00e4ter pr\u00fcfen";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13908] = "Surface.AnimationImage.Dialog.Images.Down";
+    t[13909] = "Bedingung sp\u00e4ter pr\u00fcfen";
     t[13910] = "ParameterCompare.Settings.Save.Error.Info";
     t[13911] = "Die Einstellungen konnten nicht in der Datei\n%s\ngespeichert werden.";
     t[13914] = "Surface.XML.EdgePainter.Type.Error";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18459] = "Ausgabe (DB)";
     t[18472] = "Surface.CounterMulti.Dialog.Title";
     t[18473] = "Mehrfachz\u00e4hler bearbeiten";
-    t[18474] = "FindBatchSizeSimulation.Info";
-    t[18475] = "Es wird im Folgenden ein Simulationslauf durchgef\u00fchrt bei dem die Autokorrelation der Wartezeiten bestimmt wird.\nAuf dieser Basis kann dann die Batch-Gr\u00f6\u00dfe f\u00fcr die Ausgabeanalyse so gro\u00df gew\u00e4hlt werden, dass die Ergebnisse in\nverschiedenen Batchen weitgehend unabh\u00e4ngig sind.\nAuf diese Weise k\u00f6nnen dann Konfidenzintervalle f\u00fcr die Wartezeiten der Kunden bestimmt werden.";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18474] = "FindBatchSizeSimulation.Info";
+    t[18475] = "Es wird im Folgenden ein Simulationslauf durchgef\u00fchrt bei dem die Autokorrelation der Wartezeiten bestimmt wird.\nAuf dieser Basis kann dann die Batch-Gr\u00f6\u00dfe f\u00fcr die Ausgabeanalyse so gro\u00df gew\u00e4hlt werden, dass die Ergebnisse in\nverschiedenen Batchen weitgehend unabh\u00e4ngig sind.\nAuf diese Weise k\u00f6nnen dann Konfidenzintervalle f\u00fcr die Wartezeiten der Kunden bestimmt werden.";
     t[18478] = "ScriptPopup.SelectIDDialog.Station";
     t[18479] = "Stationsname";
     t[18480] = "Surface.XML.ErrorAdditionalStatistics.StepWide";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23091] = "Parameterwerte in Modellname aufnehmen";
     t[23092] = "Statistics.XML.Element.ResourceIdleCosts";
     t[23093] = "StatistikRessourcenLeerlaufKosten";
-    t[23094] = "XML.ErrorClosingFile";
-    t[23095] = "Es ist ein Fehler beim Schlie\u00dfen der Datei\n%s\naufgetreten.";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23094] = "XML.ErrorClosingFile";
+    t[23095] = "Es ist ein Fehler beim Schlie\u00dfen der Datei\n%s\naufgetreten.";
     t[23100] = "Main.Menu.Edit.RenameOnCopy.Always.Mnemonic";
     t[23101] = "N";
     t[23104] = "Surface.InputDB.XML.DefaultValue";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27647] = "Steuerung";
     t[27650] = "Surface.Costs.Name";
     t[27651] = "Kosten";
-    t[27658] = "ModelSecurityCheck.ScriptViewer";
-    t[27659] = "Skriptansicht";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27658] = "ModelSecurityCheck.ScriptViewer";
+    t[27659] = "Skriptansicht";
     t[27664] = "Statistics.NumberOfClientsAtStations.Singular";
     t[27665] = "Anzahl an Kunden an der Station";
     t[27668] = "PathEditor.ResetAll.ConfirmTitle";
@@ -12376,6 +12378,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28531] = "Name";
     t[28536] = "Statistics.TransporterUtilization.Failure";
     t[28537] = "Ausfall";
+    t[28538] = "Surface.AnimationBarChart.Dialog.Appearance.Use3D";
+    t[28539] = "3D-Effekte f\u00fcr Balken verwenden";
     t[28542] = "JDistributionEditor.Copy.Table";
     t[28543] = "Tabelle";
     t[28546] = "XML.ParameterCompareNotActive.YesInfo";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32387] = "Das Programm muss sich im Modell-Editor- oder im Statistikanzeige-Modus befinden, um eine Animation starten zu k\u00f6nnen.";
     t[32402] = "Surface.SetJS.Dialog.Script";
     t[32403] = "Auszuf\u00fchrendes Skript";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32406] = "Surface.Connection.LineMode.MultiLine";
     t[32407] = "Abgewinkelt";
     t[32408] = "Surface.XML.Transporter.Icon";
     t[32409] = "Icon";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32410] = "FileType.AllSupportedFiles";
     t[32411] = "Alle unterst\u00fctzten Dateiformate";
     t[32414] = "ParameterCompare.Settings.Input.Mode.GlobalVariable";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36991] = "Simuliert das unver\u00e4nderte Modell. Die Visualisierungselemente werden zun\u00e4chst keinen Inhalt anzeigen.";
     t[36992] = "LoadCalculator.ProbabilityOfBlocking";
     t[36993] = "Blockierwahrscheinlichkeit";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36994] = "Surface.Decide.Dialog.OutgoingEdge.Key";
     t[36995] = "Schl\u00fcssel";
     t[36996] = "Main.Menu.ParameterSeriesNew";
     t[36997] = "Parameterreihe f\u00fcr das aktuelle Modell erstellen...";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37000] = "Surface.AssignString.Table.Edit.Dialog.Title";
     t[37001] = "Zuweisung bearbeiten";
     t[37002] = "Statistics.XML.AnalogStatisticsName";

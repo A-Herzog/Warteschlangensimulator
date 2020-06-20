@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-13 20:20+0200\n"
+"POT-Creation-Date: 2020-06-20 19:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17564,6 +17564,9 @@ msgstr "Frame color"
 msgid "Surface.AnimationBarChart.Dialog.Appearance.FrameWidth"
 msgstr "Frame width"
 
+msgid "Surface.AnimationBarChart.Dialog.Appearance.Use3D"
+msgstr "Use 3D effects for bars"
+
 msgid "Surface.AnimationBarChart.Dialog.Data"
 msgstr "Data"
 
@@ -17683,6 +17686,9 @@ msgstr "ModelElementDiagramElement"
 
 msgid "Surface.AnimationBarChart.XML.Set.BarColor"
 msgstr "BarColor"
+
+msgid "Surface.AnimationBarChart.XML.Use3D"
+msgstr "ModelElementUse3D"
 
 msgid "Surface.AnimationBarStack.Dialog.Add"
 msgstr "Add partial bar"

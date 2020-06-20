@@ -4992,6 +4992,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11537] = "Terminate simulation";
     t[11538] = "SettingsDialog.ExcelDDEConnection.CustomColumn.Info";
     t[11539] = "(If empty, the default for Englisch Excel is used: \"C\".)";
+    t[11542] = "Surface.AnimationBarChart.XML.Use3D";
+    t[11543] = "ModelElementUse3D";
     t[11544] = "ModelGenerator.ServiceDiscipline.FIFO";
     t[11545] = "FIFO (in arrival order)";
     t[11550] = "Surface.Process.XML.TimeCosts";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13887] = "No controlled station has been selected.";
     t[13888] = "ParameterCompare.Settings.Save.Error.Title";
     t[13889] = "Error saving the settings";
-    t[13908] = "Surface.AnimationImage.Dialog.Images.Down";
-    t[13909] = "Check condition later";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13908] = "Surface.AnimationImage.Dialog.Images.Down";
+    t[13909] = "Check condition later";
     t[13910] = "ParameterCompare.Settings.Save.Error.Info";
     t[13911] = "The settings could not be saved in the file\n%s";
     t[13914] = "Surface.XML.EdgePainter.Type.Error";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18459] = "Output (DB)";
     t[18472] = "Surface.CounterMulti.Dialog.Title";
     t[18473] = "Edit multi counter";
-    t[18474] = "FindBatchSizeSimulation.Info";
-    t[18475] = "When clicking ok, a simulation run is started in which the autocorrelation of the waiting times is determined.\nOn this basis, the batch size for the output analysis can be chosen large enough that the results in different\nbatches are nearly independent.\nIn this way, confidence intervals for the waiting times of the clients can be determined.";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18474] = "FindBatchSizeSimulation.Info";
+    t[18475] = "When clicking ok, a simulation run is started in which the autocorrelation of the waiting times is determined.\nOn this basis, the batch size for the output analysis can be chosen large enough that the results in different\nbatches are nearly independent.\nIn this way, confidence intervals for the waiting times of the clients can be determined.";
     t[18478] = "ScriptPopup.SelectIDDialog.Station";
     t[18479] = "Station name";
     t[18480] = "Surface.XML.ErrorAdditionalStatistics.StepWide";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23091] = "Add parameter values to model name";
     t[23092] = "Statistics.XML.Element.ResourceIdleCosts";
     t[23093] = "StatisticsResourcesIdleTimeCosts";
-    t[23094] = "XML.ErrorClosingFile";
-    t[23095] = "An error occurred while closing file %s.";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23094] = "XML.ErrorClosingFile";
+    t[23095] = "An error occurred while closing file %s.";
     t[23100] = "Main.Menu.Edit.RenameOnCopy.Always.Mnemonic";
     t[23101] = "n";
     t[23104] = "Surface.InputDB.XML.DefaultValue";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27647] = "Control";
     t[27650] = "Surface.Costs.Name";
     t[27651] = "Costs";
-    t[27658] = "ModelSecurityCheck.ScriptViewer";
-    t[27659] = "Script viewer";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27658] = "ModelSecurityCheck.ScriptViewer";
+    t[27659] = "Script viewer";
     t[27664] = "Statistics.NumberOfClientsAtStations.Singular";
     t[27665] = "Number of clients at the station";
     t[27668] = "PathEditor.ResetAll.ConfirmTitle";
@@ -12376,6 +12378,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28531] = "Name";
     t[28536] = "Statistics.TransporterUtilization.Failure";
     t[28537] = "Failure";
+    t[28538] = "Surface.AnimationBarChart.Dialog.Appearance.Use3D";
+    t[28539] = "Use 3D effects for bars";
     t[28542] = "JDistributionEditor.Copy.Table";
     t[28543] = "Table";
     t[28546] = "XML.ParameterCompareNotActive.YesInfo";
@@ -14012,12 +14016,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32387] = "The program has to be in model editor or statistics viewer mode to start an animation.";
     t[32402] = "Surface.SetJS.Dialog.Script";
     t[32403] = "Script to be executed";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32406] = "Surface.Connection.LineMode.MultiLine";
     t[32407] = "Angled";
     t[32408] = "Surface.XML.Transporter.Icon";
     t[32409] = "Icon";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32410] = "FileType.AllSupportedFiles";
     t[32411] = "All supported file formats";
     t[32414] = "ParameterCompare.Settings.Input.Mode.GlobalVariable";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36991] = "The visulaization elments will not show data at once.";
     t[36992] = "LoadCalculator.ProbabilityOfBlocking";
     t[36993] = "Probability of blocking";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36994] = "Surface.Decide.Dialog.OutgoingEdge.Key";
     t[36995] = "Key";
     t[36996] = "Main.Menu.ParameterSeriesNew";
     t[36997] = "Generate parameter series for the current model...";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37000] = "Surface.AssignString.Table.Edit.Dialog.Title";
     t[37001] = "Edit assignment";
     t[37002] = "Statistics.XML.AnalogStatisticsName";
