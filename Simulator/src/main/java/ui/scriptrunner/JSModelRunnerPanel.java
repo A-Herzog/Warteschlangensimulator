@@ -59,6 +59,7 @@ public class JSModelRunnerPanel extends SpecialPanel {
 	 * @param model	Editor-Modell auf dessen Basis die Skript-Datenreihe erstellt werden soll
 	 * @param miniStatistics	Minimales Statistik-Objekt, um XML-Elemente auswählen zu können
 	 * @param doneNotify	Wird aufgerufen, wenn sich das Panel schließen möchte
+	 * @param fullMode	Anzeige als vollwertigem Skriptrunner, der das Fenster als alleiniges Element füllt, (<code>true</code>) oder als einfaches Panel z.B. als Tab innerhalb eines Dialogs (<code>false</code>).
 	 */
 	public JSModelRunnerPanel(final Window owner, final EditModel model, final Statistics miniStatistics, final Runnable doneNotify, final boolean fullMode) {
 		super(doneNotify);
