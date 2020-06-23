@@ -20,6 +20,7 @@ public class JSEngineRhinoDirect extends JSEngine {
 
 	private final FastWrapFactory wrapFactory=new FastWrapFactory();
 	private final FastContextFactory contextFactory=new FastContextFactory();
+	private Context context=null;
 
 	/**
 	 * Konstruktor der Klasse
@@ -93,11 +94,11 @@ public class JSEngineRhinoDirect extends JSEngine {
 	@Override
 	protected void execute() throws Exception {
 		if (compileError!=null) throw new Exception(compileError);
-		final Context cx=contextFactory.enterContext();
+		context=contextFactory.enterContext(context);
 		try {
-			cx.setWrapFactory(wrapFactory);
-			cx.setOptimizationLevel(9);
-			script.exec(cx,scope);
+			context.setWrapFactory(wrapFactory);
+			context.setOptimizationLevel(9);
+			script.exec(context,scope);
 		} finally {
 			Context.exit();
 		}
