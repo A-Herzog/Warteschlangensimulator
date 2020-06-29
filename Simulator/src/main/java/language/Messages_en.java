@@ -3490,6 +3490,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7997] = "Available number of CPU cores: %d";
     t[8004] = "ScriptPopup.Client.ValueText.Set";
     t[8005] = "Set text";
+    t[8012] = "Surface.Process.Dialog.Assistant.UseGroup";
+    t[8013] = "Use existing operator group";
     t[8028] = "Surface.Process.Dialog.MaximumBatchSize";
     t[8029] = "Maximum batch size";
     t[8032] = "SimulationServer.Status.Off";
@@ -4004,10 +4006,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9261] = "ModelElementDisposeStopp";
     t[9262] = "Editor.Dialog.Sequences.Add.Hint";
     t[9263] = "Adds a new sequence";
-    t[9266] = "Simulation.Log.TransportDestination.Info";
-    t[9267] = "Client: %s, station: %s";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9266] = "Simulation.Log.TransportDestination.Info";
+    t[9267] = "Client: %s, station: %s";
     t[9276] = "Optimizer.Tab.Optimization.Step.Result.Save.ErrorInfo";
     t[9277] = "The diagram could not be saved to file %s.";
     t[9282] = "ModelGenerator.Model.Description.Properties.Priorities";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13885] = "Distribution of the residence times of the clients";
     t[13886] = "Surface.BarrierPull.Dialog.ControlledElement.ErrorInfo";
     t[13887] = "No controlled station has been selected.";
-    t[13888] = "ParameterCompare.Settings.Save.Error.Title";
-    t[13889] = "Error saving the settings";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13888] = "ParameterCompare.Settings.Save.Error.Title";
+    t[13889] = "Error saving the settings";
     t[13908] = "Surface.AnimationImage.Dialog.Images.Down";
     t[13909] = "Check condition later";
     t[13910] = "ParameterCompare.Settings.Save.Error.Info";
@@ -7381,7 +7383,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16994] = "SettingsDialog.FontSizes.Normal";
     t[16995] = "Default";
     t[16998] = "Surface.Resource.EditNumber.Dialog.MaxNumber";
-    t[16999] = "A maximum of %d operators are available in the group.";
+    t[16999] = "A maximum of <b>%d</b> operators are available in the group.";
     t[17004] = "AnalyticModelCompare.Dialog.Title";
     t[17005] = "Compare to analytic model";
     t[17010] = "Editor.SurfaceTooltip.InteractiveTutorial";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18457] = "TransferTime-Number";
     t[18458] = "Simulation.Log.OutputDB";
     t[18459] = "Output (DB)";
-    t[18472] = "Surface.CounterMulti.Dialog.Title";
-    t[18473] = "Edit multi counter";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18472] = "Surface.CounterMulti.Dialog.Title";
+    t[18473] = "Edit multi counter";
     t[18474] = "FindBatchSizeSimulation.Info";
     t[18475] = "When clicking ok, a simulation run is started in which the autocorrelation of the waiting times is determined.\nOn this basis, the batch size for the output analysis can be chosen large enough that the results in different\nbatches are nearly independent.\nIn this way, confidence intervals for the waiting times of the clients can be determined.";
     t[18478] = "ScriptPopup.SelectIDDialog.Station";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23089] = "No variables";
     t[23090] = "ParameterCompare.Table.AddModelByAssistant.ParametersInName";
     t[23091] = "Add parameter values to model name";
-    t[23092] = "Statistics.XML.Element.ResourceIdleCosts";
-    t[23093] = "StatisticsResourcesIdleTimeCosts";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23092] = "Statistics.XML.Element.ResourceIdleCosts";
+    t[23093] = "StatisticsResourcesIdleTimeCosts";
     t[23094] = "XML.ErrorClosingFile";
     t[23095] = "An error occurred while closing file %s.";
     t[23100] = "Main.Menu.Edit.RenameOnCopy.Always.Mnemonic";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27639] = "Network simulation";
     t[27640] = "Examples.Analog";
     t[27641] = "Continuous time values";
-    t[27646] = "Surface.Tank.Dialog.Valve.Control";
-    t[27647] = "Control";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27646] = "Surface.Tank.Dialog.Valve.Control";
+    t[27647] = "Control";
     t[27650] = "Surface.Costs.Name";
     t[27651] = "Costs";
     t[27658] = "ModelSecurityCheck.ScriptViewer";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32383] = "Edit description";
     t[32384] = "ParameterCompare.Settings.Output.Mode.Command.ErrorTitle";
     t[32385] = "Invalid expression";
-    t[32386] = "WebServer.Animation.StartError.WrongMode";
-    t[32387] = "The program has to be in model editor or statistics viewer mode to start an animation.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32386] = "WebServer.Animation.StartError.WrongMode";
+    t[32387] = "The program has to be in model editor or statistics viewer mode to start an animation.";
     t[32402] = "Surface.SetJS.Dialog.Script";
     t[32403] = "Script to be executed";
     t[32406] = "Surface.Connection.LineMode.MultiLine";
@@ -14332,6 +14334,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33105] = "The \"Distribution\" attribute in the \"%s\" element has to be a probability distribution.";
     t[33116] = "Dialog.Button.Load";
     t[33117] = "Load";
+    t[33134] = "Surface.Process.Dialog.Assistant.NewGroup";
+    t[33135] = "Create new operator group";
     t[33138] = "Main.Menu.Edit.Delete.Mnemonic";
     t[33139] = "D";
     t[33144] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.StandardDeviationOfTheTime";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36985] = "All";
     t[36986] = "Surface.Balking.Dialog.Title";
     t[36987] = "Balking to wait in a queue";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36988] = "ExpressionBuilder.MathematicalFunctions.Potentiate";
     t[36989] = "Potentiate";
     t[36990] = "Animation.SkipWarmUp.OptionDefault.Info";
     t[36991] = "The visulaization elments will not show data at once.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[36992] = "LoadCalculator.ProbabilityOfBlocking";
     t[36993] = "Probability of blocking";
     t[36994] = "Surface.Decide.Dialog.OutgoingEdge.Key";

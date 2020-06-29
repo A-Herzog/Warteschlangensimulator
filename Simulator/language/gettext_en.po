@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-20 22:47+0200\n"
+"POT-Creation-Date: 2020-06-29 20:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22011,6 +22011,12 @@ msgstr "Average waiting time tolerance"
 msgid "Surface.Process.AverageProcessingTime"
 msgstr "Average processing time"
 
+msgid "Surface.Process.Dialog.Assistant.NewGroup"
+msgstr "Create new operator group"
+
+msgid "Surface.Process.Dialog.Assistant.UseGroup"
+msgstr "Use existing operator group"
+
 msgid "Surface.Process.Dialog.BatchSize"
 msgstr "Batch size"
 
@@ -22525,7 +22531,7 @@ msgid "Surface.Resource.EditNumber.Dialog.InvalidNumber.Title"
 msgstr "Invalid number of needed operators"
 
 msgid "Surface.Resource.EditNumber.Dialog.MaxNumber"
-msgstr "A maximum of %d operators are available in the group."
+msgstr "A maximum of <b>%d</b> operators are available in the group."
 
 msgid "Surface.Resource.EditNumber.Dialog.Title"
 msgstr "Needed number of operators"

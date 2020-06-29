@@ -209,7 +209,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 
 			switch (col) {
 			case 0:
-				ResourceTableModelDialog1 dialog1=new ResourceTableModelDialog1(table,help,map,row,resources,model);
+				ResourceTableModelDialog1 dialog1=new ResourceTableModelDialog1(table,help,map,row,resources,model,true);
 				dialog1.setVisible(true);
 				if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {
@@ -286,5 +286,26 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	public void storeData(final Map<String,Integer> map) {
 		map.clear();
 		map.putAll(this.map);
+	}
+
+	/**
+	 * Zeigt einen Dialog zum Anlegen und Hinzufügen einer neuen Bedienergruppe an.
+	 */
+	public void addNewGroup() {
+		final ResourceTableModelDialog1 dialog1=new ResourceTableModelDialog1(table,help,map,-1,resources,model,false);
+		dialog1.setVisible(true);
+		if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			map.put(dialog1.getName(),1);
+			updateTable();
+		}
+	}
+
+	/**
+	 * Fügt eine bestehende Bedienergruppe zu der Liste der notwendigen Bediener hinzu.
+	 * @param name	Name der bestehenden Bedienergruppe
+	 */
+	public void addExistingGroup(final String name) {
+		map.put(name,1);
+		updateTable();
 	}
 }

@@ -54,10 +54,10 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 
 	private final ModelResources resources;
 
-	private final JRadioButton optionExisting;
-	private final JRadioButton optionNew;
-	private final JComboBox<String> selectGroup;
-	private final JLabel selectGroupInfo;
+	private JRadioButton optionExisting;
+	private JRadioButton optionNew;
+	private JComboBox<String> selectGroup;
+	private JLabel selectGroupInfo;
 	private final JTextField textGroupName;
 	private final JTextField textGroupSize;
 
@@ -69,8 +69,9 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 	 * @param index	Index der aktuellen Gruppe in der <code>map</code>-Struktur (-1, wenn es sich um einen neuen Eintrag handeln soll)
 	 * @param resources	Ressourcenliste, in der alle verfügbaren Bedienergruppen verzeichnet sind. (Die Liste wird möglicher Weise durch diesen Dialog direkt erweitert.)
 	 * @param model	Modell aus dem die Icons für das Bediener ausgelesen werden sollen
+	 * @param allowSelectExisting	Nur neue Gruppen anlegen (<code>false</code>) oder auch Möglichkeit bestehende Gruppen auszuwählen (<code>true</code>)
 	 */
-	public ResourceTableModelDialog1(final Component owner, final Runnable help, final Map<String,Integer> map, final int index, final ModelResources resources, final EditModel model) {
+	public ResourceTableModelDialog1(final Component owner, final Runnable help, final Map<String,Integer> map, final int index, final ModelResources resources, final EditModel model, final boolean allowSelectExisting) {
 		super(owner,Language.tr("Surface.Resource.EditName.Dialog.Title"),false);
 		this.resources=resources;
 
@@ -78,87 +79,108 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 
 		final JPanel content=createGUI(help);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		panel.add(optionExisting=new JRadioButton(Language.tr("Surface.Resource.EditName.Dialog.UseExisting")));
-		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		panel.add(selectGroup=new JComboBox<>());
-		selectGroup.addActionListener(e->updateGroupSizeInfo());
-		panel.add(selectGroupInfo=new JLabel());
-		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		panel.add(optionNew=new JRadioButton(Language.tr("Surface.Resource.EditName.Dialog.AddNew")+":"));
+
+		if (allowSelectExisting) {
+			content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			panel.add(optionExisting=new JRadioButton(Language.tr("Surface.Resource.EditName.Dialog.UseExisting")));
+			content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			panel.add(selectGroup=new JComboBox<>());
+			selectGroup.addActionListener(e->updateGroupSizeInfo());
+			panel.add(selectGroupInfo=new JLabel());
+			content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			panel.add(optionNew=new JRadioButton(Language.tr("Surface.Resource.EditName.Dialog.AddNew")+":"));
+		} else {
+			content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			panel.add(new JLabel(Language.tr("Surface.Resource.EditName.Dialog.AddNew")+":"));
+		}
 		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(new JLabel(Language.tr("Surface.Resource.EditName.Dialog.AddNew.Name")+":"));
-		panel.add(textGroupName=new JTextField(30));
+		panel.add(textGroupName=new JTextField(getFreeResourceName(),30));
 		textGroupName.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {optionNew.setSelected(true); checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {optionNew.setSelected(true); checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {optionNew.setSelected(true); checkData(false);}
+			@Override public void keyTyped(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
 		});
 		panel.add(new JLabel(Language.tr("Surface.Resource.EditName.Dialog.AddNew.Size")+":"));
 		panel.add(textGroupSize=new JTextField("1",5));
 		textGroupSize.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {optionNew.setSelected(true); checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {optionNew.setSelected(true); checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {optionNew.setSelected(true); checkData(false);}
+			@Override public void keyTyped(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
 		});
 
-		optionExisting.addActionListener(e->checkData(false));
-		optionNew.addActionListener(e->checkData(false));
+		if (allowSelectExisting) {
+			optionExisting.addActionListener(e->checkData(false));
+			optionNew.addActionListener(e->checkData(false));
 
-		ButtonGroup buttonGroup=new ButtonGroup();
-		buttonGroup.add(optionExisting);
-		buttonGroup.add(optionNew);
+			ButtonGroup buttonGroup=new ButtonGroup();
+			buttonGroup.add(optionExisting);
+			buttonGroup.add(optionNew);
 
-		List<String> usedGroups=new ArrayList<>();
-		for (Map.Entry<String,Integer> entry: map.entrySet()) usedGroups.add(entry.getKey());
+			List<String> usedGroups=new ArrayList<>();
+			for (Map.Entry<String,Integer> entry: map.entrySet()) usedGroups.add(entry.getKey());
 
-		int availableIndex=-1;
-		List<String> availableGroups=new ArrayList<>();
-		for (String group: resources.list()) {
-			int nr=-1;
-			for (int i=0;i<usedGroups.size();i++) if (i!=index && usedGroups.get(i).equalsIgnoreCase(group)) {nr=i; break;}
-			if (nr<0) {
-				availableGroups.add(group);
-				if (index>=0 && group.equalsIgnoreCase(usedGroups.get(index))) {availableIndex=availableGroups.size()-1;}
-			}
-		}
-
-		if (availableGroups.size()==0) {
-			optionExisting.setEnabled(false);
-			optionNew.setSelected(true);
-			selectGroup.setEnabled(false);
-			if (index<0) {
-				textGroupName.setText(resources.getNextAvailableResouceName());
-			} else {
-				textGroupName.setText(usedGroups.get(index));
-			}
-		} else {
-			if (availableIndex>=0) {
-				optionExisting.setSelected(true);
-				optionNew.setSelected(false);
-				selectGroup.setModel(new DefaultComboBoxModel<String>(availableGroups.toArray(new String[0])));
-				selectGroup.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildResourceTypeIcons(availableGroups,model)));
-				selectGroup.setSelectedIndex(availableIndex);
-				textGroupName.setText(resources.getNextAvailableResouceName());
-			} else {
-				selectGroup.setModel(new DefaultComboBoxModel<String>(availableGroups.toArray(new String[0])));
-				selectGroup.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildResourceTypeIcons(availableGroups,model)));
-				if (index<0) {
-					optionExisting.setSelected(true);
-					optionNew.setSelected(false);
-					textGroupName.setText(resources.getNextAvailableResouceName());
-				} else {
-					optionExisting.setSelected(false);
-					optionNew.setSelected(true);
-					textGroupName.setText(usedGroups.get(index));
+			int availableIndex=-1;
+			List<String> availableGroups=new ArrayList<>();
+			for (String group: resources.list()) {
+				int nr=-1;
+				for (int i=0;i<usedGroups.size();i++) if (i!=index && usedGroups.get(i).equalsIgnoreCase(group)) {nr=i; break;}
+				if (nr<0) {
+					availableGroups.add(group);
+					if (index>=0 && group.equalsIgnoreCase(usedGroups.get(index))) {availableIndex=availableGroups.size()-1;}
 				}
 			}
+
+			if (availableGroups.size()==0) {
+				optionExisting.setEnabled(false);
+				optionNew.setSelected(true);
+				selectGroup.setEnabled(false);
+				if (index<0) {
+					textGroupName.setText(resources.getNextAvailableResouceName());
+				} else {
+					textGroupName.setText(usedGroups.get(index));
+				}
+			} else {
+				if (availableIndex>=0) {
+					optionExisting.setSelected(true);
+					optionNew.setSelected(false);
+					selectGroup.setModel(new DefaultComboBoxModel<String>(availableGroups.toArray(new String[0])));
+					selectGroup.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildResourceTypeIcons(availableGroups,model)));
+					selectGroup.setSelectedIndex(availableIndex);
+					textGroupName.setText(resources.getNextAvailableResouceName());
+				} else {
+					selectGroup.setModel(new DefaultComboBoxModel<String>(availableGroups.toArray(new String[0])));
+					selectGroup.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildResourceTypeIcons(availableGroups,model)));
+					if (index<0) {
+						optionExisting.setSelected(true);
+						optionNew.setSelected(false);
+						textGroupName.setText(resources.getNextAvailableResouceName());
+					} else {
+						optionExisting.setSelected(false);
+						optionNew.setSelected(true);
+						textGroupName.setText(usedGroups.get(index));
+					}
+				}
+			}
+
+			updateGroupSizeInfo();
 		}
 
-		updateGroupSizeInfo();
+
 		checkData(false);
 		pack();
 		setLocationRelativeTo(getOwner());
+	}
+
+	private String getFreeResourceName() {
+		final String baseName=Language.tr("Resources.Group.DefaultName");
+		String name=baseName;
+		int nr=0;
+		while (resources.getNoAutoAdd(name)!=null) {
+			nr++;
+			name=baseName+" "+nr;
+		}
+		return name;
 	}
 
 	private void updateGroupSizeInfo() {
@@ -182,7 +204,7 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 
 		textGroupName.setBackground(SystemColor.text);
 		textGroupSize.setBackground(SystemColor.text);
-		if (optionNew.isSelected()) {
+		if (optionNew==null || optionNew.isSelected()) {
 			final String name=textGroupName.getText().trim();
 
 			if (name.isEmpty()) {
@@ -224,7 +246,7 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 
 	@Override
 	protected void storeData() {
-		if (optionNew.isSelected()) {
+		if (optionNew==null || optionNew.isSelected()) {
 			final Long L=NumberTools.getPositiveLong(textGroupSize,true);
 			resources.add(new ModelResource(textGroupName.getText().trim(),L.intValue()));
 		}
@@ -236,6 +258,6 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 	 */
 	@Override
 	public String getName() {
-		if (optionNew.isSelected()) return textGroupName.getText(); else return (String)selectGroup.getSelectedItem();
+		if (optionNew==null || optionNew.isSelected()) return textGroupName.getText(); else return (String)selectGroup.getSelectedItem();
 	}
 }

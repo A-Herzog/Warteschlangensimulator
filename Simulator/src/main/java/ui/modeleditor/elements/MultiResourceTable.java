@@ -223,4 +223,21 @@ public class MultiResourceTable extends JPanel {
 		}
 		return false;
 	}
+
+	/**
+	 * Zeigt einen Dialog zum Anlegen und Hinzufügen einer neuen Bedienergruppe an.
+	 * @see ResourceTableModel#addNewGroup()
+	 */
+	public void addNewGroup() {
+		model.addNewGroup();
+	}
+
+	/**
+	 * Fügt eine bestehende Bedienergruppe zu der Liste der notwendigen Bediener hinzu.
+	 * @param name	Name der bestehenden Bedienergruppe
+	 * @see ResourceTableModel#addExistingGroup(String)
+	 */
+	public void addExistingGroup(final String name) {
+		model.addExistingGroup(name);
+	}
 }

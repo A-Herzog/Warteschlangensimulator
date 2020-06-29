@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-20 22:47+0200\n"
+"POT-Creation-Date: 2020-06-29 20:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22025,6 +22025,12 @@ msgstr "Mittlere Wartezeittoleranz"
 msgid "Surface.Process.AverageProcessingTime"
 msgstr "Mittlere Bediendauer"
 
+msgid "Surface.Process.Dialog.Assistant.NewGroup"
+msgstr "Neue Bedienergruppe anlegen"
+
+msgid "Surface.Process.Dialog.Assistant.UseGroup"
+msgstr "Bestehende Bedienergruppe verwenden"
+
 msgid "Surface.Process.Dialog.BatchSize"
 msgstr "Batch-Größe"
 
@@ -22539,7 +22545,7 @@ msgid "Surface.Resource.EditNumber.Dialog.InvalidNumber.Title"
 msgstr "Ungültige Anzahl an benötigten Bedienern"
 
 msgid "Surface.Resource.EditNumber.Dialog.MaxNumber"
-msgstr "Es stehen maximal %d Bediener in der Gruppe zur Verfügung."
+msgstr "Es stehen maximal <b>%d</b> Bediener in der Gruppe zur Verfügung."
 
 msgid "Surface.Resource.EditNumber.Dialog.Title"
 msgstr "Notwendige Anzahl an Bedienern"

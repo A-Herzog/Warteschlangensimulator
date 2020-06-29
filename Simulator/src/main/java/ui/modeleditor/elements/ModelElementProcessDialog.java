@@ -25,13 +25,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -44,6 +47,7 @@ import tools.JTableExt;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.modeleditor.ModelResources;
 import ui.modeleditor.ModelSurface;
 
 /**
@@ -57,19 +61,27 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	private String[] variables;
 
 	private JTabbedPane tabs;
+
 	private JComboBox<String>[] timeBase;
 	private JComboBox<String> processTimeType;
 	private DistributionBySubTypeEditor distributionsWorking;
+
 	private DistributionSetupTimesEditor editorSetupTimes;
+
 	private JCheckBox checkBoxPostProcessing;
 	private DistributionBySubTypeEditor distributionsPostProcessing;
+
 	private JCheckBox checkBoxCancel;
 	private DistributionBySubTypeEditor distributionsCancel;
+
 	private JTextField textBatchMin;
 	private JTextField textBatchMax;
 	private JTextField textResourcePriority;
+	private JPanel resourceAssistant;
+	private JButton resourceAssistantUse;
 	private MultiResourceTable resourceData;
 	private PriorityTableModel tablePriorityModel;
+
 	private JTextField textCosts;
 	private JTextField textCostsPerProcessSecond;
 	private JTextField textCostsPerPostProcessSecond;
@@ -231,9 +243,12 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 		/* Tab "Bediener" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.Operators"),tab=new JPanel(new BorderLayout()));
+
+		tab.add(area=new JPanel(),BorderLayout.NORTH);
+		area.setLayout(new BoxLayout(area,BoxLayout.PAGE_AXIS));
 		Object[] data=getInputPanel(Language.tr("Surface.Process.Dialog.ResourcePriority")+":",process.getResourcePriority());
 		textResourcePriority=(JTextField)data[1];
-		tab.add(sub=(JPanel)data[0],BorderLayout.NORTH);
+		area.add(sub=(JPanel)data[0]);
 		sub.add(getExpressionEditButton(this,textResourcePriority,false,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
 		textResourcePriority.setEditable(!readOnly);
 		textResourcePriority.addKeyListener(new KeyListener() {
@@ -241,6 +256,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
 			@Override public void keyPressed(KeyEvent e) {checkInput(false);}
 		});
+		area.add(resourceAssistant=getAssistentPanel());
 
 		tab.add(resourceData=new MultiResourceTable(process,helpRunnable,readOnly,()->updateTabTitles()),BorderLayout.CENTER);
 
@@ -301,6 +317,37 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tabs.setIconAt(6,Images.MODELEDITOR_ELEMENT_PROCESS_PAGE_COSTS.getIcon());
 
 		return tabs;
+	}
+
+	private JPanel getAssistentPanel() {
+		final JPanel result=new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		result.setBorder(BorderFactory.createLineBorder(new Color(0,180,0)));
+		result.setBackground(new Color(200,255,200));
+
+		JButton button;
+
+		result.add(button=new JButton(Language.tr("Surface.Process.Dialog.Assistant.NewGroup")));
+		button.setIcon(Images.MODELPROPERTIES_OPERATORS_ADD.getIcon());
+		button.addActionListener(e->resourceData.addNewGroup());
+
+		result.add(button=new JButton(Language.tr("Surface.Process.Dialog.Assistant.UseGroup")));
+		button.setIcon(Images.MODELPROPERTIES_OPERATORS_ADD.getIcon());
+		resourceAssistantUse=button;
+		button.addActionListener(e->{
+			final ModelResources resources=element.getModel().resources;
+			final JPopupMenu popup=new JPopupMenu();
+			for (int i=0;i<resources.size();i++) {
+				final String name=resources.getName(i);
+				final JMenuItem item=new JMenuItem(name);
+				item.setIcon(Images.MODELPROPERTIES_OPERATORS.getIcon());
+				item.addActionListener(e2->resourceData.addExistingGroup(name));
+				popup.add(item);
+			}
+			popup.show(resourceAssistantUse,0,resourceAssistantUse.getHeight());
+		});
+
+		return result;
 	}
 
 	private boolean requestOpenResourceDialog=false;
@@ -473,7 +520,8 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tabs.setTitleAt(2,Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes")+": "+((checkBoxPostProcessing.isSelected())?Language.tr("Surface.Process.Dialog.on"):Language.tr("Surface.Process.Dialog.off")));
 		tabs.setTitleAt(3,Language.tr("Surface.Process.Dialog.Tab.WaitingTimeTolerances")+": "+((checkBoxCancel.isSelected())?Language.tr("Surface.Process.Dialog.on"):Language.tr("Surface.Process.Dialog.off")));
 		tabs.setTitleAt(5,Language.tr("Surface.Process.Dialog.Tab.Operators")+((resourceData==null || resourceData.isResourceDefined())?"":": "+Language.tr("Surface.Process.Dialog.StillMissing").toUpperCase()));
+
+		resourceAssistant.setVisible(!readOnly && resourceData!=null && !resourceData.isResourceDefined());
+		resourceAssistantUse.setVisible(element.getModel().resources.size()>0);
 	}
-
-
 }

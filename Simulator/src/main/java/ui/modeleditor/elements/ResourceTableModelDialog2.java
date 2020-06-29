@@ -60,7 +60,7 @@ public class ResourceTableModelDialog2 extends BaseDialog {
 		JPanel content=createGUI(help);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
-		final Object[] data=ModelElementBaseDialog.getInputPanel("<html>"+String.format(Language.tr("Surface.Resource.EditNumber.Dialog.TypeName"),groupName)+":</html>",""+groupValue,5);
+		final Object[] data=ModelElementBaseDialog.getInputPanel("<html><body>"+String.format(Language.tr("Surface.Resource.EditNumber.Dialog.TypeName"),groupName)+":</body></html>",""+groupValue,5);
 		content.add((JPanel)data[0]);
 		input=(JTextField)data[1];
 		input.addKeyListener(new KeyListener() {
@@ -70,7 +70,7 @@ public class ResourceTableModelDialog2 extends BaseDialog {
 		});
 
 		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		if (groupMax>=0) panel.add(new JLabel(String.format(Language.tr("Surface.Resource.EditNumber.Dialog.MaxNumber"),groupMax)));
+		if (groupMax>=0) panel.add(new JLabel("<html><body>"+String.format(Language.tr("Surface.Resource.EditNumber.Dialog.MaxNumber"),groupMax)+"</body></html>"));
 
 		checkData(false);
 		pack();
