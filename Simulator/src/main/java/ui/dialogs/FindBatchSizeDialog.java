@@ -29,10 +29,13 @@ import javax.swing.JRadioButton;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.BaseDialog;
 import ui.help.Help;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementProcess;
 
 /**
  * Dieser Dialog ermöglicht es, nach der Durchführung einer Simulation
@@ -90,6 +93,25 @@ public class FindBatchSizeDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	private ModelElement getElementFromStatisticName(final Statistics statistics, String name) {
+		if (statistics==null) return null;
+		final EditModel model=statistics.editModel;
+		if (model==null) return null;
+
+		final int index1=name.indexOf("(id=");
+		if (index1<0) return null;
+		name=name.substring(index1+4);
+
+		final int index2=name.indexOf(")");
+		if (index2<0) return null;
+		name=name.substring(0,index2);
+
+		final Integer I=NumberTools.getInteger(name);
+		if (I==null) return null;
+
+		return model.surface.getByIdIncludingSubModels(I.intValue());
+	}
+
 	private int getDistance(final Statistics statistics, final double level) {
 		if (!statistics.clientsAllWaitingTimes.isCorrelationAvailable()) return 10;
 
@@ -101,11 +123,17 @@ public class FindBatchSizeDialog extends BaseDialog {
 		}
 
 		for (String name: statistics.stationsWaitingTimes.getNames()) {
+			final ModelElement element=getElementFromStatisticName(statistics,name);
+			if (!(element instanceof ModelElementProcess)) continue;
+
 			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.get(name);
 			if (indicator.isCorrelationAvailable()) max=Math.max(max,indicator.getCorrelationLevelDistance(level));
 		}
 
 		for (String name: statistics.stationsWaitingTimesByClientType.getNames()) {
+			final ModelElement element=getElementFromStatisticName(statistics,name);
+			if (!(element instanceof ModelElementProcess)) continue;
+
 			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimesByClientType.get(name);
 			if (indicator.isCorrelationAvailable()) max=Math.max(max,indicator.getCorrelationLevelDistance(level));
 		}

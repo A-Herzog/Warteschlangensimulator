@@ -28,7 +28,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Dies ist die Standard-Klasse zur Erfassung von Wartezeiten usw.<br>
  * Die Zählung wird über die Funktion {@link StatisticsDataPerformanceIndicator#add(double)} realisiert.
  * @author Alexander Herzog
- * @version 2.0
+ * @version 2.1
  */
 public final class StatisticsDataPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -767,7 +767,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 				correlation[k]=0;
 			} else {
 				final double corr=(correlationSums[k]-(count-k*CORRELATION_RANGE_STEPPING)*mean*mean);
-				correlation[k]=corr/count/var;
+				if (count>0 && var>0) correlation[k]=corr/count/var;
 			}
 		}
 
