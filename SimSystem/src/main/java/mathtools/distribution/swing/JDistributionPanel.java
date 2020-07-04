@@ -31,8 +31,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -48,9 +46,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -68,7 +69,7 @@ import mathtools.distribution.tools.FileDropperData;
  * Zeigt den grafischen Verlauf von Dichte und Verteilungsfunktion einer Verteilung
  * vom Typ <code>AbstractContinuousDistribution</code> an.
  * @author Alexander Herzog
- * @version 1.6
+ * @version 1.7
  * @see AbstractRealDistribution
  */
 public class JDistributionPanel extends JPanel implements JGetImage {
@@ -178,12 +179,12 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 		copy=new JButton(CopyButtonLabel);
 		copy.setToolTipText(CopyButtonTooltip);
-		copy.addActionListener(new ButtonActionEvent());
+		copy.addActionListener(e->actionCopy());
 		copy.setIcon(SimSystemsSwingImages.COPY.getIcon());
 
 		save=new JButton(SaveButtonLabel);
 		save.setToolTipText(SaveButtonTooltip);
-		save.addActionListener(new ButtonActionEvent());
+		save.addActionListener(e->actionSave());
 		save.setIcon(SimSystemsSwingImages.SAVE.getIcon());
 
 		try {
@@ -195,23 +196,49 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		if (showEditButton) {
 			infoPanelEast.add(edit=new JButton(EditButtonLabel));
 			edit.setToolTipText(EditButtonTooltip);
-			edit.addActionListener(new ButtonActionEvent());
+			edit.addActionListener(e->editButtonClicked());
 			edit.setIcon(SimSystemsSwingImages.EDIT.getIcon());
 			wiki=null;
 		} else {
 			edit=null;
 			infoPanelEast.add(wiki=new JButton(WikiButtonLabel));
 			wiki.setToolTipText(WikiButtonTooltip);
-			wiki.addActionListener(new ButtonActionEvent());
+			wiki.addActionListener(e->actionWiki());
 			wiki.setIcon(SimSystemsSwingImages.HELP.getIcon());
 		}
 
 		add(plotter=new JDistributionPlotter(),BorderLayout.CENTER);
 
-		if (showEditButton) new FileDropper(new Component[]{plotter,infoPanel},new ButtonActionEvent());
+		if (showEditButton) new FileDropper(new Component[]{plotter,infoPanel},event->{
+			final FileDropperData data=(FileDropperData)event.getSource();
+			final double[] newData=JDataLoader.loadNumbersFromFile(JDistributionPanel.this,data.getFile(),1,Integer.MAX_VALUE);
+			if (newData==null) return;
+			data.dragDropConsumed();
+			DataDistributionImpl d=new DataDistributionImpl(maxXValue,newData);
+			setDistribution(d);
+		});
 
-		if (showEditButton) addMouseListener(new MouseAdapter() {
-			@Override public void mouseClicked(MouseEvent e) {if (e.getClickCount()==2) editButtonClicked();}
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount()==2 && showEditButton) editButtonClicked();
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (SwingUtilities.isRightMouseButton(e)) {
+					final JPopupMenu popup=new JPopupMenu();
+					JMenuItem item;
+					popup.add(item=new JMenuItem(copy.getText(),copy.getIcon()));
+					item.addActionListener(ev->actionCopy());
+					popup.add(item=new JMenuItem(save.getText(),save.getIcon()));
+					item.addActionListener(ev->actionSave());
+					if (showEditButton) {
+						popup.add(item=new JMenuItem(edit.getText(),edit.getIcon()));
+						item.addActionListener(ev->editButtonClicked());
+					}
+					popup.show(JDistributionPanel.this,e.getX(),e.getY());
+				}
+			}
 		});
 	}
 
@@ -614,47 +641,29 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		return false;
 	}
 
-	private class ButtonActionEvent implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			if (event.getSource()==copy) {
-				copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize);
-				return;
-			}
-			if (event.getSource()==save) {
-				File file=getSaveFileName(); if (file==null) return;
-				if (file.exists()) {
-					if (JOptionPane.showConfirmDialog(JDistributionPanel.this,String.format(GraphicsFileOverwriteWarning,file.toString()),GraphicsFileOverwriteWarningTitle,JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
-				}
+	private void actionCopy() {
+		copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize);
+	}
 
-				String extension="";
-				int i=file.toString().lastIndexOf('.');
-				if (i>0) extension=file.toString().substring(i+1);
+	private void actionSave() {
+		File file=getSaveFileName(); if (file==null) return;
+		if (file.exists()) {
+			if (JOptionPane.showConfirmDialog(JDistributionPanel.this,String.format(GraphicsFileOverwriteWarning,file.toString()),GraphicsFileOverwriteWarningTitle,JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
+		}
 
-				saveImageToFile(file,extension,imageSize);
-				return;
-			}
-			if (event.getSource()==edit) {
-				editButtonClicked();
-				return;
-			}
-			if (event.getSource()==wiki) {
-				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-					try {
-						URI uri=getDistributionWikipediaURI();
-						if (uri!=null) Desktop.getDesktop().browse(uri);
-					} catch (Exception e) {}
-				}
-			}
-			if (event.getSource() instanceof FileDropperData) {
-				final FileDropperData data=(FileDropperData)event.getSource();
-				final double[] newData=JDataLoader.loadNumbersFromFile(JDistributionPanel.this,data.getFile(),1,Integer.MAX_VALUE);
-				if (newData==null) return;
-				data.dragDropConsumed();
-				DataDistributionImpl d=new DataDistributionImpl(maxXValue,newData);
-				setDistribution(d);
-				return;
-			}
+		String extension="";
+		int i=file.toString().lastIndexOf('.');
+		if (i>0) extension=file.toString().substring(i+1);
+
+		saveImageToFile(file,extension,imageSize);
+	}
+
+	private void actionWiki() {
+		if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+			try {
+				URI uri=getDistributionWikipediaURI();
+				if (uri!=null) Desktop.getDesktop().browse(uri);
+			} catch (Exception e) {}
 		}
 	}
 }
