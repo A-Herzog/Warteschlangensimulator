@@ -516,10 +516,17 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	}
 
 	private void updateTabTitles() {
-		tabs.setTitleAt(1,Language.tr("Surface.Process.Dialog.Tab.SetupTimes")+": "+((editorSetupTimes.isActive())?Language.tr("Surface.Process.Dialog.on"):Language.tr("Surface.Process.Dialog.off")));
-		tabs.setTitleAt(2,Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes")+": "+((checkBoxPostProcessing.isSelected())?Language.tr("Surface.Process.Dialog.on"):Language.tr("Surface.Process.Dialog.off")));
-		tabs.setTitleAt(3,Language.tr("Surface.Process.Dialog.Tab.WaitingTimeTolerances")+": "+((checkBoxCancel.isSelected())?Language.tr("Surface.Process.Dialog.on"):Language.tr("Surface.Process.Dialog.off")));
-		tabs.setTitleAt(5,Language.tr("Surface.Process.Dialog.Tab.Operators")+((resourceData==null || resourceData.isResourceDefined())?"":": "+Language.tr("Surface.Process.Dialog.StillMissing").toUpperCase()));
+		final String html1="<html><body>";
+		final String html2="</body></html>";
+
+		final String on="<span style=\"color: green;\"><b>"+Language.tr("Surface.Process.Dialog.on")+"</b></span>";
+		final String off=Language.tr("Surface.Process.Dialog.off");
+		final String missing="<span style=\"color: red;\"><b>"+Language.tr("Surface.Process.Dialog.StillMissing").toUpperCase()+"</b></span>";
+
+		tabs.setTitleAt(1,html1+Language.tr("Surface.Process.Dialog.Tab.SetupTimes")+": "+((editorSetupTimes.isActive())?on:off)+html2);
+		tabs.setTitleAt(2,html1+Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes")+": "+((checkBoxPostProcessing.isSelected())?on:off)+html2);
+		tabs.setTitleAt(3,html1+Language.tr("Surface.Process.Dialog.Tab.WaitingTimeTolerances")+": "+((checkBoxCancel.isSelected())?on:off)+html2);
+		tabs.setTitleAt(5,html1+Language.tr("Surface.Process.Dialog.Tab.Operators")+((resourceData==null || resourceData.isResourceDefined())?"":": "+missing)+html2);
 
 		resourceAssistant.setVisible(!readOnly && resourceData!=null && !resourceData.isResourceDefined());
 		resourceAssistantUse.setVisible(element.getModel().resources.size()>0);

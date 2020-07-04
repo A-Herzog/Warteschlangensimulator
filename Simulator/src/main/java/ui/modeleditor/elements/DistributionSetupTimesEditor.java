@@ -113,8 +113,12 @@ public class DistributionSetupTimesEditor extends JPanel {
 
 		if (clientTypes.length>0) {
 
-			line.add(activeCheckBox=new JCheckBox(Language.tr("Surface.Process.Dialog.SetupTimes.Active")));
+			line.add(activeCheckBox=new JCheckBox("<html><body><b>"+Language.tr("Surface.Process.Dialog.SetupTimes.Active")+"</b></body></html>"));
 			activeCheckBox.setEnabled(!readOnly);
+			activeCheckBox.addActionListener(e->{
+				activeClientTypeChanged();
+				fireUserChangeListener();
+			});
 
 			panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(infoLabel=new JLabel());
