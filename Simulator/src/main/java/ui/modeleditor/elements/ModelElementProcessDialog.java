@@ -185,9 +185,9 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		sub.add(checkBoxPostProcessing=new JCheckBox("<html><b>"+Language.tr("Surface.Process.Dialog.UsePostProcessingTimes")+"</b></html>"));
 		checkBoxPostProcessing.setEnabled(!readOnly);
 		checkBoxPostProcessing.setSelected(process.getPostProcessing().get()!=null);
-		checkBoxPostProcessing.addActionListener((e)->updateTabTitles());
+		checkBoxPostProcessing.addActionListener(e->updateTabTitles());
 		distributionsPostProcessing=new DistributionBySubTypeEditor(element.getModel(),element.getSurface(),readOnly,Language.tr("Surface.Process.Dialog.DistributionOfPostProcessingTimes"),process.getPostProcessing(),DistributionBySubTypeEditor.Mode.MODE_CLIENTS);
-		distributionsPostProcessing.addUserChangeListener(e->checkBoxPostProcessing.setSelected(true));
+		distributionsPostProcessing.addUserChangeListener(e->{checkBoxPostProcessing.setSelected(true); updateTabTitles();});
 		tab.add(distributionsPostProcessing,BorderLayout.CENTER);
 
 		/* Tab "Wartezeittoleranzen" */
@@ -199,9 +199,9 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		sub.add(checkBoxCancel=new JCheckBox("<html><b>"+Language.tr("Surface.Process.Dialog.UseWaitingTimeTolerances")+"</b></html>"));
 		checkBoxCancel.setEnabled(!readOnly);
 		checkBoxCancel.setSelected(process.getCancel().get()!=null);
-		checkBoxCancel.addActionListener((e)->updateTabTitles());
+		checkBoxCancel.addActionListener(e->updateTabTitles());
 		distributionsCancel=new DistributionBySubTypeEditor(element.getModel(),element.getSurface(),readOnly,Language.tr("Surface.Process.Dialog.DistributionOfWaitingTimeTolerances"),process.getCancel(),DistributionBySubTypeEditor.Mode.MODE_CLIENTS);
-		distributionsCancel.addUserChangeListener(e->checkBoxCancel.setSelected(true));
+		distributionsCancel.addUserChangeListener(e->{checkBoxCancel.setSelected(true); updateTabTitles();});
 		tab.add(distributionsCancel,BorderLayout.CENTER);
 
 		/* Tab "Prioritäten und Batch-Größen" */

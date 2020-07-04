@@ -140,7 +140,13 @@ public class DistributionSetupTimesEditor extends JPanel {
 				protected boolean editButtonClicked() {
 					fireUserChangeListener();
 					activeCheckBox.setSelected(true);
-					return super.editButtonClicked();
+					if (super.editButtonClicked()) {
+						activeClientTypeChanged();
+						fireUserChangeListener();
+						return true;
+					} else {
+						return false;
+					}
 				}
 			},cardDistribution);
 
@@ -154,9 +160,9 @@ public class DistributionSetupTimesEditor extends JPanel {
 			line.add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,true,model,surface),BorderLayout.EAST);
 			expressionEdit.setEditable(!readOnly);
 			expressionEdit.addKeyListener(new KeyListener(){
-				@Override public void keyTyped(KeyEvent e) {fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression();}
-				@Override public void keyPressed(KeyEvent e) {fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression();}
-				@Override public void keyReleased(KeyEvent e) {fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression();}
+				@Override public void keyTyped(KeyEvent e) {fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression(); activeClientTypeChanged(); fireUserChangeListener();}
+				@Override public void keyPressed(KeyEvent e) {fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression(); activeClientTypeChanged(); fireUserChangeListener();}
+				@Override public void keyReleased(KeyEvent e) {fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression(); activeClientTypeChanged(); fireUserChangeListener();}
 			});
 
 			/* Verarbeitung starten */
