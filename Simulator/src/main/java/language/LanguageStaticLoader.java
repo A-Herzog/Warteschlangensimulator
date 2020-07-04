@@ -245,8 +245,8 @@ public class LanguageStaticLoader {
 		JDistributionEditorPanel.DistDegreesOfFreedom=Language.tr("Distribution.DegreesOfFreedom");
 		JDistributionEditorPanel.DistDegreesOfFreedomNumerator=Language.tr("Distribution.DegreesOfFreedom.Numerator");
 		JDistributionEditorPanel.DistDegreesOfFreedomDenominator=Language.tr("Distribution.DegreesOfFreedom.Denominator");
-		JDistributionEditorPanel.ChangeValueDown=Language.tr("JDistributionEditor.ValueUp");
-		JDistributionEditorPanel.ChangeValueUp=Language.tr("JDistributionEditor.ValueDown");
+		JDistributionEditorPanel.ChangeValueDown=Language.tr("JDistributionEditor.ValueDown");
+		JDistributionEditorPanel.ChangeValueUp=Language.tr("JDistributionEditor.ValueUp");
 		JDistributionEditorPanel.DistMostLikely=Language.tr("Distribution.MostLikely");
 
 		/* JDataDistributionEditPanel */
