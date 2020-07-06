@@ -257,7 +257,8 @@ public class WaitPanel extends JPanel {
 					}
 				}
 			}
-			progress.setValue(0);
+			progress.setStringPainted(false);
+			progress.setIndeterminate(true);
 		} else {
 			if (time-startTime>3000) {
 				double gesamt=(time-startTime)/(((double)current)/sum);
