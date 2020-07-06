@@ -228,7 +228,35 @@ public class WaitPanel extends JPanel {
 		final long time=System.currentTimeMillis();
 		if (sum<0) {
 			info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong((time-startTime)/1000)));
-			statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimation"),NumberTools.formatLong(current/1000),NumberTools.formatLong(simulator.getEventCount()/1000000),NumberTools.formatLong(simulator.getEventsPerSecond()/1000)));
+
+			final String currentClientsKString=NumberTools.formatLong(current/1000);
+			final long events=simulator.getEventCount();
+			final String eventsPerSecondKString=NumberTools.formatLong(simulator.getEventsPerSecond()/1000);
+			if (events<1_000_000) {
+				final String totalEventsKString=NumberTools.formatLong(events/1000);
+				if (wip==0) {
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK.WIPZero"),currentClientsKString,totalEventsKString,eventsPerSecondKString));
+				} else {
+					if (wip==1) {
+						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK.WIPOne"),currentClientsKString,totalEventsKString,eventsPerSecondKString));
+					} else {
+						final String wipString=NumberTools.formatLong(wip);
+						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK"),currentClientsKString,wipString,totalEventsKString,eventsPerSecondKString));
+					}
+				}
+			} else {
+				final String totalEventsMString=NumberTools.formatLong(events/1_000_000);
+				if (wip==0) {
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM.WIPZero"),currentClientsKString,totalEventsMString,eventsPerSecondKString));
+				} else {
+					if (wip==1) {
+						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM.WIPOne"),currentClientsKString,totalEventsMString,eventsPerSecondKString));
+					} else {
+						final String wipString=NumberTools.formatLong(wip);
+						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM"),currentClientsKString,wipString,totalEventsMString,eventsPerSecondKString));
+					}
+				}
+			}
 			progress.setValue(0);
 		} else {
 			if (time-startTime>3000) {
@@ -236,7 +264,6 @@ public class WaitPanel extends JPanel {
 				gesamt-=(time-startTime);
 				if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
 				info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong((time-startTime)/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
-
 			}
 			final long events=simulator.getEventCount();
 			final String currentClientsKString=NumberTools.formatLong(current/1000);

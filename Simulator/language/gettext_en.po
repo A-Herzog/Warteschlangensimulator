@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-29 20:23+0200\n"
+"POT-Creation-Date: 2020-07-06 21:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25952,7 +25952,22 @@ msgstr "%sK of %sK client arrivals simulated / 1 client in the system / %sK even
 msgid "Wait.Status.LongRunK.WIPZero"
 msgstr "%sK of %sK client arrivals simulated / %sK events / %sK events per second"
 
-msgid "Wait.Status.LongRunNoEstimation"
+msgid "Wait.Status.LongRunNoEstimationK"
+msgstr "%sK client arrivals simulated / %s clients in the system / %sK events / %sK events per second"
+
+msgid "Wait.Status.LongRunNoEstimationK.WIPOne"
+msgstr "%sK client arrivals simulated / 1 client in the system / %sK events / %sK events per second"
+
+msgid "Wait.Status.LongRunNoEstimationK.WIPZero"
+msgstr "%sK client arrivals simulated / %sK events / %sK events per second"
+
+msgid "Wait.Status.LongRunNoEstimationM"
+msgstr "%sK client arrivals simulated / %s clients in the system / %sM events / %sK events per second"
+
+msgid "Wait.Status.LongRunNoEstimationM.WIPOne"
+msgstr "%sK client arrivals simulated / 1 client in the system / %sM events / %sK events per second"
+
+msgid "Wait.Status.LongRunNoEstimationM.WIPZero"
 msgstr "%sK client arrivals simulated / %sM events / %sK events per second"
 
 msgid "Wait.Status.Start"
@@ -26630,6 +26645,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Invalid number of digits"
+
+#~ msgid "Wait.Status.LongRunNoEstimation"
+#~ msgstr "%sK client arrivals simulated / %sM events / %sK events per second"
 
 #~ msgid "Window.Animation.Done.Info"
 #~ msgstr "The animation has ended."

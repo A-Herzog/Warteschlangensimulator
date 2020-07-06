@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-29 20:23+0200\n"
+"POT-Creation-Date: 2020-07-06 21:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25967,7 +25967,22 @@ msgstr "%sK von %sK Kundenankünfte simuliert / 1 Kunde im System / %sK Ereignis
 msgid "Wait.Status.LongRunK.WIPZero"
 msgstr "%sK von %sK Kundenankünfte simuliert / %sK Ereignisse / %sK Ereignisse pro Sekunde"
 
-msgid "Wait.Status.LongRunNoEstimation"
+msgid "Wait.Status.LongRunNoEstimationK"
+msgstr "%sK Kundenankünfte simuliert / %s Kunden im System / %sK Ereignisse / %sK Ereignisse pro Sekunde"
+
+msgid "Wait.Status.LongRunNoEstimationK.WIPOne"
+msgstr "%sK Kundenankünfte simuliert / 1 Kunde im System / %sK Ereignisse / %sK Ereignisse pro Sekunde"
+
+msgid "Wait.Status.LongRunNoEstimationK.WIPZero"
+msgstr "%sK Kundenankünfte simuliert / %sK Ereignisse / %sK Ereignisse pro Sekunde"
+
+msgid "Wait.Status.LongRunNoEstimationM"
+msgstr "%sK Kundenankünfte simuliert / %s Kunden im System / %sM Ereignisse / %sK Ereignisse pro Sekunde"
+
+msgid "Wait.Status.LongRunNoEstimationM.WIPOne"
+msgstr "%sK Kundenankünfte simuliert / 1 Kunde im System / %sM Ereignisse / %sK Ereignisse pro Sekunde"
+
+msgid "Wait.Status.LongRunNoEstimationM.WIPZero"
 msgstr "%sK Kundenankünfte simuliert / %sM Ereignisse / %sK Ereignisse pro Sekunde"
 
 msgid "Wait.Status.Start"
@@ -26666,6 +26681,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Ungültige Anzahl an Ziffern"
+
+#~ msgid "Wait.Status.LongRunNoEstimation"
+#~ msgstr "%sK Kundenankünfte simuliert / %sM Ereignisse / %sK Ereignisse pro Sekunde"
 
 #~ msgid "Window.Animation.Done.Info"
 #~ msgstr "Die Animation wurde beendet."
