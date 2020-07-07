@@ -44,6 +44,7 @@ import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.PathEditorDialog;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementPosition;
@@ -255,10 +256,12 @@ public class ModelElementWayPoint extends ModelElementPosition {
 	 * Fügt optional weitere Einträge zum Kontextmenü hinzu
 	 * @param owner	Übergeordnetes Element
 	 * @param popupMenu	Kontextmenü zu dem die Einträge hinzugefügt werden sollen
+	 * @param surfacePanel	Zeichenfläche
+	 * @param point	Punkt auf den geklickt wurde
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so können über das Kontextmenü keine Änderungen an dem Modell vorgenommen werden
 	 */
 	@Override
-	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final boolean readOnly) {
+	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		final JMenuItem item=new JMenuItem(Language.tr("PathEditor.MenuItem"));
 		item.setIcon(Images.MODELEDITOR_ELEMENT_VERTEX.getIcon());
 		item.addActionListener(e->commandPathEditor(owner));

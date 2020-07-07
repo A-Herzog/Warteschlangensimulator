@@ -24,6 +24,7 @@ import java.awt.Rectangle;
 import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.apache.commons.math3.util.FastMath;
@@ -36,10 +37,12 @@ import simulator.editmodel.EditModel;
 import ui.images.Images;
 import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
+import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
 
@@ -201,20 +204,42 @@ public final class ModelElementEdge extends ModelElement {
 	}
 
 	@Override
-	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final boolean readOnly) {
+	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
+		JCheckBoxMenuItem check;
+		JMenuItem item;
+
 		final JMenu menu=new JMenu(Language.tr("Surface.Connection.LineMode"));
 		popupMenu.add(menu);
 
-		JCheckBoxMenuItem item;
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.Global"),Images.MODEL.getIcon(),lineMode==null));
+		check.addActionListener(e->{lineMode=null; fireChanged();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.Direct"),Images.EDGE_MODE_DIRECT.getIcon(),lineMode==LineMode.DIRECT));
+		check.addActionListener(e->{lineMode=LineMode.DIRECT; fireChanged();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.MultiLine"),Images.EDGE_MODE_MULTI_LINE.getIcon(),lineMode==LineMode.MULTI_LINE));
+		check.addActionListener(e->{lineMode=LineMode.MULTI_LINE; fireChanged();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon(),lineMode==LineMode.MULTI_LINE_ROUNDED));
+		check.addActionListener(e->{lineMode=LineMode.MULTI_LINE_ROUNDED; fireChanged();});
 
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.Global"),Images.MODEL.getIcon(),lineMode==null));
-		item.addActionListener(e->{lineMode=null; fireChanged();});
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.Direct"),Images.EDGE_MODE_DIRECT.getIcon(),lineMode==LineMode.DIRECT));
-		item.addActionListener(e->{lineMode=LineMode.DIRECT; fireChanged();});
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.MultiLine"),Images.EDGE_MODE_MULTI_LINE.getIcon(),lineMode==LineMode.MULTI_LINE));
-		item.addActionListener(e->{lineMode=LineMode.MULTI_LINE; fireChanged();});
-		menu.add(item=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon(),lineMode==LineMode.MULTI_LINE_ROUNDED));
-		item.addActionListener(e->{lineMode=LineMode.MULTI_LINE_ROUNDED; fireChanged();});
+		if (connectionEnd instanceof ModelElementPosition) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.Connection.AddVertex"),Images.MODELEDITOR_ELEMENT_VERTEX.getIcon()));
+			item.addActionListener(e->{
+				final double zoom=surfacePanel.getZoom();
+				/* Ecke hinzufügen */
+				final ModelElementVertex vertex=new ModelElementVertex(getModel(),surface);
+				vertex.setPosition(new Point((int)Math.round(point.x/zoom),(int)Math.round(point.y/zoom)));
+				surface.add(vertex);
+				/* Diese Kante umbauen */
+				final ModelElementPosition element2=(ModelElementPosition)connectionEnd;
+				element2.removeConnectionNotify(this);
+				connectionEnd=vertex;
+				vertex.addEdgeIn(this);
+				/* Neue Kante einfügen */
+				final ModelElementEdge edge=new ModelElementEdge(getModel(),surface,vertex,element2);
+				surface.add(edge);
+				vertex.addEdgeOut(edge);
+				element2.addEdgeIn(edge);
+			});
+		}
 	}
 
 	/**
@@ -728,6 +753,15 @@ public final class ModelElementEdge extends ModelElement {
 	 */
 	public ModelElement getConnectionEnd() {
 		return connectionEnd;
+	}
+
+	/**
+	 * Stellt den Endpunkt der Verknüpfung ein
+	 * @param element	Neuer Endpunkt der Verknüpfung
+	 */
+	public void setConnectionEnd(final ModelElement element) {
+		connectionEnd=element;
+		fireChanged();
 	}
 
 	private boolean edgeInList(final ModelElementEdge[] list) {

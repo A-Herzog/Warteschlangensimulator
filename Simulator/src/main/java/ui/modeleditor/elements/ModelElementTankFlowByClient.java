@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Point;
 import java.net.URL;
 
 import javax.swing.JPopupMenu;
@@ -30,6 +31,7 @@ import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
@@ -160,10 +162,12 @@ public class ModelElementTankFlowByClient extends ModelElementMultiInSingleOutBo
 	 * Fügt optional weitere Einträge zum Kontextmenü hinzu
 	 * @param owner	Übergeordnetes Element
 	 * @param popupMenu	Kontextmenü zu dem die Einträge hinzugefügt werden sollen
+	 * @param surfacePanel	Zeichenfläche
+	 * @param point	Punkt auf den geklickt wurde
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so können über das Kontextmenü keine Änderungen an dem Modell vorgenommen werden
 	 */
 	@Override
-	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final boolean readOnly) {
+	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		if (addRemoveEdgesContextMenuItems(popupMenu,readOnly)) popupMenu.addSeparator();
 	}
 

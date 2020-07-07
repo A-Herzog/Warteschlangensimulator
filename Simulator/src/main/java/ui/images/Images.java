@@ -1605,6 +1605,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Verbindungsecke'" */
 	MODELEDITOR_ELEMENT_VERTEX("Vertex.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Verbindungsecke' (Löschen)" */
+	MODELEDITOR_ELEMENT_VERTEX_DELETE("Vertex_delete.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Linie'" */
 	MODELEDITOR_ELEMENT_LINE("Line.png"),
 

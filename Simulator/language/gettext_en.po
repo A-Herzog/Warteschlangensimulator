@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-07 13:11+0200\n"
+"POT-Creation-Date: 2020-07-07 18:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19068,6 +19068,9 @@ msgstr "ModelElementIconName"
 msgid "Surface.ClientIcon.XML.Root"
 msgstr "ModelElementIcon"
 
+msgid "Surface.Connection.AddVertex"
+msgstr "Add vertex on path"
+
 msgid "Surface.Connection.LineMode"
 msgstr "Edge display mode"
 
@@ -21954,6 +21957,9 @@ msgstr "Remove all incoming edges"
 
 msgid "Surface.PopupMenu.RemoveEdgesOut"
 msgstr "Remove all outgoing edges"
+
+msgid "Surface.PopupMenu.RemoveThisVertex"
+msgstr "Remove this vertex on path"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData"
 msgstr "Current simulation data"

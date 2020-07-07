@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import ui.images.Images;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
@@ -203,10 +205,12 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 	 * Fügt optional weitere Einträge zum Kontextmenü hinzu
 	 * @param owner	Übergeordnetes Element
 	 * @param popupMenu	Kontextmenü zu dem die Einträge hinzugefügt werden sollen
+	 * @param surfacePanel	Zeichenfläche
+	 * @param point	Punkt auf den geklickt wurde
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so können über das Kontextmenü keine Änderungen an dem Modell vorgenommen werden
 	 */
 	@Override
-	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final boolean readOnly) {
+	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		JMenuItem item;
 		final URL imgURL=Images.EDIT_EDGES_DELETE.getURL();
 		boolean needSeparator=false;
@@ -226,6 +230,24 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
 			item.setEnabled(!readOnly);
 			needSeparator=true;
+		}
+
+		if (connectionsIn!=null && connectionsIn.size()==1 && connectionOut!=null) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveThisVertex"),Images.MODELEDITOR_ELEMENT_VERTEX_DELETE.getIcon()));
+			item.addActionListener(e->{
+				/* Ziel für erste Kante austragen */
+				final ModelElementEdge edge=connectionsIn.get(0);
+				connectionsIn.clear();
+				/* Zweite Kante entfernen */
+				final ModelElementPosition element2=(ModelElementPosition)connectionOut.getConnectionEnd();
+				element2.removeConnectionNotify(connectionOut);
+				surface.remove(connectionOut);
+				/* Diese Ecke entfernen */
+				surface.remove(this);
+				/* Neues Ziel für erste Kante */
+				edge.setConnectionEnd(element2);
+				element2.addEdgeIn(edge);
+			});
 		}
 
 		if (needSeparator) popupMenu.addSeparator();

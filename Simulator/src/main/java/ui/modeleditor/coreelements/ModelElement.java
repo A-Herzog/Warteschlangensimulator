@@ -724,9 +724,11 @@ public class ModelElement {
 	 * Fügt optional weitere Einträge zum Kontextmenü hinzu
 	 * @param owner	Übergeordnetes Element
 	 * @param popupMenu	Kontextmenü zu dem die Einträge hinzugefügt werden sollen
+	 * @param surfacePanel	Zeichenfläche
+	 * @param point	Punkt auf den geklickt wurde
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so können über das Kontextmenü keine Änderungen an dem Modell vorgenommen werden
 	 */
-	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final boolean readOnly) {
+	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 	}
 
 	/**
@@ -887,7 +889,7 @@ public class ModelElement {
 		}
 
 		/* Benutzerdefiniert Einträge */
-		addContextMenuItems(invoker,popupMenu,readOnly);
+		addContextMenuItems(invoker,popupMenu,surfacePanel,point,readOnly);
 
 		if (popupMenu.getComponentCount()>0) {
 			final Component c=popupMenu.getComponent(popupMenu.getComponentCount()-1);

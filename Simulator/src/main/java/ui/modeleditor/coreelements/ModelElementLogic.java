@@ -18,6 +18,7 @@ package ui.modeleditor.coreelements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Point;
 
 import javax.swing.JPopupMenu;
 
@@ -26,6 +27,7 @@ import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -73,10 +75,12 @@ public abstract class ModelElementLogic extends ModelElementMultiInSingleOutBox 
 	 * Fügt optional weitere Einträge zum Kontextmenü hinzu
 	 * @param owner	Übergeordnetes Element
 	 * @param popupMenu	Kontextmenü zu dem die Einträge hinzugefügt werden sollen
+	 * @param surfacePanel	Zeichenfläche
+	 * @param point	Punkt auf den geklickt wurde
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so können über das Kontextmenü keine Änderungen an dem Modell vorgenommen werden
 	 */
 	@Override
-	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final boolean readOnly) {
+	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		if (addRemoveEdgesContextMenuItems(popupMenu,readOnly)) popupMenu.addSeparator();
 	}
 
