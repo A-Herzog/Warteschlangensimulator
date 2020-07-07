@@ -146,6 +146,19 @@ Die verlangsamt den Simulationsprozess erheblich, ermöglicht es aber auch Bedin
 in die die Simulationszeit direkt eingeht, korrekt abzubilden.
 </p>
 
+<h3>Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen</h3>
+<p>
+Im Normalfall werden die Statistikdaten der Kunden in die Statistikaufzeichnung übernommen,
+wenn ein Kunde das System verlässt. Kunden, die sich am Ende der Simulation noch im System
+befinden, werden nicht erfasst. Auf diese Weise wird sichergestellt, dass nur die Daten der
+Kunden, die das System ordnungsgemäß und vollständig durchlaufen haben, erfasst werden. Bei
+geschlossenen Warteschlangensystemen kann jedoch der Fall auftreten, dass die Kunden das
+System nie verlassen und folglich auch nicht erfasst werden. In diesem Fall kann es sinnvoll
+sein, diese Option zu aktivieren, um auch die Statistikdaten der im System verbliebenen
+Kunden in die Statistikaufzeichnung zu übernehmen. Allerdings verlangsamt diese Funktion die
+Simulation als solches.
+</p>
+
 
 
 <h2><img src="../images/user.png">&nbsp; Kunden</h2>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 21:08+0200\n"
+"POT-Creation-Date: 2020-07-07 13:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2788,6 +2788,12 @@ msgstr "Weitere Simulationseinstellungen"
 
 msgid "Editor.Dialog.Tab.Simulation.NumberOfArrivals"
 msgstr "Zu simulierende Ankünfte"
+
+msgid "Editor.Dialog.Tab.Simulation.RecordIncompleteClients"
+msgstr "Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen"
+
+msgid "Editor.Dialog.Tab.Simulation.RecordIncompleteClients.Hint"
+msgstr "Diese Option sollte nur bei geschlossenen Warteschlangensystemen aktiviert werden. Sie verlangsamt die Simulation."
 
 msgid "Editor.Dialog.Tab.Simulation.RepeatCount.Error"
 msgstr "Die angegebene Anzahl %s an Wiederholungen des Simulationslaufs ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
@@ -25063,6 +25069,9 @@ msgstr "Von"
 
 msgid "Surface.XML.PathSegments.Connection.To"
 msgstr "Nach"
+
+msgid "Surface.XML.RecordIncompleteClients"
+msgstr "ModellUnvollstaendigeKundenAufzeichnung"
 
 msgid "Surface.XML.Resource.CostsPerHour"
 msgstr "KostenProBetriebsstunde"

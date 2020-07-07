@@ -107,7 +107,7 @@ public class RunElementSetJS extends RunElementPassThrough {
 			final JSRunSimulationData jsRunner=data.jsRunner;
 			jsRunner.setSimulationData(simData,client);
 			final String result=jsRunner.runCompiled();
-			if (!jsRunner.getLastSuccess() && simData.runModel.canelSimulationOnScriptError) {
+			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
 				simData.doEmergencyShutDown(result);
 				return;
 			}
@@ -118,7 +118,7 @@ public class RunElementSetJS extends RunElementPassThrough {
 			final DynamicRunner javaRunner=data.javaRunner;
 			javaRunner.parameter.client.setClient(client);
 			final Object result=javaRunner.run();
-			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.canelSimulationOnScriptError) {
+			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {
 				simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
 				return;
 			}

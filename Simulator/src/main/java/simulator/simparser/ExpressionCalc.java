@@ -330,7 +330,7 @@ public class ExpressionCalc extends CalcSystem {
 		final SimulationData simData=Simulator.getSimulationDataFromStatistics(statistics);
 		if (simData==null) throw new MathCalcError(this);
 
-		simData.runData.initRun(0,simData);
+		simData.runData.initRun(0,simData,simData.runModel.recordIncompleteClients);
 		for (RunElement station: simData.runModel.elementsFast) if (station!=null) simData.runData.explicitInitStatistics(simData,station);
 
 		return calc(null,simData,null);

@@ -226,13 +226,13 @@ public class SimulationData extends SimData {
 		}
 
 		currentTime=0;
-		runData.initRun(day,this);
+		runData.initRun(day,this,runModel.recordIncompleteClients);
 	}
 
 	@Override
 	public void terminateCleanUp(final long now) {
 		super.terminateCleanUp(now);
-		runData.doneRun(now,this);
+		runData.doneRun(now,this,runModel.recordIncompleteClients);
 
 		if (lastDaysStatistics!=null) {
 			/* Wenn es schon Statistik von Vorgängertagen gibt, diese mit diesem Tag zusammenführen */
@@ -258,10 +258,8 @@ public class SimulationData extends SimData {
 	 */
 	public void doEmergencyShutDown(final String message) {
 		statistics.simulationData.emergencyShutDown=true;
-		if (!runData.stopp) {
-			addWarning(Language.tr("Simulation.RunTimeError").toUpperCase()+": "+message);
-			logEventExecution(Language.tr("Simulation.Log.Abort"),message);
-		}
+		addWarning(Language.tr("Simulation.RunTimeError").toUpperCase()+": "+message);
+		logEventExecution(Language.tr("Simulation.Log.Abort"),message);
 		doShutDown();
 	}
 

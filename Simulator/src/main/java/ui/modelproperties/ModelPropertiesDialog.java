@@ -188,6 +188,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 	private JCheckBox stoppOnCalcError;
 	private JCheckBox useTimedChecks;
 	private JTextField editTimedChecks;
+	private JCheckBox recordIncompleteClients;
 
 	private DefaultListModel<JLabel> clientColorsListModel;
 
@@ -597,6 +598,12 @@ public class ModelPropertiesDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {useTimedChecks.setSelected(true); checkTimedChecks();}
 		});
 		sub.add(new JLabel(Language.tr("Editor.Dialog.Tab.Simulation.TimedChecks.Seconds")));
+
+		sub=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		lines.add(sub);
+		sub.add(recordIncompleteClients=new JCheckBox(Language.tr("Editor.Dialog.Tab.Simulation.RecordIncompleteClients"),model.recordIncompleteClients));
+		recordIncompleteClients.setToolTipText(Language.tr("Editor.Dialog.Tab.Simulation.RecordIncompleteClients.Hint"));
+		recordIncompleteClients.setEnabled(!readOnly);
 	}
 
 	private void addClientsTab(final JPanel content) {
@@ -1232,6 +1239,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		} else {
 			model.timedChecksDelta=-1;
 		}
+		model.recordIncompleteClients=recordIncompleteClients.isSelected();
 
 		/* Kunden */
 

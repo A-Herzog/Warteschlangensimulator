@@ -299,6 +299,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public boolean recordClientPaths;
 
 	/**
+	 * Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden?
+	 */
+	public boolean recordIncompleteClients;
+
+	/**
 	 * Vorlagen direkt im Modell
 	 */
 	private UserTemplates templates=null; /* Nicht automatisch mit Objekt belegen, sonst Endlosschleife. Da das Templates-Objekt ein Modell instanziert. */
@@ -330,6 +335,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		timedChecksDelta=-1;
 		recordStationTransitions=false;
 		recordClientPaths=false;
+		recordIncompleteClients=false;
 		modelLoadData=new ModelLoadData();
 		resetData();
 	}
@@ -392,6 +398,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		timedChecksDelta=-1;
 		recordStationTransitions=false;
 		recordClientPaths=false;
+		recordIncompleteClients=false;
 		templates=null;
 		modelLoadData.clear();
 	}
@@ -441,6 +448,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.timedChecksDelta=timedChecksDelta;
 		clone.recordStationTransitions=recordStationTransitions;
 		clone.recordClientPaths=recordClientPaths;
+		clone.recordIncompleteClients=recordIncompleteClients;
 		if (templates!=null) clone.templates=templates.clone();
 		clone.modelLoadData.copyDataFrom(modelLoadData);
 
@@ -507,6 +515,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (timedChecksDelta!=otherModel.timedChecksDelta) return false;
 		if (recordStationTransitions!=otherModel.recordStationTransitions) return false;
 		if (recordClientPaths!=otherModel.recordClientPaths) return false;
+		if (recordIncompleteClients!=otherModel.recordIncompleteClients) return false;
 		if (!modelLoadData.equalsModelLoadData(otherModel.modelLoadData)) return false;
 
 		if (templates==null) {
@@ -794,6 +803,10 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.RecordIncompleteClients",name)) {
+			recordIncompleteClients=!text.trim().isEmpty() && !text.equals("0");
+		}
+
 		if (UserTemplates.isTemplatesNode(name)) {
 			templates=new UserTemplates();
 			templates.load(node);
@@ -905,6 +918,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.PathRecording")));
 			if (recordStationTransitions) sub.setAttribute(Language.trPrimary("Surface.XML.PathRecording.StationTransitions"),"1");
 			if (recordClientPaths) sub.setAttribute(Language.trPrimary("Surface.XML.PathRecording.ClientPaths"),"1");
+		}
+
+		if (recordIncompleteClients) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.RecordIncompleteClients")));
+			node.setTextContent("1");
 		}
 
 		if (templates!=null) templates.save(doc,node);

@@ -814,7 +814,7 @@ public final class SetupDialog extends BaseDialog {
 		highPriority.setSelected(setup.highPriority);
 		useNUMAMode.setSelected(setup.useNUMAMode);
 		JSEngineNames engine=JSEngineNames.fromName(setup.jsEngine);
-		canelSimulationOnScriptError.setSelected(setup.canelSimulationOnScriptError);
+		canelSimulationOnScriptError.setSelected(setup.cancelSimulationOnScriptError);
 		if (engine==null) engine=JSEngineNames.DEFAULT;
 		switch (engine) {
 		case DEFAULT: jsEngine.setSelectedIndex(0); break;
@@ -1030,7 +1030,7 @@ public final class SetupDialog extends BaseDialog {
 		case 2: setup.jsEngine=JSEngineNames.RHINO.name; break;
 		case 3: setup.jsEngine=JSEngineNames.GRAALJSNative.name; break;
 		}
-		setup.canelSimulationOnScriptError=canelSimulationOnScriptError.isSelected();
+		setup.cancelSimulationOnScriptError=canelSimulationOnScriptError.isSelected();
 
 		setup.serverUse=serverUse.isSelected();
 		final StringBuilder sb=new StringBuilder();

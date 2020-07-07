@@ -182,7 +182,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 					JSRunSimulationData jsRunner=data.jsRunner;
 					jsRunner.setSimulationData(simData,data.waitingClients);
 					final String result=jsRunner.runCompiled();
-					if (!jsRunner.getLastSuccess() && simData.runModel.canelSimulationOnScriptError) {
+					if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
 						simData.doEmergencyShutDown(result);
 						return false;
 					}
@@ -199,7 +199,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 					final DynamicRunner javaRunner=data.javaRunner;
 					javaRunner.parameter.clients.setClients(data.waitingClients);
 					final Object result=javaRunner.run();
-					if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.canelSimulationOnScriptError) {
+					if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {
 						simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
 						return false;
 					}

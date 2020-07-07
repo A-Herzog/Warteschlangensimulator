@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | Benutzervorlagen | ExterneDaten)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten)*>
 
 <!ELEMENT ModellVersion (#PCDATA)>
 <!ELEMENT ModellName (#PCDATA)>
@@ -198,6 +198,8 @@
   Stationsuebergaenge	CDATA	#IMPLIED
   Kundenpfade			CDATA	#IMPLIED
 >
+
+<!ELEMENT ModellUnvollstaendigeKundenAufzeichnung (#PCDATA)>
 
 <!ELEMENT ModellElementVerbindungsdarstellungsart (#PCDATA)>
 
@@ -1834,7 +1836,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | UserTemplates | ExternalData)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData)*>
 
 <!ELEMENT ModelVersion (#PCDATA)>
 <!ELEMENT ModelName (#PCDATA)>
@@ -2028,6 +2030,8 @@
   StationTransitions	CDATA	#IMPLIED
   ClientPaths			CDATA	#IMPLIED
 >
+
+<!ELEMENT ModelRecordIncompleteClients (#PCDATA)>
 
 <!ELEMENT ModelElementConnectionDrawStyle (#PCDATA)>
 

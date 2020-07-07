@@ -38,6 +38,7 @@
   <xs:element name="ModellElementVerbindungsdarstellungsart" type="xs:string"/>
   <xs:element name="ModellZeitabhaengigePruefungen" type="xs:string"/>
   <xs:element ref="ModellPfadaufzeichnung"/>
+  <xs:element name="ModellUnvollstaendigeKundenAufzeichnung" type="xs:string"/>
   <xs:element ref="Benutzervorlagen"/>
   <xs:element ref="ExterneDaten"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
@@ -2018,6 +2019,7 @@
   <xs:element name="ModelElementConnectionDrawStyle" type="xs:string"/>
   <xs:element name="ModelTimedChecks" type="xs:string"/>
   <xs:element ref="ModelPathRecording"/>
+  <xs:element name="ModelRecordIncompleteClients" type="xs:string"/>
   <xs:element ref="UserTemplates"/>
   <xs:element ref="ExternalData"/>
   </xs:choice></xs:sequence></xs:complexType></xs:element>

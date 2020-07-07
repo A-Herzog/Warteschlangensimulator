@@ -209,8 +209,9 @@ public class RunData {
 	 * Vorbereitung einer einzelnen Wiederholung der Simulation
 	 * @param nr	Nummer der Wiederholung (0-basierend und thread-lokal)
 	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
+	 * @param recordIncompleteClients	Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden können (<code>true</code>). Dies verlangsamt die Simulation.
 	 */
-	public void initRun(final long nr, final SimulationData simData) {
+	public void initRun(final long nr, final SimulationData simData, final boolean recordIncompleteClients) {
 		for (int i=0;i<variableValues.length;i++) {
 			variableValues[i]=0;
 			if (runModel.variableInitialValues[i]!=null) {
@@ -255,14 +256,17 @@ public class RunData {
 
 		/* State Change direkt zu Beginn auslösen, damit sich Elemente, die dies zum Verzögerten Init benötigen direkt am Anfang initalisieren können. */
 		fireStateChangeNotify(simData);
+
+		if (recordIncompleteClients) clients.requestFastClientsInUseList();
 	}
 
 	/**
 	 * Abschluss einer einzelnen Wiederholung der Simulation
 	 * @param now	Ausführungszeitpunkt des letzten Events
 	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
+	 * @param disposeClients	Kunden zwangsweise aus dem System austragen (funktioniert nur, wenn auch die Erfassung der aktuellen Kunden aktiv ist)
 	 */
-	public void doneRun(final long now, final SimulationData simData) {
+	public void doneRun(final long now, final SimulationData simData, final boolean disposeClients) {
 		/* Benachrichtigt alle Analog-Wert-Elemente am Ende der Simulation, um die Statistik noch einmal zu aktualisieren. */
 		for (Map.Entry<Integer,RunElement> element: simData.runModel.elements.entrySet()) {
 			if (element.getValue() instanceof RunElementAnalogProcessing) {
@@ -270,6 +274,12 @@ public class RunData {
 				data.updateStatistics(simData.currentTime);
 			}
 		}
+
+		/* Anzahl an Kunden im System letztmalig erfassen */
+		clients.finalizeNumberOfClientsInSystem(simData);
+
+		/* Kunden zwangsweise aus dem System austragen (funktioniert nur, wenn auch die Erfassung der aktuellen Kunden aktiv ist) */
+		if (disposeClients) clients.disposeAll(simData);
 	}
 
 	/**
@@ -286,6 +296,8 @@ public class RunData {
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
 
 		data.clients++;
+
+		if (data.lastArrival<0 || data.lastArrival>now) data.lastArrival=0; /* Zeitpunkt 0 wird als erste "Ankunft" für die Zählung der Zwischenankunftszeiten verwendet. */
 
 		if (data.lastArrival>=0 && data.lastArrival<=now) {
 			final double delta=scale*(now-data.lastArrival);

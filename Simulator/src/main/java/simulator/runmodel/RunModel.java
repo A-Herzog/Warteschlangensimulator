@@ -262,7 +262,12 @@ public class RunModel {
 	/**
 	 * Simulation bei einem Scripting-Fehler abbrechen
 	 */
-	public boolean canelSimulationOnScriptError;
+	public boolean cancelSimulationOnScriptError;
+
+	/**
+	 * Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden können (<code>true</code>). Dies verlangsamt die Simulation.
+	 */
+	public boolean recordIncompleteClients;
 
 	/**
 	 * Ein <code>RunModel</code> kann nicht direkt erzeugt werden, sondern es kann nur ein <code>EditModel</code>
@@ -444,7 +449,10 @@ public class RunModel {
 		runModel.recordClientPaths=editModel.recordClientPaths;
 
 		/* Scripting */
-		runModel.canelSimulationOnScriptError=SetupData.getSetup().canelSimulationOnScriptError;
+		runModel.cancelSimulationOnScriptError=SetupData.getSetup().cancelSimulationOnScriptError;
+
+		/* Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden? */
+		runModel.recordIncompleteClients=editModel.recordIncompleteClients;
 
 		return null;
 	}

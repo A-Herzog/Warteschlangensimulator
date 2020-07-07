@@ -15,7 +15,9 @@
  */
 package simulator.runmodel;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import simulator.statistics.Statistics;
@@ -43,6 +45,7 @@ public final class RunDataClients {
 	private long clientNumber;
 	private final RunDataClient[] clientCache;
 	private List<RunDataClient> clientsInUse;
+	private Set<RunDataClient> clientsInUseFast;
 	private int clientCacheUsed;
 	private int clientsInSystem;
 
@@ -60,6 +63,7 @@ public final class RunDataClients {
 	public RunDataClients() {
 		clientCache=new RunDataClient[CLIENT_CACHE_SIZE];
 		clientsInUse=null;
+		clientsInUseFast=null;
 		clientCacheUsed=0;
 		clientsInSystem=0;
 	}
@@ -94,7 +98,21 @@ public final class RunDataClients {
 		simData.runData.logClientsInSystemChange(simData,type,1);
 
 		if (clientsInUse!=null) clientsInUse.add(client);
+		if (clientsInUseFast!=null) clientsInUseFast.add(client);
 		return client;
+	}
+
+	/**
+	 * Erfasst am Simulationsende noch einmal die Anzahl an Kunden im System
+	 * (sonst gehen die Daten seit der letzten Änderung der Anzahl an Kunden im System für die Statistik verloren).
+	 * @param simData	Simulationsdatenobjekt
+	 */
+	public void finalizeNumberOfClientsInSystem(final SimulationData simData) {
+		if (!simData.runData.isWarmUp) {
+			simData.statistics.clientsInSystem.set(simData.currentTime*scale,clientsInSystem);
+		}
+
+		for (int type=0;type<simData.runModel.clientTypes.length;type++) simData.runData.logClientsInSystemChange(simData,type,0);
 	}
 
 	/**
@@ -207,6 +225,7 @@ public final class RunDataClients {
 	 */
 	public void disposeClientWithoutStatistics(final RunDataClient client, final SimulationData simData) {
 		if (clientsInUse!=null) clientsInUse.remove(client);
+		if (clientsInUseFast!=null) clientsInUseFast.remove(client);
 
 		/* Client-Objekt evtl. im Cache aufheben */
 		if (clientCacheUsed<CLIENT_CACHE_SIZE) {
@@ -230,19 +249,35 @@ public final class RunDataClients {
 	 * @param simData	Simulationsdaten
 	 */
 	public void disposeAll(final SimulationData simData) {
-		if (clientsInUse==null) return;
-
-		while (!clientsInUse.isEmpty()) disposeClient(clientsInUse.get(0),simData);
+		if (clientsInUse!=null) {
+			while (!clientsInUse.isEmpty()) disposeClient(clientsInUse.get(0),simData);
+		} else {
+			if (clientsInUseFast!=null) {
+				final RunDataClient[] list=clientsInUseFast.toArray(new RunDataClient[0]);
+				for (RunDataClient client: list) disposeClient(client,simData);
+				clientsInUseFast.clear();
+			}
+		}
 	}
 
 	/**
 	 * Liefert eine sich laufend aktualisierende Liste mit allen in der Simulation aktiven Kunden.<br>
 	 * Diese Liste wird erst ab dem Zeitpunkt des Aufrufs dieser Methode geführt und sollte nur
-	 * während der Animation verwendet werden, da sie die Simulation bremst und ansonsten nicht verwender wird.
+	 * während der Animation verwendet werden, da sie die Simulation bremst und ansonsten nicht verwendet wird.
 	 * @return	Synchronisierte Liste mit allen Kunden im System
 	 */
 	public List<RunDataClient> requestClientsInUseList() {
 		if (clientsInUse==null) clientsInUse=new Vector<>();
 		return clientsInUse;
+	}
+
+	/**
+	 * Erfassung der aktuellen Kunden im System aktivieren, um so
+	 * später alle aus dem System entfernen (und in der Statistik
+	 * erfassen) zu können.
+	 * @see #disposeAll(SimulationData)
+	 */
+	public void requestFastClientsInUseList() {
+		if (clientsInUseFast==null) clientsInUseFast=new HashSet<>();
 	}
 }

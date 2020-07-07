@@ -336,7 +336,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		if (simulator.prepare()!=null) return null;
 		final SimulationData simData=new SimulationData(0,simulator.threads.length,simulator.runModel,statistics);
 
-		simData.runData.initRun(0,simData);
+		simData.runData.initRun(0,simData,simData.runModel.recordIncompleteClients);
 		for (RunElement station: simData.runModel.elementsFast) if (station!=null) simData.runData.explicitInitStatistics(simData,station);
 
 		return simData;

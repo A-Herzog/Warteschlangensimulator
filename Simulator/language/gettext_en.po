@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 21:08+0200\n"
+"POT-Creation-Date: 2020-07-07 13:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2787,6 +2787,12 @@ msgstr "More simulation settings"
 
 msgid "Editor.Dialog.Tab.Simulation.NumberOfArrivals"
 msgstr "Number of arrivals to be simulated"
+
+msgid "Editor.Dialog.Tab.Simulation.RecordIncompleteClients"
+msgstr "Record clients in statistic that have not left the system at simulation end"
+
+msgid "Editor.Dialog.Tab.Simulation.RecordIncompleteClients.Hint"
+msgstr "This option should only be activated on closed queueing system. It slows down the simulation."
 
 msgid "Editor.Dialog.Tab.Simulation.RepeatCount.Error"
 msgstr "The given number of repeats of the simulation %s is invalid. A positive integer number has to be given."
@@ -25048,6 +25054,9 @@ msgstr "From"
 
 msgid "Surface.XML.PathSegments.Connection.To"
 msgstr "To"
+
+msgid "Surface.XML.RecordIncompleteClients"
+msgstr "ModelRecordIncompleteClients"
 
 msgid "Surface.XML.Resource.CostsPerHour"
 msgstr "CostsPerHour"

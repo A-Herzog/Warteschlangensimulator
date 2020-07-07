@@ -147,7 +147,7 @@ public class RunElementInputJS extends RunElementPassThrough {
 			jsRunner.setSimulationInputValue(value);
 			jsRunner.setSimulationData(simData,client);
 			final String result=jsRunner.runCompiled();
-			if (!jsRunner.getLastSuccess() && simData.runModel.canelSimulationOnScriptError) {
+			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
 				simData.doEmergencyShutDown(result);
 				return false;
 			}
@@ -158,7 +158,7 @@ public class RunElementInputJS extends RunElementPassThrough {
 			javaRunner.parameter.client.setClient(client);
 			javaRunner.parameter.inputValue.set(value);
 			final Object result=javaRunner.run();
-			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.canelSimulationOnScriptError) {
+			if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {
 				simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
 				return false;
 			}
