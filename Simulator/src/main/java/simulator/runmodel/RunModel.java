@@ -49,6 +49,7 @@ import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceDB;
 import ui.modeleditor.elements.ModelElementSourceDDE;
 import ui.modeleditor.elements.ModelElementSourceMulti;
+import ui.modeleditor.elements.ModelElementSourceRecord;
 import ui.modeleditor.elements.ModelElementSourceTable;
 import ui.modeleditor.elements.ModelElementSub;
 
@@ -506,17 +507,28 @@ public class RunModel {
 		return null;
 	}
 
+	private static boolean isLimitedSource(final ModelElementSourceRecord record) {
+		return (record.getMaxArrivalClientCount()>0 || record.getMaxArrivalCount()>0);
+	}
+
 	private static String initElementsData(final EditModel editModel, final RunModel runModel, final boolean testOnly) {
 		/* Liste der RunElemente aufbauen */
 		final RunModelCreator creator=new RunModelCreator(editModel,runModel,testOnly);
 		boolean hasSource=false;
 		boolean hasDispose=false;
+		boolean allSourcesLimited=true;
 		for (ModelElement element : editModel.surface.getElements()) {
 			if (element instanceof ModelElementBox) {
 				if (!((ModelElementBox)element).inputConnected()) continue; /* Keine Einlaufende Ecke in Element -> kann ignoriert werden */
-				if (element instanceof ModelElementSource) hasSource=true;
+				if (element instanceof ModelElementSource) {
+					hasSource=true;
+					allSourcesLimited=allSourcesLimited && isLimitedSource(((ModelElementSource)element).getRecord());
+				}
 				if (element instanceof ModelElementAnimationConnect) runModel.isAnimation=true;
-				if (element instanceof ModelElementSourceMulti && !((ModelElementSourceMulti)element).getRecords().isEmpty()) hasSource=true;
+				if (element instanceof ModelElementSourceMulti && !((ModelElementSourceMulti)element).getRecords().isEmpty()) {
+					hasSource=true;
+					for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) allSourcesLimited=allSourcesLimited && isLimitedSource(record);
+				}
 				if (element instanceof ModelElementSourceTable) hasSource=true;
 				if (element instanceof ModelElementSourceDB) hasSource=true;
 				if (element instanceof ModelElementSourceDDE) hasSource=true;
@@ -536,7 +548,9 @@ public class RunModel {
 		}
 
 		if (!hasSource) return Language.tr("Simulation.Creator.NoSource");
-		if (!hasDispose) return Language.tr("Simulation.Creator.NoDispose");
+		if (!hasDispose) {
+			if (!allSourcesLimited || (!editModel.useFinishTime && !editModel.useTerminationCondition)) return Language.tr("Simulation.Creator.NoDispose");
+		}
 
 		/* Verknüpfungen umstellen von IDs auf Referenzen */
 		int maxID=0;

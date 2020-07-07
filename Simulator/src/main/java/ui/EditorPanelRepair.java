@@ -27,11 +27,17 @@ import systemtools.MsgBox;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSource;
+import ui.modeleditor.elements.ModelElementSourceDB;
+import ui.modeleditor.elements.ModelElementSourceDDE;
+import ui.modeleditor.elements.ModelElementSourceMulti;
+import ui.modeleditor.elements.ModelElementSourceRecord;
+import ui.modeleditor.elements.ModelElementSourceTable;
 
 /**
  * Versucht ein Modell automatisiert (nach Nutzerrückfrage) zu reparieren.
@@ -115,12 +121,17 @@ public class EditorPanelRepair {
 		return RepairState.FIXED;
 	}
 
+	private boolean isLimitedSource(final ModelElementSourceRecord record) {
+		return (record.getMaxArrivalClientCount()>0 || record.getMaxArrivalCount()>0);
+	}
+
 	private RepairState fixConnections(final EditModel model) {
-		final List<ModelElementSource> source=new ArrayList<>();
+		final List<ModelElementBox> source=new ArrayList<>();
 		final List<ModelElementDelay> delay=new ArrayList<>();
 		final List<ModelElementProcess> process=new ArrayList<>();
 		final List<ModelElementDispose> dispose=new ArrayList<>();
 		int maxX=0;
+		boolean needsDispose=(!model.useFinishTime && !model.useTerminationCondition);
 
 		/* Elemente finden */
 		for (ModelElement element:	model.surface.getElements()) {
@@ -132,6 +143,26 @@ public class EditorPanelRepair {
 
 			if (element instanceof ModelElementSource) {
 				source.add((ModelElementSource)element);
+				if (!needsDispose) needsDispose=!isLimitedSource(((ModelElementSource)element).getRecord());
+				continue;
+			}
+			if (element instanceof ModelElementSourceMulti) {
+				source.add((ModelElementSourceMulti)element);
+				if (!needsDispose) for (ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {
+					needsDispose=needsDispose || !isLimitedSource(record);
+				}
+				continue;
+			}
+			if (element instanceof ModelElementSourceDB) {
+				source.add((ModelElementSourceDB)element);
+				continue;
+			}
+			if (element instanceof ModelElementSourceDDE) {
+				source.add((ModelElementSourceDDE)element);
+				continue;
+			}
+			if (element instanceof ModelElementSourceTable) {
+				source.add((ModelElementSourceTable)element);
 				continue;
 			}
 			if (element instanceof ModelElementProcess) {
@@ -153,7 +184,7 @@ public class EditorPanelRepair {
 		RepairState state=RepairState.NOT_CHANGED;
 
 		/* Modell hat kein Ausgang-Element? */
-		if (dispose.size()==0) {
+		if (dispose.size()==0 && needsDispose) {
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixDispose.Title"),Language.tr("Window.Check.AutoFixDispose.Info"),Language.tr("Window.Check.AutoFixDispose.YesInfo"),Language.tr("Window.Check.AutoFixDispose.NoInfo"))) return RepairState.USER_CANCELED;
 			final int x=maxX+100;
 			int y=0;
@@ -168,7 +199,7 @@ public class EditorPanelRepair {
 		}
 
 		/* Quelle hat keinen Ausgang? */
-		for (ModelElementSource s: source) if (s.getEdgeOut()==null) {
+		for (ModelElementBox s: source) if ((s instanceof ModelElementEdgeOut) && ((ModelElementEdgeOut)s).getEdgeOut()==null) {
 			if (process.size()+delay.size()!=1) continue; /* Unklar, wohin wir verbinden wollen. */
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoSourceProcess"),s.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
 			ModelElementEdge edge=null;
