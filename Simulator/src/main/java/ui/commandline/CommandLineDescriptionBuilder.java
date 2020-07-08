@@ -29,7 +29,7 @@ import tools.SetupData;
  * Erstellt basierend auf den Beschreibungen der einzelnen Befehle eine LaTeX-Dokumentation.
  * @author Alexander Herzog
  * @see CommandLineSystem
- * @see CommandLineDescriptionBuilder#buildAll()
+ * @see CommandLineDescriptionBuilder#buildAll(PrintStream)
  */
 public class CommandLineDescriptionBuilder {
 	/**

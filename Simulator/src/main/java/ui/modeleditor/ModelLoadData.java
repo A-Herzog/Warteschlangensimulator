@@ -283,18 +283,21 @@ public final class ModelLoadData implements Cloneable {
 	}
 
 	/**
-	 * Gibt an, ob ein Aufruf von {@link #changeModel(EditModel)} zu Veränderungen
+	 * Gibt an, ob ein Aufruf von {@link #changeModel(EditModel, File, boolean)} zu Veränderungen
 	 * des Modells führen würde.
-	 * @return	Wird das Modell beim Aufruf von {@link #changeModel(EditModel)} verändert?
+	 * @return	Wird das Modell beim Aufruf von {@link #changeModel(EditModel, File, boolean)} verändert?
+	 * @see #changeModel(EditModel, File)
+	 * @see #changeModel(EditModel, File, boolean)
 	 */
 	public boolean willChangeModel() {
 		return active && list.size()>0;
 	}
 
 	/**
-	 * Liefert die beim letzten Aufruf von {@link #changeModel(EditModel)} entstandenen Fehlermeldungen.
+	 * Liefert die beim letzten Aufruf von {@link #changeModel(EditModel, File, boolean)} entstandenen Fehlermeldungen.
 	 * @return	Fehlermeldungen (kann leer sein, aber ist nie <code>null</code>)
-	 * @see #changeModel(EditModel)
+	 * @see #changeModel(EditModel, File)
+	 * @see #changeModel(EditModel, File, boolean)
 	 */
 	public List<String> getChangeWarnings() {
 		return changeWarnings;

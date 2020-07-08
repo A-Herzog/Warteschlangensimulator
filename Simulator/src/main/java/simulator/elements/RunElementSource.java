@@ -131,7 +131,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 	}
 
 	/**
-	 * Aufruf über das {@link RunData#initRun(long, SimulationData)} über das {@link RunSource}-Interface
+	 * Aufruf über das {@link RunData#initRun(long, SimulationData, boolean)} über das {@link RunSource}-Interface
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	@Override

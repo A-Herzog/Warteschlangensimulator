@@ -53,7 +53,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * Erstellt basierend auf den HTML-Hilfe-Seiten zu den Elementen eine LaTeX-Dokumentation.
  * @author Alexander Herzog
  * @see ModelElementCatalog
- * @see ModelElementCatalogDescriptionBuilder#buildAll()
+ * @see ModelElementCatalogDescriptionBuilder#buildAll(PrintStream)
  */
 public class ModelElementCatalogDescriptionBuilder {
 	@SuppressWarnings("rawtypes")

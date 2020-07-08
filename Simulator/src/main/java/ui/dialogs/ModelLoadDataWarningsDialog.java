@@ -36,7 +36,8 @@ import ui.modeleditor.ModelLoadData;
  * wenn auch tatsächlich Warnungen aufgetreten sind.
  * @author Alexander Herzog
  * @see ModelLoadData
- * @see ModelLoadData#changeModel(simulator.editmodel.EditModel)
+ * @see ModelLoadData#changeModel(simulator.editmodel.EditModel, java.io.File)
+ * @see ModelLoadData#changeModel(simulator.editmodel.EditModel, java.io.File, boolean)
  */
 public class ModelLoadDataWarningsDialog extends BaseDialog {
 	private static final long serialVersionUID=-8517430290293338838L;

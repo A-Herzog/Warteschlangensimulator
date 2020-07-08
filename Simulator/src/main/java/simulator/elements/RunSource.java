@@ -21,15 +21,15 @@ import simulator.runmodel.SimulationData;
 
 /**
  * Alle Quellen müssen dieses Interface implementieren.
- * In {@link RunData#initRun(long, SimulationData)} werden dann alle Quellen initialisiert
+ * In {@link RunData#initRun(long, SimulationData, boolean)} werden dann alle Quellen initialisiert
  * und das {@link SystemArrivalEvent} benachrichtigt Quellen über dieses Interface über Ankünfte.
- * Auch {@link RunData#logStationArrival(long, SimulationData, simulator.coreelements.RunElement, simulator.coreelements.RunElementData)}
+ * Auch {@link RunData#logStationArrival(long, SimulationData, simulator.coreelements.RunElement, simulator.coreelements.RunElementData, simulator.runmodel.RunDataClient)}
  * identifiziert Quellen über dieses Interface und erfasst Ankünfte an diesen Stationen dann als
  * Systemankünfte.
  * @author Alexander Herzog
- * @see RunData#initRun(long, SimulationData)
+ * @see RunData#initRun(long, SimulationData, boolean)
  * @see SystemArrivalEvent#run(simcore.SimData)
- * @see RunData#logStationArrival(long, SimulationData, simulator.coreelements.RunElement, simulator.coreelements.RunElementData)
+ * @see RunData#logStationArrival(long, SimulationData, simulator.coreelements.RunElement, simulator.coreelements.RunElementData, simulator.runmodel.RunDataClient)
  *
  */
 public interface RunSource {
@@ -42,7 +42,7 @@ public interface RunSource {
 	void processArrivalEvent(final SimulationData simData, final boolean scheduleNext, final int index);
 
 	/**
-	 * Wird zu Beginn von {@link RunData#initRun(long, SimulationData)} für alle Quellen aufgerufen.
+	 * Wird zu Beginn von {@link RunData#initRun(long, SimulationData, boolean)} für alle Quellen aufgerufen.
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	void scheduleInitialArrivals(final SimulationData simData);

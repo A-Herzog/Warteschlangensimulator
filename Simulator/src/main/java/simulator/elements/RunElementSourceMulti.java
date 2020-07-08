@@ -156,7 +156,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	/**
 	 * Plant die nächste Kundenankunft (bzw. Batch-Ankunft) an jeder Teil-Quelle ein.<br>
 	 * Es handelt sich hierbei immer um die ersten Kunden jeder Teilquelle (also <code>isFirstArrival=true</code>)<br>
-	 * Aufruf über das {@link RunData#initRun(long, SimulationData)} über das {@link RunSource}-Interface
+	 * Aufruf über das {@link RunData#initRun(long, SimulationData, boolean)} über das {@link RunSource}-Interface
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	@Override

@@ -38,7 +38,7 @@ public class StatisticViewerPartsPieChart extends StatisticViewerPieChart {
 	/**
 	 * Wählt die von {@link StatisticViewerPartsPieChart} auszugebende Information aus.
 	 * @author Alexander Herzog
-	 * @see StatisticViewerPartsPieChart#StatisticPartsPieChart(Statistics, Mode)
+	 * @see StatisticViewerPartsPieChart#StatisticViewerPartsPieChart(Statistics, Mode)
 	 */
 	public enum Mode {
 		/** Ausgabe von Warte-, Transfer- und Bedienzeit über alle Kundengruppen */

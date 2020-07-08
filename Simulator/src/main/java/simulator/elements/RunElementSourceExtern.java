@@ -228,7 +228,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	/**
 	 * Muss zu Beginn eines jeden Simulationslaufes ausgeführt werden,
 	 * um pro Kundentyp jeweils die erste Ankunft einzuplanen.<br>
-	 * Aufruf über das {@link RunData#initRun(long, SimulationData)} über das {@link RunSource}-Interface
+	 * Aufruf über das {@link RunData#initRun(long, SimulationData, boolean)} über das {@link RunSource}-Interface
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	@Override
