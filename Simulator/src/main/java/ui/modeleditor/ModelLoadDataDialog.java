@@ -266,7 +266,7 @@ public class ModelLoadDataDialog extends BaseDialog {
 		switch (mode.getSelectedIndex()) {
 		case 0:
 			final File file=new File(workbook.getText());
-			final File newFile=MultiTable.showSaveDialog(this,Language.tr("ModelLoadData.EditDialog.Workbook.SelectFile"),file.getParentFile());
+			final File newFile=MultiTable.showLoadDialog(this,Language.tr("ModelLoadData.EditDialog.Workbook.SelectFile"),file.getParentFile());
 			if (newFile!=null) workbook.setText(newFile.toString());
 			break;
 		case 1:

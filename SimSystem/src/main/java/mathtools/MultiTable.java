@@ -46,7 +46,7 @@ import mathtools.distribution.swing.CommonVariables;
 /**
  * Diese Klasse ermöglichst das Laden und Speichern mehrerer Tabellen in einer Exceldatei
  * @author Alexander Herzog
- * @version 1.3
+ * @version 1.4
  */
 public final class MultiTable {
 	private final List<String> names=new ArrayList<>();
@@ -870,6 +870,21 @@ public final class MultiTable {
 	 */
 	public static File showLoadDialog(final Component parent, final String title) {
 		return Table.showLoadDialog(parent,title);
+	}
+
+	/**
+	 * Zeigt einen Auswahldialog zum Laden von Tabellen an.
+	 * (Diese Funktion ist identisch mit <code>Table.showLoadDialog</code>, genauer ruft sie intern diese
+	 * sogar einfach nur auf. Diese Funktion ist hier nur aus Symmetriegründen vorhanden.)
+	 * @param parent	Elternkomponente des Dialogs
+	 * @param title	Anzuzeigender Titel im Auswahldialog
+	 * @param initialDirectory	Pfad, der anfänglich im Dialog ausgewählt sein soll (kann auch <code>null</code> sein)
+	 * @return	Im Erfolgsfall wird der Dateiname zurückgegeben, sonst <code>null</code>
+	 * @see Table#showLoadDialog(Component, String)
+	 * @see Table#showLoadDialog(Component, String, File)
+	 */
+	public static File showLoadDialog(final Component parent, final String title, final File initialDirectory) {
+		return Table.showLoadDialog(parent,title,initialDirectory);
 	}
 
 	/**
