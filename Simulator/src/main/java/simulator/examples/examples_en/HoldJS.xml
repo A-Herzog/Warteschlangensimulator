@@ -69,8 +69,17 @@ a client of type A will be released.
       <ModelElementConnection Element="9" Type="In"/>
       <ModelElementConnection Element="10" Type="Out"/>
       <ModelElementHoldScriptAdditionalCondition>WIP(3)&lt;2 || WIP(4)&lt;2</ModelElementHoldScriptAdditionalCondition>
-      <ModelElementHoldScriptCondition Language="Javascript"/>
-    </ModelElementHoldScript>
+      <ModelElementHoldScriptCondition Language="Javascript">var WIP_A=Simulation.getWIP(3);
+var WIP_B=Simulation.getWIP(4);
+
+var count=Clients.count();
+for (var i=0;i&lt;count;i++) {
+  if (WIP_A&gt;=2 &amp;&amp; WIP_B&gt;=2) break;
+  var type=Clients.clientTypeName(i);  
+  if (WIP_A&lt;2 &amp;&amp; type=="Clients A") {Clients.release(i); WIP_A++; continue;}
+  if (WIP_B&lt;2 &amp;&amp; type=="Clients B") {Clients.release(i); WIP_B++; continue;}
+}</ModelElementHoldScriptCondition>
+	</ModelElementHoldScript>
     <ModelElementEdge id="8">
       <ModelElementName>Arrivals (Clients A)</ModelElementName>
       <ModelElementConnection Element1="1" Element2="7" Type="Edge"/>
