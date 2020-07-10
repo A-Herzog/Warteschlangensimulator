@@ -2,8 +2,8 @@
 
 #### Required tools for building the project
 
-* Java Development Kit, version 8 or higher (adoptopenjdk.net or www.graalvm.org)
-* NSIS (nsis.sourceforge.io)
+* Java Development Kit, version 8 or higher ([adoptopenjdk.net](https://adoptopenjdk.net/) or [www.graalvm.org](https://www.graalvm.org/))
+* NSIS ([nsis.sourceforge.io](https://nsis.sourceforge.io/Main_Page))
 * LaTeX for building the documentation pdfs
 * Maven (no need for manual installation if using Eclipse)
 
@@ -11,11 +11,11 @@ All other tools and dependencies will be downloaded during build process by Mave
 
 #### Recommended tools for editing/building the project
 
-* Eclipse (www.eclipse.org)
+* Eclipse ([www.eclipse.org](https://www.eclipse.org/))
 * Eclipse Web Developer Tools (via Eclipse Marketplace; to get syntax highlighting in the html help files)
 * SpotBugs Eclipse plugin (via Eclipse Marketplace; to scan for potential bugs)
-* Better PO editor (github.com/mlocati/betterpoeditor; for easier editing the language files)
-* TeXnicCenter (www.texniccenter.org; for easier editing/building the LaTeX documentation)
+* Better PO editor ([github.com/mlocati/betterpoeditor](https://github.com/mlocati/betterpoeditor); for easier editing the language files)
+* TeXnicCenter ([www.texniccenter.org](https://www.texniccenter.org/); for easier editing/building the LaTeX documentation)
 
 #### Steps to build using Eclipse
 

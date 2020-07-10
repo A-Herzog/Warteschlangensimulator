@@ -65,3 +65,4 @@ Such models are very difficult or even impossible to represent using analytical 
 ### Documentation
 
 * [Overview of all station types](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Reference-en.pdf) (pdf)
+* [Short introduction to Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-de.pdf) (pdf)

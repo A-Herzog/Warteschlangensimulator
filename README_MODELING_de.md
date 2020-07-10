@@ -65,3 +65,4 @@ Mit Mitteln der analytischen Warteschlangentheorie lassen sich solche Modelle nu
 ### Dokumentation
 
 * [Übersicht über alle Stationstypen](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Reference-de.pdf) (pdf)
+* [Kurzeinführung Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-de.pdf) (pdf)

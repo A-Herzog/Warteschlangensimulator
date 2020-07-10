@@ -41,6 +41,13 @@ Die Windows-Version kann sowohl mit als auch ohne Admin-Rechte installiert werde
 * Systemvoraussetzung: [Java 8 oder höher](https://adoptopenjdk.net/ "Java von adoptopenjdk.net herunterladen")
 * Lizenz: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0) (für den Warteschlangensimulator, die verwendeten Bibliotheken unterliegen zum Teil abweichenden Opensource-Lizenzen)
 
+## Hilfe und Unterstützung
+
+* Der Warteschlangensimulator verfügt über eine integrierte Online-Hilfe, diverse Beispielmodelle und ein interaktives Tutorial.
+* [Kurzeinführung Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-de.pdf) (pdf)
+* [Wiki zum Warteschlangensimulator](https://github.com/A-Herzog/Warteschlangensimulator/wiki) (Englisch)
+* [Präsentation zur Vorstellung des Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf) (Englisch, pdf)
+
 ---
 
 ## Anwendungsgebiete
