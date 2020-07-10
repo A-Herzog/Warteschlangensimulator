@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-07 18:24+0200\n"
+"POT-Creation-Date: 2020-07-10 18:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1311,6 +1311,20 @@ msgstr "Der angegebene Pfad \"%s\" existiert  nicht."
 
 msgid "CommandLine.BuildCommandlineDescriptions.Name"
 msgstr "BuildCLIReference"
+
+msgid "CommandLine.BuildExampleModelImages .Description.Long"
+msgstr ""
+"Der Befehl erwartet einen Parameter:\n"
+"1. Sprache \"de\" oder \"en\""
+
+msgid "CommandLine.BuildExampleModelImages .Description.Short"
+msgstr "Erzeugt pro Beispielmodell ein Bild im Desktop-Ordner."
+
+msgid "CommandLine.BuildExampleModelImages .Error.Language"
+msgstr "\"%s\" ist keine gültige Sprach-ID."
+
+msgid "CommandLine.BuildExampleModelImages .Name"
+msgstr "BuildExampleModelImages"
 
 msgid "CommandLine.Count.But0"
 msgstr "Es wurden jedoch keine weiteren Parameter übergeben."

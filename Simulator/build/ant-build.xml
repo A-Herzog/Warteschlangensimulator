@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE project>
 <project basedir="." default="build" name="Release services" xmlns:if="ant:if">
 
 	<property name="Simulator.location" location=".." />
@@ -199,6 +200,29 @@
 		<move todir="${Homepage.location}" flatten="true" overwrite="true">
 			<fileset dir="${BuildTools.location}/Help" includes="**/*.pdf"/> 
 		</move>
+	</target>
+	
+	<!-- Build example model images -->
+	<target name="exampleModelImages" description="Build example model images">
+		<echo message="Prepearing environment" />
+		<copy file="${Simulator.location}/tools/JDDE/JavaDDE.dll" todir="${Simulator.location}/target" />
+		<copy file="${Simulator.location}/tools/JDDE/JavaDDEx64.dll" todir="${Simulator.location}/target" />
+				
+		<echo message="Building de" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildExampleModelImages"/>
+			<arg value="de"/>
+		</java>
+				
+		<echo message="Building en" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildExampleModelImages"/>
+			<arg value="en"/>
+		</java>
+					
+		<echo message="Clean up" />
+		<delete file="${Simulator.location}/target/JavaDDE.dll" />
+		<delete file="${Simulator.location}/target/JavaDDEx64.dll" />
 	</target>
 	
 	<!-- Full simulator build process -->

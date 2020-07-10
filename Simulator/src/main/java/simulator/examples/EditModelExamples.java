@@ -18,22 +18,30 @@ package simulator.examples;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Frame;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 import org.w3c.dom.Document;
 
 import language.Language;
+import mathtools.Table;
 import simulator.editmodel.EditModel;
 import systemtools.MsgBox;
 import tools.SetupData;
+import ui.EditorPanel;
 import ui.commandline.CommandBenchmark;
 
 /**
@@ -421,5 +429,56 @@ public class EditModelExamples {
 			this.type=type;
 			this.availableForPlayer=availableForPlayer;
 		}
+	}
+
+	/**
+	 * Speichert Bilder für alle Beispielmodelle
+	 * @param language	Sprache
+	 * @param parentFolder	Ausgabeverzeichnis (die Dateinamen werden automatisch gewählt)
+	 * @param zoom	Zoomfaktor für die Darstellung in den Bildern
+	 * @param out	Ausgabestream für Meldungen (darf nicht <code>null</code> sein)
+	 * @return	Gibt an, ob die Bilder erfolgreich erstellt werden konnten
+	 */
+
+	public static boolean saveImages(final String language, final File parentFolder, final double zoom, final PrintStream out) {
+		final File folder=new File(parentFolder,language);
+		if (!folder.isDirectory()) {
+			if (!folder.mkdirs()) {
+				out.println("error mkdir "+folder.toString());
+				return false;
+			}
+		}
+
+		final SetupData setup=SetupData.getSetup();
+		final String saveLanguage=setup.language;
+		setup.setLanguage(language);
+
+		try {
+			final StringBuilder info=new StringBuilder();
+			final EditorPanel panel=new EditorPanel(null);
+			for (Example example: getList()) {
+				final String name=example.names[0];
+				final String file="ExampleModel_"+example.file.replace(".xml",".png");
+
+				if (out!=null) out.println("writing \""+name+"\"");
+				panel.setModel(getExampleByIndex(null,getExampleIndexFromName(name)));
+				panel.exportModelToFile(new File(folder,file),true);
+
+				info.append("## "+name+"\n");
+				info.append("!["+example.names[0]+"](Images/"+file+")\n\n");
+			}
+			Table.saveTextToFile(info.toString(),new File(folder,"info.md"));
+		} finally {
+			setup.setLanguage(saveLanguage);
+		}
+
+		SwingUtilities.invokeLater(()->{
+			for (Frame frame: Frame.getFrames()) if (frame instanceof JFrame) {
+				((JFrame)frame).setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+				frame.dispose();
+			}
+		});
+
+		return true;
 	}
 }

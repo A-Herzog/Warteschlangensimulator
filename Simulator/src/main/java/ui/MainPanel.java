@@ -1588,7 +1588,7 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	private boolean commandFileModelExport() {
-		String error=editorPanel.exportModelToFile(null);
+		String error=editorPanel.exportModelToFile(null,false);
 		if (error!=null) MsgBox.error(getOwnerWindow(),Language.tr("XML.ExportErrorTitle"),error);
 		return error==null;
 	}

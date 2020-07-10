@@ -70,6 +70,7 @@ public class CommandLineSystem extends BaseCommandLineSystem {
 		list.add(new CommandBuildCatalogDescriptions());
 		list.add(new CommandBuildCatalogImages());
 		list.add(new CommandBuildCommandlineDescriptions());
+		list.add(new CommandBuildExampleModelImages());
 		list.add(new CommandGC());
 
 		return list;

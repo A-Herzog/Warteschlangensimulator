@@ -1265,15 +1265,16 @@ public class EditorPanel extends EditorPanelBase {
 	/**
 	 * Exportiert das aktuelle Modell als Bilddatei oder pdf. Wird <code>null</code> als Parameter angegeben, so wird zunächst ein Dateiauswahldialog angezeigt.
 	 * @param file	Name der Datei, in der das Modell gespeichert werden soll. Wird <code>null</code> übergeben, so wird ein Dialog zur Auswahl der Datei angezeigt.
+	 * @param force	Speichert die Datei in jedem Fall und überschreibt ggf. existierende Dateien ohne Rückfrage
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public String exportModelToFile(File file) {
+	public String exportModelToFile(File file, final boolean force) {
 		if (file==null) {
 			file=showExportDialog(getParent(),Language.tr("Editor.ExportModel"));
 			if (file==null) return null;
 		}
 
-		if (file.exists()) {
+		if (file.exists() && !force) {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return null;
 		}
 

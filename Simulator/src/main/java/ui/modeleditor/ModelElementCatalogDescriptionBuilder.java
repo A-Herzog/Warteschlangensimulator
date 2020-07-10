@@ -208,7 +208,7 @@ public class ModelElementCatalogDescriptionBuilder {
 	/**
 	 * Speichert Bilder für alle Modellelement-Vorlagengruppen
 	 * @param language	Sprache
-	 * @param parentFolder	Ausgabezeichnis (die Dateinamen werden gemäß den Gruppennamen automatisch gewählt)
+	 * @param parentFolder	Ausgabeverzeichnis (die Dateinamen werden gemäß den Gruppennamen automatisch gewählt)
 	 * @param zoom	Zoomfaktor für die Darstellung der Elemente in den Bildern
 	 * @param out	Ausgabestream für Meldungen (darf nicht <code>null</code> sein)
 	 * @return	Gibt an, ob die Bilder erfolgreich erstellt werden konnten
