@@ -72,3 +72,15 @@ getrennt werden, ausgegeben:
 - Relativer Anteil um den der langsamste Thread langsamer als der schnellste ist (*)
 Bei den mit (*) markierten Werten wird abhängig von der von Java detektierten
 Landeseinstellung ein Dezimalkomma oder ein Dezimalpunkt verwendet.
+
+
+
+runCalcServer:
+
+Example script how to use the simulator in simulation server mode.
+
+
+
+runWebServer:
+
+Example script how to use the simulator in web server mode.
