@@ -4,6 +4,7 @@ var taskName="Task";
 var statusName="Status";
 var noConnection="No connection to simulator.";
 var selectModelFile="Please select a model file.";
+var selectTableFile="Please select a table file.";
 var uploadError="Upload failed (timeout).";
 var resultDownload="Download results";
 var resultView="View results";
@@ -103,6 +104,29 @@ function showUploadInfo(message) {
 function uploadModel() {
   if (typeof(document.getElementById("UploadFile").files[0])=='undefined') {
 	  alert(selectModelFile);
+	  return;
+  }
+
+  var form=document.getElementById('UploadForm');
+  var formData=new FormData(form);
+	  
+  var xhttp=new XMLHttpRequest();
+  xhttp.timeout=2000;
+  xhttp.onreadystatechange=function() {
+	if (this.readyState==4 && this.status==200) showUploadInfo(this.responseText);		
+  };
+  xhttp.ontimeout=function() {
+    alert(uploadError);
+  }
+  xhttp.open("POST","/upload",true);
+  xhttp.send(formData);
+  
+  form.reset();
+}
+
+function uploadTable() {
+  if (typeof(document.getElementById("UploadFile").files[0])=='undefined') {
+	  alert(selectTableFile);
 	  return;
   }
 

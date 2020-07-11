@@ -61,6 +61,7 @@ public class CommandLineSystem extends BaseCommandLineSystem {
 		list.add(new CommandServer());
 		list.add(new CommandServerLimited());
 		list.add(new CommandServerWeb());
+		list.add(new CommandServerWebFixed());
 		list.add(new CommandVersion());
 		list.add(new CommandSetMaxThreads());
 		list.add(new CommandSetNUMA());

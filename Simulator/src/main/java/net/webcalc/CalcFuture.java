@@ -28,6 +28,8 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import language.Language;
+import mathtools.MultiTable;
+import mathtools.Table;
 import net.calc.SimulationServer;
 import simulator.AnySimulator;
 import simulator.StartAnySimulator;
@@ -101,7 +103,10 @@ public class CalcFuture {
 	private final ReentrantLock lock;
 	private final long id;
 	private final long requestTime;
+	private final EditModel originalModel;
 	private final byte[] input;
+	private final MultiTable inputTable;
+	private final String inputTableName;
 	private final String ip;
 	private Status status;
 	private SimulationType simulationType;
@@ -118,11 +123,29 @@ public class CalcFuture {
 	 * @param id	ID des Tasks zur späteren Identifikation in der Liste aller Tasks
 	 * @param input	Eingabedatei (wird sofort gelesen und danach bei der eigentlichen Ausführung nicht mehr benötigt)
 	 * @param ip	IP-Adresse des entfernten Klienten
+	 * @param origFileName	Optional (kann also <code>null</code> sein) der Remote-Dateiname
+	 * @param model	Festgelegtes Modell (darf <code>null</code> sein); im Fall eines festen Modells erfolgt nur noch eine Parametrisierung
 	 */
-	public CalcFuture(final long id, final File input, final String ip) {
+	public CalcFuture(final long id, final File input, final String ip, final String origFileName, final EditModel model) {
 		this.id=id;
 		this.ip=ip;
-		this.input=loadFile(input);
+		originalModel=model;
+		if (originalModel==null) {
+			this.input=loadFile(input);
+			inputTable=null;
+			inputTableName=null;
+		} else {
+			this.input=null;
+			final MultiTable table=new MultiTable();
+			if (origFileName==null) {
+				if (table.load(input)) inputTable=table; else inputTable=null;
+				inputTableName="data";
+			} else {
+				final Table.SaveMode mode=Table.getSaveModeFromFileName(new File(origFileName),true,false);
+				if (table.load(input,mode)) inputTable=table; else inputTable=null;
+				inputTableName=origFileName;
+			}
+		}
 
 		messages=new ArrayList<>();
 		lock=new ReentrantLock();
@@ -321,23 +344,46 @@ public class CalcFuture {
 	 * Diese Methode kann über einen anderen Thread ausgeführt werden.
 	 */
 	public void run() {
-		if (status!=Status.WAITING || input==null) {
+		if (status!=Status.WAITING || (input==null && originalModel==null)) {
 			setStatus(Status.DONE_ERROR);
 			return;
 		}
 		setStatus(Status.PROCESSING);
 
-		final EditModel model=new EditModel();
-		if (model.loadFromStream(new ByteArrayInputStream(input),FileType.AUTO)==null) {
-			simulationType=SimulationType.MODEL;
-			runModel(model);
-			return;
-		}
+		if (originalModel==null) {
+			/* Normale Betriebsart, Modell oder Parameterreihen-Setup laden */
 
-		final ParameterCompareSetup series=new ParameterCompareSetup(null);
-		if (series.loadFromStream(new ByteArrayInputStream(input),FileType.AUTO)==null) {
-			simulationType=SimulationType.PARAMETER_SERIES;
-			runSeries(series);
+			final EditModel model=new EditModel();
+			if (model.loadFromStream(new ByteArrayInputStream(input),FileType.AUTO)==null) {
+				simulationType=SimulationType.MODEL;
+				runModel(model);
+				return;
+			}
+
+			final ParameterCompareSetup series=new ParameterCompareSetup(null);
+			if (series.loadFromStream(new ByteArrayInputStream(input),FileType.AUTO)==null) {
+				simulationType=SimulationType.PARAMETER_SERIES;
+				runSeries(series);
+				return;
+			}
+		} else {
+			/* Festes Modell, nur Parameter laden */
+
+			if (inputTable==null) {
+				setStatus(Status.DONE_ERROR);
+				return;
+			}
+
+			final EditModel changedEditModel=originalModel.modelLoadData.changeModel(originalModel,inputTable,inputTableName,true);
+			if (changedEditModel==null) {
+				simulationType=SimulationType.MODEL;
+				runModel(originalModel);
+				return;
+			}
+
+			simulationType=SimulationType.MODEL;
+			changedEditModel.modelLoadData.setActive(false);
+			runModel(changedEditModel);
 			return;
 		}
 

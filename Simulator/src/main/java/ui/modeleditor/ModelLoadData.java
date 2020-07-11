@@ -412,13 +412,7 @@ public final class ModelLoadData implements Cloneable {
 	 * @see #getChangeWarnings()
 	 */
 	public EditModel changeModel(final EditModel model, final File baseFolder, final boolean force) {
-		changeWarnings.clear();
-
-		if (force) {
-			if (list.size()==0) return null;
-		} else {
-			if (!willChangeModel()) return null;
-		}
+		if (!prepareChange(force)) return null;
 
 		EditModel changedModel=model;
 
@@ -429,31 +423,90 @@ public final class ModelLoadData implements Cloneable {
 		}
 
 		try {
-			for (int nr=0;nr<list.size();nr++) {
-				final ModelLoadDataRecord record=list.get(nr);
-				final ParameterCompareSetupValueInput change=record.getChange();
-
-				final Object newValueObj=getCellValue(record.getCell(),nr);
-				if (newValueObj instanceof String) {
-					changeWarnings.add((String)newValueObj);
-					continue;
-				}
-				final double newValue=(Double)newValueObj;
-
-				final Object result=ParameterCompareTools.setModelValue(changedModel,change,newValue);
-				if (result==null) {
-					changeWarnings.add(String.format(Language.tr("ModelLoadData.ProcessError.WriteError"),nr+1,NumberTools.formatNumber(newValue)));
-					continue;
-				}
-				if (result instanceof String) {
-					changeWarnings.add(String.format(Language.tr("ModelLoadData.ProcessError.WriteErrorInfo"),nr+1,NumberTools.formatNumber(newValue),result));
-					continue;
-				}
-				changedModel=(EditModel)result;
-			}
+			changedModel=changeModel(changedModel);
 		} finally {
 			finalizeSource();
 		}
+		return changedModel;
+	}
+
+	/**
+	 * Lädt die Daten aus der externen Quelle und verändert das Modell entsprechend.<br>
+	 * @param model	Zu veränderndes Modell (dieses Ausgangsobjekt wird nicht verändert)
+	 * @param data Tabellenquelle
+	 * @param tableFileName	Originaldateiname der Arbeitsmappe (sollte nicht <code>null</code> sein)
+	 * @param force	Gibt an, ob der Wert der "active"-Eigenschaft berücksichtigt werden soll (<code>false</code>) oder ob die Daten immer geladen werden sollen (<code>true</code>).
+	 * @return	Liefert, wenn nicht aktiv <code>null</code>, sonst das veränderte Modell (kann auch einfach das übergebene Modell sein, wenn alle Veränderungen fehlgeschlagen sind).
+	 * @see #willChangeModel()
+	 * @see #getChangeWarnings()
+	 */
+
+	public EditModel changeModel(final EditModel model, final MultiTable data, final String tableFileName, final boolean force) {
+		if (!prepareChange(force)) return null;
+
+		EditModel changedModel=model;
+
+		sourceTable=null;
+		if (data!=null) {
+			if (table.isEmpty()) {
+				sourceTable=data.get(0);
+				if (sourceTable==null) {
+					changeWarnings.add(String.format(Language.tr("ModelLoadData.ProcessError.WorkbookIsEmpty"),tableFileName));
+					return changedModel;
+				}
+			} else {
+				sourceTable=data.get(table);
+				if (sourceTable==null) {
+					changeWarnings.add(String.format(Language.tr("ModelLoadData.ProcessError.WorkbookDoesNotContainSheet"),tableFileName,table));
+					return changedModel;
+				}
+			}
+		}
+
+		try {
+			changedModel=changeModel(changedModel);
+		} finally {
+			finalizeSource();
+		}
+		return changedModel;
+	}
+
+	private boolean prepareChange(final boolean force) {
+		changeWarnings.clear();
+
+		if (force) {
+			if (list.size()==0) return false;
+		} else {
+			if (!willChangeModel()) return false;
+		}
+
+		return true;
+	}
+
+	private EditModel changeModel(EditModel changedModel) {
+		for (int nr=0;nr<list.size();nr++) {
+			final ModelLoadDataRecord record=list.get(nr);
+			final ParameterCompareSetupValueInput change=record.getChange();
+
+			final Object newValueObj=getCellValue(record.getCell(),nr);
+			if (newValueObj instanceof String) {
+				changeWarnings.add((String)newValueObj);
+				continue;
+			}
+			final double newValue=(Double)newValueObj;
+
+			final Object result=ParameterCompareTools.setModelValue(changedModel,change,newValue);
+			if (result==null) {
+				changeWarnings.add(String.format(Language.tr("ModelLoadData.ProcessError.WriteError"),nr+1,NumberTools.formatNumber(newValue)));
+				continue;
+			}
+			if (result instanceof String) {
+				changeWarnings.add(String.format(Language.tr("ModelLoadData.ProcessError.WriteErrorInfo"),nr+1,NumberTools.formatNumber(newValue),result));
+				continue;
+			}
+			changedModel=(EditModel)result;
+		}
+
 		return changedModel;
 	}
 }

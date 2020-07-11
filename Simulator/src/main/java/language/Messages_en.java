@@ -8540,6 +8540,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19633] = "Teleport transport destination";
     t[19634] = "ModelDescription.SourceDDE.StartRow";
     t[19635] = "Start row";
+    t[19636] = "CommandLine.ServerWebFixedModel.Description.Short";
+    t[19637] = "Starts the program as web-based simulation server for a fixed model.";
     t[19638] = "Surface.Source.XML.Expression.TimeBase";
     t[19639] = "TimeBase";
     t[19648] = "Schedule.SettingsDialog.15Minutes";
@@ -9192,6 +9194,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21151] = "Edit description for this element";
     t[21152] = "ScriptPopup.Simulation.setAnalogValveMaxFlow";
     t[21153] = "Set maximum flow";
+    t[21154] = "CommandLine.ServerWebFixedModel.Name";
+    t[21155] = "ServerWebFixed";
     t[21160] = "Color.E9967A";
     t[21161] = "Dark salmon";
     t[21162] = "ParameterCompare.Settings.Input.Mode.Label";
@@ -10008,12 +10012,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23041] = "Count";
     t[23044] = "Surface.LogicEndIf.Infotext";
     t[23045] = "The endIf station ends a flow control chain started with an if element.";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23054] = "ModelDescription.InteractiveCheckbox.Description.Variable";
     t[23055] = "Variable";
     t[23058] = "Editor.Dialog.Sequences.Edit.Name.ErrorInfoInUse";
     t[23059] = "The specified name \"%s\" is already in use at another sequence.";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23060] = "FileType.AllTables";
     t[23061] = "All table files";
     t[23064] = "Surface.Source.Dialog.ArrivalStart.Error.Info";
@@ -12010,12 +12014,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27581] = "ModelAuthor";
     t[27582] = "ExpressionBuilder.TrigonometricFunctions.Tangens";
     t[27583] = "Tangent";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27586] = "Simulation.Log.Release.InfoDelay2";
     t[27587] = "Station: %s";
     t[27588] = "ParameterCompare.Table.SortModels.SortAscending";
     t[27589] = "Sort ascending";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27594] = "Surface.XML.RootName.Transporters";
     t[27595] = "ModelTransporters";
     t[27596] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.CurrentTime";
@@ -12916,6 +12920,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29791] = "No template was selected.";
     t[29792] = "Surface.ExpressionTableModel.Dialog.Expression.Error.Title";
     t[29793] = "Invalid expression";
+    t[29796] = "CommandLine.ServerWebFixedModel.Description.Long";
+    t[29797] = "This command expects two additional parameters:\nthe port to be used and the file name of the\nmodel to be loaded.";
     t[29808] = "Statistics.XML.Element.DifferenceCounter";
     t[29809] = "StatisticsDifferenceCounter";
     t[29814] = "Surface.Resource.ErrorCostsPerIdleHour";
@@ -14010,14 +14016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32331] = "L";
     t[32332] = "SettingsDialog.Tabs.DefaultFormats.CRYPT";
     t[32333] = "encrypted binary";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32336] = "ModelGenerator.SelectQueue";
     t[32337] = "Selecting the queue / process station";
     t[32342] = "Statistics.Filter.CouldNotSaveText";
     t[32343] = "Could not write to text file %s.";
     t[32344] = "Simulation.Log.DecideByScript.Info";
     t[32345] = "Client: %s, station: %s, branching to output %d of %d";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32348] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression";
     t[32349] = "Trigger transport at fulfilled condition";
     t[32352] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm";
@@ -16012,14 +16018,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36925] = "Cotangent hyperbolicus";
     t[36930] = "Optimizer.XML.ControlVariables";
     t[36931] = "OptimizerControlVariable";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36936] = "Surface.Balking.BalkingProbability";
     t[36937] = "Balking probability";
     t[36938] = "Simulation.Log.DecideByChance";
     t[36939] = "Decide by chance";
     t[36946] = "Surface.Delay.XML.Type";
     t[36947] = "Type";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[36948] = "Statistics.StateStatistics.Info";
     t[36949] = "State \"%s\": %s (%s)";
     t[36952] = "ParameterCompare.Table.SortModels.ErrorNoInput.Title";

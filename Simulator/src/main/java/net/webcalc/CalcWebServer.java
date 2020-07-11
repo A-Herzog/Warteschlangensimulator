@@ -15,7 +15,6 @@
  */
 package net.webcalc;
 
-import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,7 @@ import net.web.HandlerText;
 import net.web.WebServer;
 import net.web.WebServerHandler;
 import net.web.WebServerResponse;
+import simulator.editmodel.EditModel;
 
 /**
  * Webserver, der Rechenanfragen per Browser entgegen nimmt.
@@ -44,15 +44,18 @@ public class CalcWebServer extends WebServer {
 	private final List<CalcFuture> list;
 	private final ExecutorService executor;
 	private int idCounter;
+	private final EditModel model;
 
 	/**
 	 * Konstruktor der Klasse<br>
 	 * Die Konfiguration (Start/Stop des Server, Statusabfrage usw.) erfolgt über die Basisklasse {@link WebServer}.
+	 * @param model	Festgelegtes Modell (wird <code>null</code> übergeben, so können beliebige Modelle geladen werden)
 	 */
-	public CalcWebServer() {
+	public CalcWebServer(final EditModel model) {
 		super();
 		lock=new ReentrantLock();
 		list=new ArrayList<>();
+		this.model=model;
 
 		executor=new ThreadPoolExecutor(0,1,5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(),new ThreadFactory() {
 			@Override
@@ -65,16 +68,27 @@ public class CalcWebServer extends WebServer {
 
 		final List<WebServerHandler> handlers=getHandlersList();
 		handlers.add(new HandlerFavicon("/ui/res/Symbol.ico"));
-		handlers.add(new HandlerText("/","res/index_%LANG%.html",this,WebServerResponse.Mime.HTML));
+		if (model==null) {
+			handlers.add(new HandlerText("/","res/index_model_%LANG%.html",this,WebServerResponse.Mime.HTML));
+		} else {
+			handlers.add(new HandlerText("/","res/index_data_%LANG%.html",this,WebServerResponse.Mime.HTML));
+		}
 		handlers.add(new HandlerText("/css.css","res/css.css",this,WebServerResponse.Mime.CSS));
 		handlers.add(new HandlerText("/main.js","res/js_%LANG%.js",this,WebServerResponse.Mime.JS));
-		handlers.add(new HandlerPostModel("/upload",(file,ip)->processFile(file,ip)));
+		handlers.add(new HandlerPostModel("/upload","model",info->processFile(info)));
 		handlers.add(new HandlerText("/status",()->getStatus(),WebServerResponse.Mime.JSON,true));
 		handlers.add(new HandlerProcessID("/delete/",request->deleteTask(request)));
 		handlers.add(new HandlerProcessID("/download/",request->downloadResults(request)));
 		handlers.add(new HandlerProcessID("/view/",request->viewResults(request)));
 	}
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Die Konfiguration (Start/Stop des Server, Statusabfrage usw.) erfolgt über die Basisklasse {@link WebServer}.
+	 */
+	public CalcWebServer() {
+		this(null);
+	}
 
 	private String getSystemStatus() {
 		final StringBuilder status=new StringBuilder();
@@ -112,11 +126,11 @@ public class CalcWebServer extends WebServer {
 		return status.toString();
 	}
 
-	private void processFile(final File file, final String ip) {
+	private void processFile(final HandlerPostModel.UploadInfo info) {
 		lock.lock();
 		try {
 			idCounter++;
-			final CalcFuture future=new CalcFuture(idCounter,file,ip);
+			final CalcFuture future=new CalcFuture(idCounter,info.file,info.ip,info.origFileName,model);
 			list.add(future);
 			executor.submit(()->future.run());
 		} finally {

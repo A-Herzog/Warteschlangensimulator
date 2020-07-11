@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-10 18:50+0200\n"
+"POT-Creation-Date: 2020-07-10 21:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1660,6 +1660,18 @@ msgstr "Starts the program as web-based simulation server."
 
 msgid "CommandLine.ServerWeb.Name"
 msgstr "ServerWeb"
+
+msgid "CommandLine.ServerWebFixedModel.Description.Long"
+msgstr ""
+"This command expects two additional parameters:\n"
+"the port to be used and the file name of the\n"
+"model to be loaded."
+
+msgid "CommandLine.ServerWebFixedModel.Description.Short"
+msgstr "Starts the program as web-based simulation server for a fixed model."
+
+msgid "CommandLine.ServerWebFixedModel.Name"
+msgstr "ServerWebFixed"
 
 msgid "CommandLine.SetMaxThreads.Description.Long"
 msgstr ""

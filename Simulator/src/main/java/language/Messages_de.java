@@ -8540,6 +8540,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19633] = "Teleport-Transport Zielpunkt";
     t[19634] = "ModelDescription.SourceDDE.StartRow";
     t[19635] = "Startzeile";
+    t[19636] = "CommandLine.ServerWebFixedModel.Description.Short";
+    t[19637] = "Simulator als webbasierten Rechenserver f\u00fcr ein festes Modellstarten.";
     t[19638] = "Surface.Source.XML.Expression.TimeBase";
     t[19639] = "Zeitbasis";
     t[19648] = "Schedule.SettingsDialog.15Minutes";
@@ -9192,6 +9194,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21151] = "Beschreibung zu diesem Element bearbeiten";
     t[21152] = "ScriptPopup.Simulation.setAnalogValveMaxFlow";
     t[21153] = "Maximalen Durchfluss einstellen";
+    t[21154] = "CommandLine.ServerWebFixedModel.Name";
+    t[21155] = "ServerWebFixed";
     t[21160] = "Color.E9967A";
     t[21161] = "Dunkel Salmon";
     t[21162] = "ParameterCompare.Settings.Input.Mode.Label";
@@ -10008,12 +10012,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23041] = "Anzahl";
     t[23044] = "Surface.LogicEndIf.Infotext";
     t[23045] = "Das EndIf-Element beendet eine durch ein If-Element eingeleitete Flusssteuerungskette.";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23054] = "ModelDescription.InteractiveCheckbox.Description.Variable";
     t[23055] = "Variable";
     t[23058] = "Editor.Dialog.Sequences.Edit.Name.ErrorInfoInUse";
     t[23059] = "Der angegebene Name \"%s\" wird bereits von einem anderen Fertigungsplan verwendet.";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23060] = "FileType.AllTables";
     t[23061] = "Alle Tabellendateien";
     t[23064] = "Surface.Source.Dialog.ArrivalStart.Error.Info";
@@ -12010,12 +12014,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27581] = "ModellAutor";
     t[27582] = "ExpressionBuilder.TrigonometricFunctions.Tangens";
     t[27583] = "Tangens";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27586] = "Simulation.Log.Release.InfoDelay2";
     t[27587] = "Station: %s";
     t[27588] = "ParameterCompare.Table.SortModels.SortAscending";
     t[27589] = "Aufsteigend sortieren";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27594] = "Surface.XML.RootName.Transporters";
     t[27595] = "ModellTransporterListe";
     t[27596] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.CurrentTime";
@@ -12916,6 +12920,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29791] = "Es wurde keine Vorlage ausgew\u00e4hlt.";
     t[29792] = "Surface.ExpressionTableModel.Dialog.Expression.Error.Title";
     t[29793] = "Ausdruck fehlerhaft";
+    t[29796] = "CommandLine.ServerWebFixedModel.Description.Long";
+    t[29797] = "Dieser Befehl erwartet zwei weitere Parameter:\nden zu verwendenden Port und den Dateinamen\nder Modelldatei.";
     t[29808] = "Statistics.XML.Element.DifferenceCounter";
     t[29809] = "StatistikDifferenzZaehler";
     t[29814] = "Surface.Resource.ErrorCostsPerIdleHour";
@@ -14010,14 +14016,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32331] = "L";
     t[32332] = "SettingsDialog.Tabs.DefaultFormats.CRYPT";
     t[32333] = "Verschl\u00fcsselte Bin\u00e4rdaten";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32336] = "ModelGenerator.SelectQueue";
     t[32337] = "Auswahl der Bedienstation";
     t[32342] = "Statistics.Filter.CouldNotSaveText";
     t[32343] = "Es konnte nicht in die Textdatei %s geschrieben werden.";
     t[32344] = "Simulation.Log.DecideByScript.Info";
     t[32345] = "Kunde: %s, Station: %s, Verzweigung zu Ausgang %d von %d";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32348] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression";
     t[32349] = "Transport bei erf\u00fcllter Bedingung ausl\u00f6sen";
     t[32352] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm";
@@ -16012,14 +16018,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36925] = "Cotangens hyperbolicus";
     t[36930] = "Optimizer.XML.ControlVariables";
     t[36931] = "OptimiererKontrollvariable";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36936] = "Surface.Balking.BalkingProbability";
     t[36937] = "Zur\u00fcckschreckwahrscheinlichkeit";
     t[36938] = "Simulation.Log.DecideByChance";
     t[36939] = "Verzweigen (Zufall)";
     t[36946] = "Surface.Delay.XML.Type";
     t[36947] = "Typ";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[36948] = "Statistics.StateStatistics.Info";
     t[36949] = "Zustand \"%s\": %s (%s)";
     t[36952] = "ParameterCompare.Table.SortModels.ErrorNoInput.Title";

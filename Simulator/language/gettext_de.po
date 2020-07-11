@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-10 18:50+0200\n"
+"POT-Creation-Date: 2020-07-10 21:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1660,6 +1660,18 @@ msgstr "Simulator als webbasierten Rechenserver starten."
 
 msgid "CommandLine.ServerWeb.Name"
 msgstr "ServerWeb"
+
+msgid "CommandLine.ServerWebFixedModel.Description.Long"
+msgstr ""
+"Dieser Befehl erwartet zwei weitere Parameter:\n"
+"den zu verwendenden Port und den Dateinamen\n"
+"der Modelldatei."
+
+msgid "CommandLine.ServerWebFixedModel.Description.Short"
+msgstr "Simulator als webbasierten Rechenserver für ein festes Modellstarten."
+
+msgid "CommandLine.ServerWebFixedModel.Name"
+msgstr "ServerWebFixed"
 
 msgid "CommandLine.SetMaxThreads.Description.Long"
 msgstr ""
