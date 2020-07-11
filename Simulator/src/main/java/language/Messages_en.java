@@ -4676,8 +4676,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10827] = "Do you really want to delete the assignment %s?";
     t[10830] = "Color.FF7F50";
     t[10831] = "Coral";
-    t[10832] = "Surface.SourceDB.XML.ClientTypeName";
-    t[10833] = "ModelElementDatabaseClientType";
+    t[10832] = "Surface.Connection.LineMode.MultiLine";
+    t[10833] = "Angled";
     t[10836] = "Simulation.Element.SectionEnd.Name";
     t[10837] = "Leave section";
     t[10852] = "Simulation.Creator.NoTeleportDestination";
@@ -8780,6 +8780,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20229] = "Distribution editor";
     t[20246] = "ModelDescription.Conveyor.CapacityAvailable";
     t[20247] = "Available Capacity";
+    t[20252] = "Surface.SourceDB.XML.ClientTypeName";
+    t[20253] = "ModelElementDatabaseClientType";
     t[20256] = "FileType.targz";
     t[20257] = "GZip Compressed tar files";
     t[20260] = "Simulation.Log.LogicEndIf";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23037] = "Average waiting time costs (all client types)";
     t[23040] = "Surface.Process.XML.Operators.Count";
     t[23041] = "Count";
-    t[23044] = "Surface.LogicEndIf.Infotext";
-    t[23045] = "The endIf station ends a flow control chain started with an if element.";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23044] = "Surface.LogicEndIf.Infotext";
+    t[23045] = "The endIf station ends a flow control chain started with an if element.";
     t[23054] = "ModelDescription.InteractiveCheckbox.Description.Variable";
     t[23055] = "Variable";
     t[23058] = "Editor.Dialog.Sequences.Edit.Name.ErrorInfoInUse";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27579] = "ModelElementAnimationRecord";
     t[27580] = "Surface.XML.ModelAuthor";
     t[27581] = "ModelAuthor";
-    t[27582] = "ExpressionBuilder.TrigonometricFunctions.Tangens";
-    t[27583] = "Tangent";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27582] = "ExpressionBuilder.TrigonometricFunctions.Tangens";
+    t[27583] = "Tangent";
     t[27586] = "Simulation.Log.Release.InfoDelay2";
     t[27587] = "Station: %s";
     t[27588] = "ParameterCompare.Table.SortModels.SortAscending";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32329] = "Output value name missing";
     t[32330] = "Main.Menu.File.Load.Mnemonic";
     t[32331] = "L";
-    t[32332] = "SettingsDialog.Tabs.DefaultFormats.CRYPT";
-    t[32333] = "encrypted binary";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32332] = "SettingsDialog.Tabs.DefaultFormats.CRYPT";
+    t[32333] = "encrypted binary";
     t[32336] = "ModelGenerator.SelectQueue";
     t[32337] = "Selecting the queue / process station";
     t[32342] = "Statistics.Filter.CouldNotSaveText";
@@ -14050,8 +14052,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32387] = "The program has to be in model editor or statistics viewer mode to start an animation.";
     t[32402] = "Surface.SetJS.Dialog.Script";
     t[32403] = "Script to be executed";
-    t[32406] = "Surface.Connection.LineMode.MultiLine";
-    t[32407] = "Angled";
+    t[32406] = "Main.Menu.File.RecentlyUsed.Delete";
+    t[32407] = "Clear list";
     t[32408] = "Surface.XML.Transporter.Icon";
     t[32409] = "Icon";
     t[32410] = "FileType.AllSupportedFiles";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36923] = "No signal selected";
     t[36924] = "ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus";
     t[36925] = "Cotangent hyperbolicus";
-    t[36930] = "Optimizer.XML.ControlVariables";
-    t[36931] = "OptimizerControlVariable";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36930] = "Optimizer.XML.ControlVariables";
+    t[36931] = "OptimizerControlVariable";
     t[36936] = "Surface.Balking.BalkingProbability";
     t[36937] = "Balking probability";
     t[36938] = "Simulation.Log.DecideByChance";

@@ -4676,8 +4676,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10827] = "Soll die Zuweisung %s wirklich gel\u00f6scht werden?";
     t[10830] = "Color.FF7F50";
     t[10831] = "Coral";
-    t[10832] = "Surface.SourceDB.XML.ClientTypeName";
-    t[10833] = "ModellElementDatenbankKundentyp";
+    t[10832] = "Surface.Connection.LineMode.MultiLine";
+    t[10833] = "Abgewinkelt";
     t[10836] = "Simulation.Element.SectionEnd.Name";
     t[10837] = "Bereich verlassen";
     t[10852] = "Simulation.Creator.NoTeleportDestination";
@@ -8780,6 +8780,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20229] = "Verteilungseditor";
     t[20246] = "ModelDescription.Conveyor.CapacityAvailable";
     t[20247] = "Verf\u00fcgbare Kapazit\u00e4t";
+    t[20252] = "Surface.SourceDB.XML.ClientTypeName";
+    t[20253] = "ModellElementDatenbankKundentyp";
     t[20256] = "FileType.targz";
     t[20257] = "GZip-komprimierte tar-Dateien";
     t[20260] = "Simulation.Log.LogicEndIf";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23037] = "Mittlere Wartezeitkosten (alle Kundentypen)";
     t[23040] = "Surface.Process.XML.Operators.Count";
     t[23041] = "Anzahl";
-    t[23044] = "Surface.LogicEndIf.Infotext";
-    t[23045] = "Das EndIf-Element beendet eine durch ein If-Element eingeleitete Flusssteuerungskette.";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23044] = "Surface.LogicEndIf.Infotext";
+    t[23045] = "Das EndIf-Element beendet eine durch ein If-Element eingeleitete Flusssteuerungskette.";
     t[23054] = "ModelDescription.InteractiveCheckbox.Description.Variable";
     t[23055] = "Variable";
     t[23058] = "Editor.Dialog.Sequences.Edit.Name.ErrorInfoInUse";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27579] = "ModellElementAnimationAufzeichnung";
     t[27580] = "Surface.XML.ModelAuthor";
     t[27581] = "ModellAutor";
-    t[27582] = "ExpressionBuilder.TrigonometricFunctions.Tangens";
-    t[27583] = "Tangens";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27582] = "ExpressionBuilder.TrigonometricFunctions.Tangens";
+    t[27583] = "Tangens";
     t[27586] = "Simulation.Log.Release.InfoDelay2";
     t[27587] = "Station: %s";
     t[27588] = "ParameterCompare.Table.SortModels.SortAscending";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32329] = "Name des Ausgabewertes fehlt";
     t[32330] = "Main.Menu.File.Load.Mnemonic";
     t[32331] = "L";
-    t[32332] = "SettingsDialog.Tabs.DefaultFormats.CRYPT";
-    t[32333] = "Verschl\u00fcsselte Bin\u00e4rdaten";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32332] = "SettingsDialog.Tabs.DefaultFormats.CRYPT";
+    t[32333] = "Verschl\u00fcsselte Bin\u00e4rdaten";
     t[32336] = "ModelGenerator.SelectQueue";
     t[32337] = "Auswahl der Bedienstation";
     t[32342] = "Statistics.Filter.CouldNotSaveText";
@@ -14050,8 +14052,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32387] = "Das Programm muss sich im Modell-Editor- oder im Statistikanzeige-Modus befinden, um eine Animation starten zu k\u00f6nnen.";
     t[32402] = "Surface.SetJS.Dialog.Script";
     t[32403] = "Auszuf\u00fchrendes Skript";
-    t[32406] = "Surface.Connection.LineMode.MultiLine";
-    t[32407] = "Abgewinkelt";
+    t[32406] = "Main.Menu.File.RecentlyUsed.Delete";
+    t[32407] = "Liste leeren";
     t[32408] = "Surface.XML.Transporter.Icon";
     t[32409] = "Icon";
     t[32410] = "FileType.AllSupportedFiles";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36923] = "Kein Signal gew\u00e4hlt";
     t[36924] = "ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus";
     t[36925] = "Cotangens hyperbolicus";
-    t[36930] = "Optimizer.XML.ControlVariables";
-    t[36931] = "OptimiererKontrollvariable";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36930] = "Optimizer.XML.ControlVariables";
+    t[36931] = "OptimiererKontrollvariable";
     t[36936] = "Surface.Balking.BalkingProbability";
     t[36937] = "Zur\u00fcckschreckwahrscheinlichkeit";
     t[36938] = "Simulation.Log.DecideByChance";
