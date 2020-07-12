@@ -9716,6 +9716,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22323] = "Verbindungskanten konfigurieren...";
     t[22324] = "Resources.Group.EditName.Dialog.Number.Fixed";
     t[22325] = "Feste Anzahl";
+    t[22326] = "Surface.PopupMenu.Help";
+    t[22327] = "Hilfe";
     t[22332] = "Surface.AnimationBar.Dialog.Bar";
     t[22333] = "Balken";
     t[22336] = "Surface.AnimationClock.Tooltip";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23035] = "Der angegebene Ausdruck \"%s\" f\u00fcr die Zuweisung an das Analogwert-Element ist ab Zeichen %d ung\u00fcltig.";
     t[23036] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvgAll";
     t[23037] = "Mittlere Wartezeitkosten (alle Kundentypen)";
-    t[23040] = "Surface.Process.XML.Operators.Count";
-    t[23041] = "Anzahl";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23040] = "Surface.Process.XML.Operators.Count";
+    t[23041] = "Anzahl";
     t[23044] = "Surface.LogicEndIf.Infotext";
     t[23045] = "Das EndIf-Element beendet eine durch ein If-Element eingeleitete Flusssteuerungskette.";
     t[23054] = "ModelDescription.InteractiveCheckbox.Description.Variable";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27575] = "Transportzeit f\u00fcr Kundentyp \"%s\"";
     t[27578] = "Surface.AnimationRecord.XML.Root";
     t[27579] = "ModellElementAnimationAufzeichnung";
-    t[27580] = "Surface.XML.ModelAuthor";
-    t[27581] = "ModellAutor";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27580] = "Surface.XML.ModelAuthor";
+    t[27581] = "ModellAutor";
     t[27582] = "ExpressionBuilder.TrigonometricFunctions.Tangens";
     t[27583] = "Tangens";
     t[27586] = "Simulation.Log.Release.InfoDelay2";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32327] = "An Element id=%d wurden keine Ventile definiert.";
     t[32328] = "ParameterCompare.Settings.Output.Name.ErrorTitle";
     t[32329] = "Name des Ausgabewertes fehlt";
-    t[32330] = "Main.Menu.File.Load.Mnemonic";
-    t[32331] = "L";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32330] = "Main.Menu.File.Load.Mnemonic";
+    t[32331] = "L";
     t[32332] = "SettingsDialog.Tabs.DefaultFormats.CRYPT";
     t[32333] = "Verschl\u00fcsselte Bin\u00e4rdaten";
     t[32336] = "ModelGenerator.SelectQueue";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36921] = "Minuten";
     t[36922] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Signal.ErrorTitle";
     t[36923] = "Kein Signal gew\u00e4hlt";
-    t[36924] = "ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus";
-    t[36925] = "Cotangens hyperbolicus";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36924] = "ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus";
+    t[36925] = "Cotangens hyperbolicus";
     t[36930] = "Optimizer.XML.ControlVariables";
     t[36931] = "OptimiererKontrollvariable";
     t[36936] = "Surface.Balking.BalkingProbability";

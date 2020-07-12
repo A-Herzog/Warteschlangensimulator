@@ -17,6 +17,7 @@ package ui.modeleditor.coreelements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -58,6 +59,7 @@ import simulator.editmodel.EditModel;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsLongRunPerformanceIndicator;
 import systemtools.MsgBox;
+import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelLongRunStatisticsElement;
@@ -832,6 +834,15 @@ public class ModelElement {
 			popupMenu.add(item);
 		}
 
+		/* Hilfe */
+		item=new JMenuItem(Language.tr("Surface.PopupMenu.Help"));
+		Component c=invoker;
+		while (c!=null && !(c instanceof Container)) c=c.getParent();
+		final Container container=(Container)c;
+		item.addActionListener(e->Help.topicModal(container,getHelpPageName()));
+		item.setIcon(Images.HELP.getIcon());
+		popupMenu.add(item);
+
 		if (!readOnly) {
 			JMenu menu;
 			/* Visualisierungen hinzufügen */
@@ -892,7 +903,7 @@ public class ModelElement {
 		addContextMenuItems(invoker,popupMenu,surfacePanel,point,readOnly);
 
 		if (popupMenu.getComponentCount()>0) {
-			final Component c=popupMenu.getComponent(popupMenu.getComponentCount()-1);
+			c=popupMenu.getComponent(popupMenu.getComponentCount()-1);
 			if (c!=null && !(c instanceof JPopupMenu.Separator)) popupMenu.addSeparator();
 		}
 
