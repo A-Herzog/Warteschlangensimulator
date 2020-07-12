@@ -15215,7 +15215,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35168] = "Animation.Icon.MoneyPound";
     t[35169] = "Money - Pound";
     t[35176] = "Animation.Toolbar.Pause";
-    t[35177] = "Pauses";
+    t[35177] = "Pause";
     t[35180] = "Editor.Dialog.Tab.InitialVariableValues";
     t[35181] = "Initial variable values";
     t[35182] = "FileType.PDF";
