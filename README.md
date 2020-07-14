@@ -46,7 +46,8 @@ The Windows version can be installed with or without admin rights. The zip file 
 * Warteschlangensimulator has an integrated online help, various example models and an interactive tutorial.
 * [Short introduction to Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-de.pdf) (pdf)
 * [Wiki about Warteschlangensimulator](https://github.com/A-Herzog/Warteschlangensimulator/wiki)
-* [Introduction slides for Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf) (pdf)
+* [Introduction **slides** for Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf) (pdf)
+* [Introduction **videos** for  Warteschlangensimulator](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Videos)
 * Stay informed: You can follow this project on GitHub to get updates about new versions etc.
 
 ---
