@@ -150,6 +150,18 @@ public enum Images {
 	/** Symbol "Nach oben" */
 	ARROW_UP("arrow_up.png"),
 
+	/** Symbol "Pfeilgröße 'aus'" */
+	ARROW_SIZE_OFF("arrow_size_off.png"),
+
+	/** Symbol "Pfeilgröße 'klein'" */
+	ARROW_SIZE_SMALL("arrow_size_small.png"),
+
+	/** Symbol "Pfeilgröße 'mittel'" */
+	ARROW_SIZE_MEDIUM("arrow_size_medium.png"),
+
+	/** Symbol "Pfeilgröße 'groß'" */
+	ARROW_SIZE_LARGE("arrow_size_large.png"),
+
 	/* Bearbeiten */
 
 	/** Symbol "Bearbeiten - Rückgängig" */

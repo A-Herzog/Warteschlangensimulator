@@ -30,6 +30,8 @@ import javax.swing.JPanel;
 
 import language.Language;
 import systemtools.SmallColorChooser;
+import tools.IconListCellRenderer;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -105,6 +107,12 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 				Language.tr("Surface.Line.Dialog.Arrow.Medium"),
 				Language.tr("Surface.Line.Dialog.Arrow.Large")
 		});
+		combo.setRenderer(new IconListCellRenderer(new Images[]{
+				Images.ARROW_SIZE_OFF,
+				Images.ARROW_SIZE_SMALL,
+				Images.ARROW_SIZE_MEDIUM,
+				Images.ARROW_SIZE_LARGE
+		}));
 		line.add(combo);
 		label.setLabelFor(combo);
 		combo.setSelectedIndex(Math.max(0,Math.min(3,arrowSize)));
