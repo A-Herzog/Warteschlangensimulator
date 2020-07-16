@@ -208,13 +208,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	public static final String VERSION="4.5.0";
 
-	private static final int JAVA8_SECURE_MIN_VERSION=252;
+	private static final int JAVA8_SECURE_MIN_VERSION=261;
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
 	private static final int JAVA10_SECURE_MIN_VERSION=2;
-	private static final int JAVA11_SECURE_MIN_VERSION=7;
+	private static final int JAVA11_SECURE_MIN_VERSION=8;
 	private static final int JAVA12_SECURE_MIN_VERSION=2;
 	private static final int JAVA13_SECURE_MIN_VERSION=2;
-	private static final int JAVA14_SECURE_MIN_VERSION=1;
+	private static final int JAVA14_SECURE_MIN_VERSION=2;
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
