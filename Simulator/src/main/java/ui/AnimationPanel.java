@@ -1125,6 +1125,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return surfacePanel.getImageMaxSize(-1,-1);
 	}
 
+	private final static int MAX_LOG_VIEWER_SIZE=4_000;
+
 	private void loggerCallback(final CallbackLoggerData data) {
 		stepLogChanged=true;
 
@@ -1146,8 +1148,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			logTimeStamp=data.timeStamp;
 			newMessage=true;
 		} else {
-			logText.append("<br>");
-			logTextPlain.append("\n");
+			if (logTextPlain.length()<MAX_LOG_VIEWER_SIZE) {
+				logText.append("<br>");
+				logTextPlain.append("\n");
+			}
 		}
 		final String colorCode;
 		if (data.color==null || data.color.equals(Color.BLACK)) {
@@ -1155,8 +1159,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		} else {
 			colorCode=Integer.toHexString(data.color.getRed())+Integer.toHexString(data.color.getGreen())+Integer.toHexString(data.color.getBlue());
 		}
-		logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+";\">&nbsp; "+data.event+" &nbsp;</span></b> "+data.info);
-		logTextPlain.append(data.time+": "+data.event+" - "+data.info);
+		if (logTextPlain.length()<MAX_LOG_VIEWER_SIZE) {
+			logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+";\">&nbsp; "+data.event+" &nbsp;</span></b> "+data.info);
+			logTextPlain.append(data.time+": "+data.event+" - "+data.info);
+		}
 		final String message="<html><body>"+logText.toString()+"</body></html>";
 		final String messagePlain=logTextPlain.toString();
 		logLabel.setText(message);
