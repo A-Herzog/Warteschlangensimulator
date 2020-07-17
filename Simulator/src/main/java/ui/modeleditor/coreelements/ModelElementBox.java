@@ -210,7 +210,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	 * @return	Optionale Fehlermeldung oder <code>null</code> wenn kein Fehler vorliegt.
 	 */
 	protected String getErrorMessage() {
-		return BackgroundSystem.getBackgroundSystem().checkModelElement(this);
+		return BackgroundSystem.checkModelElement(this);
 	}
 
 	/**

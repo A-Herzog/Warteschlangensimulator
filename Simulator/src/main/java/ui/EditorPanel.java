@@ -981,7 +981,7 @@ public class EditorPanel extends EditorPanelBase {
 			final String elements=count+" "+((count==1)?Language.tr("Editor.Element.Singular"):Language.tr("Editor.Element.Plural"));
 
 			final EditModel model=getModel();
-			final BackgroundSystem backgroundSystem=BackgroundSystem.getBackgroundSystem();
+			final BackgroundSystem backgroundSystem=BackgroundSystem.getBackgroundSystem(this);
 			String check="";
 			String tooltip=null;
 			Icon icon=null;

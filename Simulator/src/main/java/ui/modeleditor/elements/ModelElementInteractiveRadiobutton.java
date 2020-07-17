@@ -175,7 +175,7 @@ public class ModelElementInteractiveRadiobutton extends ModelElementPosition imp
 	private int infoFontHeight;
 
 	private void drawErrorMessage(final Graphics graphics, final Rectangle drawRect, final Rectangle objectRect, final double zoom) {
-		final String error=BackgroundSystem.getBackgroundSystem().checkModelElement(this);
+		final String error=BackgroundSystem.checkModelElement(this);
 		if (error==null) return;
 
 		final String[] words=error.trim().split("\\s+");

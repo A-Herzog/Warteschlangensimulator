@@ -15,6 +15,8 @@
  */
 package ui.speedup;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,6 +27,7 @@ import simulator.builder.RunModelCreator;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
 import tools.SetupData;
+import ui.EditorPanel;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementPosition;
@@ -45,9 +48,9 @@ public class BackgroundSystem {
 	private final static int DELAY_NORMAL=2_500; /* Verzögerung vor dem Start der Hintergrundsimulation im Normalfall */
 	private final static int DELAY_FAST=1_500; /* Verzögerung vor dem Start der Hintergrundsimulation im agressiven Modus */
 
-	private static BackgroundSystem system;
+	private static Map<EditorPanel,BackgroundSystem> system;
 
-	private final SetupData setup;
+	private static final SetupData setup=SetupData.getSetup();
 	private SetupData.BackgroundProcessingMode lastBackgroundMode;
 	private Timer timer;
 
@@ -56,18 +59,20 @@ public class BackgroundSystem {
 	private AnySimulator lastSimulator;
 	private TimerTask lastTask;
 
+	private long lastUsage;
+
 	/**
 	 * Konstruktor der Klasse.<br>
 	 * Kann nicht direkt aufgerufen werden, stattdessen ist {@link BackgroundSystem#getBackgroundSystem()} zu verwenden.
 	 * @see BackgroundSystem#getBackgroundSystem()
 	 */
 	private BackgroundSystem() {
-		setup=SetupData.getSetup();
 		lastBackgroundMode=SetupData.BackgroundProcessingMode.BACKGROUND_NOTHING;
 		timer=null;
 		lastModel=null;
 		lastSimulator=null;
 		lastStarter=null;
+		lastUsage=System.currentTimeMillis();
 	}
 
 	private void initTimer() {
@@ -83,11 +88,32 @@ public class BackgroundSystem {
 
 	/**
 	 * Liefert die Instanz des Hintergrund-Simulations-Systems
+	 * @param owner	Editor-Panel für das eine Instanz des Hintergrund-Simulations-Systems geliefert werden soll
 	 * @return	Instanz des Hintergrund-Simulations-Systems
 	 */
-	public static synchronized BackgroundSystem getBackgroundSystem() {
-		if (system==null) system=new BackgroundSystem();
-		return system;
+	public static synchronized BackgroundSystem getBackgroundSystem(final EditorPanel owner) {
+		/* Hintergrund-System anlegen oder liefern */
+		if (system==null) system=new HashMap<>();
+		BackgroundSystem backgroundSystem=system.get(owner);
+		if (backgroundSystem==null) system.put(owner,backgroundSystem=new BackgroundSystem());
+		backgroundSystem.lastUsage=System.currentTimeMillis();
+
+		/* Evtl. alte Systeme beenden */
+		final long limit=System.currentTimeMillis()-60*1000;
+		boolean done=false;
+		while (!done) {
+			done=true;
+			for (Map.Entry<EditorPanel,BackgroundSystem> entry: system.entrySet()) {
+				if (entry.getValue()==backgroundSystem) continue;
+				if (entry.getValue().lastUsage<limit) {
+					system.remove(entry.getKey());
+					done=false;
+					break;
+				}
+			}
+		}
+
+		return backgroundSystem;
 	}
 
 	/**
@@ -95,7 +121,7 @@ public class BackgroundSystem {
 	 * @param element	Zu prüfendes Element
 	 * @return	Gibt im Erfolgsfall (oder wenn keine Prüfung stattgefunden hat) <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public String checkModelElement(final ModelElementPosition element) {
+	public static String checkModelElement(final ModelElementPosition element) {
 		if (setup.backgroundSimulation==SetupData.BackgroundProcessingMode.BACKGROUND_NOTHING) return null;
 		return RunModelCreator.testElement(element);
 	}
@@ -106,6 +132,7 @@ public class BackgroundSystem {
 	 * @return	Gibt <code>true</code> zurück, wenn eine Prüfung möglich und gewollt ist
 	 */
 	public boolean canCheck(final ModelSurface surface) {
+		lastUsage=System.currentTimeMillis();
 		if (setup.backgroundSimulation==SetupData.BackgroundProcessingMode.BACKGROUND_NOTHING) return false;
 		if (surface.getParentSurface()!=null) return false;
 		if (surface.getElementCount()==0) return false;
@@ -173,6 +200,7 @@ public class BackgroundSystem {
 	 * @see BackgroundSystem#getLastBackgroundMode()
 	 */
 	public synchronized String process(final EditModel model, final boolean startProcessing) {
+		lastUsage=System.currentTimeMillis();
 		if (lastModel!=null && lastModel.equalsEditModel(model)) return null;
 
 		stop(false);
@@ -225,6 +253,7 @@ public class BackgroundSystem {
 	 * @see BackgroundSystem#process(EditModel, boolean)
 	 */
 	public SetupData.BackgroundProcessingMode getLastBackgroundMode() {
+		lastUsage=System.currentTimeMillis();
 		return lastBackgroundMode;
 	}
 
@@ -250,6 +279,7 @@ public class BackgroundSystem {
 	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als Zeichenkette.
 	 */
 	public Object getNewStartedSimulator(final EditModel editModel, final SimLogging logging) {
+		lastUsage=System.currentTimeMillis();
 		final StartAnySimulator starter=new StartAnySimulator(editModel,logging);
 		final String error=starter.prepare();
 		if (error!=null) return error;
@@ -263,6 +293,7 @@ public class BackgroundSystem {
 	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als Zeichenkette.
 	 */
 	public Object getStartedSimulator(final EditModel editModel, final SimLogging logging) {
+		lastUsage=System.currentTimeMillis();
 		if (logging!=null || lastModel==null || lastSimulator==null) {
 			stop();
 			return getNewStartedSimulator(editModel,logging);
@@ -288,6 +319,7 @@ public class BackgroundSystem {
 	 * Stoppt alle möglichen Hintergrund-Simulationen.
 	 */
 	public void stop() {
+		lastUsage=System.currentTimeMillis();
 		stop(true);
 	}
 

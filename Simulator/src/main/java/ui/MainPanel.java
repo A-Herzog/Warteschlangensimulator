@@ -644,8 +644,8 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		/* Background-System neu einstellen */
-		if (setup.backgroundSimulation!=BackgroundSystem.getBackgroundSystem().getLastBackgroundMode()) {
-			BackgroundSystem.getBackgroundSystem().stop(); /* Falls Hintergrundsimulation deaktiviert wurde, auch Timer-Thread beenden */
+		if (setup.backgroundSimulation!=BackgroundSystem.getBackgroundSystem(editorPanel).getLastBackgroundMode()) {
+			BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Falls Hintergrundsimulation deaktiviert wurde, auch Timer-Thread beenden */
 			editorPanel.updateStatusBar(); /* Damit wird die Hintergrundsimulation ggf. neu gestartet. */
 		}
 
@@ -1637,7 +1637,7 @@ public class MainPanel extends MainPanelBase {
 	private void commandFileSetup(final boolean showUpdatesPage) {
 		TutorialWindow.closeTutorialWindow();
 
-		BackgroundSystem.getBackgroundSystem().stop();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 		new SetupDialog(this,showUpdatesPage);
 
 		reloadSetup();
@@ -2008,7 +2008,7 @@ public class MainPanel extends MainPanelBase {
 			return error;
 		}
 
-		BackgroundSystem.getBackgroundSystem().stop();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 
@@ -2150,7 +2150,7 @@ public class MainPanel extends MainPanelBase {
 			editModel=changedEditModel;
 		}
 
-		final Object obj=BackgroundSystem.getBackgroundSystem().getStartedSimulator(editModel,logging);
+		final Object obj=BackgroundSystem.getBackgroundSystem(editorPanel).getStartedSimulator(editModel,logging);
 		if (obj instanceof String) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+((String)obj)+"</html>");
 			return;
@@ -2217,7 +2217,7 @@ public class MainPanel extends MainPanelBase {
 		editModel.warmUpTime=0.0; /* Keine Warm-Up-Phase sind der Simulation; verschiedene Warp-Up-Bereiche werden später in der Rechnung angenommen. */
 		editModel.collectWaitingTimes=true;
 
-		BackgroundSystem.getBackgroundSystem().stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
 
 		final StartAnySimulator starter=getSimulator(editModel,null);
 		if (starter==null) return;
@@ -2283,7 +2283,7 @@ public class MainPanel extends MainPanelBase {
 		editModel.correlationMode=Statistics.CorrelationMode.CORRELATION_MODE_FULL;
 		editModel.correlationRange=10_000;
 
-		BackgroundSystem.getBackgroundSystem().stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
 
 		final StartAnySimulator starter=getSimulator(editModel,null);
 		if (starter==null) return;
@@ -2390,7 +2390,7 @@ public class MainPanel extends MainPanelBase {
 		final ParameterComparePanel parameterComparePanel=getParameterComparePanel(editModel,miniStatistics,template);
 
 		checkAutoSave();
-		BackgroundSystem.getBackgroundSystem().stop();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 		setCurrentPanel(parameterComparePanel);
@@ -2406,7 +2406,7 @@ public class MainPanel extends MainPanelBase {
 		if (!parameterComparePanel.loadSetup(this,file,false)) return false;
 
 		checkAutoSave();
-		BackgroundSystem.getBackgroundSystem().stop();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 		setCurrentPanel(parameterComparePanel);
@@ -2426,7 +2426,7 @@ public class MainPanel extends MainPanelBase {
 		final ParameterComparePanel parameterComparePanel=getParameterComparePanelVariance(editModel,miniStatistics,dialog.getRepeatCount());
 
 		checkAutoSave();
-		BackgroundSystem.getBackgroundSystem().stop();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 		setCurrentPanel(parameterComparePanel);
@@ -2446,7 +2446,7 @@ public class MainPanel extends MainPanelBase {
 
 		checkAutoSave();
 
-		BackgroundSystem.getBackgroundSystem().stop();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 		setCurrentPanel(new JSModelRunnerPanel(getOwnerWindow(),editModel,miniStatistics,()->{
@@ -2471,7 +2471,7 @@ public class MainPanel extends MainPanelBase {
 
 		checkAutoSave();
 
-		BackgroundSystem.getBackgroundSystem().stop();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 		setCurrentPanel(new OptimizerPanel(getOwnerWindow(),editModel,miniStatistics,()->{
