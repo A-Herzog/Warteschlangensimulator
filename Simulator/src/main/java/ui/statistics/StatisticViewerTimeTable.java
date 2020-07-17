@@ -344,7 +344,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line=new ArrayList<>();
 			final double[] data=system.getReadOnlyDistribution().densityData;
 			final double sum=system.getReadOnlyDistribution().sum();
-			for (int i=0;i<=max;i++) line.add(NumberTools.formatPercent((i>=data.length)?0.0:data[i]/sum,3));
+			for (int i=0;i<=max;i++) line.add(NumberTools.formatPercent((i>=data.length || sum==0)?0.0:data[i]/sum,3));
 			table.addLine(line);
 		}
 		for (String name : indicators.getNames()) {
@@ -353,7 +353,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line=new ArrayList<>();
 			final double[] data=indicator.getReadOnlyDistribution().densityData;
 			final double sum=indicator.getReadOnlyDistribution().sum();
-			for (int i=0;i<=max;i++) line.add(NumberTools.formatPercent((i>=data.length)?0.0:data[i]/sum,3));
+			for (int i=0;i<=max;i++) line.add(NumberTools.formatPercent((i>=data.length || sum==0)?0.0:data[i]/sum,3));
 			table.addLine(line);
 		}
 
