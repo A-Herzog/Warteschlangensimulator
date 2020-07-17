@@ -180,7 +180,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		final double m=indicator.getMean();
 		for (double level: CONFIDENCE_LEVELS) {
 			final double w=indicator.getBatchMeanConfidenceHalfWide(level);
-			addLine(String.format(Language.tr("Statistics.Confidence.Level"),NumberTools.formatPercent(1-level),NumberTools.formatNumber(m-w),NumberTools.formatNumber(m+w),NumberTools.formatNumber(w)));
+			addLine(String.format(
+					Language.tr("Statistics.Confidence.Level"),
+					StatisticTools.formatPercent(1-level),
+					StatisticTools.formatNumber(m-w),
+					StatisticTools.formatNumber(m+w),
+					StatisticTools.formatNumber(w)
+					));
 
 		}
 		addLine(String.format(Language.tr("Statistics.Confidence.Info"),NumberTools.formatLong(indicator.getBatchCount()),NumberTools.formatLong(indicator.getBatchSize())));
@@ -203,7 +209,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			final String name=names.get(i);
 			final double value=((StatisticsSimpleValuePerformanceIndicator)statistics.threadBasedConfidence.get(name)).get();
 
-			addLine(String.format(Language.tr("Statistics.Confidence.Level"),name,NumberTools.formatNumber(mean-value),NumberTools.formatNumber(mean+value),NumberTools.formatNumber(value)));
+			addLine(String.format(Language.tr("Statistics.Confidence.Level"),name,StatisticTools.formatNumber(mean-value),StatisticTools.formatNumber(mean+value),StatisticTools.formatNumber(value)));
 		}
 		if (names.size()>0) {
 			addLine(String.format(Language.tr("Statistics.Confidence.InfoThread"),NumberTools.formatLong(statistics.simulationData.runThreads)));
@@ -250,7 +256,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	private String timeAndNumber(final double value) {
-		return TimeTools.formatExactTime(value)+" ("+NumberTools.formatNumber(value)+")";
+		return TimeTools.formatExactTime(value)+" ("+StatisticTools.formatNumber(value)+")";
 	}
 
 	private String xmlMean(final StatisticsPerformanceIndicator indicator) {
@@ -300,9 +306,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addHeading(3,Language.tr("Statistics.AverageNumberOfClientsByStations")+" E[N]");
 					beginParagraph();
 					headingWritten=true;
-					addLine(Language.tr("Statistics.ClientsInSystem")+": "+NumberTools.formatNumber(statistics.clientsInSystem.getTimeMean()),xmlMean(statistics.clientsInSystem));
+					addLine(Language.tr("Statistics.ClientsInSystem")+": "+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeMean()),xmlMean(statistics.clientsInSystem));
 				}
-				addLine(Language.tr("Statistics.ClientsAt")+" "+fullStationName(station)+": E[N]="+NumberTools.formatNumber(mean),xmlMean(indicator));
+				addLine(Language.tr("Statistics.ClientsAt")+" "+fullStationName(station)+": E[N]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
 			}
 		}
 		if (headingWritten) {
@@ -312,7 +318,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			if (statistics.clientsInSystem.getTimeMean()>0) {
 				addHeading(3,Language.tr("Statistics.AverageNumberOfClientsByStations")+" E[N]");
 				beginParagraph();
-				addLine(Language.tr("Statistics.ClientsInSystem")+": "+NumberTools.formatNumber(statistics.clientsInSystem.getTimeMean()),xmlMean(statistics.clientsInSystem));
+				addLine(Language.tr("Statistics.ClientsInSystem")+": "+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeMean()),xmlMean(statistics.clientsInSystem));
 				addModeLink(Mode.MODE_CLIENTS_COUNT);
 				endParagraph();
 			}
@@ -331,7 +337,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 						beginParagraph();
 						headingWritten=true;
 					}
-					addLine(Language.tr("Statistics.ClientType")+" "+clientType+": E[N]="+NumberTools.formatNumber(mean),xmlMean(indicator));
+					addLine(Language.tr("Statistics.ClientType")+" "+clientType+": E[N]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
 				}
 			}
 			if (headingWritten) {
@@ -351,9 +357,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addHeading(3,Language.tr("Statistics.AverageNumberOfClientsInQueuesByStations")+" E[NQ]");
 					beginParagraph();
 					headingWritten=true;
-					addLine(Language.tr("Statistics.ClientsInSystemWaiting")+": "+NumberTools.formatNumber(statistics.clientsInSystemQueues.getTimeMean()),xmlMean(statistics.clientsInSystemQueues));
+					addLine(Language.tr("Statistics.ClientsInSystemWaiting")+": "+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeMean()),xmlMean(statistics.clientsInSystemQueues));
 				}
-				addLine(Language.tr("Statistics.ClientsInQueueAt")+" "+fullStationName(station)+": E[NQ]="+NumberTools.formatNumber(mean),xmlMean(indicator));
+				addLine(Language.tr("Statistics.ClientsInQueueAt")+" "+fullStationName(station)+": E[NQ]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
 			}
 		}
 		if (headingWritten) {
@@ -363,7 +369,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			if (statistics.clientsInSystemQueues.getTimeMean()>0) {
 				addHeading(3,Language.tr("Statistics.AverageNumberOfClientsInQueuesByStations")+" E[NQ]");
 				beginParagraph();
-				addLine(Language.tr("Statistics.ClientsInSystemWaiting")+": "+NumberTools.formatNumber(statistics.clientsInSystemQueues.getTimeMean()),xmlMean(statistics.clientsInSystemQueues));
+				addLine(Language.tr("Statistics.ClientsInSystemWaiting")+": "+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeMean()),xmlMean(statistics.clientsInSystemQueues));
 				addModeLink(Mode.MODE_CLIENTS_COUNT);
 				endParagraph();
 			}
@@ -382,7 +388,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 						beginParagraph();
 						headingWritten=true;
 					}
-					addLine(Language.tr("Statistics.ClientType")+" "+clientType+": E[NQ]="+NumberTools.formatNumber(mean),xmlMean(indicator));
+					addLine(Language.tr("Statistics.ClientType")+" "+clientType+": E[NQ]="+StatisticTools.formatNumber(mean),xmlMean(indicator));
 				}
 			}
 			if (headingWritten) {
@@ -659,20 +665,20 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					if (count>0) {
 						final StatisticsTimePerformanceIndicator countIndicator=(StatisticsTimePerformanceIndicator)(statistics.resourceCount.getOrNull(resource));
 						if (countIndicator==null || countIndicator.getTimeMean()<0.0001) {
-							addLine(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+NumberTools.formatNumber(meanState,2)+" (rho="+NumberTools.formatPercent(meanState/count)+")");
+							addLine(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState,2)+" (rho="+StatisticTools.formatPercent(meanState/count)+")");
 						} else {
-							addLine(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+NumberTools.formatNumber(meanState,2)+" (rho="+NumberTools.formatPercent(meanState/countIndicator.getTimeMean())+")");
+							addLine(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState,2)+" (rho="+StatisticTools.formatPercent(meanState/countIndicator.getTimeMean())+")");
 						}
 						if (resourceObj.getFailures().size()>0) {
 							final StatisticsTimePerformanceIndicator indicator2=(StatisticsTimePerformanceIndicator)(statistics.resourceInDownTime.get(resource));
-							addLine(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.FailureTime.AveragePartOfDownTimeOperators")+": "+NumberTools.formatPercent(indicator2.getTimeMean()/count));
+							addLine(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.FailureTime.AveragePartOfDownTimeOperators")+": "+StatisticTools.formatPercent(indicator2.getTimeMean()/count));
 						}
 					} else {
-						addLine(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+NumberTools.formatNumber(meanState,2));
+						addLine(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState,2));
 					}
 				}
 				if (resourceObj!=null && resourceObj.getMode()==ModelResource.Mode.MODE_SCHEDULE) {
-					addLine(Language.tr("Statistics.Resource")+" "+resource+" ("+Language.tr("Statistics.bySchedule")+" "+resourceObj.getSchedule()+"): "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+NumberTools.formatNumber(meanState,2),xmlMean(indicator));
+					addLine(Language.tr("Statistics.Resource")+" "+resource+" ("+Language.tr("Statistics.bySchedule")+" "+resourceObj.getSchedule()+"): "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState,2),xmlMean(indicator));
 				}
 			}
 
@@ -694,13 +700,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				final ModelTransporter transporterObj=statistics.editModel.transporters.get(transporter);
 				if (transporterObj!=null) {
 					count=transporterObj.getCountAll();
-					addLine(Language.tr("Statistics.TransporterType")+" "+transporter+": "+Language.tr("Statistics.AverageNumberOfBusyTransporters")+"="+NumberTools.formatNumber(meanState,2)+" (rho="+NumberTools.formatPercent(meanState/count)+")");
+					addLine(Language.tr("Statistics.TransporterType")+" "+transporter+": "+Language.tr("Statistics.AverageNumberOfBusyTransporters")+"="+StatisticTools.formatNumber(meanState,2)+" (rho="+StatisticTools.formatPercent(meanState/count)+")");
 					if (transporterObj.getFailures().size()>0) {
 						final StatisticsTimePerformanceIndicator indicator2=(StatisticsTimePerformanceIndicator)(statistics.transporterInDownTime.get(transporter));
-						addLine(Language.tr("Statistics.TransporterType")+" "+transporter+": "+Language.tr("Statistics.FailureTime.AveragePartOfDownTimeTransporters")+": "+NumberTools.formatPercent(indicator2.getTimeMean()/count));
+						addLine(Language.tr("Statistics.TransporterType")+" "+transporter+": "+Language.tr("Statistics.FailureTime.AveragePartOfDownTimeTransporters")+": "+StatisticTools.formatPercent(indicator2.getTimeMean()/count));
 					}
 				} else {
-					addLine(Language.tr("Statistics.TransporterType")+" "+transporter+": "+Language.tr("Statistics.AverageNumberOfBusyTransporters")+"="+NumberTools.formatNumber(meanState,2),xmlMean(indicator));
+					addLine(Language.tr("Statistics.TransporterType")+" "+transporter+": "+Language.tr("Statistics.AverageNumberOfBusyTransporters")+"="+StatisticTools.formatNumber(meanState,2),xmlMean(indicator));
 				}
 			}
 			addModeLink(Mode.MODE_TRANSPORTER_UTILIZATION);
@@ -768,7 +774,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.SimulatedClients")+": "+NumberTools.formatLong(sum)+repeatInfo);
 			if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));
 
-			addLine(Language.tr("Statistics.SimulatedClients.WarmUp")+": "+NumberTools.formatLong(FastMath.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))+" ("+NumberTools.formatPercent(statistics.editModel.warmUpTime)+")");
+			addLine(Language.tr("Statistics.SimulatedClients.WarmUp")+": "+NumberTools.formatLong(FastMath.round(statistics.editModel.clientCount*statistics.editModel.warmUpTime))+" ("+StatisticTools.formatPercent(statistics.editModel.warmUpTime)+")");
 			endParagraph();
 		}
 
@@ -806,7 +812,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		beginParagraph();
 		boolean hitMax=false;
 		for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+NumberTools.formatPercent(p)+"]=";
+			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;
 			addLine(name+timeAndNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
@@ -815,7 +821,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		if (hitMax) {
 			beginParagraph();
-			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),NumberTools.formatNumber(upperBound)));
+			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 			endParagraph();
 		}
 	}
@@ -830,16 +836,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		beginParagraph();
 		boolean hitMax=false;
 		for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+NumberTools.formatPercent(p)+"]=";
+			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;
-			addLine(name+NumberTools.formatNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
+			addLine(name+StatisticTools.formatNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
 		}
 		endParagraph();
 
 		if (hitMax) {
 			beginParagraph();
-			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),NumberTools.formatNumber(upperBound)));
+			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 			endParagraph();
 		}
 	}
@@ -853,16 +859,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		beginParagraph();
 		boolean hitMax=false;
 		for (double p: StatisticsDataPerformanceIndicatorWithNegativeValues.storeQuantilValues) {
-			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+NumberTools.formatPercent(p)+"]=";
+			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;
-			addLine(name+NumberTools.formatNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
+			addLine(name+StatisticTools.formatNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
 		}
 		endParagraph();
 
 		if (hitMax) {
 			beginParagraph();
-			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),NumberTools.formatNumber(upperBound)));
+			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 			endParagraph();
 		}
 	}
@@ -876,16 +882,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		beginParagraph();
 		boolean hitMax=false;
 		for (double p: StatisticsTimePerformanceIndicator.storeQuantilValues) {
-			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+NumberTools.formatPercent(p)+"]=";
+			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;
-			addLine(name+NumberTools.formatNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
+			addLine(name+StatisticTools.formatNumber(value),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.quantil(p)));
 		}
 		endParagraph();
 
 		if (hitMax) {
 			beginParagraph();
-			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),NumberTools.formatNumber(upperBound)));
+			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 			endParagraph();
 		}
 	}
@@ -933,7 +939,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[I]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
 			addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[I]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 			addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[I]="+timeAndNumber(indicator.getVar()));
-			addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
 			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
@@ -969,7 +975,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			long count=indicator.getCount();
 			if (count>0) {
 				String part="";
-				if (arrivalSum>0) part=" ("+NumberTools.formatPercent(((double)count)/arrivalSum)+")";
+				if (arrivalSum>0) part=" ("+StatisticTools.formatPercent(((double)count)/arrivalSum)+")";
 				addLine(fullStationName(station)+": "+NumberTools.formatLong(count)+part,xmlCount(indicator));
 			}
 		}
@@ -997,7 +1003,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[I]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
 			addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[I]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 			addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[I]="+timeAndNumber(indicator.getVar()));
-			addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
 			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
@@ -1018,7 +1024,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[I]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
 				addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[I]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 				addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[I]="+timeAndNumber(indicator.getVar()));
-				addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
 				addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 				addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
@@ -1047,7 +1053,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[IL]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
 			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[IL]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[IL]="+timeAndNumber(indicator.getVar()));
-			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
 			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[IL]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[IL]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
@@ -1078,7 +1084,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[IL]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
 			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[IL]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[IL]="+timeAndNumber(indicator.getVar()));
-			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
 			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[IL]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[IL]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
@@ -1099,7 +1105,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[IL]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
 				addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[IL]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 				addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[IL]="+timeAndNumber(indicator.getVar()));
-				addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
 				addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[IL]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 				addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[IL]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
@@ -1132,7 +1138,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		final double threadMax=threads.getMax();
 		final double threadMin=threads.getMin();
 		if (statistics.simulationData.runThreads>1 && threadMax>0 && threadMin>0) {
-			addLine(Language.tr("Statistics.SystemData.ThreadRunTimeFactor")+": "+NumberTools.formatPercent(threadMax/threadMin-1));
+			addLine(Language.tr("Statistics.SystemData.ThreadRunTimeFactor")+": "+StatisticTools.formatPercent(threadMax/threadMin-1));
 		}
 		if (statistics.simulationData.numaAwareMode) addLine(Language.tr("Statistics.SystemData.NUMAMode"));
 		endParagraph();
@@ -1143,9 +1149,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addLine(Language.tr("Statistics.SystemData.SimulatedArrivals")+": "+NumberTools.formatLong(sum));
 		String s;
 		if (sum>0) {
-			s=NumberTools.formatNumber(((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/sum,2);
+			s=StatisticTools.formatNumber(((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/sum,2);
 			if (s.equals("0")) {
-				s=NumberTools.formatNumber(((double)statistics.simulationData.runTime*1000)*statistics.simulationData.runThreads/sum,2);
+				s=StatisticTools.formatNumber(((double)statistics.simulationData.runTime*1000)*statistics.simulationData.runThreads/sum,2);
 				addLine(Language.tr("Statistics.SystemData.TimePerClient")+" (*) : "+s+" µs");
 			} else {
 				addLine(Language.tr("Statistics.SystemData.TimePerClient")+" (*): "+s+" ms");
@@ -1160,11 +1166,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 		double time=((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/statistics.simulationData.runEvents;
 		if (time>=1) {
-			addLine(Language.tr("Statistics.SystemData.TimePerEvent")+" (*): "+NumberTools.formatNumber(time,2)+" ms");
+			addLine(Language.tr("Statistics.SystemData.TimePerEvent")+" (*): "+StatisticTools.formatNumber(time,2)+" ms");
 		} else {
 			time*=1000;
 			if (time>=1) {
-				addLine(Language.tr("Statistics.SystemData.TimePerEvent")+" (*): "+NumberTools.formatNumber(time,2)+" µs");
+				addLine(Language.tr("Statistics.SystemData.TimePerEvent")+" (*): "+StatisticTools.formatNumber(time,2)+" µs");
 			} else {
 				time*=1000;
 				addLine(Language.tr("Statistics.SystemData.TimePerEvent")+" (*): "+Math.round(time)+" ns");
@@ -1191,7 +1197,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.AverageWaitingTime")+": E[W]="+timeAndNumber(waitingTime.getMean()),xmlMean(waitingTime));
 			addLine(Language.tr("Statistics.StdDevWaitingTime")+": Std[W]="+timeAndNumber(waitingTime.getSD()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.SD));
 			addLine(Language.tr("Statistics.VarianceWaitingTime")+": Var[W]="+timeAndNumber(waitingTime.getVar()));
-			addLine(Language.tr("Statistics.CVWaitingTime")+": CV[W]="+NumberTools.formatNumber(waitingTime.getCV()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.CVWaitingTime")+": CV[W]="+StatisticTools.formatNumber(waitingTime.getCV()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.CV));
 			addLine(Language.tr("Statistics.MinimumWaitingTime")+": Min[W]="+timeAndNumber(waitingTime.getMin()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximumWaitingTime")+": Max[W]="+timeAndNumber(waitingTime.getMax()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.MAXIMUM));
 			endParagraph();
@@ -1208,7 +1214,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.AverageTransferTime")+": E[T]="+timeAndNumber(transferTime.getMean()),xmlMean(transferTime));
 			addLine(Language.tr("Statistics.StdDevTransferTime")+": Std[T]="+timeAndNumber(transferTime.getSD()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.SD));
 			addLine(Language.tr("Statistics.VarianceTransferTime")+": Var[T]="+timeAndNumber(transferTime.getVar()));
-			addLine(Language.tr("Statistics.CVTransferTime")+": CV[T]="+NumberTools.formatNumber(transferTime.getCV()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.CVTransferTime")+": CV[T]="+StatisticTools.formatNumber(transferTime.getCV()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.CV));
 			addLine(Language.tr("Statistics.MinimumTransferTime")+": Min[T]="+timeAndNumber(transferTime.getMin()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximumTransferTime")+": Max[T]="+timeAndNumber(transferTime.getMax()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.MAXIMUM));
 			endParagraph();
@@ -1225,7 +1231,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.AverageProcessTime")+": E[S]="+timeAndNumber(processingTime.getMean()),xmlMean(processingTime));
 			addLine(Language.tr("Statistics.StdDevProcessTime")+": Std[S]="+timeAndNumber(processingTime.getSD()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.SD));
 			addLine(Language.tr("Statistics.VarianceProcessTime")+": Var[S]="+timeAndNumber(processingTime.getVar()));
-			addLine(Language.tr("Statistics.CVProcessTime")+": CV[S]="+NumberTools.formatNumber(processingTime.getCV()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.CVProcessTime")+": CV[S]="+StatisticTools.formatNumber(processingTime.getCV()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.CV));
 			addLine(Language.tr("Statistics.MinimumProcessTime")+": Min[S]="+timeAndNumber(processingTime.getMin()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximumProcessTime")+": Max[S]="+timeAndNumber(processingTime.getMax()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.MAXIMUM));
 			endParagraph();
@@ -1242,7 +1248,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addLine(Language.tr("Statistics.AverageResidenceTime")+": E[V]="+timeAndNumber(residenceTime.getMean()),xmlMean(residenceTime));
 			addLine(Language.tr("Statistics.StdDevResidenceTime")+": Std[V]="+timeAndNumber(residenceTime.getSD()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.SD));
 			addLine(Language.tr("Statistics.VarianceResidenceTime")+": Var[V]="+timeAndNumber(residenceTime.getVar()));
-			addLine(Language.tr("Statistics.CVResidenceTime")+": CV[V]="+NumberTools.formatNumber(residenceTime.getCV()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.CVResidenceTime")+": CV[V]="+StatisticTools.formatNumber(residenceTime.getCV()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.CV));
 			addLine(Language.tr("Statistics.MinimumResidenceTime")+": Min[V]="+timeAndNumber(residenceTime.getMin()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.MINIMUM));
 			addLine(Language.tr("Statistics.MaximumResidenceTime")+": Max[V]="+timeAndNumber(residenceTime.getMax()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.MAXIMUM));
 			endParagraph();
@@ -1318,7 +1324,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.AverageWaitingTime")+": E[W]="+timeAndNumber(waitingTime.getMean()),xmlMean(waitingTime));
 					addLine(Language.tr("Statistics.StdDevWaitingTime")+": Std[W]="+timeAndNumber(waitingTime.getSD()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.SD));
 					addLine(Language.tr("Statistics.VarianceWaitingTime")+": Var[W]="+timeAndNumber(waitingTime.getVar()));
-					addLine(Language.tr("Statistics.CVWaitingTime")+": CV[W]="+NumberTools.formatNumber(waitingTime.getCV()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.CVWaitingTime")+": CV[W]="+StatisticTools.formatNumber(waitingTime.getCV()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.CV));
 					addLine(Language.tr("Statistics.MinimumWaitingTime")+": Min[W]="+timeAndNumber(waitingTime.getMin()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.MINIMUM));
 					addLine(Language.tr("Statistics.MaximumWaitingTime")+": Max[W]="+timeAndNumber(waitingTime.getMax()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.MAXIMUM));
 					endParagraph();
@@ -1335,7 +1341,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.AverageTransferTime")+": E[T]="+timeAndNumber(transferTime.getMean()),xmlMean(transferTime));
 					addLine(Language.tr("Statistics.StdDevTransferTime")+": Std[T]="+timeAndNumber(transferTime.getSD()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.SD));
 					addLine(Language.tr("Statistics.VarianceTransferTime")+": Var[T]="+timeAndNumber(transferTime.getVar()));
-					addLine(Language.tr("Statistics.CVTransferTime")+": CV[T]="+NumberTools.formatNumber(transferTime.getCV()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.CVTransferTime")+": CV[T]="+StatisticTools.formatNumber(transferTime.getCV()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.CV));
 					addLine(Language.tr("Statistics.MinimumTransferTime")+": Min[T]="+timeAndNumber(transferTime.getMin()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.MINIMUM));
 					addLine(Language.tr("Statistics.MaximumTransferTime")+": Max[T]="+timeAndNumber(transferTime.getMax()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.MAXIMUM));
 					endParagraph();
@@ -1352,7 +1358,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.AverageProcessTime")+": E[S]="+timeAndNumber(processingTime.getMean()),xmlMean(processingTime));
 					addLine(Language.tr("Statistics.StdDevProcessTime")+": Std[S]="+timeAndNumber(processingTime.getSD()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.SD));
 					addLine(Language.tr("Statistics.VarianceProcessTime")+": Var[S]="+timeAndNumber(processingTime.getVar()));
-					addLine(Language.tr("Statistics.CVProcessTime")+": CV[S]="+NumberTools.formatNumber(processingTime.getCV()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.CVProcessTime")+": CV[S]="+StatisticTools.formatNumber(processingTime.getCV()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.CV));
 					addLine(Language.tr("Statistics.MinimumProcessTime")+": Min[S]="+timeAndNumber(processingTime.getMin()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.MINIMUM));
 					addLine(Language.tr("Statistics.MaximumProcessTime")+": Max[S]="+timeAndNumber(processingTime.getMax()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.MAXIMUM));
 					endParagraph();
@@ -1369,7 +1375,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.AverageResidenceTime")+": E[V]="+timeAndNumber(residenceTime.getMean()),xmlMean(residenceTime));
 					addLine(Language.tr("Statistics.StdDevResidenceTime")+": Std[V]="+timeAndNumber(residenceTime.getSD()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.SD));
 					addLine(Language.tr("Statistics.VarianceResidenceTime")+": Var[V]="+timeAndNumber(residenceTime.getVar()));
-					addLine(Language.tr("Statistics.CVResidenceTime")+": CV[V]="+NumberTools.formatNumber(residenceTime.getCV()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.CVResidenceTime")+": CV[V]="+StatisticTools.formatNumber(residenceTime.getCV()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.CV));
 					addLine(Language.tr("Statistics.MinimumResidenceTime")+": Min[V]="+timeAndNumber(residenceTime.getMin()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.MINIMUM));
 					addLine(Language.tr("Statistics.MaximumResidenceTime")+": Max[V]="+timeAndNumber(residenceTime.getMax()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.MAXIMUM));
 					endParagraph();
@@ -1400,7 +1406,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.AverageWaitingTime")+": E[W]="+timeAndNumber(waitingTime.getMean()),xmlMean(waitingTime));
 				addLine(Language.tr("Statistics.StdDevWaitingTime")+": Std[W]="+timeAndNumber(waitingTime.getSD()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.SD));
 				addLine(Language.tr("Statistics.VarianceWaitingTime")+": Var[W]="+timeAndNumber(waitingTime.getVar()));
-				addLine(Language.tr("Statistics.CVWaitingTime")+": CV[W]="+NumberTools.formatNumber(waitingTime.getCV()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.CVWaitingTime")+": CV[W]="+StatisticTools.formatNumber(waitingTime.getCV()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.CV));
 				addLine(Language.tr("Statistics.MinimumWaitingTime")+": Min[W]="+timeAndNumber(waitingTime.getMin()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.MINIMUM));
 				addLine(Language.tr("Statistics.MaximumWaitingTime")+": Max[W]="+timeAndNumber(waitingTime.getMax()),fastAccessBuilder.getXMLSelector(waitingTime,IndicatorMode.MAXIMUM));
 				endParagraph();
@@ -1420,7 +1426,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.AverageTransferTime")+": E[T]="+timeAndNumber(transferTime.getMean()),xmlMean(transferTime));
 				addLine(Language.tr("Statistics.StdDevTransferTime")+": Std[T]="+timeAndNumber(transferTime.getSD()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.SD));
 				addLine(Language.tr("Statistics.VarianceTransferTime")+": Var[T]="+timeAndNumber(transferTime.getVar()));
-				addLine(Language.tr("Statistics.CVTransferTime")+": CV[T]="+NumberTools.formatNumber(transferTime.getCV()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.CVTransferTime")+": CV[T]="+StatisticTools.formatNumber(transferTime.getCV()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.CV));
 				addLine(Language.tr("Statistics.MinimumTransferTime")+": Min[T]="+timeAndNumber(transferTime.getMin()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.MINIMUM));
 				addLine(Language.tr("Statistics.MaximumTransferTime")+": Max[T]="+timeAndNumber(transferTime.getMax()),fastAccessBuilder.getXMLSelector(transferTime,IndicatorMode.MAXIMUM));
 				endParagraph();
@@ -1440,7 +1446,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.AverageProcessTime")+": E[S]="+timeAndNumber(processingTime.getMean()),xmlMean(processingTime));
 				addLine(Language.tr("Statistics.StdDevProcessTime")+": Std[S]="+timeAndNumber(processingTime.getSD()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.SD));
 				addLine(Language.tr("Statistics.VarianceProcessTime")+": Var[S]="+timeAndNumber(processingTime.getVar()));
-				addLine(Language.tr("Statistics.CVProcessTime")+": CV[S]="+NumberTools.formatNumber(processingTime.getCV()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.CVProcessTime")+": CV[S]="+StatisticTools.formatNumber(processingTime.getCV()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.CV));
 				addLine(Language.tr("Statistics.MinimumProcessTime")+": Min[S]="+timeAndNumber(processingTime.getMin()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.MINIMUM));
 				addLine(Language.tr("Statistics.MaximumProcessTime")+": Max[S]="+timeAndNumber(processingTime.getMax()),fastAccessBuilder.getXMLSelector(processingTime,IndicatorMode.MAXIMUM));
 				endParagraph();
@@ -1460,7 +1466,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.AverageResidenceTime")+": E[V]="+timeAndNumber(residenceTime.getMean()),xmlMean(residenceTime));
 				addLine(Language.tr("Statistics.StdDevResidenceTime")+": Std[V]="+timeAndNumber(residenceTime.getSD()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.SD));
 				addLine(Language.tr("Statistics.VarianceResidenceTime")+": Var[V]="+timeAndNumber(residenceTime.getVar()));
-				addLine(Language.tr("Statistics.CVResidenceTime")+": CV[V]="+NumberTools.formatNumber(residenceTime.getCV()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.CVResidenceTime")+": CV[V]="+StatisticTools.formatNumber(residenceTime.getCV()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.CV));
 				addLine(Language.tr("Statistics.MinimumResidenceTime")+": Min[V]="+timeAndNumber(residenceTime.getMin()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.MINIMUM));
 				addLine(Language.tr("Statistics.MaximumResidenceTime")+": Max[V]="+timeAndNumber(residenceTime.getMax()),fastAccessBuilder.getXMLSelector(residenceTime,IndicatorMode.MAXIMUM));
 				endParagraph();
@@ -1484,12 +1490,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addHeading(2,Language.tr("Statistics.NumberOfClientsInTheSystem"));
 		beginParagraph();
 		addLine(Language.tr("Statistics.TotalNumberOfClients")+": "+NumberTools.formatLong(getArrivalSum())+repeatInfo);
-		addLine(Language.tr("Statistics.AverageClientsInSystem")+": E[N]="+NumberTools.formatNumber(statistics.clientsInSystem.getTimeMean()),xmlMean(statistics.clientsInSystem));
-		addLine(Language.tr("Statistics.StdDevClientsInSystem")+": Std[N]="+NumberTools.formatNumber(statistics.clientsInSystem.getTimeSD()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.SD));
-		addLine(Language.tr("Statistics.VarianceClientsInSystem")+": Var[N]="+NumberTools.formatNumber(statistics.clientsInSystem.getTimeVar()));
-		addLine(Language.tr("Statistics.CVClientsInSystem")+": CV[N]="+NumberTools.formatNumber(statistics.clientsInSystem.getTimeCV()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.CV));
-		addLine(Language.tr("Statistics.MinimumClientsInSystem")+": Min[N]="+NumberTools.formatNumber(statistics.clientsInSystem.getTimeMin()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.MINIMUM));
-		addLine(Language.tr("Statistics.MaximumClientsInSystem")+": Max[N]="+NumberTools.formatNumber(statistics.clientsInSystem.getTimeMax()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.MAXIMUM));
+		addLine(Language.tr("Statistics.AverageClientsInSystem")+": E[N]="+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeMean()),xmlMean(statistics.clientsInSystem));
+		addLine(Language.tr("Statistics.StdDevClientsInSystem")+": Std[N]="+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeSD()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.SD));
+		addLine(Language.tr("Statistics.VarianceClientsInSystem")+": Var[N]="+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeVar()));
+		addLine(Language.tr("Statistics.CVClientsInSystem")+": CV[N]="+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeCV()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.CV));
+		addLine(Language.tr("Statistics.MinimumClientsInSystem")+": Min[N]="+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeMin()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.MINIMUM));
+		addLine(Language.tr("Statistics.MaximumClientsInSystem")+": Max[N]="+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeMax()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.MAXIMUM));
 		endParagraph();
 
 		outputQuantilInfoNumber("N",statistics.clientsInSystem);
@@ -1506,12 +1512,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addHeading(3,fullStationName(station));
 				beginParagraph();
 				if (indicator2!=null) addLine(Language.tr("Statistics.TotalNumberOfClients")+": "+NumberTools.formatLong(indicator2.getCount())+repeatInfo,xmlCount(indicator));
-				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[N]="+NumberTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
-				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[N]="+NumberTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[N]="+NumberTools.formatNumber(indicator.getTimeVar()));
-				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[N]="+NumberTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[N]="+NumberTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[N]="+NumberTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[N]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[N]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[N]="+StatisticTools.formatNumber(indicator.getTimeVar()));
+				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[N]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[N]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[N]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
 
 				outputQuantilInfoNumber("N",indicator);
@@ -1525,12 +1531,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			if (indicator.getTimeMean()>0) {
 				addHeading(3,fullStationName(station));
 				beginParagraph();
-				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[N]="+NumberTools.formatNumber(indicator.getTimeMean()),xmlCount(indicator));
-				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[N]="+NumberTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[N]="+NumberTools.formatNumber(indicator.getTimeVar()));
-				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[N]="+NumberTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[N]="+NumberTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[N]="+NumberTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[N]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlCount(indicator));
+				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[N]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[N]="+StatisticTools.formatNumber(indicator.getTimeVar()));
+				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[N]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[N]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[N]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
 
 				outputQuantilInfoNumber("N",indicator);
@@ -1539,12 +1545,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		addHeading(2,Language.tr("Statistics.NumberOfClientsInTheSystemWaiting"));
 		beginParagraph();
-		addLine(Language.tr("Statistics.AverageClientsInSystemWaiting")+": E[NQ]="+NumberTools.formatNumber(statistics.clientsInSystemQueues.getTimeMean()),xmlMean(statistics.clientsInSystemQueues));
-		addLine(Language.tr("Statistics.StdDevClientsInSystemWaiting")+": Std[NQ]="+NumberTools.formatNumber(statistics.clientsInSystemQueues.getTimeSD()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.SD));
-		addLine(Language.tr("Statistics.VarianceClientsInSystemWaiting")+": Var[NQ]="+NumberTools.formatNumber(statistics.clientsInSystemQueues.getTimeVar()));
-		addLine(Language.tr("Statistics.CVClientsInSystemWaiting")+": CV[NQ]="+NumberTools.formatNumber(statistics.clientsInSystemQueues.getTimeCV()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.CV));
-		addLine(Language.tr("Statistics.MinimumClientsInSystemWaiting")+": Min[NQ]="+NumberTools.formatNumber(statistics.clientsInSystemQueues.getTimeMin()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.MINIMUM));
-		addLine(Language.tr("Statistics.MaximumClientsInSystemWaiting")+": Max[NQ]="+NumberTools.formatNumber(statistics.clientsInSystemQueues.getTimeMax()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.MAXIMUM));
+		addLine(Language.tr("Statistics.AverageClientsInSystemWaiting")+": E[NQ]="+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeMean()),xmlMean(statistics.clientsInSystemQueues));
+		addLine(Language.tr("Statistics.StdDevClientsInSystemWaiting")+": Std[NQ]="+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeSD()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.SD));
+		addLine(Language.tr("Statistics.VarianceClientsInSystemWaiting")+": Var[NQ]="+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeVar()));
+		addLine(Language.tr("Statistics.CVClientsInSystemWaiting")+": CV[NQ]="+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeCV()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.CV));
+		addLine(Language.tr("Statistics.MinimumClientsInSystemWaiting")+": Min[NQ]="+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeMin()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.MINIMUM));
+		addLine(Language.tr("Statistics.MaximumClientsInSystemWaiting")+": Max[NQ]="+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeMax()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.MAXIMUM));
 		endParagraph();
 
 		outputQuantilInfoNumber("NQ",statistics.clientsInSystemQueues);
@@ -1556,12 +1562,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			if (indicator.getTimeMean()>0) {
 				addHeading(3,fullStationName(station));
 				beginParagraph();
-				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[NQ]="+NumberTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
-				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[NQ]="+NumberTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[NQ]="+NumberTools.formatNumber(indicator.getTimeVar()));
-				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[NQ]="+NumberTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NQ]="+NumberTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NQ]="+NumberTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[NQ]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[NQ]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[NQ]="+StatisticTools.formatNumber(indicator.getTimeVar()));
+				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[NQ]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NQ]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NQ]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
 
 				outputQuantilInfoNumber("NQ",indicator);
@@ -1575,12 +1581,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			if (indicator.getTimeMean()>0) {
 				addHeading(3,clientTypes);
 				beginParagraph();
-				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[NQ]="+NumberTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
-				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[NQ]="+NumberTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[NQ]="+NumberTools.formatNumber(indicator.getTimeVar()));
-				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[NQ]="+NumberTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NQ]="+NumberTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NQ]="+NumberTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+				addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[NQ]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+				addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[NQ]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+				addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[NQ]="+StatisticTools.formatNumber(indicator.getTimeVar()));
+				addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[NQ]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NQ]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NQ]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
 
 				outputQuantilInfoNumber("NQ",indicator);
@@ -1616,15 +1622,15 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					} else {
 						/* Direkt erfasste (variable) Anzahl an vorhanden Bedienern */
 						beginParagraph();
-						addLine(Language.tr("Statistics.Utilization.NumberOfOperators")+": "+NumberTools.formatNumber(countIndicator.getTimeMean()),xmlMean(countIndicators));
+						addLine(Language.tr("Statistics.Utilization.NumberOfOperators")+": "+StatisticTools.formatNumber(countIndicator.getTimeMean()),xmlMean(countIndicators));
 						rho=indicator.getTimeMean()/countIndicator.getTimeMean();
 						if (countIndicator.getTimeMin()!=countIndicator.getTimeMax()) {
 							variable=true;
-							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.StdDev")+"="+NumberTools.formatNumber(countIndicator.getTimeSD()),fastAccessBuilder.getXMLSelector(countIndicator,IndicatorMode.SD));
-							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.Variance")+"="+NumberTools.formatNumber(countIndicator.getTimeVar()));
-							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.CV")+"="+NumberTools.formatNumber(countIndicator.getTimeCV()),fastAccessBuilder.getXMLSelector(countIndicator,IndicatorMode.CV));
-							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.Minimum")+": "+NumberTools.formatNumber(countIndicator.getTimeMin()),fastAccessBuilder.getXMLSelector(countIndicator,IndicatorMode.MINIMUM));
-							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.Maximum")+": "+NumberTools.formatNumber(countIndicator.getTimeMax()),fastAccessBuilder.getXMLSelector(countIndicator,IndicatorMode.MAXIMUM));
+							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.StdDev")+"="+StatisticTools.formatNumber(countIndicator.getTimeSD()),fastAccessBuilder.getXMLSelector(countIndicator,IndicatorMode.SD));
+							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.Variance")+"="+StatisticTools.formatNumber(countIndicator.getTimeVar()));
+							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.CV")+"="+StatisticTools.formatNumber(countIndicator.getTimeCV()),fastAccessBuilder.getXMLSelector(countIndicator,IndicatorMode.CV));
+							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.Minimum")+": "+StatisticTools.formatNumber(countIndicator.getTimeMin()),fastAccessBuilder.getXMLSelector(countIndicator,IndicatorMode.MINIMUM));
+							addLine(Language.tr("Statistics.Utilization.NumberOfOperators.Maximum")+": "+StatisticTools.formatNumber(countIndicator.getTimeMax()),fastAccessBuilder.getXMLSelector(countIndicator,IndicatorMode.MAXIMUM));
 						}
 						endParagraph();
 					}
@@ -1637,21 +1643,21 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			}
 
 			beginParagraph();
-			if (rho>=0) addLine(Language.tr("Statistics.Utilization")+" rho="+NumberTools.formatPercent(rho));
-			addLine(Language.tr("Statistics.Utilization.Average")+"="+NumberTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
-			addLine(Language.tr("Statistics.Utilization.StdDev")+"="+NumberTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-			addLine(Language.tr("Statistics.Utilization.Variance")+"="+NumberTools.formatNumber(indicator.getTimeVar()));
-			addLine(Language.tr("Statistics.Utilization.CV")+"="+NumberTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-			addLine(Language.tr("Statistics.Utilization.Minimum")+"="+NumberTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-			addLine(Language.tr("Statistics.Utilization.Maximum")+"="+NumberTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			if (rho>=0) addLine(Language.tr("Statistics.Utilization")+" rho="+StatisticTools.formatPercent(rho));
+			addLine(Language.tr("Statistics.Utilization.Average")+"="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.Utilization.StdDev")+"="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.Utilization.Variance")+"="+StatisticTools.formatNumber(indicator.getTimeVar()));
+			addLine(Language.tr("Statistics.Utilization.CV")+"="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.Utilization.Minimum")+"="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.Utilization.Maximum")+"="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
 
 			beginParagraph();
-			addLine(Language.tr("Statistics.IdleShare")+"="+NumberTools.formatPercent(indicator.getTimePartForState(0)));
+			addLine(Language.tr("Statistics.IdleShare")+"="+StatisticTools.formatPercent(indicator.getTimePartForState(0)));
 			if (variable) {
-				addLine(Language.tr("Statistics.FullyBusyShare.ByMaxNumber")+"="+NumberTools.formatPercent(indicator.getTimePartForState(indicator.getTimeMax())));
+				addLine(Language.tr("Statistics.FullyBusyShare.ByMaxNumber")+"="+StatisticTools.formatPercent(indicator.getTimePartForState(indicator.getTimeMax())));
 			} else {
-				addLine(Language.tr("Statistics.FullyBusyShare")+"="+NumberTools.formatPercent(indicator.getTimePartForState(indicator.getTimeMax())));
+				addLine(Language.tr("Statistics.FullyBusyShare")+"="+StatisticTools.formatPercent(indicator.getTimePartForState(indicator.getTimeMax())));
 			}
 			endParagraph();
 
@@ -1663,15 +1669,15 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				final StatisticsTimePerformanceIndicator indicator2=(StatisticsTimePerformanceIndicator)(statistics.resourceInDownTime.get(resource));
 				if (indicator2!=null) {
 					beginParagraph();
-					addLine(Language.tr("Statistics.FailureTime.Average")+"="+NumberTools.formatNumber(indicator2.getTimeMean()),xmlMean(indicator2));
-					addLine(Language.tr("Statistics.FailureTime.StdDev")+"="+NumberTools.formatNumber(indicator2.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.SD));
-					addLine(Language.tr("Statistics.FailureTime.Variance")+"="+NumberTools.formatNumber(indicator2.getTimeVar()));
-					addLine(Language.tr("Statistics.FailureTime.CV")+"="+NumberTools.formatNumber(indicator2.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.CV));
-					addLine(Language.tr("Statistics.FailureTime.Minimum")+"="+NumberTools.formatNumber(indicator2.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.MINIMUM));
-					addLine(Language.tr("Statistics.FailureTime.Maximum")+"="+NumberTools.formatNumber(indicator2.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.MAXIMUM));
+					addLine(Language.tr("Statistics.FailureTime.Average")+"="+StatisticTools.formatNumber(indicator2.getTimeMean()),xmlMean(indicator2));
+					addLine(Language.tr("Statistics.FailureTime.StdDev")+"="+StatisticTools.formatNumber(indicator2.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.FailureTime.Variance")+"="+StatisticTools.formatNumber(indicator2.getTimeVar()));
+					addLine(Language.tr("Statistics.FailureTime.CV")+"="+StatisticTools.formatNumber(indicator2.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.FailureTime.Minimum")+"="+StatisticTools.formatNumber(indicator2.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.FailureTime.Maximum")+"="+StatisticTools.formatNumber(indicator2.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.MAXIMUM));
 					if (resourceObj.getMode()==ModelResource.Mode.MODE_NUMBER) {
 						final int count=resourceObj.getCount();
-						if (count>0) addLine(Language.tr("Statistics.FailureTime.AveragePartOfDownTimeOperators")+": "+NumberTools.formatPercent(indicator2.getTimeMean()/count));
+						if (count>0) addLine(Language.tr("Statistics.FailureTime.AveragePartOfDownTimeOperators")+": "+StatisticTools.formatPercent(indicator2.getTimeMean()/count));
 					}
 					endParagraph();
 				}
@@ -1695,19 +1701,19 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			if (transporter!=null) {
 				final int count=transporter.getCountAll();
 				addLine(Language.tr("Statistics.TransporterUtilization.NumberOfTransporters")+": "+count);
-				addLine(Language.tr("Statistics.TransporterUtilization")+" rho="+NumberTools.formatPercent(indicator.getTimeMean()/count));
+				addLine(Language.tr("Statistics.TransporterUtilization")+" rho="+StatisticTools.formatPercent(indicator.getTimeMean()/count));
 			}
-			addLine(Language.tr("Statistics.TransporterUtilization.Average")+"="+NumberTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
-			addLine(Language.tr("Statistics.TransporterUtilization.StdDev")+"="+NumberTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-			addLine(Language.tr("Statistics.TransporterUtilization.Variance")+"="+NumberTools.formatNumber(indicator.getTimeVar()));
-			addLine(Language.tr("Statistics.TransporterUtilization.CV")+"="+NumberTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-			addLine(Language.tr("Statistics.TransporterUtilization.Minimum")+"="+NumberTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-			addLine(Language.tr("Statistics.TransporterUtilization.Maximum")+"="+NumberTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			addLine(Language.tr("Statistics.TransporterUtilization.Average")+"="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.TransporterUtilization.StdDev")+"="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.TransporterUtilization.Variance")+"="+StatisticTools.formatNumber(indicator.getTimeVar()));
+			addLine(Language.tr("Statistics.TransporterUtilization.CV")+"="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.TransporterUtilization.Minimum")+"="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.TransporterUtilization.Maximum")+"="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
 
 			beginParagraph();
-			addLine(Language.tr("Statistics.TransporterUtilization.IdleShare")+"="+NumberTools.formatPercent(indicator.getTimePartForState(0)));
-			addLine(Language.tr("Statistics.TransporterUtilization.FullyBusyShare")+"="+NumberTools.formatPercent(indicator.getTimePartForState(indicator.getTimeMax())));
+			addLine(Language.tr("Statistics.TransporterUtilization.IdleShare")+"="+StatisticTools.formatPercent(indicator.getTimePartForState(0)));
+			addLine(Language.tr("Statistics.TransporterUtilization.FullyBusyShare")+"="+StatisticTools.formatPercent(indicator.getTimePartForState(indicator.getTimeMax())));
 			endParagraph();
 
 			if (transporter!=null && transporter.getFailures().size()>0) {
@@ -1718,14 +1724,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				final StatisticsTimePerformanceIndicator indicator2=(StatisticsTimePerformanceIndicator)(statistics.transporterInDownTime.get(resource));
 				if (indicator2!=null) {
 					beginParagraph();
-					addLine(Language.tr("Statistics.FailureTime.Average.Transporters")+"="+NumberTools.formatNumber(indicator2.getTimeMean()),xmlMean(indicator2));
-					addLine(Language.tr("Statistics.FailureTime.StdDev.Transporters")+"="+NumberTools.formatNumber(indicator2.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.SD));
-					addLine(Language.tr("Statistics.FailureTime.Variance.Transporters")+"="+NumberTools.formatNumber(indicator2.getTimeVar()));
-					addLine(Language.tr("Statistics.FailureTime.CV.Transporters")+"="+NumberTools.formatNumber(indicator2.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.CV));
-					addLine(Language.tr("Statistics.FailureTime.Minimum.Transporters")+"="+NumberTools.formatNumber(indicator2.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.MINIMUM));
-					addLine(Language.tr("Statistics.FailureTime.Maximum.Transporters")+"="+NumberTools.formatNumber(indicator2.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.MAXIMUM));
+					addLine(Language.tr("Statistics.FailureTime.Average.Transporters")+"="+StatisticTools.formatNumber(indicator2.getTimeMean()),xmlMean(indicator2));
+					addLine(Language.tr("Statistics.FailureTime.StdDev.Transporters")+"="+StatisticTools.formatNumber(indicator2.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.FailureTime.Variance.Transporters")+"="+StatisticTools.formatNumber(indicator2.getTimeVar()));
+					addLine(Language.tr("Statistics.FailureTime.CV.Transporters")+"="+StatisticTools.formatNumber(indicator2.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.FailureTime.Minimum.Transporters")+"="+StatisticTools.formatNumber(indicator2.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.FailureTime.Maximum.Transporters")+"="+StatisticTools.formatNumber(indicator2.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator2,IndicatorMode.MAXIMUM));
 					final int count=transporter.getCountAll();
-					if (count>0) addLine(Language.tr("Statistics.FailureTime.AveragePartOfDownTimeTransporters")+": "+NumberTools.formatPercent(indicator2.getTimeMean()/count));
+					if (count>0) addLine(Language.tr("Statistics.FailureTime.AveragePartOfDownTimeTransporters")+": "+StatisticTools.formatPercent(indicator2.getTimeMean()/count));
 				}
 				endParagraph();
 			}
@@ -1775,7 +1781,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			} else {
 				for (int i=0;i<counterName.size();i++) {
 					final long value=counterValue.get(i);
-					addLine(Language.tr("Statistics.Counter")+" "+counterName.get(i)+": "+NumberTools.formatLong(value)+ " ("+Language.tr("Statistics.ShareInThisGroup")+": "+NumberTools.formatPercent(((double)value)/sum,details?2:1)+")",xmlCount(counter.get(i)));
+					addLine(Language.tr("Statistics.Counter")+" "+counterName.get(i)+": "+NumberTools.formatLong(value)+ " ("+Language.tr("Statistics.ShareInThisGroup")+": "+StatisticTools.formatPercent(((double)value)/sum,details?2:1)+")",xmlCount(counter.get(i)));
 				}
 				if (statistics.simulationData.runRepeatCount>1) {
 					addLine(Language.tr("Statistics.Counter.RepeatInfo"));
@@ -1794,15 +1800,15 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				if (details) {
 					addHeading(level+1,name);
 					beginParagraph();
-					addLine(Language.tr("Statistics.Average")+"="+NumberTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
-					addLine(Language.tr("Statistics.StdDev")+"="+NumberTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-					addLine(Language.tr("Statistics.Variance")+"="+NumberTools.formatNumber(indicator.getTimeVar()));
-					addLine(Language.tr("Statistics.CV")+"="+NumberTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-					addLine(Language.tr("Statistics.MinimumNumber")+"="+NumberTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-					addLine(Language.tr("Statistics.MaximumNumber")+"="+NumberTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+					addLine(Language.tr("Statistics.Average")+"="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+					addLine(Language.tr("Statistics.StdDev")+"="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.Variance")+"="+StatisticTools.formatNumber(indicator.getTimeVar()));
+					addLine(Language.tr("Statistics.CV")+"="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.MinimumNumber")+"="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximumNumber")+"="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 					endParagraph();
 				} else {
-					addLine(name+" "+Language.tr("Statistics.Average")+": "+NumberTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
+					addLine(name+" "+Language.tr("Statistics.Average")+": "+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
 				}
 			}
 			if (!details) endParagraph();
@@ -1843,7 +1849,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 						}
 					}
 				}
-				addLine(Language.tr("Statistics.Throughput")+" "+name+": "+NumberTools.formatNumber(value,2)+" (1/"+unit+")",fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.QUOTIENT));
+				addLine(Language.tr("Statistics.Throughput")+" "+name+": "+StatisticTools.formatNumber(value,2)+" (1/"+unit+")",fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.QUOTIENT));
 			}
 			endParagraph();
 		}
@@ -1880,7 +1886,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				for (Map.Entry<String,Double> entry: stateStatistics.get().entrySet()) {
 					double value=entry.getValue();
 					double part=(sum==0)?1:value/sum;
-					addLine(String.format(Language.tr("Statistics.StateStatistics.Info"),entry.getKey(),TimeTools.formatLongTime(value),NumberTools.formatPercent(part)));
+					addLine(String.format(Language.tr("Statistics.StateStatistics.Info"),entry.getKey(),TimeTools.formatLongTime(value),StatisticTools.formatPercent(part)));
 				}
 				endParagraph();
 			}
@@ -1902,9 +1908,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addHeading(2,name);
 				final StatisticsTimeAnalogPerformanceIndicator analogStatistics=(StatisticsTimeAnalogPerformanceIndicator)statistics.analogStatistics.get(name);
 				beginParagraph();
-				addLine(Language.tr("Statistics.Average")+"="+NumberTools.formatNumber(analogStatistics.getMean()),xmlMean(analogStatistics));
-				addLine(Language.tr("Statistics.Minimum")+"="+NumberTools.formatNumber(analogStatistics.getMin()),fastAccessBuilder.getXMLSelector(analogStatistics,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.Maximum")+"="+NumberTools.formatNumber(analogStatistics.getMax()),fastAccessBuilder.getXMLSelector(analogStatistics,IndicatorMode.MAXIMUM));
+				addLine(Language.tr("Statistics.Average")+"="+StatisticTools.formatNumber(analogStatistics.getMean()),xmlMean(analogStatistics));
+				addLine(Language.tr("Statistics.Minimum")+"="+StatisticTools.formatNumber(analogStatistics.getMin()),fastAccessBuilder.getXMLSelector(analogStatistics,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.Maximum")+"="+StatisticTools.formatNumber(analogStatistics.getMax()),fastAccessBuilder.getXMLSelector(analogStatistics,IndicatorMode.MAXIMUM));
 				endParagraph();
 			}
 		}
@@ -1946,34 +1952,34 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			count+=c;
 
 			beginParagraph();
-			addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(w),fastAccessBuilder.getXMLSelector(wIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(t),fastAccessBuilder.getXMLSelector(tIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(p),fastAccessBuilder.getXMLSelector(pIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(w+t+p));
+			addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(w),fastAccessBuilder.getXMLSelector(wIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(t),fastAccessBuilder.getXMLSelector(tIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(p),fastAccessBuilder.getXMLSelector(pIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(w+t+p));
 			endParagraph();
 			if (count>0) {
 				beginParagraph();
-				addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(w/c));
-				addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(t/c));
-				addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(p/c));
-				addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong((w+t+p)/c));
+				addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(w/c));
+				addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(t/c));
+				addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(p/c));
+				addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong((w+t+p)/c));
 				endParagraph();
 			}
 		}
 
 		addHeading(3,Language.tr("Statistics.SumOverAllClientTypes"));
 		beginParagraph();
-		addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(waiting));
-		addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(transfer));
-		addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(process));
-		addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(waiting+transfer+process));
+		addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(waiting));
+		addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(transfer));
+		addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(process));
+		addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(waiting+transfer+process));
 		endParagraph();
 		if (count>0) {
 			beginParagraph();
-			addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(waiting/count));
-			addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(transfer/count));
-			addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(process/count));
-			addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong((waiting+transfer+process)/count));
+			addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(waiting/count));
+			addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(transfer/count));
+			addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(process/count));
+			addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong((waiting+transfer+process)/count));
 			endParagraph();
 		}
 
@@ -1992,13 +1998,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			final double s=indicator.getValue();
 			sum+=s;
 			beginParagraph();
-			addLine(Language.tr("Statistics.CostsAtStation")+" \""+name+"\": "+NumberTools.formatNumberLong(s)+" ("+Language.tr("Statistics.Part")+": "+NumberTools.formatPercent(s/station)+")",fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.CostsAtStation")+" \""+name+"\": "+StatisticTools.formatNumberLong(s)+" ("+Language.tr("Statistics.Part")+": "+StatisticTools.formatPercent(s/station)+")",fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.VALUE));
 			endParagraph();
 		}
 
 		addHeading(3,Language.tr("Statistics.SumOverAllStations"));
 		beginParagraph();
-		addLine(Language.tr("Statistics.Costs")+": "+NumberTools.formatNumberLong(sum));
+		addLine(Language.tr("Statistics.Costs")+": "+StatisticTools.formatNumberLong(sum));
 		endParagraph();
 
 		/* Ressourcen */
@@ -2022,20 +2028,20 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			idle+=i;
 
 			beginParagraph();
-			addLine(Language.tr("Statistics.CostsForResources.Available.Single")+": "+NumberTools.formatNumberLong(t),fastAccessBuilder.getXMLSelector(tIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.CostsForResources.Working.Single")+": "+NumberTools.formatNumberLong(w),fastAccessBuilder.getXMLSelector(wIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.CostsForResources.Idle.Single")+": "+NumberTools.formatNumberLong(i),fastAccessBuilder.getXMLSelector(iIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.Costs.Total")+": "+NumberTools.formatNumberLong(t+w+i));
+			addLine(Language.tr("Statistics.CostsForResources.Available.Single")+": "+StatisticTools.formatNumberLong(t),fastAccessBuilder.getXMLSelector(tIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.CostsForResources.Working.Single")+": "+StatisticTools.formatNumberLong(w),fastAccessBuilder.getXMLSelector(wIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.CostsForResources.Idle.Single")+": "+StatisticTools.formatNumberLong(i),fastAccessBuilder.getXMLSelector(iIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.Costs.Total")+": "+StatisticTools.formatNumberLong(t+w+i));
 			endParagraph();
 
 		}
 
 		addHeading(3,Language.tr("Statistics.SumOverAllResources"));
 		beginParagraph();
-		addLine(Language.tr("Statistics.CostsForResources.Available.All")+": "+NumberTools.formatNumberLong(time));
-		addLine(Language.tr("Statistics.CostsForResources.Working.All")+": "+NumberTools.formatNumberLong(work));
-		addLine(Language.tr("Statistics.CostsForResources.Idle.All")+": "+NumberTools.formatNumberLong(idle));
-		addLine(Language.tr("Statistics.Costs.Total")+": "+NumberTools.formatNumberLong(time+work+idle));
+		addLine(Language.tr("Statistics.CostsForResources.Available.All")+": "+StatisticTools.formatNumberLong(time));
+		addLine(Language.tr("Statistics.CostsForResources.Working.All")+": "+StatisticTools.formatNumberLong(work));
+		addLine(Language.tr("Statistics.CostsForResources.Idle.All")+": "+StatisticTools.formatNumberLong(idle));
+		addLine(Language.tr("Statistics.Costs.Total")+": "+StatisticTools.formatNumberLong(time+work+idle));
 		endParagraph();
 
 		/* Info */
@@ -2064,9 +2070,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			final int distance=indicator.getCorrelationLevelDistance(level);
 			maxDistance[i]=Math.max(maxDistance[i],distance);
 			if (distance>maxSize) {
-				addLine(String.format(Language.tr("Statistics.ResultsAutocorrelation.LineMoreThan"),NumberTools.formatPercent(level),NumberTools.formatLong(maxSize)));
+				addLine(String.format(Language.tr("Statistics.ResultsAutocorrelation.LineMoreThan"),StatisticTools.formatPercent(level),NumberTools.formatLong(maxSize)));
 			} else {
-				addLine(String.format(Language.tr("Statistics.ResultsAutocorrelation.Line"),NumberTools.formatPercent(level),NumberTools.formatLong(distance)));
+				addLine(String.format(Language.tr("Statistics.ResultsAutocorrelation.Line"),StatisticTools.formatPercent(level),NumberTools.formatLong(distance)));
 			}
 		}
 		endParagraph();
@@ -2142,9 +2148,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			for (int i=0;i<AUTOCORRELATION_LEVELS.length;i++) {
 				final double level=AUTOCORRELATION_LEVELS[i];
 				if (maxDistance[i]>maxSize) {
-					addLine(String.format(Language.tr("Statistics.ResultsAutocorrelation.LineMoreThan"),NumberTools.formatPercent(level),NumberTools.formatLong(maxSize)));
+					addLine(String.format(Language.tr("Statistics.ResultsAutocorrelation.LineMoreThan"),StatisticTools.formatPercent(level),NumberTools.formatLong(maxSize)));
 				} else {
-					addLine(String.format(Language.tr("Statistics.ResultsAutocorrelation.Line"),NumberTools.formatPercent(level),NumberTools.formatLong(maxDistance[i])));
+					addLine(String.format(Language.tr("Statistics.ResultsAutocorrelation.Line"),StatisticTools.formatPercent(level),NumberTools.formatLong(maxDistance[i])));
 				}
 			}
 			endParagraph();
@@ -2200,7 +2206,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.AverageUserTime")+": E[X]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
 				addLine(Language.tr("Statistics.StdDevUserTime")+": Std[X]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 				addLine(Language.tr("Statistics.VarianceUserTime")+": Var[X]="+timeAndNumber(indicator.getVar()));
-				addLine(Language.tr("Statistics.CVUserTime")+": CV[X]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.CVUserTime")+": CV[X]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
 				addLine(Language.tr("Statistics.MinimumUserTime")+": Min[X]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 				addLine(Language.tr("Statistics.MaximumUserTime")+": Max[X]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
@@ -2209,12 +2215,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 				outputConfidenceData(indicator);
 			} else {
-				addLine(Language.tr("Statistics.AverageUser")+": E[X]="+NumberTools.formatNumber(indicator.getMean()),xmlMean(indicator));
-				addLine(Language.tr("Statistics.StdDevUser")+": Std[X]="+NumberTools.formatNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-				addLine(Language.tr("Statistics.VarianceUser")+": Var[X]="+NumberTools.formatNumber(indicator.getVar()));
-				addLine(Language.tr("Statistics.CVUser")+": CV[X]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-				addLine(Language.tr("Statistics.MinimumUser")+": Min[X]="+NumberTools.formatNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.MaximumUser")+": Max[X]="+NumberTools.formatNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+				addLine(Language.tr("Statistics.AverageUser")+": E[X]="+StatisticTools.formatNumber(indicator.getMean()),xmlMean(indicator));
+				addLine(Language.tr("Statistics.StdDevUser")+": Std[X]="+StatisticTools.formatNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+				addLine(Language.tr("Statistics.VarianceUser")+": Var[X]="+StatisticTools.formatNumber(indicator.getVar()));
+				addLine(Language.tr("Statistics.CVUser")+": CV[X]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.MinimumUser")+": Min[X]="+StatisticTools.formatNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.MaximumUser")+": Max[X]="+StatisticTools.formatNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
 
 				outputQuantilInfoNumber("X",indicator);
@@ -2237,12 +2243,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addHeading(2,field);
 			beginParagraph();
 			addLine(Language.tr("Statistics.Number")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo);
-			addLine(Language.tr("Statistics.ClientData.Field.Average")+": E["+field+"]="+NumberTools.formatNumber(indicator.getMean()),xmlMean(indicator));
-			addLine(Language.tr("Statistics.ClientData.Field.StdDev")+": Std["+field+"]="+NumberTools.formatNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-			addLine(Language.tr("Statistics.ClientData.Field.Variance")+": Var["+field+"]="+NumberTools.formatNumber(indicator.getVar()));
-			addLine(Language.tr("Statistics.ClientData.Field.CV")+": CV["+field+"]="+NumberTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-			addLine(Language.tr("Statistics.ClientData.Field.Minimum")+": Min["+field+"]="+NumberTools.formatNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-			addLine(Language.tr("Statistics.ClientData.Field.Maximum")+": Max["+field+"]="+NumberTools.formatNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			addLine(Language.tr("Statistics.ClientData.Field.Average")+": E["+field+"]="+StatisticTools.formatNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.ClientData.Field.StdDev")+": Std["+field+"]="+StatisticTools.formatNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.ClientData.Field.Variance")+": Var["+field+"]="+StatisticTools.formatNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.ClientData.Field.CV")+": CV["+field+"]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.ClientData.Field.Minimum")+": Min["+field+"]="+StatisticTools.formatNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.ClientData.Field.Maximum")+": Max["+field+"]="+StatisticTools.formatNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 			endParagraph();
 
 			outputQuantilInfoNumber(field,indicator);

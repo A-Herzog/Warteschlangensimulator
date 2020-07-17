@@ -135,7 +135,7 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 			final String[] line=new String[3];
 			line[0]=name;
 			line[1]=NumberTools.formatLongNoGrouping(count);
-			line[2]=NumberTools.formatPercent(((double)count)/sum);
+			line[2]=StatisticTools.formatPercent(((double)count)/sum);
 			return line;
 		}
 	}
@@ -195,14 +195,14 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		final Table table=new Table();
 		final List<String> row=new ArrayList<>();
 		row.add(NumberTools.formatLong(indicator.getCount()));
-		row.add(NumberTools.formatNumber(indicator.getMean()));
-		row.add(NumberTools.formatNumber(indicator.getSD()));
-		row.add(NumberTools.formatNumber(indicator.getVar()));
-		row.add(NumberTools.formatNumber(indicator.getCV()));
-		row.add(NumberTools.formatNumber(indicator.getMin()));
-		row.add(NumberTools.formatNumber(indicator.getMax()));
+		row.add(StatisticTools.formatNumber(indicator.getMean()));
+		row.add(StatisticTools.formatNumber(indicator.getSD()));
+		row.add(StatisticTools.formatNumber(indicator.getVar()));
+		row.add(StatisticTools.formatNumber(indicator.getCV()));
+		row.add(StatisticTools.formatNumber(indicator.getMin()));
+		row.add(StatisticTools.formatNumber(indicator.getMax()));
 		if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			row.add(NumberTools.formatNumber(indicator.getQuantil(p)));
+			row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
 		}
 		table.addLine(row);
 		return table;
@@ -226,7 +226,7 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 				final List<String> row=new ArrayList<>();
 				row.add(NumberTools.formatLongNoGrouping(i));
 				row.add(NumberTools.formatLongNoGrouping(Math.round(density[i])));
-				row.add(NumberTools.formatPercent(density[i]/count));
+				row.add(StatisticTools.formatPercent(density[i]/count));
 				table.addLine(row);
 			}
 		}
@@ -243,7 +243,7 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		columns.add("Min");
 		columns.add("Max");
 		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			columns.add(NumberTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
+			columns.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
 		}
 
 		return columns.toArray(new String[0]);

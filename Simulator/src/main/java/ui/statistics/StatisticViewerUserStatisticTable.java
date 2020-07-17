@@ -100,7 +100,7 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		cols.add(Language.tr("Statistics.Minimum"));
 		cols.add(Language.tr("Statistics.Maximum"));
 		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			cols.add(NumberTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
+			cols.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
 		}
 
 		final Table table=new Table();
@@ -113,21 +113,21 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 				row.add(TimeTools.formatExactTime(indicator.getMean()));
 				row.add(TimeTools.formatExactTime(indicator.getSD()));
 				row.add(TimeTools.formatExactTime(indicator.getVar()));
-				row.add(NumberTools.formatNumber(indicator.getCV()));
+				row.add(StatisticTools.formatNumber(indicator.getCV()));
 				row.add(TimeTools.formatExactTime(indicator.getMin()));
 				row.add(TimeTools.formatExactTime(indicator.getMax()));
 				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-					row.add(NumberTools.formatNumber(indicator.getQuantil(p)));
+					row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
 				}
 			} else {
-				row.add(NumberTools.formatNumber(indicator.getMean()));
-				row.add(NumberTools.formatNumber(indicator.getSD()));
-				row.add(NumberTools.formatNumber(indicator.getVar()));
-				row.add(NumberTools.formatNumber(indicator.getCV()));
-				row.add(NumberTools.formatNumber(indicator.getMin()));
-				row.add(NumberTools.formatNumber(indicator.getMax()));
+				row.add(StatisticTools.formatNumber(indicator.getMean()));
+				row.add(StatisticTools.formatNumber(indicator.getSD()));
+				row.add(StatisticTools.formatNumber(indicator.getVar()));
+				row.add(StatisticTools.formatNumber(indicator.getCV()));
+				row.add(StatisticTools.formatNumber(indicator.getMin()));
+				row.add(StatisticTools.formatNumber(indicator.getMax()));
 				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-					row.add(NumberTools.formatNumber(indicator.getQuantil(p)));
+					row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
 				}
 			}
 			table.addLine(row);
@@ -162,8 +162,8 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 			line.add(NumberTools.formatLong(i));
 			for (int j=0;j<dists.size();j++) {
 				double value=dists.get(j).densityData[i];
-				line.add(NumberTools.formatNumber(value));
-				line.add(NumberTools.formatPercent(value/sum.get(j),3));
+				line.add(StatisticTools.formatNumber(value));
+				line.add(StatisticTools.formatPercent(value/sum.get(j),3));
 			}
 			table.addLine(line);
 		}

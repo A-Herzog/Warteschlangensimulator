@@ -7192,6 +7192,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[16555] = "Mathematik-Beispiele";
     t[16556] = "SettingsDialog.Tabs.ProgramStart.EdgeAddAdvice";
     t[16557] = "Hinweis zum Hinzuf\u00fcgen von Verbindungskanten anzeigen";
+    t[16558] = "SettingsDialog.Tabs.Statistics.PercentDigits";
+    t[16559] = "Nachkommastellen f\u00fcr Prozentwerte";
     t[16560] = "CommandLine.ParameterCompareVariance.NumberOfModelsError";
     t[16561] = "Die angegebene Anzahl an Wiederholungen \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[16562] = "Surface.AnalogValue.Dialog.MinimumValue";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18437] = "In der Vorlagenliste sichtbare Kategorien ausw\u00e4hlen";
     t[18438] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.AverageTime";
     t[18439] = "<p>Liefert die mittlere Dauer \u00fcber alle Transferzeiten aller Kunden.</p>";
-    t[18440] = "Surface.SectionEnd.XML.Root";
-    t[18441] = "ModellElementBereichEnde";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18440] = "Surface.SectionEnd.XML.Root";
+    t[18441] = "ModellElementBereichEnde";
     t[18442] = "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName";
     t[18443] = "%s \"%s\" (id=%d)";
     t[18450] = "ScriptPopup.Simulation.getWIP";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23033] = "Kundendaten (Text)";
     t[23034] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression.ErrorInfo";
     t[23035] = "Der angegebene Ausdruck \"%s\" f\u00fcr die Zuweisung an das Analogwert-Element ist ab Zeichen %d ung\u00fcltig.";
-    t[23036] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvgAll";
-    t[23037] = "Mittlere Wartezeitkosten (alle Kundentypen)";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23036] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvgAll";
+    t[23037] = "Mittlere Wartezeitkosten (alle Kundentypen)";
     t[23040] = "Surface.Process.XML.Operators.Count";
     t[23041] = "Anzahl";
     t[23044] = "Surface.LogicEndIf.Infotext";
@@ -10762,6 +10764,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24731] = "ModellElementBalkenFarbe";
     t[24734] = "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNumberRangeInfo";
     t[24735] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Chi<sup>2</sup>-Verteilung mit der Anzahl an Freiheitsgraden gem\u00e4\u00df dritten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
+    t[24736] = "SettingsDialog.Tabs.Statistics.NumberDigits";
+    t[24737] = "Nachkommastellen f\u00fcr Zahlenwerte";
     t[24738] = "Surface.MultiSourceTable.ColumnData";
     t[24739] = "Konfiguration";
     t[24748] = "Surface.XML.Schedule.RepeatSchedule.RepeatDays";
@@ -12010,12 +12014,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27565] = "Maximaler Durchfluss f\u00fcr Tank id=%d, Ventil %d";
     t[27572] = "Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5";
     t[27573] = "Aenderungsrate5";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27574] = "ModelDescription.TransportTimeRecord.TimeClientType";
     t[27575] = "Transportzeit f\u00fcr Kundentyp \"%s\"";
     t[27578] = "Surface.AnimationRecord.XML.Root";
     t[27579] = "ModellElementAnimationAufzeichnung";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27580] = "Surface.XML.ModelAuthor";
     t[27581] = "ModellAutor";
     t[27582] = "ExpressionBuilder.TrigonometricFunctions.Tangens";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32321] = "Batch-Gr\u00f6\u00dfe ung\u00fcltig";
     t[32324] = "Editor.Dialog.Sequences.Copy.NewName.ErrorTitle";
     t[32325] = "Ung\u00fcltiger Name f\u00fcr Kopie";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32326] = "Simulation.Creator.AnalogNoValves";
     t[32327] = "An Element id=%d wurden keine Ventile definiert.";
     t[32328] = "ParameterCompare.Settings.Output.Name.ErrorTitle";
     t[32329] = "Name des Ausgabewertes fehlt";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32330] = "Main.Menu.File.Load.Mnemonic";
     t[32331] = "L";
     t[32332] = "SettingsDialog.Tabs.DefaultFormats.CRYPT";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36915] = "Die angegebene obere Grenze f\u00fcr den Bereich ist ung\u00fcltig. Die obere Grenze muss oberhalb der unteren Grenze liegen.";
     t[36918] = "Surface.DDE.Column";
     t[36919] = "Tabellenspalte";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36920] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Minutes";
     t[36921] = "Minuten";
     t[36922] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Signal.ErrorTitle";
     t[36923] = "Kein Signal gew\u00e4hlt";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[36924] = "ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus";
     t[36925] = "Cotangens hyperbolicus";
     t[36930] = "Optimizer.XML.ControlVariables";

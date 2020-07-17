@@ -172,7 +172,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		columns.add("Min"+info);
 		columns.add("Max"+info);
 		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			columns.add(NumberTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil")+info);
+			columns.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil")+info);
 		}
 
 		return columns.toArray(new String[0]);
@@ -183,14 +183,14 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 
 		if (col1!=null) line.add(col1);
 		line.add(NumberTools.formatLongNoGrouping(data.getCount()));
-		line.add(NumberTools.formatNumber(data.getMean()));
-		line.add(NumberTools.formatNumber(data.getSD()));
-		line.add(NumberTools.formatNumber(data.getVar()));
-		line.add(NumberTools.formatNumber(data.getCV()));
-		line.add(NumberTools.formatNumber(data.getMin()));
-		line.add(NumberTools.formatNumber(data.getMax()));
+		line.add(StatisticTools.formatNumber(data.getMean()));
+		line.add(StatisticTools.formatNumber(data.getSD()));
+		line.add(StatisticTools.formatNumber(data.getVar()));
+		line.add(StatisticTools.formatNumber(data.getCV()));
+		line.add(StatisticTools.formatNumber(data.getMin()));
+		line.add(StatisticTools.formatNumber(data.getMax()));
 		if (SetupData.getSetup().showQuantils && data.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			line.add(NumberTools.formatNumber(data.getQuantil(p)));
+			line.add(StatisticTools.formatNumber(data.getQuantil(p)));
 		}
 
 		return line.toArray(new String[0]);
@@ -201,14 +201,14 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 
 		if (col1!=null) line.add(col1);
 		line.add(NumberTools.formatLongNoGrouping(data.getCount()));
-		line.add(NumberTools.formatNumber(data.getMean()));
-		line.add(NumberTools.formatNumber(data.getSD()));
-		line.add(NumberTools.formatNumber(data.getVar()));
-		line.add(NumberTools.formatNumber(data.getCV()));
-		line.add(NumberTools.formatNumber(data.getMin()));
-		line.add(NumberTools.formatNumber(data.getMax()));
+		line.add(StatisticTools.formatNumber(data.getMean()));
+		line.add(StatisticTools.formatNumber(data.getSD()));
+		line.add(StatisticTools.formatNumber(data.getVar()));
+		line.add(StatisticTools.formatNumber(data.getCV()));
+		line.add(StatisticTools.formatNumber(data.getMin()));
+		line.add(StatisticTools.formatNumber(data.getMax()));
 		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicatorWithNegativeValues.storeQuantilValues) {
-			line.add(NumberTools.formatNumber(data.getQuantil(p)));
+			line.add(StatisticTools.formatNumber(data.getQuantil(p)));
 		}
 
 		return line.toArray(new String[0]);
@@ -218,14 +218,14 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		final List<String> line=new ArrayList<>();
 
 		if (col1!=null) line.add(col1);
-		line.add(NumberTools.formatNumber(data.getTimeMean()));
-		line.add(NumberTools.formatNumber(data.getTimeSD()));
-		line.add(NumberTools.formatNumber(data.getTimeVar()));
-		line.add(NumberTools.formatNumber(data.getTimeCV()));
-		line.add(NumberTools.formatNumber(data.getTimeMin()));
-		line.add(NumberTools.formatNumber(data.getTimeMax()));
+		line.add(StatisticTools.formatNumber(data.getTimeMean()));
+		line.add(StatisticTools.formatNumber(data.getTimeSD()));
+		line.add(StatisticTools.formatNumber(data.getTimeVar()));
+		line.add(StatisticTools.formatNumber(data.getTimeCV()));
+		line.add(StatisticTools.formatNumber(data.getTimeMin()));
+		line.add(StatisticTools.formatNumber(data.getTimeMax()));
 		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			line.add(NumberTools.formatNumber(data.getQuantil(p)));
+			line.add(StatisticTools.formatNumber(data.getQuantil(p)));
 		}
 
 		return line.toArray(new String[0]);
@@ -295,8 +295,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line.add(NumberTools.formatLongNoGrouping(i));
 			for (int j=0;j<dists.size();j++) {
 				double value=dists.get(j).densityData[i];
-				line.add(NumberTools.formatNumber(value));
-				line.add(NumberTools.formatPercent(value/sum.get(j),3));
+				line.add(StatisticTools.formatNumber(value));
+				line.add(StatisticTools.formatPercent(value/sum.get(j),3));
 			}
 			table.addLine(line);
 		}
@@ -344,7 +344,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line=new ArrayList<>();
 			final double[] data=system.getReadOnlyDistribution().densityData;
 			final double sum=system.getReadOnlyDistribution().sum();
-			for (int i=0;i<=max;i++) line.add(NumberTools.formatPercent((i>=data.length || sum==0)?0.0:data[i]/sum,3));
+			for (int i=0;i<=max;i++) line.add(StatisticTools.formatPercent((i>=data.length || sum==0)?0.0:data[i]/sum,3));
 			table.addLine(line);
 		}
 		for (String name : indicators.getNames()) {
@@ -353,7 +353,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line=new ArrayList<>();
 			final double[] data=indicator.getReadOnlyDistribution().densityData;
 			final double sum=indicator.getReadOnlyDistribution().sum();
-			for (int i=0;i<=max;i++) line.add(NumberTools.formatPercent((i>=data.length || sum==0)?0.0:data[i]/sum,3));
+			for (int i=0;i<=max;i++) line.add(StatisticTools.formatPercent((i>=data.length || sum==0)?0.0:data[i]/sum,3));
 			table.addLine(line);
 		}
 
@@ -375,7 +375,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.get(station));
 			long count=indicator.getCount();
 			String part="";
-			if (arrivalSum>0) part=NumberTools.formatPercent(((double)count)/arrivalSum);
+			if (arrivalSum>0) part=StatisticTools.formatPercent(((double)count)/arrivalSum);
 			if (count>0) table.addLine(new String[]{
 					fullStationName(station),
 					NumberTools.formatLongNoGrouping(count),
@@ -406,10 +406,10 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 					final StatisticsTimePerformanceIndicator countIndicator=(StatisticsTimePerformanceIndicator)(statistics.resourceCount.getOrNull(resource));
 					if (countIndicator==null || countIndicator.getTimeMean()<0.00001) {
 						line.add(""+count);
-						line.add(NumberTools.formatPercent(indicator.getTimeMean()/count));
+						line.add(StatisticTools.formatPercent(indicator.getTimeMean()/count));
 					} else {
-						line.add(NumberTools.formatNumber(countIndicator.getTimeMean()));
-						line.add(NumberTools.formatPercent(indicator.getTimeMean()/countIndicator.getTimeMean()));
+						line.add(StatisticTools.formatNumber(countIndicator.getTimeMean()));
+						line.add(StatisticTools.formatPercent(indicator.getTimeMean()/countIndicator.getTimeMean()));
 					}
 				} else {
 					line.add(Language.tr("Statistics.infinite"));
@@ -424,15 +424,15 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 					line.add("-");
 				}
 			}
-			line.add(NumberTools.formatNumber(indicator.getTimeMean()));
-			line.add(NumberTools.formatNumber(indicator.getTimeSD()));
-			line.add(NumberTools.formatNumber(indicator.getTimeVar()));
-			line.add(NumberTools.formatNumber(indicator.getTimeCV()));
-			line.add(NumberTools.formatNumber(indicator.getTimeMin()));
-			line.add(NumberTools.formatNumber(indicator.getTimeMax()));
-			line.add(NumberTools.formatPercent(indicator.getTimePartForState(0)));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMean()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeSD()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeVar()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMin()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMax()));
+			line.add(StatisticTools.formatPercent(indicator.getTimePartForState(0)));
 			if (count>0) {
-				line.add(NumberTools.formatPercent(indicator.getTimePartForState(count)));
+				line.add(StatisticTools.formatPercent(indicator.getTimePartForState(count)));
 			} else {
 				line.add("-");
 			}
@@ -469,7 +469,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			if (resourceObj!=null && resourceObj.getMode()==ModelResource.Mode.MODE_NUMBER) {
 				final int count=resourceObj.getCount();
 				line.add((count>0)?(""+count):Language.tr("Statistics.infinite"));
-				line.add((count>0)?NumberTools.formatPercent(indicator.getTimeMean()/count):"-");
+				line.add((count>0)?StatisticTools.formatPercent(indicator.getTimeMean()/count):"-");
 			} else {
 				if (resourceObj!=null && resourceObj.getMode()==ModelResource.Mode.MODE_SCHEDULE) {
 					line.add(Language.tr("Statistics.Schedule")+": "+resourceObj.getSchedule());
@@ -479,12 +479,12 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 					line.add("-");
 				}
 			}
-			line.add(NumberTools.formatNumber(indicator.getTimeMean()));
-			line.add(NumberTools.formatNumber(indicator.getTimeSD()));
-			line.add(NumberTools.formatNumber(indicator.getTimeVar()));
-			line.add(NumberTools.formatNumber(indicator.getTimeCV()));
-			line.add(NumberTools.formatNumber(indicator.getTimeMin()));
-			line.add(NumberTools.formatNumber(indicator.getTimeMax()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMean()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeSD()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeVar()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMin()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMax()));
 			table.addLine(line);
 		}
 		setData(table,new String[]{
@@ -517,20 +517,20 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			if (transporterObj!=null) {
 				count=transporterObj.getCountAll();
 				line.add(""+count);
-				line.add(NumberTools.formatPercent(indicator.getTimeMean()/count));
+				line.add(StatisticTools.formatPercent(indicator.getTimeMean()/count));
 			} else {
 				line.add("-");
 				line.add("-");
 			}
-			line.add(NumberTools.formatNumber(indicator.getTimeMean()));
-			line.add(NumberTools.formatNumber(indicator.getTimeSD()));
-			line.add(NumberTools.formatNumber(indicator.getTimeVar()));
-			line.add(NumberTools.formatNumber(indicator.getTimeCV()));
-			line.add(NumberTools.formatNumber(indicator.getTimeMin()));
-			line.add(NumberTools.formatNumber(indicator.getTimeMax()));
-			line.add(NumberTools.formatPercent(indicator.getTimePartForState(0)));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMean()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeSD()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeVar()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMin()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMax()));
+			line.add(StatisticTools.formatPercent(indicator.getTimePartForState(0)));
 			if (count>0) {
-				line.add(NumberTools.formatPercent(indicator.getTimePartForState(count)));
+				line.add(StatisticTools.formatPercent(indicator.getTimePartForState(count)));
 			} else {
 				line.add("-");
 			}
@@ -567,17 +567,17 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			if (transporterObj!=null) {
 				final int count=transporterObj.getCountAll();
 				line.add((count>0)?(""+count):Language.tr("Statistics.infinite"));
-				line.add((count>0)?NumberTools.formatPercent(indicator.getTimeMean()/count):"-");
+				line.add((count>0)?StatisticTools.formatPercent(indicator.getTimeMean()/count):"-");
 			} else {
 				line.add("-");
 				line.add("-");
 			}
-			line.add(NumberTools.formatNumber(indicator.getTimeMean()));
-			line.add(NumberTools.formatNumber(indicator.getTimeSD()));
-			line.add(NumberTools.formatNumber(indicator.getTimeVar()));
-			line.add(NumberTools.formatNumber(indicator.getTimeCV()));
-			line.add(NumberTools.formatNumber(indicator.getTimeMin()));
-			line.add(NumberTools.formatNumber(indicator.getTimeMax()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMean()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeSD()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeVar()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeCV()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMin()));
+			line.add(StatisticTools.formatNumber(indicator.getTimeMax()));
 			table.addLine(line);
 		}
 		setData(table,new String[]{
@@ -632,8 +632,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			line.add(NumberTools.formatLongNoGrouping(i));
 			for (int j=0;j<dists.size();j++) {
 				double value=dists.get(j).densityData[i];
-				line.add(NumberTools.formatNumber(value));
-				line.add(NumberTools.formatPercent(value/sum.get(j),3));
+				line.add(StatisticTools.formatNumber(value));
+				line.add(StatisticTools.formatPercent(value/sum.get(j),3));
 			}
 			table.addLine(line);
 		}
@@ -686,7 +686,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			final double[] values=indicator.getValuesReadOnly();
 			final int count=Math.min(Math.min(indicator.getCount(),values.length),Table.MAX_EXCEL_ROW_COUNT-1);
 			for (int i=0;i<count;i++) {
-				if (i==Table.MAX_EXCEL_ROW_COUNT-2) row[i]="+ weitere"; else row[i]=NumberTools.formatNumber(values[i]);
+				if (i==Table.MAX_EXCEL_ROW_COUNT-2) row[i]="+ weitere"; else row[i]=StatisticTools.formatNumber(values[i]);
 			}
 			for (int i=count;i<max;i++) row[i]="";
 			table.addLine(row);

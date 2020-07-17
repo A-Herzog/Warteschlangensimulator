@@ -34,7 +34,7 @@ import parser.MathCalcError;
  * Enthält einige statische Routinen zur Umwandlung von Zeichenketten in Zahlen
  * und umgekehrt.
  * @author Alexander Herzog
- * @version 2.5
+ * @version 2.6
  */
 public final class NumberTools {
 	private static final String nullString="0";
@@ -313,6 +313,44 @@ public final class NumberTools {
 		}
 		if (minus) s="-"+s;
 		return s;
+	}
+
+	/**
+	 * Wandelt eine Fließkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
+	 * und fügt in den Ergebnisstring dabei 1000er-Punkte ein.
+	 * @param d	Umzuwandelnde Zahl
+	 * @param n Anzahl an Nachkommastellen
+	 * @return	Zahl als Zeichenkette
+	 */
+	public static String formatNumberLong(double d, double n) {
+		if (Math.abs(d)<10E-16) return nullString;
+
+		if (d%1==0.0) {
+			if (d>=0) {
+				if (d<=1_000_000_000) return formatLong(Math.round(d));
+			} else {
+				if (d>-1_000_000_000) return formatLong(Math.round(d));
+			}
+		}
+
+		boolean minus=false;
+		if (d<0) {minus=true; d=-d;}
+		if (Math.abs(Math.floor(d)-d)<10E-16 && d<2_000_000_000) {
+			return formatLong(Math.round(Math.floor(d)*(minus?-1:1)));
+		} else {
+			final long l=Math.round(d*10);
+			if (l==0) return nullString;
+			if (l%10==0) return formatLong((l/10)*(minus?-1:1));
+			if (l/10==0) return (minus?"-0":"0")+activeSeparator+((char)(((byte)'0')+l%10));
+			return formatLong((l/10)*(minus?-1:1))+activeSeparator+((char)(((byte)'0')+l%10));
+
+			/*
+			langsamer und speicherintensiver:
+			s=String.format(ActiveLocale,formatFloat1Digit,d);
+			while (((s.contains(separator1)) || (s.contains(separator2))) && (s.endsWith(nullString))) {s=s.substring(0,s.length()-1);}
+			if ((s.endsWith(separator2)) || (s.endsWith(separator1))) s=s.substring(0,s.length()-1);
+			 */
+		}
 	}
 
 	/**

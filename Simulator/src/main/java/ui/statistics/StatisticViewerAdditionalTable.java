@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import language.Language;
-import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
 import simulator.statistics.Statistics;
@@ -78,7 +77,7 @@ public class StatisticViewerAdditionalTable extends StatisticViewerTable {
 		final int stepCount=getStepCount();
 		for (int i=0;i<stepCount;i++) {
 			line[0]=getTimeSlotString(i);
-			for (int j=0;j<names.length;j++) line[j+1]=NumberTools.formatNumber(data[j].getValue(i));
+			for (int j=0;j<names.length;j++) line[j+1]=StatisticTools.formatNumber(data[j].getValue(i));
 			table.addLine(line);
 		}
 

@@ -127,6 +127,8 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox showQuantils;
 	private final JCheckBox showErlangC;
 	private final JCheckBox expandAllStatistics;
+	private final SpinnerModel statisticsNumberDigits;
+	private final SpinnerModel statisticsPercentDigits;
 	private final JCheckBox openWord;
 	private final JCheckBox openODT;
 	private final JCheckBox openExcel;
@@ -528,6 +530,24 @@ public final class SetupDialog extends BaseDialog {
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(expandAllStatistics=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ExpandAllStatistics")));
 
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.Statistics.NumberDigits")+":"));
+		final JSpinner statisticsNumberDigitsSpinner=new JSpinner(statisticsNumberDigits=new SpinnerNumberModel(1,1,9,1));
+		final JSpinner.NumberEditor statisticsNumberDigitsEditor=new JSpinner.NumberEditor(statisticsNumberDigitsSpinner);
+		statisticsNumberDigitsEditor.getFormat().setGroupingUsed(false);
+		serverPortSpinner.setEditor(statisticsNumberDigitsEditor);
+		p.add(statisticsNumberDigitsSpinner);
+		label.setLabelFor(statisticsNumberDigitsSpinner);
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.Statistics.PercentDigits")+":"));
+		final JSpinner statisticsNumberPercentSpinner=new JSpinner(statisticsPercentDigits=new SpinnerNumberModel(1,1,9,1));
+		final JSpinner.NumberEditor statisticsPercentDigitsEditor=new JSpinner.NumberEditor(statisticsNumberPercentSpinner);
+		statisticsPercentDigitsEditor.getFormat().setGroupingUsed(false);
+		serverPortSpinner.setEditor(statisticsPercentDigitsEditor);
+		p.add(statisticsNumberPercentSpinner);
+		label.setLabelFor(statisticsNumberPercentSpinner);
+
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.Statistics.OpenExternal")+"</b></body></html>"));
@@ -859,6 +879,8 @@ public final class SetupDialog extends BaseDialog {
 		showQuantils.setSelected(setup.showQuantils);
 		showErlangC.setSelected(setup.showErlangC);
 		expandAllStatistics.setSelected(setup.expandAllStatistics);
+		statisticsNumberDigits.setValue(setup.statisticsNumberDigits);
+		statisticsPercentDigits.setValue(setup.statisticsPercentDigits);
 		openWord.setSelected(setup.openWord);
 		openODT.setSelected(setup.openODT);
 		openExcel.setSelected(setup.openExcel);
@@ -1067,6 +1089,8 @@ public final class SetupDialog extends BaseDialog {
 		setup.showQuantils=showQuantils.isSelected();
 		setup.showErlangC=showErlangC.isSelected();
 		setup.expandAllStatistics=expandAllStatistics.isSelected();
+		setup.statisticsNumberDigits=((Integer)statisticsNumberDigits.getValue()).intValue();
+		setup.statisticsPercentDigits=((Integer)statisticsPercentDigits.getValue()).intValue();
 		setup.openWord=openWord.isSelected();
 		setup.openODT=openODT.isSelected();
 		setup.openExcel=openExcel.isSelected();
@@ -1231,6 +1255,8 @@ public final class SetupDialog extends BaseDialog {
 			showQuantils.setSelected(true);
 			showErlangC.setSelected(true);
 			expandAllStatistics.setSelected(false);
+			statisticsNumberDigits.setValue(1);
+			statisticsPercentDigits.setValue(1);
 			openWord.setSelected(true);
 			openODT.setSelected(false);
 			openExcel.setSelected(true);

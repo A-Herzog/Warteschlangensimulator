@@ -111,7 +111,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			long sum=Math.max(1,subs.values().stream().mapToLong(Long::longValue).sum());
 			for (Map.Entry<String,Long> sub: subs.entrySet()) {
 				final long value=sub.getValue();
-				addLine(String.format("-> %s (%s, %s)",sub.getKey(),NumberTools.formatLong(value),NumberTools.formatPercent(((double)value)/sum)));
+				addLine(String.format("-> %s (%s, %s)",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercent(((double)value)/sum)));
 			}
 			endParagraph();
 		}
@@ -136,7 +136,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			long sum=Math.max(1,subs.values().stream().mapToLong(Long::longValue).sum());
 			for (Map.Entry<String,Long> sub: subs.entrySet()) {
 				final long value=sub.getValue();
-				addLine(String.format("%s (%s, %s) ->",sub.getKey(),NumberTools.formatLong(value),NumberTools.formatPercent(((double)value)/sum)));
+				addLine(String.format("%s (%s, %s) ->",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercent(((double)value)/sum)));
 			}
 			endParagraph();
 		}
@@ -180,12 +180,12 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 
 		beginParagraph();
 		addLine(Language.tr("Statistics.CountPathLength")+": "+NumberTools.formatLong(indicator.getCount()));
-		addLine(Language.tr("Statistics.AveragePathLength")+": E="+NumberTools.formatNumber(indicator.getMean()));
-		addLine(Language.tr("Statistics.StdDevPathLength")+": Std="+NumberTools.formatNumber(indicator.getSD()));
-		addLine(Language.tr("Statistics.VariancePathLength")+": Var="+NumberTools.formatNumber(indicator.getVar()));
-		addLine(Language.tr("Statistics.CVInterPathLength")+": CV="+NumberTools.formatNumber(indicator.getCV()));
-		addLine(Language.tr("Statistics.MinimalPathLength")+": Min="+NumberTools.formatNumber(indicator.getMin()));
-		addLine(Language.tr("Statistics.MaximalPathLength")+": Max="+NumberTools.formatNumber(indicator.getMax()));
+		addLine(Language.tr("Statistics.AveragePathLength")+": E="+StatisticTools.formatNumber(indicator.getMean()));
+		addLine(Language.tr("Statistics.StdDevPathLength")+": Std="+StatisticTools.formatNumber(indicator.getSD()));
+		addLine(Language.tr("Statistics.VariancePathLength")+": Var="+StatisticTools.formatNumber(indicator.getVar()));
+		addLine(Language.tr("Statistics.CVInterPathLength")+": CV="+StatisticTools.formatNumber(indicator.getCV()));
+		addLine(Language.tr("Statistics.MinimalPathLength")+": Min="+StatisticTools.formatNumber(indicator.getMin()));
+		addLine(Language.tr("Statistics.MaximalPathLength")+": Max="+StatisticTools.formatNumber(indicator.getMax()));
 		endParagraph();
 
 		if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {
@@ -193,16 +193,16 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			beginParagraph();
 			boolean hitMax=false;
 			for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-				final String name=Language.tr("Statistics.Quantil")+"["+NumberTools.formatPercent(p)+"]=";
+				final String name=Language.tr("Statistics.Quantil")+"["+StatisticTools.formatPercent(p)+"]=";
 				final double value=indicator.getQuantil(p);
 				if (value>=upperBound) hitMax=true;
-				addLine(name+NumberTools.formatNumber(value));
+				addLine(name+StatisticTools.formatNumber(value));
 			}
 			endParagraph();
 
 			if (hitMax) {
 				beginParagraph();
-				addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),NumberTools.formatNumber(upperBound)));
+				addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 				endParagraph();
 			}
 		}

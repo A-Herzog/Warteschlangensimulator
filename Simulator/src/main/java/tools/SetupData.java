@@ -727,6 +727,17 @@ public class SetupData extends SetupBase {
 	 */
 	public boolean showMemoryUsage;
 
+
+	/**
+	 * Anzahl an in der Statistikansicht anzuzeigende Nachkommastellen für normale Zahlen
+	 */
+	public int statisticsNumberDigits;
+
+	/**
+	 * Anzahl an in der Statistikansicht anzuzeigende Nachkommastellen für Prozentangaben
+	 */
+	public int statisticsPercentDigits;
+
 	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
@@ -848,6 +859,8 @@ public class SetupData extends SetupBase {
 		openODS=false;
 		showRulers=false;
 		showMemoryUsage=false;
+		statisticsNumberDigits=1;
+		statisticsPercentDigits=1;
 		lastError=null;
 	}
 
@@ -1467,6 +1480,15 @@ public class SetupData extends SetupBase {
 				showMemoryUsage=loadBoolean(e.getTextContent(),false);
 				continue;
 			}
+
+			if (name.equals("digits")) {
+				Long L;
+				L=NumberTools.getPositiveLong(e.getAttribute("numbers"));
+				if (L!=null) statisticsNumberDigits=Math.min(9,L.intValue());
+				L=NumberTools.getPositiveLong(e.getAttribute("percent"));
+				if (L!=null) statisticsPercentDigits=Math.min(9,L.intValue());
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -1927,6 +1949,12 @@ public class SetupData extends SetupBase {
 		if (showMemoryUsage) {
 			root.appendChild(node=doc.createElement("ShowMemory"));
 			node.setTextContent("1");
+		}
+
+		if (statisticsNumberDigits!=1 || statisticsPercentDigits!=1) {
+			root.appendChild(node=doc.createElement("Digits"));
+			node.setAttribute("Numbers",""+statisticsNumberDigits);
+			node.setAttribute("Percent",""+statisticsPercentDigits);
 		}
 	}
 

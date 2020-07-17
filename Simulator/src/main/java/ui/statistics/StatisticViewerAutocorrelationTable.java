@@ -125,7 +125,7 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 			table.addLine(col);
 		}
 
-		final List<String> cols=new ArrayList<>(Arrays.stream(StatisticViewerOverviewText.AUTOCORRELATION_LEVELS).mapToObj(d->NumberTools.formatPercent(d)).collect(Collectors.toList()));
+		final List<String> cols=new ArrayList<>(Arrays.stream(StatisticViewerOverviewText.AUTOCORRELATION_LEVELS).mapToObj(d->StatisticTools.formatPercent(d)).collect(Collectors.toList()));
 		cols.add(0,"");
 
 		setData(table,cols);
@@ -138,7 +138,7 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 		if (!indicator.isCorrelationAvailable()) return;
 
 		cols.add(name);
-		table.addLine(Arrays.stream(indicator.getCorrelationData()).mapToObj(d->NumberTools.formatPercent(d,3)).collect(Collectors.toList()));
+		table.addLine(Arrays.stream(indicator.getCorrelationData()).mapToObj(d->StatisticTools.formatPercent(d,3)).collect(Collectors.toList()));
 	}
 
 	private void buildDetailsTable() {
