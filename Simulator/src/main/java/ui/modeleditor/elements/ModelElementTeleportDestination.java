@@ -62,7 +62,7 @@ public class ModelElementTeleportDestination extends ModelElementBox implements 
 	 */
 	public ModelElementTeleportDestination(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
-		setSize(new Dimension(25,25));
+		setSize(new Dimension(30,30));
 		setDrawText(false);
 	}
 

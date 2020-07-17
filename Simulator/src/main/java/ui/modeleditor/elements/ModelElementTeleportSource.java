@@ -65,7 +65,7 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 	 */
 	public ModelElementTeleportSource(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
-		setSize(new Dimension(25,25));
+		setSize(new Dimension(30,30));
 		setDrawText(false);
 		connections=new ArrayList<>();
 		destination="";
