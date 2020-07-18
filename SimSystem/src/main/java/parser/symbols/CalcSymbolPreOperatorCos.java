@@ -26,13 +26,15 @@ public final class CalcSymbolPreOperatorCos extends CalcSymbolPreOperator {
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();
-		return Math.cos(parameters[0]);
+		final double d=Math.cos(parameters[0]);
+		return (Math.abs(d)<2E-16)?0.0:d;
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length!=1) return fallbackValue;
-		return Math.cos(parameters[0]);
+		final double d=Math.cos(parameters[0]);
+		return (Math.abs(d)<2E-16)?0.0:d;
 	}
 
 	@Override
