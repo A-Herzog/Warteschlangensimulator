@@ -5430,6 +5430,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12517] = "Das BatchAnzahl-Attribut im \"%s\"-Element muss eine positive Ganzzahl sein, ist aber \"%s\".";
     t[12520] = "Optimizer.ResultsSaved";
     t[12521] = "Ergebnisse in Datei %s gespeichert.";
+    t[12528] = "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType";
+    t[12529] = "Parameterreihe: Mittlere Bedienzeit f\u00fcr bestimmten Kundentyp variieren";
     t[12536] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.CVInfo";
     t[12537] = "Liefert den Variationskoeffizient der Verteilung.";
     t[12538] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Fast";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13873] = "Analoge Wertzuweisungen bearbeiten";
     t[13874] = "ScriptPopup.Simulation";
     t[13875] = "Simulation";
-    t[13884] = "Statistics.DistributionOfClientsResidenceTimes";
-    t[13885] = "Verteilung der Verweilzeiten der Kunden";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13884] = "Statistics.DistributionOfClientsResidenceTimes";
+    t[13885] = "Verteilung der Verweilzeiten der Kunden";
     t[13886] = "Surface.BarrierPull.Dialog.ControlledElement.ErrorInfo";
     t[13887] = "Es wurde keine zu kontrollierende Station gew\u00e4hlt.";
     t[13888] = "ParameterCompare.Settings.Save.Error.Title";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18431] = "StatistikLaufzeitWert";
     t[18436] = "Editor.TemplateFilter.Tooltip";
     t[18437] = "In der Vorlagenliste sichtbare Kategorien ausw\u00e4hlen";
-    t[18438] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.AverageTime";
-    t[18439] = "<p>Liefert die mittlere Dauer \u00fcber alle Transferzeiten aller Kunden.</p>";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18438] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.AverageTime";
+    t[18439] = "<p>Liefert die mittlere Dauer \u00fcber alle Transferzeiten aller Kunden.</p>";
     t[18440] = "Surface.SectionEnd.XML.Root";
     t[18441] = "ModellElementBereichEnde";
     t[18442] = "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23027] = "Ressource";
     t[23032] = "ScriptPopup.Clients.clientTextData";
     t[23033] = "Kundendaten (Text)";
-    t[23034] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression.ErrorInfo";
-    t[23035] = "Der angegebene Ausdruck \"%s\" f\u00fcr die Zuweisung an das Analogwert-Element ist ab Zeichen %d ung\u00fcltig.";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23034] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression.ErrorInfo";
+    t[23035] = "Der angegebene Ausdruck \"%s\" f\u00fcr die Zuweisung an das Analogwert-Element ist ab Zeichen %d ung\u00fcltig.";
     t[23036] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvgAll";
     t[23037] = "Mittlere Wartezeitkosten (alle Kundentypen)";
     t[23040] = "Surface.Process.XML.Operators.Count";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27561] = "Aenderungsrate2";
     t[27564] = "ModelDescription.TankValveSetup.Setup";
     t[27565] = "Maximaler Durchfluss f\u00fcr Tank id=%d, Ventil %d";
-    t[27572] = "Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5";
-    t[27573] = "Aenderungsrate5";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27572] = "Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5";
+    t[27573] = "Aenderungsrate5";
     t[27574] = "ModelDescription.TransportTimeRecord.TimeClientType";
     t[27575] = "Transportzeit f\u00fcr Kundentyp \"%s\"";
     t[27578] = "Surface.AnimationRecord.XML.Root";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32315] = "Aktuelle Anzahl";
     t[32316] = "Surface.LogicUntil.Name";
     t[32317] = "Until";
-    t[32320] = "Surface.Process.Dialog.MaximumBatchSize.Error.RangeTitle";
-    t[32321] = "Batch-Gr\u00f6\u00dfe ung\u00fcltig";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32320] = "Surface.Process.Dialog.MaximumBatchSize.Error.RangeTitle";
+    t[32321] = "Batch-Gr\u00f6\u00dfe ung\u00fcltig";
     t[32324] = "Editor.Dialog.Sequences.Copy.NewName.ErrorTitle";
     t[32325] = "Ung\u00fcltiger Name f\u00fcr Kopie";
     t[32326] = "Simulation.Creator.AnalogNoValves";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36897] = "WerteSumme2";
     t[36906] = "Statistics.ErlangCCompare.Results.ErlangCExt";
     t[36907] = "Ergebnisse gem\u00e4\u00df der erweiterten Erlang-C-Formel";
-    t[36914] = "Optimizer.Tab.Target.Value.Range.InvalidRange.InversLimits";
-    t[36915] = "Die angegebene obere Grenze f\u00fcr den Bereich ist ung\u00fcltig. Die obere Grenze muss oberhalb der unteren Grenze liegen.";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36914] = "Optimizer.Tab.Target.Value.Range.InvalidRange.InversLimits";
+    t[36915] = "Die angegebene obere Grenze f\u00fcr den Bereich ist ung\u00fcltig. Die obere Grenze muss oberhalb der unteren Grenze liegen.";
     t[36918] = "Surface.DDE.Column";
     t[36919] = "Tabellenspalte";
     t[36920] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Minutes";
@@ -16956,6 +16958,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39027] = "Saddle Braun";
     t[39030] = "FindElementDirect.NoElementsFound";
     t[39031] = "Es wurden keine Elemente gefunden, die zu dem Suchbegriff passen.";
+    t[39032] = "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType.Short";
+    t[39033] = "Mittlere Bedienzeit";
     t[39042] = "Surface.InputJS.XML.EofMode.Terminate";
     t[39043] = "Beenden";
     t[39044] = "LoadCalculator.Tab.WaitingTimeTolerance";

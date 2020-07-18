@@ -936,22 +936,50 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	 */
 	@Override
 	protected void addParameterSeriesMenuItem(final JPopupMenu popupMenu, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildSeries) {
-		final Object obj=getWorking().get();
-		if (obj==null || !(obj instanceof AbstractRealDistribution) || !DistributionTools.canSetMean((AbstractRealDistribution)obj)) return;
-
-		final JMenuItem item;
+		JMenuItem item;
 		final URL imgURL=Images.PARAMETERSERIES.getURL();
-		popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTime")));
-		item.addActionListener(e->{
-			TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTime.Short"));
-			record.input.setMode(ModelChanger.Mode.MODE_XML);
-			record.input.setXMLMode(1);
-			String add="";
-			if (processHasMultiTimes()) add="["+Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type")+"=\""+Language.trPrimary("Surface.Process.XML.Distribution.Type.ProcessingTime")+"\"]";
-			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
-			buildSeries.accept(record);
-		});
-		if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+
+		/* Bedienzeiten (global) */
+		final Object obj1=getWorking().get();
+		if ((obj1 instanceof AbstractRealDistribution) && DistributionTools.canSetMean((AbstractRealDistribution)obj1)) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTime")));
+			item.addActionListener(e->{
+				TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTime.Short"));
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setXMLMode(1);
+				String add="";
+				if (processHasMultiTimes()) add="["+Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type")+"=\""+Language.trPrimary("Surface.Process.XML.Distribution.Type.ProcessingTime")+"\"]";
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
+				buildSeries.accept(record);
+			});
+			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+		}
+
+		/* Bedienzeiten nach Kundentypen */
+		final List<String> clientTypeData=new ArrayList<>();
+		for (String clientType: getModel().surface.getClientTypes()) {
+			final Object obj2=working.get(clientType);
+			if ((obj2 instanceof AbstractRealDistribution) && DistributionTools.canSetMean((AbstractRealDistribution)obj1)) clientTypeData.add(clientType);
+		}
+		if (clientTypeData.size()>0) {
+			final JMenu sub;
+			popupMenu.add(sub=new JMenu(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType")));
+			if (imgURL!=null) sub.setIcon(new ImageIcon(imgURL));
+			final URL imgURL2=Images.MODELPROPERTIES_CLIENTS.getURL();
+			for (String clientType: clientTypeData) {
+				final String clientTypeFinal=clientType;
+				sub.add(item=new JMenuItem(clientTypeFinal));
+				item.addActionListener(e->{
+					TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType.Short")+" - "+clientTypeFinal);
+					record.input.setMode(ModelChanger.Mode.MODE_XML);
+					record.input.setXMLMode(1);
+					final String add="["+(working.getSubNumber(clientTypeFinal)+2)+"]";
+					record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
+					buildSeries.accept(record);
+				});
+				if (imgURL2!=null) item.setIcon(new ImageIcon(imgURL2));
+			}
+		}
 	}
 
 	/**

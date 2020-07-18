@@ -5430,6 +5430,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12517] = "The BatchCount attribute in the \"%s\" element has to be a positive integer number but is %s\".";
     t[12520] = "Optimizer.ResultsSaved";
     t[12521] = "Results saved as file %s.";
+    t[12528] = "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType";
+    t[12529] = "Parameter series: change average service time for client type";
     t[12536] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.CVInfo";
     t[12537] = "Calculates the coefficient of variation of the distribution.";
     t[12538] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Fast";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13873] = "Edit analog value assignments";
     t[13874] = "ScriptPopup.Simulation";
     t[13875] = "Simulation";
-    t[13884] = "Statistics.DistributionOfClientsResidenceTimes";
-    t[13885] = "Distribution of the residence times of the clients";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13884] = "Statistics.DistributionOfClientsResidenceTimes";
+    t[13885] = "Distribution of the residence times of the clients";
     t[13886] = "Surface.BarrierPull.Dialog.ControlledElement.ErrorInfo";
     t[13887] = "No controlled station has been selected.";
     t[13888] = "ParameterCompare.Settings.Save.Error.Title";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18431] = "StatisticsRunTimeValue";
     t[18436] = "Editor.TemplateFilter.Tooltip";
     t[18437] = "Select categories visible in the templates panel";
-    t[18438] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.AverageTime";
-    t[18439] = "<p>Returns the average duration over all transfer times for all clients.</p>";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18438] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.AverageTime";
+    t[18439] = "<p>Returns the average duration over all transfer times for all clients.</p>";
     t[18440] = "Surface.SectionEnd.XML.Root";
     t[18441] = "ModelElementSectionEnd";
     t[18442] = "Surface.PopupMenu.QuickFix.AddEdgeTo.ElementName";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23027] = "Resource";
     t[23032] = "ScriptPopup.Clients.clientTextData";
     t[23033] = "Client data (text)";
-    t[23034] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression.ErrorInfo";
-    t[23035] = "The specified expression for assignment to the analog value element \"%s\" is invalid at character %d.";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23034] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Expression.ErrorInfo";
+    t[23035] = "The specified expression for assignment to the analog value element \"%s\" is invalid at character %d.";
     t[23036] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvgAll";
     t[23037] = "Average waiting time costs (all client types)";
     t[23040] = "Surface.Process.XML.Operators.Count";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27561] = "ChangeRate2";
     t[27564] = "ModelDescription.TankValveSetup.Setup";
     t[27565] = "Maximum flow at tank id=%d, valve %d";
-    t[27572] = "Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5";
-    t[27573] = "ChangeRate5";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27572] = "Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5";
+    t[27573] = "ChangeRate5";
     t[27574] = "ModelDescription.TransportTimeRecord.TimeClientType";
     t[27575] = "Transport time for client type \"%s\"";
     t[27578] = "Surface.AnimationRecord.XML.Root";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32315] = "Current number";
     t[32316] = "Surface.LogicUntil.Name";
     t[32317] = "Until";
-    t[32320] = "Surface.Process.Dialog.MaximumBatchSize.Error.RangeTitle";
-    t[32321] = "Invalid batch size";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32320] = "Surface.Process.Dialog.MaximumBatchSize.Error.RangeTitle";
+    t[32321] = "Invalid batch size";
     t[32324] = "Editor.Dialog.Sequences.Copy.NewName.ErrorTitle";
     t[32325] = "Invalid name for copy";
     t[32326] = "Simulation.Creator.AnalogNoValves";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36897] = "ValuesSum2";
     t[36906] = "Statistics.ErlangCCompare.Results.ErlangCExt";
     t[36907] = "Results by the extended Erlang-C formula";
-    t[36914] = "Optimizer.Tab.Target.Value.Range.InvalidRange.InversLimits";
-    t[36915] = "The specified upper bound for the range is invalid. The upper bound has to be larger than the lower bound.";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36914] = "Optimizer.Tab.Target.Value.Range.InvalidRange.InversLimits";
+    t[36915] = "The specified upper bound for the range is invalid. The upper bound has to be larger than the lower bound.";
     t[36918] = "Surface.DDE.Column";
     t[36919] = "Table column";
     t[36920] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Minutes";
@@ -16956,6 +16958,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39027] = "Saddle brown";
     t[39030] = "FindElementDirect.NoElementsFound";
     t[39031] = "No elements were found matching the search string.";
+    t[39032] = "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType.Short";
+    t[39033] = "Average service time";
     t[39042] = "Surface.InputJS.XML.EofMode.Terminate";
     t[39043] = "Terminate";
     t[39044] = "LoadCalculator.Tab.WaitingTimeTolerance";

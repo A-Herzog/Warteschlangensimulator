@@ -306,6 +306,20 @@ public final class DistributionSystem implements Cloneable {
 	}
 
 	/**
+	 * Liefert den 0-basierten Index des Untereintrags beim Speichern der Verteilungen.
+	 * @param key	Schlüssel für den Untereintrag
+	 * @return	0-basierter Index oder -1, wenn für den Schlüssel keine Verteilung hinterlegt ist
+	 */
+	public int getSubNumber(final String key) {
+		int nr=0;
+		for (Map.Entry<String,AbstractRealDistribution> entry : distributionByType.entrySet()) if (entry.getValue()!=null) {
+			if (entry.getKey().equals(key)) return nr;
+			nr++;
+		}
+		return -1;
+	}
+
+	/**
 	 * Speichert die Daten in einer XML-Datei
 	 * @param doc	XML-Dokument
 	 * @param parent	Übergeordnetes XML-Element

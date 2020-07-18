@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-18 20:56+0200\n"
+"POT-Creation-Date: 2020-07-18 22:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21871,6 +21871,12 @@ msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTime"
 msgstr "Parameter series: change average service time"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTime.Short"
+msgstr "Average service time"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType"
+msgstr "Parameter series: change average service time for client type"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType.Short"
 msgstr "Average service time"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeTransportTime"
