@@ -139,6 +139,9 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 		simpleModel.useClientCount=true;
 		simpleModel.clientCount=Math.min(1000,simpleModel.clientCount);
 		simpleModel.warmUpTime=0.0;
+		if (simpleModel.useFinishTime) {
+			simpleModel.finishTime=Math.max(3600*1000,simpleModel.finishTime/1000);
+		}
 
 		/* Simulation starten */
 
