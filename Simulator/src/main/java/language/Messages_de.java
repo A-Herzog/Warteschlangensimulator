@@ -12090,6 +12090,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27759] = "A";
     t[27760] = "Editor.Dialog.Sequences.Edit.Assignments.Delete.Confirm.InfoNo";
     t[27761] = "Kundenvariablen-Zuweisung beibehalten.";
+    t[27762] = "Wait.Info.StartNoRemoteAvailable";
+    t[27763] = "Die Simulation lokal l\u00e4uft. Der Server \"%s\" ist nicht verf\u00fcgbar.";
     t[27764] = "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution";
     t[27765] = "Johnson-SU-Verteilung";
     t[27768] = "Surface.LogicEndIf.Name";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32317] = "Until";
     t[32320] = "Surface.Process.Dialog.MaximumBatchSize.Error.RangeTitle";
     t[32321] = "Batch-Gr\u00f6\u00dfe ung\u00fcltig";
-    t[32324] = "Editor.Dialog.Sequences.Copy.NewName.ErrorTitle";
-    t[32325] = "Ung\u00fcltiger Name f\u00fcr Kopie";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32324] = "Editor.Dialog.Sequences.Copy.NewName.ErrorTitle";
+    t[32325] = "Ung\u00fcltiger Name f\u00fcr Kopie";
     t[32326] = "Simulation.Creator.AnalogNoValves";
     t[32327] = "An Element id=%d wurden keine Ventile definiert.";
     t[32328] = "ParameterCompare.Settings.Output.Name.ErrorTitle";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36907] = "Ergebnisse gem\u00e4\u00df der erweiterten Erlang-C-Formel";
     t[36914] = "Optimizer.Tab.Target.Value.Range.InvalidRange.InversLimits";
     t[36915] = "Die angegebene obere Grenze f\u00fcr den Bereich ist ung\u00fcltig. Die obere Grenze muss oberhalb der unteren Grenze liegen.";
-    t[36918] = "Surface.DDE.Column";
-    t[36919] = "Tabellenspalte";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36918] = "Surface.DDE.Column";
+    t[36919] = "Tabellenspalte";
     t[36920] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Minutes";
     t[36921] = "Minuten";
     t[36922] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Signal.ErrorTitle";

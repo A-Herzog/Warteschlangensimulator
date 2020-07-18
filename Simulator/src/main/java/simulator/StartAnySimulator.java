@@ -58,7 +58,11 @@ public class StartAnySimulator {
 		this(editModel,null);
 	}
 
-	private Object[] getServerSetup() {
+	/**
+	 * Liefert die Servereinstellungen zum Zugriff auf einen entfernten Simulationsserver.
+	 * @return	Liefert im Erfolgsfall ein 3-elementiges Array (Adresse, Port, Passwort) oder <code>null</code>, wenn keine serverseitige Simulation stattfinden soll.
+	 */
+	public static Object[] getServerSetup() {
 		final SetupData setup=SetupData.getSetup();
 		if (!setup.serverUse) return null;
 		if (setup.serverData==null || setup.serverData.trim().isEmpty()) return null;

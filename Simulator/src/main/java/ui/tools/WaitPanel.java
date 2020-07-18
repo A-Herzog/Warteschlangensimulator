@@ -39,6 +39,7 @@ import language.Language;
 import mathtools.NumberTools;
 import net.calc.SimulationClient;
 import simulator.AnySimulator;
+import simulator.StartAnySimulator;
 import ui.images.Images;
 
 /**
@@ -152,7 +153,12 @@ public class WaitPanel extends JPanel {
 		if (simulator instanceof SimulationClient) {
 			info1.setText(String.format(Language.tr("Wait.Info.StartRemote"),((SimulationClient)simulator).getHost()));
 		} else {
-			info1.setText(Language.tr("Wait.Info.Start"));
+			final Object[] server=StartAnySimulator.getServerSetup();
+			if (server==null) {
+				info1.setText(Language.tr("Wait.Info.Start"));
+			} else {
+				info1.setText(String.format(Language.tr("Wait.Info.StartNoRemoteAvailable"),(String)server[0]));
+			}
 		}
 		info2.setText("");
 		switch (operationMode) {

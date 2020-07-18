@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-17 20:56+0200\n"
+"POT-Creation-Date: 2020-07-18 20:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25980,6 +25980,9 @@ msgstr "Bisherige Laufzeit: %s Sekunden."
 
 msgid "Wait.Info.Start"
 msgstr "Die Simulation läuft."
+
+msgid "Wait.Info.StartNoRemoteAvailable"
+msgstr "Die Simulation lokal läuft. Der Server \"%s\" ist nicht verfügbar."
 
 msgid "Wait.Info.StartRemote"
 msgstr "Die Simulation läuft auf Rechner \"%s\"."

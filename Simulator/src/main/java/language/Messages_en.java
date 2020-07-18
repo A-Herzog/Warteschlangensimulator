@@ -12090,6 +12090,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27759] = "K";
     t[27760] = "Editor.Dialog.Sequences.Edit.Assignments.Delete.Confirm.InfoNo";
     t[27761] = "Keep client variable assignment.";
+    t[27762] = "Wait.Info.StartNoRemoteAvailable";
+    t[27763] = "The simulation is running local. The server \"%s\" is not available.";
     t[27764] = "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution";
     t[27765] = "Johnson SU distribution";
     t[27768] = "Surface.LogicEndIf.Name";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32317] = "Until";
     t[32320] = "Surface.Process.Dialog.MaximumBatchSize.Error.RangeTitle";
     t[32321] = "Invalid batch size";
-    t[32324] = "Editor.Dialog.Sequences.Copy.NewName.ErrorTitle";
-    t[32325] = "Invalid name for copy";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32324] = "Editor.Dialog.Sequences.Copy.NewName.ErrorTitle";
+    t[32325] = "Invalid name for copy";
     t[32326] = "Simulation.Creator.AnalogNoValves";
     t[32327] = "At element id=%d no valves were defined.";
     t[32328] = "ParameterCompare.Settings.Output.Name.ErrorTitle";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36907] = "Results by the extended Erlang-C formula";
     t[36914] = "Optimizer.Tab.Target.Value.Range.InvalidRange.InversLimits";
     t[36915] = "The specified upper bound for the range is invalid. The upper bound has to be larger than the lower bound.";
-    t[36918] = "Surface.DDE.Column";
-    t[36919] = "Table column";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36918] = "Surface.DDE.Column";
+    t[36919] = "Table column";
     t[36920] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Minutes";
     t[36921] = "Minutes";
     t[36922] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Signal.ErrorTitle";
