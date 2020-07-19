@@ -196,6 +196,16 @@
 			<arg value="Warteschlangensimulator-Hotkeys-en.tex"/>
 		</exec>
 		
+		<echo message="Build distribution xml reference - en only" />
+		<exec dir="${BuildTools.location}/Help/Distributions" executable="${pdfLaTeX32.location}/pdflatex.exe" if:set="pdflatex32.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Distributions.tex"/>
+		</exec>
+		<exec dir="${BuildTools.location}/Help/Distributions" executable="${pdfLaTeX64.location}/pdflatex.exe" if:set="pdflatex64.present" failonerror="true">
+			<arg value="-interaction=nonstopmode"/>
+			<arg value="Warteschlangensimulator-Distributions.tex"/>
+		</exec>
+		
 		<echo message="Move files to destination" />
 		<move todir="${Homepage.location}" flatten="true" overwrite="true">
 			<fileset dir="${BuildTools.location}/Help" includes="**/*.pdf"/> 

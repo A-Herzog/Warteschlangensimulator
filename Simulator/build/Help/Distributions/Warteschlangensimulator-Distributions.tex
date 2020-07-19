@@ -1,0 +1,430 @@
+\RequirePackage{amsmath}
+\RequirePackage{fix-cm}
+\documentclass{svmono}
+
+\def\ColoredLinks{}
+\input{Macros.tex}
+\usepackage{xcolor}
+\usepackage{lmodern}
+\usepackage{wrapfig}
+\textwidth160mm
+\textheight220mm
+\oddsidemargin0mm
+\evensidemargin0mm
+\topmargin0mm
+
+\def\cmd#1{\textbf{"\texttt{#1}"}}
+\def\cm#1{\textbf{\texttt{#1}}}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\thispagestyle{empty}
+\vskip5cm {\Huge\textbf{Distribution XML reference for \vskip.1cm Warteschlangensimulator}}
+\vskip.5cm \hrule
+\vskip.5cm {\large \textsc{Alexander Herzog} (\href{mailto:alexander.herzog@tu-clausthal.de}{alexander.herzog@tu-clausthal.de})}
+\vskip.25cm {\color{gray}
+This reference refers to version \input{../Version.tex} of Warteschlangensimulator.\\
+Download address: \href{https://github.com/A-Herzog/Warteschlangensimulator/}{https://github.com/A-Herzog/Warteschlangensimulator/}.
+}
+\vskip.5cm \hrule
+\vskip.5cm
+
+When storing distribution settings to xml files the following xml tags will be used:
+
+English version:\\
+\cm{<ModelElementDistribution>distribution name (parameters)</ModelElementDistribution>}
+
+German version:\\
+\cm{<ModellElementVerteilung>distribution name (parameters)</ModellElementVerteilung>}
+
+The English or German version will be used when storing xml data in Warteschlangensimulator. When reading xml files Warteschlangensimulator will always understand both versions.
+
+In the following sections the possible values for "distribution name" and the corresponding "parameters" will be listed. Distribution parameters "mean" and "sd" correspond directly to the stochastic characteristics mean and standard deviation.
+
+
+
+
+
+\section*{Empirical data}
+
+\cm{Empirical data (point1;point2;point3;...)}~\\
+\cm{Empirische Daten (point1;point2;point3;...)}
+
+The data points are interpreted as pdf values at equidistant points on the predefined range of the distribution.
+
+
+
+
+
+\section*{One point distribution}
+
+\cm{One point distribution (point)}~\\
+\cm{Ein-Punkt-Verteilung (point)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&point\\
+sd&=&0
+\end{eqnarray*}
+
+
+
+
+
+\section*{Uniform distribution}
+
+\cm{Uniform distribution (lower;upper)}~\\
+\cm{Gleichverteilung (lower;upper)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&(lower+upper)/2\\
+sd&=&(upper-lower)/\sqrt{12}\\
+lower&=&mean-sd\cdot\sqrt{12}/2\\
+upper&=&mean+sd\cdot\sqrt{12}/2\\
+\end{eqnarray*}
+
+
+
+
+
+\section*{Exponential distribution}
+\cm{Exponentialverteilung (mean)}~\\
+\cm{Exponential distribution (mean)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+sd&=&mean
+\end{eqnarray*}
+
+
+
+
+
+\section*{Normal distribution}
+\cm{Normal distribution (mean;sd)}~\\
+\cm{Normalverteilung (mean;sd)}
+
+
+
+
+
+\section*{Lognormal distribution}
+\cm{Lognormal distribution (mean;sd)}~\\
+\cm{Lognormalverteilung (mean;sd)}
+
+
+
+
+
+\section*{Erlang distribution}
+\cm{Erlang distribution (shape;scale)}~\\
+\cm{Erlang-Verteilung (shape;scale)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&shape\cdot scale\\
+sd&=&\sqrt{shape}\cdot scale\\
+scale&=&sd^2/mean\\
+shape&=&mean^2/sd^2
+\end{eqnarray*}
+
+
+
+
+
+\section*{Gamma distribution}
+\cm{Gamma distribution (shape;scale)}~\\
+\cm{Gamma-Verteilung (shape;scale)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&shape\cdot scale\\
+sd&=&\sqrt{shape}\cdot scale\\
+scale&=&sd^2/mean\\
+shape&=&mean^2/sd^2
+\end{eqnarray*}
+
+
+
+
+
+\section*{Beta distribution}
+\cm{Beta distribution (alpha;beta;lower;upper)}~\\
+\cm{Beta-Verteilung (alpha;beta;lower;upper)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&alpha/(alpha+beta)\cdot(upper-lower)+lower\\
+sd&=&(upper-lower)^2\cdot alpha\cdot beta/(alpha+beta)^2/(1+alpha+beta)
+\end{eqnarray*}
+
+
+
+
+
+\section*{Cauchy distribution}
+\cm{Cauchy-Verteilung (median;scale)}~\\
+\cm{Cauchy distribution (median;scale)}
+
+
+
+
+
+\section*{Weibull distribution}
+\cm{Weibull distribution (scaleInvers;shape)}~\\
+\cm{Weibull-Verteilung (scaleInvers;shape)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&scale\cdot\Gamma(1+(1/shape))\\
+sd&=&scale\cdot\sqrt{\Gamma(1+2/shape)-(\Gamma(1+1/shape))^2}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Chi distribution}
+\cm{Chi distribution (degreesOfFreedom)}~\\
+\cm{Chi-Verteilung (degreesOfFreedom)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&\sqrt{2}\cdot\Gamma((degreesOfFreedom+1)/2)/\Gamma(degreesOfFreedom/2)\\
+sd&=&\Big[(2\cdot\Gamma(degreesOfFreedom/2)*\Gamma(1+degreesOfFreedom/2)-\\
+~&~&(\Gamma((degreesOfFreedom+1)/2))^2)/\Gamma(degreesOfFreedom/2)\Big]^{\frac{1}{2}}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Chi$^2$ distribution}
+\cm{Chi\^{}2 distribution (degreesOfFreedom)}~\\
+\cm{Chi\^{}2-Verteilung (degreesOfFreedom)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&degreesOfFreedom\\
+sd&=&\sqrt{2\cdot degreesOfFreedom}
+\end{eqnarray*}
+
+
+
+
+
+\section*{F distribution}
+\cm{F distribution (NumeratorDegreesOfFreedom;DenominatorDegreesOfFreedom)}~\\
+\cm{F-Verteilung (NumeratorDegreesOfFreedom;DenominatorDegreesOfFreedom)}
+
+Conversion between distribution parameters and stochastic characteristics\\
+(let $m:=NumeratorDegreesOfFreedom$ and $n:=DenominatorDegreesOfFreedom$)
+\begin{eqnarray*}
+mean&=&
+\frac{n}{n-2}\\
+sd&=&
+\sqrt{2\cdot n^2\cdot\frac{m+n-2}{m\cdot(n-2)\cdot(n-2)\cdot(n-4)}}\\
+m&=&
+round\left(2\cdot (2\cdot\widetilde m)^2\cdot\frac{2\cdot\widetilde m-2}{sd^2\cdot (2\cdot\widetilde m-2)^2\cdot (2\cdot\widetilde m-4)-2\cdot (2\cdot\widetilde m)^2}\right) ~\text{with}~ \widetilde m:=mean/(mean-1)\\
+n&=&
+round(2\cdot mean/(mean-1))
+\end{eqnarray*}
+
+
+
+
+
+\section*{Johnson SU distribution}
+\cm{Johnson SU distribution (gamma;xi;delta;lambda)}~\\
+\cm{Johnson-SU-Verteilung (gamma;xi;delta;lambda)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&xi-lambda\cdot\exp(1/(2\cdot delta^2))\cdot\sinh(gamma/delta)\\
+sd&=&\sqrt{lambda^2/2\cdot(\exp(1/delta^2)-1)\cdot(\exp(1/delta^2)*\cosh(2*gamma/delta)+1)}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Triangular distribution}
+\cm{Triangular distribution (lowerBound;mostLikelyX;upperBound)}~\\
+\cm{Dreiecksverteilung (lowerBound;mostLikelyX;upperBound)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&(lowerBound+mostLikelyX+upperBound)/3\\
+sd&=&\Big[(lowerBound^2+upperBound^2+mostLikelyX^2-lowerBound\cdot upperBound-\\
+~&~&lowerBound\cdot mostLikelyX-upperBound\cdot mostLikelyX)/18\Big]^{\frac{1}{2}}\\
+lowerBound&=&mean-sd\cdot\sqrt{6}\\
+mostLikelyX&=&mean\\
+upperBound&=&mean+sd\cdot\sqrt{6}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Pert distribution}
+\cm{Pert distribution (lowerBound;mostLikelyX;upperBound)}~\\
+\cm{Pert-Verteilung (lowerBound;mostLikelyX;upperBound)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&(lowerBound+4\cdot mostLikelyX+upperBound)/6\\
+sd&=&\Big[((lowerBound+4\cdot mostLikelyX+upperBound)/6-lowerBound)\cdot\\
+~&~&(upperBound-(lowerBound+4\cdot mostLikelyX+upperBound)/6)/7\Big]^{\frac{1}{2}}\\
+lowerBound&=&mean-sd\cdot\sqrt{7}\\
+mostLikelyX&=&mean\\
+upperBound&=&mean+sd\cdot\sqrt{7}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Laplace distribution}
+\cm{Laplace distribution (mean;b)}~\\
+\cm{Laplace-Verteilung (mean;b)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+sd&=&b\cdot\sqrt{2}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Pareto distribution}
+\cm{Pareto distribution (xmin;alpha)}~\\
+\cm{Pareto-Verteilung (xmin;alpha)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&alpha\cdot xmin/(alpha-1)\\
+sd&=&xmin^2\cdot alpha/(alpha-1)^2/(alpha-2)\\
+alpha&=&mean/(mean-xmin)
+\end{eqnarray*}
+
+
+
+
+
+\section*{Logistic distribution}
+\cm{Logistic distribution (mean;s)}~\\
+\cm{Logistische Verteilung (mean;s)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+sd&=&s\cdot\pi/\sqrt{3}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Inverse gaussian distribution}
+\cm{Inverse gaussian distribution (lambda;mu)}~\\
+\cm{Inverse Gauß-Verteilung (lambda;mu)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&mu\\
+sd&=&mu\cdot\sqrt{mu/lambda}\\
+lambda&=&mean^3/sd^2
+\end{eqnarray*}
+
+
+
+
+
+\section*{Rayleigh distribution}
+\cm{Rayleigh distribution (mean)}~\\
+\cm{Rayleigh-Verteilung (mean)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+sd&=&\sqrt{(4-\pi)/2}\cdot\sqrt{2/\pi}\cdot mean
+\end{eqnarray*}
+
+
+
+
+
+\section*{Log-logistic distribution}
+\cm{Log-logistic distribution (alpha;beta)}~\\
+\cm{Log-Logistische Verteilung (alpha;beta)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&alpha\cdot\pi/beta/\sin(\pi/beta)\\
+sd&=&alpha\cdot\sqrt{2\cdot\pi/beta/\sin(2\cdot\pi/beta)-\pi^2/beta^2}/sin(\pi/beta)
+\end{eqnarray*}
+
+
+
+
+
+\section*{Power distribution}
+\cm{Power distribution (a;b;c)}~\\
+\cm{Potenzverteilung (a;b;c)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&a+(b-a)\cdot c/(c+1)\\
+sd&=&(b-a)/(c+1)\cdot\sqrt{c/(c+2)}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Gumbel distribution}
+\cm{Gumbel distribution (mean;sd)}~\\
+\cm{Gumbel-Verteilung (mean;sd)}
+
+
+
+
+
+\section*{Fatigue life distribution}
+\cm{Fatigue life distribution (mu;beta;gamma)}~\\
+\cm{Fatigue-Life-Verteilung (mu;beta;gamma)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&mu+beta\cdot (1+gamma\cdot gamma/2)\\
+sd&=&beta\cdot gamma\cdot\sqrt{1+5\cdot gamma^2/4}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Frechet distribution}
+\cm{Frechet distribution (delta;beta;alpha)}~\\
+\cm{Frechet-Verteilung (delta;beta;alpha)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&delta+beta\cdot gamma(1-1/alpha)\\
+sd&=&beta\cdot\sqrt{gamma(1-2/alpha)-gamma(1-1/alpha)^2}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Hyperbolic secant distribution}
+\cm{Hyperbolic secant distribution (mean;sd)}~\\
+\cm{Hyperbolische Sekanten-Verteilung (mean;sd)}
+
+
+
+
+
+\end{document}
