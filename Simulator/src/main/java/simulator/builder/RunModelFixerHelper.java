@@ -344,6 +344,27 @@ public class RunModelFixerHelper {
 	}
 
 	/**
+	 * Korrektur für "Die Batch-Größe an einer Batch-Station ist kleiner als 1."
+	 * @param element	Element an dem der Fehler aufgetreten ist
+	 * @param status	Zugehöriger Status für diesen Fehler
+	 * @return	Liste der möglichen Schnellkorrekturen
+	 * @see RunModelCreatorStatus.Status#FIXED_BATCH_SIZE_LOWER_THAN_1
+	 */
+	public static List<RunModelFixer> setBatchFixedError(final ModelElementPosition element, final RunModelCreatorStatus status) {
+		final List<RunModelFixer> options=new ArrayList<>();
+		if (element instanceof ModelElementBatch) {
+			final ModelElementBatch batch=(ModelElementBatch)element;
+			options.add(new RunModelFixer(
+					element,
+					status,
+					Language.tr("Surface.PopupMenu.QuickFix.Batch.SetFixed1"),
+					fix->batch.getBatchRecord().setBatchSizeFixed(1)
+					));
+		}
+		return options;
+	}
+
+	/**
 	 * Korrektur für "Die minimale Batch-Größe an einer Batch-Station ist kleiner als 1."
 	 * @param element	Element an dem der Fehler aufgetreten ist
 	 * @param status	Zugehöriger Status für diesen Fehler

@@ -61,17 +61,29 @@ public class RunElementBatch extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* Batch-Bildung */
-		batch.batchSizeMin=batchElement.getBatchRecord().getBatchSizeMin();
-		if (batch.batchSizeMin<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
-		batch.batchSizeMax=batchElement.getBatchRecord().getBatchSizeMax();
-		if (batch.batchSizeMax<batch.batchSizeMin) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
+		final BatchRecord batchRecord=batchElement.getBatchRecord();
 
-		batch.batchMode=batchElement.getBatchRecord().getBatchMode();
+		switch (batchRecord.getBatchSizeMode()) {
+		case FIXED:
+			batch.batchSizeMin=batchRecord.getBatchSizeFixed();
+			if (batch.batchSizeMin<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+			batch.batchSizeMax=batchRecord.getBatchSizeFixed();
+			break;
+		case RANGE:
+			batch.batchSizeMin=batchRecord.getBatchSizeMin();
+			if (batch.batchSizeMin<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+			batch.batchSizeMax=batchRecord.getBatchSizeMax();
+			if (batch.batchSizeMax<batch.batchSizeMin) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
+			break;
+
+		}
+
+		batch.batchMode=batchRecord.getBatchMode();
 		if (batch.batchMode==BatchRecord.BatchMode.BATCH_MODE_COLLECT) {
 			batch.newClientType=-1;
 		} else {
-			batch.newClientType=runModel.getClientTypeNr(batchElement.getBatchRecord().getNewClientType());
-			if (batch.newClientType<0) return String.format(Language.tr("Simulation.Creator.InvalidBatchClientType"),element.getId(),batchElement.getBatchRecord().getNewClientType());
+			batch.newClientType=runModel.getClientTypeNr(batchRecord.getNewClientType());
+			if (batch.newClientType<0) return String.format(Language.tr("Simulation.Creator.InvalidBatchClientType"),element.getId(),batchRecord.getNewClientType());
 		}
 
 		return batch;
@@ -87,8 +99,15 @@ public class RunElementBatch extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* Batch-Bildung */
-		if (batchElement.getBatchRecord().getBatchSizeMin()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.MIN_BATCH_SIZE_LOWER_THAN_1);
-		if (batchElement.getBatchRecord().getBatchSizeMax()<batchElement.getBatchRecord().getBatchSizeMin()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId()),RunModelCreatorStatus.Status.MAX_BATCH_SIZE_LOWER_THAN_MIN);
+		switch (batchElement.getBatchRecord().getBatchSizeMode()) {
+		case FIXED:
+			if (batchElement.getBatchRecord().getBatchSizeFixed()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.FIXED_BATCH_SIZE_LOWER_THAN_1);
+			break;
+		case RANGE:
+			if (batchElement.getBatchRecord().getBatchSizeMin()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.MIN_BATCH_SIZE_LOWER_THAN_1);
+			if (batchElement.getBatchRecord().getBatchSizeMax()<batchElement.getBatchRecord().getBatchSizeMin()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId()),RunModelCreatorStatus.Status.MAX_BATCH_SIZE_LOWER_THAN_MIN);
+			break;
+		}
 
 		return RunModelCreatorStatus.ok;
 	}

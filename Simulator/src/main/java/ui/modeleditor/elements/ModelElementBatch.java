@@ -24,7 +24,9 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
@@ -34,6 +36,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import ui.ModelChanger;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -45,6 +48,9 @@ import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
+import ui.parameterseries.ParameterCompareTemplatesDialog;
+import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateMode;
+import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord;
 
 /**
  * Sammelt die Kunden an der Station und leitet sie dann
@@ -217,20 +223,33 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 	protected JPanel[] addCustomSettingsToContextMenu() {
 		final List<JPanel> panels=new ArrayList<>();
 
-		if (batchRecord.getBatchSizeMin()==batchRecord.getBatchSizeMax() && batchRecord.getBatchSizeMin()>=1) {
-			final Function<Integer,String> batchChanger=value->{
-				if (value==null) return NumberTools.formatNumber(batchRecord.getBatchSizeMin())+" "+((batchRecord.getBatchSizeMin()==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
-				final int count=value.intValue();
-				batchRecord.setBatchSizeMin(count);
-				batchRecord.setBatchSizeMax(count);
-				return count+" "+((count==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
-			};
-			panels.add(createContextMenuSliderValue(Language.tr("Surface.Batch.BatchSize"),batchRecord.getBatchSizeMin(),20,batchChanger));
+		if (batchRecord.getBatchSizeMode()==BatchRecord.BatchSizeMode.FIXED) {
+			if (batchRecord.getBatchSizeFixed()>=1) {
+				final Function<Integer,String> batchChanger=value->{
+					if (value==null) return NumberTools.formatNumber(batchRecord.getBatchSizeFixed())+" "+((batchRecord.getBatchSizeFixed()==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
+					final int count=value.intValue();
+					batchRecord.setBatchSizeFixed(count);
+					return count+" "+((count==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
+				};
+				panels.add(createContextMenuSliderValue(Language.tr("Surface.Batch.BatchSize"),batchRecord.getBatchSizeFixed(),20,batchChanger));
+			}
+		}
+
+		if (batchRecord.getBatchSizeMode()==BatchRecord.BatchSizeMode.RANGE) {
+			if (batchRecord.getBatchSizeMin()==batchRecord.getBatchSizeMax() && batchRecord.getBatchSizeMin()>=1) {
+				final Function<Integer,String> batchChanger=value->{
+					if (value==null) return NumberTools.formatNumber(batchRecord.getBatchSizeMin())+" "+((batchRecord.getBatchSizeMin()==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
+					final int count=value.intValue();
+					batchRecord.setBatchSizeMin(count);
+					batchRecord.setBatchSizeMax(count);
+					return count+" "+((count==1)?Language.tr("Surface.Batch.BatchSize.ClientSingular"):Language.tr("Surface.Batch.BatchSize.ClientPlural"));
+				};
+				panels.add(createContextMenuSliderValue(Language.tr("Surface.Batch.BatchSize"),batchRecord.getBatchSizeMin(),20,batchChanger));
+			}
 		}
 
 		return panels.toArray(new JPanel[0]);
 	}
-
 
 	/**
 	 * Fügt optionale Menüpunkte zu einem "Visualisierungen hinzufügen"-Untermenü hinzu, welche
@@ -273,6 +292,28 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 	@Override
 	protected void addNextStationContextMenuItems(final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		NextStationHelper.nextStationsBatch(this,parentMenu,addNextStation);
+	}
+
+	/**
+	 * Fügt optionale Menüpunkte zum direkten Aufruf der Parameterreihenfunktion in das Kontextmenü ein
+	 * @param popupMenu	Kontextmenü zu dem die Einträge hinzugefügt werden sollen
+	 * @param buildSeries	Callback das zum Aktivieren der Parameterreihenfunktion aufgerufen werden soll
+	 */
+	@Override
+	protected void addParameterSeriesMenuItem(final JPopupMenu popupMenu, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildSeries) {
+		if (batchRecord.getBatchSizeMode()!=BatchRecord.BatchSizeMode.FIXED) return;
+
+		final JMenuItem item;
+		final URL imgURL=Images.PARAMETERSERIES.getURL();
+		popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeBatchSize")));
+		item.addActionListener(e->{
+			final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_BATCH_SIZE,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeBatchSize.Short"));
+			record.input.setMode(ModelChanger.Mode.MODE_XML);
+			record.input.setXMLMode(0);
+			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Batch.XML.Batch")+"->["+Language.trPrimary("Surface.Batch.XML.Batch.Size")+"]");
+			buildSeries.accept(record);
+		});
+		if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
 	}
 
 	/**

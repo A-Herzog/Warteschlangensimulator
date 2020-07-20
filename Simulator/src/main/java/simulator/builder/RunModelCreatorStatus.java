@@ -82,6 +82,9 @@ public class RunModelCreatorStatus {
 		/** Bei einer Fertigungsplanzuweisung wurde kein Fertigungsplan gewählt. */
 		NO_SEQUENCE,
 
+		/** Die (feste) Batch-Größe an einer Batch-Station ist kleiner als 1. */
+		FIXED_BATCH_SIZE_LOWER_THAN_1((e,s)->RunModelFixerHelper.setBatchFixedError(e,s)),
+
 		/** Die minimale Batch-Größe an einer Batch-Station ist kleiner als 1. */
 		MIN_BATCH_SIZE_LOWER_THAN_1((e,s)->RunModelFixerHelper.setBatchMinError(e,s)),
 

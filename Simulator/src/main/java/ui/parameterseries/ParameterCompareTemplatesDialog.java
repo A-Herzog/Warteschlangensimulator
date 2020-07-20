@@ -48,7 +48,9 @@ import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.elements.BatchRecord;
 import ui.modeleditor.elements.ModelElementAnalogValue;
+import ui.modeleditor.elements.ModelElementBatch;
 import ui.modeleditor.elements.ModelElementConveyor;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementProcess;
@@ -105,7 +107,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		/**
 		 * Fließband-Transportzeit variieren
 		 */
-		MODE_CONVEYOR
+		MODE_CONVEYOR,
+
+		/**
+		 * Batch-Größe
+		 */
+		MODE_BATCH_SIZE
 	}
 
 	private final ParameterCompareTemplatesDialog.TemplateMode mode;
@@ -132,6 +139,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		case MODE_DELAY: return Language.tr("ParameterCompare.Mode.Delay");
 		case MODE_ANALOG: return Language.tr("ParameterCompare.Mode.Analog");
 		case MODE_CONVEYOR: return Language.tr("ParameterCompare.Mode.Conveyor");
+		case MODE_BATCH_SIZE: return Language.tr("ParameterCompare.Mode.BatchSize");
 		default: return "";
 		}
 	}
@@ -151,6 +159,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		case MODE_DELAY: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_DELAY.getURL(); break;
 		case MODE_ANALOG: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_ANALOG.getURL(); break;
 		case MODE_CONVEYOR: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_CONVEYOR.getURL(); break;
+		case MODE_BATCH_SIZE: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_BATCHSIZE.getURL(); break;
 		default: imgURL=null; break;
 		}
 		if (imgURL==null) return null;
@@ -346,6 +355,26 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	private static List<TemplateRecord> getTemplatesBatchSize(final EditModel model, final List<ModelElementBox> stations) {
+		final List<TemplateRecord> list=new ArrayList<>();
+
+		for (ModelElementBox element: stations) if (element instanceof ModelElementBatch) {
+			final BatchRecord batchRecord=((ModelElementBatch)element).getBatchRecord();
+			if (batchRecord.getBatchSizeMode()==BatchRecord.BatchSizeMode.FIXED) {
+				final TemplateRecord record=new TemplateRecord(
+						TemplateMode.MODE_BATCH_SIZE,
+						String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.BatchSize"),element.getName()+" (id="+element.getId()+")")
+						);
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+element.getXMLNodeNames()[0]+"[id=\""+element.getId()+"\"]->"+Language.trPrimary("Surface.Batch.XML.Batch")+"->["+Language.trPrimary("Surface.Batch.XML.Batch.Size")+"]");
+
+				list.add(record);
+			}
+		}
+
+		return list;
+	}
+
 	/**
 	 * Liefert eine Liste aller verfügbaren Vorlagen für ein Modell
 	 * @param model	Modell für das die Vorlagen aufgelistet werden sollen
@@ -362,6 +391,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		map.put(TemplateMode.MODE_DELAY,getTemplatesDelayTimes(model,stations));
 		map.put(TemplateMode.MODE_ANALOG,getTemplatesAnalogValues(model,stations));
 		map.put(TemplateMode.MODE_CONVEYOR,getTemplatesConveyor(model,stations));
+		map.put(TemplateMode.MODE_BATCH_SIZE,getTemplatesBatchSize(model,stations));
 
 		return map;
 	}
@@ -419,7 +449,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			double max=initialValue.doubleValue()*2;
 			if (max<min) {final double d=min; min=max; max=d;}
 			final double stepWide=calcStepWide(max-min);
-			if (record.mode==TemplateMode.MODE_OPERATORS) {
+			if (record.mode==TemplateMode.MODE_OPERATORS || record.mode==TemplateMode.MODE_BATCH_SIZE) {
 				long l;
 				l=Math.round(min);
 				if (l==0) l=1;
@@ -645,7 +675,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			double max=NumberTools.getDouble(editMax,true).doubleValue();
 			double step=NumberTools.getDouble(editStep,true).doubleValue();
 			if (min>max) {final double d=min; min=max; max=d;}
-			if (mode==ParameterCompareTemplatesDialog.TemplateMode.MODE_OPERATORS) {
+			if (mode==ParameterCompareTemplatesDialog.TemplateMode.MODE_OPERATORS || mode==ParameterCompareTemplatesDialog.TemplateMode.MODE_BATCH_SIZE) {
 				min=Math.round(min);
 				max=Math.round(max);
 				if (min<0) min=0;
@@ -657,7 +687,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			double value=min;
 			while (value<=max) {
 				modelRecord=new ParameterCompareSetupModel();
-				if (mode==ParameterCompareTemplatesDialog.TemplateMode.MODE_OPERATORS) {
+				if (mode==ParameterCompareTemplatesDialog.TemplateMode.MODE_OPERATORS || mode==ParameterCompareTemplatesDialog.TemplateMode.MODE_BATCH_SIZE) {
 					modelRecord.getInput().put(inputName,(double)Math.round(value));
 				} else {
 					modelRecord.getInput().put(inputName,value);

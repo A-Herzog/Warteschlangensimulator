@@ -89,10 +89,19 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 
 			final BatchRecord batchRecord=entry.getValue();
 
-			batch.batchSizeMin[index]=batchRecord.getBatchSizeMin();
-			if (batch.batchSizeMin[index]<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
-			batch.batchSizeMax[index]=batchRecord.getBatchSizeMax();
-			if (batch.batchSizeMax[index]<batch.batchSizeMin[index]) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
+			switch (batchRecord.getBatchSizeMode()) {
+			case FIXED:
+				batch.batchSizeMin[index]=batchRecord.getBatchSizeFixed();
+				if (batch.batchSizeMin[index]<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+				batch.batchSizeMax[index]=batchRecord.getBatchSizeFixed();
+				break;
+			case RANGE:
+				batch.batchSizeMin[index]=batchRecord.getBatchSizeMin();
+				if (batch.batchSizeMin[index]<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+				batch.batchSizeMax[index]=batchRecord.getBatchSizeMax();
+				if (batch.batchSizeMax[index]<batch.batchSizeMin[index]) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
+				break;
+			}
 
 			batch.batchMode[index]=batchRecord.getBatchMode();
 			if (batch.batchMode[index]==BatchRecord.BatchMode.BATCH_MODE_COLLECT) {
@@ -123,8 +132,15 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			if (!active) continue;
 
 			final BatchRecord batchRecord=entry.getValue();
-			if (batchRecord.getBatchSizeMin()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.MIN_BATCH_SIZE_LOWER_THAN_1);
-			if (batchRecord.getBatchSizeMax()<batchRecord.getBatchSizeMin()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId()),RunModelCreatorStatus.Status.MAX_BATCH_SIZE_LOWER_THAN_MIN);
+			switch (batchRecord.getBatchSizeMode()) {
+			case FIXED:
+				if (batchRecord.getBatchSizeFixed()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.FIXED_BATCH_SIZE_LOWER_THAN_1);
+				break;
+			case RANGE:
+				if (batchRecord.getBatchSizeMin()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId()),RunModelCreatorStatus.Status.MIN_BATCH_SIZE_LOWER_THAN_1);
+				if (batchRecord.getBatchSizeMax()<batchRecord.getBatchSizeMin()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId()),RunModelCreatorStatus.Status.MAX_BATCH_SIZE_LOWER_THAN_MIN);
+				break;
+			}
 		}
 
 		return RunModelCreatorStatus.ok;

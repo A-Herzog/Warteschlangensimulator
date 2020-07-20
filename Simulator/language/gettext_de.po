@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-18 22:52+0200\n"
+"POT-Creation-Date: 2020-07-20 21:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9508,6 +9508,9 @@ msgstr "Basismodell fehlerhaft"
 msgid "ParameterCompare.Mode.Analog"
 msgstr "Startwert für Analogwert"
 
+msgid "ParameterCompare.Mode.BatchSize"
+msgstr "Batch-Größe"
+
 msgid "ParameterCompare.Mode.Conveyor"
 msgstr "Fließband-Transportzeit"
 
@@ -9764,6 +9767,9 @@ msgstr "Initialer Wert an Station %s"
 
 msgid "ParameterCompare.Settings.Input.List.Templates.AnalogValue.Title"
 msgstr "Initialer Analogwert"
+
+msgid "ParameterCompare.Settings.Input.List.Templates.BatchSize"
+msgstr "Batch-Größe an Station %s"
 
 msgid "ParameterCompare.Settings.Input.List.Templates.Conveyor"
 msgstr "Fließband-Transportzeit an Station %s"
@@ -18969,6 +18975,9 @@ msgstr "Kunden"
 msgid "Surface.Batch.BatchSize.ClientSingular"
 msgstr "Kunde"
 
+msgid "Surface.Batch.Dialog.BatchSize.Error.InfoFixed"
+msgstr "Der angegebene Wert \"%s\" für die Batch-Größe ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
+
 msgid "Surface.Batch.Dialog.BatchSize.Error.InfoMax"
 msgstr "Der angegebene Wert \"%s\" für die maximale Batch-Größe ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
 
@@ -18981,11 +18990,23 @@ msgstr "Die angegebene minimale Batch-Größe %d ist kleiner als die angegebene 
 msgid "Surface.Batch.Dialog.BatchSize.Error.Title"
 msgstr "Ungültige Batch-Größe"
 
+msgid "Surface.Batch.Dialog.BatchSizeFixed"
+msgstr "Batch-Größe"
+
 msgid "Surface.Batch.Dialog.BatchSizeMax"
 msgstr "Maximale Batch-Größe"
 
 msgid "Surface.Batch.Dialog.BatchSizeMin"
 msgstr "Minimale Batch-Größe"
+
+msgid "Surface.Batch.Dialog.BatchSizeMode.Fixed"
+msgstr "Feste Batch-Größe"
+
+msgid "Surface.Batch.Dialog.BatchSizeMode.Heading"
+msgstr "Batch-Größe"
+
+msgid "Surface.Batch.Dialog.BatchSizeMode.Range"
+msgstr "Variable Batch-Größe"
 
 msgid "Surface.Batch.Dialog.NewType"
 msgstr "Neuer Typ"
@@ -18998,6 +19019,9 @@ msgstr "Für den neuen Kundentyp wurde kein Name angegeben."
 
 msgid "Surface.Batch.Dialog.SendAsNewClient.Error.Title"
 msgstr "Name für Kundentyp fehlt"
+
+msgid "Surface.Batch.Dialog.SendMode.Heading"
+msgstr "Batch-Bildung"
 
 msgid "Surface.Batch.Dialog.SendSeparate"
 msgstr "Kunden nach Zusammenfassen weiterleiten"
@@ -19035,11 +19059,14 @@ msgstr "Sammelt die Kunden und reicht sie erst weiter, wenn eine bestimmte Anzah
 msgid "Surface.Batch.XML.Batch"
 msgstr "ModellElementBatch"
 
+msgid "Surface.Batch.XML.Batch.Size"
+msgstr "Groesse"
+
 msgid "Surface.Batch.XML.Batch.SizeMax"
 msgstr "Maximum"
 
 msgid "Surface.Batch.XML.Batch.SizeMin"
-msgstr "Minimum;Groesse"
+msgstr "Minimum"
 
 msgid "Surface.Batch.XML.BatchMode"
 msgstr "ModellElementBatchModus;BatchModus"
@@ -21868,6 +21895,12 @@ msgstr "In den Hintergrund"
 msgid "Surface.PopupMenu.MoveToFront"
 msgstr "In den Vordergrund"
 
+msgid "Surface.PopupMenu.ParameterCompare.ChangeBatchSize"
+msgstr "Parameterreihe: Batch-Größe variieren"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeBatchSize.Short"
+msgstr "Batch-Größe"
+
 msgid "Surface.PopupMenu.ParameterCompare.ChangeDelayTime"
 msgstr "Parameterreihe: Mittlere Verzögerung variieren"
 
@@ -21921,6 +21954,9 @@ msgstr "Initialwert auf %s stellen"
 
 msgid "Surface.PopupMenu.QuickFix.Analog.SetMaxValue"
 msgstr "Maximalwert auf %s stellen"
+
+msgid "Surface.PopupMenu.QuickFix.Batch.SetFixed1"
+msgstr "Batch-Größe auf 1 setzen"
 
 msgid "Surface.PopupMenu.QuickFix.Batch.SetMaxMin"
 msgstr "Maximale Batch-Größe auf %d setzen"

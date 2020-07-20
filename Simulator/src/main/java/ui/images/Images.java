@@ -638,6 +638,9 @@ public enum Images {
 	/** Symbol "Parameterreihe - Vorlage - Fließband-Transportzeit variieren */
 	PARAMETERSERIES_TEMPLATE_MODE_CONVEYOR("Conveyor.png"),
 
+	/** Symbol "Parameterreihe - Vorlage - Batch-Größe variieren */
+	PARAMETERSERIES_TEMPLATE_MODE_BATCHSIZE("Batch.png"),
+
 	/* Optimierer */
 
 	/** Symbol "Optimierer" */

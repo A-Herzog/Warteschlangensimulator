@@ -48,9 +48,24 @@ public class BatchRecord implements Cloneable {
 		BATCH_MODE_PERMANENT
 	}
 
+	/**
+	 * Feste oder variable Batch-Größe
+	 * @author Alexander Herzog
+	 * @see BatchRecord#getBatchSizeMode()
+	 * @see BatchRecord#setBatchSizeMode(BatchSizeMode)
+	 */
+	public enum BatchSizeMode {
+		/** Feste Batch-Größe */
+		FIXED,
+		/** Variable Batch-Größe */
+		RANGE
+	}
+
+	private int batchSizeFixed;
 	private int batchSizeMin;
 	private int batchSizeMax;
 	private BatchMode batchMode;
+	private BatchSizeMode batchSizeMode;
 	private String newClientType;
 
 	/**
@@ -59,7 +74,9 @@ public class BatchRecord implements Cloneable {
 	public BatchRecord() {
 		batchSizeMin=1;
 		batchSizeMax=1;
+		batchSizeFixed=1;
 		batchMode=BatchMode.BATCH_MODE_COLLECT;
+		batchSizeMode=BatchSizeMode.FIXED;
 		newClientType="";
 	}
 
@@ -75,8 +92,17 @@ public class BatchRecord implements Cloneable {
 		if (batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) {
 			if (!otherBatchRecord.newClientType.equals(newClientType)) return false;
 		}
-		if (batchSizeMin!=otherBatchRecord.batchSizeMin) return false;
-		if (batchSizeMax!=otherBatchRecord.batchSizeMax) return false;
+		if (batchSizeMode!=otherBatchRecord.batchSizeMode) return false;
+
+		switch (batchSizeMode) {
+		case FIXED:
+			if (batchSizeFixed!=otherBatchRecord.batchSizeFixed) return false;
+			break;
+		case RANGE:
+			if (batchSizeMin!=otherBatchRecord.batchSizeMin) return false;
+			if (batchSizeMax!=otherBatchRecord.batchSizeMax) return false;
+			break;
+		}
 
 		return true;
 	}
@@ -94,6 +120,8 @@ public class BatchRecord implements Cloneable {
 		} else {
 			newClientType="";
 		}
+		batchSizeMode=copySource.batchSizeMode;
+		batchSizeFixed=copySource.batchSizeFixed;
 		batchSizeMin=copySource.batchSizeMin;
 		batchSizeMax=copySource.batchSizeMax;
 	}
@@ -161,32 +189,72 @@ public class BatchRecord implements Cloneable {
 	}
 
 	/**
-	 * Liefert die aktuelle minimale Batch-Größe
+	 * Liefert den eingestellten Batch-Größen-Modus (einzelner Wert oder Bereich).
+	 * @return	Batch-Größen-Modus
+	 */
+	public BatchSizeMode getBatchSizeMode() {
+		return batchSizeMode;
+	}
+
+	/**
+	 * Stellt den eingestellten Batch-Größen-Modus (einzelner Wert oder Bereich) ein.
+	 * @param batchSizeMode	Batch-Größen-Modus
+	 */
+	public void setBatchSizeMode(BatchSizeMode batchSizeMode) {
+		this.batchSizeMode=batchSizeMode;
+	}
+
+
+	/**
+	 * Liefert die aktuelle Batch-Größe (im Modus fester Batch-Größe).
+	 * @return	Batch-Größe
+	 * @see BatchSizeMode
+	 */
+	public int getBatchSizeFixed() {
+		return batchSizeFixed;
+	}
+
+	/**
+	 * Stellt die Batch-Größe ein (im Modus fester Batch-Größe).
+	 * @param batchSizeFixed	Neue Batch-Größe
+	 * @see BatchSizeMode
+	 */
+	public void setBatchSizeFixed(int batchSizeFixed) {
+		this.batchSizeFixed=batchSizeFixed;
+	}
+
+
+	/**
+	 * Liefert die aktuelle minimale Batch-Größe (im Modus variabler Batch-Größe).
 	 * @return Minimale Batch-Größe
+	 * @see BatchSizeMode
 	 */
 	public int getBatchSizeMin() {
 		return batchSizeMin;
 	}
 
 	/**
-	 * Liefert die aktuelle maximale Batch-Größe
+	 * Liefert die aktuelle maximale Batch-Größe (im Modus variabler Batch-Größe).
 	 * @return Maximale Batch-Größe
+	 * @see BatchSizeMode
 	 */
 	public int getBatchSizeMax() {
 		return batchSizeMax;
 	}
 
 	/**
-	 * Stellt die minimale Batch-Größe ein.
+	 * Stellt die minimale Batch-Größe ein (im Modus variabler Batch-Größe).
 	 * @param batchSizeMin	Neue minimale Batch-Größe
+	 * @see BatchSizeMode
 	 */
 	public void setBatchSizeMin(final int batchSizeMin) {
 		if (batchSizeMin>=1) this.batchSizeMin=batchSizeMin;
 	}
 
 	/**
-	 * Stellt die maximale Batch-Größe ein.
+	 * Stellt die maximale Batch-Größe ein (im Modus variabler Batch-Größe).
 	 * @param batchSizeMax	Neue maximale Batch-Größe
+	 * @see BatchSizeMode
 	 */
 	public void setBatchSizeMax(final int batchSizeMax) {
 		if (batchSizeMax>=1) this.batchSizeMax=batchSizeMax;
@@ -230,10 +298,16 @@ public class BatchRecord implements Cloneable {
 			break;
 		}
 
-		if (batchSizeMin>1 || batchSizeMax>1) {
+		switch (batchSizeMode) {
+		case FIXED:
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.Batch")));
+			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.Size"),""+batchSizeFixed);
+			break;
+		case RANGE:
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.Batch")));
 			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.SizeMin"),""+batchSizeMin);
 			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.Batch.SizeMax"),""+batchSizeMax);
+			break;
 		}
 	}
 
@@ -270,6 +344,7 @@ public class BatchRecord implements Cloneable {
 				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Batch.XML.Batch.SizeMin"),name,node.getParentNode().getNodeName());
 				batchSizeMin=(int)((long)L);
 				if (batchSizeMax<batchSizeMin) batchSizeMax=batchSizeMin;
+				batchSizeMode=BatchSizeMode.RANGE;
 			}
 
 			size=Language.trAllAttribute("Surface.Batch.XML.Batch.SizeMax",node);
@@ -278,7 +353,17 @@ public class BatchRecord implements Cloneable {
 				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Batch.XML.Batch.SizeMax"),name,node.getParentNode().getNodeName());
 				batchSizeMax=(int)((long)L);
 				if (batchSizeMin>batchSizeMax) batchSizeMin=batchSizeMax;
+				batchSizeMode=BatchSizeMode.RANGE;
 			}
+
+			size=Language.trAllAttribute("Surface.Batch.XML.Batch.Size",node);
+			if (!size.isEmpty()) {
+				final Long L=NumberTools.getPositiveLong(size);
+				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Batch.XML.Batch.Size"),name,node.getParentNode().getNodeName());
+				batchSizeFixed=(int)((long)L);
+				batchSizeMode=BatchSizeMode.FIXED;
+			}
+
 			return null;
 		}
 
@@ -354,10 +439,17 @@ public class BatchRecord implements Cloneable {
 		}
 
 		/* Batchgröße */
-		if (batchSizeMin==batchSizeMax) {
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),""+batchSizeMin,level+1);
-		} else {
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),""+batchSizeMin+".."+batchSizeMax,level+1);
+		switch (batchSizeMode) {
+		case FIXED:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),""+batchSizeFixed,level+1);
+			break;
+		case RANGE:
+			if (batchSizeMin==batchSizeMax) {
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),""+batchSizeMin,level+1);
+			} else {
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.Size"),""+batchSizeMin+".."+batchSizeMax,level+1);
+			}
+			break;
 		}
 
 		/* Neuer Kundentyp */
