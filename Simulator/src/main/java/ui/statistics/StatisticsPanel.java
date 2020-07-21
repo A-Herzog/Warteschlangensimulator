@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.swing.JTree;
 
@@ -27,6 +28,9 @@ import org.w3c.dom.Element;
 import language.Language;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
+import statistics.StatisticsMultiPerformanceIndicator;
+import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import systemtools.MsgBox;
@@ -378,6 +382,27 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			if (statistic.clientsTransferTimes.size()>1) return true;
 			if (statistic.clientsProcessingTimes.size()>1) return true;
 			if (statistic.clientsResidenceTimes.size()>1) return true;
+		}
+		return false;
+	}
+
+	private boolean testMultiTypesPositive(final Statistics[] statistics, final Function<Statistics,StatisticsMultiPerformanceIndicator> tester) { // XXX
+		for (Statistics statistic: statistics) {
+			final StatisticsMultiPerformanceIndicator multi=tester.apply(statistic);
+			for (StatisticsPerformanceIndicator indicator: multi.getAll()) {
+				if (indicator instanceof StatisticsDataPerformanceIndicator) {
+					final StatisticsDataPerformanceIndicator data=(StatisticsDataPerformanceIndicator)indicator;
+					if (data.getMax()>0) return true;
+				}
+				if (indicator instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
+					final StatisticsDataPerformanceIndicatorWithNegativeValues data=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicator;
+					if (data.getMax()>0) return true;
+				}
+				if (indicator instanceof StatisticsTimePerformanceIndicator) {
+					final StatisticsTimePerformanceIndicator time=(StatisticsTimePerformanceIndicator)indicator;
+					if (time.getTimeMax()>0) return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -812,23 +837,31 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_CLIENTS_WAITINGPROCESSING));
 		group.addChild(new StatisticNode(Language.tr("Statistics.WaitingTransferProcessTimesOfClients"),viewer));
 
-		if (testMultiClientTypes(statistics)) {
+		if (testMultiClientTypes(statistics)) { // XXX
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_CLIENTS));
-			group.addChild(new StatisticNode(Language.tr("Statistics.ClientsWaitingTimes"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.clientsWaitingTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_CLIENTS));
+				group.addChild(new StatisticNode(Language.tr("Statistics.ClientsWaitingTimes"),viewer));
+			}
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_TRANSFER_CLIENTS));
-			group.addChild(new StatisticNode(Language.tr("Statistics.ClientsTransferTimes"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.clientsTransferTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_TRANSFER_CLIENTS));
+				group.addChild(new StatisticNode(Language.tr("Statistics.ClientsTransferTimes"),viewer));
+			}
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_PROCESSING_CLIENTS));
-			group.addChild(new StatisticNode(Language.tr("Statistics.ClientsProcessTimes"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.clientsProcessingTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_PROCESSING_CLIENTS));
+				group.addChild(new StatisticNode(Language.tr("Statistics.ClientsProcessTimes"),viewer));
+			}
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_CLIENTS));
-			group.addChild(new StatisticNode(Language.tr("Statistics.ClientsResidenceTimes"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.clientsResidenceTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_CLIENTS));
+				group.addChild(new StatisticNode(Language.tr("Statistics.ClientsResidenceTimes"),viewer));
+			}
 		}
 
 		viewer=new ArrayList<>();
@@ -926,23 +959,31 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS));
 		group.addChild(new StatisticNode(Language.tr("Statistics.WaitingTransferProcessTimesAtStations"),viewer));
 
-		if (testMultiStations(statistics)) {
+		if (testMultiStations(statistics)) { // XXX
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_STATION));
-			group.addChild(new StatisticNode(Language.tr("Statistics.StationsWaitingTimes"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsWaitingTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_STATION));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsWaitingTimes"),viewer));
+			}
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_TRANSFER_STATION));
-			group.addChild(new StatisticNode(Language.tr("Statistics.StationsTransferTimes"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsTransferTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_TRANSFER_STATION));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsTransferTimes"),viewer));
+			}
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_PROCESSING_STATION));
-			group.addChild(new StatisticNode(Language.tr("Statistics.StationsProcessTimes"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsProcessingTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_PROCESSING_STATION));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsProcessTimes"),viewer));
+			}
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_STATION));
-			group.addChild(new StatisticNode(Language.tr("Statistics.StationsResidenceTimes"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsResidenceTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_STATION));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsResidenceTimes"),viewer));
+			}
 
 		}
 
@@ -956,21 +997,30 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS));
 			group.addChild(new StatisticNode(Language.tr("Statistics.WaitingTransferProcessTimesAtStationsClients.Short"),viewer));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_STATION_CLIENT));
-			group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsWaitingTimes.Short"),viewer));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_TRANSFER_STATION_CLIENT));
-			group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsTransferTimes.Short"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsWaitingTimesByClientType)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_WAITING_STATION_CLIENT));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsWaitingTimes.Short"),viewer));
+			}
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_PROCESSING_STATION_CLIENT));
-			group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsProcessTimes.Short"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsTransferTimesByClientType)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_TRANSFER_STATION_CLIENT));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsTransferTimes.Short"),viewer));
+			}
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_STATION_CLIENT));
-			group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsResidenceTimes.Short"),viewer));
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsProcessingTimesByClientType)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_PROCESSING_STATION_CLIENT));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsProcessTimes.Short"),viewer));
+			}
+
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsResidenceTimesByClientType)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_STATION_CLIENT));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsResidenceTimes.Short"),viewer));
+			}
 		}
 
 		/* (Untergruppe) Verteilungen */
