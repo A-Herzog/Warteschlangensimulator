@@ -435,6 +435,7 @@ public final class SetupDialog extends BaseDialog {
 		final JSpinner serverPortSpinner=new JSpinner(serverPort=new SpinnerNumberModel(1,1,65535,1));
 		final JSpinner.NumberEditor editor=new JSpinner.NumberEditor(serverPortSpinner);
 		editor.getFormat().setGroupingUsed(false);
+		editor.getTextField().setColumns(6);
 		serverPortSpinner.setEditor(editor);
 		p.add(serverPortSpinner);
 		label.setLabelFor(serverPortSpinner);
@@ -535,7 +536,8 @@ public final class SetupDialog extends BaseDialog {
 		final JSpinner statisticsNumberDigitsSpinner=new JSpinner(statisticsNumberDigits=new SpinnerNumberModel(1,1,9,1));
 		final JSpinner.NumberEditor statisticsNumberDigitsEditor=new JSpinner.NumberEditor(statisticsNumberDigitsSpinner);
 		statisticsNumberDigitsEditor.getFormat().setGroupingUsed(false);
-		serverPortSpinner.setEditor(statisticsNumberDigitsEditor);
+		statisticsNumberDigitsEditor.getTextField().setColumns(2);
+		statisticsNumberDigitsSpinner.setEditor(statisticsNumberDigitsEditor);
 		p.add(statisticsNumberDigitsSpinner);
 		label.setLabelFor(statisticsNumberDigitsSpinner);
 
@@ -544,7 +546,8 @@ public final class SetupDialog extends BaseDialog {
 		final JSpinner statisticsNumberPercentSpinner=new JSpinner(statisticsPercentDigits=new SpinnerNumberModel(1,1,9,1));
 		final JSpinner.NumberEditor statisticsPercentDigitsEditor=new JSpinner.NumberEditor(statisticsNumberPercentSpinner);
 		statisticsPercentDigitsEditor.getFormat().setGroupingUsed(false);
-		serverPortSpinner.setEditor(statisticsPercentDigitsEditor);
+		statisticsPercentDigitsEditor.getTextField().setColumns(2);
+		statisticsNumberPercentSpinner.setEditor(statisticsPercentDigitsEditor);
 		p.add(statisticsNumberPercentSpinner);
 		label.setLabelFor(statisticsNumberPercentSpinner);
 
