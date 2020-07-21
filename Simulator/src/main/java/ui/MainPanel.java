@@ -1536,7 +1536,7 @@ public class MainPanel extends MainPanelBase {
 			statisticsPanel.setStatistics(null);
 			for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(false);
 			setCurrentPanel(editorPanel);
-			editorPanel.centerModel();
+			editorPanel.smartCenterModel();
 		} else {
 			MsgBox.error(getOwnerWindow(),Language.tr("XML.LoadErrorTitle"),error);
 		}

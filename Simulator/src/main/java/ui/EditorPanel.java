@@ -306,10 +306,26 @@ public class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
-	 * Zentriert das Modell auf der Zeichenfläche
+	 * Zentriert das Modell auf der Zeichenfläche.
 	 */
 	public void centerModel() {
 		surfacePanel.centerModel();
+	}
+
+	private static final int MAX_CENTER_DELTA=100;
+
+	/**
+	 * Zentriert das Modell auf der Zeichenfläche.<br>
+	 * Bei nur kleinen Abweichungen von der linken oberen Ecke wird zu dieser gescrollt.
+	 */
+	public void smartCenterModel() {
+		surfacePanel.centerModel();
+		final Point top=surfacePanel.getTopPosition();
+		final double zoom=surfacePanel.getZoom();
+		final int maxDelta=(int)Math.round(MAX_CENTER_DELTA*zoom);
+		if (top!=null && (top.x>0 || top.y>0)) {
+			if (top.x<=maxDelta && top.y<=maxDelta) surfacePanel.scrollToTop();
+		}
 	}
 
 	/**

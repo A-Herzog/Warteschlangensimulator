@@ -447,14 +447,15 @@ public final class ModelSurfacePanel extends JPanel {
 	public void centerModel() {
 		if (surface==null || !(getParent() instanceof JViewport)) return;
 
-		Point point=surface.getModelCenter();
+		final Point point=surface.getModelCenter();
 
-		JViewport viewport=(JViewport)getParent();
-		Rectangle viewArea=viewport.getViewRect();
+		final JViewport viewport=(JViewport)getParent();
+		final Rectangle viewArea=viewport.getViewRect();
 
-		point.translate(-viewArea.width/2,-viewArea.height/2);
+		point.translate(-(int)Math.round(viewArea.width/zoom/2.0),-(int)Math.round(viewArea.height/zoom/2.0));
 		point.x=Math.max(0,point.x);
 		point.y=Math.max(0,point.y);
+
 		viewport.setViewPosition(point);
 
 		repaint();
@@ -466,11 +467,20 @@ public final class ModelSurfacePanel extends JPanel {
 	public void scrollToTop() {
 		if (surface==null || !(getParent() instanceof JViewport)) return;
 
-		JViewport viewport=(JViewport)getParent();
-
+		final JViewport viewport=(JViewport)getParent();
 		viewport.setViewPosition(new Point(0,0));
 
 		repaint();
+	}
+
+	/**
+	 * Liefert die Position der linken oberen Ecke
+	 * @return	Position der linken oberen Ecke (oder <code>null</code>, wenn diese nicht ermittelt werden konnte)
+	 */
+	public Point getTopPosition() {
+		if (surface==null || !(getParent() instanceof JViewport)) return null;
+		final JViewport viewport=(JViewport)getParent();
+		return viewport.getViewPosition();
 	}
 
 	/**
