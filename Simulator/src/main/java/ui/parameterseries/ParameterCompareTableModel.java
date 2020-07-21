@@ -252,7 +252,12 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	private ImageIcon busyIcon=null;
 
 	private JLabel getBusyMarker(final int percent) {
-		final JLabel label=new JLabel(" "+percent+"%");
+		final JLabel label;
+		if (percent>0) {
+			label=new JLabel(" "+percent+"%");
+		} else {
+			label=new JLabel();
+		}
 
 		if (busyIcon==null) {
 			busyIcon=new ImageIcon(Images.GENERAL_WAIT_INDICATOR.getURL());

@@ -213,7 +213,12 @@ public class ParameterCompareRunnerModel {
 	 */
 	public Status getStatus() {
 		if (simulator!=null) {
-			final int percent=(int)FastMath.min(100,(simulator.getCurrentClients()*100/FastMath.max(1,simulator.getCountClients())));
+			final int percent;
+			if (changedModel.useFinishTime || changedModel.useTerminationCondition) {
+				percent=0;
+			} else {
+				percent=(int)FastMath.min(100,(simulator.getCurrentClients()*100/FastMath.max(1,simulator.getCountClients())));
+			}
 			model.setInProcess(percent);
 			if (!simulator.isRunning()) {
 				processResults(simulator.getStatistic());
