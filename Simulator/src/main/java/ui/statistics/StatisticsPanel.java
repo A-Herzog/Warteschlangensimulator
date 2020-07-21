@@ -386,7 +386,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
-	private boolean testMultiTypesPositive(final Statistics[] statistics, final Function<Statistics,StatisticsMultiPerformanceIndicator> tester) { // XXX
+	private boolean testMultiTypesPositive(final Statistics[] statistics, final Function<Statistics,StatisticsMultiPerformanceIndicator> tester) {
 		for (Statistics statistic: statistics) {
 			final StatisticsMultiPerformanceIndicator multi=tester.apply(statistic);
 			for (StatisticsPerformanceIndicator indicator: multi.getAll()) {
@@ -837,7 +837,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_CLIENTS_WAITINGPROCESSING));
 		group.addChild(new StatisticNode(Language.tr("Statistics.WaitingTransferProcessTimesOfClients"),viewer));
 
-		if (testMultiClientTypes(statistics)) { // XXX
+		if (testMultiClientTypes(statistics)) {
 
 			if (testMultiTypesPositive(statistics,statistic->statistic.clientsWaitingTimes)) {
 				viewer=new ArrayList<>();
@@ -959,7 +959,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS));
 		group.addChild(new StatisticNode(Language.tr("Statistics.WaitingTransferProcessTimesAtStations"),viewer));
 
-		if (testMultiStations(statistics)) { // XXX
+		if (testMultiStations(statistics)) {
 
 			if (testMultiTypesPositive(statistics,statistic->statistic.stationsWaitingTimes)) {
 				viewer=new ArrayList<>();
