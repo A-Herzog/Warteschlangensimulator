@@ -546,11 +546,12 @@ public class RunDataClient {
 	public List<RunDataClient> dissolveBatch() {
 		if (batch==null || batchMarkedAsDone) return null;
 
-		final List<RunDataClient> b=batch;
-		/* batch=null; - lösen wir jetzt anders (nächste Zeile) */
 		batchMarkedAsDone=true;
 
-		for (RunDataClient client: b) {
+		final int size=batch.size();
+		for (int i=0;i<size;i++) {
+			final RunDataClient client=batch.get(i);
+
 			client.waitingTime+=waitingTime;
 			client.transferTime+=transferTime;
 			client.processTime+=processTime;
@@ -565,10 +566,10 @@ public class RunDataClient {
 			client.arrivalProcessedStationID=arrivalProcessedStationID;
 			client.sequenceNr=sequenceNr;
 			client.sequenceStep=sequenceStep;
-			for (int i=0;i<pathRecordingUsed;i++) client.recordPathStep(pathRecording[i]);
+			for (int j=0;j<pathRecordingUsed;j++) client.recordPathStep(pathRecording[j]);
 		}
 
-		return b;
+		return batch;
 	}
 
 	/**

@@ -95,7 +95,10 @@ public class RunElementSeparate extends RunElementPassThrough {
 				log(simData,Language.tr("Simulation.Log.Separate"),String.format(Language.tr("Simulation.Log.Separate.Split"),client.logInfo(simData),sb.toString(),name));
 			}
 
-			for (RunDataClient c : batch) {
+			final int size=batch.size();
+			for (int i=0;i<size;i++) {
+				final RunDataClient c=batch.get(i);
+
 				/* Kunde betritt Station (wird sonst über die Events realisiert) */
 				simData.runData.logClientEntersStation(simData,this,null);
 

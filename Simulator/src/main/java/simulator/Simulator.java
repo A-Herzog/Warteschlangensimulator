@@ -140,17 +140,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		return null;
 	}
 
-	/**
-	 * Wird intern verwendet, um die Statistikdaten von den Threads einzusammeln.
-	 * Diese Funktion wird von <code>getStatistic</code> aufgerufen. <code>getStatistic</code> speichert die einmal erhobenen
-	 * Daten für spätere Abrufe zwischen, so dass <code>collectStatistics</code> nur einmal aufgerufen werden muss.
-	 * @return	Liefert eine Statistikobjekt, welches die zusammengefassten Statistikdaten über alle Threads enthält
-	 */
-	protected Statistics collectStatistics() {
-		final Statistics statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours);
-
-		/* Basisdaten zum Modell und zum Simulationslauf festhalten */
-
+	private void writeBaseDataToStatistics(final Statistics statistics) {
 		statistics.editModel=editModel.clone();
 		statistics.editModel.version=EditModel.systemVersion;
 		if (statistics.editModel.author==null || statistics.editModel.author.trim().isEmpty()) statistics.editModel.author=EditModel.getDefaultAuthor();
@@ -162,32 +152,53 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		statistics.simulationData.runRepeatCount=editModel.repeatCount;
 		statistics.simulationData.numaAwareMode=getNUMAAware();
 		statistics.simulationData.threadRunTimes=getThreadRuntimes();
+	}
 
-		/* Daten von den Threads einsammeln */
-		int count1=0;
-		int count2=0;
-		double waiting1=0;
-		double waiting2=0;
-		final List<StatisticsDataPerformanceIndicator> partialWaitingTime=new ArrayList<>();
-		for (int i=0;i<threads.length;i++) {
-			final Statistics partialStatistics=((SimulationData)threads[i].simData).statistics;
-			partialWaitingTime.add(partialStatistics.clientsAllWaitingTimes);
-			statistics.addData(partialStatistics);
-			final double waiting=partialStatistics.clientsAllWaitingTimes.getMean();
-			if (i<threads.length/2) {count1++; waiting1+=waiting;} else {count2++; waiting2+=waiting;}
-		}
+	/**
+	 * Wird intern verwendet, um die Statistikdaten von den Threads einzusammeln.
+	 * Diese Funktion wird von <code>getStatistic</code> aufgerufen. <code>getStatistic</code> speichert die einmal erhobenen
+	 * Daten für spätere Abrufe zwischen, so dass <code>collectStatistics</code> nur einmal aufgerufen werden muss.
+	 * @return	Liefert eine Statistikobjekt, welches die zusammengefassten Statistikdaten über alle Threads enthält
+	 */
+	protected Statistics collectStatistics() {
+		final Statistics statistics;
 
-		/* Warnung, wenn die mittlere Wartezeit der ersten Hälfte von der zweiten Hälfte abweicht */
-		if (count1>0 && count2>0 && waiting1>0 && waiting2>0) {
-			if (!editModel.useTerminationCondition) {
-				final double delta=Math.abs((waiting1/count1)-(waiting2/count2))/((waiting1+waiting2)/(count1+count2));
-				/* System.out.println("Delta="+NumberTools.formatPercent(delta,2)); */
-				if (delta>0.1) statistics.simulationData.addWarning(String.format(Language.tr("Statistics.Warnings.SimulationRunNotLongEnough"),NumberTools.formatPercent(delta)));
+		/* Wenn mit nur einem Thread gerechnet wurde, Daten nicht noch mal umkopieren. */
+		if (threads.length==1) {
+			statistics=((SimulationData)threads[0].simData).statistics;
+
+			/* Basisdaten zum Modell und zum Simulationslauf festhalten */
+			writeBaseDataToStatistics(statistics);
+		} else {
+			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours);
+
+			/* Basisdaten zum Modell und zum Simulationslauf festhalten */
+			writeBaseDataToStatistics(statistics);
+
+			/* Daten von den Threads einsammeln */
+			int count1=0;
+			int count2=0;
+			double waiting1=0;
+			double waiting2=0;
+			final List<StatisticsDataPerformanceIndicator> partialWaitingTime=new ArrayList<>();
+			for (int i=0;i<threads.length;i++) {
+				final Statistics partialStatistics=((SimulationData)threads[i].simData).statistics;
+				partialWaitingTime.add(partialStatistics.clientsAllWaitingTimes);
+				statistics.addData(partialStatistics);
+				final double waiting=partialStatistics.clientsAllWaitingTimes.getMean();
+				if (i<threads.length/2) {count1++; waiting1+=waiting;} else {count2++; waiting2+=waiting;}
 			}
-		}
 
-		/* Aufzeichnung der Thread-basierenden Konfidenzniveaus für die Wartezeiten */
-		if (threads.length>1) {
+			/* Warnung, wenn die mittlere Wartezeit der ersten Hälfte von der zweiten Hälfte abweicht */
+			if (count1>0 && count2>0 && waiting1>0 && waiting2>0) {
+				if (!editModel.useTerminationCondition) {
+					final double delta=Math.abs((waiting1/count1)-(waiting2/count2))/((waiting1+waiting2)/(count1+count2));
+					/* System.out.println("Delta="+NumberTools.formatPercent(delta,2)); */
+					if (delta>0.1) statistics.simulationData.addWarning(String.format(Language.tr("Statistics.Warnings.SimulationRunNotLongEnough"),NumberTools.formatPercent(delta)));
+				}
+			}
+
+			/* Aufzeichnung der Thread-basierenden Konfidenzniveaus für die Wartezeiten */
 			final double[] halfWidth=StatisticsDataPerformanceIndicator.getConfidenceHalfWideByMultiStatistics(partialWaitingTime.toArray(new StatisticsDataPerformanceIndicator[0]),statistics.clientsAllWaitingTimes,StatisticViewerOverviewText.CONFIDENCE_LEVELS);
 			if (halfWidth!=null) for (int i=0;i<halfWidth.length;i++) {
 				((StatisticsSimpleValuePerformanceIndicator)statistics.threadBasedConfidence.get(NumberTools.formatPercent(1-StatisticViewerOverviewText.CONFIDENCE_LEVELS[i]))).set(halfWidth[i]);
