@@ -151,6 +151,13 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		smartZoom(1);
 	}
 
+	private boolean isDistNull(final DataDistributionImpl dist) {
+		if (dist==null) return true;
+		if (dist.densityData==null || dist.densityData.length<2) return true;
+		for (int i=1;i<dist.densityData.length;i++) if (dist.densityData[i]>0) return false;
+		return true;
+	}
+
 	private void requestDiagrammStateDistribution(final String title, StatisticsMultiPerformanceIndicator indicator, final StatisticsTimePerformanceIndicator system, final String xLabel, final Map<String,Color> colorMap) {
 		initLineChart(title);
 		setupChartValuePercent(title,xLabel,Language.tr("Statistics.Part"));
@@ -165,21 +172,32 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			addSeries(Language.tr("Statistics.System"),Color.BLACK,dist);
 		}
 
+		int colorIndex=0;
 		for (int i=0;i<names.length;i++) {
 			Color color=null;
 			if (colorMap!=null) color=colorMap.get(names[i]);
-			if (color==null) color=COLORS[i%COLORS.length];
+			if (color==null) color=COLORS[colorIndex%COLORS.length];
 			if (indicators[i] instanceof StatisticsTimePerformanceIndicator) {
 				dist=((StatisticsTimePerformanceIndicator)indicators[i]).getNormalizedDistribution();
+				if (isDistNull(dist)) continue;
+				colorIndex++;
 				addSeries(names[i],color,dist);
 			}
 			if (indicators[i] instanceof StatisticsDataPerformanceIndicator) {
 				dist=((StatisticsDataPerformanceIndicator)indicators[i]).getNormalizedDistribution();
-				if (dist!=null) addSeries(names[i],color,dist);
+				if (dist!=null) {
+					if (isDistNull(dist)) continue;
+					colorIndex++;
+					addSeries(names[i],color,dist);
+				}
 			}
 			if (indicators[i] instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
 				dist=((StatisticsDataPerformanceIndicatorWithNegativeValues)indicators[i]).getNormalizedDistribution();
-				if (dist!=null) addSeries(names[i],color,dist);
+				if (dist!=null) {
+					if (isDistNull(dist)) continue;
+					colorIndex++;
+					addSeries(names[i],color,dist);
+				}
 			}
 		}
 
