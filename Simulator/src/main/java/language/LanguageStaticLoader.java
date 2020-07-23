@@ -604,6 +604,12 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersToolbarSelectNoneHint=Language.tr("Statistic.Viewer.Toolbar.SelectNone.Hint");
 		StatisticsBasePanel.viewersToolbarSaveTables=Language.tr("Statistic.Viewer.Toolbar.SaveTables");
 		StatisticsBasePanel.viewersToolbarSaveTablesHint=Language.tr("Statistic.Viewer.Toolbar.SaveTables.Hint");
+		StatisticsBasePanel.contextColWidthThis=Language.tr("Statistic.Viewer.Context.Width.This");
+		StatisticsBasePanel.contextColWidthAll=Language.tr("Statistic.Viewer.Context.Width.All");
+		StatisticsBasePanel.contextColWidthDefault=Language.tr("Statistic.Viewer.Context.Width.Default");
+		StatisticsBasePanel.contextColWidthByContent=Language.tr("Statistic.Viewer.Context.Width.ByContent");
+		StatisticsBasePanel.contextColWidthByContentAndHeader=Language.tr("Statistic.Viewer.Context.Width.ByContentAndHeader");
+		StatisticsBasePanel.contextColWidthByWindowWidth=Language.tr("Statistic.Viewer.Context.Width.ByWindowWidth");
 		StatisticsBasePanel.viewersSpecialTextCategory=Language.tr("Statistic.Viewer.SpecialText.Category");
 		StatisticsBasePanel.viewersSpecialTextSubCategory=Language.tr("Statistic.Viewer.SpecialText.SubCategory");
 		StatisticsBasePanel.viewersSpecialTextNoData=Language.tr("Statistic.Viewer.SpecialText.NoData");

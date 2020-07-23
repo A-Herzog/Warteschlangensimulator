@@ -18,8 +18,11 @@ package systemtools.statistics;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.FontMetrics;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -42,8 +45,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -62,16 +67,9 @@ import systemtools.images.SimToolsImages;
  * Anzeige von Tabellen dar.
  * @author Alexander Herzog
  * @see StatisticViewer
- * @version 1.3
+ * @version 1.4
  */
 public class StatisticViewerTable implements StatisticViewer {
-	/**
-	 * Sollen die Tabellenspalten entsprechend schmal gestaltet werden, um in das Fenster zu passen (<code>false</code>)
-	 * oder soll für die Spalten eine Mindestbreite beibehalten werden und ggf. ein horizontaler Scrollbalken verwendet
-	 * werden (<code>true</code>)?
-	 */
-	public static boolean NO_NOT_SHRINK_COLUMNS=true;
-
 	/**
 	 * Inhalt der Tabelle
 	 */
@@ -290,31 +288,123 @@ public class StatisticViewerTable implements StatisticViewer {
 
 	private Container viewer=null;
 
+	private void autoSizeColumn(final JTable table, final int columnIndex, final boolean includeHeader) {
+		/* Spaltenbreite */
+		int widthContent=0;
+		final TableModel model=table.getModel();
+		final FontMetrics fontMetrics=table.getFontMetrics(table.getFont());
+		final int rowCount=table.getRowCount();
+		for (int i=0;i<rowCount;i++) {
+			widthContent=Math.max(widthContent,SwingUtilities.computeStringWidth(fontMetrics,""+model.getValueAt(i,columnIndex)));
+		}
+
+		/* Überschriftenbreite */
+		int widthHeader=0;
+		if (includeHeader) {
+			final JTableHeader header=table.getTableHeader();
+			final String title=table.getColumnName(columnIndex);
+			widthHeader=SwingUtilities.computeStringWidth(header.getFontMetrics(header.getFont()),title);
+		}
+
+		/* Neue Breite einstellen */
+		setColWidth(table,columnIndex,Math.max(widthContent,widthHeader));
+	}
+
+	private int getSpacing(final JTable table) {
+		return table.getIntercellSpacing().width+5; /* "+5"=Border+Inset */
+	}
+
+	private void setColWidth(final JTable table, final int columnIndex, final int width) {
+		/* Abstände zwischen den Zellen */
+		final int spacing=getSpacing(table);
+
+		/* Neue Breite einstellen */
+		final TableColumnModel columnModel=table.getColumnModel();
+		final TableColumn column=columnModel.getColumn(columnIndex);
+		column.setMinWidth(30);
+		column.setPreferredWidth(width+2*spacing);
+		column.setWidth(width+2*spacing);
+	}
+
 	@Override
 	public Container getViewer(final boolean needReInit) {
 		if (viewer!=null && !needReInit) return viewer;
 
 		if (columnNames.isEmpty() || needReInit) buildTable();
 		final TableModel dataModel=new DefaultReadOnlyTableModel(data,columnNames);
-		final JTable table=new JTable(dataModel) {
-			private static final long serialVersionUID=6146939967881035328L;
-			@Override
-			public Component prepareRenderer(final TableCellRenderer renderer, final int row, final int column) {
-				final Component component=super.prepareRenderer(renderer,row,column);
-				if (NO_NOT_SHRINK_COLUMNS && columnNames.size()>5) {
-					final int rendererWidth=component.getPreferredSize().width;
-					final TableColumn tableColumn=getColumnModel().getColumn(column);
-					tableColumn.setPreferredWidth(Math.max(rendererWidth+getIntercellSpacing().width,tableColumn.getPreferredWidth()));
-				}
-				return component;
-			}
-		};
+
+		final JTable table=new JTable(dataModel);
 		table.getTableHeader().setReorderingAllowed(false);
-		if (NO_NOT_SHRINK_COLUMNS && columnNames.size()>5) {
-			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); /* Sonst wird der horizontale Scrollbalken nie angezeigt. */
-			final TableColumnModel columnModel=table.getColumnModel();
-			for (int i=0;i<columnModel.getColumnCount();i++) columnModel.getColumn(i).setMinWidth(75);
-		}
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		SwingUtilities.invokeLater(()->{
+			for (int i=0;i<table.getColumnCount();i++) autoSizeColumn(table,i,true);
+		});
+
+		table.getTableHeader().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				final int col=table.columnAtPoint(e.getPoint());
+				if (col<0) return;
+
+				if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {
+					autoSizeColumn(table,col,true);
+					return;
+				}
+
+				if (SwingUtilities.isRightMouseButton(e)) {
+					final JPopupMenu popup=new JPopupMenu();
+					JMenuItem item;
+
+					popup.add(item=new JMenuItem("<html><body><b>"+StatisticsBasePanel.contextColWidthThis+"</b></body></html>"));
+					item.setEnabled(false);
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthDefault));
+					item.addActionListener(e2->setColWidth(table,col,50));
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByContent));
+					item.addActionListener(e2->autoSizeColumn(table,col,false));
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByContentAndHeader));
+					item.addActionListener(e2->autoSizeColumn(table,col,true));
+
+					popup.addSeparator();
+
+					popup.add(item=new JMenuItem("<html><body><b>"+StatisticsBasePanel.contextColWidthAll+"</b></body></html>"));
+					item.setEnabled(false);
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthDefault));
+					item.addActionListener(e2->{
+						autoSizeColumn(table,0,false);
+						for (int i=1;i<table.getColumnCount();i++) setColWidth(table,i,50);
+					});
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByWindowWidth));
+					item.addActionListener(e2->{
+						if (table.getParent() instanceof JViewport) {
+							final JViewport viewport=(JViewport)table.getParent();
+							final int w=viewport.getWidth()/table.getColumnCount();
+							final int spacing=getSpacing(table);
+							for (int i=0;i<table.getColumnCount();i++) setColWidth(table,i,w-2*spacing);
+						}
+					});
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByContent));
+					item.addActionListener(e2->{
+						for (int i=0;i<table.getColumnCount();i++) autoSizeColumn(table,i,false);
+					});
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByContentAndHeader));
+					item.addActionListener(e2->{
+						for (int i=0;i<table.getColumnCount();i++) autoSizeColumn(table,i,true);
+					});
+
+					popup.show(e.getComponent(),e.getX(),e.getY());
+					return;
+				}
+			}
+		});
+
 		final JScrollPane tableScroller=new JScrollPane(table);
 
 		initDescriptionPane();

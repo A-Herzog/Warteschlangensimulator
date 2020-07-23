@@ -244,6 +244,19 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	/** Bezeichner für den Tooltip für das Report-Toolbar-Button "Tabellen speichern" */
 	public static String viewersToolbarSaveTablesHint="Speichert nur die ausgewählten Tabellen in einer gemeinsamen Arbeitsmappe.";
 
+	/** Bezeichner für den Kontextmenü-Eintrag "Spaltenbreite - diese Spalte" */
+	public static String contextColWidthThis="Spaltenbreite - diese Spalte";
+	/** Bezeichner für den Kontextmenü-Eintrag "Spaltenbreite - alle Spalten" */
+	public static String contextColWidthAll="Spaltenbreite - alle Spalten";
+	/** Bezeichner für den Kontextmenü-Eintrag "Standardbreite" */
+	public static String contextColWidthDefault="Standardbreite";
+	/** Bezeichner für den Kontextmenü-Eintrag "Anpassen gemäß Inhalt" */
+	public static String contextColWidthByContent="Anpassen gemäß Inhalt";
+	/** Bezeichner für den Kontextmenü-Eintrag "Anpassen gemäß Inhalt und Überschrift" */
+	public static String contextColWidthByContentAndHeader="Anpassen gemäß Inhalt und Überschrift";
+	/** Bezeichner für den Kontextmenü-Eintrag "Auf Fensterbreite anpassen" */
+	public static String contextColWidthByWindowWidth="Auf Fensterbreite anpassen";
+
 	/** html-Bezeichner für die Hinweismeldung "Bitte Eintrag in Baumstruktur auswählen." */
 	public static String viewersSpecialTextCategory="<p>Bitte wählen Sie in der Baumstruktur eine <b>Kategorie</b> aus, um die entsprechenden Informationen angezeigt zu bekommen.</p>";
 	/** html-Bezeichner für die Hinweismeldung "Bitte Unterpunkt in Baumstruktur auswählen." */

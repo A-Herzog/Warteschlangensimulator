@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-20 21:44+0200\n"
+"POT-Creation-Date: 2020-07-23 16:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14891,6 +14891,24 @@ msgstr "Time"
 
 msgid "Statistic.Viewer.Chart.Value"
 msgstr "Value"
+
+msgid "Statistic.Viewer.Context.Width.All"
+msgstr "Column width - all columns"
+
+msgid "Statistic.Viewer.Context.Width.ByContent"
+msgstr "Adjust by content"
+
+msgid "Statistic.Viewer.Context.Width.ByContentAndHeader"
+msgstr "Adjust by content and header"
+
+msgid "Statistic.Viewer.Context.Width.ByWindowWidth"
+msgstr "Adjust by window width"
+
+msgid "Statistic.Viewer.Context.Width.Default"
+msgstr "Default column width"
+
+msgid "Statistic.Viewer.Context.Width.This"
+msgstr "Column width - this column"
 
 msgid "Statistic.Viewer.Information"
 msgstr "Information"
