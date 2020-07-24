@@ -180,7 +180,7 @@ public class BackgroundSystem {
 		}
 
 		boolean singleCore=(model.getSingleCoreReason().size()>0);
-		if (singleCore) return true; /* Wir belasten nur einen Kern, damit harmlos. */
+		if (singleCore && model.repeatCount==1) return true; /* Wir belasten nur einen Kern, damit harmlos. */
 
 		long simClientCount=model.clientCount*model.repeatCount;
 		if (simClientCount/threadCount>MAX_CLIENTS_PER_THREAD) return false;

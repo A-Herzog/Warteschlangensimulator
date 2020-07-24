@@ -74,11 +74,20 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	private boolean recordSimulatedClientsToStatistics=true;
 
-	private static int getAllowMaxCore(final boolean multiCore, final int maxCoreCount) {
+	private static int getAllowMaxCore(final EditModel editModel, final boolean multiCore, final int maxCoreCount) {
 		if (!multiCore) return 1;
 		final int a=Math.max(1,SetupData.getSetup().useMultiCoreSimulationMaxCount);
 		final int b=Math.max(1,maxCoreCount);
-		return Math.min(a,b);
+		int threadCount=Math.min(a,b);
+
+
+		/* Bei mehrerne Wiederholungen auf die Anzahl an Läufen abstimmen */
+		if (!editModel.allowMultiCore()) {
+			threadCount=Math.min(threadCount,Runtime.getRuntime().availableProcessors());
+			if (threadCount>editModel.repeatCount) threadCount=editModel.repeatCount;
+		}
+
+		return threadCount;
 	}
 
 	private static boolean getNUMAAware() {
@@ -92,7 +101,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 */
 	public Simulator(final boolean multiCore, final EditModel editModel, final SimLogging logging) {
-		super(getAllowMaxCore(multiCore && logging==null,Integer.MAX_VALUE),false,getNUMAAware());
+		super(getAllowMaxCore(editModel,multiCore && logging==null,Integer.MAX_VALUE),false,getNUMAAware());
 		this.editModel=editModel;
 		this.logging=logging;
 	}
@@ -104,7 +113,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 */
 	public Simulator(final int maxCoreCount, final EditModel editModel, final SimLogging logging) {
-		super(getAllowMaxCore(logging==null,maxCoreCount),false,getNUMAAware());
+		super(getAllowMaxCore(editModel,logging==null,maxCoreCount),false,getNUMAAware());
 		this.editModel=editModel;
 		this.logging=logging;
 	}
