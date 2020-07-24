@@ -1483,9 +1483,9 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("digits")) {
 				Long L;
-				L=NumberTools.getPositiveLong(e.getAttribute("numbers"));
+				L=NumberTools.getPositiveLong(e.getAttribute("Numbers"));
 				if (L!=null) statisticsNumberDigits=Math.min(9,L.intValue());
-				L=NumberTools.getPositiveLong(e.getAttribute("percent"));
+				L=NumberTools.getPositiveLong(e.getAttribute("Percent"));
 				if (L!=null) statisticsPercentDigits=Math.min(9,L.intValue());
 				continue;
 			}
