@@ -39,6 +39,7 @@ import language.Language;
 import mathtools.NumberTools;
 import net.calc.SimulationClient;
 import simulator.AnySimulator;
+import simulator.Simulator;
 import simulator.StartAnySimulator;
 import ui.images.Images;
 
@@ -232,8 +233,28 @@ public class WaitPanel extends JPanel {
 		final long sum=simulator.getCountClients();
 		final int wip=simulator.getCurrentWIP();
 		final long time=System.currentTimeMillis();
+		final long delta=time-startTime;
 		if (sum<0) {
-			info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong((time-startTime)/1000)));
+
+			int timeProgressPercent=-1;
+			if (simulator instanceof Simulator) {
+				final Simulator localSimulator=(Simulator)simulator;
+				if (localSimulator.threadCount==1) {
+					final long terminationTime=localSimulator.getRunModel().terminationTime;
+					if (terminationTime>0) {
+						long currentTime=localSimulator.getSingleThreadCurrentTime();
+						if (currentTime>0) timeProgressPercent=(int)(currentTime/terminationTime/10);
+					}
+				}
+			}
+			if (delta>3000 && timeProgressPercent>0) {
+				double gesamt=delta*100.0/timeProgressPercent;
+				gesamt-=delta;
+				if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
+				info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+			} else {
+				info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
+			}
 
 			final String currentClientsKString=NumberTools.formatLong(current/1000);
 			final long events=simulator.getEventCount();
@@ -263,14 +284,21 @@ public class WaitPanel extends JPanel {
 					}
 				}
 			}
-			progress.setStringPainted(false);
-			progress.setIndeterminate(true);
+			if (timeProgressPercent<0) {
+				progress.setStringPainted(false);
+				progress.setIndeterminate(true);
+			} else {
+				progress.setStringPainted(true);
+				progress.setIndeterminate(false);
+				progress.setMaximum(100);
+				progress.setValue(timeProgressPercent);
+			}
 		} else {
-			if (time-startTime>3000) {
-				double gesamt=(time-startTime)/(((double)current)/sum);
-				gesamt-=(time-startTime);
+			if (delta>3000) {
+				double gesamt=delta/(((double)current)/sum);
+				gesamt-=delta;
 				if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
-				info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong((time-startTime)/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+				info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
 			}
 			final long events=simulator.getEventCount();
 			final String currentClientsKString=NumberTools.formatLong(current/1000);

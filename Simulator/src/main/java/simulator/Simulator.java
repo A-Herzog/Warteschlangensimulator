@@ -380,4 +380,15 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		}
 		return sum;
 	}
+
+	/**
+	 * Liefert, sofern die Simulation nur mit einem Thread arbeitet,
+	 * die aktuelle Simulationszeit (in ms) innerhalb dieses Threads.
+	 * @return	Aktuelle Simulationszeit (in ms) oder -1, wenn keine Zeit ermittelt werden konnte.
+	 */
+	public long getSingleThreadCurrentTime() {
+		if (threadCount>1) return -1;
+		if (threads==null || threads[0]==null) return -1;
+		return threads[0].simData.currentTime;
+	}
 }

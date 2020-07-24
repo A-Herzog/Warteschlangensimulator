@@ -96,7 +96,7 @@ public class RunModel {
 	public ExpressionEval terminationCondition;
 
 	/**
-	 * Abbruchzeitpunkt (kann -1 sein, wenn keine Abbruchzeit definiert ist)
+	 * Abbruchzeitpunkt in Sekunden (kann -1 sein, wenn keine Abbruchzeit definiert ist)
 	 */
 	public long terminationTime;
 
