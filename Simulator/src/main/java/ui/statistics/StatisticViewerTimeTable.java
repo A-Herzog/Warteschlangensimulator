@@ -116,14 +116,22 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 
 		/** Anzahl an Kunden an den Stationen (Übersichtstabelle) */
 		MODE_OVERVIEW_NUMBER,
+		/** Anzahl an Kunden an den Stationen nach Kundentypen (Übersichtstabelle) */
+		MODE_OVERVIEW_NUMBER_CLIENT_TYPES,
 		/** Anzahl an Kunden in den Warteschlangen an den Stationen (Übersichtstabelle) */
 		MODE_OVERVIEW_QUEUE,
+		/** Anzahl an Kunden in den Warteschlangen an den Stationen nach Kundentypen (Übersichtstabelle) */
+		MODE_OVERVIEW_QUEUE_CLIENT_TYPES,
 		/** Verteilung der Anzahlen an Kunden an den Stationen */
 		MODE_DISTRIBUTION_NUMBER_STATION,
+		/** Verteilung der Anzahlen an Kunden an den Stationen nach Kundentypen */
+		MODE_DISTRIBUTION_NUMBER_STATION_CLIENT_TYPES,
 		/** Verteilung der Anzahlen an Kunden im System (nach Kundentypen) */
 		MODE_DISTRIBUTION_NUMBER_CLIENT,
 		/** Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen */
 		MODE_DISTRIBUTION_QUEUE,
+		/** Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen nach Kundentypen */
+		MODE_DISTRIBUTION_QUEUE_CLIENT_TYPE,
 
 		/** Ressourcenauslastung (Übersichtstabelle) */
 		MODE_UTILIZATION,
@@ -727,10 +735,14 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		case MODE_DISTRIBUTION_STATIONSCLIENTS_PROCESSING: buildTimesDistributionTable(statistics.stationsProcessingTimesByClientType,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONSCLIENTS_RESIDENCE: buildTimesDistributionTable(statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.Seconds")); break;
 		case MODE_OVERVIEW_NUMBER: buildCountOverviewTable(statistics.clientsAtStationByStation,statistics.clientsInSystem,"N"); break;
+		case MODE_OVERVIEW_NUMBER_CLIENT_TYPES: buildCountOverviewTable(statistics.clientsAtStationByStationAndClient,null,"N"); break;
 		case MODE_OVERVIEW_QUEUE: buildCountOverviewTable(statistics.clientsAtStationQueueByStation,statistics.clientsInSystemQueues,"NQ"); break;
+		case MODE_OVERVIEW_QUEUE_CLIENT_TYPES: buildCountOverviewTable(statistics.clientsAtStationQueueByStationAndClient,null,"NQ"); break;
 		case MODE_DISTRIBUTION_NUMBER_STATION: buildCountDistributionTable(statistics.clientsAtStationByStation,statistics.clientsInSystem); break;
+		case MODE_DISTRIBUTION_NUMBER_STATION_CLIENT_TYPES: buildCountDistributionTable(statistics.clientsAtStationByStationAndClient,null); break;
 		case MODE_DISTRIBUTION_NUMBER_CLIENT: buildCountDistributionTable(statistics.clientsInSystemByClient,statistics.clientsInSystem); break;
-		case MODE_DISTRIBUTION_QUEUE: buildCountDistributionTable(statistics.clientsAtStationQueueByStation,null); break;
+		case MODE_DISTRIBUTION_QUEUE: buildCountDistributionTable(statistics.clientsAtStationQueueByStation,statistics.clientsInSystemQueues); break;
+		case MODE_DISTRIBUTION_QUEUE_CLIENT_TYPE: buildCountDistributionTable(statistics.clientsAtStationQueueByStationAndClient,null); break;
 		case MODE_UTILIZATION: buildUtilizationTable(); break;
 		case MODE_DOWNTIMES: buildDownTimesTable(); break;
 		case MODE_TRANSPORTER_UTILIZATION: buildTransporterUtilizationTable(); break;

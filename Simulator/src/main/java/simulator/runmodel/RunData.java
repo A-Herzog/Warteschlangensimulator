@@ -110,8 +110,10 @@ public class RunData {
 	private IndicatorAccessCacheStationsClientTypes cacheStationsProcessingTimesByClientType;
 	private IndicatorAccessCacheStationsClientTypes cacheStationsResidenceTimesByClientType;
 	private IndicatorAccessCacheStations cacheClientsAtStation;
+	private IndicatorAccessCacheStationsClientTypes cacheClientsAtStationByClientType;
 	private IndicatorAccessCacheClientTypes cacheClientsInSystemByType;
 	private IndicatorAccessCacheStations cacheClientsAtStationQueueByStation;
+	private IndicatorAccessCacheStationsClientTypes cacheClientsAtStationQueueByStationByClientType;
 	private IndicatorAccessCacheClientTypes cacheClientsAtStationQueueByClient;
 	private IndicatorAccessCacheStations cacheStationCosts;
 
@@ -226,7 +228,6 @@ public class RunData {
 		}
 
 		for (RunElement element: runModel.elementsFast) {
-			/* Einträge können null sein, aber das ist für instanceof ok*/
 			if (element instanceof RunSource) ((RunSource)element).scheduleInitialArrivals(simData);
 		}
 
@@ -244,8 +245,10 @@ public class RunData {
 		cacheStationsProcessingTimesByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.stationsProcessingTimesByClientType);
 		cacheStationsResidenceTimesByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.stationsResidenceTimesByClientType);
 		cacheClientsAtStation=new IndicatorAccessCacheStations(simData.statistics.clientsAtStationByStation);
+		cacheClientsAtStationByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.clientsAtStationByStationAndClient);
 		cacheClientsInSystemByType=new IndicatorAccessCacheClientTypes(simData.statistics.clientsInSystemByClient,simData.runModel.clientTypes);
 		cacheClientsAtStationQueueByStation=new IndicatorAccessCacheStations(simData.statistics.clientsAtStationQueueByStation);
+		cacheClientsAtStationQueueByStationByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.clientsAtStationQueueByStationAndClient);
 		cacheClientsAtStationQueueByClient=new IndicatorAccessCacheClientTypes(simData.statistics.clientsAtStationQueueByClient,simData.runModel.clientTypes);
 		cacheStationCosts=new IndicatorAccessCacheStations(simData.statistics.stationCosts);
 
@@ -443,16 +446,25 @@ public class RunData {
 	 * (um in der Statistik zu erfassen, wie lange sich wie viele Kunde an der Station befunden haben)
 	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
 	 * @param station	Station
+	 * @param client	Kunde (für die Erfassung nach Kundentyp)
 	 * @param stationData	Optionales Objekt mit den thread-lokalen Daten zu der Station (kann <code>null</code> sein, dann ermittelt es diese Funktion selbst)
 	 */
-	public void logClientEntersStation(final SimulationData simData, final RunElement station, RunElementData stationData) {
+	public void logClientEntersStation(final SimulationData simData, final RunElement station, RunElementData stationData, final RunDataClient client) {
 		if (stationData==null) stationData=station.getData(simData);
-		final int count=clientsAtStation(simData,station,stationData,1);  /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
+		final int count1=clientsAtStation(simData,station,stationData,1);  /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
+		final int count2=clientsAtStationByType(simData,station,stationData,client,1);
 		if (isWarmUp) return;
 
-		StatisticsTimePerformanceIndicator indicator=stationData.statisticClientsAtStation;
+		StatisticsTimePerformanceIndicator indicator;
+
+		indicator=stationData.statisticClientsAtStation;
 		if (indicator==null) indicator=stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
-		indicator.set(simData.currentTime*scale,count);
+		indicator.set(simData.currentTime*scale,count1);
+
+		if (stationData.statisticClientsAtStationByClientType==null) stationData.statisticClientsAtStationByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+		indicator=stationData.statisticClientsAtStationByClientType[client.type];
+		if (indicator==null) indicator=stationData.statisticClientsAtStationByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,client));
+		indicator.set(simData.currentTime*scale,count2);
 	}
 
 	/**
@@ -461,15 +473,24 @@ public class RunData {
 	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
 	 * @param station	Station
 	 * @param stationData	Optionales Objekt mit den thread-lokalen Daten zu der Station (kann <code>null</code> sein, dann ermittelt es diese Funktion selbst)
+	 * @param client	Kunde (für die Erfassung nach Kundentyp)
 	 */
-	public void logClientLeavesStation(final SimulationData simData, final RunElement station, RunElementData stationData) {
+	public void logClientLeavesStation(final SimulationData simData, final RunElement station, RunElementData stationData, final RunDataClient client) {
 		if (stationData==null) stationData=station.getData(simData);
-		final int count=clientsAtStation(simData,station,stationData,-1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
+		final int count1=clientsAtStation(simData,station,stationData,-1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
+		final int count2=clientsAtStationByType(simData,station,stationData,client,-1);
 		if (isWarmUp) return;
 
-		StatisticsTimePerformanceIndicator indicator=stationData.statisticClientsAtStation;
+		StatisticsTimePerformanceIndicator indicator;
+
+		indicator=stationData.statisticClientsAtStation;
 		if (indicator==null) indicator=stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
-		indicator.set(simData.currentTime*scale,count);
+		indicator.set(simData.currentTime*scale,count1);
+
+		if (stationData.statisticClientsAtStationByClientType==null) stationData.statisticClientsAtStationByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+		indicator=stationData.statisticClientsAtStationByClientType[client.type];
+		if (indicator==null) indicator=stationData.statisticClientsAtStationByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,client));
+		indicator.set(simData.currentTime*scale,count2);
 	}
 
 	/**
@@ -513,6 +534,18 @@ public class RunData {
 		if (stationData.statisticStationsInterarrivalTime==null) stationData.statisticStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTime.get(station));
 		if (stationData.statisticStationsInterleaveTime==null) stationData.statisticStationsInterleaveTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTime.get(station));
 		if (stationData.statisticSourceStationsInterarrivalTime==null) stationData.statisticSourceStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheClientsInterarrivalTime.get(station));
+
+		if (stationData.statisticClientsAtStationByClientType==null) {
+			final int clientTypeCount=simData.runModel.clientTypes.length;
+			stationData.statisticClientsAtStationByClientType=new StatisticsTimePerformanceIndicator[clientTypeCount];
+			stationData.statisticClientsAtStationByClientTypeValue=new int[clientTypeCount];
+			stationData.statisticClientsAtStationQueueByClientType=new StatisticsTimePerformanceIndicator[clientTypeCount];
+			stationData.statisticClientsAtStationQueueByClientTypeValue=new int[clientTypeCount];
+			for (int i=0;i<clientTypeCount;i++) {
+				stationData.statisticClientsAtStationByClientType[i]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,i));
+				stationData.statisticClientsAtStationQueueByClientType[i]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,i));
+			}
+		}
 	}
 
 	/**
@@ -527,6 +560,7 @@ public class RunData {
 		if (stationData==null) stationData=station.getData(simData);
 		final int count1=clientsAtStationQueue(simData,station,stationData,1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
 		final int count2=clientsAtStationQueue(simData,client,1);
+		final int count3=clientsAtStationQueueByType(simData,station,stationData,client,1);
 		waitingClients++;
 
 		if (isWarmUp) return;
@@ -538,6 +572,12 @@ public class RunData {
 		indicator=stationData.statisticClientsAtStationQueue;
 		if (indicator==null) indicator=stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
 		indicator.set(time,FastMath.min(count1,100_000));
+
+		/* Zählung pro Station und Kundentyp */
+		if (stationData.statisticClientsAtStationQueueByClientType==null) stationData.statisticClientsAtStationQueueByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+		indicator=stationData.statisticClientsAtStationQueueByClientType[client.type];
+		if (indicator==null) indicator=stationData.statisticClientsAtStationQueueByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStationByClientType.get(simData,station,client));
+		indicator.set(time,FastMath.min(count3,100_000));
 
 		/* Zählung pro Kundentyp */
 		indicator=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByClient.get(client));
@@ -559,6 +599,7 @@ public class RunData {
 		if (stationData==null) stationData=station.getData(simData);
 		final int count1=clientsAtStationQueue(simData,station,stationData,-1); /* Anzahl an Kunden an Station auch in WarmUp-Phase aktualisieren */
 		final int count2=clientsAtStationQueue(simData,client,-1);
+		final int count3=clientsAtStationQueueByType(simData,station,stationData,client,-1);
 		waitingClients--;
 
 		if (isWarmUp) return;
@@ -570,6 +611,12 @@ public class RunData {
 		indicator=stationData.statisticClientsAtStationQueue;
 		if (indicator==null) indicator=stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
 		indicator.set(time,FastMath.min(count1,100_000));
+
+		/* Zählung pro Station und Kundentyp */
+		if (stationData.statisticClientsAtStationQueueByClientType==null) stationData.statisticClientsAtStationQueueByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+		indicator=stationData.statisticClientsAtStationQueueByClientType[client.type];
+		if (indicator==null) indicator=stationData.statisticClientsAtStationQueueByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStationByClientType.get(simData,station,client));
+		indicator.set(time,FastMath.min(count3,100_000));
 
 		/* Zählung pro Kundentyp */
 		indicator=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByClient.get(client));
@@ -626,6 +673,28 @@ public class RunData {
 		public StatisticsPerformanceIndicator get(final SimulationData simData, final RunElement station, final RunDataClient client) {
 			final int id1=station.id;
 			final int id2=client.type;
+
+			if (indicators!=null && indicators.length>id1 && indicators[id1]!=null && indicators[id1].length>id2 && indicators[id1][id2]!=null) {
+				return indicators[id1][id2];
+			}
+
+			final StatisticsPerformanceIndicator indicator=multi.get(station.name+" - "+simData.runModel.clientTypes[id2]);
+			if (indicator instanceof StatisticsTimePerformanceIndicator) {
+				((StatisticsTimePerformanceIndicator)indicator).setTime(warmUpEndTime);
+			}
+
+			if (indicators==null) indicators=new StatisticsPerformanceIndicator[(id1+1)*2][];
+			if (indicators.length<=id1) indicators=Arrays.copyOf(indicators,(id1+1)*2);
+			if (indicators[id1]==null) indicators[id1]=new StatisticsPerformanceIndicator[(id2+1)*2];
+			if (indicators[id1].length<=id2) indicators[id1]=Arrays.copyOf(indicators[id1],(id2+1)*2);
+			indicators[id1][id2]=indicator;
+
+			return indicator;
+		}
+
+		public StatisticsPerformanceIndicator get(final SimulationData simData, final RunElement station, final int clientID) {
+			final int id1=station.id;
+			final int id2=clientID;
 
 			if (indicators!=null && indicators.length>id1 && indicators[id1]!=null && indicators[id1].length>id2 && indicators[id1][id2]!=null) {
 				return indicators[id1][id2];
@@ -707,16 +776,35 @@ public class RunData {
 	 */
 	public int clientsAtStation(final SimulationData simData, final RunElement station, final RunElementData stationData, final int change) {
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
-		data.clientsAtStation=FastMath.max(0,data.clientsAtStation+change);
-		return data.clientsAtStation;
+		return data.clientsAtStation=FastMath.max(0,data.clientsAtStation+change);
 		/* So würden alle Ein- und Ausgänge eines Bereiches zusammengefasst werden: return data.reportedClientsAtStation(simData); */
+	}
+
+	/**
+	 * Ändert den Wert von {@link RunElementData#statisticClientsAtStationByClientTypeValue} für eine Station.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param station	Station an der der Wert verändert werden soll (muss nur dann einen Wert ungleich <code>null</code> besitzen, wenn <code>stationData</code> keinen Wert ungleich <code>null</code> besitzt)
+	 * @param stationData	Station an der der Wert verändert werden soll (schneller als über <code>station</code>; ist dieser Parameter <code>null</code>, so muss ein <code>station</code> ein Wert übergeben werden)
+	 * @param client	Kunde von dem der Typ ausgelesen wird
+	 * @param change	Veränderung der Anzahl
+	 * @return	Neue Anzahl
+	 */
+	public int clientsAtStationByType(final SimulationData simData, final RunElement station, final RunElementData stationData, final RunDataClient client, final int change) {
+		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
+		if (data.statisticClientsAtStationByClientTypeValue==null) data.statisticClientsAtStationByClientTypeValue=new int[simData.runModel.clientTypes.length];
+		return data.statisticClientsAtStationByClientTypeValue[client.type]=FastMath.max(0,data.statisticClientsAtStationByClientTypeValue[client.type]+change);
 	}
 
 	/* <code>stationData</code> darf <code>null</code> sein, dann wird der Wert aus <code>station</code> ermittelt. */
 	private int clientsAtStationQueue(final SimulationData simData, final RunElement station, final RunElementData stationData, final int change) {
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
-		data.clientsAtStationQueue=FastMath.max(0,data.clientsAtStationQueue+change);
-		return data.clientsAtStationQueue;
+		return data.clientsAtStationQueue=FastMath.max(0,data.clientsAtStationQueue+change);
+	}
+
+	private int clientsAtStationQueueByType(final SimulationData simData, final RunElement station, final RunElementData stationData, final RunDataClient client, final int change) {
+		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
+		if (data.statisticClientsAtStationQueueByClientTypeValue==null) data.statisticClientsAtStationQueueByClientTypeValue=new int[simData.runModel.clientTypes.length];
+		return data.statisticClientsAtStationQueueByClientTypeValue[client.type]=FastMath.max(0,data.statisticClientsAtStationQueueByClientTypeValue[client.type]+change);
 	}
 
 	private int clientsAtStationQueue(final SimulationData simData, final RunDataClient client, final int change) {

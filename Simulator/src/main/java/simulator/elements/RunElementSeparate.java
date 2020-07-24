@@ -83,7 +83,7 @@ public class RunElementSeparate extends RunElementPassThrough {
 			/* Batch */
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-			simData.runData.logClientLeavesStation(simData,this,null);
+			simData.runData.logClientLeavesStation(simData,this,null,client);
 
 			/* Logging */
 			if (simData.loggingActive) {
@@ -100,7 +100,7 @@ public class RunElementSeparate extends RunElementPassThrough {
 				final RunDataClient c=batch.get(i);
 
 				/* Kunde betritt Station (wird sonst über die Events realisiert) */
-				simData.runData.logClientEntersStation(simData,this,null);
+				simData.runData.logClientEntersStation(simData,this,null,c);
 
 				/* Kunde zur nächsten Station leiten */
 				StationLeaveEvent.addLeaveEvent(simData,c,this,0);

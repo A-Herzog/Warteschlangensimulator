@@ -111,7 +111,7 @@ public class RunElementSectionStart extends RunElementPassThrough {
 	 */
 	public void notifyClientLeavesSection(final SimulationData simData, final RunDataClient client) {
 		/* Jetzt erst aus Statistik für diese Station austragen */
-		simData.runData.logClientLeavesStation(simData,this,null);
+		simData.runData.logClientLeavesStation(simData,this,null,client);
 
 		/* Zeitdauern für Station (=Bereich) erfassen */
 		Long L;

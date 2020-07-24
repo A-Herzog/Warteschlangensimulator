@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-23 16:31+0200\n"
+"POT-Creation-Date: 2020-07-24 23:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14504,8 +14504,14 @@ msgstr "Mittlere Anzahl an Kunden an einer Station"
 msgid "Statistic.FastAccess.Template.ClientsAtStationByStation"
 msgstr "Mittlere Anzahl an Kunden im System pro Kundentyp"
 
+msgid "Statistic.FastAccess.Template.ClientsAtStationByStationAndType"
+msgstr "Mittlere Anzahl an Kunden an einer Station (nach Kundentyp)"
+
 msgid "Statistic.FastAccess.Template.ClientsAtStationQueue"
 msgstr "Mittlere Anzahl an Kunden an einer Stationswarteschlange"
+
+msgid "Statistic.FastAccess.Template.ClientsAtStationQueueByClientType"
+msgstr "Mittlere Anzahl an Kunden an einer Stationswarteschlange (nach Kundentyp)"
 
 msgid "Statistic.FastAccess.Template.ClientsCostsProcess"
 msgstr "Bedienzeitkosten der Kunden"
@@ -15265,6 +15271,9 @@ msgstr "Mittlere Anzahl an fahrenden Transportern"
 msgid "Statistics.AverageNumberOfClients"
 msgstr "Mittlere Anzahl an Kunden"
 
+msgid "Statistics.AverageNumberOfClientsAtStationsByClientTypes"
+msgstr "Mittlere Anzahl an Kunden (nach Stationen und Kundentypen)"
+
 msgid "Statistics.AverageNumberOfClientsByClientTypes"
 msgstr "Mittlere Anzahl an Kunden (pro Kundentyp)"
 
@@ -15567,8 +15576,14 @@ msgstr "Verteilung der Wartezeiten der Kunden"
 msgid "Statistics.DistributionOfNumberOfClientsAtStationQueues"
 msgstr "Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen"
 
+msgid "Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"
+msgstr "Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen (nach Kundentypen)"
+
 msgid "Statistics.DistributionOfNumberOfClientsAtStations"
 msgstr "Verteilung der Anzahlen an Kunden an den Stationen"
+
+msgid "Statistics.DistributionOfNumberOfClientsAtStationsByClientTypes"
+msgstr "Verteilung der Anzahlen an Kunden an den Stationen (nach Kundentypen)"
 
 msgid "Statistics.DistributionOfNumberOfClientsByType"
 msgstr "Verteilung der Anzahlen an Kunden im System nach Kundentyp"
@@ -16020,11 +16035,20 @@ msgstr "Anzahl an Kunden in den Warteschlangen"
 msgid "Statistics.NumberOfClientsAtStationQueues.Singular"
 msgstr "Anzahl an Kunden in der Warteschlange an der Station"
 
+msgid "Statistics.NumberOfClientsAtStationQueuesByClientTypes"
+msgstr "Anzahl an Kunden in den Warteschlangen an den Stationen (nach Stationen und Kundentypen)"
+
+msgid "Statistics.NumberOfClientsAtStationQueuesByClientTypes.Short"
+msgstr "Anzahl an Kunden in den Warteschlangen (nach Kundentypen)"
+
 msgid "Statistics.NumberOfClientsAtStations"
 msgstr "Anzahl an Kunden an den Stationen"
 
 msgid "Statistics.NumberOfClientsAtStations.Singular"
 msgstr "Anzahl an Kunden an der Station"
+
+msgid "Statistics.NumberOfClientsAtStationsByClientTypes"
+msgstr "Anzahl an Kunden an den Stationen (nach Kundentypen)"
 
 msgid "Statistics.NumberOfClientsInTheSystem"
 msgstr "Anzahl an Kunden im System"
@@ -16733,11 +16757,17 @@ msgstr "Pfad"
 msgid "Statistics.XML.Element.ClientsAtStation"
 msgstr "StatistikKundenAnStation"
 
+msgid "Statistics.XML.Element.ClientsAtStationByClientType"
+msgstr "StatistikKundenAnStationNachKundentyp"
+
 msgid "Statistics.XML.Element.ClientsAtStationByType"
 msgstr "StatistikKundentypenImSystem"
 
 msgid "Statistics.XML.Element.ClientsAtStationQueue"
 msgstr "StatistikKundenAnStationWartend"
+
+msgid "Statistics.XML.Element.ClientsAtStationQueueByClientType"
+msgstr "StatistikKundenAnStationWartendNachKundentyp"
 
 msgid "Statistics.XML.Element.ClientsInSystem"
 msgstr "StatistikKundenImSystem"

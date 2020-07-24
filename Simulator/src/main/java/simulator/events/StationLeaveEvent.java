@@ -52,7 +52,7 @@ public class StationLeaveEvent extends Event {
 
 		if (statistics) {
 			/* Zählung Kunden an Station */
-			if (station.isClientCountStation()) simData.runData.logClientLeavesStation(simData,station,null);
+			if (station.isClientCountStation()) simData.runData.logClientLeavesStation(simData,station,null,client);
 		}
 
 		/* Verarbeitung */
@@ -103,7 +103,7 @@ public class StationLeaveEvent extends Event {
 		}
 
 		/* Zählung Kunden an Station */
-		if (nextStation.isClientCountStation()) runData.logClientEntersStation(simData,nextStation,null);
+		if (nextStation.isClientCountStation()) runData.logClientEntersStation(simData,nextStation,null,client);
 
 		/* Verarbeitung */
 		client.iconLast=client.icon;
@@ -141,7 +141,7 @@ public class StationLeaveEvent extends Event {
 		}
 
 		/* Zählung Kunden an Station */
-		if (nextStation.isClientCountStation()) simData.runData.logClientEntersStation(simData,nextStation,null);
+		if (nextStation.isClientCountStation()) simData.runData.logClientEntersStation(simData,nextStation,null,client);
 
 		/* Verarbeitung */
 		client.iconLast=client.icon;
@@ -184,7 +184,7 @@ public class StationLeaveEvent extends Event {
 			simData.runData.logStationArrival(simData.currentTime,simData,nextStation[i],null,client[i]);
 
 			/* Zählung Kunden an Station */
-			if (nextStation[i].isClientCountStation()) simData.runData.logClientEntersStation(simData,nextStation[i],null);
+			if (nextStation[i].isClientCountStation()) simData.runData.logClientEntersStation(simData,nextStation[i],null,client[i]);
 
 			/* Verarbeitung */
 			client[i].iconLast=client[i].icon;
@@ -229,7 +229,7 @@ public class StationLeaveEvent extends Event {
 			simData.runData.logStationArrival(simData.currentTime,simData,nextStation,null,client[i]);
 
 			/* Zählung Kunden an Station */
-			if (nextStation.isClientCountStation()) simData.runData.logClientEntersStation(simData,nextStation,null);
+			if (nextStation.isClientCountStation()) simData.runData.logClientEntersStation(simData,nextStation,null,client[i]);
 
 			/* Verarbeitung */
 			client[i].iconLast=client[i].icon;

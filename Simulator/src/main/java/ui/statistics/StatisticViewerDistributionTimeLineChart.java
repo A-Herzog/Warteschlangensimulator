@@ -88,10 +88,14 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		MODE_RESIDENCE_STATION_CLIENT,
 		/** Verteilungsdiagramm der Anzahl an Kunden an den Stationen */
 		MODE_NUMBER_STATION,
+		/** Verteilungsdiagramm der Anzahl an Kunden an den Stationen nach Kundentypen */
+		MODE_NUMBER_STATION_CLIENT_TYPES,
 		/** Verteilungsdiagramm der Anzahl an Kunden im System nach Kundentypen */
 		MODE_NUMBER_CLIENT,
 		/** Verteilungsdiagramm der Anzahl an Kunden an den Stationswarteschlangen */
 		MODE_QUEUE,
+		/** Verteilungsdiagramm der Anzahl an Kunden an den Stationswarteschlangen nach Kundentypen */
+		MODE_QUEUE_CLIENT_TYPE,
 		/** Verteilungsdiagramm der Werte der Laufzeitstatistik */
 		MODE_ADDITIONAL_STATISTICS,
 		/** Verteilungsdiagramm mit den Werten der Kundendatenfelder */
@@ -314,12 +318,20 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStations")+" ("+Language.tr("Statistics.total")+")",statistics.clientsAtStationByStation,statistics.clientsInSystem,Language.tr("Statistics.ClientsAtStation"),null);
 			addDescription("PlotCountDistribution");
 			break;
+		case MODE_NUMBER_STATION_CLIENT_TYPES:
+			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationsByClientTypes")+" ("+Language.tr("Statistics.total")+")",statistics.clientsAtStationByStationAndClient,null,Language.tr("Statistics.ClientsAtStation"),null);
+			addDescription("PlotCountDistribution");
+			break;
 		case MODE_NUMBER_CLIENT:
 			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsByType")+" ("+Language.tr("Statistics.total")+")",statistics.clientsInSystemByClient,statistics.clientsInSystem,Language.tr("Statistics.ClientsByType"),null);
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_QUEUE:
 			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueues"),statistics.clientsAtStationQueueByStation,statistics.clientsInSystemQueues,Language.tr("Statistics.ClientsInQueue"),null);
+			addDescription("PlotCountDistribution");
+			break;
+		case MODE_QUEUE_CLIENT_TYPE:
+			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),statistics.clientsAtStationQueueByStationAndClient,null,Language.tr("Statistics.ClientsInQueue"),null);
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_ADDITIONAL_STATISTICS:

@@ -240,6 +240,11 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator clientsAtStationByStation;
 
 	/**
+	 * Verteilung der Anzahl an Kunden an den Stationen (erfasst nach Stationen und Kundentypen)
+	 */
+	public final StatisticsMultiPerformanceIndicator clientsAtStationByStationAndClient;
+
+	/**
 	 * Verteilung der Anzahl an Kunden an den Stationen (erfasst nach Kundentypen)
 	 */
 	public final StatisticsMultiPerformanceIndicator clientsInSystemByClient;
@@ -248,6 +253,11 @@ public class Statistics extends StatisticsBase {
 	 * Verteilung der Anzahl an Kunden in den Warteschlangen an den Stationen (erfasst nach Stationen)
 	 */
 	public final StatisticsMultiPerformanceIndicator clientsAtStationQueueByStation;
+
+	/**
+	 * Verteilung der Anzahl an Kunden in den Warteschlangen an den Stationen (erfasst nach Stationen und Kundentypen)
+	 */
+	public final StatisticsMultiPerformanceIndicator clientsAtStationQueueByStationAndClient;
 
 	/**
 	 * Verteilung der Anzahl an Kunden in den Warteschlangen an den Stationen (erfasst nach Kundentypen)
@@ -502,8 +512,10 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(clientsInSystem=new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsInSystem")));
 		addPerformanceIndicator(clientsInSystemQueues=new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsInSystemWaiting")));
 		addPerformanceIndicator(clientsAtStationByStation=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStation"),new StatisticsTimePerformanceIndicator(nameStation)));
+		addPerformanceIndicator(clientsAtStationByStationAndClient=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStationByClientType"),new StatisticsTimePerformanceIndicator(nameStation)));
 		addPerformanceIndicator(clientsInSystemByClient=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStationByType"),new StatisticsTimePerformanceIndicator(nameClientType)));
 		addPerformanceIndicator(clientsAtStationQueueByStation=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStationQueue"),new StatisticsTimePerformanceIndicator(nameStation)));
+		addPerformanceIndicator(clientsAtStationQueueByStationAndClient=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsAtStationQueueByClientType"),new StatisticsTimePerformanceIndicator(nameStation)));
 		addPerformanceIndicator(clientsAtStationQueueByClient=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientsInSystemQueue"),new StatisticsTimePerformanceIndicator(nameClientType)));
 
 		/* Ressourcen */

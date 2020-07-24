@@ -325,7 +325,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		processChange(simData);
 	}
 
-	private void countSub(final int subId, final int delta, final SimulationData simData) {
+	private void countSub(final int subId, final RunDataClient client, final int delta, final SimulationData simData) {
 		if (subId<0) return;
 
 		final RunElement parent=simData.runModel.elementsFast[subId];
@@ -333,24 +333,25 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		final RunElementSub sub=(RunElementSub)parent;
 
 		simData.runData.clientsAtStation(simData,sub,null,delta);
+		simData.runData.clientsAtStationByType(simData,sub,null,client,delta);
 	}
 
-	private void fixSubModelCount(final int lastID, final int nextID, final SimulationData simData) {
+	private void fixSubModelCount(final int lastID, final int nextID, final RunDataClient client, final SimulationData simData) {
 		final RunElement lastStation=simData.runModel.elementsFast[lastID];
 		final RunElement nextStation=simData.runModel.elementsFast[nextID];
 
 		if (lastStation==null || nextStation==null) return;
 		if (lastStation.parentId==nextStation.parentId) return;
 
-		countSub(lastStation.parentId,-1,simData);
-		countSub(nextStation.parentId,1,simData);
+		countSub(lastStation.parentId,client,-1,simData);
+		countSub(nextStation.parentId,client,1,simData);
 	}
 
 	@Override
 	public void processLeave(SimulationData simData, RunDataClient client) {
 		/* Wenn Kunde in oder aus Submodell bewegt wurde, muss die Anzahl an Kunden im Submodell angepasst werden. */
 		client.lastStationID=id;
-		fixSubModelCount(id,client.stationInformationInt,simData);
+		fixSubModelCount(id,client.stationInformationInt,client,simData);
 	}
 
 	@Override

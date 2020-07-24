@@ -154,7 +154,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 		/* ===== Kunde aus anderer Warteschlange ===== */
 
 		/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-		if (otherClient!=null && queue.isClientCountStation()) simData.runData.logClientLeavesStation(simData,queue,null);
+		if (otherClient!=null && queue.isClientCountStation()) simData.runData.logClientLeavesStation(simData,queue,null,otherClient);
 
 		/* Wartezeit des Kunden usw. wurde bereits bei getClient() verarbeitet */
 
@@ -182,7 +182,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 				/* === Temporärer Batch === */
 
 				/* Eigenen Kunden aus Station austragen (wird sonst über die Events realisiert) */
-				simData.runData.logClientLeavesStation(simData,this,data);
+				simData.runData.logClientLeavesStation(simData,this,data,client);
 
 				/* Ist der Kunde als "letzter Kunde" markiert? */
 				boolean isLastClient=client.isLastClient || otherClient.isLastClient;
@@ -198,7 +198,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 				/* === Dauerhafter Batch === */
 
 				/* Eigenen Kunden aus Station austragen (wird sonst über die Events realisiert) */
-				simData.runData.logClientLeavesStation(simData,this,data);
+				simData.runData.logClientLeavesStation(simData,this,data,client);
 
 				/* Ist der Kunde als "letzter Kunde" markiert? */
 				boolean isLastClient=client.isLastClient || otherClient.isLastClient;
@@ -216,7 +216,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.PickUpNewClient"),String.format(Language.tr("Simulation.Log.PickUpNewClient.Info"),batchedClient.logInfo(simData),name));
 
 			/* Kunde betritt Station (wird sonst über die Events realisiert) */
-			simData.runData.logClientEntersStation(simData,this,data);
+			simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 
 			/* Kunden weiterleiten */
 			StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);

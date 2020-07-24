@@ -177,8 +177,10 @@ public class SimulationData extends SimData {
 		statistics.clientsInSystem.setTime(time);
 		statistics.clientsInSystemQueues.setTime(time);
 		resetAllTimePerformanceIndicators(statistics.clientsAtStationByStation,time);
+		resetAllTimePerformanceIndicators(statistics.clientsAtStationByStationAndClient,time);
 		resetAllTimePerformanceIndicators(statistics.clientsInSystemByClient,time);
 		resetAllTimePerformanceIndicators(statistics.clientsAtStationQueueByStation,time);
+		resetAllTimePerformanceIndicators(statistics.clientsAtStationQueueByStationAndClient,time);
 		resetAllTimePerformanceIndicators(statistics.clientsAtStationQueueByClient,time);
 		resetAllTimePerformanceIndicators(statistics.resourceCount,time);
 		resetAllTimePerformanceIndicators(statistics.resourceUtilization,time);

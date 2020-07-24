@@ -187,7 +187,7 @@ public class RunElementBatch extends RunElementPassThrough {
 			batchedClient.addBatchClient(data.clients[i]);
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-			simData.runData.logClientLeavesStation(simData,this,data);
+			simData.runData.logClientLeavesStation(simData,this,data,data.clients[i]);
 		}
 		data.waiting=0;
 
@@ -195,7 +195,7 @@ public class RunElementBatch extends RunElementPassThrough {
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.BatchNewClient"),String.format(Language.tr("Simulation.Log.BatchNewClient.Info"),batchedClient.logInfo(simData),name));
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
-		simData.runData.logClientEntersStation(simData,this,data);
+		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
@@ -234,7 +234,7 @@ public class RunElementBatch extends RunElementPassThrough {
 			simData.runData.clients.disposeClient(data.clients[i],simData);
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-			simData.runData.logClientLeavesStation(simData,this,data);
+			simData.runData.logClientLeavesStation(simData,this,data,data.clients[i]);
 		}
 		data.waiting=0;
 
@@ -246,7 +246,7 @@ public class RunElementBatch extends RunElementPassThrough {
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.BatchNewClient"),String.format(Language.tr("Simulation.Log.BatchNewClient.Info"),batchedClient.logInfo(simData),name));
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
-		simData.runData.logClientEntersStation(simData,this,data);
+		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);

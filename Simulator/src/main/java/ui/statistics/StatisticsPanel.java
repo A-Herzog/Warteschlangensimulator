@@ -794,8 +794,16 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		group.addChild(new StatisticNode(Language.tr("Statistics.NumberOfClientsAtStations")+" ("+Language.tr("Statistics.total")+")",viewer));
 
 		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_NUMBER_CLIENT_TYPES));
+		group.addChild(new StatisticNode(Language.tr("Statistics.NumberOfClientsAtStationsByClientTypes")+" ("+Language.tr("Statistics.total")+")",viewer));
+
+		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_QUEUE));
 		group.addChild(new StatisticNode(Language.tr("Statistics.NumberOfClientsAtStationQueues.Short"),viewer));
+
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_OVERVIEW_QUEUE_CLIENT_TYPES));
+		group.addChild(new StatisticNode(Language.tr("Statistics.NumberOfClientsAtStationQueuesByClientTypes.Short"),viewer));
 
 		/* (Untergruppe) Verteilungen */
 
@@ -806,6 +814,10 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStations")+" ("+Language.tr("Statistics.total")+")",viewer));
 
 		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_NUMBER_STATION_CLIENT_TYPES));
+		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationsByClientTypes")+" ("+Language.tr("Statistics.total")+")",viewer));
+
+		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_NUMBER_CLIENT));
 		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsByType"),viewer));
 
@@ -814,8 +826,16 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueues"),viewer));
 
 		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_DISTRIBUTION_QUEUE_CLIENT_TYPE));
+		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),viewer));
+
+		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_NUMBER_STATION));
 		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStations")+" ("+Language.tr("Statistics.total")+")",viewer));
+
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_NUMBER_STATION_CLIENT_TYPES));
+		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationsByClientTypes")+" ("+Language.tr("Statistics.total")+")",viewer));
 
 		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_NUMBER_CLIENT));
@@ -824,6 +844,10 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		viewer=new ArrayList<>();
 		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_QUEUE));
 		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueues"),viewer));
+
+		viewer=new ArrayList<>();
+		for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_QUEUE_CLIENT_TYPE));
+		sub.addChild(new StatisticNode(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),viewer));
 
 		/* Warte- und Bedienzeiten der Kunden */
 

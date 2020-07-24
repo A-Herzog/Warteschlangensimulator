@@ -144,6 +144,26 @@ public class RunElementData {
 	public StatisticsTimePerformanceIndicator statisticClientsAtStation;
 
 	/**
+	 * Erfassung der aktuellen Anzahl an Kunden an der Station pro Kundentyp
+	 */
+	public int[] statisticClientsAtStationByClientTypeValue;
+
+	/**
+	 * Statistikobjekte für die Anzahlen an Kunden an der Station pro Kundentyp
+	 */
+	public StatisticsTimePerformanceIndicator[] statisticClientsAtStationByClientType;
+
+	/**
+	 * Erfassung der aktuellen Anzahl an Kunden in der Warteschlange an der Station pro Kundentyp
+	 */
+	public int[] statisticClientsAtStationQueueByClientTypeValue;
+
+	/**
+	 * Statistikobjekte für die Anzahlen an Kunden in der Warteschlange an der Station pro Kundentyp
+	 */
+	public StatisticsTimePerformanceIndicator[] statisticClientsAtStationQueueByClientType;
+
+	/**
 	 * Ermöglicht den Zugriff auf die "Anzahl an Kunden in der Warteschlange an der Station"-Statistik.<br>
 	 * (Kann <code>null</code> sein, wenn noch keine entsprechenden Daten angefallen sind.)
 	 */
@@ -192,6 +212,8 @@ public class RunElementData {
 		lastLeaveByClientType=null;
 		clientsAtStation=0;
 		clientsAtStationQueue=0;
+		statisticClientsAtStationByClientTypeValue=null;
+		statisticClientsAtStationQueueByClientTypeValue=null;
 		announcedClient=new RunDataClient[10];
 		announcedClientCount=0;
 	}

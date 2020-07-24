@@ -379,6 +379,15 @@ public class ListPopup {
 			}
 		}
 
+		if (statistics.clientsAtStationByStationAndClient.getNames().length>0) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ClientsAtStationByStationAndType"),null,Images.SCRIPT_RECORD_DATA_STATION.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.ClientsAtStationByClientType");
+			for (String name: statistics.clientsAtStationByStationAndClient.getNames()) {
+				xmlSub=Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+			}
+		}
+
 		if (statistics.clientsAtStationQueueByClient.getNames().length>0) {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ClientsInSystemQueue"),null,Images.SCRIPT_RECORD_DATA_CLIENT.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.Element.ClientsInSystemQueue");
@@ -392,6 +401,15 @@ public class ListPopup {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ClientsAtStationQueue"),null,Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon());
 			final String xmlMain=Language.tr("Statistics.XML.Element.ClientsAtStationQueue");
 			for (String name: statistics.clientsAtStationQueueByStation.getNames()) {
+				xmlSub=Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
+			}
+		}
+
+		if (statistics.clientsAtStationQueueByStationAndClient.getNames().length>0) {
+			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ClientsAtStationQueueByClientType"),null,Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon());
+			final String xmlMain=Language.tr("Statistics.XML.Element.ClientsAtStationQueueByClientType");
+			for (String name: statistics.clientsAtStationQueueByStationAndClient.getNames()) {
 				xmlSub=Language.tr("Statistics.XML.Station")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
 				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean);
 			}

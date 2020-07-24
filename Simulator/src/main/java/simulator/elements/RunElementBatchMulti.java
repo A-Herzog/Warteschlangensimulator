@@ -222,7 +222,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			batchedClient.addBatchClient(data.clients[type][i]);
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-			simData.runData.logClientLeavesStation(simData,this,data);
+			simData.runData.logClientLeavesStation(simData,this,data,data.clients[type][i]);
 		}
 		data.waitingTotal-=data.waiting[type];
 		data.waiting[type]=0;
@@ -231,7 +231,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.BatchNewClient"),String.format(Language.tr("Simulation.Log.BatchNewClient.Info"),batchedClient.logInfo(simData),name));
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
-		simData.runData.logClientEntersStation(simData,this,data);
+		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
@@ -270,7 +270,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			simData.runData.clients.disposeClient(data.clients[type][i],simData);
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-			simData.runData.logClientLeavesStation(simData,this,data);
+			simData.runData.logClientLeavesStation(simData,this,data,data.clients[type][i]);
 		}
 		data.waitingTotal-=data.waiting[type];
 		data.waiting[type]=0;
@@ -283,7 +283,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.BatchNewClient"),String.format(Language.tr("Simulation.Log.BatchNewClient.Info"),batchedClient.logInfo(simData),name));
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
-		simData.runData.logClientEntersStation(simData,this,data);
+		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);

@@ -91,7 +91,11 @@ public class RunElementAssign extends RunElementPassThrough {
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Assign"),String.format(Language.tr("Simulation.Log.Assign.Info"),client.hashCode(),simData.runModel.clientTypes[client.type],simData.runModel.clientTypes[clientType],name));
 
 		/* Kundentyp ändern */
-		client.changeType(clientType,simData);
+		if (clientType!=client.type) {
+			simData.runData.logClientLeavesStation(simData,this,null,client);
+			client.changeType(clientType,simData);
+			simData.runData.logClientEntersStation(simData,this,null,client);
+		}
 		client.iconLast=client.icon;
 		client.icon=clientIcon;
 

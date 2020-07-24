@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-23 16:31+0200\n"
+"POT-Creation-Date: 2020-07-24 23:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14499,8 +14499,14 @@ msgstr "Average number of clients at a station"
 msgid "Statistic.FastAccess.Template.ClientsAtStationByStation"
 msgstr "Average number of clients in system by client type"
 
+msgid "Statistic.FastAccess.Template.ClientsAtStationByStationAndType"
+msgstr "Average number of clients at a station (by client type)"
+
 msgid "Statistic.FastAccess.Template.ClientsAtStationQueue"
 msgstr "Average number of clients at a stations queue"
+
+msgid "Statistic.FastAccess.Template.ClientsAtStationQueueByClientType"
+msgstr "Average number of clients at a stations queue (by client type)"
 
 msgid "Statistic.FastAccess.Template.ClientsCostsProcess"
 msgstr "Clients process time costs"
@@ -15258,6 +15264,9 @@ msgstr "Average number of driving transporters"
 msgid "Statistics.AverageNumberOfClients"
 msgstr "Average number of clients"
 
+msgid "Statistics.AverageNumberOfClientsAtStationsByClientTypes"
+msgstr "Average number of clients in the queues (by stations and client types)"
+
 msgid "Statistics.AverageNumberOfClientsByClientTypes"
 msgstr "Average number of clients (by client type)"
 
@@ -15560,8 +15569,14 @@ msgstr "Distribution of the waiting times of the clients"
 msgid "Statistics.DistributionOfNumberOfClientsAtStationQueues"
 msgstr "Distribution of the numbers of clients at the queues at the stations"
 
+msgid "Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"
+msgstr "Distribution of the numbers of clients at the queues at the stations (by client types)"
+
 msgid "Statistics.DistributionOfNumberOfClientsAtStations"
 msgstr "Distribution of the numbers of clients at the stations"
+
+msgid "Statistics.DistributionOfNumberOfClientsAtStationsByClientTypes"
+msgstr "Distribution of the numbers of clients at the stations (by client types)"
 
 msgid "Statistics.DistributionOfNumberOfClientsByType"
 msgstr "Distribution of the numbers of clients in system by client types"
@@ -16013,11 +16028,20 @@ msgstr "Number of clients in the queues"
 msgid "Statistics.NumberOfClientsAtStationQueues.Singular"
 msgstr "Number of clients in the queue at the station"
 
+msgid "Statistics.NumberOfClientsAtStationQueuesByClientTypes"
+msgstr "Number of clients in the queues at the stations (by stations and client types)"
+
+msgid "Statistics.NumberOfClientsAtStationQueuesByClientTypes.Short"
+msgstr "Number of clients in the queues (by client types)"
+
 msgid "Statistics.NumberOfClientsAtStations"
 msgstr "Number of clients at the stations"
 
 msgid "Statistics.NumberOfClientsAtStations.Singular"
 msgstr "Number of clients at the station"
+
+msgid "Statistics.NumberOfClientsAtStationsByClientTypes"
+msgstr "Number of clients at the stations (by client types)"
 
 msgid "Statistics.NumberOfClientsInTheSystem"
 msgstr "Number of clients in the system"
@@ -16726,11 +16750,17 @@ msgstr "Path"
 msgid "Statistics.XML.Element.ClientsAtStation"
 msgstr "StatisticsClientsAtStation"
 
+msgid "Statistics.XML.Element.ClientsAtStationByClientType"
+msgstr "StatisticsClientsAtStationByClientType"
+
 msgid "Statistics.XML.Element.ClientsAtStationByType"
 msgstr "StatisticsClienttypesInSystem"
 
 msgid "Statistics.XML.Element.ClientsAtStationQueue"
 msgstr "StatisticsClientsAtStationQueue"
+
+msgid "Statistics.XML.Element.ClientsAtStationQueueByClientType"
+msgstr "StatisticsClientsAtStationQueueByClientType"
 
 msgid "Statistics.XML.Element.ClientsInSystem"
 msgstr "StatisticsClientsInSystem"

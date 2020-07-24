@@ -227,10 +227,13 @@ public class RunElementMatch extends RunElementPassThrough {
 		batchedClient.addBatchClient(newClient);
 
 		for (int i=0;i<data.waitingClients.length;i++) {
+			final RunDataClient currentClient;
+
 			if (i!=newClientQueueNumber) {
 
 				/* Kunden aus Warteschlange holen */
-				RunDataClient waitingClient=data.waitingClients[i].remove(selectQueuedClients[i]);
+				final RunDataClient waitingClient=data.waitingClients[i].remove(selectQueuedClients[i]);
+				currentClient=waitingClient;
 
 				/* Wartezeit in Statistik */
 				final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
@@ -249,10 +252,12 @@ public class RunElementMatch extends RunElementPassThrough {
 
 				/* Kunde in Batch aufnehmen */
 				batchedClient.addBatchClient(waitingClient);
+			} else {
+				currentClient=newClient;
 			}
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-			simData.runData.logClientLeavesStation(simData,this,data);
+			simData.runData.logClientLeavesStation(simData,this,data,currentClient);
 		}
 
 		/* Logging */
@@ -263,7 +268,7 @@ public class RunElementMatch extends RunElementPassThrough {
 		}
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
-		simData.runData.logClientEntersStation(simData,this,data);
+		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
@@ -293,10 +298,13 @@ public class RunElementMatch extends RunElementPassThrough {
 		simData.runData.clients.disposeClient(newClient,simData);
 
 		for (int i=0;i<data.waitingClients.length;i++) {
+			final RunDataClient currentClient;
+
 			if (i!=newClientQueueNumber) {
 
 				/* Kunden aus Warteschlange holen */
-				RunDataClient waitingClient=data.waitingClients[i].remove(selectQueuedClients[i]);
+				final RunDataClient waitingClient=data.waitingClients[i].remove(selectQueuedClients[i]);
+				currentClient=waitingClient;
 
 				/* Wartezeit in Statistik */
 				final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
@@ -317,10 +325,12 @@ public class RunElementMatch extends RunElementPassThrough {
 
 				/* Kunde final in Statistik erfassen und Objekt recyceln */
 				simData.runData.clients.disposeClient(waitingClient,simData);
+			} else {
+				currentClient=newClient;
 			}
 
 			/* Kunde verlässt Station (wird sonst über die Events realisiert) */
-			simData.runData.logClientLeavesStation(simData,this,data);
+			simData.runData.logClientLeavesStation(simData,this,data,currentClient);
 		}
 
 		/* Logging */
@@ -338,7 +348,7 @@ public class RunElementMatch extends RunElementPassThrough {
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.MatchNewClient"),String.format(Language.tr("Simulation.Log.MatchNewClient.Info"),batchedClient.logInfo(simData),name));
 
 		/* Kunde betritt Station (wird sonst über die Events realisiert) */
-		simData.runData.logClientEntersStation(simData,this,data);
+		simData.runData.logClientEntersStation(simData,this,data,batchedClient);
 
 		/* Kunden weiterleiten */
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
