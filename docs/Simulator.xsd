@@ -1674,8 +1674,10 @@
   <xs:element ref="StatistikKundenImSystem"/>
   <xs:element ref="StatistikKundentypenImSystemWartendUeberall"/>
   <xs:element ref="StatistikKundenAnStation"/>
+  <xs:element ref="StatistikKundenAnStationNachKundentyp"/>
   <xs:element ref="StatistikKundentypenImSystem"/>
   <xs:element ref="StatistikKundenAnStationWartend"/>
+  <xs:element ref="StatistikKundenAnStationWartendNachKundentyp"/>
   <xs:element ref="StatistikKundentypenImSystemWartend"/>
   <xs:element ref="StatistikRessourceAnzahlen"/>
   <xs:element ref="StatistikAuslastung"/>
@@ -1855,8 +1857,10 @@
 <xs:element name="StatistikKundenImSystem" type="StatistikBasis"/>
 <xs:element name="StatistikKundentypenImSystemWartendUeberall" type="StatistikBasis"/>
 <xs:element name="StatistikKundenAnStation" type="StatistikStationBasis"/>
+<xs:element name="StatistikKundenAnStationNachKundentyp" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundentypenImSystem" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenAnStationWartend" type="StatistikStationBasis"/>
+<xs:element name="StatistikKundenAnStationWartendNachKundentyp" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundentypenImSystemWartend" type="StatistikKundentypBasis"/>
 <xs:element name="StatistikRessourceAnzahlen"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikRessourceAnzahl" minOccurs="0" maxOccurs="unbounded"/>
@@ -3654,8 +3658,10 @@
   <xs:element ref="StatisticsClientsInSystem"/>
   <xs:element ref="StatisticsClientsInSystemAllQueues"/>
   <xs:element ref="StatisticsClientsAtStation"/>
+  <xs:element ref="StatisticsClientsAtStationByClientType"/>
   <xs:element ref="StatisticsClienttypesInSystem"/>
   <xs:element ref="StatisticsClientsAtStationQueue"/>
+  <xs:element ref="StatisticsClientsAtStationQueueByClientType"/>
   <xs:element ref="StatisticsClientsInSystemQueue"/>
   <xs:element ref="StatisticsResourceNumbers"/>
   <xs:element ref="StatisticsUtilization"/>
@@ -3835,8 +3841,10 @@
 <xs:element name="StatisticsClientsInSystem" type="StatisticsBase"/>
 <xs:element name="StatisticsClientsInSystemAllQueues" type="StatisticsBase"/>
 <xs:element name="StatisticsClientsAtStation" type="StatisticsStationBase"/>
+<xs:element name="StatisticsClientsAtStationByClientType" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClienttypesInSystem" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsAtStationQueue" type="StatisticsStationBase"/>
+<xs:element name="StatisticsClientsAtStationQueueByClientType" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsInSystemQueue" type="StatisticsClientBase"/>
 <xs:element name="StatisticsResourceNumbers"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsResourceNumber" minOccurs="0" maxOccurs="unbounded"/>
