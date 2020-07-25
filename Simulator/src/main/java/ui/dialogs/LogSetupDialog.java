@@ -23,8 +23,10 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -37,6 +39,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
 import net.dde.DDEConnect;
 import simcore.logging.SimLogging;
@@ -49,6 +52,7 @@ import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.elements.DDEEditPanel;
+import ui.quickaccess.JPlaceholderTextField;
 
 /**
  * Zeigt einen Dialog zur Auswahl einer Logdatei und der Logging-Optionen an.
@@ -62,10 +66,12 @@ public class LogSetupDialog extends BaseDialog {
 	private final CardLayout pageLayout;
 
 	private final JTextField logFileEdit;
+	private final JPlaceholderTextField stationIDsEdit;
 	private final JButton logFileButton;
 	private final JCheckBox optionMultiLine;
 	private final JCheckBox optionGroup;
 	private final JCheckBox optionColor;
+	private final JCheckBox optionFormatedTime;
 
 	private final DDEEditPanel editDDE;
 
@@ -119,6 +125,16 @@ public class LogSetupDialog extends BaseDialog {
 		logFileButton.setToolTipText(Language.tr("LogSimulation.LogFile.Select"));
 		logFileButton.addActionListener(new ButtonListener());
 
+		card.add(Box.createVerticalStrut(10));
+
+		card.add(line=new JPanel(new BorderLayout()));
+		line.add(label=new JLabel(Language.tr("LogSimulation.StationIDs")+": "),BorderLayout.WEST);
+		line.add(stationIDsEdit=new JPlaceholderTextField(),BorderLayout.CENTER);
+		stationIDsEdit.setPlaceholder(Language.tr("LogSimulation.StationIDs.Placeholder"));
+		label.setLabelFor(stationIDsEdit);
+		label.setToolTipText(Language.tr("LogSimulation.StationIDs.Info"));
+		stationIDsEdit.setToolTipText(Language.tr("LogSimulation.StationIDs.Info"));
+
 		card.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionMultiLine=new JCheckBox(Language.tr("LogSimulation.OptionMultiLine")));
 
@@ -128,6 +144,10 @@ public class LogSetupDialog extends BaseDialog {
 		card.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionColor=new JCheckBox(Language.tr("LogSimulation.OptionColor")));
 		optionColor.setToolTipText(Language.tr("LogSimulation.OptionColor.Info"));
+
+		card.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionFormatedTime=new JCheckBox(Language.tr("LogSimulation.FormatTime")));
+		optionFormatedTime.setToolTipText(Language.tr("LogSimulation.FormatTime.Info"));
 
 		/* Seite "DDE" */
 
@@ -147,6 +167,7 @@ public class LogSetupDialog extends BaseDialog {
 		optionMultiLine.setSelected(!setup.singleLineEventLog);
 		optionGroup.setSelected(setup.logGrouped);
 		optionColor.setSelected(setup.logColors);
+		optionFormatedTime.setSelected(setup.logFormatedTime);
 		if (logMode==null) {
 			pageLayout.show(page,"0");
 		} else {
@@ -177,12 +198,14 @@ public class LogSetupDialog extends BaseDialog {
 			FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html, *.htm)","html","htm");
 			FileFilter txt=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
 			FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+			FileFilter csv=new FileNameExtensionFilter(Language.tr("FileType.CSV")+" (*.csv)","cslv");
 			FileFilter xlsx=new FileNameExtensionFilter(Language.tr("FileType.Excel")+" (*.xlsx)","xlsx");
 			FileFilter xls=new FileNameExtensionFilter(Language.tr("FileType.ExcelOld")+" (*.xls)","xls");
 			FileFilter ods=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODS")+" (*.ods)","ods");
 			FileFilter odt=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODT")+" (*.odt)","odt");
 			fc.addChoosableFileFilter(xlsx);
 			fc.addChoosableFileFilter(xls);
+			fc.addChoosableFileFilter(csv);
 			fc.addChoosableFileFilter(ods);
 			fc.addChoosableFileFilter(txt);
 			fc.addChoosableFileFilter(docx);
@@ -200,6 +223,7 @@ public class LogSetupDialog extends BaseDialog {
 			if (file.getName().indexOf('.')<0) {
 				if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
 				if (fc.getFileFilter()==xls) file=new File(file.getAbsoluteFile()+".xls");
+				if (fc.getFileFilter()==csv) file=new File(file.getAbsoluteFile()+".csv");
 				if (fc.getFileFilter()==ods) file=new File(file.getAbsoluteFile()+".ods");
 				if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 				if (fc.getFileFilter()==rtf) file=new File(file.getAbsoluteFile()+".rtf");
@@ -217,7 +241,6 @@ public class LogSetupDialog extends BaseDialog {
 	protected boolean checkData() {
 		final int mode=(logMode==null)?0:logMode.getSelectedIndex();
 
-
 		if (mode==0) {
 			final File file=new File(logFileEdit.getText());
 			if (file.exists()) {
@@ -228,6 +251,15 @@ public class LogSetupDialog extends BaseDialog {
 				MsgBox.error(this,Language.tr("Dialog.InvalidFile.Title"),String.format(Language.tr("Dialog.InvalidFile.Info"),file.toString()));
 				return false;
 			}
+
+			final String[] ids=stationIDsEdit.getText().trim().split(";");
+			for (String id: ids) {
+				if (NumberTools.getNotNegativeInteger(id)==null) {
+					MsgBox.error(this,Language.tr("Dialog.InvalidID.Title"),String.format(Language.tr("Dialog.InvalidID.Info"),id));
+					return false;
+				}
+			}
+
 			return true;
 		}
 
@@ -254,6 +286,7 @@ public class LogSetupDialog extends BaseDialog {
 		setup.singleLineEventLog=!optionMultiLine.isSelected();
 		setup.logGrouped=optionGroup.isSelected();
 		setup.logColors=optionColor.isSelected();
+		setup.logFormatedTime=optionFormatedTime.isSelected();
 
 		if (logMode!=null) {
 			setup.logDDEworkbook=editDDE.getWorkbook();
@@ -278,7 +311,14 @@ public class LogSetupDialog extends BaseDialog {
 					return null;
 				}
 			}
-			return new MultiTypeTextLogger(file,optionGroup.isSelected(),!optionMultiLine.isSelected(),optionColor.isSelected(),new String[]{Language.tr("LogSimulation.Heading")});
+			return new MultiTypeTextLogger(
+					file,
+					optionGroup.isSelected(),
+					!optionMultiLine.isSelected(),
+					optionColor.isSelected(),
+					optionFormatedTime.isSelected(),
+					new String[]{Language.tr("LogSimulation.Heading")}
+					);
 		}
 
 		if (mode==1) {
@@ -286,5 +326,14 @@ public class LogSetupDialog extends BaseDialog {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Liefert die gewählten Stations-IDs, die beim Logging berücksichtigt werden sollen.
+	 * @return	Liefert die gewählten Stations-IDs, die beim Logging berücksichtigt werden sollen, oder <code>null</code>, wenn alle Daten aufgezeichnet werden sollen.
+	 */
+	public int[] getStationIDs() {
+		final String[] ids=stationIDsEdit.getText().trim().split(";");
+		return Stream.of(ids).map(id->NumberTools.getNotNegativeInteger(id)).mapToInt(I->I.intValue()).toArray();
 	}
 }

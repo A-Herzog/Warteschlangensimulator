@@ -18,6 +18,7 @@ package simulator.logging;
 import java.awt.Color;
 import java.io.File;
 
+import mathtools.NumberTools;
 import simcore.SimData;
 import simcore.logging.SimLogging;
 import systemtools.statistics.PDFWriter;
@@ -33,6 +34,7 @@ public class PDFLogger implements SimLogging {
 	private final boolean groupSameTimeEvents;
 	private final boolean singleLineMode;
 	private final boolean useColors;
+	private final boolean formatedTime;
 	private long lastEventTime=-1;
 
 	private final PDFWriter pdf;
@@ -45,13 +47,15 @@ public class PDFLogger implements SimLogging {
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
+	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public PDFLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final String[] headings) {
+	public PDFLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings) {
 		this.logFile=logFile;
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
+		this.formatedTime=formatedTime;
 
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
@@ -72,11 +76,13 @@ public class PDFLogger implements SimLogging {
 
 	@Override
 	public boolean log(long time, Color color, String event, String info) {
+		final String timeString=formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0);
+
 		/* Abschnitt beginnen / beenden */
 		if (groupSameTimeEvents) {
 			if (lastEventTime!=time) {
 				pdf.writeEmptySpace(10);
-				pdf.writeText(SimData.formatSimTime(time),12,true,0,(useColors?Color.BLACK:null));
+				pdf.writeText(timeString,12,true,0,(useColors?Color.BLACK:null));
 				pdf.writeEmptySpace(5);
 				lastEventTime=time;
 			}
@@ -87,13 +93,13 @@ public class PDFLogger implements SimLogging {
 		/* Daten ausgeben */
 		if (singleLineMode) {
 			final StringBuilder sb=new StringBuilder();
-			if (!groupSameTimeEvents) sb.append(SimData.formatSimTime(time)+" ");
+			if (!groupSameTimeEvents) sb.append(timeString+" ");
 			if (event!=null && !event.isEmpty()) sb.append(event+" ");
 			if (info!=null && !info.isEmpty()) sb.append(info+" ");
 			pdf.writeText(sb.toString(),11,false,0,textColor);
 		} else {
 			pdf.writeEmptySpace(5);
-			if (!groupSameTimeEvents) pdf.writeText(SimData.formatSimTime(time),11,false,0,textColor);
+			if (!groupSameTimeEvents) pdf.writeText(timeString,11,false,0,textColor);
 			if (event!=null && !event.isEmpty()) pdf.writeText(event,11,true,0,textColor);
 			if (info!=null && !info.isEmpty()) pdf.writeText(info,11,false,0,textColor);
 		}

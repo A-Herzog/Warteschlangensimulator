@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 23:30+0200\n"
+"POT-Creation-Date: 2020-07-25 19:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2012,6 +2012,12 @@ msgstr ""
 
 msgid "Dialog.InvalidFile.Title"
 msgstr "Invalid file"
+
+msgid "Dialog.InvalidID.Info"
+msgstr "The specified id \"%s\" is invalid."
+
+msgid "Dialog.InvalidID.Title"
+msgstr "Invalid station id"
 
 msgid "Dialog.Overwrite.Info"
 msgstr ""
@@ -6450,6 +6456,12 @@ msgstr ""
 msgid "LogSimulation.ErrorDelete.Title"
 msgstr "Error deleting file"
 
+msgid "LogSimulation.FormatTime"
+msgstr "Format time"
+
+msgid "LogSimulation.FormatTime.Info"
+msgstr "Outputs time in format HH:MM:SS instead of just the number of seconds"
+
 msgid "LogSimulation.Heading"
 msgstr "Simulation results"
 
@@ -6490,6 +6502,15 @@ msgstr "Group event names with the same execution time"
 
 msgid "LogSimulation.OptionMultiLine"
 msgstr "Split up event name and event description in two lines"
+
+msgid "LogSimulation.StationIDs"
+msgstr "Stations to be considered"
+
+msgid "LogSimulation.StationIDs.Info"
+msgstr "If a semicollon separated list of station ids is entered only events about these stations are logged."
+
+msgid "LogSimulation.StationIDs.Placeholder"
+msgstr "Stations ids or keep empty for all stations"
 
 msgid "LogSimulation.Title"
 msgstr "Record simulation"

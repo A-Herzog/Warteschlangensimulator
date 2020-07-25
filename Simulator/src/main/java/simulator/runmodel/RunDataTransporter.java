@@ -275,7 +275,7 @@ public class RunDataTransporter {
 
 		if (!initialMove) {
 			/* Logging */
-			if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Transporter"),String.format(Language.tr("Simulation.Log.Transporter.Move"),"\""+list.type[type]+"\"("+hashCode()+")",position,stationID,TimeTools.formatExactSystemTime(transferTime)));
+			if (simData.loggingActive && simData.loggingIDs==null) simData.logEventExecution(Language.tr("Simulation.Log.Transporter"),String.format(Language.tr("Simulation.Log.Transporter.Move"),"\""+list.type[type]+"\"("+hashCode()+")",position,stationID,TimeTools.formatExactSystemTime(transferTime)));
 
 			/* Daten in Transporter eintragen */
 			position=stationID;
@@ -324,7 +324,7 @@ public class RunDataTransporter {
 		simData.runData.fireTransporterMoveNotify(simData,this);
 
 		/* Logging */
-		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Transporter"),String.format(Language.tr("Simulation.Log.Transporter.Arrival"),"\""+list.type[type]+"\"("+hashCode()+")",position));
+		if (simData.loggingActive && simData.loggingIDs==null) simData.logEventExecution(Language.tr("Simulation.Log.Transporter"),String.format(Language.tr("Simulation.Log.Transporter.Arrival"),"\""+list.type[type]+"\"("+hashCode()+")",position));
 
 		/* Statistik */
 		if (!simData.runData.isWarmUp) {

@@ -62,7 +62,7 @@ public class BackgroundPrepareCompiledClasses {
 		model.clientCount=250_000;
 		model.distributionRecordHours=0;
 
-		final Simulator simulator=new Simulator(1,model,null);
+		final Simulator simulator=new Simulator(1,model,null,null);
 		if (simulator.prepare()==null) {
 			simulator.doNotRecordSimulatedClientsToStatistics();
 			simulator.start();

@@ -367,6 +367,11 @@ public class SetupData extends SetupBase {
 	public boolean logColors;
 
 	/**
+	 * Zeitangaben in HH:MM:SS,s in der Logdatei ausgeben
+	 */
+	public boolean logFormatedTime;
+
+	/**
 	 * Aufzeichnungsmodus: in Datei oder per DDE zu Excel
 	 */
 	public LogMode logMode;
@@ -792,6 +797,7 @@ public class SetupData extends SetupBase {
 		singleLineEventLog=true;
 		logGrouped=true;
 		logColors=true;
+		logFormatedTime=true;
 		logMode=LogMode.FILE;
 		logDDEworkbook="";
 		logDDEsheet="";
@@ -1185,6 +1191,7 @@ public class SetupData extends SetupBase {
 				singleLineEventLog=loadMultiBoolean(new String[]{e.getAttribute("CompactFormat"),e.getAttribute("KompaktesSimulationsLogFormat")},true);
 				logGrouped=loadMultiBoolean(new String[]{e.getAttribute("GroupRecords"),e.getAttribute("LogeintraegeGruppieren")},true);
 				logColors=loadMultiBoolean(new String[]{e.getAttribute("UseColors"),e.getAttribute("FarbigeLogdateien")},true);
+				logFormatedTime=loadBoolean("FormatedTime",true);
 				if (loadBoolean(e.getAttribute("DDE"),false)) logMode=LogMode.DDE; else logMode=LogMode.FILE;
 				logDDEworkbook=e.getAttribute("DDEWorkbook");
 				logDDEsheet=e.getAttribute("DDESheet");
@@ -1657,12 +1664,13 @@ public class SetupData extends SetupBase {
 			node.setTextContent("0");
 		}
 
-		if (!lastLogFile.isEmpty() || !singleLineEventLog || !logGrouped || !logColors || logMode==LogMode.DDE || !logDDEworkbook.trim().isEmpty() || !logDDEsheet.trim().isEmpty()) {
+		if (!lastLogFile.isEmpty() || !singleLineEventLog || !logGrouped || !logColors || !logFormatedTime || logMode==LogMode.DDE || !logDDEworkbook.trim().isEmpty() || !logDDEsheet.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("Logging"));
 			node.setTextContent(lastLogFile);
 			if (!singleLineEventLog) node.setAttribute("CompactFormat","0");
 			if (!logGrouped) node.setAttribute("GroupRecords","0");
 			if (!logColors) node.setAttribute("UseColors","0");
+			if (!logFormatedTime) node.setAttribute("FormatedTime","0");
 			if (logMode==LogMode.DDE) node.setAttribute("DDE","1");
 			if (!logDDEworkbook.trim().isEmpty()) node.setAttribute("DDEWorkbook",logDDEworkbook);
 			if (!logDDEsheet.trim().isEmpty()) node.setAttribute("DDESheet",logDDEsheet);

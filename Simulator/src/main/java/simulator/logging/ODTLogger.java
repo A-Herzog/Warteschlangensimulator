@@ -23,6 +23,7 @@ import org.odftoolkit.simple.style.Font;
 import org.odftoolkit.simple.style.StyleTypeDefinitions.FontStyle;
 import org.odftoolkit.simple.text.Paragraph;
 
+import mathtools.NumberTools;
 import simcore.SimData;
 import simcore.logging.SimLogging;
 
@@ -37,6 +38,7 @@ public class ODTLogger implements SimLogging {
 	private final boolean groupSameTimeEvents;
 	private final boolean singleLineMode;
 	private final boolean useColors;
+	private final boolean formatedTime;
 	private long lastEventTime=-1;
 
 	private final TextDocument odt;
@@ -50,13 +52,15 @@ public class ODTLogger implements SimLogging {
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
+	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public ODTLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final String[] headings) {
+	public ODTLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings) {
 		this.logFile=logFile;
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
+		this.formatedTime=formatedTime;
 
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
@@ -101,12 +105,14 @@ public class ODTLogger implements SimLogging {
 	public boolean log(long time, Color color, String event, String info) {
 		if (odt==null) return false;
 
+		final String timeString=formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0);
+
 		/* Abschnitt beginnen / beenden */
 		if (groupSameTimeEvents) {
 			if (lastEventTime!=time) {
 				final Paragraph p=odt.addParagraph(null);
 				setFont(p,15,true);
-				p.appendTextContent(SimData.formatSimTime(time));
+				p.appendTextContent(timeString);
 				paragraph=null;
 				lastEventTime=time;
 			}
@@ -118,7 +124,7 @@ public class ODTLogger implements SimLogging {
 			setFont(paragraph,15,false);
 			if (useColors) setColor(paragraph,color);
 			StringBuilder sb=new StringBuilder();
-			if (!groupSameTimeEvents) sb.append((SimData.formatSimTime(time)+" "));
+			if (!groupSameTimeEvents) sb.append(timeString+" ");
 			if (event!=null && !event.isEmpty()) sb.append(event+" ");
 			if (info!=null && !info.isEmpty()) sb.append(info+" ");
 			paragraph.appendTextContent(sb.toString());
@@ -128,7 +134,7 @@ public class ODTLogger implements SimLogging {
 			setFont(paragraph,11,false);
 			if (!groupSameTimeEvents) {
 				if (useColors) setColor(paragraph,color);
-				paragraph.appendTextContent(SimData.formatSimTime(time));
+				paragraph.appendTextContent(timeString);
 				paragraph.appendTextContent("\n");
 			}
 			if (event!=null && !event.isEmpty()) {

@@ -304,7 +304,7 @@ public class CalcFuture {
 			return;
 		}
 
-		final StartAnySimulator starter=new StartAnySimulator(model,null);
+		final StartAnySimulator starter=new StartAnySimulator(model,null,null);
 		final String prepareError=starter.prepare();
 		if (prepareError!=null) {setError(prepareError); return;}
 		addMessage(Language.tr("CalcWebServer.Simulation.Start")+" - "+DateTools.formatUserDate(System.currentTimeMillis(),true));

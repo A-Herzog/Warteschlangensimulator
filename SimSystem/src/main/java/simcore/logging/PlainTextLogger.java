@@ -18,6 +18,7 @@ package simcore.logging;
 import java.awt.Color;
 import java.io.File;
 
+import mathtools.NumberTools;
 import simcore.SimData;
 
 /**
@@ -26,9 +27,24 @@ import simcore.SimData;
  * @see SimLogging
  */
 public class PlainTextLogger extends AbstractTextLogger {
+	/**
+	 * Wie sollen Zeitangaben ausgegeben werden?
+	 * @author Alexander Herzog
+	 * @see PlainTextLogger#PlainTextLogger(File, boolean, boolean, TimeMode, boolean)
+	 */
+	public enum TimeMode {
+		/** Zeitabgaben als Sekunden-Zahlenwert ausgeben */
+		PLAIN,
+		/** Zeitangaben als HH:MM:SS,s ausgeben */
+		TIME,
+		/** Zeitangaben als Datum + Zeit ausgeben */
+		DATETIME,
+	}
+
 	private final boolean groupSameTimeEvents;
 	private final boolean singleLineMode;
-	private final boolean useDate;
+	private final TimeMode timeMode;
+	private final boolean csvMode;
 	private long lastEventTime=-1;
 
 	/**
@@ -36,9 +52,10 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param logFile	Dateiname der Logfile-Datei
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
+	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben
 	 */
-	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode) {
-		this(logFile,groupSameTimeEvents,singleLineMode,false);
+	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean csvMode) {
+		this(logFile,groupSameTimeEvents,singleLineMode,TimeMode.TIME,csvMode);
 	}
 
 	/**
@@ -46,13 +63,22 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param logFile	Dateiname der Logfile-Datei
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
-	 * @param useDate	Gibt an, ob Zeitangaben mit Datum ausgegeben werden sollen
+	 * @param timeMode	Wie sollen Zeitangaben ausgegeben werden?
+	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben
 	 */
-	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useDate) {
+	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final TimeMode timeMode, final boolean csvMode) {
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
-		this.useDate=useDate;
+		this.timeMode=timeMode;
+		this.csvMode=csvMode;
 		init(logFile);
+	}
+
+	private String toCSV(String cell) {
+		cell=cell.replace("\"","\"\"");
+		if (cell.indexOf('"')!=-1 || cell.indexOf(';')!=-1) cell='"'+cell+'"';
+		if (cell.equalsIgnoreCase("id")) cell='"'+cell+'"';
+		return cell;
 	}
 
 	@Override
@@ -64,16 +90,28 @@ public class PlainTextLogger extends AbstractTextLogger {
 			lastEventTime=time;
 		}
 
-		sb.append(useDate?SimData.formatSimDateTime(time):SimData.formatSimTime(time));
-		if (singleLineMode) sb.append("\t"); else sb.append(" ");
+		switch (timeMode) {
+		case PLAIN: sb.append(NumberTools.formatNumber(time/1000.0)); break;
+		case TIME: sb.append(SimData.formatSimTime(time)); break;
+		case DATETIME: sb.append(SimData.formatSimDateTime(time)); break;
+		}
+		if (singleLineMode) sb.append(csvMode?';':'\t'); else sb.append(csvMode?';':' ');
 
 		if (event!=null && !event.isEmpty()) {
-			sb.append(event.replace("\n",System.lineSeparator()));
+			if (csvMode) {
+				sb.append(toCSV(event.replace("\n"," ")));
+			} else {
+				sb.append(event.replace("\n",System.lineSeparator()));
+			}
 		}
 
 		if (info!=null && !info.isEmpty()) {
-			if (singleLineMode) sb.append("\t"); else sb.append(System.lineSeparator());
-			sb.append(info.replace("\n",System.lineSeparator()));
+			if (singleLineMode) sb.append(csvMode?';':'\t'); else sb.append(System.lineSeparator());
+			if (csvMode) {
+				sb.append(toCSV(info.replace("\n"," ")));
+			} else {
+				sb.append(info.replace("\n",System.lineSeparator()));
+			}
 		}
 
 		sb.append(System.lineSeparator());

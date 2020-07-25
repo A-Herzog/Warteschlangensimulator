@@ -25,6 +25,7 @@ import org.odftoolkit.simple.table.Cell;
 import org.odftoolkit.simple.table.Row;
 import org.odftoolkit.simple.table.Table;
 
+import mathtools.NumberTools;
 import simcore.SimData;
 import simcore.logging.SimLogging;
 
@@ -39,6 +40,7 @@ public class ODSLogger implements SimLogging {
 	private final boolean groupSameTimeEvents;
 	private final boolean singleLineMode;
 	private final boolean useColors;
+	private final boolean formatedTime;
 	private long lastEventTime=-1;
 
 	private final SpreadsheetDocument workbook;
@@ -52,13 +54,15 @@ public class ODSLogger implements SimLogging {
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
+	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public ODSLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final String[] headings) {
+	public ODSLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings) {
 		this.logFile=logFile;
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
+		this.formatedTime=formatedTime;
 
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
@@ -112,6 +116,8 @@ public class ODSLogger implements SimLogging {
 
 	@Override
 	public boolean log(long time, Color color, String event, String info) {
+		final String timeString=formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0);
+
 		/* Abschnitt beginnen / beenden */
 		if (groupSameTimeEvents) {
 			if (lastEventTime!=time) {
@@ -119,7 +125,7 @@ public class ODSLogger implements SimLogging {
 				Row row=sheet.appendRow();
 				final Cell cell=row.getCellByIndex(0);
 				cell.setFont(getCellStyle(Color.BLACK,true));
-				cell.setStringValue(SimData.formatSimTime(time));
+				cell.setStringValue(timeString);
 				/* Leerzeile */ sheet.appendRow();
 				lastEventTime=time;
 			}
@@ -133,7 +139,7 @@ public class ODSLogger implements SimLogging {
 			if (!groupSameTimeEvents) {
 				cell=row.getCellByIndex(colCount); colCount++;
 				cell.setFont(getCellStyle(color,false));
-				cell.setStringValue(SimData.formatSimTime(time));
+				cell.setStringValue(timeString);
 			}
 			if (event!=null && !event.isEmpty()) {
 				cell=row.getCellByIndex(colCount); colCount++;
@@ -152,7 +158,7 @@ public class ODSLogger implements SimLogging {
 			if (!groupSameTimeEvents) {
 				cell=row.getCellByIndex(colCount); colCount++;
 				cell.setFont(getCellStyle(color,false));
-				cell.setStringValue(SimData.formatSimTime(time));
+				cell.setStringValue(timeString);
 			}
 			if (event!=null && !event.isEmpty()) {
 				cell=row.getCellByIndex(colCount); colCount++;

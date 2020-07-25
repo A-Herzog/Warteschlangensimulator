@@ -184,7 +184,7 @@ public class RunDataResourceFailure {
 			long downTime=getDownTime(simData,resource.getName());
 			resource.startDownTime(pauseStartTime);
 			operator.currentPauseIndex=failureIndex;
-			if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.Scheduled"),name,operator.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
+			if (simData.loggingActive && simData.loggingIDs==null) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.Scheduled"),name,operator.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
 			operator.onlineAgainAt=simData.currentTime+downTime;
 			scheduleResourceCheckEvent(simData,operator.onlineAgainAt);
 			return true;
@@ -195,7 +195,7 @@ public class RunDataResourceFailure {
 			resource.startDownTime(simData.currentTime);
 			servedCount=0;
 			long downTime=getDownTime(simData,resource.getName());
-			if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.WorkCount"),name,operator.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
+			if (simData.loggingActive && simData.loggingIDs==null) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.WorkCount"),name,operator.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
 			operator.onlineAgainAt=simData.currentTime+downTime;
 			scheduleResourceCheckEvent(simData,operator.onlineAgainAt);
 			return true;
@@ -205,7 +205,7 @@ public class RunDataResourceFailure {
 		if (failureMode==ModelResourceFailure.FailureMode.FAILURE_BY_AVAILABLE_TIME && simData.currentTime>=operator.availableStartTime+failureTime) {
 			resource.startDownTime(simData.currentTime);
 			long downTime=getDownTime(simData,resource.getName());
-			if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.AvailableTime"),name,operator.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
+			if (simData.loggingActive && simData.loggingIDs==null) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.AvailableTime"),name,operator.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
 			operator.onlineAgainAt=simData.currentTime+downTime;
 			scheduleResourceCheckEvent(simData,operator.onlineAgainAt);
 			return true;
@@ -216,7 +216,7 @@ public class RunDataResourceFailure {
 			resource.startDownTime(simData.currentTime);
 			servedTime=0;
 			long downTime=getDownTime(simData,resource.getName());
-			if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.WorkTime"),name,operator.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
+			if (simData.loggingActive && simData.loggingIDs==null) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.WorkTime"),name,operator.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
 			operator.onlineAgainAt=simData.currentTime+downTime;
 			scheduleResourceCheckEvent(simData,operator.onlineAgainAt);
 			return true;

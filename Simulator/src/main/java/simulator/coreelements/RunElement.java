@@ -258,6 +258,7 @@ public abstract class RunElement {
 	 * @see SimLogging#log(long, Color, String, String)
 	 */
 	public final void log(final SimulationData simData, final String event, final String info) {
+		if (simData.loggingIDs!=null && !simData.loggingIDs[id]) return;
 		simData.logEventExecution(logTextColor,event,info);
 	}
 

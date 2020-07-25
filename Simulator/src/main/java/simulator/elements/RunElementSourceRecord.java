@@ -321,6 +321,7 @@ public class RunElementSourceRecord {
 	}
 
 	private void log(final SimulationData simData, final String event, final String info, final RunElement element) {
+		if (simData.loggingIDs!=null && !simData.loggingIDs[element.id]) return;
 		simData.logEventExecution(element.logTextColor,event,info);
 	}
 

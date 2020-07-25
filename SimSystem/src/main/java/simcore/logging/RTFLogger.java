@@ -20,6 +20,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import mathtools.NumberTools;
 import simcore.SimData;
 
 /**
@@ -31,6 +32,7 @@ public class RTFLogger extends AbstractTextLogger {
 	private final boolean groupSameTimeEvents;
 	private final boolean singleLineMode;
 	private final boolean useColors;
+	private final boolean formatedTime;
 	private final String[] headings;
 	private long lastEventTime=-1;
 
@@ -44,12 +46,14 @@ public class RTFLogger extends AbstractTextLogger {
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
+	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public RTFLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final String[] headings) {
+	public RTFLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings) {
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
+		this.formatedTime=formatedTime;
 		if (headings==null || headings.length==0) this.headings=new String[]{"Simulationsergebnisse"}; else this.headings=headings;
 		init(logFile);
 		if (ready()) {
@@ -116,7 +120,7 @@ public class RTFLogger extends AbstractTextLogger {
 			if(lastEventTime!=time) {
 				if (lastEventTime>=0) buffer.append("\\par\n");
 				if (useColors) buffer.append("\\cf0\\highlight0");
-				buffer.append("\\fs28 "+convertLineToRTF(SimData.formatSimTime(time))+"\\fs22\\par\n");
+				buffer.append("\\fs28 "+convertLineToRTF(formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0))+"\\fs22\\par\n");
 				lastEventTime=time;
 			}
 		}

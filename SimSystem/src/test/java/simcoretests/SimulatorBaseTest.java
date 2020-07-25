@@ -447,7 +447,7 @@ public class SimulatorBaseTest {
 		for (int coreCount=1;coreCount<=2;coreCount++) for (Supplier<EventManager> manager: managers) {
 			log.clear();
 			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
-				data.activateLogging(new HTMLLogger(null,true,true,true,null));
+				data.activateLogging(new HTMLLogger(null,true,true,true,true,null));
 				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
 				return buildSortInitialEvents(2).apply(data,nr);
 			});
@@ -462,7 +462,7 @@ public class SimulatorBaseTest {
 		for (int coreCount=1;coreCount<=2;coreCount++) for (Supplier<EventManager> manager: managers) {
 			log.clear();
 			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
-				data.activateLogging(new PlainTextLogger(null,true,true));
+				data.activateLogging(new PlainTextLogger(null,true,true,false));
 				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
 				return buildSortInitialEvents(2).apply(data,nr);
 			});
@@ -477,7 +477,7 @@ public class SimulatorBaseTest {
 		for (int coreCount=1;coreCount<=2;coreCount++) for (Supplier<EventManager> manager: managers) {
 			log.clear();
 			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
-				data.activateLogging(new RTFLogger(null,true,true,true,null));
+				data.activateLogging(new RTFLogger(null,true,true,true,true,null));
 				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
 				return buildSortInitialEvents(2).apply(data,nr);
 			});

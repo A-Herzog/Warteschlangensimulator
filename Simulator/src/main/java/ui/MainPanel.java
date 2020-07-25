@@ -322,7 +322,7 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.setElementListCallback(()->commandModelListElements());
 
 		waitPanel=new WaitPanel();
-		statisticsPanel=new StatisticsPanel(()->commandSimulationSimulation(null,null,null));
+		statisticsPanel=new StatisticsPanel(()->commandSimulationSimulation(null,null,null,null));
 		statisticsPanel.addFileDropListener(e->{if (e.getSource() instanceof FileDropperData) dropFile((FileDropperData)e.getSource());});
 		editorPanel.setStatisticsGetter(()->statisticsPanel.getStatistics());
 		animationPanel=new AnimationPanel(ownerWindow);
@@ -484,7 +484,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ModelAddTemplate",e->commandModelAddTemplate());
 
 		/* Simulation */
-		addAction("SimulationAnimation",e->commandSimulationAnimation(null,false,null));
+		addAction("SimulationAnimation",e->commandSimulationAnimation(null,false,null,null));
 		addAction("SimulationAnimationRecord",e->commandSimulationAnimationRecord());
 		addAction("SimulationAnimationLog",e->commandSimulationAnimationLog());
 		addAction("SimulationAnimationStartModeRun",e->commandSimulationAnimationStartMode(false));
@@ -493,7 +493,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("SimulationAnimationAnalogValuesExact",e->commandSimulationAnalogValuesSlow(true));
 		addAction("SimulationAnimationScreenshotModeHome",e->commandSimulationAnimationScreenshotModeHome());
 		addAction("SimulationAnimationScreenshotModeCustom",e->commandSimulationAnimationScreenshotModeCustom());
-		addAction("SimulationSimulation",e->commandSimulationSimulation(null,null,null));
+		addAction("SimulationSimulation",e->commandSimulationSimulation(null,null,null,null));
 		addAction("SimulationSimulationLog",e->commandSimulationSimulationLog());
 		addAction("SimulationCheckServerConnection",e->commandSimulationCheckServerConnection());
 		addAction("SimulationFindWarmUpSize",e->commandSimulationFindWarmUpSize());
@@ -1869,12 +1869,12 @@ public class MainPanel extends MainPanelBase {
 				return;
 			}
 
-			commandSimulationSimulation(pinnedModel,null,()->{compareStatistics[0]=statisticsPanel.getStatistics(); commandModelCompareTwoRun(1);});
+			commandSimulationSimulation(pinnedModel,null,null,()->{compareStatistics[0]=statisticsPanel.getStatistics(); commandModelCompareTwoRun(1);});
 			return;
 		}
 
 		if (level==1) {
-			commandSimulationSimulation(null,null,()->{compareStatistics[1]=statisticsPanel.getStatistics(); commandModelCompareTwoRun(2);});
+			commandSimulationSimulation(null,null,null,()->{compareStatistics[1]=statisticsPanel.getStatistics(); commandModelCompareTwoRun(2);});
 			return;
 		}
 
@@ -1943,7 +1943,7 @@ public class MainPanel extends MainPanelBase {
 	 * @return	Im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung.
 	 */
 	public String startRemoteControlledAnimation() {
-		return commandSimulationAnimation(null,true,null);
+		return commandSimulationAnimation(null,true,null,null);
 	}
 
 	private void checkAutoSave() {
@@ -1953,7 +1953,7 @@ public class MainPanel extends MainPanelBase {
 		commandFileModelSave(false);
 	}
 
-	private StartAnySimulator getSimulator(EditModel editModel, final SimLogging logging) {
+	private StartAnySimulator getSimulator(EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
 		final File folder=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParentFile();
 		final EditModel changedEditModel=editModel.modelLoadData.changeModel(editModel,folder);
 		if (changedEditModel!=null) {
@@ -1965,7 +1965,7 @@ public class MainPanel extends MainPanelBase {
 			editModel=changedEditModel;
 		}
 
-		final StartAnySimulator starter=new StartAnySimulator(editModel,logging);
+		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs);
 		final String error=starter.prepare();
 		if (error!=null) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+error+"</html>");
@@ -1974,7 +1974,7 @@ public class MainPanel extends MainPanelBase {
 		return starter;
 	}
 
-	private String commandSimulationAnimation(final File recordFile, final boolean externalConnect, final SimLogging logging) {
+	private String commandSimulationAnimation(final File recordFile, final boolean externalConnect, final SimLogging logging, final int[] loggingIDs) {
 		EditorPanelRepair.autoFix(editorPanel);
 
 		EditModel editModel=editorPanel.getModel().clone();
@@ -2000,7 +2000,7 @@ public class MainPanel extends MainPanelBase {
 		final boolean fastWarmUp=animationPanel.makeAnimationModel(editModel);
 		final CallbackLoggerWithJS logger=new CallbackLoggerWithJS();
 		if (logging!=null) logger.setNextLogger(logging);
-		final Simulator simulator=new Simulator(editModel,logger);
+		final Simulator simulator=new Simulator(editModel,logger,loggingIDs);
 
 		String error=simulator.prepare();
 		if (error!=null) {
@@ -2076,12 +2076,12 @@ public class MainPanel extends MainPanelBase {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return;
 		}
 
-		commandSimulationAnimation(file,false,null);
+		commandSimulationAnimation(file,false,null,null);
 	}
 
 	private void commandSimulationAnimationLog() {
 		final EditModel editModel=editorPanel.getModel();
-		final StartAnySimulator starter=getSimulator(editModel,null);
+		final StartAnySimulator starter=getSimulator(editModel,null,null);
 		if (starter==null) return;
 
 		if (editModel.clientCount>1000) {
@@ -2092,7 +2092,8 @@ public class MainPanel extends MainPanelBase {
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			final SimLogging logger=dialog.getLogger();
-			if (logger!=null) commandSimulationAnimation(null,false,logger);
+			final int[] loggingIDs=dialog.getStationIDs();
+			if (logger!=null) commandSimulationAnimation(null,false,logger,loggingIDs);
 		}
 	}
 
@@ -2132,7 +2133,7 @@ public class MainPanel extends MainPanelBase {
 		reloadSetup();
 	}
 
-	private void commandSimulationSimulation(final EditModel simModel, final SimLogging logging, final Runnable whenDone) {
+	private void commandSimulationSimulation(final EditModel simModel, final SimLogging logging, final int[] loggingIDs, final Runnable whenDone) {
 		if (simModel==null) EditorPanelRepair.autoFix(editorPanel);
 
 		EditModel editModel=(simModel==null)?editorPanel.getModel():simModel;
@@ -2150,7 +2151,7 @@ public class MainPanel extends MainPanelBase {
 			editModel=changedEditModel;
 		}
 
-		final Object obj=BackgroundSystem.getBackgroundSystem(editorPanel).getStartedSimulator(editModel,logging);
+		final Object obj=BackgroundSystem.getBackgroundSystem(editorPanel).getStartedSimulator(editModel,logging,loggingIDs);
 		if (obj instanceof String) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Simulation.ModelIsFaulty"),"<html>"+Language.tr("Window.Simulation.ErrorInitializatingSimulation")+":<br>"+((String)obj)+"</html>");
 			return;
@@ -2178,7 +2179,7 @@ public class MainPanel extends MainPanelBase {
 
 	private void commandSimulationSimulationLog() {
 		final EditModel editModel=editorPanel.getModel();
-		final StartAnySimulator starter=getSimulator(editModel,null);
+		final StartAnySimulator starter=getSimulator(editModel,null,null);
 		if (starter==null) return;
 
 		if (editModel.clientCount>1000) {
@@ -2189,7 +2190,8 @@ public class MainPanel extends MainPanelBase {
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			final SimLogging logger=dialog.getLogger();
-			if (logger!=null) commandSimulationSimulation(null,logger,null);
+			final int[] loggingIDs=dialog.getStationIDs();
+			if (logger!=null) commandSimulationSimulation(null,logger,loggingIDs,null);
 		}
 	}
 
@@ -2219,7 +2221,7 @@ public class MainPanel extends MainPanelBase {
 
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
 
-		final StartAnySimulator starter=getSimulator(editModel,null);
+		final StartAnySimulator starter=getSimulator(editModel,null,null);
 		if (starter==null) return;
 
 		final AnySimulator simulator=starter.start();
@@ -2285,7 +2287,7 @@ public class MainPanel extends MainPanelBase {
 
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
 
-		final StartAnySimulator starter=getSimulator(editModel,null);
+		final StartAnySimulator starter=getSimulator(editModel,null,null);
 		if (starter==null) return;
 
 		final AnySimulator simulator=starter.start();
@@ -2316,7 +2318,7 @@ public class MainPanel extends MainPanelBase {
 			}
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
-			if (runNow) commandSimulationSimulation(null,null,null);
+			if (runNow) commandSimulationSimulation(null,null,null,null);
 		});
 		setCurrentPanel(waitPanel);
 	}

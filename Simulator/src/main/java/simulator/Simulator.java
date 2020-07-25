@@ -62,6 +62,11 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	protected final SimLogging logging;
 
 	/**
+	 * Steht hier ein Wert ungleich <code>null</code> und ist das Logging ({@link Simulator#logging}) aktiv, so werden nur Daten zu den Stationen, deren IDs hier angegeben sind, erfasst
+	 */
+	public int[] loggingIDs;
+
+	/**
 	 * Da die Statistik nur einmal aus den Daten erhoben wird, wird diese für wiederholte Aufrufe von <code>getStatistic()</code> hier aufgehoben
 	 * @see getStatistic
 	 */
@@ -99,11 +104,13 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @param multiCore	Wird hier <code>true</code> übergeben, so wird auf allen verfügbaren CPU-Kernen gerechnet. (Ausnahme: Wird in <code>logFile</code> ein Wert ungleich <code>null</code> übergeben, so wird stets nur ein Kern verwendet.)
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 */
-	public Simulator(final boolean multiCore, final EditModel editModel, final SimLogging logging) {
+	public Simulator(final boolean multiCore, final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
 		super(getAllowMaxCore(editModel,multiCore && logging==null,Integer.MAX_VALUE),false,getNUMAAware());
 		this.editModel=editModel;
 		this.logging=logging;
+		this.loggingIDs=loggingIDs;
 	}
 
 	/**
@@ -111,20 +118,23 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @param maxCoreCount	Gibt die maximale Anzahl an zu verwendenden Threads an. (Wird in <code>logFile</code> ein Wert ungleich <code>null</code> übergeben, so wird stets nur ein Kern verwendet.)
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 */
-	public Simulator(final int maxCoreCount, final EditModel editModel, final SimLogging logging) {
+	public Simulator(final int maxCoreCount, final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
 		super(getAllowMaxCore(editModel,logging==null,maxCoreCount),false,getNUMAAware());
 		this.editModel=editModel;
 		this.logging=logging;
+		this.loggingIDs=loggingIDs;
 	}
 
 	/**
 	 * Konstruktor der Klasse <code>Simulator</code>
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 */
-	public Simulator(final EditModel editModel, final SimLogging logging) {
-		this(SetupData.getSetup().useMultiCoreSimulation && (editModel.allowMultiCore() || editModel.repeatCount>1),editModel,logging);
+	public Simulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
+		this(SetupData.getSetup().useMultiCoreSimulation && (editModel.allowMultiCore() || editModel.repeatCount>1),editModel,logging,loggingIDs);
 	}
 
 	private static void prepareStatic(final boolean fixedSeed) {
@@ -245,13 +255,22 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	@Override
 	protected SimData getSimDataForThread(final int threadNr, final int threadCount) {
 		final SimData data;
+		final RunModel runModel;
 		if (numaAware) {
 			final Object obj=RunModel.getRunModel(editModel,false);
-			data=new SimulationData(threadNr,threadCount,(RunModel)obj,null);
+			runModel=(RunModel)obj;
 		} else {
-			data=new SimulationData(threadNr,threadCount,runModel,null);
+			runModel=this.runModel;
 		}
-		if (logging!=null) data.activateLogging(logging);
+		data=new SimulationData(threadNr,threadCount,runModel,null);
+
+		if (logging!=null) {
+			data.activateLogging(logging);
+			if (loggingIDs!=null && loggingIDs.length>0) {
+				final boolean[] loggingIDsFast=((SimulationData)data).loggingIDs=new boolean[runModel.elementsFast.length];
+				for (int id: loggingIDs) loggingIDsFast[id]=true;
+			}
+		}
 		return data;
 	}
 
@@ -352,7 +371,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	public static SimulationData getSimulationDataFromStatistics(final Statistics statistics) {
 		if (statistics==null) return null;
-		final Simulator simulator=new Simulator(statistics.editModel,null);
+		final Simulator simulator=new Simulator(statistics.editModel,null,null);
 		if (simulator.prepare()!=null) return null;
 		final SimulationData simData=new SimulationData(0,simulator.threads.length,simulator.runModel,statistics);
 

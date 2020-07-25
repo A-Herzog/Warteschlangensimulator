@@ -35,6 +35,7 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import mathtools.NumberTools;
 import simcore.SimData;
 import simcore.logging.SimLogging;
 
@@ -49,6 +50,7 @@ public class XLSXLogger implements SimLogging {
 	private final boolean groupSameTimeEvents;
 	private final boolean singleLineMode;
 	private final boolean useColors;
+	private final boolean formatedTime;
 	private long lastEventTime=-1;
 
 	private final Workbook workbook;
@@ -67,14 +69,16 @@ public class XLSXLogger implements SimLogging {
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
+	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 * @param oldFileFormat	Gibt an, ob eine XLSX- (<code>false</code>) oder eine alte XLS-Datei (<code>true</code>) erzeugt werden soll.
 	 */
-	public XLSXLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final String[] headings, final boolean oldFileFormat) {
+	public XLSXLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings, final boolean oldFileFormat) {
 		this.logFile=logFile;
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
+		this.formatedTime=formatedTime;
 
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
@@ -155,6 +159,8 @@ public class XLSXLogger implements SimLogging {
 
 	@Override
 	public boolean log(long time, Color color, String event, String info) {
+		final String timeString=formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0);
+
 		/* Abschnitt beginnen / beenden */
 		if (groupSameTimeEvents) {
 			if (lastEventTime!=time) {
@@ -162,7 +168,7 @@ public class XLSXLogger implements SimLogging {
 				Row row=sheet.createRow(rowCount); rowCount++;
 				Cell cell=row.createCell(0);
 				cell.setCellStyle(defaultStyleBold);
-				cell.setCellValue(SimData.formatSimTime(time));
+				cell.setCellValue(timeString);
 				/* Leerzeile */ rowCount++;
 				lastEventTime=time;
 			}
@@ -176,7 +182,7 @@ public class XLSXLogger implements SimLogging {
 			if (!groupSameTimeEvents) {
 				cell=row.createCell(colCount); colCount++;
 				cell.setCellStyle(getCellStyle(color,false));
-				cell.setCellValue(SimData.formatSimTime(time));
+				cell.setCellValue(timeString);
 			}
 			if (event!=null && !event.isEmpty()) {
 				cell=row.createCell(colCount); colCount++;
@@ -195,7 +201,7 @@ public class XLSXLogger implements SimLogging {
 			if (!groupSameTimeEvents) {
 				cell=row.createCell(colCount); colCount++;
 				cell.setCellStyle(getCellStyle(color,false));
-				cell.setCellValue(SimData.formatSimTime(time));
+				cell.setCellValue(timeString);
 			}
 			if (event!=null && !event.isEmpty()) {
 				cell=row.createCell(colCount); colCount++;

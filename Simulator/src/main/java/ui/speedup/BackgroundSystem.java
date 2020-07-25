@@ -276,11 +276,12 @@ public class BackgroundSystem {
 	 * <b>ohne dabei die Hintergrund-Funktionalität in irgendeiner Weise zu nutzen oder zu beeinflussen</b>
 	 * @param editModel	Editor-Modell das simuliert werden soll
 	 * @param logging	Optionales Logging-System (kann <code>null</code> sein)
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als Zeichenkette.
 	 */
-	public Object getNewStartedSimulator(final EditModel editModel, final SimLogging logging) {
+	public Object getNewStartedSimulator(final EditModel editModel, final SimLogging logging,final int[] loggingIDs) {
 		lastUsage=System.currentTimeMillis();
-		final StartAnySimulator starter=new StartAnySimulator(editModel,logging);
+		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs);
 		final String error=starter.prepare();
 		if (error!=null) return error;
 		return starter.start();
@@ -290,13 +291,14 @@ public class BackgroundSystem {
 	 * Liefert einen (bereits gestarteten) Simulator für ein Editor-Modell
 	 * @param editModel	Editor-Modell das simuliert werden soll
 	 * @param logging	Optionales Logging-System (kann <code>null</code> sein)
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als Zeichenkette.
 	 */
-	public Object getStartedSimulator(final EditModel editModel, final SimLogging logging) {
+	public Object getStartedSimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
 		lastUsage=System.currentTimeMillis();
 		if (logging!=null || lastModel==null || lastSimulator==null) {
 			stop();
-			return getNewStartedSimulator(editModel,logging);
+			return getNewStartedSimulator(editModel,logging,loggingIDs);
 		}
 
 		if (lastModel.equalsEditModel(editModel)) {
@@ -312,7 +314,7 @@ public class BackgroundSystem {
 			return simulator;
 		}
 
-		return getNewStartedSimulator(editModel,null);
+		return getNewStartedSimulator(editModel,null,null);
 	}
 
 	/**

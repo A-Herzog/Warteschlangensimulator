@@ -35,6 +35,7 @@ import ui.modeleditor.elements.ModelElementSub;
 public class StartAnySimulator {
 	private final EditModel editModel;
 	private final SimLogging logging;
+	private final int[] loggingIDs;
 
 	private SimulationClient remoteSimulator;
 	private Simulator localSimulator;
@@ -43,10 +44,12 @@ public class StartAnySimulator {
 	 * Konstruktor der Klasse
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 */
-	public StartAnySimulator(final EditModel editModel, final SimLogging logging) {
+	public StartAnySimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
 		this.editModel=editModel;
 		this.logging=logging;
+		this.loggingIDs=loggingIDs;
 	}
 
 	/**
@@ -55,7 +58,7 @@ public class StartAnySimulator {
 	 * @param editModel	Editor-Modell
 	 */
 	public StartAnySimulator(final EditModel editModel) {
-		this(editModel,null);
+		this(editModel,null,null);
 	}
 
 	/**
@@ -95,7 +98,7 @@ public class StartAnySimulator {
 			}
 		}
 
-		localSimulator=new Simulator(editModel,logging);
+		localSimulator=new Simulator(editModel,logging,loggingIDs);
 		return localSimulator.prepare();
 	}
 
@@ -111,7 +114,7 @@ public class StartAnySimulator {
 				return remoteSimulator;
 			} else {
 				remoteSimulator=null;
-				localSimulator=new Simulator(editModel,logging);
+				localSimulator=new Simulator(editModel,logging,loggingIDs);
 				if (localSimulator.prepare()!=null) localSimulator=null;
 			}
 		}

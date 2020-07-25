@@ -73,6 +73,11 @@ public class SimulationData extends SimData {
 	private long currentDay;
 
 	/**
+	 * Ist das Logging aktiv, so kann hier eingeschränkt werden, dass nur Ereignisse zu bestimmten Stationen erfasst werden sollen. Ist das Feld <code>null</code>, so wird (sofern das Logging aktiv ist) alles erfasst.
+	 */
+	public boolean[] loggingIDs;
+
+	/**
 	 * Konstruktor der Klasse <code>SimulationData</code>
 	 * @param threadNr		Gibt die Nummer des Threads an, für den das <code>SimDat</code>-Objekt erstellt wird.
 	 * @param threadCount	Anzahl der Rechenthreads
@@ -84,6 +89,8 @@ public class SimulationData extends SimData {
 		/* schneller: super(new LongRunMultiPriorityQueueEventManager(4),new HashMapEventCache(),threadNr,threadCount); */
 		/* ganz schnell: */
 		super(new LongRunMultiSortedArrayListEventManager(4),new AssociativeEventCache(128),threadNr,threadCount);
+
+		loggingIDs=null;
 
 		this.runModel=runModel;
 		this.runData=new RunData(runModel);
@@ -251,7 +258,7 @@ public class SimulationData extends SimData {
 
 	@Override
 	protected SimLogging getLogger(final File logFile) {
-		return new MultiTypeTextLogger(logFile,true,SetupData.getSetup().singleLineEventLog,true,new String[]{Language.tr("Simulation.Log.Title")});
+		return new MultiTypeTextLogger(logFile,true,SetupData.getSetup().singleLineEventLog,true,true,new String[]{Language.tr("Simulation.Log.Title")});
 	}
 
 	/**

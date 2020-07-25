@@ -192,7 +192,7 @@ public class SimData {
 	 * @see SimLogging
 	 */
 	protected SimLogging getLogger(final File logFile) {
-		return new PlainTextLogger(logFile,false,false);
+		return new PlainTextLogger(logFile,false,false,logFile.toString().toUpperCase().endsWith(".CSV"));
 	}
 
 	/**
