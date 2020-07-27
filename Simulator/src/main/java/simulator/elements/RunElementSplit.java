@@ -19,13 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import language.Language;
-import mathtools.NumberTools;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
 import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
-import simulator.runmodel.RunDataClients;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
@@ -169,10 +167,8 @@ public class RunElementSplit extends RunElementPassThrough {
 		/* System über Status-Änderung benachrichtigen */
 		simData.runData.fireStateChangeNotify(simData);
 
-		final int count=simData.statistics.clientsInSystem.getCurrentState();
-		if (count>RunDataClients.MAX_CLIENTS_IN_SYSTEM) {
-			simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.ToManyClientsInSystem.Info"),NumberTools.formatLong(count)));
-		}
+		/* Maximalzahl an Kunden im System eingehalten */
+		if (!simData.testMaxAllowedClientsInSystem()) return;
 	}
 
 	@Override

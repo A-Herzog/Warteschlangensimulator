@@ -33,8 +33,17 @@ import statistics.StatisticsValuePerformanceIndicator;
 public final class RunDataClients {
 	/**
 	 * Anzahl an Kunden im System, bei deren Überschreitung der Simulationsthread abgebrochen wird
+	 * (im Fall einer Multi-Core-Simulation)
+	 * @see SimulationData#testMaxAllowedClientsInSystem()
 	 */
-	public static final int MAX_CLIENTS_IN_SYSTEM=350_000;
+	public static final int MAX_CLIENTS_IN_SYSTEM_MULTI_CORE=350_000;
+
+	/**
+	 * Anzahl an Kunden im System, bei deren Überschreitung der Simulationsthread abgebrochen wird
+	 * (im Fall einer Single-Core-Simulation)
+	 * @see SimulationData#testMaxAllowedClientsInSystem()
+	 */
+	public static final int MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE=5_000_000;
 
 	/**
 	 * Wie viele Kunden-Objekte sollen gecacht werden?<br>

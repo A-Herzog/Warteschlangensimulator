@@ -17,7 +17,10 @@ package simulator.runmodel;
 import java.io.File;
 import java.util.Map;
 
+import org.apache.commons.math3.util.FastMath;
+
 import language.Language;
+import mathtools.NumberTools;
 import simcore.SimData;
 import simcore.eventcache.AssociativeEventCache;
 import simcore.eventmanager.LongRunMultiSortedArrayListEventManager;
@@ -355,5 +358,22 @@ public class SimulationData extends SimData {
 	@Override
 	public void catchOutOfMemory(final String text) {
 		doEmergencyShutDown(Language.tr("Simulation.OutOfMemory")+"\n"+text);
+	}
+
+	/**
+	 * Prüft, ob die maximal zulässige Anzahl an Kunden im system eingehalten wird.
+	 * @return	Liefert im Erfolgsfall <code>true</code>. Im Fehlerfall wird die Simulation per {@link #doEmergencyShutDown(String)} abgebrochen und es wird <code>false</code> zurückgeliefert.
+	 */
+	public boolean testMaxAllowedClientsInSystem() {
+		final int count=statistics.clientsInSystem.getCurrentState();
+		final int maxAllowed=FastMath.max(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE/threadCount,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE);
+
+
+		if (count>maxAllowed) {
+			doEmergencyShutDown(String.format(Language.tr("Simulation.Log.ToManyClientsInSystem.Info"),NumberTools.formatLong(count)));
+			return false;
+		}
+
+		return true;
 	}
 }

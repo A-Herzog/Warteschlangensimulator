@@ -22,7 +22,6 @@ import java.util.List;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
-import mathtools.NumberTools;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -31,7 +30,6 @@ import simulator.events.SystemArrivalEvent;
 import simulator.events.SystemChangeEvent;
 import simulator.runmodel.RunData;
 import simulator.runmodel.RunDataClient;
-import simulator.runmodel.RunDataClients;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
@@ -261,10 +259,8 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		/* System über Status-Änderung benachrichtigen */
 		simData.runData.fireStateChangeNotify(simData);
 
-		final int count=simData.statistics.clientsInSystem.getCurrentState();
-		if (count>RunDataClients.MAX_CLIENTS_IN_SYSTEM) {
-			simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.ToManyClientsInSystem.Info"),NumberTools.formatLong(count)));
-		}
+		/* Maximalzahl an Kunden im System eingehalten */
+		if (!simData.testMaxAllowedClientsInSystem()) return;
 	}
 
 	@Override
