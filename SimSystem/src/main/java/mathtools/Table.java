@@ -73,7 +73,7 @@ import mathtools.distribution.swing.CommonVariables;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.2
+ * @version 4.3
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -646,8 +646,18 @@ public final class Table implements Cloneable {
 	 */
 	public Table transpose(final boolean full) {
 		final Table t;
-		if (mode==IndexMode.COLS) t=new Table(full?IndexMode.COLS:IndexMode.ROWS); else t=new Table(full?IndexMode.ROWS:IndexMode.COLS);
-		for (int i=0;i<data.size();i++) for (int j=0;j<data.get(i).size();j++) t.setValue(j,i,data.get(i).get(j));
+		if (mode==IndexMode.COLS) {
+			t=new Table(full?IndexMode.COLS:IndexMode.ROWS);
+		} else {
+			t=new Table(full?IndexMode.ROWS:IndexMode.COLS);
+		}
+
+		final int size1=data.size();
+		for (int i=0;i<size1;i++) {
+			final List<String> row=data.get(i);
+			final int size2=row.size();
+			for (int j=0;j<size2;j++) t.setValue(j,i,row.get(j));
+		}
 		return t;
 	}
 

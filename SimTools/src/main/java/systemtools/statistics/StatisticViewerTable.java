@@ -32,7 +32,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -47,7 +46,6 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -67,13 +65,16 @@ import systemtools.images.SimToolsImages;
  * Anzeige von Tabellen dar.
  * @author Alexander Herzog
  * @see StatisticViewer
- * @version 1.4
+ * @version 1.5
  */
 public class StatisticViewerTable implements StatisticViewer {
+	private Table table;
+
 	/**
-	 * Inhalt der Tabelle
+	 * Inhalt der Tabelle (kann <code>null</code> sein, wenn die Daten noch nicht aus der Tabelle ausgelesen wurden)
+	 * @see #initData()
 	 */
-	protected List<List<String>> data;
+	private List<List<String>> data;
 
 	/**
 	 * Spaltentitel der Tabelle
@@ -93,6 +94,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @see #setData(Table, String[])
 	 */
 	public StatisticViewerTable() {
+		table=null;
 		data=new ArrayList<List<String>>();
 		columnNames=new ArrayList<>();
 	}
@@ -139,6 +141,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param columnNames	List, die die anzuzeigenden Spaltentitel enthält
 	 */
 	public void setData(List<List<String>> data, List<String> columnNames) {
+		table=null;
 		this.data=data;
 		this.columnNames=columnNames;
 	}
@@ -149,6 +152,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param arrayColumnNames	String-Array, das die anzuzeigenden Spaltentitel enthält
 	 */
 	public void setData(String[][] arrayData, String[] arrayColumnNames) {
+		table=null;
 		data=new ArrayList<List<String>>();
 		for (int i=0;i<arrayData.length;i++) {
 			List<String> v=new ArrayList<>(); data.add(v);
@@ -165,7 +169,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param arrayColumnNames	String-Array, das die anzuzeigenden Spaltentitel enthält
 	 */
 	public void setData(Table table, String[] arrayColumnNames) {
-		setData(table.getData(),new ArrayList<String>(Arrays.asList(arrayColumnNames)));
+		setData(table,Arrays.asList(arrayColumnNames));
 	}
 
 	/**
@@ -174,7 +178,9 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param columnNames	List, die die anzuzeigenden Spaltentitel enthält
 	 */
 	public void setData(Table table, List<String> columnNames) {
-		setData(table.getData(),columnNames);
+		this.table=table;
+		data=null;
+		this.columnNames=columnNames;
 	}
 
 	@Override
@@ -295,7 +301,7 @@ public class StatisticViewerTable implements StatisticViewer {
 		final FontMetrics fontMetrics=table.getFontMetrics(table.getFont());
 		final int rowCount=table.getRowCount();
 		for (int i=0;i<rowCount;i++) {
-			widthContent=Math.max(widthContent,SwingUtilities.computeStringWidth(fontMetrics,""+model.getValueAt(i,columnIndex)));
+			widthContent=Math.max(widthContent,SwingUtilities.computeStringWidth(fontMetrics,(String)model.getValueAt(i,columnIndex)));
 		}
 
 		/* Überschriftenbreite */
@@ -331,7 +337,13 @@ public class StatisticViewerTable implements StatisticViewer {
 		if (viewer!=null && !needReInit) return viewer;
 
 		if (columnNames.isEmpty() || needReInit) buildTable();
-		final TableModel dataModel=new DefaultReadOnlyTableModel(data,columnNames);
+
+		final TableModel dataModel;
+		if (table==null) {
+			dataModel=new StatisticViewerTableModel(data,columnNames);
+		} else {
+			dataModel=new StatisticViewerTableModel(table,columnNames);
+		}
 
 		final JTable table=new JTable(dataModel);
 		table.getTableHeader().setReorderingAllowed(false);
@@ -412,35 +424,6 @@ public class StatisticViewerTable implements StatisticViewer {
 		return viewer=descriptionPane.getSplitPanel(tableScroller);
 	}
 
-	private static final Vector<Vector<String>> dataAsVector(final List<List<String>> data) {
-		final Vector<Vector<String>> newData=new Vector<Vector<String>>();
-		for (int i=0;i<data.size();i++) {
-			final Vector<String> line=new Vector<>();
-			line.addAll(data.get(i));
-			newData.add(line);
-		}
-		return newData;
-	}
-
-	private static final Vector<String> columnNamesAsVector(final List<String> columnNames) {
-		final Vector<String> newColumnNames=new Vector<>();
-		newColumnNames.addAll(columnNames);
-		return newColumnNames;
-	}
-
-	private class DefaultReadOnlyTableModel extends DefaultTableModel {
-		private static final long serialVersionUID = 6650829856358608399L;
-
-		public DefaultReadOnlyTableModel(final List<List<String>> data, final List<String> columnNames) {
-			super(dataAsVector(data),columnNamesAsVector(columnNames));
-		}
-
-		@Override
-		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return false;
-		}
-	}
-
 	private void addVectorToStringBuilder(final StringBuilder s, final List<String> v) {
 		final int size=v.size();
 		if (size>0) s.append(v.get(0));
@@ -451,6 +434,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	@Override
 	public void copyToClipboard(Clipboard clipboard) {
 		if (columnNames.isEmpty()) buildTable();
+		initData();
 		final StringBuilder s=new StringBuilder();
 		addVectorToStringBuilder(s,columnNames);
 		final int size=data.size();
@@ -462,6 +446,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	@Override
 	public boolean print() {
 		if (columnNames.isEmpty()) buildTable();
+		initData();
 		Table t=new Table();
 		t.addLine(columnNames);
 		t.addLines(data);
@@ -476,6 +461,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	public Table toTable() {
 		if (columnNames.isEmpty()) buildTable();
+		initData();
 		final Table t=new Table();
 		t.addLine(columnNames);
 		t.addLines(data);
@@ -517,6 +503,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	@Override
 	public int saveHtml(BufferedWriter bw, File mainFile, int nextImageNr, boolean imagesInline) throws IOException {
 		if (columnNames.isEmpty()) buildTable();
+		initData();
 		bw.write("<table>");
 		bw.newLine();
 		saveLineToTable(bw,columnNames);
@@ -656,5 +643,17 @@ public class StatisticViewerTable implements StatisticViewer {
 	protected final void addDescription(final URL descriptionURL, final Consumer<String> descriptionHelpCallback) {
 		this.descriptionURL=descriptionURL;
 		this.descriptionHelpCallback=descriptionHelpCallback;
+	}
+
+	/**
+	 * Überträgt die Daten aus einer {@link Table} in das {@link #data} Feld
+	 */
+	protected void initData() {
+		if (table==null) {
+			if (data==null) data=new ArrayList<List<String>>();
+		} else {
+			data=table.getData();
+			table=null;
+		}
 	}
 }

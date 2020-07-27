@@ -343,24 +343,26 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		for (StatisticsTimePerformanceIndicator indicator : (StatisticsTimePerformanceIndicator[])indicators.getAll(StatisticsTimePerformanceIndicator.class)) max=FastMath.max(max,indicator.getTimeMax());
 
 		labels.add(Language.tr("Statistics.State"));
-		List<String> line=new ArrayList<>();
+		List<String> line=new ArrayList<>(max+1);
 		for (int i=0;i<=max;i++) line.add(NumberTools.formatLongNoGrouping(i));
 		table.addLine(line);
 
 		if (system!=null) {
 			labels.add(Language.tr("Statistics.System"));
-			line=new ArrayList<>();
-			final double[] data=system.getReadOnlyDistribution().densityData;
-			final double sum=system.getReadOnlyDistribution().sum();
+			line=new ArrayList<>(max+1);
+			final DataDistributionImpl dist=system.getReadOnlyDistribution();
+			final double[] data=dist.densityData;
+			final double sum=dist.sum();
 			for (int i=0;i<=max;i++) line.add(StatisticTools.formatPercent((i>=data.length || sum==0)?0.0:data[i]/sum,3));
 			table.addLine(line);
 		}
 		for (String name : indicators.getNames()) {
 			labels.add(name);
-			StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)(indicators.get(name));
-			line=new ArrayList<>();
-			final double[] data=indicator.getReadOnlyDistribution().densityData;
-			final double sum=indicator.getReadOnlyDistribution().sum();
+			final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)(indicators.get(name));
+			line=new ArrayList<>(max+1);
+			final DataDistributionImpl dist=indicator.getReadOnlyDistribution();
+			final double[] data=dist.densityData;
+			final double sum=dist.sum();
 			for (int i=0;i<=max;i++) line.add(StatisticTools.formatPercent((i>=data.length || sum==0)?0.0:data[i]/sum,3));
 			table.addLine(line);
 		}
