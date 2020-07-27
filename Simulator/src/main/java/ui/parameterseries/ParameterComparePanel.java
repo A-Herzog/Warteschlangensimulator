@@ -498,13 +498,13 @@ public class ParameterComparePanel extends SpecialPanel {
 			final Sheet sheet=wb.createSheet(sheetName);
 			table.saveToSheet(wb,sheet);
 
-			final TableChartBase.Range categories=new TableChartBase.Range(1,2,1,2+rowCount-1);
-			final String xLabel=table.getValue(1,1);
+			final TableChartBase.Range categories=new TableChartBase.Range(1,1,1,1+rowCount-1);
+			final String xLabel=table.getValue(0,1);
 			final List<TableChartBase.Range> series=new ArrayList<>(outputCount);
 			final List<Object> seriesNames=new ArrayList<>(outputCount);
 			for (int i=0;i<outputCount;i++) {
-				series.add(new TableChartBase.Range(1+inputCount+i,2,1+inputCount+i,2+rowCount-1));
-				seriesNames.add(new TableChartBase.Cell(1+inputCount+i,1));
+				series.add(new TableChartBase.Range(1+inputCount+i,1,1+inputCount+i,1+rowCount-1));
+				seriesNames.add(new TableChartBase.Cell(1+inputCount+i,0));
 			}
 
 			/* Gesamtdiagramm */
@@ -518,7 +518,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			for (int i=0;i<outputCount;i++) {
 				tableChart.setupAxis(xLabel,null);
 				tableChart.setupChart(TableChart.ChartMode.LINE,new TableChartBase.Range[]{series.get(i)},new Object[]{seriesNames.get(i)},categories);
-				tableChart.build(table.getValue(1,1+inputCount+i),i+1,sheet,sheetName);
+				tableChart.build(table.getValue(0,1+inputCount+i),i+1,sheet,sheetName);
 			}
 
 			try (FileOutputStream fo=new FileOutputStream(file)) {wb.write(fo);}
