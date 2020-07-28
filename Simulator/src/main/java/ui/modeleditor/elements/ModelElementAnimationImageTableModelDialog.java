@@ -31,9 +31,9 @@ import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
-import ui.ImageChooser;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.tools.ImageChooser;
 
 /**
  * Dieser Dialog ermöglicht das Bearbeiten eines einzelnen Eintrags

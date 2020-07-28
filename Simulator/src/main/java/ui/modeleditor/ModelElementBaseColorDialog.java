@@ -33,7 +33,7 @@ import javax.swing.JRadioButton;
 import language.Language;
 import systemtools.BaseDialog;
 import systemtools.SmallColorChooser;
-import ui.ImageChooser;
+import ui.tools.ImageChooser;
 
 /**
  * Dialog, der die Auswahl einer Hintergrundfarbe für ein <code>ModelElementBox</code>-Element ermöglicht.<br>

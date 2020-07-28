@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import language.Language;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
-import ui.ImageChooser;
+import ui.tools.ImageChooser;
 
 /**
  * Erlaubt das Bearbeiten eines einzelnen Bildes für die Animationsicons-Liste

@@ -26,9 +26,9 @@ import javax.swing.JPanel;
 
 import language.Language;
 import systemtools.SmallColorChooser;
-import ui.ImageChooser;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.tools.ImageChooser;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementImage}-Element anbietet
