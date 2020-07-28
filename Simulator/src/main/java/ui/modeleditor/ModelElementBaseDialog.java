@@ -63,6 +63,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ComplexLine;
 import ui.modeleditor.elements.FontCache;
+import ui.quickaccess.JPlaceholderTextField;
 
 /**
  * Basisklasse zur Erstellung von Dialogen zur Bearbeitung der Eigenschaften eines <code>ModellElement</code>-Objekts
@@ -336,6 +337,64 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			box.add(Box.createVerticalGlue());
 			panel.add(box,BorderLayout.CENTER);
 		}
+
+		label.setLabelFor(field);
+		if (value!=null) field.setText(value);
+		return new Object[]{panel,field};
+	}
+
+	/**
+	 * Erstellt ein Textfeld mit einem Label links davor.
+	 * @param labelText	Text des Labels
+	 * @param placeholder	Platzhaltertext (darf <code>null</code> oder leer sein)
+	 * @param value	Initialer Wert des Textfeldes
+	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 */
+	public static final Object[] getPlaceholderInputPanel(final String labelText, final String placeholder, final String value) {
+		return getPlaceholderInputPanel(labelText,placeholder,value,-1);
+	}
+
+	/**
+	 * Erstellt ein Textfeld mit einem Label links davor.
+	 * @param labelText	Text des Labels
+	 * @param placeholder	Platzhaltertext (darf <code>null</code> oder leer sein)
+	 * @param value	Initialer Wert des Textfeldes
+	 * @param size	Breite des Textfeldes
+	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 */
+	public static final Object[] getPlaceholderInputPanel(final String labelText, final String placeholder, final String value, final int size) {
+		JPanel panel;
+		JLabel label;
+		JPlaceholderTextField field;
+
+		if (size>0) {
+			panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			label=new JLabel(labelText);
+			panel.add(label=new JLabel(labelText));
+			panel.add(field=new JPlaceholderTextField(size));
+		} else {
+			panel=new JPanel(new BorderLayout(5,0));
+
+			Box box;
+
+			box=Box.createVerticalBox();
+			box.add(Box.createVerticalGlue());
+			final JPanel panelLeft=new JPanel(new FlowLayout());
+			panelLeft.add(label=new JLabel(labelText));
+			box.add(panelLeft);
+			box.add(Box.createVerticalGlue());
+			panel.add(box,BorderLayout.WEST);
+
+			field=new JPlaceholderTextField();
+			field.setMaximumSize(new Dimension(field.getMaximumSize().width,field.getPreferredSize().height));
+			box=Box.createVerticalBox();
+			box.add(Box.createVerticalGlue());
+			box.add(field);
+			box.add(Box.createVerticalGlue());
+			panel.add(box,BorderLayout.CENTER);
+		}
+
+		if (placeholder!=null && !placeholder.trim().isEmpty()) field.setPlaceholder(placeholder);
 
 		label.setLabelFor(field);
 		if (value!=null) field.setText(value);

@@ -167,11 +167,12 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		return statisticName;
 	}
 
-	private String[] getColumnNames(final String col1, final String col2, String info) {
+	private String[] getColumnNames(final String col1, final String col2, String info, final double[] confidenceLevels) {
 		final List<String> columns=new ArrayList<>();
 
 		if (col1!=null) columns.add(col1);
 		if (col2!=null) columns.add(col2);
+
 		if (info==null) info="";
 		columns.add("E"+info);
 		columns.add("Std"+info);
@@ -179,17 +180,22 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		columns.add("CV"+info);
 		columns.add("Min"+info);
 		columns.add("Max"+info);
+
 		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
 			columns.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil")+info);
+		}
+		if (confidenceLevels!=null) for (double level: confidenceLevels) {
+			columns.add(String.format(Language.tr("Statistics.ConfidenceLevel"),StatisticTools.formatPercent(1-level)));
 		}
 
 		return columns.toArray(new String[0]);
 	}
 
-	private String[] getDataLine(final String col1, final StatisticsDataPerformanceIndicator data) {
+	private String[] getDataLine(final String col1, final StatisticsDataPerformanceIndicator data, final double[] confidenceLevels) {
 		final List<String> line=new ArrayList<>();
 
 		if (col1!=null) line.add(col1);
+
 		line.add(NumberTools.formatLongNoGrouping(data.getCount()));
 		line.add(StatisticTools.formatNumber(data.getMean()));
 		line.add(StatisticTools.formatNumber(data.getSD()));
@@ -197,8 +203,15 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		line.add(StatisticTools.formatNumber(data.getCV()));
 		line.add(StatisticTools.formatNumber(data.getMin()));
 		line.add(StatisticTools.formatNumber(data.getMax()));
+
 		if (SetupData.getSetup().showQuantils && data.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
 			line.add(StatisticTools.formatNumber(data.getQuantil(p)));
+		}
+
+		if (confidenceLevels!=null) {
+			final double mean=data.getMean();
+			final double[] halfWidth=data.getBatchMeanConfidenceHalfWide(confidenceLevels);
+			for (int i=0;i<halfWidth.length;i++) line.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
 		}
 
 		return line.toArray(new String[0]);
@@ -244,8 +257,31 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	private boolean hasConfidence(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3) {
+		String[] names=indicator1.getNames();
+		if (names.length==0) return false;
+		if (((StatisticsDataPerformanceIndicator)indicator1.get(names[0])).getBatchCount()<2) return false;
+
+		if (indicator2!=null) {
+			names=indicator2.getNames();
+			if (names.length==0) return false;
+			if (((StatisticsDataPerformanceIndicator)indicator2.get(names[0])).getBatchCount()<2) return false;
+		}
+
+		if (indicator3!=null) {
+			names=indicator3.getNames();
+			if (names.length==0) return false;
+			if (((StatisticsDataPerformanceIndicator)indicator3.get(names[0])).getBatchCount()<2) return false;
+		}
+
+		return true;
+	}
+
 	private void buildTimesOverviewTable(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3, final String type1, final String type2, final String type3, final String label, final boolean isStationsList, final boolean isInterArrival) {
 		final Table table=new Table();
+
+		final boolean hasConfidence=hasConfidence(indicator1,indicator2,indicator3);
+		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
 
 		final String[] types=indicator1.getNames();
 
@@ -253,22 +289,22 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			StatisticsDataPerformanceIndicator data;
 			data=(StatisticsDataPerformanceIndicator)(indicator1.get(type));
 			final String typeName=isStationsList?fullStationName(type):type;
-			table.addLine(getDataLine(((type1!=null && !type1.isEmpty())?(type1+" "):"")+typeName,data));
+			table.addLine(getDataLine(((type1!=null && !type1.isEmpty())?(type1+" "):"")+typeName,data,confidenceLevels));
 			if (indicator2!=null && type2!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator2.get(type));
-				table.addLine(getDataLine(type2+" "+typeName,data));
+				table.addLine(getDataLine(type2+" "+typeName,data,confidenceLevels));
 			}
 			if (indicator3!=null && type3!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator3.get(type));
-				table.addLine(getDataLine(type3+" "+typeName,data));
+				table.addLine(getDataLine(type3+" "+typeName,data,confidenceLevels));
 			}
 		}
 
 		final String[] columnNames;
 		if (isInterArrival) {
-			columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[I]");
+			columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[I]",hasConfidence?confidenceLevels:null);
 		} else {
-			columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[.]");
+			columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[.]",hasConfidence?confidenceLevels:null);
 		}
 		setData(table,columnNames);
 
@@ -327,7 +363,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			table.addLine(getDataLine(fullStationName(station),indicator));
 		}
 
-		setData(table,getColumnNames(Language.tr("Statistics.Station"),null,"["+type+"]"));
+		setData(table,getColumnNames(Language.tr("Statistics.Station"),null,"["+type+"]",null));
 
 		/* Infotext  */
 		if (type.equals("N")) addDescription("TableCountOverviewN");
@@ -614,7 +650,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)(indicators.get(name));
 			table.addLine(getDataLine(String.format(Language.tr("Statistics.ClientData.Field"),name),indicator));
 		}
-		setData(table,getColumnNames(Language.tr("Statistics.ClientData"),null,null));
+		setData(table,getColumnNames(Language.tr("Statistics.ClientData"),null,null,null));
 
 		/* Infotext  */
 		addDescription("TableClientData");

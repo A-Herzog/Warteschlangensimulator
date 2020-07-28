@@ -732,7 +732,6 @@ public class SetupData extends SetupBase {
 	 */
 	public boolean showMemoryUsage;
 
-
 	/**
 	 * Anzahl an in der Statistikansicht anzuzeigende Nachkommastellen für normale Zahlen
 	 */
@@ -742,6 +741,12 @@ public class SetupData extends SetupBase {
 	 * Anzahl an in der Statistikansicht anzuzeigende Nachkommastellen für Prozentangaben
 	 */
 	public int statisticsPercentDigits;
+
+	/**
+	 * Zu welchen Konfidenzniveaus sollen auf Basis der Batch-Means-Methode Konfidenzintervalle ausgegeben werden?<br>
+	 * Wenn leer, dann werden 90%, 95% und 99% verwendet.
+	 */
+	public String batchMeansConfidenceLevels;
 
 	/**
 	 * Letzter Fehler
@@ -867,6 +872,7 @@ public class SetupData extends SetupBase {
 		showMemoryUsage=false;
 		statisticsNumberDigits=1;
 		statisticsPercentDigits=1;
+		batchMeansConfidenceLevels="";
 		lastError=null;
 	}
 
@@ -1496,6 +1502,11 @@ public class SetupData extends SetupBase {
 				if (L!=null) statisticsPercentDigits=Math.min(9,L.intValue());
 				continue;
 			}
+
+			if (name.equals("batchmeansconfidencelevels")) {
+				batchMeansConfidenceLevels=e.getTextContent();
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -1963,6 +1974,11 @@ public class SetupData extends SetupBase {
 			root.appendChild(node=doc.createElement("Digits"));
 			node.setAttribute("Numbers",""+statisticsNumberDigits);
 			node.setAttribute("Percent",""+statisticsPercentDigits);
+		}
+
+		if (batchMeansConfidenceLevels!=null && !batchMeansConfidenceLevels.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("BatchMeansConfidenceLevels"));
+			node.setTextContent(batchMeansConfidenceLevels);
 		}
 	}
 

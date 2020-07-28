@@ -39,7 +39,6 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsSimpleValuePerformanceIndicator;
 import tools.SetupData;
 import tools.UsageStatistics;
-import ui.statistics.StatisticViewerOverviewText;
 
 /**
  * Vollständiger Multi-Core-fähiger Simulator
@@ -174,6 +173,11 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	}
 
 	/**
+	 *  Konfidenzniveaus für die auf Thread-Basis zu berechnenden Konfidenzintervalle.
+	 */
+	private final static double[] CONFIDENCE_LEVELS=new double[]{0.1,0.05,0.01};
+
+	/**
 	 * Wird intern verwendet, um die Statistikdaten von den Threads einzusammeln.
 	 * Diese Funktion wird von <code>getStatistic</code> aufgerufen. <code>getStatistic</code> speichert die einmal erhobenen
 	 * Daten für spätere Abrufe zwischen, so dass <code>collectStatistics</code> nur einmal aufgerufen werden muss.
@@ -218,9 +222,9 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 			}
 
 			/* Aufzeichnung der Thread-basierenden Konfidenzniveaus für die Wartezeiten */
-			final double[] halfWidth=StatisticsDataPerformanceIndicator.getConfidenceHalfWideByMultiStatistics(partialWaitingTime.toArray(new StatisticsDataPerformanceIndicator[0]),statistics.clientsAllWaitingTimes,StatisticViewerOverviewText.CONFIDENCE_LEVELS);
+			final double[] halfWidth=StatisticsDataPerformanceIndicator.getConfidenceHalfWideByMultiStatistics(partialWaitingTime.toArray(new StatisticsDataPerformanceIndicator[0]),statistics.clientsAllWaitingTimes,CONFIDENCE_LEVELS);
 			if (halfWidth!=null) for (int i=0;i<halfWidth.length;i++) {
-				((StatisticsSimpleValuePerformanceIndicator)statistics.threadBasedConfidence.get(NumberTools.formatPercent(1-StatisticViewerOverviewText.CONFIDENCE_LEVELS[i]))).set(halfWidth[i]);
+				((StatisticsSimpleValuePerformanceIndicator)statistics.threadBasedConfidence.get(NumberTools.formatPercent(1-CONFIDENCE_LEVELS[i]))).set(halfWidth[i]);
 			}
 		}
 

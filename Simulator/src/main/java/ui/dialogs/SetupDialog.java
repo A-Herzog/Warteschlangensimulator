@@ -73,6 +73,7 @@ import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.infopanel.InfoPanelDialog;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.quickaccess.JPlaceholderTextField;
 import xml.XMLTools;
 
 /**
@@ -129,6 +130,7 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox expandAllStatistics;
 	private final SpinnerModel statisticsNumberDigits;
 	private final SpinnerModel statisticsPercentDigits;
+	private final JPlaceholderTextField batchMeansConfidenceLevels;
 	private final JCheckBox openWord;
 	private final JCheckBox openODT;
 	private final JCheckBox openExcel;
@@ -553,6 +555,14 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels")+"</b></body></html>"));
+
+		data=ModelElementBaseDialog.getPlaceholderInputPanel(Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels")+":",Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels.Placeholder"),"");
+		mainarea.add((JPanel)data[0]);
+		batchMeansConfidenceLevels=(JPlaceholderTextField)data[1];
+
+		mainarea.add(Box.createVerticalStrut(15));
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.Statistics.OpenExternal")+"</b></body></html>"));
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -884,6 +894,7 @@ public final class SetupDialog extends BaseDialog {
 		expandAllStatistics.setSelected(setup.expandAllStatistics);
 		statisticsNumberDigits.setValue(setup.statisticsNumberDigits);
 		statisticsPercentDigits.setValue(setup.statisticsPercentDigits);
+		batchMeansConfidenceLevels.setText(setup.batchMeansConfidenceLevels);
 		openWord.setSelected(setup.openWord);
 		openODT.setSelected(setup.openODT);
 		openExcel.setSelected(setup.openExcel);
@@ -1094,6 +1105,7 @@ public final class SetupDialog extends BaseDialog {
 		setup.expandAllStatistics=expandAllStatistics.isSelected();
 		setup.statisticsNumberDigits=((Integer)statisticsNumberDigits.getValue()).intValue();
 		setup.statisticsPercentDigits=((Integer)statisticsPercentDigits.getValue()).intValue();
+		setup.batchMeansConfidenceLevels=batchMeansConfidenceLevels.getText();
 		setup.openWord=openWord.isSelected();
 		setup.openODT=openODT.isSelected();
 		setup.openExcel=openExcel.isSelected();
@@ -1260,6 +1272,7 @@ public final class SetupDialog extends BaseDialog {
 			expandAllStatistics.setSelected(false);
 			statisticsNumberDigits.setValue(1);
 			statisticsPercentDigits.setValue(1);
+			batchMeansConfidenceLevels.setText("");
 			openWord.setSelected(true);
 			openODT.setSelected(false);
 			openExcel.setSelected(true);

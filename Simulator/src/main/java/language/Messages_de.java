@@ -3140,8 +3140,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7171] = "<nicht erfassen>";
     t[7172] = "Surface.Delay.XML.TimeBase";
     t[7173] = "Zeitbasis";
-    t[7174] = "Surface.AnalogValue.Dialog.AnalogNotify";
-    t[7175] = "\u00c4nderungsbenachrichtigungsabstand";
+    t[7174] = "Statistics.ConfidenceLevel";
+    t[7175] = "%s Konfidenz";
     t[7178] = "ExpressionBuilder.ClientsAtQueue.VarianceOfTheNumber";
     t[7179] = "<p>Liefert die Varianz der Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[7180] = "Simulation.Log.ConveyorMoveStart";
@@ -3788,6 +3788,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[8697] = "Zur\u00fcck";
     t[8698] = "Editor.SurfaceTooltip.PasteFromClipboard.Image";
     t[8699] = "Bild aus Zwischenablage einf\u00fcgen";
+    t[8702] = "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels";
+    t[8703] = "Konfidenzniveaus f\u00fcr Batch-Means-Konfidenzintervalle";
     t[8706] = "Surface.TransportSourceRouter.Name";
     t[8707] = "Transportstart (Fertigungsplan)";
     t[8708] = "Animation.Icon.Bricks";
@@ -4004,10 +4006,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9249] = "Als kritische Stationen werden all die Stationen eingestuft,\ndie bei der Simulation auf den Computer (au\u00dferhalb des Simulators)\nwirken k\u00f6nnen. Konkret sind dies die Stationen, die Werte in Dateien\noder in Datenbanken schreiben sowie alle Stationen, die Javascript-\noder Java-Code ausf\u00fchren k\u00f6nnen.";
     t[9250] = "Statistics.ValueRecording.XYPlot";
     t[9251] = "X-Y-Darstellung";
-    t[9252] = "Editor.UnknownElements.Info";
-    t[9253] = "Die Modelldatei enthielt unbekannte Elemente, die beim Laden \u00fcbersprungen wurden. Das Modell ist daher nicht vollst\u00e4ndig.";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9252] = "Editor.UnknownElements.Info";
+    t[9253] = "Die Modelldatei enthielt unbekannte Elemente, die beim Laden \u00fcbersprungen wurden. Das Modell ist daher nicht vollst\u00e4ndig.";
     t[9258] = "Surface.DistributionSystem.XML.Expression";
     t[9259] = "ModellElementAusdruck";
     t[9260] = "Surface.XML.Dispose.Stopp";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13793] = "aktiviert";
     t[13816] = "Color.FFE4E1";
     t[13817] = "Nebelige Rose";
-    t[13832] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.HistogramSingle";
-    t[13833] = "<p>Liefert den Anteil der Zeit, in der die angegebene Anzahl an Transportern, deren Gruppen-ID in dem Parameter angegeben wurde, ausgelastet war.</p>";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13832] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.HistogramSingle";
+    t[13833] = "<p>Liefert den Anteil der Zeit, in der die angegebene Anzahl an Transportern, deren Gruppen-ID in dem Parameter angegeben wurde, ausgelastet war.</p>";
     t[13840] = "Batch.Parameter.Changed.UnknownResource";
     t[13841] = "Es existiert keine Ressource mit dem angegebenen Namen \"%s\".";
     t[13850] = "Animation.SkipWarmUp.Title";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18363] = "pro Sekunde";
     t[18374] = "ScriptPopup.Client.ValueNumber.Set";
     t[18375] = "Wert einstellen";
-    t[18380] = "ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info";
-    t[18381] = "<p>Berechnet die korrigierte Stichprobenstandardabweichung der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>sd(1;2;3;4)</tt> liefert 1,2909944487358.</p>";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18380] = "ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info";
+    t[18381] = "<p>Berechnet die korrigierte Stichprobenstandardabweichung der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>sd(1;2;3;4)</tt> liefert 1,2909944487358.</p>";
     t[18382] = "Window.Layers.Title";
     t[18383] = "Ebenen";
     t[18386] = "Surface.XML.ModelTerminationCondition";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22941] = "Java";
     t[22942] = "Surface.TeleportDestination.Name";
     t[22943] = "Teleport-Transport Zielpunkt";
-    t[22944] = "ExpressionBuilder.MathematicalFunctions.Potentiate.Info";
-    t[22945] = "<p>Potenziert den als ersten Parameter \u00fcbergebenen Wert mit dem als zweiten Parameter \u00fcbergebenen Wert.</p><p>Beispiel: <tt>power(5;4)</tt> liefert 625.</p><p>Diese Funktion ist gleichwertig zu <tt>WertA^WertB</tt>.</p>";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22944] = "ExpressionBuilder.MathematicalFunctions.Potentiate.Info";
+    t[22945] = "<p>Potenziert den als ersten Parameter \u00fcbergebenen Wert mit dem als zweiten Parameter \u00fcbergebenen Wert.</p><p>Beispiel: <tt>power(5;4)</tt> liefert 625.</p><p>Diese Funktion ist gleichwertig zu <tt>WertA^WertB</tt>.</p>";
     t[22948] = "Surface.AnimationImage.Dialog.Images.Add";
     t[22949] = "Bild hinzuf\u00fcgen";
     t[22952] = "Simulation.Log.ProcessWaitingTimeToleranceCalculation";
@@ -10414,6 +10416,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23795] = "Ungespeichertes Javascript";
     t[23800] = "Simulation.Creator.ReferenceCopyNotMatching";
     t[23801] = "An Station id=%d soll eine Referenz auf Station id=%d verwendet werden. Diese Referenz passt in Bezug auf die ein- und auslaufenden Kanten jedoch nicht an diese Position.";
+    t[23814] = "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels";
+    t[23815] = "Niveaus";
     t[23816] = "ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditor";
     t[23817] = "Neues Modell aus dem Editor laden";
     t[23818] = "Simulation.Log.InputDDE.Info";
@@ -12010,12 +12014,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27443] = "Webserver stoppen";
     t[27448] = "Surface.Decide.Tooltip";
     t[27449] = "Leitet die Kunden in verschiedene Richtungen weiter.";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27450] = "Surface.TankSensor.Dialog.Tank.ErrorTitle";
     t[27451] = "Kein zu \u00fcberwachender Tank gew\u00e4hlt";
     t[27458] = "ParameterCompare.Settings.Output.Title";
     t[27459] = "Ausgabewert bearbeiten";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27464] = "ExpressionBuilder.ClientsAtStation.Quantil";
     t[27465] = "<p>Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[27466] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.RandomNumberInfo";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32149] = "Anzahl an Kunden im System (wartend)";
     t[32158] = "PathEditor.ResetAll.ConfirmInfo";
     t[32159] = "Wollen Sie wirklich alle konfigurierten Verbindungen l\u00f6schen?";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32170] = "Surface.AnalogValue.Dialog.Unit.PerSecond";
     t[32171] = "pro Sekunde";
     t[32176] = "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientNumber";
     t[32177] = "Fortlaufende Nummer";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32182] = "FileType.JS";
     t[32183] = "Javascript-Dateien";
     t[32186] = "CommandLine.Error.File.InputNoValidStatisticFile";
@@ -15712,6 +15716,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36147] = "Ung\u00fcltige Parkplatzkapazit\u00e4t";
     t[36148] = "PathEditor.Tab.Result";
     t[36149] = "Wegevorschau";
+    t[36180] = "Surface.AnalogValue.Dialog.AnalogNotify";
+    t[36181] = "\u00c4nderungsbenachrichtigungsabstand";
     t[36182] = "ParameterCompare.Settings.Load.Error";
     t[36183] = "Fehler beim Laden der Einstellungen";
     t[36186] = "Surface.OutputJS.XML.Script.Java";
@@ -16012,14 +16018,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36755] = "Transportziel \"%s\" festlegen";
     t[36756] = "Surface.SectionEnd.Name";
     t[36757] = "Bereich verlassen";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36760] = "Statistics.XML.Element.WaitingStationsByClientType";
     t[36761] = "StatistikWartezeitenStationenKunden";
     t[36762] = "ExpressionCalculator.Toolbar.Tools";
     t[36763] = "Befehl";
     t[36774] = "Window.Check.AutoFixRepeatCount.Title";
     t[36775] = "Simulation kann nicht mehrfach ausgef\u00fchrt werden ";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[36776] = "Surface.Action.XML.Record.Action.AssignVariable";
     t[36777] = "Variable";
     t[36780] = "ExpressionBuilder.ProbabilityDistributions.BetaDistribution";
@@ -16678,6 +16684,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38215] = "Die maximale Skript-Laufzeit wurde \u00fcberschritten.";
     t[38220] = "Main.Menu.Extras.Calculator";
     t[38221] = "Rechner...";
+    t[38224] = "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels.Placeholder";
+    t[38225] = "Leer lassen f\u00fcr \"90%;95%;99%\"";
     t[38230] = "Surface.MultiSourceTable.ColumnClientType";
     t[38231] = "Kundentyp";
     t[38234] = "Resources.Group.DefaultName";

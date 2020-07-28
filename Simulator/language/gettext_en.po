@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-25 19:22+0200\n"
+"POT-Creation-Date: 2020-07-28 13:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12142,6 +12142,15 @@ msgstr "Slow down animation to better reflect the change of analog values"
 msgid "SettingsDialog.Tabs.Statistics"
 msgstr "Statistics"
 
+msgid "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels"
+msgstr "Confidence levels for batch means confidence intervals"
+
+msgid "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels"
+msgstr "Levels"
+
+msgid "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels.Placeholder"
+msgstr "Keep empty for \"90%;95%;99%\""
+
 msgid "SettingsDialog.Tabs.Statistics.NumberDigits"
 msgstr "Decimal digits for numerical values"
 
@@ -15496,6 +15505,9 @@ msgstr "Batch means recording of the confidence intervals is deactivated. The ab
 
 msgid "Statistics.Confidence.Level"
 msgstr "Confidence interval to level %s: [ %s ; %s ] (confidence radius=%s)"
+
+msgid "Statistics.ConfidenceLevel"
+msgstr "%s confidence"
 
 msgid "Statistics.Costs"
 msgstr "Costs"

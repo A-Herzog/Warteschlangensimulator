@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-25 19:22+0200\n"
+"POT-Creation-Date: 2020-07-28 13:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12145,6 +12145,15 @@ msgstr "Animation verlangsamen um die Veränderung analoger Werte besser abzubil
 msgid "SettingsDialog.Tabs.Statistics"
 msgstr "Statistik"
 
+msgid "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels"
+msgstr "Konfidenzniveaus für Batch-Means-Konfidenzintervalle"
+
+msgid "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels"
+msgstr "Niveaus"
+
+msgid "SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels.Placeholder"
+msgstr "Leer lassen für \"90%;95%;99%\""
+
 msgid "SettingsDialog.Tabs.Statistics.NumberDigits"
 msgstr "Nachkommastellen für Zahlenwerte"
 
@@ -15503,6 +15512,9 @@ msgstr "Die Batch-Means-Erfassung der Konfidenzintervalle ist deaktiviert. Die o
 
 msgid "Statistics.Confidence.Level"
 msgstr "Konfidenzintervall zum Niveau %s: [ %s ; %s ] (Konfidenzradius=%s)"
+
+msgid "Statistics.ConfidenceLevel"
+msgstr "%s Konfidenz"
 
 msgid "Statistics.Costs"
 msgstr "Kosten"

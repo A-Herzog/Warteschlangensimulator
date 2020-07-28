@@ -168,17 +168,30 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return statisticName;
 	}
 
+	private final static double[] DEFAULT_CONFIDENCE_LEVELS=new double[]{0.1,0.05,0.01};
+
 	/**
-	 * Konfidenzniveaus für auszugebende Konfidenzintervalle
+	 * Liefert die Konfidenzniveaus für die auszugebenden Konfidenzintervalle.
+	 * @return Konfidenzniveaus für die auszugebenden Konfidenzintervalle
 	 */
-	public final static double[] CONFIDENCE_LEVELS=new double[]{0.1,0.05,0.01};
+	public static double[] getConfidenceLevels() {
+		final String level=SetupData.getSetup().batchMeansConfidenceLevels;
+		if (level==null || level.trim().isEmpty()) return DEFAULT_CONFIDENCE_LEVELS;
+		final List<Double> levels=new ArrayList<>();
+		for (String value: level.split(";")) {
+			final Double D=NumberTools.getProbability(value);
+			if (D!=null) levels.add(1-D);
+		}
+		if (levels.size()==0) return DEFAULT_CONFIDENCE_LEVELS;
+		return levels.stream().mapToDouble(D->D.doubleValue()).toArray();
+	}
 
 	private void outputConfidenceData(final StatisticsDataPerformanceIndicator indicator) {
 		if (indicator.getBatchCount()<1) return;
 
 		beginParagraph();
 		final double m=indicator.getMean();
-		for (double level: CONFIDENCE_LEVELS) {
+		for (double level: getConfidenceLevels()) {
 			final double w=indicator.getBatchMeanConfidenceHalfWide(level);
 			addLine(String.format(
 					Language.tr("Statistics.Confidence.Level"),
