@@ -7942,6 +7942,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18179] = "ModelElementTransportResourcePriority;ModellElementTransportRssourcePriority";
     t[18182] = "Main.Toolbar.ShowModelForTheseResults";
     t[18183] = "Model for these results";
+    t[18184] = "Surface.Process.XML.Connection.Status";
+    t[18185] = "Status";
     t[18188] = "ModelLoadData.XML.Mode.File";
     t[18189] = "File";
     t[18208] = "ParameterCompare.Settings.Output.Mode.Script.ErrorTitle";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18341] = "Unknown format for the input file. (The input file has to be a java or class file.)";
     t[18342] = "Surface.Source.AverageInterArrivalTime";
     t[18343] = "Average inter-arrival time";
-    t[18346] = "Distribution.Pareto";
-    t[18347] = "Pareto distribution";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18346] = "Distribution.Pareto";
+    t[18347] = "Pareto distribution";
     t[18350] = "Editor.Element.Singular";
     t[18351] = "element";
     t[18362] = "ModelDescription.Tank.Valve.TimeBase.PerSecond";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22925] = "Edit image";
     t[22926] = "Surface.Source.Dialog.ArrivalCount";
     t[22927] = "Number of arrival events in total";
-    t[22930] = "Surface.TransportTransporterSource.Dialog.TransporterType";
-    t[22931] = "Transporter type";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22930] = "Surface.TransportTransporterSource.Dialog.TransporterType";
+    t[22931] = "Transporter type";
     t[22932] = "Statistic.FastAccess.Template.ClientsAtStationByStation";
     t[22933] = "Average number of clients in system by client type";
     t[22940] = "Surface.ScriptEditor.Language.Java";
@@ -11014,8 +11016,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25247] = "right";
     t[25248] = "ParameterCompare.ScriptRunner.Script.Run.Error.Info";
     t[25249] = "The following error occured during the script execution:\n%s";
-    t[25252] = "Surface.Process.XML.Connection.Status";
-    t[25253] = "Status";
+    t[25252] = "Statistics.StateDistribution";
+    t[25253] = "State distribution";
     t[25254] = "CommandLine.SetMaxThreads.Description.Long";
     t[25255] = "The function expects the maximum number of threads to be used as parameter.\nValues less or equal 0 will be interpreted as unlimited.";
     t[25258] = "Surface.Conveyor.XML.TransportTime.Type.TransferTime";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27429] = "Small";
     t[27432] = "Surface.Process.Dialog.Priority.Edit";
     t[27433] = "Edit";
-    t[27434] = "Dialog.Title.Confirmation";
-    t[27435] = "Confirmation";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27434] = "Dialog.Title.Confirmation";
+    t[27435] = "Confirmation";
     t[27438] = "Simulation.Element.OutputDDE.Name";
     t[27439] = "Output (DDE)";
     t[27442] = "SimulationServer.Toolbar.CalcWebStop";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32137] = "<p>Calculates the value of the desity of the log-normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>LogNormalDist(7;5;3;0)</tt> returns 3.40712431368569.</p>";
     t[32140] = "Surface.AnimationText.Name";
     t[32141] = "Simulation data as text";
-    t[32142] = "Surface.ScriptEditor.Load.Hint";
-    t[32143] = "Loads a script from a file.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32142] = "Surface.ScriptEditor.Load.Hint";
+    t[32143] = "Loads a script from a file.";
     t[32146] = "Main.Toolbar.ShowStatistics";
     t[32147] = "Simulation results";
     t[32148] = "Statistics.NumberOfClientsInTheSystemWaiting";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36743] = "Extended Allen-Cunneen approximate formula for queuing systems";
     t[36744] = "Surface.TransportSource.Dialog.Tab.Ressource";
     t[36745] = "Needed resource";
-    t[36748] = "ScriptPopup.Simulation.IsWarmUp.Hint";
-    t[36749] = "Is the system currently in the warm-up phase?";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36748] = "ScriptPopup.Simulation.IsWarmUp.Hint";
+    t[36749] = "Is the system currently in the warm-up phase?";
     t[36750] = "SettingsDialog.WindowSizeProgrmStart.Normal";
     t[36751] = "Default window size";
     t[36752] = "ParameterCompare.Table.SaveStatistics.Hint";

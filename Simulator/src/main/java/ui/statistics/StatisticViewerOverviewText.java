@@ -887,10 +887,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	private void outputQuantilInfoNumber(final String identifier, final StatisticsTimePerformanceIndicator indicator) {
+		if (indicator==null) return;
+
 		if (!SetupData.getSetup().showQuantils) return;
 
 		double upperBound=Double.MAX_VALUE;
-		if (indicator.getDistribution()!=null) upperBound=indicator.getDistribution().upperBound-1;
+		if (indicator.getReadOnlyDistribution()!=null) upperBound=indicator.getReadOnlyDistribution().upperBound-1;
 
 		beginParagraph();
 		boolean hitMax=false;
@@ -902,11 +904,44 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 		endParagraph();
 
-		if (hitMax) {
+		if (hitMax && indicator.getTimeMin()!=indicator.getTimeMax()) {
 			beginParagraph();
 			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 			endParagraph();
 		}
+	}
+
+	private final static int MAX_SHORT_STATE_DISTRIBUTION=5;
+
+	private void outputShortStateDistribution(final String identifier, final StatisticsTimePerformanceIndicator indicator) {
+		if (indicator==null) return;
+		if (indicator.getReadOnlyDistribution()==null) return;
+
+		final double[] density=indicator.getReadOnlyDistribution().densityData;
+		if (density.length==0) return;
+
+		if (density.length>MAX_SHORT_STATE_DISTRIBUTION+1) {
+			for (int i=MAX_SHORT_STATE_DISTRIBUTION+1;i<density.length;i++) if (density[i]>0) return;
+		}
+
+		double sum=0;
+		int maxNonZero=0;
+		for (int i=0;i<Math.min(MAX_SHORT_STATE_DISTRIBUTION+1,density.length);i++) {
+			sum+=density[i];
+			if (density[i]>0) maxNonZero=i;
+		}
+
+		final StringBuilder info=new StringBuilder();
+		info.append(Language.tr("Statistics.StateDistribution"));
+		info.append(": ");
+		for (int i=0;i<=maxNonZero;i++) {
+			if (i>0) info.append(", ");
+			info.append(String.format("P(%s=%d)=%s",identifier,i,StatisticTools.formatPercent(density[i]/sum)));
+		}
+
+		beginParagraph();
+		addLine(info.toString());
+		endParagraph();
 	}
 
 	private void buildInterarrivalSystem() {
@@ -1515,6 +1550,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addLine(Language.tr("Statistics.MaximumClientsInSystem")+": Max[N]="+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeMax()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystem,IndicatorMode.MAXIMUM));
 		endParagraph();
 
+		outputShortStateDistribution("N",statistics.clientsInSystem);
+
 		outputQuantilInfoNumber("N",statistics.clientsInSystem);
 
 		/* Kunden an den Stationen */
@@ -1537,6 +1574,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[N]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
 
+				outputShortStateDistribution("N",indicator);
+
 				outputQuantilInfoNumber("N",indicator);
 			}
 		}
@@ -1558,6 +1597,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[N]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 					addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[N]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 					endParagraph();
+
+					outputShortStateDistribution("N",indicator);
 
 					outputQuantilInfoNumber("N",indicator);
 				}
@@ -1582,6 +1623,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[N]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 					endParagraph();
 
+					outputShortStateDistribution("N",indicator);
+
 					outputQuantilInfoNumber("N",indicator);
 				}
 			}
@@ -1598,6 +1641,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addLine(Language.tr("Statistics.MinimumClientsInSystemWaiting")+": Min[NQ]="+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeMin()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.MINIMUM));
 		addLine(Language.tr("Statistics.MaximumClientsInSystemWaiting")+": Max[NQ]="+StatisticTools.formatNumber(statistics.clientsInSystemQueues.getTimeMax()),fastAccessBuilder.getXMLSelector(statistics.clientsInSystemQueues,IndicatorMode.MAXIMUM));
 		endParagraph();
+
+		outputShortStateDistribution("NQ",statistics.clientsInSystemQueues);
 
 		outputQuantilInfoNumber("NQ",statistics.clientsInSystemQueues);
 
@@ -1617,6 +1662,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NQ]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 				addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NQ]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 				endParagraph();
+
+				outputShortStateDistribution("NQ",indicator);
 
 				outputQuantilInfoNumber("NQ",indicator);
 			}
@@ -1640,6 +1687,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NQ]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 					endParagraph();
 
+					outputShortStateDistribution("NQ",indicator);
+
 					outputQuantilInfoNumber("NQ",indicator);
 				}
 			}
@@ -1662,6 +1711,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					addLine(Language.tr("Statistics.MinimumNumberOfClients")+": Min[NQ]="+StatisticTools.formatNumber(indicator.getTimeMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
 					addLine(Language.tr("Statistics.MaximumNumberOfClients")+": Max[NQ]="+StatisticTools.formatNumber(indicator.getTimeMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
 					endParagraph();
+
+					outputShortStateDistribution("NQ",indicator);
 
 					outputQuantilInfoNumber("NQ",indicator);
 				}

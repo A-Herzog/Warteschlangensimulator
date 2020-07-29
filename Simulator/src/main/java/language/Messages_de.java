@@ -7942,6 +7942,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18179] = "ModellElementTransportRessourcePrioritaet";
     t[18182] = "Main.Toolbar.ShowModelForTheseResults";
     t[18183] = "Modell zu diesen Ergebnissen";
+    t[18184] = "Surface.Process.XML.Connection.Status";
+    t[18185] = "Status";
     t[18188] = "ModelLoadData.XML.Mode.File";
     t[18189] = "Datei";
     t[18208] = "ParameterCompare.Settings.Output.Mode.Script.ErrorTitle";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18341] = "Unbekanntes Datenformat f\u00fcr die Eingabedatei. (Es muss sich um eine java- oder eine class-Datei handeln.)";
     t[18342] = "Surface.Source.AverageInterArrivalTime";
     t[18343] = "Mittlere Zwischenankunftszeit";
-    t[18346] = "Distribution.Pareto";
-    t[18347] = "Pareto-Verteilung";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18346] = "Distribution.Pareto";
+    t[18347] = "Pareto-Verteilung";
     t[18350] = "Editor.Element.Singular";
     t[18351] = "Element";
     t[18362] = "ModelDescription.Tank.Valve.TimeBase.PerSecond";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22925] = "Bild bearbeiten";
     t[22926] = "Surface.Source.Dialog.ArrivalCount";
     t[22927] = "Anzahl an Ankunftsereignissen insgesamt";
-    t[22930] = "Surface.TransportTransporterSource.Dialog.TransporterType";
-    t[22931] = "Transportertyp";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22930] = "Surface.TransportTransporterSource.Dialog.TransporterType";
+    t[22931] = "Transportertyp";
     t[22932] = "Statistic.FastAccess.Template.ClientsAtStationByStation";
     t[22933] = "Mittlere Anzahl an Kunden im System pro Kundentyp";
     t[22940] = "Surface.ScriptEditor.Language.Java";
@@ -11014,8 +11016,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25247] = "rechts";
     t[25248] = "ParameterCompare.ScriptRunner.Script.Run.Error.Info";
     t[25249] = "Bei der Skriptausf\u00fchrung ist der folgende Fehler aufgetreten:\n%s";
-    t[25252] = "Surface.Process.XML.Connection.Status";
-    t[25253] = "Status";
+    t[25252] = "Statistics.StateDistribution";
+    t[25253] = "Zustandsverteilung";
     t[25254] = "CommandLine.SetMaxThreads.Description.Long";
     t[25255] = "Die Funktion erwartet als Parameter die erlaubte Maximalanzahl an Threads.\nWerte kleiner oder gleich 0 werden als unlimitiert interpretiert.";
     t[25258] = "Surface.Conveyor.XML.TransportTime.Type.TransferTime";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27429] = "Klein";
     t[27432] = "Surface.Process.Dialog.Priority.Edit";
     t[27433] = "Bearbeiten";
-    t[27434] = "Dialog.Title.Confirmation";
-    t[27435] = "Frage";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27434] = "Dialog.Title.Confirmation";
+    t[27435] = "Frage";
     t[27438] = "Simulation.Element.OutputDDE.Name";
     t[27439] = "Ausgabe (DDE)";
     t[27442] = "SimulationServer.Toolbar.CalcWebStop";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32137] = "<p>Berechnet den Wert der Dichte der Log-Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>LogNormalDist(7;5;3;0)</tt> liefert 3,40712431368569.</p>";
     t[32140] = "Surface.AnimationText.Name";
     t[32141] = "Simulationsdaten als Text";
-    t[32142] = "Surface.ScriptEditor.Load.Hint";
-    t[32143] = "L\u00e4dt ein Skript aus einer Datei.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32142] = "Surface.ScriptEditor.Load.Hint";
+    t[32143] = "L\u00e4dt ein Skript aus einer Datei.";
     t[32146] = "Main.Toolbar.ShowStatistics";
     t[32147] = "Simulationsergebnisse";
     t[32148] = "Statistics.NumberOfClientsInTheSystemWaiting";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36743] = "Erweiterte Allen-Cunneen N\u00e4herungsformel f\u00fcr Warteschlangensysteme";
     t[36744] = "Surface.TransportSource.Dialog.Tab.Ressource";
     t[36745] = "Ben\u00f6tigte Ressource";
-    t[36748] = "ScriptPopup.Simulation.IsWarmUp.Hint";
-    t[36749] = "Befindet sich das System in der Einschwingphase?";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36748] = "ScriptPopup.Simulation.IsWarmUp.Hint";
+    t[36749] = "Befindet sich das System in der Einschwingphase?";
     t[36750] = "SettingsDialog.WindowSizeProgrmStart.Normal";
     t[36751] = "Standard Fenstergr\u00f6\u00dfe";
     t[36752] = "ParameterCompare.Table.SaveStatistics.Hint";
