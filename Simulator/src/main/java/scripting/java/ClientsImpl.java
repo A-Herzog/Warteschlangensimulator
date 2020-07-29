@@ -91,9 +91,21 @@ public class ClientsImpl implements ClientsInterface {
 	}
 
 	@Override
+	public void clientData(final int index, final int data, final double value) {
+		if (index<0 || index>=count) return;
+		clients.get(index).setUserData(data,value);
+	}
+
+	@Override
 	public String clientTextData(final int index, final String key) {
 		if (index<0 || index>=count) return "";
 		return clients.get(index).getUserDataString(key);
+	}
+
+	@Override
+	public void clientTextData(final int index, final String key, final String value) {
+		if (index<0 || index>=count) return;
+		clients.get(index).setUserDataString(key,value);
 	}
 
 	@Override

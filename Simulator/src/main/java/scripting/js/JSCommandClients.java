@@ -106,7 +106,18 @@ public final class JSCommandClients extends JSBaseCommand {
 	}
 
 	/**
-	 * Liefert ein Client-Textdaten-Element eins Kunden
+	 * Stellt ein Client-Daten-Element eines Kunden ein
+	 * @param index	0-basierender Index des Kunden
+	 * @param data	Index des Datenelements
+	 * @param value	Neuer Wert
+	 */
+	public void clientData(final int index, final int data, final double value) {
+		if (index<0 || index>=count) return;
+		clients.get(index).setUserData(data,value);
+	}
+
+	/**
+	 * Liefert ein Client-Textdaten-Element eines Kunden
 	 * @param index	0-basierender Index des Kunden
 	 * @param key	Schlüssel des Datenelements
 	 * @return	Daten-Element des Kunden
@@ -114,6 +125,17 @@ public final class JSCommandClients extends JSBaseCommand {
 	public String clientTextData(final int index, final String key) {
 		if (index<0 || index>=count) return "";
 		return clients.get(index).getUserDataString(key);
+	}
+
+	/**
+	 * Stellt ein Client-Textdaten-Element eines Kunden ein
+	 * @param index	0-basierender Index des Kunden
+	 * @param key	Schlüssel des Datenelements
+	 * @param value	Neuer Wert
+	 */
+	public void clientTextData(final int index, final String key, final String value) {
+		if (index<0 || index>=count) return;
+		clients.get(index).setUserDataString(key,value);
 	}
 
 	/**

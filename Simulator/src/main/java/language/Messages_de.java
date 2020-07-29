@@ -3332,6 +3332,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7609] = "Die Daten wurden nicht korrekt \u00fcbermittelt.";
     t[7610] = "Editor.DialogBase.Protected.Tooltip";
     t[7611] = "Element vor L\u00f6schversuchen sch\u00fctzen";
+    t[7612] = "Surface.AnimationClock.Dialog.Color";
+    t[7613] = "Hintergrundfarbe";
     t[7622] = "Simulation.Creator.StatisticExpressionInvalid";
     t[7623] = "Der den %d. Datensatz in Element id=%d angegebene auszuwertende Ausdruck ist ab Zeichen %d ung\u00fcltig.";
     t[7626] = "CommandLine.Benchmark.UsedModel";
@@ -4004,10 +4006,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9247] = "Zwischenankunftszeit";
     t[9248] = "SettingsDialog.ModellSecurity.Info";
     t[9249] = "Als kritische Stationen werden all die Stationen eingestuft,\ndie bei der Simulation auf den Computer (au\u00dferhalb des Simulators)\nwirken k\u00f6nnen. Konkret sind dies die Stationen, die Werte in Dateien\noder in Datenbanken schreiben sowie alle Stationen, die Javascript-\noder Java-Code ausf\u00fchren k\u00f6nnen.";
-    t[9250] = "Statistics.ValueRecording.XYPlot";
-    t[9251] = "X-Y-Darstellung";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9250] = "Statistics.ValueRecording.XYPlot";
+    t[9251] = "X-Y-Darstellung";
     t[9252] = "Editor.UnknownElements.Info";
     t[9253] = "Die Modelldatei enthielt unbekannte Elemente, die beim Laden \u00fcbersprungen wurden. Das Modell ist daher nicht vollst\u00e4ndig.";
     t[9258] = "Surface.DistributionSystem.XML.Expression";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13789] = "Ausgabe der Zahlenwerte als normale Zahlen";
     t[13792] = "CommandLine.SetMaxThreads.Info.MultiCore.OldState.Yes";
     t[13793] = "aktiviert";
-    t[13816] = "Color.FFE4E1";
-    t[13817] = "Nebelige Rose";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13816] = "Color.FFE4E1";
+    t[13817] = "Nebelige Rose";
     t[13832] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.HistogramSingle";
     t[13833] = "<p>Liefert den Anteil der Zeit, in der die angegebene Anzahl an Transportern, deren Gruppen-ID in dem Parameter angegeben wurde, ausgelastet war.</p>";
     t[13840] = "Batch.Parameter.Changed.UnknownResource";
@@ -6118,6 +6120,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14075] = "An Station id=%d wurde die Teleport-Zielstation \"%s\" angegeben, die jedoch nicht existiert.";
     t[14076] = "Color.000000";
     t[14077] = "Schwarz";
+    t[14080] = "ScriptPopup.Clients.clientTextDataSet.Hint";
+    t[14081] = "Stellt eine textbasierte Kundeneigenschaft ein";
     t[14084] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
     t[14085] = "Schrittweite ung\u00fcltig";
     t[14088] = "Main.Menu.View.ShowRaster.Off.Mnemonic";
@@ -6668,6 +6672,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[15321] = "Anzahl an Kunden im System";
     t[15322] = "Surface.Input.XML.Root";
     t[15323] = "ModellElementEingabe";
+    t[15326] = "ScriptPopup.Clients.clientDataSet";
+    t[15327] = "Kundendaten einstellen (Zahl)";
     t[15332] = "Statistics.XML.ValueRecordingName";
     t[15333] = "StatistikWerteaufzeichnungName";
     t[15334] = "ExpressionBuilder.AnalyticalQueueingModels.AllenCunneen";
@@ -8004,14 +8010,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18343] = "Mittlere Zwischenankunftszeit";
     t[18346] = "Distribution.Pareto";
     t[18347] = "Pareto-Verteilung";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18350] = "Editor.Element.Singular";
     t[18351] = "Element";
     t[18362] = "ModelDescription.Tank.Valve.TimeBase.PerSecond";
     t[18363] = "pro Sekunde";
     t[18374] = "ScriptPopup.Client.ValueNumber.Set";
     t[18375] = "Wert einstellen";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18380] = "ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info";
     t[18381] = "<p>Berechnet die korrigierte Stichprobenstandardabweichung der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>sd(1;2;3;4)</tt> liefert 1,2909944487358.</p>";
     t[18382] = "Window.Layers.Title";
@@ -8984,8 +8990,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20601] = "Bisherige Bedienzeit des Kunden";
     t[20612] = "LoadCalculator.Results";
     t[20613] = "Ergebnisse";
-    t[20618] = "Surface.AnimationClock.Dialog.Color";
-    t[20619] = "Hintergrundfarbe";
+    t[20618] = "ScriptPopup.Clients.clientDataSet.Hint";
+    t[20619] = "Stellt eine zahlenbasierte Kundeneigenschaft ein";
     t[20620] = "Simulation.Log.LogicEndWhile.EndLoop";
     t[20621] = "Kunde: %s, Ende der Schleife";
     t[20626] = "Surface.Resource.EditName.Dialog.AddNew.InfoPlural";
@@ -10006,14 +10012,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22927] = "Anzahl an Ankunftsereignissen insgesamt";
     t[22930] = "Surface.TransportTransporterSource.Dialog.TransporterType";
     t[22931] = "Transportertyp";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[22932] = "Statistic.FastAccess.Template.ClientsAtStationByStation";
     t[22933] = "Mittlere Anzahl an Kunden im System pro Kundentyp";
     t[22940] = "Surface.ScriptEditor.Language.Java";
     t[22941] = "Java";
     t[22942] = "Surface.TeleportDestination.Name";
     t[22943] = "Teleport-Transport Zielpunkt";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[22944] = "ExpressionBuilder.MathematicalFunctions.Potentiate.Info";
     t[22945] = "<p>Potenziert den als ersten Parameter \u00fcbergebenen Wert mit dem als zweiten Parameter \u00fcbergebenen Wert.</p><p>Beispiel: <tt>power(5;4)</tt> liefert 625.</p><p>Diese Funktion ist gleichwertig zu <tt>WertA^WertB</tt>.</p>";
     t[22948] = "Surface.AnimationImage.Dialog.Images.Add";
@@ -12008,14 +12014,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27433] = "Bearbeiten";
     t[27434] = "Dialog.Title.Confirmation";
     t[27435] = "Frage";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27438] = "Simulation.Element.OutputDDE.Name";
     t[27439] = "Ausgabe (DDE)";
     t[27442] = "SimulationServer.Toolbar.CalcWebStop";
     t[27443] = "Webserver stoppen";
     t[27448] = "Surface.Decide.Tooltip";
     t[27449] = "Leitet die Kunden in verschiedene Richtungen weiter.";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27450] = "Surface.TankSensor.Dialog.Tank.ErrorTitle";
     t[27451] = "Kein zu \u00fcberwachender Tank gew\u00e4hlt";
     t[27458] = "ParameterCompare.Settings.Output.Title";
@@ -14010,14 +14016,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32141] = "Simulationsdaten als Text";
     t[32142] = "Surface.ScriptEditor.Load.Hint";
     t[32143] = "L\u00e4dt ein Skript aus einer Datei.";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32146] = "Main.Toolbar.ShowStatistics";
     t[32147] = "Simulationsergebnisse";
     t[32148] = "Statistics.NumberOfClientsInTheSystemWaiting";
     t[32149] = "Anzahl an Kunden im System (wartend)";
     t[32158] = "PathEditor.ResetAll.ConfirmInfo";
     t[32159] = "Wollen Sie wirklich alle konfigurierten Verbindungen l\u00f6schen?";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32170] = "Surface.AnalogValue.Dialog.Unit.PerSecond";
     t[32171] = "pro Sekunde";
     t[32176] = "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientNumber";
@@ -14528,6 +14534,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33361] = "Bedienung der Kunden in zuf\u00e4lliger Reihenfolge";
     t[33370] = "Statistics.ClientData.Field.Maximum";
     t[33371] = "Maximum";
+    t[33374] = "ScriptPopup.Clients.clientTextDataSet";
+    t[33375] = "Kundendaten einstellen (Text)";
     t[33382] = "Surface.TransportSource.XML.Resource.Name";
     t[33383] = "Name";
     t[33384] = "Animation.Log.Previous";
@@ -16010,6 +16018,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36745] = "Ben\u00f6tigte Ressource";
     t[36748] = "ScriptPopup.Simulation.IsWarmUp.Hint";
     t[36749] = "Befindet sich das System in der Einschwingphase?";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36750] = "SettingsDialog.WindowSizeProgrmStart.Normal";
     t[36751] = "Standard Fenstergr\u00f6\u00dfe";
     t[36752] = "ParameterCompare.Table.SaveStatistics.Hint";
@@ -16018,8 +16028,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36755] = "Transportziel \"%s\" festlegen";
     t[36756] = "Surface.SectionEnd.Name";
     t[36757] = "Bereich verlassen";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[36760] = "Statistics.XML.Element.WaitingStationsByClientType";
     t[36761] = "StatistikWartezeitenStationenKunden";
     t[36762] = "ExpressionCalculator.Toolbar.Tools";

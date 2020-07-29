@@ -49,12 +49,28 @@ public interface ClientsInterface {
 	double clientData(final int index, final int data);
 
 	/**
+	 * Stellt ein Client-Daten-Element eines Kunden ein
+	 * @param index	0-basierender Index des Kunden
+	 * @param data	Index des Datenelements
+	 * @param value	Neuer Wert
+	 */
+	void clientData(final int index, final int data, final double value);
+
+	/**
 	 * Liefert ein Client-Textdaten-Element eins Kunden
 	 * @param index	0-basierender Index des Kunden
 	 * @param key	Schlüssel des Datenelements
 	 * @return	Daten-Element des Kunden
 	 */
 	String clientTextData(final int index, final String key);
+
+	/**
+	 * Stellt ein Client-Textdaten-Element eines Kunden ein
+	 * @param index	0-basierender Index des Kunden
+	 * @param key	Schlüssel des Datenelements
+	 * @param value	Neuer Wert
+	 */
+	void clientTextData(final int index, final String key, final String value);
 
 	/**
 	 * Liefert die bisherige Wartezeit eines Kunden in Sekunden als Zahlenwert

@@ -514,8 +514,16 @@ Liefert die bisherige Verweilzeit des Kunden als formatierte Zeitangabe als Stri
 Liefert das über den zweiten Parameter adressierte Datum des angegebenen Kunden zurück.
 
 \item
+\cmd{void clientData(final int index, final int data, final double value)}:\\
+Stellt den als dritten Parameter übergebenen Zahlenwert an der als zweiten Parameter adressierten Kundendatenposition des angegebenen Kunden ein.
+
+\item
 \cmd{String clientTextData(final int index, final String key)}:\\
-  Liefert den Wert es über den zweiten Parameter adressierte Schlüssels des angegebenen Kunden zurück.
+Liefert den Wert es über den zweiten Parameter adressierte Schlüssels des angegebenen Kunden zurück.
+
+\item
+\cmd{String clientTextData(final int index, final String key, final String value)}:\\
+Stellt den als dritten Parameter übergebenen Wert für den als zweiten Parameter adressierten Schlüssel des angegebenen Kunden ein.
 
 \item
 \cmd{void release(final int index)}:\\

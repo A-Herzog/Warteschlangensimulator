@@ -494,12 +494,20 @@ Gets the current residence time of the client as a seconds numerical value.
 Gets the current residence time of the client as a formated time value as a string.
 
 \item
+\cmd{void clientData(final int index, final int data, final double value)}:\\
+Set the numerical value specified by the third parameter for the data element which index is specified via the second parameter of the selected client.
+
+\item
 \cmd{double clientData(final int index, final int data)}:\\
 Returns the data element which index is specified via the second parameter of the selected client.
 
 \item
 \cmd{String clientTextData(final int index, final String key)}:\\
 Returns the data element which key is specified via the second parameter of the selected client.
+
+\item
+\cmd{String clientTextData(final int index, final String key, final String value)}:\\
+Set the text value specified by the third parameter for the key which is specified via the second parameter of the selected client.
 
 \item
 \cmd{void release(final int index)}:\\

@@ -374,8 +374,10 @@ public class ScriptEditorAreaBuilder {
 		String clientsCount="";
 		String clientsRelease="";
 		String clientsTypeName="";
-		String clientsData="";
-		String clientsTextData="";
+		String clientsDataGet="";
+		String clientsDataSet="";
+		String clientsTextDataGet="";
+		String clientsTextDataSet="";
 		String clientsWaitingSeconds="";
 		String clientsWaitingTime="";
 		String clientsTransferSeconds="";
@@ -387,8 +389,10 @@ public class ScriptEditorAreaBuilder {
 			clientsCount="Clients.count();";
 			clientsRelease="Clients.release(index);";
 			clientsTypeName="Clients.clientTypeName(index);";
-			clientsData="Clients.clientData(index,data);";
-			clientsTextData="Clients.clientTextData(index,key);";
+			clientsDataGet="Clients.clientData(index,data);";
+			clientsDataSet="Clients.clientData(index,data,value);";
+			clientsTextDataGet="Clients.clientTextData(index,key);";
+			clientsTextDataSet="Clients.clientTextData(index,key,value);";
 			clientsWaitingSeconds="Clients.clientWaitingSeconds(index);";
 			clientsWaitingTime="Clients.clientWaitingTime(index);";
 			clientsTransferSeconds="Clients.clientTransferSeconds(index);";
@@ -401,8 +405,10 @@ public class ScriptEditorAreaBuilder {
 			clientsCount="sim.getClients().count();";
 			clientsRelease="sim.getClients().release(index);";
 			clientsTypeName="sim.getClients().clientTypeName(index);";
-			clientsData="sim.getClients().clientData(index,data);";
-			clientsTextData="sim.getClients().clientTextData(index,key);";
+			clientsDataGet="sim.getClients().clientData(index,data);";
+			clientsDataSet="sim.getClients().clientData(index,data,value);";
+			clientsTextDataGet="sim.getClients().clientTextData(index,key);";
+			clientsTextDataSet="sim.getClients().clientTextData(index,key,value);";
 			clientsWaitingSeconds="sim.getClients().clientWaitingSeconds(index);";
 			clientsWaitingTime="sim.getClients().clientWaitingTime(index);";
 			clientsTransferSeconds="sim.getClients().clientTransferSeconds(index);";
@@ -415,8 +421,10 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.release"),Language.tr("ScriptPopup.Clients.release.Hint"),Images.SCRIPT_RECORD_RELEASE.getIcon(),clientsRelease);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTypeName"),Language.tr("ScriptPopup.Clients.clientTypeName.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTypeName);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsData);
-		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTextData);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientData"),Language.tr("ScriptPopup.Clients.clientData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDataGet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientDataSet"),Language.tr("ScriptPopup.Clients.clientDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsDataSet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextData"),Language.tr("ScriptPopup.Clients.clientTextData.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTextDataGet);
+		addAutoComplete(Language.tr("ScriptPopup.Clients.clientTextDataSet"),Language.tr("ScriptPopup.Clients.clientTextDataSet.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),clientsTextDataSet);
 
 		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingSeconds);
 		addAutoComplete(Language.tr("ScriptPopup.Clients.WaitingTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.WaitingTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsWaitingTime);

@@ -433,9 +433,15 @@ and allows to access the waiting clients and to release them.
   <li><tt>double clientData(final int index, final int data)</tt><br>
   Returns the data element which index is specified via the second parameter of the selected client.
   </li>
+  <li><tt>void clientData(final int index, final int data, final double value)</tt><br>
+  Set the numerical value specified by the third parameter for the data element which index is specified via the second parameter of the selected client.
+  </li>
   <li><tt>String clientTextData(final int index, final String key)</tt><br>
   Returns the data element which key is specified via the second parameter of the selected client.
-  </li>  
+  </li>
+  <li><tt>String clientTextData(final int index, final String key, final String value)</tt><br>
+  Set the text value specified by the third parameter for the key which is specified via the second parameter of the selected client.
+  </li>
   <li><tt>void release(final int index)</tt><br>
   Causes the forwarding of the specified client.
   </li>

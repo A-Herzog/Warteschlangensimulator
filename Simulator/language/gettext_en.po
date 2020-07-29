@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-28 13:31+0200\n"
+"POT-Creation-Date: 2020-07-29 17:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11356,16 +11356,28 @@ msgid "ScriptPopup.Clients.WaitingTime.Hint"
 msgstr "Gets the waiting time of a waiting client"
 
 msgid "ScriptPopup.Clients.clientData"
-msgstr "Client data (number)"
+msgstr "Get client data (number)"
 
 msgid "ScriptPopup.Clients.clientData.Hint"
 msgstr "Gets a number-based client property"
 
+msgid "ScriptPopup.Clients.clientDataSet"
+msgstr "Set client data (number)"
+
+msgid "ScriptPopup.Clients.clientDataSet.Hint"
+msgstr "Sets a number-based client property"
+
 msgid "ScriptPopup.Clients.clientTextData"
-msgstr "Client data (text)"
+msgstr "Get client data (text)"
 
 msgid "ScriptPopup.Clients.clientTextData.Hint"
 msgstr "Gets a text-based client property"
+
+msgid "ScriptPopup.Clients.clientTextDataSet"
+msgstr "Set client data (text)"
+
+msgid "ScriptPopup.Clients.clientTextDataSet.Hint"
+msgstr "Sets a text-based client property"
 
 msgid "ScriptPopup.Clients.clientTypeName"
 msgstr "Name of the client type"

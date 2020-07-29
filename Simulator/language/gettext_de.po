@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-28 13:31+0200\n"
+"POT-Creation-Date: 2020-07-29 17:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11363,11 +11363,23 @@ msgstr "Kundendaten (Zahl)"
 msgid "ScriptPopup.Clients.clientData.Hint"
 msgstr "Liefert eine zahlenbasierte Kundeneigenschaft zurück"
 
+msgid "ScriptPopup.Clients.clientDataSet"
+msgstr "Kundendaten einstellen (Zahl)"
+
+msgid "ScriptPopup.Clients.clientDataSet.Hint"
+msgstr "Stellt eine zahlenbasierte Kundeneigenschaft ein"
+
 msgid "ScriptPopup.Clients.clientTextData"
 msgstr "Kundendaten (Text)"
 
 msgid "ScriptPopup.Clients.clientTextData.Hint"
 msgstr "Liefert eine textbasierte Kundeneigenschaft zurück"
+
+msgid "ScriptPopup.Clients.clientTextDataSet"
+msgstr "Kundendaten einstellen (Text)"
+
+msgid "ScriptPopup.Clients.clientTextDataSet.Hint"
+msgstr "Stellt eine textbasierte Kundeneigenschaft ein"
 
 msgid "ScriptPopup.Clients.clientTypeName"
 msgstr "Name des Kundentyps"
