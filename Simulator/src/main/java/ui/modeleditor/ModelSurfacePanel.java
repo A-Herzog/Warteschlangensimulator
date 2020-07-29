@@ -691,7 +691,7 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
-	 * Öffnet de Bearbeiten-Dialog für das gewählte Element.
+	 * Öffnet den Bearbeiten-Dialog für das gewählte Element.
 	 */
 	public void editSelectedElement() {
 		showElementProperties(surface.getSelectedElement());
