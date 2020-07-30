@@ -930,6 +930,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			sum+=density[i];
 			if (density[i]>0) maxNonZero=i;
 		}
+		if (maxNonZero==0) return;
 
 		final StringBuilder info=new StringBuilder();
 		info.append(Language.tr("Statistics.StateDistribution"));
