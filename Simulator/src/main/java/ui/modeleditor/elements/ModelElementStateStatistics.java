@@ -186,11 +186,11 @@ public class ModelElementStateStatistics extends ModelElementMultiInSingleOutBox
 		final StatisticsStateTimePerformanceIndicator stateStatistics=((RunElementStateStatisticsData)builder.data).statistic;
 		final double sum=stateStatistics.getSum();
 		if (sum>0) {
-			builder.sb.append("\n"+Language.tr("Statistics.StateStatistics")+" \""+groupName+"\":\n");
+			builder.results.append("\n"+Language.tr("Statistics.StateStatistics")+" \""+groupName+"\":\n");
 			for (Map.Entry<String,Double> entry: stateStatistics.get().entrySet()) {
 				double value=entry.getValue();
 				double part=value/sum;
-				builder.sb.append(String.format(Language.tr("Statistics.StateStatistics.Info"),entry.getKey(),TimeTools.formatLongTime(value),NumberTools.formatPercent(part))+"\n");
+				builder.results.append(String.format(Language.tr("Statistics.StateStatistics.Info"),entry.getKey(),TimeTools.formatLongTime(value),NumberTools.formatPercent(part))+"\n");
 			}
 		}
 	}

@@ -177,28 +177,28 @@ public class ModelElementThroughput extends ModelElementMultiInSingleOutBox {
 		if (((RunElementThroughputData)builder.data).statistic==null) return;
 		double value=((RunElementThroughputData)builder.data).statistic.getQuotient();
 		if (value==0) return;
-		builder.sb.append("\n"+Language.tr("Statistics.Throughput")+": ");
+		builder.results.append("\n"+Language.tr("Statistics.Throughput")+": ");
 		if (value>=1) {
-			builder.sb.append(NumberTools.formatNumber(value));
-			builder.sb.append(" (1/"+Language.tr("Statistics.TimeUnit.Second")+")");
+			builder.results.append(NumberTools.formatNumber(value));
+			builder.results.append(" (1/"+Language.tr("Statistics.TimeUnit.Second")+")");
 		} else {
 			value*=60;
 			if (value>=1) {
-				builder.sb.append(NumberTools.formatNumber(value));
-				builder.sb.append(" (1/"+Language.tr("Statistics.TimeUnit.Minute")+")");
+				builder.results.append(NumberTools.formatNumber(value));
+				builder.results.append(" (1/"+Language.tr("Statistics.TimeUnit.Minute")+")");
 			} else {
 				value*=60;
 				if (value>=1) {
-					builder.sb.append(NumberTools.formatNumber(value));
-					builder.sb.append(" (1/"+Language.tr("Statistics.TimeUnit.Hour")+")");
+					builder.results.append(NumberTools.formatNumber(value));
+					builder.results.append(" (1/"+Language.tr("Statistics.TimeUnit.Hour")+")");
 				} else {
 					value*=24;
-					builder.sb.append(NumberTools.formatNumber(value));
-					builder.sb.append(" (1/"+Language.tr("Statistics.TimeUnit.Day")+")");
+					builder.results.append(NumberTools.formatNumber(value));
+					builder.results.append(" (1/"+Language.tr("Statistics.TimeUnit.Day")+")");
 				}
 			}
 		}
-		builder.sb.append("\n");
+		builder.results.append("\n");
 	}
 
 	/**

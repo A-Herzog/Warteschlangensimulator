@@ -356,9 +356,9 @@ public class ModelElementAnalogValue extends ModelElementBox {
 	protected void addInformationToAnimationRunTimeData(final SimDataBuilder builder) {
 		final RunElementAnalogValueData data=(RunElementAnalogValueData)builder.data;
 
-		builder.sb.append("\n"+Language.tr("Statistics.AnalogValue")+"\n");
-		builder.sb.append("\n"+Language.tr("Statistics.AnalogValue.Current")+": "+NumberTools.formatNumber(data.getValueNoUpdate())+"\n");
-		builder.sb.append("\n"+Language.tr("Statistics.AnalogValue.Rate")+": "+NumberTools.formatNumber(data.getRateNoUpdate(),5)+"\n");
+		builder.results.append("\n"+Language.tr("Statistics.AnalogValue")+"\n");
+		builder.results.append("\n"+Language.tr("Statistics.AnalogValue.Current")+": "+NumberTools.formatNumber(data.getValueNoUpdate())+"\n");
+		builder.results.append("\n"+Language.tr("Statistics.AnalogValue.Rate")+": "+NumberTools.formatNumber(data.getRateNoUpdate(),5)+"\n");
 	}
 
 	/**

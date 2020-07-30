@@ -250,12 +250,12 @@ public class ModelElementTransportParking extends ModelElementBox implements Mod
 		final RunDataTransporters transporters=builder.simData.runModel.transportersTemplate;
 		final int index=station.getTransporterIndex();
 
-		builder.sb.append("\n"+Language.tr("Statistics.Transporter")+"\n");
-		builder.sb.append(Language.tr("Statistics.Transporter.InfoType")+": \""+transporters.type[index]+"\"\n");
-		builder.sb.append(Language.tr("Statistics.Transporter.InfoCount")+": "+NumberTools.formatLong(transporters.getTransporterCount(index))+"\n");
-		builder.sb.append(Language.tr("Statistics.Transporter.InfoCapacity")+": "+NumberTools.formatLong(transporters.getTransporterCapacity(index))+"\n");
-		builder.sb.append(Language.tr("Statistics.Transporter.InfoWaiting")+": "+NumberTools.formatLong(data.count)+"\n");
-		builder.sb.append(Language.tr("Statistics.Transporter.InfoMoving")+": "+NumberTools.formatLong(data.moving)+"\n");
+		builder.results.append("\n"+Language.tr("Statistics.Transporter")+"\n");
+		builder.results.append(Language.tr("Statistics.Transporter.InfoType")+": \""+transporters.type[index]+"\"\n");
+		builder.results.append(Language.tr("Statistics.Transporter.InfoCount")+": "+NumberTools.formatLong(transporters.getTransporterCount(index))+"\n");
+		builder.results.append(Language.tr("Statistics.Transporter.InfoCapacity")+": "+NumberTools.formatLong(transporters.getTransporterCapacity(index))+"\n");
+		builder.results.append(Language.tr("Statistics.Transporter.InfoWaiting")+": "+NumberTools.formatLong(data.count)+"\n");
+		builder.results.append(Language.tr("Statistics.Transporter.InfoMoving")+": "+NumberTools.formatLong(data.moving)+"\n");
 	}
 
 	/**

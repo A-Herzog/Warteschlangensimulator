@@ -203,19 +203,19 @@ public class ModelElementCounterMulti extends ModelElementMultiInSingleOutBox {
 			final long value=data.statistic[i].get();
 			if (value>0) {
 				if (first) {
-					builder.sb.append("\n"+Language.tr("Statistics.Counter")+"\n");
+					builder.results.append("\n"+Language.tr("Statistics.Counter")+"\n");
 					first=false;
 				}
-				builder.sb.append(String.format(Language.tr("Surface.CounterMulti.RunInfo"),station.conditions[i],station.counterNames[i],NumberTools.formatLong(value))+"\n");
+				builder.results.append(String.format(Language.tr("Surface.CounterMulti.RunInfo"),station.conditions[i],station.counterNames[i],NumberTools.formatLong(value))+"\n");
 			}
 		}
 		final long value=data.statisticElse.get();
 		if (value>0) {
 			if (first) {
-				builder.sb.append("\n"+Language.tr("Statistics.Counter")+"\n");
+				builder.results.append("\n"+Language.tr("Statistics.Counter")+"\n");
 				first=false;
 			}
-			builder.sb.append(String.format(Language.tr("Surface.CounterMulti.RunInfoElse"),station.counterNameElse,NumberTools.formatLong(value))+"\n");
+			builder.results.append(String.format(Language.tr("Surface.CounterMulti.RunInfoElse"),station.counterNameElse,NumberTools.formatLong(value))+"\n");
 		}
 	}
 

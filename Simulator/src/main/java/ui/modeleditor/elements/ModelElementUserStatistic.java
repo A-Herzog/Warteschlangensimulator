@@ -310,22 +310,22 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		final StatisticsDataPerformanceIndicator[] indicators=((RunElementUserStatisticData)builder.data).getIndicators();
 
 		for (int i=0;i<keys.length;i++) if (indicators[i]!=null) {
-			builder.sb.append("\n"+keys[i]+":\n");
-			builder.sb.append(Language.tr("Statistics.NumberOfClients")+": "+NumberTools.formatLong(indicators[i].getCount())+"\n");
+			builder.results.append("\n"+keys[i]+":\n");
+			builder.results.append(Language.tr("Statistics.NumberOfClients")+": "+NumberTools.formatLong(indicators[i].getCount())+"\n");
 			if (isTime[i]) {
-				builder.sb.append(Language.tr("Statistics.AverageUserTime")+" E[X]="+TimeTools.formatExactTime(indicators[i].getMean())+" ("+NumberTools.formatNumber(indicators[i].getMean())+")\n");
-				builder.sb.append(Language.tr("Statistics.StdDevUserTime")+" Std[X]="+TimeTools.formatExactTime(indicators[i].getSD())+" ("+NumberTools.formatNumber(indicators[i].getSD())+")\n");
-				builder.sb.append(Language.tr("Statistics.VarianceUserTime")+" Var[X]="+TimeTools.formatExactTime(indicators[i].getVar())+" ("+NumberTools.formatNumber(indicators[i].getVar())+")\n");
-				builder.sb.append(Language.tr("Statistics.CVUserTime")+" CV[X]="+NumberTools.formatNumber(indicators[i].getCV())+"\n");
-				builder.sb.append(Language.tr("Statistics.MinimumUserTime")+" Min[X]="+TimeTools.formatExactTime(indicators[i].getMin())+" ("+NumberTools.formatNumber(indicators[i].getMin())+")\n");
-				builder.sb.append(Language.tr("Statistics.MaximumUserTime")+" Max[X]="+TimeTools.formatExactTime(indicators[i].getMax())+" ("+NumberTools.formatNumber(indicators[i].getMax())+")\n");
+				builder.results.append(Language.tr("Statistics.AverageUserTime")+" E[X]="+TimeTools.formatExactTime(indicators[i].getMean())+" ("+NumberTools.formatNumber(indicators[i].getMean())+")\n");
+				builder.results.append(Language.tr("Statistics.StdDevUserTime")+" Std[X]="+TimeTools.formatExactTime(indicators[i].getSD())+" ("+NumberTools.formatNumber(indicators[i].getSD())+")\n");
+				builder.results.append(Language.tr("Statistics.VarianceUserTime")+" Var[X]="+TimeTools.formatExactTime(indicators[i].getVar())+" ("+NumberTools.formatNumber(indicators[i].getVar())+")\n");
+				builder.results.append(Language.tr("Statistics.CVUserTime")+" CV[X]="+NumberTools.formatNumber(indicators[i].getCV())+"\n");
+				builder.results.append(Language.tr("Statistics.MinimumUserTime")+" Min[X]="+TimeTools.formatExactTime(indicators[i].getMin())+" ("+NumberTools.formatNumber(indicators[i].getMin())+")\n");
+				builder.results.append(Language.tr("Statistics.MaximumUserTime")+" Max[X]="+TimeTools.formatExactTime(indicators[i].getMax())+" ("+NumberTools.formatNumber(indicators[i].getMax())+")\n");
 			} else {
-				builder.sb.append(Language.tr("Statistics.AverageUser")+" E[X]="+NumberTools.formatNumber(indicators[i].getMean())+"\n");
-				builder.sb.append(Language.tr("Statistics.StdDevUser")+" Std[X]="+NumberTools.formatNumber(indicators[i].getSD())+"\n");
-				builder.sb.append(Language.tr("Statistics.VarianceUser")+" Var[X]="+NumberTools.formatNumber(indicators[i].getVar())+"\n");
-				builder.sb.append(Language.tr("Statistics.CVUser")+" CV[X]="+NumberTools.formatNumber(indicators[i].getCV())+"\n");
-				builder.sb.append(Language.tr("Statistics.MinimumUser")+" Min[X]="+NumberTools.formatNumber(indicators[i].getMin())+"\n");
-				builder.sb.append(Language.tr("Statistics.MaximumUser")+" Max[X]="+NumberTools.formatNumber(indicators[i].getMax())+"\n");
+				builder.results.append(Language.tr("Statistics.AverageUser")+" E[X]="+NumberTools.formatNumber(indicators[i].getMean())+"\n");
+				builder.results.append(Language.tr("Statistics.StdDevUser")+" Std[X]="+NumberTools.formatNumber(indicators[i].getSD())+"\n");
+				builder.results.append(Language.tr("Statistics.VarianceUser")+" Var[X]="+NumberTools.formatNumber(indicators[i].getVar())+"\n");
+				builder.results.append(Language.tr("Statistics.CVUser")+" CV[X]="+NumberTools.formatNumber(indicators[i].getCV())+"\n");
+				builder.results.append(Language.tr("Statistics.MinimumUser")+" Min[X]="+NumberTools.formatNumber(indicators[i].getMin())+"\n");
+				builder.results.append(Language.tr("Statistics.MaximumUser")+" Max[X]="+NumberTools.formatNumber(indicators[i].getMax())+"\n");
 			}
 		}
 	}

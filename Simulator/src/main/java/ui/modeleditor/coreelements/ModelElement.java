@@ -478,9 +478,9 @@ public class ModelElement {
 	 */
 	protected synchronized String getAnimationRunTimeStatisticsData(SimulationData simData) {
 		final SimDataBuilder builder=new SimDataBuilder(simData,getId());
-		if (builder.sb!=null) {
+		if (builder.results!=null) {
 			addInformationToAnimationRunTimeData(builder);
-			return builder.sb.toString();
+			return builder.results.toString();
 		} else {
 			return null;
 		}

@@ -263,24 +263,24 @@ public class ModelElementTank extends ModelElementBox {
 	protected void addInformationToAnimationRunTimeData(final SimDataBuilder builder) {
 		final RunElementTankData data=(RunElementTankData)builder.data;
 
-		builder.sb.append("\n"+Language.tr("Statistics.AnalogValue.Current")+": "+NumberTools.formatNumber(data.getValueNoUpdate())+"\n");
+		builder.results.append("\n"+Language.tr("Statistics.AnalogValue.Current")+": "+NumberTools.formatNumber(data.getValueNoUpdate())+"\n");
 
-		builder.sb.append("\n");
+		builder.results.append("\n");
 		final double[] valveValues=data.getValveValues();
-		for (int i=0;i<valveValues.length;i++) builder.sb.append(String.format(Language.tr("Statistics.AnalogValue.ValveValue"),i+1)+": "+NumberTools.formatNumber(valveValues[i],5)+"\n");
+		for (int i=0;i<valveValues.length;i++) builder.results.append(String.format(Language.tr("Statistics.AnalogValue.ValveValue"),i+1)+": "+NumberTools.formatNumber(valveValues[i],5)+"\n");
 
 		final RunElementTankFlow[] outgoing=data.getOutgoingFlows();
 		if (outgoing.length>0) {
-			builder.sb.append("\n");
-			builder.sb.append(Language.tr("Statistics.AnalogValue.Flow.Outgoing")+":\n");
-			for (RunElementTankFlow flow: outgoing) builder.sb.append(flow.getAnimationInfoText()+"\n");
+			builder.results.append("\n");
+			builder.results.append(Language.tr("Statistics.AnalogValue.Flow.Outgoing")+":\n");
+			for (RunElementTankFlow flow: outgoing) builder.results.append(flow.getAnimationInfoText()+"\n");
 		}
 
 		final RunElementTankFlow[] incoming=data.getIncomingFlows();
 		if (incoming.length>0) {
-			builder.sb.append("\n");
-			builder.sb.append(Language.tr("Statistics.AnalogValue.Flow.Incoming")+":\n");
-			for (RunElementTankFlow flow: incoming) builder.sb.append(flow.getAnimationInfoText()+"\n");
+			builder.results.append("\n");
+			builder.results.append(Language.tr("Statistics.AnalogValue.Flow.Incoming")+":\n");
+			for (RunElementTankFlow flow: incoming) builder.results.append(flow.getAnimationInfoText()+"\n");
 		}
 	}
 

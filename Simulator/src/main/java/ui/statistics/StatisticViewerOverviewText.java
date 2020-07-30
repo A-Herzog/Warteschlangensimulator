@@ -832,7 +832,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 		endParagraph();
 
-		if (hitMax) {
+		if (hitMax && indicator.getMin()!=indicator.getMax()) {
 			beginParagraph();
 			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 			endParagraph();
@@ -856,7 +856,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 		endParagraph();
 
-		if (hitMax) {
+		if (hitMax && indicator.getMin()!=indicator.getMax()) {
 			beginParagraph();
 			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 			endParagraph();
@@ -879,7 +879,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 		endParagraph();
 
-		if (hitMax) {
+		if (hitMax && indicator.getMin()!=indicator.getMax()) {
 			beginParagraph();
 			addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
 			endParagraph();

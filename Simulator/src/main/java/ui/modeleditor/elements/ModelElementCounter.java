@@ -185,8 +185,8 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 		if (((RunElementCounterData)builder.data).statistic==null) return;
 		final long value=((RunElementCounterData)builder.data).statistic.get();
 		if (value==0) return;
-		builder.sb.append("\n"+Language.tr("Statistics.Counter")+"\n");
-		builder.sb.append(NumberTools.formatLong(value)+"\n");
+		builder.results.append("\n"+Language.tr("Statistics.Counter")+"\n");
+		builder.results.append(NumberTools.formatLong(value)+"\n");
 	}
 
 	/**

@@ -193,8 +193,8 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 	@Override
 	protected void addInformationToAnimationRunTimeData(final SimDataBuilder builder) {
 		final long value=FastMath.round(((RunElementDifferentialCounterData)builder.data).getValue(true));
-		builder.sb.append("\n"+Language.tr("Statistics.Counter")+"\n");
-		builder.sb.append(NumberTools.formatLong(value)+"\n");
+		builder.results.append("\n"+Language.tr("Statistics.Counter")+"\n");
+		builder.results.append(NumberTools.formatLong(value)+"\n");
 	}
 
 	/**
