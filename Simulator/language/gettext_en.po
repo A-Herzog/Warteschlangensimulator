@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-30 18:39+0200\n"
+"POT-Creation-Date: 2020-07-30 22:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12242,6 +12242,21 @@ msgstr ""
 
 msgid "Setup.SaveError.Title"
 msgstr "Configuration could not be saved"
+
+msgid "SetupFailure.Discard"
+msgstr "Discard changed settings, quit program."
+
+msgid "SetupFailure.Info"
+msgstr ""
+"Saving the changed program settings in\n"
+"%s\n"
+"failed. Do you want to retry saving?"
+
+msgid "SetupFailure.Retry"
+msgstr "Retry saving."
+
+msgid "SetupFailure.Title"
+msgstr "Saving settings failed"
 
 msgid "Simulation.CalcError.Eval"
 msgstr "For a comparison the expression %s could not be evaluated."

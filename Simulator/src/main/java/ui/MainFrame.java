@@ -31,6 +31,7 @@ import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import systemtools.MainFrameBase;
 import systemtools.MainPanelBase;
+import systemtools.MsgBox;
 import tools.SetupData;
 
 /**
@@ -195,6 +196,17 @@ public class MainFrame extends MainFrameBase {
 
 	@Override
 	protected boolean exitProgramOnCloseWindow() {
+		final SetupData setup=SetupData.getSetup();
+		final File setupFile=new File(SetupData.getSetupFolder(),SetupData.SETUP_FILE_NAME);
+
+		boolean b=setup.isLastFileSaveSuccessful();
+		while (!b) {
+			b=setup.saveSetup();
+			if (!b) {
+				if (!MsgBox.confirm(this,Language.tr("SetupFailure.Title"),String.format(Language.tr("SetupFailure.Info"),setupFile.toString()),Language.tr("SetupFailure.Retry"),Language.tr("SetupFailure.Discard"))) break;
+			}
+		}
+
 		ReloadManager.remove(this);
 		return ReloadManager.isEmpty();
 	}

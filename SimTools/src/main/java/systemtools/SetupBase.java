@@ -30,7 +30,7 @@ import xml.XMLTools;
 /**
  * Basisklasse zum Verwalten von Setup-Daten
  * @author Alexander Herzog
- * @version 2.3
+ * @version 2.4
  */
 public abstract class SetupBase {
 	/**
@@ -58,6 +58,7 @@ public abstract class SetupBase {
 
 	private final List<SetupBaseChangeListener> changeListeners;
 	private SetupBaseChangeListener watcher;
+	private boolean lastFileSaveWasSuccessful;
 
 	/**
 	 * Konstruktor der Klasse <code>SetupBase</code>
@@ -67,6 +68,7 @@ public abstract class SetupBase {
 	protected SetupBase() {
 		changeListeners=new ArrayList<>();
 		resetDataToDefaults();
+		lastFileSaveWasSuccessful=true;
 	}
 
 	private void loadOrReloadSetupFromFile() {
@@ -211,7 +213,7 @@ public abstract class SetupBase {
 	 * @return	Liefert <code>true</code>, wenn die Setup-Daten erfolgreich gespeichert werden konnten.
 	 */
 	public final boolean saveSetup() {
-		if (memoryOnly) return true;
+		if (memoryOnly) return lastFileSaveWasSuccessful=true;
 
 		stopChangeListener();
 		try {
@@ -222,7 +224,7 @@ public abstract class SetupBase {
 
 			saveSetupToXML(doc,root);
 
-			return xml.save(root,true);
+			return lastFileSaveWasSuccessful=xml.save(root,true);
 		} finally {
 			startChangeListener();
 		}
@@ -261,4 +263,13 @@ public abstract class SetupBase {
 	 * @param root	xml-Basisknoten, in dem die Setup-Daten gespeichert werden sollen
 	 */
 	abstract protected void saveSetupToXML(final Document doc, final Element root);
+
+	/**
+	 * War der letzte Speichervorgang des Setups in einer Datei erfolgreich?
+	 * @return	Erfolg des letzten Speichervorgangs
+	 * @see #saveSetup()
+	 */
+	public boolean isLastFileSaveSuccessful() {
+		return lastFileSaveWasSuccessful;
+	}
 }

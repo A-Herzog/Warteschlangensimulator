@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-30 18:39+0200\n"
+"POT-Creation-Date: 2020-07-30 22:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12246,6 +12246,21 @@ msgstr ""
 
 msgid "Setup.SaveError.Title"
 msgstr "Konfiguration konnte nicht gespeichert werden"
+
+msgid "SetupFailure.Discard"
+msgstr "Geänderte Einstellungen verwerfen, Programm beenden."
+
+msgid "SetupFailure.Info"
+msgstr ""
+"Das Speichern der Programmeinstellungen in der Datei\n"
+"%s\n"
+"ist fehlgeschlagen. Soll erneut versucht werden, die Einstellungen zu speichern?"
+
+msgid "SetupFailure.Retry"
+msgstr "Speichern erneut versuchen."
+
+msgid "SetupFailure.Title"
+msgstr "Einstellungen speichern fehlgeschlagen"
 
 msgid "Simulation.CalcError.Eval"
 msgstr "Für einen Vergleich konnte der Ausdruck %s nicht berechnet werden."
