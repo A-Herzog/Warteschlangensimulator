@@ -17,7 +17,10 @@ package simulator;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -46,6 +49,27 @@ import tools.UsageStatistics;
  */
 public class Simulator extends SimulatorBase implements AnySimulator {
 	/**
+	 * Welche Arten von Ereignissen sollen erfasst werden?
+	 * @author Alexander Herzog
+	 */
+	public enum LogType {
+		/** Ankünfte von Kunden an Stationen */
+		ARRIVAL,
+		/** Abgänge von Kunden von Stationen */
+		LEAVE,
+		/** Stationsspezifische Informationen */
+		STATIONINFO,
+		/** Informationen in Bezug auf das Gesamtmodell */
+		SYSTEMINFO,
+	}
+
+	/**
+	 * Erfassung von Ereignissen aller Typen
+	 * @see Simulator.LogType
+	 */
+	public final static Set<LogType> logTypeFull=new HashSet<>(Arrays.asList(LogType.values()));
+
+	/**
 	 * Laufzeit-Modell (global für alle Threads)
 	 */
 	protected RunModel runModel;
@@ -63,7 +87,12 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	/**
 	 * Steht hier ein Wert ungleich <code>null</code> und ist das Logging ({@link Simulator#logging}) aktiv, so werden nur Daten zu den Stationen, deren IDs hier angegeben sind, erfasst
 	 */
-	public int[] loggingIDs;
+	public final int[] loggingIDs;
+
+	/**
+	 * Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
+	 */
+	public final Set<LogType> logType;
 
 	/**
 	 * Da die Statistik nur einmal aus den Daten erhoben wird, wird diese für wiederholte Aufrufe von <code>getStatistic()</code> hier aufgehoben
@@ -104,12 +133,14 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public Simulator(final boolean multiCore, final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
+	public Simulator(final boolean multiCore, final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
 		super(getAllowMaxCore(editModel,multiCore && logging==null,Integer.MAX_VALUE),false,getNUMAAware());
 		this.editModel=editModel;
 		this.logging=logging;
 		this.loggingIDs=loggingIDs;
+		this.logType=logType;
 	}
 
 	/**
@@ -118,12 +149,14 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public Simulator(final int maxCoreCount, final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
+	public Simulator(final int maxCoreCount, final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
 		super(getAllowMaxCore(editModel,logging==null,maxCoreCount),false,getNUMAAware());
 		this.editModel=editModel;
 		this.logging=logging;
 		this.loggingIDs=loggingIDs;
+		this.logType=logType;
 	}
 
 	/**
@@ -131,9 +164,10 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public Simulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
-		this(SetupData.getSetup().useMultiCoreSimulation && (editModel.allowMultiCore() || editModel.repeatCount>1),editModel,logging,loggingIDs);
+	public Simulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
+		this(SetupData.getSetup().useMultiCoreSimulation && (editModel.allowMultiCore() || editModel.repeatCount>1),editModel,logging,loggingIDs,logType);
 	}
 
 	private static void prepareStatic(final boolean fixedSeed) {
@@ -269,11 +303,17 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		data=new SimulationData(threadNr,threadCount,runModel,null);
 
 		if (logging!=null) {
-			data.activateLogging(logging);
+			final SimulationData simData=(SimulationData)data;
+
+			simData.activateLogging(logging);
 			if (loggingIDs!=null && loggingIDs.length>0) {
-				final boolean[] loggingIDsFast=((SimulationData)data).loggingIDs=new boolean[runModel.elementsFast.length];
+				final boolean[] loggingIDsFast=simData.loggingIDs=new boolean[runModel.elementsFast.length];
 				for (int id: loggingIDs) loggingIDsFast[id]=true;
 			}
+			simData.logArrival=(logType==null || logType.contains(Simulator.LogType.ARRIVAL));
+			simData.logDeparture=(logType==null || logType.contains(Simulator.LogType.LEAVE));
+			simData.logInfoStation=(logType==null || logType.contains(Simulator.LogType.STATIONINFO));
+			simData.logInfoSystem=(logType==null || logType.contains(Simulator.LogType.SYSTEMINFO));
 		}
 		return data;
 	}
@@ -375,7 +415,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	public static SimulationData getSimulationDataFromStatistics(final Statistics statistics) {
 		if (statistics==null) return null;
-		final Simulator simulator=new Simulator(statistics.editModel,null,null);
+		final Simulator simulator=new Simulator(statistics.editModel,null,null,logTypeFull);
 		if (simulator.prepare()!=null) return null;
 		final SimulationData simData=new SimulationData(0,simulator.threads.length,simulator.runModel,statistics);
 

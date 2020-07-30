@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-29 20:54+0200\n"
+"POT-Creation-Date: 2020-07-30 14:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6485,11 +6485,31 @@ msgstr "Logdatei auswählen"
 msgid "LogSimulation.Mode"
 msgstr "Output mode"
 
+msgid "LogSimulation.Mode.Arrival"
+msgstr "Record station arrivals"
+
+msgid "LogSimulation.Mode.ErrorInfo"
+msgstr ""
+"No event types have been selected for recording.\n"
+"At least one event type has to be selected."
+
+msgid "LogSimulation.Mode.ErrorTitle"
+msgstr "No event types select"
+
 msgid "LogSimulation.Mode.Excel"
 msgstr "Excel DDE connection"
 
 msgid "LogSimulation.Mode.File"
 msgstr "File"
+
+msgid "LogSimulation.Mode.InfoStation"
+msgstr "Record general station information"
+
+msgid "LogSimulation.Mode.InfoSystem"
+msgstr "Record general system information"
+
+msgid "LogSimulation.Mode.Leave"
+msgstr "Record station departures"
 
 msgid "LogSimulation.OptionColor"
 msgstr "Use colors of the stations as text color for the corresponding records"
@@ -6502,6 +6522,12 @@ msgstr "Group event names with the same execution time"
 
 msgid "LogSimulation.OptionMultiLine"
 msgstr "Split up event name and event description in two lines"
+
+msgid "LogSimulation.OutputFormat"
+msgstr "Output formatting"
+
+msgid "LogSimulation.Restrictions"
+msgstr "Restriction of recording"
 
 msgid "LogSimulation.StationIDs"
 msgstr "Stations to be considered"

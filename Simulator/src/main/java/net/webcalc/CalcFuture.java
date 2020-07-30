@@ -32,6 +32,7 @@ import mathtools.MultiTable;
 import mathtools.Table;
 import net.calc.SimulationServer;
 import simulator.AnySimulator;
+import simulator.Simulator;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
@@ -304,7 +305,7 @@ public class CalcFuture {
 			return;
 		}
 
-		final StartAnySimulator starter=new StartAnySimulator(model,null,null);
+		final StartAnySimulator starter=new StartAnySimulator(model,null,null,Simulator.logTypeFull);
 		final String prepareError=starter.prepare();
 		if (prepareError!=null) {setError(prepareError); return;}
 		addMessage(Language.tr("CalcWebServer.Simulation.Start")+" - "+DateTools.formatUserDate(System.currentTimeMillis(),true));

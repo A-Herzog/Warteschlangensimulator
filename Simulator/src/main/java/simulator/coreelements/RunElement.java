@@ -258,6 +258,35 @@ public abstract class RunElement {
 	 * @see SimLogging#log(long, Color, String, String)
 	 */
 	public final void log(final SimulationData simData, final String event, final String info) {
+		if (!simData.logInfoStation) return;
+		if (simData.loggingIDs!=null && !simData.loggingIDs[id]) return;
+		simData.logEventExecution(logTextColor,event,info);
+	}
+
+	/**
+	 * Erfasst ein Ankunfts-Ereignis in der Logging-Aufzeichnung
+	 * @param simData	Simulationsdatenobjekt
+	 * @param event	Name des Ereignisses
+	 * @param info	Zusätzliche Informationen
+	 * @see SimulationData#loggingActive
+	 * @see SimLogging#log(long, Color, String, String)
+	 */
+	public final void logArrive(final SimulationData simData, final String event, final String info) {
+		if (!simData.logArrival) return;
+		if (simData.loggingIDs!=null && !simData.loggingIDs[id]) return;
+		simData.logEventExecution(logTextColor,event,info);
+	}
+
+	/**
+	 * Erfasst ein Abgangs-Ereignis in der Logging-Aufzeichnung
+	 * @param simData	Simulationsdatenobjekt
+	 * @param event	Name des Ereignisses
+	 * @param info	Zusätzliche Informationen
+	 * @see SimulationData#loggingActive
+	 * @see SimLogging#log(long, Color, String, String)
+	 */
+	public final void logLeave(final SimulationData simData, final String event, final String info) {
+		if (!simData.logDeparture) return;
 		if (simData.loggingIDs!=null && !simData.loggingIDs[id]) return;
 		simData.logEventExecution(logTextColor,event,info);
 	}

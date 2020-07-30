@@ -81,6 +81,26 @@ public class SimulationData extends SimData {
 	public boolean[] loggingIDs;
 
 	/**
+	 * Erfassung von Ankünften
+	 */
+	public boolean logArrival;
+
+	/**
+	 * Erfassung von Abgängen
+	 */
+	public boolean logDeparture;
+
+	/**
+	 * Erfassung von Stationsinformationen
+	 */
+	public boolean logInfoStation;
+
+	/**
+	 * Erfassung von Systeminformationen
+	 */
+	public boolean logInfoSystem;
+
+	/**
 	 * Konstruktor der Klasse <code>SimulationData</code>
 	 * @param threadNr		Gibt die Nummer des Threads an, für den das <code>SimDat</code>-Objekt erstellt wird.
 	 * @param threadCount	Anzahl der Rechenthreads
@@ -94,6 +114,10 @@ public class SimulationData extends SimData {
 		super(new LongRunMultiSortedArrayListEventManager(4),new AssociativeEventCache(128),threadNr,threadCount);
 
 		loggingIDs=null;
+		logArrival=true;
+		logDeparture=true;
+		logInfoStation=true;
+		logInfoSystem=true;
 
 		this.runModel=runModel;
 		this.runData=new RunData(runModel);

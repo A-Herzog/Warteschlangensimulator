@@ -23,6 +23,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
@@ -43,6 +45,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
 import net.dde.DDEConnect;
 import simcore.logging.SimLogging;
+import simulator.Simulator;
 import simulator.logging.DDELogger;
 import simulator.logging.MultiTypeTextLogger;
 import systemtools.BaseDialog;
@@ -66,14 +69,22 @@ public class LogSetupDialog extends BaseDialog {
 	private final CardLayout pageLayout;
 
 	private final JTextField logFileEdit;
-	private final JPlaceholderTextField stationIDsEdit;
-	private final JButton logFileButton;
+	private final JPlaceholderTextField stationIDsFileEdit;
+	private final JCheckBox optionFileTypeArrival;
+	private final JCheckBox optionFileTypeLeave;
+	private final JCheckBox optionFileTypeStation;
+	private final JCheckBox optionFileTypeSystem;
 	private final JCheckBox optionMultiLine;
 	private final JCheckBox optionGroup;
 	private final JCheckBox optionColor;
 	private final JCheckBox optionFormatedTime;
 
 	private final DDEEditPanel editDDE;
+	private final JPlaceholderTextField stationIDsDDEEdit;
+	private final JCheckBox optionDDETypeArrival;
+	private final JCheckBox optionDDETypeLeave;
+	private final JCheckBox optionDDETypeStation;
+	private final JCheckBox optionDDETypeSystem;
 
 	/**
 	 * Konstruktor der Klasse <code>LogSetupDialog</code>
@@ -83,6 +94,7 @@ public class LogSetupDialog extends BaseDialog {
 		super(owner,Language.tr("LogSimulation.Title"));
 
 		JPanel card;
+		JPanel outer;
 		JPanel line;
 		JLabel label;
 
@@ -99,6 +111,7 @@ public class LogSetupDialog extends BaseDialog {
 					Language.tr("LogSimulation.Mode.File"),
 					Language.tr("LogSimulation.Mode.Excel")
 			}));
+			label.setLabelFor(logMode);
 			logMode.setRenderer(new IconListCellRenderer(new Images[]{
 					Images.SIMULATION_LOG_MODE_FILE,
 					Images.SIMULATION_LOG_MODE_TABLE
@@ -115,48 +128,49 @@ public class LogSetupDialog extends BaseDialog {
 		page.add(card=new JPanel(),"0");
 		card.setLayout(new BoxLayout(card,BoxLayout.PAGE_AXIS));
 
-		card.add(line=new JPanel(new BorderLayout()));
-		line.add(label=new JLabel(Language.tr("LogSimulation.LogFile")+": "),BorderLayout.WEST);
-		line.add(logFileEdit=new JTextField(),BorderLayout.CENTER);
-		label.setLabelFor(logFileEdit);
-		line.add(logFileButton=new JButton(),BorderLayout.EAST);
-		logFileButton.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
-		logFileButton.setPreferredSize(new Dimension(24,24));
-		logFileButton.setToolTipText(Language.tr("LogSimulation.LogFile.Select"));
-		logFileButton.addActionListener(new ButtonListener());
+		logFileEdit=addFileEditor(card,Language.tr("LogSimulation.LogFile"),Language.tr("LogSimulation.LogFile.Select"));
 
-		card.add(Box.createVerticalStrut(10));
+		addHeading(card,Language.tr("LogSimulation.Restrictions"),true);
 
-		card.add(line=new JPanel(new BorderLayout()));
-		line.add(label=new JLabel(Language.tr("LogSimulation.StationIDs")+": "),BorderLayout.WEST);
-		line.add(stationIDsEdit=new JPlaceholderTextField(),BorderLayout.CENTER);
-		stationIDsEdit.setPlaceholder(Language.tr("LogSimulation.StationIDs.Placeholder"));
-		label.setLabelFor(stationIDsEdit);
-		label.setToolTipText(Language.tr("LogSimulation.StationIDs.Info"));
-		stationIDsEdit.setToolTipText(Language.tr("LogSimulation.StationIDs.Info"));
+		stationIDsFileEdit=addPlaceholderEdit(card,Language.tr("LogSimulation.StationIDs"),Language.tr("LogSimulation.StationIDs.Info"),Language.tr("LogSimulation.StationIDs.Placeholder"));
+		optionFileTypeArrival=addOption(card,Language.tr("LogSimulation.Mode.Arrival"));
+		optionFileTypeLeave=addOption(card,Language.tr("LogSimulation.Mode.Leave"));
+		optionFileTypeStation=addOption(card,Language.tr("LogSimulation.Mode.InfoStation"));
+		optionFileTypeSystem=addOption(card,Language.tr("LogSimulation.Mode.InfoSystem"));
 
-		card.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionMultiLine=new JCheckBox(Language.tr("LogSimulation.OptionMultiLine")));
+		addHeading(card,Language.tr("LogSimulation.OutputFormat"),true);
 
-		card.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionGroup=new JCheckBox(Language.tr("LogSimulation.OptionGroup")));
-
-		card.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionColor=new JCheckBox(Language.tr("LogSimulation.OptionColor")));
-		optionColor.setToolTipText(Language.tr("LogSimulation.OptionColor.Info"));
-
-		card.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionFormatedTime=new JCheckBox(Language.tr("LogSimulation.FormatTime")));
-		optionFormatedTime.setToolTipText(Language.tr("LogSimulation.FormatTime.Info"));
+		optionMultiLine=addOption(card,Language.tr("LogSimulation.OptionMultiLine"));
+		optionGroup=addOption(card,Language.tr("LogSimulation.OptionGroup"));
+		optionColor=addOption(card,Language.tr("LogSimulation.OptionColor"),Language.tr("LogSimulation.OptionColor.Info"));
+		optionFormatedTime=addOption(card,Language.tr("LogSimulation.FormatTime"),Language.tr("LogSimulation.FormatTime.Info"));
 
 		/* Seite "DDE" */
 
 		if (logMode!=null) {
-			page.add(card=new JPanel(),"1");
-			card.setLayout(new BorderLayout());
-			card.add(editDDE=new DDEEditPanel(this,"","",readOnly,helpRunnable),BorderLayout.NORTH);
+			page.add(outer=new JPanel(),"1");
+			outer.setLayout(new BorderLayout());
+
+			outer.add(card=new JPanel(),BorderLayout.NORTH);
+			card.setLayout(new BoxLayout(card,BoxLayout.PAGE_AXIS));
+
+			card.add(editDDE=new DDEEditPanel(this,"","",readOnly,helpRunnable));
+
+			addHeading(card,Language.tr("LogSimulation.Restrictions"),true);
+
+			stationIDsDDEEdit=addPlaceholderEdit(card,Language.tr("LogSimulation.StationIDs"),Language.tr("LogSimulation.StationIDs.Info"),Language.tr("LogSimulation.StationIDs.Placeholder"));
+			optionDDETypeArrival=addOption(card,Language.tr("LogSimulation.Mode.Arrival"));
+			optionDDETypeLeave=addOption(card,Language.tr("LogSimulation.Mode.Leave"));
+			optionDDETypeStation=addOption(card,Language.tr("LogSimulation.Mode.InfoStation"));
+			optionDDETypeSystem=addOption(card,Language.tr("LogSimulation.Mode.InfoSystem"));
+
 		} else {
 			editDDE=null;
+			stationIDsDDEEdit=null;
+			optionDDETypeArrival=null;
+			optionDDETypeLeave=null;
+			optionDDETypeStation=null;
+			optionDDETypeSystem=null;
 		}
 
 		/* Daten in Dialog laden */
@@ -164,15 +178,27 @@ public class LogSetupDialog extends BaseDialog {
 		final SetupData setup=SetupData.getSetup();
 
 		logFileEdit.setText(setup.lastLogFile);
+		stationIDsFileEdit.setText(setup.logStationIDs);
+		optionFileTypeArrival.setSelected(setup.logTypeArrival);
+		optionFileTypeLeave.setSelected(setup.logTypeLeave);
+		optionFileTypeStation.setSelected(setup.logTypeInfoStation);
+		optionFileTypeSystem.setSelected(setup.logTypeInfoSystem);
 		optionMultiLine.setSelected(!setup.singleLineEventLog);
 		optionGroup.setSelected(setup.logGrouped);
 		optionColor.setSelected(setup.logColors);
 		optionFormatedTime.setSelected(setup.logFormatedTime);
+
 		if (logMode==null) {
 			pageLayout.show(page,"0");
 		} else {
 			editDDE.setWorkbook(setup.logDDEworkbook);
 			editDDE.setTable(setup.logDDEsheet);
+			stationIDsDDEEdit.setText(setup.logStationIDs);
+			optionDDETypeArrival.setSelected(setup.logTypeArrival);
+			optionDDETypeLeave.setSelected(setup.logTypeLeave);
+			optionDDETypeStation.setSelected(setup.logTypeInfoStation);
+			optionDDETypeSystem.setSelected(setup.logTypeInfoSystem);
+
 			logMode.addActionListener(e->pageLayout.show(page,""+logMode.getSelectedIndex()));
 			switch (setup.logMode) {
 			case FILE: logMode.setSelectedIndex(0); break;
@@ -186,7 +212,72 @@ public class LogSetupDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
-	private class ButtonListener implements ActionListener {
+	private void addHeading(final JPanel parent, final String label, final boolean marginAbove) {
+		final JPanel line;
+
+		if (marginAbove) parent.add(Box.createVerticalStrut(15));
+		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body><b>"+label+"</b></body></html>"));
+	}
+
+	private JCheckBox addOption(final JPanel parent, final String label) {
+		return addOption(parent,label,null);
+	}
+
+	private JCheckBox addOption(final JPanel parent, final String label, final String tooltip) {
+		final JPanel line;
+		final JCheckBox option;
+
+		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(option=new JCheckBox(label));
+
+		if (tooltip!=null && !tooltip.trim().isEmpty()) {
+			option.setToolTipText(tooltip);
+		}
+
+		return option;
+	}
+
+	private JTextField addFileEditor(final JPanel parent, final String labelText, final String tooltipSelect) {
+		final JPanel line;
+		final JLabel label;
+		final JTextField field;
+		final JButton button;
+
+		parent.add(line=new JPanel(new BorderLayout()));
+		line.add(label=new JLabel(labelText+": "),BorderLayout.WEST);
+		line.add(field=new JTextField(),BorderLayout.CENTER);
+		label.setLabelFor(field);
+		line.add(button=new JButton(),BorderLayout.EAST);
+		button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
+		button.setPreferredSize(new Dimension(24,24));
+		button.setToolTipText(tooltipSelect);
+		button.addActionListener(new SelectFileButtonListener());
+
+		return field;
+	}
+
+	private JPlaceholderTextField addPlaceholderEdit(final JPanel parent, final String labelText, final String tooltip, final String placeholder) {
+		final JPanel line;
+		final JLabel label;
+		final JPlaceholderTextField field;
+
+
+		parent.add(line=new JPanel(new BorderLayout()));
+		line.add(label=new JLabel(labelText+": "),BorderLayout.WEST);
+		label.setBorder(BorderFactory.createEmptyBorder(0,8,0,0));
+		line.add(field=new JPlaceholderTextField(),BorderLayout.CENTER);
+		if (placeholder!=null && !placeholder.trim().isEmpty()) field.setPlaceholder(placeholder);
+		label.setLabelFor(field);
+		if (tooltip!=null && !tooltip.trim().isEmpty()) {
+			label.setToolTipText(tooltip);
+			field.setToolTipText(tooltip);
+		}
+
+		return field;
+	}
+
+	private class SelectFileButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -237,9 +328,22 @@ public class LogSetupDialog extends BaseDialog {
 		}
 	}
 
+	private boolean checkIDs(final JTextField field) {
+		if (field.getText().trim().isEmpty()) return true;
+
+		final String[] ids=field.getText().trim().split(";");
+		for (String id: ids) {
+			if (NumberTools.getNotNegativeInteger(id)==null) {
+				MsgBox.error(this,Language.tr("Dialog.InvalidID.Title"),String.format(Language.tr("Dialog.InvalidID.Info"),id));
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	protected boolean checkData() {
-		final int mode=(logMode==null)?0:logMode.getSelectedIndex();
+		final int mode=getLogMode();
 
 		if (mode==0) {
 			final File file=new File(logFileEdit.getText());
@@ -252,12 +356,11 @@ public class LogSetupDialog extends BaseDialog {
 				return false;
 			}
 
-			final String[] ids=stationIDsEdit.getText().trim().split(";");
-			for (String id: ids) {
-				if (NumberTools.getNotNegativeInteger(id)==null) {
-					MsgBox.error(this,Language.tr("Dialog.InvalidID.Title"),String.format(Language.tr("Dialog.InvalidID.Info"),id));
-					return false;
-				}
+			if (!checkIDs(stationIDsFileEdit)) return false;
+
+			if (!optionFileTypeArrival.isSelected() && !optionFileTypeLeave.isSelected() && !optionFileTypeStation.isSelected() && !optionFileTypeSystem.isSelected()) {
+				MsgBox.error(this,Language.tr("LogSimulation.Mode.ErrorTitle"),Language.tr("LogSimulation.Mode.ErrorInfo"));
+				return false;
 			}
 
 			return true;
@@ -265,6 +368,14 @@ public class LogSetupDialog extends BaseDialog {
 
 		if (mode==1) {
 			if (editDDE!=null) return editDDE.checkData(true);
+
+			if (!checkIDs(stationIDsDDEEdit)) return false;
+
+			if (!optionDDETypeArrival.isSelected() && !optionDDETypeLeave.isSelected() && !optionDDETypeStation.isSelected() && !optionDDETypeSystem.isSelected()) {
+				MsgBox.error(this,Language.tr("LogSimulation.Mode.ErrorTitle"),Language.tr("LogSimulation.Mode.ErrorInfo"));
+				return false;
+			}
+
 			return true;
 		}
 
@@ -277,12 +388,29 @@ public class LogSetupDialog extends BaseDialog {
 
 		if (logMode!=null) {
 			switch (logMode.getSelectedIndex()) {
-			case 0: setup.logMode=SetupData.LogMode.FILE; break;
-			case 1: setup.logMode=SetupData.LogMode.DDE; break;
+			case 0:
+				setup.logMode=SetupData.LogMode.FILE;
+				setup.logStationIDs=stationIDsFileEdit.getText();
+				setup.logTypeArrival=optionFileTypeArrival.isSelected();
+				setup.logTypeLeave=optionFileTypeLeave.isSelected();
+				setup.logTypeInfoStation=optionFileTypeStation.isSelected();
+				setup.logTypeInfoSystem=optionFileTypeSystem.isSelected();
+				break;
+			case 1:
+				setup.logMode=SetupData.LogMode.DDE;
+				setup.logStationIDs=stationIDsDDEEdit.getText();
+				setup.logTypeArrival=optionDDETypeArrival.isSelected();
+				setup.logTypeLeave=optionDDETypeLeave.isSelected();
+				setup.logTypeInfoStation=optionDDETypeStation.isSelected();
+				setup.logTypeInfoSystem=optionDDETypeSystem.isSelected();
+				break;
 			}
+		} else {
+			setup.logMode=SetupData.LogMode.FILE;
 		}
 
 		setup.lastLogFile=logFileEdit.getText();
+
 		setup.singleLineEventLog=!optionMultiLine.isSelected();
 		setup.logGrouped=optionGroup.isSelected();
 		setup.logColors=optionColor.isSelected();
@@ -296,12 +424,16 @@ public class LogSetupDialog extends BaseDialog {
 		setup.saveSetup();
 	}
 
+	private int getLogMode() {
+		return (logMode==null)?0:logMode.getSelectedIndex();
+	}
+
 	/**
 	 * Liefert auf Basis der Einstellungen in dem Dialog einen entsprechenden Logger zurück.
 	 * @return	Logger, der gemäß den Einstellungen aus dem Dialog Daten aufzeichnet (oder im Fehlerfall <code>null</code>
 	 */
 	public SimLogging getLogger() {
-		final int mode=(logMode==null)?0:logMode.getSelectedIndex();
+		final int mode=getLogMode();
 
 		if (mode==0) {
 			final File file=new File(logFileEdit.getText());
@@ -330,10 +462,51 @@ public class LogSetupDialog extends BaseDialog {
 
 	/**
 	 * Liefert die gewählten Stations-IDs, die beim Logging berücksichtigt werden sollen.
-	 * @return	Liefert die gewählten Stations-IDs, die beim Logging berücksichtigt werden sollen, oder <code>null</code>, wenn alle Daten aufgezeichnet werden sollen.
+	 * @return	Gewählte Stations-IDs, die beim Logging berücksichtigt werden sollen, oder <code>null</code>, wenn alle Daten aufgezeichnet werden sollen.
 	 */
 	public int[] getStationIDs() {
-		final String[] ids=stationIDsEdit.getText().trim().split(";");
-		return Stream.of(ids).map(id->NumberTools.getNotNegativeInteger(id)).mapToInt(I->I.intValue()).toArray();
+		final int mode=getLogMode();
+
+		if (mode==0) {
+			final String idsLine=stationIDsFileEdit.getText().trim();
+			if (idsLine.isEmpty()) return null;
+			final String[] ids=idsLine.split(";");
+			return Stream.of(ids).map(id->NumberTools.getNotNegativeInteger(id)).mapToInt(I->I.intValue()).toArray();
+		}
+
+		if (mode==1) {
+			final String idsLine=stationIDsDDEEdit.getText().trim();
+			if (idsLine.isEmpty()) return null;
+			final String[] ids=idsLine.split(";");
+			return Stream.of(ids).map(id->NumberTools.getNotNegativeInteger(id)).mapToInt(I->I.intValue()).toArray();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Liefert die gewählten Einstellung, welche Ereignistypen beim Loggen erfasst werden sollen.
+	 * @return	Ereignistypen die beim Loggen erfasst werden sollen
+	 */
+	public Set<Simulator.LogType> getLogType() {
+		final Set<Simulator.LogType> set=new HashSet<>();
+
+		final int mode=getLogMode();
+
+		if (mode==0) {
+			if (optionFileTypeArrival.isSelected()) set.add(Simulator.LogType.ARRIVAL);
+			if (optionFileTypeLeave.isSelected()) set.add(Simulator.LogType.LEAVE);
+			if (optionFileTypeStation.isSelected()) set.add(Simulator.LogType.STATIONINFO);
+			if (optionFileTypeSystem.isSelected()) set.add(Simulator.LogType.SYSTEMINFO);
+		}
+
+		if (mode==1) {
+			if (optionDDETypeArrival.isSelected()) set.add(Simulator.LogType.ARRIVAL);
+			if (optionDDETypeLeave.isSelected()) set.add(Simulator.LogType.LEAVE);
+			if (optionDDETypeStation.isSelected()) set.add(Simulator.LogType.STATIONINFO);
+			if (optionDDETypeSystem.isSelected()) set.add(Simulator.LogType.SYSTEMINFO);
+		}
+
+		return set;
 	}
 }

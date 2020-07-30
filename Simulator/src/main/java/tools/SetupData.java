@@ -387,6 +387,31 @@ public class SetupData extends SetupBase {
 	public String logDDEsheet;
 
 	/**
+	 * IDs der Stationen deren Daten aufgezeichnet werden sollen (leer bedeutet alls IDs)
+	 */
+	public String logStationIDs;
+
+	/**
+	 * Log-Erfassung von Kundenankünften an Stationen
+	 */
+	public boolean logTypeArrival;
+
+	/**
+	 * Log-Erfassung von Kundenabgängen von Stationen
+	 */
+	public boolean logTypeLeave;
+
+	/**
+	 * Log-Erfassung allgemeinen Stationsinformationen
+	 */
+	public boolean logTypeInfoStation;
+
+	/**
+	 * Log-Erfassung allgemeinen Systeminformationen
+	 */
+	public boolean logTypeInfoSystem;
+
+	/**
 	 * Hohe Priorität (=normal priority, <code>true</code>) statt niedriger Priorität (<code>false</code>) verwenden
 	 */
 	public boolean highPriority;
@@ -806,6 +831,11 @@ public class SetupData extends SetupBase {
 		logMode=LogMode.FILE;
 		logDDEworkbook="";
 		logDDEsheet="";
+		logStationIDs="";
+		logTypeArrival=true;
+		logTypeLeave=true;
+		logTypeInfoStation=true;
+		logTypeInfoSystem=true;
 		highPriority=false;
 		showTemplates=false;
 		animationDelay=4;
@@ -1201,6 +1231,11 @@ public class SetupData extends SetupBase {
 				if (loadBoolean(e.getAttribute("DDE"),false)) logMode=LogMode.DDE; else logMode=LogMode.FILE;
 				logDDEworkbook=e.getAttribute("DDEWorkbook");
 				logDDEsheet=e.getAttribute("DDESheet");
+				logStationIDs=e.getAttribute("IDs");
+				logTypeArrival=loadBoolean("TypeArrival",true);
+				logTypeLeave=loadBoolean("TypeLeave",true);
+				logTypeInfoStation=loadBoolean("TypeInfoStation",true);
+				logTypeInfoSystem=loadBoolean("TypeInfoSystem",true);
 				lastLogFile=e.getTextContent();
 				continue;
 			}
@@ -1685,6 +1720,11 @@ public class SetupData extends SetupBase {
 			if (logMode==LogMode.DDE) node.setAttribute("DDE","1");
 			if (!logDDEworkbook.trim().isEmpty()) node.setAttribute("DDEWorkbook",logDDEworkbook);
 			if (!logDDEsheet.trim().isEmpty()) node.setAttribute("DDESheet",logDDEsheet);
+			if (!logStationIDs.trim().isEmpty()) node.setAttribute("IDs",logStationIDs);
+			if (!logTypeArrival) node.setAttribute("TypeArrival","0");
+			if (!logTypeLeave) node.setAttribute("TypeLeave","0");
+			if (!logTypeInfoStation) node.setAttribute("TypeInfoStation","0");
+			if (!logTypeInfoSystem) node.setAttribute("TypeInfoSystem","0");
 		}
 
 		if (highPriority) {

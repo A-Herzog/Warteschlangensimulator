@@ -17,11 +17,13 @@ package ui.speedup;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import simcore.logging.SimLogging;
 import simulator.AnySimulator;
+import simulator.Simulator;
 import simulator.StartAnySimulator;
 import simulator.builder.RunModelCreator;
 import simulator.editmodel.EditModel;
@@ -277,11 +279,12 @@ public class BackgroundSystem {
 	 * @param editModel	Editor-Modell das simuliert werden soll
 	 * @param logging	Optionales Logging-System (kann <code>null</code> sein)
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als Zeichenkette.
 	 */
-	public Object getNewStartedSimulator(final EditModel editModel, final SimLogging logging,final int[] loggingIDs) {
+	public Object getNewStartedSimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		lastUsage=System.currentTimeMillis();
-		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs);
+		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs,logType);
 		final String error=starter.prepare();
 		if (error!=null) return error;
 		return starter.start();
@@ -293,12 +296,13 @@ public class BackgroundSystem {
 	 * @param logging	Optionales Logging-System (kann <code>null</code> sein)
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt; im Fehlerfall eine Fehlermeldung als Zeichenkette.
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public Object getStartedSimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
+	public Object getStartedSimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		lastUsage=System.currentTimeMillis();
 		if (logging!=null || lastModel==null || lastSimulator==null) {
 			stop();
-			return getNewStartedSimulator(editModel,logging,loggingIDs);
+			return getNewStartedSimulator(editModel,logging,loggingIDs,logType);
 		}
 
 		if (lastModel.equalsEditModel(editModel)) {
@@ -314,7 +318,7 @@ public class BackgroundSystem {
 			return simulator;
 		}
 
-		return getNewStartedSimulator(editModel,null,null);
+		return getNewStartedSimulator(editModel,null,null,Simulator.logTypeFull);
 	}
 
 	/**

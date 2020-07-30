@@ -48,7 +48,7 @@ public class StationLeaveEvent extends Event {
 		final SimulationData simData=(SimulationData)data;
 
 		/* Logging */
-		if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.LeaveStation"),String.format(Language.tr("Simulation.Log.LeaveStation.Info"),client.logInfo(simData),station.name));
+		if (simData.loggingActive) station.logLeave(simData,Language.tr("Simulation.Log.LeaveStation"),String.format(Language.tr("Simulation.Log.LeaveStation.Info"),client.logInfo(simData),station.name));
 
 		if (statistics) {
 			/* Zählung Kunden an Station */
@@ -89,7 +89,7 @@ public class StationLeaveEvent extends Event {
 		final RunData runData=simData.runData;
 
 		/* Logging */
-		if (simData.loggingActive) nextStation.log(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client.logInfo(simData),nextStation.name));
+		if (simData.loggingActive) nextStation.logArrive(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client.logInfo(simData),nextStation.name));
 
 		/* Zwischenabgangszeiten in der Statistik erfassen */
 		runData.logStationLeave(simData.currentTime,simData,lastStation,client);
@@ -127,7 +127,7 @@ public class StationLeaveEvent extends Event {
 		client.nextStationID=nextStation.id;
 
 		/* Logging */
-		if (simData.loggingActive) nextStation.log(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client.logInfo(simData),nextStation.name));
+		if (simData.loggingActive) nextStation.logArrive(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client.logInfo(simData),nextStation.name));
 
 		/* Zwischenabgangszeiten in der Statistik erfassen */
 		simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client);
@@ -169,7 +169,7 @@ public class StationLeaveEvent extends Event {
 			client[i].nextStationID=nextStation[i].id;
 
 			/* Logging */
-			if (simData.loggingActive) nextStation[i].log(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client[i].logInfo(simData),nextStation[i].name));
+			if (simData.loggingActive) nextStation[i].logArrive(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client[i].logInfo(simData),nextStation[i].name));
 
 			/* Zwischenabgangszeiten in der Statistik erfassen */
 			simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client[i]);
@@ -214,7 +214,7 @@ public class StationLeaveEvent extends Event {
 			client[i].nextStationID=nextStation.id;
 
 			/* Logging */
-			if (simData.loggingActive) nextStation.log(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client[i].logInfo(simData),nextStation.name));
+			if (simData.loggingActive) nextStation.logArrive(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client[i].logInfo(simData),nextStation.name));
 
 			/* Zwischenabgangszeiten in der Statistik erfassen */
 			simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client[i]);

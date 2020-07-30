@@ -15,6 +15,8 @@
  */
 package simulator;
 
+import java.util.Set;
+
 import mathtools.NumberTools;
 import net.calc.SimulationClient;
 import simcore.logging.SimLogging;
@@ -36,6 +38,7 @@ public class StartAnySimulator {
 	private final EditModel editModel;
 	private final SimLogging logging;
 	private final int[] loggingIDs;
+	private final Set<Simulator.LogType> logType;
 
 	private SimulationClient remoteSimulator;
 	private Simulator localSimulator;
@@ -45,11 +48,13 @@ public class StartAnySimulator {
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public StartAnySimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs) {
+	public StartAnySimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		this.editModel=editModel;
 		this.logging=logging;
 		this.loggingIDs=loggingIDs;
+		this.logType=logType;
 	}
 
 	/**
@@ -58,7 +63,7 @@ public class StartAnySimulator {
 	 * @param editModel	Editor-Modell
 	 */
 	public StartAnySimulator(final EditModel editModel) {
-		this(editModel,null,null);
+		this(editModel,null,null,Simulator.logTypeFull);
 	}
 
 	/**
@@ -98,7 +103,7 @@ public class StartAnySimulator {
 			}
 		}
 
-		localSimulator=new Simulator(editModel,logging,loggingIDs);
+		localSimulator=new Simulator(editModel,logging,loggingIDs,logType);
 		return localSimulator.prepare();
 	}
 
@@ -114,7 +119,7 @@ public class StartAnySimulator {
 				return remoteSimulator;
 			} else {
 				remoteSimulator=null;
-				localSimulator=new Simulator(editModel,logging,loggingIDs);
+				localSimulator=new Simulator(editModel,logging,loggingIDs,logType);
 				if (localSimulator.prepare()!=null) localSimulator=null;
 			}
 		}

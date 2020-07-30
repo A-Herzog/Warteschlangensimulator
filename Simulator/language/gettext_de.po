@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-29 20:54+0200\n"
+"POT-Creation-Date: 2020-07-30 14:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6480,11 +6480,31 @@ msgstr "Logdatei auswählen"
 msgid "LogSimulation.Mode"
 msgstr "Ausgabeart"
 
+msgid "LogSimulation.Mode.Arrival"
+msgstr "Ankünfte an den Stationen aufzeichnen"
+
+msgid "LogSimulation.Mode.ErrorInfo"
+msgstr ""
+"Es sind keine Ereignistypen, die erfasst werden sollen, gewählt.\n"
+"Es muss mindestens ein Ereignistyp gewählt werden."
+
+msgid "LogSimulation.Mode.ErrorTitle"
+msgstr "Keine Ereignistypen gewählt"
+
 msgid "LogSimulation.Mode.Excel"
 msgstr "Excel-DDE-Verbindung"
 
 msgid "LogSimulation.Mode.File"
 msgstr "Datei"
+
+msgid "LogSimulation.Mode.InfoStation"
+msgstr "Allgemeine Stationsinformationen aufzeichnen"
+
+msgid "LogSimulation.Mode.InfoSystem"
+msgstr "Allgemeine Systeminformationen aufzeichnen"
+
+msgid "LogSimulation.Mode.Leave"
+msgstr "Abgänge von den Stationen aufzeichnen"
 
 msgid "LogSimulation.OptionColor"
 msgstr "Farbe der Stationen für die Textfarbe der zugehörgigen Einträge verwenden"
@@ -6497,6 +6517,12 @@ msgstr "Ereignisnamen mit selben Ausführungszeitpunkten gruppieren"
 
 msgid "LogSimulation.OptionMultiLine"
 msgstr "Ereignisname und Ereignisbeschreibung in zwei Zeilen aufteilen"
+
+msgid "LogSimulation.OutputFormat"
+msgstr "Formatierung der Ausgabe"
+
+msgid "LogSimulation.Restrictions"
+msgstr "Einschränkung der Erfassung"
 
 msgid "LogSimulation.StationIDs"
 msgstr "Zu berücksichtigende Stationen"

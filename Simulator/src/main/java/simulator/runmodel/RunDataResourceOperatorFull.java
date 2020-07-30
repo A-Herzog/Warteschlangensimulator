@@ -89,7 +89,7 @@ public class RunDataResourceOperatorFull extends RunDataResourceOperator {
 			if (simData.currentTime<onlineAgainAt) return false;
 			/* Pause zu Ende */
 			resource.endDownTime(onlineAgainAt);
-			if (simData.loggingActive && simData.loggingIDs==null) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.EndOfDownTime"),name,index+1,SimData.formatSimTime(onlineAgainAt)));
+			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),String.format(Language.tr("Simulation.Log.ResourceFailure.EndOfDownTime"),name,index+1,SimData.formatSimTime(onlineAgainAt)));
 			availableStartTime=onlineAgainAt;
 			onlineAgainAt=0;
 			failures[currentPauseIndex].scheduleDownTime(simData,availableStartTime,name);
