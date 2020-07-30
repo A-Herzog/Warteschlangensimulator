@@ -127,8 +127,6 @@ import ui.speedup.BackgroundSystem;
 public class EditorPanel extends EditorPanelBase {
 	private static final long serialVersionUID = 871808238984135272L;
 
-	private static final boolean useTopToolBar=false;
-
 	private boolean guiReady=false; /* Brauchen wir, wenn der Code von ProGuard verändert wird */
 
 	private boolean allowChangeOperationsOnReadOnly=false;
@@ -545,34 +543,10 @@ public class EditorPanel extends EditorPanelBase {
 		return button;
 	}
 
-	private JToolBar createTopToolBar(final boolean showZoomOnToolBar) {
-		JToolBar toolbar=new JToolBar();
-		toolbar.setFloatable(false);
-
-		buttonProperties=createToolbarButton(toolbar,Language.tr("Editor.ModelProperties"),Language.tr("Editor.ModelProperties.Info"),Images.MODEL.getIcon());
-		toolbar.addSeparator();
-		buttonAddEdge=createToolbarButton(toolbar,Language.tr("Editor.AddEdge"),Language.tr("Editor.AddEdge.Info"),Images.EDIT_EDGES_ADD.getIcon());
-		buttonAddEdge.setEnabled(!readOnly);
-		buttonAddElement=createToolbarButton(toolbar,Language.tr("Editor.AddElement"),Language.tr("Editor.AddElement.Info"),Images.ELEMENTTEMPLATES.getIcon());
-		buttonAddElement.setEnabled(!readOnly);
-		buttonEdit=createToolbarButton(toolbar,Language.tr("Editor.Edit"),Language.tr("Editor.Edit.Info"),Images.GENERAL_TOOLS.getIcon());
-		buttonDelete=createToolbarButton(toolbar,Language.tr("Editor.Delete"),Language.tr("Editor.Delete.Info"),Images.EDIT_DELETE.getIcon());
-		buttonDelete.setEnabled(!readOnly);
-		if (showZoomOnToolBar) {
-			toolbar.addSeparator();
-			buttonZoomOut=createToolbarButton(toolbar,"",Language.tr("Main.Menu.View.ZoomOut"),Images.ZOOM_OUT.getIcon());
-			buttonZoomIn=createToolbarButton(toolbar,"",Language.tr("Main.Menu.View.ZoomIn"),Images.ZOOM_IN.getIcon());
-			buttonZoomDefault=createToolbarButton(toolbar,"",Language.tr("Main.Menu.View.ZoomDefault"),Images.ZOOM.getIcon());
-			buttonFindModel=createToolbarButton(toolbar,"",Language.tr("Main.Menu.View.CenterModel"),Images.ZOOM_CENTER_MODEL.getIcon());
-		}
-
-		return toolbar;
-	}
-
 	private String keyStrokeToString(final KeyStroke key) {
-		int modifiers=key.getModifiers();
+		final int modifiers=key.getModifiers();
 		final StringBuilder text=new StringBuilder();
-		if (modifiers > 0) {
+		if (modifiers>0) {
 			text.append(InputEvent.getModifiersExText(modifiers));
 			text.append('+');
 		}
@@ -814,7 +788,6 @@ public class EditorPanel extends EditorPanelBase {
 
 		JPanel p=new JPanel(new BorderLayout());
 		add(p,BorderLayout.NORTH);
-		if (useTopToolBar) p.add(createTopToolBar(false),BorderLayout.NORTH);
 		p.add(additionalInfoArea=new JToolBar(),BorderLayout.CENTER);
 		additionalInfoArea.setVisible(false);
 		additionalInfoArea.setFloatable(false);
@@ -835,7 +808,7 @@ public class EditorPanel extends EditorPanelBase {
 		JPanel main=new JPanel(new BorderLayout());
 		add(main,BorderLayout.CENTER);
 
-		if (!useTopToolBar) main.add(createLeftToolBar(),BorderLayout.WEST);
+		main.add(createLeftToolBar(),BorderLayout.WEST);
 
 		final boolean isSubSurface=(model!=null && model.surface!=null && model.surface.getParentSurface()!=null);
 		surfacePanel=new ModelSurfacePanel(readOnly,!isSubSurface);

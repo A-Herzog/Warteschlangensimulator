@@ -726,24 +726,24 @@ public class MainPanel extends MainPanelBase {
 		toolbar.setFloatable(false);
 		JButton button;
 
-		visibleOnEditorPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.LoadModel"),Language.tr("Main.Toolbar.LoadModel.Hint"),Images.MODEL_LOAD.getIcon(),"FileLoad"));
-		visibleOnEditorPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.SaveModel"),Language.tr("Main.Toolbar.SaveModel.Hint"),Images.MODEL_SAVE.getIcon(),"FileSave"));
-		visibleOnStatisticsPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.LoadStatistics"),Language.tr("Main.Toolbar.LoadStatistics.Hint"),Images.STATISTICS_LOAD.getIcon(),"FileStatisticsLoad"));
-		button=createToolbarButton(toolbar,Language.tr("Main.Toolbar.SaveStatistics"),Language.tr("Main.Toolbar.SaveStatistics.Hint"),Images.STATISTICS_SAVE.getIcon(),"FileStatisticsSave");
+		visibleOnEditorPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.LoadModel"),Language.tr("Main.Toolbar.LoadModel.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_L,InputEvent.CTRL_DOWN_MASK))+")",Images.MODEL_LOAD.getIcon(),"FileLoad"));
+		visibleOnEditorPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.SaveModel"),Language.tr("Main.Toolbar.SaveModel.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_DOWN_MASK))+")",Images.MODEL_SAVE.getIcon(),"FileSave"));
+		visibleOnStatisticsPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.LoadStatistics"),Language.tr("Main.Toolbar.LoadStatistics.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_L,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")",Images.STATISTICS_LOAD.getIcon(),"FileStatisticsLoad"));
+		button=createToolbarButton(toolbar,Language.tr("Main.Toolbar.SaveStatistics"),Language.tr("Main.Toolbar.SaveStatistics.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")",Images.STATISTICS_SAVE.getIcon(),"FileStatisticsSave");
 		visibleOnStatisticsPanel.add(button);
 		enabledOnStatisticsAvailable.add(button);
 		toolbar.addSeparator();
-		selectOnEditorPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.ShowEditor"),Language.tr("Main.Toolbar.ShowEditor.Hint"),Images.MODEL.getIcon(),"ViewEditor"));
-		selectOnStatisticsPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.ShowStatistics"),Language.tr("Main.Toolbar.ShowStatistics.Hint"),Images.STATISTICS.getIcon(),"ViewStatistics"));
+		selectOnEditorPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.ShowEditor"),Language.tr("Main.Toolbar.ShowEditor.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0))+")",Images.MODEL.getIcon(),"ViewEditor"));
+		selectOnStatisticsPanel.add(createToolbarButton(toolbar,Language.tr("Main.Toolbar.ShowStatistics"),Language.tr("Main.Toolbar.ShowStatistics.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F4,0))+")",Images.STATISTICS.getIcon(),"ViewStatistics"));
 		toolbar.addSeparator();
-		createToolbarButton(toolbar,Language.tr("Main.Toolbar.StartAnimation"),Language.tr("Main.Toolbar.StartAnimation.Hint"),Images.ANIMATION.getIcon(),"SimulationAnimation");
-		createToolbarButton(toolbar,Language.tr("Main.Toolbar.StartSimulation"),Language.tr("Main.Toolbar.StartSimulation.Hint"),Images.SIMULATION.getIcon(),"SimulationSimulation");
-		createToolbarButton(toolbar,Language.tr("Main.Toolbar.ParameterSeries"),Language.tr("Main.Toolbar.ParameterSeries.Hint"),Images.PARAMETERSERIES.getIcon(),"SimulationParameterSeriesNew");
+		createToolbarButton(toolbar,Language.tr("Main.Toolbar.StartAnimation"),Language.tr("Main.Toolbar.StartAnimation.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")",Images.ANIMATION.getIcon(),"SimulationAnimation");
+		createToolbarButton(toolbar,Language.tr("Main.Toolbar.StartSimulation"),Language.tr("Main.Toolbar.StartSimulation.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0))+")",Images.SIMULATION.getIcon(),"SimulationSimulation");
+		createToolbarButton(toolbar,Language.tr("Main.Toolbar.ParameterSeries"),Language.tr("Main.Toolbar.ParameterSeries.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F7,0))+")",Images.PARAMETERSERIES.getIcon(),"SimulationParameterSeriesNew");
 		button=createToolbarButton(toolbar,Language.tr("Main.Toolbar.ShowModelForTheseResults"),Language.tr("Main.Toolbar.ShowModelForTheseResults.Hint"),Images.STATISTICS_SHOW_MODEL.getIcon(),"SimulationModelForResults");
 		visibleOnStatisticsPanel.add(button);
 		enabledOnStatisticsAvailable.add(button);
 		toolbar.addSeparator();
-		createToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon(),"HelpHelp");
+		createToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F1,0))+")",Images.HELP.getIcon(),"HelpHelp");
 
 		fixButton=createToolbarButton(toolbar,Language.tr("Main.Toolbar.Fix"),Language.tr("Main.Toolbar.Fix.Hint"),Images.GENERAL_WARNING_BUG.getIcon(),"HelpFix");
 		fixButton.setVisible(false);
@@ -759,6 +759,17 @@ public class MainPanel extends MainPanelBase {
 		 */
 
 		return toolbar;
+	}
+
+	private String keyStrokeToString(final KeyStroke key) {
+		final int modifiers=key.getModifiers();
+		final StringBuilder text=new StringBuilder();
+		if (modifiers>0) {
+			text.append(InputEvent.getModifiersExText(modifiers));
+			text.append('+');
+		}
+		text.append(KeyEvent.getKeyText(key.getKeyCode()));
+		return text.toString();
 	}
 
 	private JMenuItem createTextOnlyItem(final String text) {

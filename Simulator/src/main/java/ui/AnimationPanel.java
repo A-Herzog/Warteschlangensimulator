@@ -27,6 +27,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -42,12 +44,15 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
+import java.util.function.Consumer;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
@@ -63,6 +68,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
 import javax.swing.JViewport;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
@@ -222,18 +228,18 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		add(toolBar,BorderLayout.NORTH);
 		toolBar.setFloatable(false);
 
-		buttonAbort=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Stop"),Language.tr("Animation.Toolbar.Stop.Info"),Images.GENERAL_CANCEL.getIcon());
+		buttonAbort=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Stop"),Language.tr("Animation.Toolbar.Stop.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0))+")",Images.GENERAL_CANCEL.getIcon());
 		toolBar.addSeparator();
 
 		buttonScreenshot=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Image"),Language.tr("Animation.Toolbar.Image.Info"),Images.ANIMATION_SCREENSHOT.getIcon());
 		updateScreenshotButtonHint();
-		buttonSimulation=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Simulation"),Language.tr("Animation.Toolbar.Simulation.Info"),Images.SIMULATION.getIcon());
+		buttonSimulation=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Simulation"),Language.tr("Animation.Toolbar.Simulation.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0))+")",Images.SIMULATION.getIcon());
 		buttonSimulation.setVisible(false);
 		buttonTools=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Tools"),Language.tr("Animation.Toolbar.Tools.Info"),Images.GENERAL_TOOLS.getIcon());
 		toolBar.addSeparator();
 
-		buttonPlayPause=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Pause"),Language.tr("Animation.Toolbar.Pause.Info"),Images.ANIMATION_PAUSE.getIcon());
-		buttonStep=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Step"),Language.tr("Animation.Toolbar.Step.Info"),Images.ANIMATION_STEP.getIcon());
+		buttonPlayPause=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Pause"),Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")",Images.ANIMATION_PAUSE.getIcon()); // XXX
+		buttonStep=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Step"),Language.tr("Animation.Toolbar.Step.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F7,0))+")",Images.ANIMATION_STEP.getIcon());
 		buttonStep.setEnabled(false);
 		buttonSpeed=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Speed"),Language.tr("Animation.Toolbar.Speed.Info"),Images.ANIMATION_SPEED.getIcon());
 
@@ -318,6 +324,42 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		delay=setup.animationDelay*10;
 		animationDelayChanged();
+
+		final InputMap input=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0),"keyEscape");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0),"keyF5");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0),"keyF6");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F7,0),"keyF7");
+		addAction("keyEscape",e->{
+			if (buttonAbort.isEnabled()) {
+				closeRequest(); buttonAbort.setEnabled(false);
+			}
+		});
+		addAction("keyF5",e->finishAsSimulation());
+		addAction("keyF6",e->playPause());
+		addAction("keyF7",e->step(false));
+	}
+
+	private String keyStrokeToString(final KeyStroke key) {
+		final int modifiers=key.getModifiers();
+		final StringBuilder text=new StringBuilder();
+		if (modifiers>0) {
+			text.append(InputEvent.getModifiersExText(modifiers));
+			text.append('+');
+		}
+		text.append(KeyEvent.getKeyText(key.getKeyCode()));
+		return text.toString();
+	}
+
+	private void addAction(final String name, final Consumer<ActionEvent> action) {
+		getActionMap().put(name,new AbstractAction() {
+			private static final long serialVersionUID=-6092283861324716876L;
+
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				if (action!=null) action.accept(e);
+			}
+		});
 	}
 
 	/**
@@ -989,7 +1031,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				running=false;
 				buttonStep.setEnabled(true);
 				buttonPlayPause.setText(Language.tr("Animation.Toolbar.Play"));
-				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info"));
+				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 				buttonPlayPause.setIcon(Images.ANIMATION_PLAY.getIcon());
 				if (simulator!=null) simulator.pauseExecution();
 
@@ -1006,7 +1048,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				running=true;
 				buttonStep.setEnabled(false);
 				buttonPlayPause.setText(Language.tr("Animation.Toolbar.Pause"));
-				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info"));
+				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
 				buttonPlayPause.setIcon(Images.ANIMATION_PAUSE.getIcon());
 				if (simulator!=null) simulator.resumeExecution();
 
