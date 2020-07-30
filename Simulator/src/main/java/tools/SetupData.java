@@ -1227,15 +1227,15 @@ public class SetupData extends SetupBase {
 				singleLineEventLog=loadMultiBoolean(new String[]{e.getAttribute("CompactFormat"),e.getAttribute("KompaktesSimulationsLogFormat")},true);
 				logGrouped=loadMultiBoolean(new String[]{e.getAttribute("GroupRecords"),e.getAttribute("LogeintraegeGruppieren")},true);
 				logColors=loadMultiBoolean(new String[]{e.getAttribute("UseColors"),e.getAttribute("FarbigeLogdateien")},true);
-				logFormatedTime=loadBoolean("FormatedTime",true);
+				logFormatedTime=loadBoolean(e.getAttribute("FormatedTime"),true);
 				if (loadBoolean(e.getAttribute("DDE"),false)) logMode=LogMode.DDE; else logMode=LogMode.FILE;
 				logDDEworkbook=e.getAttribute("DDEWorkbook");
 				logDDEsheet=e.getAttribute("DDESheet");
 				logStationIDs=e.getAttribute("IDs");
-				logTypeArrival=loadBoolean("TypeArrival",true);
-				logTypeLeave=loadBoolean("TypeLeave",true);
-				logTypeInfoStation=loadBoolean("TypeInfoStation",true);
-				logTypeInfoSystem=loadBoolean("TypeInfoSystem",true);
+				logTypeArrival=loadBoolean(e.getAttribute("TypeArrival"),true);
+				logTypeLeave=loadBoolean(e.getAttribute("TypeLeave"),true);
+				logTypeInfoStation=loadBoolean(e.getAttribute("TypeInfoStation"),true);
+				logTypeInfoSystem=loadBoolean(e.getAttribute("TypeInfoSystem"),true);
 				lastLogFile=e.getTextContent();
 				continue;
 			}
@@ -1710,7 +1710,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent("0");
 		}
 
-		if (!lastLogFile.isEmpty() || !singleLineEventLog || !logGrouped || !logColors || !logFormatedTime || logMode==LogMode.DDE || !logDDEworkbook.trim().isEmpty() || !logDDEsheet.trim().isEmpty()) {
+		if (!lastLogFile.isEmpty() || !singleLineEventLog || !logGrouped || !logColors || !logFormatedTime || logMode==LogMode.DDE || !logDDEworkbook.trim().isEmpty() || !logDDEsheet.trim().isEmpty() || !logStationIDs.isEmpty() || !logTypeArrival || !logTypeLeave || !logTypeInfoStation || !logTypeInfoSystem) {
 			root.appendChild(node=doc.createElement("Logging"));
 			node.setTextContent(lastLogFile);
 			if (!singleLineEventLog) node.setAttribute("CompactFormat","0");
