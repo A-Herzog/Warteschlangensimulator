@@ -238,7 +238,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		buttonTools=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Tools"),Language.tr("Animation.Toolbar.Tools.Info"),Images.GENERAL_TOOLS.getIcon());
 		toolBar.addSeparator();
 
-		buttonPlayPause=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Pause"),Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")",Images.ANIMATION_PAUSE.getIcon()); // XXX
+		buttonPlayPause=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Pause"),Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")",Images.ANIMATION_PAUSE.getIcon());
 		buttonStep=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Step"),Language.tr("Animation.Toolbar.Step.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F7,0))+")",Images.ANIMATION_STEP.getIcon());
 		buttonStep.setEnabled(false);
 		buttonSpeed=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Speed"),Language.tr("Animation.Toolbar.Speed.Info"),Images.ANIMATION_SPEED.getIcon());
