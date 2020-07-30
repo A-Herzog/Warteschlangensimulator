@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <ModellVersion>4.5.0</ModellVersion>
+  <ModellName>Zwei getrennte Warteschlangen mit Jockeying</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (28)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzweigen id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="300"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="wip(11)+wip(7)&lt;wip(12)+wip(8)" Element="14" Typ="Auslaufend"/>
+      <ModellElementVerbindung Bedingung="wip(11)+wip(7)&gt;wip(12)+wip(8)" Element="15" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="4">
+      <ModellElementGroesse h="50" w="100" x="450" y="300"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="41" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="42" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEcke id="5">
+      <ModellElementGroesse h="10" w="10" x="295" y="170"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="6">
+      <ModellElementGroesse h="10" w="10" x="295" y="470"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementBedingungScript id="7">
+      <ModellElementGroesse h="50" w="100" x="700" y="150"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+      <ModellElementBedingungScriptBedingung>wip(11)==0 || wip(12)==0</ModellElementBedingungScriptBedingung>
+      <ModellElementBedingungScriptText Sprache="Javascript">var count=Clients.count();
+
+/* Eigene Station im Leerlauf -&gt; ersten Kunden freigeben (FIFO) */
+if (Simulation.getWIP(11)==0) {
+	Clients.release(0);
+	Clients.clientData(0,1,0); /* Anweisung: Kunde in gerader Linie weiter */
+	count--;
+}
+
+/* Andere Station im Leerlauf -&gt; letzten Kunden freigeben (LIFO) */
+if (count&gt;0 &amp;&amp; Simulation.getWIP(12)==0 &amp;&amp; Simulation.getWIP(8)==0) {
+	Clients.release(count-1);
+	Clients.clientData(count-1,1,1); /* Anweisung: Kunde abzweigen */
+}
+</ModellElementBedingungScriptText>
+    </ModellElementBedingungScript>
+    <ModellElementBedingungScript id="8">
+      <ModellElementGroesse h="50" w="100" x="700" y="450"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+      <ModellElementBedingungScriptBedingung>wip(11)==0 || wip(12)==0</ModellElementBedingungScriptBedingung>
+      <ModellElementBedingungScriptText Sprache="Javascript">var count=Clients.count();
+
+/* Eigene Station im Leerlauf -&gt; ersten Kunden freigeben (FIFO) */
+if (Simulation.getWIP(12)==0) {
+	Clients.release(0);
+	Clients.clientData(0,1,0); /* Anweisung: Kunde in gerader Linie weiter */
+	count--;
+}
+
+/* Andere Station im Leerlauf -&gt; letzten Kunden freigeben (LIFO) */
+if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(7)==0) {
+	Clients.release(count-1);
+	Clients.clientData(count-1,1,1); /* Anweisung: Kunde abzweigen */
+}
+</ModellElementBedingungScriptText>
+    </ModellElementBedingungScript>
+    <ModellElementVerzweigen id="9">
+      <ModellElementGroesse h="50" w="100" x="850" y="150"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="ClientData(1)==1" Element="23" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementVerzweigen id="10">
+      <ModellElementGroesse h="50" w="100" x="850" y="450"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="ClientData(1)==1" Element="25" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementBedienstation id="11">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1100" y="150"/>
+      <ModellElementVerbindung Element="32" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="BedienerA"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="12">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1100" y="450"/>
+      <ModellElementVerbindung Element="34" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="BedienerB"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="13">
+      <ModellElementGroesse h="50" w="100" x="1300" y="300"/>
+      <ModellElementVerbindung Element="36" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="38" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="14">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementName>Bedingung 2</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="7" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="8" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="11" Element2="35" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementVerbindung Element1="12" Element2="37" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementTeleportStart id="24">
+      <ModellElementGroesse h="30" w="30" x="885" y="250"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>ZuB</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementTeleportStart id="29">
+      <ModellElementGroesse h="30" w="30" x="885" y="370"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>ZuA</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementTeleportZiel id="31">
+      <ModellElementName>ZuA</ModellElementName>
+      <ModellElementGroesse h="30" w="30" x="1135" y="250"/>
+      <ModellElementVerbindung Element="32" Typ="Auslaufend"/>
+    </ModellElementTeleportZiel>
+    <ModellElementKante id="32">
+      <ModellElementVerbindung Element1="31" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementTeleportZiel id="33">
+      <ModellElementName>ZuB</ModellElementName>
+      <ModellElementGroesse h="30" w="30" x="1135" y="370"/>
+      <ModellElementVerbindung Element="34" Typ="Auslaufend"/>
+    </ModellElementTeleportZiel>
+    <ModellElementKante id="34">
+      <ModellElementVerbindung Element1="33" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="35">
+      <ModellElementGroesse h="10" w="10" x="1345" y="170"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="36" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="36">
+      <ModellElementVerbindung Element1="35" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="37">
+      <ModellElementGroesse h="10" w="10" x="1345" y="470"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="38" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="38">
+      <ModellElementVerbindung Element1="37" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="9" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="9" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="10" Element2="29" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="30">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="10" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementIcon id="39">
+      <ModellElementGroesse h="50" w="100" x="450" y="150"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="41" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
+      <ModellElementIconName>user_green</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementIcon id="40">
+      <ModellElementGroesse h="50" w="100" x="450" y="450"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+      <ModellElementIconName>user_red</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementKante id="17">
+      <ModellElementVerbindung Element1="5" Element2="39" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementVerbindung Element1="39" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="6" Element2="40" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementVerbindung Element1="40" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="41">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="39" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="42">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="40" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="43">
+      <ModellElementGroesse h="450" w="350" x="250" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="44">
+      <ModellElementGroesse h="19" w="238" x="255" y="105"/>
+      <ModellElementTextzeile>Wahl der kürzeren Warteschlange</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="45">
+      <ModellElementGroesse h="200" w="350" x="650" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,195,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="46">
+      <ModellElementGroesse h="200" w="350" x="650" y="350"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="47">
+      <ModellElementGroesse h="19" w="118" x="655" y="105"/>
+      <ModellElementTextzeile>Warteschlange A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,195,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="48">
+      <ModellElementGroesse h="19" w="119" x="655" y="355"/>
+      <ModellElementTextzeile>Warteschlange B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="49">
+      <ModellElementGroesse h="45" w="323" x="650" y="305"/>
+      <ModellElementTextzeile>Ist Station in gerader Linie frei, ersten Kunden direkt weiterleiten.</ModellElementTextzeile>
+      <ModellElementTextzeile>Sind die andere Station und auch vorgelagerte Warteschlange leer,</ModellElementTextzeile>
+      <ModellElementTextzeile>letzten Kunden zu anderer Station leiten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="50">
+      <ModellElementGroesse h="45" w="117" x="1095" y="305"/>
+      <ModellElementTextzeile>Ist das Jockeying aktiv,</ModellElementTextzeile>
+      <ModellElementTextzeile>so sinkt E[W] etwas und</ModellElementTextzeile>
+      <ModellElementTextzeile>CV[W] steigt etwas.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="51">
+      <ModellElementGroesse h="19" w="81" x="1100" y="120"/>
+      <ModellElementTextzeile>E[S]=50, c=1</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="52">
+      <ModellElementGroesse h="19" w="81" x="1100" y="515"/>
+      <ModellElementTextzeile>E[S]=50, c=1</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="53">
+      <ModellElementGroesse h="38" w="135" x="50" y="250"/>
+      <ModellElementTextzeile>E[I]=28</ModellElementTextzeile>
+      <ModellElementTextzeile>d.h. System rho=89%</ModellElementTextzeile>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="60">
+      <ModellElementGroesse h="23" w="405" x="50" y="50"/>
+      <ModellElementTextzeile>Zwei getrennte Warteschlangen mit Jockeying</ModellElementTextzeile>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="BedienerA" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="BedienerB" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

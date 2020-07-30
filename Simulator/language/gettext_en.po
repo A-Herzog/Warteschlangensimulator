@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-30 14:08+0200\n"
+"POT-Creation-Date: 2020-07-30 18:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2248,9 +2248,6 @@ msgstr "Number of values"
 msgid "DistributionFitter.ValueRange"
 msgstr "Range"
 
-msgid "Editor.AddEdge"
-msgstr "Edge"
-
 msgid "Editor.AddEdge.Hint.RemoveAllButton"
 msgstr "Hide all hints"
 
@@ -2280,12 +2277,6 @@ msgstr "Now Click on the destination element to be connected by the new edge."
 
 msgid "Editor.AddEdge.Short"
 msgstr "Edge"
-
-msgid "Editor.AddElement"
-msgstr "Element"
-
-msgid "Editor.AddElement.Info"
-msgstr "Adds a new element to the model"
 
 msgid "Editor.AddElement.PlaceClipboardElement"
 msgstr "Click on the model surface to insert the new element from clipboard."
@@ -2361,12 +2352,6 @@ msgstr "Use user-defined color"
 
 msgid "Editor.ColorChooser.UserDefinedImage"
 msgstr "Use user-defined image"
-
-msgid "Editor.Delete"
-msgstr "Delete"
-
-msgid "Editor.Delete.Info"
-msgstr "Deletes the selected element"
 
 msgid "Editor.Dialog.Sequences.Add"
 msgstr "Adds"
@@ -3005,12 +2990,6 @@ msgstr "Table source"
 msgid "Editor.DragDropTableLoad.Title"
 msgstr "Import table to model"
 
-msgid "Editor.Edit"
-msgstr "Edit"
-
-msgid "Editor.Edit.Info"
-msgstr "Edits the select element"
-
 msgid "Editor.Element.Plural"
 msgstr "elements"
 
@@ -3058,9 +3037,6 @@ msgstr "Opens the elements search dialog."
 
 msgid "Editor.ModelOverview.Short"
 msgstr "Overview"
-
-msgid "Editor.ModelProperties"
-msgstr "Properties"
 
 msgid "Editor.ModelProperties.Info"
 msgstr "Model properties"
@@ -3271,6 +3247,9 @@ msgstr "Releasing clients based on Javascript"
 
 msgid "Examples.ImpatientClientsAndRetry"
 msgstr "Queue with impatient clients and retry"
+
+msgid "Examples.Jockeying"
+msgstr "Queues with jockeying"
 
 msgid "Examples.LawOfLargeNumbers"
 msgstr "Law of large numbers"
@@ -26641,6 +26620,30 @@ msgstr "Statistic"
 
 msgid "XML.UnknownFileFormat"
 msgstr "The file format is unknown respectively is not matching to any of the file formats of this program."
+
+#~ msgid "Editor.AddEdge"
+#~ msgstr "Edge"
+
+#~ msgid "Editor.AddElement"
+#~ msgstr "Element"
+
+#~ msgid "Editor.AddElement.Info"
+#~ msgstr "Adds a new element to the model"
+
+#~ msgid "Editor.Delete"
+#~ msgstr "Delete"
+
+#~ msgid "Editor.Delete.Info"
+#~ msgstr "Deletes the selected element"
+
+#~ msgid "Editor.Edit"
+#~ msgstr "Edit"
+
+#~ msgid "Editor.Edit.Info"
+#~ msgstr "Edits the select element"
+
+#~ msgid "Editor.ModelProperties"
+#~ msgstr "Properties"
 
 #~ msgid "Editor.SurfaceTooltip.License"
 #~ msgstr "Get license now"

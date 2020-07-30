@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-30 14:08+0200\n"
+"POT-Creation-Date: 2020-07-30 18:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2248,9 +2248,6 @@ msgstr "Anzahl an Messwerten"
 msgid "DistributionFitter.ValueRange"
 msgstr "Wertebereich"
 
-msgid "Editor.AddEdge"
-msgstr "Kante"
-
 msgid "Editor.AddEdge.Hint.RemoveAllButton"
 msgstr "Alle Hinweise ausblenden"
 
@@ -2280,12 +2277,6 @@ msgstr "Klicken Sie jetzt das Zielelement für die neue Verknüpfung an."
 
 msgid "Editor.AddEdge.Short"
 msgstr "Kante"
-
-msgid "Editor.AddElement"
-msgstr "Element"
-
-msgid "Editor.AddElement.Info"
-msgstr "Fügt ein neues Element zu dem Modell hinzu"
 
 msgid "Editor.AddElement.PlaceClipboardElement"
 msgstr "Auf die Zeichenfläche klicken, um das neue Element aus der Zwischenablage einzufügen."
@@ -2361,12 +2352,6 @@ msgstr "Benutzerdefinierte Farbe verwenden"
 
 msgid "Editor.ColorChooser.UserDefinedImage"
 msgstr "Benutzerdefiniertes Bild verwenden"
-
-msgid "Editor.Delete"
-msgstr "Löschen"
-
-msgid "Editor.Delete.Info"
-msgstr "Ausgewähltes Element löschen"
 
 msgid "Editor.Dialog.Sequences.Add"
 msgstr "Hinzufügen"
@@ -3006,12 +2991,6 @@ msgstr "Tabellen-Quelle"
 msgid "Editor.DragDropTableLoad.Title"
 msgstr "Tabelle in Modell importieren"
 
-msgid "Editor.Edit"
-msgstr "Bearbeiten"
-
-msgid "Editor.Edit.Info"
-msgstr "Ausgewähltes Element bearbeiten"
-
 msgid "Editor.Element.Plural"
 msgstr "Elemente"
 
@@ -3059,9 +3038,6 @@ msgstr "Öffnet den Elemente-Suchdialog."
 
 msgid "Editor.ModelOverview.Short"
 msgstr "Überblick"
-
-msgid "Editor.ModelProperties"
-msgstr "Eigenschaften"
 
 msgid "Editor.ModelProperties.Info"
 msgstr "Modelleigenschaften"
@@ -3272,6 +3248,9 @@ msgstr "Javascript-gesteuerte Freigabe von Kunden"
 
 msgid "Examples.ImpatientClientsAndRetry"
 msgstr "Warteschlange mit ungeduldigen Kunden und Wiederholern"
+
+msgid "Examples.Jockeying"
+msgstr "Warteschlangen mit Jockeying"
 
 msgid "Examples.LawOfLargeNumbers"
 msgstr "Gesetz der großen Zahlen"
@@ -26677,6 +26656,30 @@ msgstr "Statistik"
 
 msgid "XML.UnknownFileFormat"
 msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat dieses Programms."
+
+#~ msgid "Editor.AddEdge"
+#~ msgstr "Kante"
+
+#~ msgid "Editor.AddElement"
+#~ msgstr "Element"
+
+#~ msgid "Editor.AddElement.Info"
+#~ msgstr "Fügt ein neues Element zu dem Modell hinzu"
+
+#~ msgid "Editor.Delete"
+#~ msgstr "Löschen"
+
+#~ msgid "Editor.Delete.Info"
+#~ msgstr "Ausgewähltes Element löschen"
+
+#~ msgid "Editor.Edit"
+#~ msgstr "Bearbeiten"
+
+#~ msgid "Editor.Edit.Info"
+#~ msgstr "Ausgewähltes Element bearbeiten"
+
+#~ msgid "Editor.ModelProperties"
+#~ msgstr "Eigenschaften"
 
 #~ msgid "Editor.SurfaceTooltip.License"
 #~ msgstr "Jetzt lizensieren"

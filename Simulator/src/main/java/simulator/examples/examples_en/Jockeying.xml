@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <ModelVersion>4.5.0</ModelVersion>
+  <ModelName>Two separate queues with jockeying</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (28)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDecide id="2">
+      <ModelElementSize h="50" w="100" x="250" y="300"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Condition="wip(11)+wip(7)&lt;wip(12)+wip(8)" Element="14" Type="Out"/>
+      <ModelElementConnection Condition="wip(11)+wip(7)&gt;wip(12)+wip(8)" Element="15" Type="Out"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="4">
+      <ModelElementSize h="50" w="100" x="450" y="300"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="41" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="42" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementVertex id="5">
+      <ModelElementSize h="10" w="10" x="295" y="170"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="6">
+      <ModelElementSize h="10" w="10" x="295" y="470"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementHoldScript id="7">
+      <ModelElementSize h="50" w="100" x="700" y="150"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementHoldScriptAdditionalCondition>wip(11)==0 || wip(12)==0</ModelElementHoldScriptAdditionalCondition>
+      <ModelElementHoldScriptCondition Language="Javascript">var count=Clients.count();
+
+/* Own station is idle -&gt; release first client (FIFO) */
+if (Simulation.getWIP(11)==0) {
+	Clients.release(0);
+	Clients.clientData(0,1,0); /* Command: send client straight ahead */
+	count--;
+}
+
+/* Other station is idle -&gt; release last client (LIFO) */
+if (count&gt;0 &amp;&amp; Simulation.getWIP(12)==0 &amp;&amp; Simulation.getWIP(8)==0) {
+	Clients.release(count-1);
+	Clients.clientData(count-1,1,1); /* Command: branch client */
+}
+</ModelElementHoldScriptCondition>
+    </ModelElementHoldScript>
+    <ModelElementHoldScript id="8">
+      <ModelElementSize h="50" w="100" x="700" y="450"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+      <ModelElementHoldScriptAdditionalCondition>wip(11)==0 || wip(12)==0</ModelElementHoldScriptAdditionalCondition>
+      <ModelElementHoldScriptCondition Language="Javascript">var count=Clients.count();
+
+/* Own station is idle -&gt; release first client (FIFO) */
+if (Simulation.getWIP(12)==0) {
+	Clients.release(0);
+	Clients.clientData(0,1,0); /* Command: send client straight ahead */
+	count--;
+}
+
+/* Other station is idle -&gt; release last client (LIFO) */
+if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(7)==0) {
+	Clients.release(count-1);
+	Clients.clientData(count-1,1,1); /* Command: branch client */
+}
+</ModelElementHoldScriptCondition>
+    </ModelElementHoldScript>
+    <ModelElementDecide id="9">
+      <ModelElementSize h="50" w="100" x="850" y="150"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Condition="ClientData(1)==1" Element="23" Type="Out"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="10">
+      <ModelElementSize h="50" w="100" x="850" y="450"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Condition="ClientData(1)==1" Element="25" Type="Out"/>
+      <ModelElementConnection Element="30" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementProcessStation id="11">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1100" y="150"/>
+      <ModelElementConnection Element="32" Type="In"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="OperatorA"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="12">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1100" y="450"/>
+      <ModelElementConnection Element="34" Type="In"/>
+      <ModelElementConnection Element="30" Type="In"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="OperatorB"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="13">
+      <ModelElementSize h="50" w="100" x="1300" y="300"/>
+      <ModelElementConnection Element="36" Type="In"/>
+      <ModelElementConnection Element="38" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="14">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementName>Condition 2</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="7" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="8" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="11" Element2="35" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementConnection Element1="12" Element2="37" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="24">
+      <ModelElementSize h="30" w="30" x="885" y="250"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementTeleportOriginToTarget>ZuB</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="29">
+      <ModelElementSize h="30" w="30" x="885" y="370"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementTeleportOriginToTarget>ZuA</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportDestination id="31">
+      <ModelElementName>ZuA</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1135" y="250"/>
+      <ModelElementConnection Element="32" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementEdge id="32">
+      <ModelElementConnection Element1="31" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTeleportDestination id="33">
+      <ModelElementName>ZuB</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1135" y="370"/>
+      <ModelElementConnection Element="34" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementEdge id="34">
+      <ModelElementConnection Element1="33" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="35">
+      <ModelElementSize h="10" w="10" x="1345" y="170"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="36" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="36">
+      <ModelElementConnection Element1="35" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="37">
+      <ModelElementSize h="10" w="10" x="1345" y="470"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="38" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="38">
+      <ModelElementConnection Element1="37" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="25">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="29" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="30">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementIcon id="39">
+      <ModelElementSize h="50" w="100" x="450" y="150"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="41" Type="In"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementIconName>user_green</ModelElementIconName>
+    </ModelElementIcon>
+    <ModelElementIcon id="40">
+      <ModelElementSize h="50" w="100" x="450" y="450"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="42" Type="In"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+      <ModelElementIconName>user_red</ModelElementIconName>
+    </ModelElementIcon>
+    <ModelElementEdge id="17">
+      <ModelElementConnection Element1="5" Element2="39" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementConnection Element1="39" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="6" Element2="40" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementConnection Element1="40" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="41">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="39" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="42">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="40" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="43">
+      <ModelElementSize h="450" w="350" x="250" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="44">
+      <ModelElementSize h="19" w="205" x="255" y="105"/>
+      <ModelElementTextLine>Selecting the shortest queue</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="45">
+      <ModelElementSize h="200" w="350" x="650" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,195,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="46">
+      <ModelElementSize h="200" w="350" x="650" y="350"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="47">
+      <ModelElementSize h="19" w="60" x="655" y="105"/>
+      <ModelElementTextLine>Queue A</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,195,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="48">
+      <ModelElementSize h="19" w="61" x="655" y="355"/>
+      <ModelElementTextLine>Queue B</ModelElementTextLine>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="49">
+      <ModelElementSize h="45" w="281" x="650" y="305"/>
+      <ModelElementTextLine>If station in straight line is free, forward first client directly.</ModelElementTextLine>
+      <ModelElementTextLine>If the other station and also upstream queue are empty,</ModelElementTextLine>
+      <ModelElementTextLine>forward last client to other station.</ModelElementTextLine>
+      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="50">
+      <ModelElementSize h="45" w="142" x="1095" y="305"/>
+      <ModelElementTextLine>If jockeying is active,</ModelElementTextLine>
+      <ModelElementTextLine>E[W] decreases slightly</ModelElementTextLine>
+      <ModelElementTextLine>and CV[W] increases slightly.</ModelElementTextLine>
+      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="51">
+      <ModelElementSize h="19" w="81" x="1100" y="120"/>
+      <ModelElementTextLine>E[S]=50, c=1</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="52">
+      <ModelElementSize h="19" w="81" x="1100" y="515"/>
+      <ModelElementTextLine>E[S]=50, c=1</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="53">
+      <ModelElementSize h="38" w="128" x="50" y="250"/>
+      <ModelElementTextLine>E[I]=28</ModelElementTextLine>
+      <ModelElementTextLine>i.e. system rho=89%</ModelElementTextLine>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="60">
+      <ModelElementSize h="23" w="320" x="50" y="50"/>
+      <ModelElementTextLine>Two separate queues with jockeying</ModelElementTextLine>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="OperatorA" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="OperatorB" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>
