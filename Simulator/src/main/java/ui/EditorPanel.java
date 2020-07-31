@@ -108,8 +108,11 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementListGroup;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ModelElementAssign;
+import ui.modeleditor.elements.ModelElementBatch;
 import ui.modeleditor.elements.ModelElementCounter;
+import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDifferentialCounter;
+import ui.modeleditor.elements.ModelElementMatch;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementThroughput;
@@ -118,6 +121,7 @@ import ui.modelproperties.ModelPropertiesDialog;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
 import ui.quickaccess.JPlaceholderTextField;
 import ui.speedup.BackgroundSystem;
+import ui.statistics.StatisticTools;
 
 /**
  * Diese Klasse kapselt einen vollständigen Editor für ein <code>EditModel</code>-Objekt
@@ -1868,8 +1872,8 @@ public class EditorPanel extends EditorPanelBase {
 			if (transfer!=null && transfer.getMean()>0) lines.add("E[T]="+formatTime(transfer.getMean()));
 			if (process!=null && process.getMean()>0) lines.add("E[S]="+formatTime(process.getMean()));
 			if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
-			if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+NumberTools.formatNumber(nq.getTimeMean()));
-			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+NumberTools.formatNumber(wip.getTimeMean()));
+			if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+StatisticTools.formatNumber(nq.getTimeMean()));
+			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
 			return formatStatisticsData(lines);
 		}
 
@@ -1887,8 +1891,8 @@ public class EditorPanel extends EditorPanelBase {
 			if (transfer!=null && transfer.getMean()>0) lines.add("E[T]="+formatTime(transfer.getMean()));
 			if (process!=null && process.getMean()>0) lines.add("E[S]="+formatTime(process.getMean()));
 			if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
-			if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+NumberTools.formatNumber(nq.getTimeMean()));
-			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+NumberTools.formatNumber(wip.getTimeMean()));
+			if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+StatisticTools.formatNumber(nq.getTimeMean()));
+			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
 			return formatStatisticsData(lines);
 		}
 
@@ -1905,8 +1909,38 @@ public class EditorPanel extends EditorPanelBase {
 			if (transfer!=null && transfer.getMean()>0) lines.add("E[T]="+formatTime(transfer.getMean()));
 			if (process!=null && process.getMean()>0) lines.add("E[S]="+formatTime(process.getMean()));
 			if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
-			if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+NumberTools.formatNumber(nq.getTimeMean()));
-			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+NumberTools.formatNumber(wip.getTimeMean()));
+			if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+StatisticTools.formatNumber(nq.getTimeMean()));
+			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
+			return formatStatisticsData(lines);
+		}
+
+		if (element instanceof ModelElementDelay) {
+			final String nameStation=RunElement.buildName(element,Language.tr("Simulation.Element.Delay.Name"));
+			final StatisticsDataPerformanceIndicator waiting=((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.getOrNull(nameStation));
+			final StatisticsTimePerformanceIndicator wip=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.getOrNull(nameStation));
+			final List<String> lines=new ArrayList<>();
+			if (waiting!=null && waiting.getMean()>0) lines.add("E[W]="+formatTime(waiting.getMean()));
+			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
+			return formatStatisticsData(lines);
+		}
+
+		if (element instanceof ModelElementBatch) {
+			final String nameStation=RunElement.buildName(element,Language.tr("Simulation.Element.Batch.Name"));
+			final StatisticsDataPerformanceIndicator waiting=((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.getOrNull(nameStation));
+			final StatisticsTimePerformanceIndicator wip=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.getOrNull(nameStation));
+			final List<String> lines=new ArrayList<>();
+			if (waiting!=null && waiting.getMean()>0) lines.add("E[W]="+formatTime(waiting.getMean()));
+			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
+			return formatStatisticsData(lines);
+		}
+
+		if (element instanceof ModelElementMatch) {
+			final String nameStation=RunElement.buildName(element,Language.tr("Simulation.Element.Match.Name"));
+			final StatisticsDataPerformanceIndicator waiting=((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.getOrNull(nameStation));
+			final StatisticsTimePerformanceIndicator wip=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.getOrNull(nameStation));
+			final List<String> lines=new ArrayList<>();
+			if (waiting!=null && waiting.getMean()>0) lines.add("E[W]="+formatTime(waiting.getMean()));
+			if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
 			return formatStatisticsData(lines);
 		}
 
@@ -1918,13 +1952,13 @@ public class EditorPanel extends EditorPanelBase {
 			for (String name: statistics.counter.getNames()) {
 				if (name.startsWith(groupName)) sum+=((StatisticsSimpleCountPerformanceIndicator)statistics.counter.get(name)).get();
 			}
-			return formatStatisticsData(NumberTools.formatLong(value)+" ("+NumberTools.formatPercent(((double)value)/sum)+")");
+			return formatStatisticsData(NumberTools.formatLong(value)+" ("+StatisticTools.formatPercent(((double)value)/sum)+")");
 		}
 
 		if (element instanceof ModelElementDifferentialCounter) {
 			final StatisticsTimePerformanceIndicator counter=(StatisticsTimePerformanceIndicator)statistics.differentialCounter.getOrNull(element.getName());
 			if (counter==null) return null;
-			return formatStatisticsData(Language.tr("Statistics.Average")+"="+NumberTools.formatNumber(counter.getTimeMean()));
+			return formatStatisticsData(Language.tr("Statistics.Average")+"="+StatisticTools.formatNumber(counter.getTimeMean()));
 		}
 
 		if (element instanceof ModelElementThroughput) {
@@ -1944,7 +1978,7 @@ public class EditorPanel extends EditorPanelBase {
 					}
 				}
 			}
-			return formatStatisticsData(Language.tr("Statistics.Throughput")+" "+name+": "+NumberTools.formatNumber(value,2)+" (1/"+unit+")");
+			return formatStatisticsData(Language.tr("Statistics.Throughput")+" "+name+": "+StatisticTools.formatNumber(value,2)+" (1/"+unit+")");
 		}
 
 		return null;
