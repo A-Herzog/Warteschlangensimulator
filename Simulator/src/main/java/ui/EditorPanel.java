@@ -1847,7 +1847,7 @@ public class EditorPanel extends EditorPanelBase {
 	}
 
 	private String formatTime(final double time) {
-		return TimeTools.formatExactTime(time)+" ("+NumberTools.formatNumber(time)+")";
+		return TimeTools.formatExactTime(time)+" ("+StatisticTools.formatNumber(time)+")";
 	}
 
 	private String getStatisticsInfoForElement(final ModelElementBox element) {
