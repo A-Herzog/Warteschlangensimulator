@@ -2096,7 +2096,7 @@ public class MainPanel extends MainPanelBase {
 		final StartAnySimulator starter=getSimulator(editModel,null,null,Simulator.logTypeFull);
 		if (starter==null) return;
 
-		if (editModel.clientCount>1000) {
+		if (editModel.clientCount>1000 && editModel.useClientCount) {
 			if (!MsgBox.confirm(getOwnerWindow(),Language.tr("LogSimulation.Title"),Language.tr("LogSimulation.LargeModelWarning"),Language.tr("LogSimulation.LargeModelWarning.YesInfo"),Language.tr("LogSimulation.LargeModelWarning.NoInfo"))) return;
 		}
 
@@ -2195,7 +2195,7 @@ public class MainPanel extends MainPanelBase {
 		final StartAnySimulator starter=getSimulator(editModel,null,null,Simulator.logTypeFull);
 		if (starter==null) return;
 
-		if (editModel.clientCount>1000) {
+		if (editModel.clientCount>1000 && editModel.useClientCount) {
 			if (!MsgBox.confirm(getOwnerWindow(),Language.tr("LogSimulation.Title"),Language.tr("LogSimulation.LargeModelWarning"),Language.tr("LogSimulation.LargeModelWarning.YesInfo"),Language.tr("LogSimulation.LargeModelWarning.NoInfo"))) return;
 		}
 
