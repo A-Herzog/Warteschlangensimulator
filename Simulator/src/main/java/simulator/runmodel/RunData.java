@@ -98,6 +98,7 @@ public class RunData {
 	 */
 	private IndicatorAccessCacheStations cacheClientsInterarrivalTime;
 	private IndicatorAccessCacheStations cacheStationsInterarrivalTime;
+	private IndicatorAccessCacheStationsNumber cacheStationsInterarrivalTimeByState;
 	private IndicatorAccessCacheStationsClientTypes cacheStationsInterarrivalTimeByClientType;
 	private IndicatorAccessCacheStations cacheStationsInterleavingTime;
 	private IndicatorAccessCacheStationsClientTypes cacheStationsInterleavingTimeByClientType;
@@ -233,6 +234,7 @@ public class RunData {
 
 		cacheClientsInterarrivalTime=new IndicatorAccessCacheStations(simData.statistics.clientsInterarrivalTime);
 		cacheStationsInterarrivalTime=new IndicatorAccessCacheStations(simData.statistics.stationsInterarrivalTime);
+		cacheStationsInterarrivalTimeByState=new IndicatorAccessCacheStationsNumber(simData.statistics.stationsInterarrivalTimeByState,"NQ");
 		cacheStationsInterarrivalTimeByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.stationsInterarrivalTimeByClientType);
 		cacheStationsInterleavingTime=new IndicatorAccessCacheStations(simData.statistics.stationsInterleavingTime);
 		cacheStationsInterleavingTimeByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.stationsInterleavingTimeByClientType);
@@ -306,10 +308,19 @@ public class RunData {
 			final double delta=scale*(now-data.lastArrival);
 			StatisticsDataPerformanceIndicator indicator;
 
+			/* Allgemein */
 			indicator=data.statisticStationsInterarrivalTime;
 			if (indicator==null) indicator=data.statisticStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTime.get(station));
 			indicator.add(delta);
 
+			/* Pro Zustand */
+			if (station.isInterarrivalByQueueStation()) {
+				final int count=data.clientsAtStationQueue;
+				indicator=(StatisticsDataPerformanceIndicator)cacheStationsInterarrivalTimeByState.get(station,count);
+				indicator.add(delta);
+			}
+
+			/* Systemankunft */
 			if (station instanceof RunSource) {
 				indicator=data.statisticSourceStationsInterarrivalTime;
 				if (indicator==null) indicator=data.statisticSourceStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheClientsInterarrivalTime.get(station));
@@ -318,6 +329,7 @@ public class RunData {
 		}
 		data.lastArrival=now;
 
+		/* Pro Kundentyp */
 		if (data.lastArrivalByClientType!=null && data.lastArrivalByClientType[client.type]>=0 && data.lastArrivalByClientType[client.type]<=now) {
 			final double delta=scale*(now-data.lastArrivalByClientType[client.type]);
 			StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterarrivalTimeByClientType==null)?null:data.statisticStationsInterarrivalTimeByClientType[client.type];
@@ -658,6 +670,38 @@ public class RunData {
 			if (indicators==null) indicators=new StatisticsPerformanceIndicator[(id+1)*2];
 			if (indicators.length<=id) indicators=Arrays.copyOf(indicators,(id+1)*2);
 			indicators[id]=indicator;
+			return indicator;
+		}
+	}
+
+	private class IndicatorAccessCacheStationsNumber {
+		private final StatisticsMultiPerformanceIndicator multi;
+		private final String name;
+		private ArrayList<StatisticsPerformanceIndicator>[] indicators;
+
+		public IndicatorAccessCacheStationsNumber(final StatisticsMultiPerformanceIndicator multi, final String name) {
+			this.multi=multi;
+			this.name=name;
+		}
+
+		@SuppressWarnings("unchecked")
+		public StatisticsPerformanceIndicator get(final RunElement station, final int nr) {
+			final int id=station.id;
+			if (indicators==null) indicators=new ArrayList[(id+1)*2];
+			if (indicators.length<=id) indicators=Arrays.copyOf(indicators,(id+1)*2);
+			if (indicators[id]==null) indicators[id]=new ArrayList<>();
+
+			final ArrayList<StatisticsPerformanceIndicator> list=indicators[id];
+			while (list.size()<=nr) list.add(null);
+
+			StatisticsPerformanceIndicator indicator=list.get(nr);
+			if (indicator==null) {
+				indicator=multi.get(station.name+" - "+name+"="+nr);
+				list.set(nr,indicator);
+				if (indicator instanceof StatisticsTimePerformanceIndicator) {
+					((StatisticsTimePerformanceIndicator)indicator).setTime(warmUpEndTime);
+				}
+			}
 			return indicator;
 		}
 	}

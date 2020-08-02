@@ -52,6 +52,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_INTERARRIVAL_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Zwischenankunftszeiten zwischen den Stationen nach Kundentypen weiter ausdifferenziert */
 		MODE_INTERARRIVAL_STATION_CLIENTS,
+		/** Balkendiagramm zum Vergleich der mittleren Zwischenankunftszeiten zwischen den Stationen nach Warteschlangenlänge weiter ausdifferenziert */
+		MODE_INTERARRIVAL_STATION_STATES,
 		/** Balkendiagramm zum Vergleich der mittleren Zwischenabgangszeiten zwischen den Kundentypen */
 		MODE_INTERLEAVE_CLIENTS,
 		/** Balkendiagramm zum Vergleich der mittleren Zwischenabgangszeiten zwischen den Stationen */
@@ -215,6 +217,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			break;
 		case MODE_INTERARRIVAL_STATION_CLIENTS:
 			chartRequest(Language.tr("Statistics.InterArrivalTimes"),Language.tr("Statistics.StationClient"),statistics.stationsInterarrivalTimeByClientType,null,true);
+			addDescription("PlotBarCompareStations");
+			break;
+		case MODE_INTERARRIVAL_STATION_STATES:
+			chartRequest(Language.tr("Statistics.InterArrivalTimes"),Language.tr("Statistics.StationState"),statistics.stationsInterarrivalTimeByState,null,true);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERLEAVE_CLIENTS:

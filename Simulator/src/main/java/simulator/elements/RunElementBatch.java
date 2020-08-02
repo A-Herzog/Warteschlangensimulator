@@ -300,4 +300,9 @@ public class RunElementBatch extends RunElementPassThrough {
 			break;
 		}
 	}
+
+	@Override
+	public boolean isInterarrivalByQueueStation() {
+		return batchSizeMax<=50;
+	}
 }

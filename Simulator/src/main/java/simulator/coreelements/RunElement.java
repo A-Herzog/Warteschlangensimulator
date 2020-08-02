@@ -28,6 +28,7 @@ import simulator.logging.CallbackLoggerWithJS;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.statistics.Statistics;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -239,6 +240,15 @@ public abstract class RunElement {
 	 */
 	public boolean isClientCountStation() {
 		return true;
+	}
+
+	/**
+	 * Erfassung der Zwischenankunftszeiten in Abhängigkeit von der Warteschlangenlänge?
+	 * @return	Zwischenankunftszeiten in Abhängigkeit von der Warteschlangenlänge
+	 * @see Statistics#stationsInterarrivalTimeByState
+	 */
+	public boolean isInterarrivalByQueueStation() {
+		return false;
 	}
 
 	/**

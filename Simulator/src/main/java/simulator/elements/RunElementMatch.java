@@ -492,4 +492,9 @@ public class RunElementMatch extends RunElementPassThrough {
 			StationLeaveEvent.sendToStation(simData,client,this,getNext());
 		}
 	}
+
+	@Override
+	public boolean isInterarrivalByQueueStation() {
+		return true;
+	}
 }

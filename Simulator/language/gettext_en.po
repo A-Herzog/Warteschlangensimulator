@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-30 22:15+0200\n"
+"POT-Creation-Date: 2020-08-02 12:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15676,6 +15676,9 @@ msgstr "Distribution of the inter-arrival times"
 msgid "Statistics.DistributionOfTheInterArrivalTimesByClientType"
 msgstr "Distribution of the inter-arrival times by client types"
 
+msgid "Statistics.DistributionOfTheInterArrivalTimesByStates"
+msgstr "Distribution of the inter-arrival times by queue length"
+
 msgid "Statistics.DistributionOfTheInterLeaveTimes"
 msgstr "Distribution of the inter-leaving times"
 
@@ -15951,6 +15954,12 @@ msgstr "Inter-arrival times at the stations by client types"
 
 msgid "Statistics.InterArrivalTimesAtTheStationsByClientTypes.Short"
 msgstr "Inter-arrival times by client types"
+
+msgid "Statistics.InterArrivalTimesAtTheStationsByState"
+msgstr "Inter-arrival times at the stations by queue lengths"
+
+msgid "Statistics.InterArrivalTimesAtTheStationsByStates.Short"
+msgstr "Inter-arrival times by queue lengths"
 
 msgid "Statistics.InterArrivalTimesAtTheSystem"
 msgstr "Inter-arrival times at the system"
@@ -16280,6 +16289,9 @@ msgstr "Station"
 
 msgid "Statistics.StationClient"
 msgstr "Station and client type"
+
+msgid "Statistics.StationState"
+msgstr "Station and queue length"
 
 msgid "Statistics.StationsClientsProcessTimes.Short"
 msgstr "Process times by client types"
@@ -16877,6 +16889,9 @@ msgstr "StatisticsInterArrivalTimesStations"
 
 msgid "Statistics.XML.Element.InterArrivalStationsByClientType"
 msgstr "StatisticsInterArrivalTimesStationsClients"
+
+msgid "Statistics.XML.Element.InterArrivalStationsByState"
+msgstr "StatisticsInterArrivalTimesStationsQueueLength"
 
 msgid "Statistics.XML.Element.InterLeavingClients"
 msgstr "StatisticsInterLeavingTimesClients"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-30 22:15+0200\n"
+"POT-Creation-Date: 2020-08-02 12:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15683,6 +15683,9 @@ msgstr "Verteilung der Zwischenankunftszeiten"
 msgid "Statistics.DistributionOfTheInterArrivalTimesByClientType"
 msgstr "Verteilung der Zwischenankunftszeiten nach Kundentypen"
 
+msgid "Statistics.DistributionOfTheInterArrivalTimesByStates"
+msgstr "Verteilung der Zwischenankunftszeiten nach Warteschlangenlänge"
+
 msgid "Statistics.DistributionOfTheInterLeaveTimes"
 msgstr "Verteilung der Zwischenabgangszeiten"
 
@@ -15958,6 +15961,12 @@ msgstr "Zwischenankunftszeiten an den Stationen nach Kundentypen"
 
 msgid "Statistics.InterArrivalTimesAtTheStationsByClientTypes.Short"
 msgstr "Zwischenankunftszeiten nach Kundentypen"
+
+msgid "Statistics.InterArrivalTimesAtTheStationsByState"
+msgstr "Zwischenankunftszeiten an den Stationen nach Warteschlangenlänge"
+
+msgid "Statistics.InterArrivalTimesAtTheStationsByStates.Short"
+msgstr "Zwischenankunftszeiten nach Warteschlangenlänge"
 
 msgid "Statistics.InterArrivalTimesAtTheSystem"
 msgstr "Zwischenankunftszeiten am System"
@@ -16287,6 +16296,9 @@ msgstr "Station"
 
 msgid "Statistics.StationClient"
 msgstr "Station und Kundentyp"
+
+msgid "Statistics.StationState"
+msgstr "Station und Warteschlangenlänge"
 
 msgid "Statistics.StationsClientsProcessTimes.Short"
 msgstr "Bedienzeiten nach Kundentypen"
@@ -16884,6 +16896,9 @@ msgstr "StatistikZwischenankunftszeitenStationen"
 
 msgid "Statistics.XML.Element.InterArrivalStationsByClientType"
 msgstr "StatistikZwischenankunftszeitenStationenKunden"
+
+msgid "Statistics.XML.Element.InterArrivalStationsByState"
+msgstr "StatistikZwischenankunftszeitenStationenWarteschlange"
 
 msgid "Statistics.XML.Element.InterLeavingClients"
 msgstr "StatistikZwischenabgangszeitenKunden"

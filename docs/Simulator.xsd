@@ -1652,6 +1652,7 @@
   <xs:element ref="StatistikZwischenankunftszeitenStationenKunden"/>
   <xs:element ref="StatistikZwischenabgangszeitenKunden"/>
   <xs:element ref="StatistikZwischenabgangszeitenStationen"/>
+  <xs:element ref="StatistikZwischenankunftszeitenStationenWarteschlange"/>
   <xs:element ref="StatistikZwischenabgangszeitenStationenKunden"/>
   <xs:element ref="StatistikKundenbewegung"/>
   <xs:element ref="StatistikKundenpfade"/>
@@ -1831,6 +1832,7 @@
 <xs:element name="StatistikZwischenankunftszeitenStationenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikZwischenabgangszeitenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikZwischenabgangszeitenStationen" type="StatistikStationBasis"/>
+<xs:element name="StatistikZwischenankunftszeitenStationenWarteschlange" type="StatistikStationBasis"/>
 <xs:element name="StatistikZwischenabgangszeitenStationenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenbewegung"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="Bewegung" minOccurs="0" maxOccurs="unbounded"/>
@@ -3636,6 +3638,7 @@
   <xs:element ref="StatisticsInterArrivalTimesStationsClients"/>
   <xs:element ref="StatisticsInterLeavingTimesClients"/>
   <xs:element ref="StatisticsInterLeavingTimesStations"/>
+  <xs:element ref="StatisticsInterArrivalTimesStationsQueueLength"/>
   <xs:element ref="StatisticsInterLeavingTimesStationsClients"/>
   <xs:element ref="StatisticsClientMovement"/>
   <xs:element ref="StatisticsClientPaths"/>
@@ -3815,6 +3818,7 @@
 <xs:element name="StatisticsInterArrivalTimesStationsClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsInterLeavingTimesClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsInterLeavingTimesStations" type="StatisticsStationBase"/>
+<xs:element name="StatisticsInterArrivalTimesStationsQueueLength" type="StatisticsStationBase"/>
 <xs:element name="StatisticsInterLeavingTimesStationsClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientMovement"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="Movement" minOccurs="0" maxOccurs="unbounded"/>

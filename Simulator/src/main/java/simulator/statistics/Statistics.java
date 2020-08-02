@@ -79,6 +79,11 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator stationsInterarrivalTime;
 
 	/**
+	 * Zwischenankunftszeiten der Kunden bei den einzelnen Stationen ausdifferenziert nach der Anzahl an Kunden an der Station
+	 */
+	public final StatisticsMultiPerformanceIndicator stationsInterarrivalTimeByState;
+
+	/**
 	 * Zwischenankunftszeiten der Kunden bei den einzelnen Stationen (zusätzlich differenziert nach Kundentyp)
 	 */
 	public final StatisticsMultiPerformanceIndicator stationsInterarrivalTimeByClientType;
@@ -474,6 +479,7 @@ public class Statistics extends StatisticsBase {
 		/* Zwischenankunftszeiten */
 		addPerformanceIndicator(clientsInterarrivalTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalClients"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsInterarrivalTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(stationsInterarrivalTimeByState=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByState"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsInterarrivalTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 
 		/* Zwischenabgangszeiten */

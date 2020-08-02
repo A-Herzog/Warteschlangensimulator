@@ -416,7 +416,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		 * Gruppe: Zeiten nach Kunden
 		 */
 
-		addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
+		headingWritten=false;
 
 		/* Wartezeiten nach Kundentypen */
 
@@ -426,6 +426,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (writeBlock) {
 			sum=0;
 			count=0;
+			if (!headingWritten) {
+				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
+				headingWritten=true;
+			}
 			addHeading(3,Language.tr("Statistics.WaitingTimesByClientTypes")+" E[W]");
 			beginParagraph();
 			for (String type: statistics.clientsWaitingTimes.getNames()) {
@@ -450,6 +454,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (writeBlock) {
 			sum=0;
 			count=0;
+			if (!headingWritten) {
+				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
+				headingWritten=true;
+			}
 			addHeading(3,Language.tr("Statistics.TransferTimesByClientTypes")+" E[T]");
 			beginParagraph();
 			for (String type: statistics.clientsTransferTimes.getNames()) {
@@ -474,6 +482,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (writeBlock) {
 			sum=0;
 			count=0;
+			if (!headingWritten) {
+				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
+				headingWritten=true;
+			}
 			addHeading(3,Language.tr("Statistics.ProcessTimesByClientTypes")+" E[S]");
 			beginParagraph();
 			for (String type: statistics.clientsProcessingTimes.getNames()) {
@@ -498,6 +510,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (writeBlock) {
 			sum=0;
 			count=0;
+			if (!headingWritten) {
+				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
+				headingWritten=true;
+			}
 			addHeading(3,Language.tr("Statistics.ResidenceTimesByClientTypes")+" E[V]");
 			beginParagraph();
 			for (String type: statistics.clientsResidenceTimes.getNames()) {
@@ -1010,8 +1026,25 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return arrivalSum;
 	}
 
+	private boolean hasMultipleRecordsOfType(final StatisticsMultiPerformanceIndicator indicators, String name, final char marker) {
+		while (!name.isEmpty() && name.charAt(name.length()-1)!=marker) name=name.substring(0,name.length()-1);
+		if (name.isEmpty()) return true;
+		name=name.substring(0,name.length()-1);
+		if (name.isEmpty()) return true;
+
+		int count=0;
+		for (String record: indicators.getNames()) {
+			if (record.startsWith(name)) count++;
+			if (count>=2) return true;
+		}
+
+		return false;
+	}
+
 	private void buildInterarrivalStations() {
 		addHeading(1,Language.tr("Statistics.ArrivalsAtStations"));
+
+		/* Allgemeine Informationen */
 
 		final long arrivalSum=getArrivalSum();
 
@@ -1043,6 +1076,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		String repeatInfo="";
 		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
 
+		/* Ankünfte an den Stationen */
+
 		addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStations"));
 		for (String station : stations) {
 			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTime.get(station));
@@ -1062,11 +1097,47 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			outputConfidenceData(indicator);
 		}
 
-		final String[] records=statistics.stationsInterarrivalTimeByClientType.getNames();
+		/* Ankünfte an den Stationen nach Kundentypen */
+
+		boolean headindPrinted=false;
+		String[] records=statistics.stationsInterarrivalTimeByClientType.getNames();
 		if (records.length>1) {
-			addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStationsByClientTypes"));
 			for (String record : records) {
 				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTimeByClientType.get(record));
+				if (!hasMultipleRecordsOfType(statistics.stationsInterarrivalTimeByClientType,record,' ')) continue;
+				if (!headindPrinted) {
+					addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStationsByClientTypes"));
+					headindPrinted=true;
+				}
+				addHeading(3,fullStationName(record));
+				beginParagraph();
+				addLine(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
+				addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[I]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+				addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[I]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+				addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[I]="+timeAndNumber(indicator.getVar()));
+				addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+				addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+				addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+				endParagraph();
+
+				outputQuantilInfoTime("I",indicator);
+
+				outputConfidenceData(indicator);
+			}
+		}
+
+		/* Ankünfte an den Stationen nach Zuständen */
+
+		headindPrinted=false;
+		records=statistics.stationsInterarrivalTimeByState.getNames();
+		if (records.length>1) {
+			for (String record : records) {
+				if (!hasMultipleRecordsOfType(statistics.stationsInterarrivalTimeByState,record,'=')) continue;
+				if (!headindPrinted) {
+					addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStationsByState"));
+					headindPrinted=true;
+				}
+				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTimeByState.get(record));
 				addHeading(3,fullStationName(record));
 				beginParagraph();
 				addLine(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
@@ -1119,10 +1190,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	private void buildInterleaveStations() {
 		addHeading(1,Language.tr("Statistics.LeavingsAtStations"));
 
+		/* Allgemeine Informationen */
+
 		final String[] stations=statistics.stationsInterleavingTime.getNames();
 
 		String repeatInfo="";
 		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
+
+		/* Abgänge an den Stationen */
 
 		addHeading(2,Language.tr("Statistics.InterLeaveTimesAtTheStations"));
 		for (String station : stations) {
@@ -1143,10 +1218,17 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			outputConfidenceData(indicator);
 		}
 
+		/* Abgänge an den Stationen nach Kundentypen */
+
+		boolean headindPrinted=false;
 		final String[] records=statistics.stationsInterleavingTimeByClientType.getNames();
 		if (records.length>1) {
-			addHeading(2,Language.tr("Statistics.InterLeaveTimesAtTheStationsByClientTypes"));
 			for (String record : records) {
+				if (!hasMultipleRecordsOfType(statistics.stationsInterleavingTimeByClientType,record,' ')) continue;
+				if (!headindPrinted) {
+					addHeading(2,Language.tr("Statistics.InterLeaveTimesAtTheStationsByClientTypes"));
+					headindPrinted=true;
+				}
 				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterleavingTimeByClientType.get(record));
 				addHeading(3,fullStationName(record));
 				beginParagraph();

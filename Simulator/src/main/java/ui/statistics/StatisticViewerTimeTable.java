@@ -70,6 +70,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		MODE_OVERVIEW_STATIONS_INTERARRIVAL,
 		/** Zwischenankunftszeiten an den Stationen nach Kundentypen weiter ausdifferenziert (Übersichtstabelle) */
 		MODE_OVERVIEW_STATIONS_INTERARRIVAL_CLIENTS,
+		/** Zwischenankunftszeiten an den Stationen nach Warteschlangenlänge weiter ausdifferenziert (Übersichtstabelle) */
+		MODE_OVERVIEW_STATIONS_INTERARRIVAL_STATES,
 		/** Zwischenabgangszeiten an den Stationen (Übersichtstabelle) */
 		MODE_OVERVIEW_STATIONS_INTERLEAVE,
 		/** Zwischenabgangszeiten an den Stationen nach Kundentypen weiter ausdifferenziert (Übersichtstabelle) */
@@ -78,6 +80,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		MODE_DISTRIBUTION_STATIONS_INTERARRIVAL,
 		/** Zwischenankunftszeiten an den Stationen nach Kundentypen weiter ausdifferenziert (Tabelle mit Verteilung der Werte) */
 		MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_CLIENTS,
+		/** Zwischenankunftszeiten an den Stationen nach Warteschlangenlänge weiter ausdifferenziert (Tabelle mit Verteilung der Werte) */
+		MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_STATES,
 		/** Zwischenabgangszeiten an den Stationen (Tabelle mit Verteilung der Werte) */
 		MODE_DISTRIBUTION_STATIONS_INTERLEAVE,
 		/** Zwischenabgangszeiten an den Stationen nach Kundentypen weiter ausdifferenziert (Tabelle mit Verteilung der Werte) */
@@ -277,7 +281,7 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		return true;
 	}
 
-	private void buildTimesOverviewTable(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3, final String type1, final String type2, final String type3, final String label, final boolean isStationsList, final boolean isInterArrival) {
+	private void buildTimesOverviewTable(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3, final StatisticsMultiPerformanceIndicator indicator4, final String type1, final String type2, final String type3, final String type4, final String label, final boolean isStationsList, final boolean isInterArrival) {
 		final Table table=new Table();
 
 		final boolean hasConfidence=hasConfidence(indicator1,indicator2,indicator3);
@@ -297,6 +301,10 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 			if (indicator3!=null && type3!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator3.get(type));
 				table.addLine(getDataLine(type3+" "+typeName,data,confidenceLevels));
+			}
+			if (indicator4!=null && type4!=null) {
+				data=(StatisticsDataPerformanceIndicator)(indicator4.get(type));
+				table.addLine(getDataLine(type4+" "+typeName,data,confidenceLevels));
 			}
 		}
 
@@ -744,26 +752,28 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 	@Override
 	protected void buildTable() {
 		switch (mode) {
-		case MODE_OVERVIEW_CLIENTS_INTERARRIVAL: buildTimesOverviewTable(statistics.clientsInterarrivalTime,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
-		case MODE_OVERVIEW_CLIENTS_INTERLEAVE: buildTimesOverviewTable(statistics.clientsInterleavingTime,null,null,null,null,null,Language.tr("Statistics.ClientType"),true,false); break;
+		case MODE_OVERVIEW_CLIENTS_INTERARRIVAL: buildTimesOverviewTable(statistics.clientsInterarrivalTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
+		case MODE_OVERVIEW_CLIENTS_INTERLEAVE: buildTimesOverviewTable(statistics.clientsInterleavingTime,null,null,null,null,null,null,null,Language.tr("Statistics.ClientType"),true,false); break;
 		case MODE_DISTRIBUTION_CLIENTS_INTERARRIVAL: buildTimesDistributionTable(statistics.clientsInterarrivalTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_INTERLEAVE: buildTimesDistributionTable(statistics.clientsInterleavingTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_OVERVIEW_STATIONS_ARRIVAL_COUNT: buildInterarrivalCountTable(); break;
-		case MODE_OVERVIEW_STATIONS_INTERARRIVAL: buildTimesOverviewTable(statistics.stationsInterarrivalTime,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
-		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_CLIENTS: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByClientType,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,true); break;
-		case MODE_OVERVIEW_STATIONS_INTERLEAVE: buildTimesOverviewTable(statistics.stationsInterleavingTime,null,null,null,null,null,Language.tr("Statistics.Station"),true,false); break;
-		case MODE_OVERVIEW_STATIONS_INTERLEAVE_CLIENTS: buildTimesOverviewTable(statistics.stationsInterleavingTimeByClientType,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,false); break;
+		case MODE_OVERVIEW_STATIONS_INTERARRIVAL: buildTimesOverviewTable(statistics.stationsInterarrivalTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
+		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_CLIENTS: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByClientType,null,null,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,true); break;
+		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_STATES: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByState,null,null,null,null,null,null,null,Language.tr("Statistics.StationState"),true,true); break;
+		case MODE_OVERVIEW_STATIONS_INTERLEAVE: buildTimesOverviewTable(statistics.stationsInterleavingTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,false); break;
+		case MODE_OVERVIEW_STATIONS_INTERLEAVE_CLIENTS: buildTimesOverviewTable(statistics.stationsInterleavingTimeByClientType,null,null,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,false); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL: buildTimesDistributionTable(statistics.stationsInterarrivalTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_CLIENTS: buildTimesDistributionTable(statistics.stationsInterarrivalTimeByClientType,Language.tr("Statistics.DistanceInSeconds")); break;
+		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_STATES: buildTimesDistributionTable(statistics.stationsInterarrivalTimeByState,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERLEAVE: buildTimesDistributionTable(statistics.stationsInterleavingTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERLEAVE_CLIENTS: buildTimesDistributionTable(statistics.stationsInterleavingTimeByClientType,Language.tr("Statistics.DistanceInSeconds")); break;
-		case MODE_OVERVIEW_CLIENTS_WAITINGPROCESSING: buildTimesOverviewTable(statistics.clientsWaitingTimes,statistics.clientsTransferTimes,statistics.clientsProcessingTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ClientType"),true,false); break;
+		case MODE_OVERVIEW_CLIENTS_WAITINGPROCESSING: buildTimesOverviewTable(statistics.clientsWaitingTimes,statistics.clientsTransferTimes,statistics.clientsProcessingTimes,statistics.clientsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.ClientType"),true,false); break;
 		case MODE_DISTRIBUTION_CLIENTS_WAITING: buildTimesDistributionTable(statistics.clientsWaitingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_TRANSFER: buildTimesDistributionTable(statistics.clientsTransferTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_PROCESSING: buildTimesDistributionTable(statistics.clientsProcessingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_CLIENTS_RESIDENCE: buildTimesDistributionTable(statistics.clientsResidenceTimes,Language.tr("Statistics.Seconds")); break;
-		case MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimes,statistics.stationsTransferTimes,statistics.stationsProcessingTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.Station"),true,false); break;
-		case MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimesByClientType,statistics.stationsTransferTimesByClientType,statistics.stationsProcessingTimesByClientType,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.StationClient"),true,false); break;
+		case MODE_OVERVIEW_STATIONSMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimes,statistics.stationsTransferTimes,statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.Station"),true,false); break;
+		case MODE_OVERVIEW_STATIONSCLIENTMODE_OVERVIEW_CLIENTS: buildTimesOverviewTable(statistics.stationsWaitingTimesByClientType,statistics.stationsTransferTimesByClientType,statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.WaitingTime"),Language.tr("Statistics.TransferTime"),Language.tr("Statistics.ProcessTime"),Language.tr("Statistics.ResidenceTime"),Language.tr("Statistics.StationClient"),true,false); break;
 		case MODE_DISTRIBUTION_STATIONS_WAITING: buildTimesDistributionTable(statistics.stationsWaitingTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_TRANSFER: buildTimesDistributionTable(statistics.stationsTransferTimes,Language.tr("Statistics.Seconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_PROCESSING: buildTimesDistributionTable(statistics.stationsProcessingTimes,Language.tr("Statistics.Seconds")); break;
