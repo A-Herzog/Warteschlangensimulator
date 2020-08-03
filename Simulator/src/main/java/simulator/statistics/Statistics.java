@@ -22,6 +22,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import statistics.StatisticsBase;
 import statistics.StatisticsDataCollector;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package simulator.statistics;
+package statistics;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,8 +23,6 @@ import java.util.Optional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import statistics.StatisticsMultiPerformanceIndicator;
-import statistics.StatisticsPerformanceIndicator;
 import xml.XMLData;
 
 /**
@@ -63,7 +61,7 @@ public abstract class StatisticsBase extends XMLData {
 	 * Fügt die Daten eines weiteren Simulations-Threads zu den Statistik-Ergebnissen hinzu.
 	 * @param moreStatistics	Anderes <code>Statistics</code>-Objekt, dessen Daten diesem Objekt hinzugefügt werden sollen
 	 */
-	public void addData(final Statistics moreStatistics) {
+	public void addData(final StatisticsBase moreStatistics) {
 		for (int i=0;i<Math.min(performanceIndicators.size(),moreStatistics.performanceIndicators.size());i++)
 			performanceIndicators.get(i).add(moreStatistics.performanceIndicators.get(i));
 	}
