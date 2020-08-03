@@ -198,7 +198,7 @@ public class BackgroundSystem {
 	 * @param model	Aktuelles Modell
 	 * @param startProcessing Modell nur prüfen (<code>false</code>) oder im Erfolgsfall auch Hintergrundsimulation starten (<code>true</code>)
 	 * @return	Gibt <code>null</code> zurück, wenn das Modell fehlerfrei ist oder keine Prüfung stattgefunden hat, sonst eine Fehlermeldung.
-	 * @see BackgroundSystem#getStartedSimulator(EditModel, SimLogging)
+	 * @see BackgroundSystem#getStartedSimulator(EditModel, SimLogging, int[], Set)
 	 * @see BackgroundSystem#getLastBackgroundMode()
 	 */
 	public synchronized String process(final EditModel model, final boolean startProcessing) {

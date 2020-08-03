@@ -244,7 +244,7 @@ public class StationLeaveEvent extends Event {
 
 	/**
 	 * Legt ein {@link StationLeaveEvent}-Ereignis an.<br>
-	 * Bei der Ausführung des Ereignisses wird {@link RunElement#isClientCountStation()} geprüft und dann ggf. {@link RunData#logClientLeavesStation(SimulationData, RunElement, RunElementData)} aufgerufen.
+	 * Bei der Ausführung des Ereignisses wird {@link RunElement#isClientCountStation()} geprüft und dann ggf. {@link RunData#logClientLeavesStation(SimulationData, RunElement, RunElementData, RunDataClient)} aufgerufen.
 	 * @param simData	Simulationsdatenobjekt
 	 * @param client	Kunde der die Station verlassen soll
 	 * @param station	Station die verlassen werden soll
@@ -274,7 +274,7 @@ public class StationLeaveEvent extends Event {
 	 * @param client	Kunde der die Station verlassen soll
 	 * @param station	Station die verlassen werden soll
 	 * @param timeDelta	Zeitpunkt (in Millisekunden ab der aktuellen Zeit) an der das Ereignis ausgeführt werden soll
-	 * @param statistics	Wird hier <code>true</code> übergeben, so wird bei der Ausführung des Ereignisses {@link RunElement#isClientCountStation()} geprüft und dann ggf. {@link RunData#logClientLeavesStation(SimulationData, RunElement, RunElementData)} aufgerufen.
+	 * @param statistics	Wird hier <code>true</code> übergeben, so wird bei der Ausführung des Ereignisses {@link RunElement#isClientCountStation()} geprüft und dann ggf. {@link RunData#logClientLeavesStation(SimulationData, RunElement, RunElementData, RunDataClient)} aufgerufen.
 	 */
 	public static void addLeaveEvent(final SimulationData simData, final RunDataClient client, final RunElement station, final long timeDelta, final boolean statistics) {
 		/* Station-Event-Objekt holen */
