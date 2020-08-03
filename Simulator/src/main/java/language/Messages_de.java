@@ -6301,7 +6301,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14414] = "ParameterCompare.Select.SelectFolder.ErrorFolderDoesNotExist.Title";
     t[14415] = "Verzeichnis existiert nicht";
     t[14416] = "SettingsDialog.ModellSecurity";
-    t[14417] = "Modelle mit potentiell kritische Stationen";
+    t[14417] = "Modelle mit potentiell kritischen Stationen";
     t[14418] = "Surface.Text.Dialog.Text";
     t[14419] = "Anzuzeigender Text";
     t[14420] = "Resources.Group.EditName.Dialog.Failure.Working.Error.Title";
