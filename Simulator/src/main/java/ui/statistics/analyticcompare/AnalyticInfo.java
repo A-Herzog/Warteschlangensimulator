@@ -217,6 +217,12 @@ public class AnalyticInfo {
 		info.calculated.append("P1="+NumberTools.formatNumber(P1,2)+"\n");
 
 		info.setResults(ENQ,EN,EW,EV,simulationResults);
+		if (source.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Source.CV"),NumberTools.formatNumber(source.cv)));
+		if (source.batch!=1) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Source.Batch"));
+		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),NumberTools.formatNumber(process.cv)));
+		if (process.batchMean!=1.0) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.Batch"));
+		if (process.cancelDistribution!=null) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.CancelDistribution"));
+		if (!process.distributionIsExact) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.DistributionNotExact"));
 
 		return info;
 	}
@@ -262,6 +268,15 @@ public class AnalyticInfo {
 
 		info.setResults(ENQ,EN,EW,EV,simulationResults);
 		info.times.append("P(A)="+NumberTools.formatPercent(PA,2));
+
+		if (source.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Source.CV"),NumberTools.formatNumber(source.cv)));
+		if (source.batch!=1) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Source.Batch"));
+		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),NumberTools.formatNumber(process.cv)));
+		if (process.batchMean!=1.0) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.Batch"));
+		if (process.cancelDistribution!=null) {
+			if (process.cancelCv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CancelCV"),NumberTools.formatNumber(process.cv)));
+		}
+		if (!process.distributionIsExact) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.DistributionNotExact"));
 
 		return info;
 	}
@@ -321,6 +336,10 @@ public class AnalyticInfo {
 		double EV=EW+1/mu;
 
 		info.setResults(ENQ,EN,EW,EV,simulationResults);
+		if (source.batch!=1) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Source.Batch"));
+		if (process.batchMean!=1.0) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.Batch"));
+		if (process.cancelDistribution!=null) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.CancelDistribution"));
+		if (!process.distributionIsExact) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.DistributionNotExact"));
 
 		return info;
 	}
@@ -448,12 +467,14 @@ public class AnalyticInfo {
 		private final StringBuilder calculated;
 		private final StringBuilder numbers;
 		private final StringBuilder times;
+		private final StringBuilder info;
 
 		private InfoResult() {
 			input=new StringBuilder();
 			calculated=new StringBuilder();
 			numbers=new StringBuilder();
 			times=new StringBuilder();
+			info=new StringBuilder();
 		}
 
 		private void setResults(final double ENQ, final double EN, final double EW, final double EV, final SimulationResults simulationResults) {
@@ -470,6 +491,11 @@ public class AnalyticInfo {
 				times.append(buildInfoTime("E[W]",EW,simulationResults.EW));
 				times.append(buildInfoTime("E[V]",EV,simulationResults.EV));
 			}
+		}
+
+		private void addInfo(final String info) {
+			if (this.info.length()>0) this.info.append('\n');
+			this.info.append(info);
 		}
 
 		/**
@@ -502,6 +528,14 @@ public class AnalyticInfo {
 		 */
 		public String getTimes() {
 			return times.toString();
+		}
+
+		/**
+		 * Liefert zusätzliche Informationen zu den analytischen Ergebnissen (z.B. Erklärungen für Abweichungen)
+		 * @return	Zusätzliche Informationen zu den analytischen Ergebnissen
+		 */
+		public String getInfo() {
+			return info.toString();
 		}
 	}
 }

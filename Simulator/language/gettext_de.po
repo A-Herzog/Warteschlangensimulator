@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 23:00+0200\n"
+"POT-Creation-Date: 2020-08-05 18:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15775,6 +15775,30 @@ msgstr "Wartezeittoleranzverteilung"
 
 msgid "Statistics.ErlangCompare.Distribution.WaitingTimeTolerance.Approx"
 msgstr "Es liegen weitere Einflussfaktoren für die Wartezeittoleranzen vor. Geschätze Parameter"
+
+msgid "Statistics.ErlangCompare.Info"
+msgstr "Abweichungen in der Modellierung / Begründung für mögliche Abweichungen"
+
+msgid "Statistics.ErlangCompare.Info.Process.Batch"
+msgstr "An der Bedienstation treten Batch-Bedienungen auf, die durch die Formel nicht berücksichtigt werden."
+
+msgid "Statistics.ErlangCompare.Info.Process.CV"
+msgstr "Der Variationskoeffizient der Bedienzeiten beträgt %s. Die Formel geht jedoch von 1,0 aus."
+
+msgid "Statistics.ErlangCompare.Info.Process.CancelCV"
+msgstr "Der Variationskoeffizient der Wartezeittoleranzen beträgt %s. Die Formel geht jedoch von 1,0 aus."
+
+msgid "Statistics.ErlangCompare.Info.Process.CancelDistribution"
+msgstr "Die Kunden sind nur begrenzt lange bereit zu warten. Dies wird in der Formel nicht berücksichtigt."
+
+msgid "Statistics.ErlangCompare.Info.Process.DistributionNotExact"
+msgstr "In dem Modell existieren Einflüsse auf die Bediendauern (wie kundentypabhängige Bedienzeiten, Rüstzeiten oder Nachbearbeitungszeiten), die in der Formel nicht abgebildet werden."
+
+msgid "Statistics.ErlangCompare.Info.Source.Batch"
+msgstr "An der Kundenquelle treten Batch-Ankünfte auf, die durch die Formel nicht berücksichtigt werden."
+
+msgid "Statistics.ErlangCompare.Info.Source.CV"
+msgstr "Der Variationskoeffizient der Zwischenankunftszeiten beträgt %s. Die Formel geht jedoch von 1,0 aus."
 
 msgid "Statistics.ErlangCompare.NoFixedNumberOfOperators"
 msgstr "Keine konstante Anzahl an Bedienern."

@@ -136,6 +136,14 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 			addLines(times);
 			endParagraph();
 		}
+
+		final String info=results.getInfo();
+		if (!info.isEmpty()) {
+			addHeading(3,Language.tr("Statistics.ErlangCompare.Info"));
+			beginParagraph();
+			addLines(info);
+			endParagraph();
+		}
 	}
 
 	private void buildTextAnalytic(final AnalyticInfo analyticInfo, final AnalyticInfo.SimulationResults simulationResults) {

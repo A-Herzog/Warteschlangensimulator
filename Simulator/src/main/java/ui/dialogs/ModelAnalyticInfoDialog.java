@@ -156,6 +156,14 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 			textBuilder.addLines(times);
 			textBuilder.endParagraph();
 		}
+
+		final String info=results.getInfo();
+		if (!info.isEmpty()) {
+			textBuilder.addHeading(2,Language.tr("Statistics.ErlangCompare.Info"));
+			textBuilder.beginParagraph();
+			textBuilder.addLines(info);
+			textBuilder.endParagraph();
+		}
 	}
 
 	private void buildTextAnalytic(final AnalyticInfo analyticInfo, final AnalyticInfo.SimulationResults simulationResults) {

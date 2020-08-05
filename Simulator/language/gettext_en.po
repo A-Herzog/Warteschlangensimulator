@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-02 12:52+0200\n"
+"POT-Creation-Date: 2020-08-05 18:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15768,6 +15768,30 @@ msgstr "Waiting time tolerance distribution"
 
 msgid "Statistics.ErlangCompare.Distribution.WaitingTimeTolerance.Approx"
 msgstr "There are other factors influencing the waiting time tolerances. Estimated parameters"
+
+msgid "Statistics.ErlangCompare.Info"
+msgstr "Differences in modelling / reasons for possible discrepancies"
+
+msgid "Statistics.ErlangCompare.Info.Process.Batch"
+msgstr "Batch service occur at the process station which is not considered by the formula."
+
+msgid "Statistics.ErlangCompare.Info.Process.CV"
+msgstr "The coefficient of variation of the service times is %s. But the formula uses 1.0."
+
+msgid "Statistics.ErlangCompare.Info.Process.CancelCV"
+msgstr "The coefficient of variation of the waiting cancelation times is %s. But the formula uses 1.0."
+
+msgid "Statistics.ErlangCompare.Info.Process.CancelDistribution"
+msgstr "Clients are only willing to wait for a limited time. This is not considered in the formula."
+
+msgid "Statistics.ErlangCompare.Info.Process.DistributionNotExact"
+msgstr "In the model, there are influences on the service times (such as client-type-dependent service times, setup times or post-processing times) that are not represented in the formula."
+
+msgid "Statistics.ErlangCompare.Info.Source.Batch"
+msgstr "Batch arrivals occur at the clientsource which are not considered by the formula."
+
+msgid "Statistics.ErlangCompare.Info.Source.CV"
+msgstr "The coefficient of variation of the inter-arrival times is %s. But the formula uses 1.0."
 
 msgid "Statistics.ErlangCompare.NoFixedNumberOfOperators"
 msgstr "no fixed number of operators."
