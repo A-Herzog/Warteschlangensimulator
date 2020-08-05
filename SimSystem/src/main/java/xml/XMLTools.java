@@ -14,8 +14,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,7 +63,7 @@ import mathtools.distribution.swing.CommonVariables;
 /**
  * Diese Klasse enthält Funktionen zum Laden und Speichern von Daten aus bzw. in XML-Dateien
  * @author Alexander Herzog
- * @version 1.9
+ * @version 2.0
  */
 public final class XMLTools {
 	/**
@@ -381,6 +383,35 @@ public final class XMLTools {
 	/**
 	 * Legt ein XML-Root-Element zur Speicherung von Daten an
 	 * @param name	Name des Root-Elements
+	 * @param plain	Gibt kein DOCTYPE aus
+	 * @return	XML-Root-Element mit dem angegebenen Namen oder <code>null</code> im Fehlerfall
+	 */
+	public static Element generateRootStatic(final String name, final boolean plain) {
+		if (name==null || name.trim().isEmpty()) return null;
+
+		DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+		DocumentBuilder db;
+		try {db=dbf.newDocumentBuilder();} catch (ParserConfigurationException e) {return null;}
+		Document doc=db.newDocument();
+
+		Element root=null;
+		try {
+			root=doc.createElement(name);
+		} catch (Exception e) {return null;}
+		if (root==null) return null;
+		doc.appendChild(root);
+		if (!plain) {
+			root.setAttribute("xmlns","https://"+homeURL);
+			root.setAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
+			if (xsd!=null && !xsd.isEmpty()) root.setAttribute("xsi:schemaLocation","https://"+homeURL+" "+mediaURL+xsd);
+		}
+
+		return root;
+	}
+
+	/**
+	 * Legt ein XML-Root-Element zur Speicherung von Daten an
+	 * @param name	Name des Root-Elements
 	 * @return	XML-Root-Element mit dem angegebenen Namen oder <code>null</code> im Fehlerfall
 	 */
 	public Element generateRoot(final String name) {
@@ -518,6 +549,15 @@ public final class XMLTools {
 		}
 
 		if (fileType==FileType.JSON) {
+			try (OutputStreamWriter writer=new OutputStreamWriter(stream,StandardCharsets.UTF_8.name())) {
+				xmlToJson(root,false,writer);
+				return true;
+			} catch (Exception e) {
+				lastError=String.format(errorClosingFile,file.toString());
+				return false;
+			}
+			/*
+			Viel speicherintensiver:
 			String json=xmlToJson(root,false,true);
 			try {
 				stream.write(json.getBytes());
@@ -526,6 +566,7 @@ public final class XMLTools {
 				lastError=String.format(errorClosingFile,file.toString());
 				return false;
 			}
+			 */
 		}
 
 		Transformer transformer;
@@ -1141,19 +1182,196 @@ public final class XMLTools {
 		return xmlToJson(doc.getDocumentElement(),simpleJson,useUTF8);
 	}
 
-	private static String[] splitData(final String json) {
+	private static void addNodeToJson(final Writer writer, final Element node, final String indent) throws IOException {
+		String content=node.getTextContent();
+		final List<Element> children=new ArrayList<>();
+		final List<Attr> attributes=new ArrayList<>();
+
+		if (content==null) content="";
+		NamedNodeMap attrs=node.getAttributes();
+		for (int i=0;i<attrs.getLength();i++) {
+			Node n=attrs.item(i);
+			if (!(n instanceof Attr)) continue;
+			String s=((Attr)n).getName();
+			if (s.equalsIgnoreCase("xmlns") || s.equalsIgnoreCase("xmlns:xsi") || s.equalsIgnoreCase("xsi:schemaLocation")) continue;
+			attributes.add((Attr)n);
+		}
+		NodeList nodes=node.getChildNodes();
+		for (int i=0;i<nodes.getLength();i++) {
+			Node n=nodes.item(i);
+			if (n instanceof Element) children.add((Element)n);
+		}
+
+		if (children.isEmpty() && attributes.isEmpty() && content.isEmpty()) {
+			writer.append(indent+"{\""+node.getNodeName()+"\": {}}");
+			return;
+		}
+
+		if (children.isEmpty() && attributes.isEmpty()) {
+			writer.append(indent+"{\""+node.getNodeName()+"\": {\"xmlcontent\": \""+content.replace("\"","\\\"").replace("\n","\\n")+"\"}}");
+			return;
+		}
+
+		if (children.isEmpty() && attributes.size()==1 && content.isEmpty()) {
+			writer.append(indent+"{\""+node.getNodeName()+"\": {\""+attributes.get(0).getName()+"\": \""+attributes.get(0).getValue().replace("\"","\\\"").replace("\n","\\n")+"\"}}");
+			return;
+		}
+
+		writer.append(indent+"{\""+node.getNodeName()+"\": {\n");
+
+		boolean first=true;
+
+		for (int i=0;i<attributes.size();i++) {
+			if (first) first=false; else writer.append(",\n");
+			writer.append(indent+"  \""+attributes.get(i).getName()+"\": \""+attributes.get(i).getValue().replace("\"","\\\"").replace("\n","\\n")+"\"");
+		}
+
+		if (children.isEmpty()) {
+			if (!content.isEmpty()) {
+				if (first) first=false; else writer.append(",\n");
+				writer.append(indent+"  \"xmlcontent\": \""+content.replace("\"","\\\"").replace("\n","\\n")+"\"");
+			}
+		} else {
+			if (first) first=false; else writer.append(",\n");
+			writer.append(indent+"  \"xmlchildren\": [\n");
+			boolean firstChild=true;
+			for (int i=0;i<children.size();i++) {
+				if (firstChild) firstChild=false; else writer.append(",\n");
+				addNodeToJson(writer,children.get(i),indent+"    ");
+			}
+			writer.append("\n"+indent+"  ]");
+		}
+
+		writer.append("\n"+indent+"}}");
+	}
+
+	private static void addNodeToJsonSimple(final Writer writer, final Element node, final String indent) throws IOException {
+		String content=node.getTextContent();
+		final List<Element> children=new ArrayList<>();
+		final List<Attr> attributes=new ArrayList<>();
+
+		if (content==null) content="";
+		NamedNodeMap attrs=node.getAttributes();
+		for (int i=0;i<attrs.getLength();i++) {
+			Node n=attrs.item(i);
+			if (!(n instanceof Attr)) continue;
+			String s=((Attr)n).getName();
+			if (s.equalsIgnoreCase("xmlns") || s.equalsIgnoreCase("xmlns:xsi") || s.equalsIgnoreCase("xsi:schemaLocation")) continue;
+			attributes.add((Attr)n);
+		}
+		NodeList nodes=node.getChildNodes();
+		for (int i=0;i<nodes.getLength();i++) {
+			Node n=nodes.item(i);
+			if (n instanceof Element) children.add((Element)n);
+		}
+
+		if (children.isEmpty() && !content.isEmpty()) {
+			writer.append("\""+content.replace("\"","\\\"").replace("\n","\\n")+"\"");
+			return;
+		}
+
+		writer.append("{\n");
+		boolean first=true;
+
+		for (int i=0;i<attributes.size();i++) {
+			Attr attr=attributes.get(i);
+			if (attr==null) continue;
+			final List<Attr> attributesOutput=new ArrayList<>();
+			attributesOutput.add(attr);
+			String name=attr.getNodeName();
+			for (int j=i+1;j<attributes.size();j++) if (attributes.get(j)!=null && attributes.get(j).getNodeName().equals(name)) {
+				attributesOutput.add(attributes.get(j)); attributes.set(j,null);
+			}
+			if (first) first=false; else writer.append(",\n");
+			if (attributesOutput.size()==1) {
+				writer.append(indent+"  \""+attributesOutput.get(0).getNodeName()+"\": \""+attributesOutput.get(0).getNodeValue().replace("\"","\\\"").replace("\n","\\n")+"\"");
+			} else {
+				writer.append(indent+"  \""+attributesOutput.get(0).getNodeName()+"\": [");
+				boolean subFirst=true;
+				for (int j=0;j<attributesOutput.size();j++) {
+					if (subFirst) subFirst=false; else writer.append(", ");
+					writer.append("\""+attributesOutput.get(j).getNodeValue().replace("\"","\\\"").replace("\n","\\n")+"\"");
+				}
+				writer.append("]");
+			}
+		}
+
+		for (int i=0;i<children.size();i++) {
+			Element element=children.get(i);
+			if (element==null) continue;
+			final List<Element> childrenOutput=new ArrayList<>();
+			childrenOutput.add(element);
+			String name=element.getNodeName();
+			for (int j=i+1;j<children.size();j++) if (children.get(j)!=null && children.get(j).getNodeName().equals(name)) {
+				childrenOutput.add(children.get(j)); children.set(j,null);
+			}
+			if (first) first=false; else writer.append(",\n");
+			if (childrenOutput.size()==1) {
+				writer.append(indent+"  \""+childrenOutput.get(0).getNodeName()+"\": ");
+				addNodeToJsonSimple(writer,childrenOutput.get(0),indent+"  ");
+			} else {
+				writer.append(indent+"  \""+childrenOutput.get(0).getNodeName()+"\": [\n");
+				boolean subFirst=true;
+				for (int j=0;j<childrenOutput.size();j++) {
+					if (subFirst) subFirst=false; else writer.append(",\n");
+					writer.append(indent+"    ");
+					addNodeToJsonSimple(writer,childrenOutput.get(j),indent+"    ");
+				}
+				writer.append("\n"+indent+"  ]");
+			}
+		}
+
+		writer.append("\n"+indent+"}");
+	}
+
+	/**
+	 * Wandelt ein XML-Objekt in einen JSON-String um.
+	 * @param root	Umzuwandelndes XML-Objekt
+	 * @param simpleJson Einfache, nicht wieder ladbare, aber vom Web-Viewer lesbare Variante verwenden
+	 * @param writer	Repräsentation des XML-Objekts als JSON-String
+	 * @throws IOException	Fehler beim Schreiben in den Writer
+	 */
+	public static void xmlToJson(final Element root, final boolean simpleJson, final Writer writer) throws IOException {
+		if (root==null) return;
+		if (simpleJson) {
+			/*sb.append("{\n");	sb.append("  \""+root.getNodeName()+"\": "); - Root-Element nicht mit ausgeben*/
+			addNodeToJsonSimple(writer,root,"");
+			/* sb.append("\n}"); */
+		} else {
+			addNodeToJson(writer,root,"");
+		}
+		/* sb.append(";"); */
+	}
+
+	/**
+	 * Wandelt ein XML-Objekt in einen JSON-String um.
+	 * @param doc	Umzuwandelndes XML-Dokument
+	 * @param simpleJson Einfache, nicht wieder ladbare, aber vom Web-Viewer lesbare Variante verwenden
+	 * @param writer	Repräsentation des XML-Objekts als JSON-String
+	 * @throws IOException	Fehler beim Schreiben in den Writer
+	 */
+	public static void xmlToJson(final Document doc, final boolean simpleJson, final Writer writer) throws IOException {
+		if (doc==null) return;
+		xmlToJson(doc.getDocumentElement(),simpleJson,writer);
+	}
+
+	private static String[] splitData(final String json, final int beginIndex, final int endIndex) {
 		final List<String> data=new ArrayList<>();
 
 		boolean inString=false;
 		boolean lastWasEscape=false;
 		boolean isEmpty=true;
 		int blockCount=0;
-		StringBuilder part=new StringBuilder();
 
-		char[] ch=new char[json.length()];
-		json.getChars(0,json.length(),ch,0);
-		for (int i=0;i<ch.length;i++) {
-			char c=ch[i];
+		final char[] ch;
+		if (json.length()<10_000_000) {
+			ch=json.toCharArray();
+		} else {
+			ch=null;
+		}
+		final StringBuilder part=new StringBuilder(Math.min(1_000_000,endIndex-beginIndex));
+		for (int i=beginIndex;i<endIndex;i++) {
+			char c=(ch!=null)?ch[i]:json.charAt(i);
 			boolean thisIsEscape=false;
 			boolean dataSeparator=false;
 
@@ -1170,7 +1388,7 @@ public final class XMLTools {
 
 			if (dataSeparator) {
 				data.add(part.toString().trim());
-				part=new StringBuilder();
+				part.setLength(0);
 				isEmpty=true;
 			} else {
 				if (!isEmpty || c!=' ') {part.append(c); isEmpty=false;}
@@ -1184,30 +1402,37 @@ public final class XMLTools {
 	}
 
 	private static boolean loadJsonContent(final Element element, final String json) {
-		String[] data=splitData(json);
+		final String[] data=splitData(json,0,json.length());
 
 		for (int i=0;i<data.length;i++) {
-			String s=data[i];
-			int j=s.indexOf(':'); if (j<1) return false;
-			String name=s.substring(0,j).trim();
-			if (name.length()>2 && name.startsWith("\"") && name.endsWith("\"")) name=name.substring(1,name.length()-1).trim();
-			String param=s.substring(j+1).trim();
+
+			int j=data[i].indexOf(':');
+			if (j<1) return false;
+
+			String name=substringAndTrim(data[i],0,j);
+			if (name.length()>2 && name.charAt(0)=='"' && name.charAt(name.length()-1)=='"') name=substringAndTrim(name,1,name.length()-1);
+			String param=substringAndTrim(data[i],j+1,data[i].length());
+			data[i]=null; /* Speicher sparen */
 			if (param.length()<2) return false;
+
 			if (name.equalsIgnoreCase("xmlcontent")) {
 				if (param.charAt(0)!='"' || param.charAt(param.length()-1)!='"') return false;
 				param=param.substring(1,param.length()-1);
 				element.setTextContent(param.replace("\\n","\n").replace("\\\"","\""));
 				continue;
 			}
+
 			if (name.equalsIgnoreCase("xmlchildren")) {
 				if (param.charAt(0)!='[' || param.charAt(param.length()-1)!=']') return false;
-				param=param.substring(1,param.length()-1);
-				String[] children=splitData(param);
+				final String[] children=splitData(param,1,param.length()-1);
+				param=null; /* Speicher sparen */
 				for (int k=0;k<children.length;k++) {
 					if (loadJsonObject(element,children[k])==null) return false;
+					children[k]=null; /* Speicher sparen */
 				}
 				continue;
 			}
+
 			if (param.charAt(0)=='{' && param.charAt(param.length()-1)=='}') {
 				param=param.substring(1,param.length()-1);
 				Element sub=element.getOwnerDocument().createElement(name);
@@ -1225,35 +1450,55 @@ public final class XMLTools {
 		return true;
 	}
 
+	private static String substringAndTrim(final String text, int beginIndex, int endIndex) {
+		while (beginIndex<endIndex && text.charAt(beginIndex)<=' ') beginIndex++;
+		while (beginIndex<endIndex && text.charAt(endIndex-1)<=' ') endIndex--;
+		if (beginIndex==endIndex) return "";
+		return text.substring(beginIndex,endIndex);
+	}
+
 	private static Element loadJsonObject(final Element parent, String json) {
 		if (json==null || json.length()<4) return null;
 		if (json.charAt(0)!='{' ||  json.charAt(json.length()-1)!='}') return null;
-		json=json.substring(1,json.length()-1);
-		int i=json.indexOf(':');
+		/* json=json.substring(1,json.length()-1); - lösen wir jetzt indirekt */
+
+		final int i=json.indexOf(':');
 		if (i<1) return null;
-		String name=json.substring(0,i).trim();
-		if (name.length()>2 && name.startsWith("\"") && name.endsWith("\"")) name=name.substring(1,name.length()-1).trim();
-		String data=json.substring(i+1).trim();
-		if (data.length()==2) {
-			if (data.charAt(0)!='{' ||  data.charAt(data.length()-1)!='}') return null;
-			data="";
+
+		/* Schlüssel */
+		String name;
+		if (i>2 && json.charAt(1)=='"' && json.charAt(i-1)=='"') {
+			name=substringAndTrim(json,2,i-1); /* "2" für "{\"" */
 		} else {
-			if (data.length()<3) return null;
-			if (data.charAt(0)!='{' ||  data.charAt(data.length()-1)!='}') return null;
-			data=data.substring(1,data.length()-1).trim();
+			name=substringAndTrim(json,1,i); /* "1" für "{" */
+		}
+		if (name.length()>2 && name.charAt(0)=='"' && name.charAt(name.length()-1)=='"') { /* Das trim() kann dazu führen, dass die Bedingung erst jetzt erfüllt ist. */
+			name=substringAndTrim(name,1,name.length()-1);
+		}
+
+		/* Wert */
+		json=substringAndTrim(json,i+1,json.length()-1); /* json.length()-1 um das "}" zu entfernen */
+
+		final int dataLength=json.length();
+		if (dataLength==2) {
+			if (json.charAt(0)!='{' || json.charAt(dataLength-1)!='}') return null;
+			json="";
+		} else {
+			if (dataLength<3) return null;
+			if (json.charAt(0)!='{' || json.charAt(dataLength-1)!='}') return null;
+			json=substringAndTrim(json,1,dataLength-1);
 		}
 
 		Element element;
 		if (parent==null) {
-			XMLTools xml=new XMLTools();
-			element=xml.generateRoot(name,true);
+			element=XMLTools.generateRootStatic(name,true);
 		} else {
 			Document doc=parent.getOwnerDocument();
 			parent.appendChild(element=doc.createElement(name));
 		}
 
-		if (!data.isEmpty()) {
-			if (!loadJsonContent(element,data)) return null;
+		if (!json.isEmpty()) {
+			if (!loadJsonContent(element,json)) return null;
 		}
 
 		return element;
