@@ -82,7 +82,7 @@ public class EventTestImpl extends Event {
 
 	@Override
 	public void run(SimData data) {
-		if (data.loggingActive) data.logEventExecution(getClass().getName(),"event executed");
+		if (data.loggingActive) data.logEventExecution(getClass().getName(),-1,"event executed");
 		if (executionInfo!=null) executionInfo.accept(this);
 		if (addNext!=null) {
 			final EventTestImpl next=addNext.apply(data,this);

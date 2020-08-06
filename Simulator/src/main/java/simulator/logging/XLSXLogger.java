@@ -51,6 +51,7 @@ public class XLSXLogger implements SimLogging {
 	private final boolean singleLineMode;
 	private final boolean useColors;
 	private final boolean formatedTime;
+	private final boolean printIDs;
 	private long lastEventTime=-1;
 
 	private final Workbook workbook;
@@ -70,15 +71,17 @@ public class XLSXLogger implements SimLogging {
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
+	 * @param printIDs	IDs mit ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 * @param oldFileFormat	Gibt an, ob eine XLSX- (<code>false</code>) oder eine alte XLS-Datei (<code>true</code>) erzeugt werden soll.
 	 */
-	public XLSXLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings, final boolean oldFileFormat) {
+	public XLSXLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings, final boolean oldFileFormat) {
 		this.logFile=logFile;
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
 		this.formatedTime=formatedTime;
+		this.printIDs=printIDs;
 
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
@@ -158,7 +161,7 @@ public class XLSXLogger implements SimLogging {
 	}
 
 	@Override
-	public boolean log(long time, Color color, String event, String info) {
+	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
 		final String timeString=formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0);
 
 		/* Abschnitt beginnen / beenden */
@@ -189,6 +192,14 @@ public class XLSXLogger implements SimLogging {
 				cell.setCellStyle(getCellStyle(color,true));
 				cell.setCellValue(event);
 			}
+			if (printIDs) {
+				if (id>=0) {
+					cell=row.createCell(colCount);
+					cell.setCellStyle(getCellStyle(color,true));
+					cell.setCellValue(""+id);
+				}
+				colCount++;
+			}
 			if (info!=null && !info.isEmpty()) {
 				cell=row.createCell(colCount); colCount++;
 				cell.setCellStyle(getCellStyle(color,false));
@@ -208,6 +219,14 @@ public class XLSXLogger implements SimLogging {
 				cell.setCellStyle(getCellStyle(color,true));
 				cell.setCellValue(event);
 			}
+			if (printIDs) {
+				if (id>=0) {
+					cell=row.createCell(colCount);
+					cell.setCellStyle(getCellStyle(color,true));
+					cell.setCellValue(""+id);
+				}
+				colCount++;
+			}
 			if (info!=null && !info.isEmpty()) {
 				if (event!=null && !event.isEmpty()) {
 					row=sheet.createRow(rowCount); rowCount++;
@@ -219,7 +238,7 @@ public class XLSXLogger implements SimLogging {
 			}
 		}
 
-		if (nextLogger!=null) nextLogger.log(time,color,event,info);
+		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 
 		return true;
 	}

@@ -323,7 +323,7 @@ public class RunElementSourceRecord {
 	private void log(final SimulationData simData, final String event, final String info, final RunElement element) {
 		if (simData.loggingIDs!=null && !simData.loggingIDs[element.id]) return;
 		if (!simData.logInfoStation) return;
-		simData.logEventExecution(element.logTextColor,event,info);
+		simData.logEventExecution(element.logTextColor,event,element.id,info);
 	}
 
 	private int scheduleNextArrivalTime(final SimulationData simData, final double rawTimeDelta, final boolean isFirstArrival, final RunElement element, final String stationName) {

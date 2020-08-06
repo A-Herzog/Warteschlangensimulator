@@ -151,7 +151,7 @@ public class RunDataTransporterFailure {
 		if (pauseStartTime>0 && pauseStartTime<=simData.currentTime) {
 			transporter.startDownTime(simData);
 			final long downTime=getDownTime(simData,simData.runModel.transportersTemplate.type[transporter.type]);
-			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.TransporterFailure"),String.format(Language.tr("Simulation.Log.TransporterFailure.Scheduled"),list.type[transporter.type],transporter.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
+			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.TransporterFailure"),-1,String.format(Language.tr("Simulation.Log.TransporterFailure.Scheduled"),list.type[transporter.type],transporter.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
 			transporter.onlineAgainAt=simData.currentTime+downTime;
 			scheduleTransporterPauseEndEvent(simData,transporter);
 			pauseStartTime=0;
@@ -162,7 +162,7 @@ public class RunDataTransporterFailure {
 		if (failureMode==ModelTransporterFailure.FailureMode.FAILURE_BY_NUMBER && servedCount>=failureNumber) {
 			transporter.startDownTime(simData);
 			final long downTime=getDownTime(simData,simData.runModel.transportersTemplate.type[transporter.type]);
-			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.TransporterFailure"),String.format(Language.tr("Simulation.Log.TransporterFailure.WorkCount"),list.type[transporter.type],transporter.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
+			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.TransporterFailure"),-1,String.format(Language.tr("Simulation.Log.TransporterFailure.WorkCount"),list.type[transporter.type],transporter.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
 			transporter.onlineAgainAt=simData.currentTime+downTime;
 			scheduleTransporterPauseEndEvent(simData,transporter);
 			servedCount=0;
@@ -173,7 +173,7 @@ public class RunDataTransporterFailure {
 		if (failureMode==ModelTransporterFailure.FailureMode.FAILURE_BY_DISTANCE && servedDistance>=failureDistance) {
 			transporter.startDownTime(simData);
 			final long downTime=getDownTime(simData,simData.runModel.transportersTemplate.type[transporter.type]);
-			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.TransporterFailure"),String.format(Language.tr("Simulation.Log.TransporterFailure.Distance"),list.type[transporter.type],transporter.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
+			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.TransporterFailure"),-1,String.format(Language.tr("Simulation.Log.TransporterFailure.Distance"),list.type[transporter.type],transporter.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
 			transporter.onlineAgainAt=simData.currentTime+downTime;
 			scheduleTransporterPauseEndEvent(simData,transporter);
 			servedDistance=0;
@@ -184,7 +184,7 @@ public class RunDataTransporterFailure {
 		if (failureMode==ModelTransporterFailure.FailureMode.FAILURE_BY_WORKING_TIME && servedTime>failureTime) {
 			transporter.startDownTime(simData);
 			long downTime=getDownTime(simData,simData.runModel.transportersTemplate.type[transporter.type]);
-			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.TransporterFailure"),String.format(Language.tr("Simulation.Log.TransporterFailure.WorkTime"),list.type[transporter.type],transporter.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
+			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.TransporterFailure"),-1,String.format(Language.tr("Simulation.Log.TransporterFailure.WorkTime"),list.type[transporter.type],transporter.index+1,SimData.formatSimTime(simData.currentTime),SimData.formatSimTime(downTime)));
 			transporter.onlineAgainAt=simData.currentTime+downTime;
 			scheduleTransporterPauseEndEvent(simData,transporter);
 			servedTime=0;

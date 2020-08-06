@@ -47,6 +47,11 @@ public class CallbackLoggerData {
 	public final String event;
 
 	/**
+	 * ID der Station, die das Ereignis ausgelöst hat (Werte kleiner als 0 stehen für "keine Station")
+	 */
+	public final int id;
+
+	/**
 	 * Zusätzliche Beschreibung zu dem Ereignis
 	 */
 	public final String info;
@@ -56,13 +61,15 @@ public class CallbackLoggerData {
 	 * @param time	Zeitpunkt des Ereignisses (in ms)
 	 * @param color	Farbe, in der das Ereignis dargestellt werden sollte
 	 * @param event	Name des Ereignisses
+	 * @param id	ID der Station, an der das Ereignis stattfand (Werte kleiner als 0 für "keine Station")
 	 * @param info	Zusätzliche Beschreibung zu dem Ereignis
 	 */
-	public CallbackLoggerData(final long time, final Color color, final String event, final String info) {
+	public CallbackLoggerData(final long time, final Color color, final String event, final int id, final String info) {
 		this.timeStamp=time;
 		this.time=SimData.formatSimTime(time);
 		this.color=color;
 		this.event=event;
+		this.id=id;
 		this.info=info;
 	}
 }

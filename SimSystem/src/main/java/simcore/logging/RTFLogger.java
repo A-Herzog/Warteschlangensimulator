@@ -33,6 +33,7 @@ public class RTFLogger extends AbstractTextLogger {
 	private final boolean singleLineMode;
 	private final boolean useColors;
 	private final boolean formatedTime;
+	private final boolean printIDs;
 	private final String[] headings;
 	private long lastEventTime=-1;
 
@@ -47,13 +48,15 @@ public class RTFLogger extends AbstractTextLogger {
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
+	 * @param printIDs	IDs mit ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public RTFLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings) {
+	public RTFLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings) {
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
 		this.formatedTime=formatedTime;
+		this.printIDs=printIDs;
 		if (headings==null || headings.length==0) this.headings=new String[]{"Simulationsergebnisse"}; else this.headings=headings;
 		init(logFile);
 		if (ready()) {
@@ -114,7 +117,7 @@ public class RTFLogger extends AbstractTextLogger {
 	}
 
 	@Override
-	public boolean log(long time, Color color, String event, String info) {
+	public boolean log(long time, Color color, String event, final int id, String info) {
 		/* Abschnitt beginnen / beenden */
 		if (groupSameTimeEvents) {
 			if(lastEventTime!=time) {
@@ -135,16 +138,18 @@ public class RTFLogger extends AbstractTextLogger {
 		if (singleLineMode) {
 			if (!groupSameTimeEvents) buffer.append(convertLineToRTF(SimData.formatSimTime(time))+"\\tab\n");
 			if (event!=null && !event.isEmpty()) buffer.append(convertLineToRTF(event)+"\\tab\n");
+			if (printIDs) buffer.append(convertLineToRTF((id>=0)?(""+id):"")+"\\tab\n");
 			if (info!=null && !info.isEmpty()) buffer.append(convertLineToRTF(info)+" ");
 			buffer.append("\\line\n");
 		} else {
 			if (!groupSameTimeEvents) buffer.append(convertLineToRTF(SimData.formatSimTime(time))+"\\line\n");
 			if (event!=null && !event.isEmpty()) buffer.append(convertLineToRTF(event)+"\\line\n");
+			if (printIDs) buffer.append(convertLineToRTF((id>=0)?(""+id):"")+"\\line\n");
 			if (info!=null && !info.isEmpty()) buffer.append(convertLineToRTF(info)+"\\line\n");
 			buffer.append("\\par\n");
 		}
 
-		if (nextLogger!=null) nextLogger.log(time,color,event,info);
+		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 
 		return true;
 	}

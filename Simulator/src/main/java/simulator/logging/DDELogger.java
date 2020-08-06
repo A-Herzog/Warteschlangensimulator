@@ -31,6 +31,7 @@ import simcore.logging.SimLogging;
 public class DDELogger implements SimLogging {
 	private final String workbook;
 	private final String sheet;
+	private final boolean printIDs;
 	private final DDEConnect connect;
 	private final boolean ready;
 	private int nextRow;
@@ -40,10 +41,12 @@ public class DDELogger implements SimLogging {
 	 * Konstruktor der Klassw
 	 * @param workbook	Zu verwendende Excel-Arbeitsmappe
 	 * @param sheet	Zu verwendende Tabelle innerhalb der Arbeitsmappe (die Ausgabe erfolgt ab Zeile 1, Spalte 1; vorhandene Daten werden überschrieben)
+	 * @param printIDs	IDs mit ausgeben
 	 */
-	public DDELogger(final String workbook, final String sheet) {
+	public DDELogger(final String workbook, final String sheet, final boolean printIDs) {
 		this.workbook=workbook;
 		this.sheet=sheet;
+		this.printIDs=printIDs;
 		connect=new DDEConnect();
 		ready=connect.available();
 		nextRow=0;
@@ -55,12 +58,31 @@ public class DDELogger implements SimLogging {
 	}
 
 	@Override
-	public boolean log(long time, Color color, String event, String info) {
+	public boolean log(final long time, final Color color, final String event, final int id, String info) {
 		boolean ok=true;
-		if (!connect.setData(workbook,sheet,nextRow,0,SimData.formatSimTime(time))) ok=false;
-		if (event!=null) {if (!connect.setData(workbook,sheet,nextRow,1,event)) ok=false;}
-		if (info!=null) {if (!connect.setData(workbook,sheet,nextRow,2,info)) ok=false;}
+		int nextCol=0;
+
+		if (!connect.setData(workbook,sheet,nextRow,nextCol,SimData.formatSimTime(time))) ok=false;
+		nextCol++;
+
+		if (event!=null) {
+			if (!connect.setData(workbook,sheet,nextRow,nextCol,event)) ok=false;
+		}
+		nextCol++;
+
+		if (printIDs) {
+			if (id>=0) {
+				if (!connect.setData(workbook,sheet,nextRow,nextCol,""+id)) ok=false;
+			}
+			nextCol++;
+		}
+
+		if (info!=null) {
+			if (!connect.setData(workbook,sheet,nextRow,nextCol,info)) ok=false;
+		}
+
 		nextRow++;
+
 		return ok;
 	}
 

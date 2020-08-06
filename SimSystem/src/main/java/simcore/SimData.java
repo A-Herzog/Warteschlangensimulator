@@ -88,8 +88,8 @@ public class SimData {
 	 * Gibt an, ob das Event-Logging aktiv ist.<br>
 	 * Wenn ja, sollten Events die Methode <code>logEventExecution</code> aufrufen oder das <code>logging</code>-Feld
 	 * benutzen, um Statusmeldungen auszugeben.
-	 * @see #logEventExecution(String, String)
-	 * @see #logEventExecution(Color, String, String)
+	 * @see #logEventExecution(String, int, String)
+	 * @see #logEventExecution(Color, String, int, String)
 	 * @see #activateLogging(SimLogging)
 	 * @see #activateLogging(File)
 	 * @see SimData#logging
@@ -192,7 +192,7 @@ public class SimData {
 	 * @see SimLogging
 	 */
 	protected SimLogging getLogger(final File logFile) {
-		return new PlainTextLogger(logFile,false,false,logFile.toString().toUpperCase().endsWith(".CSV"));
+		return new PlainTextLogger(logFile,false,false,false,logFile.toString().toUpperCase().endsWith(".CSV"));
 	}
 
 	/**
@@ -201,8 +201,8 @@ public class SimData {
 	 * @param logFile	Dateiname der Logfile-Datei
 	 * @return	Gibt <code>true</code> zurück, wenn das Logging mit dem angegebenen Dateinamen aktiviert werden konnte.
 	 * @see #loggingActive
-	 * @see #logEventExecution(String, String)
-	 * @see #logEventExecution(Color, String, String)
+	 * @see #logEventExecution(String, int, String)
+	 * @see #logEventExecution(Color, String, int, String)
 	 */
 	public final boolean activateLogging(File logFile) {
 		if (logging!=null) logging.done();
@@ -218,8 +218,8 @@ public class SimData {
 	 * @param logger	Bereits gestarteter Logger
 	 * @return	Gibt <code>true</code> zurück, wenn das Logging mit dem angegebenen Dateinamen aktiviert werden konnte.
 	 * @see #loggingActive
-	 * @see #logEventExecution(String, String)
-	 * @see #logEventExecution(Color, String, String)
+	 * @see #logEventExecution(String, int, String)
+	 * @see #logEventExecution(Color, String, int, String)
 	 */
 	public final boolean activateLogging(SimLogging logger) {
 		if (logging!=null) logging.done();
@@ -241,24 +241,26 @@ public class SimData {
 	/**
 	 * Speichert Statusausgaben eines Ereignisses.
 	 * @param event	Gibt den Namen des Event, das die Logging-Aktion ausgelöst hat, an.
+	 * @param id	ID der Station, an der das Ereignis stattfand (Werte kleiner als 0 für "keine Station")
 	 * @param info	Enthält eine Beschreibung, die zu dem Logeintrag gespeichert werden soll.
 	 * @return	Gibt an, ob das Ergeignis erfolgreich geloggt werden konnte.
 	 */
-	public final boolean logEventExecution(final String event, final String info) {
+	public final boolean logEventExecution(final String event, final int id, final String info) {
 		if (logging==null) return true;
-		return logging.log(currentTime,Color.BLACK,event,info);
+		return logging.log(currentTime,Color.BLACK,event,id,info);
 	}
 
 	/**
 	 * Speichert Statusausgaben eines Ereignisses.
 	 * @param color	Farbe in die die Log-Zeile eingefärbt werden soll (kann Logger-abhängig ignoriert werden)
 	 * @param event	Gibt den Namen des Event, das die Logging-Aktion ausgelöst hat, an.
+	 * @param id	ID der Station, an der das Ereignis stattfand (Werte kleiner als 0 für "keine Station")
 	 * @param info	Enthält eine Beschreibung, die zu dem Logeintrag gespeichert werden soll.
 	 * @return	Gibt an, ob das Ergeignis erfolgreich geloggt werden konnte.
 	 */
-	public final boolean logEventExecution(final Color color, final String event, final String info) {
+	public final boolean logEventExecution(final Color color, final String event, final int id, final String info) {
 		if (logging==null) return true;
-		return logging.log(currentTime,color,event,info);
+		return logging.log(currentTime,color,event,id,info);
 	}
 
 	/**

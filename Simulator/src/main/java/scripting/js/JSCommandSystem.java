@@ -674,7 +674,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public void signal(final String signalName) {
 		if (simData==null || signalName==null || signalName.trim().isEmpty()) return;
-		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.Info2"),signalName));
+		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Signal"),-1,String.format(Language.tr("Simulation.Log.Signal.Info2"),signalName));
 		simData.runData.fireSignal(simData,signalName);
 	}
 }

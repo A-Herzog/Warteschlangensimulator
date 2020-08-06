@@ -78,6 +78,7 @@ public class LogSetupDialog extends BaseDialog {
 	private final JCheckBox optionGroup;
 	private final JCheckBox optionColor;
 	private final JCheckBox optionFormatedTime;
+	private final JCheckBox optionPrintIDs;
 
 	private final DDEEditPanel editDDE;
 	private final JPlaceholderTextField stationIDsDDEEdit;
@@ -144,6 +145,7 @@ public class LogSetupDialog extends BaseDialog {
 		optionGroup=addOption(card,Language.tr("LogSimulation.OptionGroup"));
 		optionColor=addOption(card,Language.tr("LogSimulation.OptionColor"),Language.tr("LogSimulation.OptionColor.Info"));
 		optionFormatedTime=addOption(card,Language.tr("LogSimulation.FormatTime"),Language.tr("LogSimulation.FormatTime.Info"));
+		optionPrintIDs=addOption(card,Language.tr("LogSimulation.PrintIDs"));
 
 		/* Seite "DDE" */
 
@@ -187,6 +189,7 @@ public class LogSetupDialog extends BaseDialog {
 		optionGroup.setSelected(setup.logGrouped);
 		optionColor.setSelected(setup.logColors);
 		optionFormatedTime.setSelected(setup.logFormatedTime);
+		optionPrintIDs.setSelected(setup.logPrintIDs);
 
 		if (logMode==null) {
 			pageLayout.show(page,"0");
@@ -415,6 +418,7 @@ public class LogSetupDialog extends BaseDialog {
 		setup.logGrouped=optionGroup.isSelected();
 		setup.logColors=optionColor.isSelected();
 		setup.logFormatedTime=optionFormatedTime.isSelected();
+		setup.logPrintIDs=optionPrintIDs.isSelected();
 
 		if (logMode!=null) {
 			setup.logDDEworkbook=editDDE.getWorkbook();
@@ -449,12 +453,13 @@ public class LogSetupDialog extends BaseDialog {
 					!optionMultiLine.isSelected(),
 					optionColor.isSelected(),
 					optionFormatedTime.isSelected(),
+					optionPrintIDs.isSelected(),
 					new String[]{Language.tr("LogSimulation.Heading")}
 					);
 		}
 
 		if (mode==1) {
-			if (editDDE!=null) return new DDELogger(editDDE.getWorkbook(),editDDE.getTable());
+			if (editDDE!=null) return new DDELogger(editDDE.getWorkbook(),editDDE.getTable(),optionPrintIDs.isSelected());
 		}
 
 		return null;

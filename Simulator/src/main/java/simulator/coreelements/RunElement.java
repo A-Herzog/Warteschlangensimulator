@@ -270,7 +270,7 @@ public abstract class RunElement {
 	public final void log(final SimulationData simData, final String event, final String info) {
 		if (!simData.logInfoStation) return;
 		if (simData.loggingIDs!=null && !simData.loggingIDs[id]) return;
-		simData.logEventExecution(logTextColor,event,info);
+		simData.logEventExecution(logTextColor,event,id,info);
 	}
 
 	/**
@@ -284,7 +284,7 @@ public abstract class RunElement {
 	public final void logArrive(final SimulationData simData, final String event, final String info) {
 		if (!simData.logArrival) return;
 		if (simData.loggingIDs!=null && !simData.loggingIDs[id]) return;
-		simData.logEventExecution(logTextColor,event,info);
+		simData.logEventExecution(logTextColor,event,id,info);
 	}
 
 	/**
@@ -298,7 +298,7 @@ public abstract class RunElement {
 	public final void logLeave(final SimulationData simData, final String event, final String info) {
 		if (!simData.logDeparture) return;
 		if (simData.loggingIDs!=null && !simData.loggingIDs[id]) return;
-		simData.logEventExecution(logTextColor,event,info);
+		simData.logEventExecution(logTextColor,event,id,info);
 	}
 
 	/**

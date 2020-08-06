@@ -22,6 +22,7 @@ import simcore.logging.HTMLLogger;
 import simcore.logging.PlainTextLogger;
 import simcore.logging.RTFLogger;
 import simcore.logging.SimLogging;
+import simcore.logging.PlainTextLoggerTimeMode;
 
 /**
  * Der Multi-Type-Logger kann Logdaten in verschiedenen Formaten abhängig vom Dateinamen speichern.
@@ -40,22 +41,23 @@ public class MultiTypeTextLogger implements SimLogging {
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
+	 * @param printIDs	IDs mit ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public MultiTypeTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings) {
+	public MultiTypeTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings) {
 		final String filename=logFile.getName().toUpperCase();
 
 		SimLogging l=null;
-		if (filename.endsWith(".RTF")) l=new RTFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,headings);
-		if (filename.endsWith(".HTML")) l=new HTMLLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,headings);
-		if (filename.endsWith(".DOCX")) l=new DOCXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,headings);
-		if (filename.endsWith(".ODT")) l=new ODTLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,headings);
-		if (filename.endsWith(".XLSX")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,headings,false);
-		if (filename.endsWith(".XLS")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,headings,true);
-		if (filename.endsWith(".ODS")) l=new ODSLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,headings);
-		if (filename.endsWith(".PDF")) l=new PDFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,headings);
-		if (filename.endsWith(".CSV")) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLogger.TimeMode.TIME:PlainTextLogger.TimeMode.PLAIN,true);
-		if (l==null) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLogger.TimeMode.TIME:PlainTextLogger.TimeMode.PLAIN,false);
+		if (filename.endsWith(".RTF")) l=new RTFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
+		if (filename.endsWith(".HTML")) l=new HTMLLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
+		if (filename.endsWith(".DOCX")) l=new DOCXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
+		if (filename.endsWith(".ODT")) l=new ODTLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
+		if (filename.endsWith(".XLSX")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings,false);
+		if (filename.endsWith(".XLS")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings,true);
+		if (filename.endsWith(".ODS")) l=new ODSLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
+		if (filename.endsWith(".PDF")) l=new PDFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
+		if (filename.endsWith(".CSV")) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,true);
+		if (l==null) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,false);
 		logger=l;
 	}
 
@@ -65,9 +67,9 @@ public class MultiTypeTextLogger implements SimLogging {
 	}
 
 	@Override
-	public boolean log(long time, Color color, String event, String info) {
-		if (logger!=null) logger.log(time,color,event,info);
-		if (nextLogger!=null) nextLogger.log(time,color,event,info);
+	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
+		if (logger!=null) logger.log(time,color,event,id,info);
+		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 		return true;
 	}
 

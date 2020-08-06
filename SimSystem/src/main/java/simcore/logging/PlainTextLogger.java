@@ -27,23 +27,10 @@ import simcore.SimData;
  * @see SimLogging
  */
 public class PlainTextLogger extends AbstractTextLogger {
-	/**
-	 * Wie sollen Zeitangaben ausgegeben werden?
-	 * @author Alexander Herzog
-	 * @see PlainTextLogger#PlainTextLogger(File, boolean, boolean, TimeMode, boolean)
-	 */
-	public enum TimeMode {
-		/** Zeitabgaben als Sekunden-Zahlenwert ausgeben */
-		PLAIN,
-		/** Zeitangaben als HH:MM:SS,s ausgeben */
-		TIME,
-		/** Zeitangaben als Datum + Zeit ausgeben */
-		DATETIME,
-	}
-
 	private final boolean groupSameTimeEvents;
 	private final boolean singleLineMode;
-	private final TimeMode timeMode;
+	private final PlainTextLoggerTimeMode timeMode;
+	private final boolean printIDs;
 	private final boolean csvMode;
 	private long lastEventTime=-1;
 
@@ -52,10 +39,17 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param logFile	Dateiname der Logfile-Datei
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
+	 * @param timeMode	Wie sollen Zeitangaben ausgegeben werden?
+	 * @param printIDs	IDs mit ausgeben
 	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben
 	 */
-	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean csvMode) {
-		this(logFile,groupSameTimeEvents,singleLineMode,TimeMode.TIME,csvMode);
+	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final PlainTextLoggerTimeMode timeMode, final boolean printIDs, final boolean csvMode) {
+		this.groupSameTimeEvents=groupSameTimeEvents;
+		this.singleLineMode=singleLineMode;
+		this.timeMode=timeMode;
+		this.csvMode=csvMode;
+		this.printIDs=printIDs;
+		init(logFile);
 	}
 
 	/**
@@ -63,15 +57,11 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param logFile	Dateiname der Logfile-Datei
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
-	 * @param timeMode	Wie sollen Zeitangaben ausgegeben werden?
+	 * @param printIDs	IDs mit ausgeben
 	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben
 	 */
-	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final TimeMode timeMode, final boolean csvMode) {
-		this.groupSameTimeEvents=groupSameTimeEvents;
-		this.singleLineMode=singleLineMode;
-		this.timeMode=timeMode;
-		this.csvMode=csvMode;
-		init(logFile);
+	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean printIDs, final boolean csvMode) {
+		this(logFile,groupSameTimeEvents,singleLineMode,PlainTextLoggerTimeMode.TIME,printIDs,csvMode);
 	}
 
 	private String toCSV(String cell) {
@@ -82,7 +72,7 @@ public class PlainTextLogger extends AbstractTextLogger {
 	}
 
 	@Override
-	public boolean log(final long time, final Color color, final String event, final String info) {
+	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
 		final StringBuilder sb=new StringBuilder();
 
 		if (groupSameTimeEvents && lastEventTime!=time) {
@@ -105,6 +95,16 @@ public class PlainTextLogger extends AbstractTextLogger {
 			}
 		}
 
+		if (printIDs) {
+			if (singleLineMode) sb.append(csvMode?';':'\t'); else sb.append(System.lineSeparator());
+			final String idString=(id>=0)?(""+id):"";
+			if (csvMode) {
+				sb.append(toCSV(idString));
+			} else {
+				sb.append(idString);
+			}
+		}
+
 		if (info!=null && !info.isEmpty()) {
 			if (singleLineMode) sb.append(csvMode?';':'\t'); else sb.append(System.lineSeparator());
 			if (csvMode) {
@@ -116,7 +116,7 @@ public class PlainTextLogger extends AbstractTextLogger {
 
 		sb.append(System.lineSeparator());
 
-		if (nextLogger!=null) nextLogger.log(time,color,event,info);
+		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 
 		return writeString(sb.toString());
 	}

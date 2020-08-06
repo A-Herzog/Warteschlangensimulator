@@ -85,7 +85,7 @@ public abstract class AbstractTextLogger implements SimLogging {
 	}
 
 	@Override
-	public abstract boolean log(long time, Color color, String event, String info);
+	public abstract boolean log(long time, Color color, String event, int id, String info);
 
 	@Override
 	public boolean done() {

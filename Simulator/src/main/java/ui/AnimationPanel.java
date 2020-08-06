@@ -1202,7 +1202,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			colorCode=Integer.toHexString(data.color.getRed())+Integer.toHexString(data.color.getGreen())+Integer.toHexString(data.color.getBlue());
 		}
 		if (logTextPlain.length()<MAX_LOG_VIEWER_SIZE) {
-			logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+";\">&nbsp; "+data.event+" &nbsp;</span></b> "+data.info);
+			if (data.id>=0) {
+				logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+";\">&nbsp; "+data.event+" (id="+data.id+")"+" &nbsp;</span></b> "+data.info);
+			} else {
+				logText.append(data.time+": <b><span style=\"background-color: #"+colorCode+";\">&nbsp; "+data.event+" &nbsp;</span></b> "+data.info);
+			}
 			logTextPlain.append(data.time+": "+data.event+" - "+data.info);
 		}
 		final String message="<html><body>"+logText.toString()+"</body></html>";

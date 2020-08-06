@@ -4256,6 +4256,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10083] = "StatisticsResourcesIdleTimeCosts";
     t[10090] = "Simulation.Log.Section.Leave";
     t[10091] = "%s is left by client %s.";
+    t[10096] = "Surface.Output.Name.Short";
+    t[10097] = "Output";
     t[10098] = "Distribution.Scale";
     t[10099] = "Scale";
     t[10108] = "Surface.Text.XML.Text";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14107] = "The \"Distribution\" attribute in the \"%s\" element has to be a probability distribution.";
     t[14112] = "Animation.Icon.Computer";
     t[14113] = "Computer";
-    t[14118] = "Main.Toolbar.StartAnimation";
-    t[14119] = "Start animation";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14118] = "Main.Toolbar.StartAnimation";
+    t[14119] = "Start animation";
     t[14120] = "ParameterCompare.XML.Name";
     t[14121] = "CompareModelsName";
     t[14124] = "Optimizer.ControlVariableEdit.Info.Variable";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18817] = "yellow";
     t[18824] = "ModelGenerator.StationCount";
     t[18825] = "Number of process stations";
-    t[18828] = "SettingsDialog.Default";
-    t[18829] = "Defailt values";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18828] = "SettingsDialog.Default";
+    t[18829] = "Defailt values";
     t[18832] = "Statistics.ProcessTimesByStations";
     t[18833] = "Process times by stations";
     t[18842] = "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNumberRangeInfo";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23695] = "No input file";
     t[23702] = "Statistics.UtilizationAndFailures.Type";
     t[23703] = "Operator type";
-    t[23704] = "Resources.Group.EditName.Dialog.ErrorName";
-    t[23705] = "Invalid operator group name";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23704] = "Resources.Group.EditName.Dialog.ErrorName";
+    t[23705] = "Invalid operator group name";
     t[23714] = "Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic";
     t[23715] = "U";
     t[23718] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.HistogramMultiple";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28469] = "ModelElementDecideScript";
     t[28470] = "Compare.Error.NoModelKept.Info2";
     t[28471] = "There is no kept model to which could be returned.";
-    t[28486] = "ModelSecurityCheck.CriticalType.Script";
-    t[28487] = "Script execution";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28486] = "ModelSecurityCheck.CriticalType.Script";
+    t[28487] = "Script execution";
     t[28488] = "Surface.InteractiveCheckbox.Dialog.ValueUnchecked.ErrorTitle";
     t[28489] = "Invalid value for \"checkbox not activated\"";
     t[28490] = "Surface.Match.Dialog.OptionProperty.Text";
@@ -12896,8 +12898,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30537] = "invalid";
     t[30538] = "Editor.Dialog.Tab.PathRecording.ClientPaths";
     t[30539] = "Record client paths";
-    t[30542] = "Surface.Output.Name.Short";
-    t[30543] = "Output";
+    t[30542] = "LogSimulation.PrintIDs";
+    t[30543] = "Output station IDs in separate column";
     t[30544] = "Surface.AnimationClock.Tooltip";
     t[30545] = "Analog clock for the simulation time";
     t[30548] = "Surface.InteractiveSlider.Dialog.Variable";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33247] = "No expression to be calculated was specified.";
     t[33254] = "Simulation.Log.Duplicate.Info";
     t[33255] = "clients: id=%d%s, station: %s";
-    t[33264] = "Surface.Process.Dialog.MaximumBatchSize.Error.Title";
-    t[33265] = "Invalid maximum batch size";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33264] = "Surface.Process.Dialog.MaximumBatchSize.Error.Title";
+    t[33265] = "Invalid maximum batch size";
     t[33266] = "Batch.Simulation.RunNoValue";
     t[33267] = "Simulation step %d: Simulation of model %s";
     t[33272] = "Simulation.Creator.InputConnectionsNotMatching";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37915] = "Simulation started";
     t[37924] = "Schedule.SettingsDialog.RepeatMode.RepeatByDay";
     t[37925] = "Repeat schedule, but fill up current day with 0 values";
-    t[37928] = "ModelDescription.SourceDB.ColumnInfo";
-    t[37929] = "Additional information table column";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37928] = "ModelDescription.SourceDB.ColumnInfo";
+    t[37929] = "Additional information table column";
     t[37934] = "QuickAccess.Examples.Hint";
     t[37935] = "Loads the example model into the editor";
     t[37942] = "Statistics.AdditionalStatistics.InteractivePause";

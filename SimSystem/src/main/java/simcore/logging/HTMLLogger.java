@@ -31,6 +31,7 @@ public class HTMLLogger extends AbstractTextLogger {
 	private final boolean singleLineMode;
 	private final boolean useColors;
 	private final boolean formatedTime;
+	private final boolean printIDs;
 	private final String[] headings;
 	private long lastEventTime=-1;
 
@@ -41,13 +42,15 @@ public class HTMLLogger extends AbstractTextLogger {
 	 * @param singleLineMode	Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
+	 * @param printIDs	IDs mit ausgeben
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public HTMLLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final String[] headings) {
+	public HTMLLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings) {
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
 		this.formatedTime=formatedTime;
+		this.printIDs=printIDs;
 		if (headings==null || headings.length==0) this.headings=new String[]{"Simulationsergebnisse"}; else this.headings=headings;
 		init(logFile);
 	}
@@ -102,7 +105,7 @@ public class HTMLLogger extends AbstractTextLogger {
 	}
 
 	@Override
-	public boolean log(long time, Color color, String event, String info) {
+	public boolean log(long time, Color color, String event, final int id, String info) {
 		final StringBuilder sb=new StringBuilder();
 
 		final String timeString=formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0);
@@ -134,6 +137,11 @@ public class HTMLLogger extends AbstractTextLogger {
 				sb.append(event.replace("\n","<br>"));
 				sb.append("</td>"+System.lineSeparator());
 			}
+			if (printIDs) {
+				sb.append("    <td>");
+				if (id>=0) sb.append(id);
+				sb.append("</td>"+System.lineSeparator());
+			}
 			if (info!=null && !info.isEmpty()) {
 				sb.append("    <td>");
 				sb.append(info.replace("\n","<br>"));
@@ -149,6 +157,10 @@ public class HTMLLogger extends AbstractTextLogger {
 				if (!groupSameTimeEvents) sb.append("<br>"+System.lineSeparator());
 				sb.append("    "+event.replace("\n","<br>"));
 			}
+			if (printIDs) {
+				sb.append("<br>"+System.lineSeparator());
+				if (id>=0) sb.append("    "+id);
+			}
 			if (info!=null && !info.isEmpty()) {
 				sb.append("<br>"+System.lineSeparator());
 				sb.append("    "+info.replace("\n","<br>"));
@@ -157,7 +169,7 @@ public class HTMLLogger extends AbstractTextLogger {
 			sb.append("  </li>");
 		}
 
-		if (nextLogger!=null) nextLogger.log(time,color,event,info);
+		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 
 		return writeString(sb.toString());
 	}

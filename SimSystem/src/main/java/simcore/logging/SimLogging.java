@@ -37,10 +37,11 @@ public interface SimLogging {
 	 * @param time	Zeitpunkt des Ereignisses
 	 * @param color	Farbe in die die Log-Zeile eingefärbt werden soll (kann Logger-abhängig ignoriert werden)
 	 * @param event	Gibt den Namen des Event, das die Logging-Aktion ausgelöst hat, an.
+	 * @param id	ID der Station, an der das Ereignis stattfand (Werte kleiner als 0 für "keine Station")
 	 * @param info	Enthält eine Beschreibung, die zu dem Logeintrag gespeichert werden soll.
 	 * @return	Gibt an, ob das Ereignis erfolgreich geloggt werden konnte.
 	 */
-	boolean log(final long time, final Color color, final String event, final String info);
+	boolean log(final long time, final Color color, final String event, final int id, final String info);
 
 	/**
 	 * Beendet das Logging und schließt die Ausgabedatei

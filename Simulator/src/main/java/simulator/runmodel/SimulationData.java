@@ -286,7 +286,7 @@ public class SimulationData extends SimData {
 
 	@Override
 	protected SimLogging getLogger(final File logFile) {
-		return new MultiTypeTextLogger(logFile,true,SetupData.getSetup().singleLineEventLog,true,true,new String[]{Language.tr("Simulation.Log.Title")});
+		return new MultiTypeTextLogger(logFile,true,SetupData.getSetup().singleLineEventLog,true,true,true,new String[]{Language.tr("Simulation.Log.Title")});
 	}
 
 	/**
@@ -296,7 +296,7 @@ public class SimulationData extends SimData {
 	public void doEmergencyShutDown(final String message) {
 		statistics.simulationData.emergencyShutDown=true;
 		addWarning(Language.tr("Simulation.RunTimeError").toUpperCase()+": "+message);
-		logEventExecution(Language.tr("Simulation.Log.Abort"),message);
+		logEventExecution(Language.tr("Simulation.Log.Abort"),-1,message);
 		doShutDown();
 	}
 

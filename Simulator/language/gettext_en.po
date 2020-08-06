@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-05 18:31+0200\n"
+"POT-Creation-Date: 2020-08-06 16:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6504,6 +6504,9 @@ msgstr "Split up event name and event description in two lines"
 
 msgid "LogSimulation.OutputFormat"
 msgstr "Output formatting"
+
+msgid "LogSimulation.PrintIDs"
+msgstr "Output station IDs in separate column"
 
 msgid "LogSimulation.Restrictions"
 msgstr "Restriction of recording"

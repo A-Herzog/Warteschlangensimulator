@@ -94,9 +94,9 @@ public class CallbackLogger implements SimLogging {
 	}
 
 	@Override
-	public boolean log(long time, Color color, String event, String info) {
-		if (active && callback!=null) callback.accept(new CallbackLoggerData(time,(color==null)?Color.BLACK:color,event,info));
-		if (nextLogger!=null) nextLogger.log(time,color,event,info);
+	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
+		if (active && callback!=null) callback.accept(new CallbackLoggerData(time,(color==null)?Color.BLACK:color,event,id,info));
+		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 		return true;
 	}
 

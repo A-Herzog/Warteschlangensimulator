@@ -1188,7 +1188,7 @@ public class RunData {
 			simData.runData.setClientVariableValues(null);
 			if (simData.runModel.terminationCondition.eval(simData.runData.variableValues,simData,null)) {
 				/* Logging */
-				if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Color.BLACK,Language.tr("Simulation.Log.EndOfSimulation"),String.format(Language.tr("Simulation.Log.EndOfSimulation.Condition"),simData.runModel.terminationCondition.getCondition()));
+				if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Color.BLACK,Language.tr("Simulation.Log.EndOfSimulation"),-1,String.format(Language.tr("Simulation.Log.EndOfSimulation.Condition"),simData.runModel.terminationCondition.getCondition()));
 
 				/* Ende */
 				simData.doShutDown();
@@ -1199,7 +1199,7 @@ public class RunData {
 		if (simData.runModel.terminationTime>=0) {
 			if (simData.currentTime>simData.runModel.terminationTime*1000) {
 				/* Logging */
-				if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Color.BLACK,Language.tr("Simulation.Log.EndOfSimulation"),Language.tr("Simulation.Log.EndOfSimulation.Time"));
+				if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Color.BLACK,Language.tr("Simulation.Log.EndOfSimulation"),-1,Language.tr("Simulation.Log.EndOfSimulation.Time"));
 
 				/* Ende */
 				simData.doShutDown();
