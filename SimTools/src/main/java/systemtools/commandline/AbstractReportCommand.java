@@ -18,8 +18,6 @@ package systemtools.commandline;
 import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Abstrakte Basisklasse für Reportgenerator-Kommandozeilenbefehle.
@@ -29,57 +27,41 @@ import java.util.List;
  * @see BaseCommandLineSystem
  */
 public abstract class AbstractReportCommand extends AbstractCommand {
-	private static final int MODE_REPORT_INLINE=0;
-	private static final int MODE_REPORT_FILES=1;
-	private static final int MODE_DOCX=2;
-	private static final int MODE_PDF=3;
-	private static final int MODE_LATEX=4;
-	private static final int MODE_LIST=5;
-	private static final int MODE_SINGLE_DOCUMENT=6;
+	private enum ExportMode {
+		MODE_REPORT_INLINE(new String[] {"Inline"}),
+		MODE_REPORT_FILES(new String[] {"Einzeldateien","SingleFiles"}),
+		MODE_REPORT_APP(new String[] {"HTMLApp"}),
+		MODE_DOCX(new String[] {"Text"}),
+		MODE_PDF(new String[] {"PDF"}),
+		MODE_LATEX(new String[] {"LaTeX"}),
+		MODE_LIST(new String[] {"Liste","List"}),
+		MODE_SINGLE_DOCUMENT(null);
+
+		public final String[] names;
+
+		ExportMode(final String[] names) {
+			this.names=names;
+		}
+	}
 
 	private File input;
 	private File output;
-	private int mode=-1;
+	private ExportMode mode;
 	private String listEntry;
 
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
 		String s=parameterCountCheck(3,additionalArguments); if (s!=null) return s;
 
-		List<List<String>> keys=new ArrayList<List<String>>();
-		List<String> list;
-
-		list=new ArrayList<>();
-		list.add("Inline");
-		keys.add(list);
-
-		list=new ArrayList<>();
-		list.add("Einzeldateien");
-		keys.add(list);
-
-		list=new ArrayList<>();
-		list.add("Text");
-		keys.add(list);
-
-		list=new ArrayList<>();
-		list.add("PDF");
-		keys.add(list);
-
-		list=new ArrayList<>();
-		list.add("LaTeX");
-		keys.add(list);
-
-		list=new ArrayList<>();
-		list.add("Liste");
-		keys.add(list);
-
-		mode=-1;
-		for (int i=0;i<keys.size();i++) {
-			List<String> l=keys.get(i);
-			for (int j=0;j<l.size();j++) if (additionalArguments[0].equalsIgnoreCase(l.get(j))) {mode=i; break;}
-			if (mode>=0) break;
+		mode=null;
+		for (ExportMode test: ExportMode.values()) {
+			if (test.names==null) continue;
+			for (String name: test.names) {
+				if (additionalArguments[0].equalsIgnoreCase(name)) {mode=test; break;}
+			}
+			if (mode!=null) break;
 		}
-		if (mode<0) {mode=MODE_SINGLE_DOCUMENT; listEntry=additionalArguments[0];}
+		if (mode==null) {mode=ExportMode.MODE_SINGLE_DOCUMENT; listEntry=additionalArguments[0];}
 
 		input=new File(additionalArguments[1]);
 		if (!input.exists()) return  String.format(BaseCommandLineSystem.commandReportErrorInputDoesNotExists,input.toString());
@@ -103,11 +85,12 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 
 	private boolean process(AbstractReportCommandConnect reportGeneratorConnect) {
 		switch (mode) {
-		case MODE_REPORT_INLINE: return reportGeneratorConnect.runReportGeneratorHTML(output,true,false);
-		case MODE_REPORT_FILES:  return reportGeneratorConnect.runReportGeneratorHTML(output,false,false);
-		case MODE_DOCX: return reportGeneratorConnect.runReportGeneratorDOCX(output,false);
-		case MODE_PDF: return reportGeneratorConnect.runReportGeneratorPDF(output,false);
-		case MODE_LATEX: return reportGeneratorConnect.runReportGeneratorLaTeX(output,false);
+		case MODE_REPORT_INLINE: return reportGeneratorConnect.runReportGeneratorHTML(output,true,true);
+		case MODE_REPORT_FILES:  return reportGeneratorConnect.runReportGeneratorHTML(output,false,true);
+		case MODE_REPORT_APP:  return reportGeneratorConnect.runReportGeneratorHTMLApp(output,true);
+		case MODE_DOCX: return reportGeneratorConnect.runReportGeneratorDOCX(output,true);
+		case MODE_PDF: return reportGeneratorConnect.runReportGeneratorPDF(output,true);
+		case MODE_LATEX: return reportGeneratorConnect.runReportGeneratorLaTeX(output,true);
 		case MODE_LIST: return reportGeneratorConnect.getReportList(output);
 		case MODE_SINGLE_DOCUMENT: return reportGeneratorConnect.getReportListEntry(output,listEntry);
 		}

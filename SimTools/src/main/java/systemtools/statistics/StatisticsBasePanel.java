@@ -1224,28 +1224,35 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	}
 
 	@Override
-	public boolean runReportGeneratorHTML(File output, boolean inline, boolean exportAllItems) {
+	public boolean runReportGeneratorHTML(final File output, final boolean inline, final boolean exportAllItems) {
 		final StatisticViewerReport report=getStatisticViewerReport();
 		if (report==null) return false;
 		return report.save(null,output,inline?FileFormat.FORMAT_HTML_INLINE:FileFormat.FORMAT_HTML,exportAllItems);
 	}
 
 	@Override
-	public boolean runReportGeneratorDOCX(File output, boolean exportAllItems) {
+	public boolean runReportGeneratorHTMLApp(final File output, final boolean exportAllItems) {
+		final StatisticViewerReport report=getStatisticViewerReport();
+		if (report==null) return false;
+		return report.save(null,output,FileFormat.FORMAT_HTML_JS,exportAllItems);
+	}
+
+	@Override
+	public boolean runReportGeneratorDOCX(final File output, final boolean exportAllItems) {
 		final StatisticViewerReport report=getStatisticViewerReport();
 		if (report==null) return false;
 		return report.save(null,output,FileFormat.FORMAT_DOCX,exportAllItems);
 	}
 
 	@Override
-	public boolean runReportGeneratorPDF(File output, boolean exportAllItems) {
+	public boolean runReportGeneratorPDF(final File output, final boolean exportAllItems) {
 		final StatisticViewerReport report=getStatisticViewerReport();
 		if (report==null) return false;
 		return report.save(null,output,FileFormat.FORMAT_PDF,exportAllItems);
 	}
 
 	@Override
-	public boolean runReportGeneratorLaTeX(File output, boolean exportAllItems) {
+	public boolean runReportGeneratorLaTeX(final File output, final boolean exportAllItems) {
 		final StatisticViewerReport report=getStatisticViewerReport();
 		if (report==null) return false;
 		return report.save(null,output,FileFormat.FORMAT_LATEX,exportAllItems);

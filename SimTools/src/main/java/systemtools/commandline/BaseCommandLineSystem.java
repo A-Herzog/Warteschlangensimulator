@@ -61,13 +61,15 @@ public class BaseCommandLineSystem {
 	/** Hilfe für den "Report"-Befehl */
 	public static String commandReportHelp=
 			"Dieser Befehl erwartet genau drei weitere Parameter:\n"+
-					"1. \"Inline\", \"Einzeldateien\", \"Liste\", \"Text\", \"PDF\" oder ein Listeneintrag je nach dem, ob\n"+
+					"1. \"Inline\", \"Einzeldateien\", \"Liste\", \"Text\", \"PDF\", \"LaTeX\", \"HTMLApp\" oder ein Listeneintrag je nach dem, ob\n"+
 					"a) ein HTML-Report mit eingebetteten Bildern,\n"+
 					"b) ein HTML-Report mit Bildern in separaten Dateien,\n"+
 					"c) eine Übersicht über alle verfügbaren Einzeldokumente\n"+
 					"d) ein DOCX-Report,\n"+
 					"e) ein PDF-Report oder\n"+
-					"f) ein bestimmtes Einzeldokument ausgegeben werden soll.\n"+
+					"f) ein LaTeX-Report,\n"+
+					"g) ein HTML-Web-App-Report oder\n"+
+					"h) ein bestimmtes Einzeldokument ausgegeben werden soll.\n"+
 					"2. Dateiname der Eingabedatei\n"+
 					"3. Dateiname der Ausgabedatei";
 	/** Fehlermeldung für den "Report"-Befehl */

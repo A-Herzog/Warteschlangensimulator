@@ -9759,7 +9759,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23108] = "Statistic.Viewer.Toolbar.Copy";
     t[23109] = "Copy";
     t[23114] = "CommandLine.ReportBase.Help";
-    t[23115] = "This command expects exactly three additionall parameters:\n1. \"Inline\", \"SingleFiles\", \"List\", \"Text\", \"PDF\", \"LaTeX\" or a list entry, depending if\na) a html report with inline images,\nb) a html teport with separate images,\nc) an overview of all available individual documents,\nd) a docx report,\ne) a pdf report,\nf) a LaTeX report or\ng) an individual document is to be reported.\n2. File name of the input file\n3. File name of the output file";
+    t[23115] = "This command expects exactly three additionall parameters:\n1. \"Inline\", \"SingleFiles\", \"List\", \"Text\", \"PDF\", \"LaTeX\", \"HTMLApp\" or a list entry, depending if\na) a html report with inline images,\nb) a html teport with separate images,\nc) an overview of all available individual documents,\nd) a docx report,\ne) a pdf report,\nf) a LaTeX report\ng) a html web app report or\nh) an individual document is to be reported.\n2. File name of the input file\n3. File name of the output file";
     t[23124] = "ExpressionBuilder.SimulationCharacteristics.Sum";
     t[23125] = "Sum";
     t[23132] = "JDistributionEditor.Save.Graphics";
