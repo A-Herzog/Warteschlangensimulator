@@ -13878,6 +13878,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32863] = "Aus";
     t[32866] = "Surface.Barrier.Dialog.ClientType";
     t[32867] = "Freigabe wirkt auf Kundentyp";
+    t[32878] = "Surface.Connection.AddTeleport.TargetName";
+    t[32879] = "Name f\u00fcr Teleportziel";
     t[32880] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.CoefficientOfVariationOfTheTime";
     t[32881] = "<p>Liefert den Variationskoeffizienten \u00fcber alle Transferzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (\u00fcber alle Kundentypen).</p>";
     t[32884] = "Simulation.Element.LogicUntil.Name";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33239] = "Datenquellenmodus";
     t[33246] = "Surface.AnimationText.Dialog.Expression.Error.InfoMissing";
     t[33247] = "Es wurde kein zu berechnender Ausdruck angegeben.";
-    t[33254] = "Simulation.Log.Duplicate.Info";
-    t[33255] = "Kunden: id=%d%s, Station: %s";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33254] = "Simulation.Log.Duplicate.Info";
+    t[33255] = "Kunden: id=%d%s, Station: %s";
     t[33264] = "Surface.Process.Dialog.MaximumBatchSize.Error.Title";
     t[33265] = "Maximale Batch-Gr\u00f6\u00dfe ung\u00fcltig";
     t[33266] = "Batch.Simulation.RunNoValue";
@@ -14692,6 +14694,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34881] = "Schriftart";
     t[34886] = "Statistic.FastAccess.SelectXMLTag.empty";
     t[34887] = "leer";
+    t[34896] = "Surface.Connection.AddTeleport";
+    t[34897] = "Teleport auf Pfad einf\u00fcgen";
     t[34898] = "Surface.PopupMenu.QuickFix.AddEdgeTo";
     t[34899] = "Verbindungskante zu %s hinzuf\u00fcgen";
     t[34904] = "Optimizer.Error.DataCouldNotBeInterpretedAsNumber";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37903] = "Stationsuebergaenge";
     t[37908] = "Animation.Icon.Bug";
     t[37909] = "K\u00e4fer";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37914] = "CalcWebServer.Simulation.Start";
     t[37915] = "Simulation gestartet";
     t[37924] = "Schedule.SettingsDialog.RepeatMode.RepeatByDay";
     t[37925] = "Zeitplan wiederholen, aber vorher Tag mit 0 auff\u00fcllen";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37928] = "ModelDescription.SourceDB.ColumnInfo";
     t[37929] = "Zusatzdaten Tabellenspalte";
     t[37934] = "QuickAccess.Examples.Hint";

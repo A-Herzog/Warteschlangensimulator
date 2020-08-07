@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-06 21:13+0200\n"
+"POT-Creation-Date: 2020-08-07 19:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19288,6 +19288,12 @@ msgstr "ModelElementIconName"
 
 msgid "Surface.ClientIcon.XML.Root"
 msgstr "ModelElementIcon"
+
+msgid "Surface.Connection.AddTeleport"
+msgstr "Add teleport on path"
+
+msgid "Surface.Connection.AddTeleport.TargetName"
+msgstr "Name for teleport destination"
 
 msgid "Surface.Connection.AddVertex"
 msgstr "Add vertex on path"

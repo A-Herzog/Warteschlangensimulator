@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -25,6 +26,7 @@ import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 import org.apache.commons.math3.util.FastMath;
@@ -205,6 +207,8 @@ public final class ModelElementEdge extends ModelElement {
 
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
+		if (readOnly) return;
+
 		JCheckBoxMenuItem check;
 		JMenuItem item;
 
@@ -220,26 +224,77 @@ public final class ModelElementEdge extends ModelElement {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon(),lineMode==LineMode.MULTI_LINE_ROUNDED));
 		check.addActionListener(e->{lineMode=LineMode.MULTI_LINE_ROUNDED; fireChanged();});
 
-		if (connectionEnd instanceof ModelElementPosition) {
+		if ((connectionStart instanceof ModelElementPosition) && (connectionEnd instanceof ModelElementPosition)) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.Connection.AddVertex"),Images.MODELEDITOR_ELEMENT_VERTEX.getIcon()));
 			item.addActionListener(e->{
 				final double zoom=surfacePanel.getZoom();
-				/* Ecke hinzufügen */
-				final ModelElementVertex vertex=new ModelElementVertex(getModel(),surface);
-				vertex.setPosition(new Point((int)Math.round(point.x/zoom),(int)Math.round(point.y/zoom)));
-				surface.add(vertex);
-				/* Diese Kante umbauen */
-				final ModelElementPosition element2=(ModelElementPosition)connectionEnd;
-				element2.removeConnectionNotify(this);
-				connectionEnd=vertex;
-				vertex.addEdgeIn(this);
-				/* Neue Kante einfügen */
-				final ModelElementEdge edge=new ModelElementEdge(getModel(),surface,vertex,element2);
-				surface.add(edge);
-				vertex.addEdgeOut(edge);
-				element2.addEdgeIn(edge);
+				contextAddVertex(surfacePanel,(ModelElementPosition)connectionStart,(ModelElementPosition)connectionEnd,new Point((int)Math.round(point.x/zoom),(int)Math.round(point.y/zoom)));
+			});
+
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.Connection.AddTeleport"),Images.MODELEDITOR_ELEMENT_TELEPORT.getIcon()));
+			item.addActionListener(e->{
+				final double zoom=surfacePanel.getZoom();
+				contextAddTeleport(surfacePanel,(ModelElementPosition)connectionStart,(ModelElementPosition)connectionEnd,new Point((int)Math.round(point.x/zoom),(int)Math.round(point.y/zoom)));
 			});
 		}
+	}
+
+	private static void setMiddlePositon(final ModelElementPosition element, final Point point) {
+		final Dimension dimension=element.getSize();
+		element.setPosition(new Point(Math.round(point.x-dimension.width/2),Math.round(point.y-dimension.height/2)));
+	}
+
+	private void addEdge(final ModelElementPosition element1, final ModelElementPosition element2) {
+		final ModelElementEdge edge=new ModelElementEdge(getModel(),surface,element1,element2);
+		surface.add(edge);
+		element1.addEdgeOut(edge);
+		element2.addEdgeIn(edge);
+	}
+
+	private void contextAddVertex(final ModelSurfacePanel surfacePanel, final ModelElementPosition element1, final ModelElementPosition element2, final Point point) {
+		/* Ecke hinzufügen */
+		final ModelElementVertex vertex=new ModelElementVertex(getModel(),surface);
+		setMiddlePositon(vertex,point);
+		surface.add(vertex);
+
+		/* Diese Kante umbauen */
+		element2.removeConnectionNotify(this);
+		connectionEnd=vertex;
+		vertex.addEdgeIn(this);
+
+		/* Neue Kante einfügen */
+		addEdge(vertex,element2);
+	}
+
+	private void contextAddTeleport(final ModelSurfacePanel surfacePanel, final ModelElementPosition element1, final ModelElementPosition element2, final Point point) {
+		/* Namen abfragen */
+		final String name=JOptionPane.showInputDialog(surfacePanel.getParent(),Language.tr("Surface.Connection.AddTeleport.TargetName"),String.format("->id=%d",element2.getId()));
+		if (name==null || name.trim().isEmpty()) return;
+
+		/* Positionen berechnen */
+		Point p;
+		p=element1.getMiddlePosition(true);
+		final Point p1=new Point(Math.round((p.x+3*point.x)/4),Math.round((p.y+3*point.y)/4));
+		p=element2.getMiddlePosition(true);
+		final Point p2=new Point(Math.round((p.x+3*point.x)/4),Math.round((p.y+3*point.y)/4));
+
+		/* Teleportstationen hinzufügen */
+		final ModelElementTeleportSource teleport1=new ModelElementTeleportSource(getModel(),surface);
+		setMiddlePositon(teleport1,p1);
+		surface.add(teleport1);
+		teleport1.setDestination(name);
+		final ModelElementTeleportDestination teleport2=new ModelElementTeleportDestination(getModel(),surface);
+		setMiddlePositon(teleport2,p2);
+		surface.add(teleport2);
+		teleport2.setName(name);
+
+		/* Diese Kante umbauen */
+		element2.removeConnectionNotify(this);
+		connectionEnd=teleport1;
+		teleport1.addEdgeIn(this);
+
+		/* Neue Kante einfügen */
+		addEdge(teleport2,element2);
 	}
 
 	/**
