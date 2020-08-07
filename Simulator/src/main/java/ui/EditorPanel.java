@@ -578,9 +578,9 @@ public class EditorPanel extends EditorPanelBase {
 
 		if (!readOnly) {
 			leftToolbar.add(separatorUndoRedo=new JToolBar.Separator(null));
-			buttonUndo=createToolbarButton(leftToolbar,"",Language.tr("Main.Menu.Edit.Undo"),Images.EDIT_UNDO.getIcon());
+			buttonUndo=createToolbarButton(leftToolbar,"",Language.tr("Main.Menu.Edit.Undo")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_Z,InputEvent.CTRL_DOWN_MASK))+")",Images.EDIT_UNDO.getIcon());
 			buttonUndo.setEnabled(false);
-			buttonRedo=createToolbarButton(leftToolbar,"",Language.tr("Main.Menu.Edit.Redo"),Images.EDIT_REDO.getIcon());
+			buttonRedo=createToolbarButton(leftToolbar,"",Language.tr("Main.Menu.Edit.Redo")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_Y,InputEvent.CTRL_DOWN_MASK))+")",Images.EDIT_REDO.getIcon());
 			buttonRedo.setEnabled(false);
 		}
 
@@ -892,22 +892,22 @@ public class EditorPanel extends EditorPanelBase {
 			@Override public void mouseClicked(MouseEvent e) {}
 		});
 		labelZoom.setToolTipText(Language.tr("Editor.SetupZoom"));
-		zoomArea.add(buttonZoomOut2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomOut"),Images.ZOOM_OUT.getIcon()));
+		zoomArea.add(buttonZoomOut2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomOut")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_OUT.getIcon()));
 		buttonZoomOut2.setPreferredSize(new Dimension(20,20));
 		buttonZoomOut2.setBorderPainted(false);
 		buttonZoomOut2.setFocusPainted(false);
 		buttonZoomOut2.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomIn2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomIn"),Images.ZOOM_IN.getIcon()));
+		zoomArea.add(buttonZoomIn2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
 		buttonZoomIn2.setPreferredSize(new Dimension(20,20));
 		buttonZoomIn2.setBorderPainted(false);
 		buttonZoomIn2.setFocusPainted(false);
 		buttonZoomIn2.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomDefault2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomDefault"),Images.ZOOM.getIcon()));
+		zoomArea.add(buttonZoomDefault2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
 		buttonZoomDefault2.setPreferredSize(new Dimension(20,20));
 		buttonZoomDefault2.setBorderPainted(false);
 		buttonZoomDefault2.setFocusPainted(false);
 		buttonZoomDefault2.setContentAreaFilled(false);
-		zoomArea.add(buttonFindModel2=createToolbarButton(null,"",Language.tr("Main.Menu.View.CenterModel"),Images.ZOOM_CENTER_MODEL.getIcon()));
+		zoomArea.add(buttonFindModel2=createToolbarButton(null,"",Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
 		buttonFindModel2.setPreferredSize(new Dimension(20,20));
 		buttonFindModel2.setBorderPainted(false);
 		buttonFindModel2.setFocusPainted(false);

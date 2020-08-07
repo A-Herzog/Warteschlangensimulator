@@ -283,22 +283,22 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			@Override public void mousePressed(MouseEvent e) {showZoomContextMenu(labelZoom);}
 		});
 		labelZoom.setToolTipText(Language.tr("Editor.SetupZoom"));
-		zoomArea.add(buttonZoomOut=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomOut"),Images.ZOOM_OUT.getIcon()));
+		zoomArea.add(buttonZoomOut=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomOut")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_OUT.getIcon()));
 		buttonZoomOut.setPreferredSize(new Dimension(20,20));
 		buttonZoomOut.setBorderPainted(false);
 		buttonZoomOut.setFocusPainted(false);
 		buttonZoomOut.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomIn=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomIn"),Images.ZOOM_IN.getIcon()));
+		zoomArea.add(buttonZoomIn=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
 		buttonZoomIn.setPreferredSize(new Dimension(20,20));
 		buttonZoomIn.setBorderPainted(false);
 		buttonZoomIn.setFocusPainted(false);
 		buttonZoomIn.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomDefault=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomDefault"),Images.ZOOM.getIcon()));
+		zoomArea.add(buttonZoomDefault=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
 		buttonZoomDefault.setPreferredSize(new Dimension(20,20));
 		buttonZoomDefault.setBorderPainted(false);
 		buttonZoomDefault.setFocusPainted(false);
 		buttonZoomDefault.setContentAreaFilled(false);
-		zoomArea.add(buttonFindModel=createToolbarButton(null,"",Language.tr("Main.Menu.View.CenterModel"),Images.ZOOM_CENTER_MODEL.getIcon()));
+		zoomArea.add(buttonFindModel=createToolbarButton(null,"",Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
 		buttonFindModel.setPreferredSize(new Dimension(20,20));
 		buttonFindModel.setBorderPainted(false);
 		buttonFindModel.setFocusPainted(false);
