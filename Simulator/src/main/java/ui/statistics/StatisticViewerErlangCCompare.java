@@ -18,7 +18,6 @@ package ui.statistics;
 import java.net.URL;
 
 import language.Language;
-import mathtools.NumberTools;
 import mathtools.TimeTools;
 import simulator.statistics.Statistics;
 import systemtools.statistics.StatisticViewerText;
@@ -86,15 +85,15 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 
 		addHeading(3,Language.tr("Statistics.ErlangCompare.NumberOfClients"));
 		beginParagraph();
-		addLine("E[NQ]="+NumberTools.formatNumber(simulationResults.ENQ));
-		addLine("E[NS]="+NumberTools.formatNumber(simulationResults.ENS));
-		addLine("E[N]="+NumberTools.formatNumber(simulationResults.EN));
+		addLine("E[NQ]="+StatisticTools.formatNumber(simulationResults.ENQ));
+		addLine("E[NS]="+StatisticTools.formatNumber(simulationResults.ENS));
+		addLine("E[N]="+StatisticTools.formatNumber(simulationResults.EN));
 		beginParagraph();
 
 		addHeading(3,Language.tr("Statistics.ErlangCompare.Times"));
 		beginParagraph();
-		addLine("E[W]="+NumberTools.formatNumber(simulationResults.EW)+" "+Language.tr("Statistics.Seconds")+" ("+TimeTools.formatExactTime(simulationResults.EW,1)+")");
-		addLine("E[V]="+NumberTools.formatNumber(simulationResults.EV)+" "+Language.tr("Statistics.Seconds")+" ("+TimeTools.formatExactTime(simulationResults.EV,1)+")");
+		addLine("E[W]="+StatisticTools.formatNumber(simulationResults.EW)+" "+Language.tr("Statistics.Seconds")+" ("+TimeTools.formatExactTime(simulationResults.EW,1)+")");
+		addLine("E[V]="+StatisticTools.formatNumber(simulationResults.EV)+" "+Language.tr("Statistics.Seconds")+" ("+TimeTools.formatExactTime(simulationResults.EV,1)+")");
 		endParagraph();
 
 		if (!simulationResults.resourceInfo.isEmpty()) {

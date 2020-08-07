@@ -23,6 +23,7 @@ import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import statistics.StatisticsTimePerformanceIndicator;
 import ui.modeleditor.ModelResource;
+import ui.statistics.StatisticTools;
 
 /**
  * Diese Klasse liefert Informationen auf Basis von analytischen Vergleichsmodellen
@@ -134,12 +135,12 @@ public class AnalyticInfo {
 		final StringBuilder result=new StringBuilder();
 		result.append(info);
 		result.append('=');
-		result.append(NumberTools.formatNumber(analytic));
+		result.append(StatisticTools.formatNumber(analytic));
 		if (simulation!=0) {
 			result.append(", ");
 			result.append(Language.tr("Statistics.ErlangCompare.SimulationDelta"));
 			result.append(": ");
-			result.append(NumberTools.formatPercent(((analytic-simulation)/simulation),2));
+			result.append(StatisticTools.formatPercent(((analytic-simulation)/simulation),2));
 		}
 		result.append("\n");
 		return result.toString();
@@ -149,7 +150,7 @@ public class AnalyticInfo {
 		final StringBuilder result=new StringBuilder();
 		result.append(info);
 		result.append('=');
-		result.append(NumberTools.formatNumber(analytic));
+		result.append(StatisticTools.formatNumber(analytic));
 		result.append(" ");
 		result.append(Language.tr("Statistics.Seconds"));
 		result.append(" (");
@@ -159,7 +160,7 @@ public class AnalyticInfo {
 			result.append(", ");
 			result.append(Language.tr("Statistics.ErlangCompare.SimulationDelta"));
 			result.append(": ");
-			result.append(NumberTools.formatPercent(((analytic-simulation)/simulation),2));
+			result.append(StatisticTools.formatPercent(((analytic-simulation)/simulation),2));
 		}
 		result.append("\n");
 		return result.toString();
@@ -198,8 +199,8 @@ public class AnalyticInfo {
 		info.input.append("mu="+NumberTools.formatNumberMax(mu)+" (1/"+Language.tr("LoadCalculator.Units.Seconds")+")\n");
 		info.input.append("c="+c+"\n");
 
-		info.calculated.append("a="+NumberTools.formatNumber(a,2)+"\n");
-		info.calculated.append("rho="+NumberTools.formatPercent(a/c,2)+"\n");
+		info.calculated.append("a="+StatisticTools.formatNumber(a,2)+"\n");
+		info.calculated.append("rho="+StatisticTools.formatPercent(a/c,2)+"\n");
 
 		if (a/c>=1) return info;
 
@@ -214,12 +215,12 @@ public class AnalyticInfo {
 		double ENQ=P1*a/(c-a);
 		double EN=lambda*EV;
 
-		info.calculated.append("P1="+NumberTools.formatNumber(P1,2)+"\n");
+		info.calculated.append("P1="+StatisticTools.formatNumber(P1,2)+"\n");
 
 		info.setResults(ENQ,EN,EW,EV,simulationResults);
-		if (source.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Source.CV"),NumberTools.formatNumber(source.cv)));
+		if (source.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Source.CV"),StatisticTools.formatNumber(source.cv)));
 		if (source.batch!=1) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Source.Batch"));
-		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),NumberTools.formatNumber(process.cv)));
+		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),StatisticTools.formatNumber(process.cv)));
 		if (process.batchMean!=1.0) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.Batch"));
 		if (process.cancelDistribution!=null) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.CancelDistribution"));
 		if (!process.distributionIsExact) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.DistributionNotExact"));
@@ -248,8 +249,8 @@ public class AnalyticInfo {
 		info.input.append("nu="+NumberTools.formatNumberMax(nu)+" (1/"+Language.tr("LoadCalculator.Units.Seconds")+")\n");
 		info.input.append("c="+c+"\n");
 
-		info.calculated.append("a="+NumberTools.formatNumber(a,2)+"\n");
-		info.calculated.append("rho("+Language.tr("Statistics.ErlangCompare.rho.noCancelations")+")="+NumberTools.formatPercent(a/c,2)+"\n");
+		info.calculated.append("a="+StatisticTools.formatNumber(a,2)+"\n");
+		info.calculated.append("rho("+Language.tr("Statistics.ErlangCompare.rho.noCancelations")+")="+StatisticTools.formatPercent(a/c,2)+"\n");
 
 		final int K=1000;
 
@@ -264,17 +265,17 @@ public class AnalyticInfo {
 		double EV=EW+1/mu;
 		double PA=ENQ*nu/lambda;
 
-		info.calculated.append("rho("+Language.tr("Statistics.ErlangCompare.rho.actual")+")="+NumberTools.formatPercent((lambda-ENQ*nu)/mu/c,2)+"\n");
+		info.calculated.append("rho("+Language.tr("Statistics.ErlangCompare.rho.actual")+")="+StatisticTools.formatPercent((lambda-ENQ*nu)/mu/c,2)+"\n");
 
 		info.setResults(ENQ,EN,EW,EV,simulationResults);
-		info.times.append("P(A)="+NumberTools.formatPercent(PA,2));
+		info.times.append("P(A)="+StatisticTools.formatPercent(PA,2));
 
-		if (source.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Source.CV"),NumberTools.formatNumber(source.cv)));
+		if (source.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Source.CV"),StatisticTools.formatNumber(source.cv)));
 		if (source.batch!=1) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Source.Batch"));
-		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),NumberTools.formatNumber(process.cv)));
+		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),StatisticTools.formatNumber(process.cv)));
 		if (process.batchMean!=1.0) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.Batch"));
 		if (process.cancelDistribution!=null) {
-			if (process.cancelCv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CancelCV"),NumberTools.formatNumber(process.cv)));
+			if (process.cancelCv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CancelCV"),StatisticTools.formatNumber(process.cv)));
 		}
 		if (!process.distributionIsExact) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.DistributionNotExact"));
 
@@ -308,15 +309,15 @@ public class AnalyticInfo {
 		double rho=lambda/mu/(bS*c);
 
 		info.input.append("lambda="+NumberTools.formatNumberMax(lambda)+" (1/"+Language.tr("LoadCalculator.Units.Seconds")+")\n");
-		info.input.append("CV[I]="+NumberTools.formatNumber(cvI)+"\n");
+		info.input.append("CV[I]="+StatisticTools.formatNumber(cvI)+"\n");
 		info.input.append("mu="+NumberTools.formatNumberMax(mu)+" (1/"+Language.tr("LoadCalculator.Units.Seconds")+")\n");
-		info.input.append("CV[S]="+NumberTools.formatNumber(cvS)+"\n");
+		info.input.append("CV[S]="+StatisticTools.formatNumber(cvS)+"\n");
 		info.input.append("c="+c+"\n");
 		info.input.append("b(I)="+bI+"\n");
 		info.input.append("b(S)="+bS+"\n");
 
-		info.calculated.append("a="+NumberTools.formatNumber(a,2)+"\n");
-		info.calculated.append("rho="+NumberTools.formatPercent(rho,2)+"\n");
+		info.calculated.append("a="+StatisticTools.formatNumber(a,2)+"\n");
+		info.calculated.append("rho="+StatisticTools.formatPercent(rho,2)+"\n");
 		if (rho>=1) return info;
 
 		/*
@@ -430,23 +431,23 @@ public class AnalyticInfo {
 						final StatisticsTimePerformanceIndicator countIndicator=(StatisticsTimePerformanceIndicator)(statistics.resourceCount.getOrNull(resource));
 						if (sb.length()>0) sb.append("\n");
 						if (countIndicator==null || countIndicator.getTimeMean()<0.0001) {
-							sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+NumberTools.formatNumber(meanState,2)+" (rho="+NumberTools.formatPercent(meanState/count)+")");
+							sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState,2)+" (rho="+StatisticTools.formatPercent(meanState/count)+")");
 						} else {
-							sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+NumberTools.formatNumber(meanState,2)+" (rho="+NumberTools.formatPercent(meanState/countIndicator.getTimeMean())+")");
+							sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState,2)+" (rho="+StatisticTools.formatPercent(meanState/countIndicator.getTimeMean())+")");
 						}
 						if (resourceObj.getFailures().size()>0) {
 							final StatisticsTimePerformanceIndicator indicator2=(StatisticsTimePerformanceIndicator)(statistics.resourceInDownTime.get(resource));
 							if (sb.length()>0) sb.append("\n");
-							sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.FailureTime.AveragePartOfDownTimeOperators")+": "+NumberTools.formatPercent(indicator2.getTimeMean()/count));
+							sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.FailureTime.AveragePartOfDownTimeOperators")+": "+StatisticTools.formatPercent(indicator2.getTimeMean()/count));
 						}
 					} else {
 						if (sb.length()>0) sb.append("\n");
-						sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+NumberTools.formatNumber(meanState));
+						sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState));
 					}
 				}
 				if (resourceObj!=null && resourceObj.getMode()==ModelResource.Mode.MODE_SCHEDULE) {
 					if (sb.length()>0) sb.append("\n");
-					sb.append(Language.tr("Statistics.Resource")+" "+resource+" ("+Language.tr("Statistics.bySchedule")+" "+resourceObj.getSchedule()+"): "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+NumberTools.formatNumber(meanState));
+					sb.append(Language.tr("Statistics.Resource")+" "+resource+" ("+Language.tr("Statistics.bySchedule")+" "+resourceObj.getSchedule()+"): "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState));
 				}
 			}
 			resourceInfo=sb.toString();
