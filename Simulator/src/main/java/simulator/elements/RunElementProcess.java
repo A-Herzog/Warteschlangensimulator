@@ -305,10 +305,12 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		return data;
 	}
 
+	private final static double toSecFactor=1.0/1000.0;
+
 	private double getClientScore(final SimulationData simData, final RunElementProcessData processData, final RunDataClient client) {
 		final ExpressionCalc calc=processData.priority[client.type];
 		if (calc==null) { /* = Text war "w", siehe RunElementProcessData()  */
-			return (((double)simData.currentTime)-client.lastWaitingStart)/1000.0;
+			return (((double)simData.currentTime)-client.lastWaitingStart)*toSecFactor;
 		} else {
 			simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);
 			try {
@@ -473,7 +475,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				final RunDataClient client=data.waitingClients.get(i);
 				final ExpressionCalc calc=processData.priority[client.type];
 				if (calc==null) { /* = Text war "w", siehe RunElementProcessData()  */
-					final double waitingTime=(((double)simData.currentTime)-client.lastWaitingStart)/1000.0;
+					final double waitingTime=(((double)simData.currentTime)-client.lastWaitingStart)*toSecFactor;
 					processData.score[i]=waitingTime;
 				} else {
 					simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);

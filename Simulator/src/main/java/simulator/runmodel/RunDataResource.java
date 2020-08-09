@@ -258,10 +258,13 @@ public final class RunDataResource implements Cloneable {
 		return statisticsUsage;
 	}
 
+	private final static double toSecFactor=1.0/1000.0;
+	private final static double toHoursFactor=1.0/1000.0/3600.0;
+
 	private double calcAvailableHours(final long timeMS1, final long timeMS2) {
 		if (available==-1) return 0; /* unendlich viele Bediener -> hier wird ein Overhead von 0 angenommen */
 		if (available==-2) return availableSchedule.getAvailbaleHoursByTimeRange(timeMS1,timeMS2); /* Schichtplan */
-		return available*(timeMS2-timeMS1)/1000.0/3600.0; /* Feste Anzahl an Bedienern */
+		return available*(timeMS2-timeMS1)*toHoursFactor; /* Feste Anzahl an Bedienern */
 	}
 
 	private void timesToStatistics(final SimulationData simData) {
@@ -269,7 +272,7 @@ public final class RunDataResource implements Cloneable {
 		if (statisticsUsage==null) initStatistics(simData);
 
 		final long timeMS=simData.currentTime;
-		final double time=timeMS/1000.0;
+		final double time=timeMS*toSecFactor;
 
 		/* Anzahl an vorhandenen Bedienern */
 		if (operators!=null) statisticsCount.set(time,operators.length); else statisticsCount.set(time,available);
@@ -278,12 +281,12 @@ public final class RunDataResource implements Cloneable {
 		if (!simData.runData.isWarmUp && timeMS!=lastStateChange) {
 			final int lastState=statisticsUsage.getCurrentState(); /* CurrentState muss ausgelesen werden, bevor unten per statisticsUsage.set der neue Zustand eingestellt wird. */
 			if (costsPerProcessHour!=0.0 && lastState>0) {
-				final double usedHours=lastState*(timeMS-lastStateChange)/1000.0/3600.0;
+				final double usedHours=lastState*(timeMS-lastStateChange)*toHoursFactor;
 				statisticsCostsProcess.add(costsPerProcessHour*usedHours);
 			}
 			if (costsPerActiveHour!=0.0 || costsPerIdleHour!=0.0) {
 				final double availableHours=calcAvailableHours(lastStateChange,timeMS);
-				final double usedHours=lastState*(timeMS-lastStateChange)/1000.0/3600.0;
+				final double usedHours=lastState*(timeMS-lastStateChange)*toHoursFactor;
 
 				statisticsCostsActive.add(costsPerActiveHour*FastMath.max(usedHours,availableHours));
 				statisticsCostsIdle.add(costsPerIdleHour*FastMath.max(0,availableHours-usedHours));
@@ -292,7 +295,6 @@ public final class RunDataResource implements Cloneable {
 
 		/* Auslastung in die Statistik eintragen */
 		statisticsUsage.set(time,inUse);
-		//System.out.println(timeMS+"\t"+inUse);
 
 		lastStateChange=timeMS;
 	}
@@ -580,7 +582,7 @@ public final class RunDataResource implements Cloneable {
 	 */
 	public void startDownTime(final long time) {
 		inDownTime++;
-		statisticsDownTime.set(time/1000.0,inDownTime);
+		statisticsDownTime.set(time*toSecFactor,inDownTime);
 	}
 
 	/**
@@ -589,6 +591,6 @@ public final class RunDataResource implements Cloneable {
 	 */
 	public void endDownTime(final long time) {
 		inDownTime--;
-		statisticsDownTime.set(time/1000.0,inDownTime);
+		statisticsDownTime.set(time*toSecFactor,inDownTime);
 	}
 }

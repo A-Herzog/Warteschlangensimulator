@@ -290,6 +290,8 @@ public class RunElementProcessData extends RunElementData {
 		return timeInQueue;
 	}
 
+	private final static double toSecFactor=1.0/1000.0;
+
 	/**
 	 * Liefert die Bedienzeit für einen Kunden (über eine Verteilungsfunktion oder durch Auswertung eines Ausdrucks)
 	 * @param simData	Simulationsdaten (wird benötigt, falls die Zeit per Auswertung eines Ausdrucks bestimmt werden soll)
@@ -302,7 +304,7 @@ public class RunElementProcessData extends RunElementData {
 			if (distributionProcess[type]==null) return 0.0;
 			return DistributionRandomNumber.randomNonNegative(distributionProcess[type])*station.timeBaseMultiply;
 		} else {
-			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
+			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSecFactor;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 			try {
 				final double time=expressionProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
@@ -329,7 +331,7 @@ public class RunElementProcessData extends RunElementData {
 					time=DistributionRandomNumber.randomNonNegative(distributionSetup[lastClientIndex][nextClientIndex])*station.timeBaseMultiply;
 				}
 			} else {
-				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
+				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSecFactor;
 				simData.runData.setClientVariableValues(client,additionalWaitingTime);
 				try {
 					time=expressionSetup[lastClientIndex][nextClientIndex].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
@@ -355,7 +357,7 @@ public class RunElementProcessData extends RunElementData {
 			if (distributionPostProcess[type]==null) return 0.0;
 			return DistributionRandomNumber.randomNonNegative(distributionPostProcess[type])*station.timeBaseMultiply;
 		} else {
-			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
+			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSecFactor;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 			try {
 				final double time=expressionPostProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
