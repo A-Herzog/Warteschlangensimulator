@@ -9,7 +9,7 @@
 
 <h1>Version history</h1>
 
-<h2>Version 4.6.0 (2020-1?-??)</h2>
+<h2>Version 4.6.0 (2020-09-2?)</h2>
 <ul>
   <li>When comparing the simulation results with the analytical formulas, reasons for possible discrepancies and the limits of the theoretical models are now listed.</li>
   <li>The simulation can now also be terminated when a certain batch means confidence radius for waiting times is reached.</li>
@@ -17,6 +17,8 @@
   <li>Teleport routes can now be inserted on connecting edges directly via the context menu.</li>
   <li>More memory efficient loading and saving of json files.</li>
   <li>Statistics HTML web apps can now also be created via command line.</li>
+  <li>[Fix] If the number of arrivals was not used as a termination condition for the simulation, the warm-up phase settling were ignored.</li>
+  <li>[Fix] If a warm-up phase was used, too long inter-arrival times were reported.</li>
   <li>[Fix] The settings for the number of decimal digits to be displayed were ignored on the statistics page for comparison with the analytical models.</li>
 </ul>
 

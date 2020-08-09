@@ -68,6 +68,11 @@ public class RunModel {
 	public long clientCount;
 
 	/**
+	 * Anzahl an zu simulierenden Kundenankünfte (nur für die Bestimmung der Warm-Up-Zeit)
+	 */
+	public long clientCountModel;
+
+	/**
 	 * Gibt an, wie viele Kunden insgesamt eintreffen werden.<br>
 	 * Bei Modellen, die nur Tabellenquellen verwenden, ist dies das Minimum aus der Summe aller Tabellenzeilen und {@link RunModel#clientCount}. Bei allen anderen Modellen ist dies stets {@link RunModel#clientCount}.
 	 */
@@ -369,12 +374,9 @@ public class RunModel {
 		}
 
 		/* Einschwingphase */
-		if (editModel.useClientCount) {
-			if (editModel.warmUpTime<0) return String.format(Language.tr("Simulation.Creator.InvalidWarmUpPeriod"),NumberTools.formatNumber(editModel.warmUpTime));
-			runModel.warmUpTime=editModel.warmUpTime;
-		} else {
-			runModel.warmUpTime=0;
-		}
+		runModel.clientCountModel=Math.max(0,editModel.clientCount);
+		if (editModel.warmUpTime<0) return String.format(Language.tr("Simulation.Creator.InvalidWarmUpPeriod"),NumberTools.formatNumber(editModel.warmUpTime));
+		runModel.warmUpTime=editModel.warmUpTime;
 
 		/* Wiederholungen der Simulation */
 		if (editModel.repeatCount<1) return String.format(Language.tr("Simulation.Creator.InvalidRepeatCount"),editModel.repeatCount);

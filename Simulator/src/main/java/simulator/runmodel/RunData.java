@@ -185,7 +185,7 @@ public class RunData {
 	public RunData(final RunModel runModel) {
 		this.runModel=runModel;
 		clientsArrived=0;
-		hasWarmUp=runModel.warmUpTime>0 && runModel.clientCount>0; /* bei runModel.clientCount<0 Abbruch über Bedingung, dann kein Warm-Up */
+		hasWarmUp=runModel.warmUpTime>0;
 		isWarmUp=hasWarmUp;
 		clients=new RunDataClients();
 		this.resources=runModel.resourcesTemplate.clone();
@@ -296,13 +296,16 @@ public class RunData {
 	 * @param client	Kunde, der an der Station eingetroffen ist
 	 */
 	public void logStationArrival(final long now, final SimulationData simData, final RunElement station, final RunElementData stationData, final RunDataClient client) {
-		if (isWarmUp) return;
-
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
 
 		data.clients++;
 
-		if (data.lastArrival<0 || data.lastArrival>now) data.lastArrival=0; /* Zeitpunkt 0 wird als erste "Ankunft" für die Zählung der Zwischenankunftszeiten verwendet. */
+		if (isWarmUp) {
+			data.lastArrival=now;
+			return;
+		}
+
+		if (data.lastArrival<0 || data.lastArrival>now) data.lastArrival=0; /* Wenn kein Warmup, dann wird Zeitpunkt 0 als erste "Ankunft" für die Zählung der Zwischenankunftszeiten verwendet. */
 
 		if (data.lastArrival>=0 && data.lastArrival<=now) {
 			final double delta=scale*(now-data.lastArrival);
@@ -330,12 +333,13 @@ public class RunData {
 		data.lastArrival=now;
 
 		/* Pro Kundentyp */
-		if (data.lastArrivalByClientType!=null && data.lastArrivalByClientType[client.type]>=0 && data.lastArrivalByClientType[client.type]<=now) {
-			final double delta=scale*(now-data.lastArrivalByClientType[client.type]);
-			StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterarrivalTimeByClientType==null)?null:data.statisticStationsInterarrivalTimeByClientType[client.type];
+		final int clientType=client.type;
+		if (data.lastArrivalByClientType!=null && data.lastArrivalByClientType[clientType]>=0 && data.lastArrivalByClientType[clientType]<=now) {
+			final double delta=scale*(now-data.lastArrivalByClientType[clientType]);
+			StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterarrivalTimeByClientType==null)?null:data.statisticStationsInterarrivalTimeByClientType[clientType];
 			if (indicator==null) {
 				if (data.statisticStationsInterarrivalTimeByClientType==null) data.statisticStationsInterarrivalTimeByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
-				indicator=data.statisticStationsInterarrivalTimeByClientType[client.type]=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeByClientType.get(simData,station,client));
+				indicator=data.statisticStationsInterarrivalTimeByClientType[clientType]=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeByClientType.get(simData,station,client));
 			}
 			indicator.add(delta);
 
@@ -344,7 +348,7 @@ public class RunData {
 			data.lastArrivalByClientType=new long[simData.runModel.clientTypes.length];
 			Arrays.fill(data.lastArrivalByClientType,-1);
 		}
-		data.lastArrivalByClientType[client.type]=now;
+		data.lastArrivalByClientType[clientType]=now;
 	}
 
 	/**
@@ -355,9 +359,12 @@ public class RunData {
 	 * @param client	Kunde, der die Station verlassen hat
 	 */
 	public void logStationLeave(final long now, final SimulationData simData, final RunElement station, final RunDataClient client) {
-		if (isWarmUp) return;
-
 		final RunElementData data=station.getData(simData);
+
+		if (isWarmUp) {
+			data.lastLeave=now;
+			return;
+		}
 
 		if (data.lastLeave>=0 && data.lastLeave<=now) {
 			final double delta=scale*(now-data.lastLeave);

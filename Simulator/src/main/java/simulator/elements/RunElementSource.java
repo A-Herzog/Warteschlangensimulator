@@ -70,7 +70,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		run.connectionId=findNextId(((ModelElementSource)element).getEdgeOut());
 		if (run.connectionId<0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 
-		run.warmUpClients=FastMath.round(runModel.warmUpTime*runModel.clientCount);
+		run.warmUpClients=FastMath.round(runModel.warmUpTime*runModel.clientCountModel);
 
 		return run;
 	}
