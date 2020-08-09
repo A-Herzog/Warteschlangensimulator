@@ -212,6 +212,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 	private JComboBox<String> correlationMode;
 	private JTextField correlationRange;
 	private JTextField batchMeansSize;
+	private JCheckBox useFinishConfidence;
+	private JTextField finishConfidenceHalfWidth;
+	private JTextField finishConfidenceLevel;
+
 	private JLabel correlationWarning;
 
 	private JCheckBox pathRecordingStationTransitions;
@@ -946,6 +950,33 @@ public class ModelPropertiesDialog extends BaseDialog {
 
 		lines.add(Box.createVerticalStrut(25));
 
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(useFinishConfidence=new JCheckBox("<html><b>"+Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence")+"</b></html>",model.useFinishConfidence));
+		useFinishConfidence.setToolTipText(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Hint"));
+		useFinishConfidence.setEnabled(!readOnly);
+
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth")+":",NumberTools.formatNumberMax(model.finishConfidenceHalfWidth),10);
+		lines.add((JPanel)data[0]);
+		finishConfidenceHalfWidth=(JTextField)data[1];
+		finishConfidenceHalfWidth.setEditable(!readOnly);
+		finishConfidenceHalfWidth.addKeyListener(new KeyListener(){
+			@Override public void keyTyped(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);}
+			@Override public void keyPressed(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);}
+			@Override public void keyReleased(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);}
+		});
+
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level")+":",NumberTools.formatPercent(model.finishConfidenceLevel),10);
+		lines.add((JPanel)data[0]);
+		finishConfidenceLevel=(JTextField)data[1];
+		finishConfidenceLevel.setEditable(!readOnly);
+		finishConfidenceLevel.addKeyListener(new KeyListener(){
+			@Override public void keyTyped(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceLevel,true);}
+			@Override public void keyPressed(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceLevel,true);}
+			@Override public void keyReleased(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceLevel,true);}
+		});
+
+		lines.add(Box.createVerticalStrut(25));
+
 		/* Warnung bei zu langer Autokorrelationsaufzeichnung */
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -1201,6 +1232,19 @@ public class ModelPropertiesDialog extends BaseDialog {
 			return false;
 		}
 
+		if (useFinishConfidence.isSelected()) {
+			D=NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);
+			if (D==null) {
+				MsgBox.error(this,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth.Error"),finishConfidenceHalfWidth.getText()));
+				return false;
+			}
+			D=NumberTools.getProbability(finishConfidenceLevel,true);
+			if (D==null) {
+				MsgBox.error(this,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level.Error"),finishConfidenceLevel.getText()));
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -1306,6 +1350,12 @@ public class ModelPropertiesDialog extends BaseDialog {
 			if (L!=null) model.correlationRange=L.intValue();
 		}
 		model.batchMeansSize=NumberTools.getPositiveLong(batchMeansSize,true).intValue();
+
+		model.useFinishConfidence=useFinishConfidence.isSelected();
+		final Double halfWidth=NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);
+		final Double level=NumberTools.getProbability(finishConfidenceLevel,true);
+		if (halfWidth!=null) model.finishConfidenceHalfWidth=halfWidth;
+		if (level!=null) model.finishConfidenceLevel=level;
 
 		/* Pfadaufzeichnung */
 

@@ -1268,6 +1268,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[3125] = "<p>Liefert die maximale Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[3126] = "ParameterCompare.XML.Models.InputValue";
     t[3127] = "ModelleVergleichenModellEingabe";
+    t[3128] = "Surface.Process.XML.Connection.Status";
+    t[3129] = "Status";
     t[3132] = "Surface.XML.Layer.Visible";
     t[3133] = "Sichtbar";
     t[3140] = "ScriptPopup.Client.ValueNumber.Set.Hint";
@@ -2002,10 +2004,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4975] = "Stationskosten pro Bediensekunde";
     t[4982] = "LogSimulation.Title";
     t[4983] = "Simulationslauf aufzeichnen";
-    t[4988] = "Surface.Ellipse.XML.Root";
-    t[4989] = "ModellElementEllipse";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4988] = "Surface.Ellipse.XML.Root";
+    t[4989] = "ModellElementEllipse";
     t[4990] = "Surface.AnimationBarStack.Dialog.Delete.Confirm.NoInfo";
     t[4991] = "Nein, Teilbalken beibehalten.";
     t[5002] = "Simulation.Creator.ProcessExpressionProcessing";
@@ -4004,10 +4006,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9501] = "Verwirft das bisherige Javascript";
     t[9516] = "Main.Menu.Edit.Paste";
     t[9517] = "Einf\u00fcgen";
-    t[9518] = "Surface.Release.XML.TimeBase";
-    t[9519] = "Zeitbasis";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9518] = "Surface.Release.XML.TimeBase";
+    t[9519] = "Zeitbasis";
     t[9524] = "SettingsDialog.BackgroundProcessing.Off";
     t[9525] = "Aus";
     t[9534] = "Optimizer.OptimizationCanceled";
@@ -4866,8 +4868,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11509] = "Java-Fehler";
     t[11512] = "Simulation.Log.Release";
     t[11513] = "Ressourcenfreigabe";
-    t[11514] = "Surface.CounterMulti.Dialog.GroupName.Short";
-    t[11515] = "Gruppe";
+    t[11514] = "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level";
+    t[11515] = "Konfidenzniveau f\u00fcr das Konfidenzintervall";
     t[11520] = "Surface.InteractiveSlider.XML.Root";
     t[11521] = "ModellElementSchieberegler";
     t[11522] = "Surface.TankSensor.Tooltip";
@@ -5190,6 +5192,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12231] = "Setzt den Nutzernamen auf \"%s\" zur\u00fcck.";
     t[12236] = "ModelDescription.Action.Condition.Threshold.Up";
     t[12237] = "beim \u00dcberschreiten des Schwellenwerts ausl\u00f6sen";
+    t[12240] = "Surface.SingleCoreReason.TerminalConfidenceUsed";
+    t[12241] = "Es wurde ein Wartezeiten-Konfidenzradius f\u00fcr den Abschluss der Simulation angegeben.";
     t[12242] = "ModelLoadData.EditDialog.Edit.Hint";
     t[12243] = "Eintrag zum Laden von Daten bearbeiten";
     t[12248] = "Editor.Dialog.Sequences.Edit.DeleteConfirm.Info";
@@ -5264,6 +5268,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12395] = "gesamt";
     t[12396] = "Window.Compare.NotAValidStatisticsFile.Title";
     t[12397] = "Keine g\u00fcltige Statistikdatei";
+    t[12404] = "Surface.XML.ModelTerminationConfidence";
+    t[12405] = "ModellAbbruchKonfidenz";
     t[12414] = "Surface.Source.XML.Schedule";
     t[12415] = "ModellElementZeitplan";
     t[12416] = "Surface.AnimationBarStack.Dialog.Column.Expression";
@@ -5948,6 +5954,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13937] = "nichts";
     t[13946] = "Surface.Process.XML.TimeCosts";
     t[13947] = "ModellElementKostenZeit";
+    t[13960] = "Surface.CounterMulti.Dialog.GroupName.Short";
+    t[13961] = "Gruppe";
     t[13966] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.CurrentTime";
     t[13967] = "<p>Liefert die Summe der bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstandenen Wartezeiten (\u00fcber alle Kundentypen).</p>";
     t[13968] = "Surface.TankValveSetup.Infotext";
@@ -6000,6 +6008,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14093] = "Unbekannte Elemente in Modelldatei";
     t[14096] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.MinimalTime";
     t[14097] = "<p>Liefert die minimale Verweilzeit, die bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden ist (\u00fcber alle Kundentypen).</p>";
+  }
+  static void clinit_part_3 (java.lang.String[] t) {
     t[14098] = "Surface.Database.TestDialog.Info.Connection";
     t[14099] = "Verbindung hergestellt.";
     t[14104] = "Main.Toolbar.LoadModel.Hint";
@@ -6008,8 +6018,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14107] = "Das \"Verteilung\"-Attribut im \"%s\"-Element muss eine H\u00e4ufigkeitsverteilung enthalten.";
     t[14112] = "Animation.Icon.Computer";
     t[14113] = "Computer";
-  }
-  static void clinit_part_3 (java.lang.String[] t) {
     t[14118] = "Main.Toolbar.StartAnimation";
     t[14119] = "Animation starten";
     t[14120] = "ParameterCompare.XML.Name";
@@ -6163,7 +6171,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14416] = "Statistics.ErlangCompare.BatchSize";
     t[14417] = "Batchgr\u00f6\u00dfe";
     t[14422] = "Simulation.Creator.NoEndCriteria";
-    t[14423] = "Es muss mindestens ein Kriterium zum Beenden der Simulation (Anzahl an Ank\u00fcnften, Bedingung oder Endzeitpunkt) aktiviert werden.";
+    t[14423] = "Es muss mindestens ein Kriterium zum Beenden der Simulation (Anzahl an Ank\u00fcnften, Bedingung, Endzeitpunkt oder Konfidenzradius) aktiviert werden.";
     t[14432] = "PathEditor.ProcessConfirm.Title";
     t[14433] = "Wege erstellen";
     t[14434] = "ExpressionBuilder.SimulationCharacteristics.HistogramSingle";
@@ -6870,6 +6878,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[16083] = "Statistik";
     t[16084] = "Optimizer.Tab.Optimization.DialogHint";
     t[16085] = "Auf dieser Seite wird der Optimierungsfortschritt dargestellt.";
+    t[16086] = "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth.Error";
+    t[16087] = "Der angegebene Batch-Means-Konfidenzradius f\u00fcr die Beendigung der Simulation \"%s\" ist ung\u00fcltig.\nEs muss eine positive Zahl angegeben werden.";
     t[16090] = "SettingsDialog.Tabs.ExportGraphics";
     t[16091] = "Grafiken";
     t[16092] = "ExpressionBuilder.MathematicalFunctions.AbsolutValue";
@@ -8000,6 +8010,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18797] = "Datei";
     t[18798] = "Color.FF8C00";
     t[18799] = "Dunkelorange";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18804] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.Greater.Info";
     t[18805] = "<p>Pr\u00fcft, ob der Ausdruck vor dem &gt; Operator gr\u00f6\u00dfer als der Ausdruck nach dem Vergleichsoperator ist.</p>";
     t[18806] = "Statistics.ResultsAutocorrelation.Autocorrelation";
@@ -8010,8 +8022,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18817] = "gelb";
     t[18824] = "ModelGenerator.StationCount";
     t[18825] = "Anzahl an Bedienstationen";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18828] = "SettingsDialog.Default";
     t[18829] = "Standardwerte";
     t[18832] = "Statistics.ProcessTimesByStations";
@@ -8218,6 +8228,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19313] = "Der Simulator kann w\u00e4hrend der Simulation in regelm\u00e4\u00dfigen Abst\u00e4nden den Wert beliebiger Ausdr\u00fccke aufzeichnen. Auf dieser Dialogseite kann eingestellt werden, welche Ausdr\u00fccke in welchen Abst\u00e4nden erfasst werden sollen.";
     t[19314] = "Surface.Dispose.Name";
     t[19315] = "Ausgang";
+    t[19322] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Condition.MinDistance.ErrorTitle";
+    t[19323] = "Ung\u00fcltiger minimaler Ausl\u00f6seabstand";
     t[19330] = "CommandLine.ServerLimited.Description.Short";
     t[19331] = "Simulator als Rechenserver starten.";
     t[19334] = "Transporter.Group.Edit.Dialog.Failure.Delete.NoInfo";
@@ -8406,6 +8418,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19789] = "Parameterreihe: Mittlere Bedienzeit variieren";
     t[19798] = "SettingsDialog.Tabs.DefaultFormats.Statistics";
     t[19799] = "Statistik";
+    t[19806] = "ParameterCompare.Templates.CurrentValue";
+    t[19807] = "Aktueller Wert";
     t[19810] = "Statistics.WaitingTimesByStationsAndClients";
     t[19811] = "Wartezeiten nach Stationen und Kundentypen";
     t[19812] = "Main.Menu.View.EdgeSettings.Mnemonic";
@@ -8954,6 +8968,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21093] = "Aus";
     t[21094] = "Surface.Source.LabelArrivals";
     t[21095] = "Ank\u00fcnfte";
+    t[21098] = "Surface.Model.ErrorTerminationConfidenceHalfWidth";
+    t[21099] = "Der angegebene Wartezeiten-Konfidenzradius f\u00fcr den Abschluss der Simulation \"%s\" ist ung\u00fcltig. Es muss eine positive Zahl angegeben werden.";
     t[21104] = "Optimizer.Tab.Optimization.Step.Result.Unzoom";
     t[21105] = "Standardzoom";
     t[21114] = "Surface.TankFlowBySignal.Dialog.SignalName.ErrorTitle";
@@ -9996,6 +10012,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23659] = "Kundentyp";
     t[23660] = "ParameterCompare.Settings.Input.List.Templates.Resource.Title";
     t[23661] = "Anzahl an Bedienern in einer Ressource";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23666] = "Animation.Icon.ArrowDown";
     t[23667] = "Pfeil - nach unten";
     t[23668] = "Surface.Output.OpenInputFile";
@@ -10012,8 +10030,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23695] = "Keine Eingabedatei gew\u00e4hlt";
     t[23702] = "Statistics.UtilizationAndFailures.Type";
     t[23703] = "Bedienergruppe";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23704] = "Resources.Group.EditName.Dialog.ErrorName";
     t[23705] = "Bedienergruppenname ung\u00fcltig";
     t[23714] = "Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic";
@@ -10648,8 +10664,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25193] = "Kunde: %s, Station: %s";
     t[25194] = "Surface.Costs.Dialog.WaitingCosts";
     t[25195] = "Wartezeit-Kosten";
-    t[25196] = "Surface.Process.XML.Connection.Status";
-    t[25197] = "Status";
+    t[25196] = "Surface.Model.ErrorTerminationConfidenceLevel";
+    t[25197] = "Das angegebene Konfidenzniveau f\u00fcr den Abschluss der Simulation \"%s\" ist ung\u00fcltig. Es muss eine Zahl zwischen 0 und 1 angegeben werden.";
     t[25200] = "Surface.Action.Dialog.Info.Condition";
     t[25201] = "Bedingung";
     t[25204] = "Surface.AnalogAssign.XML.ModeValue";
@@ -10662,6 +10678,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25219] = "Zeilenumbruch";
     t[25220] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.DistributionFunctionInfo";
     t[25221] = "<p>Berechnet den Wert der Verteilungsfunktion an der Stelle x. Die angegebenen Werte werden dabei auf den Bereich von 0 bis max verteilt.</p>";
+    t[25222] = "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level.Error";
+    t[25223] = "Das angegebene Batch-Means-Konfidenzniveau f\u00fcr die Beendigung der Simulation \"%s\" ist ung\u00fcltig.\nEs muss eine Zahl zwischen 0 und 1 angegeben werden.";
     t[25224] = "Window.Layers.Add.Hint";
     t[25225] = "Neue Ebene hinzuf\u00fcgen.";
     t[25226] = "Update.Status.UpToDate";
@@ -11996,6 +12014,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28443] = "Semikolons als Trenner verwenden";
     t[28444] = "Surface.Separate.Tooltip";
     t[28445] = "L\u00f6st einen Batch wieder in die individuellen Kunden auf.";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[28448] = "ExpressionBuilder.TrigonometricFunctions.ArcusSinus";
     t[28449] = "Arcus Sinus";
     t[28450] = "Statistic.Viewer.Report.NoTablesSelected.Title";
@@ -12014,8 +12034,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28469] = "ModellElementVerzweigenSkript";
     t[28470] = "Compare.Error.NoModelKept.Info2";
     t[28471] = "Bisher wurde kein Modell festgehalten, zu dem zur\u00fcckgekehrt werden k\u00f6nnte.";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[28486] = "ModelSecurityCheck.CriticalType.Script";
     t[28487] = "Skriptausf\u00fchrung";
     t[28488] = "Surface.InteractiveCheckbox.Dialog.ValueUnchecked.ErrorTitle";
@@ -12166,6 +12184,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28813] = "NeuerKundentyp";
     t[28814] = "ParameterCompare.Select.SelectFolder.ErrorSelection.None.Title";
     t[28815] = "Keine Ergebnisse gew\u00e4hlt";
+    t[28816] = "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Hint";
+    t[28817] = "Wird nur ber\u00fccksichtigt, wenn eine Batch-Gr\u00f6\u00dfe >1 spezifiziert wurde.";
     t[28818] = "Surface.XML.Connection";
     t[28819] = "ModellElementVerbindung";
     t[28822] = "Surface.XML.GlobalVariable.Name";
@@ -13012,8 +13032,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30805] = "ModellElementStartZeitpunkt";
     t[30808] = "Optimizer.Tab.ControlVariables.Constrains";
     t[30809] = "Nebenbedingungen";
-    t[30814] = "ParameterCompare.Templates.CurrentValue";
-    t[30815] = "Aktueller Wert";
+    t[30814] = "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth";
+    t[30815] = "Konfidenzradius f\u00fcr die Wartezeiten \u00fcber alle Kunden (in Sekunden)";
     t[30816] = "Simulation.Creator.Action.ErrorInfo";
     t[30817] = "In Element id=%d bei Aktion %d.";
     t[30820] = "Editor.ModelOverview.List";
@@ -13996,6 +14016,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33189] = "Kundentyp";
     t[33196] = "Main.Toolbar.ShowModelForTheseResults2.Hint";
     t[33197] = "Zeigt das Modell und die individuellen Statistikinformationen zu einer der Statistikdatens\u00e4tze an";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[33204] = "Editor.Dialog.Sequences.Edit.Column.Next.Step";
     t[33205] = "Schritt %d";
     t[33208] = "Surface.Balking.XML.Expression.ClientType";
@@ -14016,8 +14038,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33239] = "Datenquellenmodus";
     t[33246] = "Surface.AnimationText.Dialog.Expression.Error.InfoMissing";
     t[33247] = "Es wurde kein zu berechnender Ausdruck angegeben.";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[33254] = "Simulation.Log.Duplicate.Info";
     t[33255] = "Kunden: id=%d%s, Station: %s";
     t[33264] = "Surface.Process.Dialog.MaximumBatchSize.Error.Title";
@@ -14450,6 +14470,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34301] = "Ressource \"%s\": %d ben\u00f6tigt";
     t[34302] = "Server.ErrorSendingModel";
     t[34303] = "Das Modell konnte nicht an %s an Port %d gesendet werden.";
+    t[34308] = "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence";
+    t[34309] = "Beenden der Simulation beim Erreichen eines Batch-Means-Konfidenzradius";
     t[34310] = "Surface.Decide.XML.Mode.ByClientType";
     t[34311] = "Kundentyp";
     t[34312] = "Surface.Counter.Dialog.Title";
@@ -15996,6 +16018,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37853] = "Die Optimierung wurde abgeschlossen.";
     t[37860] = "Statistics.ResultsAutocorrelation.LineMoreThan";
     t[37861] = "min{k|rho(k)<%s} > %s";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37866] = "Surface.Sub.Dialog.NumberInput";
     t[37867] = "Anzahl an Eing\u00e4ngen in das Untermodell";
     t[37868] = "Simulation.Log.Output.Info";
@@ -16018,8 +16042,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37903] = "Stationsuebergaenge";
     t[37908] = "Animation.Icon.Bug";
     t[37909] = "K\u00e4fer";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37914] = "CalcWebServer.Simulation.Start";
     t[37915] = "Simulation gestartet";
     t[37924] = "Schedule.SettingsDialog.RepeatMode.RepeatByDay";
@@ -16906,6 +16928,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40001] = "Liefert die bisherige Wartezeit des aktuellen Kunden. (Bei der Berechnung von Score-Werten: die bisherige Wartezeit an der aktuellen Station. In allen anderen F\u00e4llen: die gesamte bisherige Wartezeit der Kunden.)";
     t[40002] = "Statistics.XML.Element.ClientsInSystem";
     t[40003] = "StatistikKundenImSystem";
+    t[40008] = "Surface.XML.Level";
+    t[40009] = "Niveau";
     t[40020] = "Surface.Delay.XML.Distribution";
     t[40021] = "ModellElementVerteilung";
     t[40022] = "ModelSecurityCheck.CriticalType.FileOutput.FileName";
@@ -17150,8 +17174,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40525] = "Beim Laden der Filterkonfiguration ist ein Fehler aufgetreten.";
     t[40526] = "Surface.TankValveSetup.Name";
     t[40527] = "Ventil-Setup";
-    t[40538] = "Surface.Action.Dialog.Edit.Tabs.Trigger.Condition.MinDistance.ErrorTitle";
-    t[40539] = "Ung\u00fcltiger minimaler Ausl\u00f6seabstand";
+    t[40538] = "Simulation.Log.EndOfSimulation.Confidence";
+    t[40539] = "Zielwert %s f\u00fcr den Batch-Means-Konfidenzradius zum Level %s der Wartezeiten wurde erreicht.";
     t[40540] = "ProxySettings.ProxyHost";
     t[40541] = "Adresse des HTTPS-Proxy-Servers";
     t[40542] = "Editor.Dialog.Tab.Simulation.Criteria.ErrorWarmUp";

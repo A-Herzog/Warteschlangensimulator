@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten)*>
 
 <!ELEMENT ModellVersion (#PCDATA)>
 <!ELEMENT ModellName (#PCDATA)>
@@ -26,6 +26,12 @@
 <!ELEMENT ModellAbbruchzeit (#PCDATA)>
 <!ATTLIST ModellAbbruchzeit
   Aktiv	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModellAbbruchKonfidenz (#PCDATA)>
+<!ATTLIST ModellAbbruchKonfidenz
+  Aktiv		(0|1)	#REQUIRED
+  Niveau	CDATA	#REQUIRED
 >
 
 <!ELEMENT ModellZufallszahlenStartwert (#PCDATA)>
@@ -1839,7 +1845,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData)*>
 
 <!ELEMENT ModelVersion (#PCDATA)>
 <!ELEMENT ModelName (#PCDATA)>
@@ -1861,6 +1867,12 @@
 <!ELEMENT ModelTerminationTime (#PCDATA)>
 <!ATTLIST ModelTerminationTime
   Active	(0|1)	#REQUIRED
+>
+
+<!ELEMENT ModelTerminationConfidence (#PCDATA)>
+<!ATTLIST ModelTerminationConfidence
+  Active	(0|1)	#REQUIRED
+  Level		CDATA	#REQUIRED
 >
 
 <!ELEMENT ModelRandomNumbersSeed (#PCDATA)>

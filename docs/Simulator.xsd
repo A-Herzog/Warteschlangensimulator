@@ -17,6 +17,7 @@
   <xs:element ref="ModellKunden"/>
   <xs:element ref="ModellAbbruchbedingung"/>
   <xs:element ref="ModellAbbruchzeit"/>
+  <xs:element ref="ModellAbbruchKonfidenz"/>
   <xs:element ref="ModellZufallszahlenStartwert"/>
   <xs:element ref="ModellAutokorrelation"/>
   <xs:element name="ModellBatchGroesse" type="xs:string"/>
@@ -58,6 +59,13 @@
 <xs:element name="ModellAbbruchzeit"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Aktiv" type="xs:integer" use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModellAbbruchKonfidenz"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Aktiv" type="xs:integer" use="required"/>
+	<xs:attribute name="Niveau" type="xs:string"  use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2004,6 +2012,7 @@
   <xs:element ref="ModelClients"/>
   <xs:element ref="ModelTerminationCondition"/>
   <xs:element ref="ModelTerminationTime"/>
+  <xs:element ref="ModelTerminationConfidence"/>
   <xs:element ref="ModelRandomNumbersSeed"/>
   <xs:element ref="ModelAutocorrelation"/>
   <xs:element name="ModelBatchSize" type="xs:string"/>
@@ -2045,6 +2054,13 @@
 <xs:element name="ModelTerminationTime"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Active" type="xs:integer" use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModelTerminationConfidence"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Active" type="xs:integer" use="required"/>
+	<xs:attribute name="Level" type="xs:string" use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

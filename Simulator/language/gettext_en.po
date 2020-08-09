@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 19:38+0200\n"
+"POT-Creation-Date: 2020-08-08 19:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2628,6 +2628,28 @@ msgstr "Batch size"
 
 msgid "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Error"
 msgstr "The specified batch size for confidence interval calculations \"%s\" is invalid. A positive integer number has to be specified."
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence"
+msgstr "Finish simulation when a batch means confidence radius is reached"
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth"
+msgstr "Confidence radius for the waiting times over all clients (in seconds)"
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth.Error"
+msgstr ""
+"The specified batch means confidence radius for simulation termination \"%s\" is invalid.\n"
+"A positive number has to be specified."
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Hint"
+msgstr "Will only be used if a batch size >1 is specified."
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level"
+msgstr "Confidence level for the confidence interval"
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level.Error"
+msgstr ""
+"The specified batch means confidence level for simulation termination \"%s\" is invalid.\n"
+"A number between 0 and 1 has to be specified."
 
 msgid "Editor.Dialog.Tab.OutputAnalysis.InfoText"
 msgstr "The output analysis allows to determine the correlation of the individuel waiting times of the client and to calculate confidence intervals on this basis."
@@ -12706,7 +12728,7 @@ msgid "Simulation.Creator.NoEdgeOutBalking"
 msgstr "Element id=%d has no outgoing edge for clients balking to enter the queue."
 
 msgid "Simulation.Creator.NoEndCriteria"
-msgstr "At least one criterion for terminating the simulation (number of arrivals, condition or end time) has to be be activated."
+msgstr "At least one criterion for terminating the simulation (number of arrivals, condition, end time or confidence radius) has to be be activated."
 
 msgid "Simulation.Creator.NoFailureAndSchedule"
 msgstr "For resource \"%s\" there are a schedule and failure/breaking times defined. Both cannot be used at the same time for one resource."
@@ -13589,6 +13611,9 @@ msgstr "A client arrived at the emergency exit station."
 
 msgid "Simulation.Log.EndOfSimulation.Condition"
 msgstr "The specified simulation end time is reached."
+
+msgid "Simulation.Log.EndOfSimulation.Confidence"
+msgstr "Target value %s for batch means confidence radius to level %s for the waiting times has be reached."
 
 msgid "Simulation.Log.EndOfSimulation.FinalClientLeftSystem"
 msgstr "The client who has just left the system has been marked as the final client. End of simulation."
@@ -21420,6 +21445,12 @@ msgstr "The specified number of repetitions of the simulation \"%s\" is invalid.
 msgid "Surface.Model.ErrorSeed"
 msgstr "The value \"%s\" for the random number generator seed is invalid. An integer value has to be specified."
 
+msgid "Surface.Model.ErrorTerminationConfidenceHalfWidth"
+msgstr "The specified waiting time confidence radius for termination of the simulation \"%s\" is invalid. A positive number has to be specified."
+
+msgid "Surface.Model.ErrorTerminationConfidenceLevel"
+msgstr "The specified confidence level for termination of the simulation \"%s\" is invalid. A number between 0 and 1 has to be specified."
+
 msgid "Surface.Model.ErrorWarmUp"
 msgstr "The value \"%s\" for the duration of the warm-up phase is invald. A non-negative fraction has to be specified."
 
@@ -23263,6 +23294,9 @@ msgstr "The source id=%d uses a schedule (%s) for the arrivals."
 
 msgid "Surface.SingleCoreReason.TerminalConditionUsed"
 msgstr "An explicit termination condition for the simulation was specified."
+
+msgid "Surface.SingleCoreReason.TerminalConfidenceUsed"
+msgstr "A waiting time confidence radius was specified for the termination of the simulation."
 
 msgid "Surface.SingleCoreReason.TerminalTimeUsed"
 msgstr "An explicit termination time for the simulation was specified."
@@ -25219,6 +25253,9 @@ msgstr "newelements"
 msgid "Surface.XML.Layer.Visible"
 msgstr "visible"
 
+msgid "Surface.XML.Level"
+msgstr "Level"
+
 msgid "Surface.XML.LineMode"
 msgstr "ModelElementConnectionDrawStyle"
 
@@ -25275,6 +25312,9 @@ msgstr "ModelRepeats"
 
 msgid "Surface.XML.ModelTerminationCondition"
 msgstr "ModelTerminationCondition"
+
+msgid "Surface.XML.ModelTerminationConfidence"
+msgstr "ModelTerminationConfidence"
 
 msgid "Surface.XML.ModelTerminationTime"
 msgstr "ModelTerminationTime"

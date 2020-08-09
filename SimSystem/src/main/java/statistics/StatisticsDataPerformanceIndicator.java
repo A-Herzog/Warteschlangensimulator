@@ -28,7 +28,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Dies ist die Standard-Klasse zur Erfassung von Wartezeiten usw.<br>
  * Die Zählung wird über die Funktion {@link StatisticsDataPerformanceIndicator#add(double)} realisiert.
  * @author Alexander Herzog
- * @version 2.1
+ * @version 2.2
  */
 public final class StatisticsDataPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -347,7 +347,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 				double b=batchTempSum/batchSize;
 
 				if (batchMeans==null) batchMeans=new double[BATCH_MEANS_GROW];
-				if (batchMeansCount==batchMeans.length) batchMeans=Arrays.copyOf(batchMeans,batchMeans.length+BATCH_MEANS_GROW);
+				while (batchMeansCount>=batchMeans.length) batchMeans=Arrays.copyOf(batchMeans,batchMeans.length+BATCH_MEANS_GROW);
 				batchMeans[batchMeansCount++]=b;
 
 				batchTempSum=0;
@@ -889,6 +889,22 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	}
 
 	/**
+	 * Liefert die Standardabweichung zwischen den Batches<br>
+	 * Die internen Zähler werden dabei nicht finalisiert, so dass weitere Messwerte hinzugefügt werden können.<br>
+	 * (Setzt voraus, dass das System Bache aufgezeichnet hat.)
+	 * @return	Standardabweichung zwischen den Batches
+	 */
+	public double getBatchSDWithoutFinalize() {
+		if (batchMeans==null) return getBatchSD();
+
+		final double xMean=getMean();
+		double s=0;
+		for (int i=0;i<batchMeansCount;i++) s+=(batchMeans[i]-xMean)*(batchMeans[i]-xMean);
+		final int b=batchMeansCount;
+		return StrictMath.sqrt(s/b/(b-1));
+	}
+
+	/**
 	 * Halbe Breite des Konfidenzintervalls für den Mittelwert (unter Berücksichtigung der Batche)<br>
 	 * Das Konfidenzintervall geht dann von <code>getMean()-getBatchMeanConfidenceHalfWide(alpha)</code> bis <code>getMean()+getBatchMeanConfidenceHalfWide(alpha)</code>
 	 * @param alpha	Konfidenzniveau (z.B. alpha=0.05 oder alpha=0.01)
@@ -929,6 +945,35 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			results[i]=t*sd; /* Division durch sqrt(b) steckt schon in getBatchSD() */
 		}
 		return results;
+	}
+
+	private int lastBatchCount;
+	private int lastBatchAlpha;
+	private double lastBatchT;
+
+	/**
+	 * Halbe Breite des Konfidenzintervalls für den Mittelwert (unter Berücksichtigung der Batche)<br>
+	 * Die internen Zähler werden dabei nicht finalisiert, so dass weitere Messwerte hinzugefügt werden können.<br>
+	 * Das Konfidenzintervall geht dann von <code>getMean()-getBatchMeanConfidenceHalfWide(alpha)</code> bis <code>getMean()+getBatchMeanConfidenceHalfWide(alpha)</code>
+	 * @param alpha	Konfidenzniveau (z.B. alpha=0.05 oder alpha=0.01)
+	 * @return	Halbe Breite des Konfidenzintervalls
+	 */
+	public double getBatchMeanConfidenceHalfWideWithoutFinalize(final double alpha) {
+		if (min==max) return 0;
+		final int b=batchMeansCount;
+		if (b==0) return 0; /* Kein Batching erfolgt */
+		if (b==1) return 0; /* Sorry, aber TDistribution(0) geht auch nicht. */
+
+		final double t;
+		if (lastBatchCount==b && lastBatchAlpha==alpha && lastBatchT>0) {
+			t=lastBatchT;
+		} else {
+			final TDistribution dist=new TDistribution(b-1);
+			t=lastBatchT=dist.inverseCumulativeProbability(1-alpha/2);
+		}
+
+		final double sd=getBatchSDWithoutFinalize();
+		return t*sd; /* Division durch sqrt(b) steckt schon in getBatchSD() */
 	}
 
 	/**

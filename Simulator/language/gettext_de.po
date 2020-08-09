@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 19:38+0200\n"
+"POT-Creation-Date: 2020-08-08 19:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2629,6 +2629,28 @@ msgstr "Batch-Größe"
 
 msgid "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Error"
 msgstr "Die angegebene Batch-Größe für die Konfidenzintervall-Berechnungen \"%s\" ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence"
+msgstr "Beenden der Simulation beim Erreichen eines Batch-Means-Konfidenzradius"
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth"
+msgstr "Konfidenzradius für die Wartezeiten über alle Kunden (in Sekunden)"
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth.Error"
+msgstr ""
+"Der angegebene Batch-Means-Konfidenzradius für die Beendigung der Simulation \"%s\" ist ungültig.\n"
+"Es muss eine positive Zahl angegeben werden."
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Hint"
+msgstr "Wird nur berücksichtigt, wenn eine Batch-Größe >1 spezifiziert wurde."
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level"
+msgstr "Konfidenzniveau für das Konfidenzintervall"
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level.Error"
+msgstr ""
+"Das angegebene Batch-Means-Konfidenzniveau für die Beendigung der Simulation \"%s\" ist ungültig.\n"
+"Es muss eine Zahl zwischen 0 und 1 angegeben werden."
 
 msgid "Editor.Dialog.Tab.OutputAnalysis.InfoText"
 msgstr "Mit Hilfe der Ausgabeanalyse ist es möglich, die Abhängigkeit einzelner Wartezeiten zu bestimmen und dann auf dieser Basis Konfidenzintervalle zu bestimmen."
@@ -12711,7 +12733,7 @@ msgid "Simulation.Creator.NoEdgeOutBalking"
 msgstr "Element id=%d besitzt keine Ausgangskante für Kunden die vor der Warteschlange zurückschrecken."
 
 msgid "Simulation.Creator.NoEndCriteria"
-msgstr "Es muss mindestens ein Kriterium zum Beenden der Simulation (Anzahl an Ankünften, Bedingung oder Endzeitpunkt) aktiviert werden."
+msgstr "Es muss mindestens ein Kriterium zum Beenden der Simulation (Anzahl an Ankünften, Bedingung, Endzeitpunkt oder Konfidenzradius) aktiviert werden."
 
 msgid "Simulation.Creator.NoFailureAndSchedule"
 msgstr "Für Ressource \"%s\" sind ein Zeitplan und Ausfälle/Pausenzeiten definiert. Beides kann nicht gleichzeitig angewandt werden."
@@ -13594,6 +13616,9 @@ msgstr "Ein Kunde ist an der Notausgang-Station eingetroffen."
 
 msgid "Simulation.Log.EndOfSimulation.Condition"
 msgstr "Kriterium \"%s\" ist erfüllt."
+
+msgid "Simulation.Log.EndOfSimulation.Confidence"
+msgstr "Zielwert %s für den Batch-Means-Konfidenzradius zum Level %s der Wartezeiten wurde erreicht."
 
 msgid "Simulation.Log.EndOfSimulation.FinalClientLeftSystem"
 msgstr "Der Kunde, der das System gerade verlassen hat, war als Abschluss-Kunde markiert. Ende der Simulation."
@@ -21433,6 +21458,12 @@ msgstr "Die angegebene Anzahl an Wiederholungen der Simulation \"%s\" ist ungül
 msgid "Surface.Model.ErrorSeed"
 msgstr "Der angegebene Startwert \"%s\" für den Zufallszahlengenerator ist ungültig. Es muss eine Ganzzahl angegeben werden."
 
+msgid "Surface.Model.ErrorTerminationConfidenceHalfWidth"
+msgstr "Der angegebene Wartezeiten-Konfidenzradius für den Abschluss der Simulation \"%s\" ist ungültig. Es muss eine positive Zahl angegeben werden."
+
+msgid "Surface.Model.ErrorTerminationConfidenceLevel"
+msgstr "Das angegebene Konfidenzniveau für den Abschluss der Simulation \"%s\" ist ungültig. Es muss eine Zahl zwischen 0 und 1 angegeben werden."
+
 msgid "Surface.Model.ErrorWarmUp"
 msgstr "Der angegebene Wert \"%s\" für die Dauer der Aufwärmphase ist ungültig. Es muss ein nichtnegativer Anteil angegeben werden."
 
@@ -23277,6 +23308,9 @@ msgstr "Die Quelle id=%d verwendet einen Zeitplan (%s) für die Ankünfte."
 
 msgid "Surface.SingleCoreReason.TerminalConditionUsed"
 msgstr "Es wurde eine explizite Abbruchbedingung für die Simulation angegeben."
+
+msgid "Surface.SingleCoreReason.TerminalConfidenceUsed"
+msgstr "Es wurde ein Wartezeiten-Konfidenzradius für den Abschluss der Simulation angegeben."
 
 msgid "Surface.SingleCoreReason.TerminalTimeUsed"
 msgstr "Es wurde ein expliziter Abbruchzeitpunkt für die Simulation angegeben."
@@ -25234,6 +25268,9 @@ msgstr "NeueElemente"
 msgid "Surface.XML.Layer.Visible"
 msgstr "Sichtbar"
 
+msgid "Surface.XML.Level"
+msgstr "Niveau"
+
 msgid "Surface.XML.LineMode"
 msgstr "ModellElementVerbindungsdarstellungsart"
 
@@ -25290,6 +25327,9 @@ msgstr "ModellWiederholungen"
 
 msgid "Surface.XML.ModelTerminationCondition"
 msgstr "ModellAbbruchbedingung"
+
+msgid "Surface.XML.ModelTerminationConfidence"
+msgstr "ModellAbbruchKonfidenz"
 
 msgid "Surface.XML.ModelTerminationTime"
 msgstr "ModellAbbruchzeit"

@@ -101,6 +101,16 @@ public class RunModel {
 	public long terminationTime;
 
 	/**
+	 * Abbruch bei Erreichen des Batch-Means-Konfidenzradius für die Wartezeiten (-1, wenn nicht zu verwenden)
+	 */
+	public double terminationWaitingTimeConfidenceHalfWidth;
+
+	/**
+	 * Abbruch bei Erreichen des Batch-Means-Konfidenzradius für die Wartezeiten für das angegebene Niveau (-1, wenn nicht zu verwenden)
+	 */
+	public double terminationWaitingTimeConfidenceLevel;
+
+	/**
 	 * Liste mit Namen aller vorhandenen Kundentypen
 	 */
 	public String[] clientTypes;
@@ -348,7 +358,7 @@ public class RunModel {
 	}
 
 	private static String initGeneralData(final EditModel editModel, final RunModel runModel) {
-		if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty())) return Language.tr("Simulation.Creator.NoEndCriteria");
+		if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria");
 
 		/* Anzahl der zu simulierenden Kundenankünfte */
 		if (editModel.useClientCount) {
@@ -476,6 +486,15 @@ public class RunModel {
 			runModel.terminationTime=FastMath.max(0,editModel.finishTime);
 		} else {
 			runModel.terminationTime=-1;
+		}
+
+		/* Abbruch über Konfidenzintervall */
+		if (editModel.useFinishConfidence && editModel.finishConfidenceHalfWidth>0 && editModel.finishConfidenceLevel>0) {
+			runModel.terminationWaitingTimeConfidenceHalfWidth=editModel.finishConfidenceHalfWidth;
+			runModel.terminationWaitingTimeConfidenceLevel=editModel.finishConfidenceLevel;
+		} else {
+			runModel.terminationWaitingTimeConfidenceHalfWidth=-1;
+			runModel.terminationWaitingTimeConfidenceLevel=-1;
 		}
 
 		/* Seed für Zufallszahlengenerator */

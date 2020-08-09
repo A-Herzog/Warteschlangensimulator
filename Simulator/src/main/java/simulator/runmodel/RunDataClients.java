@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import language.Language;
+import mathtools.NumberTools;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
@@ -222,7 +224,32 @@ public final class RunDataClients {
 			for (RunDataClient sub: batch) disposeClient(sub,simData);
 		}
 
+		/* Testen, ob Ziel-Batch-Means-Konfidenzradius für die Wartezeiten erreicht ist */
+		if (simData.runModel.terminationWaitingTimeConfidenceHalfWidth>0) {
+			if (testStopByConfidenceLevel(simData)) {
+				if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.EndOfSimulation"),-1,String.format(Language.tr("Simulation.Log.EndOfSimulation.Confidence"),NumberTools.formatNumber(simData.runModel.terminationWaitingTimeConfidenceHalfWidth),NumberTools.formatNumber(1-simData.runModel.terminationWaitingTimeConfidenceLevel)));
+				simData.doShutDown();
+			}
+		}
+
+		/* Kundenobjekt freigaben bzw. cachen */
 		disposeClientWithoutStatistics(client,simData);
+	}
+
+	private long testStopCounter=0;
+
+	private boolean testStopByConfidenceLevel(final SimulationData simData) {
+		testStopCounter++;
+		if (testStopCounter%500!=0) return false;
+
+		final StatisticsDataPerformanceIndicator indicator=simData.statistics.clientsAllWaitingTimes;
+		if (indicator.getBatchCount()<2) return false;
+
+		final double halfWidth=simData.runModel.terminationWaitingTimeConfidenceHalfWidth;
+		final double alpha=simData.runModel.terminationWaitingTimeConfidenceLevel;
+		if (halfWidth<=0 || alpha<=0 || alpha>=1) return false;
+
+		return indicator.getBatchMeanConfidenceHalfWideWithoutFinalize(1-alpha)<=halfWidth;
 	}
 
 	/**

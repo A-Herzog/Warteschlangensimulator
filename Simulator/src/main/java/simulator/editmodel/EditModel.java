@@ -152,6 +152,23 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public long finishTime;
 
 	/**
+	 * Gibt an, ob der Batch-Means-Konfidenzradius für die Wartezeiten als Abbruchbedingung verwendet werden soll.
+	 * @see #finishConfidenceHalfWidth
+	 * @see #finishConfidenceLevel
+	 */
+	public boolean useFinishConfidence;
+
+	/**
+	 * Abbruch bei Erreichen des Batch-Means-Konfidenzradius für die Wartezeiten (-1, wenn nicht zu verwenden)
+	 */
+	public double finishConfidenceHalfWidth;
+
+	/**
+	 * Abbruch bei Erreichen des Batch-Means-Konfidenzradius für die Wartezeiten für das angegebene Niveau (-1, wenn nicht zu verwenden)
+	 */
+	public double finishConfidenceLevel;
+
+	/**
 	 * Zusammenstellung der Modell-Elemente
 	 */
 	public ModelSurface surface;
@@ -372,6 +389,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		terminationCondition="";
 		useFinishTime=false;
 		finishTime=10*86400;
+		useFinishConfidence=false;
+		finishConfidenceHalfWidth=3;
+		finishConfidenceLevel=0.95;
 		resources.clear();
 		clientData.clear();
 		schedules.clear();
@@ -422,6 +442,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.terminationCondition=terminationCondition;
 		clone.useFinishTime=useFinishTime;
 		clone.finishTime=finishTime;
+		clone.useFinishConfidence=useFinishConfidence;
+		clone.finishConfidenceHalfWidth=finishConfidenceHalfWidth;
+		clone.finishConfidenceLevel=finishConfidenceLevel;
 		clone.useFixedSeed=useFixedSeed;
 		clone.fixedSeed=fixedSeed;
 		clone.surface=surface.clone(false,clone.resources,clone.schedules,surface.getParentSurface(),clone); /* surface.getParentSurface() ist normalerweise null, es sei den, es wird ein SubSurface in ein EditModel eingehängt, um dieses SubModel bearbeiten zu können */
@@ -487,6 +510,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!terminationCondition.equalsIgnoreCase(otherModel.terminationCondition)) return false;
 		if (useFinishTime!=otherModel.useFinishTime) return false;
 		if (finishTime!=otherModel.finishTime) return false;
+		if (useFinishConfidence!=otherModel.useFinishConfidence) return false;
+		if (finishConfidenceHalfWidth!=otherModel.finishConfidenceHalfWidth) return false;
+		if (finishConfidenceLevel!=otherModel.finishConfidenceLevel) return false;
 		if (useFixedSeed!=otherModel.useFixedSeed) return false;
 		if (fixedSeed!=otherModel.fixedSeed) return false;
 		if (!surface.equalsModelSurface(otherModel.surface,ignoreAnimationData)) return false;
@@ -611,6 +637,21 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			finishTime=TimeTools.getTime(text);
 			final String s=Language.trAllAttribute("Surface.XML.Active",node);
 			useFinishTime=!s.trim().isEmpty() && !s.equals("0");
+			return null;
+		}
+		if (Language.trAll("Surface.XML.ModelTerminationConfidence",name)) {
+			final Double halfWidth=NumberTools.getPositiveDouble(text);
+			final Double level=NumberTools.getProbability(Language.trAllAttribute("Surface.XML.Level",node));
+
+			if (halfWidth==null) return String.format(Language.tr("Surface.Model.ErrorTerminationConfidenceHalfWidth"),text);
+			if (level==null || level>=1) return String.format(Language.tr("Surface.Model.ErrorTerminationConfidenceLevel"),Language.trAllAttribute("Surface.XML.Level",node));
+
+			final String s=Language.trAllAttribute("Surface.XML.Active",node);
+			useFinishConfidence=!s.trim().isEmpty() && !s.equals("0");
+			if (useFinishConfidence) {
+				finishConfidenceHalfWidth=halfWidth;
+				finishConfidenceLevel=level;
+			}
 			return null;
 		}
 		if (Language.trAll("Surface.XML.ModelFixedSeed",name)) {
@@ -844,6 +885,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelTerminationTime"),TimeTools.formatLongTime(finishTime));
 			sub.setAttribute(Language.trPrimary("Surface.XML.Active"),useFinishTime?"1":"0");
 		}
+		if (useFinishConfidence) {
+			sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelTerminationConfidence"),NumberTools.formatSystemNumber(finishConfidenceHalfWidth));
+			sub.setAttribute(Language.trPrimary("Surface.XML.Active"),"1");
+			sub.setAttribute(Language.trPrimary("Surface.XML.Level"),NumberTools.formatSystemNumber(finishConfidenceLevel));
+		}
 		if (useFixedSeed || fixedSeed!=0) {
 			sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelFixedSeed"),fixedSeed);
 			sub.setAttribute(Language.trPrimary("Surface.XML.Active"),useFixedSeed?"1":"0");
@@ -1011,6 +1057,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		/* Abbruchzeitpunkt eingestellt */
 		if (useFinishTime) {
 			reasons.add(Language.tr("Surface.SingleCoreReason.TerminalTimeUsed"));
+		}
+
+		/* Abbruch über Batch-Means-Konfidenzradius */
+		if (useFinishConfidence) {
+			reasons.add(Language.tr("Surface.SingleCoreReason.TerminalConfidenceUsed"));
 		}
 
 		/* Zeitpläne werden verwendet für eine Ressource */
