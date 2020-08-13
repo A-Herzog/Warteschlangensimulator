@@ -302,6 +302,14 @@ public class RunData {
 
 		if (isWarmUp) {
 			data.lastArrival=now;
+
+			final int clientType=client.type;
+			if (data.lastArrivalByClientType==null) {
+				data.lastArrivalByClientType=new long[simData.runModel.clientTypes.length];
+				Arrays.fill(data.lastArrivalByClientType,-1);
+			}
+			data.lastArrivalByClientType[clientType]=now;
+
 			return;
 		}
 
@@ -363,6 +371,14 @@ public class RunData {
 
 		if (isWarmUp) {
 			data.lastLeave=now;
+
+			final int clientType=client.type;
+			if (data.lastLeaveByClientType==null) {
+				data.lastLeaveByClientType=new long[simData.runModel.clientTypes.length];
+				Arrays.fill(data.lastLeaveByClientType,-1);
+			}
+			data.lastLeaveByClientType[clientType]=now;
+
 			return;
 		}
 
@@ -376,12 +392,14 @@ public class RunData {
 		}
 		data.lastLeave=now;
 
-		if (data.lastLeaveByClientType!=null && data.lastLeaveByClientType[client.type]>=0 && data.lastLeaveByClientType[client.type]<=now) {
-			final double delta=scale*(now-data.lastLeaveByClientType[client.type]);
-			StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterleaveTimeByClientType==null)?null:data.statisticStationsInterleaveTimeByClientType[client.type];
+		/* Pro Kundentyp */
+		final int clientType=client.type;
+		if (data.lastLeaveByClientType!=null && data.lastLeaveByClientType[clientType]>=0 && data.lastLeaveByClientType[clientType]<=now) {
+			final double delta=scale*(now-data.lastLeaveByClientType[clientType]);
+			StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterleaveTimeByClientType==null)?null:data.statisticStationsInterleaveTimeByClientType[clientType];
 			if (indicator==null) {
 				if (data.statisticStationsInterleaveTimeByClientType==null) data.statisticStationsInterleaveTimeByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
-				indicator=data.statisticStationsInterleaveTimeByClientType[client.type]=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTimeByClientType.get(simData,station,client));
+				indicator=data.statisticStationsInterleaveTimeByClientType[clientType]=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTimeByClientType.get(simData,station,client));
 			}
 			indicator.add(delta);
 		}
@@ -389,7 +407,7 @@ public class RunData {
 			data.lastLeaveByClientType=new long[simData.runModel.clientTypes.length];
 			Arrays.fill(data.lastLeaveByClientType,-1);
 		}
-		data.lastLeaveByClientType[client.type]=now;
+		data.lastLeaveByClientType[clientType]=now;
 	}
 
 	private static double scale=1.0d/1000.0d;

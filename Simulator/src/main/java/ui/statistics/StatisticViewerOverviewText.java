@@ -1101,58 +1101,54 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		boolean headindPrinted=false;
 		String[] records=statistics.stationsInterarrivalTimeByClientType.getNames();
-		if (records.length>1) {
-			for (String record : records) {
-				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTimeByClientType.get(record));
-				if (!hasMultipleRecordsOfType(statistics.stationsInterarrivalTimeByClientType,record,' ')) continue;
-				if (!headindPrinted) {
-					addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStationsByClientTypes"));
-					headindPrinted=true;
-				}
-				addHeading(3,fullStationName(record));
-				beginParagraph();
-				addLine(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
-				addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[I]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
-				addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[I]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-				addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[I]="+timeAndNumber(indicator.getVar()));
-				addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-				addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
-				endParagraph();
-
-				outputQuantilInfoTime("I",indicator);
-
-				outputConfidenceData(indicator);
+		for (String record : records) {
+			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTimeByClientType.get(record));
+			if (!hasMultipleRecordsOfType(statistics.stationsInterarrivalTimeByClientType,record,' ')) continue;
+			if (!headindPrinted) {
+				addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStationsByClientTypes"));
+				headindPrinted=true;
 			}
+			addHeading(3,fullStationName(record));
+			beginParagraph();
+			addLine(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
+			addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[I]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[I]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[I]="+timeAndNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			endParagraph();
+
+			outputQuantilInfoTime("I",indicator);
+
+			outputConfidenceData(indicator);
 		}
 
 		/* Ankünfte an den Stationen nach Zuständen */
 
 		headindPrinted=false;
 		records=statistics.stationsInterarrivalTimeByState.getNames();
-		if (records.length>1) {
-			for (String record : records) {
-				if (!hasMultipleRecordsOfType(statistics.stationsInterarrivalTimeByState,record,'=')) continue;
-				if (!headindPrinted) {
-					addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStationsByState"));
-					headindPrinted=true;
-				}
-				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTimeByState.get(record));
-				addHeading(3,fullStationName(record));
-				beginParagraph();
-				addLine(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
-				addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[I]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
-				addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[I]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-				addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[I]="+timeAndNumber(indicator.getVar()));
-				addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-				addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
-				endParagraph();
-
-				outputQuantilInfoTime("I",indicator);
-
-				outputConfidenceData(indicator);
+		for (String record : records) {
+			if (!hasMultipleRecordsOfType(statistics.stationsInterarrivalTimeByState,record,'=')) continue;
+			if (!headindPrinted) {
+				addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStationsByState"));
+				headindPrinted=true;
 			}
+			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTimeByState.get(record));
+			addHeading(3,fullStationName(record));
+			beginParagraph();
+			addLine(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
+			addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[I]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[I]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[I]="+timeAndNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[I]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[I]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[I]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			endParagraph();
+
+			outputQuantilInfoTime("I",indicator);
+
+			outputConfidenceData(indicator);
 		}
 
 		/* Infotext  */
@@ -1222,29 +1218,27 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		boolean headindPrinted=false;
 		final String[] records=statistics.stationsInterleavingTimeByClientType.getNames();
-		if (records.length>1) {
-			for (String record : records) {
-				if (!hasMultipleRecordsOfType(statistics.stationsInterleavingTimeByClientType,record,' ')) continue;
-				if (!headindPrinted) {
-					addHeading(2,Language.tr("Statistics.InterLeaveTimesAtTheStationsByClientTypes"));
-					headindPrinted=true;
-				}
-				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterleavingTimeByClientType.get(record));
-				addHeading(3,fullStationName(record));
-				beginParagraph();
-				addLine(Language.tr("Statistics.AverageInterLeaveCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
-				addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[IL]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
-				addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[IL]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
-				addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[IL]="+timeAndNumber(indicator.getVar()));
-				addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
-				addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[IL]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
-				addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[IL]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
-				endParagraph();
-
-				outputQuantilInfoTime("IL",indicator);
-
-				outputConfidenceData(indicator);
+		for (String record : records) {
+			if (!hasMultipleRecordsOfType(statistics.stationsInterleavingTimeByClientType,record,' ')) continue;
+			if (!headindPrinted) {
+				addHeading(2,Language.tr("Statistics.InterLeaveTimesAtTheStationsByClientTypes"));
+				headindPrinted=true;
 			}
+			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterleavingTimeByClientType.get(record));
+			addHeading(3,fullStationName(record));
+			beginParagraph();
+			addLine(Language.tr("Statistics.AverageInterLeaveCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
+			addLine(Language.tr("Statistics.AverageInterLeaveTime")+": E[IL]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDevInterLeaveTime")+": Std[IL]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.VarianceInterLeaveTime")+": Var[IL]="+timeAndNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.CVInterLeaveTime")+": CV[IL]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.MinimalInterLeaveTime")+": Min[IL]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.MaximalInterLeaveTime")+": Max[IL]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			endParagraph();
+
+			outputQuantilInfoTime("IL",indicator);
+
+			outputConfidenceData(indicator);
 		}
 
 		/* Infotext  */
