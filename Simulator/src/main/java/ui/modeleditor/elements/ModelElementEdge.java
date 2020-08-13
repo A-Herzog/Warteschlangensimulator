@@ -241,7 +241,7 @@ public final class ModelElementEdge extends ModelElement {
 
 	private static void setMiddlePositon(final ModelElementPosition element, final Point point) {
 		final Dimension dimension=element.getSize();
-		element.setPosition(new Point(Math.round(point.x-dimension.width/2),Math.round(point.y-dimension.height/2)));
+		element.setPosition(new Point((int)Math.round(point.x-dimension.width/2.0),(int)Math.round(point.y-dimension.height/2.0)));
 	}
 
 	private void addEdge(final ModelElementPosition element1, final ModelElementPosition element2) {
@@ -274,9 +274,9 @@ public final class ModelElementEdge extends ModelElement {
 		/* Positionen berechnen */
 		Point p;
 		p=element1.getMiddlePosition(true);
-		final Point p1=new Point(Math.round((p.x+3*point.x)/4),Math.round((p.y+3*point.y)/4));
+		final Point p1=new Point((int)Math.round((p.x+3*point.x)/4.0),(int)Math.round((p.y+3*point.y)/4.0));
 		p=element2.getMiddlePosition(true);
-		final Point p2=new Point(Math.round((p.x+3*point.x)/4),Math.round((p.y+3*point.y)/4));
+		final Point p2=new Point((int)Math.round((p.x+3*point.x)/4.0),(int)Math.round((p.y+3*point.y)/4.0));
 
 		/* Teleportstationen hinzufügen */
 		final ModelElementTeleportSource teleport1=new ModelElementTeleportSource(getModel(),surface);
