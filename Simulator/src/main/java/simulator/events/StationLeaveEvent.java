@@ -92,7 +92,9 @@ public class StationLeaveEvent extends Event {
 		if (simData.loggingActive) nextStation.logArrive(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client.logInfo(simData),nextStation.name));
 
 		/* Zwischenabgangszeiten in der Statistik erfassen */
-		runData.logStationLeave(simData.currentTime,simData,lastStation,client);
+		if (lastStation!=null) {
+			runData.logStationLeave(simData.currentTime,simData,lastStation,client);
+		}
 
 		/* System über Bewegung des Kunden benachrichtigen */
 		runData.fireClientMoveNotify(simData,client,false);
@@ -130,7 +132,9 @@ public class StationLeaveEvent extends Event {
 		if (simData.loggingActive) nextStation.logArrive(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client.logInfo(simData),nextStation.name));
 
 		/* Zwischenabgangszeiten in der Statistik erfassen */
-		simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client);
+		if (lastStation!=null) {
+			simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client);
+		}
 
 		/* System über Bewegung des Kunden benachrichtigen */
 		simData.runData.fireClientMoveNotify(simData,client,true);
@@ -172,7 +176,9 @@ public class StationLeaveEvent extends Event {
 			if (simData.loggingActive) nextStation[i].logArrive(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client[i].logInfo(simData),nextStation[i].name));
 
 			/* Zwischenabgangszeiten in der Statistik erfassen */
-			simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client[i]);
+			if (lastStation!=null) {
+				simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client[i]);
+			}
 
 			/* System über Bewegung des Kunden benachrichtigen */
 			simData.runData.fireClientMoveNotify(simData,client[i],false);
@@ -217,7 +223,9 @@ public class StationLeaveEvent extends Event {
 			if (simData.loggingActive) nextStation.logArrive(simData,Language.tr("Simulation.Log.ArriveStation"),String.format(Language.tr("Simulation.Log.ArriveStation.Info"),client[i].logInfo(simData),nextStation.name));
 
 			/* Zwischenabgangszeiten in der Statistik erfassen */
-			simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client[i]);
+			if (lastStation!=null) {
+				simData.runData.logStationLeave(simData.currentTime,simData,lastStation,client[i]);
+			}
 
 			/* System über Bewegung des Kunden benachrichtigen */
 			simData.runData.fireClientMoveNotify(simData,client[i],false);
