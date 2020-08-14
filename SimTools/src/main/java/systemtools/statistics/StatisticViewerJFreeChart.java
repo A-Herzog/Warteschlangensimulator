@@ -118,7 +118,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	 * Initialisierung des <code>JFreeChart</code>-Objektes.
 	 * @param chart	Konkretes <code>JFreeChart</code>-Objekt, welches angezeigt werden soll.
 	 */
-	protected final void initChart(JFreeChart chart) {
+	protected final void initChart(final JFreeChart chart) {
 		this.chart=chart;
 		chartPanel=new ChartPanel(
 				chart,
@@ -129,17 +129,24 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 				ChartPanel.DEFAULT_MAXIMUM_DRAW_WIDTH,
 				ChartPanel.DEFAULT_MAXIMUM_DRAW_HEIGHT,
 				ChartPanel.DEFAULT_BUFFER_USED,
-				true,  // properties
-				false,  // save
-				true,  // print
-				true,  // zoom
-				true   // tooltips
+				true, /* properties */
+				false, /* save */
+				true, /* print */
+				true, /* zoom */
+				true  /* tooltips */
 				);
 		chartPanel.setPopupMenu(null);
+
 		chart.setBackgroundPaint(null);
 		chart.getPlot().setBackgroundPaint(new GradientPaint(1,0,new Color(0xFA,0xFA,0xFF),1,150,new Color(0xEA,0xEA,0xFF)));
-		TextTitle t=chart.getTitle();
-		if (t!=null) {Font f=t.getFont(); t.setFont(new Font(f.getFontName(),Font.PLAIN,f.getSize()-4));}
+
+		final TextTitle t=chart.getTitle();
+		if (t!=null) {
+			final Font f=t.getFont();
+			t.setFont(new Font(f.getFontName(),Font.PLAIN,f.getSize()-4));
+		}
+
+		chart.getLegend().setBackgroundPaint(null);
 	}
 
 	@Override
