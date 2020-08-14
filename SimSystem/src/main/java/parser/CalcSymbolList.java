@@ -341,6 +341,24 @@ public class CalcSymbolList {
 
 	private static final String[] emptyArray=new String[0];
 
+	private static Object toLowerSync=new Object();
+	private static int toLowerHash=0;
+	private static String[] toLowerArr;
+
+	private static String[] getToLowerFromCache(final int hash) {
+		synchronized(toLowerSync) {
+			if (hash!=toLowerHash || toLowerArr==null) return null;
+			return Arrays.copyOf(toLowerArr,toLowerArr.length);
+		}
+	}
+
+	private static void putToLowerToCache(final String[] arr, final int hash) {
+		synchronized(toLowerSync) {
+			toLowerHash=hash;
+			toLowerArr=Arrays.copyOf(arr,arr.length);
+		}
+	}
+
 	/**
 	 * Liefert eine Liste aller dem System bekannten Symbole (einschlieﬂlich Variablennamen) in Kleinschreibweise
 	 * @return	Liste aller bekannten Symbole
@@ -362,6 +380,11 @@ public class CalcSymbolList {
 				if (!s.isEmpty()) allSymbolNamesList.add(s);
 			}
 
+			int hash=0;
+			for (int i=0;i<allSymbolNamesList.size();i++) hash+=allSymbolNamesList.get(i).hashCode();
+			final String[] cacheResult=getToLowerFromCache(hash);
+			if (cacheResult!=null) return cacheResult;
+
 			allSymbolNamesLower=allSymbolNamesList.toArray(emptyArray);
 
 			final int count=allSymbolNamesLower.length;
@@ -374,6 +397,8 @@ public class CalcSymbolList {
 				}
 				if (needsProcessing) allSymbolNamesLower[i]=allSymbolNamesLower[i].toLowerCase();
 			}
+
+			putToLowerToCache(allSymbolNamesLower,hash);
 		}
 		return allSymbolNamesLower;
 	}
