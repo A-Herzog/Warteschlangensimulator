@@ -1027,9 +1027,11 @@ public class ModelPropertiesDialog extends BaseDialog {
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(pathRecordingStationTransitions=new JCheckBox(Language.tr("Editor.Dialog.Tab.PathRecording.StationTransitions"),model.recordStationTransitions));
+		pathRecordingStationTransitions.setEnabled(!readOnly);
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(pathRecordingClientPaths=new JCheckBox(Language.tr("Editor.Dialog.Tab.PathRecording.ClientPaths"),model.recordClientPaths));
+		pathRecordingClientPaths.setEnabled(!readOnly);
 	}
 
 	private void addSequencesTab(final JPanel content) {
