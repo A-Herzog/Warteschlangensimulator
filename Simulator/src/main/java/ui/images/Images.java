@@ -1420,7 +1420,7 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Transport' - Element 'Wegpunkt'" */
 	MODELEDITOR_ELEMENT_WAY_POINT("Vertex.png"),
 
-	/** Symbol "Modelleditor - Gruppe 'Transport' - Element 'Teleport-Transport Startpunkt & Zielpunkt'" */
+	/** Symbol "Modelleditor - Gruppe 'Transport' - Element 'Teleport-Transport Startpunkt &amp; Zielpunkt'" */
 	MODELEDITOR_ELEMENT_TELEPORT("Teleport.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Transport' - Element 'Teleport-Transport Startpunkt'" */

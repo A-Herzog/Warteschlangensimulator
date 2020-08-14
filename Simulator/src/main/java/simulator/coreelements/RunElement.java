@@ -265,7 +265,7 @@ public abstract class RunElement {
 	 * @param event	Name des Ereignisses
 	 * @param info	Zusätzliche Informationen
 	 * @see SimulationData#loggingActive
-	 * @see SimLogging#log(long, Color, String, String)
+	 * @see SimLogging#log(long, Color, String, int, String)
 	 */
 	public final void log(final SimulationData simData, final String event, final String info) {
 		if (!simData.logInfoStation) return;
@@ -279,7 +279,7 @@ public abstract class RunElement {
 	 * @param event	Name des Ereignisses
 	 * @param info	Zusätzliche Informationen
 	 * @see SimulationData#loggingActive
-	 * @see SimLogging#log(long, Color, String, String)
+	 * @see SimLogging#log(long, Color, String, int, String)
 	 */
 	public final void logArrive(final SimulationData simData, final String event, final String info) {
 		if (!simData.logArrival) return;
@@ -293,7 +293,7 @@ public abstract class RunElement {
 	 * @param event	Name des Ereignisses
 	 * @param info	Zusätzliche Informationen
 	 * @see SimulationData#loggingActive
-	 * @see SimLogging#log(long, Color, String, String)
+	 * @see SimLogging#log(long, Color, String, int, String)
 	 */
 	public final void logLeave(final SimulationData simData, final String event, final String info) {
 		if (!simData.logDeparture) return;
