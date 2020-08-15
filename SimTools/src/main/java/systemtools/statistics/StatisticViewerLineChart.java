@@ -488,7 +488,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 	protected XYSeries addSeries(final String title, final Paint paint, final DataDistributionImpl dist) {
 		final XYSeries series=new XYSeries(title);
 		for (int i=0;i<dist.densityData.length;i++) {
-			series.add(dist.upperBound*i/(dist.densityData.length-1)/scaleFactor,dist.densityData[i],false);
+			series.add(dist.upperBound*i/dist.densityData.length/scaleFactor,dist.densityData[i],false);
 			series.fireSeriesChanged();
 		}
 		data.addSeries(series);
@@ -765,6 +765,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
 		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
 		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		final FileFilter xlsx=canStoreExcelFile()?new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx"):null;
 		final FileFilter sce=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeSCE+" (*.sce)","sce");
 		fc.addChoosableFileFilter(png);
 		fc.addChoosableFileFilter(jpg);
@@ -772,6 +773,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		fc.addChoosableFileFilter(bmp);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
+		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
 		fc.addChoosableFileFilter(sce);
 		fc.setFileFilter(png);
 		fc.setAcceptAllFileFilterUsed(false);
@@ -787,6 +789,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
+			if (xlsx!=null && fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
 			if (fc.getFileFilter()==sce) file=new File(file.getAbsoluteFile()+".sce");
 		}
 

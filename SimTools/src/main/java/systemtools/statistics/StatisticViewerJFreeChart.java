@@ -18,6 +18,7 @@ package systemtools.statistics;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.datatransfer.Clipboard;
@@ -211,7 +212,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	 * @return	Ausgewählte Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	protected File showSaveDialog(final Component owner) {
-		return ImageTools.showSaveDialog(owner,false);
+		return ImageTools.showSaveDialog(owner,canStoreExcelFile());
 	}
 
 	@Override
@@ -350,7 +351,29 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 
 	@Override
 	public JButton[] getAdditionalButton() {
+		final boolean excel=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.EXCEL);
+
+		if (excel) {
+			final JButton button=new JButton(StatisticsBasePanel.viewersToolbarExcel);
+			button.setToolTipText(StatisticsBasePanel.viewersToolbarExcel);
+			button.setIcon(SimToolsImages.SAVE_TABLE_EXCEL.getIcon());
+			button.addActionListener(e->openExcel());
+			return new JButton[]{button};
+		}
+
 		return null;
+	}
+
+	private void openExcel() {
+		try {
+			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".xlsx");
+			if (ImageTools.storeExcelFile(chart,()->getTableChartFromChart(),file)) {
+				file.deleteOnExit();
+				Desktop.getDesktop().open(file);
+			}
+		} catch (IOException e1) {
+			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
+		}
 	}
 
 	@Override
