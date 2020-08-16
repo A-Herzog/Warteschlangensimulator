@@ -269,7 +269,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	private String timeAndNumber(final double value) {
-		return TimeTools.formatExactTime(value)+" ("+StatisticTools.formatNumber(value)+")";
+		return StatisticTools.formatExactTime(value)+" ("+StatisticTools.formatNumber(value)+")";
 	}
 
 	private String xmlMean(final StatisticsPerformanceIndicator indicator) {

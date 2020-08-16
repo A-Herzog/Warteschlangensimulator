@@ -1,6 +1,7 @@
 package ui.statistics;
 
 import mathtools.NumberTools;
+import mathtools.TimeTools;
 import tools.SetupData;
 
 /**
@@ -77,5 +78,30 @@ public class StatisticTools {
 		sb2.append('%');
 		return sb2.toString();
 		/* return NumberTools.formatPercent(number,Math.max(minDigits,Math.max(1,setup.statisticsPercentDigits))); */
+	}
+
+	/**
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um
+	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
+	 * (Als Dezimaltrenner wird ein Komma verwendet.)
+	 * @param time Umzuwandelnde Uhrzeit
+	 * @return Uhrzeit als Zeichenkette
+	 * @see #formatExactSystemTime(double)
+	 */
+	public static String formatExactTime(final double time) {
+		return TimeTools.formatExactTime(time,setup.statisticsNumberDigits);
+	}
+
+	/**
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um
+	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
+	 * (Als Dezimaltrenner wird ein Komma verwendet.)
+	 * @param time Umzuwandelnde Uhrzeit
+	 * @param digits	Anzahl an Nachkommastellen des Sekundenwerts
+	 * @return Uhrzeit als Zeichenkette
+	 * @see #formatExactSystemTime(double)
+	 */
+	public static String formatExactTime(final double time, final int digits) {
+		return TimeTools.formatExactTime(time,Math.max(digits,setup.statisticsNumberDigits));
 	}
 }

@@ -22,7 +22,6 @@ import java.util.List;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
-import mathtools.TimeTools;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
@@ -110,12 +109,12 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 			row.add(name);
 			row.add(NumberTools.formatLong(indicator.getCount()));
 			if (isUserStatisticsTime(name)) {
-				row.add(TimeTools.formatExactTime(indicator.getMean()));
-				row.add(TimeTools.formatExactTime(indicator.getSD()));
-				row.add(TimeTools.formatExactTime(indicator.getVar()));
+				row.add(StatisticTools.formatExactTime(indicator.getMean()));
+				row.add(StatisticTools.formatExactTime(indicator.getSD()));
+				row.add(StatisticTools.formatExactTime(indicator.getVar()));
 				row.add(StatisticTools.formatNumber(indicator.getCV()));
-				row.add(TimeTools.formatExactTime(indicator.getMin()));
-				row.add(TimeTools.formatExactTime(indicator.getMax()));
+				row.add(StatisticTools.formatExactTime(indicator.getMin()));
+				row.add(StatisticTools.formatExactTime(indicator.getMax()));
 				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
 					row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
 				}
