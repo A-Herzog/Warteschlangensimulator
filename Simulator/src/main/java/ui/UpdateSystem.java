@@ -64,6 +64,7 @@ public class UpdateSystem {
 
 	private boolean automaticUpdatePossible;
 	private boolean checkFailed;
+	private boolean checkDone;
 	private String newVersionAvailable;
 	private boolean firstStartToday;
 	private volatile UpdateStatus updateDownloadStatus=UpdateStatus.STATUS_NOTHING;
@@ -92,11 +93,14 @@ public class UpdateSystem {
 	 */
 	private UpdateSystem() {
 		checkFailed=false;
+		checkDone=false;
 		if (checkUpdateNow()) return;
 		checkAutomaticUpdatePossible();
 		checkLastStart();
-		checkUpdateAvailable(false);
-		if (newVersionAvailable!=null && automaticUpdatePossible && SetupData.getSetup().autoUpdate) downloadUpdate();
+		if (SetupData.getSetup().autoUpdate && automaticUpdatePossible) {
+			checkUpdateAvailable(false);
+			if (newVersionAvailable!=null) downloadUpdate();
+		}
 	}
 
 	private boolean cleanUpOnCheck() {
@@ -259,6 +263,7 @@ public class UpdateSystem {
 		}
 		if (line!=null) {
 			checkFailed=false;
+			checkDone=true;
 			if (isNewerVersionFull(line.trim())) newVersionAvailable=line; else newVersionAvailable=null;
 		}
 	}
@@ -348,6 +353,9 @@ public class UpdateSystem {
 	 * @see UpdateSystem#isNewVersionAvailable()
 	 */
 	public enum NewVersionAvailableStatus {
+		/** Noch keine Prüfung ausgeführt. */
+		NOT_CHECKED,
+
 		/** Eine neue Version ist verfügbar. */
 		NEW_VERSION_AVAILABLE,
 
@@ -364,7 +372,9 @@ public class UpdateSystem {
 	 * @see #getNewVersion()
 	 */
 	public NewVersionAvailableStatus isNewVersionAvailable() {
+		if (!checkDone) return NewVersionAvailableStatus.NOT_CHECKED;
 		if (checkFailed) return NewVersionAvailableStatus.CHECK_FAILED;
+
 		if (newVersionAvailable!=null) return NewVersionAvailableStatus.NEW_VERSION_AVAILABLE; else return NewVersionAvailableStatus.VERSION_IS_UPTODATE;
 	}
 
@@ -399,6 +409,8 @@ public class UpdateSystem {
 	 */
 	public String getInfoString() {
 		switch (isNewVersionAvailable()) {
+		case NOT_CHECKED:
+			return Language.tr("Update.Status.NotChecked");
 		case CHECK_FAILED:
 			return Language.tr("Update.Status.CheckFailed");
 		case NEW_VERSION_AVAILABLE:

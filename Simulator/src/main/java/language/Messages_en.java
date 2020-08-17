@@ -3408,6 +3408,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8093] = "No signal for releasing the clients has been selected.";
     t[8096] = "Surface.Delay.Dialog.DelayTimeIs.Nothing";
     t[8097] = "<do not record>";
+    t[8100] = "Update.Status.NotChecked";
+    t[8101] = "No update check was performed yet.";
     t[8108] = "PathEditor.ProcessConfirm.YesInfo";
     t[8109] = "Generate new paths for the way points.";
     t[8110] = "Surface.Input.Dialog.Mode.Skip";
@@ -4004,10 +4006,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9489] = "Select table file";
     t[9496] = "ScriptPopup.Output.Separator.Hint";
     t[9497] = "Allows to define the character to use as element separator in arrays";
-    t[9500] = "ExpressionCalculator.Toolbar.New.Hint";
-    t[9501] = "Clears the current Javascript";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9500] = "ExpressionCalculator.Toolbar.New.Hint";
+    t[9501] = "Clears the current Javascript";
     t[9516] = "Main.Menu.Edit.Paste";
     t[9517] = "Paste";
     t[9518] = "Surface.Release.XML.TimeBase";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14085] = "The entered group size is invalid. The group size has to be a positiv integer number.";
     t[14090] = "Statistics.FullyBusyShare";
     t[14091] = "Fully busy share";
-    t[14092] = "Editor.UnknownElements.Title";
-    t[14093] = "Unknown elements in the model file";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14092] = "Editor.UnknownElements.Title";
+    t[14093] = "Unknown elements in the model file";
     t[14096] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.MinimalTime";
     t[14097] = "<p>Returns the minimal duration over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[14098] = "Surface.Database.TestDialog.Info.Connection";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18791] = "Today";
     t[18792] = "Main.Menu.View.ShowShadows.Mnemonic";
     t[18793] = "S";
-    t[18794] = "Update.Status.Loading";
-    t[18795] = "The new version %s is being downloaded. %d%% complete.";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18794] = "Update.Status.Loading";
+    t[18795] = "The new version %s is being downloaded. %d%% complete.";
     t[18796] = "Main.Menu.File";
     t[18797] = "File";
     t[18798] = "Color.FF8C00";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23633] = "Trigger when exceeding %s.";
     t[23652] = "Surface.AnimationPointerMeasuring.XML.Root";
     t[23653] = "ModelElementAnimationPointerMeasuring";
-    t[23656] = "Setup.SaveError.Title";
-    t[23657] = "Configuration could not be saved";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23656] = "Setup.SaveError.Title";
+    t[23657] = "Configuration could not be saved";
     t[23658] = "Surface.Delay.XML.Expression.ClientType";
     t[23659] = "ClientType";
     t[23660] = "ParameterCompare.Settings.Input.List.Templates.Resource.Title";
@@ -10354,6 +10356,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24415] = "Invalid expression";
     t[24418] = "Surface.Record.Dialog.Expression1.Error.InfoEmpty";
     t[24419] = "No text was entered for \"Expression 1\".";
+    t[24420] = "SettingsDialog.UpdateCheck";
+    t[24421] = "Check now";
     t[24422] = "Optimizer.XMLError.ValueHasToBe0Or1";
     t[24423] = "The value has to be \"0\" oder \"1\".";
     t[24424] = "Simulation.ClientMovement.NoStationSelectedErrorTitle";
@@ -12010,12 +12014,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28419] = "<p>Generates a random number according to the Cauchy distribution with mean and shape parameters according to the first and second parameters.</p>";
     t[28422] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.Median";
     t[28423] = "Median";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[28432] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo";
     t[28433] = "<p>Calculates the value of the distribution function of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n<p>Example: <tt>ExpDist(5;2;1)</tt> returns 0.9179150013761.</p>";
     t[28436] = "Surface.AnimationRecord.XML.Root";
     t[28437] = "ModelElementAnimationRecord";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[28438] = "Statistics.ResultsAutocorrelation";
     t[28439] = "Autocorrelation of the waiting times";
     t[28442] = "ScriptPopup.Output.Separator.Semicolon.Hint";
@@ -14012,12 +14016,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33167] = "ModelElementColor";
     t[33174] = "ParameterCompare.Settings.Output.List.Delete.Confirm.Info";
     t[33175] = "Do you really want to delete the selected output value \"%s\"?";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[33176] = "ParameterCompare.Settings.List.AddByXML";
     t[33177] = "Select XML element";
     t[33182] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.DistributionFunctionInfo";
     t[33183] = "<p>Calculates the value of the distribution function of the Logistic distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (scale) parameters.</p>";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[33186] = "Surface.DecideJS.XML.Script.Java";
     t[33187] = "Java";
     t[33188] = "Surface.Decide.ByClientType";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37821] = "Direct connection, do not use a proxy server";
     t[37822] = "Statistics.XML.Type";
     t[37823] = "Type";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37836] = "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.DistributionFunctionInfo";
     t[37837] = "<p>Calculates the value of the distribution function of the Weibull distribution at the location specified as the first parameter with the scaling and form parameters according to the second and third parameters.</p>";
     t[37842] = "ParameterCompare.Table.AddModelByAssistant.Error.NoNumber";
     t[37843] = "For parameter %s in row %d the invalid value %s was entered. A number has to be specified.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37844] = "Surface.AnimationBarStack.Dialog.Maximum.Error.Info";
     t[37845] = "The specified maximum value \"%s\" is invalid.";
     t[37852] = "Notifier.Message.OptimizationDone";

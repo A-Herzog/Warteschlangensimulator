@@ -156,6 +156,7 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox autoUpdate;
 	private final JLabel updateInfo;
 	private final JButton manualUpdateButton;
+	private final JButton updateCheckButton;
 
 	/**
 	 * Konstruktor der Klasse
@@ -767,10 +768,16 @@ public final class SetupDialog extends BaseDialog {
 		button.setIcon(Images.SETUP_PROXY.getIcon());
 		button.addActionListener(e->showProxySettingsDialog());
 		p.add(button);
+
 		p.add(manualUpdateButton=new JButton(Language.tr("SettingsDialog.ManualUpdate")));
 		manualUpdateButton.setIcon(Images.SETUP_PAGE_UPDATE.getIcon());
 		manualUpdateButton.setVisible(false);
 		manualUpdateButton.addActionListener(e->showManualUpdateMenu());
+
+		p.add(updateCheckButton=new JButton(Language.tr("SettingsDialog.UpdateCheck")));
+		updateCheckButton.setIcon(Images.SETUP_PAGE_UPDATE.getIcon());
+		updateCheckButton.setVisible(false);
+		updateCheckButton.addActionListener(e->runUpdateCheck());
 
 		/* Icons auf den Tabreitern einfügen */
 
@@ -956,7 +963,29 @@ public final class SetupDialog extends BaseDialog {
 		programStartJavaCheck.setSelected(setup.testJavaVersion);
 		autoUpdate.setEnabled(updateSystem.isAutomaticUpdatePossible());
 		autoUpdate.setSelected(autoUpdate.isEnabled() && setup.autoUpdate);
+		updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
+		if (setup.autoUpdate && updateSystem.isAutomaticUpdatePossible()) {
+			runUpdateCheck();
+		} else {
+			updateCheckButton.setVisible(true);
+		}
+
+		/* Dialog anzeigen */
+
+		if (showUpdatesPage) {
+			tabs.setSelectedIndex(5);
+		}
+
+		setMinSizeRespectingScreensize(650,0);
+		pack();
+		setLocationRelativeTo(this.owner);
+		setVisible(true);
+	}
+
+	private void runUpdateCheck() {
 		updateInfo.setText("<html><b>"+Language.tr("SettingsDialog.Tabs.Updates.ConnectingServer")+"</b></html>");
+		updateCheckButton.setVisible(false);
+		final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
 		new Thread(()->{
 			updateSystem.checkUpdateNow(true);
 			updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
@@ -974,17 +1003,6 @@ public final class SetupDialog extends BaseDialog {
 				}
 			},1000,1000);
 		}).start();
-
-		/* Dialog anzeigen */
-
-		if (showUpdatesPage) {
-			tabs.setSelectedIndex(5);
-		}
-
-		setMinSizeRespectingScreensize(650,0);
-		pack();
-		setLocationRelativeTo(this.owner);
-		setVisible(true);
 	}
 
 	@Override

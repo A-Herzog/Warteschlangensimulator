@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-17 10:39+0200\n"
+"POT-Creation-Date: 2020-08-17 20:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12256,6 +12256,9 @@ msgstr "Check installed Java version and warn if outdated and insecure"
 
 msgid "SettingsDialog.Title"
 msgstr "Settings"
+
+msgid "SettingsDialog.UpdateCheck"
+msgstr "Check now"
 
 msgid "SettingsDialog.UseLastFiles"
 msgstr "Offer recently used files for loading"
@@ -26086,6 +26089,9 @@ msgstr "The new version %s is available."
 
 msgid "Update.Status.NewVersionNoAutomaticUpdate"
 msgstr "The new version %s is available. An automatic installation is not possible."
+
+msgid "Update.Status.NotChecked"
+msgstr "No update check was performed yet."
 
 msgid "Update.Status.UpToDate"
 msgstr "You are using the newest program version."
