@@ -36,8 +36,6 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
       <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
       <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
-      <ModellElementPrioritaet Kundentyp="KundenA">w</ModellElementPrioritaet>
-      <ModellElementPrioritaet Kundentyp="KundenB">w+1000</ModellElementPrioritaet>
       <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bedienergruppe"/>
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementBedienstation>

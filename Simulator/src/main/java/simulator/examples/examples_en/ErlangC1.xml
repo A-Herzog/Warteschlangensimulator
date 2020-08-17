@@ -36,9 +36,6 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModelElementConnection Element="5" Type="Out"/>
       <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
       <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
-      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
-      <ModelElementPriority ClientType="KundenA">w</ModelElementPriority>
-      <ModelElementPriority ClientType="KundenB">w+1000</ModelElementPriority>
       <ModelElementOperators Alternative="1" Count="1" Group="Operators group"/>
       <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
     </ModelElementProcessStation>
