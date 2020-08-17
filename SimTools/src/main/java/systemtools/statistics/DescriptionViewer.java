@@ -165,6 +165,7 @@ public class DescriptionViewer extends JPanel {
 				final String linkLower=description.toLowerCase();
 
 				if (linkLower.startsWith("http://") || linkLower.startsWith("https://")) {
+					if (!MsgBox.confirmOpenURL(DescriptionViewer.this,description)) return;
 					try {Desktop.getDesktop().browse(new URL(description).toURI());} catch (IOException | URISyntaxException e1) {
 						MsgBox.error(this,StatisticsBasePanel.internetErrorTitle,String.format(StatisticsBasePanel.internetErrorInfo,description));
 					}

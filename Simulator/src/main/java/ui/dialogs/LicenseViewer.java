@@ -217,6 +217,7 @@ public class LicenseViewer extends BaseDialog{
 
 		if (e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
 			try {
+				if (!MsgBox.confirmOpenURL(this,e.getURL())) return;
 				Desktop.getDesktop().browse(e.getURL().toURI());
 			} catch (IOException | URISyntaxException e1) {
 				MsgBox.error(getOwner(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),e.getURL().toString()));

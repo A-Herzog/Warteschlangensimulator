@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-08 19:31+0200\n"
+"POT-Creation-Date: 2020-08-17 10:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2019,6 +2019,18 @@ msgstr "The specified id \"%s\" is invalid."
 
 msgid "Dialog.InvalidID.Title"
 msgstr "Invalid station id"
+
+msgid "Dialog.OpenURL.Info"
+msgstr ""
+"Do you want to open the external web page\n"
+"%s\n"
+"now?"
+
+msgid "Dialog.OpenURL.InfoNo"
+msgstr "Do not open web page."
+
+msgid "Dialog.OpenURL.InfoYes"
+msgstr "Open web page in default browser."
 
 msgid "Dialog.Overwrite.Info"
 msgstr ""

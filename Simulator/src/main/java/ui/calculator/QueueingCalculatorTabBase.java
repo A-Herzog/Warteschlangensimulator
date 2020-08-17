@@ -178,6 +178,7 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		info.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (!MsgBox.confirmOpenURL(QueueingCalculatorTabBase.this,link)) return;
 				try {Desktop.getDesktop().browse(new URI(link));} catch (IOException | URISyntaxException e1) {
 					MsgBox.error(QueueingCalculatorTabBase.this,Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.ModelOverview"),link));
 				}

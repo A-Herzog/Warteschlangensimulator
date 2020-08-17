@@ -1630,6 +1630,7 @@ public abstract class MainPanelBase extends JPanel {
 					public void mouseClicked(final MouseEvent e) {
 						if (SwingUtilities.isLeftMouseButton(e)) {
 							try {
+								if (!MsgBox.confirmOpenURL(MainPanelBase.this,link)) return;
 								Desktop.getDesktop().browse(new URI(link));
 							} catch (IOException | URISyntaxException e1) {}
 						}

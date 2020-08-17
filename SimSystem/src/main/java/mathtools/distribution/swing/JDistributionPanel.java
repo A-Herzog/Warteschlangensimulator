@@ -69,7 +69,7 @@ import mathtools.distribution.tools.FileDropperData;
  * Zeigt den grafischen Verlauf von Dichte und Verteilungsfunktion einer Verteilung
  * vom Typ <code>AbstractContinuousDistribution</code> an.
  * @author Alexander Herzog
- * @version 1.7
+ * @version 1.8
  * @see AbstractRealDistribution
  */
 public class JDistributionPanel extends JPanel implements JGetImage {
@@ -117,6 +117,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String GraphicsFileOverwriteWarning="Die Datei %s existiert bereits. Soll die Datei jetzt überschrieben werden?";
 	/** Überschreibwarnung für Grafiken (Titel der Meldung) */
 	public static String GraphicsFileOverwriteWarningTitle="Warnung";
+	/** "URL aufrufen" Warnung (Text der Meldung) */
+	public static String GraphicsOpenURLWarning="Möchten Sie jetzt die externe Webseite\n%s\naufrufen?";
+	/** "URL aufrufen" Warnung (Text der Meldung) */
+	public static String GraphicsOpenURLWarningTitle="Warnung";
 
 	private final JLabel info;
 	private final JButton copy;
@@ -662,6 +666,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
 			try {
 				URI uri=getDistributionWikipediaURI();
+				if (JOptionPane.showConfirmDialog(JDistributionPanel.this,String.format(GraphicsOpenURLWarning,uri.toString()),GraphicsOpenURLWarningTitle,JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
 				if (uri!=null) Desktop.getDesktop().browse(uri);
 			} catch (Exception e) {}
 		}

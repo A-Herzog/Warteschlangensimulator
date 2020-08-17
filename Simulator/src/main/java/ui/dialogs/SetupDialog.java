@@ -748,7 +748,9 @@ public final class SetupDialog extends BaseDialog {
 			public void mouseClicked(final MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
 					try {
-						Desktop.getDesktop().browse(new URI(Language.tr("SettingsDialog.JDK.Link")));
+						final String url=Language.tr("SettingsDialog.JDK.Link");
+						if (!MsgBox.confirmOpenURL(SetupDialog.this,url)) return;
+						Desktop.getDesktop().browse(new URI(url));
 					} catch (IOException | URISyntaxException e1) {}
 				}
 			}
@@ -1197,6 +1199,7 @@ public final class SetupDialog extends BaseDialog {
 		item.addActionListener(e->{
 			final String network="https://"+MainPanel.WEB_URL;
 			try {
+				if (!MsgBox.confirmOpenURL(this,network)) return;
 				Desktop.getDesktop().browse(new URI(network));
 			} catch (IOException | URISyntaxException e1) {
 				MsgBox.error(getOwner(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),network));

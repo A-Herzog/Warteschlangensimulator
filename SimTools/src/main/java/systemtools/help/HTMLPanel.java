@@ -367,6 +367,7 @@ public abstract class HTMLPanel extends JPanel {
 					}
 				} else {
 					if (s.toLowerCase().startsWith("http://") || s.toLowerCase().startsWith("https://")) {
+						if (!MsgBox.confirmOpenURL(HTMLPanel.this,url)) return;
 						try {Desktop.getDesktop().browse(url.toURI());} catch (IOException | URISyntaxException e1) {
 							MsgBox.error(HTMLPanel.this,HelpBase.errorNoInternetTitle,String.format(HelpBase.errorNoInternetInfo,url.toString()));
 						}

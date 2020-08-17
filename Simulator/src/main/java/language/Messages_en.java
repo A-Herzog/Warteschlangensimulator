@@ -196,6 +196,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[439] = "Euler's number e";
     t[442] = "JDistributionEditor.Load";
     t[443] = "Load";
+    t[444] = "Dialog.OpenURL.Info";
+    t[445] = "Do you want to open the external web page\n%s\nnow?";
     t[446] = "FileType.CSVR";
     t[447] = "csv files (for R)";
     t[448] = "Surface.Source.Dialog.Threshold.ThresholdExpression";
@@ -2002,10 +2004,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4969] = "%s is entered by client %s.";
     t[4974] = "ModelDescription.Process.Costs.PerProcessSecond";
     t[4975] = "Station costs per post processing second";
-    t[4982] = "LogSimulation.Title";
-    t[4983] = "Record simulation";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4982] = "LogSimulation.Title";
+    t[4983] = "Record simulation";
     t[4988] = "Surface.Ellipse.XML.Root";
     t[4989] = "ModelElementEllipse";
     t[4990] = "Surface.AnimationBarStack.Dialog.Delete.Confirm.NoInfo";
@@ -4004,10 +4006,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9497] = "Allows to define the character to use as element separator in arrays";
     t[9500] = "ExpressionCalculator.Toolbar.New.Hint";
     t[9501] = "Clears the current Javascript";
-    t[9516] = "Main.Menu.Edit.Paste";
-    t[9517] = "Paste";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9516] = "Main.Menu.Edit.Paste";
+    t[9517] = "Paste";
     t[9518] = "Surface.Release.XML.TimeBase";
     t[9519] = "TimeBase";
     t[9524] = "SettingsDialog.BackgroundProcessing.Off";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14091] = "Fully busy share";
     t[14092] = "Editor.UnknownElements.Title";
     t[14093] = "Unknown elements in the model file";
-    t[14096] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.MinimalTime";
-    t[14097] = "<p>Returns the minimal duration over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14096] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.MinimalTime";
+    t[14097] = "<p>Returns the minimal duration over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[14098] = "Surface.Database.TestDialog.Info.Connection";
     t[14099] = "Connection established.";
     t[14104] = "Main.Toolbar.LoadModel.Hint";
@@ -7204,6 +7206,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16871] = "Station type";
     t[16872] = "CommandLine.BuildCatalogDescriptions.Error.Path";
     t[16873] = "The specified path \"%s\" does not exist.";
+    t[16874] = "Dialog.OpenURL.InfoYes";
+    t[16875] = "Open web page in default browser.";
     t[16878] = "Surface.InputJS.XML.Script.Java";
     t[16879] = "Java";
     t[16880] = "ParameterCompare.Settings.Input.Mode.GlobalVariable";
@@ -8006,12 +8010,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18793] = "S";
     t[18794] = "Update.Status.Loading";
     t[18795] = "The new version %s is being downloaded. %d%% complete.";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18796] = "Main.Menu.File";
     t[18797] = "File";
     t[18798] = "Color.FF8C00";
     t[18799] = "Dark orange";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18804] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.Greater.Info";
     t[18805] = "<p>Checks whether the expression before the &gt;  operator is greater than the expression after the comparison operator.</p>";
     t[18806] = "Statistics.ResultsAutocorrelation.Autocorrelation";
@@ -10008,12 +10012,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23653] = "ModelElementAnimationPointerMeasuring";
     t[23656] = "Setup.SaveError.Title";
     t[23657] = "Configuration could not be saved";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23658] = "Surface.Delay.XML.Expression.ClientType";
     t[23659] = "ClientType";
     t[23660] = "ParameterCompare.Settings.Input.List.Templates.Resource.Title";
     t[23661] = "Number of operators in a resource";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23666] = "Animation.Icon.ArrowDown";
     t[23667] = "Arrow - down";
     t[23668] = "Surface.Output.OpenInputFile";
@@ -11028,6 +11032,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26013] = "not connected";
     t[26020] = "ExpressionBuilder.StatisticalFunctions.Minimum";
     t[26021] = "Minimum";
+    t[26028] = "Dialog.OpenURL.InfoNo";
+    t[26029] = "Do not open web page.";
     t[26034] = "Transporters.Group.Edit.Dialog.Distances.Dialog.MaxDistance";
     t[26035] = "Maximum distance";
     t[26042] = "Surface.OutputDB.Tooltip";
@@ -12008,14 +12014,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28433] = "<p>Calculates the value of the distribution function of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n<p>Example: <tt>ExpDist(5;2;1)</tt> returns 0.9179150013761.</p>";
     t[28436] = "Surface.AnimationRecord.XML.Root";
     t[28437] = "ModelElementAnimationRecord";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[28438] = "Statistics.ResultsAutocorrelation";
     t[28439] = "Autocorrelation of the waiting times";
     t[28442] = "ScriptPopup.Output.Separator.Semicolon.Hint";
     t[28443] = "Use semicolons as separators";
     t[28444] = "Surface.Separate.Tooltip";
     t[28445] = "Dissolves a batch back to individual clients.";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[28448] = "ExpressionBuilder.TrigonometricFunctions.ArcusSinus";
     t[28449] = "Arcus sine";
     t[28450] = "Statistic.Viewer.Report.NoTablesSelected.Title";
@@ -14010,14 +14016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33177] = "Select XML element";
     t[33182] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.DistributionFunctionInfo";
     t[33183] = "<p>Calculates the value of the distribution function of the Logistic distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (scale) parameters.</p>";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[33186] = "Surface.DecideJS.XML.Script.Java";
     t[33187] = "Java";
     t[33188] = "Surface.Decide.ByClientType";
     t[33189] = "Client type";
     t[33196] = "Main.Toolbar.ShowModelForTheseResults2.Hint";
     t[33197] = "Displays the model and the individual statistics data to one of the simulation results";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[33204] = "Editor.Dialog.Sequences.Edit.Column.Next.Step";
     t[33205] = "Step %d";
     t[33208] = "Surface.Balking.XML.Expression.ClientType";
@@ -16012,14 +16018,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37837] = "<p>Calculates the value of the distribution function of the Weibull distribution at the location specified as the first parameter with the scaling and form parameters according to the second and third parameters.</p>";
     t[37842] = "ParameterCompare.Table.AddModelByAssistant.Error.NoNumber";
     t[37843] = "For parameter %s in row %d the invalid value %s was entered. A number has to be specified.";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37844] = "Surface.AnimationBarStack.Dialog.Maximum.Error.Info";
     t[37845] = "The specified maximum value \"%s\" is invalid.";
     t[37852] = "Notifier.Message.OptimizationDone";
     t[37853] = "Optimization is completed.";
     t[37860] = "Statistics.ResultsAutocorrelation.LineMoreThan";
     t[37861] = "min{k|rho(k)<%s} > %s";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37866] = "Surface.Sub.Dialog.NumberInput";
     t[37867] = "Number of inputs in the sub model";
     t[37868] = "Simulation.Log.Output.Info";

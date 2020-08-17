@@ -127,6 +127,9 @@ public class LanguageStaticLoader {
 		MsgBox.OptionSaveNo=Language.tr("Dialog.SaveNow.No");
 		MsgBox.OptionSaveNoInfo=Language.tr("Dialog.SaveNow.No.Info");
 		MsgBox.OptionSaveCancelInfo=Language.tr("Dialog.SaveNow.Cancel.Info");
+		MsgBox.OpenURLInfo=Language.tr("Dialog.OpenURL.Info");
+		MsgBox.OpenURLInfoYes=Language.tr("Dialog.OpenURL.InfoYes");
+		MsgBox.OpenURLInfoNo=Language.tr("Dialog.OpenURL.InfoNo");
 		MsgBox.ActiveLocale=locale;
 
 		/* Verteilungen */
@@ -291,6 +294,8 @@ public class LanguageStaticLoader {
 		JDistributionPanel.DistributionWikipedia=Language.tr("JDistributionEditor.Wikipedia.Link");
 		JDistributionPanel.GraphicsFileOverwriteWarning=Language.tr("Dialog.Overwrite.Info");
 		JDistributionPanel.GraphicsFileOverwriteWarningTitle=Language.tr("Dialog.Title.Warning");
+		JDistributionPanel.GraphicsOpenURLWarning=Language.tr("Dialog.OpenURL.Info");
+		JDistributionPanel.GraphicsOpenURLWarningTitle=Language.tr("Dialog.Title.Warning");
 
 		/* GUITools */
 		GUITools.errorNoGraphicsOutputAvailable=Language.tr("Window.ErrorNoGraphics");

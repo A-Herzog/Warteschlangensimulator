@@ -17,6 +17,8 @@ package systemtools;
 
 import java.awt.Component;
 import java.io.File;
+import java.net.URI;
+import java.net.URL;
 import java.util.Locale;
 
 import javax.swing.JOptionPane;
@@ -75,6 +77,12 @@ public class MsgBox {
 	public static String OverwriteNo="Datei nicht überschreiben";
 	/** Bezeichner für den Erklärungstext für die Dialogschaltfläche "Datei nicht überschreiben" */
 	public static String OverwriteNoInfo="Behält die bestehende Datei unverändert bei. Die neuen Daten werden nicht gespeichert.";
+	/** Bezeichner für die Homepage-Aufruf-Erklärung */
+	public static String OpenURLInfo="Möchten Sie jetzt die externe Webseite\n%s\naufrufen?";
+	/** Bezeichner für die Erklärung der Ja-Schaltfläche des Homepage-Aufruf-Dialogs */
+	public static String OpenURLInfoYes="Webseite im Standard-Browser öffnen.";
+	/** Bezeichner für die Erklärung der Nein-Schaltfläche des Homepage-Aufruf-Dialogs */
+	public static String OpenURLInfoNo="Webseite nicht aufrufen.";
 	/** Für die Dialoge aktuell gültige Landeseinstellung */
 	public static Locale ActiveLocale=Locale.getDefault();
 
@@ -182,6 +190,36 @@ public class MsgBox {
 	 */
 	public static boolean confirmOverwrite(Component parentComponent, File file) {
 		return backend.confirmOverwrite(parentComponent,file);
+	}
+
+	/**
+	 * Zeigt eine Warnung an, dass eine externe Webseite im Browser geöffnet werden soll
+	 * @param parentComponent	Übergeordnetes Element
+	 * @param url	Aufzurufende URL
+	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
+	 */
+	public static boolean confirmOpenURL(Component parentComponent, URL url) {
+		return backend.confirm(parentComponent,TitleWarning,String.format(OpenURLInfo,url.toString()),OpenURLInfoYes,OpenURLInfoNo);
+	}
+
+	/**
+	 * Zeigt eine Warnung an, dass eine externe Webseite im Browser geöffnet werden soll
+	 * @param parentComponent	Übergeordnetes Element
+	 * @param uri	Aufzurufende URL
+	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
+	 */
+	public static boolean confirmOpenURL(Component parentComponent, URI uri) {
+		return backend.confirm(parentComponent,TitleWarning,String.format(OpenURLInfo,uri.toString()),OpenURLInfoYes,OpenURLInfoNo);
+	}
+
+	/**
+	 * Zeigt eine Warnung an, dass eine externe Webseite im Browser geöffnet werden soll
+	 * @param parentComponent	Übergeordnetes Element
+	 * @param url	Aufzurufende URL
+	 * @return	Gibt <code>true</code> zurück, wenn der Nutzer dem Aufruf zugestimmt hat.
+	 */
+	public static boolean confirmOpenURL(Component parentComponent, String url) {
+		return backend.confirm(parentComponent,TitleWarning,String.format(OpenURLInfo,url),OpenURLInfoYes,OpenURLInfoNo);
 	}
 
 	/**
