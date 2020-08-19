@@ -130,6 +130,7 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox expandAllStatistics;
 	private final SpinnerModel statisticsNumberDigits;
 	private final SpinnerModel statisticsPercentDigits;
+	private final JPlaceholderTextField quantilLevels;
 	private final JPlaceholderTextField batchMeansConfidenceLevels;
 	private final JCheckBox openWord;
 	private final JCheckBox openODT;
@@ -556,6 +557,14 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.Statistics.QuantilLevels")+"</b></body></html>"));
+
+		data=ModelElementBaseDialog.getPlaceholderInputPanel(Language.tr("SettingsDialog.Tabs.Statistics.QuantilLevels.Levels")+":",Language.tr("SettingsDialog.Tabs.Statistics.QuantilLevels.Levels.Placeholder"),"");
+		mainarea.add((JPanel)data[0]);
+		quantilLevels=(JPlaceholderTextField)data[1];
+
+		mainarea.add(Box.createVerticalStrut(15));
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels")+"</b></body></html>"));
 
 		data=ModelElementBaseDialog.getPlaceholderInputPanel(Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels")+":",Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels.Placeholder"),"");
@@ -903,6 +912,7 @@ public final class SetupDialog extends BaseDialog {
 		expandAllStatistics.setSelected(setup.expandAllStatistics);
 		statisticsNumberDigits.setValue(setup.statisticsNumberDigits);
 		statisticsPercentDigits.setValue(setup.statisticsPercentDigits);
+		quantilLevels.setText(setup.quantilLevels);
 		batchMeansConfidenceLevels.setText(setup.batchMeansConfidenceLevels);
 		openWord.setSelected(setup.openWord);
 		openODT.setSelected(setup.openODT);
@@ -1125,6 +1135,7 @@ public final class SetupDialog extends BaseDialog {
 		setup.expandAllStatistics=expandAllStatistics.isSelected();
 		setup.statisticsNumberDigits=((Integer)statisticsNumberDigits.getValue()).intValue();
 		setup.statisticsPercentDigits=((Integer)statisticsPercentDigits.getValue()).intValue();
+		setup.quantilLevels=quantilLevels.getText();
 		setup.batchMeansConfidenceLevels=batchMeansConfidenceLevels.getText();
 		setup.openWord=openWord.isSelected();
 		setup.openODT=openODT.isSelected();
@@ -1293,6 +1304,7 @@ public final class SetupDialog extends BaseDialog {
 			expandAllStatistics.setSelected(false);
 			statisticsNumberDigits.setValue(1);
 			statisticsPercentDigits.setValue(1);
+			quantilLevels.setText("");
 			batchMeansConfidenceLevels.setText("");
 			openWord.setSelected(true);
 			openODT.setSelected(false);

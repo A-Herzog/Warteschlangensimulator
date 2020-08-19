@@ -185,8 +185,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		columns.add("Min"+info);
 		columns.add("Max"+info);
 
-		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			columns.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil")+info);
+		if (SetupData.getSetup().showQuantils) {
+			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+			for (double p: levels) {
+				columns.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil")+info);
+			}
 		}
 		if (confidenceLevels!=null) for (double level: confidenceLevels) {
 			columns.add(String.format(Language.tr("Statistics.ConfidenceLevel"),StatisticTools.formatPercent(1-level)));
@@ -208,8 +211,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		line.add(StatisticTools.formatNumber(data.getMin()));
 		line.add(StatisticTools.formatNumber(data.getMax()));
 
-		if (SetupData.getSetup().showQuantils && data.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			line.add(StatisticTools.formatNumber(data.getQuantil(p)));
+		if (SetupData.getSetup().showQuantils && data.getDistribution()!=null) {
+			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+			for (double p: levels) {
+				line.add(StatisticTools.formatNumber(data.getQuantil(p)));
+			}
 		}
 
 		if (confidenceLevels!=null) {
@@ -249,8 +255,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		line.add(StatisticTools.formatNumber(data.getTimeCV()));
 		line.add(StatisticTools.formatNumber(data.getTimeMin()));
 		line.add(StatisticTools.formatNumber(data.getTimeMax()));
-		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			line.add(StatisticTools.formatNumber(data.getQuantil(p)));
+		if (SetupData.getSetup().showQuantils) {
+			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+			for (double p: levels) {
+				line.add(StatisticTools.formatNumber(data.getQuantil(p)));
+			}
 		}
 
 		return line.toArray(new String[0]);

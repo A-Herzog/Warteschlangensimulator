@@ -26,6 +26,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.statistics.StatisticTools;
+import ui.statistics.StatisticViewerOverviewText;
 
 /**
  * Diese Klasse stellt zur Laufzeit während der Animation Statistikdaten zu einer Station zusammen
@@ -229,7 +230,8 @@ public class SimDataBuilder {
 		if (indicator.getReadOnlyDistribution()!=null) upperBound=indicator.getReadOnlyDistribution().upperBound-1;
 
 		boolean hitMax=false;
-		for (double p: StatisticsTimePerformanceIndicator.storeQuantilValues) {
+		final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+		for (double p: levels) {
 			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;

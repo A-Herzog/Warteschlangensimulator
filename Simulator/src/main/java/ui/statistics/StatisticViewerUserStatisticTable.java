@@ -98,8 +98,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		cols.add(Language.tr("Statistics.CVUserTime"));
 		cols.add(Language.tr("Statistics.Minimum"));
 		cols.add(Language.tr("Statistics.Maximum"));
-		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			cols.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
+		if (SetupData.getSetup().showQuantils) {
+			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+			for (double p: levels) {
+				cols.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
+			}
 		}
 
 		final Table table=new Table();
@@ -115,8 +118,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 				row.add(StatisticTools.formatNumber(indicator.getCV()));
 				row.add(StatisticTools.formatExactTime(indicator.getMin()));
 				row.add(StatisticTools.formatExactTime(indicator.getMax()));
-				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-					row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
+				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {
+					final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+					for (double p: levels) {
+						row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
+					}
 				}
 			} else {
 				row.add(StatisticTools.formatNumber(indicator.getMean()));
@@ -125,8 +131,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 				row.add(StatisticTools.formatNumber(indicator.getCV()));
 				row.add(StatisticTools.formatNumber(indicator.getMin()));
 				row.add(StatisticTools.formatNumber(indicator.getMax()));
-				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-					row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
+				if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {
+					final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+					for (double p: levels) {
+						row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
+					}
 				}
 			}
 			table.addLine(row);

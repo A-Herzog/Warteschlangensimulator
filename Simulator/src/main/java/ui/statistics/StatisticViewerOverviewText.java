@@ -186,6 +186,22 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return levels.stream().mapToDouble(D->D.doubleValue()).toArray();
 	}
 
+	/**
+	 * Liefert die Levels zu denen Quantilwerte ausgegeben werden sollen.
+	 * @return	Quantilwerte ausgegeben werden sollen
+	 */
+	public static double[] getQuantilLevels() {
+		final String level=SetupData.getSetup().quantilLevels;
+		if (level==null || level.trim().isEmpty()) return StatisticsDataPerformanceIndicator.storeQuantilValues;
+		final List<Double> levels=new ArrayList<>();
+		for (String value: level.split(";")) {
+			final Double D=NumberTools.getProbability(value);
+			if (D!=null) levels.add(D);
+		}
+		if (levels.size()==0) return StatisticsDataPerformanceIndicator.storeQuantilValues;
+		return levels.stream().mapToDouble(D->D.doubleValue()).toArray();
+	}
+
 	private void outputConfidenceData(final StatisticsDataPerformanceIndicator indicator) {
 		if (indicator.getBatchCount()<1) return;
 
@@ -840,7 +856,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		beginParagraph();
 		boolean hitMax=false;
-		for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
+		final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+		for (double p: levels) {
 			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;
@@ -864,7 +881,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		beginParagraph();
 		boolean hitMax=false;
-		for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
+		final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+		for (double p: levels) {
 			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;
@@ -912,7 +930,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		beginParagraph();
 		boolean hitMax=false;
-		for (double p: StatisticsTimePerformanceIndicator.storeQuantilValues) {
+		final double[] levels=getQuantilLevels();
+		for (double p: levels) {
 			final String name=Language.tr("Statistics.Quantil")+"["+identifier+","+StatisticTools.formatPercent(p)+"]=";
 			final double value=indicator.getQuantil(p);
 			if (value>=upperBound) hitMax=true;

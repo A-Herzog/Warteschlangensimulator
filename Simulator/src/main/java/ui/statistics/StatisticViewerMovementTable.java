@@ -201,8 +201,11 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		row.add(StatisticTools.formatNumber(indicator.getCV()));
 		row.add(StatisticTools.formatNumber(indicator.getMin()));
 		row.add(StatisticTools.formatNumber(indicator.getMax()));
-		if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
+		if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {
+			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+			for (double p: levels) {
+				row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
+			}
 		}
 		table.addLine(row);
 		return table;
@@ -242,8 +245,11 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		columns.add("CV");
 		columns.add("Min");
 		columns.add("Max");
-		if (SetupData.getSetup().showQuantils) for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
-			columns.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
+		if (SetupData.getSetup().showQuantils) {
+			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+			for (double p: levels) {
+				columns.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
+			}
 		}
 
 		return columns.toArray(new String[0]);

@@ -192,7 +192,8 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			final double upperBound=indicator.getDistribution().upperBound-1;
 			beginParagraph();
 			boolean hitMax=false;
-			for (double p: StatisticsDataPerformanceIndicator.storeQuantilValues) {
+			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
+			for (double p: levels) {
 				final String name=Language.tr("Statistics.Quantil")+"["+StatisticTools.formatPercent(p)+"]=";
 				final double value=indicator.getQuantil(p);
 				if (value>=upperBound) hitMax=true;

@@ -32,6 +32,7 @@ import language.Language;
 import language.LanguageStaticLoader;
 import language.Messages_Java11;
 import mathtools.NumberTools;
+import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.SetupBase;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
@@ -779,6 +780,13 @@ public class SetupData extends SetupBase {
 	public String batchMeansConfidenceLevels;
 
 	/**
+	 * Zu welchen Levels sollen Quantile ausgegeben werden?<br>
+	 * Wenn leer, dann werden 0.10, 0.25, 0.5, 0.75 und 0.9.
+	 * @see StatisticsDataPerformanceIndicator#storeQuantilValues
+	 */
+	public String quantilLevels;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -909,6 +917,7 @@ public class SetupData extends SetupBase {
 		statisticsNumberDigits=1;
 		statisticsPercentDigits=1;
 		batchMeansConfidenceLevels="";
+		quantilLevels="";
 		lastError=null;
 	}
 
@@ -1554,6 +1563,11 @@ public class SetupData extends SetupBase {
 				batchMeansConfidenceLevels=e.getTextContent();
 				continue;
 			}
+
+			if (name.equals("quantillevels")) {
+				quantilLevels=e.getTextContent();
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -2032,6 +2046,11 @@ public class SetupData extends SetupBase {
 		if (batchMeansConfidenceLevels!=null && !batchMeansConfidenceLevels.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("BatchMeansConfidenceLevels"));
 			node.setTextContent(batchMeansConfidenceLevels);
+		}
+
+		if (quantilLevels!=null && !quantilLevels.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("QuantilLevels"));
+			node.setTextContent(quantilLevels);
 		}
 	}
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-17 20:27+0200\n"
+"POT-Creation-Date: 2020-08-19 21:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12226,6 +12226,15 @@ msgstr "Word"
 
 msgid "SettingsDialog.Tabs.Statistics.PercentDigits"
 msgstr "Decimal digits for percentage values"
+
+msgid "SettingsDialog.Tabs.Statistics.QuantilLevels"
+msgstr "Showing quantil values"
+
+msgid "SettingsDialog.Tabs.Statistics.QuantilLevels.Levels"
+msgstr "Levels"
+
+msgid "SettingsDialog.Tabs.Statistics.QuantilLevels.Levels.Placeholder"
+msgstr "Keep empty for \"10%;25%;50%;75%;90%\""
 
 msgid "SettingsDialog.Tabs.Statistics.ShowQuantils"
 msgstr "Show quantiles"
