@@ -202,6 +202,18 @@ public abstract class JDistributionEditorPanelRecord {
 		return list;
 	}
 
+	/**
+	 * Liefert den zu einer konkreten Verteilung passenden Datensatz
+	 * @param distribution	Verteilung für die der Datensatz bestimmt werden soll
+	 * @return	Datensatz oder <code>null</code>, wenn kein Datensatz zu der angegebenen Verteilung bestimmt werden konnte
+	 */
+	public static JDistributionEditorPanelRecord getRecord(final AbstractRealDistribution distribution) {
+		for (JDistributionEditorPanelRecord record: getList()) {
+			if (record.wrapper.isForDistribution(distribution)) return record;
+		}
+		return null;
+	}
+
 	private abstract static class JDistributionEditorPanelRecordMean extends JDistributionEditorPanelRecord {
 		public JDistributionEditorPanelRecordMean(final AbstractDistributionWrapper wrapper) {
 			super(wrapper,new String[]{JDistributionEditorPanel.DistMean});

@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -31,6 +32,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -43,6 +46,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -50,6 +54,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
@@ -181,6 +186,13 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		infoPanel.add(infoPanelEast=new JToolBar(),BorderLayout.EAST);
 		infoPanelEast.setFloatable(false);
 
+		if (showEditButton) info.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) editButtonClicked();
+			}
+		});
+
 		copy=new JButton(CopyButtonLabel);
 		copy.setToolTipText(CopyButtonTooltip);
 		copy.addActionListener(e->actionCopy());
@@ -229,19 +241,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (SwingUtilities.isRightMouseButton(e)) {
-					final JPopupMenu popup=new JPopupMenu();
-					JMenuItem item;
-					popup.add(item=new JMenuItem(copy.getText(),copy.getIcon()));
-					item.addActionListener(ev->actionCopy());
-					popup.add(item=new JMenuItem(save.getText(),save.getIcon()));
-					item.addActionListener(ev->actionSave());
-					if (showEditButton) {
-						popup.add(item=new JMenuItem(edit.getText(),edit.getIcon()));
-						item.addActionListener(ev->editButtonClicked());
-					}
-					popup.show(JDistributionPanel.this,e.getX(),e.getY());
-				}
+				if (SwingUtilities.isRightMouseButton(e)) showContextMenu(e,showEditButton);
 			}
 		});
 	}
@@ -666,9 +666,62 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
 			try {
 				URI uri=getDistributionWikipediaURI();
-				if (JOptionPane.showConfirmDialog(JDistributionPanel.this,String.format(GraphicsOpenURLWarning,uri.toString()),GraphicsOpenURLWarningTitle,JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
-				if (uri!=null) Desktop.getDesktop().browse(uri);
+				if (uri!=null) {
+					if (JOptionPane.showConfirmDialog(JDistributionPanel.this,String.format(GraphicsOpenURLWarning,uri.toString()),GraphicsOpenURLWarningTitle,JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
+					Desktop.getDesktop().browse(uri);
+				}
 			} catch (Exception e) {}
 		}
+	}
+
+	private void buildQuickEdit(final JPopupMenu popup, final JDistributionEditorPanelRecord record) {
+		final String[] labels=record.getEditLabels();
+		final String[] values=record.getValues(distribution);
+		final JTextField[] fields=new JTextField[values.length];
+
+		for (int i=0;i<Math.min(labels.length,values.length);i++) {
+			final JMenuItem item=new JMenuItem("<html><body><b>"+labels[i]+"</b></body></html>");
+			item.setEnabled(false);
+			popup.add(item);
+
+			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			popup.add(line);
+
+			fields[i]=new JTextField(values[i],10);
+			line.add(Box.createHorizontalStrut(24));
+			line.add(fields[i]);
+
+			fields[i].addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					final AbstractRealDistribution newDistribution=record.getDistribution(fields,maxXValue);
+					if (newDistribution!=null) setDistribution(newDistribution);
+				}
+			});
+		}
+	}
+
+	private void showContextMenu(final MouseEvent e, final boolean showEditButton) {
+		final JPopupMenu popup=new JPopupMenu();
+		JMenuItem item;
+
+		if (showEditButton && distribution!=null) {
+			final JDistributionEditorPanelRecord record=JDistributionEditorPanelRecord.getRecord(distribution);
+			if (record!=null) buildQuickEdit(popup,record);
+			popup.addSeparator();
+		}
+
+		popup.add(item=new JMenuItem(copy.getText(),copy.getIcon()));
+		item.addActionListener(ev->actionCopy());
+
+		popup.add(item=new JMenuItem(save.getText(),save.getIcon()));
+		item.addActionListener(ev->actionSave());
+
+		if (showEditButton) {
+			popup.add(item=new JMenuItem(edit.getText(),edit.getIcon()));
+			item.addActionListener(ev->editButtonClicked());
+		}
+
+		popup.show(JDistributionPanel.this,e.getX()+5,e.getY()+5);
 	}
 }
