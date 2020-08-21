@@ -1369,7 +1369,8 @@
 <!ELEMENT StatistikNutzer (#PCDATA)>
 <!ELEMENT StatistikThreads (#PCDATA)>
 <!ATTLIST StatistikThreads
-  NUMAModus  CDATA	#IMPLIED
+  NUMAModus  				CDATA	#IMPLIED
+  DynamischeThreadBalance	CDATA	#IMPLIED
 >
 <!ELEMENT StatistikEreignisse (#PCDATA)>
 <!ELEMENT StatistikInternerAbbruch (#PCDATA)>
@@ -3210,7 +3211,8 @@
 <!ELEMENT StatisticsUser (#PCDATA)>
 <!ELEMENT StatisticsThreads (#PCDATA)>
 <!ATTLIST StatisticsThreads
-  NUMAMode  CDATA	#IMPLIED
+  NUMAMode  			CDATA	#IMPLIED
+  DynamicThreadBalance	CDATA	#IMPLIED
 >
 <!ELEMENT StatisticsEvents (#PCDATA)>
 <!ELEMENT StatisticsInternalTermination (#PCDATA)>
