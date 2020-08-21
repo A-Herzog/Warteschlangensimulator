@@ -65,6 +65,7 @@ public class CommandLineSystem extends BaseCommandLineSystem {
 		list.add(new CommandVersion());
 		list.add(new CommandSetMaxThreads());
 		list.add(new CommandSetNUMA());
+		list.add(new CommandSetDynamicThreadBalance());
 		list.add(new CommandParameterCompare());
 		list.add(new CommandParameterCompareTable());
 		list.add(new CommandParameterCompareVariance());

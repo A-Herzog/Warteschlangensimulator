@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-19 21:02+0200\n"
+"POT-Creation-Date: 2020-08-21 12:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1673,6 +1673,30 @@ msgstr "Starts the program as web-based simulation server for a fixed model."
 
 msgid "CommandLine.ServerWebFixedModel.Name"
 msgstr "ServerWebFixed"
+
+msgid "CommandLine.SetDynamicThreadBalance.Description.Long"
+msgstr "The function expects a \"1\" or a \"0\" as parameter."
+
+msgid "CommandLine.SetDynamicThreadBalance.Description.Short"
+msgstr "Turn dynamic thread balance on or off"
+
+msgid "CommandLine.SetDynamicThreadBalance.Error.CannotSaveSetup"
+msgstr "The changed setup cannot be saved."
+
+msgid "CommandLine.SetDynamicThreadBalance.Error.Parameter"
+msgstr "The parameter %s is invalid. An integer number is exspected."
+
+msgid "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance"
+msgstr "Dynamic thread balance: %s (previous state: %s)"
+
+msgid "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.Off"
+msgstr "off"
+
+msgid "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.On"
+msgstr "on"
+
+msgid "CommandLine.SetDynamicThreadBalance.Name"
+msgstr "SetDynamic;SetDynamicThreadBalance;SetDynamicBalance"
 
 msgid "CommandLine.SetMaxThreads.Description.Long"
 msgstr ""
@@ -16490,6 +16514,9 @@ msgstr "Simulated client arrivals (without warm-up phase)"
 msgid "Statistics.SystemData.SimulatedEvents"
 msgstr "Simulated events"
 
+msgid "Statistics.SystemData.ThreadDynamicBalance"
+msgstr "Maximum relative difference in simulated clients between the threads"
+
 msgid "Statistics.SystemData.ThreadRunTimeFactor"
 msgstr "Relative runtime difference between fastest and slowest thread"
 
@@ -17134,6 +17161,9 @@ msgstr "The value in the \"%s\" element has to be a positive integer value but i
 
 msgid "Statistics.XML.RunThreads"
 msgstr "StatisticsThreads"
+
+msgid "Statistics.XML.RunThreads.DynamicBalance"
+msgstr "DynamicThreadBalance"
 
 msgid "Statistics.XML.RunThreads.Error"
 msgstr "The value in the \"%s\" element has to be a positive integer value but is \"%s\"."

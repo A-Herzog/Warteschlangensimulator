@@ -100,14 +100,17 @@ public class SimulationData extends SimData {
 	 */
 	public boolean logInfoSystem;
 
+	private DynamicLoadBalancer dynamicLoadBalancer;
+
 	/**
 	 * Konstruktor der Klasse <code>SimulationData</code>
 	 * @param threadNr		Gibt die Nummer des Threads an, für den das <code>SimDat</code>-Objekt erstellt wird.
 	 * @param threadCount	Anzahl der Rechenthreads
 	 * @param runModel	Laufzeit-Modell, welches die Basis der Simulation darstellt
 	 * @param useStatistics	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird das angegebene Statistikobjekt verwendet. Sonst wird ein neues Statistikobjekt erstellt. Für eine normale Simulation sollte hier stets <code>null</code> übergeben werden.
+	 * @param dynamicLoadBalancer	Optional ein Load-Balancer für die Ankünfte über alle Threads (kann <code>null</code> sein)
 	 */
-	public SimulationData(final int threadNr, final int threadCount, final RunModel runModel, final Statistics useStatistics) {
+	public SimulationData(final int threadNr, final int threadCount, final RunModel runModel, final Statistics useStatistics, final DynamicLoadBalancer dynamicLoadBalancer) {
 		/* langsam: super(new PriorityQueueEventManager(),new HashMapEventCache(),threadNr,threadCount); */
 		/* schneller: super(new LongRunMultiPriorityQueueEventManager(4),new HashMapEventCache(),threadNr,threadCount); */
 		/* ganz schnell: */
@@ -120,7 +123,7 @@ public class SimulationData extends SimData {
 		logInfoSystem=true;
 
 		this.runModel=runModel;
-		this.runData=new RunData(runModel);
+		this.runData=new RunData(runModel,dynamicLoadBalancer);
 		if (useStatistics!=null) {
 			statistics=useStatistics;
 		} else {
@@ -148,6 +151,8 @@ public class SimulationData extends SimData {
 		}
 		runModel.clientCountDiv=clientCountDiv;
 		/* System.out.println("Thread-"+(threadNr+1)+": "+simDays+" "+simDaysByOtherThreads); */
+
+		this.dynamicLoadBalancer=dynamicLoadBalancer;
 	}
 
 	/**
@@ -259,7 +264,7 @@ public class SimulationData extends SimData {
 		if (day>0) { /* Wenn mehrere Wiederholungen simuliert werden und dies nicht der erste Tag ist, Statistik sichern und RunData neu initialisieren */
 			lastDaysStatistics=statistics;
 			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours);
-			runData=new RunData(runModel);
+			runData=new RunData(runModel,dynamicLoadBalancer);
 		}
 
 		currentTime=0;

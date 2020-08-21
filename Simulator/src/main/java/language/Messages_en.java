@@ -1806,6 +1806,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4047] = "Edit";
     t[4048] = "Surface.XML.Active";
     t[4049] = "Active";
+    t[4056] = "ScriptPopup.Client.ValueNumber.Hint";
+    t[4057] = "Get or sets a number property";
     t[4058] = "Surface.SubConnect.XML.Input";
     t[4059] = "ModelElementSubModelInput";
     t[4060] = "Surface.InputDDE.Dialog.Variable.TransferTime";
@@ -2002,10 +2004,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4513] = "Quick fix";
     t[4518] = "SettingsDialog.Tabs.Simulation.Server.Port";
     t[4519] = "Server port";
-    t[4526] = "Surface.AssignString.Table.Delete";
-    t[4527] = "Delete assignment";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4526] = "Surface.AssignString.Table.Delete";
+    t[4527] = "Delete assignment";
     t[4528] = "Optimizer.XMLError.ValueHasToBePositiveIntegerNumber";
     t[4529] = "The value has to be a positive integer number.";
     t[4530] = "Statistics.XML.RunOS";
@@ -3000,6 +3002,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6833] = "Hot pink";
     t[6834] = "Window.Layers.List.IsVisible";
     t[6835] = "Elements of this layer are visible";
+    t[6836] = "CommandLine.SetDynamicThreadBalance.Name";
+    t[6837] = "SetDynamic;SetDynamicThreadBalance;SetDynamicBalance";
     t[6838] = "Surface.TankFlowPanel.StopCondition.Quantity.ErrorInfo";
     t[6839] = "The specified flow quantity \"%s\" is invalid. A positive number has to be specified.";
     t[6840] = "ModelGenerator.NumberOfOperators";
@@ -3060,6 +3064,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6979] = "<p>Returns depending on the sign of the value passed as parameter 1 (if value&gt10), 0 (if value=0), or -1 (if value&lt;0).</p> <p>Example: <tt>sign(-3)</tt> returns -1.</p>";
     t[6984] = "ModelDescription.Set";
     t[6985] = "Assignment";
+    t[6988] = "CommandLine.SetDynamicThreadBalance.Description.Long";
+    t[6989] = "The function expects a \"1\" or a \"0\" as parameter.";
     t[6992] = "ParameterCompare.Settings.VarianceAnalysis.ErrorTitle";
     t[6993] = "Invalid number of repetitions";
     t[6994] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.PopulationSize";
@@ -3980,8 +3986,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9151] = "Show Erlang C comparison";
     t[9154] = "SimulationServer.Setup.CalcAutoStart";
     t[9155] = "Auto start";
-    t[9156] = "Editor.ExportModel";
-    t[9157] = "Export model";
+    t[9156] = "CommandLine.SetDynamicThreadBalance.Error.CannotSaveSetup";
+    t[9157] = "The changed setup cannot be saved.";
     t[9184] = "Surface.Source.Dialog.ClientTypeSettings.NoNameError.Info";
     t[9185] = "No client type name";
     t[9186] = "Window.ExportSaveError";
@@ -4000,14 +4006,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9217] = "There is no connection between the process station id=%d and the exit station.\nThis connection can be added automatically.";
     t[9218] = "Simulation.Log.TransportSource.Release";
     t[9219] = "Resources release";
+  }
+  static void clinit_part_2 (java.lang.String[] t) {
     t[9220] = "Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation.Info";
     t[9221] = "Send the client to the path at which the next process station\nhas the shortest queue.";
     t[9222] = "Surface.TransportTransporterSource.Dialog.WaitingCapacity.ErrorTitle";
     t[9223] = "Invalid Parking lot capacity";
     t[9224] = "ParameterCompare.Table.AddModelByAssistant.Column.Active";
     t[9225] = "Vary parameter";
-  }
-  static void clinit_part_2 (java.lang.String[] t) {
     t[9230] = "ExpressionBuilder.BasicArithmetics.Modulo.Info";
     t[9231] = "<p>Calculates the modulo, e.g. the division reminder when dividing the frist by the second parameter.</p><p>Example: <tt>mod(7;3)</tt> gets 1.</p>";
     t[9232] = "Surface.AnimationPointerMeasuring.Dialog.MaxValue.Error.Title";
@@ -4524,6 +4530,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10295] = "Needed and available capacity";
     t[10296] = "Surface.OutputDB.XML.Element.Data";
     t[10297] = "Data";
+    t[10298] = "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.On";
+    t[10299] = "on";
     t[10312] = "Surface.BarrierPull.Dialog.MaxNumber";
     t[10313] = "Maximum number of clients in segment";
     t[10316] = "Main.Menu.Help.UsageStatistics";
@@ -5788,6 +5796,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13267] = "%s cells has been selected. But no more than %s cells has to be selected.";
     t[13270] = "SettingsDialog.Tabs.DefaultFormats.Models";
     t[13271] = "Models";
+    t[13272] = "QuickAccess.ModelProperties";
+    t[13273] = "Model properties";
     t[13276] = "ScriptPopup.Simulation.getResourceCount.Hint";
     t[13277] = "Gets the number of operators in a group";
     t[13282] = "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus.Info";
@@ -5998,6 +6008,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13699] = "Bisque";
     t[13700] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Off";
     t[13701] = "Off";
+  }
+  static void clinit_part_3 (java.lang.String[] t) {
     t[13702] = "Surface.Database.Config.ButtonHintAccess";
     t[13703] = "Select Access database file";
     t[13708] = "AnalyticModelCompare.Dialog.Save.Failed.Info";
@@ -6008,8 +6020,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13719] = "The parameter %s is invalid. An integer number is exspected.";
     t[13722] = "Editor.Dialog.Tab.ModelDescription.Author.SetDefault";
     t[13723] = "Set current user as model author";
-  }
-  static void clinit_part_3 (java.lang.String[] t) {
     t[13726] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Median";
     t[13727] = "<p>Returns the median of the duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
     t[13734] = "Simulation.CalcError.Resource";
@@ -7056,8 +7066,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16073] = "Displays the online help for the selected function";
     t[16076] = "Simulation.Creator.InvalidResourceMoveTimeExpression";
     t[16077] = "For resource %s the specified set up time \"%s\" is invalid at character %d.";
-    t[16092] = "QuickAccess.ModelProperties";
-    t[16093] = "Model properties";
+    t[16092] = "CommandLine.SetDynamicThreadBalance.Description.Short";
+    t[16093] = "Turn dynamic thread balance on or off";
     t[16096] = "Surface.Source.Dialog.Tab.SetNumbers";
     t[16097] = "Assignment of client variables";
     t[16098] = "Surface.TankValveSetup.Dialog.TableCol.Control";
@@ -7900,6 +7910,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18025] = "Move record down";
     t[18026] = "Main.Toolbar.Fix";
     t[18027] = "Quick fix";
+    t[18040] = "Statistics.XML.RunThreads.DynamicBalance";
+    t[18041] = "DynamicThreadBalance";
     t[18042] = "Window.Check.AutoFixResources.ResourceName";
     t[18043] = "Resource for station id=%d";
     t[18046] = "Statistics.DistributionOfStationsResidenceTimes";
@@ -7998,6 +8010,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18225] = "Labeling of the segments";
     t[18226] = "Surface.TankValveSetup.XML.Setup.ValveNr";
     t[18227] = "Valve";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18232] = "Statistics.DistributionOfClientsProcessTimes";
     t[18233] = "Distribution of the process times of the clients";
     t[18234] = "Main.Menu.Help.Tutorial.pdf";
@@ -8010,8 +8024,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18255] = "The file\n%s\nalready exists.\nDo you want to overwrite this file?";
     t[18262] = "Surface.LogicElse.Name";
     t[18263] = "Else";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18268] = "Statistics.FailureTime.Average";
     t[18269] = "Average number of operators in down time";
     t[18276] = "ModelDescription.Process.SetupTime";
@@ -8736,8 +8748,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19919] = "Client: %s, station: %s, ClientData(%d):=%s";
     t[19920] = "DistributionFitter.PValueAndersonDarling";
     t[19921] = "P-Value of Anderson Darling test";
-    t[19924] = "ScriptPopup.Client.ValueNumber.Hint";
-    t[19925] = "Get or sets a number property";
+    t[19924] = "CommandLine.SetDynamicThreadBalance.Error.Parameter";
+    t[19925] = "The parameter %s is invalid. An integer number is exspected.";
     t[19926] = "Surface.AnimationTextJS.XML.FontFamily";
     t[19927] = "ModelElementFontFamily";
     t[19928] = "Statistics.MinimumResidenceTime";
@@ -10000,6 +10012,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22799] = "Input parameter";
     t[22800] = "Surface.Source.XML.Condition";
     t[22801] = "ModelElementArrivalCondition";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[22802] = "Surface.Process.XML.Distribution.Type.PostProcessingTime";
     t[22803] = "PostProcessingTime";
     t[22810] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.MaximalTime";
@@ -10012,8 +10026,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22833] = "The entered expression is invalid at character %d.";
     t[22840] = "Surface.AnimationText.XML.Digits";
     t[22841] = "Digits";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[22848] = "Main.Menu.View.QuickAccess";
     t[22849] = "Focus quick access";
     t[22850] = "Simulation.Log.TankValveSetup";
@@ -12002,6 +12014,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27279] = "Autocorrelation - details";
     t[27280] = "Animation.Icon.LightbulbOn";
     t[27281] = "Lightbulb - on";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27284] = "ScriptPopup.Output.SetFile";
     t[27285] = "Select output file";
     t[27286] = "SettingsDialog.ImageResolution.Invalid.Title";
@@ -12014,8 +12028,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27301] = "Optionally different values for the needed capacity per client can be defined by client type.";
     t[27318] = "Surface.AnimationText.Dialog.CurrentSimulationTime";
     t[27319] = "Current simulation time (days, hours, minutes, seconds)";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[27326] = "Surface.Source.Dialog.Signals.Table.Add";
     t[27327] = "Add signal";
     t[27334] = "Main.Menu.RecordAnimation";
@@ -12688,6 +12700,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28893] = "Closes the model viewer";
     t[28898] = "Surface.XML.ModelVersion";
     t[28899] = "ModelVersion";
+    t[28902] = "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance";
+    t[28903] = "Dynamic thread balance: %s (previous state: %s)";
     t[28906] = "Surface.AnimationText.XML.Color";
     t[28907] = "ModelElementColor";
     t[28914] = "Surface.InputDB.XML.EofMode.Terminate";
@@ -12996,6 +13010,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29655] = "Number of planned arrivals";
     t[29656] = "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution.DensityInfo";
     t[29657] = "<p>Calculates the value of the density of the Laplace distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (scale) parameters.</p>";
+    t[29660] = "Editor.ExportModel";
+    t[29661] = "Export model";
     t[29662] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm";
     t[29663] = "Natural logarithm";
     t[29670] = "ModelDescription.InputDB.EOFMode";
@@ -13750,6 +13766,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31353] = "No table file specified";
     t[31354] = "Optimizer.Error.TargetScriptCouldNotBeLoaded";
     t[31355] = "The filter script\n%s\ncould not be loaded.";
+    t[31356] = "Statistics.SystemData.ThreadDynamicBalance";
+    t[31357] = "Maximum relative difference in simulated clients between the threads";
     t[31366] = "Surface.Popup.AddVisualization.AnalogRate";
     t[31367] = "Change rate";
     t[31380] = "Main.Menu.SimulationFindBatchSize";
@@ -13998,6 +14016,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31957] = "Set up times";
     t[31962] = "Surface.Hold.Dialog.Condition";
     t[31963] = "Condition";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[31966] = "Surface.TankValveSetup.Table.Delete.ConfirmInfo";
     t[31967] = "Do you really want to delete the setup for tank id=%d, valve %d?";
     t[31968] = "Transporters.Group.DefaultName";
@@ -14016,8 +14036,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31989] = "Inter-arrival times expression";
     t[31992] = "InfoDialog.JavaCompiler";
     t[31993] = "Java compiler";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32004] = "ParameterCompare.Templates.Title";
     t[32005] = "Create parameter series setup from template";
     t[32006] = "XML.EnterPassword";
@@ -16000,6 +16018,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36561] = "Minimum";
     t[36564] = "Surface.Set.Table.Special.WaitingTime";
     t[36565] = "Waiting time of the current client";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36568] = "Surface.Delay.Dialog.CostsPerClient.Error.Info";
     t[36569] = "The specified costs per client \"%s\" are invalid at character %d.";
     t[36574] = "Surface.Seize.Dialog.ResourcePriority.Error.Title";
@@ -16018,14 +16038,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36595] = "ModelElementBarColor";
     t[36596] = "ParameterCompare.Settings.Output.List.Delete.Confirm.NoInfo";
     t[36597] = "Keep the selected output value.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[36598] = "ParameterCompare.Templates.Step.ErrorInfo";
     t[36599] = "The step wide \"%s\" is invalid. A positive number has to be specified.";
     t[36600] = "ModelLoadData.EditDialog.Edit.Hint";
     t[36601] = "Edit record for loading data";
     t[36602] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.NoInfo";
     t[36603] = "Do not delete image.";
+    t[36608] = "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.Off";
+    t[36609] = "off";
     t[36610] = "ParameterCompare.Settings.Input.List.Templates.AnalogValue.Title";
     t[36611] = "Initial analog value";
     t[36612] = "Surface.Balking.XML.Expression.Mode.Condition";

@@ -13,6 +13,7 @@
 <ul>
   <li>Bei dem Vergleich der Simulationsergebnisse mit den analytischen Formeln werden nun Gründe für mögliche Abweichungen bzw. die Grenzen der theoretischen Modelle aufgelistet.</li>
   <li>Die Simulation kann nun auch beim erreichen eines bestimmten Batch-Means-Konfidenzradius für die Wartezeiten beendet werden.</li>
+  <li>Im Mehrkern-Modus kann die Rechenlast nun dynamisch zwischen den Threads aufgeteilt werden, um so die verfügbare Systemleistung optimal auszunutzen.</li>
   <li>In der Logging-Aufzeichnung können nun Stations-IDs optional in einer eigenen Spalte ausgewiesen werden.</li>
   <li>Auf Verbindungskanten können nun direkt über das Kontextmenü Teleport-Strecken eingefügt werden.</li>
   <li>Es können nun benutzerdefinierte Niveaus für die anzuzeigenden Quantile angegeben werden.</li>
@@ -21,6 +22,7 @@
   <li>Statistikdiagramme können nun direkt in Excel angezeigt werden.</li>
   <li>[Fix] Wurde die Anzahl an Ankünften nicht als Abbruchkriterium für die Simulation verwendet, so wurden die Einstellungen zur Einschwingphase ignoriert.</li>
   <li>[Fix] Wurde ein Einschwingphase verwendet, so wurden zu lange Zwischenankunftszeiten ausgewiesen.</li>
+  <li>[Fix] Sollten mehr als 2,1 Milliarden Kunden im Single-Core-Modus simuliert werden, so konnten Fehler auftreten.</li>
   <li>[Fix] Die Einstellungen zu der anzuzeigenden Anzahl an Nachkommastellen wurden auf der Statistikseite zum Vergleich mit den analytischen Modellen ignoriert.</li>
 </ul>
 

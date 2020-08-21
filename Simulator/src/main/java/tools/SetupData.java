@@ -333,6 +333,11 @@ public class SetupData extends SetupBase {
 	public boolean useNUMAMode;
 
 	/**
+	 * Kundenankünfte wenn möglich dynamisch zwischen den Threads aufteilen
+	 */
+	public boolean useDynamicThreadBalance;
+
+	/**
 	 * Laufzeitdaten der Stationen während der Animation anzeigen?
 	 */
 	public boolean showStationRunTimeData;
@@ -833,6 +838,7 @@ public class SetupData extends SetupBase {
 		useMultiCoreAnimation=true;
 		useSlowModeAnimation=true;
 		useNUMAMode=false;
+		useDynamicThreadBalance=true;
 		showStationRunTimeData=true;
 		showSingleStepLogData=true;
 		animateResources=true;
@@ -1213,8 +1219,8 @@ public class SetupData extends SetupBase {
 					final Long L=NumberTools.getPositiveLong(maxCountString);
 					if (L!=null && L<=4096) useMultiCoreSimulationMaxCount=L.intValue();
 				}
-				final String numaString=e.getAttribute("NUMA");
-				if (!numaString.isEmpty() && !numaString.equals("0")) useNUMAMode=true;
+				useNUMAMode=loadBoolean(e.getAttribute("NUMA"),false);
+				useDynamicThreadBalance=loadBoolean(e.getAttribute("Dynamic"),true);
 				continue;
 			}
 
@@ -1704,11 +1710,12 @@ public class SetupData extends SetupBase {
 			node.setTextContent("0");
 		}
 
-		if (!useMultiCoreSimulation || useMultiCoreSimulationMaxCount!=1024 || useNUMAMode) {
+		if (!useMultiCoreSimulation || useMultiCoreSimulationMaxCount!=1024 || useNUMAMode || !useDynamicThreadBalance) {
 			root.appendChild(node=doc.createElement("AllCPUCoresSimulation"));
 			node.setTextContent(useMultiCoreSimulation?"1":"0");
 			if (useMultiCoreSimulationMaxCount!=1024) node.setAttribute("MaxCount",""+useMultiCoreSimulationMaxCount);
 			if (useNUMAMode) node.setAttribute("NUMA","1");
+			if (!useDynamicThreadBalance) node.setAttribute("Dynamic","0");
 		}
 
 		if (!useMultiCoreAnimation) {

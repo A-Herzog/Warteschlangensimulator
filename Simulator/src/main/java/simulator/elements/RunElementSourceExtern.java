@@ -245,6 +245,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	@Override
 	public void processArrivalEvent(final SimulationData simData, final boolean scheduleNext, final int index) { /* "scheduleNext" wird von diesem Source-Type nicht verwendet */
 		final RunElementSourceExternData data=getData(simData);
+		boolean isLastClient=false;
 
 		/* Kunde anlegen */
 		final RunDataClient newClient=simData.runData.clients.getClient(clientTypes[index],simData);
@@ -296,6 +297,10 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 
 		/* Zwischenankunftszeiten in der Statistik erfassen */
 		simData.runData.logStationArrival(simData.currentTime,simData,this,data,newClient);
+
+		/* Wenn Ziel-Anzahl an Ankünften erreicht: Kunden Marker mitgeben, dass bei seiner Ankunft im Ziel die Simulation endet.*/
+		if (simData.runData.nextClientIsLast(simData)) isLastClient=true;
+		newClient.isLastClient=isLastClient;
 
 		/* Kunden zur ersten (echten) Station leiten */
 		StationLeaveEvent.sendToStation(simData,newClient,this,connection);

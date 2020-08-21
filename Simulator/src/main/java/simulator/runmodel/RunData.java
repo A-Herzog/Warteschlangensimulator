@@ -70,7 +70,7 @@ public class RunData {
 	 * Anzahl der bereits eingetroffenen Kunden<br>
 	 * (Beim Übergang <code>isWarmUp=true</code> zu <code>isWarmUp=false</code> wird dieses Feld auf 0 zurückgesetzt.)
 	 */
-	public int clientsArrived;
+	public long clientsArrived;
 
 	/**
 	 * Gibt an, ob es eine Einschwingphase gibt.
@@ -178,12 +178,16 @@ public class RunData {
 
 	private int waitingClients;
 
+	private final DynamicLoadBalancer dynamicLoadBalancer;
+
 	/**
 	 * Konstruktor der Klasse <code>RunData</code>
 	 * @param runModel	Globales Laufzeitmodell, auf dessen Basis hier die Laufzeitdaten vorbereitet werden können (z.B. Arrays in passender Größe angelegt werden usw.)
+	 * @param dynamicLoadBalancer	Optional ein Load-Balancer für die Ankünfte über alle Threads (kann <code>null</code> sein)
 	 */
-	public RunData(final RunModel runModel) {
+	public RunData(final RunModel runModel, final DynamicLoadBalancer dynamicLoadBalancer) {
 		this.runModel=runModel;
+		this.dynamicLoadBalancer=dynamicLoadBalancer;
 		clientsArrived=0;
 		hasWarmUp=runModel.warmUpTime>0;
 		isWarmUp=hasWarmUp;
@@ -1525,6 +1529,34 @@ public class RunData {
 			if (movementCounter[fromID]==null) movementCounter[fromID]=new StatisticsSimpleCountPerformanceIndicator[simData.runModel.elementsFast.length];
 			if (movementCounter[fromID][toID]==null) movementCounter[fromID][toID]=getNewClientMovementCounter(simData,fromID,toID);
 			movementCounter[fromID][toID].add();
+		}
+	}
+
+	private long arrivalsToBeSimulated=0; /* Ankünfte direkt zählen. */
+	private long currentArrivalPackage=0; /* Ankünfte von Load-Balancer erhalten. */
+
+	/**
+	 * Liefert die Information, ob der aktuell zu generierende Kunde der letzte sein soll.<br>
+	 * Diese Methode muss bei Ankünften zur Zählung aufgerufen werden.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Liefert <code>true</code>, wenn der aktuelle Kunde der letzte sein soll; sonst (also wenn die Simulation weiter laufen soll) <code>false</code>
+	 */
+	public boolean nextClientIsLast(final SimulationData simData) {
+		if (isWarmUp) return false;
+		if (simData.runModel.clientCount<=0) return false;
+
+		if (dynamicLoadBalancer==null) {
+			/* Direkte Berechnung der Anzahl an zu simulierenden Kunden */
+			if (arrivalsToBeSimulated<=0) {
+				arrivalsToBeSimulated=simData.runModel.clientCount/simData.clientCountDiv;
+				if (simData.threadCount>1 && simData.threadNr==simData.threadCount-1) arrivalsToBeSimulated+=simData.runModel.clientCount%simData.clientCountDiv;
+			}
+			return clientsArrived>=arrivalsToBeSimulated;
+		} else {
+			/* Ankünfte beim Load-Balancer anfragen */
+			if (currentArrivalPackage<=0) currentArrivalPackage=dynamicLoadBalancer.getArrivals();
+			currentArrivalPackage--;
+			return currentArrivalPackage<0;
 		}
 	}
 }

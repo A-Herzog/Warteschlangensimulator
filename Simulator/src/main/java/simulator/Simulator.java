@@ -35,6 +35,7 @@ import simcore.SimulatorBase;
 import simcore.logging.SimLogging;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
+import simulator.runmodel.DynamicLoadBalancer;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.statistics.Statistics;
@@ -106,6 +107,8 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @see UsageStatistics
 	 */
 	private boolean recordSimulatedClientsToStatistics=true;
+
+	private DynamicLoadBalancer dynamicLoadBalancer;
 
 	private static int getAllowMaxCore(final EditModel editModel, final boolean multiCore, final int maxCoreCount) {
 		if (!multiCore) return 1;
@@ -189,7 +192,29 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		if (obj instanceof String) return (String)obj;
 		runModel=(RunModel)obj;
 
+		if (SetupData.getSetup().useDynamicThreadBalance) {
+			if (runModel.repeatCount==1 && threadCount>1 && runModel.clientCount>0) dynamicLoadBalancer=new DynamicLoadBalancer(runModel.clientCount);
+		}
+
 		return null;
+	}
+
+	private double getBalancerInfo() {
+		if (dynamicLoadBalancer==null) return 0;
+
+		final long clients0=((SimulationData)threads[0].simData).runData.clientsArrived;
+		long min=clients0;
+		long max=clients0;
+		long sum=clients0;
+		for (int i=1;i<threadCount;i++) {
+			final long clients=((SimulationData)threads[i].simData).runData.clientsArrived;
+			if (clients<min) min=clients;
+			if (clients>max) max=clients;
+			sum+=clients;
+		}
+		if (sum==0) return 0;
+
+		return ((double)(max-min)*threadCount)/sum;
 	}
 
 	private void writeBaseDataToStatistics(final Statistics statistics) {
@@ -204,6 +229,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		statistics.simulationData.runRepeatCount=editModel.repeatCount;
 		statistics.simulationData.numaAwareMode=getNUMAAware();
 		statistics.simulationData.threadRunTimes=getThreadRuntimes();
+		statistics.simulationData.threadDynamicBalance=getBalancerInfo();
 	}
 
 	/**
@@ -294,13 +320,13 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	protected SimData getSimDataForThread(final int threadNr, final int threadCount) {
 		final SimData data;
 		final RunModel runModel;
-		if (numaAware) {
+		if (numaAware && threadCount>1) {
 			final Object obj=RunModel.getRunModel(editModel,false);
 			runModel=(RunModel)obj;
 		} else {
 			runModel=this.runModel;
 		}
-		data=new SimulationData(threadNr,threadCount,runModel,null);
+		data=new SimulationData(threadNr,threadCount,runModel,null,dynamicLoadBalancer);
 
 		if (logging!=null) {
 			final SimulationData simData=(SimulationData)data;
@@ -417,7 +443,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		if (statistics==null) return null;
 		final Simulator simulator=new Simulator(statistics.editModel,null,null,logTypeFull);
 		if (simulator.prepare()!=null) return null;
-		final SimulationData simData=new SimulationData(0,simulator.threads.length,simulator.runModel,statistics);
+		final SimulationData simData=new SimulationData(0,simulator.threads.length,simulator.runModel,statistics,null);
 
 		simData.runData.initRun(0,simData,simData.runModel.recordIncompleteClients);
 		for (RunElement station: simData.runModel.elementsFast) if (station!=null) simData.runData.explicitInitStatistics(simData,station);

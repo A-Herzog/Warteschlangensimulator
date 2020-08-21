@@ -1281,8 +1281,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		final DataDistributionImpl threads=new DataDistributionImpl(1000,statistics.simulationData.threadRunTimes);
 		final double threadMax=threads.getMax();
 		final double threadMin=threads.getMin();
-		if (statistics.simulationData.runThreads>1 && threadMax>0 && threadMin>0) {
-			addLine(Language.tr("Statistics.SystemData.ThreadRunTimeFactor")+": "+StatisticTools.formatPercent(threadMax/threadMin-1));
+		if (statistics.simulationData.runThreads>1) {
+			if (threadMax>0 && threadMin>0) {
+				addLine(Language.tr("Statistics.SystemData.ThreadRunTimeFactor")+": "+StatisticTools.formatPercent(threadMax/threadMin-1));
+			}
+			if (statistics.simulationData.threadDynamicBalance>0) {
+				addLine(Language.tr("Statistics.SystemData.ThreadDynamicBalance")+": "+StatisticTools.formatPercent(statistics.simulationData.threadDynamicBalance));
+			}
 		}
 		if (statistics.simulationData.numaAwareMode) addLine(Language.tr("Statistics.SystemData.NUMAMode"));
 		endParagraph();

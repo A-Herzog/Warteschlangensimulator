@@ -220,7 +220,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 			simData.runData.logStationArrival(simData.currentTime,simData,this,data,newClient);
 
 			/* Wenn Ziel-Anzahl an Ankünften erreicht: Kunden Marker mitgeben, dass bei seiner Ankunft im Ziel die Simulation endet.*/
-			if (!simData.runData.isWarmUp && simData.runModel.clientCount>0 && simData.runData.clientsArrived>=simData.runModel.clientCount/simData.clientCountDiv) isLastClient=true;
+			if (simData.runData.nextClientIsLast(simData)) isLastClient=true;
 			newClient.isLastClient=isLastClient;
 
 			/* Tatsache, dass Simulation endet, ggf. loggen */
@@ -232,7 +232,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 
 		if (scheduleNext) {
 			/* Ankunft des nächsten Kunden einplanen */
-			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || simData.runData.clientsArrived<FastMath.max(1000,2*simData.runModel.clientCount/simData.clientCountDiv)) {
+			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || simData.runData.clientsArrived<FastMath.max(1000,2*simData.runModel.clientCount/simData.runModel.clientCountDiv)) {
 				boolean done=false;
 				if (records[index].maxArrivalCount>=0 && data.arrivalCount[index]>=records[index].maxArrivalCount) {
 					done=true;

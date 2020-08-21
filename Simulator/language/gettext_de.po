@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-19 21:02+0200\n"
+"POT-Creation-Date: 2020-08-21 12:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1673,6 +1673,30 @@ msgstr "Simulator als webbasierten Rechenserver für ein festes Modellstarten."
 
 msgid "CommandLine.ServerWebFixedModel.Name"
 msgstr "ServerWebFixed"
+
+msgid "CommandLine.SetDynamicThreadBalance.Description.Long"
+msgstr "Diese Funktion erwartet eine \"1\" oder eine \"0\" als Parameter."
+
+msgid "CommandLine.SetDynamicThreadBalance.Description.Short"
+msgstr "Dynamische Thread-Balance ein- oder ausschalten"
+
+msgid "CommandLine.SetDynamicThreadBalance.Error.CannotSaveSetup"
+msgstr "Die geänderten Einstellungen konnte nicht gespeichert werden."
+
+msgid "CommandLine.SetDynamicThreadBalance.Error.Parameter"
+msgstr "Der angegebene Parameter %s ist ungültig. Es muss eine Ganzzahl angegeben werden."
+
+msgid "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance"
+msgstr "Dynamische Thread-Balance: %s (vorherige Einstellung: %s)"
+
+msgid "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.Off"
+msgstr "aus"
+
+msgid "CommandLine.SetDynamicThreadBalance.Info.DynamicThreadBalance.On"
+msgstr "an"
+
+msgid "CommandLine.SetDynamicThreadBalance.Name"
+msgstr "SetDynamic;SetDynamicThreadBalance;SetDynamicBalance"
 
 msgid "CommandLine.SetMaxThreads.Description.Long"
 msgstr ""
@@ -16497,6 +16521,9 @@ msgstr "Simulierte Kundenankünfte (ohne Warm-Up-Phase)"
 msgid "Statistics.SystemData.SimulatedEvents"
 msgstr "Simulierte Ereignisse"
 
+msgid "Statistics.SystemData.ThreadDynamicBalance"
+msgstr "Maximaler relativer Unterschied an simulierten Kunden zwischen den Threads"
+
 msgid "Statistics.SystemData.ThreadRunTimeFactor"
 msgstr "Relativer Laufzeitunterschied zwischen schnellstem und langsamstem Thread"
 
@@ -17141,6 +17168,9 @@ msgstr "Der Wert in dem Element \"%s\" muss eine positive Ganzzahl sein, ist abe
 
 msgid "Statistics.XML.RunThreads"
 msgstr "StatistikThreads"
+
+msgid "Statistics.XML.RunThreads.DynamicBalance"
+msgstr "DynamischeThreadBalance"
 
 msgid "Statistics.XML.RunThreads.Error"
 msgstr "Der Wert in dem Element \"%s\" muss eine positive Ganzzahl sein, ist aber \"%s\"."

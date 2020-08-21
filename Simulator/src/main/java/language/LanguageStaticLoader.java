@@ -893,6 +893,7 @@ public class LanguageStaticLoader {
 		StatisticsSimulationBaseData.xmlNameRunUser=Language.trAll("Statistics.XML.RunUser");
 		StatisticsSimulationBaseData.xmlNameRunThreads=Language.trAll("Statistics.XML.RunThreads");
 		StatisticsSimulationBaseData.xmlNameNUMA=Language.trAll("Statistics.XML.RunThreads.NUMA");
+		StatisticsSimulationBaseData.xmlNameDynamicBalance=Language.trAll("Statistics.XML.RunThreads.DynamicBalance");
 		StatisticsSimulationBaseData.xmlNameRunThreadTimes=Language.trAll("Statistics.XML.ThreadRunTimes");
 		StatisticsSimulationBaseData.xmlNameRunThreadsError=Language.tr("Statistics.XML.RunThreads.Error");
 		StatisticsSimulationBaseData.xmlNameRunEvents=Language.trAll("Statistics.XML.RunEvents");
