@@ -17,10 +17,11 @@ public class DynamicLoadBalancer {
 	/**
 	 * Konstruktor der Klasse
 	 * @param arrivalsToBeSimulated	Gesamtzahl der zu simulierenden Ankünfte
+	 * @param threadCount	Anzahl an Threads
 	 */
-	public DynamicLoadBalancer(final long arrivalsToBeSimulated) {
+	public DynamicLoadBalancer(final long arrivalsToBeSimulated, final int threadCount) {
 		this.arrivalsToBeSimulated=arrivalsToBeSimulated;
-		this.arrivalPackage=Math.max(MIN_LOAD_PACKAGE_SIZE,arrivalsToBeSimulated/1000);
+		this.arrivalPackage=Math.max(MIN_LOAD_PACKAGE_SIZE,arrivalsToBeSimulated/threadCount/500);
 	}
 
 	/**

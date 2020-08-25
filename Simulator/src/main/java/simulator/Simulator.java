@@ -193,7 +193,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		runModel=(RunModel)obj;
 
 		if (SetupData.getSetup().useDynamicThreadBalance) {
-			if (runModel.repeatCount==1 && threadCount>1 && runModel.clientCount>0) dynamicLoadBalancer=new DynamicLoadBalancer(runModel.clientCount);
+			if (runModel.repeatCount==1 && threadCount>1 && runModel.clientCount>0) dynamicLoadBalancer=new DynamicLoadBalancer(runModel.clientCount,threadCount);
 		}
 
 		return null;
