@@ -29,8 +29,10 @@ public final class CalcSymbolPostOperatorPercent extends CalcSymbolPostOperator 
 		return new String[]{"%","percent","prozent","vonhundert"};
 	}
 
+	private final static double factor=1.0/100.0;
+
 	@Override
 	protected double calc(final double parameter) throws MathCalcError {
-		return parameter/100;
+		return parameter*factor;
 	}
 }

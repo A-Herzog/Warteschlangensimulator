@@ -27,8 +27,10 @@ public class CalcSymbolPostOperatorDEGtoRAD extends CalcSymbolPostOperator {
 		return new String[]{"°"};
 	}
 
+	private static final double factor=Math.PI/180;
+
 	@Override
 	protected double calc(double parameter) {
-		return parameter/180*Math.PI;
+		return parameter*factor;
 	}
 }

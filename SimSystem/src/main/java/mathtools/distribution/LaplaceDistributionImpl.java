@@ -40,6 +40,8 @@ public final class LaplaceDistributionImpl extends AbstractRealDistribution impl
 	 */
 	public final double b;
 
+	private final double inverseB;
+
 	/**
 	 * Konstruktor der Laplace-Verteilung
 	 * @param mu	Lageparameter
@@ -49,13 +51,14 @@ public final class LaplaceDistributionImpl extends AbstractRealDistribution impl
 		super(null);
 		this.mu=mu;
 		this.b=(b<=0)?1:b;
+		inverseB=1/b;
 	}
 
 	@Override
 	public double density(double x) {
 		/* if (b<=0) return 0;  - per Konstruktor ausgeschlossen */
 		/* https://en.wikipedia.org/wiki/Laplace_distribution */
-		return 0.5/b*Math.exp(-Math.abs(x-mu)/b);
+		return 0.5*inverseB*Math.exp(-Math.abs(x-mu)*inverseB);
 	}
 
 	@Override
@@ -63,9 +66,9 @@ public final class LaplaceDistributionImpl extends AbstractRealDistribution impl
 		/* if (b<=0) return 0;  - per Konstruktor ausgeschlossen */
 		/* https://en.wikipedia.org/wiki/Laplace_distribution */
 		if (x<mu) {
-			return 0.5*Math.exp((x-mu)/b);
+			return 0.5*Math.exp((x-mu)*inverseB);
 		} else {
-			return 1-0.5*Math.exp(-(x-mu)/b);
+			return 1-0.5*Math.exp(-(x-mu)*inverseB);
 		}
 	}
 
@@ -110,7 +113,7 @@ public final class LaplaceDistributionImpl extends AbstractRealDistribution impl
 	}
 
 	@Override
-	public final double random(final RandomGenerator generator) {
+	public double random(final RandomGenerator generator) {
 		/* https://en.wikipedia.org/wiki/Laplace_distribution */
 		final double u=generator.nextDouble()-0.5;
 		return mu-b*Math.signum(u)*Math.log(1-2*Math.abs(u));

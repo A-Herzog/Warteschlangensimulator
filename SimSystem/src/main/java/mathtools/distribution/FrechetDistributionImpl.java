@@ -46,6 +46,8 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 	 */
 	public final double alpha;
 
+	private final double inverseAlpha;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param delta	Lageparameter
@@ -57,6 +59,7 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 		this.delta=delta;
 		this.beta=(beta<=0)?0.0001:beta;
 		this.alpha=(alpha<=0)?0.0001:alpha;
+		inverseAlpha=1.0/this.alpha;
 	}
 
 	/**
@@ -69,10 +72,12 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 			delta=0;
 			beta=1;
 			alpha=1;
+			inverseAlpha=1;
 		} else {
 			delta=source.delta;
 			beta=source.beta;
 			alpha=source.alpha;
+			inverseAlpha=source.inverseAlpha;
 		}
 	}
 
@@ -87,19 +92,18 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 	public double cumulativeProbability(double x) {
 		if (x<=delta) return 0;
 		final double z=(x-delta)/beta;
-		//return FastMath.exp(-FastMath.pow(z,-alpha));
 		return FastMath.exp(-1/FastMath.pow(z,alpha));
 	}
 
 	@Override
 	public double getNumericalMean() {
-		return delta+beta*Functions.getGamma(1-1/alpha);
+		return delta+beta*Functions.getGamma(1-inverseAlpha);
 	}
 
 	@Override
 	public double getNumericalVariance() {
-		final double g1=Functions.getGamma(1-2/alpha);
-		final double g2=Functions.getGamma(1-1/alpha);
+		final double g1=Functions.getGamma(1-2*inverseAlpha);
+		final double g2=Functions.getGamma(1-inverseAlpha);
 		return beta*beta*(g1-g2*g2);
 	}
 
@@ -136,6 +140,6 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 	@Override
 	public double random(RandomGenerator generator) {
 		final double p=generator.nextDouble();
-		return FastMath.pow(-FastMath.log(p),-1/alpha)*beta+delta;
+		return FastMath.pow(-FastMath.log(p),-1*inverseAlpha)*beta+delta;
 	}
 }

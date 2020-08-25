@@ -105,7 +105,7 @@ public final class StatisticsTimeAnalogPerformanceIndicator extends StatisticsPe
 	 */
 	public void set(final double time, final double newState) {
 		if (lastTime>=0) {
-			sum+=(time-lastTime)*(lastValue+newState)/2.0;
+			sum+=(time-lastTime)*(lastValue+newState)*0.5;
 			if (newState<min) min=newState;
 			if (newState>max) max=newState;
 		} else {

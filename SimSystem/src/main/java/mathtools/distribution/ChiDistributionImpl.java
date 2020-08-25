@@ -36,6 +36,7 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 	public final int degreesOfFreedom;
 
 	private final double densityDenominator;
+	private final double inverseDensityDenominator;
 
 	/**
 	 * Konstruktor der Klasse
@@ -44,7 +45,8 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 	public ChiDistributionImpl(final int degreesOfFreedom) {
 		super(null);
 		this.degreesOfFreedom=(degreesOfFreedom>0)?degreesOfFreedom:1;
-		densityDenominator=Math.pow(2,degreesOfFreedom/2.0-1)*Functions.getGamma(degreesOfFreedom/2.0);
+		densityDenominator=Math.pow(2,degreesOfFreedom*0.5-1)*Functions.getGamma(degreesOfFreedom*0.5);
+		inverseDensityDenominator=1.0/densityDenominator;
 	}
 
 	/**
@@ -58,30 +60,30 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 	@Override
 	public double density(double x) {
 		if (x<=0) return 0;
-		return Math.exp(-x*x/2)*Math.pow(x,degreesOfFreedom-1)/densityDenominator;
+		return Math.exp(-x*x*0.5)*Math.pow(x,degreesOfFreedom-1)*inverseDensityDenominator;
 	}
 
 	@Override
 	public double cumulativeProbability(double x) {
 		if (x<=0) return 0;
-		return Gamma.regularizedGammaP(degreesOfFreedom/2.0,x*x/2);
+		return Gamma.regularizedGammaP(degreesOfFreedom*0.5,x*x*0.5);
 	}
 
 	@Override
-	public final ChiDistributionImpl clone() {
+	public ChiDistributionImpl clone() {
 		return new ChiDistributionImpl(this);
 	}
 
 	@Override
 	public double getNumericalMean() {
-		return Math.sqrt(2)*Functions.getGamma((degreesOfFreedom+1)/2.0)/Functions.getGamma(degreesOfFreedom/2.0);
+		return Math.sqrt(2)*Functions.getGamma((degreesOfFreedom+1)*0.5)/Functions.getGamma(degreesOfFreedom*0.5);
 	}
 
 	@Override
 	public double getNumericalVariance() {
-		final double value=Functions.getGamma((degreesOfFreedom+1)/2.0);
-		final double numerator=2*Functions.getGamma(degreesOfFreedom/2.0)*Functions.getGamma(1+degreesOfFreedom/2.0)-value*value;
-		return numerator/Functions.getGamma(degreesOfFreedom/2.0);
+		final double value=Functions.getGamma((degreesOfFreedom+1)*0.5);
+		final double numerator=2*Functions.getGamma(degreesOfFreedom*0.5)*Functions.getGamma(1+degreesOfFreedom*0.5)-value*value;
+		return numerator/Functions.getGamma(degreesOfFreedom*0.5);
 	}
 
 	@Override

@@ -163,6 +163,8 @@ public class RunElementTransportSourceTargets {
 		return null;
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	private int getDestinationStationByClientSequence(final SimulationData simData, final RunDataClient client, final boolean testOnly) {
 		final int nr=client.sequenceNr;
 		if (nr<0) return defaultStation;
@@ -175,7 +177,7 @@ public class RunElementTransportSourceTargets {
 
 		final int[] assignmentNr=simData.runModel.sequenceStepAssignmentNr[nr][step];
 		if (assignmentNr.length>0) {
-			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
+			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSec;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 		}
 		for (int i=0;i<assignmentNr.length;i++) {
@@ -200,7 +202,7 @@ public class RunElementTransportSourceTargets {
 
 			final ExpressionEval eval=routingExpresions[i];
 			if (eval!=null) {
-				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
+				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSec;
 				simData.runData.setClientVariableValues(client,additionalWaitingTime);
 				if (eval.eval(simData.runData.variableValues,simData,client)) return routingDestination[i];
 				continue;

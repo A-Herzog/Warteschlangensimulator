@@ -46,6 +46,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	private Map<String,ExpressionCalc> expressionCache;
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Konstruktor der Klasse <code>JSFilterCommandSystem</code>
 	 * 	 */
@@ -129,7 +131,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 			return System.currentTimeMillis();
 		} else {
 			/* Aufruf aus laufender Simulation, dann Ausgabe der aktuellen Zeit in der Simulation (in Sekunden) */
-			return simData.currentTime/1000.0;
+			return simData.currentTime*toSec;
 		}
 	}
 
@@ -200,7 +202,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public double clientWaitingSeconds() {
 		if (simData==null || client==null) return 0.0;
-		return client.waitingTime/1000.0;
+		return client.waitingTime*toSec;
 	}
 
 	/**
@@ -211,7 +213,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public String clientWaitingTime() {
 		if (simData==null || client==null) return "";
-		return TimeTools.formatExactTime(((double)client.waitingTime)/1000);
+		return TimeTools.formatExactTime(client.waitingTime*toSec);
 	}
 
 	/**
@@ -231,7 +233,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public double clientTransferSeconds() {
 		if (simData==null || client==null) return 0.0;
-		return client.transferTime/1000.0;
+		return client.transferTime*toSec;
 	}
 
 	/**
@@ -242,7 +244,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public String clientTransferTime() {
 		if (simData==null || client==null) return "";
-		return TimeTools.formatExactTime(((double)client.transferTime)/1000);
+		return TimeTools.formatExactTime(client.transferTime*toSec);
 	}
 
 	/**
@@ -262,7 +264,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public double clientProcessSeconds() {
 		if (simData==null || client==null) return 0.0;
-		return client.processTime/1000.0;
+		return client.processTime*toSec;
 	}
 
 	/**
@@ -273,7 +275,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public String clientProcessTime() {
 		if (simData==null || client==null) return "";
-		return TimeTools.formatExactTime(((double)client.processTime)/1000);
+		return TimeTools.formatExactTime(client.processTime*toSec);
 	}
 
 	/**
@@ -293,7 +295,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public double clientResidenceSeconds() {
 		if (simData==null || client==null) return 0.0;
-		return client.residenceTime/1000.0;
+		return client.residenceTime*toSec;
 	}
 
 	/**
@@ -304,7 +306,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public String clientResidenceTime() {
 		if (simData==null || client==null) return "";
-		return TimeTools.formatExactTime(((double)client.residenceTime)/1000);
+		return TimeTools.formatExactTime(client.residenceTime*toSec);
 	}
 
 	/**

@@ -246,6 +246,8 @@ public class RunDataTransporter {
 		for (RunDataTransporterFailure failures: failures) failures.scheduleDownTime(simData,simData.currentTime,logTransporterName);
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Löst einen Transfer des Transporters aus
 	 * @param stationID	ID der Zielstation
@@ -299,7 +301,7 @@ public class RunDataTransporter {
 			/* Statistik */
 			if (!simData.runData.isWarmUp) {
 				if (statisticUtilization==null) statisticUtilization=(StatisticsTimePerformanceIndicator)simData.statistics.transporterUtilization.get(list.type[type]);
-				statisticUtilization.set(simData.currentTime/1000.0,list.getWorkingTransporters(type));
+				statisticUtilization.set(simData.currentTime*toSec,list.getWorkingTransporters(type));
 			}
 			/* Bewegung für Ausfall-System zählen */
 
@@ -329,7 +331,7 @@ public class RunDataTransporter {
 		/* Statistik */
 		if (!simData.runData.isWarmUp) {
 			if (statisticUtilization==null) statisticUtilization=(StatisticsTimePerformanceIndicator)simData.statistics.transporterUtilization.get(list.type[type]);
-			statisticUtilization.set(simData.currentTime/1000.0,list.getWorkingTransporters(type));
+			statisticUtilization.set(simData.currentTime*toSec,list.getWorkingTransporters(type));
 		}
 	}
 
@@ -363,7 +365,7 @@ public class RunDataTransporter {
 
 		if (!simData.runData.isWarmUp) {
 			if (statisticDownTime==null) statisticDownTime=(StatisticsTimePerformanceIndicator)simData.statistics.transporterInDownTime.get(list.type[type]);
-			statisticDownTime.set(simData.currentTime/1000.0,inDownTime);
+			statisticDownTime.set(simData.currentTime*toSec,inDownTime);
 		}
 	}
 
@@ -376,7 +378,7 @@ public class RunDataTransporter {
 
 		if (!simData.runData.isWarmUp) {
 			if (statisticDownTime==null) statisticDownTime=(StatisticsTimePerformanceIndicator)simData.statistics.transporterInDownTime.get(list.type[type]);
-			statisticDownTime.set(simData.currentTime/1000.0,inDownTime);
+			statisticDownTime.set(simData.currentTime*toSec,inDownTime);
 		}
 	}
 }

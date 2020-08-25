@@ -114,6 +114,8 @@ public class RunElementSet extends RunElementPassThrough {
 		return data;
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	@Override
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
 		final RunElementSetData data=getData(simData);
@@ -134,16 +136,16 @@ public class RunElementSet extends RunElementPassThrough {
 				}
 				break;
 			case MODE_WAITING_TIME:
-				d=((double)client.waitingTime)/1000;
+				d=client.waitingTime*toSec;
 				break;
 			case MODE_TRANSFER_TIME:
-				d=((double)client.transferTime)/1000;
+				d=client.transferTime*toSec;
 				break;
 			case MODE_PROCESS_TIME:
-				d=((double)client.processTime)/1000;
+				d=client.processTime*toSec;
 				break;
 			case MODE_RESIDENCE_TIME:
-				d=((double)client.residenceTime)/1000;
+				d=client.residenceTime*toSec;
 				break;
 			}
 

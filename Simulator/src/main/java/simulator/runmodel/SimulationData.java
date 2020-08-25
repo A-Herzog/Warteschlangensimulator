@@ -245,7 +245,7 @@ public class SimulationData extends SimData {
 		for (StatisticsTimeAnalogPerformanceIndicator indicator: (StatisticsTimeAnalogPerformanceIndicator[])statistics.analogStatistics.getAll(StatisticsTimeAnalogPerformanceIndicator.class)) {
 			final double value=indicator.getCurrentState();
 			indicator.reset();
-			indicator.set(currentTime/1000.0,value);
+			indicator.set(time,value);
 		}
 		for (RunElement element: runModel.elementsFast) if (element instanceof RunElementThroughput) {
 			((RunElementThroughput)element).getData(this).reset(currentTime);
@@ -390,14 +390,15 @@ public class SimulationData extends SimData {
 		doEmergencyShutDown(Language.tr("Simulation.OutOfMemory")+"\n"+text);
 	}
 
+	private int maxAllowed=-1;
+
 	/**
 	 * Prüft, ob die maximal zulässige Anzahl an Kunden im system eingehalten wird.
 	 * @return	Liefert im Erfolgsfall <code>true</code>. Im Fehlerfall wird die Simulation per {@link #doEmergencyShutDown(String)} abgebrochen und es wird <code>false</code> zurückgeliefert.
 	 */
 	public boolean testMaxAllowedClientsInSystem() {
 		final int count=statistics.clientsInSystem.getCurrentState();
-		final int maxAllowed=FastMath.max(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
-
+		if (maxAllowed<=0) maxAllowed=FastMath.max(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
 
 		if (count>maxAllowed) {
 			doEmergencyShutDown(String.format(Language.tr("Simulation.Log.ToManyClientsInSystem.Info"),NumberTools.formatLong(count)));

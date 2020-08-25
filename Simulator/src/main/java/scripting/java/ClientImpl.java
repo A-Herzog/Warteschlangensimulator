@@ -39,6 +39,8 @@ public class ClientImpl implements ClientInterface {
 	private RunDataClient client;
 	private Map<String,ExpressionCalc> expressionCache;
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param simData	Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen
@@ -107,12 +109,12 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public double getWaitingSeconds() {
-		return client.waitingTime/1000.0;
+		return client.waitingTime*toSec;
 	}
 
 	@Override
 	public String getWaitingTime() {
-		return TimeTools.formatExactTime(((double)client.waitingTime)/1000);
+		return TimeTools.formatExactTime(client.waitingTime*toSec);
 	}
 
 	@Override
@@ -122,12 +124,12 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public double getTransferSeconds() {
-		return client.transferTime/1000.0;
+		return client.transferTime*toSec;
 	}
 
 	@Override
 	public String getTransferTime() {
-		return TimeTools.formatExactTime(((double)client.transferTime)/1000);
+		return TimeTools.formatExactTime(client.transferTime*toSec);
 	}
 
 	@Override
@@ -142,7 +144,7 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public String getProcessTime() {
-		return TimeTools.formatExactTime(((double)client.processTime)/1000);
+		return TimeTools.formatExactTime(client.processTime*toSec);
 	}
 
 	@Override
@@ -152,12 +154,12 @@ public class ClientImpl implements ClientInterface {
 
 	@Override
 	public double getResidenceSeconds() {
-		return client.residenceTime/1000.0;
+		return client.residenceTime*toSec;
 	}
 
 	@Override
 	public String getResidenceTime() {
-		return TimeTools.formatExactTime(((double)client.residenceTime)/1000);
+		return TimeTools.formatExactTime(client.residenceTime*toSec);
 	}
 
 	@Override

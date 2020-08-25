@@ -265,6 +265,8 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 		}
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Bestimmt den maximalen Ausfluss über ein Ventil innerhalb einer bestimmten Zeit
 	 * @param valveNr	0-basierende Ventilnummer
@@ -275,7 +277,7 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 	public double getMaxFlowOut(final int valveNr, final long timeDeltaMS, final SimulationData simData) {
 		if (valveTimes[valveNr]>=simData.currentTime) return 0; /* Ventil ist belegt */
 
-		final double maxFlow=valveValues[valveNr]*(timeDeltaMS/1000.0);
+		final double maxFlow=valveValues[valveNr]*(timeDeltaMS*toSec);
 
 		valveTimes[valveNr]=simData.currentTime;
 		return FastMath.min(value,maxFlow);
@@ -291,7 +293,7 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 	public double getMaxFlowIn(final int valveNr, final long timeDeltaMS, final SimulationData simData) {
 		if (valveTimes[valveNr]>=simData.currentTime) return 0; /* Ventil ist belegt */
 
-		final double maxFlow=valveValues[valveNr]*(timeDeltaMS/1000.0);
+		final double maxFlow=valveValues[valveNr]*(timeDeltaMS*toSec);
 
 		valveTimes[valveNr]=simData.currentTime;
 		return FastMath.min(capacity-value,maxFlow);

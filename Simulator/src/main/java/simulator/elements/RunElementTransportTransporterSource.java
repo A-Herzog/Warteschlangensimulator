@@ -178,6 +178,8 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		return transporterIndex;
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	private void getClientsToMove(final SimulationData simData, final List<RunDataClient> moveList) {
 		moveList.clear();
 		final RunElementTransportTransporterSourceData data=getData(simData);
@@ -222,7 +224,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 				/* Priorität */
 				final ExpressionCalc calc=data.priorityClient[current.type];
 				if (calc==null) { /* = Text war "w", siehe RunElementTransportTransporterSourceData()  */
-					final double waitingTime=(((double)simData.currentTime)-current.lastWaitingStart)/1000.0;
+					final double waitingTime=(((double)simData.currentTime)-current.lastWaitingStart)*toSec;
 					score[i]=waitingTime;
 				} else {
 					simData.runData.setClientVariableValues(simData.currentTime-current.lastWaitingStart,current.transferTime,current.processTime);

@@ -43,6 +43,9 @@ public final class FatigueLifeDistributionImpl extends AbstractRealDistribution 
 	 */
 	public final double gamma;
 
+	private final double inverseBeta;
+	private final double inverseGamma;
+
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**
@@ -56,6 +59,8 @@ public final class FatigueLifeDistributionImpl extends AbstractRealDistribution 
 		this.mu=mu;
 		this.beta=(beta<=0)?0.0001:beta;
 		this.gamma=(gamma<=0)?0.0001:gamma;
+		inverseBeta=1/beta;
+		inverseGamma=1/gamma;
 	}
 
 	/**
@@ -68,28 +73,34 @@ public final class FatigueLifeDistributionImpl extends AbstractRealDistribution 
 			this.mu=source.mu;
 			this.beta=source.beta;
 			this.gamma=source.gamma;
+			this.inverseBeta=source.inverseBeta;
+			this.inverseGamma=source.inverseGamma;
 		} else {
 			this.mu=0;
 			this.beta=1;
 			this.gamma=1;
+			this.inverseBeta=1;
+			this.inverseGamma=1;
 		}
 	}
 
 	@Override
 	public double density(double x) {
 		if (x<=mu) return 0;
-		final double part1=Math.sqrt((x-mu)/beta);
-		final double part2=Math.sqrt(beta/(x-mu));
+		final double param=(x-mu)*inverseBeta;
+		final double part1=Math.sqrt(param);
+		final double part2=Math.sqrt(1.0/param);
 		final double numerator1=part1+part2;
 		final double numerator2=part1-part2;
-		return numerator1/(2*gamma*(x-mu))*stdNormal.density(numerator2/gamma);
+		return numerator1/(2*gamma*(x-mu))*stdNormal.density(numerator2*inverseGamma);
 	}
 
 	@Override
 	public double cumulativeProbability(double x) {
 		if (x<=mu) return 0;
-		final double numerator=Math.sqrt((x-mu)/beta)-Math.sqrt(beta/(x-mu));
-		return stdNormal.cumulativeProbability(numerator/gamma);
+		final double param=(x-mu)*inverseBeta;
+		final double numerator=Math.sqrt(param)-Math.sqrt(1.0/param);
+		return stdNormal.cumulativeProbability(numerator*inverseGamma);
 	}
 
 	@Override

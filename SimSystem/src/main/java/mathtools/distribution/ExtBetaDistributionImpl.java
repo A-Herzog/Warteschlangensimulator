@@ -41,6 +41,8 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 	 */
 	public final double domainUpperBound;
 
+	private final double inverseRange;
+
 	/**
 	 * Konstruktor der Klasse <code>ExtBetaDistributionImpl</code>
 	 * @param domainLowerBound	Untere Grenze des Trägers der Dichte
@@ -52,6 +54,7 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 		super(null,alpha,beta,BetaDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 		this.domainLowerBound=domainLowerBound;
 		this.domainUpperBound=domainUpperBound;
+		inverseRange=1.0/(domainUpperBound-domainLowerBound);
 	}
 
 	/**
@@ -67,19 +70,20 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 		super(null,alpha,beta,inverseCumAccuracy);
 		this.domainLowerBound=domainLowerBound;
 		this.domainUpperBound=domainUpperBound;
+		inverseRange=1.0/(domainUpperBound-domainLowerBound);
 	}
 
 	@Override
 	public double density(final double x) {
 		if ((x<domainLowerBound) || (x>domainUpperBound)) return 0;
-		return super.density((x-domainLowerBound)/(domainUpperBound-domainLowerBound));
+		return super.density((x-domainLowerBound)*inverseRange);
 	}
 
 	@Override
 	public double cumulativeProbability(final double x) {
 		if (x<domainLowerBound) return 0;
 		if (x>domainUpperBound) return 1;
-		return super.cumulativeProbability((x-domainLowerBound)/(domainUpperBound-domainLowerBound));
+		return super.cumulativeProbability((x-domainLowerBound)*inverseRange);
 	}
 
 	@Override

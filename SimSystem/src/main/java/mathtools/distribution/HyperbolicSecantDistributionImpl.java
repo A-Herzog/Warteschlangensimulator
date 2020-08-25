@@ -79,7 +79,7 @@ public final class HyperbolicSecantDistributionImpl extends AbstractRealDistribu
 	@Override
 	public double cumulativeProbability(double x) {
 		final double z=(x-mu)/sigma;
-		final double arg=Math.PI*z/2.0;
+		final double arg=Math.PI*z*0.5;
 		if (arg>=750) return 1;
 		return (2.0 * Math.atan(Math.exp(arg))) / Math.PI;
 	}
@@ -124,9 +124,11 @@ public final class HyperbolicSecantDistributionImpl extends AbstractRealDistribu
 		return new HyperbolicSecantDistributionImpl(this);
 	}
 
+	private static final double twoDivPi=2.0/Math.PI;
+
 	@Override
 	public double random(RandomGenerator generator) {
 		final double p=generator.nextDouble();
-		return Math.log(Math.tan(p*Math.PI/2))*2/Math.PI*sigma+mu;
+		return Math.log(Math.tan(p*Math.PI*0.5))*twoDivPi*sigma+mu;
 	}
 }

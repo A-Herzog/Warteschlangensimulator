@@ -39,6 +39,8 @@ public final class LogLogisticDistributionImpl extends AbstractRealDistribution 
 	 */
 	public final double beta;
 
+	private final double inverseBeta;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param alpha	Parameter alpha der Log-Logistischen-Verteilung
@@ -48,6 +50,7 @@ public final class LogLogisticDistributionImpl extends AbstractRealDistribution 
 		super(null);
 		this.alpha=(alpha<=0)?0.0001:alpha;
 		this.beta=(beta<=0)?0.0001:beta;
+		inverseBeta=1/beta;
 	}
 
 	/**
@@ -101,10 +104,10 @@ public final class LogLogisticDistributionImpl extends AbstractRealDistribution 
 	public boolean isSupportConnected() {return true;}
 
 	@Override
-	public final double random(final RandomGenerator generator) {
+	public double random(final RandomGenerator generator) {
 		/* F^{-1}(p)=alpha*(p/(1-p))^(1/beta) */
 		final double p=generator.nextDouble();
-		return alpha*Math.pow(p/(1-p),1/beta);
+		return alpha*Math.pow(p/(1-p),inverseBeta);
 	}
 
 	@Override

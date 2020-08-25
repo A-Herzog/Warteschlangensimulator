@@ -183,14 +183,14 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		count++;
 
 		/* Minimum, Maximum */
-		if (count==1) {
-			min=value;
-			max=value;
-		} else {
+		if (count>1) {
 			if (value>max) max=value; else {
 				if (value<min) min=value;
 			}
 			/* langsamer: min=FastMath.min(min,value); max=FastMath.max(max,value);  */
+		} else {
+			min=value;
+			max=value;
 		}
 
 		/* Summe, quadrierte Summe */
@@ -199,9 +199,7 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 
 		/* Verteilung der Werte */
 		if (hasDistribution) {
-			if (value<=0.0d) {
-				if (dist==null) distributionZeroCount++; else densityData[0]++;
-			} else {
+			if (value>0.0d) {
 				final long l;
 				if (argumentScaleFactorIsOne) {
 					/* langsamer:  l=FastMath.round(value); */
@@ -210,17 +208,19 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 					/* langsamer: l=FastMath.round(argumentScaleFactor*value); */
 					l=(long)((argumentScaleFactor*value)+0.5);
 				}
-				if (l<=0) {
-					if (dist==null) distributionZeroCount++; else densityData[0]++;
-				} else {
+				if (l>0) {
 					if (dist==null) initDistribution();
-					if (l>=densityDataLength) {
-						densityData[densityDataLength-1]++;
-					} else {
+					if (l<densityDataLength) {
 						final int index=(int)l;
 						densityData[index]++;
+					} else {
+						densityData[densityDataLength-1]++;
 					}
+				} else {
+					if (dist==null) distributionZeroCount++; else densityData[0]++;
 				}
+			} else {
+				if (dist==null) distributionZeroCount++; else densityData[0]++;
 			}
 		}
 	}

@@ -146,6 +146,8 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 		return data;
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	private String[] getOutputTableLine(final SimulationData simData, final RunDataClient client) {
 		final String[] line=new String[mode.length];
 		for (int i=0;i<mode.length;i++) switch (mode[i]) {
@@ -168,28 +170,28 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 			line[i]=simData.runModel.clientTypes[client.type];
 			break;
 		case MODE_WAITINGTIME_NUMBER:
-			line[i]=NumberTools.formatNumberMax(((double)client.waitingTime)/1000);
+			line[i]=NumberTools.formatNumberMax(client.waitingTime*toSec);
 			break;
 		case MODE_WAITINGTIME_TIME:
-			line[i]=TimeTools.formatExactTime(((double)client.waitingTime)/1000);
+			line[i]=TimeTools.formatExactTime(client.waitingTime*toSec);
 			break;
 		case MODE_TRANSFERTIME_NUMBER:
-			line[i]=NumberTools.formatNumberMax(((double)client.transferTime)/1000);
+			line[i]=NumberTools.formatNumberMax(client.transferTime*toSec);
 			break;
 		case MODE_TRANSFERTIME_TIME:
-			line[i]=TimeTools.formatExactTime(((double)client.transferTime)/1000);
+			line[i]=TimeTools.formatExactTime(client.transferTime*toSec);
 			break;
 		case MODE_PROCESSTIME_NUMBER:
-			line[i]=NumberTools.formatNumberMax(((double)client.processTime)/1000);
+			line[i]=NumberTools.formatNumberMax(client.processTime*toSec);
 			break;
 		case MODE_PROCESSTIME_TIME:
-			line[i]=TimeTools.formatExactTime(((double)client.processTime)/1000);
+			line[i]=TimeTools.formatExactTime(client.processTime*toSec);
 			break;
 		case MODE_RESIDENCETIME_NUMBER:
-			line[i]=NumberTools.formatNumberMax(((double)client.residenceTime)/1000);
+			line[i]=NumberTools.formatNumberMax(client.residenceTime*toSec);
 			break;
 		case MODE_RESIDENCETIME_TIME:
-			line[i]=TimeTools.formatExactTime(((double)client.residenceTime)/1000);
+			line[i]=TimeTools.formatExactTime(client.residenceTime*toSec);
 			break;
 		case MODE_STRING:
 			line[i]=client.getUserDataString((String)data[i]);

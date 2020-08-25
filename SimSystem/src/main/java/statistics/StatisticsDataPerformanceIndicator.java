@@ -280,25 +280,20 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		last=value;
 		count++;
 
-		if (value<=0.0d) {
-			/* Summe (entfällt), quadrierte Summe (entfällt), Minimum, Maximum, Verteilung der Werte */
-			min=0;
-			if (count==1) max=0;
-			if (dist==null) distributionZeroCount++; else densityData[0]++;
-		} else {
+		if (value>0.0d) {
 			/* Summe, quadrierte Summe */
 			sum+=value;
 			squaredSum+=(value*value);
 
 			/* Minimum, Maximum */
-			if (count==1) {
-				min=value;
-				max=value;
-			} else {
+			if (count>1) {
 				if (value>max) max=value; else {
 					if (value<min) min=value;
 				}
 				/* langsamer: min=FastMath.min(min,value); max=FastMath.max(max,value);  */
+			} else {
+				min=value;
+				max=value;
 			}
 
 			/* Verteilung der Werte */
@@ -311,18 +306,23 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 					/* langsamer: l=FastMath.round(argumentScaleFactor*value); */
 					l=(long)((argumentScaleFactor*value)+0.5);
 				}
-				if (l<=0) {
-					if (dist==null) distributionZeroCount++; else densityData[0]++;
-				} else {
+				if (l>0) {
 					if (dist==null) initDistribution();
-					if (l>=densityDataLength) {
-						densityData[densityDataLength-1]++;
-					} else {
+					if (l<densityDataLength) {
 						final int index=(int)l;
 						densityData[index]++;
+					} else {
+						densityData[densityDataLength-1]++;
 					}
+				} else {
+					if (dist==null) distributionZeroCount++; else densityData[0]++;
 				}
 			}
+		} else {
+			/* Summe (entfällt), quadrierte Summe (entfällt), Minimum, Maximum, Verteilung der Werte */
+			min=0;
+			if (count==1) max=0;
+			if (dist==null) distributionZeroCount++; else densityData[0]++;
 		}
 
 		/* Autokorrelation */

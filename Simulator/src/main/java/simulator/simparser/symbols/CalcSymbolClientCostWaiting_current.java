@@ -30,12 +30,14 @@ public class CalcSymbolClientCostWaiting_current extends CalcSymbolSimData {
 		return new String[]{"Costs_Waiting","Kosten_Wartezeit"};
 	}
 
+	private static final double scaleFactor=1.0/1000.0;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=0) throw error();
 		final RunDataClient client=getCurrentClient();
 		if (client==null) throw error();
 
-		return (client.waitingTime/1000.0)*getSimData().runModel.clientCosts[client.type][0]+client.waitingAdditionalCosts;
+		return (client.waitingTime*scaleFactor)*getSimData().runModel.clientCosts[client.type][0]+client.waitingAdditionalCosts;
 	}
 }

@@ -29,12 +29,14 @@ public class CalcSymbolSimDataSimTime extends CalcSymbolSimData {
 		return new String[]{"SimTime","TNOW"};
 	}
 
+	private static final double scaleFactor=1.0/1000.0;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=0) throw error();
 		final SimulationData simData=getSimData();
 		if (simData==null) return 0.0;
-		return simData.currentTime/1000.0;
+		return simData.currentTime*scaleFactor;
 	}
 
 	@Override
@@ -42,6 +44,6 @@ public class CalcSymbolSimDataSimTime extends CalcSymbolSimData {
 		if (parameters.length!=0) return fallbackValue;
 		final SimulationData simData=getSimData();
 		if (simData==null) return 0;
-		return simData.currentTime/1000.0;
+		return simData.currentTime*scaleFactor;
 	}
 }

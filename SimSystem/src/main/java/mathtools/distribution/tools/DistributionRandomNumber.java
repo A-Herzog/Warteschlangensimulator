@@ -32,7 +32,7 @@ import mathtools.distribution.DistributionWithRandom;
  * dies durch diese Klasse nachgerüstet.<br><br>
  * Die Klasse besitzt nur eine statische Methode <code>Random</code> die eine Zufallszahl erzeugt.
  * @author Alexander Herzog
- * @version 2.2
+ * @version 2.3
  */
 public final class DistributionRandomNumber {
 
@@ -72,6 +72,8 @@ public final class DistributionRandomNumber {
 		return generator.nextDouble();
 	}
 
+	private final static double inverseE=1/FastMath.E;
+
 	/*
 	 * see org.apache.commons.math3.distribution.GammaDistribution.sample()
 	 * By using this method wie avoid creating a GammaDistribution object each time a random number is needed.
@@ -83,7 +85,7 @@ public final class DistributionRandomNumber {
 			while (true) {
 				/* Step 1: */
 				final double u = generator.nextDouble();
-				final double bGS = 1 + shape / FastMath.E;
+				final double bGS = 1 + shape*inverseE;
 				final double p = bGS * u;
 
 				if (p <= 1) {

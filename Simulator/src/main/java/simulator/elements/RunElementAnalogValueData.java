@@ -59,6 +59,8 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 	 */
 	private double rateMS;
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param station	Zugehöriges RunElement
@@ -73,7 +75,7 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 	public RunElementAnalogValueData(final RunElementAnalogProcessing station, final double value, final double rate, final double valueMin, final boolean valueMinUse, final double valueMax, final boolean valueMaxUse, final StatisticsTimeAnalogPerformanceIndicator statistics) {
 		super(station,statistics);
 		/* this.value=value; - nicht nötig, das übernimmt schon der super-Konstruktor */
-		initialRateMS=rate/1000.0;
+		initialRateMS=rate*toSec;
 		this.valueMin=valueMin;
 		this.valueMinUse=valueMinUse;
 		this.valueMax=valueMax;
@@ -170,7 +172,7 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 	 */
 	public void setRate(final SimulationData simData, final double rate) {
 		getValue(simData);
-		rateMS=rate/1000.0;
+		rateMS=rate*toSec;
 		if (rateMS!=0.0) rateActivated(simData);
 	}
 

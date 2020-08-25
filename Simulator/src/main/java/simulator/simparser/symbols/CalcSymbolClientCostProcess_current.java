@@ -30,12 +30,14 @@ public class CalcSymbolClientCostProcess_current extends CalcSymbolSimData {
 		return new String[]{"Costs_Process","Kosten_Bedienzeit"};
 	}
 
+	private static final double scaleFactor=1.0/1000.0;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=0) throw error();
 		final RunDataClient client=getCurrentClient();
 		if (client==null) throw error();
 
-		return (client.processTime/1000.0)*getSimData().runModel.clientCosts[client.type][2]+client.processAdditionalCosts;
+		return (client.processTime*scaleFactor)*getSimData().runModel.clientCosts[client.type][2]+client.processAdditionalCosts;
 	}
 }

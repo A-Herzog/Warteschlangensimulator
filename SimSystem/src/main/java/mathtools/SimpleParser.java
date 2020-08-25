@@ -360,6 +360,9 @@ public class SimpleParser extends CalcSystemBase {
 	private static final String[] OPERATOR_NAMES=new String[]{"^",":","/","*","-","+"};
 	private static final char[] POST_OPERATOR_NAMES=new char[]{'%','²','³','!'};
 
+	private static final double toPercent=1.0/100.0;
+	private static final double inverseLog2=1.0/Math.log(2.0);
+
 	private class OperatorSymbol extends Symbol {
 		public final char operator;
 		public final Symbol left, right;
@@ -378,7 +381,7 @@ public class SimpleParser extends CalcSystemBase {
 			case '/':
 			case ':': if (r2==0) throw error(); else return (l2/r2);
 			case '^': if (r2<0) throw error(); else return Math.pow(l2,r2);
-			case '%': return l2/100;
+			case '%': return l2*toPercent;
 			case '²': return l2*l2;
 			case '³': return l2*l2*l2;
 			case '!': if (l2==0.0) return 1.0; else return Math.signum(l2)*Functions.getFactorial((int)Math.round(Math.abs(l2)));
@@ -426,7 +429,7 @@ public class SimpleParser extends CalcSystemBase {
 			case "log" :
 			case "ln" : if (subValue<=0) throw error(); else return Math.log(subValue);
 			case "lg" : if (subValue<=0) throw error(); else return Math.log10(subValue);
-			case "ld" : if (subValue<=0) throw error(); else return Math.log(subValue)/Math.log(2);
+			case "ld" : if (subValue<=0) throw error(); else return Math.log(subValue)*inverseLog2;
 			case "absolutbetrag":
 			case "betrag":
 			case "abs" : return StrictMath.abs(subValue);

@@ -94,13 +94,15 @@ public abstract class RunElementAnalogProcessingData extends RunElementData {
 	protected void init(final SimulationData simData) {
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Erfasst eine Veränderung des analogen Wertes in der Statistik
 	 * @param timeMS	Zeitpunkt (in MS), für den der Wert gilt
 	 * @param value	Neuer Wert
 	 */
 	protected final void setStatisticValue(final long timeMS, final double value) {
-		statistics.set(timeMS/1000.0,value);
+		statistics.set(timeMS*toSec,value);
 	}
 
 	/**

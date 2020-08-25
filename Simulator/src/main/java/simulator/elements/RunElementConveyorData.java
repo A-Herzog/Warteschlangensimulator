@@ -130,6 +130,8 @@ public class RunElementConveyorData extends RunElementData {
 		return timeInQueue;
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Liefert notwendige Kapazität für einen Kunden
 	 * @param simData	Simulationsdaten
@@ -139,7 +141,7 @@ public class RunElementConveyorData extends RunElementData {
 	public double getNeededCapacity(final SimulationData simData, final RunDataClient client) {
 		final int type=client.type;
 
-		final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)/1000.0;
+		final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSec;
 		simData.runData.setClientVariableValues(client,additionalWaitingTime);
 		try {
 			return capacityNeeded[type].calc(simData.runData.variableValues,simData,client);

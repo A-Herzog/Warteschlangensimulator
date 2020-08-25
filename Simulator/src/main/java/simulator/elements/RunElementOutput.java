@@ -131,6 +131,8 @@ public class RunElementOutput extends RunElementPassThrough {
 		return RunModelCreatorStatus.ok;
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	private String getOutputString(final SimulationData simData, final RunDataClient client) {
 		final StringBuilder sb=new StringBuilder();
 		for (int i=0;i<mode.length;i++) switch (mode[i]) {
@@ -159,28 +161,28 @@ public class RunElementOutput extends RunElementPassThrough {
 			sb.append(simData.runModel.clientTypes[client.type]);
 			break;
 		case MODE_WAITINGTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(((double)client.waitingTime)/1000));
+			sb.append(NumberTools.formatNumberMax(client.waitingTime*toSec));
 			break;
 		case MODE_WAITINGTIME_TIME:
-			sb.append(TimeTools.formatExactTime(((double)client.waitingTime)/1000));
+			sb.append(TimeTools.formatExactTime(client.waitingTime*toSec));
 			break;
 		case MODE_TRANSFERTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(((double)client.transferTime)/1000));
+			sb.append(NumberTools.formatNumberMax(client.transferTime*toSec));
 			break;
 		case MODE_TRANSFERTIME_TIME:
-			sb.append(TimeTools.formatExactTime(((double)client.transferTime)/1000));
+			sb.append(TimeTools.formatExactTime(client.transferTime*toSec));
 			break;
 		case MODE_PROCESSTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(((double)client.processTime)/1000));
+			sb.append(NumberTools.formatNumberMax(client.processTime*toSec));
 			break;
 		case MODE_PROCESSTIME_TIME:
-			sb.append(TimeTools.formatExactTime(((double)client.processTime)/1000));
+			sb.append(TimeTools.formatExactTime(client.processTime*toSec));
 			break;
 		case MODE_RESIDENCETIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(((double)client.residenceTime)/1000));
+			sb.append(NumberTools.formatNumberMax(client.residenceTime*toSec));
 			break;
 		case MODE_RESIDENCETIME_TIME:
-			sb.append(TimeTools.formatExactTime(((double)client.residenceTime)/1000));
+			sb.append(TimeTools.formatExactTime(client.residenceTime*toSec));
 			break;
 		case MODE_STRING:
 			sb.append(client.getUserDataString((String)data[i]));
@@ -217,28 +219,28 @@ public class RunElementOutput extends RunElementPassThrough {
 			line[i]=simData.runModel.clientTypes[client.type];
 			break;
 		case MODE_WAITINGTIME_NUMBER:
-			line[i]=NumberTools.formatNumberMax(((double)client.waitingTime)/1000);
+			line[i]=NumberTools.formatNumberMax(client.waitingTime*toSec);
 			break;
 		case MODE_WAITINGTIME_TIME:
-			line[i]=TimeTools.formatExactTime(((double)client.waitingTime)/1000);
+			line[i]=TimeTools.formatExactTime(client.waitingTime*toSec);
 			break;
 		case MODE_TRANSFERTIME_NUMBER:
-			line[i]=NumberTools.formatNumberMax(((double)client.transferTime)/1000);
+			line[i]=NumberTools.formatNumberMax(client.transferTime*toSec);
 			break;
 		case MODE_TRANSFERTIME_TIME:
-			line[i]=TimeTools.formatExactTime(((double)client.transferTime)/1000);
+			line[i]=TimeTools.formatExactTime(client.transferTime*toSec);
 			break;
 		case MODE_PROCESSTIME_NUMBER:
-			line[i]=NumberTools.formatNumberMax(((double)client.processTime)/1000);
+			line[i]=NumberTools.formatNumberMax(client.processTime*toSec);
 			break;
 		case MODE_PROCESSTIME_TIME:
-			line[i]=TimeTools.formatExactTime(((double)client.processTime)/1000);
+			line[i]=TimeTools.formatExactTime(client.processTime*toSec);
 			break;
 		case MODE_RESIDENCETIME_NUMBER:
-			line[i]=NumberTools.formatNumberMax(((double)client.residenceTime)/1000);
+			line[i]=NumberTools.formatNumberMax(client.residenceTime*toSec);
 			break;
 		case MODE_RESIDENCETIME_TIME:
-			line[i]=TimeTools.formatExactTime(((double)client.residenceTime)/1000);
+			line[i]=TimeTools.formatExactTime(client.residenceTime*toSec);
 			break;
 		case MODE_STRING:
 			line[i]=client.getUserDataString((String)data[i]);

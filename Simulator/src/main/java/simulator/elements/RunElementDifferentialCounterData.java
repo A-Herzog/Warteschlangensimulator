@@ -57,6 +57,8 @@ public class RunElementDifferentialCounterData extends RunElementData implements
 		valueIndex=nr;
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Ändert den Zählerwert und erfasst dies in der Statistik
 	 * @param time	Zeitpunkt, zu dem die Änderung erfolgt ist
@@ -69,7 +71,7 @@ public class RunElementDifferentialCounterData extends RunElementData implements
 		int value=data.differentialCounterValue[valueIndex];
 
 		value=FastMath.max(0,value+change);
-		statistic.set(((double)time)/1000,value);
+		statistic.set(time*toSec,value);
 
 		data.differentialCounterValue[valueIndex]=value;
 

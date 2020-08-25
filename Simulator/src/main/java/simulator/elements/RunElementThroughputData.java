@@ -53,12 +53,14 @@ public class RunElementThroughputData extends RunElementData implements RunEleme
 		return statistic.getQuotient();
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Setzt den Anfangswert der Erfassung des Durchsatzes
 	 * @param timeMS	Startzeitpunkt in MS
 	 */
 	public void reset(final long timeMS) {
-		startTime=timeMS/1000.0;
+		startTime=timeMS*toSec;
 		statistic.set(0,0);
 	}
 
@@ -67,6 +69,6 @@ public class RunElementThroughputData extends RunElementData implements RunEleme
 	 * @param timeMS	Zeitpunkt in MS
 	 */
 	public void countClient(final long timeMS) {
-		statistic.set(statistic.getNumerator()+1,(timeMS/1000.0-startTime));
+		statistic.set(statistic.getNumerator()+1,(timeMS*toSec-startTime));
 	}
 }

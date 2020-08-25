@@ -141,6 +141,8 @@ public class RunElementOutputDB extends RunElementPassThrough {
 		return data;
 	}
 
+	private static final double toSec=1.0/1000.0;
+
 	private String getCellValue(final SimulationData simData, final RunDataClient client, final int index) {
 		switch (mode[index]) {
 		case MODE_TIMESTAMP:
@@ -158,21 +160,21 @@ public class RunElementOutputDB extends RunElementPassThrough {
 		case MODE_CLIENT:
 			return simData.runModel.clientTypes[client.type];
 		case MODE_WAITINGTIME_NUMBER:
-			return NumberTools.formatSystemNumber(((double)client.waitingTime)/1000);
+			return NumberTools.formatSystemNumber(client.waitingTime*toSec);
 		case MODE_WAITINGTIME_TIME:
-			return TimeTools.formatExactTime(((double)client.waitingTime)/1000);
+			return TimeTools.formatExactTime(client.waitingTime*toSec);
 		case MODE_TRANSFERTIME_NUMBER:
-			return NumberTools.formatSystemNumber(((double)client.transferTime)/1000);
+			return NumberTools.formatSystemNumber(client.transferTime*toSec);
 		case MODE_TRANSFERTIME_TIME:
-			return TimeTools.formatExactTime(((double)client.transferTime)/1000);
+			return TimeTools.formatExactTime(client.transferTime*toSec);
 		case MODE_PROCESSTIME_NUMBER:
-			return NumberTools.formatSystemNumber(((double)client.processTime)/1000);
+			return NumberTools.formatSystemNumber(client.processTime*toSec);
 		case MODE_PROCESSTIME_TIME:
-			return TimeTools.formatExactTime(((double)client.processTime)/1000);
+			return TimeTools.formatExactTime(client.processTime*toSec);
 		case MODE_RESIDENCETIME_NUMBER:
-			return NumberTools.formatNumberMax(((double)client.residenceTime)/1000);
+			return NumberTools.formatNumberMax(client.residenceTime*toSec);
 		case MODE_RESIDENCETIME_TIME:
-			return TimeTools.formatExactTime(((double)client.residenceTime)/1000);
+			return TimeTools.formatExactTime(client.residenceTime*toSec);
 		case MODE_STRING:
 			return client.getUserDataString((String)data[index]);
 		default:

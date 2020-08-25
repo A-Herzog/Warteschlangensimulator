@@ -30,12 +30,14 @@ public class CalcSymbolClientCostTransfer_current extends CalcSymbolSimData {
 		return new String[]{"Costs_Transfer","Kosten_Transferzeit"};
 	}
 
+	private static final double scaleFactor=1.0/1000.0;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=0) throw error();
 		final RunDataClient client=getCurrentClient();
 		if (client==null) throw error();
 
-		return (client.transferTime/1000.0)*getSimData().runModel.clientCosts[client.type][1]+client.transferAdditionalCosts;
+		return (client.transferTime*scaleFactor)*getSimData().runModel.clientCosts[client.type][1]+client.transferAdditionalCosts;
 	}
 }

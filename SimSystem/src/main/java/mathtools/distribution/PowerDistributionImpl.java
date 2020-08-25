@@ -43,6 +43,8 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 	 */
 	public final double c;
 
+	private final double inverseC;
+
 	private final double denominator;
 
 	/**
@@ -58,6 +60,7 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 		if (c<=0) this.c=0.0001; else this.c=c;
 
 		denominator=Math.pow(b-a,c);
+		inverseC=1/c;
 	}
 
 	/**
@@ -82,15 +85,15 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 	}
 
 	@Override
-	public final double inverseCumulativeProbability(final double p) {
+	public double inverseCumulativeProbability(final double p) {
 		if (p<0) return -Double.MAX_VALUE;
 		if (p>1) return Double.MAX_VALUE;
 
-		return Math.pow(p*denominator,1/c)+a;
+		return Math.pow(p*denominator,inverseC)+a;
 	}
 
 	@Override
-	public final PowerDistributionImpl clone() {
+	public PowerDistributionImpl clone() {
 		return new PowerDistributionImpl(a,b,c);
 	}
 
@@ -130,7 +133,7 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 	}
 
 	@Override
-	public final double random(final RandomGenerator generator) {
+	public double random(final RandomGenerator generator) {
 		return inverseCumulativeProbability(generator.nextDouble());
 	}
 }

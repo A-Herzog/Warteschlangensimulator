@@ -35,6 +35,8 @@ public class ClientsImpl implements ClientsInterface {
 	private List<RunDataClient> clients;
 	private boolean[] releaseClients;
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param simData	Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen
@@ -111,48 +113,48 @@ public class ClientsImpl implements ClientsInterface {
 	@Override
 	public double clientWaitingSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
-		return clients.get(index).waitingTime/1000.0;
+		return clients.get(index).waitingTime*toSec;
 	}
 
 	@Override
 	public String clientWaitingTime(final int index) {
 		if (index<0 || index>=count) return "";
-		return TimeTools.formatExactTime(((double)clients.get(index).waitingTime)/1000);
+		return TimeTools.formatExactTime(clients.get(index).waitingTime*toSec);
 	}
 
 	@Override
 	public double clientTransferSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
-		return clients.get(index).transferTime/1000.0;
+		return clients.get(index).transferTime*toSec;
 	}
 
 	@Override
 	public String clientTransferTime(final int index) {
 		if (index<0 || index>=count) return "";
-		return TimeTools.formatExactTime(((double)clients.get(index).transferTime)/1000);
+		return TimeTools.formatExactTime(clients.get(index).transferTime*toSec);
 	}
 
 	@Override
 	public double clientProcessSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
-		return clients.get(index).processTime/1000.0;
+		return clients.get(index).processTime*toSec;
 	}
 
 	@Override
 	public String clientProcessTime(final int index) {
 		if (index<0 || index>=count) return "";
-		return TimeTools.formatExactTime(((double)clients.get(index).processTime)/1000);
+		return TimeTools.formatExactTime(clients.get(index).processTime*toSec);
 	}
 
 	@Override
 	public double clientResidenceSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
-		return clients.get(index).residenceTime/1000.0;
+		return clients.get(index).residenceTime*toSec;
 	}
 
 	@Override
 	public String clientResidenceTime(final int index) {
 		if (index<0 || index>=count) return "";
-		return TimeTools.formatExactTime(((double)clients.get(index).residenceTime)/1000);
+		return TimeTools.formatExactTime(clients.get(index).residenceTime*toSec);
 	}
 }

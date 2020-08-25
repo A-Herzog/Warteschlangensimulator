@@ -607,7 +607,7 @@ public class RunData {
 		if (isWarmUp) return;
 
 		StatisticsTimePerformanceIndicator indicator;
-		final double time=((double)simData.currentTime)/1000;
+		final double time=simData.currentTime*scale;
 
 		/* Zählung pro Station */
 		indicator=stationData.statisticClientsAtStationQueue;
@@ -646,7 +646,7 @@ public class RunData {
 		if (isWarmUp) return;
 
 		StatisticsTimePerformanceIndicator indicator;
-		final double time=((double)simData.currentTime)/1000;
+		final double time=simData.currentTime*scale;
 
 		/* Zählung pro Station */
 		indicator=stationData.statisticClientsAtStationQueue;

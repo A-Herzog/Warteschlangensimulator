@@ -23,13 +23,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorArcCot extends CalcSymbolPreOperator {
+	private static final double halfPI=Math.PI/2;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();
 		if (parameters[0]>=0) {
-			return Math.PI/2-Math.atan(parameters[0]);
+			return halfPI-Math.atan(parameters[0]);
 		} else {
-			return -Math.PI/2+Math.atan(parameters[0]);
+			return -halfPI+Math.atan(parameters[0]);
 		}
 	}
 
@@ -37,9 +39,9 @@ public final class CalcSymbolPreOperatorArcCot extends CalcSymbolPreOperator {
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length!=1) return fallbackValue;
 		if (parameters[0]>=0) {
-			return Math.PI/2-Math.atan(parameters[0]);
+			return halfPI-Math.atan(parameters[0]);
 		} else {
-			return -Math.PI/2+Math.atan(parameters[0]);
+			return -halfPI+Math.atan(parameters[0]);
 		}
 	}
 

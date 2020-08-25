@@ -51,6 +51,8 @@ public final class JohnsonDistributionImpl extends AbstractRealDistribution impl
 	 */
 	public double lambda;
 
+	private final double inverseDelta;
+
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**
@@ -66,6 +68,7 @@ public final class JohnsonDistributionImpl extends AbstractRealDistribution impl
 		this.xi=Math.max(xi,0.0001);
 		this.delta=Math.max(delta,0.0001);
 		this.lambda=Math.max(lambda,0.0001);
+		inverseDelta=1/delta;
 	}
 
 	@Override
@@ -73,7 +76,7 @@ public final class JohnsonDistributionImpl extends AbstractRealDistribution impl
 		final double frac=(x-xi)/lambda;
 		final double exponentPart=gamma+delta*FastMath.asinh(frac);
 
-		return delta/(lambda*FastMath.sqrt(2*FastMath.PI))*1/FastMath.sqrt(1+frac*frac)*FastMath.exp(-0.5*exponentPart*exponentPart);
+		return delta/(lambda*Math.sqrt(2*FastMath.PI))*1/Math.sqrt(1+frac*frac)*FastMath.exp(-0.5*exponentPart*exponentPart);
 	}
 
 	@Override
@@ -84,7 +87,7 @@ public final class JohnsonDistributionImpl extends AbstractRealDistribution impl
 	@Override
 	public double inverseCumulativeProbability(final double p) {
 		final double val=stdNormal.inverseCumulativeProbability(p);
-		return FastMath.sinh((val-gamma)/delta)*lambda+xi;
+		return FastMath.sinh((val-gamma)*inverseDelta)*lambda+xi;
 	}
 
 	@Override
@@ -94,13 +97,13 @@ public final class JohnsonDistributionImpl extends AbstractRealDistribution impl
 
 	@Override
 	public double getNumericalMean() {
-		return xi-lambda*FastMath.exp(1/(2*delta*delta))*FastMath.sinh(gamma/delta);
+		return xi-lambda*FastMath.exp(1/(2*delta*delta))*FastMath.sinh(gamma*inverseDelta);
 	}
 
 	@Override
 	public double getNumericalVariance() {
 		final double ex=FastMath.exp(1/delta/delta);
-		return lambda*lambda/2*(ex-1)*(ex*FastMath.cosh(2*gamma/delta)+1);
+		return lambda*lambda/2*(ex-1)*(ex*FastMath.cosh(2*gamma*inverseDelta)+1);
 	}
 
 	@Override
@@ -131,6 +134,6 @@ public final class JohnsonDistributionImpl extends AbstractRealDistribution impl
 	@Override
 	public double random(final RandomGenerator generator) {
 		final double u=generator.nextDouble();
-		return lambda*FastMath.sinh((stdNormal.inverseCumulativeProbability(u)-gamma)/delta)+xi;
+		return lambda*FastMath.sinh((stdNormal.inverseCumulativeProbability(u)-gamma)*inverseDelta)+xi;
 	}
 }

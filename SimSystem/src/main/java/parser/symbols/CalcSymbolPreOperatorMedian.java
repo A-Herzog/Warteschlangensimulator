@@ -32,7 +32,7 @@ public final class CalcSymbolPreOperatorMedian extends CalcSymbolPreOperator {
 		if (values.length%2==1) {
 			return values[m];
 		} else {
-			return (values[m-1]+values[m])/2;
+			return (values[m-1]+values[m])*0.5;
 		}
 	}
 

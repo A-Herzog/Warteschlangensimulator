@@ -32,6 +32,8 @@ public final class JSCommandClients extends JSBaseCommand {
 	private List<RunDataClient> clients;
 	private boolean[] releaseClients;
 
+	private static final double toSec=1.0/1000.0;
+
 	/**
 	 * Konstruktor der Klasse <code>JSCommandClients</code>
 	 * @param output	Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen
@@ -147,7 +149,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	 */
 	public double clientWaitingSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
-		return clients.get(index).waitingTime/1000.0;
+		return clients.get(index).waitingTime*toSec;
 	}
 
 	/**
@@ -159,7 +161,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	 */
 	public String clientWaitingTime(final int index) {
 		if (index<0 || index>=count) return "";
-		return TimeTools.formatExactTime(((double)clients.get(index).waitingTime)/1000);
+		return TimeTools.formatExactTime(clients.get(index).waitingTime*toSec);
 	}
 
 	/**
@@ -171,7 +173,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	 */
 	public double clientTransferSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
-		return clients.get(index).transferTime/1000.0;
+		return clients.get(index).transferTime*toSec;
 	}
 
 	/**
@@ -183,7 +185,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	 */
 	public String clientTransferTime(final int index) {
 		if (index<0 || index>=count) return "";
-		return TimeTools.formatExactTime(((double)clients.get(index).transferTime)/1000);
+		return TimeTools.formatExactTime(clients.get(index).transferTime*toSec);
 	}
 
 	/**
@@ -195,7 +197,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	 */
 	public double clientProcessSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
-		return clients.get(index).processTime/1000.0;
+		return clients.get(index).processTime*toSec;
 	}
 
 	/**
@@ -207,7 +209,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	 */
 	public String clientProcessTime(final int index) {
 		if (index<0 || index>=count) return "";
-		return TimeTools.formatExactTime(((double)clients.get(index).processTime)/1000);
+		return TimeTools.formatExactTime(clients.get(index).processTime*toSec);
 	}
 
 	/**
@@ -219,7 +221,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	 */
 	public double clientResidenceSeconds(final int index) {
 		if (index<0 || index>=count) return 0.0;
-		return clients.get(index).residenceTime/1000.0;
+		return clients.get(index).residenceTime*toSec;
 	}
 
 	/**
@@ -231,6 +233,6 @@ public final class JSCommandClients extends JSBaseCommand {
 	 */
 	public String clientResidenceTime(final int index) {
 		if (index<0 || index>=count) return "";
-		return TimeTools.formatExactTime(((double)clients.get(index).residenceTime)/1000);
+		return TimeTools.formatExactTime(clients.get(index).residenceTime*toSec);
 	}
 }

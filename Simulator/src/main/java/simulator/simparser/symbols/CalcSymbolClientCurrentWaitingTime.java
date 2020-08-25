@@ -29,6 +29,8 @@ public class CalcSymbolClientCurrentWaitingTime extends CalcSymbolSimData {
 		return new String[]{"CurrentWaitingTime","AktuelleWartezeit"};
 	}
 
+	private static final double scaleFactor=1.0/1000.0;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=0) throw error();
@@ -37,7 +39,7 @@ public class CalcSymbolClientCurrentWaitingTime extends CalcSymbolSimData {
 		if (client==null) throw error();
 
 		final long waitingTime=(getSimData().currentTime-client.lastWaitingStart);
-		return waitingTime/1000.0;
+		return waitingTime*scaleFactor;
 	}
 
 	@Override
@@ -49,6 +51,6 @@ public class CalcSymbolClientCurrentWaitingTime extends CalcSymbolSimData {
 
 		final long waitingTime=(getSimData().currentTime-client.lastWaitingStart);
 
-		return waitingTime/1000.0;
+		return waitingTime*scaleFactor;
 	}
 }

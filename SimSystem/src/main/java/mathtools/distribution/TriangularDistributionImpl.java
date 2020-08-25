@@ -48,6 +48,10 @@ public final class TriangularDistributionImpl extends AbstractRealDistribution i
 	 */
 	public final double upperBound;
 
+	private final double caDIVba;
+	private final double baMULca;
+	private final double baMULbc;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param lowerBound	Untere Grenze des Trägers
@@ -60,6 +64,14 @@ public final class TriangularDistributionImpl extends AbstractRealDistribution i
 		this.upperBound=Math.max(lowerBound+0.0001,upperBound);
 		mostLikelyX=Math.max(this.lowerBound,Math.min(this.upperBound,mostLikely));
 		mostLikelyY=2.0/(this.upperBound-this.lowerBound);
+
+		final double a=lowerBound;
+		final double b=upperBound;
+		final double c=mostLikelyX;
+
+		caDIVba=(c-a)/(b-a);
+		baMULca=(b-a)*(c-a);
+		baMULbc=(b-a)*(b-c);
 	}
 
 	@Override
@@ -107,11 +119,10 @@ public final class TriangularDistributionImpl extends AbstractRealDistribution i
 		/* https://de.wikipedia.org/wiki/Dreiecksverteilung */
 		final double a=lowerBound;
 		final double b=upperBound;
-		final double c=mostLikelyX;
-		if (p<=(c-a)/(b-a)) {
-			return a+Math.sqrt(p*(b-a)*(c-a));
+		if (p<=caDIVba) { /* caDIVba = (c-a)/(b-a) */
+			return a+Math.sqrt(p*baMULca); /* baMULca = (b-a)*(c-a) */
 		} else {
-			return b-Math.sqrt((b-a)*(b-c)*(1-p));
+			return b-Math.sqrt(baMULbc*(1-p)); /* baMULbc = (b-a)*(b-c) */
 		}
 	}
 

@@ -41,6 +41,8 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 	 */
 	public final double mu;
 
+	private final double inverse2Lambda;
+
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**
@@ -54,6 +56,7 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 		super(null);
 		this.lambda=(lambda<=0)?1:lambda;
 		this.mu=(mu<=0)?1:mu;
+		inverse2Lambda=1.0/(2.0*lambda);
 	}
 
 	@Override
@@ -119,7 +122,7 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 		/* https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution */
 		final double v=generator.nextGaussian();
 		final double y=v*v;
-		final double x=mu + (mu*mu*y)/(2*lambda) - (mu/(2*lambda)) * Math.sqrt(4*mu*lambda*y + mu*mu*y*y);
+		final double x=mu + (mu*mu*y)*inverse2Lambda - (mu*inverse2Lambda) * Math.sqrt(4*mu*lambda*y + mu*mu*y*y);
 		final double test=generator.nextDouble();
 		if (test<=mu/(mu+x)) return x; else return (mu*mu)/x;
 	}
