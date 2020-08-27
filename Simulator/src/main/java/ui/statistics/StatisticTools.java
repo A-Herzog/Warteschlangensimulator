@@ -86,7 +86,6 @@ public class StatisticTools {
 	 * (Als Dezimaltrenner wird ein Komma verwendet.)
 	 * @param time Umzuwandelnde Uhrzeit
 	 * @return Uhrzeit als Zeichenkette
-	 * @see #formatExactSystemTime(double)
 	 */
 	public static String formatExactTime(final double time) {
 		return TimeTools.formatExactTime(time,setup.statisticsNumberDigits);
@@ -99,7 +98,6 @@ public class StatisticTools {
 	 * @param time Umzuwandelnde Uhrzeit
 	 * @param digits	Anzahl an Nachkommastellen des Sekundenwerts
 	 * @return Uhrzeit als Zeichenkette
-	 * @see #formatExactSystemTime(double)
 	 */
 	public static String formatExactTime(final double time, final int digits) {
 		return TimeTools.formatExactTime(time,Math.max(digits,setup.statisticsNumberDigits));
