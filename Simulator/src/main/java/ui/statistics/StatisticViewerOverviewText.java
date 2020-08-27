@@ -1298,11 +1298,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addLine(Language.tr("Statistics.SystemData.SimulatedArrivals")+": "+NumberTools.formatLong(sum));
 		String s;
 		if (sum>0) {
-			s=StatisticTools.formatNumber(((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/sum,2);
+			double d=((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/sum;
+			s=NumberTools.formatNumber(d,2);
 			if (s.equals("0")) {
 				s=StatisticTools.formatNumber(((double)statistics.simulationData.runTime*1000)*statistics.simulationData.runThreads/sum,2);
 				addLine(Language.tr("Statistics.SystemData.TimePerClient")+" (*) : "+s+" µs");
 			} else {
+				s=StatisticTools.formatNumber(d,2);
 				addLine(Language.tr("Statistics.SystemData.TimePerClient")+" (*): "+s+" ms");
 			}
 		}
