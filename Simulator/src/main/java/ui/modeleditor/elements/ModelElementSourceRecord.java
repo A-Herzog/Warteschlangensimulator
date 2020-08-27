@@ -1014,13 +1014,15 @@ public final class ModelElementSourceRecord implements Cloneable {
 			for (int i=0;i<batchSizeRates.length;i++) if (batchSizeRates[i]>0) sizes.add(""+(i+1));
 		}
 		if (sizes.size()>0) {
-			sb.append((sizes.size()==1)?Language.tr("ModelDescription.Arrival.BatchSize.Fixed"):Language.tr("ModelDescription.Arrival.BatchSize.Multi"));
-			sb.append(": ");
-			for (int i=0;i<sizes.size();i++) {
-				if (i>0) sb.append(", ");
-				sb.append(sizes.get(i));
+			if (sizes.size()>1 || !sizes.get(0).equals("1")) {
+				sb.append((sizes.size()==1)?Language.tr("ModelDescription.Arrival.BatchSize.Fixed"):Language.tr("ModelDescription.Arrival.BatchSize.Multi"));
+				sb.append(": ");
+				for (int i=0;i<sizes.size();i++) {
+					if (i>0) sb.append(", ");
+					sb.append(sizes.get(i));
+				}
+				sb.append("\n");
 			}
-			sb.append("\n");
 		}
 
 		if (hasOwnArrivals) {

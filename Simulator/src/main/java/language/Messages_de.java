@@ -1654,6 +1654,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[3703] = "Weist den Kunden, die es passieren, einen oder mehrere bestimmte Text unter einem bestimmten Schl\u00fcsseln zu.";
     t[3708] = "Surface.Source.Dialog.ArrivalCount.Unlimited";
     t[3709] = "Unbegrenzte Anzahl";
+    t[3710] = "ModelDescription.Process.Resources.Available.InfiniteNumber";
+    t[3711] = "unendlich viele verf\u00fcgbare Bediener";
     t[3720] = "Window.Layers.Add.Title";
     t[3721] = "Hinzuf\u00fcgen";
     t[3728] = "Surface.AnimationText.Dialog.CurrentSimulationDate";
@@ -2002,10 +2004,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[4511] = "Ausgabedatei ausw\u00e4hlen";
     t[4512] = "Surface.PopupMenu.QuickFix";
     t[4513] = "Schnellkorrektur";
-    t[4518] = "SettingsDialog.Tabs.Simulation.Server.Port";
-    t[4519] = "Serverport";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4518] = "SettingsDialog.Tabs.Simulation.Server.Port";
+    t[4519] = "Serverport";
     t[4526] = "Surface.AssignString.Table.Delete";
     t[4527] = "Zuweisung l\u00f6schen";
     t[4528] = "Optimizer.XMLError.ValueHasToBePositiveIntegerNumber";
@@ -4004,10 +4006,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9211] = "Excel-DDE-Verbindung";
     t[9216] = "Window.Check.AutoFixConnection.InfoProcessDispose";
     t[9217] = "Zwischen der Bedienstation id=%d und dem Ausgang fehlt eine Verbindungskante.\nDiese kann automatisch hinzugef\u00fcgt werden.";
-    t[9218] = "Simulation.Log.TransportSource.Release";
-    t[9219] = "Ressourcenfreigabe";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9218] = "Simulation.Log.TransportSource.Release";
+    t[9219] = "Ressourcenfreigabe";
     t[9220] = "Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation.Info";
     t[9221] = "Der Kunde wird \u00fcber den Pfad weitergeleitet,\nbei dem bei der n\u00e4chsten Bedienstation die \nk\u00fcrzeste Warteschlangenl\u00e4nge vorliegt.";
     t[9222] = "Surface.TransportTransporterSource.Dialog.WaitingCapacity.ErrorTitle";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13697] = "Ausdruck bearbeiten";
     t[13698] = "Color.FFE4C4";
     t[13699] = "Bisque";
-    t[13700] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Off";
-    t[13701] = "Aus";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13700] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Off";
+    t[13701] = "Aus";
     t[13702] = "Surface.Database.Config.ButtonHintAccess";
     t[13703] = "Access-Datenbankdatei ausw\u00e4hlen";
     t[13708] = "AnalyticModelCompare.Dialog.Save.Failed.Info";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18221] = "Zuweisungen";
     t[18224] = "Surface.AnimationPieChart.Dialog.LabelMode";
     t[18225] = "Beschriftung der Segmente";
-    t[18226] = "Surface.TankValveSetup.XML.Setup.ValveNr";
-    t[18227] = "Ventil";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18226] = "Surface.TankValveSetup.XML.Setup.ValveNr";
+    t[18227] = "Ventil";
     t[18232] = "Statistics.DistributionOfClientsProcessTimes";
     t[18233] = "Verteilung der Bedienzeiten der Kunden";
     t[18234] = "Main.Menu.Help.Tutorial.pdf";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22797] = "Ung\u00fcltige Priorit\u00e4t zum Anfordern freier Transporter";
     t[22798] = "ParameterCompare.Templates.InputParameter";
     t[22799] = "Eingabeparameter";
-    t[22800] = "Surface.Source.XML.Condition";
-    t[22801] = "ModellElementAnkunftsbedingung";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22800] = "Surface.Source.XML.Condition";
+    t[22801] = "ModellElementAnkunftsbedingung";
     t[22802] = "Surface.Process.XML.Distribution.Type.PostProcessingTime";
     t[22803] = "Nachbearbeitungszeiten";
     t[22810] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.MaximalTime";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27275] = "Die angegebene R\u00fcstzeit \"%s\" ist ab Zeichen %d ung\u00fcltig.";
     t[27278] = "Statistics.Autokorrelation.Details";
     t[27279] = "Autokorrelation - Details";
-    t[27280] = "Animation.Icon.LightbulbOn";
-    t[27281] = "Gl\u00fchbirne an";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27280] = "Animation.Icon.LightbulbOn";
+    t[27281] = "Gl\u00fchbirne an";
     t[27284] = "ScriptPopup.Output.SetFile";
     t[27285] = "Ausgabedatei einstellen";
     t[27286] = "SettingsDialog.ImageResolution.Invalid.Title";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31953] = "Skript";
     t[31956] = "Resources.Group.EditName.Dialog.Tab.SetupTimes";
     t[31957] = "R\u00fcstzeiten";
-    t[31962] = "Surface.Hold.Dialog.Condition";
-    t[31963] = "Bedingung";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31962] = "Surface.Hold.Dialog.Condition";
+    t[31963] = "Bedingung";
     t[31966] = "Surface.TankValveSetup.Table.Delete.ConfirmInfo";
     t[31967] = "Soll die Konfiguration f\u00fcr Tank id=%d, Ventil %d wirklich gel\u00f6scht werden?";
     t[31968] = "Transporters.Group.DefaultName";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36559] = "Alle abw\u00e4hlen";
     t[36560] = "Statistics.MinimumUser";
     t[36561] = "Minimum";
-    t[36564] = "Surface.Set.Table.Special.WaitingTime";
-    t[36565] = "Bisherige Wartezeit des Kunden";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36564] = "Surface.Set.Table.Special.WaitingTime";
+    t[36565] = "Bisherige Wartezeit des Kunden";
     t[36568] = "Surface.Delay.Dialog.CostsPerClient.Error.Info";
     t[36569] = "Die angegebenen Kosten pro Kunde \"%s\" sind ab Zeichen %d ung\u00fcltig.";
     t[36574] = "Surface.Seize.Dialog.ResourcePriority.Error.Title";
@@ -16476,6 +16478,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37503] = "Bisherige Transferzeit";
     t[37504] = "Optimizer.Tab.ControlVariables.MoveUp.Hint";
     t[37505] = "Verschiebt die aktuelle Kontrollvariable um eine Position nach oben in der Liste";
+    t[37506] = "ModelDescription.Process.Resources.Available.Number";
+    t[37507] = "%s Bediener verf\u00fcgbar";
     t[37510] = "Surface.ExpressionTableModel.MoveDown";
     t[37511] = "Reihen nach unten schieben";
     t[37514] = "Surface.Hold.Tooltip";
@@ -16536,6 +16540,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37629] = "Javascript";
     t[37638] = "Editor.Check.Error";
     t[37639] = "Modell ist fehlerhaft.";
+    t[37640] = "ModelDescription.Process.Resources.Available.BySchedule";
+    t[37641] = "verf\u00fcgbare Anzahl gem\u00e4\u00df Zeitplan \"%s\"";
     t[37642] = "Editor.Dialog.Tab.Simulation.Criteria.Title";
     t[37643] = "Kriterium f\u00fcr Simulationsende";
     t[37646] = "ParameterCompare.Settings.Input.Mode.XML";

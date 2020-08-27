@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 12:08+0200\n"
+"POT-Creation-Date: 2020-08-27 21:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8097,6 +8097,15 @@ msgstr "Benötigte Ressourcen"
 
 msgid "ModelDescription.Process.Resources.Alternative"
 msgstr "Alternative %d"
+
+msgid "ModelDescription.Process.Resources.Available.BySchedule"
+msgstr "verfügbare Anzahl gemäß Zeitplan \"%s\""
+
+msgid "ModelDescription.Process.Resources.Available.InfiniteNumber"
+msgstr "unendlich viele verfügbare Bediener"
+
+msgid "ModelDescription.Process.Resources.Available.Number"
+msgstr "%s Bediener verfügbar"
 
 msgid "ModelDescription.Process.Resources.Resource"
 msgstr "Ressource \"%s\": %d benötigt"

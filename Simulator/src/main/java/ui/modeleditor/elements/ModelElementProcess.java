@@ -47,6 +47,7 @@ import ui.ModelChanger;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
+import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -1280,6 +1281,15 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		return "ModelElementProcess";
 	}
 
+	private String getResourceAvailable(final String name) {
+		final ModelResource resource=getModel().resources.getNoAutoAdd(name);
+		if (resource==null) return "";
+		if (resource.getMode()!=ModelResource.Mode.MODE_NUMBER) return " ("+String.format(Language.tr("ModelDescription.Process.Resources.Available.BySchedule"),resource.getSchedule())+")";
+		final int count=resource.getCount();
+		if (count<0) return " ("+Language.tr("ModelDescription.Process.Resources.Available.InfiniteNumber")+")";
+		return " ("+String.format(Language.tr("ModelDescription.Process.Resources.Available.Number"),count)+")";
+	}
+
 	/**
 	 * Erstellt eine Beschreibung für das aktuelle Element
 	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
@@ -1359,7 +1369,9 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			for (Map.Entry<String,Integer> entry: map.entrySet()) {
 				if (entry.getValue().intValue()>0) {
 					if (sb.length()>0) sb.append("\n");
-					sb.append(String.format(Language.tr("ModelDescription.Process.Resources.Resource"),entry.getKey(),entry.getValue().intValue()));
+					final String name=entry.getKey();
+					sb.append(String.format(Language.tr("ModelDescription.Process.Resources.Resource"),name,entry.getValue().intValue()));
+					sb.append(getResourceAvailable(name));
 				}
 			}
 		}
