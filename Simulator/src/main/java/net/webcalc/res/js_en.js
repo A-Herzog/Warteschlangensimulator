@@ -62,32 +62,33 @@ function getStatus(json) {
 
 var lastResponse="";
 
-function requestStatus() {
+function requestStatusReadyStateChange() {
+  if (this.readyState!=4) return;
+  if (this.status==200) {
+    if (lastResponse!=this.responseText) {
+      lastResponse=this.responseText;
+      var status=getStatus(JSON.parse(this.responseText));
+      document.getElementById("status_waiting").innerHTML=status[0];
+      document.getElementById("status_running").innerHTML=status[1];
+      document.getElementById("status_done").innerHTML=status[2];
+      document.getElementById("status_system").innerHTML=status[3];
+      document.getElementById("UploadForm").style.display="inline";
+    }		
+  } else {
+    lastResponse="";
+    document.getElementById("status_waiting").innerHTML="<span style=\"color: red\">"+noConnection+"<\/span>";
+    document.getElementById("status_running").innerHTML="<span style=\"color: red\">"+noConnection+"<\/span>";
+    document.getElementById("status_done").innerHTML="<span style=\"color: red\">"+noConnection+"<\/span>";
+    document.getElementById("status_system").innerHTML="";
+    document.getElementById("UploadForm").style.display="none";
+  }
+  setTimeout(function(){requestStatus();},500);
+}
+
+function requestStatus() {  
   var xhttp=new XMLHttpRequest();
   xhttp.timeout=2000;
-  xhttp.onreadystatechange=function() {
-	if (this.readyState==4 && this.status==200) {
-		if (lastResponse!=this.responseText) {
-	      lastResponse=this.responseText;
-		  var status=getStatus(JSON.parse(this.responseText));
-		  document.getElementById("status_waiting").innerHTML=status[0];
-		  document.getElementById("status_running").innerHTML=status[1];
-		  document.getElementById("status_done").innerHTML=status[2];
-		  document.getElementById("status_system").innerHTML=status[3];
-		  document.getElementById("UploadForm").style.display="inline";
-		}
-		setTimeout(function(){requestStatus();},500);
-	}	
-  };
-  xhttp.ontimeout=function() {
-	lastResponse="";
-	document.getElementById("status_waiting").innerHTML="<span style=\"color: red\">"+noConnection+"<\/span>";
-	document.getElementById("status_running").innerHTML="<span style=\"color: red\">"+noConnection+"<\/span>";
-	document.getElementById("status_done").innerHTML="<span style=\"color: red\">"+noConnection+"<\/span>";
-	document.getElementById("status_system").innerHTML="";
-	document.getElementById("UploadForm").style.display="none";
-	setTimeout(function(){requestStatus();},500);
-  }
+  xhttp.onreadystatechange=requestStatusReadyStateChange;
   xhttp.open("GET","/status",true);
   xhttp.send();
 }
