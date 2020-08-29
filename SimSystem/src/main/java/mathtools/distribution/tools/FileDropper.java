@@ -16,6 +16,7 @@
 package mathtools.distribution.tools;
 
 import java.awt.Component;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -36,6 +37,7 @@ import java.util.List;
  * Ermöglicht es Datei-Drag&amp;Drop-Operationen über einen <code>ActionListener</code> zu verarbeiten.
  * @author Alexander Herzog
  * @see FileDropperData
+ * @version 1.1
  */
 public class FileDropper {
 	private final ActionListener actionListener;
@@ -60,10 +62,17 @@ public class FileDropper {
 	 */
 	public FileDropper(Component[] comp, ActionListener actionListener) {
 		this.actionListener=actionListener;
-		listener=new FileDropListener[comp.length];
-		target=new DropTarget[comp.length];
-		for (int i=0;i<comp.length;i++) target[i]=new DropTarget(comp[i],listener[i]=new FileDropListener(comp[i]));
-		components=comp;
+
+		if (GraphicsEnvironment.isHeadless()) {
+			listener=new FileDropListener[0];
+			target=new DropTarget[0];
+			components=new Component[0];
+		} else {
+			listener=new FileDropListener[comp.length];
+			target=new DropTarget[comp.length];
+			for (int i=0;i<comp.length;i++) target[i]=new DropTarget(comp[i],listener[i]=new FileDropListener(comp[i]));
+			components=comp;
+		}
 	}
 
 	/**

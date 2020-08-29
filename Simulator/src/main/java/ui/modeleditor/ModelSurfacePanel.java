@@ -25,6 +25,7 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -294,7 +295,7 @@ public final class ModelSurfacePanel extends JPanel {
 		setFocusable(true);
 		SwingUtilities.invokeLater(()->{requestFocus(); requestFocusInWindow();});
 
-		try {
+		if (!GraphicsEnvironment.isHeadless()) try {
 			final BufferedImage image=ImageIO.read(Images.MODELEDITOR_NOT_ALLOWED_EDGE.getURL());
 			cursorNotAllowed=Toolkit.getDefaultToolkit().createCustomCursor(image,new Point(image.getWidth()/2,image.getHeight()/2),"NotAllowed");
 		} catch (IOException e) {cursorNotAllowed=null;}
