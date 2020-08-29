@@ -96,9 +96,11 @@ public class CommandServerWebFixed extends AbstractCommand {
 
 		final CalcWebServer server=new CalcWebServer(model);
 		server.start(serverPort);
+		if (out!=null) out.println(String.format(Language.tr("CommandLine.ServerWebFixedModel.Started"),serverPort));
 		final CloseRequestSignal quitSignal=new CloseRequestSignal(true,in);
 		while (!isQuit && !quitSignal.isQuit()) try {Thread.sleep(50);} catch (InterruptedException e) {}
 		server.stop();
+		if (out!=null) out.println(Language.tr("CommandLine.ServerWebFixedModel.Stopped"));
 	}
 
 	@Override

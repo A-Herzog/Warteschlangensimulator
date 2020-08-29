@@ -105,9 +105,11 @@ public class CommandServer extends AbstractCommand {
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final SimulationServer server=new SimulationServer(s->out.println(s),serverPort,serverPassword,isThreadLimited());
 		server.start();
+		if (out!=null) out.println(String.format(Language.tr("CommandLine.Server.Started"),serverPort));
 		final CloseRequestSignal quitSignal=new CloseRequestSignal(true,in);
 		while (!isQuit && !quitSignal.isQuit()) try {Thread.sleep(50);} catch (InterruptedException e) {}
 		server.stop();
+		if (out!=null) out.println(Language.tr("CommandLine.Server.Stopped"));
 	}
 
 	@Override

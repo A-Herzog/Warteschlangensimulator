@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-27 21:12+0200\n"
+"POT-Creation-Date: 2020-08-29 22:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1635,6 +1635,12 @@ msgstr "Der angegebene Port ist ungültig."
 msgid "CommandLine.Server.Name"
 msgstr "Server"
 
+msgid "CommandLine.Server.Started"
+msgstr "Rechenserver auf Port %d gestartet."
+
+msgid "CommandLine.Server.Stopped"
+msgstr "Rechenserver beendet."
+
 msgid "CommandLine.ServerLimited.Description.Long"
 msgstr ""
 "Dieser Befehl erwartet 0 bis 2 weitere Parameter.\n"
@@ -1662,6 +1668,12 @@ msgstr "Simulator als webbasierten Rechenserver starten."
 msgid "CommandLine.ServerWeb.Name"
 msgstr "ServerWeb"
 
+msgid "CommandLine.ServerWeb.Started"
+msgstr "Webbasierter Rechenserver auf Port %d gestartet."
+
+msgid "CommandLine.ServerWeb.Stopped"
+msgstr "Webbasierter Rechenserver gestoppt."
+
 msgid "CommandLine.ServerWebFixedModel.Description.Long"
 msgstr ""
 "Dieser Befehl erwartet zwei weitere Parameter:\n"
@@ -1669,10 +1681,16 @@ msgstr ""
 "der Modelldatei."
 
 msgid "CommandLine.ServerWebFixedModel.Description.Short"
-msgstr "Simulator als webbasierten Rechenserver für ein festes Modellstarten."
+msgstr "Simulator als webbasierten Rechenserver für ein festes Modell starten."
 
 msgid "CommandLine.ServerWebFixedModel.Name"
 msgstr "ServerWebFixed"
+
+msgid "CommandLine.ServerWebFixedModel.Started"
+msgstr "Webbasierter Rechenserver für festes Modell auf Port %d gestartet."
+
+msgid "CommandLine.ServerWebFixedModel.Stopped"
+msgstr "Webbasierter Rechenserver für festes Modell gestoppt."
 
 msgid "CommandLine.SetDynamicThreadBalance.Description.Long"
 msgstr "Diese Funktion erwartet eine \"1\" oder eine \"0\" als Parameter."

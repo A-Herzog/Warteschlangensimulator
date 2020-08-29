@@ -68,9 +68,11 @@ public class CommandServerWeb extends AbstractCommand {
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final CalcWebServer server=new CalcWebServer();
 		server.start(serverPort);
+		if (out!=null) out.println(String.format(Language.tr("CommandLine.ServerWeb.Started"),serverPort));
 		final CloseRequestSignal quitSignal=new CloseRequestSignal(true,in);
 		while (!isQuit && !quitSignal.isQuit()) try {Thread.sleep(50);} catch (InterruptedException e) {}
 		server.stop();
+		if (out!=null) out.println(Language.tr("CommandLine.ServerWeb.Stopped"));
 	}
 
 	@Override

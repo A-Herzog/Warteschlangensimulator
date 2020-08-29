@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-27 21:12+0200\n"
+"POT-Creation-Date: 2020-08-29 22:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1635,6 +1635,12 @@ msgstr "The specified port number is invalid."
 msgid "CommandLine.Server.Name"
 msgstr "Server"
 
+msgid "CommandLine.Server.Started"
+msgstr "Started simulation server on port %d."
+
+msgid "CommandLine.Server.Stopped"
+msgstr "Simulation server stopped."
+
 msgid "CommandLine.ServerLimited.Description.Long"
 msgstr ""
 "This command expects 0 to 2 additional parameters.\n"
@@ -1662,6 +1668,12 @@ msgstr "Starts the program as web-based simulation server."
 msgid "CommandLine.ServerWeb.Name"
 msgstr "ServerWeb"
 
+msgid "CommandLine.ServerWeb.Started"
+msgstr "Started web-based simulation server on port %d."
+
+msgid "CommandLine.ServerWeb.Stopped"
+msgstr "Web-based simulation server stopped."
+
 msgid "CommandLine.ServerWebFixedModel.Description.Long"
 msgstr ""
 "This command expects two additional parameters:\n"
@@ -1673,6 +1685,12 @@ msgstr "Starts the program as web-based simulation server for a fixed model."
 
 msgid "CommandLine.ServerWebFixedModel.Name"
 msgstr "ServerWebFixed"
+
+msgid "CommandLine.ServerWebFixedModel.Started"
+msgstr "Started web-based simulation server for a fixed model on port %d."
+
+msgid "CommandLine.ServerWebFixedModel.Stopped"
+msgstr "Web-based simulation server for a fixed model stopped."
 
 msgid "CommandLine.SetDynamicThreadBalance.Description.Long"
 msgstr "The function expects a \"1\" or a \"0\" as parameter."
