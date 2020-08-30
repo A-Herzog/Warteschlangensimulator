@@ -75,7 +75,7 @@ Landeseinstellung ein Dezimalkomma oder ein Dezimalpunkt verwendet.
 
 
 
-runCalcServer:
+runSimServer:
 
 Example script how to use the simulator in simulation server mode.
 
@@ -91,3 +91,10 @@ docker-web-build:
 
 Builds a docker image for running Warteschlangensimulator
 in web server mode on port 81.
+
+
+
+docker-sim-build:
+
+Builds a docker image for running Warteschlangensimulator
+in server mode on port 81.
