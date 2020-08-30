@@ -26,6 +26,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 import language.Language;
+import language.LanguageStaticLoader;
+import language.Messages_Java11;
 import mathtools.NumberTools;
 import net.web.HandlerFavicon;
 import net.web.HandlerText;
@@ -33,6 +35,7 @@ import net.web.WebServer;
 import net.web.WebServerHandler;
 import net.web.WebServerResponse;
 import simulator.editmodel.EditModel;
+import tools.SetupData;
 
 /**
  * Webserver, der Rechenanfragen per Browser entgegen nimmt.
@@ -80,6 +83,7 @@ public class CalcWebServer extends WebServer {
 		handlers.add(new HandlerProcessID("/delete/",request->deleteTask(request)));
 		handlers.add(new HandlerProcessID("/download/",request->downloadResults(request)));
 		handlers.add(new HandlerProcessID("/view/",request->viewResults(request)));
+		handlers.add(new HandlerProcessID("/language/",request->setLanguage(request)));
 	}
 
 	/**
@@ -116,7 +120,8 @@ public class CalcWebServer extends WebServer {
 				status.append(future.getStatusJSON());
 				status.append(",\n");
 			}
-			status.append("{\"system\": \""+getSystemStatus()+"\"}\n");
+			status.append("{\"system\": \""+getSystemStatus()+"\"},\n");
+			status.append("{\"language\": \""+Language.getCurrentLanguage()+"\"}\n");
 
 			status.append("]\n");
 		} finally {
@@ -212,6 +217,25 @@ public class CalcWebServer extends WebServer {
 			}
 		}
 		return null;
+	}
+
+	private WebServerResponse setLanguage(final String request) {
+		if (request==null || request.trim().isEmpty()) return null;
+		final String lang=request.trim().toLowerCase();
+		if (!Language.isSupportedLanguage(lang)) return null;
+
+		SetupData setup=SetupData.getSetup();
+		if (!setup.language.equals(lang)) {
+			setup.language=lang;
+			setup.saveSetup();
+			Language.init(lang);
+			LanguageStaticLoader.setLanguage();
+			if (Messages_Java11.isFixNeeded()) Messages_Java11.setupMissingSwingMessages();
+		}
+
+		final WebServerResponse response=new WebServerResponse();
+		response.setText(lang,false);
+		return response;
 	}
 
 	private static CalcWebServer instance;

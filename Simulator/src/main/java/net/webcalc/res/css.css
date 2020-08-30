@@ -122,7 +122,7 @@ div.messages {
 	margin-top: 5px;
 }
 
-#status_system {
+#status_system, #status_language {
 	margin-top: 20px;
 	font-size: smaller;
 	font-color: gray;

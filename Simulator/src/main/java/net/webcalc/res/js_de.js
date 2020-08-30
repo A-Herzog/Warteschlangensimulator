@@ -44,10 +44,12 @@ function getStatus(json) {
   var running="";
   var done="";
   var system="";
+  var language="";
   
   for (var i=0;i<json.length;i++) {
 	  var task=json[i];
 	  if (typeof(task.system)!='undefined') {system=task.system; continue;}	  
+	  if (typeof(task.language)!='undefined') {language=task.language; continue;}
 	  if (task.status==0) {waiting+=getTaskStatus(task,false); continue;} 
 	  if (task.status==1) {running+=getTaskStatus(task,false); continue;}
 	  done+=getTaskStatus(task,true,task.viewable==1);
@@ -57,7 +59,34 @@ function getStatus(json) {
   if (running=="") running="<li>"+noTasks+"</li>";
   if (done=="") done="<li>"+noTasks+"</li>";
   
-  return ["<ul class=\"tab\">"+waiting+"</ul>","<ul class=\"tab\">"+running+"</ul>","<ul class=\"tab\">"+done+"</ul>",system];	
+  return ["<ul class=\"tab\">"+waiting+"</ul>","<ul class=\"tab\">"+running+"</ul>","<ul class=\"tab\">"+done+"</ul>",system,language];	
+}
+
+function setLanguage(language) {
+  var xhttp=new XMLHttpRequest();
+  xhttp.timeout=2000;
+  xhttp.onreadystatechange=function() {
+	if (this.readyState==4 && this.status==200) location.reload();		
+  };
+  xhttp.open("GET","/language/"+language,true);
+  xhttp.send();
+}
+
+function buildLanguageChooserSingle(language, name) {
+  if (language==name) {
+    return "<b>"+name+"</b>";
+  } else {
+    return "<a href='javascript:setLanguage(\""+name+"\");'>"+name+"</a>";
+  }
+}
+
+function buildLanguageChooser(language) {
+  var result="Sprache: ";
+  result+=buildLanguageChooserSingle(language,"de");
+  result+="&nbsp;";
+  result+=buildLanguageChooserSingle(language,"en");
+  
+  return result;
 }
 
 var lastResponse="";
@@ -72,6 +101,7 @@ function requestStatusReadyStateChange() {
       document.getElementById("status_running").innerHTML=status[1];
       document.getElementById("status_done").innerHTML=status[2];
       document.getElementById("status_system").innerHTML=status[3];
+      document.getElementById("status_language").innerHTML=buildLanguageChooser(status[4]);
       document.getElementById("UploadForm").style.display="inline";
     }		
   } else {
@@ -80,6 +110,7 @@ function requestStatusReadyStateChange() {
     document.getElementById("status_running").innerHTML="<span style=\"color: red\">"+noConnection+"<\/span>";
     document.getElementById("status_done").innerHTML="<span style=\"color: red\">"+noConnection+"<\/span>";
     document.getElementById("status_system").innerHTML="";
+    document.getElementById("status_language").innerHTML="";
     document.getElementById("UploadForm").style.display="none";
   }
   setTimeout(function(){requestStatus();},500);
