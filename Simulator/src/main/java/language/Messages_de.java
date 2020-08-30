@@ -4255,7 +4255,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11060] = "Surface.Balking.BalkingEdge";
     t[11061] = "Zur\u00fcckschreckende Kunden";
     t[11070] = "Wait.Info.StartNoRemoteAvailable";
-    t[11071] = "Die Simulation lokal l\u00e4uft. Der Server \"%s\" ist nicht verf\u00fcgbar.";
+    t[11071] = "Die Simulation l\u00e4uft lokal. Der Server \"%s\" ist nicht verf\u00fcgbar.";
     t[11078] = "Surface.AssignString.Table.Edit.Dialog.Title";
     t[11079] = "Zuweisung bearbeiten";
     t[11082] = "Simulation.Log.LogicUntil.ConditionTrue";

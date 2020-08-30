@@ -8,4 +8,13 @@
 # Diese Version kann dann von benchmark-native-upto.sh verwendet werden.
 # Das Erstellen einer nativen Binärdatei ist momentan nur unter Linux möglich.
 
-../../Graal/bin/native-image -jar ../Simulator.jar --initialize-at-build-time=org.mozilla.javascript,org.mariadb.jdbc
+if [ -f "../Simulator.jar" ]
+then
+	native-image -jar ../Simulator.jar --initialize-at-build-time=org.mozilla.javascript,org.mariadb.jdbc
+else
+	echo English:
+	echo This file has to be run from its own directory to find the simulator.
+	echo Deutsch:
+	echo Diese Datei muss von ihrem eigenen Verzeichnis aus gestartet werden,
+	echo um den Simulator finden zu können.
+fi
