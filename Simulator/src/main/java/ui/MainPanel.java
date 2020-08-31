@@ -394,6 +394,7 @@ public class MainPanel extends MainPanelBase {
 		final InputMap input=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		input.put(KeyStroke.getKeyStroke('E',InputEvent.CTRL_DOWN_MASK),"ctrlE");
 		input.put(KeyStroke.getKeyStroke('3',InputEvent.CTRL_DOWN_MASK),"ctrlE");
+		input.put(KeyStroke.getKeyStroke('P',InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"ctrlE");
 		addAction("ctrlE",e->{if (quickAccess!=null && quickAccess.isVisible()) {quickAccess.requestFocus(); quickAccess.selectAll();}});
 
 		/* Datei */
