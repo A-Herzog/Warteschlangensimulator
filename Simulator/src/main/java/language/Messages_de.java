@@ -518,6 +518,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[1381] = "Ung\u00fcltige Batch-Gr\u00f6\u00dfen-Rate";
     t[1386] = "Optimizer.KnownResult";
     t[1387] = "Identisches Modell wurde bereits einmal simuliert.";
+    t[1392] = "Main.Menu.Help.DistributionReference.pdf";
+    t[1393] = "Warteschlangensimulator-Distributions.pdf";
     t[1396] = "Surface.UserStatistic.Table.Add";
     t[1397] = "Ausdruck hinzuf\u00fcgen";
     t[1398] = "Surface.StateStatistics.Name.Short";
@@ -2002,10 +2004,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5271] = "Der angegebene Ausdruck \"%s\" ist ab Zeichen %d ung\u00fcltig.";
     t[5272] = "Surface.PopupMenu.MoveForwards";
     t[5273] = "Eine Stufe nach vorne";
-    t[5278] = "Surface.ScriptEditor.Load";
-    t[5279] = "Laden";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[5278] = "Surface.ScriptEditor.Load";
+    t[5279] = "Laden";
     t[5280] = "Statistics.AverageNumberOfClientsByClientTypes";
     t[5281] = "Mittlere Anzahl an Kunden (pro Kundentyp)";
     t[5282] = "Surface.OutputDB.Tooltip";
@@ -2428,6 +2430,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6343] = "K";
     t[6348] = "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime";
     t[6349] = "Parameterreihe: Mittlere Zwischenankunftszeiten variieren";
+    t[6350] = "Main.Menu.Help.DistributionReference";
+    t[6351] = "Verteilungs-XML-Referenz (pdf)";
     t[6356] = "Surface.MultiSourceTable.Info.NextThreshold";
     t[6357] = "Ankunft wenn Ausdruck";
     t[6362] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.DistributionFunctionInfo";
@@ -4002,12 +4006,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10415] = "Ecke auf Pfad einf\u00fcgen";
     t[10422] = "Statistics.WaitingTransferProcessTimesOfClients.Short";
     t[10423] = "Zeiten der Kunden";
+  }
+  static void clinit_part_2 (java.lang.String[] t) {
     t[10424] = "Surface.Source.Dialog.Schedule";
     t[10425] = "Ank\u00fcnfte gem\u00e4\u00df Zeitplan";
     t[10430] = "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientData.Info";
     t[10431] = "<p>Erm\u00f6glicht den Zugriff auf Daten, die mit dem jeweiligen Kundenobjekt mitgef\u00fchrt werden. Die Daten k\u00f6nnen in \"Variable\"-Elementen geschrieben werden und es kann in \"Variable\"-, \"Ausgabe\"- und \"Verzweigen\"-Elementen darauf zugegriffen werden.</p>\n\n<p>Der Index muss eine nichtnegative Ganzzahl sein.</p>";
-  }
-  static void clinit_part_2 (java.lang.String[] t) {
     t[10438] = "Dialog.Button.PasteDoNotScale.Tooltip";
     t[10439] = "Normalerweise werden die Daten beim Einf\u00fcgen skaliert. Es k\u00f6nnen aber auch Nullen angef\u00fcgt werden.";
     t[10442] = "Window.EdgeStyle.LineWidth.Selected";
@@ -6004,12 +6008,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[15833] = "Parameterreihen";
     t[15836] = "Surface.XML.SurfaceColor.Background2";
     t[15837] = "HintergrundFarbverlauf";
+  }
+  static void clinit_part_3 (java.lang.String[] t) {
     t[15840] = "Simulation.Creator.NoEdgeIn";
     t[15841] = "Element id=%d besitzt keine Eingangskante.";
     t[15844] = "Surface.TankSensor.Dialog.Threshold.ErrorTitle";
     t[15845] = "Ung\u00fcltiger Schwellenwert";
-  }
-  static void clinit_part_3 (java.lang.String[] t) {
     t[15870] = "Editor.Dialog.Tab.Simulation.FixedSeed.Error";
     t[15871] = "Der angegebene Startwert \"%s\" f\u00fcr den Zufallszahlengenerator ist ung\u00fcltig. Es muss eine Ganzzahl angegeben werden.";
     t[15872] = "Transporter.Failure.Edit";
@@ -8006,12 +8010,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20983] = "Pr\u00fcft die aktuelle Bedienerbelegung sp\u00e4ter bei der Auswahl einer verf\u00fcgbaren Bedienerbelegung.";
     t[20992] = "Surface.TankFlowPanel.Source.NotConnected";
     t[20993] = "<Fluss in System einleiten>";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[20996] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.Greater";
     t[20997] = "Gr\u00f6\u00dfer";
     t[20998] = "Simulation.Log.DecideByCondition.Info";
     t[20999] = "Kunde: %s, Station: %s, Verzweigung zu Ausgang %d von %d";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[21002] = "Statistics.XML.Element.ProcessAllClients";
     t[21003] = "StatistikBedienzeitenAlleKunden";
     t[21004] = "ProxySettings.UseAuthentification";
@@ -10008,12 +10012,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26217] = "Abg\u00e4nge aus den Stationen";
     t[26218] = "Statistics.XML.Element.InterArrivalClients";
     t[26219] = "StatistikZwischenankunftszeitenKunden";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[26220] = "SettingsDialog.Tabs.DefaultUserName";
     t[26221] = "Vorgabe-Autorenname f\u00fcr neue Modelle";
     t[26224] = "Editor.ColorChooser.UserDefined";
     t[26225] = "Benutzerdefinierte Farbe verwenden";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[26230] = "ParameterCompare.Table.SortModels.ErrorNoModels.Info";
     t[26231] = "Es sind keine Modelle definiert.\nEs m\u00fcssen zun\u00e4chst einen oder mehrere Modelle erstellt werden.";
     t[26236] = "Surface.HoldMulti.XML.Connection.TimedChecks";
@@ -12010,12 +12014,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31553] = "Blendet die Elemente, die sich auf dieser Ebene befinden, ein.";
     t[31556] = "Surface.AnalogValue.Dialog.Unit.DeltaDays";
     t[31557] = "Tage";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[31560] = "QuickAccess.Hint";
     t[31561] = "Erm\u00f6glicht die Suche nach Funktionen, Stationstypen, Beispielmodellen usw.";
     t[31562] = "ModelGenerator.ServiceUtilization";
     t[31563] = "Auslastung";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[31570] = "Surface.AnalogAssign.Name";
     t[31571] = "Analogen Wert \u00e4ndern";
     t[31572] = "Main.Menu.View.ZoomOut";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36761] = "Drucken";
     t[36762] = "Simulation.Log.DecideByKeyValue";
     t[36763] = "Verzweigen (Texteigenschaft)";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[36770] = "Distribution.Laplace";
     t[36771] = "Laplace-Verteilung";
     t[36778] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.VarInfo";
     t[36779] = "Liefert die Varianz der Verteilung.";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[36784] = "ParameterCompare.Settings.Input.List.Edit";
     t[36785] = "Bearbeiten";
     t[36798] = "ExpressionBuilder.SimulationCharacteristics.Counter.Part";
@@ -15794,6 +15798,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41573] = "Ankunftszeitenspalte";
     t[41574] = "Editor.ModelOverview.Navigator.Hint";
     t[41575] = "Zeigt den Modellnavigator an.";
+    t[41586] = "Main.Menu.Help.DistributionReference.Mnemonic";
+    t[41587] = "W";
     t[41596] = "ParameterCompare.Settings.List.AddByXML.Hint";
     t[41597] = "Zu verwendendes XML-Element direkt ausw\u00e4hlen";
     t[41602] = "CommandLine.ServerWebFixedModel.Description.Long";
@@ -16012,14 +16018,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42143] = "AnzahlErfolg";
     t[42146] = "Surface.XML.RootName.SequenceStep";
     t[42147] = "ModellFertigungsplanSchritt";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[42148] = "Simulation.Log.DecideBySequence";
     t[42149] = "Verzweigen nach Reihenfolge";
     t[42150] = "Surface.StateStatistics.XML.Group";
     t[42151] = "ModellElementZustandsstatistikGruppe";
     t[42152] = "AnalyticModelCompare.Dialog.Save.Failed.Info";
     t[42153] = "Das Speichern der analytischen Vergleichsdaten in der Datei\n%s\nist fehltgeschlagen.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[42156] = "Surface.XML.DistributionRecordHours";
     t[42157] = "ModellStatistikVerteilungStunden";
     t[42170] = "Statistics.XML.Sum2.Error";
