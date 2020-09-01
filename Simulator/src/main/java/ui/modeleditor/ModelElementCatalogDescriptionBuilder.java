@@ -25,6 +25,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,15 +37,18 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import language.Language;
 import tools.SetupData;
+import ui.MainFrame;
 import ui.help.Help;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.fastpaint.Shapes;
@@ -260,7 +264,7 @@ public class ModelElementCatalogDescriptionBuilder {
 		return destination;
 	}
 
-	private String outputImage(final File folder, final StringBuilder text, final String name, final ModelElementPosition element) {
+	private String outputImageFile(final File folder, final StringBuilder text, final String name, final ModelElementPosition element) {
 		final BufferedImage image=scaleImage(getImage(element,2.0),2.0);
 		String refName=element.getHelpPageName();
 		if (refName==null) refName=element.getClass().getSimpleName();
@@ -291,6 +295,20 @@ public class ModelElementCatalogDescriptionBuilder {
 		text.append("\\end{wrapfigure}\n");
 
 		return null;
+	}
+
+	private String outputImageInline(final StringBuilder text, final String name, final ModelElementPosition element) {
+		final BufferedImage image=scaleImage(getImage(element,2.0),2.0);
+
+		try (final ByteArrayOutputStream output=new ByteArrayOutputStream()) {
+			if (!ImageIO.write(image,"png",output)) return "";
+			final String base64bytes=Base64.getEncoder().encodeToString(output.toByteArray());
+			final String data="data:image/png;base64,"+base64bytes;
+			text.append("<img src=\""+data+"\" width=\"150\" style=\"float: left;\">\n");
+			return null;
+		} catch (IOException e) {
+			return "error image "+name;
+		}
 	}
 
 	private String tryProcessLink(final String line) {
@@ -336,6 +354,57 @@ public class ModelElementCatalogDescriptionBuilder {
 			}
 		}
 		result.append(" ("+seePageString+" \\pageref{ref:"+ref+"}) "+rest.trim());
+		return result.toString();
+	}
+
+	private String processSingleHTMLLink(final String link) {
+		int index=link.indexOf("<a href=\"");
+		if (index<0) return link;
+
+		String target=link.substring(index+9);
+		index=target.indexOf(".html\">");
+		if (index<0) return link;
+
+		String name=target.substring(index+7);
+		target=target.substring(0,index);
+
+		index=name.indexOf("</a>");
+		if (index<0) return link;
+
+		name=name.substring(0,index);
+
+		if (htmlHelpPageNames.contains(target)) {
+			return "<a href=\"#ref"+target+"\">"+name+"</a>";
+		} else {
+			return name;
+		}
+
+	}
+
+	private String tryProcessLinkHTML(String line) {
+		final StringBuilder result=new StringBuilder();
+		while (line!=null && !line.isEmpty()) {
+
+			int index=line.toLowerCase().indexOf("<a ");
+			if (index<0) {
+				result.append(line);
+				line=null;
+				continue;
+			}
+
+			result.append(line.substring(0,index));
+			line=line.substring(index);
+
+			index=line.toLowerCase().indexOf("</a>");
+			if (index<0) {
+				result.append(line);
+				line=null;
+				continue;
+			}
+
+			result.append(processSingleHTMLLink(line.substring(0,index+4)));
+			line=line.substring(index+4);
+		}
 		return result.toString();
 	}
 
@@ -417,7 +486,7 @@ public class ModelElementCatalogDescriptionBuilder {
 		return result;
 	}
 
-	private void processText(final String[] lines, final StringBuilder text) {
+	private void processTextLaTeX(final String[] lines, final StringBuilder text) {
 		boolean inBody=false;
 		boolean lastWasEmpty=true;
 
@@ -464,7 +533,40 @@ public class ModelElementCatalogDescriptionBuilder {
 		}
 	}
 
-	private String outputDescription(final File outputFolder, final StringBuilder text, final ModelElementPosition element) {
+	private void processTextHTML(final String[] lines, final StringBuilder text) {
+		boolean inBody=false;
+		boolean start=true;
+
+		for (String line: lines) {
+			if (inBody) {
+				if (line.trim().equalsIgnoreCase("</body>")) {
+					while (text.charAt(text.length()-1)=='\n' || text.charAt(text.length()-1)=='\r')
+						text.setLength(text.length()-1);
+					text.append('\n');
+					return;
+				}
+
+				/* <h1> weglassen */
+				if (line.toLowerCase().contains("<h1>")) {
+					continue;
+				}
+
+				if (line.trim().isEmpty() && start) continue;
+				start=false;
+
+				String newLine;
+				newLine=extReplace(line,"<h2>","</h2>","<h4>","</h4>"); if (newLine!=null) line=newLine;
+				newLine=extReplace(line,"<h3>","</h3>","<h5>","</h5>"); if (newLine!=null) line=newLine;
+				line=tryProcessLinkHTML(line);
+
+				text.append(line+"\n");
+			} else {
+				if (line.trim().equalsIgnoreCase("<body>")) inBody=true;
+			}
+		}
+	}
+
+	private String outputDescription(final File outputFolder, final StringBuilder text, final ModelElementPosition element, final BiConsumer<String[],StringBuilder> textProcessor) {
 		if (element.getHelpPageName()==null) return null; /* Keine Hilfe für dieses Element */
 
 		final String resName=helpFolder+"/"+element.getHelpPageName()+".html";
@@ -486,7 +588,7 @@ public class ModelElementCatalogDescriptionBuilder {
 			return "Error reading resource "+resName;
 		}
 
-		processText(lines,text);
+		textProcessor.accept(lines,text);
 
 		return null;
 	}
@@ -497,7 +599,7 @@ public class ModelElementCatalogDescriptionBuilder {
 	 * @param skipEmptyPages	Elemente ohne Hilfeseite überspringen?
 	 * @return	Im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung.
 	 */
-	private String run(final File output, final boolean skipEmptyPages) {
+	private String runLaTeX(final File output, final boolean skipEmptyPages) {
 		final File outputFolder=output.getParentFile();
 		if (outputFolder==null) return "No output folder";
 		final String outputFileName=output.getName();
@@ -536,10 +638,10 @@ public class ModelElementCatalogDescriptionBuilder {
 				text.append("\\section{"+s+"}\n");
 				if (helpPage!=null) text.append("\\label{ref:"+helpPage+"}\n");
 				text.append("\n");
-				error=outputImage(outputFolder,text,s,element);
+				error=outputImageFile(outputFolder,text,s,element);
 				if (error!=null) return error;
 				text.append("\n");
-				error=outputDescription(outputFolder,text,element);
+				error=outputDescription(outputFolder,text,element,(lines,result)->processTextLaTeX(lines,result));
 				if (error!=null) return error;
 				text.append("\n");
 			}
@@ -556,6 +658,114 @@ public class ModelElementCatalogDescriptionBuilder {
 		return null;
 	}
 
+	private void htmlHeader(final StringBuilder text, final String lang, final String title) {
+		text.append("<!DOCTYPE html>\n");
+		text.append("<html dir=\"ltr\" lang=\""+lang+"\">\n");
+		text.append("<head>\n");
+		text.append("  <meta charset=\"utf-8\">\n");
+		text.append("  <title>"+title+"</title>\n");
+		text.append("  <style>\n");
+		text.append("  body {font-family: sans-serif;}\n");
+		text.append("  h2 {margin-top: 30px;}\n");
+		text.append("  h3 {margin-top: 20px;}\n");
+		text.append("  </style>\n");
+		text.append("</head>\n");
+		text.append("<body>\n");
+		text.append("\n");
+		text.append("<h1>"+title+"</h1>\n");
+		text.append("\n");
+	}
+
+	private void htmlFooter(final StringBuilder text) {
+		text.append("\n");
+		text.append("</body>\n");
+		text.append("</html>\n");
+	}
+
+	private List<String> htmlHelpPageNames;
+
+	/**
+	 * Startet die Verarbeitung.
+	 * @param output	html-Ausgabedatei.
+	 * @param language	Sprachkennung
+	 * @return	Im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung.
+	 */
+	private String runHTML(final File output, final String language, final String title) {
+		final File outputFolder=output.getParentFile();
+		if (outputFolder==null) return "No output folder";
+		final String outputFileName=output.getName();
+		if (outputFileName.isEmpty()) return "No output file";
+
+		final StringBuilder text=new StringBuilder();
+		String error;
+
+		htmlHeader(text,language,MainFrame.PROGRAM_NAME+" - "+title);
+
+		final Map<String,Map<String,ModelElementPosition>> catalog=ModelElementCatalog.getCatalog().getAll();
+
+		htmlHelpPageNames=new ArrayList<>();
+		for (Map.Entry<String,Map<String,ModelElementPosition>> entry1: catalog.entrySet()) for (Map.Entry<String,ModelElementPosition> entry2: entry1.getValue().entrySet()) {
+			htmlHelpPageNames.add(entry2.getValue().getHelpPageName());
+		}
+
+		for (String groupName: ModelElementCatalog.GROUP_ORDER) {
+
+			text.append("<h2>"+groupName+"</h2>\n");
+
+			final Map<String,ModelElementPosition> group=catalog.get(groupName);
+
+			final List<String> elementNames=new ArrayList<String>(group.keySet());
+			elementNames.sort(String.CASE_INSENSITIVE_ORDER);
+
+			for (final String elementName: elementNames) {
+				final ModelElementPosition element=group.get(elementName);
+				final String helpPage=element.getHelpPageName();
+				if (helpPage==null) continue;
+
+				String s=elementName;
+				try {
+					s=new String(s.getBytes("UTF-8"));
+				} catch (java.io.UnsupportedEncodingException e) {
+					return "Encoder error: "+s;
+				}
+				text.append("<h3>"+s);
+				if (helpPage!=null) text.append("<a name=\"ref"+helpPage+"\"></a>");
+				text.append("</h3>\n");
+				text.append("\n");
+				error=outputImageInline(text,s,element);
+				if (error!=null) return error;
+				text.append("\n");
+				error=outputDescription(outputFolder,text,element,(lines,result)->processTextHTML(lines,result));
+				if (error!=null) return error;
+				text.append("\n");
+			}
+		}
+
+		htmlFooter(text);
+
+		final File file=new File(outputFolder,outputFileName);
+		try {
+			Files.write(Paths.get(file.toURI()),text.toString().getBytes(),StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+		} catch (IOException e) {
+			return "Error writing "+file.toString();
+		}
+
+		return null;
+	}
+
+	private static boolean initFolder(final String folder, final PrintStream out) {
+		if (!new File(folder).isDirectory()) {
+			if (!new File(folder).mkdirs()) {
+				out.println("error mkdir "+folder);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private static final String[] removeRefsStatic=new String[]{"JS","Java","EditorModelDialog","PathEditorDialog","ModelElementEdge"};
+
 	/**
 	 * Erstellt basierend auf den HTML-Hilfe-Seiten zu den Elementen eine LaTeX-Dokumentation
 	 * für eine bestimmte Sprache.
@@ -563,30 +773,23 @@ public class ModelElementCatalogDescriptionBuilder {
 	 * @param folder	Ausgabeordner
 	 * @param out	Ausgabestream für Meldungen (darf nicht <code>null</code> sein)
 	 */
-	public static void buildLanguage(final String language, final String folder, final PrintStream out) {
-		if (!new File(folder).isDirectory()) {
-			if (!new File(folder).mkdirs()) {
-				out.println("error mkdir "+folder);
-				return;
-			}
-		}
+	public static void buildLanguageLaTeX(final String language, final String folder, final PrintStream out) {
+		if (!initFolder(folder,out)) return;
 
 		final SetupData setup=SetupData.getSetup();
 		final String saveLanguage=setup.language;
 		setup.setLanguage(language);
 
 		try {
-			final String[] removeRefs=new String[]{"JS","Java","EditorModelDialog","PathEditorDialog","ModelElementEdge"};
-
 			ModelElementCatalogDescriptionBuilder builder=null;
 			if (language.equalsIgnoreCase("de")) {
-				builder=new ModelElementCatalogDescriptionBuilder(Help.class,"pages_"+Language.tr("Numbers.Language"),"siehe Seite",new String[]{"-Elementen","-Elemente","-Element"," Elementen"},removeRefs,true);
+				builder=new ModelElementCatalogDescriptionBuilder(Help.class,"pages_"+Language.tr("Numbers.Language"),"siehe Seite",new String[]{"-Elementen","-Elemente","-Element"," Elementen"},removeRefsStatic,true);
 			}
 			if (builder==null) {
-				builder=new ModelElementCatalogDescriptionBuilder(Help.class,"pages_"+Language.tr("Numbers.Language"),"see page",new String[]{" elements"," element"},removeRefs,false);
+				builder=new ModelElementCatalogDescriptionBuilder(Help.class,"pages_"+Language.tr("Numbers.Language"),"see page",new String[]{" elements"," element"},removeRefsStatic,false);
 			}
 
-			String result=builder.run(new File(folder,"Reference.tex"),true);
+			String result=builder.runLaTeX(new File(folder,"Reference.tex"),true);
 			if (result==null) result="ok";
 			out.println(language+": "+result);
 		} finally {
@@ -595,14 +798,45 @@ public class ModelElementCatalogDescriptionBuilder {
 	}
 
 	/**
+	 * Erstellt basierend auf den HTML-Hilfe-Seiten zu den Elementen eine HTML-Dokumentation
+	 * für eine bestimmte Sprache.
+	 * @param language	Sprache
+	 * @param title	Titel für die Datei
+	 * @param file	Ausgabedatei
+	 * @param out	Ausgabestream für Meldungen (darf nicht <code>null</code> sein)
+	 */
+	public static void buildLanguageHTML(final String language, final String title, final File file, final PrintStream out) {
+		final SetupData setup=SetupData.getSetup();
+		final String saveLanguage=setup.language;
+		setup.setLanguage(language);
+
+		try {
+			ModelElementCatalogDescriptionBuilder builder=null;
+			if (language.equalsIgnoreCase("de")) {
+				builder=new ModelElementCatalogDescriptionBuilder(Help.class,"pages_"+Language.tr("Numbers.Language"),"siehe Seite",new String[]{"-Elementen","-Elemente","-Element"," Elementen"},removeRefsStatic,true);
+			}
+			if (builder==null) {
+				builder=new ModelElementCatalogDescriptionBuilder(Help.class,"pages_"+Language.tr("Numbers.Language"),"see page",new String[]{" elements"," element"},removeRefsStatic,false);
+			}
+
+			String result=builder.runHTML(file,language,title);
+			if (result==null) result="ok";
+			out.println(language+": "+result);
+		} finally {
+			setup.setLanguage(saveLanguage);
+		}
+	}
+
+
+	/**
 	 * Erstellt basierend auf den HTML-Hilfe-Seiten zu den Elementen eine LaTeX-Dokumentation
 	 * auf Deutsch und auf Englisch in den Unterordnern "ReferenzDE" und "ReferenzEN" des Desktop-Ordners.
 	 * @param out	Ausgabestream für Meldungen (darf nicht <code>null</code> sein)
 	 */
 	public static void buildAll(final PrintStream out) {
 		out.println("building...");
-		buildLanguage("de",System.getProperty("user.home")+"\\Desktop\\ReferenzDE",out);
-		buildLanguage("en",System.getProperty("user.home")+"\\Desktop\\ReferenzEN",out);
+		buildLanguageLaTeX("de",System.getProperty("user.home")+"\\Desktop\\ReferenzDE",out);
+		buildLanguageLaTeX("en",System.getProperty("user.home")+"\\Desktop\\ReferenzEN",out);
 		out.println("done.");
 	}
 
@@ -624,6 +858,6 @@ public class ModelElementCatalogDescriptionBuilder {
 			return;
 		}
 
-		buildLanguage(args[0].toLowerCase(),args[1],System.out);
+		buildLanguageLaTeX(args[0].toLowerCase(),args[1],System.out);
 	}
 }

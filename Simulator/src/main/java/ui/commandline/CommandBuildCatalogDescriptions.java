@@ -24,6 +24,7 @@ import java.util.List;
 
 import language.Language;
 import systemtools.commandline.AbstractCommand;
+import ui.MainFrame;
 import ui.modeleditor.ModelElementCatalogDescriptionBuilder;
 
 /**
@@ -34,8 +35,11 @@ import ui.modeleditor.ModelElementCatalogDescriptionBuilder;
  * @see CommandLineSystem
  */
 public class CommandBuildCatalogDescriptions extends AbstractCommand {
+	private enum Mode {LATEX, HTML}
+
 	private String language;
 	private String path;
+	private Mode mode=Mode.LATEX;
 
 	@Override
 	public String[] getKeys() {
@@ -57,11 +61,15 @@ public class CommandBuildCatalogDescriptions extends AbstractCommand {
 
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
-		final String error=parameterCountCheck(2,additionalArguments);
+		final String error=parameterCountCheck(2,3,additionalArguments);
 		if (error!=null) return error;
 
 		language=additionalArguments[0];
 		path=additionalArguments[1];
+
+		if (additionalArguments.length==3) {
+			if (additionalArguments[2].equalsIgnoreCase("html")) mode=Mode.HTML;
+		}
 
 		return null;
 	}
@@ -72,12 +80,23 @@ public class CommandBuildCatalogDescriptions extends AbstractCommand {
 			out.println(String.format(Language.tr("CommandLine.BuildCatalogDescriptions.Error.Language"),language));
 			return;
 		}
+		language=language.toLowerCase();
+
 		if (!new File(path).isDirectory()) {
 			out.println(String.format(Language.tr("CommandLine.BuildCatalogDescriptions.Error.Path"),path));
 			return;
 		}
 
-		ModelElementCatalogDescriptionBuilder.buildLanguage(language.toLowerCase(),path,out);
+		switch (mode) {
+		case LATEX:
+			ModelElementCatalogDescriptionBuilder.buildLanguageLaTeX(language,path,out);
+			break;
+		case HTML:
+			String title="Station reference";
+			if (language.equals("de")) title="Referenz der Stationen";
+			ModelElementCatalogDescriptionBuilder.buildLanguageHTML(language,title,new File(path,MainFrame.PROGRAM_NAME+"-Reference-"+language+".html"),out);
+			break;
+		}
 	}
 
 	@Override

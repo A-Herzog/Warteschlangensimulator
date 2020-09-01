@@ -62,6 +62,33 @@
 		<delete file="${Simulator.location}/target/JavaDDEx64.dll" />
 	</target>
 	
+	<!-- Build html reference -->
+	<target name="reference_html" description="Build html reference">
+		<echo message="Prepearing environment" />
+		<copy file="${Simulator.location}/tools/JDDE/JavaDDE.dll" todir="${Simulator.location}/target" />
+		<copy file="${Simulator.location}/tools/JDDE/JavaDDEx64.dll" todir="${Simulator.location}/target" />
+			
+		<echo message="Building elements de" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildLaTeXReference"/>
+			<arg value="de"/>
+			<arg value="${Homepage.location}"/>
+			<arg value="html"/>
+		</java>
+				
+		<echo message="Building elements en" />
+		<java jar="${Simulator.location}/target/Simulator.jar" dir="${Simulator.location}/target" fork="yes">
+			<arg value="BuildLaTeXReference"/>
+			<arg value="en"/>
+			<arg value="${Homepage.location}"/>
+			<arg value="html"/>
+		</java>
+				
+		<echo message="Clean up" />
+		<delete file="${Simulator.location}/target/JavaDDE.dll" />
+		<delete file="${Simulator.location}/target/JavaDDEx64.dll" />
+	</target>
+	
 	<!-- Build catalog images -->
 	<target name="images" description="Build images">
 		<echo message="Prepearing environment" />
