@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-01 22:21+0200\n"
+"POT-Creation-Date: 2020-09-02 20:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9324,6 +9324,9 @@ msgstr ""
 msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate4.ErrorTitle"
 msgstr "Invalid change rate after the third round"
 
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.SimulatedAnnealing"
+msgstr "Allow temporary degradations (Simulated Annealing)"
+
 msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Title"
 msgstr "Setup algorithm parameters"
 
@@ -9539,6 +9542,9 @@ msgstr "PopulationSize"
 
 msgid "Optimizer.XML.Kernel.SerialSetup"
 msgstr "OptimizerKernelSerial"
+
+msgid "Optimizer.XML.Kernel.SerialSetup.Annealing"
+msgstr "Degradations"
 
 msgid "Optimizer.XML.Kernel.SerialSetup.ChangeSpeed1"
 msgstr "ChangeRate1"

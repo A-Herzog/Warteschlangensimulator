@@ -1983,6 +1983,7 @@
   	<xs:attribute name="Aenderungsrate2" type="xs:string"/>
   	<xs:attribute name="Aenderungsrate3" type="xs:string"/>
   	<xs:attribute name="Aenderungsrate4" type="xs:string"/>
+	<xs:attribute name="Verschlechterungen" type="xs:string"/>
 </xs:complexType></xs:element>
 
 <xs:element name="OptimiererKernGenetisch"><xs:complexType>
@@ -3978,6 +3979,7 @@
   	<xs:attribute name="ChangeRate2" type="xs:string"/>
   	<xs:attribute name="ChangeRate3" type="xs:string"/>
   	<xs:attribute name="ChangeRate4" type="xs:string"/>
+	<xs:attribute name="Degradations" type="xs:string"/>
 </xs:complexType></xs:element>
 
 <xs:element name="OptimizerKernelGenetic"><xs:complexType>

@@ -48,11 +48,12 @@ public abstract class OptimizerSerialKernelBase extends OptimizerKernelBase {
 
 	/**
 	 * Erstellt das Modell für den nächsten Optimierungsschritt.<br>
+	 * @param stepNr	Nummer der Optimierungsschritts (0=Basismodell, 1=erste Veränderung, ...)
 	 * @param lastTargetValue	Wert der Zielgröße im letzten Optimierungsschritt
 	 * @param simulationWasEmergencyStopped	Gibt an, ob die Simulation im letzten Optimierungsschritt durch den Simulator selbst abgebrochen wurde
 	 * @return	Nächstes zu simulierendes Modell oder <code>null</code> wenn die Optimierung abgebrochen werden soll.
 	 */
-	public final EditModel setupNextStep(final double lastTargetValue, final boolean simulationWasEmergencyStopped) {
+	public final EditModel setupNextStep(final int stepNr, final double lastTargetValue, final boolean simulationWasEmergencyStopped) {
 		clearMessages();
 
 		if (simulationWasEmergencyStopped) {
@@ -77,6 +78,11 @@ public abstract class OptimizerSerialKernelBase extends OptimizerKernelBase {
 			case 1:
 				lastChangeWasImprovement=(lastTargetValue>previousTargetValue);
 				break;
+			}
+
+			/* Simulated annealing */
+			if (!lastChangeWasImprovement && stepNr>0 && setup.serialSimulatedAnnealing) {
+				if (Math.random()<1.0/stepNr) lastChangeWasImprovement=true;
 			}
 		}
 		previousTargetValue=lastTargetValue;

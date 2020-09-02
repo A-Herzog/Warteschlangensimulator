@@ -143,6 +143,12 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 	public double serialChangeSpeed4;
 
 	/**
+	 * (Für serielle Algorithmen)<br>
+	 * In den ersten Schritten (mit abnehmender Wahrscheinlichkeit) auch Verschlechterungen zulassen?
+	 */
+	public boolean serialSimulatedAnnealing;
+
+	/**
 	 * (Für genetischen Algorithmus)<br>
 	 * Anzahl an Modellen, die parallel simuliert werden sollen
 	 */
@@ -207,6 +213,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		serialChangeSpeed2=0.1;
 		serialChangeSpeed3=0.05;
 		serialChangeSpeed4=0.025;
+		serialSimulatedAnnealing=false;
 
 		geneticPopulationSize=10;
 		geneticEvolutionPressure=0.5;
@@ -253,6 +260,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		if (serialChangeSpeed2!=otherOptimizerSetup.serialChangeSpeed2) return false;
 		if (serialChangeSpeed3!=otherOptimizerSetup.serialChangeSpeed3) return false;
 		if (serialChangeSpeed4!=otherOptimizerSetup.serialChangeSpeed4) return false;
+		if (serialSimulatedAnnealing!=otherOptimizerSetup.serialSimulatedAnnealing) return false;
 
 		if (geneticPopulationSize!=otherOptimizerSetup.geneticPopulationSize) return false;
 		if (geneticEvolutionPressure!=otherOptimizerSetup.geneticEvolutionPressure) return false;
@@ -294,6 +302,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		clone.serialChangeSpeed2=serialChangeSpeed2;
 		clone.serialChangeSpeed3=serialChangeSpeed3;
 		clone.serialChangeSpeed4=serialChangeSpeed4;
+		clone.serialSimulatedAnnealing=serialSimulatedAnnealing;
 
 		clone.geneticPopulationSize=geneticPopulationSize;
 		clone.geneticEvolutionPressure=geneticEvolutionPressure;
@@ -359,6 +368,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		sub.setAttribute(Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed2"),NumberTools.formatSystemNumber(serialChangeSpeed2));
 		sub.setAttribute(Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed3"),NumberTools.formatSystemNumber(serialChangeSpeed3));
 		sub.setAttribute(Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed4"),NumberTools.formatSystemNumber(serialChangeSpeed4));
+		if (serialSimulatedAnnealing) sub.setAttribute(Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.Annealing"),"1");
 
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup")));
 		sub.setAttribute(Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.PopulationSize"),""+geneticPopulationSize);
@@ -457,6 +467,8 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed4"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				serialChangeSpeed4=D.doubleValue();
 			}
+			s=Language.trAllAttribute("Optimizer.XML.Kernel.SerialSetup.Annealing",node);
+			if (!s.trim().isEmpty() && !s.equals("0")) serialSimulatedAnnealing=true;
 			return null;
 		}
 

@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -47,6 +48,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 	private final JTextField serialChangeSpeed2;
 	private final JTextField serialChangeSpeed3;
 	private final JTextField serialChangeSpeed4;
+	private final JCheckBox serialSimulatedAnnealing;
 	private final JTextField geneticPopulationSize;
 	private final JTextField geneticEvolutionPressure;
 	private final JTextField geneticChangeSpeed1;
@@ -81,6 +83,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 		serialChangeSpeed2=addTabInputLine(tab,Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate2"),NumberTools.formatPercent(setup.serialChangeSpeed2));
 		serialChangeSpeed3=addTabInputLine(tab,Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate3"),NumberTools.formatPercent(setup.serialChangeSpeed3));
 		serialChangeSpeed4=addTabInputLine(tab,Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate4"),NumberTools.formatPercent(setup.serialChangeSpeed4));
+		serialSimulatedAnnealing=addTabCheckBoxLine(tab,Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.SimulatedAnnealing"),setup.serialSimulatedAnnealing);
 
 		/* Generischer Algorithmus */
 		tabs.addTab(Language.tr("Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic"),tabOuter=new JPanel(new BorderLayout()));
@@ -115,6 +118,16 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 		});
 
 		return textField;
+	}
+
+	private JCheckBox addTabCheckBoxLine(final JPanel parent, final String label, final boolean selected) {
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		parent.add(line);
+
+		final JCheckBox checkBox=new JCheckBox(label,selected);
+		line.add(checkBox);
+
+		return checkBox;
 	}
 
 	private boolean checkData(final boolean showErrorMessage) {
@@ -273,6 +286,7 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 		setup.serialChangeSpeed2=NumberTools.getPositiveDouble(serialChangeSpeed2,true);
 		setup.serialChangeSpeed3=NumberTools.getPositiveDouble(serialChangeSpeed3,true);
 		setup.serialChangeSpeed4=NumberTools.getPositiveDouble(serialChangeSpeed4,true);
+		setup.serialSimulatedAnnealing=serialSimulatedAnnealing.isSelected();
 
 		/* Generischer Algorithmus */
 		setup.geneticPopulationSize=NumberTools.getLong(geneticPopulationSize,true).intValue();

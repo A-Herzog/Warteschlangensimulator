@@ -70,10 +70,10 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 			done(false);
 			return;
 		}
-		initNextRun(0,false);
+		initNextRun(0,0,false);
 	}
 
-	private synchronized void runModel(final EditModel model) {
+	private synchronized void runModel(final int stepNr, final EditModel model) {
 		final StartAnySimulator starter=new StartAnySimulator(model);
 		final String error=starter.prepare();
 		if (error!=null) {
@@ -97,14 +97,14 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 							return;
 						}
 
-						runDone(statistics);
+						runDone(stepNr,statistics);
 					}
 				}
 			},100,100);
 		}
 	}
 
-	private synchronized void runDone(final Statistics statistics) {
+	private synchronized void runDone(final int stepNr, final Statistics statistics) {
 		/* Statistik speichern */
 		final Document doc=statistics.saveToXMLDocument();
 		File file=null;
@@ -144,18 +144,18 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 		}
 
 		/* Nächster Optimierungsschritt */
-		initNextRun(value,statistics.simulationData.emergencyShutDown);
+		initNextRun(stepNr+1,value,statistics.simulationData.emergencyShutDown);
 	}
 
-	private void initNextRun(final double lastResult, final boolean simulationWasEmergencyStopped) {
-		final EditModel currentModel=kernel.setupNextStep(lastResult,simulationWasEmergencyStopped);
+	private void initNextRun(final int stepNr, final double lastResult, final boolean simulationWasEmergencyStopped) {
+		final EditModel currentModel=kernel.setupNextStep(stepNr,lastResult,simulationWasEmergencyStopped);
 		for (String line: kernel.getMessages()) logOutput(line);
 		outputControlVariables("  ",kernel.controlValues);
 
 		if (currentModel==null) {
 			done(true);
 		} else {
-			runModel(currentModel);
+			runModel(stepNr,currentModel);
 		}
 	}
 

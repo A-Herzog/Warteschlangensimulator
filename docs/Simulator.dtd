@@ -1821,10 +1821,11 @@
 
 <!ELEMENT OptimiererKernSeriell EMPTY>
 <!ATTLIST OptimiererKernSeriell
-  Aenderungsrate1	CDATA	#IMPLIED
-  Aenderungsrate2	CDATA	#IMPLIED
-  Aenderungsrate3	CDATA	#IMPLIED
-  Aenderungsrate4	CDATA	#IMPLIED
+  Aenderungsrate1		CDATA	#IMPLIED
+  Aenderungsrate2		CDATA	#IMPLIED
+  Aenderungsrate3		CDATA	#IMPLIED
+  Aenderungsrate4		CDATA	#IMPLIED
+  Verschlechterungen	CDATA	#IMPLIED
 >
 
 <!ELEMENT OptimiererKernGenetisch EMPTY>
@@ -3669,6 +3670,7 @@
   ChangeRate2	CDATA	#IMPLIED
   ChangeRate3	CDATA	#IMPLIED
   ChangeRate4	CDATA	#IMPLIED
+  Degradations	CDATA	#IMPLIED
 >
 
 <!ELEMENT OptimizerKernelGenetic EMPTY>

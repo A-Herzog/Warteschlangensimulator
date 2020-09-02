@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-01 22:21+0200\n"
+"POT-Creation-Date: 2020-09-02 20:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9320,6 +9320,9 @@ msgstr ""
 msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate4.ErrorTitle"
 msgstr "Ungültige Änderungsrate ab der vierten Runde"
 
+msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.SimulatedAnnealing"
+msgstr "Zeitweilige Verschlechterungen zulassen (Simulated Annealing)"
+
 msgid "Optimizer.Tab.Optimization.Kernel.Parameters.Title"
 msgstr "Parameter für Optimierungsalgorithmus konfigurieren"
 
@@ -9538,6 +9541,9 @@ msgstr "Populationsgroesse"
 
 msgid "Optimizer.XML.Kernel.SerialSetup"
 msgstr "OptimiererKernSeriell"
+
+msgid "Optimizer.XML.Kernel.SerialSetup.Annealing"
+msgstr "Verschlechterungen"
 
 msgid "Optimizer.XML.Kernel.SerialSetup.ChangeSpeed1"
 msgstr "Aenderungsrate1"
