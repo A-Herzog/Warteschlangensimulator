@@ -323,16 +323,18 @@ public class RunData {
 			final double delta=scale*(now-data.lastArrival);
 			StatisticsDataPerformanceIndicator indicator;
 
-			/* Allgemein */
-			indicator=data.statisticStationsInterarrivalTime;
-			if (indicator==null) indicator=data.statisticStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTime.get(station));
-			indicator.add(delta);
-
-			/* Pro Zustand */
-			if (station.isInterarrivalByQueueStation()) {
-				final int count=data.clientsAtStationQueue;
-				indicator=(StatisticsDataPerformanceIndicator)cacheStationsInterarrivalTimeByState.get(station,count);
+			if (station.stationStatisticsActive) {
+				/* Allgemein */
+				indicator=data.statisticStationsInterarrivalTime;
+				if (indicator==null) indicator=data.statisticStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTime.get(station));
 				indicator.add(delta);
+
+				/* Pro Zustand */
+				if (station.isInterarrivalByQueueStation()) {
+					final int count=data.clientsAtStationQueue;
+					indicator=(StatisticsDataPerformanceIndicator)cacheStationsInterarrivalTimeByState.get(station,count);
+					indicator.add(delta);
+				}
 			}
 
 			/* Systemankunft */
@@ -346,15 +348,17 @@ public class RunData {
 
 		/* Pro Kundentyp */
 		final int clientType=client.type;
-		if (data.lastArrivalByClientType!=null && data.lastArrivalByClientType[clientType]>=0 && data.lastArrivalByClientType[clientType]<=now) {
-			final double delta=scale*(now-data.lastArrivalByClientType[clientType]);
-			StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterarrivalTimeByClientType==null)?null:data.statisticStationsInterarrivalTimeByClientType[clientType];
-			if (indicator==null) {
-				if (data.statisticStationsInterarrivalTimeByClientType==null) data.statisticStationsInterarrivalTimeByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
-				indicator=data.statisticStationsInterarrivalTimeByClientType[clientType]=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeByClientType.get(simData,station,client));
-			}
-			indicator.add(delta);
+		if (station.stationStatisticsActive) {
+			if (data.lastArrivalByClientType!=null && data.lastArrivalByClientType[clientType]>=0 && data.lastArrivalByClientType[clientType]<=now) {
+				final double delta=scale*(now-data.lastArrivalByClientType[clientType]);
+				StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterarrivalTimeByClientType==null)?null:data.statisticStationsInterarrivalTimeByClientType[clientType];
+				if (indicator==null) {
+					if (data.statisticStationsInterarrivalTimeByClientType==null) data.statisticStationsInterarrivalTimeByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
+					indicator=data.statisticStationsInterarrivalTimeByClientType[clientType]=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeByClientType.get(simData,station,client));
+				}
+				indicator.add(delta);
 
+			}
 		}
 		if (data.lastArrivalByClientType==null) {
 			data.lastArrivalByClientType=new long[simData.runModel.clientTypes.length];
@@ -386,26 +390,30 @@ public class RunData {
 			return;
 		}
 
-		if (data.lastLeave>=0 && data.lastLeave<=now) {
-			final double delta=scale*(now-data.lastLeave);
-			StatisticsDataPerformanceIndicator indicator;
+		if (station.stationStatisticsActive) {
+			if (data.lastLeave>=0 && data.lastLeave<=now) {
+				final double delta=scale*(now-data.lastLeave);
+				StatisticsDataPerformanceIndicator indicator;
 
-			indicator=data.statisticStationsInterleaveTime;
-			if (indicator==null) indicator=data.statisticStationsInterleaveTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTime.get(station));
-			indicator.add(delta);
+				indicator=data.statisticStationsInterleaveTime;
+				if (indicator==null) indicator=data.statisticStationsInterleaveTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTime.get(station));
+				indicator.add(delta);
+			}
 		}
 		data.lastLeave=now;
 
 		/* Pro Kundentyp */
 		final int clientType=client.type;
-		if (data.lastLeaveByClientType!=null && data.lastLeaveByClientType[clientType]>=0 && data.lastLeaveByClientType[clientType]<=now) {
-			final double delta=scale*(now-data.lastLeaveByClientType[clientType]);
-			StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterleaveTimeByClientType==null)?null:data.statisticStationsInterleaveTimeByClientType[clientType];
-			if (indicator==null) {
-				if (data.statisticStationsInterleaveTimeByClientType==null) data.statisticStationsInterleaveTimeByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
-				indicator=data.statisticStationsInterleaveTimeByClientType[clientType]=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTimeByClientType.get(simData,station,client));
+		if (station.stationStatisticsActive) {
+			if (data.lastLeaveByClientType!=null && data.lastLeaveByClientType[clientType]>=0 && data.lastLeaveByClientType[clientType]<=now) {
+				final double delta=scale*(now-data.lastLeaveByClientType[clientType]);
+				StatisticsDataPerformanceIndicator indicator=(data.statisticStationsInterleaveTimeByClientType==null)?null:data.statisticStationsInterleaveTimeByClientType[clientType];
+				if (indicator==null) {
+					if (data.statisticStationsInterleaveTimeByClientType==null) data.statisticStationsInterleaveTimeByClientType=new StatisticsDataPerformanceIndicator[simData.runModel.clientTypes.length];
+					indicator=data.statisticStationsInterleaveTimeByClientType[clientType]=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTimeByClientType.get(simData,station,client));
+				}
+				indicator.add(delta);
 			}
-			indicator.add(delta);
 		}
 		if (data.lastLeaveByClientType==null) {
 			data.lastLeaveByClientType=new long[simData.runModel.clientTypes.length];
@@ -498,18 +506,19 @@ public class RunData {
 		final int count2=clientsAtStationByType(simData,station,stationData,client,1);
 		if (isWarmUp) return;
 
-		StatisticsTimePerformanceIndicator indicator;
+		if (station.stationStatisticsActive) {
+			StatisticsTimePerformanceIndicator indicator;
+			final double time=simData.currentTime*scale;
 
-		final double time=simData.currentTime*scale;
+			indicator=stationData.statisticClientsAtStation;
+			if (indicator==null) indicator=stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
+			indicator.set(time,count1);
 
-		indicator=stationData.statisticClientsAtStation;
-		if (indicator==null) indicator=stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
-		indicator.set(time,count1);
-
-		if (stationData.statisticClientsAtStationByClientType==null) stationData.statisticClientsAtStationByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
-		indicator=stationData.statisticClientsAtStationByClientType[client.type];
-		if (indicator==null) indicator=stationData.statisticClientsAtStationByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,client));
-		indicator.set(time,count2);
+			if (stationData.statisticClientsAtStationByClientType==null) stationData.statisticClientsAtStationByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+			indicator=stationData.statisticClientsAtStationByClientType[client.type];
+			if (indicator==null) indicator=stationData.statisticClientsAtStationByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,client));
+			indicator.set(time,count2);
+		}
 	}
 
 	/**
@@ -526,17 +535,19 @@ public class RunData {
 		final int count2=clientsAtStationByType(simData,station,stationData,client,-1);
 		if (isWarmUp) return;
 
-		StatisticsTimePerformanceIndicator indicator;
-		final double time=simData.currentTime*scale;
+		if (station.stationStatisticsActive) {
+			StatisticsTimePerformanceIndicator indicator;
+			final double time=simData.currentTime*scale;
 
-		indicator=stationData.statisticClientsAtStation;
-		if (indicator==null) indicator=stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
-		indicator.set(time,count1);
+			indicator=stationData.statisticClientsAtStation;
+			if (indicator==null) indicator=stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
+			indicator.set(time,count1);
 
-		if (stationData.statisticClientsAtStationByClientType==null) stationData.statisticClientsAtStationByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
-		indicator=stationData.statisticClientsAtStationByClientType[client.type];
-		if (indicator==null) indicator=stationData.statisticClientsAtStationByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,client));
-		indicator.set(time,count2);
+			if (stationData.statisticClientsAtStationByClientType==null) stationData.statisticClientsAtStationByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+			indicator=stationData.statisticClientsAtStationByClientType[client.type];
+			if (indicator==null) indicator=stationData.statisticClientsAtStationByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationByClientType.get(simData,station,client));
+			indicator.set(time,count2);
+		}
 	}
 
 	/**
@@ -614,16 +625,18 @@ public class RunData {
 		StatisticsTimePerformanceIndicator indicator;
 		final double time=simData.currentTime*scale;
 
-		/* Zählung pro Station */
-		indicator=stationData.statisticClientsAtStationQueue;
-		if (indicator==null) indicator=stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
-		indicator.set(time,FastMath.min(count1,100_000));
+		if (station.stationStatisticsActive) {
+			/* Zählung pro Station */
+			indicator=stationData.statisticClientsAtStationQueue;
+			if (indicator==null) indicator=stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
+			indicator.set(time,FastMath.min(count1,100_000));
 
-		/* Zählung pro Station und Kundentyp */
-		if (stationData.statisticClientsAtStationQueueByClientType==null) stationData.statisticClientsAtStationQueueByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
-		indicator=stationData.statisticClientsAtStationQueueByClientType[client.type];
-		if (indicator==null) indicator=stationData.statisticClientsAtStationQueueByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStationByClientType.get(simData,station,client));
-		indicator.set(time,FastMath.min(count3,100_000));
+			/* Zählung pro Station und Kundentyp */
+			if (stationData.statisticClientsAtStationQueueByClientType==null) stationData.statisticClientsAtStationQueueByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+			indicator=stationData.statisticClientsAtStationQueueByClientType[client.type];
+			if (indicator==null) indicator=stationData.statisticClientsAtStationQueueByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStationByClientType.get(simData,station,client));
+			indicator.set(time,FastMath.min(count3,100_000));
+		}
 
 		/* Zählung pro Kundentyp */
 		indicator=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByClient.get(client));
@@ -653,16 +666,18 @@ public class RunData {
 		StatisticsTimePerformanceIndicator indicator;
 		final double time=simData.currentTime*scale;
 
-		/* Zählung pro Station */
-		indicator=stationData.statisticClientsAtStationQueue;
-		if (indicator==null) indicator=stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
-		indicator.set(time,FastMath.min(count1,100_000));
+		if (station.stationStatisticsActive) {
+			/* Zählung pro Station */
+			indicator=stationData.statisticClientsAtStationQueue;
+			if (indicator==null) indicator=stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
+			indicator.set(time,FastMath.min(count1,100_000));
 
-		/* Zählung pro Station und Kundentyp */
-		if (stationData.statisticClientsAtStationQueueByClientType==null) stationData.statisticClientsAtStationQueueByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
-		indicator=stationData.statisticClientsAtStationQueueByClientType[client.type];
-		if (indicator==null) indicator=stationData.statisticClientsAtStationQueueByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStationByClientType.get(simData,station,client));
-		indicator.set(time,FastMath.min(count3,100_000));
+			/* Zählung pro Station und Kundentyp */
+			if (stationData.statisticClientsAtStationQueueByClientType==null) stationData.statisticClientsAtStationQueueByClientType=new StatisticsTimePerformanceIndicator[simData.runModel.clientTypes.length];
+			indicator=stationData.statisticClientsAtStationQueueByClientType[client.type];
+			if (indicator==null) indicator=stationData.statisticClientsAtStationQueueByClientType[client.type]=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStationByClientType.get(simData,station,client));
+			indicator.set(time,FastMath.min(count3,100_000));
+		}
 
 		/* Zählung pro Kundentyp */
 		indicator=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByClient.get(client));

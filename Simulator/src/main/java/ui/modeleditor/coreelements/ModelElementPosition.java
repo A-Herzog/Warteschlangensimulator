@@ -59,6 +59,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
 public class ModelElementPosition extends ModelElement {
 	private Point position;
 	private Dimension size;
+	private boolean stationStatisticsActive;
 
 	/**
 	 * Helfer-Klasse zur Zeichnung der Form
@@ -82,6 +83,7 @@ public class ModelElementPosition extends ModelElement {
 		this.size=new Dimension(size);
 		this.shape=new Shapes(shape);
 		setPosition(new Point(10,10));
+		stationStatisticsActive=true;
 	}
 
 	/**
@@ -182,6 +184,8 @@ public class ModelElementPosition extends ModelElement {
 
 		if (!ScaledImageCache.compare(shape.getCustomImage(),otherElement.shape.getCustomImage())) return false;
 
+		if (stationStatisticsActive!=otherElement.stationStatisticsActive) return false;
+
 		return true;
 	}
 
@@ -198,6 +202,7 @@ public class ModelElementPosition extends ModelElement {
 			position=new Point(copySource.position);
 			size=new Dimension(copySource.size);
 			shape.setCustomImage(copySource.shape.getCustomImage()); /* Wir verwenden dasselbe Bildobjekt; bei Änderungen wird in shape ein neues Objekt hinterlegt. */
+			stationStatisticsActive=copySource.stationStatisticsActive;
 		}
 	}
 
@@ -605,12 +610,28 @@ public class ModelElementPosition extends ModelElement {
 	protected void addPropertiesDataToXML(final Document doc, final Element node) {
 		super.addPropertiesDataToXML(doc,node);
 
+		if (!stationStatisticsActive) node.setAttribute(Language.trPrimary("Surface.XML.Element.StationStatisticsActive"),"0");
+
 		final Element sub=doc.createElement(Language.trPrimary("Surface.XML.Element.Size"));
 		node.appendChild(sub);
 		sub.setAttribute("x",""+position.x);
 		sub.setAttribute("y",""+position.y);
 		sub.setAttribute("w",""+size.width);
 		sub.setAttribute("h",""+size.height);
+	}
+
+	/**
+	 * Ermöglicht das Laden von Eigenschaften aus dem Haupt-Knoten des xml-Elements.
+	 * @param node	xml-Element deren Eigenschaften verarbeitet werden sollen
+	 * @return	Tritt ein Fehler auf, so wird die Fehlermeldung als String zurückgegeben. Im Erfolgsfall wird <code>null</code> zurückgegeben.
+	 */
+	@Override
+	protected String loadPropertiesFromMainNode(final Element node) {
+
+		final String value=Language.trAllAttribute("Surface.XML.Element.StationStatisticsActive",node);
+		if (value.equals("0")) stationStatisticsActive=false;
+
+		return null;
 	}
 
 	/**
@@ -697,5 +718,23 @@ public class ModelElementPosition extends ModelElement {
 	 */
 	public Shapes getShape() {
 		return shape;
+	}
+
+	/**
+	 * Sollen die Statistikdaten für die Station erfasst werden?
+	 * @return	Liefert <code>true</code>, wenn Statistikdaten erfasst werden sollen
+	 * @see #setStationStatisticsActive(boolean)
+	 */
+	public boolean isStationStatisticsActive() {
+		return stationStatisticsActive;
+	}
+
+	/**
+	 * Sollen die Statistikdaten für die Station erfasst werden?
+	 * @param active	Statistikdaten für die Station erfassen
+	 * @see #isStationStatisticsActive()
+	 */
+	public void setStationStatisticsActive(final boolean active) {
+		stationStatisticsActive=active;
 	}
 }

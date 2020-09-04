@@ -530,6 +530,7 @@
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="geschuetzt" type="xs:integer"/>
+  <xs:attribute name="statistik" type="xs:integer"/>
 </xs:complexType>
 
 <xs:complexType name="ModellElementVerbundenBasis">
@@ -543,6 +544,7 @@
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="geschuetzt" type="xs:integer"/>
+  <xs:attribute name="statistik" type="xs:integer"/>
 </xs:complexType>
 
 <xs:element name="ModellElementKante"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
@@ -2526,6 +2528,7 @@
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="protected" type="xs:integer"/>
+  <xs:attribute name="statistics" type="xs:integer"/>
 </xs:complexType>
 
 <xs:complexType name="ModelElementConnectedBase">
@@ -2539,6 +2542,7 @@
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="protected" type="xs:integer"/>
+  <xs:attribute name="statistics" type="xs:integer"/>
 </xs:complexType>
 
 <xs:element name="ModelElementEdge"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">

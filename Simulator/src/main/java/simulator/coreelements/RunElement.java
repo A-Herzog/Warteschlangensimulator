@@ -69,6 +69,11 @@ public abstract class RunElement {
 	public final String name;
 
 	/**
+	 * Erfassung von Anzahl an Kunden an den Stationen (gesamt und wartend) und von Zwischen-Ankunfts- und -Abgangs-Zeiten an der Station
+	 */
+	public boolean stationStatisticsActive;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElement</code>
 	 * @param element	Modell-Element aus dem ID und Farbe ausgelesen werden
 	 * @param name	Name der Station
@@ -78,6 +83,7 @@ public abstract class RunElement {
 		this.parentId=getParentId(element);
 		this.logTextColor=(!(element instanceof ModelElementBox))?Color.DARK_GRAY:((ModelElementBox)element).getDrawBackgroundColor();
 		this.name=name;
+		stationStatisticsActive=(element==null)?true:element.isStationStatisticsActive();
 	}
 
 	/**
@@ -90,6 +96,7 @@ public abstract class RunElement {
 		this.parentId=-1;
 		this.logTextColor=Color.DARK_GRAY;
 		this.name=name;
+		stationStatisticsActive=true;
 	}
 
 	private int getParentId(final ModelElementPosition element) {

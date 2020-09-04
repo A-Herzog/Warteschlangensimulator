@@ -356,6 +356,7 @@
 <!ATTLIST ModellElementText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementTextzeile (#PCDATA)>
 
@@ -363,12 +364,14 @@
 <!ATTLIST ModellElementEcke
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementLinie (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementLinienBreite | ModellElementFarbe | ModellElementLinienTyp | ModellElementLiniePfeilStart | ModellElementLiniePfeilEnde)*>
 <!ATTLIST ModellElementLinie
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementLinienTyp (#PCDATA)>
 <!ELEMENT ModellElementLiniePfeilStart (#PCDATA)>
@@ -378,6 +381,7 @@
 <!ATTLIST ModellElementKasten
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementRundung (#PCDATA)>
 
@@ -385,12 +389,14 @@
 <!ATTLIST ModellElementEllipse
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementBild (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementLinienBreite | ModellElementFarbe | ModellElementBildDaten)*>
 <!ATTLIST ModellElementBild
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBildDaten (#PCDATA)>
 <!ATTLIST ModellElementBildDaten
@@ -401,6 +407,7 @@
 <!ATTLIST ModellElementQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZeitplan (#PCDATA)>
 <!ATTLIST ModellElementZeitplan
@@ -434,6 +441,7 @@
 <!ATTLIST ModellElementMehrfachQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementMehrfachQuelleDaten (ModellElementName | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
 
@@ -441,6 +449,7 @@
 <!ATTLIST ModellElementTabellenQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementTabellenDatei (#PCDATA)>
 <!ATTLIST ModellElementTabellenDatei
@@ -452,6 +461,7 @@
 <!ATTLIST ModellElementDatenbankQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT DatenbankVerbindung EMPTY>
 <!ATTLIST DatenbankVerbindung
@@ -470,6 +480,7 @@
 <!ATTLIST ModellElementDDEQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementDDEQuelleArbeitsmappe (#PCDATA)>
 <!ELEMENT ModellElementDDEQuelleTabelle (#PCDATA)>
@@ -481,6 +492,7 @@
 <!ATTLIST ModellElementEnde
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementEndeStopp (#PCDATA)>
 
@@ -488,12 +500,14 @@
 <!ATTLIST ModellElementZuweisung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementZuweisungText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZuweisungTextEintrag)*>
 <!ATTLIST ModellElementZuweisungText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZuweisungTextEintrag (#PCDATA)>
 <!ATTLIST ModellElementZuweisungTextEintrag
@@ -504,6 +518,7 @@
 <!ATTLIST ModellElementFertigungsplanZuweisung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementFertigungsplan (#PCDATA)>
 
@@ -511,6 +526,7 @@
 <!ATTLIST ModellElementKosten
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementKostenKundenWartezeit (#PCDATA)>
 <!ELEMENT ModellElementKostenKundenTransferzeit (#PCDATA)>
@@ -521,6 +537,7 @@
 <!ATTLIST ModellElementVerzoegerung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementVerzoegerungKosten (#PCDATA)>
 
@@ -528,12 +545,14 @@
 <!ATTLIST ModellElementTrennen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch)*>
 <!ATTLIST ModellElementZusammenfassen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBatchModus (#PCDATA)>
 
@@ -541,6 +560,7 @@
 <!ATTLIST ModellElementMehrfachZusammenfassen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementZusammenfassenKundentyp (ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch)*>
@@ -552,6 +572,7 @@
 <!ATTLIST ModellElementZusammenfuehren
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementMatchEigenschaft (#PCDATA)>
@@ -563,6 +584,7 @@
 <!ATTLIST ModellElementZerteilen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZerteilenDaten (ModellElementName | ModellElementBatch | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
 
@@ -570,12 +592,14 @@
 <!ATTLIST ModellElementDuplizieren
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementVerzweigen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerzweigungsmodus | ModellElementVerzweigSchluessel)*>
 <!ATTLIST ModellElementVerzweigen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementVerzweigungsmodus (#PCDATA)>
 <!ELEMENT ModellElementVerzweigSchluessel (#PCDATA)>
@@ -584,6 +608,7 @@
 <!ATTLIST ModellElementVerzweigenJS
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementVerzweigenSkript (#PCDATA)>
 <!ATTLIST ModellElementVerzweigenSkript
@@ -594,6 +619,7 @@
 <!ATTLIST ModellElementZurueckschrecken
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZurueckschreckenAusdruck (#PCDATA)>
 <!ATTLIST ModellElementZurueckschreckenAusdruck
@@ -605,6 +631,7 @@
 <!ATTLIST ModellElementBedienstation
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementPrioritaet (#PCDATA)>
 <!ATTLIST ModellElementPrioritaet
@@ -621,6 +648,7 @@
 <!ATTLIST ModellElementBedingung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBedingungText (#PCDATA)>
 <!ATTLIST ModellElementBedingungText
@@ -632,12 +660,14 @@
 <!ATTLIST ModellElementBedingungMehrfach
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementBedingungScript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungScriptText | ModellElementBedingungScriptBedingung)*>
 <!ATTLIST ModellElementBedingungScript
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBedingungScriptText (#PCDATA)>
 <!ATTLIST ModellElementBedingungScriptText
@@ -650,12 +680,14 @@
 <!ATTLIST ModellElementSignal
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementSchranke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankeOption)*>
 <!ATTLIST ModellElementSchranke
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSchrankeOption (ModellElementSignalname | ModellElementInitialeFreigabe | ModellElementFreigabe | ModellElementKundentyp)*>
 <!ELEMENT ModellElementSignalname (#PCDATA)>
@@ -672,6 +704,7 @@
 <!ATTLIST ModellElementSchrankePull
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSchrankePullKontrolle (#PCDATA)>
 <!ATTLIST ModellElementSchrankePullKontrolle
@@ -682,12 +715,14 @@
 <!ATTLIST ModellElementRessourceBelegen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementRessourceFreigeben (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBelegteRessource | ModellElementVerteilung | ModellElementAusdruck)*>
 <!ATTLIST ModellElementRessourceFreigeben
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBelegteRessource (#PCDATA)>
 
@@ -695,6 +730,7 @@
 <!ATTLIST ModellElementKundenstatistik
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementKundenstatistikModus (#PCDATA)>
@@ -706,6 +742,7 @@
 <!ATTLIST ModellElementVariable
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementVariablenzuweisung (#PCDATA)>
 <!ATTLIST ModellElementVariablenzuweisung
@@ -717,6 +754,7 @@
 <!ATTLIST ModellElementSkript
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSkriptText (#PCDATA)>
 <!ATTLIST ModellElementSkriptText
@@ -727,6 +765,7 @@
 <!ATTLIST ModellElementZaehler
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZaehlerGruppe (#PCDATA)>
 
@@ -734,6 +773,7 @@
 <!ATTLIST ModellElementZaehlerMehrfach
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZaehlerMehrfachZaehler (#PCDATA)>
 <!ATTLIST ModellElementZaehlerMehrfachZaehler
@@ -744,12 +784,14 @@
 <!ATTLIST ModellElementDurchsatz
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementZustandsstatistik (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZustandsstatistikGruppe)*>
 <!ATTLIST ModellElementZustandsstatistik
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZustandsstatistikGruppe (#PCDATA)>
 
@@ -757,6 +799,7 @@
 <!ATTLIST ModellElementEingabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementEingabeDatei (#PCDATA)>
 <!ATTLIST ModellElementEingabeDatei
@@ -769,6 +812,7 @@
 <!ATTLIST ModellElementEingabeScript
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementEingabeScriptDatei (#PCDATA)>
 <!ATTLIST ModellElementEingabeScriptDatei
@@ -780,6 +824,7 @@
 <!ATTLIST ModellElementEingabeDB
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementEingabeDBTabelle (#PCDATA)>
 <!ELEMENT ModellElementEingabeDBSpalte (#PCDATA)>
@@ -795,6 +840,7 @@
 <!ATTLIST ModellElementEingabeDDE
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementEingabeDDEArbeitsmappe (#PCDATA)>
 <!ELEMENT ModellElementEingabeDDETabelle (#PCDATA)>
@@ -808,6 +854,7 @@
 <!ATTLIST ModellElementAufzeichnung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAufzeichnungAusdruck1 (#PCDATA)>
 <!ELEMENT ModellElementAufzeichnungAusdruck2 (#PCDATA)>
@@ -816,6 +863,7 @@
 <!ATTLIST ModellElementDateiausgabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAusgabedatei (#PCDATA)>
 <!ELEMENT ModellElementAusgabeelement EMPTY>
@@ -828,6 +876,7 @@
 <!ATTLIST ModellElementScriptDateiausgabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAusgabeskript (#PCDATA)>
 
@@ -835,6 +884,7 @@
 <!ATTLIST ModellElementDatenbankausgabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementDatenbankausgabeTabelle (#PCDATA)>
 <!ELEMENT ModellElementDatenbankausgabeElement EMPTY>
@@ -848,6 +898,7 @@
 <!ATTLIST ModellElementAusgabeDDE
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAusgabeDDEArbeitsmappe (#PCDATA)>
 <!ELEMENT ModellElementAusgabeDDETabelle (#PCDATA)>
@@ -863,6 +914,7 @@
 <!ATTLIST ModellElementBenutzerstatistik
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBenutzerstatistikEintrag (#PCDATA)>
 <!ATTLIST ModellElementBenutzerstatistikEintrag
@@ -874,6 +926,7 @@
 <!ATTLIST ModellElementDifferenzZaehler
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementDifferenzZaehlerInkrement (#PCDATA)>
 
@@ -881,12 +934,14 @@
 <!ATTLIST ModellElementBereichStart
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementBereichEnde (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBereichStartName)*>
 <!ATTLIST ModellElementBereichEnde
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBereichStartName (#PCDATA)>
 
@@ -894,6 +949,7 @@
 <!ATTLIST ModellElementAusleiten
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementWarteschlange (#PCDATA)>
 <!ATTLIST ModellElementWarteschlange
@@ -904,6 +960,7 @@
 <!ATTLIST ModellElementLogikIf
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementLogikBedingung (#PCDATA)>
 
@@ -911,48 +968,56 @@
 <!ATTLIST ModellElementLogikElseIf
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementLogikElse (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementLogikElse
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementLogikEndIf (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementLogikEndIf
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementLogikWhile (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementLogikBedingung)*>
 <!ATTLIST ModellElementLogikWhile
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementLogikEndWhile (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementLogikEndWhile
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementLogikDo (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementLogikDo
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementLogikUntil (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementLogikBedingung)*>
 <!ATTLIST ModellElementLogikUntil
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementTransportStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementTransportRoute | ModellElementTransportRouteNachSequenz | ModellElementTransportRouteNachEigenschaft | ModellElementTransportRessource | ModellElementTransportRessourcePrioritaet | ModellElementTransportRessourceVerzoegerteFreigabe | ModellElementTransportBereichStartName)*>
 <!ATTLIST ModellElementTransportStart
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementTransportRoute (#PCDATA)>
 <!ATTLIST ModellElementTransportRoute
@@ -977,12 +1042,14 @@
 <!ATTLIST ModellElementTransportZiel
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementTransporterStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTransportRoute | ModellElementTransportRouteNachSequenz | ModellElementTransportRouteNachEigenschaft | ModellElementTransporterTyp | ModellElementTransporterMindestWartezahl | ModellElementTransporterAnforderungsPrioritaet | ModellElementTransporterWarteplaetze | ModellElementTransporterWartePrioritaet | ModellElementTransporterPrioritaet | ModellElementTransporterBereichStartName)*>
 <!ATTLIST ModellElementTransporterStart
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementTransporterTyp (#PCDATA)>
 <!ELEMENT ModellElementTransporterMindestWartezahl (#PCDATA)>
@@ -999,12 +1066,14 @@
 <!ATTLIST ModellElementTransportParkplatz
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementWegpunkt (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementWegpunktIcon | ModellElementWegpunktEintrag)*>
 <!ATTLIST ModellElementWegpunkt
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementWegpunktIcon (#PCDATA)>
 <!ELEMENT ModellElementWegpunktEintrag (#PCDATA)>
@@ -1017,6 +1086,7 @@
 <!ATTLIST ModellElementTeleportStart
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementTeleportStartZuZiel (#PCDATA)>
 
@@ -1024,12 +1094,14 @@
 <!ATTLIST ModellElementTeleportZiel
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementFliessband (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementFliessbandKapazitaetVerfuegbar | ModellElementFliessbandKapazitaetBenoetigt | ModellElementFliessbandRichtung  | ModellElementFliessbandTransportzeit)*>
 <!ATTLIST ModellElementFliessband
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementFliessbandKapazitaetVerfuegbar (#PCDATA)>
 <!ELEMENT ModellElementFliessbandKapazitaetBenoetigt (#PCDATA)>
@@ -1047,6 +1119,7 @@
 <!ATTLIST ModellElementAnalogerWert
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnalogerWertStartwert (#PCDATA)>
 <!ELEMENT ModellElementAnalogerWertRate (#PCDATA)>
@@ -1058,6 +1131,7 @@
 <!ATTLIST ModellElementAnalogWertZuweisung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnalogWertZuweisungWert (#PCDATA)>
 <!ATTLIST ModellElementAnalogWertZuweisungWert
@@ -1072,6 +1146,7 @@
 <!ATTLIST ModellElementTank
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementTankKapazitaet (#PCDATA)>
 <!ELEMENT ModellElementTankStartwert (#PCDATA)>
@@ -1085,6 +1160,7 @@
 <!ATTLIST ModellElementFluss
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementFlussQuelle (#PCDATA)>
 <!ATTLIST ModellElementFlussQuelle
@@ -1104,6 +1180,7 @@
 <!ATTLIST ModellElementFlussSignal
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementFlussSignalName (#PCDATA)>
 
@@ -1111,6 +1188,7 @@
 <!ATTLIST ModellElementSensor
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSensorTankID (#PCDATA)>
 <!ELEMENT ModellElementSensorSchwellenwert (#PCDATA)>
@@ -1123,6 +1201,7 @@
 <!ATTLIST ModellElementVentilSetups 
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementVentilSetup (#PCDATA)>
 <!ATTLIST ModellElementVentilSetup
@@ -1134,6 +1213,7 @@
 <!ATTLIST ModellElementAktion 
   id	CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAktionDatensatz (#PCDATA)>
 <!ATTLIST ModellElementAktionDatensatz
@@ -1152,6 +1232,7 @@
 <!ATTLIST ModellElementIcon
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementIconName (#PCDATA)>
 
@@ -1159,6 +1240,7 @@
 <!ATTLIST ModellElementAnimationText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationsmodus (#PCDATA)>
 <!ATTLIST ModellElementAnimationsmodus
@@ -1170,6 +1252,7 @@
 <!ATTLIST ModellElementAnimationTextJS
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationTextJSSkript (#PCDATA)>
 <!ATTLIST ModellElementAnimationTextJSSkript
@@ -1180,6 +1263,7 @@
 <!ATTLIST ModellElementAnimationTextAuswahl
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT TextVorgabe (#PCDATA)>
 <!ELEMENT TextAusdruck (#PCDATA)>
@@ -1191,6 +1275,7 @@
 <!ATTLIST ModellElementAnimationBalken
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementDatenausdruck (#PCDATA)>
 <!ELEMENT ModellElementDatenbereich EMPTY>
@@ -1205,12 +1290,14 @@
 <!ATTLIST ModellElementAnimationStapelBalken
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementAnimationAmpel (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementAmpelBedingung)*>
 <!ATTLIST ModellElementAnimationAmpel
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAmpelBedingung (#PCDATA)>
 <!ATTLIST ModellElementAmpelBedingung
@@ -1221,6 +1308,7 @@
 <!ATTLIST ModellElementAnimationLCD
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationLCDAusdruck (#PCDATA)>
 <!ELEMENT ModellElementAnimationLCDZiffern (#PCDATA)>
@@ -1230,6 +1318,7 @@
 <!ATTLIST ModellElementAnimationAnalogSkala
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationAnalogSkalaAusdruck (#PCDATA)>
 <!ATTLIST ModellElementAnimationAnalogSkalaAusdruck
@@ -1242,6 +1331,7 @@
 <!ATTLIST ModellElementAnimationBalkenDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementMinimalwert (#PCDATA)>
 <!ELEMENT ModellElementMaximalwert (#PCDATA)>
@@ -1260,6 +1350,7 @@
 <!ATTLIST ModellElementAnimationLinienDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementDiagrammZeitbereich (#PCDATA)>
 
@@ -1267,6 +1358,7 @@
 <!ATTLIST ModellElementAnimationTortenDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSegmentBeschriftung (#PCDATA)>
 
@@ -1274,18 +1366,21 @@
 <!ATTLIST ModellElementAnimationUhr
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementAnimationBild (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementFarbe | ModellElementLinienBreite | ModellElementBildDaten | ModellElementVerbindung)*>
 <!ATTLIST ModellElementAnimationBild
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementAnimationAufzeichnung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementAnimationAufzeichnungElementID | ModellElementAnimationAufzeichnungAnzahlPunkte | ModellElementAnimationAufzeichnungDatenfarbe)*>
 <!ATTLIST ModellElementAnimationAufzeichnung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationAufzeichnungElementID (#PCDATA)>
 <!ELEMENT ModellElementAnimationAufzeichnungAnzahlPunkte (#PCDATA)>
@@ -1295,6 +1390,7 @@
 <!ATTLIST ModellElementUntermodell
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementUntermodellVerbindungen EMPTY>
@@ -1307,18 +1403,21 @@
 <!ATTLIST ModellElementUntermodellEingang
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementUntermodellAusgang (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
 <!ATTLIST ModellElementUntermodellAusgang
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementReferenz (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementReferenzID)*>
 <!ATTLIST ModellElementReferenz
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementReferenzID (#PCDATA)>
 
@@ -1326,12 +1425,14 @@
 <!ATTLIST ModellElementSchaltflaeche 
   id	CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementSchieberegler (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementSchiebereglerMinimum | ModellElementSchiebereglerMaximum | ModellElementSchiebereglerSchrittweite | ModellElementSchiebereglerVariable)*>
 <!ATTLIST ModellElementSchieberegler
   id	CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSchiebereglerMinimum (#PCDATA)>
 <!ELEMENT ModellElementSchiebereglerMaximum (#PCDATA)>
@@ -1342,6 +1443,7 @@
 <!ATTLIST ModellElementCheckbox
   id	CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementCheckboxVariable (#PCDATA)>
 <!ELEMENT ModellElementCheckboxWertAusgewaehlt (#PCDATA)>
@@ -1351,6 +1453,7 @@
 <!ATTLIST ModellElementRadiobutton
   id	CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementRadiobuttonVariable (#PCDATA)>
 <!ELEMENT ModellElementRadiobuttonWert (#PCDATA)>
@@ -2199,6 +2302,7 @@
 <!ATTLIST ModelElementText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementTextLine (#PCDATA)>
 
@@ -2206,12 +2310,14 @@
 <!ATTLIST ModelElementVertex
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementLine (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementLineWidth | ModelElementColor | ModelElementLineType | ModelElementLineArrowStart | ModelElementLineArrowEnd)*>
 <!ATTLIST ModelElementLine
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementLineType (#PCDATA)>
 <!ELEMENT ModelElementLineArrowStart (#PCDATA)>
@@ -2221,6 +2327,7 @@
 <!ATTLIST ModelElementRectangle
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementRounding (#PCDATA)>
 
@@ -2228,12 +2335,14 @@
 <!ATTLIST ModelElementEllipse
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementImage (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementLineWidth | ModelElementColor | ModelElementImageData)*>
 <!ATTLIST ModelElementImage
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementImageData (#PCDATA)>
 <!ATTLIST ModelElementImageData
@@ -2244,6 +2353,7 @@
 <!ATTLIST ModelElementSource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSchedule (#PCDATA)>
 <!ATTLIST ModelElementSchedule
@@ -2277,6 +2387,7 @@
 <!ATTLIST ModelElementMultiSource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementMultiSourceData (ModelElementName | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalSignal | ModelElementBatchData | ModelElementStartTime | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
 
@@ -2284,6 +2395,7 @@
 <!ATTLIST ModelElementTableSource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementTableFile (#PCDATA)>
 <!ATTLIST ModelElementTableFile
@@ -2295,6 +2407,7 @@
 <!ATTLIST ModelElementDatabaseSource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT DatabaseConnection EMPTY>
 <!ATTLIST DatabaseConnection
@@ -2313,6 +2426,7 @@
 <!ATTLIST ModelElementDDESource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDDESourceWorkbook (#PCDATA)>
 <!ELEMENT ModelElementDDESourceTable (#PCDATA)>
@@ -2324,6 +2438,7 @@
 <!ATTLIST ModelElementDispose
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDisposeStopp (#PCDATA)>
 
@@ -2331,12 +2446,14 @@
 <!ATTLIST ModelElementAssignment
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementAssignmentText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentTextRecord)*>
 <!ATTLIST ModelElementAssignmentText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAssignmentTextRecord (#PCDATA)>
 <!ATTLIST ModelElementAssignmentTextRecord
@@ -2347,6 +2464,7 @@
 <!ATTLIST ModelElementSequenceAssignment
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSequence (#PCDATA)>
 
@@ -2354,6 +2472,7 @@
 <!ATTLIST ModelElementCosts
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementCostsClientsWaitingTime (#PCDATA)>
 <!ELEMENT ModelElementCostsClientsTransferTime (#PCDATA)>
@@ -2364,6 +2483,7 @@
 <!ATTLIST ModelElementDelay
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDelayCosts (#PCDATA)>
 
@@ -2371,12 +2491,14 @@
 <!ATTLIST ModelElementSeparate
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementBatchData)*>
 <!ATTLIST ModelElementBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementBatchMode (#PCDATA)>
 
@@ -2384,6 +2506,7 @@
 <!ATTLIST ModelElementMultiBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementBatchClientType (ModelElementClientType | ModelElementBatchMode | ModelElementBatchData)*>
@@ -2395,6 +2518,7 @@
 <!ATTLIST ModelElementMatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementMatchProperty (#PCDATA)>
@@ -2406,6 +2530,7 @@
 <!ATTLIST ModelElementSplit
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSplitData (ModelElementName | ModelElementBatchData | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
 
@@ -2413,12 +2538,14 @@
 <!ATTLIST ModelElementDuplicate
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementDecide (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDecideMode | ModelElementDecideKey)*>
 <!ATTLIST ModelElementDecide
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDecideMode (#PCDATA)>
 <!ELEMENT ModelElementDecideKey (#PCDATA)>
@@ -2427,6 +2554,7 @@
 <!ATTLIST ModelElementDecideJS
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDecideScript (#PCDATA)>
 <!ATTLIST ModelElementDecideScript
@@ -2437,6 +2565,7 @@
 <!ATTLIST ModelElementBalking
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementBalkingExpression (#PCDATA)>
 <!ATTLIST ModelElementBalkingExpression
@@ -2448,6 +2577,7 @@
 <!ATTLIST ModelElementProcessStation
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementPriority (#PCDATA)>
 <!ATTLIST ModelElementPriority
@@ -2464,6 +2594,7 @@
 <!ATTLIST ModelElementHold
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementHoldCondition (#PCDATA)>
 <!ATTLIST ModelElementHoldCondition
@@ -2475,12 +2606,14 @@
 <!ATTLIST ModelElementHoldMulti
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementHoldScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldScriptCondition | ModelElementHoldScriptAdditionalCondition)*>
 <!ATTLIST ModelElementHoldScript
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementHoldScriptCondition (#PCDATA)>
 <!ATTLIST ModelElementHoldScriptCondition
@@ -2493,12 +2626,14 @@
 <!ATTLIST ModelElementSignal
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementBarrier (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierOption)*>
 <!ATTLIST ModelElementBarrier
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementBarrierOption (ModelElementSignalname | ModelElementInitialRelease | ModelElementRelease | ModelElementClientType)*>
 <!ELEMENT ModelElementSignalname (#PCDATA)>
@@ -2515,6 +2650,7 @@
 <!ATTLIST ModelElementBarrierPull
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementBarrierPullControl (#PCDATA)>
 <!ATTLIST ModelElementBarrierPullControl
@@ -2525,12 +2661,14 @@
 <!ATTLIST ModelElementSeizeResource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementReleaseResource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSeizedResource | ModelElementDistribution | ModelElementExpression)*>
 <!ATTLIST ModelElementReleaseResource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSeizedResource (#PCDATA)>
 
@@ -2538,6 +2676,7 @@
 <!ATTLIST ModelElementClientStatistics
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementClientStatisticsMode (#PCDATA)>
@@ -2549,6 +2688,7 @@
 <!ATTLIST ModelElementVariable
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAssignmentData (#PCDATA)>
 <!ATTLIST ModelElementAssignmentData
@@ -2560,6 +2700,7 @@
 <!ATTLIST ModelElementScript
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementScriptText (#PCDATA)>
 <!ATTLIST ModelElementScriptText
@@ -2570,6 +2711,7 @@
 <!ATTLIST ModelElementCounter
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementCounterGroup (#PCDATA)>
 
@@ -2577,6 +2719,7 @@
 <!ATTLIST ModelElementCounterMulti
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementCounterMultiCounter (#PCDATA)>
 <!ATTLIST ModelElementCounterMultiCounter
@@ -2587,12 +2730,14 @@
 <!ATTLIST ModelElementThroughput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementStateStatistics (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementStateStatisticsGroup)*>
 <!ATTLIST ModelElementStateStatistics
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementStateStatisticsGroup (#PCDATA)>
 
@@ -2600,6 +2745,7 @@
 <!ATTLIST ModelElementInput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementInputFile (#PCDATA)>
 <!ATTLIST ModelElementInputFile
@@ -2612,6 +2758,7 @@
 <!ATTLIST ModelElementInputScript
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementInputScriptFile (#PCDATA)>
 <!ATTLIST ModelElementInputScriptFile
@@ -2623,6 +2770,7 @@
 <!ATTLIST ModelElementInputDB
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementInputDBTable (#PCDATA)>
 <!ELEMENT ModelElementInputDBColumn (#PCDATA)>
@@ -2638,6 +2786,7 @@
 <!ATTLIST ModelElementInputDDE
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementInputDDEWorkbook (#PCDATA)>
 <!ELEMENT ModelElementInputDDETable (#PCDATA)>
@@ -2651,6 +2800,7 @@
 <!ATTLIST ModelElementRecord
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementRecordExpression1 (#PCDATA)>
 <!ELEMENT ModelElementRecordExpression2 (#PCDATA)>
@@ -2659,6 +2809,7 @@
 <!ATTLIST ModelElementOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementOutputFile (#PCDATA)>
 <!ELEMENT ModelElementOutputElement EMPTY>
@@ -2671,6 +2822,7 @@
 <!ATTLIST ModelElementScriptOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementOutputScript (#PCDATA)>
 
@@ -2678,6 +2830,7 @@
 <!ATTLIST ModelElementDatabaseOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDatabaseOutputTable (#PCDATA)>
 <!ELEMENT ModelElementDatabaseOutputElement EMPTY>
@@ -2691,6 +2844,7 @@
 <!ATTLIST ModelElementOutputDDE
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementOutputDDEWorkbook (#PCDATA)>
 <!ELEMENT ModelElementOutputDDETable (#PCDATA)>
@@ -2706,6 +2860,7 @@
 <!ATTLIST ModelElementUserStatistics
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementUserStatisticsRecord (#PCDATA)>
 <!ATTLIST ModelElementUserStatisticsRecord
@@ -2717,6 +2872,7 @@
 <!ATTLIST ModelElementDifferenceCounter
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDifferenceCounterIncrement (#PCDATA)>
 
@@ -2724,12 +2880,14 @@
 <!ATTLIST ModelElementSectionStart
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementSectionEnd (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSectionStartName)*>
 <!ATTLIST ModelElementSectionEnd
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSectionStartName (#PCDATA)>
 
@@ -2737,6 +2895,7 @@
 <!ATTLIST ModelElementPickUp
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementQueue (#PCDATA)>
 <!ATTLIST ModelElementQueue
@@ -2747,6 +2906,7 @@
 <!ATTLIST ModelElementLogicIf
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementLogicCondition (#PCDATA)>
 
@@ -2754,48 +2914,56 @@
 <!ATTLIST ModelElementLogicElseIf
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementLogicElse (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementLogicElse
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementLogicEndIf (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementLogicEndIf
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementLogicWhile (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementLogicCondition)*>
 <!ATTLIST ModelElementLogicWhile
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementLogicEndWhile (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementLogicEndWhile
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementLogicDo (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementLogicDo
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementLogicUntil (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementLogicCondition)*>
 <!ATTLIST ModelElementLogicUntil
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementTransportOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementTransportRoute | ModelElementTransportRouteBySequence | ModelElementTransportRouteByProperty | ModelElementTransportResource | ModelElementTransportResourcePriority | ModelElementTransportResourceDelayedRelease | ModelElementTransportSectionStartName)*>
 <!ATTLIST ModelElementTransportOrigin
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementTransportRoute (#PCDATA)>
 <!ATTLIST ModelElementTransportRoute
@@ -2820,12 +2988,14 @@
 <!ATTLIST ModelElementTransportDestination
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementTransporterOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTransportRoute | ModelElementTransportRouteBySequence | ModelElementTransportRouteByProperty | ModelElementTransporterType | ModelElementTransporterMinimumWaiting | ModelElementTransporterRequestPriority | ModelElementTransporterWaitingCapacity | ModelElementTransporterWaitingPriority | ModelElementTransporterPriority | ModelElementTransporterSectionStartName)*>
 <!ATTLIST ModelElementTransporterOrigin
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementTransporterType (#PCDATA)>
 <!ELEMENT ModelElementTransporterMinimumWaiting (#PCDATA)>
@@ -2842,12 +3012,14 @@
 <!ATTLIST ModelElementTransportParkingLot
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementWayPoint (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementWayPointIcon | ModelElementWayPointRecord)*>
 <!ATTLIST ModelElementWayPoint
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementWayPointIcon (#PCDATA)>
 <!ELEMENT ModelElementWayPointRecord (#PCDATA)>
@@ -2860,6 +3032,7 @@
 <!ATTLIST ModelElementTeleportOrigin
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementTeleportOriginToTarget (#PCDATA)>
 
@@ -2867,12 +3040,14 @@
 <!ATTLIST ModelElementTeleportDestination
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementConveyor (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementConveyorCapacityAvailable | ModelElementConveyorCapacityNeeded | ModelElementConveyorDirection  | ModelElementConveyorTransportTime)*>
 <!ATTLIST ModelElementConveyor
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementConveyorCapacityAvailable (#PCDATA)>
 <!ELEMENT ModelElementConveyorCapacityNeeded (#PCDATA)>
@@ -2890,6 +3065,7 @@
 <!ATTLIST ModelElementAnalogValue
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnalogValueInitialValue (#PCDATA)>
 <!ELEMENT ModelElementAnalogValueRate (#PCDATA)>
@@ -2901,6 +3077,7 @@
 <!ATTLIST ModelElementAnalogValueAssignment
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnalogValueAssignmentValue (#PCDATA)>
 <!ATTLIST ModelElementAnalogValueAssignmentValue
@@ -2915,6 +3092,7 @@
 <!ATTLIST ModelElementTank
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementTankCapacity (#PCDATA)>
 <!ELEMENT ModelElementTankInitialValue (#PCDATA)>
@@ -2928,6 +3106,7 @@
 <!ATTLIST ModelElementFlow
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementFlowSource (#PCDATA)>
 <!ATTLIST ModelElementFlowSource
@@ -2947,6 +3126,7 @@
 <!ATTLIST ModelElementFlowSignal
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementFlowSignalName (#PCDATA)>
 
@@ -2954,6 +3134,7 @@
 <!ATTLIST ModelElementSensor
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSensorTankID (#PCDATA)>
 <!ELEMENT ModelElementSensorThreshold (#PCDATA)>
@@ -2966,6 +3147,7 @@
 <!ATTLIST ModelElementValveSetups
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementValveSetup (#PCDATA)>
 <!ATTLIST ModelElementValveSetup
@@ -2977,6 +3159,7 @@
 <!ATTLIST ModelElementAction
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementActionRecord (#PCDATA)>
 <!ATTLIST ModelElementActionRecord
@@ -2995,6 +3178,7 @@
 <!ATTLIST ModelElementIcon
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementIconName (#PCDATA)>
 
@@ -3002,6 +3186,7 @@
 <!ATTLIST ModelElementAnimationText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationMode (#PCDATA)>
 <!ATTLIST ModelElementAnimationMode
@@ -3013,6 +3198,7 @@
 <!ATTLIST ModelElementAnimationTextJS
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationTextJSScript (#PCDATA)>
 <!ATTLIST ModelElementAnimationTextJSScript
@@ -3023,6 +3209,7 @@
 <!ATTLIST ModelElementAnimationTextSelect
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT TextDefault (#PCDATA)>
 <!ELEMENT TextExpression (#PCDATA)>
@@ -3034,6 +3221,7 @@
 <!ATTLIST ModelElementAnimationBar
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDataExpression (#PCDATA)>
 <!ELEMENT ModelElementDataArea EMPTY>
@@ -3048,12 +3236,14 @@
 <!ATTLIST ModelElementAnimationStackBar
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementAnimationTrafficLights (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementAnimationTrafficLightsCondition)*>
 <!ATTLIST ModelElementAnimationTrafficLights
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationTrafficLightsCondition (#PCDATA)>
 <!ATTLIST ModelElementAnimationTrafficLightsCondition
@@ -3064,6 +3254,7 @@
 <!ATTLIST ModelElementAnimationLCD
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationLCDExpression (#PCDATA)>
 <!ELEMENT ModelElementAnimationLCDDigits (#PCDATA)>
@@ -3073,6 +3264,7 @@
 <!ATTLIST ModelElementAnimationPointerMeasuring
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationPointerMeasuringExpression (#PCDATA)>
 <!ATTLIST ModelElementAnimationPointerMeasuringExpression
@@ -3085,6 +3277,7 @@
 <!ATTLIST ModelElementAnimationBarDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementMinimumValue (#PCDATA)>
 <!ELEMENT ModelElementMaximumValue (#PCDATA)>
@@ -3103,6 +3296,7 @@
 <!ATTLIST ModelElementAnimationLineDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDiagramTimeRange (#PCDATA)>
 
@@ -3110,6 +3304,7 @@
 <!ATTLIST ModelElementAnimationPieDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSegmentLabel (#PCDATA)>
 
@@ -3117,18 +3312,21 @@
 <!ATTLIST ModelElementAnimationClock
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementAnimationImage (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementColor | ModelElementLineWidth | ModelElementImageData | ModelElementConnection)*>
 <!ATTLIST ModelElementAnimationImage
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementAnimationRecord (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementAnimationRecordStationID | ModelElementAnimationRecordDataPoints | ModelElementAnimationRecordDataColor)*>
 <!ATTLIST ModelElementAnimationRecord
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationRecordStationID (#PCDATA)>
 <!ELEMENT ModelElementAnimationRecordDataPoints (#PCDATA)>
@@ -3138,6 +3336,7 @@
 <!ATTLIST ModelElementSubModel
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementSubModelConnections EMPTY>
@@ -3150,18 +3349,21 @@
 <!ATTLIST ModelElementSubModelInput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementSubModelOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementSubModelOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED  
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementReference (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementReferenceID)*>
 <!ATTLIST ModelElementReference
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementReferenceID (#PCDATA)>
 
@@ -3169,12 +3371,14 @@
 <!ATTLIST ModelElementButton
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementSlider (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementSliderMinimum | ModelElementSliderMaximum | ModelElementSliderStepWide | ModelElementSliderVariable)*>
 <!ATTLIST ModelElementSlider
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSliderMinimum (#PCDATA)>
 <!ELEMENT ModelElementSliderMaximum (#PCDATA)>
@@ -3185,6 +3389,7 @@
 <!ATTLIST ModelElementCheckbox
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementCheckboxVariable (#PCDATA)>
 <!ELEMENT ModelElementCheckboxValueChecked (#PCDATA)>
@@ -3194,6 +3399,7 @@
 <!ATTLIST ModelElementRadiobutton
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementRadiobuttonVariable (#PCDATA)>
 <!ELEMENT ModelElementRadiobuttonValue (#PCDATA)>

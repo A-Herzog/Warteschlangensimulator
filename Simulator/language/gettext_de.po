@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-02 20:05+0200\n"
+"POT-Creation-Date: 2020-09-04 14:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7227,6 +7227,12 @@ msgstr "Simulation starten"
 
 msgid "Main.Menu.StartSimulation.Mnemonic"
 msgstr "S"
+
+msgid "Main.Menu.StatisticsSetup"
+msgstr "Statistikaufzeichnung konfigurieren..."
+
+msgid "Main.Menu.StatisticsSetup.Mnemonic"
+msgstr "k"
 
 msgid "Main.Menu.View"
 msgstr "Ansicht"
@@ -14492,6 +14498,18 @@ msgstr "Modellbeschreibung"
 
 msgid "SlidesGenerator.ModellParameters"
 msgstr "Modellparameter"
+
+msgid "StationStatistics.DialogHint"
+msgstr "Durch die gezielte Deaktivierung der Statistikerfassung an einzelnen Stationen kann die Simulation beschleunigt und der Statistikumfang reduziert werden. Im Standardfall wird empfohlen, die Erfassung an allen Stationen im aktiv Zustand zubelassen."
+
+msgid "StationStatistics.SelectAll"
+msgstr "Alle auswählen"
+
+msgid "StationStatistics.SelectNone"
+msgstr "Alle abwählen"
+
+msgid "StationStatistics.Title"
+msgstr "Stationen in der Statistik erfassen"
 
 msgid "Statistic.Description.Hide"
 msgstr "Erklärung ausblenden"
@@ -25306,6 +25324,9 @@ msgstr "ModellElementName"
 
 msgid "Surface.XML.Element.Size"
 msgstr "ModellElementGroesse"
+
+msgid "Surface.XML.Element.StationStatisticsActive"
+msgstr "statistik"
 
 msgid "Surface.XML.Element.id"
 msgstr "id"

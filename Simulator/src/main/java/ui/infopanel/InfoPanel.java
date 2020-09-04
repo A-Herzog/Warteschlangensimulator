@@ -145,6 +145,9 @@ public class InfoPanel {
 	/** Info-ID für den "Varianzanalyse"-Dialog */
 	public static final String globalVarianceAnalysis="VarianceAnalysis";
 
+	/** Info-ID für den "Stationsstatistik"-Dialog */
+	public static final String globalStationStatistics="StationStatistics";
+
 	/* Stationen - Eingang/Ausgang */
 
 	/** Info-ID für den "Quelle"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
@@ -636,6 +639,12 @@ public class InfoPanel {
 		register(globalVarianceAnalysis,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("ParameterCompare.Settings.VarianceAnalysis.Title"),
 				()->Language.tr("ParameterCompare.Settings.VarianceAnalysis.DialogHint"));
+
+		/* Stationsstatistik */
+
+		register(globalStationStatistics,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("StationStatistics.Title"),
+				()->Language.tr("StationStatistics.DialogHint"));
 
 		/* Stationen - Eingang/Ausgang */
 

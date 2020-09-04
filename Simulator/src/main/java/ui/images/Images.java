@@ -484,6 +484,9 @@ public enum Images {
 	/** Symbol "Simulation - In Logdatei aufzeichnen" */
 	SIMULATION_LOG("Text.gif"),
 
+	/** Symbol "Simulation - Statistikaufzeichnung konfigurieren" */
+	SIMULATION_STATISTICS("chart_curve.png"),
+
 	/** Symbol "Simulation - In Logdatei aufzeichnen - als Text" */
 	SIMULATION_LOG_MODE_FILE("page.png"),
 

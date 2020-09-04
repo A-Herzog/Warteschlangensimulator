@@ -1104,6 +1104,15 @@ public class ModelElement {
 	}
 
 	/**
+	 * Ermöglicht das Laden von Eigenschaften aus dem Haupt-Knoten des xml-Elements.
+	 * @param node	xml-Element deren Eigenschaften verarbeitet werden sollen
+	 * @return	Tritt ein Fehler auf, so wird die Fehlermeldung als String zurückgegeben. Im Erfolgsfall wird <code>null</code> zurückgegeben.
+	 */
+	protected String loadPropertiesFromMainNode(final Element node) {
+		return null;
+	}
+
+	/**
 	 * Versucht die Daten des Modell-Elements aus einem xml-Element zu laden
 	 * @param node	XML-Element, das das Modell-Element beinhaltet
 	 * @return	Tritt ein Fehler auf, so wird die Fehlermeldung als String zurückgegeben. Im Erfolgsfall wird <code>null</code> zurückgegeben.
@@ -1118,13 +1127,16 @@ public class ModelElement {
 			if (!s.trim().isEmpty() && !s.equals("0")) deleteProtection=true;
 		}
 
+		String error=loadPropertiesFromMainNode(node);
+		if (error!=null) return error;
+
 		final NodeList l=node.getChildNodes();
 		final int size=l.getLength();
 		for (int i=0; i<size;i++) {
 			final Node sub=l.item(i);
 			if (!(sub instanceof Element)) continue;
 			Element e=(Element)sub;
-			String error=loadProperty(e.getNodeName(),e.getTextContent(),e);
+			error=loadProperty(e.getNodeName(),e.getTextContent(),e);
 			if (error!=null) return error;
 		}
 
