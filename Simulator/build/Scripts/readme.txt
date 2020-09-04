@@ -75,6 +75,14 @@ Landeseinstellung ein Dezimalkomma oder ein Dezimalpunkt verwendet.
 
 
 
+activate-numa:
+
+Activates NUMA mode in Warteschlangensimulator.
+
+Aktiviert den NUMA-Modus im Warteschlangensimulator.
+
+
+
 runSimServer:
 
 Example script how to use the simulator in simulation server mode.

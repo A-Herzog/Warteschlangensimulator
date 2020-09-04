@@ -6,6 +6,13 @@
 # Führt einen einzelnen Benchmark-Lauf unter Verwendung der angegebenen Anzahl an CPU-Kernen durch.
 # Die Ergebnisse werden an die Datei benchmark-results.txt angehängt.
 
+if [ -z "$JAVA_HOME" ]
+then
+	JAVA_RUN="java"
+else
+	JAVA_RUN="${JAVA_HOME}/bin/java"
+fi
+
 if [ -f "../Simulator.jar" ]
 then
 	if [ "$1" == "" ]
@@ -21,10 +28,10 @@ then
 		then
 			rm benchmark-statistics.xml
 		fi
-		java -jar ../Simulator.jar SetMaxThreads $1
-		java -jar ../Simulator.jar Simulation benchmark-model.xml benchmark-statistics.xml
-		java -jar ../Simulator.jar Filter benchmark-statistics.xml benchmark-filter.js benchmark-results.txt
-		java -jar ../Simulator.jar SetMaxThreads 0
+		${JAVA_RUN} -jar ../Simulator.jar SetMaxThreads $1
+		${JAVA_RUN} -jar ../Simulator.jar Simulation benchmark-model.xml benchmark-statistics.xml
+		${JAVA_RUN} -jar ../Simulator.jar Filter benchmark-statistics.xml benchmark-filter.js benchmark-results.txt
+		${JAVA_RUN} -jar ../Simulator.jar SetMaxThreads 0
 		if [ -f "benchmark-statistics.xml" ]
 		then
 			rm benchmark-statistics.xml

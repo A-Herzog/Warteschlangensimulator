@@ -12,6 +12,13 @@
 # client arrivals an output file variance_analysis-resultsX.xlsx is created,
 # where X stands for the number of arrivals (in millions).
 
+if [ -z "$JAVA_HOME" ]
+then
+	JAVA_RUN="java"
+else
+	JAVA_RUN="${JAVA_HOME}/bin/java"
+fi
+
 if [ -f "../Simulator.jar" ]
 then
 	if [ "$1" == "" ]
@@ -51,9 +58,9 @@ then
 				fi
 				for ((x=5;x<=100;x+=5))
 				do	
-					java -jar ../Simulator.jar ParameterreiheVarianzanalyse variance_analysis-model.xml variance_analysis-series.xml 100 ${x}000000
-					java -jar ../Simulator.jar Parameterreihe variance_analysis-series.xml variance_analysis-results.xml
-					java -jar ../Simulator.jar ParameterreiheTabelle variance_analysis-results.xml variance_analysis-results${x}.xlsx
+					${JAVA_RUN} -jar ../Simulator.jar ParameterreiheVarianzanalyse variance_analysis-model.xml variance_analysis-series.xml 100 ${x}000000
+					${JAVA_RUN} -jar ../Simulator.jar Parameterreihe variance_analysis-series.xml variance_analysis-results.xml
+					${JAVA_RUN} -jar ../Simulator.jar ParameterreiheTabelle variance_analysis-results.xml variance_analysis-results${x}.xlsx
 					if [ -f "variance_analysis-series.xml" ]
 					then
 						rm variance_analysis-series.xml
