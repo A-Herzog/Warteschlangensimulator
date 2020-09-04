@@ -74,7 +74,7 @@
 	<dependency>
     	<groupId>org.mozilla</groupId>
     	<artifactId>rhino</artifactId>
-    	<version>1.7.12</version>
+    	<version>1.7.13</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.fifesoft/rsyntaxtextarea -->
 	<dependency>
