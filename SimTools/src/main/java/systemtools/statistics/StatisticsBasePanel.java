@@ -179,6 +179,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersReportSaveHTMLAppTitle="Statistik";
 	/** Bezeichner für Info zur Baumstruktur im html+js interaktiven html-Report */
 	public static String viewersReportSaveHTMLAppInfo="Wählen Sie in der Baumstruktur links die anzuzeigende Rubrik aus.";
+	/** Bezeichner für noscript-Warnung im interaktiven html-Report */
+	public static String viewersReportSaveHTMLAppJSError="Zur Anzeige der interaktiven Statistik wird Javascript benötigt.";
 
 	/** Bezeichner für das Toolbar-Button "Standardzoom" */
 	public static String viewersToolbarZoom="Standardzoom";

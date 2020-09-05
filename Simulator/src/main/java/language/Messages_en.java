@@ -996,6 +996,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2645] = "New operators group";
     t[2646] = "Animation.Icon.Pin";
     t[2647] = "Pin";
+    t[2648] = "Statistic.Viewer.Report.HTMLApp.JSError";
+    t[2649] = "Javascript is needed for displaying this interactive statistics.";
     t[2652] = "Surface.AnimationText.Type.PercentValue";
     t[2653] = "Percent value";
     t[2654] = "Simulation.Log.Batching.MinMaxInfo";
@@ -2002,10 +2004,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5263] = "V";
     t[5266] = "Simulation.Log.SourceArrival.Info";
     t[5267] = "Client: %s, warm-up: %s, station: %s, Number of clients: %d";
-    t[5268] = "Surface.InteractiveCheckbox.Tooltip";
-    t[5269] = "Checkbox which triggers an action if clicked during animation.";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[5268] = "Surface.InteractiveCheckbox.Tooltip";
+    t[5269] = "Checkbox which triggers an action if clicked during animation.";
     t[5270] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Expression.ErrorInfo";
     t[5271] = "The specified expression \"%s\" is invalid at character %d.";
     t[5272] = "Surface.PopupMenu.MoveForwards";
@@ -4004,10 +4006,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10369] = "ClientCount";
     t[10372] = "Simulation.Log.Assign";
     t[10373] = "Client type changr";
-    t[10376] = "ModelDescription.CounterMulti.Condition";
-    t[10377] = "Counter if condition \"%s\" is met";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[10376] = "ModelDescription.CounterMulti.Condition";
+    t[10377] = "Counter if condition \"%s\" is met";
     t[10386] = "Surface.WayPoint.XML.Record.StationFrom";
     t[10387] = "OriginStation";
     t[10410] = "Elements.Catalog.Decoration";
@@ -6006,10 +6008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15801] = "Batch size";
     t[15804] = "Surface.XML.Resource.Type.Number";
     t[15805] = "Number";
-    t[15810] = "Editor.DialogBase.OpenModelTranporters.InfoYes";
-    t[15811] = "Close dialog and open transporters list.";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[15810] = "Editor.DialogBase.OpenModelTranporters.InfoYes";
+    t[15811] = "Close dialog and open transporters list.";
     t[15812] = "Color.F5F5DC";
     t[15813] = "Beige";
     t[15830] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20951] = "Resource idle time costs";
     t[20960] = "CommandLine.Filter.Description.Short";
     t[20961] = "Filter statistic file.";
-    t[20962] = "Surface.Conveyor.XML.TransportTime.Type.TransferTime";
-    t[20963] = "TransferTime";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20962] = "Surface.Conveyor.XML.TransportTime.Type.TransferTime";
+    t[20963] = "TransferTime";
     t[20966] = "ModelDescription.AssignString.Assignment";
     t[20967] = "Assignment";
     t[20972] = "Surface.AnimationText.Name";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26153] = "No XML element was selected for the control variable.";
     t[26162] = "Surface.XML.Transporter.Icon";
     t[26163] = "Icon";
-    t[26166] = "Server.Status.ServerVersion";
-    t[26167] = "Server-Version";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26166] = "Server.Status.ServerVersion";
+    t[26167] = "Server-Version";
     t[26174] = "Statistic.Viewer.NoHTMLApplication.Title";
     t[26175] = "No application registered for printing html files";
     t[26194] = "Simulation.Output.String";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31523] = "Assignment";
     t[31524] = "Surface.PopupMenu.SimulationStatisticsData.CopyHint";
     t[31525] = "Copies the data to the clipboard";
-    t[31526] = "Simulation.Element.Delay.Name";
-    t[31527] = "Delay";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31526] = "Simulation.Element.Delay.Name";
+    t[31527] = "Delay";
     t[31530] = "Simulation.Log.LogicUntil";
     t[31531] = "Logic Until";
     t[31532] = "SettingsDialog.Tabs.DefaultFormats";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36711] = "Write global variable";
     t[36712] = "Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.Info";
     t[36713] = "Do you really want to delete the selected alternative?";
-    t[36714] = "Surface.Set.Infotext";
-    t[36715] = "Performs one or more variable assignments when a client passes this station.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36714] = "Surface.Set.Infotext";
+    t[36715] = "Performs one or more variable assignments when a client passes this station.";
     t[36718] = "Color.808080";
     t[36719] = "Gray";
     t[36720] = "ModelLoadData.EditDialog.Delete.Confirm.Info";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42099] = "Blue";
     t[42100] = "Statistics.XML.Element.ResourceWorkCosts";
     t[42101] = "StatisticsResourcesWorkTimeCosts";
-    t[42110] = "ParameterCompare.Templates.Step.ErrorInfo";
-    t[42111] = "The step wide \"%s\" is invalid. A positive number has to be specified.";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[42110] = "ParameterCompare.Templates.Step.ErrorInfo";
+    t[42111] = "The step wide \"%s\" is invalid. A positive number has to be specified.";
     t[42114] = "Surface.Process.Dialog.Title";
     t[42115] = "Edit process station";
     t[42118] = "Simulation.Log.ArrivalClientCount";

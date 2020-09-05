@@ -504,6 +504,8 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 					break;
 				case FORMAT_HTML_JS:
 					writeHTMLHead(bw,addStyles);
+					bw.write("<noscript>"+StatisticsBasePanel.viewersReportSaveHTMLAppJSError+"</noscript>"); bw.newLine();
+					bw.newLine();
 					break;
 				case FORMAT_LATEX:
 					writeLaTeXHead(bw);

@@ -578,6 +578,7 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersReportSaveHTMLImagesFile=Language.tr("Statistic.Viewer.Report.SaveHTMLImages.Files");
 		StatisticsBasePanel.viewersReportSaveHTMLAppTitle=Language.tr("Statistic.Viewer.Report.HTMLAppTitle");
 		StatisticsBasePanel.viewersReportSaveHTMLAppInfo=Language.tr("Statistic.Viewer.Report.HTMLApp.Info");
+		StatisticsBasePanel.viewersReportSaveHTMLAppJSError=Language.tr("Statistic.Viewer.Report.HTMLApp.JSError");
 		StatisticsBasePanel.viewersToolbarZoom=Language.tr("Statistic.Viewer.Toolbar.Zoom");
 		StatisticsBasePanel.viewersToolbarZoomHint=Language.tr("Statistic.Viewer.Toolbar.Zoom.Hint");
 		StatisticsBasePanel.viewersToolbarCopy=Language.tr("Statistic.Viewer.Toolbar.Copy");

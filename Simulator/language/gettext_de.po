@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-04 14:12+0200\n"
+"POT-Creation-Date: 2020-09-05 13:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15152,6 +15152,9 @@ msgstr "Zusammenfassung erstellen"
 
 msgid "Statistic.Viewer.Report.HTMLApp.Info"
 msgstr "Wählen Sie in der Baumstruktur links die anzuzeigende Rubrik aus."
+
+msgid "Statistic.Viewer.Report.HTMLApp.JSError"
+msgstr "Zur Anzeige der interaktiven Statistik wird Javascript benötigt."
 
 msgid "Statistic.Viewer.Report.HTMLAppTitle"
 msgstr "Statistik"

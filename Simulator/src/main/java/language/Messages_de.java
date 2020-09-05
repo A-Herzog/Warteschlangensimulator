@@ -996,6 +996,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[2645] = "Neue Bedienergruppe";
     t[2646] = "Animation.Icon.Pin";
     t[2647] = "Stecknadel";
+    t[2648] = "Statistic.Viewer.Report.HTMLApp.JSError";
+    t[2649] = "Zur Anzeige der interaktiven Statistik wird Javascript ben\u00f6tigt.";
     t[2652] = "Surface.AnimationText.Type.PercentValue";
     t[2653] = "Prozentwert";
     t[2654] = "Simulation.Log.Batching.MinMaxInfo";
@@ -2002,10 +2004,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5263] = "Vertikal zentrieren";
     t[5266] = "Simulation.Log.SourceArrival.Info";
     t[5267] = "Kunde: %s, WarmUp: %s, Station: %s, Kundenanzahl: %d";
-    t[5268] = "Surface.InteractiveCheckbox.Tooltip";
-    t[5269] = "Checkbox, die w\u00e4hrend der Animation eine Aktion ausl\u00f6st, wenn sie angeklickt wird.";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[5268] = "Surface.InteractiveCheckbox.Tooltip";
+    t[5269] = "Checkbox, die w\u00e4hrend der Animation eine Aktion ausl\u00f6st, wenn sie angeklickt wird.";
     t[5270] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Expression.ErrorInfo";
     t[5271] = "Der angegebene Ausdruck \"%s\" ist ab Zeichen %d ung\u00fcltig.";
     t[5272] = "Surface.PopupMenu.MoveForwards";
@@ -4004,10 +4006,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10369] = "Kundenanzahl";
     t[10372] = "Simulation.Log.Assign";
     t[10373] = "Kundentyp\u00e4nderung";
-    t[10376] = "ModelDescription.CounterMulti.Condition";
-    t[10377] = "Z\u00e4hler, wenn bedingung \"%s\" erf\u00fcllt ist";
   }
   static void clinit_part_2 (java.lang.String[] t) {
+    t[10376] = "ModelDescription.CounterMulti.Condition";
+    t[10377] = "Z\u00e4hler, wenn bedingung \"%s\" erf\u00fcllt ist";
     t[10386] = "Surface.WayPoint.XML.Record.StationFrom";
     t[10387] = "Ausgangsstation";
     t[10410] = "Elements.Catalog.Decoration";
@@ -6006,10 +6008,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[15801] = "Batch-Gr\u00f6\u00dfe";
     t[15804] = "Surface.XML.Resource.Type.Number";
     t[15805] = "Anzahl";
-    t[15810] = "Editor.DialogBase.OpenModelTranporters.InfoYes";
-    t[15811] = "Dialog schlie\u00dfen und Transporter\u00fcbersicht aufrufen.";
   }
   static void clinit_part_3 (java.lang.String[] t) {
+    t[15810] = "Editor.DialogBase.OpenModelTranporters.InfoYes";
+    t[15811] = "Dialog schlie\u00dfen und Transporter\u00fcbersicht aufrufen.";
     t[15812] = "Color.F5F5DC";
     t[15813] = "Beige";
     t[15830] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20951] = "Kosten f\u00fcr die Leerlaufzeit der Ressourcen";
     t[20960] = "CommandLine.Filter.Description.Short";
     t[20961] = "Datei mit Statistikergebnissen filtern.";
-    t[20962] = "Surface.Conveyor.XML.TransportTime.Type.TransferTime";
-    t[20963] = "Transferzeit";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20962] = "Surface.Conveyor.XML.TransportTime.Type.TransferTime";
+    t[20963] = "Transferzeit";
     t[20966] = "ModelDescription.AssignString.Assignment";
     t[20967] = "Zuweisung";
     t[20972] = "Surface.AnimationText.Name";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26153] = "Es wurde kein XML-Element f\u00fcr die Kontrollvariable ausgew\u00e4hlt.";
     t[26162] = "Surface.XML.Transporter.Icon";
     t[26163] = "Icon";
-    t[26166] = "Server.Status.ServerVersion";
-    t[26167] = "Server-Version";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26166] = "Server.Status.ServerVersion";
+    t[26167] = "Server-Version";
     t[26174] = "Statistic.Viewer.NoHTMLApplication.Title";
     t[26175] = "Keine Anwendung f\u00fcr den Druck von html-Dateien registriert";
     t[26194] = "Simulation.Output.String";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31523] = "Zuweisung";
     t[31524] = "Surface.PopupMenu.SimulationStatisticsData.CopyHint";
     t[31525] = "Kopiert die Daten in die Zwischenablage";
-    t[31526] = "Simulation.Element.Delay.Name";
-    t[31527] = "Verz\u00f6gerung";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31526] = "Simulation.Element.Delay.Name";
+    t[31527] = "Verz\u00f6gerung";
     t[31530] = "Simulation.Log.LogicUntil";
     t[31531] = "Logik Until";
     t[31532] = "SettingsDialog.Tabs.DefaultFormats";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36711] = "Globale Variable ver\u00e4ndern";
     t[36712] = "Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.Info";
     t[36713] = "Soll die gew\u00e4hlte Alternative wirklich gel\u00f6scht werden?";
-    t[36714] = "Surface.Set.Infotext";
-    t[36715] = "F\u00fchrt eine oder mehrere Variablenzuweisungen durch, wenn ein Kunde diese Station passiert.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36714] = "Surface.Set.Infotext";
+    t[36715] = "F\u00fchrt eine oder mehrere Variablenzuweisungen durch, wenn ein Kunde diese Station passiert.";
     t[36718] = "Color.808080";
     t[36719] = "Grau";
     t[36720] = "ModelLoadData.EditDialog.Delete.Confirm.Info";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42099] = "Blau";
     t[42100] = "Statistics.XML.Element.ResourceWorkCosts";
     t[42101] = "StatistikRessourcenAuslastungsKosten";
-    t[42110] = "ParameterCompare.Templates.Step.ErrorInfo";
-    t[42111] = "Die angegebene Schrittweite \"%s\" ist ung\u00fcltig. Es muss eine positive Zahl angegeben werden.";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[42110] = "ParameterCompare.Templates.Step.ErrorInfo";
+    t[42111] = "Die angegebene Schrittweite \"%s\" ist ung\u00fcltig. Es muss eine positive Zahl angegeben werden.";
     t[42114] = "Surface.Process.Dialog.Title";
     t[42115] = "Bedienstation bearbeiten";
     t[42118] = "Simulation.Log.ArrivalClientCount";
