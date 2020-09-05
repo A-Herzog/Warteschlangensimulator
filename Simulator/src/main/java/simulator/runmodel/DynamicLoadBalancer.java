@@ -12,7 +12,9 @@ public class DynamicLoadBalancer {
 	private final static long MIN_LOAD_PACKAGE_SIZE=1_000;
 
 	private long arrivalsToBeSimulated;
-	private final long arrivalPackage;
+	private final long last25Percent;
+	private final long arrivalPackageLarge;
+	private final long arrivalPackageSmall;
 
 	/**
 	 * Konstruktor der Klasse
@@ -21,7 +23,9 @@ public class DynamicLoadBalancer {
 	 */
 	public DynamicLoadBalancer(final long arrivalsToBeSimulated, final int threadCount) {
 		this.arrivalsToBeSimulated=arrivalsToBeSimulated;
-		this.arrivalPackage=Math.max(MIN_LOAD_PACKAGE_SIZE,arrivalsToBeSimulated/threadCount/500);
+		this.last25Percent=arrivalsToBeSimulated/4;
+		this.arrivalPackageLarge=Math.max(MIN_LOAD_PACKAGE_SIZE,arrivalsToBeSimulated/threadCount/500);
+		this.arrivalPackageSmall=Math.max(MIN_LOAD_PACKAGE_SIZE,arrivalsToBeSimulated/threadCount/2000);
 	}
 
 	/**
@@ -31,7 +35,12 @@ public class DynamicLoadBalancer {
 	public long getArrivals() {
 		synchronized(this) {
 			if (arrivalsToBeSimulated==0) return 0;
-			long arrivalThisPackage=FastMath.min(arrivalPackage,arrivalsToBeSimulated);
+			final long arrivalThisPackage;
+			if (arrivalsToBeSimulated>last25Percent) {
+				arrivalThisPackage=FastMath.min(arrivalPackageLarge,arrivalsToBeSimulated);
+			} else {
+				arrivalThisPackage=FastMath.min(arrivalPackageSmall,arrivalsToBeSimulated);
+			}
 			arrivalsToBeSimulated-=arrivalThisPackage;
 			return arrivalThisPackage;
 		}
