@@ -7,7 +7,7 @@
 
 if [ -f "../Simulator.jar" ]
 then
-	java -jar ../Simulator.jar serverWeb 80
+	java -jar ../Simulator.jar serverWeb 8000
 else
 	echo English:
 	echo This file has to be run from its own directory to find the simulator.
@@ -20,4 +20,4 @@ fi
 # The port number to listen on for requests.
 
 # Alternative for using a fixed model:
-# java -jar ./Simulator.jar serverWebFixed 80 model.xml
+# java -jar ./Simulator.jar serverWebFixed 8000 model.xml
