@@ -85,6 +85,8 @@ public class ButtonRotator {
 		final Dimension size=button.getSize();
 		final BufferedImage image=new BufferedImage(size.width,size.height,BufferedImage.TYPE_3BYTE_BGR);
 		final Graphics g=image.getGraphics();
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(0,0,size.width,size.height); /* Das brauchen wir nur für Look&Feel Nimbus */
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		toolbar.paint(g);
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-05 13:59+0200\n"
+"POT-Creation-Date: 2020-09-09 15:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11963,7 +11963,7 @@ msgid "SettingsDialog.FontSizes"
 msgstr "Font sizes"
 
 msgid "SettingsDialog.FontSizes.Info"
-msgstr "Changing the font size will take affect after restarting the program."
+msgstr "Changing the theme or the font size will take affect when restarting the program."
 
 msgid "SettingsDialog.FontSizes.Larger"
 msgstr "Larger"
@@ -12042,6 +12042,12 @@ msgstr "Load model on program start"
 
 msgid "SettingsDialog.LoadModelOnProgramStart.EmptyModel"
 msgstr "Empty model"
+
+msgid "SettingsDialog.LookAndFeel"
+msgstr "Theme"
+
+msgid "SettingsDialog.LookAndFeel.System"
+msgstr "System default"
 
 msgid "SettingsDialog.ManualUpdate"
 msgstr "Update manually"

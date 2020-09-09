@@ -124,7 +124,7 @@ public class Main {
 	private static final class RunSimulator implements Runnable {
 		@Override
 		public void run() {
-			GUITools.setupUI();
+			GUITools.setupUI(SetupData.getSetup().lookAndFeel);
 			final double scaling=SetupData.getSetup().scaleGUI;
 			GUITools.setupFontSize(scaling);
 			BaseDialog.windowScaling=scaling;

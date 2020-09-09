@@ -1209,6 +1209,7 @@ public class InfoPanel {
 		topInner.add(label,BorderLayout.WEST);
 
 		final JTextPane pane=new JTextPane();
+		pane.setBackground(new Color(0,0,0,0));
 		pane.setOpaque(false);
 		pane.setEditable(false);
 		pane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));

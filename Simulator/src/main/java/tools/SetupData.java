@@ -33,6 +33,7 @@ import language.LanguageStaticLoader;
 import language.Messages_Java11;
 import mathtools.NumberTools;
 import statistics.StatisticsDataPerformanceIndicator;
+import systemtools.GUITools;
 import systemtools.SetupBase;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
@@ -237,6 +238,12 @@ public class SetupData extends SetupBase {
 	 * Skalierung der Programmoberfläche
 	 */
 	public double scaleGUI;
+
+	/**
+	 * Zu verwendendes Theme
+	 * @see GUITools#listLookAndFeels()
+	 */
+	public String lookAndFeel;
 
 	/**
 	 * Modell automatisch speichern?
@@ -820,6 +827,7 @@ public class SetupData extends SetupBase {
 		startModel="";
 		surfaceHelp=SurfaceHelp.START_ONLY;
 		scaleGUI=1;
+		lookAndFeel="";
 		autoSaveMode=AutoSaveMode.AUTOSAVE_OFF;
 		hintDialogs="";
 		imageSize=2000;
@@ -1131,6 +1139,11 @@ public class SetupData extends SetupBase {
 			if (name.equals("scale")) {
 				final Double d=NumberTools.getExtProbability(NumberTools.systemNumberToLocalNumber(e.getTextContent()));
 				if (d!=null) scaleGUI=Math.min(2,Math.max(0.5,d));
+				continue;
+			}
+
+			if (name.equals("lookandfeel")) {
+				lookAndFeel=e.getTextContent();
 				continue;
 			}
 
@@ -1637,6 +1650,11 @@ public class SetupData extends SetupBase {
 		if (scaleGUI!=1) {
 			root.appendChild(node=doc.createElement("Scale"));
 			node.setTextContent(NumberTools.localNumberToSystemNumber(NumberTools.formatNumber(scaleGUI)));
+		}
+
+		if (lookAndFeel!=null && !lookAndFeel.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("LookAndFeel"));
+			node.setTextContent(lookAndFeel);
 		}
 
 		if (autoSaveMode!=AutoSaveMode.AUTOSAVE_OFF) {

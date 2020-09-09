@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-05 13:59+0200\n"
+"POT-Creation-Date: 2020-09-09 15:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11965,7 +11965,7 @@ msgid "SettingsDialog.FontSizes"
 msgstr "Schriftgrößen"
 
 msgid "SettingsDialog.FontSizes.Info"
-msgstr "Veränderungen der Schriftgröße werden erst nach dem nächsten Programmstart wirksam."
+msgstr "Veränderungen des Themas und der Schriftgröße werden erst beim nächsten Programmstart wirksam."
 
 msgid "SettingsDialog.FontSizes.Larger"
 msgstr "Größer"
@@ -12044,6 +12044,12 @@ msgstr "Modell beim Programmstart laden"
 
 msgid "SettingsDialog.LoadModelOnProgramStart.EmptyModel"
 msgstr "Leeres Modell"
+
+msgid "SettingsDialog.LookAndFeel"
+msgstr "Thema"
+
+msgid "SettingsDialog.LookAndFeel.System"
+msgstr "Systemvorgabe"
 
 msgid "SettingsDialog.ManualUpdate"
 msgstr "Manuell aktualisieren"

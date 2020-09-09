@@ -63,6 +63,7 @@ import net.calc.ServerStatus;
 import scripting.js.JSEngineNames;
 import simulator.examples.EditModelExamples;
 import systemtools.BaseDialog;
+import systemtools.GUITools;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import tools.SetupData;
@@ -90,6 +91,7 @@ public final class SetupDialog extends BaseDialog {
 
 	/* Seite: Benutzeroberfläche */
 	private final JComboBox<String> languages;
+	private final JComboBox<String> lookAndFeel;
 	private final JComboBox<String> fontSizes;
 	private final JCheckBox useHighContrasts;
 	private final JComboBox<String> autoSave;
@@ -193,6 +195,14 @@ public final class SetupDialog extends BaseDialog {
 		p.add(languages=new JComboBox<String>(new String[]{Language.tr("SettingsDialog.Languages.English"),Language.tr("SettingsDialog.Languages.German")}));
 		languages.setRenderer(new IconListCellRenderer(new Images[]{Images.LANGUAGE_EN,Images.LANGUAGE_DE}));
 		languages.setToolTipText(Language.tr("SettingsDialog.Languages.Info"));
+		label.setLabelFor(languages);
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(label=new JLabel(Language.tr("SettingsDialog.LookAndFeel")+":"));
+		List<String> LookAndFeels=new ArrayList<>();
+		LookAndFeels.add(Language.tr("SettingsDialog.LookAndFeel.System"));
+		LookAndFeels.addAll(Arrays.asList(GUITools.listLookAndFeels()));
+		p.add(lookAndFeel=new JComboBox<String>(LookAndFeels.toArray(new String[0])));
 		label.setLabelFor(languages);
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -805,6 +815,13 @@ public final class SetupDialog extends BaseDialog {
 
 		if (setup.language==null || setup.language.isEmpty() || setup.language.equalsIgnoreCase("de")) languages.setSelectedIndex(1); else languages.setSelectedIndex(0);
 
+		final String[] lookAndFeels=GUITools.listLookAndFeels();
+		lookAndFeel.setSelectedIndex(0);
+		for (int i=0;i<lookAndFeels.length;i++) if (lookAndFeels[i].equalsIgnoreCase(setup.lookAndFeel)) {
+			lookAndFeel.setSelectedIndex(i+1);
+			break;
+		}
+
 		fontSizes.setSelectedIndex(1);
 		if (setup.scaleGUI<1) fontSizes.setSelectedIndex(0);
 		if (setup.scaleGUI>1) fontSizes.setSelectedIndex(2);
@@ -1032,6 +1049,8 @@ public final class SetupDialog extends BaseDialog {
 		/* Seite: Benutzeroberfläche */
 
 		setup.language=(languages.getSelectedIndex()==1)?"de":"en";
+
+		if (lookAndFeel.getSelectedIndex()==0) setup.lookAndFeel=""; else setup.lookAndFeel=(String)lookAndFeel.getSelectedItem();
 
 		switch (fontSizes.getSelectedIndex()) {
 		case 0: setup.scaleGUI=0.9; break;
@@ -1268,6 +1287,7 @@ public final class SetupDialog extends BaseDialog {
 	protected void userButtonClick(final int nr, final JButton button) {
 		switch (tabs.getSelectedIndex()) {
 		case 0: /* Seite: Benutzeroberfläche */
+			lookAndFeel.setSelectedIndex(0);
 			fontSizes.setSelectedIndex(1);
 			useHighContrasts.setSelected(false);
 			autoSave.setSelectedIndex(0);

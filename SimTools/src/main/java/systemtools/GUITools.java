@@ -17,17 +17,19 @@ package systemtools;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.FontUIResource;
 
 /**
  * Diese Klasse stellt ein paar statische Funktionen zur Initialisierung der grafischen Oberfläche zur Verfügung.
  * @author Alexander Herzog
- * @version 1.2
+ * @version 1.3
  */
 public class GUITools {
 	/**
@@ -40,14 +42,49 @@ public class GUITools {
 	private GUITools() {}
 
 	/**
-	 * Wählt als Look&amp;Feel-Manager das Betriebssystem-typische Format aus
+	 * Wählt als Look&amp;Feel-Manager das Betriebssystem-typische Format aus.
 	 * @return	Gibt <code>true</code> zurück, wenn das System Look&amp;Feel aktiviert werden konnte
 	 */
 	public static boolean setupUI() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {return false;}
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+			return false;
+		}
 		return true;
+	}
+
+	/**
+	 * Wählt einen bestimmten Look&amp;Feel-Manager aus.
+	 * Steht das Look&amp;Feel nicht zur Verfügung, so wird als Fallback das Betriebssystem-typische Format gewählt.
+	 * @param name	Name des Look&amp;Feel
+	 * @return	Gibt <code>true</code> zurück, wenn das gewünschte oder das Fallback Look&amp;Feel aktiviert werden konnte
+	 * @see #listLookAndFeels()
+	 */
+	public static boolean setupUI(final String name) {
+		String className=null;
+		for (LookAndFeelInfo info: UIManager.getInstalledLookAndFeels()) if (info.getName().equalsIgnoreCase(name)) {
+			className=info.getClassName();
+			break;
+		}
+
+		if (className==null) return setupUI();
+
+		try {
+			UIManager.setLookAndFeel(className);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+			return setupUI();
+		}
+		return true;
+	}
+
+	/**
+	 * Listet die Namen der verfügbaren Look&amp;Feels aus.
+	 * @return	Namen der verfügbaren Look&amp;Feels
+	 * @see #setupUI(String)
+	 */
+	public static String[] listLookAndFeels() {
+		return Arrays.asList(UIManager.getInstalledLookAndFeels()).stream().map(info->info.getName()).toArray(String[]::new);
 	}
 
 	/**
