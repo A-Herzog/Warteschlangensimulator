@@ -185,6 +185,7 @@ Section "Install" Inst
   
   File "..\..\Release\Simulator.jar"
   File "..\..\Release\Simulator.exe"
+  File "..\..\Release\Simulator.sh"
   File "..\tools\JDDE\JavaDDEx64.dll"
   File "..\tools\JDDE\JavaDDE.dll"
   WriteUninstaller "Uninstall.exe"
