@@ -530,6 +530,10 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpHotkeyReference",e->commandHelpHotkeyReference());
 		addAction("HelpDistributionReference",e->commandHelpDistributionReference());
 		addAction("HelpLiteratureGrossHarris",e->commandHelpLiterature(0));
+		addAction("HelpLiteratureBolch",e->commandHelpLiterature(1));
+		addAction("HelpLiteratureLawKelton",e->commandHelpLiterature(2));
+		addAction("HelpLiteratureWaldmann",e->commandHelpLiterature(3));
+		addAction("HelpLiteratureHedtstueck",e->commandHelpLiterature(4));
 		addAction("HelpSupport",e->commandHelpSupport());
 		addAction("HelpSupportData",e->commandHelpSupportData());
 		addAction("HelpHomepage",e->commandHelpHomepage());
@@ -1036,12 +1040,12 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Help.CommandLineReference"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Help.CommandLineReference.Mnemonic"),"HelpCommandLineReference");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.HotkeyReference"),Language.tr("Main.Menu.Help.HotkeyReference.Mnemonic"),"HelpHotkeyReference");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.DistributionReference"),Images.EXPRESSION_BUILDER_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Help.DistributionReference.Mnemonic"),"HelpDistributionReference");
-
-		/*
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.RecommendedLiterature")));
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.GrossHarris"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.GrossHarris"),"HelpLiteratureGrossHarris");
-		 */
-
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Bolch"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureBolch"),"HelpLiteratureBolch");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.LawKelton"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureLawKelton"),"HelpLiteratureLawKelton");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Waldmann"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureWaldmann"),"HelpLiteratureWaldmann");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Hedtstueck"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureHedtstueck"),"HelpLiteratureHedtstueck");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
@@ -2669,6 +2673,20 @@ public class MainPanel extends MainPanelBase {
 		case 0:
 			/* Gross/Harris: "Fundamentals of Queueing Theory" */
 			url="https://onlinelibrary.wiley.com/doi/book/10.1002/9781119453765";
+			break;
+		case 1:
+			/* Bolch/Greiner/deMeer/Trivedi: "Queueing Networks and Markov Chains" */
+			url="https://onlinelibrary.wiley.com/doi/book/10.1002/0471791571";
+			break;
+		case 2:
+			/* Law/Kelton: "Simulation Modeling & Analysis" */
+			url="https://www.researchgate.net/publication/239597629_Simulation_Modeling_and_Analysis";
+			break;
+		case 3: /* Waldmann/Helm: "Simulation stochastischer Systeme" */
+			url="https://www.springer.com/de/book/9783662497579";
+			break;
+		case 4: /* Hedtstück: "Simulation diskreter Prozesse" */
+			url="https://link.springer.com/book/10.1007/978-3-642-34871-6";
 			break;
 		default:
 			return;

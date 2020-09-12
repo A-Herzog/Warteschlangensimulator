@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 01:32+0200\n"
+"POT-Creation-Date: 2020-09-12 15:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7058,6 +7058,39 @@ msgstr "Program information..."
 
 msgid "Main.Menu.Help.ProgramInformation.Mnemonic"
 msgstr "P"
+
+msgid "Main.Menu.Help.RecommendedLiterature"
+msgstr "Recommended Literature"
+
+msgid "Main.Menu.Help.RecommendedLiterature.Bolch"
+msgstr "Bolch/Greiner/de Meer/Trivedi: \"Queueing Networks and Markov Chains\""
+
+msgid "Main.Menu.Help.RecommendedLiterature.GrossHarris"
+msgstr "Gross/Harris: \"Fundamentals of Queueing Theory\""
+
+msgid "Main.Menu.Help.RecommendedLiterature.Hedtstueck"
+msgstr "Hedtstück: \"Simulation diskreter Prozesse\""
+
+msgid "Main.Menu.Help.RecommendedLiterature.LawKelton"
+msgstr "Law/Kelton: \"Simulation Modeling & Analysis\""
+
+msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.GrossHarris"
+msgstr "Q"
+
+msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureBolch"
+msgstr "M"
+
+msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureHedtstueck"
+msgstr "d"
+
+msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureLawKelton"
+msgstr "S"
+
+msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureWaldmann"
+msgstr "W"
+
+msgid "Main.Menu.Help.RecommendedLiterature.Waldmann"
+msgstr "Waldmann/Helm: \"Simulation stochastischer Systeme\""
 
 msgid "Main.Menu.Help.ScriptingReference"
 msgstr "Calculation and scripting commands (pdf)"
@@ -26981,15 +27014,6 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Main.Menu.Help.ProgramInformation.Short"
 #~ msgstr "Info"
-
-#~ msgid "Main.Menu.Help.RecommendedLiterature"
-#~ msgstr "Recommended Literature"
-
-#~ msgid "Main.Menu.Help.RecommendedLiterature.GrossHarris"
-#~ msgstr "Gross/Harris: \"Fundamentals of Queueing Theory\""
-
-#~ msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.GrossHarris"
-#~ msgstr "Q"
 
 #~ msgid "Player.File.FileNotFound.ErrorInfo"
 #~ msgstr ""
