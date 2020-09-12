@@ -68,6 +68,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_PROCESSING_CLIENTS,
 		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Kundentypen */
 		MODE_RESIDENCE_CLIENTS,
+		/** Balkendiagramm zum Vergleich der Flussfaktoren zwischen den Kundentypen */
+		MODE_FLOW_FACTOR_CLIENTS,
 		/** Balkendiagramm zum Vergleich der mittleren Wartezeiten zwischen den Stationen */
 		MODE_WAITING_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Transportzeiten zwischen den Stationen */
@@ -76,6 +78,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_PROCESSING_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Stationen */
 		MODE_RESIDENCE_STATION,
+		/** Balkendiagramm zum Vergleich der Flussfaktoren zwischen den Stationen */
+		MODE_FLOW_FACTOR_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Wartezeiten zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
 		MODE_WAITING_STATION_CLIENT,
 		/** Balkendiagramm zum Vergleich der mittleren Transportzeiten zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
@@ -84,6 +88,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_PROCESSING_STATION_CLIENT,
 		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
 		MODE_RESIDENCE_STATION_CLIENT,
+		/** Balkendiagramm zum Vergleich der Flussfaktoren zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
+		MODE_FLOW_FACTOR_STATION_CLIENT,
 		/** Balkendiagramm zum Vergleich der Auslastungen der Bedeinergruppen  */
 		MODE_RESOURCE_UTILIZATION,
 		/** Balkendiagramm zum Vergleich der Auslastungen der Transportergruppen  */
@@ -133,6 +139,33 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			data.addValue(indicators[i].getMean(),names[i],names[i]);
 			plot.getRendererForDataset(data).setSeriesPaint(i,color);
 
+		}
+
+		initTooltips();
+		setOutlineColor(Color.BLACK);
+	}
+
+	private void chartRequestFlowFactor(final String title, final String type, final StatisticsMultiPerformanceIndicator indicatorProcessing, final StatisticsMultiPerformanceIndicator indicatorResidence, final Map<String,Color> colorMap, final boolean processStationNames) {
+		initBarChart(title);
+		setupBarChart(title,type,title,false);
+
+		final String[] names=indicatorProcessing.getNames();
+
+		for (int i=0;i<names.length;i++) {
+			Color color=null;
+			String name=names[i];
+			final StatisticsDataPerformanceIndicator indicator1=(StatisticsDataPerformanceIndicator)indicatorProcessing.get(name);
+			final StatisticsDataPerformanceIndicator indicator2=(StatisticsDataPerformanceIndicator)indicatorResidence.get(name);
+			if (processStationNames) name=processStationName(name);
+			if (colorMap!=null) color=colorMap.get(name);
+			if (color==null) color=COLORS[i%COLORS.length];
+
+			final double time1=indicator1.getMean();
+			final double time2=indicator2.getMean();
+			if (time1>0) {
+				data.addValue(time2/time1,names[i],names[i]);
+				plot.getRendererForDataset(data).setSeriesPaint(i,color);
+			}
 		}
 
 		initTooltips();
@@ -256,6 +289,11 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.ClientType"),statistics.clientsResidenceTimes,colorMap,false);
 			addDescription("PlotBarCompareClients");
 			break;
+		case MODE_FLOW_FACTOR_CLIENTS:
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			chartRequestFlowFactor(Language.tr("Statistics.FlowFactor"),Language.tr("Statistics.ClientType"),statistics.clientsProcessingTimes,statistics.clientsResidenceTimes,colorMap,false);
+			addDescription("PlotBarCompareClients");
+			break;
 		case MODE_WAITING_STATION:
 			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.Station"),statistics.stationsWaitingTimes,null,false);
 			addDescription("PlotBarCompareStations");
@@ -272,6 +310,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.Station"),statistics.stationsResidenceTimes,null,false);
 			addDescription("PlotBarCompareStations");
 			break;
+		case MODE_FLOW_FACTOR_STATION:
+			chartRequestFlowFactor(Language.tr("Statistics.FlowFactor"),Language.tr("Statistics.Station"),statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,null,false);
+			addDescription("PlotBarCompareStations");
+			break;
 		case MODE_WAITING_STATION_CLIENT:
 			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.StationClient"),statistics.stationsWaitingTimesByClientType,null,false);
 			addDescription("PlotBarCompareStations");
@@ -286,6 +328,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			break;
 		case MODE_RESIDENCE_STATION_CLIENT:
 			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.StationClient"),statistics.stationsResidenceTimesByClientType,null,false);
+			addDescription("PlotBarCompareStations");
+			break;
+		case MODE_FLOW_FACTOR_STATION_CLIENT:
+			chartRequestFlowFactor(Language.tr("Statistics.FlowFactor"),Language.tr("Statistics.StationClient"),statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,null,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_RESOURCE_UTILIZATION:

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-09 15:47+0200\n"
+"POT-Creation-Date: 2020-09-12 01:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15652,6 +15652,9 @@ msgstr "Kunden an den Stationen"
 msgid "Statistics.ClientsByType"
 msgstr "Kunden pro Kundentyp"
 
+msgid "Statistics.ClientsFlowFactor"
+msgstr "Flussfaktoren nach Kunden"
+
 msgid "Statistics.ClientsInQueue"
 msgstr "Kunden in der Warteschlange"
 
@@ -16105,6 +16108,18 @@ msgstr "Die angegebene Skriptdatei \"%s\" existiert nicht."
 msgid "Statistics.Filter.ScriptInitError"
 msgstr "Das Skript konnte nicht zur Ausführung vorbereitet werden."
 
+msgid "Statistics.FlowFactor"
+msgstr "Flussfaktor"
+
+msgid "Statistics.FlowFactorByClientTypes"
+msgstr "Flussfaktoren nach Kundentypen"
+
+msgid "Statistics.FlowFactorByStations"
+msgstr "Flussfaktoren nach Stationen"
+
+msgid "Statistics.FlowFactorByStationsAndClients"
+msgstr "Flussfaktoren nach Stationen und Kundentypen"
+
 msgid "Statistics.FullyBusyShare"
 msgstr "Volllastanteil"
 
@@ -16470,6 +16485,9 @@ msgstr "Station und Kundentyp"
 msgid "Statistics.StationState"
 msgstr "Station und Warteschlangenlänge"
 
+msgid "Statistics.StationsClientsFlowFactor.Short"
+msgstr "Flussfaktoren nach Kundentypen"
+
 msgid "Statistics.StationsClientsProcessTimes.Short"
 msgstr "Bedienzeiten nach Kundentypen"
 
@@ -16481,6 +16499,9 @@ msgstr "Transferzeiten nach Kundentypen"
 
 msgid "Statistics.StationsClientsWaitingTimes.Short"
 msgstr "Wartezeiten nach Kundentypen"
+
+msgid "Statistics.StationsFlowFactor"
+msgstr "Flussfaktoren an den Stationen"
 
 msgid "Statistics.StationsProcessTimes"
 msgstr "Bedienzeiten an den Stationen"

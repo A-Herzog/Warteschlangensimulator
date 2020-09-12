@@ -546,6 +546,44 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			endParagraph();
 		}
 
+		/* Flussfaktoren nach Kundentypen */
+
+		writeBlock=false;
+		for (String type: statistics.clientsProcessingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsProcessingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
+
+		if (writeBlock) {
+			double sum1=0;
+			long count1=0;
+			double sum2=0;
+			long count2=0;
+			if (!headingWritten) {
+				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
+				headingWritten=true;
+			}
+			addHeading(3,Language.tr("Statistics.FlowFactorByClientTypes"));
+			beginParagraph();
+			for (String type: statistics.clientsResidenceTimes.getNames()) {
+				final StatisticsDataPerformanceIndicator indicator1=((StatisticsDataPerformanceIndicator)statistics.clientsResidenceTimes.get(type));
+				final StatisticsDataPerformanceIndicator indicator2=((StatisticsDataPerformanceIndicator)statistics.clientsProcessingTimes.get(type));
+				final double time1=indicator1.getMean();
+				final double time2=indicator2.getMean();
+				sum1+=time1*indicator1.getCount();
+				count1+=indicator1.getCount();
+				sum2+=time2*indicator2.getCount();
+				count2+=indicator2.getCount();
+				if (statistics.clientsProcessingTimes.size()>1 && time2>0) addLine(Language.tr("Statistics.ClientType")+" "+type+": "+StatisticTools.formatNumber(time1/time2));
+			}
+			if (count1==0) count1=1;
+			if (count2==0) count1=2;
+			final double time1=sum1/count1;
+			final double time2=sum2/count2;
+			if (time2>0) {
+				addLine(Language.tr("Statistics.Average")+": "+StatisticTools.formatNumber(time1/time2));
+			}
+			addModeLink(Mode.MODE_WAITINGPROCESSING_CLIENTS);
+			endParagraph();
+		}
+
 		/*
 		 * Gruppe: Zeiten nach Stationen
 		 */
@@ -620,6 +658,27 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			endParagraph();
 		}
 
+		/* Flussfaktoren nach Stationen */
+
+		writeBlock=false;
+		for (String type: statistics.stationsProcessingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
+
+		if (writeBlock) {
+			addHeading(3,Language.tr("Statistics.FlowFactorByStations"));
+			beginParagraph();
+			for (String station: statistics.stationsProcessingTimes.getNames()) {
+				final StatisticsDataPerformanceIndicator indicator1=((StatisticsDataPerformanceIndicator)statistics.stationsResidenceTimes.get(station));
+				final StatisticsDataPerformanceIndicator indicator2=((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimes.get(station));
+				final double time1=indicator1.getMean();
+				final double time2=indicator2.getMean();
+				if (time2>0) {
+					addLine(fullStationName(station)+": "+StatisticTools.formatNumber(time1/time2));
+				}
+			}
+			addModeLink(Mode.MODE_WAITINGPROCESSING_STATIONS);
+			endParagraph();
+		}
+
 		/*
 		 * Gruppe: Zeiten nach Stationen und Kundentypen
 		 */
@@ -689,6 +748,27 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				final StatisticsDataPerformanceIndicator indicator=((StatisticsDataPerformanceIndicator)statistics.stationsResidenceTimesByClientType.get(station));
 				final double time=indicator.getMean();
 				addLine(fullStationName(station)+": E[V]="+timeAndNumber(time),xmlMean(indicator));
+			}
+			addModeLink(Mode.MODE_WAITINGPROCESSING_STATIONS);
+			endParagraph();
+		}
+
+		/* Flussfaktoren nach Stationen und Kundentypen */
+
+		writeBlock=false;
+		for (String type: statistics.stationsProcessingTimesByClientType.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimesByClientType.get(type)).getMean()>0) {writeBlock=true; break;}
+
+		if (writeBlock) {
+			addHeading(3,Language.tr("Statistics.FlowFactorByStationsAndClients"));
+			beginParagraph();
+			for (String station: statistics.stationsProcessingTimesByClientType.getNames()) {
+				final StatisticsDataPerformanceIndicator indicator1=((StatisticsDataPerformanceIndicator)statistics.stationsResidenceTimesByClientType.get(station));
+				final StatisticsDataPerformanceIndicator indicator2=((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimesByClientType.get(station));
+				final double time1=indicator1.getMean();
+				final double time2=indicator2.getMean();
+				if (time2>0) {
+					addLine(fullStationName(station)+": "+StatisticTools.formatNumber(time1/time2));
+				}
 			}
 			addModeLink(Mode.MODE_WAITINGPROCESSING_STATIONS);
 			endParagraph();
@@ -1409,6 +1489,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			outputConfidenceData(residenceTime);
 		}
 
+		if (hasProcessingTimes && hasResidenceTimes && processingTime.getMean()>0) {
+			addHeading(3,Language.tr("Statistics.FlowFactor"));
+			beginParagraph();
+			addLine(Language.tr("Statistics.FlowFactor")+": "+StatisticTools.formatNumber(residenceTime.getMean()/processingTime.getMean()));
+			endParagraph();
+		}
+
 		if (!hasWaitingTimes && !hasTransferTimes && !hasProcessingTimes && !hasResidenceTimes) {
 			beginParagraph();
 			addLine(Language.tr("Statistics.NoWaitingTransferProcessingTimes"));
@@ -1465,7 +1552,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			final StatisticsDataPerformanceIndicator waitingTime=(StatisticsDataPerformanceIndicator)(statistics.stationsWaitingTimes.get(station));
 			final StatisticsDataPerformanceIndicator transferTime=(StatisticsDataPerformanceIndicator)(statistics.stationsTransferTimes.get(station));
 			final StatisticsDataPerformanceIndicator processingTime=(StatisticsDataPerformanceIndicator)(statistics.stationsProcessingTimes.get(station));
-			final StatisticsDataPerformanceIndicator residenceTime=(StatisticsDataPerformanceIndicator)(statistics.stationsProcessingTimes.get(station));
+			final StatisticsDataPerformanceIndicator residenceTime=(StatisticsDataPerformanceIndicator)(statistics.stationsResidenceTimes.get(station));
 			if (waitingTime.getMean()>0 || transferTime.getMean()>0 || processingTime.getMean()>0 || residenceTime.getMean()>0) {
 				addHeading(2,fullStationName(station));
 				if (waitingTime.getMean()>0) {
@@ -1534,6 +1621,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					outputQuantilInfoTime("V",residenceTime);
 
 					outputConfidenceData(residenceTime);
+				}
+
+				if (processingTime.getMean()>0 && residenceTime.getMean()>0) {
+					addHeading(3,Language.tr("Statistics.FlowFactor"));
+					beginParagraph();
+					addLine(Language.tr("Statistics.FlowFactor")+": "+StatisticTools.formatNumber(residenceTime.getMean()/processingTime.getMean()));
+					endParagraph();
 				}
 			}
 		}
@@ -1627,6 +1721,19 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				outputConfidenceData(residenceTime);
 			}
 		}
+
+		for (String name : statistics.stationsProcessingTimesByClientType.getNames()) {
+			final StatisticsDataPerformanceIndicator processingTime=(StatisticsDataPerformanceIndicator)(statistics.stationsProcessingTimesByClientType.get(name));
+			final StatisticsDataPerformanceIndicator residenceTime=(StatisticsDataPerformanceIndicator)(statistics.stationsResidenceTimesByClientType.get(name));
+			if (processingTime.getMean()>0 && residenceTime.getMean()>0) {
+				addHeading(2,Language.tr("Statistics.FlowFactor")+" - "+name);
+				beginParagraph();
+				addLine(Language.tr("Statistics.FlowFactor")+": "+StatisticTools.formatNumber(residenceTime.getMean()/processingTime.getMean()));
+				endParagraph();
+			}
+		}
+
+
 
 		/* Infotext  */
 		addDescription("TimeStationsClients");

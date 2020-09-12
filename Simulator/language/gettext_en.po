@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-09 15:47+0200\n"
+"POT-Creation-Date: 2020-09-12 01:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15645,6 +15645,9 @@ msgstr "Clients at the stations"
 msgid "Statistics.ClientsByType"
 msgstr "Clients by client type"
 
+msgid "Statistics.ClientsFlowFactor"
+msgstr "Flow factors of the clients"
+
 msgid "Statistics.ClientsInQueue"
 msgstr "Clients in queue"
 
@@ -16098,6 +16101,18 @@ msgstr "The specified script file \"%s\" does not exist."
 msgid "Statistics.Filter.ScriptInitError"
 msgstr "The script could not be prepared for execution."
 
+msgid "Statistics.FlowFactor"
+msgstr "Flow factor"
+
+msgid "Statistics.FlowFactorByClientTypes"
+msgstr "Flow factors by client types"
+
+msgid "Statistics.FlowFactorByStations"
+msgstr "Flow factors by stations"
+
+msgid "Statistics.FlowFactorByStationsAndClients"
+msgstr "Flow factors by stations and client types"
+
 msgid "Statistics.FullyBusyShare"
 msgstr "Fully busy share"
 
@@ -16463,6 +16478,9 @@ msgstr "Station and client type"
 msgid "Statistics.StationState"
 msgstr "Station and queue length"
 
+msgid "Statistics.StationsClientsFlowFactor.Short"
+msgstr "Flow factors by client types"
+
 msgid "Statistics.StationsClientsProcessTimes.Short"
 msgstr "Process times by client types"
 
@@ -16474,6 +16492,9 @@ msgstr "Transfer times by client types"
 
 msgid "Statistics.StationsClientsWaitingTimes.Short"
 msgstr "Waiting times by client types"
+
+msgid "Statistics.StationsFlowFactor"
+msgstr "Flow factors at the stations"
 
 msgid "Statistics.StationsProcessTimes"
 msgstr "Process times at the stations"

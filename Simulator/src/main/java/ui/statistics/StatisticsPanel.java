@@ -944,6 +944,13 @@ public class StatisticsPanel extends StatisticsBasePanel {
 					for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_CLIENTS));
 					group.addChild(new StatisticNode(Language.tr("Statistics.ClientsResidenceTimes"),viewer));
 				}
+
+				if (testMultiTypesPositive(statistics,statistic->statistic.clientsProcessingTimes)) {
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_FLOW_FACTOR_CLIENTS));
+					group.addChild(new StatisticNode(Language.tr("Statistics.ClientsFlowFactor"),viewer));
+				}
+
 			}
 
 			viewer=new ArrayList<>();
@@ -1068,6 +1075,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 				group.addChild(new StatisticNode(Language.tr("Statistics.StationsResidenceTimes"),viewer));
 			}
 
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsProcessingTimes)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_FLOW_FACTOR_STATION));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsFlowFactor"),viewer));
+			}
+
 		}
 
 		if (testMultiStationsClientTypes(statistics)) {
@@ -1104,6 +1117,13 @@ public class StatisticsPanel extends StatisticsBasePanel {
 				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESIDENCE_STATION_CLIENT));
 				group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsResidenceTimes.Short"),viewer));
 			}
+
+			if (testMultiTypesPositive(statistics,statistic->statistic.stationsProcessingTimesByClientType)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_FLOW_FACTOR_STATION_CLIENT));
+				group.addChild(new StatisticNode(Language.tr("Statistics.StationsClientsFlowFactor.Short"),viewer));
+			}
+
 		}
 
 		/* (Untergruppe) Verteilungen */
