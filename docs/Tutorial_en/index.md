@@ -6,7 +6,7 @@ This tutorial shows how to create a simple M/M/c queueing model with E[I]=50, E[
 
 ## Step 1
 
-In Warteschlangensimulator queueing systems are modelled in form of flow charts. Our model will consist of a source, a process statation and an exit element. To add these elements to the drawing surface open the element templates panel by clicking on "Element" on the left toolbar.
+In Warteschlangensimulator queueing systems are modelled in form of flow charts. Our model will consist of a source, a process station and an exit element. To add these elements to the drawing surface open the element templates panel by clicking on "Element" on the left toolbar.
 
 ![Warteschlangensimulator tutorial - step 1](Tutorial01.png)
 
@@ -30,7 +30,7 @@ After adding the elements again click on "Element" to close the templates panel.
 
 ## Step 4
 
-As next step, the three stations need to be connected. Clients created at the source are to be directed to the process station. After being served the clients should leave the system via the exit station. To activate the  connections adding function click on the "Edge" button on the left toolbar.
+As next step, the three stations need to be connected. Clients created at the source are to be directed to the process station. After being served the clients should leave the system via the exit station. To activate the connections adding function click on the "Edge" button on the left toolbar.
 
 ![Warteschlangensimulator tutorial - step 4](Tutorial04.png)
 
@@ -46,7 +46,7 @@ Edges are added by clicking the source and then the destination element of a con
 
 ## Step 6
 
-After adding the connections deactive the connections adding function by clicking the "Edge" button on the left toolbar again.
+After adding the connections deactivate the connections adding function by clicking the "Edge" button on the left toolbar again.
 
 ![Warteschlangensimulator tutorial - step 6](Tutorial06.png)
 
@@ -62,7 +62,7 @@ Now the stations need to be configured. To define the properties of the source, 
 
 ## Step 8
 
-In the default case the exponential distribution with an average inter-arrival time of 60 seconds is choosen. We want an **average inter-arrival time of 50 seconds**, so we click on "Edit" and change the average inter-arrival time.
+In the default case the exponential distribution with an average inter-arrival time of 60 seconds is chosen. We want an **average inter-arrival time of 50 seconds**, so we click on "Edit" and change the average inter-arrival time.
 
 ![Warteschlangensimulator tutorial - step 8](Tutorial08.png)
 
@@ -86,7 +86,7 @@ As the last step the process station needs to be configured. By double clicking 
 
 ## Step 11
 
-In the default case the exponential distribution with an average service time of 50 seconds is choosen. We want an **average service time of 80 seconds**, so we click on "Edit" and change the average service time.
+In the default case the exponential distribution with an average service time of 50 seconds is chosen. We want an **average service time of 80 seconds**, so we click on "Edit" and change the average service time.
 
 ![Warteschlangensimulator tutorial - step 11](Tutorial11.png)
 
