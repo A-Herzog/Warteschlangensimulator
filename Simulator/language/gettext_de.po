@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 15:24+0200\n"
+"POT-Creation-Date: 2020-09-14 10:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15686,7 +15686,7 @@ msgid "Statistics.ClientsByType"
 msgstr "Kunden pro Kundentyp"
 
 msgid "Statistics.ClientsFlowFactor"
-msgstr "Flussfaktoren nach Kunden"
+msgstr "Flussgrade nach Kunden"
 
 msgid "Statistics.ClientsInQueue"
 msgstr "Kunden in der Warteschlange"
@@ -16142,16 +16142,16 @@ msgid "Statistics.Filter.ScriptInitError"
 msgstr "Das Skript konnte nicht zur Ausführung vorbereitet werden."
 
 msgid "Statistics.FlowFactor"
-msgstr "Flussfaktor"
+msgstr "Flussgrad"
 
 msgid "Statistics.FlowFactorByClientTypes"
-msgstr "Flussfaktoren nach Kundentypen"
+msgstr "Flussgrade nach Kundentypen"
 
 msgid "Statistics.FlowFactorByStations"
-msgstr "Flussfaktoren nach Stationen"
+msgstr "Flussgrade nach Stationen"
 
 msgid "Statistics.FlowFactorByStationsAndClients"
-msgstr "Flussfaktoren nach Stationen und Kundentypen"
+msgstr "Flussgrade nach Stationen und Kundentypen"
 
 msgid "Statistics.FullyBusyShare"
 msgstr "Volllastanteil"
@@ -16519,7 +16519,7 @@ msgid "Statistics.StationState"
 msgstr "Station und Warteschlangenlänge"
 
 msgid "Statistics.StationsClientsFlowFactor.Short"
-msgstr "Flussfaktoren nach Kundentypen"
+msgstr "Flussgrade nach Kundentypen"
 
 msgid "Statistics.StationsClientsProcessTimes.Short"
 msgstr "Bedienzeiten nach Kundentypen"
@@ -16534,7 +16534,7 @@ msgid "Statistics.StationsClientsWaitingTimes.Short"
 msgstr "Wartezeiten nach Kundentypen"
 
 msgid "Statistics.StationsFlowFactor"
-msgstr "Flussfaktoren an den Stationen"
+msgstr "Flussgrade an den Stationen"
 
 msgid "Statistics.StationsProcessTimes"
 msgstr "Bedienzeiten an den Stationen"

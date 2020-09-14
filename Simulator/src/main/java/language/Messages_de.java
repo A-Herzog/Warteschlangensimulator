@@ -2369,7 +2369,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6196] = "Surface.OutputDB.Dialog.NoConnection";
     t[6197] = "Keine Verbindung zu Datenbank m\u00f6glich.";
     t[6204] = "Statistics.FlowFactorByClientTypes";
-    t[6205] = "Flussfaktoren nach Kundentypen";
+    t[6205] = "Flussgrade nach Kundentypen";
     t[6206] = "ExpressionBuilder.SimulationCharacteristics.Costs.TransferSumAll.Info";
     t[6207] = "<p>Liefert die Summe der transferzeit-bedingten Kosten \u00fcber alle Kunden.</p>";
     t[6208] = "Color.FFC0CB";
@@ -2505,7 +2505,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6520] = "Statistic.FastAccess.Template.ChangeModel";
     t[6521] = "Modell ver\u00e4ndern";
     t[6526] = "Statistics.StationsClientsFlowFactor.Short";
-    t[6527] = "Flussfaktoren nach Kundentypen";
+    t[6527] = "Flussgrade nach Kundentypen";
     t[6528] = "Statistic.FastAccess.Template.StatisticsTranslate.de";
     t[6529] = "Statistik nach \"de\" \u00fcbersetzen";
     t[6530] = "Window.LoadImage";
@@ -4593,7 +4593,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11882] = "ModelGenerator.Model.Description.Properties.ClientTypes";
     t[11883] = "Mehrere Kundentypen (Anzahl: %d)";
     t[11886] = "Statistics.FlowFactorByStations";
-    t[11887] = "Flussfaktoren nach Stationen";
+    t[11887] = "Flussgrade nach Stationen";
     t[11888] = "Surface.Resource.EditName.Dialog.AddNew.ErrorEmpty.Title";
     t[11889] = "Kein Name angegeben";
     t[11890] = "Dialog.Button.PasteDoNotScale";
@@ -4745,7 +4745,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12280] = "ScriptPopup.Client.Time.Number";
     t[12281] = "Zahlenwert";
     t[12286] = "Statistics.FlowFactorByStationsAndClients";
-    t[12287] = "Flussfaktoren nach Stationen und Kundentypen";
+    t[12287] = "Flussgrade nach Stationen und Kundentypen";
     t[12288] = "Statistic.Viewer.Context.Width.This";
     t[12289] = "Spaltenbreite - diese Spalte";
     t[12294] = "ExpressionBuilder.SimulationCharacteristics.ClientsInSystemQueue";
@@ -9133,7 +9133,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23736] = "CalculatorDialog.Plotter.Toolbar.Copy.Hint";
     t[23737] = "Kopiert die Darstellung in die Zwischenablage.";
     t[23740] = "Statistics.FlowFactor";
-    t[23741] = "Flussfaktor";
+    t[23741] = "Flussgrad";
     t[23742] = "Statistics.TransferTimesByClientType";
     t[23743] = "Transferzeiten f\u00fcr Kunden vom Typ \"%s\"";
     t[23744] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo";
@@ -10521,7 +10521,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27410] = "JSRunner.Toolbar.Cancel";
     t[27411] = "Ausf\u00fchrung abbrechen";
     t[27414] = "Statistics.ClientsFlowFactor";
-    t[27415] = "Flussfaktoren nach Kunden";
+    t[27415] = "Flussgrade nach Kunden";
     t[27418] = "ExpressionBuilder.ProbabilityDistributions.BetaDistribution";
     t[27419] = "Beta-Verteilung";
     t[27422] = "Surface.TransportSource.Dialog.DelayTimeIs.TransferTime";
@@ -14901,7 +14901,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38982] = "Editor.Dialog.Tab.PathRecording.StationTransitions";
     t[38983] = "Stations\u00fcberg\u00e4nge z\u00e4hlen";
     t[38984] = "Statistics.StationsFlowFactor";
-    t[38985] = "Flussfaktoren an den Stationen";
+    t[38985] = "Flussgrade an den Stationen";
     t[38986] = "ExpressionBuilder.SimulationCharacteristics.UserStatistics.AverageNumber";
     t[38987] = "<p>Liefert den mittleren Wert der Statistik-Kenngr\u00f6\u00dfe die als Wert <tt>nr</tt> (1-basierend) an Statistik-Station id aufgezeichnet wird.</p>";
     t[38988] = "Animation.Icon.Key";

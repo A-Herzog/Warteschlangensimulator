@@ -68,7 +68,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_PROCESSING_CLIENTS,
 		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Kundentypen */
 		MODE_RESIDENCE_CLIENTS,
-		/** Balkendiagramm zum Vergleich der Flussfaktoren zwischen den Kundentypen */
+		/** Balkendiagramm zum Vergleich der Flussgrade zwischen den Kundentypen */
 		MODE_FLOW_FACTOR_CLIENTS,
 		/** Balkendiagramm zum Vergleich der mittleren Wartezeiten zwischen den Stationen */
 		MODE_WAITING_STATION,
@@ -78,7 +78,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_PROCESSING_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Stationen */
 		MODE_RESIDENCE_STATION,
-		/** Balkendiagramm zum Vergleich der Flussfaktoren zwischen den Stationen */
+		/** Balkendiagramm zum Vergleich der Flussgrade zwischen den Stationen */
 		MODE_FLOW_FACTOR_STATION,
 		/** Balkendiagramm zum Vergleich der mittleren Wartezeiten zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
 		MODE_WAITING_STATION_CLIENT,
@@ -88,7 +88,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		MODE_PROCESSING_STATION_CLIENT,
 		/** Balkendiagramm zum Vergleich der mittleren Verweilzeiten zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
 		MODE_RESIDENCE_STATION_CLIENT,
-		/** Balkendiagramm zum Vergleich der Flussfaktoren zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
+		/** Balkendiagramm zum Vergleich der Flussgrade zwischen den Stationen (zusätzlich ausdifferenziert nach Kundentypen) */
 		MODE_FLOW_FACTOR_STATION_CLIENT,
 		/** Balkendiagramm zum Vergleich der Auslastungen der Bedeinergruppen  */
 		MODE_RESOURCE_UTILIZATION,

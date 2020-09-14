@@ -546,7 +546,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			endParagraph();
 		}
 
-		/* Flussfaktoren nach Kundentypen */
+		/* Flussgrade nach Kundentypen */
 
 		writeBlock=false;
 		for (String type: statistics.clientsProcessingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsProcessingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
@@ -658,7 +658,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			endParagraph();
 		}
 
-		/* Flussfaktoren nach Stationen */
+		/* Flussgrade nach Stationen */
 
 		writeBlock=false;
 		for (String type: statistics.stationsProcessingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
@@ -753,7 +753,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			endParagraph();
 		}
 
-		/* Flussfaktoren nach Stationen und Kundentypen */
+		/* Flussgrade nach Stationen und Kundentypen */
 
 		writeBlock=false;
 		for (String type: statistics.stationsProcessingTimesByClientType.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimesByClientType.get(type)).getMean()>0) {writeBlock=true; break;}
