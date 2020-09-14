@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 10:37+0200\n"
+"POT-Creation-Date: 2020-09-14 20:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7092,6 +7092,9 @@ msgstr "W"
 msgid "Main.Menu.Help.RecommendedLiterature.Waldmann"
 msgstr "Waldmann/Helm: \"Simulation stochastischer Systeme\""
 
+msgid "Main.Menu.Help.References"
+msgstr "References"
+
 msgid "Main.Menu.Help.ScriptingReference"
 msgstr "Calculation and scripting commands (pdf)"
 
@@ -7121,6 +7124,15 @@ msgstr "T"
 
 msgid "Main.Menu.Help.Tutorial.pdf"
 msgstr "Warteschlangensimulator-en.pdf"
+
+msgid "Main.Menu.Help.TutorialSlides"
+msgstr "Tutorial (pdf slides)"
+
+msgid "Main.Menu.Help.TutorialSlides.Mnemonic"
+msgstr "S"
+
+msgid "Main.Menu.Help.TutorialSlides.pdf"
+msgstr "Warteschlangensimulator-Tutorial-en.pdf"
 
 msgid "Main.Menu.Help.Updates"
 msgstr "Search for updates..."

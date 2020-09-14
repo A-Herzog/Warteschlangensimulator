@@ -775,8 +775,14 @@ public enum Images {
 	/** Symbol "E-Mail" */
 	HELP_EMAIL("icon_mail.gif"),
 
+	/** Symbol "Problemreport erstellen" */
+	HELP_BUG_REPORT("bug.png"),
+
 	/** Symbol "Homepage" */
 	HELP_HOMEPAGE("world.png"),
+
+	/** Symbol "Tastenkombinationsreferenz (pdf)" */
+	HELP_HOTKEY_REFERENCE("keyboard.png"),
 
 	/* Bilder */
 

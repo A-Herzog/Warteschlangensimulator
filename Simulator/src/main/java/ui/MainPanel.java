@@ -524,6 +524,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpInteractiveTurorial",e->commandHelpInteractiveTutorial());
 		addAction("HelpAutomaticHelpWindow",e->commandHelpAutomaticHelpWindow());
 		addAction("HelpTurorial",e->commandHelpTutorial());
+		addAction("HelpTurorialSlides",e->commandHelpTutorialSlides());
 		addAction("HelpScriptingReference",e->commandHelpScriptingReference());
 		addAction("HelpElementReference",e->commandHelpElementReference());
 		addAction("HelpCommandLineReference",e->commandHelpCommandLineReference());
@@ -1036,11 +1037,13 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Help.AutomaticHelpWindow"),Images.HELP_STATIONS_INTERACTIVE.getIcon(),Language.tr("Main.Menu.Help.AutomaticHelpWindow.Mnemonic"),"HelpAutomaticHelpWindow");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Tutorial"),Images.HELP_TUTORIAL.getIcon(),Language.tr("Main.Menu.Help.Tutorial.Mnemonic"),"HelpTurorial");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.ScriptingReference"),Images.HELP_SCRIPTING.getIcon(),Language.tr("Main.Menu.Help.ScriptingReference.Mnemonic"),"HelpScriptingReference");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.ElementReference"),Language.tr("Main.Menu.Help.ElementReference.Mnemonic"),"HelpElementReference");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.CommandLineReference"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Help.CommandLineReference.Mnemonic"),"HelpCommandLineReference");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.HotkeyReference"),Language.tr("Main.Menu.Help.HotkeyReference.Mnemonic"),"HelpHotkeyReference");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.DistributionReference"),Images.EXPRESSION_BUILDER_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Help.DistributionReference.Mnemonic"),"HelpDistributionReference");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.TutorialSlides"),Images.HELP_TUTORIAL.getIcon(),Language.tr("Main.Menu.Help.TutorialSlides.Mnemonic"),"HelpTurorialSlides");
+		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.References")));
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.ScriptingReference"),Images.HELP_SCRIPTING.getIcon(),Language.tr("Main.Menu.Help.ScriptingReference.Mnemonic"),"HelpScriptingReference");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.ElementReference"),Images.HELP_STATIONS_INTERACTIVE.getIcon(),Language.tr("Main.Menu.Help.ElementReference.Mnemonic"),"HelpElementReference");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.CommandLineReference"),Images.EXTRAS_COMMANDLINE.getIcon(),Language.tr("Main.Menu.Help.CommandLineReference.Mnemonic"),"HelpCommandLineReference");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.HotkeyReference"),Images.HELP_HOTKEY_REFERENCE.getIcon(),Language.tr("Main.Menu.Help.HotkeyReference.Mnemonic"),"HelpHotkeyReference");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.DistributionReference"),Images.EXPRESSION_BUILDER_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Help.DistributionReference.Mnemonic"),"HelpDistributionReference");
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.RecommendedLiterature")));
 		/*
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Herzog"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.Herzog"),"HelpLiteratureHerzog");
@@ -1053,7 +1056,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Hedtstueck"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureHedtstueck"),"HelpLiteratureHedtstueck");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Images.HELP_BUG_REPORT.getIcon(),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Homepage"),Images.HELP_HOMEPAGE.getIcon(),Language.tr("Main.Menu.Help.Homepage.Mnemonic"),"HelpHomepage");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Updates"),Images.SETUP_PAGE_UPDATE.getIcon(),Language.tr("Main.Menu.Help.Updates.Mnemonic"),"HelpUpdates");
 		menu.addSeparator();
@@ -2649,6 +2652,10 @@ public class MainPanel extends MainPanelBase {
 
 	private void commandHelpTutorial() {
 		openPDF(Language.tr("Main.Menu.Help.Tutorial.pdf"));
+	}
+
+	private void commandHelpTutorialSlides() {
+		openPDF(Language.tr("Main.Menu.Help.TutorialSlides.pdf"));
 	}
 
 	private void commandHelpScriptingReference() {
