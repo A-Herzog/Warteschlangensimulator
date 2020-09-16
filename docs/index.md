@@ -1,6 +1,6 @@
 # Warteschlangensimulator
 
-([Deutsche Version dieser Readme.](README_de.md))
+([Deutsche Version dieser Readme.](https://github.com/A-Herzog/Warteschlangensimulator/blob/master/README_de.md))
 
 Warteschlangensimulator is a free, platform independent, [event-oriented, stochastic simulator](https://en.wikipedia.org/wiki/Discrete-event_simulation "Wikipedia").
 
@@ -30,7 +30,7 @@ In the simulator, queueing systems can be modelled and afterwards be simulated i
 
 * [Windows installer](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe)
 * [Zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip) (for use under Windows, Linux, MacOS, ...)
-* [Source code](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/)
+* [Source code](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/) ([Notes on the build process](https://github.com/A-Herzog/Warteschlangensimulator/blob/master/BUILD.md))
 
 The Windows version can be installed with or without admin rights. The zip file version can be used on any platform without installation.
 
@@ -40,7 +40,8 @@ The Windows version can be installed with or without admin rights. The zip file 
 ## Help and support
 
 * Warteschlangensimulator has an integrated online help, various example models and an interactive tutorial.
-* [Short introduction to Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-de.pdf) (pdf)
+* [Short introduction to Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-en.pdf) (pdf)
+* [Tutorial in pictures](https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Tutorial-en.pdf) (pdf)
 * [Wiki about Warteschlangensimulator](https://github.com/A-Herzog/Warteschlangensimulator/wiki)
 * [Introduction **slides** for Warteschlangensimulator](https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf) (pdf)
 * [Introduction **videos** for  Warteschlangensimulator](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Videos)
