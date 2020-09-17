@@ -35,6 +35,12 @@ public class CalcSymbolPreOperatorAllenCunneen extends CalcSymbolPreOperator {
 		return new String[]{"AllenCunneen"};
 	}
 
+	/**
+	 * Berechnet a^c/c! unter Vermeidung von numerischen Auslöschungen
+	 * @param a	Parameter a für a^c/c!
+	 * @param c	Parameter c für a^c/c!
+	 * @return	Ergebnis der Berechnung von a^c/c!
+	 */
 	private double powerFactorial(double a, long c) {
 		/* a^c/c! */
 		double result=1;

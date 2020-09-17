@@ -51,7 +51,9 @@ import org.xml.sax.XMLReader;
  * @version 1.1
  */
 public class TableXLSXReader {
+	/** Zu lesende Tabellendatei */
 	private final File file;
+	/** Ergebnisarbeitsmappe */
 	private final MultiTable multiTable;
 
 	/**

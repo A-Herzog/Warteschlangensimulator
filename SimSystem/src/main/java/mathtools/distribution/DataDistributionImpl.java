@@ -37,6 +37,11 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 */
 	public final double upperBound;
 
+	/**
+	 * Umrechnungsfaktor zwischen den Verteilungsschritten und dem Trägerbereich
+	 * @see #upperBound
+	 * @see #densityData
+	 */
 	private final double argumentScaleFactor;
 
 	/**

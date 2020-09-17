@@ -26,13 +26,11 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorSign extends CalcSymbolPreOperator {
-	private static Double minus=-1.0;
-
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=1) throw error();
 		final double sign=Math.signum(parameters[0]);
-		if (sign<0) return minus;
+		if (sign<0) return -1;
 		return sign;
 	}
 
@@ -40,7 +38,7 @@ public final class CalcSymbolPreOperatorSign extends CalcSymbolPreOperator {
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length!=1) return fallbackValue;
 		final double sign=Math.signum(parameters[0]);
-		if (sign<0) return minus;
+		if (sign<0) return -1;
 		return sign;
 	}
 

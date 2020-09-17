@@ -37,18 +37,39 @@ import parser.MathCalcError;
  * @version 2.6
  */
 public final class NumberTools {
+	/** String, der "0" enthält (um diesen nicht mehrfach anlegen zu müssen) */
 	private static final String nullString="0";
+	/** Ausgabeformat bei der Umwandlung von Zahlen in Texte unter Nutzung der maximal möglichen Anzahl an Nachkommastellen */
 	private static final String formatFloat14Digits="%.14f";
+	/** 1. Zeichen, das als Dezimaltrenner beim Umwandeln von Zeichenketten in Zahlen erkannt werden soll (unabhängig von den Spracheinstellungen) */
 	private static final String separator1=",";
+	/** 2. Zeichen, das als Dezimaltrenner beim Umwandeln von Zeichenketten in Zahlen erkannt werden soll (unabhängig von den Spracheinstellungen) */
 	private static final String separator2=".";
+	/** Prozentzeichen */
 	private static final String percentString="%";
 
+	/** Zu verwendende Spracheinstellung */
 	private static Locale activeLocale=Locale.getDefault();
+	/** Dezimaltrenner (als char) gemäß der aktuellen Spracheinstellung */
 	private static char activeSeparator;
+	/** Dezimaltrenner (als String) gemäß der aktuellen Spracheinstellung */
 	private static String activeSeparatorString;
+	/** 100er-Trenner gemäß der aktuellen Spracheinstellung */
 	private static char activeGrouping;
 
+	/**
+	 * Cache für String-Objekte die Umwandlung von Ganzzahlen in Strings
+	 * @see #formatLong(long)
+	 * @see #formatLong(long, StringBuilder)
+	 * @see #formatLongAndAppendToBuilder(long, StringBuilder)
+	 */
 	private static String[] longCache;
+
+	/**
+	 * Cache für String-Objekte die Umwandlung von Ganzzahlen in Strings (ohne 1000er-Trennzeichen)
+	 * @see #formatLongNoGrouping(long)
+	 * @see #formatLongNoGrouping(long, StringBuilder)
+	 */
 	private static String[] longCacheNoGrouping;
 
 	/**
@@ -107,6 +128,11 @@ public final class NumberTools {
 		setLocale(activeLocale);
 	}
 
+	/**
+	 * Liefert die Anzahl an Ziffern einer positiven Ganzzahl
+	 * @param l	Positive Ganzzahl bei der die Anzahl an Ziffern bestimmt werden soll
+	 * @return	Anzahl an Ziffern der Zahl
+	 */
 	private static int getDigits(final long l) {
 		if (l<10) return 1;
 		if (l<100) return 2;
@@ -1195,6 +1221,12 @@ public final class NumberTools {
 		}
 	}
 
+	/**
+	 * Thread-Lokale Variable für das Rechensystem, das bei der Umwandlung von Zeichenketten
+	 * in Zahlen verwendet werden soll. Auf diese Weise muss nicht bei jedem Aufruf von
+	 * {@link #getDouble(String)} ein neues Objekt angelegt werden.
+	 * @see #getDouble(String)
+	 */
 	private static ThreadLocal<CalcSystem> calcSystem=new ThreadLocal<CalcSystem>() {
 		@Override
 		protected CalcSystem initialValue() {
@@ -1243,7 +1275,7 @@ public final class NumberTools {
 	/**
 	 * Versucht den übergebenen String in eine <code>Double</code>-Zahl umzuwandeln.
 	 * Diese Funktion verwendet <b>nicht</b> den Formelparser, sondern wandelt nur eine einfache Zahl um.
-	 * Daher kann diese Funktion ohne Strack-Überlauf im Parser selbst eingesetzt werden.
+	 * Daher kann diese Funktion ohne Stack-Überlauf im Parser selbst eingesetzt werden.
 	 * @param s	String, der die umzuwandelnde Zahl enthält
 	 * @return	Zahl als <code>Double</code>; wenn die Umwandlung fehlschlägt, wird <code>null</code> zurückgegeben.
 	 */

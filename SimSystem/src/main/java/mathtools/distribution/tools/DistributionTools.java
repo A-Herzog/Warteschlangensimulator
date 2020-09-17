@@ -161,6 +161,10 @@ public final class DistributionTools {
 	private DistributionTools() {
 	}
 
+	/**
+	 * Statische Liste mit den verfügbarewn Verteilungs-Wrappern
+	 * @see AbstractDistributionWrapper
+	 */
 	private static final AbstractDistributionWrapper[] wrappers;
 
 	static {

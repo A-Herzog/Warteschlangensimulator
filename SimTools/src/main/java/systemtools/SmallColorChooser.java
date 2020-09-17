@@ -316,8 +316,23 @@ public class SmallColorChooser extends JPanel {
 	/** Farbe "Zeichenfläche" */
 	public static String ColorNameFFFFFA="Zeichenfläche";
 
+	/**
+	 * Zuordnung mit den benannten Farben
+	 * @see #initNamedColors()
+	 */
 	private Map<String,Color> namedColors;
+
+	/**
+	 * Liste mit den Farben, die dargestellt werden.
+	 * @see #addColor(Color)
+	 */
 	private List<Color> colorsInList;
+
+	/**
+	 * Können Farben angeklickt werden?
+	 * @see #isEnabled()
+	 * @see #setEnabled(boolean)
+	 */
 	private boolean enabled;
 
 	/**
@@ -577,6 +592,10 @@ public class SmallColorChooser extends JPanel {
 		this.enabled=enabled;
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn auf eine Farbe geklickt wird.
+	 * @see #colorBoxClick(Color)
+	 */
 	private List<ActionListener> clickListeners=new ArrayList<>();
 
 	/**
@@ -596,6 +615,10 @@ public class SmallColorChooser extends JPanel {
 		return clickListeners.remove(clickListener);
 	}
 
+	/**
+	 * Wird aufgerufen, wenn auf eine Farbe geklickt wurde.
+	 * @param color	Angeklickte Farbe
+	 */
 	private void colorBoxClick(final Color color) {
 		boolean ok=false;
 		for (int i=0;i<getComponentCount();i++) {
@@ -611,12 +634,22 @@ public class SmallColorChooser extends JPanel {
 		for (ActionListener listener: clickListeners) listener.actionPerformed(event);
 	}
 
+	/**
+	 * Darstellung einer einzelnen Farbe
+	 */
 	private class ColorBox extends JPanel {
 		private static final long serialVersionUID = 2485552914337779647L;
 
+		/** Anzuzeigende Farbe */
 		private final Color color;
+
+		/** Ausgewählt darstellen? */
 		private boolean selected;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param color	Anzuzeigende Farbe
+		 */
 		public ColorBox(final Color color) {
 			super();
 			this.color=color;
@@ -631,14 +664,28 @@ public class SmallColorChooser extends JPanel {
 			});
 		}
 
+		/**
+		 * Liefert die Farbe der Box
+		 * @return	Farbe der Box
+		 */
 		public Color getColor() {
 			return color;
 		}
 
+		/**
+		 * Ist die Box ausgewählt?
+		 * @return	Liefert <code>true</code>, wenn die Box ausgewählt ist.
+		 * @see #setSelected(boolean)
+		 */
 		public boolean isSelected() {
 			return selected;
 		}
 
+		/**
+		 * Stellt ein, ob die Box ausgewählt dargestellt werden soll.
+		 * @param selected	Box ausgewählt darstellen?
+		 * @see #isSelected()
+		 */
 		public void setSelected(final boolean selected) {
 			this.selected=selected;
 			repaint();

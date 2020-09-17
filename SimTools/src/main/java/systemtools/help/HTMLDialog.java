@@ -111,6 +111,10 @@ abstract class HTMLDialog extends JDialog {
 	 */
 	protected abstract HTMLBrowserPanel getHTMLBrowser();
 
+	/**
+	 * Reagiert auf Escape-Tastendrücke
+	 * @see HTMLDialog#createRootPane()
+	 */
 	private final class SpecialKeyListener extends AbstractAction {
 		private static final long serialVersionUID = -485008309903554823L;
 		@Override

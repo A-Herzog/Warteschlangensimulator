@@ -65,7 +65,10 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	 * @see #paintImage(Graphics)
 	 */
 	public StatisticViewerImage() {
-		panel=new ImagePanel();
+		panel=new JPanel() {
+			private static final long serialVersionUID = 487768420672802999L;
+			@Override public void paint(Graphics g) {paintImage(g);}
+		};
 	}
 
 	/**
@@ -193,13 +196,6 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	 * @param g	{@link Graphics}-Objekt in das das Bild gezeichnet werden soll
 	 */
 	protected void paintImage(Graphics g) {}
-
-	private class ImagePanel extends JPanel {
-		private static final long serialVersionUID = 487768420672802999L;
-
-		@Override
-		public void paint(Graphics g) {paintImage(g);}
-	}
 
 	private boolean saveImage(final BufferedImage image, final File imageFile) {
 		try {ImageIO.write(image,"png",imageFile);} catch (IOException e) {return false;}

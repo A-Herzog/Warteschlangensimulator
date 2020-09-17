@@ -1650,10 +1650,25 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Bild' - Beispiel" */
 	MODELEDITOR_ELEMENT_IMAGE_EXAMPLE("Picture_Example.png");
 
+	/**
+	 * Dateiname des Icons
+	 */
 	private final String name;
+
+	/**
+	 * URL des Icons
+	 */
 	private URL url;
+
+	/**
+	 * Icon
+	 */
 	private Icon icon;
 
+	/**
+	 * Konstruktor des Enum
+	 * @param name	Dateiname des Icons
+	 */
 	Images(final String name) {
 		this.name=name;
 	}

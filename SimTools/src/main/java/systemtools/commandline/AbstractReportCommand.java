@@ -27,26 +27,64 @@ import java.io.PrintStream;
  * @see BaseCommandLineSystem
  */
 public abstract class AbstractReportCommand extends AbstractCommand {
+	/**
+	 * Dateiformat für die Ausgabe
+	 */
 	private enum ExportMode {
+		/** Dateiformat: html, Bilder inline */
 		MODE_REPORT_INLINE(new String[] {"Inline"}),
+		/** Dateiformat: html, Bilder als externe Dateien */
 		MODE_REPORT_FILES(new String[] {"Einzeldateien","SingleFiles"}),
+		/** Dateiformat: html als interaktive Web-App */
 		MODE_REPORT_APP(new String[] {"HTMLApp"}),
+		/** Dateiformat: docx */
 		MODE_DOCX(new String[] {"Text"}),
+		/** Dateiformat: pdf */
 		MODE_PDF(new String[] {"PDF"}),
+		/** Dateiformat: tex */
 		MODE_LATEX(new String[] {"LaTeX"}),
+		/** Ausgabe einer Liste (als Text) der verfügbaren Einzeldokumente */
 		MODE_LIST(new String[] {"Liste","List"}),
+		/** Einzeldokument für eine Statistikseite */
 		MODE_SINGLE_DOCUMENT(null);
 
+		/**
+		 * Liste mit möglichen Namen, über die das entsprechende Dateiformat
+		 * von der Kommandozeile aus angesprochen werden kann.
+		 */
 		public final String[] names;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param names	Liste mit möglichen Namen, über die das entsprechende Dateiformat von der Kommandozeile aus angesprochen werden kann.
+		 */
 		ExportMode(final String[] names) {
 			this.names=names;
 		}
 	}
 
+	/**
+	 * Statistikdatei, der die Daten entnommen werden sollen
+	 * @see #prepare(String[], InputStream, PrintStream)
+	 */
 	private File input;
+
+	/**
+	 * Ausgabedatei
+	 * @see #prepare(String[], InputStream, PrintStream)
+	 */
 	private File output;
+
+	/**
+	 * Ausgabedateiformat
+	 * @see AbstractReportCommand.ExportMode
+	 */
 	private ExportMode mode;
+
+	/**
+	 * Gewähltes Einzeldokument im Modus {@link AbstractReportCommand.ExportMode#MODE_SINGLE_DOCUMENT}
+	 * @see #prepare(String[], InputStream, PrintStream)
+	 */
 	private String listEntry;
 
 	@Override
@@ -83,6 +121,11 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 	 */
 	protected abstract Object getReportCommandConnect(File input);
 
+	/**
+	 * Führt die eigentliche Report-Ausgabe durch
+	 * @param reportGeneratorConnect	Verbindung zu der Klasse, die die Dateien erzeugen kann
+	 * @return	Gibt an, ob die Ausgabe erfolgreich war
+	 */
 	private boolean process(AbstractReportCommandConnect reportGeneratorConnect) {
 		switch (mode) {
 		case MODE_REPORT_INLINE: return reportGeneratorConnect.runReportGeneratorHTML(output,true,true);

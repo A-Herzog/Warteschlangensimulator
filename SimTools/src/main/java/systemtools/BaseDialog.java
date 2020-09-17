@@ -109,12 +109,39 @@ public class BaseDialog extends JDialog {
 	 */
 	public static final int CLOSED_BY_NEXT=3;
 
+	/**
+	 * "Ok" Schaltfläche (kann abhängig vom Typ des Dialog <code>null</code> bleiben)
+	 */
 	private JButton okButton=null;
+
+	/**
+	 * "Abbrechen" Schaltfläche (kann abhängig vom Typ des Dialog <code>null</code> bleiben)
+	 */
 	private JButton cancelButton=null;
+
+	/**
+	 * "Zurück" Schaltfläche (kann abhängig vom Typ des Dialog <code>null</code> bleiben)
+	 */
 	private JButton previousButton=null;
+
+	/**
+	 * "Weiter" Schaltfläche (kann abhängig vom Typ des Dialog <code>null</code> bleiben)
+	 */
 	private JButton nextButton=null;
+
+	/**
+	 * "Schließen" Schaltfläche (kann abhängig vom Typ des Dialog <code>null</code> bleiben)
+	 */
 	private JButton closeButton=null;
+
+	/**
+	 * "Hilfe" Schaltfläche (kann <code>null</code> bleiben, wenn kein Hilfe-Callback angegeben ist)
+	 */
 	private JButton helpButton=null;
+
+	/**
+	 * Callback, das beim Anklicken der "Hilfe"-Schaltfläche aktiviert werden soll (kann <code>null</code> sein)
+	 */
 	private Runnable helpRunnable=null;
 
 	/**
@@ -122,9 +149,25 @@ public class BaseDialog extends JDialog {
 	 */
 	protected final Window owner;
 
+	/**
+	 * Gibt an, wie der Dialog geschlossen wurde.
+	 * @see #getClosedBy()
+	 * @see #close(int)
+	 */
 	private int closedBy=CLOSED_BY_CANCEL;
 
+	/**
+	 * Benutzerdefinierte Schaltflächen
+	 * @see #addUserButton(String, URL)
+	 * @see #addUserButton(String, String, URL)
+	 */
 	private final List<JButton> userButtons=new ArrayList<>();
+
+	/**
+	 * Listener, der beim Anklicken einer benutzerdefinierten Schaltfläche aktiviert wird.
+	 * @see #userButtons
+	 * @see #userButtonClick(int, JButton)
+	 */
 	private final transient ActionListener userButtonListener=new UserButtonListener();
 
 	/**
@@ -215,6 +258,10 @@ public class BaseDialog extends JDialog {
 		return rootPane;
 	}
 
+	/**
+	 * Klasse zur Reaktion auf F1- und Escape-Tastendrücke
+	 * @see BaseDialog#createRootPane()
+	 */
 	private class SpecialKeyListener extends AbstractAction {
 		private static final long serialVersionUID = -485008309903554823L;
 
@@ -602,7 +649,9 @@ public class BaseDialog extends JDialog {
 	 * Gibt an, wie der Dialog geschlossen wurde.
 	 * @return	Enthält eine der <code>CLOSED_BY_*</code>-Konstanten.
 	 */
-	public final int getClosedBy() {return closedBy;}
+	public final int getClosedBy() {
+		return closedBy;
+	}
 
 	/**
 	 * Wird beim Klicken auf "Ok" aufgerufen, um zu prüfen, ob die Daten in der aktuellen Form

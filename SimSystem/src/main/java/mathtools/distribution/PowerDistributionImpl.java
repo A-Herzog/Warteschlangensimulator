@@ -43,8 +43,20 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 	 */
 	public final double c;
 
+	/**
+	 * Kehrwert des Parameters {@link #c}.<br>
+	 * Wird für die inverse Verteilungsfunktion vorberechnet.
+	 * @see #inverseCumulativeProbability(double)
+	 */
 	private final double inverseC;
 
+	/**
+	 * Vorberechneter Wert zur Beschleunigung der Berechnung
+	 * von Dichte, Verteilungsfunktion und inverser Verteilungsfunktion.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 * @see #inverseCumulativeProbability(double)
+	 */
 	private final double denominator;
 
 	/**

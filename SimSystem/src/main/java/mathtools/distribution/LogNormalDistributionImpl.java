@@ -53,7 +53,10 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 	 */
 	public final double sd;
 
-
+	/**
+	 * Eingebettete Normalverteilung.
+	 * @see #density(double)
+	 */
 	private final NormalDistribution normal;
 
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
@@ -124,7 +127,20 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 
 	/*private static final double TwoTimesPI=2*Math.PI;*/
 
+	/**
+	 * Es werden immer zwei Pseudozufallszahlen gleichzeitig generiert.
+	 * Steht eine zweite Zahl direkt zur Verfügung?
+	 * @see #nextRandom
+	 * @see #random(RandomGenerator)
+	 */
 	private boolean randomAvailable=false;
+
+	/**
+	 * Es werden immer zwei Pseudozufallszahlen gleichzeitig generiert.
+	 * Wenn eine zweite zur Verfügung steht, so wird sie hier angeboten.
+	 * @see #randomAvailable
+	 * @see #random(RandomGenerator)
+	 */
 	private double nextRandom=0;
 
 	@Override

@@ -129,26 +129,65 @@ public class JDistributionEditorPanel extends JPanel {
 	/** Bezeichner "Am wahrscheinlichsten" (für Dreiecksverteilung) */
 	public static String DistMostLikely="Am wahrscheinlichsten";
 
+	/**
+	 * Aktuelle Verteilung
+	 */
 	private AbstractRealDistribution distribution;
+
+	/**
+	 * Maximal darzustellender x-Wert
+	 */
 	private final double maxXValue;
+
+	/**
+	 * Optionaler externer {@link ActionListener}, der ausgelöst werden soll, wenn der Benutzer die Verteilung ändert
+	 */
 	private final ActionListener dataChangedNotify;
 
+	/**
+	 * Eingabefelder für die Verteilungsparameter (auf allen möglichen Cards)
+	 */
 	private final JTextField[][] distributionFields;
 
+	/** Auswahl des Verteilungstyp */
 	private JComboBox<String> distributionType;
+
+	/** Panel zum Bearbeiten der jeweiligenVerteilungsparameter */
 	private JPanel editPanel;
 
+	/** Zuletzt aktives Panel<br>
+	 * Um auch zu Beginn, wenn noch kein Panel, also -1, aktiv ist, als "geändert" angesehen zu werden, wird hier -2 als Startwert verwendet.
+	 * @see #itemStateChanged(ItemEvent)
+	 */
 	private int lastIndex=-2;
 
-	private final JButton buttonValueCopy, buttonValuePaste, buttonValuePasteNoScale, buttonValueLoad, buttonValueSave;
+	/** "Kopieren"-Schaltfläche */
+	private final JButton buttonValueCopy;
 
+	/** "Einfügen"-Schaltfläche */
+	private final JButton buttonValuePaste;
+
+	/** "Einfügen (und auffüllen)"-Schaltfläche */
+	private final JButton buttonValuePasteNoScale;
+
+	/** "Laden"-Schaltfläche */
+	private final JButton buttonValueLoad;
+
+	/** "Speichern"-Schaltfläche */
+	private final JButton buttonValueSave;
+
+	/**
+	 * Liste mit den Verteilungsdaten für die verschiedenen Panels
+	 * @see #editPanel
+	 * @see #distributionType
+	 */
 	private final List<JDistributionEditorPanelRecord> records=JDistributionEditorPanelRecord.getList();
 
 	/**
 	 * Konstruktor der Klasse <code>DistributionEditorPanel</code>
 	 * @param distribution	Darzustellende Verteilung
 	 * @param maxXValue	Maximal darzustellender x-Wert
-	 * @param dataChangedNotify	<code>ActionListener</code> der ausgelöst werden soll, wenn der Benutzer die Verteilung ändert.
+	 * @param dataChangedNotify	Optionaler {@link ActionListener}, der ausgelöst werden soll, wenn der Benutzer die Verteilung ändert.
 	 * @param allowDistributionTypeChange	Gibt an, ob der Typ der Verteilung geändert werden darf.
 	 */
 	public JDistributionEditorPanel(AbstractRealDistribution distribution, double maxXValue, ActionListener dataChangedNotify, boolean allowDistributionTypeChange) {
@@ -489,9 +528,16 @@ public class JDistributionEditorPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * ComboBox-Renderer zur Anzeige von Verteilungs-Symbolen in der Liste
+	 * @see JDistributionEditorPanel#distributionType
+	 */
 	private final class DistributionComboBoxRenderer extends JLabel implements ListCellRenderer<String> {
 		private static final long serialVersionUID = 6456312299286699520L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
 		public DistributionComboBoxRenderer() {
 			setHorizontalAlignment(LEFT);
 			setVerticalAlignment(CENTER);

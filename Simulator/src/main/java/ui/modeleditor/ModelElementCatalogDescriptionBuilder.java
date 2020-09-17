@@ -688,6 +688,7 @@ public class ModelElementCatalogDescriptionBuilder {
 	 * Startet die Verarbeitung.
 	 * @param output	html-Ausgabedatei.
 	 * @param language	Sprachkennung
+	 * @param title	Titel für die Ausgabe
 	 * @return	Im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung.
 	 */
 	private String runHTML(final File output, final String language, final String title) {

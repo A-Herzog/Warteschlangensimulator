@@ -92,6 +92,9 @@ public class MsgBox {
 	 */
 	private MsgBox() {}
 
+	/**
+	 * Zu verwendendes Backend für die Dialoge
+	 */
 	private static MsgBoxBackend backend;
 
 	static {

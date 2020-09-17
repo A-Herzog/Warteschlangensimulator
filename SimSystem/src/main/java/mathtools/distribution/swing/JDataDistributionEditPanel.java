@@ -163,27 +163,71 @@ public class JDataDistributionEditPanel extends JPanel {
 	 */
 	public static String CumulativeProbabilityLabel="Verteilung";
 
+	/** Darzustellende Verteilung */
 	private DataDistributionImpl distribution;
+
+	/** Gibt an, welche Daten in dem Diagramm angezeigt werden sollen */
 	private final PlotMode plotType;
+
+	/** Gibt an, um wie viel ein Schritt über die "+" und "-" Schaltflächen jeweils verändert werden soll. Der Wert 0 schaltet die Bearbeitungsmöglichkeiten ab. */
 	private final double editStep;
+
+	/** Bietet, wenn auf <code>true</code> gesetzt, die Möglichkeit, die Verteilung als Grafik zu speichern (statt sonst nur als Tabelle). */
 	private final boolean saveAsImageButtons;
+
+	/** Gibt die Anzahl an Werten in der ursprünglich geladenen empirischen Verteilung an. */
 	private int originalSteps;
+
+	/** Zahlenformat für die Beschriftung der y-Achse */
 	private LabelMode labelFormat=LabelMode.LABEL_VALUE;
 
+	/** Funktionsplotter innerhalb des Panels */
 	private final DataPlotter plotter;
+
+	/**
+	 * Drag&amp;Drop-Empfänger für Dateien
+	 * (muss als Feld vorgehalten werden, um ihn zur Laufzeit aktivieren oder deaktivieren zu können)
+	 * @see #setEditable(boolean)
+	 */
 	private FileDropper drop;
+
+	/** Toolbar in dem Panel */
 	private final JToolBar toolbar;
+
+	/** "Einfügen"-Schaltfläche */
 	private final JButton pasteButton;
+
+	/** "Kopieren"-Schaltfläche */
 	private final JButton copyButton;
+
+	/** "Laden"-Schaltfläche */
 	private final JButton loadButton;
+
+	/** "Speichern"-Schaltfläche */
 	private final JButton saveButton;
+
+	/** Popup-Menü für die "Kopieren"-Schaltfläche */
 	private final JPopupMenu copyPopup;
+
+	/** "Kopieren als Tabelle"-Menüpunkt für das Kopieren-Popup-Menü */
 	private final JMenuItem copyPopup1;
+
+	/** "Kopieren als Grafik"-Menüpunkt für das Kopieren-Popup-Menü */
 	private final JMenuItem copyPopup2;
+
+	/** Eingabezeile für die einzelnen Zahlenwerte der empirischen Verteilung */
 	private final JTextField editLine;
 
+	/**
+	 * Listener die bei einer Änderung der Verteilung benachrichtigt werden sollen.
+	 * @see #notifyChangeListener()
+	 */
 	private final List<ActionListener> changeListener;
 
+	/**
+	 * Bildgröße beim Kopieren und Speichern
+	 * @see #setImageSaveSize(int)
+	 */
 	private int imageSize=1000;
 
 	/**
@@ -200,7 +244,7 @@ public class JDataDistributionEditPanel extends JPanel {
 
 	/**
 	 * Zahlenformat für die Beschriftung der y-Achse
-	 * @author Alexandr Herzog
+	 * @author Alexander Herzog
 	 */
 	public enum LabelMode {
 		/** Ausgabe der Werte der Verteilung */
@@ -216,7 +260,7 @@ public class JDataDistributionEditPanel extends JPanel {
 	 * @param plotType	Darstellungsart, siehe <code>PLOT_</code>-Konstanten
 	 * @param editable	Gibt an, ob die Schaltflächen "Einfügen" und "Laden" angezeigt werden sollen
 	 * @param editStep Gibt an, um wie viel ein Schritt über die "+" und "-" Schaltflächen jeweils verändert werden soll. Der Wert 0 schaltet die Bearbeitungsmöglichkeiten ab.
-	 * @param saveAsImageButtons Bietet, wenn auf true gesetzt, die Möglichkeit, die Verteilung als Grafik zu speichern (statt sonst nur als Tabelle).
+	 * @param saveAsImageButtons Bietet, wenn auf <code>true</code> gesetzt, die Möglichkeit, die Verteilung als Grafik zu speichern (statt sonst nur als Tabelle).
 	 */
 	public JDataDistributionEditPanel(DataDistributionImpl distribution, PlotMode plotType, boolean editable, double editStep, boolean saveAsImageButtons) {
 		super();
@@ -369,7 +413,7 @@ public class JDataDistributionEditPanel extends JPanel {
 	}
 
 	/**
-	 * Fügt einen <code>ActionListener</code> zu der Liste der Objekte, die bei einer Änderung der Verteilung benachrichtigt werden sollen, hinzu.
+	 * Fügt einen {@link ActionListener} zu der Liste der Objekte, die bei einer Änderung der Verteilung benachrichtigt werden sollen, hinzu.
 	 * @param listener	Zusätzlich zu benachrichtigender <code>ActionListener</code>
 	 */
 	public void addChangeListener(ActionListener listener) {
@@ -377,7 +421,7 @@ public class JDataDistributionEditPanel extends JPanel {
 	}
 
 	/**
-	 * Entfernt einen <code>ActionListener</code> aus der Liste der Objekte, die bei einer Änderung der Verteilung benachrichtigt werden sollen.
+	 * Entfernt einen {@link ActionListener} aus der Liste der Objekte, die bei einer Änderung der Verteilung benachrichtigt werden sollen.
 	 * @param listener	Nicht mehr zu benachrichtigender <code>ActionListener</code>
 	 * @return Gibt <code>true</code> zurück, wenn sich der Listener in der Listze befand und entfernt werden konnte.
 	 */
@@ -387,6 +431,12 @@ public class JDataDistributionEditPanel extends JPanel {
 		return (index>=0);
 	}
 
+	/**
+	 * Benachrichtigt die registrierten Listen, die bei einer Änderung der Verteilung benachrichtigt werden sollen.
+	 * @see #addChangeListener(ActionListener)
+	 * @see #removeChangeListener(ActionListener)
+	 * @see #setDistribution(DataDistributionImpl)
+	 */
 	private void notifyChangeListener() {
 		ActionEvent action=new ActionEvent(this,ActionEvent.ACTION_FIRST,"changed");
 		for (ActionListener listener : changeListener) listener.actionPerformed(action);
@@ -637,6 +687,9 @@ public class JDataDistributionEditPanel extends JPanel {
 		public void keyReleased(KeyEvent e) {updateDistributionFromEditLine();}
 	}
 
+	/**
+	 * Eigentlicher Funktionsplotter innerhalb des Gesamt-Panels
+	 */
 	private class DataPlotter extends JPanel implements MouseListener, MouseMotionListener {
 		private static final long serialVersionUID = -1793441375989694737L;
 

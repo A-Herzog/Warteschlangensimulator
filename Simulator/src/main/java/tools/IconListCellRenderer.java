@@ -44,6 +44,8 @@ import ui.modeleditor.ModelTransporter;
 public class IconListCellRenderer extends DefaultListCellRenderer {
 	private static final long serialVersionUID = -2336966853757784114L;
 
+
+	/** Ressourcennamen der Icons zu den Einträgen */
 	private final Icon[] icons;
 
 	/**

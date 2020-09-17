@@ -34,6 +34,9 @@ import org.apache.commons.math3.util.FastMath;
  * @version 1.1
  */
 public class ThreadLocalRandomGenerator implements RandomGenerator {
+	/**
+	 * Vorabberechneter Wert 2*pi, um in {@link #nextGaussian()} Zeit zu sparen.
+	 */
 	private static final double TwoTimesPI=2*Math.PI;
 
 	@Override

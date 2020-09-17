@@ -50,7 +50,7 @@ public final class StatisticsStateTimePerformanceIndicator extends StatisticsPer
 
 	/**
 	 * Gibt an, ob der Zähler gerade auf eine explizite Startzeit gesetzt wurde.
-	 * @see setTime
+	 * @see #setTime(double)
 	 */
 	private boolean explicitTimeInit=false;
 

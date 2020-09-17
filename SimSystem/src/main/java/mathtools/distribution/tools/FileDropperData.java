@@ -28,9 +28,13 @@ import java.io.File;
  * @see FileDropper
  */
 public class FileDropperData {
+	/** Zugehöriges {@link FileDropper}-Objekt (kann <code>null</code> sein). Kann vom Empfänger dieses Objektes verwendet werden, um die Drag&amp;Drop-Operation abzuschließen und um zu ermitteln, von welchem Objekt das Ereignis ausging. */
 	private final FileDropper fileDropper;
+	/** Abgelegte Datei */
 	private final File file;
+	/** Komponente auf der die Datei abgelegt wurde */
 	private final Component dropComponent;
+	/** Position (relativ zu der Komponente) an der die Datei abgelegt wurde */
 	private final Point dropPosition;
 
 	/**

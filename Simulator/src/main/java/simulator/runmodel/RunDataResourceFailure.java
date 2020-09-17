@@ -26,6 +26,7 @@ import simcore.SimData;
 import simulator.events.ResourcesReCheckEvent;
 import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.ModelResourceFailure;
+import ui.modeleditor.ModelResourceFailure.FailureMode;
 
 /**
  * Hält die Daten für ein Ressourcen-Ausfall-Ereignis vor
@@ -42,26 +43,26 @@ public class RunDataResourceFailure {
 
 	/**
 	 * Zählung der Bedienungen bis Ausfall
-	 * @see ModelResourceFailure.FailureMode#FAILURE_BY_NUMBER
+	 * @see FailureMode#FAILURE_BY_NUMBER
 	 */
 	int failureNumber;
 
 	/**
 	 * Erfassung der Zeit bis Ausfall
-	 * @see ModelResourceFailure.FailureMode#FAILURE_BY_AVAILABLE_TIME
-	 * @see ModelResourceFailure.FailureMode#FAILURE_BY_WORKING_TIME
+	 * @see FailureMode#FAILURE_BY_AVAILABLE_TIME
+	 * @see FailureMode#FAILURE_BY_WORKING_TIME
 	 */
 	long failureTime;
 
 	/**
 	 * Verteilungsfunktion der Ausfallabstände
-	 * @see ModelResourceFailure.FailureMode#FAILURE_BY_DISTRIBUTION
+	 * @see FailureMode#FAILURE_BY_DISTRIBUTION
 	 */
 	AbstractRealDistribution failureDistribution;
 
 	/**
 	 * Ausdruck zur Bestimmung der Ausfallabstände
-	 * @see ModelResourceFailure.FailureMode#FAILURE_BY_EXPRESSION
+	 * @see FailureMode#FAILURE_BY_EXPRESSION
 	 */
 	ExpressionCalc failureExpression;
 

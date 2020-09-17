@@ -27,6 +27,10 @@ public class CalcSymbolPostOperatorDEGtoRAD extends CalcSymbolPostOperator {
 		return new String[]{"°"};
 	}
 
+	/**
+	 * Vorab berechneter Wert pi/180, um die
+	 * eigentlichen Berechnungen zu beschleunigen.
+	 */
 	private static final double factor=Math.PI/180;
 
 	@Override

@@ -26,8 +26,17 @@ import javax.swing.JFileChooser;
  * @version 1.0
  */
 public final class CommonVariables {
+	/**
+	 * Singleton dieser Klasse
+	 * @see #getCommonVariables()
+	 */
 	private static CommonVariables commonVariables=null;
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht direkt instanziert werden.
+	 * @see #getCommonVariables()
+	 */
 	private CommonVariables() {}
 
 	/**

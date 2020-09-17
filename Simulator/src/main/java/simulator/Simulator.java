@@ -97,7 +97,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 
 	/**
 	 * Da die Statistik nur einmal aus den Daten erhoben wird, wird diese für wiederholte Aufrufe von <code>getStatistic()</code> hier aufgehoben
-	 * @see getStatistic
+	 * @see #getStatistic()
 	 */
 	private Statistics statistics=null;
 

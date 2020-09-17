@@ -96,19 +96,40 @@ public class JDataLoader extends JDialog {
 	/** Fehler "Die Datei %s konnte nicht geladen werden." */
 	public static String ImportErrorFileError="Die Datei %s konnte nicht geladen werden.";
 
+	/** Übergeordnetes Fenster */
 	private final Window owner;
+
+	/** Tabellendatenblatt vom Typ {@link MultiTable} aus dem die Daten entnommen werden sollen. */
 	private final MultiTable data;
+
+	/** Minimale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden. */
 	private final int minValues;
+
+	/** Maximale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden. */
 	private final int maxValues;
+
+	/** Gibt an, ob Zahlen (<code>true</code>) oder beliebige Daten (<code>false</code>) verlangt werden. */
 	private final boolean numbersOnly;
+
+	/** Tabs für die Tabellenblätter */
 	private final JTabbedPane tabs;
 
+	/** Anzeige des selektierten (=zu ladenden) Bereichs */
 	private final JTextField edit;
+
+	/** Einzelne Tabellen der Arbeitsmappe */
 	private final JTable[] table;
+
+	/** Datenmodelle der Tabellendaten */
 	private final TableModel[] model;
+
+	/** "Ok"-Schaltfläche */
 	private final JButton buttonOk;
+
+	/** "Abbrechen"-Schaltfläche */
 	private final JButton buttonCancel;
 
+	/** Tabellenblatt, in dem zuletzt ein Bereich ausgewählt wurde */
 	private int lastSelectedTable=-1;
 
 	/**
@@ -124,7 +145,7 @@ public class JDataLoader extends JDialog {
 	/**
 	 * Konstruktor der Klasse <code>JDataLoader</code> zur Anzeige eines Daten-Auswahldialogs
 	 * @param owner	Übergeordnetes Fenster
-	 * @param data	Tabellendatenblatt vom Typ <code>MultiTable</code> aus dem die Daten entnommen werden sollen.
+	 * @param data	Tabellendatenblatt vom Typ {@link MultiTable} aus dem die Daten entnommen werden sollen.
 	 * @param minValues	Minimale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden.
 	 * @param maxValues	Maximale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden.
 	 * @param numbersOnly	Gibt an, ob Zahlen (<code>true</code>) oder beliebige Daten (<code>false</code>) verlangt werden.
@@ -334,6 +355,10 @@ public class JDataLoader extends JDialog {
 		}
 	}
 
+	/**
+	 * Tabellenmodell für die Vorschautabelle für die zu ladenden Daten
+	 * @see #model
+	 */
 	private class ImportTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 4210448324814080272L;
 

@@ -33,8 +33,16 @@ import org.apache.commons.math3.random.RandomGenerator;
  * @author Alexander Herzog
  */
 public class SeedableThreadLocalRandomGenerator implements RandomGenerator {
+	/**
+	 * Vorabberechneter Wert 2*pi, um in {@link #nextGaussian()} Zeit zu sparen.
+	 */
 	private static final double TwoTimesPI=2*Math.PI;
 
+	/**
+	 * Zuordnung von Threads zu {@link RandomGenerator}-Objekten,
+	 * damit jeder Thread seinen eigenen Generator verwendet.
+	 * @see #getGenerator()
+	 */
 	private final Map<Thread,RandomGenerator> map;
 
 	/**
@@ -44,6 +52,10 @@ public class SeedableThreadLocalRandomGenerator implements RandomGenerator {
 		map=new HashMap<>();
 	}
 
+	/**
+	 * Liefert den Thread-abhängigen Pseudozufallszahlengenerator
+	 * @return	Pseudozufallszahlengenerator für den aktuellen Thread
+	 */
 	private synchronized RandomGenerator getGenerator() {
 		final Thread key=Thread.currentThread();
 		RandomGenerator generator=map.get(key);

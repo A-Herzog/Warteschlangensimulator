@@ -30,8 +30,11 @@ import javax.swing.table.JTableHeader;
 public class JCheckboxTable extends JTable {
 	private static final long serialVersionUID = -5386423466149360971L;
 
+	/** Array mit den in der Liste anzuzeigenden Texten (darf nicht <code>null</code> sein) */
 	private final String[] keys;
-	private final Boolean[] select;
+
+	/** Aktuell selektierte Einträge */
+	private final boolean[] select;
 
 	/**
 	 * Konstruktor der Klasse
@@ -45,10 +48,10 @@ public class JCheckboxTable extends JTable {
 
 		this.keys=Arrays.copyOf(keys,keys.length);
 		if (select==null) {
-			this.select=new Boolean[keys.length];
-			Arrays.fill(this.select,Boolean.FALSE);
+			this.select=new boolean[keys.length];
+			Arrays.fill(this.select,false);
 		} else {
-			this.select=new Boolean[select.length];
+			this.select=new boolean[select.length];
 			for (int i=0;i<select.length;i++) this.select[i]=select[i];
 		}
 
@@ -157,6 +160,12 @@ public class JCheckboxTable extends JTable {
 	 */
 	protected void selectChanged() {}
 
+	/**
+	 * Tabellendaten für die CheckBox-Tabelle
+	 * @see JCheckboxTable#JCheckboxTable(String[])
+	 * @see JCheckboxTable#JCheckboxTable(String[], boolean[])
+	 * @see JCheckboxTable#JCheckboxTable(String[], boolean[], String)
+	 */
 	private final class JCheckboxTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 7961524422591759713L;
 		@Override public int getRowCount() {return keys.length;}

@@ -33,7 +33,7 @@ public class ExpressionBuilderDistributions {
 	/**
 	 * Konstruktor der Klasse.<br>
 	 * Diese Klasse kann nicht instanziert werden.
-	 * Sie stellt nur die statische Methode {@link ExpressionBuilderDistributions#build(DefaultMutableTreeNode, List)} zur Verfügung.
+	 * Sie stellt nur die statische Methode {@link ExpressionBuilderDistributions#build(DefaultMutableTreeNode, List, String)} zur Verfügung.
 	 */
 	private ExpressionBuilderDistributions() {}
 

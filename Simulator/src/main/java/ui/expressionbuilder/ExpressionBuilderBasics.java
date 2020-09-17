@@ -33,7 +33,7 @@ public class ExpressionBuilderBasics {
 	/**
 	 * Konstruktor der Klasse.<br>
 	 * Diese Klasse kann nicht instanziert werden.
-	 * Sie stellt nur die statische Methode {@link ExpressionBuilderBasics#build(DefaultMutableTreeNode, List)} zur Verfügung.
+	 * Sie stellt nur die statische Methode {@link ExpressionBuilderBasics#build(DefaultMutableTreeNode, List, String)} zur Verfügung.
 	 */
 	private ExpressionBuilderBasics() {}
 

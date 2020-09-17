@@ -40,8 +40,13 @@ import xml.XMLTools;
  * @see CommandLineSystem
  */
 public abstract class AbstractSimulationCommand extends AbstractCommand {
+	/**
+	 * Lädt eine xml-Datei
+	 * @param file	Zu ladende Datei
+	 * @return Tritt ein Fehler auf, so wird <code>null</code> zurück gegeben, ansonsten das Root-Element der Daten
+	 */
 	private final Element loadXMLFile(final File file) {
-		XMLTools xml=new XMLTools(file);
+		final XMLTools xml=new XMLTools(file);
 		return xml.load();
 	}
 
@@ -155,6 +160,9 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 		warnings.forEach(out::println);
 	}
 
+	/**
+	 * Simulator-Objekt über das die Simulation durchgeführt wird
+	 */
 	private volatile AnySimulator simulator;
 
 	/**
@@ -210,6 +218,10 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 		return true;
 	}
 
+	/**
+	 * Wird von {@link #setQuit()} auf <code>true</code> gesetzt, wenn die Simulation
+	 * abgebrochen werden soll.
+	 */
 	private volatile boolean canceled=false;
 
 	/**

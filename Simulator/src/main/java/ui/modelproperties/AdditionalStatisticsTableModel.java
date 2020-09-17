@@ -41,9 +41,13 @@ import ui.modeleditor.ModelLongRunStatisticsElement;
 public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel {
 	private static final long serialVersionUID = 3634658121731799874L;
 
+	/** Vollständiges Editor-Modell (wird für den Expression-Builder benötigt) */
 	private final EditModel model;
+	/** Zu dem Tabellenmodell gehörenden Tabellenobjekt (wird sowohl zum Ausrichten von Dialogen als auch um ein Update der Tabelle anzustoßen benötigt) */
 	private final JTableExt table;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Callback */
 	private final Runnable help;
 	private final List<ModelLongRunStatisticsElement> data;
 
@@ -65,6 +69,9 @@ public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel 
 		updateTable();
 	}
 
+	/**
+	 * Veranlasst die Aktualisierung der Tabellendarstellung.
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();

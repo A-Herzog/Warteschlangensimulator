@@ -28,10 +28,24 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolTruncatedDistribution extends CalcSymbolPreOperator {
+	/** Maximale Anzahl an Versuchen, einen Wert im passenden Bereich zu erhalten */
 	private final static int MAX_RND=100;
 
+	/**
+	 * Eingebettete Verteilung
+	 */
 	private final CalcSymbolDistribution innerDistribution;
+
+	/**
+	 * Anzahl der Parameter der Verteilung
+	 * @see CalcSymbolDistribution#getParameterCount()
+	 */
 	private final int parameterCount;
+
+	/**
+	 * Array für die Verteilungsparameter
+	 * (um nicht immer wieder neue Arrays anlegen zu müssen)
+	 */
 	private final double [] distParameters;
 
 	/**
@@ -54,6 +68,16 @@ public class CalcSymbolTruncatedDistribution extends CalcSymbolPreOperator {
 		return names.toArray(new String[0]);
 	}
 
+	/**
+	 * Liefert eine Pseudozufallszahl gemäß der Verteilung,
+	 * die in dem angegebene Bereich liegt. Liegt nach
+	 * {@link #MAX_RND} Schritten immer noch kein Wert
+	 * vor, so wird <code>(min+max)/2</code> geliefert.
+	 * @param min	Minimalwert
+	 * @param max	Maximalwert
+	 * @return	Pseudozufallszahl
+	 * @throws MathCalcError	Reicht Fehler von {@link #innerDistribution} nach außen durch
+	 */
 	private double getRandom(final double min, final double max) throws MathCalcError {
 		int count=0;
 		double rnd=innerDistribution.calc(distParameters);
@@ -65,6 +89,16 @@ public class CalcSymbolTruncatedDistribution extends CalcSymbolPreOperator {
 		return rnd;
 	}
 
+	/**
+	 * Liefert eine Pseudozufallszahl gemäß der Verteilung,
+	 * die in dem angegebene Bereich liegt. Liegt nach
+	 * {@link #MAX_RND} Schritten immer noch kein Wert
+	 * vor, so wird der angegebene Fallback-Wert geliefert.
+	 * @param min	Minimalwert
+	 * @param max	Maximalwert
+	 * @param fallbackValue	Wert, der geliefert wird, wenn innerhalb von {@link #MAX_RND} Versuchen kein gültiger Wert ermittelt werden konnte
+	 * @return	Pseudozufallszahl
+	 */
 	private double getRandom(final double min, final double max, final double fallbackValue) {
 		int count=0;
 		double rnd=innerDistribution.calcOrDefault(distParameters,fallbackValue);

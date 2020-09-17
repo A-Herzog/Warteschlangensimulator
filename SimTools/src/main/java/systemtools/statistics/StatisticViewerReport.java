@@ -799,6 +799,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	 */
 	protected void setSelectSettings(String settings) {}
 
+	/** Tabelle mit den Checkboxen */
 	private final class JReportCheckboxTable extends JCheckboxTable {
 		private static final long serialVersionUID = 1342890838297765223L;
 

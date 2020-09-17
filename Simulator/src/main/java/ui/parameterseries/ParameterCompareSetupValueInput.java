@@ -21,6 +21,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import ui.ModelChanger;
+import ui.ModelChanger.Mode;
 
 /**
  * Hält die Definition einer Eingabegröße für die Parameter-Vergleichs-Funktion vor.
@@ -52,7 +53,7 @@ public final class ParameterCompareSetupValueInput extends ParameterCompareSetup
 	/**
 	 * Liefert den aktuellen Modus der Eingabegröße
 	 * @return	Modus der Eingabegröße
-	 * @see ModelChanger.Mode
+	 * @see Mode
 	 */
 	public ModelChanger.Mode getMode() {
 		return mode;
@@ -61,7 +62,7 @@ public final class ParameterCompareSetupValueInput extends ParameterCompareSetup
 	/**
 	 * Stellt den Modus der Eingabegröße ein
 	 * @param mode	Modus der Eingabegröße
-	 * @see ModelChanger.Mode
+	 * @see Mode
 	 */
 	public void setMode(final ModelChanger.Mode mode) {
 		if (mode!=null) this.mode=mode;

@@ -53,33 +53,73 @@ import systemtools.images.SimToolsImages;
 public abstract class HTMLPanel extends JPanel {
 	private static final long serialVersionUID = -3360161989499967773L;
 
+	/** Wird, wenn nicht <code>null</code>, aufgerufen, wenn der Nutzer auf die Schließen-Schaltfläche klickt. */
 	private final Runnable closeNotify;
 
+	/** Toolbar des Panels */
 	private final JToolBar toolBar;
+
+	/** "Schließen"-Schaltfläche */
 	private final JButton buttonClose;
+
+	/** "Start"-Schaltfläche */
 	private final JButton buttonHome;
+
+	/** "Zurück"-Schaltfläche */
 	private final JButton buttonBack;
+
+	/** "Weiter"-Schaltfläche */
 	private final JButton buttonNext;
+
+	/** "Inhalt anzeigen"-Schaltfläche */
 	private final JButton buttonContent;
+
+	/** Panel zur Anzeige des Hilfetextes */
 	private HTMLBrowserPanel textPane;
+
+	/** Popup zur Anzeige der Inhaltselemente /wird über die "Inhalt anzeigen"-Schaltfläche aktiviert */
 	private final JPopupMenu contentPopup;
 
+	/** Gibt an, ob die Toolbar-Schaltfläche, die eine Popup-Menü mit einer Übersicht der Zwischenüberschriften der Seite enthält, angezeigt werden soll. */
 	private final boolean showContent;
+
+	/** Liste mit den "Zurück"-URLs */
 	private final List<URL> listBack;
+
+	/** Liste mit den "Weiter"-URLs */
 	private final List<URL> listNext;
+
+	/** Aktuell angezeigte URL */
 	private URL currentURL=null;
+
+	/** Startseiten-URL */
 	private URL homeURL=null;
+
+	/**
+	 * Findet gerade ein Ladevorgang statt?
+	 * @see #loadPage(File)
+	 * @see #waitPageLoadDone()
+	 */
 	private boolean loading=false;
+
+	/**
+	 * Wird <b>kein</b> Locking während des Ladens benötigt?
+	 * @see HTMLBrowserPanel#needsLoadLock()
+	 * @see #waitPageLoadDone()
+	 */
 	private boolean noLockingViewer=true;
 
+	/** Callback welches aufgerufen wird, wenn der Nutzer auf einen Link klickt, der keine URL enthält. */
 	private Runnable processSpecialLink;
+
+	/** Linkziel für einen angeklickten Link, der keine URL enthält. */
 	private String specialLink="";
 
 	/**
 	 * Konstruktor der Klasse <code>HTMLPanel</code>
 	 * @param showBackAndNext Zeigt die Vorwärts- und Rückwärtsschaltflächen an
 	 * @param showContent	Zeigt eine Toolbar-Schaltfläche an, die eine Popup-Menü mit einer Übersicht der Zwischenüberschriften der Seite enthält
-	 * @param closeNotify	Wird aufgerufen, wenn der Nutzer auf die Schließen-Schaltfläche klickt.
+	 * @param closeNotify	Wird aufgerufen, wenn der Nutzer auf die Schließen-Schaltfläche klickt. (Darf <code>null</code> sein.)
 	 */
 	public HTMLPanel(boolean showBackAndNext, boolean showContent, Runnable closeNotify) {
 		setLayout(new BorderLayout());
@@ -161,9 +201,9 @@ public abstract class HTMLPanel extends JPanel {
 	}
 
 	/**
-	 * Registrirt ein <code>Runnable</code>-Objekt, welches aufgerufen wird,
+	 * Registriert ein {@link Runnable}-Objekt, welches aufgerufen wird,
 	 * wenn der Nutzer auf einen Link klickt, der keine URL enthält.
-	 * @param processSpecialLink <code>Runnable</code>-Objekt, welche über das Klicken auf den besonderen Link informiert wird.
+	 * @param processSpecialLink {@link Runnable}-Objekt, welche über das Klicken auf den besonderen Link informiert wird.
 	 * @see #getSpecialLink()
 	 */
 	public void setProcessSpecialLink(Runnable processSpecialLink) {
@@ -210,7 +250,7 @@ public abstract class HTMLPanel extends JPanel {
 
 	/**
 	 * Zeigt die als Parameter übergebene Seite an.
-	 * @param file	Anzuzeiende Datei
+	 * @param file	Anzuzeigende Datei
 	 * @return Gibt <code>true</code> zurück, wenn die Seite erfolgreich geladen und angezeigt werden konnte.
 	 */
 	public boolean loadPage(File file) {
@@ -323,6 +363,11 @@ public abstract class HTMLPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Lade-Lock
+	 * @see HTMLPanel.PageLoadListener
+	 * @see #waitPageLoadDone()
+	 */
 	private final Object lockObject=new Object();
 
 	private final class PageLoadListener implements Runnable {
@@ -381,6 +426,9 @@ public abstract class HTMLPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Listener, der auf Escape-Tastendrücke reagiert
+	 */
 	private final class EscapeListener extends AbstractAction {
 		private static final long serialVersionUID = 3060385322767789283L;
 

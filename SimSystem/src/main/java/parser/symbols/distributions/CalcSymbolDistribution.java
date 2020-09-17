@@ -30,7 +30,16 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @version 1.1
  */
 public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
+	/**
+	 * Anzahl an Parametern der Wahrscheinlichkeitsverteilung
+	 * @see #getParameterCount()
+	 */
 	private final int parameterCount;
+
+	/**
+	 * Array mit den konkreten Verteilungsparametern
+	 * (um das wiederholte Anlegen von Arrays zu vermeiden)
+	 */
 	private double[] distParameters;
 
 	/**
@@ -57,9 +66,25 @@ public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
 	 */
 	protected abstract AbstractRealDistribution getDistribution(double[] parameters);
 
+	/**
+	 * Verteilungsobjekt, welches beim letzten Aufruf von {@link #fastGetDistribution(double[])}
+	 * geliefert wurde (um es ggf. später wiederverwenden zu können)
+	 * @see #fastGetDistribution(double[])
+	 */
 	private AbstractRealDistribution lastDistribution;
+
+	/**
+	 * Parameter beim letzten Aufruf von {@link #fastGetDistribution(double[])}, um bestimmen
+	 * zu können, ob {@link #lastDistribution} wiederverwendet werden kann
+	 * @see #fastGetDistribution(double[])
+	 */
 	private double[] lastParameters;
 
+	/**
+	 * Erstellt auf Basis der Parameter ein konkretes Verteilungsobjekt
+	 * @param parameters	Parameter der Verteilung
+	 * @return	Verteilungsobjekt
+	 */
 	private AbstractRealDistribution fastGetDistribution(final double[] parameters) {
 		boolean needNewDistribution=(lastDistribution==null || lastParameters.length!=parameters.length);
 		if (!needNewDistribution) for (int i=0;i<lastParameters.length;i++) if (lastParameters[i]!=parameters[i]) {needNewDistribution=true; break;}

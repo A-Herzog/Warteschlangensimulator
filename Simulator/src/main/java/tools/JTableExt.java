@@ -46,8 +46,27 @@ import javax.swing.table.TableModel;
 public final class JTableExt extends JTable {
 	private static final long serialVersionUID = -4675269108501016811L;
 
+	/**
+	 * Anzahl an Spalten beim letzten Aufruf von
+	 * {@link #tableChanged(TableModelEvent)}, um
+	 * {@link #setPanelRendererAndEditor()} möglichst selten aufzurufen.
+	 * @see #tableChanged(TableModelEvent)
+	 */
 	private int lastColCount=0;
+
+	/**
+	 * Anzahl an Zeilen beim letzten Aufruf von
+	 * {@link #tableChanged(TableModelEvent)}, um
+	 * {@link #editingStopped(javax.swing.event.ChangeEvent)} möglichst selten aufzurufen.
+	 * @see #tableChanged(TableModelEvent)
+	 */
 	private int lastRowCount=0;
+
+	/**
+	 * Spalten, in denen {@link JPanel}-Elemente verwendet werden können.
+	 * @see #setIsPanelCellTable(int)
+	 * @see #setIsPanelCellTable()
+	 */
 	private final List<Integer> panelCellColumns=new ArrayList<>();
 
 	/**
@@ -136,6 +155,11 @@ public final class JTableExt extends JTable {
 		}
 	}
 
+	/**
+	 * Wurde bereits ein Changed-Ereignis ausgelöst
+	 * (und das zugehörige Neuzeichnen noch nicht abgearbeitet)?
+	 * @see #tableChangeTriggered
+	 */
 	private volatile boolean tableChangeTriggered=false;
 
 	@Override
@@ -168,6 +192,11 @@ public final class JTableExt extends JTable {
 		super.tableChanged(e);
 	}
 
+	/**
+	 * Renderer für die Zellen
+	 * @see JTableExt#setPanelRendererAndEditor()
+	 *
+	 */
 	private final class CellRendererExt extends DefaultTableCellRenderer {
 		private static final long serialVersionUID = -6047418281147307757L;
 		@Override
@@ -177,6 +206,10 @@ public final class JTableExt extends JTable {
 		}
 	}
 
+	/**
+	 * Editor für die Zellen
+	 * @see JTableExt#setPanelRendererAndEditor()
+	 */
 	private final class CellEditorExt extends AbstractCellEditor implements TableCellEditor {
 		private static final long serialVersionUID = 6362443731642362983L;
 		@Override

@@ -29,6 +29,10 @@ import parser.MathCalcError;
  * @version 2.3
  */
 public class SimpleParser extends CalcSystemBase {
+	/**
+	 * Wurzelelement des geparsten Ausdrucks
+	 * @see #parse(String)
+	 */
 	private Symbol root;
 
 	/**
@@ -99,6 +103,12 @@ public class SimpleParser extends CalcSystemBase {
 		super(text,variables);
 	}
 
+	/**
+	 * Zerlegt den gesamten Text in einzelne Tokens
+	 * @param text	Text
+	 * @return	Liste mit Tokens
+	 * @see #parse(String)
+	 */
 	private List<Object> getTokens(final String text) {
 		boolean inNumberFracPart=false;
 
@@ -190,6 +200,11 @@ public class SimpleParser extends CalcSystemBase {
 		return tokens;
 	}
 
+	/**
+	 * Handelt es sich bei dem Symbol um eine Variable?
+	 * @param symbol	Zu prüfendes Symbol
+	 * @return	Liefert <code>true</code>, wenn es sich um eine Variable handelt
+	 */
 	private int isVariable(final String symbol) {
 		if (symbol.equalsIgnoreCase("pi")) return -2;
 		if (symbol.equalsIgnoreCase("e")) return -3;
@@ -197,12 +212,23 @@ public class SimpleParser extends CalcSystemBase {
 		return -1;
 	}
 
+	/**
+	 * Handelt es sich bei dem Symbol um den Namen einer Funktion?
+	 * @param symbol	Zu prüfendes Symbol
+	 * @return	Liefert <code>true</code>, wenn es sich um den Namen einer Funktion handelt
+	 */
+
 	private boolean isFunction(final String symbol) {
 		if (symbol==null || symbol.isEmpty()) return false;
 		for (String sym: FUNCTION_NAMES) if (symbol.equalsIgnoreCase(sym)) return true;
 		return false;
 	}
 
+	/**
+	 * Fügt in die Liste der Tokens implizite gegebene, aber nicht explizit vorhandene Multiplikationen ein
+	 * (z.B. wird aus "3","pi" dann "3","*","pi".
+	 * @param list	Liste der Tokens, die ggf. ergänzt werden soll
+	 */
 	private void insertMultiplySymbols(final List<Object> list) {
 		int i=1;
 		while (i<list.size()) {
@@ -219,6 +245,12 @@ public class SimpleParser extends CalcSystemBase {
 		}
 	}
 
+	/**
+	 * Wandelt ein einzelnes Token in ein Symbol um
+	 * @param o	Umzuwandelndes Token
+	 * @return	Rechensymbol oder <code>null</code>, wenn die Umwandlung fehlgeschlagen ist
+	 * @see #buildTree(List)
+	 */
 	@SuppressWarnings("unchecked")
 	private Symbol tokenToSymbol(final Object o) {
 		if (o instanceof Double) return new NumberSymbol((Double)o);
@@ -228,6 +260,11 @@ public class SimpleParser extends CalcSystemBase {
 		return null;
 	}
 
+	/**
+	 * Erstellt auf Basis der Tokens eine Baumstruktur des Rechenausdrucks
+	 * @param list	Liste der Tokens
+	 * @return	Wurzelelement der Baumstruktur oder <code>null</code>, wenn die Umwandlung fehlgeschlagen ist
+	 */
 	private Symbol buildTree(final List<Object> list) {
 		if (list.size()>=2 && list.get(0) instanceof String && ((String)list.get(0)).equals("-")) list.add(0,0.0);
 		if (list.size()==1) return tokenToSymbol(list.get(0));
@@ -326,22 +363,73 @@ public class SimpleParser extends CalcSystemBase {
 		}
 	}
 
+	/**
+	 * Basisklasse für alle Rechensymbole
+	 * @see NumberSymbol
+	 * @see VariableSymbol
+	 * @see FunctionSymbol
+	 */
 	private abstract class Symbol {
+		/**
+		 * Führt die eigentliche Berechnung durch.
+		 * @param variableValues	Liste mit den Werten der Variablen.
+		 * @return	Berechneter Ausdruck
+		 * @throws MathCalcError	Wird ausgelöst, wenn die Berechnung fehlgeschlagen ist.
+		 */
 		public abstract double calc(final double[] variableValues) throws MathCalcError;
+		/**
+		 * Versucht den Ausdruck zu vereinfachen.
+		 * @return	Vereinfachter Ausdruck oder auch das Objekt selbst, wenn keine Vereinfachung möglich war.
+		 */
 		public Symbol simplify() {return this;}
+
+		/**
+		 * Wird von {@link #calc(double[])} aufgerufen, um ein Fehler-Objekt zu erzeugen.
+		 * @return	Fehler-Objekt zum aktuellen Symbol
+		 */
 		protected final MathCalcError error() {return new MathCalcError(this);}
 	}
 
+	/**
+	 * Rechensymbol, das eine Zahl repräsentiert
+	 */
 	private class NumberSymbol extends Symbol {
+		/** Zahl */
 		public final double value;
-		public NumberSymbol(final double value) {this.value=value;}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param value	Zahl
+		 */
+		public NumberSymbol(final double value) {
+			this.value=value;
+		}
+
 		@Override
-		public double calc(final double[] variableValues) {return value;}
+		public double calc(final double[] variableValues) {
+			return value;
+		}
 	}
 
+	/**
+	 * Rechensymbol, das eine Variable repräsentiert
+	 */
 	private class VariableSymbol extends Symbol {
+		/**
+		 * Index der Variable in der Liste aller Variablen,
+		 * dabei steht -2 für pi und -3 für e.
+		 * @see #calc(double[])
+		 */
 		public final int variableIndex;
-		public VariableSymbol(final int variableIndex) {this.variableIndex=variableIndex;}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param variableIndex	Index der Variable in der Liste aller Variablen
+		 */
+		public VariableSymbol(final int variableIndex) {
+			this.variableIndex=variableIndex;
+		}
+
 		@Override
 		public double calc(final double[] variableValues) throws MathCalcError {
 			if (variableIndex==-2) return Math.PI;
@@ -349,6 +437,7 @@ public class SimpleParser extends CalcSystemBase {
 			if (variableIndex<0 || variableIndex>=variableValues.length) throw error();
 			return variableValues[variableIndex];
 		}
+
 		@Override
 		public Symbol simplify() {
 			if (variableIndex==-2) return new NumberSymbol(Math.PI);
@@ -357,16 +446,49 @@ public class SimpleParser extends CalcSystemBase {
 		}
 	}
 
+	/**
+	 * Liste der unterstützten zweistelligen Operatoren
+	 * @see OperatorSymbol
+	 */
 	private static final String[] OPERATOR_NAMES=new String[]{"^",":","/","*","-","+"};
+
+	/**
+	 * Liste der unterstützten nachgestellten Operatoren
+	 * @see OperatorSymbol
+	 */
 	private static final char[] POST_OPERATOR_NAMES=new char[]{'%','²','³','!'};
 
+	/** Faktor zur Interpretation einer Zahl als Prozentwert */
 	private static final double toPercent=1.0/100.0;
+
+	/** Enthält den 1/log(2); wird bei der Berechnung von Logarithmen zur Basis 2 verwendet */
 	private static final double inverseLog2=1.0/Math.log(2.0);
 
+	/**
+	 * Rechensymbol, das einen ein- oder zweistelligen Operator repräsentiert
+	 */
 	private class OperatorSymbol extends Symbol {
+		/**
+		 * Bezeichner des Operators
+		 */
 		public final char operator;
-		public final Symbol left, right;
+
+		/**
+		 * Linkes Unter-Symbol
+		 */
+		public final Symbol left;
+
+		/** Rechtes Unter-Symbol (oder <code>null</code> bei einem einstelligen Operator) */
+		public final Symbol  right;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param operator	Bezeichner des Operators
+		 * @param left	Linkes Unter-Symbol
+		 * @param right	Rechtes Unter-Symbol (oder <code>null</code> bei einem einstelligen Operator)
+		 */
 		public OperatorSymbol(final char operator, final Symbol left, final Symbol right) {this.operator=operator; this.left=left; this.right=right;}
+
 		@Override
 		public double calc(final double[] variableValues) throws MathCalcError {
 			double l2=0;
@@ -388,6 +510,7 @@ public class SimpleParser extends CalcSystemBase {
 			default: throw error();
 			}
 		}
+
 		@Override
 		public Symbol simplify() {
 			final Symbol l=(left==null)?null:left.simplify();
@@ -404,12 +527,36 @@ public class SimpleParser extends CalcSystemBase {
 		}
 	}
 
+	/**
+	 * Liste der unterstützten Funktionen
+	 * @see FunctionSymbol
+	 */
 	private static final String[] FUNCTION_NAMES=new String[]{"sqr","wurzel","sqrt","quadratwurzel","\\","sin","cos","tan","cot","exp","log","ln","lg","ld","abs","absolutbetrag","betrag","frac","int","round","rnd","runden","abrunden","floor","aufrunden","ceil","factorial","fakultät","sign","signum","sgn"};
 
+	/**
+	 * Rechensymbol, das eine Funktion repräsentiert
+	 */
 	private class FunctionSymbol extends Symbol {
+		/**
+		 * Name der Funktion
+		 */
 		public final String name;
+
+		/**
+		 * Parameter der Funktion
+		 */
 		public final Symbol sub;
-		public FunctionSymbol(final String name, final Symbol sub) {this.name=name.toLowerCase(); this.sub=sub;}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name der Funktion
+		 * @param sub	Parameter der Funktion
+		 */
+		public FunctionSymbol(final String name, final Symbol sub) {
+			this.name=name.toLowerCase();
+			this.sub=sub;
+		}
+
 		@Override
 		public double calc(final double[] variableValues) throws MathCalcError {
 			if (sub==null) throw error();

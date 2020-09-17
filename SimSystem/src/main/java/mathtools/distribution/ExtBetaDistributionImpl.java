@@ -41,6 +41,12 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 	 */
 	public final double domainUpperBound;
 
+	/**
+	 * Kehrwert der Größe des Trägerbereichs.<br>
+	 * Wird für Dichte und Verteilungsfunktion vorberechnet.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 */
 	private final double inverseRange;
 
 	/**

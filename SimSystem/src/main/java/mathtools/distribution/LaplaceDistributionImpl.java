@@ -40,6 +40,12 @@ public final class LaplaceDistributionImpl extends AbstractRealDistribution impl
 	 */
 	public final double b;
 
+	/**
+	 * Kehrwert des Skalierungsparameters {@link #b}.<br>
+	 * Wird für Dichte und Verteilungsfunktion vorberechnet.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 */
 	private final double inverseB;
 
 	/**

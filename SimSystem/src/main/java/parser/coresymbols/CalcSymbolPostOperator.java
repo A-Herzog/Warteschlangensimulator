@@ -65,6 +65,11 @@ public abstract class CalcSymbolPostOperator extends CalcSymbolFunction {
 		return clone;
 	}
 
+	/**
+	 * Versucht das Unterelement für die Parameter zu vereinfachen.
+	 * @return	Liefert im Erfolgsfall das neue Unterelement, sonst <code>null</code>
+	 * @see #getSimplify()
+	 */
 	private Double getSimpleConstSub() {
 		if (sub==null) return null;
 		final Object subSimple=sub.getSimplify();

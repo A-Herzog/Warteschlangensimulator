@@ -432,8 +432,8 @@ public class WebServerResponse {
 	 */
 
 	/**
-	 * Formt die Antwort in eine {@link NanoHTTPD.Response}-Antwort um.
-	 * @return	Antwort als {@link NanoHTTPD.Response}-Objekt
+	 * Formt die Antwort in eine {@link fi.iki.elonen.NanoHTTPD.Response}-Antwort um.
+	 * @return	Antwort als {@link fi.iki.elonen.NanoHTTPD.Response}-Objekt
 	 */
 	public NanoHTTPD.Response getResponse() {
 		final NanoHTTPD.Response nanoResponse;

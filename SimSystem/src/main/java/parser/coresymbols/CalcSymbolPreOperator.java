@@ -23,6 +23,10 @@ import parser.MathCalcError;
  * @author Alexander Herzog
  */
 public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
+	/**
+	 * Statisches Pseudo-Symbol für "leere Parametermenge"
+	 * @see #symbols
+	 */
 	private static final CalcSymbol[] emptyParameters=new CalcSymbol[0];
 
 	/**
@@ -87,6 +91,11 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 		}
 	}
 
+	/**
+	 * Array mit den Werten der Parameter<br>
+	 * Die Werte werden nicht wiederverwendet, aber wenn möglich wird das Array
+	 * nur einmal angelegt.
+	 */
 	private double[] lastValues;
 
 	/**
@@ -184,6 +193,11 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 		return clone;
 	}
 
+	/**
+	 * Versucht das Unterelement für die Parameter zu vereinfachen.
+	 * @return	Liefert im Erfolgsfall das neue Unterelement, sonst <code>null</code>
+	 * @see #getSimplify()
+	 */
 	private Double getSimpleConstSub() {
 		if (symbols.length!=1 || symbols[0]==null) return null;
 		final Object subSimple=symbols[0].getSimplify();

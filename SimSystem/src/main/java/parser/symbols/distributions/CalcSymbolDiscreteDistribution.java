@@ -45,8 +45,16 @@ public abstract class CalcSymbolDiscreteDistribution extends CalcSymbolPreOperat
 	 */
 	protected abstract double calcProbability(double[] parameters, int k);
 
+	/** Maximalwert für K (danach werden Summenbildungen abgeschnitten) */
 	private final static int MAX_K=1_000_000;
 
+	/**
+	 * Berechnet eine Pseudozufallszahl basieren auf der konkreten
+	 * diskreten Wahrscheinlichkeitsverteilung.
+	 * @param parameters	Parameter für die Verteilung
+	 * @return	Pseudozufallszahl gemäß der Verteilung
+	 * @see #calcProbability(double[], int)
+	 */
 	private int getRandomNumber(final double[] parameters) {
 		final double d=DistributionRandomNumber.nextDouble();
 		double sum=0;

@@ -266,7 +266,7 @@ public class ModelElementInputDB extends ModelElementMultiInSingleOutBox impleme
 	 * @return	Sortierrichtung für die Sortierspalte
 	 * @see ModelElementInputDB#setSortMode(simulator.db.DBConnect.SortMode)
 	 * @see ModelElementInputDB#getSortColumn()
-	 * @see DBConnect.SortMode
+	 * @see simulator.db.DBConnect.SortMode
 	 */
 	public DBConnect.SortMode getSortMode() {
 		if (sortMode==null) return DBConnect.SortMode.ASCENDING; else return sortMode;
@@ -277,7 +277,7 @@ public class ModelElementInputDB extends ModelElementMultiInSingleOutBox impleme
 	 * @param sortMode	Sortierrichtung für die Sortierspalte
 	 * @see ModelElementInputDB#getSortMode()
 	 * @see ModelElementInputDB#setSortColumn(String)
-	 * @see DBConnect.SortMode
+	 * @see simulator.db.DBConnect.SortMode
 	 */
 	public void setSortMode(final DBConnect.SortMode sortMode) {
 		if (sortMode!=null) this.sortMode=sortMode;

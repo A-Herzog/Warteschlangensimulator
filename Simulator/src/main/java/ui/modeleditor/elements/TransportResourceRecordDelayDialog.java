@@ -112,9 +112,9 @@ public class TransportResourceRecordDelayDialog extends BaseDialog {
 	 * Gibt den Wert der gewählten Zeitbasis zurück.<br>
 	 * (Die Verzögerungsdaten selbst werden direkt in das dem Konstruktor übergebene Objekt zurückgeschrieben.)
 	 * @return	Gewählte Zeitbasis
-	 * @see ModelSurface.TimeBase#TIMEBASE_SECONDS
-	 * @see ModelSurface.TimeBase#TIMEBASE_MINUTES
-	 * @see ModelSurface.TimeBase#TIMEBASE_HOURS
+	 * @see ui.modeleditor.ModelSurface.TimeBase#TIMEBASE_SECONDS
+	 * @see ui.modeleditor.ModelSurface.TimeBase#TIMEBASE_MINUTES
+	 * @see ui.modeleditor.ModelSurface.TimeBase#TIMEBASE_HOURS
 	 */
 	public ModelSurface.TimeBase getTimeBase() {
 		return ModelSurface.TimeBase.byId(timeBase.getSelectedIndex());

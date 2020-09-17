@@ -290,7 +290,7 @@ public class RunModel {
 	 * mittels der Funktion <code>getRunModel</code> in ein <code>RunModel</code> umgeformt werden. Dabei wird das
 	 * Modell auf Konsistenz geprüft und alle notwendigen Verknüpfungen werden hergestellt.
 	 * @see EditModel
-	 * @see RunModel.getRunModel
+	 * @see RunModel#getRunModel(EditModel, boolean)
 	 */
 	private RunModel() {
 		elements=new HashMap<>();

@@ -127,21 +127,52 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	/** "URL aufrufen" Warnung (Text der Meldung) */
 	public static String GraphicsOpenURLWarningTitle="Warnung";
 
+	/** Info-Text zu der Verteilung */
 	private final JLabel info;
+
+	/** "Kopieren"-Schaltfläche */
 	private final JButton copy;
+
+	/** "Speichern"-Schaltfläche */
 	private final JButton save;
+
+	/** "Bearbeiten"-Schaltfläche */
 	private final JButton edit;
+
+	/** "Hilfe"-Schaltfläche (ruft die Wikipedia auf) */
 	private final JButton wiki;
+
+	/** Funktionsplotter innerhalb des Panels */
 	private final JDistributionPlotter plotter;
 
+	/**
+	 * Bildgröße beim Kopieren und Speichern
+	 * @see #setImageSaveSize(int)
+	 */
 	private int imageSize=1000;
 
-	private double maxXValue = 1;
-	private int plotType = BOTH;
+	/** Maximal darzustellender x-Wert */
+	private double maxXValue=1;
+
+	/** Darstellungsmethode (Dichte, Verteilung oder beides) */
+	private int plotType=BOTH;
+
+	/** Darzustellende Verteilung */
 	private AbstractRealDistribution distribution = null;
 
-	private boolean allowDistributionTypeChange = true;
-	private boolean allowOk = true;
+	/**
+	 * Darf der Typ der Verteilung im Editor geändert werden?
+	 * @see #isAllowDistributionTypeChange()
+	 * @see #setAllowDistributionTypeChange(boolean)
+	 */
+	private boolean allowDistributionTypeChange=true;
+
+	/**
+	 * Dürfen die Parameter der Verteilung im Editor geändert werden?
+	 * @see #isAllowChangeDistributionData()
+	 * @see #setAllowChangeDistributionData(boolean)
+	 */
+	private boolean allowOk=true;
 
 	/**
 	 * Parameter für <code>setPlotType</code>, es wird nur die Dichte angezeigt.
@@ -166,7 +197,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 	/**
 	 * Konstruktor der Klasse <code>DistributionPanel</code>
-	 * @param distribution Zu ladende Verteilung (vom Typ <code>AbstractContinuousDistribution</code>)
+	 * @param distribution Zu ladende Verteilung (vom Typ {@link AbstractRealDistribution})
 	 * @param maxXValue Maximal darzustellender x-Wert
 	 * @param showEditButton Soll das "Bearbeiten"-Button angezeigt werden?
 	 * @param plotType	Wählt die Darstellungsmethode (Dichte, Verteilung oder beides)
@@ -375,19 +406,25 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * Gibt aus, ob im Editor der Verteilungstyp geändert werden darf.
 	 * @return	Gibt <code>true</code> zurück, wenn der Verteilungstyp im Editor geändert werden darf.
 	 */
-	public boolean isAllowDistributionTypeChange() {return allowDistributionTypeChange;}
+	public boolean isAllowDistributionTypeChange() {
+		return allowDistributionTypeChange;
+	}
 
 	/**
 	 * Gibt aus, ob die Verteilung im Editor geändert werden darf.
 	 * @return	Gibt <code>true</code> zurück, wenn der die Verteilung im Editor geändert werden darf.
 	 */
-	public boolean isAllowChangeDistributionData() {return allowOk;}
+	public boolean isAllowChangeDistributionData() {
+		return allowOk;
+	}
 
 	/**
 	 * Stellt ein, ob im Editor der Verteilungstyp geändert werden darf (Vorgabeeinstellung) oder nicht.
 	 * @param b	Wird dieser Wert auf <code>true</code> gestellt, darf der Verteilungstyp im Editor geändert werden.
 	 */
-	public void setAllowDistributionTypeChange(boolean b) {allowDistributionTypeChange=b;}
+	public void setAllowDistributionTypeChange(boolean b) {
+		allowDistributionTypeChange=b;
+	}
 
 	/**
 	 * Gibt an, ob die Verteilung über den Verteilungseditor bearbeitet werden darf oder nicht.
@@ -408,13 +445,16 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	}
 
 	/**
-	 * Stellt die Bildgröße beim Kopieren und Speichern sein.
+	 * Stellt die Bildgröße beim Kopieren und Speichern ein.
 	 * @param imageSize	Vertikale und horizontale Auflösung
 	 */
 	public void setImageSaveSize(int imageSize) {
 		this.imageSize=imageSize;
 	}
 
+	/**
+	 * Eigentlicher Funktionsplotter innerhalb des Gesamt-Panels
+	 */
 	private class JDistributionPlotter extends JPanel {
 		private static final long serialVersionUID = 8083886665643583864L;
 

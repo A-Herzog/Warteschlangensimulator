@@ -39,6 +39,11 @@ public final class LogLogisticDistributionImpl extends AbstractRealDistribution 
 	 */
 	public final double beta;
 
+	/**
+	 * Kehrwert des Parameters {@link #beta}.<br>
+	 * Wird zur Beschleunigung der Pseudozufallszahlen-Erzeugung vorberechnet.
+	 * @see #random(RandomGenerator)
+	 */
 	private final double inverseBeta;
 
 	/**

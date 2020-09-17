@@ -48,9 +48,16 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 
 	private static int maxXValue=48;
 
+	/** Funktionsplotter innerhalb des Panels */
 	private JDataDistributionPlotter plotter;
+
+	/** Darzustellende Verteilung */
 	private DataDistributionImpl distribution=null;
+
+	/** Zahlenformat für Beschriftung der y-Achse */
 	private LabelMode labelFormat=LabelMode.LABEL_VALUE;
+
+	/** Informationstext zur aktuellen Verteilung */
 	private JLabel info;
 
 	/**
@@ -126,6 +133,9 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 		plotter.paintToGraphics(g);
 	}
 
+	/**
+	 * Eigentlicher Funktionsplotter innerhalb des Gesamt-Panels
+	 */
 	private class JDataDistributionPlotter extends JPanel {
 		private static final long serialVersionUID = 4036913455488209499L;
 

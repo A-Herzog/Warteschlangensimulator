@@ -67,10 +67,25 @@ public enum SimSystemsSwingImages {
 	/** Symbol "Hilfe" */
 	HELP("help.png");
 
+	/**
+	 * Dateiname des Icons
+	 */
 	private final String name;
+
+	/**
+	 * URL des Icons
+	 */
 	private URL url;
+
+	/**
+	 * Icon
+	 */
 	private Icon icon;
 
+	/**
+	 * Konstruktor des Enum
+	 * @param name	Dateiname des Icons
+	 */
 	SimSystemsSwingImages(final String name) {
 		this.name=name;
 	}

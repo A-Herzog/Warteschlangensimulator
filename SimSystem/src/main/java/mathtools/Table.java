@@ -210,6 +210,12 @@ public final class Table implements Cloneable {
 		 */
 		private final String[] extensionsUpper;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param loadable	Können Tabellen in diesem Form geladen werden?
+		 * @param saveable	Können Tabellen in diesem Form gespeichert werden?
+		 * @param extensionsUpper	Namen der zugehörigen Dateinamenserweiterungen (jeweils inkl. ".") in Großbuchstaben
+		 */
 		SaveMode(final boolean loadable, final boolean saveable, final String[] extensionsUpper) {
 			this.loadable=loadable;
 			this.saveable=saveable;
@@ -231,8 +237,16 @@ public final class Table implements Cloneable {
 		}
 	}
 
+	/**
+	 * Gibt an, ob der erste Index die Spalten oder die Zeilen bezeichnen soll.
+	 * @see Table.IndexMode
+	 */
 	private final IndexMode mode;
 
+	/**
+	 * Inhalt der Tabelle
+	 * @see #mode
+	 */
 	private final List<List<String>> data;
 
 	/**
@@ -2009,6 +2023,10 @@ public final class Table implements Cloneable {
 		return save((file==null)?null:new File(file),SaveMode.SAVEMODE_BYFILENAME);
 	}
 
+	/**
+	 * Wird von {@link #getNumberArea(String, String)} und {@link #getDataArea(String, String)} ggf. mit einem
+	 * Wert belegt, wenn ein Fehler aufgetreten ist. Kann dann über {@link #getAreaError()} ausgelesen werden.
+	 */
 	private String areaError=null;
 
 	/**

@@ -36,6 +36,11 @@ import systemtools.images.SimToolsImages;
  * @see MsgBox
  */
 public class MsgBoxBackendTaskDialog implements MsgBoxBackend {
+	/**
+	 * Liefert das zugehörige Fenster zu einer Komponente
+	 * @param component	Komponente zu der das zugehörige Fenster geliefert werden soll
+	 * @return	Fenster oder <code>null</code>, wenn kein passendes Fenster gefunden werden konnte
+	 */
 	private static Window getWindow(Component component) {
 		while (component!=null && !(component instanceof Window)) component=component.getParent();
 		return (Window)component;

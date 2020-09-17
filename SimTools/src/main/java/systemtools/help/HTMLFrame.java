@@ -93,7 +93,11 @@ abstract class HTMLFrame extends JFrame {
 		KeyStroke stroke=KeyStroke.getKeyStroke("ESCAPE");
 		InputMap inputMap=rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		inputMap.put(stroke,"ESCAPE");
-		rootPane.getActionMap().put("ESCAPE",new CloseListener());
+		rootPane.getActionMap().put("ESCAPE",new AbstractAction() {
+			private static final long serialVersionUID = -485008309903554823L;
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {setVisible(false); dispose();}
+		});
 		return rootPane;
 	}
 
@@ -109,12 +113,6 @@ abstract class HTMLFrame extends JFrame {
 	 * @return	Zu verwendender HTML-Viewer.
 	 */
 	protected abstract HTMLBrowserPanel getHTMLBrowser();
-
-	private class CloseListener extends AbstractAction {
-		private static final long serialVersionUID = -485008309903554823L;
-		@Override
-		public void actionPerformed(ActionEvent actionEvent) {setVisible(false); dispose();}
-	}
 
 	/**
 	 * Zeigt die im Parameter übergebene Seite an.

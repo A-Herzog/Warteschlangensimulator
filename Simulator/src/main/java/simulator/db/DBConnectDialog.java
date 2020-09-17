@@ -36,8 +36,13 @@ import ui.images.Images;
 public class DBConnectDialog extends BaseDialog {
 	private static final long serialVersionUID = -3330178091897338877L;
 
+	/** Datenbankeinstellungs-Objekt */
 	private final DBSettings settings;
+
+	/** Konfigurationspanel */
 	private final DBSettingsPanel settingsPanel;
+
+	/** Ausgabebereich */
 	private final JTextArea output;
 
 	/**

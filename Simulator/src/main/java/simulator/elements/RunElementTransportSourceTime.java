@@ -31,6 +31,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.DistributionSystem;
 import ui.modeleditor.elements.ModelElementTransportDestination;
 import ui.modeleditor.elements.TransportTimeRecord;
+import ui.modeleditor.elements.TransportTimeRecord.DelayType;
 
 /**
  * Diese Klasse hält die Laufzeitmodelldaten für die Transportzeiten vor.
@@ -50,7 +51,7 @@ public class RunElementTransportSourceTime {
 
 	/**
 	 * Gibt an, wie die Transportzeit in der Statistik erfasst werden soll
-	 * @see TransportTimeRecord.DelayType
+	 * @see DelayType
 	 */
 	public TransportTimeRecord.DelayType delayType;
 

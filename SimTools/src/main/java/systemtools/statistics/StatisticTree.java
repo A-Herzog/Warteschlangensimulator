@@ -40,7 +40,10 @@ import systemtools.statistics.StatisticViewer.ViewerType;
 public class StatisticTree extends JTree {
 	private static final long serialVersionUID = 1819707611627082842L;
 
+	/** Kommandozeilenbefehl, über den einzelne Statistikergebnisse abgerufen werden können (zur Anzeige eines Kontextmenüs, welche den jeweiligen Befehl benennt; wird hier <code>null</code> übergeben, so erhält die Baumansicht kein Kontextmenü) */
 	private final String commandLineCommand;
+
+	/** Dateiname, der in dem Beispielkommandozeilen-Befehl für die Statistikdatei verwendet werden soll (wird <code>null</code> übergeben, so wird "data.xml" verwendet) */
 	private String commandLineDataFileName;
 
 	/**

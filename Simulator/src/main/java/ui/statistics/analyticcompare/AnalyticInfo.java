@@ -32,7 +32,14 @@ import ui.statistics.StatisticTools;
  * @author Alexander Herzog
  */
 public class AnalyticInfo {
+	/**
+	 * Daten zur Kundenquelle
+	 */
 	private AnalyticSource source;
+
+	/**
+	 * Daten zur Bedienstation
+	 */
 	private AnalyticProcess process;
 
 	/**
@@ -97,6 +104,12 @@ public class AnalyticInfo {
 		return process.cancelDistribution!=null;
 	}
 
+	/**
+	 * Prüft, ob eine analytische Bewertung des Modells möglich ist.
+	 * @param info	Trägt in dieses Objekt (wenn ein Wert ungleich <code>null</code> angegeben wurde) mögliche Grunde, warum eine analytische Untersuchung nicht möglich ist, ein.
+	 * @return	Liefert <code>true</code>, wenn das Modell analytisch bewertet werden kann.
+	 * @see InfoResult
+	 */
 	private boolean analyticTests(final InfoResult info) {
 		if (source.distribution==null) {
 			if (info!=null) info.input.append(Language.tr("Statistics.ErlangCompare.NoSourceDistribution"));
@@ -124,6 +137,12 @@ public class AnalyticInfo {
 		return true;
 	}
 
+	/**
+	 * Berechnet a^c/c! unter Vermeidung von numerischen Auslöschungen
+	 * @param a	Parameter a für a^c/c!
+	 * @param c	Parameter c für a^c/c!
+	 * @return	Ergebnis der Berechnung von a^c/c!
+	 */
 	private double powerFactorial(final double a, final long c) {
 		/* a^c/c! */
 		double result=1;
@@ -131,7 +150,14 @@ public class AnalyticInfo {
 		return result;
 	}
 
-	private static String buildInfoNumber(final String info,final double analytic, final double simulation) {
+	/**
+	 * Liefert einen String, der ein analytisches Ergebnis einem Simulationsergebnis gegenüberstellt (Format: Zahl)
+	 * @param info	Voran zu stellender Info-Text
+	 * @param analytic	Analytischer Wert
+	 * @param simulation	Simulationswert (kann 0 sein, dann wird kein Wert ausgegeben)
+	 * @return	Zusammengesetzter String
+	 */
+	private static String buildInfoNumber(final String info, final double analytic, final double simulation) {
 		final StringBuilder result=new StringBuilder();
 		result.append(info);
 		result.append('=');
@@ -146,7 +172,14 @@ public class AnalyticInfo {
 		return result.toString();
 	}
 
-	private static String buildInfoTime(final String info,final double analytic, final double simulation) {
+	/**
+	 * Liefert einen String, der ein analytisches Ergebnis einem Simulationsergebnis gegenüberstellt (Format: Zeitangabe)
+	 * @param info	Voran zu stellender Info-Text
+	 * @param analytic	Analytischer Wert
+	 * @param simulation	Simulationswert (kann 0 sein, dann wird kein Wert ausgegeben)
+	 * @return	Zusammengesetzter String
+	 */
+	private static String buildInfoTime(final String info, final double analytic, final double simulation) {
 		final StringBuilder result=new StringBuilder();
 		result.append(info);
 		result.append('=');
@@ -464,12 +497,21 @@ public class AnalyticInfo {
 	 * @see AnalyticInfo#getAllenCunneen(SimulationResults)
 	 */
 	public static class InfoResult {
+		/** Für das analytische Modell verwendete Eingabeparameter */
 		private final StringBuilder input;
+		/** Allgemeine berechnete Daten auf Basis des analytischen Modells */
 		private final StringBuilder calculated;
+		/** Berechnete Anzahlwerte auf Basis des analytischen Modells */
 		private final StringBuilder numbers;
+		/** Berechnete Zeiten auf Basis des analytischen Modells */
 		private final StringBuilder times;
+		/** Zusätzliche Informationen zu den analytischen Ergebnissen (z.B. Erklärungen für Abweichungen) */
 		private final StringBuilder info;
 
+		/**
+		 * Konstruktor der Klasse<br>
+		 * Kann von außerhalb von {@link AnalyticInfo} nicht aufgerufen werden.
+		 */
 		private InfoResult() {
 			input=new StringBuilder();
 			calculated=new StringBuilder();

@@ -69,17 +69,65 @@ import systemtools.images.SimToolsImages;
 public abstract class MainPanelBase extends JPanel {
 	private static final long serialVersionUID = -7372341094781006117L;
 
+	/**
+	 * Objekt vom Typ {@link Runnable}welches ausgelöst wird, wenn die Menüzeile deaktiviert werden soll
+	 * @see #connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private Runnable menuBarEnable;
+
+	/**
+	 * Objekt vom Typ {@link Runnable} welches ausgelöst wird, wenn die Menüzeile aktiviert werden soll
+	 * @see #connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private Runnable menuBarDisable;
+
+	/**
+	 * Objekt vom Typ {@link Runnable} welches ausgelöst wird, wenn sich der Titel geändert hat
+	 * @see #connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private Runnable titleChanged;
+
+	/**
+	 * Objekt vom Typ {@link Runnable} welches ausgelöst wird, wenn das Panel das Programm beenden möchte
+	 * @see #connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private Runnable closeRequest;
 
+	/**
+	 * Ergänzung zum Programmtitel anzeigen, ob das Modell seit dem letzten Speichern verändert wurde
+	 * @see #getTitleAddonChanged()
+	 * @see #setAdditionalTitleChangedMarker(boolean)
+	 */
 	private boolean titleAddonChanged=false;
+
+	/**
+	 * Ergänzung zum Programmtitel (z.B. Name des geladenen Modells)
+	 * @see #getTitleAddon()
+	 * @see #setAdditionalTitle(String)
+	 */
 	private String titleAddon="";
 
+	/**
+	 * Toolbar innerhalb des Panels
+	 * @see #initToolbar()
+	 */
 	private JComponent toolBar;
+
+	/**
+	 * Panel für optionale Meldungen (Fehler oder Hinweise) über dem Arbeitsbereich
+	 */
 	private final JPanel errorPanel;
+
+	/**
+	 * Meldung in {@link #errorPanel}
+	 * @see #setMessagePanel(String, String, MessagePanelIcon)
+	 * @see #setMessagePanel(String, String, String, MessagePanelIcon)
+	 */
 	private final JLabel errorLabel;
+
+	/**
+	 * Panel für den Toolbar ({@link #toolBar}) und das Meldungs-Panel ({@link #errorPanel}
+	 */
 	private final JPanel top;
 
 	/**
@@ -89,12 +137,17 @@ public abstract class MainPanelBase extends JPanel {
 	protected final JPanel mainPanel;
 
 	/**
-	 * Dieser <code>ActionListener</code> kann bei Menüs und Toolbars verwendet werden.
+	 * Dieser {@link ActionListener} kann bei Menüs und Toolbars verwendet werden.
 	 * Die Aufrufe von Menüpunkten und Buttons triggern die Methode <code>action</code>.
 	 * @see #action(Object)
 	 */
 	protected final ActionListener actionListener;
 
+	/**
+	 * Verknüpft die Menüpunkte mit den Aktionen
+	 * @see #createMenuItem(JMenu, String, char, String)
+	 * @see #action(Object)
+	 */
 	private final ActionListener actionListenerActionMap;
 
 	/**
@@ -163,11 +216,11 @@ public abstract class MainPanelBase extends JPanel {
 	}
 
 	/**
-	 * Mit <code>MainFrameBase</code> verknüpfen, um Fenster-Nachrichten austauschen zu können.
-	 * @param menuBarEnable	Objekt vom Typ <code>Runnable</code> welches ausgelöst wird, wenn die Menüzeile deaktiviert werden soll
-	 * @param menuBarDisable	Objekt vom Typ <code>Runnable</code> welches ausgelöst wird, wenn die Menüzeile aktiviert werden soll
-	 * @param titleChanged	Objekt vom Typ <code>Runnable</code> welches ausgelöst wird, wenn sich der Titel geändert hat
-	 * @param closeRequest		Objekt vom Typ <code>Runnable</code> welches ausgelöst wird, wenn das Panel das Programm beenden möchte
+	 * Mit {@link MainFrameBase}verknüpfen, um Fenster-Nachrichten austauschen zu können.
+	 * @param menuBarEnable	Objekt vom Typ {@link Runnable}welches ausgelöst wird, wenn die Menüzeile deaktiviert werden soll
+	 * @param menuBarDisable	Objekt vom Typ {@link Runnable} welches ausgelöst wird, wenn die Menüzeile aktiviert werden soll
+	 * @param titleChanged	Objekt vom Typ {@link Runnable} welches ausgelöst wird, wenn sich der Titel geändert hat
+	 * @param closeRequest		Objekt vom Typ {@link Runnable} welches ausgelöst wird, wenn das Panel das Programm beenden möchte
 	 * @param dropTargetRegister	Objekt, über das sich Elemente als Drag&amp;Drop-Ziele registrieren können. Wird eine Datei darauf fallen gelassen, wird die <code>loadFile</code>-Methode ausgelöst
 	 * @see #enableMenuBar(boolean)
 	 * @see #setAdditionalTitle(String)

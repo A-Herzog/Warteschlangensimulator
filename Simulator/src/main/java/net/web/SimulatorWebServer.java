@@ -31,7 +31,7 @@ public class SimulatorWebServer extends WebServer {
 	/**
 	 * Konstruktor der Klasse.<br>
 	 * Diese Klasse als Singleton ausgelegt und kann nicht direkt instanziert werden.
-	 * Stattdessen muss die Methode {@link SimulatorWebServer#getInstance()} verwendet werden.
+	 * Stattdessen muss die Methode {@link SimulatorWebServer#getInstance(MainPanel)} verwendet werden.
 	 * @param mainPanel	Hauptpanel des Simulators
 	 */
 	private SimulatorWebServer(final MainPanel mainPanel) {

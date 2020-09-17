@@ -351,7 +351,14 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 */
 	public static final Set<ViewerPrograms> viewerPrograms=new HashSet<ViewerPrograms>(Arrays.asList(ViewerPrograms.WORD,ViewerPrograms.EXCEL));
 
-	private Runnable helpRunnable, startSimulation, loadStatistics;
+	/** Runnable, das aufgerufen wird, wenn die Hilfe-Schaltfläche angeklickt wird. (Wenn <code>null</code> übergeben wird, erscheint keine Hilfe-Schaltfläche.) */
+	private Runnable helpRunnable;
+
+	/** Callback, das ausgelöst wird, wenn der Nutzer auf der "Noch keine Daten"-Seite auf "Simulation jetzt starten" klickt. (Wird hier <code>null</code> übergeben, so wird diese Option nicht angezeigt.) */
+	private Runnable startSimulation;
+
+	/** Callback, das ausgelöst wird, wenn der Nutzer auf der "Noch keine Daten"-Seite auf "Statistikdaten laden" klickt. (Wird hier <code>null</code> übergeben, so wird diese Option nicht angezeigt.) */
+	private Runnable loadStatistics;
 
 	/**
 	 * Werden mehrere Statistikdokumente gleichzeitig angezeigt, so kann über dieses
@@ -359,33 +366,91 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 */
 	protected String[] additionalTitle;
 
+	/** Splitter zwischen Baumstruktur und Viewern */
 	private final JSplitPane splitPane;
 
+	/** Titel der Panels über den einzelnen Viewern */
 	private final JPanel[] titlePanel;
+
+	/** Titel Labels für die einzelnen Viewer */
 	private final JLabel[] titleLabel;
+
+	/** Panels in denen sich die einzelnen Viewer befinden */
 	private final JPanel[] dataPanel;
+
+	/** Labels über den Viewern */
 	private final JLabel[] dataLabel;
+
+	/** Viewer-Komponenten */
 	private final Component[] dataContent;
+
+	/** Aktuell gewählte {@link StatisticViewer}-Objekte in den Viewern */
 	private final StatisticViewer[] dataViewer;
+
+	/** Toolbars unmittelbar über den Viewern */
 	private final JToolBar[] dataToolBar;
+
+	/** Benutzerdefinierte Schaltflächen auch den Toolbars unmittelbar über den Viewern */
 	private final ArrayList<JButton>[] userToolbarButtons;
-	private final JButton[] zoom, copy, print, save, settings, selectAll, selectNone, saveTables;
+
+	/** "Zoom"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] zoom;
+
+	/** "Kopieren"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] copy;
+
+	/** "Drucken"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] print;
+
+	/** "Speichern"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] save;
+
+	/** "Einstellungen"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] settings;
+
+	/** "Alle auswählen"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] selectAll;
+
+	/** "Alle abwählen"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] selectNone;
+
+	/** "Tabellen speichern"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] saveTables;
+
+	/** Popup-Menüs für die Einstellungen-Menüs bei den Viewern */
 	private final JPopupMenu[] settingsMenu;
+
+	/** Menüpunkte für die Einstellungen-Menüs bei den Viewern */
 	private final JMenuItem[] settingsItem;
 
+	/** Statistikdaten für die einzelnen Viewer */
 	private final XMLData[] statisticsXml;
 
+	/** Soll ein Vergleich zu den jeweils vorherigen Ergebnissen angeboten werden? */
 	private final boolean storeLastRoot;
+
+	/** Früheres Wurzelelement des Statistikbaums */
 	private StatisticNode lastRoot;
+
+	/** Wurzelelement des Statistikbaums */
 	private StatisticNode currentRoot;
 
+	/** Statistikbaum */
 	private final StatisticTree tree;
+
+	/** Statistikbaum-Eintrag für die Report-Generierung */
 	private DefaultMutableTreeNode reportNode;
+
+	/** Schaltfläche zur Anzeige des Report-Generierungs-Eintrags */
 	private final JButton report;
+
+	/** Schaltfläche "Tools" */
 	private final JButton tools;
 
+	/** Listener die bei Drag&amp;Drop-Operationen auf den Viewern benachrichtigt werden */
 	private final List<ActionListener> fileDropListeners;
 
+	/** Baumeintrag für einen leeren Baum */
 	private final DefaultMutableTreeNode noDataSelected=new DefaultMutableTreeNode("("+typeNoData+")");
 
 	/**

@@ -40,13 +40,13 @@ public class RunElementRecordData extends RunElementData {
 
 	/**
 	 * Datenaufzeichnungsobjekt für Ausdruck 1<br>
-	 * Wird von {@link RunElementRecord#processArrival(simulator.SimulationData, simulator.RunDataClient)} beim ersten Aufruf mit Wert belegt
+	 * Wird von {@link RunElementRecord#processArrival(simulator.runmodel.SimulationData, simulator.runmodel.RunDataClient)} beim ersten Aufruf mit Wert belegt
 	 */
 	public StatisticsDataCollector statistics1;
 
 	/**
 	 * Datenaufzeichnungsobjekt für Ausdruck 2<br>
-	 * Wird von {@link RunElementRecord#processArrival(simulator.SimulationData, simulator.RunDataClient)} beim ersten Aufruf mit Wert belegt
+	 * Wird von {@link RunElementRecord#processArrival(simulator.runmodel.SimulationData, simulator.runmodel.RunDataClient)} beim ersten Aufruf mit Wert belegt
 	 */
 	public StatisticsDataCollector statistics2;
 

@@ -43,10 +43,22 @@ import mathtools.distribution.tools.FileDropperData;
 public class JDistributionEditorDialog extends JDialog {
 	private static final long serialVersionUID = -1643400760560410606L;
 
+	/** Verteilungsplotter */
 	private JDistributionPanel plotter;
+
+	/** Editor-Panel für Verteilungstyp und Parameter */
 	private JDistributionEditorPanel editor;
+
+	/** "Ok"-Schaltfläche */
 	private JButton okButton;
+
+	/** "Abbrechen"-Schaltfläche */
 	private JButton cancelButton;
+
+	/**
+	 * Gibt an, ob die "Ok"-Schaltfläche angeklickt wurde.
+	 * @see #getNewDistribution()
+	 */
 	private boolean okButtonPressed=false;
 
 	/**

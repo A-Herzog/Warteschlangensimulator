@@ -23,6 +23,10 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorArcCot extends CalcSymbolPreOperator {
+	/**
+	 * Vorab berechneter Wert pi/2 um die eigentlichen
+	 * Berechnungen zu beschleunigen.
+	 */
 	private static final double halfPI=Math.PI/2;
 
 	@Override

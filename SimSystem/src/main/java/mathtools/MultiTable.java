@@ -49,7 +49,18 @@ import mathtools.distribution.swing.CommonVariables;
  * @version 1.4
  */
 public final class MultiTable {
+	/**
+	 * Namen der enthaltenen Tabellen
+	 * @see #size()
+	 * @see #getNames()
+	 */
 	private final List<String> names=new ArrayList<>();
+
+	/**
+	 * Daten der enthaltenen Tabellen
+	 * @see #size()
+	 * @see #getTables()
+	 */
 	private final List<Table> tables=new ArrayList<>();
 
 	/**

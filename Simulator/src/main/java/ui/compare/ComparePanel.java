@@ -43,8 +43,11 @@ import ui.tools.SpecialPanel;
 public class ComparePanel extends SpecialPanel {
 	private static final long serialVersionUID = 1696555531378569922L;
 
+	/** Übergeordnetes Fenster */
 	private final Window owner;
+	/** Gibt an, ob angeboten werden soll, die zugehörigen Modelle in den Editor zu laden */
 	private final boolean allowLoadToEditor;
+	/** Anzuzeigende Statistikdateien */
 	private final Statistics[] statistic;
 	private final String[] titleArray;
 	private final JButton showModelButton;

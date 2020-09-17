@@ -18,7 +18,7 @@ package ui.statistics;
 /**
  * Diese Klasse hält das aktuell zu verwendende Ausgabeformat vor.
  * @author Alexander Herzog
- * @see FilterListRecord#process(simulator.Statistics, FilterListFormat)
+ * @see FilterListRecord#process(simulator.statistics.Statistics, FilterListFormat)
  */
 public class FilterListFormat {
 	private boolean isTime;

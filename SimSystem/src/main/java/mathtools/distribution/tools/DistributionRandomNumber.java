@@ -72,13 +72,26 @@ public final class DistributionRandomNumber {
 		return generator.nextDouble();
 	}
 
+	/**
+	 * Liefert 1/e.<br>
+	 * Wird in {@link #randomGammaDirect(double, double)} verwendet.<br>
+	 * Die Vorausberechnung macht die Pseudozufallszahlenerzeugung schneller.
+	 * @see #randomGammaDirect(double, double)
+	 */
 	private final static double inverseE=1/FastMath.E;
 
-	/*
-	 * see org.apache.commons.math3.distribution.GammaDistribution.sample()
-	 * By using this method wie avoid creating a GammaDistribution object each time a random number is needed.
+	/**
+	 * Liefert eine Pseudozufallszahl gem‰ﬂ der Gamma-Verteilung
+	 * @param shape	Form-Parameter
+	 * @param scale	Skalierungsparameter
+	 * @return	Pseudozufallszahl
+	 * @see #random(AbstractRealDistribution)
 	 */
 	private static double randomGammaDirect(final double shape, final double scale)  {
+		/*
+		 * see org.apache.commons.math3.distribution.GammaDistribution.sample()
+		 * By using this method wie avoid creating a GammaDistribution object each time a random number is needed.
+		 */
 		if (shape < 1) {
 			/* [1]: p. 228, Algorithm GS */
 

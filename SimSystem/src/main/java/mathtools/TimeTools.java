@@ -137,6 +137,17 @@ public final class TimeTools {
 		}
 	}
 
+	/**
+	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um
+	 * Die Zeitangabe kann dabei auch negativ sein und Nachkommastellen enthalten.
+	 * @param time Umzuwandelnde Uhrzeit
+	 * @param digits	Anzahl an Nachkommastellen des Sekundenwerts
+	 * @param separator	Dezimaltrenner
+	 * @return Uhrzeit als Zeichenkette
+	 * @see #formatExactSystemTime(double)
+	 * @see #formatExactTime(double)
+	 * @see #formatExactTime(double, int)
+	 */
 	private static String formatExactTimeInt(double time, final int digits, final char separator) {
 		final StringBuilder sb=new StringBuilder();
 		final boolean minus;

@@ -129,7 +129,9 @@ public final class FilterListRecord {
 
 		/**
 		 * Konstruktor der Enumeration
-		 * @param icon	String zu der Icon-Ressource
+		 * @param fileTag	Bezeichner für dieses Element in der Datei
+		 * @param hasText	Verwendet dieses Element das Text-Feld?
+		 * @param imgURL	String zu der Icon-Ressource
 		 */
 		private Mode(final String fileTag, final boolean hasText, final URL imgURL) {
 			this.fileTag=fileTag;

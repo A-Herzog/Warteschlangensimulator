@@ -23,6 +23,10 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorLd extends CalcSymbolPreOperator {
+	/**
+	 * Vorab berechneter Wert log(2) zur schnellen
+	 * Umwandlung des natürlichen zum 2er-Logarithmus.
+	 */
 	private static final double log2=Math.log(2);
 
 	@Override

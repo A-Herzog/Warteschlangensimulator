@@ -53,7 +53,7 @@ public class DynamicClassInternalCompilerHalfMemory extends DynamicClassFileBase
 	 * @param javaClassName	Klassenname der Klasse
 	 * @param javaText	Text, der den Inhalt der java-Datei darstellt
 	 * @param outputFolder	Ausgabeverzeichnis
-	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst ein Objekt vom Typ {@link Status} oder einen String, der dann eine zusätzliche Fehlermeldung zum Typ {@link Status#COMPILE_ERROR} liefert.
+	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst ein Objekt vom Typ {@link DynamicStatus} oder einen String, der dann eine zusätzliche Fehlermeldung zum Typ {@link DynamicStatus#COMPILE_ERROR} liefert.
 	 */
 	private Object compileFullyInternal(final String javaClassName, final String javaText, final File outputFolder) {
 		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();

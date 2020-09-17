@@ -48,8 +48,25 @@ public final class TriangularDistributionImpl extends AbstractRealDistribution i
 	 */
 	public final double upperBound;
 
+	/**
+	 * Vorberechneter Wert zur Beschleunigung der
+	 * Berechnung der inversen Verteilungsfunktion.
+	 * @see #inverseCumulativeProbability(double)
+	 */
 	private final double caDIVba;
+
+	/**
+	 * Vorberechneter Wert zur Beschleunigung der
+	 * Berechnung der inversen Verteilungsfunktion.
+	 * @see #inverseCumulativeProbability(double)
+	 */
 	private final double baMULca;
+
+	/**
+	 * Vorberechneter Wert zur Beschleunigung der
+	 * Berechnung der inversen Verteilungsfunktion.
+	 * @see #inverseCumulativeProbability(double)
+	 */
 	private final double baMULbc;
 
 	/**

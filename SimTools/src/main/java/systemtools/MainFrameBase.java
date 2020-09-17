@@ -47,9 +47,26 @@ import mathtools.distribution.tools.FileDropperData;
 public class MainFrameBase extends JFrame {
 	private static final long serialVersionUID = 8212777339799463638L;
 
+	/**
+	 * Listener, der beim Schließen des Fensters das Programm beendet.
+	 * @see #quitProgram()
+	 */
 	private final transient WindowListener closeListener;
+
+	/** Fenstertitel (ohne optionale Ergänzungen) */
 	private final String defaultWindowTitle;
+
+	/**
+	 * Panel mit dem eigentlichen Fensterinhalt
+	 * @see #getMainPanel()
+	 * @see #setMainPanel(MainPanelBase)
+	 */
 	private MainPanelBase panel;
+
+	/**
+	 * Menüzeile des Fensters
+	 * @see MainPanelBase#createMenu()
+	 */
 	private JMenuBar menubar;
 
 	/**

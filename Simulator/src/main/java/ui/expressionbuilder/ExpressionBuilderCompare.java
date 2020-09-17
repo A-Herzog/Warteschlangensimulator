@@ -33,7 +33,7 @@ public class ExpressionBuilderCompare {
 	/**
 	 * Konstruktor der Klasse.<br>
 	 * Diese Klasse kann nicht instanziert werden.
-	 * Sie stellt nur die statische Methode {@link ExpressionBuilderCompare#build(DefaultMutableTreeNode, List)} zur Verfügung.
+	 * Sie stellt nur die statische Methode {@link ExpressionBuilderCompare#build(DefaultMutableTreeNode, List, String)} zur Verfügung.
 	 */
 	private ExpressionBuilderCompare() {}
 

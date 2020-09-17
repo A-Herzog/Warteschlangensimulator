@@ -88,16 +88,25 @@ import ui.images.Images;
 public class PlotterPanel extends JPanel {
 	private static final long serialVersionUID = -8604825152023324546L;
 
+	/** Liste der Graphen */
 	private final List<Graph> graphs;
 
+	/** Eingabefeld für den minimalen X-Wert */
 	private final JTextField inputMinX;
+	/** Eingabefeld für den maximalen X-Wert */
 	private final JTextField inputMaxX;
+	/** Eingabefeld für den minimalen Y-Wert */
 	private final JTextField inputMinY;
+	/** Eingabefeld für den maximalen Y-Wert */
 	private final JTextField inputMaxY;
 
+	/** Diagramm */
 	private final JFreeChart chart;
+	/** Panel für das Diagramm */
 	private final ChartPanel chartPanel;
+	/** X-Y-Darstellung innerhalb des Diagramms */
 	private final XYPlot plot;
+	/** Datenmenge für die X-Y-Darstellung */
 	private final XYSeriesCollection data;
 
 	private double currentUnzoomMinX=-10;
@@ -473,13 +482,19 @@ public class PlotterPanel extends JPanel {
 	}
 
 	/**
-	 * Diese Klasse kapsel einen Graphen für die Darstellung in
+	 * Diese Klasse kapselt einen Graphen für die Darstellung in
 	 * {@link PlotterPanel}
 	 * @author Alexander Herzog
 	 * @see PlotterPanel#getGraphs()
 	 */
 	public static class Graph {
+		/**
+		 * Name der Variable für {@link ExpressionCalc}
+		 */
 		private final static String[] variableName=new String[]{"x"};
+		/**
+		 * Array mit dem Wert für die Variable
+		 */
 		private final double[] variableValue=new double[1];
 
 		/**

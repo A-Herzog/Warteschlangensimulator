@@ -33,7 +33,7 @@ public class ExpressionBuilderSimulationData {
 	/**
 	 * Konstruktor der Klasse.<br>
 	 * Diese Klasse kann nicht instanziert werden.
-	 * Sie stellt nur die statische Methode {@link ExpressionBuilderSimulationData#build(DefaultMutableTreeNode, List, boolean, boolean)} zur Verfügung.
+	 * Sie stellt nur die statische Methode {@link ExpressionBuilderSimulationData#build(DefaultMutableTreeNode, List, boolean, boolean, String)} zur Verfügung.
 	 */
 	private ExpressionBuilderSimulationData() {}
 

@@ -41,6 +41,10 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 	 */
 	public final double mu;
 
+	/**
+	 * Vorberechneter Ausdruck zur Beschleunigung der Pseudozufallszahlen-Erzeugung.
+	 * @see #random(RandomGenerator)
+	 */
 	private final double inverse2Lambda;
 
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);

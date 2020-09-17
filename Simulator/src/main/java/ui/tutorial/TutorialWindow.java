@@ -197,7 +197,7 @@ public class TutorialWindow extends JFrame {
 	 * zugehörige <code>TutorialPage</code>-Element aktiviert.
 	 * @param name	Name der anzuzeigenden Seite (ohne Pfad und ohne Extension)
 	 * @see TutorialPage
-	 * @see buildPagesList
+	 * @see #buildPagesList()
 	 */
 	private void loadPage(final String name) {
 		if (name.equals("CloseTutorial")) {

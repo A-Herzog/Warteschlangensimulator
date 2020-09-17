@@ -126,6 +126,9 @@ import ui.modelproperties.ModelPropertiesDialog;
 public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private static final long serialVersionUID = -4834682399637727518L;
 
+	/**
+	 * Übergeordnetes Fenster in dem sich das Panel befindet (zur Minimiert-Erkennung, um in diesem Fall bei Fernsteuerung dennoch Animationen auszulösen)
+	 */
 	private final JFrame window;
 
 	private final transient SetupData setup;
@@ -1074,7 +1077,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	/**
 	 * Führt einen Animationsschritt aus.
 	 * @param fullRecording	Modus zur vollständigen Erfassung der Animationsdaten.
-	 * @see ModelSurfaceAnimatorBase#getAnimationStepInfo(long, simulator.RunModel, List, List)
+	 * @see ModelSurfaceAnimatorBase#getAnimationStepInfo(long, simulator.runmodel.RunModel, List, List)
 	 */
 	public void step(final boolean fullRecording) {
 		final boolean multiCore=setup.useMultiCoreAnimation;

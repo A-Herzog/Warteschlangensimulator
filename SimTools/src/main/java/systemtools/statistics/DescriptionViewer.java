@@ -50,11 +50,27 @@ import systemtools.images.SimToolsImages;
 public class DescriptionViewer extends JPanel {
 	private static final long serialVersionUID = 8594822323998433424L;
 
+	/** Callback an das Links (zur dialogbasierten Hilfe) übermittelt werden (kann <code>null</code> sein) */
 	private final Consumer<String> linkCallback;
+
+	/** URL der anzuzeigenden Hilfeseite */
 	private final URL pageURL;
+
+	/** Toolbar auf dem sich die Schaltfläche zum Ein- und Ausblenden des Info-Panels befindet. */
 	private final JToolBar toolbar;
+
+	/** Schaltfläche zum Ein- und Ausblenden des Info-Panels. */
 	private final JButton button;
+
+	/**
+	 * Text-Panel zur Anzeige des Info-Texts
+	 */
 	private final JTextPane textPane;
+
+	/**
+	 * Wird die Hilfe momentan angezeigt?
+	 * @see #toggleDescription()
+	 */
 	private boolean descriptionVisible;
 
 	/**

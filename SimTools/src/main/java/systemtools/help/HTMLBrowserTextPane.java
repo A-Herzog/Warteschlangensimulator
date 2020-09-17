@@ -43,12 +43,31 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 	private static final long serialVersionUID = 6093964682884036080L;
 
+	/** Callback, das aufgerufen wird, wenn ein Link angeklickt wird */
 	private Runnable linkClickListener;
+
+	/** Runnable, das aufgerufen wird, wenn eine Seite geladen wurde */
 	private Runnable pageLoadListener;
 
+	/**
+	 * Überschriften und Positionen dieser auf der Seite
+	 * @see #scanElement(Element)
+	 * @see #getPageContent()
+	 * @see #getPageContentLevel()
+	 * @see #scrollToPageContent(int)
+	 */
 	private List<ElementPos> pageContentList;
 
+	/**
+	 * URL des Links, der zuletzt angeklickt wurde.
+	 * @see #getLastClickedURL()
+	 */
 	private URL lastClickedURL;
+
+	/**
+	 * Inhalt des Linkziels des zuletzt angeklickten Links als Text.
+	 * @see #getLastClickedURLDescription()
+	 */
 	private String lastClickedURLDescription;
 
 	/**

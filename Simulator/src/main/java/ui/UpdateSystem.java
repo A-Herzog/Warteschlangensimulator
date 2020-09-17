@@ -153,7 +153,7 @@ public class UpdateSystem {
 
 	/**
 	 * Prüft, ob automatische Updates für diese Installation möglich sind.
-	 * @see automaticUpdatePossible
+	 * @see #automaticUpdatePossible
 	 */
 	private void checkAutomaticUpdatePossible() {
 		boolean b=(System.getProperty("os.name").toUpperCase().contains("WIN") && SetupData.getProgramFolder().toString().equals(SetupData.getSetupFolder().toString()));
@@ -166,7 +166,7 @@ public class UpdateSystem {
 
 	/**
 	 * Prüft, ob das Programm heute bereits mindestens einmal zuvor gestartet wurde
-	 * @see firstStartToday
+	 * @see #firstStartToday
 	 */
 	private void checkLastStart() {
 		final SetupData setup=SetupData.getSetup();
@@ -186,7 +186,7 @@ public class UpdateSystem {
 
 	/**
 	 * Öffnet die Verbindung zum Server, um eine Datei herunterzuladen
-	 * @param request	Update-Request
+	 * @param urlString	Update-Request
 	 * @return	Serververbindung oder <code>null</code>, wenn die Verbindung fehlgeschlagen ist.
 	 */
 	private InputStream openServerFile(final String urlString) {
@@ -244,7 +244,7 @@ public class UpdateSystem {
 	/**
 	 * Prüft, ob Update-Dateien auf dem Server vorhanden sind.
 	 * @param force	Führt die Prüfung nur durch, wenn die letzte Prüfung entweder mindestens einen Tag zurückliegt oder hier <code>true</code> übergeben wird.
-	 * @see newVersionAvailable
+	 * @see #newVersionAvailable
 	 */
 	private void checkUpdateAvailable(final boolean force) {
 		if (!firstStartToday && !force) return;

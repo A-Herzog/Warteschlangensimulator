@@ -71,6 +71,7 @@ import mathtools.Table.IndexMode;
  * @version 1.0
  */
 public abstract class TableChartBase {
+	/** Tabelle, die die Daten enthält */
 	private final Table table;
 
 	private final Map<Sheet,XSSFDrawing> drawing;

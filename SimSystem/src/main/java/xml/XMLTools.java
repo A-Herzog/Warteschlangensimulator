@@ -494,7 +494,9 @@ public final class XMLTools {
 	 * @param stream	OutputStream, in dem die Daten gespeichert werden soll
 	 * @param root	XML-Root-Element, welches die zu speichernden Daten enthält
 	 * @param plain	Gibt kein DOCTYPE aus
+	 * @param fileType	Dateityp
 	 * @return	Gibt an, ob die Daten erfolgreich gespeichert werden konnten.
+	 * @see XMLTools.FileType
 	 */
 	private boolean saveToStream(final OutputStream stream, final Element root, final boolean plain, final FileType fileType) {
 		if (fileType==FileType.ZIP_XML) {
@@ -654,7 +656,9 @@ public final class XMLTools {
 	/**
 	 * Lädt XML-Daten aus einem InputStream
 	 * @param stream	InputStream, aus dem die Daten geladen werden soll
+	 * @param fileType	Dateityp
 	 * @return	Tritt ein Fehler auf, so wird <code>null</code> zurück gegeben, ansonsten das Root-Element der Daten
+	 * @see XMLTools.FileType
 	 */
 	private Element loadFromStream(final InputStream stream, final FileType fileType) {
 		final FileType type;

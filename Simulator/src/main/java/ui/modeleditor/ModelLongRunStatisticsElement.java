@@ -22,6 +22,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import statistics.StatisticsLongRunPerformanceIndicator;
+import statistics.StatisticsLongRunPerformanceIndicator.Mode;
 
 /**
  * Hält einen einzelnen Datensatz für die Erfassung von Laufzeitstatistik-Daten vor
@@ -41,9 +42,9 @@ public final class ModelLongRunStatisticsElement implements Cloneable {
 
 	/**
 	 * Modus für die Erfassung
-	 * @see StatisticsLongRunPerformanceIndicator.Mode#MODE_MIN
-	 * @see StatisticsLongRunPerformanceIndicator.Mode#MODE_AVERAGE
-	 * @see StatisticsLongRunPerformanceIndicator.Mode#MODE_MAX
+	 * @see Mode#MODE_MIN
+	 * @see Mode#MODE_AVERAGE
+	 * @see Mode#MODE_MAX
 	 */
 	public StatisticsLongRunPerformanceIndicator.Mode mode;
 

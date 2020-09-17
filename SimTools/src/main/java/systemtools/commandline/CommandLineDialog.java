@@ -74,13 +74,44 @@ public class CommandLineDialog extends BaseDialog {
 	/** Bezeichner für die Beschriftung des Ausgabebereichs des Befehls */
 	public static String labelResults="Ergebnisse";
 
+	/**
+	 * Liefert eine neue Instanz des Kommandozeilensystems.
+	 */
 	private final Function<PrintStream,BaseCommandLineSystem> commandLineSystemGetter;
+
+	/**
+	 * Liste mit allen verfügbaren Befehlen
+	 */
 	private final AbstractCommand[] commands;
+
+	/**
+	 * Auswahlbox zur Auswahl des auzuführenden Befehls
+	 */
 	private JComboBox<String> command;
+
+	/**
+	 * Tab-Anzeige zum Umschalten zwischen Befehls-Hilfe und Ergebnisanzeige
+	 */
 	private JTabbedPane tabs;
+
+	/**
+	 * Anzeige der Hilfe zum aktuellen Befehl
+	 */
 	private JTextPane viewer;
+
+	/**
+	 * Eingabe von Parametern für den Befehl
+	 */
 	private JTextField parameters;
+
+	/**
+	 * Anzeige der Ergebnisse des Kommandozeilenbefehls
+	 */
 	private JTextArea results;
+
+	/**
+	 * Thread zur Ausführung des Befehls (um den Haupt-Thread nicht zu blockieren)
+	 */
 	private CommandWorkThread thread;
 
 	/**

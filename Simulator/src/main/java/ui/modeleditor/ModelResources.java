@@ -45,7 +45,7 @@ public final class ModelResources implements Cloneable {
 	/**
 	 * Mögliche Modi zur Bestimmung der Stations-Ressourcen-Priorität bei Gleichstand in der ersten Ebene
 	 * @author Alexander Herzog
-	 * @see RunData#fireReleasedResourcesNotify(simulator.SimulationData)
+	 * @see RunData#fireReleasedResourcesNotify(simulator.runmodel.SimulationData)
 	 */
 	public enum SecondaryResourcePriority {
 		/**
@@ -55,7 +55,7 @@ public final class ModelResources implements Cloneable {
 
 		/**
 		 * Betrachtung der Kundenpriorität bei Gleichstand
-		 * @see FreeResourcesListener#getSecondaryResourcePriority(simulator.SimulationData)
+		 * @see FreeResourcesListener#getSecondaryResourcePriority(simulator.runmodel.SimulationData)
 		 */
 		CLIENT_PRIORITY
 	}

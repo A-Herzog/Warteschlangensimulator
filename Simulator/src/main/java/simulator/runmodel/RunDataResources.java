@@ -25,6 +25,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import statistics.StatisticsTimePerformanceIndicator;
 import ui.modeleditor.ModelResources;
+import ui.modeleditor.ModelResources.SecondaryResourcePriority;
 import ui.modeleditor.ModelSchedules;
 
 /**
@@ -38,7 +39,7 @@ public final class RunDataResources implements Cloneable {
 
 	/**
 	 * Art der Bestimmung der Stationsreihenfolge in Bezug auf die Ressourcen-Priorität bei Gleichstand in der ersten Ebene
-	 * @see ModelResources.SecondaryResourcePriority
+	 * @see SecondaryResourcePriority
 	 */
 	public ModelResources.SecondaryResourcePriority secondaryResourcePriority;
 

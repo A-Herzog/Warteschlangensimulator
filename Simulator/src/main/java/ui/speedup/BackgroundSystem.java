@@ -65,8 +65,8 @@ public class BackgroundSystem {
 
 	/**
 	 * Konstruktor der Klasse.<br>
-	 * Kann nicht direkt aufgerufen werden, stattdessen ist {@link BackgroundSystem#getBackgroundSystem()} zu verwenden.
-	 * @see BackgroundSystem#getBackgroundSystem()
+	 * Kann nicht direkt aufgerufen werden, stattdessen ist {@link BackgroundSystem#getBackgroundSystem(EditorPanel)} zu verwenden.
+	 * @see BackgroundSystem#getBackgroundSystem(EditorPanel)
 	 */
 	private BackgroundSystem() {
 		lastBackgroundMode=SetupData.BackgroundProcessingMode.BACKGROUND_NOTHING;

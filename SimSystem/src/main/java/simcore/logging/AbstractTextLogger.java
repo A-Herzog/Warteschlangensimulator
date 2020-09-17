@@ -27,6 +27,9 @@ import java.nio.charset.StandardCharsets;
  * @author Alexander Herzog
  */
 public abstract class AbstractTextLogger implements SimLogging {
+	/**
+	 * Ausgabe-Writer für die Logausgaben
+	 */
 	private OutputStreamWriter logFileWriter=null;
 
 	/**
@@ -45,6 +48,12 @@ public abstract class AbstractTextLogger implements SimLogging {
 		if (logFileWriter!=null) writeHeader();
 	}
 
+	/**
+	 * Initialisiert das Stream-Ausgabe-Objekt
+	 * @param logFile	Name der Logdatei
+	 * @return	Liefert im Erfolgsfall das Objekt, sonst <code>null</code>
+	 * @see #init(File)
+	 */
 	private OutputStreamWriter initOutputStreamWriter(final File logFile) {
 		if (logFile==null) return null;
 		try {

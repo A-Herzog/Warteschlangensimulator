@@ -51,6 +51,13 @@ public final class JohnsonDistributionImpl extends AbstractRealDistribution impl
 	 */
 	public double lambda;
 
+	/**
+	 * Kehrwert des Parameters {@link #delta}.<br>
+	 * Wird für Verteilungsfunktion und Kenngrößen vorberechnet.
+	 * @see #cumulativeProbability(double)
+	 * @see #getNumericalMean()
+	 * @see #getNumericalVariance()
+	 */
 	private final double inverseDelta;
 
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);

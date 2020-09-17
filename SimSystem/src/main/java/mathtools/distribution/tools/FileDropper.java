@@ -40,10 +40,12 @@ import java.util.List;
  * @version 1.1
  */
 public class FileDropper {
+	/** <code>ActionListener</code> der bei einem Drop-Ereignis aufgerufen werden soll. Der <code>ActionListener</code> kann dann über die <code>dragDropFile</code> Methode des <code>FileDropper</code>-Objekts den Dateinamen abfragen */
 	private final ActionListener actionListener;
 	private final FileDropListener[] listener;
 	private boolean dragDropConsumed=false;
 	private final DropTarget[] target;
+	/** Komponenten, auf denen Dateien per Drag&amp;Drop abgelegt werden können sollen */
 	private final Component[] components;
 
 	/**

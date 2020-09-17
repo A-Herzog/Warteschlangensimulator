@@ -56,7 +56,6 @@ public class ModelChanger {
 	/**
 	 * Diese Klasse kann nicht instanziert werden.
 	 * Sie stellt nur statische Methoden zur Veränderung von Modellen bereit.
-	 * @see changeModel
 	 */
 	private ModelChanger() {}
 

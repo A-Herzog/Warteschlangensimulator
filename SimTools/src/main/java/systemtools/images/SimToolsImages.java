@@ -169,10 +169,25 @@ public enum SimToolsImages {
 	/** Symbol "Dialog-Button 'Abbruch/Zurück'" */
 	MSGBOX_CANCEL("arrow_redo2.png");
 
+	/**
+	 * Dateiname des Icons
+	 */
 	private final String name;
+
+	/**
+	 * URL des Icons
+	 */
 	private URL url;
+
+	/**
+	 * Icon
+	 */
 	private Icon icon;
 
+	/**
+	 * Konstruktor des Enum
+	 * @param name	Dateiname des Icons
+	 */
 	SimToolsImages(final String name) {
 		this.name=name;
 	}

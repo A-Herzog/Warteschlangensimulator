@@ -51,17 +51,34 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class DBSettingsPanel extends JPanel {
 	private static final long serialVersionUID = 1050768140573186364L;
 
+	/** Einstellungenobjekt (darf nicht <code>null</code> sein) */
 	private final DBSettings settings;
+
+	/** Ausgangs-Einstellungenobjekt */
 	private DBSettings lastSettings;
+
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
+	/** Datenbank-Typ */
 	private final JComboBox<String> comboType;
+
+	/** Konfiguration für die Datenbankverbindung */
 	private final JTextField editConfig;
+
+	/** Schaltfläche zur Auswahl einer Datei für die Datenbank (zum Eintragen in das Konfigurations-Eingabefeld) */
 	private final JButton buttonConfig;
+
+	/** Anzeige der Verbindungseigenschaften */
 	private final JLabel labelConfig;
+
+	/** Nutzername für die Datenbank */
 	private final JTextField editUser;
+
+	/** Passwort für die Datenbank */
 	private final JTextField editPassword;
 
+	/** Listener, die bei Änderungen zu benachrichtigen sind */
 	private final List<Runnable> changeListeners;
 
 	/**

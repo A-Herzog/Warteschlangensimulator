@@ -67,7 +67,7 @@ public class ScheduleTableModelSetupDialog extends BaseDialog {
 	 * @param durationPerSlot	Zeitdauer pro Zeitslot
 	 * @param editorMaxY	Als Maximum anzuzeigender y-Wert
 	 * @param repeatMode	Wie soll am Ende des Zeitplans verfahren werden?
-	 * @see	ModelSchedule.RepeatMode
+	 * @see	ui.modeleditor.ModelSchedule.RepeatMode
 	 */
 	public ScheduleTableModelSetupDialog(final Component owner, final Runnable help, final int durationPerSlot, final int editorMaxY, final ModelSchedule.RepeatMode repeatMode) {
 		super(owner,Language.tr("Schedule.SettingsDialog.Title"));

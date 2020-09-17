@@ -61,8 +61,8 @@ public class RunData {
 	/**
 	 * Laufzeitmodell, welches über alle Threads geteilt wird und folglich keine lokalen Daten enthalten darf.<br>
 	 * Die lokalen Daten zu den Stationen befinden sich im <code>elementData</code>-Objekt.
-	 * @see getStationData
-	 * @see setStationData
+	 * @see #getStationData(RunElement)
+	 * @see #setStationData(RunElement, RunElementData)
 	 */
 	private final RunModel runModel;
 

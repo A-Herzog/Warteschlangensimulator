@@ -35,7 +35,10 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 	 */
 	public final int degreesOfFreedom;
 
-	private final double densityDenominator;
+	/**
+	 * Vorberechneter Faktor in der Dichte
+	 * @see #density(double)
+	 */
 	private final double inverseDensityDenominator;
 
 	/**
@@ -45,7 +48,7 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 	public ChiDistributionImpl(final int degreesOfFreedom) {
 		super(null);
 		this.degreesOfFreedom=(degreesOfFreedom>0)?degreesOfFreedom:1;
-		densityDenominator=Math.pow(2,degreesOfFreedom*0.5-1)*Functions.getGamma(degreesOfFreedom*0.5);
+		final double densityDenominator=Math.pow(2,degreesOfFreedom*0.5-1)*Functions.getGamma(degreesOfFreedom*0.5);
 		inverseDensityDenominator=1.0/densityDenominator;
 	}
 

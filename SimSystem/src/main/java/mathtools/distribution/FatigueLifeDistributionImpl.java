@@ -43,7 +43,22 @@ public final class FatigueLifeDistributionImpl extends AbstractRealDistribution 
 	 */
 	public final double gamma;
 
+	/**
+	 * Kehrwert des Skalierungsparameter {@link #beta}.<br>
+	 * Wird für Dichte und Verteilungsfunktion vorberechnet.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 * @see #beta
+	 */
 	private final double inverseBeta;
+
+	/**
+	 * Kehrwert des Formparameter {@link #gamma}.
+	 * Wird für Dichte und Verteilungsfunktion vorberechnet.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 * @see #gamma
+	 */
 	private final double inverseGamma;
 
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);

@@ -46,6 +46,13 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 	 */
 	public final double alpha;
 
+	/**
+	 * Kehrwert des Formparameters {@link #alpha}.<br>
+	 * Wird für die Kenngrößen vorberechnet.
+	 * @see #getNumericalMean()
+	 * @see #getNumericalVariance()
+	 * @see #alpha
+	 */
 	private final double inverseAlpha;
 
 	/**

@@ -43,9 +43,36 @@ public final class PertDistributionImpl extends AbstractRealDistribution impleme
 	 */
 	public final double upperBound;
 
+	/**
+	 * Vorberechneter Wert zur Beschleunigung der Berechnung
+	 * von Dichte und Verteilungsfunktion.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 */
 	private final double alpha;
+
+	/**
+	 * Vorberechneter Wert zur Beschleunigung der Berechnung
+	 * von Dichte und Verteilungsfunktion.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 */
 	private final double beta;
+
+	/**
+	 * Vorberechneter Wert zur Beschleunigung der Berechnung
+	 * von Dichte und Verteilungsfunktion.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 */
 	private final double factorPDF;
+
+	/**
+	 * Vorberechneter Wert zur Beschleunigung der Berechnung
+	 * von Dichte und Verteilungsfunktion.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 */
 	private final double factorCDF;
 
 	/**

@@ -107,7 +107,7 @@ public final class ModelElementCatalog {
 	/**
 	 * Der Elemente-Katalog ist ein Singleton. Es können keine Instanzen angelegt werden.
 	 * Es muss stattdessen die Methode <code>getCatalog</code> verwendet werden.
-	 * @see getCatalog
+	 * @see #getCatalog()
 	 */
 	private ModelElementCatalog() {
 		elementsAdd=new HashMap<>();
@@ -401,31 +401,21 @@ public final class ModelElementCatalog {
 	}
 
 	/**
-	 * Fügt ein Element zu dem Katalog hinzu und macht es in der Liste sichtbar.
-	 * @param template	Vorlagenelement für den Katalog (konkrete Elemente werden später per <code>clone(realSurface)</code> hiervon abgeleitet).
-	 * @param nameMenu	Name des Elements im Menü (wird <code>null</code> übergeben, so wird der Name über die <code>getTypeName()</code>-Methode ermittelt - sofern es sich um ein <code>ModelElementBox</code>-Element handelt)
-	 * @param groupName	Name der Gruppe in der Liste
-	 */
-	private void addElement(final ModelElementPosition template, final String menuName, final String groupName) {
-		addElement(template,menuName,groupName,false);
-	}
-
-	/**
 	 * Fügt ein Element zu dem Katalog hinzu, aber macht es in der Liste unsichtbar.
 	 * @param template	Vorlagenelement für den Katalog (konkrete Elemente werden später per <code>clone(realSurface)</code> hiervon abgeleitet).
-	 * @param nameMenu	Name des Elements im Menü (wird <code>null</code> übergeben, so wird der Name über die <code>getTypeName()</code>-Methode ermittelt - sofern es sich um ein <code>ModelElementBox</code>-Element handelt)
+	 * @param menuName	Name des Elements im Menü (wird <code>null</code> übergeben, so wird der Name über die <code>getTypeName()</code>-Methode ermittelt - sofern es sich um ein <code>ModelElementBox</code>-Element handelt)
 	 */
 	private void addElementHidden(final ModelElementPosition template, final String menuName) {
-		addElement(template,menuName,null,false);
+		addElement(template,menuName,null);
 	}
 
 	/**
 	 * Fügt ein Element zu dem Katalog hinzu.
 	 * @param template	Vorlagenelement für den Katalog (konkrete Elemente werden später per <code>clone(realSurface)</code> hiervon abgeleitet).
-	 * @param nameMenu	Name des Elements im Menü (wird <code>null</code> übergeben, so wird der Name über die <code>getTypeName()</code>-Methode ermittelt - sofern es sich um ein <code>ModelElementBox</code>-Element handelt)
+	 * @param menuName	Name des Elements im Menü (wird <code>null</code> übergeben, so wird der Name über die <code>getTypeName()</code>-Methode ermittelt - sofern es sich um ein <code>ModelElementBox</code>-Element handelt)
 	 * @param groupName	Name der Gruppe in der Liste
 	 */
-	private void addElement(final ModelElementPosition template, final String menuName, final String groupName, final boolean hidden) {
+	private void addElement(final ModelElementPosition template, final String menuName, final String groupName) {
 		synchronized (elementsLoad) {
 			for (String langname: template.getXMLNodeNames()) elementsLoad.put(langname,template);
 		}

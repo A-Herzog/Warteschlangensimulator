@@ -29,6 +29,10 @@ public final class CalcSymbolPostOperatorPercent extends CalcSymbolPostOperator 
 		return new String[]{"%","percent","prozent","vonhundert"};
 	}
 
+	/**
+	 * Faktor zur Umrechnung Zahl -> Prozentwert,
+	 * um die zeitaufwendige Division zu vermeiden.
+	 */
 	private final static double factor=1.0/100.0;
 
 	@Override

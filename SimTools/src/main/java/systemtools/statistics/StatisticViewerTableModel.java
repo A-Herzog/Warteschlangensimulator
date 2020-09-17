@@ -14,8 +14,13 @@ import mathtools.Table;
 public class StatisticViewerTableModel extends AbstractTableModel {
 	private static final long serialVersionUID=598876378208710137L;
 
+	/** Option zur Speicherung der Daten in der Tabelle */
 	private final List<List<String>> data;
+
+	/** Weitere Option zur Speicherung der Daten in der Tabelle */
 	private final Table table;
+
+	/** Spaltenüberschriften */
 	private final List<String> columnNames;
 
 	/**

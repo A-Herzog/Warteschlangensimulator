@@ -47,8 +47,11 @@ import ui.modeleditor.ModelLongRunStatisticsElement;
 public class AdditionalStatisticsTableModelDialog extends BaseDialog {
 	private static final long serialVersionUID = 5752129414122427124L;
 
+	/** Vollständiges Editor-Modell (wird für den Expression-Builder benötigt) */
 	private final EditModel model;
+	/** Eingabefeld für den Rechenausdruck, der in der Statistik erfasst werden soll */
 	private JTextField expressionEdit;
+	/** Art der Aufzeichnung des Ausdrucks */
 	private JComboBox<String> modeCombo;
 
 	/**
