@@ -46,8 +46,11 @@ import ui.modeleditor.coreelements.DataCheckResult;
 public final class DataCheckDialog extends BaseDialog {
 	private static final long serialVersionUID = 4022711184917153072L;
 
+	/** Modell aus dem die Liste der Stationen ausgelesen wird */
 	private final EditModel model;
+	/** Tabellenmodell, das die Ergebnisse der Prüfung enthält */
 	private final ResultsTableModel tableData;
+	/** Anzahl der verwendeten externen Datenquellen */
 	private int numberOfExternalDataSources;
 
 	/**
@@ -107,6 +110,9 @@ public final class DataCheckDialog extends BaseDialog {
 		check();
 	}
 
+	/**
+	 * Tabellenmodell, das die Ergebnisse der Prüfung enthält
+	 */
 	private class ResultsTableModel extends JTableExtAbstractTableModel {
 		private static final long serialVersionUID = 4229271216146250189L;
 

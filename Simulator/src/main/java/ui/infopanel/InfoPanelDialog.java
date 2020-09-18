@@ -57,7 +57,9 @@ import ui.images.Images;
 public final class InfoPanelDialog extends BaseDialog {
 	private static final long serialVersionUID = 1356255618875549024L;
 
+	/** Darstellung der verfügbaren Themen */
 	private final JTree tree;
+	/** Checkboxen zur Aktivierung oder Deaktivierung der Hilfe-Einblendungen */
 	private List<JCheckBox> checkBoxes;
 
 	/**
@@ -215,6 +217,11 @@ public final class InfoPanelDialog extends BaseDialog {
 		return newSetup;
 	}
 
+	/**
+	 * Darstellung der Checkboxen in der Baumstruktur
+	 * @see InfoPanelDialog#tree
+	 * @see InfoPanelDialog#checkBoxes
+	 */
 	private class CheckBoxCellRenderer extends DefaultTreeCellRenderer implements TreeCellRenderer {
 		private static final long serialVersionUID = -5361367157516885457L;
 

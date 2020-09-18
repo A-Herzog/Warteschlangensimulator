@@ -50,7 +50,9 @@ import xml.XMLTools;
 public class StatisticsPanel extends StatisticsBasePanel {
 	private static final long serialVersionUID = 6515474808784376450L;
 
+	/** Statistikdatensätze, deren Daten angezeigt werden sollen */
 	private Statistics[] statistics;
+
 	private StatisticViewerFastAccess fastAccess;
 
 	/**

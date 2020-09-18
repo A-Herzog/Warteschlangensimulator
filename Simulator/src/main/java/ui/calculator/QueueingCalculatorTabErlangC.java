@@ -28,9 +28,13 @@ import mathtools.NumberTools;
 public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 	private static final long serialVersionUID = 3700930282332096430L;
 
+	/** lambda (Ankunftsrate) */
 	private final QueueingCalculatorInputPanel lambdaInput;
+	/** mu (Bedienrate) */
 	private final QueueingCalculatorInputPanel muInput;
+	/** c (Anzahl an Bedienern) */
 	private final QueueingCalculatorInputPanel cInput;
+	/** t (Wartezeit zu dem der Service-Level berechnet werden soll) */
 	private final QueueingCalculatorInputPanel tInput;
 
 	/**

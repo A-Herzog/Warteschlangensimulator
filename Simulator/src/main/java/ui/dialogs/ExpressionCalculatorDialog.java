@@ -69,38 +69,87 @@ import ui.script.ScriptPopup;
 public final class ExpressionCalculatorDialog extends BaseDialog {
 	private static final long serialVersionUID = -2213485790093666048L;
 
+	/**
+	 * Startwert für das Javascript-Eingabefeld, wenn kein nutzerdefinierter Startwert übergeben wurde
+	 */
 	private static final String DEFAULT_JAVA_SCRIPT="Output.println(\"\");";
+
+	/**
+	 * Startwert für das Java-Eingabefeld, wenn kein nutzerdefinierter Startwert übergeben wurde
+	 */
 	private static final String DEFAULT_JAVA="void function(SimulationInterface sim) {\n  sim.getOutput().println(\"\");\n}\n";
 
+	/**
+	 * Editor-Modell als Information für den Expression-Builder
+	 */
 	private final EditModel model;
 
+	/**
+	 * Funktion, die die Berechnungen erlaubt
+	 */
 	private final Function<String,Double> calc;
+
+	/**
+	 * Funktion, die die Javascript-Ausführungen erlaubt
+	 */
 	private final Function<String,String> runJavaScript;
+
+	/**
+	 * Funktion, die die Java-Ausführungen erlaubt
+	 */
 	private final Function<String,String> runJava;
 
+	/**
+	 * Registerreiter: Ausdruck auswerten, Javascript ausführen, Java ausführen
+	 */
 	private final JTabbedPane tabs;
 
+	/**
+	 * Eingabefeld für den zu berechnenden Ausdruck
+	 */
 	private final JTextField expressionEdit;
+
+	/**
+	 * Ergebnis der Berechnung von {@link #expressionEdit}
+	 */
 	private final JTextField resultsEdit;
 
+	/** "Neu"-Schaltfläche für den Javascript-Code */
 	private final JButton buttonJavaScriptNew;
+	/** "Laden"-Schaltfläche für den Javascript-Code */
 	private final JButton buttonJavaScriptLoad;
+	/** "Speichern"-Schaltfläche für den Javascript-Code */
 	private final JButton buttonJavaScriptSave;
+	/** "Tools"-Schaltfläche für den Javascript-Code */
 	private final JButton buttonJavaScriptTools;
+	/** "Ausführen"-Schaltfläche für den Javascript-Code */
 	private final JButton buttonJavaScriptRun;
+	/** "Hilfe"-Schaltfläche für den Javascript-Code */
 	private final JButton buttonJavaScriptHelp;
+	/** Eingabefeld für den Javascript-Code */
 	private final RSyntaxTextArea scriptJavaScriptEdit;
+	/** Ausgabe der Ergebnisse der Ausführung des Javascript-Codes aus {@link #scriptJavaScriptEdit} */
 	private final JTextArea scriptJavaScriptResults;
+	/** Zuletzt geladener/gespeicherter Javascript-Code (zur Prüfung, ob die aktuellen Eingaben ohne Warnung verworfen werden dürfen) */
 	private String lastJavaScript="";
 
+	/** "Neu"-Schaltfläche für den Java-Code */
 	private final JButton buttonJavaNew;
+	/** "Laden"-Schaltfläche für den Java-Code */
 	private final JButton buttonJavaLoad;
+	/** "Speichern"-Schaltfläche für den Java-Code */
 	private final JButton buttonJavaSave;
+	/** "Tools"-Schaltfläche für den Java-Code */
 	private final JButton buttonJavaTools;
+	/** "Ausführen"-Schaltfläche für den Java-Code */
 	private final JButton buttonJavaRun;
+	/** "Hilfe"-Schaltfläche für den Java-Code */
 	private final JButton buttonJavaHelp;
+	/** Eingabefeld für den Java-Code */
 	private final RSyntaxTextArea scriptJavaEdit;
+	/** Ausgabe der Ergebnisse der Ausführung des Java-Codes aus {@link #scriptJavaEdit} */
 	private final JTextArea scriptJavaResults;
+	/** Zuletzt geladener/gespeicherter Java-Code (zur Prüfung, ob die aktuellen Eingaben ohne Warnung verworfen werden dürfen) */
 	private String lastJava="";
 
 	/**
@@ -108,11 +157,11 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * @param owner	Übergeordnetes Element
 	 * @param model	Editor-Modell als Information für den Expression-Builder
 	 * @param calc	Funktion, die die Berechnungen erlaubt
-	 * @param runJavaScript	Function, die die Javascript-Ausführungen erlaubt
-	 * @param runJava	Function, die die Java-Ausführungen erlaubt
+	 * @param runJavaScript	Funktion, die die Javascript-Ausführungen erlaubt
+	 * @param runJava	Funktion, die die Java-Ausführungen erlaubt
 	 * @param initialTab	Anfänglich anzuzeigenden Tab
 	 * @param initialExpression	Startwert für das Eingabefeld
-	 * @param initialJavaScript	Startwert für das Javaskript-Eingabefeld
+	 * @param initialJavaScript	Startwert für das Javascript-Eingabefeld
 	 * @param initialJava	Startwert für das Java-Eingabefeld
 	 * @see ExpressionCalculatorDialog#getLastExpression()
 	 */

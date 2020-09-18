@@ -223,13 +223,20 @@ public class MainPanel extends MainPanelBase {
 	 */
 	public static String UNSAVED_MODEL="ungespeichertes Modell";
 
+	/** Schaltflächen/Menüpunkte, die nur bei Anzeige des Statistik-Viewers aktiviert werden sollen */
 	private List<JMenuItem> enabledOnEditorPanel;
+	/** Schaltflächen, die nur bei Anzeige des Modelleditors sichtbar sein sollen */
 	private List<JButton> visibleOnEditorPanel;
+	/** Schaltflächen, die nur bei Anzeige des Statistik-Viewers sichtbar sein sollen */
 	private List<JButton> visibleOnStatisticsPanel;
+	/** Schaltflächen/Menüpunkte, die bei Anzeige des Modell-Editors markiert dargestellt werden sollen */
 	private List<AbstractButton> selectOnEditorPanel;
+	/** Schaltflächen/Menüpunkte, die bei Anzeige des Statistik-Viewers markiert dargestellt werden sollen */
 	private List<AbstractButton> selectOnStatisticsPanel;
+	/** Schaltflächen/Menüpunkte, die bei aktiviert dargestellt werden sollen, wenn Statistikdaten verfügbar sind */
 	private List<AbstractButton> enabledOnStatisticsAvailable;
 
+	/** Menüpunkt "Zuletzt verwendet" */
 	private JMenu menuFileModelRecentlyUsed;
 	private JMenuItem menuEditUndo, menuEditRedo;
 	private JRadioButtonMenuItem menuEditAutoConnectOff, menuEditAutoConnectAuto, menuEditAutoConnectSmart;
@@ -245,13 +252,21 @@ public class MainPanel extends MainPanelBase {
 	private JRadioButtonMenuItem menuSimulationAnimationScreenshotModeHome, menuSimulationAnimationScreenshotModeCustom;
 	private JMenuItem menuSimulationCheckServerConnection;
 
+	/** Anzeige der Speichernutzung in der Menüzeile (per Konfiguration aktivierbar; im Standfall aus) */
 	private JLabel memoryUsage;
-
+	/** Schnellzugriffs-Eingabefeld in der Menüzeile */
 	private JQuickAccessTextField quickAccess;
-
+	/** Schaltfläche zur Modell-Schnellkorrektur (nur sichtbar, wenn über eine Schnellkorrektur behebbare Fehler vorliegen) */
 	private JButton fixButton;
 
+	/**
+	 * Programmeinstellungen-Singleton
+	 */
 	private final SetupData setup;
+
+	/**
+	 * Callback, welches ein Neuladen des Fensters veranlasst.
+	 */
 	private Runnable reloadWindow;
 
 	/**
@@ -279,6 +294,9 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private EditModel pinnedModel;
 
+	/**
+	 * Statistikdaten, die sich beim Modellvergleich ergeben haben
+	 */
 	private Statistics[] compareStatistics=new Statistics[2];
 
 	/**

@@ -116,72 +116,127 @@ import xml.XMLTools;
 public class OptimizerPanel extends SpecialPanel {
 	private static final long serialVersionUID = 2492864288739317550L;
 
+	/** Übergeordnetes Fenster */
 	private final Window owner;
+	/** Statistikdaten bezogen auf einen kurzen Lauf über das angegebene Editor-Modell (zur Auswahl von XML-Elementen als Zielwerte) */
 	private final Statistics miniStatistics;
+	/** Editor-Modell auf dessen Basis die Optimierung durchgeführt werden soll */
 	private final EditModel model;
 
+	/** Aktuelles Optimierer-Setup */
 	private OptimizerSetup setup;
 
+	/** Registerreiter für die verschiedenen Einstellungsbereiche */
 	private JTabbedPane tabs;
 
+	/** "Neu"-Schaltfläche (um ein neues Optimierer-Setup anzulegen) */
 	private final JButton newSetupButton;
+	/** "Laden"-Schaltfläche (um ein Optimierer-Setup zu laden) */
 	private final JButton loadSetupButton;
+	/** "Speichern"-Schaltfläche (um das aktuelle Optimierer-Setup zu speichern) */
 	private final JButton saveSetupButton;
+	/** "Start"-Schaltfläche */
 	private final JButton startButton;
+	/** "Hilfe"-Schaltfläche */
 	private final JButton helpButton;
 
+	/** "Hinzufügen"-Schaltfläche (für Kontrollvariable) */
 	private JButton controlAdd;
+	/** "Bearbeiten"-Schaltfläche (für Kontrollvariable) */
 	private JButton controlEdit;
+	/** "Löschen"-Schaltfläche (für Kontrollvariable) */
 	private JButton controlDelete;
+	/** "Nach oben"-Schaltfläche (für Kontrollvariable) */
 	private JButton controlUp;
+	/** "Nach unten"-Schaltfläche (für Kontrollvariable) */
 	private JButton controlDown;
+	/** "Nebenbedingungen"-Schaltfläche (für Kontrollvariable) */
 	private JButton controlConstrains;
+	/** Liste mit Nebenbedingungen */
 	private List<String> constrains;
+	/** Listendarstellung der Kontrollvariablen */
 	private JList<ControlVariable> controlList;
+	/** Datenmodell für die Listendarstellung der Kontrollvariablen */
 	private DefaultListModel<ControlVariable> controlListModel;
 
+	/** Auswahl: Zielwert aus Statistik-XML-Element auslesen */
 	private JRadioButton targetXMLTagSelect;
+	/** Statistik-XML-Element für Zielwert */
 	private JTextField targetXMLTagEdit;
+	/** Statistik-XML-Element für Zielwert auswählen */
 	private JButton targetXMLTagButton;
+	/** Auswahl: Zielwert aus Skript-Ergebnis */
 	private JRadioButton targetScriptSelect;
+	/** Zielwert-Skript Datei */
 	private JTextField targetScriptEdit;
+	/** Zielwert-Skript Datei auswählen */
 	private JButton targetScriptButton;
+	/** Optimierungsziel: Zielwert minimieren */
 	private JRadioButton valueMinimize;
+	/** Optimierungsziel: Zielwert maximieren */
 	private JRadioButton valueMaximize;
+	/** Optimierungsziel: Zielwert in bestimmtem Bereich */
 	private JRadioButton valueRange;
+	/** Untere Grenze für den Zielwert-Bereich */
 	private JTextField valueRangeMin;
+	/** Obere Grenze für den Zielwert-Bereich */
 	private JTextField valueRangeMax;
 
+	/** Ausgabeverzeichnis für Statistikdateien */
 	private JTextField statisticsEdit;
+	/** Ausgabeverzeichnis für Statistikdateien auswählen */
 	private JButton statisticsButton;
+	/** Optimierer-Kernel konfigurieren */
 	private JButton kernelButton;
+	/** Sollen alle Statistik-Ergebnisse gespeichert werden oder nur die Statistik des letzten Laufs */
 	private JComboBox<String> statisticsSaveMode;
+	/** Statusausgaben während der Optimierung */
 	private JTextArea log;
+	/** Daten für die grafische Anzeige des Optimierungsfortschritts */
 	private XYSeriesCollection xydata;
+	/** Render für die Daten für die grafische Anzeige des Optimierungsfortschritts */
 	private XYLineAndShapeRenderer xyrenderer;
+	/** Diagramm-Element für die grafische Anzeige des Optimierungsfortschritts */
 	private JFreeChart chart;
+	/** Diagramm für die grafische Anzeige des Optimierungsfortschritts */
 	private XYPlot xyplot;
+	/** Soll die y-Achse bei der grafischen Anzeige des Optimierungsfortschritts logarithmisch skaliert werden? */
 	private JCheckBox logarithmicAxis;
 
+	/** Name des gewählten Optimierungs-Kernels */
 	private String optimizerName;
+	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 1 */
 	private double serialChangeSpeed1;
+	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 2 */
 	private double serialChangeSpeed2;
+	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 3 */
 	private double serialChangeSpeed3;
+	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit ab Runde 4 */
 	private double serialChangeSpeed4;
+	/** Seriell arbeitender Optimierer-Kernel: Temporäre Verschlechterungen akzeptieren? */
+	private boolean serialSimulatedAnnealing;
+	/** Genetischer Optimierer: Populationsgröße */
 	private int geneticPopulationSize;
+	/** Genetischer Optimierer: Evolutionärer Druck */
 	private double geneticEvolutionPressure;
+	/** Genetischer Optimierer: Mutationsrate in Runde 1 */
 	private double geneticChangeSpeed1;
+	/** Genetischer Optimierer: Mutationsrate in Runde 2 */
 	private double geneticChangeSpeed2;
+	/** Genetischer Optimierer: Mutationsrate in Runde 3 */
 	private double geneticChangeSpeed3;
+	/** Genetischer Optimierer: Mutationsrate in Runde 4 */
 	private double geneticChangeSpeed4;
+	/** Genetischer Optimierer: Mutationsrate ab Runde 5 */
 	private double geneticChangeSpeed5;
 
+	/** Der eigentliche Optimierer */
 	private OptimizerBase optimizer;
 
 	/**
-	 * Konstruktor der Klasse <code>OptimizerPanel</code>
+	 * Konstruktor der Klasse {@link OptimizerPanel}
 	 * @param owner	Übergeordnetes Fenster
-	 * @param model	Editor-Modell auf dessen Basis die Parameterreihe erstellt werden soll
+	 * @param model	Editor-Modell auf dessen Basis die Optimierung durchgeführt werden soll
 	 * @param miniStatistics	Statistikdaten bezogen auf einen kurzen Lauf über das angegebene Editor-Modell (zur Auswahl von XML-Elementen als Zielwerte)
 	 * @param doneNotify	Wird aufgerufen, wenn sich das Panel schließen möchte
 	 */
@@ -694,6 +749,7 @@ public class OptimizerPanel extends SpecialPanel {
 		serialChangeSpeed2=setup.serialChangeSpeed2;
 		serialChangeSpeed3=setup.serialChangeSpeed3;
 		serialChangeSpeed4=setup.serialChangeSpeed4;
+		serialSimulatedAnnealing=setup.serialSimulatedAnnealing;
 		geneticPopulationSize=setup.geneticPopulationSize;
 		geneticEvolutionPressure=setup.geneticEvolutionPressure;
 		geneticChangeSpeed1=setup.geneticChangeSpeed1;
@@ -760,6 +816,7 @@ public class OptimizerPanel extends SpecialPanel {
 		setup.serialChangeSpeed2=serialChangeSpeed2;
 		setup.serialChangeSpeed3=serialChangeSpeed3;
 		setup.serialChangeSpeed4=serialChangeSpeed4;
+		setup.serialSimulatedAnnealing=serialSimulatedAnnealing;
 		setup.geneticPopulationSize=geneticPopulationSize;
 		setup.geneticEvolutionPressure=geneticEvolutionPressure;
 		setup.geneticChangeSpeed1=geneticChangeSpeed1;
@@ -1086,6 +1143,7 @@ public class OptimizerPanel extends SpecialPanel {
 			serialChangeSpeed2=tempSetup.serialChangeSpeed2;
 			serialChangeSpeed3=tempSetup.serialChangeSpeed3;
 			serialChangeSpeed4=tempSetup.serialChangeSpeed4;
+			serialSimulatedAnnealing=tempSetup.serialSimulatedAnnealing;
 			geneticPopulationSize=tempSetup.geneticPopulationSize;
 			geneticEvolutionPressure=tempSetup.geneticEvolutionPressure;
 			geneticChangeSpeed1=tempSetup.geneticChangeSpeed1;

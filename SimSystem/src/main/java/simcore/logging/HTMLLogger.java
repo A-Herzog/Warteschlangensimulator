@@ -27,12 +27,19 @@ import simcore.SimData;
  * @see SimLogging
  */
 public class HTMLLogger extends AbstractTextLogger {
+	/** Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen */
 	private final boolean groupSameTimeEvents;
+	/** Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben */
 	private final boolean singleLineMode;
+	/** Bei den Log-Zeilen angegebene Farben berücksichtigen */
 	private final boolean useColors;
+	/** Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben */
 	private final boolean formatedTime;
+	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Auszugebende Überschriftzeilen */
 	private final String[] headings;
+	/** Zeitpunkt an dem das letzte Ereignis auftrat (für das optionale Gruppieren) */
 	private long lastEventTime=-1;
 
 	/**
@@ -98,6 +105,11 @@ public class HTMLLogger extends AbstractTextLogger {
 		writeString(sb.toString());
 	}
 
+	/**
+	 * Wandelt eine Java-Farbangabe in einen HTML-Style-String im
+	 * @param color	Farbangabe
+	 * @return	Zugehöriger HTML-Style-String
+	 */
 	private String getHTMLColor(final Color color) {
 		if (!useColors || color==null) return "";
 		if (color.equals(Color.BLACK)) return "";

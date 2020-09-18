@@ -59,10 +59,15 @@ public class ParameterCompareRunnerModel {
 		STATUS_DONE
 	}
 
+	/** Nummer des Modells in der Liste (0-basierend) */
 	private final int nr;
+	/** Wird aufgerufen, wenn die Verarbeitung erfolgreich abgeschlossen wurde */
 	private final Consumer<ParameterCompareRunnerModel> whenDone;
+	/** Callback über das Meldungen (z.B. zum Misserfolg von Skripten) ausgegeben werden */
 	private final Consumer<String> logOutput;
+	/** Parameter-Variationsstudien-Setup */
 	private final ParameterCompareSetup setup;
+	/** Liste mit den Ausgabeskripten */
 	private final String[] outputScripts;
 
 	private volatile Status status;

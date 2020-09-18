@@ -132,13 +132,20 @@ import parser.symbols.distributions.CalcSymbolTruncatedDistribution;
  * @version 1.1
  */
 public class CalcSymbolList {
+	/** Variablen, die zusätzlich zu den normalen Funktionen zur Verfügung stehen sollen */
 	private final String[] variables;
 
+	/** Liste der Konstanten-Symbolen */
 	private static final List<CalcSymbolConst> listConst=new ArrayList<>();
+	/** Liste der Nachgestellten-Operator-Symbolen */
 	private static final List<CalcSymbolPostOperator> listPostOperator=new ArrayList<>();
+	/** Liste der Zweistelligen-Operator-Symbolen */
 	private static final List<CalcSymbolMiddleOperator> listMiddleOperator=new ArrayList<>();
+	/** Liste der Vorangestellten-Operator-Symbolen */
 	private static final List<CalcSymbolPreOperator> listPreOperator=new ArrayList<>();
+	/** Liste mit den Namen aller Symbole */
 	private static final List<String> listNames=new ArrayList<>();
+	/** Liste mit den Namen aller Symbole in Kleinbuchstaben */
 	private static final List<String> listNamesLower=new ArrayList<>();
 	private static final Semaphore initLock=new Semaphore(1);
 	private List<CalcSymbolPreOperator> listPreOperatorUser=null;
@@ -173,6 +180,15 @@ public class CalcSymbolList {
 		return null;
 	}
 
+	/**
+	 * Fügt ein Symbol zu der Liste der bekannten Symbole hinzu.
+	 * @param symbol	Neu hinzuzufügendes Symbol
+	 * @see #initSymbols()
+	 * @see #listConst
+	 * @see #listPreOperator
+	 * @see #listMiddleOperator
+	 * @see #listPostOperator
+	 */
 	private static void addSymbol(final CalcSymbol symbol) {
 		switch (symbol.getType()) {
 		case TYPE_CONST : listConst.add((CalcSymbolConst)symbol); break;
@@ -183,6 +199,9 @@ public class CalcSymbolList {
 		}
 	}
 
+	/**
+	 * Initialisiert die Liste der bekannten Symbole
+	 */
 	private static void initSymbols() {
 		initLock.acquireUninterruptibly();
 		try {

@@ -157,19 +157,32 @@ public class ScriptEditorPanel extends JPanel {
 		Java
 	}
 
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Runnable das in Dialogen verwendet wird */
 	private final Runnable helpRunnalbe;
+	/** Optionales Modell-Objekt, welches für den Aufbau eines Vorlagen-Popup-Menüs verwendet wird */
 	private final EditModel model;
+	/** Optionales Statistik-Objekt, welches für den Aufbau eines Vorlagen-Popup-Menüs verwendet wird */
 	private final Statistics statistics;
+	/** Skriptfunktionen, die im Vorlagen-Popupmenü angeboten werden sollen */
 	private final ScriptPopup.ScriptFeature[] scriptFeatures;
 
+	/** Toolbar in dem Panel */
 	private final JToolBar toolbar;
+	/** "Neu"-Schaltfläche */
 	private final JButton buttonNew;
+	/** "Laden"-Schaltfläche */
 	private final JButton buttonLoad;
+	/** "Speichern"-Schaltfläche */
 	private final JButton buttonSave;
+	/** "Tools"-Schaltfläche */
 	private final JButton buttonTools;
+	/** "Hilfe"-Schaltfläche */
 	private final JButton buttonHelp;
+	/** Eingabefeld für Javascript-Code */
 	private final RSyntaxTextArea scriptEditJavascript;
+	/** Eingabefeld für Java-Code */
 	private final RSyntaxTextArea scriptEditJava;
 	private final JPanel scriptEditMulti;
 	private final CardLayout scriptEditMultiLayout;

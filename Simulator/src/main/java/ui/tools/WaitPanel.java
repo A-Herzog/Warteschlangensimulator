@@ -55,23 +55,45 @@ public class WaitPanel extends JPanel {
 
 	private final int operationMode=MODE_SINGLE_LONG_RUN;
 
+	/**
+	 * Wurde die Simulation erfolgreich beendet?
+	 * @see #finalizeSimulation(boolean)
+	 * @see #isSimulationSuccessful()
+	 */
 	private boolean simulationSuccessful;
+
+	/**
+	 * Soll die Simulation abgebrochen werden?
+	 * @see #abortSimulation()
+	 */
 	private boolean abortRun;
 
-	private JLabel info1, info2;
+	/** Zeile 1 Informationstext */
+	private JLabel info1;
+	/** Zeile 2 Informationstext */
+	private JLabel info2;
+	/** Statusleiste mit weiteren Informationen zu laufenden Simulation */
 	private JLabel statusbar;
+	/** Fortschrittsbalken */
 	private JProgressBar progress;
+	/** "Abbrechen"-Schaltfläche */
 	private JButton cancel;
 
+	/** Timer zur Aktualisierung der Fortschrittsanzeige */
 	private Timer timer;
+	/** Startzeit der Simulation (als {@link System#currentTimeMillis()}-Wert) */
 	private long startTime;
+	/** Geschätzte Restzeit in Sekunden */
 	private int lastGesamt;
 
+	/** Gestarteter Simulator, dessen Daten hier angezeigt werden sollen. */
 	private AnySimulator simulator;
+
+	/** Wird aufgerufen, wenn die Simulation beendet wurde (erfolgreich oder per Nutzerabbruch). Wird hier <code>null</code> übergeben, so erfolgt keine Rückmeldung. */
 	private Runnable simulationDone;
 
 	/**
-	 * Konstruktor der Klasse <code>WaitPanel</code>
+	 * Konstruktor der Klasse {@link WaitPanel}
 	 */
 	public WaitPanel() {
 		super(new BorderLayout());

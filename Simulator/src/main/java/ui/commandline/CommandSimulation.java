@@ -35,7 +35,9 @@ import systemtools.commandline.BaseCommandLineSystem;
  * @see CommandLineSystem
  */
 public final class CommandSimulation extends AbstractSimulationCommand {
+	/** Zu simulierende Modelldatei */
 	private File modelFile;
+	/** Statistikausgabedatei */
 	private File statisticsFile;
 
 	@Override

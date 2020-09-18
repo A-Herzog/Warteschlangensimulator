@@ -31,15 +31,22 @@ import mathtools.NumberTools;
 public class QueueingCalculatorTabLoad extends QueueingCalculatorTabBase {
 	private static final long serialVersionUID = -5683337840249023703L;
 
+	/** Register zur Auswahl der verschiedenen Modi (Ankunftsrate, Kunden pro Tag) */
 	private final JTabbedPane tabs;
 
+	/** lambda (Ankunftsrate) */
 	private final QueueingCalculatorInputPanel lambdaInput;
 
+	/** Ankünfte pro Tag */
 	private final QueueingCalculatorInputPanel clientPerDayInput;
+	/** Aktive Stunden pro Tag */
 	private final QueueingCalculatorInputPanel officeHoursInput;
+	/** Lastanteil den das betrachtete Callcenter übernehmen soll */
 	private final QueueingCalculatorInputPanel loadPartInput;
 
+	/** mu (Bedienrate) */
 	private final QueueingCalculatorInputPanel muInput;
+	/** rho (Auslastung) */
 	private final QueueingCalculatorInputPanel rhoInput;
 
 	/**

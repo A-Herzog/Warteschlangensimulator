@@ -73,6 +73,15 @@ public class TableXLSXReader {
 		return multiTable;
 	}
 
+	/**
+	 * Verarbeitet ein einzelnes Tabellenblatt
+	 * @param name	Name des Tabellenblatts
+	 * @param styles	Arbeitsmappenweite Styles (für {@link XSSFSheetXMLHandler})
+	 * @param strings	Geteilte Strings (für {@link XSSFSheetXMLHandler})
+	 * @param stream	Eingabestream
+	 * @param useTable	Wird hier ein Wert ungleich <code>null</code> übergeben, so werden die Daten nicht in {@link #multiTable} geschrieben, sondern in diese Tabelle
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean processSheet(final String name, final StylesTable styles, final ReadOnlySharedStringsTable strings, InputStream stream, Table useTable) {
 		final DataFormatter formatter=new DataFormatter();
 		final InputSource sheetSource=new InputSource(stream);
@@ -91,6 +100,12 @@ public class TableXLSXReader {
 		return true;
 	}
 
+	/**
+	 * Verarbeitung des OPC-Datenobjektes, das die xlsx-Arbeitsmappe enthält
+	 * @param xlsxPackage	OPC-Datenobjekt, das die xlsx-Arbeitsmappe enthält
+	 * @param table	Wird hier eine Tabelle übergeben, so wird das erste Tabellenblatt aus der Arbeitsmappe in diese Tabelle kopiert; sonst werden alle Tabellenblätter in die {@link #multiTable} übernommen
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean processOPCPacakge(final OPCPackage xlsxPackage, final Table table) {
 		try {
 			final ReadOnlySharedStringsTable strings=new ReadOnlySharedStringsTable(xlsxPackage);

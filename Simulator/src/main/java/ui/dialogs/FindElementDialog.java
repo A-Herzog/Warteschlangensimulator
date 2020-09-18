@@ -62,13 +62,21 @@ import ui.modeleditor.elements.ModelElementSub;
 public class FindElementDialog extends BaseDialog {
 	private static final long serialVersionUID = 1687364491601255550L;
 
+	/** Modell-Haupt-Surface, welches alle Elemente enthält */
 	private final ModelSurface surface;
+	/** Eingabefeld für die Suche */
 	private final JTextField searchEdit;
+	/** Suchmodus (IDs, Namen, alles) */
 	private final JComboBox<String> optionsCombo;
+	/** Auch Elemente auf ausgeblendeten Ebenen berücksichtigen? */
 	private final JCheckBox includeHidden;
+	/** Liste mit den Suchergebnissen */
 	private final JList<JLabel> resultsList;
+	/** Datenmodell für die Liste mit den Suchergebnissen */
 	private final DefaultListModel<JLabel> resultsModel;
+	/** IDs der Suchergebnisse */
 	private final List<Integer> resultsIds;
+	/** Ausgabefeld für Informationen zu den Suchergebnissen (Anzahl der Treffer usw.) */
 	private final JLabel resultsInfo;
 
 	/**
@@ -332,6 +340,10 @@ public class FindElementDialog extends BaseDialog {
 		return -1;
 	}
 
+	/**
+	 * Renderer für die Stationen in der Liste mit den Suchergebnissen
+	 * @see FindElementDialog#resultsList
+	 */
 	private class ElementListCellRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 4327039078742103357L;
 

@@ -49,15 +49,24 @@ import ui.statistics.StatisticsPanel;
 public class ModelViewerFrame extends JDialog {
 	private static final long serialVersionUID = 7004585654111284032L;
 
+	/** Anzuzeigendes Modell */
 	private EditModel model;
+	/** Callback zum Laden des Modells in den Editor (wird hier <code>null</code> übergeben, so wird die Option zum Laden des Modells in den Editor nicht angeboten) */
 	private final Runnable loadModel;
 
+	/** Modell-Editor (im Read-Only-Modus) */
 	private final EditorPanel editorPanel;
+	/** Statistik-Viewer */
 	private final StatisticsPanel statisticsPanel;
 
+	/** "Schließen"-Schaltfläche */
 	private final JButton buttonClose;
-	private final JButton buttonFileSaveModel, buttonFileSaveStatistics;
-	private final JButton buttonViewEditor, buttonViewStatistics;
+	private final JButton buttonFileSaveModel;
+	private final JButton buttonFileSaveStatistics;
+	/** "Modell-Editor"-Schaltfläche */
+	private final JButton buttonViewEditor;
+	/** "Simulationsergebnisse"-Schaltfläche */
+	private final JButton buttonViewStatistics;
 	private final JButton buttonLoadToCurrentEditor;
 	private final JButton buttonLoadToNewEditor;
 
@@ -186,6 +195,7 @@ public class ModelViewerFrame extends JDialog {
 		return rootPane;
 	}
 
+	/** Reaktion auf das Anklicken einer Schaltfläche in der Symbolleiste */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

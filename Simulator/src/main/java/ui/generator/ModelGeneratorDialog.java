@@ -37,7 +37,9 @@ import ui.infopanel.InfoPanel;
 public class ModelGeneratorDialog extends BaseDialog {
 	private static final long serialVersionUID = -7913684726422421731L;
 
+	/** Einstellungenbereich für den Modellgenerator */
 	private final ModelGeneratorPanel setup;
+	/** Vorschau auf das zu erstellende Modell */
 	private final EditorPanel viewer;
 
 	/**

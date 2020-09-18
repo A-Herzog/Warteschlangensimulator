@@ -27,7 +27,9 @@ import mathtools.NumberTools;
 public class QueueingCalculatorTabWaitingTimeTolerance extends QueueingCalculatorTabBase {
 	private static final long serialVersionUID = 6885193560880513420L;
 
+	/** E[W] (mittlere Wartezeit) */
 	private final QueueingCalculatorInputPanel ewInput;
+	/** P(A) (Anteil der Abbrecher) */
 	private final QueueingCalculatorInputPanel paInput;
 
 	/**

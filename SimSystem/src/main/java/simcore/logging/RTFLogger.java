@@ -29,17 +29,25 @@ import simcore.SimData;
  * @see SimLogging
  */
 public class RTFLogger extends AbstractTextLogger {
+	/** Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen */
 	private final boolean groupSameTimeEvents;
+	/** Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben */
 	private final boolean singleLineMode;
+	/** Bei den Log-Zeilen angegebene Farben berücksichtigen */
 	private final boolean useColors;
+	/** Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben */
 	private final boolean formatedTime;
+	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Auszugebende Überschriftzeilen */
 	private final String[] headings;
+	/** Zeitpunkt an dem das letzte Ereignis auftrat (für das optionale Gruppieren) */
 	private long lastEventTime=-1;
 
+	/** Farbinformationen, die über {@link #buffer} bereits einen RTF-Farbindex erhalten haben */
 	private final Map<Color,Integer> colorNumbers;
+	/** RTF-Zusammenstellung der Farbinformationen */
 	private final StringBuilder buffer;
-
 
 	/**
 	 * Konstruktor der Klasse <code>RTFLogger</code>
@@ -88,10 +96,19 @@ public class RTFLogger extends AbstractTextLogger {
 		writeString("\n}\n");
 	}
 
-	private char hex(final int b) {
+	/** Wandelt eine Zahl zwischen 0 und 15 in ein Hexadezimal-Zeichen um.
+	 * @param b	Umzuwandelnde Zahl
+	 * @return	Hexadezimal-Zeichen
+	 */
+	private static char hex(final int b) {
 		if (b<10) return (char)(b+((short)'0')); else return (char)(b-10+((short)'a'));
 	}
 
+	/**
+	 * Wandelt eine Zeile in einen RTF-String um
+	 * @param s	Umzuwandelndes Zeile
+	 * @return	RTF-String
+	 */
 	private String convertLineToRTF(String s) {
 		StringBuilder result=new StringBuilder();
 		for (int i=0;i<s.length();i++) {
@@ -107,6 +124,13 @@ public class RTFLogger extends AbstractTextLogger {
 		return result.toString();
 	}
 
+	/**
+	 * Liefert den RTF-Farbindex einer Farbe
+	 * @param color	Farbe für die der Index ermittelt werden soll
+	 * @return	RTF-Farbindex
+	 * @see #colorNumbers
+	 * @see #buffer
+	 */
 	private int getColorNumber(final Color color) {
 		if (colorNumbers==null) return 0;
 		Integer I=colorNumbers.get(color);

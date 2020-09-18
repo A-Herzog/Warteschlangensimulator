@@ -76,22 +76,32 @@ public class QueueingCalculatorInputPanel {
 		POSITIVE_LONG,
 	}
 
+	/** Angabe, welche Zahlenbereiche gültig sind */
 	private NumberMode mode;
+	/** Vorgabewert für das Eingabefeld */
 	private double defaulValue;
+	/** Mögliche Varianten für den Wert (z.B. Zeit und Rate) */
 	private List<Record> records;
 
+	/** Titel des Eingabeelements */
 	private final String title;
+	/** Listener, der aufgerufen wird, wenn die Eingaben verwendet wurden und das Ergebnis neu berechnet werden soll. Darf <b>nicht</b> <code>null</code> sein. */
 	private final Runnable changeListener;
+	/** Das eigentliche Panel das die Elemente enthält */
 	private JPanel panel;
+	/** Auswahlbox für den Typ des Wertes */
 	private JComboBox<String> fieldType;
+	/** Eingabefeld für den Wert */
 	private JTextField field;
+	/** Index des zuletzt gewählten Typs */
 	private int lastFieldType;
+	/** Anzeige von zusätzlichen Informationen hinter dem Eingabefeld in Klammern */
 	private JLabel info;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param title	Titel des Eingabeelements
-	 * @param changeListener	Listener, der aufgerufen wird, wenn die Eingaben verwendet wurden und das Ergenis neu berechnet werden soll. Darf <b>nicht</b> <code>null</code> sein.
+	 * @param changeListener	Listener, der aufgerufen wird, wenn die Eingaben verwendet wurden und das Ergebnis neu berechnet werden soll. Darf <b>nicht</b> <code>null</code> sein.
 	 */
 	public QueueingCalculatorInputPanel(final String title, final Runnable changeListener) {
 		this.title=title;
@@ -160,6 +170,11 @@ public class QueueingCalculatorInputPanel {
 		lastFieldType=index;
 	}
 
+	/**
+	 * Erstellt das Panel, welche die Eingabeelemente beinhaltet
+	 * @return	Panel, welche die Eingabeelemente beinhaltet
+	 * @see #get()
+	 */
 	private JPanel build() {
 		final JPanel panel=new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
@@ -177,7 +192,6 @@ public class QueueingCalculatorInputPanel {
 			currentIndex=0;
 		} else {
 			line.add(fieldType=new JComboBox<>(records.stream().map(record->"<html><body>"+record.label+"</body></html>").toArray(String[]::new)));
-			//line.add(Box.createHorizontalStrut(2));
 			line.add(new JLabel("="));
 			line.add(Box.createHorizontalStrut(2));
 			fieldType.setSelectedIndex(lastFieldType);
@@ -207,6 +221,10 @@ public class QueueingCalculatorInputPanel {
 		return panel;
 	}
 
+	/**
+	 * Wird aufgerufen, wenn der Typ des Wertes geändert wird.
+	 * @see #fieldType
+	 */
 	private void changeFieldType() {
 		final int newFieldType=fieldType.getSelectedIndex();
 		if (lastFieldType!=newFieldType) {
@@ -249,10 +267,20 @@ public class QueueingCalculatorInputPanel {
 		return panel;
 	}
 
+	/**
+	 * Prüft, ob der Wert ganzzahlig ist
+	 * @param value	Zu prüfender Wert
+	 * @return	Liefert <code>true</code>, wenn der Wert ganzzahlig ist
+	 */
 	private boolean isLong(final double value) {
 		return (Math.abs(value-Math.round(value))<10E-10);
 	}
 
+	/**
+	 * Prüft, ob die Eingaben gültig sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Eingaben gültig sind.
+	 * @see #isValueOk()
+	 */
 	private boolean isValueOkIntern() {
 		final Double D=NumberTools.getDouble(field.getText().trim());
 		if (D==null) return false;
@@ -326,13 +354,32 @@ public class QueueingCalculatorInputPanel {
 		return Math.round(d);
 	}
 
+	/**
+	 * Diese Klasse hält die Informationen für eine mögliche Darstellungsform
+	 * des Wertes vor.
+	 * @see QueueingCalculatorInputPanel#addOption(String, double, boolean, String)
+	 * @see QueueingCalculatorInputPanel#addOption(String, double, boolean, boolean, String)
+	 */
 	private static class Record {
+		/** Beschriftung */
 		final String label;
+		/** Skalierung */
 		final double scale;
+		/** Ist der Wert Invers zum Basiswert anzusehen? */
 		final boolean isInverse;
+		/** Handelt es sich um eine Prozentangabe? */
 		final boolean isPercent;
+		/** Zusätzliche Informationen hinter dem Eingabefeld in Klammern (darf <code>null</code> oder leer sein) */
 		final String info;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param label	Beschriftung
+		 * @param scale	Skalierung
+		 * @param isInverse	Ist der Wert Invers zum Basiswert anzusehen?
+		 * @param isPercent	Handelt es sich um eine Prozentangabe?
+		 * @param info	Zusätzliche Informationen hinter dem Eingabefeld in Klammern (darf <code>null</code> oder leer sein)
+		 */
 		public Record(final String label, final double scale, final boolean isInverse, final boolean isPercent, final String info) {
 			this.label=label;
 			this.scale=scale;

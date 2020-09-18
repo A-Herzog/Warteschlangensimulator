@@ -40,6 +40,7 @@ public final class AssociativeEventCache implements EventCache {
 	private static final int TYPES_PER_SUB_LIST=20;
 	private static final int EVENTS_PER_CLASS=1_000_000;
 
+	/** Konstruktoren für neue Ereignisse */
 	private final Map<Class<? extends Event>,Constructor<Event>> cacheConstructors;
 
 	private final int capacityPerType;
@@ -48,7 +49,15 @@ public final class AssociativeEventCache implements EventCache {
 	private final Class<? extends Event>[][] listTypes;
 	private final Event[][][] listEvents;
 
+	/**
+	 * Zählung der Cache-Treffer
+	 * @see #getInfo()
+	 */
 	private long hit;
+	/**
+	 * Zählung wie häufig ein neues Ereignis angelegt werden musste
+	 * @see #getInfo()
+	 */
 	private long miss;
 
 	/**

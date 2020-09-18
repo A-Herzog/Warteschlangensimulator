@@ -18,8 +18,6 @@ package ui.compare;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +47,21 @@ import xml.XMLTools;
 public class CompareSelectDialog extends BaseDialog  {
 	private static final long serialVersionUID = -5204836029062935247L;
 
+	/**
+	 * Textfelder zur Eingabe der Dateinamen
+	 */
 	private final JTextField[] statisticTextFields;
+
+	/**
+	 * Schaltflächen zur Auswahl der Dateien über Dialoge
+	 */
 	private final JButton[] statisticButton;
+
+	/**
+	 * Gewählte Dateien
+	 * @see #storeData()
+	 * @see #getSelectedFiles()
+	 */
 	private File[] statisticFiles;
 
 	/**
@@ -85,10 +96,13 @@ public class CompareSelectDialog extends BaseDialog  {
 			p.add(statisticTextFields[i]=new JTextField(50));
 			p.add(statisticButton[i]=new JButton(Language.tr("Compare.SelectStatisticFile"),Images.STATISTICS_LOAD.getIcon()));
 			statisticButton[i].setToolTipText(Language.tr("Compare.SelectStatisticFile.Info"));
-			statisticButton[i].addActionListener(new ButtonListener());
+			statisticButton[i].addActionListener(e->selectButtonClick((JButton)e.getSource()));
 		}
 
-		new FileDropper(this,new ButtonListener());
+		new FileDropper(this,e->{
+			final FileDropperData data=(FileDropperData)e.getSource();
+			if (dropFile(data.getFile())) data.dragDropConsumed();
+		});
 
 		pack();
 
@@ -156,7 +170,13 @@ public class CompareSelectDialog extends BaseDialog  {
 		statisticFiles=files.toArray(new File[0]);
 	}
 
-	private final File selectFile(File initialFolder) {
+	/**
+	 * Ruft den Dialog zur Auswahl einer Statistikdatei auf
+	 * @param initialFolder	Anfänglich zu selektierender Ordner
+	 * @return	Dateiname oder <code>null</code>, wenn die Auswahl abgebrochen wurde
+	 */
+	private File selectFile(final File initialFolder) {
+
 		File file=XMLTools.showLoadDialog(getParent(),Language.tr("Compare.LoadStatisticData"),initialFolder);
 		if (file==null) return null;
 
@@ -169,30 +189,34 @@ public class CompareSelectDialog extends BaseDialog  {
 		return file;
 	}
 
-	private final class ButtonListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			for (int i=0;i<statisticButton.length;i++) if (e.getSource()==statisticButton[i]) {
-				File initialFile=null;
-				for (int j=i;j>=0;j--) {
-					String s=statisticTextFields[j].getText().trim();
-					if (s!=null && !s.isEmpty()) {File f=new File(s); if (f.exists()) initialFile=f; break;}
-				}
-				File newFile=selectFile((initialFile==null)?null:initialFile.getParentFile());
-				if (newFile!=null) statisticTextFields[i].setText(newFile.toString());
-				return;
+	/**
+	 * Reaktion auf einen Klick auf eine Statistikauswahl-Schaltfläche
+	 * @param button	Angeklickte Schaltfläche
+	 */
+	private void selectButtonClick(final JButton button) {
+		for (int i=0;i<statisticButton.length;i++) if (button==statisticButton[i]) {
+			File initialFile=null;
+			for (int j=i;j>=0;j--) {
+				String s=statisticTextFields[j].getText().trim();
+				if (s!=null && !s.isEmpty()) {File f=new File(s); if (f.exists()) initialFile=f; break;}
 			}
-
-			if (e.getSource() instanceof FileDropperData) {
-				final FileDropperData data=(FileDropperData)e.getSource();
-				if (dropFile(data.getFile())) data.dragDropConsumed();
-				return;
-			}
+			File newFile=selectFile((initialFile==null)?null:initialFile.getParentFile());
+			if (newFile!=null) statisticTextFields[i].setText(newFile.toString());
+			return;
 		}
 	}
 
+	/**
+	 * Index der Eingabezeile in die die letzte Drag&amp;Drop-Operation erfolgte
+	 * @see #dropFile(File)
+	 */
 	private int lastDrop=-1;
 
+	/**
+	 * Reagiert auf Drag&amp;Drop einer Datei auf den Dialog
+	 * @param file	Datei, die übermittelt wirde
+	 * @return	Gibt an, ob die Datei erfolgreich in die Liste der zu vergleichenden Statistikdateien aufgenommen werden konnte
+	 */
 	private final boolean dropFile(File file) {
 		if (!file.exists()) return false;
 

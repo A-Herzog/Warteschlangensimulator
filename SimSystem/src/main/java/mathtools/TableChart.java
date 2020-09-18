@@ -67,9 +67,13 @@ public class TableChart extends TableChartBase {
 		return new Dimension(12,22);
 	}
 
+	/** Art des Diagramms */
 	private ChartMode setupMode;
+	/** Datenreihen */
 	private final List<Range> series=new ArrayList<>();
+	/** Namen der Datenreihen */
 	private final List<Object> seriesNames=new ArrayList<>();
+	/** Names der Kategorien */
 	private Range categories;
 
 	@Override

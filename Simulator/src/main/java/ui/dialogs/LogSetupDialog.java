@@ -64,27 +64,51 @@ import ui.quickaccess.JPlaceholderTextField;
 public class LogSetupDialog extends BaseDialog {
 	private static final long serialVersionUID = -6600117003814706688L;
 
+	/** Auswahl der Logging-Art: Datei oder DDE */
 	private final JComboBox<String> logMode;
+	/** Panel, das die Seiten für Dateiauswahl und DDE-Einstellungen aufnimmt */
 	private final JPanel page;
+	/** Layout für das Panel, das die Seiten für Dateiauswahl und DDE-Einstellungen aufnimmt */
 	private final CardLayout pageLayout;
 
+	/* Seite "Datei" */
+
+	/** Dateiname der Loggingdatei */
 	private final JTextField logFileEdit;
+	/** Zu erfassende Stations-IDs (Datei-Logging) */
 	private final JPlaceholderTextField stationIDsFileEdit;
+	/** Stationsankünfte erfassen (Datei-Logging) */
 	private final JCheckBox optionFileTypeArrival;
+	/** Stationsabgänge erfassen (Datei-Logging) */
 	private final JCheckBox optionFileTypeLeave;
+	/** Stations-Ereignisse erfassen (Datei-Logging) */
 	private final JCheckBox optionFileTypeStation;
+	/** System-Ereignisse erfassen (Datei-Logging) */
 	private final JCheckBox optionFileTypeSystem;
+	/** Mehrere Zeilen pro Ereignis? (Datei-Logging) */
 	private final JCheckBox optionMultiLine;
+	/** Ereignisse mit selbem Zeitpunkt gruppieren? (Datei-Logging) */
 	private final JCheckBox optionGroup;
+	/** Farben verwenden? (Datei-Logging) */
 	private final JCheckBox optionColor;
+	/** Zeiten formatiert ausgeben? (Datei-Logging) */
 	private final JCheckBox optionFormatedTime;
+	/** Stations-IDs in eigener Spalte ausgeben? (Datei-Logging) */
 	private final JCheckBox optionPrintIDs;
 
+	/* Seite "DDE" */
+
+	/** DDE-Einstellungen */
 	private final DDEEditPanel editDDE;
+	/** Zu erfassende Stations-IDs (DDE-Logging) */
 	private final JPlaceholderTextField stationIDsDDEEdit;
+	/** Stationsankünfte erfassen (DDE-Logging) */
 	private final JCheckBox optionDDETypeArrival;
+	/** Stationsabgänge erfassen (DDE-Logging) */
 	private final JCheckBox optionDDETypeLeave;
+	/** Stations-Ereignisse erfassen (DDE-Logging) */
 	private final JCheckBox optionDDETypeStation;
+	/** System-Ereignisse erfassen (DDE-Logging) */
 	private final JCheckBox optionDDETypeSystem;
 
 	/**
@@ -280,6 +304,9 @@ public class LogSetupDialog extends BaseDialog {
 		return field;
 	}
 
+	/**
+	 * Wird aufgerufen, wenn der Nutzer die Schaltfläche zur Dateiauswahl anklickt.
+	 */
 	private class SelectFileButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

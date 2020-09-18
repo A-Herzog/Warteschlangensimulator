@@ -49,10 +49,14 @@ import ui.images.Images;
 public abstract class QueueingCalculatorTabBase extends JPanel {
 	private static final long serialVersionUID = -2890937800572790139L;
 
+	/** Name des Tabs im Dialog */
 	private final String tabName;
+	/** Text für einen möglichen Info-Link unten im Tab (darf leer oder <code>null</code> sein) */
 	private final String infoLinkText;
+	/** URL für einen möglichen Info-Link unten im Tab (darf leer oder <code>null</code> sein) */
 	private final String infoLinkURL;
 
+	/** Feld für die Rechenergebnisse */
 	private JLabel result;
 
 	/** Bezeichner "Zeitdauer" */

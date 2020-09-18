@@ -49,8 +49,15 @@ import ui.modeleditor.descriptionbuilder.StyledTextBuilder;
 public class ModelDescriptionDialog extends BaseDialog {
 	private static final long serialVersionUID = -6362465944821402994L;
 
+	/**
+	 * Erzeugt eine Beschreibungen für das Modell und stellt diese in formatierter Form in verschiedenen Formaten zur Verfügung.
+	 */
 	private final ModelDescriptionBuilderStyled descriptionBuilder;
 
+	/**
+	 * Kopfdaten für die Ausgabe der Beschreibung im HTML-Format.
+	 * @see #saveToFile()
+	 */
 	private final static String HTML_HEADER=
 			"<!DOCTYPE html>\n"+
 					"<html>\n"+
@@ -64,8 +71,16 @@ public class ModelDescriptionDialog extends BaseDialog {
 					"  </style>\n"+
 					"</head>\n"+
 					"<body>\n\n";
+
+	/**
+	 * Fußdaten für die Ausgabe der Beschreibung im HTML-Format.
+	 * @see #saveToFile()
+	 */
 	private final static String HTML_FOOTER="\n</body></html>";
 
+	/**
+	 * Editor-Modell zu dem die Beschreibung generiert werden soll
+	 */
 	private final EditModel model;
 
 	/**

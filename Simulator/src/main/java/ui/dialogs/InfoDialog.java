@@ -78,9 +78,25 @@ import ui.images.Images;
 public class InfoDialog extends JDialog {
 	private static final long serialVersionUID = -4544783238672067726L;
 
+	/**
+	 * "Ok"-Schaltfläche
+	 */
 	private final JButton okButton;
+	/**
+	 * "Versionsgeschichte"-Schaltfläche
+	 * @see #showVersionHistory
+	 */
 	private final JButton versionHistoryButton;
+
+	/**
+	 * "Lizenzen"-Schaltfläche
+	 * @see #showLicenses
+	 */
 	private final JButton licenseButton;
+
+	/**
+	 * Auswahlfeld zum Ändern der Programmsprache
+	 */
 	private final JComboBox<String> languages;
 
 	/**
@@ -272,12 +288,19 @@ public class InfoDialog extends JDialog {
 		return rootPane;
 	}
 
+	/**
+	 * Wird ausgelöst, wenn der Dialog geschlossen werden soll.
+	 * @see InfoDialog#createRootPane()
+	 */
 	private class CloseListener extends AbstractAction {
 		private static final long serialVersionUID = -485008309903554823L;
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {setVisible(false); dispose();}
 	}
 
+	/**
+	 * Wird ausgelöst, wenn in dem Infotext auf die E-Mail-Adresse geklickt wird.
+	 */
 	private class LinkListener implements HyperlinkListener {
 		@Override
 		public void hyperlinkUpdate(HyperlinkEvent e) {

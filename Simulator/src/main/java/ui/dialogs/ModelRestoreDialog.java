@@ -59,7 +59,14 @@ import ui.modeleditor.ModelSurfacePanel;
 public class ModelRestoreDialog extends BaseDialog {
 	private static final long serialVersionUID = -1294110190784151851L;
 
+	/**
+	 * Liste mit den Modelldateien, die zur Auswahl angeboten werden sollen
+	 */
 	private final File[] files;
+
+	/**
+	 * Darstellung der Modelldateien, die zur Auswahl angeboten werden sollen
+	 */
 	private final JList<JLabel> list;
 
 	/**
@@ -90,9 +97,8 @@ public class ModelRestoreDialog extends BaseDialog {
 		setVisible(true);
 	}
 
-	private final DateFormat dateFormat=DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.MEDIUM);
-
 	private String getModelDescription(final File file) {
+		final DateFormat dateFormat=DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.MEDIUM);
 		final StringBuilder info=new StringBuilder();
 		info.append("<html><body>");
 		info.append(Language.tr("AutoRestore.Dialog.InfoSaveDate")+":");

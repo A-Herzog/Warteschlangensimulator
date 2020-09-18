@@ -28,6 +28,12 @@ import systemtools.help.HelpBase;
  * @author Alexander Herzog
  */
 public class Help extends HelpBase {
+	/**
+	 * Konstruktor der Klasse
+	 * @param parent	Übergeordnetes Element
+	 * @param topic	Anzuzeigende Hilfeseite
+	 * @param modal	Modeler Dialog (<code>true</code>) oder normales Fenster (<code>false</code>)
+	 */
 	private Help(final Container parent, final String topic, final boolean modal) {
 		super(parent,topic,modal);
 	}

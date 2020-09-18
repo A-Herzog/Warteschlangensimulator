@@ -29,9 +29,12 @@ import simcore.Event;
  * @see MultiArrayEventManagerWithHeapSort
  */
 public final class EventQueue {
+	/** Initiale Länge der Warteschlange */
 	private static final int INITIAL_SIZE=50;
 
+	/** Warteschlange */
 	private Event[] list;
+	/** Genutzte Plätze in der Warteschlange */
 	private int used;
 
 	/**
@@ -41,12 +44,22 @@ public final class EventQueue {
 		list=new Event[INITIAL_SIZE];
 	}
 
+	/**
+	 * Erzeugt weiteren Platz in der Warteschlange.
+	 * @see #list
+	 * @see #add(Event)
+	 */
 	private void grow() {
 		final Event[] newList=new Event[list.length*2];
 		System.arraycopy(list,0,newList,0,used);
 		list=newList;
 	}
 
+	/**
+	 * Fügt ein Ereignis an einer bestimmten Stelle in die Warteschlange ein.
+	 * @param event	Einzufügendes Ereignis
+	 * @param index	Position an der das Ereignis eingefügt werden soll
+	 */
 	private void add(final Event event, final int index) {
 		if (index<used) {
 			System.arraycopy(list,index,list,index+1,used-index);
@@ -57,7 +70,7 @@ public final class EventQueue {
 
 	/**
 	 * Fügt ein Ereignis an der zeitlich passenden Stelle in die Warteschlange ein.
-	 * @param event	Einzufügendes Ereginis
+	 * @param event	Einzufügendes Ereignis
 	 */
 	public void add(final Event event) {
 		if (used==list.length) grow();

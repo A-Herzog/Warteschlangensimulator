@@ -328,6 +328,10 @@ public class SimData {
 		 */
 	}
 
+	/**
+	 * Offset in MS zwischen UTC und der lokalen Zeit.
+	 * @see #formatSimDateTime(long)
+	 */
 	private static final long offset=TimeZone.getDefault().getRawOffset();
 
 	/**

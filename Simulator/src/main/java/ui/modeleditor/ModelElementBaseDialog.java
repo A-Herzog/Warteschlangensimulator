@@ -89,16 +89,27 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 */
 	protected final ModelSurfacePanel surfacePanel;
 
+	/** Beschreibung des Elements */
 	private String description;
+	/** Titel des Fensters (ohne Ergänzungen) */
 	private final String plainTitle;
+	/** Eingabefeld für den Namen des Elements */
 	private final JTextField nameField;
+	/** Standard-Farbe für das Element */
 	private final Color defaultColor;
+	/** Benutzerdefinierte Farbe für das Element */
 	private Color userColor;
+	/** Benutzerdefiniertes Bild für das Element */
 	private BufferedImage userImage;
+	/** Schaltfläche zum Ändern der ID des Elements */
 	private final JButton idButton;
+	/** Schaltfläche zum Aktivieren/Deaktivieren des Schreibschutzes für das Element */
 	private final JButton protectedButton;
+	/** Schaltfläche zum Ändern der Farbe des Elements */
 	private final JButton colorButton;
+	/** Schaltfläche zum Bearbeiten der Beschreibung des Elements */
 	private final JButton descriptionButton;
+	/** ID für einen Infotext oben im Dialog */
 	private final String infoPanelID;
 
 	/**
@@ -107,7 +118,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @param title	Titel des Fensters
 	 * @param element	Zu bearbeitendes <code>ModelElement</code>
 	 * @param helpTopic	Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
-	 * @param infoPanelID	ID für einen Infotext oben im Dialog zurück
+	 * @param infoPanelID	ID für einen Infotext oben im Dialog
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 * @param makeDialogVisible	Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
 	 */

@@ -69,20 +69,39 @@ import ui.quickaccess.JPlaceholderTextField;
 public class ExpressionBuilder extends BaseDialog {
 	private static final long serialVersionUID = -8629304820144439899L;
 
+	/** Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt */
 	private final boolean isCompare;
+	/** Liste mit den im System vorhandenen Variablen */
 	private final String[] variables;
+	/** Liste der initialen Variablen mit Werten */
 	private final Map<String,String> initialVariableValues;
+	/** Zuordnung von Stations-IDs und Stationsnamen (kann über die statische Funktion <code>getStationIDs(surface)</code> erstellt werden) */
 	private final Map<Integer,String> stations;
+	/** Zuordnung von Stations-IDs zu vom Nutzer angegebenen Stationsnamen */
 	private final Map<Integer,String> stationNames;
+	/** Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen */
 	private final boolean hasClientData;
+	/** Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten) */
 	private final boolean statisticsOnly;
+	/** Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen. */
 	private final boolean noSimulator;
 
+	/** Schnellfilter-Eingabefeld */
 	private final JPlaceholderTextField quickFilter;
+
+	/** Baumstruktur zur Auswahl eines Symbols */
 	private final JTree tree;
+
+	/** Panel zur Anzeige von Informationen zum aktuell gewählten Symbol */
 	private final JTextPane info;
+
+	/** Eingabefeld für Ausdrücke */
 	private final JTextArea input;
 
+	/**
+	 * Initial in der Baumstruktur zu öffnende Pfade
+	 * @see #buildTreeData(String)
+	 */
 	private final List<TreePath> pathsToOpen;
 
 	/**

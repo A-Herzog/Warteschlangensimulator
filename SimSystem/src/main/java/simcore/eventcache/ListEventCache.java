@@ -33,8 +33,11 @@ import simcore.Event;
  * @version 1.0
  */
 public final class ListEventCache implements EventCache {
+	/** Anfängliche Größe der {@link #cacheEventList} Listen */
 	private final int initialCacheSizePerClass;
+	/** Liste der Klassentypen */
 	private final List<Class<? extends Event>> cacheClassList;
+	/** Liste der pro Klassentyp gespeicherten Ereignisse */
 	private final List<Deque<Event>> cacheEventList;
 
 	/**
@@ -54,7 +57,7 @@ public final class ListEventCache implements EventCache {
 	public ListEventCache() {this(2000);}
 
 	@Override
-	public final Event get(final Class<? extends Event> eventClass) {
+	public Event get(final Class<? extends Event> eventClass) {
 		Event event=getOrNull(eventClass);
 		if (event!=null) return event;
 
@@ -64,7 +67,7 @@ public final class ListEventCache implements EventCache {
 	}
 
 	@Override
-	public final void put(final Event event) {
+	public void put(final Event event) {
 		int i=cacheClassList.indexOf(event.getClass());
 		if (i<0) {
 			cacheClassList.add(event.getClass());
@@ -75,7 +78,7 @@ public final class ListEventCache implements EventCache {
 	}
 
 	@Override
-	public final void clear() {
+	public void clear() {
 		cacheClassList.clear();
 		cacheEventList.clear();
 	}

@@ -25,8 +25,13 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorMedian extends CalcSymbolPreOperator {
+	/**
+	 * Liefert den Median der übergebenen Werte.<br>
+	 * Bei einer geraden Anzahl an Werten wird zwischen dem Wert vor und nach der Mitte gemittelt.
+	 * @param values	Werte deren Medien ermittelt werden soll
+	 * @return	Median der Messreihe
+	 */
 	private double calcMedian(double[] values) {
-
 		Arrays.sort(values);
 		final int m=values.length/2;
 		if (values.length%2==1) {

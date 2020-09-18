@@ -45,12 +45,19 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class ProxyDialog extends BaseDialog {
 	private static final long serialVersionUID = -6839899857734552923L;
 
+	/** Auswahl: Keinen Proxy verwenden */
 	private final JRadioButton proxyModeOff;
+	/** Auswahl: Proxy verwenden */
 	private final JRadioButton proxyModeOn;
+	/** Name des Proxy-Servers */
 	private final JTextField proxyHost;
+	/** Port des Proxy-Servers */
 	private final JTextField proxyPort;
+	/** Muss sich der Client gegenüber dem Proxy-Servers authentifizieren? */
 	private final JCheckBox useAuthentification;
+	/** Name des Clienten */
 	private final JTextField proxyUser;
+	/** Passwort für den Clienten */
 	private final JTextField proxyPassword;
 
 	/**

@@ -28,7 +28,9 @@ import mathtools.NumberTools;
 public class QueueingCalculatorTabErlangB extends QueueingCalculatorTabBase {
 	private static final long serialVersionUID = 6885193560880513420L;
 
+	/** a (Arbeitslast) */
 	private final QueueingCalculatorInputPanel aInput;
+	/** n (Systemgröße) */
 	private final QueueingCalculatorInputPanel nInput;
 
 	/**

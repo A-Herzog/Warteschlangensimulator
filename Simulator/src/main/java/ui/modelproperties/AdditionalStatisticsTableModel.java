@@ -49,6 +49,7 @@ public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel 
 	private final boolean readOnly;
 	/** Hilfe-Callback */
 	private final Runnable help;
+	/** Liste mit den Daten für die Anzeige */
 	private final List<ModelLongRunStatisticsElement> data;
 
 	/**

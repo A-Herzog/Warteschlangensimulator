@@ -38,8 +38,11 @@ import language.Language;
 public class AnimationRecordWaitDialog extends JDialog {
 	private static final long serialVersionUID = -728835664535448688L;
 
+	/** MJPEG-System bei dem die Speicherung im Hintergrund durch Aufruf von <code>done()</code> gestartet wurde. */
 	private final MJPEGSystem mjpeg;
+	/** Fortschritt der Speicherung */
 	private final JProgressBar progress;
+	/** Timer der in regelm‰ﬂigen Abst‰nden {@link #progress} aktualisiert und am Ende den Dialog schlieﬂt */
 	private final Timer timer;
 
 	/**

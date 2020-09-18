@@ -43,13 +43,21 @@ import ui.modeleditor.coreelements.ModelElement;
 public class LayersDialog extends BaseDialog {
 	private static final long serialVersionUID=6848493693191362564L;
 
+	/** Modell aus dem die Ebenendaten ausgelesen werden und auch in das die Daten zurückgeschrieben werden */
 	private final EditModel model;
-	private DefaultListModel<JLabel> listModel;
+	/** Liste der Ebenen */
 	private JList<JLabel> list;
+	/** Datenmodell für die Liste der Ebenen */
+	private DefaultListModel<JLabel> listModel;
+	/** "Hinzufügen"-Schaltfläche */
 	private JButton buttonAdd;
+	/** "Umbenennen"-Schaltfläche */
 	private JButton buttonRename;
+	/** "Löschen"-Schaltfläche */
 	private JButton buttonDelete;
+	/** Sichtbar/Unsichtbar-Umschalten-Schaltfläche */
 	private JButton buttonVisible;
+	/** Aktiv/Nicht-aktiv-Umschalten-Schaltfläche */
 	private JButton buttonActive;
 
 	/**

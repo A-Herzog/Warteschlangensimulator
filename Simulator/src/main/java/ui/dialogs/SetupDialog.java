@@ -87,78 +87,145 @@ import xml.XMLTools;
 public final class SetupDialog extends BaseDialog {
 	private static final long serialVersionUID = 8167759839522880144L;
 
+	/** Registerreiter für die Seiten */
 	private final JTabbedPane tabs;
 
 	/* Seite: Benutzeroberfläche */
+
+	/** Programmsprache */
 	private final JComboBox<String> languages;
+	/** Zu verwendendes Theme */
 	private final JComboBox<String> lookAndFeel;
+	/** Schriftgröße */
 	private final JComboBox<String> fontSizes;
+	/** Hohe Kontraste verwenden? */
 	private final JCheckBox useHighContrasts;
+	/** Modelle automatisch speichern? */
 	private final JComboBox<String> autoSave;
+	/** Zuletzt verwendete Dateien merken? */
 	private final JCheckBox useLastFiles;
+	/** Zuletzt geöffnetes Modell beim nächsten Start wieder laden? */
 	private final JCheckBox autoRestore;
+	/** Fenstergröße beim Programmstart */
 	private final JComboBox<String> programStartWindow;
+	/** Vorlagenleiste beim Programmstart einblenden? */
 	private final JComboBox<String> templateStartMode;
+	/** Beispielmodell beim Programmstart laden? */
 	private final JComboBox<String> startModel;
+	/** Verhalten beim Landen von Modellen mit Sicherheitsproblemen */
 	private final JComboBox<String> modelSecurity;
+	/** Beim Programmstart Hilfe auf der Zeichenfläche anzeigen? */
 	private final JComboBox<String> surfaceHelp;
+	/** Benachrichtigungen zum Simulationsende */
 	private final JComboBox<String> notifyMode;
+	/** Schaltfläche zum Öffnen des Dialogs in dem die weiteren Hilfe-Panel konfiguriert werden können */
 	private String hintDialogs;
 
 	/* Seite: Leistung */
+
+	/** Hintergrundverarbeitung (Modelle prüfen oder auch simulieren) */
 	private final JComboBox<String> backgroundProcessing;
+	/** Mehrkernunterstützung für Simulationen verwenden? */
 	private final JCheckBox useMultiCoreSimulation;
+	/** Mehrkernunterstützung für Animationen verwenden? */
 	private final JCheckBox useMultiCoreAnimation;
+	/** Hohe Priorität für die Simulationsthreads verwenden? */
 	private final JCheckBox highPriority;
+	/** NUMA-Unterstützung für die Simulation aktivieren? */
 	private final JCheckBox useNUMAMode;
+	/** Bevorzugte Javascript-Engine */
 	private final JComboBox<String> jsEngine;
-	private final JCheckBox canelSimulationOnScriptError;
+	/** Simulation bei Skriptfehler abbrechen? */
+	private final JCheckBox cancelSimulationOnScriptError;
+	/** Server-basierte Simulation durchführen? */
 	private final JCheckBox serverUse;
+	/** Server-Adresse bzw. -Name für Server-basierte Simulation */
 	private final JTextField serverName;
+	/** Server-Port für Server-basierte Simulation */
 	private final SpinnerModel serverPort;
+	/** Evtl. notwendiges Passwort für Server-basierte Simulation */
 	private final JTextField serverKey;
 
 	/* Seite: Animation */
+
+	/** Wie soll bei Animationen mit der Warm-up-Phase verfahren werden? */
 	private final JComboBox<String> animationWarmUpMode;
+	/** Lautzeitdaten zu den Stationen anzeigen */
 	private final JCheckBox showStationData;
+	/** Logging-Daten im Einzelschrittmodus anzeigen */
 	private final JCheckBox showSingleStepLogData;
+	/** Animation im Einzelschrittmodus starten */
 	private final JCheckBox animationStartPaused;
+	/** Ressourcen und Transporter in der Animation anzeigen */
 	private final JCheckBox animateResources;
+	/** Animation verlangsamen um die Veränderung analoger Werte besser abzubilden */
 	private final JCheckBox useSlowModeAnimation;
 
 	/* Seite: Statistik */
+
+	/** Quantile in der Statistik ausgeben */
 	private final JCheckBox showQuantils;
+	/** Erlang-C-Vergleichswerte in der Statistik ausgeben */
 	private final JCheckBox showErlangC;
+	/** Statistikbaum immer sofort vollständig ausklappen */
 	private final JCheckBox expandAllStatistics;
+	/** Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Zahlen */
 	private final SpinnerModel statisticsNumberDigits;
+	/** Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Prozentwerte */
 	private final SpinnerModel statisticsPercentDigits;
+	/** Levels zu denen Quantile ausgegeben werden sollen */
 	private final JPlaceholderTextField quantilLevels;
+	/** Levels zu denen Konfidenzintervallgrößen ausgegeben werden sollen */
 	private final JPlaceholderTextField batchMeansConfidenceLevels;
+	/** Anbieten, Statistik-Texte in Word zu öffnen? */
 	private final JCheckBox openWord;
+	/** Anbieten, Statistik-Texte in Open/LibreOffice zu öffnen? */
 	private final JCheckBox openODT;
+	/** Anbieten, Statistik-Tabellen in Excel zu öffnen? */
 	private final JCheckBox openExcel;
+	/** Anbieten, Statistik-Tabellen in Open/LibreOffice zu öffnen? */
 	private final JCheckBox openODS;
 
 	/* Seite: Dateiformate */
+
+	/** Autorenname für neue Modelle */
 	private final JTextField defaultUserName;
+	/** Standard-Speicherformat für Modelle */
 	private final JComboBox<String> defaultSaveFormatModels;
+	/** Standard-Speicherformat für Statistikdaten */
 	private final JComboBox<String> defaultSaveFormatStatistics;
+	/** Standard-Speicherformat für Parameterreiheneinstellungen */
 	private final JComboBox<String> defaultSaveFormatParameterSeries;
+	/** Standard-Speicherformat für Optimitereinstellungen */
 	private final JComboBox<String> defaultSaveFormatOptimizerSetups;
+	/** Benutzerdefinierter Zeilenbezeichner */
 	private final JTextField excelRow;
+	/** Benutzerdefinierter Spaltenbezeichner */
 	private final JTextField excelCol;
+	/** Bildgröße beim Exportieren von Bildern */
 	private final JTextField imageSize;
+	/** Speichern von Schnappschüssen während der Animation im Nutzerverzeichnis */
 	private final JRadioButton imagesAnimationHome;
+	/** Speichern von Schnappschüssen während der Animation in manuell konfiguriertem Verzeichnis */
 	private final JRadioButton imagesAnimationFolder;
+	/** Verzeichnis zum Speichern von Schnappschüssen während der Animation */
 	private final JTextField imagesAnimationFolderEdit;
+	/** Verzeichnis zum Speichern von Schnappschüssen während der Animation auswählen */
 	private final JButton imagesAnimationFolderButton;
+	/** Zeitangaben in aufgezeichnete Animationsvideos einbetten */
 	private final JCheckBox paintTimeStamp;
 
 	/* Seite: Updates */
+
+	/** Java-Version beim Programmstart prüfen */
 	private final JCheckBox programStartJavaCheck;
+	/** Programm automatisch aktualisieren */
 	private final JCheckBox autoUpdate;
+	/** Informationen zum Fortschritt der Aktualisierung */
 	private final JLabel updateInfo;
+	/** Schaltfläche um ein manuelles Update auszulösen */
 	private final JButton manualUpdateButton;
+	/** Schaltfläche zum Prüfen auf Updates */
 	private final JButton updateCheckButton;
 
 	/**
@@ -426,7 +493,7 @@ public final class SetupDialog extends BaseDialog {
 		label.setLabelFor(jsEngine);
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		p.add(canelSimulationOnScriptError=new JCheckBox(Language.tr("SettingsDialog.Tabs.Performance.CanelSimulationOnScriptError")));
+		p.add(cancelSimulationOnScriptError=new JCheckBox(Language.tr("SettingsDialog.Tabs.Performance.CanelSimulationOnScriptError")));
 
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -882,7 +949,7 @@ public final class SetupDialog extends BaseDialog {
 		highPriority.setSelected(setup.highPriority);
 		useNUMAMode.setSelected(setup.useNUMAMode);
 		JSEngineNames engine=JSEngineNames.fromName(setup.jsEngine);
-		canelSimulationOnScriptError.setSelected(setup.cancelSimulationOnScriptError);
+		cancelSimulationOnScriptError.setSelected(setup.cancelSimulationOnScriptError);
 		if (engine==null) engine=JSEngineNames.DEFAULT;
 		switch (engine) {
 		case DEFAULT: jsEngine.setSelectedIndex(0); break;
@@ -1115,7 +1182,7 @@ public final class SetupDialog extends BaseDialog {
 		case 2: setup.jsEngine=JSEngineNames.RHINO.name; break;
 		case 3: setup.jsEngine=JSEngineNames.GRAALJSNative.name; break;
 		}
-		setup.cancelSimulationOnScriptError=canelSimulationOnScriptError.isSelected();
+		setup.cancelSimulationOnScriptError=cancelSimulationOnScriptError.isSelected();
 
 		setup.serverUse=serverUse.isSelected();
 		final StringBuilder sb=new StringBuilder();
@@ -1306,7 +1373,7 @@ public final class SetupDialog extends BaseDialog {
 			highPriority.setSelected(false);
 			useNUMAMode.setSelected(false);
 			jsEngine.setSelectedIndex(0);
-			canelSimulationOnScriptError.setSelected(true);
+			cancelSimulationOnScriptError.setSelected(true);
 			serverPort.setValue(8183);
 			serverUse.setSelected(false);
 			break;
@@ -1350,6 +1417,10 @@ public final class SetupDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Wird ausgelöst, wenn ein Verzeichnis zum Speichern der Animations-Schnappschüsse
+	 * ausgewählt werden soll.
+	 */
 	private class ButtonListener implements ActionListener {
 		private void selectImagesFolder() {
 			final String folder=selectFolder(Language.tr("Batch.Output.Folder.Button.Hint"),imagesAnimationFolderEdit.getText());

@@ -92,20 +92,48 @@ public final class CreateSankey extends BaseDialog {
 		CLIENT_PATHS,
 	}
 
+	/**
+	 * Auf welcher Basis soll das Sankey-Diagramm erzeugt werden?
+	 * @see Mode
+	 */
 	private final Mode mode;
+
+	/**
+	 * Tabelle mit den Verknüpfungsdaten
+	 */
 	private final Table table;
+
+	/**
+	 * Vorgabename für die virtuelle Startstation
+	 * @see #nameStart
+	 */
 	private final String stationNameStart;
+
+	/**
+	 * Vorgabename für die virtuelle Endstation
+	 * @see #nameEnd
+	 */
 	private final String stationNameEnd;
 
+	/** Ausgabeoption: Daten in temporäre Datei schreiben und diese direkt öffnen */
 	private final JRadioButton outputDirect;
+	/** Ausgabeoption: Daten in Datei speichern */
 	private final JRadioButton outputFile;
+	/** Eingabefeld für die Ausgabedatei */
 	private final JTextField editFile;
+	/** Liste der Stationen */
 	private final List<String> stations;
+	/** Zusätzliche virtuelle Startstation verwenden? */
 	private final JCheckBox useStart;
+	/** Name der virtuellen Startstation */
 	private final JTextField nameStart;
+	/** Zusätzliche virtuelle Endstation verwenden? */
 	private final JCheckBox useEnd;
+	/** Name der virtuellen Endstation */
 	private final JTextField nameEnd;
+	/** Weiterleitungen zur selben Station abbilden? */
 	private final JCheckBox includeJSLibrary;
+	/** Datenmodell für die Liste der Stationen zur Auswahl der auszugebenden Stationen */
 	private final DefaultListModel<JCheckBox> model;
 
 	/**

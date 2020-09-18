@@ -48,16 +48,24 @@ import ui.modeleditor.coreelements.ModelElement;
 public class AutomaticHelpWindow extends JFrame {
 	private static final long serialVersionUID = -7226053471343055556L;
 
+	/** Hauptfenster */
 	private final JFrame mainFrame;
+	/** Gespeicherte Position des Hauptfensters vor dem Öffnen dieses Hilfefensters (welche das Hauptfenster verschiebt und seine Größe ändert) */
 	private Point saveMainFrameLocation;
+	/** Gespeicherte Größe des Hauptfensters vor dem Öffnen dieses Hilfefensters (welche das Hauptfenster verschiebt und seine Größe ändert) */
 	private Dimension saveMainFrameSize;
 
+	/** {@link EditorPanel} mit dem dieses Hilfefenster zusammenarbeiten soll */
 	private final EditorPanel editorPanel;
+	/** Callback der von {@link #editorPanel} ausgelöst wird */
 	private final transient ActionListener selectionListener;
 
+	/** Aktuell angezeigte Hilfeseite */
 	private String lastPage;
+	/** Panel das die eigentliche Hilfe anzeigt */
 	private final transient AutomaticHelp help;
 
+	/** Da nur ein {@link AutomaticHelpWindow} geöffnet sein darf, wird hier das aktuelle Fenster global gespeichert. */
 	private static AutomaticHelpWindow currentWindow=null;
 
 	/**
@@ -153,6 +161,9 @@ public class AutomaticHelpWindow extends JFrame {
 		help.showPage(page);
 	}
 
+	/**
+	 * Hilfe-Viewer innerhalb des Fensters
+	 */
 	private class AutomaticHelp extends HelpBase {
 		private JPanel helpPanel;
 		private final Container parent;

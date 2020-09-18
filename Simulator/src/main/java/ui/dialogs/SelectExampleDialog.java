@@ -51,7 +51,9 @@ import ui.infopanel.InfoPanel;
 public final class SelectExampleDialog extends BaseDialog {
 	private static final long serialVersionUID = -4553266650939654301L;
 
+	/** Baumstruktur in der die Beispielmodelle nach Themen gruppiert aufgelistet werden */
 	private final JTree tree;
+	/** Vorschaubereich für das ausgewählte Beispiel */
 	private final EditorPanel viewer;
 
 	/**

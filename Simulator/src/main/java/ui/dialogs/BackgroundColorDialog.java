@@ -36,11 +36,17 @@ import ui.modeleditor.ModelSurface;
 public class BackgroundColorDialog extends BaseDialog {
 	private static final long serialVersionUID = 7680431280280416543L;
 
+	/** Nutzerdefinierte Hintergrundfarbe aktiv? */
 	private final JCheckBox backgroundCheck;
+	/** Nutzerdefinierte Hintergrundfarbe auswählen */
 	private final SmallColorChooser backgroundColor;
+	/** Nutzerdefinierte Rasterfarbe aktiv? */
 	private final JCheckBox rasterCheck;
+	/** Nutzerdefinierte Rasterfarbe auswählen */
 	private final SmallColorChooser rasterColor;
+	/** Nutzerdefinierte Gradientenfarbe aktiv? */
 	private final JCheckBox gradientCheck;
+	/** Nutzerdefinierte Gradientenfarbe auswählen */
 	private final SmallColorChooser gradientColor;
 
 	/**

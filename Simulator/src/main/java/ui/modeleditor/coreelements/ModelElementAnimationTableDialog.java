@@ -55,8 +55,11 @@ import ui.modeleditor.elements.ModelElementAnimationRecord;
 public class ModelElementAnimationTableDialog extends BaseDialog {
 	private static final long serialVersionUID = -7508979174535787490L;
 
+	/** Timer für automatische Aktualisierungen */
 	private Timer timer=null;
+	/** Datenmodell für die Ausgabetabelle */
 	private final TableTableModel tableModel;
+	/** Schaltfläche zum Umschalten zwischen automatischer und manueller Aktualisierung */
 	private final JButton buttonAutoUpdate;
 
 	/**
@@ -163,6 +166,10 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		return true;
 	}
 
+	/**
+	 * Datenmodell für die Ausgabetabelle
+	 * @see ModelElementAnimationTableDialog#tableModel
+	 */
 	private static class TableTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = -8304016520194169458L;
 

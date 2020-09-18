@@ -53,7 +53,9 @@ import ui.images.Images;
 public class NextEventsViewerDialog extends BaseDialog {
 	private static final long serialVersionUID = 7426782186422397312L;
 
+	/** Sortierte Liste der nächsten Ereignisse */
 	private final List<Event> events;
+	/** Simulationsdatenobjekt */
 	private final SimulationData simData;
 
 	/**
@@ -208,6 +210,9 @@ public class NextEventsViewerDialog extends BaseDialog {
 		return null;
 	}
 
+	/**
+	 * Renderer für die Liste der nächsten Ereignisse
+	 */
 	private class ListCellRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = -9219657834226171890L;
 

@@ -34,9 +34,13 @@ import simcore.Event;
  * @version 1.1
  */
 public final class ListEventCacheLocked implements EventCache {
+	/** Lock-Objekt, damit dieser Cache für alle Threads gemeinsam genutzt werden kann */
 	private final Semaphore lock;
+	/** Anfängliche Größe der {@link #cacheEventList} Listen */
 	private final int initialCacheSizePerClass;
+	/** Liste der Klassentypen */
 	private final List<Class<? extends Event>> cacheClassList;
+	/** Liste der pro Klassentyp gespeicherten Ereignisse */
 	private final List<Deque<Event>> cacheEventList;
 
 	/**

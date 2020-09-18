@@ -43,19 +43,33 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 	private static final long serialVersionUID = -8885821247331752499L;
 
+	/** Aktuelles Optimierer-Setup */
 	private final OptimizerSetup setup;
-	private final JTextField serialChangeSpeed1;
-	private final JTextField serialChangeSpeed2;
-	private final JTextField serialChangeSpeed3;
-	private final JTextField serialChangeSpeed4;
-	private final JCheckBox serialSimulatedAnnealing;
-	private final JTextField geneticPopulationSize;
-	private final JTextField geneticEvolutionPressure;
-	private final JTextField geneticChangeSpeed1;
-	private final JTextField geneticChangeSpeed2;
-	private final JTextField geneticChangeSpeed3;
-	private final JTextField geneticChangeSpeed4;
-	private final JTextField geneticChangeSpeed5;
+
+	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 1 */
+	private JTextField serialChangeSpeed1;
+	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 2 */
+	private JTextField serialChangeSpeed2;
+	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit in Runde 3 */
+	private JTextField serialChangeSpeed3;
+	/** Seriell arbeitender Optimierer-Kernel: Änderungsgeschwindigkeit ab Runde 4 */
+	private JTextField serialChangeSpeed4;
+	/** Seriell arbeitender Optimierer-Kernel: Temporäre Verschlechterungen akzeptieren? */
+	private JCheckBox serialSimulatedAnnealing;
+	/** Genetischer Optimierer: Populationsgröße */
+	private JTextField geneticPopulationSize;
+	/** Genetischer Optimierer: Evolutionärer Druck */
+	private JTextField geneticEvolutionPressure;
+	/** Genetischer Optimierer: Mutationsrate in Runde 1 */
+	private JTextField geneticChangeSpeed1;
+	/** Genetischer Optimierer: Mutationsrate in Runde 2 */
+	private JTextField geneticChangeSpeed2;
+	/** Genetischer Optimierer: Mutationsrate in Runde 3 */
+	private JTextField geneticChangeSpeed3;
+	/** Genetischer Optimierer: Mutationsrate in Runde 4 */
+	private JTextField geneticChangeSpeed4;
+	/** Genetischer Optimierer: Mutationsrate ab Runde 5 */
+	private JTextField geneticChangeSpeed5;
 
 	/**
 	 * Konstruktor der Klasse

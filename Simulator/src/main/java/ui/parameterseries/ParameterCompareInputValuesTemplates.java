@@ -54,7 +54,9 @@ import ui.modeleditor.elements.ModelElementTank;
  * @see ParameterCompareSetupValueInputListDialog
  */
 public class ParameterCompareInputValuesTemplates {
+	/** Modell aus dem die Daten entnommen werden */
 	private final EditModel model;
+	/** Prüft, ob der Parameter bereits verwendet wird, und bietet ihn dann nicht an. */
 	private final Predicate<ParameterCompareSetupValueInput> isParameterInUse;
 
 	/**

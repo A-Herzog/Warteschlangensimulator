@@ -33,8 +33,11 @@ import simcore.Event;
  * @version 1.2
  */
 public final class HashMapEventCache implements EventCache {
+	/** Anfängliche Größe der Listen in {@link #cacheClassList} */
 	private final int initialCacheSizePerClass;
+	/** Zuordnung von Ereignisse-Klassen und Cache-Listen */
 	private final Map<Class<? extends Event>,Deque<Event>> cacheClassList;
+	/** Konstruktoren für neue Ereignisse */
 	private final Map<Class<? extends Event>,Constructor<Event>> cacheConstructors;
 
 	/**

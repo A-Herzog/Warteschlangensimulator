@@ -27,11 +27,17 @@ import simcore.SimData;
  * @see SimLogging
  */
 public class PlainTextLogger extends AbstractTextLogger {
+	/** Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen */
 	private final boolean groupSameTimeEvents;
+	/** Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben */
 	private final boolean singleLineMode;
+	/** Wie sollen Zeitangaben ausgegeben werden? */
 	private final PlainTextLoggerTimeMode timeMode;
+	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben */
 	private final boolean csvMode;
+	/** Zeitpunkt an dem das letzte Ereignis auftrat (für das optionale Gruppieren) */
 	private long lastEventTime=-1;
 
 	/**
@@ -64,6 +70,11 @@ public class PlainTextLogger extends AbstractTextLogger {
 		this(logFile,groupSameTimeEvents,singleLineMode,PlainTextLoggerTimeMode.TIME,printIDs,csvMode);
 	}
 
+	/**
+	 * Wandelt einen Text in eine CSV-Zelle um.
+	 * @param cell	Text
+	 * @return	CSV-gekappseter Text
+	 */
 	private String toCSV(String cell) {
 		cell=cell.replace("\"","\"\"");
 		if (cell.indexOf('"')!=-1 || cell.indexOf(';')!=-1) cell='"'+cell+'"';

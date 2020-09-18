@@ -43,9 +43,13 @@ import ui.tools.ImageChooser;
 public class AnimationSingleImageDialog extends BaseDialog {
 	private static final long serialVersionUID = 923519486870285777L;
 
+	/** Bisheriger Name des Icons */
 	private final String originalName;
+	/** Liste der momentan vorhandenen (und damit blockierten) Namen. */
 	private final List<String> names;
+	/** Eingabefeld für den Namen des Bildes */
 	private final JTextField nameEdit;
+	/** Auswahlfeld für ein Bild */
 	private final ImageChooser imageChooser;
 
 	/**

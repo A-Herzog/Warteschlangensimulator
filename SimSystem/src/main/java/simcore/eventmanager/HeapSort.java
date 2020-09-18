@@ -20,6 +20,10 @@ package simcore.eventmanager;
  * @see <a href="https://de.wikibooks.org/wiki/Algorithmensammlung:_Sortierverfahren:_Heapsort#Java">https://de.wikibooks.org/wiki/Algorithmensammlung:_Sortierverfahren:_Heapsort#Java</a>
  */
 public class HeapSort {
+	/**
+	 * Diese Klasse kann nicht instanziert werden.
+	 * Die enthält nur statische Hilfsroutinen.
+	 */
 	private HeapSort() {}
 
 	/**

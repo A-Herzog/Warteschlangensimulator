@@ -49,8 +49,11 @@ import ui.modeleditor.elements.ModelElementSub;
 public class SelectElementByIdDialog extends BaseDialog {
 	private static final long serialVersionUID = -2028948710421522249L;
 
+	/** Modell-Haupt-Surface, welches alle Elemente enthält */
 	private final ModelSurface surface;
+	/** Alle im Modell vorhandenen IDs */
 	private int[] ids;
+	/** Anzeige der Elemente */
 	private final JList<JLabel> list;
 
 	/**
@@ -163,6 +166,10 @@ public class SelectElementByIdDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Renderer für die Liste der Elemente
+	 * @see SelectElementByIdDialog#list
+	 */
 	private class ElementListCellRenderer extends DefaultListCellRenderer {
 		private static final long serialVersionUID = 4327039078742103357L;
 

@@ -100,9 +100,12 @@ public class ParameterComparePanel extends SpecialPanel {
 
 	private final ParameterCompareSetup setup;
 	private final ParameterCompareSetup setupOriginal;
+	/** Editor-Modell auf dessen Basis die Parameterreihe erstellt werden soll */
 	private final EditModel modelFromEditor;
+	/** Statistikdaten bezogen auf einen kurzen Lauf über das angegebene Editor-Modell (zur Auswahl von XML-Elementen als Zielwerte) */
 	private Statistics miniStatistics;
 
+	/** Übergeordnetes Fenster */
 	private final Window owner;
 	private final JButton newSetupButton;
 	private final JButton loadSetupButton;

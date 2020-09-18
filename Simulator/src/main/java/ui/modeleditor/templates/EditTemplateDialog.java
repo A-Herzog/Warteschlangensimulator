@@ -50,11 +50,30 @@ import ui.modeleditor.coreelements.ModelElementBox;
 public class EditTemplateDialog extends BaseDialog {
 	private static final long serialVersionUID = -4202359606313518050L;
 
+	/**
+	 * Neuerstelltes Template
+	 * @see #getTemplate()
+	 */
 	private UserTemplate newTemplate;
+
+	/**
+	 * Modellbasierende Nutzervorlagen
+	 */
 	private UserTemplates modelTemplates;
 
+	/**
+	 * Name des Templates
+	 */
 	private JTextField editName;
+
+	/**
+	 * Globale Vorlage oder modellabhängige Vorlage
+	 */
 	private JCheckBox checkGlobal;
+
+	/**
+	 * Editor für die Vorlage
+	 */
 	private EditorPanel editor;
 
 	/**

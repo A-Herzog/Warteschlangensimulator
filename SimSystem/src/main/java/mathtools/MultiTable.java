@@ -298,6 +298,12 @@ public final class MultiTable {
 		return load(file,Table.SaveMode.SAVEMODE_BYFILENAME);
 	}
 
+	/**
+	 * Speichert den Inhalt der Arbeitsmappe in einer html-Datei.
+	 * @param file	Dateiname der Datei.
+	 * @return	Liefert <code>true</code> zurück, wenn die Arbeitsmappe erfolgreich gespeichert wurde.
+	 * @see #save(File, mathtools.Table.SaveMode)
+	 */
 	private boolean saveHTML(final File file) {
 		if (file==null) return false;
 
@@ -343,6 +349,12 @@ public final class MultiTable {
 		return Table.saveTextToFile(html.toString(),file);
 	}
 
+	/**
+	 * Speichert den Inhalt der Arbeitsmappe in einer xls-Datei.
+	 * @param file	Dateiname der Datei.
+	 * @return	Liefert <code>true</code> zurück, wenn die Arbeitsmappe erfolgreich gespeichert wurde.
+	 * @see #save(File, mathtools.Table.SaveMode)
+	 */
 	private boolean saveXLS(final File file) {
 		if (file==null) return false;
 
@@ -378,6 +390,12 @@ public final class MultiTable {
 		} catch (IOException e) {return false;}
 	}
 
+	/**
+	 * Speichert den Inhalt der Arbeitsmappe in einer ods-Datei.
+	 * @param file	Dateiname der Datei.
+	 * @return	Liefert <code>true</code> zurück, wenn die Arbeitsmappe erfolgreich gespeichert wurde.
+	 * @see #save(File, mathtools.Table.SaveMode)
+	 */
 	private boolean saveODS(final File file) {
 		if (file==null) return false;
 
@@ -412,6 +430,12 @@ public final class MultiTable {
 		} catch (Exception ex) {return false;}
 	}
 
+	/**
+	 * Speichert den Inhalt der Arbeitsmappe in einer xlsx-Datei.
+	 * @param file	Dateiname der Datei.
+	 * @return	Liefert <code>true</code> zurück, wenn die Arbeitsmappe erfolgreich gespeichert wurde.
+	 * @see #save(File, mathtools.Table.SaveMode)
+	 */
 	private boolean saveXLSX(final File file) {
 		if (file==null) return false;
 
@@ -445,6 +469,12 @@ public final class MultiTable {
 		} catch (IOException e) {return false;}
 	}
 
+	/**
+	 * Speichert den Inhalt der Arbeitsmappe in einer docx-Datei.
+	 * @param file	Dateiname der Datei.
+	 * @return	Liefert <code>true</code> zurück, wenn die Arbeitsmappe erfolgreich gespeichert wurde.
+	 * @see #save(File, mathtools.Table.SaveMode)
+	 */
 	private boolean saveDOCX(final File file) {
 		if (file==null) return false;
 

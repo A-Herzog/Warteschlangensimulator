@@ -41,6 +41,7 @@ import ui.parameterseries.ParameterComparePanel;
 public class VarianceAnalysisDialog extends BaseDialog {
 	private static final long serialVersionUID = -4704662661702815976L;
 
+	/** Anzahl an zu simulierenden Wiederholungen */
 	private final JTextField edit;
 
 	/**

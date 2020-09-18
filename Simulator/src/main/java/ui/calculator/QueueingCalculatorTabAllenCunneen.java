@@ -28,12 +28,19 @@ import mathtools.NumberTools;
 public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase {
 	private static final long serialVersionUID = 6885193560880513420L;
 
+	/** lambda (Ankunftsrate) */
 	private final QueueingCalculatorInputPanel lambdaInput;
+	/** bI (Ankunfts-Batch-Größe) */
 	private final QueueingCalculatorInputPanel bIInput;
+	/** mu (Bedienrate) */
 	private final QueueingCalculatorInputPanel muInput;
+	/** c (Anzahl an Bedienern) */
 	private final QueueingCalculatorInputPanel cInput;
+	/** bS (Bedien-Batch-Größe) */
 	private final QueueingCalculatorInputPanel bSInput;
+	/** cvI (Variationskoeffizient der Zwischenankunftszeiten) */
 	private final QueueingCalculatorInputPanel cvIInput;
+	/** cvS (Variationskoeffizient der Bedienzeiten) */
 	private final QueueingCalculatorInputPanel cvSInput;
 
 	/**

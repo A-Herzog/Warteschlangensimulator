@@ -69,16 +69,26 @@ import ui.modeleditor.ScaledImageCache;
 public class ImageChooser extends JPanel {
 	private static final long serialVersionUID = 9151154041290240327L;
 
+	/** Anzuzeigendes Bild */
 	private BufferedImage image;
+	/** Hash-Wert für das aktuelle Bild (darf <code>null</code> sein, ist nur ein Hint für {@link ScaledImageCache}) */
 	private String imageHash;
+	/** Benutzerdefinierte Animationsicons */
 	private final ModelAnimationImages modelImages;
+	/** Gibt an, ob das Bild ausgetauscht (neu laden / einfügen) werden darf */
 	private boolean enabled;
 
+	/** Toolbar in dem Panel */
 	private JToolBar toolBar;
+	/** "Kopieren"-Schaltfläche */
 	private JButton buttonCopy;
+	/** "Einfügen"-Schaltfläche */
 	private JButton buttonPaste;
+	/** "Laden"-Schaltfläche */
 	private JButton buttonLoad;
+	/** "Speichern"-Schaltfläche */
 	private JButton buttonSave;
+	/** "Vorlagebild auswählen"-Schaltfläche */
 	private JButton buttonTemplate;
 
 	/**

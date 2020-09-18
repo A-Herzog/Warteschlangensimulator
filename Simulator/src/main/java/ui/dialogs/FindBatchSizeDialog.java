@@ -46,12 +46,18 @@ import ui.modeleditor.elements.ModelElementProcess;
 public class FindBatchSizeDialog extends BaseDialog {
 	private static final long serialVersionUID = 1353952651319816828L;
 
+	/** Sinnvolle mögliche Restabhängigkeiten */
 	private final static double[] LEVELS=new double[]{0.2,0.1,0.05,0.01,0.005,0.001};
+	/** Standardmäßig zulässige Restabhängigkeit */
 	private final static double DEFAULT_LEVEL=0.05;
 
+	/** Radiobuttons zur Auswahl der Batchgrößen */
 	private final List<JRadioButton> radioButtons;
+	/** Batchgrößen */
 	private final List<Integer> distances;
+	/** Batchgröße für {@link #DEFAULT_LEVEL} */
 	private int defaultDistance;
+	/** Direkt nach Schließen des Dialogs einen Simulationslauf starten? */
 	private final JCheckBox runNow;
 
 	/**

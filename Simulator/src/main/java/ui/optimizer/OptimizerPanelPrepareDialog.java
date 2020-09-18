@@ -46,8 +46,21 @@ import ui.images.Images;
 public final class OptimizerPanelPrepareDialog extends JDialog {
 	private static final long serialVersionUID = -138228476553570125L;
 
+	/**
+	 * Simulator mit dem die Statistik generiert wird
+	 */
 	private volatile AnySimulator simulator=null;
+
+	/**
+	 * Mögliche Fehler während der Simulation
+	 * @see #getError()
+	 */
 	private String error=null;
+
+	/**
+	 * Erzeugte oder im Konstruktor übergebene Statistik
+	 * @see #getMiniStatistics()
+	 */
 	private Statistics statistics=null;
 
 	/**

@@ -27,7 +27,9 @@ import simcore.SimData;
  * @see SimData
  */
 public class CallbackLogger implements SimLogging {
+	/** Callback-Funktion, die bei einem Log-Ereignis aufgerufen werden soll */
 	private Consumer<CallbackLoggerData> callback;
+	/** Soll der Logger aktiv sein? */
 	private boolean active;
 
 	/**

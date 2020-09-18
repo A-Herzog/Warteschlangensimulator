@@ -36,7 +36,9 @@ import tools.JTableExt;
 public class ParameterCompareAssistantDialog extends BaseDialog {
 	private static final long serialVersionUID = 7801607609806408642L;
 
+	/** Sollen die Parameterwerte in die Modellnamen mit aufgenommen werden? */
 	private final JCheckBox includeParametersInName;
+	/** Datenmodell der Vorgaben für die Erstellung der Modelle */
 	private final ParameterCompareAssistantTableModel tableModel;
 
 	/**

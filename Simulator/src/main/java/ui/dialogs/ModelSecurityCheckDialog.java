@@ -55,6 +55,7 @@ import ui.modeleditor.elements.ModelElementSub;
 public class ModelSecurityCheckDialog extends BaseDialog {
 	private static final long serialVersionUID = -2678240248035761903L;
 
+	/** Hilfe-Runnable für diesen Dialog (und Unter-Dialoge) */
 	private final Runnable help;
 
 	/**
@@ -232,6 +233,9 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Tabellenmodell das die Daten zu den gefundenen Problemen vorhält
+	 */
 	private class ModelSecurityCheckTableModel extends JTableExtAbstractTableModel {
 		private static final long serialVersionUID = 3042549921461322668L;
 		private final List<CriticalElement> list;

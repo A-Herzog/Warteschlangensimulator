@@ -30,6 +30,9 @@ import javax.swing.text.Document;
 public class JPlaceholderTextField extends JTextField {
 	private static final long serialVersionUID = 7305679732549597115L;
 
+	/**
+	 * Platzhaltertext (wird angezeigt, wenn in dem Eingabefeld sonst nichts steht)
+	 */
 	private String placeholder;
 
 	/**

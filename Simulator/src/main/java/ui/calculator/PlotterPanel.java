@@ -109,10 +109,15 @@ public class PlotterPanel extends JPanel {
 	/** Datenmenge für die X-Y-Darstellung */
 	private final XYSeriesCollection data;
 
+	/** Vom Nutzer festgelegter minimaler X-Wert (der beim Klicken auf "Standardzoom" wieder eingestellt wird) */
 	private double currentUnzoomMinX=-10;
+	/** Vom Nutzer festgelegter maximaler X-Wert (der beim Klicken auf "Standardzoom" wieder eingestellt wird) */
 	private double currentUnzoomMaxX=10;
+	/** Vom Nutzer festgelegter minimaler Y-Wert (der beim Klicken auf "Standardzoom" wieder eingestellt wird) */
 	private double currentUnzoomMinY=-10;
+	/** Vom Nutzer festgelegter maximaler Y-Wert (der beim Klicken auf "Standardzoom" wieder eingestellt wird) */
 	private double currentUnzoomMaxY=10;
+	/** Wird von {@link #unzoom()}, {@link #inputXChanged()} und {@link #inputYChanged()} temporär auf <code>true</code> gesetzt, um Benachrichtigungsschleifen zu verhindern */
 	private boolean justChangingZoom=false;
 
 	/**
@@ -197,7 +202,12 @@ public class PlotterPanel extends JPanel {
 		toolbar.add(button);
 	}
 
-	private ChartPanel initChartPanel(JFreeChart chart) {
+	/**
+	 * Erstellt ein Panel in dem das Diagramm angezeigt werden soll
+	 * @param chart	Anzuzeigendes Diagramm
+	 * @return	Panel das das Diagramm enthält
+	 */
+	private ChartPanel initChartPanel(final JFreeChart chart) {
 		final ChartPanel chartPanel=new ChartPanel(
 				chart,
 				ChartPanel.DEFAULT_WIDTH,
@@ -207,15 +217,15 @@ public class PlotterPanel extends JPanel {
 				ChartPanel.DEFAULT_MAXIMUM_DRAW_WIDTH,
 				ChartPanel.DEFAULT_MAXIMUM_DRAW_HEIGHT,
 				ChartPanel.DEFAULT_BUFFER_USED,
-				true,  // properties
-				false,  // save
-				true,  // print
-				true,  // zoom
-				true   // tooltips
+				true,  /* properties */
+				false,  /* save */
+				true,  /* print */
+				true,  /* zoom */
+				true   /* tooltips */
 				);
 		chartPanel.setPopupMenu(null);
 		chart.setBackgroundPaint(null);
-		//chart.getPlot().setBackgroundPaint(Color.WHITE);
+		/* chart.getPlot().setBackgroundPaint(Color.WHITE); */
 		chart.getPlot().setBackgroundPaint(new GradientPaint(1,0,new Color(0xFA,0xFA,0xFF),1,150,new Color(0xEA,0xEA,0xFF)));
 		TextTitle t=chart.getTitle();
 		if (t!=null) {Font f=t.getFont(); t.setFont(new Font(f.getFontName(),Font.PLAIN,f.getSize()-4));}
@@ -298,6 +308,13 @@ public class PlotterPanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Zeichnet das Diagramm in eine Bitmap
+	 * @param chart	Zu zeichnendes Diagramm
+	 * @param width	Breite des Bitmaps
+	 * @param height	Höhe des Bitmaps
+	 * @return	Bitmap in das das Diagramm gezeichnet wurde
+	 */
 	private static BufferedImage draw(JFreeChart chart, int width, int height) {
 		final BufferedImage img=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
 		final Graphics2D g2=img.createGraphics();
@@ -349,6 +366,9 @@ public class PlotterPanel extends JPanel {
 		try {return ImageIO.write(image,s,file);} catch (IOException e) {return false;}
 	}
 
+	/**
+	 * Wird aufgerufen, wenn der Nutzer den minimalen oder den maximalen X-Wert verändert.
+	 */
 	private void inputXChanged() {
 		data.removeAllSeries();
 
@@ -402,6 +422,9 @@ public class PlotterPanel extends JPanel {
 		fireRedrawDone();
 	}
 
+	/**
+	 * Wird aufgerufen, wenn der Nutzer den minimalen oder den maximalen Y-Wert verändert.
+	 */
 	private void inputYChanged() {
 		final Double minD=NumberTools.getDouble(inputMinY,true);
 		final Double maxD=NumberTools.getDouble(inputMaxY,true);
@@ -448,8 +471,17 @@ public class PlotterPanel extends JPanel {
 		inputXChanged();
 	}
 
+	/**
+	 * Listener die nach dem Neuzeichnen benachrichtigt werden sollen
+	 * @see #fireRedrawDone()
+	 */
 	private Set<Runnable> redrawDoneListeners=new HashSet<>();
 
+	/**
+	 * Benachrichtigt die Listener die nach dem Neuzeichnen benachrichtigt werden sollen
+	 * @see #addRedrawDoneListener(Runnable)
+	 * @see #removeRedrawDoneListener(Runnable)
+	 */
 	private void fireRedrawDone() {
 		for (Runnable listener: redrawDoneListeners) listener.run();
 	}
@@ -468,7 +500,7 @@ public class PlotterPanel extends JPanel {
 	 * @param redrawDoneListener	Listener, der nach einem Neuzeichnen nicht mehr benachrichtigt werden soll
 	 * @return	Gibt an, ob der Listener aus der Liste der Callbacks, die nach einem Neuzeichnen benachrichtigt werden sollen, entfernt werden konnte.
 	 */
-	public boolean reoveRedrawDoneListener(final Runnable redrawDoneListener) {
+	public boolean removeRedrawDoneListener(final Runnable redrawDoneListener) {
 		return redrawDoneListeners.remove(redrawDoneListener);
 	}
 

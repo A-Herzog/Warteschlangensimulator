@@ -73,11 +73,39 @@ public final class SimThread extends Thread {
 	 */
 	public long simDoneTime;
 
+	/**
+	 * Referenz auf den EventManager<br>
+	 * Wird von {@link #run()} aus {@link #simData} übernommen.
+	 */
 	private EventManager eventManager;
 
+	/**
+	 * Soll die Simulation abgebrochen werden?
+	 * {@link #directAbortThread()}
+	 */
 	private volatile boolean abortSimulation;
+
+	/**
+	 * Gibt an, ob die Simulation angehalten oder fortgesetzt werden soll.
+	 * @see #pauseExecution()
+	 * @see #resumeExecution()
+	 */
 	private volatile boolean pauseSimulation;
+
+	/**
+	 * Weist den Simulationsthread an, fortzufahren.
+	 * @see #resumeExecution()
+	 * @see #stepExecution()
+	 */
 	private volatile boolean doStepOrContinue;
+
+	/**
+	 * Synchronisationsobjekt um das Ende einer Pause
+	 * (für normale Fortsetzung oder für die Schrittausführung)
+	 * zu signalisieren.
+	 * @see #resumeExecution()
+	 * @see #stepExecution()
+	 */
 	private final Object pauseObject=new Object();
 
 	/**
@@ -119,7 +147,7 @@ public final class SimThread extends Thread {
 	 * Arbeitsroutine des Simulationsthreads
 	 */
 	@Override
-	public final void run() {
+	public void run() {
 		simStartTime=System.currentTimeMillis();
 
 		/* Ggf. Simulationsdaten erst im (NUMA-)Kontext des Threads allokieren. */
@@ -167,6 +195,14 @@ public final class SimThread extends Thread {
 		simDoneTime=System.currentTimeMillis();
 	}
 
+	/**
+	 * Tritt innerhalb der Simulationsthreads eine nicht behandelte
+	 * Exception auf, so wird der Stack-Trace über diese Methode
+	 * in einen String umgewandelt, so dass {@link #run()} entsprechende
+	 * Daten an {@link SimData#catchException(String)} übergeben kann.
+	 * @param trace	Stack-Trace
+	 * @return	Stack-Trace als String
+	 */
 	private String traceInfo(StackTraceElement[] trace) {
 		if (trace==null) return "";
 		final StringBuilder sb=new StringBuilder();

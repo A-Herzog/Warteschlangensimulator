@@ -41,8 +41,11 @@ import ui.help.Help;
 public class QueueingCalculatorDialog extends BaseDialog {
 	private static final long serialVersionUID = 1388546809132066439L;
 
+	/** Anzeigebereich für die Erklärungen */
 	private final JTextPane help;
+	/** Register */
 	private final JTabbedPane tabs;
+	/** Seiten des Dialogs */
 	private final List<QueueingCalculatorTabBase> pages;
 
 	/**

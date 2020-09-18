@@ -60,17 +60,29 @@ import ui.modeleditor.elements.ModelElementText;
 public class ModelGeneratorPanel extends JPanel {
 	private static final long serialVersionUID = -8231845358497240268L;
 
+	/** Anzahl an Kundentypen */
 	private final SpinnerNumberModel spinnerClientTypes;
+	/** Verschiedene  Prioritäten? */
 	private final JCheckBox checkPriorities;
+	/** Ankunfts-Batch-Größe */
 	private final SpinnerNumberModel spinnerArrivalBatch;
+	/** Bedien-Batch-Größe */
 	private final SpinnerNumberModel spinnerServiceBatch;
+	/** Bedienzeitenverteilung */
 	private final JComboBox<String> comboServiceDistribution;
+	/** Auslastung der Bediener */
 	private final JComboBox<String> comboServiceUtilization;
+	/** Bedienreihenfolge */
 	private final JComboBox<String> comboServiceDiscipline;
+	/** Anzahl an Bedienstationen */
 	private final SpinnerNumberModel spinnerStationCount;
+	/** Bediener zwischen den Stationen teilen? */
 	private final JCheckBox checkSharedResource;
+	/** Auswahl der Bedienstation (zufällig oder kürzeste Warteschlange) */
 	private final JComboBox<String> comboSelectQueue;
+	/** Begrenzte Wartezeittoleranz verwenden? */
 	private final JCheckBox	checkWaitingTimeTolerance;
+	/** Visualisierungen zum Modell hinzufügen? */
 	private final JCheckBox checkAddVisualization;
 
 	/**
@@ -165,6 +177,10 @@ public class ModelGeneratorPanel extends JPanel {
 		checkAddVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.WIP"),true);
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden, wenn die Einstellungen verändert wurden.
+	 * @see #fireModelChanged()
+	 */
 	private Set<Runnable> modelChangeListeners=new HashSet<>();
 
 	/**
@@ -185,6 +201,11 @@ public class ModelGeneratorPanel extends JPanel {
 		return modelChangeListeners.remove(modelChangeListener);
 	}
 
+	/**
+	 * Benachrichtigt die Listener über Änderungen an den Einstellungen.
+	 * @see #addModelChangeListener(Runnable)
+	 * @see #removeModelChangeListener(Runnable)
+	 */
 	private void fireModelChanged() {
 		modelChangeListeners.stream().forEach(listener->listener.run());
 	}

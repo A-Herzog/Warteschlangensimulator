@@ -38,7 +38,9 @@ import ui.modeleditor.elements.ModelElementSub;
 public class StationStatisticsDialog extends BaseDialog {
 	private static final long serialVersionUID=-3653892607306372543L;
 
+	/** Liste der Stationen */
 	private final List<Record> listRecords;
+	/** Datenmodell für die Liste der Stationen */
 	private final DefaultListModel<JCheckBox> listModel;
 
 	/**

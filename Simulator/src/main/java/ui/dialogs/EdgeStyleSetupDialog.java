@@ -47,14 +47,22 @@ import ui.modeleditor.elements.ModelElementEdge;
 public class EdgeStyleSetupDialog extends BaseDialog {
 	private static final long serialVersionUID = 5850107078223112820L;
 
+	/** Darstellung von nicht-selektierten Verbindungskanten */
 	private final ComplexLine edgeNormal;
+	/** Darstellung von selektierten Verbindungskanten */
 	private final ComplexLine edgeSelected;
 
+	/** Auswahl der Darstellung von Verbindungskanten im Allgemeinen (gerade, abgewinkelt, ...) */
 	private final JComboBox<String> lineMode;
+	/** Auswahl der Linienbreite von nicht-selektierten Verbindungskanten */
 	private final JComboBox<JLabel> lineWidthNormal;
+	/** Auswahl der Darstellung von nicht-selektierten Verbindungskanten */
 	private final JComboBox<JLabel> lineTypeNormal;
+	/** Auswahl der Linienbreite von selektierten Verbindungskanten */
 	private final JComboBox<JLabel> lineWidthSelected;
+	/** Auswahl der Darstellung von selektierten Verbindungskanten */
 	private final JComboBox<JLabel> lineTypeSelected;
+	/** Farbwähler */
 	private final SmallColorChooser colorChooser;
 
 	/**

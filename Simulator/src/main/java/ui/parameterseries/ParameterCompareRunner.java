@@ -31,8 +31,11 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class ParameterCompareRunner {
+	/** Wird aufgerufen, wenn Ergebnisse vorliegen und die Tabelle angepasst werden soll */
 	private final Consumer<Integer> updateTable;
+	/** Wird aufgerufen, wenn die Verarbeitung beendet wurde (sowohl wenn alle Modelle erfolgreich zu Ende simuliert wurden als auch wenn die Verarbeitung abgebrochen wurde) */
 	private final Consumer<Boolean> whenDone;
+	/** Wird aufgerufen, wenn Logging-Daten ausgegeben werden sollen */
 	private final Consumer<String> logOutput;
 
 	private int parallelRuns;

@@ -36,10 +36,14 @@ import parser.symbols.CalcSymbolPreOperatorAbs;
  * @see CalcSystem
  */
 public final class CalcParser {
+	/** Symbole, die als 1-Zeichen-Tokens erkannt werden sollen */
 	private static final char[] simpleStrings=new char[]{'(','{','[',')',']','}','|',';'};
+	/** Wie die Symbole aus {@link #simpleStrings} interpretiert werden sollen */
 	private static final char[] simpleSymbols=new char[]{'(','(','(',')',')',')','|',';'};
 
+	/** Liste der bekannten Symbole */
 	private final CalcSymbolList symbolList;
+	/** Namen aller Symbole in Kleinbuchstaben */
 	private final String[] allSymbols;
 
 	/**
@@ -52,6 +56,12 @@ public final class CalcParser {
 		allSymbols=symbolList.getAllSymbolNamesLower();
 	}
 
+	/**
+	 * Zwichenspeicherung des {@link StringBuilder}-Objektes,
+	 * welches zum Prüfen, ob es sich bei einem Text um eine
+	 * Zahl handelt, verwendet wird.
+	 * @see #getNumber(String)
+	 */
 	private StringBuilder numberParser;
 
 	private Object[] getNumber(String text) {
@@ -160,6 +170,12 @@ public final class CalcParser {
 		 */
 	}
 
+	/**
+	 * Zerlegt einen String in eine Liste aus Tokens.
+	 * @param text	Zu zerlegender String
+	 * @return	Liefert im Erfolgsfall eine Liste aus Tokens, sonst die Position an der der Fehler aufgetreten ist.
+	 * @see #parse(String)
+	 */
 	private Object splitString(String text) {
 		int position=0;
 		List<Object> tokens=new ArrayList<>();

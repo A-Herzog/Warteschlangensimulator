@@ -128,7 +128,7 @@ import ui.statistics.StatisticTools;
  * @see EditorPanelBase
  * @author Alexander Herzog
  */
-public class EditorPanel extends EditorPanelBase {
+public final class EditorPanel extends EditorPanelBase {
 	private static final long serialVersionUID = 871808238984135272L;
 
 	private boolean guiReady=false; /* Brauchen wir, wenn der Code von ProGuard verändert wird */
@@ -538,7 +538,7 @@ public class EditorPanel extends EditorPanelBase {
 	 * @param icon	Pfad zu dem Icon, das in dem Symbolleisten-Eintrag angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
 	 * @return	Neu erstellter Symbolleisten-Eintrag
 	 */
-	protected final JButton createToolbarButton(final JToolBar toolbar, final String title, final String hint, final Icon icon) {
+	protected JButton createToolbarButton(final JToolBar toolbar, final String title, final String hint, final Icon icon) {
 		JButton button=new JButton(title);
 		if (toolbar!=null) toolbar.add(button);
 		if (hint!=null) button.setToolTipText(hint);

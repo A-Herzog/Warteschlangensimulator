@@ -39,6 +39,7 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class ModelElementLogicWithConditionDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = -5924170933747046706L;
 
+	/** Eingabefeld für die Bedingung */
 	private JTextField condition;
 
 	/**

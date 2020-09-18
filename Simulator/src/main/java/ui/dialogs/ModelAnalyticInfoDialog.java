@@ -45,6 +45,12 @@ import ui.statistics.analyticcompare.AnalyticInfo;
 public class ModelAnalyticInfoDialog extends BaseDialog {
 	private static final long serialVersionUID = -464947739154264213L;
 
+	/**
+	 * Der Text-Builder nimmt die Ausgaben der Analyse auf und
+	 * überträgt diese in das Ausgabe {@link JTextPane} bzw.
+	 * stellt die Daten zum Speichern in einer Datei bereit.
+	 * @see #buildText(AnalyticInfo, ui.statistics.analyticcompare.AnalyticInfo.SimulationResults)
+	 */
 	private StyledTextBuilder textBuilder=new StyledTextBuilder();
 
 	/**

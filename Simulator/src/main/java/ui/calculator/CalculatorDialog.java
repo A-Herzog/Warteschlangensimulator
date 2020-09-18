@@ -53,6 +53,7 @@ import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
 import systemtools.SmallColorChooser;
 import tools.SetupData;
+import ui.calculator.PlotterPanel.Graph;
 import ui.expressionbuilder.ExpressionBuilder;
 import ui.help.Help;
 import ui.images.Images;
@@ -205,10 +206,20 @@ public class CalculatorDialog extends BaseDialog {
 		setLocationRelativeTo(getOwner());
 	}
 
+	/**
+	 * Veränderte Einstellungen zu der Wahrscheinlichkeitsverteilung an den Plotter übertragen.
+	 */
 	private void updateDistribution() {
 		if (distributionEditor!=null) distributionPlotter.setDistribution(distributionEditor.getDistribution());
 	}
 
+	/**
+	 * Erzeugt eine Eingabezeile mit zugehörigem Label
+	 * @param labelText	Beschriftungstext
+	 * @param value	Initialer Text für die Eingabezeile
+	 * @param size	Länge der Eingabezeile; wird hier ein Wert &le;0 angegeben, so wird die maximal mögliche Breite verwendet
+	 * @return	Array aus: Panel das Beschriftung und Eingabezeile enthält und Eingabezeile selbst
+	 */
 	private static final Object[] getInputPanel(final String labelText, final String value, final int size) {
 		JPanel panel;
 		JLabel label;
@@ -246,6 +257,11 @@ public class CalculatorDialog extends BaseDialog {
 		return new Object[]{panel,field};
 	}
 
+	/**
+	 * Berechnet einen Ausdruck
+	 * @param expression	Zu berechnender Ausdruck
+	 * @return	Liefert das Ergebnis als Zeichenkette oder eine Fehlermeldung
+	 */
 	private String calc(final String expression) {
 		final ExpressionCalc calc=new ExpressionCalc(null);
 		final int error=calc.parse(expression);
@@ -259,6 +275,14 @@ public class CalculatorDialog extends BaseDialog {
 		return NumberTools.formatNumberMax(d);
 	}
 
+	/**
+	 * Erzeugt eine Eingabezeile für den Funktionsplotter
+	 * @param plotter	Zugehöriger Plotter
+	 * @param expression	Initialer Wert für den Ausdruck
+	 * @param color	Initiale Farbe für den entsprechenden Graphen
+	 * @return	Array aus: Panel das Beschriftung und Eingabezeile enthält und Eingabezeile selbst
+	 * @see #getInputPanel(String, String, int)
+	 */
 	private JPanel getPlotterInputLine(final PlotterPanel plotter, final String expression, final Color color) {
 		final PlotterPanel.Graph graph=new PlotterPanel.Graph(expression,color);
 		plotter.getGraphs().add(graph);
@@ -308,6 +332,12 @@ public class CalculatorDialog extends BaseDialog {
 		return panel;
 	}
 
+	/**
+	 * Überträgt die gewählte Farbe aus einem {@link Graph}-Objekt
+	 * auf eine Farbauswahl-Schaltfläche.
+	 * @param colorButton	Schaltfläche auf der die Farbe angezeigt werden soll
+	 * @param graph	Graph aus dem die Farbe ausgelesen werden soll
+	 */
 	private void setupColorButton(final JButton colorButton, final PlotterPanel.Graph graph) {
 		final BufferedImage image;
 		image=new BufferedImage(16,16,BufferedImage.TYPE_4BYTE_ABGR);
@@ -319,6 +349,11 @@ public class CalculatorDialog extends BaseDialog {
 		colorButton.setIcon(new ImageIcon(image));
 	}
 
+	/**
+	 * Zeigt ein  Popup-Menü zur Auswahl der Farbe für einen Graphen an.
+	 * @param colorButton	Aufrufendes Button an dem das Popup-Menü ausgerichtet wird (und dessen Farbeinstellung ggf. automatisch aktualisiert wird)
+	 * @param graph	Graph-Objekt aus dem die bisherige Farbe ausgelesen wird und in dem auch ggf. die neue Farbe gespeichert wird
+	 */
 	private void selectColor(final JButton colorButton, final PlotterPanel.Graph graph) {
 		final JPopupMenu popupMenu=new JPopupMenu();
 

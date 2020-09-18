@@ -51,10 +51,15 @@ public class SpecialPanel extends JPanel {
 	/** Tooltip für die "Schließen"-Schaltfläche */
 	public static String buttonCloseHint="Schließt die aktuelle Ansicht";
 
+	/** Objekt vom Typ <code>Runnable</code> welches aktiviert wird, wenn das Panel seine Arbeit beendet hat und sich schließen möchte (was es durch den Aufruf von <code>close</code> kenntlich macht) */
 	private final Runnable closePanel;
+	/** Toolbar des Panels */
 	private JToolBar toolbar=null;
+	/** "Schließen"-Schaltfläche */
 	private JButton closeButton=null;
+	/** Benutzerdefinierte Schaltflächen auf dem Toolbar */
 	private List<JButton> userButtons=new ArrayList<>();
+	/** Listener, der benachrichtigt wird, wenn eine Schaltflächen auf dem Toolbar angeklickt wird */
 	private ButtonListener buttonListener=new ButtonListener();
 	private JLabel waitIndicator=null;
 
@@ -81,7 +86,7 @@ public class SpecialPanel extends JPanel {
 	}
 
 	/**
-	 * Signalisiert dem übergerodneten Panel, dass dieses Panel seine Arbeit beendet hat und entfernt werden kann.
+	 * Signalisiert dem übergeordneten Panel, dass dieses Panel seine Arbeit beendet hat und entfernt werden kann.
 	 */
 	protected void close() {
 		if (closePanel!=null) SwingUtilities.invokeLater(closePanel);
@@ -96,6 +101,10 @@ public class SpecialPanel extends JPanel {
 		close();
 	}
 
+	/**
+	 * Richtet {@link #toolbar} ein, sofern dieser
+	 * noch <code>null</code> ist.
+	 */
 	private void initToolbar() {
 		if (toolbar!=null) return;
 
@@ -112,6 +121,13 @@ public class SpecialPanel extends JPanel {
 		waitIndicator.setBorder(BorderFactory.createEmptyBorder(5,5,0,15));
 	}
 
+	/**
+	 * Fügt eine Schaltfläche auf dem Toolbar hinzu
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Optionaler Tooltip (kann <code>null</code> sein)
+	 * @param icon	Optionales Icon (kann <code>null</code> sein)
+	 * @return	Liefert das neue (bereits hinzugefügte) Button
+	 */
 	private JButton addButtonInt(final String title, final String hint, final URL icon) {
 		initToolbar();
 		JButton button=new JButton(title);
@@ -172,6 +188,9 @@ public class SpecialPanel extends JPanel {
 	 */
 	protected void userButtonClick(int index, JButton button) {}
 
+	/**
+	 * Auf das Anklicken einer Schaltfläche im Toolbar reagieren.
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

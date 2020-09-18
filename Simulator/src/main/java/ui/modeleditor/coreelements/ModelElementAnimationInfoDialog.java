@@ -53,9 +53,13 @@ import ui.images.Images;
 public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private static final long serialVersionUID = 2428681388058860543L;
 
+	/** Timer für automatische Aktualisierungen */
 	private Timer timer=null;
+	/** Anzuzeigender Text im Content-Bereich */
 	private final Supplier<String> info;
+	/** Ausgabebereich */
 	private final JTextArea textArea;
+	/** Schaltfläche zum Umschalten zwischen automatischer und manueller Aktualisierung */
 	private final JButton buttonAutoUpdate;
 
 	/**

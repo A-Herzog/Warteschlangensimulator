@@ -33,8 +33,11 @@ import simcore.eventcache.EventCache;
  * @see EventManager
  */
 public abstract class EventManagerBase implements EventManager {
+	/** Anzahl der ausgeführten Ereignisse */
 	private long eventExecutionCount;
+	/** Abbruch der Simulationsschleife */
 	private boolean abortSimulation;
+	/** Signalisiert, dass die Simulation unterbrochen werden soll und dass {@link #executeNextEvents(SimData, int, int)} nach dem Ende der Ausführung des aktuellen Ereignisses direkt zurückkehren soll. */
 	private boolean pauseSimulation;
 
 	/**

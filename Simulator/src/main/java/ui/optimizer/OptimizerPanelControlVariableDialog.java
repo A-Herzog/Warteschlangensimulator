@@ -61,23 +61,78 @@ import ui.statistics.StatisticViewerFastAccessDialog;
 public class OptimizerPanelControlVariableDialog extends BaseDialog {
 	private static final long serialVersionUID = 8393259199855388278L;
 
+	/**
+	 * Editor-Modell, aus dem ein xml-Modell für die Auswahl eines xml-Elements abgeleitet werden kann
+	 */
 	private final EditModel model;
 
+	/**
+	 * Typ der Kontrollvariable
+	 * @see #cardsPanel
+	 */
 	private final JComboBox<String> modeCombo;
 
+	/**
+	 * Panel in das die Editoren für die Kontrollvariable in Abhängigkeit vom Typ eingeblendet werden
+	 */
 	private JPanel cardsPanel;
+
+	/**
+	 * Layout für das Panel mit den Kontrollvariable-Editoren
+	 * @see #cardsPanel
+	 */
 	private CardLayout cardsLayout;
 
+	/**
+	 * Anzahl an Bedienern in einer Ressource
+	 */
 	private final JComboBox<String> resCombo;
+
+	/**
+	 * Wert einer Variable
+	 */
 	private final JComboBox<String> varCombo;
+
+	/**
+	 * XML-Element als Kontrollvariable
+	 */
 	private final JTextField xmlTagEdit;
+
+	/**
+	 * Auswahl des XML-Elements
+	 */
 	private final JButton xmlTagButton;
+
+	/**
+	 * Wie soll das XML-Element interpretiert werden?
+	 * @see ui.ModelChanger.Mode#MODE_XML
+	 */
 	private final JComboBox<String> xmlMode;
 
+	/**
+	 * Minimalwert für Kontrollvariable
+	 */
 	private final JTextField rangeFrom;
+
+	/**
+	 * Maximalwert für Kontrollvariable
+	 */
 	private final JTextField rangeTo;
+
+	/**
+	 * Muss die Kontrollvariable ganzzahlig sein?
+	 */
 	private final JCheckBox valueIsInteger;
+
+	/**
+	 * Startwer für die Kontrollvariable
+	 */
 	private final JTextField startValue;
+
+	/**
+	 * Ausgabe von Informationen zur Kontrollvariable und ihrem Startwert
+	 * @see #updateInfo()
+	 */
 	private final JLabel startValueInfo;
 
 	/**

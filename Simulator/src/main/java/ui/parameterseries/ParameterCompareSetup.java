@@ -35,9 +35,13 @@ import xml.XMLData;
  * @author Alexander Herzog
  */
 public final class ParameterCompareSetup extends XMLData implements Cloneable {
+	/** Editor-Modell, welches die Basis für die Parameterreihe darstellen soll (kann <code>null</code> sein, dann muss ein Parameterreihen-Setup geladen werden) */
 	private EditModel editModel;
+	/** Liste der zu simulierenden Modelle */
 	private final List<ParameterCompareSetupModel> models;
+	/** Liste der Eingabeparameter-Einstellungen */
 	private final List<ParameterCompareSetupValueInput> input;
+	/** Liste der Ausgabeparameter-Einstellungen */
 	private final List<ParameterCompareSetupValueOutput> output;
 
 	/**
