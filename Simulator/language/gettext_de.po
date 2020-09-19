@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 20:08+0200\n"
+"POT-Creation-Date: 2020-09-19 14:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7699,6 +7699,9 @@ msgstr "Neue Kundentyp für Batch"
 msgid "ModelDescription.Batch.Size"
 msgstr "Batch-Größe"
 
+msgid "ModelDescription.Batch.SourceClientType"
+msgstr "Ausgangskundentyp"
+
 msgid "ModelDescription.ClientIcon.Icon"
 msgstr "Neues Icon für die Kunden"
 
@@ -7914,6 +7917,9 @@ msgstr "Bedingung für Freigabe von Kunden"
 
 msgid "ModelDescription.HoldMulti.Condition"
 msgstr "Folgestation bei Bedingung \"%s\""
+
+msgid "ModelDescription.InitialValuesForVariables"
+msgstr "Initiale Variablenwerte"
 
 msgid "ModelDescription.Input.EOFMode"
 msgstr "Am Dateiende"
@@ -8217,6 +8223,15 @@ msgstr "Verzögerte Ressourcenfreigabe im allgemeinen Fall"
 
 msgid "ModelDescription.Release.Seize"
 msgstr "Zugehöriges \"Ressource belegen\"-Element"
+
+msgid "ModelDescription.Resources"
+msgstr "Bedienergruppen"
+
+msgid "ModelDescription.Resources.Schedule"
+msgstr "gemäß Schichtplan \"%s\""
+
+msgid "ModelDescription.Resources.infinite"
+msgstr "unendlich viele"
 
 msgid "ModelDescription.SectionEnd.SectionStartName"
 msgstr "Bereich"

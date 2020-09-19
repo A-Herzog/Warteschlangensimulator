@@ -917,14 +917,29 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					for (String[] property: properties.get(key)) {
 						addHeading(3,property[0]);
 						beginParagraph();
-						for (String line: property[1].split("\\n")) addLine(line);
+						addLines(property[1]);
 						endParagraph();
 					}
 				}
 			}
+			@Override
+			protected void processVariables(List<String> variables) {
+				addHeading(2,Language.tr("ModelDescription.InitialValuesForVariables"));
+				beginParagraph();
+				for (String variable: variables) addLine(variable);
+				endParagraph();
+			}
+			@Override
+			protected void processResources(final List<String> resources) {
+				addHeading(2,Language.tr("ModelDescription.Resources"));
+				beginParagraph();
+				for (String resource: resources) addLine(resource);
+				endParagraph();
+			}
 		};
 
 		descriptionBuilder.run();
+		descriptionBuilder.done();
 	}
 
 	private void outputQuantilInfoTime(final String identifier, final StatisticsDataPerformanceIndicator indicator) {

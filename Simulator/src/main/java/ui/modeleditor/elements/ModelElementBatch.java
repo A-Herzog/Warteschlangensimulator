@@ -403,6 +403,6 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		batchRecord.buildDescription(descriptionBuilder,1000);
+		batchRecord.buildDescription(null,descriptionBuilder,1000);
 	}
 }

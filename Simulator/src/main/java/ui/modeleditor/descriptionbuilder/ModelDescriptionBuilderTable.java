@@ -84,6 +84,16 @@ public class ModelDescriptionBuilderTable extends ModelDescriptionBuilder {
 		}
 	}
 
+	@Override
+	protected void processVariables(final List<String> variables) {
+		/* Variablenwerte werden in der Tabelle nicht ausgegeben */
+	}
+
+	@Override
+	protected void processResources(final List<String> resources) {
+		/* Ressourcenwerte werden in der Tabelle nicht ausgegeben */
+	}
+
 	private String encodeHTML(final String line) {
 		String result;
 		result=line.replaceAll("&","&amp;");

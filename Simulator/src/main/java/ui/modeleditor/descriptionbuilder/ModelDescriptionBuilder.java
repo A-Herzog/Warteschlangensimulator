@@ -24,8 +24,10 @@ import java.util.stream.Collectors;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
+import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -156,11 +158,23 @@ public abstract class ModelDescriptionBuilder {
 	}
 
 	/**
-	 * Erstellt den Beschreibungstext für eine Station aus den Daten der Station
+	 * Erstellt den Beschreibungstext für eine Station aus den Daten der Station.
 	 * @param station	Station, für die ein Beschreibungstext erstellt werden soll
 	 * @param properties	Eigenschaften der Station
 	 */
 	protected abstract void processStation(final ModelElementBox station, final Map<Integer,List<String[]>> properties);
+
+	/**
+	 * Erstellt den Beschreibungstext für die Ressourcen.
+	 * @param resources	Liste der Ressourcen
+	 */
+	protected abstract void processResources(final List<String> resources);
+
+	/**
+	 * Erstellt den Beschreibungstext für die Variablen.
+	 * @param variables	Liste der Variablen
+	 */
+	protected abstract void processVariables(final List<String> variables);
 
 	/**
 	 * Startet die Speicherung der Daten zu einer neuen Station
@@ -200,14 +214,49 @@ public abstract class ModelDescriptionBuilder {
 	}
 
 	/**
+	 * Wurden Informationen zu Bediern und Variablen schon ausgegeben?
+	 * @see #done()
+	 */
+	private boolean additionalInformationAdded=false;
+
+	/**
 	 * Beendet die Erfassung der Eigenschaften der aktuellen Station
 	 */
-	protected final void done() {
+	public final void done() {
 		if (currentStation!=null) {
 			if (properties.size()>0) processStation(currentStation,properties);
 			currentStation=null;
 			properties=null;
 			nextElementSuggestion=null;
+		}
+
+		if (additionalInformationAdded) return;
+		additionalInformationAdded=true;
+
+		/* Bedienergruppen */
+		if (model.resources.size()>0) {
+			final List<String> lines=new ArrayList<>();
+			for (ModelResource resource: model.resources.getResources()) {
+				final String name=resource.getName();
+				switch (resource.getMode()) {
+				case MODE_NUMBER:
+					final int count=resource.getCount();
+					if (count<0) lines.add(name+": "+Language.tr("ModelDescription.Resources.infinite")); else lines.add(name+": "+NumberTools.formatLong(count));
+					break;
+				case MODE_SCHEDULE:
+					lines.add(name+": "+String.format(Language.tr("ModelDescription.Resources.Schedule"),resource.getSchedule()));
+					break;
+				}
+			}
+			processResources(lines);
+		}
+
+		/* Initiale Werte für Variablen */
+		final Map<String,String> variables=model.getInitialVariablesWithValues();
+		if (variables.size()>0) {
+			final List<String> lines=new ArrayList<>();
+			variables.keySet().stream().sorted().forEach(name->lines.add(name+":="+variables.get(name)));
+			processVariables(lines);
 		}
 	}
 
@@ -286,7 +335,7 @@ public abstract class ModelDescriptionBuilder {
 	}
 
 	/**
-	 * Liefert die erste Kundenquell-Station aus der Liste der Stationen
+	 * Liefert die erste Kundenquelle-Station aus der Liste der Stationen
 	 * (ohne die Liste zu verändern)
 	 * @param stations	Liste der Stationen
 	 * @return	Kundenquell-Station oder <code>null</code>, wenn es keine solche gibt.
@@ -306,8 +355,8 @@ public abstract class ModelDescriptionBuilder {
 	 * Führt die Verarbeitung durch.
 	 */
 	public void run() {
+		/* Stationen */
 		final List<ModelElementBox> stations=getBoxStations();
-
 		while (stations.size()>0) {
 			ModelElementBox station=getNextElementSuggestion();
 			if (station!=null && !stations.contains(station)) station=null;
@@ -316,6 +365,8 @@ public abstract class ModelDescriptionBuilder {
 			stations.remove(station);
 			station.buildDescription(this);
 		}
+
+		/* Bedinergruppen + Initiale Werte für Variablen => done() */
 	}
 
 	/**

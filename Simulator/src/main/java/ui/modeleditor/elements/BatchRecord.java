@@ -421,10 +421,16 @@ public class BatchRecord implements Cloneable {
 
 	/**
 	 * Erstellt eine Beschreibung für den Datensatz
+	 * @param clientType	Ausgangskundentyp für den dieser Datensatz gilt (kann <code>null</code> oder leer sein, dann erfolgt keine Angabe des Ausgangskundentyps)
 	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
 	 * @param level	Start-Level für die Ausgabe. Es werden <code>level</code>, <code>level+1</code> und <code>level+2</code> verwendet.
 	 */
-	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder, final int level) {
+	public void buildDescription(final String clientType, final ModelDescriptionBuilder descriptionBuilder, final int level) {
+		/* Ausgangskundentyp */
+		if (clientType!=null && !clientType.trim().isEmpty()) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.SourceClientType"),clientType,level);
+		}
+
 		/* Batching Modus */
 		switch (batchMode) {
 		case BATCH_MODE_COLLECT:

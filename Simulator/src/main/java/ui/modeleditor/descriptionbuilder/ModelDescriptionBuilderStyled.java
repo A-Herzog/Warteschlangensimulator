@@ -27,6 +27,7 @@ import org.apache.poi.xslf.usermodel.XSLFTextShape;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.odftoolkit.simple.TextDocument;
 
+import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.statistics.PDFWriter;
 import ui.modeleditor.ModelSurfacePanel;
@@ -83,6 +84,22 @@ public class ModelDescriptionBuilderStyled extends ModelDescriptionBuilder {
 				textBuilder.endParagraph();
 			}
 		}
+	}
+
+	@Override
+	protected void processResources(final List<String> resources) {
+		textBuilder.addHeading(2,Language.tr("ModelDescription.Resources"));
+		textBuilder.beginParagraph();
+		textBuilder.addLines(resources);
+		textBuilder.endParagraph();
+	}
+
+	@Override
+	protected void processVariables(final List<String> variables) {
+		textBuilder.addHeading(2,Language.tr("ModelDescription.InitialValuesForVariables"));
+		textBuilder.beginParagraph();
+		textBuilder.addLines(variables);
+		textBuilder.endParagraph();
 	}
 
 	/**

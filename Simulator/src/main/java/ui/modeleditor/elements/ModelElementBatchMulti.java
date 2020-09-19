@@ -334,7 +334,7 @@ public class ModelElementBatchMulti extends ModelElementMultiInSingleOutBox impl
 		for (String key: batchRecords.keySet()) {
 			if (!clientTypes.stream().filter(name->name.equalsIgnoreCase(key)).findFirst().isPresent()) continue;
 
-			batchRecords.get(key).buildDescription(descriptionBuilder,level);
+			batchRecords.get(key).buildDescription(key,descriptionBuilder,level);
 			level+=10;
 		}
 	}

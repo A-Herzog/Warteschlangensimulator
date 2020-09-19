@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 20:08+0200\n"
+"POT-Creation-Date: 2020-09-19 14:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7704,6 +7704,9 @@ msgstr "Client type for batch"
 msgid "ModelDescription.Batch.Size"
 msgstr "Batch size"
 
+msgid "ModelDescription.Batch.SourceClientType"
+msgstr "Initial client type"
+
 msgid "ModelDescription.ClientIcon.Icon"
 msgstr "New icon for clients"
 
@@ -7919,6 +7922,9 @@ msgstr "Condition for releasing clients"
 
 msgid "ModelDescription.HoldMulti.Condition"
 msgstr "Next station at condition \"%s\""
+
+msgid "ModelDescription.InitialValuesForVariables"
+msgstr "Initial variable values"
 
 msgid "ModelDescription.Input.EOFMode"
 msgstr "At end of file"
@@ -8222,6 +8228,15 @@ msgstr "Delayed resource release in the general case"
 
 msgid "ModelDescription.Release.Seize"
 msgstr "Connected \"Seize resource\" element"
+
+msgid "ModelDescription.Resources"
+msgstr "Resources"
+
+msgid "ModelDescription.Resources.Schedule"
+msgstr "by schedule \"%s\""
+
+msgid "ModelDescription.Resources.infinite"
+msgstr "infinite number"
 
 msgid "ModelDescription.SectionEnd.SectionStartName"
 msgstr "Section"

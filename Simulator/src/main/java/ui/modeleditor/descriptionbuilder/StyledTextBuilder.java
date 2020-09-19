@@ -107,6 +107,23 @@ public class StyledTextBuilder {
 		lineTypes.add(0);
 	}
 
+
+	/**
+	 * Fügt mehrere Textzeilen an den Text an
+	 * @param lines	Textzeilen
+	 */
+	public void addLines(final String[] lines) {
+		if (lines!=null) for (String line: lines) addLine(line);
+	}
+
+	/**
+	 * Fügt mehrere Textzeilen an den Text an
+	 * @param lines	Textzeilen
+	 */
+	public void addLines(final List<String> lines) {
+		if (lines!=null) for (String line: lines) addLine(line);
+	}
+
 	/**
 	 * Fügt eine oder mehrere Textzeilen an den Text an
 	 * @param lines	Textzeilen; Zeilenumbrüche werden hier erkannt und die Teiltexte dann als einzelne Zeilen behandelt
