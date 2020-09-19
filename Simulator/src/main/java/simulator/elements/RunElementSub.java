@@ -233,13 +233,11 @@ public class RunElementSub extends RunElement {
 		if (client.stationInformationInt<1_000_000_000) {
 			/* Kunde bewegt sich in Submodell hinein, weiter also in internIn[...] */
 			StationLeaveEvent.sendToStation(simData,client,this,internIn[client.stationInformationInt]);
-			simData.runData.clientsAtStation(simData,this,null,1);
-			simData.runData.clientsAtStationByType(simData,this,null,client,1);
+			simData.runData.logClientEntersStation(simData,this,null,client);
 		} else {
 			/* Kunde bewegt sich aus Submodell hinaus, weiter also in connectionOut[...] */
 			StationLeaveEvent.sendToStation(simData,client,this,connectionOut[client.stationInformationInt-1_000_000_000]);
-			simData.runData.clientsAtStation(simData,this,null,-1);
-			simData.runData.clientsAtStationByType(simData,this,null,client,-1);
+			simData.runData.logClientLeavesStation(simData,this,null,client);
 		}
 	}
 }
