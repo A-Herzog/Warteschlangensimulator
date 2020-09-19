@@ -361,6 +361,9 @@ public class ExpressionCalc extends CalcSystem {
 			if (c>='a' && c<='z') continue;
 			if (c>='A' && c<='Z') continue;
 			if (c=='ä' || c=='Ä' || c=='ö' || c=='Ö' || c=='ü' || c=='Ü' || c=='_' || c=='ß') continue;
+			if (i>0) {
+				if (c>='0' && c<='9') continue;
+			}
 			return false;
 		}
 		return true;
