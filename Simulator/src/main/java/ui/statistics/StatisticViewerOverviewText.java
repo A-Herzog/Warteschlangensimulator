@@ -618,7 +618,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			for (String station: statistics.stationsTransferTimes.getNames()) {
 				final StatisticsDataPerformanceIndicator indicator=((StatisticsDataPerformanceIndicator)statistics.stationsTransferTimes.get(station));
 				final double time=indicator.getMean();
-				addLine(fullStationName(station)+": E[T]="+timeAndNumber(time),xmlMean(indicator));
+				if (time>0) addLine(fullStationName(station)+": E[T]="+timeAndNumber(time),xmlMean(indicator));
 			}
 			addModeLink(Mode.MODE_WAITINGPROCESSING_STATIONS);
 			endParagraph();
@@ -635,7 +635,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			for (String station: statistics.stationsProcessingTimes.getNames()) {
 				final StatisticsDataPerformanceIndicator indicator=((StatisticsDataPerformanceIndicator)statistics.stationsProcessingTimes.get(station));
 				final double time=indicator.getMean();
-				addLine(fullStationName(station)+": E[S]="+timeAndNumber(time),xmlMean(indicator));
+				if (time>0) addLine(fullStationName(station)+": E[S]="+timeAndNumber(time),xmlMean(indicator));
 			}
 			addModeLink(Mode.MODE_WAITINGPROCESSING_STATIONS);
 			endParagraph();
