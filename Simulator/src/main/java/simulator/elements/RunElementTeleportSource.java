@@ -58,7 +58,7 @@ public class RunElementTeleportSource extends RunElement {
 		for (ModelElement e1 : editModel.surface.getElements()) {
 			if (e1 instanceof ModelElementTeleportDestination && e1.getName().equals(name)) return (ModelElementTeleportDestination)e1;
 			if (e1 instanceof ModelElementSub) {
-				for (ModelElement e2 : editModel.surface.getElements()) {
+				for (ModelElement e2 : ((ModelElementSub)e1).getSubSurface().getElements()) {
 					if (e2 instanceof ModelElementTeleportDestination && e2.getName().equals(name)) return (ModelElementTeleportDestination)e2;
 				}
 			}
@@ -88,7 +88,7 @@ public class RunElementTeleportSource extends RunElement {
 		source.destinationString=sourceElement.getDestination();
 		if (source.destinationString.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
 		source.destinationID=getDestinationID(editModel,source.destinationString);
-		if (source.destinationID<0) return String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),destinationString);
+		if (source.destinationID<0) return String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),source.destinationString);
 
 		return source;
 	}
