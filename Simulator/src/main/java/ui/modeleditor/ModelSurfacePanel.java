@@ -40,6 +40,7 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -695,7 +696,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Öffnet den Bearbeiten-Dialog für das gewählte Element.
 	 */
 	public void editSelectedElement() {
-		showElementProperties(surface.getSelectedElement());
+		showElementProperties(surface.getSelectedElement(),0);
 	}
 
 	/**
@@ -1410,7 +1411,7 @@ public final class ModelSurfacePanel extends JPanel {
 		try {return ImageIO.write(image,format.toLowerCase(),file);} catch (IOException e) {return false;}
 	}
 
-	private void showElementProperties(final ModelElement element) {
+	private void showElementProperties(final ModelElement element, final int modifieres) {
 		if (element==null) return;
 		surface.setSelectedArea(null,zoom);
 		surface.setSelectedElement(element);
@@ -1419,6 +1420,24 @@ public final class ModelSurfacePanel extends JPanel {
 		dragCopyElement=null;
 		dragStartElementPosition=null;
 		element.setModel(model);
+
+		/* Simulationsdaten */
+		if ((modifieres & InputEvent.CTRL_DOWN_MASK)!=0 && (modifieres & InputEvent.SHIFT_DOWN_MASK)!=0 && (modifieres & InputEvent.ALT_DOWN_MASK)==0) {
+			if (element.hasAnimationStatisticsData(simData)) {
+				element.showElementAnimationStatisticsData(ModelSurfacePanel.this,simData);
+				fireStateChangeListener();
+				return;
+			}
+		}
+
+		/* Untermodell bearbeiten */
+		if ((modifieres & InputEvent.CTRL_DOWN_MASK)==0 && (modifieres & InputEvent.SHIFT_DOWN_MASK)!=0 && (modifieres & InputEvent.ALT_DOWN_MASK)==0) {
+			showElementSubEditor(surface.getSelectedElement());
+			fireStateChangeListener();
+			return;
+		}
+
+		/* Elementeigenschaften bearbeiten */
 		final Runnable propertiesRunner=element.getProperties(this,readOnly && !allowChangeOperationsOnReadOnly,clientData,sequences);
 		if (propertiesRunner!=null) {
 			propertiesRunner.run();
@@ -2210,7 +2229,7 @@ public final class ModelSurfacePanel extends JPanel {
 			/* Doppelklick: Element bearbeiten */
 			if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount()==2) {
 				setMode(ClickMode.MODE_NORMAL);
-				if (surface!=null) showElementProperties(surface.getElementAtPosition(e.getPoint(),zoom));
+				if (surface!=null) showElementProperties(surface.getElementAtPosition(e.getPoint(),zoom),e.getModifiersEx());
 				e.consume();
 				return;
 			}
@@ -2647,7 +2666,7 @@ public final class ModelSurfacePanel extends JPanel {
 			}
 
 			if (e.getKeyCode()==KeyEvent.VK_ENTER && e.isControlDown() && !e.isShiftDown() && !e.isAltDown()) {
-				showElementProperties(surface.getSelectedElement());
+				showElementProperties(surface.getSelectedElement(),0);
 				fireStateChangeListener();
 				e.consume();
 				return;
