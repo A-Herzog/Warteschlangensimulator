@@ -8,6 +8,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[1] = "Project-Id-Version: PACKAGE VERSION\nReport-Msgid-Bugs-To: \nPO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\nLast-Translator: FULL NAME <EMAIL@ADDRESS>\nLanguage-Team: LANGUAGE <LL@li.org>\nLanguage: de\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n";
     t[2] = "Schedule.SettingsDialog.15Minutes";
     t[3] = "15 Minuten";
+    t[12] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect";
+    t[13] = "Gamma-Verteilung (direkte Kenngr\u00f6\u00dfen)";
     t[18] = "Surface.DDE.Column.ErrorInfo";
     t[19] = "Die angegebene Tabellenspalte \"%s\" ist ung\u00fcltig.";
     t[20] = "Surface.Rectangle.Dialog.Rounding.Off";
@@ -1283,7 +1285,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[3402] = "ModelDescription.Delay.Mode";
     t[3403] = "Verz\u00f6gerung f\u00fcr den Kunden erfassen als";
     t[3416] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberInfo";
-    t[3417] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem ersten und zweiten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(5;3)</tt>.</p>";
+    t[3417] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem ersten und zweiten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(5;3)</tt>.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[3420] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode.Min";
     t[3421] = "Minimum";
     t[3424] = "Simulation.Log.ProcessArrival.Info";
@@ -2002,10 +2004,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5241] = "Analoge Werte";
     t[5246] = "Color.E0FFFF";
     t[5247] = "Helles Zyan";
-    t[5250] = "Surface.Batch.Name";
-    t[5251] = "Kunden zusammenfassen";
   }
   static void clinit_part_1 (java.lang.String[] t) {
+    t[5250] = "Surface.Batch.Name";
+    t[5251] = "Kunden zusammenfassen";
     t[5260] = "Surface.AnimationImage.Dialog.Images.DefaultImage";
     t[5261] = "Standardbild";
     t[5262] = "Main.Menu.Edit.Align.Middle.Mnemonic";
@@ -2501,7 +2503,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6502] = "Surface.TransportSource.XML.Route";
     t[6503] = "ModellElementTransportRoute";
     t[6508] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo";
-    t[6509] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
+    t[6509] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[6514] = "Optimizer.Tab.ControlVariables.MoveUp.Hint";
     t[6515] = "Verschiebt die aktuelle Kontrollvariable um eine Position nach oben in der Liste";
     t[6520] = "Statistic.FastAccess.Template.ChangeModel";
@@ -3064,6 +3066,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7963] = "<html><body><p style=\"font-size: larger;\">M\u00f6gliche Folgestationen f\u00fcr <b>%s</b>:</p></body></html>";
     t[7964] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByClientType";
     t[7965] = "Transport ausl\u00f6sen bei Kundentyp";
+    t[7974] = "Surface.SubConnect.FromID";
+    t[7975] = "Von id";
     t[7992] = "Statistics.ErlangCompare.Distribution.Other";
     t[7993] = "Nicht \u00fcber Verteilung definiert";
     t[8008] = "Surface.PopupMenu.SimulationStatisticsData.Data.LastLeaveByClientType";
@@ -4002,12 +4006,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10329] = "Als kritische Stationen werden all die Stationen eingestuft,\ndie bei der Simulation auf den Computer (au\u00dferhalb des Simulators)\nwirken k\u00f6nnen. Konkret sind dies die Stationen, die Werte in Dateien\noder in Datenbanken schreiben sowie alle Stationen, die Javascript-\noder Java-Code ausf\u00fchren k\u00f6nnen.";
     t[10336] = "Surface.Process.Infotext";
     t[10337] = "An Bedienstationen werden eintreffende Kunden durch einen oder mehrere Bediener einer oder mehrerer Bedienergruppen bedient. Es k\u00f6nnen dabei komplexe Regeln f\u00fcr R\u00fcstzeiten, Bedienzeiten, usw. definiert werden. ";
+  }
+  static void clinit_part_2 (java.lang.String[] t) {
     t[10338] = "Surface.Conveyor.Dialog.TransportTimeType.TransferTime";
     t[10339] = "Transferzeit";
     t[10344] = "Simulation.Log.ResourceFailure.AvailableTime";
     t[10345] = "%s-%d: Pause nach Anwesenheitszeit beginnt bei %s, Dauer: %s";
-  }
-  static void clinit_part_2 (java.lang.String[] t) {
     t[10354] = "Statistics.ClientsInQueue";
     t[10355] = "Kunden in der Warteschlange";
     t[10358] = "Simulation.Element.Icon.Name";
@@ -4814,8 +4818,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12481] = "ModellTransporterKapazitaet";
     t[12490] = "ExpressionBuilder.Repeats.RepeatCurrent";
     t[12491] = "Aktuelle Wiederholung";
-    t[12508] = "Surface.SubConnect.FromID";
-    t[12509] = "Von id";
+    t[12508] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo";
+    t[12509] = "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;1)</tt> liefert 0,78517079628442.</p>";
     t[12510] = "LoadCalculator.ArrivalBatchSize";
     t[12511] = "Ankunfts-Batch-Gr\u00f6\u00dfe";
     t[12512] = "Surface.PopupMenu.QuickFix.SourceRecord.ArrivalStart.Single";
@@ -4883,7 +4887,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12666] = "Statistics.StdDevNumberOfClients";
     t[12667] = "Standardabweichung der Anzahl an Kunden";
     t[12670] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo";
-    t[12671] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;0)</tt> liefert 0,03992278718149.</p>";
+    t[12671] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;0)</tt> liefert 0,03992278718149.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[12674] = "ExpressionBuilder.BasicArithmetics.Modulo";
     t[12675] = "Modulo";
     t[12682] = "ModelLoadData.ListRecord.Cell";
@@ -6004,12 +6008,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[15729] = "Extras";
     t[15730] = "CommandLine.Count.ThenAtLeastN";
     t[15731] = "m\u00fcssen mindestens %d weitere Parameter folgen";
+  }
+  static void clinit_part_3 (java.lang.String[] t) {
     t[15736] = "ParameterCompare.Table.MoveModelUp.Hint";
     t[15737] = "Modell in der Liste nach oben verschieben";
     t[15740] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Fast";
     t[15741] = "Autokorrelation f\u00fcr Wartezeit \u00fcber alle Kunden erfassen";
-  }
-  static void clinit_part_3 (java.lang.String[] t) {
     t[15742] = "Statistic.FastAccess.FilterList.NumberFormatLocal";
     t[15743] = "Wahl der lokalen Notation f\u00fcr Zahlen und Prozentwerte";
     t[15750] = "Animation.Icon.Hamburger";
@@ -6400,6 +6404,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[16873] = "Der angegebene Maximalwert \"%s\" ist ung\u00fcltig. Es muss eine Zahl angegeben werden.";
     t[16878] = "Statistics.AveragePathLength";
     t[16879] = "Mittlere Pfadel\u00e4nge";
+    t[16898] = "ModelDescription.SourceDB.ColumnInfo";
+    t[16899] = "Zusatzdaten Tabellenspalte";
     t[16900] = "Surface.XML.SequenceStep.Assignment";
     t[16901] = "ModellFertigungsplanSchrittZuweisung";
     t[16902] = "ModelLoadData.EditDialog.Table.Hint";
@@ -6650,6 +6656,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[17505] = "Zeigt auf der linken Seite des Fensters die Seitenleite mit den Elementvorlagen an.\nDiese Elementvorlagen k\u00f6nnen aus der Seitenleiste auf die Zeichenfl\u00e4che gezogen werden.";
     t[17506] = "Editor.GeneralData.Description.NoDescription";
     t[17507] = "Es wurde keine Beschreibung hinterlegt.";
+    t[17510] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberInfo";
+    t[17511] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem ersten und zweiten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(5;3)</tt>.</p>";
     t[17512] = "Surface.Batch.XML.Batch.SizeMax";
     t[17513] = "Maximum";
     t[17514] = "Surface.AnimationBar.Dialog.Maximum.Error.Info";
@@ -8002,6 +8010,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20865] = "Abstellplatz f\u00fcr Transporter";
     t[20866] = "Dialog.Overwrite.Title";
     t[20867] = "Vorhendene Datei \u00fcberschreiben";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[20868] = "Surface.Popup.AddVisualization.CurrentValue";
     t[20869] = "Aktueller Wert";
     t[20884] = "ModelDescription.Tank.Valve";
@@ -8010,8 +8020,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20889] = "Schrittweite";
     t[20892] = "Color.8FBC8F";
     t[20893] = "Dunkelseegr\u00fcn";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[20894] = "Batch.Parameter.Changed.UnknownResource";
     t[20895] = "Es existiert keine Ressource mit dem angegebenen Namen \"%s\".";
     t[20896] = "Distribution.Exp";
@@ -8170,6 +8178,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21273] = "Alle unterst\u00fctzten Dateiformate";
     t[21274] = "SettingsDialog.Tabs.Statistics.QuantilLevels";
     t[21275] = "Anzeige von Quantilwerten";
+    t[21276] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DensityInfo";
+    t[21277] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;0)</tt> liefert 0,07727661686311.</p>";
     t[21280] = "Surface.Line.Tooltip";
     t[21281] = "Linie zur optischen Gestaltung, ohne weitere Funktion f\u00fcr das Simulationsmodell.";
     t[21290] = "SettingsDialog.LookAndFeel.System";
@@ -10002,6 +10012,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26053] = "Tomate";
     t[26056] = "Surface.Throughput.Tooltip";
     t[26057] = "Erfasst den Durchsatz in Kunden pro Zeiteinheit durch dieses Element.";
+  }
+  static void clinit_part_5 (java.lang.String[] t) {
     t[26058] = "ExpressionBuilder.TrigonometricFunctions.Cosinus";
     t[26059] = "Cosinus";
     t[26060] = "Statistics.XML.RunTime.Error";
@@ -10012,8 +10024,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26077] = "Keine Ressource gew\u00e4hlt";
     t[26082] = "SettingsDialog.Tabs.Simulation.Server.Key";
     t[26083] = "Passwort";
-  }
-  static void clinit_part_5 (java.lang.String[] t) {
     t[26086] = "Surface.Input.Dialog.Mode.Skip";
     t[26087] = "Nach Dateiende keine Zuweisungen mehr durchf\u00fchren.";
     t[26088] = "ExpressionBuilder.SimulationCharacteristics.AnalogCurrentRate";
@@ -12004,6 +12014,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31381] = "Kreis - Gelb";
     t[31386] = "Surface.Split.Name";
     t[31387] = "Zerteilen";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[31390] = "Statistic.Viewer.SpecialText.Category";
     t[31391] = "<p>Bitte w\u00e4hlen Sie in der Baumstruktur eine <b>Kategorie</b> aus, um die entsprechenden Informationen angezeigt zu bekommen.</p>";
     t[31400] = "Statistics.XML.Element.UtilizationTransporterType";
@@ -12014,8 +12026,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31409] = "Es ist ein Fehler beim \u00d6ffnen der Datei\n%s\naufgetreten.";
     t[31410] = "Surface.AnimationBarChart.HistogramWizard.Start.ErrorTitle";
     t[31411] = "Ung\u00fcltiger Startwert";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[31422] = "ModelDescription.Input.EOFMode.DefaultValue";
     t[31423] = "Vorgabewert verwenden";
     t[31426] = "Main.Menu.Edit.CopyAsImage";
@@ -13872,8 +13882,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36215] = "Modell simulieren";
     t[36226] = "CommandLine.SetMaxThreads.Info.MultiCore";
     t[36227] = "Mehrkern-Simulation aktiviert (vorheriger Status: %s)";
-    t[36230] = "ModelDescription.SourceDB.ColumnInfo";
-    t[36231] = "Zusatzdaten Tabellenspalte";
+    t[36230] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo";
+    t[36231] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem dritten und vierten Parameter.</p>\\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[36232] = "Surface.Process.Dialog.Tab.Operators.Alternative.Delete";
     t[36233] = "L\u00f6scht die aktuelle Bedienerbelegung.";
     t[36238] = "Surface.Image.Dialog.FrameWidth";
@@ -14006,6 +14016,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36573] = "Es liegen weitere Einflussfaktoren f\u00fcr die Wartezeittoleranzen vor. Gesch\u00e4tze Parameter";
     t[36582] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Quantil";
     t[36583] = "<p>Liefert das Quantil zur Wahrscheinlichkeit p der Dauer \u00fcber alle Verweilzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (\u00fcber alle Kundentypen).</p>";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[36584] = "Statistics.ProcessTimes";
     t[36585] = "Bedienzeiten";
     t[36600] = "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error";
@@ -14016,8 +14028,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36607] = "F\u00fcgt einen neuen Eintrag zu der Liste hinzu.";
     t[36608] = "Surface.SourceTable.Dialog.ColumnOne.TimeStamps";
     t[36609] = "Zahlenwerte in Spalte 1 sind Zeitangaben";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[36616] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Median";
     t[36617] = "<p>Liefert den Median der Dauer \u00fcber alle Wartezeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
     t[36620] = "Surface.TransportTransporterSource.Dialog.SectionEnd.Use";
@@ -14601,7 +14611,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38138] = "Transporters.Group.Edit.Dialog.Times.Mode.Unloading.Distribution";
     t[38139] = "Entladezeit gem\u00e4\u00df Verteilung";
     t[38140] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo";
-    t[38141] = "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;1)</tt> liefert 0,087695308502.</p>";
+    t[38141] = "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;1)</tt> liefert 0,087695308502.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[38146] = "Statistics.AnalogValue.Flow.Stop.BySignal";
     t[38147] = "Ende bei Signal \"%s\"";
     t[38150] = "Wait.Status.Start";
@@ -16008,6 +16018,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41945] = "Ausleiten - Neuer Kunde angelegt";
     t[41946] = "ParameterCompare.Settings.List.AddVariable.Hint";
     t[41947] = "Wert einer globalen Variablen verwenden";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[41948] = "Statistic.FastAccess.FilterList.Tabulator";
     t[41949] = "Tabulator";
     t[41950] = "ExpressionBuilder.SimulationCharacteristics.ClientsInSystem.Info";
@@ -16018,8 +16030,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41955] = "Speichern fehlgeschlagen";
     t[41962] = "Surface.XML.Level";
     t[41963] = "Niveau";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[41966] = "CommandLine.Help.Error";
     t[41967] = "Es existiert kein Kommandozeilen-Befehl \"%s\".";
     t[41970] = "Main.Menu.Edit.Arrange";

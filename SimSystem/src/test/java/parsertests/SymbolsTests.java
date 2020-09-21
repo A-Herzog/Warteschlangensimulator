@@ -2840,6 +2840,57 @@ public class SymbolsTests {
 			assertTrue(false);
 		}
 
+		/* Gammaverteilung - Direct */
+
+		calc=new CalcSystem("GammaDistDirect(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{-0.1,100,6});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("GammaDistDirect(x;a;b;0)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{10,10,5});
+			assertTrue(D>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("GammaDistDirect(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{-0.1,10,5});
+			assertEquals(0,D);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("GammaDistDirect(x;a;b;1)",new String[]{"x","a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			D=calc.calc(new double[]{1000,10,5});
+			assertTrue(D>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calc6a=new CalcSystem("GammaDistDirect(x;a;b;2)",new String[]{"x","a","b"});
+		assertTrue(calc6a.parse()<0);
+		assertThrows(MathCalcError.class,()->calc6a.calc(new double[]{1000,100,6}));
+
+		calc=new CalcSystem("GammaDistDirect(a;b)",new String[]{"a","b"});
+		assertTrue(calc.parse()<0);
+		try {
+			calc.calc(new double[]{10,5});
+			/* Keine Interpretation des Zahlenwertes */
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
 		/* Inverse Gaußverteilung */
 
 		calc=new CalcSystem("InverseGaussianDist(x;l;mu;0)",new String[]{"x","l","mu"});

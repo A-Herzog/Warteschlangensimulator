@@ -98,6 +98,7 @@ import parser.symbols.distributions.CalcSymbolDistributionF;
 import parser.symbols.distributions.CalcSymbolDistributionFatigueLife;
 import parser.symbols.distributions.CalcSymbolDistributionFrechet;
 import parser.symbols.distributions.CalcSymbolDistributionGamma;
+import parser.symbols.distributions.CalcSymbolDistributionGammaDirect;
 import parser.symbols.distributions.CalcSymbolDistributionGumbel;
 import parser.symbols.distributions.CalcSymbolDistributionHyperbolicSecant;
 import parser.symbols.distributions.CalcSymbolDistributionInverseGaussian;
@@ -216,6 +217,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionNormal());
 			addSymbol(new CalcSymbolDistributionLogNormal());
 			addSymbol(new CalcSymbolDistributionGamma());
+			addSymbol(new CalcSymbolDistributionGammaDirect());
 			addSymbol(new CalcSymbolDistributionBeta());
 			addSymbol(new CalcSymbolDistributionWeibull());
 			addSymbol(new CalcSymbolDistributionCauchy());
@@ -251,6 +253,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionNormal()));
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionLogNormal()));
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionGamma()));
+			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionGammaDirect()));
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionWeibull()));
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionCauchy()));
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionChiSquare()));

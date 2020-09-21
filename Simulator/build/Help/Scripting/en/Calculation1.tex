@@ -558,6 +558,30 @@ Generates a random number based on this distribution but limits the range of the
 
 
 
+\section{Gamma distribution with mean \texorpdfstring{$a$}{a} and standard deviation \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{GammaDistDirect(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{GammaDistDirect(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{GammaDistDirect(a;b)}:
+Generates a random number based on this distribution.
+
+\item
+\cmd{GammaDistDirectRange(min;max;a;b)}:
+Generates a random number based on this distribution but limits the range of the value to $min\ldots max$.
+
+\end{itemize}
+
+
+
 \section{Beta distribution in the interval \texorpdfstring{$[a;b]$}{[a;b]} and with parameters \texorpdfstring{$\alpha=c$}{c} and \texorpdfstring{$\beta=d$}{d}}
 
 \begin{itemize}

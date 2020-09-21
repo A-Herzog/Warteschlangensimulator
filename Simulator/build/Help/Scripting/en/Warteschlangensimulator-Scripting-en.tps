@@ -18,7 +18,7 @@ Document=Warteschlangensimulator-Scripting-en.tex
 
 [Frame0_View0,0]
 TopLine=0
-Cursor=233
+Cursor=935
 
 [SessionInfo]
 FrameCount=1

@@ -224,6 +224,15 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo"));
 
+		/* Gamma-Verteilung - Direkt */
+
+		addDist(group,filterUpper,"GammaDistDirect","mean;sd",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo"));
+
 		/* Beta-Verteilung */
 
 		addDist(group,filterUpper,"BetaDist","a;b;alpha;beta",

@@ -559,6 +559,30 @@ Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass si
 
 
 
+\section{Gamma-Verteilung mit Mittelwert \texorpdfstring{$a$}{a} und Standardabweichung \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{GammaDistDirect(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{GammaDistDirect(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{GammaDistDirect(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
+
+\item
+\cmd{GammaDistDirectRange(min;max;a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von $min$ bis $max$ befindet.
+
+\end{itemize}
+
+
+
 \section{Beta-Verteilung in dem Intervall \texorpdfstring{$[a;b]$}{[a;b]} und mit Parametern \texorpdfstring{$\alpha=c$}{c} und \texorpdfstring{$\beta=d$}{d}}
 
 \begin{itemize}
