@@ -382,6 +382,9 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByType")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationQueue")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsInSystemQueue")+","+Language.trPrimary("Statistics.XML.ClientType"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByType")+","+Language.trPrimary("Statistics.XML.ClientType"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationQueueByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 
 				/* Ressourcen */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.UtilizationCountParent")+","+Language.trPrimary("Statistics.XML.Element.UtilizationCount"),
