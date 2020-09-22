@@ -65,15 +65,7 @@ public class JQuickAccessBuilder {
 		this.searchInPreText=searchInPreText;
 	}
 
-	private String test(final String pre, final String text) {
-		final int index1=(pre!=null)?pre.toLowerCase().indexOf(quickAccessTextLower):-1;
-		final int index2=text.toLowerCase().indexOf(quickAccessTextLower);
-		if (searchInPreText) {
-			if (index1<0 && index2<0) return null;
-		} else {
-			if (index2<0) return null;
-		}
-
+	private String buildResultText(final String pre, final String text, final int index1, final int index2) {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("<html><body>");
 
@@ -106,20 +98,54 @@ public class JQuickAccessBuilder {
 		return sb.toString();
 	}
 
+	private String test(final String pre, final String text) {
+		final int index1=(pre!=null)?pre.toLowerCase().indexOf(quickAccessTextLower):-1;
+		final int index2=text.toLowerCase().indexOf(quickAccessTextLower);
+		if (searchInPreText) {
+			if (index1<0 && index2<0) return null;
+		} else {
+			if (index2<0) return null;
+		}
+
+		return buildResultText(pre,text,-index1,index2);
+	}
+
+	private String testPlainResult(final String pre, final String text) {
+		final int index1=(pre!=null)?pre.toLowerCase().indexOf(quickAccessTextLower):-1;
+		final int index2=text.toLowerCase().indexOf(quickAccessTextLower);
+		if (searchInPreText) {
+			if (index1<0 && index2<0) return null;
+		} else {
+			if (index2<0) return null;
+		}
+
+		return buildResultText(pre,text,-1,-1);
+	}
+
 	/**
 	 * Prüft, ob ein Datensatz zu dem Suchbegriff passt und erstellt ggf. einen Schnellzugriffeintrag
 	 * @param pre	Vorspanntext (darf <code>null</code> sein)
 	 * @param text	Eigentlicher Text für den Eintrag
+	 * @param moreTexts	Optionale weitere Text, die bei der Suche berücksichtigt werden, aber nicht in die Ergebnisanzeige einbezogen werden
 	 * @param tooltip	Anzuzeigender Tooltip (wird <code>null</code> übergeben, so wird der Standardtext verwendet)
 	 * @param icon	Optionales Icon (darf <code>null</code> sein)
 	 * @param action	Beim Anklicken auszuführende Aktion
 	 * @param data	Zusätzliche Daten die in dem Schnellzugriffeintrag hinterlegt werden sollen (und später von der Aktion ausgewertet werden können)
 	 */
-	public void test(final String pre, final String text, final String tooltip, final Icon icon, final Consumer<JQuickAccessRecord> action, final Object data) {
+	public void test(final String pre, final String text, final String[] moreTexts, final String tooltip, final Icon icon, final Consumer<JQuickAccessRecord> action, final Object data) {
 		final String textDisplay=test(pre,text);
-		if (textDisplay==null) return;
+		if (textDisplay!=null) {
+			list.add(new JQuickAccessRecord(category,text,textDisplay,(tooltip==null)?categoryTooltip:tooltip,icon,action,data));
+			return;
+		}
 
-		list.add(new JQuickAccessRecord(category,text,textDisplay,(tooltip==null)?categoryTooltip:tooltip,icon,action,data));
+		if (moreTexts!=null) for (String more: moreTexts) {
+			final String moreDisplay=testPlainResult(pre,more);
+			if (moreDisplay!=null) {
+				list.add(new JQuickAccessRecord(category,text,textDisplay,(tooltip==null)?categoryTooltip:tooltip,icon,action,data));
+				return;
+			}
+		}
 	}
 
 	/**
@@ -150,7 +176,20 @@ public class JQuickAccessBuilder {
 	 * @param data	Zusätzliche Daten die in dem Schnellzugriffeintrag hinterlegt werden sollen (und später von der Aktion ausgewertet werden können)
 	 */
 	public void test(final String pre, final String text, final Icon icon, final Consumer<JQuickAccessRecord> action, final Object data) {
-		test(pre,text,null,icon,action,data);
+		test(pre,text,null,null,icon,action,data);
+	}
+
+	/**
+	 * Prüft, ob ein Datensatz zu dem Suchbegriff passt und erstellt ggf. einen Schnellzugriffeintrag
+	 * @param pre	Vorspanntext (darf <code>null</code> sein)
+	 * @param text	Eigentlicher Text für den Eintrag
+	 * @param moreTexts	Optionale weitere Text, die bei der Suche berücksichtigt werden, aber nicht in die Ergebnisanzeige einbezogen werden
+	 * @param icon	Optionales Icon (darf <code>null</code> sein)
+	 * @param action	Beim Anklicken auszuführende Aktion
+	 * @param data	Zusätzliche Daten die in dem Schnellzugriffeintrag hinterlegt werden sollen (und später von der Aktion ausgewertet werden können)
+	 */
+	public void test(final String pre, final String text, final String[] moreTexts, final Icon icon, final Consumer<JQuickAccessRecord> action, final Object data) {
+		test(pre,text,moreTexts,null,icon,action,data);
 	}
 
 	/**
@@ -174,7 +213,7 @@ public class JQuickAccessBuilder {
 	 * @param action	Beim Anklicken auszuführende Aktion
 	 */
 	public void test(final String pre, final String text, final String tooltip, final Icon icon, final Consumer<JQuickAccessRecord> action) {
-		test(pre,text,tooltip,icon,action,null);
+		test(pre,text,null,tooltip,icon,action,null);
 	}
 
 	/**

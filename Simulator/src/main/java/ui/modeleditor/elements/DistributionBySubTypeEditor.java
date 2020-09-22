@@ -310,7 +310,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 		subTypeLast=subTypeSelect.getSelectedIndex();
 		final String clientTypeName=(subTypeLast==0)?null:subTypes[subTypeLast-1];
 		useGlobal.setVisible(subTypeLast>0);
-		localIsActive.setVisible(subTypeLast==0 && data.hasSubTypeData()); // XXX + nur wenn Untereinträge aktiv
+		localIsActive.setVisible(subTypeLast==0 && data.hasSubTypeData());
 		useGlobal.setEnabled(subTypeLast>0 && !readOnly);
 		Object obj=data.get(clientTypeName);
 		boolean isFallBack=false;

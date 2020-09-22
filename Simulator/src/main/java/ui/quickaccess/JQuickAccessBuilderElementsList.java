@@ -22,7 +22,9 @@ import ui.images.Images;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.modeleditor.elements.ModelElementVertex;
 
 /**
  * Erstellt Schnellzugriffeinträge basierend auf der Liste der Element im Modell
@@ -49,10 +51,11 @@ public class JQuickAccessBuilderElementsList extends JQuickAccessBuilder {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementBox) processElement((ModelElementBox)element,callback);
 			if (element instanceof ModelElementSub) work(((ModelElementSub)element).getSubSurface(),selectElement);
+			if (element instanceof ModelElementVertex) processElement((ModelElementVertex)element,callback);
 		}
 	}
 
-	private void processElement(final ModelElementBox element, final Consumer<JQuickAccessRecord> selectElement) {
+	private void processElement(final ModelElementPosition element, final Consumer<JQuickAccessRecord> selectElement) {
 		final String name;
 		if (element.getName().isEmpty()) {
 			name="id="+element.getId();
@@ -60,6 +63,7 @@ public class JQuickAccessBuilderElementsList extends JQuickAccessBuilder {
 			name="\""+element.getName()+"\" (id="+element.getId()+")";
 		}
 
-		test(element.getTypeName(),name,Images.MODEL_ADD_STATION.getIcon(),selectElement,element.getId());
+		final String pre=(element instanceof ModelElementBox)?((ModelElementBox)element).getTypeName():element.getContextMenuElementName();
+		test(pre,name,new String[]{""+element.getId()},Images.MODEL_ADD_STATION.getIcon(),selectElement,element.getId());
 	}
 }

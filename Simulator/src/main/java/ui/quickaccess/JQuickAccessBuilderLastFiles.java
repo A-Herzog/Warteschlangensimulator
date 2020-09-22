@@ -51,7 +51,7 @@ public class JQuickAccessBuilderLastFiles extends JQuickAccessBuilder {
 		if (setup.lastFiles!=null && setup.useLastFiles) for (String lastFile: setup.lastFiles) if (lastFile!=null) {
 			final File file=new File(lastFile);
 			if (!file.isFile()) continue;
-			test(pre,file.getName(),hint+file.toString(),Images.MODEL_LOAD.getIcon(),callback,file);
+			test(pre,file.getName(),null,hint+file.toString(),Images.MODEL_LOAD.getIcon(),callback,file);
 		}
 	}
 }
