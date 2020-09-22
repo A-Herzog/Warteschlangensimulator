@@ -277,6 +277,11 @@ public class SetupData extends SetupBase {
 	public boolean showIDs;
 
 	/**
+	 * Stationbeschreibungen in den Tooltips anzeigen?
+	 */
+	public boolean showStationDescription;
+
+	/**
 	 * Schrift auf der Zeichenfläche glätten
 	 */
 	public boolean antialias;
@@ -834,6 +839,7 @@ public class SetupData extends SetupBase {
 		imagePathAnimation="";
 		grid=ModelSurface.Grid.LINES;
 		showIDs=false;
+		showStationDescription=false;
 		antialias=true;
 		imagesInline=true;
 		reportSettings="";
@@ -1195,8 +1201,8 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
-			if (name.equals("antialias")) {
-				antialias=loadBoolean(e.getTextContent(),true);
+			if (name.equals("showstationdescription")) {
+				showStationDescription=loadBoolean(e.getTextContent(),false);
 				continue;
 			}
 
@@ -1695,6 +1701,11 @@ public class SetupData extends SetupBase {
 
 		if (showIDs) {
 			root.appendChild(node=doc.createElement("ShowIDs"));
+			node.setTextContent("1");
+		}
+
+		if (showStationDescription) {
+			root.appendChild(node=doc.createElement("ShowStationDescription"));
 			node.setTextContent("1");
 		}
 

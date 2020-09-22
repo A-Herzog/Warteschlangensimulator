@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-21 15:45+0200\n"
+"POT-Creation-Date: 2020-09-22 19:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7433,6 +7433,12 @@ msgstr "Use station shadows"
 
 msgid "Main.Menu.View.ShowShadows.Mnemonic"
 msgstr "S"
+
+msgid "Main.Menu.View.ShowStationDescriptions"
+msgstr "Station descriptions in tooltips"
+
+msgid "Main.Menu.View.ShowStationDescriptions.Mnemonic"
+msgstr "t"
 
 msgid "Main.Menu.View.SimulationResults"
 msgstr "Simulation results"

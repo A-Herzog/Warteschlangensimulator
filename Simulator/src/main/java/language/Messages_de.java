@@ -11944,6 +11944,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31177] = "<p>Bitte w\u00e4hlen Sie in der Baumstruktur eine <b>Unterkategorie</b> aus, um die entsprechenden Informationen angezeigt zu bekommen.</p>";
     t[31178] = "Optimizer.Tab.Target.Value.Maximize";
     t[31179] = "Zielgr\u00f6\u00dfe soll maximiert werden";
+    t[31188] = "Main.Menu.View.ShowStationDescriptions.Mnemonic";
+    t[31189] = "T";
     t[31194] = "ModelDescription.Arrival.Threshold.Down";
     t[31195] = "den folgenden Schwellenwert unterschreitet:";
     t[31200] = "Statistics.ErlangCompare.Distribution";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31361] = "Name";
     t[31380] = "Animation.Icon.BallYellow";
     t[31381] = "Kreis - Gelb";
-    t[31386] = "Surface.Split.Name";
-    t[31387] = "Zerteilen";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31386] = "Surface.Split.Name";
+    t[31387] = "Zerteilen";
     t[31390] = "Statistic.Viewer.SpecialText.Category";
     t[31391] = "<p>Bitte w\u00e4hlen Sie in der Baumstruktur eine <b>Kategorie</b> aus, um die entsprechenden Informationen angezeigt zu bekommen.</p>";
     t[31400] = "Statistics.XML.Element.UtilizationTransporterType";
@@ -12644,6 +12646,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32995] = "Modus";
     t[32998] = "LoadCalculator.InvalidInput";
     t[32999] = "Die Eingaben sind ung\u00fcltig.";
+    t[33004] = "Main.Menu.View.ShowStationDescriptions";
+    t[33005] = "Stationbeschreibungen in Tooltips";
     t[33006] = "Statistics.MaximumTransferTime";
     t[33007] = "Maximale Transferzeit";
     t[33008] = "Surface.AnimationBarStack.Dialog.Bar.down";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36553] = "Violettblau";
     t[36558] = "Optimizer.Toolbar.New.Hint";
     t[36559] = "Erstellt eine neue Optimierungskonfiguration";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[36572] = "Statistics.ErlangCompare.Distribution.WaitingTimeTolerance.Approx";
     t[36573] = "Es liegen weitere Einflussfaktoren f\u00fcr die Wartezeittoleranzen vor. Gesch\u00e4tze Parameter";
     t[36582] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Quantil";
     t[36583] = "<p>Liefert das Quantil zur Wahrscheinlichkeit p der Dauer \u00fcber alle Verweilzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind (\u00fcber alle Kundentypen).</p>";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[36584] = "Statistics.ProcessTimes";
     t[36585] = "Bedienzeiten";
     t[36600] = "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41941] = "ModellElementAnimationAufzeichnungDatenfarbe";
     t[41942] = "Surface.Source.Dialog.ConditionMinDistance.Error.Info";
     t[41943] = "Der angegebene minimale Abstand zwischen zwei Ank\u00fcnften \"%s\" ist ung\u00fcltig. Es muss eine positive Zahl angegeben werden.";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[41944] = "Simulation.Log.PickUpNewClient";
     t[41945] = "Ausleiten - Neuer Kunde angelegt";
     t[41946] = "ParameterCompare.Settings.List.AddVariable.Hint";
     t[41947] = "Wert einer globalen Variablen verwenden";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[41948] = "Statistic.FastAccess.FilterList.Tabulator";
     t[41949] = "Tabulator";
     t[41950] = "ExpressionBuilder.SimulationCharacteristics.ClientsInSystem.Info";

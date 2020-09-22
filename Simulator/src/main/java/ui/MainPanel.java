@@ -244,7 +244,7 @@ public class MainPanel extends MainPanelBase {
 	private JCheckBoxMenuItem menuViewTemplatesBar, menuViewNavigator;
 	private JCheckBoxMenuItem menuViewRulers;
 	private JRadioButtonMenuItem menuViewGridOff, menuViewGridDots, menuViewGridLines;
-	private JCheckBoxMenuItem menuViewShowIDs, menuViewGradients, menuViewShadows;
+	private JCheckBoxMenuItem menuViewShowIDs, menuViewShowStationDescription, menuViewGradients, menuViewShadows;
 	private JCheckBoxMenuItem menuModelLoadExternalDataOnStart;
 	private JMenuItem menuModelCompareKept, menuModelCompareReturn;
 	private JRadioButtonMenuItem menuSimulationAnimationStartModeRun, menuSimulationAnimationStartModePause;
@@ -476,6 +476,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Grid.DOTS));
 		addAction("ViewRasterRaster",e->commandViewRaster(ModelSurface.Grid.LINES));
 		addAction("ViewShowIDs",e->commandViewIDs());
+		addAction("ViewShowStationDescriptions",e->commandViewStationDescriptions());
 		addAction("ViewGradients",e->commandViewGradients());
 		addAction("ViewShadows",e->commandViewShadows());
 		addAction("ViewZoomOut",e->editorPanel.zoomOut());
@@ -633,6 +634,9 @@ public class MainPanel extends MainPanelBase {
 
 		/* Ansicht - IDs */
 		menuViewShowIDs.setState(setup.showIDs);
+
+		/* Ansicht - Stationsbeschreibungen */
+		menuViewShowStationDescription.setState(setup.showStationDescription);
 
 		/* Ansicht - Gradienten */
 		menuViewGradients.setVisible(!setup.useHighContrasts);
@@ -926,6 +930,8 @@ public class MainPanel extends MainPanelBase {
 		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
 		enabledOnEditorPanel.add(menuViewShowIDs=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowIDs"),Language.tr("Main.Menu.View.ShowIDs.Mnemonic"),"ViewShowIDs"));
 		menuViewShowIDs.setState(setup.showIDs);
+		enabledOnEditorPanel.add(menuViewShowStationDescription=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowStationDescriptions"),Language.tr("Main.Menu.View.ShowStationDescriptions.Mnemonic"),"ViewShowStationDescriptions"));
+		menuViewShowStationDescription.setState(setup.showStationDescription);
 		enabledOnEditorPanel.add(menuViewGradients=createCheckBoxMenuItem(menu,Language.tr("Main.Menu.View.ShowGradients"),Language.tr("Main.Menu.View.ShowGradients.Mnemonic"),"ViewGradients"));
 		menuViewGradients.setState(setup.useGradients);
 		menuViewGradients.setVisible(!setup.useHighContrasts);
@@ -1726,6 +1732,12 @@ public class MainPanel extends MainPanelBase {
 
 	private void commandViewIDs() {
 		setup.showIDs=!setup.showIDs;
+		setup.saveSetup();
+		reloadSetup();
+	}
+
+	private void commandViewStationDescriptions() {
+		setup.showStationDescription=!setup.showStationDescription;
 		setup.saveSetup();
 		reloadSetup();
 	}

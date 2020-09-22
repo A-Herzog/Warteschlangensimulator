@@ -107,6 +107,7 @@ import ui.images.Images;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderSingleStation;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
 import ui.modeleditor.elements.ElementAnimationClickable;
 import ui.modeleditor.elements.FontCache;
@@ -2100,6 +2101,15 @@ public final class ModelSurfacePanel extends JPanel {
 		return operationRunning;
 	}
 
+	private String getTooltipDescription(final ModelElementBox element) {
+		if (element==null || !SetupData.getSetup().showStationDescription) return "";
+
+		final ModelDescriptionBuilderSingleStation simpleDescriptionBuilder=new ModelDescriptionBuilderSingleStation(model);
+		element.buildDescription(simpleDescriptionBuilder);
+		simpleDescriptionBuilder.done();
+		return simpleDescriptionBuilder.getDescription();
+	}
+
 	private String getAdditionalTooltip(final ModelElementBox element) {
 		if (additionalTooltipGetter==null) return null;
 		return additionalTooltipGetter.apply(element);
@@ -2525,11 +2535,15 @@ public final class ModelSurfacePanel extends JPanel {
 					tooltip=null;
 					if (element instanceof ModelElementPosition) tooltip=((ModelElementPosition)element).getToolTip();
 					if (tooltip==null) tooltip=element.getContextMenuElementName();
+					String description="";
 					if (element instanceof ModelElementBox) {
 						final String additional=getAdditionalTooltip((ModelElementBox)element);
 						if (additional!=null && !additional.trim().isEmpty()) tooltip=tooltip+"<br>"+additional;
+						description=getTooltipDescription((ModelElementBox)element);
+						if (description==null) description="";
+						if (!description.isEmpty()) description="<hr>"+description;
 					}
-					setToolTipText("<html>"+tooltip+"<br><b>id="+element.getId()+"</b></html>");
+					setToolTipText("<html>"+tooltip+"<br><b>id="+element.getId()+"</b>"+description+"</html>");
 					final int borderPoint=element.getBorderPointNr(new Point((int)Math.round(e.getPoint().x/zoom),(int)Math.round(e.getPoint().y/zoom)));
 					switch (borderPoint) {
 					case 0: setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR)); break;

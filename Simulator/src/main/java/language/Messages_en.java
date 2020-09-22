@@ -11944,6 +11944,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31177] = "<p>Please select a <b>sub category</b> in the tree structure so display the corresponding information.</p>";
     t[31178] = "Optimizer.Tab.Target.Value.Maximize";
     t[31179] = "Target value is to be maximized";
+    t[31188] = "Main.Menu.View.ShowStationDescriptions.Mnemonic";
+    t[31189] = "t";
     t[31194] = "ModelDescription.Arrival.Threshold.Down";
     t[31195] = "falls below threshold value";
     t[31200] = "Statistics.ErlangCompare.Distribution";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31361] = "Name";
     t[31380] = "Animation.Icon.BallYellow";
     t[31381] = "Ball - Yellow";
-    t[31386] = "Surface.Split.Name";
-    t[31387] = "Split";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31386] = "Surface.Split.Name";
+    t[31387] = "Split";
     t[31390] = "Statistic.Viewer.SpecialText.Category";
     t[31391] = "<p>Please select a <b>category</b> in the tree structure so display the corresponding information.</p>";
     t[31400] = "Statistics.XML.Element.UtilizationTransporterType";
@@ -12644,6 +12646,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32995] = "Mode";
     t[32998] = "LoadCalculator.InvalidInput";
     t[32999] = "Invalid input.";
+    t[33004] = "Main.Menu.View.ShowStationDescriptions";
+    t[33005] = "Station descriptions in tooltips";
     t[33006] = "Statistics.MaximumTransferTime";
     t[33007] = "Maximum transfer time";
     t[33008] = "Surface.AnimationBarStack.Dialog.Bar.down";
@@ -14012,12 +14016,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36553] = "Blue violet";
     t[36558] = "Optimizer.Toolbar.New.Hint";
     t[36559] = "Creates a new optimizer configuration";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[36572] = "Statistics.ErlangCompare.Distribution.WaitingTimeTolerance.Approx";
     t[36573] = "There are other factors influencing the waiting time tolerances. Estimated parameters";
     t[36582] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Quantil";
     t[36583] = "<p>Returns the quantil for probability p of the duration over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[36584] = "Statistics.ProcessTimes";
     t[36585] = "Process times";
     t[36600] = "Editor.Dialog.Tab.Simulation.DistributionRecordHours.Error";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41941] = "ModelElementAnimationRecordDataColor";
     t[41942] = "Surface.Source.Dialog.ConditionMinDistance.Error.Info";
     t[41943] = "The specified minimum distance between two arrivals \"%s\" is invalid. A positive number has to be entered.";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[41944] = "Simulation.Log.PickUpNewClient";
     t[41945] = "Pick up - new client created";
     t[41946] = "ParameterCompare.Settings.List.AddVariable.Hint";
     t[41947] = "Use value of a global variable";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[41948] = "Statistic.FastAccess.FilterList.Tabulator";
     t[41949] = "Tabulator";
     t[41950] = "ExpressionBuilder.SimulationCharacteristics.ClientsInSystem.Info";

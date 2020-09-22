@@ -214,7 +214,7 @@ public abstract class ModelDescriptionBuilder {
 	}
 
 	/**
-	 * Wurden Informationen zu Bediern und Variablen schon ausgegeben?
+	 * Wurden Informationen zu Bedienern und Variablen schon ausgegeben?
 	 * @see #done()
 	 */
 	private boolean additionalInformationAdded=false;
