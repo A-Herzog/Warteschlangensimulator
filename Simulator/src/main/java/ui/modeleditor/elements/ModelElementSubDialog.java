@@ -18,8 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -27,13 +25,13 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
 import language.Language;
-import mathtools.NumberTools;
-import systemtools.MsgBox;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -47,8 +45,8 @@ import ui.modeleditor.coreelements.ModelElement;
 public class ModelElementSubDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 2643627718628007295L;
 
-	private JTextField inputField;
-	private JTextField outputField;
+	private SpinnerModel inputField;
+	private SpinnerModel outputField;
 
 	private JTextArea description;
 
@@ -90,30 +88,34 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 
 		if (element instanceof ModelElementSub) {
 			JPanel top, main, sub;
-			Object[] data;
+			JLabel label;
 
 			content.add(top=new JPanel(),BorderLayout.NORTH);
 			top.setLayout(new BoxLayout(top,BoxLayout.PAGE_AXIS));
 
-			data=getInputPanel(Language.tr("Surface.Sub.Dialog.NumberInput")+":",""+((ModelElementSub)element).getInputCount(),3);
-			top.add((JPanel)data[0]);
-			inputField=(JTextField)data[1];
-			inputField.setEditable(!readOnly);
-			inputField.addKeyListener(new KeyListener() {
-				@Override public void keyTyped(KeyEvent e) {checkData(false);}
-				@Override public void keyReleased(KeyEvent e) {checkData(false);}
-				@Override public void keyPressed(KeyEvent e) {checkData(false);}
-			});
+			top.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
-			data=getInputPanel(Language.tr("Surface.Sub.Dialog.NumberOutput")+":",""+((ModelElementSub)element).getOutputCount(),3);
-			top.add((JPanel)data[0]);
-			outputField=(JTextField)data[1];
-			outputField.setEditable(!readOnly);
-			outputField.addKeyListener(new KeyListener() {
-				@Override public void keyTyped(KeyEvent e) {checkData(false);}
-				@Override public void keyReleased(KeyEvent e) {checkData(false);}
-				@Override public void keyPressed(KeyEvent e) {checkData(false);}
-			});
+			sub.add(label=new JLabel(Language.tr("Surface.Sub.Dialog.NumberInput")+":"));
+			final JSpinner inputSpinner=new JSpinner(inputField=new SpinnerNumberModel(1,1,99,1));
+			final JSpinner.NumberEditor inputEditor=new JSpinner.NumberEditor(inputSpinner);
+			inputEditor.getFormat().setGroupingUsed(false);
+			inputEditor.getTextField().setColumns(2);
+			inputSpinner.setEditor(inputEditor);
+			sub.add(inputSpinner);
+			label.setLabelFor(inputSpinner);
+			inputSpinner.setValue(((ModelElementSub)element).getInputCount());
+
+			top.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+			sub.add(label=new JLabel(Language.tr("Surface.Sub.Dialog.NumberOutput")+":"));
+			final JSpinner outputSpinner=new JSpinner(outputField=new SpinnerNumberModel(1,1,99,1));
+			final JSpinner.NumberEditor outputEditor=new JSpinner.NumberEditor(outputSpinner);
+			outputEditor.getFormat().setGroupingUsed(false);
+			outputEditor.getTextField().setColumns(2);
+			outputSpinner.setEditor(outputEditor);
+			sub.add(outputSpinner);
+			label.setLabelFor(outputSpinner);
+			outputSpinner.setValue(((ModelElementSub)element).getOutputCount());
 
 			content.add(main=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 			main.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
@@ -150,43 +152,6 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 		return element.getId();
 	}
 
-	private boolean checkData(final boolean showErrorMessage) {
-		if (readOnly) return false;
-
-		boolean ok=true;
-		Long L;
-
-		L=NumberTools.getPositiveLong(inputField,true);
-		if (L==null) {
-			if (showErrorMessage) {
-				MsgBox.error(this,Language.tr("Surface.Sub.Dialog.NumberInput.Error.Title"),String.format(Language.tr("Surface.Sub.Dialog.NumberInput.Error.Info"),inputField.getText()));
-				return false;
-			}
-			ok=false;
-		}
-
-		L=NumberTools.getPositiveLong(outputField,true);
-		if (L==null) {
-			if (showErrorMessage) {
-				MsgBox.error(this,Language.tr("Surface.Sub.Dialog.NumberOutput.Error.Title"),String.format(Language.tr("Surface.Sub.Dialog.NumberOutput.Error.Info"),outputField.getText()));
-				return false;
-			}
-			ok=false;
-		}
-
-		return ok;
-	}
-
-	/**
-	 * Wird beim Klicken auf "Ok" aufgerufen, um zu prüfen, ob die Daten in der aktuellen Form
-	 * in Ordnung sind und gespeichert werden können.
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
-	 */
-	@Override
-	protected boolean checkData() {
-		return checkData(true);
-	}
-
 	/**
 	 * Speichert die Dialog-Daten in dem zugehörigen Daten-Objekt.<br>
 	 * (Diese Routine wird beim Klicken auf "Ok" nach <code>checkData</code> aufgerufen.
@@ -197,8 +162,8 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		if (element instanceof ModelElementSub) {
-			((ModelElementSub)element).setInputCount((int)((long)NumberTools.getPositiveLong(inputField,true)));
-			((ModelElementSub)element).setOutputCount((int)((long)NumberTools.getPositiveLong(outputField,true)));
+			((ModelElementSub)element).setInputCount((Integer)inputField.getValue());
+			((ModelElementSub)element).setOutputCount((Integer)outputField.getValue());
 			((ModelElementSub)element).setDescription(description.getText());
 		}
 	}
