@@ -4950,6 +4950,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12851] = "Model overview";
     t[12872] = "Surface.ExpressionTableModelText.Delete.Confirmation.Info";
     t[12873] = "Do you really want to delete the condition \"%s\"?";
+    t[12874] = "Surface.Source.Dialog.TimeBase";
+    t[12875] = "Time base";
     t[12886] = "ParameterCompare.Settings.Input.Mode.XML.ErrorInfo";
     t[12887] = "No xml element for which the value is to be changd was selected.";
     t[12890] = "LogSimulation.Mode.ErrorTitle";
@@ -4968,8 +4970,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12911] = "ModelElementBarColor";
     t[12920] = "Editor.Dialog.Sequences.Edit.Assignments.Delete.Confirm.Info";
     t[12921] = "Do you really want to delete the client variable assignment\n%s?";
-    t[12922] = "Surface.Sub.Dialog.NumberInput.Error.Title";
-    t[12923] = "Invalid number of inputs";
     t[12924] = "Resources.Group.EditName.ChangeName.Title";
     t[12925] = "Rename operator group";
     t[12932] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.AverageTime";
@@ -5110,8 +5110,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13341] = "Simulation is aborted, if a client arrives at this station.";
     t[13342] = "Surface.OutputJS.Name.Short";
     t[13343] = "Output (Script)";
-    t[13346] = "Surface.Sub.Dialog.NumberInput.Error.Info";
-    t[13347] = "The specified number of inputs in the sub model \"%s\" is invalid. A positive integer number has to be entered.";
     t[13350] = "ScriptPopup.Simulation.getResourceCount";
     t[13351] = "Number of operators in a group";
     t[13356] = "Surface.HoldJS.Name";
@@ -6008,10 +6006,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15729] = "Extras";
     t[15730] = "CommandLine.Count.ThenAtLeastN";
     t[15731] = "at least %d additional parameters has to be entered";
-  }
-  static void clinit_part_3 (java.lang.String[] t) {
     t[15736] = "ParameterCompare.Table.MoveModelUp.Hint";
     t[15737] = "Move model up in list";
+  }
+  static void clinit_part_3 (java.lang.String[] t) {
     t[15740] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Fast";
     t[15741] = "Record autocorrelation for all clients waiting time";
     t[15742] = "Statistic.FastAccess.FilterList.NumberFormatLocal";
@@ -8010,10 +8008,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20865] = "Parking lot for transporters";
     t[20866] = "Dialog.Overwrite.Title";
     t[20867] = "Overwrite existing file";
-  }
-  static void clinit_part_4 (java.lang.String[] t) {
     t[20868] = "Surface.Popup.AddVisualization.CurrentValue";
     t[20869] = "Current value";
+  }
+  static void clinit_part_4 (java.lang.String[] t) {
     t[20884] = "ModelDescription.Tank.Valve";
     t[20885] = "Valve %d";
     t[20888] = "Statistics.XML.Disribution.StepWide";
@@ -9160,6 +9158,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23753] = "Time slot";
     t[23754] = "CommandLine.ParameterCompareTable.Description.Long";
     t[23755] = "This command expects exactly two additional parameters:\n1. Input parameter series file\n2. Output table file\nThe input file has to exist.\nThe output has to be non existent.";
+    t[23756] = "Surface.DistributionByClientTypeEditor.LocalIsActive.ClientType";
+    t[23757] = "There are different individual settings for at least one client type.";
     t[23758] = "Statistic.FastAccess.Template.TransferTime.Tooltip";
     t[23759] = "Inserts at the current position the command to output the transfer time for all clients.";
     t[23768] = "Surface.AnimationTextSelect.XML.TextDefault";
@@ -10648,8 +10648,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27729] = "Delete assignment";
     t[27734] = "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.NumberOut";
     t[27735] = "Departures from station";
-    t[27738] = "Surface.Sub.Dialog.NumberOutput.Error.Title";
-    t[27739] = "Invalid number of outputs";
     t[27754] = "JSRunner.Templates.Empty";
     t[27755] = "There are not suggestions for Javascript programs at the moment.";
     t[27758] = "Surface.Record.Dialog.Expression1.Error.InfoEmpty";
@@ -12014,10 +12012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31361] = "Name";
     t[31380] = "Animation.Icon.BallYellow";
     t[31381] = "Ball - Yellow";
-  }
-  static void clinit_part_6 (java.lang.String[] t) {
     t[31386] = "Surface.Split.Name";
     t[31387] = "Split";
+  }
+  static void clinit_part_6 (java.lang.String[] t) {
     t[31390] = "Statistic.Viewer.SpecialText.Category";
     t[31391] = "<p>Please select a <b>category</b> in the tree structure so display the corresponding information.</p>";
     t[31400] = "Statistics.XML.Element.UtilizationTransporterType";
@@ -14016,10 +14014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36553] = "Blue violet";
     t[36558] = "Optimizer.Toolbar.New.Hint";
     t[36559] = "Creates a new optimizer configuration";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[36572] = "Statistics.ErlangCompare.Distribution.WaitingTimeTolerance.Approx";
     t[36573] = "There are other factors influencing the waiting time tolerances. Estimated parameters";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[36582] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Quantil";
     t[36583] = "<p>Returns the quantil for probability p of the duration over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[36584] = "Statistics.ProcessTimes";
@@ -16018,10 +16016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41941] = "ModelElementAnimationRecordDataColor";
     t[41942] = "Surface.Source.Dialog.ConditionMinDistance.Error.Info";
     t[41943] = "The specified minimum distance between two arrivals \"%s\" is invalid. A positive number has to be entered.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[41944] = "Simulation.Log.PickUpNewClient";
     t[41945] = "Pick up - new client created";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[41946] = "ParameterCompare.Settings.List.AddVariable.Hint";
     t[41947] = "Use value of a global variable";
     t[41948] = "Statistic.FastAccess.FilterList.Tabulator";
@@ -16858,8 +16856,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44135] = "Variance of the path lengths";
     t[44136] = "ModelDescription.Release.DelayedRelease.GeneralCase";
     t[44137] = "Delayed resource release in the general case";
-    t[44138] = "Surface.Sub.Dialog.NumberOutput.Error.Info";
-    t[44139] = "The specified number of outputs from the sub model \"%s\" is invalid. A positive integer number has to be entered.";
     t[44142] = "Simulation.Creator.CheckboxNoVariable";
     t[44143] = "At station id=%d no name was specified for the variable to be changed.";
     t[44150] = "Server.Status.SimulationCount";
@@ -16932,8 +16928,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44347] = "ModelElementDatabaseArrivalsColumn";
     t[44356] = "ExpressionBuilder.ClientsInSystemQueue.CoefficientOfVariationOfTheNumber";
     t[44357] = "<p>Returns the coefficient of variation of the number of waiting clients in the system.</p>";
-    t[44374] = "Surface.Source.Dialog.TimeBase";
-    t[44375] = "Time base";
+    t[44374] = "Surface.DistributionByClientTypeEditor.LocalIsActive.Station";
+    t[44375] = "There are different individual settings for at least one station.";
     t[44384] = "Statistics.Autokorrelation.ModeByClients";
     t[44385] = "Waiting times by client types";
     t[44392] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.StandardDeviationOfTheTime";

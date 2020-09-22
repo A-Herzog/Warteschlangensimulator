@@ -142,6 +142,15 @@ public final class DistributionSystem implements Cloneable {
 	}
 
 	/**
+	 * Sind Daten zu mindestens einem Subtyp vorhanden?
+	 * @return	Liefert <code>true</code>, wenn Daten zu mindestens einem Subtyp vorhanden sind.
+	 * @see #get(String)
+	 */
+	public boolean hasSubTypeData() {
+		return (expressionByType.size()>0) || (distributionByType.size()>0);
+	}
+
+	/**
 	 * Liefert die Daten für einen bestimmten Subtyp oder als Fallback die Daten für den globalen Fall.
 	 * @param subType	Kundentyp o.ä., für den die Daten geliefert werden sollen. Wird <code>null</code> übergeben, so werden die Daten für den globalen Fall geliefert.
 	 * @return	Liefert einen <code>String</code>, eine <code>AbstractRealDistribution</code> oder <code>null</code> zurück.

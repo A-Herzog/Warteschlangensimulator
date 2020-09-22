@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-22 19:53+0200\n"
+"POT-Creation-Date: 2020-09-22 20:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20423,6 +20423,12 @@ msgstr "Global value for all client types"
 msgid "Surface.DistributionByClientTypeEditor.GlobalStation"
 msgstr "Global value for all destinations"
 
+msgid "Surface.DistributionByClientTypeEditor.LocalIsActive.ClientType"
+msgstr "There are different individual settings for at least one client type."
+
+msgid "Surface.DistributionByClientTypeEditor.LocalIsActive.Station"
+msgstr "There are different individual settings for at least one station."
+
 msgid "Surface.DistributionByClientTypeEditor.UseGlobal"
 msgstr "Use global default"
 
@@ -24165,20 +24171,8 @@ msgstr "Description of the sub model"
 msgid "Surface.Sub.Dialog.NumberInput"
 msgstr "Number of inputs in the sub model"
 
-msgid "Surface.Sub.Dialog.NumberInput.Error.Info"
-msgstr "The specified number of inputs in the sub model \"%s\" is invalid. A positive integer number has to be entered."
-
-msgid "Surface.Sub.Dialog.NumberInput.Error.Title"
-msgstr "Invalid number of inputs"
-
 msgid "Surface.Sub.Dialog.NumberOutput"
 msgstr "Number of outputs from the sub model"
-
-msgid "Surface.Sub.Dialog.NumberOutput.Error.Info"
-msgstr "The specified number of outputs from the sub model \"%s\" is invalid. A positive integer number has to be entered."
-
-msgid "Surface.Sub.Dialog.NumberOutput.Error.Title"
-msgstr "Invalid number of outputs"
 
 msgid "Surface.Sub.Dialog.OkAndOpenEditor"
 msgstr "Ok & open editor"
@@ -27200,6 +27194,18 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Invalid number of digits"
+
+#~ msgid "Surface.Sub.Dialog.NumberInput.Error.Info"
+#~ msgstr "The specified number of inputs in the sub model \"%s\" is invalid. A positive integer number has to be entered."
+
+#~ msgid "Surface.Sub.Dialog.NumberInput.Error.Title"
+#~ msgstr "Invalid number of inputs"
+
+#~ msgid "Surface.Sub.Dialog.NumberOutput.Error.Info"
+#~ msgstr "The specified number of outputs from the sub model \"%s\" is invalid. A positive integer number has to be entered."
+
+#~ msgid "Surface.Sub.Dialog.NumberOutput.Error.Title"
+#~ msgstr "Invalid number of outputs"
 
 #~ msgid "Wait.Status.LongRunNoEstimation"
 #~ msgstr "%sK client arrivals simulated / %sM events / %sK events per second"

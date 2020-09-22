@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-22 19:53+0200\n"
+"POT-Creation-Date: 2020-09-22 20:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20430,6 +20430,12 @@ msgstr "Globaler Wert für alle Kundentypen"
 msgid "Surface.DistributionByClientTypeEditor.GlobalStation"
 msgstr "Globaler Wert für alle Ziele"
 
+msgid "Surface.DistributionByClientTypeEditor.LocalIsActive.ClientType"
+msgstr "Es sind abweichende individuelle Einstellungen für mindestens einen Kundentyp aktiv."
+
+msgid "Surface.DistributionByClientTypeEditor.LocalIsActive.Station"
+msgstr "Es sind abweichende individuelle Einstellungen für mindestens eine Station aktiv."
+
 msgid "Surface.DistributionByClientTypeEditor.UseGlobal"
 msgstr "Globale Vorgabe verwenden"
 
@@ -24173,20 +24179,8 @@ msgstr "Beschreibung des Untermodells"
 msgid "Surface.Sub.Dialog.NumberInput"
 msgstr "Anzahl an Eingängen in das Untermodell"
 
-msgid "Surface.Sub.Dialog.NumberInput.Error.Info"
-msgstr "Der angegebene Wert \"%s\" für die Anzahl an Eingängen in das Untermodell ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
-
-msgid "Surface.Sub.Dialog.NumberInput.Error.Title"
-msgstr "Ungültige Anzahl an Eingängen"
-
 msgid "Surface.Sub.Dialog.NumberOutput"
 msgstr "Anzahl an Ausgängen aus dem Untermodell"
-
-msgid "Surface.Sub.Dialog.NumberOutput.Error.Info"
-msgstr "Der angegebene Wert \"%s\" für die Anzahl an Ausgängen aus dem Untermodell ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
-
-msgid "Surface.Sub.Dialog.NumberOutput.Error.Title"
-msgstr "Ungültige Anzahl an Ausgängen"
 
 msgid "Surface.Sub.Dialog.OkAndOpenEditor"
 msgstr "Ok & Editor öffnen"
@@ -27230,6 +27224,18 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationLCD.Dialog.Digits.Error.Title"
 #~ msgstr "Ungültige Anzahl an Ziffern"
+
+#~ msgid "Surface.Sub.Dialog.NumberInput.Error.Info"
+#~ msgstr "Der angegebene Wert \"%s\" für die Anzahl an Eingängen in das Untermodell ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
+
+#~ msgid "Surface.Sub.Dialog.NumberInput.Error.Title"
+#~ msgstr "Ungültige Anzahl an Eingängen"
+
+#~ msgid "Surface.Sub.Dialog.NumberOutput.Error.Info"
+#~ msgstr "Der angegebene Wert \"%s\" für die Anzahl an Ausgängen aus dem Untermodell ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
+
+#~ msgid "Surface.Sub.Dialog.NumberOutput.Error.Title"
+#~ msgstr "Ungültige Anzahl an Ausgängen"
 
 #~ msgid "Wait.Status.LongRunNoEstimation"
 #~ msgstr "%sK Kundenankünfte simuliert / %sM Ereignisse / %sK Ereignisse pro Sekunde"

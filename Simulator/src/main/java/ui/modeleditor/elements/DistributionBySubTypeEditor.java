@@ -84,6 +84,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 
 	private int subTypeLast;
 	private final JComboBox<String> subTypeSelect;
+	private final JLabel localIsActive;
 	private final JCheckBox useGlobal;
 	private final JComboBox<String> modeSelect;
 	private final JPanel cards;
@@ -172,6 +173,21 @@ public class DistributionBySubTypeEditor extends JPanel {
 		}
 		sub.add(useGlobal=new JCheckBox(Language.tr("Surface.DistributionByClientTypeEditor.UseGlobal")));
 		useGlobal.setEnabled(!readOnly);
+
+		final String localInfo;
+		switch (mode) {
+		case MODE_CLIENTS:
+			localInfo=Language.tr("Surface.DistributionByClientTypeEditor.LocalIsActive.ClientType");
+			break;
+		case MODE_TRANSPORT_DESTINATION:
+			localInfo=Language.tr("Surface.DistributionByClientTypeEditor.LocalIsActive.Station");
+			break;
+		default:
+			localInfo="";
+			break;
+		}
+		sub.add(localIsActive=new JLabel(localInfo));
+		localIsActive.setVisible(false);
 
 		infoPanel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(new JLabel("<html><body>"+title+"&nbsp;</body></html>"));
@@ -294,6 +310,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 		subTypeLast=subTypeSelect.getSelectedIndex();
 		final String clientTypeName=(subTypeLast==0)?null:subTypes[subTypeLast-1];
 		useGlobal.setVisible(subTypeLast>0);
+		localIsActive.setVisible(subTypeLast==0 && data.hasSubTypeData()); // XXX + nur wenn Untereinträge aktiv
 		useGlobal.setEnabled(subTypeLast>0 && !readOnly);
 		Object obj=data.get(clientTypeName);
 		boolean isFallBack=false;
