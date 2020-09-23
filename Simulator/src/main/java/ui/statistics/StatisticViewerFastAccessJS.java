@@ -22,9 +22,9 @@ import java.io.File;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
 import language.Language;
 import scripting.js.JSRunDataFilter;
@@ -66,7 +66,9 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 		/* Filtertext */
 		final ScriptEditorAreaBuilder builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Javascript,false,e->process(false));
 		builder.addAutoCompleteFeatures(ScriptEditorPanel.featuresFilter);
-		add(new JScrollPane(filter=builder.get()));
+		final RTextScrollPane scrollFilter;
+		add(scrollFilter=new RTextScrollPane(filter=builder.get()));
+		scrollFilter.setLineNumbersEnabled(true);
 
 		/* Filtertext laden */
 		filter.setText(SetupData.getSetup().filterJavascript);

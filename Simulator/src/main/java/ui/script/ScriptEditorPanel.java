@@ -33,12 +33,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
@@ -273,8 +273,12 @@ public class ScriptEditorPanel extends JPanel {
 
 		sub.add(scriptEditMulti=new JPanel(),BorderLayout.CENTER);
 		scriptEditMulti.setLayout(scriptEditMultiLayout=new CardLayout());
-		scriptEditMulti.add(new JScrollPane(scriptEditJavascript),"0");
-		scriptEditMulti.add(new JScrollPane(scriptEditJava),"1");
+		final RTextScrollPane scriptEditJavascriptScroll;
+		scriptEditMulti.add(scriptEditJavascriptScroll=new RTextScrollPane(scriptEditJavascript),"0");
+		scriptEditJavascriptScroll.setLineNumbersEnabled(true);
+		final RTextScrollPane scriptEditJavaScroll;
+		scriptEditMulti.add(scriptEditJavaScroll=new RTextScrollPane(scriptEditJava),"1");
+		scriptEditJavaScroll.setLineNumbersEnabled(true);
 		scriptEditMultiLayout.show(scriptEditMulti,""+languageCombo.getSelectedIndex());
 
 		languageCombo.addActionListener(e->languageChanged());

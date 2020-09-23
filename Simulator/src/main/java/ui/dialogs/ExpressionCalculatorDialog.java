@@ -45,6 +45,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -240,13 +241,17 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		builder.addAutoCompleteFeature(ScriptPopup.ScriptFeature.Simulation);
 		builder.addAutoCompleteFeature(ScriptPopup.ScriptFeature.Output);
 		builder.setText((initialJavaScript==null || initialJavaScript.isEmpty())?DEFAULT_JAVA_SCRIPT:initialJavaScript);
-		tab.add(new JScrollPane(scriptJavaScriptEdit=builder.get()),BorderLayout.CENTER);
+		final RTextScrollPane scrollJavaScript;
+		tab.add(scrollJavaScript=new RTextScrollPane(scriptJavaScriptEdit=builder.get()),BorderLayout.CENTER);
+		scrollJavaScript.setLineNumbersEnabled(true);
 		lastJavaScript=scriptJavaScriptEdit.getText();
 
 		split.setBottomComponent(sub=new JPanel(new BorderLayout()));
 		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		line.add(new JLabel(Language.tr("ExpressionCalculator.Results")+":"));
-		sub.add(new JScrollPane(scriptJavaScriptResults=new JTextArea("")),BorderLayout.CENTER);
+		final RTextScrollPane scrollJava;
+		sub.add(scrollJava=new RTextScrollPane(scriptJavaScriptResults=new JTextArea("")),BorderLayout.CENTER);
+		scrollJava.setLineNumbersEnabled(true);
 		scriptJavaScriptResults.setEditable(false);
 
 		split.setDividerLocation(0.66);
