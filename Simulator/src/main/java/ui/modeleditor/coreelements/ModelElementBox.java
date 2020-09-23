@@ -79,7 +79,7 @@ import ui.speedup.BackgroundSystem;
  */
 public class ModelElementBox extends ModelElementPosition implements ElementWithAnimationDisplay {
 	private Color userBackgroundColor;
-	private SetupData setup=SetupData.getSetup();
+	private final SetupData setup=SetupData.getSetup();
 	private boolean drawText=true;
 
 	/**
@@ -133,7 +133,6 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 
 		return getScaledElementIcon(image);
 	}
-
 
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.

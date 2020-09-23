@@ -18,23 +18,29 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -50,6 +56,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public final class ModelElementVertex extends ModelElementPosition implements ModelElementEdgeMultiIn, ModelElementEdgeOut {
+	private final SetupData setup=SetupData.getSetup();
 	private List<ModelElementEdge> connectionsIn;
 	private ModelElementEdge connectionOut;
 
@@ -83,6 +90,32 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 	@Override
 	public String getToolTip() {
 		return Language.tr("Surface.Vertex.Tooltip");
+	}
+
+	/**
+	 * Gibt ein Icon an, welches neben dem Beschriftungslabel im Kontextmenü angezeigt werden soll.<br>
+	 * Generiert im Falle eines Elements mit eigener Position (= einem normal darstellbaren Element) ein Icon basierend auf der Darstellung des Elements selber.
+	 * @return	Icon zur Beschriftung des Elements im Kontextmenü oder <code>null</code>, wenn kein Icon angezeigt werden soll.
+	 */
+	@Override
+	public Icon buildIcon() {
+		final Dimension size=getSize();
+		final BufferedImage image=new BufferedImage(size.width+15,size.height+15,BufferedImage.TYPE_4BYTE_ABGR);
+
+		temporaryMoveToTop();
+		try {
+			final boolean saveShowIDs=setup.showIDs;
+			try {
+				setup.showIDs=false;
+				drawToGraphics(image.getGraphics(),new Rectangle(0,0,size.width+15,size.height+15),1.0,false);
+			} finally {
+				setup.showIDs=saveShowIDs;
+			}
+		} finally {
+			temporaryMoveRestore();
+		}
+
+		return getScaledElementIcon(image);
 	}
 
 	/**
@@ -164,6 +197,10 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 		}
 	}
 
+	private double infoFontZoom;
+	private Font infoFont;
+	private int infoFontAscent;
+
 	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
@@ -190,6 +227,25 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 
 		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,new Color(235,235,235),1);
 		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,new Color(235,235,235),2);
+
+		if (setup.showIDs) {
+			if (infoFont==null || zoom!=infoFontZoom) {
+				infoFontZoom=zoom;
+				infoFont=new Font(Font.DIALOG,0,(int)FastMath.round(10*zoom));
+				graphics.setFont(infoFont);
+				infoFontAscent=graphics.getFontMetrics().getAscent();
+			} else {
+				graphics.setFont(infoFont);
+			}
+
+			final Rectangle objectRect=getRect(zoom);
+
+			final Shape clipShape=graphics.getClip();
+			graphics.setClip(drawRect);
+			graphics.setColor(Color.GRAY);
+			graphics.drawString("id="+getId(),objectRect.x,objectRect.y+objectRect.height+infoFontAscent);
+			graphics.setClip(clipShape);
+		}
 	}
 
 	/**
