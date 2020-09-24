@@ -1085,7 +1085,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			updateViewer(i,(additionalTitle==null || additionalTitle.length<=i)?null:additionalTitle[i],title,icon,container,view);
 
 			/* Drag&Drop  */
-			registerComponentAndChildsForFileDrop(container);
+			if (view==null || !view.hasOwnFileDropListener()) registerComponentAndChildsForFileDrop(container);
 
 			zoom[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_UNZOOM));
 			copy[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_COPY));

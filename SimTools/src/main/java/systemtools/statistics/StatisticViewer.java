@@ -250,4 +250,10 @@ public interface StatisticViewer {
 	 * @param setImageSize	Callback zum Einstellen der Größe zum Speichern von Bildern
 	 */
 	void setUpdateImageSize(final IntConsumer setImageSize);
+
+	/**
+	 * Soll für diese Komponente der Standard-FileDrop-Listener des {@link StatisticsBasePanel} verwendet werden?
+	 * @return	Übergeordneten FileDrop-Listener verwenden (<code>false</code>) oder eigenen (<code>true</code>)
+	 */
+	boolean hasOwnFileDropListener();
 }

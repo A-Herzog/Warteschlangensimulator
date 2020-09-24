@@ -818,4 +818,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 
 	@Override
 	public void setUpdateImageSize(final IntConsumer setImageSize) {}
+
+	/**
+	 * Soll für diese Komponente der Standard-FileDrop-Listener des {@link StatisticsBasePanel} verwendet werden?
+	 * @return	Übergeordneten FileDrop-Listener verwenden (<code>false</code>) oder eigenen (<code>true</code>)
+	 */
+	@Override
+	public boolean hasOwnFileDropListener() {
+		return false;
+	}
 }

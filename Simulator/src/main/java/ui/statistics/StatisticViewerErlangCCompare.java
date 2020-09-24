@@ -21,6 +21,7 @@ import language.Language;
 import mathtools.TimeTools;
 import simulator.statistics.Statistics;
 import systemtools.statistics.StatisticViewerText;
+import systemtools.statistics.StatisticsBasePanel;
 import ui.help.Help;
 import ui.statistics.analyticcompare.AnalyticInfo;
 
@@ -156,5 +157,14 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 
 		addHeading(2,Language.tr("Statistics.ErlangCCompare.Results.AllenCunneen"));
 		outputAnalyticResults(analyticInfo.getAllenCunneen(simulationResults));
+	}
+
+	/**
+	 * Soll für diese Komponente der Standard-FileDrop-Listener des {@link StatisticsBasePanel} verwendet werden?
+	 * @return	Übergeordneten FileDrop-Listener verwenden (<code>false</code>) oder eigenen (<code>true</code>)
+	 */
+	@Override
+	public boolean hasOwnFileDropListener() {
+		return false;
 	}
 }

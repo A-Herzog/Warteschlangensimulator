@@ -27,6 +27,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import language.Language;
+import mathtools.distribution.tools.FileDropperData;
 import scripting.js.JSRunDataFilter;
 import scripting.js.JSRunDataFilterTools;
 import simulator.statistics.Statistics;
@@ -66,6 +67,17 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 		/* Filtertext */
 		final ScriptEditorAreaBuilder builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Javascript,false,e->process(false));
 		builder.addAutoCompleteFeatures(ScriptEditorPanel.featuresFilter);
+		builder.addFileDropper(e->{
+			final FileDropperData data=(FileDropperData)e.getSource();
+			final File file=data.getFile();
+			if (file.isFile()) {
+				if (discardFilterOk(getParent())) {
+					final String script=JSRunDataFilterTools.loadText(file);
+					if (script!=null) {filter.setText(script); process(true); lastSavedFilterText=script;}
+				}
+				data.dragDropConsumed();
+			}
+		});
 		final RTextScrollPane scrollFilter;
 		add(scrollFilter=new RTextScrollPane(filter=builder.get()));
 		scrollFilter.setLineNumbersEnabled(true);

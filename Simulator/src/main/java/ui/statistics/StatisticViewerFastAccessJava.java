@@ -29,6 +29,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import org.w3c.dom.Document;
 
 import language.Language;
+import mathtools.distribution.tools.FileDropperData;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
 import scripting.java.DynamicStatus;
@@ -75,6 +76,22 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 		/* Filtertext */
 		final ScriptEditorAreaBuilder builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Java,false,null);
 		builder.addAutoCompleteFeatures(ScriptEditorPanel.featuresFilter);
+		builder.addFileDropper(e->{
+			final FileDropperData data=(FileDropperData)e.getSource();
+			final File file=data.getFile();
+			if (file.isFile()) {
+				if (discardFilterOk(getParent())) {
+					final String script=JSRunDataFilterTools.loadText(file);
+					if (script!=null) {
+						filter.setText(script);
+						setResults("");
+						lastInterpretedFilterText="";
+						lastInterpretedFilterResult="";
+					}
+				}
+				data.dragDropConsumed();
+			}
+		});
 		final RTextScrollPane scrollFilter;
 		add(scrollFilter=new RTextScrollPane(filter=builder.get()));
 		scrollFilter.setLineNumbersEnabled(true);

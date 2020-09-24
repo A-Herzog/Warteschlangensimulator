@@ -32,6 +32,7 @@ import scripting.js.JSRunDataFilterTools;
 import simulator.statistics.Statistics;
 import systemtools.MsgBox;
 import systemtools.statistics.StatisticViewerSpecialBase;
+import systemtools.statistics.StatisticsBasePanel;
 import tools.SetupData;
 import ui.script.ScriptTools;
 
@@ -207,5 +208,14 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 		case JAVASCRIPT: fastAccessJS.addXML(selector); break;
 		case JAVA: fastAccessJava.addXML(selector); break;
 		}
+	}
+
+	/**
+	 * Soll für diese Komponente der Standard-FileDrop-Listener des {@link StatisticsBasePanel} verwendet werden?
+	 * @return	Übergeordneten FileDrop-Listener verwenden (<code>false</code>) oder eigenen (<code>true</code>)
+	 */
+	@Override
+	public boolean hasOwnFileDropListener() {
+		return true;
 	}
 }
