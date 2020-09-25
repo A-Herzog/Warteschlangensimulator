@@ -2318,8 +2318,10 @@ public class MainPanel extends MainPanelBase {
 							final EditModel model=editorPanel.getModel();
 							if (model.warmUpTime!=d) {
 								model.warmUpTime=d;
+								final File file=editorPanel.getLastFile();
 								editorPanel.setModel(model);
 								editorPanel.setModelChanged(true);
+								editorPanel.setLastFile(file);
 							}
 						}
 					}
@@ -2384,8 +2386,10 @@ public class MainPanel extends MainPanelBase {
 							final EditModel model=editorPanel.getModel();
 							if (model.batchMeansSize!=b) {
 								model.batchMeansSize=b;
+								final File file=editorPanel.getLastFile();
 								editorPanel.setModel(model);
 								editorPanel.setModelChanged(true);
+								editorPanel.setLastFile(file);
 							}
 							runNow=dialog.runSimulationNow();
 						}
