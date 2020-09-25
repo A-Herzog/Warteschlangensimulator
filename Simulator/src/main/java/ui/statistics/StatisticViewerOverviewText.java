@@ -2565,6 +2565,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				outputQuantilInfoTime("X",indicator);
 
 				outputConfidenceData(indicator);
+
+				outputConfidenceData(indicator);
 			} else {
 				addLine(Language.tr("Statistics.AverageUser")+": E[X]="+StatisticTools.formatNumber(indicator.getMean()),xmlMean(indicator));
 				addLine(Language.tr("Statistics.StdDevUser")+": Std[X]="+StatisticTools.formatNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
@@ -2575,6 +2577,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				endParagraph();
 
 				outputQuantilInfoNumber("X",indicator);
+
+				outputConfidenceData(indicator);
 			}
 		}
 

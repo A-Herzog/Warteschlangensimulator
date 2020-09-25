@@ -25,6 +25,7 @@ import mathtools.Table;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
+import statistics.StatisticsMultiPerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
 import tools.SetupData;
 import ui.help.Help;
@@ -88,7 +89,18 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	private boolean hasConfidence(final StatisticsMultiPerformanceIndicator indicator) {
+		String[] names=indicator.getNames();
+		if (names.length==0) return false;
+		if (((StatisticsDataPerformanceIndicator)indicator.get(names[0])).getBatchCount()<2) return false;
+
+		return true;
+	}
+
 	private void buildDefaultTable() {
+		final boolean hasConfidence=hasConfidence(statistics.userStatistics);
+		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
+
 		final List<String> cols=new ArrayList<>();
 		cols.add(Language.tr("Statistics.UserStatistics"));
 		cols.add(Language.tr("Statistics.NumberOfClients"));
@@ -103,6 +115,9 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 			for (double p: levels) {
 				cols.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil"));
 			}
+		}
+		if (hasConfidence) for (double level: confidenceLevels) {
+			cols.add(String.format(Language.tr("Statistics.ConfidenceLevel"),StatisticTools.formatPercent(1-level)));
 		}
 
 		final Table table=new Table();
@@ -124,6 +139,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 						row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
 					}
 				}
+				if (hasConfidence) {
+					final double mean=indicator.getMean();
+					final double[] halfWidth=indicator.getBatchMeanConfidenceHalfWide(confidenceLevels);
+					for (int i=0;i<halfWidth.length;i++) row.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
+				}
 			} else {
 				row.add(StatisticTools.formatNumber(indicator.getMean()));
 				row.add(StatisticTools.formatNumber(indicator.getSD()));
@@ -136,6 +156,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 					for (double p: levels) {
 						row.add(StatisticTools.formatNumber(indicator.getQuantil(p)));
 					}
+				}
+				if (hasConfidence) {
+					final double mean=indicator.getMean();
+					final double[] halfWidth=indicator.getBatchMeanConfidenceHalfWide(confidenceLevels);
+					for (int i=0;i<halfWidth.length;i++) row.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
 				}
 			}
 			table.addLine(row);
