@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-22 20:39+0200\n"
+"POT-Creation-Date: 2020-09-26 19:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3580,6 +3580,9 @@ msgstr ""
 "<p>Liefert die aktuelle Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n"
 "<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>"
 
+msgid "ExpressionBuilder.ClientsAtStation.CurrentNumber.ByType"
+msgstr "<p>Liefert die aktuelle Anzahl an Kunden an der Bedienstation, deren ID in dem ersten Parameter angegeben wurde. Berücksichtigt werden nur Kunden, deren Typ an Quelle bzw. Namenszuweisung mit der im zweiten Parameter angegebenen ID auftritt.</p>"
+
 msgid "ExpressionBuilder.ClientsAtStation.HistogramMultiple"
 msgstr ""
 "<p>Liefert den Anteil der Zeit, in der sich die Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde, in einem bestimmten Bereich befand (ausschließlich der unteren angegebenen und einschließlich der oberen angegebenen Grenze).</p>\n"
@@ -4740,6 +4743,9 @@ msgstr "<p>Liefert den Anteil, den der Wert des Zählers, dessen ID in dem Param
 
 msgid "ExpressionBuilder.SimulationCharacteristics.CurrentNumber"
 msgstr "Aktuelle Anzahl"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentNumber.ByType"
+msgstr "Aktuelle Anzahl (nach Kundentyp)"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTime"
 msgstr "Aktuelle Zeit"

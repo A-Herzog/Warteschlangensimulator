@@ -231,6 +231,20 @@ public class RunElementData {
 	}
 
 	/**
+	 * Liefert die Anzahl an Kunden an der Station bezogen auf einen Kundentyp
+	 * zur Verwendung in Rechenbefehlen.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param clientTypeIndex	Index des Kundentyps
+	 * @return	Anzahl an Kunden an der Station bezogen auf einen Kundentyp
+	 */
+	public int reportedClientsAtStation(final SimulationData simData, final int clientTypeIndex) {
+		if (statisticClientsAtStationByClientTypeValue==null) return 0;
+		if (clientTypeIndex<0) return 0;
+
+		return statisticClientsAtStationByClientTypeValue[clientTypeIndex];
+	}
+
+	/**
 	 * Kündigt die Ankunft eines Kunden an der Zielstation an (damit {@link RunElementData#reportedClientsAtStation(SimulationData)} bereits den neuen Wert liefern kann)
 	 * @param simData	Simulationdatenobjekt
 	 * @param client	Kunde, der verschickt wird

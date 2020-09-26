@@ -248,7 +248,9 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	public void storeData(final ModelElementSourceMulti element) {
 		element.getRecords().clear();
 		for (ModelElementSourceRecord record: records) {
-			ModelElementSourceRecordPanel.renameClients(record.saveName,record.getName(),clientData,surface);
+			if (!element.getSurface().getClientTypes().contains(record.saveName)) {
+				ModelElementSourceRecordPanel.renameClients(record.saveName,record.getName(),clientData,surface);
+			}
 			element.addRecord(record);
 		}
 	}
@@ -260,7 +262,9 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	public void storeData(final ModelElementSplit element) {
 		element.getRecords().clear();
 		for (ModelElementSourceRecord record: records) {
-			ModelElementSourceRecordPanel.renameClients(record.saveName,record.getName(),clientData,surface);
+			if (!element.getSurface().getClientTypes().contains(record.saveName)) {
+				ModelElementSourceRecordPanel.renameClients(record.saveName,record.getName(),clientData,surface);
+			}
 			element.addRecord(record);
 		}
 	}

@@ -162,6 +162,11 @@ Gets the squared coefficient of variation of the number of waiting clients in th
 Gets the current total number of clients at station \cm{id}.
 
 \item
+\cmd{WIP(id1;id2)} or \cmd{N(id1;id2)} or \cmd{Station(id1;id2)}:\\
+Gets the current total number of clients at station \cm{id1}.
+Only clients of the type, whos name appears at the source or the type assignment \cm{id2}, are respected.
+
+\item
 \cmd{WIP\_avg(id)} or \cmd{Station\_avg(id)} or \cmd{N\_avg(id)} or \cmd{WIP\_Mittelwert(id)} or\\
 \cmd{Station\_Mittelwert(id)} or \cmd{N\_Mittelwert(id)}:\\
 Gets the average number of clients at station \cm{id}.

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-22 20:39+0200\n"
+"POT-Creation-Date: 2020-09-26 19:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3579,6 +3579,9 @@ msgstr ""
 "<p>Returns the current number of clients at the station whose ID is specified in the parameter.</p>\n"
 "<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>"
 
+msgid "ExpressionBuilder.ClientsAtStation.CurrentNumber.ByType"
+msgstr "<p>Returns the current number of clients at the station whose ID is specified in the first parameter. Only clients of the type which is used at the client source or assignment element refered to by the ID in the second parameter are respected when counting.</p>"
+
 msgid "ExpressionBuilder.ClientsAtStation.HistogramMultiple"
 msgstr ""
 "<p>Returns the fraction of time, at which the number of clients at the station whose ID is specified was in the specified range (exclusive the lower and inclusive the upper bound).</p>\n"
@@ -4751,6 +4754,9 @@ msgstr ""
 
 msgid "ExpressionBuilder.SimulationCharacteristics.CurrentNumber"
 msgstr "Current number"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentNumber.ByType"
+msgstr "Current number (by client type)"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTime"
 msgstr "Current time"

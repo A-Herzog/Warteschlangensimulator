@@ -899,7 +899,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	public void getData(final boolean updateSystem, final ModelClientData clientData) {
 		if (lastRecord==null) return;
 		getData(lastRecord);
-		if (lastRecord.hasName() && updateSystem) renameClients(lastName,lastRecord.getName(),clientData,surface);
+		if (!surface.getClientTypes().contains(lastName)) {
+			if (lastRecord.hasName() && updateSystem) renameClients(lastName,lastRecord.getName(),clientData,surface);
+		}
 	}
 
 	/**

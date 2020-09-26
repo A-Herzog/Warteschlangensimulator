@@ -40,13 +40,13 @@ public class CalcSymbolStationDataWIP extends CalcSymbolStationData {
 	}
 
 	@Override
-	protected boolean hasSingleClientData() {
-		return true;
+	protected double calcAll() {
+		return getSimData().statistics.clientsInSystem.getCurrentState();
 	}
 
 	@Override
-	protected double calcAll() {
-		return getSimData().statistics.clientsInSystem.getCurrentState();
+	protected boolean hasSingleClientData() {
+		return true;
 	}
 
 	@Override
@@ -54,6 +54,18 @@ public class CalcSymbolStationDataWIP extends CalcSymbolStationData {
 		StatisticsPerformanceIndicator indicator=getSimData().statistics.clientsInSystemByClient.get(name);
 		if (indicator==null) return 0.0;
 		return ((StatisticsTimePerformanceIndicator)indicator).getCurrentState();
+	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data==null) return 0.0;
+
+		return data.reportedClientsAtStation(getSimData(),clientTypeIndex);
 	}
 
 	@Override

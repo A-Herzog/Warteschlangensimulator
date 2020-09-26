@@ -110,7 +110,10 @@ public final class ModelElementSourceDialog extends ModelElementBaseDialog {
 
 		final ModelElementSourceRecord record=((ModelElementSource)element).getRecord();
 		recordPanel.getData(record);
-		ModelElementSourceRecordPanel.renameClients(oldName,element.getName(),clientData,element.getSurface());
+
+		if (!element.getSurface().getClientTypes().contains(oldName)) {
+			ModelElementSourceRecordPanel.renameClients(oldName,element.getName(),clientData,element.getSurface());
+		}
 	}
 
 	private void editClientData() {

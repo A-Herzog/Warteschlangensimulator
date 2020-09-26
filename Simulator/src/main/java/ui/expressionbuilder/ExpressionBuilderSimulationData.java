@@ -261,6 +261,12 @@ public class ExpressionBuilderSimulationData {
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentNumber")+" (WIP)",
 					"WIP(id)",
 					Language.tr("ExpressionBuilder.ClientsAtStation.CurrentNumber"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentNumber.ByType")+" (WIP)",
+					"WIP(id1;id2)",
+					Language.tr("ExpressionBuilder.ClientsAtStation.CurrentNumber.ByType"));
 		}
 		addTreeNode(
 				sub,
