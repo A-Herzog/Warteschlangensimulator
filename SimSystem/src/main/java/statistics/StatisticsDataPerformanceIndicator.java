@@ -28,7 +28,7 @@ import mathtools.distribution.DataDistributionImpl;
  * Dies ist die Standard-Klasse zur Erfassung von Wartezeiten usw.<br>
  * Die Zählung wird über die Funktion {@link StatisticsDataPerformanceIndicator#add(double)} realisiert.
  * @author Alexander Herzog
- * @version 2.2
+ * @version 2.3
  */
 public final class StatisticsDataPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -91,11 +91,6 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * Schrittweite für die Berechnung der Autokorrelation
 	 */
 	public static final int CORRELATION_RANGE_STEPPING=10;
-
-	/**
-	 * Anzahl an Werten um die das Batch-Means-Array in jedem Wachstumsschritt vergrößert wird
-	 */
-	private static final int BATCH_MEANS_GROW=20_000;
 
 	/**
 	 * Anzahl der erfassten Messwerte
@@ -179,14 +174,19 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	private int batchSize;
 
 	/**
-	 * Aufgezeichnete Batch-basierte Mittelwerte
-	 */
-	private double[] batchMeans;
-
-	/**
-	 * Anzahl der Einträge in <code>batchMeans</code>, die tatsächlich belegt sind
+	 * Anzahl der erfassten Batche
 	 */
 	private int batchMeansCount;
+
+	/**
+	 * Summe der erfassten Batch-Mittelwerte
+	 */
+	private double batchMeansSum;
+
+	/**
+	 * Summe der quadrierten Batch-Mittelwerte
+	 */
+	private double batchMeansSum2;
 
 	/**
 	 * Varianz zwischen den Batch-Mittelwerten
@@ -344,11 +344,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			batchTempSum+=value;
 			batchTempCount++;
 			if (batchTempCount==batchSize) {
-				double b=batchTempSum/batchSize;
-
-				if (batchMeans==null) batchMeans=new double[BATCH_MEANS_GROW];
-				while (batchMeansCount>=batchMeans.length) batchMeans=Arrays.copyOf(batchMeans,batchMeans.length+BATCH_MEANS_GROW);
-				batchMeans[batchMeansCount++]=b;
+				final double b=batchTempSum/batchSize;
+				batchMeansCount++;
+				batchMeansSum+=b;
+				batchMeansSum2+=(b*b);
 
 				batchTempSum=0;
 				batchTempCount=0;
@@ -469,15 +468,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		}
 
 		/* Batch-Means */
-		if (moreDataStatistics.batchMeans!=null) {
-			if (batchMeans==null) {
-				batchMeans=Arrays.copyOf(moreDataStatistics.batchMeans,moreDataStatistics.batchMeans.length);
-				batchMeansCount=moreDataStatistics.batchMeansCount;
-			} else {
-				batchMeans=Arrays.copyOf(batchMeans,batchMeans.length+moreDataStatistics.batchMeans.length);
-				for (int i=0;i<moreDataStatistics.batchMeansCount;i++) batchMeans[batchMeansCount+i]=moreDataStatistics.batchMeans[i];
-				batchMeansCount+=moreDataStatistics.batchMeansCount;
-			}
+		if (moreDataStatistics.batchSize>1) {
+			batchMeansCount+=moreDataStatistics.batchMeansCount;
+			batchMeansSum+=moreDataStatistics.batchMeansSum;
+			batchMeansSum2+=moreDataStatistics.batchMeansSum2;
 			batchSize=moreDataStatistics.batchSize;
 		}
 		if (moreDataStatistics.batchMeansVar>0) batchMeansVar=moreDataStatistics.batchMeansVar;
@@ -508,9 +502,11 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		/* Batch-Means */
 		if (batchSize>1) {
-			batchMeans=null;
 			batchTempCount=0;
 			batchTempSum=0;
+			batchMeansCount=0;
+			batchMeansSum=0;
+			batchMeansSum2=0;
 		}
 		batchMeansVar=0;
 	}
@@ -548,8 +544,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		/* Batch-Means */
 		batchSize=data.batchSize;
-		if (data.batchMeans!=null) batchMeans=Arrays.copyOf(data.batchMeans,data.batchMeans.length);
 		batchMeansCount=data.batchMeansCount;
+		batchMeansSum=data.batchMeansSum;
+		batchMeansSum2=data.batchMeansSum2;
 		batchMeansVar=data.batchMeansVar;
 	}
 
@@ -865,15 +862,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @return	Varianz zwischen den Batches
 	 */
 	public double getBatchVar() {
-		if (batchMeans!=null) {
+		if (batchMeansVar==0 && batchSize>1) {
 			final double xMean=getMean();
-			double s=0;
-			for (int i=0;i<batchMeansCount;i++) s+=(batchMeans[i]-xMean)*(batchMeans[i]-xMean);
 			final int b=batchMeansCount;
-			batchMeansVar=s/b/(b-1);
-
-			/* Speicher sparen */
-			batchMeans=null;
+			batchMeansVar=1.0/b/(b-1)*(batchMeansSum2-2*xMean*batchMeansSum+b*xMean*xMean);
 		}
 
 		return batchMeansVar;
@@ -895,13 +887,11 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @return	Standardabweichung zwischen den Batches
 	 */
 	public double getBatchSDWithoutFinalize() {
-		if (batchMeans==null) return getBatchSD();
+		if (batchSize<2 || batchMeansVar>0) return getBatchSD();
 
 		final double xMean=getMean();
-		double s=0;
-		for (int i=0;i<batchMeansCount;i++) s+=(batchMeans[i]-xMean)*(batchMeans[i]-xMean);
 		final int b=batchMeansCount;
-		return StrictMath.sqrt(s/b/(b-1));
+		return StrictMath.sqrt(1.0/b/(b-1)*(batchMeansSum2-2*xMean*batchMeansSum+b*xMean*xMean));
 	}
 
 	/**
