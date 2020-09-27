@@ -735,6 +735,12 @@ public class SetupData extends SetupBase {
 	 */
 	public XMLTools.DefaultSaveFormat defaultSaveFormatOptimizerSetups;
 
+
+	/**
+	 * Sicherheitskopien von Modelldateien anlegen
+	 */
+	public boolean useBackupFiles;
+
 	/**
 	 * Vorgabe-Nutzername für neue Modelle und für Statistikdateien
 	 */
@@ -925,6 +931,7 @@ public class SetupData extends SetupBase {
 		defaultSaveFormatStatistics=XMLTools.DefaultSaveFormat.XML;
 		defaultSaveFormatParameterSeries=XMLTools.DefaultSaveFormat.ZIP_XML;
 		defaultSaveFormatOptimizerSetups=XMLTools.DefaultSaveFormat.ZIP_XML;
+		useBackupFiles=false;
 		defaultUserName=System.getProperty("user.name");
 		parameterSeriesTableDigits=1;
 		quickAccessFilter="";
@@ -1538,6 +1545,11 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("backupfiles")) {
+				useBackupFiles=loadBoolean(e.getTextContent(),false);
+				continue;
+			}
+
 			if (name.equals("defaultusername")) {
 				defaultUserName=e.getTextContent();
 				continue;
@@ -2038,6 +2050,11 @@ public class SetupData extends SetupBase {
 			if (defaultSaveFormatStatistics!=XMLTools.DefaultSaveFormat.XML) node.setAttribute("statistics",defaultSaveFormatStatistics.identifier);
 			if (defaultSaveFormatParameterSeries!=XMLTools.DefaultSaveFormat.ZIP_XML) node.setAttribute("parameterseries",defaultSaveFormatParameterSeries.identifier);
 			if (defaultSaveFormatOptimizerSetups!=XMLTools.DefaultSaveFormat.ZIP_XML) node.setAttribute("optimizersetup",defaultSaveFormatOptimizerSetups.identifier);
+		}
+
+		if (useBackupFiles) {
+			root.appendChild(node=doc.createElement("BackupFiles"));
+			node.setTextContent("1");
 		}
 
 		if (defaultUserName!=null && !defaultUserName.trim().isEmpty()) {

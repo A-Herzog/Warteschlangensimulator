@@ -258,6 +258,18 @@ public abstract class EditorPanelBase extends JPanel {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return null;
 		}
 
+		if (file.exists() && lastFile!=null && lastFile.equals(file) && SetupData.getSetup().useBackupFiles) {
+			final int index=file.toString().lastIndexOf('.');
+			final File backup;
+			if (index<0) {
+				backup=new File(file.toString()+".bak");
+			} else {
+				backup=new File(file.toString().substring(0,index)+".bak");
+			}
+			if (backup.exists()) backup.delete();
+			file.renameTo(backup);
+		}
+
 		if (!model.saveToFile(file)) return SAVE_MODEL_ERROR;
 		lastFile=file;
 		modelOriginal=getModel(); /* Neuen Abzug von Editor-Modell erstellen. In lokaler Variante wurde evtl. die Versionskennung beim Speichern aktualisiert. */

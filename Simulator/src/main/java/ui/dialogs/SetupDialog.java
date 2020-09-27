@@ -198,6 +198,9 @@ public final class SetupDialog extends BaseDialog {
 	private final JComboBox<String> defaultSaveFormatParameterSeries;
 	/** Standard-Speicherformat für Optimitereinstellungen */
 	private final JComboBox<String> defaultSaveFormatOptimizerSetups;
+
+	private final JCheckBox useBackupFiles;
+
 	/** Benutzerdefinierter Zeilenbezeichner */
 	private final JTextField excelRow;
 	/** Benutzerdefinierter Spaltenbezeichner */
@@ -763,6 +766,13 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.BackupFiles.Heading")+"</b></body></html>"));
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(useBackupFiles=new JCheckBox(Language.tr("SettingsDialog.Tabs.BackupFiles")));
+
+		mainarea.add(Box.createVerticalStrut(15));
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.ExcelDDEConnect")+"</b></body></html>"));
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("SettingsDialog.ExcelDDEConnection.CustomRow")+":","",2);
@@ -1038,6 +1048,7 @@ public final class SetupDialog extends BaseDialog {
 		case TAR_XML: defaultSaveFormatOptimizerSetups.setSelectedIndex(4); break;
 		default: defaultSaveFormatOptimizerSetups.setSelectedIndex(0); break;
 		}
+		useBackupFiles.setSelected(setup.useBackupFiles);
 
 		if (setup.customExcelRowName!=null && !setup.customExcelRowName.trim().isEmpty()) excelRow.setText(setup.customExcelRowName.trim());
 		if (setup.customExcelColName!=null && !setup.customExcelColName.trim().isEmpty()) excelCol.setText(setup.customExcelColName.trim());
@@ -1259,6 +1270,7 @@ public final class SetupDialog extends BaseDialog {
 		case 3: setup.defaultSaveFormatOptimizerSetups=XMLTools.DefaultSaveFormat.TAR_XML; break;
 		case 4: setup.defaultSaveFormatOptimizerSetups=XMLTools.DefaultSaveFormat.CRYPT_XML; break;
 		}
+		setup.useBackupFiles=useBackupFiles.isSelected();
 
 		setup.customExcelRowName=excelRow.getText().trim().toUpperCase();
 		setup.customExcelColName=excelCol.getText().trim().toUpperCase();
@@ -1404,6 +1416,7 @@ public final class SetupDialog extends BaseDialog {
 			defaultSaveFormatStatistics.setSelectedIndex(0);
 			defaultSaveFormatParameterSeries.setSelectedIndex(2);
 			defaultSaveFormatOptimizerSetups.setSelectedIndex(2);
+			useBackupFiles.setSelected(false);
 			excelRow.setText("");
 			excelCol.setText("");
 			imageSize.setText("2000");
