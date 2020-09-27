@@ -12434,6 +12434,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32523] = "Erm\u00f6glicht es das Ausgabeformat f\u00fcr Zahlen einzustellen";
     t[32526] = "ParameterCompare.Table.AddModelByAssistant.Error.NoParameterActive";
     t[32527] = "Es muss mindestens ein Parameter zur Erstellung einer Parameterreihe zur Variation ausgew\u00e4hlt sein.";
+    t[32528] = "XML.Comment";
+    t[32529] = "Diese Datei wurde mit %s erstellt. Download-Adresse: %s";
     t[32530] = "Surface.Balking.XML.Expression.Mode";
     t[32531] = "Modus";
     t[32534] = "FitDalog.Loaded.List";
@@ -14014,10 +14016,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36547] = "Anzahl an verf\u00fcgbaren Wartepl\u00e4tzen auf %d stellen";
     t[36548] = "Editor.DialogBase.ColorTooltip";
     t[36549] = "Stellt die Hintergrundfarbe und das Bild des Elements ein";
-    t[36550] = "Statistics.DistanceInSeconds";
-    t[36551] = "Abstand in Sekunden";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36550] = "Statistics.DistanceInSeconds";
+    t[36551] = "Abstand in Sekunden";
     t[36552] = "Color.8A2BE2";
     t[36553] = "Violettblau";
     t[36558] = "Optimizer.Toolbar.New.Hint";
@@ -16016,10 +16018,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41913] = "Fehler beim Laden der Einstellungen";
     t[41924] = "ModelGenerator.SelectQueue.Random";
     t[41925] = "Zuf\u00e4llig";
-    t[41926] = "Simulation.Log.TransportDestination.Info";
-    t[41927] = "Kunde: %s, Station: %s";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41926] = "Simulation.Log.TransportDestination.Info";
+    t[41927] = "Kunde: %s, Station: %s";
     t[41928] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.GreaterOrEqual";
     t[41929] = "Gr\u00f6\u00dfer oder gleich";
     t[41940] = "Surface.AnimationRecord.XML.DataColor";

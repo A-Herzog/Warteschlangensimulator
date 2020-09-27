@@ -60,6 +60,7 @@ import systemtools.help.HelpBase;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.DateTools;
 import ui.EditorPanelBase;
+import ui.MainFrame;
 import ui.MainPanel;
 import ui.ModelChanger;
 import ui.modeleditor.AnimationImageSource;
@@ -497,6 +498,7 @@ public class LanguageStaticLoader {
 		XMLTools.fileTypeJSON=Language.tr("FileType.json");
 		XMLTools.fileTypeEncryptedXML=Language.tr("FileType.cs");
 		XMLTools.fileTypeAll=Language.tr("FileType.AllSupportedFiles");
+		XMLTools.xmlComment=String.format(Language.tr("XML.Comment"),MainFrame.PROGRAM_NAME,"https://"+MainPanel.WEB_URL);
 
 		/* Elementenkatalog */
 		ModelElementCatalog.GROUP_INPUTOUTPUT=Language.tr("Elements.Catalog.InputOutput");

@@ -12434,6 +12434,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32523] = "Allows to define the output format for numbers";
     t[32526] = "ParameterCompare.Table.AddModelByAssistant.Error.NoParameterActive";
     t[32527] = "At least one parameter needs to be selected for variation to create a parameter series.";
+    t[32528] = "XML.Comment";
+    t[32529] = "This file was created using %s. Download address: %s";
     t[32530] = "Surface.Balking.XML.Expression.Mode";
     t[32531] = "Mode";
     t[32534] = "FitDalog.Loaded.List";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36547] = "Set number of available waiting slots to %d";
     t[36548] = "Editor.DialogBase.ColorTooltip";
     t[36549] = "Sets the background color or the image of the element";
-    t[36550] = "Statistics.DistanceInSeconds";
-    t[36551] = "Distance in seconds";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36550] = "Statistics.DistanceInSeconds";
+    t[36551] = "Distance in seconds";
     t[36552] = "Color.8A2BE2";
     t[36553] = "Blue violet";
     t[36558] = "Optimizer.Toolbar.New.Hint";
@@ -16016,10 +16018,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41913] = "Error loading settings";
     t[41924] = "ModelGenerator.SelectQueue.Random";
     t[41925] = "Random";
-    t[41926] = "Simulation.Log.TransportDestination.Info";
-    t[41927] = "Client: %s, station: %s";
   }
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41926] = "Simulation.Log.TransportDestination.Info";
+    t[41927] = "Client: %s, station: %s";
     t[41928] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.GreaterOrEqual";
     t[41929] = "Greater or equal";
     t[41940] = "Surface.AnimationRecord.XML.DataColor";

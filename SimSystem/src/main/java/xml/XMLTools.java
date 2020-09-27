@@ -63,7 +63,7 @@ import mathtools.distribution.swing.CommonVariables;
 /**
  * Diese Klasse enthält Funktionen zum Laden und Speichern von Daten aus bzw. in XML-Dateien
  * @author Alexander Herzog
- * @version 2.0
+ * @version 2.1
  */
 public final class XMLTools {
 	/**
@@ -138,6 +138,9 @@ public final class XMLTools {
 	public static String fileTypeEncryptedXML="Verschlüsselte xml-Dateien";
 	/** Bezeichner für Dateiformat "Alle unterstützen Dateiformate" (im Dateiauswahldialog) */
 	public static String fileTypeAll="Alle unterstützen Dateiformate";
+
+	/** Optionaler Kommentar für die xml-Dateien */
+	public static String xmlComment="";
 
 	private String lastError=null;
 
@@ -375,6 +378,7 @@ public final class XMLTools {
 			root.setAttribute("xmlns","https://"+homeURL);
 			root.setAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
 			if (xsd!=null && !xsd.isEmpty()) root.setAttribute("xsi:schemaLocation","https://"+homeURL+" "+mediaURL+xsd);
+			if (xmlComment!=null && !xmlComment.trim().isEmpty()) root.appendChild(doc.createComment(" "+xmlComment+" "));
 		}
 
 		return root;
@@ -389,10 +393,10 @@ public final class XMLTools {
 	public static Element generateRootStatic(final String name, final boolean plain) {
 		if (name==null || name.trim().isEmpty()) return null;
 
-		DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
-		DocumentBuilder db;
+		final DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+		final DocumentBuilder db;
 		try {db=dbf.newDocumentBuilder();} catch (ParserConfigurationException e) {return null;}
-		Document doc=db.newDocument();
+		final Document doc=db.newDocument();
 
 		Element root=null;
 		try {
@@ -404,6 +408,7 @@ public final class XMLTools {
 			root.setAttribute("xmlns","https://"+homeURL);
 			root.setAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
 			if (xsd!=null && !xsd.isEmpty()) root.setAttribute("xsi:schemaLocation","https://"+homeURL+" "+mediaURL+xsd);
+			if (xmlComment!=null && !xmlComment.trim().isEmpty()) root.appendChild(doc.createComment(" "+xmlComment+" "));
 		}
 
 		return root;
