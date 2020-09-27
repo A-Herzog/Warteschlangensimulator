@@ -480,6 +480,11 @@ public class StatisticViewerTable implements StatisticViewer {
 	}
 
 	@Override
+	public void search(Component owner) {
+	}
+
+
+	@Override
 	public boolean save(Component owner, File file) {
 		if (columnNames.isEmpty()) buildTable();
 

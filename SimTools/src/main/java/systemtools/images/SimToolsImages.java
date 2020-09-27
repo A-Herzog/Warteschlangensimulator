@@ -53,6 +53,9 @@ public enum SimToolsImages {
 	/** Symbol "Speichern" */
 	SAVE("disk.png"),
 
+	/** Symbol "Suchen" */
+	SEARCH("find.png"),
+
 	/** Symbol "Als Text speichern" */
 	SAVE_TEXT("Text.gif"),
 

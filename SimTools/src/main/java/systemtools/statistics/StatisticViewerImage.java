@@ -186,6 +186,10 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	}
 
 	@Override
+	public void search(Component owner) {
+	}
+
+	@Override
 	public boolean save(Component owner, File file) {
 		final BufferedImage image=getImage();
 		return ImageTools.saveImage(owner,image,file);

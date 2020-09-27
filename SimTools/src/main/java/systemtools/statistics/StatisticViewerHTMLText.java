@@ -163,6 +163,10 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	}
 
 	@Override
+	public void search(Component owner) {
+	}
+
+	@Override
 	public boolean save(final Component owner, final File file) {
 		if (textPane==null) initTextPane();
 

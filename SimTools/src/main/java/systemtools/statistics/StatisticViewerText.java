@@ -44,6 +44,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -51,7 +52,9 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.AbstractDocument.LeafElement;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Element;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
@@ -125,6 +128,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		case CAN_DO_COPY: return true;
 		case CAN_DO_PRINT: return true;
 		case CAN_DO_SAVE: return true;
+		case CAN_DO_SEARCH: return true;
 		default: return false;
 		}
 	}
@@ -1315,5 +1319,70 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	@Override
 	public boolean hasOwnFileDropListener() {
 		return false;
+	}
+
+	private void searchInElement(final Element element, final String searchLower, final List<Integer> hits) {
+		for (int i=0;i<element.getElementCount();i++) {
+			searchInElement(element.getElement(i),searchLower,hits);
+		}
+
+		if (element instanceof LeafElement) {
+			final LeafElement leaf=(LeafElement)element;
+			try {
+				final int start=leaf.getStartOffset();
+				final String textLower=textPane.getText(start,leaf.getEndOffset()-start).toLowerCase();
+
+				int index=-1;
+				while (true) {
+					index=textLower.indexOf(searchLower,index+1);
+					if (index<0) break;
+					hits.add(start+index);
+				}
+			} catch (BadLocationException e) {}
+		}
+	}
+
+	private List<Integer> getCaretPositions(final String search) {
+		final List<Integer> hits=new ArrayList<>();
+		final String searchLower=search.toLowerCase();
+
+		searchInElement(textPane.getStyledDocument().getDefaultRootElement(),searchLower,hits);
+
+		return hits;
+	}
+
+	private void processSearchResults(final Component owner, final String search, final List<Integer> hits) {
+		textPane.getHighlighter().removeAllHighlights();
+
+		if (hits==null || hits.size()==0) {
+			MsgBox.info(owner,StatisticsBasePanel.viewersToolbarSearch,String.format(StatisticsBasePanel.viewersToolbarSearchNotFound,search));
+			return;
+		}
+
+		final DefaultHighlighter.DefaultHighlightPainter highlightPainter=new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+		for (Integer hit: hits) {
+			try {
+				textPane.getHighlighter().addHighlight(hit,hit+search.length(),highlightPainter);
+			} catch (BadLocationException e) {}
+		}
+		textPane.setCaretPosition(hits.get(0));
+	}
+
+	@Override
+	public void search(final Component owner) {
+		if (textPane==null) {
+			buildText();
+			initTextPane();
+			initDescriptionPane();
+		}
+
+		final String search=JOptionPane.showInputDialog(owner,StatisticsBasePanel.viewersToolbarSearchTitle);
+		if (search==null) {
+			textPane.getHighlighter().removeAllHighlights();
+			return;
+		}
+
+		final List<Integer> hits=getCaretPositions(search);
+		processSearchResults(owner,search,hits);
 	}
 }

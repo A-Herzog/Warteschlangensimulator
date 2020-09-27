@@ -730,6 +730,11 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	}
 
 	@Override
+	public void search(Component owner) {
+	}
+
+
+	@Override
 	public boolean getCanDo(CanDoAction canDoType) {
 		switch (canDoType) {
 		case CAN_DO_COPY : return true;

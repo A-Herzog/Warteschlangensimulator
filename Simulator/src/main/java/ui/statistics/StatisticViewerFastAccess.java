@@ -137,6 +137,10 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 	}
 
 	@Override
+	public void search(Component owner) {
+	}
+
+	@Override
 	public boolean save(Component owner, File file) {
 		return JSRunDataFilterTools.saveText(results.getText(),file,false);
 	}

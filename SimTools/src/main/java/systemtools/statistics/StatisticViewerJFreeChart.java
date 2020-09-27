@@ -226,6 +226,10 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	}
 
 	@Override
+	public void search(Component owner) {
+	}
+
+	@Override
 	public boolean save(Component owner, File file) {
 		if (chartPanel==null) firstChartRequest();
 

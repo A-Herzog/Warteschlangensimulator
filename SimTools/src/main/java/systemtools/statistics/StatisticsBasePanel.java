@@ -196,11 +196,19 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersToolbarPrintHint="Druckt die Ergebnisse von dieser Seite aus.";
 	/** Bezeichner für das Toolbar-Button "Speichern" */
 	public static String viewersToolbarSave="Speichern";
-	/** Bezeichner für den Tooltip für das Toolbar-Button "Kopieren" */
+	/** Bezeichner für den Tooltip für das Toolbar-Button "Speichern" */
 	public static String viewersToolbarSaveHint="Speichert die auf dieser Seite angezeigten Ergebnisse in einer Datei.";
+	/** Bezeichner für das Toolbar-Button "Suchen" */
+	public static String viewersToolbarSearch="Suchen";
+	/** Bezeichner für den Tooltip für das Toolbar-Button "Suchen" */
+	public static String viewersToolbarSearchHint="Sucht nach einem Text auf der aktuellen Seite";
+	/** Titel für den Such-Dialog zum Suchen von Text innerhalb eines Viewers */
+	public static String viewersToolbarSearchTitle="Text suchen";
+	/** Meldung, dass die Suche nach einem Text keine Treffer ergab. */
+	public static String viewersToolbarSearchNotFound="Der Text \"%s\" wurde nicht gefunden.";
 	/** Bezeichner für das Toolbar-Button "Einstellungen" */
 	public static String viewersToolbarSettings="Einstellungen";
-	/** Bezeichner für den Tooltip für das Toolbar-Button "Kopieren" */
+	/** Bezeichner für den Tooltip für das Toolbar-Button "Einstellungen" */
 	public static String viewersToolbarSettingsHint="Einstellungen zu der gewählten Statistik-Anzeige vornehmen.";
 	/** Bezeichner für das Toolbar-Button "Text in externer Anwendung anzeigen" */
 	public static String viewersToolbarOpenText="Öffnen";
@@ -405,6 +413,9 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	/** "Speichern"-Schaltflächen über den einzelnen Viewern */
 	private final JButton[] save;
 
+	/** "Suchen"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] search;
+
 	/** "Einstellungen"-Schaltflächen über den einzelnen Viewern */
 	private final JButton[] settings;
 
@@ -540,6 +551,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		copy=new JButton[dataToolBar.length];
 		print=new JButton[dataToolBar.length];
 		save=new JButton[dataToolBar.length];
+		search=new JButton[dataToolBar.length];
 		settings=new JButton[dataToolBar.length];
 		selectAll=new JButton[dataToolBar.length];
 		selectNone=new JButton[dataToolBar.length];
@@ -567,6 +579,11 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			save[i].addActionListener(new ButtonListener());
 			save[i].setIcon(SimToolsImages.SAVE.getIcon());
 			dataToolBar[i].add(save[i]);
+			search[i]=new JButton(viewersToolbarSearch);
+			search[i].setToolTipText(viewersToolbarSearchHint);
+			search[i].addActionListener(new ButtonListener());
+			search[i].setIcon(SimToolsImages.SEARCH.getIcon());
+			dataToolBar[i].add(search[i]);
 			settings[i]=new JButton(viewersToolbarSettings);
 			settings[i].setToolTipText(viewersToolbarSettingsHint);
 			settings[i].addActionListener(new ButtonListener());
@@ -1091,6 +1108,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			copy[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_COPY));
 			print[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_PRINT));
 			save[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_SAVE));
+			search[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_SEARCH));
 
 			for (JButton oldButton: userToolbarButtons[i]) dataToolBar[i].remove(oldButton);
 			userToolbarButtons[i].clear();
@@ -1273,6 +1291,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 				if (sender==copy[i]) dataViewer[i].copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
 				if (sender==print[i]) dataViewer[i].print();
 				if (sender==save[i]) dataViewer[i].save(getOwnerWindow());
+				if (sender==search[i]) dataViewer[i].search(getOwnerWindow());
 				if (sender==settings[i]) settingsMenu[i].show(settings[i],0,settings[i].getHeight());
 				if (sender==settingsItem[i]) dataViewer[i].ownSettings(StatisticsBasePanel.this);
 				if (sender==selectAll[i] && dataViewer[i] instanceof StatisticViewerReport) ((StatisticViewerReport)dataViewer[i]).selectAll();

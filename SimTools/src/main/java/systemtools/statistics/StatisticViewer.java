@@ -115,7 +115,13 @@ public interface StatisticViewer {
 		 * Gibt an, ob die Viewer-Daten gespeichert werden können
 		 * @see StatisticViewer#save(Component)
 		 */
-		CAN_DO_SAVE
+		CAN_DO_SAVE,
+
+		/**
+		 * Gibt an, ob in dem Viewer gesucht werden kann
+		 * @see StatisticViewer#search(Component)
+		 */
+		CAN_DO_SEARCH
 	}
 
 	/**
@@ -162,6 +168,12 @@ public interface StatisticViewer {
 	 * @param owner	Übergeordnete Komponente für die Anzeige von Dialogen
 	 */
 	void save(Component owner);
+
+	/**
+	 * Führt eine Suche im aktuellen Viewer durch.
+	 * @param owner	Übergeordnete Komponente für die Anzeige von Dialogen
+	 */
+	void search(Component owner);
 
 	/**
 	 * Speichert die Daten in der aktuellen Variante in der angegebenen Datei.
