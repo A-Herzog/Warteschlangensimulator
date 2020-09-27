@@ -206,7 +206,7 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 					isTime.set(row-1,isTime.get(row));
 					isTime.set(row,b);
 					s=expressions.get(row-1);
-					expressions.set(row-1,keys.get(row));
+					expressions.set(row-1,expressions.get(row));
 					expressions.set(row,s);
 				}
 				updateTable();
@@ -220,7 +220,7 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 					isTime.set(row+1,isTime.get(row));
 					isTime.set(row,b);
 					s=expressions.get(row+1);
-					expressions.set(row+1,keys.get(row));
+					expressions.set(row+1,expressions.get(row));
 					expressions.set(row,s);
 				}
 				updateTable();
