@@ -1258,4 +1258,9 @@ public class ModelElement {
 
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString()+" (id="+id+")";
+	}
 }
