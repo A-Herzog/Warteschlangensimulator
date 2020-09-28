@@ -25,7 +25,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -194,10 +193,9 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(labelPanel,BorderLayout.NORTH);
 			label=new JLabel(name); labelPanel.add(label);
 
-			Double D=decide.getRates().get(edges[i].getId());
-			if (D==null) D=1.0;
-			if (D<0) D=0.0;
-			final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate")+":",NumberTools.formatNumber(D),10);
+			double d=(decide.getRates().size()<=i)?1.0:decide.getRates().get(i);
+			if (d<0) d=0.0;
+			final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate")+":",NumberTools.formatNumber(d),10);
 			option.add((JPanel)data[0],BorderLayout.CENTER);
 			final JTextField input=(JTextField)data[1];
 			input.setEditable(!readOnly);
@@ -237,7 +235,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 				input.setText(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Condition.Else"));
 			} else {
 				input.setEditable(!readOnly);
-				String condition=decide.getConditions().get(edges[i].getId());
+				String condition=(i>=decide.getConditions().size())?"":decide.getConditions().get(i);
 				if (condition==null) condition="";
 				input.setText(condition);
 				input.addKeyListener(new KeyListener(){
@@ -549,20 +547,17 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 			}
 
 			decide.setMode(mode);
-			final ModelElementEdge[] edges=decide.getEdgesOut();
 
 			switch (mode) {
 			case MODE_CHANCE:
-				final Map<Integer,Double> ratesMap=decide.getRates();
-				ratesMap.clear();
-				final List<Double> rates=getRates(false);
-				for (int i=0;i<edges.length;i++) ratesMap.put(edges[i].getId(),rates.get(i));
+				final List<Double> ratesList=decide.getRates();
+				ratesList.clear();
+				ratesList.addAll(getRates(false));
 				break;
 			case MODE_CONDITION:
-				final Map<Integer,String> conditionsMap=decide.getConditions();
-				conditionsMap.clear();
-				final List<String> c=getConditions(false);
-				for (int i=0;i<edges.length-1;i++) conditionsMap.put(edges[i].getId(),c.get(i));
+				final List<String> conditionsList=decide.getConditions();
+				conditionsList.clear();
+				conditionsList.addAll(getConditions(false));
 				break;
 			case MODE_CLIENTTYPE:
 				final List<String> clientTypesList=decide.getClientTypes();

@@ -20,13 +20,10 @@ import java.awt.Component;
 import java.awt.Point;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -96,8 +93,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	private DecideMode mode=DecideMode.MODE_CHANCE;
 
 	private String key;
-	private final Map<Integer,Double> rates;
-	private final Map<Integer,String> conditions;
+	private final List<Double> rates;
+	private final List<String> conditions;
 	private final List<String> values;
 	private final List<String> clientTypes;
 
@@ -113,8 +110,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		connectionsIn=new ArrayList<>();
 		connectionsOut=new ArrayList<>();
 		key="";
-		rates=new HashMap<>();
-		conditions=new HashMap<>();
+		rates=new ArrayList<>();
+		conditions=new ArrayList<>();
 		values=new ArrayList<>();
 		clientTypes=new ArrayList<>();
 	}
@@ -158,12 +155,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 
 		double sum=0;
 		if (mode==DecideMode.MODE_CHANCE) {
-			for (ModelElementEdge connection: connectionsOut) {
-				final int id=connection.getId();
-				Double rate=rates.get(id);
-				if (rate==null) rate=1.0;
+			while (rates.size()<connectionsOut.size()) rates.add(1.0);
+			for (int i=0;i<connectionsOut.size();i++) {
+				Double rate=rates.get(i);
 				if (rate<0) rate=0.0;
-				rates.put(id,rate);
+				rates.set(i,rate);
 				sum+=rate;
 			}
 			if (sum==0) sum=1;
@@ -175,8 +171,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			String s;
 			switch (mode) {
 			case MODE_CHANCE:
-				final int id=connection.getId();
-				final Double rate=rates.get(id);
+				final double rate=(i>=rates.size())?1.0:rates.get(i);
 				name=Language.tr("Surface.Decide.Rate")+" "+NumberTools.formatNumber(rate)+" ("+NumberTools.formatPercent(rate/sum)+")";
 				break;
 			case MODE_CONDITION:
@@ -235,27 +230,19 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 
 		switch (mode) {
 		case MODE_CHANCE:
-			Map<Integer,Double> rates2=((ModelElementDecide)element).rates;
-			for (ModelElementEdge connection: connectionsOut) {
-				final int id=connection.getId();
-				final Double rate1=rates.get(id);
-				final Double rate2=rates2.get(id);
-				if (rate1==null && rate2==null) continue;
-				if (rate1==null || rate2==null) return false;
-				final double d1=rate1;
-				final double d2=rate2;
-				if (d1!=d2) return false;
+			List<Double> rates2=((ModelElementDecide)element).rates;
+			for (int i=0;i<connectionsOut.size();i++) {
+				if (i>=rates.size() && i>=rates2.size()) continue;
+				if (i>=rates.size() || i>=rates2.size()) return false;
+				if (rates.get(i).doubleValue()!=rates2.get(i).doubleValue()) return false;
 			}
 			break;
 		case MODE_CONDITION:
-			Map<Integer,String> conditions2=((ModelElementDecide)element).conditions;
+			List<String> conditions2=((ModelElementDecide)element).conditions;
 			for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
-				final int id=connectionsOut.get(i).getId();
-				final String c1=conditions.get(id);
-				final String c2=conditions2.get(id);
-				if (c1==null && c2==null) continue;
-				if (c1==null || c2==null) return false;
-				if (!c1.equals(c2)) return false;
+				if (i>=conditions.size() && i>=conditions2.size()) continue;
+				if (i>=conditions.size() || i>=conditions2.size()) return false;
+				if (!conditions.get(i).equals(conditions2.get(i))) return false;
 			}
 			break;
 		case MODE_CLIENTTYPE:
@@ -318,32 +305,33 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementDecide) {
+			final ModelElementDecide source=(ModelElementDecide)element;
 
 			connectionsIn.clear();
-			final List<ModelElementEdge> connectionsIn2=((ModelElementDecide)element).connectionsIn;
+			final List<ModelElementEdge> connectionsIn2=source.connectionsIn;
 			if (connectionsIn2!=null) {
 				connectionsInIds=new ArrayList<>();
 				for (int i=0;i<connectionsIn2.size();i++) connectionsInIds.add(connectionsIn2.get(i).getId());
 			}
 
 			connectionsOut.clear();
-			final List<ModelElementEdge> connectionsOut2=((ModelElementDecide)element).connectionsOut;
+			final List<ModelElementEdge> connectionsOut2=source.connectionsOut;
 			if (connectionsOut2!=null) {
 				connectionsOutIds=new ArrayList<>();
 				for (int i=0;i<connectionsOut2.size();i++) connectionsOutIds.add(connectionsOut2.get(i).getId());
 			}
 
-			mode=((ModelElementDecide)element).mode;
+			mode=source.mode;
 
 			switch (mode) {
 			case MODE_CHANCE:
-				for (Map.Entry<Integer,Double> entry: ((ModelElementDecide)element).rates.entrySet()) rates.put(entry.getKey(),entry.getValue());
+				rates.addAll(source.rates);
 				break;
 			case MODE_CONDITION:
-				for (Map.Entry<Integer,String> entry: ((ModelElementDecide)element).conditions.entrySet()) conditions.put(entry.getKey(),entry.getValue());
+				conditions.addAll(source.conditions);
 				break;
 			case MODE_CLIENTTYPE:
-				clientTypes.addAll(((ModelElementDecide)element).clientTypes);
+				clientTypes.addAll(source.clientTypes);
 				break;
 			case MODE_SEQUENCE:
 				/* nichts zu kopieren */
@@ -610,14 +598,13 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			if (newClientTypes!=null && newClientTypes.size()>i && !newClientTypes.get(i).trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.NewClientType"),newClientTypes.get(i).trim());
 			switch (mode) {
 			case MODE_CHANCE:
-				Double rate=rates.get(element.getId());
-				if (rate==null) rate=1.0;
+				double rate=(i>=rates.size())?1.0:rates.get(i);
 				if (rate<0) rate=0.0;
 				sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Rate"),NumberTools.formatSystemNumber(rate));
 				break;
 			case MODE_CONDITION:
 				if (i<connectionsOut.size()-1) {
-					String condition=conditions.get(element.getId());
+					String condition=(i>=conditions.size())?"":conditions.get(i);
 					if (condition==null) condition="";
 					sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Condition"),condition);
 				}
@@ -710,12 +697,13 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				if (!rateString.isEmpty()) {
 					Double rate=NumberTools.getNotNegativeDouble(rateString);
 					if (rate==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Decide.XML.Connection.Rate"),name,node.getParentNode().getNodeName());
-					rates.put(I,rate);
+					rates.add(rate);
+				} else {
+					rates.add(1.0);
 				}
 
 				/* Condition */
-				final String condition=Language.trAllAttribute("Surface.Decide.XML.Connection.Condition",node);
-				if (!condition.isEmpty()) conditions.put(I,condition);
+				conditions.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Condition",node));
 
 				/* ClientType */
 				clientTypes.add(Language.trAllAttribute("Surface.Decide.XML.Connection.ClientType",node));
@@ -816,17 +804,17 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 
 	/**
 	 * Liefert die Raten, mit denen die Kunden zu den einzelnen Zielstationen der auslaufenden Kanten weitergeleitet werden.
-	 * @return	Maps, die den Stations-IDs die jeweiligen Raten zuordnet.
+	 * @return	Liste der Raten für die Verzweigungen
 	 */
-	public Map<Integer,Double> getRates() {
+	public List<Double> getRates() {
 		return rates;
 	}
 
 	/**
 	 * Liefert die Bedingungen, mit denen die Kunden zu den einzelnen Zielstationen der auslaufenden Kanten weitergeleitet werden.
-	 * @return	Maps, die den Stations-IDs die jeweiligen Bedingungen zuordnet.
+	 * @return	Liste der Bedingungen für die Verzweigungen
 	 */
-	public Map<Integer,String> getConditions() {
+	public List<String> getConditions() {
 		return conditions;
 	}
 
@@ -939,7 +927,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.Rate"),1000);
 			for (int i=0;i<connectionsOut.size();i++) {
 				final ModelElementEdge edge=connectionsOut.get(i);
-				final String edgeDescription=String.format(Language.tr("ModelDescription.Decide.Rate"),NumberTools.formatNumber(rates.get(edge.getId())));
+				final String edgeDescription=String.format(Language.tr("ModelDescription.Decide.Rate"),NumberTools.formatNumber((i>=rates.size())?1.0:rates.get(i)));
 				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
 				descriptionBuilder.addConditionalEdgeOut(edgeDescription+newClientType,edge);
 			}
@@ -950,7 +938,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				final ModelElementEdge edge=connectionsOut.get(i);
 				final String edgeDescription;
 				if (i<connectionsOut.size()-1) {
-					edgeDescription=String.format(Language.tr("ModelDescription.Decide.Condition"),conditions.get(edge.getId()));
+					edgeDescription=String.format(Language.tr("ModelDescription.Decide.Condition"),(i>=conditions.size())?"":conditions.get(i));
 				} else {
 					edgeDescription=Language.tr("ModelDescription.Decide.Condition.Else");
 				}
@@ -1035,28 +1023,6 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	public boolean setReferenceEdges(List<ModelElementEdge> connectionsIn, List<ModelElementEdge> connectionsOut) {
 		this.connectionsIn.clear();
 		this.connectionsIn.addAll(connectionsIn);
-
-		final List<Integer> oldIDs=this.connectionsOut.stream().map(edge->edge.getId()).collect(Collectors.toList());
-		final List<Integer> newIDs=connectionsOut.stream().map(edge->edge.getId()).collect(Collectors.toList());
-
-		final Map<Integer,Double> newRates=new HashMap<>();
-		final Map<Integer,String> newConditions=new HashMap<>();
-
-		for (Map.Entry<Integer,Double> entry: rates.entrySet()) {
-			final int index=oldIDs.indexOf(entry.getKey());
-			final Integer ID=(index<0)?entry.getKey():newIDs.get(index);
-			newRates.put(ID,entry.getValue());
-		}
-		rates.clear();
-		rates.putAll(newRates);
-
-		for (Map.Entry<Integer,String> entry: conditions.entrySet()) {
-			final int index=oldIDs.indexOf(entry.getKey());
-			final Integer ID=(index<0)?entry.getKey():newIDs.get(index);
-			newConditions.put(ID,entry.getValue());
-		}
-		conditions.clear();
-		conditions.putAll(newConditions);
 
 		this.connectionsOut.clear();
 		this.connectionsOut.addAll(connectionsOut);

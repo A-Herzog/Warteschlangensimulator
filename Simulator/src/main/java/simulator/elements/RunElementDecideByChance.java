@@ -67,17 +67,16 @@ public class RunElementDecideByChance extends RunElement {
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 		decide.probabilites=new double[edges.length];
+		final List<Double> editRates=((ModelElementDecide)element).getRates();
 		for (ModelElementEdge edge : edges) {
 			final int id=findNextId(edge);
 			if (id<0) return String.format(Language.tr("Simulation.Creator.EdgeToNowhere"),element.getId(),edge.getId());
 			decide.connectionIds.add(id);
-
-			Double D=((ModelElementDecide)element).getRates().get(edge.getId());
-			if (D==null) D=1.0;
-			if (D<0) D=0.0;
-			decide.probabilites[count]=D;
+			double d=(count>=editRates.size())?1.0:editRates.get(count);
+			if (d<0) d=0.0;
+			decide.probabilites[count]=d;
 			count++;
-			sum+=D;
+			sum+=d;
 		}
 		if (sum==0) return String.format(Language.tr("Simulation.Creator.NoDecideByChanceRates"),element.getId());
 
@@ -99,14 +98,16 @@ public class RunElementDecideByChance extends RunElement {
 		double sum=0;
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return RunModelCreatorStatus.noEdgeOut(element);
+		int count=0;
+		final List<Double> editRates=((ModelElementDecide)element).getRates();
 		for (ModelElementEdge edge : edges) {
 			final int id=findNextId(edge);
 			if (id<0) return RunModelCreatorStatus.edgeToNowhere(element,edge);
 
-			Double D=((ModelElementDecide)element).getRates().get(edge.getId());
-			if (D==null) D=1.0;
-			if (D<0) D=0.0;
-			sum+=D;
+			double d=(count>=editRates.size())?1.0:editRates.get(count);
+			if (d<0) d=0.0;
+			sum+=d;
+			count++;
 		}
 		if (sum==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoDecideByChanceRates"),element.getId()));
 
