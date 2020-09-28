@@ -120,6 +120,10 @@ The following methods are in this object available:
   Translates the statistics data to English ("en") or German ("de") so the preferred xml tag names can be
   used independent of the language setting under which the statistics file was generated.
   </li>
+  <li><tt>int getStationID(final String name)</tt><br>
+  Gets the ID of a station based on its name.
+  If there is no station with a matching name, the function will return -1.
+  </li>
 </ul>
 
 
@@ -567,6 +571,10 @@ properties and for starting simulations.
   </li>
   <li><tt>void cancel()</tt><br>
   Sets the cancel status. (When processing is canceled to further simulations will be performed.)
+  </li>
+  <li><tt>int getStationID(final String name)</tt><br>
+  Gets the ID of a station based on its name.
+  If there is no station with a matching name, the function will return -1.
   </li>
 </ul>
 

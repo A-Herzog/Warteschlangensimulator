@@ -116,4 +116,11 @@ public interface StatisticsInterface {
 	 * @return	Gibt an, ob das Übersetzen erfolgreich war
 	 */
 	boolean translate(final String language);
+
+	/**
+	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
+	 * @param name	Name der Station
+	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
+	 */
+	int getStationID(final String name);
 }

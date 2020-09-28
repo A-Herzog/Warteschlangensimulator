@@ -24,6 +24,9 @@ import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import ui.ModelChanger;
 import ui.modeleditor.ModelResource;
+import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementSub;
 
 /**
  * Implementierungsklasse für das Interface {@link ModelInterface}
@@ -267,5 +270,27 @@ public class ModelImpl implements ModelInterface {
 		} else {
 			return false;
 		}
+	}
+
+	private int getStationID(final ModelSurface surface, final String name) {
+		for (ModelElement element1: surface.getElements()) {
+			if (element1.getName().equalsIgnoreCase(name)) return element1.getId();
+			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+				if (element2.getName().equalsIgnoreCase(name)) return element2.getId();
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
+	 * @param name	Name der Station
+	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
+	 */
+	@Override
+	public int getStationID(final String name) {
+		if (name==null || name.trim().isEmpty()) return -1;
+		return getStationID(model.surface,name);
 	}
 }

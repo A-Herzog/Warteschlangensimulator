@@ -153,7 +153,18 @@ This function is only available in the Run script panel.
 \item
 \cmd{Statistics.cancel()}:\\
 Sets the cancel status. (When output is canceled to further file output will be performed.)
-	
+
+\end{itemize}
+
+\section{Accessing station data}
+
+\begin{itemize}
+
+\item
+\cmd{Statistics.getStationID("{}StationName")}:\\
+Gets the ID of a station based on its name.
+If there is no station with a matching name, the function will return -1.
+
 \end{itemize}
 
 
@@ -668,6 +679,17 @@ name \cm{VariableName} is calculated.
 \item
 \cmd{Model.cancel()}:\\
 Sets the cancel status. (When processing is canceled to further simulations will be performed.)
+
+\end{itemize}
+
+\section{Accessing station data}
+
+\begin{itemize}
+
+\item
+\cmd{Model.getStationID("{}StationName")}:\\
+Gets the ID of a station based on its name.
+If there is no station with a matching name, the function will return -1.
 
 \end{itemize}
 

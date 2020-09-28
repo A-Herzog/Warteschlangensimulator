@@ -37,7 +37,11 @@ import mathtools.TimeTools;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.tools.DistributionTools;
 import scripting.js.JSRunDataFilter;
+import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
+import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementSub;
 import xml.XMLTools;
 
 /**
@@ -535,5 +539,36 @@ public class StatisticsImpl implements StatisticsInterface {
 		if (newXml==null) return false;
 		xml=newXml;
 		return true;
+	}
+
+	private int getStationID(final ModelSurface surface, final String name) {
+		for (ModelElement element1: surface.getElements()) {
+			if (element1.getName().equalsIgnoreCase(name)) return element1.getId();
+			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+				if (element2.getName().equalsIgnoreCase(name)) return element2.getId();
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
+	 * @param name	Name der Station
+	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
+	 */
+	@Override
+	public int getStationID(final String name) {
+		if (name==null || name.trim().isEmpty()) return -1;
+
+		final Element root=xml.getDocumentElement();
+
+		final EditModel model=new EditModel();
+		if (model.loadFromXML(root)==null) return getStationID(model.surface,name);
+
+		final Statistics statistics=new Statistics();
+		if (statistics.loadFromXML(root)==null) return getStationID(statistics.editModel.surface,name);
+
+		return -1;
 	}
 }

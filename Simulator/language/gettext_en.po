@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 18:22+0200\n"
+"POT-Creation-Date: 2020-09-28 15:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15030,6 +15030,12 @@ msgstr "Changes a numerical value"
 
 msgid "Statistic.FastAccess.Template.StationCosts"
 msgstr "Costs at the stations"
+
+msgid "Statistic.FastAccess.Template.StationID.Get"
+msgstr "ID of a station"
+
+msgid "Statistic.FastAccess.Template.StationID.Get.Tooltip"
+msgstr "Gets the ID of a station based on its name."
 
 msgid "Statistic.FastAccess.Template.StatisticsTranslate.de"
 msgstr "Translate statistics to \"de\""

@@ -135,6 +135,10 @@ Das Interface stellt folgende Methoden zur Verfügung:
   xml-Bezeichner verwendet werden können, auch wenn die Statistikdaten evtl. mit einer anderen Spracheinstellung
   erstellt wurden.
   </li>
+  <li><tt>int getStationID(final String name)</tt><br>
+  Liefert die ID einer Station basierend auf dem Namen der Station.
+  Existiert keine Station mit dem passenden Namen, so liefert die Funktion -1.
+  </li>
 </ul>
 
 
@@ -600,6 +604,10 @@ Simulationen zu initiieren.
   </li>
   <li><tt>void cancel()</tt><br>
   Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationen mehr ausgeführt.)
+  </li>
+  <li><tt>int getStationID(final String name)</tt><br>
+  Liefert die ID einer Station basierend auf dem Namen der Station.
+  Existiert keine Station mit dem passenden Namen, so liefert die Funktion -1.
   </li>
 </ul>
 

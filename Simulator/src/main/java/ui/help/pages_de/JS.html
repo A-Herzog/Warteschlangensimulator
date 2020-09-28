@@ -130,6 +130,10 @@ Simulation steht das <tt>Statistics</tt>-Objekt nicht zur Verfügung. Das Objekt
   xml-Bezeichner verwendet werden können, auch wenn die Statistikdaten evtl. mit einer anderen Spracheinstellung
   erstellt wurden.
   </li>
+  <li><tt>Statistics.getStationID("StationName")</tt><br>
+  Liefert die ID einer Station basierend auf dem Namen der Station.
+  Existiert keine Station mit dem passenden Namen, so liefert die Funktion -1.
+  </li>
 </ul>
 
 
@@ -596,6 +600,10 @@ Simulationen zu initiieren.
   </li>
   <li><tt>Model.cancel()</tt><br>
   Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationen mehr ausgeführt.)
+  </li>
+  <li><tt>Model.getStationID("StationName")</tt><br>
+  Liefert die ID einer Station basierend auf dem Namen der Station.
+  Existiert keine Station mit dem passenden Namen, so liefert die Funktion -1.
   </li>
 </ul>
 

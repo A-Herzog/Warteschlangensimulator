@@ -7434,6 +7434,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19359] = "Output";
     t[19370] = "Surface.Delay.Name";
     t[19371] = "Delay";
+    t[19376] = "Statistic.FastAccess.Template.StationID.Get";
+    t[19377] = "ID of a station";
     t[19386] = "Transporter.Failure.Delete";
     t[19387] = "Delete failure";
     t[19388] = "Surface.OutputDDE.Table.EditCustomText";
@@ -8008,10 +8010,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20857] = "Displays multiple values as a pie chart during animation.";
     t[20858] = "Simulation.Element.TankValveSetup.Name";
     t[20859] = "Valve setup";
-    t[20860] = "LoadCalculator.ArrivalRate";
-    t[20861] = "Average inter-arrival time or Arrival rate";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20860] = "LoadCalculator.ArrivalRate";
+    t[20861] = "Average inter-arrival time or Arrival rate";
     t[20862] = "Viewer.LoadModel";
     t[20863] = "Load model to editor";
     t[20864] = "Surface.TransportParking.Tooltip";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26025] = "No model was loaded.";
     t[26026] = "Main.Menu.SimulationFindWarmUpSize";
     t[26027] = "Determine warm-up phase...";
-    t[26030] = "Surface.Popup.AddVisualization.AverageNQTotal";
-    t[26031] = "Average total number of waiting clients in the system";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26030] = "Surface.Popup.AddVisualization.AverageNQTotal";
+    t[26031] = "Average total number of waiting clients in the system";
     t[26036] = "Surface.Barrier.Infotext";
     t[26037] = "Delays the arriving clients until a suitable signal is triggered.";
     t[26038] = "ExpressionBuilder.CommandName.AnalogRate";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31307] = "Minimum";
     t[31310] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Median";
     t[31311] = "<p>Returns the median of the duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
-    t[31318] = "Statistics.XML.Element.Simulation";
-    t[31319] = "SimulationData";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31318] = "Statistics.XML.Element.Simulation";
+    t[31319] = "SimulationData";
     t[31340] = "SettingsDialog.SurfaceHelp.StartOnly";
     t[31341] = "Only at program start";
     t[31342] = "Surface.XML.Tank.Valve.TimeBase.PerMinute";
@@ -12306,6 +12308,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32127] = "Flow started: %s, at station: %s";
     t[32130] = "ExpressionBuilder.Error.Title";
     t[32131] = "Invalid expression";
+    t[32132] = "Statistic.FastAccess.Template.StationID.Get.Tooltip";
+    t[32133] = "Gets the ID of a station based on its name.";
     t[32136] = "ExpressionBuilder.ClientsInSystem.MinimalNumber";
     t[32137] = "<p>Returns the minimal number of clients in the system.</p>";
     t[32138] = "Statistic.Viewer.Report.HTMLAppTitle";
@@ -14012,12 +14016,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36513] = "Count";
     t[36518] = "Surface.SourceDB.Dialog.ColumnClientType.ErrorInfo";
     t[36519] = "No table column which contains the names of the client types has been selected.";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[36520] = "Simulation.Creator.UnknownTransporterName";
     t[36521] = "At element id=%d the undefined transporter type \"%s\" is used.";
     t[36528] = "Surface.InputDDE.XML.EofMode.DefaultValue";
     t[36529] = "DefaultValue";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[36536] = "Surface.Source.Dialog.Title";
     t[36537] = "Edit source";
     t[36546] = "Surface.PopupMenu.QuickFix.Transporter.Parking";
@@ -16014,12 +16018,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41883] = "Delete signal";
     t[41892] = "Statistics.ClientsResidenceTimes";
     t[41893] = "Residence times of the clients";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[41898] = "SettingsDialog.Tabs.Statistics.PercentDigits";
     t[41899] = "Decimal digits for percentage values";
     t[41904] = "Surface.TransportParking.Dialog.WaitingPriority.ErrorInfo";
     t[41905] = "The specified priority for requesting free transporters \"%s\" is invalid at character %d.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[41906] = "Surface.AnalogAssign.Dialog.ID.Name";
     t[41907] = "Station id=%d \"%s\"";
     t[41908] = "Color.0000CD";

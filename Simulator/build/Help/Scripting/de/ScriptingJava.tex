@@ -185,6 +185,17 @@ Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr au
 
 \end{itemize}
 
+\section{Zugriff auf das Modell}
+
+\begin{itemize}
+
+\item
+\cmd{int getStationID(final String name)}:\\
+Liefert die ID einer Station basierend auf dem Namen der Station.
+Existiert keine Station mit dem passenden Namen, so liefert die Funktion -1.
+
+\end{itemize}
+
 
 
 \chapter{\texttt{RuntimeInterface} abrufbar über \texttt{sim.getRuntime}}
@@ -701,6 +712,11 @@ mit Namen\\\cm{variableName} ein.
 \item
 \cmd{void cancel()}:\\
 Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationen mehr ausgeführt.)
+
+\item
+\cmd{int getStationID(final String name)}:\\
+Liefert die ID einer Station basierend auf dem Namen der Station.
+Existiert keine Station mit dem passenden Namen, so liefert die Funktion -1.
 
 \end{itemize}
 

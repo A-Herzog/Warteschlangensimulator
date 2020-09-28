@@ -95,34 +95,36 @@
 \BOOKMARK [1][-]{section.14.1}{14.1 Definition des Ausgabeformats}{chapter.14}% 95
 \BOOKMARK [1][-]{section.14.2}{14.2 Zugriff auf die Statistik-XML-Daten}{chapter.14}% 96
 \BOOKMARK [1][-]{section.14.3}{14.3 Speichern der Statistikdaten in Dateien}{chapter.14}% 97
-\BOOKMARK [0][-]{chapter.15}{15 System-Objekt}{part.2}% 98
-\BOOKMARK [0][-]{chapter.16}{16 Simulation-Objekt}{part.2}% 99
-\BOOKMARK [1][-]{section.16.1}{16.1 Basisfunktionen}{chapter.16}% 100
-\BOOKMARK [1][-]{section.16.2}{16.2 Zugriff auf kundenspezifische Daten}{chapter.16}% 101
-\BOOKMARK [1][-]{section.16.3}{16.3 Zugriff auf Parameter des Simulationsmodells}{chapter.16}% 102
-\BOOKMARK [1][-]{section.16.4}{16.4 Zugriff auf den aktuellen Eingabewert}{chapter.16}% 103
-\BOOKMARK [1][-]{section.16.5}{16.5 Anzahl an Bedienern in einer Ressource}{chapter.16}% 104
-\BOOKMARK [1][-]{section.16.6}{16.6 Signale ausl\366sen}{chapter.16}% 105
-\BOOKMARK [0][-]{chapter.17}{17 Clients-Objekt}{part.2}% 106
-\BOOKMARK [0][-]{chapter.18}{18 Output-Objekt}{part.2}% 107
-\BOOKMARK [0][-]{chapter.19}{19 FileOutput-Objekt}{part.2}% 108
-\BOOKMARK [0][-]{chapter.20}{20 Model-Objekt}{part.2}% 109
-\BOOKMARK [0][-]{chapter.21}{21 XML-Auswahlbefehle}{part.2}% 110
-\BOOKMARK [-1][-]{part.3}{III Referenz der Java-Befehle}{}% 111
-\BOOKMARK [0][-]{chapter.22}{22 StatisticsInterface abrufbar \374ber sim.getStatistics\(\)}{part.3}% 112
-\BOOKMARK [1][-]{section.22.1}{22.1 Definition des Ausgabeformats}{chapter.22}% 113
-\BOOKMARK [1][-]{section.22.2}{22.2 Zugriff auf die Statistik-XML-Daten}{chapter.22}% 114
-\BOOKMARK [1][-]{section.22.3}{22.3 Speichern der Statistikdaten in Dateien}{chapter.22}% 115
-\BOOKMARK [0][-]{chapter.23}{23 RuntimeInterface abrufbar \374ber sim.getRuntime}{part.3}% 116
-\BOOKMARK [0][-]{chapter.24}{24 SystemInterface abrufbar \374ber sim.getSystem\(\)}{part.3}% 117
-\BOOKMARK [1][-]{section.24.1}{24.1 Basisfunktionen}{chapter.24}% 118
-\BOOKMARK [1][-]{section.24.2}{24.2 Zugriff auf Parameter des Simulationsmodells}{chapter.24}% 119
-\BOOKMARK [1][-]{section.24.3}{24.3 Anzahl an Bedienern in einer Ressource}{chapter.24}% 120
-\BOOKMARK [1][-]{section.24.4}{24.4 Signale ausl\366sen}{chapter.24}% 121
-\BOOKMARK [0][-]{chapter.25}{25 ClientInterface abrufbar \374ber sim.getClient\(\)}{part.3}% 122
-\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface abrufbar \374ber sim.getInputValue\(\)}{part.3}% 123
-\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface abrufbar \374ber sim.getClients\(\)}{part.3}% 124
-\BOOKMARK [0][-]{chapter.28}{28 OutputInterface abrufbar \374ber sim.getOutput\(\)}{part.3}% 125
-\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface abrufbar \374ber sim.getFileOutput\(\)}{part.3}% 126
-\BOOKMARK [0][-]{chapter.30}{30 ModelInterface abrufbar \374ber sim.getModel\(\)}{part.3}% 127
-\BOOKMARK [0][-]{chapter.31}{31 XML-Auswahlbefehle}{part.3}% 128
+\BOOKMARK [1][-]{section.14.4}{14.4 Zugriff auf das Modell}{chapter.14}% 98
+\BOOKMARK [0][-]{chapter.15}{15 System-Objekt}{part.2}% 99
+\BOOKMARK [0][-]{chapter.16}{16 Simulation-Objekt}{part.2}% 100
+\BOOKMARK [1][-]{section.16.1}{16.1 Basisfunktionen}{chapter.16}% 101
+\BOOKMARK [1][-]{section.16.2}{16.2 Zugriff auf kundenspezifische Daten}{chapter.16}% 102
+\BOOKMARK [1][-]{section.16.3}{16.3 Zugriff auf Parameter des Simulationsmodells}{chapter.16}% 103
+\BOOKMARK [1][-]{section.16.4}{16.4 Zugriff auf den aktuellen Eingabewert}{chapter.16}% 104
+\BOOKMARK [1][-]{section.16.5}{16.5 Anzahl an Bedienern in einer Ressource}{chapter.16}% 105
+\BOOKMARK [1][-]{section.16.6}{16.6 Signale ausl\366sen}{chapter.16}% 106
+\BOOKMARK [0][-]{chapter.17}{17 Clients-Objekt}{part.2}% 107
+\BOOKMARK [0][-]{chapter.18}{18 Output-Objekt}{part.2}% 108
+\BOOKMARK [0][-]{chapter.19}{19 FileOutput-Objekt}{part.2}% 109
+\BOOKMARK [0][-]{chapter.20}{20 Model-Objekt}{part.2}% 110
+\BOOKMARK [0][-]{chapter.21}{21 XML-Auswahlbefehle}{part.2}% 111
+\BOOKMARK [-1][-]{part.3}{III Referenz der Java-Befehle}{}% 112
+\BOOKMARK [0][-]{chapter.22}{22 StatisticsInterface abrufbar \374ber sim.getStatistics\(\)}{part.3}% 113
+\BOOKMARK [1][-]{section.22.1}{22.1 Definition des Ausgabeformats}{chapter.22}% 114
+\BOOKMARK [1][-]{section.22.2}{22.2 Zugriff auf die Statistik-XML-Daten}{chapter.22}% 115
+\BOOKMARK [1][-]{section.22.3}{22.3 Speichern der Statistikdaten in Dateien}{chapter.22}% 116
+\BOOKMARK [1][-]{section.22.4}{22.4 Zugriff auf das Modell}{chapter.22}% 117
+\BOOKMARK [0][-]{chapter.23}{23 RuntimeInterface abrufbar \374ber sim.getRuntime}{part.3}% 118
+\BOOKMARK [0][-]{chapter.24}{24 SystemInterface abrufbar \374ber sim.getSystem\(\)}{part.3}% 119
+\BOOKMARK [1][-]{section.24.1}{24.1 Basisfunktionen}{chapter.24}% 120
+\BOOKMARK [1][-]{section.24.2}{24.2 Zugriff auf Parameter des Simulationsmodells}{chapter.24}% 121
+\BOOKMARK [1][-]{section.24.3}{24.3 Anzahl an Bedienern in einer Ressource}{chapter.24}% 122
+\BOOKMARK [1][-]{section.24.4}{24.4 Signale ausl\366sen}{chapter.24}% 123
+\BOOKMARK [0][-]{chapter.25}{25 ClientInterface abrufbar \374ber sim.getClient\(\)}{part.3}% 124
+\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface abrufbar \374ber sim.getInputValue\(\)}{part.3}% 125
+\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface abrufbar \374ber sim.getClients\(\)}{part.3}% 126
+\BOOKMARK [0][-]{chapter.28}{28 OutputInterface abrufbar \374ber sim.getOutput\(\)}{part.3}% 127
+\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface abrufbar \374ber sim.getFileOutput\(\)}{part.3}% 128
+\BOOKMARK [0][-]{chapter.30}{30 ModelInterface abrufbar \374ber sim.getModel\(\)}{part.3}% 129
+\BOOKMARK [0][-]{chapter.31}{31 XML-Auswahlbefehle}{part.3}% 130

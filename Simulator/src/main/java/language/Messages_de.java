@@ -7434,6 +7434,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19359] = "Ausgabe";
     t[19370] = "Surface.Delay.Name";
     t[19371] = "Verz\u00f6gerung";
+    t[19376] = "Statistic.FastAccess.Template.StationID.Get";
+    t[19377] = "ID einer Station";
     t[19386] = "Transporter.Failure.Delete";
     t[19387] = "Ausfall l\u00f6schen";
     t[19388] = "Surface.OutputDDE.Table.EditCustomText";
@@ -8008,10 +8010,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20857] = "Zeigt w\u00e4hrend der Animation mehrere Werte als Tortendiagramm an.";
     t[20858] = "Simulation.Element.TankValveSetup.Name";
     t[20859] = "Ventil-Setup";
-    t[20860] = "LoadCalculator.ArrivalRate";
-    t[20861] = "Zwischenankunftszeit oder Ankunftsrate";
   }
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20860] = "LoadCalculator.ArrivalRate";
+    t[20861] = "Zwischenankunftszeit oder Ankunftsrate";
     t[20862] = "Viewer.LoadModel";
     t[20863] = "Modell in Editor laden";
     t[20864] = "Surface.TransportParking.Tooltip";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26025] = "Es wurde noch kein Modell geladen.";
     t[26026] = "Main.Menu.SimulationFindWarmUpSize";
     t[26027] = "Einschwingphase bestimmen...";
-    t[26030] = "Surface.Popup.AddVisualization.AverageNQTotal";
-    t[26031] = "Mittlere Gesamtanzahl an wartenden Kunden im System";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26030] = "Surface.Popup.AddVisualization.AverageNQTotal";
+    t[26031] = "Mittlere Gesamtanzahl an wartenden Kunden im System";
     t[26036] = "Surface.Barrier.Infotext";
     t[26037] = "Verz\u00f6gert die eintreffenden Kunden solange, bis ein passendes Signal ausgel\u00f6st wird.";
     t[26038] = "ExpressionBuilder.CommandName.AnalogRate";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31307] = "Minimum";
     t[31310] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Median";
     t[31311] = "<p>Liefert den Median der Dauer \u00fcber alle Verweilzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
-    t[31318] = "Statistics.XML.Element.Simulation";
-    t[31319] = "Simulation";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31318] = "Statistics.XML.Element.Simulation";
+    t[31319] = "Simulation";
     t[31340] = "SettingsDialog.SurfaceHelp.StartOnly";
     t[31341] = "Nur direkt nach Programmstart";
     t[31342] = "Surface.XML.Tank.Valve.TimeBase.PerMinute";
@@ -12306,6 +12308,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32127] = "Fluss gestartet: %s, Station: %s";
     t[32130] = "ExpressionBuilder.Error.Title";
     t[32131] = "Ung\u00fcltiger Ausdruck";
+    t[32132] = "Statistic.FastAccess.Template.StationID.Get.Tooltip";
+    t[32133] = "Liefert die ID einer Station basierend auf dem Namen der Station.";
     t[32136] = "ExpressionBuilder.ClientsInSystem.MinimalNumber";
     t[32137] = "<p>Liefert die minimale Anzahl an Kunden im System.</p>";
     t[32138] = "Statistic.Viewer.Report.HTMLAppTitle";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36513] = "Anzahl";
     t[36518] = "Surface.SourceDB.Dialog.ColumnClientType.ErrorInfo";
     t[36519] = "Es wurde keine Tabellenspalte, in der die Namen der Kundentypen stehen, gew\u00e4hlt.";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[36520] = "Simulation.Creator.UnknownTransporterName";
     t[36521] = "An Element id=%d werden Transporter des nicht definierten Typs \"%s\" verwendet.";
     t[36528] = "Surface.InputDDE.XML.EofMode.DefaultValue";
     t[36529] = "Vorgabewert";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[36536] = "Surface.Source.Dialog.Title";
     t[36537] = "Quelle bearbeiten";
     t[36546] = "Surface.PopupMenu.QuickFix.Transporter.Parking";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41883] = "Signal l\u00f6schen";
     t[41892] = "Statistics.ClientsResidenceTimes";
     t[41893] = "Verweilzeiten der Kunden";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[41898] = "SettingsDialog.Tabs.Statistics.PercentDigits";
     t[41899] = "Nachkommastellen f\u00fcr Prozentwerte";
     t[41904] = "Surface.TransportParking.Dialog.WaitingPriority.ErrorInfo";
     t[41905] = "Die angegebene Priorit\u00e4t zum Anfordern freier Transporter \"%s\" ist ab Zeichen %d fehlerhaft.";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[41906] = "Surface.AnalogAssign.Dialog.ID.Name";
     t[41907] = "Station id=%d \"%s\"";
     t[41908] = "Color.0000CD";

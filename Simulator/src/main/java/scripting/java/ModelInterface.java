@@ -106,6 +106,13 @@ public interface ModelInterface {
 	boolean setGlobalVariableInitialValue(final String variableName, final String expression);
 
 	/**
+	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
+	 * @param name	Name der Station
+	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
+	 */
+	int getStationID(final String name);
+
+	/**
 	 * Setzt den Abbruch-Status. (Nach einem Abbruch werden keine Simulationsläufe mehr ausgeführt.)
 	 */
 	void cancel();

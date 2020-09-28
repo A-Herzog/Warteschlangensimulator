@@ -542,6 +542,7 @@ public class ScriptEditorAreaBuilder {
 		String modelSetRes="";
 		String modelGetVar="";
 		String modelSetVar="";
+		String modelGetID="";
 
 		if (language==ScriptMode.Javascript) {
 			modelReset="Model.reset();";
@@ -553,6 +554,7 @@ public class ScriptEditorAreaBuilder {
 			modelSetRes="Model.setResourceCount(\""+resource+"\","+number+");";
 			modelGetVar="Model.getGlobalVariableInitialValue(\""+variable+"\");";
 			modelSetVar="Model.setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");";
+			modelGetID="Model.getStationID(\"StationName\");";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -565,8 +567,8 @@ public class ScriptEditorAreaBuilder {
 			modelSetRes="sim.getModel().setResourceCount(\""+resource+"\","+number+");";
 			modelGetVar="sim.getModel().getGlobalVariableInitialValue(\""+variable+"\");";
 			modelSetVar="sim.getModel().setGlobalVariableInitialValue(\""+variable+"\",\""+expression+"\");";
+			modelGetID="sim.getModel().getStationID(\"StationName\");";
 		}
-
 
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.Reset"),Language.tr("Statistic.FastAccess.Template.Reset.Tooltip"),Images.SCRIPT_RECORD_MODEL.getIcon(),modelReset);
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.Run"),Language.tr("Statistic.FastAccess.Template.Run.Tooltip"),Images.SCRIPT_RECORD_MODEL_EDIT.getIcon(),modelRun);
@@ -580,6 +582,8 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.Variable.Get"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.Variable.Get.Tooltip"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),modelGetVar);
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.Variable.Set"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.Variable.Set.Tooltip"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),modelSetVar);
+
+		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.StationID.Get"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.StationID.Get.Tooltip"),Images.SCRIPT_RECORD_MODEL_EDIT.getIcon(),modelGetID);
 	}
 
 	private void buildInput() {
@@ -656,6 +660,7 @@ public class ScriptEditorAreaBuilder {
 		String statisticsXmlMean="";
 		String statisticsXmlSD="";
 		String statisticsXmlCV="";
+		String statisticsGetID="";
 
 		final String path="\"Path\"";
 
@@ -667,6 +672,7 @@ public class ScriptEditorAreaBuilder {
 			statisticsXmlMean="Statistics.xmlMean("+path+")";
 			statisticsXmlSD="Statistics.xmlSD("+path+")";
 			statisticsXmlCV="Statistics.xmlCV("+path+")";
+			statisticsGetID="Statistics.getStationID(\"StationName\");";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -677,6 +683,7 @@ public class ScriptEditorAreaBuilder {
 			statisticsXmlMean="sim.getStatistics().xmlMean("+path+")";
 			statisticsXmlSD="sim.getStatistics().xmlSD("+path+")";
 			statisticsXmlCV="sim.getStatistics().xmlCV("+path+")";
+			statisticsGetID="sim.getStatistics().getStationID(\"StationName\");";
 		}
 
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXML"),Language.tr("Statistic.FastAccess.Template.StatisticsXML.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXml);
@@ -686,5 +693,7 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLMean"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLMean.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlMean);
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLSD"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLSD.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlSD);
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsXMLCV"),Language.tr("Statistic.FastAccess.Template.StatisticsXMLCV.Hint"),Images.SCRIPT_RECORD_STATISTICS.getIcon(),statisticsXmlCV);
+
+		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StationID.Get"),Language.tr("Statistic.FastAccess.Template.StationID.Get.Tooltip"),Images.SCRIPT_RECORD_MODEL_EDIT.getIcon(),statisticsGetID);
 	}
 }

@@ -168,6 +168,17 @@ Sets the cancel status. (When output is canceled to further file output will be 
 
 \end{itemize}
 
+\section{Accessing station data}
+
+\begin{itemize}
+
+\item
+\cmd{int getStationID(final String name)}:\\
+Gets the ID of a station based on its name.
+If there is no station with a matching name, the function will return -1.
+
+\end{itemize}
+
 
 
 \chapter{\texttt{RuntimeInterface} accessible via \texttt{sim.getRuntime()}}
@@ -668,6 +679,17 @@ name \cm{variableName} is calculated.
 \item
 \cmd{void cancel()}:\\
 Sets the cancel status. (When processing is canceled to further simulations will be performed.)
+
+\end{itemize}
+
+\section{Accessing station data}
+
+\begin{itemize}
+
+\item
+\cmd{int getStationID(final String name)}:\\
+Gets the ID of a station based on its name.
+If there is no station with a matching name, the function will return -1.
 
 \end{itemize}
 

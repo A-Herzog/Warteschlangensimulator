@@ -22,6 +22,9 @@ import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import ui.ModelChanger;
 import ui.modeleditor.ModelResource;
+import ui.modeleditor.ModelSurface;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementSub;
 
 /**
  * Stellt das "Model"-Objekt in Javascript-Umgebungen zur Verfügung
@@ -189,7 +192,7 @@ public final class JSRunComplexScriptModel extends JSBaseCommand {
 	 * @param expression Neuer initialer Wert für die globale Variable
 	 * @return	Gibt <code>true</code> zurück, wenn das Modell erfolgreich verändert werden konnte.
 	 */
-	public boolean getGlobalVariableInitialValue(final Object variableName, final String expression) {
+	public boolean setGlobalVariableInitialValue(final Object variableName, final String expression) {
 		if (expression==null || expression.trim().isEmpty()) return false;
 		if (!(variableName instanceof String)) return false;
 
@@ -247,5 +250,27 @@ public final class JSRunComplexScriptModel extends JSBaseCommand {
 		} else {
 			return false;
 		}
+	}
+
+	private int getStationID(final ModelSurface surface, final String name) {
+		for (ModelElement element1: surface.getElements()) {
+			if (element1.getName().equalsIgnoreCase(name)) return element1.getId();
+			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+				if (element2.getName().equalsIgnoreCase(name)) return element2.getId();
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
+	 * @param name	Name der Station
+	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
+	 */
+	public int getStationID(final String name) {
+		if (name==null || name.trim().isEmpty()) return -1;
+		final EditModel editModel=runner.getChangedModel();
+		return getStationID(editModel.surface,name);
 	}
 }
