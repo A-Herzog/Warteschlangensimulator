@@ -1815,7 +1815,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				if (indicator.getTimeMean()>0) {
 					addHeading(3,fullStationName(station));
 					beginParagraph();
-					addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[N]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlCount(indicator));
+					addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[N]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
 					addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[N]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 					addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[N]="+StatisticTools.formatNumber(indicator.getTimeVar()));
 					addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[N]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
@@ -1840,7 +1840,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				if (indicator.getTimeMean()>0) {
 					addHeading(3,fullStationName(station));
 					beginParagraph();
-					addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[N]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlCount(indicator));
+					addLine(Language.tr("Statistics.AverageNumberOfClients")+": E[N]="+StatisticTools.formatNumber(indicator.getTimeMean()),xmlMean(indicator));
 					addLine(Language.tr("Statistics.StdDevNumberOfClients")+": Std[N]="+StatisticTools.formatNumber(indicator.getTimeSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
 					addLine(Language.tr("Statistics.VarianceNumberOfClients")+": Var[N]="+StatisticTools.formatNumber(indicator.getTimeVar()));
 					addLine(Language.tr("Statistics.CVNumberOfClients")+": CV[N]="+StatisticTools.formatNumber(indicator.getTimeCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
