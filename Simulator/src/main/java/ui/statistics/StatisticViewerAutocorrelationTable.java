@@ -71,7 +71,7 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 			final double level=StatisticViewerOverviewText.AUTOCORRELATION_LEVELS[i];
 			final int distance=indicator.getCorrelationLevelDistance(level);
 			maxDistance[i]=Math.max(maxDistance[i],distance);
-			col[i+1]=NumberTools.formatLong(distance);
+			col[i+1]=NumberTools.formatLongNoGrouping(distance);
 		}
 
 		table.addLine(col);
