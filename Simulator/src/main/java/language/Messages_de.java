@@ -9573,7 +9573,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24866] = "Window.Check.Title";
     t[24867] = "Modellpr\u00fcfung";
     t[24870] = "Statistics.Confidence.InfoThread";
-    t[24871] = "Die Batch-Means-Erfassung der Konfidenzintervalle ist deaktiviert. Die obigen Absch\u00e4tzungen wurden unter Ausnutzung der Multi-Thread Simulation ermittelt. Die tats\u00e4chlichen, per Batch-Means ermittelten Konfidenzintervalle fallen \u00fcblicherweise kleiner aus.";
+    t[24871] = "Die Batch-Means-Erfassung der Konfidenzintervalle ist deaktiviert. Die obigen Absch\u00e4tzungen wurden unter Ausnutzung der Multi-Thread Simulation (%s Threads) ermittelt. Die tats\u00e4chlichen, per Batch-Means ermittelten Konfidenzintervalle fallen \u00fcblicherweise kleiner aus.";
     t[24882] = "Surface.AnimationBarChart.HistogramWizard.ButtonTitle";
     t[24883] = "Histogrammassistent";
     t[24886] = "CalcWebServer.Status.Done_error";
@@ -16417,7 +16417,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42974] = "Statistic.FastAccess.FilterList.Edit.Dialog.Select.Hint";
     t[42975] = "XML-Element ausw\u00e4hlen";
     t[42976] = "Statistics.Confidence.Info";
-    t[42977] = "(Die Basis f\u00fcr die Berechnung der Konfidenzintervalle stellen %s Batche zu je %s Messwerten dar.)";
+    t[42977] = "(Die Basis f\u00fcr die Berechnung der Konfidenzintervalle stellen %s Batche zu je %s Messwerten dar. Die Standardabweichung zwischen den Batchen betr\u00e4gt %s.)";
     t[42984] = "Surface.Input.Dialog.Variable.ErrorTitle";
     t[42985] = "Ung\u00fcltiger Variablenname";
     t[42986] = "Surface.TankValveSetup.XML.Setup.ValveNr";

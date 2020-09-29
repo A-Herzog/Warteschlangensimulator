@@ -218,7 +218,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					));
 
 		}
-		addLine(String.format(Language.tr("Statistics.Confidence.Info"),NumberTools.formatLong(indicator.getBatchCount()),NumberTools.formatLong(indicator.getBatchSize())));
+		addLine(String.format(Language.tr("Statistics.Confidence.Info"),NumberTools.formatLong(indicator.getBatchCount()),NumberTools.formatLong(indicator.getBatchSize()),StatisticTools.formatNumber(indicator.getBatchSD())));
 		endParagraph();
 	}
 

@@ -9573,7 +9573,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24866] = "Window.Check.Title";
     t[24867] = "Model check";
     t[24870] = "Statistics.Confidence.InfoThread";
-    t[24871] = "Batch means recording of the confidence intervals is deactivated. The above estimates are determined using multi-thread simulation. The actual confidence intervals determined using batch means are usually smaller.";
+    t[24871] = "Batch means recording of the confidence intervals is deactivated. The above estimates are determined using multi-thread simulation (%s threads). The actual confidence intervals determined using batch means are usually smaller.";
     t[24882] = "Surface.AnimationBarChart.HistogramWizard.ButtonTitle";
     t[24883] = "Histogram assistant";
     t[24886] = "CalcWebServer.Status.Done_error";
@@ -16417,7 +16417,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42974] = "Statistic.FastAccess.FilterList.Edit.Dialog.Select.Hint";
     t[42975] = "Select XML element";
     t[42976] = "Statistics.Confidence.Info";
-    t[42977] = "(The calculation of the confidence intervals based on %s batches with each %s samples.)";
+    t[42977] = "(The calculation of the confidence intervals based on %s batches with each %s samples and a standard deviation of %s between the batches.)";
     t[42984] = "Surface.Input.Dialog.Variable.ErrorTitle";
     t[42985] = "Invalid variable name";
     t[42986] = "Surface.TankValveSetup.XML.Setup.ValveNr";
