@@ -162,7 +162,20 @@ public class ModelPropertiesDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Liefert nach dem Schließen des Dialogs eine Information darüber, welche Aktion als nächstes ausgeführt werden soll.
+	 * @author Alexander Herzog
+	 * @see ModelPropertiesDialog#getNextAction()
+	 */
+	public enum NextAction {
+		/** Keine weitere geplante Aktion */
+		NONE,
+		/** Statistik-Batch-Größe bestimmen */
+		FIND_BATCH_SIZE
+	}
+
 	private final EditModel model;
+	private NextAction nextAction=NextAction.NONE;
 	private final ModelSchedules localSchedules;
 	private final ModelResources localResources;
 	private final ModelTransporters localTransporters;
@@ -875,6 +888,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 	private void addOutputAnalysisTab(final JPanel content) {
 		JPanel sub;
 		Object[] data;
+		JButton button;
 
 		content.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JPanel lines;
@@ -939,7 +953,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		int size=model.batchMeansSize;
 		if (size<=0) size=1;
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size")+":",""+size,10);
-		lines.add((JPanel)data[0]);
+		lines.add(sub=(JPanel)data[0]);
 		batchMeansSize=(JTextField)data[1];
 		batchMeansSize.setEditable(!readOnly);
 		batchMeansSize.addKeyListener(new KeyListener(){
@@ -947,13 +961,23 @@ public class ModelPropertiesDialog extends BaseDialog {
 			@Override public void keyPressed(KeyEvent e) {NumberTools.getPositiveLong(batchMeansSize,true);}
 			@Override public void keyReleased(KeyEvent e) {NumberTools.getPositiveLong(batchMeansSize,true);}
 		});
+		sub.add(button=new JButton(Language.tr("Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto"),Images.MSGBOX_OK.getIcon()));
+		button.setToolTipText(Language.tr("Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto.Hint"));
+		button.setEnabled(!readOnly);
+		button.addActionListener(e->{
+			if (!checkData()) return;
+			nextAction=NextAction.FIND_BATCH_SIZE;
+			close(CLOSED_BY_OK);
+		});
 
 		lines.add(Box.createVerticalStrut(25));
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(useFinishConfidence=new JCheckBox("<html><b>"+Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence")+"</b></html>",model.useFinishConfidence));
-		useFinishConfidence.setToolTipText(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Hint"));
 		useFinishConfidence.setEnabled(!readOnly);
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("("+Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Hint")+")"));
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth")+":",NumberTools.formatNumberMax(model.finishConfidenceHalfWidth),10);
 		lines.add((JPanel)data[0]);
@@ -1371,5 +1395,14 @@ public class ModelPropertiesDialog extends BaseDialog {
 	 */
 	public EditModel getModel() {
 		return model;
+	}
+
+	/**
+	 * Liefert nach dem Schließen des Dialogs eine Information darüber, welche Aktion als nächstes ausgeführt werden soll.
+	 * @return	Nächste auszuführende Aktion
+	 * @see ModelPropertiesDialog.NextAction
+	 */
+	public NextAction getNextAction() {
+		return nextAction;
 	}
 }

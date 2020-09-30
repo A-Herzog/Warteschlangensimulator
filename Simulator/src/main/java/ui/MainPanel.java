@@ -341,6 +341,11 @@ public class MainPanel extends MainPanelBase {
 		});
 		editorPanel.setElementSearchCallback(()->commandEditFindElement());
 		editorPanel.setElementListCallback(()->commandModelListElements());
+		editorPanel.addNextActionListener(nextAction->{switch (nextAction) {
+		case FIND_BATCH_SIZE: commandSimulationFindBatchSize(); break;
+		case NONE: /* keine Aktion */ break;
+		default: /* keine Aktion */ break;
+		}});
 
 		waitPanel=new WaitPanel();
 		statisticsPanel=new StatisticsPanel(()->commandSimulationSimulation(null,null,null,Simulator.logTypeFull,null));

@@ -9274,6 +9274,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23997] = "BereichMinimum";
     t[23998] = "Surface.AnimationTextJS.ScriptResult";
     t[23999] = "Skriptergebnis";
+    t[24002] = "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto";
+    t[24003] = "Batch-Gr\u00f6\u00dfe automatisch bestimmen";
     t[24014] = "Simulation.Creator.RoutingCondition.ClientType";
     t[24015] = "Der Kundentyp \"%s\", der an Station id=%d als Verweisbedingung verwendet wird, existiert nicht.";
     t[24016] = "Surface.SectionEnd.Dialog.Title";
@@ -10010,10 +10012,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26021] = "Keine Teleportziel definiert";
     t[26024] = "XML.Runner.NoModel";
     t[26025] = "Es wurde noch kein Modell geladen.";
-    t[26026] = "Main.Menu.SimulationFindWarmUpSize";
-    t[26027] = "Einschwingphase bestimmen...";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26026] = "Main.Menu.SimulationFindWarmUpSize";
+    t[26027] = "Einschwingphase bestimmen...";
     t[26030] = "Surface.Popup.AddVisualization.AverageNQTotal";
     t[26031] = "Mittlere Gesamtanzahl an wartenden Kunden im System";
     t[26036] = "Surface.Barrier.Infotext";
@@ -12012,10 +12014,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31303] = "(Die Kosten sind Summenwerte \u00fcber \u00fcber alle Wiederholungen der Simulation.)";
     t[31306] = "Surface.AnimationDiagram.XML.Set.Minimum";
     t[31307] = "Minimum";
-    t[31310] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Median";
-    t[31311] = "<p>Liefert den Median der Dauer \u00fcber alle Verweilzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31310] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Median";
+    t[31311] = "<p>Liefert den Median der Dauer \u00fcber alle Verweilzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
     t[31318] = "Statistics.XML.Element.Simulation";
     t[31319] = "Simulation";
     t[31340] = "SettingsDialog.SurfaceHelp.StartOnly";
@@ -13430,6 +13432,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34983] = "Zaehler";
     t[34990] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm";
     t[34991] = "2er Logarithmus";
+    t[34992] = "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto.Hint";
+    t[34993] = "Schlie\u00dft den Dialog mit \"Ok\" und startet die automatische Batch-Gr\u00f6\u00dfen-Bestimmung.";
     t[34996] = "Simulation.Creator.NoEdgeOutBalking";
     t[34997] = "Element id=%d besitzt keine Ausgangskante f\u00fcr Kunden die vor der Warteschlange zur\u00fcckschrecken.";
     t[35004] = "Main.Menu.Simulation";
@@ -14012,12 +14016,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36493] = "Variationskoeffizient der Anzahl an Transportern in Pausezeit";
     t[36494] = "SettingsDialog.ManualUpdate";
     t[36495] = "Manuell aktualisieren";
+  }
+  static void clinit_part_7 (java.lang.String[] t) {
     t[36512] = "Surface.Source.XML.Threshold.Count";
     t[36513] = "Anzahl";
     t[36518] = "Surface.SourceDB.Dialog.ColumnClientType.ErrorInfo";
     t[36519] = "Es wurde keine Tabellenspalte, in der die Namen der Kundentypen stehen, gew\u00e4hlt.";
-  }
-  static void clinit_part_7 (java.lang.String[] t) {
     t[36520] = "Simulation.Creator.UnknownTransporterName";
     t[36521] = "An Element id=%d werden Transporter des nicht definierten Typs \"%s\" verwendet.";
     t[36528] = "Surface.InputDDE.XML.EofMode.DefaultValue";
@@ -16014,12 +16018,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41877] = "Datenbanktabelle";
     t[41878] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes";
     t[41879] = "Berechnung der Zwischenankunftszeiten";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[41882] = "Surface.Source.Dialog.Signals.Table.Delete";
     t[41883] = "Signal l\u00f6schen";
     t[41892] = "Statistics.ClientsResidenceTimes";
     t[41893] = "Verweilzeiten der Kunden";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[41898] = "SettingsDialog.Tabs.Statistics.PercentDigits";
     t[41899] = "Nachkommastellen f\u00fcr Prozentwerte";
     t[41904] = "Surface.TransportParking.Dialog.WaitingPriority.ErrorInfo";

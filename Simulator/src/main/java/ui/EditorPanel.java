@@ -1106,6 +1106,32 @@ public final class EditorPanel extends EditorPanelBase {
 			setModelChanged(true);
 			setLastFile(file);
 		}
+		final ModelPropertiesDialog.NextAction nextAction=dialog.getNextAction();
+		if (nextAction!=null) fireNextAction(nextAction);
+	}
+
+	private List<Consumer<ModelPropertiesDialog.NextAction>> nextActionListeners=new ArrayList<>();
+
+	private void fireNextAction(final ModelPropertiesDialog.NextAction nextAction) {
+		nextActionListeners.forEach(action->action.accept(nextAction));
+	}
+
+	/**
+	 * Fügt einen Listener hinzu, der benachrichtigt wird, wenn der Modelleigenschaften-Dialog geschlossen wird und eine weitere Aktion ausführen will.
+	 * @param listener	Zu benachrichtigender Listener
+	 * @return	Liefert <code>true</code>, wenn der Listener zu der Liste hinzugefügt werden konnte.
+	 */
+	public boolean addNextActionListener(final Consumer<ModelPropertiesDialog.NextAction> listener) {
+		return nextActionListeners.add(listener);
+	}
+
+	/**
+	 * Entfernt einen Listener aus der Liste der Listener, die benachrichtigt werden sollen, wenn der Modelleigenschaften-Dialog geschlossen wird und eine weitere Aktion ausführen will.
+	 * @param listener	Nicht mehr zu benachrichtigender Listener
+	 * @return	Liefert <code>true</code>, wenn der Listener aus der Liste entfernt werden konnte.
+	 */
+	public boolean removeNextActionListener(final Consumer<ModelPropertiesDialog.NextAction> listener) {
+		return nextActionListeners.remove(listener);
 	}
 
 	/**

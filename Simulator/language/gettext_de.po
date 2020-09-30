@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-29 18:28+0200\n"
+"POT-Creation-Date: 2020-09-30 14:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2680,6 +2680,12 @@ msgstr "Batch-Größe für Konfidenzintervall-Berechnungen"
 
 msgid "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size"
 msgstr "Batch-Größe"
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto"
+msgstr "Batch-Größe automatisch bestimmen"
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto.Hint"
+msgstr "Schließt den Dialog mit \"Ok\" und startet die automatische Batch-Größen-Bestimmung."
 
 msgid "Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Error"
 msgstr "Die angegebene Batch-Größe für die Konfidenzintervall-Berechnungen \"%s\" ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
