@@ -173,7 +173,6 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 			}
 
 			/* Station */
-			if (parameters.length!=1) return fallbackValue;
 			RunElementData data=getRunElementDataForID(parameters[0]);
 			if (data==null) return 0;
 			return calc(data);
