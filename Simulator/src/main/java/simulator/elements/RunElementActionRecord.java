@@ -399,7 +399,7 @@ public class RunElementActionRecord {
 			if (jsRunner!=null) {
 				jsRunner.setSimulationDataNoClient(simData);
 				final String result=jsRunner.runCompiled();
-				if (simData.logging!=null && (simData.logging instanceof CallbackLoggerWithJS)) {
+				if (simData.logging instanceof CallbackLoggerWithJS) {
 					((CallbackLoggerWithJS)simData.logging).logJS(simData.currentTime,stationLogName,stationLogColor,script,result);
 				}
 				if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
@@ -409,7 +409,7 @@ public class RunElementActionRecord {
 			if (javaRunner!=null) {
 				final Object result=javaRunner.run();
 				if (javaRunner.getStatus()!=DynamicStatus.OK) simData.doEmergencyShutDown(DynamicFactory.getLongStatusText(javaRunner));
-				if (simData.logging!=null && (simData.logging instanceof CallbackLoggerWithJS)) {
+				if (simData.logging instanceof CallbackLoggerWithJS) {
 					((CallbackLoggerWithJS)simData.logging).logJS(simData.currentTime,stationLogName,stationLogColor,script,(result==null)?"":result.toString());
 				}
 				if (javaRunner.getStatus()!=DynamicStatus.OK && simData.runModel.cancelSimulationOnScriptError) {

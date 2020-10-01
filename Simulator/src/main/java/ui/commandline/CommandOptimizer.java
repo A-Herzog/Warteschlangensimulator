@@ -45,7 +45,7 @@ public class CommandOptimizer extends AbstractCommand {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		list.add(Language.tr("CommandLine.Optimizer.Name"));
 		for (String s: Language.trOther("CommandLine.Optimizer.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);

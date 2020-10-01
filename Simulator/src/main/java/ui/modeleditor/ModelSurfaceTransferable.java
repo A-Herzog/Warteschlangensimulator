@@ -38,13 +38,13 @@ public class ModelSurfaceTransferable implements Transferable, Serializable {
 	private static final long serialVersionUID = -9109642719467049507L;
 
 	/** {@link DataFlavor} für binäre Modelldaten */
-	public final static DataFlavor MODEL_FLAVOR=new DataFlavor(ModelSurfaceTransferable.class,DataFlavor.javaSerializedObjectMimeType);
+	public static final DataFlavor MODEL_FLAVOR=new DataFlavor(ModelSurfaceTransferable.class,DataFlavor.javaSerializedObjectMimeType);
 	/** {@link DataFlavor} für Modellbeschreibung als formatierter Text */
-	public final static DataFlavor RTF_FLAVOR=new DataFlavor("text/rtf","Rich Formatted Text");
+	public static final DataFlavor RTF_FLAVOR=new DataFlavor("text/rtf","Rich Formatted Text");
 	/** {@link DataFlavor} für Modellbeschreibung als unformatierter Text */
-	public final static DataFlavor TXT_FLAVOR=DataFlavor.stringFlavor;
+	public static final DataFlavor TXT_FLAVOR=DataFlavor.stringFlavor;
 	/** {@link DataFlavor} für Modell als Bild */
-	public final static DataFlavor IMAGE_FLAVOR=DataFlavor.imageFlavor;
+	public static final DataFlavor IMAGE_FLAVOR=DataFlavor.imageFlavor;
 
 	private final byte[] transferModel;
 	private final String transferRtf;

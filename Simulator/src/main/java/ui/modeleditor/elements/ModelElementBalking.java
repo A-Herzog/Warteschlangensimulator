@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.DoubleConsumer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -266,7 +267,7 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 		final List<JPanel> panels=new ArrayList<>();
 
 		if (globalData.getObject() instanceof Double && clientData.size()==0) {
-			final Consumer<Double> probabilityChanger=probability->globalData.setProbability(probability);
+			final DoubleConsumer probabilityChanger=probability->globalData.setProbability(probability);
 			panels.add(createContextMenuSliderProbability(Language.tr("Surface.Balking.BalkingProbability"),globalData.getProbability(),probabilityChanger));
 		}
 
@@ -300,7 +301,7 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);
 			});
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
@@ -310,7 +311,7 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 
 		if (connectionsOut!=null && connectionsOut.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesOut")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsOut)) surface.remove(element);
 			});
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));

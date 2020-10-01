@@ -145,7 +145,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		addDescription("ClientMovement");
 	}
 
-	private final static int MAX_ROWS=2_000;
+	private static final int MAX_ROWS=2_000;
 
 	private void buildPathText() {
 		addHeading(1,Language.tr("Statistics.ClientPathRecording"));

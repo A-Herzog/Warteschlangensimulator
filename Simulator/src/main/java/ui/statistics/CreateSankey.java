@@ -271,7 +271,7 @@ public final class CreateSankey extends BaseDialog {
 			break;
 		}
 
-		return new ArrayList<String>(stations);
+		return new ArrayList<>(stations);
 	}
 
 	private void selectFile() {
@@ -566,7 +566,7 @@ public final class CreateSankey extends BaseDialog {
 
 		for (Map.Entry<String,Long> entry: sub.entrySet()) {
 			final String nextTo=entry.getKey();
-			final long subCount=Math.round(count*entry.getValue().doubleValue()/sum) ;
+			final long subCount=Math.round(count*entry.getValue().doubleValue()/((sum>0)?sum:1)) ;
 			if (usedStations.contains(nextTo)) {
 				/* from->to Wert anteilig auf from->toNext aufteilen (toNext ist in Liste) */
 				addConnection(connections,from,nextTo,subCount);
@@ -600,7 +600,7 @@ public final class CreateSankey extends BaseDialog {
 	}
 
 	private Map<String,Map<String,Long>> buildMapFromPaths(final Table table, final Set<String> usedStations) {
-		final Map<String,Map<String,Long>> connections=new HashMap<String, Map<String,Long>>();
+		final Map<String,Map<String,Long>> connections=new HashMap<>();
 
 		final int rows=table.getSize(0);
 		for (int i=0;i<rows;i++) {

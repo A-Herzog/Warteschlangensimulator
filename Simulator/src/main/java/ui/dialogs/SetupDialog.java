@@ -262,7 +262,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.Languages")+":"));
-		p.add(languages=new JComboBox<String>(new String[]{Language.tr("SettingsDialog.Languages.English"),Language.tr("SettingsDialog.Languages.German")}));
+		p.add(languages=new JComboBox<>(new String[]{Language.tr("SettingsDialog.Languages.English"),Language.tr("SettingsDialog.Languages.German")}));
 		languages.setRenderer(new IconListCellRenderer(new Images[]{Images.LANGUAGE_EN,Images.LANGUAGE_DE}));
 		languages.setToolTipText(Language.tr("SettingsDialog.Languages.Info"));
 		label.setLabelFor(languages);
@@ -272,12 +272,12 @@ public final class SetupDialog extends BaseDialog {
 		List<String> LookAndFeels=new ArrayList<>();
 		LookAndFeels.add(Language.tr("SettingsDialog.LookAndFeel.System"));
 		LookAndFeels.addAll(Arrays.asList(GUITools.listLookAndFeels()));
-		p.add(lookAndFeel=new JComboBox<String>(LookAndFeels.toArray(new String[0])));
+		p.add(lookAndFeel=new JComboBox<>(LookAndFeels.toArray(new String[0])));
 		label.setLabelFor(languages);
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.FontSizes")+":"));
-		p.add(fontSizes=new JComboBox<String>(new String[]{
+		p.add(fontSizes=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.FontSizes.Small")+" (90%)",
 				Language.tr("SettingsDialog.FontSizes.Normal")+" (100%)",
 				Language.tr("SettingsDialog.FontSizes.Larger")+" (110%)",
@@ -299,7 +299,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.AutoSave")+":"));
-		p.add(autoSave=new JComboBox<String>(new String[]{
+		p.add(autoSave=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.AutoSave.Off"),
 				Language.tr("SettingsDialog.AutoSave.Simulation"),
 				Language.tr("SettingsDialog.AutoSave.Always"),
@@ -323,7 +323,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.WindowSizeProgrmStart")+":"));
-		p.add(programStartWindow=new JComboBox<String>(new String[]{
+		p.add(programStartWindow=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.WindowSizeProgrmStart.Normal"),
 				Language.tr("SettingsDialog.WindowSizeProgrmStart.FullScreen"),
 				Language.tr("SettingsDialog.WindowSizeProgrmStart.LastSize")
@@ -337,7 +337,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.TemplatesPanel")+":"));
-		p.add(templateStartMode=new JComboBox<String>(new String[]{
+		p.add(templateStartMode=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.TemplatesPanel.Hide"),
 				Language.tr("SettingsDialog.TemplatesPanel.Show"),
 				Language.tr("SettingsDialog.TemplatesPanel.LastState")
@@ -357,7 +357,7 @@ public final class SetupDialog extends BaseDialog {
 		final List<Images> startModelIcons=new ArrayList<>();
 		startModelIcons.add(Images.MODEL_NEW);
 		while (startModelIcons.size()<models.size()) startModelIcons.add(Images.MODEL_LOAD);
-		p.add(startModel=new JComboBox<String>(models.toArray(new String[0])));
+		p.add(startModel=new JComboBox<>(models.toArray(new String[0])));
 		startModel.setRenderer(new IconListCellRenderer(startModelIcons.toArray(new Images[0])));
 		label.setLabelFor(startModel);
 
@@ -367,7 +367,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.ModellSecurity")+":"));
-		p.add(modelSecurity=new JComboBox<String>(new String[]{
+		p.add(modelSecurity=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.ModellSecurity.AllowAll"),
 				Language.tr("SettingsDialog.ModellSecurity.Ask"),
 				Language.tr("SettingsDialog.ModellSecurity.Strict")
@@ -393,7 +393,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.SurfaceHelp")+":"));
-		p.add(surfaceHelp=new JComboBox<String>(new String[]{
+		p.add(surfaceHelp=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.SurfaceHelp.Never"),
 				Language.tr("SettingsDialog.SurfaceHelp.StartOnly"),
 				Language.tr("SettingsDialog.SurfaceHelp.Always")
@@ -407,7 +407,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.NotifyMode")+":"));
-		p.add(notifyMode=new JComboBox<String>(new String[]{
+		p.add(notifyMode=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.NotifyMode.Off"),
 				Language.tr("SettingsDialog.NotifyMode.LongRun"),
 				Language.tr("SettingsDialog.NotifyMode.Always")
@@ -437,7 +437,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.BackgroundProcessing")+":"));
-		p.add(backgroundProcessing=new JComboBox<String>(new String[]{
+		p.add(backgroundProcessing=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.BackgroundProcessing.Off"),
 				Language.tr("SettingsDialog.BackgroundProcessing.CheckOnly"),
 				Language.tr("SettingsDialog.BackgroundProcessing.Simulate"),
@@ -481,7 +481,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.JSEngine")+":"));
-		p.add(jsEngine=new JComboBox<String>(new String[] {
+		p.add(jsEngine=new JComboBox<>(new String[] {
 				Language.tr("SettingsDialog.JSEngine.Automatic"),
 				Language.tr("SettingsDialog.JSEngine.Nashorn"),
 				Language.tr("SettingsDialog.JSEngine.Rhino"),
@@ -568,7 +568,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.AnimationWarmUp")+":"));
-		p.add(animationWarmUpMode=new JComboBox<String>(new String[]{
+		p.add(animationWarmUpMode=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.AnimationWarmUp.Normal"),
 				Language.tr("SettingsDialog.AnimationWarmUp.Ask"),
 				Language.tr("SettingsDialog.AnimationWarmUp.SkipIfNeeded"),
@@ -690,7 +690,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.DefaultFormats.Models")+":"));
-		p.add(defaultSaveFormatModels=new JComboBox<String>(new String[]{
+		p.add(defaultSaveFormatModels=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.XML"),
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.JSON"),
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.ZIP_XML"),
@@ -709,7 +709,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.DefaultFormats.Statistics")+":"));
-		p.add(defaultSaveFormatStatistics=new JComboBox<String>(new String[]{
+		p.add(defaultSaveFormatStatistics=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.XML"),
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.JSON"),
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.ZIP_XML"),
@@ -728,7 +728,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.DefaultFormats.ParameterSeries")+":"));
-		p.add(defaultSaveFormatParameterSeries=new JComboBox<String>(new String[]{
+		p.add(defaultSaveFormatParameterSeries=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.XML"),
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.JSON"),
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.ZIP_XML"),
@@ -747,7 +747,7 @@ public final class SetupDialog extends BaseDialog {
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.DefaultFormats.OptimizerSetups")+":"));
-		p.add(defaultSaveFormatOptimizerSetups=new JComboBox<String>(new String[]{
+		p.add(defaultSaveFormatOptimizerSetups=new JComboBox<>(new String[]{
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.XML"),
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.JSON"),
 				Language.tr("SettingsDialog.Tabs.DefaultFormats.ZIP_XML"),

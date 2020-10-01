@@ -316,10 +316,10 @@ public class DistributionFitter {
 		for (int i=0;i<cdf.length;i++) {
 			final double d=dist.cumulativeProbability(i);
 			if (i==0 && (Double.isInfinite(d) || Double.isNaN(d))) continue;
-			maxDiff=FastMath.max(maxDiff,FastMath.abs(cdf[i]-d));
+			maxDiff=FastMath.max(maxDiff,Math.abs(cdf[i]-d));
 		}
 
-		return Math.min(1,2*Math.exp(-2*count*maxDiff*maxDiff));
+		return Math.min(1,2*FastMath.exp(-2*count*maxDiff*maxDiff));
 	}
 
 	private double calcPValueChiSqr(AbstractRealDistribution dist) {
@@ -381,10 +381,10 @@ public class DistributionFitter {
 		/* p-Value */
 		/* Siehe https://www.sixsigmablackbelt.de/test-auf-normalverteilung-excel/ */
 		double p;
-		if (z>0.6) p=Math.exp(1.2937-5.709*z+0.0186*z*z); else {
-			if (z>0.34) p=Math.exp(0.9177-4.279*z-1.38*z*z); else {
-				if (z>0.2) p=1-Math.exp(-8.318+42.796*z-59.938*z*z); else {
-					p=1-Math.exp(-13.436+101.14*z-223.73*z*z);
+		if (z>0.6) p=FastMath.exp(1.2937-5.709*z+0.0186*z*z); else {
+			if (z>0.34) p=FastMath.exp(0.9177-4.279*z-1.38*z*z); else {
+				if (z>0.2) p=1-FastMath.exp(-8.318+42.796*z-59.938*z*z); else {
+					p=1-FastMath.exp(-13.436+101.14*z-223.73*z*z);
 				}
 			}
 		}

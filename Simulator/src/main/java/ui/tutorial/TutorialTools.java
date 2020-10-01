@@ -177,6 +177,7 @@ public class TutorialTools {
 	 */
 	public static boolean testResource(final MainPanel mainPanel, final String resourceName, boolean levelTwo) {
 		final EditModel model=getModel(mainPanel);
+		if (model==null) return true;
 
 		final ModelResource resource=model.resources.getNoAutoAdd(resourceName);
 		if (resource==null) return false;

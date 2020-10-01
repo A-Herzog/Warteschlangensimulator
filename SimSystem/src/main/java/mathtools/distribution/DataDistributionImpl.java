@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
 
 import mathtools.NumberTools;
 
@@ -1018,7 +1019,7 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 * @return Standardabweichung
 	 */
 	public double getStandardDeviation() {
-		return Math.sqrt(getXSqr()-Math.pow(getMean(),2));
+		return Math.sqrt(getXSqr()-FastMath.pow(getMean(),2));
 	}
 
 	@Override

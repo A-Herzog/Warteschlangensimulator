@@ -88,7 +88,7 @@ public class JSModelRunnerPanel extends SpecialPanel {
 			private static final long serialVersionUID = -4514089397823686283L;
 			@Override protected EditModel getModel() {return model;}
 			@Override protected Statistics getMiniStatistics() {return miniStatistics;}
-			@Override protected Runnable getHelpRunnable() {return ()->{Help.topicModal(JSModelRunnerPanel.this,"JSRunner");};}
+			@Override protected Runnable getHelpRunnable() {return ()->Help.topicModal(JSModelRunnerPanel.this,"JSRunner");}
 		},BorderLayout.CENTER);
 
 		/* F1-Hotkey */
@@ -133,7 +133,7 @@ public class JSModelRunnerPanel extends SpecialPanel {
 				setup.saveSetup();
 			}
 
-			final JSModelRunner newRunner=new JSModelRunner(model,scriptPanel.getEditorMode(),scriptPanel.getEditorScript(),(text)->scriptPanel.addOutput(text),()->commandRun(false));
+			final JSModelRunner newRunner=new JSModelRunner(model,scriptPanel.getEditorMode(),scriptPanel.getEditorScript(),text->scriptPanel.addOutput(text),()->commandRun(false));
 			String error=newRunner.check();
 			if (error!=null) {
 				MsgBox.error(this,Language.tr("Dialog.Title.Error"),error);

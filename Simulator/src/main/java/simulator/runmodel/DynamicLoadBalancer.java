@@ -9,7 +9,7 @@ import org.apache.commons.math3.util.FastMath;
  * @see RunData#nextClientIsLast(SimulationData)
  */
 public class DynamicLoadBalancer {
-	private final static long MIN_LOAD_PACKAGE_SIZE=1_000;
+	private static final long MIN_LOAD_PACKAGE_SIZE=1_000;
 
 	private long arrivalsToBeSimulated;
 	private final long last25Percent;

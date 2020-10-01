@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Implementierung einer Potenzverteilung
@@ -71,7 +72,7 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 		if (b<=a) this.b=a+0.0001; else this.b=b;
 		if (c<=0) this.c=0.0001; else this.c=c;
 
-		denominator=Math.pow(b-a,c);
+		denominator=FastMath.pow(b-a,c);
 		inverseC=1/c;
 	}
 
@@ -86,14 +87,14 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 	@Override
 	public double density(double x) {
 		if (x<a || x>b) return 0;
-		return c*Math.pow(x-a,c-1)/denominator;
+		return c*FastMath.pow(x-a,c-1)/denominator;
 	}
 
 	@Override
 	public double cumulativeProbability(double x) {
 		if (x<=a) return 0;
 		if (x>=b) return 1;
-		return Math.pow(x-a,c)/denominator;
+		return FastMath.pow(x-a,c)/denominator;
 	}
 
 	@Override
@@ -101,7 +102,7 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 		if (p<0) return -Double.MAX_VALUE;
 		if (p>1) return Double.MAX_VALUE;
 
-		return Math.pow(p*denominator,inverseC)+a;
+		return FastMath.pow(p*denominator,inverseC)+a;
 	}
 
 	@Override

@@ -353,7 +353,7 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 
 		if (connections!=null && connections.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveAllEdges")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connections)) surface.remove(element);
 			});
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));

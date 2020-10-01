@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Laplace-Verteilung
@@ -64,7 +65,7 @@ public final class LaplaceDistributionImpl extends AbstractRealDistribution impl
 	public double density(double x) {
 		/* if (b<=0) return 0;  - per Konstruktor ausgeschlossen */
 		/* https://en.wikipedia.org/wiki/Laplace_distribution */
-		return 0.5*inverseB*Math.exp(-Math.abs(x-mu)*inverseB);
+		return 0.5*inverseB*FastMath.exp(-Math.abs(x-mu)*inverseB);
 	}
 
 	@Override
@@ -72,9 +73,9 @@ public final class LaplaceDistributionImpl extends AbstractRealDistribution impl
 		/* if (b<=0) return 0;  - per Konstruktor ausgeschlossen */
 		/* https://en.wikipedia.org/wiki/Laplace_distribution */
 		if (x<mu) {
-			return 0.5*Math.exp((x-mu)*inverseB);
+			return 0.5*FastMath.exp((x-mu)*inverseB);
 		} else {
-			return 1-0.5*Math.exp(-(x-mu)*inverseB);
+			return 1-0.5*FastMath.exp(-(x-mu)*inverseB);
 		}
 	}
 

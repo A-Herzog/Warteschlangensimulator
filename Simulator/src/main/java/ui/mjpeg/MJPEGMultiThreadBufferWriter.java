@@ -61,7 +61,7 @@ public class MJPEGMultiThreadBufferWriter extends MJPEGBufferWriterBase {
 	}
 
 	private void writeToData() {
-		while (worker.size()>0 && !worker.get(0).isAlive()) {
+		while (!worker.isEmpty() && !worker.get(0).isAlive()) {
 			worker.get(0).writeToDataOutputStream(tempOutputData);
 			worker.remove(0);
 		}
@@ -69,7 +69,7 @@ public class MJPEGMultiThreadBufferWriter extends MJPEGBufferWriterBase {
 
 	@Override
 	public BufferedImage getImageObjectFromCache(final int width, final int height) {
-		if (imageObjectCache.size()==0) return new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+		if (imageObjectCache.isEmpty()) return new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
 		return imageObjectCache.remove(0);
 	}
 
@@ -95,7 +95,7 @@ public class MJPEGMultiThreadBufferWriter extends MJPEGBufferWriterBase {
 	public boolean doneFrames() {
 		if (!isReady()) return false;
 
-		while (worker.size()>0) {
+		while (!worker.isEmpty()) {
 			try {
 				worker.get(0).join();
 			} catch (InterruptedException e) {}

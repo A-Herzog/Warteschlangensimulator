@@ -52,7 +52,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationTextSelect extends ModelElementPosition implements ElementWithAnimationDisplay {
-	private final static Color DEFAULT_COLOR=Color.BLACK;
+	private static final Color DEFAULT_COLOR=Color.BLACK;
 
 	private String textDefault="";
 	private List<String> textExpressions=new ArrayList<>();

@@ -61,11 +61,11 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 
 	private boolean changeFont(Object value) {
 		/* Kein leeres Objekt ? */
-		if (value==null || !(value instanceof DefaultMutableTreeNode)) return false;
+		if (!(value instanceof DefaultMutableTreeNode)) return false;
 		DefaultMutableTreeNode node=((DefaultMutableTreeNode)value);
 
 		/* Fett, wenn's kein Symbol-Eintrag ist. */
-		return (node.getUserObject()==null || !(node.getUserObject() instanceof ExpressionSymbol));
+		return (!(node.getUserObject() instanceof ExpressionSymbol));
 	}
 
 	private void defaultProcessing(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {

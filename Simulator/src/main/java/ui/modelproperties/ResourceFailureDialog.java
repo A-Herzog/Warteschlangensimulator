@@ -107,7 +107,7 @@ public class ResourceFailureDialog extends BaseDialog {
 		panel.add(failureNumber=new JRadioButton(Language.tr("Resources.Group.EditName.Dialog.Failure.Number")));
 		panel.add(failureNumberEdit=new JTextField("100",10));
 		if (failure.getFailureMode()==ModelResourceFailure.FailureMode.FAILURE_BY_NUMBER) {failureNumberEdit.setText(""+failure.getFailureNumber()); failureNumber.setSelected(true);}
-		failureNumber.addActionListener(e->{checkData(false);});
+		failureNumber.addActionListener(e->checkData(false));
 		failureNumberEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {failureNumber.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {failureNumber.setSelected(true); checkData(false);}
@@ -118,7 +118,7 @@ public class ResourceFailureDialog extends BaseDialog {
 		panel.add(failureAvailable=new JRadioButton(Language.tr("Resources.Group.EditName.Dialog.Failure.Available")));
 		panel.add(failureAvailableEdit=new JTextField("86400",10));
 		if (failure.getFailureMode()==ModelResourceFailure.FailureMode.FAILURE_BY_AVAILABLE_TIME) {failureAvailableEdit.setText(NumberTools.formatNumber(failure.getFailureTime())); failureAvailable.setSelected(true);}
-		failureAvailable.addActionListener(e->{checkData(false);});
+		failureAvailable.addActionListener(e->checkData(false));
 		failureAvailableEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {failureAvailable.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {failureAvailable.setSelected(true); checkData(false);}
@@ -129,7 +129,7 @@ public class ResourceFailureDialog extends BaseDialog {
 		panel.add(failureWorking=new JRadioButton(Language.tr("Resources.Group.EditName.Dialog.Failure.Working")));
 		panel.add(failureWorkingEdit=new JTextField("86400",10));
 		if (failure.getFailureMode()==ModelResourceFailure.FailureMode.FAILURE_BY_WORKING_TIME) {failureWorkingEdit.setText(NumberTools.formatNumber(failure.getFailureTime())); failureWorking.setSelected(true);}
-		failureWorking.addActionListener(e->{checkData(false);});
+		failureWorking.addActionListener(e->checkData(false));
 		failureWorkingEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {failureWorking.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {failureWorking.setSelected(true); checkData(false);}
@@ -139,7 +139,7 @@ public class ResourceFailureDialog extends BaseDialog {
 		inner.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(failureDistribution=new JRadioButton(Language.tr("Resources.Group.EditName.Dialog.Failure.Distribution")));
 		if (failure.getFailureMode()==ModelResourceFailure.FailureMode.FAILURE_BY_DISTRIBUTION) {failureDistributionDist=failure.getFailureDistribution(); failureDistribution.setSelected(true);}
-		failureDistribution.addActionListener(e->{checkData(false);});
+		failureDistribution.addActionListener(e->checkData(false));
 		if (failureDistributionDist==null) failureDistributionDist=new ExponentialDistribution(null,86400,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 		panel.add(failureDistributionButton=new JButton(Language.tr("Resources.Group.EditName.Dialog.Failure.Distribution.Edit")));
 		failureDistributionButton.setIcon(Images.MODE_DISTRIBUTION.getIcon());
@@ -150,7 +150,7 @@ public class ResourceFailureDialog extends BaseDialog {
 		panel.add(failureExpressionEdit=new JTextField("86400",30));
 		panel.add(ModelElementBaseDialog.getExpressionEditButton(this,failureExpressionEdit,false,false,model,surface));
 		if (failure.getFailureMode()==ModelResourceFailure.FailureMode.FAILURE_BY_EXPRESSION) {failureExpressionEdit.setText(failure.getFailureExpression()); failureExpression.setSelected(true);}
-		failureExpression.addActionListener(e->{checkData(false);});
+		failureExpression.addActionListener(e->checkData(false));
 		failureExpressionEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {failureExpression.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {failureExpression.setSelected(true); checkData(false);}

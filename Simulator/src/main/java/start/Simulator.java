@@ -92,7 +92,7 @@ public class Simulator {
 			AbstractSimulationCommand.outputModelLoadDataWarnings(editModel.modelLoadData.getChangeWarnings(),out);
 			editModel=changedEditModel;
 		}
-		final Object obj=AbstractSimulationCommand.prepare(editModel,out);
+		final Object obj=AbstractSimulationCommand.prepare(Integer.MAX_VALUE,editModel,out);
 		if (!(obj instanceof AnySimulator)) return (String)obj;
 		final AnySimulator simulator=(AnySimulator)obj;
 

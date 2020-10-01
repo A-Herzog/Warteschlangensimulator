@@ -243,7 +243,7 @@ public class SimDataBuilder {
 		}
 	}
 
-	private final static int MAX_SHORT_STATE_DISTRIBUTION=5;
+	private static final int MAX_SHORT_STATE_DISTRIBUTION=5;
 
 	private void outputShortStateDistribution(final String identifier, final StatisticsTimePerformanceIndicator indicator) {
 		if (indicator==null) return;

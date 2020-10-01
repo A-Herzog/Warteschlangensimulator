@@ -182,7 +182,7 @@ public class ModelChanger {
 
 		/* Attribut aus Parent zurückgeben */
 		if (!selectors.hasNext() && tag.isEmpty()) {
-			List<String> path=new ArrayList<String>(parentTags);
+			List<String> path=new ArrayList<>(parentTags);
 			path.add(attr);
 			parent.setAttribute(attr,newValue);
 			return null;
@@ -211,7 +211,7 @@ public class ModelChanger {
 
 		/* Elementinhalt zurückgeben */
 		if (!selectors.hasNext()) {
-			List<String> path=new ArrayList<String>(parentTags);
+			List<String> path=new ArrayList<>(parentTags);
 			path.add(tag);
 			if (attr.isEmpty() || !attrValue.isEmpty()) {
 				searchResult.setTextContent(newValue);
@@ -224,7 +224,7 @@ public class ModelChanger {
 		}
 
 		/* Suche fortsetzen */
-		List<String> tags=new ArrayList<String>(parentTags);
+		List<String> tags=new ArrayList<>(parentTags);
 		tags.add(tag);
 		return changeElement(selectors,searchResult,tags,newValue);
 	}
@@ -280,7 +280,7 @@ public class ModelChanger {
 
 		/* Elementinhalt zurückgeben */
 		if (!selectors.hasNext()) {
-			List<String> path=new ArrayList<String>(parentTags);
+			List<String> path=new ArrayList<>(parentTags);
 			path.add(tag);
 			if (attr.isEmpty() || !attrValue.isEmpty() || attrNr>0) {
 				return searchResult.getTextContent();
@@ -290,7 +290,7 @@ public class ModelChanger {
 		}
 
 		/* Suche fortsetzen */
-		List<String> tags=new ArrayList<String>(parentTags);
+		List<String> tags=new ArrayList<>(parentTags);
 		tags.add(tag);
 		return getElement(selectors,xmlChangeMode,searchResult,tags);
 	}
@@ -360,7 +360,7 @@ public class ModelChanger {
 		try (Scanner selectors=new Scanner(tag)) {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return null;
-			String s=changeElement(selectors,xmlChangeMode,xmlDoc.getDocumentElement(),new ArrayList<String>(),value);
+			String s=changeElement(selectors,xmlChangeMode,xmlDoc.getDocumentElement(),new ArrayList<>(),value);
 			if (s!=null) return s;
 		}
 
@@ -423,7 +423,7 @@ public class ModelChanger {
 		try (Scanner selectors=new Scanner(tag)) {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return null;
-			String s=changeElement(selectors,xmlDoc.getDocumentElement(),new ArrayList<String>(),value);
+			String s=changeElement(selectors,xmlDoc.getDocumentElement(),new ArrayList<>(),value);
 			if (s!=null) return s;
 		}
 
@@ -446,7 +446,7 @@ public class ModelChanger {
 		try (Scanner selectors=new Scanner(xmlName)) {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return null;
-			return getElement(selectors,0,xmlDoc.getDocumentElement(),new ArrayList<String>());
+			return getElement(selectors,0,xmlDoc.getDocumentElement(),new ArrayList<>());
 		}
 	}
 
@@ -491,7 +491,7 @@ public class ModelChanger {
 		try (Scanner selectors=new Scanner(xmlName)) {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return null;
-			return getElement(selectors,0,xmlDoc.getDocumentElement(),new ArrayList<String>());
+			return getElement(selectors,0,xmlDoc.getDocumentElement(),new ArrayList<>());
 		}
 	}
 }

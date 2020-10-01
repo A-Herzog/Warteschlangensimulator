@@ -95,7 +95,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	public StatisticViewerTable() {
 		table=null;
-		data=new ArrayList<List<String>>();
+		data=new ArrayList<>();
 		columnNames=new ArrayList<>();
 	}
 
@@ -153,7 +153,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	public void setData(String[][] arrayData, String[] arrayColumnNames) {
 		table=null;
-		data=new ArrayList<List<String>>();
+		data=new ArrayList<>();
 		for (int i=0;i<arrayData.length;i++) {
 			List<String> v=new ArrayList<>(); data.add(v);
 			for (int j=0;j<arrayData[i].length;j++) v.add(arrayData[i][j]);
@@ -655,7 +655,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	protected void initData() {
 		if (table==null) {
-			if (data==null) data=new ArrayList<List<String>>();
+			if (data==null) data=new ArrayList<>();
 		} else {
 			data=table.getData();
 			table=null;

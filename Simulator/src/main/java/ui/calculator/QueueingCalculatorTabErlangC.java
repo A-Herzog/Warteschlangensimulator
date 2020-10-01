@@ -15,6 +15,8 @@
  */
 package ui.calculator;
 
+import org.apache.commons.math3.util.FastMath;
+
 import language.Language;
 import mathtools.NumberTools;
 
@@ -115,7 +117,7 @@ public class QueueingCalculatorTabErlangC extends QueueingCalculatorTabBase {
 		if (P1>=1 || P1<0) {
 			result.append("P(W&le;t) "+Language.tr("LoadCalculator.ErlangCNotCalculateable"));
 		} else {
-			result.append("P(W&le;t)="+NumberTools.formatPercent((1-P1*Math.exp(-mu*(c-a)*t)),2));
+			result.append("P(W&le;t)="+NumberTools.formatPercent((1-P1*FastMath.exp(-mu*(c-a)*t)),2));
 		}
 
 		setResult(result.toString());

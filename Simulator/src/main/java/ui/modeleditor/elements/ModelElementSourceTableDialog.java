@@ -51,7 +51,6 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 6808289592022606483L;
 
 	private JTextField tableEdit;
-	private JRadioButton optionTimeStamps;
 	private JRadioButton optionDistances;
 	private JTextArea clientsEdit;
 
@@ -118,6 +117,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 
 		/* Radiobuttons für Tabellenspalte 1 */
 
+		final JRadioButton optionTimeStamps;
 		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		top.add(line);
 		line.add(optionTimeStamps=new JRadioButton(Language.tr("Surface.SourceTable.Dialog.ColumnOne.TimeStamps"),!source.isNumbersAreDistances()));

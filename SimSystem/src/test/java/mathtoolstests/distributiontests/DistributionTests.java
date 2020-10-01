@@ -28,6 +28,7 @@ import org.apache.commons.math3.distribution.FDistribution;
 import org.apache.commons.math3.distribution.GammaDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.WeibullDistribution;
+import org.apache.commons.math3.util.FastMath;
 import org.junit.jupiter.api.Test;
 
 import mathtools.distribution.ChiDistributionImpl;
@@ -56,7 +57,7 @@ import mathtools.distribution.tools.DistributionTools;
  * Prüft die Funktionsweise der verschiedenen Wahrscheinlichkeitsverteilungen
  * @author Alexander Herzog
  */
-public class DistributionTests {
+class DistributionTests {
 
 	private void testDistributionTools(final AbstractRealDistribution distribution) {
 		final AbstractRealDistribution distribution2=DistributionTools.cloneDistribution(distribution);
@@ -72,7 +73,7 @@ public class DistributionTests {
 			}
 		}
 		if (!Double.isNaN(distribution.getNumericalVariance())) {
-			assertEquals(distribution.getNumericalVariance(),Math.pow(DistributionTools.getStandardDeviation(distribution),2),0.000001);
+			assertEquals(distribution.getNumericalVariance(),FastMath.pow(DistributionTools.getStandardDeviation(distribution),2),0.000001);
 			final AbstractRealDistribution distribution3=DistributionTools.setStandardDeviation(distribution,123);
 			if (DistributionTools.canSetStandardDeviation(distribution)) {
 				assertNotNull(distribution3);
@@ -417,8 +418,8 @@ public class DistributionTests {
 		assertEquals(1,logNormal.mean);
 		assertEquals(1,logNormal.sd);
 
-		final double sigma2=StrictMath.log(StrictMath.pow(3.0/2.0,2)+1);
-		final double mu=StrictMath.log(2.0)-sigma2/2;
+		final double sigma2=Math.log(FastMath.pow(3.0/2.0,2)+1);
+		final double mu=Math.log(2.0)-sigma2/2;
 		final double sigma=StrictMath.sqrt(sigma2);
 
 		logNormal=new LogNormalDistributionImpl(2,3);
@@ -555,9 +556,9 @@ public class DistributionTests {
 		assertEquals(2,pareto.xmin);
 		assertEquals(3,pareto.alpha);
 		assertEquals(0,pareto.density(1));
-		assertEquals(3*Math.pow(2,3)/Math.pow(5,3+1),pareto.density(5));
+		assertEquals(3*FastMath.pow(2,3)/FastMath.pow(5,3+1),pareto.density(5));
 		assertEquals(0,pareto.cumulativeProbability(1));
-		assertEquals(1-Math.pow(2.0/5.0,3),pareto.cumulativeProbability(5));
+		assertEquals(1-FastMath.pow(2.0/5.0,3),pareto.cumulativeProbability(5));
 		assertEquals(3*2/(3-1),pareto.getNumericalMean());
 		assertEquals(2*2*3.0/(3-1)/(3-1)/(3-2),pareto.getNumericalVariance());
 		assertEquals(2,pareto.getSupportLowerBound());
@@ -565,14 +566,14 @@ public class DistributionTests {
 		assertTrue(pareto.isSupportLowerBoundInclusive());
 		assertTrue(!pareto.isSupportUpperBoundInclusive());
 		assertTrue(pareto.isSupportConnected());
-		assertEquals(2.0/Math.pow(0.5,1.0/3.0),pareto.random(new DummyRandomGenerator(0.5)));
+		assertEquals(2.0/FastMath.pow(0.5,1.0/3.0),pareto.random(new DummyRandomGenerator(0.5)));
 
 		pareto=pareto.clone();
 
 		assertEquals(2,pareto.xmin);
 		assertEquals(3,pareto.alpha);
 		assertEquals(0,pareto.density(1));
-		assertEquals(3*Math.pow(2,3)/Math.pow(5,3+1),pareto.density(5));
+		assertEquals(3*FastMath.pow(2,3)/FastMath.pow(5,3+1),pareto.density(5));
 		assertEquals(0,pareto.cumulativeProbability(1));
 		assertEquals(1-Math.pow(2.0/5.0,3),pareto.cumulativeProbability(5));
 		assertEquals(3*2/(3-1),pareto.getNumericalMean());
@@ -582,16 +583,16 @@ public class DistributionTests {
 		assertTrue(pareto.isSupportLowerBoundInclusive());
 		assertTrue(!pareto.isSupportUpperBoundInclusive());
 		assertTrue(pareto.isSupportConnected());
-		assertEquals(2.0/Math.pow(0.5,1.0/3.0),pareto.random(new DummyRandomGenerator(0.5)));
+		assertEquals(2.0/FastMath.pow(0.5,1.0/3.0),pareto.random(new DummyRandomGenerator(0.5)));
 
 		pareto=(ParetoDistributionImpl)DistributionTools.cloneDistribution(pareto);
 
 		assertEquals(2,pareto.xmin);
 		assertEquals(3,pareto.alpha);
 		assertEquals(0,pareto.density(1));
-		assertEquals(3*Math.pow(2,3)/Math.pow(5,3+1),pareto.density(5));
+		assertEquals(3*FastMath.pow(2,3)/FastMath.pow(5,3+1),pareto.density(5));
 		assertEquals(0,pareto.cumulativeProbability(1));
-		assertEquals(1-Math.pow(2.0/5.0,3),pareto.cumulativeProbability(5));
+		assertEquals(1-FastMath.pow(2.0/5.0,3),pareto.cumulativeProbability(5));
 		assertEquals(3*2/(3-1),pareto.getNumericalMean());
 		assertEquals(2*2*3.0/(3-1)/(3-1)/(3-2),pareto.getNumericalVariance());
 		assertEquals(2,pareto.getSupportLowerBound());
@@ -599,7 +600,7 @@ public class DistributionTests {
 		assertTrue(pareto.isSupportLowerBoundInclusive());
 		assertTrue(!pareto.isSupportUpperBoundInclusive());
 		assertTrue(pareto.isSupportConnected());
-		assertEquals(2.0/Math.pow(0.5,1.0/3.0),pareto.random(new DummyRandomGenerator(0.5)));
+		assertEquals(2.0/FastMath.pow(0.5,1.0/3.0),pareto.random(new DummyRandomGenerator(0.5)));
 
 		testDistributionTools(pareto);
 		testDistributionParameters(pareto,new double[] {2,3});
@@ -974,7 +975,7 @@ public class DistributionTests {
 		assertTrue(f.cumulativeProbability(10)>0);
 		assertEquals(1,f.cumulativeProbability(1_000_000_000),0.0001);
 
-		final double median=Math.pow(1.0/Math.log(2),1/f.alpha)*f.beta+f.delta;
+		final double median=FastMath.pow(1.0/Math.log(2),1/f.alpha)*f.beta+f.delta;
 		assertEquals(median,f.random(new DummyRandomGenerator(0.5)),0.01);
 
 		f=(FrechetDistributionImpl)DistributionTools.cloneDistribution(f);

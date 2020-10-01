@@ -37,7 +37,7 @@ import ui.modeleditor.ModelElementCatalogDescriptionBuilder;
 public class CommandGC extends AbstractCommand {
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.GC.Name")));
 		for (String s: Language.trOther("CommandLine.GC.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);

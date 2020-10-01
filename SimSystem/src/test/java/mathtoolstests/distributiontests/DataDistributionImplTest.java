@@ -18,6 +18,8 @@ package mathtoolstests.distributiontests;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -39,7 +41,7 @@ import mathtools.distribution.DataDistributionImpl;
  * @author Alexander Herzog
  * @see DataDistributionImpl
  */
-public class DataDistributionImplTest {
+class DataDistributionImplTest {
 	private final static double[] exampleDataDouble=new double[] {3,4,2,0,1};
 	private final static int[] exampleDataInt=new int[] {3,4,2,0,1};
 	private final static double[] exampleDataDouble2=new double[] {3,4,2,0,1.5};
@@ -73,26 +75,26 @@ public class DataDistributionImplTest {
 		dist=new DataDistributionImpl(10.0,exampleDataDouble.length);
 		assertEquals(10,dist.upperBound);
 		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertTrue(exampleDataDouble!=dist.densityData);
+		assertNotSame(exampleDataDouble,dist.densityData);
 
 		/* double[] */
 		dist=new DataDistributionImpl(10.0,exampleDataDouble);
 		assertEquals(10,dist.upperBound);
 		assertEquals(exampleDataDouble.length,dist.densityData.length);
 		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
-		assertTrue(exampleDataDouble!=dist.densityData);
+		assertNotSame(exampleDataDouble,dist.densityData);
 
 		dist=new DataDistributionImpl(10.0,exampleDataDouble,false);
 		assertEquals(10,dist.upperBound);
 		assertEquals(exampleDataDouble.length,dist.densityData.length);
 		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
-		assertTrue(exampleDataDouble!=dist.densityData);
+		assertNotSame(exampleDataDouble,dist.densityData);
 
 		dist=new DataDistributionImpl(10.0,exampleDataDouble,true);
 		assertEquals(10,dist.upperBound);
 		assertEquals(exampleDataDouble.length,dist.densityData.length);
 		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
-		assertTrue(exampleDataDouble==dist.densityData);
+		assertSame(exampleDataDouble,dist.densityData);
 
 		/*  int[] */
 		dist=new DataDistributionImpl(10.0,exampleDataInt);
@@ -334,7 +336,7 @@ public class DataDistributionImplTest {
 		assertTrue(Objects.deepEquals(dist3.densityData,dist1.densityData));
 
 		dist3=dist1.divide(dist1);
-		for (int i=0;i<exampleDataDouble.length;i++) assertTrue(dist3.densityData[i]==((exampleDataDouble[i]==0.0)?0.0:1.0));
+		for (int i=0;i<exampleDataDouble.length;i++) assertEquals(dist3.densityData[i],((exampleDataDouble[i]==0.0)?0.0:1.0));
 
 		/* Runden */
 		dist3=dist1.divide(2).round();

@@ -18,6 +18,7 @@ package ui.commandline;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -71,13 +72,9 @@ public class CommandLineDescriptionBuilder {
 		});
 
 		String textUTF8=text.toString();
+		textUTF8=new String(textUTF8.getBytes(StandardCharsets.UTF_8));
 		try {
-			textUTF8=new String(textUTF8.getBytes("UTF-8"));
-		} catch (java.io.UnsupportedEncodingException e) {
-			return "Encoder error: "+textUTF8;
-		}
-		try {
-			Files.write(Paths.get(output.toURI()),textUTF8.toString().getBytes(),StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+			Files.write(Paths.get(output.toURI()),textUTF8.getBytes(),StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			return "Error writing "+output.toString();
 		}

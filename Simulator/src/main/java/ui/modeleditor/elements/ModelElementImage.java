@@ -420,9 +420,9 @@ public class ModelElementImage extends ModelElementDecoration {
 		}
 	}
 
-	private final static boolean USE_BACKGROUND_LOAD=true;
+	private static final boolean USE_BACKGROUND_LOAD=true;
 
-	private final static ExecutorService loadService=new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.SECONDS,new SynchronousQueue<Runnable>(),new ThreadFactory() {
+	private static final ExecutorService loadService=new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.SECONDS,new SynchronousQueue<>(),new ThreadFactory() {
 		@Override public Thread newThread(Runnable r) {return new Thread(r,"Model Element Image Loader");}
 	});
 	private Future<Integer> loadFuture=null;

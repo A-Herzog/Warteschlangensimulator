@@ -245,7 +245,7 @@ public class DataCheckResult {
 		for (Map.Entry<String,List<String>> entry: dde.listTables().entrySet()) {
 			if (!entry.getKey().equalsIgnoreCase(workbook)) continue;
 			if (table.isEmpty()) {
-				if (entry.getValue().size()>0) return new DataCheckResult(element,DataType.DDE,data);
+				if (!entry.getValue().isEmpty()) return new DataCheckResult(element,DataType.DDE,data);
 			} else {
 				for (String tableName: entry.getValue()) if (tableName.equalsIgnoreCase(table)) return new DataCheckResult(element,DataType.DDE,data);
 			}

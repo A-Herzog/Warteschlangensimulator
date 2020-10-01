@@ -35,7 +35,7 @@ import statistics.StatisticsTimeAnalogPerformanceIndicator;
  * @author Alexander Herzog
  * @see StatisticsTimeAnalogPerformanceIndicator
  */
-public class StatisticsTimeAnalogPerformanceIndicatorTest {
+class StatisticsTimeAnalogPerformanceIndicatorTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

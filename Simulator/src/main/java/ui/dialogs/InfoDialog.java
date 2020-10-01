@@ -166,7 +166,7 @@ public class InfoDialog extends JDialog {
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.CENTER))); p.add(image=new JLabel());
 		image.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-		final ExecutorService executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>(),new ThreadFactory() {
+		final ExecutorService executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			@Override
 			public Thread newThread(Runnable r) {
 				return new Thread(r,"Image loader");
@@ -183,7 +183,7 @@ public class InfoDialog extends JDialog {
 		p2.setLayout(new BoxLayout(p2,BoxLayout.Y_AXIS));
 
 		/* Programm und Autor */
-		List<String> text=new ArrayList<String>();
+		List<String> text=new ArrayList<>();
 		text.add(MainFrame.PROGRAM_NAME+" "+version);
 		text.add("&copy; "+MainPanel.AUTHOR+" (<a href=\"mailto:"+MainPanel.AUTHOR_EMAIL+"\">"+MainPanel.AUTHOR_EMAIL+"</a>)");
 
@@ -195,7 +195,10 @@ public class InfoDialog extends JDialog {
 		/* Ausgabe */
 		StringBuilder sb=new StringBuilder();
 		sb.append("<html><body style=\"margin: 0px; padding: 0px; font-family: sans;  background-color: transparent;\"><p style=\"margin-top: 0px; font-weight: bold; font-size: larger;\">"+text.get(0)+"</p><p style=\"margin-top: 5px; margin-bottom: 5px;\">"+text.get(1)+"</p><p style=\"margin-top: 0px; font-size: 9pt;\">");
-		for (int i=2;i<text.size();i++) {if (i>2) sb.append("<br>");	sb.append(text.get(i));}
+		for (int i=2;i<text.size();i++) {
+			if (i>2) sb.append("<br>");
+			sb.append(text.get(i));
+		}
 		sb.append("</p></body></html>");
 		final String htmlInfoText=sb.toString();
 
@@ -237,19 +240,19 @@ public class InfoDialog extends JDialog {
 			/* Version history */
 			p.add(versionHistoryButton=new JButton(Language.tr("InfoDialog.ShowVersionHistory")));
 			versionHistoryButton.setToolTipText(Language.tr("InfoDialog.ShowVersionHistory.Tooltip"));
-			versionHistoryButton.addActionListener((e)->{showVersionHistory=true; setVisible(false); dispose();});
+			versionHistoryButton.addActionListener(e->{showVersionHistory=true; setVisible(false); dispose();});
 			versionHistoryButton.setIcon(Images.GENERAL_CHANGELOG.getIcon());
 
 			/* Lizenzen */
 			p.add(licenseButton=new JButton(Language.tr("InfoDialog.ShowLicenses")));
 			licenseButton.setToolTipText(Language.tr("InfoDialog.ShowLicenses.Tooltip"));
-			licenseButton.addActionListener((e)->{showLicenses=true; setVisible(false); dispose();});
+			licenseButton.addActionListener(e->{showLicenses=true; setVisible(false); dispose();});
 			licenseButton.setIcon(Images.GENERAL_LICENSE.getIcon());
 
 			/* Sprachschalter */
 			p.add(Box.createHorizontalStrut(5));
 			p.add(new JLabel(Language.tr("SettingsDialog.Languages")+":"));
-			p.add(languages=new JComboBox<String>(new String[]{Language.tr("SettingsDialog.Languages.English"),Language.tr("SettingsDialog.Languages.German")}));
+			p.add(languages=new JComboBox<>(new String[]{Language.tr("SettingsDialog.Languages.English"),Language.tr("SettingsDialog.Languages.German")}));
 			languages.setRenderer(new IconListCellRenderer(new Images[]{Images.LANGUAGE_EN,Images.LANGUAGE_DE}));
 			languages.setToolTipText(Language.tr("SettingsDialog.Languages.Info"));
 			SetupData setup=SetupData.getSetup();

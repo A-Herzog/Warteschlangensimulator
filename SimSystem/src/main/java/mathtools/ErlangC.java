@@ -16,6 +16,7 @@
 package mathtools;
 
 import org.apache.commons.math3.util.CombinatoricsUtils;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Bestimmt die mittlere Wartezeit in einem M/M/c/infty oder M/M/c/K+M Warteschlangenmodell gem‰ﬂ
@@ -40,10 +41,10 @@ public final class ErlangC {
 	public static double waitingTime(final double lambda, final double mu, final int c) {
 		if (mu<=0) return Double.POSITIVE_INFINITY;
 		double a=lambda/mu;
-		double p1=Math.pow(a,c)/CombinatoricsUtils.factorial(c)*c/(c-a);
+		double p1=FastMath.pow(a,c)/CombinatoricsUtils.factorial(c)*c/(c-a);
 
 		double s=1;
-		for (int n=1;n<=c-1;n++) s+=Math.pow(a,n)/CombinatoricsUtils.factorial(n);
+		for (int n=1;n<=c-1;n++) s+=FastMath.pow(a,n)/CombinatoricsUtils.factorial(n);
 		p1=p1/(s+p1);
 
 		return p1/(c*mu-lambda);
@@ -70,7 +71,7 @@ public final class ErlangC {
 
 		for (int n=0;n<=Math.min(c,K);n++) {
 			if (n<=10) {
-				Cn[n]=Math.pow(a,n)/CombinatoricsUtils.factorial(n);
+				Cn[n]=FastMath.pow(a,n)/CombinatoricsUtils.factorial(n);
 			} else {
 				if (n==11) {
 					double m=1; for (int i=1;i<=n;i++) m*=a/i;
@@ -82,7 +83,7 @@ public final class ErlangC {
 		}
 		double temp=1;
 		if (c<=10) {
-			temp=Math.pow(a,c)/CombinatoricsUtils.factorial(c);
+			temp=FastMath.pow(a,c)/CombinatoricsUtils.factorial(c);
 		} else {
 			for (int i=1;i<=c;i++) temp*=a/i;
 		}

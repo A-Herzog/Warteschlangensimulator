@@ -46,7 +46,7 @@ public abstract class CalcSymbolDiscreteDistribution extends CalcSymbolPreOperat
 	protected abstract double calcProbability(double[] parameters, int k);
 
 	/** Maximalwert für K (danach werden Summenbildungen abgeschnitten) */
-	private final static int MAX_K=1_000_000;
+	private static final int MAX_K=1_000_000;
 
 	/**
 	 * Berechnet eine Pseudozufallszahl basieren auf der konkreten

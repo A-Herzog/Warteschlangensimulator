@@ -108,7 +108,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			sizeField=(JTextField)data[1];
 			sizeField.setEditable(!readOnly);
 			bottomPanel.add((JPanel)data[0]);
-			sizeField.addActionListener((e)->{
+			sizeField.addActionListener(e->{
 				if (readOnly) return;
 				NumberTools.getNotNegativeInteger(sizeField,true);
 			});

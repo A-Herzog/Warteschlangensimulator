@@ -114,6 +114,7 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 			case CHANGE_MODE_VALUE: return Language.tr("Surface.AnalogAssign.Dialog.ModeValue");
 			case CHANGE_MODE_RATE: return Language.tr("Surface.AnalogAssign.Dialog.ModeRate");
 			}
+			return null;
 		case 2:
 			return changeExpression.get(rowIndex);
 		case 3:

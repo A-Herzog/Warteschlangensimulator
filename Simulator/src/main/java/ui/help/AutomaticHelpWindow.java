@@ -22,7 +22,6 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -80,7 +79,10 @@ public class AutomaticHelpWindow extends JFrame {
 
 		/* Fenster zu Panel finden */
 		Component c=mainPanel;
-		while (c!=null) {if (c instanceof JFrame) break; c=c.getParent();}
+		while (c!=null) {
+			if (c instanceof JFrame) break;
+			c=c.getParent();
+		}
 		mainFrame=(JFrame)c;
 
 		/* Position des Hauptfensters speichern, Hauptfenster und Tutorialfenster anordnen */
@@ -114,9 +116,7 @@ public class AutomaticHelpWindow extends JFrame {
 
 		/* Callback initiieren */
 		this.editorPanel=editorPanel;
-		editorPanel.addSelectionListener(selectionListener=new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {selectionChanged();}
-		});
+		editorPanel.addSelectionListener(selectionListener=e->selectionChanged());
 
 		/* Verarbeitung starten */
 		selectionChanged();

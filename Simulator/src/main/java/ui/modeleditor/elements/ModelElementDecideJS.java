@@ -290,7 +290,7 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);
 			});
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
@@ -300,7 +300,7 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 
 		if (connectionsOut!=null && connectionsOut.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesOut")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsOut)) surface.remove(element);
 			});
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));

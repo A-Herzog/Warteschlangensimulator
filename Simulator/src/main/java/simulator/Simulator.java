@@ -68,7 +68,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * Erfassung von Ereignissen aller Typen
 	 * @see Simulator.LogType
 	 */
-	public final static Set<LogType> logTypeFull=new HashSet<>(Arrays.asList(LogType.values()));
+	public static final Set<LogType> logTypeFull=new HashSet<>(Arrays.asList(LogType.values()));
 
 	/**
 	 * Laufzeit-Modell (global für alle Threads)
@@ -235,7 +235,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	/**
 	 *  Konfidenzniveaus für die auf Thread-Basis zu berechnenden Konfidenzintervalle.
 	 */
-	private final static double[] CONFIDENCE_LEVELS=new double[]{0.1,0.05,0.01};
+	private static final double[] CONFIDENCE_LEVELS=new double[]{0.1,0.05,0.01};
 
 	/**
 	 * Wird intern verwendet, um die Statistikdaten von den Threads einzusammeln.

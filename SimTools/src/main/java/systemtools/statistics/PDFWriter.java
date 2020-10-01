@@ -445,7 +445,7 @@ public class PDFWriter {
 		final float lineWidthMM=0.1f;
 		final Color lineColor=Color.BLACK;
 
-		final List<String[]> cols=new ArrayList<String[]>();
+		final List<String[]> cols=new ArrayList<>();
 		int maxLines=0;
 		for (int i=0;i<text.length;i++) {
 			int colWidth=(int)Math.round((double)contentAreaWidthPT*((i==0)?2:1)/(text.length+1));

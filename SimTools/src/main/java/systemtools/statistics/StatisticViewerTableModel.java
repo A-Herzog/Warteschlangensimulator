@@ -53,7 +53,7 @@ public class StatisticViewerTableModel extends AbstractTableModel {
 	@Override
 	public int getRowCount() {
 		if (table==null) {
-			if (data==null || data.size()==0) return 0;
+			if (data==null || data.isEmpty()) return 0;
 			return data.size();
 		} else {
 			return table.getSize(0);
@@ -71,7 +71,7 @@ public class StatisticViewerTableModel extends AbstractTableModel {
 		if (rowIndex<0 || columnIndex<0 ) return "";
 
 		if (table==null) {
-			if (data==null || data.size()==0) return "";
+			if (data==null || data.isEmpty()) return "";
 			if (rowIndex>=data.size()) return "";
 			final List<String> row=data.get(rowIndex);
 			if (row==null || columnIndex>=row.size()) return "";

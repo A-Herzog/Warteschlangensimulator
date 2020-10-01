@@ -624,7 +624,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 	}
 
 	private void addClientsTab(final JPanel content) {
-		clientColorsList=new JList<>(clientColorsListModel=new DefaultListModel<JLabel>());
+		clientColorsList=new JList<>(clientColorsListModel=new DefaultListModel<>());
 		clientColorsList.setCellRenderer(new ElementListCellRenderer());
 		content.add(new JScrollPane(clientColorsList));
 
@@ -839,7 +839,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 			@Override public void keyPressed(KeyEvent e) {NumberTools.getPositiveDouble(stepWideEdit,true);}
 			@Override public void keyReleased(KeyEvent e) {NumberTools.getPositiveDouble(stepWideEdit,true);}
 		});
-		line.add(stepWideCombo=new JComboBox<String>(new String[] {
+		line.add(stepWideCombo=new JComboBox<>(new String[] {
 				Language.tr("Statistics.Seconds"),
 				Language.tr("Statistics.Minutes"),
 				Language.tr("Statistics.Hours"),

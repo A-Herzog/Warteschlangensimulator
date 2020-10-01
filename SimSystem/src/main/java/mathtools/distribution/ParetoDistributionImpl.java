@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Pareto-Verteilung
@@ -56,7 +57,7 @@ public final class ParetoDistributionImpl extends AbstractRealDistribution imple
 		/* if (xmin<=0 || alpha<=0) return 0; - per Konstruktor ausgeschlossen */
 		/* https://en.wikipedia.org/wiki/Pareto_distribution */
 		if (x<xmin) return 0;
-		return alpha*Math.pow(xmin,alpha)/Math.pow(x,alpha+1);
+		return alpha*FastMath.pow(xmin,alpha)/Math.pow(x,alpha+1);
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public final class ParetoDistributionImpl extends AbstractRealDistribution imple
 		/* if (xmin<=0 || alpha<=0) return 0; - per Konstruktor ausgeschlossen */
 		/* https://en.wikipedia.org/wiki/Pareto_distribution */
 		if (x<xmin) return 0;
-		return 1-Math.pow(xmin/x,alpha);
+		return 1-FastMath.pow(xmin/x,alpha);
 	}
 
 	@Override
@@ -110,10 +111,10 @@ public final class ParetoDistributionImpl extends AbstractRealDistribution imple
 	}
 
 	@Override
-	public final double random(final RandomGenerator generator) {
+	public double random(final RandomGenerator generator) {
 		/* https://en.wikipedia.org/wiki/Pareto_distribution */
 		/* if (alpha<=0) return 0; - per Konstruktor ausgeschlossen */
 		final double u=1-generator.nextDouble(); /* ==> (0,1] */
-		return xmin/Math.pow(u,1/alpha);
+		return xmin/FastMath.pow(u,1/alpha);
 	}
 }

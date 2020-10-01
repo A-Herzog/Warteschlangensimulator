@@ -221,7 +221,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		}
 
 		@Override
-		public void start() {
+		public synchronized void start() {
 			status=InlineReportThreadStatus.RUNNING;
 			super.start();
 		}
@@ -297,7 +297,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return true;
 	}
 
-	private final static int MAX_REPORT_BUILDER_THREADS=5; /* Ein zu hoher Wert provoziert OutOfMemory-Probleme. */
+	private static final int MAX_REPORT_BUILDER_THREADS=5; /* Ein zu hoher Wert provoziert OutOfMemory-Probleme. */
 
 	private List<String> buildInlineData(final List<StatisticViewer> viewers, final List<String> names) {
 		final ThreadGroup group=new ThreadGroup("Report");
@@ -515,9 +515,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 				}
 
 				final boolean[] select=table.getSelected();
-				final List<StatisticViewer> selectedViewers=new ArrayList<StatisticViewer>();
-				final List<String> selectedNames=new ArrayList<String>();
-				final List<String> selectedFullPathes=new ArrayList<String>();
+				final List<StatisticViewer> selectedViewers=new ArrayList<>();
+				final List<String> selectedNames=new ArrayList<>();
+				final List<String> selectedFullPathes=new ArrayList<>();
 				for (int i=0;i<select.length;i++) if (select[i] || exportAllItems) {
 					selectedViewers.add(viewers.get(i));
 					selectedNames.add(names.get(i));

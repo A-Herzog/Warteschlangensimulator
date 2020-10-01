@@ -55,7 +55,6 @@ public class SchedulePanel extends JPanel {
 	private int fontYDelta;
 	private int fontHeight;
 	private int marginBoxLeft;
-	private int marginBoxRight;
 	private int marginBoxTop;
 	private int marginBoxBottom;
 	private int boxWidth;
@@ -244,7 +243,7 @@ public class SchedulePanel extends JPanel {
 		fontHeight=g.getFontMetrics().getAscent()+g.getFontMetrics().getDescent();
 
 		marginBoxLeft=fontHeight+g.getFontMetrics().stringWidth(""+editorMaxY)+fontHeight/2;
-		marginBoxRight=fontHeight;
+		final int marginBoxRight=fontHeight;
 		marginBoxTop=2*fontHeight;
 		marginBoxBottom=3*fontHeight;
 

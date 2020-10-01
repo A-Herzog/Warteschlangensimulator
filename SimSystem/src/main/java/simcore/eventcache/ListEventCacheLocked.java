@@ -50,8 +50,8 @@ public final class ListEventCacheLocked implements EventCache {
 	public ListEventCacheLocked(int initialCacheSizePerClass) {
 		lock=new Semaphore(1);
 		this.initialCacheSizePerClass=initialCacheSizePerClass;
-		cacheClassList=new ArrayList<Class<? extends Event>>();
-		cacheEventList=new ArrayList<Deque<Event>>();
+		cacheClassList=new ArrayList<>();
+		cacheEventList=new ArrayList<>();
 	}
 
 	/**
@@ -75,7 +75,7 @@ public final class ListEventCacheLocked implements EventCache {
 		lock.acquireUninterruptibly();
 		try {
 			int i=cacheClassList.indexOf(event.getClass());
-			if (i<0) {cacheClassList.add(event.getClass()); cacheEventList.add(new ArrayDeque<Event>(initialCacheSizePerClass)); i=cacheClassList.size()-1;}
+			if (i<0) {cacheClassList.add(event.getClass()); cacheEventList.add(new ArrayDeque<>(initialCacheSizePerClass)); i=cacheClassList.size()-1;}
 			cacheEventList.get(i).push(event);
 		} finally {
 			lock.release();

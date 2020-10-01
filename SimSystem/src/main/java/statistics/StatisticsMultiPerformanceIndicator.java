@@ -183,7 +183,7 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 		for (Map.Entry<String,StatisticsPerformanceIndicator> entry : moreMultiStatistics.indicators.entrySet()) {
 			final StatisticsPerformanceIndicator ownSub=get(entry.getKey());
 			final StatisticsPerformanceIndicator newSub=entry.getValue();
-			ownSub.add(newSub);
+			if (ownSub!=null) ownSub.add(newSub);
 		}
 	}
 

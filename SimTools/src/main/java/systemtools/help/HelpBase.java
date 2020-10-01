@@ -147,7 +147,7 @@ public abstract class HelpBase {
 	}
 
 	private void showHelpDialog(final String topic) {
-		helpDialog=new HTMLDialog(getOwnerWindow(parent),title,topic,()->{processSpecialLink(getHRef());}) {
+		helpDialog=new HTMLDialog(getOwnerWindow(parent),title,topic,()->processSpecialLink(getHRef())) {
 			private static final long serialVersionUID = -7543988339882677342L;
 			@Override
 			protected URL getPageURL(String res) {
@@ -164,7 +164,7 @@ public abstract class HelpBase {
 	private void showHelpWindow(final String topic) {
 		boolean newWindow=false;
 		if (helpFrame==null || !helpFrame.isVisible()) {
-			helpFrame=new HTMLFrame(getOwnerWindow(parent),title,()->{processSpecialLink(getHRef());}) {
+			helpFrame=new HTMLFrame(getOwnerWindow(parent),title,()->processSpecialLink(getHRef())) {
 				private static final long serialVersionUID = 3469355239872231962L;
 				@Override
 				protected URL getPageURL(String res) {

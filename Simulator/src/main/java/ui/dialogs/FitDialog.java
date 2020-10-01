@@ -182,7 +182,7 @@ public class FitDialog extends BaseDialog {
 			this.buttonNr=buttonNr;
 		}
 
-		private boolean loadValuesFromArray(double newValues[][]) {
+		private boolean loadValuesFromArray(double[][] newValues) {
 			if (newValues==null || newValues.length==0 || newValues[0]==null || newValues[0].length==0) return false;
 
 			/* Messwerte-Liste füllen */

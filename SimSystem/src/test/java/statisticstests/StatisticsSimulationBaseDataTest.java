@@ -36,7 +36,7 @@ import statistics.StatisticsSimulationBaseData;
  * @author Alexander Herzog
  * @see StatisticsSimulationBaseData
  */
-public class StatisticsSimulationBaseDataTest {
+class StatisticsSimulationBaseDataTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

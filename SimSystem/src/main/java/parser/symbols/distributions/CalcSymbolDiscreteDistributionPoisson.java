@@ -15,6 +15,8 @@
  */
 package parser.symbols.distributions;
 
+import org.apache.commons.math3.util.FastMath;
+
 import mathtools.Functions;
 
 /**
@@ -39,6 +41,6 @@ public class CalcSymbolDiscreteDistributionPoisson extends CalcSymbolDiscreteDis
 
 		if (lambda<=0) return -1;
 
-		return Math.pow(lambda,k)/Functions.getFactorial(k)*Math.exp(-lambda);
+		return FastMath.pow(lambda,k)/Functions.getFactorial(k)*FastMath.exp(-lambda);
 	}
 }

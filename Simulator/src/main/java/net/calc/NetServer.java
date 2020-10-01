@@ -150,7 +150,7 @@ public abstract class NetServer {
 			this.runSocket=runSocket;
 
 			if (runSocket!=null) {
-				start();
+				super.start();
 			}
 		}
 

@@ -47,7 +47,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 	@Override
 	public String[] getKeys() {
 
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 
 		list.add(Language.tr("CommandLine.Benchmark.Name1"));
 		for (String s: Language.trOther("CommandLine.Benchmark.Name1")) if (!list.contains(s)) list.add(s);
@@ -132,7 +132,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 			long sum=0;
 			for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
 
-			double d=((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/sum;
+			double d=((double)statistics.simulationData.runTime)*statistics.simulationData.runThreads/((sum>0)?sum:1);
 			String s="ms";
 			if (d<1) {d=d*1000; s="µs";}
 			if (d<1) {d=d*1000; s="ns";}

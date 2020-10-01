@@ -119,7 +119,7 @@ public class ComparePanel extends SpecialPanel {
 				final Statistics statisticData=statistic[i];
 				if (statisticData==null || statisticData.editModel==null) continue;
 				JMenuItem item=new JMenuItem(titleArray[i]);
-				item.addActionListener((e)->{
+				item.addActionListener(e->{
 					Runnable loadToEditor=null;
 					if (allowLoadToEditor) {
 						loadToEditor=()->{loadModelIntoEditor=statisticData.editModel; close();};

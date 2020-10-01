@@ -57,7 +57,7 @@ public class HandlerPostModel implements WebServerHandler {
 			String origFileName=null;
 			if (idOfFileNameField!=null) {
 				final List<String> names=session.getParameters().get(idOfFileNameField);
-				if (names!=null && names.size()>0) origFileName=names.get(0);
+				if (names!=null && !names.isEmpty()) origFileName=names.get(0);
 			}
 			if (files.size()==0) {
 				return Language.tr("WebServer.Upload.ErrorNoData");

@@ -106,7 +106,7 @@ public class TransporterTableModelDialog extends BaseDialog {
 		/* Icon-Combobox */
 		parent.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		panel.add(label=new JLabel(labelText+":"));
-		panel.add(iconChooser=new JComboBox<JLabel>());
+		panel.add(iconChooser=new JComboBox<>());
 		iconChooserList=imageSource.getIconsComboBox(modelImages);
 		iconChooser.setModel(iconChooserList);
 		iconChooser.setRenderer(new AnimationImageSource.IconComboBoxCellRenderer());

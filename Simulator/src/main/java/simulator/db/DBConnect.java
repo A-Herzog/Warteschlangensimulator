@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -163,7 +164,7 @@ public class DBConnect implements Closeable {
 			this.processSettings=null;
 		}
 
-		DBType(final String name, final String driver, final String connector, final String listAllTablesCommand, final String properties, final boolean useQuotes, final Function<String,String> processSettings) {
+		DBType(final String name, final String driver, final String connector, final String listAllTablesCommand, final String properties, final boolean useQuotes, final UnaryOperator<String> processSettings) {
 			this.name=name;
 			this.driver=driver;
 			this.connector=connector;

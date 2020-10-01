@@ -394,7 +394,7 @@ class SimpleParserTest {
 	@Test
 	void testOperators() {
 		SimpleParser sp;
-		double D;
+		double d;
 
 		/* Division durch 0 */
 
@@ -413,8 +413,8 @@ class SimpleParserTest {
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("10!"));
 		try {
-			assertNotNull(D=sp.calc());
-			assertEquals(3628800,D,0.0001);
+			d=sp.calc();
+			assertEquals(3628800,d,0.0001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -422,8 +422,8 @@ class SimpleParserTest {
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("1!"));
 		try {
-			assertNotNull(D=sp.calc());
-			assertEquals(1,D,0.0001);
+			d=sp.calc();
+			assertEquals(1,d,0.0001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -431,8 +431,8 @@ class SimpleParserTest {
 		sp=new SimpleParser();
 		assertEquals(-1,sp.parse("0!"));
 		try {
-			assertNotNull(D=sp.calc());
-			assertEquals(1,D,0.0001);
+			d=sp.calc();
+			assertEquals(1,d,0.0001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}

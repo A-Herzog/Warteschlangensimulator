@@ -17,6 +17,7 @@ package parsertests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -35,13 +36,13 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  * @see CalcSystem
  */
-public class ParserTests {
+class ParserTests {
 	private void constructorTest(final CalcSystem calc, final String text, final String[] variables, final List<Double> values) {
 		assertNotNull(calc.getText());
 		if (text==null || text.isEmpty()) {
 			assertTrue(calc.getText().isEmpty());
 		} else {
-			assertTrue(calc.getText().equals(text));
+			assertEquals(calc.getText(),text);
 		}
 
 		assertNotNull(calc.variables);
@@ -196,9 +197,9 @@ public class ParserTests {
 	 */
 	@Test
 	void calcSimpleTest() {
-		assertTrue(CalcSystem.calcSimple(null)==null);
-		assertTrue(CalcSystem.calcSimple("")==null);
-		assertTrue(CalcSystem.calcSimple(" ")==null);
+		assertNull(CalcSystem.calcSimple(null));
+		assertNull(CalcSystem.calcSimple(""));
+		assertNull(CalcSystem.calcSimple(" "));
 
 		assertEquals(5.0,CalcSystem.calcSimple("5").doubleValue());
 		assertEquals(5.25,CalcSystem.calcSimple("5,25").doubleValue());
@@ -207,7 +208,7 @@ public class ParserTests {
 		assertEquals(13.0,CalcSystem.calcSimple("1+3*4").doubleValue());
 		assertEquals(16.0,CalcSystem.calcSimple("(1+3)*4").doubleValue());
 		assertEquals(5.0,CalcSystem.calcSimple("sqrt(25)").doubleValue());
-		assertTrue(CalcSystem.calcSimple("sqrt(-25)")==null);
+		assertNull(CalcSystem.calcSimple("sqrt(-25)"));
 	}
 
 	/**

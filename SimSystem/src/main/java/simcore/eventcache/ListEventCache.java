@@ -46,8 +46,8 @@ public final class ListEventCache implements EventCache {
 	 */
 	public ListEventCache(final int initialCacheSizePerClass) {
 		this.initialCacheSizePerClass=initialCacheSizePerClass;
-		cacheClassList=new ArrayList<Class<? extends Event>>();
-		cacheEventList=new ArrayList<Deque<Event>>();
+		cacheClassList=new ArrayList<>();
+		cacheEventList=new ArrayList<>();
 	}
 
 	/**
@@ -71,7 +71,7 @@ public final class ListEventCache implements EventCache {
 		int i=cacheClassList.indexOf(event.getClass());
 		if (i<0) {
 			cacheClassList.add(event.getClass());
-			cacheEventList.add(new ArrayDeque<Event>(initialCacheSizePerClass));
+			cacheEventList.add(new ArrayDeque<>(initialCacheSizePerClass));
 			i=cacheClassList.size()-1;
 		}
 		cacheEventList.get(i).addFirst(event);

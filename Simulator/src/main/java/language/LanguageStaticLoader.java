@@ -100,7 +100,7 @@ public class LanguageStaticLoader {
 	 */
 	public static void setLanguage() {
 		Locale locale=Locale.US;
-		if (Language.tr("Numbers.Language").toLowerCase().equals("de")) locale=Locale.GERMANY;
+		if (Language.tr("Numbers.Language").equalsIgnoreCase("de")) locale=Locale.GERMANY;
 
 		/* Zahlenformate und Ja/Nein-Dialoge */
 		NumberTools.setLocale(locale);

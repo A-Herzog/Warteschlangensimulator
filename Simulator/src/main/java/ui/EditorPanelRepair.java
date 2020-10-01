@@ -74,7 +74,7 @@ public class EditorPanelRepair {
 
 		for (ModelElementProcess p: process) {
 
-			if (process.size()==0) return RepairState.NOT_CHANGED;
+			if (process.isEmpty()) return RepairState.NOT_CHANGED;
 			final String processName=(p.getName().trim().isEmpty())?("id="+p.getId()):("\""+p.getName()+"\" (id="+p.getId()+")");
 
 			/* Keine Bediener? */
@@ -178,13 +178,13 @@ public class EditorPanelRepair {
 				continue;
 			}
 		}
-		if (source.size()==0) return RepairState.NOT_CHANGED;
-		if (process.size()==0 && delay.size()==0) return RepairState.NOT_CHANGED;
+		if (source.isEmpty()) return RepairState.NOT_CHANGED;
+		if (process.isEmpty() && delay.isEmpty()) return RepairState.NOT_CHANGED;
 
 		RepairState state=RepairState.NOT_CHANGED;
 
 		/* Modell hat kein Ausgang-Element? */
-		if (dispose.size()==0 && needsDispose) {
+		if (dispose.isEmpty() && needsDispose) {
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixDispose.Title"),Language.tr("Window.Check.AutoFixDispose.Info"),Language.tr("Window.Check.AutoFixDispose.YesInfo"),Language.tr("Window.Check.AutoFixDispose.NoInfo"))) return RepairState.USER_CANCELED;
 			final int x=maxX+100;
 			int y=0;
@@ -203,12 +203,12 @@ public class EditorPanelRepair {
 			if (process.size()+delay.size()!=1) continue; /* Unklar, wohin wir verbinden wollen. */
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoSourceProcess"),s.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
 			ModelElementEdge edge=null;
-			if (process.size()>0) {
+			if (!process.isEmpty()) {
 				edge=new ModelElementEdge(model,model.surface,s,process.get(0));
 				s.addEdgeOut(edge);
 				process.get(0).addEdgeIn(edge);
 			} else {
-				if (delay.size()>0) {
+				if (!delay.isEmpty()) {
 					edge=new ModelElementEdge(model,model.surface,s,delay.get(0));
 					s.addEdgeOut(edge);
 					delay.get(0).addEdgeIn(edge);

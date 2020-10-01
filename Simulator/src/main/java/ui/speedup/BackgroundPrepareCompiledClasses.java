@@ -34,7 +34,7 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class BackgroundPrepareCompiledClasses {
-	private final static int START_DELAY=5_000;
+	private static final int START_DELAY=5_000;
 
 	/**
 	 * Konstruktor der Klasse

@@ -15,6 +15,8 @@
  */
 package parser.symbols;
 
+import org.apache.commons.math3.util.FastMath;
+
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
@@ -29,14 +31,14 @@ public final class CalcSymbolPreOperatorPower extends CalcSymbolPreOperator {
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=2) throw error();
 		if (parameters[1]<0) throw error();
-		return Math.pow(parameters[0],parameters[1]);
+		return FastMath.pow(parameters[0],parameters[1]);
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length!=2) return fallbackValue;
 		if (parameters[1]<0) return fallbackValue;
-		return Math.pow(parameters[0],parameters[1]);
+		return FastMath.pow(parameters[0],parameters[1]);
 	}
 
 	@Override

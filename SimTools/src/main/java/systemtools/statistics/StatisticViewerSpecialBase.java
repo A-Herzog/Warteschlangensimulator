@@ -15,9 +15,6 @@
  */
 package systemtools.statistics;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.datatransfer.Clipboard;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.util.function.IntConsumer;
@@ -36,24 +33,9 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
  */
 public abstract class StatisticViewerSpecialBase implements StatisticViewer {
 	@Override
-	public abstract ViewerType getType();
-
-	@Override
 	public ViewerImageType getImageType() {
 		return ViewerImageType.IMAGE_TYPE_NOIMAGE;
 	}
-
-	@Override
-	public abstract Container getViewer(boolean needReInit);
-
-	@Override
-	public abstract void copyToClipboard(Clipboard clipboard);
-
-	@Override
-	public abstract boolean print();
-
-	@Override
-	public abstract void save(Component owner);
 
 	@Override
 	public int saveHtml(BufferedWriter bw, File mainFile, int nextImageNr, boolean imagesInline) {

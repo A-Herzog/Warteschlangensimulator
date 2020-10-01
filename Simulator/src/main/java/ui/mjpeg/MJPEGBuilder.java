@@ -36,8 +36,8 @@ public class MJPEGBuilder {
 	private final File tempBuffer;
 	private final File outputFile;
 
-	private final static double FRAME_RATE=30.0;
-	private final static int FRAME_MULTIPLY=1;
+	private static final double FRAME_RATE=30.0;
+	private static final int FRAME_MULTIPLY=1;
 
 	private int writerCount;
 	private int writerPosition;
@@ -117,7 +117,7 @@ public class MJPEGBuilder {
 	}
 
 	private int additionaFrameNumber(final long simTimeDelta) {
-		return (int)FastMath.round(FastMath.log10(simTimeDelta))*3;
+		return (int)FastMath.round(Math.log10(simTimeDelta))*3;
 	}
 
 	private boolean processImages(final long tempSize, final MJPEGGenerator generator, final boolean useAdditionalFrames) {

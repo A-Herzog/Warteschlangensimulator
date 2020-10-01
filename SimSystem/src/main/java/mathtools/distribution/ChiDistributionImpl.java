@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.special.Gamma;
+import org.apache.commons.math3.util.FastMath;
 
 import mathtools.Functions;
 
@@ -48,7 +49,7 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 	public ChiDistributionImpl(final int degreesOfFreedom) {
 		super(null);
 		this.degreesOfFreedom=(degreesOfFreedom>0)?degreesOfFreedom:1;
-		final double densityDenominator=Math.pow(2,degreesOfFreedom*0.5-1)*Functions.getGamma(degreesOfFreedom*0.5);
+		final double densityDenominator=FastMath.pow(2,degreesOfFreedom*0.5-1)*Functions.getGamma(degreesOfFreedom*0.5);
 		inverseDensityDenominator=1.0/densityDenominator;
 	}
 
@@ -63,7 +64,7 @@ public final class ChiDistributionImpl extends AbstractRealDistribution implemen
 	@Override
 	public double density(double x) {
 		if (x<=0) return 0;
-		return Math.exp(-x*x*0.5)*Math.pow(x,degreesOfFreedom-1)*inverseDensityDenominator;
+		return FastMath.exp(-x*x*0.5)*FastMath.pow(x,degreesOfFreedom-1)*inverseDensityDenominator;
 	}
 
 	@Override

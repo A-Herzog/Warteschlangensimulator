@@ -147,7 +147,7 @@ public class Language {
 	 */
 	public static synchronized List<String> trOther(String id) {
 		if (language==null) language=new Language(directLoadingMode);
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		if (!noRightsMode) {
 			if (language.i18n_de!=null && language.i18n!=language.i18n_de) {String s=language.i18n_de.tr(id); if (s!=null) list.add(s);}
 			if (language.i18n_en!=null && language.i18n!=language.i18n_en) {String s=language.i18n_en.tr(id); if (s!=null) list.add(s);}
@@ -177,7 +177,7 @@ public class Language {
 		String[] result=allCache.get(id);
 		if (result!=null) return result;
 
-		List<String> all=new ArrayList<String>();
+		List<String> all=new ArrayList<>();
 		String value=tr(id);
 		if (value.contains(";")) all.addAll(Arrays.asList(value.split(";"))); else all.add(value);
 		for (String s: trOther(id)) {

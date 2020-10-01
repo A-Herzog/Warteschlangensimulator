@@ -38,7 +38,7 @@ public class CommandBuildCommandlineDescriptions extends AbstractCommand {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.BuildCommandlineDescriptions.Name")));
 		for (String s: Language.trOther("CommandLine.BuildCommandlineDescriptions.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);

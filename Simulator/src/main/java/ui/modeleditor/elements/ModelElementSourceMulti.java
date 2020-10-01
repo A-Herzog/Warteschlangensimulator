@@ -259,7 +259,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 
 		if (connection!=null) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdge")));
-			item.addActionListener((e)->surface.remove(connection));
+			item.addActionListener(e->surface.remove(connection));
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
 			item.setEnabled(!readOnly);
 			popupMenu.addSeparator();

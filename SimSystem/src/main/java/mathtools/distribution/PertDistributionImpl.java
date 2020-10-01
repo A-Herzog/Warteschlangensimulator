@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.special.Beta;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Implementierung einer PERT-Verteilung
@@ -89,14 +90,14 @@ public final class PertDistributionImpl extends AbstractRealDistribution impleme
 
 		alpha=1+4*(this.mostLikely-this.lowerBound)/(this.upperBound-this.lowerBound);
 		beta=1+4*(this.upperBound-this.mostLikely)/(this.upperBound-this.lowerBound);
-		factorPDF=1/Math.exp(Beta.logBeta(alpha,beta))/Math.pow(this.upperBound-this.lowerBound,alpha+beta-1);
+		factorPDF=1/FastMath.exp(Beta.logBeta(alpha,beta))/FastMath.pow(this.upperBound-this.lowerBound,alpha+beta-1);
 		factorCDF=1/(this.upperBound-this.lowerBound);
 	}
 
 	@Override
 	public double density(double x) {
 		if (x<=lowerBound || x>=upperBound) return 0;
-		return factorPDF*Math.pow(x-lowerBound,alpha-1)*Math.pow(upperBound-x,beta-1);
+		return factorPDF*FastMath.pow(x-lowerBound,alpha-1)*FastMath.pow(upperBound-x,beta-1);
 	}
 
 	@Override

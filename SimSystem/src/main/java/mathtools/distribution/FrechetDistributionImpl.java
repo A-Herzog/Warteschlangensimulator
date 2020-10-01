@@ -147,6 +147,6 @@ public final class FrechetDistributionImpl extends AbstractRealDistribution impl
 	@Override
 	public double random(RandomGenerator generator) {
 		final double p=generator.nextDouble();
-		return FastMath.pow(-FastMath.log(p),-1*inverseAlpha)*beta+delta;
+		return FastMath.pow(-Math.log(p),-1*inverseAlpha)*beta+delta;
 	}
 }

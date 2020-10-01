@@ -35,7 +35,7 @@ import statistics.StatisticsSimpleValuePerformanceIndicator;
  * @author Alexander Herzog
  * @see StatisticsSimpleValuePerformanceIndicator
  */
-public class StatisticsSimpleValuePerformanceIndicatorTest {
+class StatisticsSimpleValuePerformanceIndicatorTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

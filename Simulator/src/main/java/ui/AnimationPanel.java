@@ -71,8 +71,6 @@ import javax.swing.JViewport;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileSystemView;
 
 import org.apache.commons.math3.util.FastMath;
@@ -543,7 +541,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			simulator.start(true);
 		} else {
 			simulator.start(false);
-			if (logger.getNextLogger()==null) simulator.pauseLogging();
+			if (logger!=null && logger.getNextLogger()==null) simulator.pauseLogging();
 			timer=new Timer("AnimationCancelCheck",false);
 			timer.schedule(new UpdateInfoTask(),100);
 		}
@@ -728,7 +726,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 					delayMS=Math.round(seconds*1000);
 				}
 			} else {
-				if (timeStepDelay>10) timeStepDelay=(int)Math.pow(timeStepDelay,1.2);
+				if (timeStepDelay>10) timeStepDelay=(int)FastMath.pow(timeStepDelay,1.2);
 				delayMS=FastMath.round(d*timeStepDelay*seconds);
 				steps=(int)FastMath.round(delayMS/50.0);
 				if (steps<1) steps=1;
@@ -929,9 +927,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		slider.setLabelTable(labels);
 		slider.setPaintLabels(true);
 		slider.setValue(value);
-		slider.addChangeListener(new ChangeListener() {
-			@Override public void stateChanged(ChangeEvent e) {surfacePanel.setZoom(slider.getValue()/5.0); zoomChanged();}
-		});
+		slider.addChangeListener(e->{surfacePanel.setZoom(slider.getValue()/5.0); zoomChanged();});
 		slider.setPreferredSize(new Dimension(slider.getPreferredSize().width,350));
 
 		popup.add(slider);
@@ -960,13 +956,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		slider.setLabelTable(labels);
 		slider.setPaintLabels(true);
 		slider.setValue(FastMath.min(11,FastMath.max(0,11-delay/10)));
-		slider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				delay=(11-slider.getValue())*10;
-				delayInt=delay;
-				animationDelayChanged();
-			}
+		slider.addChangeListener(e->{
+			delay=(11-slider.getValue())*10;
+			delayInt=delay;
+			animationDelayChanged();
 		});
 
 		popup.add(slider);
@@ -1170,7 +1163,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return surfacePanel.getImageMaxSize(-1,-1);
 	}
 
-	private final static int MAX_LOG_VIEWER_SIZE=4_000;
+	private static final int MAX_LOG_VIEWER_SIZE=4_000;
 
 	private void loggerCallback(final CallbackLoggerData data) {
 		stepLogChanged=true;

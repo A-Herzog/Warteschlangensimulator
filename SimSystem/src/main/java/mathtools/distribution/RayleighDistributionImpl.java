@@ -117,16 +117,16 @@ public final class RayleighDistributionImpl extends AbstractRealDistribution imp
 	}
 
 	@Override
-	public final double inverseCumulativeProbability(final double p) {
+	public double inverseCumulativeProbability(final double p) {
 		if (p<0) return -Double.MAX_VALUE;
 		if (p>1) return Double.MAX_VALUE;
-		return sigma*FastMath.sqrt(-2*FastMath.log(1-p));
+		return sigma*FastMath.sqrt(-2*Math.log(1-p));
 	}
 
 	@Override
-	public final double random(final RandomGenerator generator) {
+	public double random(final RandomGenerator generator) {
 		/* https://en.wikipedia.org/wiki/Rayleigh_distribution */
-		return sigma*FastMath.sqrt(-2*FastMath.log(generator.nextDouble()));
+		return sigma*FastMath.sqrt(-2*Math.log(generator.nextDouble()));
 	}
 
 	@Override

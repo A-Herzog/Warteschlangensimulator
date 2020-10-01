@@ -27,6 +27,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -166,7 +167,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * @param initialJava	Startwert für das Java-Eingabefeld
 	 * @see ExpressionCalculatorDialog#getLastExpression()
 	 */
-	public ExpressionCalculatorDialog(final Component owner, final EditModel model, final Function<String,Double> calc, final Function<String,String> runJavaScript, final Function<String,String> runJava, final int initialTab, final String initialExpression, final String initialJavaScript, final String initialJava) {
+	public ExpressionCalculatorDialog(final Component owner, final EditModel model, final Function<String,Double> calc, final UnaryOperator<String> runJavaScript, final UnaryOperator<String> runJava, final int initialTab, final String initialExpression, final String initialJavaScript, final String initialJava) {
 		super(owner,Language.tr("ExpressionCalculator.Title"));
 		this.model=model;
 		this.calc=calc;

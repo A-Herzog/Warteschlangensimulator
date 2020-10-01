@@ -84,7 +84,7 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 
-		content.add(new JScrollPane(list=new JList<JLabel>(new DefaultListModel<JLabel>())),BorderLayout.CENTER);
+		content.add(new JScrollPane(list=new JList<>(new DefaultListModel<>())),BorderLayout.CENTER);
 
 		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
 		toolbar.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -152,7 +152,7 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 	}
 
 	private DefaultListModel<JLabel> getListModel(final int[] sortedKeys) {
-		final DefaultListModel<JLabel> model=new DefaultListModel<JLabel>();
+		final DefaultListModel<JLabel> model=new DefaultListModel<>();
 
 		for (int key: sortedKeys) {
 			final JLabel label=new JLabel(CalcSymbolClientUserData.CLIENT_DATA_COMMANDS[0]+"("+key+"):="+assignments.get(key));
@@ -188,7 +188,7 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 	private void commandAdd() {
 		int nextFreeKey=1;
 		while (assignments.get(nextFreeKey)!=null) nextFreeKey++;
-		final Object result[]=editDialog(nextFreeKey,"");
+		final Object[] result=editDialog(nextFreeKey,"");
 		if (result==null) return;
 		assignments.put((Integer)result[0],(String)result[1]);
 		updateList((Integer)result[0]);
@@ -196,7 +196,7 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 
 	private void commandEdit(final int index) {
 		final int[] sortedKeys=assignments.keySet().stream().mapToInt(i->i).sorted().toArray();
-		final Object result[]=editDialog(sortedKeys[index],assignments.get(sortedKeys[index]));
+		final Object[] result=editDialog(sortedKeys[index],assignments.get(sortedKeys[index]));
 		if (result==null) return;
 		assignments.remove(sortedKeys[index]);
 		assignments.put((Integer)result[0],(String)result[1]);

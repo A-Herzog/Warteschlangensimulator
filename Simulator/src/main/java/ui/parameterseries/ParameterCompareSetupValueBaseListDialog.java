@@ -95,7 +95,7 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 
-		content.add(new JScrollPane(list=new JList<JLabel>(new DefaultListModel<JLabel>())),BorderLayout.CENTER);
+		content.add(new JScrollPane(list=new JList<>(new DefaultListModel<>())),BorderLayout.CENTER);
 
 		toolbar=new JToolBar(SwingConstants.HORIZONTAL);
 		toolbar.setBorder(BorderFactory.createLineBorder(Color.GRAY));

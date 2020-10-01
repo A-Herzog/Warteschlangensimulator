@@ -6,10 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -45,9 +47,9 @@ public class MJPEGGenerator {
 	 * @param height	Höhe des Videobildes
 	 * @param framerate	Framerate (in fps)
 	 * @param numFrames	Anzahl der Bilder, die das Video enthält
-	 * @throws Exception	Die Exception wird ausgelöst, wenn die Daten nicht in die Datei geschrieben werden können
+	 * @throws IOException	Die Exception wird ausgelöst, wenn die Daten nicht in die Datei geschrieben werden können
 	 */
-	public MJPEGGenerator(File aviFile, int width, int height, double framerate, int numFrames) throws Exception
+	public MJPEGGenerator(File aviFile, int width, int height, double framerate, int numFrames) throws IOException
 	{
 		this.aviFile = aviFile;
 		this.width = width;
@@ -72,9 +74,9 @@ public class MJPEGGenerator {
 	/**
 	 * Fügt ein Bild zu dem Video hinzu
 	 * @param image	Hinzuzufügendes Bild
-	 * @throws Exception	Wird ausgelöst, wenn das Bild nicht in den Stream geschrieben werden konnte
+	 * @throws IOException	Wird ausgelöst, wenn das Bild nicht in den Stream geschrieben werden konnte
 	 */
-	public void addImage(Image image) throws Exception {
+	public void addImage(Image image) throws IOException {
 		byte[] fcc = new byte[]{'0','0','d','b'};
 		byte[] imagedata = writeImageToBytes(image);
 		int useLength = imagedata.length;
@@ -100,9 +102,9 @@ public class MJPEGGenerator {
 	 * Fügt ein Bild mehrfach zu dem Video hinzu
 	 * @param imagedata	Bild-Roh-Daten
 	 * @param imageRepeatCount	Anzahl der Wiederholungen
-	 * @throws Exception	Wird ausgelöst, wenn die Bilder nicht in den Stream geschrieben werden konnte
+	 * @throws IOException	Wird ausgelöst, wenn die Bilder nicht in den Stream geschrieben werden konnte
 	 */
-	public void addImage(byte[] imagedata, int imageRepeatCount) throws Exception {
+	public void addImage(byte[] imagedata, int imageRepeatCount) throws IOException {
 		byte[] fcc = new byte[]{'0','0','d','b'};
 		int useLength = imagedata.length;
 		long position = aviChannel.position();
@@ -199,7 +201,7 @@ public class MJPEGGenerator {
 
 		}
 
-		public byte[] toBytes() throws Exception {
+		public byte[] toBytes() throws IOException {
 			try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 				baos.write(fcc);
 				baos.write(intBytes(swapInt(fileSize)));
@@ -253,7 +255,7 @@ public class MJPEGGenerator {
 			dwTotalFrames = numFrames;
 		}
 
-		public byte[] toBytes() throws Exception
+		public byte[] toBytes() throws IOException
 		{
 			try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 				baos.write(fcc);
@@ -288,7 +290,7 @@ public class MJPEGGenerator {
 
 		}
 
-		public byte[] toBytes() throws Exception
+		public byte[] toBytes() throws IOException
 		{
 			try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 				baos.write(fcc);
@@ -351,7 +353,7 @@ public class MJPEGGenerator {
 			dwLength = numFrames;
 		}
 
-		public byte[] toBytes() throws Exception
+		public byte[] toBytes() throws IOException
 		{
 			try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 				baos.write(fcc);
@@ -418,7 +420,7 @@ public class MJPEGGenerator {
 			biSizeImage = width * height;
 		}
 
-		public byte[] toBytes() throws Exception
+		public byte[] toBytes() throws IOException
 		{
 			try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 				baos.write(fcc);
@@ -451,7 +453,7 @@ public class MJPEGGenerator {
 
 		}
 
-		public byte[] toBytes() throws Exception
+		public byte[] toBytes() throws IOException
 		{
 			try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 				baos.write(fcc);
@@ -466,7 +468,7 @@ public class MJPEGGenerator {
 	{
 		public byte[] fcc = new byte[]{'i','d','x','1'};
 		public int cb = 0;
-		public ArrayList<AVIIndex> ind = new ArrayList<>();
+		public List<AVIIndex> ind = new ArrayList<>();
 
 		public AVIIndexList()
 		{
@@ -485,7 +487,7 @@ public class MJPEGGenerator {
 			ind.add(new AVIIndex(dwOffset, dwSize));
 		}
 
-		public byte[] toBytes() throws Exception
+		public byte[] toBytes() throws IOException
 		{
 			cb = 16 * ind.size();
 
@@ -515,7 +517,7 @@ public class MJPEGGenerator {
 			this.dwSize = dwSize;
 		}
 
-		public byte[] toBytes() throws Exception
+		public byte[] toBytes() throws IOException
 		{
 			try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 				baos.write(fcc);
@@ -538,7 +540,7 @@ public class MJPEGGenerator {
 			Arrays.fill(data,(byte)0);
 		}
 
-		public byte[] toBytes() throws Exception
+		public byte[] toBytes() throws IOException
 		{
 			try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 				baos.write(fcc);
@@ -549,7 +551,7 @@ public class MJPEGGenerator {
 		}
 	}
 
-	private byte[] writeImageToBytes(Image image) throws Exception
+	private byte[] writeImageToBytes(Image image) throws IOException
 	{
 		try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 			if (image instanceof BufferedImage && image.getWidth(null)==width && image.getHeight(null)==height && (((BufferedImage)image).getType()==BufferedImage.TYPE_INT_RGB || ((BufferedImage)image).getType()==BufferedImage.TYPE_3BYTE_BGR)) {

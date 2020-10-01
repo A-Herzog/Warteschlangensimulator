@@ -223,7 +223,7 @@ public class ParameterCompareInputValuesTemplates {
 				if (!(element instanceof ModelElementProcess)) continue;
 				final ModelElementProcess process=(ModelElementProcess)element;
 				final Object obj=process.getWorking().get();
-				if (obj==null || !(obj instanceof AbstractRealDistribution)) continue;
+				if (!(obj instanceof AbstractRealDistribution)) continue;
 				if (!DistributionTools.canSetMean((AbstractRealDistribution)obj)) continue;
 				final ParameterCompareSetupValueInput input=new ParameterCompareSetupValueInput();
 				input.setName(String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.ProcessTime"),process.getName()+" (id="+process.getId()+")"));
@@ -302,7 +302,7 @@ public class ParameterCompareInputValuesTemplates {
 	 * @return	Einträge für das Popupmenü
 	 */
 	public List<Object> getList() {
-		return getList(new HashSet<Mode>(Arrays.asList(Mode.values())));
+		return getList(new HashSet<>(Arrays.asList(Mode.values())));
 	}
 
 	/**

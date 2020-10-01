@@ -254,8 +254,9 @@ public class RunElementSourceRecord {
 
 	private int getSignalByName(final ModelSurface surface, final String name) {
 		for (ModelElementSignalTrigger element: surface.getAllSignals(false)) {
-			if (element.getSignalNames()!=null) for (String signal: element.getSignalNames())
+			if (element.getSignalNames()!=null) for (String signal: element.getSignalNames()) {
 				if (signal!=null && signal.equals(name)) return ((ModelElement)element).getId();
+			}
 		}
 		return -1;
 	}

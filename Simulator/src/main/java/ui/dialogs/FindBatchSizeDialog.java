@@ -47,9 +47,9 @@ public class FindBatchSizeDialog extends BaseDialog {
 	private static final long serialVersionUID = 1353952651319816828L;
 
 	/** Sinnvolle mögliche Restabhängigkeiten */
-	private final static double[] LEVELS=new double[]{0.2,0.1,0.05,0.01,0.005,0.001};
+	private static final double[] LEVELS=new double[]{0.2,0.1,0.05,0.01,0.005,0.001};
 	/** Standardmäßig zulässige Restabhängigkeit */
-	private final static double DEFAULT_LEVEL=0.05;
+	private static final double DEFAULT_LEVEL=0.05;
 
 	/** Radiobuttons zur Auswahl der Batchgrößen */
 	private final List<JRadioButton> radioButtons;
@@ -69,7 +69,7 @@ public class FindBatchSizeDialog extends BaseDialog {
 	public FindBatchSizeDialog(final Component owner, final Statistics statistics) {
 		super(owner,Language.tr("FindBatchSizeSimulation.Title"));
 
-		final JPanel content=createGUI(()->{Help.topicModal(this,"FindBatchSize");});
+		final JPanel content=createGUI(()->Help.topicModal(this,"FindBatchSize"));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 		JPanel line;
 		final ButtonGroup buttonGroup=new ButtonGroup();

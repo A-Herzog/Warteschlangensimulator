@@ -95,7 +95,7 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 			/* Addition */
 			if (valueMaxUse) {
 				/* mit Grenze */
-				if (FastMath.abs(value-valueMax)<10E-10) {
+				if (Math.abs(value-valueMax)<10E-10) {
 					/* Maximum war schon vorher erreicht */
 				} else {
 					double newValue=value+rateMS*(time-valueTime);
@@ -117,7 +117,7 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 			/* Subtraktion */
 			if (valueMinUse) {
 				/* mit Grenze */
-				if (FastMath.abs(value-valueMin)<10E-10) {
+				if (Math.abs(value-valueMin)<10E-10) {
 					/* Minimum war schon vorher erreicht */
 				} else {
 					double newValue=value+rateMS*(time-valueTime);

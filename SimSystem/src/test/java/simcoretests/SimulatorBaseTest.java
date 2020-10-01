@@ -17,6 +17,8 @@ package simcoretests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -56,8 +58,8 @@ import simcoretests.simcoreimpl.SimulatorBaseTestImpl;
  * Testet die Ereignisverwaltung usw.
  * @author Alexander Herzog
  */
-/* @SuppressWarnings("deprecation") für den TwoListsEventManager */
-public class SimulatorBaseTest {
+public /* @SuppressWarnings("deprecation") für den TwoListsEventManager */
+class SimulatorBaseTest {
 	/* Logging für Tests */
 
 	private static final List<String> log=new ArrayList<>();
@@ -333,9 +335,9 @@ public class SimulatorBaseTest {
 			if (!(cache instanceof NoEventCache) && cache!=null) {
 				assertEquals(event,simData.getEvent(EventTestImpl.class));
 			}
-			assertTrue(event!=simData.getEvent(EventTestImpl.class));
+			assertNotSame(event,simData.getEvent(EventTestImpl.class));
 
-			assertTrue(simData.getEvent(Event.class)==null);
+			assertNull(simData.getEvent(Event.class));
 
 			simData.recycleEvent(event);
 			simData.eventCache.clear();

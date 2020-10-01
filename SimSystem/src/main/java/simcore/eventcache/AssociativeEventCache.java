@@ -76,7 +76,7 @@ public final class AssociativeEventCache implements EventCache {
 			listEvents[i]=new Event[TYPES_PER_SUB_LIST][];
 			level3used[i]=new int[TYPES_PER_SUB_LIST];
 		}
-		cacheConstructors=new IdentityHashMap<Class<? extends Event>,Constructor<Event>>();
+		cacheConstructors=new IdentityHashMap<>();
 
 		hit=0;
 		miss=0;
@@ -167,7 +167,7 @@ public final class AssociativeEventCache implements EventCache {
 
 	@Override
 	public Event getOrNull(Class<? extends Event> eventClass) {
-		int level1=FastMath.max(0,FastMath.abs(eventClass.hashCode()%1_000_000_000))%SUB_LISTS;
+		int level1=FastMath.max(0,Math.abs(eventClass.hashCode()%1_000_000_000))%SUB_LISTS;
 		int level2=-1;
 		final int used2=level2used[level1];
 		final Class<? extends Event>[] types=listTypes[level1];

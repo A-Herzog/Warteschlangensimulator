@@ -24,7 +24,6 @@ import java.util.function.Consumer;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
-import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -295,7 +294,7 @@ public class ModelElementThroughput extends ModelElementMultiInSingleOutBox {
 			unitHour=" (1/"+Language.tr("Statistics.TimeUnit.Hour")+")";
 			unitDay=" (1/"+Language.tr("Statistics.TimeUnit.Day")+")";
 		} else {
-			if (FastMath.abs(value-lastValue)<10E-5) return false;
+			if (Math.abs(value-lastValue)<10E-5) return false;
 		}
 		lastValue=value;
 

@@ -107,7 +107,7 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 		final double beta=getBeta();
 		final double a=getSupportLowerBound();
 		final double b=getSupportUpperBound();
-		return Math.pow(a-b,2)*alpha*beta/Math.pow(alpha+beta,2)/(1+alpha+beta);
+		return FastMath.pow(a-b,2)*alpha*beta/FastMath.pow(alpha+beta,2)/(1+alpha+beta);
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 		do {
 			final double u1 = random.nextDouble();
 			final double u2 = random.nextDouble();
-			final double v = beta * (FastMath.log(u1) - FastMath.log1p(-u1));
+			final double v = beta * (Math.log(u1) - Math.log1p(-u1));
 			w = a * FastMath.exp(v);
 			final double z = u1 * u1 * u2;
 			r = gamma * v - 1.3862944;
@@ -188,11 +188,11 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 				break;
 			}
 
-			t = FastMath.log(z);
+			t = Math.log(z);
 			if (s >= t) {
 				break;
 			}
-		} while (r + alpha * (FastMath.log(alpha) - FastMath.log(b + w)) < t);
+		} while (r + alpha * (Math.log(alpha) - Math.log(b + w)) < t);
 
 		w = FastMath.min(w, Double.MAX_VALUE);
 		return Precision.equals(a, a0) ? w / (b + w) : b / (b + w);
@@ -228,7 +228,7 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 				}
 			} else {
 				if (z <= 0.25) {
-					final double v = beta * (FastMath.log(u1) - FastMath.log1p(-u1));
+					final double v = beta * (Math.log(u1) - Math.log1p(-u1));
 					w = a * FastMath.exp(v);
 					break;
 				}
@@ -238,9 +238,9 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 				}
 			}
 
-			final double v = beta * (FastMath.log(u1) - FastMath.log1p(-u1));
+			final double v = beta * (Math.log(u1) - Math.log1p(-u1));
 			w = a * FastMath.exp(v);
-			if (alpha * (FastMath.log(alpha) - FastMath.log(b + w) + v) - 1.3862944 >= FastMath.log(z)) {
+			if (alpha * (Math.log(alpha) - Math.log(b + w) + v) - 1.3862944 >= Math.log(z)) {
 				break;
 			}
 		}

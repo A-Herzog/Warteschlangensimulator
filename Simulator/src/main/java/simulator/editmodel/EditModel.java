@@ -968,7 +968,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		if (recordIncompleteClients) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.RecordIncompleteClients")));
-			node.setTextContent("1");
+			sub.setTextContent("1");
 		}
 
 		if (templates!=null) templates.save(doc,node);

@@ -83,10 +83,14 @@ public class ModelElementAssignString extends ModelElementMultiInSingleOutBox {
 	 */
 	@Override
 	protected void updateEdgeLabel() {
-		if (record!=null && record.getKeys().size()!=1) {
+		if (record==null) {
 			if (connectionOut!=null) connectionOut.setName("");
 		} else {
-			if (connectionOut!=null) connectionOut.setName(record.getKeys().get(0).trim()+":="+record.getValues().get(0).trim());
+			if (record.getKeys().size()!=1) {
+				if (connectionOut!=null) connectionOut.setName("");
+			} else {
+				if (connectionOut!=null) connectionOut.setName(record.getKeys().get(0).trim()+":="+record.getValues().get(0).trim());
+			}
 		}
 	}
 

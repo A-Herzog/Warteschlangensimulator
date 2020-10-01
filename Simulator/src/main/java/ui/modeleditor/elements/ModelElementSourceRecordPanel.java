@@ -191,7 +191,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				Images.MODELEDITOR_ELEMENT_SOURCE_MODE_SIGNALS
 		}));
 		label.setLabelFor(selectCard);
-		selectCard.addActionListener((e)->{
+		selectCard.addActionListener(e->{
 			final int index=selectCard.getSelectedIndex();
 			((CardLayout)cards.getLayout()).show(cards,"Seite"+(index+1));
 			if (arrivalStartSub1!=null) arrivalStartSub1.setVisible(index!=2 && index!=3 && index!=5);
@@ -215,7 +215,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		sub.add(timeBase1=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
 		timeBase1.setEnabled(!readOnly);
 		label.setLabelFor(timeBase1);
-		timeBase1.addActionListener((e)->{
+		timeBase1.addActionListener(e->{
 			timeBase2.setSelectedIndex(timeBase1.getSelectedIndex());
 			arrivalStartTimeUnit.setText((String)timeBase1.getSelectedItem());
 			updateTabTitle();
@@ -235,7 +235,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		sub.add(timeBase2=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
 		timeBase2.setEnabled(!readOnly);
 		label.setLabelFor(timeBase2);
-		timeBase2.addActionListener((e)->{
+		timeBase2.addActionListener(e->{
 			timeBase1.setSelectedIndex(timeBase2.getSelectedIndex());
 			arrivalStartTimeUnit.setText((String)timeBase2.getSelectedItem());
 			updateTabTitle();
@@ -387,7 +387,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		optionSizesDistribution.addActionListener(e->checkData(false));
 		sub.add(batchButton=new JButton(Language.tr("Surface.Source.Dialog.BatchSize.Distribution.Edit")));
 		batchButton.setIcon(Images.MODE_DISTRIBUTION.getIcon());
-		batchButton.addActionListener((e)->editBatchSizesDistibution());
+		batchButton.addActionListener(e->editBatchSizesDistibution());
 
 		buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionFixedSize);

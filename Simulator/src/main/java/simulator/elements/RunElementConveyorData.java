@@ -35,7 +35,7 @@ import simulator.simparser.ExpressionCalc;
  * @see RunElementData
  */
 public class RunElementConveyorData extends RunElementData {
-	private final static int DEFAULT_QUEUE_SIZE=256;
+	private static final int DEFAULT_QUEUE_SIZE=256;
 
 	/**
 	 * Verfügbare Kapazität

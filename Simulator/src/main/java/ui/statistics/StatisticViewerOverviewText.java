@@ -168,7 +168,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return statisticName;
 	}
 
-	private final static double[] DEFAULT_CONFIDENCE_LEVELS=new double[]{0.1,0.05,0.01};
+	private static final double[] DEFAULT_CONFIDENCE_LEVELS=new double[]{0.1,0.05,0.01};
 
 	/**
 	 * Liefert die Konfidenzniveaus für die auszugebenden Konfidenzintervalle.
@@ -574,7 +574,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				if (statistics.clientsProcessingTimes.size()>1 && time2>0) addLine(Language.tr("Statistics.ClientType")+" "+type+": "+StatisticTools.formatNumber(time1/time2));
 			}
 			if (count1==0) count1=1;
-			if (count2==0) count1=2;
+			if (count2==0) count2=1;
 			final double time1=sum1/count1;
 			final double time2=sum2/count2;
 			if (time2>0) {
@@ -1041,7 +1041,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
-	private final static int MAX_SHORT_STATE_DISTRIBUTION=5;
+	private static final int MAX_SHORT_STATE_DISTRIBUTION=5;
 
 	private void outputShortStateDistribution(final String identifier, final StatisticsTimePerformanceIndicator indicator) {
 		if (indicator==null) return;
@@ -2411,7 +2411,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 * Korrelationslevels zu denen angegeben werden soll, ab welchem
 	 * Abstand dieser Wert erreicht bzw. unterschritten wird.
 	 */
-	public final static double[] AUTOCORRELATION_LEVELS=new double[]{0.1,0.05,0.01,0.005,0.001};
+	public static final double[] AUTOCORRELATION_LEVELS=new double[]{0.1,0.05,0.01,0.005,0.001};
 
 	private void outputAutocorrelationData(final StatisticsDataPerformanceIndicator indicator, final int[] maxDistance) {
 		beginParagraph();

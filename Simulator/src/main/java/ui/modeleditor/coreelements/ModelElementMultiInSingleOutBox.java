@@ -172,14 +172,14 @@ public class ModelElementMultiInSingleOutBox extends ModelElementBox implements 
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener((e)->{for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);});
+			item.addActionListener(e->{for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);});
 			item.setIcon(Images.EDIT_EDGES_DELETE.getIcon());
 			item.setEnabled(!readOnly);
 			needSeparator=true;
 		}
 		if (connectionOut!=null) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgeOut")));
-			item.addActionListener((e)->surface.remove(connectionOut));
+			item.addActionListener(e->surface.remove(connectionOut));
 			item.setIcon(Images.EDIT_EDGES_DELETE.getIcon());
 			item.setEnabled(!readOnly);
 			needSeparator=true;

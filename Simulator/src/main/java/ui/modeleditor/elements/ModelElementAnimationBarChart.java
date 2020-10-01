@@ -339,7 +339,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		}
 		final Point y=new Point((int)FastMath.round(p.x+alpha*v.x),(int)FastMath.round(p.y+alpha*v.y)); /* Lotfuﬂpunkt von X auf P->Q */
 
-		if (FastMath.abs(x.x-y.x)>MAX_POINT_DELTA || FastMath.abs(x.y-y.y)>MAX_POINT_DELTA) return false; /* Abstand von Gerade zu groﬂ? */
+		if (Math.abs(x.x-y.x)>MAX_POINT_DELTA || Math.abs(x.y-y.y)>MAX_POINT_DELTA) return false; /* Abstand von Gerade zu groﬂ? */
 		final double len=FastMath.sqrt(v.x*v.x+v.y*v.y);
 
 		if (alpha*len<-MAX_POINT_DELTA || alpha*len>len+MAX_POINT_DELTA) return false; /* Fuﬂpunkt vor Beginn oder nach Ende der Strecke P->Q? */
@@ -558,7 +558,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		final Graphics2D g2=(Graphics2D)graphics;
 		final Stroke saveStroke=g2.getStroke();
 
-		Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(FastMath.abs(s.width)*zoom),(int)FastMath.round(FastMath.abs(s.height)*zoom));
+		Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
 		if (backgroundColor!=null) {
 			g2.setColor(backgroundColor);
 			g2.fill(rectangle);
@@ -916,7 +916,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		drawLock.acquireUninterruptibly();
 		try {
 			for (int i=0;i<recordedValues.length;i++) {
-				final List<String> line=new ArrayList<String>(2);
+				final List<String> line=new ArrayList<>(2);
 				line.add(expression.get(i));
 				line.add(NumberTools.formatNumber(recordedValues[i],3));
 				table.addLine(line);

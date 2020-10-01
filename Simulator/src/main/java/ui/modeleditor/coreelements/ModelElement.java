@@ -30,6 +30,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 
 import javax.swing.BorderFactory;
@@ -46,7 +47,6 @@ import javax.swing.JSlider;
 import javax.swing.KeyStroke;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
-import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -79,7 +79,7 @@ public class ModelElement {
 	/**
 	 * Maximal zulässiger Abstand in x- und in y-Richtung, um einen Mausklick noch einer Ecke zuzuordnen
 	 */
-	protected final static int MAX_POINT_DELTA=5;
+	protected static final int MAX_POINT_DELTA=5;
 
 	/**
 	 * Modell zu dem dieses Element gehört.
@@ -414,7 +414,7 @@ public class ModelElement {
 		while (true) {
 			final Point borderPoint=getBorderPointPosition(index);
 			if (borderPoint==null) break;
-			if (FastMath.abs(borderPoint.x-point.x)<=MAX_POINT_DELTA && FastMath.abs(borderPoint.y-point.y)<=MAX_POINT_DELTA) return index;
+			if (Math.abs(borderPoint.x-point.x)<=MAX_POINT_DELTA && Math.abs(borderPoint.y-point.y)<=MAX_POINT_DELTA) return index;
 			index++;
 		}
 		return -1;
@@ -651,7 +651,7 @@ public class ModelElement {
 	 * @return	Panel, welches Slider und Bezeichnungen enthält
 	 * @see ModelElement#addCustomSettingsToContextMenu()
 	 */
-	public static final JPanel createContextMenuSliderProbability(final String title, final double initialValue, final Consumer<Double> change) {
+	public static final JPanel createContextMenuSliderProbability(final String title, final double initialValue, final DoubleConsumer change) {
 		final JPanel panel=new JPanel(new BorderLayout());
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
 
@@ -913,14 +913,14 @@ public class ModelElement {
 
 			item=new JMenuItem(Language.tr("Dialog.Button.Copy"));
 			/* item.setEnabled(!readOnly); */
-			item.addActionListener((e)->{surface.setSelectedElement(ModelElement.this); surface.fireRequestCopy();});
+			item.addActionListener(e->{surface.setSelectedElement(ModelElement.this); surface.fireRequestCopy();});
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,ActionEvent.CTRL_MASK));
 			item.setIcon(Images.EDIT_COPY.getIcon());
 			popupMenu.add(item);
 
 			item=new JMenuItem(Language.tr("Dialog.Button.Cut"));
 			item.setEnabled(!readOnly);
-			item.addActionListener((e)->{surface.setSelectedElement(ModelElement.this); surface.fireRequestCut();});
+			item.addActionListener(e->{surface.setSelectedElement(ModelElement.this); surface.fireRequestCut();});
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,ActionEvent.CTRL_MASK));
 			item.setIcon(Images.EDIT_CUT.getIcon());
 			popupMenu.add(item);
@@ -931,7 +931,7 @@ public class ModelElement {
 
 			item=new JMenuItem(Language.tr("Dialog.Button.Delete"));
 			item.setEnabled(!readOnly && !deleteProtection);
-			item.addActionListener((e)->surface.remove(ModelElement.this));
+			item.addActionListener(e->surface.remove(ModelElement.this));
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0));
 			item.setIcon(Images.EDIT_DELETE.getIcon());
 			popupMenu.add(item);
@@ -940,7 +940,7 @@ public class ModelElement {
 				final JCheckBoxMenuItem itemCheck=new JCheckBoxMenuItem(Language.tr("Dialog.Button.DeleteProtection"));
 				itemCheck.setSelected(deleteProtection);
 				itemCheck.setEnabled(!readOnly);
-				itemCheck.addActionListener((e)->deleteProtection=!deleteProtection);
+				itemCheck.addActionListener(e->deleteProtection=!deleteProtection);
 				if (deleteProtection) {
 					url=Images.GENERAL_LOCK_CLOSED.getURL();
 				} else {
@@ -959,42 +959,42 @@ public class ModelElement {
 
 			item=new JMenuItem(Language.tr("Surface.PopupMenu.MoveToFront"));
 			item.setEnabled(!readOnly || allowEditOnReadOnly);
-			item.addActionListener((e)->surface.moveElementToFront(ModelElement.this,true));
+			item.addActionListener(e->surface.moveElementToFront(ModelElement.this,true));
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP,ActionEvent.CTRL_MASK));
 			item.setIcon(Images.MOVE_FRONT.getIcon());
 			sub.add(item);
 
 			item=new JMenuItem(Language.tr("Surface.PopupMenu.MoveForwards"));
 			item.setEnabled(!readOnly || allowEditOnReadOnly);
-			item.addActionListener((e)->surface.moveElementToFront(ModelElement.this,false));
+			item.addActionListener(e->surface.moveElementToFront(ModelElement.this,false));
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP,0));
 			item.setIcon(Images.MOVE_FRONT_STEP.getIcon());
 			sub.add(item);
 
 			item=new JMenuItem(Language.tr("Surface.PopupMenu.MoveBackwards"));
 			item.setEnabled(!readOnly || allowEditOnReadOnly);
-			item.addActionListener((e)->surface.moveElementToBack(ModelElement.this,false));
+			item.addActionListener(e->surface.moveElementToBack(ModelElement.this,false));
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN,0));
 			item.setIcon(Images.MOVE_BACK_STEP.getIcon());
 			sub.add(item);
 
 			item=new JMenuItem(Language.tr("Surface.PopupMenu.MoveToBack"));
 			item.setEnabled(!readOnly || allowEditOnReadOnly);
-			item.addActionListener((e)->surface.moveElementToBack(ModelElement.this,true));
+			item.addActionListener(e->surface.moveElementToBack(ModelElement.this,true));
 			item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN,ActionEvent.CTRL_MASK));
 			item.setIcon(Images.MOVE_BACK.getIcon());
 			sub.add(item);
 
-			if (surface.getLayers().size()>0) {
+			if (!surface.getLayers().isEmpty()) {
 				popupMenu.add(sub=new JMenu(Language.tr("Surface.PopupMenu.Layers")));
 				sub.setIcon(Images.EDIT_LAYERS.getIcon());
 				for (final String layer: surface.getLayers()) {
 					final JCheckBoxMenuItem check=new JCheckBoxMenuItem(layer);
-					final boolean onLayer=layers.size()==0 || layers.contains(layer);
+					final boolean onLayer=layers.isEmpty() || layers.contains(layer);
 					check.setSelected(onLayer);
 					if (onLayer) {
 						check.addActionListener(e->{
-							if (layers.size()==0) {
+							if (layers.isEmpty()) {
 								layers.addAll(surface.getLayers());
 								layers.remove(layer);
 							} else {
@@ -1247,7 +1247,7 @@ public class ModelElement {
 	 * @see ModelSurface#getVisibleLayers()
 	 */
 	public boolean isVisibleOnLayer(final List<String> layers, final List<String> visibleLayers) {
-		if (layers.size()==0 || this.layers.size()==0 || visibleLayers.size()==0) return true;
+		if (layers.isEmpty() || this.layers.isEmpty() || visibleLayers.isEmpty()) return true;
 
 		boolean isOnLayer=false; /* Ist das Element zumindest auf irgendeinem Layer? */
 		for (String layer: this.layers) {

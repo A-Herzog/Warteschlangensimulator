@@ -60,7 +60,7 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 
 		/* Vorbereiten */
 		try (final JavaFileManager fileManager=new ClassFileManager<JavaFileManager>(compiler.getStandardFileManager(null,null,null))) {
-			final DiagnosticCollector<JavaFileObject> diagnostics=new DiagnosticCollector<JavaFileObject>();
+			final DiagnosticCollector<JavaFileObject> diagnostics=new DiagnosticCollector<>();
 			final JavaFileObject file=new CharSequenceJavaFileObject(className,text);
 			final Iterable<? extends JavaFileObject> compilationUnits=Arrays.asList(file);
 

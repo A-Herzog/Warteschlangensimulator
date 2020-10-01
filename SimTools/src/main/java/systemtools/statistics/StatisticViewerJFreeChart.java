@@ -81,9 +81,6 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		return ViewerType.TYPE_IMAGE;
 	}
 
-	@Override
-	public abstract ViewerImageType getImageType();
-
 	private void initDescriptionPane() {
 		if (descriptionPane!=null) return;
 		if (descriptionURL==null) return;
@@ -348,10 +345,6 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		default: return false;
 		}
 	}
-
-	@Override
-	public abstract void unZoom();
-
 
 	@Override
 	public JButton[] getAdditionalButton() {

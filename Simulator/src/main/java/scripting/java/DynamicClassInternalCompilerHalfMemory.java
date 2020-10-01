@@ -59,7 +59,7 @@ public class DynamicClassInternalCompilerHalfMemory extends DynamicClassFileBase
 		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
 		if (compiler==null) return DynamicStatus.NO_COMPILER;
 
-		final DiagnosticCollector<JavaFileObject> diagnostics=new DiagnosticCollector<JavaFileObject>();
+		final DiagnosticCollector<JavaFileObject> diagnostics=new DiagnosticCollector<>();
 		final JavaFileObject file=new CharSequenceJavaFileObject(javaClassName,javaText);
 		final Iterable<? extends JavaFileObject> compilationUnits=Arrays.asList(file);
 		final Iterable<String> options=Arrays.asList("-d",outputFolder.toString());

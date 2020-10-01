@@ -244,7 +244,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		final boolean[] emergencyShutDown=new boolean[statistics.length];
 
 		/* Paralleles Erstellen der XML-Dokumente */
-		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(0,10,2,TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(1));
+		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(0,10,2,TimeUnit.SECONDS,new ArrayBlockingQueue<>(1));
 		final List<Future<Document>> documents=new ArrayList<>();
 		for (int i=0;i<statistics.length;i++) if (statistics[i]==null) {
 			documents.add(null);

@@ -739,7 +739,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 
 	private String loadProperty(final String name, final String content, final Element node) {
 		if (this.name!=null) {
-			if (Language.trAll("Surface.XML.Element.Name",name) && content!=null) {
+			if (Language.trAll("Surface.XML.Element.Name",name)) {
 				this.name=content.trim();
 				return null;
 			}

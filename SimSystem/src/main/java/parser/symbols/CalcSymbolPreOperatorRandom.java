@@ -15,8 +15,6 @@
  */
 package parser.symbols;
 
-import org.apache.commons.math3.util.FastMath;
-
 import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
@@ -32,14 +30,14 @@ public final class CalcSymbolPreOperatorRandom extends CalcSymbolPreOperator {
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length==0) return DistributionRandomNumber.nextDouble();
-		if (parameters.length==1) return DistributionRandomNumber.nextDouble()*FastMath.abs(parameters[0]);
+		if (parameters.length==1) return DistributionRandomNumber.nextDouble()*Math.abs(parameters[0]);
 		throw error();
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length==0) return DistributionRandomNumber.nextDouble();
-		if (parameters.length==1) return DistributionRandomNumber.nextDouble()*FastMath.abs(parameters[0]);
+		if (parameters.length==1) return DistributionRandomNumber.nextDouble()*Math.abs(parameters[0]);
 		return fallbackValue;
 	}
 

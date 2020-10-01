@@ -18,6 +18,8 @@ package mathtoolstests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -34,7 +36,7 @@ import mathtools.TableXLSXReader;
  * @author Alexander Herzog
  * @see MultiTable
  */
-public class MultiTableTest {
+class MultiTableTest {
 
 	/**
 	 * Einfache Tests zum Erstellen von Mehrfachtabellen und wieder Auslesen der einzelnen Blätter
@@ -49,15 +51,15 @@ public class MultiTableTest {
 
 		assertEquals(1,multi.size());
 
-		assertTrue(multi.get(0)==table);
-		assertTrue(multi.get(-1)==null);
-		assertTrue(multi.get(1)==null);
-		assertTrue(multi.get("Test")==table);
-		assertTrue(multi.get("abc")==null);
+		assertSame(multi.get(0),table);
+		assertNull(multi.get(-1));
+		assertNull(multi.get(1));
+		assertSame(multi.get("Test"),table);
+		assertNull(multi.get("abc"));
 
 		assertEquals("Test",multi.getName(0));
-		assertTrue(multi.getName(-1)==null);
-		assertTrue(multi.getName(1)==null);
+		assertNull(multi.getName(-1));
+		assertNull(multi.getName(1));
 
 		final List<Table> content=multi.getTables();
 		assertNotNull(content);
@@ -82,12 +84,12 @@ public class MultiTableTest {
 		assertTrue(!multi.set(-1,table2));
 		assertTrue(multi.set(0,table2));
 		assertTrue(!multi.set(1,table2));
-		assertTrue(multi.get(0)==table2);
+		assertSame(multi.get(0),table2);
 
 		assertTrue(!multi.set(null,table));
 		assertTrue(multi.set("Test",table));
 		assertTrue(!multi.set("abc",table));
-		assertTrue(multi.get(0)==table);
+		assertSame(multi.get(0),table);
 
 		assertTrue(!multi.remove(-1));
 		assertTrue(!multi.remove(1));

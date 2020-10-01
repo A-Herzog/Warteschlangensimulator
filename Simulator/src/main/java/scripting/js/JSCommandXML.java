@@ -238,7 +238,7 @@ public class JSCommandXML extends JSBaseCommand {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return new String[]{Language.tr("Statistics.Filter.InvalidParameters")+" ("+command+")",null};
 			if (xml==null) return new String[]{Language.tr("Statistics.Filter.InvalidSelector")+" ("+command+")",null};
-			return findElement(selectors,xml.getDocumentElement(),new ArrayList<String>(),systemNumbers,percent,time,distributionSeparator);
+			return findElement(selectors,xml.getDocumentElement(),new ArrayList<>(),systemNumbers,percent,time,distributionSeparator);
 		}
 	}
 

@@ -88,7 +88,7 @@ public class EditTemplateDialog extends BaseDialog {
 		this.modelTemplates=modelTemplates;
 
 		final List<ModelElement> elements=surface.getSelectedElements();
-		if (elements.size()==0) {
+		if (elements.isEmpty()) {
 			MsgBox.error(owner,Language.tr("UserTemplates.AddDialog.NoElementsErrorTitle"),Language.tr("UserTemplates.AddDialog.NoElementsErrorInfo"));
 			return;
 		}

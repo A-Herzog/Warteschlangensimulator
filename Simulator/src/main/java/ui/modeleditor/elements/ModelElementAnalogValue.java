@@ -512,7 +512,7 @@ public class ModelElementAnalogValue extends ModelElementBox {
 			animationSBNext=0;
 			valueName=Language.tr("Statistics.Value")+"=";
 		} else {
-			if (FastMath.abs(value-lastValue)<10E-5) return false;
+			if (Math.abs(value-lastValue)<10E-5) return false;
 		}
 		lastValue=value;
 
@@ -588,8 +588,8 @@ public class ModelElementAnalogValue extends ModelElementBox {
 
 	@Override
 	public boolean setReferenceEdges(List<ModelElementEdge> connectionsIn, List<ModelElementEdge> connectionsOut) {
-		if (connectionsIn.size()>0) return false;
-		if (connectionsOut.size()>0) return false;
+		if (!connectionsIn.isEmpty()) return false;
+		if (!connectionsOut.isEmpty()) return false;
 
 		return false;
 	}

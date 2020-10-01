@@ -245,7 +245,7 @@ public class ExpressionBuilder extends BaseDialog {
 			if (group.getChildCount()>0) root.add(group);
 		}
 
-		if (stationNames!=null && stationNames.size()>0) {
+		if (stations!=null && stationNames!=null && stationNames.size()>0) {
 			group=null;
 			for (Map.Entry<Integer,String> entry: stationNames.entrySet()) {
 				String title=entry.getValue();
@@ -277,8 +277,8 @@ public class ExpressionBuilder extends BaseDialog {
 		return root;
 	}
 
-	private final static String htmlHeader="<html><body style=\"font-family: Verdana, Lucida, sans-serif; background-color: #FFFFF3; padding: 5px;\">";
-	private final static String htmlFooter="</body></html>";
+	private static final String htmlHeader="<html><body style=\"font-family: Verdana, Lucida, sans-serif; background-color: #FFFFF3; padding: 5px;\">";
+	private static final String htmlFooter="</body></html>";
 
 	private void selectTreeNode(final ExpressionSymbol symbol) {
 		info.setContentType("text/html");
@@ -420,7 +420,7 @@ public class ExpressionBuilder extends BaseDialog {
 			if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {
 				if (tree.getSelectionPath()!=null && tree.getSelectionPath().getLastPathComponent()!=null && tree.getSelectionPath().getLastPathComponent() instanceof DefaultMutableTreeNode) {
 					final DefaultMutableTreeNode node=(DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
-					if (node.getUserObject()!=null && node.getUserObject() instanceof ExpressionSymbol) {
+					if (node.getUserObject() instanceof ExpressionSymbol) {
 						final ExpressionSymbol symbol=(ExpressionSymbol)node.getUserObject();
 						selectTreeNode(symbol);
 						final String text=input.getText();
@@ -466,7 +466,13 @@ public class ExpressionBuilder extends BaseDialog {
 	 */
 	public static Map<Integer,String> getStationIDs(final ModelSurface surface) {
 		final Map<Integer,String> map=new HashMap<>();
-		if (surface!=null) if (surface.getParentSurface()!=null) addStationIDs(map,surface.getParentSurface()); else addStationIDs(map,surface);
+		if (surface!=null) {
+			if (surface.getParentSurface()!=null) {
+				addStationIDs(map,surface.getParentSurface());
+			} else {
+				addStationIDs(map,surface);
+			}
+		}
 		return map;
 	}
 

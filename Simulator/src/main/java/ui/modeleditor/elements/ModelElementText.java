@@ -46,7 +46,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public final class ModelElementText extends ModelElementPosition {
-	private final static Color DEFAULT_COLOR=Color.BLACK;
+	private static final Color DEFAULT_COLOR=Color.BLACK;
 
 	private String text;
 	private FontCache.FontFamily fontFamily=FontCache.defaultFamily;

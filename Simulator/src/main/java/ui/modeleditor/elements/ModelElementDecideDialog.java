@@ -171,7 +171,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		}));
 		modeSelect.setEnabled(!readOnly);
 		label.setLabelFor(modeSelect);
-		modeSelect.addActionListener((e)->setActiveCard((String)modeSelect.getSelectedItem()));
+		modeSelect.addActionListener(e->setActiveCard((String)modeSelect.getSelectedItem()));
 
 		main.add(contentCards=new JPanel(new CardLayout()),BorderLayout.CENTER);
 		JPanel content;
@@ -274,7 +274,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 			} else {
 				items=allClientTypesList.toArray(new String[0]);
 			}
-			JComboBox<String> input=new JComboBox<String>(items);
+			JComboBox<String> input=new JComboBox<>(items);
 			if (i!=edges.length-1) {
 				input.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildClientTypeIcons(items,element.getModel())));
 			}

@@ -31,7 +31,9 @@ public final class CalcSymbolPreOperatorSCV extends CalcSymbolPreOperator {
 		double sum=0, sum2=0;
 		for (double d:parameters) {sum+=d; sum2+=d*d;}
 		double n=parameters.length;
-		return (1/(n-1)*(sum2-sum*sum/n))/(sum*sum/n/n);
+		final double sumN=sum/n;
+		if (sumN==0.0) return 0.0;
+		return (1/(n-1)*(sum2-sum*sumN))/(sumN*sumN);
 	}
 
 	@Override
@@ -41,7 +43,9 @@ public final class CalcSymbolPreOperatorSCV extends CalcSymbolPreOperator {
 		double sum=0, sum2=0;
 		for (double d:parameters) {sum+=d; sum2+=d*d;}
 		double n=parameters.length;
-		return (1/(n-1)*(sum2-sum*sum/n))/(sum*sum/n/n);
+		final double sumN=sum/n;
+		if (sumN==0.0) return 0.0;
+		return (1/(n-1)*(sum2-sum*sumN))/(sumN*sumN);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ import xml.XMLTools;
  * @author Alexander Herzog
  * @see XMLData
  */
-public class XMLDataTest {
+class XMLDataTest {
 	private XMLData getTestData() {
 		return new XMLData() {
 			@Override

@@ -130,7 +130,7 @@ public class FindElementDialog extends BaseDialog {
 		optionsCombo.addActionListener(e->search());
 
 		includeHidden=new JCheckBox(Language.tr("FindElementDirect.IncludeHidden"));
-		if (surface.getLayers().size()>0) line.add(includeHidden);
+		if (!surface.getLayers().isEmpty()) line.add(includeHidden);
 		includeHidden.setToolTipText(Language.tr("FindElementDirect.IncludeHidden.Info"));
 		includeHidden.addActionListener(e->search());
 
@@ -280,7 +280,7 @@ public class FindElementDialog extends BaseDialog {
 						return;
 					}
 				} else {
-					resultsIds.add(I.intValue());
+					resultsIds.add(I);
 				}
 			}
 		}
@@ -300,7 +300,7 @@ public class FindElementDialog extends BaseDialog {
 
 		/* Info ausgeben */
 
-		if (resultsIds.size()==0) {
+		if (resultsIds.isEmpty()) {
 			setInfo("red",Language.tr("FindElementDirect.NoElementsFound"));
 		} else {
 			if (resultsIds.size()==1) {

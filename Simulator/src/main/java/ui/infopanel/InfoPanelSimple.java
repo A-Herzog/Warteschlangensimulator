@@ -64,7 +64,7 @@ public class InfoPanelSimple {
 		return infoPanel;
 	}
 
-	private JPanel buildPanel(final Window window, final String text) {
+	private JPanel buildPanel(final String text) {
 		final JPanel topInner=new JPanel(new BorderLayout());
 		topInner.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		topInner.setBackground(new Color(250,250,240));
@@ -147,7 +147,7 @@ public class InfoPanelSimple {
 	public static void addTopPanel(final Window window, final Container parent, final String text) {
 		final InfoPanelSimple infoPanel=getInstance();
 		/* if (!infoPanel.setup.showDialogHints) return; */
-		final JPanel hint=infoPanel.buildPanel(window,text);
+		final JPanel hint=infoPanel.buildPanel(text);
 		infoPanel.registerPanel(window,hint);
 		parent.setLayout(new BorderLayout());
 		parent.add(hint,BorderLayout.NORTH);

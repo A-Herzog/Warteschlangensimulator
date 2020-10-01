@@ -52,10 +52,8 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 
 	private JComboBox<String> tankCombo;
 	private JTextField thresholdEdit;
-	private JRadioButton thresholdAbsolute;
 	private JRadioButton thresholdPercent;
 	private JRadioButton thresholdUp;
-	private JRadioButton thresholdDown;
 
 	/**
 	 * Konstruktor der Klasse
@@ -158,12 +156,14 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 		});
 
 		/* Absolut/Prozent */
+		final JRadioButton thresholdAbsolute;
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		data=getSelect(content,Language.tr("Surface.TankSensor.Dialog.Threshold.Type"),Language.tr("Surface.TankSensor.Dialog.Threshold.Type.Absolute"),Language.tr("Surface.TankSensor.Dialog.Threshold.Type.Percent"));
 		thresholdAbsolute=(JRadioButton)data[0];
 		thresholdPercent=(JRadioButton)data[1];
 
 		/* Richtung */
+		final JRadioButton thresholdDown;
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		data=getSelect(content,Language.tr("Surface.TankSensor.Dialog.Threshold.Direction"),Language.tr("Surface.TankSensor.Dialog.Threshold.Direction.Up"),Language.tr("Surface.TankSensor.Dialog.Threshold.Direction.Down"));
 		thresholdUp=(JRadioButton)data[0];

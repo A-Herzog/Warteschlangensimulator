@@ -52,7 +52,7 @@ public abstract class AbstractReportCommand extends AbstractCommand {
 		 * Liste mit möglichen Namen, über die das entsprechende Dateiformat
 		 * von der Kommandozeile aus angesprochen werden kann.
 		 */
-		public final String[] names;
+		private final String[] names;
 
 		/**
 		 * Konstruktor der Klasse

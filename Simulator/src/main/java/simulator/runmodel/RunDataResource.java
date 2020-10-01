@@ -258,8 +258,8 @@ public final class RunDataResource implements Cloneable {
 		return statisticsUsage;
 	}
 
-	private final static double toSecFactor=1.0/1000.0;
-	private final static double toHoursFactor=1.0/1000.0/3600.0;
+	private static final double toSecFactor=1.0/1000.0;
+	private static final double toHoursFactor=1.0/1000.0/3600.0;
 
 	private double calcAvailableHours(final long timeMS1, final long timeMS2) {
 		if (available==-1) return 0; /* unendlich viele Bediener -> hier wird ein Overhead von 0 angenommen */

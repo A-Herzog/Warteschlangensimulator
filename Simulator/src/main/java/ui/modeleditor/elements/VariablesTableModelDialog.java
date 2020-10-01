@@ -187,7 +187,7 @@ public class VariablesTableModelDialog extends BaseDialog {
 		}
 
 		final String expression=this.expression.getText();
-		List<String> namesList=new ArrayList<String>(Arrays.asList(names));
+		List<String> namesList=new ArrayList<>(Arrays.asList(names));
 		if (ok) {
 			boolean inList=false;
 			if (variable!=null) {

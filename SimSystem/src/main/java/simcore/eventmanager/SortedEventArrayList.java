@@ -46,11 +46,9 @@ public class SortedEventArrayList extends ArrayList<Event> {
 	transient int fastSize;
 
 	static {
-		comparator=new Comparator<Event>() {
-			@Override public int compare(final Event o1, final Event o2) {
-				final long l=o2.time-o1.time;
-				return (int) ((l >> 63) | (-l >>> 63));
-			}
+		comparator=(o1,o2)->{
+			final long l=o2.time-o1.time;
+			return (int) ((l >> 63) | (-l >>> 63));
 		};
 	}
 

@@ -86,7 +86,7 @@ public class MultiResourceTable extends JPanel {
 
 		final JPanel line;
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
-		line.add(alternativesList=new JComboBox<String>());
+		line.add(alternativesList=new JComboBox<>());
 		alternativesList.setEditable(false);
 		alternativesList.addActionListener(e->selectAlternative());
 		line.add(alternativeUp=addButton(e->alternativeMoveUp(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Up"),Images.ARROW_UP.getIcon()));
@@ -152,7 +152,7 @@ public class MultiResourceTable extends JPanel {
 			table.setIsPanelCellTable(0);
 			table.setIsPanelCellTable(1);
 			table.setEnabled(!readOnly);
-			if (statusChanged!=null) model.addTableChangeListener((e)->statusChanged.run());
+			if (statusChanged!=null) model.addTableChangeListener(e->statusChanged.run());
 		}
 
 		alternativeUp.setEnabled(!readOnly && lastSelected>0);

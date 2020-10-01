@@ -657,12 +657,15 @@ public class ListPopup {
 	}
 
 	private boolean addSub(final JMenu parent, final ScriptHelperSub main, final Consumer<ScriptHelperRecord> listener) {
-		if (main.list.size()==0) return false;
+		if (main.list.isEmpty()) return false;
 		final JMenu menu=main.addToPopup(parent);
 		boolean lastSubIsSeparator=false;
 		for (Object sub: main.list) {
 			if (sub==null) {
-				if (menu.getComponentCount()>0) {if (!lastSubIsSeparator) menu.addSeparator(); lastSubIsSeparator=true;}
+				if (menu.getComponentCount()>0) {
+					if (!lastSubIsSeparator) menu.addSeparator();
+					lastSubIsSeparator=true;
+				}
 				continue;
 			}
 			lastSubIsSeparator=false;
@@ -694,7 +697,7 @@ public class ListPopup {
 				((ScriptHelperRecord)obj).addToPopup(popupMenu,listener);
 			}
 			if (obj instanceof ScriptHelperSub) {
-				if (((ScriptHelperSub)obj).list.size()==0) continue;
+				if (((ScriptHelperSub)obj).list.isEmpty()) continue;
 				lastObjIsSeparator=false;
 				final JMenu menu=((ScriptHelperSub)obj).addToPopup(popupMenu);
 				boolean lastSubIsSeparator=false;

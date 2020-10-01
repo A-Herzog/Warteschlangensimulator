@@ -108,12 +108,12 @@ public class ClientDataDialog extends BaseDialog {
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 		sub.add(colorChooser=new SmallColorChooser(userColor));
 		colorChooser.setEnabled(!readOnly);
-		colorChooser.addClickListener((e)->optionUserColor.setSelected(true));
+		colorChooser.addClickListener(e->optionUserColor.setSelected(true));
 
 		/* Icon-Combobox */
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		sub.add(label=new JLabel(Language.tr("Editor.ClientDialog.Tab.ColorAndIcon.IconForClientType")+":"));
-		sub.add(iconChooser=new JComboBox<JLabel>());
+		sub.add(iconChooser=new JComboBox<>());
 		iconChooserList=imageSource.getIconsComboBox(modelImages);
 		iconChooser.setModel(iconChooserList);
 		iconChooser.setRenderer(new AnimationImageSource.IconComboBoxCellRenderer());

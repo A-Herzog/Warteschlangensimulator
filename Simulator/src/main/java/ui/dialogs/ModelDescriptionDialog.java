@@ -58,7 +58,7 @@ public class ModelDescriptionDialog extends BaseDialog {
 	 * Kopfdaten für die Ausgabe der Beschreibung im HTML-Format.
 	 * @see #saveToFile()
 	 */
-	private final static String HTML_HEADER=
+	private static final String HTML_HEADER=
 			"<!DOCTYPE html>\n"+
 					"<html>\n"+
 					"<head>\n"+
@@ -76,7 +76,7 @@ public class ModelDescriptionDialog extends BaseDialog {
 	 * Fußdaten für die Ausgabe der Beschreibung im HTML-Format.
 	 * @see #saveToFile()
 	 */
-	private final static String HTML_FOOTER="\n</body></html>";
+	private static final String HTML_FOOTER="\n</body></html>";
 
 	/**
 	 * Editor-Modell zu dem die Beschreibung generiert werden soll

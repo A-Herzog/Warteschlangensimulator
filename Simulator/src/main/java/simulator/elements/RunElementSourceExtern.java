@@ -136,7 +136,12 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		arrivals=new Arrival[types.length][];
 		for (int i=0;i<types.length;i++) {
 			final Arrival[] list=arrivalsList.get(i).toArray(new Arrival[0]);
-			Arrays.sort(list,(a1,a2)->{final long l=a1.time-a2.time; if (l<0) return -1; if (l>0) return 1; return 0;});
+			Arrays.sort(list,(a1,a2)->{
+				final long l=a1.time-a2.time;
+				if (l<0) return -1;
+				if (l>0) return 1;
+				return 0;
+			});
 			arrivals[i]=list;
 		}
 		return null;

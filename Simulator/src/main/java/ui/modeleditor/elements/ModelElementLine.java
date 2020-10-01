@@ -197,7 +197,7 @@ public class ModelElementLine extends ModelElementDecoration {
 		}
 	}
 
-	private final static int ARROW_SIZE_UNIT=6;
+	private static final int ARROW_SIZE_UNIT=6;
 
 	private final Point line1=new Point();
 	private final Point line2=new Point();

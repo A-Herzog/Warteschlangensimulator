@@ -36,7 +36,6 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class ModelElementSplitDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 26157308123139871L;
 
-	private JTableExt recordsTable;
 	private ModelElementSourceMultiTableModel recordsTableModel;
 
 	/**
@@ -70,6 +69,7 @@ public class ModelElementSplitDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 
+		final JTableExt recordsTable;
 		content.add(new JScrollPane(recordsTable=new JTableExt()),BorderLayout.CENTER);
 		if (element instanceof ModelElementSplit) {
 			recordsTable.setModel(recordsTableModel=new ModelElementSourceMultiTableModel(recordsTable,((ModelElementSplit)element).getRecords(),false,element,element.getModel(),element.getSurface(),readOnly,helpRunnable));

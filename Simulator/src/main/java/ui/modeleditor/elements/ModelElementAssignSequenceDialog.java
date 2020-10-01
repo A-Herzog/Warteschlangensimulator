@@ -50,7 +50,7 @@ public class ModelElementAssignSequenceDialog extends ModelElementBaseDialog {
 	public ModelElementAssignSequenceDialog(final Component owner, final ModelElementAssignSequence element, final boolean readOnly, final ModelSequences sequences) {
 		super(owner,Language.tr("Surface.AssignSequence.Dialog.Title"),element,"ModelElementAssignSequence",readOnly,false);
 
-		final DefaultComboBoxModel<String> model=new DefaultComboBoxModel<String>();
+		final DefaultComboBoxModel<String> model=new DefaultComboBoxModel<>();
 		for (ModelSequence sequence: sequences.getSequences()) model.addElement(sequence.getName());
 		sequenceCombo.setModel(model);
 

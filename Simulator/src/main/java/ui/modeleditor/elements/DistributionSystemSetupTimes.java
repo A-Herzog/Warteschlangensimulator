@@ -325,7 +325,7 @@ public final class DistributionSystemSetupTimes implements Cloneable {
 			dists[i]=new AbstractRealDistribution[clientTypeNames.length];
 			for (int j=0;j<clientTypeNames.length;j++) {
 				final Object obj=get(clientTypeNames[i],clientTypeNames[j]);
-				if (obj!=null && (obj instanceof AbstractRealDistribution)) dists[i][j]=(AbstractRealDistribution)obj;
+				if (obj instanceof AbstractRealDistribution) dists[i][j]=(AbstractRealDistribution)obj;
 			}
 		}
 		return dists;
@@ -343,7 +343,7 @@ public final class DistributionSystemSetupTimes implements Cloneable {
 			expressions[i]=new String[clientTypeNames.length];
 			for (int j=0;j<clientTypeNames.length;j++) {
 				final Object obj=get(clientTypeNames[i],clientTypeNames[j]);
-				if (obj!=null && (obj instanceof String)) expressions[i][j]=(String)obj;
+				if (obj instanceof String) expressions[i][j]=(String)obj;
 			}
 		}
 		return expressions;

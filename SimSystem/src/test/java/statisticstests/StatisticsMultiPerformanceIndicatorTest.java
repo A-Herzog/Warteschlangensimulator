@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -38,7 +39,7 @@ import statistics.StatisticsSimpleCountPerformanceIndicator;
  * @author Alexander Herzog
  * @see StatisticsMultiPerformanceIndicator
  */
-public class StatisticsMultiPerformanceIndicatorTest {
+class StatisticsMultiPerformanceIndicatorTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */
@@ -64,8 +65,8 @@ public class StatisticsMultiPerformanceIndicatorTest {
 		simple2=(StatisticsSimpleCountPerformanceIndicator)collector.get("B");
 
 		assertArrayEquals(new String[]{"A","B"},collector.getNames());
-		assertTrue(collector.get("A")==simple1);
-		assertTrue(collector.get("B")==simple2);
+		assertSame(simple1,collector.get("A"));
+		assertSame(simple2,collector.get("B"));
 		assertArrayEquals(new StatisticsSimpleCountPerformanceIndicator[]{simple1,simple2},collector.getAll());
 	}
 

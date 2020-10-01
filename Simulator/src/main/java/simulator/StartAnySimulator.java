@@ -35,6 +35,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see AnySimulator
  */
 public class StartAnySimulator {
+	private final int maxThreads;
 	private final EditModel editModel;
 	private final SimLogging logging;
 	private final int[] loggingIDs;
@@ -45,16 +46,39 @@ public class StartAnySimulator {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param maxThreads	Maximalanzahl an Rechenthreads (wird nur berücksichtigt, wenn ein lokaler Simulator gestartet wird)
+	 * @param editModel	Editor-Modell
+	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
+	 */
+	public StartAnySimulator(final int maxThreads, final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
+		this.maxThreads=maxThreads;
+		this.editModel=editModel;
+		this.logging=logging;
+		this.loggingIDs=loggingIDs;
+		this.logType=logType;
+	}
+
+	/**
+	 * Konstruktor der Klasse
 	 * @param editModel	Editor-Modell
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
 	public StartAnySimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
-		this.editModel=editModel;
-		this.logging=logging;
-		this.loggingIDs=loggingIDs;
-		this.logType=logType;
+		this(Integer.MAX_VALUE,editModel,logging,loggingIDs,logType);
+	}
+
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Es erfolgt kein Logging
+	 * @param maxThreads	Maximalanzahl an Rechenthreads (wird nur berücksichtigt, wenn ein lokaler Simulator gestartet wird)
+	 * @param editModel	Editor-Modell
+	 */
+	public StartAnySimulator(final int maxThreads, final EditModel editModel) {
+		this(maxThreads,editModel,null,null,Simulator.logTypeFull);
 	}
 
 	/**
@@ -63,7 +87,7 @@ public class StartAnySimulator {
 	 * @param editModel	Editor-Modell
 	 */
 	public StartAnySimulator(final EditModel editModel) {
-		this(editModel,null,null,Simulator.logTypeFull);
+		this(Integer.MAX_VALUE,editModel,null,null,Simulator.logTypeFull);
 	}
 
 	/**
@@ -103,7 +127,7 @@ public class StartAnySimulator {
 			}
 		}
 
-		localSimulator=new Simulator(editModel,logging,loggingIDs,logType);
+		localSimulator=new Simulator(maxThreads,editModel,logging,loggingIDs,logType);
 		return localSimulator.prepare();
 	}
 

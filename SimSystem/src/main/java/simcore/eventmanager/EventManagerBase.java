@@ -135,9 +135,6 @@ public abstract class EventManagerBase implements EventManager {
 	}
 
 	@Override
-	public abstract void addEvent(final Event event);
-
-	@Override
 	public void addInitialEvents(final List<? extends Event> events) {
 		if (events.isEmpty()) return;
 		final PriorityQueue<Event> queue=new PriorityQueue<>(events);
@@ -154,9 +151,6 @@ public abstract class EventManagerBase implements EventManager {
 	public final long eventCount() {
 		return eventExecutionCount;
 	}
-
-	@Override
-	public abstract int eventQueueLength();
 
 	@Override
 	public void resetTime() {}

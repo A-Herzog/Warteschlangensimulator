@@ -90,7 +90,7 @@ public class PathPoint {
 		final String name=element.getName();
 		if (parent!=null) {
 			String parentName=parent.getName().trim();
-			if (parentName.isEmpty() && parent instanceof ModelElementBox) parentName=((ModelElementBox)parent).getTypeName();
+			if (parentName.isEmpty() && parent instanceof ModelElementBox) parentName=parent.getTypeName();
 			return name+" (id="+element.getId()+") in "+parentName+" (id="+parent.getId()+")";
 		} else {
 			return name+" (id="+element.getId()+")";

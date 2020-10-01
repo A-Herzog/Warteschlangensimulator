@@ -62,8 +62,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	private final String[] variables;
 	private final ModelElementActionRecord record;
 
-	private final static String bold1="<html><body><b>";
-	private final static String bold2="</b></body></html>";
+	private static final String bold1="<html><body><b>";
+	private static final String bold2="</b></body></html>";
 
 	private final JRadioButton triggerCondition;
 	private final JRadioButton triggerThreshold;
@@ -185,7 +185,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			line.add(triggerSignal=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Signal")+bold2));
 			triggerSignal.addActionListener(e->checkData(false));
 			final String[] triggerSignalNames=model.surface.getAllSignalNames().toArray(new String[0]);
-			line.add(triggerSignalName=new JComboBox<String>(triggerSignalNames));
+			line.add(triggerSignalName=new JComboBox<>(triggerSignalNames));
 			final String triggerSignalNameCurrent=record.getConditionSignal();
 			int index=-1;
 			if (!triggerSignalNameCurrent.trim().isEmpty()) for (int i=0;i<triggerSignalNames.length;i++) if (triggerSignalNameCurrent.equalsIgnoreCase(triggerSignalNames[i])) {index=i; break;}

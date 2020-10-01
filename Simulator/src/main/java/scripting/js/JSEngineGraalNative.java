@@ -26,7 +26,6 @@ import java.util.function.Consumer;
  * @author Alexander Herzog
  */
 public class JSEngineGraalNative extends JSEngine {
-	private Class<?> contextClass=null;
 	private Object contextObj=null;
 	private Method contextEval=null;
 
@@ -119,7 +118,7 @@ public class JSEngineGraalNative extends JSEngine {
 		}
 
 		/* Context Klasse */
-		contextClass=contextObj.getClass();
+		final Class<?> contextClass=contextObj.getClass();
 		if (contextClass==null) return false;
 
 		/* org.graalvm.polyglot.Value binding=context.getBindings("js"); */

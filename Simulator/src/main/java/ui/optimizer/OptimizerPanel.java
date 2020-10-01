@@ -63,8 +63,6 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -313,7 +311,7 @@ public class OptimizerPanel extends SpecialPanel {
 		controlConstrains.setIcon(Images.OPTIMIZER_CONSTRAIN.getIcon());
 		controlConstrains.addActionListener(new ButtonListener());
 
-		tab.add(new JScrollPane(controlList=new JList<>(controlListModel=new DefaultListModel<ControlVariable>())),BorderLayout.CENTER);
+		tab.add(new JScrollPane(controlList=new JList<>(controlListModel=new DefaultListModel<>())),BorderLayout.CENTER);
 		controlList.setCellRenderer(new ControlListCellRenderer());
 		controlList.addMouseListener(new MouseListener() {
 			@Override public void mouseReleased(MouseEvent e) {}
@@ -333,9 +331,7 @@ public class OptimizerPanel extends SpecialPanel {
 				if (e.getKeyCode()==KeyEvent.VK_DOWN && e.isControlDown()) {commandControlDown(); e.consume(); return;}
 			}
 		});
-		controlList.addListSelectionListener(new ListSelectionListener() {
-			@Override public void valueChanged(ListSelectionEvent e) {commandListSelectionChanged();}
-		});
+		controlList.addListSelectionListener(e->commandListSelectionChanged());
 
 		/* Tab "Ziel" */
 

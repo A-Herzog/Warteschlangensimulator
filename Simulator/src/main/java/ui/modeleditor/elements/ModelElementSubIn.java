@@ -167,7 +167,7 @@ public class ModelElementSubIn extends ModelElementSubConnect implements ModelEl
 
 		if (connectionOut!=null) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgeOut")));
-			item.addActionListener((e)->surface.remove(connectionOut));
+			item.addActionListener(e->surface.remove(connectionOut));
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
 			item.setEnabled(!readOnly);
 		}

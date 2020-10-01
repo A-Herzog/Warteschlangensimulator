@@ -29,7 +29,7 @@ import parser.coresymbols.CalcSymbolPreOperator;
  */
 public class CalcSymbolTruncatedDistribution extends CalcSymbolPreOperator {
 	/** Maximale Anzahl an Versuchen, einen Wert im passenden Bereich zu erhalten */
-	private final static int MAX_RND=100;
+	private static final int MAX_RND=100;
 
 	/**
 	 * Eingebettete Verteilung

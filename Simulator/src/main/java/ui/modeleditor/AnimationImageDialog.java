@@ -42,8 +42,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import language.Language;
 import mathtools.distribution.tools.FileDropper;
@@ -138,12 +136,9 @@ public class AnimationImageDialog extends BaseDialog {
 				if (SwingUtilities.isRightMouseButton(e) && e.getClickCount()==1) {commandContextMenu(e); e.consume(); return;}
 			}
 		});
-		list.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				edit.setEnabled(!readOnly && list.getSelectedIndex()>=0);
-				delete.setEnabled(!readOnly && list.getSelectedIndex()>=0);
-			}
+		list.addListSelectionListener(e->{
+			edit.setEnabled(!readOnly && list.getSelectedIndex()>=0);
+			delete.setEnabled(!readOnly && list.getSelectedIndex()>=0);
 		});
 		updateList();
 		content.add(new JScrollPane(list),BorderLayout.CENTER);
@@ -241,7 +236,7 @@ public class AnimationImageDialog extends BaseDialog {
 			final BufferedImage image=ImageIO.read(data.getFile());
 			if (image==null) return false;
 			data.dragDropConsumed();
-			SwingUtilities.invokeLater(()->{commandAdd(image);});
+			SwingUtilities.invokeLater(()->commandAdd(image));
 		} catch (IOException e) {return false;}
 		return true;
 	}

@@ -78,7 +78,7 @@ public final class DistributionRandomNumber {
 	 * Die Vorausberechnung macht die Pseudozufallszahlenerzeugung schneller.
 	 * @see #randomGammaDirect(double, double)
 	 */
-	private final static double inverseE=1/FastMath.E;
+	private static final double inverseE=1/FastMath.E;
 
 	/**
 	 * Liefert eine Pseudozufallszahl gemäß der Gamma-Verteilung
@@ -116,7 +116,7 @@ public final class DistributionRandomNumber {
 				} else {
 					/* Step 3: */
 
-					final double x = -1 * FastMath.log((bGS - p) / shape);
+					final double x = -1 * Math.log((bGS - p) / shape);
 					final double u2 = generator.nextDouble();
 
 					if (u2 > FastMath.pow(x, shape - 1)) {
@@ -150,7 +150,7 @@ public final class DistributionRandomNumber {
 				return scale * d * v;
 			}
 
-			if (FastMath.log(u) < 0.5 * x2 + d * (1 - v + FastMath.log(v))) {
+			if (Math.log(u) < 0.5 * x2 + d * (1 - v + Math.log(v))) {
 				return scale * d * v;
 			}
 		}

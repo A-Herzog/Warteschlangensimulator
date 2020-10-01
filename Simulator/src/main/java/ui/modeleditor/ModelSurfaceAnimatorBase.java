@@ -74,24 +74,24 @@ import ui.modeleditor.elements.WayPointRecord;
  * @author Alexander Herzog
  */
 public class ModelSurfaceAnimatorBase {
-	private final static int BOX_WIDTH=100;
-	private final static int BOX_HEIGHT=50;
-	private final static int ICON_SIZE=BOX_HEIGHT/2;
+	private static final int BOX_WIDTH=100;
+	private static final int BOX_HEIGHT=50;
+	private static final int ICON_SIZE=BOX_HEIGHT/2;
 	/** Standardicon zur Darstellung von Kunden */
-	public final static String DEFAULT_CLIENT_ICON_NAME="user";
+	public static final String DEFAULT_CLIENT_ICON_NAME="user";
 	/** Standardicon zur Darstellung von Bedienern */
-	public final static String DEFAULT_OPERATOR_ICON_NAME="status_online";
+	public static final String DEFAULT_OPERATOR_ICON_NAME="status_online";
 	/** Standardicon zur Darstellung von leeren Transportern in Fahrtrichtung rechts */
-	public final static String DEFAULT_TRANSPORTER_EAST_EMPTY_ICON_NAME="lorry-empty";
+	public static final String DEFAULT_TRANSPORTER_EAST_EMPTY_ICON_NAME="lorry-empty";
 	/** Standardicon zur Darstellung von leeren Transportern in Fahrtrichtung links */
-	public final static String DEFAULT_TRANSPORTER_WEST_EMPTY_ICON_NAME="lorry-left-empty";
+	public static final String DEFAULT_TRANSPORTER_WEST_EMPTY_ICON_NAME="lorry-left-empty";
 	/** Standardicon zur Darstellung von beladenen Transportern in Fahrtrichtung rechts */
-	public final static String DEFAULT_TRANSPORTER_EAST_ICON_NAME="lorry";
+	public static final String DEFAULT_TRANSPORTER_EAST_ICON_NAME="lorry";
 	/** Standardicon zur Darstellung von beladenen Transportern in Fahrtrichtung links */
-	public final static String DEFAULT_TRANSPORTER_WEST_ICON_NAME="lorry-left";
-	private final static int ANIMATION_STEPS=25;
-	private final static int TRANSPORTER_ANIMATION_STEPS=50;
-	private final static int DEFAULT_DISTANCE=250; /* Entfernung, auf die sich die Anzahl an Schritten beziehen */
+	public static final String DEFAULT_TRANSPORTER_WEST_ICON_NAME="lorry-left";
+	private static final int ANIMATION_STEPS=25;
+	private static final int TRANSPORTER_ANIMATION_STEPS=50;
+	private static final int DEFAULT_DISTANCE=250; /* Entfernung, auf die sich die Anzahl an Schritten beziehen */
 
 	private final boolean multiCore;
 	private boolean slowMode;
@@ -273,7 +273,7 @@ public class ModelSurfaceAnimatorBase {
 	}
 
 	private List<ModelElementWayPoint> sortedWayPoints(final Map<Integer,ModelElementWayPoint> map) {
-		final int indices[]=map.keySet().stream().mapToInt(I->I.intValue()).sorted().toArray();
+		final int[] indices=map.keySet().stream().mapToInt(I->I.intValue()).sorted().toArray();
 		final List<ModelElementWayPoint> list=new ArrayList<>();
 		for (int index: indices) list.add(map.get(index));
 		return list;
@@ -563,12 +563,12 @@ public class ModelSurfaceAnimatorBase {
 		final ModelElementBox el;
 		if (stationID>=stationByIdCache.length) {
 			final ModelElement el2=surface.getById(stationID);
-			if (el2==null || !(el2 instanceof ModelElementBox)) return null;
+			if (!(el2 instanceof ModelElementBox)) return null;
 			el=(ModelElementBox)el2;
 		} else {
 			if (stationByIdCache[stationID]==null) {
 				final ModelElement el2=surface.getById(stationID);
-				if (el2==null || !(el2 instanceof ModelElementBox)) return null;
+				if (!(el2 instanceof ModelElementBox)) return null;
 				stationByIdCache[stationID]=(ModelElementBox)el2;
 			}
 			el=stationByIdCache[stationID];
@@ -899,7 +899,7 @@ public class ModelSurfaceAnimatorBase {
 		for (MoveClient move: clients) {
 			final ModelElement stationFrom=surface.getById(move.from);
 			final ModelElement stationTo=surface.getById(move.to);
-			if (stationFrom==null || !(stationFrom instanceof ModelElementBox) || stationTo==null || !(stationTo instanceof ModelElementBox)) continue;
+			if (!(stationFrom instanceof ModelElementBox) || !(stationTo instanceof ModelElementBox)) continue;
 			final AnimationPath path=getFullAnimationPath(move.client,(ModelElementBox)stationFrom,(ModelElementBox)stationTo);
 			if (path!=null) pathList.add(path);
 		}
@@ -912,7 +912,7 @@ public class ModelSurfaceAnimatorBase {
 
 		final ModelElement stationFrom=surface.getById(move.from);
 		final ModelElement stationTo=surface.getById(move.to);
-		if (stationFrom!=null && (stationFrom instanceof ModelElementBox) && stationTo!=null && (stationTo instanceof ModelElementBox)) {
+		if ((stationFrom instanceof ModelElementBox) && (stationTo instanceof ModelElementBox)) {
 			final AnimationPath path=getFullAnimationPath(move.client,(ModelElementBox)stationFrom,(ModelElementBox)stationTo);
 			if (path!=null) pathList.add(path);
 		}
@@ -925,7 +925,7 @@ public class ModelSurfaceAnimatorBase {
 
 		final ModelElement stationFrom=surface.getById(transporterStationID1);
 		final ModelElement stationTo=surface.getById(transporterStationID2);
-		if (stationFrom!=null && (stationFrom instanceof ModelElementBox) && stationTo!=null && (stationTo instanceof ModelElementBox)) {
+		if ((stationFrom instanceof ModelElementBox) && stationTo!=null && (stationTo instanceof ModelElementBox)) {
 			final AnimationPath path=getFullTransporterAnimationPath(transporter,transporterIconEast,transporterIconWest,(ModelElementBox)stationFrom,(ModelElementBox)stationTo);
 			if (path!=null) pathList.add(path);
 		}

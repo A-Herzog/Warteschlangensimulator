@@ -37,7 +37,7 @@ import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
  * @author Alexander Herzog
  * @see StatisticsDataPerformanceIndicatorWithNegativeValues
  */
-public class StatisticsDataPerformanceIndicatorWithNegativeValuesTest {
+class StatisticsDataPerformanceIndicatorWithNegativeValuesTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

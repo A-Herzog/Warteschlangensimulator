@@ -40,7 +40,7 @@ public final class ModelLongRunStatistics implements Cloneable {
 	 */
 	public static String[] XML_NODE_STEPWIDE_ATTR=new String[] {"Schrittweite"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
-	private final static long default_stepWideSec=10*3600;
+	private static final long default_stepWideSec=10*3600;
 
 	private final List<ModelLongRunStatisticsElement> data;
 

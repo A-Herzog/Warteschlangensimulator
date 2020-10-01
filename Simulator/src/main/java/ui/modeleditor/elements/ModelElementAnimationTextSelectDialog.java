@@ -47,7 +47,6 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 5107663089458560385L;
 
-	private JTableExt expressionTable;
 	private ExpressionTableModelText expressionTableModel;
 	private JTextField defaultTextEdit;
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
@@ -89,6 +88,7 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 		JPanel tabOuter, tab, line;
 
 		/* Tab "Ausdrücke" */
+		final JTableExt expressionTable;
 		tabs.add(Language.tr("Surface.AnimationTextSelect.Dialog.Tabs.Expression"),tab=new JPanel(new BorderLayout()));
 		tab.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
 		if (element instanceof ModelElementAnimationTextSelect) {
@@ -122,7 +122,7 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 		sizeField=(JTextField)data[1];
 		sizeField.setEditable(!readOnly);
 		tab.add((JPanel)data[0]);
-		sizeField.addActionListener((e)->NumberTools.getNotNegativeInteger(sizeField,true));
+		sizeField.addActionListener(e->NumberTools.getNotNegativeInteger(sizeField,true));
 
 		/* Fett / Kursiv */
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));

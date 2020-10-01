@@ -53,8 +53,8 @@ import tools.SetupData;
 public class LicenseViewer extends BaseDialog{
 	private static final long serialVersionUID = 6622197213633282594L;
 
-	private final static String htmlHeader="<html><head><style>body {font-family: sans-serif; margin: 5px;}</style></head><body>";
-	private final static String htmlFooter="</body></html>";
+	private static final String htmlHeader="<html><head><style>body {font-family: sans-serif; margin: 5px;}</style></head><body>";
+	private static final String htmlFooter="</body></html>";
 
 	/**
 	 * Für welchen Programmbestandteil sollen die Lizenzen angezeigt werden?
@@ -157,7 +157,7 @@ public class LicenseViewer extends BaseDialog{
 		final JTextPane viewer=new JTextPane();
 
 		viewer.setEditable(false);
-		viewer.addHyperlinkListener(e->linkProcessor(e,viewer));
+		viewer.addHyperlinkListener(e->linkProcessor(e));
 		viewer.setEditorKit(new HTMLEditorKit());
 		try {
 			viewer.read(new ByteArrayInputStream(content.getBytes()),null);
@@ -204,7 +204,7 @@ public class LicenseViewer extends BaseDialog{
 		return htmlHeader+renderer.render(document)+htmlFooter;
 	}
 
-	private void linkProcessor(final HyperlinkEvent e, final JTextPane viewer) {
+	private void linkProcessor(final HyperlinkEvent e) {
 		if (e.getEventType()==HyperlinkEvent.EventType.ENTERED) {
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			return;

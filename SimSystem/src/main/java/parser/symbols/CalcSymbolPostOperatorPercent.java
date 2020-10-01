@@ -33,7 +33,7 @@ public final class CalcSymbolPostOperatorPercent extends CalcSymbolPostOperator 
 	 * Faktor zur Umrechnung Zahl -> Prozentwert,
 	 * um die zeitaufwendige Division zu vermeiden.
 	 */
-	private final static double factor=1.0/100.0;
+	private static final double factor=1.0/100.0;
 
 	@Override
 	protected double calc(final double parameter) throws MathCalcError {

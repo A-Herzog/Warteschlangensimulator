@@ -130,7 +130,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		this.infoPanelID=infoPanelID;
 
 		final Container finalContainer=this.owner;
-		helpRunnable=()->{Help.topicModal(finalContainer,helpTopic);};
+		helpRunnable=()->Help.topicModal(finalContainer,helpTopic);
 		initUserButtons();
 		final JPanel fullContentPanel=createGUI(helpRunnable);
 		fullContentPanel.setLayout(new BorderLayout());
@@ -183,7 +183,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				colorButton.setPreferredSize(new Dimension(26,26));
 				colorButton.setToolTipText(Language.tr("Editor.DialogBase.ColorTooltip"));
 				setupColorButton();
-				colorButton.addActionListener((e)->showColorSelectDialog());
+				colorButton.addActionListener(e->showColorSelectDialog());
 			} else {
 				defaultColor=null;
 				userColor=null;
@@ -324,7 +324,6 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 		if (size>0) {
 			panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			label=new JLabel(labelText);
 			panel.add(label=new JLabel(labelText));
 			panel.add(field=new JTextField(size));
 		} else {
@@ -380,7 +379,6 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 		if (size>0) {
 			panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			label=new JLabel(labelText);
 			panel.add(label=new JLabel(labelText));
 			panel.add(field=new JPlaceholderTextField(size));
 		} else {
@@ -421,7 +419,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final JButton button=new JButton();
 		button.setToolTipText(Language.tr("Editor.DialogBase.ExpressionHelpTooltip"));
 		button.setIcon(Images.HELP.getIcon());
-		button.addActionListener((e)->Help.topicModal(owner,"Expressions"));
+		button.addActionListener(e->Help.topicModal(owner,"Expressions"));
 		final Dimension size=button.getPreferredSize();
 		button.setPreferredSize(new Dimension(size.height,size.height));
 		return button;
@@ -515,7 +513,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final JButton button=new JButton();
 		button.setToolTipText(Language.tr("Editor.DialogBase.ExpressionEditTooltip"));
 		button.setIcon(Images.EXPRESSION_BUILDER.getIcon());
-		button.addActionListener((e)->{
+		button.addActionListener(e->{
 			if (!inputLine.isEditable() || !inputLine.isEnabled()) return;
 			final ExpressionBuilder dialog=new ExpressionBuilder(owner,inputLine.getText(),isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false);
 			dialog.setVisible(true);
@@ -784,7 +782,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @return	ComboBox zur Auswahl einer Linienbreite
 	 */
 	public static JComboBox<JLabel> getLineWidthComboBox(final int min, final int max) {
-		final JComboBox<JLabel> lineWidthComboBox=new JComboBox<JLabel>();
+		final JComboBox<JLabel> lineWidthComboBox=new JComboBox<>();
 		lineWidthComboBox.setModel(getLineWidthComboBoxModel(min,max));
 		lineWidthComboBox.setRenderer(new LineWidthComboBoxCellRenderer());
 		return lineWidthComboBox;
@@ -878,7 +876,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @return	ComboBox zur Auswahl eines Linientyps
 	 */
 	public static JComboBox<JLabel> getLineTypeComboBox() {
-		final JComboBox<JLabel> lineTypeComboBox=new JComboBox<JLabel>();
+		final JComboBox<JLabel> lineTypeComboBox=new JComboBox<>();
 		lineTypeComboBox.setModel(getLineTypeComboBoxModel());
 		lineTypeComboBox.setRenderer(new LineTypeComboBoxCellRenderer());
 		return lineTypeComboBox;
@@ -928,7 +926,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		final JLabel label=new JLabel(labelText);
 		panel.add(label);
-		final JComboBox<String> comboBox=new JComboBox<String>(values.toArray(new String[0]));
+		final JComboBox<String> comboBox=new JComboBox<>(values.toArray(new String[0]));
 		comboBox.setEditable(true);
 		if (value!=null) comboBox.getEditor().setItem(value);
 		panel.add(comboBox);
@@ -949,7 +947,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		if (initialValue!=null) index=fontFamilies.indexOf(initialValue);
 		if (index<0 && fontFamilies.size()>0) index=0;
 
-		final JComboBox<FontCache.FontFamily> comboBox=new JComboBox<FontCache.FontFamily>(fontFamilies.toArray(new FontCache.FontFamily[0]));
+		final JComboBox<FontCache.FontFamily> comboBox=new JComboBox<>(fontFamilies.toArray(new FontCache.FontFamily[0]));
 		if (index>=0) comboBox.setSelectedIndex(index);
 		comboBox.setRenderer(new FontFamilyComboBoxCellRenderer());
 

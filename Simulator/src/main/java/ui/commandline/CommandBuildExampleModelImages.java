@@ -22,7 +22,7 @@ public class CommandBuildExampleModelImages extends AbstractCommand {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.BuildExampleModelImages .Name")));
 		for (String s: Language.trOther("CommandLine.BuildExampleModelImages .Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);
@@ -56,7 +56,7 @@ public class CommandBuildExampleModelImages extends AbstractCommand {
 			return;
 		}
 
-		EditModelExamples.saveImages(language.toLowerCase(),new File(System.getProperty("user.home")+"\\Desktop"),1.0,out);
+		EditModelExamples.saveImages(language.toLowerCase(),new File(System.getProperty("user.home")+"\\Desktop"),out);
 	}
 
 	@Override

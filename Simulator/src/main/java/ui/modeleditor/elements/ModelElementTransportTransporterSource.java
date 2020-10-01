@@ -61,7 +61,7 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 	/**
 	 * Standardmäßige Priorität für Kundentypen
 	 */
-	public final static String DEFAULT_CLIENT_PRIORITY="w";
+	public static final String DEFAULT_CLIENT_PRIORITY="w";
 
 	private List<ModelElementEdge> connections;
 
@@ -479,7 +479,7 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 
 		if (connections!=null && connections.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveAllEdges")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connections)) surface.remove(element);
 			});
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));

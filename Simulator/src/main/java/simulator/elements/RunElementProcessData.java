@@ -38,7 +38,7 @@ import simulator.simparser.ExpressionCalc;
  * @see RunElementData
  */
 public class RunElementProcessData extends RunElementData {
-	private final static int DEFAULT_QUEUE_SIZE=256;
+	private static final int DEFAULT_QUEUE_SIZE=256;
 
 	/** Liste mit den momentan an der Station wartenden Kunden */
 	public final List<RunDataClient> waitingClients;
@@ -290,7 +290,7 @@ public class RunElementProcessData extends RunElementData {
 		return timeInQueue;
 	}
 
-	private final static double toSecFactor=1.0/1000.0;
+	private static final double toSecFactor=1.0/1000.0;
 
 	/**
 	 * Liefert die Bedienzeit für einen Kunden (über eine Verteilungsfunktion oder durch Auswertung eines Ausdrucks)

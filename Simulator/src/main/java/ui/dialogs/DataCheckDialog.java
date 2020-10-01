@@ -141,7 +141,7 @@ public final class DataCheckDialog extends BaseDialog {
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			if (results.size()==0) switch (columnIndex) {
+			if (results.isEmpty()) switch (columnIndex) {
 			case 1: return Language.tr("CheckData.NoDataElements");
 			default: return "";
 			}

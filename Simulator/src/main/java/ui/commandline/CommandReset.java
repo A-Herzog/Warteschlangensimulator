@@ -35,7 +35,7 @@ public class CommandReset extends AbstractCommand {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		list.add(Language.tr("CommandLine.ResetConfig.Name"));
 		for (String s: Language.trOther("CommandLine.ResetConfig.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);

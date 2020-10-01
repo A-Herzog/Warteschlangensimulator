@@ -15,8 +15,6 @@
  */
 package simulator.elements;
 
-import org.apache.commons.math3.util.FastMath;
-
 import language.Language;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
@@ -122,6 +120,6 @@ public class RunElementInteractiveCheckbox extends RunElement {
 	 * @return	Liefert <code>true</code>, wenn die Checkbox markiert ist.
 	 */
 	public boolean getBoxChecked(final SimulationData simData) {
-		return FastMath.abs(simData.runData.variableValues[variableIndex]-valueChecked)<10E-10;
+		return Math.abs(simData.runData.variableValues[variableIndex]-valueChecked)<10E-10;
 	}
 }

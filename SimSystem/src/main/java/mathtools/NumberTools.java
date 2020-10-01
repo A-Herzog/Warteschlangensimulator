@@ -1655,7 +1655,7 @@ public final class NumberTools {
 		} else {
 			double intPart=Math.floor(value);
 			double fracPart=value-intPart;
-			double mul=Math.round(Math.pow(10,availableDecimalDigits));
+			double mul=Math.round(FastMath.pow(10,availableDecimalDigits));
 			fracPart=Math.round(fracPart*mul)/mul;
 			value=intPart+fracPart;
 		}

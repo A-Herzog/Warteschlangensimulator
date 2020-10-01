@@ -84,7 +84,7 @@ public class RunElementTransportSourceTime {
 
 		for (int i=0;i<expression.length;i++) {
 			final ModelElement e=editModel.surface.getByIdIncludingSubModels(i);
-			if (e==null || !(e instanceof ModelElementTransportDestination)) continue;
+			if (!(e instanceof ModelElementTransportDestination)) continue;
 			final Object delay=distributionSystem.getOrDefault(e.getName());
 			if (delay instanceof AbstractRealDistribution) {
 				distribution[i]=DistributionTools.cloneDistribution((AbstractRealDistribution)delay);

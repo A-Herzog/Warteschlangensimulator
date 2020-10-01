@@ -439,7 +439,7 @@ public class ModelElementTank extends ModelElementBox {
 			animationSBNext=0;
 			valueName=Language.tr("Statistics.Value")+"=";
 		} else {
-			if (FastMath.abs(value-lastValue)<10E-5) return false;
+			if (Math.abs(value-lastValue)<10E-5) return false;
 		}
 		lastValue=value;
 

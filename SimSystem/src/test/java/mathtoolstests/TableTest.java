@@ -18,6 +18,8 @@ package mathtoolstests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -43,14 +45,14 @@ import mathtools.TableChartBase.Range;
  * @author Alexander Herzog
  * @see Table
  */
-public class TableTest {
+class TableTest {
 	private void defaultTableContentTest(final Table table) {
 		defaultTableContentTest(table,Table.IndexMode.ROWS);
 	}
 
 	private void defaultTableContentTest(final Table table, final Table.IndexMode indexMode) {
 		assertNotNull(table);
-		assertTrue(table.getMode()==indexMode);
+		assertSame(indexMode,table.getMode());
 
 		/* Größe abfragen */
 		assertEquals(2,table.getSize(0));
@@ -124,7 +126,7 @@ public class TableTest {
 
 	private void defaultNumericTableContentTest(final Table table) {
 		assertNotNull(table);
-		assertTrue(table.getMode()==Table.IndexMode.ROWS);
+		assertSame(Table.IndexMode.ROWS,table.getMode());
 
 		/* Größe abfragen */
 		assertEquals(2,table.getSize(0));
@@ -204,20 +206,20 @@ public class TableTest {
 		Table table;
 
 		table=new Table();
-		assertTrue(table.getMode()==Table.IndexMode.ROWS);
+		assertSame(Table.IndexMode.ROWS,table.getMode());
 		assertEquals(0,table.getSize(0));
 		assertEquals(0,table.getSize(1));
 		assertEquals(0,table.getSize(2));
 
 		table=new Table(Table.IndexMode.ROWS);
-		assertTrue(table.getMode()==Table.IndexMode.ROWS);
+		assertSame(Table.IndexMode.ROWS,table.getMode());
 
 		table=new Table(Table.IndexMode.COLS);
-		assertTrue(table.getMode()==Table.IndexMode.COLS);
+		assertSame(Table.IndexMode.COLS,table.getMode());
 
 		Table.IndexMode mode=null;
 		table=new Table(mode);
-		assertTrue(table.getMode()==Table.IndexMode.ROWS);
+		assertSame(Table.IndexMode.ROWS,table.getMode());
 
 		table=new Table(Table.IndexMode.ROWS,new String[][] {new String[] {"Cell11","Cell12","Cell13"},new String[] {"Cell21","Cell22","Cell23"}});
 		defaultTableContentTest(table);
@@ -481,35 +483,35 @@ public class TableTest {
 	@Test
 	void fileUtilityFunctionsTest() {
 
-		assertTrue(Table.getSaveModeFromFileName(null,false,false)==Table.SaveMode.SAVEMODE_TABS);
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(null,false,false));
 
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.abc"),false,false)==Table.SaveMode.SAVEMODE_TABS);
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.abc"),false,false));
 
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.tsv"),false,false)==Table.SaveMode.SAVEMODE_TABS);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.txt"),false,false)==Table.SaveMode.SAVEMODE_TABS);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.csv"),false,false)==Table.SaveMode.SAVEMODE_CSV);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.xlsx"),false,false)==Table.SaveMode.SAVEMODE_XLSX);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.xls"),false,false)==Table.SaveMode.SAVEMODE_XLS);
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.tsv"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.txt"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_CSV,Table.getSaveModeFromFileName(new File("Test.csv"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_XLSX,Table.getSaveModeFromFileName(new File("Test.xlsx"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_XLS,Table.getSaveModeFromFileName(new File("Test.xls"),false,false));
 
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.docx"),false,false)==Table.SaveMode.SAVEMODE_DOCX);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.html"),false,false)==Table.SaveMode.SAVEMODE_HTML);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.htm"),false,false)==Table.SaveMode.SAVEMODE_HTML);
+		assertSame(Table.SaveMode.SAVEMODE_DOCX,Table.getSaveModeFromFileName(new File("Test.docx"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_HTML,Table.getSaveModeFromFileName(new File("Test.html"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_HTML,Table.getSaveModeFromFileName(new File("Test.htm"),false,false));
 
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.docx"),true,false)==Table.SaveMode.SAVEMODE_TABS);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.html"),true,false)==Table.SaveMode.SAVEMODE_TABS);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.htm"),true,false)==Table.SaveMode.SAVEMODE_TABS);
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.docx"),true,false));
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.html"),true,false));
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.htm"),true,false));
 
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.dif"),true,false)==Table.SaveMode.SAVEMODE_DIF);
+		assertSame(Table.SaveMode.SAVEMODE_DIF,Table.getSaveModeFromFileName(new File("Test.dif"),true,false));
 
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.sqlite3"),false,false)==Table.SaveMode.SAVEMODE_SQLITE);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.sqlite"),false,false)==Table.SaveMode.SAVEMODE_SQLITE);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.db"),false,false)==Table.SaveMode.SAVEMODE_SQLITE);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.db3"),false,false)==Table.SaveMode.SAVEMODE_SQLITE);
+		assertSame(Table.SaveMode.SAVEMODE_SQLITE,Table.getSaveModeFromFileName(new File("Test.sqlite3"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_SQLITE,Table.getSaveModeFromFileName(new File("Test.sqlite"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_SQLITE,Table.getSaveModeFromFileName(new File("Test.db"),false,false));
+		assertSame(Table.SaveMode.SAVEMODE_SQLITE,Table.getSaveModeFromFileName(new File("Test.db3"),false,false));
 
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.sqlite3"),false,true)==Table.SaveMode.SAVEMODE_TABS);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.sqlite"),false,true)==Table.SaveMode.SAVEMODE_TABS);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.db"),false,true)==Table.SaveMode.SAVEMODE_TABS);
-		assertTrue(Table.getSaveModeFromFileName(new File("Test.db3"),false,true)==Table.SaveMode.SAVEMODE_TABS);
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.sqlite3"),false,true));
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.sqlite"),false,true));
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.db"),false,true));
+		assertSame(Table.SaveMode.SAVEMODE_TABS,Table.getSaveModeFromFileName(new File("Test.db3"),false,true));
 
 		assertTrue(Table.isTableFileName(new File("Test.tsv")));
 		assertTrue(Table.isTableFileName(new File("Test.txt")));
@@ -664,25 +666,25 @@ public class TableTest {
 		assertTrue(Objects.deepEquals(new String[]{"8","ä"},table.getDataArea("B3","B2")));
 		assertEquals(null,table.getAreaError());
 
-		assertTrue(table.getDataArea("A1","C3")==null);
+		assertNull(table.getDataArea("A1","C3"));
 		assertNotNull(table.getAreaError());
 
-		assertTrue(table.getDataArea("#","C3")==null);
+		assertNull(table.getDataArea("#","C3"));
 		assertNotNull(table.getAreaError());
 
-		assertTrue(table.getDataArea("A1","#")==null);
+		assertNull(table.getDataArea("A1","#"));
 		assertNotNull(table.getAreaError());
 
-		assertTrue(table.getDataArea("B1","D1")==null);
+		assertNull(table.getDataArea("B1","D1"));
 		assertNotNull(table.getAreaError());
 
-		assertTrue(table.getDataArea("D1","B1")==null);
+		assertNull(table.getDataArea("D1","B1"));
 		assertNotNull(table.getAreaError());
 
-		assertTrue(table.getDataArea("B2","B4")==null);
+		assertNull(table.getDataArea("B2","B4"));
 		assertNotNull(table.getAreaError());
 
-		assertTrue(table.getDataArea("B4","B2")==null);
+		assertNull(table.getDataArea("B4","B2"));
 		assertNotNull(table.getAreaError());
 	}
 

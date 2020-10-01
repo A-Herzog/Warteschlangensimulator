@@ -85,7 +85,7 @@ public class LayersDialog extends BaseDialog {
 
 		/* Liste */
 		listModel=new DefaultListModel<>();
-		content.add(new JScrollPane(list=new JList<JLabel>(listModel)),BorderLayout.CENTER);
+		content.add(new JScrollPane(list=new JList<>(listModel)),BorderLayout.CENTER);
 
 		list.setCellRenderer(new DefaultListCellRenderer() {
 			private static final long serialVersionUID=-3396935987663371955L;

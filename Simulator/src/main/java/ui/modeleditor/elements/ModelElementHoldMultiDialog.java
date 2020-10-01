@@ -200,7 +200,7 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 			final Map<Integer,String> conditionsMap=holdMulti.getConditions();
 			conditionsMap.clear();
 			final List<String> c=getConditions(false);
-			for (int i=0;i<edges.length;i++) conditionsMap.put(edges[i].getId(),c.get(i));
+			if (c!=null) for (int i=0;i<edges.length;i++) conditionsMap.put(edges[i].getId(),c.get(i));
 
 			holdMulti.setUseTimedChecks(useTimedChecks.isSelected());
 		}

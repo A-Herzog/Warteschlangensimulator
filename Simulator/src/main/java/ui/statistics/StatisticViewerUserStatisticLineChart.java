@@ -36,7 +36,7 @@ import ui.modeleditor.elements.ModelElementUserStatistic;
 public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineChart {
 	private final Statistics statistics;
 
-	private final static Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
+	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
 	/**
 	 * Konstruktor der Klasse

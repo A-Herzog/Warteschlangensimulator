@@ -326,8 +326,8 @@ public class Shapes {
 		for (int i=0;i<borderWidth;i++) graphics.drawRect(objectRect.x+i,objectRect.y+i,objectRect.width-2*i,objectRect.height-2*i);
 	}
 
-	private final static Color inlineUpper=Color.LIGHT_GRAY;
-	private final static Color inlineLower=Color.GRAY;
+	private static final Color inlineUpper=Color.LIGHT_GRAY;
+	private static final Color inlineLower=Color.GRAY;
 
 	private void drawInlinedFrameRectangle(final Graphics graphics, final Rectangle objectRect, final int borderWidth) {
 		for (int i=0;i<borderWidth;i++) graphics.drawRect(objectRect.x+i,objectRect.y+i,objectRect.width-2*i,objectRect.height-2*i);
@@ -880,8 +880,10 @@ public class Shapes {
 		final SetupData setup=SetupData.getSetup();
 		final StringBuilder sb=new StringBuilder();
 
+		/*
 		String name=shapeType.name;
 		name=name.substring(0,1).toUpperCase()+name.substring(1);
+		 */
 		sb.append("function "+getHTMLShapeDrawFunctionName()+"(rect,borderColor,borderWidth,fillColor1,fillColor2,fillLevel) {\n");
 
 		switch (shapeType) {

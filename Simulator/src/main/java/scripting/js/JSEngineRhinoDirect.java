@@ -38,7 +38,7 @@ public class JSEngineRhinoDirect extends JSEngine {
 		}
 	}
 
-	private final static String print="function print(str) {Output.println(str);}";
+	private static final String print="function print(str) {Output.println(str);}";
 
 	/**
 	 * Initialisiert die zu verwendende Skripting-Engine

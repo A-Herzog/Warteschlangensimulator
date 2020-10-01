@@ -59,7 +59,7 @@ import ui.mjpeg.MJPEGSystem;
 public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart {
 	private final Statistics statistics;
 
-	private final static Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN};
+	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN};
 
 	private JPanel fullPanel;
 	private JButton sliderButton;

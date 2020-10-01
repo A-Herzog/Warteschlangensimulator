@@ -241,8 +241,8 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	 * Initialisiert die GUI nach dem über <code>setData()</code> alle Verteilungen und Ausdrücke eingetragen wurden
 	 */
 	public void start() {
-		clientTypeSelect.addActionListener((e)->activeClientTypeChanged());
-		modeSelect.addActionListener((e)->activeModeChanged());
+		clientTypeSelect.addActionListener(e->activeClientTypeChanged());
+		modeSelect.addActionListener(e->activeModeChanged());
 		clientTypeLast=-1;
 		clientTypeSelect.setSelectedIndex(0);
 	}

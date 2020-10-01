@@ -23,6 +23,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.math3.util.FastMath;
+import org.apache.jena.ext.com.google.common.base.Objects;
 
 /**
  * Hält Bilder in skalierter Größe vor, so dass nicht bei jedem Aufruf der Zeichenfunktion
@@ -34,7 +35,7 @@ import org.apache.commons.math3.util.FastMath;
  * @see #getScaledImageCache()
  */
 public class ScaledImageCache {
-	private final static int MAX_CACHE_SIZE=20;
+	private static final int MAX_CACHE_SIZE=20;
 
 	private String[] cacheHash;
 	private BufferedImage[] cacheData;
@@ -63,7 +64,7 @@ public class ScaledImageCache {
 		return scaledImageCache;
 	}
 
-	private final static String[] hashAlgorithms=new String[] {"SHA-256","SHA","MD5"};
+	private static final String[] hashAlgorithms=new String[] {"SHA-256","SHA","MD5"};
 
 	/**
 	 * Berechnet den Hashwert zu einem Bild
@@ -93,7 +94,7 @@ public class ScaledImageCache {
 		if (image1==null && image2==null) return true;
 		if (image1==null || image2==null) return false;
 
-		return getHash(image1).equals(getHash(image2));
+		return Objects.equal(getHash(image1),getHash(image2));
 	}
 
 	private BufferedImage getFromCache(final String hash, final int width, final int height) {

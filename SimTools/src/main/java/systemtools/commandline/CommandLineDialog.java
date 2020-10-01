@@ -25,7 +25,6 @@ import java.awt.event.ActionListener;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -196,13 +195,10 @@ public class CommandLineDialog extends BaseDialog {
 	private String[] getCommandStrings() {
 		final List<String> list=new ArrayList<>();
 
-		Arrays.sort(commands,new Comparator<AbstractCommand>() {
-			@Override
-			public int compare(AbstractCommand o1, AbstractCommand o2) {
-				String s1=o1.getName();
-				String s2=o2.getName();
-				return s1.compareTo(s2);
-			}
+		Arrays.sort(commands,(o1,o2)->{
+			final String s1=o1.getName();
+			final String s2=o2.getName();
+			return s1.compareTo(s2);
 		});
 
 		for (AbstractCommand command : commands) {

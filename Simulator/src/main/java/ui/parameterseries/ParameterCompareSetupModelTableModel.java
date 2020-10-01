@@ -120,7 +120,7 @@ public class ParameterCompareSetupModelTableModel extends JTableExtAbstractTable
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		if (columnIndex!=1) return;
-		if (aValue==null || !(aValue instanceof String)) return;
+		if (!(aValue instanceof String)) return;
 
 		final Double D=NumberTools.getDouble((String)aValue);
 		if (D==null) {

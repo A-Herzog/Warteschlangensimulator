@@ -15,8 +15,6 @@
  */
 package simulator.coreelements;
 
-import org.apache.commons.math3.util.FastMath;
-
 import simulator.events.AnalogSystemChangeEvent;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
@@ -177,7 +175,7 @@ public abstract class RunElementAnalogProcessingData extends RunElementData {
 	private boolean valueChanged(final SimulationData simData) {
 		final double oldValue=value;
 		final double newValue=getValue(simData);
-		return FastMath.abs(newValue-oldValue)>10E-10;
+		return Math.abs(newValue-oldValue)>10E-10;
 	}
 
 	/**

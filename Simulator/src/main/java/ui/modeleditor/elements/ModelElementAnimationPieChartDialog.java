@@ -47,7 +47,6 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 
 	private JComboBox<String> labelMode;
 	private ExpressionTableModelBar expressionTableModel;
-	private JTableExt expressionTable;
 	private JComboBox<JLabel> lineWidth;
 	private SmallColorChooser colorChooserLine;
 	private JCheckBox background;
@@ -92,6 +91,7 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 		label.setLabelFor(labelMode);
 		labelMode.setEnabled(!readOnly);
 
+		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
 		if (element instanceof ModelElementAnimationPieChart) {
 			expressionTable.setModel(expressionTableModel=new ExpressionTableModelBar(expressionTable,(ModelElementAnimationPieChart)element,readOnly,helpRunnable));
@@ -123,7 +123,7 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 		background.setEnabled(!readOnly);
 		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener((e)->background.setSelected(true));
+		colorChooserBackground.addClickListener(e->background.setSelected(true));
 
 		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
 

@@ -39,11 +39,11 @@ import simulator.editmodel.EditModel;
  * @see EditModel
  */
 public final class ModelClientData implements Cloneable {
-	private final static Color[] DEFAULT_COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
-	private final static String DEFAULT_ICON="user";
-	private final static double DEFAULT_COSTS_WAITING=0.0;
-	private final static double DEFAULT_COSTS_TRANSFER=0.0;
-	private final static double DEFAULT_COSTS_PROCESS=0.0;
+	private static final Color[] DEFAULT_COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
+	private static final String DEFAULT_ICON="user";
+	private static final double DEFAULT_COSTS_WAITING=0.0;
+	private static final double DEFAULT_COSTS_TRANSFER=0.0;
+	private static final double DEFAULT_COSTS_PROCESS=0.0;
 
 	/**
 	 * Name des XML-Elements, das die Ressourcen-Elemente enthält
@@ -195,7 +195,7 @@ public final class ModelClientData implements Cloneable {
 		if (index<0) return;
 
 		final String oldName=getNameFromColorList(index);
-		if (oldName.equals(name)) return;
+		if (oldName==null || oldName.equals(name)) return;
 		final Color color=colorMap.get(oldName);
 		colorMap.remove(oldName);
 		colorMap.put(name,color);
@@ -210,7 +210,7 @@ public final class ModelClientData implements Cloneable {
 		if (index<0) return;
 
 		final String oldName=getNameFromIconList(index);
-		if (oldName.equals(name)) return;
+		if (oldName==null || oldName.equals(name)) return;
 		final String icon=iconMap.get(oldName);
 		iconMap.remove(oldName);
 		iconMap.put(name,icon);
@@ -225,7 +225,7 @@ public final class ModelClientData implements Cloneable {
 		if (index<0) return;
 
 		final String oldName=getNameFromCostsList(index);
-		if (oldName.equals(name)) return;
+		if (oldName==null || oldName.equals(name)) return;
 		final double d1=costsWaitingMap.get(oldName);
 		final double d2=costsTransferMap.get(oldName);
 		final double d3=costsProcessMap.get(oldName);

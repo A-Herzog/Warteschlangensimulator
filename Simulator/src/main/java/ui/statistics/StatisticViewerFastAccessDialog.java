@@ -73,8 +73,6 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 
 	private JTree tree;
 	private JPanel contentArea;
-	private DefaultReadOnlyTableModel contentModel;
-	private DefaultReadOnlyTableModel attributeModel;
 	private JLabel xmlInfoLabel;
 	private JTable contentTable;
 	private JTable attributeTable;
@@ -157,7 +155,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			xmlInfoLabel.setText("<html><body style=\"color: white;\"><b>"+sb.toString()+"</b></body></html>");
 		}
 
-		contentModel=new DefaultReadOnlyTableModel(node.getContentTableData(buttonGroup));
+		final DefaultReadOnlyTableModel contentModel=new DefaultReadOnlyTableModel(node.getContentTableData(buttonGroup));
 		if (contentTable==null) {
 			contentTable=new JTable(contentModel){
 				private static final long serialVersionUID = -3007665088654159769L;
@@ -180,7 +178,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		contentTable.getColumnModel().getColumn(0).setCellRenderer(new RadioButtonRenderer());
 		contentTable.getColumnModel().getColumn(0).setCellEditor(new RadioButtonEditor(new JCheckBox()));
 
-		attributeModel=new DefaultReadOnlyTableModel(node.getAttributeTableData(buttonGroup));
+		final DefaultReadOnlyTableModel attributeModel=new DefaultReadOnlyTableModel(node.getAttributeTableData(buttonGroup));
 		if (attributeTable==null) {
 			attributeTable=new JTable(attributeModel) {
 				private static final long serialVersionUID = -3007665088654159769L;
@@ -283,7 +281,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-			if (value==null || !(value instanceof Component)) return super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
+			if (!(value instanceof Component)) return super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
 			return (Component)value;
 		}
 	}
@@ -299,7 +297,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 
 		@Override
 		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-			if (value==null || !(value instanceof JRadioButton)) return null;
+			if (!(value instanceof JRadioButton)) return null;
 			button=(JRadioButton)value;
 			button.addItemListener(this);
 			return (Component)value;
@@ -448,7 +446,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			if (needID) {
 				needNrID=false; nrID=-1;
 			} else {
-				if (xmlNode.getParentNode()==null || !(xmlNode.getParentNode() instanceof Element)) {needNrID=false; nrID=-1;} else {
+				if (!(xmlNode.getParentNode() instanceof Element)) {
+					needNrID=false;
+					nrID=-1;
+				} else {
 					Element parent=(Element)xmlNode.getParentNode();
 					int count=0;
 					int nr=0;
@@ -528,7 +529,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 
 		private String[] getPathList(String attribute) {
 			if (xmlNode==null) return new String[0];
-			List<String> list=new ArrayList<String>();
+			List<String> list=new ArrayList<>();
 			list.add(toXMLString());
 			Node path=xmlNode.getParentNode();
 			while (path!=null && path.getParentNode()!=null && path.getParentNode().getParentNode()!=null) {
@@ -546,7 +547,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		}
 
 		private String formatValue(String value, String attribute) {
-			List<String> path=new ArrayList<String>();
+			List<String> path=new ArrayList<>();
 			if (attribute!=null && !attribute.isEmpty()) path.add(attribute);
 			path.add(0,xmlNode.getNodeName());
 			Node parent=xmlNode.getParentNode();
@@ -608,7 +609,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		private DefaultMutableTreeNode getSelItem() {
 			TreePath path=tree.getSelectionPath(); if (path==null || path.getPathCount()==0) return null;
 			Object obj=path.getPath()[path.getPathCount()-1];
-			if (obj==null || !(obj instanceof DefaultMutableTreeNode)) return null;
+			if (!(obj instanceof DefaultMutableTreeNode)) return null;
 			return (DefaultMutableTreeNode)obj;
 		}
 

@@ -32,6 +32,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -124,7 +125,7 @@ public class ModelElementCatalogDescriptionBuilder {
 	 * @return	Bild welches die Modellelemente enthält
 	 */
 	public static BufferedImage getGroupImage(final ModelElementPosition[] elements, final double zoom) {
-		final List<BufferedImage> images=new ArrayList<BufferedImage>();
+		final List<BufferedImage> images=new ArrayList<>();
 		for (ModelElementPosition element: elements) images.add(getImage(element,zoom));
 
 		int sumHeight=0;
@@ -621,7 +622,7 @@ public class ModelElementCatalogDescriptionBuilder {
 
 			final Map<String,ModelElementPosition> group=catalog.get(groupName);
 
-			final List<String> elementNames=new ArrayList<String>(group.keySet());
+			final List<String> elementNames=new ArrayList<>(group.keySet());
 			elementNames.sort(String.CASE_INSENSITIVE_ORDER);
 
 			for (final String elementName: elementNames) {
@@ -630,11 +631,7 @@ public class ModelElementCatalogDescriptionBuilder {
 				if (helpPage==null && skipEmptyPages) continue;
 
 				String s=elementName;
-				try {
-					s=new String(s.getBytes("UTF-8"));
-				} catch (java.io.UnsupportedEncodingException e) {
-					return "Encoder error: "+s;
-				}
+				s=new String(s.getBytes(StandardCharsets.UTF_8));
 				text.append("\\section{"+s+"}\n");
 				if (helpPage!=null) text.append("\\label{ref:"+helpPage+"}\n");
 				text.append("\n");
@@ -715,7 +712,7 @@ public class ModelElementCatalogDescriptionBuilder {
 
 			final Map<String,ModelElementPosition> group=catalog.get(groupName);
 
-			final List<String> elementNames=new ArrayList<String>(group.keySet());
+			final List<String> elementNames=new ArrayList<>(group.keySet());
 			elementNames.sort(String.CASE_INSENSITIVE_ORDER);
 
 			for (final String elementName: elementNames) {
@@ -724,11 +721,7 @@ public class ModelElementCatalogDescriptionBuilder {
 				if (helpPage==null) continue;
 
 				String s=elementName;
-				try {
-					s=new String(s.getBytes("UTF-8"));
-				} catch (java.io.UnsupportedEncodingException e) {
-					return "Encoder error: "+s;
-				}
+				s=new String(s.getBytes(StandardCharsets.UTF_8));
 				text.append("<h3>"+s);
 				if (helpPage!=null) text.append("<a name=\"ref"+helpPage+"\"></a>");
 				text.append("</h3>\n");

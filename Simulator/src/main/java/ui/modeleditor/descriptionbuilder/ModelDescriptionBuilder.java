@@ -357,7 +357,7 @@ public abstract class ModelDescriptionBuilder {
 	public void run() {
 		/* Stationen */
 		final List<ModelElementBox> stations=getBoxStations();
-		while (stations.size()>0) {
+		while (!stations.isEmpty()) {
 			ModelElementBox station=getNextElementSuggestion();
 			if (station!=null && !stations.contains(station)) station=null;
 			if (station==null) station=getNextSource(stations);

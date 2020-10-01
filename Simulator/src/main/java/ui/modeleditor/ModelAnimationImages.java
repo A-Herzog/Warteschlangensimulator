@@ -250,7 +250,7 @@ public final class ModelAnimationImages implements Cloneable {
 	 * @param parent	Knoten, in dem die Daten des Objekts gespeichert werden sollen
 	 */
 	public void addDataToXML(final Document doc, final Element parent) {
-		if (names.size()==0) return;
+		if (names.isEmpty()) return;
 
 		final Element node=doc.createElement(XML_NODE_NAME[0]);
 		parent.appendChild(node);

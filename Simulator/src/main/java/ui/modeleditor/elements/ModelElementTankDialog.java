@@ -51,7 +51,6 @@ public class ModelElementTankDialog extends ModelElementBaseDialog {
 	private JTextField analogNotify;
 	private JComboBox<String> analogNotifyUnit;
 
-	private JTableExt valvesTable;
 	private ModelElementTankTableModel valvesTableModel;
 
 	/**
@@ -161,6 +160,7 @@ public class ModelElementTankDialog extends ModelElementBaseDialog {
 			/* Tab: Ventile */
 			tabs.add(Language.tr("Surface.Tank.Dialog.Tab.Valves"),tab=new JPanel(new BorderLayout()));
 
+			final JTableExt valvesTable;
 			tab.add(new JScrollPane(valvesTable=new JTableExt()),BorderLayout.CENTER);
 			valvesTable.setModel(valvesTableModel=new ModelElementTankTableModel(valvesTable,tank.getValves(),readOnly));
 			valvesTable.getColumnModel().getColumn(0).setMaxWidth(50);

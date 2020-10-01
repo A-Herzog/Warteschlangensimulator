@@ -64,7 +64,7 @@ public class ScriptEditorPanel extends JPanel {
 	 * Standard-Rahmen für einen Java-Codeschnippsel<br>
 	 * (Während bei Javascript direkt losgelegt werden kann, muss der Java-Code in eine Methode verpackt werden (die dann von der Ausführungsschicht noch in eine Klasse eingebaut wird).
 	 */
-	public final static String DEFAULT_JAVA="void function(SimulationInterface sim) {\n\n}\n";
+	public static final String DEFAULT_JAVA="void function(SimulationInterface sim) {\n\n}\n";
 
 	private final List<Runnable> keyActionListeners;
 

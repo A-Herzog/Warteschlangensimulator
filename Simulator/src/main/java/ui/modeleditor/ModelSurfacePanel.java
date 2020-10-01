@@ -59,6 +59,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -135,37 +136,37 @@ public final class ModelSurfacePanel extends JPanel {
 	/**
 	 * Größe der Zeichenfläche
 	 */
-	public final static int SIZE=100_000;
+	public static final int SIZE=100_000;
 
 	/**
 	 * Minimaler Zoomfaktor
 	 */
-	public final static double ZOOM_MIN=0.2;
+	public static final double ZOOM_MIN=0.2;
 
 	/**
 	 * Maximaler Zoomfaktor
 	 */
-	public final static double ZOOM_MAX=4;
+	public static final double ZOOM_MAX=4;
 
 	/**
 	 * Änderung des Zoomfaktors pro Mausrad-Schritt
 	 */
-	public final static double ZOOM_STEP=0.2;
+	public static final double ZOOM_STEP=0.2;
 
 	/**
 	 * Anteil einer Bildschirmseite, um die das Fenster bei einem Mausrad-Schritt gescrollt werden soll
 	 */
-	public final static double WHEEL_SCROLL_FRACTION=25;
+	public static final double WHEEL_SCROLL_FRACTION=25;
 
 	/**
 	 * Maximale Undo-Schritte
 	 */
-	public final static int MAX_UNDO_STEPS=20;
+	public static final int MAX_UNDO_STEPS=20;
 
 	/**
 	 * Minimaler Abstand in Sekunden zwischen der Aufzeichnung von zwei Undo-Schritten
 	 */
-	public final static int MIN_UNDO_TIME_DELTA=1;
+	public static final int MIN_UNDO_TIME_DELTA=1;
 
 	/**
 	 * Betriebsart der Zeichenfläche
@@ -282,11 +283,11 @@ public final class ModelSurfacePanel extends JPanel {
 		undoBuffer=new ArrayList<>();
 		redoBuffer=new ArrayList<>();
 
-		redrawListener=()->{repaint();};
+		redrawListener=()->repaint();
 		setZoom(SetupData.getSetup().lastZoom);
 		raster=ModelSurface.Grid.LINES;
 
-		requestCopyListener=()->{copyToClipboard();};
+		requestCopyListener=()->copyToClipboard();
 		requestCutListener=()->{copyToClipboard(); deleteSelectedElements();};
 
 		addMouseListener(new ModelSurfacePanelMouseListener());
@@ -810,8 +811,8 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	private boolean autoConnect(final ModelElement element1, final ModelElement element2) {
-		if (element1==null || !(element1 instanceof ModelElementPosition)) return false;
-		if (element2==null || !(element2 instanceof ModelElementPosition)) return false;
+		if (!(element1 instanceof ModelElementPosition)) return false;
+		if (!(element2 instanceof ModelElementPosition)) return false;
 
 		final ModelElementPosition box1=(ModelElementPosition)element1;
 		final ModelElementPosition box2=(ModelElementPosition)element2;
@@ -827,7 +828,7 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	private boolean smartConnect(final ModelElement lastSelected, final ModelElement element) {
-		if (element==null || !(element instanceof ModelElementPosition)) return false;
+		if (!(element instanceof ModelElementPosition)) return false;
 		final ModelElementPosition box=(ModelElementPosition)element;
 		if (!box.canAddEdgeIn()) return false;
 
@@ -837,7 +838,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 		for (ModelElement sourceVertex: surface.getElements()) {
 			if (sourceVertex==element) continue;
-			if (sourceVertex==null || !(sourceVertex instanceof ModelElementPosition)) continue;
+			if (!(sourceVertex instanceof ModelElementPosition)) continue;
 			final ModelElementPosition sourceBox=(ModelElementPosition)sourceVertex;
 			if (!sourceBox.canAddEdgeOut()) continue;
 
@@ -1258,7 +1259,7 @@ public final class ModelSurfacePanel extends JPanel {
 		paintElements(svgGenerator,area,false,false,ModelSurface.Grid.OFF,null,false);
 
 		try (FileOutputStream fileWriter=new FileOutputStream(file)) {
-			final Writer out=new OutputStreamWriter(fileWriter,"UTF-8");
+			final Writer out=new OutputStreamWriter(fileWriter,StandardCharsets.UTF_8);
 			svgGenerator.stream(out,true);
 		} catch (UnsupportedEncodingException | SVGGraphics2DIOException | FileNotFoundException e1) {return false;} catch (IOException e) {
 			return false;
@@ -1447,7 +1448,7 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	private void showElementSubEditor(final ModelElement element) {
-		if (element==null || !(element instanceof ModelElementSub)) return;
+		if (!(element instanceof ModelElementSub)) return;
 		surface.setSelectedArea(null,zoom);
 		surface.setSelectedElement(element);
 		fireSelectionListener();
@@ -1483,7 +1484,7 @@ public final class ModelSurfacePanel extends JPanel {
 		if (transferable.isDataFlavorSupported(ModelSurfaceTransferable.MODEL_FLAVOR)) {
 			Object obj=null;
 			try {obj=transferable.getTransferData(ModelSurfaceTransferable.MODEL_FLAVOR);} catch (UnsupportedFlavorException | IOException e) {obj=null;}
-			if (obj!=null && obj instanceof ModelSurfaceTransferable) {
+			if (obj instanceof ModelSurfaceTransferable) {
 				clipboardData=((ModelSurfaceTransferable)obj).getStream();
 				if (clipboardData==null) return false;
 				setMode(ClickMode.MODE_INSERT_ELEMENTS_FROM_CLIPBOARD);
@@ -1496,7 +1497,7 @@ public final class ModelSurfacePanel extends JPanel {
 		if (transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
 			Object text=null;
 			try {text=transferable.getTransferData(DataFlavor.stringFlavor);} catch (UnsupportedFlavorException | IOException e) {text=null;}
-			if (text!=null && text instanceof String) {
+			if (text instanceof String) {
 				clipboardText=(String)text;
 				if (clipboardText.length()>1024) clipboardText=clipboardText.substring(0,1024);
 				setMode(ClickMode.MODE_INSERT_TEXT);
@@ -1508,7 +1509,7 @@ public final class ModelSurfacePanel extends JPanel {
 		if (transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
 			Object image=null;
 			try {image=transferable.getTransferData(DataFlavor.imageFlavor);} catch (UnsupportedFlavorException | IOException e) {image=null;}
-			if (image!=null && image instanceof BufferedImage) {
+			if (image instanceof BufferedImage) {
 				clipboardImage=(BufferedImage)image;
 				setMode(ClickMode.MODE_INSERT_IMAGE);
 				setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -1518,7 +1519,7 @@ public final class ModelSurfacePanel extends JPanel {
 		if (transferable.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 			Object list=null;
 			try {list=transferable.getTransferData(DataFlavor.javaFileListFlavor);} catch (UnsupportedFlavorException | IOException e) {list=null;}
-			if (list!=null && list instanceof List<?>) {
+			if (list instanceof List<?>) {
 				@SuppressWarnings("unchecked")
 				List<File> fileList=(List<File>)list;
 
@@ -1623,7 +1624,7 @@ public final class ModelSurfacePanel extends JPanel {
 		return showModelPropertiesListeners.remove(showModelPropertiesListener);
 	}
 
-	private transient final List<BiConsumer<String,Integer>> resourceCountSetter=new ArrayList<>();
+	private final transient List<BiConsumer<String,Integer>> resourceCountSetter=new ArrayList<>();
 
 	/**
 	 * Fügt einen Consumer hinzu, der benachrichtigt werden soll, wenn die Anzahl an Bedienern in einer Gruppe geändert werden soll.
@@ -2123,7 +2124,7 @@ public final class ModelSurfacePanel extends JPanel {
 		this.additionalTooltipGetter=additionalTooltipGetter;
 	}
 
-	private transient final Set<Consumer<ParameterCompareTemplatesDialog.TemplateRecord>> buildParameterSeriesListeners=new HashSet<>();
+	private final transient Set<Consumer<ParameterCompareTemplatesDialog.TemplateRecord>> buildParameterSeriesListeners=new HashSet<>();
 
 	/**
 	 * Fügt einen Listener zu der Liste der Listener hinzu, die benachrichtigt werden sollen, wenn der Nutzer per Kontextmenü die Erstellung einer Parameterreihe auslöst.
@@ -2249,7 +2250,7 @@ public final class ModelSurfacePanel extends JPanel {
 				if (surface==null || readOnly) return;
 				final ModelElement element=surface.getElementAtPosition(e.getPoint(),zoom);
 				boolean ok=false;
-				if (element!=null && element instanceof ModelElementPosition) ok=((ModelElementPosition)element).canAddEdgeOut();
+				if (element instanceof ModelElementPosition) ok=((ModelElementPosition)element).canAddEdgeOut();
 				if (ok) {
 					modeAddElement=element;
 					setMode(ClickMode.MODE_ADD_EDGE_STEP2);
@@ -2284,7 +2285,7 @@ public final class ModelSurfacePanel extends JPanel {
 				if (surface==null || readOnly) return;
 				final ModelElement element=surface.getElementAtPosition(e.getPoint(),zoom);
 				boolean ok=false;
-				if (element!=null && element instanceof ModelElementPosition) ok=((ModelElementPosition)element).canAddEdgeOut();
+				if (element instanceof ModelElementPosition) ok=((ModelElementPosition)element).canAddEdgeOut();
 				if (ok) {
 					modeAddElement=element;
 					setMode(ClickMode.MODE_ADD_EDGE_STEP2);
@@ -2561,7 +2562,7 @@ public final class ModelSurfacePanel extends JPanel {
 			case MODE_ADD_EDGE_STEP1:
 				ok=false;
 				element=surface.getElementAtPosition(e.getPoint(),zoom);
-				if (element!=null && element instanceof ModelElementPosition) ok=((ModelElementPosition)element).canAddEdgeOut();
+				if (element instanceof ModelElementPosition) ok=((ModelElementPosition)element).canAddEdgeOut();
 				setCursor(ok?Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR):cursorNotAllowed);
 				tooltip=null;
 				if (element instanceof ModelElementPosition)  tooltip=((ModelElementPosition)element).getToolTip();
@@ -2573,7 +2574,7 @@ public final class ModelSurfacePanel extends JPanel {
 			case MODE_ADD_EDGE_STEP2:
 				ok=false;
 				element=surface.getElementAtPosition(e.getPoint(),zoom);
-				if (element!=null && element instanceof ModelElementPosition) ok=((ModelElementPosition)element).canAddEdgeIn();
+				if (element instanceof ModelElementPosition) ok=((ModelElementPosition)element).canAddEdgeIn();
 				setCursor(ok?Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR):cursorNotAllowed);
 				tooltip=null;
 				if (element instanceof ModelElementPosition)  tooltip=((ModelElementPosition)element).getToolTip();
@@ -2584,9 +2585,11 @@ public final class ModelSurfacePanel extends JPanel {
 			case MODE_INSERT_ELEMENTS_FROM_CLIPBOARD:
 				setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 				setToolTipText(Language.tr("Editor.SurfaceTooltip.PasteFromClipboard"));
+				break;
 			case MODE_INSERT_ELEMENTS_FROM_TEMPLATE:
 				setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 				setToolTipText(Language.tr("Editor.SurfaceTooltip.PasteFromTemplate"));
+				break;
 			case MODE_INSERT_IMAGE:
 				setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 				setToolTipText(Language.tr("Editor.SurfaceTooltip.PasteFromClipboard.Image"));
@@ -2708,7 +2711,7 @@ public final class ModelSurfacePanel extends JPanel {
 					if (list!=null && list.size()>0) element=list.get(0);
 				}
 
-				if (element!=null && element instanceof ModelElementPosition && !(readOnly && !allowChangeOperationsOnReadOnly)) {
+				if (element instanceof ModelElementPosition && !(readOnly && !allowChangeOperationsOnReadOnly)) {
 					Point delta;
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_LEFT: delta=new Point(-1,0); break;
@@ -2795,7 +2798,7 @@ public final class ModelSurfacePanel extends JPanel {
 					List<ModelElement> list=surface.getSelectedArea(true);
 					if (list!=null && list.size()>0) element=list.get(0);
 				}
-				if (element!=null && element instanceof ModelElementPosition) {
+				if (element instanceof ModelElementPosition) {
 					showQuickFixPopup((ModelElementPosition)element);
 					e.consume();
 					return;

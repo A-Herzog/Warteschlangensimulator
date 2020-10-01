@@ -37,7 +37,7 @@ import statistics.StatisticsDataPerformanceIndicator;
  * @author Alexander Herzog
  * @see StatisticsDataPerformanceIndicator
  */
-public class StatisticsDataPerformanceIndicatorTest {
+class StatisticsDataPerformanceIndicatorTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

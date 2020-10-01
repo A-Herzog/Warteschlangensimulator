@@ -18,7 +18,7 @@ package ui.modeleditor.outputbuilder;
 import java.awt.Color;
 import java.awt.Point;
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,7 +105,7 @@ public class HTMLOutputBuilder extends SpecialOutputBuilder {
 		text=text.replace("&","&amp;");
 		text=text.replace("<","&lt;");
 		text=text.replace(">","&gt;");
-		try {text=new String(text.getBytes("UTF-8"));} catch (UnsupportedEncodingException e) {}
+		text=new String(text.getBytes(StandardCharsets.UTF_8));
 		return text;
 	}
 
@@ -116,7 +116,7 @@ public class HTMLOutputBuilder extends SpecialOutputBuilder {
 	 */
 	public static String encodeTextFieldHTML(String text) {
 		text=text.replace("\"","\\\"");
-		try {text=new String(text.getBytes("UTF-8"));} catch (UnsupportedEncodingException e) {}
+		text=new String(text.getBytes(StandardCharsets.UTF_8));
 		return text;
 	}
 

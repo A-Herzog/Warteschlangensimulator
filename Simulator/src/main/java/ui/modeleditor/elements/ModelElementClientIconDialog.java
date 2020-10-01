@@ -37,7 +37,6 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class ModelElementClientIconDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 3856457045122236178L;
 
-	private AnimationImageSource imageSource;
 	private DefaultComboBoxModel<JLabel> iconChooserList;
 	private JComboBox<JLabel> iconChooser;
 
@@ -67,13 +66,13 @@ public class ModelElementClientIconDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected JComponent getContentPanel() {
-		imageSource=new AnimationImageSource();
+		final AnimationImageSource imageSource=new AnimationImageSource();
 
 		final JPanel content=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel label;
 
 		content.add(label=new JLabel(Language.tr("Surface.ClientIcon.Dialog.IconForClient")+":"));
-		content.add(iconChooser=new JComboBox<JLabel>());
+		content.add(iconChooser=new JComboBox<>());
 		iconChooserList=imageSource.getIconsComboBox(element.getModel().animationImages);
 		iconChooser.setModel(iconChooserList);
 		iconChooser.setRenderer(new AnimationImageSource.IconComboBoxCellRenderer());

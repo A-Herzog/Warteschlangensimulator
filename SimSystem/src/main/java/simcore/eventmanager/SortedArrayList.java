@@ -44,10 +44,7 @@ public class SortedArrayList<E extends Comparable<E>> extends ArrayList<E> {
 	 */
 	public SortedArrayList() {
 		super(128);
-
-		comparator=new Comparator<E>() {
-			@Override public int compare(final E o1, final E o2) {return o2.compareTo(o1);}
-		};
+		comparator=(o1,o2)->o2.compareTo(o1);
 	}
 
 	@Override

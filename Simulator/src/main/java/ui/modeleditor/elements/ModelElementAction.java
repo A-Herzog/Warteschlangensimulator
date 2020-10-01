@@ -264,8 +264,8 @@ public class ModelElementAction extends ModelElementBox implements ModelElementS
 
 	@Override
 	public boolean setReferenceEdges(List<ModelElementEdge> connectionsIn, List<ModelElementEdge> connectionsOut) {
-		if (connectionsIn.size()>0) return false;
-		if (connectionsOut.size()>0) return false;
+		if (!connectionsIn.isEmpty()) return false;
+		if (!connectionsOut.isEmpty()) return false;
 
 		return false;
 	}

@@ -94,7 +94,7 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 		}));
 		numberOfLights.setEnabled(!readOnly);
 		label.setLabelFor(numberOfLights);
-		numberOfLights.addActionListener((e)->{
+		numberOfLights.addActionListener(e->{
 			if (numberOfLights.getSelectedIndex()==0) {
 				expressionTwo.setEnabled(false);
 			} else {

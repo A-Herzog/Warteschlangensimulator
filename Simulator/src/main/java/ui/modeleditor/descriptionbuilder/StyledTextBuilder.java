@@ -67,7 +67,7 @@ public class StyledTextBuilder {
 	private final List<String> lines;
 	private final List<Integer> lineTypes; /* 0=Text, 1,2,3,...=Überschriften, -1=Absatzbeginn, -2=Absatzende */
 
-	private final static String HTML_HEADER=
+	private static final String HTML_HEADER=
 			"<!DOCTYPE html>\n"+
 					"<html>\n"+
 					"<head>\n"+
@@ -78,14 +78,14 @@ public class StyledTextBuilder {
 					"  </style>\n"+
 					"</head>\n"+
 					"<body>\n\n";
-	private final static String HTML_FOOTER="\n</body></html>";
+	private static final String HTML_FOOTER="\n</body></html>";
 
 	/**
 	 * Konstruktor der Klasse
 	 */
 	public StyledTextBuilder() {
-		lines=new ArrayList<String>();
-		lineTypes=new ArrayList<Integer>();
+		lines=new ArrayList<>();
+		lineTypes=new ArrayList<>();
 	}
 
 	/**

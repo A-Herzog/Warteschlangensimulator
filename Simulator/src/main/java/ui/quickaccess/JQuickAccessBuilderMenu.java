@@ -33,7 +33,7 @@ import ui.images.Images;
  * @see JQuickAccessBuilder
  */
 public class JQuickAccessBuilderMenu extends JQuickAccessBuilder {
-	private final static Icon DEFAULT_ICON;
+	private static final Icon DEFAULT_ICON;
 
 	static {
 		DEFAULT_ICON=Images.GENERAL_APPLICATION.getIcon();

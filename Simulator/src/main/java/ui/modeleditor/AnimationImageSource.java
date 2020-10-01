@@ -355,7 +355,6 @@ public class AnimationImageSource {
 		ICONS.put(iconNameFlower,"flower");
 		ICONS.put(iconNameHamburger,"hamburger");
 		ICONS.put(iconNameHand,"hand");
-		ICONS.put(iconNameHeart,"heart");
 		ICONS.put(iconNameJar,"jar");
 		ICONS.put(iconNameLeaf,"leaf");
 		ICONS.put(iconNameLifebuoy,"lifebuoy");
@@ -375,7 +374,7 @@ public class AnimationImageSource {
 		initIconsMap();
 	}
 
-	private final static String IMAGE_PATH="animation/";
+	private static final String IMAGE_PATH="animation/";
 
 	private Map<Long,BufferedImage> cache;
 

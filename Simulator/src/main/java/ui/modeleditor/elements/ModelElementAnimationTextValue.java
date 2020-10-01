@@ -51,7 +51,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationTextValue extends ModelElementPosition implements ElementWithAnimationDisplay {
-	private final static Color DEFAULT_COLOR=Color.BLACK;
+	private static final Color DEFAULT_COLOR=Color.BLACK;
 
 	/**
 	 * Wie soll der Ausgabetext formatiert werden?
@@ -615,7 +615,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_EXPRESSION_NUMBER:
 			if (isPreview) return false;
 			d=calcExpression(simData);
-			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<Math.pow(10,-(digits+1))) return false;
+			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<FastMath.pow(10,-(digits+1))) return false;
 			if (animationSB==null) animationSB=new StringBuilder();
 			s=NumberTools.formatNumber(d,digits,animationSB);
 			simTextValueDouble=d;
@@ -623,7 +623,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_EXPRESSION_PERCENT:
 			if (isPreview) return false;
 			d=calcExpression(simData);
-			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<Math.pow(10,-(digits+4))) return false;
+			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<FastMath.pow(10,-(digits+4))) return false;
 			if (animationSB==null) animationSB=new StringBuilder();
 			s=NumberTools.formatPercent(d,digits,animationSB);
 			simTextValueDouble=d;

@@ -550,7 +550,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 				values++;
 				sum+=dist.densityData[j];
 			}
-			series.add(dist.upperBound*i/(dist.densityData.length-1),sum/values,false);
+			series.add(dist.upperBound*i/(dist.densityData.length-1),(values==0)?0:(sum/values),false);
 		}
 		series.fireSeriesChanged();
 		data.addSeries(series);
@@ -577,7 +577,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 				values++;
 				sum+=dist.densityData[j];
 			}
-			series.add(dist.upperBound*i/(dist.densityData.length-1)/3600,sum/values,false);
+			series.add(dist.upperBound*i/(dist.densityData.length-1)/3600,(values==0)?0:(sum/values),false);
 		}
 		series.fireSeriesChanged();
 		data.addSeries(series);

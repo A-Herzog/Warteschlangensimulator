@@ -262,7 +262,7 @@ public abstract class SetupBase {
 	 * @param doc	Übergeordnetes xml-Dokument
 	 * @param root	xml-Basisknoten, in dem die Setup-Daten gespeichert werden sollen
 	 */
-	abstract protected void saveSetupToXML(final Document doc, final Element root);
+	protected abstract void saveSetupToXML(final Document doc, final Element root);
 
 	/**
 	 * War der letzte Speichervorgang des Setups in einer Datei erfolgreich?

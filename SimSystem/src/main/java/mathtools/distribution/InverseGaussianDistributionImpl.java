@@ -20,6 +20,7 @@ import java.io.Serializable;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Inverse Gauﬂ-Verteilung
@@ -68,7 +69,7 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 		/* if (lambda<=0 || mu<=0) return 0; - per Konstruktor ausgeschlossen */
 		/* https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution */
 		if (x<=0) return 0;
-		return Math.sqrt(lambda/2/Math.PI/x/x/x)*Math.exp(-lambda*(x-mu)*(x-mu)/2/mu/mu/x);
+		return Math.sqrt(lambda/2/Math.PI/x/x/x)*FastMath.exp(-lambda*(x-mu)*(x-mu)/2/mu/mu/x);
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 		/* if (lambda<=0 || mu<=0) return 0; - per Konstruktor ausgeschlossen */
 		/* https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution */
 		if (x<=0) return 0;
-		return stdNormal.cumulativeProbability(Math.sqrt(lambda/x)*(x/mu-1))+Math.exp(2*lambda/mu)*stdNormal.cumulativeProbability(-Math.sqrt(lambda/x)*(x/mu+1));
+		return stdNormal.cumulativeProbability(Math.sqrt(lambda/x)*(x/mu-1))+FastMath.exp(2*lambda/mu)*stdNormal.cumulativeProbability(-Math.sqrt(lambda/x)*(x/mu+1));
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class MJPEGSystem implements VideoSystem {
 	private final MJPEGBufferWriterBase buffer;
 	private final MJPEGBuilder storage;
 
-	private final static boolean useDirectPath=true; /* Bilder direkt beim Puffern als JPEG speichern, so dass die Erstellung der avi-Datei schneller geht. */
+	private static final boolean useDirectPath=true; /* Bilder direkt beim Puffern als JPEG speichern, so dass die Erstellung der avi-Datei schneller geht. */
 
 	/**
 	 * Konstruktor der Klasse <code>MJPEGSystem</code>

@@ -323,6 +323,7 @@ public class EditModelExamples {
 			setLanguage[0].run();
 
 			final EditModel example=EditModelExamples.getExampleByIndex(null,EditModelExamples.getExampleIndexFromName(exampleName));
+			if (example==null) continue;
 			Document doc=example.saveToXMLDocument();
 
 			if (!example.equalsEditModel(example.clone())) {
@@ -436,12 +437,11 @@ public class EditModelExamples {
 	 * Speichert Bilder für alle Beispielmodelle
 	 * @param language	Sprache
 	 * @param parentFolder	Ausgabeverzeichnis (die Dateinamen werden automatisch gewählt)
-	 * @param zoom	Zoomfaktor für die Darstellung in den Bildern
 	 * @param out	Ausgabestream für Meldungen (darf nicht <code>null</code> sein)
 	 * @return	Gibt an, ob die Bilder erfolgreich erstellt werden konnten
 	 */
 
-	public static boolean saveImages(final String language, final File parentFolder, final double zoom, final PrintStream out) {
+	public static boolean saveImages(final String language, final File parentFolder, final PrintStream out) {
 		final File folder=new File(parentFolder,language);
 		if (!folder.isDirectory()) {
 			if (!folder.mkdirs()) {

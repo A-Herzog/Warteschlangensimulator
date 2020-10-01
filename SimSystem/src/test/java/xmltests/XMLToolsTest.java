@@ -39,7 +39,7 @@ import xml.XMLTools;
  * @author Alexander Herzog
  * @see XMLTools
  */
-public class XMLToolsTest {
+class XMLToolsTest {
 	/**
 	 * Test: Basistests
 	 */

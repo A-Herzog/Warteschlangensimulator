@@ -36,7 +36,7 @@ import statistics.StatisticsDataCollector;
  * @author Alexander Herzog
  * @see StatisticsDataCollector
  */
-public class StatisticsDataCollectorTest {
+class StatisticsDataCollectorTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

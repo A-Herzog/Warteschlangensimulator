@@ -135,15 +135,6 @@ public abstract class CalcSystemBase implements MathParser {
 	}
 
 	/**
-	 * Versucht den übergebenen übergebenen Ausdruck zu interpretieren, dabei werden
-	 * Variablennamen erkannt usw., es wird aber noch kein konkreter Wert berechnet.
-	 * @param text	Ausdruck, der verarbeitet werden soll
-	 * @return	Gibt <code>-1</code> zurück, wenn der Ausdruck verarbeitet werden konnte.
-	 */
-	@Override
-	public abstract int parse(String text);
-
-	/**
 	 * Versucht den im Konstruktor übergebenen Ausdruck zu interpretieren, dabei werden
 	 * Variablennamen erkannt usw., es wird aber noch kein konkreter Wert berechnet.
 	 * @return	Gibt <code>-1</code> zurück, wenn der Ausdruck verarbeitet werden konnte.
@@ -170,15 +161,6 @@ public abstract class CalcSystemBase implements MathParser {
 	public void unsetPlainNumber() {
 		isPlainNumber=false;
 	}
-
-	/**
-	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und der hier angegebenen Werte.
-	 * @param variableValues	Liste mit den Werten der Variablen
-	 * @return	Zahlenwert des Ergebnisses.
-	 * @throws	MathCalcError	Fehler während der Berechnung
-	 */
-	@Override
-	public abstract double calc(double[] variableValues) throws MathCalcError;
 
 	/**
 	 * Berechnet den bereits geparsten Ausdruck auf Basis der bekannten Variablennamen und Werte.

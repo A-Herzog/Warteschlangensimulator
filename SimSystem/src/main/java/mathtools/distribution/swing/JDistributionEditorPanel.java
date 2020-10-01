@@ -29,7 +29,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -157,7 +156,7 @@ public class JDistributionEditorPanel extends JPanel {
 
 	/** Zuletzt aktives Panel<br>
 	 * Um auch zu Beginn, wenn noch kein Panel, also -1, aktiv ist, als "geändert" angesehen zu werden, wird hier -2 als Startwert verwendet.
-	 * @see #itemStateChanged(ItemEvent)
+	 * @see #itemStateChanged()
 	 */
 	private int lastIndex=-2;
 
@@ -200,7 +199,7 @@ public class JDistributionEditorPanel extends JPanel {
 
 		add(distributionType=new JComboBox<>(),BorderLayout.NORTH);
 		for (JDistributionEditorPanelRecord record: records) distributionType.addItem(record.getName());
-		distributionType.addItemListener(e->itemStateChanged(e));
+		distributionType.addItemListener(e->itemStateChanged());
 		DistributionComboBoxRenderer renderer=new DistributionComboBoxRenderer();
 		renderer.setPreferredSize(new Dimension(50,27));
 		distributionType.setRenderer(renderer);
@@ -423,7 +422,7 @@ public class JDistributionEditorPanel extends JPanel {
 		return true;
 	}
 
-	private void itemStateChanged(ItemEvent event) {
+	private void itemStateChanged() {
 		if (distributionType.getSelectedIndex()==lastIndex) return;
 		lastIndex=distributionType.getSelectedIndex();
 		final double mean=NumberTools.reduceDigits(DistributionTools.getMean(distribution),10);

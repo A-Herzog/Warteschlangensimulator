@@ -68,7 +68,7 @@ public class DDEEditPanel extends JPanel {
 
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
-		Object data[];
+		Object[] data;
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DDE.Workbook")+":",element.getWorkbook());
 		final JPanel line=(JPanel)data[0];
@@ -119,7 +119,7 @@ public class DDEEditPanel extends JPanel {
 
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
-		Object data[];
+		Object[] data;
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DDE.Workbook")+":",workbook);
 		final JPanel line=(JPanel)data[0];

@@ -67,17 +67,17 @@ public final class ModelSurface {
 	/**
 	 * Standardhintergrundfarbe (unten)
 	 */
-	public final static Color DEFAULT_BACKGROUND_COLOR=new Color(255,255,250);
+	public static final Color DEFAULT_BACKGROUND_COLOR=new Color(255,255,250);
 
 	/**
 	 * Standardhintergrundfarbe (oben)
 	 */
-	public final static Color DEFAULT_BACKGROUND_GRADIENT_COLOR=new Color(253,245,230);
+	public static final Color DEFAULT_BACKGROUND_GRADIENT_COLOR=new Color(253,245,230);
 
 	/**
 	 * Standardfarbe des Rasters
 	 */
-	public final static Color DEFAULT_RASTER_COLOR=new Color(240,240,240);
+	public static final Color DEFAULT_RASTER_COLOR=new Color(240,240,240);
 
 	/**
 	 * Zeitbasis für Bedien-, Transport-, Verzögerungs- usw. Zeiten.
@@ -146,7 +146,7 @@ public final class ModelSurface {
 	/**
 	 * Multiplikatoren (relativ zu einer Sekunde) für die Zeitbasis-Werte
 	 */
-	private final static long[] TIMEBASE_MULTIPLY=new long[]{1,60,3600};
+	private static final long[] TIMEBASE_MULTIPLY=new long[]{1,60,3600};
 
 	/**
 	 * Name des XML-Elements, das die Surface-Elemente enthält
@@ -964,7 +964,7 @@ public final class ModelSurface {
 
 		final List<String> clientTypes=new ArrayList<>();
 		for (ModelElement element : elements) {
-			String names[]=null;
+			String[] names=null;
 
 			if (element instanceof ElementWithNewClientNames) names=((ElementWithNewClientNames)element).getNewClientTypes();
 

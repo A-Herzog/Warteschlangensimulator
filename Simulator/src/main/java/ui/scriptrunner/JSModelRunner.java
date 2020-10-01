@@ -124,7 +124,7 @@ public class JSModelRunner {
 
 	private void output(final String text) {
 		if (canceled || outputNotify==null) return;
-		SwingUtilities.invokeLater(()->{outputNotify.accept(text);});
+		SwingUtilities.invokeLater(()->outputNotify.accept(text));
 	}
 
 	private void done() {

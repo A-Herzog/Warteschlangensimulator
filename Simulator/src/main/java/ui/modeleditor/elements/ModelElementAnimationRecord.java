@@ -198,9 +198,9 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 			data1[3*i]=i+1;
 			data2[3*i]=i+1;
 			data1[3*i+1]=i+1;
-			data2[3*i+1]=i+1+Math.pow(-1,i)*v[i];
+			data2[3*i+1]=i+1+FastMath.pow(-1,i)*v[i];
 			data1[3*i+2]=i+1;
-			data2[3*i+2]=i+1+Math.pow(-1,i+1)*v[9-i];
+			data2[3*i+2]=i+1+FastMath.pow(-1,i+1)*v[9-i];
 		}
 		drawDiagramPoints(g,rectangle,data1,data2,data1.length);
 	}

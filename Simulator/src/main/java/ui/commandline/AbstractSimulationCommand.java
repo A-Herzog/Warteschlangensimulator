@@ -84,7 +84,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 * @param minimalOutput	Wird hier <code>false</code> übergeben, so werden Fortschrittsmeldungen ausgegeben.
 	 * @param out Ein optionales {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
 	 */
-	public final static void waitForSimulationDone(final AnySimulator simulator, final boolean minimalOutput, final PrintStream out) {
+	public static final void waitForSimulationDone(final AnySimulator simulator, final boolean minimalOutput, final PrintStream out) {
 		final long startTime=System.currentTimeMillis();
 		long lastGesamt=Integer.MAX_VALUE;
 
@@ -124,11 +124,12 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 
 	/**
 	 * Versucht basierend auf einem {@link EditModel} eine Simulation vorzubereiten und zu starten
+	 *  @param maxThreads Gibt an, wie viele Threads maximal verwendet werden sollen.
 	 * @param editModel	Editor-Modell, welches verwendet werden soll (darf nicht <code>null</code> sein)
 	 * @param out	Optionale Ausgabe von Meldungen
 	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt, sonst einen String mit einer Fehlermeldung
 	 */
-	public static final Object prepare(final EditModel editModel, final PrintStream out) {
+	public static final Object prepare(final int maxThreads, final EditModel editModel, final PrintStream out) {
 		/* Modell vorbereiten */
 		if (EditModelBase.isNewerVersionSystem(editModel.version,EditModel.systemVersion)) {
 			if (out!=null) out.println(Language.tr("Dialog.Title.Warning").toUpperCase()+": "+Language.tr("Editor.NewerVersion.Info.Short"));
@@ -137,7 +138,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 				if (out!=null) out.println(Language.tr("Dialog.Title.Warning").toUpperCase()+": "+Language.tr("Editor.UnknownElements.Info.Short"));
 			}
 		}
-		final StartAnySimulator starter=new StartAnySimulator(editModel);
+		final StartAnySimulator starter=new StartAnySimulator(maxThreads,editModel);
 		final String error=starter.prepare();
 		if (error!=null) {
 			if (out!=null) out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.PreparationOfModel")+": "+error);
@@ -154,7 +155,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 * @param out	Optionale Ausgabe von Meldungen
 	 */
 	public static final void outputModelLoadDataWarnings(final List<String> warnings, final PrintStream out) {
-		if (warnings==null || warnings.size()==0 || out==null) return;
+		if (warnings==null || warnings.isEmpty() || out==null) return;
 
 		out.println(Language.tr("ModelLoadData.ProcessError.CommandLineTitle"));
 		warnings.forEach(out::println);
@@ -175,7 +176,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 */
 	protected final Statistics singleSimulation(final EditModel editModel, final boolean minimalOutput, final int maxThreads, final PrintStream out) {
 		/* Vorbereiten und starten */
-		final Object obj=prepare(editModel,out);
+		final Object obj=prepare(maxThreads,editModel,out);
 		if (!(obj instanceof AnySimulator)) return null;
 		simulator=(AnySimulator)obj;
 

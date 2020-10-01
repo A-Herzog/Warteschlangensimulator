@@ -1850,7 +1850,7 @@ public class MainPanel extends MainPanelBase {
 		final File folder=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParentFile();
 		final EditModel newModel=model.modelLoadData.changeModel(model,folder,true);
 		final List<String> warnings=model.modelLoadData.getChangeWarnings();
-		if (warnings.size()>0) {
+		if (!warnings.isEmpty()) {
 			final ModelLoadDataWarningsDialog dialog=new ModelLoadDataWarningsDialog(this,warnings);
 			if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		}
@@ -2025,7 +2025,7 @@ public class MainPanel extends MainPanelBase {
 		final EditModel changedEditModel=editModel.modelLoadData.changeModel(editModel,folder);
 		if (changedEditModel!=null) {
 			final List<String> warnings=editModel.modelLoadData.getChangeWarnings();
-			if (warnings.size()>0) {
+			if (!warnings.isEmpty()) {
 				final ModelLoadDataWarningsDialog dialog=new ModelLoadDataWarningsDialog(this,warnings);
 				if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
 			}
@@ -2057,7 +2057,7 @@ public class MainPanel extends MainPanelBase {
 		final EditModel changedEditModel=editModel.modelLoadData.changeModel(editModel,folder);
 		if (changedEditModel!=null) {
 			final List<String> warnings=editModel.modelLoadData.getChangeWarnings();
-			if (warnings.size()>0) {
+			if (!warnings.isEmpty()) {
 				final ModelLoadDataWarningsDialog dialog=new ModelLoadDataWarningsDialog(this,warnings);
 				if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
 			}
@@ -2212,7 +2212,7 @@ public class MainPanel extends MainPanelBase {
 		final EditModel changedEditModel=editModel.modelLoadData.changeModel(editModel,folder);
 		if (changedEditModel!=null) {
 			final List<String> warnings=editModel.modelLoadData.getChangeWarnings();
-			if (warnings.size()>0) {
+			if (!warnings.isEmpty()) {
 				final ModelLoadDataWarningsDialog dialog=new ModelLoadDataWarningsDialog(this,warnings);
 				if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 			}

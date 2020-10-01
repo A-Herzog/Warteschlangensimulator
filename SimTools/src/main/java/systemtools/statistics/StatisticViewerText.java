@@ -231,7 +231,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 					final MouseEvent e2=new MouseEvent((Component)e.getSource(),e.getID(),e.getWhen(),e.getModifiersEx(),e.getX(),e.getY(),e.getXOnScreen(),e.getYOnScreen(),e.getClickCount(),false,MouseEvent.BUTTON1);
 					textPane.dispatchEvent(e2);
 
-					final String hint=pointToHint(e.getPoint());
+					final String hint=pointToHint();
 					if (hint!=null) {
 						final JPopupMenu menu=processContextClick(hint);
 						if (menu!=null) menu.show(e.getComponent(),e.getX(),e.getY());
@@ -1267,7 +1267,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return (String)obj;
 	}
 
-	private String pointToHint(final Point point) {
+	private String pointToHint() {
 		/*
 		Ursprünglich:
 		offset=textPane.viewToModel(point);
@@ -1354,7 +1354,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	private void processSearchResults(final Component owner, final String search, final List<Integer> hits) {
 		textPane.getHighlighter().removeAllHighlights();
 
-		if (hits==null || hits.size()==0) {
+		if (hits==null || hits.isEmpty()) {
 			MsgBox.info(owner,StatisticsBasePanel.viewersToolbarSearch,String.format(StatisticsBasePanel.viewersToolbarSearchNotFound,search));
 			return;
 		}

@@ -351,7 +351,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		}
 		final Point y=new Point((int)FastMath.round(p.x+alpha*v.x),(int)FastMath.round(p.y+alpha*v.y)); /* Lotfuﬂpunkt von X auf P->Q */
 
-		if (FastMath.abs(x.x-y.x)>MAX_POINT_DELTA || FastMath.abs(x.y-y.y)>MAX_POINT_DELTA) return false; /* Abstand von Gerade zu groﬂ? */
+		if (Math.abs(x.x-y.x)>MAX_POINT_DELTA || Math.abs(x.y-y.y)>MAX_POINT_DELTA) return false; /* Abstand von Gerade zu groﬂ? */
 		final double len=FastMath.sqrt(v.x*v.x+v.y*v.y);
 
 		if (alpha*len<-MAX_POINT_DELTA || alpha*len>len+MAX_POINT_DELTA) return false; /* Fuﬂpunkt vor Beginn oder nach Ende der Strecke P->Q? */
@@ -529,7 +529,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			}
 		}
 
-		final Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(FastMath.abs(s.width)*zoom),(int)FastMath.round(FastMath.abs(s.height)*zoom));
+		final Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
 		if (backgroundColor!=null) {
 			g2.setColor(backgroundColor);
 			g2.fill(rectangle);

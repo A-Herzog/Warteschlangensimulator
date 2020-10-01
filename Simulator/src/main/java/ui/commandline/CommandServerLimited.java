@@ -31,7 +31,7 @@ public class CommandServerLimited extends CommandServer {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		list.add(Language.tr("CommandLine.ServerLimited.Name"));
 		for (String s: Language.trOther("CommandLine.ServerLimited.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);

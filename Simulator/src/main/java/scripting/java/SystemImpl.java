@@ -173,8 +173,7 @@ public class SystemImpl implements SystemInterface {
 			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
 			if (calc.parse((String)value)>=0) return null;
 			try {
-				final Double D=calc.calc(simData.runData.variableValues,simData,null);
-				return D;
+				return calc.calc(simData.runData.variableValues,simData,null);
 			} catch (MathCalcError e) {
 				return null;
 			}

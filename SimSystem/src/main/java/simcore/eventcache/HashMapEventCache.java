@@ -47,8 +47,8 @@ public final class HashMapEventCache implements EventCache {
 	public HashMapEventCache(final int initialCacheSizePerClass) {
 		this.initialCacheSizePerClass=initialCacheSizePerClass;
 		/* langsamer, da k1.equals(k2) Vergleiche beim get: cacheClassList=new HashMap<Class<? extends Event>,Deque<Event>>(); */
-		cacheClassList=new IdentityHashMap<Class<? extends Event>,Deque<Event>>();
-		cacheConstructors=new IdentityHashMap<Class<? extends Event>,Constructor<Event>>();
+		cacheClassList=new IdentityHashMap<>();
+		cacheConstructors=new IdentityHashMap<>();
 	}
 
 	/**

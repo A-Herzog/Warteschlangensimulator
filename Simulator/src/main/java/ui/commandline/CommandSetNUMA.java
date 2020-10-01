@@ -37,7 +37,7 @@ public class CommandSetNUMA extends AbstractCommand {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<String>();
+		List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.SetNUMA.Name")));
 		for (String s: Language.trOther("CommandLine.SetNUMA.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);

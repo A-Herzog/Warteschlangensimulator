@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Logistische Verteilung
@@ -55,7 +56,7 @@ public final class LogisticDistributionImpl extends AbstractRealDistribution imp
 	public double density(double x) {
 		/* https://en.wikipedia.org/wiki/Logistic_distribution */
 		/* if (s<=0) return 0;  - per Konstruktor ausgeschlossen */
-		double part=Math.exp(-(x-mu)/s);
+		double part=FastMath.exp(-(x-mu)/s);
 		return part/(s*(1+part)*(1+part));
 	}
 
@@ -63,7 +64,7 @@ public final class LogisticDistributionImpl extends AbstractRealDistribution imp
 	public double cumulativeProbability(double x) {
 		/* https://en.wikipedia.org/wiki/Logistic_distribution */
 		/* if (s<=0) return 0;  - per Konstruktor ausgeschlossen */
-		return 1/(1+Math.exp(-(x-mu)/s));
+		return 1/(1+FastMath.exp(-(x-mu)/s));
 	}
 
 	@Override
@@ -109,7 +110,7 @@ public final class LogisticDistributionImpl extends AbstractRealDistribution imp
 	}
 
 	@Override
-	public final double random(final RandomGenerator generator) {
+	public double random(final RandomGenerator generator) {
 		/* https://de.wikipedia.org/wiki/Logistische_Verteilung */
 		final double u=generator.nextDouble();
 		return mu+s*Math.log(u/(1-u));

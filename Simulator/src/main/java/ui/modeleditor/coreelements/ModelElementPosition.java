@@ -250,7 +250,7 @@ public class ModelElementPosition extends ModelElement {
 	 */
 	protected final Rectangle getRect(final double zoom) {
 		if (lastPositionRectangle==null || lastPositionRectanglePositionX!=position.x || lastPositionRectanglePositionY!=position.y || lastPositionRectangleSizeW!=size.width || lastPositionRectangleSizeH!=size.height || lastPositionRectangleZoom!=zoom) {
-			lastPositionRectangle=new Rectangle((int)FastMath.round((position.x+FastMath.min(0,size.width))*zoom),(int)FastMath.round((position.y+FastMath.min(0,size.height))*zoom),(int)FastMath.round(FastMath.abs(size.width)*zoom),(int)FastMath.round(FastMath.abs(size.height)*zoom));
+			lastPositionRectangle=new Rectangle((int)FastMath.round((position.x+FastMath.min(0,size.width))*zoom),(int)FastMath.round((position.y+FastMath.min(0,size.height))*zoom),(int)FastMath.round(Math.abs(size.width)*zoom),(int)FastMath.round(Math.abs(size.height)*zoom));
 			lastPositionRectanglePositionX=position.x;
 			lastPositionRectanglePositionY=position.y;
 			lastPositionRectangleSizeW=size.width;
@@ -501,7 +501,7 @@ public class ModelElementPosition extends ModelElement {
 		for (RunModelFixer fix: fixer) menu.add(getQuickFixItem(fix));
 	}
 
-	private final static int MAX_EDGE_FIX_OPTIONS=10;
+	private static final int MAX_EDGE_FIX_OPTIONS=10;
 
 	/**
 	 * Sucht mögliche Folgeelemente und bietet als Korrekturen das Hinzufügen von Kanten zu diesen Elementen an.

@@ -161,7 +161,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		background.setEnabled(!readOnly);
 		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener((e)->background.setSelected(true));
+		colorChooserBackground.addClickListener(e->background.setSelected(true));
 
 		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
 

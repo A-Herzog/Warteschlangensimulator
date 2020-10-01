@@ -34,7 +34,6 @@ import ui.modeleditor.elements.ModelElementSub;
  */
 public class RunElementLogicDo extends RunElementLogic {
 	private int nextId;
-	private RunElementLogicUntil next;
 
 	/**
 	 * Konstruktor der Klasse
@@ -61,7 +60,7 @@ public class RunElementLogicDo extends RunElementLogic {
 	@Override
 	public void prepareRun(final RunModel runModel) {
 		super.prepareRun(runModel); /* Normale Verbindung in Elternklassen-Funktion setzen. */
-		next=(RunElementLogicUntil)runModel.elements.get(nextId);
+		final RunElementLogicUntil next=(RunElementLogicUntil)runModel.elements.get(nextId);
 		next.doElement=this;
 	}
 

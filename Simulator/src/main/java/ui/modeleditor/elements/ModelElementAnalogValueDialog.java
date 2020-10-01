@@ -81,7 +81,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		});
 
 		unit.setEnabled(!readOnly);
-		unit.addActionListener(e->{checkData(false);});
+		unit.addActionListener(e->checkData(false));
 
 		boolean minus=(value<0);
 		value=Math.abs(value);
@@ -160,7 +160,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		content.add((JPanel)data[0]);
 		valueMinUse=(JCheckBox)data[1];
 		valueMinUse.setEnabled(!readOnly);
-		valueMinUse.addActionListener(e->{checkData(false);});
+		valueMinUse.addActionListener(e->checkData(false));
 		valueMin=(JTextField)data[2];
 		valueMin.setEditable(!readOnly);
 		valueMin.addKeyListener(new KeyListener() {
@@ -173,7 +173,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		content.add((JPanel)data[0]);
 		valueMaxUse=(JCheckBox)data[1];
 		valueMaxUse.setEnabled(!readOnly);
-		valueMaxUse.addActionListener(e->{checkData(false);});
+		valueMaxUse.addActionListener(e->checkData(false));
 		valueMax=(JTextField)data[2];
 		valueMax.setEditable(!readOnly);
 		valueMax.addKeyListener(new KeyListener() {

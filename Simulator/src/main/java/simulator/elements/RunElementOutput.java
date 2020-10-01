@@ -290,6 +290,7 @@ public class RunElementOutput extends RunElementPassThrough {
 			break;
 		case MODE_STRING:
 			line[i]=Language.tr("Simulation.Output.String")+" \""+(String)data[i]+"\"";
+			break;
 		default:
 			break;
 		}

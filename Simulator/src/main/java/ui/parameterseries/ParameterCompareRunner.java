@@ -40,7 +40,6 @@ public class ParameterCompareRunner {
 
 	private int parallelRuns;
 	private ParameterCompareRunnerModel[] modelRunner;
-	private String[] outputScripts;
 	private boolean canceled;
 	private Thread runner;
 
@@ -93,7 +92,7 @@ public class ParameterCompareRunner {
 		/* Prüfen, ob Parameterreihen-Modelle vorhanden sind */
 		if (setup.getModels().size()==0) return Language.tr("ParameterCompare.Run.Error.NoModels");
 
-		outputScripts=new String[setup.getOutput().size()];
+		final String[] outputScripts=new String[setup.getOutput().size()];
 		for (int i=0;i<outputScripts.length;i++) {
 			final ParameterCompareSetupValueOutput output=setup.getOutput().get(i);
 

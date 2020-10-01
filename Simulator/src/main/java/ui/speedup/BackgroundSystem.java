@@ -45,10 +45,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @author Alexander Herzog
  */
 public class BackgroundSystem {
-	private final static int MAX_CLIENTS_PER_THREAD=2_000_000; /* Maximalwert für Kunden/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
-	private final static int MAX_ELEMENTS_PER_THREAD=10; /* Maximalwert Modellelemente/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
-	private final static int DELAY_NORMAL=2_500; /* Verzögerung vor dem Start der Hintergrundsimulation im Normalfall */
-	private final static int DELAY_FAST=1_500; /* Verzögerung vor dem Start der Hintergrundsimulation im agressiven Modus */
+	private static final int MAX_CLIENTS_PER_THREAD=2_000_000; /* Maximalwert für Kunden/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
+	private static final int MAX_ELEMENTS_PER_THREAD=10; /* Maximalwert Modellelemente/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
+	private static final int DELAY_NORMAL=2_500; /* Verzögerung vor dem Start der Hintergrundsimulation im Normalfall */
+	private static final int DELAY_FAST=1_500; /* Verzögerung vor dem Start der Hintergrundsimulation im agressiven Modus */
 
 	private static Map<EditorPanel,BackgroundSystem> system;
 
@@ -181,7 +181,7 @@ public class BackgroundSystem {
 			}
 		}
 
-		boolean singleCore=(model.getSingleCoreReason().size()>0);
+		boolean singleCore=(!model.getSingleCoreReason().isEmpty());
 		if (singleCore && model.repeatCount==1) return true; /* Wir belasten nur einen Kern, damit harmlos. */
 
 		long simClientCount=model.clientCount*model.repeatCount;

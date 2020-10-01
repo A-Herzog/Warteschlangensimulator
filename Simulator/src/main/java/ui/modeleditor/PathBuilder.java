@@ -34,7 +34,7 @@ import ui.modeleditor.elements.WayPointRecord;
  * @see PathEditorDialog
  */
 public class PathBuilder {
-	private final static boolean LOG_NO_PATH_FOUND=false;
+	private static final boolean LOG_NO_PATH_FOUND=false;
 
 	private final ModelSurface mainSurface;
 	private final List<Connection> connections;

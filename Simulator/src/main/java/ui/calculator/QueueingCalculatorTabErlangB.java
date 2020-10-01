@@ -66,7 +66,9 @@ public class QueueingCalculatorTabErlangB extends QueueingCalculatorTabBase {
 			invB+=prod;
 		}
 
-		setResult(Language.tr("LoadCalculator.ProbabilityOfBlocking")+": P(B)="+NumberTools.formatPercent(1/invB));
+		if (invB>0) {
+			setResult(Language.tr("LoadCalculator.ProbabilityOfBlocking")+": P(B)="+NumberTools.formatPercent(1/invB));
+		}
 	}
 
 	@Override

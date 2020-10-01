@@ -157,7 +157,7 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 
 		/* Überschrift: "Anforderung von Transportern" */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(label=new JLabel("<html><body><b>"+Language.tr("Surface.TransportTransporterSource.Dialog.Heading.Request")+"</b></body></html>"));
+		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.TransportTransporterSource.Dialog.Heading.Request")+"</b></body></html>"));
 
 		/* Mindestanzahl für Anforderung */
 		data=getInputPanel(Language.tr("Surface.TransportTransporterSource.Dialog.RequestMinWaiting")+":",""+((ModelElementTransportTransporterSource)element).getRequestMinWaiting(),5);
@@ -186,7 +186,7 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 
 		/* Überschrift: "Parkplatz" */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(label=new JLabel("<html><body><b>"+Language.tr("Surface.TransportTransporterSource.Dialog.Heading.Parking")+"</b></body></html>"));
+		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.TransportTransporterSource.Dialog.Heading.Parking")+"</b></body></html>"));
 
 		/* Parkplatz: Kapazität */
 		data=getInputPanel(Language.tr("Surface.TransportTransporterSource.Dialog.WaitingCapacity")+":",""+((ModelElementTransportTransporterSource)element).getWaitingCapacity(),5);

@@ -157,7 +157,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		sizeField=(JTextField)data[1];
 		sizeField.setEditable(!readOnly);
 		content.add((JPanel)data[0]);
-		sizeField.addActionListener((e)->NumberTools.getNotNegativeInteger(sizeField,true));
+		sizeField.addActionListener(e->NumberTools.getNotNegativeInteger(sizeField,true));
 
 		/* Fett / Kursiv */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));

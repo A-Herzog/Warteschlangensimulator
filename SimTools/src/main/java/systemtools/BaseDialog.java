@@ -702,10 +702,28 @@ public class BaseDialog extends JDialog {
 	private class CloseButtonActionEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource()==closeButton) {if (!closeButtonOK()) return; closedBy=CLOSED_BY_OK;}
-			if (e.getSource()==okButton) {if (!checkData()) return;	storeData(); closedBy=CLOSED_BY_OK;}
-			if (e.getSource()==previousButton) {if (!readOnly) {if (!checkData()) return; storeData();} closedBy=CLOSED_BY_PREVIOUS;}
-			if (e.getSource()==nextButton) {if (!readOnly) {if (!checkData()) return; storeData();} closedBy=CLOSED_BY_NEXT;}
+			if (e.getSource()==closeButton) {
+				if (!closeButtonOK()) return;
+				closedBy=CLOSED_BY_OK;
+			}
+			if (e.getSource()==okButton) {
+				if (!checkData()) return;
+				storeData();
+				closedBy=CLOSED_BY_OK;
+			}
+			if (e.getSource()==previousButton) {
+				if (!readOnly) {
+					if (!checkData()) return;
+					storeData();
+				} closedBy=CLOSED_BY_PREVIOUS;
+			}
+			if (e.getSource()==nextButton) {
+				if (!readOnly) {
+					if (!checkData()) return;
+					storeData();
+				}
+				closedBy=CLOSED_BY_NEXT;
+			}
 			setVisible(false);
 			dispose();
 		}

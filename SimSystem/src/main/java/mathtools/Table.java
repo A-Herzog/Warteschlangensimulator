@@ -264,7 +264,7 @@ public final class Table implements Cloneable {
 	 */
 	public Table(final IndexMode mode) {
 		this.mode=(mode!=null)?mode:IndexMode.ROWS;
-		data=new ArrayList<List<String>>();
+		data=new ArrayList<>();
 	}
 
 	/**
@@ -567,7 +567,7 @@ public final class Table implements Cloneable {
 	public void setValue(final int index1, final int index2, final String value) {
 		if (index1<0 || index2<0) return;
 
-		while (data.size()<=index1) data.add(new ArrayList<String>());
+		while (data.size()<=index1) data.add(new ArrayList<>());
 
 		final List<String> v=data.get(index1);
 		while (v.size()<=index2) v.add("");
@@ -693,7 +693,7 @@ public final class Table implements Cloneable {
 		final int lastRowNum=sheet.getLastRowNum();
 
 		((ArrayList<List<String>>)data).ensureCapacity(firstRowNum);
-		for (int i=0;i<firstRowNum;i++) data.add(new ArrayList<String>());
+		for (int i=0;i<firstRowNum;i++) data.add(new ArrayList<>());
 
 		for (int i=firstRowNum;i<=lastRowNum;i++) {
 			final Row row=sheet.getRow(i);
@@ -952,7 +952,12 @@ public final class Table implements Cloneable {
 
 			if (c=='"') {
 				if (inText) {
-					if (pos<lineTo-1 && line.charAt(pos+1)=='"') {if (sb!=null) sb.append(c); pos++;} else inText=false;
+					if (pos<lineTo-1 && line.charAt(pos+1)=='"') {
+						if (sb!=null) sb.append(c);
+						pos++;
+					} else {
+						inText=false;
+					}
 				} else {
 					inText=true;
 					if (csvLoadBuilder==null) csvLoadBuilder=new StringBuilder();
@@ -1129,7 +1134,7 @@ public final class Table implements Cloneable {
 								if (justStarted) {
 									justStarted=false;
 								} else {
-									data.add(new ArrayList<String>());
+									data.add(new ArrayList<>());
 								}
 							} else {
 								data.add(row);
@@ -1790,7 +1795,7 @@ public final class Table implements Cloneable {
 		if (saveMode==SaveMode.SAVEMODE_ODS) {
 			try (SpreadsheetDocument ods=SpreadsheetDocument.newSpreadsheetDocument()) {
 				final org.odftoolkit.simple.table.Table table;
-				if (ods.getTableList().size()==0) {
+				if (ods.getTableList().isEmpty()) {
 					table=ods.appendSheet(TableFileTableName);
 				} else {
 					table=ods.getSheetByIndex(0);
@@ -1907,7 +1912,7 @@ public final class Table implements Cloneable {
 		if (saveMode==SaveMode.SAVEMODE_ODS) {
 			try (SpreadsheetDocument ods=SpreadsheetDocument.newSpreadsheetDocument()) {
 				final org.odftoolkit.simple.table.Table table;
-				if (ods.getTableList().size()==0) {
+				if (ods.getTableList().isEmpty()) {
 					table=ods.appendSheet(TableFileTableName);
 				} else {
 					table=ods.getSheetByIndex(0);
@@ -2170,7 +2175,8 @@ public final class Table implements Cloneable {
 			int nr=0;
 			for (int i=cell1[1];;i+=dir) {
 				if (getSize(0)<=cell1[0] || getSize(1)<=i) {areaError=String.format(LoadErrorCellNotInTable,cellIDFromNumber(new int[]{cell1[0],i}),cellIDFromNumber(new int[]{getSize(0)-1,getSize(1)-1})); return null;}
-				String s=getLine(cell1[0]).get(i);
+				final List<String> line=getLine(cell1[0]);
+				String s=(line==null)?"":line.get(i);
 				s=NumberTools.systemNumberToLocalNumber(s);
 				Double d=NumberTools.getExtProbability(s);
 				if (d==null) d=NumberTools.getDouble(s);
@@ -2221,7 +2227,8 @@ public final class Table implements Cloneable {
 			int nr=0;
 			for (int i=cell1[1];;i+=dir) {
 				if (getSize(0)<=cell1[0] || getSize(1)<=i) {areaError=String.format(LoadErrorCellNotInTable,cellIDFromNumber(new int[]{cell1[0],i}),cellIDFromNumber(new int[]{getSize(0)-1,getSize(1)-1})); return null;}
-				data[nr]=getLine(cell1[0]).get(i);
+				final List<String> line=getLine(cell1[0]);
+				if (line!=null) data[nr]=line.get(i);
 				nr++;
 				if (i==cell2[1]) break;
 			}

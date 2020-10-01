@@ -251,7 +251,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		for (ModelElementBox element: stations) if (element instanceof ModelElementProcess) {
 			final ModelElementProcess process=(ModelElementProcess)element;
 			final Object obj=process.getWorking().get();
-			if (obj==null || !(obj instanceof AbstractRealDistribution)) continue;
+			if (!(obj instanceof AbstractRealDistribution)) continue;
 			if (!DistributionTools.canSetMean((AbstractRealDistribution)obj)) continue;
 
 			final TemplateRecord record=new TemplateRecord(

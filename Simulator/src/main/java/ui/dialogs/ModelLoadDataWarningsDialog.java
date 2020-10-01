@@ -42,8 +42,8 @@ import ui.modeleditor.ModelLoadData;
 public class ModelLoadDataWarningsDialog extends BaseDialog {
 	private static final long serialVersionUID=-8517430290293338838L;
 
-	private final static String HTML_HEAD="<html><body><p style='padding: 2px 5px;'>";
-	private final static String HTML_FOOT="</p></body></html>";
+	private static final String HTML_HEAD="<html><body><p style='padding: 2px 5px;'>";
+	private static final String HTML_FOOT="</p></body></html>";
 
 	/**
 	 * Konstruktor der Klasse

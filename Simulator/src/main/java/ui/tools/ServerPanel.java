@@ -589,7 +589,7 @@ public final class ServerPanel extends SpecialPanel {
 	}
 
 	private class NotifyRunner implements Runnable {
-		public final static String id="server";
+		public static final String id="server";
 		@Override
 		public void run() {
 			setupButtons(false);

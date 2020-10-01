@@ -16,10 +16,10 @@
 package parsertests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.commons.math3.util.FastMath;
 import org.junit.jupiter.api.Test;
 
 import mathtools.NumberTools;
@@ -31,7 +31,7 @@ import parser.MathCalcError;
  * @author Alexander Herzog
  * @see CalcSystem
  */
-public class SymbolsTests {
+class SymbolsTests {
 	/**
 	 * Test: Basis-Rechensymbole (Grundrechenarten)
 	 */
@@ -1726,11 +1726,11 @@ public class SymbolsTests {
 
 		calc=new CalcSystem("ln(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		assertEquals(2,calc.calcOrDefault(new double[]{Math.pow(Math.E,2)},-1));
+		assertEquals(2,calc.calcOrDefault(new double[]{FastMath.pow(Math.E,2)},-1));
 
 		calc=new CalcSystem("ln(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
-		assertEquals(3,calc.calcOrDefault(new double[]{Math.pow(Math.E,3)},-1));
+		assertEquals(3,calc.calcOrDefault(new double[]{FastMath.pow(Math.E,3)},-1));
 
 		/* Log */
 
@@ -3914,7 +3914,6 @@ public class SymbolsTests {
 			assertTrue(calc.parse()<0);
 			try {
 				result=calc.calc();
-				assertNotNull(result);
 				if (d<0) assertEquals(0.0,result,0001);
 				if (d>=0 && d<=3.3) assertEquals(2.0/(2+1+3),result,0.0001);
 				if (d>=3.4 && d<=6.6) assertEquals(1.0/(2+1+3),result,0.0001);
@@ -3935,7 +3934,6 @@ public class SymbolsTests {
 			assertTrue(calc.parse()<0);
 			try {
 				result=calc.calc();
-				assertNotNull(result);
 				if (d<=0) assertEquals(0.0,result,0001);
 				if (d>0 && d<10-0.001) {
 					assertTrue(result>0 && result<1);

@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.table.TableCellEditor;
@@ -92,12 +91,9 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 	}
 
 	private void updateTable() {
-		schedulesList.sort(new Comparator<ModelSchedule>() {
-			@Override
-			public int compare(ModelSchedule o1, ModelSchedule o2) {
-				if (o1==null || o2==null) return 0;
-				return o1.getName().compareToIgnoreCase(o2.getName());
-			}
+		schedulesList.sort((o1,o2)->{
+			if (o1==null || o2==null) return 0;
+			return o1.getName().compareToIgnoreCase(o2.getName());
 		});
 		schedules.setSchedules(schedulesList);
 		fireTableDataChanged();
@@ -251,11 +247,11 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 			if (id instanceof Integer) {
 				/* Stationen mit entsprechender ID */
 				final ModelElement element=surface.getById((Integer)id);
-				if (element!=null && element instanceof ModelElementSource) {
+				if (element instanceof ModelElementSource) {
 					final ModelElementSourceRecord record=((ModelElementSource)element).getRecord();
 					if (record.getNextMode()==ModelElementSourceRecord.NextMode.NEXT_SCHEDULE && record.getInterarrivalTimeSchedule().equals(oldName)) record.setInterarrivalTimeSchedule(newName);
 				}
-				if (element!=null && element instanceof ModelElementSourceMulti) {
+				if (element instanceof ModelElementSourceMulti) {
 					for(ModelElementSourceRecord record: ((ModelElementSourceMulti)element).getRecords()) {
 						if (record.getNextMode()==ModelElementSourceRecord.NextMode.NEXT_SCHEDULE && record.getInterarrivalTimeSchedule().equals(oldName)) record.setInterarrivalTimeSchedule(newName);
 					}

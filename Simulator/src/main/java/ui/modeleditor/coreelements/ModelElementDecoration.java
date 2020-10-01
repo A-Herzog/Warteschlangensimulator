@@ -173,7 +173,7 @@ public class ModelElementDecoration extends ModelElementPosition {
 		}
 		final Point y=new Point((int)FastMath.round(p.x+alpha*v.x),(int)FastMath.round(p.y+alpha*v.y)); /* Lotfuﬂpunkt von X auf P->Q */
 
-		if (FastMath.abs(x.x-y.x)>lineWidth/2.0*zoom+MAX_POINT_DELTA || FastMath.abs(x.y-y.y)>lineWidth/2.0*zoom+MAX_POINT_DELTA) return false; /* Abstand von Gerade zu groﬂ? */
+		if (Math.abs(x.x-y.x)>lineWidth/2.0*zoom+MAX_POINT_DELTA || Math.abs(x.y-y.y)>lineWidth/2.0*zoom+MAX_POINT_DELTA) return false; /* Abstand von Gerade zu groﬂ? */
 		final double len=FastMath.sqrt(v.x*v.x+v.y*v.y);
 
 		if (alpha*len<-MAX_POINT_DELTA || alpha*len>len+MAX_POINT_DELTA) return false; /* Fuﬂpunkt vor Beginn oder nach Ende der Strecke P->Q? */

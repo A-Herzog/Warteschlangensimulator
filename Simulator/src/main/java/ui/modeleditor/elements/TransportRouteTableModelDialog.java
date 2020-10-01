@@ -85,7 +85,7 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 		panel.add(optionClientType=new JRadioButton(Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByClientType")+":"));
 		panel.add(selectClientType=new JComboBox<>(clientTypes));
 		selectClientType.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildClientTypeIcons(clientTypes,model)));
-		selectClientType.addActionListener((e)->{optionClientType.setSelected(true);});
+		selectClientType.addActionListener(e->{optionClientType.setSelected(true);});
 
 		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(optionExpression=new JRadioButton(Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression")+":"));

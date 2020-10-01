@@ -54,7 +54,6 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 	private JTextField timeAreaEdit;
 	private JComboBox<String> timeAreaComboBox;
 	private ExpressionTableModelLine expressionTableModel;
-	private JTableExt expressionTable;
 	private JComboBox<JLabel> lineWidth;
 	private SmallColorChooser colorChooserLine;
 	private JCheckBox background;
@@ -107,6 +106,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 
+		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
 		if (element instanceof ModelElementAnimationLineDiagram) {
 			expressionTable.setModel(expressionTableModel=new ExpressionTableModelLine(expressionTable,(ModelElementAnimationLineDiagram)element,readOnly,helpRunnable));
@@ -139,7 +139,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 		background.setEnabled(!readOnly);
 		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener((e)->background.setSelected(true));
+		colorChooserBackground.addClickListener(e->background.setSelected(true));
 
 		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
 

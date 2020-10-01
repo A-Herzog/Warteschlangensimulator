@@ -524,8 +524,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
 			if (calc.parse((String)value)>=0) return null;
 			try {
-				final Double D=NumberTools.fastBoxedValue(calc.calc(simData.runData.variableValues,simData,null));
-				return D;
+				return NumberTools.fastBoxedValue(calc.calc(simData.runData.variableValues,simData,null));
 			} catch (MathCalcError e) {
 				return null;
 			}

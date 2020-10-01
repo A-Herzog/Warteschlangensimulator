@@ -466,7 +466,7 @@ public final class ModelResource implements Cloneable {
 		for (String test: Language.trAll("Surface.XML.Resource.Type.Schedule")) if (type.equalsIgnoreCase(test)) {
 			modeCount=Mode.MODE_SCHEDULE;
 			schedule=Language.trAllAttribute("Surface.XML.Resource.Value",node);
-			if (schedule.isEmpty()) s=node.getTextContent(); /* Fallback zu altem Schema */
+			if (schedule.isEmpty()) schedule=node.getTextContent(); /* Fallback zu altem Schema */
 			break;
 		}
 

@@ -50,10 +50,10 @@ import ui.images.Images;
 public class WaitPanel extends JPanel {
 	private static final long serialVersionUID = 3524929788005334671L;
 
-	private final static int MODE_MULTI_DAYS=0;
-	private final static int MODE_SINGLE_LONG_RUN=1;
+	private static final int MODE_MULTI_DAYS=0;
+	private static final int MODE_SINGLE_LONG_RUN=1;
 
-	private final int operationMode=MODE_SINGLE_LONG_RUN;
+	private static final int operationMode=MODE_SINGLE_LONG_RUN;
 
 	/**
 	 * Wurde die Simulation erfolgreich beendet?

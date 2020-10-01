@@ -119,8 +119,7 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 		double Pt;
 		if (pi0==0) Pt=1; else Pt=1-Cn[K]*pi0;
 		for (int n=(int)c;n<=K-1;n++) {
-			Double g=0.0;
-			g=Gamma.regularizedGammaQ(n-c+1,(c*mu+nu)*t);
+			final Double g=Gamma.regularizedGammaQ(n-c+1,(c*mu+nu)*t);
 			Pt-=pi0*Cn[n]*g;
 		}
 		if (Double.isNaN(Pt) || Pt<0) Pt=0;

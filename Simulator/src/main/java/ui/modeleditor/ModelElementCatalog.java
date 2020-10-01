@@ -117,7 +117,7 @@ public final class ModelElementCatalog {
 	}
 
 	private boolean initCatalog() {
-		final ExecutorService executor=new ThreadPoolExecutor(0,Runtime.getRuntime().availableProcessors(),5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(),new ThreadFactory() {
+		final ExecutorService executor=new ThreadPoolExecutor(0,Runtime.getRuntime().availableProcessors(),5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			private final AtomicInteger threadNumber=new AtomicInteger(1);
 			@Override
 			public Thread newThread(Runnable r) {
@@ -129,7 +129,7 @@ public final class ModelElementCatalog {
 		FutureTask<Integer> task;
 
 		/* Eingang/Ausgang */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementSource(null,null),null,GROUP_INPUTOUTPUT);
 				addElement(new ModelElementSourceMulti(null,null),null,GROUP_INPUTOUTPUT);
@@ -147,7 +147,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Verarbeitung */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementProcess(null,null),null,GROUP_PROCESSING);
 				addElement(new ModelElementDelay(null,null),null,GROUP_PROCESSING);
@@ -159,7 +159,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Zuweisungen */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementAssign(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementAssignString(null,null),null,GROUP_ASSIGN);
@@ -182,7 +182,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Verzweigungen */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementDuplicate(null,null),null,GROUP_BRANCH);
 				addElement(new ModelElementDecide(null,null),null,GROUP_BRANCH);
@@ -196,7 +196,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Schranken */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementHold(null,null),null,GROUP_BARRIER);
 				addElement(new ModelElementHoldMulti(null,null),null,GROUP_BARRIER);
@@ -214,7 +214,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Kunden verbinden */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementBatch(null,null),null,GROUP_BATCH);
 				addElement(new ModelElementBatchMulti(null,null),null,GROUP_BATCH);
@@ -230,7 +230,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Transport */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementTransportSource(null,null),null,GROUP_TRANSPORT);
 				addElement(new ModelElementTransportTransporterSource(null,null),null,GROUP_TRANSPORT);
@@ -250,7 +250,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Daten Ein- und Ausgabe */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			if (mode==Mode.FULL) {
 				try {
 					addElement(new ModelElementInput(null,null),null,GROUP_DATAINPUTOUTPUT);
@@ -271,7 +271,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Flusslogik */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementLogicIf(null,null),null,GROUP_LOGIC);
 				addElement(new ModelElementLogicElseIf(null,null),null,GROUP_LOGIC);
@@ -289,7 +289,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Analoge Werte */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementAnalogValue(null,null),null,GROUP_ANALOG);
 				addElement(new ModelElementAnalogAssign(null,null),null,GROUP_ANALOG);
@@ -306,7 +306,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Animation */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementClientIcon(null,null),null,GROUP_ANIMATION);
 				addElement(new ModelElementAnimationTextValue(null,null),Language.tr("Surface.AnimationText.Name"),GROUP_ANIMATION);
@@ -331,7 +331,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Animation - Interaktiv */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementInteractiveButton(null,null),Language.tr("Surface.InteractiveButton.Name"),GROUP_INTERACTIVE);
 				addElement(new ModelElementInteractiveSlider(null,null),Language.tr("Surface.InteractiveSlider.Name"),GROUP_INTERACTIVE);
@@ -345,7 +345,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Sonstiges */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementUserStatistic(null,null),null,GROUP_OTHERS);
 				addElement(new ModelElementAction(null,null),null,GROUP_OTHERS);
@@ -361,7 +361,7 @@ public final class ModelElementCatalog {
 		tasks.add(task);
 
 		/* Optische Gestaltung */
-		task=new FutureTask<Integer>(()->{
+		task=new FutureTask<>(()->{
 			try {
 				addElement(new ModelElementText(null,null),Language.tr("Surface.Text.Name.Long"),GROUP_DECORATION);
 				addElement(new ModelElementVertex(null,null),Language.tr("Surface.Vertex.Name"),GROUP_DECORATION);
@@ -388,7 +388,7 @@ public final class ModelElementCatalog {
 	 * Liefert eine Instanz des {@link ModelElementCatalog} Singletons.
 	 * @return	Singleton-Instanz von {@link ModelElementCatalog}
 	 */
-	public synchronized static ModelElementCatalog getCatalog() {
+	public static synchronized ModelElementCatalog getCatalog() {
 		if (catalog==null) catalog=new ModelElementCatalog();
 		return catalog;
 	}

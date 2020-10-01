@@ -86,7 +86,7 @@ public class DateTimePanel extends JPanel {
 			return new Date((l<0)?0:l);
 		}
 		@Override public String valueToString(Object value) {
-			if (value==null || !(value instanceof Calendar)) return "";
+			if (!(value instanceof Calendar)) return "";
 			return DateTools.formatUserDateShort(((Calendar)value).getTimeInMillis()+TimeZone.getDefault().getRawOffset());
 		}
 	}

@@ -17,6 +17,7 @@ package mathtools.distribution;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Hyperbolische Sekanten-Verteilung
@@ -81,7 +82,7 @@ public final class HyperbolicSecantDistributionImpl extends AbstractRealDistribu
 		final double z=(x-mu)/sigma;
 		final double arg=Math.PI*z*0.5;
 		if (arg>=750) return 1;
-		return (2.0 * Math.atan(Math.exp(arg))) / Math.PI;
+		return (2.0 * Math.atan(FastMath.exp(arg))) / Math.PI;
 	}
 
 	@Override

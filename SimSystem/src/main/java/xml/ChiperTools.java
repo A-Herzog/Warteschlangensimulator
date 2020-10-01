@@ -147,7 +147,7 @@ public class ChiperTools {
 		input.read(sha_orig,0,20);
 		byte[] b=new byte[input.available()];
 		try {
-			input.read(b);
+			if (input.read(b)<b.length) return null;
 		} catch (IOException e) {return null;}
 		byte[] sha_msg=getChecksum(b); if (sha_msg==null) {return null;}
 		for (int i=0;i<sha_orig.length;i++) if (sha_orig[i]!=sha_msg[i]) {return null;}
@@ -183,7 +183,7 @@ public class ChiperTools {
 		input.read(sha_orig,0,20);
 		byte[] b=new byte[input.available()];
 		try {
-			input.read(b);
+			if (input.read(b)<b.length) return null;
 		} catch (IOException e) {return null;}
 		byte[] sha_msg=getChecksum(b); if (sha_msg==null) {return null;}
 		for (int i=0;i<sha_orig.length;i++) if (sha_orig[i]!=sha_msg[i]) {return null;}

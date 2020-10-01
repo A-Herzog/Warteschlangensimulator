@@ -28,7 +28,7 @@ import parser.MathCalcError;
  * @author Alexander Herzog
  * @see CalcSystem
  */
-public class CoreSymbolTests {
+class CoreSymbolTests {
 	/**
 	 * Test: Basis-Rechenoperationen
 	 */

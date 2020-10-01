@@ -55,6 +55,6 @@ public final class Functions {
 	 * @return	n!
 	 */
 	public static double getFactorial(int n) {
-		return getGamma(n+1);
+		return getGamma(n+1.0);
 	}
 }

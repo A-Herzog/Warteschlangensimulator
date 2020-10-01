@@ -58,7 +58,6 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 	private JCheckBox maxValueCheckBox;
 	private JTextField maxValueEdit;
 	private ExpressionTableModelBar expressionTableModel;
-	private JTableExt expressionTable;
 	private JComboBox<JLabel> lineWidth;
 	private SmallColorChooser colorChooserLine;
 	private JCheckBox background;
@@ -122,6 +121,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 		});
 		minValueEdit.setEditable(!readOnly);
 
+		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
 		if (element instanceof ModelElementAnimationBarChart) {
 			expressionTable.setModel(expressionTableModel=new ExpressionTableModelBar(expressionTable,(ModelElementAnimationBarChart)element,readOnly,helpRunnable));
@@ -156,7 +156,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 		background.setEnabled(!readOnly);
 		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener((e)->background.setSelected(true));
+		colorChooserBackground.addClickListener(e->background.setSelected(true));
 
 		contentInnter.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(use3D=new JCheckBox(Language.tr("Surface.AnimationBarChart.Dialog.Appearance.Use3D")));

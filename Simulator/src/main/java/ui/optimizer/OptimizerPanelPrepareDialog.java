@@ -136,7 +136,7 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.CENTER)));
 		line.add(cancel=new JButton(Language.tr("Dialog.Button.Abort")));
 		cancel.setIcon(Images.GENERAL_CANCEL.getIcon());
-		cancel.addActionListener((e)->{
+		cancel.addActionListener(e->{
 			if (simulator!=null) {
 				simulator.cancel();
 				cancelRun();

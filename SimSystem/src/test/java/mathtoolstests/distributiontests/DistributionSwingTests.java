@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -48,7 +49,7 @@ import mathtools.distribution.tools.DistributionTools;
  * die für den Umgang mit den Wahrscheinlichkeitsverteilungen vorgesehen sind.
  * @author Alexander Herzog
  */
-public class DistributionSwingTests {
+class DistributionSwingTests {
 	/**
 	 * Test: Konstruktor von {@link CommonVariables} ist privat? - Klasse stellt nur statische Methoden zur Verfügung und soll nicht initialisierbar sein
 	 * @throws NoSuchMethodException	Konstruktor konnte nicht gefunden werden
@@ -73,7 +74,7 @@ public class DistributionSwingTests {
 		final CommonVariables obj2=CommonVariables.getCommonVariables();
 		assertNotNull(obj1);
 		assertNotNull(obj2);
-		assertTrue(obj1==obj2);
+		assertSame(obj1,obj2);
 	}
 
 	/**
@@ -228,7 +229,7 @@ public class DistributionSwingTests {
 	 */
 	@Test
 	void testMinimalJDistributionEditorDialog() {
-		new JDistributionEditorDialog(null,null,100,JDistributionPanel.BOTH,true,true,1000);
+		assertNotNull(new JDistributionEditorDialog(null,null,100,JDistributionPanel.BOTH,true,true,1000));
 	}
 
 	/**

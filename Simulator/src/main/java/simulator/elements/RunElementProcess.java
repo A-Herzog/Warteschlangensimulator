@@ -305,7 +305,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		return data;
 	}
 
-	private final static double toSecFactor=1.0/1000.0;
+	private static final double toSecFactor=1.0/1000.0;
 
 	private double getClientScore(final SimulationData simData, final RunElementProcessData processData, final RunDataClient client) {
 		final ExpressionCalc calc=processData.priority[client.type];

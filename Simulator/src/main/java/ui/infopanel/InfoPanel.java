@@ -1134,7 +1134,8 @@ public class InfoPanel {
 	private JPanel addTopPanelIntern(final Container parent, final String id) {
 		if (!isVisible(id)) return null;
 
-		final JPanel hint=buildPanel(id,getItem(id).getInfo());
+		final Item item=getItem(id);
+		final JPanel hint=buildPanel(id,(item==null)?"":item.getInfo());
 		parent.setLayout(new BorderLayout());
 		parent.add(hint,BorderLayout.NORTH);
 		registerPanel(getWindow(hint),hint);
@@ -1172,7 +1173,8 @@ public class InfoPanel {
 	private JPanel createNewPanelIntern(final Window window, final JPanel panel, final String id) {
 		if (!isVisible(id)) return panel;
 
-		final JPanel hint=buildPanel(id,getItem(id).getInfo());
+		final Item item=getItem(id);
+		final JPanel hint=buildPanel(id,(item==null)?"":item.getInfo());
 		final JPanel newPanel=new JPanel(new BorderLayout());
 		newPanel.add(hint,BorderLayout.NORTH);
 		newPanel.add(panel,BorderLayout.CENTER);

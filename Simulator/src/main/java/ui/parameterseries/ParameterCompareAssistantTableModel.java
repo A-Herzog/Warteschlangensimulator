@@ -218,7 +218,7 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		if (columnIndex<3 || columnIndex>5) return;
-		if (aValue==null || !(aValue instanceof String)) return;
+		if (!(aValue instanceof String)) return;
 
 		final Double D=NumberTools.getDouble((String)aValue);
 		if (D==null) {

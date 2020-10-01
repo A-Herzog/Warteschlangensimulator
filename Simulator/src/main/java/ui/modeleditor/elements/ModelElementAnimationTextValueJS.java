@@ -56,7 +56,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationTextValueJS extends ModelElementPosition implements ElementWithAnimationDisplay {
-	private final static Color DEFAULT_COLOR=Color.BLACK;
+	private static final Color DEFAULT_COLOR=Color.BLACK;
 
 	/**
 	 * Zu verwendende Programmiersprache für das Skript

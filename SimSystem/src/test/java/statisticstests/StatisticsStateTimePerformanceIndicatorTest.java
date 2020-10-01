@@ -35,7 +35,7 @@ import statistics.StatisticsStateTimePerformanceIndicator;
  * @author Alexander Herzog
  * @see StatisticsStateTimePerformanceIndicator
  */
-public class StatisticsStateTimePerformanceIndicatorTest {
+class StatisticsStateTimePerformanceIndicatorTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

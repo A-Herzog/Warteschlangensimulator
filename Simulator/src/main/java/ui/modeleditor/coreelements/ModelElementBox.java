@@ -228,7 +228,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return Color.LIGHT_GRAY;
 	}
 
-	private final static Color highContrastColor=new Color(255,255,240);
+	private static final Color highContrastColor=new Color(255,255,240);
 
 	/**
 	 * Liefert die tatsächlich zum Zeichnen zu verwendende Farbe
@@ -394,7 +394,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 
 		if (stage==2) {
 			String info=getRunDataAnimationInfo();
-			String infoMulti[]=null;
+			String[] infoMulti=null;
 			Color color=Color.GRAY;
 
 			if (surface!=null) {

@@ -111,7 +111,7 @@ public class StatisticsImpl implements StatisticsInterface {
 
 		/* Attribut aus Parent zurückgeben */
 		if (!selectors.hasNext() && tag.isEmpty()) {
-			List<String> path=new ArrayList<String>(parentTags);
+			List<String> path=new ArrayList<>(parentTags);
 			path.add(attr);
 			return new String[]{null,formatNumber(parent.getAttribute(attr),path,systemNumbers,percent,time,distributionSeparator)};
 		}
@@ -139,7 +139,7 @@ public class StatisticsImpl implements StatisticsInterface {
 
 		/* Elementinhalt zurückgeben */
 		if (!selectors.hasNext()) {
-			List<String> path=new ArrayList<String>(parentTags);
+			List<String> path=new ArrayList<>(parentTags);
 			path.add(tag);
 			if (attr.isEmpty() || !attrValue.isEmpty()) {
 				return new String[]{null,formatNumber(searchResult.getTextContent(),path,systemNumbers,percent,time,distributionSeparator)};
@@ -150,7 +150,7 @@ public class StatisticsImpl implements StatisticsInterface {
 		}
 
 		/* Suche fortsetzen */
-		List<String> tags=new ArrayList<String>(parentTags);
+		List<String> tags=new ArrayList<>(parentTags);
 		tags.add(tag);
 		return findElement(selectors,searchResult,tags,systemNumbers,percent,time,distributionSeparator);
 	}
@@ -247,7 +247,7 @@ public class StatisticsImpl implements StatisticsInterface {
 			selectors.useDelimiter("->");
 			if (!selectors.hasNext()) return new String[]{Language.tr("Statistics.Filter.InvalidParameters")+" ("+command+")",null};
 			if (xml==null) return new String[]{Language.tr("Statistics.Filter.InvalidSelector")+" ("+command+")",null};
-			return findElement(selectors,xml.getDocumentElement(),new ArrayList<String>(),systemNumbers,percent,time,distributionSeparator);
+			return findElement(selectors,xml.getDocumentElement(),new ArrayList<>(),systemNumbers,percent,time,distributionSeparator);
 		}
 	}
 

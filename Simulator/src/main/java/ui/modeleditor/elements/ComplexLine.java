@@ -59,7 +59,7 @@ public final class ComplexLine implements Cloneable {
 	/**
 	 * Anzahl an verschiedenen verfügbaren Linientypen
 	 */
-	public final static int MAX_TYPE=LINE_TYPE_NAMES.length-1;
+	public static final int MAX_TYPE=LINE_TYPE_NAMES.length-1;
 
 	private int width;
 	private Color color;

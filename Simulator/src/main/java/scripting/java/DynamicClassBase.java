@@ -131,7 +131,7 @@ public abstract class DynamicClassBase implements Closeable, AutoCloseable {
 	 * @param text	Text, der eine java-Datei darstellen soll
 	 * @return	Name der Klasse oder <code>null</code>, wenn der Name nicht ermittelt werden konnte
 	 */
-	protected final static String getClassName(String text) {
+	protected static final String getClassName(String text) {
 		int index;
 		index=text.indexOf(" class ");
 		if (index<0) return null;

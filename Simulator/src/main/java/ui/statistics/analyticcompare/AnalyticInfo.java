@@ -468,7 +468,7 @@ public class AnalyticInfo {
 						} else {
 							sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.AverageNumberOfBusyOperators")+"="+StatisticTools.formatNumber(meanState,2)+" (rho="+StatisticTools.formatPercent(meanState/countIndicator.getTimeMean())+")");
 						}
-						if (resourceObj.getFailures().size()>0) {
+						if (!resourceObj.getFailures().isEmpty()) {
 							final StatisticsTimePerformanceIndicator indicator2=(StatisticsTimePerformanceIndicator)(statistics.resourceInDownTime.get(resource));
 							if (sb.length()>0) sb.append("\n");
 							sb.append(Language.tr("Statistics.Resource")+" "+resource+": "+Language.tr("Statistics.FailureTime.AveragePartOfDownTimeOperators")+": "+StatisticTools.formatPercent(indicator2.getTimeMean()/count));

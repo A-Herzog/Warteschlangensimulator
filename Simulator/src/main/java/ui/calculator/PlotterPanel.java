@@ -523,7 +523,7 @@ public class PlotterPanel extends JPanel {
 		/**
 		 * Name der Variable für {@link ExpressionCalc}
 		 */
-		private final static String[] variableName=new String[]{"x"};
+		private static final String[] variableName=new String[]{"x"};
 		/**
 		 * Array mit dem Wert für die Variable
 		 */

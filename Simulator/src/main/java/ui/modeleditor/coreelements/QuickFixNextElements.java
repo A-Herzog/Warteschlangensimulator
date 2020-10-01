@@ -29,7 +29,7 @@ public class QuickFixNextElements {
 	 * Sinnvolle Folgestationen für Quellen
 	 */
 	@SuppressWarnings("rawtypes")
-	public final static Class[] source=new Class[]{
+	public static final Class[] source=new Class[]{
 			ModelElementDecide.class,
 			ModelElementDuplicate.class,
 			ModelElementProcess.class,
@@ -47,7 +47,7 @@ public class QuickFixNextElements {
 	 * Sinnvolle Folgestationen für Bedienstationen (und Verzögerungsstationen)
 	 */
 	@SuppressWarnings("rawtypes")
-	public final static Class[] process=new Class[]{
+	public static final Class[] process=new Class[]{
 			ModelElementDispose.class
 	};
 
@@ -55,7 +55,7 @@ public class QuickFixNextElements {
 	 * Sinnvolle Folgestationen für Zurückschrecken-Stationen
 	 */
 	@SuppressWarnings("rawtypes")
-	public final static Class[] balking=new Class[]{
+	public static final Class[] balking=new Class[]{
 			ModelElementProcess.class
 	};
 
@@ -63,7 +63,7 @@ public class QuickFixNextElements {
 	 * Sinnvolle Folgestationen für Bedingung-Stationen und ähnliche
 	 */
 	@SuppressWarnings("rawtypes")
-	public final static Class[] hold=new Class[]{
+	public static final Class[] hold=new Class[]{
 			ModelElementProcess.class,
 			ModelElementDelay.class
 	};
@@ -72,7 +72,7 @@ public class QuickFixNextElements {
 	 * Sinnvolle Folgestationen für Verzweigungen und Duplizieren-Stationen
 	 */
 	@SuppressWarnings("rawtypes")
-	public final static Class[] duplicate=new Class[] {
+	public static final Class[] duplicate=new Class[] {
 			ModelElementAssign.class,
 			ModelElementAssignString.class,
 			ModelElementProcess.class,

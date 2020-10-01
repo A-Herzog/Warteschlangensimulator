@@ -120,7 +120,7 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 
 		/* Liste der Ergebnisse abrufen */
 		final List<JQuickAccessRecord> results=getQuickAccessRecords(text);
-		if (results.size()==0) return null;
+		if (results.isEmpty()) return null;
 
 		/* Gruppieren */
 		final Map<String,List<JQuickAccessRecord>> map=new HashMap<>();
@@ -135,7 +135,7 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		final List<JQuickAccessRecord> data=new ArrayList<>();
 		for (String group: groups) {
 			final List<JQuickAccessRecord> records=map.get(group);
-			if (records==null || records.size()==0) continue;
+			if (records==null || records.isEmpty()) continue;
 			data.add(new JQuickAccessRecord(group,null,null,null,null));
 			data.addAll(records);
 		}
@@ -145,7 +145,7 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 
 	private JPopupMenu getPopupWithPanel(final List<JQuickAccessRecord> data) {
 		/* Panel mit den Einträgen */
-		final JList<JQuickAccessRecord> list=new JList<JQuickAccessRecord>(data.toArray(new JQuickAccessRecord[0]));
+		final JList<JQuickAccessRecord> list=new JList<>(data.toArray(new JQuickAccessRecord[0]));
 		list.setCellRenderer(new QuickAccessListCellRenderer());
 		list.addMouseListener(new MouseAdapter() {
 			@Override
@@ -245,7 +245,7 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		}
 		lastRunner=new QuickAccessRunner(lastText);
 
-		if (executor==null) executor=new ThreadPoolExecutor(0,Integer.MAX_VALUE,5L,TimeUnit.SECONDS,new SynchronousQueue<Runnable>(),new ThreadFactory() {
+		if (executor==null) executor=new ThreadPoolExecutor(0,Integer.MAX_VALUE,5L,TimeUnit.SECONDS,new SynchronousQueue<>(),new ThreadFactory() {
 			@Override
 			public Thread newThread(Runnable r) {
 				return new Thread(r,"QuickAccess");

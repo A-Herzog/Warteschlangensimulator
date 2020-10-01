@@ -51,7 +51,7 @@ public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLine
 		MODE_BY_STATION_CLIENT_WAITING
 	}
 
-	private final static Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
+	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
 	/**
 	 * Konstruktor der Klasse

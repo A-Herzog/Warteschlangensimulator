@@ -95,6 +95,7 @@ public class RunElementSourceDB extends RunElementSourceExtern {
 
 		/* Kundentypen laden */
 		String error=source.buildClientTypesList(clientTypes,runModel);
+		if (error!=null) return error;
 
 		/* Tabelle verarbeiten */
 		if (!testOnly) {

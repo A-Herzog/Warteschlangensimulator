@@ -22,6 +22,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
+import org.apache.commons.math3.util.FastMath;
 import org.junit.jupiter.api.Test;
 
 import mathtools.Functions;
@@ -63,7 +64,7 @@ class FunctionsTest {
 		assertTrue(gamma>gamma5);
 
 		/* Gamma(1,z)=exp(-z) */
-		assertEquals(Functions.getIncompleteGamma(1,7),Math.exp(-7),0.0001);
+		assertEquals(Functions.getIncompleteGamma(1,7),FastMath.exp(-7),0.0001);
 	}
 
 	/**

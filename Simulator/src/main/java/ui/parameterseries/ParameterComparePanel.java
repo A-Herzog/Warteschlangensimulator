@@ -189,9 +189,7 @@ public class ParameterComparePanel extends SpecialPanel {
 
 		/* Optional direkt Template verarbeiten */
 		if (template!=null) {
-			SwingUtilities.invokeLater(()->{
-				processTemplateMenuClick(template);
-			});
+			SwingUtilities.invokeLater(()->processTemplateMenuClick(template));
 		}
 
 		/* Drag&Drop auch für Ausgabe-Bereich */
@@ -342,7 +340,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		logOutput.setText("");
 
 		final long simulationStartTime=System.currentTimeMillis();
-		runner=new ParameterCompareRunner((row)->table.updateTableContentOnly(row),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.PARAMETER_SERIES_DONE,simulationStartTime);},s->logOutput(s));
+		runner=new ParameterCompareRunner(row->table.updateTableContentOnly(row),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.PARAMETER_SERIES_DONE,simulationStartTime);},s->logOutput(s));
 		String error=runner.check(setup);
 		if (error!=null) {
 			runner=null;
@@ -417,6 +415,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			for (ParameterCompareSetupModel model: dialog.getSelected()) {
 				final Statistics statistics=model.getStatistics();
 				final File file=getNextStatisticsFile(folder);
+				if (file==null) return;
 				if (statistics.saveToFile(file)) {
 					logOutput(String.format(Language.tr("ParameterCompare.Toolbar.ProcessResults.SaveStatistics.Log.Success"),model.getName(),file.getName()));
 				} else {

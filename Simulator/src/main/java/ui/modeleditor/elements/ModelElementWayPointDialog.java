@@ -81,7 +81,7 @@ public class ModelElementWayPointDialog extends ModelElementBaseDialog {
 		/* Icon-Combobox */
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		sub.add(label=new JLabel(Language.tr("Surface.WayPoint.Dialog.Icon")+":"));
-		sub.add(iconChooser=new JComboBox<JLabel>());
+		sub.add(iconChooser=new JComboBox<>());
 		iconChooserList=imageSource.getIconsComboBox(element.getModel().animationImages);
 		iconChooser.setModel(iconChooserList);
 		iconChooser.setRenderer(new AnimationImageSource.IconComboBoxCellRenderer());

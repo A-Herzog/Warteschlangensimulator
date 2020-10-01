@@ -36,7 +36,7 @@ import statistics.StatisticsLongRunPerformanceIndicator;
  * @author Alexander Herzog
  * @see StatisticsLongRunPerformanceIndicator
  */
-public class StatisticsLongRunPerformanceIndicatorTest {
+class StatisticsLongRunPerformanceIndicatorTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

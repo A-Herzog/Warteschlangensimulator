@@ -193,7 +193,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		line.add(buttonColor=new JButton());
 		buttonColor.setPreferredSize(new Dimension(26,26));
 		setupColorButton();
-		buttonColor.addActionListener((e)->showColorSelectDialog());
+		buttonColor.addActionListener(e->showColorSelectDialog());
 		label.setLabelFor(buttonColor);
 
 		/* Überschreiben */

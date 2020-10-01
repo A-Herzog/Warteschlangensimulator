@@ -18,7 +18,9 @@ package mathtoolstests.distributiontests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Constructor;
@@ -44,7 +46,7 @@ import mathtools.distribution.tools.DistributionTools;
  * @author Alexander Herzog
  * @see DistributionTools
  */
-public class DistributionToolsTests {
+class DistributionToolsTests {
 	/**
 	 * Test: Konstruktor ist privat? - Klasse stellt nur statische Methoden zur Verfügung und soll nicht initialisierbar sein
 	 * @throws NoSuchMethodException	Konstruktor konnte nicht gefunden werden
@@ -76,9 +78,9 @@ public class DistributionToolsTests {
 			final ImageIcon icon=DistributionTools.getThumbnailImageForDistributionName(name);
 			assertNotNull(icon);
 		}
-		assertTrue(DistributionTools.getThumbnailImageForDistributionName(null)==null);
-		assertTrue(DistributionTools.getThumbnailImageForDistributionName("")==null);
-		assertTrue(DistributionTools.getThumbnailImageForDistributionName("äöü")==null);
+		assertNull(DistributionTools.getThumbnailImageForDistributionName(null));
+		assertNull(DistributionTools.getThumbnailImageForDistributionName(""));
+		assertNull(DistributionTools.getThumbnailImageForDistributionName("äöü"));
 	}
 
 	/**
@@ -281,10 +283,10 @@ public class DistributionToolsTests {
 		/* Normalize */
 
 		dist=DistributionTools.normalizeDistribution(expDist);
-		assertTrue(dist==expDist);
+		assertSame(dist,expDist);
 
 		dist=DistributionTools.normalizeDistribution(dataDist);
-		assertTrue(dist!=dataDist);
+		assertNotSame(dist,dataDist);
 		assertTrue(dist instanceof DataDistributionImpl);
 		assertEquals(3,((DataDistributionImpl)dist).densityData.length);
 		assertEquals(1.0/6.0,((DataDistributionImpl)dist).densityData[0],0.0001);
@@ -294,11 +296,11 @@ public class DistributionToolsTests {
 		/* Clone & Normalize */
 
 		dist=DistributionTools.cloneAndNormalizeDistribution(expDist);
-		assertTrue(dist!=expDist);
+		assertNotSame(dist,expDist);
 		assertTrue(DistributionTools.compare(expDist,dist));
 
 		dist=DistributionTools.cloneAndNormalizeDistribution(dataDist);
-		assertTrue(dist!=dataDist);
+		assertNotSame(dist,dataDist);
 		assertTrue(dist instanceof DataDistributionImpl);
 		assertEquals(3,((DataDistributionImpl)dist).densityData.length);
 		assertEquals(1.0/6.0,((DataDistributionImpl)dist).densityData[0],0.0001);

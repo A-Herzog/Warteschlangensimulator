@@ -42,7 +42,7 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 	private final Mode mode;
 	private final String data;
 
-	private final static Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
+	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
 	/**
 	 * Wählt die von {@link StatisticViewerDistributionTimeLineChart} auszugebende Information aus.

@@ -54,7 +54,7 @@ public abstract class JSEngine {
 	 */
 	public JSEngine(final int maxExecutionTimeMS, final JSOutputWriter output) {
 		this.maxExecutionTimeMS=maxExecutionTimeMS;
-		executorPool=new ThreadPoolExecutor(0,1,2,TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(1));
+		executorPool=new ThreadPoolExecutor(0,1,2,TimeUnit.SECONDS,new ArrayBlockingQueue<>(1));
 		lastResult="";
 		executionCount=0;
 		lastExecutionTimeMS=maxExecutionTimeMS+1;

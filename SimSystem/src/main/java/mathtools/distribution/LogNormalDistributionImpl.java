@@ -149,10 +149,10 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 			/* https://de.wikipedia.org/wiki/Box-Muller-Methode - Verträgt sich nicht gut mit dem linearen Kongruenz Math.random() */
 			/*
 			final double r1=TwoTimesPI*rnd.nextDouble();
-			final double r2=StrictMath.sqrt(-2*StrictMath.log(rnd.nextDouble()));
+			final double r2=StrictMath.sqrt(-2*Math.log(rnd.nextDouble()));
 			randomAvailable=true; ohne Nutzung der anderen Zahl langsamer, aber bessere Werte (in Bezug auf die Kenngrößen)
-			nextRandom=StrictMath.exp(-StrictMath.sin(r1)*r2*sigma+mu);
-			return StrictMath.exp(StrictMath.cos(r1)*r2*sigma+mu);
+			nextRandom=FastMath.exp(-StrictMath.sin(r1)*r2*sigma+mu);
+			return FastMath.exp(StrictMath.cos(r1)*r2*sigma+mu);
 			 */
 
 			/* https://de.wikipedia.org/wiki/Polar-Methode */

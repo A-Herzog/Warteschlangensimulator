@@ -26,6 +26,7 @@ import java.awt.Stroke;
 import java.net.URL;
 import java.util.Objects;
 
+import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -277,12 +278,12 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 			intValue=(int)Math.round(value.doubleValue());
 		}
 
-		final int maxValue=(int)Math.round(Math.pow(10,digits))-1;
+		final int maxValue=(int)Math.round(FastMath.pow(10,digits))-1;
 		final int minValue;
 		if (digits==1) {
 			minValue=0;
 		} else {
-			minValue=-((int)Math.round(Math.pow(10,digits-1))-1);
+			minValue=-((int)Math.round(FastMath.pow(10,digits-1))-1);
 		}
 
 		if (intValue>maxValue) intValue=maxValue;

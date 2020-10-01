@@ -38,7 +38,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 	private final Statistics statistics;
 	private final Mode mode;
 
-	private final static Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
+	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
 	/**
 	 * Wählt die von {@link StatisticViewerTimeBarChart} auszugebende Information aus.

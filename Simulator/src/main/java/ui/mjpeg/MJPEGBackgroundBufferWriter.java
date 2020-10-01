@@ -130,7 +130,7 @@ public class MJPEGBackgroundBufferWriter extends MJPEGBufferWriterBase {
 				long timeStamp;
 				queueMutex.acquireUninterruptibly();
 				try {
-					if (queueImages.size()>0) {
+					if (!queueImages.isEmpty()) {
 						image=queueImages.poll();
 						timeStamp=queueTimeStamps.poll();
 					} else {

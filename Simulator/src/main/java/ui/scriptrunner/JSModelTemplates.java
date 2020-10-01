@@ -204,7 +204,7 @@ public class JSModelTemplates {
 	private void addRecordListToSub(final JMenu sub, final List<Record> list, final Consumer<String> listener) {
 		for (Record record: list) {
 			final JMenuItem item=new JMenuItem(record.name);
-			item.addActionListener(e->{listener.accept(record.code);});
+			item.addActionListener(e->listener.accept(record.code));
 			sub.add(item);
 		}
 	}
@@ -220,7 +220,7 @@ public class JSModelTemplates {
 		JMenu sub;
 
 		list=changeResourceCount();
-		if (list.size()>0) {
+		if (!list.isEmpty()) {
 			isEmpty=false;
 			popupMenu.add(sub=new JMenu(Language.tr("JSRunner.Templates.ChangeResource.Title")));
 			sub.setIcon(Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon());
@@ -228,7 +228,7 @@ public class JSModelTemplates {
 		}
 
 		list=changeInterArrival();
-		if (list.size()>0) {
+		if (!list.isEmpty()) {
 			isEmpty=false;
 			popupMenu.add(sub=new JMenu(Language.tr("JSRunner.Templates.ChangeInterArrival.Title")));
 			sub.setIcon(Images.SCRIPT_RECORD_DATA_CLIENT.getIcon());
@@ -236,7 +236,7 @@ public class JSModelTemplates {
 		}
 
 		list=changeService();
-		if (list.size()>0) {
+		if (!list.isEmpty()) {
 			isEmpty=false;
 			popupMenu.add(sub=new JMenu(Language.tr("JSRunner.Templates.ChangeService.Title")));
 			sub.setIcon(Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon());

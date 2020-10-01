@@ -95,7 +95,7 @@ public class SequencesEditPanel extends JPanel {
 
 		setLayout(new BorderLayout());
 
-		add(new JScrollPane(list=new JList<JLabel>(new DefaultListModel<JLabel>())),BorderLayout.CENTER);
+		add(new JScrollPane(list=new JList<>(new DefaultListModel<>())),BorderLayout.CENTER);
 
 		final JToolBar toolBar=new JToolBar(SwingConstants.HORIZONTAL);
 		toolBar.setFloatable(false);
@@ -195,7 +195,7 @@ public class SequencesEditPanel extends JPanel {
 	private void updateList(final int deltaSelectedIndex) {
 		final int selectedIndex=list.getSelectedIndex();
 
-		final DefaultListModel<JLabel> listModel=new DefaultListModel<JLabel>();
+		final DefaultListModel<JLabel> listModel=new DefaultListModel<>();
 		for (ModelSequence sequence: sequencesList) {
 			final StringBuilder sb=new StringBuilder();
 			sb.append("<html><body>");

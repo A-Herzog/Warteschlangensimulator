@@ -173,7 +173,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		tab.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(optionSchedule=new JRadioButton(Language.tr("Resources.Group.EditName.Dialog.Number.Schedule")+":"));
 		panel.add(selectSchedule=new JComboBox<>(scheduleNames));
-		selectSchedule.addActionListener((e)->optionSchedule.setSelected(true));
+		selectSchedule.addActionListener(e->optionSchedule.setSelected(true));
 
 		group=new ButtonGroup();
 		group.add(optionNumber);
@@ -183,7 +183,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		/* Icon-Combobox */
 		tab.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		panel.add(label=new JLabel(Language.tr("Resources.Group.EditName.Dialog.IconForResource")+":"));
-		panel.add(iconChooser=new JComboBox<JLabel>());
+		panel.add(iconChooser=new JComboBox<>());
 		iconChooserList=imageSource.getIconsComboBox(modelImages);
 		iconChooser.setModel(iconChooserList);
 		iconChooser.setRenderer(new AnimationImageSource.IconComboBoxCellRenderer());
@@ -266,7 +266,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		timeBasePanel.add(label=new JLabel(Language.tr("Surface.Source.Dialog.TimeBase")+":"));
 		timeBasePanel.add(timeBaseCombo=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
 		timeBaseCombo.setSelectedIndex(resource.getMoveTimeBase().id);
-		moveTimesMode.addActionListener((e)->{
+		moveTimesMode.addActionListener(e->{
 			final int cardIndex=moveTimesMode.getSelectedIndex();
 			((CardLayout)moveTimesCards.getLayout()).show(moveTimesCards,"Seite"+(cardIndex+1));
 			timeBasePanel.setVisible(cardIndex>0);

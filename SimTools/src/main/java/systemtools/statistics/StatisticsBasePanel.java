@@ -357,7 +357,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * Welche Optionen sollen auf Text- und Tabellen-Seiten zum direkten Anzeigen der Daten in externen Anwendungen angezeigt werden?
 	 * @see StatisticsBasePanel.ViewerPrograms
 	 */
-	public static final Set<ViewerPrograms> viewerPrograms=new HashSet<ViewerPrograms>(Arrays.asList(ViewerPrograms.WORD,ViewerPrograms.EXCEL));
+	public static final Set<ViewerPrograms> viewerPrograms=new HashSet<>(Arrays.asList(ViewerPrograms.WORD,ViewerPrograms.EXCEL));
 
 	/** Runnable, das aufgerufen wird, wenn die Hilfe-Schaltfläche angeklickt wird. (Wenn <code>null</code> übergeben wird, erscheint keine Hilfe-Schaltfläche.) */
 	private Runnable helpRunnable;

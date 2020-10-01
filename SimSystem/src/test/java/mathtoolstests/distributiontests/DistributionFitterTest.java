@@ -38,7 +38,7 @@ import mathtools.distribution.tools.WrapperLogNormalDistribution;
  * @author Alexander Herzog
  * @see DistributionFitter
  */
-public class DistributionFitterTest {
+class DistributionFitterTest {
 	/**
 	 * Test: Verarbeitung von ungültigen Eingabedaten
 	 * @see DistributionFitter#processDensity(int[][])

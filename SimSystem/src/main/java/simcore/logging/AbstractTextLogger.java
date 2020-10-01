@@ -15,7 +15,6 @@
  */
 package simcore.logging;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -92,9 +91,6 @@ public abstract class AbstractTextLogger implements SimLogging {
 		return true;
 
 	}
-
-	@Override
-	public abstract boolean log(long time, Color color, String event, int id, String info);
 
 	@Override
 	public boolean done() {

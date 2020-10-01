@@ -19,8 +19,8 @@ import java.util.Set;
  * @see MainFrame.ReloadMode
  */
 public class ReloadManager {
-	private final static Set<MainFrame> frames=new HashSet<>();
-	private final static Map<String,Set<Runnable>> broadcastReceivers=new HashMap<>();
+	private static final Set<MainFrame> frames=new HashSet<>();
+	private static final Map<String,Set<Runnable>> broadcastReceivers=new HashMap<>();
 
 	/**
 	 * Diese Klasse stellt nur statische Methoden bereit

@@ -43,7 +43,7 @@ public class CalcSymbolDiscreteDistributionBinomial extends CalcSymbolDiscreteDi
 		if (p<0 || p>1) return -1;
 
 		try {
-			return CombinatoricsUtils.binomialCoefficient(n,k)*Math.pow(p,k)*Math.pow(1-p,n-k);
+			return CombinatoricsUtils.binomialCoefficient(n,k)*FastMath.pow(p,k)*FastMath.pow(1-p,n-k);
 		} catch (Exception e) {
 			return -1;
 		}

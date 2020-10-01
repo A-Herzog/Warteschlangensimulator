@@ -144,12 +144,12 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 				if (availableIndex>=0) {
 					optionExisting.setSelected(true);
 					optionNew.setSelected(false);
-					selectGroup.setModel(new DefaultComboBoxModel<String>(availableGroups.toArray(new String[0])));
+					selectGroup.setModel(new DefaultComboBoxModel<>(availableGroups.toArray(new String[0])));
 					selectGroup.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildResourceTypeIcons(availableGroups,model)));
 					selectGroup.setSelectedIndex(availableIndex);
 					textGroupName.setText(resources.getNextAvailableResouceName());
 				} else {
-					selectGroup.setModel(new DefaultComboBoxModel<String>(availableGroups.toArray(new String[0])));
+					selectGroup.setModel(new DefaultComboBoxModel<>(availableGroups.toArray(new String[0])));
 					selectGroup.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildResourceTypeIcons(availableGroups,model)));
 					if (index<0) {
 						optionExisting.setSelected(true);

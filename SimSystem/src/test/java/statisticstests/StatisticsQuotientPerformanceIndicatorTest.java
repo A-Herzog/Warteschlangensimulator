@@ -35,7 +35,7 @@ import statistics.StatisticsQuotientPerformanceIndicator;
  * @author Alexander Herzog
  * @see StatisticsQuotientPerformanceIndicator
  */
-public class StatisticsQuotientPerformanceIndicatorTest {
+class StatisticsQuotientPerformanceIndicatorTest {
 	/**
 	 * Test: Konstruktor-Varianten
 	 */

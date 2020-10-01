@@ -37,7 +37,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementRecord
  */
 public class RunElementRecord extends RunElementPassThrough {
-	private final static int MAX_VALUES=2_000_000;
+	private static final int MAX_VALUES=2_000_000;
 
 	private String recordName;
 	private String expression1;

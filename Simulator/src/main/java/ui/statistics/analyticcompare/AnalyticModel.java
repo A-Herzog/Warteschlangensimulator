@@ -129,7 +129,7 @@ public class AnalyticModel {
 			}
 		}
 
-		if (source==null || process==null || dispose.size()==0) return false;
+		if (source==null || process==null || dispose.isEmpty()) return false;
 		return true;
 	}
 

@@ -71,12 +71,12 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	/**
 	 * Standardmäßige Priorität für Kundentypen
 	 */
-	public final static String DEFAULT_CLIENT_PRIORITY="w";
+	public static final String DEFAULT_CLIENT_PRIORITY="w";
 
 	/**
 	 * Standardmäßige Priorität zum Bezug von Ressourcen
 	 */
-	public final static String DEFAULT_RESOURCE_PRIORITY="1";
+	public static final String DEFAULT_RESOURCE_PRIORITY="1";
 
 	/**
 	 * Art wie die Bedienzeit für die Kundenstatistik gezählt werden soll
@@ -399,7 +399,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) {
 					surface.remove(element);
 				}
@@ -411,7 +411,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 		if (connectionOutSuccess!=null) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesOut")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				if (connectionOutCancel!=null) surface.remove(connectionOutCancel);
 				surface.remove(connectionOutSuccess);
 			});

@@ -227,7 +227,6 @@ public class CalculatorDialog extends BaseDialog {
 
 		if (size>0) {
 			panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			label=new JLabel(labelText);
 			panel.add(label=new JLabel(labelText));
 			panel.add(field=new JTextField(size));
 		} else {

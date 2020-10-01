@@ -420,7 +420,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener((e)->{
+			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);
 			});
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
@@ -429,7 +429,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		}
 		if (connectionOut!=null) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgeOut")));
-			item.addActionListener((e)->surface.remove(connectionOut));
+			item.addActionListener(e->surface.remove(connectionOut));
 			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
 			item.setEnabled(!readOnly);
 			needSeparator=true;
