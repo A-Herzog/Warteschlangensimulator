@@ -39,6 +39,16 @@ public class GUITools {
 	 */
 	public static String errorNoGraphicsOutputAvailable="Da keine grafische Oberfläche zur Verfügung steht, kann der Simulator nur im Konsolen-Modus betrieben werden. Rufen Sie den Simulator mit dem Parameter \"Hilfe\" auf, um eine Übersicht über die verfügbaren Konsolen-Befehle zu erhalten.";
 
+	private static double scaleFactor=1.0;
+
+	/**
+	 * Liefert den über {@link #setupFontSize(double)} eingestellten Skalierungsfaktor
+	 * @return	Skalierungsfaktor
+	 */
+	public static double getScaleFactor() {
+		return scaleFactor;
+	}
+
 	private GUITools() {}
 
 	/**
@@ -110,15 +120,16 @@ public class GUITools {
 	 * @param scaleFactor	Skalierungsfaktor (1.0=Standardgröße)
 	 */
 	public static void setupFontSize(double scaleFactor) {
+		GUITools.scaleFactor=scaleFactor;
 		if (scaleFactor==1) return;
 		UIDefaults defaults=UIManager.getDefaults();
 		Enumeration<Object> e=defaults.keys();
 		while (e.hasMoreElements()) {
-			Object key=e.nextElement();
-			Object value=defaults.get(key);
+			final Object key=e.nextElement();
+			final Object value=defaults.get(key);
 			if (value instanceof Font) {
-				Font font=(Font)value;
-				int newSize=(int)Math.round(font.getSize()*scaleFactor);
+				final Font font=(Font)value;
+				final int newSize=(int)Math.round(font.getSize()*scaleFactor);
 				if (value instanceof FontUIResource) {
 					defaults.put(key,new FontUIResource(font.getName(),font.getStyle(),newSize));
 				} else {

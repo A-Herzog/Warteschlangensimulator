@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.function.Consumer;
 
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -94,6 +95,8 @@ public class DescriptionViewer extends JPanel {
 
 		textPane=new JTextPane();
 		textPane.setEditable(false);
+		textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
+
 		textPane.addHyperlinkListener(e->linkClicked(e));
 		add(new JScrollPane(textPane),BorderLayout.CENTER);
 

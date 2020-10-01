@@ -98,6 +98,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.SimulationData;
+import systemtools.GUITools;
 import systemtools.MsgBox;
 import systemtools.statistics.PDFWriter;
 import systemtools.statistics.XWPFDocumentPictureTools;
@@ -1022,7 +1023,7 @@ public final class ModelSurfacePanel extends JPanel {
 		/* Font-Einstellungen speichern */
 
 		final Font saveFont=g.getFont();
-		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,12));
+		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)Math.round(12*GUITools.getScaleFactor())));
 
 		/* Pfeile mit Beschriftungen für die Schaltflächen */
 

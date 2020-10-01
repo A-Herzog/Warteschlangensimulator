@@ -42,6 +42,7 @@ import java.util.function.IntSupplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -75,6 +76,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
 import mathtools.distribution.swing.CommonVariables;
+import systemtools.GUITools;
 import systemtools.MsgBox;
 import systemtools.images.SimToolsImages;
 
@@ -139,31 +141,32 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		textPane=new JTextPane();
 		textPane.setEditable(false);
 		textPane.setBackground(new Color(0xFF,0xFF,0xF8));
+		textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
 
 		/* Styles zusammenstellen */
-		StyledDocument doc=textPane.getStyledDocument();
+		final StyledDocument doc=textPane.getStyledDocument();
 
-		Style defaultStyle=StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
-		Style s;
+		final Style defaultStyle=StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+		Style style;
 
-		s=doc.addStyle("default",defaultStyle);
-		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)+1);
+		style=doc.addStyle("default",defaultStyle);
+		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+1)*GUITools.getScaleFactor()));
 
-		s=doc.addStyle("h1",defaultStyle);
-		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)+4);
-		StyleConstants.setBold(s,true);
+		style=doc.addStyle("h1",defaultStyle);
+		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+4)*GUITools.getScaleFactor()));
+		StyleConstants.setBold(style,true);
 
-		s=doc.addStyle("h2",defaultStyle);
-		StyleConstants.setBold(s,true);
-		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)+2);
+		style=doc.addStyle("h2",defaultStyle);
+		StyleConstants.setBold(style,true);
+		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+2)*GUITools.getScaleFactor()));
 
-		s=doc.addStyle("h3",defaultStyle);
-		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)+1);
-		StyleConstants.setUnderline(s,true);
+		style=doc.addStyle("h3",defaultStyle);
+		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)+1)*GUITools.getScaleFactor()));
+		StyleConstants.setUnderline(style,true);
 
-		s=doc.addStyle("link",defaultStyle);
-		StyleConstants.setFontSize(s,StyleConstants.getFontSize(s)-1);
-		StyleConstants.setForeground(s,Color.BLUE);
+		style=doc.addStyle("link",defaultStyle);
+		StyleConstants.setFontSize(style,(int)Math.round((StyleConstants.getFontSize(style)-1)*GUITools.getScaleFactor()));
+		StyleConstants.setForeground(style,Color.BLUE);
 
 		/* Text einfügen */
 		final int size=lines.size();

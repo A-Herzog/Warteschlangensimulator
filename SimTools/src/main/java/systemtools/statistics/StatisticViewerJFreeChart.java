@@ -47,10 +47,12 @@ import org.apache.poi.xwpf.usermodel.Document;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.title.TextTitle;
 
 import mathtools.NumberTools;
 import mathtools.TableChart;
+import systemtools.GUITools;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
 import systemtools.images.SimToolsImages;
@@ -138,13 +140,36 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		chart.setBackgroundPaint(null);
 		chart.getPlot().setBackgroundPaint(new GradientPaint(1,0,new Color(0xFA,0xFA,0xFF),1,150,new Color(0xEA,0xEA,0xFF)));
 
+		setTheme();
+
 		final TextTitle t=chart.getTitle();
 		if (t!=null) {
-			final Font f=t.getFont();
-			t.setFont(new Font(f.getFontName(),Font.PLAIN,f.getSize()-4));
+			final Font font=t.getFont();
+			t.setFont(new Font(font.getFontName(),Font.PLAIN,font.getSize()-4));
 		}
 
 		chart.getLegend().setBackgroundPaint(null);
+	}
+
+	private void setTheme() {
+		final StandardChartTheme chartTheme = (StandardChartTheme)StandardChartTheme.createJFreeTheme();
+
+		final Font oldExtraLargeFont=chartTheme.getExtraLargeFont();
+		final Font oldLargeFont=chartTheme.getLargeFont();
+		final Font oldRegularFont=chartTheme.getRegularFont();
+		final Font oldSmallFont=chartTheme.getSmallFont();
+
+		final Font extraLargeFont=new Font(oldExtraLargeFont.getFamily(),oldExtraLargeFont.getStyle(),(int)Math.round(oldExtraLargeFont.getSize()*GUITools.getScaleFactor()));
+		final Font largeFont=new Font(oldLargeFont.getFamily(),oldLargeFont.getStyle(),(int)Math.round(oldLargeFont.getSize()*GUITools.getScaleFactor()));
+		final Font regularFont=new Font(oldRegularFont.getFamily(),oldRegularFont.getStyle(),(int)Math.round(oldRegularFont.getSize()*GUITools.getScaleFactor()));
+		final Font smallFont=new Font(oldSmallFont.getFamily(),oldSmallFont.getStyle(),(int)Math.round(oldSmallFont.getSize()*GUITools.getScaleFactor()));
+
+		chartTheme.setExtraLargeFont(extraLargeFont);
+		chartTheme.setLargeFont(largeFont);
+		chartTheme.setRegularFont(regularFont);
+		chartTheme.setSmallFont(smallFont);
+
+		chartTheme.apply(chart);
 	}
 
 	@Override

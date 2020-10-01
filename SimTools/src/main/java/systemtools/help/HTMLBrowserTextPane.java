@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.event.HyperlinkEvent;
@@ -80,6 +81,7 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 		setEditable(false);
 		addHyperlinkListener(new LinkListener());
 		addPropertyChangeListener("page",new PageLoadListener());
+		putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
 	}
 
 	@Override

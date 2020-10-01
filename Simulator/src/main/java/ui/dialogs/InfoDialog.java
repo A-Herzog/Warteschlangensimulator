@@ -63,6 +63,7 @@ import javax.tools.ToolProvider;
 import language.Language;
 import mathtools.NumberTools;
 import scripting.js.JSEngineNames;
+import systemtools.GUITools;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import tools.SetupData;
@@ -194,7 +195,7 @@ public class InfoDialog extends JDialog {
 
 		/* Ausgabe */
 		StringBuilder sb=new StringBuilder();
-		sb.append("<html><body style=\"margin: 0px; padding: 0px; font-family: sans;  background-color: transparent;\"><p style=\"margin-top: 0px; font-weight: bold; font-size: larger;\">"+text.get(0)+"</p><p style=\"margin-top: 5px; margin-bottom: 5px;\">"+text.get(1)+"</p><p style=\"margin-top: 0px; font-size: 9pt;\">");
+		sb.append("<html><body style=\"margin: 0px; padding: 0px; font-family: sans; background-color: transparent; font-size: "+Math.round(100*GUITools.getScaleFactor())+"%;\"><p style=\"margin-top: 0px; font-weight: bold; font-size: 120%;\">"+text.get(0)+"</p><p style=\"margin-top: 5px; margin-bottom: 5px; font-size: 100%;\">"+text.get(1)+"</p><p style=\"margin-top: 0px; font-size: 85%;\">");
 		for (int i=2;i<text.size();i++) {
 			if (i>2) sb.append("<br>");
 			sb.append(text.get(i));
