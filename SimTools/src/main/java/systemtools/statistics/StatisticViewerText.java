@@ -24,6 +24,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -243,6 +245,16 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				if (SwingUtilities.isLeftMouseButton(e)) {
 					final String url=pointToLink(e.getPoint());
 					if (url!=null) processLinkClick(url);
+				}
+			}
+		});
+
+		textPane.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.isControlDown() && !e.isAltDown() && !e.isShiftDown() && e.getKeyCode()==KeyEvent.VK_F) {
+					search(SwingUtilities.getWindowAncestor(textPane));
+					e.consume();
 				}
 			}
 		});
