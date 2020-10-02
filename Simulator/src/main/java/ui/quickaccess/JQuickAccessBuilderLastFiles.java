@@ -32,7 +32,7 @@ public class JQuickAccessBuilderLastFiles extends JQuickAccessBuilder {
 	 * Konstruktor der Klasse
 	 * @param quickAccessText	Eingegebener Text
 	 */
-	public JQuickAccessBuilderLastFiles(String quickAccessText) {
+	public JQuickAccessBuilderLastFiles(final String quickAccessText) {
 		super(Language.tr("QuickAccess.RecentlyUsed"),Language.tr("QuickAccess.RecentlyUsed.Hint"),quickAccessText,false);
 	}
 

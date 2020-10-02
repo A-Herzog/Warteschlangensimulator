@@ -61,6 +61,11 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new ExtBetaDistributionImpl(0,100,1.5,1.5);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
 		return null;
 	}

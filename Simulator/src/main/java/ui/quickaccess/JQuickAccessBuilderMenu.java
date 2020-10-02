@@ -43,7 +43,7 @@ public class JQuickAccessBuilderMenu extends JQuickAccessBuilder {
 	 * Konstruktor der Klasse
 	 * @param quickAccessText	Eingegebener Text
 	 */
-	public JQuickAccessBuilderMenu(String quickAccessText) {
+	public JQuickAccessBuilderMenu(final String quickAccessText) {
 		super(Language.tr("QuickAccess.Menu"),Language.tr("QuickAccess.Menu.Hint"),quickAccessText,false);
 	}
 

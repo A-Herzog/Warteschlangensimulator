@@ -275,7 +275,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 		/* Wartezeittoleranzen */
 		if (processElement.getCancel().get()!=null) {
-			if (findNextId(processElement.getEdgeOutCancel())==-1) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoCancelationEdge"),element.getId()),RunModelCreatorStatus.Status.PROCESS_CANELATION_TIME_BUT_NO_EDGE);
+			if (findNextId(processElement.getEdgeOutCancel())==-1) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoCancelationEdge"),element.getId()),RunModelCreatorStatus.Status.PROCESS_CANCELATION_TIME_BUT_NO_EDGE);
 		} else {
 			if (findNextId(processElement.getEdgeOutCancel())!=-1) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.CancelationEdge"),element.getId()));
 		}

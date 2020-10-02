@@ -59,6 +59,11 @@ public class WrapperPowerDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new PowerDistributionImpl(50,150,5);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
 		return null;
 	}

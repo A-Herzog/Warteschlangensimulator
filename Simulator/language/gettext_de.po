@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-30 14:26+0200\n"
+"POT-Creation-Date: 2020-10-02 18:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10914,6 +10914,12 @@ msgstr "Mit Nutzername und Passwort am Proxy-Server anmelden"
 msgid "QuickAccess"
 msgstr "Schnellzugriff"
 
+msgid "QuickAccess.Distributions"
+msgstr "Wahrscheinlichkeitsverteilung"
+
+msgid "QuickAccess.Distributions.Hint"
+msgstr "Öffnet den Dialog zur Anzeige von Wahrscheinlichkeitsverteilungen"
+
 msgid "QuickAccess.Elements"
 msgstr "Elemente"
 
@@ -10964,6 +10970,12 @@ msgstr "Lädt die zuletzt verwendete Datei"
 
 msgid "QuickAccess.RecentlyUsed.Pre"
 msgstr "Modell laden"
+
+msgid "QuickAccess.Settings"
+msgstr "Programmeinstellungen"
+
+msgid "QuickAccess.Settings.Hint"
+msgstr "Öffnet den Programmeinstellungen-Dialog"
 
 msgid "QuickAccess.Statistics"
 msgstr "Statistik"
@@ -12284,7 +12296,7 @@ msgstr "Unterstützung und Benachrichtigungen"
 msgid "SettingsDialog.Tabs.Performance"
 msgstr "Leistung"
 
-msgid "SettingsDialog.Tabs.Performance.CanelSimulationOnScriptError"
+msgid "SettingsDialog.Tabs.Performance.CancelSimulationOnScriptError"
 msgstr "Simulation bei Skriptfehler abbrechen"
 
 msgid "SettingsDialog.Tabs.Performance.Scripting"

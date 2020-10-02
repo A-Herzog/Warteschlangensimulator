@@ -56,6 +56,11 @@ public class WrapperCauchyDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new CauchyDistribution(100,20);
+	}
+
+	@Override
 	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd) {
 		if (sd<=0) return null;
 		return super.getDistributionForFit(mean,sd);

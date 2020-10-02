@@ -33,7 +33,7 @@ public class JQuickAccessBuilderNewElements extends JQuickAccessBuilder {
 	 * Konstruktor der Klasse
 	 * @param quickAccessText	Eingegebener Text
 	 */
-	public JQuickAccessBuilderNewElements(String quickAccessText) {
+	public JQuickAccessBuilderNewElements(final String quickAccessText) {
 		super(Language.tr("QuickAccess.Elements"),Language.tr("QuickAccess.Elements.Hint"),quickAccessText,true);
 	}
 

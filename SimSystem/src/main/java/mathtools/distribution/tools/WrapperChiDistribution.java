@@ -56,6 +56,11 @@ public class WrapperChiDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new ChiDistributionImpl(20);
+	}
+
+	@Override
 	public double getMean(final AbstractRealDistribution distribution) {
 		return ((ChiDistributionImpl)distribution).getNumericalMean();
 	}

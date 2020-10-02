@@ -175,6 +175,12 @@ public abstract class AbstractDistributionWrapper {
 	public abstract AbstractRealDistribution getDistribution(final double mean, final double sd);
 
 	/**
+	 * Erstellt eine Verteilung mit auf jeden Fall gültigen Werten
+	 * @return	Neue Verteilung
+	 */
+	public abstract AbstractRealDistribution getDefaultDistribution();
+
+	/**
 	 * Erstellt aus Erwartungswert und Standardabweichung eine Verteilung für eine Verteilungsanpassung.<br>
 	 * Im Gegensatz zu {@link AbstractDistributionWrapper#getDistribution(double, double)} kann diese Funktion auch
 	 * dann <code>null</code> liefern, wenn zwar eine Verteilung erstellt werden könnte, dies für einen Fit mit

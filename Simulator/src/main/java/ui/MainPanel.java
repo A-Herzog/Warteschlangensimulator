@@ -81,6 +81,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.Table.SaveMode;
 import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.FileDropperData;
 import net.calc.ServerStatus;
 import simcore.logging.SimLogging;
@@ -145,13 +146,17 @@ import ui.optimizer.OptimizerSetup;
 import ui.parameterseries.ParameterComparePanel;
 import ui.parameterseries.ParameterCompareSetup;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
+import ui.quickaccess.JQuickAccess;
+import ui.quickaccess.JQuickAccessBuilder;
 import ui.quickaccess.JQuickAccessBuilderCalc;
+import ui.quickaccess.JQuickAccessBuilderDistributions;
 import ui.quickaccess.JQuickAccessBuilderElementsList;
 import ui.quickaccess.JQuickAccessBuilderExamples;
 import ui.quickaccess.JQuickAccessBuilderLastFiles;
 import ui.quickaccess.JQuickAccessBuilderMenu;
 import ui.quickaccess.JQuickAccessBuilderModelProperties;
 import ui.quickaccess.JQuickAccessBuilderNewElements;
+import ui.quickaccess.JQuickAccessBuilderSettings;
 import ui.quickaccess.JQuickAccessBuilderStatistics;
 import ui.quickaccess.JQuickAccessRecord;
 import ui.quickaccess.JQuickAccessTextField;
@@ -436,7 +441,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("FilePrint",e->commandFileModelPrint());
 		addAction("FileStatisticsLoad",e->commandFileStatisticsLoad(null,null));
 		addAction("FileStatisticsSave",e->commandFileStatisticsSave());
-		addAction("FileSetup",e->commandFileSetup(false));
+		addAction("FileSetup",e->commandFileSetup(null));
 		addAction("FileQuit",e->{
 			Container c=getParent();
 			while (!(c instanceof MainFrameBase)) c=c.getParent();
@@ -536,7 +541,7 @@ public class MainPanel extends MainPanelBase {
 
 		/* Extras */
 		addAction("ExtrasCompare",e->commandExtrasCompare());
-		addAction("ExtrasCalculator",e->commandExtrasCalculator(null));
+		addAction("ExtrasCalculator",e->commandExtrasCalculator(null,null));
 		addAction("ExtrasQueueingCalculator",e->commandExtrasQueueingCalculator());
 		addAction("ExtrasFit",e->commandExtrasFit());
 		addAction("ExtrasTestDatabaseConnection",e->commandExtrasTestDatabaseConnection());
@@ -564,7 +569,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpSupport",e->commandHelpSupport());
 		addAction("HelpSupportData",e->commandHelpSupportData());
 		addAction("HelpHomepage",e->commandHelpHomepage());
-		addAction("HelpUpdates",e->commandFileSetup(true));
+		addAction("HelpUpdates",e->commandFileSetup(SetupDialog.Page.UPDATES));
 		addAction("HelpUsageStatistics",e->commandHelpUsageStatistics());
 		addAction("HelpLicense",e->commandHelpLicenseInfo());
 		addAction("HelpInfo",e->commandHelpInfo());
@@ -1140,28 +1145,7 @@ public class MainPanel extends MainPanelBase {
 
 		/* QuickAccess */
 		if (setup.showQuickAccess) {
-			final KeyStroke ctrlE=KeyStroke.getKeyStroke('E',InputEvent.CTRL_DOWN_MASK);
-			final int modifiers=ctrlE.getModifiers();
-			String acceleratorText=(modifiers==0)?"":InputEvent.getModifiersExText(modifiers)+"+";
-			acceleratorText+=KeyEvent.getKeyText(ctrlE.getKeyCode());
-			quickAccess=new JQuickAccessTextField(14,Language.tr("QuickAccess")+" ("+acceleratorText+")",JQuickAccessTextField.PopupMode.DIRECT) {
-				private static final long serialVersionUID = 2746691534913517513L;
-				@Override
-				public List<JQuickAccessRecord> getQuickAccessRecords(final String quickAccessText) {
-					return getCurrentQuickAccessRecords(quickAccessText);
-				}
-			};
-			quickAccess.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseReleased(final MouseEvent e) {
-					if (SwingUtilities.isRightMouseButton(e)) {
-						showQuickAccessConfigPopupMenu(e);
-						e.consume();
-					}
-				}
-			});
-			quickAccess.setToolTipText(Language.tr("QuickAccess.Hint"));
-			menubar.add(quickAccess);
+			menubar.add(quickAccess=JQuickAccess.buildQuickAccessField(quickAccessText->getCurrentQuickAccessRecords(quickAccessText)));
 		}
 
 		/* Feedback */
@@ -1186,120 +1170,74 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	private List<JQuickAccessRecord> getCurrentQuickAccessRecords(final String quickAccessText) {
-		final int filterCount=8;
-
-		/* Einstellungen laden */
-		String filter=setup.quickAccessFilter;
-		if (filter==null) filter="";
-		while (filter.length()<filterCount) filter+="X";
-		int countActive=0;
-		for (int i=0;i<filter.length();i++) if (filter.charAt(i)!='-') countActive++;
-		if (countActive==0) {
-			final StringBuilder sb=new StringBuilder();
-			for (int i=0;i<filterCount;i++) sb.append('X');
-			filter=sb.toString();
-		}
-
-		/* Aktive QuickAccessBuilder ausführen */
+		final JQuickAccess quickAccess=new JQuickAccess(quickAccessText);
 		final List<JQuickAccessRecord> list=new ArrayList<>();
 
-		if (filter.charAt(0)!='-') {
-			final JQuickAccessBuilderNewElements builderNewElements=new JQuickAccessBuilderNewElements(quickAccessText);
-			builderNewElements.work(element->editorPanel.selectTemplateInList(element));
-			list.addAll(builderNewElements.getList(5));
-		}
+		for (JQuickAccessBuilder builder: quickAccess.getActiveQuickAccessBuilders()) {
 
-		if (filter.charAt(1)!='-') {
-			final JQuickAccessBuilderElementsList builderElementsList=new JQuickAccessBuilderElementsList(quickAccessText);
-			builderElementsList.work(editorPanel.model.surface,Id->editorPanel.selectAndScrollToElement(Id));
-			list.addAll(builderElementsList.getList(15));
-		}
+			if (builder instanceof JQuickAccessBuilderNewElements) {
+				final JQuickAccessBuilderNewElements builderNewElements=(JQuickAccessBuilderNewElements)builder;
+				builderNewElements.work(element->editorPanel.selectTemplateInList(element));
+				list.addAll(builderNewElements.getList(5));
+			}
 
-		if (filter.charAt(2)!='-') {
-			final JQuickAccessBuilderMenu builderMenu=new JQuickAccessBuilderMenu(quickAccessText);
-			builderMenu.work(((JFrame)ownerWindow).getJMenuBar());
-			list.addAll(builderMenu.getList(5));
-		}
+			if (builder instanceof JQuickAccessBuilderElementsList) {
+				final JQuickAccessBuilderElementsList builderElementsList=(JQuickAccessBuilderElementsList)builder;
+				builderElementsList.work(editorPanel.model.surface,Id->editorPanel.selectAndScrollToElement(Id));
+				list.addAll(builderElementsList.getList(15));
+			}
 
-		if (filter.charAt(3)!='-') {
-			final JQuickAccessBuilderLastFiles builderLastFiles=new JQuickAccessBuilderLastFiles(quickAccessText);
-			builderLastFiles.work(file->loadAnyFile(file,null,null,true));
-			list.addAll(builderLastFiles.getList());
-		}
+			if (builder instanceof JQuickAccessBuilderMenu) {
+				final JQuickAccessBuilderMenu builderMenu=(JQuickAccessBuilderMenu)builder;
+				builderMenu.work(((JFrame)ownerWindow).getJMenuBar());
+				list.addAll(builderMenu.getList(5));
+			}
 
-		if (filter.charAt(4)!='-' && statisticsPanel.getStatistics()!=null) {
-			final JQuickAccessBuilderStatistics builderStatistics=new JQuickAccessBuilderStatistics(quickAccessText);
-			builderStatistics.work(statisticsPanel,()->setCurrentPanel(statisticsPanel));
-			list.addAll(builderStatistics.getList(5));
-		}
+			if (builder instanceof JQuickAccessBuilderLastFiles) {
+				final JQuickAccessBuilderLastFiles builderLastFiles=(JQuickAccessBuilderLastFiles)builder;
+				builderLastFiles.work(file->loadAnyFile(file,null,null,true));
+				list.addAll(builderLastFiles.getList());
+			}
 
-		if (filter.charAt(5)!='-') {
-			final JQuickAccessBuilderModelProperties builderModelProperties=new JQuickAccessBuilderModelProperties(quickAccessText);
-			builderModelProperties.work(initialPage->editorPanel.showModelPropertiesDialog(initialPage));
-			list.addAll(builderModelProperties.getList());
-		}
+			if (builder instanceof JQuickAccessBuilderStatistics && statisticsPanel.getStatistics()!=null) {
+				final JQuickAccessBuilderStatistics builderStatistics=(JQuickAccessBuilderStatistics)builder;
+				builderStatistics.work(statisticsPanel,()->setCurrentPanel(statisticsPanel));
+				list.addAll(builderStatistics.getList(5));
+			}
 
-		if (filter.charAt(6)!='-') {
-			final JQuickAccessBuilderExamples builderExamples=new JQuickAccessBuilderExamples(quickAccessText);
-			builderExamples.work(this,newModel->commandFileModelExample(newModel));
-			list.addAll(builderExamples.getList(5));
-		}
+			if (builder instanceof JQuickAccessBuilderModelProperties) {
+				final JQuickAccessBuilderModelProperties builderModelProperties=(JQuickAccessBuilderModelProperties)builder;
+				builderModelProperties.work(initialPage->editorPanel.showModelPropertiesDialog(initialPage));
+				list.addAll(builderModelProperties.getList());
+			}
 
-		if (filter.charAt(7)!='-') {
-			final JQuickAccessBuilderCalc builderCalc=new JQuickAccessBuilderCalc(quickAccessText);
-			builderCalc.work(expression->commandExtrasCalculator(expression));
-			list.addAll(builderCalc.getList());
+			if (builder instanceof JQuickAccessBuilderExamples) {
+				final JQuickAccessBuilderExamples builderExamples=(JQuickAccessBuilderExamples)builder;
+				builderExamples.work(this,newModel->commandFileModelExample(newModel));
+				list.addAll(builderExamples.getList(5));
+			}
+
+			if (builder instanceof JQuickAccessBuilderCalc) {
+				final JQuickAccessBuilderCalc builderCalc=(JQuickAccessBuilderCalc)builder;
+				builderCalc.work(expression->commandExtrasCalculator(expression,null));
+				list.addAll(builderCalc.getList());
+			}
+
+			if (builder instanceof JQuickAccessBuilderDistributions) {
+				final JQuickAccessBuilderDistributions builderDistributions=(JQuickAccessBuilderDistributions)builder;
+				builderDistributions.work(distribution->commandExtrasCalculator(null,distribution));
+				list.addAll(builderDistributions.getList());
+			}
+
+			if (builder instanceof JQuickAccessBuilderSettings) {
+				final JQuickAccessBuilderSettings builderSettings=(JQuickAccessBuilderSettings)builder;
+				builderSettings.work(page->commandFileSetup(page));
+				list.addAll(builderSettings.getList(5));
+			}
+
 		}
 
 		return list;
-	}
-
-	private void showQuickAccessConfigPopupMenu(final MouseEvent e) {
-		final String[] names=new String[] {
-				Language.tr("QuickAccess.Elements"),
-				Language.tr("QuickAccess.ModelElements"),
-				Language.tr("QuickAccess.Menu"),
-				Language.tr("QuickAccess.RecentlyUsed"),
-				Language.tr("QuickAccess.Statistics"),
-				Language.tr("QuickAccess.ModelProperties"),
-				Language.tr("QuickAccess.Examples"),
-				Language.tr("QuickAccess.Expression")
-		};
-
-		/* Einstellungen laden */
-		String filter=setup.quickAccessFilter;
-		if (filter==null) filter="";
-		while (filter.length()<names.length) filter+="X";
-		int countActive=0;
-		for (int i=0;i<filter.length();i++) if (filter.charAt(i)!='-') countActive++;
-		if (countActive==0) {
-			countActive=names.length;
-			final StringBuilder sb=new StringBuilder();
-			for (int i=0;i<names.length;i++) sb.append('X');
-			filter=sb.toString();
-		}
-
-		/* Menü erstellen */
-		final JPopupMenu menu=new JPopupMenu();
-
-		for (int i=0;i<names.length;i++) {
-			final JCheckBoxMenuItem item=new JCheckBoxMenuItem(names[i],filter.charAt(i)!='-');
-			menu.add(item);
-			item.setEnabled(!item.isSelected() || countActive>0);
-			final int nr=i;
-			final String currentFilter=filter;
-			item.addActionListener(ev->{
-				final boolean selected=((JCheckBoxMenuItem)ev.getSource()).isSelected();
-				StringBuilder sb=new StringBuilder();
-				for (int j=0;j<names.length;j++) if (j==nr) sb.append(selected?'X':'-'); else sb.append(currentFilter.charAt(j));
-				setup.quickAccessFilter=sb.toString();
-				setup.saveSetup();
-			});
-		}
-
-		/* Menü anzeigen */
-		final Component parent=(Component)e.getSource();
-		menu.show(parent,0,parent.getHeight());
 	}
 
 	@Override
@@ -1695,11 +1633,11 @@ public class MainPanel extends MainPanelBase {
 		return error==null;
 	}
 
-	private void commandFileSetup(final boolean showUpdatesPage) {
+	private void commandFileSetup(final SetupDialog.Page showPage) {
 		TutorialWindow.closeTutorialWindow();
 
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
-		new SetupDialog(this,showUpdatesPage);
+		new SetupDialog(this,showPage);
 
 		reloadSetup();
 	}
@@ -2619,8 +2557,8 @@ public class MainPanel extends MainPanelBase {
 		}));
 	}
 
-	private void commandExtrasCalculator(final String initialExpression) {
-		final CalculatorDialog dialog=new CalculatorDialog(this,initialExpression);
+	private void commandExtrasCalculator(final String initialExpression, final AbstractDistributionWrapper initialDistribution) {
+		final CalculatorDialog dialog=new CalculatorDialog(this,initialExpression,initialDistribution);
 		dialog.setVisible(true);
 	}
 

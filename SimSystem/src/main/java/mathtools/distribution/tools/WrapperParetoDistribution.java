@@ -64,6 +64,11 @@ public class WrapperParetoDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return getDistribution(100,50);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
 		double var=((ParetoDistributionImpl)distribution).getNumericalVariance();
 		if (var<=0) var=0.0001;

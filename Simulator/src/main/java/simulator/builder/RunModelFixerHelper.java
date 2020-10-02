@@ -732,7 +732,7 @@ public class RunModelFixerHelper {
 	 * @param element	Element an dem der Fehler aufgetreten ist
 	 * @param status	Zugehöriger Status für diesen Fehler
 	 * @return	Liste der möglichen Schnellkorrekturen
-	 * @see RunModelCreatorStatus.Status#PROCESS_CANELATION_TIME_BUT_NO_EDGE
+	 * @see RunModelCreatorStatus.Status#PROCESS_CANCELATION_TIME_BUT_NO_EDGE
 	 */
 	public static List<RunModelFixer> processTurnOffCancelTimes(final ModelElementPosition element, final RunModelCreatorStatus status) {
 		final List<RunModelFixer> options=new ArrayList<>();

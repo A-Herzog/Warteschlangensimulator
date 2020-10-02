@@ -58,6 +58,11 @@ public class WrapperLogisticDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return getDistribution(100,50);
+	}
+
+	@Override
 	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd) {
 		if (mean<=0 || sd<=0) return null;
 		return super.getDistributionForFit(mean,sd);

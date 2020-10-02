@@ -60,6 +60,11 @@ public class WrapperJohnsonDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new JohnsonDistributionImpl(2,400,1,50);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
 		return null;
 	}

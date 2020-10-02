@@ -58,6 +58,11 @@ public class WrapperLogLogisticDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new LogLogisticDistributionImpl(100,3);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
 		return null;
 	}

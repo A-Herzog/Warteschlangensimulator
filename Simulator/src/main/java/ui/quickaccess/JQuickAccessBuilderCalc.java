@@ -21,6 +21,7 @@ import language.Language;
 import mathtools.NumberTools;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
+import ui.calculator.CalculatorDialog;
 import ui.images.Images;
 
 /**
@@ -28,13 +29,14 @@ import ui.images.Images;
  * und erstellt, wenn dies möglich ist, einen Schnellzugriffeintrag.
  * @author Alexander Herzog
  * @see JQuickAccessBuilder
+ * @see CalculatorDialog
  */
 public class JQuickAccessBuilderCalc extends JQuickAccessBuilder {
 	/**
 	 * Konstruktor der Klasse
 	 * @param quickAccessText	Eingegebener Text
 	 */
-	public JQuickAccessBuilderCalc(String quickAccessText) {
+	public JQuickAccessBuilderCalc(final String quickAccessText) {
 		super(Language.tr("QuickAccess.Expression"),Language.tr("QuickAccess.Expression.Hint"),quickAccessText,false);
 	}
 

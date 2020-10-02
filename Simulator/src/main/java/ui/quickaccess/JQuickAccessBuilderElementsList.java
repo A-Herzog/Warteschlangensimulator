@@ -36,7 +36,7 @@ public class JQuickAccessBuilderElementsList extends JQuickAccessBuilder {
 	 * Konstruktor der Klasse
 	 * @param quickAccessText	Eingegebener Text
 	 */
-	public JQuickAccessBuilderElementsList(String quickAccessText) {
+	public JQuickAccessBuilderElementsList(final String quickAccessText) {
 		super(Language.tr("QuickAccess.ModelElements"),Language.tr("QuickAccess.ModelElements.Hint"),quickAccessText,true);
 	}
 

@@ -42,12 +42,14 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
+import mathtools.distribution.tools.AbstractDistributionWrapper;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -88,15 +90,16 @@ public class CalculatorDialog extends BaseDialog {
 	 * @param owner	Übergeordnetes Element
 	 */
 	public CalculatorDialog(final Component owner) {
-		this(owner,null);
+		this(owner,null,null);
 	}
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
-	 * @param initialExpression	Initial anzuzeigender Ausdruck
+	 * @param initialExpression	Initial anzuzeigender Ausdruck (kann <code>null</code> sein)
+	 * @param initialDistribution	Initial auszuwählende Verteilung (kann <code>null</code> sein)
 	 */
-	public CalculatorDialog(final Component owner, final String initialExpression) {
+	public CalculatorDialog(final Component owner, final String initialExpression, final AbstractDistributionWrapper initialDistribution) {
 		super(owner,Language.tr("CalculatorDialog.Title"));
 
 		showCloseButton=true;
@@ -182,16 +185,23 @@ public class CalculatorDialog extends BaseDialog {
 
 		/* Tab "Wahrscheinlichkeitsverteilungen" */
 		tabs.addTab(Language.tr("CalculatorDialog.Tab.Distributions"),tab=new JPanel(new BorderLayout()));
-		tab.add(distributionPlotter=new JDistributionPanel(new ExponentialDistribution(100),100,false),BorderLayout.CENTER);
+		tab.add(distributionPlotter=new JDistributionPanel(new ExponentialDistribution(100),200,false),BorderLayout.CENTER);
 		distributionPlotter.setImageSaveSize(SetupData.getSetup().imageSize);
 		distributionPlotter.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		distributionPlotter.setPlotType(JDistributionPanel.BOTH);
-		tab.add(distributionEditor=new JDistributionEditorPanel(new ExponentialDistribution(100),1000,e->updateDistribution(),true),BorderLayout.SOUTH);
+		AbstractRealDistribution distribution=null;
+		if (initialDistribution!=null) {
+			distribution=initialDistribution.getDistribution(100,50);
+			if (distribution==null) distribution=initialDistribution.getDefaultDistribution();
+		}
+		if (distribution==null) distribution=new ExponentialDistribution(100);
+
+		tab.add(distributionEditor=new JDistributionEditorPanel(distribution,1000,e->updateDistribution(),true),BorderLayout.SOUTH);
+		updateDistribution();
 
 		/* Tab "Skript" */
 		tabs.addTab(Language.tr("CalculatorDialog.Tab.Skript"),tab=new JPanel(new BorderLayout()));
 		tab.add(new JSModelRunnerPanel(this,null,null,null,false));
-
 
 		/* Icons auf den Tabs */
 		tabs.setIconAt(0,Images.EXTRAS_CALCULATOR.getIcon());
@@ -200,6 +210,7 @@ public class CalculatorDialog extends BaseDialog {
 		tabs.setIconAt(3,Images.EXTRAS_CALCULATOR_SCRIPT.getIcon());
 
 		/* Dialog vorbereiten */
+		if (initialDistribution!=null) tabs.setSelectedIndex(2);
 		setMinSizeRespectingScreensize(600,400);
 		setSizeRespectingScreensize(800,600);
 		setResizable(true);

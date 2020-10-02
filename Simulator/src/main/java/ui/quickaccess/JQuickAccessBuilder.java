@@ -60,8 +60,8 @@ public class JQuickAccessBuilder {
 		this.list=new ArrayList<>();
 		this.category=category;
 		this.categoryTooltip=categoryTooltip;
-		this.quickAccessText=quickAccessText;
-		this.quickAccessTextLower=quickAccessText.toLowerCase();
+		this.quickAccessText=(quickAccessText==null)?"":quickAccessText;
+		this.quickAccessTextLower=(quickAccessText==null)?"":quickAccessText.toLowerCase();
 		this.searchInPreText=searchInPreText;
 	}
 
@@ -107,7 +107,7 @@ public class JQuickAccessBuilder {
 			if (index2<0) return null;
 		}
 
-		return buildResultText(pre,text,-index1,index2);
+		return buildResultText(pre,text,index1,index2);
 	}
 
 	private String testPlainResult(final String pre, final String text) {
@@ -266,5 +266,13 @@ public class JQuickAccessBuilder {
 	public List<JQuickAccessRecord> getList(final int maxCount) {
 		if (list.size()<=maxCount || maxCount<=0) return list;
 		return list.stream().limit(maxCount).collect(Collectors.toList());
+	}
+
+	/**
+	 * Liefert den Namen der Kategorie für die aktuell zu erzeugenden Einträge
+	 * @return	Kategorie für die aktuell zu erzeugenden Einträge
+	 */
+	public String getCategory() {
+		return category;
 	}
 }

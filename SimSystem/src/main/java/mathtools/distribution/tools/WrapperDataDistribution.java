@@ -56,6 +56,11 @@ public class WrapperDataDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new DataDistributionImpl(100,new double[]{1,2,3});
+	}
+
+	@Override
 	public double getMean(final AbstractRealDistribution distribution) {
 		return ((DataDistributionImpl)distribution).getMean();
 	}

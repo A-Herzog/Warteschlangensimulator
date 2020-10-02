@@ -60,6 +60,11 @@ public class WrapperErlangDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return getDistribution(100,50);
+	}
+
+	@Override
 	public AbstractRealDistribution getDistributionForFit(double mean, double sd) {
 		return null; /* Erlang-Verteilung brauchen wir nicht explizit -> in Gamma-Verteilung enthalten */
 	}

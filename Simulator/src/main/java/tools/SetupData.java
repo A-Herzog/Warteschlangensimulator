@@ -1481,7 +1481,7 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
-			if (name.equals("canelsimulationonscripterror")) {
+			if (name.equals("cancelsimulationonscripterror") || name.equals("canelsimulationonscripterror")) {
 				cancelSimulationOnScriptError=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
@@ -1988,7 +1988,7 @@ public class SetupData extends SetupBase {
 		}
 
 		if (!cancelSimulationOnScriptError) {
-			root.appendChild(node=doc.createElement("canelSimulationOnScriptError"));
+			root.appendChild(node=doc.createElement("CancelSimulationOnScriptError"));
 			node.setTextContent("0");
 		}
 

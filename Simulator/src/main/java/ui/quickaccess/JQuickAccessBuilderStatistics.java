@@ -34,7 +34,7 @@ public class JQuickAccessBuilderStatistics extends JQuickAccessBuilder {
 	 * Konstruktor der Klasse
 	 * @param quickAccessText	Eingegebener Text
 	 */
-	public JQuickAccessBuilderStatistics(String quickAccessText) {
+	public JQuickAccessBuilderStatistics(final String quickAccessText) {
 		super(Language.tr("QuickAccess.Statistics"),Language.tr("QuickAccess.Statistics.Hint"),quickAccessText,true);
 	}
 

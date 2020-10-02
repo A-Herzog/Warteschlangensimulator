@@ -66,6 +66,11 @@ public class WrapperFDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new FDistribution(1,5);
+	}
+
+	@Override
 	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd) {
 		if (mean<=1) return null;
 		return super.getDistributionForFit(mean,sd);

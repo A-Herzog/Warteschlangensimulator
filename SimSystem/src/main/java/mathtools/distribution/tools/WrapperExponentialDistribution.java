@@ -55,6 +55,11 @@ public class WrapperExponentialDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return getDistribution(100,100);
+	}
+
+	@Override
 	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd) {
 		if (mean<=0) return null;
 		return super.getDistributionForFit(mean,sd);

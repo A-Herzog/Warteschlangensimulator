@@ -146,7 +146,7 @@ public class RunModelCreatorStatus {
 		DDE_OUTPUT_INVALID_COL((e,s)->RunModelFixerHelper.setDDEOutputCol(e,s)),
 
 		/** Es wurde an einer Bedienstation eine Wartezeittoleranz angegeben, aber es wurde keine auslaufende Kante für die Warteabbrecher angegeben. */
-		PROCESS_CANELATION_TIME_BUT_NO_EDGE((e,s)->RunModelFixerHelper.processTurnOffCancelTimes(e,s)),
+		PROCESS_CANCELATION_TIME_BUT_NO_EDGE((e,s)->RunModelFixerHelper.processTurnOffCancelTimes(e,s)),
 
 		/** Es wurden keine notwendigen Ressourcen an der Bedienstation angegeben. */
 		PROCESS_NO_RESOURCE((e,s)->RunModelFixerHelper.processResources(e,s)),

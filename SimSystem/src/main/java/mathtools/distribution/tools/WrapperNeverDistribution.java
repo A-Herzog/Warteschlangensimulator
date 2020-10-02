@@ -59,6 +59,11 @@ public class WrapperNeverDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return getDistribution(100,100);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(final AbstractRealDistribution distribution, final double mean) {
 		return null;
 	}

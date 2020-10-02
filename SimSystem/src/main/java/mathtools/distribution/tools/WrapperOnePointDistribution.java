@@ -55,6 +55,11 @@ public class WrapperOnePointDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return getDistribution(100,100);
+	}
+
+	@Override
 	public AbstractRealDistribution getDistributionForFit(final double mean, final double sd) {
 		if (sd>=0.000001) return null;
 		return super.getDistributionForFit(mean,sd);

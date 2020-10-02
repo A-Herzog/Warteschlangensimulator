@@ -59,6 +59,11 @@ public class WrapperFatigueLifeDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return new FatigueLifeDistributionImpl(0,20,1);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
 		return null;
 	}

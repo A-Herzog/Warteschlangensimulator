@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Supplier;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -86,6 +87,47 @@ import xml.XMLTools;
  */
 public final class SetupDialog extends BaseDialog {
 	private static final long serialVersionUID = 8167759839522880144L;
+
+	/**
+	 * Seiten des Dialog
+	 */
+	public enum Page {
+		/** Benutzeroberfläche */
+		UI(0,()->Language.tr("SettingsDialog.Tabs.GUI")),
+		/** Leistung */
+		PERFORMANCE(1,()->Language.tr("SettingsDialog.Tabs.Performance")),
+		/** Animation */
+		ANIMATION(2,()->Language.tr("SettingsDialog.Tabs.Animation")),
+		/** Statistik */
+		STATISTICS(3,()->Language.tr("SettingsDialog.Tabs.Statistics")),
+		/** Dateiformate */
+		FILE_FORMATS(4,()->Language.tr("SettingsDialog.Tabs.Exporting")),
+		/** Updates */
+		UPDATES(5,()->Language.tr("SettingsDialog.Tabs.Updates"));
+
+		/** Zugehöriger Dialogseiten-Index */
+		private final int index;
+
+		private final Supplier<String> nameGetter;
+
+		/**
+		 * Liefert den Namen der Dialogseite
+		 * @return	Name der Dialogseite
+		 */
+		public String getName() {
+			return nameGetter.get();
+		}
+
+		/**
+		 * Konstruktor des Enums.
+		 * @param index Zu der Seite gehöriger Dialogseiten-Index
+		 * @param nameGetter	Callback das den Namen der Dialogseite liefert
+		 */
+		Page(final int index, final Supplier<String> nameGetter) {
+			this.index=index;
+			this.nameGetter=nameGetter;
+		}
+	}
 
 	/** Registerreiter für die Seiten */
 	private final JTabbedPane tabs;
@@ -233,14 +275,14 @@ public final class SetupDialog extends BaseDialog {
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param owner	Übergeordnetes Element
-	 * @param showUpdatesPage	Soll die Updates-Seite direkt beim Aufruf ausgewählt werden?
+	 * @param owner Übergeordnetes Element
+	 * @param showPage Initial anzuzeigende Seite (darf <code>null</code> sein)
 	 */
-	public SetupDialog(final Component owner, final boolean showUpdatesPage) {
+	public SetupDialog(final Component owner, final Page showPage) {
 		super(owner,Language.tr("SettingsDialog.Title"));
 
 		addUserButton(Language.tr("SettingsDialog.Default"),Language.tr("SettingsDialog.Default.Hint"),Images.EDIT_UNDO.getURL());
-		JPanel main=createGUI(()->{Help.topicModal(SetupDialog.this.owner,"Setup");});
+		JPanel main=createGUI(()->Help.topicModal(SetupDialog.this.owner,"Setup"));
 		main.setLayout(new BorderLayout());
 		main.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
 
@@ -419,7 +461,6 @@ public final class SetupDialog extends BaseDialog {
 		}));
 		label.setLabelFor(notifyMode);
 
-
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		button=new JButton(Language.tr("SettingsDialog.Tabs.ProgramStart.DialogAdvice"));
 		button.setIcon(Images.GENERAL_INFO.getIcon());
@@ -496,7 +537,7 @@ public final class SetupDialog extends BaseDialog {
 		label.setLabelFor(jsEngine);
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		p.add(cancelSimulationOnScriptError=new JCheckBox(Language.tr("SettingsDialog.Tabs.Performance.CanelSimulationOnScriptError")));
+		p.add(cancelSimulationOnScriptError=new JCheckBox(Language.tr("SettingsDialog.Tabs.Performance.CancelSimulationOnScriptError")));
 
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -1077,10 +1118,7 @@ public final class SetupDialog extends BaseDialog {
 
 		/* Dialog anzeigen */
 
-		if (showUpdatesPage) {
-			tabs.setSelectedIndex(5);
-		}
-
+		if (showPage!=null) tabs.setSelectedIndex(showPage.index);
 		setMinSizeRespectingScreensize(650,0);
 		pack();
 		setLocationRelativeTo(this.owner);

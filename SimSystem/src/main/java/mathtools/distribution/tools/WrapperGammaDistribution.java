@@ -61,6 +61,11 @@ public class WrapperGammaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDefaultDistribution() {
+		return getDistribution(100,50);
+	}
+
+	@Override
 	public AbstractRealDistribution getDistributionForFit(double mean, double sd) {
 		if (sd<=0 || mean<=0) return null;
 		return super.getDistributionForFit(mean,sd);

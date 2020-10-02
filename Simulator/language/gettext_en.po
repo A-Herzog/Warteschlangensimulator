@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-30 14:26+0200\n"
+"POT-Creation-Date: 2020-10-02 18:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10918,6 +10918,12 @@ msgstr "Authentificate using user name and password"
 msgid "QuickAccess"
 msgstr "Quick access"
 
+msgid "QuickAccess.Distributions"
+msgstr "Probability distribution"
+
+msgid "QuickAccess.Distributions.Hint"
+msgstr "Opens the dialog for viewing a probability distribution"
+
 msgid "QuickAccess.Elements"
 msgstr "Elements"
 
@@ -10968,6 +10974,12 @@ msgstr "Loads the recently used file"
 
 msgid "QuickAccess.RecentlyUsed.Pre"
 msgstr "Load model"
+
+msgid "QuickAccess.Settings"
+msgstr "Program settings"
+
+msgid "QuickAccess.Settings.Hint"
+msgstr "Opens the program settings dialog"
 
 msgid "QuickAccess.Statistics"
 msgstr "Statistics"
@@ -12288,7 +12300,7 @@ msgstr "Support and notifications"
 msgid "SettingsDialog.Tabs.Performance"
 msgstr "Performance"
 
-msgid "SettingsDialog.Tabs.Performance.CanelSimulationOnScriptError"
+msgid "SettingsDialog.Tabs.Performance.CancelSimulationOnScriptError"
 msgstr "Cancel simulation on script error"
 
 msgid "SettingsDialog.Tabs.Performance.Scripting"

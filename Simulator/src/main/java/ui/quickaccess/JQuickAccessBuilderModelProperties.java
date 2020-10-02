@@ -30,7 +30,7 @@ public class JQuickAccessBuilderModelProperties extends JQuickAccessBuilder {
 	 * Konstruktor der Klasse
 	 * @param quickAccessText	Eingegebener Text
 	 */
-	public JQuickAccessBuilderModelProperties(String quickAccessText) {
+	public JQuickAccessBuilderModelProperties(final String quickAccessText) {
 		super(Language.tr("QuickAccess.ModelProperties"),Language.tr("QuickAccess.ModelProperties.Hint"),quickAccessText,false);
 	}
 

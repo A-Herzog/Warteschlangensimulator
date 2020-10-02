@@ -33,7 +33,7 @@ public class JQuickAccessBuilderExamples extends JQuickAccessBuilder {
 	 * Konstruktor der Klasse
 	 * @param quickAccessText	Eingegebener Text
 	 */
-	public JQuickAccessBuilderExamples(String quickAccessText) {
+	public JQuickAccessBuilderExamples(final String quickAccessText) {
 		super(Language.tr("QuickAccess.Examples"),Language.tr("QuickAccess.Examples.Hint"),quickAccessText,true);
 	}
 
