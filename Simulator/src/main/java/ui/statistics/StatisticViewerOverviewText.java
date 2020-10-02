@@ -2303,34 +2303,34 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			count+=c;
 
 			beginParagraph();
-			addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(w),fastAccessBuilder.getXMLSelector(wIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(t),fastAccessBuilder.getXMLSelector(tIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(p),fastAccessBuilder.getXMLSelector(pIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(w+t+p));
+			addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(w),fastAccessBuilder.getXMLSelector(wIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(t),fastAccessBuilder.getXMLSelector(tIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(p),fastAccessBuilder.getXMLSelector(pIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(w+t+p));
 			endParagraph();
 			if (count>0) {
 				beginParagraph();
-				addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(w/c));
-				addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(t/c));
-				addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(p/c));
-				addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong((w+t+p)/c));
+				addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(w/c));
+				addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(t/c));
+				addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(p/c));
+				addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong((w+t+p)/c));
 				endParagraph();
 			}
 		}
 
 		addHeading(3,Language.tr("Statistics.SumOverAllClientTypes"));
 		beginParagraph();
-		addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(waiting));
-		addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(transfer));
-		addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(process));
-		addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.total")+"): "+StatisticTools.formatNumberLong(waiting+transfer+process));
+		addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(waiting));
+		addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(transfer));
+		addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(process));
+		addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.total")+"): "+NumberTools.formatNumberLong(waiting+transfer+process));
 		endParagraph();
 		if (count>0) {
 			beginParagraph();
-			addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(waiting/count));
-			addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(transfer/count));
-			addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong(process/count));
-			addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+StatisticTools.formatNumberLong((waiting+transfer+process)/count));
+			addLine(Language.tr("Statistics.Costs.ByWaitingTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(waiting/count));
+			addLine(Language.tr("Statistics.Costs.ByTransferTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(transfer/count));
+			addLine(Language.tr("Statistics.Costs.ByProcessTimes")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong(process/count));
+			addLine(Language.tr("Statistics.Costs.Total")+" ("+Language.tr("Statistics.inAveragePerClient")+"): "+NumberTools.formatNumberLong((waiting+transfer+process)/count));
 			endParagraph();
 		}
 
@@ -2349,13 +2349,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			final double s=indicator.getValue();
 			sum+=s;
 			beginParagraph();
-			addLine(Language.tr("Statistics.CostsAtStation")+" \""+name+"\": "+StatisticTools.formatNumberLong(s)+" ("+Language.tr("Statistics.Part")+": "+StatisticTools.formatPercent(s/station)+")",fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.CostsAtStation")+" \""+name+"\": "+NumberTools.formatNumberLong(s)+" ("+Language.tr("Statistics.Part")+": "+StatisticTools.formatPercent(s/station)+")",fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.VALUE));
 			endParagraph();
 		}
 
 		addHeading(3,Language.tr("Statistics.SumOverAllStations"));
 		beginParagraph();
-		addLine(Language.tr("Statistics.Costs")+": "+StatisticTools.formatNumberLong(sum));
+		addLine(Language.tr("Statistics.Costs")+": "+NumberTools.formatNumberLong(sum));
 		endParagraph();
 
 		/* Ressourcen */
@@ -2379,20 +2379,20 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			idle+=i;
 
 			beginParagraph();
-			addLine(Language.tr("Statistics.CostsForResources.Available.Single")+": "+StatisticTools.formatNumberLong(t),fastAccessBuilder.getXMLSelector(tIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.CostsForResources.Working.Single")+": "+StatisticTools.formatNumberLong(w),fastAccessBuilder.getXMLSelector(wIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.CostsForResources.Idle.Single")+": "+StatisticTools.formatNumberLong(i),fastAccessBuilder.getXMLSelector(iIndicator,IndicatorMode.VALUE));
-			addLine(Language.tr("Statistics.Costs.Total")+": "+StatisticTools.formatNumberLong(t+w+i));
+			addLine(Language.tr("Statistics.CostsForResources.Available.Single")+": "+NumberTools.formatNumberLong(t),fastAccessBuilder.getXMLSelector(tIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.CostsForResources.Working.Single")+": "+NumberTools.formatNumberLong(w),fastAccessBuilder.getXMLSelector(wIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.CostsForResources.Idle.Single")+": "+NumberTools.formatNumberLong(i),fastAccessBuilder.getXMLSelector(iIndicator,IndicatorMode.VALUE));
+			addLine(Language.tr("Statistics.Costs.Total")+": "+NumberTools.formatNumberLong(t+w+i));
 			endParagraph();
 
 		}
 
 		addHeading(3,Language.tr("Statistics.SumOverAllResources"));
 		beginParagraph();
-		addLine(Language.tr("Statistics.CostsForResources.Available.All")+": "+StatisticTools.formatNumberLong(time));
-		addLine(Language.tr("Statistics.CostsForResources.Working.All")+": "+StatisticTools.formatNumberLong(work));
-		addLine(Language.tr("Statistics.CostsForResources.Idle.All")+": "+StatisticTools.formatNumberLong(idle));
-		addLine(Language.tr("Statistics.Costs.Total")+": "+StatisticTools.formatNumberLong(time+work+idle));
+		addLine(Language.tr("Statistics.CostsForResources.Available.All")+": "+NumberTools.formatNumberLong(time));
+		addLine(Language.tr("Statistics.CostsForResources.Working.All")+": "+NumberTools.formatNumberLong(work));
+		addLine(Language.tr("Statistics.CostsForResources.Idle.All")+": "+NumberTools.formatNumberLong(idle));
+		addLine(Language.tr("Statistics.Costs.Total")+": "+NumberTools.formatNumberLong(time+work+idle));
 		endParagraph();
 
 		/* Info */

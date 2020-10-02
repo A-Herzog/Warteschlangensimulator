@@ -29,6 +29,9 @@ import java.lang.reflect.Modifier;
 
 import javax.swing.JFileChooser;
 
+import org.apache.commons.math3.distribution.AbstractRealDistribution;
+import org.apache.commons.math3.distribution.ExponentialDistribution;
+import org.apache.commons.math3.distribution.LogNormalDistribution;
 import org.junit.jupiter.api.Test;
 
 import mathtools.MultiTable;
@@ -166,6 +169,9 @@ class DistributionSwingTests {
 		dataEditPanel.setEditable(true);
 
 		new JDataDistributionEditPanel(dataDist,JDataDistributionEditPanel.PlotMode.PLOT_BOTH,true,10);
+
+		dataEditPanel.setLabelFormat(JDataDistributionEditPanel.LabelMode.LABEL_PERCENT);
+		dataEditPanel.setLabelFormat(JDataDistributionEditPanel.LabelMode.LABEL_VALUE);
 	}
 
 	/**
@@ -177,7 +183,10 @@ class DistributionSwingTests {
 		final DataDistributionImpl dataDist=new DataDistributionImpl(100,new double[] {1,2,3});
 
 		JDistributionPanel distPanel;
+		AbstractRealDistribution dist1;
+		AbstractRealDistribution dist2;
 
+		/* Panel erstellen 1 */
 		distPanel=new JDistributionPanel(null,1000,true);
 		assertNull(distPanel.getDistribution());
 		assertNotNull(distPanel.toString());
@@ -185,9 +194,44 @@ class DistributionSwingTests {
 		assertEquals(dataDist,distPanel.getDistribution());
 		assertNotNull(distPanel.toString());
 
+		/* Panel erstellen 2 */
 		distPanel=new JDistributionPanel(dataDist,1000,true);
 		assertEquals(dataDist,distPanel.getDistribution());
 		assertNotNull(distPanel.toString());
+
+		/* Verteilung einstellen/auslesen 1 */
+		distPanel.setDistribution(100);
+		dist1=distPanel.getDistribution();
+		assertTrue(dist1 instanceof ExponentialDistribution);
+		assertEquals(((ExponentialDistribution)dist1).getMean(),100);
+
+		/* Verteilung einstellen/auslesen 2 */
+		dist1=new LogNormalDistribution(10,5);
+		distPanel.setDistribution(dist1);
+		dist2=distPanel.getDistribution();
+		assertTrue(DistributionTools.compare(dist1,dist2));
+
+		/* PlotType */
+		distPanel.setPlotType(JDistributionPanel.DENSITY);
+		assertEquals(distPanel.getPlotType(),JDistributionPanel.DENSITY);
+		distPanel.setPlotType(JDistributionPanel.CUMULATIVEPROBABILITY);
+		assertEquals(distPanel.getPlotType(),JDistributionPanel.CUMULATIVEPROBABILITY);
+		distPanel.setPlotType(JDistributionPanel.BOTH);
+		assertEquals(distPanel.getPlotType(),JDistributionPanel.BOTH);
+
+		/* MaxValue */
+		distPanel.setMaxXValue(123);
+		assertEquals(distPanel.getMaxXValue(),123);
+
+		/* Änderungsmöglichkeiten */
+		distPanel.setAllowDistributionTypeChange(false);
+		assertFalse(distPanel.isAllowDistributionTypeChange());
+		distPanel.setAllowDistributionTypeChange(true);
+		assertTrue(distPanel.isAllowDistributionTypeChange());
+		distPanel.setAllowChangeDistributionData(false);
+		assertFalse(distPanel.isAllowChangeDistributionData());
+		distPanel.setAllowChangeDistributionData(true);
+		assertTrue(distPanel.isAllowChangeDistributionData());
 	}
 
 	/**

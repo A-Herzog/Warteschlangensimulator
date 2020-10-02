@@ -117,6 +117,11 @@ class DistributionToolsTests {
 			assertNotNull(wrapper);
 			assertEquals(name,wrapper.getName());
 			assertNotNull(wrapper.getThumbnailImage());
+
+			assertNotNull(wrapper.getDefaultDistribution());
+			if (wrapper.canSetMean && wrapper.canSetStandardDeviation) {
+				assertNotNull(wrapper.getDistribution(100,50));
+			}
 		}
 	}
 
@@ -171,6 +176,9 @@ class DistributionToolsTests {
 				if (DistributionTools.canSetMeanExact(dist2)) {
 					assertEquals(5.0,DistributionTools.getMean(dist2),0.00001,"Verteilung: "+name);
 				}
+			} else {
+				final AbstractRealDistribution dist2=DistributionTools.setMean(dist1,5);
+				assertNull(dist2,"Verteilung: "+name);
 			}
 		}
 	}
@@ -200,10 +208,13 @@ class DistributionToolsTests {
 			}
 			if (DistributionTools.canSetStandardDeviation(dist1)) {
 				final AbstractRealDistribution dist2=DistributionTools.setStandardDeviation(dist1,5);
-				assertNotNull(dist2);
+				assertNotNull(dist2,"Verteilung: "+name);
 				if (DistributionTools.canSetStandardDeviationExact(dist2)) {
 					assertEquals(5.0,DistributionTools.getStandardDeviation(dist2),0.00001);
 				}
+			} else {
+				final AbstractRealDistribution dist2=DistributionTools.setStandardDeviation(dist1,5);
+				assertNull(dist2,"Verteilung: "+name);
 			}
 		}
 	}

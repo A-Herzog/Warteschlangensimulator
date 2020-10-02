@@ -37,16 +37,6 @@ public class StatisticTools {
 		return NumberTools.formatNumber(number,Math.max(minDigits,Math.max(1,setup.statisticsNumberDigits)));
 	}
 
-	/**
-	 * Wandelt eine Fließkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
-	 * und fügt in den Ergebnisstring dabei 1000er-Punkte ein.
-	 * @param number	Umzuwandelnde Zahl
-	 * @return	Zahl als Zeichenkette
-	 */
-	public static String formatNumberLong(final double number)  {
-		return NumberTools.formatNumberLong(number,Math.max(1,setup.statisticsNumberDigits));
-	}
-
 	/* Nicht Thread-save, brauchen wir hier aber auch nicht, ist für die GUI. */
 	private static StringBuilder sb1=new StringBuilder();
 	private static StringBuilder sb2=new StringBuilder();

@@ -155,7 +155,7 @@ class NumberToolsTest {
 
 		/* Negative Zahlen */
 		sb=(text==null)?null:new StringBuilder(text);
-		assertEquals("1",NumberTools.formatLong(1,sb));
+		assertEquals("-1",NumberTools.formatLong(-1,sb));
 		sb=(text==null)?null:new StringBuilder(text);
 		assertEquals("-9",NumberTools.formatLong(-9,sb));
 		sb=(text==null)?null:new StringBuilder(text);
@@ -229,6 +229,120 @@ class NumberToolsTest {
 		formatLongStringBuilderInt(null);
 		formatLongStringBuilderInt("");
 		formatLongStringBuilderInt("abc");
+	}
+
+	/**
+	 * Test: Umwandlung {@link Long} zu {@link String} in bestehenden {@link StringBuilder}
+	 * @see NumberTools#formatLongAndAppendToBuilder(long, StringBuilder)
+	 */
+	@Test
+	void formatLongAndAppendToBuilder() {
+		StringBuilder sb;
+
+		/* Zahlen / Anzahl an Ziffern */
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(0,sb);
+		assertEquals("abc0",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(1,sb);
+		assertEquals("abc1",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(9,sb);
+		assertEquals("abc9",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(10,sb);
+		assertEquals("abc10",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(99,sb);
+		assertEquals("abc99",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(100,sb);
+		assertEquals("abc100",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(999,sb);
+		assertEquals("abc999",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(1000,sb);
+		assertEquals("abc1.000",sb.toString());
+
+		/* Negative Zahlen */
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(-1,sb);
+		assertEquals("abc-1",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(-9,sb);
+		assertEquals("abc-9",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(-10,sb);
+		assertEquals("abc-10",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(-99,sb);
+		assertEquals("abc-99",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(-100,sb);
+		assertEquals("abc-100",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(-999,sb);
+		assertEquals("abc-999",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(-1000,sb);
+		assertEquals("abc-1.000",sb.toString());
+
+		/* Gruppierungspunkte */
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(1234,sb);
+		assertEquals("abc1.234",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(12345,sb);
+		assertEquals("abc12.345",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(123456,sb);
+		assertEquals("abc123.456",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(1234567,sb);
+		assertEquals("abc1.234.567",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(12345678,sb);
+		assertEquals("abc12.345.678",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(123456789,sb);
+		assertEquals("abc123.456.789",sb.toString());
+
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(1234567890,sb);
+		assertEquals("abc1.234.567.890",sb.toString());
+
+		/* Locale Test */
+
+		NumberTools.setLocale(Locale.US);
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(1234,sb);
+		assertEquals("abc1,234",sb.toString());
+		sb=new StringBuilder("abc");
+		NumberTools.formatLongAndAppendToBuilder(1234567,sb);
+		assertEquals("abc1,234,567",sb.toString());
+		NumberTools.setLocale(Locale.GERMANY);
 	}
 
 	private void formatLongNoGroupingStringBuilderInt(final String text) {
@@ -446,6 +560,48 @@ class NumberToolsTest {
 		formatNumberStringBuilderInt("abc");
 	}
 
+	private void formatNumberMaxStringBuilderInt(final String text) {
+		StringBuilder sb;
+
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("123456,789",NumberTools.formatNumberMax(123456.789,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("-123456,789",NumberTools.formatNumberMax(-123456.789,sb));
+
+		/* Null-Wert */
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("0",NumberTools.formatNumberMax(10E-17,sb));
+
+		/* Ganzzahlen */
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("12345",NumberTools.formatNumberMax(12345,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("-12345",NumberTools.formatNumberMax(-12345,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("1234567890",NumberTools.formatNumberMax(1234567890,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("-1234567890",NumberTools.formatNumberMax(-1234567890,sb));
+
+		/* Locale Test */
+		NumberTools.setLocale(Locale.US);
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("123456.789",NumberTools.formatNumberMax(123456.789,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("-123456.789",NumberTools.formatNumberMax(-123456.789,sb));
+		NumberTools.setLocale(Locale.GERMANY);
+	}
+
+	/**
+	 * Test: Umwandlung {@link Double} zu {@link String} mit maximaler Genauigkeit mit {@link StringBuilder}-Recycling
+	 * @see NumberTools#formatNumberMax(double, StringBuilder)
+	 */
+	@Test
+	void formatNumberMaxStringBuilder() {
+		formatNumberMaxStringBuilderInt(null);
+		formatNumberMaxStringBuilderInt("");
+		formatNumberMaxStringBuilderInt("abc");
+	}
+
 	/**
 	 * Test: Umwandlung {@link Double} zu {@link String} mit maximaler Genauigkeit
 	 * @see NumberTools#formatNumberMax(double)
@@ -633,6 +789,40 @@ class NumberToolsTest {
 		assertEquals("-12345",NumberTools.formatSystemNumber(-12345));
 		assertEquals("1234567890",NumberTools.formatSystemNumber(1234567890));
 		assertEquals("-1234567890",NumberTools.formatSystemNumber(-1234567890));
+	}
+
+	private void formatSystemNumberStringBuilderInt(final String text) {
+		StringBuilder sb;
+
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("123456.789",NumberTools.formatSystemNumber(123456.789,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("-123456.789",NumberTools.formatSystemNumber(-123456.789,sb));
+
+		/* Null-Wert */
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("0",NumberTools.formatSystemNumber(10E-17,sb));
+
+		/* Ganzzahlen */
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("12345",NumberTools.formatSystemNumber(12345,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("-12345",NumberTools.formatSystemNumber(-12345,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("1234567890",NumberTools.formatSystemNumber(1234567890,sb));
+		sb=(text==null)?null:new StringBuilder(text);
+		assertEquals("-1234567890",NumberTools.formatSystemNumber(-1234567890,sb));
+	}
+
+	/**
+	 * Test: Umwandeln {@link Double} zu {@link String} in System-Notation (d.h. mit Dezimalpunkt) mit {@link StringBuilder}-Recycling
+	 * @see NumberTools#formatSystemNumber(double)
+	 */
+	@Test
+	void formatSystemNumberStringBuilder() {
+		formatSystemNumberStringBuilderInt(null);
+		formatSystemNumberStringBuilderInt("");
+		formatSystemNumberStringBuilderInt("abc");
 	}
 
 	/**
