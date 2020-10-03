@@ -739,7 +739,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 
 		/* Label erstellen */
 		final JLabel label=new JLabel("<html><body>"+sb.toString()+"</body></html>");
-		if (icon!=null) label.setIcon(icon);
+		label.setIcon(icon);
 		return label;
 	}
 

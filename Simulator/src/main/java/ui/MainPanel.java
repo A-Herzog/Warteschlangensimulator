@@ -2687,7 +2687,7 @@ public class MainPanel extends MainPanelBase {
 			return;
 		}
 
-		if (url!=null) try {
+		try {
 			if (!MsgBox.confirmOpenURL(this,url)) return;
 			Desktop.getDesktop().browse(new URI(url));
 		} catch (IOException | URISyntaxException e1) {

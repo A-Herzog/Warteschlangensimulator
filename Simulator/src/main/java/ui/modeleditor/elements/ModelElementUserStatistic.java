@@ -111,11 +111,11 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	 * @param key	Bezeichner, zu dem ermittelt werden soll, ob es sich um eine Zeitangabe handelt oder nicht
 	 * @return	Gibt <code>null</code> zurück, wenn es keine Statistik zu dem angegebenen Bezeichner gibt, sonst wahr oder falsch.
 	 */
-	public boolean getIsTimeForKey(final String key) {
+	public Boolean getIsTimeForKey(final String key) {
 		for (int i=0;i<Math.min(this.key.size(),isTime.size());i++) {
 			if (this.key.get(i).equalsIgnoreCase(key)) return isTime.get(i);
 		}
-		return true;
+		return null;
 	}
 
 	/**

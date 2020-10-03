@@ -723,7 +723,7 @@ public class ModelElementCatalogDescriptionBuilder {
 				String s=elementName;
 				s=new String(s.getBytes(StandardCharsets.UTF_8));
 				text.append("<h3>"+s);
-				if (helpPage!=null) text.append("<a name=\"ref"+helpPage+"\"></a>");
+				text.append("<a name=\"ref"+helpPage+"\"></a>");
 				text.append("</h3>\n");
 				text.append("\n");
 				error=outputImageInline(text,s,element);

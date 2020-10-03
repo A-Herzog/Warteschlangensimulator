@@ -675,13 +675,13 @@ public class OptimizerPanel extends SpecialPanel {
 		final List<String> categories=new ArrayList<>(1+series.getItemCount());
 		final List<String> line=new ArrayList<>(1+series.getItemCount());
 		line.add((name==null)?"":name);
-		if (categories!=null) categories.add("");
+		categories.add("");
 		for (Object obj: series.getItems()) if (obj instanceof XYDataItem) {
 			final XYDataItem data=(XYDataItem)obj;
-			if (categories!=null) categories.add(NumberTools.formatNumberMax(data.getXValue()));
+			categories.add(NumberTools.formatNumberMax(data.getXValue()));
 			line.add(NumberTools.formatNumberMax(data.getYValue()));
 		}
-		if (categories!=null) table.addLine(categories);
+		table.addLine(categories);
 		table.addLine(line);
 
 		return table.transpose(true);

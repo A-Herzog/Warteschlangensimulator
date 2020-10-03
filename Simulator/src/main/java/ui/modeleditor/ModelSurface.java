@@ -633,7 +633,7 @@ public final class ModelSurface {
 			/* final Rectangle smallerDrawRect=new Rectangle(drawRect.x,drawRect.y,drawRect.width-1,drawRect.height-1); */ /* sonst gibt's beim initialen Zeichnen evtl. eine Pixelzeile unter dem Scrollbalken */
 			drawRect.width--;
 			drawRect.height--;
-			if (graphics!=null) for (ModelElement element : elements) if (isVisibleOnLayer(element)) {
+			for (ModelElement element : elements) if (isVisibleOnLayer(element)) {
 				element.drawToGraphics(graphics,/*smallerDrawRect*/drawRect,zoom,showSelectionFrames);
 			}
 			drawRect.width++;

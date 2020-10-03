@@ -101,10 +101,9 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		if (simData==null) simData=this.simData;
 		if (simData==null) return true;
 		this.simData=simData;
-		if (simData!=null) {
-			/* keine normale Verzögerung hier, da diese schon auf der Hauptebene erfolgt */
-			if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
-		}
+
+		/* keine normale Verzögerung hier, da diese schon auf der Hauptebene erfolgt */
+		if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
 		return true;
 	}
 
@@ -122,10 +121,9 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		if (simData==null) simData=this.simData;
 		if (simData==null) return true;
 		this.simData=simData;
-		if (simData!=null) {
-			/* keine normale Verzögerung hier, da diese schon auf der Hauptebene erfolgt */
-			surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4));
-		}
+
+		/* keine normale Verzögerung hier, da diese schon auf der Hauptebene erfolgt */
+		surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4));
 		return true;
 	}
 }

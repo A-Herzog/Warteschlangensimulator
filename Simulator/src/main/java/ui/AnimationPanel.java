@@ -787,15 +787,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (simData==null) return true;
 			if (simData.runData.isWarmUp && fastWarmUp) return true;
 			this.simData=simData;
-			if (simData!=null) {
-				if (logger==null || !logger.isActive()) {
-					delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
-				} else {
-					updateStatus(simData.currentTime); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
-				}
-				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
-				surfacePanel.repaint(); /* Wichtig, sonst wird im Einzelschrittmodus der letzte Schritt nicht korrekt dargestellt (und Zahlenwerte an den Stationen stimmen nicht!) */
+			if (logger==null || !logger.isActive()) {
+				delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
+			} else {
+				updateStatus(simData.currentTime); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
 			}
+			if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
+			surfacePanel.repaint(); /* Wichtig, sonst wird im Einzelschrittmodus der letzte Schritt nicht korrekt dargestellt (und Zahlenwerte an den Stationen stimmen nicht!) */
 		} finally {mutex.release();}
 
 		if (startPaused && fastWarmUp) {
@@ -831,14 +829,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (simData==null) return true;
 			if (simData.runData.isWarmUp && fastWarmUp) return true;
 			this.simData=simData;
-			if (simData!=null) {
-				if (logger==null || !logger.isActive()) {
-					delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
-				} else {
-					updateStatus(simData.currentTime); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
-				}
-				surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4));
+			if (logger==null || !logger.isActive()) {
+				delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
+			} else {
+				updateStatus(simData.currentTime); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
 			}
+			surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4));
 		} finally {mutex.release();}
 		return true;
 	}
