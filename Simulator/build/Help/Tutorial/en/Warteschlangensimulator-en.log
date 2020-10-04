@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.7.8)  2 AUG 2020 13:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  2 OCT 2020 22:42
 entering extended mode
 **./Warteschlangensimulator-en.tex
 (Warteschlangensimulator-en.tex
@@ -990,21 +990,14 @@ Package atveryend Info: Executing hook `AfterLastShipout' on input line 431.
 (Warteschlangensimulator-en.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 431.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 431.
-
-
-Package rerunfilecheck Warning: File `Warteschlangensimulator-en.out' has chang
-ed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Warteschlangensimulator-en.out':
-(rerunfilecheck)             Before: 72E39F5796C3CF0DBB9F149278E7E2EC;1079
-(rerunfilecheck)             After:  9FC61F16D96BD25DE4BB535CB5A62856;1063.
+Package rerunfilecheck Info: File `Warteschlangensimulator-en.out' has not chan
+ged.
+(rerunfilecheck)             Checksum: 9FC61F16D96BD25DE4BB535CB5A62856;1063.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 431.
  ) 
 Here is how much of TeX's memory you used:
  11261 strings out of 491273
- 168701 string characters out of 3112171
+ 168701 string characters out of 3112170
  299801 words of memory out of 3000000
  16411 multiletter control sequences out of 15000+200000
  58356 words of font info for 46 fonts, out of 3000000 for 9000
