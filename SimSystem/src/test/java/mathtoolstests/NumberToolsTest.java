@@ -132,6 +132,11 @@ class NumberToolsTest {
 		NumberTools.setLocale(Locale.GERMANY);
 	}
 
+	/**
+	 * Interne Hilfroutine: Umwandlung {@link Long} zu {@link String} mit {@link StringBuilder}-Recycling
+	 * @param text	Vorabbelegung für den {@link StringBuilder} (kann <code>null</code> sein)
+	 * @see #formatLongStringBuilder()
+	 */
 	private void formatLongStringBuilderInt(final String text) {
 		StringBuilder sb;
 
@@ -345,6 +350,11 @@ class NumberToolsTest {
 		NumberTools.setLocale(Locale.GERMANY);
 	}
 
+	/**
+	 * Interne Hilfroutine: Umwandlung {@link Long} zu {@link String} ohne 1000er-Punkte mit {@link StringBuilder}-Recycling
+	 * @param text	Vorabbelegung für den {@link StringBuilder} (kann <code>null</code> sein)
+	 * @see #formatLongNoGroupingStringBuilder()
+	 */
 	private void formatLongNoGroupingStringBuilderInt(final String text) {
 		StringBuilder sb;
 
@@ -501,6 +511,11 @@ class NumberToolsTest {
 		NumberTools.setLocale(Locale.GERMANY);
 	}
 
+	/**
+	 * Interne Hilfroutine: Umwandlung {@link Double} zu {@link String} mit {@link StringBuilder}-Recycling
+	 * @param text	Vorabbelegung für den {@link StringBuilder} (kann <code>null</code> sein)
+	 * @see #formatNumberStringBuilder()
+	 */
 	private void formatNumberStringBuilderInt(final String text) {
 		StringBuilder sb;
 
@@ -560,6 +575,11 @@ class NumberToolsTest {
 		formatNumberStringBuilderInt("abc");
 	}
 
+	/**
+	 * Interne Hilfroutine: Umwandlung {@link Double} zu {@link String} mit maximaler Genauigkeit mit {@link StringBuilder}-Recycling
+	 * @param text	Vorabbelegung für den {@link StringBuilder} (kann <code>null</code> sein)
+	 * @see #formatNumberMaxStringBuilder()
+	 */
 	private void formatNumberMaxStringBuilderInt(final String text) {
 		StringBuilder sb;
 
@@ -668,6 +688,11 @@ class NumberToolsTest {
 		NumberTools.setLocale(Locale.GERMANY);
 	}
 
+	/**
+	 * Interne Hilfroutine: Umwandlung {@link Double} zu {@link String} mit variabler Anzahl an Nachkommastellen und {@link StringBuilder}-Recycling
+	 * @param text	Vorabbelegung für den {@link StringBuilder} (kann <code>null</code> sein)
+	 * @see #formatNumberDigitsStringBuilder()
+	 */
 	private void formatNumberDigitsStringBuilderInt(final String text) {
 		StringBuilder sb;
 
@@ -737,6 +762,11 @@ class NumberToolsTest {
 		formatNumberDigitsStringBuilderInt("abc");
 	}
 
+	/**
+	 * Interne Hilfroutine: Umwandeln {@link Double} zu Prozentangabe als {@link String} mit {@link StringBuilder}-Recycling
+	 * @param text	Vorabbelegung für den {@link StringBuilder} (kann <code>null</code> sein)
+	 * @see #formatPercentStringBuilder()
+	 */
 	private void formatPercentStringBuilderInt(final String text) {
 		StringBuilder sb;
 
@@ -791,6 +821,11 @@ class NumberToolsTest {
 		assertEquals("-1234567890",NumberTools.formatSystemNumber(-1234567890));
 	}
 
+	/**
+	 * Interne Hilfroutine: Umwandeln {@link Double} zu {@link String} in System-Notation (d.h. mit Dezimalpunkt) mit {@link StringBuilder}-Recycling
+	 * @param text	Vorabbelegung für den {@link StringBuilder} (kann <code>null</code> sein)
+	 * @see #formatSystemNumberStringBuilder()
+	 */
 	private void formatSystemNumberStringBuilderInt(final String text) {
 		StringBuilder sb;
 

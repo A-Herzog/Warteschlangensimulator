@@ -142,12 +142,40 @@ public final class XMLTools {
 	/** Optionaler Kommentar für die xml-Dateien */
 	public static String xmlComment="";
 
+	/**
+	 * Liefert im Falle eines Fehlers die Beschreibung als String. Ist kein Fehler aufgetreten, so wird <code>null</code> zurück geliefert.
+	 * @see #getError()
+	 */
 	private String lastError=null;
 
+	/**
+	 * Datei zum Laden/Speichern<br>
+	 * (Wird ggf. im Konstruktor festgelegt.)
+	 */
 	private final File file;
+
+	/**
+	 * Dateityp zum Laden/Speichern
+	 * @see FileType
+	 */
 	private final FileType fileType;
+
+	/**
+	 * Als xml-Text zu interpretierender und zu ladender String.<br>
+	 * (Wird ggf. im Konstruktor festgelegt.)
+	 */
 	private final String inputText;
+
+	/**
+	 * Stream aus dem xml-Daten geladen werden sollen.<br>
+	 * (Wird ggf. im Konstruktor festgelegt.)
+	 */
 	private final InputStream input;
+
+	/**
+	 * Stream in den xml-Daten geschrieben werden sollen.<br>
+	 * (Wird ggf. im Konstruktor festgelegt.)
+	 */
 	private final OutputStream output;
 
 	/**
@@ -231,6 +259,11 @@ public final class XMLTools {
 		 */
 		public final FileType fileType;
 
+		/**
+		 * Konstruktor der Enum
+		 * @param identifier	Bezeichner für das Format (nicht notwendig die Dateiendung)
+		 * @param fileType	Zugehöriger Dateityp
+		 */
 		DefaultSaveFormat(final String identifier, FileType fileType) {
 			this.identifier=identifier;
 			this.fileType=fileType;
@@ -457,6 +490,12 @@ public final class XMLTools {
 		return false;
 	}
 
+	/**
+	 * Fragt ein Passwort über einen Dialog oder über die Konsole ab.
+	 * @return	Passwort oder <code>null</code>, wenn die Eingabe abgebrochen wurde.
+	 * @see #saveToStream(OutputStream, Element, boolean, FileType)
+	 * @see #loadFromStream(InputStream, FileType)
+	 */
 	private String getPasswordFromUser() {
 		if (GraphicsEnvironment.isHeadless()) {
 			System.out.println(enterPassword);
@@ -468,6 +507,12 @@ public final class XMLTools {
 		}
 	}
 
+	/**
+	 * Ermittelt den Dateityp basierend auf der Dateierweiterung
+	 * @param file	Datei deren Typ bestimmt werden soll
+	 * @return	Dateityp
+	 * @see FileType
+	 */
 	private FileType getFileType(final File file) {
 		if (fileType!=null && fileType!=FileType.AUTO) return fileType;
 
@@ -636,6 +681,13 @@ public final class XMLTools {
 		return root;
 	}
 
+	/**
+	 * Versucht den Dateityp aus den Stream-Daten selbst zu ermitteln
+	 * (wenn beim Laden als Typ "Auto" angegeben wurde und das Laden nicht über eine Datei erfolgt ist)
+	 * @param stream	Stream, der geladen werden soll
+	 * @return	Vermuteter Dateityp der Daten in dem Stream
+	 * @see #loadFromStream(InputStream, FileType)
+	 */
 	private FileType guessFileTypeFromStream(final InputStream stream) {
 		if (fileType!=FileType.AUTO) return fileType;
 
@@ -1009,6 +1061,14 @@ public final class XMLTools {
 		return showSaveDialog(parent,title,null,null,null,DefaultSaveFormat.XML);
 	}
 
+	/**
+	 * Wandelt einen xml-Knoten in json-Text um.<br>
+	 * Es wird dabei eine komplexe Konstruktion, die später wieder geladen werden kann, verwendet.
+	 * @param sb	Ausgabe des json-Codes
+	 * @param node	Auszugebender xml-Knoten
+	 * @param indent	Aktuelles Einrückungslevel
+	 * @see #xmlToJson(Element, boolean, boolean)
+	 */
 	private static void addNodeToJson(final StringBuilder sb, final Element node, final String indent) {
 		String content=node.getTextContent();
 		final List<Element> children=new ArrayList<>();
@@ -1072,6 +1132,14 @@ public final class XMLTools {
 		sb.append("\n"+indent+"}}");
 	}
 
+	/**
+	 * Wandelt einen xml-Knoten in json-Text um.<br>
+	 * Es wird dabei eine eine Konstruktion, die später <em>nicht</em> wieder geladen werden kann, verwendet.
+	 * @param sb	Ausgabe des json-Codes
+	 * @param node	Auszugebender xml-Knoten
+	 * @param indent	Aktuelles Einrückungslevel
+	 * @see #xmlToJson(Element, boolean, boolean)
+	 */
 	private static void addNodeToJsonSimple(final StringBuilder sb, final Element node, final String indent) {
 		String content=node.getTextContent();
 		final List<Element> children=new ArrayList<>();
@@ -1191,6 +1259,15 @@ public final class XMLTools {
 		return xmlToJson(doc.getDocumentElement(),simpleJson,useUTF8);
 	}
 
+	/**
+	 * Wandelt einen xml-Knoten in json-Text um.<br>
+	 * Es wird dabei eine komplexe Konstruktion, die später wieder geladen werden kann, verwendet.
+	 * @param writer	Ausgabe des json-Codes
+	 * @param node	Auszugebender xml-Knoten
+	 * @param indent	Aktuelles Einrückungslevel
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #xmlToJson(Element, boolean, Writer)
+	 */
 	private static void addNodeToJson(final Writer writer, final Element node, final String indent) throws IOException {
 		String content=node.getTextContent();
 		final List<Element> children=new ArrayList<>();
@@ -1254,6 +1331,15 @@ public final class XMLTools {
 		writer.append("\n"+indent+"}}");
 	}
 
+	/**
+	 * Wandelt einen xml-Knoten in json-Text um.<br>
+	 * Es wird dabei eine eine Konstruktion, die später <em>nicht</em> wieder geladen werden kann, verwendet.
+	 * @param writer	Ausgabe des json-Codes
+	 * @param node	Auszugebender xml-Knoten
+	 * @param indent	Aktuelles Einrückungslevel
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #xmlToJson(Element, boolean, Writer)
+	 */
 	private static void addNodeToJsonSimple(final Writer writer, final Element node, final String indent) throws IOException {
 		String content=node.getTextContent();
 		final List<Element> children=new ArrayList<>();
@@ -1364,6 +1450,14 @@ public final class XMLTools {
 		xmlToJson(doc.getDocumentElement(),simpleJson,writer);
 	}
 
+	/**
+	 * Trennt den json-Inhalt in einem Teil eines Strings an Trennzeichen (Kommata) auf
+	 * @param json	Zeichenkette, die den json-Inhalt enthälz
+	 * @param beginIndex	Erstes zu berücksichtigendes Zeichen (inklusive)
+	 * @param endIndex	Erstes nicht mehr zu berücksichtigendes Zeichen (d.h. bezogen auf die Bearbeitung exklusive dieses Indices)
+	 * @return	An Kommata aufgetrennter json-Inhalt
+	 * @see #loadJsonContent(Element, String)
+	 */
 	private static String[] splitData(final String json, final int beginIndex, final int endIndex) {
 		final List<String> data=new ArrayList<>();
 
@@ -1410,6 +1504,13 @@ public final class XMLTools {
 		return data.toArray(new String[0]);
 	}
 
+	/**
+	 * Lädt Attribute, Textinhalte und Unterelemente aus einem json-String in ein xml-Element
+	 * @param element	xml-Element in das die Daten geladen werden sollen
+	 * @param json	json-Text dessen Daten in das xml-Element übertragen werden sollen
+	 * @return	Liefert im Erfolgsfall <code>true</code>. Wenn der Text nicht als json-Daten interpretiert werden konnte, <code>false</code>.
+	 * @see #loadJsonObject(Element, String)
+	 */
 	private static boolean loadJsonContent(final Element element, final String json) {
 		final String[] data=splitData(json,0,json.length());
 
@@ -1459,6 +1560,17 @@ public final class XMLTools {
 		return true;
 	}
 
+	/**
+	 * Liefert einen Teil-String, der außerdem noch um Leerzeichen am
+	 * Anfang und Ende bereinigt wird.<br>
+	 * Der Funktionsaufruf ist identisch zu {@link String#substring(int, int)}
+	 * gefolgt von {@link String#trim()}. Allerdings ist diese Methode
+	 * speichersparsamer.
+	 * @param text	Zu verarbeitender Text
+	 * @param beginIndex	Startindex für den Substring (inklusive)
+	 * @param endIndex	Endindex für den Substring (exklusive)
+	 * @return	Teil-String
+	 */
 	private static String substringAndTrim(final String text, int beginIndex, int endIndex) {
 		while (beginIndex<endIndex && text.charAt(beginIndex)<=' ') beginIndex++;
 		while (beginIndex<endIndex && text.charAt(endIndex-1)<=' ') endIndex--;
@@ -1466,6 +1578,13 @@ public final class XMLTools {
 		return text.substring(beginIndex,endIndex);
 	}
 
+	/**
+	 * Interpretiert den Inhalt eines json-Strings und erstellt entsprechende Unterelemente unter einem vorgegebenen xml-Elternelement
+	 * @param parent	xml-Elternelement
+	 * @param json	Zu interpretierendes json-String
+	 * @return	Liefert im Erfolgsfall <code>true</code>. Wenn der Text nicht als json-Daten interpretiert werden konnte, <code>false</code>.
+	 * @see #jsonToXml(String, boolean)
+	 */
 	private static Element loadJsonObject(final Element parent, String json) {
 		if (json==null || json.length()<4) return null;
 		if (json.charAt(0)!='{' ||  json.charAt(json.length()-1)!='}') return null;

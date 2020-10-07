@@ -20,6 +20,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
@@ -45,6 +46,10 @@ import mathtools.distribution.tools.FileDropperData;
  * @author Alexander Herzog
  */
 public class MainFrameBase extends JFrame {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8212777339799463638L;
 
 	/**

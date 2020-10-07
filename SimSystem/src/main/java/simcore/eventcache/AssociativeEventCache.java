@@ -36,17 +36,25 @@ import simcore.Event;
  * @version 1.6
  */
 public final class AssociativeEventCache implements EventCache {
+	/** Anzahl der Teillisten auf der ersten Ebene */
 	private static final int SUB_LISTS=100;
+	/** Anzahl der Teillisten auf der zweiten Ebene */
 	private static final int TYPES_PER_SUB_LIST=20;
+	/** Kapazität an Ereignissen pro Klasse im Cache (sofern im Konstruktor nichts anderes angegeben) */
 	private static final int EVENTS_PER_CLASS=1_000_000;
 
 	/** Konstruktoren für neue Ereignisse */
 	private final Map<Class<? extends Event>,Constructor<Event>> cacheConstructors;
 
+	/** Kapazität an Ereignissen pro Klasse im Cache */
 	private final int capacityPerType;
+	/** Anzahl an Verwendeten Einträgen auf der zweiten Ebene */
 	private final int[] level2used;
+	/** Anzahl an Verwendeten Einträgen auf der dritten Ebene */
 	private final int[][] level3used;
+	/** Typen an Ereignissen auf der dritten Ebene */
 	private final Class<? extends Event>[][] listTypes;
+	/** Cache-Listen pro Typ (dritte Ebene) */
 	private final Event[][][] listEvents;
 
 	/**

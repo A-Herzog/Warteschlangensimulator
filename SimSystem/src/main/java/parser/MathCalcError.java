@@ -1,5 +1,7 @@
 package parser;
 
+import java.io.Serializable;
+
 /**
  * Exception, die ausgelöst wird, wenn ein Ausdruck nicht berechnet werden kann.
  * @author Alexander Herzog
@@ -7,6 +9,10 @@ package parser;
  * @see MathParser#calc(double[])
  */
 public class MathCalcError extends Exception {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=8709708885590784179L;
 
 	/**

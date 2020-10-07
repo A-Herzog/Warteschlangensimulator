@@ -40,6 +40,10 @@ public class DummyRandomGenerator implements RandomGenerator {
 	 */
 	public double[] next;
 
+	/**
+	 * Standardnormalverteilung
+	 * @see #nextGaussian()
+	 */
 	private final NormalDistribution stdNormal=new NormalDistribution(0,1);
 
 	/**

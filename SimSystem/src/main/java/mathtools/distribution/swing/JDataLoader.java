@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.AbstractAction;
 import javax.swing.InputMap;
@@ -58,6 +59,10 @@ import mathtools.Table;
  * @version 1.1
  */
 public class JDataLoader extends JDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2109504488623985873L;
 
 	/** Titel für den "Daten importieren"-Dialog */
@@ -224,6 +229,11 @@ public class JDataLoader extends JDialog {
 		return rootPane;
 	}
 
+	/**
+	 * Berechnet die minimale und die maximale Zeile oder Spalte aus einem Array mit Zeilen oder Spalten
+	 * @param cells	Array aus Zeilen- oder Spaltennummern
+	 * @return	Minimum und Maximum des selektierten Bereichs
+	 */
 	private int[] getRange(final int[] cells) {
 		int a=Integer.MAX_VALUE;
 		for (int i=0;i<cells.length;i++) if (cells[i]<a) a=cells[i];
@@ -238,6 +248,11 @@ public class JDataLoader extends JDialog {
 		return new int[]{a,b};
 	}
 
+	/**
+	 * Liefert den gewählten Bereich in einer Tabelle
+	 * @param nr	Nummer der Tabelle (0-basierend) in der Arbeitsmappe
+	 * @return	Selektierter Bereich (Array 1: Startpunkt, Array 2: Endpunkt; jeweils Zeile+Spalte) oder <code>null</code>, wenn keine Selektion erfolgt ist
+	 */
 	private int[][] getSelectedRange(final int nr) {
 		if (nr<0) return null;
 
@@ -258,6 +273,11 @@ public class JDataLoader extends JDialog {
 		}
 	}
 
+	/**
+	 * Liefert bei einer einzeiligen oder einspaltigen Selektion die Anzahl der selektierten Zellen
+	 * @param range	Selektierter Bereich (muss aus einer Zeile oder einer Spalte bestehen)
+	 * @return	Anzahl der selektierten Zellen
+	 */
 	private int getCellCount(final int[][] range) {
 		int count=0;
 
@@ -272,6 +292,12 @@ public class JDataLoader extends JDialog {
 		return count;
 	}
 
+	/**
+	 * Liefert die Inhalte der selektierten Zellen (Selektion muss eine Zeile oder eine Spalte sein)
+	 * @param nr	Tabellenblatt (0-basierend)
+	 * @param range	Selektrierter Bereich
+	 * @return	Inhalte der Zellen
+	 */
 	private String[] getSelectedCells(final int nr, final int[][] range) {
 		Table t=data.get(nr);
 
@@ -294,6 +320,10 @@ public class JDataLoader extends JDialog {
 		}
 	}
 
+	/**
+	 * Liefert den zur Vorgabe passenden selektrierten Bereich
+	 * @return	Selektierter Bereich (Array 1: Startpunkt, Array 2: Endpunkt; jeweils Zeile+Spalte) oder <code>null</code>, wenn keine passende Selektion erfolgt ist
+	 */
 	private int[][] getValidSelectedRange() {
 		/* Wurde etwas ausgewählt? */
 		int[][] range=getSelectedRange(lastSelectedTable);
@@ -328,6 +358,11 @@ public class JDataLoader extends JDialog {
 		return range;
 	}
 
+	/**
+	 * Reagiert auf das Anklicken von Schaltflächen
+	 * @see #buttonOk
+	 * @see #buttonCancel
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(final ActionEvent e) {
@@ -360,10 +395,19 @@ public class JDataLoader extends JDialog {
 	 * @see #model
 	 */
 	private class ImportTableModel extends AbstractTableModel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 4210448324814080272L;
 
+		/** Anzuzeigende Tabelle */
 		private final Table table;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param table	Anzuzeigende Tabelle
+		 */
 		public ImportTableModel(final Table table) {
 			super();
 			this.table=table;
@@ -385,9 +429,18 @@ public class JDataLoader extends JDialog {
 		}
 	}
 
+	/**
+	 * Listener der auf die Auswahl von Tabellenzellen reagiert
+	 * @see #table
+	 */
 	private class ImportTableSelectionListener implements ListSelectionListener {
+		/** Tabellenblatt (0-basierend) für den dieser Listener zuständig ist */
 		private final int nr;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param nr	Tabellenblatt (0-basierend) für den dieser Listener zuständig ist
+		 */
 		public ImportTableSelectionListener(int nr) {
 			this.nr=nr;
 		}
@@ -407,6 +460,12 @@ public class JDataLoader extends JDialog {
 		}
 	}
 
+	/**
+	 * Versucht Tabellendaten aus einer Zeichenkette zu laden.
+	 * @param owner	Übergeordnetes Element (zur Anzeige von Fehlermeldungen)
+	 * @param data	Tabellendaten in Textform
+	 * @return	Liefert im Erfolgsfall eine {@link MultiTable}, sonst <code>null</code>.
+	 */
 	private static MultiTable loadDataToMultiTable(final Component owner, final String data) {
 		Table table=new Table();
 		table.load(data);
@@ -421,6 +480,12 @@ public class JDataLoader extends JDialog {
 		return multiTable;
 	}
 
+	/**
+	 * Versucht Tabellendaten aus einer Datei zu laden.
+	 * @param owner	Übergeordnetes Element (zur Anzeige von Fehlermeldungen)
+	 * @param file	Tabellendatei
+	 * @return	Liefert im Erfolgsfall eine {@link MultiTable}, sonst <code>null</code>.
+	 */
 	private static MultiTable loadTable(final Component owner, final File file) {
 		MultiTable multiTable=new MultiTable();
 		if (!multiTable.load(file)) {
@@ -430,6 +495,12 @@ public class JDataLoader extends JDialog {
 		return multiTable;
 	}
 
+	/**
+	 * Versucht Tabellendaten aus einer Datei zu laden.
+	 * @param owner	Übergeordnetes Element (zur Anzeige von Dialogen)
+	 * @param fileLoadTitle	Titel des Dateiladedialogs
+	 * @return	Liefert im Erfolgsfall eine {@link MultiTable}, sonst <code>null</code>.
+	 */
 	private static MultiTable loadTable(final Component owner, final String fileLoadTitle) {
 		File file=Table.showLoadDialog(owner,fileLoadTitle); if (file==null) return null;
 		MultiTable multiTable=loadTable(owner,file); if (multiTable==null) return null;
@@ -445,6 +516,20 @@ public class JDataLoader extends JDialog {
 		return (result.size()>0)?result:null;
 	}
 
+	/**
+	 * Liefert eine in einer {@link MultiTable} enthaltene Zeichenketten-Reihe
+	 * der angegebenen Länge zurück. Ist diese eindeutig, so wird sie direkt zurückgegeben;
+	 * andernfalls wird ein Auswahldialog geöffnet.
+	 * Mögliche Fehlermeldungen werden in Form von <code>JOptionPane</code>-Fenstern angezeigt.
+	 * @param owner	Übergeordnetes Fenster (für Dateiauswahl-Dialog, Fehlermeldungen und Auswahl-Dialog)
+	 * @param multiTable	Tabellenarbeitsmappe der die Daten entnommen werden sollen
+	 * @param minValues	Minimale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden.
+	 * @param maxValues	Maximale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden.
+	 * @return	Im Erfolgsfall wird ein Array der verlangten Größe zurückgegeben. Im Fehlerfall <code>null</code>. Im Fehlerfall wird außerdem ein <code>JOptionPane</code>-Fehlerdialog angezeigt.
+	 * @see #loadData(Component, String, int, int)
+	 * @see #loadDataFromFile(Component, File, int, int)
+	 * @see #loadDataFromString(Component, String, int, int)
+	 */
 	private static String[] loadDataFromMultiTable(Component owner, final MultiTable multiTable, final int minValues, final int maxValues) {
 		String[] newData=multiTable.getDataLine(minValues,maxValues);
 		if (newData==null) {
@@ -550,6 +635,20 @@ public class JDataLoader extends JDialog {
 		return loadDataFromString(owner,data,countValues,countValues);
 	}
 
+	/**
+	 * Liefert eine in einer {@link MultiTable} enthaltene Zahlen-Reihe
+	 * der angegebenen Länge zurück. Ist diese eindeutig, so wird sie direkt zurückgegeben;
+	 * andernfalls wird ein Auswahldialog geöffnet.
+	 * Mögliche Fehlermeldungen werden in Form von <code>JOptionPane</code>-Fenstern angezeigt.
+	 * @param owner	Übergeordnetes Fenster (für Dateiauswahl-Dialog, Fehlermeldungen und Auswahl-Dialog)
+	 * @param multiTable	Tabellenarbeitsmappe der die Daten entnommen werden sollen
+	 * @param minValues	Minimale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden.
+	 * @param maxValues	Maximale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden.
+	 * @return	Im Erfolgsfall wird ein Array der verlangten Größe zurückgegeben. Im Fehlerfall <code>null</code>. Im Fehlerfall wird außerdem ein <code>JOptionPane</code>-Fehlerdialog angezeigt.
+	 * @see #loadNumbers(Component, String, int, int)
+	 * @see #loadNumbersFromFile(Component, File, int, int)
+	 * @see #loadNumbersFromString(Component, String, int, int)
+	 */
 	private static double[] loadNumbersFromMultiTable(Component owner, final MultiTable multiTable, final int minValues, final int maxValues) {
 		double[] newData=multiTable.getNumbersLine(minValues,maxValues);
 		if (newData==null) {
@@ -561,6 +660,21 @@ public class JDataLoader extends JDialog {
 		return newData;
 	}
 
+	/**
+	 * Liefert eine in einer {@link MultiTable} enthaltene Zahlen-Reihe
+	 * der angegebenen Länge zurück. Es werden ein oder zwei Zeilen geliefert.
+	 * Ist diese eindeutig, so wird sie direkt zurückgegeben; andernfalls wird ein Auswahldialog
+	 * geöffnet (dieser erlaubt aber nur die Auswahl einer Zeile/Spalte).
+	 * Mögliche Fehlermeldungen werden in Form von <code>JOptionPane</code>-Fenstern angezeigt.
+	 * @param owner	Übergeordnetes Fenster (für Dateiauswahl-Dialog, Fehlermeldungen und Auswahl-Dialog)
+	 * @param multiTable	Tabellenarbeitsmappe der die Daten entnommen werden sollen
+	 * @param minValues	Minimale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden.
+	 * @param maxValues	Maximale Anzahl an Daten in einer Zeile oder Spalte, die verlangt werden.
+	 * @return	Im Erfolgsfall wird ein Array der verlangten Größe zurückgegeben. Im Fehlerfall <code>null</code>. Im Fehlerfall wird außerdem ein <code>JOptionPane</code>-Fehlerdialog angezeigt.
+	 * @see #loadNumbersTwoRows(Component, String, int, int)
+	 * @see #loadNumbersTwoRowsFromFile(Component, File, int, int)
+	 * @see #loadNumbersTwoRowsFromString(Component, String, int, int)
+	 */
 	private static double[][] loadNumbersTwoRowsFromMultiTable(Component owner, final MultiTable multiTable, final int minValues, final int maxValues) {
 		double[][] newData=multiTable.getNumbersTwoLines(minValues,maxValues);
 		if (newData==null) {

@@ -60,13 +60,19 @@ import simcoretests.simcoreimpl.SimulatorBaseTestImpl;
  */
 public /* @SuppressWarnings("deprecation") für den TwoListsEventManager */
 class SimulatorBaseTest {
-	/* Logging für Tests */
-
+	/**
+	 * Logging-Daten für die Tests
+	 * @see #logger
+	 */
 	private static final List<String> log=new ArrayList<>();
+
+	/**
+	 * Logger für die Tests
+	 * @see #log
+	 */
 	private static final Consumer<EventTestImpl> logger=e->log.add(e.id+" "+e.time);
 
-	/* Welche Caches und Manager sollen getestet werden? */
-
+	/** Welche Caches und Manager sollen getestet werden? */
 	private static final EventCache[] caches=new EventCache[] {
 			new ListEventCache(),
 			new ListEventCacheLocked(),
@@ -76,8 +82,16 @@ class SimulatorBaseTest {
 			null
 	};
 
+	/**
+	 * Welche {@link EventManager} sollen getestet werden?
+	 * @see #initEventManagersSuppliersList()
+	 */
 	private static final List<Supplier<EventManager>> managers=new ArrayList<>();
 
+	/**
+	 * Initialisiert die Liste der zu prüfenden {@link EventManager}.
+	 * @see #managers
+	 */
 	@BeforeAll
 	private static void initEventManagersSuppliersList() {
 		managers.add(()->new LongRunMultiPriorityQueueEventManager(4));
@@ -90,8 +104,11 @@ class SimulatorBaseTest {
 		/* managers.add(()->new TwoListsEventManager()); */
 	}
 
-	/* Beispielereignissets anlegen */
-
+	/**
+	 * Beispielereignissets anlegen
+	 * @param sorting	Sortierungsvariante (Wert von 0 bis 5)
+	 * @return	Liefert ein Callback, welches die Ereignisse anlegt
+	 */
 	private BiFunction<SimData,Integer,List<Event>> buildSortInitialEvents(final int sorting) {
 		return (data,nr)->{
 			final List<Event> list=new ArrayList<>();
@@ -133,6 +150,11 @@ class SimulatorBaseTest {
 		};
 	}
 
+	/**
+	 * Erzeugt eine Liste von Ereignissen, die jeweils das nächste Ereignis in die Event-Liste einfügen
+	 * @return	Callback, das die Ereignisse anlegt
+	 * @see #testAddConnectedEvents
+	 */
 	private BiFunction<SimData,Integer,List<Event>> buildAddConnectedEvents() {
 		return (data,nr)->{
 			final List<Event> list=new ArrayList<>();
@@ -144,6 +166,11 @@ class SimulatorBaseTest {
 		};
 	}
 
+	/**
+	 * Erzeugt eine Liste von Ereignissen, die denselben Ausführungszeitpunkt besitzen
+	 * @return	Callback, das die Ereignisse anlegt
+	 * @see #testAddSameTimeEvents()
+	 */
 	private BiFunction<SimData,Integer,List<Event>> buildAddSameTimeEvents() {
 		return (data,nr)->{
 			final List<Event> list=new ArrayList<>();
@@ -157,8 +184,10 @@ class SimulatorBaseTest {
 		};
 	}
 
-	/* Simulator starten */
-
+	/**
+	 * Hilfsmethode: Simulator starten
+	 * @param simulator	Zu startendes Simulator
+	 */
 	private void runSimulator(final SimulatorBaseTestImpl simulator) {
 		assertTrue(!simulator.isStarted());
 		simulator.start(false);
@@ -168,6 +197,10 @@ class SimulatorBaseTest {
 		assertTrue(!simulator.isRunning());
 	}
 
+	/**
+	 * Hilfsmethode: Simulator im Pause-Modus starten
+	 * @param simulator	Zu startendes Simulator
+	 */
 	private void runSimulatorPaused(final SimulatorBaseTestImpl simulator) {
 		assertTrue(!simulator.isStarted());
 		simulator.start(false,true);
@@ -175,8 +208,11 @@ class SimulatorBaseTest {
 		assertTrue(simulator.isRunning());
 	}
 
-	/* Prüfen der Ereignisabarbeitung */
-
+	/**
+	 * Prüfen der Ereignisabarbeitung: Initiale Ereignisse
+	 * @param simulator	Simulator, der die Ereignisse abgearbeitet hat
+	 * @see #testSortInitialEvents()
+	 */
 	private void resultsSortInitialEvents(final SimulatorBaseTestImpl simulator) {
 		assertEquals(3000,log.size());
 		for (int i=0;i<log.size();i++) {
@@ -187,6 +223,11 @@ class SimulatorBaseTest {
 		assertEquals(0,simulator.getEventQueueLength());
 	}
 
+	/**
+	 * Prüfen der Ereignisabarbeitung: Ereignisse, die jeweils das nächste Ereignis einfügen
+	 * @param simulator	Simulator, der die Ereignisse abgearbeitet hat
+	 * @see #testAddConnectedEvents()
+	 */
 	private void resultsAddConnectedEvents(final SimulatorBaseTestImpl simulator) {
 		assertEquals(100,log.size());
 		for (int i=0;i<log.size();i++) {
@@ -197,6 +238,11 @@ class SimulatorBaseTest {
 		assertEquals(0,simulator.getEventQueueLength());
 	}
 
+	/**
+	 * Prüfen der Ereignisabarbeitung: Ereignisse mit gleicher Ausführungszeit
+	 * @param simulator	Simulator, der die Ereignisse abgearbeitet hat
+	 * @see #testAddSameTimeEvents()
+	 */
 	private void resultsAddSameTimeEvents(final SimulatorBaseTestImpl simulator) {
 		assertEquals(10000,log.size());
 		for (int i=0;i<log.size();i++) {

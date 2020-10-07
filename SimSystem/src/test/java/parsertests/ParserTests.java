@@ -37,6 +37,14 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @see CalcSystem
  */
 class ParserTests {
+	/**
+	 * Testet die dem Konstruktor übergebenen Daten in einem {@link CalcSystem}.
+	 * @param calc	Rechensystem, das geprüft werden soll
+	 * @param text	Übergebener Text
+	 * @param variables	Übergebene Variablen
+	 * @param values	Werte für die Variablen
+	 * @see #constructorTest()
+	 */
 	private void constructorTest(final CalcSystem calc, final String text, final String[] variables, final List<Double> values) {
 		assertNotNull(calc.getText());
 		if (text==null || text.isEmpty()) {

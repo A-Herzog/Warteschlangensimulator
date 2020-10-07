@@ -71,16 +71,52 @@ import mathtools.Table.IndexMode;
  * @version 1.0
  */
 public abstract class TableChartBase {
-	/** Tabelle, die die Daten enthält */
+	/**
+	 * Tabelle, die die Daten enthält.<br>
+	 * (Wird bereits im Konstruktor übergeben)
+	 */
 	private final Table table;
 
+	/**
+	 * Zuordnung von Zeichenflächen zu Tabellenblättern.
+	 * @see #createChart(String, Sheet, Point, Dimension)
+	 */
 	private final Map<Sheet,XSSFDrawing> drawing;
 
+	/**
+	 * Diagramm-Objekt in der Tabelle.<br>
+	 * (Nur während des Aufrufs von {@link #build(String, int, Sheet, String)} gültig.)
+	 */
 	private CTChart chart;
+
+	/**
+	 * Zeichenfläche innerhalb des Diagramm-Objekts.<br>
+	 * (Nur während des Aufrufs von {@link #build(String, int, Sheet, String)} gültig.)
+	 */
 	private CTPlotArea plotArea;
+
+	/**
+	 * Titel der x-Achse
+	 * @see #setupAxis(String, String)
+	 */
 	private String catAxisTitle;
+
+	/**
+	 * Titel der y-Achse
+	 * @see #setupAxis(String, String)
+	 */
 	private String valAxisTitle;
+
+	/**
+	 * Minimalwert für die y-Achse (kann <code>null</code> sein, dann erfolgt die Festlegung implizit.)
+	 * @see #setupAxisMinY(double)
+	 */
 	private Double valAxisMin;
+
+	/**
+	 * Maximalwert für die y-Achse (kann <code>null</code> sein, dann erfolgt die Festlegung implizit.)
+	 * @see #setupAxisMaxY(double)
+	 */
 	private Double valAxisMax;
 
 	/**
@@ -104,6 +140,14 @@ public abstract class TableChartBase {
 		}
 	}
 
+	/**
+	 * Erstellt das Diagramm-Objekt
+	 * @param chartTitle	Titel des Diagramms
+	 * @param sheet	Tabellenblatt in das das Diagramm eingebettet werden soll
+	 * @param start	0-basierte Startposition des Diagramms
+	 * @param size	Größe des Diagramms
+	 * @return	Liefert das neue Diagramm-Objekt zurück
+	 */
 	private CTChart createChart(final String chartTitle, final Sheet sheet, final Point start, final Dimension size) {
 		XSSFDrawing draw=drawing.get(sheet);
 		if (draw==null) drawing.put(sheet,draw=(XSSFDrawing)sheet.createDrawingPatriarch());

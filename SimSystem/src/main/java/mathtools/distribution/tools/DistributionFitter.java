@@ -102,16 +102,61 @@ public class DistributionFitter {
 	 */
 	public static String FitError="Abweichung";
 
+	/**
+	 * Nimmt die Statusausgaben in unformatierter Form auf.
+	 * @see #getResult(boolean)
+	 */
 	private final StringBuilder outputPlain;
+
+	/**
+	 * Nimmt die Statusausgaben in html-Form auf.
+	 * @see #getResult(boolean)
+	 */
 	private final StringBuilder outputHTML;
+
+	/**
+	 * Anzahl der erfassten Messwerte
+	 * @see #prepareProcessing(DataDistributionImpl)
+	 */
 	private int count;
+
+	/**
+	 * Messwerte so wie sie {@link #process(DataDistributionImpl)} übergeben wurden
+	 */
 	private DataDistributionImpl rawSamples;
+
+	/**
+	 * Messwerte in normalisierter Form (gegenüber {@link #rawSamples})
+	 */
 	private DataDistributionImpl samples;
+
+	/**
+	 * Am besten zu den Werten passende Verteilung
+	 * @see #getFitDistribution()
+	 */
 	private AbstractRealDistribution fit;
+
+	/**
+	 * Quadratische Abweichung der Messwerte zur unter {@link #fit} gespeicherten Verteilung.
+	 */
 	private double fitError;
 
+	/**
+	 * Liste mit Informationen (in Textform) zu den getesteten Verteilungen
+	 * @see #getResultList()
+	 */
 	private final List<String> outputInfo;
+
+	/**
+	 * Liste mit den Verteilungen, die getestet wurden
+	 * @see #getResultListDist()
+	 */
 	private final List<AbstractRealDistribution> outputDist;
+
+	/**
+	 * Liste mit den Abweichungen pro getesteter Verteilung
+	 * @see #getResultListError()
+	 */
 	private final List<Double> outputError;
 
 	/**
@@ -206,6 +251,13 @@ public class DistributionFitter {
 		return process(dist);
 	}
 
+	/**
+	 * Vorverarbeitung der Messwerte
+	 * (Normalisierung, Ausgabe der generellen Informationen in {@link #outputPlain} and {@link #outputHTML})
+	 * @param dist	Zu verarbeitende Verteilung
+	 * @return	Gibt an, ob die Vorverarbeitung erfolgreich war, die Datenreihe also verwendet werden kann
+	 * @see #process(DataDistributionImpl)
+	 */
 	private boolean prepareProcessing(final DataDistributionImpl dist) {
 		clear();
 		if (dist==null || dist.densityData.length<2) return false;
@@ -266,6 +318,12 @@ public class DistributionFitter {
 		return true;
 	}
 
+	/**
+	 * Fügt Informationen zu einer Verteilung (bzw. der Güte des Fits gegen diese Verteilung) zu der Ausgabe hinzu
+	 * @param dist	Verteilung deren Daten ausgegeben werden sollen
+	 * @param error	Quadratische Abweichung zwischen Messwerten und dieser Verteilung
+	 * @see #calcMatch(AbstractRealDistribution)
+	 */
 	private void addResultToOutputList(AbstractRealDistribution dist, double error) {
 		int pos=outputError.size();
 		for (int i=0;i<outputError.size();i++) if (outputError.get(i)>error) {pos=i; break;}
@@ -275,6 +333,12 @@ public class DistributionFitter {
 		outputError.add(pos,error);
 	}
 
+	/**
+	 * Berechnet die quadrierte mittlere Abweichung zwischen einer Verteilung und den Messwerten
+	 * @param dist	Verteilung zu der die Abweichung berechnet werden sollen
+	 * @return	Quadrierte mittlere Abweichung
+	 * @see #calcMatch(AbstractRealDistribution)
+	 */
 	private double calcSquaredDiff(AbstractRealDistribution dist) {
 		double diff=0;
 
@@ -309,6 +373,12 @@ public class DistributionFitter {
 		return diff;
 	}
 
+	/**
+	 * p-Value gemäß Kolmogorov-Smirnov-Anpassungstest ausrechnen
+	 * @param dist	Verteilung zwischen der und den Messwerten der p-Value bestimmt werden soll
+	 * @return	p-Value gemäß Kolmogorov-Smirnov-Anpassungstest
+	 * @see #calcMatch(AbstractRealDistribution)
+	 */
 	private double calcPValueKS(AbstractRealDistribution dist) {
 		double maxDiff=0;
 
@@ -322,6 +392,12 @@ public class DistributionFitter {
 		return Math.min(1,2*FastMath.exp(-2*count*maxDiff*maxDiff));
 	}
 
+	/**
+	 * p-Value gemäß chi²-Anpassungstest ausrechnen
+	 * @param dist	Verteilung zwischen der und den Messwerten der p-Value bestimmt werden soll
+	 * @return	p-Value gemäß chi²-Anpassungstest
+	 * @see #calcMatch(AbstractRealDistribution)
+	 */
 	private double calcPValueChiSqr(AbstractRealDistribution dist) {
 		double sumRelDif=0;
 		int steps=0;
@@ -343,6 +419,12 @@ public class DistributionFitter {
 		return 1-chiSqr.cumulativeProbability(sumRelDif);
 	}
 
+	/**
+	 * p-Value gemäß Anderson-Darling-Anpassungstest ausrechnen
+	 * @param dist	Verteilung zwischen der und den Messwerten der p-Value bestimmt werden soll
+	 * @return	p-Value gemäß Anderson-Darling-Anpassungstest
+	 * @see #calcMatch(AbstractRealDistribution)
+	 */
 	private double calcPValueAndersonDarling(AbstractRealDistribution dist) {
 		/* Siehe https://en.wikipedia.org/wiki/Anderson–Darling_test */
 
@@ -391,6 +473,13 @@ public class DistributionFitter {
 		return Math.min(1,Math.max(0,1-p));
 	}
 
+	/**
+	 * Berechnet, wie gut eine vorgegebene Verteilung zu den Messwerten passt
+	 * (quadrierte mittlere Abweichung und auch verschiedene Anpassungstests)
+	 * @param dist	Zu prüfende Verteilung
+	 * @see #fit
+	 * @see #fitError
+	 */
 	private void calcMatch(final AbstractRealDistribution dist) {
 		/* Quadrierte mittlere Abweichung ausrechnen */
 		final double diff=calcSquaredDiff(dist);
@@ -436,6 +525,13 @@ public class DistributionFitter {
 		addResultToOutputList(dist,diff);
 	}
 
+	/**
+	 * Versucht eine Verteilung an die Messwerte anzupassen und berechnet dann,
+	 * wenn die Anpassung möglich ist, die Abweichung
+	 * @param wrapper	Typ der Verteilung
+	 * @param mean	Einzustellender Erwartungswert
+	 * @param sd	Einzustellende Standardabweichung
+	 */
 	private void calcMatch(final AbstractDistributionWrapper wrapper, final double mean, final double sd) {
 		if (wrapper==null) return;
 		final AbstractRealDistribution fit=wrapper.getDistributionForFit(mean,sd);
@@ -478,7 +574,7 @@ public class DistributionFitter {
 	}
 
 	/**
-	 * Liste mit den Verteilungen, die getestet wurden
+	 * Liefert eine Liste mit den Verteilungen, die getestet wurden
 	 * @return Liste mit allen getesteten (und angepassten) Verteilungen
 	 * @see DistributionFitter#getResultList
 	 * @see DistributionFitter#getResultListError
@@ -488,7 +584,7 @@ public class DistributionFitter {
 	}
 
 	/**
-	 * Liste mit den Abweichungen pro getesteter Verteilung
+	 * Liefert eine Liste mit den Abweichungen pro getesteter Verteilung
 	 * @return Liste mit den Abweichungen pro getesteter Verteilung
 	 * @see DistributionFitter#getResultListDist
 	 * @see DistributionFitter#getResultList

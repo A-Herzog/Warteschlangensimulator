@@ -29,6 +29,10 @@ import org.apache.commons.math3.util.FastMath;
  * @see AbstractRealDistribution
  */
 public final class JohnsonDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7404228683794460123L;
 
 	/**
@@ -60,6 +64,12 @@ public final class JohnsonDistributionImpl extends AbstractRealDistribution impl
 	 */
 	private final double inverseDelta;
 
+	/**
+	 * Standardnormalverteilung, die verwendet wird, um Verteilungswerte
+	 * zu berechnen.
+	 * @see #cumulativeProbability(double)
+	 * @see #inverseCumulativeProbability(double)
+	 */
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**

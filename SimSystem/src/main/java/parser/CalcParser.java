@@ -57,13 +57,18 @@ public final class CalcParser {
 	}
 
 	/**
-	 * Zwichenspeicherung des {@link StringBuilder}-Objektes,
+	 * Zwischenspeicherung des {@link StringBuilder}-Objektes,
 	 * welches zum Prüfen, ob es sich bei einem Text um eine
 	 * Zahl handelt, verwendet wird.
 	 * @see #getNumber(String)
 	 */
 	private StringBuilder numberParser;
 
+	/**
+	 * Versucht eine Zeichenkette in ein Zahlen-Objekt umzuwandeln
+	 * @param text	Zu interpretierender Text
+	 * @return	Liefert im Erfolgsfall ein Array aus Zahlen-Objekt, dem Ausgangstext, der Anzahl an interpretierten Zeichen und einem {@link Double}-Wert der Zahl. Im Fehlerfall wird <code>null</code> geliefert.
+	 */
 	private Object[] getNumber(String text) {
 		if (numberParser==null) numberParser=new StringBuilder(); else numberParser.setLength(0);
 
@@ -257,6 +262,12 @@ public final class CalcParser {
 		}
 	}
 
+	/**
+	 * Erstellt aus einer Reihe von Objekten ein neues Unterelement
+	 * @param list	Liste der zu verarbeitenden Objekte
+	 * @return	Neues Element basierend auf der Liste der zu verarbeitenden Objekte
+	 * @see #parse(List)
+	 */
 	private Object buildSub(final List<Object> list) {
 		final List<CalcSymbol> parts=new ArrayList<>();
 		final List<Object> buffer=new ArrayList<>();
@@ -288,6 +299,13 @@ public final class CalcParser {
 		return sub;
 	}
 
+	/**
+	 * Erzeugt aus einer Reihe von Tokens einen Objektbaum
+	 * @param list	Tokens
+	 * @return	Objektbaum
+	 * @see #parse(String)
+	 * @see #buildSub(List)
+	 */
 	private Object parse(List<Object> list) {
 		List<Object> temp, buffer;
 
@@ -388,6 +406,12 @@ public final class CalcParser {
 		return buildTree(list);
 	}
 
+	/**
+	 * Erzeugt aus den per {@link #parse(List)} vorverarbeiteten Tokens den Objektbaum
+	 * @param list	Vorverarbeitete Liste mit Tokens
+	 * @return	Objektbaum
+	 * @see #parse(List)
+	 */
 	private Object buildTree(final List<Object> list) {
 		CalcSymbolFunction prioSym;
 		int prio, prioIndex;

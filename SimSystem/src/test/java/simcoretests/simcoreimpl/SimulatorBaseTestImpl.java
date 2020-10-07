@@ -33,8 +33,11 @@ import simcoretests.SimulatorBaseTest;
  * @see SimulatorBaseTest
  */
 public class SimulatorBaseTestImpl extends SimulatorBase {
+	/** Callback, welches die initialen Ereignisse pro Thread liefert */
 	private final BiFunction<SimData,Integer,List<Event>> initialEventGetter;
+	/** Callback, welches eine Instanz des zu verwendenden Eventmanagers liefert */
 	private final Supplier<EventManager> getEventManager;
+	/** Callback, welches eine Instanz des zu verwendenden Event-Caches liefert */
 	private final Supplier<EventCache> getEventCache;
 
 	/**

@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.swing.AbstractAction;
@@ -39,10 +40,19 @@ import systemtools.images.SimToolsImages;
  * @see HTMLPanel
  */
 abstract class HTMLFrame extends JFrame {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8774433584734830953L;
 
 	private final HTMLPanel panel;
+
+	/**
+	 * Objekt vom Typ <code>Runnable</code>, welches (wenn ungleich <code>null</code>) aufgerufen wird, wenn ein Nicht-URL-Link angeklickt wird.
+	 */
 	private final Runnable specialLinks;
+
 	private String specialLink;
 
 	/**
@@ -52,7 +62,7 @@ abstract class HTMLFrame extends JFrame {
 	 * @param specialLinks Objekt vom Typ <code>Runnable</code>, welches (wenn ungleich <code>null</code>) aufgerufen wird, wenn ein Nicht-URL-Link angeklickt wird.
 	 * @see #getSpecialLink()
 	 */
-	public HTMLFrame(Window owner, String title, Runnable specialLinks) {
+	public HTMLFrame(final Window owner, final String title, final Runnable specialLinks) {
 		super();
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setTitle(title);

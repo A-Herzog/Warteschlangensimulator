@@ -15,6 +15,7 @@
  */
 package simcore.eventmanager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,8 +30,16 @@ import simcore.Event;
  * @see LongRunMultiSortedArrayListEventManager
  */
 public class SortedEventArrayList extends ArrayList<Event> {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2998904945709200525L;
 
+	/**
+	 * Callback zum Vergleich von zwei Ereignissen in Bezug auf ihre Ausführungszeitpunkte
+	 * @see #add(Event)
+	 */
 	private static final transient Comparator<Event> comparator;
 
 	/**

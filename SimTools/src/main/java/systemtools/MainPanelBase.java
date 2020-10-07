@@ -30,6 +30,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -67,6 +68,10 @@ import systemtools.images.SimToolsImages;
  * @version 1.9
  */
 public abstract class MainPanelBase extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7372341094781006117L;
 
 	/**
@@ -279,6 +284,11 @@ public abstract class MainPanelBase extends JPanel {
 		if (c!=' ') menu.setMnemonic(c);
 	}
 
+	/**
+	 * Ermittelt mit Hilfe von {@link #getResourceURL(String)} die URL für einen Icon-Namen
+	 * @param iconName	Name des Icons
+	 * @return	URL für das Icon oder <code>null</code>, wenn keine URL ermittelt werden konnte
+	 */
 	private Icon getIcon(final String iconName) {
 		if (iconName==null || iconName.isEmpty()) return null;
 		final URL imgURL=getResourceURL(iconName);
@@ -1643,6 +1653,10 @@ public abstract class MainPanelBase extends JPanel {
 		/** Iconobjekt zum Anzeigen */
 		final Icon icon;
 
+		/**
+		 * Konstruktor der Enum
+		 * @param icon	Iconobjekt zum Anzeigen
+		 */
 		MessagePanelIcon(final Icon icon) {
 			this.icon=icon;
 		}
@@ -1733,6 +1747,13 @@ public abstract class MainPanelBase extends JPanel {
 	 */
 	protected void action(final Object sender) {}
 
+	/**
+	 * Wird als Action-Listener für Menüpunkte registriert,
+	 * nimmt die Anfragen entgegen und leitet diese an
+	 * {@link MainPanelBase#action(Object)} weiter.
+	 * @see MainPanelBase#action(Object)
+	 * @see MainPanelBase#actionListener
+	 */
 	private class PanelActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -1740,6 +1761,11 @@ public abstract class MainPanelBase extends JPanel {
 		}
 	}
 
+	/**
+	 * Wird als Action-Listener für Menüpunkte registriert,
+	 * nimmt die Anfragen entgegen und ruft die in der
+	 * Action-Map des Panels hinterlegte Aktion aus.
+	 */
 	private class PanelActionMapActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

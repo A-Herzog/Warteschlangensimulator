@@ -27,6 +27,10 @@ import org.apache.commons.math3.util.FastMath;
  * @see AbstractRealDistribution
  */
 public final class PowerDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6763221514361547817L;
 
 	/**

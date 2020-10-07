@@ -58,7 +58,11 @@ import mathtools.distribution.tools.DistributionTools;
  * @author Alexander Herzog
  */
 class DistributionTests {
-
+	/**
+	 * Testet die Funktionen von {@link DistributionTools}
+	 * in Bezug auf eine bestimmte Verteilung
+	 * @param distribution	Verteilung, die in die {@link DistributionTools}-Funktionen eingesetzt werden soll
+	 */
 	private void testDistributionTools(final AbstractRealDistribution distribution) {
 		final AbstractRealDistribution distribution2=DistributionTools.cloneDistribution(distribution);
 		assertTrue(DistributionTools.compare(distribution,distribution2));
@@ -100,8 +104,12 @@ class DistributionTests {
 		assertFalse(text.isEmpty());
 	}
 
+	/**
+	 * Testet das Einstellen der Parameter bei einer konkreten Verteilung
+	 * @param distribution	Verteilung bei der das Einstellen der Parameter getestet werden soll
+	 * @param values	Einzustellende Parameter
+	 */
 	private void testDistributionParameters(final AbstractRealDistribution distribution, final double[] values) {
-
 		assertEquals(0,DistributionTools.getParameter(distribution,0),0.0001);
 		for (int i=0;i<values.length;i++) assertEquals(values[i],DistributionTools.getParameter(distribution,i+1),0.0001);
 		for (int i=values.length;i<=4;i++) assertEquals(0,DistributionTools.getParameter(distribution,i+1),0.0001);

@@ -28,6 +28,10 @@ import org.apache.commons.math3.util.FastMath;
  * @see <a href="https://en.wikipedia.org/wiki/Rayleigh_distribution">https://en.wikipedia.org/wiki/Rayleigh_distribution</a>
  */
 public final class RayleighDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7748498224666110097L;
 
 	/**

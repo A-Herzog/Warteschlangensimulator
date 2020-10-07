@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,10 @@ import systemtools.images.SimToolsImages;
  * @version 1.9
  */
 public class BaseDialog extends JDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -432438550461985704L;
 
 	/**
@@ -263,20 +268,37 @@ public class BaseDialog extends JDialog {
 	 * @see BaseDialog#createRootPane()
 	 */
 	private class SpecialKeyListener extends AbstractAction {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -485008309903554823L;
 
+		/**
+		 * ID der auszuführenden Aktion (0: Schließen, 1: Hilfe)
+		 */
 		private final int action;
 
-		public SpecialKeyListener(int action) {this.action=action;}
+		/**
+		 * Konstruktor der Klasse
+		 * @param action	ID der auszuführenden Aktion (0: Schließen, 1: Hilfe)
+		 */
+		public SpecialKeyListener(int action) {
+			this.action=action;
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			switch (action) {
-			case 0:	if ((cancelButton!=null && cancelButton.isVisible()) || (closeButton!=null && closeButton.isVisible())) {
-				if (closeButton!=null && closeButton.isVisible()) {if (!closeButtonOK()) return;}
-				setVisible(false); dispose();
-			} break;
-			case 1: if (helpButton!=null && helpButton.isVisible() && helpRunnable!=null) helpRunnable.run();
+			case 0:
+				if ((cancelButton!=null && cancelButton.isVisible()) || (closeButton!=null && closeButton.isVisible())) {
+					if (closeButton!=null && closeButton.isVisible()) {if (!closeButtonOK()) return;}
+					setVisible(false); dispose();
+				}
+				break;
+			case 1:
+				if (helpButton!=null && helpButton.isVisible() && helpRunnable!=null) helpRunnable.run();
+				break;
 			}
 		}
 	}
@@ -351,6 +373,16 @@ public class BaseDialog extends JDialog {
 		userButtons.add(button);
 	}
 
+	/**
+	 * Fügt den Fußbereich zu dem Dialog hinzu
+	 * @param content	Gesamter Inhaltsbereich des Dialogs
+	 * @param xSize	Breite des Fensters
+	 * @param ySize	Höhe des Fensters
+	 * @param previous Beschriftung der Vorgänger-Schaltläche (wird ausgeblendet, wenn gleich null oder leer)
+	 * @param next Beschriftung der Nachfolger-Schaltläche (wird ausgeblendet, wenn gleich null oder leer)
+	 * @param help Runnable, das aufgerufen wird, wenn die Hilfe-Schaltfläche angeklickt wird. (Wenn <code>null</code> übergeben wird, erscheint keine Hilfe-Schaltfläche.)
+	 * @see #createGUI(int, int, String, String, Runnable)
+	 */
 	private void addFooter(Container content, int xSize, int ySize, String previous, String next, Runnable help) {
 		JPanel p;
 
@@ -699,6 +731,14 @@ public class BaseDialog extends JDialog {
 	 */
 	protected void userButtonClick(final int nr, final JButton button) {}
 
+	/**
+	 * Listener für die verschiedenen Schaltflächen zum Schließen des Dialogs.
+	 * @see BaseDialog#closeButton
+	 * @see BaseDialog#okButton
+	 * @see BaseDialog#cancelButton
+	 * @see BaseDialog#previousButton
+	 * @see BaseDialog#nextButton
+	 */
 	private class CloseButtonActionEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -729,6 +769,9 @@ public class BaseDialog extends JDialog {
 		}
 	}
 
+	/**
+	 * Listener für die benutzerdefinierten Schaltflächen
+	 */
 	private class UserButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

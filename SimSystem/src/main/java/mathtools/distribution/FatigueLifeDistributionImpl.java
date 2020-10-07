@@ -26,6 +26,10 @@ import org.apache.commons.math3.distribution.NormalDistribution;
  * @see AbstractRealDistribution
  */
 public final class FatigueLifeDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6381222936424053668L;
 
 	/**
@@ -61,6 +65,12 @@ public final class FatigueLifeDistributionImpl extends AbstractRealDistribution 
 	 */
 	private final double inverseGamma;
 
+	/**
+	 * Standardnormalverteilung, die verwendet wird, um Verteilungswerte
+	 * zu berechnen.
+	 * @see #density(double)
+	 * @see #cumulativeProbability(double)
+	 */
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**

@@ -84,12 +84,18 @@ import mathtools.distribution.tools.WrapperWeibullDistribution;
  * @see JDistributionEditorPanelRecord#getList()
  */
 public abstract class JDistributionEditorPanelRecord {
+	/**
+	 * Wrapper-Klasse der Verteilung auf die sich dieser Datensatz beziehen soll
+	 */
 	private final AbstractDistributionWrapper wrapper;
+	/**
+	 * Namen der Eingabefelder
+	 */
 	private final String[] editLabels;
 
 	/**
 	 * Konstruktor eines Datensatzes
-	 * @param wrapper	Wrapper-Klasser der Verteilung auf die sich dieser Datensatz beziehen soll
+	 * @param wrapper	Wrapper-Klasse der Verteilung auf die sich dieser Datensatz beziehen soll
 	 * @param editLabels	Namen der Eingabefelder
 	 */
 	private JDistributionEditorPanelRecord(final AbstractDistributionWrapper wrapper, final String[] editLabels) {
@@ -214,7 +220,17 @@ public abstract class JDistributionEditorPanelRecord {
 		return null;
 	}
 
+	/**
+	 * Diese Klasse hält Datensätze für die Anzeige von Bearbeitung von
+	 * Verteilungen, die über einen einstellbaren Erwartungswert verfügen,
+	 * in einem {@link JDistributionEditorPanel} vor.
+	 * @see JDistributionEditorPanelRecord
+	 */
 	private abstract static class JDistributionEditorPanelRecordMean extends JDistributionEditorPanelRecord {
+		/**
+		 * Konstruktor der Klasse
+		 * @param wrapper	Wrapper-Klasse der Verteilung auf die sich dieser Datensatz beziehen soll
+		 */
 		public JDistributionEditorPanelRecordMean(final AbstractDistributionWrapper wrapper) {
 			super(wrapper,new String[]{JDistributionEditorPanel.DistMean});
 		}
@@ -237,7 +253,18 @@ public abstract class JDistributionEditorPanelRecord {
 		}
 	}
 
+	/**
+	 * Diese Klasse hält Datensätze für die Anzeige von Bearbeitung von
+	 * Verteilungen, die über einen einstellbaren Erwartungswert und eine
+	 * einstellbare Standardabweichung verfügen,
+	 * in einem {@link JDistributionEditorPanel} vor.
+	 * @see JDistributionEditorPanelRecord
+	 */
 	private abstract static class JDistributionEditorPanelRecordMeanStd extends JDistributionEditorPanelRecord {
+		/**
+		 * Konstruktor der Klasse
+		 * @param wrapper	Wrapper-Klasse der Verteilung auf die sich dieser Datensatz beziehen soll
+		 */
 		public JDistributionEditorPanelRecordMeanStd(final AbstractDistributionWrapper wrapper) {
 			super(wrapper,new String[]{JDistributionEditorPanel.DistMean,JDistributionEditorPanel.DistStdDev});
 		}
@@ -266,6 +293,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Empirische Daten */
 	private static class DataDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public DataDistribution() {
 			super(new WrapperDataDistribution(),new String[]{JDistributionEditorPanel.DistData});
 		}
@@ -293,6 +321,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Ein-Punkt-Verteilung */
 	private static class OnePointDistribution extends JDistributionEditorPanelRecordMean {
+		/** Konstruktor der Klasse */
 		public OnePointDistribution() {
 			super(new WrapperOnePointDistribution());
 		}
@@ -306,6 +335,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Gleichverteilung */
 	private static class UniformDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public UniformDistribution() {
 			super(new WrapperUniformRealDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd});
 		}
@@ -334,6 +364,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Exponentialverteilung */
 	private static class ExpDistribution extends JDistributionEditorPanelRecordMean {
+		/** Konstruktor der Klasse */
 		public ExpDistribution() {
 			super(new WrapperExponentialDistribution());
 		}
@@ -347,6 +378,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Normalverteilung */
 	private static class NormalDistribution extends JDistributionEditorPanelRecordMeanStd {
+		/** Konstruktor der Klasse */
 		public NormalDistribution() {
 			super(new WrapperNormalDistribution());
 		}
@@ -361,6 +393,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Log-Normalverteilung */
 	private static class LogNormalDistribution extends JDistributionEditorPanelRecordMeanStd {
+		/** Konstruktor der Klasse */
 		public LogNormalDistribution() {
 			super(new WrapperLogNormalDistribution());
 		}
@@ -375,6 +408,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Erlang-Verteilung */
 	private static class ErlangDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public ErlangDistribution() {
 			super(new WrapperErlangDistribution(),new String[]{"n","lambda"});
 		}
@@ -402,6 +436,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Gamma-Verteilung */
 	private static class GammaDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public GammaDistribution() {
 			super(new WrapperGammaDistribution(),new String[]{JDistributionEditorPanel.DistMean,JDistributionEditorPanel.DistStdDev});
 		}
@@ -439,6 +474,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Beta-Verteilung */
 	private static class BetaDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public BetaDistribution() {
 			super(new WrapperBetaDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd,"alpha","beta"});
 		}
@@ -470,6 +506,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Cauchy-Verteilung */
 	private static class CauchyDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public CauchyDistribution() {
 			super(new WrapperCauchyDistribution(),new String[]{JDistributionEditorPanel.DistMean,DistributionTools.DistScale});
 		}
@@ -502,6 +539,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Weilbull-Verteilung */
 	private static class WeibullDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public WeibullDistribution() {
 			super(new WrapperWeibullDistribution(),new String[]{DistributionTools.DistScale,"Form"});
 		}
@@ -529,6 +567,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Chi²-Verteilung */
 	private static class ChiSquaredDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public ChiSquaredDistribution() {
 			super(new WrapperChiSquaredDistribution(),new String[]{JDistributionEditorPanel.DistDegreesOfFreedom});
 		}
@@ -554,6 +593,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Chi-Verteilung */
 	private static class ChiDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public ChiDistribution() {
 			super(new WrapperChiDistribution(),new String[]{JDistributionEditorPanel.DistDegreesOfFreedom});
 		}
@@ -579,6 +619,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** F-Verteilung */
 	private static class FDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public FDistribution() {
 			super(new WrapperFDistribution(),new String[]{JDistributionEditorPanel.DistDegreesOfFreedomNumerator,JDistributionEditorPanel.DistDegreesOfFreedomDenominator});
 		}
@@ -606,6 +647,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Johnson-Verteilung */
 	private static class JohnsonDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public JohnsonDistribution() {
 			super(new WrapperJohnsonDistribution(),new String[]{"gamma","xi","delta","lambda"});
 		}
@@ -637,6 +679,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Dreiecksverteilung */
 	private static class TriangularDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public TriangularDistribution() {
 			super(new WrapperTriangularDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistMostLikely,JDistributionEditorPanel.DistUniformEnd});
 		}
@@ -666,6 +709,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Pert-Verteilung */
 	private static class PertDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public PertDistribution() {
 			super(new WrapperPertDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistMostLikely,JDistributionEditorPanel.DistUniformEnd});
 		}
@@ -695,6 +739,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Laplace-Verteilung */
 	private static class LaplaceDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public LaplaceDistribution() {
 			super(new WrapperLaplaceDistribution(),new String[]{JDistributionEditorPanel.DistMean,DistributionTools.DistScale});
 		}
@@ -722,6 +767,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Pareto-Verteilung */
 	private static class ParetoDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public ParetoDistribution() {
 			super(new WrapperParetoDistribution(),new String[]{DistributionTools.DistScale,"Form"});
 		}
@@ -750,6 +796,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Logistische Verteilung */
 	private static class LogisticDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public LogisticDistribution() {
 			super(new WrapperLogisticDistribution(),new String[]{JDistributionEditorPanel.DistMean,DistributionTools.DistScale});
 		}
@@ -777,6 +824,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Inverse Gauß-Verteilung */
 	private static class InverseGaussianDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public InverseGaussianDistribution() {
 			super(new WrapperInverseGaussianDistribution(),new String[]{"lambda","mu"});
 		}
@@ -804,6 +852,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Rayleigh-Verteilung */
 	private static class RayleighDistribution extends JDistributionEditorPanelRecordMean {
+		/** Konstruktor der Klasse */
 		public RayleighDistribution() {
 			super(new WrapperRayleighDistribution());
 		}
@@ -817,6 +866,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Log-Logistische Verteilung */
 	private static class LogLogisticDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public LogLogisticDistribution() {
 			super(new WrapperLogLogisticDistribution(),new String[]{"alpha","beta"});
 		}
@@ -844,6 +894,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Potenzverteilung */
 	private static class PowerDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public PowerDistribution() {
 			super(new WrapperPowerDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd,"c"});
 		}
@@ -873,6 +924,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Gumbel-Verteilung */
 	private static class GumbelDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public GumbelDistribution() {
 			super(new WrapperGumbelDistribution(),new String[]{JDistributionEditorPanel.DistMean,JDistributionEditorPanel.DistStdDev});
 		}
@@ -900,6 +952,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Fatigue-Life-Verteilung */
 	private static class FatigueLifeDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public FatigueLifeDistribution() {
 			super(new WrapperFatigueLifeDistribution(),new String[]{DistributionTools.DistLocation+" (mu)",DistributionTools.DistScale+" (beta)","Form (gamma)"});
 		}
@@ -929,6 +982,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Frechet-Verteilung */
 	private static class FrechetDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
 		public FrechetDistribution() {
 			super(new WrapperFrechetDistribution(),new String[]{DistributionTools.DistLocation+" (delta)",DistributionTools.DistScale+" (beta)","Form (alpha)"});
 		}
@@ -958,6 +1012,7 @@ public abstract class JDistributionEditorPanelRecord {
 
 	/** Hyperbolische Sekanten-Verteilung */
 	private static class HyperbolicSecantDistribution extends JDistributionEditorPanelRecordMeanStd {
+		/** Konstruktor der Klasse */
 		public HyperbolicSecantDistribution() {
 			super(new WrapperHyperbolicSecantDistribution());
 		}

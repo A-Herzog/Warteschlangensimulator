@@ -112,12 +112,19 @@ public class BaseCommandLineSystem {
 	/** Fehler bei "Hilfe"-Befehl: Kein Befehl mit dem Namen bekannt zu dem Hilfe angezeigt werden könnte." */
 	public static String commandHelpError="Es existiert kein Kommandozeilen-Befehl \"%s\".";
 
+	/** Name des Programms */
 	private final String programName;
+	/** Version des Programms */
 	private final String version;
+	/** Autor(en) des Programms */
 	private final String author;
+	/** Eine über {@link #getCommands()} abgefragte Liste der verfügbaren Befehle. */
 	private final AbstractCommand[] commands;
+	/** Ein {@link InputStream}-Objekt oder <code>null</code>, über das Zeichen von der Konsole gelesen werden können (<code>null</code>, wenn keine Konsole verfügbar ist) */
 	private final InputStream in;
+	/** Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können. */
 	private final PrintStream out;
+	/** In {@link #run(String[])} identifizierter, auszuführender Befehl. */
 	private AbstractCommand command;
 
 	/**
@@ -149,6 +156,12 @@ public class BaseCommandLineSystem {
 		return list;
 	}
 
+	/**
+	 * Versucht den als ersten Parameter angegebenen Befehl einem der verfügbaren Befehle zuzuordnen.
+	 * @param arg0	Erster Aufrufparameter
+	 * @return	Liefert den auszuführenden Befehl oder <code>null</code>, wenn der Parameter keinem Befehl zugeordnet werden konnte
+	 * @see #run(String[])
+	 */
 	private AbstractCommand findCommand(String arg0) {
 		for (int i=0;i<commands.length;i++) {
 			String[] keys=commands[i].getKeys();

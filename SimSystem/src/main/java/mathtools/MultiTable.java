@@ -585,6 +585,14 @@ public final class MultiTable {
 		return save(file,Table.SaveMode.SAVEMODE_BYFILENAME);
 	}
 
+	/**
+	 * Liefert eine Reihe aus einer bestimmten Minimal- und Maximal-Anzahl an (Zeichenketten-)Werten zurück.
+	 * @param minValues	Minimale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param maxValues	Maximale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param table	Tabelle der die Daten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Array aus den Werten zurück oder sonst <code>null</code>.
+	 * @see #getDataLine(int, int, Table)
+	 */
 	private String[] getDataLineRow(final int minValues, final int maxValues, final Table table) {
 		int rowNr=-1;
 		int colStart=0, colEnd=0;
@@ -625,6 +633,12 @@ public final class MultiTable {
 		return result;
 	}
 
+	/**
+	 * Liefert eine Reihe aus (Zeichenketten-)Werten zurück.
+	 * @param table	Tabelle der die Daten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Array aus den Werten zurück oder sonst <code>null</code>.
+	 * @see #getDataLine(int, int, Table)
+	 */
 	private String[] getSimpleData(final Table table) {
 		Table t=table.clone();
 
@@ -645,6 +659,14 @@ public final class MultiTable {
 		return data.toArray(new String[0]);
 	}
 
+	/**
+	 * Liefert eine Reihe aus einer bestimmten Minimal- und Maximal-Anzahl an (Zeichenketten-)Werten zurück.
+	 * @param minValues	Minimale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param maxValues	Maximale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param table	Tabelle der die Daten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Array aus den Werten zurück oder sonst <code>null</code>.
+	 * @see #getDataLine(int, int)
+	 */
 	private String[] getDataLine(int minValues, int maxValues, Table table) {
 		String[] simple=getSimpleData(table);
 		if (simple!=null && simple.length>=minValues && simple.length<=maxValues) return simple;
@@ -687,6 +709,15 @@ public final class MultiTable {
 		return getDataLine(valueCount,valueCount);
 	}
 
+	/**
+	 * Liefert eine Reihe aus einer bestimmten Minimal- und Maximal-Anzahl an Werten zurück.
+	 * @param minValues	Minimale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param maxValues	Maximale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param table	Tabelle der die Daten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Array aus den Werten zurück oder sonst <code>null</code>.
+	 * @see #getNumbersLine(int, int, Table)
+	 * @see #getNumbersLines(int, int, Table)
+	 */
 	private double[] getNumbersLineRow(final int minValues, final int maxValues, final Table table) {
 		int rowNr=-1;
 		int colStart=0, colEnd=0;
@@ -738,6 +769,13 @@ public final class MultiTable {
 		return result;
 	}
 
+	/**
+	 * Liefert eine Reihe mit einfachen Zahlenwerten zurück.
+	 * @param table	Tabelle der die Daten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Array aus den Werten zurück oder sonst <code>null</code>.
+	 * @see #getNumbersLine(int, int, Table)
+	 * @see #getNumbersLines(int, int, Table)
+	 */
 	private double[] getSimpleNumbers(final Table table) {
 		Table t=table.clone();
 
@@ -767,6 +805,12 @@ public final class MultiTable {
 		return result;
 	}
 
+	/**
+	 * Liefert zwei Reihen aus einer bestimmten Minimal- und Maximal-Anzahl an einfachen Zahlenwerten zurück.
+	 * @param table	Tabelle der die Daten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Array aus den Werten zurück oder sonst <code>null</code>.
+	 * @see #getNumbersLines(int, int, Table)
+	 */
 	private double[][] getTwoLinedSimpleNumbers(final Table table) {
 		Table t=table.clone();
 
@@ -822,6 +866,14 @@ public final class MultiTable {
 		return result;
 	}
 
+	/**
+	 * Liefert eine Reihe aus einer bestimmten Minimal- und Maximal-Anzahl an Werten zurück.
+	 * @param minValues	Minimale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param maxValues	Maximale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param table	Tabelle der die Daten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Array aus den Werten zurück oder sonst <code>null</code>.
+	 * @see #getNumbersLine(int, int)
+	 */
 	private double[] getNumbersLine(final int minValues, final int maxValues, final Table table) {
 		double[] simple=getSimpleNumbers(table);
 		if (simple!=null && simple.length>=minValues && simple.length<=maxValues) return simple;
@@ -835,6 +887,14 @@ public final class MultiTable {
 		}
 	}
 
+	/**
+	 * Liefert zwei Reihen aus einer bestimmten Minimal- und Maximal-Anzahl an Werten zurück.
+	 * @param minValues	Minimale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param maxValues	Maximale Anzahl an Werte in einer Spalte oder Zeile
+	 * @param table	Tabelle der die Daten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Array aus den Werten zurück oder sonst <code>null</code>.
+	 * @see #getTwoLinedSimpleNumbers(Table)
+	 */
 	private double[][] getNumbersLines(final int minValues, final int maxValues, final Table table) {
 		double[][] simple=getTwoLinedSimpleNumbers(table);
 		if (simple!=null && simple[0].length>=minValues && simple[0].length<=maxValues) return simple;

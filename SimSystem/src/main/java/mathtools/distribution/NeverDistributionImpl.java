@@ -15,6 +15,8 @@
  */
 package mathtools.distribution;
 
+import java.io.Serializable;
+
 /**
  * Die Klasse <code>NeverDistributionImpl</code> leitet sich von der Klasse <code>OnePointDistributionImpl</code>
  * ab und legt das gesamte Gewicht auf einen unendlich weit entfernten Punkt.<br>
@@ -25,6 +27,10 @@ package mathtools.distribution;
  * @see OnePointDistributionImpl
  */
 public final class NeverDistributionImpl extends OnePointDistributionImpl {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5707889172959565102L;
 
 	/**

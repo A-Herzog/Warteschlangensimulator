@@ -148,11 +148,34 @@ public class CalcSymbolList {
 	private static final List<String> listNames=new ArrayList<>();
 	/** Liste mit den Namen aller Symbole in Kleinbuchstaben */
 	private static final List<String> listNamesLower=new ArrayList<>();
+
+	/**
+	 * Lock um die Initialisierung Thread-sicher zu gestalten
+	 * @see #initSymbols()
+	 */
 	private static final Semaphore initLock=new Semaphore(1);
+
+	/**
+	 * Liste der nutzerdefinierten Funktionen
+	 * @see #getUserFunctions()
+	 */
 	private List<CalcSymbolPreOperator> listPreOperatorUser=null;
+
+	/**
+	 * Liste der Namen aller Symbole
+	 * @see #getAllSymbolNames()
+	 */
 	private String[] allSymbolNames=null;
+
+	/**
+	 * Liste der Namen aller Symbole in Kleinschreibung
+	 * @see #getAllSymbolNamesLower()
+	 */
 	private String[] allSymbolNamesLower=null;
 
+	/**
+	 * Internes Synchronisationsobjekt um eine parallele Initialisierung der Symbole zu verhindern
+	 */
 	private static final Object initSync=new Object();
 
 	/**
@@ -361,12 +384,41 @@ public class CalcSymbolList {
 		return allSymbolNames;
 	}
 
+	/**
+	 * Wird in {@link #getAllSymbolNamesLower()} intern bei der
+	 * Umwandlung einer Liste in ein Array als Platzhalter für
+	 * den Typ verwendet. Durch das statische Vorhalten wird
+	 * so das wiederholte Anlegen eines leeren Arrays vermieden.
+	 */
 	private static final String[] emptyArray=new String[0];
 
+	/**
+	 * Objekt zur Synchronisation von {@link #getToLowerFromCache(int)}
+	 * und von {@link #putToLowerToCache(String[], int)}
+	 */
 	private static Object toLowerSync=new Object();
+
+	/**
+	 * Hash-Wert des Arrays mit normaler Schreibweise (für den Cache)
+	 * @see #getToLowerFromCache(int)
+	 * @see #putToLowerToCache(String[], int)
+	 */
 	private static int toLowerHash=0;
+
+	/**
+	 * Array mit Kleinbuchstaben-Einträgen (für den Cache)
+	 * @see #getToLowerFromCache(int)
+	 * @see #putToLowerToCache(String[], int)
+	 */
 	private static String[] toLowerArr;
 
+	/**
+	 * Versucht ein Array mit bereits früher erstellten Kleinbuchstaben-Einträgen
+	 * aus dem Cache zu beziehen
+	 * @param hash	Hash-Wert des Arrays mit normaler Schreibweise
+	 * @return	Liefert im Erfolgsfall das Array mit Einträgen in Kleinschreibung
+	 * @see #getAllSymbolNamesLower()
+	 */
 	private static String[] getToLowerFromCache(final int hash) {
 		synchronized(toLowerSync) {
 			if (hash!=toLowerHash || toLowerArr==null) return null;
@@ -374,6 +426,13 @@ public class CalcSymbolList {
 		}
 	}
 
+	/**
+	 * Speichert ein Array mit Kleinbuchstaben-Einträgen zur
+	 * späteren Verwendung im Cache
+	 * @param arr	Zu speicherndes Array
+	 * @param hash	Hash-Wert des Arrays mit normaler Schreibweise
+	 * @see #getAllSymbolNamesLower()
+	 */
 	private static void putToLowerToCache(final String[] arr, final int hash) {
 		synchronized(toLowerSync) {
 			toLowerHash=hash;

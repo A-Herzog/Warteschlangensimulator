@@ -15,6 +15,8 @@
  */
 package mathtools.distribution;
 
+import java.io.Serializable;
+
 import org.apache.commons.math3.distribution.GammaDistribution;
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
 
@@ -27,6 +29,10 @@ import org.apache.commons.math3.exception.NotStrictlyPositiveException;
  * @see GammaDistribution
  */
 public class ErlangDistributionImpl extends GammaDistribution {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7370072894248279874L;
 
 	/**

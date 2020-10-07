@@ -939,6 +939,15 @@ public final class Table implements Cloneable {
 	}
 	 */
 
+	/**
+	 * Zerlegt eine CSV-Zeile in die einzelnen Zellen.
+	 * Das Trennzeichen muss dabei vorgegeben werden.
+	 * @param line	CSV-Zeile
+	 * @param lineFrom	Zeichen (inklusive) ab dem die Verarbeitung beginnen soll
+	 * @param lineTo	Zeichen (exklusive) bis zu dem die Verarbeitung erfolgen soll
+	 * @param divider	CSV-Trennerzeichen (z.B. Semikollon oder Tabulator)
+	 * @return	Liste mit den einzelnen Zellen der Zeile
+	 */
 	private List<String> fromCSVDirect(final String line, final int lineFrom, final int lineTo, final char divider) {
 		final List<String> csvCells=new ArrayList<>();
 

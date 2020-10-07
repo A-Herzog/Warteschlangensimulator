@@ -28,6 +28,10 @@ import org.apache.commons.math3.util.FastMath;
  * @see <a href="https://en.wikipedia.org/wiki/Log-logistic_distribution">https://en.wikipedia.org/wiki/Log-logistic_distribution</a>
  */
 public final class LogLogisticDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4941002449586863880L;
 
 	/**

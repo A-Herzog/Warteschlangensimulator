@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +79,10 @@ import xml.XMLData;
  * @version 1.7
  */
 public abstract class StatisticsBasePanel extends JPanel implements AbstractReportCommandConnect {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6849412691047065086L;
 
 	/**

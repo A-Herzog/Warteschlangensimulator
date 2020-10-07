@@ -42,9 +42,12 @@ import mathtools.distribution.DataDistributionImpl;
  * @see DataDistributionImpl
  */
 class DataDistributionImplTest {
-	private final static double[] exampleDataDouble=new double[] {3,4,2,0,1};
-	private final static int[] exampleDataInt=new int[] {3,4,2,0,1};
+	/** Beispiel double-Daten 1 */
+	private final static double[] exampleDataDouble1=new double[] {3,4,2,0,1};
+	/** Beispiel double-Daten 2 */
 	private final static double[] exampleDataDouble2=new double[] {3,4,2,0,1.5};
+	/** Beispiel int-Daten */
+	private final static int[] exampleDataInt=new int[] {3,4,2,0,1};
 
 	/**
 	 * Einstellung der Sprache für {@link NumberTools} um
@@ -56,6 +59,13 @@ class DataDistributionImplTest {
 		NumberTools.setLocale(Locale.GERMANY);
 	}
 
+	/**
+	 * Prüft, ob zwei Arrays in Bezug auf ihre beinhaltenden double-Werte
+	 * näherungsweise identisch sind
+	 * @param d1	Erstes Array
+	 * @param d2	Zweites Array
+	 * @return	Liefert <code>true</code>, wenn beide Arrays gleich lang sind und die Werte jeweils bis auf 1E-10 identisch sind
+	 */
 	private boolean arraysApproxEqual(final double[] d1, final double[] d2) {
 		if (d1==null && d2==null) return true;
 		if (d1==null || d2==null) return false;
@@ -72,55 +82,61 @@ class DataDistributionImplTest {
 		DataDistributionImpl dist;
 
 		/* Nur Anzahl an Steps */
-		dist=new DataDistributionImpl(10.0,exampleDataDouble.length);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1.length);
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertNotSame(exampleDataDouble,dist.densityData);
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
+		assertNotSame(exampleDataDouble1,dist.densityData);
 
 		/* double[] */
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
-		assertNotSame(exampleDataDouble,dist.densityData);
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
+		assertTrue(Objects.deepEquals(exampleDataDouble1,dist.densityData));
+		assertNotSame(exampleDataDouble1,dist.densityData);
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble,false);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1,false);
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
-		assertNotSame(exampleDataDouble,dist.densityData);
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
+		assertTrue(Objects.deepEquals(exampleDataDouble1,dist.densityData));
+		assertNotSame(exampleDataDouble1,dist.densityData);
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble,true);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1,true);
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
-		assertSame(exampleDataDouble,dist.densityData);
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
+		assertTrue(Objects.deepEquals(exampleDataDouble1,dist.densityData));
+		assertSame(exampleDataDouble1,dist.densityData);
 
 		/*  int[] */
 		dist=new DataDistributionImpl(10.0,exampleDataInt);
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
+		assertTrue(Objects.deepEquals(exampleDataDouble1,dist.densityData));
 
 		/* Double[] */
-		dist=new DataDistributionImpl(10.0,DoubleStream.of(exampleDataDouble).mapToObj(Double::valueOf).toArray(Double[]::new));
+		dist=new DataDistributionImpl(10.0,DoubleStream.of(exampleDataDouble1).mapToObj(Double::valueOf).toArray(Double[]::new));
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
+		assertTrue(Objects.deepEquals(exampleDataDouble1,dist.densityData));
 
 		/* Integer[] */
 		dist=new DataDistributionImpl(10.0,IntStream.of(exampleDataInt).mapToObj(Integer::valueOf).toArray(Integer[]::new));
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
+		assertTrue(Objects.deepEquals(exampleDataDouble1,dist.densityData));
 
 		/* List<Double> */
-		dist=new DataDistributionImpl(10.0,DoubleStream.of(exampleDataDouble).mapToObj(Double::valueOf).collect(Collectors.toList()));
+		dist=new DataDistributionImpl(10.0,DoubleStream.of(exampleDataDouble1).mapToObj(Double::valueOf).collect(Collectors.toList()));
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
-		assertTrue(Objects.deepEquals(exampleDataDouble,dist.densityData));
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
+		assertTrue(Objects.deepEquals(exampleDataDouble1,dist.densityData));
 	}
 
+	/**
+	 * Prüft den Skalierungsfaktor zwischen Datenpunkten und Werten
+	 * @param dist	Zu prüfende Verteilung
+	 * @param upperBound	Eingestellte obere Grenze für die Daten
+	 * @param steps	Anzahl an Schritten
+	 */
 	private void testFactor(final DataDistributionImpl dist, final double upperBound, final int steps) {
 		try {
 			final Field field=dist.getClass().getDeclaredField("argumentScaleFactor");
@@ -202,7 +218,7 @@ class DataDistributionImplTest {
 		DataDistributionImpl dist;
 
 		/* Keine Daten */
-		dist=new DataDistributionImpl(10.0,exampleDataDouble.length);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1.length);
 		assertEquals(10,dist.upperBound);
 		assertEquals(null,dist.cumulativeDensity);
 		dist.updateCumulativeDensity();
@@ -210,8 +226,8 @@ class DataDistributionImplTest {
 		assertEquals(5,dist.cumulativeDensity.length);
 
 		/* Daten vorbereiten */
-		final double sum=DoubleStream.of(exampleDataDouble).sum();
-		final double[] exampleDataDoubleNormalized=DoubleStream.of(exampleDataDouble).map(d->d/sum).toArray();
+		final double sum=DoubleStream.of(exampleDataDouble1).sum();
+		final double[] exampleDataDoubleNormalized=DoubleStream.of(exampleDataDouble1).map(d->d/sum).toArray();
 		final double[] exampleCumulativeDataDouble=new double[exampleDataDoubleNormalized.length];
 		for (int i=0;i<exampleCumulativeDataDouble.length;i++) {
 			exampleCumulativeDataDouble[i]=exampleDataDoubleNormalized[i];
@@ -219,9 +235,9 @@ class DataDistributionImplTest {
 		}
 
 		/* double[] */
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertEquals(10,dist.upperBound);
-		assertEquals(exampleDataDouble.length,dist.densityData.length);
+		assertEquals(exampleDataDouble1.length,dist.densityData.length);
 		assertTrue(arraysApproxEqual(exampleCumulativeDataDouble,dist.cumulativeDensity));
 	}
 
@@ -233,7 +249,7 @@ class DataDistributionImplTest {
 		DataDistributionImpl dist;
 
 		/* Keine Daten */
-		dist=new DataDistributionImpl(10.0,exampleDataDouble.length);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1.length);
 		assertTrue(dist.sumIsZero());
 
 		dist=new DataDistributionImpl(10,new double[0]);
@@ -241,11 +257,11 @@ class DataDistributionImplTest {
 		assertEquals(0,dist.cumulativeProbability(5));
 
 		/* Daten vorbereiten */
-		final double sum=DoubleStream.of(exampleDataDouble).sum();
-		final double[] exampleDataDoubleNormalized=DoubleStream.of(exampleDataDouble).map(d->d/sum).toArray();
+		final double sum=DoubleStream.of(exampleDataDouble1).sum();
+		final double[] exampleDataDoubleNormalized=DoubleStream.of(exampleDataDouble1).map(d->d/sum).toArray();
 
 		/* double[] */
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertTrue(!dist.sumIsZero());
 		dist.normalizeDensity();
 		assertTrue(arraysApproxEqual(dist.densityData,exampleDataDoubleNormalized));
@@ -259,11 +275,11 @@ class DataDistributionImplTest {
 		assertEquals(25,dist.sumAsStoredAsString());
 
 		/* Skalieren */
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		dist.stretchToValueCount(10);
 		assertTrue(Objects.deepEquals(new double[]{3,3,4,4,2,2,0,0,1,1},dist.densityData));
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		dist.stretchToValueCount(3);
 		assertTrue(Objects.deepEquals(new double[]{3,4,0},dist.densityData));
 	}
@@ -275,78 +291,78 @@ class DataDistributionImplTest {
 	void testCombineDists() {
 		DataDistributionImpl dist1, dist2, dist3;
 
-		dist1=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist1=new DataDistributionImpl(10.0,exampleDataDouble1);
 		dist2=new DataDistributionImpl(10.0,5);
 
 		/* min */
 		dist3=dist1.min(2);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->Math.min(d,2)).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->Math.min(d,2)).toArray()));
 
 		dist2.setToValue(2);
 		dist3=dist1.min(dist2);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->Math.min(d,2)).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->Math.min(d,2)).toArray()));
 
 		/* max */
 		dist3=dist1.max(2);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->Math.max(d,2)).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->Math.max(d,2)).toArray()));
 
 		dist2.setToValue(2);
 		dist3=dist1.max(dist2);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->Math.max(d,2)).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->Math.max(d,2)).toArray()));
 
 		/* add */
 		dist3=dist1.add(0);
 		assertTrue(Objects.deepEquals(dist3.densityData,dist1.densityData));
 
 		dist3=dist1.add(5);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->d+5).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->d+5).toArray()));
 
 		dist2.setToValue(5);
 		dist3=dist1.add(dist2);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->d+5).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->d+5).toArray()));
 
 		/* sub */
 		dist3=dist1.sub(0);
 		assertTrue(Objects.deepEquals(dist3.densityData,dist1.densityData));
 
 		dist3=dist1.sub(5);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->d-5).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->d-5).toArray()));
 
 		dist2.setToValue(5);
 		dist3=dist1.sub(dist2);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->d-5).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->d-5).toArray()));
 
 		/* multiply */
 		dist3=dist1.multiply(5);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->d*5).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->d*5).toArray()));
 
 		dist2.setToValue(5);
 		dist3=dist1.multiply(dist2);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->d*5).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->d*5).toArray()));
 
 		/* divide */
 		dist3=dist1.divide(5);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->d/5.0).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->d/5.0).toArray()));
 
 		dist2.setToValue(5);
 		dist3=dist1.divide(dist2);
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->d/5.0).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->d/5.0).toArray()));
 
 		dist3=dist1.divide(0);
 		assertTrue(Objects.deepEquals(dist3.densityData,dist1.densityData));
 
 		dist3=dist1.divide(dist1);
-		for (int i=0;i<exampleDataDouble.length;i++) assertEquals(dist3.densityData[i],((exampleDataDouble[i]==0.0)?0.0:1.0));
+		for (int i=0;i<exampleDataDouble1.length;i++) assertEquals(dist3.densityData[i],((exampleDataDouble1[i]==0.0)?0.0:1.0));
 
 		/* Runden */
 		dist3=dist1.divide(2).round();
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->Math.round(d/2.0)).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->Math.round(d/2.0)).toArray()));
 
 		dist3=dist1.divide(2).floor();
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->Math.floor(d/2.0)).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->Math.floor(d/2.0)).toArray()));
 
 		dist3=dist1.divide(2).ceil();
-		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble).map(d->Math.ceil(d/2.0)).toArray()));
+		assertTrue(Objects.deepEquals(dist3.densityData,DoubleStream.of(exampleDataDouble1).map(d->Math.ceil(d/2.0)).toArray()));
 	}
 
 	/**
@@ -454,7 +470,7 @@ class DataDistributionImplTest {
 
 		/* Standardantworten */
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertTrue(dist.isSupportLowerBoundInclusive());
 		assertTrue(dist.isSupportUpperBoundInclusive());
 		assertTrue(dist.isSupportConnected());
@@ -472,26 +488,26 @@ class DataDistributionImplTest {
 	void testPerformanceIndicatorValues() {
 		DataDistributionImpl dist;
 
-		final double min=DoubleStream.of(exampleDataDouble).min().getAsDouble();
-		final double max=DoubleStream.of(exampleDataDouble).max().getAsDouble();
-		final double sum=DoubleStream.of(exampleDataDouble).sum();
+		final double min=DoubleStream.of(exampleDataDouble1).min().getAsDouble();
+		final double max=DoubleStream.of(exampleDataDouble1).max().getAsDouble();
+		final double sum=DoubleStream.of(exampleDataDouble1).sum();
 		double m=0, m2=0;
-		for (int i=0;i<exampleDataDouble.length;i++) {
-			double x=i*(10.0/exampleDataDouble.length);
-			m+=exampleDataDouble[i]*x;
-			m2+=exampleDataDouble[i]*x*x;
+		for (int i=0;i<exampleDataDouble1.length;i++) {
+			double x=i*(10.0/exampleDataDouble1.length);
+			m+=exampleDataDouble1[i]*x;
+			m2+=exampleDataDouble1[i]*x*x;
 		}
 		m/=sum;
 		m2/=sum;
 
 		/* Minimum */
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertEquals(min,dist.getMin());
 
 		/* Maximum */
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertEquals(max,dist.getMax());
 
 		/* Mittelwert */
@@ -500,7 +516,7 @@ class DataDistributionImplTest {
 		assertEquals(0.0,dist.getNumericalMean());
 		assertEquals(0.0,dist.getMean());
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertEquals(m,dist.getNumericalMean());
 		assertEquals(m,dist.getMean());
 
@@ -509,12 +525,12 @@ class DataDistributionImplTest {
 		dist=new DataDistributionImpl(10.0,new double[0]);
 		assertEquals(0.0,dist.getStandardDeviation());
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertTrue(Math.abs(Math.sqrt(m2-m*m)-dist.getStandardDeviation())<1E-10);
 
 		/* Varianz */
 
-		dist=new DataDistributionImpl(10.0,exampleDataDouble);
+		dist=new DataDistributionImpl(10.0,exampleDataDouble1);
 		assertTrue(Math.abs((m2-m*m)-dist.getNumericalVariance())<1E-10);
 
 		/* Median */
@@ -618,8 +634,8 @@ class DataDistributionImplTest {
 	void testStringProcessingLoadSamples() {
 		DataDistributionImpl dist;
 
-		final double sum=DoubleStream.of(exampleDataDouble).sum();
-		final double[] exampleDataDoubleNormalized=DoubleStream.of(exampleDataDouble).map(d->d/sum).toArray();
+		final double sum=DoubleStream.of(exampleDataDouble1).sum();
+		final double[] exampleDataDoubleNormalized=DoubleStream.of(exampleDataDouble1).map(d->d/sum).toArray();
 		final int[] samples=new int[]{0,0,0,1,1,1,1,2,2,4};
 		final String[] samplesString=IntStream.of(samples).mapToObj(i->NumberTools.formatLongNoGrouping(i)).toArray(String[]::new);
 

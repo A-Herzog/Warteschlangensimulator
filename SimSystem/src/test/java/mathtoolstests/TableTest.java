@@ -46,10 +46,28 @@ import mathtools.TableChartBase.Range;
  * @see Table
  */
 class TableTest {
+	/**
+	 * Wird intern verwendet, um zu prüfen, ob die Tabelle den
+	 * vorgegebenen Text-Inhalt besitzt.
+	 * @param table	Zu prüfende Tabelle (Annahme: Indizierungsmodus ist Zeilen zu erst)
+	 * @see #defaultTableContentTest(Table, mathtools.Table.IndexMode)
+	 * @see #constructorTest()
+	 * @see #loadTest()
+	 * @see #setValueTest()
+	 * @see #generalUtilityFunctionsTest()
+	 */
 	private void defaultTableContentTest(final Table table) {
 		defaultTableContentTest(table,Table.IndexMode.ROWS);
 	}
 
+	/**
+	 * Wird intern verwendet, um zu prüfen, ob die Tabelle den
+	 * vorgegebenen Text-Inhalt besitzt.
+	 * @param table	Zu prüfende Tabelle
+	 * @param indexMode	Indizierungsmodus
+	 * @see #defaultTableContentTest(Table)
+	 * @see #generalUtilityFunctionsTest()
+	 */
 	private void defaultTableContentTest(final Table table, final Table.IndexMode indexMode) {
 		assertNotNull(table);
 		assertSame(indexMode,table.getMode());
@@ -124,6 +142,12 @@ class TableTest {
 		assertEquals(null,table.getLine(-1));
 	}
 
+	/**
+	 * Wird intern verwendet, um zu prüfen, ob die Tabelle den
+	 * vorgegebenen Zahlen-Inhalt besitzt.
+	 * @param table	Zu prüfende Tabelle
+	 * @see #loadTest()
+	 */
 	private void defaultNumericTableContentTest(final Table table) {
 		assertNotNull(table);
 		assertSame(Table.IndexMode.ROWS,table.getMode());

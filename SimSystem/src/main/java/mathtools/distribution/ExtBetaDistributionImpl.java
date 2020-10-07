@@ -15,6 +15,8 @@
  */
 package mathtools.distribution;
 
+import java.io.Serializable;
+
 import org.apache.commons.math3.distribution.BetaDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.util.FastMath;
@@ -29,6 +31,10 @@ import org.apache.commons.math3.util.Precision;
  * @see BetaDistribution
  */
 public final class ExtBetaDistributionImpl extends BetaDistribution implements Cloneable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 787331141252463205L;
 
 	/**

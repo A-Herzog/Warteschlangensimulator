@@ -54,6 +54,11 @@ import systemtools.statistics.XWPFDocumentPictureTools;
  */
 public class ImageTools {
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht instanziert werden.
+	 * Sie stellt lediglich statische Hilfroutinen zur Verfügung.
+	 */
 	private ImageTools() {}
 
 	/**
@@ -252,9 +257,18 @@ public class ImageTools {
 		return tableChart.save(title,file);
 	}
 
+	/**
+	 * Bild-Objekt zum Einfügen in die Zwischenablage
+	 * @see ImageTools#copyImageToClipboard(Image, int, int)
+	 */
 	private static class TransferableImage implements Transferable{
+		/** Bild für die Zwischenablage */
 		private final Image image;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param image	Bild für die Zwischenablage
+		 */
 		public TransferableImage(final Image image) {
 			this.image=image;
 		}

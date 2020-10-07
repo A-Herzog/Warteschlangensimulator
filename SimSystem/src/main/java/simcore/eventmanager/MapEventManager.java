@@ -31,7 +31,9 @@ import simcore.Event;
  * @see EventManager
  */
 public class MapEventManager extends EventManagerBase {
+	/** Zuordnung in der die Ereignisse gespeichert werden */
 	private final Map<Long,List<Event>> map;
+	/** Anzahl an Einträgen in der Zuordnung */
 	private int size;
 
 	/**

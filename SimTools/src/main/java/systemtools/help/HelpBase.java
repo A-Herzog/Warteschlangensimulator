@@ -83,7 +83,11 @@ public abstract class HelpBase {
 	 */
 	public static String customStyleSheet=null;
 
+	/**
+	 * Übergeordnetes Element
+	 */
 	private final Container parent;
+
 	private HTMLDialog helpDialog;
 	private static HTMLFrame helpFrame=null;
 

@@ -39,6 +39,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -78,6 +79,10 @@ import mathtools.distribution.tools.FileDropperData;
  * @see AbstractRealDistribution
  */
 public class JDistributionPanel extends JPanel implements JGetImage {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5152496149421849230L;
 
 	/** Bezeichner für Fehlermeldung "Keine Verteilung angegeben" */
@@ -306,6 +311,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		repaint(); plotter.repaint();
 	}
 
+	/**
+	 * Aktualisiert den Info-Text in {@link #info} zu der Verteilung.
+	 * @return	Liefert <code>true</code>, wenn sich der Text gegenüber dem bisher dargestellten Text verändert hat
+	 */
 	private boolean setInfoText() {
 		final String name=DistributionTools.getDistributionName(distribution);
 		final String dataShort=DistributionTools.getDistributionInfo(distribution);
@@ -436,6 +445,12 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		edit.setToolTipText(b?EditButtonTooltip:"");
 	}
 
+	/**
+	 * Liefert den tatsächlich auftretenden maximalen x-Wert unter Berücksichtigung
+	 * des Trägerbereichs der Verteilung.
+	 * @return	Maximaler x-Wert (für die Anzeige der Verteilung)
+	 * @see #maxXValue
+	 */
 	private double getRealMaxXValue() {
 		double d=maxXValue;
 		if (distribution!=null) {
@@ -456,14 +471,29 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * Eigentlicher Funktionsplotter innerhalb des Gesamt-Panels
 	 */
 	private class JDistributionPlotter extends JPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 8083886665643583864L;
 
+		/**
+		 * Berechnet die tatsächlich verfügbare Zeichenfläche
+		 * @return	Verfügbare Zeichenfläche
+		 */
 		protected Rectangle getClientRect() {
 			Rectangle r=getBounds();
 			Insets i=getInsets();
 			return new Rectangle(i.left,i.top,r.width-i.left-i.right-1,r.height-i.top-i.bottom-1);
 		}
 
+		/**
+		 * Wird aufgerufen, wenn keine Verteilung angegeben ist.
+		 * Es wird dann eine entsprechende Fehlermeldung ausgegeben.
+		 * @param g	Ausgabe Ziel
+		 * @param r	Bereich für die Ausgabe
+		 * @see #paintToRectangle(Graphics, Rectangle, double)
+		 */
 		private void paintNullDistribution(Graphics g, Rectangle r) {
 			g.setColor(Color.red);
 			g.drawRect(r.x,r.y,r.width,r.height);
@@ -472,6 +502,14 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			g.drawString(ErrorString,r.x+r.width/2-w/2,r.y+r.height/2+g.getFontMetrics().getAscent()/2);
 		}
 
+		/**
+		 * Zeichnet den Rahmen für die Darstellung der Verteilungsdaten
+		 * @param g	Ausgabe Ziel
+		 * @param r	Ausgbebereich
+		 * @param dataRect	Innerer Bereich
+		 * @param maxXValue	Maximal darzustellender x-Wert
+		 * @see #paintToRectangle(Graphics, Rectangle, double)
+		 */
 		private void paintDistributionRect(final Graphics g, final Rectangle r, final Rectangle dataRect, final double maxXValue) {
 			int fontDelta=g.getFontMetrics().getAscent();
 
@@ -498,6 +536,13 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			}
 		}
 
+		/**
+		 * Verteilungsfunktion einzeichnen
+		 * @param g	Ausgabe Ziel
+		 * @param dataRect	Zeichenbereich
+		 * @param maxXValue	Maximal darzustellender x-Wert
+		 * @see #paintToRectangle(Graphics, Rectangle, double)
+		 */
 		private void paintCumulativeProbability(final Graphics g, final Rectangle dataRect, final double maxXValue) {
 			double lastY=0,y=0;
 
@@ -514,6 +559,13 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			}
 		}
 
+		/**
+		 * Dichte einzeichnen
+		 * @param g	Ausgabe Ziel
+		 * @param dataRect	Zeichenbereich
+		 * @param maxXValue	Maximal darzustellender x-Wert
+		 * @see #paintToRectangle(Graphics, Rectangle, double)
+		 */
 		private void paintDensity(final Graphics g, final Rectangle dataRect, final double maxXValue) {
 			double lastY=0,y=0;
 
@@ -553,6 +605,14 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			}
 		}
 
+		/**
+		 * Zeichnet die Verteilung in ein beliebiges {@link Graphics}-Objekt
+		 * @param g	Ausgabe Ziel
+		 * @param r	Ausgbebereich
+		 * @param maxXValue	Maximal darzustellender x-Wert
+		 * @see #paint(Graphics)
+		 * @see #paintToGraphics(Graphics)
+		 */
 		private void paintToRectangle(final Graphics g, Rectangle r, final double maxXValue) {
 			if (distribution==null) {paintNullDistribution(g,r); return;}
 
@@ -576,11 +636,23 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			paintToRectangle(g,getClientRect(),getRealMaxXValue());
 		}
 
+		/**
+		 * Zeichnet die Verteilung in ein beliebiges {@link Graphics}-Objekt
+		 * (z.B. zum Speichern der Verteilungsansicht als Bild).
+		 * @param g	Ausgabe Ziel
+		 */
 		public void paintToGraphics(Graphics g) {
 			paintToRectangle(g,g.getClipBounds(),getRealMaxXValue());
 		}
 	}
 
+	/**
+	 * Speichert die Darstellung in einer Datei.
+	 * @param file	Dateiname
+	 * @param format	Dateiformat ({@link ImageIO#write(java.awt.image.RenderedImage, String, File)})
+	 * @param imageSize	Bildgröße
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean saveImageToFile(File file, String format, int imageSize) {
 		BufferedImage image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_INT_RGB);
 		Graphics g=image.getGraphics();
@@ -594,17 +666,38 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		return true;
 	}
 
+	/**
+	 * Zwischenablagen-Datenobjekt für ein Bild
+	 * @see JDistributionPanel#copyImageToClipboard(Clipboard, int)
+	 */
 	private class TransferableImage implements Transferable{
-		public TransferableImage(Image image) {theImage=image;}
+		/**
+		 * Auszugebendes Bild
+		 */
+		private final Image theImage;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param image	Auszugebendes Bild
+		 */
+		public TransferableImage(Image image) {
+			theImage=image;
+		}
+
 		@Override
 		public DataFlavor[] getTransferDataFlavors(){return new DataFlavor[]{DataFlavor.imageFlavor};}
 		@Override
 		public boolean isDataFlavorSupported(DataFlavor flavor){return flavor.equals(DataFlavor.imageFlavor);}
 		@Override
 		public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException{if (flavor.equals(DataFlavor.imageFlavor)) return theImage; else throw new UnsupportedFlavorException(flavor);}
-		private final Image theImage;
 	}
 
+	/**
+	 * Kopiert die Verteilungsdarstellung in die Zwischenablage
+	 * @param clipboard	System-Zwischenablage
+	 * @param imageSize	Bildgröße
+	 * @see TransferableImage
+	 */
 	private void copyImageToClipboard(Clipboard clipboard, int imageSize) {
 		final Image image=createImage(imageSize,imageSize);
 		final Graphics g=image.getGraphics();
@@ -625,6 +718,11 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		clipboard.setContents(new TransferableImage(image2),null);
 	}
 
+	/**
+	 * Ermöglicht die Auswahl eines Dateinamens zum Speichern der Verteilung als Bild
+	 * @return	Gewählte Datei oder <code>null</code>, wenn die Auswahl abgebrochen wurde
+	 * @see #save
+	 */
 	private File getSaveFileName() {
 		JFileChooser fc;
 		fc=new JFileChooser();
@@ -655,6 +753,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		return file;
 	}
 
+	/**
+	 * Liefert die zur aktuellen Verteilung passende Wikipedia-Seite
+	 * @return	URL der zur aktuellen Verteilung passenden Wikipedia-Seite
+	 */
 	private URI getDistributionWikipediaURI() {
 		String distName=DistributionTools.getDistributionName(distribution);
 		URL url;
@@ -685,10 +787,18 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		return false;
 	}
 
+	/**
+	 * Kopieren-Aktion auslösen
+	 * @see #copy
+	 */
 	private void actionCopy() {
 		copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize);
 	}
 
+	/**
+	 * Speichern-Aktion auslösen
+	 * @see #save
+	 */
 	private void actionSave() {
 		File file=getSaveFileName(); if (file==null) return;
 		if (file.exists()) {
@@ -702,6 +812,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		saveImageToFile(file,extension,imageSize);
 	}
 
+	/**
+	 * Wikipedia-Seite zu der gewählten Verteilung öffnen
+	 * @see #wiki
+	 */
 	private void actionWiki() {
 		if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
 			try {
@@ -714,6 +828,12 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		}
 	}
 
+	/**
+	 * Für ein Eingabefeld zum Kontextmenü hinzu
+	 * @param popup	Kontextmenü
+	 * @param record	Datensatz mit den anzuzeigenden Eingabefeldern
+	 * @see #showContextMenu(MouseEvent, boolean)
+	 */
 	private void buildQuickEdit(final JPopupMenu popup, final JDistributionEditorPanelRecord record) {
 		final String[] labels=record.getEditLabels();
 		final String[] values=record.getValues(distribution);
@@ -741,6 +861,11 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		}
 	}
 
+	/**
+	 * Zeigt ein Kontextmenü zu der Verteilung an
+	 * @param e	Auslösendes Maus-Ereignis (zur Festlegung der Position des Menüs)
+	 * @param showEditButton	Bearbeiten-Schaltfläche anzeigen?
+	 */
 	private void showContextMenu(final MouseEvent e, final boolean showEditButton) {
 		final JPopupMenu popup=new JPopupMenu();
 		JMenuItem item;

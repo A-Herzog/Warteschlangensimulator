@@ -23,13 +23,16 @@ import simcore.Event;
 
 /**
  * Implementierung des <code>EventManager</code>-Interface mit Hilfe der
- * <code>PriorityQueue</code>-Klasse
+ * {@link PriorityQueue}-Klasse
  * @author Alexander Herzog
  * @version 1.0
  * @see EventManager
  * @see PriorityQueue
  */
 public final class PriorityQueueEventManager extends EventManagerBase implements EventManager {
+	/**
+	 * Internes {@link PriorityQueue}-Objekt zum Vorhalten der Ereignisse.
+	 */
 	private final PriorityQueue<Event> queue=new PriorityQueue<>();
 
 	@Override

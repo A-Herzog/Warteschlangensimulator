@@ -40,12 +40,31 @@ import java.util.List;
  * @version 1.1
  */
 public class FileDropper {
-	/** <code>ActionListener</code> der bei einem Drop-Ereignis aufgerufen werden soll. Der <code>ActionListener</code> kann dann über die <code>dragDropFile</code> Methode des <code>FileDropper</code>-Objekts den Dateinamen abfragen */
+	/**
+	 * <code>ActionListener</code> der bei einem Drop-Ereignis aufgerufen werden soll. Der <code>ActionListener</code> kann dann über die <code>dragDropFile</code> Methode des <code>FileDropper</code>-Objekts den Dateinamen abfragen
+	 */
 	private final ActionListener actionListener;
+
+	/**
+	 * An die Zielkompnente angebundene Drop-Listener
+	 */
 	private final FileDropListener[] listener;
+
+	/**
+	 * Wurde die Drag&amp;drop-Operation vollständig abgearbeitet?
+	 * @see #dragDropConsumed()
+	 */
 	private boolean dragDropConsumed=false;
+
+	/**
+	 * Intern verwendete Drag&amp;drop-Zielkomponenten
+	 * @see DropTarget
+	 */
 	private final DropTarget[] target;
-	/** Komponenten, auf denen Dateien per Drag&amp;Drop abgelegt werden können sollen */
+
+	/**
+	 * Komponenten, auf denen Dateien per Drag&amp;Drop abgelegt werden können sollen
+	 */
 	private final Component[] components;
 
 	/**
@@ -105,14 +124,36 @@ public class FileDropper {
 		dragDropConsumed=true;
 	}
 
+	/**
+	 * Führt die Verarbeitung einer Drag&amp;drop-Operation aus
+	 * @param file	Abgelegte Datei
+	 * @param dropComponent	Zielkomponente
+	 * @param dropPosition	Position auf der Zielkomponente
+	 * @return	Wurde die Operation vollständig verarbeitet?
+	 * @see #dragDropConsumed()
+	 */
 	private boolean dropFile(final File file, final Component dropComponent, final Point dropPosition) {
 		actionListener.actionPerformed(FileDropperData.getActionEvent(this,file,dropComponent,dropPosition));
-		if (dragDropConsumed) {dragDropConsumed=false; return true;} else return false;
+
+		if (dragDropConsumed) {
+			dragDropConsumed=false;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
+	/**
+	 * Interne Klasse um auf Drag&amp;drop-Ereignisse reagieren zu können.
+	 */
 	private class FileDropListener implements DropTargetListener {
+		/** Komponenten, auf denen Dateien per Drag&amp;Drop abgelegt werden können sollen */
 		private final Component component;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param component	Komponenten, auf denen Dateien per Drag&amp;Drop abgelegt werden können sollen
+		 */
 		public FileDropListener(final Component component) {
 			super();
 			this.component=component;

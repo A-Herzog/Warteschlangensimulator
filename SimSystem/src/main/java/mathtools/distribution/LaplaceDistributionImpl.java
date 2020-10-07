@@ -27,6 +27,10 @@ import org.apache.commons.math3.util.FastMath;
  * @version 1.0
  */
 public final class LaplaceDistributionImpl extends AbstractRealDistribution implements Serializable, Cloneable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7872838730639994363L;
 
 	/**

@@ -28,7 +28,9 @@ import javax.swing.SwingUtilities;
  * @author Alexander Herzog
  */
 public class JTextAreaOutputStream extends ByteArrayOutputStream {
+	/** Textfeld in das die Ausgabe umgeleitet werden sollen */
 	private final JTextArea textArea;
+	/** Lange Zeilen zerteilen? */
 	private final boolean lineWrap;
 
 	/**
@@ -41,6 +43,12 @@ public class JTextAreaOutputStream extends ByteArrayOutputStream {
 		this.lineWrap=lineWrap;
 	}
 
+	/**
+	 * Zerlegt einen langen Text in 78 Zeichen lange Zeilen.
+	 * @param text	Zu zerlegender Text
+	 * @return	Text mit Zeilenumbrüchen
+	 * @see #updateText()
+	 */
 	private String wrapText(final String text) {
 		final StringBuilder sb=new StringBuilder();
 		for (String line : text.split("\n")) {

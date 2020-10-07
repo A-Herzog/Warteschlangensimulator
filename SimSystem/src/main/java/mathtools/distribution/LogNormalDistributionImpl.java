@@ -15,6 +15,8 @@
  */
 package mathtools.distribution;
 
+import java.io.Serializable;
+
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
@@ -26,6 +28,10 @@ import org.apache.commons.math3.util.FastMath;
  * @version 1.2
  */
 public final class LogNormalDistributionImpl extends AbstractRealDistribution implements Cloneable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1138792895684404135L;
 
 	/**
@@ -59,6 +65,12 @@ public final class LogNormalDistributionImpl extends AbstractRealDistribution im
 	 */
 	private final NormalDistribution normal;
 
+	/**
+	 * Standardnormalverteilung, die verwendet wird, um Verteilungswerte
+	 * zu berechnen.
+	 * @see #cumulativeProbability(double)
+	 * @see #inverseCumulativeProbability(double)
+	 */
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**

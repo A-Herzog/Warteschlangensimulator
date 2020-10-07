@@ -39,6 +39,10 @@ public class GUITools {
 	 */
 	public static String errorNoGraphicsOutputAvailable="Da keine grafische Oberfläche zur Verfügung steht, kann der Simulator nur im Konsolen-Modus betrieben werden. Rufen Sie den Simulator mit dem Parameter \"Hilfe\" auf, um eine Übersicht über die verfügbaren Konsolen-Befehle zu erhalten.";
 
+	/**
+	 * Eingestellter Skalierungsfaktor
+	 * @see #getScaleFactor()
+	 */
 	private static double scaleFactor=1.0;
 
 	/**
@@ -49,6 +53,11 @@ public class GUITools {
 		return scaleFactor;
 	}
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht instanziert werden.
+	 * Sie stellt lediglich statische Hilfroutinen zur Verfügung.
+	 */
 	private GUITools() {}
 
 	/**

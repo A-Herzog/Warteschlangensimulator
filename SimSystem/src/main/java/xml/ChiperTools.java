@@ -24,8 +24,19 @@ import javax.crypto.spec.SecretKeySpec;
  * @see XMLTools
  */
 public class ChiperTools {
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Die Klasse kann nicht instanziert werden;
+	 * sie stellt nur statische Hilfsfunktionen zur Verfügung.
+	 */
 	private ChiperTools() {}
 
+	/**
+	 * Erstellt ein {@link Cipher}-Objekt zum Ver- oder Entschlüsseln von Daten
+	 * @param password	Passwort
+	 * @param mode	Ver- oder Entschlüsselungsmodus ({@link Cipher#ENCRYPT_MODE} oder {@link Cipher#DECRYPT_MODE})
+	 * @return	Liefert im Erfolgsfall das {@link Cipher}-Objekt, sonst <code>null</code>.
+	 */
 	private static final Cipher getChiper(String password, int mode) {
 		SecretKeyFactory factory;
 		try {
@@ -51,6 +62,11 @@ public class ChiperTools {
 		return cipher;
 	}
 
+	/**
+	 * Berechnet eine SHA-Prüfsumme über eine Byte-Sequenz
+	 * @param b	Byte-Sequenz über die die Prüfsumme berechnet werden soll
+	 * @return	Prüfsumme
+	 */
 	private static final byte[] getChecksum(byte[] b) {
 		MessageDigest md;
 		try {

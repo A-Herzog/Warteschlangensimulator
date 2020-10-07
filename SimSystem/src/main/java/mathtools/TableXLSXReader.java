@@ -154,14 +154,29 @@ public class TableXLSXReader {
 		}
 	}
 
+	/**
+	 * Transformation eines XLSX-Tabellenblattes in eine {@link Table}-basierte Tabelle
+	 * @see TableXLSXReader#processSheet(String, StylesTable, ReadOnlySharedStringsTable, InputStream, Table)
+	 */
 	private static class SheetToTable implements SheetContentsHandler {
+		/** Ziel-Tabelle */
 		private final Table table;
+		/** Aktuell in Verarbeitung befindliche Zeile */
 		private List<String> row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param table	Ziel-Tabelle
+		 */
 		private SheetToTable(final Table table) {
 			this.table=table;
 		}
 
+		/**
+		 * Fügt ggf. in der XLSX-Tabelle nicht vorhandene Zeilen in die Ziel-Tabelle ein.
+		 * @param number	Anzahl an einzufügenden leeren Zeilen
+		 * @see #startRow(int)
+		 */
 		private void outputMissingRows(int number) {
 			for (int i=0;i<number;i++) table.addLine(new ArrayList<>());
 		}

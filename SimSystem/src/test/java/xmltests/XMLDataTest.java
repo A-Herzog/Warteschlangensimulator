@@ -38,6 +38,10 @@ import xml.XMLTools;
  * @see XMLData
  */
 class XMLDataTest {
+	/**
+	 * Erzeugt ein xml-Daten-Objekt an dem im Folgenden die Tests durchgeführt werden können
+	 * @return	xml-Daten-Objekt
+	 */
 	private XMLData getTestData() {
 		return new XMLData() {
 			@Override

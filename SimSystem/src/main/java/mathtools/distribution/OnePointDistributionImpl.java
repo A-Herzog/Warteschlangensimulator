@@ -21,10 +21,15 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
 
 /**
+ * Ein-Punkt-Verteilung
  * @author Alexander Herzog
  * @version 1.0
  */
 public class OnePointDistributionImpl extends AbstractRealDistribution implements Serializable, Cloneable, DistributionWithRandom  {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8317785247341481553L;
 
 	/**

@@ -27,6 +27,10 @@ import org.apache.commons.math3.util.FastMath;
  * @see <a href="https://en.wikipedia.org/wiki/PERT_distribution">https://en.wikipedia.org/wiki/PERT_distribution</a>
  */
 public final class PertDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=-5002792590117661632L;
 
 	/**

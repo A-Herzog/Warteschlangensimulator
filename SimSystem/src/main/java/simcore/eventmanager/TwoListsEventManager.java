@@ -31,7 +31,10 @@ import simcore.Event;
  */
 @Deprecated
 public final class TwoListsEventManager extends EventManagerBase implements EventManager {
-	private final List<Event> list1, list2;
+	/** Teilliste 1 */
+	private final List<Event> list1;
+	/** Teilliste 2 */
+	private final List<Event> list2;
 
 	/**
 	 * Konstruktor der Klasse

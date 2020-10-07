@@ -26,7 +26,7 @@ import simcore.eventmanager.PriorityQueueEventManager;
  * @version 1.1
  */
 public final class TestSimulator extends SimulatorBase {
-
+	/** Anzahl der zu Anfang anzulegenden Ereignisse */
 	private final int initialEvents;
 
 	/**
@@ -36,7 +36,7 @@ public final class TestSimulator extends SimulatorBase {
 	public TestSimulator(int initialevents) {this.initialEvents=initialevents;}
 
 	@Override
-	protected final SimData getSimDataForThread(int threadNr, int threadCount) {
+	protected SimData getSimDataForThread(int threadNr, int threadCount) {
 		SimData simData=new SimData(new PriorityQueueEventManager(),new ListEventCache(),threadNr,threadCount);
 		TestEvent.createAndAddInitialDummyEvents(initialEvents,simData,2);
 		return simData;
@@ -46,7 +46,7 @@ public final class TestSimulator extends SimulatorBase {
 	 * Arbeitsschleife des Simulators
 	 * (Kann nur per Programmabbruch beendet werden)
 	 */
-	public final void outputLoop() {
+	public void outputLoop() {
 		while (true) {
 			try {Thread.sleep(1000);} catch (InterruptedException e){}
 

@@ -35,7 +35,15 @@ public class EventTestImpl extends Event {
 	 * Testen auseinander halten zu können.
 	 */
 	public int id;
+
+	/**
+	 * Wird, wenn hier eine Wert ungleich <code>null</code> übergeben wird, bei der Ausführung des Ereignisses aufgerufen.
+	 */
 	private final Consumer<EventTestImpl> executionInfo;
+
+	/**
+	 * Optionales Nachfolgeereignis, das bei der Ausführung dieses Ereignisses in die Ereignisliste eingefügt wird.
+	 */
 	private final BiFunction<SimData,EventTestImpl,EventTestImpl> addNext;
 
 	/**
@@ -49,7 +57,7 @@ public class EventTestImpl extends Event {
 	 * Konstruktor der Klasse
 	 * @param time	Geplante Ausführungszeit
 	 * @param id	ID des Ereignisses
-	 * @param executionInfo	Wird, wenn hier eine Wert ungleich <code>null</code> übergeben wird, bei der Ausführng des Ereignisses aufgerufen
+	 * @param executionInfo	Wird, wenn hier eine Wert ungleich <code>null</code> übergeben wird, bei der Ausführung des Ereignisses aufgerufen.
 	 */
 	public EventTestImpl(final long time, final int id, final Consumer<EventTestImpl> executionInfo) {
 		this(time,id,executionInfo,null);
@@ -60,7 +68,7 @@ public class EventTestImpl extends Event {
 	 * @param time	Geplante Ausführungszeit
 	 * @param id	ID des Ereignisses
 	 * @param executionInfo	Wird, wenn hier eine Wert ungleich <code>null</code> übergeben wird, bei der Ausführng des Ereignisses aufgerufen
-	 * @param addNext	Optionales Nachfolgeereignis, das bei der Ausführung dieses Ereignisses in die Ereignisliste eingefügt wird
+	 * @param addNext	Optionales Nachfolgeereignis, das bei der Ausführung dieses Ereignisses in die Ereignisliste eingefügt wird.
 	 */
 	public EventTestImpl(final long time, final int id, final Consumer<EventTestImpl> executionInfo, final BiFunction<SimData,EventTestImpl,EventTestImpl> addNext) {
 		super();

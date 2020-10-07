@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,10 @@ import javax.swing.JPanel;
  * @author Alexander Herzog
  */
 public class SmallColorChooser extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2560660973355260332L;
 
 	/** Farbe "Alice Blau" */
@@ -355,6 +360,10 @@ public class SmallColorChooser extends JPanel {
 		setColor(color);
 	}
 
+	/**
+	 * Initialisiert die Zuordnung der Farbnamen
+	 * @see #namedColors
+	 */
 	private void initNamedColors() {
 		namedColors=new HashMap<>();
 
@@ -498,6 +507,14 @@ public class SmallColorChooser extends JPanel {
 		namedColors.put(ColorNameFFFFFA, new Color(0xFFFFFA));
 	}
 
+	/**
+	 * Fügt eine Farbe zu dem Auswahlfeld hinzu.<br>
+	 * Es wird dabei geprüft, ob die Farbe evtl. schon
+	 * in dem Auswahlbereich enthalten ist. Wenn ja,
+	 * wird sie nicht ein zweites Mal hinzugefügt.
+	 * @param color	Hinzuzufügende Farbe
+	 * @see #initUI()
+	 */
 	private void addColor(final Color color) {
 		if (colorsInList==null) colorsInList=new ArrayList<>();
 		if (colorsInList.indexOf(color)>=0) return;
@@ -509,6 +526,9 @@ public class SmallColorChooser extends JPanel {
 		colorsInList.add(color);
 	}
 
+	/**
+	 * Fügt die Farben zu der Auswahl hinzu.
+	 */
 	private void initUI() {
 		setLayout(new GridBagLayout());
 
@@ -538,6 +558,12 @@ public class SmallColorChooser extends JPanel {
 		for (Map.Entry<String,Color> entry: namedColors.entrySet()) addColor(entry.getValue());
 	}
 
+	/**
+	 * Liefert den Namen einer Farbe als Text.
+	 * @param color	Farbe für die der Name ermittelt werden soll
+	 * @return	Namen einer Farbe als Text (zur Verwendung in Tooltips)
+	 * @see ColorBox
+	 */
 	private String getColorName(final Color color) {
 		String name=null;
 		for (Map.Entry<String,Color> entry: namedColors.entrySet()) if (entry.getValue().equals(color)) {name=entry.getKey(); break;}
@@ -638,6 +664,10 @@ public class SmallColorChooser extends JPanel {
 	 * Darstellung einer einzelnen Farbe
 	 */
 	private class ColorBox extends JPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 2485552914337779647L;
 
 		/** Anzuzeigende Farbe */

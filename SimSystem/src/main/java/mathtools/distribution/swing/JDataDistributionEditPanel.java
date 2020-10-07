@@ -40,6 +40,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,10 @@ import mathtools.distribution.tools.FileDropperData;
  * @version 1.2
  */
 public class JDataDistributionEditPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6297587258459607410L;
 
 	/**
@@ -305,7 +310,8 @@ public class JDataDistributionEditPanel extends JPanel {
 		/* Fuß */
 		JPanel bottom=new JPanel(new BorderLayout()); add(bottom,BorderLayout.SOUTH);
 		bottom.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-		editLine=new JTextField(); bottom.add(editLine,BorderLayout.CENTER);
+		editLine=new JTextField();
+		bottom.add(editLine,BorderLayout.CENTER);
 		editLine.setText(distribution.getDensityString());
 		editLine.addKeyListener(new EditListener());
 		editLine.setEditable(editable);
@@ -351,6 +357,13 @@ public class JDataDistributionEditPanel extends JPanel {
 		this.imageSize=imageSize;
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche und fügt sie zur Symbolleiste hinzu.
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche
+	 * @param icon	Optionales Icon für die Schaltfläche (darf <code>null</code> sein)
+	 * @return	Neue Schaltfläche (ist bereits in {@link #toolbar} eingefügt)
+	 */
 	private JButton addButton(final String title, final String hint, final Icon icon) {
 		JButton button;
 		toolbar.add(button=new JButton(title));
@@ -442,19 +455,15 @@ public class JDataDistributionEditPanel extends JPanel {
 		for (ActionListener listener : changeListener) listener.actionPerformed(action);
 	}
 
-	private boolean setDistributionFromString(String s, boolean textLine) {
+	/**
+	 * Lädt die Verteilung aus einer Zeichenkette
+	 * @param line	Zeichenkette aus der die Verteilung geladen werden soll
+	 * @return	Gibt an, ob das Laden erfolgreich war
+	 */
+	private boolean setDistributionFromString(String line) {
 		/* Laden */
-		DataDistributionImpl d;
-		if (textLine)
-			d=DataDistributionImpl.createFromString(editLine.getText(),distribution.upperBound);
-		else
-			d=DataDistributionImpl.createFromAnyString(s,distribution.upperBound);
-
-		/* Ggf. Fehlermeldung anzeigen */
-		if (d==null) {
-			if (!textLine) JOptionPane.showMessageDialog(this,LoadError,LoadErrorTitle,JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
+		final DataDistributionImpl d=DataDistributionImpl.createFromAnyString(line,distribution.upperBound);
+		if (d==null) return false;
 
 		/* Verteilung setzen */
 		if (!DistributionTools.compare(distribution,d)) {
@@ -466,8 +475,13 @@ public class JDataDistributionEditPanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Aktualisiert die Verteilungsdarstellung nach dem Ende der
+	 * Eingabe von Zahlen in der Eingabezeile
+	 * @see #editLine
+	 */
 	private void updateDistributionFromEditLine() {
-		if (setDistributionFromString(editLine.getText(),true)) {
+		if (setDistributionFromString(editLine.getText())) {
 			editLine.setBackground(SystemColor.text);
 			repaint();
 		} else {
@@ -475,6 +489,11 @@ public class JDataDistributionEditPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Ermöglicht die Auswahl eines Dateinamens zum Speichern der Daten
+	 * @return	Gewählte Datei oder <code>null</code>, wenn die Auswahl abgebrochen wurde
+	 * @see #saveButton
+	 */
 	private File getSaveFileName() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -542,6 +561,13 @@ public class JDataDistributionEditPanel extends JPanel {
 		return file;
 	}
 
+	/**
+	 * Speichert die Darstellung in einer Datei.
+	 * @param file	Dateiname
+	 * @param format	Dateiformat ({@link ImageIO#write(java.awt.image.RenderedImage, String, File)})
+	 * @param imageSize	Bildgröße
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean saveImageToFile(File file, String format, int imageSize) {
 		BufferedImage image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_INT_RGB);
 		Graphics g=image.getGraphics();
@@ -555,17 +581,38 @@ public class JDataDistributionEditPanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Zwischenablagen-Datenobjekt für ein Bild
+	 * @see JDataDistributionEditPanel#copyImageToClipboard(Clipboard, int)
+	 */
 	private class TransferableImage implements Transferable{
-		public TransferableImage(Image image) {theImage=image;}
+		/**
+		 * Auszugebendes Bild
+		 */
+		private final Image theImage;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param image	Auszugebendes Bild
+		 */
+		public TransferableImage(Image image) {
+			theImage=image;
+		}
+
 		@Override
 		public DataFlavor[] getTransferDataFlavors(){return new DataFlavor[]{DataFlavor.imageFlavor};}
 		@Override
 		public boolean isDataFlavorSupported(DataFlavor flavor){return flavor.equals(DataFlavor.imageFlavor);}
 		@Override
 		public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException{if (flavor.equals(DataFlavor.imageFlavor)) return theImage; else throw new UnsupportedFlavorException(flavor);}
-		private final Image theImage;
 	}
 
+	/**
+	 * Kopiert die Verteilungsdarstellung in die Zwischenablage
+	 * @param clipboard	System-Zwischenablage
+	 * @param imageSize	Bildgröße
+	 * @see TransferableImage
+	 */
 	private void copyImageToClipboard(final Clipboard clipboard, final int imageSize) {
 		final Image image=createImage(imageSize,imageSize);
 		final Graphics g=image.getGraphics();
@@ -586,6 +633,9 @@ public class JDataDistributionEditPanel extends JPanel {
 		clipboard.setContents(new TransferableImage(image),null);
 	}
 
+	/**
+	 * Listenklasse die auf das Klicken auf die Symbolleisten-Schaltflächen reagiert.
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -678,6 +728,10 @@ public class JDataDistributionEditPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Listener-Klasse für Texteingaben in die Eingabezeile
+	 * @see #editLine
+	 */
 	private class EditListener implements KeyListener {
 		@Override
 		public void keyTyped(KeyEvent e) {updateDistributionFromEditLine();}
@@ -691,24 +745,54 @@ public class JDataDistributionEditPanel extends JPanel {
 	 * Eigentlicher Funktionsplotter innerhalb des Gesamt-Panels
 	 */
 	private class DataPlotter extends JPanel implements MouseListener, MouseMotionListener {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -1793441375989694737L;
 
+		/**
+		 * Befindet sich der Mauszeiger momentan innerhalb der Zeichenfläche?
+		 */
 		private boolean mouseIn=false;
+
+		/**
+		 * Position des Mauszeigers innerhalb der Zeichenfläche
+		 */
 		private Point mousePosition=new Point(0,0);
+
+		/**
+		 * Größe des Clientbereichs speichern, um Mauspositionen
+		 * in konkrete Balken umrechnen zu können
+		 */
 		private Rectangle lastR=null;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
 		public DataPlotter() {
 			super();
 			addMouseListener(this);
 			addMouseMotionListener(this);
 		}
 
+		/**
+		 * Berechnet die tatsächlich verfügbare Zeichenfläche
+		 * @return	Verfügbare Zeichenfläche
+		 */
 		private Rectangle getClientRect() {
 			Rectangle r=getBounds();
 			Insets i=getInsets();
 			return new Rectangle(i.left,i.top,r.width-i.left-i.right-1,r.height-i.top-i.bottom-1);
 		}
 
+		/**
+		 * Zeichnet den Rahmen
+		 * @param g	Ausgabe Ziel
+		 * @param r	Rechteck-Bereich für den Rahmen
+		 * @param padding	Abstände nach außen für Beschriftungen
+		 * @see #paint(Graphics)
+		 */
 		private void paintFrame(Graphics g, Rectangle r, int padding) {
 			g.setColor(Color.WHITE);
 			g.fillRect(r.x,r.y,r.width,r.height);
@@ -723,6 +807,12 @@ public class JDataDistributionEditPanel extends JPanel {
 			g.drawString(s,r.x+r.width-g.getFontMetrics().stringWidth(s),r.y+r.height+padding+g.getFontMetrics().getAscent());
 		}
 
+		/**
+		 * Zeichnet die Verteilung
+		 * @param g	Ausgabe Ziel
+		 * @param r	Bereich
+		 * @see #paint(Graphics)
+		 */
 		private void paintDistribution(Graphics g, Rectangle r) {
 			double yLastDensityValue=0;
 			double yLastDistributionValue=0;
@@ -772,6 +862,13 @@ public class JDataDistributionEditPanel extends JPanel {
 			}
 		}
 
+		/**
+		 * Liefert die Beschriftung für einen Balken
+		 * @param fromValue	Startwert
+		 * @param toValue	Endwert
+		 * @return	Beschriftung
+		 * @see #paintMouseArea(Graphics, Rectangle, int)
+		 */
 		private String getIntervalText(double fromValue, double toValue) {
 			if (distribution.upperBound==86399) {
 				return TimeTools.formatTime((int)Math.round(fromValue))+"-"+TimeTools.formatTime((int)Math.round(toValue));
@@ -783,6 +880,13 @@ public class JDataDistributionEditPanel extends JPanel {
 			return NumberTools.formatNumber(fromValue)+"-"+NumberTools.formatNumber(toValue);
 		}
 
+		/**
+		 * Hebt den Bereich, in dem sich die Maus befindet, hervor.
+		 * @param g	Ausgabe Ziel
+		 * @param r	Rechteck-Bereich für den Rahmen
+		 * @param padding	Abstände nach außen für Beschriftungen
+		 * @see #paint(Graphics)
+		 */
 		private void paintMouseArea(Graphics g, Rectangle r, int padding) {
 			String s;
 			int w,x;

@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -51,6 +52,10 @@ import systemtools.images.SimToolsImages;
  * @author Alexander Herzog
  */
 public abstract class HTMLPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -3360161989499967773L;
 
 	/** Wird, wenn nicht <code>null</code>, aufgerufen, wenn der Nutzer auf die Schließen-Schaltfläche klickt. */
@@ -430,6 +435,10 @@ public abstract class HTMLPanel extends JPanel {
 	 * Listener, der auf Escape-Tastendrücke reagiert
 	 */
 	private final class EscapeListener extends AbstractAction {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 3060385322767789283L;
 
 		@Override

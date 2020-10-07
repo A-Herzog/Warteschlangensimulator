@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -41,6 +42,10 @@ import mathtools.distribution.tools.FileDropperData;
  * @version 1.0
  */
 public class JDistributionEditorDialog extends JDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1643400760560410606L;
 
 	/** Verteilungsplotter */
@@ -85,7 +90,12 @@ public class JDistributionEditorDialog extends JDialog {
 		plotter.setPreferredSize(new Dimension(675,450));
 		plotter.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		plotter.setPlotType(plotType);
-		mainPanel.add(editor=new JDistributionEditorPanel(distribution,maxXValue,new EditorActionEvents(),allowDistributionTypeChange),BorderLayout.SOUTH);
+		mainPanel.add(editor=new JDistributionEditorPanel(
+				distribution,
+				maxXValue,
+				e->{if (e.getSource()==editor) plotter.setDistribution(editor.getDistribution());},
+				allowDistributionTypeChange
+				),BorderLayout.SOUTH);
 
 		JPanel buttonPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); add(buttonPanel,BorderLayout.SOUTH);
 
@@ -109,6 +119,11 @@ public class JDistributionEditorDialog extends JDialog {
 		setLocationRelativeTo(owner);
 	}
 
+	/**
+	 * Listener, der auf das Anklicken von Schaltflächen reagiert
+	 * @see #okButton
+	 * @see #cancelButton
+	 */
 	private class ButtonActionEvents implements ActionListener {
 		@Override
 		public void actionPerformed(final ActionEvent e) {
@@ -119,14 +134,6 @@ public class JDistributionEditorDialog extends JDialog {
 				if (editor.loadFromFile(data.getFile())) data.dragDropConsumed();
 				return;
 			}
-		}
-	}
-
-	private class EditorActionEvents implements ActionListener {
-		@Override
-		public void actionPerformed(final ActionEvent e) {
-			if (e.getSource()!=editor) return;
-			plotter.setDistribution(editor.getDistribution());
 		}
 	}
 

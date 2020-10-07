@@ -32,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,10 @@ import mathtools.distribution.tools.DistributionTools;
  * @see JDistributionEditorDialog
  */
 public class JDistributionEditorPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2950211874092327021L;
 
 	/** Dialogtitel für den {@link JDistributionEditorDialog} */
@@ -210,24 +215,24 @@ public class JDistributionEditorPanel extends JPanel {
 
 		if (isFullAccess()) {
 			buttonValueCopy=new JButton(ButtonCopyData);
-			buttonValueCopy.addActionListener(new ButtonListener(this));
+			buttonValueCopy.addActionListener(new ButtonListener());
 			buttonValueCopy.setIcon(SimSystemsSwingImages.COPY.getIcon());
 
 			buttonValuePaste=new JButton(ButtonPasteData);
-			buttonValuePaste.addActionListener(new ButtonListener(this));
+			buttonValuePaste.addActionListener(new ButtonListener());
 			buttonValuePaste.setIcon(SimSystemsSwingImages.PASTE.getIcon());
 
 			buttonValuePasteNoScale=new JButton(ButtonPasteAndFillData);
 			buttonValuePasteNoScale.setToolTipText(ButtonPasteAndFillDataTooltip);
-			buttonValuePasteNoScale.addActionListener(new ButtonListener(this));
+			buttonValuePasteNoScale.addActionListener(new ButtonListener());
 			buttonValuePasteNoScale.setIcon(SimSystemsSwingImages.PASTE.getIcon());
 
 			buttonValueLoad=new JButton(ButtonLoadData);
-			buttonValueLoad.addActionListener(new ButtonListener(this));
+			buttonValueLoad.addActionListener(new ButtonListener());
 			buttonValueLoad.setIcon(SimSystemsSwingImages.LOAD.getIcon());
 
 			buttonValueSave=new JButton(ButtonSaveData);
-			buttonValueSave.addActionListener(new ButtonListener(this));
+			buttonValueSave.addActionListener(new ButtonListener());
 			buttonValueSave.setIcon(SimSystemsSwingImages.SAVE.getIcon());
 
 			buttons=new JButton[]{buttonValueCopy,buttonValuePaste,buttonValuePasteNoScale,buttonValueLoad,buttonValueSave};
@@ -263,6 +268,10 @@ public class JDistributionEditorPanel extends JPanel {
 		distributionType.setEnabled(allowDistributionTypeChange);
 	}
 
+	/**
+	 * Ist ein Zugriff auf die Zwischenablage möglich?
+	 * @return	Zwischenablage verfügbar?
+	 */
 	private boolean isFullAccess() {
 		SecurityManager security=System.getSecurityManager();
 		if (security!=null) try {
@@ -276,8 +285,19 @@ public class JDistributionEditorPanel extends JPanel {
 	 * Auslesen der momentanen Verteilung
 	 * @return	Aktuelles Verteilungsobjekt
 	 */
-	public AbstractRealDistribution getDistribution() {return distribution;}
+	public AbstractRealDistribution getDistribution() {
+		return distribution;
+	}
 
+	/**
+	 * Erstellt ein Panel mit Eingabefeldern
+	 * @param name	Name unter dem das Panel im {@link CardLayout} registriert werden soll
+	 * @param fields	Beschriftungen der Eingabefelder
+	 * @param initialValues	Anfängliche Werte der Eingabefelder
+	 * @param buttons	Optionale zusätzliche Schaltflächen, die angezeigt werden sollen (z.B. Lade/Speicher-Schaltflächen für empirische Verteilungen; kann im Normalfall <code>null</code> sein)
+	 * @param spinButtons	Erhöhen/Verringern-Schaltflächen anzeigen (für empirische Verteilungen deaktivieren; sonst aktivieren)
+	 * @return	Array mit den erzeugten Eingabefeldern
+	 */
 	private JTextField[] addCardPanel(String name, String[] fields, String[] initialValues, JButton[] buttons, boolean spinButtons) {
 		final JTextField[] textFields=new JTextField[fields.length];
 		final JButton[] shiftButtons=new JButton[4];
@@ -372,6 +392,9 @@ public class JDistributionEditorPanel extends JPanel {
 		return textFields;
 	}
 
+	/**
+	 * Stellt die Werte in den Eingabefeldern gemäß der Verteilung ein.
+	 */
 	private void setDataFromDistribution() {
 		int index=-1;
 		final String name=DistributionTools.getDistributionName(distribution);
@@ -389,6 +412,9 @@ public class JDistributionEditorPanel extends JPanel {
 		if (dataChangedNotify!=null) dataChangedNotify.actionPerformed(new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,""));
 	}
 
+	/**
+	 * Stellt die Verteilung gemäß den Werten in den Eingabefeldern ein.
+	 */
 	private void makeDistributionFromData() {
 		final int index=distributionType.getSelectedIndex();
 
@@ -401,6 +427,12 @@ public class JDistributionEditorPanel extends JPanel {
 		if (dataChangedNotify!=null) dataChangedNotify.actionPerformed(new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,""));
 	}
 
+	/**
+	 * Liefert die Verteilungsdaten in einem Textformat,
+	 * welches für den Export (per Zwischenablage oder
+	 * per Datei) geeignet ist.
+	 * @return	Verteilungsdaten als Text
+	 */
 	private String getDataDistributionExportFormat() {
 		DataDistributionImpl d=DataDistributionImpl.createFromString(distributionFields[0][0].getText(),(int)maxXValue);
 		if (d==null || d.densityData.length==0) return null;
@@ -422,6 +454,10 @@ public class JDistributionEditorPanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Listener der aktiviert wird, wenn in {@link #distributionType} ein
+	 * neuer Verteilungstyp ausgewählt wird.
+	 */
 	private void itemStateChanged() {
 		if (distributionType.getSelectedIndex()==lastIndex) return;
 		lastIndex=distributionType.getSelectedIndex();
@@ -435,6 +471,12 @@ public class JDistributionEditorPanel extends JPanel {
 		makeDistributionFromData();
 	}
 
+	/**
+	 * Reagiert auf Tastendrücken in den Eingabefeldern
+	 * und aktualisiert die Verteilung.
+	 * @see JDistributionEditorPanel#addCardPanel(String, String[], String[], JButton[], boolean)
+	 * @see JDistributionEditorPanel#makeDistributionFromData()
+	 */
 	private class TextFieldsEvents implements KeyListener {
 		@Override
 		public void keyTyped(KeyEvent e) {makeDistributionFromData();}
@@ -444,6 +486,10 @@ public class JDistributionEditorPanel extends JPanel {
 		public void keyReleased(KeyEvent e) {makeDistributionFromData();}
 	}
 
+	/**
+	 * Versucht eine Datenzeile aus der Zwischenablage zu laden
+	 * @return	Liefert im Erfolgsfall die Datenzeile, sonst <code>null</code>
+	 */
 	private double[] getDataFromClipboard() {
 		Transferable cont=getToolkit().getSystemClipboard().getContents(this);
 		if (cont==null) return null;
@@ -453,11 +499,10 @@ public class JDistributionEditorPanel extends JPanel {
 		return JDataLoader.loadNumbersFromString(JDistributionEditorPanel.this,s,1,Integer.MAX_VALUE);
 	}
 
+	/**
+	 * Listener, der auf Klicks auf die Schaltflächen reagiert
+	 */
 	private class ButtonListener implements ActionListener {
-		private final JPanel parent;
-
-		public ButtonListener(JPanel parent) {this.parent=parent;}
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource()==buttonValueCopy) {
@@ -493,7 +538,7 @@ public class JDistributionEditorPanel extends JPanel {
 			if (e.getSource()==buttonValueSave) {
 				String s=getDataDistributionExportFormat();
 				if (s==null) return;
-				File file=Table.showSaveDialog(parent,ButtonSaveDataDialogTitle); if (file==null) return;
+				File file=Table.showSaveDialog(JDistributionEditorPanel.this,ButtonSaveDataDialogTitle); if (file==null) return;
 				Table table=new Table(s);
 				table.save(file);
 				return;
@@ -501,11 +546,23 @@ public class JDistributionEditorPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Listener für die Schaltflächen zum Verändern der Werte
+	 * in einem Zahleneingabefeld nach oben oder unten
+
+	 */
 	private final class ShiftButtonListener implements ActionListener {
+		/** Art des Buttons (0..3) */
 		private final int nr;
+		/** Zugehöriges Eingabefeld */
 		private final JTextField field;
 
-		public ShiftButtonListener(int nr, JTextField field) {
+		/**
+		 * Konstruktor der Klasse
+		 * @param nr	Art des Buttons (0..3)
+		 * @param field	Zugehöriges Eingabefeld
+		 */
+		public ShiftButtonListener(final int nr, final JTextField field) {
 			this.nr=nr;
 			this.field=field;
 		}
@@ -532,6 +589,10 @@ public class JDistributionEditorPanel extends JPanel {
 	 * @see JDistributionEditorPanel#distributionType
 	 */
 	private final class DistributionComboBoxRenderer extends JLabel implements ListCellRenderer<String> {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 6456312299286699520L;
 
 		/**

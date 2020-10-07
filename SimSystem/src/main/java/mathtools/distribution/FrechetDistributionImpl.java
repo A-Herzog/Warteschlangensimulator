@@ -29,6 +29,10 @@ import mathtools.Functions;
  * @version 1.0
  */
 public final class FrechetDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -86971112941518298L;
 
 	/**

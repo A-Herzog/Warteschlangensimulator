@@ -26,6 +26,10 @@ import org.apache.commons.math3.random.RandomGenerator;
  * @see AbstractRealDistribution
  */
 public final class TriangularDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4353370852835823187L;
 
 	/**

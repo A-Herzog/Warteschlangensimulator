@@ -27,6 +27,10 @@ import org.apache.commons.math3.util.FastMath;
  * @version 1.0
  */
 public final class LogisticDistributionImpl extends AbstractRealDistribution implements Serializable, Cloneable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4319813650956502662L;
 
 	/**
@@ -72,6 +76,10 @@ public final class LogisticDistributionImpl extends AbstractRealDistribution imp
 		return mu;
 	}
 
+	/**
+	 * Vorab berechneter Wert zur Beschleunigung der Berechnung der Varianz.
+	 * @see #getNumericalVariance()
+	 */
 	private static final double varConst=Math.PI*Math.PI/3;
 
 	@Override

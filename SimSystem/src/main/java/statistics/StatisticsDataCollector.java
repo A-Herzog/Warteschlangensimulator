@@ -41,9 +41,19 @@ public final class StatisticsDataCollector extends StatisticsPerformanceIndicato
 	 */
 	public static String xmlDistributionError="Das Element \"%s\" muss eine Liste von Zahlenwerten enthalten.";
 
+	/**
+	 * Schrittweite mit der {@link #data} bei Bedarf vergrößert wird.
+	 */
 	private static final int GROW_SIZE=10_000;
 
+	/**
+	 * Anzahl der tatsächlich in {@link #data} belegten Einträge.
+	 */
 	private int count;
+
+	/**
+	 * Erfasste Datenpunkte.
+	 */
 	private double[] data;
 
 	private int cacheCount;

@@ -15,6 +15,8 @@
  */
 package mathtools.distribution;
 
+import java.io.Serializable;
+
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.util.FastMath;
@@ -25,6 +27,10 @@ import org.apache.commons.math3.util.FastMath;
  * @version 1.1
  */
 public final class HyperbolicSecantDistributionImpl extends AbstractRealDistribution implements Cloneable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4529594266413420045L;
 
 	/**
@@ -125,6 +131,11 @@ public final class HyperbolicSecantDistributionImpl extends AbstractRealDistribu
 		return new HyperbolicSecantDistributionImpl(this);
 	}
 
+	/**
+	 * Vorab berechneter Wert zur Beschleunigung der
+	 * Zufallszahlenberechnung.
+	 * @see #random(RandomGenerator)
+	 */
 	private static final double twoDivPi=2.0/Math.PI;
 
 	@Override

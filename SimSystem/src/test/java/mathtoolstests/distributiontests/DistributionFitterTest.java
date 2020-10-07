@@ -104,6 +104,7 @@ class DistributionFitterTest {
 		assertNotNull(fitter.getFitDistribution());
 	}
 
+	/** Beispieldaten für eine Normalverteilung */
 	private double[] normalDistData=new double[] {
 			9.162774487,
 			6.005960156,

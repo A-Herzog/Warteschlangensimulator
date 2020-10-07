@@ -28,6 +28,10 @@ import org.apache.commons.math3.util.FastMath;
  * @version 1.1
  */
 public final class InverseGaussianDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable, DistributionWithRandom {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2495954212542594178L;
 
 	/**
@@ -48,6 +52,11 @@ public final class InverseGaussianDistributionImpl extends AbstractRealDistribut
 	 */
 	private final double inverse2Lambda;
 
+	/**
+	 * Standardnormalverteilung, die verwendet wird, um Verteilungswerte
+	 * zu berechnen.
+	 * @see #cumulativeProbability(double)
+	 */
 	private static final NormalDistribution stdNormal=new NormalDistribution(null,0.0,1.0,NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**

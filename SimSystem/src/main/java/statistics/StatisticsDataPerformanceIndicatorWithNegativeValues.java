@@ -126,9 +126,21 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 */
 	private boolean argumentScaleFactorIsOne;
 
+	/**
+	 * Obergrenze des Trägers der Häufigkeitsverteilung
+	 */
 	private final double upperBound;
+
+	/**
+	 * Wie viele einzelne Werte sollen für die Häufigkeitsverteilung vorgehalten werden?
+	 */
 	private final int steps;
+
+	/**
+	 * Sollen Verteilungswerte erfasst werden?
+	 */
 	private final boolean hasDistribution;
+
 	private long distributionZeroCount;
 
 	/**
@@ -166,6 +178,12 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		reset();
 	}
 
+	/**
+	 * Initialisiert die Verteilungsdaten
+	 * @see #add(double)
+	 * @see #add(double, long)
+	 * @see #add(StatisticsPerformanceIndicator)
+	 */
 	private void initDistribution() {
 		dist=new DataDistributionImpl(upperBound,steps);
 		densityData=dist.densityData;
@@ -415,6 +433,13 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		return sum/count;
 	}
 
+	/**
+	 * Berechnet ein Quantil der Messreihe aus der Häufigkeitsverteilung.
+	 * @param sum	Summe über die Messreihe
+	 * @param p	Wert für das Quantil
+	 * @return	Quantil der Messreihe
+	 * @see #getQuantil(double)
+	 */
 	private double getQuantil(final double sum, final double p) {
 		final double quantilSum=sum*Math.min(1.0,Math.max(0.0,p));
 		int index=-1;

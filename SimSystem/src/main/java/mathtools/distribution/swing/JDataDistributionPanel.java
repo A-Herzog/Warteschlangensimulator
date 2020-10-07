@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,6 +40,10 @@ import mathtools.distribution.tools.DistributionTools;
  * @see DataDistributionImpl
  */
 public class JDataDistributionPanel extends JPanel implements JGetImage {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8335989669214631310L;
 
 	/**
@@ -46,6 +51,7 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 	 */
 	public static String errorString="Keine Verteilung angegeben";
 
+	/** Obere Grenze für den Träger der Dichte */
 	private static int maxXValue=48;
 
 	/** Funktionsplotter innerhalb des Panels */
@@ -137,14 +143,29 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 	 * Eigentlicher Funktionsplotter innerhalb des Gesamt-Panels
 	 */
 	private class JDataDistributionPlotter extends JPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 4036913455488209499L;
 
+		/**
+		 * Berechnet die tatsächlich verfügbare Zeichenfläche
+		 * @return	Verfügbare Zeichenfläche
+		 */
 		private Rectangle getClientRect() {
 			Rectangle r=getBounds();
 			Insets i=getInsets();
 			return new Rectangle(i.left,i.top,r.width-i.left-i.right-1,r.height-i.top-i.bottom-1);
 		}
 
+		/**
+		 * Wird aufgerufen, wenn keine Verteilung angegeben ist.
+		 * Es wird dann eine entsprechende Fehlermeldung ausgegeben.
+		 * @param g	Ausgabe Ziel
+		 * @param r	Bereich für die Ausgabe
+		 * @see #paintToRectangle(Graphics, Rectangle, boolean)
+		 */
 		private void paintNullDistribution(Graphics g, Rectangle r) {
 			g.setColor(Color.RED);
 			g.drawRect(r.x,r.y,r.width,r.height);
@@ -153,6 +174,13 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 			g.drawString(errorString,r.x+r.width/2-w/2,r.y+r.height/2+g.getFontMetrics().getAscent()/2);
 		}
 
+		/**
+		 * Zeichnet den Rahmen für die Darstellung der Verteilungsdaten
+		 * @param g	Ausgabe Ziel
+		 * @param r	Ausgbebereich
+		 * @param dataRect	Innerer Bereich
+		 * @see #paintToRectangle(Graphics, Rectangle, boolean)
+		 */
 		private void paintDistributionRect(Graphics g, Rectangle r, Rectangle dataRect) {
 			g.setColor(Color.WHITE);
 			g.fillRect(dataRect.x,dataRect.y,dataRect.width,dataRect.height);
@@ -169,6 +197,13 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 			}
 		}
 
+		/**
+		 * Zeichnet die Verteilungsdaten
+		 * @param g	Ausgabe Ziel
+		 * @param dataRect	Zeichenbereich innerhalb des Ziels
+		 * @param allLabels	Sollen alle Beschriftungen (<code>true</code>) oder nur die vom Platz her sicher passendes (<code>false</code>) angezeigt werden
+		 * @see #paintToRectangle(Graphics, Rectangle, boolean)
+		 */
 		private void paintDistribution(Graphics g, Rectangle dataRect, boolean allLabels) {
 			int barWidth=dataRect.width/maxXValue-2;
 			double maxValue=0;
@@ -204,6 +239,14 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 			}
 		}
 
+		/**
+		 * Zeichnet die Verteilung in ein beliebiges {@link Graphics}-Objekt
+		 * @param g	Ausgabe Ziel
+		 * @param r	Ausgbebereich
+		 * @param allLabels	Sollen alle Beschriftungen (<code>true</code>) oder nur die vom Platz her sicher passendes (<code>false</code>) angezeigt werden
+		 * @see #paint(Graphics)
+		 * @see #paintToGraphics(Graphics)
+		 */
 		private void paintToRectangle(Graphics g, Rectangle r, boolean allLabels) {
 			if (distribution==null) {paintNullDistribution(g,r); return;}
 
@@ -222,6 +265,14 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 			paintToRectangle(g,getClientRect(),false);
 		}
 
+		/**
+		 * Zeichnet die Verteilung in ein beliebiges {@link Graphics}-Objekt
+		 * (z.B. zum Speichern der Verteilungsansicht als Bild).
+		 * Im Gegensatz zu der normalen Ausgabe werden dabei immer alle
+		 * Balkenbeschriftungen ausgegeben.
+		 * @param g	Ausgabe Ziel
+		 * @see JDataDistributionPanel#paintToGraphics(Graphics)
+		 */
 		private void paintToGraphics(Graphics g) {
 			paintToRectangle(g,g.getClipBounds(),true);
 		}

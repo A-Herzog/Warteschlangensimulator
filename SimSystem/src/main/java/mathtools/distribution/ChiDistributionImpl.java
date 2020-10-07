@@ -29,6 +29,10 @@ import mathtools.Functions;
  * @version 1.0
  */
 public final class ChiDistributionImpl extends AbstractRealDistribution implements Cloneable, Serializable {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2215589145625848353L;
 
 	/**

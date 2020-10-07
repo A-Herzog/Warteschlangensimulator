@@ -29,9 +29,25 @@ import simcore.SimData;
  * @version 1.0
  */
 public final class TestEvent extends Event {
+	/**
+	 * Verhaltensweise des Ereignisses: 1er-Bit=Consolen-Ausgabe, 2er-Bit=Nächste Ereignisse einfügen
+	 * @see #init(long, int)
+	 * @see #init(long, int, TestEvent)
+	 */
 	private int mode;
+
+	/**
+	 * Wird hier ein Ereignis angegeben, so wird <code>deleteTest</code> bei der Ausführung dieses
+	 * Ereignisses unausgeführt gelöscht. Außerdem wird beim Anlegen eines weiteren Ereignisses
+	 * jeweils wieder ein deleteEvent angelegt.
+	 * @see #init(long, int, TestEvent)
+	 */
 	private TestEvent deleteTest;
 
+	/**
+	 * Wandelt den Ausführungszeitpunkt {@link Event#time} in eine Zeichenkette um
+	 * @return	Ausführungszeitpunkt als Zeichenkette
+	 */
 	private String getExecutionTime() {
 		if (time<1000000000) return Long.toString(time);
 		Date d=new Date(time); return d.toString();

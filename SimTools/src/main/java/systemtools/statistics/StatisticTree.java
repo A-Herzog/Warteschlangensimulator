@@ -18,6 +18,7 @@ package systemtools.statistics;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -38,6 +39,10 @@ import systemtools.statistics.StatisticViewer.ViewerType;
  * @author Alexander Herzog
  */
 public class StatisticTree extends JTree {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1819707611627082842L;
 
 	/** Kommandozeilenbefehl, über den einzelne Statistikergebnisse abgerufen werden können (zur Anzeige eines Kontextmenüs, welche den jeweiligen Befehl benennt; wird hier <code>null</code> übergeben, so erhält die Baumansicht kein Kontextmenü) */

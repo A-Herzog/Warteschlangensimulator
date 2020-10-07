@@ -23,6 +23,7 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +54,10 @@ import systemtools.images.SimToolsImages;
  * @see BaseCommandLineSystem
  */
 public class CommandLineDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6197903197950433862L;
 
 	/** Bezeichner für den Titel des Dialogs */

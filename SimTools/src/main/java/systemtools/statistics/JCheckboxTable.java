@@ -15,6 +15,7 @@
  */
 package systemtools.statistics;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.swing.JTable;
@@ -28,6 +29,10 @@ import javax.swing.table.JTableHeader;
  * @author Alexander Herzog
  */
 public class JCheckboxTable extends JTable {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5386423466149360971L;
 
 	/** Array mit den in der Liste anzuzeigenden Texten (darf nicht <code>null</code> sein) */

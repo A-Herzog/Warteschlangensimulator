@@ -19,6 +19,7 @@ import java.awt.Cursor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,10 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
  * @version 1.1
  */
 public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6093964682884036080L;
 
 	/** Callback, das aufgerufen wird, wenn ein Link angeklickt wird */

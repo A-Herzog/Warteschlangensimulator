@@ -23,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.function.Consumer;
@@ -49,6 +50,10 @@ import systemtools.images.SimToolsImages;
  * @version 1.2
  */
 public class DescriptionViewer extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8594822323998433424L;
 
 	/** Callback an das Links (zur dialogbasierten Hilfe) übermittelt werden (kann <code>null</code> sein) */

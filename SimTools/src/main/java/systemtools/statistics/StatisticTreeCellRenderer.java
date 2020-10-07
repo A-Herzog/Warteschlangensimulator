@@ -17,6 +17,7 @@ package systemtools.statistics;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -34,6 +35,10 @@ import systemtools.images.SimToolsImages;
  * @author Alexander Herzog
  */
 public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2366015952361517477L;
 
 	private static final URL iconText;
