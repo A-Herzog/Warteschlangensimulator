@@ -30,8 +30,14 @@ public final class CalcSymbolConstPi extends CalcSymbolConst {
 		setValue(Math.PI);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"pi"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"pi"};
+		return names;
 	}
 }

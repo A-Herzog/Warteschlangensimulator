@@ -23,13 +23,18 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolResourceData_std extends CalcSymbolResourceData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"resource_std","resource_sd","utilization_std","utilization_sd",
+			"resource_Standardabweichung","utilization_Standardabweichung"
+	};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"resource_std","resource_sd","utilization_std","utilization_sd",
-				"resource_Standardabweichung","utilization_Standardabweichung"
-		};
+		return names;
 	}
 
 	@Override

@@ -83,8 +83,14 @@ public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
 		throw error();
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"ErlangC"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"ErlangC"};
+		return names;
 	}
 }

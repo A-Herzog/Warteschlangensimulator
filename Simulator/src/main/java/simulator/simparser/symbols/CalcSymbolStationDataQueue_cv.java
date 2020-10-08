@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataQueue_cv extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"NQ_cv","Queue_cv","Schlange_cv","Warteschlange_cv"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"NQ_cv","Queue_cv","Schlange_cv","Warteschlange_cv"};
+		return names;
 	}
 
 	@Override

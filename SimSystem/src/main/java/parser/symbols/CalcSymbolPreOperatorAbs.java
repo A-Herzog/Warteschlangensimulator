@@ -35,8 +35,14 @@ public final class CalcSymbolPreOperatorAbs extends CalcSymbolPreOperator {
 		return Math.abs(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"absolutbetrag","abs","betrag"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"absolutbetrag","abs","betrag"};
+		return names;
 	}
 }

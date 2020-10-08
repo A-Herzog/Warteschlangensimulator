@@ -23,9 +23,15 @@ import statistics.StatisticsDataPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolUserStatistics_var extends CalcSymbolUserStatistics {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[] {"Statistik_var","Statistics_var","Statistik_Varianz"};
+
 	@Override
 	public String[] getNames() {
-		return new String[] {"Statistik_var","Statistics_var","Statistik_Varianz"};
+		return names;
 	}
 
 	@Override

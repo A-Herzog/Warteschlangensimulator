@@ -40,8 +40,14 @@ public final class CalcSymbolPreOperatorMin extends CalcSymbolPreOperator {
 		return min;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Minimum","Min","Mn"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Minimum","Min","Mn"};
+		return names;
 	}
 }

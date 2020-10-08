@@ -25,9 +25,15 @@ import mathtools.distribution.ChiDistributionImpl;
  * @see ChiDistributionImpl
  */
 public final class CalcSymbolDistributionChi extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"ChiDistribution","ChiDist","ChiVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"ChiDistribution","ChiDist","ChiVerteilung"};
+		return names;
 	}
 
 	@Override

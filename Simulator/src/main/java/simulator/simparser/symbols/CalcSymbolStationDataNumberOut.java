@@ -23,9 +23,15 @@ import simulator.simparser.coresymbols.CalcSymbolStationData;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataNumberOut extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"NumberOut","CountOut"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"NumberOut","CountOut"};
+		return names;
 	}
 
 	@Override

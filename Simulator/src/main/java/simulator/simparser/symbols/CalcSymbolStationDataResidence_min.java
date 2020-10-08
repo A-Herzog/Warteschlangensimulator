@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataResidence_min extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Verweilzeit_min","Verweilzeit_Minimum",
+			"ResidenceTime_min","ResidenceTime_Minimum"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Verweilzeit_min","Verweilzeit_Minimum",
-				"ResidenceTime_min","ResidenceTime_Minimum"
-		};
+		return names;
 	}
 
 	@Override

@@ -37,9 +37,15 @@ public final class CalcSymbolPreOperatorCot extends CalcSymbolPreOperator {
 		double d=Math.tan(parameters[0]); return (Double.isNaN(d) || Math.abs(d)<0.000001)?fallbackValue:(1/d);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"cotangens","cot"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"cotangens","cot"};
+		return names;
 	}
 
 }

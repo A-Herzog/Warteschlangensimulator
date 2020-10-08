@@ -29,9 +29,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolTransporterCount extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"transporter_count"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"transporter_count"};
+		return names;
 	}
 
 	@Override

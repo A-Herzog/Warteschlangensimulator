@@ -35,9 +35,15 @@ public final class CalcSymbolPreOperatorTanh extends CalcSymbolPreOperator {
 		return Math.tanh(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"tanh"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"tanh"};
+		return names;
 	}
 
 }

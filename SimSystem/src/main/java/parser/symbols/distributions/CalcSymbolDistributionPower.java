@@ -25,9 +25,15 @@ import mathtools.distribution.PowerDistributionImpl;
  * @see PowerDistributionImpl
  */
 public final class CalcSymbolDistributionPower extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"PowerDistribution","PowerDist","Potenzverteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"PowerDistribution","PowerDist","Potenzverteilung"};
+		return names;
 	}
 
 	@Override

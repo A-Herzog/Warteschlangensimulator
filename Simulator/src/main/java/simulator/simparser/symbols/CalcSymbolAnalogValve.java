@@ -27,9 +27,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolAnalogValve extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"VentilMaximalDurchfluss","ValveMaximumFlow"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"VentilMaximalDurchfluss","ValveMaximumFlow"};
+		return names;
 	}
 
 	@Override

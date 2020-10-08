@@ -27,9 +27,15 @@ import statistics.StatisticsValuePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataCosts_sum extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Costs","Kosten"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Costs","Kosten"};
+		return names;
 	}
 
 	@Override

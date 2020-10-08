@@ -25,9 +25,15 @@ import simulator.simparser.coresymbols.CalcSymbolStationData;
  * @author Alexander Herzog
  */
 public class CalcSymbolSimDataCounter extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Zähler","Counter","Value","Wert"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Zähler","Counter","Value","Wert"};
+		return names;
 	}
 
 	@Override

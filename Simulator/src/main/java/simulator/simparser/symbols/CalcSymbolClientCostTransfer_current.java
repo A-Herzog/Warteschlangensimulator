@@ -24,10 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolClientCostTransfer_current extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Costs_Transfer","Kosten_Transferzeit"};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{"Costs_Transfer","Kosten_Transferzeit"};
+		return names;
 	}
 
 	private static final double scaleFactor=1.0/1000.0;

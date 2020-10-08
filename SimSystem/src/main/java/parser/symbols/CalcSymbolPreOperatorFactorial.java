@@ -25,9 +25,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @see CalcSymbolPostOperatorFactorial
  */
 public final class CalcSymbolPreOperatorFactorial extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"factorial","fact","fakultät"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"factorial","fact","fakultät"};
+		return names;
 	}
 
 	@Override

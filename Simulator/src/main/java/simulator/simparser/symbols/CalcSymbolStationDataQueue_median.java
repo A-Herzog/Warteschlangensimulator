@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataQueue_median extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"NQ_median","Queue_median","Schlange_median","Warteschlange_median"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"NQ_median","Queue_median","Schlange_median","Warteschlange_median"};
+		return names;
 	}
 
 	@Override

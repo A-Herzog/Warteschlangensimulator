@@ -40,8 +40,14 @@ public final class CalcSymbolPreOperatorMax extends CalcSymbolPreOperator {
 		return max;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Maximum","Max","Mx"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Maximum","Max","Mx"};
+		return names;
 	}
 }

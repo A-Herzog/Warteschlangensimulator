@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWIP_max extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"WIP_max","Station_max","N_max","WIP_Maximum","Station_Maximum","N_Maximum"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"WIP_max","Station_max","N_max","WIP_Maximum","Station_Maximum","N_Maximum"};
+		return names;
 	}
 
 	@Override

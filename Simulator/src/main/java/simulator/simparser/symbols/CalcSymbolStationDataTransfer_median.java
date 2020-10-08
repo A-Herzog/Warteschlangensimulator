@@ -29,9 +29,15 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataTransfer_median extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Transferzeit_median","TransferTime_median"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Transferzeit_median","TransferTime_median"};
+		return names;
 	}
 
 	@Override

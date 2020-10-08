@@ -37,9 +37,15 @@ public final class CalcSymbolPreOperatorCos extends CalcSymbolPreOperator {
 		return (Math.abs(d)<2E-16)?0.0:d;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"cosinus","cos"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"cosinus","cos"};
+		return names;
 	}
 
 }

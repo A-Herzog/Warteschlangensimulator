@@ -43,8 +43,14 @@ public final class CalcSymbolPreOperatorStdDev extends CalcSymbolPreOperator {
 		return Math.sqrt(1/(n-1)*(sum2-sum*sum/n));
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"StandardDeviation","StdDev","Standardabweichung","StdAbw","sd"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"StandardDeviation","StdDev","Standardabweichung","StdAbw","sd"};
+		return names;
 	}
 }

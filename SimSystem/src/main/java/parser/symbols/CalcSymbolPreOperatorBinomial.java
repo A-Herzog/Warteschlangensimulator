@@ -26,9 +26,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolPreOperatorBinomial extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"binom","binomial","binomialkoeffizient","binomialcoefficient"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"binom","binomial","binomialkoeffizient","binomialcoefficient"};
+		return names;
 	}
 
 	@Override

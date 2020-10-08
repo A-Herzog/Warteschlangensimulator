@@ -25,9 +25,15 @@ import mathtools.distribution.LaplaceDistributionImpl;
  * @see LaplaceDistributionImpl
  */
 public final class CalcSymbolDistributionLaplace extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"LaplaceDistribution","LaplaceDist","Laplaceverteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"LaplaceDistribution","LaplaceDist","Laplaceverteilung"};
+		return names;
 	}
 
 	@Override

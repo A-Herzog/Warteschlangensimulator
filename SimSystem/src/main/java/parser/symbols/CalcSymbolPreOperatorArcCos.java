@@ -37,9 +37,15 @@ public final class CalcSymbolPreOperatorArcCos extends CalcSymbolPreOperator {
 		return Math.acos(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcuscosinus","arccosinus","arccos","acos"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"arcuscosinus","arccosinus","arccos","acos"};
+		return names;
 	}
 
 }

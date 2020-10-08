@@ -29,13 +29,19 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataProcess_max extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Bedienzeit_max","Bedienzeit_Maximum",
+			"ProcessingTime_max","ProcessingTime_Maximum",
+			"ServiceTime_max","ServiceTime_Maximum"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Bedienzeit_max","Bedienzeit_Maximum",
-				"ProcessingTime_max","ProcessingTime_Maximum",
-				"ServiceTime_max","ServiceTime_Maximum"
-		};
+		return names;
 	}
 
 	@Override

@@ -25,10 +25,15 @@ import simulator.simparser.coresymbols.CalcSymbolClientCosts;
  * @author Alexander Herzog
  */
 public class CalcSymbolClientCostProcess_sum extends CalcSymbolClientCosts {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Costs_Process_Sum","Kosten_Bedienzeit_Summe"};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{"Costs_Process_Sum","Kosten_Bedienzeit_Summe"};
+		return names;
 	}
 
 	@Override

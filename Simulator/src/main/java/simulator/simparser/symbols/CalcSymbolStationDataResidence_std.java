@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataResidence_std extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names= new String[]{
+			"Verweilzeit_std","Verweilzeit_sd","Verweilzeit_Standardabweichung",
+			"ResidenceTime_std","ResidenceTime_sd","ResidenceTime_Standardabweichung"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Verweilzeit_std","Verweilzeit_sd","Verweilzeit_Standardabweichung",
-				"ResidenceTime_std","ResidenceTime_sd","ResidenceTime_Standardabweichung"
-		};
+		return names;
 	}
 
 	@Override

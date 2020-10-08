@@ -30,9 +30,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolTransporterData_hist extends CalcSymbolStationDataHistogram {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"transporter_hist","transporter_utilization_hist"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"transporter_hist","transporter_utilization_hist"};
+		return names;
 	}
 
 	@Override

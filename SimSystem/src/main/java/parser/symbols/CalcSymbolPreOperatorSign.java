@@ -42,8 +42,14 @@ public final class CalcSymbolPreOperatorSign extends CalcSymbolPreOperator {
 		return sign;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"signum","sign","vorzeichen","sgn"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"signum","sign","vorzeichen","sgn"};
+		return names;
 	}
 }

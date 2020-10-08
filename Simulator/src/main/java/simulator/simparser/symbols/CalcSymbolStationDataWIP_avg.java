@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWIP_avg extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"WIP_avg","Station_avg","N_avg","WIP_average","Station_average","N_average","WIP_Mittelwert","Station_Mittelwert","N_Mittelwert"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"WIP_avg","Station_avg","N_avg","WIP_average","Station_average","N_average","WIP_Mittelwert","Station_Mittelwert","N_Mittelwert"};
+		return names;
 	}
 
 	@Override

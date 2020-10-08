@@ -24,9 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolClientLastStation extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"PreviousStation","VorherigeStation"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"PreviousStation","VorherigeStation"};
+		return names;
 	}
 
 	@Override

@@ -35,9 +35,15 @@ public final class CalcSymbolPreOperatorSinh extends CalcSymbolPreOperator {
 		return Math.sinh(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"sinh"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"sinh"};
+		return names;
 	}
 
 }

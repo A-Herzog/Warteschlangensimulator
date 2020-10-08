@@ -37,9 +37,15 @@ public final class CalcSymbolPreOperatorArcSinh extends CalcSymbolPreOperator {
 		return FastMath.asinh(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcussinush","arcsinush","arcsinh","asinh"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"arcussinush","arcsinush","arcsinh","asinh"};
+		return names;
 	}
 
 }

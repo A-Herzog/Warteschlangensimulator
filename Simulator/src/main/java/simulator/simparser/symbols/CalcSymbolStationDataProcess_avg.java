@@ -29,13 +29,19 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataProcess_avg extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Bedienzeit_avg","Bedienzeit_average","Bedienzeit_Mittelwert",
+			"ProcessingTime_avg","ProcessingTime_average","ProcessingTime_Mittelwert",
+			"ServiceTime_avg","ServiceTime_average","ServiceTime_Mittelwert"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Bedienzeit_avg","Bedienzeit_average","Bedienzeit_Mittelwert",
-				"ProcessingTime_avg","ProcessingTime_average","ProcessingTime_Mittelwert",
-				"ServiceTime_avg","ServiceTime_average","ServiceTime_Mittelwert"
-		};
+		return names;
 	}
 
 	@Override

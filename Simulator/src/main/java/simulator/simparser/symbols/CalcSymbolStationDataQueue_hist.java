@@ -31,9 +31,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataQueue_hist extends CalcSymbolStationDataHistogram {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"NQ_hist","Queue_hist","Schlange_hist","Warteschlange_hist"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"NQ_hist","Queue_hist","Schlange_hist","Warteschlange_hist"};
+		return names;
 	}
 
 	@Override

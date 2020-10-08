@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataQueue_min extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"NQ_min","Queue_min","Schlange_min","Warteschlange_min","NQ_Minimum","Queue_Minimum","Schlange_Minimum","Warteschlange_Minimum"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"NQ_min","Queue_min","Schlange_min","Warteschlange_min","NQ_Minimum","Queue_Minimum","Schlange_Minimum","Warteschlange_Minimum"};
+		return names;
 	}
 
 	@Override

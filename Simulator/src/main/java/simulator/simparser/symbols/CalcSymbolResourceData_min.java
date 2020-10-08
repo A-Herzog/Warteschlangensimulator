@@ -26,13 +26,18 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolResourceData_min extends CalcSymbolResourceData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"resource_min","utilization_min",
+			"resource_Minimum","utilization_Minimum"
+	};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"resource_min","utilization_min",
-				"resource_Minimum","utilization_Minimum"
-		};
+		return names;
 	}
 
 	@Override

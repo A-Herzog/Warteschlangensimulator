@@ -30,9 +30,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolPreOperatorAllenCunneen extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"AllenCunneen"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"AllenCunneen"};
+		return names;
 	}
 
 	/**

@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWIP_scv extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"WIP_scv","Station_scv","N_scv"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"WIP_scv","Station_scv","N_scv"};
+		return names;
 	}
 
 	@Override

@@ -23,9 +23,15 @@ import statistics.StatisticsDataPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolUserStatistics_min extends CalcSymbolUserStatistics {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[] {"Statistik_min","Statistics_min","Statistik_Minimum","Statistics_Minimum"};
+
 	@Override
 	public String[] getNames() {
-		return new String[] {"Statistik_min","Statistics_min","Statistik_Minimum","Statistics_Minimum"};
+		return names;
 	}
 
 	@Override

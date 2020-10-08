@@ -24,9 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolClientCurrentWaitingTime extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"CurrentWaitingTime","AktuelleWartezeit"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"CurrentWaitingTime","AktuelleWartezeit"};
+		return names;
 	}
 
 	private static final double scaleFactor=1.0/1000.0;

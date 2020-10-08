@@ -24,9 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolStationData;
  * @author Alexander Herzog
  */
 public class CalcSymbolAnalogValue extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"AnalogWert","AnalogValue"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"AnalogWert","AnalogValue"};
+		return names;
 	}
 
 	@Override

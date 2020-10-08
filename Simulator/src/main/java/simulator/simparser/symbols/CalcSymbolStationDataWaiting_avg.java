@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWaiting_avg extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Wartezeit_avg","Wartezeit_average","Wartezeit_Mittelwert",
+			"WaitingTime_avg","WaitingTime_average","WaitingTime_Mittelwert"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Wartezeit_avg","Wartezeit_average","Wartezeit_Mittelwert",
-				"WaitingTime_avg","WaitingTime_average","WaitingTime_Mittelwert"
-		};
+		return names;
 	}
 
 	@Override

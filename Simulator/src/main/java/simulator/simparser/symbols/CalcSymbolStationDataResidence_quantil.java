@@ -29,9 +29,15 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataResidence_quantil extends CalcSymbolStationDataQuantil {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[] {"Verweilzeit_quantil","ResidenceTime_quantil"};
+
 	@Override
 	public String[] getNames() {
-		return new String[] {"Verweilzeit_quantil","ResidenceTime_quantil"};
+		return names;
 	}
 
 	@Override

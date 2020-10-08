@@ -25,10 +25,15 @@ import simulator.simparser.coresymbols.CalcSymbolClientCosts;
  * @author Alexander Herzog
  */
 public class CalcSymbolClientCostTransfer_avg extends CalcSymbolClientCosts {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Costs_Transfer_avg","Costs_Transfer_average","Kosten_Transferzeit_Mittelwert"};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{"Costs_Transfer_avg","Costs_Transfer_average","Kosten_Transferzeit_Mittelwert"};
+		return names;
 	}
 
 	@Override

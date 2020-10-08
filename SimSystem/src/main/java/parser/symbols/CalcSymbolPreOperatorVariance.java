@@ -43,8 +43,14 @@ public final class CalcSymbolPreOperatorVariance extends CalcSymbolPreOperator {
 		return 1/(n-1)*(sum2-sum*sum/n);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Variance","Varianz","Var"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Variance","Varianz","Var"};
+		return names;
 	}
 }

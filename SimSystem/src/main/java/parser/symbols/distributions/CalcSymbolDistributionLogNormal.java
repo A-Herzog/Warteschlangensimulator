@@ -25,9 +25,15 @@ import mathtools.distribution.LogNormalDistributionImpl;
  * @see LogNormalDistributionImpl
  */
 public final class CalcSymbolDistributionLogNormal extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"LogNormalDistribution","LogNormalDist","LogNormalVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"LogNormalDistribution","LogNormalDist","LogNormalVerteilung"};
+		return names;
 	}
 
 	@Override

@@ -29,9 +29,15 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWaiting_cv extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Wartezeit_cv","WaitingTime_cv"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Wartezeit_cv","WaitingTime_cv"};
+		return names;
 	}
 
 	@Override

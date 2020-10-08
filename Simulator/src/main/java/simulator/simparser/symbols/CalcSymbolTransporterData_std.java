@@ -23,14 +23,19 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolTransporterData_std extends CalcSymbolTransporterData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"transporter_std","transporter_sd",
+			"transporter_utilization_std","transporter_utilization_sd",
+			"transporter_Standardabweichung","transporter_utilization_Standardabweichung"
+	};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"transporter_std","transporter_sd",
-				"transporter_utilization_std","transporter_utilization_sd",
-				"transporter_Standardabweichung","transporter_utilization_Standardabweichung"
-		};
+		return names;
 	}
 
 	@Override

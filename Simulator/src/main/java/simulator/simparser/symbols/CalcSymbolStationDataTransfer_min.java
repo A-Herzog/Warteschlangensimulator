@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataTransfer_min extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Transferzeit_min","Transferzeit_Minimum",
+			"TransferTime_min","TransferTime_Minimum"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Transferzeit_min","Transferzeit_Minimum",
-				"TransferTime_min","TransferTime_Minimum"
-		};
+		return names;
 	}
 
 	@Override

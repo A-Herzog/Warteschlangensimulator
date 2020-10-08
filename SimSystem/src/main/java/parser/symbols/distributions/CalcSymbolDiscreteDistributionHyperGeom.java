@@ -24,9 +24,15 @@ import org.apache.commons.math3.util.FastMath;
  * @version 1.0
  */
 public class CalcSymbolDiscreteDistributionHyperGeom extends CalcSymbolDiscreteDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"HypergeometricDistribution","HypergeometricDist","HyperDistribution","HyperDist","HgDistribution","HgDist","HypergeometrischeVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"HypergeometricDistribution","HypergeometricDist","HyperDistribution","HyperDist","HgDistribution","HgDist","HypergeometrischeVerteilung"};
+		return names;
 	}
 
 	@Override

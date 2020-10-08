@@ -25,9 +25,15 @@ import mathtools.Functions;
  * @version 1.0
  */
 public class CalcSymbolDiscreteDistributionPoisson extends CalcSymbolDiscreteDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"PoissonDistribution","PoissonDist","PoissonVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"PoissonDistribution","PoissonDist","PoissonVerteilung"};
+		return names;
 	}
 
 	@Override

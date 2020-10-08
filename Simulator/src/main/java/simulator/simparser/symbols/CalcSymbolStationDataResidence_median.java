@@ -29,9 +29,15 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataResidence_median extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[] {"Verweilzeit_median","ResidenceTime_median"};
+
 	@Override
 	public String[] getNames() {
-		return new String[] {"Verweilzeit_median","ResidenceTime_median"};
+		return names;
 	}
 
 	@Override

@@ -36,8 +36,14 @@ public final class CalcSymbolPreOperatorFloor extends CalcSymbolPreOperator {
 		return Math.floor(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"floor","abrunden","AINT"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"floor","abrunden","AINT"};
+		return names;
 	}
 }

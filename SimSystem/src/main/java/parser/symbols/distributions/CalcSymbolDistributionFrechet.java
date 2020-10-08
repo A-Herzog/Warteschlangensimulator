@@ -25,9 +25,15 @@ import mathtools.distribution.FrechetDistributionImpl;
  * @see FrechetDistributionImpl
  */
 public final class CalcSymbolDistributionFrechet extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"FrechetDistribution","FrechetDist","FrechetVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"FrechetDistribution","FrechetDist","FrechetVerteilung"};
+		return names;
 	}
 
 	@Override

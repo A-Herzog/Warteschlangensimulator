@@ -25,9 +25,15 @@ import mathtools.distribution.ParetoDistributionImpl;
  * @see ParetoDistributionImpl
  */
 public final class CalcSymbolDistributionPareto extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"ParetoDistribution","ParetoDist","Paretoverteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"ParetoDistribution","ParetoDist","Paretoverteilung"};
+		return names;
 	}
 
 	@Override

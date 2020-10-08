@@ -23,9 +23,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPreOperatorSqrt extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"sqrt","Wurzel","\\","Quardartwurzel"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"sqrt","Wurzel","\\","Quardartwurzel"};
+		return names;
 	}
 
 	@Override

@@ -37,9 +37,15 @@ public final class CalcSymbolPreOperatorArcCoth extends CalcSymbolPreOperator {
 		return FastMath.atanh(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcuscotangensh","arccotangensh","arccoth","acoth"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"arcuscotangensh","arccotangensh","arccoth","acoth"};
+		return names;
 	}
 
 }

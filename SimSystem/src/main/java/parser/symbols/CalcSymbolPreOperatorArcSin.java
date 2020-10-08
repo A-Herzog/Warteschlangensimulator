@@ -37,9 +37,15 @@ public final class CalcSymbolPreOperatorArcSin extends CalcSymbolPreOperator {
 		return Math.asin(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcussinus","arcsinus","arcsin","asin"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"arcussinus","arcsinus","arcsin","asin"};
+		return names;
 	}
 
 }

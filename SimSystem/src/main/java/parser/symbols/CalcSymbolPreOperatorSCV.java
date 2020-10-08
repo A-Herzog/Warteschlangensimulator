@@ -48,8 +48,14 @@ public final class CalcSymbolPreOperatorSCV extends CalcSymbolPreOperator {
 		return (1/(n-1)*(sum2-sum*sumN))/(sumN*sumN);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"SCV"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"SCV"};
+		return names;
 	}
 }

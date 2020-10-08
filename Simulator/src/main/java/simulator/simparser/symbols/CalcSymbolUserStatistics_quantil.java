@@ -28,9 +28,15 @@ import statistics.StatisticsDataPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolUserStatistics_quantil extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[] {"Statistik_quantil","Statistics_quantil"};
+
 	@Override
 	public String[] getNames() {
-		return new String[] {"Statistik_quantil","Statistics_quantil"};
+		return names;
 	}
 
 	@Override

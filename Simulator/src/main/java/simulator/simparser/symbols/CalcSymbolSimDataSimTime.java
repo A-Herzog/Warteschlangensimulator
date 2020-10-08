@@ -24,9 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolSimDataSimTime extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"SimTime","TNOW"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"SimTime","TNOW"};
+		return names;
 	}
 
 	private static final double scaleFactor=1.0/1000.0;

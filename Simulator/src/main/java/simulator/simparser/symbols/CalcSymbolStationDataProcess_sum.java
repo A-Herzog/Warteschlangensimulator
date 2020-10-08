@@ -26,13 +26,19 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataProcess_sum extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Bedienzeit_sum","Bedienzeit_gesamt","Bedienzeit_summe",
+			"ProcessingTime_sum","ProcessingTime_gesamt","ProcessingTime_summe",
+			"ServiceTime_sum","ServiceTime_gesamt","ServiceTime_summe"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Bedienzeit_sum","Bedienzeit_gesamt","Bedienzeit_summe",
-				"ProcessingTime_sum","ProcessingTime_gesamt","ProcessingTime_summe",
-				"ServiceTime_sum","ServiceTime_gesamt","ServiceTime_summe"
-		};
+		return names;
 	}
 
 	@Override

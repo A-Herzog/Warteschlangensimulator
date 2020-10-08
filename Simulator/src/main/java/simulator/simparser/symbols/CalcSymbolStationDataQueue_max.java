@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataQueue_max extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"NQ_max","Queue_max","Schlange_max","Warteschlange_max","NQ_Maximum","Queue_Maximum","Schlange_Maximum","Warteschlange_Maximum"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"NQ_max","Queue_max","Schlange_max","Warteschlange_max","NQ_Maximum","Queue_Maximum","Schlange_Maximum","Warteschlange_Maximum"};
+		return names;
 	}
 
 	@Override

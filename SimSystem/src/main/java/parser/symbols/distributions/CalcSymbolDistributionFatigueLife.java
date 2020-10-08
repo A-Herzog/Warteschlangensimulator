@@ -25,9 +25,15 @@ import mathtools.distribution.FatigueLifeDistributionImpl;
  * @see FatigueLifeDistributionImpl
  */
 public final class CalcSymbolDistributionFatigueLife extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"FatigueLifeDistribution","FatigueLifeDist","FatigueLifeVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"FatigueLifeDistribution","FatigueLifeDist","FatigueLifeVerteilung"};
+		return names;
 	}
 
 	@Override

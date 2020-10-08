@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWIP_min extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"WIP_min","Station_min","N_min","WIP_Minimum","Station_Minimum","N_Minimum"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"WIP_min","Station_min","N_min","WIP_Minimum","Station_Minimum","N_Minimum"};
+		return names;
 	}
 
 	@Override

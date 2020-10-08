@@ -43,8 +43,14 @@ public final class CalcSymbolPreOperatorLd extends CalcSymbolPreOperator {
 		return Math.log(parameters[0])/log2;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"ld"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"ld"};
+		return names;
 	}
 }

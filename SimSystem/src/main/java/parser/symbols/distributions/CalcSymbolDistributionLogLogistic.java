@@ -25,9 +25,15 @@ import mathtools.distribution.LogLogisticDistributionImpl;
  * @see LogLogisticDistributionImpl
  */
 public final class CalcSymbolDistributionLogLogistic extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"LogLogisticDistribution","LogLogisticDist","LogLogistischeverteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"LogLogisticDistribution","LogLogisticDist","LogLogistischeverteilung"};
+		return names;
 	}
 
 	@Override

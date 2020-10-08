@@ -26,12 +26,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataResidence_sum extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Verweilzeit_sum","Verweilzeit_gesamt","Verweilzeit_summe",
+			"ResidenceTime_sum","ResidenceTime_gesamt","ResidenceTime_summe"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Verweilzeit_sum","Verweilzeit_gesamt","Verweilzeit_summe",
-				"ResidenceTime_sum","ResidenceTime_gesamt","ResidenceTime_summe"
-		};
+		return names;
 	}
 
 	@Override

@@ -23,9 +23,15 @@ import simulator.simparser.coresymbols.CalcSymbolStationData;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataProcessCount extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Process"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Process"};
+		return names;
 	}
 
 	@Override

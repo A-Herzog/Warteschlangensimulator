@@ -38,9 +38,15 @@ public final class CalcSymbolPreOperatorExp extends CalcSymbolPreOperator {
 		return FastMath.exp(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"exp","ep"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"exp","ep"};
+		return names;
 	}
 
 }

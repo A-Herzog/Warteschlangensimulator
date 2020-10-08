@@ -25,9 +25,15 @@ import mathtools.distribution.TriangularDistributionImpl;
  * @see TriangularDistributionImpl
  */
 public final class CalcSymbolDistributionTriangular extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"TriangularDistribution","TriangularDist","Dreiecksverteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"TriangularDistribution","TriangularDist","Dreiecksverteilung"};
+		return names;
 	}
 
 	@Override

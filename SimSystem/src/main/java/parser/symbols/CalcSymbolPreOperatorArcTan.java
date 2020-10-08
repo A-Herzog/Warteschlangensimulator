@@ -35,9 +35,15 @@ public final class CalcSymbolPreOperatorArcTan extends CalcSymbolPreOperator {
 		return Math.atan(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcustangens","arctangens","arctan","atan"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"arcustangens","arctangens","arctan","atan"};
+		return names;
 	}
 
 }

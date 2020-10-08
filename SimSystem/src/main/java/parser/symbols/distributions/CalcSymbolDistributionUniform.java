@@ -24,9 +24,15 @@ import org.apache.commons.math3.distribution.UniformRealDistribution;
  * @see UniformRealDistribution
  */
 public final class CalcSymbolDistributionUniform extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"UniformDistribution","UniformDist","Gleichverteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"UniformDistribution","UniformDist","Gleichverteilung"};
+		return names;
 	}
 
 	@Override

@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWaiting_max extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Wartezeit_max","Wartezeit_Maximum",
+			"WaitingTime_max","WaitingTime_Maximum"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Wartezeit_max","Wartezeit_Maximum",
-				"WaitingTime_max","WaitingTime_Maximum"
-		};
+		return names;
 	}
 
 	@Override

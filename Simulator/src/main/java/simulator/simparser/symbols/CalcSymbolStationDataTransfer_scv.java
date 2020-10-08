@@ -29,9 +29,15 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataTransfer_scv extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Transferzeit_scv","TransferTime_scv"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Transferzeit_scv","TransferTime_scv"};
+		return names;
 	}
 
 	@Override

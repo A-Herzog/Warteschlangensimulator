@@ -25,9 +25,15 @@ import simulator.simparser.coresymbols.CalcSymbolStationData;
  * @author Alexander Herzog
  */
 public class CalcSymbolSimDataCounterPart extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Anteil","Part"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Anteil","Part"};
+		return names;
 	}
 
 	@Override

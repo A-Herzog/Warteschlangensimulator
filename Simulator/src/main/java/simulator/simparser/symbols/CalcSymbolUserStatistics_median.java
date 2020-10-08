@@ -23,9 +23,15 @@ import statistics.StatisticsDataPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolUserStatistics_median extends CalcSymbolUserStatistics {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[] {"Statistik_median","Statistics_median"};
+
 	@Override
 	public String[] getNames() {
-		return new String[] {"Statistik_median","Statistics_median"};
+		return names;
 	}
 
 	@Override

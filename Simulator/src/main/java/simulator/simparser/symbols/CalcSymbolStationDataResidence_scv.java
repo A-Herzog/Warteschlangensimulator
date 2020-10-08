@@ -29,9 +29,15 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataResidence_scv extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Verweilzeit_scv","ResidenceTime_scv"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Verweilzeit_scv","ResidenceTime_scv"};
+		return names;
 	}
 
 	@Override

@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataQueue_avg extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"NQ_avg","Queue_avg","Schlange_avg","Warteschlange_avg","NQ_average","Queue_average","Schlange_average","Warteschlange_average","NQ_Mittelwert","Queue_Mittelwert","Schlange_Mittelwert","Warteschlange_Mittelwert"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"NQ_avg","Queue_avg","Schlange_avg","Warteschlange_avg","NQ_average","Queue_average","Schlange_average","Warteschlange_average","NQ_Mittelwert","Queue_Mittelwert","Schlange_Mittelwert","Warteschlange_Mittelwert"};
+		return names;
 	}
 
 	@Override

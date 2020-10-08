@@ -24,9 +24,15 @@ import org.apache.commons.math3.util.FastMath;
  * @version 1.0
  */
 public class CalcSymbolDiscreteDistributionBinomial extends CalcSymbolDiscreteDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"BinomialDistribution","BinomialDist","BinomDistribution","BinomDist","BinomialVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"BinomialDistribution","BinomialDist","BinomDistribution","BinomDist","BinomialVerteilung"};
+		return names;
 	}
 
 	@Override

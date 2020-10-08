@@ -39,8 +39,14 @@ public final class CalcSymbolPreOperatorMean extends CalcSymbolPreOperator {
 		return sum/parameters.length;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Mean","Mittelwert","Mittel","Average"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Mean","Mittelwert","Mittel","Average"};
+		return names;
 	}
 }

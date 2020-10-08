@@ -24,10 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolClientResourceAlternative extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Alternative"};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{"Alternative"};
+		return names;
 	}
 
 	@Override

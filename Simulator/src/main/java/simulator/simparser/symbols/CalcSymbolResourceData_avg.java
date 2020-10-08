@@ -26,14 +26,19 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolResourceData_avg extends CalcSymbolResourceData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"resource_avg","utilization_avg",
+			"resource_average","utilization_average",
+			"resource_Mittelwert","utilization_Mittelwert"
+	};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"resource_avg","utilization_avg",
-				"resource_average","utilization_average",
-				"resource_Mittelwert","utilization_Mittelwert"
-		};
+		return names;
 	}
 
 	@Override

@@ -24,9 +24,15 @@ import org.apache.commons.math3.distribution.GammaDistribution;
  * @see GammaDistribution
  */
 public final class CalcSymbolDistributionGammaDirect extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"GammaDistributionDirect","GammaDistDirect","GammaVerteilungDirekt"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"GammaDistributionDirect","GammaDistDirect","GammaVerteilungDirekt"};
+		return names;
 	}
 
 	@Override

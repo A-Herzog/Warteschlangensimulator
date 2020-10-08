@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataTransfer_var extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Transferzeit_var","Transferzeit_Varianz",
+			"TransferTime_var","TransferTime_Varianz"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Transferzeit_var","Transferzeit_Varianz",
-				"TransferTime_var","TransferTime_Varianz"
-		};
+		return names;
 	}
 
 	@Override

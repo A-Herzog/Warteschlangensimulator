@@ -30,8 +30,14 @@ public final class CalcSymbolConstE extends CalcSymbolConst {
 		setValue(Math.E);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"e"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"e"};
+		return names;
 	}
 }

@@ -24,9 +24,15 @@ import org.apache.commons.math3.distribution.NormalDistribution;
  * @see NormalDistribution
  */
 public final class CalcSymbolDistributionNormal extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"NormalDistribution","NormalDist","NormalVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"NormalDistribution","NormalDist","NormalVerteilung"};
+		return names;
 	}
 
 	@Override

@@ -42,8 +42,14 @@ public final class CalcSymbolPreOperatorLog extends CalcSymbolPreOperator {
 		return Math.log(parameters[0])/Math.log(parameters[1]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"log","ln"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"log","ln"};
+		return names;
 	}
 }

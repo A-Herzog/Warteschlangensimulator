@@ -28,9 +28,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolPreOperatorIf extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Wenn","If"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Wenn","If"};
+		return names;
 	}
 
 	@Override

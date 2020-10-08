@@ -36,8 +36,14 @@ public final class CalcSymbolPreOperatorInt extends CalcSymbolPreOperator {
 		return parameters[0]-parameters[0]%1;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"integerpart","int"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"integerpart","int"};
+		return names;
 	}
 }

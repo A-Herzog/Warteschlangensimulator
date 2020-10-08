@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataTransfer_avg extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Transferzeit_avg","Transferzeit_average","Transferzeit_Mittelwert",
+			"TransferTime_avg","TransferTime_average","TransferTime_Mittelwert"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Transferzeit_avg","Transferzeit_average","Transferzeit_Mittelwert",
-				"TransferTime_avg","TransferTime_average","TransferTime_Mittelwert"
-		};
+		return names;
 	}
 
 	@Override

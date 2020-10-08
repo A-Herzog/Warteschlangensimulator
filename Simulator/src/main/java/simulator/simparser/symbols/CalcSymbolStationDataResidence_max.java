@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataResidence_max extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Verweilzeit_max","Verweilzeit_Maximum",
+			"ResidenceTime_max","ResidenceTime_Maximum"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Verweilzeit_max","Verweilzeit_Maximum",
-				"ResidenceTime_max","ResidenceTime_Maximum"
-		};
+		return names;
 	}
 
 	@Override

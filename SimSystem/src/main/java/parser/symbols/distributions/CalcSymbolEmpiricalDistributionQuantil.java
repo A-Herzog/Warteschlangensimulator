@@ -26,9 +26,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolEmpiricalDistributionQuantil extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"EmpirischeVerteilungQuantil","EmpiricalDistributionQuantil"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"EmpirischeVerteilungQuantil","EmpiricalDistributionQuantil"};
+		return names;
 	}
 
 	@Override

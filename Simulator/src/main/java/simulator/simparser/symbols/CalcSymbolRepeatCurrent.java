@@ -24,9 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolRepeatCurrent extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"RepeatCurrent","WiederholungNummer"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"RepeatCurrent","WiederholungNummer"};
+		return names;
 	}
 
 	@Override

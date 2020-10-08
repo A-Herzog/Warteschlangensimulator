@@ -29,13 +29,19 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataProcess_min extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Bedienzeit_min","Bedienzeit_Minimum",
+			"ProcessingTime_min","ProcessingTime_Minimum",
+			"ServiceTime_min","ServiceTime_Minimum"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Bedienzeit_min","Bedienzeit_Minimum",
-				"ProcessingTime_min","ProcessingTime_Minimum",
-				"ServiceTime_min","ServiceTime_Minimum"
-		};
+		return names;
 	}
 
 	@Override

@@ -53,8 +53,14 @@ public final class CalcSymbolPreOperatorMedian extends CalcSymbolPreOperator {
 		return calcMedian(Arrays.copyOf(parameters,parameters.length));
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Median"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Median"};
+		return names;
 	}
 }

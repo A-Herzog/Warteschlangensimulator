@@ -31,6 +31,7 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
 public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 	/**
 	 * Name des Befehls zum Abfragen eines Kunden-Datenfeldes
+	 * @see #getNames()
 	 */
 	public static final String[] CLIENT_DATA_COMMANDS=new String[]{"ClientData","KundenDaten"};
 

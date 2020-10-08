@@ -39,8 +39,14 @@ public final class CalcSymbolPreOperatorSum extends CalcSymbolPreOperator {
 		return sum;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Summe","Sum"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Summe","Sum"};
+		return names;
 	}
 }

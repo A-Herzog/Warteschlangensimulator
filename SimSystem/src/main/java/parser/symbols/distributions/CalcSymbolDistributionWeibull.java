@@ -24,9 +24,15 @@ import org.apache.commons.math3.distribution.WeibullDistribution;
  * @see WeibullDistribution
  */
 public final class CalcSymbolDistributionWeibull extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"WeibullDistribution","WeibullDist","WeibullVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"WeibullDistribution","WeibullDist","WeibullVerteilung"};
+		return names;
 	}
 
 	@Override

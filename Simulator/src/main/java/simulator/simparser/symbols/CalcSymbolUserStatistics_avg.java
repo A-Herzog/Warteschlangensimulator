@@ -23,9 +23,15 @@ import statistics.StatisticsDataPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolUserStatistics_avg extends CalcSymbolUserStatistics {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[] {"Statistik_avg","Statistics_avg","Statistik_Mittelwert","Statistics_average"};
+
 	@Override
 	public String[] getNames() {
-		return new String[] {"Statistik_avg","Statistics_avg","Statistik_Mittelwert","Statistics_average"};
+		return names;
 	}
 
 	@Override

@@ -26,14 +26,19 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolTransporterData_avg extends CalcSymbolTransporterData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"transporter_avg","transporter_utilization_avg",
+			"transporter_average","transporter_utilization_average",
+			"transporter_Mittelwert","transporter_utilization_Mittelwert"
+	};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"transporter_avg","transporter_utilization_avg",
-				"transporter_average","transporter_utilization_average",
-				"transporter_Mittelwert","transporter_utilization_Mittelwert"
-		};
+		return names;
 	}
 
 	@Override

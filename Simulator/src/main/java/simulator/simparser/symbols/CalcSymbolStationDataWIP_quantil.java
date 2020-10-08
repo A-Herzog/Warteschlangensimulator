@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWIP_quantil extends CalcSymbolStationDataQuantil {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"WIP_quantil","Station_quantil","N_quantil"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"WIP_quantil","Station_quantil","N_quantil"};
+		return names;
 	}
 
 	@Override

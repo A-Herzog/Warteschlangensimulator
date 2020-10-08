@@ -25,9 +25,15 @@ import mathtools.distribution.RayleighDistributionImpl;
  * @see RayleighDistributionImpl
  */
 public final class CalcSymbolDistributionRayleigh extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"RayleighDistribution","RayleighDist","Rayleighverteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"RayleighDistribution","RayleighDist","Rayleighverteilung"};
+		return names;
 	}
 
 	@Override

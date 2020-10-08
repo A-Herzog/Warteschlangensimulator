@@ -26,9 +26,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolEmpiricalDistributionCV extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"EmpirischeVerteilungCV","EmpiricalDistributionCV"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"EmpirischeVerteilungCV","EmpiricalDistributionCV"};
+		return names;
 	}
 
 	@Override

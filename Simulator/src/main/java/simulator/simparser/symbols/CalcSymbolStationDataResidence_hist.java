@@ -27,9 +27,15 @@ import simulator.simparser.coresymbols.CalcSymbolStationDataHistogram;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataResidence_hist extends CalcSymbolStationDataHistogram {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Verweilzeit_hist","ResidenceTime_hist"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Verweilzeit_hist","ResidenceTime_hist"};
+		return names;
 	}
 
 	@Override

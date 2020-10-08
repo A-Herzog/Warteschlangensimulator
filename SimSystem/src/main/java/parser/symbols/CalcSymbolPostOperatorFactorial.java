@@ -32,9 +32,15 @@ public final class CalcSymbolPostOperatorFactorial extends CalcSymbolPostOperato
 		return signum*Math.round(Functions.getFactorial((int)Math.round(Math.abs(parameter))));
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"!"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"!"};
+		return names;
 	}
 
 }

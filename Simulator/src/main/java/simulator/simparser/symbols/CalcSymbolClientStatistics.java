@@ -24,9 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolClientStatistics extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"KundeInStatistik","ClientInStatistics","isClientInStatistics"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"KundeInStatistik","ClientInStatistics","isClientInStatistics"};
+		return names;
 	}
 
 	@Override

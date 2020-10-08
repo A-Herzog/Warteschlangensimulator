@@ -26,13 +26,18 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolTransporterData_max extends CalcSymbolTransporterData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"transporter_max","transporter_utilization_max",
+			"transporter_Maximum","transporter_utilization_Maximum"
+	};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"transporter_max","transporter_utilization_max",
-				"transporter_Maximum","transporter_utilization_Maximum"
-		};
+		return names;
 	}
 
 	@Override

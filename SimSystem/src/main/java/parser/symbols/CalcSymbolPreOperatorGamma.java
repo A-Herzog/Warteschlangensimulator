@@ -44,9 +44,15 @@ public class CalcSymbolPreOperatorGamma extends CalcSymbolPreOperator {
 		return Gamma.gamma(d);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Gamma"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Gamma"};
+		return names;
 	}
 
 }

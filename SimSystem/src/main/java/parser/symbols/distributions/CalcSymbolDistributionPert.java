@@ -25,9 +25,15 @@ import mathtools.distribution.PertDistributionImpl;
  * @see PertDistributionImpl
  */
 public final class CalcSymbolDistributionPert extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"PertDistribution","PertDist","Pertverteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"PertDistribution","PertDist","Pertverteilung"};
+		return names;
 	}
 
 	@Override

@@ -24,9 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolClientWarmUp extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"WarmUpKunde","WarmUpClient","isWarmUpClient"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"WarmUpKunde","WarmUpClient","isWarmUpClient"};
+		return names;
 	}
 
 	@Override

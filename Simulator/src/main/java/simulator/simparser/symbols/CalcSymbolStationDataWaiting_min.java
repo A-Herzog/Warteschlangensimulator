@@ -29,12 +29,18 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWaiting_min extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Wartezeit_min","Wartezeit_Minimum",
+			"WaitingTime_min","WaitingTime_Minimum"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Wartezeit_min","Wartezeit_Minimum",
-				"WaitingTime_min","WaitingTime_Minimum"
-		};
+		return names;
 	}
 
 	@Override

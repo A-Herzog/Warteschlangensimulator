@@ -22,9 +22,15 @@ import parser.coresymbols.CalcSymbolPostOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPostOperatorPower2 extends CalcSymbolPostOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"²"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"²"};
+		return names;
 	}
 
 	@Override

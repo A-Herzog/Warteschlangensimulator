@@ -33,9 +33,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  *
  */
 public class CalcSymbolStationText extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"$"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"$"};
+		return names;
 	}
 
 	@Override

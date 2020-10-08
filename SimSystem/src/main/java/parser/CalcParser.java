@@ -53,7 +53,7 @@ public final class CalcParser {
 	 */
 	public CalcParser(final CalcSymbolList symbolList) {
 		this.symbolList=symbolList;
-		allSymbols=symbolList.getAllSymbolNamesLower();
+		allSymbols=symbolList.getAllSymbolNamesLower(true);
 	}
 
 	/**

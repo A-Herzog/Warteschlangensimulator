@@ -23,9 +23,15 @@ import statistics.StatisticsDataPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolUserStatistics_max extends CalcSymbolUserStatistics {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[] {"Statistik_max","Statistics_max","Statistik_Maximum","Statistics_Maximum"};
+
 	@Override
 	public String[] getNames() {
-		return new String[] {"Statistik_max","Statistics_max","Statistik_Maximum","Statistics_Maximum"};
+		return names;
 	}
 
 	@Override

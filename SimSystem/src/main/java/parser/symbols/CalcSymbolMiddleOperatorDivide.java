@@ -36,9 +36,15 @@ public final class CalcSymbolMiddleOperatorDivide extends CalcSymbolMiddleOperat
 		return left/right;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"/",":"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"/",":"};
+		return names;
 	}
 
 	@Override

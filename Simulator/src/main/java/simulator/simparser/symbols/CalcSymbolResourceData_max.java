@@ -26,13 +26,18 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolResourceData_max extends CalcSymbolResourceData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"resource_max","utilization_max",
+			"resource_Maximum","utilization_Maximum"
+	};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"resource_max","utilization_max",
-				"resource_Maximum","utilization_Maximum"
-		};
+		return names;
 	}
 
 	@Override

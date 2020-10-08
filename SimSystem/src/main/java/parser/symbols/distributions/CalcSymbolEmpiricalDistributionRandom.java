@@ -27,9 +27,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolEmpiricalDistributionRandom extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"EmpirischeZufallszahl","EmpiricalRandom"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"EmpirischeZufallszahl","EmpiricalRandom"};
+		return names;
 	}
 
 	@Override

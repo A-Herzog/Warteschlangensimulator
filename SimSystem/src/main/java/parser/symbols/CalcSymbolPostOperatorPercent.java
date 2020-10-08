@@ -24,9 +24,15 @@ import parser.coresymbols.CalcSymbolPostOperator;
  * @author Alexander Herzog
  */
 public final class CalcSymbolPostOperatorPercent extends CalcSymbolPostOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"%","percent","prozent","vonhundert"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"%","percent","prozent","vonhundert"};
+		return names;
 	}
 
 	/**

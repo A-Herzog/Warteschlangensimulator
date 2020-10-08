@@ -22,9 +22,15 @@ import parser.coresymbols.CalcSymbolPostOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolPostOperatorDEGtoRAD extends CalcSymbolPostOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"°"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"°"};
+		return names;
 	}
 
 	/**

@@ -35,9 +35,15 @@ public final class CalcSymbolPreOperatorCosh extends CalcSymbolPreOperator {
 		return Math.cosh(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"cosh"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"cosh"};
+		return names;
 	}
 
 }

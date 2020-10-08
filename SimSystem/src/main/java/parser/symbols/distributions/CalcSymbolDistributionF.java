@@ -24,9 +24,15 @@ import org.apache.commons.math3.distribution.FDistribution;
  * @see FDistribution
  */
 public final class CalcSymbolDistributionF extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"FDistribution","FDist","FVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"FDistribution","FDist","FVerteilung"};
+		return names;
 	}
 
 	@Override

@@ -15,9 +15,6 @@
  */
 package parser.symbols.distributions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
@@ -30,6 +27,12 @@ import parser.coresymbols.CalcSymbolPreOperator;
 public class CalcSymbolTruncatedDistribution extends CalcSymbolPreOperator {
 	/** Maximale Anzahl an Versuchen, einen Wert im passenden Bereich zu erhalten */
 	private static final int MAX_RND=100;
+
+	/**
+	 * Namen für die Verteilung (werden von {@link #getNames()}
+	 * aus den Namen von {@link #innerDistribution} abgeleitet)
+	 */
+	private String[] names;
 
 	/**
 	 * Eingebettete Verteilung
@@ -60,12 +63,16 @@ public class CalcSymbolTruncatedDistribution extends CalcSymbolPreOperator {
 
 	@Override
 	public String[] getNames() {
-		final List<String> names=new ArrayList<>();
-		for (String name: innerDistribution.getNames()) {
-			names.add(name+"Range");
-			names.add(name+"Bereich");
+		if (names==null) {
+			final String[] innerNames=innerDistribution.getNames();
+			names=new String[innerNames.length*2];
+			for (int i=0;i<innerNames.length;i++) {
+				final String name=innerNames[i];
+				names[2*i+0]=name+"Range";
+				names[2*i+1]=name+"Bereich";
+			}
 		}
-		return names.toArray(new String[0]);
+		return names;
 	}
 
 	/**

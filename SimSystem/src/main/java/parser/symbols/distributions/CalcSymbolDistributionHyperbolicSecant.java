@@ -25,9 +25,15 @@ import mathtools.distribution.HyperbolicSecantDistributionImpl;
  * @see HyperbolicSecantDistributionImpl
  */
 public final class CalcSymbolDistributionHyperbolicSecant extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"HyperbolicSecantDistribution","HyperbolicSecantDist","HyperbolicSecantVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"HyperbolicSecantDistribution","HyperbolicSecantDist","HyperbolicSecantVerteilung"};
+		return names;
 	}
 
 	@Override

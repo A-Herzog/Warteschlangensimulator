@@ -41,9 +41,15 @@ public final class CalcSymbolPreOperatorPower extends CalcSymbolPreOperator {
 		return FastMath.pow(parameters[0],parameters[1]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"power","pow","potenzieren","potenz"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"power","pow","potenzieren","potenz"};
+		return names;
 	}
 
 }

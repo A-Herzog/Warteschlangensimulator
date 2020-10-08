@@ -26,13 +26,18 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolTransporterData_min extends CalcSymbolTransporterData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"transporter_min","transporter_utilization_min",
+			"transporter_Minimum","transporter_utilization_Minimum"
+	};
 
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"transporter_min","transporter_utilization_min",
-				"transporter_Minimum","transporter_utilization_Minimum"
-		};
+		return names;
 	}
 
 	@Override

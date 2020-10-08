@@ -27,9 +27,15 @@ import simulator.statistics.Statistics;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWaiting_histAll extends CalcSymbolStationDataAllHistogram {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Wartezeit_histAll","WaitingTime_histAll"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Wartezeit_histAll","WaitingTime_histAll"};
+		return names;
 	}
 
 	@Override

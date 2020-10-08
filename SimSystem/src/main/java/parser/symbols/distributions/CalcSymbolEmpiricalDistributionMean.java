@@ -26,9 +26,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @author Alexander Herzog
  */
 public class CalcSymbolEmpiricalDistributionMean extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"EmpirischeVerteilungMittelwert","EmpiricalDistributionMean"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"EmpirischeVerteilungMittelwert","EmpiricalDistributionMean"};
+		return names;
 	}
 
 	@Override

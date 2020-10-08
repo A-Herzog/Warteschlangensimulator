@@ -29,13 +29,19 @@ import statistics.StatisticsPerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataProcess_var extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"Bedienzeit_var","Bedienzeit_Varianz",
+			"ProcessingTime_var","ProcessingTime_Varianz",
+			"ServiceTime_var","ServiceTime_Varianz"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"Bedienzeit_var","Bedienzeit_Varianz",
-				"ProcessingTime_var","ProcessingTime_Varianz",
-				"ServiceTime_var","ServiceTime_Varianz"
-		};
+		return names;
 	}
 
 	@Override

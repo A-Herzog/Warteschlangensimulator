@@ -25,9 +25,15 @@ import mathtools.distribution.JohnsonDistributionImpl;
  * @see JohnsonDistributionImpl
  */
 public final class CalcSymbolDistributionJohnsonSU extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"JohnsonSUDistribution","JohnsonSUDist","JohnsonSUVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"JohnsonSUDistribution","JohnsonSUDist","JohnsonSUVerteilung"};
+		return names;
 	}
 
 	@Override

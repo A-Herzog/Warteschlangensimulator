@@ -49,9 +49,15 @@ public final class CalcSymbolPreOperatorArcCot extends CalcSymbolPreOperator {
 		}
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"arcuscotangens","arccotangens","arccot","acot"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"arcuscotangens","arccotangens","arccot","acot"};
+		return names;
 	}
 
 }

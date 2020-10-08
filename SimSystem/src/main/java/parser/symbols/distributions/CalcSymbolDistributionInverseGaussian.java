@@ -25,9 +25,15 @@ import mathtools.distribution.InverseGaussianDistributionImpl;
  * @see InverseGaussianDistributionImpl
  */
 public final class CalcSymbolDistributionInverseGaussian extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"InverseGaussianDistribution","InverseGaussianDist","InverseGaussVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"InverseGaussianDistribution","InverseGaussianDist","InverseGaussVerteilung"};
+		return names;
 	}
 
 	@Override

@@ -24,9 +24,15 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * @see CalcSymbolPostOperatorPower2
  */
 public final class CalcSymbolPreOperatorSqr extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"sqr"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"sqr"};
+		return names;
 	}
 
 	@Override

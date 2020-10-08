@@ -24,9 +24,15 @@ import simulator.simparser.coresymbols.CalcSymbolSimData;
  * @author Alexander Herzog
  */
 public class CalcSymbolRepeatCount extends CalcSymbolSimData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"RepeatCount","WiederholungenAnzahl"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"RepeatCount","WiederholungenAnzahl"};
+		return names;
 	}
 
 	@Override

@@ -29,18 +29,24 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataQueue_std extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{
+			"NQ_std","NQ_sd",
+			"Queue_std","Queue_sd",
+			"Schlange_std","Schlange_sd",
+			"Warteschlange_std","Warteschlange_sd",
+			"NQ_Standardabweichung",
+			"Queue_Standardabweichung",
+			"Schlange_Standardabweichung",
+			"Warteschlange_Standardabweichung"
+	};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{
-				"NQ_std","NQ_sd",
-				"Queue_std","Queue_sd",
-				"Schlange_std","Schlange_sd",
-				"Warteschlange_std","Warteschlange_sd",
-				"NQ_Standardabweichung",
-				"Queue_Standardabweichung",
-				"Schlange_Standardabweichung",
-				"Warteschlange_Standardabweichung"
-		};
+		return names;
 	}
 
 	@Override

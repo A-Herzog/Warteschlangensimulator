@@ -37,8 +37,14 @@ public final class CalcSymbolPreOperatorModulo extends CalcSymbolPreOperator {
 		return parameters[0]%parameters[1];
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"mod","modulo"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"mod","modulo"};
+		return names;
 	}
 }

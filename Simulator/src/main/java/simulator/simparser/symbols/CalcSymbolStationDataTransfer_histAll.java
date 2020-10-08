@@ -27,9 +27,15 @@ import simulator.statistics.Statistics;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataTransfer_histAll extends CalcSymbolStationDataAllHistogram {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Transferzeit_histAll","TransferTime_histAll"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Transferzeit_histAll","TransferTime_histAll"};
+		return names;
 	}
 
 	@Override

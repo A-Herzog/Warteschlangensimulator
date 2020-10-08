@@ -24,9 +24,15 @@ import org.apache.commons.math3.distribution.ChiSquaredDistribution;
  * @see ChiSquaredDistribution
  */
 public final class CalcSymbolDistributionChiSquare extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"ChiSquareDistribution","ChiSquareDist","ChiQuadratVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"ChiSquareDistribution","ChiSquareDist","ChiQuadratVerteilung"};
+		return names;
 	}
 
 	@Override

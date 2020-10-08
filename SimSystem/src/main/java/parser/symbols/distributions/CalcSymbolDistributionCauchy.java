@@ -24,9 +24,15 @@ import org.apache.commons.math3.distribution.CauchyDistribution;
  * @see CauchyDistribution
  */
 public final class CalcSymbolDistributionCauchy extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"CauchyDistribution","CauchyDist","CauchyVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"CauchyDistribution","CauchyDist","CauchyVerteilung"};
+		return names;
 	}
 
 	@Override

@@ -25,9 +25,15 @@ import mathtools.distribution.ExtBetaDistributionImpl;
  * @see ExtBetaDistributionImpl
  */
 public final class CalcSymbolDistributionBeta extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"BetaDistribution","BetaDist","BetaVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"BetaDistribution","BetaDist","BetaVerteilung"};
+		return names;
 	}
 
 	@Override

@@ -48,8 +48,14 @@ public final class CalcSymbolPreOperatorCV extends CalcSymbolPreOperator {
 		return Math.sqrt(1/(n-1)*(sum2-sum*sumN))/sumN;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"CV","Variationskoeffizient"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"CV","Variationskoeffizient"};
+		return names;
 	}
 }

@@ -35,8 +35,14 @@ public final class CalcSymbolPreOperatorRound extends CalcSymbolPreOperator {
 		return Math.round(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"runden","round","rnd","ANINT"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"runden","round","rnd","ANINT"};
+		return names;
 	}
 }

@@ -36,8 +36,14 @@ public final class CalcSymbolPreOperatorCeil extends CalcSymbolPreOperator {
 		return Math.ceil(parameters[0]);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"ceiling","ceil","aufrunden"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"ceiling","ceil","aufrunden"};
+		return names;
 	}
 }

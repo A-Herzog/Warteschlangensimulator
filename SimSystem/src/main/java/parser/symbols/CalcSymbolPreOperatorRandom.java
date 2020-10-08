@@ -41,9 +41,15 @@ public final class CalcSymbolPreOperatorRandom extends CalcSymbolPreOperator {
 		return fallbackValue;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"Random"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"Random"};
+		return names;
 	}
 
 	@Override

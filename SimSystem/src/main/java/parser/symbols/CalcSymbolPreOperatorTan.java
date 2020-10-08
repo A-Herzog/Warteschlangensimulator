@@ -38,9 +38,15 @@ public final class CalcSymbolPreOperatorTan extends CalcSymbolPreOperator {
 		return (Double.isNaN(d))?fallbackValue:d;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"tangens","tan"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"tangens","tan"};
+		return names;
 	}
 
 }

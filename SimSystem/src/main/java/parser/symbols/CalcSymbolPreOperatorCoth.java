@@ -37,9 +37,15 @@ public final class CalcSymbolPreOperatorCoth extends CalcSymbolPreOperator {
 		double d=Math.tanh(parameters[0]); return (Double.isNaN(d) || Math.abs(d)<0.000001)?fallbackValue:(1/d);
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"coth"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"coth"};
+		return names;
 	}
 
 }

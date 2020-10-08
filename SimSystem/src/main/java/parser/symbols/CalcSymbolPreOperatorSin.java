@@ -37,9 +37,15 @@ public final class CalcSymbolPreOperatorSin extends CalcSymbolPreOperator {
 		return (Math.abs(d)<2E-16)?0.0:d;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"sinus","sin"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"sinus","sin"};
+		return names;
 	}
 
 }

@@ -36,8 +36,14 @@ public final class CalcSymbolPreOperatorFrac extends CalcSymbolPreOperator {
 		return parameters[0]%1;
 	}
 
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"fractionpart","frac"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"fractionpart","frac"};
+		return names;
 	}
 }

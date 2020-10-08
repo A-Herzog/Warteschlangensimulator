@@ -29,9 +29,15 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @author Alexander Herzog
  */
 public class CalcSymbolStationDataWIP_median extends CalcSymbolStationData {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"WIP_median","Station_median","N_median"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"WIP_median","Station_median","N_median"};
+		return names;
 	}
 
 	@Override

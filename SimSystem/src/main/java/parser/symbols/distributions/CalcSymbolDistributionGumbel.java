@@ -24,9 +24,15 @@ import org.apache.commons.math3.distribution.GumbelDistribution;
  * @see GumbelDistribution
  */
 public final class CalcSymbolDistributionGumbel extends CalcSymbolDistribution {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"GumbelDistribution","GumbelDist","GumbelVerteilung"};
+
 	@Override
 	public String[] getNames() {
-		return new String[]{"GumbelDistribution","GumbelDist","GumbelVerteilung"};
+		return names;
 	}
 
 	@Override
