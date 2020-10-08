@@ -1192,6 +1192,9 @@ public class RunData {
 			lastStateChange=-1;
 		}
 
+		/* Es gibt nichts zu tun - und das wird sich auch nicht ändern. Daher gar kein retriggern nach einer ms und ähnliches planen. */
+		if (stateChangeListener.length==0 && simData.runModel.terminationCondition==null && simData.runModel.terminationTime<0) return;
+
 		/* Nur einmal pro ms ausführen */
 		if (lastStateChange>0 && lastStateChange==simData.currentTime) {
 			if (lastTriggered!=simData.currentTime+1) {

@@ -315,12 +315,24 @@ public class ExpressionMultiEval {
 
 	/**
 	 * Prüft direkt, ob ein als Zeichenkette angegebener Ausdruck korrekt interpretierbar ist.
-	 * @param condition	Zu prüferender Ausdruck
+	 * @param condition	Zu prüfender Ausdruck
 	 * @param variables	Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein)
 	 * @return	Liefert -1, wenn der Ausdruck erfolgreich interpretiert werden konnte, ansonsten die 0-basierende Fehlerstelle innerhalb des Strings.
 	 */
 	public static int check(final String condition, final String[] variables) {
 		final ExpressionMultiEval eval=new ExpressionMultiEval(variables);
 		return eval.parse(condition);
+	}
+
+	/**
+	 * Testet ob die Bedingung immer "falsch" liefert
+	 * @return	Gibt <code>true</code> zurück, wenn die Bedingung unveränderlich und unabhängig von Variablen usw. immer "falsch" ist
+	 */
+	public boolean isConstFalse() {
+		if (expressionTree.length==1 && (expressionTree[0] instanceof ExpressionEval)) {
+			return ((ExpressionEval)expressionTree[0]).isConstFalse();
+		} else {
+			return false;
+		}
 	}
 }

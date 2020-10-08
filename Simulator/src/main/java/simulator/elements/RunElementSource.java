@@ -244,6 +244,9 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		return false;
 	}
 
+	private boolean fixedResultConditionTested=false;
+	private boolean isConstFalse=false;
+
 	@Override
 	public boolean systemStateChangeNotify(SimulationData simData) {
 		if (record.condition==null && record.thresholdExpression==null) {
@@ -255,6 +258,19 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		boolean arrivalsScheduled=false;
 
 		if (record.condition!=null) {
+			/* Prüfen, ob die Bedingung immer "falsch" liefert */
+			if (!fixedResultConditionTested) {
+				fixedResultConditionTested=true;
+				final RunElementSourceData data=getData(simData);
+				if (data.condition!=null) isConstFalse=(data.condition.isConstFalse());
+			}
+			/* Ausklinken, wenn immer falsch (ggf. mehrfach ausführen) */
+			if (isConstFalse) {
+				/* Ausklinken */
+				simData.runData.removeStateChangeListener(this);
+				return false;
+			}
+
 			if (scheduleNextArrival(simData,false)) arrivalsScheduled=true;
 		}
 

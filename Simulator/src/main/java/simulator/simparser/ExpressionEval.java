@@ -146,4 +146,16 @@ public class ExpressionEval {
 		final ExpressionEval eval=new ExpressionEval(variables);
 		return eval.parse(condition);
 	}
+
+	/**
+	 * Testet ob die Bedingung immer "falsch" liefert
+	 * @return	Gibt <code>true</code> zurück, wenn die Bedingung unveränderlich und unabhängig von Variablen usw. immer "falsch" ist
+	 */
+	public boolean isConstFalse() {
+		if (!calcLeftIsConst || !calcRightIsConst) return false;
+
+		if (calcLeftConst<calcRightConst) return !okWhenLess;
+		if (calcLeftConst>calcRightConst) return !okWhenMore;
+		return !okWhenEqual;
+	}
 }
