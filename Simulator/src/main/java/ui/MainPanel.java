@@ -213,7 +213,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Programmversion
 	 */
-	public static final String VERSION="4.6.0";
+	public static final String VERSION="4.7.0";
 
 	private static final int JAVA8_SECURE_MIN_VERSION=265;
 	private static final int JAVA9_SECURE_MIN_VERSION=4;

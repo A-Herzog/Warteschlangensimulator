@@ -127,7 +127,16 @@ public class StartAnySimulator {
 			}
 		}
 
-		localSimulator=new Simulator(maxThreads,editModel,logging,loggingIDs,logType);
+		int maxThreadsReal=maxThreads;
+		final SetupData setup=SetupData.getSetup();
+		if (setup.useMultiCoreSimulation) {
+			maxThreadsReal=Math.min(maxThreadsReal,setup.useMultiCoreSimulationMaxCount);
+		} else {
+			maxThreadsReal=1;
+		}
+		maxThreadsReal=Math.max(maxThreadsReal,1);
+
+		localSimulator=new Simulator(maxThreadsReal,editModel,logging,loggingIDs,logType);
 		return localSimulator.prepare();
 	}
 
