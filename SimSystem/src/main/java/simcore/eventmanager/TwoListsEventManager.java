@@ -55,6 +55,12 @@ public final class TwoListsEventManager extends EventManagerBase implements Even
 		}
 	}
 
+	/**
+	 * Fügt das Event in eine bestimmte Liste ein.
+	 * @param list	Liste in die das Event eingefügt werden soll.
+	 * @param event	Einzufügendes Ereignis
+	 * @see #addEvent(Event)
+	 */
 	private void addToList(List<Event> list, Event event) {
 		if (list.isEmpty()) {list.add(event); return;}
 
@@ -93,6 +99,13 @@ public final class TwoListsEventManager extends EventManagerBase implements Even
 	@Override
 	public int eventQueueLength() {return list1.size()+list2.size();}
 
+	/**
+	 * Versucht ein Ereignis aus einer Teiliste zu löschen (ohne es auszuführen).
+	 * @param list	Liste aus der das Ereignis gelöscht werden soll
+	 * @param event	Ereignis, das aus der Ereignisliste gelöscht werden soll
+	 * @return	Gibt <code>true</code> zurück, wenn das Ereignis gelöscht werden konnte
+	 * @see #onlyDeleteEvent(Event)
+	 */
 	private boolean deleteFromList(List<Event> list, Event event) {
 		if (list.isEmpty()) return false;
 

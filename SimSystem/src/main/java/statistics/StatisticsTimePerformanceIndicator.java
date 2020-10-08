@@ -395,6 +395,13 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		return lastTimeMean;
 	}
 
+	/**
+	 * Berechnet ein Quantil der Messreihe aus der Häufigkeitsverteilung.
+	 * @param sum	Summe über die Messreihe
+	 * @param p	Wert für das Quantil
+	 * @return	Quantil der Messreihe
+	 * @see #getQuantil(double)
+	 */
 	private int getQuantil(final double sum, final double p) {
 		final double quantilSum=sum*Math.min(1.0,Math.max(0.0,p));
 		double partialSum=0;

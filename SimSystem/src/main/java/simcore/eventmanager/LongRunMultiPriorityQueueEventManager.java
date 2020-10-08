@@ -25,15 +25,22 @@ import simcore.Event;
  * Implementierung des <code>EventManager</code>-Interface mit Hilfe mehrerer
  * <code>PriorityQueue</code>-Objekte
  * @author Alexander Herzog
- * @version 1.0
+ * @version 1.1
  * @see EventManager
  * @see PriorityQueue
  */
 public class LongRunMultiPriorityQueueEventManager extends EventManagerBase {
+	/** Teilwarteschlangen */
 	private final PriorityQueue<Event>[] queues;
+	/** Anzahl an Teilwarteschlangen */
+	private final int queuesLength;
+	/** Zwischenspeicher für neue Ereignisse, die zum selben Zeitpunkt wie das aktuelle Ereignis ausgeführt werden sollen (spart so das Einfügen dieser Ereignisse in die eigentliche Ereignisliste) */
 	private final Event[] fastBuffer;
+	/** Startindex für den Jetzt-Ereignisse-Zwischenspeicher */
 	private int fastBufferStart=-1;
+	/** Nächste Einfügeposition für den Jetzt-Ereignisse-Zwischenspeicher */
 	private int fastBufferNextAdd=0;
+	/** Aktuelle Systemzeit, d.h. der Zeitpunkt des Ereignisses, das zuletzt per {@link #getNextEvent()} abgefragt wurde */
 	private long lastTime=0;
 
 	/**
@@ -43,7 +50,8 @@ public class LongRunMultiPriorityQueueEventManager extends EventManagerBase {
 	@SuppressWarnings("unchecked")
 	public LongRunMultiPriorityQueueEventManager(final int splitLevel) {
 		queues=new PriorityQueue[splitLevel];
-		for (int i=0;i<queues.length;i++) queues[i]=new PriorityQueue<>(100);
+		queuesLength=queues.length;
+		for (int i=0;i<queuesLength;i++) queues[i]=new PriorityQueue<>(100);
 		fastBuffer=new Event[100];
 	}
 
@@ -59,7 +67,7 @@ public class LongRunMultiPriorityQueueEventManager extends EventManagerBase {
 
 		int index=-1;
 		long minTime=Long.MAX_VALUE;
-		for (int i=0;i<queues.length;i++) if (!queues[i].isEmpty()) {
+		for (int i=0;i<queuesLength;i++) if (!queues[i].isEmpty()) {
 			final Event event=queues[i].peek();
 			if (event.time<minTime) {minTime=event.time; index=i;}
 		}
@@ -83,7 +91,7 @@ public class LongRunMultiPriorityQueueEventManager extends EventManagerBase {
 			return;
 		}
 
-		queues[(int)(event.time%queues.length)].add(event);
+		queues[(int)(event.time%queuesLength)].add(event);
 	}
 
 	@Override
@@ -104,7 +112,7 @@ public class LongRunMultiPriorityQueueEventManager extends EventManagerBase {
 			}
 		}
 
-		return queues[(int)(event.time%queues.length)].remove(event);
+		return queues[(int)(event.time%queuesLength)].remove(event);
 	}
 
 	@Override

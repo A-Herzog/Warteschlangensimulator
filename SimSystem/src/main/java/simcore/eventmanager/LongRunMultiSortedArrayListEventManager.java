@@ -29,11 +29,17 @@ import simcore.Event;
  * @see SortedEventArrayList
  */
 public class LongRunMultiSortedArrayListEventManager extends EventManagerBase {
+	/** Teilwarteschlangen */
 	private final SortedEventArrayList[] queues;
+	/** Anzahl an Teilwarteschlangen */
 	private final int queuesLength;
+	/** Zwischenspeicher für neue Ereignisse, die zum selben Zeitpunkt wie das aktuelle Ereignis ausgeführt werden sollen (spart so das Einfügen dieser Ereignisse in die eigentliche Ereignisliste) */
 	private final Event[] fastBuffer;
+	/** Startindex für den Jetzt-Ereignisse-Zwischenspeicher */
 	private int fastBufferStart=-1;
+	/** Nächste Einfügeposition für den Jetzt-Ereignisse-Zwischenspeicher */
 	private int fastBufferNextAdd=0;
+	/** Aktuelle Systemzeit, d.h. der Zeitpunkt des Ereignisses, das zuletzt per {@link #getNextEvent()} abgefragt wurde */
 	private long lastTime=0;
 
 	/**

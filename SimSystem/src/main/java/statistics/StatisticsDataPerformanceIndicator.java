@@ -220,6 +220,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 */
 	private final boolean hasDistribution;
 
+	/**
+	 * Anzahl der Werte, die für die Verteilung als zum Zeitpunkt 0 erfasst werden sollen.<br>
+	 * (Dieser Zähler wird verwendet, so lange {@link #dist} noch nicht initialisiert wurde.)
+	 */
 	private long distributionZeroCount;
 
 	/**

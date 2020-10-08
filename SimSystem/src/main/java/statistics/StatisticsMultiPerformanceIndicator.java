@@ -81,6 +81,12 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 		return indicators.size();
 	}
 
+	/**
+	 * Fügt ein neues Statistik-Teilobjekt zu der Liste der verfügbaren Statistikobjekte hinzu
+	 * @param name	Name für das neue Statistik-Teilobjekt
+	 * @param indicator	Statistik-Teilobjekt
+	 * @see #get(String)
+	 */
 	private void addIndicator(final String name, final StatisticsPerformanceIndicator indicator) {
 		indicators.put(name,indicator);
 		indicator.setGroup(this);
