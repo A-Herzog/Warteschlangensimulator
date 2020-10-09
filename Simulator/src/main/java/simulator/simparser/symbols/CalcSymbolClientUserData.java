@@ -52,6 +52,12 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 		return getClientData((int)FastMath.round(parameters[0]));
 	}
 
+	/**
+	 * Prüft, ob eine Zeichenkette mit einer bestimmten anderen Zeichenkette beginnt (ohne Berücksichtigung der Groß- und Kleinschreibung)
+	 * @param longText	Lange Zeichenkette
+	 * @param testText	Kurze Zeichenkette, die am Anfang der langen Zeichenkette gesucht werden soll
+	 * @return	Liefer <code>true</code>, wenn die lange Zeichenkette mit der zu suchenden Zeichenkette ohne Berücksichtigung der Groß- und Kleinschreibung beginnt
+	 */
 	private static boolean startsWithIgnoreCase(final String longText, final String testText) {
 		final int testLength=testText.length();
 		if (longText.length()<testLength) return false;
@@ -66,6 +72,11 @@ public class CalcSymbolClientUserData extends CalcSymbolSimData  {
 		return true;
 	}
 
+	/**
+	 * Handelt es sich um einen Ausdruck der Form "ClientData(Parameter)".
+	 * @param test	Zu prüfender Ausdruck
+	 * @return	Liefert im Erfolgsfall den inneren Parameter (ggf. noch mit Anführungszeichen) zurück, sonst <code>null</code>.
+	 */
 	private static String testClientDataBase(String test) {
 		if (test==null) return null;
 		test=test.trim();

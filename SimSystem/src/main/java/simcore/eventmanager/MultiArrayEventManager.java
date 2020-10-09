@@ -39,6 +39,7 @@ public class MultiArrayEventManager extends EventManagerBase implements EventMan
 	/** Wenn ein Tag {@link #dayLength} Sekunden hat und wir {@link #queueCountForInitialEvents} Warteschlangen für die initialen Ereignisse haben, dann gibt dieser Wert an, für wie viele Millisekunden eine Teilwarteschlange (für die initialen Ereignisse) zuständig ist. */
 	private static final int milliSecondsPerInitialEventsQueue=1000*dayLength/queueCountForInitialEvents;
 
+	/** Liste aus der als letztes durch {@link #getNextEvent()} ein Ereignis entnommen wurde */
 	private int lastList;
 	/** Anzahl an momentan verwalteten Ereignissen über alle Warteschlangen zusammen (nicht initiale Ereignisse) */
 	private int allQueueLength;
@@ -47,7 +48,9 @@ public class MultiArrayEventManager extends EventManagerBase implements EventMan
 	/** Teilwarteschlangen für die initialen Ereignisse */
 	private final ArrayList<Event>[] initialEventsQueue;
 
+	/** Cache für die Teilwarteschlangen-Objekte */
 	private final EventQueue[] queueCache;
+	/** Anzahl an Einträgen in dem Teilwarteschlangen-Objekt-Cache ({@link #queueCache}) */
 	private int queueCacheUsed=0;
 
 	/**

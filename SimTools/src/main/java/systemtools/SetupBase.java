@@ -44,7 +44,7 @@ public abstract class SetupBase {
 	public static String errorSaveMessage="Die Konfiguration konnte nicht in\n%s\ngespeichert werden.\nDie geänderten Einstellungen gehen beim Programmende verloren.";
 
 	/**
-	 * Kein Laden/Speichern von Setupeinstellungen
+	 * Kein Laden/Speichern von Setup-Einstellungen
 	 */
 	public static boolean memoryOnly=false;
 
@@ -56,8 +56,28 @@ public abstract class SetupBase {
 	 */
 	public static File userConfigFile=null;
 
+	/**
+	 * Liste der Watcher, die bei Änderungen der Setup-Datei benachrichtigt werden
+	 * und dann diese Klasse benachrichtigen.
+	 * @see #startChangeListener()
+	 * @see #stopChangeListener()
+	 * @see #changeNotify()
+	 */
 	private final List<SetupBaseChangeListener> changeListeners;
+
+	/**
+	 * Watcher, die bei Änderungen der Setup-Datei benachrichtigt wird
+	 * und dann diese Klasse benachrichtigt.
+	 * @see #changeListeners
+	 * @see #changeNotify()
+	 */
 	private SetupBaseChangeListener watcher;
+
+	/**
+	 * Hält die Information vor, ob der letzte Speichervorgang erfolgreich war.
+	 * @see #saveSetup()
+	 * @see #isLastFileSaveSuccessful()
+	 */
 	private boolean lastFileSaveWasSuccessful;
 
 	/**
@@ -71,13 +91,19 @@ public abstract class SetupBase {
 		lastFileSaveWasSuccessful=true;
 	}
 
+	/**
+	 * Lädt die Setup-Daten entweder initial oder aber nach
+	 * einer Veränderung der Datei neu aus der Setup-Datei.
+	 * @see #loadSetupFromFile()
+	 * @see #changeNotify()
+	 */
 	private void loadOrReloadSetupFromFile() {
 		loadSetup(getSetupFile(),true);
 		if (userConfigFile!=null) loadSetup(userConfigFile,false);
 	}
 
 	/**
-	 * Lädt die Setup-Daten aus der Setup-Datei
+	 * Lädt die Setup-Daten aus der Setup-Datei.
 	 */
 	protected final void loadSetupFromFile() {
 		loadOrReloadSetupFromFile();
@@ -134,6 +160,11 @@ public abstract class SetupBase {
 		return oldList.toArray(new String[0]);
 	}
 
+	/**
+	 * Liefert auf Basis einer Dateinamensangabe das xml-Root-Element
+	 * @param setupFile	Setup-xml-Dateiname
+	 * @return	Liefert im Erfolgsfall das xml-Root-Element, sonst <code>null</code>.
+	 */
 	private Element getXMLRoot(final File setupFile) {
 		int count=0;
 		while (count<5) {
@@ -150,6 +181,13 @@ public abstract class SetupBase {
 		return null;
 	}
 
+	/**
+	 * Lädt die Setup-Daten entweder initial oder aber nach
+	 * einer Veränderung der Datei neu aus der Setup-Datei.
+	 * @param setupFile	Zu ladende Datei
+	 * @param resetBeforeLoad	Werte vor dem Laden auf Basis-Einstellungen zurücksetzen (beim Laden der ersten Setup-Datei <code>true</code>, beim Mappen weiterer Setups darüber <code>false</code>)
+	 * @see #loadOrReloadSetupFromFile()
+	 */
 	private void loadSetup(final File setupFile, final boolean resetBeforeLoad) {
 		if (watcher==null && !memoryOnly) {
 			watcher=new SetupBaseChangeListener(setupFile,()->changeNotify());
@@ -167,14 +205,34 @@ public abstract class SetupBase {
 		}
 	}
 
+	/**
+	 * Startet die Dateisystem-Watcher zur Überwachung der Setup-Datei.
+	 * @see #changeListeners
+	 * @see #watcher
+	 * @see #stopChangeListener()
+	 * @see #changeNotify()
+	 */
 	private synchronized void startChangeListener() {
 		for (SetupBaseChangeListener changeListener: changeListeners) changeListener.start();
 	}
 
+	/**
+	 * Stoppt die Dateisystem-Watcher zur Überwachung der Setup-Datei.
+	 * @see #changeListeners
+	 * @see #watcher
+	 * @see #startChangeListener()
+	 * @see #changeNotify()
+	 */
 	private synchronized void stopChangeListener() {
 		for (SetupBaseChangeListener changeListener: changeListeners) changeListener.stop();
 	}
 
+	/**
+	 * Listener, die bei Änderungen am Setup benachrichtigt werden sollen.
+	 * @see #addChangeNotifyListener(Runnable)
+	 * @see #removeChangeNotifyListener(Runnable)
+	 * @see #changeNotify()
+	 */
 	private List<Runnable> changeNotifyListeners=new ArrayList<>();
 
 	/**
@@ -196,6 +254,12 @@ public abstract class SetupBase {
 		if (changeNotifyListener!=null) changeNotifyListeners.remove(changeNotifyListener);
 	}
 
+	/**
+	 * Löst die Benachrichtigung der Change-Listener {@link #changeNotifyListeners} aus.
+	 * @see #addChangeNotifyListener(Runnable)
+	 * @see #removeChangeNotifyListener(Runnable)
+	 * @see #changeNotifyListeners
+	 */
 	private void changeNotify() {
 		loadOrReloadSetupFromFile();
 		for (Runnable changeNotifyListener: changeNotifyListeners) changeNotifyListener.run();

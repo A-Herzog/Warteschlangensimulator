@@ -197,6 +197,12 @@ public class CommandLineDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert eine Auflistung der verfügbaren Befehle in html-Form
+	 * für die Darstellung innerhalb der Auswahl-Combobox.
+	 * @return	Auflistung der verfügbaren Befehle in html-Form
+	 * @see #command
+	 */
 	private String[] getCommandStrings() {
 		final List<String> list=new ArrayList<>();
 
@@ -212,6 +218,11 @@ public class CommandLineDialog extends BaseDialog {
 		return list.toArray(new String[0]);
 	}
 
+	/**
+	 * Trennt mehrere in Form einer einzigen Zeichenkette übergebene Teil-Parameter.
+	 * @param text	Text in dem alle Parameter durch Leerzeichen getrennt enthalten sind
+	 * @return	Einzelne Parameter
+	 */
 	private String[] splitArguments(String text) {
 		final List<String> args=new ArrayList<>();
 		StringBuilder sb=new StringBuilder();
@@ -257,7 +268,12 @@ public class CommandLineDialog extends BaseDialog {
 		return false;
 	}
 
+	/**
+	 * Reagiert auf Veränderungen der Auswahl in {@link CommandLineDialog#command}.
+	 * @see CommandLineDialog#command
+	 */
 	private class ComboActionListener implements ActionListener {
+		/** Kopfbereich für die Ausgabe der Informationen zu dem aktuell gewählten Befehl */
 		private static final String head=
 				"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n"+
 						"<html>\n"+
@@ -268,6 +284,9 @@ public class CommandLineDialog extends BaseDialog {
 						"  </style>\n"+
 						"</head>\n"+
 						"<body>\n";
+
+		/** Fußbereich für die Ausgabe der Informationen zu dem aktuell gewählten Befehl */
+		private static final String footer="</body></html>";
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -281,19 +300,33 @@ public class CommandLineDialog extends BaseDialog {
 			for (String s: cmd.getLongDescription()) {sb.append("<br>"); sb.append(s);}
 			sb.append("</p>");
 
-			viewer.setText(head+sb.toString()+"</body></html>");
+			viewer.setText(head+sb.toString()+footer);
 		}
 	}
 
+	/**
+	 * Thread zur von der GUI entkoppelten Verarbeitung des grwählten Befehls.
+	 */
 	private class CommandWorkThread extends Thread {
+		/** Aufrufparameter */
 		private final String[] args;
+		/** Instanz des Kommandozeilensystems */
 		private BaseCommandLineSystem commandLineSimulator;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param args	Aufrufparameter
+		 */
 		public CommandWorkThread(String[] args) {
 			super();
 			this.args=args;
 		}
 
+		/**
+		 * Deaktiviert während der Verarbeitung die normalen
+		 * GUI-Elemente, aktiviert aber die "Verarbeitung abbrechen"-Schaltfläche
+		 * @param enabled	Dialogelemente aktivieren oder deaktivieren
+		 */
 		private synchronized void setGUIEnabled(boolean enabled) {
 			setEnableButtons(enabled);
 			getUserButton(0).setVisible(!enabled);
@@ -314,6 +347,10 @@ public class CommandLineDialog extends BaseDialog {
 			setGUIEnabled(true);
 		}
 
+		/**
+		 * Teil {@link #commandLineSimulator} mit, dass die Verarbeitung abgebrochen werden soll.
+		 * @see CommandLineDialog#userButtonClick(int, JButton)
+		 */
 		public synchronized void setQuit() {
 			commandLineSimulator.setQuit();
 		}

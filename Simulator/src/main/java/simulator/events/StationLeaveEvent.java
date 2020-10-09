@@ -41,6 +41,11 @@ public class StationLeaveEvent extends Event {
 	 */
 	public RunElement station;
 
+	/**
+	 * Zählung Kunden an Station?
+	 * @see #addLeaveEvent(SimulationData, RunDataClient, RunElement, long)
+	 * @see #addLeaveEvent(SimulationData, RunDataClient, RunElement, long, boolean)
+	 */
 	private boolean statistics;
 
 	@Override

@@ -122,9 +122,13 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see RunModel
  */
 public final class RunModelCreator {
+	/** Editormodell aus dem die Daten ausgelesen werden sollen */
 	private final EditModel editModel;
+	/** Laufzeitmodell in das die (Stations-)Daten eingetragen werden sollen */
 	private final RunModel runModel;
+	/** Wird hier <code>true</code> übergeben, so werden externe Datenquellen nicht wirklich geladen */
 	private final boolean testOnly;
+	/** Vorlagen für die Elemente */
 	private static final List<RunElement> templates=new ArrayList<>();
 
 	static {
@@ -143,6 +147,10 @@ public final class RunModelCreator {
 		this.testOnly=testOnly;
 	}
 
+	/**
+	 * Stellt die Liste der Vorlagen für die Elemente zusammen.
+	 * @see #templates
+	 */
 	private static void addTemplates() {
 		templates.add(new RunElementSource(null));
 		templates.add(new RunElementSourceMulti(null));

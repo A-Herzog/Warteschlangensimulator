@@ -190,18 +190,55 @@ public class MainFrameBase extends JFrame {
 	 */
 	protected void saveWindowSize() {}
 
+	/**
+	 * Ereignis: Menüzeile deaktivieren
+	 * @see UpdateWindowCallback
+	 * @see MainPanelBase#connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private static final int COMMAND_DISABLE_MENU=0;
+
+	/**
+	 * Ereignis: Menüzeile aktivieren
+	 * @see UpdateWindowCallback
+	 * @see MainPanelBase#connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private static final int COMMAND_ENABLE_MENU=1;
+
+	/**
+	 * Ereignis: Der Fenstertitel soll verändert werden
+	 * @see UpdateWindowCallback
+	 * @see MainPanelBase#connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private static final int COMMAND_UPDATE_TITLE=2;
+
+	/**
+	 * Ereignis: Das Fenster soll geschlossen werden
+	 * @see UpdateWindowCallback
+	 * @see MainPanelBase#connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private static final int COMMAND_QUIT=3;
 
+	/**
+	 * Callbacks für bestimmte von {@link MainPanelBase} ausgelöste
+	 * Ereignisse.
+	 * @see MainPanelBase#connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private class UpdateWindowCallback implements Runnable {
+		/** Ereignis auf das reagiert werden soll */
 		private final int command;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param command	Ereignis auf das reagiert werden soll
+		 */
 		public UpdateWindowCallback(final int command) {
 			this.command=command;
 		}
 
+		/**
+		 * Menüzeile aktivieren oder deaktivieren
+		 * @param enable	Menüzeile aktivieren oder deaktivieren
+		 */
 		private void setMenuEnable(final boolean enable) {
 			for (int i=0;i<menubar.getMenuCount();i++) {
 				final JMenu menu=menubar.getMenu(i);
@@ -214,11 +251,17 @@ public class MainFrameBase extends JFrame {
 			switch (command) {
 			case COMMAND_DISABLE_MENU:
 				setMenuEnable(false);
-				SwingUtilities.invokeLater(new UpdateWindow());
+				SwingUtilities.invokeLater(()->{
+					panel.setVisible(false);
+					panel.setVisible(true);
+				});
 				break;
 			case COMMAND_ENABLE_MENU:
 				setMenuEnable(true);
-				SwingUtilities.invokeLater(new UpdateWindow());
+				SwingUtilities.invokeLater(()->{
+					panel.setVisible(false);
+					panel.setVisible(true);
+				});
 				break;
 			case COMMAND_UPDATE_TITLE:
 				String s=panel.getTitleAddon();
@@ -236,14 +279,6 @@ public class MainFrameBase extends JFrame {
 		}
 	}
 
-	private class UpdateWindow implements Runnable {
-		@Override
-		public void run() {
-			panel.setVisible(false);
-			panel.setVisible(true);
-		}
-	}
-
 	/**
 	 * Interface über das Komponenten, die auf File-Drop-Ereignisse reagieren sollen, registriert werden können.
 	 * @author Alexander Herzog
@@ -257,6 +292,10 @@ public class MainFrameBase extends JFrame {
 		void registerJComponent(final JComponent component);
 	}
 
+	/**
+	 * Callback für Drag&amp;Drop-Operationen auf das Panel in diesem Fenster.
+	 * @see MainPanelBase#connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
+	 */
 	private class DropTargetRegisterImpl implements DropTargetRegister {
 		@Override
 		public void registerJComponent(final JComponent component) {
@@ -284,7 +323,14 @@ public class MainFrameBase extends JFrame {
 	 */
 	protected void logException(final String info) {}
 
+	/**
+	 * Handler, der auf unvorhergesehene Fehler in diesem Thread reagieren soll.
+	 */
 	private final class ExceptionHandler implements Thread.UncaughtExceptionHandler {
+		/**
+		 * Liefert den aktuellen Zeitpunkt als Zeichenkette im internationalen Format
+		 * @return	Aktueller Zeitpunkt als Zeichenkette im internationalen Format
+		 */
 		private String getTimeStamp() {
 			Calendar cal=Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -302,6 +348,11 @@ public class MainFrameBase extends JFrame {
 			}
 		}
 
+		/**
+		 * Liefert den Stack-Trace als String zu einer Exception
+		 * @param aThrowable	Exception zu der der Stack-Trace ermittelt werden soll
+		 * @return	Stack-Trace als String
+		 */
 		private String getStackTrace(final Throwable aThrowable) {
 			final Writer result = new StringWriter();
 			final PrintWriter printWriter = new PrintWriter(result);

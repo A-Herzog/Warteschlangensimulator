@@ -35,13 +35,29 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see AnySimulator
  */
 public class StartAnySimulator {
+	/** Maximalanzahl an Rechenthreads (wird nur berücksichtigt, wenn ein lokaler Simulator gestartet wird) */
 	private final int maxThreads;
+	/** Editor-Modell */
 	private final EditModel editModel;
+	/** Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik */
 	private final SimLogging logging;
+	/** Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst) */
 	private final int[] loggingIDs;
+	/** Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen) */
 	private final Set<Simulator.LogType> logType;
 
+	/**
+	 * Hält im Falle einer Client-Server-Simulation die Server-Verbinungs-Simulator-Instanz vor.
+	 * @see #prepare()
+	 * @see #start()
+	 */
 	private SimulationClient remoteSimulator;
+
+	/**
+	 * Hält im Falle einer lokalen Simulation die Simulator-Instanz vor.
+	 * @see #prepare()
+	 * @see #start()
+	 */
 	private Simulator localSimulator;
 
 	/**
@@ -180,6 +196,11 @@ public class StartAnySimulator {
 
 	}
 
+	/**
+	 * Prüft, ob ein Model in Bezug auf die Zeichenflächen-Elemente von einem externen Rechner simuliert werden kann.
+	 * @param surface	Zu prüfende Zeichenfläche
+	 * @return	Gibt <code>true</code> zurück, wenn das Modell in Bezug auf die Zeichenflächen-Elemente auf einem entfernten Rechner simuliert werden kann
+	 */
 	private static boolean isRemoveSimulateable(final ModelSurface surface) {
 		for (ModelElement element1: surface.getElements()) {
 			if (element1 instanceof ElementNoRemoteSimulation && (((ElementNoRemoteSimulation)element1).inputConnected())) return false;

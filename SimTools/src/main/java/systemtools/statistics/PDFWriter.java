@@ -162,6 +162,13 @@ public class PDFWriter {
 		try {contentStream=new PDPageContentStream(doc,page);} catch (IOException e) {contentStream=null; /* Für FindBugs. */}
 	}
 
+	/**
+	 * Beendet die aktuelle Seite.
+	 * Wird implizit von {@link #newPage()} und {@link #save(File)}
+	 * automatisch aufgerufen.
+	 * @see #newPage()
+	 * @see #save(File)
+	 */
 	private void donePage() {
 		if (contentStream!=null) {
 			try {contentStream.close();} catch (IOException e) {contentStream=null; /* Für FindBugs. */}

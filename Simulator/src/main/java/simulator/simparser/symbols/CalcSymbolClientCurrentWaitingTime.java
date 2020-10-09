@@ -35,6 +35,7 @@ public class CalcSymbolClientCurrentWaitingTime extends CalcSymbolSimData {
 		return names;
 	}
 
+	/** Skalierungsfaktor zur Umrechnung von Millisekunden auf Sekunden (um zur Laufzeit eine Division einzusparen) */
 	private static final double scaleFactor=1.0/1000.0;
 
 	@Override

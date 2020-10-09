@@ -773,6 +773,11 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		return (correlationSums!=null || correlation!=null);
 	}
 
+	/**
+	 * Berechnet intern die Autokorrelationsdaten.
+	 * @see #getCorrelationLevelDistance(double)
+	 * @see #getCorrelationData()
+	 */
 	private void calcCorrelation() {
 		if (correlationSums==null) return;
 
@@ -966,8 +971,21 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		return results;
 	}
 
+	/**
+	 * Wenn dieser Wert noch mit {@link #batchMeansCount} übereinstimmt, kann {@link #lastBatchT} verwendet werden.
+	 * @see #getBatchMeanConfidenceHalfWideWithoutFinalize(double)
+	 */
 	private int lastBatchCount;
+
+	/**
+	 * Wenn dieser Wert noch mit dem Parameter <code>alpha</code> übereinstimmt, kann {@link #lastBatchT} verwendet werden.
+	 * @see #getBatchMeanConfidenceHalfWideWithoutFinalize(double)
+	 */
 	private int lastBatchAlpha;
+	/**
+	 * Zwischengespeicherter Wert t für die Batch-Means-Konfidenzintervall-Berechnung
+	 *  @see #getBatchMeanConfidenceHalfWideWithoutFinalize(double)
+	 */
 	private double lastBatchT;
 
 	/**
@@ -1015,8 +1033,16 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		return Math.sqrt(getVar()*(count-1)/count+getBatchVar());
 	}
 
+	/**
+	 * Autokorrelations-Levels zum Speichern in der xml-Datei
+	 * @see #addToXMLIntern(Element, StringBuilder)
+	 */
 	private static final double[] AUTOCORRELATION_SAVE_LEVEL=new double[]{0.1,0.05,0.01,0.005,0.001};
 
+	/**
+	 * Konfidenzintervall-Levels zum Speichern in der xml-Datei
+	 * @see #addToXMLIntern(Element, StringBuilder)
+	 */
 	private static final double[] CONFIDENCE_SAVE_LEVEL=new double[]{0.1,0.05,0.01};
 
 	/**
@@ -1159,6 +1185,13 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		return null;
 	}
 
+	/**
+	 * Berechnet die Standardabweichung aus mehreren Teilindikatoren, die dabei jeweils als einzelne Batche aufgefasst werden.
+	 * @param partial	Teil-Kenngrößen, die als Batche aufgefasst werden sollen
+	 * @param all	Zusammenfassung der Teil-Kenngrößen
+	 * @return	Batch-Standardabweichung
+	 * @see #getConfidenceHalfWideByMultiStatistics(StatisticsDataPerformanceIndicator[], StatisticsDataPerformanceIndicator, double[])
+	 */
 	private static double getBatchByMultiStatisticsSD(final StatisticsDataPerformanceIndicator[] partial, final StatisticsDataPerformanceIndicator all) {
 		final double xMean=all.getMean();
 		double s=0;
@@ -1175,8 +1208,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @param partial	Teil-Kenngrößen, die als Batche aufgefasst werden sollen
 	 * @param all	Zusammenfassung der Teil-Kenngrößen
 	 * @param alpha	Konfidenzniveaus (z.B. alpha=0.05 oder alpha=0.01)
-	 * @return	Halbe Breite der Konfidenzintervalle	 */
-
+	 * @return	Halbe Breite der Konfidenzintervalle
+	 */
 	public static double[] getConfidenceHalfWideByMultiStatistics(final StatisticsDataPerformanceIndicator[] partial, final StatisticsDataPerformanceIndicator all, double[] alpha) {
 		if (alpha==null || alpha.length==0) return new double[0];
 		if (partial==null || partial.length<2 || all==null) return new double[alpha.length];

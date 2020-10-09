@@ -92,6 +92,7 @@ public abstract class RunElementAnalogProcessingData extends RunElementData {
 	protected void init(final SimulationData simData) {
 	}
 
+	/** Skalierungsfaktor zur Umrechnung von Millisekunden zu Sekunden (um während der Simulation Divisionen zu vermeiden) */
 	private static final double toSec=1.0/1000.0;
 
 	/**

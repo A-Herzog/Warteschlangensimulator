@@ -172,6 +172,10 @@ public class JCheckboxTable extends JTable {
 	 * @see JCheckboxTable#JCheckboxTable(String[], boolean[], String)
 	 */
 	private final class JCheckboxTableModel extends AbstractTableModel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 7961524422591759713L;
 		@Override public int getRowCount() {return keys.length;}
 		@Override public int getColumnCount() {return 2;}

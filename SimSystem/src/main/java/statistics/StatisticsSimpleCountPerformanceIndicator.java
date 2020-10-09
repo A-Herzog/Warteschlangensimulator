@@ -135,6 +135,11 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 		return count;
 	}
 
+	/**
+	 * Liefert den Gruppennamen für einen Zähler
+	 * @param name	Name des Zählers
+	 * @return	Gruppenname oder <code>null</code>, wenn keine Gruppen vorhanden sind.
+	 */
 	private String groupNameFromName(final String name) {
 		if (!useGrouping) return null;
 		if (name==null || name.isEmpty()) return null;

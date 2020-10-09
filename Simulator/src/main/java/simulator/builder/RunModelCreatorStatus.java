@@ -162,6 +162,9 @@ public class RunModelCreatorStatus {
 
 		private final BiFunction<ModelElementPosition,RunModelCreatorStatus,List<RunModelFixer>> fix;
 
+		/**
+		 * Konstruktor der Enum
+		 */
 		Status() {
 			this.fix=(e,s)->new ArrayList<>();
 		}

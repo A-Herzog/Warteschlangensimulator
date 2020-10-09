@@ -146,6 +146,11 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		reset();
 	}
 
+	/**
+	 * Wurden bislang nur {@link #time0} und {@link #timeMax} erfasst, so kann über
+	 * diese Funktion das vollständige {@link #stateTime}-Array aufgespannt werden.
+	 * @see #set(double, int)
+	 */
 	private void forceExpandStateTime() {
 		if (stateTime==null) {
 			final int size=Math.min(MAX_STATE,Math.max(timeMaxState,10))+1;
@@ -339,7 +344,18 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		/* stateTime.length ist die richtige Größe, sonst skaliert DataDistributionImpl und getMean() und Co. liefern verzerrte Werte. */
 	}
 
+	/**
+	 * Leeres Verteilungs-Objekt welches von {@link #getReadOnlyDistribution()}
+	 * zurückgeliefert wird, wenn noch keine Daten erfasst wurden.
+	 * @see #getReadOnlyDistribution()
+	 */
 	private static DataDistributionImpl emptyDistribution=new DataDistributionImpl(1,new double[]{0.0});
+
+	/**
+	 * Zuletzt per {@link #getReadOnlyDistribution()} ausgelieferte Verteilung<br>
+	 * (Wird wiederverwendet, wenn sich die Daten seit dem letzten Aufruf nicht verändert haben.)
+	 * @see #getReadOnlyDistribution()
+	 */
 	private DataDistributionImpl readOnlyDistribution=null;
 
 	/**

@@ -43,6 +43,7 @@ public final class MultiPriorityQueueEventManager extends EventManagerBase imple
 	/** Wenn ein Tag {@link #dayLength} Sekunden hat und wir {@link #queueCountForInitialEvents} Warteschlangen für die initialen Ereignisse haben, dann gibt dieser Wert an, für wie viele Millisekunden eine Teilwarteschlange (für die initialen Ereignisse) zuständig ist. */
 	private static final int milliSecondsPerInitialEventsQueue=1000*dayLength/queueCountForInitialEvents;
 
+	/** Liste aus der als letztes durch {@link #getNextEvent()} ein Ereignis entnommen wurde */
 	private int lastList;
 	/** Anzahl an momentan verwalteten Ereignissen über alle Warteschlangen zusammen (nicht initiale Ereignisse) */
 	private int allQueueLength;

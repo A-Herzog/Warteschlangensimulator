@@ -26,8 +26,11 @@ import mathtools.NumberTools;
  *
  */
 public class UsageStatistics {
+	/** Instanz dieser Singleton-Klasse */
 	private static UsageStatistics instance;
+	/** {@link SetupData}-Instanz aus der die Daten entnommen werden und in die sie geschrieben werdne */
 	private final SetupData setup;
+	/** Anzahl der bislang simulierten Kundenanküfte */
 	private long clients;
 
 	/**
@@ -59,6 +62,10 @@ public class UsageStatistics {
 		if (L!=null) clients=L;
 	}
 
+	/**
+	 * Speichert die veränderten Daten im Setup.
+	 * @see #addSimulationClients(long)
+	 */
 	private void saveToSetup() {
 		setup.usageStatistics=""+clients;
 		setup.saveSetup();

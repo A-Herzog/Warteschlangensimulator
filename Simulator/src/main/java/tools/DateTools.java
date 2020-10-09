@@ -37,11 +37,23 @@ public class DateTools {
 	}
 
 	/**
-	 * Zu verwendendes Datums- und Zeitformat
+	 * Zu verwendendes Datums- und Zeitformat (System, lang)
 	 */
 	private static final String dateFormatStringSystemFull="yyyy-MM-dd HH:mm:ss";
+
+	/**
+	 * Zu verwendendes Datums- und Zeitformat (System, kurz)
+	 */
 	private static final String dateFormatStringSystemShort="yyyy-MM-dd";
+
+	/**
+	 * Zu verwendendes Datums- und Zeitformat (Nutzerdefiniertes Format, lang)
+	 */
 	private static String dateFormatStringUserFull="dd.MM.yyyy HH:mm:ss";
+
+	/**
+	 * Zu verwendendes Datums- und Zeitformat (Nutzerdefiniertes Format, kurz)
+	 */
 	private static String dateFormatStringUserShort="dd.MM.yyyy";
 
 	/**

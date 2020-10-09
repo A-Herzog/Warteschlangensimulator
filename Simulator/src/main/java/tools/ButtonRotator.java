@@ -106,6 +106,9 @@ public class ButtonRotator {
 		return getButtonImage(text,(icon==null)?null:new ImageIcon(icon),false);
 	}
 
+	/**
+	 * RGBA-Farbcode für ein transparentes Pixel
+	 */
 	private static final int transparent=new Color(0,0,0,0).getRGB();
 
 	/**

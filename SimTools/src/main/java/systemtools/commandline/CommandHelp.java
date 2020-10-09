@@ -29,6 +29,7 @@ import java.util.List;
  * @see BaseCommandLineSystem
  */
 public final class CommandHelp extends AbstractCommand {
+	/** Befehl zu dem die Hilfeseite angezeigt werden soll (<code>null</code> für eine Übersicht über alle verfügbaren Befehle) */
 	private String commandName=null;
 
 	@Override
@@ -56,12 +57,28 @@ public final class CommandHelp extends AbstractCommand {
 		return null;
 	}
 
+	/**
+	 * Zeigt die Daten zu einem bestimmten Befehl an.<br>
+	 * Diese Methode kann sowohl bei der Auflistung aller Befehle
+	 * als auch bei der Anzeige der Daten zu einem konkreten
+	 * Kommandozeilenbefehl verwendet werden.
+	 * @param command	Befehl zu dem die Daten ausgegeben werden sollen
+	 * @param out	Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
+	 * @see #listAll(AbstractCommand[], PrintStream)
+	 * @see #listCommand(AbstractCommand[], PrintStream)
+	 */
 	private void showCommandInfo(AbstractCommand command, PrintStream out) {
 		out.println(command.getName().toUpperCase());
 		out.println("  "+command.getShortDescription());
 		for (String line : command.getLongDescription()) out.println("  "+line);
 	}
 
+	/**
+	 * Listet die Daten zu allen Kommandozeilenbefehlen auf.
+	 * @param allCommands	Liste alle registrierten Befehle
+	 * @param out	Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
+	 * @see #run(AbstractCommand[], InputStream, PrintStream)
+	 */
 	private void listAll(AbstractCommand[] allCommands, PrintStream out) {
 		for (String line: BaseCommandLineSystem.commandHelpInfo1.split("\\n")) out.println(line);
 
@@ -80,6 +97,13 @@ public final class CommandHelp extends AbstractCommand {
 		for (AbstractCommand command : allCommands) if (!command.isHidden()) showCommandInfo(command,out);
 	}
 
+	/**
+	 * Listet die Daten zu einem konkreten Kommandozeilenbefehlen auf.
+	 * @param allCommands	Liste alle registrierten Befehle
+	 * @param out	Ein {@link PrintStream}-Objekt, über das Texte ausgegeben werden können.
+	 * @see #commandName
+	 * @see #run(AbstractCommand[], InputStream, PrintStream)
+	 */
 	private void listCommand(AbstractCommand[] allCommands, PrintStream out) {
 		for (AbstractCommand command: allCommands) for (String name: command.getKeys()) if (name.equalsIgnoreCase(commandName)) {
 			showCommandInfo(command,out);

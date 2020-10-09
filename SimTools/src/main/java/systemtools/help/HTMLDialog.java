@@ -46,6 +46,10 @@ abstract class HTMLDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = -2605193561807240780L;
 
+	/**
+	 * Hilfe-Viewer innerhalb des Fensters
+	 * @see HTMLPanel
+	 */
 	private final HTMLPanel panel;
 
 	/**
@@ -53,6 +57,10 @@ abstract class HTMLDialog extends JDialog {
 	 */
 	private final Runnable specialLinks;
 
+	/**
+	 * Gibt an, welcher Nicht-URL-Link angeklickt wurde.
+	 * @see #getSpecialLink()
+	 */
 	private String specialLink;
 
 	/**
@@ -151,6 +159,10 @@ abstract class HTMLDialog extends JDialog {
 		return specialLink;
 	}
 
+	/**
+	 * Reagiert auf Klicks auf besondere Links
+	 * @see HTMLPanel#setProcessSpecialLink(Runnable)
+	 */
 	private final class SpecialLink implements Runnable {
 		@Override
 		public void run() {

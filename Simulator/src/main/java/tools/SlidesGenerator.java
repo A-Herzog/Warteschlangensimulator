@@ -34,7 +34,9 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
  * @author Alexander Herzog
  */
 public class SlidesGenerator extends AbstractSlidesGenerator {
+	/** Editor-Modell welches exportiert werden soll */
 	private final EditModel model;
+	/** Bild des Modells */
 	private final BufferedImage image;
 
 	/**

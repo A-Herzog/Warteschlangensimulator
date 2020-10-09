@@ -69,14 +69,23 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 		MODE_MAX
 	}
 
+	/** Anfängliche Größe für {@link #data} */
 	private int initialSize;
+	/** Erfasste Daten */
 	private double[] data;
+	/** Anzahl der in {@link #data} belegten Einträge */
 	private int dataUsed;
+	/** Schrittweite für ein Datenfeld */
 	private long step;
+	/** Gibt ab, ob der Minimal-, Maximal- oder Durchschnittswert in dem Intervall erfasst werden soll */
 	private Mode mode;
+	/** Letzter in {@link #set(long, double)} erfasster Zeitpunkt */
 	private long lastTime;
+	/** In {@link #set(long, double)} erfasste Summe */
 	private double lastSum;
+	/** Letzter in {@link #set(long, double)} erfasster Wert */
 	private double lastValue;
+	/** In {@link #setTime(long)} eingestellter Startwert für die Erfassung der Zeiten */
 	private long timeDelta;
 
 	/**
@@ -165,6 +174,11 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 		this.mode=mode;
 	}
 
+	/**
+	 * Erfasst einen Datenpunkt in der Statistik
+	 * @param value	Zu erfassender Wert
+	 * @see #processEndOfStep()
+	 */
 	private void dataAdd(final double value) {
 		if (data==null || dataUsed==data.length) {
 			if (dataUsed>=maxValues) return; /* Ende, wenn zu viel Speicher belegt wird */
@@ -177,6 +191,11 @@ public final class StatisticsLongRunPerformanceIndicator extends StatisticsPerfo
 		data[dataUsed++]=value;
 	}
 
+	/**
+	 * Beendet einen oder mehrere Zeitintervalle und erfasst die
+	 * entsprechenden Werte in der Statistik.
+	 * @see #set(long, double)
+	 */
 	private void processEndOfStep() {
 		if (lastTime<0) {
 			/* noch überhaupt kein Wert gesetzt */

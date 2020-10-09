@@ -36,10 +36,15 @@ import java.util.concurrent.Semaphore;
  * @see SetupBase
  */
 public class SetupBaseChangeListener {
+	/** Pfad in dem sich die zu überwachende Datei befindet */
 	private final File watchFilePath;
+	/** Dateiname der zu überwachenden Datei */
 	private final String watchFileName;
+	/** Runnable, das aufgerufen wird, wenn die Datei verändert wurde */
 	private final Runnable notify;
+	/** Hintergrund-Thread, der die Verbindung zum {@link WatchService} darstellt */
 	private volatile Thread worker=null;
+	/** Absicherung, dass {@link #start()} und {@link #stop()} nicht mehrfach gleichzeitig aufgerufen werden. */
 	private final Semaphore mutex;
 
 	/**
@@ -86,10 +91,22 @@ public class SetupBaseChangeListener {
 		}
 	}
 
+	/**
+	 * Benachrichtigt {@link SetupBaseChangeListener#notify},
+	 * dass sich die Datei verändert hat.
+	 * @see #work()
+	 */
 	private synchronized void changedNotify() {
 		if (notify!=null) notify.run();
 	}
 
+	/**
+	 * Arbeitsmethode innerhalb von {@link SetupBaseChangeListener#worker},
+	 * die in regelmäßigen Abständen den {@link WatchService} abfragt.
+	 * @see SetupBaseChangeListener#worker
+	 * @see SetupBaseChangeListener#start()
+	 * @see SetupBaseChangeListener#stop()
+	 */
 	private void work() {
 		if (watchFilePath==null || watchFileName==null || watchFileName.isEmpty()) return;
 		final Path path=watchFilePath.toPath();

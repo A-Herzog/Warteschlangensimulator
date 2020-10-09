@@ -46,6 +46,10 @@ abstract class HTMLFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = -8774433584734830953L;
 
+	/**
+	 * Hilfe-Viewer innerhalb des Fensters
+	 * @see HTMLPanel
+	 */
 	private final HTMLPanel panel;
 
 	/**
@@ -53,6 +57,10 @@ abstract class HTMLFrame extends JFrame {
 	 */
 	private final Runnable specialLinks;
 
+	/**
+	 * Gibt an, welcher Nicht-URL-Link angeklickt wurde.
+	 * @see #getSpecialLink()
+	 */
 	private String specialLink;
 
 	/**
@@ -145,6 +153,10 @@ abstract class HTMLFrame extends JFrame {
 		return specialLink;
 	}
 
+	/**
+	 * Reagiert auf Klicks auf besondere Links
+	 * @see HTMLPanel#setProcessSpecialLink(Runnable)
+	 */
 	private final class SpecialLink implements Runnable {
 		@Override
 		public void run() {

@@ -39,9 +39,28 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	/** Fehlermeldung für "Interner Fehler" */
 	public static String xmlInternalError="Interner Fehler";
 
+	/**
+	 * Vorlagen-Objekt von dem konkrete Statistik-Objekte als Kopie abgeleitet werden
+	 */
 	private final StatisticsPerformanceIndicator template;
+	/**
+	 * Zuordnung von Namen zu Teilindikatoren (Namen werden ohne Berücksichtigung von Groß- und Kleinschreibung erfasst)
+	 * @see #get(String)
+	 */
 	private Map<String,StatisticsPerformanceIndicator> indicators;
+	/**
+	 * Zuordnung von Namen zu Teilindikatoren (Namen werden <em>mit</em> Berücksichtigung von Groß- und Kleinschreibung erfasst)<br>
+	 * Erst wird in dieser Zuordnung nach einem Namen gesucht. Wenn er hier nicht gefunden wurde (z.B. wegen abweichender Groß-/Kleinschreibung)
+	 * wird in {@link #indicators} gesucht.
+	 * @see #get(String)
+	 */
 	private Map<String,StatisticsPerformanceIndicator> cache;
+
+	/**
+	 * Liste der Namen der untergeordneten Statistik-Elemente.<br>
+	 * (Dient als Cache. Wird gelöscht, wenn sich die untergeordneten Statistik-Elemente ändern.)
+	 * @see #getNames()
+	 */
 	private String[] namesList;
 
 	/**

@@ -52,7 +52,7 @@ public abstract class RunElement {
 	/**
 	 * Hat nur einen Wert ungleich -1, wenn das aktuelle Element in einem
 	 * Untermodell enthalten ist. Dann steht hier die ID des Elements,
-	 * weclhes das Untermodell kapselt.
+	 * welches das Untermodell kapselt.
 	 */
 	public final int parentId;
 
@@ -99,6 +99,12 @@ public abstract class RunElement {
 		stationStatisticsActive=true;
 	}
 
+	/**
+	 * Liefert die ID des Sub-Elements in dem sich dieses Element befindet
+	 * sofern es in einem Sub-Element enthalten ist, sonst -1.
+	 * @param element	Element bei dem das Eltern-Sub-Element ermittelt werden soll
+	 * @return	ID des Sub-Elements oder -1, wenn sich das Element auf der Hauptebene befindet
+	 */
 	private int getParentId(final ModelElementPosition element) {
 		if (element==null || element.getSurface()==null) return -1;
 		final ModelSurface mainSurface=element.getSurface().getParentSurface();

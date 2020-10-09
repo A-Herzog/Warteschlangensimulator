@@ -196,6 +196,14 @@ public abstract class HTMLPanel extends JPanel {
 		this(true,true,closeNotify);
 	}
 
+	/**
+	 * Fügt eine neue Schaltfläche zur Symbolleiste {@link #toolBar} hinzu.
+	 * @param title	Titel der Schaltfläche
+	 * @param tip	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Icon für die Schaltfläche (darf <code>null</code> sein)
+	 * @return	Liefert die bereits eingefügte Schaltfläche.
+	 * @see #toolBar
+	 */
 	private JButton addButton(final String title, final String tip, final Icon icon) {
 		JButton button=new JButton(title);
 		if (tip!=null && !tip.equals("")) button.setToolTipText(tip);
@@ -325,6 +333,14 @@ public abstract class HTMLPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen
+	 * @see HTMLPanel#buttonClose
+	 * @see HTMLPanel#buttonBack
+	 * @see HTMLPanel#buttonNext
+	 * @see HTMLPanel#buttonHome
+	 * @see HTMLPanel#buttonContent
+	 */
 	private final class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -401,6 +417,11 @@ public abstract class HTMLPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf das Anklicken von Links innerhalb der HTML-Anzeige.
+	 * @see HTMLPanel#textPane
+	 * @see HTMLPanel#processSpecialLink
+	 */
 	private final class LinkClickListener implements Runnable {
 		@Override
 		public void run() {

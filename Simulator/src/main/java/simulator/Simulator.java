@@ -459,6 +459,10 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		recordSimulatedClientsToStatistics=false;
 	}
 
+	/**
+	 * Aktive Nanosekunden pro Rechenthread.
+	 * @see #getNanos()
+	 */
 	private long[] nanos;
 
 	/**

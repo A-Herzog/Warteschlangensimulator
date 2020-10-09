@@ -253,6 +253,10 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 */
 	public final ModelTransporters transporters;
 
+	/**
+	 * Vorgabewerte für die Farben der Zeichenfläche
+	 * @see #surfaceColors
+	 */
 	private static final Color[] DEFAULT_COLORS=new Color[]{
 			ModelSurface.DEFAULT_BACKGROUND_COLOR,
 			ModelSurface.DEFAULT_RASTER_COLOR,
@@ -260,7 +264,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	};
 
 	/**
-	 * 2-elementiges Array aus Hintergrund- und Rasterfarbe der Zeichenfläche
+	 * 3-elementiges Array aus Hintergrund-, Raster- und Hintergrund-Gradient-Farbe der Zeichenfläche
 	 */
 	public final Color[] surfaceColors=Arrays.copyOf(DEFAULT_COLORS,DEFAULT_COLORS.length);
 
@@ -583,6 +587,10 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		return ""+color.getRed()+","+color.getGreen()+","+color.getBlue();
 	}
 
+	/**
+	 * Sind beim Laden des Modells unbekannte Elemente aufgetreten?`
+	 * @see #isUnknownElementsOnLoad()
+	 */
 	private boolean unknownElementsOnLoad=false;
 
 	/**
@@ -984,6 +992,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		return getSingleCoreReason().isEmpty();
 	}
 
+	/**
+	 * Prüft, ob ein bestimmtes Element die Single-Core-only Simulation notwendig macht.
+	 * @param element	Element das betrachtet werdne soll
+	 * @param reasons	Fügt mögliche Single-Core-Gründe zu dieser Liste hinzu
+	 * @see #getSingleCoreReason()
+	 */
 	private void testElementSingleCoreReason(final ModelElement element, final List<String> reasons) {
 		/* Bei begrenzter Anzahl an Kundenankünften in einem Element nicht in den Multi-Core-Modus schalten. */
 
