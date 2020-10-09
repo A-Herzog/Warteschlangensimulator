@@ -126,9 +126,10 @@ public class ExpressionCalc extends CalcSystem {
 		if (transporterUsage==null) transporterUsage=new StatisticsTimePerformanceIndicator[0];
 	}
 
-	@Override
-	protected List<CalcSymbolPreOperator> getUserFunctions() {
-		List<CalcSymbolPreOperator> functions=new ArrayList<>(256);
+	private static List<CalcSymbolPreOperator> functions;
+
+	static {
+		functions=new ArrayList<>(256);
 
 		functions.add(new CalcSymbolStationText());
 
@@ -279,7 +280,10 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolUserStatistics_cv());
 		functions.add(new CalcSymbolUserStatistics_scv());
 		functions.add(new CalcSymbolUserStatistics_hist());
+	}
 
+	@Override
+	protected List<CalcSymbolPreOperator> getUserFunctions() {
 		return functions;
 	}
 
