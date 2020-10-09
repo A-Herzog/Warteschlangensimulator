@@ -22,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -144,6 +146,15 @@ class DistributionSwingTests {
 	}
 
 	/**
+	 * Listener zum prüfen, ob ein Ereignis ausgelöst wurde.
+	 */
+	private static class MiniActionListener implements ActionListener {
+		/** Wurde das Ereignis ausgelöst? */
+		public boolean notify=false;
+		@Override public void actionPerformed(ActionEvent e) {notify=true;}
+	}
+
+	/**
 	 * Test: Aufbau des {@link JDataDistributionEditPanel}
 	 * @see JDataDistributionEditPanel
 	 */
@@ -172,6 +183,22 @@ class DistributionSwingTests {
 
 		dataEditPanel.setLabelFormat(JDataDistributionEditPanel.LabelMode.LABEL_PERCENT);
 		dataEditPanel.setLabelFormat(JDataDistributionEditPanel.LabelMode.LABEL_VALUE);
+
+		dataEditPanel.setImageSaveSize(1000);
+
+		final MiniActionListener listener=new MiniActionListener();
+
+		dataEditPanel.addChangeListener(listener);
+
+		dataEditPanel.setDistribution(new DataDistributionImpl(100,50));
+		assertTrue(listener.notify);
+		listener.notify=false;
+
+		assertTrue(dataEditPanel.removeChangeListener(listener));
+		assertFalse(dataEditPanel.removeChangeListener(listener));
+
+		dataEditPanel.setDistribution(new DataDistributionImpl(100,50));
+		assertFalse(listener.notify);
 	}
 
 	/**

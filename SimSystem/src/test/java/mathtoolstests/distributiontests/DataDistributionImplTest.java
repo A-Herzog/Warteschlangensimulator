@@ -46,6 +46,8 @@ class DataDistributionImplTest {
 	private final static double[] exampleDataDouble1=new double[] {3,4,2,0,1};
 	/** Beispiel double-Daten 2 */
 	private final static double[] exampleDataDouble2=new double[] {3,4,2,0,1.5};
+	/** Beispiel double-Daten 2 */
+	private final static double[] exampleDataDouble3=new double[] {3,4,2,0,1.5,0,0};
 	/** Beispiel int-Daten */
 	private final static int[] exampleDataInt=new int[] {3,4,2,0,1};
 
@@ -587,6 +589,12 @@ class DataDistributionImplTest {
 
 		dist=new DataDistributionImpl(10.0,exampleDataDouble2);
 		assertEquals("3#4#2#0#1,5",dist.storeToLocalString("#"));
+
+		dist=new DataDistributionImpl(10.0,new double[0]);
+		assertEquals("",dist.storeToStringShort());
+
+		dist=new DataDistributionImpl(10.0,exampleDataDouble3);
+		assertEquals("3;4;2;0;1.5",dist.storeToStringShort());
 	}
 
 	/**

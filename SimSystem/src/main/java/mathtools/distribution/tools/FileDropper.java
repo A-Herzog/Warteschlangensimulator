@@ -46,7 +46,7 @@ public class FileDropper {
 	private final ActionListener actionListener;
 
 	/**
-	 * An die Zielkompnente angebundene Drop-Listener
+	 * An die Zielkomponente angebundene Drop-Listener
 	 */
 	private final FileDropListener[] listener;
 
