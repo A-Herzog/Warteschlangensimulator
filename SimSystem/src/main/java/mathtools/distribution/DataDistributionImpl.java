@@ -930,6 +930,49 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 
 	/**
 	 * Wandelt das in <code>densityData</code> gespeicherte Array aus Dichtewerten in eine Zeichenkette um.
+	 * Nullen am Ende werden entfernt.
+	 * Dabei werden Zahlen in System-Form ausgegeben.
+	 * @param separator	Trennzeichen für die Werte der Verteilung
+	 * @param recycleStringBuilder	StringBuilder, der zum Erstellen der Zeichenkette wiederverwendet werden soll
+	 * @return Dichte-Array als durch den Separator getrennte Zeichenkette
+	 * @see #densityData
+	 */
+	public String storeToStringShort(final String separator, final StringBuilder recycleStringBuilder) {
+		if (densityData.length==0) return "";
+
+		final StringBuilder sb;
+		if (recycleStringBuilder==null) {
+			sb=new StringBuilder(densityData.length*(separator.length()+2));
+		} else {
+			sb=recycleStringBuilder;
+			sb.setLength(0);
+		}
+
+		final StringBuilder reuseSB=new StringBuilder();
+		sb.append(NumberTools.formatSystemNumber(densityData[0],reuseSB));
+		int last=1;
+		for (int i=densityData.length-1;i>=1;i--) if (densityData[i]!=0) {last=i; break;}
+		for (int i=1;i<=last;i++) {
+			sb.append(separator);
+			sb.append(NumberTools.formatSystemNumber(densityData[i],reuseSB));
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * Wandelt das in <code>densityData</code> gespeicherte Array aus Dichtewerten in eine Zeichenkette um.
+	 * Nullen am Ende werden entfernt.
+	 * Dabei werden Zahlen in System-Form ausgegeben.
+	 * @return Dichte-Array als ";"-getrennte Zeichenkette
+	 * @see #densityData
+	 */
+	public String storeToStringShort() {
+		return storeToStringShort(";",null);
+	}
+
+	/**
+	 * Wandelt das in <code>densityData</code> gespeicherte Array aus Dichtewerten in eine Zeichenkette um.
 	 * Dabei werden Zahlen in lokaler Form ausgegeben.
 	 * @return Dichte-Array als ";"-getrennte Zeichenkette
 	 * @see #densityData

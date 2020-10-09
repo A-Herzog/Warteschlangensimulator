@@ -577,7 +577,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			if (getTimeMax()==0 || getTimeMax()==-1) {
 				node.setTextContent(NumberTools.formatSystemNumber(getReadOnlyDistribution().densityData[0]));
 			} else {
-				node.setTextContent(getReadOnlyDistribution().storeToString());
+				node.setTextContent(getReadOnlyDistribution().storeToStringShort());
 			}
 		}
 

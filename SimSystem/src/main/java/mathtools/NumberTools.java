@@ -34,7 +34,7 @@ import parser.MathCalcError;
  * Enthält einige statische Routinen zur Umwandlung von Zeichenketten in Zahlen
  * und umgekehrt.
  * @author Alexander Herzog
- * @version 2.6
+ * @version 2.7
  */
 public final class NumberTools {
 	/** String, der "0" enthält (um diesen nicht mehrfach anlegen zu müssen) */
@@ -71,6 +71,11 @@ public final class NumberTools {
 	 * @see #formatLongNoGrouping(long, StringBuilder)
 	 */
 	private static String[] longCacheNoGrouping;
+
+	/** Plus unendlich */
+	private static final String plusInifityString="Infinity";
+	/** Minus unendlich */
+	private static final String minusInifityString="-Infinity";
 
 	/**
 	 * Diese Klasse kann nicht instanziert werden.
@@ -1204,6 +1209,9 @@ public final class NumberTools {
 	public static Double getDouble(final String s) {
 		if (s==null) return null;
 
+		if (s.equals(plusInifityString)) return Double.POSITIVE_INFINITY;
+		if (s.equals(minusInifityString)) return Double.NEGATIVE_INFINITY;
+
 		boolean isPlain=true;
 		boolean hasDecimal=false;
 		final int len=s.length();
@@ -1243,6 +1251,9 @@ public final class NumberTools {
 	 */
 	public static Double getPlainDouble(String s) {
 		if (s==null) return null;
+
+		if (s.equals(plusInifityString)) return Double.POSITIVE_INFINITY;
+		if (s.equals(minusInifityString)) return Double.NEGATIVE_INFINITY;
 
 		boolean hasDecimal=false;
 		final int len=s.length();
@@ -1392,6 +1403,7 @@ public final class NumberTools {
 		return d;
 	}
 
+
 	/**
 	 * Versucht den übergebenen String in eine <code>Double</code>-Zahl umzuwandeln,
 	 * akzeptiert dabei jedoch nur nicht negative Werte.
@@ -1400,6 +1412,7 @@ public final class NumberTools {
 	 */
 	public static Double getNotNegativeDouble(final String s) {
 		if (s==null) return null;
+		if (s.equals(plusInifityString)) return Double.POSITIVE_INFINITY;
 		final Double d=getDouble(s); if (d==null) return null;
 		if (d<0) return null;
 		return d;
@@ -1447,6 +1460,7 @@ public final class NumberTools {
 	 */
 	public static Double getPositiveDouble(final String s) {
 		if (s==null) return null;
+		if (s.equals(plusInifityString)) return Double.POSITIVE_INFINITY;
 		final Double d=getDouble(s); if (d==null) return null;
 		if (d<=0) return null;
 		return d;
