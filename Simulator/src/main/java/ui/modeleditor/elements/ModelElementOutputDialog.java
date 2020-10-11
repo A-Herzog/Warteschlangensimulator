@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -46,6 +47,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementOutput
  */
 public class ModelElementOutputDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1828468870634988424L;
 
 	private JTextField fileNameEdit;

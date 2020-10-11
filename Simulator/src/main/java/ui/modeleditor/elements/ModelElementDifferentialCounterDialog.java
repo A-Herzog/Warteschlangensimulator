@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -35,6 +36,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementDifferentialCounter
  */
 public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8074769774808895018L;
 
 	private JTextField change;
@@ -75,6 +80,11 @@ public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialo
 		pack();
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 

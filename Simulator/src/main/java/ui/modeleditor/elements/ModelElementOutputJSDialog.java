@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -43,6 +44,10 @@ import ui.script.ScriptEditorPanel;
  * @see ModelElementOutputJS
  */
 public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2395379269131512946L;
 
 	private JTextField fileNameEdit;

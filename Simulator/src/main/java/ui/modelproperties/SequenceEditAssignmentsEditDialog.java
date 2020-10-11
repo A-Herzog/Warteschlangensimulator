@@ -113,6 +113,11 @@ public class SequenceEditAssignmentsEditDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessages	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 

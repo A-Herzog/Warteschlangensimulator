@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,6 +56,10 @@ import ui.modeleditor.ModelSurfaceAnimatorBase;
  * @author Alexander Herzog
  */
 public class DistributionOrExpressionByClientTypeEditor extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3506994764763479366L;
 
 	private final String[] variables;

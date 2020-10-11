@@ -34,6 +34,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	private List<RunDataClient> clients;
 	private boolean[] releaseClients;
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
 	private static final double toSec=1.0/1000.0;
 
 	/**

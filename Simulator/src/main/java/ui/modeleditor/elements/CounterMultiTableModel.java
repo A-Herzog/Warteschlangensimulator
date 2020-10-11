@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,10 @@ import ui.modeleditor.ModelSurface;
  * @see CounterMultiTableModel#buildTable(ModelElementCounterMulti, boolean)
  */
 public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4363552821558486303L;
 
 	private final JTableExt table;

@@ -19,6 +19,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementTankFlowData
  */
 public class ModelElementTankFlowDataPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4252147656372254664L;
 
 	private final List<String> sourceNames;

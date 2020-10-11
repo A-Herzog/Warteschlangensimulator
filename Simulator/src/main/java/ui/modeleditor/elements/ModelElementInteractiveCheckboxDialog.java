@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -40,6 +41,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementInteractiveCheckbox
  */
 public class ModelElementInteractiveCheckboxDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5160508922050000799L;
 
 	private JTextField editVariable;
@@ -111,6 +116,11 @@ public class ModelElementInteractiveCheckboxDialog extends ModelElementBaseDialo
 		return content;
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 

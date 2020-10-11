@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -37,6 +38,10 @@ import ui.modeleditor.ModelSurface;
  * @see ModelElementTankFlowBySignal
  */
 public class ModelElementTankFlowBySignalDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2994666788602531951L;
 
 	private JComboBox<String> signalCombo;

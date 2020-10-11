@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.swing.JComboBox;
@@ -40,6 +41,10 @@ import ui.modeleditor.coreelements.ModelElementBox;
  * @see ModelElementReference
  */
 public class ModelElementReferenceDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6987289177662484589L;
 
 	private int[] ids;
@@ -122,6 +127,11 @@ public class ModelElementReferenceDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 

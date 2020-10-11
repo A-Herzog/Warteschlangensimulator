@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,10 @@ import ui.modeleditor.ModelSurface;
  * @author Alexander Herzog
  */
 public class DistributionSetupTimesEditor extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -734275539715521114L;
 
 	private static final String cardDistribution="Distribution";

@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -42,6 +43,10 @@ import ui.script.ScriptEditorPanel;
  * @see ModelElementHoldJS
  */
 public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2971721070323863626L;
 
 	private ScriptEditorPanel editor;

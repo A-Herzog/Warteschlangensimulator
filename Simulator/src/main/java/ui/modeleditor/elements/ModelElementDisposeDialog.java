@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -33,6 +34,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementDispose
  */
 public class ModelElementDisposeDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
 	private JCheckBox stoppSimulationOnClientArrival;

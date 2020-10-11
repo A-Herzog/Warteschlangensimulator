@@ -43,7 +43,7 @@ public class DynamicSecurity {
 	private static final Semaphore mutex=new Semaphore(1);
 
 	/**
-	 * Konstruktur der Klasse.<br>
+	 * Konstruktor der Klasse.<br>
 	 * Kann nicht direkt aufgerufen werden. Stattdessen muss {@link DynamicSecurity#getInstance()} verwendet werden.
 	 */
 	private DynamicSecurity() {

@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -37,6 +38,10 @@ import ui.modeleditor.ModelSurface;
  * @see TransportResourceRecord
  */
 public class TransportResourceRecordDelayDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8918568202461941741L;
 
 	private final DistributionSystem data;

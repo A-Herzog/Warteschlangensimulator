@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @author Alexander Herzog
  */
 public class DistributionBySubTypeEditor extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3506994764763479366L;
 
 	/**

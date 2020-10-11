@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -31,6 +32,10 @@ import ui.script.ScriptEditorPanel;
  * @see ModelElementSetJS
  */
 public class ModelElementSetJSDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1150440090216789623L;
 
 	private ScriptEditorPanel editor;

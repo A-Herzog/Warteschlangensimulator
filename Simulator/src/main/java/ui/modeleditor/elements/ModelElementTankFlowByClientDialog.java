@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 
@@ -30,6 +31,10 @@ import ui.modeleditor.ModelSurface;
  * @see ModelElementTankFlowByClient
  */
 public class ModelElementTankFlowByClientDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6233496637014286459L;
 
 	private ModelElementTankFlowDataPanel data;

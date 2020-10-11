@@ -41,6 +41,7 @@ import tools.HexBin;
  * @version 1.0
  */
 public class UpdateSystemSignature {
+	/** Dateiname der Update-Datei, deren Signatur entweder geprüft werden soll oder für die eine Signatur erstellt werden soll */
 	private final File fileToCheck;
 
 	/**

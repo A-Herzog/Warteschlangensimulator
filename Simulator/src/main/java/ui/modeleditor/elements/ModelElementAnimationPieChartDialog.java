@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -43,6 +44,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementAnimationPieChart
  */
 public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=-893526302857552173L;
 
 	private JComboBox<String> labelMode;

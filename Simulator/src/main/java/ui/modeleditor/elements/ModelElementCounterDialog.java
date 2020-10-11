@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,6 +41,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementCounter
  */
 public class ModelElementCounterDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8074769774808895018L;
 
 	private JComboBox<String> groupName;
@@ -95,6 +100,11 @@ public class ModelElementCounterDialog extends ModelElementBaseDialog {
 		return (JPanel)data[0];
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 

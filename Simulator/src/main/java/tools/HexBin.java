@@ -6,9 +6,13 @@ package tools;
  * Byte-Arrays und umgekehrt.
  */
 public final class HexBin {
+	/** Länge der Zuordnungstabelle für Hex-Zeichen */
 	private static final int BASELENGTH=128;
+	/** Mögliche verschiedene Hex-Werte für eine Ziffer */
 	private static final int LOOKUPLENGTH=16;
+	/** Zuordnung Hex-Zeichen zu Dezimalwerten */
 	private static final byte[] hexNumberTable=new byte[BASELENGTH];
+	/** Zuordnung Dezimalwerte zu Hex-Zeichen */
 	private static final char[] lookUpHexAlphabet=new char[LOOKUPLENGTH];
 
 	/**

@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementTankSensor
  */
 public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1887665763539776879L;
 
 	private List<Integer> tankIDs;
@@ -193,6 +198,11 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessages	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 

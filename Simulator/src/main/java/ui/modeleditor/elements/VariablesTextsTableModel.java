@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,10 @@ import ui.images.Images;
  * @see ModelElementSourceRecordPanel
  */
 public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2614695330555791582L;
 
 	private final JTableExt table;

@@ -21,6 +21,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementSub
  */
 public class ModelElementSubEditDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6057942278443843417L;
 
 	private final EditModel model;

@@ -58,6 +58,9 @@ public class BackgroundPrepareCompiledClasses {
 		}
 	}
 
+	/**
+	 * Verzögert ausgeführter Thread-Inhalt zum Vorabladen der Klassen.
+	 */
 	private void work() {
 		final EditModel model=EditModelExamples.getExampleByIndex(null,0);
 		model.clientCount=250_000;

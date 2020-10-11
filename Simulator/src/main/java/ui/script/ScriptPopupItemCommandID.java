@@ -28,7 +28,9 @@ import systemtools.BaseDialog;
  * @see ScriptPopupItemCommandModel
  */
 public class ScriptPopupItemCommandID extends ScriptPopupItemCommandModel {
+	/** Soll wenn möglich in der Liste eine Bedienstation oder Verzögerungsstation initial ausgewählt werden? */
 	private final boolean preferProcessStations;
+	/** Liste der Klassen der Elementtypen auf die die Auswahl eingeschränkt werden soll (wird hier <code>null</code> oder eine leere Liste übergeben, so erfolgt keine Einschränkung) */
 	private final Class<?>[] stationTypes;
 
 	/**
@@ -73,7 +75,7 @@ public class ScriptPopupItemCommandID extends ScriptPopupItemCommandModel {
 	 * @param owner	Übergeordnetes Element (zur Ausrichtung des Dialogs)
 	 * @param model	Editor-Modell dem die Daten entnommen werden sollen
 	 * @param help	Hilfe-Runnable (für Dialog)
-	 * @param stationTypes	Liste der Klassen der Elementtypen auf die die Auswahl eingeschränkt werden soll (wird hier <code>null</code> oder eine leere Liste übergeben, so erfolgt keine Einschränkgun)
+	 * @param stationTypes	Liste der Klassen der Elementtypen auf die die Auswahl eingeschränkt werden soll (wird hier <code>null</code> oder eine leere Liste übergeben, so erfolgt keine Einschränkung)
 	 */
 	public ScriptPopupItemCommandID(final String name, final String hint, final Icon icon, final String command, final Component owner, final EditModel model, final Runnable help, final Class<?>[] stationTypes) {
 		super(name,hint,icon,command,owner,model,help);

@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -38,6 +39,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ResourceTableModel
  */
 public class ResourceTableModelDialog2 extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8062767531018749001L;
 
 	private final int groupMax;
@@ -77,6 +82,11 @@ public class ResourceTableModelDialog2 extends BaseDialog {
 		setLocationRelativeTo(getOwner());
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		final Integer I=NumberTools.getNotNegativeInteger(input,true);
 		if (groupMax>=0) {

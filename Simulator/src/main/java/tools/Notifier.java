@@ -51,6 +51,7 @@ public class Notifier {
 	/** Programmeinstellungen-Singleton */
 	private static final SetupData setup=SetupData.getSetup();
 
+	/** Aktueller Tray-Area-Eintrag */
 	private static TrayIcon lastIcon;
 
 	/**
@@ -61,6 +62,10 @@ public class Notifier {
 
 	}
 
+	/**
+	 * Entfernt die letzte Benachrichtigung
+	 * @return	Liefert <code>true</code>, wenn eine Benachrichtigung vorhanden war und entfernt werden konnte
+	 */
 	private static boolean removeLastNotify() {
 		if (lastIcon==null) return false;
 		try {
@@ -83,6 +88,11 @@ public class Notifier {
 	}
 	 */
 
+	/**
+	 * Zeigt eine Meldung mit einem bestimmten Text im Tray-Area an.
+	 * @param text	Anzuzeigende Meldung
+	 * @return	Liefert <code>true</code>, wenn die Meldung im Tray-Area angezeigt werden konnte
+	 */
 	private static boolean showMessage(final String text) {
 		try {
 			final SystemTray tray=SystemTray.getSystemTray();
@@ -104,6 +114,12 @@ public class Notifier {
 		return true;
 	}
 
+	/**
+	 * Liefert auf Basis des Nachrichtentyps die konkrete anzuzeigende Meldung
+	 * @param message	Nachrichtentyp
+	 * @return	Text der anzuzeigenden Meldung
+	 * @see #run(Message, long)
+	 */
 	private static String getMessageString(final Message message) {
 		switch (message) {
 		case SIMULATION_DONE: return Language.tr("Notifier.Message.SimulationDone");

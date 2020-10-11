@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -36,6 +37,10 @@ import ui.modeleditor.ModelSequences;
  * @see ModelElementAssignSequence
  */
 public class ModelElementAssignSequenceDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7609471043565949709L;
 
 	private JComboBox<String> sequenceCombo;

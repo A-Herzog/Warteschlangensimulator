@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementPickUp
  */
 public class ModelElementPickUpDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -3315657286325820864L;
 
 	private String[] queueNames;

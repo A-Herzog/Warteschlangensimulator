@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -43,6 +44,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementSeize
  */
 public class ModelElementSeizeDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1005631480133240168L;
 
 	private JTextField textResourcePriority;

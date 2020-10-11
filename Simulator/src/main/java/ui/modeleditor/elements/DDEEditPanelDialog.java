@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,10 @@ import ui.images.Images;
  * @see DDEEditPanel
  */
 public class DDEEditPanelDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2267758592237360567L;
 
 	private JTree tree;

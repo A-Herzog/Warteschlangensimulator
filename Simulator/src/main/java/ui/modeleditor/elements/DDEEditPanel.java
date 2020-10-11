@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ElementWithDDEInputOutput
  */
 public class DDEEditPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -3684756803611814267L;
 
 	private final Component owner;

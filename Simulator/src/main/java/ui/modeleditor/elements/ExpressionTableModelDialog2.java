@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -38,6 +39,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ExpressionTableModelDialog1
  */
 public class ExpressionTableModelDialog2 extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6910980984317800965L;
 
 	private final JComboBox<JLabel> lineWidth;

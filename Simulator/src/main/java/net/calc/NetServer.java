@@ -49,6 +49,7 @@ public abstract class NetServer {
 	private final String key;
 	/** Maximale Größe von empfangbaren Datenblöcken (zur Vermeidung von externen Angreifern induzierten Out-of-Memory-Fehlern) */
 	private final int maxTransferSize;
+	/** Socket der auf eingehende Verbindungen wartet */
 	private ServerSocket listenSocket;
 	private Thread listenThread;
 	private long runnerCounter;

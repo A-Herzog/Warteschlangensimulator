@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,6 +44,10 @@ import ui.modeleditor.ModelSurfacePanel;
  * @see ModelElementSub
  */
 public class ModelElementSubAnimationDialog extends BaseDialog implements RunModelAnimationViewer {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2350842116679968356L;
 
 	private final EditModel model;

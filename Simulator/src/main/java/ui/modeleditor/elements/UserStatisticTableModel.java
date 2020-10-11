@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,10 @@ import ui.modeleditor.ModelSurface;
  * @see ModelElementUserStatisticDialog
  */
 public class UserStatisticTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5314140428056671403L;
 
 	private final Runnable help;

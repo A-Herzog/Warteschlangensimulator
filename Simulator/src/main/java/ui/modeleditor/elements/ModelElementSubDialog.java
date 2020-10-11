@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -43,6 +44,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementSub
  */
 public class ModelElementSubDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2643627718628007295L;
 
 	private SpinnerModel inputField;

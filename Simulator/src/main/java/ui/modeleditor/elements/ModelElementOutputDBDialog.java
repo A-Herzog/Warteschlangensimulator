@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementOutputDB
  */
 public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4202107646574026037L;
 
 	private DBSettingsPanel db;
@@ -172,6 +177,11 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 		tableModel.updateDBColumnNames(cols);
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessages	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 

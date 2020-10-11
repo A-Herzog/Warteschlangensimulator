@@ -689,7 +689,7 @@ public class RunData {
 	}
 
 	/**
-	 * Erfasst die Kosten, die bedingt durch die Arbeiten an einer Station angefallensind
+	 * Erfasst die Kosten, die bedingt durch die Arbeiten an einer Station angefallen sind
 	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
 	 * @param station	Station
 	 * @param costs	Entstandene Kosten
@@ -819,7 +819,9 @@ public class RunData {
 	 * @see RunDataClient
 	 */
 	public static class IndicatorAccessCacheClientTypes {
+		/** Statistik-Objekt, bei dem der Zugriff auf die Teil-Indikatoren beschleunigt werden soll */
 		private final StatisticsMultiPerformanceIndicator multi;
+		/** Liste mit allen Kundentypnamen ({@link RunModel#clientTypes}) */
 		private final String[] clientTypes;
 		private final StatisticsPerformanceIndicator[] indicators;
 

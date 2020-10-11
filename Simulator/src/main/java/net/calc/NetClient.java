@@ -35,7 +35,9 @@ public final class NetClient {
 	private final String key;
 	/** Maximale Größe von empfangbaren Datenblöcken (zur Vermeidung von externen Angreifern induzierten Out-of-Memory-Fehlern) */
 	private final int maxTransferSize;
+	/** Socket der geöffnet wird und dann an {@link #transfer} übergeben wird */
 	private Socket socket;
+	/** Datenübertragungsklasse, die {@link #socket} nutzt */
 	private NetTransfer transfer;
 
 	/**

@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -30,6 +31,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementSeparate
  */
 public class ModelElementSeparateDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3717541007870573091L;
 
 	/**

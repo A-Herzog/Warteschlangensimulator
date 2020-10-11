@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -35,6 +36,10 @@ import ui.modeleditor.ModelSurface;
  * @see ModelElementTankValveSetup
  */
 public class ModelElementTankValveSetupDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2318993244622873645L;
 
 	private ModelElementTankValveSetupTableModel tableModel;

@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Map;
 
@@ -44,6 +45,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementTransportTransporterSource
  */
 public class PriorityTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4369405484601947657L;
 
 	private final JTableExt table;

@@ -28,6 +28,7 @@ import mathtools.Table;
 public class RunDataOutputWriter {
 	private static final int BUFFER_SIZE=2^18;
 
+	/** Datei, in die die Ausgabe erfolgen soll */
 	private final File outputFile;
 
 	private static final int MODE_TEXT=0;

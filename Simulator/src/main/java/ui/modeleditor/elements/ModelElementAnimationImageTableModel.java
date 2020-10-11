@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,10 @@ import ui.modeleditor.ScaledImageCache;
  * @see ModelElementAnimationImage
  */
 public class ModelElementAnimationImageTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6468064552683722803L;
 
 	private final JTableExt table;

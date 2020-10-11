@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -34,6 +35,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementUserStatistic
  */
 public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1758925669523956820L;
 
 	private UserStatisticTableModel tableModel;

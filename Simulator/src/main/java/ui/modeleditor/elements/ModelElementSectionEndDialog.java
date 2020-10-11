@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementSectionEnd
  */
 public class ModelElementSectionEndDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7399579014904281396L;
 
 	private JComboBox<String> sectionStart;

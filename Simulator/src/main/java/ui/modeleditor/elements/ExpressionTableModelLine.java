@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,10 @@ import ui.images.Images;
  * @see ModelElementAnimationLineDiagram
  */
 public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -3888805430308717205L;
 
 	private final JTableExt table;

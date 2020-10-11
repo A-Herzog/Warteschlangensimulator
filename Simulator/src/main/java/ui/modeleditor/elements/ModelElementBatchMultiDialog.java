@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementBatchMulti
  */
 public class ModelElementBatchMultiDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -3486370612949864100L;
 
 	private List<String> clientTypes;

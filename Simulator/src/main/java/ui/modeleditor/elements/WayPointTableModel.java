@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementWayPoint
  */
 public class WayPointTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6666152316668456454L;
 
 	private final JTableExt table;

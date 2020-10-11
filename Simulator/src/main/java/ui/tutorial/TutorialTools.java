@@ -43,9 +43,25 @@ public class TutorialTools {
 	 */
 	private TutorialTools() {}
 
+	/**
+	 * Speichert die per {@link #getSurface(MainPanel)}
+	 * aus dem Editor entnommene Zeichenfläche zwischen.
+	 * @see #getSurface(MainPanel)
+	 */
 	private static ModelSurface surface=null;
+
+	/**
+	 * Speicher das per {@link #getModel(MainPanel)}
+	 * aus dem Editor entnommene Modell zwischen.
+	 * @see #getModel(MainPanel)
+	 */
 	private static EditModel model=null;
 
+	/**
+	 * Liefert die Zeichenfläche aus {@link MainPanel}
+	 * @param mainPanel	Panel dem die Zeichenfläche entnommen werden soll
+	 * @return	Zeichenfläche
+	 */
 	private static synchronized ModelSurface getSurface(final MainPanel mainPanel) {
 		surface=null;
 		try {
@@ -56,6 +72,11 @@ public class TutorialTools {
 		return surface;
 	}
 
+	/**
+	 * Liefert das Modell aus {@link MainPanel}
+	 * @param mainPanel	Panel dem das Modell entnommen werden soll
+	 * @return	Modell
+	 */
 	private static synchronized EditModel getModel(final MainPanel mainPanel) {
 		model=null;
 		try {

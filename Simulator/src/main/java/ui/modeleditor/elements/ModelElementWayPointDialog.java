@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -38,6 +39,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementWayPoint
  */
 public class ModelElementWayPointDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8966929906311201419L;
 
 	private DefaultComboBoxModel<JLabel> iconChooserList;

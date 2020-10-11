@@ -22,6 +22,7 @@ import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -43,6 +44,10 @@ import ui.tools.ImageChooser;
  * @see ModelElementAnimationImage
  */
 public class ModelElementAnimationImageTableModelDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5124598515121790386L;
 
 	private final EditModel model;
@@ -87,6 +92,11 @@ public class ModelElementAnimationImageTableModelDialog extends BaseDialog {
 		setSizeRespectingScreensize(500,450);
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		if (expressionEdit==null) return true;
 

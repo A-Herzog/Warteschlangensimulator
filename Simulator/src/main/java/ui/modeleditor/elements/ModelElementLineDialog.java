@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementLine
  */
 public class ModelElementLineDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7667068339479220507L;
 
 	private JComboBox<JLabel> lineWidth;

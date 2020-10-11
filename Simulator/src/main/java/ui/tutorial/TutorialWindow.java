@@ -68,6 +68,7 @@ public class TutorialWindow extends JFrame {
 
 	/** Programm-<code>MainPanel</code> mit dem das interaktive Tutorial zusammenarbeiten soll. */
 	private final MainPanel mainPanel;
+	/** Fenster in dem sich das {@link #mainPanel} befindet */
 	private final JFrame mainFrame;
 	private Point saveMainFrameLocation;
 	private Dimension saveMainFrameSize;

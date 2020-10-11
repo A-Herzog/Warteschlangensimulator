@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -36,6 +37,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementStateStatistics
  */
 public class ModelElementStateStatisticsDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4627379159238637068L;
 
 	private JTextField groupName;
@@ -75,6 +80,11 @@ public class ModelElementStateStatisticsDialog extends ModelElementBaseDialog {
 		return (JPanel)data[0];
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 

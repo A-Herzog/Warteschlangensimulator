@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -36,6 +37,10 @@ import ui.tools.ImageChooser;
  * @see ModelElementImage
  */
 public class ModelElementImageDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7824874736501593918L;
 
 	private JComboBox<JLabel> lineWidth;

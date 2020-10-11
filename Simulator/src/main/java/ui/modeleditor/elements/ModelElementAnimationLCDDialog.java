@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -44,6 +45,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementAnimationLCD
  */
 public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1510688071490180154L;
 
 	private JTextField editExpression;
@@ -126,6 +131,11 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessages	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessages) {
 		if (readOnly) return false;
 

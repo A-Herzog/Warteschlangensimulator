@@ -23,6 +23,7 @@ import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -49,6 +50,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementInput
  */
 public class ModelElementInputDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1357526102307520065L;
 
 	private JTextField fileNameEdit;
@@ -181,6 +186,11 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 

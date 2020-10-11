@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -42,6 +43,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementAnimationTextSelect
  */
 public class ExpressionTableModelTextDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8571023684342497012L;
 
 	private final String[] variableNames;
@@ -94,6 +99,11 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessages	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 

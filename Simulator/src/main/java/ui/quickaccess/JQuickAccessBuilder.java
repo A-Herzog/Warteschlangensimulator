@@ -30,7 +30,9 @@ import javax.swing.ImageIcon;
  * @see JQuickAccessTextField#getQuickAccessRecords(String)
  */
 public class JQuickAccessBuilder {
+	/** Liste der Schnellzugriffsergebnissen */
 	private final List<JQuickAccessRecord> list;
+	/** Eingegebener Text in Kleinbuchstaben */
 	private final String quickAccessTextLower;
 	private final boolean searchInPreText;
 

@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,10 @@ import ui.modeleditor.elements.ModelElementTankValveSetup.ValveSetup;
  * @see ModelElementTankValveSetup
  */
 public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4122007587514525620L;
 
 	private final JTableExt table;

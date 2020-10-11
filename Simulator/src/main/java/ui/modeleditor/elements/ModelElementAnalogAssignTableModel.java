@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementAnalogAssign
  */
 public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2606544913680450121L;
 
 	private final JTableExt table;

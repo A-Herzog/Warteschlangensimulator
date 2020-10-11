@@ -904,6 +904,11 @@ public class MainPanel extends MainPanelBase {
 		return text.toString();
 	}
 
+	/**
+	 * Erzeugt einen Menüpunkt, der nur einen Text anzeigt und nicht anklickbar ist
+	 * @param text	Text für den Menüpunkt
+	 * @return	Neuer Menüpunkt
+	 */
 	private JMenuItem createTextOnlyItem(final String text) {
 		final JMenuItem item=new JMenuItem(text);
 		Font font=item.getFont();
@@ -1258,6 +1263,12 @@ public class MainPanel extends MainPanelBase {
 		return menubar;
 	}
 
+	/**
+	 * Liefert basierend auf einem Suchtext passende Schnellzugriffs-Einträge
+	 * @param quickAccessText	Eingegebener Suchtext
+	 * @return	Liste mit passenden Schnellzugriffs-Einträgen
+	 * @see #quickAccess
+	 */
 	private List<JQuickAccessRecord> getCurrentQuickAccessRecords(final String quickAccessText) {
 		final JQuickAccess quickAccess=new JQuickAccess(quickAccessText);
 		final List<JQuickAccessRecord> list=new ArrayList<>();
@@ -1414,6 +1425,13 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Prüft, ob eine Datei existiert
+	 * @param file	Zu prüfende Datei
+	 * @param errorMessageOnFail	Soll eine Fehlermeldung ausgegeben werden, wenn die Datei nicht existiert?
+	 * @return	Liefert <code>true</code>, wenn die Datei existiert
+	 * @see #loadAnyFile(File, Component, Point, boolean)
+	 */
 	private boolean checkFileExists(File file, boolean errorMessageOnFail) {
 		if (file==null) {
 			if (errorMessageOnFail)	MsgBox.error(getOwnerWindow(),Language.tr("XML.LoadErrorTitle"),Language.tr("XML.NoFileSelected"));
@@ -1606,12 +1624,20 @@ public class MainPanel extends MainPanelBase {
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) commandFileModelExample(dialog.getExample());
 	}
 
+	/**
+	 * Befehl: Datei - Beispiel laden - Nummer des Beispiels
+	 * @param index	Nummer des zu ladenden Beispiels
+	 */
 	private void commandFileModelExample(final int index) {
 		final EditModel newModel=EditModelExamples.getExampleByIndex(getOwnerWindow(),index);
 		if (newModel==null) return;
 		commandFileModelExample(newModel);
 	}
 
+	/**
+	 * Lädt ein Beispiel nach dem Neuladen des Fensters neu
+	 * @param newModel	Zu ladendes Beispielmodell
+	 */
 	private void commandFileModelExample(final EditModel newModel) {
 		if (newModel==null) return;
 		if (!isDiscardModelOk()) return;
@@ -1815,12 +1841,20 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Bearbeiten - Neue Elemente automatisch verbinden
+	 * @param connectMode	Art der Auto-Verbindung
+	 */
 	private void commandEditToggleAutoConnect(final ModelSurfacePanel.ConnectMode connectMode) {
 		setup.autoConnect=connectMode;
 		setup.saveSetup();
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Bearbeiten - Stationen beim Kopieren umbenennen
+	 * @param renameOnCopy	Art wie Kopien umbenannt werden sollen
+	 */
 	private void commandEditToggleRenameOnCopy(final SetupData.RenameOnCopyMode renameOnCopy) {
 		setup.renameOnCopy=renameOnCopy;
 		setup.saveSetup();
@@ -2345,6 +2379,10 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Simulation - Animationskonfiguration - Animationsstart
+	 * @param paused	Animation im Pausemodus starten ?
+	 */
 	private void commandSimulationAnimationStartMode(final boolean paused) {
 		if (setup.animationStartPaused==paused) return;
 		setup.animationStartPaused=paused;
@@ -2352,6 +2390,10 @@ public class MainPanel extends MainPanelBase {
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Simulation - Animationskonfiguration - Analoge Werte in Animation
+	 * @param useSlowModeAnimation	Animation langsam und dafür in Bezug auf analoge Werte schöner darstellen
+	 */
 	private void commandSimulationAnalogValuesSlow(final boolean useSlowModeAnimation) {
 		if (setup.useSlowModeAnimation==useSlowModeAnimation) return;
 		setup.useSlowModeAnimation=useSlowModeAnimation;
@@ -2359,12 +2401,18 @@ public class MainPanel extends MainPanelBase {
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Simulation - Animationskonfiguration - Verzeichnis zum Speichern von Bildern - Im Nutzerverzeichnis speichern
+	 */
 	private void commandSimulationAnimationScreenshotModeHome() {
 		setup.imagePathAnimation="";
 		setup.saveSetup();
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Simulation - Animationskonfiguration - Verzeichnis zum Speichern von Bildern - In ausgewähltem Verzeichnis speichern
+	 */
 	private void commandSimulationAnimationScreenshotModeCustom() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -2892,6 +2940,13 @@ public class MainPanel extends MainPanelBase {
 		},this));
 	}
 
+	/**
+	 * Öffnet eine pdf.<br>
+	 * Zunächst wird die pdf im "docs"-Unterverzeichnis des Programmverzeichnisses
+	 * gesucht. Ist dort keine passende Datei vorhanden, so wird versucht, die
+	 * Datei im Browser auf der Warteschlangensimulator-Homepage zu öffnen.
+	 * @param fileName	Dateiname der pdf (ohne weiteren Pfad)
+	 */
 	private void openPDF(final String fileName) {
 		final File local=new File(SetupData.getProgramFolder(),"docs/"+fileName);
 		if (local.isFile()) {
@@ -2994,6 +3049,10 @@ public class MainPanel extends MainPanelBase {
 		openPDF(Language.tr("Main.Menu.Help.DistributionReference.pdf"));
 	}
 
+	/**
+	 * Befehl: Hilfe - Empfohlende Literatur
+	 * @param index	Nummer des Buches zu dem die Homepage aufgerufen werden soll
+	 */
 	private void commandHelpLiterature(final int index) {
 		String url=null;
 

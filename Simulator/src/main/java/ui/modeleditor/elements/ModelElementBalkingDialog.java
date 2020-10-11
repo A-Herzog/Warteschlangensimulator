@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -50,6 +51,10 @@ import ui.modeleditor.ModelSurfaceAnimatorBase;
  * @see ModelElementBalking
  */
 public class ModelElementBalkingDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1324564696068004152L;
 
 	private String[] clientNames;
@@ -217,6 +222,11 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 		optionGlobal.setEnabled(!readOnly && lastCombo>0);
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 

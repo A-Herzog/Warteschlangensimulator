@@ -169,6 +169,11 @@ public class EditTemplateDialog extends BaseDialog {
 		return String.format(Language.tr("UserTemplates.AddDialog.Info"),countStations,countAll);
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 

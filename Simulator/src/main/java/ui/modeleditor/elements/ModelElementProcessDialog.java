@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -56,6 +57,10 @@ import ui.modeleditor.ModelSurface;
  * @see ModelElementProcess
  */
 public class ModelElementProcessDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
 	private String[] variables;

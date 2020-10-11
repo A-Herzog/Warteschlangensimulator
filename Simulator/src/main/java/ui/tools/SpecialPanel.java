@@ -66,6 +66,7 @@ public class SpecialPanel extends JPanel {
 	private List<JButton> userButtons=new ArrayList<>();
 	/** Listener, der benachrichtigt wird, wenn eine Schaltflächen auf dem Toolbar angeklickt wird */
 	private ButtonListener buttonListener=new ButtonListener();
+	/** Warte-Indicator (ganz rechts in der Symbolleiste) */
 	private JLabel waitIndicator=null;
 
 	/**

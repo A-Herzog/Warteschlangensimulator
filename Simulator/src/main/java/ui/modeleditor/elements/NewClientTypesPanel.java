@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +38,10 @@ import ui.quickaccess.JPlaceholderTextField;
  * @see ModelElementDuplicateDialog
  */
 public class NewClientTypesPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7672837912637436515L;
 
 	private final List<JTextField> nameEdit;

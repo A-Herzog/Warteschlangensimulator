@@ -56,6 +56,7 @@ public class BackgroundSystem {
 
 	private static Map<EditorPanel,BackgroundSystem> system;
 
+	/** Referenz auf das Setup-Singleton */
 	private static final SetupData setup=SetupData.getSetup();
 	private SetupData.BackgroundProcessingMode lastBackgroundMode;
 	private Timer timer;

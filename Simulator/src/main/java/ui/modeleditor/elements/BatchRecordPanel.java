@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -38,6 +39,10 @@ import systemtools.MsgBox;
  * @see BatchRecord
  */
 public class BatchRecordPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 540893978614092794L;
 
 	private final BatchRecord batchRecord;

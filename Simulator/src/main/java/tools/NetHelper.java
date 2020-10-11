@@ -83,6 +83,11 @@ public class NetHelper {
 		return new Proxy(Proxy.Type.HTTP, new InetSocketAddress(setup.proxyHost,setup.proxyPort));
 	}
 
+	/**
+	 * Führt einen minimalen Zertifikat-Check durch.
+	 * @param certificates	Zu prüfende Zertifikate
+	 * @return	Liefert <code>true</code> wenn zu der Webseite, die die Zertifikate verwendet, eine Verbindung aufgebaut werden darf
+	 */
 	private static boolean checkCertificate(final Certificate[] certificates) {
 		if (certificates==null || certificates.length==0) return false;
 

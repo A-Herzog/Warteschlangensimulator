@@ -43,6 +43,7 @@ public class DDEConnect {
 	 */
 	public static String EXCEL_LANGUAGE_DEFAULT_COL_IDENTIFIER="C";
 
+	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
 	private final StringBuilder nameBuilderCache;
 

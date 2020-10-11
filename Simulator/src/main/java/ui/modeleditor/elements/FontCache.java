@@ -65,13 +65,23 @@ public class FontCache {
 		/** Name der Schriftart (aus Font-Objekt-Sicht) */
 		public final String name;
 
+		/** Lokalisierter Name der Schriftart (kann <code>null</code> sein) */
 		private final Supplier<String> localName;
 
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name der Schriftart (aus Font-Objekt-Sicht)
+		 */
 		FontFamily(final String name) {
 			this.name=name;
 			localName=null;
 		}
 
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name der Schriftart (aus Font-Objekt-Sicht)
+		 * @param localName	Lokalisierter Name der Schriftart
+		 */
 		FontFamily(final String name, final Supplier<String> localName) {
 			this.name=name;
 			this.localName=localName;

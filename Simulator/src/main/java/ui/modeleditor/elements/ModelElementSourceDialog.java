@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -34,6 +35,10 @@ import ui.modelproperties.ModelPropertiesDialog;
  * @see ModelElementSource
  */
 public final class ModelElementSourceDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
 	private ModelElementSourceRecordPanel recordPanel;

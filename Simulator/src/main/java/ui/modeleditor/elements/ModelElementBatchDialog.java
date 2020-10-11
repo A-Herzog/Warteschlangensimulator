@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 
@@ -29,6 +30,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementBatch
  */
 public class ModelElementBatchDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 491234735571463778L;
 
 	private BatchRecordPanel batchRecordPanel;

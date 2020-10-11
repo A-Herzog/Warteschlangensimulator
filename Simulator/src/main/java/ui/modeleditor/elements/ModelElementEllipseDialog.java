@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.Hashtable;
 
 import javax.swing.JCheckBox;
@@ -40,6 +41,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementEllipse
  */
 public class ModelElementEllipseDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -632809253464205676L;
 
 	private JComboBox<JLabel> lineWidth;

@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -32,6 +33,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementDuplicate
  */
 public class ModelElementDuplicateDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
 	private NewClientTypesPanel newClientTypes;

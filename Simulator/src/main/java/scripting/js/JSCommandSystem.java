@@ -48,6 +48,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 
 	private Map<String,ExpressionCalc> expressionCache;
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
 	private static final double toSec=1.0/1000.0;
 
 	/**

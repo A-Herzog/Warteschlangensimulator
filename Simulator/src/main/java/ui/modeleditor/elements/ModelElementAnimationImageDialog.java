@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -39,6 +40,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementAnimationImage
  */
 public class ModelElementAnimationImageDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7981574083085828123L;
 
 	private ModelElementAnimationImageTableModel tableImages;

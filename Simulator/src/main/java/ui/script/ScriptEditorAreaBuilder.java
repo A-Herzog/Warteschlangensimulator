@@ -52,6 +52,7 @@ public class ScriptEditorAreaBuilder {
 	private final boolean readOnly;
 	/** Listener, der bei Tastendruck benachrichtigt werden soll (darf <code>null</code> sein) */
 	private final Consumer<KeyEvent> keyListener;
+	/** Initialer Text für das Eingabefeld */
 	private String initialText;
 	private ActionListener fileDropListener;
 	private Set<ScriptPopup.ScriptFeature> features;

@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -33,6 +34,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementAction
  */
 public class ModelElementActionDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8866293723412873307L;
 
 	private ModelElementActionRecordTableModel tableData;

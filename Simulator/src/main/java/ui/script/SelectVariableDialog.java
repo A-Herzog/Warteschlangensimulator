@@ -42,6 +42,7 @@ public class SelectVariableDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -5308507430316777428L;
 
+	/** Auswahlfeld für die verfügbaren Variablen */
 	private final JComboBox<String> combo;
 	/** Liste der Variablennamen */
 	private final String[] variableNames;

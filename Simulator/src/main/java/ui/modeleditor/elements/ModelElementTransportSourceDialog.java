@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementTransportSource
  */
 public class ModelElementTransportSourceDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3463014644258916438L;
 
 	private TransportTimeRecordPanel transportTimeRecordPanel;

@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,10 @@ import ui.modeleditor.coreelements.ModelElementBox;
  * @see ModelElementDecide
  */
 public final class ModelElementDecideDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1706008891307759220L;
 
 	private JComboBox<String> modeSelect;

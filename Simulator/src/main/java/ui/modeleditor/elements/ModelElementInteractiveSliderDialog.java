@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -40,6 +41,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementInteractiveSlider
  */
 public class ModelElementInteractiveSliderDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7524897419484118673L;
 
 	private JTextField editVariable;
@@ -121,6 +126,11 @@ public class ModelElementInteractiveSliderDialog extends ModelElementBaseDialog 
 		return content;
 	}
 
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 
