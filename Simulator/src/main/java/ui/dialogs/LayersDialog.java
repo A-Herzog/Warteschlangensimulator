@@ -7,6 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,6 +42,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelSurface#getActiveLayer()
  */
 public class LayersDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=6848493693191362564L;
 
 	/** Modell aus dem die Ebenendaten ausgelesen werden und auch in das die Daten zurückgeschrieben werden */

@@ -47,6 +47,7 @@ public class HTMLOutputBuilder extends SpecialOutputBuilder {
 		JSONLY
 	}
 
+	/** Ausgabemodus */
 	private final Mode mode;
 	private final Point canvasSize;
 	private final Map<String,String> userJSFunctions;

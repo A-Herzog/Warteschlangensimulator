@@ -26,8 +26,11 @@ import javax.swing.JTextArea;
  * @see ScriptPopup
  */
 public class ScriptPopupItem {
+	/** Name des Eintrags (kann <code>null</code> sein) */
 	private final String name;
+	/** Tooltip des Eintrags (kann <code>null</code> sein) */
 	private final String hint;
+	/** Icon für den Eintrags (kann <code>null</code> sein) */
 	private final Icon icon;
 
 	/**

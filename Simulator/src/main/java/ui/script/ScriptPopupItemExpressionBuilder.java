@@ -31,7 +31,9 @@ import ui.modeleditor.ModelSurface;
  * @see ScriptPopupItemCommandModel
  */
 public class ScriptPopupItemExpressionBuilder extends ScriptPopupItem {
+	/** Statistik-Objekt aus dessen XML-Repräsentation die Daten ausgewählt werden sollen */
 	private final Statistics statistics;
+	/** Ausgabe als Java- oder als Javascript-Befehl */
 	private final ScriptPopup.ScriptMode scriptMode;
 
 	/**

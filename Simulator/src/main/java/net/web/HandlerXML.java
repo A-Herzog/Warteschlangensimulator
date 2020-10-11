@@ -27,8 +27,11 @@ import fi.iki.elonen.NanoHTTPD.IHTTPSession;
  * @see WebServerHandler
  */
 public class HandlerXML implements WebServerHandler {
+	/** Pfad zu dem Dokument aus Server-Sicht (sollte mit "/" beginnen) */
 	private final String serverURL;
+	/** Supplier, der im Anfragefall das XML-Dokument liefert */
 	private final Supplier<Document> xmlSupplier;
+	/** Wird hier ein nicht-leerer String übergeben, so wird dem Browser mitgeteilt, dass das Dokument zum Speichern und nicht zum Anzeigen bestimmt ist und der hier angegebene Name wird als Vorschlag verwendet. */
 	private final String downloadFileName;
 
 	/**

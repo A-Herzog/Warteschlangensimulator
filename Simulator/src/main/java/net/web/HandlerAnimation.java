@@ -51,8 +51,11 @@ import ui.tools.ServerPanel;
  * @see WebServerHandler
  */
 public class HandlerAnimation implements WebServerHandler {
+	/** Pfad zu dem Dokument aus Server-Sicht (sollte mit "/" beginnen) */
 	private final String serverURL;
+	/** Pfad zu dem Animations-HTML-Dokument aus Java-Ressourcen-Sicht ("%LANG%" wird durch die aktuelle Sprache, also "de" oder "en" ersetzt) */
 	private final String localURL;
+	/** Hauptpanel des Simulators */
 	private final MainPanel mainPanel;
 
 	/**

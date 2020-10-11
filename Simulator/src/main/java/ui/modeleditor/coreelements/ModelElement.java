@@ -91,13 +91,54 @@ public class ModelElement {
 	 */
 	protected final ModelSurface surface;
 
+	/**
+	 * ID des Elements
+	 * @see #getId()
+	 * @see #setId(int)
+	 */
 	private int id;
+
+	/**
+	 * Namen des Elements
+	 * @see #getName()
+	 * @see #setName(String)
+	 */
 	private String name;
+
+	/**
+	 * Beschreibung für das Element
+	 * @see #getDescription()
+	 * @see #setDescription(String)
+	 */
 	private String description;
+
+	/**
+	 * Löschschutz für das Element
+	 * @see #isDeleteProtected()
+	 * @see #setDeleteProtection(boolean)
+	 */
 	private boolean deleteProtection;
+
+	/**
+	 * Ist das Element momentan selektiert?
+	 * @see #isSelected()
+	 * @see #setSelected(boolean)
+	 */
 	private boolean selected;
+
+	/**
+	 * Ist das Element momentan über eine Bereichsselektion ausgewählt?
+	 * @see #isSelectedArea()
+	 * @see #setSelectedArea(boolean)
+	 * @see #setSelectedArea(Rectangle)
+	 */
 	private boolean selectedArea;
 
+	/**
+	 * Liste der Ebenen auf denen dieses Element dargestellt werden soll
+	 * @see #getLayers()
+	 * @see #isVisibleOnLayer(List, List)
+	 */
 	private final List<String> layers;
 
 	/**

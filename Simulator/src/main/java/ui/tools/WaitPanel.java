@@ -18,6 +18,7 @@ package ui.tools;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,6 +49,10 @@ import ui.images.Images;
  * @author Alexander Herzog
  */
 public class WaitPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3524929788005334671L;
 
 	private static final int MODE_MULTI_DAYS=0;

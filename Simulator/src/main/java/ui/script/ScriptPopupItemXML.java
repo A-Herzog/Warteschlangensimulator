@@ -33,8 +33,11 @@ import ui.statistics.StatisticViewerFastAccessDialog;
  */
 public class ScriptPopupItemXML extends ScriptPopupItem {
 	private final EditModel model;
+	/** Statistik-Objekt aus dessen XML-Repräsentation die Daten ausgewählt werden sollen */
 	private final Statistics statistics;
+	/** Hilfe-Runnable für den Auswahldialog */
 	private final Runnable help;
+	/** Ausgabe als Java- oder als Javascript-Befehl */
 	private final ScriptPopup.ScriptMode scriptMode;
 
 	/**

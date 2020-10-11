@@ -21,6 +21,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Supplier;
@@ -53,6 +54,10 @@ import ui.modeleditor.elements.ModelElementAnimationRecord;
  * @see ModelElementAnimationLineDiagram
  */
 public class ModelElementAnimationTableDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7508979174535787490L;
 
 	/** Timer für automatische Aktualisierungen */

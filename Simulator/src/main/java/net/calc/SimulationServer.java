@@ -52,6 +52,7 @@ public class SimulationServer extends NetServer {
 	/** Bezeichner für die Fehlermeldung "Client- und Serverversion passen nicht zueinander." */
 	public static String PREPARE_VERSION_MISMATCH="Client- und Serverversion passen nicht zueinander.";
 
+	/** Wird <code>true</code> übergeben, so werden nicht mehr gleichzeitige Tasks angenommen, als logische CPU-Kerne für die Threads vorhanden sind. */
 	private final boolean limitThreadCount;
 	private int runningThreads;
 	private int simulationCount;

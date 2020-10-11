@@ -57,8 +57,12 @@ import ui.mjpeg.MJPEGSystem;
  * @see Statistics#longRunStatistics
  */
 public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart {
+	/**
+	 * Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen
+	 */
 	private final Statistics statistics;
 
+	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN};
 
 	private JPanel fullPanel;

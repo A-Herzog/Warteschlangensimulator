@@ -36,9 +36,12 @@ import ui.modeleditor.elements.ModelElementSub;
  */
 public class ModelImpl implements ModelInterface {
 	private boolean canceled;
+	/** Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen */
 	private final Consumer<String> output;
+	/** Ausgangsmodell */
 	private final EditModel original;
 	private EditModel model;
+	/** Statistik-Objekt, welches die Simulationsergebnisse später bereitstellen soll */
 	private final StatisticsImpl statisticsConnect;
 
 	/**

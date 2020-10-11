@@ -36,6 +36,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashSet;
@@ -129,6 +130,10 @@ import ui.statistics.StatisticTools;
  * @author Alexander Herzog
  */
 public final class EditorPanel extends EditorPanelBase {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 871808238984135272L;
 
 	private boolean guiReady=false; /* Brauchen wir, wenn der Code von ProGuard verändert wird */
@@ -141,6 +146,7 @@ public final class EditorPanel extends EditorPanelBase {
 	private long clientCount;
 	private double warmUpTime;
 
+	/** Übergeordnetes Element */
 	private final Component owner;
 
 	private ToolbarListener toolbarListener;

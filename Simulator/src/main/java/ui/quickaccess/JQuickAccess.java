@@ -39,6 +39,9 @@ import tools.SetupData;
  * @see JQuickAccessTextField
  */
 public class JQuickAccess {
+	/**
+	 * Liste aller verfügbaren QuickAccess-Builder (aktiv und deaktiviert).
+	 */
 	private List<JQuickAccessBuilder> list;
 
 	/**

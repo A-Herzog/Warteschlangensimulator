@@ -32,6 +32,7 @@ import ui.modeleditor.ModelSurface;
  */
 public abstract class ModelElementAnimationCustomDrawExpression extends ModelElementAnimationCustomDraw {
 	private ExpressionCalc drawExpression;
+	/** Ausdruck dessen Berechnungsergebnis angezeigt werden soll */
 	private String expression;
 
 	/**

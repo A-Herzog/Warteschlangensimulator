@@ -29,8 +29,11 @@ import simcore.logging.SimLogging;
  * @see DDEConnect
  */
 public class DDELogger implements SimLogging {
+	/** Zu verwendende Excel-Arbeitsmappe */
 	private final String workbook;
+	/** Zu verwendende Tabelle innerhalb der Arbeitsmappe (die Ausgabe erfolgt ab Zeile 1, Spalte 1; vorhandene Daten werden überschrieben) */
 	private final String sheet;
+	/** IDs mit ausgeben */
 	private final boolean printIDs;
 	private final DDEConnect connect;
 	private final boolean ready;
@@ -38,7 +41,7 @@ public class DDELogger implements SimLogging {
 	private SimLogging nextLogger;
 
 	/**
-	 * Konstruktor der Klassw
+	 * Konstruktor der Klassr
 	 * @param workbook	Zu verwendende Excel-Arbeitsmappe
 	 * @param sheet	Zu verwendende Tabelle innerhalb der Arbeitsmappe (die Ausgabe erfolgt ab Zeile 1, Spalte 1; vorhandene Daten werden überschrieben)
 	 * @param printIDs	IDs mit ausgeben

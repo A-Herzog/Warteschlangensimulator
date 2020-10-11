@@ -17,6 +17,7 @@ package ui.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,10 @@ import ui.modeleditor.coreelements.DataCheckResult;
  * @see DataCheckResult
  */
 public final class DataCheckDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4022711184917153072L;
 
 	/** Modell aus dem die Liste der Stationen ausgelesen wird */
@@ -114,10 +119,17 @@ public final class DataCheckDialog extends BaseDialog {
 	 * Tabellenmodell, das die Ergebnisse der Prüfung enthält
 	 */
 	private class ResultsTableModel extends JTableExtAbstractTableModel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 4229271216146250189L;
 
 		private final List<DataCheckResult> results;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
 		public ResultsTableModel() {
 			super();
 			results=new ArrayList<>();

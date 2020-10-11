@@ -26,6 +26,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
+import java.io.Serializable;
 import java.util.Enumeration;
 
 import javax.swing.AbstractAction;
@@ -56,14 +57,28 @@ import ui.images.Images;
  * @see UserTemplates
  */
 public final class TemplatesListDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5093595007607365512L;
 
+	/** Liste der global verfügbaren Vorlagen */
 	private final UserTemplates globalTemplates;
+	/** Liste der in dem Modell verfügbaren Vorlagen */
 	private final UserTemplates modelTemplates;
 
+	/** Datenmodell der Darstellung der Vorlagen in {@link #list} */
 	private final DefaultListModel<ListRecord> listModel;
+	/** Darstellung der Vorlagen als Liste */
 	private final JList<ListRecord> list;
 
+
+	/**
+	 * Wurde beim Schließen des Dialogs eine Vorlage zum Einfügen in das Modell
+	 * gewählt, so wird sie hier zwischengespeichert.
+	 * @see #getUseTemplate()
+	 */
 	private UserTemplate useTemplate=null;
 
 	/**
@@ -258,6 +273,10 @@ public final class TemplatesListDialog extends BaseDialog {
 	}
 
 	private class ListRecordRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -1010390284185441204L;
 
 		@Override

@@ -46,8 +46,11 @@ import ui.script.ScriptPopup.ScriptMode;
  * @see RSyntaxTextArea
  */
 public class ScriptEditorAreaBuilder {
+	/** In dem Editor zu bearbeitende Sprache */
 	private final ScriptPopup.ScriptMode language;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Listener, der bei Tastendruck benachrichtigt werden soll (darf <code>null</code> sein) */
 	private final Consumer<KeyEvent> keyListener;
 	private String initialText;
 	private ActionListener fileDropListener;

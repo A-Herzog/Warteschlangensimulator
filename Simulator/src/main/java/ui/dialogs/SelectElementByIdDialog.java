@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +48,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @author Alexander Herzog
  */
 public class SelectElementByIdDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2028948710421522249L;
 
 	/** Modell-Haupt-Surface, welches alle Elemente enthält */
@@ -171,6 +176,10 @@ public class SelectElementByIdDialog extends BaseDialog {
 	 * @see SelectElementByIdDialog#list
 	 */
 	private class ElementListCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 4327039078742103357L;
 
 		@Override

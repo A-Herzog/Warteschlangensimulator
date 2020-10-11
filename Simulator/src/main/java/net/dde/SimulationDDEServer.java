@@ -32,6 +32,7 @@ public class SimulationDDEServer extends DDEServerSystem {
 
 	private static SimulationDDEServer instance;
 
+	/** Hauptpanel des Simulators */
 	private final MainPanel mainPanel;
 	private Timer timer;
 

@@ -29,6 +29,7 @@ import ui.ModelChanger.Mode;
  * @see ParameterCompareSetup
  */
 public final class ParameterCompareSetupValueInput extends ParameterCompareSetupBase implements Cloneable {
+	/** Modus der Eingabegröße */
 	private ModelChanger.Mode mode;
 	private int xmlMode;
 	private String tag;

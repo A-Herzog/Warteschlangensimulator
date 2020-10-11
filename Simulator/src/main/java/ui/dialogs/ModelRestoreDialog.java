@@ -28,6 +28,7 @@ import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 import java.io.File;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,10 @@ import ui.modeleditor.ModelSurfacePanel;
  * @see ModelRestore
  */
 public class ModelRestoreDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1294110190784151851L;
 
 	/**

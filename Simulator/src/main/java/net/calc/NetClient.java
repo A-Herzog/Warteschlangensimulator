@@ -25,10 +25,15 @@ import java.net.Socket;
  * @see NetServer
  */
 public final class NetClient {
+	/** Adresse des Servers */
 	private final String host;
+	/** Portnummer auf dem der Server auf Anfragen wartet */
 	private final int port;
+	/** Sollen die Daten komprimiert übertragen werden? */
 	private final boolean compress;
+	/** Optionales Passwort zum Verschlüsseln der Daten. Wird hier <code>null</code> übergeben, so erfolgt die Übertragung unverschlüsselt. */
 	private final String key;
+	/** Maximale Größe von empfangbaren Datenblöcken (zur Vermeidung von externen Angreifern induzierten Out-of-Memory-Fehlern) */
 	private final int maxTransferSize;
 	private Socket socket;
 	private NetTransfer transfer;

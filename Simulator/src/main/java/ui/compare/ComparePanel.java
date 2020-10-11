@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.swing.AbstractAction;
@@ -41,6 +42,10 @@ import ui.tools.SpecialPanel;
  * @author Alexander Herzog
  */
 public class ComparePanel extends SpecialPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1696555531378569922L;
 
 	/** Übergeordnetes Fenster */

@@ -18,6 +18,7 @@ package ui.mjpeg;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,6 +37,10 @@ import language.Language;
  */
 
 public class AnimationRecordWaitDialog extends JDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -728835664535448688L;
 
 	/** MJPEG-System bei dem die Speicherung im Hintergrund durch Aufruf von <code>done()</code> gestartet wurde. */
@@ -71,6 +76,11 @@ public class AnimationRecordWaitDialog extends JDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert das übergeordnete Fenster eines {@link Container}-Elements.
+	 * @param owner	Element für das das übergeordnete Fenster gesucht werden soll
+	 * @return	Übergeordnetes Fenster oder <code>null</code>, wenn kein übergeordnetes Fenster ermittelt werden konnte
+	 */
 	private static JFrame getOwnerWindow(Container owner) {
 		while (owner!=null && !(owner instanceof JFrame)) owner=owner.getParent();
 		return (JFrame)owner;

@@ -18,6 +18,7 @@ package ui.modeleditor;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,8 +35,13 @@ import ui.help.Help;
  * @see ModelElementBaseDialog
  */
 public class ModelElementDescriptionDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2244792499807474032L;
 
+	/** Eingabefeld für die Modellbeschreibung */
 	private final JTextArea descriptionEdit;
 
 	/**

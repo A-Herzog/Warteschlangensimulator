@@ -16,6 +16,7 @@
 package ui.statistics;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +49,10 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public class StatisticsPanel extends StatisticsBasePanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6515474808784376450L;
 
 	/** Statistikdatensätze, deren Daten angezeigt werden sollen */

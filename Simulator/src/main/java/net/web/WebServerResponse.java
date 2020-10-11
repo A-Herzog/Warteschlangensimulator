@@ -95,7 +95,14 @@ public class WebServerResponse {
 		 * Bezeichner des jeweiligen Mime-Typs in Textform
 		 */
 		public final String text;
-		Mime(final String text) {this.text=text;}
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param text	Bezeichner des jeweiligen Mime-Typs in Textform
+		 */
+		Mime(final String text) {
+			this.text=text;
+		}
 	}
 
 	private Mime mime;

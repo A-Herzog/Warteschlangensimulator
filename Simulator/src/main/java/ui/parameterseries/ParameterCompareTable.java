@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.function.Consumer;
 
 import javax.swing.JPanel;
@@ -35,6 +36,10 @@ import tools.JTableExt;
  * @author Alexander Herzog
  */
 public class ParameterCompareTable extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3242958130381580291L;
 
 	private final JTableExt table;

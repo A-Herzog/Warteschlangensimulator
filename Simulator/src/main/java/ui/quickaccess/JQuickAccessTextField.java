@@ -26,6 +26,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,9 +56,18 @@ import ui.images.Images;
  * @author Alexander Herzog
  */
 public abstract class JQuickAccessTextField extends JPlaceholderTextField {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8844775209475362163L;
 
+	/**
+	 * Art des QuickAccess-Popupmenüs
+	 * @see PopupMode
+	 */
 	private final PopupMode popupMode;
+
 	private ExecutorService executor;
 	private String lastText;
 	private JPopupMenu lastMenu;

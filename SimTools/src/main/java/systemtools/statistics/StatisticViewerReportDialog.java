@@ -16,6 +16,7 @@
 package systemtools.statistics;
 
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -32,9 +33,15 @@ import systemtools.BaseDialog;
  * @author Alexander Herzog
  */
 class StatisticViewerReportDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6451843541862856961L;
 
+	/** Auswahloption: Bilder inline speichern */
 	private final JRadioButton radioInline;
+	/** Auswahloption: Bilder als externe Dateien speichern */
 	private final JRadioButton radioFile;
 
 	/**

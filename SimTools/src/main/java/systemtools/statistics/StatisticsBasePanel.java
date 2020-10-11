@@ -510,6 +510,10 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		obj=addTopInfoArea(treePanel,title,icon);
 		JToolBar treeToolBar=(JToolBar)obj[3];
 		JScrollPane sp=new JScrollPane(tree=new StatisticTree(commandLineCommand,null){
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = 5013035517806204341L;
 			@Override
 			protected void nodeSelected(StatisticNode node, DefaultMutableTreeNode treeNode) {updateDataPanel(node,treeNode);}
@@ -657,6 +661,13 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		this.helpRunnable=helpRunnable;
 	}
 
+	/**
+	 * Erzeugt den Infobereich über einem Viewer
+	 * @param parent	Übergeordnetes Element in das der Infobereich oben eingefügt werden soll
+	 * @param title	Im Infobereich anzuzeigender Text
+	 * @param icon	Im Infobereich anzuzeigendes Icon
+	 * @return	Liefert ein Array aus: Panel, Titel-Label, zusätzlichem Info-Label und Symbolleiste
+	 */
 	private Object[] addTopInfoArea(final JPanel parent, final String title, final URL icon) {
 		JPanel topPanel;
 		parent.add(topPanel=new JPanel(new BorderLayout()),BorderLayout.NORTH);
@@ -717,6 +728,11 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 */
 	protected abstract void setImageSize(final int newSize);
 
+	/**
+	 * Stellt die Callbacks zur Einstellung der Bild-Export-Größe in den Teilviewern ein
+	 * @param node	Statistikknoten dessen Viewer (und dessen Kind-Element-Viewer) konfiguriert werden sollen
+	 * @see #setData(StatisticNode, String)
+	 */
 	private void setImageSizeCallbacks(final StatisticNode node) {
 		for (StatisticViewer viewer: node.viewer) {
 			viewer.setRequestImageSize(()->getImageSize());
@@ -726,6 +742,13 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		for (int i=0;i<node.getChildCount();i++) setImageSizeCallbacks(node.getChild(i));
 	}
 
+	/**
+	 * Selektiert einen bestimmten Eintrag in einer Baumstruktur
+	 * @param tree	Baumstruktur in der ein Eintrag selektiert werden soll
+	 * @param path	Pfad zu dem zu selektierenden Eintrag
+	 * @return	Liefert <code>true</code>, wenn der Eintrag gefunden und selektiert werden konnte
+	 * @see #setData(StatisticNode, String)
+	 */
 	private static boolean selectPath(final JTree tree, final List<String> path) {
 		Object obj;
 		DefaultMutableTreeNode node;
@@ -764,6 +787,12 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		}
 	}
 
+	/**
+	 * Selektiert den Standard-Eintrag in einer Baumstruktur
+	 * @param tree	Baumstruktur in der ein Eintrag selektiert werden soll
+	 * @return	Liefert <code>true</code>, wenn der Eintrag gefunden und selektiert werden konnte
+	 * @see #setData(StatisticNode, String)
+	 */
 	private static boolean selectDefault(final JTree tree) {
 		Object obj;
 
@@ -879,15 +908,25 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		updateTreeWidth();
 	}
 
-	private final void addToTree(StatisticNode sNode, DefaultMutableTreeNode tNode) {
+	/**
+	 * Fügt die Kindelemente eines Statistikknotens als Kindelemente eines Baumeintrags ein
+	 * @param sNode	Statistikknoten dess Kindelemente eingefügt werden sollen
+	 * @param tNode	Baumeintrag der als Elternelement für die neuen Knoten dienen soll
+	 * @see #setData(StatisticNode, String)
+	 */
+	private final void addToTree(final StatisticNode sNode, final DefaultMutableTreeNode tNode) {
 		for (int i=0;i<sNode.getChildCount();i++) {
-			StatisticNode sChild=sNode.getChild(i);
-			DefaultMutableTreeNode tChild=new DefaultMutableTreeNode(sChild);
+			final StatisticNode sChild=sNode.getChild(i);
+			final DefaultMutableTreeNode tChild=new DefaultMutableTreeNode(sChild);
 			tNode.add(tChild);
 			if (sChild.getChildCount()>0) addToTree(sChild,tChild);
 		}
 	}
 
+	/**
+	 * Passt die Breite der Baumstruktur an die Inhalte an.
+	 * @see #setData(StatisticNode, String)
+	 */
 	private final void updateTreeWidth() {
 		/* Breite der linken Spalte anpassen */
 		Dimension d=tree.getPreferredSize();
@@ -901,6 +940,13 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		if (d.width!=splitPane.getDividerLocation()) splitPane.setDividerLocation(d.width);
 	}
 
+	/**
+	 * Liefert zu einem Statistikknoten die Viewer vom letzten Simulationslauf (als Vergleichswerte)
+	 * @param currentNode	Aktueller Statistikknoten
+	 * @return	Viewer vom letzten Lauf (sofern verfügbar, sonst <code>null</code>)
+	 * @see #lastRoot
+	 * @see #updateDataPanel(StatisticNode, DefaultMutableTreeNode)
+	 */
 	private StatisticViewer[] getLastViewer(final StatisticNode currentNode) {
 		if (lastRoot==null) return null;
 
@@ -913,6 +959,11 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		return lastNode.viewer;
 	}
 
+	/**
+	 * Aktualisiert die Viewer, wenn ein anderer Baumeintrag ausgewählt wurde.
+	 * @param node	Statistik-Element aus dem die Viewer entnommen werden.
+	 * @param treeNode	Ausgewähltes Baumelement
+	 */
 	private void updateDataPanel(StatisticNode node, DefaultMutableTreeNode treeNode) {
 		if (node==null || node.viewer.length==0) {
 			report.setVisible(reportNode!=null);
@@ -1013,6 +1064,12 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		return selectNode(test->node==test);
 	}
 
+	/**
+	 * Wählt einen bestimmten Knoten aus
+	 * @param node	Basisknoten von dem die Suche ausgehen soll
+	 * @param tester	Testfunktion, die angibt, ob der Knoten der gesuchte ist
+	 * @return	Gibt <code>true</code> zurück, wenn ein Knoten gewählt wurde
+	 */
 	private final boolean selectNode(final Object node, final Predicate<StatisticNode> tester) {
 		if (!(node instanceof DefaultMutableTreeNode)) return false;
 		final DefaultMutableTreeNode node2=(DefaultMutableTreeNode)node;
@@ -1049,12 +1106,22 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		return fileDropListeners.remove(fileDropListener);
 	}
 
-	private boolean dropFile(final FileDropperData data) {
+	/**
+	 * Muss aufgerufen werden, wenn eine Datei per Drag&amp;drop auf dem Statistik-Panel
+	 * abgelegt wird. Es werden dann die registrierten {@link #fileDropListeners} benachrichtigt.
+	 * @param data	Drag&amp;drop-Daten
+	 */
+	private void dropFile(final FileDropperData data) {
 		final ActionEvent event=FileDropperData.getActionEvent(data);
 		for (ActionListener listener: fileDropListeners) listener.actionPerformed(event);
-		return true;
 	}
 
+	/**
+	 * Registriert eine Komponente, die bei Drag&amp;drop-Operationen
+	 * {@link #dropFile(FileDropperData)} aufrufen soll.
+	 * @param component	Zu registrierende Komponente
+	 * @see #dropFile(FileDropperData)
+	 */
 	private void registerComponentForFileDrop(final Component component) {
 		new FileDropper(component,e->{
 			final FileDropperData dropper=(FileDropperData)e.getSource();
@@ -1062,6 +1129,13 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		});
 	}
 
+	/**
+	 * Registriert eine Komponente, die bei Drag&amp;drop-Operationen
+	 * auf sich und auf ihre Kindkomponenten
+	 * {@link #dropFile(FileDropperData)} aufrufen soll.
+	 * @param component	Zu registrierende Komponente
+	 * @see #dropFile(FileDropperData)
+	 */
 	private void registerComponentAndChildsForFileDrop(final Component component) {
 		if (component==null) return;
 		registerComponentForFileDrop(component);
@@ -1074,6 +1148,13 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		}
 	}
 
+	/**
+	 * Blendet einen bestimmten Viewer (und ggf. den Vorgänger-Viewer) ein.
+	 * Es wird dabei ein neuer Viewer angelegt.
+	 * @param currentViewer	Viewer für die aktuellen Werte
+	 * @param additionalViewer	Viewer für die Vorgänger-Werte
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 */
 	private void addSubViewer(final StatisticViewer currentViewer, final StatisticViewer additionalViewer) {
 		final Container viewerComponent=currentViewer.getViewer(false);
 		final Container parent=viewerComponent.getParent();
@@ -1089,6 +1170,11 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		split.setDividerLocation(0.5);
 	}
 
+	/**
+	 * Setzt einen Viewer zurück und blendet ihn ein.
+	 * @param currentViewer	Viewer für die aktuellen Werte
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 */
 	private void resetSubViewer(final StatisticViewer currentViewer) {
 		final Container viewerComponent=currentViewer.getViewer(false).getParent();
 		final Container parent=viewerComponent.getParent();
@@ -1098,6 +1184,14 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		parent.add(currentViewer.getViewer(false));
 	}
 
+	/**
+	 * Zeigt neue Viewer auf der rechten Fensterseite an.
+	 * @param viewer	Anzuzeigende Viewer
+	 * @param lastViewer	Viewer aus der vorherigen Simulationsrunde (optional zum Vergleich)
+	 * @param title	Titel des Viewer
+	 * @param icon	Icon für den Viewer
+	 * @see #updateDataPanel(StatisticNode, DefaultMutableTreeNode)
+	 */
 	private final void updateViewer(final StatisticViewer[] viewer, final StatisticViewer[] lastViewer, final String title, final URL icon) {
 		for (int i=0;i<dataPanel.length;i++) {
 			Container container=null;
@@ -1169,6 +1263,15 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		}
 	}
 
+	/**
+	 * Liefert {@link JFreeChart}-Komponenten aus einer Reihe von Viewern zurück.
+	 * @param viewer	Viewer in denen nach {@link JFreeChart}-Komponenten gesucht werden soll
+	 * @param chartClass	Viewer-Klasse die berücksichtigt werden soll
+	 * @return	Array mit allen {@link JFreeChart}-Komponenten; kann auch <code>null</code> sein, wenn die Viewer nicht vom passenden Klassentyp sind.
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #adjustLineCharts(JFreeChart[])
+	 * @see #adjustBarCharts(JFreeChart[])
+	 */
 	private final JFreeChart[] getCharts(final StatisticViewer[] viewer, final Class<? extends StatisticViewer> chartClass) {
 		JFreeChart[] chart=new JFreeChart[viewer.length];
 		for (int i=0;i<viewer.length;i++) {
@@ -1180,6 +1283,13 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		return chart;
 	}
 
+	/**
+	 * Passt Viewer-übergreifend bei mehreren Liniendiagrammen den
+	 * y-Achsenbereich an, so dass alle Diagramme denselben Bereich verwenden.
+	 * @param chart	Anzupassende Diagramme
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #getCharts(StatisticViewer[], Class)
+	 */
 	private final void adjustLineCharts(JFreeChart[] chart) {
 		for (int nr=0;nr<chart[0].getXYPlot().getRangeAxisCount();nr++) {
 			Range r=chart[0].getXYPlot().getRangeAxis(nr).getRange();
@@ -1195,7 +1305,14 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		}
 	}
 
-	private final void adjustBarCharts(JFreeChart[] chart) {
+	/**
+	 * Passt Viewer-übergreifend bei mehreren Balkendiagrammen den
+	 * y-Achsenbereich an, so dass alle Diagramme denselben Bereich verwenden.
+	 * @param chart	Anzupassende Diagramme
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #getCharts(StatisticViewer[], Class)
+	 */
+	private final void adjustBarCharts(final JFreeChart[] chart) {
 		for (int nr=0;nr<chart[0].getCategoryPlot().getRangeAxisCount();nr++) {
 			Range r=chart[0].getCategoryPlot().getRangeAxis(nr).getRange();
 			double min=r.getLowerBound();
@@ -1210,6 +1327,16 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		}
 	}
 
+	/**
+	 * Aktualisiert einen Teil-Viewer innerhalb eines Statistikknotens
+	 * @param index	0-basierter Index des Viewer in der Anordnung der Viewer zu einem Statistikknoten
+	 * @param supTitle	Kleiner Infotext über dem Haupttitel (kann <code>null</code> sein)
+	 * @param title	Haupttitel
+	 * @param icon	Icon (kann <code>null</code> sein)
+	 * @param component	Anzuzeigende Komponente im Viewer
+	 * @param viewer	Viewer
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 */
 	private final void updateViewer(final int index, final String supTitle, final String title, final URL icon, final Component component, final StatisticViewer viewer) {
 		if (index<0 || index>=dataLabel.length) return;
 
@@ -1254,6 +1381,10 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		}
 	}
 
+	/**
+	 * Liefert das übergeordnete Fenster des Panels
+	 * @return	Übergeordnetes Fenster oder <code>null</code>, wenn kein übergeordnetes Fenster ermittelt werden konnte
+	 */
 	private final Window getOwnerWindow() {
 		Container c=getParent();
 		while (c!=null) {
@@ -1263,6 +1394,11 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		return null;
 	}
 
+	/**
+	 * Zeigt das Popup-Menü über die Schaltfläche über der Baumstruktur an.
+	 * @param button	Auslösende Schaltfläche (zum Ausrichten des Menüs)
+	 * @see #tools
+	 */
 	private final void showToolsContextMenu(final JButton button) {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -1284,6 +1420,9 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		popup.show(button,0,button.getHeight());
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen in den Symbolleisten
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(final ActionEvent e) {
@@ -1306,6 +1445,10 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		}
 	}
 
+	/**
+	 * Liefert das {@link StatisticViewerReport}-Element aus der Baumstruktur
+	 * @return	{@link StatisticViewerReport}-Element
+	 */
 	private StatisticViewerReport getStatisticViewerReport() {
 		if (reportNode==null) return null;
 		final StatisticNode statisticNode=(StatisticNode)reportNode.getUserObject();
@@ -1349,10 +1492,21 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		return report.save(null,output,FileFormat.FORMAT_LATEX,exportAllItems);
 	}
 
-	private void getViewersAndNames(String parentName, DefaultMutableTreeNode parent, List<StatisticViewer> viewers, List<String> types, List<String> names) {
+	/**
+	 * Erstellt eine Liste mit Viewern und zugehörigen vollständigen Namen
+	 * @param parentName	Eltern-Namenssequenz, die vor jedem Namen eingefügt wird
+	 * @param parent	Eltern-Element im Statistikbaum
+	 * @param viewers	Liste der Viewer zu der weitere hinzugefügt werden sollen
+	 * @param types	Liste der Typen der Viewer zu der weitere hinzugefügt werden sollen
+	 * @param names	Liste der Namen der Viewer zu der weitere hinzugefügt werden sollen
+	 * @see #getReportList(File)
+	 * @see #getReportListEntry(File, String)
+	 */
+	private void getViewersAndNames(final String parentName, final DefaultMutableTreeNode parent, final List<StatisticViewer> viewers, final List<String> types, final List<String> names) {
 		if (parent==null) return;
 		int count=parent.getChildCount();
-		String s=parentName; if (!s.isEmpty()) s+=" - ";
+		String s=parentName;
+		if (!s.isEmpty()) s+=" - ";
 		for (int i=0;i<count;i++) {
 			if (!(parent.getChildAt(i) instanceof DefaultMutableTreeNode)) continue;
 			DefaultMutableTreeNode node=(DefaultMutableTreeNode)(parent.getChildAt(i));

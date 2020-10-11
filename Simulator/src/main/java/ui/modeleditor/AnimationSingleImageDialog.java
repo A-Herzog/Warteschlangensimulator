@@ -22,6 +22,7 @@ import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +42,10 @@ import ui.tools.ImageChooser;
  * @see ModelAnimationImages
  */
 public class AnimationSingleImageDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 923519486870285777L;
 
 	/** Bisheriger Name des Icons */

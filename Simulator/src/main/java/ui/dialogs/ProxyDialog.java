@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -43,6 +44,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @author Alexander Herzog
  */
 public class ProxyDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6839899857734552923L;
 
 	/** Auswahl: Keinen Proxy verwenden */

@@ -34,6 +34,7 @@ import ui.modeleditor.ModelResourceFailure.FailureMode;
  * @see RunDataResource
  */
 public class RunDataResourceFailure {
+	/** Name der Ressource auf die sich dieser Ausfall bezieht */
 	private final String name;
 
 	/**

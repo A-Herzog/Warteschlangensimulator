@@ -18,6 +18,7 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.DefaultListCellRenderer;
@@ -42,6 +43,10 @@ import ui.help.Help;
  * @see AnimationPanel
  */
 public class AnimationJSInfoDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5168396052992308637L;
 
 	/**

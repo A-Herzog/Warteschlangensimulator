@@ -74,8 +74,23 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	 */
 	protected JFreeChart chart;
 
+	/**
+	 * html-Seite mit einer zusätzlichen Erklärung zu dieser Statistikseite
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private URL descriptionURL=null;
+
+	/**
+	 * Handler, der Themennamen (angegeben über "help:..."-Links) zum Aufruf normaler Hilfeseiten entgegen nimmt
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private Consumer<String> descriptionHelpCallback=null;
+
+	/**
+	 * Darstellung der Hilfe-Seite {@link #descriptionURL}
+	 * @see #initDescriptionPane()
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private DescriptionViewer descriptionPane=null;
 
 	@Override
@@ -83,6 +98,13 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		return ViewerType.TYPE_IMAGE;
 	}
 
+	/**
+	 * Initialisiert die Anzeige der zusätzlichen Beschreibung.
+	 * @see #addDescription(URL, Consumer)
+	 * @see #descriptionURL
+	 * @see #descriptionHelpCallback
+	 * @see #descriptionPane
+	 */
 	private void initDescriptionPane() {
 		if (descriptionPane!=null) return;
 		if (descriptionURL==null) return;
@@ -102,6 +124,10 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	 */
 	protected void firstChartRequest() {}
 
+	/**
+	 * Konkretes Anzeigeobjekt, das üger {@link #getViewer(boolean)} geliefert wird.
+	 * @see #getViewer(boolean)
+	 */
 	private Container viewer=null;
 
 	@Override
@@ -151,6 +177,9 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		chart.getLegend().setBackgroundPaint(null);
 	}
 
+	/**
+	 * Konfiguriert die Darstellung der Schriften im Diagramm.
+	 */
 	private void setTheme() {
 		final StandardChartTheme chartTheme = (StandardChartTheme)StandardChartTheme.createJFreeTheme();
 
@@ -258,25 +287,42 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		return ImageTools.saveChart(owner,chart,file,getImageSize(),()->getTableChartFromChart());
 	}
 
+	/**
+	 * Erzeugt ein Bild für den Export.
+	 * @return	Bild für den Export
+	 */
 	private BufferedImage getBufferedImage() {
 		if (chartPanel==null) firstChartRequest();
 		final int imageSize=getImageSize();
 		return chart.createBufferedImage(imageSize,imageSize);
 	}
 
+	/**
+	 * Hintergrund-Thread zum Speichern des Bildes
+	 */
 	private class SaveImageThread extends Thread {
+		/** Ausgabedatei */
 		private final File file;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param file	Ausgabedatei
+		 */
 		public SaveImageThread(File file) {
 			super();
 			this.file=file;
 			start();
 		}
 
+		/**
+		 * Speichert das Bild unter dem angegebenen Dateinamen
+		 * @return	Liefert <code>true</code>, wenn das Speichern erfolgreich war.
+		 */
 		private boolean saveImage() {
 			try {ImageIO.write(getBufferedImage(),"png",file);} catch (IOException e) {return false;}
 			return true;
 		}
+
 		@Override
 		public void run() {
 			saveImage();
@@ -386,6 +432,9 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		return null;
 	}
 
+	/**
+	 * Öffnet das Diagramm (über eine temporäre Datei) mit Excel
+	 */
 	private void openExcel() {
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".xlsx");
@@ -432,7 +481,16 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		return getImageSizeCallback.getAsInt();
 	}
 
+	/**
+	 * Callback zum Auslesen der Bildgröße
+	 * @see #setRequestImageSize(IntSupplier)
+	 */
 	private IntSupplier getImageSizeCallback;
+
+	/**
+	 * Callback zum Zurückschreiben der Bildgröße
+	 * @see #setUpdateImageSize(IntConsumer)
+	 */
 	private IntConsumer setImageSizeCallback;
 
 	@Override

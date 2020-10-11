@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -45,6 +46,10 @@ import ui.modeleditor.ModelLongRunStatisticsElement;
  * @see AdditionalStatisticsTableModel
  */
 public class AdditionalStatisticsTableModelDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5752129414122427124L;
 
 	/** Vollständiges Editor-Modell (wird für den Expression-Builder benötigt) */

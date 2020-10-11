@@ -45,8 +45,11 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public abstract class OptimizerBase {
+	/** Callback, welches aufgerufen wird, wenn Statusinformationen ausgegeben werden sollen. */
 	private Consumer<String> logOutput;
+	/** Callback, welches aufgerufen wird, wenn die Optimierung beendet wurde (egal ob erfolgreich oder per Abbruch-Knopf) */
 	private Consumer<Boolean> whenDone;
+	/** Callback, welches aufgerufen wird, wenn ein Optimierungsschritt abgeschlossen wurde */
 	private Runnable whenStepDone;
 	private File outputFolder;
 	private String targetScript;
@@ -102,7 +105,7 @@ public abstract class OptimizerBase {
 	/**
 	 * Prüft die Konfiguration und initialisiert den Optimierer
 	 * @param model	Basis-Editor-Modell für die Optimierung
-	 * @param setup	Optimerer-Setup
+	 * @param setup	Optimierer-Setup
 	 * @param logOutput	Callback, welches aufgerufen wird, wenn Statusinformationen ausgegeben werden sollen.
 	 * @param whenDone	Callback, welches aufgerufen wird, wenn die Optimierung beendet wurde (egal ob erfolgreich oder per Abbruch-Knopf)
 	 * @param whenStepDone	Callback, welches aufgerufen wird, wenn ein Optimierungsschritt abgeschlossen wurde

@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,10 @@ import ui.images.Images;
  * @author Alexander Herzog
  */
 public final class ParameterCompareChartDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2783273631806165939L;
 
 	private final JPanel content;

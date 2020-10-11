@@ -25,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
@@ -59,6 +60,10 @@ import ui.statistics.ListPopup.ScriptHelperRecord;
  * @see StatisticViewerFastAccess
  */
 public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7570159030451235613L;
 
 	private final SetupData setup;

@@ -16,6 +16,7 @@
 package ui.parameterseries;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +41,10 @@ import ui.images.Images;
  * @see ParameterComparePanel
  */
 public class ParameterCompareSetupValueInputListDialog extends ParameterCompareSetupValueBaseListDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6451260447527475586L;
 
 	private final List<ParameterCompareSetupValueInput> inputOriginal;

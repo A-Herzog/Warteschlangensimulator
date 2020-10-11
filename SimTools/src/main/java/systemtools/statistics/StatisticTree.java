@@ -16,8 +16,8 @@
 package systemtools.statistics;
 
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.Serializable;
 
 import javax.swing.JMenuItem;
@@ -66,6 +66,10 @@ public class StatisticTree extends JTree {
 		if (commandLineCommand!=null && !commandLineCommand.isEmpty()) addMouseListener(new TreeMouseListener());
 	}
 
+	/**
+	 * Reagiert darauf, wenn in der Baumstruktur ein anderer Eintrag ausgewählt wurde.
+	 * @see StatisticTree#nodeSelected(StatisticNode, DefaultMutableTreeNode)
+	 */
 	private final class TreeSelectionChanged implements TreeSelectionListener {
 		@Override
 		public void valueChanged(TreeSelectionEvent e) {
@@ -110,7 +114,14 @@ public class StatisticTree extends JTree {
 		this.commandLineDataFileName=commandLineDataFileName;
 	}
 
-	private void buildPopup(int x, int y, final String objName, final ViewerType type) {
+	/**
+	 * Zeigt ein Popup-Menü zu einem Baumeintrag an
+	 * @param x	x-Position des Menüs (relativ zum Baum)
+	 * @param y	y-Position des Menüs (relativ zum Baum)
+	 * @param objName	Textbezeichnung des Baumeintrags
+	 * @param type	Art des gewählten Eintrags
+	 */
+	private void buildPopup(final int x, final int y, final String objName, final ViewerType type) {
 		final JPopupMenu menu=new JPopupMenu();
 		final JMenuItem item=new JMenuItem(StatisticsBasePanel.treeCopyParameter);
 		item.setToolTipText(StatisticsBasePanel.treeCopyParameterHint);
@@ -128,6 +139,11 @@ public class StatisticTree extends JTree {
 		menu.show(StatisticTree.this,x,y);
 	}
 
+	/**
+	 * Liefert die vollständige Bezeichnung für einen Baumeintrag
+	 * @param node	Baumeintrag
+	 * @return	Vollständige Bezeichnung
+	 */
 	private String getNodeFullName(StatisticNode node) {
 		String name="";
 		while (node!=null && node.name!=null) {
@@ -146,6 +162,13 @@ public class StatisticTree extends JTree {
 		return name;
 	}
 
+	/**
+	 * Bestimmt den Baumeintrag an einer bestimmten Stelle
+	 * @param x	x-Position des Menüs (relativ zum Baum)
+	 * @param y	y-Position des Menüs (relativ zum Baum)
+	 * @return	Zweielementiges Array: Textbezeichnung des Baumeintrags, Art des gewählten Eintrags
+	 * @see #buildPopup(int, int, String, ViewerType)
+	 */
 	private Object[] dataAtPosition(int x, int y) {
 		int selRow=getRowForLocation(x,y);
 		if (selRow<0) return null;
@@ -164,7 +187,12 @@ public class StatisticTree extends JTree {
 		return new Object[]{getNodeFullName(statNode),type};
 	}
 
-	private class TreeMouseListener implements MouseListener {
+	/**
+	 * Reagiert auf Mausklicks auf Baumeinträge und zeigt ggf. ein Kontextmenü an.
+	 * @see StatisticTree#dataAtPosition(int, int)
+	 * @see StatisticTree#buildPopup(int, int, String, ViewerType)
+	 */
+	private class TreeMouseListener extends MouseAdapter {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (SwingUtilities.isRightMouseButton(e)) {
@@ -176,10 +204,5 @@ public class StatisticTree extends JTree {
 				}
 			}
 		}
-
-		@Override public void mousePressed(MouseEvent e) {}
-		@Override public void mouseReleased(MouseEvent e) {}
-		@Override public void mouseEntered(MouseEvent e) {}
-		@Override public void mouseExited(MouseEvent e) {}
 	}
 }

@@ -113,6 +113,11 @@ public abstract class RunElementAnalogProcessingData extends RunElementData {
 		setStatisticValue(timeMS,getValueNoUpdate());
 	}
 
+	/**
+	 * Legt das nächste Benachrichtungsereignis im Abstand {@link #analogNotifiyMS}
+	 * zur aktuellen Zeit an.
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void triggerNextUpdateEvent(final SimulationData simData) {
 		final AnalogSystemChangeEvent event=(AnalogSystemChangeEvent)simData.getEvent(AnalogSystemChangeEvent.class);
 		event.init(simData.currentTime+analogNotifiyMS);

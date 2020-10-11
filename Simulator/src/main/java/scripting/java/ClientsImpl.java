@@ -30,6 +30,7 @@ import simulator.runmodel.SimulationData;
  * @see SimulationImpl
  */
 public class ClientsImpl implements ClientsInterface {
+	/** Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen */
 	private final SimulationData simData;
 	private int count;
 	private List<RunDataClient> clients;

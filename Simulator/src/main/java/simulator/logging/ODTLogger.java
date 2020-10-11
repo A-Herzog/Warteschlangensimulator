@@ -34,11 +34,17 @@ import simcore.logging.SimLogging;
  * @see SimData#getLogger
  */
 public class ODTLogger implements SimLogging {
+	/** Dateiname der Logfile-Datei */
 	private final File logFile;
+	/** Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen */
 	private final boolean groupSameTimeEvents;
+	/** Ereignisse in einer Zeile oder in mehreren Zeilen ausgeben */
 	private final boolean singleLineMode;
+	/** Bei den Log-Zeilen angegebene Farben berücksichtigen */
 	private final boolean useColors;
+	/** Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben */
 	private final boolean formatedTime;
+	/** IDs mit ausgeben */
 	private final boolean printIDs;
 	private long lastEventTime=-1;
 

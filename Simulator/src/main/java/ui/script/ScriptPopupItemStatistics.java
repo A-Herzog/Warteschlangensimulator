@@ -27,8 +27,11 @@ import ui.script.ScriptPopup.XMLMode;
  * @see ScriptPopupItem
  */
 public class ScriptPopupItemStatistics extends ScriptPopupItem {
+	/** Ausgabe als Text oder als Zahl */
 	private final XMLMode xmlMode;
+	/** XML-Pfad */
 	private final String xmlPath;
+	/** Ausgabe als Java- oder als Javascript-Befehl */
 	private final ScriptPopup.ScriptMode scriptMode;
 
 	/**

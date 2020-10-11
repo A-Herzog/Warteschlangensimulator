@@ -62,6 +62,10 @@ public class Help extends HelpBase {
 		new Help(parent,topic,true);
 	}
 
+	/**
+	 * Listener, der aufgerufen wird, wenn ein spezieller Link (beginnend mit "special:") angeklickt wird
+	 * @see #infoPanel(String, SpecialLinkListener)
+	 */
 	private SpecialLinkListener specialLinkListener;
 
 	/**

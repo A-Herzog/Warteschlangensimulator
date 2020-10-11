@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -62,6 +63,10 @@ import ui.modeleditor.ModelSurfaceAnimatorBase;
  * @see ResourceTableModel
  */
 public class ResourceTableModelDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5239819610274811096L;
 
 	private final AnimationImageSource imageSource;

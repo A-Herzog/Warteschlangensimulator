@@ -56,7 +56,13 @@ public enum JSEngineNames {
 	 */
 	public final String name;
 
-	JSEngineNames(final String name) {this.name=name;}
+	/**
+	 * Konstruktor des Enum
+	 * @param name	Name der Engine als String
+	 */
+	JSEngineNames(final String name) {
+		this.name=name;
+	}
 
 	/**
 	 * Liefert die Liste der verfügbaren JS-Engines

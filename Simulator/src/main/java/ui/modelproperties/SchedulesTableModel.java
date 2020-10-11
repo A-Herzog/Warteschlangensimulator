@@ -17,6 +17,7 @@ package ui.modelproperties;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelPropertiesDialog
  */
 public class SchedulesTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6000743642076941503L;
 
 	private ModelSchedules schedules;

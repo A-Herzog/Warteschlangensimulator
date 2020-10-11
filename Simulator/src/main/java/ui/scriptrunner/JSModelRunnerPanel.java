@@ -43,6 +43,7 @@ import ui.tools.SpecialPanel;
 public class JSModelRunnerPanel extends SpecialPanel {
 	private static final long serialVersionUID = -7960967403157448841L;
 
+	/** Editor-Modell auf dessen Basis die Skript-Datenreihe erstellt werden soll */
 	private final EditModel model;
 
 	private final JButton startButton;
@@ -51,6 +52,7 @@ public class JSModelRunnerPanel extends SpecialPanel {
 	private ScriptPanel scriptPanel;
 	private JSModelRunner runner;
 
+	/** Anzeige als vollwertigem Skriptrunner, der das Fenster als alleiniges Element füllt, (<code>true</code>) oder als einfaches Panel z.B. als Tab innerhalb eines Dialogs (<code>false</code>). */
 	private final boolean fullMode;
 
 	/**

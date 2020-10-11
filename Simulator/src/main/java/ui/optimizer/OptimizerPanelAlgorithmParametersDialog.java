@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -41,6 +42,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see OptimizerPanel
  */
 public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8885821247331752499L;
 
 	/** Aktuelles Optimierer-Setup */

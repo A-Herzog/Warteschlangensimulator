@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -47,6 +48,10 @@ import ui.modeleditor.descriptionbuilder.StyledTextBuilder;
  * @see ModelDescriptionBuilder
  */
 public class ModelDescriptionDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6362465944821402994L;
 
 	/**
@@ -118,6 +123,12 @@ public class ModelDescriptionDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Speichert einen Text in einer Datei und gibt im
+	 * Fehlerfall eine Fehlermeldung aus.
+	 * @param text	Zu speichernder Text
+	 * @param file	Ausgabedatei
+	 */
 	private void saveTextToFile(final String text, final File file) {
 		try {
 			if (file.isFile()) {
@@ -132,6 +143,12 @@ public class ModelDescriptionDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Zeigt einen Dateiauswahldialog an und speichert dann,
+	 * sofern die Auswahl nicht abgebrochen wurde, die Beschreibung
+	 * in der angegebenen Datei.
+	 * @see #saveTextToFile(String, File)
+	 */
 	private void saveToFile() {
 		final File file=StyledTextBuilder.getSaveFile(this,Language.tr("ModelDescription.Dialog.Save.Title"));
 		if (file==null) return;

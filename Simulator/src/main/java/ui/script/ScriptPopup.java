@@ -140,10 +140,15 @@ public class ScriptPopup {
 		Save,
 	}
 
+	/** Übergeordnetes Element (zur Ausrichtung des Popupmenüs) */
 	private final Component owner;
+	/** Editor-Modell (welches Daten wie Ids bereitstellt, um die Befehle mit Parametern zu versorgen) */
 	private EditModel model;
+	/** Statistik-Objekt (welches Daten bereitstellt, um die Befehle mit Parametern zu versorgen) */
 	private Statistics statistics;
+	/** Skriptsprache */
 	private final ScriptMode scriptMode;
+	/** Hilfe-Runnable */
 	private final Runnable help;
 
 	private final Set<ScriptFeature> features;

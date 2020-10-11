@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -62,6 +63,10 @@ import ui.quickaccess.JPlaceholderTextField;
  * @author Alexander Herzog
  */
 public class LogSetupDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6600117003814706688L;
 
 	/** Auswahl der Logging-Art: Datei oder DDE */

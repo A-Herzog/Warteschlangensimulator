@@ -33,7 +33,9 @@ import mathtools.TimeTools;
  * @see SimulationImpl
  */
 public class OutputImpl implements OutputInterface {
+	/** Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen */
 	private final Consumer<String> output;
+	/** Wird hier <code>true</code> übergeben, so erfolgt die Ausgabe der eigentlichen Meldungen in eine Datei */
 	private final boolean outputToFile;
 	private File outputFile;
 	private boolean canceled=false;

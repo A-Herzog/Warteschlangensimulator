@@ -39,6 +39,13 @@ class StatisticViewerSpecialText extends StatisticViewerHTMLText {
 		VIEWER_NODATA
 	}
 
+	/**
+	 * Erzeugt den auszugebenden Text
+	 * @param type Gibt an, was angezeigt werden soll (siehe {@link SpecialMode})
+	 * @param startSimulation <code>Runnable</code>-Objekt, das beim Klick auf "Simulation jetzt starten" ausgeführt werden soll.
+	 * @param loadStatistics <code>Runnable</code>-Objekt, das beim Klick auf "Statistikdaten laden" ausgeführt werden soll.
+	 * @return	Auszugebender Text
+	 */
 	private static final String buildInfoText(SpecialMode type, Runnable startSimulation, Runnable loadStatistics) {
 		switch (type) {
 		case VIEWER_CATEGORY: return StatisticsBasePanel.viewersSpecialTextCategory;
@@ -59,6 +66,12 @@ class StatisticViewerSpecialText extends StatisticViewerHTMLText {
 		return "";
 	}
 
+	/**
+	 * Liefert eine Liste mit Listenern, die auf Klicks auf spezielle Links in dem angezeigten Text reagieren sollen
+	 * @param startSimulation <code>Runnable</code>-Objekt, das beim Klick auf "Simulation jetzt starten" ausgeführt werden soll.
+	 * @param loadStatistics <code>Runnable</code>-Objekt, das beim Klick auf "Statistikdaten laden" ausgeführt werden soll.
+	 * @return	Liste mit den Listenern, die auf Klicks auf spezielle Links in dem angezeigten Text reagieren sollen
+	 */
 	private static final Runnable[] buildSpecialLinkListener(Runnable startSimulation, Runnable loadStatistics) {
 		final List<Runnable> runner=new ArrayList<>();
 		if (loadStatistics!=null) runner.add(loadStatistics);

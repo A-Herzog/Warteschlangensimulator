@@ -47,7 +47,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @author Alexander Herzog
  */
 public class StatisticViewerTimeTable extends StatisticViewerTable {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Gibt an, welche Daten genau ausgegeben werden sollen */
 	private final Mode mode;
 
 	/**

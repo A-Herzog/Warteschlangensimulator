@@ -52,9 +52,12 @@ import xml.XMLTools;
  */
 public class StatisticsImpl implements StatisticsInterface {
 	private boolean canceled=false;
+	/** Gibt an, ob die Statistikdaten als Datei gespeichert werden dürfen */
 	private final boolean allowSave;
 
+	/** XMl-Statistik-Daten, die gefiltert werden sollen */
 	private Document xml;
+	/** Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen */
 	private final Consumer<String> errorOutput;
 
 	private boolean percent;

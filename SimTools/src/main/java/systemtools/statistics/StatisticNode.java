@@ -26,7 +26,19 @@ import java.util.Set;
  * @version 1.4
  */
 public class StatisticNode {
+	/**
+	 * Elternelement des aktuellen Elements
+	 * @see #getParent()
+	 * @see #setParent(StatisticNode)
+	 */
 	private StatisticNode parent=null;
+
+	/**
+	 * Kindelemente des aktuellen Elements
+	 * @see #getChildCount()
+	 * @see #getChild(int)
+	 * @see #addChild(StatisticNode)
+	 */
 	private final List<StatisticNode> children;
 
 	/** Name des Objektes */
@@ -255,6 +267,10 @@ public class StatisticNode {
 		}
 	}
 
+	/**
+	 * Name des Elemnents
+	 * @see #toString()
+	 */
 	private String nameCache=null;
 
 	/**
@@ -279,6 +295,10 @@ public class StatisticNode {
 		return nameCache=result.toString();
 	}
 
+	/**
+	 * Vollständiger Namen des Knoten (inkl. der Namen der übergeordneten Elemente)
+	 * @see #getFullName()
+	 */
 	private String[] fullNameCache=null;
 
 	/**

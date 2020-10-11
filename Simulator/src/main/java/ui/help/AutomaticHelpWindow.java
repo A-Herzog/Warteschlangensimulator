@@ -25,6 +25,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.swing.JFrame;
@@ -45,6 +46,10 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see EditorPanel
  */
 public class AutomaticHelpWindow extends JFrame {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7226053471343055556L;
 
 	/** Hauptfenster */
@@ -147,6 +152,12 @@ public class AutomaticHelpWindow extends JFrame {
 		if (currentWindow!=null) currentWindow.close();
 	}
 
+	/**
+	 * Reagiert auf die veränderte Auswahl im {@link EditorPanel}
+	 * und aktualisiert die Hilfeanzeige.
+	 * @see EditorPanel#addSelectionListener(ActionListener)
+	 * @see AutomaticHelp#showPage(String)
+	 */
 	private void selectionChanged() {
 		if (editorPanel==null) return;
 
@@ -165,9 +176,19 @@ public class AutomaticHelpWindow extends JFrame {
 	 * Hilfe-Viewer innerhalb des Fensters
 	 */
 	private class AutomaticHelp extends HelpBase {
+		/**
+		 * Hilfe-Viewer
+		 * @see #showPage(String)
+		 * @see HelpBase#getHTMLPanel(String)
+		 */
 		private JPanel helpPanel;
+		/** Übergeordnetes Element */
 		private final Container parent;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param parent	Übergeordnetes Element
+		 */
 		public AutomaticHelp(final Container parent) {
 			super(parent);
 			this.parent=parent;
@@ -178,6 +199,10 @@ public class AutomaticHelpWindow extends JFrame {
 			return getClass().getResource("pages_"+Language.tr("Numbers.Language")+"/"+res);
 		}
 
+		/**
+		 * Zeigt eine Hilfeseite an.
+		 * @param page	Anzuzeigende Hilfeseite
+		 */
 		public void showPage(final String page) {
 			if (parent==null) return;
 			if (helpPanel!=null) parent.remove(helpPanel);

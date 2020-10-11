@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -37,8 +38,13 @@ import ui.modeleditor.ModelSchedule;
  * @see ScheduleTableModelDataDialog
  */
 public class ScheduleTableModelDataDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2493379995138787054L;
 
+	/** Hilfe-Callback */
 	private final Runnable help;
 
 	private ModelSchedule originalSchedule;

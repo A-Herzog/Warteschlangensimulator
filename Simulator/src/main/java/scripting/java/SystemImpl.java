@@ -37,6 +37,7 @@ import simulator.simparser.ExpressionCalc;
  * @see SimulationImpl
  */
 public class SystemImpl implements SystemInterface {
+	/** Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen */
 	private final SimulationData simData;
 	private final RunModel runModel;
 	private Map<String,ExpressionCalc> expressionCache;

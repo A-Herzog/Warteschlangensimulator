@@ -17,6 +17,7 @@ package ui.parameterseries;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 
@@ -31,6 +32,10 @@ import systemtools.BaseDialog;
  * @see ParameterCompareSetupValueInputListDialog
  */
 public class ParameterCompareSetupValueInputDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -112285444307635605L;
 
 	private final ParameterCompareSetupValueInputPanel editor;

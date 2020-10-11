@@ -40,7 +40,9 @@ import tools.NetHelper;
  * @author Alexander Herzog
  */
 public final class JSCommandSystem extends JSBaseCommand {
+	/** Simulationsdaten-Objekt (kann auch <code>null</code> sein) */
 	private SimulationData simData;
+	/** Aktueller Kunde (kann auch <code>null</code> sein) */
 	private RunDataClient client;
 	private double inputValue;
 

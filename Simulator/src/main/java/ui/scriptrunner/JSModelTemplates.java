@@ -44,7 +44,9 @@ import ui.script.ScriptPanel;
  * @see ScriptPanel
  */
 public class JSModelTemplates {
+	/** Für welche Sprache sollen die Vorlagen bereitgestellt werden? */
 	private final ScriptEditorPanel.ScriptMode mode;
+	/** Editor-Modell auf dessen Basis Javascipt-Beispiel-Vorlagen angeboten werden sollen */
 	private final EditModel model;
 
 	/**

@@ -30,6 +30,7 @@ import ui.MainPanel;
 public class DDETopicCalc extends DDETopic {
 	private static final int MAX_LAST_REQUESTS=100;
 
+	/** Haupt-Panel des Simulators (über das auf das Animations-Panel verlinkt wird welches die eigentlichen Berechnungen durchführt) */
 	private final MainPanel mainPanel;
 	private final List<String> lastRequests;
 	private final List<String> lastValues;

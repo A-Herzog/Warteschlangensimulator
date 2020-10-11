@@ -26,6 +26,7 @@ import simulator.statistics.Statistics;
  * @author Alexander Herzog
  */
 public final class JSRunDataFilter {
+	/** XMl-Statistik-Daten, die gefiltert werden sollen */
 	private final Document xml;
 	private boolean lastSuccess;
 	private String lastResults;

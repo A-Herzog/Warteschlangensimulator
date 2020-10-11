@@ -25,6 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -65,6 +66,10 @@ import xml.XMLTools;
  * @version 1.1
  */
 public abstract class EditorPanelBase extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2225095205646314638L;
 
 	/**
@@ -102,7 +107,16 @@ public abstract class EditorPanelBase extends JPanel {
 	 */
 	public static String UNKNOWN_ELEMENTS_INFO="Die Modelldatei enthielt unbekannte Elemente, die beim Laden übersprungen wurden. Das Modell ist daher nicht vollständig.";
 
+	/**
+	 * Wird nach der vollständigen Abarbeitung des Konstruktors auf <code>true</code> gesetzt.
+	 */
 	private boolean isGUIReady;
+
+	/**
+	 * Wenn der Editor mehrere Tabs umfasst, so werden diese hier vorgehalten.
+	 * @see #getCurrentTabIndex()
+	 * @see #addTab(String, URL)
+	 */
 	private JTabbedPane tabs=null;
 
 	/**

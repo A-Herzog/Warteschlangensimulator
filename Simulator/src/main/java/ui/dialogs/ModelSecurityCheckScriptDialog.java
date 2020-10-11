@@ -17,6 +17,7 @@ package ui.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,6 +32,10 @@ import systemtools.BaseDialog;
  * @see ModelSecurityCheckDialog
  */
 public class ModelSecurityCheckScriptDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -383820623125365540L;
 
 	/**

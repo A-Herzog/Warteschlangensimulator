@@ -40,7 +40,9 @@ import ui.images.Images;
  * @see StatisticViewerFastAccess#addXML(ui.statistics.StatisticViewerFastAccess.AddXMLMode, String)
  */
 public class FastAccessSelectorBuilder {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Callback, das aufgerufen wird, wenn in dem XML-Selektor-Kontextmenü ein Eintrag angeklickt wurde */
 	private final BiConsumer<StatisticViewerFastAccess.AddXMLMode,String> fastAccessAdd;
 
 	/**

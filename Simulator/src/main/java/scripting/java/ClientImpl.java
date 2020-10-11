@@ -35,7 +35,9 @@ import simulator.simparser.ExpressionCalc;
  * @see SimulationImpl
  */
 public class ClientImpl implements ClientInterface {
+	/** Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen */
 	private final SimulationData simData;
+	/** Aktueller Kunde */
 	private RunDataClient client;
 	private Map<String,ExpressionCalc> expressionCache;
 

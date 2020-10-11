@@ -39,6 +39,7 @@ public class SimulationClient implements AnySimulator {
 	/** Bezeichner für Fehlermeldung "Es ist ein interner Fehler bei der Vorbereitung des Modells auf dem Server aufgetreten." */
 	public static String ERROR_ON_REMOTE_PREPARE="Es ist ein interner Fehler bei der Vorbereitung des Modells auf dem Server aufgetreten.";
 
+	/** Zu simulierendes Modell */
 	private final EditModel model;
 	private final NetClient net;
 	private NetTransfer transfer;

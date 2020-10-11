@@ -29,6 +29,10 @@ import javax.script.ScriptEngine;
  * @author Alexander Herzog
  */
 public class JSEngineScriptEngine extends JSEngine {
+	/**
+	 * Skripting-Engine
+	 * @see #initEngine(ScriptEngine, Map)
+	 */
 	private ScriptEngine engine;
 
 	/**

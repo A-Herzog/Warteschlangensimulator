@@ -22,6 +22,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +55,15 @@ import ui.scriptrunner.JSModelTemplates;
  *
  */
 public abstract class ScriptPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5776312809204193826L;
 
+	/** Wird hier ein Modell übergeben (statt <code>null</code>, was auch zulässig ist), so wird eine Symbolleisten-Schaltfläche zur Auswahl von Beispiel-Skripten angezeigt */
 	private final EditModel model;
+	/** Optionale Beispielskripte für die jeweiligen Sprachen */
 	private final Map<ScriptEditorPanel.ScriptMode,String> example;
 	private final JTabbedPane tabs;
 	private JButton templatesButton;

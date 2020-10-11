@@ -23,6 +23,7 @@ import java.awt.SystemColor;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -52,9 +53,15 @@ import ui.optimizer.OptimizerSetup;
  * @see ModelLoadDataRecordDialog
  */
 public class ParameterCompareSetupValueInputPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=6378925927076313698L;
 
+	/** Eingabeparameter-Datensatz */
 	private final ParameterCompareSetupValueInput input;
+	/** Editor-Modell, welches die Basis für die Parameterstudie darstellt */
 	private final EditModel model;
 
 	private final JTextField nameEdit;

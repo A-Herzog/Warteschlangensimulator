@@ -23,6 +23,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,13 @@ import ui.tutorial.pages.PageStart;
  * @see MainPanel
  */
 public class TutorialWindow extends JFrame {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2770321276617641597L;
 
+	/** Programm-<code>MainPanel</code> mit dem das interaktive Tutorial zusammenarbeiten soll. */
 	private final MainPanel mainPanel;
 	private final JFrame mainFrame;
 	private Point saveMainFrameLocation;

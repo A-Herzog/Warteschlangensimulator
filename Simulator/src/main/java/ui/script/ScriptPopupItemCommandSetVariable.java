@@ -28,7 +28,6 @@ import systemtools.BaseDialog;
  * @see ScriptPopupItemCommandModel
  */
 public class ScriptPopupItemCommandSetVariable extends ScriptPopupItemCommandModel {
-
 	/**
 	 * Konstruktor der Klasse
 	 * @param name	Name des Eintrags (kann <code>null</code> sein)

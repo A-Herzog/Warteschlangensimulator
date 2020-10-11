@@ -23,6 +23,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +55,10 @@ import ui.images.Images;
  * @see SequenceEditTableModel
  */
 public class SequenceEditAssignmentsDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4649381127763073872L;
 
 	private final Map<Integer,String> assignmentsOriginal;

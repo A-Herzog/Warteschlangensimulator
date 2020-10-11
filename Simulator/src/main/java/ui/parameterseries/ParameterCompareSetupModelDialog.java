@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -40,8 +41,13 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @author Alexander Herzog
  */
 public class ParameterCompareSetupModelDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3223934203763679697L;
 
+	/** Modell innerhalb der Parameter-Vergleichs-Funktion, das bearbeitet werden soll */
 	private final ParameterCompareSetupModel model;
 
 	private final JTextField nameEdit;

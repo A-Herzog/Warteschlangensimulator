@@ -25,6 +25,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -47,6 +48,10 @@ import ui.images.Images;
  * @see QueueingCalculatorDialog
  */
 public abstract class QueueingCalculatorTabBase extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2890937800572790139L;
 
 	/** Name des Tabs im Dialog */
@@ -165,6 +170,11 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		return new QueueingCalculatorInputPanel(title,()->calc());
 	}
 
+	/**
+	 * Fügt ein Info-Panel ein.
+	 * @param parent	Elternelement in das oben das Info-Panel eingefügt werden soll.
+	 * @param text	Im Info-Panel anzuzeigender Text
+	 */
 	private void addTopInfo(final JPanel parent, final String text) {
 		final JPanel line;
 		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -173,6 +183,13 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		parent.add(Box.createVerticalStrut(10));
 	}
 
+	/**
+	 * Für auf einem Panel einen Info-Link ein
+	 * @param parent	Panel auf dem der Link eingefügt werden soll
+	 * @param text	Beschriftung des Links
+	 * @param link	Linkziel (es muss sich um einen http(s)-Link handeln)
+	 * @see #initResults()
+	 */
 	private void addInfoLink(final JPanel parent, final String text, final String link) {
 		parent.add(Box.createVerticalStrut(10));
 		final JPanel line;
@@ -232,6 +249,11 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		return content;
 	}
 
+	/**
+	 * Bereitet das Ausgabefeld {@link #result} vor.
+	 * @see #result
+	 * @see #setResult(String)
+	 */
 	private void initResults() {
 		if (result!=null) return;
 

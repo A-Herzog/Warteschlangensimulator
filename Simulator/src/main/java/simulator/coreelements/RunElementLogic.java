@@ -76,6 +76,12 @@ public abstract class RunElementLogic extends RunElement {
 		super(element,buildName(element,logicElementName));
 	}
 
+	/**
+	 * Erstellt eine neue Instanz dieser Klasse (nicht {@link RunElementLogic},
+	 * sondern der konkreten, abgeleiteten Klasse)
+	 * @param element	Parameter für den Konstruktor
+	 * @return	Neues Laufzeitelement
+	 */
 	private RunElementLogic getInstance(final ModelElementLogic element) {
 		try {
 			return getClass().getConstructor(ModelElementLogic.class).newInstance(element);
@@ -121,6 +127,12 @@ public abstract class RunElementLogic extends RunElement {
 	 */
 	protected abstract String buildConnection(final EditModel editModel, final RunModel runModel, final ModelElementLogic element, final ModelElementSub parent);
 
+	/**
+	 * Liefert das nächste Element
+	 * @param start	Ausganspunkt
+	 * @return	Nächstes Element oder <code>null</code>, wenn kein unmittelbar nächstes Element gefunden wurde
+	 * @see #findNextId(ModelElementLogic, Class[])
+	 */
 	private ModelElement nextElement(final ModelElement start) {
 		ModelElementEdge edge=null;
 

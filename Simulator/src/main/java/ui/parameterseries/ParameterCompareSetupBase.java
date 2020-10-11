@@ -28,6 +28,11 @@ import language.Language;
  * @see ParameterCompareSetup
  */
 public abstract class ParameterCompareSetupBase {
+	/**
+	 * Name für das Element
+	 * @see #getName()
+	 * @see #setName(String)
+	 */
 	private String name;
 
 	/**

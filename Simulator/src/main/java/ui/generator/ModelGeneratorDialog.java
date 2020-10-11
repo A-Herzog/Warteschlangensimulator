@@ -17,6 +17,7 @@ package ui.generator;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -35,6 +36,10 @@ import ui.infopanel.InfoPanel;
  * @author Alexander Herzog
  */
 public class ModelGeneratorDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7913684726422421731L;
 
 	/** Einstellungenbereich für den Modellgenerator */

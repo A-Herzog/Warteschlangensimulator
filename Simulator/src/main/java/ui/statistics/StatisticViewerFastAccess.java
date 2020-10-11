@@ -42,12 +42,19 @@ import ui.script.ScriptTools;
  * @version 2.0
  */
 public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
+	/** Hilfe für Schnellzugriff-Seite */
 	private final Runnable helpFastAccess;
+	/** Hilfe für Schnellzugriff-Dialog */
 	private final Runnable helpFastAccessModal;
+	/** Hilfe für Schnellzugriff-Seite (Javascript) */
 	private final Runnable helpFastAccessJS;
+	/** Hilfe für Schnellzugriff-Dialog (Javascript) */
 	private final Runnable helpFastAccessModalJS;
+	/** Hilfe für Schnellzugriff-Seite (Java) */
 	private final Runnable helpFastAccessJava;
+	/** Hilfe für Schnellzugriff-Dialog (Java) */
 	private final Runnable helpFastAccessModalJava;
+	/** Statistik-Objekt, dem die Daten entnommen werden sollen */
 	private final Statistics statistic;
 
 	private JTextArea results;

@@ -41,15 +41,25 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	 */
 	private static final long serialVersionUID = -2366015952361517477L;
 
+	/** Icon für Textseiten */
 	private static final URL iconText;
+	/** Icon für Tabellenseiten */
 	private static final URL iconTable;
+	/** Icon für Liniendiagrammseiten */
 	private static final URL iconImageLine;
+	/** Icon für Balkendiagrammseiten */
 	private static final URL iconImageBar;
+	/** Icon für Tortendiagrammseiten */
 	private static final URL iconImagePie;
+	/** Icon für Bilderseiten */
 	private static final URL iconImagePicture;
+	/** Icon für XY-Diagrammseiten */
 	private static final URL iconImageXY;
+	/** Icon für Schichtplanseiten */
 	private static final URL iconImageShiftPlan;
+	/** Icon für Reportgeneratorseiten */
 	private static final URL iconReport;
+	/** Icon für sonstige Infoseiten */
 	private static final URL iconSpecial;
 
 	static {
@@ -72,6 +82,11 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 		super();
 	}
 
+	/**
+	 * Soll der Eintrag fett dargestellt werden
+	 * @param value	Baumeintrag
+	 * @return	Eintrag fett dargestellt?
+	 */
 	private boolean changeFont(Object value) {
 		/* Kein leeres Objekt ? */
 		if (!(value instanceof DefaultMutableTreeNode)) return false;
@@ -90,6 +105,16 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 		return true;
 	}
 
+	/**
+	 * Stellt den aktuellen Baumeintrag passend zu den Daten ein.
+	 * @param tree	Baumstruktur
+	 * @param value	Baumeintrag
+	 * @param sel	Selektiert?
+	 * @param expanded	Ausgeklappt?
+	 * @param leaf	Zweig?
+	 * @param row	Zeilennummer
+	 * @param hasFocus	Fokussiert?
+	 */
 	private void defaultProcessing(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 		String stringValue=tree.convertValueToText(value,sel,expanded,leaf,row,hasFocus);
 		if (stringValue==null) return;
@@ -154,6 +179,11 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 		return null;
 	}
 
+	/**
+	 * Aktiviert ein Icon für einen Baumeintrag
+	 * @param value	Baumeintrag
+	 * @return	Gibt an, ob für den Eintrag ein Icon gefunden wurde
+	 */
 	private boolean iconProcessing(Object value) {
 		URL url=getIconURL(value);
 		if (url==null) return false;

@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,6 +97,10 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public class ParameterComparePanel extends SpecialPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1080219911724293243L;
 
 	private final ParameterCompareSetup setup;

@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -58,6 +59,10 @@ import ui.modeleditor.elements.ModelElementText;
  * @author Alexander Herzog
  */
 public class ModelGeneratorPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8231845358497240268L;
 
 	/** Anzahl an Kundentypen */

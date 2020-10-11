@@ -138,6 +138,7 @@ public final class RunDataClients {
 		return clone;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static double scale=1.0d/1000.0d;
 
 	private void logClientData(final RunDataClient client, final SimulationData simData) {

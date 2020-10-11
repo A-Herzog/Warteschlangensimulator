@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.SystemColor;
+import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,11 +42,26 @@ import ui.parameterseries.ParameterCompareSetupValueInputPanel;
  * @see ModelLoadDataRecord
  */
 public class ModelLoadDataRecordDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=-2465183329338223046L;
 
+	/**
+	 * Zu ändernder Eintrag innerhalb des Modells
+	 */
 	private final ParameterCompareSetupValueInput change;
 
+	/**
+	 * Tabellenzelle, der der Datenpunkt entnommen werden soll
+	 */
 	private final JTextField cell;
+
+	/**
+	 * Editor für den zu verändernden Eintrag innerhalb des Modells
+	 * @see #change
+	 */
 	private final ParameterCompareSetupValueInputPanel editor;
 
 	/**

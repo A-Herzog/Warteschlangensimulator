@@ -53,6 +53,10 @@ public class Messages_Java11 {
 		return false;
 	}
 
+	/**
+	 * Fügt deutsche Texte zu möglicherweise fehlenden Swing-Meldungen hinzu.
+	 * @see #setupMissingSwingMessages()
+	 */
 	private static void setupMissingSwingMessagesDE() {
 		UIManager.put("AbstractButton.clickText","Klicken");
 		UIManager.put("AbstractDocument.additionText","Hinzufügen");
@@ -205,6 +209,10 @@ public class Messages_Java11 {
 		UIManager.put("ViewportUI","javax.swing.plaf.basic.BasicViewportUI");
 	}
 
+	/**
+	 * Fügt englische Texte zu möglicherweise fehlenden Swing-Meldungen hinzu.
+	 * @see #setupMissingSwingMessages()
+	 */
 	private static void setupMissingSwingMessagesEN() {
 		UIManager.put("AbstractButton.clickText","click");
 		UIManager.put("AbstractDocument.additionText","addition");
@@ -358,6 +366,12 @@ public class Messages_Java11 {
 		}
 	}
 
+	/**
+	 * Liest (wenn unter einer intakten Java-Version gestartet) die Spracheinstellungen
+	 * für eine bestimmte Sprache aus und gibt diese in der Konsole aus.
+	 * @param locale	Sprache für die die GUI-Daten ausgegeben werden sollen
+	 * @see #getLanguages()
+	 */
 	private static void getLanguage(final Locale locale) {
 		UIManager.getDefaults().setDefaultLocale(locale);
 		Locale.setDefault(locale);

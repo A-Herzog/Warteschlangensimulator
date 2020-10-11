@@ -26,6 +26,7 @@ import fi.iki.elonen.NanoHTTPD.IHTTPSession;
  * @see WebServerHandler
  */
 public class HandlerFavicon implements WebServerHandler {
+	/** Adresse der auszuliefernden ico-Datei bezogen auf die Java-Ressourcen-Verzeichnisstruktur */
 	private final String iconResourceURL;
 
 	/**

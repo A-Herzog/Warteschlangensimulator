@@ -20,6 +20,7 @@ import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.swing.SwingUtilities;
@@ -40,6 +41,10 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class MainFrame extends MainFrameBase {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2208131980436341851L;
 
 	/**
@@ -47,6 +52,10 @@ public class MainFrame extends MainFrameBase {
 	 */
 	public static final String PROGRAM_NAME="Warteschlangensimulator";
 
+	/**
+	 * Dateiname des Taskleisten-Symbols für das Programm
+	 * @see #ICON_URL
+	 */
 	private static final String ICON="res/Symbol.png";
 
 	/**
@@ -76,6 +85,10 @@ public class MainFrame extends MainFrameBase {
 		ReloadManager.add(this);
 	}
 
+	/**
+	 * Minimale anfängliche Fenstergröße bezogen auf eine 100%-Skalierung.
+	 * @see #getScaledDefaultSize(double)
+	 */
 	private static Dimension minMainWindowSize=new Dimension(1024,768);
 
 	private Dimension getScaledDefaultSize(double scale) {

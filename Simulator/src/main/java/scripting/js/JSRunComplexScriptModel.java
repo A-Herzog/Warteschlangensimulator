@@ -32,6 +32,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see JSRunComplexScript
  */
 public final class JSRunComplexScriptModel extends JSBaseCommand {
+	/** Skript-Ausführungsumgebung, welche auch das Modell vorhält */
 	private final JSRunComplexScript runner;
 
 	private boolean canceled=false;

@@ -30,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -86,6 +87,10 @@ import ui.images.Images;
  *
  */
 public class PlotterPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8604825152023324546L;
 
 	/** Liste der Graphen */
@@ -194,6 +199,14 @@ public class PlotterPanel extends JPanel {
 		});
 	}
 
+	/**
+	 * Fügt eine Schaltfläche zu einer Symbolleiste hinzu
+	 * @param toolbar	Symbolleiste zu der die Schaltfläche hinzugefügt werden soll
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche (kann <code>null</code> sein)
+	 * @param icon	Icon für die Schaltfläche (kann <code>null</code> sein)
+	 * @param action	Aktion, die beim Anklicken der Schaltfläche ausgeführt werden soll (kann <code>null</code> sein)
+	 */
 	private void addToolbarIcon(final JToolBar toolbar, final String title, final String hint, final Icon icon, final ActionListener action) {
 		final JButton button=new JButton(title==null?"":title);
 		if (hint!=null) button.setToolTipText(hint);
@@ -573,6 +586,12 @@ public class PlotterPanel extends JPanel {
 			this.color=Color.BLACK;
 		}
 
+		/**
+		 * Liefert einen Parser, der den Ausdruck {@link #expression} und die Variablen {@link #variableName} verwendet.
+		 * @return	Parser
+		 * @see #expression
+		 * @see #variableName
+		 */
 		private ExpressionCalc getParser() {
 			if (expression==null || expression.trim().isEmpty()) return null;
 			final ExpressionCalc calc=new ExpressionCalc(variableName);
@@ -580,6 +599,13 @@ public class PlotterPanel extends JPanel {
 			return calc;
 		}
 
+		/**
+		 * Berechnet den Minimal- und den Maximalwert der Funktion in einem angegebenen Bereich
+		 * @param xMin	Minimaler x-Wert
+		 * @param xMax	Maximaler x-Wert
+		 * @param steps	x-Schrittweite
+		 * @return	Liefert im Erfolgsfall ein Array aus minimalem oder maximalem y-Wert; im Fehlerfall <code>null</code>.
+		 */
 		private double[] getMinMax(final double xMin, final double xMax, final int steps) {
 			lastPlotOk=true;
 			if (color==null) {lastPlotOk=false; return null;}
@@ -605,6 +631,13 @@ public class PlotterPanel extends JPanel {
 			return new double[]{min,max};
 		}
 
+		/**
+		 * Erstellt basierend auf dem Funktionterm eine {@link JFreeChart}-Serie ({@link XYSeries})
+		 * @param xMin	Minimaler x-Wert
+		 * @param xMax	Maximaler x-Wert
+		 * @param steps	x-Schrittweite
+		 * @return	{@link XYSeries} zur Darstellung im Diagramm
+		 */
 		private XYSeries getSeries(final double xMin, final double xMax, final int steps) {
 			lastPlotOk=true;
 			if (color==null) {lastPlotOk=false; return null;}

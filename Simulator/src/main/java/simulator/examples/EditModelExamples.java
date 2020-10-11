@@ -80,8 +80,16 @@ public class EditModelExamples {
 		TYPE_MATH
 	}
 
+	/**
+	 * Liste mit den Beispielen.
+	 * @see #addExample(String[], String, ExampleType, boolean)
+	 */
 	private final List<Example> list;
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse stellt nur statische Hilfsroutinen zur Verfügung und kann nicht instanziert werden.
+	 */
 	private EditModelExamples() {
 		list=new ArrayList<>();
 		addExamples();
@@ -124,10 +132,21 @@ public class EditModelExamples {
 		return result;
 	}
 
+	/**
+	 * Fügt ein Beispiel zu der Liste der Beispiele hinzu
+	 * @param names	Namen für das Beispiel in den verschiedenen Sprachen
+	 * @param file	Beispieldateiname
+	 * @param type	Gruppe in die das Beispiel fällt
+	 * @param availableForPlayer	Ist das Beispiel auch im Player verfügbar?
+	 */
 	private void addExample(final String[] names, final String file, final ExampleType type, final boolean availableForPlayer) {
 		list.add(new Example(names,file,type,availableForPlayer));
 	}
 
+	/**
+	 * Fügt alle Beispiele zu der Liste der Beispiele hinzu.
+	 * @see #list
+	 */
 	private void addExamples() {
 		addExample(Language.trAll("Examples.ErlangC"),"ErlangC1.xml",ExampleType.TYPE_DEFAULT,true);
 		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen.xml",ExampleType.TYPE_PROPERTIES,true);
@@ -265,6 +284,14 @@ public class EditModelExamples {
 		return -1;
 	}
 
+	/**
+	 * Für eine Gruppe zu dem Menü hinzu
+	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben
+	 * @param menu	Menü, in dem die Beispiele als Unterpunkte eingefügt werden sollen
+	 * @param listener	Listener, der mit einem Modell aufgerufen wird, wenn dieses geladen werden soll.
+	 * @param group	Beispielgruppe
+	 * @see #addToMenu(Component, JMenu, Consumer)
+	 */
 	private void addGroupToMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener, final ExampleType group) {
 		if (menu.getItemCount()>0) menu.addSeparator();
 
@@ -425,6 +452,13 @@ public class EditModelExamples {
 		 */
 		public final boolean availableForPlayer;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param names	Namen für das Beispiel in den verschiedenen Sprachen
+		 * @param file	Beispieldateiname
+		 * @param type	Gruppe in die das Beispiel fällt
+		 * @param availableForPlayer	Ist das Beispiel auch im Player verfügbar?
+		 */
 		private Example(final String[] names, final String file, final ExampleType type, final boolean availableForPlayer) {
 			this.names=names;
 			this.file=file;

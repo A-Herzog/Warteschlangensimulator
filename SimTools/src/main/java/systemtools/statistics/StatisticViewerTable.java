@@ -68,6 +68,9 @@ import systemtools.images.SimToolsImages;
  * @version 1.5
  */
 public class StatisticViewerTable implements StatisticViewer {
+	/**
+	 * Tabelle mit Daten (kann <code>null</code> sein wenn die Daten nicht über ein {@link Table}-Objekt geladen werden)
+	 */
 	private Table table;
 
 	/**
@@ -81,8 +84,23 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	protected List<String> columnNames;
 
+	/**
+	 * html-Seite mit einer zusätzlichen Erklärung zu dieser Statistikseite
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private URL descriptionURL=null;
+
+	/**
+	 * Handler, der Themennamen (angegeben über "help:..."-Links) zum Aufruf normaler Hilfeseiten entgegen nimmt
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private Consumer<String> descriptionHelpCallback=null;
+
+	/**
+	 * Darstellung der Hilfe-Seite {@link #descriptionURL}
+	 * @see #initDescriptionPane()
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private DescriptionViewer descriptionPane=null;
 
 	/**
@@ -252,6 +270,9 @@ public class StatisticViewerTable implements StatisticViewer {
 		return null;
 	}
 
+	/**
+	 * Öffnet die Tabelle (über eine temporäre Datei) mit Excel
+	 */
 	private void openExcel() {
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".xlsx");
@@ -264,6 +285,9 @@ public class StatisticViewerTable implements StatisticViewer {
 		}
 	}
 
+	/**
+	 * Öffnet die Tabelle (über eine temporäre Datei) mit OpenOffice/LibreOffice
+	 */
 	private void openODS() {
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".ods");
@@ -281,6 +305,13 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	protected void buildTable() {}
 
+	/**
+	 * Initialisiert die Anzeige der zusätzlichen Beschreibung.
+	 * @see #addDescription(URL, Consumer)
+	 * @see #descriptionURL
+	 * @see #descriptionHelpCallback
+	 * @see #descriptionPane
+	 */
 	private void initDescriptionPane() {
 		if (descriptionPane!=null) return;
 		if (descriptionURL==null) return;
@@ -292,8 +323,18 @@ public class StatisticViewerTable implements StatisticViewer {
 		});
 	}
 
+	/**
+	 * Konkretes Anzeigeobjekt, das üger {@link #getViewer(boolean)} geliefert wird.
+	 * @see #getViewer(boolean)
+	 */
 	private Container viewer=null;
 
+	/**
+	 * Stellt die Breite einer Spalte basierend auf dem Inhalt der Spalte ein.
+	 * @param table	Tabelle bei der die Breite einer Spalte eingestellt werden soll.
+	 * @param columnIndex	0-basierter Spaltenindex
+	 * @param includeHeader	Nur den Inhalt der Spalte (<code>false</code>) oder auch die Spaltenüberschrift (<code>true</code>) in die Berechnung der benötigten Breite mit einbeziehen.
+	 */
 	private void autoSizeColumn(final JTable table, final int columnIndex, final boolean includeHeader) {
 		/* Spaltenbreite */
 		int widthContent=0;
@@ -316,10 +357,21 @@ public class StatisticViewerTable implements StatisticViewer {
 		setColWidth(table,columnIndex,Math.max(widthContent,widthHeader));
 	}
 
+	/**
+	 * Liefert die Spaltenabstände.
+	 * @param table	Tabelle von der die Spaltenabstände berechnet werden sollen.
+	 * @return	Spaltenabstände
+	 */
 	private int getSpacing(final JTable table) {
 		return table.getIntercellSpacing().width+5; /* "+5"=Border+Inset */
 	}
 
+	/**
+	 * Stellt die Spalte einer Breite ein.
+	 * @param table	Tabelle bei der die Breite einer Spalte eingestellt werden soll.
+	 * @param columnIndex	0-basierter Spaltenindex
+	 * @param width	Neue Spaltenbreite
+	 */
 	private void setColWidth(final JTable table, final int columnIndex, final int width) {
 		/* Abstände zwischen den Zellen */
 		final int spacing=getSpacing(table);
@@ -424,11 +476,17 @@ public class StatisticViewerTable implements StatisticViewer {
 		return viewer=descriptionPane.getSplitPanel(tableScroller);
 	}
 
-	private void addVectorToStringBuilder(final StringBuilder s, final List<String> v) {
-		final int size=v.size();
-		if (size>0) s.append(v.get(0));
-		for (int i=1;i<size;i++) {s.append('\t'); s.append(v.get(i));}
-		s.append('\n');
+	/**
+	 * Fügt eine Textzeile bestehend aus mehreren Spalten zu einem {@link StringBuilder} hinzu.
+	 * @param output	{@link StringBuilder}  zu dem die Zeile hinzugefügt werden soll
+	 * @param line	Auszugebende Zeile (die Spalten werden durch Tabulatoren getrennt)
+	 * @see #copyToClipboard(Clipboard)
+	 */
+	private void addListToStringBuilder(final StringBuilder output, final List<String> line) {
+		final int size=line.size();
+		if (size>0) output.append(line.get(0));
+		for (int i=1;i<size;i++) {output.append('\t'); output.append(line.get(i));}
+		output.append('\n');
 	}
 
 	@Override
@@ -436,9 +494,9 @@ public class StatisticViewerTable implements StatisticViewer {
 		if (columnNames.isEmpty()) buildTable();
 		initData();
 		final StringBuilder s=new StringBuilder();
-		addVectorToStringBuilder(s,columnNames);
+		addListToStringBuilder(s,columnNames);
 		final int size=data.size();
-		for (int i=0;i<size;i++) addVectorToStringBuilder(s,data.get(i));
+		for (int i=0;i<size;i++) addListToStringBuilder(s,data.get(i));
 		StringSelection cont=new StringSelection(s.toString());
 		clipboard.setContents(cont,null);
 	}
@@ -498,6 +556,13 @@ public class StatisticViewerTable implements StatisticViewer {
 		return toTable().save(file);
 	}
 
+	/**
+	 * Fügt eine einzelne Zeile zu einer {@link BufferedWriter}-Ausgabe hinzu.
+	 * @param bw	Ausgabestream, der später zur html-Datei wird
+	 * @param line	Auszugebende Datenzeile
+	 * @throws IOException	Die Exception wird ausgelöst, wenn die Dateiausgabe nicht durchgeführt werden konnte.
+	 * @see #saveHtml(BufferedWriter, File, int, boolean)
+	 */
 	private void saveLineToTable(BufferedWriter bw, List<String> line) throws IOException {
 		bw.write("  <tr>");
 		for (int i=0;i<line.size();i++) bw.write("<td>"+line.get(i)+"</td>");

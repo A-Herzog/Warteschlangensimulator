@@ -18,6 +18,7 @@ package ui.optimizer;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +41,15 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see OptimizerSetup#controlVariableConstrains
  */
 public class OptimizerPanelConstrainsDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5697018498521665681L;
 
+	/** Liste der Nebenbedingungen (aus dieser Liste wird beim Start geladen und in diese Liste werden die neuen Bedingungen beim Schließen zurückgeschrieben) */
 	private final List<String> constrains;
+	/** Eingabefeld für die Nebenbedingungen */
 	private final JTextArea textArea;
 
 	/**

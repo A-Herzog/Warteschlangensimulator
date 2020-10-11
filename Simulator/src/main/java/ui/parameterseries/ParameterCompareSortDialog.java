@@ -18,6 +18,7 @@ package ui.parameterseries;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +38,10 @@ import systemtools.BaseDialog;
  * @author Alexander Herzog
  */
 public class ParameterCompareSortDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6037938544402526106L;
 
 	private final ParameterCompareSetup setup;

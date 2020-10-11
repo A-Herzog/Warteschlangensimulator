@@ -20,6 +20,7 @@ import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -44,6 +45,10 @@ import ui.images.Images;
  * @see OptimizerPanel
  */
 public final class OptimizerPanelPrepareDialog extends JDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -138228476553570125L;
 
 	/**

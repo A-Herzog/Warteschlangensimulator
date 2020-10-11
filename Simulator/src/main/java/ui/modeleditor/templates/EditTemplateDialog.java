@@ -23,6 +23,7 @@ import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.ByteArrayInputStream;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -48,6 +49,10 @@ import ui.modeleditor.coreelements.ModelElementBox;
  * @see UserTemplates
  */
 public class EditTemplateDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4202359606313518050L;
 
 	/**

@@ -53,9 +53,13 @@ import ui.modeleditor.ModelElementCatalog;
  * @author Alexander Herzog
  */
 public class InfoPanel {
+	/** Teil-ID für Infos zu Fenstern */
 	private static final String groupWindow="Window|";
+	/** Teil-ID für Infos zu Modelleigenschaften-Dialogseiten */
 	private static final String groupModel="EditorPanelDialog|";
+	/** Teil-ID für Infos zu Optimierer-Dialogseiten */
 	private static final String groupOptimizer="OptimizerPanel|";
+	/** Teil-ID für Infos zu Modellelementen */
 	private static final String groupElement="Element|";
 
 	/** Info-ID für die Willkommensseite */
@@ -482,6 +486,11 @@ public class InfoPanel {
 	private static final Semaphore mutex=new Semaphore(1);
 	private static volatile InfoPanel instance;
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse ist ein Singleton und kann nicht direkt instanziert werden.
+	 * Um die Instanz zu erhalten, muss {@link #getInstance()} aufgerufen werden.
+	 */
 	private InfoPanel() {
 		items=new ArrayList<>();
 		activeHintsList=new HashMap<>();

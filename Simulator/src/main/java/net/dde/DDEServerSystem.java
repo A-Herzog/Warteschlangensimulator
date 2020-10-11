@@ -31,6 +31,7 @@ import com.pretty_tools.dde.server.DDEServer;
  */
 public class DDEServerSystem {
 	private DDEServer server;
+	/** Name des Services über den der DDE-Server angesprochen werden können soll */
 	private String service;
 	private Semaphore lock;
 

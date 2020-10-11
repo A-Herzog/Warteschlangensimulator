@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,10 @@ import ui.script.ScriptTools;
  * @author Alexander Herzog
  */
 public class ParameterCompareStatisticSelectDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4239647935934489391L;
 
 	/**
@@ -59,6 +64,7 @@ public class ParameterCompareStatisticSelectDialog extends BaseDialog {
 		MODE_STORE
 	}
 
+	/** Modus des Dialogs (entweder Vergleichen von Modellen oder Speichern von Statistikdaten) */
 	private final Mode mode;
 	private JTextField folderEdit;
 	private final List<ParameterCompareSetupModel> models;

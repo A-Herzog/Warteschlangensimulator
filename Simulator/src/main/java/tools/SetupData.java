@@ -815,9 +815,27 @@ public class SetupData extends SetupBase {
 	 */
 	public String lastError;
 
+	/**
+	 * Singleton-Instanz des Setup-Objektes
+	 * @see #getSetup()
+	 */
 	private static volatile SetupData setup=null;
+
+	/**
+	 * Mutex zum das mehrfache parallele Initialisieren
+	 * von {@link #setup} zu verhindern.
+	 * @see #setup
+	 * @see #getSetup(boolean)
+	 */
 	private static final Semaphore mutex=new Semaphore(1);
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse ist ein Singleton und kann nicht direkt instanziert werden.
+	 * Es muss stattdessen {@link #getSetup()} verwendet werden.
+	 * @param loadSetupFile	Zu ladende Setup-Datei
+	 * @see #getSetup()
+	 */
 	private SetupData(final boolean loadSetupFile) {
 		super();
 		if (loadSetupFile) {
@@ -948,11 +966,18 @@ public class SetupData extends SetupBase {
 		lastError=null;
 	}
 
+	/**
+	 * Gibt an, ob die Programmsprache beim Programmstart gemäß der Systemsprache automatisch
+	 * eingestellt wurde (oder ob die Programmsprache aus dem Setup geladen wurde).
+	 * @see #languageWasAutomaticallySet()
+	 * @see #resetLanguageWasAutomatically()
+	 * @see #autoSetLanguage()
+	 */
 	private boolean autoSetLanguageActive=false;
 
 	/**
 	 * Gibt an, ob die Programmsprache beim Programmstart gemäß der Systemsprache automatisch
-	 * eingestellt wurde (oder ob die Programmsprache aus dem Setup geladen wurde)
+	 * eingestellt wurde (oder ob die Programmsprache aus dem Setup geladen wurde).
 	 * @return	Gibt <code>true</code> zurück, wenn die Programmsprache automatisch eingestellt wurde
 	 */
 	public boolean languageWasAutomaticallySet() {
@@ -966,6 +991,9 @@ public class SetupData extends SetupBase {
 		autoSetLanguageActive=false;
 	}
 
+	/**
+	 * Stellt die Sprache, wenn nötig, automatisch ein.
+	 */
 	private void autoSetLanguage() {
 		if (!language.isEmpty()) return;
 		final String userLanguage=System.getProperty("user.language");
@@ -1027,8 +1055,12 @@ public class SetupData extends SetupBase {
 	 * Name für den Ordner unterhalb von %APPDATA%, der für Programmeinstellungen verwendet
 	 * werden soll, wenn das Programm von innerhalb des "Programme"-Verzeichnisses ausgeführt wird.
 	 */
-	private static final String USER_CONFIGURATION_FOLDER_NAME="Highfives Warteschlangensimulator";
+	private static final String USER_CONFIGURATION_FOLDER_NAME="Warteschlangensimulator";
 
+	/**
+	 * Liefert den Pfadnamen des Verzeichnisses in dem die Einstellungsdatei abgelegt werden soll.
+	 * @see #getSetupFolder()
+	 */
 	private static File setupFolder;
 
 	/**
@@ -1040,8 +1072,12 @@ public class SetupData extends SetupBase {
 		return setupFolder;
 	}
 
+	/**
+	 * Wird intern von {@link #getSetupFolder()} zur Bestimmung des Verzeichnisses
+	 * aufgerufen, wenn in {@link #setupFolder} noch kein Wert hinterlegt ist.
+	 * @return	Pfad der Einstellungendatei
+	 */
 	private static File getSetupFolderInt() {
-
 		final File programFolder=getProgramFolder();
 
 		/* Abweichender Ordner nur unter Windows */

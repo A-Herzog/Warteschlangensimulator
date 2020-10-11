@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -47,6 +48,10 @@ import ui.modeleditor.ModelSchedule;
  * @see SchedulesTableModel
  */
 public class ScheduleTableModelSetupDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7856120681087030477L;
 
 	private static String[] durationPerSlotTemplateStrings=new String[]{"1 Minute","15 Minuten","30 Minuten","1 Stunde","1 Tag"};

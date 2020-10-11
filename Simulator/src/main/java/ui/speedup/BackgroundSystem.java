@@ -45,10 +45,14 @@ import ui.modeleditor.elements.ModelElementSub;
  * @author Alexander Herzog
  */
 public class BackgroundSystem {
-	private static final int MAX_CLIENTS_PER_THREAD=2_000_000; /* Maximalwert für Kunden/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
-	private static final int MAX_ELEMENTS_PER_THREAD=10; /* Maximalwert Modellelemente/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
-	private static final int DELAY_NORMAL=2_500; /* Verzögerung vor dem Start der Hintergrundsimulation im Normalfall */
-	private static final int DELAY_FAST=1_500; /* Verzögerung vor dem Start der Hintergrundsimulation im agressiven Modus */
+	/** Maximalwert für Kunden/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
+	private static final int MAX_CLIENTS_PER_THREAD=2_000_000;
+	/** Maximalwert Modellelemente/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
+	private static final int MAX_ELEMENTS_PER_THREAD=10;
+	/** Verzögerung vor dem Start der Hintergrundsimulation im Normalfall */
+	private static final int DELAY_NORMAL=2_500;
+	/** Verzögerung vor dem Start der Hintergrundsimulation im agressiven Modus */
+	private static final int DELAY_FAST=1_500;
 
 	private static Map<EditorPanel,BackgroundSystem> system;
 

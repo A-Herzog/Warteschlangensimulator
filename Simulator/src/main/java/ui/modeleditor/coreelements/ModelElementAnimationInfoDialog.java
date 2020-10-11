@@ -21,6 +21,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -51,6 +52,10 @@ import ui.images.Images;
  * @see ModelElement
  */
 public class ModelElementAnimationInfoDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2428681388058860543L;
 
 	/** Timer für automatische Aktualisierungen */

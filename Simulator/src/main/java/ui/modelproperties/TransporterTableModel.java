@@ -18,6 +18,7 @@ package ui.modelproperties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +53,24 @@ import ui.modeleditor.elements.ModelElementTransportTransporterSource;
  * @see ModelPropertiesDialog
  */
 public class TransporterTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7363232010136439807L;
 
 	private AnimationImageSource imageSource;
+	/** Liste der Transportergruppen die in der Tabelle angezeigt werden sollen */
 	private final List<ModelTransporter> transporters;
+	/** Vollständiges Editor-Modell (wird für den Expression-Builder benötigt) */
 	private final EditModel model;
+	/** Zeichenfläche (für die Bestimmung der Abstände) */
 	private final ModelSurface surface;
+	/** Zu dem Tabellenmodell gehörenden Tabellenobjekt (wird sowohl zum Ausrichten von Dialogen als auch um ein Update der Tabelle anzustoßen benötigt) */
 	private final JTableExt table;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Callback */
 	private final Runnable help;
 
 	/**

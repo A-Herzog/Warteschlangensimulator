@@ -15,6 +15,8 @@
  */
 package ui.calculator;
 
+import java.io.Serializable;
+
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -29,6 +31,10 @@ import mathtools.NumberTools;
  * @see QueueingCalculatorDialog
  */
 public class QueueingCalculatorTabLoad extends QueueingCalculatorTabBase {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5683337840249023703L;
 
 	/** Register zur Auswahl der verschiedenen Modi (Ankunftsrate, Kunden pro Tag) */

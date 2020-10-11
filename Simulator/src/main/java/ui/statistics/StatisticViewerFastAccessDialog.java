@@ -24,6 +24,7 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -66,9 +67,15 @@ import systemtools.BaseDialog;
  * @version 1.0
  */
 public class StatisticViewerFastAccessDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 871510627014695528L;
 
+	/** xml-Dokument (Statistik oder Modell) dem die Daten entnommen werden sollen */
 	private final Document xmlDoc;
+	/** Sollen Optionen zum Einfügen des gewählten Elements in ein Skript angeboten werden (<code>false</code>) oder geht es nur um die Auswahl des XML-Elements als solches (<code>true</code>) */
 	private final boolean plainMode;
 
 	private JTree tree;

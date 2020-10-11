@@ -36,6 +36,7 @@ public abstract class JSEngine {
 	 */
 	protected static final String ENGINE_NAME_BINDING="JS_ENGINE_NAME";
 
+	/** Maximale Skriptlaufzeit */
 	private final int maxExecutionTimeMS;
 	private final ThreadPoolExecutor executorPool;
 	private String lastResult;

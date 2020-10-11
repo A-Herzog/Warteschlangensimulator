@@ -18,6 +18,7 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -40,9 +41,22 @@ import ui.modeleditor.ModelLoadData;
  * @see ModelLoadData#changeModel(simulator.editmodel.EditModel, java.io.File, boolean)
  */
 public class ModelLoadDataWarningsDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=-8517430290293338838L;
 
+	/**
+	 * HTML-Kopf für die Ausgabe der html-formatierten Warnungen.
+	 * @see #HTML_FOOT
+	 */
 	private static final String HTML_HEAD="<html><body><p style='padding: 2px 5px;'>";
+
+	/**
+	 * HTML-Fußbereich für die Ausgabe der html-formatierten Warnungen.
+	 * @see #HTML_HEAD
+	 */
 	private static final String HTML_FOOT="</p></body></html>";
 
 	/**

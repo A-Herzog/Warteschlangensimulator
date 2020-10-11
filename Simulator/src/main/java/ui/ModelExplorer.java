@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.JViewport;
@@ -38,10 +39,17 @@ import ui.modeleditor.ModelSurfacePanel;
  * @see ModelSurfacePanel
  */
 public class ModelExplorer extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5439577551953528165L;
 
+	/** Modell-Panel aus dem das darzustellende Modell entnommen wird und auf das die Verschiebungen wirken sollen */
 	private final ModelSurfacePanel surfacePanel;
+	/** Zeichenflächendaten innerhalb von {@link #surfacePanel} */
 	private final ModelSurface surface;
+	/** Bild der Elemente aus {@link #surfacePanel} */
 	private final BufferedImage image;
 
 	/**

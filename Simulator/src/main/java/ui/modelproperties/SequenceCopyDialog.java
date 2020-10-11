@@ -21,6 +21,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -39,6 +40,10 @@ import ui.modeleditor.ModelSequence;
  * @see SequencesEditPanel
  */
 public class SequenceCopyDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3306795145111165668L;
 
 	private final ModelSequence sequence;

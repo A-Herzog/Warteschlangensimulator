@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -46,6 +47,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see TransporterTableModelDialog
  */
 public class TransporterTableModelDialogLoadingTimes extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8218899396948508334L;
 
 	private final String[] variables;

@@ -40,6 +40,7 @@ public class PageSetupSource implements TutorialPage {
 		return "SetupSource";
 	}
 
+	/** Zwischenankunftszeitenverteilung, die der Nutzer einstellen soll */
 	private static AbstractRealDistribution	interarrivalDistribution=new ExponentialDistribution(null,50,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**

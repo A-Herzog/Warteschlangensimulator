@@ -18,6 +18,7 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.swing.BoxLayout;
@@ -45,6 +46,10 @@ import ui.modeleditor.elements.ModelElementEdge;
  *
  */
 public class EdgeStyleSetupDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5850107078223112820L;
 
 	/** Darstellung von nicht-selektierten Verbindungskanten */

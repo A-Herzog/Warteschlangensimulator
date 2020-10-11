@@ -93,6 +93,10 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public class LanguageStaticLoader {
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht instanziert werden. Sie stellt lediglich die statische Methode {@link #setLanguage()} zur Verfügung.
+	 */
 	private LanguageStaticLoader() {}
 
 	/**

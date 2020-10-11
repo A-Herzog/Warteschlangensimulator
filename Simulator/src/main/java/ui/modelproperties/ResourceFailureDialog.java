@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -57,9 +58,15 @@ import ui.modeleditor.ModelSurface;
  * @author Alexander Herzog
  */
 public class ResourceFailureDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5525453066628106106L;
 
+	/** Editor-Modell (für {@link ExpressionBuilder}) */
 	private final EditModel model;
+	/** Zeichenfläche (für {@link ExpressionBuilder}) */
 	private final ModelSurface surface;
 
 	private final JRadioButton failureNumber;

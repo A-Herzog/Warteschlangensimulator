@@ -447,6 +447,9 @@ public class Statistics extends StatisticsBase {
 		CORRELATION_MODE_FULL
 	}
 
+	/**
+	 * Begrenzung der vom Nutzer gewählten maximalen Stundenanzahl für die Erfassung von Verteilungen.
+	 */
 	private static int MAX_DISTRIBUTION_RECORD_HOURS=48;
 
 	/**

@@ -18,6 +18,7 @@ package ui.script;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -35,9 +36,14 @@ import systemtools.MsgBox;
  * @see ScriptPopupItemCommandSetVariable
  */
 public class SelectVariableDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5308507430316777428L;
 
 	private final JComboBox<String> combo;
+	/** Liste der Variablennamen */
 	private final String[] variableNames;
 
 	/**

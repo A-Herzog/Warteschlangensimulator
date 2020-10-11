@@ -20,6 +20,7 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,6 +50,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see DBSettings
  */
 public class DBSettingsPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1050768140573186364L;
 
 	/** Einstellungenobjekt (darf nicht <code>null</code> sein) */
@@ -149,6 +154,10 @@ public class DBSettingsPanel extends JPanel {
 		comboChanged();
 	}
 
+	/**
+	 * Reagiert darauf, wenn ein neuer Datenbanktyp gewählt wurde.
+	 * @see #comboType
+	 */
 	private void comboChanged() {
 		final DBConnect.DBType currentType=DBConnect.DBType.values()[comboType.getSelectedIndex()];
 
@@ -251,6 +260,11 @@ public class DBSettingsPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Schreibt die Einstellungen aus der GUI in ein {@link DBSettings}-Objekt zurück.
+	 * @param settings	{@link DBSettings}-Objekt in das die Einstellungen aus der GUI geschrieben werden sollen.
+	 * @see #storeData()
+	 */
 	private void storeData(final DBSettings settings) {
 		settings.setType(DBConnect.DBType.values()[comboType.getSelectedIndex()]);
 		settings.setConfig(editConfig.getText().trim());

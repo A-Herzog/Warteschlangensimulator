@@ -18,6 +18,7 @@ package simulator.db;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -34,6 +35,10 @@ import ui.images.Images;
  * @author Alexander Herzog
  */
 public class DBConnectDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -3330178091897338877L;
 
 	/** Datenbankeinstellungs-Objekt */
@@ -84,6 +89,9 @@ public class DBConnectDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Führt den Test mit den angegebenen Parametern durch.
+	 */
 	private void runTest() {
 		output.setText("");
 

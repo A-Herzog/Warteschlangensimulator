@@ -34,6 +34,7 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class BackgroundPrepareCompiledClasses {
+	/** Verzögerung in Millisekunden bevor der Thread startet */
 	private static final int START_DELAY=5_000;
 
 	/**

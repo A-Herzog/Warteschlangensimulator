@@ -316,6 +316,11 @@ public abstract class HTMLPanel extends JPanel {
 	 */
 	public abstract URL getPageURL(String res);
 
+	/**
+	 * Initialisiert die Einträge zur Auswahl bestimmter Elemente im {@link #contentPopup}.
+	 * @see #contentPopup
+	 * @see ButtonListener
+	 */
 	private void initContentPopup() {
 		contentPopup.removeAll();
 		List<String> content=textPane.getPageContent();
@@ -391,6 +396,11 @@ public abstract class HTMLPanel extends JPanel {
 	 */
 	private final Object lockObject=new Object();
 
+	/**
+	 * Reagiert darauf, wenn das Laden einer Seite in {@link HTMLPanel#textPane}
+	 * abgeschlossen ist (und stellt die Vor/Zurück-Schaltflächen usw. korrekt ein).
+	 * @see HTMLPanel#textPane
+	 */
 	private final class PageLoadListener implements Runnable {
 		@Override
 		public void run() {

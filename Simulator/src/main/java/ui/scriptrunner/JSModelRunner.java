@@ -37,10 +37,15 @@ import ui.script.ScriptEditorPanel;
  */
 public class JSModelRunner {
 	private boolean canceled;
+	/** Skriptmodus */
 	private final ScriptEditorPanel.ScriptMode mode;
+	/** Auszuführendes Skript */
 	private final String script;
+	/** Editor-Modell auf dessen Basis die JS-Datenreihe erstellt werden soll */
 	private final EditModel model;
+	/** Wird aufgerufen, wenn Log-Ausgaben erfolgen sollen. */
 	private final Consumer<String> outputNotify;
+	/** Wird aufgerufen, wenn die Skriptausführung abgeschlossen wurde. */
 	private final Runnable doneNotify;
 
 	private JSRunComplexScript scriptRunner;
@@ -52,7 +57,7 @@ public class JSModelRunner {
 	 * @param mode	Skriptmodus
 	 * @param script	Auszuführendes Skript
 	 * @param outputNotify	Wird aufgerufen, wenn Log-Ausgaben erfolgen sollen.
-	 * @param doneNotify	Wird aufgerufen, wenn die Skriptausführung absgeschlossen wurde.
+	 * @param doneNotify	Wird aufgerufen, wenn die Skriptausführung abgeschlossen wurde.
 	 */
 	public JSModelRunner(final EditModel model, final ScriptEditorPanel.ScriptMode mode, final String script, final Consumer<String> outputNotify, final Runnable doneNotify) {
 		canceled=false;

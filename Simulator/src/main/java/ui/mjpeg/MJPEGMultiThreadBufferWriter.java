@@ -40,7 +40,9 @@ import tools.SetupData;
  */
 public class MJPEGMultiThreadBufferWriter extends MJPEGBufferWriterBase {
 	private static final int MAX_THREADS=12; /* Damit uns der Arbeitsspeicher durch die vielen wartenden Bilder nicht ausgeht. */
+	/** Bilder als jpeg speichern (<code>true</code>) oder als png (<code>false</code>) */
 	private final boolean storeAsJPEG;
+	/** Kompressionsqualität für jpegs (Wert zwischen 0 und 1) */
 	private final float quality;
 	private final int maxThreads;
 	private final List<WorkerThread> worker;

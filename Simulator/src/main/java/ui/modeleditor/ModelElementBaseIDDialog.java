@@ -21,6 +21,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -41,11 +42,19 @@ import ui.modeleditor.coreelements.ModelElement;
  * @see ModelElementBaseDialog
  */
 public class ModelElementBaseIDDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8329216683933004322L;
 
+	/** Bisherige ID des Elements */
 	private final int oldID;
+	/** Hauptebenen Surface (zur Ermittlung, welche IDs bereits vergeben sind) */
 	private final ModelSurface mainSurface;
+	/** Eingabefeld für die ID */
 	private final JTextField editID;
+	/** Zeigt zu der eingegebenen ID zusätzliche Infos an (z.B. ob diese bereits vergeben ist oder ob sie überhaupt gültig ist) */
 	private final JLabel info;
 
 	/**

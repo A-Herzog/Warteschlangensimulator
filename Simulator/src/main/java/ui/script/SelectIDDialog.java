@@ -18,6 +18,7 @@ package ui.script;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +59,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ScriptPopupItemCommandID
  */
 public class SelectIDDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -3524092476641852821L;
 
 	private int selectedID;

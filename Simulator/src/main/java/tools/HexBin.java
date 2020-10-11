@@ -11,6 +11,10 @@ public final class HexBin {
 	private static final byte[] hexNumberTable=new byte[BASELENGTH];
 	private static final char[] lookUpHexAlphabet=new char[LOOKUPLENGTH];
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht instanziert werden. Sie enthält nur statische Hilfsroutinen.
+	 */
 	private HexBin() {}
 
 	static {

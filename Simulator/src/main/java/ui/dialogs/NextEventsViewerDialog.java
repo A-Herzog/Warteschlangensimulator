@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,10 @@ import ui.images.Images;
  * @see AnimationPanel
  */
 public class NextEventsViewerDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7426782186422397312L;
 
 	/** Sortierte Liste der nächsten Ereignisse */
@@ -214,6 +219,10 @@ public class NextEventsViewerDialog extends BaseDialog {
 	 * Renderer für die Liste der nächsten Ereignisse
 	 */
 	private class ListCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -9219657834226171890L;
 
 		@Override

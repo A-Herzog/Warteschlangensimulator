@@ -30,6 +30,7 @@ import ui.statistics.analyticcompare.AnalyticInfo;
  * @author Alexander Herzog
  */
 public class StatisticViewerErlangCCompare extends StatisticViewerText {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
 
 	/**

@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -34,6 +35,10 @@ import ui.modeleditor.ModelSurface;
  * @author Alexander Herzog
  */
 public class BackgroundColorDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7680431280280416543L;
 
 	/** Nutzerdefinierte Hintergrundfarbe aktiv? */

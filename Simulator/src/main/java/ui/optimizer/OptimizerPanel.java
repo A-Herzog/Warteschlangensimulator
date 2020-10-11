@@ -33,6 +33,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,6 +113,10 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public class OptimizerPanel extends SpecialPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2492864288739317550L;
 
 	/** Übergeordnetes Fenster */

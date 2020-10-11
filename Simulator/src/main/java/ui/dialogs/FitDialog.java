@@ -23,6 +23,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -55,8 +56,18 @@ import ui.infopanel.InfoPanel;
  * @see DistributionFitter
  */
 public class FitDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8263152374892311273L;
 
+	/**
+	 * HTML-Kopf für die Ausgabe in {@link #inputValues} und {@link #outputText}
+	 * @see #inputValues
+	 * @see #outputText
+	 * @see #htmlFoot
+	 */
 	private static final String htmlHead=
 			"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n"+
 					"<html>\n"+
@@ -72,6 +83,13 @@ public class FitDialog extends BaseDialog {
 					"  </style>\n"+
 					"</head>\n"+
 					"<body>\n";
+
+	/**
+	 * HTML-Fußbereich für die Ausgabe in {@link #inputValues} und {@link #outputText}
+	 * @see #inputValues
+	 * @see #outputText
+	 * @see #htmlHead
+	 */
 	private static final String htmlFoot="</body></html>";
 
 	/** Registerreiter */
@@ -111,7 +129,7 @@ public class FitDialog extends BaseDialog {
 		setResizable(true);
 	}
 
-	private void createTabs(JTabbedPane tabs) {
+	private void createTabs(final JTabbedPane tabs) {
 		JPanel p,p2;
 		JToolBar toolbar;
 		JButton b;

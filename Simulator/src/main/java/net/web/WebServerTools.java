@@ -20,6 +20,10 @@ package net.web;
  * @author Alexander Herzog
  */
 public class WebServerTools {
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht instanziert werden. Sie stellt nur statische Hilfsmethoden zur Verfügung.
+	 */
 	private WebServerTools() {}
 
 	/**

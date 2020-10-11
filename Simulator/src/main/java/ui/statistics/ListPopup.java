@@ -43,7 +43,9 @@ import ui.modeleditor.ModelResource;
  * @author Alexander Herzog
  */
 public class ListPopup {
+	/** Element unter dem das Popup-Menü eingeblendet werden soll */
 	private final Component owner;
+	/** Hilfe-Runnable */
 	private final Runnable help;
 
 	/**

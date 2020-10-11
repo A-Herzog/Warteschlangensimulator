@@ -16,6 +16,7 @@
 package ui.statistics;
 
 import java.awt.BorderLayout;
+import java.io.Serializable;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -32,10 +33,22 @@ import ui.images.Images;
  * @see StatisticViewerFastAccess
  */
 public abstract class StatisticViewerFastAccessBase extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7832961660281079068L;
 
+	/**
+	 * Hilfe für Schnellzugriff-Seite
+	 */
 	private final Runnable helpFastAccess;
+
+	/**
+	 * Runnable das aufgerufen wird, wenn sich die Ergebnisse verändert haben
+	 */
 	private final Runnable resultsChanged;
+
 	private String results;
 
 	/**

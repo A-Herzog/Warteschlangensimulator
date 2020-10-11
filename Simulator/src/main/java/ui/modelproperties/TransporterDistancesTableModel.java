@@ -23,6 +23,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,16 +54,25 @@ import ui.modeleditor.elements.ModelElementTransportTransporterSource;
  * @see TransporterTableModelDialog
  */
 public class TransporterDistancesTableModel extends AbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -8770320675401142234L;
 
+	/** Übergeordnetes Element (zur Platzierung von Dialogen) */
 	private final Component owner;
+	/** Zu diesem Tabellenmodell gehörige Tabelle */
 	private final JTable table;
+	/** Transporter-Objekt aus dem die Anzahl-Werte ausgelesen werden sollen und in das sie später ggf. zurückgeschrieben werden sollen */
 	private final ModelTransporter transporter;
 	private final List<ModelElementBox> stationElements;
 	private final List<String> stations;
 	private final List<String> stationsLong;
 	private final String[][] distances;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Runnable */
 	private final Runnable help;
 
 	/**

@@ -18,6 +18,7 @@ package ui.modelproperties;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -37,6 +38,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see TransporterDistancesTableModel
  */
 public class TransporterDistancesTableModelScaleDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2381393842257178303L;
 
 	private final JTextField minDistance;

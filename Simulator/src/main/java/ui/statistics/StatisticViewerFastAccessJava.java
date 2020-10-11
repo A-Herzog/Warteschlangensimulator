@@ -18,6 +18,7 @@ package ui.statistics;
 import java.awt.Component;
 import java.awt.Container;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -54,6 +55,10 @@ import ui.script.ScriptTools;
  * @see StatisticViewerFastAccess
  */
 public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2506181065659793787L;
 
 	private RSyntaxTextArea filter;

@@ -16,6 +16,7 @@
 package ui.modelproperties;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,14 +44,22 @@ import ui.modeleditor.elements.ModelElementTransportTransporterSource;
  * @see TransporterTableModelDialog
  */
 public class TransporterStationsTableModel extends AbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 5779238132434380386L;
 
+	/** Übergeordnetes Element (zur Platzierung von Dialogen) */
 	private final Component owner;
+	/** Zu diesem Tabellenmodell gehörige Tabelle */
 	private final JTable table;
+	/** Transporter-Objekt aus dem die Anzahl-Werte ausgelesen werden sollen und in das sie später ggf. zurückgeschrieben werden sollen */
 	private final ModelTransporter transporter;
 	private final List<String> stations;
 	private final List<String> stationsLong;
 	private final String[] count;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/**

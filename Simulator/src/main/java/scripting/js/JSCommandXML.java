@@ -49,7 +49,9 @@ import xml.XMLTools;
 public class JSCommandXML extends JSBaseCommand {
 	private boolean canceled=false;
 
+	/** XMl-Statistik-Daten, die gefiltert werden sollen */
 	private Document xml;
+	/** Gibt an, ob die Statistikdaten als Datei gespeichert werden dürfen */
 	private final boolean allowSave;
 
 	private boolean percent;

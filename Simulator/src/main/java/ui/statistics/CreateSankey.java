@@ -27,6 +27,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -78,6 +79,10 @@ import ui.images.Images;
  * @see StatisticViewerMovementTable#getClientMovementTable(simulator.statistics.Statistics)
  */
 public final class CreateSankey extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3545073435893826580L;
 
 	/**

@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,23 +66,40 @@ import ui.modeleditor.elements.DDEEditPanelDialog;
  * @see EditModel#modelLoadData
  */
 public class ModelLoadDataDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=-8751526127040969002L;
 
+	/** Editormodell (zum Auslesen der verfügbaren Daten für Parameter) */
 	private final EditModel model;
 
+	/** Datenquelle aktiv? */
 	private final JCheckBox active;
+	/** Modus: Datei oder DDE-Verbindung */
 	private final JComboBox<String> mode;
+	/** Tabellendatei */
 	private final JTextField workbook;
+	/** Schaltfläche zur Auswahl der Tabellendatei ({@link #workbook}) */
 	private final JButton workbookButton;
+	/** Tabellenblatt innerhalb der Tabellendatei */
 	private final JTextField sheet;
 
+	/** "Eintrag bearbeiten"-Schaltfläche */
 	private final JButton buttonEdit;
+	/** "Eintrag löschen"-Schaltfläche */
 	private final JButton buttonDelete;
+	/** "Eintrag nach oben verschieben"-Schaltfläche */
 	private final JButton buttonMoveUp;
+	/** "Eintrag nach unten verschieben"-Schaltfläche */
 	private final JButton buttonMoveDown;
 
+	/** Interne Liste der Einträge */
 	private final List<ModelLoadDataRecord> listData;
+	/** Datenmodell zur Verbindung von {@link #listData} und {@link #list} */
 	private final DefaultListModel<String> listModel;
+	/** Darstellung der Einträge aus {@link #listData} */
 	private final JList<String> list;
 
 	/**

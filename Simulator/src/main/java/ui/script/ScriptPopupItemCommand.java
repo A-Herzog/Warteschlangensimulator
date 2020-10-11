@@ -25,6 +25,7 @@ import javax.swing.JTextArea;
  * @see ScriptPopupItem
  */
 public class ScriptPopupItemCommand extends ScriptPopupItem {
+	/** Befehl, der in das Textfeld eingefügt werden soll. */
 	private final String command;
 
 	/**

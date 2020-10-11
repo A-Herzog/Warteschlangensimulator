@@ -15,6 +15,7 @@
  */
 package ui.parameterseries;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.JCheckBox;
@@ -35,9 +36,15 @@ import ui.modeleditor.ModelResource;
  * @see ParameterCompareAssistantDialog
  */
 public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 287938555035804166L;
 
+	/** Zugehörige Tabelle */
 	private final JTableExt table;
+	/** Parameter-Vergleichs-Einstellungen */
 	private final ParameterCompareSetup setup;
 	private final EditModel model;
 	private final List<ParameterCompareSetupValueInput> input;

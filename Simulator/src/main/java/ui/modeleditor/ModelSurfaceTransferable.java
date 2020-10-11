@@ -35,6 +35,10 @@ import javax.imageio.ImageIO;
  * @see ModelSurfacePanel#pasteFromClipboard()
  */
 public class ModelSurfaceTransferable implements Transferable, Serializable {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -9109642719467049507L;
 
 	/** {@link DataFlavor} für binäre Modelldaten */

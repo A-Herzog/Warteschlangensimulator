@@ -126,6 +126,10 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		return threadCount;
 	}
 
+	/**
+	 * Datenmodelle für einzelne Threads trennen (benötigt mehr Speicher) um auf NUMA-Systemen mehr Performance zu erreichen.
+	 * @return	Liefert <code>true</code>, wenn jeder Thread mit einem eigenen Modell rechnen soll
+	 */
 	private static boolean getNUMAAware() {
 		return SetupData.getSetup().useNUMAMode;
 	}

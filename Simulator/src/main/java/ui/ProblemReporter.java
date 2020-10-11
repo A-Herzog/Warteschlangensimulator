@@ -44,6 +44,7 @@ import ui.dialogs.InfoDialog;
  * @author Alexander Herzog
  */
 public class ProblemReporter {
+	/** Datei in die die Ausgabe erfolgen soll */
 	private File file;
 
 	/**

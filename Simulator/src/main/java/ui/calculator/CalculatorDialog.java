@@ -27,6 +27,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,10 @@ import ui.scriptrunner.JSModelRunnerPanel;
  * @see ExpressionCalc
  */
 public class CalculatorDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -3883480454772212675L;
 
 	/** Eingabezeile */

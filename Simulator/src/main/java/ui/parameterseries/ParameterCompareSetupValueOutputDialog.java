@@ -24,6 +24,7 @@ import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -54,8 +55,13 @@ import ui.script.ScriptTools;
  * @see ParameterCompareSetupValueOutputListDialog
  */
 public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2916018873433384277L;
 
+	/** Ausgabewert-Datensatz */
 	private final ParameterCompareSetupValueOutput output;
 
 	private final JTextField nameEdit;

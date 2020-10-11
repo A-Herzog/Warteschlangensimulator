@@ -17,6 +17,7 @@ package ui.modelproperties;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +46,21 @@ import ui.modeleditor.ModelSurface;
  * @see ResourceTableModelDialog
  */
 public class ResourceFailureTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3015995665203750590L;
 
+	/** Editor-Modell (für {@link ExpressionBuilder}) */
 	private final EditModel model;
+	/** Zeichenoberfläche (für {@link ExpressionBuilder}) */
 	private final ModelSurface surface;
+	/** Zu diesem Tabellenmodell gehörende Tabelle */
 	private final JTableExt table;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Callback */
 	private final Runnable help;
 
 	private final List<ModelResourceFailure> list;

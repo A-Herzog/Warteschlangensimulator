@@ -32,6 +32,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.ThreadMXBean;
@@ -178,6 +179,10 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public class MainPanel extends MainPanelBase {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7636118203704616559L;
 
 	/**
@@ -215,13 +220,21 @@ public class MainPanel extends MainPanelBase {
 	 */
 	public static final String VERSION="4.7.0";
 
+	/** Aktuelle Unterversionsnummer in der Java 8 Versionsreihe */
 	private static final int JAVA8_SECURE_MIN_VERSION=265;
+	/** Aktuelle Unterversionsnummer in der Java 9 Versionsreihe */
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
+	/** Aktuelle Unterversionsnummer in der Java 10 Versionsreihe */
 	private static final int JAVA10_SECURE_MIN_VERSION=2;
+	/** Aktuelle Unterversionsnummer in der Java 11 Versionsreihe */
 	private static final int JAVA11_SECURE_MIN_VERSION=8;
+	/** Aktuelle Unterversionsnummer in der Java 12 Versionsreihe */
 	private static final int JAVA12_SECURE_MIN_VERSION=2;
+	/** Aktuelle Unterversionsnummer in der Java 13 Versionsreihe */
 	private static final int JAVA13_SECURE_MIN_VERSION=2;
+	/** Aktuelle Unterversionsnummer in der Java 14 Versionsreihe */
 	private static final int JAVA14_SECURE_MIN_VERSION=2;
+	/** Aktuelle Unterversionsnummer in der Java 15 Versionsreihe */
 	private static final int JAVA15_SECURE_MIN_VERSION=0;
 
 	/**
@@ -242,23 +255,66 @@ public class MainPanel extends MainPanelBase {
 	/** Schaltflächen/Menüpunkte, die bei aktiviert dargestellt werden sollen, wenn Statistikdaten verfügbar sind */
 	private List<AbstractButton> enabledOnStatisticsAvailable;
 
-	/** Menüpunkt "Zuletzt verwendet" */
+	/** Menüpunkt "Datei" - "Zuletzt verwendet" */
 	private JMenu menuFileModelRecentlyUsed;
-	private JMenuItem menuEditUndo, menuEditRedo;
-	private JRadioButtonMenuItem menuEditAutoConnectOff, menuEditAutoConnectAuto, menuEditAutoConnectSmart;
-	private JRadioButtonMenuItem menuEditRenameOnCopyOff, menuEditRenameOnCopySmart, menuEditRenameOnCopyAlways;
-	private JCheckBoxMenuItem menuViewTemplatesBar, menuViewNavigator;
+	/** Menüpunkt "Bearbeiten" - "Rückgängig" */
+	private JMenuItem menuEditUndo;
+	/** Menüpunkt "Bearbeiten" - "Wiederholen" */
+	private JMenuItem menuEditRedo;
+	/** Menüpunkt "Bearbeiten" - "Neue Elemente automatisch verbinden" - "Aus" */
+	private JRadioButtonMenuItem menuEditAutoConnectOff;
+	/** Menüpunkt "Bearbeiten" - "Neue Elemente automatisch verbinden" - "Mit zuletzt markiertem Element verbinden" */
+	private JRadioButtonMenuItem menuEditAutoConnectAuto;
+	/** Menüpunkt "Bearbeiten" - "Neue Elemente automatisch verbinden" - "Mit nächstgelegenem Element verbinden" */
+	private JRadioButtonMenuItem menuEditAutoConnectSmart;
+	/** Menüpunkt "Bearbeiten" - "Stationen beim Kopieren umbenennen" - "Aus" */
+	private JRadioButtonMenuItem menuEditRenameOnCopyOff;
+	/** Menüpunkt "Bearbeiten" - "Stationen beim Kopieren umbenennen" - "Wenn Stationsname mit Zahl endet" */
+	private JRadioButtonMenuItem menuEditRenameOnCopySmart;
+	/** Menüpunkt "Bearbeiten" - "Stationen beim Kopieren umbenennen" - "Wenn Station einen Namen hat" */
+	private JRadioButtonMenuItem menuEditRenameOnCopyAlways;
+	/** Menüpunkt "Ansicht" - "Elementenvorlagen Seitenleiste anzeigen" */
+	private JCheckBoxMenuItem menuViewTemplatesBar;
+	/** Menüpunkt "Ansicht" - "Navigator anzeigen" */
+	private JCheckBoxMenuItem menuViewNavigator;
+	/** Menüpunkt "Ansicht" - "Lineale anzeigen" */
 	private JCheckBoxMenuItem menuViewRulers;
-	private JRadioButtonMenuItem menuViewGridOff, menuViewGridDots, menuViewGridLines;
-	private JCheckBoxMenuItem menuViewShowIDs, menuViewShowStationDescription, menuViewGradients, menuViewShadows;
+	/** Menüpunkt "Ansicht" - "Raster" - "Kein Raster" */
+	private JRadioButtonMenuItem menuViewGridOff;
+	/** Menüpunkt "Ansicht" - "Raster" - "Punktraster" */
+	private JRadioButtonMenuItem menuViewGridDots;
+	/** Menüpunkt "Ansicht" - "Raster" - "Linienraster" */
+	private JRadioButtonMenuItem menuViewGridLines;
+	/** Menüpunkt "Ansicht" - "IDs anzeigen" */
+	private JCheckBoxMenuItem menuViewShowIDs;
+	/** Menüpunkt "Ansicht" - "Stationsbeschreibungen in Tooltips" */
+	private JCheckBoxMenuItem menuViewShowStationDescription;
+	/** Menüpunkt "Ansicht" - "Farbverläufe verwenden" */
+	private JCheckBoxMenuItem menuViewGradients;
+	/** Menüpunkt "Ansicht" - "Schatten an den Stationen anzeigen" */
+	private JCheckBoxMenuItem menuViewShadows;
+	/** Menüpunkt "Modell" - "Externe Modelldaten" - "Modell jeweils vor Simulationsstart aktualisieren" */
 	private JCheckBoxMenuItem menuModelLoadExternalDataOnStart;
-	private JMenuItem menuModelCompareKept, menuModelCompareReturn;
-	private JRadioButtonMenuItem menuSimulationAnimationStartModeRun, menuSimulationAnimationStartModePause;
-	private JRadioButtonMenuItem menuSimulationAnimationAnalogValuesFast, menuSimulationAnimationAnalogValuesExact;
-	private JRadioButtonMenuItem menuSimulationAnimationScreenshotModeHome, menuSimulationAnimationScreenshotModeCustom;
+	/** Menüpunkt "Modell" - "Aktuelles und festgehaltenes Modell vergleichen" */
+	private JMenuItem menuModelCompareKept;
+	/** Menüpunkt "Modell" - "Zu festgehaltenem Modell zurückkehren" */
+	private JMenuItem menuModelCompareReturn;
+	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Animation sofort starten" */
+	private JRadioButtonMenuItem menuSimulationAnimationStartModeRun;
+	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Im Pause-Modus starten" */
+	private JRadioButtonMenuItem menuSimulationAnimationStartModePause;
+	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Schnelle Animation" */
+	private JRadioButtonMenuItem menuSimulationAnimationAnalogValuesFast;
+	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Änderungen exakt anzeigen (langsam)" */
+	private JRadioButtonMenuItem menuSimulationAnimationAnalogValuesExact;
+	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Im Nutzerverzeichnis speichern" */
+	private JRadioButtonMenuItem menuSimulationAnimationScreenshotModeHome;
+	/** Menüpunkt "Simulation" - "Animationskonfiguration" - "Im ausgewählten Verzeichnis speichern" */
+	private JRadioButtonMenuItem menuSimulationAnimationScreenshotModeCustom;
+	/** Menüpunkt "Simulation" - "Verbindung zum Simulationsserver prüfen" */
 	private JMenuItem menuSimulationCheckServerConnection;
 
-	/** Anzeige der Speichernutzung in der Menüzeile (per Konfiguration aktivierbar; im Standfall aus) */
+	/** Anzeige der Speichernutzung in der Menüzeile (per Konfiguration aktivierbar; im Standardfall aus) */
 	private JLabel memoryUsage;
 	/** Schnellzugriffs-Eingabefeld in der Menüzeile */
 	private JQuickAccessTextField quickAccess;
@@ -286,13 +342,28 @@ public class MainPanel extends MainPanelBase {
 	public final EditorPanel editorPanel;
 
 	/**
-	 * Statistik-Panel
+	 * Statistik-Seite
 	 */
 	public final StatisticsPanel statisticsPanel;
 
+	/**
+	 * Willkommen-Seite (wenn gerade aktiv)
+	 */
 	private JPanel welcomePanel;
+
+	/**
+	 * "Simulation läuft"-Seite (wenn gerade aktiv)
+	 */
 	private final WaitPanel waitPanel;
+
+	/**
+	 * Animationsseite (wenn gerade aktiv)
+	 */
 	private final AnimationPanel animationPanel;
+
+	/**
+	 * Aktuell gewähltes {@link SpecialPanel}
+	 */
 	private SpecialPanel specialPanel;
 
 	/**
@@ -407,6 +478,12 @@ public class MainPanel extends MainPanelBase {
 		});
 	}
 
+	/**
+	 * Reagiert auf Drag&amp;Drop-Aktionen auf das Editor- oder das Statistik-Panel.
+	 * @param drop	Drag&amp;Drop-Element
+	 * @see #editorPanel
+	 * @see #statisticsPanel
+	 */
 	private void dropFile(final FileDropperData drop) {
 		final File file=drop.getFile();
 		if (file.isFile()) {
@@ -419,6 +496,9 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Initiiert die Zuordnung von Aktionsnamen zu {@link Runnable}-Funktionen.
+	 */
 	private void initActions() {
 		/* Hotkeys */
 		final InputMap input=getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -576,6 +656,10 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpFix",e->commandHelpFix(fixButton));
 	}
 
+	/**
+	 * Reagiert auf Link-Klicks in {@link MainPanel#welcomePanel}
+	 * @see MainPanel#welcomePanel
+	 */
 	private class SpecialLink implements Help.SpecialLinkListener {
 		@Override
 		public void specialLinkClicked(String href) {

@@ -39,10 +39,15 @@ public abstract class NetServer {
 	/** Bezeichner für Logging-Meldung "[%06d] Verbindung mit %s beendet." */
 	public static String LOG_CONNECTION_STOP="[%06d] Verbindung mit %s beendet.";
 
+	/** Callback über das Statusmeldungen angegeben werden können (darf <code>null</code> sein). */
 	private final Consumer<String> output;
+	/** Port auf dem der Server auf Anfragen warten soll */
 	private final int port;
+	/** Sollen die Daten komprimiert übertragen werden? */
 	private final boolean compress;
+	/** Optionales Passwort zum Verschlüsseln der Daten. Wird hier <code>null</code> übergeben, so erfolgt die Übertragung unverschlüsselt. */
 	private final String key;
+	/** Maximale Größe von empfangbaren Datenblöcken (zur Vermeidung von externen Angreifern induzierten Out-of-Memory-Fehlern) */
 	private final int maxTransferSize;
 	private ServerSocket listenSocket;
 	private Thread listenThread;

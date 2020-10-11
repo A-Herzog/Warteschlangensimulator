@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -39,6 +40,10 @@ import ui.parameterseries.ParameterComparePanel;
  * @see ParameterComparePanel#setupVarianceAnalysis(int)
  */
 public class VarianceAnalysisDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4704662661702815976L;
 
 	/** Anzahl an zu simulierenden Wiederholungen */

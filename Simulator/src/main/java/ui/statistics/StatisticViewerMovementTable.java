@@ -69,7 +69,9 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		}
 	}
 
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Welche Informationen sollen angezeigt werden? */
 	private final Mode mode;
 
 	/**

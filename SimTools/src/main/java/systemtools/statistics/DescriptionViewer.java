@@ -108,6 +108,9 @@ public class DescriptionViewer extends JPanel {
 		SwingUtilities.invokeLater(new InitRunnable());
 	}
 
+	/**
+	 * Führt Verarbeitungen durch, die erst nach dem Abschluss des Konstruktors möglich sind.
+	 */
 	private class InitRunnable implements Runnable {
 		@Override
 		public void run() {
@@ -145,6 +148,12 @@ public class DescriptionViewer extends JPanel {
 		updateButton();
 	}
 
+	/**
+	 * Aktualisiert die Schaltfläche je nach dem, ob das Beschreibungs-Panel
+	 * sichtbar ist oder nicht.
+	 * @see #splitterMovedInfo()
+	 * @see #toggleDescription()
+	 */
 	private void updateButton() {
 		if (descriptionVisible) {
 			button.setText(StatisticsBasePanel.descriptionHide);
@@ -157,6 +166,10 @@ public class DescriptionViewer extends JPanel {
 		}
 	}
 
+	/**
+	 * Blendet das Beschreibungs-Panel ein oder aus.
+	 * @see #button
+	 */
 	private void toggleDescription() {
 		descriptionVisible=!descriptionVisible;
 		updateButton();
@@ -172,6 +185,11 @@ public class DescriptionViewer extends JPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Bewegungen der Maus über Links und Klicks auf Links.
+	 * @param e	Auslösendes Ereignis
+	 * @see #linkCallback
+	 */
 	private void linkClicked(final HyperlinkEvent e) {
 		if (e.getEventType()==HyperlinkEvent.EventType.ENTERED) {
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

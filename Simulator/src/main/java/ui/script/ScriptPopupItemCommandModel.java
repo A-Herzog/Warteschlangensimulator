@@ -29,9 +29,13 @@ import simulator.editmodel.EditModel;
  * @see ScriptPopupItem
  */
 public abstract class ScriptPopupItemCommandModel extends ScriptPopupItem {
+	/** Befehl, der in das Textfeld eingefügt werden soll (muss ein "%s" enthalten). */
 	private final String command;
+	/** Übergeordnetes Element (zur Ausrichtung von optionalen Dialogen) */
 	private final Component owner;
+	/** Editor-Modell dem die Daten entnommen werden sollen */
 	private final EditModel model;
+	/** Hilfe-Runnable (für Dialog) */
 	private final Runnable help;
 
 	/**

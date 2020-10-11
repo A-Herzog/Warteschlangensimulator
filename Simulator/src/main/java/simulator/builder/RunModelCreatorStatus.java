@@ -160,15 +160,22 @@ public class RunModelCreatorStatus {
 		/** An einer Bedienstation wurde eine maximale Bedien-Batchgröße angegeben, die geringer ist als die minimale Bedien-Batchgröße. */
 		PROCESS_MAX_BATCH_LOWER_THAN_MIN((e,s)->RunModelFixerHelper.processMaxBatchSize(e,s));
 
+		/**
+		 * Möglicher Fix für den jeweiligen Fehler
+		 */
 		private final BiFunction<ModelElementPosition,RunModelCreatorStatus,List<RunModelFixer>> fix;
 
 		/**
-		 * Konstruktor der Enum
+		 * Konstruktor des Enum
 		 */
 		Status() {
 			this.fix=(e,s)->new ArrayList<>();
 		}
 
+		/**
+		 * Konstruktor des Enum
+		 * @param fix	Möglicher Fix für den jeweiligen Fehler
+		 */
 		Status(final BiFunction<ModelElementPosition,RunModelCreatorStatus,List<RunModelFixer>> fix) {
 			this.fix=fix;
 		}

@@ -44,8 +44,20 @@ import ui.modeleditor.elements.ModelElementSourceTable;
  * @author Alexander Herzog
  */
 public class EditorPanelRepair {
-	private enum RepairState {NOT_CHANGED, FIXED, USER_CANCELED}
+	/**
+	 * Welche Reparaturen wurden durchgeführt?
+	 * @author Alexander Herzog
+	 */
+	private enum RepairState {
+		/** Keine Veränderungen vorgenommen */
+		NOT_CHANGED,
+		/** Fehler wurde korrigiert */
+		FIXED,
+		/** Fehlerkorrektur wurde vom Nutzer abgelehnt */
+		USER_CANCELED
+	}
 
+	/** Editor-Panel aus dem das Modell entnommen und das korrigierte zurückgegeben werden soll */
 	private final EditorPanel editorPanel;
 
 	/**

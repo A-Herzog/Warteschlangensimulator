@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -59,6 +60,10 @@ import ui.statistics.StatisticViewerFastAccessDialog;
  * @see OptimizerPanel
  */
 public class OptimizerPanelControlVariableDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8393259199855388278L;
 
 	/**

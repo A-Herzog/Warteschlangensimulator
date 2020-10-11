@@ -16,6 +16,7 @@
 package tools;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
@@ -44,6 +45,10 @@ import javax.swing.table.TableModel;
  * @version 1.1
  */
 public final class JTableExt extends JTable {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4675269108501016811L;
 
 	/**
@@ -198,6 +203,10 @@ public final class JTableExt extends JTable {
 	 *
 	 */
 	private final class CellRendererExt extends DefaultTableCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -6047418281147307757L;
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -211,6 +220,10 @@ public final class JTableExt extends JTable {
 	 * @see JTableExt#setPanelRendererAndEditor()
 	 */
 	private final class CellEditorExt extends AbstractCellEditor implements TableCellEditor {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 6362443731642362983L;
 		@Override
 		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {

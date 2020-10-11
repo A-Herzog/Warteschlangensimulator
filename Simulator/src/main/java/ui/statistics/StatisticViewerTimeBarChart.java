@@ -35,9 +35,12 @@ import ui.modeleditor.ModelTransporter;
  * @author Alexander Herzog
  */
 public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Gibt an, welche Daten genau ausgegeben werden sollen */
 	private final Mode mode;
 
+	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
 	/**

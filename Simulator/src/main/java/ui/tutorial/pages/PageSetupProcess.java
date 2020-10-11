@@ -42,6 +42,7 @@ public class PageSetupProcess implements TutorialPage {
 		return "SetupProcess";
 	}
 
+	/** Bedienzeitenverteilung, die der Nutzer einstellen soll */
 	private static AbstractRealDistribution	workingDistribution=new ExponentialDistribution(null,80,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 
 	/**

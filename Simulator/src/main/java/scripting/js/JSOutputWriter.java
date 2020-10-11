@@ -29,6 +29,7 @@ public class JSOutputWriter extends Writer {
 
 	private final StringBuilder results;
 	private final StringBuilder outputCallbackBuilder;
+	/** Wird hier ein Wert ungleich <code>null</code> angegeben, so werden die Ausgaben hier weitergeleitet. Sonst werden sie intern gepuffert. */
 	private final Consumer<String> outputCallback;
 
 	/**

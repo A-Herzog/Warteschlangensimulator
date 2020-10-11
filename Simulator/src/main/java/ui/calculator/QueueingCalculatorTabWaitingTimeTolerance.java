@@ -15,6 +15,8 @@
  */
 package ui.calculator;
 
+import java.io.Serializable;
+
 import language.Language;
 import mathtools.NumberTools;
 
@@ -25,6 +27,10 @@ import mathtools.NumberTools;
  * @see QueueingCalculatorDialog
  */
 public class QueueingCalculatorTabWaitingTimeTolerance extends QueueingCalculatorTabBase {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6885193560880513420L;
 
 	/** E[W] (mittlere Wartezeit) */

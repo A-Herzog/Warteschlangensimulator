@@ -35,9 +35,13 @@ public final class DBSettings implements Cloneable {
 	 */
 	public static String[] XML_NODE_NAME=new String[]{"DatenbankVerbindung"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
+	/** Datenbanktyp (siehe {@link DBConnect.DBType}) */
 	private DBType type;
+	/** Datenbank-Zugriffs-Konfiguration (Serveradresse, Dateiname usw.) */
 	private String config;
+	/** Optional notwendiger Nutzername für den Zugriff auf die Datenbank */
 	private String user;
+	/** Optional notwendiges Passwort für den Zugriff auf die Datenbank */
 	private String password;
 
 	/**
@@ -187,6 +191,10 @@ public final class DBSettings implements Cloneable {
 		return true;
 	}
 
+	/**
+	 * Kopiert die Einstellungen aus einem anderen {@link DBSettings}-Objekt in dieses.
+	 * @param copySource	Ausgangsobjekt aus dem die Daten in dieses Objekt kopiert werden sollen.
+	 */
 	private void copyFrom(final DBSettings copySource) {
 		if (copySource==null) return;
 		setType(copySource.type);

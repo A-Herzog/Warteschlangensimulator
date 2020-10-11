@@ -25,6 +25,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @author Alexander Herzog
  */
 public class FindElementDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1687364491601255550L;
 
 	/** Modell-Haupt-Surface, welches alle Elemente enthält */
@@ -345,6 +350,10 @@ public class FindElementDialog extends BaseDialog {
 	 * @see FindElementDialog#resultsList
 	 */
 	private class ElementListCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 4327039078742103357L;
 
 		@Override

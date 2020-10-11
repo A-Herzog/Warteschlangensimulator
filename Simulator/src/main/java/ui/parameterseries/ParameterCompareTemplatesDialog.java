@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,6 +67,10 @@ import ui.statistics.analyticcompare.AnalyticInfo;
  * @author Alexander Herzog
  */
 public class ParameterCompareTemplatesDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3116092252907329358L;
 
 	/**

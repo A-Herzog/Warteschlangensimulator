@@ -32,7 +32,9 @@ import systemtools.statistics.StatisticViewerLineChart;
  */
 
 public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLineChart {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Gibt an, welche Daten genau ausgegeben werden sollen */
 	private final Mode mode;
 
 	/**
@@ -51,6 +53,7 @@ public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLine
 		MODE_BY_STATION_CLIENT_WAITING
 	}
 
+	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
 	/**

@@ -37,7 +37,7 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  */
 public class Shapes {
 	/**
-	 * Farbe für Schtten
+	 * Farbe für Schatten
 	 */
 	public static final Color SHADOW_COLOR=new Color(192,192,192,128);
 

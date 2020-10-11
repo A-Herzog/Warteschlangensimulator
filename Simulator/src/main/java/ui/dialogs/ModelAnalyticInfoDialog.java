@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -43,6 +44,10 @@ import ui.statistics.analyticcompare.AnalyticInfo;
  * @see AnalyticInfo
  */
 public class ModelAnalyticInfoDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -464947739154264213L;
 
 	/**

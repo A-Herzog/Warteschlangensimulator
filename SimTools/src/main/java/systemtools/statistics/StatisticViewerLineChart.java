@@ -62,8 +62,21 @@ import systemtools.MsgBox;
  * @version 1.7
  */
 public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
+	/**
+	 * x-Achsen-Werte sind Tage
+	 * @see #setupChartDayValue(String, String)
+	 */
 	private boolean domainIsDay=false;
+
+	/**
+	 * Beim inhaltsbasierendne Zoom auszuschließende erste Datenpunkte
+	 * @see #smartZoom(int)
+	 */
 	private int smartZoomValue=-1;
+
+	/**
+	 * Umrechnungsfaktor der Werte für die x-Achse
+	 */
 	private double scaleFactor=1;
 
 	/**
@@ -185,8 +198,25 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		addFillColor(0);
 	}
 
-	private enum ToolTipFormat {DAY_VALUE, DAY_PERCENT, DEFAULT}
+	/**
+	 * Format für die Beschriftung der Diagrammlinien
+	 * @see StatisticViewerLineChart#toolTipFormat
+	 * @see StatisticViewerLineChart#initTooltips()
+	 */
+	private enum ToolTipFormat {
+		/** Beschriftung: (Zeit,Zahl) */
+		DAY_VALUE,
+		/** Beschriftung: (Zeit,Prozent) */
+		DAY_PERCENT,
+		/** Beschriftung: (Zahl,Zahl) */
+		DEFAULT
+	}
 
+	/**
+	 * Format für die Beschriftung der Diagrammlinien
+	 * @see ToolTipFormat
+	 * @see #initTooltips()
+	 */
 	private ToolTipFormat toolTipFormat=ToolTipFormat.DEFAULT;
 
 	/**
@@ -800,6 +830,11 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		return file;
 	}
 
+	/**
+	 * Speichert das Diagramm im SciLab-Format (sce)
+	 * @return	Text der die zu dem Diagramm gehörige SciLab-Datei repräsentiert
+	 * @see #save(Component, File)
+	 */
 	private String saveSCE() {
 		final StringBuilder result=new StringBuilder();
 

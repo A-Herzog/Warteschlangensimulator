@@ -38,10 +38,14 @@ import ui.help.Help;
  * @author Alexander Herzog
  */
 public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLineChart {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Gibt an, welche Daten genau ausgegeben werden sollen */
 	private final Mode mode;
+	/** Wird als Modus {@link Mode#MODE_VALUE_RECORDING} verwendet, so kann hier der Name der Datenaufzeichnung-Station, deren Daten ausgegeben werden sollen, angegeben werden. */
 	private final String data;
 
+	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
 	/**

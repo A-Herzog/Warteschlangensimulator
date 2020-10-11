@@ -26,6 +26,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -70,6 +71,10 @@ import ui.quickaccess.JPlaceholderTextField;
  * @author Alexander Herzog
  */
 public abstract class ModelElementBaseDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6340641625398515847L;
 
 	/**
@@ -749,6 +754,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @author Alexander Herzog
 	 */
 	public static class LineWidthComboBoxCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 6448329627127036343L;
 
 		@Override
@@ -847,6 +856,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @author Alexander Herzog
 	 */
 	public static class LineTypeComboBoxCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -1510471598523775390L;
 
 		@Override
@@ -971,7 +984,15 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		return new Object[]{panel,comboBox};
 	}
 
+	/**
+	 * Renderer für die Auswahlbox für die verschiedenen Schriftarten
+	 * @see ModelElementBaseDialog#getFontFamilyComboBox(ui.modeleditor.elements.FontCache.FontFamily)
+	 */
 	private static class FontFamilyComboBoxCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -929195057808593785L;
 
 		@Override

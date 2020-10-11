@@ -27,8 +27,10 @@ import simulator.runmodel.SimulationData;
  * @author Alexander Herzog
  */
 public final class JSCommandClients extends JSBaseCommand {
+	/** Simulationsdaten-Objekt (kann auch <code>null</code> sein) */
 	private SimulationData simData;
 	private int count;
+	/** Liste der wartenden Kunden */
 	private List<RunDataClient> clients;
 	private boolean[] releaseClients;
 

@@ -20,6 +20,7 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -57,15 +58,26 @@ import xml.XMLTools;
  * @see ParameterCompareTable
  */
 public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2832353596146116451L;
 
 	private int digits;
+	/** Zugehörige Tabelle */
 	private final JTableExt table;
+	/** Parameter-Vergleichs-Einstellungen */
 	private final ParameterCompareSetup setup;
+	/** Hilfe-Runnable */
 	private final Runnable help;
+	/** Runnable, das aufgerufen wird, wenn sich die Tabellendaten verändert haben */
 	private final Runnable update;
+	/** Wird aufgerufen, wenn der Nutzer die Funktion zum Laden eines Modells aus den Ergebnissen in den Editor gewählt hat. */
 	private final Consumer<Statistics> loadToEditor;
+	/** Wird aufgerufen, wenn der Nutzer den Button zum Vergleichen der Statistikergebnisse verschiedener Modell anklickt */
 	private final Runnable compareResults;
+	/** Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Anzeige der Vergleichsdiagramme) klickt */
 	private final Consumer<Integer> showResultsChart;
 
 	/**

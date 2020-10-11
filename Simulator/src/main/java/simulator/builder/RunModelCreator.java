@@ -241,6 +241,12 @@ public final class RunModelCreator {
 		templates.add(new RunElementInteractiveRadiobutton(null));
 	}
 
+	/**
+	 * Fügt ein fertig erstelltes Laufzeit-Element zu dem Laufzeitmodell hinzu.
+	 * @param element	Laufzeit-Element
+	 * @param editName	Name des Elements
+	 * @see #addElement(ModelElementPosition)
+	 */
 	private void addRunElementToRunModel(final RunElement element, final String editName) {
 		runModel.elements.put(element.id,element);
 		runModel.namesToIDs.put(editName,element.id);

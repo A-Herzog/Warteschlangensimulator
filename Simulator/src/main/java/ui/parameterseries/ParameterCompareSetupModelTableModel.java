@@ -15,6 +15,7 @@
  */
 package ui.parameterseries;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +34,15 @@ import ui.ModelChanger;
  * @see ParameterCompareSetupModelDialog
  */
 public class ParameterCompareSetupModelTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5863646810585281556L;
 
+	/** Zugehörige Tabelle */
 	private final JTableExt table;
+	/** Liste der Eingabeparameter-Einstellungen */
 	private final List<ParameterCompareSetupValueInput> input;
 	private final List<Double> data;
 

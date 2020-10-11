@@ -27,6 +27,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -86,6 +87,10 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public final class SetupDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8167759839522880144L;
 
 	/**
@@ -108,6 +113,7 @@ public final class SetupDialog extends BaseDialog {
 		/** Zugehöriger Dialogseiten-Index */
 		private final int index;
 
+		/** Name der Dialogseite in der aktuellen Sprache */
 		private final Supplier<String> nameGetter;
 
 		/**
@@ -240,9 +246,8 @@ public final class SetupDialog extends BaseDialog {
 	private final JComboBox<String> defaultSaveFormatParameterSeries;
 	/** Standard-Speicherformat für Optimitereinstellungen */
 	private final JComboBox<String> defaultSaveFormatOptimizerSetups;
-
+	/** Backup-Dateien beim Speichern von Modellen anlegen? */
 	private final JCheckBox useBackupFiles;
-
 	/** Benutzerdefinierter Zeilenbezeichner */
 	private final JTextField excelRow;
 	/** Benutzerdefinierter Spaltenbezeichner */
@@ -1125,6 +1130,11 @@ public final class SetupDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Führt eine Update-Prüfung durch.<br>
+	 * (Wird, wenn entsprechend konfiguriert, beim Aufruf des Dialogs ausgeführt oder kann über eine Schaltfläche manuell ausgelöst werden.)
+	 * @see #updateCheckButton
+	 */
 	private void runUpdateCheck() {
 		updateInfo.setText("<html><b>"+Language.tr("SettingsDialog.Tabs.Updates.ConnectingServer")+"</b></html>");
 		updateCheckButton.setVisible(false);
@@ -1332,6 +1342,12 @@ public final class SetupDialog extends BaseDialog {
 		setup.saveSetupWithWarning(this);
 	}
 
+	/**
+	 * Zeigt einen Verzeichnisauswahldialog an
+	 * @param title	Titel des Dialogs
+	 * @param oldFolder	Zu Beginn auszuwählendes Verzeichnis
+	 * @return	Neues Verzeichnis oder <code>null</code>, wenn die Auswahl abgebrochen wurde
+	 */
 	private String selectFolder(final String title, final String oldFolder) {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -1346,15 +1362,27 @@ public final class SetupDialog extends BaseDialog {
 		return file.toString();
 	}
 
+	/**
+	 * Zeigt den Dialog zur Auswahl, in welchen Festern die Info-Texte
+	 * angezeigt werden sollen, an.
+	 */
 	private void showHintsDialog() {
 		final InfoPanelDialog dialog=new InfoPanelDialog(this,hintDialogs);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) hintDialogs=dialog.getData();
 	}
 
+	/**
+	 * Dialog zur Konfiguration der Proxy-Server-Einstellungen.
+	 */
 	private void showProxySettingsDialog() {
 		new ProxyDialog(this);
 	}
 
+	/**
+	 * Zeigt das Popup-Menü zur Auswahl der Optionen für ein
+	 * manuelles Update des Simulators an.
+	 * @see #manualUpdateButton
+	 */
 	private void showManualUpdateMenu() {
 		final JPopupMenu menu=new JPopupMenu();
 		JMenuItem item;
@@ -1473,6 +1501,7 @@ public final class SetupDialog extends BaseDialog {
 	 * ausgewählt werden soll.
 	 */
 	private class ButtonListener implements ActionListener {
+		/** Dialog zur Auswahl eines Ausgabeverzeichnisses für Animations-Screenshots anzeigen */
 		private void selectImagesFolder() {
 			final String folder=selectFolder(Language.tr("Batch.Output.Folder.Button.Hint"),imagesAnimationFolderEdit.getText());
 			if (folder!=null) {

@@ -32,7 +32,18 @@ import ui.modeleditor.elements.ModelElementEdge;
  * @author Alexander Herzog
  */
 public abstract class RunElementPassThrough extends RunElement {
+	/**
+	 * ID der auslaufenden Kante
+	 * @see #buildEdgeOut(ModelElementEdge)
+	 * @see #buildEdgeOut(ModelElementEdgeOut)
+	 */
 	private int connectionId;
+
+	/**
+	 * Auslaufende Kante
+	 * @see #connectionId
+	 * @see #prepareRun(RunModel)
+	 */
 	private RunElement connection;
 
 	/**

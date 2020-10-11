@@ -18,6 +18,7 @@ package ui.parameterseries;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -34,6 +35,10 @@ import tools.JTableExt;
  * @author Alexander Herzog
  */
 public class ParameterCompareAssistantDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7801607609806408642L;
 
 	/** Sollen die Parameterwerte in die Modellnamen mit aufgenommen werden? */

@@ -30,6 +30,7 @@ import ui.modeleditor.ModelSurfacePanel;
  * @see ModelSurfacePanel#getImage(int, int)
  */
 public class StatisticViewerModelImage extends StatisticViewerImage {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
 	private ModelSurfacePanel surfacePanel;
 	private BufferedImage image;

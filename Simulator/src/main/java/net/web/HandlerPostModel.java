@@ -36,7 +36,9 @@ import xml.XMLTools;
  * @see WebServerHandler
  */
 public class HandlerPostModel implements WebServerHandler {
+	/** Pfad zu dem Dokument aus Server-Sicht (sollte mit "/" beginnen) */
 	private final String serverURL;
+	/** Hauptpanel des Simulators */
 	private final MainPanel mainPanel;
 
 	/**

@@ -89,13 +89,53 @@ import systemtools.images.SimToolsImages;
  * @version 2.4
  */
 public abstract class StatisticViewerText implements StatisticViewer {
+	/**
+	 * Ausgabe-Text-Panel
+	 * @see #initTextPane()
+	 */
 	private JTextPane textPane=null;
+
+	/**
+	 * Auszugebende Zeilen
+	 */
 	private final List<String> lines;
+
+	/**
+	 * Linkziele oder Hinweise zu den Zeilen
+	 * @see #lines
+	 */
 	private final List<String> hints;
-	private final List<Integer> lineTypes; /* 0=Text, 1,2,3,...=Überschriften, -1=Absatzbeginn, -2=Absatzende, -3=Link */
+
+	/**
+	 * Bedeutung der jeweiligen Zeile:
+	 * 0=Text, 1,2,3,...=Überschriften, -1=Absatzbeginn, -2=Absatzende, -3=Link
+	 * @see #lines
+	 */
+	private final List<Integer> lineTypes;
+
+	/**
+	 * Stärke der Einrückung der jeweiligen Zeile
+	 * @see #lines
+	 */
 	private final List<Integer> indentLevel;
+
+	/**
+	 * html-Seite mit einer zusätzlichen Erklärung zu dieser Statistikseite
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private URL descriptionURL=null;
+
+	/**
+	 * Handler, der Themennamen (angegeben über "help:..."-Links) zum Aufruf normaler Hilfeseiten entgegen nimmt
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private Consumer<String> descriptionHelpCallback=null;
+
+	/**
+	 * Darstellung der Hilfe-Seite {@link #descriptionURL}
+	 * @see #initDescriptionPane()
+	 * @see #addDescription(URL, Consumer)
+	 */
 	private DescriptionViewer descriptionPane=null;
 
 	/**
@@ -108,6 +148,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		indentLevel=new ArrayList<>();
 	}
 
+	/**
+	 * Löscht alle bisherigen Ausgaben
+	 * @see #saveHtml(BufferedWriter, File, int, boolean)
+	 * @see #saveLaTeX(BufferedWriter, File, int)
+	 */
 	private void reset() {
 		lines.clear();
 		hints.clear();
@@ -137,6 +182,14 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		}
 	}
 
+	/**
+	 * Überträgt den Text aus {@link #lines} usw. in {@link #textPane}.
+	 * @see #lines
+	 * @see #hints
+	 * @see #lineTypes
+	 * @see #indentLevel
+	 * @see #textPane
+	 */
 	private void initTextPane() {
 		if (textPane!=null) return;
 
@@ -272,6 +325,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return null;
 	}
 
+	/**
+	 * Initialisiert die Anzeige der zusätzlichen Beschreibung.
+	 * @see #addDescription(URL, Consumer)
+	 * @see #descriptionURL
+	 * @see #descriptionHelpCallback
+	 * @see #descriptionPane
+	 */
 	private void initDescriptionPane() {
 		if (descriptionPane!=null) return;
 		if (descriptionURL==null) return;
@@ -283,6 +343,10 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		});
 	}
 
+	/**
+	 * Konkretes Anzeigeobjekt, das üger {@link #getViewer(boolean)} geliefert wird.
+	 * @see #getViewer(boolean)
+	 */
 	private Container viewer=null;
 
 	@Override
@@ -309,6 +373,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return viewer=descriptionPane.getSplitPanel(textScroller);
 	}
 
+	/**
+	 * Liefert den Text des Viewers ohne Formatierungen.
+	 * @return	Text des Viewers ohne Formatierungen
+	 * @see #copyToClipboard(Clipboard)
+	 * @see #save(Component, File)
+	 */
 	private String getPlainText() {
 		StringBuilder result=new StringBuilder();
 
@@ -343,6 +413,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return result.toString();
 	}
 
+	/**
+	 * Liefert den Text des Viewer mit RTF-Formatierung.
+	 * @return	Text des Viewer mit RTF-Formatierung
+	 * @see #copyToClipboard(Clipboard)
+	 * @see #save(Component, File)
+	 */
 	private String getRTFText() {
 		StringBuilder result=new StringBuilder();
 
@@ -382,6 +458,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return "{\\rtf1\\ansi\\ansicpg1252\\deff0{\\fonttbl\\f0\\fswiss Helvetica;}\\f0\n"+result.toString()+"\n}\n";
 	}
 
+	/**
+	 * Liefert den Text des Viewer mit HTML-Formatierung.
+	 * @return	Text des Viewer mit HTML-Formatierung
+	 * @see #getFullHTMLText()
+	 */
 	private String getHTMLText() {
 		StringBuilder result=new StringBuilder();
 
@@ -423,6 +504,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return result.toString();
 	}
 
+	/**
+	 * Liefert den Text des Viewer mit LaTeX-Formatierung.
+	 * @return	Text des Viewer mit LaTeX-Formatierung
+	 * @see #save(Component, File)
+	 * @see #saveLaTeX(BufferedWriter, File, int)
+	 */
 	private String getLaTeXText() {
 		StringBuilder result=new StringBuilder();
 
@@ -469,6 +556,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return result.toString();
 	}
 
+	/**
+	 * Liefert den Text des Viewer mit HTML-Formatierung und inkl. HTML-Vor- und Abspann.
+	 * @return	Text des Viewer mit LaTeHTML-Formatierung
+	 * @see #save(Component, File)
+	 */
 	private String getFullHTMLText() {
 		final StringBuilder result=new StringBuilder();
 
@@ -491,6 +583,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return result.toString();
 	}
 
+	/**
+	 * Liefert den Text des Viewer mit Markdown-Formatierung.
+	 * @return	Text des Viewer mit Markdown-Formatierung
+	 * @see #save(Component, File)
+	 */
 	private String getMarkdownText() {
 		StringBuilder result=new StringBuilder();
 
@@ -632,6 +729,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		save(owner,file);
 	}
 
+	/**
+	 * Speichert den Text als PDF-Datei.
+	 * @param owner	Übergeordnete Komponente für die eventuelle Anzeige von Dialogen
+	 * @param file	Datei, in der die Statistikdaten gespeichert werden soll. Es darf hier <b>nicht</b> <code>null</code> übergeben werden.
+	 * @return	Liefert <code>true</code> zurück, wenn die Daten erfolgreich gespeichert werden konnten.
+	 * @see #save(Component, File)
+	 */
 	private boolean savePDF(final Component owner, final File file) {
 		PDFWriter pdf=new PDFWriter(owner,15,10);
 		if (!pdf.systemOK) return false;
@@ -639,6 +743,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return pdf.save(file);
 	}
 
+	/**
+	 * Speichert den Text als DOCX-Datei.
+	 * @param file	Datei, in der die Statistikdaten gespeichert werden soll. Es darf hier <b>nicht</b> <code>null</code> übergeben werden.
+	 * @return	Liefert <code>true</code> zurück, wenn die Daten erfolgreich gespeichert werden konnten.
+	 * @see #save(Component, File)
+	 */
 	private boolean saveDOCX(final File file) {
 		try(XWPFDocument doc=new XWPFDocument()) {
 			if (!saveDOCX(doc)) return false;
@@ -647,6 +757,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		} catch (IOException e) {return false;}
 	}
 
+	/**
+	 * Speichert den Text als ODT-Datei.
+	 * @param odt	Ausgabe-Text-Dokument
+	 * @return	Liefert <code>true</code> zurück, wenn die Daten erfolgreich gespeichert werden konnten.
+	 * @see #saveODT(File)
+	 */
 	private boolean saveODT(final TextDocument odt) {
 		if (textPane==null) {
 			buildText();
@@ -695,6 +811,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return true;
 	}
 
+	/**
+	 * Speichert den Text als ODT-Datei.
+	 * @param file	Datei, in der die Statistikdaten gespeichert werden soll. Es darf hier <b>nicht</b> <code>null</code> übergeben werden.
+	 * @return	Liefert <code>true</code> zurück, wenn die Daten erfolgreich gespeichert werden konnten.
+	 * @see #save(Component, File)
+	 */
 	private boolean saveODT(final File file) {
 		try (TextDocument odt=TextDocument.newTextDocument()) {
 			if (!saveODT(odt)) return false;
@@ -800,6 +922,9 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return null;
 	}
 
+	/**
+	 * Öffnet den Text (über eine temporäre Datei) mit Word
+	 */
 	private void openWord() {
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".docx");
@@ -812,6 +937,9 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		}
 	}
 
+	/**
+	 * Öffnet den Text (über eine temporäre Datei) mit OpenOffice/LibreOffice
+	 */
 	private void openODT() {
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".odt");
@@ -824,6 +952,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		}
 	}
 
+	/**
+	 * Wandelt eine Zahl im Bereich von 0 bis 15 in die entsprechende Hexadezimal-Darstellung um.
+	 * @param b	Umzuwandelnde Zahl (0..15)
+	 * @return	Hexadezimal-Darstellung
+	 * @see #convertLineToRTF(String)
+	 */
 	private char hex(final int b) {
 		if (b<10) return (char)(b+((short)'0')); else return (char)(b-10+((short)'a'));
 	}
@@ -843,10 +977,16 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return false;
 	}
 
-	private String convertLineToRTF(final String s) {
+	/**
+	 * Wandelt eine Textzeile in eine RTF-Zeichenkette um
+	 * @param line	Umzuwandelnde Zeile
+	 * @return	RTF-Zeichenkette
+	 * @see #getRTFText()
+	 */
+	private String convertLineToRTF(final String line) {
 		StringBuilder result=new StringBuilder();
-		for (int i=0;i<s.length();i++) {
-			char c=s.charAt(i);
+		for (int i=0;i<line.length();i++) {
+			char c=line.charAt(i);
 			if ((short)c<=127) {result.append(c); continue;}
 			short b=(short)c;
 
@@ -1256,11 +1396,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		addLine(indentLevel,s);
 	}
 
-	@SuppressWarnings("unused")
-	private void unused() {
-
-	}
-
+	/**
+	 * Wandelt einen Punkt und eine Cursorposition in {@link #textPane} in einen zugehörigen Link um
+	 * @param point	Angeklickter Punkt innerhalb von {@link #textPane}
+	 * @return	Liefert im Erfolgsfall die URL als Text, sonst <code>null</code>
+	 * @see #initTextPane()
+	 */
 	private String pointToLink(final Point point) {
 		/*
 		Ursprünglich:
@@ -1282,6 +1423,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return (String)obj;
 	}
 
+	/**
+	 * Liefert zu der aktuellen Cursorposition in {@link #textPane} den hinterlegten Hinweistext
+	 * @return	Liefert im Erfolgsfall den hinterlegten Hinweistext, sonst <code>null</code>
+	 * @see #initTextPane()
+	 */
 	private String pointToHint() {
 		/*
 		Ursprünglich:
@@ -1336,6 +1482,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return false;
 	}
 
+	/**
+	 * Sucht einen Text in einem Element und seinen Unterelementen
+	 * @param element	Element von dem die Suche ausgehen soll
+	 * @param searchLower	Suchtext in Kleinschreibung
+	 * @param hits	Liste mit den Fundstellen (Cursorpositionen)
+	 * @see #getCaretPositions(String)
+	 */
 	private void searchInElement(final Element element, final String searchLower, final List<Integer> hits) {
 		for (int i=0;i<element.getElementCount();i++) {
 			searchInElement(element.getElement(i),searchLower,hits);
@@ -1357,6 +1510,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		}
 	}
 
+	/**
+	 * Sucht in dem Viewer nach einem Text und liefert die Cursorpositionen der Fundstellen
+	 * @param search	Zu suchender Text
+	 * @return	Liste mit den Cursorpositionen der Fundstellen (kann leer sein, ist aber nie <code>null</code>)
+	 * @see #search(Component)
+	 */
 	private List<Integer> getCaretPositions(final String search) {
 		final List<Integer> hits=new ArrayList<>();
 		final String searchLower=search.toLowerCase();
@@ -1366,6 +1525,13 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		return hits;
 	}
 
+	/**
+	 * Markiert die Fundstellen einer Suche.
+	 * @param owner	Übergeordnetes Element um optional den "Keine Treffer"-Dialog auszurichten
+	 * @param search	Suchtext
+	 * @param hits	Liste mit den Treffern
+	 * @see #search(Component)
+	 */
 	private void processSearchResults(final Component owner, final String search, final List<Integer> hits) {
 		textPane.getHighlighter().removeAllHighlights();
 

@@ -17,6 +17,7 @@ package ui.dialogs;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,10 @@ import ui.modeleditor.elements.ModelElementProcess;
  * @author Alexander Herzog
  */
 public class FindBatchSizeDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1353952651319816828L;
 
 	/** Sinnvolle mögliche Restabhängigkeiten */

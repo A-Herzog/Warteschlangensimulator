@@ -26,6 +26,7 @@ import javax.swing.JMenuItem;
  * @see ScriptPopupItem
  */
 public class ScriptPopupItemTitle extends ScriptPopupItem {
+	/** Name des Eintrags (kann <code>null</code> sein) */
 	private final String title;
 
 	/**

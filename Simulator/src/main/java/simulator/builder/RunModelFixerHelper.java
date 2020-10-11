@@ -67,6 +67,12 @@ public class RunModelFixerHelper {
 	 */
 	private RunModelFixerHelper() {}
 
+	/**
+	 * Prüft, ob ein Name für eine Station bereits genutzt wird.
+	 * @param surface	Zeichenfläche deren Stationen (und ggf. Stationen von Unterelementen) geprüft werden sollen
+	 * @param name	Zu prüfender Name
+	 * @return	Liefert <code>false</code>, wenn der Name noch <em>nicht</em> verwendet wird
+	 */
 	private static boolean nameInUse(final ModelSurface surface, final String name) {
 		for (ModelElement element: surface.getElements()) {
 			if (element.getName().equalsIgnoreCase(name)) return true;
@@ -77,6 +83,12 @@ public class RunModelFixerHelper {
 		return false;
 	}
 
+	/**
+	 * Erstellt basierend auf einem Namensanfang einen eindeutigen Namen (der im Modell noch nicht verwendet wird) zur Verfügung
+	 * @param model	Editor-Modell aus dem die bereits verwendeten Namen ausgelesen werden sollen
+	 * @param baseName	Basisname
+	 * @return	Neuer Name, der auf dem Basisnamen basiert und noch nicht in dem Modell vorkommt
+	 */
 	private static String makeIndividualName(final EditModel model, final String baseName) {
 		int count=1;
 		while (true) {
@@ -148,6 +160,11 @@ public class RunModelFixerHelper {
 		return new ArrayList<>();
 	}
 
+	/**
+	 * Liefert alle Kundenquell-Datensätze aus einem Element
+	 * @param element	Element dem alle Kundenquell-Datensätze entnommen werden sollen
+	 * @return	Listem it allen verfügbaren Kundenquell-Datensätzen (kann <code>null</code> sein, wenn das Element keine Daten enthält)
+	 */
 	private static List<ModelElementSourceRecord> getSourceRecord(final ModelElementPosition element) {
 		if (element instanceof ModelElementSource)  {
 			return Arrays.asList(((ModelElementSource)element).getRecord());
@@ -162,6 +179,11 @@ public class RunModelFixerHelper {
 		return null;
 	}
 
+	/**
+	 * Liefert eine Liste mit allen Kundentypennamen
+	 * @param model	Editor-Modell aus dem die Kundentypennamen ausgelesen werden sollen
+	 * @return	Liste mit allen Kundentypennamen
+	 */
 	private static List<String> getClientTypeNames(final EditModel model) {
 		final List<String> list=model.surface.getClientTypes();
 		if (list!=null && !list.isEmpty()) return list;
@@ -494,6 +516,11 @@ public class RunModelFixerHelper {
 		return options;
 	}
 
+	/**
+	 * Liefert eine Liste mit allen Stationsnamen auf einer Zeichenfläche (und möglicher Unterzeichenflächen)
+	 * @param surface	Zeichenfläche deren Stationsnamen aufgelistet werden sollen
+	 * @return	Liste mit allen Stationsnamen
+	 */
 	private static List<String> getSectionNames(final ModelSurface surface) {
 		final List<String> names=new ArrayList<>();
 		for (ModelElement element: surface.getElements()) {
@@ -585,6 +612,11 @@ public class RunModelFixerHelper {
 		return options;
 	}
 
+	/**
+	 * Liefert eine Liste mit allen möglichen Transportzielen einer Zeichenfläche  (und möglicher Unterzeichenflächen)
+	 * @param surface	Zeichenfläche deren Transportziele aufgelistet werden sollen
+	 * @return	Liste mit allen möglichen Transportzielen
+	 */
 	private static List<String> getTeleportDestinations(final ModelSurface surface) {
 		final List<String> names=new ArrayList<>();
 		for (ModelElement element: surface.getElements()) {

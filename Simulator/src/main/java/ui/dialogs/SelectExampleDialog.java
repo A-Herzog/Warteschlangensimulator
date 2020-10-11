@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -49,6 +50,10 @@ import ui.infopanel.InfoPanel;
  * @see EditModelExamples
  */
 public final class SelectExampleDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4553266650939654301L;
 
 	/** Baumstruktur in der die Beispielmodelle nach Themen gruppiert aufgelistet werden */

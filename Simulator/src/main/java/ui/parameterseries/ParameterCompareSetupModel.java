@@ -43,9 +43,12 @@ import simulator.statistics.Statistics;
  * @see ParameterCompareSetup
  */
 public final class ParameterCompareSetupModel extends ParameterCompareSetupBase implements Cloneable {
+	/** Liste der Eingangsgrößen mit ihren Zahlwertbelegungen */
 	private final Map<String,Double> input;
+	/** Ausgabegrößen mit ihren Zahlenwertbelegungen */
 	private final Map<String,Double> output;
 	private int inProcess; /* wird nicht gespeichert */
+	/** Statistik-Ergebnisse für dieses Modell */
 	private Document statisticsDocument;
 
 	/**

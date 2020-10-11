@@ -28,11 +28,16 @@ import language.Language;
  * @see WebServerHandler
  */
 public class HandlerText implements WebServerHandler {
+	/** Pfad zu dem Dokument aus Server-Sicht (sollte mit "/" beginnen) */
 	private final String serverURL;
+	/** Pfad zu dem Dokument aus Java-Ressourcen-Sicht ("%LANG%" wird durch die aktuelle Sprache, also "de" oder "en" ersetzt) */
 	private final String localURL;
+	/** Basisklasse zu der <code>localURL</code> relativ aufgefasst werden soll */
 	private final Object localURLBaseClass;
 	private final Supplier<String> textSupplier;
+	/** Mime-Typ des Dokuments */
 	private final WebServerResponse.Mime mime;
+	/** Gibt an, ob der Text noch ins UTF8-Format konvertiert werden muss */
 	private final boolean utf8encode;
 
 	/**

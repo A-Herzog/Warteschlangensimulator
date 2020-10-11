@@ -35,10 +35,17 @@ import ui.modeleditor.ModelElementCatalogDescriptionBuilder;
  * @see CommandLineSystem
  */
 public class CommandBuildCatalogDescriptions extends AbstractCommand {
-	private enum Mode {LATEX, HTML}
+	/** Ausgabeformat */
+	private enum Mode {
+		/** Ausgabeformat: LaTeX */
+		LATEX,
+		/** Ausgabeformat: HTML */
+		HTML
+	}
 
 	private String language;
 	private String path;
+	/** Ausgabeformat */
 	private Mode mode=Mode.LATEX;
 
 	@Override

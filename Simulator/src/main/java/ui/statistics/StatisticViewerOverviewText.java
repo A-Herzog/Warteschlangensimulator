@@ -60,7 +60,9 @@ import ui.statistics.FastAccessSelectorBuilder.IndicatorMode;
  * @author Alexander Herzog
  */
 public class StatisticViewerOverviewText extends StatisticViewerText {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Gibt an, welche Daten genau ausgegeben werden sollen */
 	private final Mode mode;
 	private final Consumer<Mode> modeClick;
 	private final FastAccessSelectorBuilder fastAccessBuilder;

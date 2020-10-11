@@ -26,7 +26,9 @@ import java.util.function.Supplier;
  * @see DDETopic
  */
 public final class DDEItem {
+	/** Lambda-Ausdruck zur Ermittlung des aktuellen Wertes des Datenfeldes */
 	private final Supplier<String> getter;
+	/** Gibt an, ob der Server benachrichtigt werden soll, wenn sich die Daten geändert haben */
 	private final boolean updateable;
 	private String lastValue;
 

@@ -34,8 +34,10 @@ import ui.modeleditor.elements.ModelElementUserStatistic;
  * @author Alexander Herzog
  */
 public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineChart {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
 
+	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
 	/**

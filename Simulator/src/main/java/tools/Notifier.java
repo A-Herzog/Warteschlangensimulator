@@ -45,8 +45,10 @@ public class Notifier {
 		OPTIMIZATION_DONE
 	}
 
+	/** Mindestzeitdauer (in Millisekunden) damit eine Operation als "lange dauernd" angesehen wird */
 	private static final long MIN_NOTIFY_OPERATION_TIME=10_000;
 
+	/** Programmeinstellungen-Singleton */
 	private static final SetupData setup=SetupData.getSetup();
 
 	private static TrayIcon lastIcon;

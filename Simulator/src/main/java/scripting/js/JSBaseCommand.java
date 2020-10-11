@@ -20,6 +20,7 @@ package scripting.js;
  * @author Alexander Herzog
  */
 public class JSBaseCommand {
+	/** Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen */
 	private final JSOutputWriter output;
 
 	/**

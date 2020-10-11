@@ -18,6 +18,7 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelSecurityCheckDialog#doSecurityCheck(EditModel, Component)
  */
 public class ModelSecurityCheckDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2678240248035761903L;
 
 	/** Hilfe-Runnable für diesen Dialog (und Unter-Dialoge) */
@@ -237,6 +242,10 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	 * Tabellenmodell das die Daten zu den gefundenen Problemen vorhält
 	 */
 	private class ModelSecurityCheckTableModel extends JTableExtAbstractTableModel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 3042549921461322668L;
 		private final List<CriticalElement> list;
 		private final JButton[] button;

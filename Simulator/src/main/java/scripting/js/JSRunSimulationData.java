@@ -27,7 +27,9 @@ import simulator.runmodel.SimulationData;
  */
 public class JSRunSimulationData {
 	private final JSCommandSystem simulatorCommand;
+	/** Soll es ein JS-"Output"-Objekt geben? */
 	private final boolean hasOutput;
+	/** Soll es ein JS-"Clients"-Objekt geben? */
 	private final boolean hasMultiClientData;
 	private JSCommandOutput outputCommand;
 	private JSCommandClients clientsCommand;

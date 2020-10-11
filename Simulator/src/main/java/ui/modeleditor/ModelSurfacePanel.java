@@ -56,6 +56,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URL;
@@ -130,8 +131,17 @@ import ui.parameterseries.ParameterCompareTemplatesDialog;
  * @author Alexander Herzog
  */
 public final class ModelSurfacePanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 2829918440976903115L;
 
+	/**
+	 * Erlaubt das Bearbeiten von Elementen sowie das Verschieben im ansonsten Read-Only-Modus.
+	 * Das Löschen von Elementen und das Erstellen neuer Elemente bleibt aber verboten.
+	 * @see #allowEditorDialogs()
+	 */
 	private boolean allowChangeOperationsOnReadOnly=false;
 
 	/**
@@ -218,7 +228,9 @@ public final class ModelSurfacePanel extends JPanel {
 		SMART
 	}
 
+	/** Ist die Rückgängig-Funktion verfügbar? ({@link #disableUndo()} */
 	private boolean canUndo=true;
+	/** Read-Only-Modus */
 	private final boolean readOnly;
 	private boolean showEditModelProperties=true;
 	private boolean operationRunning=false;
@@ -231,8 +243,11 @@ public final class ModelSurfacePanel extends JPanel {
 	private final transient Runnable redrawListener;
 	private final transient Runnable requestCopyListener;
 	private final transient Runnable requestCutListener;
+	/** Aktueller Zoomfaktor */
 	private double zoom;
+	/** Aktueller Raster-Anzeige-Modus */
 	private ModelSurface.Grid raster;
+	/** Farben für den Hintergrund */
 	private Color[] colors=new Color[]{ModelSurface.DEFAULT_BACKGROUND_COLOR,ModelSurface.DEFAULT_RASTER_COLOR};
 	private Point dragStartMousePosition=null;
 	private transient ModelElement dragElement;

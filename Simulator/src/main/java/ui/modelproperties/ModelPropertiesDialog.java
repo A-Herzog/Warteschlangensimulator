@@ -29,6 +29,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
@@ -89,6 +90,10 @@ import ui.modeleditor.elements.VariablesTableModel;
  * @see EditModel
  */
 public class ModelPropertiesDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3736946126004680597L;
 
 	/**
@@ -132,7 +137,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 		/** Dialogseite "Simulationssystem" */
 		INFO(()->Language.tr("Editor.Dialog.Tab.SimulationSystem"),Images.MODELPROPERTIES_INFO.getIcon());
 
+		/** Callback das den Namen der Seite in der passenden Sprache liefert */
 		private final Supplier<String> nameSupplier;
+		/** Zu verwendendes Icon */
 		private final Icon icon;
 
 		/**

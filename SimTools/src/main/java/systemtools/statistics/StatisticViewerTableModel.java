@@ -1,5 +1,6 @@
 package systemtools.statistics;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -12,6 +13,10 @@ import mathtools.Table;
  * @see StatisticViewerTable
  */
 public class StatisticViewerTableModel extends AbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=598876378208710137L;
 
 	/** Option zur Speicherung der Daten in der Tabelle */

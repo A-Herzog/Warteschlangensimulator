@@ -18,6 +18,7 @@ package ui.tools;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,10 @@ import ui.images.Images;
  * @author Alexander Herzog
  */
 public class SpecialPanel extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 399014899599365120L;
 
 	/** Name der "Schlieﬂen"-Schaltfl‰che */

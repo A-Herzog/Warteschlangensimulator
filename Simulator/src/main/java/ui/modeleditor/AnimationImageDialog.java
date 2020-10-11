@@ -24,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,18 +59,30 @@ import ui.images.Images;
  * @see ModelAnimationImages
  */
 public class AnimationImageDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 9216923146541994445L;
 
+	/** Modell aus dem die Icons ausgelesen und auch wieder zurückgeschrieben werden */
 	private final EditModel model;
+	/** Auflistung der Animations-Icons (wird beim Aufruf als Kopie aus {@link #model} erstellt) */
 	private final ModelAnimationImages animationImages;
 
+	/** Hilfe-Callback */
 	private final Runnable help;
 
+	/** "Hinzufügen"-Schaltfläche */
 	private final JButton add;
+	/** "Bearbeiten"-Schaltfläche */
 	private final JButton edit;
+	/** "Löschen"-Schaltfläche */
 	private final JButton delete;
 
+	/** Datenmodell für die Listendarstellung der Animationsicons ({@link #list}) */
 	private final DefaultListModel<JLabel> listModel;
+	/** Listendarstellung der Animationsicons */
 	private final JList<JLabel> list;
 
 	/**
@@ -246,7 +259,15 @@ public class AnimationImageDialog extends BaseDialog {
 		model.animationImages.setDataFrom(animationImages);
 	}
 
+	/**
+	 * Renderer für die Einträge in der Liste
+	 * @see AnimationImageDialog#list
+	 */
 	private class ImageRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 8633392935026934066L;
 
 		@Override

@@ -18,6 +18,7 @@ package ui.quickaccess;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.io.Serializable;
 
 import javax.swing.JTextField;
 import javax.swing.text.Document;
@@ -28,6 +29,10 @@ import javax.swing.text.Document;
  * @author Alexander Herzog
  */
 public class JPlaceholderTextField extends JTextField {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7305679732549597115L;
 
 	/**

@@ -22,6 +22,7 @@ package scripting.java;
  * @see SimulationImpl
  */
 public class InputValueImpl implements InputValueInterface {
+	/** Eingangsgröße (z.B. aus einer Datei geladener Zahlenwert) */
 	private double inputValue;
 
 	/**

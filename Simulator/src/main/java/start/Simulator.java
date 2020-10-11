@@ -33,8 +33,20 @@ import ui.commandline.AbstractSimulationCommand;
  * @author Alexander Herzog
  */
 public class Simulator {
+	/**
+	 * Zu ladende Datei, die das xml-Modell enthält
+	 */
+
 	private File editModelFile;
+	/**
+	 * Editor-Modell (welches aus {@link #editModelFile} geladen wurde)
+	 * @see #editModelFile
+	 */
+
 	private EditModel editModel;
+	/** Statistikergebnisse
+	 * @see #getStatistics()
+	 */
 	private Statistics statistics;
 
 	/**

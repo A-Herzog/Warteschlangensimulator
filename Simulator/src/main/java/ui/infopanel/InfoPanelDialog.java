@@ -21,6 +21,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -55,6 +56,10 @@ import ui.images.Images;
  * @see InfoPanel
  */
 public final class InfoPanelDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1356255618875549024L;
 
 	/** Darstellung der verfügbaren Themen */
@@ -223,6 +228,10 @@ public final class InfoPanelDialog extends BaseDialog {
 	 * @see InfoPanelDialog#checkBoxes
 	 */
 	private class CheckBoxCellRenderer extends DefaultTreeCellRenderer implements TreeCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -5361367157516885457L;
 
 		@Override

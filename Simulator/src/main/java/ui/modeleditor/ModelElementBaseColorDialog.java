@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -43,12 +44,21 @@ import ui.tools.ImageChooser;
  * @see ModelElementBaseDialog
  */
 public class ModelElementBaseColorDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7425813595312162449L;
 
+	/** Auswahloption "Standardfarbe verwenden" */
 	private final JRadioButton optionDefaultColor;
+	/** Auswahloption "Benutzerdefinierte Farbe verwenden" */
 	private final JRadioButton optionUserColor;
+	/** Auswahloption "Benutzerdefiniertes Bild verwenden" */
 	private final JRadioButton optionUserImage;
+	/** Auswahl der benutzerdefinierten Farbe */
 	private final SmallColorChooser colorChooser;
+	/** Auswahl des benutzerdefinierten Bildes */
 	private final ImageChooser imageChooser;
 
 	/**

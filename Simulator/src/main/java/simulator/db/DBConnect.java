@@ -154,6 +154,15 @@ public class DBConnect implements Closeable {
 		/** Optionale Funktion zur Verarbeitung der vom Nutzer eingegebenen Einstellungen zur anschließenden Übergabe an den DB-Treiber. */
 		public final Function<String,String> processSettings;
 
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name des Datenbank-Servers
+		 * @param driver	Treiber in der Java-Klassen-Notation
+		 * @param connector	Bezeichnung für den Konnektor
+		 * @param listAllTablesCommand	SQL-Befehl in der entsprechenden Datenbanknotation um die Liste aller Tabellen abzurufen
+		 * @param properties	Optional weitere Einstellungen, die beim Aufbau der Verbindung benötigt werden. Kann <code>null</code> sein.
+		 * @param useQuotes	Dürfen Spaltenbezeichner in Anführungszeichen gesetzt werden?
+		 */
 		DBType(final String name, final String driver, final String connector, final String listAllTablesCommand, final String properties, final boolean useQuotes) {
 			this.name=name;
 			this.driver=driver;
@@ -164,6 +173,16 @@ public class DBConnect implements Closeable {
 			this.processSettings=null;
 		}
 
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name des Datenbank-Servers
+		 * @param driver	Treiber in der Java-Klassen-Notation
+		 * @param connector	Bezeichnung für den Konnektor
+		 * @param listAllTablesCommand	SQL-Befehl in der entsprechenden Datenbanknotation um die Liste aller Tabellen abzurufen
+		 * @param properties	Optional weitere Einstellungen, die beim Aufbau der Verbindung benötigt werden. Kann <code>null</code> sein.
+		 * @param useQuotes	Dürfen Spaltenbezeichner in Anführungszeichen gesetzt werden?
+		 * @param processSettings	Optionale Funktion zur Verarbeitung der vom Nutzer eingegebenen Einstellungen zur anschließenden Übergabe an den DB-Treiber.
+		 */
 		DBType(final String name, final String driver, final String connector, final String listAllTablesCommand, final String properties, final boolean useQuotes, final UnaryOperator<String> processSettings) {
 			this.name=name;
 			this.driver=driver;
@@ -206,6 +225,10 @@ public class DBConnect implements Closeable {
 		/** SQL-Sortier-Anweisung */
 		public final String sql;
 
+		/**
+		 * Konstruktor des Enum
+		 * @param sql	SQL-Sortier-Anweisung
+		 */
 		SortMode(final String sql) {
 			this.sql=sql;
 		}

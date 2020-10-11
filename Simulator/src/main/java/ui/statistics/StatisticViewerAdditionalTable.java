@@ -34,6 +34,7 @@ import ui.help.Help;
  * @author Alexander Herzog
  */
 public class StatisticViewerAdditionalTable extends StatisticViewerTable {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
 	private final long stepWide;
 

@@ -47,6 +47,9 @@ public final class RunModelFixer {
 	 */
 	public final String info;
 
+	/**
+	 * Funktion, die die eigentliche Korrektur durchführt
+	 */
 	private final Consumer<RunModelFixer> process;
 
 	/**

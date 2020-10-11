@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.Serializable;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
@@ -69,6 +70,10 @@ import ui.script.ScriptPopup;
  * @author Alexander Herzog
  */
 public final class ExpressionCalculatorDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -2213485790093666048L;
 
 	/**
@@ -330,6 +335,14 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Fügt eine Schaltfläche zu einer Symbolleiste hinzu
+	 * @param toolbar	Symbolleiste zu der die Schaltfläche hinzugefügt werden soll
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param icon	Icon für die Schaltfläche (kann <code>null</code> sein)
+	 * @param hint	Tooltip für die Schaltfläche (kann <code>null</code> sein)
+	 * @return	Bereits hinzugefügte Schaltfläche
+	 */
 	private JButton addToolbarButton(final JToolBar toolbar, final String title, final Icon icon, final String hint) {
 		final JButton button=new JButton(title);
 		toolbar.add(button);
@@ -339,6 +352,10 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		return button;
 	}
 
+	/**
+	 * Aktualisiert die Berechnung.
+	 * @see #expressionEdit
+	 */
 	private void recalc() {
 		final String expression=expressionEdit.getText().trim();
 
@@ -356,6 +373,9 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		resultsEdit.setText(NumberTools.formatNumberMax(D.doubleValue()));
 	}
 
+	/**
+	 * Kopiert das aktuelle Ergebnis in die Zwischenablage.
+	 */
 	private void copyResultToClipboard() {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(resultsEdit.getText()),null);
 	}
@@ -396,6 +416,10 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		return scriptJavaEdit.getText().trim();
 	}
 
+	/**
+	 * Darf der Javascript-Code verworfen werden?
+	 * @return	Liefert <code>true</code>, wenn der Javascript-Code verworfen werden kann
+	 */
 	private boolean allowDiscardJavaScript() {
 		if (lastJavaScript.equals(scriptJavaScriptEdit.getText())) return true;
 		switch (MsgBox.confirmSave(this,Language.tr("ExpressionCalculator.DiscardConfirmationJavascript.Title"),Language.tr("ExpressionCalculator.DiscardConfirmationJavascript.Info"))) {
@@ -406,6 +430,10 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Darf der Java-Code verworfen werden?
+	 * @return	Liefert <code>true</code>, wenn der Java-Code verworfen werden kann
+	 */
 	private boolean allowDiscardJava() {
 		if (lastJava.equals(scriptJavaEdit.getText())) return true;
 		switch (MsgBox.confirmSave(this,Language.tr("ExpressionCalculator.DiscardConfirmationJava.Title"),Language.tr("ExpressionCalculator.DiscardConfirmationJava.Info"))) {
@@ -416,6 +444,10 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Lädt den Javascript-Code aus einer Datei
+	 * @param file	Zu ladende Datei; wird <code>null</code> angegeben, so wird ein Dateiauswahl-Dialog angezeigt
+	 */
 	private void commandLoadJavaScript(File file) {
 		if (file==null) {
 			JFileChooser fc=new JFileChooser();
@@ -437,6 +469,10 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		lastJavaScript=scriptJavaScriptEdit.getText();
 	}
 
+	/**
+	 * Lädt den Java-Code aus einer Datei
+	 * @param file	Zu ladende Datei; wird <code>null</code> angegeben, so wird ein Dateiauswahl-Dialog angezeigt
+	 */
 	private void commandLoadJava(File file) {
 		if (file==null) {
 			JFileChooser fc=new JFileChooser();
@@ -458,6 +494,9 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		lastJava=scriptJavaEdit.getText();
 	}
 
+	/**
+	 * Speichert den Javascript-Code in einer Datei.
+	 */
 	private void commandSaveJavaScript() {
 		JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -481,6 +520,9 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		lastJavaScript=scriptJavaScriptEdit.getText();
 	}
 
+	/**
+	 * Speichert den Java-Code in einer Datei.
+	 */
 	private void commandSaveJava() {
 		JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -504,16 +546,25 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		lastJava=scriptJavaEdit.getText();
 	}
 
+	/**
+	 * Führt den Javascript-Code aus.
+	 */
 	private void commandRunJavaScript() {
 		final String s=runJavaScript.apply(scriptJavaScriptEdit.getText().trim());
 		scriptJavaScriptResults.setText(s);
 	}
 
+	/**
+	 * Führt den Java-Code aus.
+	 */
 	private void commandRunJava() {
 		final String s=runJava.apply(scriptJavaEdit.getText().trim());
 		scriptJavaResults.setText(s);
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Symbolleisten-Schaltflächen
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

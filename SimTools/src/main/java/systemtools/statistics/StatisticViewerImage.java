@@ -29,6 +29,7 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Base64;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -57,6 +58,9 @@ import systemtools.images.SimToolsImages;
  * @author Alexander Herzog
  */
 public class StatisticViewerImage implements StatisticViewer, Printable {
+	/**
+	 * Internes {@link JPanel} in dem das Bild per {@link #paintImage(Graphics)} dargestellt werden soll.
+	 */
 	private JPanel panel;
 
 	/**
@@ -66,6 +70,10 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	 */
 	public StatisticViewerImage() {
 		panel=new JPanel() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = 487768420672802999L;
 			@Override public void paint(Graphics g) {paintImage(g);}
 		};
@@ -150,6 +158,13 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 		return PAGE_EXISTS;
 	}
 
+	/**
+	 * Erzeugt ein Bild für den Export.
+	 * @return	Bild für den Export
+	 * @see #save(Component, File)
+	 * @see #saveDOCX(XWPFDocument)
+	 * @see #savePDF(PDFWriter)
+	 */
 	private BufferedImage getImage() {
 		if (panel==null) panelNeeded();
 		final int imageSize=getImageSize();
@@ -201,6 +216,14 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	 */
 	protected void paintImage(Graphics g) {}
 
+	/**
+	 * Speichert ein Bild als png in einer Datei
+	 * @param image	Zu speicherndes Bild
+	 * @param imageFile	Dateiname zum Speichern
+	 * @return	Gibt an, ob das Speichern erfolgreich war
+	 * @see #saveHtml(BufferedWriter, File, int, boolean)
+	 * @see #saveLaTeX(BufferedWriter, File, int)
+	 */
 	private boolean saveImage(final BufferedImage image, final File imageFile) {
 		try {ImageIO.write(image,"png",imageFile);} catch (IOException e) {return false;}
 		return true;
@@ -328,12 +351,25 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 		}
 	}
 
+	/**
+	 * Liefert die aktuelle Export-Bild-Größe
+	 * @return	Export-Bild-Größe
+	 */
 	private int getImageSize() {
 		if (getImageSizeCallback==null) return 1000;
 		return getImageSizeCallback.getAsInt();
 	}
 
+	/**
+	 * Callback zum Auslesen der Bildgröße
+	 * @see #setRequestImageSize(IntSupplier)
+	 */
 	private IntSupplier getImageSizeCallback;
+
+	/**
+	 * Callback zum Zurückschreiben der Bildgröße
+	 * @see #setUpdateImageSize(IntConsumer)
+	 */
 	private IntConsumer setImageSizeCallback;
 
 	@Override

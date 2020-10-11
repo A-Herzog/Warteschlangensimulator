@@ -422,6 +422,7 @@ public class RunData {
 		data.lastLeaveByClientType[clientType]=now;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static double scale=1.0d/1000.0d;
 
 	/**

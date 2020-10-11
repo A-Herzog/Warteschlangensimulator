@@ -55,9 +55,26 @@ import org.apache.xmpbox.xml.XmpSerializer;
  * @version 1.3
  */
 public class PDFWriter {
+	/**
+	 * PDF-Dokument
+	 */
 	private final PDDocument doc;
+
+	/**
+	 * Ausgabestrem für die aktuelle Seite
+	 * @see #newPage()
+	 */
 	private PDPageContentStream contentStream;
-	private final FontMetrics metricsPlain, metricsBold;
+
+	/**
+	 * Maße für die Schriftart im Normalmodus
+	 */
+	private final FontMetrics metricsPlain;
+
+	/**
+	 * Maße für die Schriftart im Fett-Modus
+	 */
+	private final FontMetrics metricsBold;
 
 	/**
 	 * Ordner in dem das PDF-System einen Font-Cache-Datei ablegt.
@@ -137,6 +154,12 @@ public class PDFWriter {
 		newPage();
 	}
 
+	/**
+	 * Liefert wenn möglich das Programmverzeichnis (in dem sich die jar-Datei befindet), sonst
+	 * das Nutzerverzeichnis.<br>
+	 * (Um einen Speicherort für die pdf-Font-Cache festzulegen.)
+	 * @return	Programmverzeichnis oder als Fallback das Nutzerverzeichnis
+	 */
 	private static File getProgramFolder() {
 		try {
 			final File source=new File(PDFWriter.class.getProtectionDomain().getCodeSource().getLocation().toURI());

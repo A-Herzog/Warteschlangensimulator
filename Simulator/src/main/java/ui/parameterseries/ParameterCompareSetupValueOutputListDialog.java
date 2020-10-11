@@ -16,6 +16,7 @@
 package ui.parameterseries;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,6 +42,10 @@ import ui.statistics.ListPopup.XMLMode;
  * @see ParameterComparePanel
  */
 public class ParameterCompareSetupValueOutputListDialog extends ParameterCompareSetupValueBaseListDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1863917114149952906L;
 
 	private final Statistics miniStatistics;

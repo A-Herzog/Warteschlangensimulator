@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -66,6 +67,10 @@ import ui.images.Images;
  * @see SimulationServerGUIConnect
  */
 public final class ServerPanel extends SpecialPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6115906891815733405L;
 
 	private final SimulationServerGUIConnect serverCalc;

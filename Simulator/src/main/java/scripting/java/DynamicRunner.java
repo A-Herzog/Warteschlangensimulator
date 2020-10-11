@@ -21,8 +21,11 @@ package scripting.java;
  * @see DynamicMethod
  */
 public class DynamicRunner {
+	/** Text, der als java-Methode interpretiert werden soll. Der Text muss mit dem Rückgabewert beginnen, darf also keinen Access-Modifier enthalten. */
 	private String script;
+	/** Status der Kompilierung */
 	private DynamicStatus status;
+	/** Optionale zusätzliche Fehlermeldung	(kann <code>null</code> sein) */
 	private String error;
 	private final DynamicMethod method;
 

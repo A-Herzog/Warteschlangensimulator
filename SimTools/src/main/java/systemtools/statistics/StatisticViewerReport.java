@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
@@ -104,12 +105,42 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		FORMAT_PDF
 	}
 
+	/**
+	 * Optionales Statistik-XML-Objekt welches beim Report-Export als html-Datei base64-codiert eingebettet werden soll (darf <code>null</code> sein)
+	 */
 	private final XMLData statisticsXml;
+
+	/**
+	 * Runnable, das aufgerufen wird, wenn die Hilfe-Schaltfläche angeklickt wird. (Wenn <code>null</code> übergeben wird, erscheint keine Hilfe-Schaltfläche.)
+	 */
 	private final Runnable helpRunnable;
+
+	/**
+	 * Optional Titel für den html-Web-App-Export (kann auch <code>null</code> sein)
+	 */
 	private final String modelName;
+
+	/**
+	 * Namen der Viewer
+	 * @see #viewers
+	 */
 	private final List<String> names;
+
+	/**
+	 * Vollstände Pfade der Viewer im Baum
+	 * @see #viewers
+	 */
 	private final List<String> fullPath;
+
+	/**
+	 * Liste der Viewer
+	 */
 	private final List<StatisticViewer> viewers;
+
+	/**
+	 * Tabellendarstellung der zum Export verfügbaren Viewer
+	 * @see #getViewer(boolean)
+	 */
 	private JReportCheckboxTable table=null;
 
 	/**
@@ -131,7 +162,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		addChildNodes(root,viewerIndex);
 	}
 
-	private void addChildNodes(StatisticNode parent, int viewerIndex) {
+	/**
+	 * Fügt ausgehend von einem Elternelement alle Kindelemente und deren Kindelement zu der Liste der Viewer für die Liste der Ausgabemöglichkeiten hinzu
+	 * @param parent	Elternelement
+	 * @param viewerIndex	Gibt an, auf welchen der möglicherweise mehreren Viewer in den <code>StatisticNode</code> sich dieses Report-Objekt beziehen soll
+	 */
+	private void addChildNodes(final StatisticNode parent, final int viewerIndex) {
 		if (parent==null) return;
 		for (int i=0;i<parent.getChildCount();i++) {
 			final StatisticNode node=parent.getChild(i);
@@ -199,19 +235,70 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return true;
 	}
 
-	private enum InlineReportThreadStatus {WAITING, RUNNING, DONE}
+	/**
+	 * Status eines {@link InlineReportThread}
+	 * @see InlineReportThread#status
+	 */
+	private enum InlineReportThreadStatus {
+		/** Thread wartet noch */
+		WAITING,
+		/** Thread arbeitet gerade */
+		RUNNING,
+		/** Thread hat seine Arbeit abgeschlossen */
+		DONE
+	}
 
-	private enum ExportMode {HTML, LATEX}
+	/**
+	 * Art des Reports
+	 * @see InlineReportThread
+	 */
+	private enum ExportMode {
+		/** HTML-Report erstellen */
+		HTML,
+		/** LaTeX-Report erstellen */
+		LATEX
+	}
 
+	/**
+	 * Thread der zu einem Viewer den zugehörigen HTML- oder LaTeX-Code erstellt
+	 * @see StatisticViewerReport#buildInlineData(List, List)
+	 */
 	private class InlineReportThread extends Thread {
+		/**
+		 * Art des Reports
+		 * @see ExportMode
+		 */
 		private final ExportMode mode;
+
+		/**
+		 * Zu exportierender Viewer
+		 */
 		private final StatisticViewer viewer;
+
+		/**
+		 * Name des Viewers
+		 */
 		private final String name;
 
+		/**
+		 * Ausgaben des Threads (exportierte bzw. passend formatierte Daten)
+		 */
 		public String result="";
 
+		/**
+		 * Status der Verarbeitung
+		 * @see InlineReportThreadStatus
+		 */
 		public InlineReportThreadStatus status;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param mode	Art des Reports
+		 * @param group	Zugehörige Thread-Gruppe
+		 * @param viewer	Zu exportierender Viewer
+		 * @param name	Name des Viewers
+		 * @see ExportMode
+		 */
 		public InlineReportThread(final ExportMode mode, final ThreadGroup group, final StatisticViewer viewer, final String name) {
 			super(group,"Report "+name);
 			this.mode=mode;
@@ -254,6 +341,17 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		}
 	}
 
+	/**
+	 * Speichert die Daten von mehreren Viewern in einem bestimmten Format in einem {@link BufferedWriter}
+	 * @param mode	Ausgabemodus
+	 * @param viewers	Liste der auszugebenden Viewer
+	 * @param names	Beteichner für die Viewer
+	 * @param bw	Ausgabeziel
+	 * @param baseFileName	Basisdateiname für Bilder
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see ExportMode
+	 */
 	private boolean writeReportNodesToBufferedWriterFile(final ExportMode mode, final List<StatisticViewer> viewers, final List<String> names, final BufferedWriter bw, final File baseFileName) throws IOException {
 		int nextImageNr=1;
 		for (int i=0;i<viewers.size();i++) {
@@ -282,6 +380,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return true;
 	}
 
+	/**
+	 * Fügt die base64-codierten und in einen HTML-Kommentar verpackten xml-Statistikdaten an einen {@link BufferedWriter} an.
+	 * @param bw	Ausgabeziel
+	 * @param statistics	Auszugebende Statistikdaten
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean writeBase64StatisticsData(final BufferedWriter bw, final XMLData statistics) {
 		try {
 			bw.write("<!--\n");
@@ -297,8 +401,21 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return true;
 	}
 
+	/**
+	 * Anzahl der parallelen Threads bei der Reporterstellung.
+	 * @see #buildInlineData(List, List)
+	 */
 	private static final int MAX_REPORT_BUILDER_THREADS=5; /* Ein zu hoher Wert provoziert OutOfMemory-Probleme. */
 
+	/**
+	 * Erstellt zu den angegebenen Viewern mit Hilfe von {@link InlineReportThread}-Objekten
+	 * HTML-Report-Texte mit Inline-Bildern
+	 * @param viewers	Zu berücksichtigende Viewer
+	 * @param names	Namen der Viewer
+	 * @return	HTML-Texte zu den Viewern
+	 * @see #writeReportNodesToBufferedWriterInline(List, List, BufferedWriter)
+	 * @see #writeReportNodesToBufferedWriterApp(String, List, List, List, BufferedWriter)
+	 */
 	private List<String> buildInlineData(final List<StatisticViewer> viewers, final List<String> names) {
 		final ThreadGroup group=new ThreadGroup("Report");
 		final List<InlineReportThread> list=new ArrayList<>();
@@ -329,12 +446,30 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return results;
 	}
 
+	/**
+	 * Erstellt zu den angegebenen Viewern mit Hilfe von {@link InlineReportThread}-Objekten
+	 * HTML-Report-Texte mit Inline-Bildern
+	 * @param viewers	Zu berücksichtigende Viewer
+	 * @param names	Namen der Viewer
+	 * @param bw	Ausgabe für die HTML-Texte zu den Viewern
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #writeReportToBufferedWriter(Writer, File, FileFormat, boolean)
+	 */
 	private boolean writeReportNodesToBufferedWriterInline(final List<StatisticViewer> viewers, final List<String> names, final BufferedWriter bw) throws IOException {
 		final List<String> data=buildInlineData(viewers,names);
 		for (int i=0;i<viewers.size();i++) bw.write(data.get(i));
 		return true;
 	}
 
+	/**
+	 * Erstellt den Bereich horizontal vor einem Eintrag in der HTML-Baumstruktur;
+	 * berücksichtigt dabei die Einrückungen des aktuellen und des Vorgängerknotens.
+	 * @param path	Pfad des Vorgängerknotens
+	 * @param current	Pfad des aktuellen Knotens
+	 * @param sb	Ausgabe-{@link StringBuilder}
+	 * @see #buildTree(List, List)
+	 */
 	private void addTreeParents(final List<String> path, final List<String> current, final StringBuilder sb) {
 		int matching=0;
 		for (int i=0;i<Math.min(path.size()-1,current.size()-1);i++) if (path.get(i).equals(current.get(i))) matching++; else break;
@@ -350,6 +485,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		path.addAll(current);
 	}
 
+	/**
+	 * Erstellt ein HTML-Inline-Icon für einen Viewer
+	 * @param viewer	Viewer für den das Icon erstellt werden soll
+	 * @return	Icon als HTML-Code (base64-encodiertes Inline-Bild)
+	 * @see #buildTree(List, List)
+	 */
 	private String htmlIconForViewer(final StatisticViewer viewer) {
 		final URL url=StatisticTreeCellRenderer.getStatisticViewerIconURL(viewer);
 		if (url==null) return "";
@@ -365,6 +506,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return "<img src=\"data:image/png;base64,"+base64bytes+"\">";
 	}
 
+	/**
+	 * Erstellt eine HTML-Baumstruktur für einen interaktiven HTML-Report
+	 * @param viewers	Zu berücksichtigende Viewer
+	 * @param fullPathes	Vollständige Namen der Viewer
+	 * @return	HTML-Code für die Baumstruktur
+	 * @see #writeReportNodesToBufferedWriterApp(String, List, List, List, BufferedWriter)
+	 */
 	private String buildTree(final List<StatisticViewer> viewers, final List<String> fullPathes) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -381,6 +529,17 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return sb.toString();
 	}
 
+	/**
+	 * Erstellt den inneren HTML-Code für einen interaktiven HTML-Report
+	 * @param modelName	Optional Titel für den html-Web-App-Export (kann auch <code>null</code> sein)
+	 * @param viewers	Zu berücksichtigende Viewer
+	 * @param names	Namen der Viewer
+	 * @param fullPathes	Vollständige Pfade der Viewer
+	 * @param bw	Ausgabe für die HTML-Texte zu den Viewern
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #writeReportToBufferedWriter(Writer, File, FileFormat, boolean)
+	 */
 	private boolean writeReportNodesToBufferedWriterApp(final String modelName, final List<StatisticViewer> viewers, final List<String> names, final List<String> fullPathes, final BufferedWriter bw) throws IOException {
 		final List<String> data=buildInlineData(viewers,names);
 
@@ -415,6 +574,14 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return true;
 	}
 
+	/**
+	 * Gibt einen HTML-Kopfbereich für HTML-Reports (statisch und dynamisch) aus.
+	 * @param bw	Ausgabeziel
+	 * @param addStyles	Zusätzlich auszugebende Styles (darf <code>null</code> sein)
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #writeReportToBufferedWriter
+	 * @see #writeHTMLFoot(BufferedWriter)
+	 */
 	private void writeHTMLHead(final BufferedWriter bw, final String[] addStyles) throws IOException {
 		bw.write("<!DOCTYPE html>"); bw.newLine();
 		bw.write("<html>"); bw.newLine();
@@ -437,6 +604,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		bw.newLine();
 	}
 
+	/**
+	 * Gibt einen HTML-Fußbereich für HTML-Reports (statisch und dynamisch) aus.
+	 * @param bw	Ausgabeziel
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #writeReportToBufferedWriter
+	 * @see #writeHTMLHead(BufferedWriter, String[])
+	 */
 	private void writeHTMLFoot(final BufferedWriter bw) throws IOException {
 		bw.newLine();
 		bw.write("</body>");
@@ -445,6 +619,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		bw.newLine();
 	}
 
+	/**
+	 * Gibt einen LaTeX-Kopfbereich für LaTeX-Reports aus.
+	 * @param bw	Ausgabeziel
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #writeReportToBufferedWriter
+	 * @see #writeLaTeXFoot(BufferedWriter)
+	 */
 	private void writeLaTeXHead(final BufferedWriter bw) throws IOException {
 		bw.write("\\documentclass{article}"); bw.newLine();
 		bw.newLine();
@@ -462,12 +643,26 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		bw.newLine();
 	}
 
+	/**
+	 * Gibt einen LaTeX-Fußbereich für LaTeX-Reports aus.
+	 * @param bw	Ausgabeziel
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #writeReportToBufferedWriter
+	 * @see #writeLaTeXHead(BufferedWriter)
+	 */
 	private void writeLaTeXFoot(final BufferedWriter bw) throws IOException {
 		bw.newLine();
 		bw.write("\\end{document}");
 		bw.newLine();
 	}
 
+	/**
+	 * Zusätzliche Styles, die über {@link #writeHTMLHead(BufferedWriter, String[])} hinausgehen
+	 * für den dynamischen HTML-Report-Viewer
+	 * @see #writeHTMLHead(BufferedWriter, String[])
+	 * @see #writeReportToBufferedWriter(Writer, File, FileFormat, boolean)
+	 * @see #writeReportHTMLApp(OutputStream)
+	 */
 	private static String[] addStyles=new String[] {
 			"body {margin: 0; padding: 0; height: 100%; width: 100%; position: absolute;}",
 			"h1.main {color: white; background-color: blue; margin: 0px; padding: 5px 25px;}",
@@ -481,7 +676,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 
 	/**
 	 * Schreibt eine HTML-App über alle Statistikdaten in einen Stream.
-	 * @param stream	Ausgabestresm
+	 * @param stream	Ausgabestream
 	 * @return	Gibt an, ob die Ausgabe erfolgreich war
 	 */
 	public boolean writeReportHTMLApp(final OutputStream stream) {
@@ -492,6 +687,15 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		}
 	}
 
+	/**
+	 * Schreibt einen HTML- oder LaTeX-Report in einen {@link Writer}.
+	 * @param writer	Ausgabe-{@link Writer}
+	 * @param baseFileName	Basisdateiname für Bilder
+	 * @param fileFormat	Ausgabeformat
+	 * @param exportAllItems	Alle Viewer ausgeben (<code>true</code>) oder nur die gewählten (<code>false</code>)
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #save(Component, File, FileFormat, boolean)
+	 */
 	private boolean writeReportToBufferedWriter(final Writer writer, final File baseFileName, final FileFormat fileFormat, final boolean exportAllItems) {
 		if (table==null) getViewer(false);
 
@@ -562,6 +766,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return true;
 	}
 
+	/**
+	 * Speichert den gesamten Report als docx-Datei.
+	 * @param file	Datei, in der die Statistikdaten gespeichert werden soll.
+	 * @param exportAllItems	Alle Viewer ausgeben (<code>true</code>) oder nur die gewählten (<code>false</code>)
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #save(Component, File)
+	 */
 	private boolean writeReportToWordFile(File file, boolean exportAllItems) {
 		if (table==null) getViewer(false);
 
@@ -583,6 +794,14 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		} catch (IOException e) {return false;}
 	}
 
+	/**
+	 * Speichert den gesamten Report als pdf-Datei.
+	 * @param owner	Übergeordnete Komponente für die eventuelle Anzeige von Dialogen
+	 * @param file	Datei, in der die Statistikdaten gespeichert werden soll.
+	 * @param exportAllItems	Alle Viewer ausgeben (<code>true</code>) oder nur die gewählten (<code>false</code>)
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #save(Component, File)
+	 */
 	private boolean writeReportToPDFFile(Component owner, File file, boolean exportAllItems) {
 		if (table==null) getViewer(false);
 
@@ -598,6 +817,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		return pdf.save(file);
 	}
 
+	/**
+	 * Liefert das Dateiformat für den Export
+	 * @param fileFormat	Vorab gewähltes Format (steht hier {@link FileFormat#FORMAT_FROM_FILEEXTENSION} so wird der <code>file</code>-Parameter berücksichtigt)
+	 * @param file	Vom Dateinamen wird im Fall {@link FileFormat#FORMAT_FROM_FILEEXTENSION} das Format abgeleitet
+	 * @return	Ausgabeformat
+	 * @see #save(Component, File)
+	 */
 	private FileFormat getFileFormat(final FileFormat fileFormat, final File file) {
 		if (fileFormat!=null && fileFormat!=FileFormat.FORMAT_FROM_FILEEXTENSION) return fileFormat;
 
@@ -806,8 +1032,16 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 
 	/** Tabelle mit den Checkboxen */
 	private final class JReportCheckboxTable extends JCheckboxTable {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 1342890838297765223L;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param keys	Array mit den in der Liste anzuzeigenden Texten (darf nicht <code>null</code> sein)
+		 */
 		public JReportCheckboxTable(String[] keys) {
 			super(keys);
 		}

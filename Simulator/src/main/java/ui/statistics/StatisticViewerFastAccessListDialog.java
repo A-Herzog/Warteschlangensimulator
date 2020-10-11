@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -48,9 +49,20 @@ import ui.modeleditor.ModelSurface;
  * @see StatisticViewerFastAccessList
  */
 public final class StatisticViewerFastAccessListDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7668518779952201569L;
 
+	/**
+	 * Statistik-Objekt für die Abfrage der möglichen XML-Elemente
+	 */
 	private final Statistics statistics;
+
+	/**
+	 * Hilfe-Runnable
+	 */
 	private final Runnable help;
 
 	private final JComboBox<JLabel> modeCombo;

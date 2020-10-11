@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -49,6 +50,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelPropertiesDialog
  */
 public class ClientDataDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 7425813595312162449L;
 
 	private final AnimationImageSource imageSource;

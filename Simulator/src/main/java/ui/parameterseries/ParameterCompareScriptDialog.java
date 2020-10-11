@@ -17,6 +17,7 @@ package ui.parameterseries;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -45,6 +46,10 @@ import ui.script.ScriptPanel;
  * @author Alexander Herzog
  */
 public class ParameterCompareScriptDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 9064720881495989992L;
 
 	private final ScriptPanel scriptPanel;

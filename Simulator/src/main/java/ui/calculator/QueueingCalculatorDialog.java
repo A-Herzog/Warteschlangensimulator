@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,10 @@ import ui.help.Help;
  * @version 2.0
  */
 public class QueueingCalculatorDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1388546809132066439L;
 
 	/** Anzeigebereich für die Erklärungen */
@@ -76,6 +81,12 @@ public class QueueingCalculatorDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Stellt die aktuell im rechten Fensterbereich anzuzeigende Hilfeseite an.
+	 * @param pageURL	Anzuzeigende Hilfeseite
+	 * @see #calc()
+	 * @see QueueingCalculatorTabBase#getHelpPage()
+	 */
 	private void setHelpPage(final URL pageURL) {
 		try {
 			help.setPage(pageURL);
@@ -84,6 +95,12 @@ public class QueueingCalculatorDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Fügt einen Tab zu dem Dialog hinzu
+	 * @param tab	Neuer Tab
+	 * @see #createTabs()
+	 * @see #tabs
+	 */
 	private void addTab(final QueueingCalculatorTabBase tab) {
 		final JPanel outer=new JPanel(new BorderLayout());
 		tabs.addTab(tab.getTabName(),outer);
@@ -95,11 +112,17 @@ public class QueueingCalculatorDialog extends BaseDialog {
 		pages.add(tab);
 	}
 
+	/**
+	 * Berechnet die Daten auf allen Seiten neu.
+	 */
 	private void calc() {
 		setHelpPage(pages.get(tabs.getSelectedIndex()).getHelpPage());
 		pages.stream().forEach(page->page.calc());
 	}
 
+	/**
+	 * Legt die einzelnen Dialogseiten an.
+	 */
 	private void createTabs() {
 		/* Dialogseite "Auslastung" */
 		addTab(new QueueingCalculatorTabLoad());

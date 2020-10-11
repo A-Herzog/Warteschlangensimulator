@@ -32,8 +32,15 @@ import javax.print.attribute.standard.DialogTypeSelection;
  * @author Alexander Herzog
  */
 public class ImagePrintable implements Printable {
-	private final double x, y, width;
+	/** Linke Kante des Bildes */
+	private final double x;
+	/** Obere Kante des Bildes */
+	private final double  y;
+	/** Breite des Bildes */
+	private final double  width;
+	/** Ausrichtung der Seite ({@link PageFormat#LANDSCAPE} oder {@link PageFormat#PORTRAIT}) */
 	private final int orientation;
+	/** Auszudruckendes Bild */
 	private final BufferedImage image;
 
 	/**

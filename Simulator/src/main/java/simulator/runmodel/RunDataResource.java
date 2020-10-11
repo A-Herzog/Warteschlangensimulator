@@ -258,7 +258,9 @@ public final class RunDataResource implements Cloneable {
 		return statisticsUsage;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSecFactor=1.0/1000.0;
+	/** Umrechnungsfaktor von Millisekunden auf Stunden, um die Division während der Simulation zu vermeiden */
 	private static final double toHoursFactor=1.0/1000.0/3600.0;
 
 	private double calcAvailableHours(final long timeMS1, final long timeMS2) {

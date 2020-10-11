@@ -22,6 +22,10 @@ import ui.modeleditor.elements.ModelElementSetJS;
  * @see ModelElementPosition#findEdgesTo(Class[], java.util.List)
  */
 public class QuickFixNextElements {
+	/**
+	 * Konstruktor der Klasse.<br>
+	 * Diese Klasse kann nicht instanziert werden. Diese Klasse stellt nur statische Felder zur Verfügung.
+	 */
 	private QuickFixNextElements() {
 	}
 

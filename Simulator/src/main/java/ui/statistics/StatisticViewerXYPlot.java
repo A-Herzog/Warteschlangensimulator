@@ -41,7 +41,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementRecord
  */
 public class StatisticViewerXYPlot extends StatisticViewerJFreeChart {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Name der Datenaufzeichnung-Station deren Daten hier angezeigt werden sollen */
 	private final String data;
 
 	/**

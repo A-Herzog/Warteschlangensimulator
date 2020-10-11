@@ -37,6 +37,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -67,6 +68,10 @@ import ui.modeleditor.ScaledImageCache;
  * @author Alexander Herzog
  */
 public class ImageChooser extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 9151154041290240327L;
 
 	/** Anzuzeigendes Bild */

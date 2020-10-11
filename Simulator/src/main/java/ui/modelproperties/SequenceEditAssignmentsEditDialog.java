@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -45,8 +46,13 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see SequenceEditAssignmentsDialog
  */
 public class SequenceEditAssignmentsEditDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 1248512741080518581L;
 
+	/** Editor-Model (für den Expression-Builder-Dialog) */
 	private final EditModel model;
 
 	private final JTextField keyEdit;

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementPosition#setStationStatisticsActive(boolean)
  */
 public class StationStatisticsDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID=-3653892607306372543L;
 
 	/** Liste der Stationen */

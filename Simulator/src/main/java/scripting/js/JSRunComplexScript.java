@@ -26,7 +26,9 @@ import simulator.statistics.Statistics;
  * @author Alexander Herzog
  */
 public class JSRunComplexScript {
+	/** Callback für Ausgaben */
 	private final Consumer<String> outputCallback;
+	/** Ausgangsmodell */
 	private final EditModel model;
 	private EditModel modelChanged;
 	private JSRunComplexScriptModel modelJS;

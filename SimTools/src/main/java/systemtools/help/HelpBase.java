@@ -17,6 +17,7 @@ package systemtools.help;
 
 import java.awt.Container;
 import java.awt.Window;
+import java.io.Serializable;
 import java.net.URL;
 
 /**
@@ -88,9 +89,16 @@ public abstract class HelpBase {
 	 */
 	private final Container parent;
 
+	/** Modaler Hilfe-Dialog */
 	private HTMLDialog helpDialog;
+	/** Nicht modales Hilfe-Fenster */
 	private static HTMLFrame helpFrame=null;
 
+	/**
+	 * Liefert das übergeordnete Fenster zu einer {@link Container}-Komponente
+	 * @param parent	{@link Container}-Komponente für die das übergeordnete Fenster gesucht werden soll
+	 * @return	Übergeordnetes Fenster oder <code>null</code>, wenn kein entsprechendes Fenster gefunden wurde
+	 */
 	private static final Window getOwnerWindow(final Container parent) {
 		Container c=parent;
 		while (c!=null) {
@@ -150,8 +158,17 @@ public abstract class HelpBase {
 		this(parent,null,false);
 	}
 
+	/**
+	 * Zeigt einen modalen Hilfe-Dialog an.
+	 * @param topic	Anzuzeigendes Thema (Dateiname ohne ".html"-Endung). Kann leer sein, es wird dann die Startseite angezeigt.
+	 * @see #helpDialog
+	 */
 	private void showHelpDialog(final String topic) {
 		helpDialog=new HTMLDialog(getOwnerWindow(parent),title,topic,()->processSpecialLink(getHRef())) {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -7543988339882677342L;
 			@Override
 			protected URL getPageURL(String res) {
@@ -165,10 +182,19 @@ public abstract class HelpBase {
 		helpDialog.setVisible(true);
 	}
 
+	/**
+	 * Zeigt ein nicht modales Hilfe-Fenster an.
+	 * @param topic	Anzuzeigendes Thema (Dateiname ohne ".html"-Endung). Kann leer sein, es wird dann die Startseite angezeigt.
+	 * @see #helpFrame
+	 */
 	private void showHelpWindow(final String topic) {
 		boolean newWindow=false;
 		if (helpFrame==null || !helpFrame.isVisible()) {
 			helpFrame=new HTMLFrame(getOwnerWindow(parent),title,()->processSpecialLink(getHRef())) {
+				/**
+				 * Serialisierungs-ID der Klasse
+				 * @see Serializable
+				 */
 				private static final long serialVersionUID = 3469355239872231962L;
 				@Override
 				protected URL getPageURL(String res) {
@@ -235,21 +261,30 @@ public abstract class HelpBase {
 		 */
 	}
 
+	/**
+	 * Ermittelt das Linkziel des angeklickten Links
+	 * @return	Linkziel des angeklickten Links
+	 * @see #processSpecialLink(String)
+	 */
 	private String getHRef() {
 		return (helpDialog!=null && helpDialog.isVisible())?helpDialog.getSpecialLink():helpFrame.getSpecialLink();
 	}
 
+	/**
+	 * Zuletzt in {@link #getHTMLPanel(String)} erzeugtes Hilfepanel.
+	 */
 	private HTMLPanel lastPanel;
 
 	/**
-	 * Erstellt ein <code>JPanel</code> und zeigt darin eine bestimmte Hilfeseite an.
+	 * Erstellt ein <code>JPanel</code> und zeigt darin eine bestimmte Hilfeseite an.<br>
+	 * Es existiert nur ein Panel dieser Art, d.h. es können nicht an verschiedenen
+	 * Stellen gleichzeitig per {@link #getHTMLPanel(String)} erzeugte Panels verwendet werden.
 	 * @param page	Anzuzeigende Seite
 	 * @return	Objekt vom Typ <code>JPanel</code>
 	 */
 	public HTMLPanel getHTMLPanel(final String page) {
 		if (lastPanel==null) {
 			lastPanel=new HTMLPanel(false,false,null) {
-
 				private static final long serialVersionUID = 1L;
 				@Override
 				protected HTMLBrowserPanel getHTMLBrowser() {

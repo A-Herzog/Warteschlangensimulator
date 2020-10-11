@@ -24,6 +24,11 @@ import java.awt.Rectangle;
  * @author Alexander Herzog
  */
 public class FastPaintTools {
+	/**
+	 * Konstruktor der Klasse.<br>
+	 * Diese Klasse kann nicht instanziert werden. Diese Klasse stellt nur statische Hilfsmethoden zur Verfügung.
+	 */
+
 	private FastPaintTools() {}
 
 	/**

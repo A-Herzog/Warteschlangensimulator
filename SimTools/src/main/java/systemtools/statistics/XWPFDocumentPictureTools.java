@@ -33,16 +33,29 @@ import org.openxmlformats.schemas.drawingml.x2006.wordprocessingDrawing.CTInline
  * @version 1.1
  */
 public class XWPFDocumentPictureTools {
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse stellt nur statische Hilfsroutinen zur Verfügung und kann daher nicht instanziert werden.
+	 */
 	private XWPFDocumentPictureTools() {}
 
+	/**
+	 * Erstellt die konkreten Daten für das Bild
+	 * @param doc	Aktives docx-Dokument, in das das Bild eingefügt werden soll
+	 * @param blipId	ID des Bildes im Dokument
+	 * @param id	Nummer des Bildes
+	 * @param width	Breite des Bildes
+	 * @param height	Höhe des Bildes
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private static boolean createPicture(XWPFDocument doc, String blipId, int id, int width, int height) {
 		final int EMU=9525;
 		width*=EMU;
 		height*=EMU;
 
-		CTInline inline = doc.createParagraph().createRun().getCTR().addNewDrawing().addNewInline();
+		final CTInline inline=doc.createParagraph().createRun().getCTR().addNewDrawing().addNewInline();
 
-		String picXml = "" +
+		final String picXml = "" +
 				"<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\">" +
 				"   <a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">" +
 				"      <pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">" +
@@ -78,11 +91,11 @@ public class XWPFDocumentPictureTools {
 		inline.setDistL(0);
 		inline.setDistR(0);
 
-		CTPositiveSize2D extent = inline.addNewExtent();
+		final CTPositiveSize2D extent=inline.addNewExtent();
 		extent.setCx(width);
 		extent.setCy(height);
 
-		CTNonVisualDrawingProps docPr = inline.addNewDocPr();
+		final CTNonVisualDrawingProps docPr=inline.addNewDocPr();
 		docPr.setId(id);
 		docPr.setName("Picture " + id);
 		docPr.setDescr("Generated");

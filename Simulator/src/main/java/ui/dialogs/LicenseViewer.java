@@ -22,6 +22,7 @@ import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -51,15 +52,27 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class LicenseViewer extends BaseDialog{
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 6622197213633282594L;
 
+	/**
+	 * HTML-Kopf für die Ausgabe der html-formatierten Lizenztexte.
+	 * @see #htmlFooter
+	 */
 	private static final String htmlHeader="<html><head><style>body {font-family: sans-serif; margin: 5px;}</style></head><body>";
+
+	/**
+	 * HTML-Fußbereich für die Ausgabe der html-formatierten Lizenztexte.
+	 * @see #htmlHeader
+	 */
 	private static final String htmlFooter="</body></html>";
 
 	/**
 	 * Für welchen Programmbestandteil sollen die Lizenzen angezeigt werden?
 	 * @author Alexander Herzog
-	 *
 	 */
 	enum LicensePart {
 		/** Lizenz für das Programm selber */
@@ -71,9 +84,16 @@ public class LicenseViewer extends BaseDialog{
 		/** Lizenz der Komponenten, die Simulator nutzt */
 		SIMULATOR_COMPONENTS(()->Language.tr("LicenseViewer.Part.Components.Simulator"),"LICENSE_COMPONENTS.md","docs/license_components_simulator.md");
 
+		/** Überschrift über dem zugehörigen Tab */
 		private final Supplier<String> name;
+		/** Anzuzeigende Dateien (die Varianten werden der Reihe nach durchprobiert) */
 		private final String[] files;
 
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Überschrift über dem zugehörigen Tab
+		 * @param files	Anzuzeigende Dateien (die Varianten werden der Reihe nach durchprobiert)
+		 */
 		LicensePart(final Supplier<String> name, final String... files) {
 			this.name=name;
 			this.files=files;

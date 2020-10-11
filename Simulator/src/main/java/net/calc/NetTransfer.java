@@ -34,11 +34,15 @@ import xml.ChiperTools;
 public final class NetTransfer {
 	private static final int DEFAULT_MAX_TRANSFER_SIZE=250*1024*1024;
 
+	/** Offener Socket (wird von dieser Klasse auch nicht geschlossen) */
 	private final Socket socket;
 	private DataOutputStream outputStream;
 	private DataInputStream inputStream;
+	/** Sollen die Daten komprimiert übertragen werden? */
 	private final boolean compress;
+	/** Optionales Passwort zum Verschlüsseln der Daten. Wird hier <code>null</code> übergeben, so erfolgt die Übertragung unverschlüsselt. */
 	private final String key;
+	/** Maximale Größe von empfangbaren Datenblöcken (zur Vermeidung von externen Angreifern induzierten Out-of-Memory-Fehlern) */
 	private final int maxTransferSize;
 	private byte[] receiveBlock;
 	private int received;

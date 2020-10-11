@@ -32,7 +32,9 @@ import ui.help.Help;
  * @author Alexander Herzog
  */
 public class StatisticViewerPartsPieChart extends StatisticViewerPieChart {
+	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Gibt an, welche Daten genau ausgegeben werden sollen */
 	private final Mode mode;
 
 	/**

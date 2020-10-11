@@ -30,6 +30,7 @@ import mathtools.TimeTools;
  * @author Alexander Herzog
  */
 public final class JSCommandOutput extends JSBaseCommand {
+	/** Wird hier <code>true</code> übergeben, so erfolgt die Ausgabe der eigentlichen Meldungen in eine Datei */
 	private final boolean outputToFile;
 	private File outputFile;
 	private boolean canceled=false;

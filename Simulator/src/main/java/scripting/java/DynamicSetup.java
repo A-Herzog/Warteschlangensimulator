@@ -58,6 +58,11 @@ public interface DynamicSetup {
 		 */
 		final Class<? extends DynamicClassBase> dynamicLoaderClass;
 
+		/**
+		 * Konstruktor des Enum
+		 * @param inMemoryProcessing	Werden temporäre Dateien verwendet?
+		 * @param dynamicLoaderClass	Klasse, die zum Kompilieren und Laden der Klasse verwendet werden soll.
+		 */
 		CompileMode(final boolean inMemoryProcessing, final Class<? extends DynamicClassBase> dynamicLoaderClass) {
 			this.inMemoryProcessing=inMemoryProcessing;
 			this.dynamicLoaderClass=dynamicLoaderClass;

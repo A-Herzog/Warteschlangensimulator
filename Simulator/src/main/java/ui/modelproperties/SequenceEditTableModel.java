@@ -17,6 +17,7 @@ package ui.modelproperties;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +45,26 @@ import ui.modeleditor.ModelSequenceStep;
  * @see SequenceEditDialog
  */
 public class SequenceEditTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3931731505896370273L;
 
+	/** Zugehörige Tabelle */
 	private final JTableExt table;
+	/** Liste der Fertigungsschritte (wird bei der Bearbeitung direkt geändert) */
 	private final List<ModelSequenceStep> steps;
+	/** Liste mit den verfügbaren Zielstationen */
 	private final String[] destinations;
+	/** Hilfe-Runnable */
 	private final Runnable help;
+	/** Editor-Model (für den Expression-Builder-Dialog) */
 	private final EditModel model;
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param table	ZUgehörige Tabelle
+	 * @param table	Zugehörige Tabelle
 	 * @param steps	Liste der Fertigungsschritte (wird bei der Bearbeitung direkt geändert)
 	 * @param destinations	Liste mit den verfügbaren Zielstationen
 	 * @param help	Hilfe-Runnable

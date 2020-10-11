@@ -60,11 +60,27 @@ import systemtools.MsgBox;
  * @author Alexander Herzog
  */
 class StatisticViewerHTMLText implements StatisticViewer {
+	/**
+	 * Viewer für den html-Text
+	 */
 	private JTextPane textPane=null;
-	private final String infoText;
-	private final Runnable[] specialLinkListener;
-	private String specialLink;
 
+	/**
+	 * Auszugebender Text
+	 * @see #textPane
+	 */
+	private final String infoText;
+
+	/**
+	 * Die hier optional angegeben {@link Runnable}-Objekte werden aufgerufen, wenn der Nutzer auf einen Link mit dem Ziel "special:nr" klickt; dabei ist nr-1 der Index der {@link Runnable}-Objektes in dem Array.
+	 */
+	private final Runnable[] specialLinkListener;
+
+	/**
+	 * HTML-Kopfbereich für die Anzeige des html-formatierten Textes in {@link #textPane}.
+	 * @see #foot
+	 * @see #textPane
+	 */
 	private static final String head=
 			"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n"+
 					"<html>\n"+
@@ -82,6 +98,12 @@ class StatisticViewerHTMLText implements StatisticViewer {
 					"  </style>\n"+
 					"</head>\n"+
 					"<body>\n";
+
+	/**
+	 * HTML-Fußbereich für die Anzeige des html-formatierten Textes in {@link #textPane}.
+	 * @see #head
+	 * @see #textPane
+	 */
 	private static final String foot="</body></html>";
 
 	/**
@@ -226,6 +248,11 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	@Override
 	public boolean ownSettings(JPanel owner) {return false;}
 
+	/**
+	 * Reagiert auf Klicks auf Links und auch auf Mausbewegungen über Links.
+	 * @see StatisticViewerHTMLText#textPane
+	 * @see StatisticViewerHTMLText#specialLinkListener
+	 */
 	private class LinkListener implements HyperlinkListener {
 		@Override
 		public void hyperlinkUpdate(HyperlinkEvent e) {
@@ -247,7 +274,7 @@ class StatisticViewerHTMLText implements StatisticViewer {
 				} else {
 					URL url=e.getURL();
 					if (url==null) {
-						specialLink=e.getDescription();
+						final String specialLink=e.getDescription();
 						if (specialLink.startsWith("special:")) {
 							Integer i=NumberTools.getInteger(specialLink.substring(8));
 							if (i!=null && i>=1 && specialLinkListener!=null && i<=specialLinkListener.length && specialLinkListener[i-1]!=null) SwingUtilities.invokeLater(specialLinkListener[i-1]);
