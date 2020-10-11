@@ -147,6 +147,11 @@ public class LicenseViewer extends BaseDialog{
 		setVisible(true);
 	}
 
+	/**
+	 * Fügt ein Lizenz-Viewer-Tab zu dem Dialog hinzu.
+	 * @param tabs	Tabs-Element zu dem der neue Tab hinzugefügt werden soll
+	 * @param licensePart	Welche Daten sollen in dem Tab angezeigt werden?
+	 */
 	private void addViewer(final JTabbedPane tabs, final LicensePart licensePart) {
 		if (licensePart==null) return;
 		final File file=licensePart.getFile();
@@ -155,6 +160,11 @@ public class LicenseViewer extends BaseDialog{
 		tabs.addTab(licensePart.getName(),getViewer(file));
 	}
 
+	/**
+	 * Lädt eine Datei (Text oder MD) und liefert ein Viewer-Panel für diese.
+	 * @param file	Zu ladende Datei
+	 * @return	Neues Viewer-Panel
+	 */
 	private JPanel getViewer(final File file) {
 		if (file==null) return getTextViewer(null);
 
@@ -163,16 +173,31 @@ public class LicenseViewer extends BaseDialog{
 		return getTextViewer(file);
 	}
 
+	/**
+	 * Lädt eine einfache Textdatei und liefert ein Viewer-Panel für diese.
+	 * @param file	Zu ladende Datei
+	 * @return	Neues Viewer-Panel
+	 */
 	private JPanel getTextViewer(final File file) {
 		final String content=getHTMLFromText(file);
 		return getViewer(content);
 	}
 
+	/**
+	 * Lädt eine Markdown-Datei und liefert ein Viewer-Panel für diese.
+	 * @param file	Zu ladende Datei
+	 * @return	Neues Viewer-Panel
+	 */
 	private JPanel getMDViewer(final File file) {
 		final String content=getHTMLFromMD(file);
 		return getViewer(content);
 	}
 
+	/**
+	 * Erstellt ein Viewer-Panel und füllt dieses mit einem HTML-Text.
+	 * @param content	HTML-Text für den Viewer
+	 * @return	Neues Viewer-Panel
+	 */
 	private JPanel getViewer(final String content) {
 		final JTextPane viewer=new JTextPane();
 
@@ -188,10 +213,20 @@ public class LicenseViewer extends BaseDialog{
 		return panel;
 	}
 
+	/**
+	 * Liefert eine Fehlermeldung als HTML-Zeichenkette.
+	 * @param file	Datei, die nicht geladen werden konnte
+	 * @return	Fehlermeldung als HTML-Zeichenkette
+	 */
 	private String getHTMLError(final File file) {
 		return htmlHeader+"<p>"+String.format(Language.tr("LicenseViewer.FileError"),file.toString())+"</p>"+htmlFooter;
 	}
 
+	/**
+	 * Lädt eine einfache Textdatei und erstellt daraus eine HTML-Zeichenkette
+	 * @param file	Zu ladende Datei
+	 * @return	Liefert die HTML-Zeichenkette (falls die Datei nicht geladen werden konnte, eine HTML-Fehlermeldung)
+	 */
 	private String getHTMLFromText(final File file) {
 		if (file==null) return getHTMLError(new File("nofile"));
 		if (!file.isFile()) return getHTMLError(file);
@@ -206,6 +241,11 @@ public class LicenseViewer extends BaseDialog{
 		return htmlHeader+"<pre><code>"+text+"</code></pre>"+htmlFooter;
 	}
 
+	/**
+	 * Lädt eine einfache Markdown-Datei und erstellt daraus eine HTML-Zeichenkette
+	 * @param file	Zu ladende Datei
+	 * @return	Liefert die HTML-Zeichenkette (falls die Datei nicht geladen werden konnte, eine HTML-Fehlermeldung)
+	 */
 	private String getHTMLFromMD(final File file) {
 		if (file==null) return getHTMLError(new File("nofile"));
 		if (!file.isFile()) return getHTMLError(file);
@@ -224,6 +264,12 @@ public class LicenseViewer extends BaseDialog{
 		return htmlHeader+renderer.render(document)+htmlFooter;
 	}
 
+	/**
+	 * Reagiert auf Klicks und Mausbewegungen über die Links
+	 * in den HTML-Viewern
+	 * @param e	Hyperlink-Ereignis, auf das reagiert werden soll
+	 * @see #getViewer(String)
+	 */
 	private void linkProcessor(final HyperlinkEvent e) {
 		if (e.getEventType()==HyperlinkEvent.EventType.ENTERED) {
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

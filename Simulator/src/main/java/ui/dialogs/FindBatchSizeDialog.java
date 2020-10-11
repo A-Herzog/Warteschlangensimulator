@@ -123,6 +123,12 @@ public class FindBatchSizeDialog extends BaseDialog {
 		return model.surface.getByIdIncludingSubModels(I.intValue());
 	}
 
+	/**
+	 * Bestimmt den notwendigen Abstand für ein bestimmte maximales Rest-Autokorrelations-Level
+	 * @param statistics	Statistik-Quelldaten
+	 * @param level	Maximal zulässiges Rest-Autokorrelations-Level
+	 * @return	Liefert die notwendige Distanz
+	 */
 	private int getDistance(final Statistics statistics, final double level) {
 		if (!statistics.clientsAllWaitingTimes.isCorrelationAvailable()) return 10;
 

@@ -558,6 +558,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Wandelt die Statistikknoten in Baumeinträge um.
+	 * @param root	Wurzelelement der Statistikknoten
+	 * @see #updateViewer()
+	 */
 	private void addNodesToTree(final StatisticNode root) {
 		List<StatisticViewer> viewer;
 		StatisticNode group, sub, sub2;
@@ -1456,6 +1461,10 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		root.addChild(new StatisticNode(Language.tr("Statistics.SystemData"),viewer));
 	}
 
+	/**
+	 * Wird aufgerufen, wenn ein "Details"-Link auf einer Textseite angeklickt wurde.
+	 * @param mode	Anzuzeigende Textseite
+	 */
 	private void modeClick(final StatisticViewerOverviewText.Mode mode) {
 		selectNode(node->{
 			if (node.viewer.length<1) return false;

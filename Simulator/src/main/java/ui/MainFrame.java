@@ -156,6 +156,10 @@ public class MainFrame extends MainFrameBase {
 		setup.saveSetup();
 	}
 
+	/**
+	 * Wird über {@link MainPanel#setReloadWindow(Runnable)} aufgerufen, wenn
+	 * das Fenster als solches neu geladen werden muss.
+	 */
 	private class ReloadWindow implements Runnable {
 		@Override
 		public void run() {

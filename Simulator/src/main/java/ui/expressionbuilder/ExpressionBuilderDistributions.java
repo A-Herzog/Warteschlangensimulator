@@ -37,16 +37,43 @@ public class ExpressionBuilderDistributions {
 	 */
 	private ExpressionBuilderDistributions() {}
 
+	/**
+	 * Erstellt einen neuen Eintrag für die Baumstruktur (fügt diesen aber noch nicht ein)
+	 * @param name	Name des Eintrags
+	 * @param symbol	Symbol für den Eintrag
+	 * @param description	Anzuzeigende Beschreibung wenn der Eintrag ausgewählt wird
+	 * @return	Neuer Eintrag für die Baumstruktur
+	 * @see #addTreeNode(DefaultMutableTreeNode, String, String, String, String)
+	 */
 	private static DefaultMutableTreeNode getTreeNode(final String name, final String symbol, final String description) {
 		return new DefaultMutableTreeNode(new ExpressionSymbol(name,symbol,description,ExpressionSymbolType.TYPE_DISTRIBUTION));
 	}
 
+	/**
+	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param name	Name des Eintrags
+	 * @param symbol	Symbol für den Eintrag
+	 * @param description	Anzuzeigende Beschreibung wenn der Eintrag ausgewählt wird
+	 */
 	private static void addTreeNode(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String symbol, final String description) {
 		if (filterUpper==null || name.toUpperCase().contains(filterUpper) || symbol.toUpperCase().contains(filterUpper)) {
 			group.add(getTreeNode(name,symbol,description));
 		}
 	}
 
+	/**
+	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param name	Name des Eintrags
+	 * @param param	Parameter der Verteilung
+	 * @param langName	Ausgeschriebener Name des Eintrags
+	 * @param langPDF	Anzuzeigende Beschreibung für den Dichte-Eintrag
+	 * @param langCDF	Anzuzeigende Beschreibung für den Verteilungsfunktion-Eintrag
+	 * @param langRND	Anzuzeigende Beschreibung für den Zufallszahl-Eintrag
+	 */
 	private static void addDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langPDF, final String langCDF, final String langRND) {
 		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
 		final String cdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.DistributionFunction");
@@ -77,6 +104,18 @@ public class ExpressionBuilderDistributions {
 		if (sub.getChildCount()>0) group.add(sub);
 	}
 
+	/**
+	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param name	Name des Eintrags
+	 * @param param	Parameter der Verteilung
+	 * @param langName	Ausgeschriebener Name des Eintrags
+	 * @param langPDF	Anzuzeigende Beschreibung für den Dichte-Eintrag
+	 * @param langCDF	Anzuzeigende Beschreibung für den Verteilungsfunktion-Eintrag
+	 * @param langRND	Anzuzeigende Beschreibung für den Zufallszahl-Eintrag
+	 * @param langRNDRange	Anzuzeigende Beschreibung für den Zufallszahl(begrenzter Bereich)-Eintrag
+	 */
 	private static void addDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langPDF, final String langCDF, final String langRND, final String langRNDRange) {
 		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
 		final String cdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.DistributionFunction");
@@ -114,6 +153,16 @@ public class ExpressionBuilderDistributions {
 		if (sub.getChildCount()>0) group.add(sub);
 	}
 
+	/**
+	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param name	Name des Eintrags
+	 * @param param	Parameter der Verteilung
+	 * @param langName	Ausgeschriebener Name des Eintrags
+	 * @param langPDF	Anzuzeigende Beschreibung für den Dichte-Eintrag
+	 * @param langRND	Anzuzeigende Beschreibung für den Zufallszahl-Eintrag
+	 */
 	private static void addDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langPDF, final String langRND) {
 		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
 		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");

@@ -888,6 +888,11 @@ public class MainPanel extends MainPanelBase {
 		return toolbar;
 	}
 
+	/**
+	 * Wandelt ein Hotkey-Objekt in eine entsprechende Beschreibung um
+	 * @param key	Hotkey
+	 * @return	Beschreibung als Zeichenkette
+	 */
 	private String keyStrokeToString(final KeyStroke key) {
 		final int modifiers=key.getModifiers();
 		final StringBuilder text=new StringBuilder();
@@ -1330,6 +1335,10 @@ public class MainPanel extends MainPanelBase {
 		if (quickAccess!=null) quickAccess.setVisible(enable);
 	}
 
+	/**
+	 * Aktualisiert die Liste der zuletzt verwendeten Dateien im Menü.
+	 * @see #menuFileModelRecentlyUsed
+	 */
 	private void updateRecentlyUsedList() {
 		menuFileModelRecentlyUsed.removeAll();
 		menuFileModelRecentlyUsed.setEnabled(setup.useLastFiles && setup.lastFiles!=null && setup.lastFiles.length>0);
@@ -1354,6 +1363,11 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Fügt einen Eintrag zu der Liste der zuletzt verwendeten Dateien hinzu,
+	 * speichert das Setup und baut das Menü entsprechend neu auf.
+	 * @param fileName	Dateiname, der zu der Liste hinzugefügt werden soll (wenn er nicht bereits enthalten ist)
+	 */
 	private void addFileToRecentlyUsedList(String fileName) {
 		final ArrayList<String> files=(setup.lastFiles==null)?new ArrayList<>():new ArrayList<>(Arrays.asList(setup.lastFiles));
 
@@ -1372,6 +1386,10 @@ public class MainPanel extends MainPanelBase {
 		reloadSetup();
 	}
 
+	/**
+	 * Darf das aktuelle Modell verworfen werden?
+	 * @return	Liefert <code>true</code>, wenn das aktuell im Editor befindliche Modell verworfen werden darf
+	 */
 	private boolean isDiscardModelOk() {
 		if (!editorPanel.isModelChanged()) return true;
 
@@ -1505,6 +1523,11 @@ public class MainPanel extends MainPanelBase {
 		return false;
 	}
 
+	/**
+	 * Liefert die Versionskennung der Java-Laufzeitumgebung
+	 * @return	Versionskennung zerlegt in einzelne Teile
+	 * @see #javaVersionCheck()
+	 */
 	private static int[] getJavaVersion() {
 		final String version=System.getProperty("java.version");
 		if (version==null) return new int[]{7,0};
@@ -1530,6 +1553,10 @@ public class MainPanel extends MainPanelBase {
 		return new int[]{major,security};
 	}
 
+	/**
+	 * Prüft, ob die verwendete Java-Version noch aktuell ist
+	 * und zeigt ggf. eine Warnung an.
+	 */
 	private void javaVersionCheck() {
 		if (setup.languageWasAutomaticallySet()) {
 			final JPanel infoPanel=setMessagePanel("",Language.tr("Window.LanguageAutomatic"),MessagePanelIcon.INFO);
@@ -1557,6 +1584,10 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Datei - Neu
+	 * @return	Liefert <code>true</code>, wenn ein neues Modell angelegt werden konnte
+	 */
 	private boolean commandFileModelNew() {
 		if (!isDiscardModelOk()) return false;
 		editorPanel.setModel(null);
@@ -1567,6 +1598,9 @@ public class MainPanel extends MainPanelBase {
 		return true;
 	}
 
+	/**
+	 * Befehl: Datei - Beispiel laden
+	 */
 	private void commandFileModeExample() {
 		final SelectExampleDialog dialog=new SelectExampleDialog(this);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) commandFileModelExample(dialog.getExample());
@@ -1589,6 +1623,9 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.scrollToTop();
 	}
 
+	/**
+	 * Befehl: Datei - Modellgenerator
+	 */
 	private void commandFileModelGenerator() {
 		if (!isDiscardModelOk()) return;
 		final ModelGeneratorDialog dialog=new ModelGeneratorDialog(this);
@@ -1603,10 +1640,19 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Datei - Neues Fenster
+	 */
 	private void commandFileNewWindow() {
 		new MainFrame(null,null);
 	}
 
+	/**
+	 * Befehl: Modell - Laden
+	 * @param rootOptional	XML-Root-Element (kann <code>null</code> sein)
+	 * @param file	Zu ladende Datei (wird <code>null</code> übergeben, so wird ein Dateiauswahldialog angezeigt)
+	 * @return	Liefert <code>true</code> wenn ein Model lgeladen wurde
+	 */
 	private boolean commandFileModelLoad(final Element rootOptional, final File file) {
 		if (!isDiscardModelOk()) return true;
 		final String error;
@@ -1656,6 +1702,11 @@ public class MainPanel extends MainPanelBase {
 		return false;
 	}
 
+	/**
+	 * Befehl: Datei - Speichern und Speichern unter
+	 * @param saveAs	Wird <code>true</code> übergeben, so wird immer nach einem neuen Dateinamen gefragt, sonst nur, wenn noch keine Name festgelegt ist
+	 * @return	Liefert <code>true</code>, wenn das Modell gespeichert wurde
+	 */
 	private boolean commandFileModelSave(final boolean saveAs) {
 		File file=(saveAs)?null:editorPanel.getLastFile();
 		final String error=editorPanel.saveModel(file);
@@ -1670,6 +1721,10 @@ public class MainPanel extends MainPanelBase {
 		return error==null;
 	}
 
+	/**
+	 * Befehl: Datei - Kopie speichern unter
+	 * @return	Liefert <code>true</code>, wenn das Modell gespeichert wurde
+	 */
 	private boolean commandFileModelSaveCopyAs() {
 		final String error=editorPanel.saveModelCopy();
 		if (error!=null) {
@@ -1682,16 +1737,30 @@ public class MainPanel extends MainPanelBase {
 		return error==null;
 	}
 
+	/**
+	 * Befehl: Datei - Modell exportieren
+	 * @return Liefert <code>true</code>, wenn das Modell erfolgreich exportiert werden konnte
+	 */
 	private boolean commandFileModelExport() {
 		String error=editorPanel.exportModelToFile(null,false);
 		if (error!=null) MsgBox.error(getOwnerWindow(),Language.tr("XML.ExportErrorTitle"),error);
 		return error==null;
 	}
 
+	/**
+	 * Befehl: Datei - Modell drucken
+	 * @return Liefert <code>true</code>, wenn das Modell gedruckt werden konnte
+	 */
 	private boolean commandFileModelPrint() {
 		return ImagePrintable.print(editorPanel.getPrintImage(2000));
 	}
 
+	/**
+	 * Befehl: Datei - Statistik laden
+	 * @param rootOptional	XML-Root-Element (kann <code>null</code> sein)
+	 * @param file	Zu ladende Datei; wird <code>null</code> übergeben, so wird ein Dateiauswahldialog angezeigt
+	 * @return	Liefert <code>true</code>, wenn eine Datei geladen wurde
+	 */
 	private boolean commandFileStatisticsLoad(final Element rootOptional, final File file) {
 		final String error;
 		if (rootOptional!=null) {
@@ -1710,6 +1779,10 @@ public class MainPanel extends MainPanelBase {
 		return error==null;
 	}
 
+	/**
+	 * Befehl: Datei - Statistik speichern unter
+	 * @return	Liefert <code>true</code>, wenn die Statistikdaten gespeichert wurden
+	 */
 	private boolean commandFileStatisticsSave() {
 		final String error=statisticsPanel.saveStatistics(null);
 		if (error!=null)
@@ -1717,6 +1790,10 @@ public class MainPanel extends MainPanelBase {
 		return error==null;
 	}
 
+	/**
+	 * Befehl: Datei - Einstellungen
+	 * @param showPage	Initial anzuzeigende Seite des Einstellungendialogs (darf <code>null</code> sein)
+	 */
 	private void commandFileSetup(final SetupDialog.Page showPage) {
 		TutorialWindow.closeTutorialWindow();
 
@@ -1726,6 +1803,9 @@ public class MainPanel extends MainPanelBase {
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Bearbeiten - Element über ID oder Namen suchen
+	 */
 	private void commandEditFindElement() {
 		final FindElementDialog dialog=new FindElementDialog(this,editorPanel.getModel().surface);
 		dialog.setVisible(true);
@@ -1747,50 +1827,79 @@ public class MainPanel extends MainPanelBase {
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Ansicht - Lineale anzeigen
+	 */
 	private void commandViewRulers() {
 		setup.showRulers=!setup.showRulers;
 		setup.saveSetup();
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Ansicht - Raster anzeigen
+	 * @param raster	Raster-Modus
+	 * @see ui.modeleditor.ModelSurface.Grid
+	 */
 	private void commandViewRaster(final ModelSurface.Grid raster) {
 		setup.grid=raster;
 		setup.saveSetup();
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Ansicht - IDs anzeigen
+	 */
 	private void commandViewIDs() {
 		setup.showIDs=!setup.showIDs;
 		setup.saveSetup();
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Ansicht - Stationsbeschreibungen in Tooltips
+	 */
 	private void commandViewStationDescriptions() {
 		setup.showStationDescription=!setup.showStationDescription;
 		setup.saveSetup();
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Ansicht - Farbverläufe verwenden
+	 */
 	private void commandViewGradients() {
 		setup.useGradients=!setup.useGradients;
 		setup.saveSetup();
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Ansicht - Schatten an den Stationen anzeigen
+	 */
 	private void commandViewShadows() {
 		setup.useShadows=!setup.useShadows;
 		setup.saveSetup();
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Ansicht - Ebenen
+	 */
 	private void commandLayers() {
 		editorPanel.showLayersDialog();
 	}
 
+	/**
+	 * Befehl: Ansicht - Hintergrundfarbe einstellen
+	 */
 	private void commandViewBackgroundColor() {
 		editorPanel.showBackgroundColorDialog();
 	}
 
+	/**
+	 * Befehl: Ansicht - Verbindungskanten konfigurieren
+	 */
 	private void commandViewEdgeSettings() {
 		final EditModel model=editorPanel.getModel();
 
@@ -1804,6 +1913,9 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.setModelChanged(true);
 	}
 
+	/**
+	 * Befehl: Ansicht - Benutzerdefinierte Animationsicons
+	 */
 	private void commandViewUserDefinedAnimationIcons() {
 		final EditModel model=editorPanel.getModel();
 		final AnimationImageDialog dialog=new AnimationImageDialog(this,model,false);
@@ -1816,6 +1928,9 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.setModelChanged(true);
 	}
 
+	/**
+	 * Befehl: Modell - Modell prüfen
+	 */
 	private void commandModelCheck() {
 		EditorPanelRepair.autoFix(editorPanel);
 
@@ -1845,6 +1960,9 @@ public class MainPanel extends MainPanelBase {
 		MsgBox.error(getOwnerWindow(),Language.tr("Window.Check.Title"),"<html><body>"+status+"</body></html>");
 	}
 
+	/**
+	 * Befehl: Modell - Verbindungen zu externen Daten prüfen
+	 */
 	private void commandModelCheckData() {
 		final DataCheckDialog dialog=new DataCheckDialog(this,editorPanel.getModel());
 		if (dialog.getNumberOfExternalDataSources()==0) {
@@ -1854,6 +1972,9 @@ public class MainPanel extends MainPanelBase {
 		dialog.setVisible(true);
 	}
 
+	/**
+	 * Befehl: Modell - Externe Modelldaten - Externe Modelldatenquellen bearbeiten
+	 */
 	private void commandModelExternalDataEdit() {
 		final ModelLoadData loadData=editorPanel.getModelExternalData();
 		final ModelLoadDataDialog dialog=new ModelLoadDataDialog(this,loadData,editorPanel.getModel());
@@ -1867,6 +1988,9 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Modell - Externe Modelldaten - Daten jetzt in Modell laden
+	 */
 	private void commandModelExternalDataLoadNow() {
 		final EditModel model=editorPanel.getModel();
 		final File folder=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParentFile();
@@ -1883,12 +2007,18 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.setModelChanged(true);
 	}
 
+	/**
+	 * Befehl: Modell - Externe Modelldaten - Modell jeweils vor Simulationsstart aktualisieren
+	 */
 	private void commandModelExternalDataLoadOnStart() {
 		final ModelLoadData loadData=editorPanel.getModelExternalData();
 		loadData.setActive(!loadData.isActive());
 		editorPanel.setModelChanged(true);
 	}
 
+	/**
+	 * Befehl: Modell - Elementeliste
+	 */
 	private void commandModelListElements() {
 		final SelectElementByIdDialog dialog=new SelectElementByIdDialog(this,editorPanel.getModel().surface);
 		dialog.setVisible(true);
@@ -1898,11 +2028,17 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Modell - Modellbeschreibung
+	 */
 	private void commandModelDescription() {
 		final ModelDescriptionDialog dialog=new ModelDescriptionDialog(this,editorPanel.getModel());
 		dialog.setVisible(true);
 	}
 
+	/**
+	 * Befehl: Modell - Vergleich mit analytischem Modell
+	 */
 	private void commandModelAnalyticCompare() {
 		final EditModel model=editorPanel.getModel();
 		final AnalyticInfo analyticInfo=new AnalyticInfo();
@@ -1920,6 +2056,9 @@ public class MainPanel extends MainPanelBase {
 		dialog.setVisible(true);
 	}
 
+	/**
+	 * Befehl: Modell - Aktuelles Modell für späteren Vergleich festhalten
+	 */
 	private void commandModelCompareTwoInit() {
 		EditModel model=editorPanel.getModel();
 		Object obj=RunModel.getRunModel(model,true);
@@ -1939,6 +2078,10 @@ public class MainPanel extends MainPanelBase {
 		menuModelCompareReturn.setEnabled(true);
 	}
 
+	/**
+	 * Befehl Modell - Aktuelles und festgehaltenes Modell vergleichen
+	 * @param level	0: festgehaltenes Modell simulieren; 1: aktuelles Modell simulieren; 2: Ergebnisse anzeigen
+	 */
 	private void commandModelCompareTwoRun(final int level) {
 		if (level==0) {
 			if (pinnedModel==null) {
@@ -1985,6 +2128,9 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Modell - Zu festgehaltenem Modell zurückkehren
+	 */
 	private void commandModelCompareReturn() {
 		if (pinnedModel==null) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Compare.Error.NoModelKept.Title"),Language.tr("Compare.Error.NoModelKept.Info2"));
@@ -2005,6 +2151,9 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.setModel(pinnedModel);
 	}
 
+	/**
+	 * Befehl: Modell - Vorlagen
+	 */
 	private void commandModelTemplates() {
 		final EditModel model=editorPanel.getModel();
 		final TemplatesListDialog dialog=new TemplatesListDialog(this,model.getTemplates());
@@ -2017,6 +2166,9 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Modell - Vorlage hinzufügen
+	 */
 	private void commandModelAddTemplate() {
 		final ModelSurface originalSurface=editorPanel.getOriginalSurface();
 		final EditModel model=editorPanel.getModel();
@@ -2144,6 +2296,9 @@ public class MainPanel extends MainPanelBase {
 		return null;
 	}
 
+	/**
+	 * Befehl: Simulation - Animation als Video aufzeichnen
+	 */
 	private void commandSimulationAnimationRecord() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -2168,6 +2323,9 @@ public class MainPanel extends MainPanelBase {
 		commandSimulationAnimation(file,false,null,null,Simulator.logTypeFull);
 	}
 
+	/**
+	 * Befehl: Simulation - Animation in Logdatei aufzeichnen
+	 */
 	private void commandSimulationAnimationLog() {
 		final EditModel editModel=editorPanel.getModel();
 		final StartAnySimulator starter=getSimulator(editModel,null,null,Simulator.logTypeFull);
@@ -2267,6 +2425,9 @@ public class MainPanel extends MainPanelBase {
 		if (simulator.isRunning()) setCurrentPanel(waitPanel);
 	}
 
+	/**
+	 * Befehl: Simulation - Simulation in Logdatei aufzeichnen
+	 */
 	private void commandSimulationSimulationLog() {
 		final EditModel editModel=editorPanel.getModel();
 		final StartAnySimulator starter=getSimulator(editModel,null,null,Simulator.logTypeFull);
@@ -2286,6 +2447,9 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Simulation - Statistikaufzeichnung konfigurieren
+	 */
 	private void commandSimulationStatisticsSetup() {
 		final EditModel modelOrig=editorPanel.getModel();
 		final EditModel model=modelOrig.clone();
@@ -2298,6 +2462,9 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Simulation - Verbindung zum Simulationsserver prüfen
+	 */
 	private void commandSimulationCheckServerConnection() {
 		final String[] parts=setup.serverData.split(":");
 		if (parts.length<2 || parts.length>3) {
@@ -2317,6 +2484,9 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Simulation - Einschwingphase bestimmen
+	 */
 	private void commandSimulationFindWarmUpSize() {
 		final EditModel editModel=editorPanel.getModel();
 		editModel.warmUpTime=0.0; /* Keine Warm-Up-Phase sind der Simulation; verschiedene Warp-Up-Bereiche werden später in der Rechnung angenommen. */
@@ -2385,6 +2555,9 @@ public class MainPanel extends MainPanelBase {
 	}
 	 */
 
+	/**
+	 * Befehl: Simulation - Statistik-Batch-Größe bestimmen
+	 */
 	private void commandSimulationFindBatchSize() {
 		final EditModel editModel=editorPanel.getModel();
 		editModel.correlationMode=Statistics.CorrelationMode.CORRELATION_MODE_FULL;
@@ -2486,6 +2659,11 @@ public class MainPanel extends MainPanelBase {
 		return panel;
 	}
 
+	/**
+	 * Befehl: Simulation - Parameterreihe simulieren - Parameterreihe für das aktuelle Modell erstellen
+	 * @param template	Optionale Vorlage für die neue Parameterreihe
+	 * @return	Liefert <code>true</code>, wenn das Modell in Ordnung ist und die Parameterreihenfunktion aktiviert werden konnte
+	 */
 	private boolean commandSimulationParameterSeriesNew(final ParameterCompareTemplatesDialog.TemplateRecord template) {
 		final EditModel editModel=editorPanel.getModel();
 
@@ -2507,6 +2685,11 @@ public class MainPanel extends MainPanelBase {
 		return true;
 	}
 
+	/**
+	 * Befehl: Simulation - Parameterreihe simulieren - Parameterreihendaten laden
+	 * @param file	Dateiname der zu ladenden Parameterreihe (wird <code>null</code> angegbeben, so wird ein Dateiauswahldialog angezeigt)
+	 * @return	Liefert <code>true</code>, wenn die Parameterreihenfunktion aktiviert werden konnte
+	 */
 	private boolean commandSimulationParameterSeriesLoad(File file) {
 		if (file==null) file=XMLTools.showLoadDialog(getParent(),Language.tr("ParameterCompare.Settings.Load"));
 		if (file==null) return false;
@@ -2523,6 +2706,10 @@ public class MainPanel extends MainPanelBase {
 		return true;
 	}
 
+	/**
+	 * Befehl: Simulation - Parameterreihe simulieren - Varianzanalyse für das aktuelle Modell erstellen
+	 * @return	Liefert <code>true</code>, wenn das Modell in Ordnung ist und die Parameterreihenfunktion aktiviert werden konnte
+	 */
 	private boolean commandSimulationParameterSeriesVariance() {
 		final EditModel editModel=editorPanel.getModel();
 
@@ -2543,6 +2730,9 @@ public class MainPanel extends MainPanelBase {
 		return true;
 	}
 
+	/**
+	 * Befehl: Simulation - Skript ausführen
+	 */
 	private void commandSimulationScriptRunner() {
 		final EditModel editModel=editorPanel.getModel();
 
@@ -2564,6 +2754,10 @@ public class MainPanel extends MainPanelBase {
 		},true));
 	}
 
+	/**
+	 * Befehl: Simulation - Optimierer
+	 * @return	Liefert <code>true</code>, wenn das Modell in Ordnung ist und der Optimierer aktiviert werden konnte
+	 */
 	private boolean commandSimulationOptimizer() {
 		final EditModel editModel=editorPanel.getModel();
 
@@ -2591,6 +2785,9 @@ public class MainPanel extends MainPanelBase {
 		return true;
 	}
 
+	/**
+	 * Befehl: (Toolbar bei Statistikansicht) - Modell zu diesen Ergebnissen
+	 */
 	private void commandSimulationModelForResults() {
 		final Statistics statistics=statisticsPanel.getStatistics();
 		if (statistics==null) {
@@ -2606,6 +2803,9 @@ public class MainPanel extends MainPanelBase {
 		viewer.setVisible(true);
 	}
 
+	/**
+	 * Befehl: Extras - Simulationergebnisse verschiedener Modelle vergleichen
+	 */
 	private void commandExtrasCompare() {
 		CompareSelectDialog dialog=new CompareSelectDialog(getOwnerWindow(),5);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
@@ -2641,29 +2841,49 @@ public class MainPanel extends MainPanelBase {
 		}));
 	}
 
+	/**
+	 * Befehl: Extras - Rechner
+	 * @param initialExpression	Initial anzuzeigende Eingabe (kann <code>null</code> sein)
+	 * @param initialDistribution	Initial anzuzeigende Wahrscheinlichkeitsverteilung (kann <code>null</code> sein)
+	 */
 	private void commandExtrasCalculator(final String initialExpression, final AbstractDistributionWrapper initialDistribution) {
 		final CalculatorDialog dialog=new CalculatorDialog(this,initialExpression,initialDistribution);
 		dialog.setVisible(true);
 	}
 
+	/**
+	 * Befehl: Extras - Warteschlangenrechner
+	 */
 	private void commandExtrasQueueingCalculator() {
 		final QueueingCalculatorDialog dialog=new QueueingCalculatorDialog(this);
 		dialog.setVisible(true);
 	}
 
+	/**
+	 * Befehl: Extras - Verteilung anpassen
+	 */
 	private void commandExtrasFit() {
 		final FitDialog dialog=new FitDialog(this);
 		dialog.setVisible(true);
 	}
 
+	/**
+	 * Befehl: Extras - Datenbankverbindung prüfen
+	 */
 	private void commandExtrasTestDatabaseConnection() {
 		new DBConnectDialog(this);
 	}
 
+	/**
+	 * Befehl: Extras - Kommandozeilenbefehl ausführen
+	 */
 	private void commandExtrasExecuteCommand() {
 		new CommandLineDialog(this,stream->new CommandLineSystem(null,stream),window->Help.topicModal(window,"CommandLineDialog"));
 	}
 
+	/**
+	 * Befehl: Extras - Serverdienste
+	 */
 	private void commandExtrasSimulationServer() {
 		enableMenuBar(false);
 		setCurrentPanel(new ServerPanel(()->{
@@ -2694,49 +2914,82 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Hilfe - Hilfe
+	 */
 	private void commandHelpHelp() {
 		if (currentPanel==editorPanel) {Help.topic(this,"MainEditor"); return;}
 		if (currentPanel==statisticsPanel) {Help.topic(this,"MainStatistik"); return;}
 		Help.topic(this,"");
 	}
 
+	/**
+	 * Befehl: Hilfe - Hilfe-Inhalt
+	 */
 	private void commandHelpContent() {
 		Help.topic(this,"");
 	}
 
+	/**
+	 * Befehl: Hilfe - Interaktive Einführung
+	 */
 	private void commandHelpInteractiveTutorial() {
 		if (!commandFileModelNew()) return;
 		new TutorialWindow(this);
 	}
 
+	/**
+	 * Befehl: Hilfe - Hilfe zu aktuellem Element anzeigen
+	 */
 	private void commandHelpAutomaticHelpWindow() {
 		new AutomaticHelpWindow(this,editorPanel);
 	}
 
+	/**
+	 * Befehl: Hilfe - Tutorial (pdf)
+	 */
 	private void commandHelpTutorial() {
 		openPDF(Language.tr("Main.Menu.Help.Tutorial.pdf"));
 	}
 
+	/**
+	 * Befehl: Hilfe - Tutorial (pdf-Folien)
+	 */
 	private void commandHelpTutorialSlides() {
 		openPDF(Language.tr("Main.Menu.Help.TutorialSlides.pdf"));
 	}
 
+	/**
+	 * Befehl: Hilfe - Referenzen - Rechen- und Skriptbefehle
+	 */
 	private void commandHelpScriptingReference() {
 		openPDF(Language.tr("Main.Menu.Help.ScriptingReference.pdf"));
 	}
 
+	/**
+	 * Befehl: Hilfe - Referenzen - Elementereferenz
+	 */
 	private void commandHelpElementReference() {
 		openPDF(Language.tr("Main.Menu.Help.ElementReference.pdf"));
 	}
 
+	/**
+	 * Befehl: Hilfe - Referenzen - Kommandozeilenbefehlsreferenz
+	 */
 	private void commandHelpCommandLineReference() {
 		openPDF(Language.tr("Main.Menu.Help.CommandLineReference.pdf"));
 	}
 
+	/**
+	 * Befehl: Hilfe - Referenzen - Tastenkombinationsreferenz
+	 */
 	private void commandHelpHotkeyReference() {
 		openPDF(Language.tr("Main.Menu.Help.HotkeyReference.pdf"));
 	}
 
+	/**
+	 * Befehl: Hilfe - Referenzen - Verteilungs-XML-Referenz
+	 */
 	private void commandHelpDistributionReference() {
 		openPDF(Language.tr("Main.Menu.Help.DistributionReference.pdf"));
 	}
@@ -2779,6 +3032,9 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Hilfe - Support &amp; Unterstützung
+	 */
 	private void commandHelpSupport() {
 		try {
 			Desktop.getDesktop().mail(new URI("mailto:"+MainPanel.AUTHOR_EMAIL));
@@ -2788,6 +3044,9 @@ public class MainPanel extends MainPanelBase {
 		return;
 	}
 
+	/**
+	 * Befehl: Hilfe - Problemreport erstellen
+	 */
 	private void commandHelpSupportData() {
 		final File file=ProblemReporter.selectOutputFile(this);
 		if (file==null) return;
@@ -2796,6 +3055,9 @@ public class MainPanel extends MainPanelBase {
 		if (!reporter.process()) MsgBox.error(this,Language.tr("ProblemReporter.SaveError.Title"),String.format(Language.tr("ProblemReporter.SaveError.Info"),file.toString()));
 	}
 
+	/**
+	 * Befehl: Hilfe - Homepage
+	 */
 	private void commandHelpHomepage() {
 		final String network="https://"+WEB_URL;
 		try {
@@ -2806,14 +3068,23 @@ public class MainPanel extends MainPanelBase {
 		}
 	}
 
+	/**
+	 * Befehl: Hilfe - Nutzungsstatistik
+	 */
 	private void commandHelpUsageStatistics() {
 		MsgBox.info(getOwnerWindow(),Language.tr("UsageStatistics.Title"),String.format(Language.tr("UsageStatistics.Info"),NumberTools.formatLong(UsageStatistics.getInstance().getSimulationClients())));
 	}
 
+	/**
+	 * Befehl: Hilfe - Lizenzinformationen
+	 */
 	private void commandHelpLicenseInfo() {
 		new LicenseViewer(this);
 	}
 
+	/**
+	 * Befehl: Hilfe - Programminfo
+	 */
 	private void commandHelpInfo() {
 		final String currentLanguage=setup.language;
 

@@ -17,6 +17,7 @@ package ui.expressionbuilder;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -35,14 +36,25 @@ import ui.images.Images;
  * @see ExpressionBuilder
  */
 class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -1111382540141167151L;
 
+	/** Icon für Konstanten */
 	private URL iconConst=null;
+	/** Icon für Variablen */
 	private URL iconVariable=null;
+	/** Icon für Funktionen */
 	private URL iconFunction=null;
+	/** Icon für Wahrscheinlichkeitsverteilungen */
 	private URL iconDistribution=null;
+	/** Icon für Simulationsdaten */
 	private URL iconSimData=null;
+	/** Icon für Stations-IDs */
 	private URL iconStationID=null;
+	/** Icon für Kundendaten */
 	private URL iconClientData=null;
 
 	/**
@@ -59,6 +71,11 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 		iconClientData=Images.EXPRESSION_BUILDER_CLIENT_DATA.getURL();
 	}
 
+	/**
+	 * Soll der Eintrag fett dargestellt werden?
+	 * @param value	Darzustellender Baumeintrag
+	 * @return	Liefert <code>true</code>, wenn der Eintrag eine Gruppe bezeichnet und daher fett dargestellt werden soll
+	 */
 	private boolean changeFont(Object value) {
 		/* Kein leeres Objekt ? */
 		if (!(value instanceof DefaultMutableTreeNode)) return false;
@@ -68,6 +85,17 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 		return (!(node.getUserObject() instanceof ExpressionSymbol));
 	}
 
+	/**
+	 * Konfiguration der Darstellung für den Cell-Renderer.
+	 * @param tree	Baumstruktur
+	 * @param value	Aktueller Eintrag
+	 * @param sel	Selektiert?
+	 * @param expanded	Ausgeklappt?
+	 * @param leaf	Endpunkt?
+	 * @param row	Nummer der Zeile
+	 * @param hasFocus	Selektiert?
+	 * @see #getTreeCellRendererComponent(JTree, Object, boolean, boolean, boolean, int, boolean)
+	 */
 	private void defaultProcessing(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 		String stringValue=tree.convertValueToText(value,sel,expanded,leaf,row,hasFocus);
 		if (stringValue==null) return;
@@ -81,6 +109,11 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 		selected=sel;
 	}
 
+	/**
+	 * Liefert die URL des Icons zu einem Baumeintrag
+	 * @param value	Baumeintrag zu dem die Icon-URL bestimmt werden soll
+	 * @return	Icon-URL zu dem Baumeintrag oder <code>null</code>, wenn keine URL bestimmt werden konnte
+	 */
 	private URL getIconURL(Object value) {
 		if (value==null) return null;
 
@@ -101,6 +134,11 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 		return null;
 	}
 
+	/**
+	 * Liefert die URL des Icons zu einem Baumeintrag
+	 * @param value	Baumeintrag zu dem die Icon-URL bestimmt werden soll
+	 * @return	Icon-URL zu dem Baumeintrag oder <code>null</code>, wenn keine URL bestimmt werden konnte
+	 */
 	private boolean iconProcessing(Object value) {
 		URL url=getIconURL(value);
 		if (url==null) return false;

@@ -38,10 +38,26 @@ public class ExpressionBuilderCompare {
 	private ExpressionBuilderCompare() {}
 
 
+	/**
+	 * Erstellt einen neuen Eintrag für die Baumstruktur (fügt diesen aber noch nicht ein)
+	 * @param name	Name des Eintrags
+	 * @param symbol	Symbol für den Eintrag
+	 * @param description	Anzuzeigende Beschreibung wenn der Eintrag ausgewählt wird
+	 * @return	Neuer Eintrag für die Baumstruktur
+	 * @see #addCompare(DefaultMutableTreeNode, String, String, String, String)
+	 */
 	private static DefaultMutableTreeNode getTreeNode(final String name, final String symbol, final String description) {
 		return new DefaultMutableTreeNode(new ExpressionSymbol(name,symbol,description,ExpressionSymbolType.TYPE_FUNCTION));
 	}
 
+	/**
+	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param name	Name des Eintrags
+	 * @param langName	Ausgeschriebener Name des Eintrags
+	 * @param langInfo	Anzuzeigende Beschreibung wenn der Eintrag ausgewählt wird
+	 */
 	private static void addCompare(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String langName, final String langInfo) {
 		if (filterUpper==null || name.toUpperCase().contains(filterUpper) || langName.toUpperCase().contains(filterUpper)) {
 			group.add(getTreeNode(

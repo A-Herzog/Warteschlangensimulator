@@ -360,6 +360,10 @@ public class WaitPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Aktualisiert in regelm‰ﬂigen Abst‰nden die Anzeige
+	 * @see WaitPanel#setSimulator(AnySimulator, Runnable)
+	 */
 	private class UpdateInfoTask extends TimerTask {
 		private long countTimerIntervals=0;
 		private final int mode;

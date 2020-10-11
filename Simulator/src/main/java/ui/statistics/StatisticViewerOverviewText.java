@@ -248,10 +248,18 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Fügt einen Link auf eine andere Statistikseite als "Details"-Link in die Ausgabe ein.
+	 * @param mode	Zielseite für den "Details"-Link
+	 */
 	private void addModeLink(final Mode mode) {
 		addLink(mode.toString(),Language.tr("Statistics.Details"));
 	}
 
+	/**
+	 * Aktiviert eine Beschreibungs-Seite zu der aktuellen Textausgabe.
+	 * @param topic	Hilfeseite, die im Beschreibungsbereich angezeigt werden soll
+	 */
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerOverviewText.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));

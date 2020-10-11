@@ -18,6 +18,7 @@ package ui.scriptrunner;
 import java.awt.BorderLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -41,6 +42,10 @@ import ui.tools.SpecialPanel;
  * @author Alexander Herzog
  */
 public class JSModelRunnerPanel extends SpecialPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -7960967403157448841L;
 
 	/** Editor-Modell auf dessen Basis die Skript-Datenreihe erstellt werden soll */

@@ -42,19 +42,34 @@ public class Language {
 	/** Daten direkt aus einer Java-Klasse statt aus Lokalisierungsressourcen laden. */
 	public static boolean directLoadingMode=true;
 
+	/** Internationalisierungsdaten für Deutsch */
 	private final I18n i18n_de;
+	/** Internationalisierungsdaten für Englisch */
 	private final I18n i18n_en;
+	/** Momentan aktive Internationalisierungsdaten */
 	private I18n i18n;
+	/** Ressourcendaten für Deutsch */
 	private final ResourceBundle res_de;
+	/** Ressourcendaten für Englisch */
 	private final ResourceBundle res_en;
+	/** Momentan aktive Ressourcendaten */
 	private ResourceBundle res;
+	/** Kürzel der momentan aktiven Sprache */
 	private String languageID;
 
+	/** Instanz des Language-Singletons */
 	private static Language language=null;
 
+	/** Cache für {@link #tr(String)} */
 	private static Map<String,String> cache=new HashMap<>();
+	/** Cache für {@link #trAll(String)} */
 	private static Map<String,String[]> allCache=new HashMap<>();
 
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht direkt instanziert werden.
+	 * @param loadDirect	Daten direkt aus einer Java-Klasse (<code>true</code>) statt aus Lokalisierungsressourcen (<code>false</code>) laden.
+	 */
 	private Language(boolean loadDirect) {
 		if (loadDirect || noRightsMode) {
 			res_de=new Messages_de();
@@ -73,12 +88,21 @@ public class Language {
 		}
 	}
 
+	/**
+	 * Stellt die momentan aktive Sprache ein.
+	 * @param language	Kürzel der Sprache
+	 * @see #init(String)
+	 */
 	private void selectLanguage(String language) {
 		i18n=(language.equalsIgnoreCase("de"))?i18n_de:i18n_en;
 		res=(language.equalsIgnoreCase("de"))?res_de:res_en;
 		languageID=language;
 	}
 
+	/**
+	 * Liefert das Kürzel der momentan aktiven Sprache.
+	 * @return	Kürzel der Sprache
+	 */
 	private String getCurrentLanguageID() {
 		return languageID;
 	}

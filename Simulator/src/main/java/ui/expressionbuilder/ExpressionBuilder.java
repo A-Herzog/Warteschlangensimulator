@@ -205,20 +205,48 @@ public class ExpressionBuilder extends BaseDialog {
 		SwingUtilities.invokeLater(()->{checkData(false); input.requestFocus();});
 	}
 
+	/**
+	 * Aktualisiert die Baumstruktur {@link #tree} nach einer Eingabe in {@link #quickFilter}.
+	 * @see #tree
+	 * @see #quickFilter
+	 */
 	private void updateTemplatesFilter() {
 		((DefaultTreeModel)(tree.getModel())).setRoot(buildTreeData(quickFilter.getText().trim()));
 	}
 
+	/**
+	 * Erstellt einen neuen Eintrag für die Baumstruktur (fügt diesen aber noch nicht ein)
+	 * @param name	Name des Eintrags
+	 * @param symbol	Symbol für den Eintrag
+	 * @param description	Anzuzeigende Beschreibung wenn der Eintrag ausgewählt wird
+	 * @param type	Typ des Symbols
+	 * @return	Neuer Eintrag für die Baumstruktur
+	 * @see #addTreeNode(DefaultMutableTreeNode, String, String, String, String, ExpressionSymbolType)
+	 */
 	private DefaultMutableTreeNode getTreeNode(final String name, final String symbol, final String description, final ExpressionSymbolType type) {
 		return new DefaultMutableTreeNode(new ExpressionSymbol(name,symbol,description,type));
 	}
 
+	/**
+	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param name	Name des Eintrags
+	 * @param symbol	Symbol für den Eintrag
+	 * @param description	Anzuzeigende Beschreibung wenn der Eintrag ausgewählt wird
+	 * @param type	Typ des Symbols
+	 */
 	private void addTreeNode(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String symbol, final String description, final ExpressionSymbolType type) {
 		if (filterUpper==null || name.toUpperCase().contains(filterUpper) || symbol.toUpperCase().contains(filterUpper)) {
 			group.add(getTreeNode(name,symbol,description,type));
 		}
 	}
 
+	/**
+	 * Fügt Variablen zur Baumstruktur hinzu
+	 * @param root	Wurzelelement der Baumstruktur
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird ein Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 */
 	private void buildTreeDataVariables(final DefaultMutableTreeNode root, final String filterUpper) {
 		if (variables==null || variables.length==0) return;
 
@@ -236,6 +264,11 @@ public class ExpressionBuilder extends BaseDialog {
 		if (group.getChildCount()>0) root.add(group);
 	}
 
+	/**
+	 * Fügt die Stationds-IDs zur Baumstruktur hinzu
+	 * @param root	Wurzelelement der Baumstruktur
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird ein Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 */
 	private void buildTreeDataStationIDs(final DefaultMutableTreeNode root, final String filterUpper) {
 		DefaultMutableTreeNode group;
 
@@ -264,6 +297,11 @@ public class ExpressionBuilder extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Erstellt die Baumstruktur
+	 * @param filter	Optionaler Filter (kann <code>null</code> sein)
+	 * @return	Wurzelelement der neuen Baumstruktur
+	 */
 	private TreeNode buildTreeData(final String filter) {
 		final String filterUpper=(filter!=null && !filter.trim().isEmpty())?filter.trim().toUpperCase():null;
 
@@ -282,9 +320,24 @@ public class ExpressionBuilder extends BaseDialog {
 		return root;
 	}
 
+	/**
+	 * HTML-Kopfbereich für die Ausgabe von Beschreibungen für ein Symbol
+	 * @see #htmlFooter
+	 * @see #selectTreeNode(ExpressionSymbol)
+	 */
 	private static final String htmlHeader="<html><body style=\"font-family: Verdana, Lucida, sans-serif; background-color: #FFFFF3; padding: 5px;\">";
+
+	/**
+	 * HTML-Fußbereich für die Ausgabe von Beschreibungen für ein Symbol
+	 * @see #htmlHeader
+	 * @see #selectTreeNode(ExpressionSymbol)
+	 */
 	private static final String htmlFooter="</body></html>";
 
+	/**
+	 * Zeigt die Beschreibung zu einem Symbol an
+	 * @param symbol	Symbol zu dem die Beschreibung angezeigt werden soll
+	 */
 	private void selectTreeNode(final ExpressionSymbol symbol) {
 		info.setContentType("text/html");
 		if (symbol==null) {
@@ -297,6 +350,12 @@ public class ExpressionBuilder extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Wird beim Klicken auf "Ok" aufgerufen, um zu prüfen, ob die Daten in der aktuellen Form
+	 * in Ordnung sind und gespeichert werden können.
+	 * @param showErrorMessage	Fehlermeldung anzeigen, wenn ein Fehler vorliegt?
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		final String expression=getExpression();
 		int error=-1;
@@ -379,6 +438,7 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @author Alexander Herzog
 	 */
 	public static class ExpressionSymbol {
+		/** Name des Symbols (zur Anzeige in der Baumstruktur) */
 		private final String name;
 
 		/**
@@ -416,6 +476,12 @@ public class ExpressionBuilder extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Reagiert auf Mausklicks auf Einträge in {@link ExpressionBuilder#tree} und fügt
+	 * diese bei einem Doppelklick in die Ausgabe {@link ExpressionBuilder#input} ein.
+	 * @see ExpressionBuilder#tree
+	 * @see ExpressionBuilder#input
+	 */
 	private class TreeMouseListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {}
@@ -451,6 +517,12 @@ public class ExpressionBuilder extends BaseDialog {
 		public void mouseExited(MouseEvent e) {}
 	}
 
+	/**
+	 * Fügt die Stationen mit ihren IDs von der Zeichenfläche in eine Zuordnung ein.
+	 * @param map	Zuordnung von Stations-IDs zu Stationsnamen
+	 * @param surface	Zeichenflächen-Element, welches die Stationsdaten enthält
+	 * @see #getStationIDs(ModelSurface)
+	 */
 	private static void addStationIDs(final Map<Integer,String> map, final ModelSurface surface) {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementSub) {addStationIDs(map,((ModelElementSub)element).getSubSurface()); continue;}
@@ -481,6 +553,12 @@ public class ExpressionBuilder extends BaseDialog {
 		return map;
 	}
 
+	/**
+	 * Fügt die Stationenbeschreibungen mit ihren IDs von der Zeichenfläche in eine Zuordnung ein.
+	 * @param map	Zuordnung von Stations-IDs zu Stationsbeschreibungen
+	 * @param surface	Zeichenflächen-Element, welches die Stationsdaten enthält
+	 * @see #getStationIDs(ModelSurface)
+	 */
 	private static void addStationNameIDs(final Map<Integer,String> map, final ModelSurface surface) {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementSub) {addStationNameIDs(map,((ModelElementSub)element).getSubSurface()); continue;}
