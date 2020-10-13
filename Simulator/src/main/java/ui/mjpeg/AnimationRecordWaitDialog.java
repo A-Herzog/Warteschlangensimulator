@@ -86,6 +86,10 @@ public class AnimationRecordWaitDialog extends JDialog {
 		return (JFrame)owner;
 	}
 
+	/**
+	 * Aktualisiert die Fortschrittsanzeige in regelm‰ﬂigen Abst‰nden
+	 * @see AnimationRecordWaitDialog#timer
+	 */
 	private class UpdateInfoTask extends TimerTask {
 		@Override
 		public void run() {

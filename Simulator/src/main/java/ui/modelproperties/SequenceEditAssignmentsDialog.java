@@ -100,6 +100,10 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		toolbar.add(buttonDelete=getButton(Language.tr("Editor.Dialog.Sequences.Edit.Assignments.Delete"),Language.tr("Editor.Dialog.Sequences.Edit.Assignments.Delete.Hint"),Images.EDIT_DELETE.getIcon(),()->{if (list.getSelectedIndex()>=0) commandDelete(list.getSelectedIndex());}));
 
 		list.setCellRenderer(new DefaultListCellRenderer() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -7787863612588403516L;
 			@Override
 			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

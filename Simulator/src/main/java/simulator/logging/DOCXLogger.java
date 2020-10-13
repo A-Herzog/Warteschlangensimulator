@@ -47,11 +47,15 @@ public class DOCXLogger implements SimLogging {
 	private final boolean formatedTime;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Zeitpunkt des letzten Ereignisses (zur Gruppierung von Ereignissen) */
 	private long lastEventTime=-1;
 
+	/** Ausgabe-Dokument */
 	private final XWPFDocument doc;
+	/** Aktueller Absatz */
 	private XWPFParagraph paragraph=null;
 
+	/** Nachgeschalteter zweiter Logger, an den alle Logging-Daten ebenfalls übergeben werden. */
 	private SimLogging nextLogger;
 
 	/**

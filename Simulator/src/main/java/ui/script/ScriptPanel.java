@@ -95,6 +95,10 @@ public abstract class ScriptPanel extends JPanel {
 		JToolBar toolbar;
 
 		editor=new ScriptEditorPanel("",ScriptEditorPanel.ScriptMode.Javascript,false,null,getModel(),getMiniStatistics(),getHelpRunnable(),scriptFeatures){
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -1345017777248153806L;
 			@Override
 			protected void addCustomToolbarButtons(final JToolBar toolbar) {

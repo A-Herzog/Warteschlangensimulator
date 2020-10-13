@@ -108,8 +108,19 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	private boolean recordSimulatedClientsToStatistics=true;
 
+	/**
+	 * Gemeinsamer Load-Balancer für alle Threads
+	 * @see #getBalancerInfo()
+	 */
 	private DynamicLoadBalancer dynamicLoadBalancer;
 
+	/**
+	 * Liefert die Maximalanzahl an zu verwendenden Simulationsthreads
+	 * @param editModel	Editor-Modell
+	 * @param multiCore	Mehrkern-Simulation laut Setup verwenden?
+	 * @param maxCoreCount	Maximal zu verwendende Kernanzahl (laut Setup)
+	 * @return	Liefert die laut Modell und Setup maximal zulässige Anzahl an Rechenthreads)
+	 */
 	private static int getAllowMaxCore(final EditModel editModel, final boolean multiCore, final int maxCoreCount) {
 		if (!multiCore) return 1;
 		final int a=Math.max(1,SetupData.getSetup().useMultiCoreSimulationMaxCount);
@@ -117,7 +128,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		int threadCount=Math.min(a,b);
 
 
-		/* Bei mehrerne Wiederholungen auf die Anzahl an Läufen abstimmen */
+		/* Bei mehreren Wiederholungen auf die Anzahl an Läufen abstimmen */
 		if (!editModel.allowMultiCore()) {
 			threadCount=Math.min(threadCount,Runtime.getRuntime().availableProcessors());
 			if (threadCount>editModel.repeatCount) threadCount=editModel.repeatCount;
@@ -177,6 +188,10 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		this(SetupData.getSetup().useMultiCoreSimulation && (editModel.allowMultiCore() || editModel.repeatCount>1),editModel,logging,loggingIDs,logType);
 	}
 
+	/**
+	 * Bereitet den globalen Zufallszahlengenerator für die Simulation vor.
+	 * @param fixedSeed	Soll ein fester Startwert verwendet werden?
+	 */
 	private static void prepareStatic(final boolean fixedSeed) {
 		if (fixedSeed) {
 			DistributionRandomNumber.generator=new SeedableThreadLocalRandomGenerator();
@@ -203,6 +218,10 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		return null;
 	}
 
+	/**
+	 * Liefert die maximale relative Abweichung an simulierten Kunden pro Thread (bei der Verwendung einer dynamischen Thread-Balance).
+	 * @return	Maximale relative Abweichung an simulierten Kunden pro Thread
+	 */
 	private double getBalancerInfo() {
 		if (dynamicLoadBalancer==null) return 0;
 
@@ -221,6 +240,12 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		return ((double)(max-min)*threadCount)/sum;
 	}
 
+	/**
+	 * Schreibt am Simulationsende die Basisdaten des Simulationsprozesses
+	 * in die Statistik
+	 * @param statistics	Statistik in die die Daten geschrieben werden sollen
+	 * @see #collectStatistics()
+	 */
 	private void writeBaseDataToStatistics(final Statistics statistics) {
 		statistics.editModel=editModel.clone();
 		statistics.editModel.version=EditModel.systemVersion;

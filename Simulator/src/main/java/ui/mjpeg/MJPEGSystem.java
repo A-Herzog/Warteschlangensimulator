@@ -23,11 +23,15 @@ import java.io.File;
  * @author Alexander Herzog
  */
 public class MJPEGSystem implements VideoSystem {
+	/** Gibt an, ob einzelne Frames wiederholt werden sollen, um längere Zeitdauern zwischen Änderungen am System im Video abzubilden. */
 	private final boolean useAdditionalFrames;
+	/** System zur Zwischenspeicherung der Bilder */
 	private final MJPEGBufferWriterBase buffer;
+	/** Ausgabe in die finale Datei */
 	private final MJPEGBuilder storage;
 
-	private static final boolean useDirectPath=true; /* Bilder direkt beim Puffern als JPEG speichern, so dass die Erstellung der avi-Datei schneller geht. */
+	/** Bilder direkt beim Puffern als JPEG speichern, so dass die Erstellung der avi-Datei schneller geht? */
+	private static final boolean useDirectPath=true;
 
 	/**
 	 * Konstruktor der Klasse <code>MJPEGSystem</code>

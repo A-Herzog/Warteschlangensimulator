@@ -28,7 +28,9 @@ import java.io.IOException;
  * @author Alexander Herzog
  */
 public abstract class MJPEGBufferWriterBase {
+	/** Temporäre Datei */
 	private final File tempFile;
+	/** Output-Stream in {@link #tempFile} */
 	private final FileOutputStream tempOutputStream;
 
 	/**

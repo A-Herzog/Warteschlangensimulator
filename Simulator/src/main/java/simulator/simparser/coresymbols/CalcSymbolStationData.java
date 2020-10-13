@@ -90,7 +90,20 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 		return 0.0;
 	}
 
+	/**
+	 * Zuletzt in {@link #calc(double[])} als Kundentyp innerhalb einer Station
+	 * abgefragt Kundentyp-Quell-ID
+	 * @see #calc(double[])
+	 * @see #lastStationClientTypeClientIndex
+	 */
 	private int lastStationClientTypeStationID=-1;
+
+	/**
+	 * Zuletzt in {@link #calc(double[])} als Kundentyp-Index innerhalb einer
+	 * Station verwendeter Index auf Basis einer Kundentyp-Quell-ID
+	 * @see #calc(double[])
+	 * @see #lastStationClientTypeStationID
+	 */
 	private int lastStationClientTypeClientIndex=-1;
 
 	@Override

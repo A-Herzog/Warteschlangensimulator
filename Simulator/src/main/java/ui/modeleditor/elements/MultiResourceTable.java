@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,10 @@ import ui.images.Images;
  * @see ResourceTableModel
  */
 public class MultiResourceTable extends JPanel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 4821242036162357877L;
 
 	private final ModelElementProcess process;

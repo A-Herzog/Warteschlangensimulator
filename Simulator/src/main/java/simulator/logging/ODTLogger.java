@@ -46,11 +46,15 @@ public class ODTLogger implements SimLogging {
 	private final boolean formatedTime;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Zeitpunkt des letzten Ereignisses (zur Gruppierung von Ereignissen) */
 	private long lastEventTime=-1;
 
+	/** Ausgabe-Dokument */
 	private final TextDocument odt;
+	/** Aktueller Absatz */
 	private Paragraph paragraph=null;
 
+	/** Nachgeschalteter zweiter Logger, an den alle Logging-Daten ebenfalls übergeben werden. */
 	private SimLogging nextLogger;
 
 	/**
@@ -95,6 +99,12 @@ public class ODTLogger implements SimLogging {
 		return true;
 	}
 
+	/**
+	 * Stellt Schriftgröße und Art für den Absatz ein
+	 * @param p	Absatz für den die Schriftdaten eingestellt werden sollen
+	 * @param size	Schriftgröße
+	 * @param bold	Fette Darstellung?
+	 */
 	private static void setFont(final Paragraph p, final int size, final boolean bold) {
 		final Font f=p.getFont();
 		f.setSize(size);
@@ -102,6 +112,11 @@ public class ODTLogger implements SimLogging {
 		p.setFont(f);
 	}
 
+	/**
+	 * Stellt die Textfarbe für einen Absatz ein
+	 * @param p	Absatz für den die Schriftfarbe eingestellt werden soll
+	 * @param color	Farbe für die Schrift in dem Absatz
+	 */
 	private static void setColor(final Paragraph p, final Color color) {
 		if (color==null || color.equals(Color.BLACK)) return;
 

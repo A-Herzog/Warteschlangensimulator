@@ -20,6 +20,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -141,6 +142,10 @@ public class JQuickAccess {
 		String acceleratorText=(modifiers==0)?"":InputEvent.getModifiersExText(modifiers)+"+";
 		acceleratorText+=KeyEvent.getKeyText(ctrlE.getKeyCode());
 		final JQuickAccessTextField quickAccessTextField=new JQuickAccessTextField(14,Language.tr("QuickAccess")+" ("+acceleratorText+")",JQuickAccessTextField.PopupMode.DIRECT) {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID=2746691534913517513L;
 
 			@Override

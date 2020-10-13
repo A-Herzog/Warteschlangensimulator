@@ -751,6 +751,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 	}
 
 	private class ElementListCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 6913560392242517601L;
 
 		@Override

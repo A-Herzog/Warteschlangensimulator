@@ -349,6 +349,10 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 	public abstract List<JQuickAccessRecord> getQuickAccessRecords(final String quickAccessText);
 
 	private static class QuickAccessListCellRenderer extends JLabel implements ListCellRenderer<JQuickAccessRecord> {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 2375121310093542345L;
 
 		@Override

@@ -92,6 +92,10 @@ public class JSModelRunnerPanel extends SpecialPanel {
 		}
 
 		content.add(scriptPanel=new ScriptPanel(model,false,ScriptEditorPanel.featuresScriptRunner,null) {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -4514089397823686283L;
 			@Override protected EditModel getModel() {return model;}
 			@Override protected Statistics getMiniStatistics() {return miniStatistics;}
@@ -101,6 +105,10 @@ public class JSModelRunnerPanel extends SpecialPanel {
 		/* F1-Hotkey */
 		getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F1"),"actionHelp");
 		getActionMap().put("actionHelp",new AbstractAction("actionHelp") {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -7962315945186700028L;
 			@Override public void actionPerformed(ActionEvent event) {Help.topicModal(JSModelRunnerPanel.this,"JSRunner");}
 		});

@@ -31,8 +31,10 @@ import simcore.logging.CallbackLogger;
  * @see CallbackLogger
  */
 public class CallbackLoggerWithJS extends CallbackLogger {
+	/** Maximal vorzuhalten Anzahl an JS-Ergebnissen */
 	private static final int JS_LOG_MAX=100;
 
+	/** Erfasste JS-Ergebnisse */
 	private final List<JSData> jsLogging=new ArrayList<>();
 
 	/**

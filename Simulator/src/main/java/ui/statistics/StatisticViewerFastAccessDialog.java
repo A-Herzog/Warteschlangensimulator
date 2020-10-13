@@ -165,6 +165,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		final DefaultReadOnlyTableModel contentModel=new DefaultReadOnlyTableModel(node.getContentTableData(buttonGroup));
 		if (contentTable==null) {
 			contentTable=new JTable(contentModel){
+				/**
+				 * Serialisierungs-ID der Klasse
+				 * @see Serializable
+				 */
 				private static final long serialVersionUID = -3007665088654159769L;
 				@Override
 				public void tableChanged(TableModelEvent e) {
@@ -188,6 +192,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		final DefaultReadOnlyTableModel attributeModel=new DefaultReadOnlyTableModel(node.getAttributeTableData(buttonGroup));
 		if (attributeTable==null) {
 			attributeTable=new JTable(attributeModel) {
+				/**
+				 * Serialisierungs-ID der Klasse
+				 * @see Serializable
+				 */
 				private static final long serialVersionUID = -3007665088654159769L;
 				@Override
 				public void tableChanged(TableModelEvent e) {
@@ -273,6 +281,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	}
 
 	private class DefaultReadOnlyTableModel extends DefaultTableModel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 2744629774042523677L;
 
 		public DefaultReadOnlyTableModel(Object[][] data) {
@@ -284,6 +296,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	}
 
 	private class RadioButtonRenderer extends DefaultTableCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -7643893461330181707L;
 
 		@Override
@@ -294,6 +310,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	}
 
 	private class RadioButtonEditor extends DefaultCellEditor implements ItemListener {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -2826551849190366679L;
 
 		private JRadioButton button;

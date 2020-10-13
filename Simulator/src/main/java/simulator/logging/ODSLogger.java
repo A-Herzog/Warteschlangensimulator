@@ -48,11 +48,15 @@ public class ODSLogger implements SimLogging {
 	private final boolean formatedTime;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Zeitpunkt des letzten Ereignisses (zur Gruppierung von Ereignissen) */
 	private long lastEventTime=-1;
 
+	/** Ausgabe-Dokument */
 	private final SpreadsheetDocument workbook;
+	/** Tabellenblatt innerhalb des Ausgabe-Dokuments */
 	private final Table sheet;
 
+	/** Nachgeschalteter zweiter Logger, an den alle Logging-Daten ebenfalls übergeben werden. */
 	private SimLogging nextLogger;
 
 	/**
@@ -112,6 +116,12 @@ public class ODSLogger implements SimLogging {
 		return true;
 	}
 
+	/**
+	 * Erstellt ein Font-Objekt zur Formatierung des ODS-Tabellenzelle
+	 * @param color	Farbe der Zelle
+	 * @param bold	Text fett darstellen?
+	 * @return	Font-Objekt zur Formatierung des ODS-Tabellenzelle
+	 */
 	private Font getCellStyle(Color color, final boolean bold) {
 		final Font font;
 		if (bold) {

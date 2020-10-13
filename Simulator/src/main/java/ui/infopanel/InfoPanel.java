@@ -480,10 +480,16 @@ public class InfoPanel {
 	/** Info-ID für den "Bild"-Bearbeiten-Dialog (Gruppe "Optische Gestaltung") */
 	public static final String stationImage=groupElement+"Image";
 
+	/** Liste der Hinweisdatensätze */
 	private final List<Item> items;
+
+	/** In verschiedenen Fenstern aktive Hinweis-Panels */
 	private final Map<Window,List<JPanel>> activeHintsList;
 
+	/** Semaphore um abzusichern, dass nicht zwei konkurrierende Aufrufe auf {@link #getInstance()} schreibend auf {@link #instance} zugreifen */
 	private static final Semaphore mutex=new Semaphore(1);
+
+	/** Singleton-Instanz der Klasse */
 	private static volatile InfoPanel instance;
 
 	/**
@@ -512,6 +518,10 @@ public class InfoPanel {
 		}
 	}
 
+	/**
+	 * Registriert die verschiedenen verfügbaren Hinweisdatensätze.<br>
+	 * (Wird direkt vom Konstruktor aufgerufen.)
+	 */
 	private void registerInfos() {
 		/* Willkommensseite */
 
@@ -1122,10 +1132,25 @@ public class InfoPanel {
 		return setup.toString();
 	}
 
+	/**
+	 * Registriert einen Hinweis-Datensatz
+	 * @param id	ID des Datensatzes
+	 * @param name	Name für den Datensatz (Getter, um die jeweils aktuelle Sprache berücksichtigen zu können)
+	 * @param info	Anzuzeigender Hinweistext (Getter, um die jeweils aktuelle Sprache berücksichtigen zu können)
+	 * @see #registerInfos()
+	 */
 	private void register(final String id, final Supplier<String> name, final Supplier<String> info) {
 		register(id,name,info,true);
 	}
 
+	/**
+	 * Registriert einen Hinweis-Datensatz
+	 * @param id	ID des Datensatzes
+	 * @param name	Name für den Datensatz (Getter, um die jeweils aktuelle Sprache berücksichtigen zu können)
+	 * @param info	Anzuzeigender Hinweistext (Getter, um die jeweils aktuelle Sprache berücksichtigen zu können)
+	 * @param defaultState	Standardeinstellung in Bezug auf aktiv/deaktiviert
+	 * @see #registerInfos()
+	 */
 	private void register(final String id, final Supplier<String> name, final Supplier<String> info, final boolean defaultState) {
 		items.add(new Item(id,name,info,defaultState));
 	}
@@ -1140,6 +1165,13 @@ public class InfoPanel {
 		return getInstance().addTopPanelIntern(parent,id);
 	}
 
+	/**
+	 * Erstellt (wenn im Setup aktiviert) ein Infopanel mit dem angegebenen Text und fügt es ein.
+	 * @param parent	Übergeordnetes Element (wird von dieser Methode auf {@link BorderLayout} gestellt)
+	 * @param id	ID des anzuzeigenden Textes
+	 * @return	Liefert das eingefügte Infopanel (oder <code>null</code>, wenn kein Panel eingefügt wurde)
+	 * @see #addTopPanel(Container, String)
+	 */
 	private JPanel addTopPanelIntern(final Container parent, final String id) {
 		if (!isVisible(id)) return null;
 
@@ -1161,6 +1193,13 @@ public class InfoPanel {
 		return getInstance().addTopPanelAndGetNewContentIntern(parent,id);
 	}
 
+	/**
+	 * Erstellt (wenn im Setup aktiviert) ein Infopanel mit dem angegebenen Text und fügt es ein.
+	 * @param parent	Übergeordnetes Element (wird von dieser Methode auf {@link BorderLayout} gestellt)
+	 * @param id	ID des anzuzeigenden Textes
+	 * @return	Erstellt ein neues Panel und fügt es als Content in das angegeben übergeordnete Element ein
+	 * @see #addTopPanelAndGetNewContent(Container, String)
+	 */
 	private JPanel addTopPanelAndGetNewContentIntern(final Container parent, final String id) {
 		addTopPanelIntern(parent,id);
 		JPanel content=new JPanel(new BorderLayout());
@@ -1179,6 +1218,14 @@ public class InfoPanel {
 		return getInstance().createNewPanelIntern(window,panel,id);
 	}
 
+	/**
+	 * Erzeugt ein neues Panel, in das das bisherige eingebettet wird
+	 * @param window	Übergeordnetes Fenster
+	 * @param panel	Bisheriges Panel, welches (wenn ein Infotext ausgegeben werden soll) in ein neues Panel eingebettet wird
+	 * @param id	ID des anzuzeigenden Textes
+	 * @return	Neues Panel (wenn Infotext ausgegeben wird), in das das bestehende Panel eingebettet ist, oder das übergebene Panel selbst (wenn kein Infotext ausgegeben wird)
+	 * @see #createNewPanel(Window, JPanel, String)
+	 */
 	private JPanel createNewPanelIntern(final Window window, final JPanel panel, final String id) {
 		if (!isVisible(id)) return panel;
 
@@ -1191,6 +1238,12 @@ public class InfoPanel {
 		return newPanel;
 	}
 
+	/**
+	 * Erstellt das eigentliche Info-Panel
+	 * @param id	ID des anzuzeigenden Textes (für die Schließen-Schaltfläche)
+	 * @param text	Anzuzeigender Text
+	 * @return	Neues Info-Panel
+	 */
 	private JPanel buildPanel(final String id, final String text) {
 		final JPanel topOuter=new JPanel(new BorderLayout());
 
@@ -1252,6 +1305,12 @@ public class InfoPanel {
 		return topOuter;
 	}
 
+	/**
+	 * Liefert das Fenster in dem sich eine Komponente befindet
+	 * @param component	Komponente für die das übergeordnete Fenster bestimmt werden soll
+	 * @return	Übergeordnetes Fenster oder <code>null</code>, wenn kein Fenster ermittelt werden konnte
+	 * @see #addTopPanelIntern(Container, String)
+	 */
 	private Window getWindow(final Component component) {
 		Component c=component;
 		while (c!=null) {
@@ -1261,6 +1320,12 @@ public class InfoPanel {
 		return null;
 	}
 
+	/**
+	 * Registriert ein neues Info-Panel in der Liste
+	 * @param window	Für dieses Fenster registrieren
+	 * @param hintPanel	Info-Panel
+	 * @see #turnOffAllHints()
+	 */
 	private void registerPanel(final Window window, final JPanel hintPanel) {
 		if (window==null) return;
 		if (activeHintsList.get(window)==null) {
@@ -1306,6 +1371,11 @@ public class InfoPanel {
 		}
 	}
 
+	/**
+	 * Schaltet ein bestimmtes Info-Panel aus
+	 * @param panel	Auszuschaltendes Panel
+	 * @param id	ID des Textes, der nun nicht mehr angezeigt werden soll
+	 */
 	private void turnOffHint(final JPanel panel, final String id) {
 		final Container parent=panel.getParent();
 		parent.remove(panel);
@@ -1315,6 +1385,9 @@ public class InfoPanel {
 		setVisible(id,false);
 	}
 
+	/**
+	 * Schaltet alle Info-Panel aus.
+	 */
 	private void turnOffAllHints() {
 		for (Map.Entry<Window,List<JPanel>> entry: activeHintsList.entrySet()) {
 			for (JPanel panel: entry.getValue()) {
@@ -1335,6 +1408,11 @@ public class InfoPanel {
 		setup.saveSetup();
 	}
 
+	/**
+	 * Liefert den Datensatz zu einer bestimmten ID
+	 * @param id	ID für die der Datensatz bereitgestellt werden soll
+	 * @return	Datensatz oder <code>null</code>, wenn die ID nicht vergeben ist
+	 */
 	private Item getItem(final String id) {
 		final Optional<Item> item=items.stream().filter(i->i.id.equalsIgnoreCase(id)).findFirst();
 		if (!item.isPresent()) return null;
@@ -1364,10 +1442,28 @@ public class InfoPanel {
 		 */
 		public boolean visible;
 
+		/**
+		 * Standardeinstellung in Bezug auf aktiv/deaktiviert
+		 */
 		private final boolean defaultState;
+
+		/**
+		 * Name für den Datensatz (Getter, um die jeweils aktuelle Sprache berücksichtigen zu können)
+		 */
 		private final Supplier<String> name;
+
+		/**
+		 * Anzuzeigender Hinweistext (Getter, um die jeweils aktuelle Sprache berücksichtigen zu können)
+		 */
 		private final Supplier<String> info;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param id	ID des Datensatzes
+		 * @param name	Name für den Datensatz (Getter, um die jeweils aktuelle Sprache berücksichtigen zu können)
+		 * @param info	Anzuzeigender Hinweistext (Getter, um die jeweils aktuelle Sprache berücksichtigen zu können)
+		 * @param defaultState	Standardeinstellung in Bezug auf aktiv/deaktiviert
+		 */
 		private Item(final String id, final Supplier<String> name, final Supplier<String> info, final boolean defaultState) {
 			this.id=id;
 			visible=defaultState;

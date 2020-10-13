@@ -79,6 +79,10 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 		content.add(scriptPanel=new ScriptPanel(null,true,ScriptEditorPanel.featuresFilter,examples) {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -202431138635835392L;
 			@Override protected EditModel getModel() {return null;}
 			@Override protected Statistics getMiniStatistics() {return models[0].getStatistics();}

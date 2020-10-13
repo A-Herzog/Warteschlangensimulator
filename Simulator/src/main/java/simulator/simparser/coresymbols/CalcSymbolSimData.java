@@ -61,7 +61,18 @@ public abstract class CalcSymbolSimData extends CalcSymbolPreOperator {
 		return ((ExpressionCalc)calcSystem).getRunElements();
 	}
 
+	/**
+	 * Zuletzt in {@link #getRunElementDataForID(double)} angegebene ID.
+	 * @see #getRunElementDataForID(double)
+	 * @see #lastRunElementData
+	 */
 	private double lastRunElementDataID=-1;
+
+	/**
+	 * Letztes von {@link #getRunElementDataForID(double)} ausgegebenes Datenobjekt.
+	 * @see #getRunElementDataForID(double)
+	 * @see #lastRunElementDataID
+	 */
 	private RunElementData lastRunElementData;
 
 	/**
@@ -78,7 +89,18 @@ public abstract class CalcSymbolSimData extends CalcSymbolPreOperator {
 		return lastRunElementData=runElementData[intID];
 	}
 
+	/**
+	 * Zuletzt in {@link #getRunElementForID(double)} angegebene ID.
+	 * @see #getRunElementForID(double)
+	 * @see #lastRunElement
+	 */
 	private double lastRunElementID=-1;
+
+	/**
+	 * Letztes von {@link #getRunElementForID(double)} ausgegebenes Stationsobjekt.
+	 * @see #getRunElementForID(double)
+	 * @see #lastRunElementID
+	 */
 	private RunElement lastRunElement;
 
 	/**

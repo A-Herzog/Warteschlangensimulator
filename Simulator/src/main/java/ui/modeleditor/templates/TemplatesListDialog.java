@@ -149,6 +149,10 @@ public final class TemplatesListDialog extends BaseDialog {
 		stroke=KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,InputEvent.SHIFT_DOWN_MASK);
 		inputMap.put(stroke,"SHIFT+ENTER");
 		rootPane.getActionMap().put("SHIFT+ENTER",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = 7785168819536914745L;
 			@Override public void actionPerformed(ActionEvent e) {commandUse();}
 
@@ -157,6 +161,10 @@ public final class TemplatesListDialog extends BaseDialog {
 		stroke=KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,InputEvent.CTRL_DOWN_MASK);
 		inputMap.put(stroke,"CTRL+ENTER");
 		rootPane.getActionMap().put("CTRL+ENTER",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = 1999144141241921785L;
 			@Override public void actionPerformed(ActionEvent e) {commandEdit();}
 		});

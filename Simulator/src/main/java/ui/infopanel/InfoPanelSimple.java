@@ -43,8 +43,10 @@ import ui.images.Images;
  * @author Alexander Herzog
  */
 public class InfoPanelSimple {
+	/** Singleton-Instanz der Klasse */
 	private static InfoPanelSimple infoPanel;
 
+	/** In verschiedenen Fenstern aktive Hinweis-Panels */
 	private final Map<Window,List<JPanel>> activeHintsList;
 
 	/**
@@ -59,11 +61,21 @@ public class InfoPanelSimple {
 		activeHintsList=new HashMap<>();
 	}
 
+	/**
+	 * Liefert die Singleton-Instanz der {@link #InfoPanelSimple}-Klasse
+	 * @return	Singleton-Instanz
+	 */
 	private static InfoPanelSimple getInstance() {
 		if (infoPanel==null) infoPanel=new InfoPanelSimple();
 		return infoPanel;
 	}
 
+	/**
+	 * Erstellt das eigentliche Hinweis-Panel
+	 * @param text	Anzuzeigender Text
+	 * @return	Hinweis-Panel
+	 * @see #addTopPanel(Window, Container, String)
+	 */
 	private JPanel buildPanel(final String text) {
 		final JPanel topInner=new JPanel(new BorderLayout());
 		topInner.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
@@ -101,6 +113,9 @@ public class InfoPanelSimple {
 		return topOuter;
 	}
 
+	/**
+	 * Schaltet alle Hinweise ab.
+	 */
 	private void turnOffHints() {
 		for (Map.Entry<Window,List<JPanel>> entry: activeHintsList.entrySet()) {
 			for (JPanel panel: entry.getValue()) {
@@ -119,6 +134,12 @@ public class InfoPanelSimple {
 		 */
 	}
 
+	/**
+	 * Registriert ein neues Info-Panel in der Liste
+	 * @param window	Für dieses Fenster registrieren
+	 * @param hintPanel	Info-Panel
+	 * @see #turnOffHints()
+	 */
 	private void registerPanel(final Window window, final JPanel hintPanel) {
 		if (activeHintsList.get(window)==null) {
 			window.addWindowListener(new WindowAdapter() {

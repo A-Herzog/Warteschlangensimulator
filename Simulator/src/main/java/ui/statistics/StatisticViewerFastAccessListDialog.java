@@ -102,6 +102,10 @@ public final class StatisticViewerFastAccessListDialog extends BaseDialog {
 		line.add(modeCombo=new JComboBox<>(getModes()));
 		label.setLabelFor(modeCombo);
 		modeCombo.setRenderer(new DefaultListCellRenderer() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -8968209869189192315L;
 			@Override
 			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

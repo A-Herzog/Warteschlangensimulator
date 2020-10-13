@@ -63,6 +63,10 @@ public class ParameterCompareTable extends JPanel {
 		add(scroll,BorderLayout.CENTER);
 
 		scroll.setColumnHeader(new JViewport() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -2516207553359526401L;
 			@Override public Dimension getPreferredSize() {
 				final Dimension d=super.getPreferredSize();

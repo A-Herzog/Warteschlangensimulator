@@ -30,12 +30,18 @@ import javax.imageio.ImageIO;
  * @author Alexander Herzog
  */
 public class MJPEGBackgroundBufferWriter extends MJPEGBufferWriterBase {
+	/** Mutex zur Absicherung, dass nicht gleichzeitig neue Frames in die Warteschlange eingefügt und entnommen werden */
 	private Semaphore queueMutex;
+	/** Warteschlange der zu schreibenden Bilder */
 	private Deque<BufferedImage> queueImages;
+	/** Zeitstempel für die zu schreibenden Bilder */
 	private Deque<Long> queueTimeStamps;
+	/** Gibt am Ende der Aufzeichnung an, dass keine weiteren Frames mehr dazu kommen. Ist die Warteschlange leer und {@link #queueEnd} gesetzt, so beendet sich der Ausgabethread. */
 	private boolean queueEnd;
 
+	/** Benachrichtigt den {@link #writerThread}, dass neue Bilder auf Verarbeitung warten */
 	private Object writerThreadNotify;
+	/** Thread zur Zeitversetzten Ausgabe der Bilder */
 	private WriterThread writerThread;
 
 	/**
@@ -53,6 +59,13 @@ public class MJPEGBackgroundBufferWriter extends MJPEGBufferWriterBase {
 		writerThread.start();
 	}
 
+	/**
+	 * Schreibt ein Bild in den Ausgabe-Stream für die temporären Daten
+	 * @param image	Zu speicherndes Bild
+	 * @param timeStamp	Zeitstempel
+	 * @return	Liefert im Erfolgsfall
+	 * @see #tempOutputData
+	 */
 	private boolean storeImageToStream(final BufferedImage image, final long timeStamp) {
 		if (tempOutputData==null) return false;
 
@@ -123,7 +136,16 @@ public class MJPEGBackgroundBufferWriter extends MJPEGBufferWriterBase {
 		return true;
 	}
 
+	/**
+	 * Ausgabethread
+	 * @see MJPEGBackgroundBufferWriter#writerThread
+	 */
 	private class WriterThread extends Thread {
+		/**
+		 * Speichert alle momentan wartenden Frames im temporäre Daten-Stream
+		 * @return	Wenn sich der Thread beenden soll (weil keine weiteren Frames mehr folgen können), wird <code>true</code> zurückgeliefert; sonst <code>false</code>
+		 * @see MJPEGBackgroundBufferWriter#storeImageToStream
+		 */
 		private boolean storeData() {
 			while (true) {
 				BufferedImage image;

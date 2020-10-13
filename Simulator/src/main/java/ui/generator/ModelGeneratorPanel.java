@@ -215,6 +215,12 @@ public class ModelGeneratorPanel extends JPanel {
 		modelChangeListeners.stream().forEach(listener->listener.run());
 	}
 
+	/**
+	 * Zwischenüberschrift anzeigen
+	 * @param panel	Panel in das die Überschrift eingefügt werden soll
+	 * @param text	Text der Überschrift
+	 * @param spaceBefore	Vertikalen Abstand vor der Überschrift einfügen?
+	 */
 	private void addHeading(final JPanel panel, final String text, final boolean spaceBefore) {
 		if (spaceBefore) panel.add(Box.createVerticalStrut(15));
 
@@ -223,10 +229,29 @@ public class ModelGeneratorPanel extends JPanel {
 		line.add(new JLabel("<html><body><b>"+text+"</b></body></html>"));
 	}
 
+	/**
+	 * Auswahlfeld einfügen
+	 * @param panel	Panel in das das Auswahlfeld eingefügt werden soll
+	 * @param text	Beschriftung des Auswahlfeldes
+	 * @param min	Minimaler Wert
+	 * @param max	Maximaler Wert
+	 * @param value	Initialer Wert
+	 * @return	Neues Auswahlfeld
+	 */
 	private SpinnerNumberModel addSpinner(final JPanel panel, final String text, final int min, final int max, final int value) {
 		return addSpinner(panel,text,min,max,value,null);
 	}
 
+	/**
+	 * Auswahlfeld einfügen
+	 * @param panel	Panel in das das Auswahlfeld eingefügt werden soll
+	 * @param text	Beschriftung des Auswahlfeldes
+	 * @param min	Minimaler Wert
+	 * @param max	Maximaler Wert
+	 * @param value	Initialer Wert
+	 * @param info	Optionaler Infotext nach dem Feld (kann <code>null</code> sein)
+	 * @return	Neues Auswahlfeld
+	 */
 	private SpinnerNumberModel addSpinner(final JPanel panel, final String text, final int min, final int max, final int value, final String info) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.add(line);
@@ -240,6 +265,13 @@ public class ModelGeneratorPanel extends JPanel {
 		return (SpinnerNumberModel)spinner.getModel();
 	}
 
+	/**
+	 * Checkbox einfügen
+	 * @param panel	Panel in das die Checkbox eingefügt werden soll
+	 * @param text	Beschriftung der Checkbox
+	 * @param selected	Soll die Checkbox anfänglich markiert sein?
+	 * @return	Neue Checkbox
+	 */
 	private JCheckBox addCheckBox(final JPanel panel, final String text, final boolean selected) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.add(line);
@@ -249,6 +281,13 @@ public class ModelGeneratorPanel extends JPanel {
 		return checkBox;
 	}
 
+	/**
+	 * Combobox einfügen
+	 * @param panel	Panel in das die Combobox eingefügt werden soll
+	 * @param text	Beschriftung der Combobox
+	 * @param options	Auswahloptionen in der Combobox
+	 * @return	Neue Combobox
+	 */
 	private JComboBox<String> addCombo(final JPanel panel, final String text, String[] options) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.add(line);
@@ -263,6 +302,13 @@ public class ModelGeneratorPanel extends JPanel {
 		return combo;
 	}
 
+	/**
+	 * Fügt in dem Modell eine Verbindungskante zwischen zwei Stationen ein
+	 * @param model	Modell bei dem die Kante auf der Hauptzeichenfläche eingefügt werden soll
+	 * @param station1	Ausgangsstation
+	 * @param station2	Zielstation
+	 * @see #getModel()
+	 */
 	private void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2) {
 		final ModelElementEdge edge=new ModelElementEdge(model,model.surface,station1,station2);
 		station1.addEdgeOut(edge);

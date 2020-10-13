@@ -113,6 +113,10 @@ public final class InfoPanelDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Eintrag aktivieren oder deaktivieren
+	 * @param path	Pfad zu dem Eintrag
+	 */
 	private void toggleCheckBox(final TreePath path) {
 		if (path==null) return;
 		final Object obj1=path.getLastPathComponent();
@@ -124,6 +128,11 @@ public final class InfoPanelDialog extends BaseDialog {
 		tree.repaint();
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zu einer Gruppe im Baum an
+	 * @param path	Pfad zu der Gruppe
+	 * @param event	Auslösendes Mausereignis
+	 */
 	private void showGroupContextMenu(final TreePath path, final MouseEvent event) {
 		if (path==null) return;
 		final Object obj1=path.getLastPathComponent();
@@ -141,6 +150,12 @@ public final class InfoPanelDialog extends BaseDialog {
 		menu.show((Component)event.getSource(),event.getX(),event.getY());
 	}
 
+	/**
+	 * Aktiviert oder deaktiviert alle die Hinweis-Panels in einer Gruppe
+	 * @param group	Gruppe in der die Hinweis-Panels aktiviert oder deaktiviert werden sollen
+	 * @param select	Aktivieren (<code>true</code>) oder deaktivieren (<code>false</code>)
+	 * @see #showGroupContextMenu(TreePath, MouseEvent)
+	 */
 	private void changeGroup(final DefaultMutableTreeNode group, final boolean select) {
 		for (int i=0;i<group.getChildCount();i++) {
 			final TreeNode child=group.getChildAt(i);
@@ -153,6 +168,13 @@ public final class InfoPanelDialog extends BaseDialog {
 		tree.repaint();
 	}
 
+	/**
+	 * Liefert das Baum-Elternelement zu einem bestimmten Info-Panel-Eintrag
+	 * @param root	Wurzelelement des Baums
+	 * @param groups	Liste der Gruppen
+	 * @param parts	Info-Panel-Eintrag
+	 * @return	Elternelement für den Eintrag
+	 */
 	private DefaultMutableTreeNode getParent(final DefaultMutableTreeNode root, final Map<String,DefaultMutableTreeNode> groups, final List<String> parts) {
 		DefaultMutableTreeNode parent=root;
 
@@ -171,6 +193,11 @@ public final class InfoPanelDialog extends BaseDialog {
 
 	}
 
+	/**
+	 * Erstellt die Baumstruktur mit den Einträgen zu den Info-Panels
+	 * @param setup	Konfiguration, welche Einträge aktiviert und welche deaktiviert sein sollen
+	 * @return	Wurzel-Element für den Baum
+	 */
 	private TreeNode buildTree(final String setup) {
 		final InfoPanel instance=InfoPanel.getInstance();
 		final String saveSetup=instance.getSetup();

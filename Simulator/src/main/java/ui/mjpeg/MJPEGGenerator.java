@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
  *
  * @author monceaux
  */
+@SuppressWarnings("javadoc")
 public class MJPEGGenerator {
 	/*
 	 *  Info needed for MJPEG AVI

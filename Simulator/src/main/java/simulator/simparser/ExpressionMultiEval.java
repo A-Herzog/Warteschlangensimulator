@@ -31,8 +31,11 @@ import simulator.runmodel.SimulationData;
  * @see ExpressionCalc
  */
 public class ExpressionMultiEval {
+	/** Ausdruck, der in dieses Auswerteobjekt geladen werden soll */
 	private String condition;
+	/** Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein) */
 	private final String[] variables;
+	/** Entscheidungsbaum für die Bedingung */
 	private Object[] expressionTree;
 
 	/**
@@ -44,11 +47,20 @@ public class ExpressionMultiEval {
 		if (variables==null) this.variables=null; else this.variables=Arrays.copyOf(variables,variables.length);
 	}
 
+	/** Operatoren zur Verknüpfung von Teil-Vergleichen */
 	private static final String[] operators=new String[]{"||","&&"};
 
+	/** Besteht der Gesamtausdruck nur aus Oder-verknüpften Teil-Vergleichen? */
 	private boolean isOnlyOr=true;
+	/** Besteht der Gesamtausdruck nur aus Und-verknüpften Teil-Vergleichen? */
 	private boolean isOnlyAnd=true;
 
+	/**
+	 * Zerlegt den Gesamten Ausdruck in einzelne Makro-Tokens
+	 * @param condition	Zu zerlegender Ausdruck
+	 * @return	Liste aus Tokens; Tokens können Teil-Vergleiche (Strings), Verknüpfungssymbole ({@link #operators}) oder Unterlisten sein
+	 * @see #parseToTree(String)
+	 */
 	private List<Object> tokenize(final String condition) {
 		List<Object> tokens=new ArrayList<>();
 
@@ -112,6 +124,12 @@ public class ExpressionMultiEval {
 		return tokens;
 	}
 
+	/**
+	 * Wandelt eine Liste aus Tokens in eine Baumstruktur um
+	 * @param tokens	Liste aus Tokens
+	 * @return	Baumstruktur
+	 * @see #parseToTree(String)
+	 */
 	private List<String> getParseTree(final List<Object> tokens) {
 		List<String> symbols=new ArrayList<>();
 		for (Object obj: tokens) {
@@ -141,6 +159,12 @@ public class ExpressionMultiEval {
 		return String.join("\n",getParseTree(tokens).toArray(new String[0]));
 	}
 
+	/**
+	 * Zählt die Anzahl an Zeichen in einer Tokens-Liste
+	 * @param tokens	Tokens-Liste bei der die Anzahl der Zeichen über alle Tokens gezählt werden soll
+	 * @return	Anzahl an Zeichen
+	 * @see #parseTokens(List)
+	 */
 	@SuppressWarnings("unchecked")
 	private int getSubCharCount(final List<Object> tokens) {
 		int count=0;
@@ -151,6 +175,12 @@ public class ExpressionMultiEval {
 		return count;
 	}
 
+	/**
+	 * Wandelt eine Liste aus Tokens in eine Baumstruktur um
+	 * @param tokens	Liste aus Tokens
+	 * @return	Baumstruktur
+	 * @see #parse(String)
+	 */
 	private Object parseTokens(final List<Object> tokens) {
 		List<Object> result=new ArrayList<>();
 		int parsedChars=0;
@@ -199,6 +229,12 @@ public class ExpressionMultiEval {
 		return result;
 	}
 
+	/**
+	 * Besteht der gesamte Ausdruck nur aus einem Vergleich
+	 * (also ohne Verwendung von {@value #operators})?
+	 * @return	Liefert, wenn es sich um einen einzelnen Vergleich handelt, diesen zurück, sonst <code>null</code>.
+	 * @see #parseTokens(List)
+	 */
 	private ExpressionEval isSingleEval() {
 		if (expressionTree==null || expressionTree.length!=1) return null;
 		if (expressionTree[0] instanceof ExpressionEval) return (ExpressionEval)expressionTree[0]; else return null;
@@ -231,6 +267,14 @@ public class ExpressionMultiEval {
 		return condition;
 	}
 
+	/**
+	 * Prüft die Bedingung und gibt an, ob diese erfüllt ist
+	 * @param tree	Baumstruktur die die einzelnen Teil-Vergleiche inkl. ihrer Verknüpfungen enthält
+	 * @param variableValues	Variablenbelegung
+	 * @param simData	Aktuelles Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Gibt <code>true</code> zurück, wenn die in dem Ausdruck formulierte Bedingung erfüllt ist.
+	 */
 	private boolean evalTree(final Object[] tree, final double[] variableValues, final SimulationData simData, final RunDataClient client) {
 		if (tree.length==1 && (tree[0] instanceof ExpressionEval)) return ((ExpressionEval)tree[0]).eval(variableValues,simData,client);
 

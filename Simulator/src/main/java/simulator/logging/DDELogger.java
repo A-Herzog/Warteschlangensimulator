@@ -35,13 +35,17 @@ public class DDELogger implements SimLogging {
 	private final String sheet;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** DDE-Verbindungsobjekt */
 	private final DDEConnect connect;
+	/** DDE-Ausgabe möglich? */
 	private final boolean ready;
+	/** Nächste Ausgabezeile (0-basierend) */
 	private int nextRow;
+	/** Nachgeschalteter zweiter Logger, an den alle Logging-Daten ebenfalls übergeben werden. */
 	private SimLogging nextLogger;
 
 	/**
-	 * Konstruktor der Klassr
+	 * Konstruktor der Klasse
 	 * @param workbook	Zu verwendende Excel-Arbeitsmappe
 	 * @param sheet	Zu verwendende Tabelle innerhalb der Arbeitsmappe (die Ausgabe erfolgt ab Zeile 1, Spalte 1; vorhandene Daten werden überschrieben)
 	 * @param printIDs	IDs mit ausgeben

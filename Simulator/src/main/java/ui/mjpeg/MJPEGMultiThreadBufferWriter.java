@@ -39,13 +39,17 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class MJPEGMultiThreadBufferWriter extends MJPEGBufferWriterBase {
-	private static final int MAX_THREADS=12; /* Damit uns der Arbeitsspeicher durch die vielen wartenden Bilder nicht ausgeht. */
+	/** Maximale Threadanzahl zur parallelen Verarbeitung der Bilder */
+	private static final int MAX_THREADS=12;
 	/** Bilder als jpeg speichern (<code>true</code>) oder als png (<code>false</code>) */
 	private final boolean storeAsJPEG;
 	/** Kompressionsqualität für jpegs (Wert zwischen 0 und 1) */
 	private final float quality;
+	/** Tatsächliche Maximalanzahl an Threads ({@link #MAX_THREADS} und Hardware- und Setup-Restriktionen) */
 	private final int maxThreads;
+	/** Arbeitsthreads, die das Encoding der Bilder in das Ausgabeformat übernehmen */
 	private final List<WorkerThread> worker;
+	/** Cache für die temporär verwendenten Bild-Objekte */
 	private final List<BufferedImage> imageObjectCache;
 
 	/**
@@ -62,6 +66,9 @@ public class MJPEGMultiThreadBufferWriter extends MJPEGBufferWriterBase {
 		imageObjectCache=new ArrayList<>();
 	}
 
+	/**
+	 * Holt die Ergebnisse aus den Rechenthreads und überträgt sie in die Ausgabe.
+	 */
 	private void writeToData() {
 		while (!worker.isEmpty() && !worker.get(0).isAlive()) {
 			worker.get(0).writeToDataOutputStream(tempOutputData);
@@ -110,11 +117,22 @@ public class MJPEGMultiThreadBufferWriter extends MJPEGBufferWriterBase {
 		return true;
 	}
 
+	/**
+	 * Ausgabethread
+	 */
 	private class WorkerThread extends Thread {
+		/** Auszugebendes Bild */
 		private BufferedImage image;
+		/** Zeitstempel für das Bild */
 		private final long timeStamp;
+		/** Temporärer Ausgabepuffer innerhalb des Threads */
 		private ByteArrayOutputStream buffer;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param timeStamp	Zeitstempel für das Bild
+		 * @param image	Auszugebendes Bild
+		 */
 		public WorkerThread(final long timeStamp, final BufferedImage image) {
 			super("Image encoder");
 			this.timeStamp=timeStamp;
@@ -142,6 +160,11 @@ public class MJPEGMultiThreadBufferWriter extends MJPEGBufferWriterBase {
 			} catch (IOException e) {}
 		}
 
+		/**
+		 * Schreibt die Daten aus dem temporären Ausgabestream in den finalen Ausgabestream
+		 * @param data	Ausgabestream für die finale Datei
+		 * @return	Liefert im Erfolgsfall <code>true</code>
+		 */
 		public boolean writeToDataOutputStream(final DataOutputStream data) {
 			if (imageObjectCache.size()<=MAX_THREADS) imageObjectCache.add(image);
 			image=null;

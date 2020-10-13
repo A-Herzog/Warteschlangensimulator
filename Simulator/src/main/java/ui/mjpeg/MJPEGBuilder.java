@@ -31,15 +31,23 @@ import org.apache.commons.math3.util.FastMath;
  * @author Alexander Herzog
  */
 public class MJPEGBuilder {
+	/** Breite der Bilder */
 	private int width;
+	/** Höhe der Bilder */
 	private int height;
+	/** Temporäre Pufferdatei */
 	private final File tempBuffer;
+	/** Finale Ausgabedatei */
 	private final File outputFile;
 
+	/** Bilder/Sekunde */
 	private static final double FRAME_RATE=30.0;
+	/** Wiederholung aller Bilder? */
 	private static final int FRAME_MULTIPLY=1;
 
+	/** Anzahl an zu speichernden Bildern */
 	private int writerCount;
+	/** Anzahl an geschriebenen Bildern */
 	private int writerPosition;
 
 	/**
@@ -54,6 +62,12 @@ public class MJPEGBuilder {
 		writerPosition=0;
 	}
 
+	/**
+	 * Ließt eine Bilddatei aus dem temporären Puffer
+	 * @param size	Größe der Bilddatei in Bytes
+	 * @param dataInput	Temporärer Puffer
+	 * @return	Geladenes Bild
+	 */
 	private BufferedImage readImage(final int size, final DataInputStream dataInput) {
 		try {
 			final byte[] buf=new byte[size];
@@ -66,6 +80,12 @@ public class MJPEGBuilder {
 		}
 	}
 
+	/**
+	 * Ließt die Bytes eines Bildes aus dem temporären Puffer
+	 * @param size	Größe der Bilddatei in Bytes
+	 * @param dataInput	Temporärer Puffer
+	 * @return	Geladenes Bild als Bytes
+	 */
 	private byte[] readImageBytes(final int size, final DataInputStream dataInput) {
 		try {
 			final byte[] buf=new byte[size];
@@ -77,6 +97,12 @@ public class MJPEGBuilder {
 		}
 	}
 
+	/**
+	 * Zählt wie viele Frames sich im Puffer befinden
+	 * @param tempSize	Größe der Pufferdatei
+	 * @param useAdditionalFrames	Gibt an, ob einzelne Frames wiederholt werden sollen, um längere Zeitdauern zwischen Änderungen am System im Video abzubilden
+	 * @return	Anzahl an Frames sich im Puffer
+	 */
 	private int countFrames(final long tempSize, final boolean useAdditionalFrames) {
 		int frameCount=0;
 		long bytesRead=0;
@@ -116,10 +142,23 @@ public class MJPEGBuilder {
 		return frameCount;
 	}
 
+	/**
+	 * Berechnet die Anzahl an zusätzlichen Bildern um längere zeitliche Lücken zu überbrücken
+	 * @param simTimeDelta	Zeitspanne
+	 * @return	Anzahl an zusätzlichen Bildern
+	 */
 	private int additionaFrameNumber(final long simTimeDelta) {
 		return (int)FastMath.round(Math.log10(simTimeDelta))*3;
 	}
 
+	/**
+	 * Verarbeitet die Daten<br>
+	 * Bei Erfolg wird die Pufferdatei am Ende gelöscht
+	 * @param tempSize	Größe der Pufferdatei
+	 * @param generator	Ausgabesystem zur finalen Datei
+	 * @param useAdditionalFrames	Gibt an, ob einzelne Frames wiederholt werden sollen, um längere Zeitdauern zwischen Änderungen am System im Video abzubilden
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich verarbeitet werden konnten
+	 */
 	private boolean processImages(final long tempSize, final MJPEGGenerator generator, final boolean useAdditionalFrames) {
 		long bytesRead=0;
 		BufferedImage lastImage=null;
@@ -155,6 +194,14 @@ public class MJPEGBuilder {
 		return true;
 	}
 
+	/**
+	 * Verarbeitet die Daten<br>
+	 * Bei Erfolg wird die Pufferdatei am Ende gelöscht
+	 * @param tempSize	Größe der Pufferdatei
+	 * @param generator	Ausgabesystem zur finalen Datei
+	 * @param useAdditionalFrames	Gibt an, ob einzelne Frames wiederholt werden sollen, um längere Zeitdauern zwischen Änderungen am System im Video abzubilden
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich verarbeitet werden konnten
+	 */
 	private boolean processImagesDirect(final long tempSize, final MJPEGGenerator generator, final boolean useAdditionalFrames) {
 		long bytesRead=0;
 		byte[] lastImage=null;

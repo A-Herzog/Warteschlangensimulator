@@ -27,15 +27,28 @@ import simulator.runmodel.SimulationData;
  * @see ExpressionCalc
  */
 public class ExpressionEval {
+	/** Ausdruck, der in dieses Auswerteobjekt geladen werden soll */
 	private String condition;
-	private final ExpressionCalc calcLeft;
-	private final ExpressionCalc calcRight;
-	private boolean calcLeftIsConst;
-	private boolean calcRightIsConst;
-	private double calcLeftConst;
-	private double calcRightConst;
-	private boolean okWhenLess, okWhenEqual, okWhenMore;
 
+	/** Linker Teilausdruck */
+	private final ExpressionCalc calcLeft;
+	/** Rechter Teilausdruck */
+	private final ExpressionCalc calcRight;
+	/** Besitzt der linke Teilausdruck einen konstanten Wert? */
+	private boolean calcLeftIsConst;
+	/** Besitzt der rechte Teilausdruck einen konstanten Wert? */
+	private boolean calcRightIsConst;
+	/** Konstanter Wert des linken Teilausdrucks (sofern er einen konstanten Wert besitzt, siehe {@link #calcLeftIsConst}) */
+	private double calcLeftConst;
+	/** Konstanter Wert des rechten Teilausdrucks (sofern er einen konstanten Wert besitzt, siehe {@link #calcRightIsConst}) */
+	private double calcRightConst;
+
+	/** Ist der Vergleich als erfüllt anzusehen, wenn der linke Teilausdruck kleiner als der rechte ist? */
+	private boolean okWhenLess;
+	/** Ist der Vergleich als erfüllt anzusehen, wenn der linke und der rechte Teilausdruck gleich groß sind? */
+	private boolean okWhenEqual;
+	/** Ist der Vergleich als erfüllt anzusehen, wenn der linke Teilausdruck größer als der rechte ist? */
+	private boolean okWhenMore;
 	/**
 	 * Konstruktor der Klasse <code>ExpressionEval</code>
 	 * @param variables	Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein)
@@ -46,6 +59,12 @@ public class ExpressionEval {
 		calcRight=new ExpressionCalc(variables);
 	}
 
+	/**
+	 * Teilt einen Ausdruck in linke Seite, Vergleichsoperator, rechte Seite auf
+	 * @param condition	Aufzuteilender Ausdruck
+	 * @param compareOperator	Vergleichsoperator
+	 * @return	3-elementiges Array: linke Seite, Vergleichsoperator, rechte Seite
+	 */
 	private String[] split(final String condition, final String compareOperator) {
 		int i=condition.indexOf(compareOperator);
 		if (i==-1) return null;
@@ -54,10 +73,31 @@ public class ExpressionEval {
 		return new String[]{left,compareOperator,right};
 	}
 
-	private static final String[] compareOperators=new String[]{"<=","=<","=>",">=","!=","<>","==","<",">"};
-	private static final boolean[] compareLess=new boolean[]{true,true,false,false,true,true,false,true,false};
-	private static final boolean[] compareEqual=new boolean[]{true,true,true,true,false,false,true,false,false};
-	private static final boolean[] compareMore=new boolean[]{false,false,true,true,true,true,false,false,true};
+	/**
+	 * Mögliche Vergleichsoperatoren
+	 */
+	private final static String[] compareOperators=new String[]{"<=","=<","=>",">=","!=","<>","==","<",">"};
+
+	/**
+	 * Ist der Vergleich für einen bestimmten Operator aus {@link #compareOperators} erfüllt,
+	 * wenn der linke Teilausdruck kleiner als der rechte ist?
+	 * @see #compareOperators
+	 */
+	private final static boolean[] compareLess=new boolean[]{true,true,false,false,true,true,false,true,false};
+
+	/**
+	 * Ist der Vergleich für einen bestimmten Operator aus {@link #compareOperators} erfüllt,
+	 * wenn der linke und der rechte Teilausdruck gleich groß sind?
+	 * @see #compareOperators
+	 */
+	private final static boolean[] compareEqual=new boolean[]{true,true,true,true,false,false,true,false,false};
+
+	/**
+	 * Ist der Vergleich für einen bestimmten Operator aus {@link #compareOperators} erfüllt,
+	 * wenn der linke Teilausdruck größer als der rechte ist?
+	 * @see #compareOperators
+	 */
+	private final static boolean[] compareMore=new boolean[]{false,false,true,true,true,true,false,false,true};
 
 	/**
 	 * Lädt einen Ausdruck und prüft ihn

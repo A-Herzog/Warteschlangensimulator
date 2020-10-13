@@ -42,11 +42,17 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @see SimulationData
  */
 public class ExpressionCalc extends CalcSystem {
+	/** Liste der Laufzeit-Element Datenobjekte */
 	private RunElementData[] runElementData;
+	/** Liste der Laufzeit-Element Objekte */
 	private RunElement[] runElements;
+	/** Erfassung der Ressourcen Nutzung */
 	private StatisticsTimePerformanceIndicator[] resourceUsage;
+	/** Erfassung der Transporter Nutzung */
 	private StatisticsTimePerformanceIndicator[] transporterUsage;
+	/** Aktuelles Simulationsdatenobjekt */
 	private SimulationData simData;
+	/** Aktuelles Kundenobjekt */
 	private RunDataClient currentClient;
 
 	/**
@@ -113,6 +119,15 @@ public class ExpressionCalc extends CalcSystem {
 		return currentClient;
 	}
 
+	/**
+	 * Erstellt auf Basis des Simulationsdatenobjektes {@link #simData}
+	 * die weiteren Listen mit Simulations-Objekten.
+	 * @see #simData
+	 * @see #runElementData
+	 * @see #runElements
+	 * @see #resourceUsage
+	 * @see #transporterUsage
+	 */
 	private void prepareRunElementData() {
 		/* Daten zu den Elementen */
 		runElements=Arrays.copyOf(simData.runModel.elementsFast,simData.runModel.elementsFast.length);
@@ -126,6 +141,9 @@ public class ExpressionCalc extends CalcSystem {
 		if (transporterUsage==null) transporterUsage=new StatisticsTimePerformanceIndicator[0];
 	}
 
+	/**
+	 * Statische Liste der Simulator-Funktionen
+	 */
 	private static List<CalcSymbolPreOperator> functions;
 
 	static {
@@ -373,9 +391,25 @@ public class ExpressionCalc extends CalcSystem {
 		return true;
 	}
 
+	/**
+	 * Übersetzungsindex von Stationsnamen zur internen Nummerierung.
+	 * @see #parse(String)
+	 * @see #getStationIDFromTranslationIndex(int)
+	 */
 	private List<String> stationTranslation;
+
+	/**
+	 * Cache zur Übersetzung von Stations-Übersetzungs-Indices
+	 * zu Stations-IDs.
+	 *  @see #getStationIDFromTranslationIndex(int)
+	 */
 	private int[] stationTranslationCache;
 
+	/**
+	 * Speichert das {@link StringBuilder}-Objekt für eine spätere
+	 * Verwendung zwischen.
+	 * @see #parse(String)
+	 */
 	private StringBuilder parseStringBuilder;
 
 	@Override
@@ -455,6 +489,11 @@ public class ExpressionCalc extends CalcSystem {
 		return super.parse(sb.toString());
 	}
 
+	/**
+	 * Liefert basierend auf dem Namen einer Station die zugehörige ID
+	 * @param name	Name der Station
+	 * @return	Zugehörige ID oder -1, wenn keine Station mit dem angegebenen Namen existiert
+	 */
 	private int getStationIDFromName(final String name) {
 		Integer I=simData.runModel.namesToIDs.get(name);
 		if (I==null) return -1;
@@ -462,7 +501,7 @@ public class ExpressionCalc extends CalcSystem {
 	}
 
 	/**
-	 * Beim Parsen werden Zeichenketten aus der Zeichenkette entfern und in eine
+	 * Beim Parsen werden Zeichenketten aus der Zeichenkette entfernt und in eine
 	 * Übersetzungstabelle eingetragen. In der Parse-Zeichenkette werden dann die
 	 * Index-Werte eingetragen.
 	 * @param index	Index, der zu einer Stations-ID aufgelöst werden soll

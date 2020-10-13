@@ -446,6 +446,10 @@ public class MainPanel extends MainPanelBase {
 				final KeyStroke stroke=KeyStroke.getKeyStroke("ESCAPE");
 				inputMap.put(stroke,"ESCAPE");
 				welcomePanel.getActionMap().put("ESCAPE",new AbstractAction() {
+					/**
+					 * Serialisierungs-ID der Klasse
+					 * @see Serializable
+					 */
 					private static final long serialVersionUID = -8920150696914227106L;
 					@Override public void actionPerformed(ActionEvent e) {setCurrentPanel(editorPanel);}
 				});
@@ -1445,6 +1449,13 @@ public class MainPanel extends MainPanelBase {
 		return true;
 	}
 
+	/**
+	 * Versucht das Modell oder Statistikdaten aus base64 encodierten Daten zu laden
+	 * @param file	Datei der die Daten entstammen
+	 * @param base64data	base64 codierte Daten
+	 * @return	Liefert <code>true</code>, wenn der Ladevorgang erfolgreich war
+	 * @see #tryLoadHTML(File)
+	 */
 	private boolean processBase64ModelData(final File file, final String base64data) {
 		try {
 			final ByteArrayInputStream in=new ByteArrayInputStream(Base64.getDecoder().decode(base64data));
@@ -1452,6 +1463,11 @@ public class MainPanel extends MainPanelBase {
 		} catch (IllegalArgumentException e) {return false;}
 	}
 
+	/**
+	 * Versucht das Modell oder Statistikdaten aus HTML-Daten zu laden
+	 * @param file	Zu ladende Datei
+	 * @return	Liefert <code>true</code>, wenn der Ladevorgang erfolgreich war
+	 */
 	private boolean tryLoadHTML(final File file) {
 		boolean firstLine=true;
 		boolean modelDataFollow=false;
@@ -1476,6 +1492,16 @@ public class MainPanel extends MainPanelBase {
 		return false;
 	}
 
+	/**
+	 * Reagiert darauf, wenn eine Tabelle per Drag&amp;drop auf dem Programmfenster abgelegt wurde
+	 * und versucht daraus eine Tabellenquelle zu generieren.
+	 * @param file	Abgelegte Datei
+	 * @param dropComponent	Komponente auf der die Tabelle abgelegt wurde
+	 * @param dropPosition	Position innerhalb der Komponente auf der die Tabelle abgelegt wurde
+	 * @return	Wurde das Ereignis verarbeitet?
+	 * @see #loadAnyFile(File, Component, Point, boolean)
+	 * @see ModelSurfacePanel#addTableFileBasedElement(File, Point)
+	 */
 	private boolean tryLoadTable(final File file, final Component dropComponent, final Point dropPosition) {
 		boolean ok=false;
 		for (SaveMode mode: Table.SaveMode.values()) if (mode.loadable && mode.fileNameMatch(file.toString())) {ok=true; break;}
@@ -1703,6 +1729,13 @@ public class MainPanel extends MainPanelBase {
 		return error==null;
 	}
 
+	/**
+	 * Versucht das Modell oder Statistikdaten aus einem Stream zu laden
+	 * @param file	Datei der die Daten entstammen
+	 * @param stream	Input-Stream aus dem die Daten geladen werden sollen
+	 * @return	Liefert <code>true</code>, wenn der Ladevorgang erfolgreich war
+	 * @see #processBase64ModelData(File, String)
+	 */
 	private boolean commandFileModelLoadFromStream(final File file, final InputStream stream) {
 		if (!isDiscardModelOk()) return true;
 
@@ -2221,6 +2254,9 @@ public class MainPanel extends MainPanelBase {
 		return commandSimulationAnimation(null,true,null,null,Simulator.logTypeFull);
 	}
 
+	/**
+	 * Führt, wenn entsprechend konfiguriert, eine automatische Speicherung des Modells durch.
+	 */
 	private void checkAutoSave() {
 		if(setup.autoSaveMode==SetupData.AutoSaveMode.AUTOSAVE_OFF) return;
 
@@ -2228,6 +2264,14 @@ public class MainPanel extends MainPanelBase {
 		commandFileModelSave(false);
 	}
 
+	/**
+	 * Versucht ein {@link StartAnySimulator}-Objekt basierend auf einem Editor-Modell zu erstellen.
+	 * @param editModel	Ausgangs-Editor-Modell
+	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
+	 * @return	Liefert im Erfolgsfall den noch nicht gestarteten Simulator, sonst <code>null</code>
+	 */
 	private StartAnySimulator getSimulator(EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		final File folder=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParentFile();
 		final EditModel changedEditModel=editModel.modelLoadData.changeModel(editModel,folder);
@@ -2249,6 +2293,15 @@ public class MainPanel extends MainPanelBase {
 		return starter;
 	}
 
+	/**
+	 * Befehl: Simulation - Animation starten
+	 * @param recordFile	Datei für Videoaufzeichnung (kann <code>null</code> sein)
+	 * @param externalConnect Wird die Animation im Pausemodus gestartet, so wird direkt der erste Schritt ausgeführt. Über diese Funktion kann angegeben werden, dass dieser Schritt im vollständigen Erfassungsmodus durchgeführt werden soll.
+	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
 	private String commandSimulationAnimation(final File recordFile, final boolean externalConnect, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		EditorPanelRepair.autoFix(editorPanel);
 
@@ -2429,6 +2482,14 @@ public class MainPanel extends MainPanelBase {
 		reloadSetup();
 	}
 
+	/**
+	 * Befehl: Simulation - Simulation starten
+	 * @param simModel	Ausgangs-Editor-Modell
+	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
+	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
+	 * @param whenDone	Callback, das nach Abschluss der Simulation aufgerufen wird
+	 */
 	private void commandSimulationSimulation(final EditModel simModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType, final Runnable whenDone) {
 		if (simModel==null) EditorPanelRepair.autoFix(editorPanel);
 
@@ -2651,6 +2712,15 @@ public class MainPanel extends MainPanelBase {
 		setCurrentPanel(waitPanel);
 	}
 
+	/**
+	 * Erstellt für die verschiedenen möglichen Fälle ein Parameterreihen-Panel
+	 * @param editModel	Ausgangs-Editor-Modell
+	 * @param miniStatistics	Vorab-berechnete Mini-Statisitik (kann <code>null</code> sein)
+	 * @param template	Parameterreihen-Vorlage	(kann <code>null</code> sein)
+	 * @return	Neues Parameterreihen-Panel
+	 * @see #commandSimulationParameterSeriesNew(ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord)
+	 * @see #commandSimulationParameterSeriesLoad(File)
+	 */
 	private ParameterComparePanel getParameterComparePanel(final EditModel editModel, final Statistics miniStatistics, final ParameterCompareTemplatesDialog.TemplateRecord template) {
 		return new ParameterComparePanel(getOwnerWindow(),editModel,miniStatistics,()->{
 			if (currentPanel instanceof ParameterComparePanel) {
@@ -2678,6 +2748,14 @@ public class MainPanel extends MainPanelBase {
 		},template);
 	}
 
+	/**
+	 * Erstellt ein Parameterreihen-Panel für die Varianzanalyse
+	 * @param editModel	Ausgangs-Editor-Modell
+	 * @param miniStatistics	Vorab-berechnete Mini-Statisitik (kann <code>null</code> sein)
+	 * @param repeatCount	Anzahl an Wiederholungen
+	 * @return	Neues Parameterreihen-Panel für die Varianzanalyse
+	 * @see #commandSimulationParameterSeriesVariance()
+	 */
 	private ParameterComparePanel getParameterComparePanelVariance(final EditModel editModel, final Statistics miniStatistics, final int repeatCount) {
 		final ParameterComparePanel panel=new ParameterComparePanel(getOwnerWindow(),editModel,miniStatistics,()->{
 			if (currentPanel instanceof ParameterComparePanel) {
@@ -2870,6 +2948,11 @@ public class MainPanel extends MainPanelBase {
 		commandExtrasCompare(statistics);
 	}
 
+	/**
+	 * Befehl: Extras - Simulationergebnisse verschiedener Modelle vergleichen
+	 * @param statistics	Zu vergleichende Statistikdateien
+	 * @see #commandExtrasCompare()
+	 */
 	private void commandExtrasCompare(final Statistics[] statistics) {
 		final String[] title=new String[statistics.length];
 		for (int i=0;i<statistics.length;i++) title[i]=statistics[i].editModel.name;
@@ -3050,7 +3133,7 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
-	 * Befehl: Hilfe - Empfohlende Literatur
+	 * Befehl: Hilfe - Empfohlene Literatur
 	 * @param index	Nummer des Buches zu dem die Homepage aufgerufen werden soll
 	 */
 	private void commandHelpLiterature(final int index) {
@@ -3160,6 +3243,10 @@ public class MainPanel extends MainPanelBase {
 		if (dialog.showLicenses) commandHelpLicenseInfo();
 	}
 
+	/**
+	 * Befehl: (Toolbar) - Schnellkorrektur
+	 * @param button	Schaltfläche an der das Popupmenü mit den Korrekturvorschlägen angezeigt werden soll
+	 */
 	private void commandHelpFix(final JButton button) {
 		final ModelElement element=editorPanel.getSelectedElementDirectOrArea();
 		if (element instanceof ModelElementBox) {
@@ -3225,6 +3312,11 @@ public class MainPanel extends MainPanelBase {
 		return true;
 	}
 
+	/**
+	 * Wird aufgerufen, wenn ein anderen Element im Editor selektriert wird.
+	 * Erlaubt so, jeweils passende Schnellkorektur-Vorschläge anzuzeigen.
+	 * @see EditorPanel#addSelectionListener(java.awt.event.ActionListener)
+	 */
 	private void selectionChanged() {
 		if (currentPanel!=editorPanel) {
 			fixButton.setVisible(false);

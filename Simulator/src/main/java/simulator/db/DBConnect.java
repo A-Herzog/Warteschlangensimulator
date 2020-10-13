@@ -247,10 +247,15 @@ public class DBConnect implements Closeable {
 	 */
 	public final String config;
 
+	/** Datenbankverbindungselement */
 	private final Connection connection;
+	/** Statemenet-Element innerhalb des Verbindungselement über das konkrete Anfragen ausgeführt werden können */
 	private final Statement statement;
+	/** Bereits bei der Abarbeitung des Konstruktors aufgetretener Fehler. */
 	private String initError;
+	/** Liste der Tabellen in der Datenbank */
 	private List<String> tableNames;
+	/** Listen der Spaltennamen pro Tabelle */
 	private Map<String,List<String>> columnNames;
 
 	/**
@@ -304,9 +309,14 @@ public class DBConnect implements Closeable {
 		this((settings==null)?null:settings.getType(),(settings==null)?null:settings.getProcessedConfig(),(settings==null || settings.getUser().trim().isEmpty())?null:settings.getUser(),(settings==null || settings.getPassword().trim().isEmpty())?null:settings.getPassword(),allowCreateLocalFile);
 	}
 
+	/**
+	 * Prüft, ob die lokale Engine nicht extra für diesen Test eine Datei oder ein Verzeichnis anlegt.
+	 * @param type	Datenbanktyp (siehe {@link DBConnect.DBType})
+	 * @param config	Datenbank-Zugriffs-Konfiguration (Serveradresse, Dateiname usw.)
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #initConnection(String, String, String, boolean)
+	 */
 	private boolean localDataTest(final DBType type, final String config) {
-		/* Prüft, ob die lokale Engine nicht extra für diesen Test eine Datei oder ein Verzeichnis anlegt. */
-
 		if (type==DBType.SQLITE_FILE) {
 			if (config==null || config.trim().isEmpty()) return false;
 			final File file=new File(config);
@@ -331,6 +341,15 @@ public class DBConnect implements Closeable {
 		return true;
 	}
 
+	/**
+	 * Versucht eine Verbindung zu der Datenbank herzustellen
+	 * @param user	Optional notwendiger Nutzername für den Zugriff auf die Datenbank
+	 * @param password	Optional notwendiges Passwort für den Zugriff auf die Datenbank
+	 * @param settings	Optionale weitere Einstellungen für dne Zugriff auf die Datenbank
+	 * @param allowCreateLocalFile	Soll im Bedarfsfall eine lokale Datenbankdatei / ein lokales Datenbanverzeichnis angelegt werden dürfen
+	 * @return	Liefert im Erfolgsfall ein Verbindungs-Objekt, sonst <code>null</code>
+	 * @see #initError
+	 */
 	private Connection initConnection(String user, String password, String settings, final boolean allowCreateLocalFile) {
 		if (initError!=null) return null;
 		if (type==null || config==null || config.isEmpty()) {
@@ -366,6 +385,11 @@ public class DBConnect implements Closeable {
 		}
 	}
 
+	/**
+	 * Erstellt basierend auf {@link #connection} ein {@link Statement}-Objekt,
+	 * um Datenbank-Anfragen ausführen zu können.
+	 * @return	Liefert im Erfolgsfall ein Statement-Objekt, sonst <code>null</code>
+	 */
 	private Statement initStatement() {
 		if (connection==null) return null;
 		try {

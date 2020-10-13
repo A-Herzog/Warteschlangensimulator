@@ -114,6 +114,10 @@ public class SequencesEditPanel extends JPanel {
 		buttonMoveDown=addButton(toolBar,Language.tr("Editor.Dialog.Sequences.MoveDown"),Language.tr("Editor.Dialog.Sequences.MoveDown.Hint"),Images.ARROW_DOWN.getIcon(),e->commandMoveDown());
 
 		list.setCellRenderer(new DefaultListCellRenderer() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = 555672352480312004L;
 			@Override
 			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

@@ -58,16 +58,25 @@ public class XLSXLogger implements SimLogging {
 	private final boolean formatedTime;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Zeitpunkt des letzten Ereignisses (zur Gruppierung von Ereignissen) */
 	private long lastEventTime=-1;
 
+	/** Ausgabe-Dokument */
 	private final Workbook workbook;
+	/** Tabellenblatt innerhalb des Ausgabe-Dokuments */
 	private final Sheet sheet;
+	/** Nächste Ausgabezeile (0-basierend) */
 	private int rowCount=0;
+	/** Zellenstil für normale Zelle */
 	private CellStyle defaultStyle;
+	/** Zellenstil für fett darzustellende Zelle */
 	private CellStyle defaultStyleBold;
+	/** Zellenstile für verschiedene Farben (und normale Schriftdicke) */
 	private Map<Color,CellStyle> style;
+	/** Zellenstile für verschiedene Farben (und fette Schrift) */
 	private Map<Color,CellStyle> styleBold;
 
+	/** Nachgeschalteter zweiter Logger, an den alle Logging-Daten ebenfalls übergeben werden. */
 	private SimLogging nextLogger;
 
 	/**
@@ -142,6 +151,12 @@ public class XLSXLogger implements SimLogging {
 		return true;
 	}
 
+	/**
+	 * Erstellt ein Zellenstil-Objekt basierend auf Schriftfarbe und -dicke
+	 * @param color	Schriftfarbe
+	 * @param bold	Fette Schrift?
+	 * @return	Zellenstil-Objekt
+	 */
 	private CellStyle getCellStyle(Color color, final boolean bold) {
 		if (!useColors) return bold?defaultStyleBold:defaultStyle;
 

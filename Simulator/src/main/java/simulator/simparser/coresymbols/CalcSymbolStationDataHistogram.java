@@ -117,9 +117,45 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 		return getDistributionSum(data);
 	}
 
+	/**
+	 * Summe über die Werte beim letzten Aufruf von {@link #calc(double[])} oder
+	 * {@link #calcOrDefault(double[], double)}.<br>
+	 * Bestimmt, ob {@link #lastResult} wieder verwendet werden kann oder ob der Wert
+	 * neu berechnet werden muss.
+	 * @see #calc(double[])
+	 * @see #calcOrDefault(double[], double)
+	 * @see #lastResult
+	 */
 	private double lastSum;
+
+	/**
+	 * Startindex beim letzten Aufruf von {@link #calc(double[])} oder
+	 * {@link #calcOrDefault(double[], double)}.<br>
+	 * Bestimmt, ob {@link #lastResult} wieder verwendet werden kann oder ob der Wert
+	 * neu berechnet werden muss.
+	 * @see #calc(double[])
+	 * @see #calcOrDefault(double[], double)
+	 * @see #lastResult
+	 */
 	private long lastParam1;
+
+	/**
+	 * Endindex beim letzten Aufruf von {@link #calc(double[])} oder
+	 * {@link #calcOrDefault(double[], double)}.<br>
+	 * Bestimmt, ob {@link #lastResult} wieder verwendet werden kann oder ob der Wert
+	 * neu berechnet werden muss.
+	 * @see #calc(double[])
+	 * @see #calcOrDefault(double[], double)
+	 * @see #lastResult
+	 */
 	private long lastParam2;
+
+	/**
+	 * Ergebniswert beim letzten Aufruf von {@link #calc(double[])} oder
+	 * {@link #calcOrDefault(double[], double)}.<br>
+	 * @see #calc(double[])
+	 * @see #calcOrDefault(double[], double)
+	 */
 	private double lastResult;
 
 	@Override

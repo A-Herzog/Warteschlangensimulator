@@ -266,6 +266,10 @@ public class OptimizerPanel extends SpecialPanel {
 		/* F1-Hotkey */
 		getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F1"),"actionHelp");
 		getActionMap().put("actionHelp",new AbstractAction("actionHelp") {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = 1738622101739292954L;
 			@Override public void actionPerformed(ActionEvent event) {Help.topicModal(OptimizerPanel.this,"Optimizer");}
 		});
@@ -1218,6 +1222,10 @@ public class OptimizerPanel extends SpecialPanel {
 	}
 
 	private class ControlListCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -784953418136588536L;
 
 		@Override

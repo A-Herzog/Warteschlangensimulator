@@ -64,6 +64,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	private final Statistics statistics;
 	/** Gibt an, welche Daten genau ausgegeben werden sollen */
 	private final Mode mode;
+	/** Callback, das aufgerufen wird, wenn ein "Details"-Link angeklickt wurde */
 	private final Consumer<Mode> modeClick;
 	private final FastAccessSelectorBuilder fastAccessBuilder;
 

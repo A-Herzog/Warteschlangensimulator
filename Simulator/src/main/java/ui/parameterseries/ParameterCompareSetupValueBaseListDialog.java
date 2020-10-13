@@ -114,6 +114,10 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		toolbar.add(buttonMoveDown=getButton(Images.ARROW_DOWN.getIcon(),()->commandMoveDown()));
 
 		list.setCellRenderer(new DefaultListCellRenderer() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -7787863612588403516L;
 			@Override
 			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

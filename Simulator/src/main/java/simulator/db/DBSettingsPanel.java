@@ -204,6 +204,11 @@ public class DBSettingsPanel extends JPanel {
 		fireChangedNotify();
 	}
 
+	/**
+	 * Reagiert auf einen Klick auf die Schaltfläche zur
+	 * Konfiguration der Datenbankeinstellungen.
+	 * @see #buttonConfig
+	 */
 	private void configButtonClick() {
 		final DBConnect.DBType currentType=DBConnect.DBType.values()[comboType.getSelectedIndex()];
 
@@ -314,6 +319,11 @@ public class DBSettingsPanel extends JPanel {
 		return changeListeners.remove(listener);
 	}
 
+	/**
+	 * Benachrichtigt die {@link #changeListeners}, dass es Änderungen an den
+	 * Einstellungen in der GUI gab.
+	 * @see #changeListeners
+	 */
 	private synchronized void fireChangedNotify() {
 		final DBSettings newSettings=storeToCopy();
 		if (lastSettings!=null && lastSettings.equalsDBSettings(newSettings)) return;

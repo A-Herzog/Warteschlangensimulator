@@ -462,6 +462,10 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	}
 
 	private class LastRowPanel extends JPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -4461230060003315302L;
 
 		public final ParameterCompareSetupModel panelModel;

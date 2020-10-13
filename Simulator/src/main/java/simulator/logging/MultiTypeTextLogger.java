@@ -20,9 +20,9 @@ import java.io.File;
 
 import simcore.logging.HTMLLogger;
 import simcore.logging.PlainTextLogger;
+import simcore.logging.PlainTextLoggerTimeMode;
 import simcore.logging.RTFLogger;
 import simcore.logging.SimLogging;
-import simcore.logging.PlainTextLoggerTimeMode;
 
 /**
  * Der Multi-Type-Logger kann Logdaten in verschiedenen Formaten abhängig vom Dateinamen speichern.
@@ -30,8 +30,10 @@ import simcore.logging.PlainTextLoggerTimeMode;
  * @author Alexander Herzog
  */
 public class MultiTypeTextLogger implements SimLogging {
+	/** Konkret zu verwendendes Logging-Backend */
 	private SimLogging logger;
 
+	/** Nachgeschalteter zweiter Logger, an den alle Logging-Daten ebenfalls übergeben werden. */
 	private SimLogging nextLogger;
 
 	/**

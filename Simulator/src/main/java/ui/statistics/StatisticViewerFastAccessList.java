@@ -402,6 +402,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 	}
 
 	private static class FilterListRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -1704779702001655809L;
 
 		@Override

@@ -86,30 +86,50 @@ public class ModelElementSubEditDialog extends BaseDialog {
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK),"zoomOut");
 		am.put("zoomOut",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -8149785411312199622L;
 			@Override public void actionPerformed(ActionEvent e) {editorPanel.zoomOut();}
 		});
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK),"zoomIn");
 		am.put("zoomIn",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -4571322864625867012L;
 			@Override public void actionPerformed(ActionEvent e) {editorPanel.zoomIn();}
 		});
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK),"zoomDefault");
 		am.put("zoomDefault",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -8292205126167185688L;
 			@Override public void actionPerformed(ActionEvent e) {editorPanel.zoomDefault();}
 		});
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK),"center");
 		am.put("center",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = -6623607719135188208L;
 			@Override public void actionPerformed(ActionEvent e) {editorPanel.centerModel();}
 		});
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME,InputEvent.CTRL_DOWN_MASK),"scrollTop");
 		am.put("scrollTop",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
 			private static final long serialVersionUID = 1935060801261351379L;
 			@Override public void actionPerformed(ActionEvent e) {editorPanel.scrollToTop();}
 		});
