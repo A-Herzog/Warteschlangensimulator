@@ -189,6 +189,10 @@ public final class SimThread extends Thread {
 		} catch (Exception e) {
 			simData.catchException(e.getMessage()+traceInfo(e.getStackTrace()));
 		} catch (OutOfMemoryError e) {
+			/* Platz schaffen, um überhaupt wieder handlungsfähig zu sein */
+			simData.eventCache.clear();
+			eventManager.deleteAllEvents();
+			/* Fehler erfassen */
 			simData.catchOutOfMemory(traceInfo(e.getStackTrace()));
 		}
 
