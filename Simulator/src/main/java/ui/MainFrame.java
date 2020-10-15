@@ -91,6 +91,12 @@ public class MainFrame extends MainFrameBase {
 	 */
 	private static Dimension minMainWindowSize=new Dimension(1024,768);
 
+	/**
+	 * Berechnet die minimale Fenstergröße bezogen auf die aktuelle Skalierung.
+	 * @param scale	Skalierungsfaktor (1=100%)
+	 * @return	Minimale Fenstergröße
+	 * @see #minMainWindowSize
+	 */
 	private Dimension getScaledDefaultSize(double scale) {
 		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
 		return new Dimension(Math.min(screenSize.width-50,(int)Math.round(minMainWindowSize.width*scale)),Math.min(screenSize.height-50,(int)Math.round(minMainWindowSize.height*scale)));
@@ -168,6 +174,11 @@ public class MainFrame extends MainFrameBase {
 		}
 	}
 
+	/**
+	 * Speichert die aktuellen Einstellungen des Hauptfensters,
+	 * baut das Hauptfenster ab, erzeugt es neu und lädt die
+	 * Einstellungen wieder in das Fenster.
+	 */
 	private void processReload() {
 		if (!(getMainPanel() instanceof MainPanel)) return;
 

@@ -9404,6 +9404,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24353] = "The entered expression<br><b>%s</b><br> is invalid at character %d.";
     t[24364] = "Simulation.Log.ArriveStation";
     t[24365] = "Arrival at station";
+    t[24368] = "ParameterCompare.XML.Outputs.Data.Mode";
+    t[24369] = "Mode";
     t[24374] = "Surface.BarrierPull.Dialog.ControlledElement";
     t[24375] = "Controlled station";
     t[24384] = "Schedule.SettingsDialog.30Minutes";
@@ -10010,10 +10012,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25989] = "Inverse gaussian distribution";
     t[26002] = "Editor.DialogBase.OpenModelResources.Info";
     t[26003] = "Do you want to close this dialog by \"Ok\" and\nopen the model-wide resources list?";
-    t[26008] = "Color.FFEBCD";
-    t[26009] = "Blanched almond";
   }
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26008] = "Color.FFEBCD";
+    t[26009] = "Blanched almond";
     t[26014] = "Window.Layers.Rename.ErrorInfo";
     t[26015] = "The specified new name for the layer is already in use by another layer.";
     t[26016] = "Dialog.Overwrite.Yes.Info";
@@ -10752,14 +10754,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27947] = "Help";
     t[27952] = "Surface.Decide.ByClientType";
     t[27953] = "Client type";
-    t[27954] = "Simulation.Log.MatchWaitingForward";
-    t[27955] = "Matching - common forwarding";
+    t[27954] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation0";
+    t[27955] = "Export table as displayed";
     t[27956] = "Examples.Transport";
     t[27957] = "Transport of components between multiple factories";
-    t[27958] = "Schedule.SettingsDialog.MaximumValuePerInterval.Error.Title";
-    t[27959] = "Invalid maximum value";
-    t[27960] = "ParameterCompare.XML.Outputs.Data.Mode";
-    t[27961] = "Mode";
+    t[27958] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation2";
+    t[27959] = "Insert many interpolation values on export";
+    t[27960] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation3";
+    t[27961] = "Insert very many interpolation values on export";
     t[27966] = "Surface.Delay.XML.Type";
     t[27967] = "Type";
     t[27970] = "ParameterCompare.Toolbar.SetupInput.Hint";
@@ -12012,10 +12014,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31267] = "Section to be left";
     t[31270] = "FileType.LaTeX";
     t[31271] = "LaTeX files";
-    t[31280] = "ExpressionBuilder.Rounding.ceil.Info";
-    t[31281] = "<p>Rounds the value passed as parameter to the next integer (in upper direction).</p><p>Example: <tt>ceil(1.1)</tt> returns 2.</p>";
   }
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31280] = "ExpressionBuilder.Rounding.ceil.Info";
+    t[31281] = "<p>Rounds the value passed as parameter to the next integer (in upper direction).</p><p>Example: <tt>ceil(1.1)</tt> returns 2.</p>";
     t[31290] = "Statistics.Filter.ScriptInitError";
     t[31291] = "The script could not be prepared for execution.";
     t[31292] = "ScriptPopup.Simulation";
@@ -14014,10 +14016,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36479] = "Script viewer";
     t[36480] = "Simulation.Element.TransportTransporterSource.Name";
     t[36481] = "Transporter start";
-    t[36488] = "ParameterCompare.Settings.Output.List.Delete.Confirm.YesInfo";
-    t[36489] = "Remove the selected output value from list.";
   }
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36488] = "ParameterCompare.Settings.Output.List.Delete.Confirm.YesInfo";
+    t[36489] = "Remove the selected output value from list.";
     t[36490] = "SimulationServer.Toolbar.WebStart";
     t[36491] = "Start remote control server";
     t[36492] = "Statistics.FailureTime.CV.Transporters";
@@ -14210,6 +14212,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37015] = "Show interactive tutorial";
     t[37016] = "Surface.XML.RootName.AdditionalStatistics.StepWide";
     t[37017] = "StepWide";
+    t[37020] = "Simulation.Log.MatchWaitingForward";
+    t[37021] = "Matching - common forwarding";
     t[37022] = "Surface.AnimationImage.Dialog.Tab.Border";
     t[37023] = "Border";
     t[37024] = "Surface.Source.Dialog.Threshold.ThresholdValue";
@@ -14368,6 +14372,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37461] = "Icon";
     t[37464] = "Compare.ReplaceKeptModel.NoInfo";
     t[37465] = "The already kept model with stay kept. Nothing will be changed.";
+    t[37474] = "Schedule.SettingsDialog.MaximumValuePerInterval.Error.Title";
+    t[37475] = "Invalid maximum value";
     t[37490] = "Color.FFFACD";
     t[37491] = "Lemon Chiffon";
     t[37498] = "Surface.TankValveSetup.Table.Delete.ConfirmNoInfo";
@@ -15348,6 +15354,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40113] = "Load";
     t[40120] = "Simulation.Element.Conveyor.Name";
     t[40121] = "Conveyor";
+    t[40124] = "ParameterCompare.Table.IntermediateValue";
+    t[40125] = "Intermediate value";
     t[40126] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isClientInStatistics";
     t[40127] = "Client in statistics";
     t[40132] = "Statistic.FastAccess.Template.SaveStatisticsNext.Tooltip";
@@ -16010,6 +16018,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41837] = "Minimum residence time";
     t[41840] = "Optimizer.Tab.Optimization.Step.Result.Unzoom.Hint";
     t[41841] = "Sets the zoom factor so that the entire chart is visible.";
+  }
+  static void clinit_part_8 (java.lang.String[] t) {
     t[41846] = "Surface.PopupMenu.ParameterCompare.ChangeBatchSize.Short";
     t[41847] = "Batch size";
     t[41848] = "ParameterCompare.Toolbar.ProcessResults.ClearStatistics";
@@ -16018,8 +16028,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41853] = "Model editor";
     t[41862] = "Surface.Source.Dialog.ClientsPerArrival";
     t[41863] = "Number of clients per arrival event";
-  }
-  static void clinit_part_8 (java.lang.String[] t) {
     t[41864] = "Animation.SkipWarmUp";
     t[41865] = "In the model a warm-up phase is defined and at the same time<br>there are element to visualizate statistic data during the animation.<br>The visualization elements will, independend of the selected expression, may not display any data until the warm-up phase (%s client arrivals) will be completed.<br>Do you want to disable the warm-up phase temporary for this animation?";
     t[41866] = "SettingsDialog.Tabs.Statistics";
@@ -16246,6 +16254,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42449] = "Symbol - female";
     t[42452] = "Surface.Database.Config.InfoPostgreSQL";
     t[42453] = "Configuration: Format //host/database";
+    t[42458] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation1";
+    t[42459] = "Insert some interpolation values on export";
     t[42466] = "Editor.Dialog.Tab.Simulation.RecordIncompleteClients";
     t[42467] = "Record clients in statistic that have not left the system at simulation end";
     t[42472] = "Main.Menu.StartSimulation.Mnemonic";

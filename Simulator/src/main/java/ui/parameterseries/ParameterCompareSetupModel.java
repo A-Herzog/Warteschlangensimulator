@@ -47,6 +47,7 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 	private final Map<String,Double> input;
 	/** Ausgabegrößen mit ihren Zahlenwertbelegungen */
 	private final Map<String,Double> output;
+	/** In-Arbeit-Status des Modells (-1 für "nicht in Arbeit, sonst Prozentwert) */
 	private int inProcess; /* wird nicht gespeichert */
 	/** Statistik-Ergebnisse für dieses Modell */
 	private Document statisticsDocument;

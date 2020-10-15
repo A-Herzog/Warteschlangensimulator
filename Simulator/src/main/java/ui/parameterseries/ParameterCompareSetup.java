@@ -19,6 +19,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
+import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -227,6 +229,112 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 	 * @return	Alle Tabellendaten
 	 */
 	public Table getTableData(final boolean addInfoRows, final boolean forceTimeAsNumber) {
+		return getTableData(addInfoRows,forceTimeAsNumber,0);
+	}
+
+	/**
+	 * Trägt die Daten aus {@link #getModels()} in eine Tabelle ein
+	 * @param table	Ergebnistabelle in die die Daten eingetragen werden sollen
+	 * @param forceTimeAsNumber	Erzwingt, wenn <code>true</code>, die Ausgabe auch von Spalten, die explizit Zeitangaben enthalten, als Zahlenwerte
+	 * @param upscaler	Sollen die Daten hochskaliert werden? Werte größer als 0 geben die Anzahl an jeweils einzufügenden Zwischenwerten an.
+	 */
+	private void processTableData(final Table table, final boolean forceTimeAsNumber, int upscaler) {
+		upscaler=Math.max(0,Math.min(4,upscaler));
+
+		final List<List<String>> dataRows=new ArrayList<>();
+		final List<List<Double>> rawValues=new ArrayList<>();
+
+		for (ParameterCompareSetupModel model: getModels()) {
+			final List<String> dataRow=new ArrayList<>();
+			final List<Double> raw=new ArrayList<>();
+
+			/* Modellname */
+			dataRow.add(model.getName());
+
+			/* Eingabeparameter */
+			for (ParameterCompareSetupValueInput input: this.input) {
+				final Double D=model.getInput().get(input.getName());
+				if (D==null) dataRow.add("-"); else dataRow.add(NumberTools.formatNumberMax(D));
+				raw.add(D);
+				if (D==null) upscaler=0;
+			}
+
+			/* Ausgabeparameter */
+			for (ParameterCompareSetupValueOutput output: this.output) {
+				final Double D=model.getOutput().get(output.getName());
+
+				if (D==null) {
+					dataRow.add("-");
+				} else {
+					double d=D.doubleValue();
+					if (output.getIsTime() && !forceTimeAsNumber) {
+						dataRow.add(TimeTools.formatExactTime(d));
+					} else {
+						dataRow.add(NumberTools.formatNumberMax(d));
+					}
+				}
+				raw.add(D);
+				if (D==null) upscaler=0;
+			}
+
+			/* Zeile speichern */
+			dataRows.add(dataRow);
+			rawValues.add(raw);
+		}
+
+		/* Splinefunktionen erstellen */
+		PolynomialSplineFunction[] spline=null;
+		if (rawValues.size()>0 && upscaler>0) {
+			final int rows=rawValues.size();
+			final int cols=rawValues.get(0).size();
+
+			final double[][] y=new double[cols][];
+			for (int i=0;i<cols;i++) y[i]=new double[rows];
+			final double[] x=new double[rows];
+			for (int i=0;i<rows;i++) x[i]=i;
+
+			for (int i=0;i<rows;i++) {
+				final List<Double> raw=rawValues.get(i);
+				for (int j=0;j<cols;j++) y[j][i]=raw.get(j);
+			}
+
+			final SplineInterpolator interpolator=new SplineInterpolator();
+			spline=new PolynomialSplineFunction[cols];
+			for (int i=0;i<cols;i++) spline[i]=interpolator.interpolate(x,y[i]);
+		}
+
+		/* Tabelle erstellen */
+		for (int i=0;i<dataRows.size();i++) {
+			table.addLine(dataRows.get(i));
+			if (spline!=null && i<dataRows.size()-1) {
+				final int inParamCount=input.size();
+				for (int nr=1;nr<=upscaler;nr++) {
+					final double fraction=(nr)/(upscaler+1.0);
+					final List<String> scaleRow=new ArrayList<>();
+					scaleRow.add(Language.tr("ParameterCompare.Table.IntermediateValue"));
+					for (int j=0;j<spline.length;j++) {
+						final double d=spline[j].value(i+fraction);
+						final int outParam=j-inParamCount;
+						if (outParam>=0 && output.get(outParam).getIsTime()) {
+							scaleRow.add(TimeTools.formatExactTime(d));
+						} else {
+							scaleRow.add(NumberTools.formatNumberMax(d));
+						}
+					}
+					table.addLine(scaleRow);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Liefert alle Tabellendaten als {@link Table}-Objekt
+	 * @param addInfoRows	Fügt zusätzliche Zeilen mit Minimum/Mittelwert/Maximum an
+	 * @param forceTimeAsNumber	Erzwingt, wenn <code>true</code>, die Ausgabe auch von Spalten, die explizit Zeitangaben enthalten, als Zahlenwerte
+	 * @param upscaler	Sollen die Daten hochskaliert werden? Werte größer als 0 geben die Anzahl an jeweils einzufügenden Zwischenwerten an.
+	 * @return	Alle Tabellendaten
+	 */
+	public Table getTableData(final boolean addInfoRows, final boolean forceTimeAsNumber, final int upscaler) {
 		final Table table=new Table();
 
 		/* Überschriften ausgeben */
@@ -245,48 +353,37 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 
 		/* Daten ausgeben */
 
-		double[] minValues=new double[output.size()];
-		double[] maxValues=new double[output.size()];
-		int[] countValues=new int[output.size()];
-		double[] sumValues=new double[output.size()];
-		double[] sum2Values=new double[output.size()];
+		processTableData(table,forceTimeAsNumber,upscaler);
 
-		for (ParameterCompareSetupModel model: getModels()) {
-			final List<String> row=new ArrayList<>();
-			row.add(model.getName());
-			for (ParameterCompareSetupValueInput input: this.input) {
-				final Double D=model.getInput().get(input.getName());
-				if (D==null) row.add("-"); else row.add(NumberTools.formatNumberMax(D));
-			}
-			int nr=0;
-			for (ParameterCompareSetupValueOutput output: this.output) {
-				final Double D=model.getOutput().get(output.getName());
+		/* Zusätzliche Kenngrößen */
 
-				if (D==null) {
-					row.add("-");
-				} else {
+		if (addInfoRows)  {
+
+			/* Daten zusammenstellen */
+
+			final double[] minValues=new double[output.size()];
+			final double[] maxValues=new double[output.size()];
+			final int[] countValues=new int[output.size()];
+			final double[] sumValues=new double[output.size()];
+			final double[] sum2Values=new double[output.size()];
+
+			for (ParameterCompareSetupModel model: getModels()) {
+				int nr=0;
+				for (ParameterCompareSetupValueOutput output: this.output) {
+					final Double D=model.getOutput().get(output.getName());
+					if (D==null) continue;
 					double d=D.doubleValue();
-					if (output.getIsTime() && !forceTimeAsNumber) {
-						row.add(TimeTools.formatExactTime(d));
-					} else {
-						row.add(NumberTools.formatNumberMax(d));
-					}
-
 					if (countValues[nr]==0 || minValues[nr]>d) minValues[nr]=d;
 					if (countValues[nr]==0 || maxValues[nr]<d) maxValues[nr]=d;
 					countValues[nr]++;
 					sumValues[nr]+=d;
 					sum2Values[nr]+=d*d;
+					nr++;
 				}
-				nr++;
 			}
 
-			table.addLine(row);
-		}
+			/* Kenngrößen zu den Daten ausgeben */
 
-		/* Kenngrößen zu den Daten ausgeben */
-
-		if (addInfoRows)  {
 			boolean hasInfoData=false;
 			for (int count: countValues) if (count>0) {hasInfoData=true; break;}
 			if (hasInfoData) {

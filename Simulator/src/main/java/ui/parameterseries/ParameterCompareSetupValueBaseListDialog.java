@@ -74,11 +74,17 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 	 */
 	protected final JToolBar toolbar;
 
+	/** Schaltfläche "Hinzufügen" */
 	private final JButton buttonAdd;
+	/** Schaltfläche "Bearbeiten" */
 	private final JButton buttonEdit;
+	/** Schaltfläche "Löschen" */
 	private final JButton buttonDelete;
+	/** Schaltfläche "Nach oben verschieben" */
 	private final JButton buttonMoveUp;
+	/** Schaltfläche "Nach unten verschieben" */
 	private final JButton buttonMoveDown;
+	/** Listendarstellung der Einträge */
 	private final JList<JLabel> list;
 
 	/**
@@ -201,6 +207,12 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		setVisible(true);
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche
+	 * @param icon	Icon der Schaltfläche
+	 * @param command	Auszuführender Befehl, wenn die Schaltfläche angeklickt wird
+	 * @return	Neue Schaltfläche
+	 */
 	private JButton getButton(final Icon icon, final Runnable command) {
 		final JButton button=new JButton("");
 		button.addActionListener(e->command.run());
@@ -208,6 +220,10 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		return button;
 	}
 
+	/**
+	 * Aktualisiert die Darstellung der aktiven und deaktivieren
+	 * Schaltflächen, wenn ein Eintrag in der Liste gewählt wurde.
+	 */
 	private void updateToolbar() {
 		buttonEdit.setEnabled(list.getSelectedIndex()>=0);
 		buttonDelete.setEnabled(list.getSelectedIndex()>=0);
@@ -265,6 +281,11 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		addAddButton(popupMenu,Language.tr("ParameterCompare.Settings.List.AddByXML"),Language.tr("ParameterCompare.Settings.List.AddByXML.Hint"),Images.PARAMETERSERIES_SELECT_XML.getIcon(),0);
 	}
 
+	/**
+	 * Zeigt ein Popupmenü, das beim Anklicken der Hinzufügen-Schaltfläche
+	 * aktiviert wird, an.
+	 * @see #buttonAdd
+	 */
 	private void commandAddPopup() {
 		final JPopupMenu popupMenu=new JPopupMenu();
 
@@ -309,6 +330,9 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 	 */
 	protected abstract void commandSwap(final int index1, final int index2);
 
+	/**
+	 * Befehl: Listeneintrag nach oben verschieben
+	 */
 	private void commandMoveUp() {
 		final int index=list.getSelectedIndex();
 		if (index<1) return;
@@ -316,6 +340,9 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		updateList(-1);
 	}
 
+	/**
+	 * Befehl: Listeneintrag nach unten verschieben
+	 */
 	private void commandMoveDown() {
 		final int index=list.getSelectedIndex();
 		if (index<0 || index>=list.getModel().getSize()-1) return;

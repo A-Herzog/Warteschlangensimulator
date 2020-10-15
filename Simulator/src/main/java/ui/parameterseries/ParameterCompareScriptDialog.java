@@ -52,7 +52,14 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 9064720881495989992L;
 
+	/**
+	 * Skript-Editor-Panel
+	 */
 	private final ScriptPanel scriptPanel;
+
+	/**
+	 * Liste der Parameterreihen-Modell-Datei (von den Modellen, für die auch Statistikdaten vorliegen)
+	 */
 	private final ParameterCompareSetupModel[] models;
 
 	/**

@@ -120,6 +120,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		MODE_BATCH_SIZE
 	}
 
+	/** Vorlagentyp */
 	private final ParameterCompareTemplatesDialog.TemplateMode mode;
 	private final ParameterCompareSetupValueInput inputRecord;
 	private final EditModel model;

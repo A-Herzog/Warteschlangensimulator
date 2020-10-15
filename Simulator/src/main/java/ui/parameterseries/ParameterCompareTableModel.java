@@ -64,6 +64,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = -2832353596146116451L;
 
+	/** Anzahl an Nachkommastellen (mögliche Werte sind 1, 3 und 9 für Maximalanzahl) */
 	private int digits;
 	/** Zugehörige Tabelle */
 	private final JTableExt table;

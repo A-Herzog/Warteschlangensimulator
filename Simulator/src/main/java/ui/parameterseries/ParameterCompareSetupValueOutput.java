@@ -43,8 +43,19 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 		MODE_COMMAND
 	}
 
+	/**
+	 * Modus der Ausgabegröße
+	 */
 	private OutputMode mode;
+
+	/**
+	 * XML-Namen für den Ergebniswert
+	 */
 	private String tag;
+
+	/**
+	 * Ist der Ergebniswert eine Zeitangabe?
+	 */
 	private boolean isTime;
 
 	/**

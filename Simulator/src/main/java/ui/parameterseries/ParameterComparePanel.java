@@ -112,20 +112,33 @@ public class ParameterComparePanel extends SpecialPanel {
 
 	/** Übergeordnetes Fenster */
 	private final Window owner;
+	/** Schaltfläche "Neu" */
 	private final JButton newSetupButton;
+	/** Schaltfläche "Laden" */
 	private final JButton loadSetupButton;
+	/** Schaltfläche "Speichern" */
 	private final JButton saveSetupButton;
+	/** Schaltfläche "Vorlage" */
 	private final JButton templatesButton;
+	/** Schaltfläche "Basismodell" */
 	private final JButton showBaseModel;
+	/** Schaltfläche "Eingabeparameter" */
 	private final JButton setupInput;
+	/** Schaltfläche "Ausgabeparameter" */
 	private final JButton setupOutput;
-	private final JButton processResults;
+	/** Schaltfläche "Simulation starten" */
 	private final JButton startButton;
+	/** Schaltfläche "Ergebnisse verarbeiten" */
+	private final JButton processResults;
+	/** Schaltfläche "Hilfe" */
 	private final JButton helpButton;
 
+	/** Modelle Tabelle */
 	private final ParameterCompareTable table;
+	/** Ausgabe für Statusmeldungen */
 	private final JTextArea logOutput;
 
+	/** Verarbeitung der Parameterreihe */
 	private ParameterCompareRunner runner;
 	private EditModel loadModelIntoEditor=null;
 	private Statistics loadStatisticsIntoEditor=null;
@@ -229,6 +242,10 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Lädt die Daten aus einem Parameterreihen-Setup in die grafische Oberfläche
+	 * @param setup	Zu ladendes Parameterreihen-Setup
+	 */
 	private void loadSetupToGUI(final ParameterCompareSetup setup) {
 		this.setup.transferFrom(setup);
 		prepareSetup();
@@ -236,6 +253,9 @@ public class ParameterComparePanel extends SpecialPanel {
 		table.updateTable();
 	}
 
+	/**
+	 * Befehl: Eingabeparameter bearbeiten
+	 */
 	private void commandSetupInput() {
 		final ParameterCompareSetupValueInputListDialog dialog=new ParameterCompareSetupValueInputListDialog(this,setup.getEditModel(),setup.getInput(),()->commandHelp());
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
@@ -317,6 +337,9 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: Ausgabeparameter bearbeiten
+	 */
 	private void commandSetupOutput() {
 		final List<ParameterCompareSetupValueOutput> oldOutput=new ArrayList<>();
 		for (ParameterCompareSetupValueOutput output: setup.getOutput()) oldOutput.add(output.clone());
@@ -333,6 +356,9 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: Simulation starten
+	 */
 	private void commandStart() {
 		if (runner!=null) {
 			runner.cancel();
@@ -390,10 +416,16 @@ public class ParameterComparePanel extends SpecialPanel {
 		if (!run) runner=null;
 	}
 
+	/**
+	 * Befehl: Hilfe
+	 */
 	private void commandHelp() {
 		Help.topicModal(ParameterComparePanel.this,"ParameterSeries");
 	}
 
+	/**
+	 * Befehl: (Popup) Alle Ergebnisse löschen
+	 */
 	private void commandPopupClearStatistics() {
 		boolean hasResults=false;
 		for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) {hasResults=true; break;}
@@ -417,6 +449,9 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: (Popup) Statistikdaten in Dateien speichern
+	 */
 	private void commandPopupSaveStatistics() {
 		final ParameterCompareStatisticSelectDialog dialog=new ParameterCompareStatisticSelectDialog(this,setup,()->commandHelp(),ParameterCompareStatisticSelectDialog.Mode.MODE_STORE);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
@@ -434,6 +469,9 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: (Popup) Ergebnisse vergleichen
+	 */
 	private void commandPopupCompareStatistics() {
 		final ParameterCompareStatisticSelectDialog dialog=new ParameterCompareStatisticSelectDialog(this,setup,()->commandHelp(),ParameterCompareStatisticSelectDialog.Mode.MODE_COMPARE);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
@@ -444,12 +482,18 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: (Popup) Skript auf alle Ergebnisse anwenden
+	 */
 	private void commandPopupRunScript() {
 		new ParameterCompareScriptDialog(this,setup,()->commandHelp());
 	}
 
+	/**
+	 * Befehl: (Popup) Tabelle kopieren
+	 */
 	private void commandPopupTableCopy() {
-		final Table table=setup.getTableData(true,false);
+		final Table table=setup.getTableData(true,false,SetupData.getSetup().parameterSeriesUpscale);
 		final String text=table.toString();
 
 		final StringSelection stringSelection=new StringSelection(text);
@@ -457,8 +501,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		clipboard.setContents(stringSelection,null);
 	}
 
+	/**
+	 * Befehl: (Popup) Tabelle speichern
+	 */
 	private void commandPopupTableSave() {
-		final Table table=setup.getTableData(true,false);
+		final Table table=setup.getTableData(true,false,SetupData.getSetup().parameterSeriesUpscale);
 		final File file=Table.showSaveDialog(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save"),null);
 		if (file==null) return;
 
@@ -471,8 +518,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: (Popup) Tabelle in Excel öffnen
+	 */
 	private void commandPopupTableExcel() {
-		final Table table=setup.getTableData(true,false);
+		final Table table=setup.getTableData(true,false,SetupData.getSetup().parameterSeriesUpscale);
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".xlsx");
 			if (table.save(file)) {
@@ -484,8 +534,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: (Popup) Tabelle in OpenOffice/LibreOffice öffnen
+	 */
 	private void commandPopupTableODS() {
-		final Table table=setup.getTableData(true,false);
+		final Table table=setup.getTableData(true,false,SetupData.getSetup().parameterSeriesUpscale);
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".ods");
 			if (table.save(file)) {
@@ -497,6 +550,13 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Speichert die Diagramme eingebettet in ein Tabellendokument
+	 * @param table	Tabelle mit den Daten
+	 * @param file	Ausgabedatei für die Arbeitsmappe
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #commandPopupChartsSave()
+	 */
 	private boolean buildCharts(final Table table, final File file) {
 		final int rowCount=setup.getModels().size();
 		final int inputCount=setup.getInput().size();
@@ -537,8 +597,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		return true;
 	}
 
+	/**
+	 * Befehl: (Popup) Diagramme speichern
+	 */
 	private void commandPopupChartsSave() {
-		final Table table=setup.getTableData(true,true);
+		final Table table=setup.getTableData(true,true,SetupData.getSetup().parameterSeriesUpscale);
 		final File file=Table.showSaveDialogXLSXonly(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save"),null);
 		if (file==null) return;
 
@@ -579,6 +642,13 @@ public class ParameterComparePanel extends SpecialPanel {
 		table.updateTable();
 	}
 
+	/**
+	 * Fügt einen Menüpunkt zu einem (Popup-)Menü hinzu
+	 * @param menu	Übergeordnetes Menü
+	 * @param title	Name des neuen Menüpunktes
+	 * @param icon	Optionales Icon für den Menüpunkt (kann <code>null</code> sein)
+	 * @param listener	Optionaler Listener, der auf Klicks auf den neuen Menüpunkt reagiert (kann <code>null</code> sein)
+	 */
 	private void addMenuItem(final MenuElement menu, final String title, final Icon icon, final ActionListener listener) {
 		final JMenuItem item=new JMenuItem(title);
 		if (icon!=null) item.setIcon(icon);
@@ -588,10 +658,14 @@ public class ParameterComparePanel extends SpecialPanel {
 		if (menu instanceof JMenu) ((JMenu)menu).add(item);
 	}
 
+	/**
+	 * Befehl: Ergebnisse verarbeiten
+	 */
 	private void commandProcessResults() {
 		final JPopupMenu menu=new JPopupMenu();
 		JMenu sub;
 		JRadioButtonMenuItem radioItem;
+		ButtonGroup buttonGroup;
 
 		boolean hasResults=false;
 		for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) {hasResults=true; break;}
@@ -605,7 +679,7 @@ public class ParameterComparePanel extends SpecialPanel {
 
 		menu.add(sub=new JMenu(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup")));
 		sub.setIcon(Images.GENERAL_SETUP.getIcon());
-		final ButtonGroup buttonGroup=new ButtonGroup();
+		buttonGroup=new ButtonGroup();
 		final int digits=SetupData.getSetup().parameterSeriesTableDigits;
 		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Digit1"),digits==1));
 		radioItem.addActionListener(e->setupTableDigits(1));
@@ -615,6 +689,21 @@ public class ParameterComparePanel extends SpecialPanel {
 		buttonGroup.add(radioItem);
 		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitFull"),digits!=1 && digits!=3));
 		radioItem.addActionListener(e->setupTableDigits(9));
+		buttonGroup.add(radioItem);
+		sub.addSeparator();
+		buttonGroup=new ButtonGroup();
+		final int interpolation=SetupData.getSetup().parameterSeriesUpscale;
+		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation0"),interpolation<1 || interpolation>3));
+		radioItem.addActionListener(e->setupInterpolation(0));
+		buttonGroup.add(radioItem);
+		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation1"),interpolation==1));
+		radioItem.addActionListener(e->setupInterpolation(1));
+		buttonGroup.add(radioItem);
+		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation2"),interpolation==2));
+		radioItem.addActionListener(e->setupInterpolation(2));
+		buttonGroup.add(radioItem);
+		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation3"),interpolation==3));
+		radioItem.addActionListener(e->setupInterpolation(3));
 		buttonGroup.add(radioItem);
 
 		addMenuItem(menu,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Copy"),Images.EDIT_COPY.getIcon(),e->commandPopupTableCopy());
@@ -638,11 +727,25 @@ public class ParameterComparePanel extends SpecialPanel {
 		menu.show(processResults,0,processResults.getHeight());
 	}
 
+	/**
+	 * Stellt ein, wie viele Nachkommastellen in der Tabelle anzeigt werden sollen
+	 * @param digits	Anzahl an anzuzeigenden Nachkommastellen
+	 */
 	private void setupTableDigits(final int digits) {
 		final SetupData setup=SetupData.getSetup();
 		setup.parameterSeriesTableDigits=digits;
 		setup.saveSetup();
 		table.setDisplayDigits(digits);
+	}
+
+	/**
+	 * Stellt ein, ob und wenn ja wie stark eine Interpolation der Ergebniswerte beim Exportieren erfolgen soll
+	 * @param interpolation	Stärke der Interpolation (0..3)
+	 */
+	private void setupInterpolation(final int interpolation) {
+		final SetupData setup=SetupData.getSetup();
+		setup.parameterSeriesUpscale=Math.max(0,Math.min(3,interpolation));
+		setup.saveSetup();
 	}
 
 	private Map<String,double[]> buildChartData() {
@@ -667,10 +770,19 @@ public class ParameterComparePanel extends SpecialPanel {
 		return results;
 	}
 
+	/**
+	 * Befehl: (Popup) Diagramm anzeigen
+	 * @param index	0-basierter Index des Ausgabeparameters für den ein Diagramm angezeigt werden soll
+	 */
 	private void commandShowResultsChart(final int index) {
 		commandShowResultsChart(setup.getOutput().get(index));
 	}
 
+	/**
+	 * Befehl: (Popup) Diagramm anzeigen - zu einem bestimmten Ausgabeparameter
+	 * @param output	Ausgabeparameter für den ein Diagramm angezeigt werden soll
+	 * @see #commandShowResultsChart(int)
+	 */
 	private void commandShowResultsChart(final ParameterCompareSetupValueOutput output) {
 		final int index=setup.getOutput().indexOf(output);
 		final List<String> col=setup.getTableData(false,false).transpose(true).getLine(1+setup.getInput().size()+index);
@@ -690,6 +802,10 @@ public class ParameterComparePanel extends SpecialPanel {
 		return loadSetup(owner,file,true);
 	}
 
+	/**
+	 * Prüft, ob die aktuellen Daten verworfen werden dürfen.
+	 * @return	Liefert <code>true</code>, wenn die Parameterreihen-Daten verworfen werden dürfen
+	 */
 	private boolean allowDispose() {
 		if (setupOriginal.equalsParameterCompareSetup(setup)) return true;
 		switch (MsgBox.confirmSave(this,Language.tr("ParameterCompare.Settings.Discard.Title"),Language.tr("ParameterCompare.Settings.Discard"))) {
@@ -736,12 +852,21 @@ public class ParameterComparePanel extends SpecialPanel {
 		return true;
 	}
 
+	/**
+	 * Befehl: Parameterreigen-Setup laden
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean loadSetup() {
 		final File file=XMLTools.showLoadDialog(getParent(),Language.tr("ParameterCompare.Settings.Load"));
 		if (file==null) return false;
 		return loadSetup(this,file,true);
 	}
 
+	/**
+	 * Befehl: Parameterreigen-Setup speichern
+	 * @param setup	Zu speichernde Einstellungen
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean saveSetup(final ParameterCompareSetup setup) {
 		final File file=XMLTools.showSaveDialog(getParent(),Language.tr("ParameterCompare.Settings.Save"),SetupData.getSetup().defaultSaveFormatParameterSeries);
 		if (file==null) return false;
@@ -802,6 +927,10 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Liefert das übergeordnete Fenster zurück (z.B. für die Anzeige von Dialogen von Bedeutung)
+	 * @return	Übergeordnetes Fenster des Panels
+	 */
 	private Window getOwnerWindow() {
 		Container c=getParent();
 		while (c!=null) {
@@ -887,6 +1016,13 @@ public class ParameterComparePanel extends SpecialPanel {
 		return compareModels;
 	}
 
+	/**
+	 * Versucht eine Minimalstatistik auf Basis eines Modells zu erstellen
+	 * @param owner	Übergeordnetes Element (zur Ausrichtung des Wartedialogs)
+	 * @param editModel	Editormodell zu dem Minimalstatistik erstellt werden soll
+	 * @param alreadyAvailableStatistics	Schon verfügbare Statistik (kann <code>null</code> sein). Passt diese zu dem Modell, so wird sie direkt zurückgeliefert.
+	 * @return	Minimalstatistik für das Modell oder ein String mit einer Fehlermeldung, wenn diese nicht berechnet werden konnte
+	 */
 	private static Object generateMiniStatisticsIntern(final Component owner, final EditModel editModel, final Statistics alreadyAvailableStatistics) {
 		final OptimizerPanelPrepareDialog dialog=new OptimizerPanelPrepareDialog(owner,editModel,alreadyAvailableStatistics,OptimizerPanelPrepareDialog.Mode.MODE_PARAMETER_COMPARE);
 		final Statistics miniStatistics=dialog.getMiniStatistics();

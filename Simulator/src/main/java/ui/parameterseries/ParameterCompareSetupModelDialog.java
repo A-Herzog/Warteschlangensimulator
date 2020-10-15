@@ -50,7 +50,10 @@ public class ParameterCompareSetupModelDialog extends BaseDialog {
 	/** Modell innerhalb der Parameter-Vergleichs-Funktion, das bearbeitet werden soll */
 	private final ParameterCompareSetupModel model;
 
+	/** Name des Modells */
 	private final JTextField nameEdit;
+
+	/** Werte für die Eingabeparameter */
 	private final ParameterCompareSetupModelTableModel tableModel;
 
 	/**

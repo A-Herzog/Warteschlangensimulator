@@ -752,6 +752,11 @@ public class SetupData extends SetupBase {
 	public int parameterSeriesTableDigits;
 
 	/**
+	 * Sollen die Parameterreihendaten hochskaliert werden?
+	 */
+	public int parameterSeriesUpscale;
+
+	/**
 	 * Ausgewählte Datenquellen für den Schnellzugriff
 	 */
 	public String quickAccessFilter;
@@ -952,6 +957,7 @@ public class SetupData extends SetupBase {
 		useBackupFiles=false;
 		defaultUserName=System.getProperty("user.name");
 		parameterSeriesTableDigits=1;
+		parameterSeriesUpscale=0;
 		quickAccessFilter="";
 		openWord=true;
 		openODT=false;
@@ -1600,6 +1606,14 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("parameterseriesupscale")) {
+				final Long L=NumberTools.getNotNegativeLong(e.getTextContent());
+				if (L!=null) {
+					parameterSeriesUpscale=Math.min(3,L.intValue());
+				}
+				continue;
+			}
+
 			if (name.equals("quickaccessfilter")) {
 				quickAccessFilter=e.getTextContent();
 				continue;
@@ -2101,6 +2115,11 @@ public class SetupData extends SetupBase {
 		if (parameterSeriesTableDigits!=1) {
 			root.appendChild(node=doc.createElement("ParameterSeriesTableDigits"));
 			node.setTextContent(""+parameterSeriesTableDigits);
+		}
+
+		if (parameterSeriesUpscale>0) {
+			root.appendChild(node=doc.createElement("ParameterSeriesUpscale"));
+			node.setTextContent(""+parameterSeriesUpscale);
 		}
 
 		if (quickAccessFilter!=null && !quickAccessFilter.isEmpty() && quickAccessFilter.contains("-")) {

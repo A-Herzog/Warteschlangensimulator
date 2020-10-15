@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 18:21+0200\n"
+"POT-Creation-Date: 2020-10-15 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10469,6 +10469,9 @@ msgstr "Minimum"
 msgid "ParameterCompare.Table.Info.StdDev"
 msgstr "Standard deviation"
 
+msgid "ParameterCompare.Table.IntermediateValue"
+msgstr "Intermediate value"
+
 msgid "ParameterCompare.Table.MoveModelDown.Hint"
 msgstr "Move model down in list"
 
@@ -10648,6 +10651,18 @@ msgstr "Three decimal digits"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitFull"
 msgstr "Maximum number of decimal digits"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation0"
+msgstr "Export table as displayed"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation1"
+msgstr "Insert some interpolation values on export"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation2"
+msgstr "Insert many interpolation values on export"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation3"
+msgstr "Insert very many interpolation values on export"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.RunScript"
 msgstr "Apply script to all results"

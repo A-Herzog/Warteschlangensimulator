@@ -46,13 +46,20 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 	private final JTableExt table;
 	/** Parameter-Vergleichs-Einstellungen */
 	private final ParameterCompareSetup setup;
+	/** Ausgangs-Editor-Modell */
 	private final EditModel model;
+	/** Verfügbare Eingabeparameter */
 	private final List<ParameterCompareSetupValueInput> input;
 
+	/** Eingabeparameter aktiv ? */
 	private final JCheckBox[] active;
+	/** Minimalwert für Eingabeparameter */
 	private final double[] valueMin;
+	/** Maximalwert für Eingabeparameter */
 	private final double[] valueMax;
+	/** Schrittweite für Eingabeparameter */
 	private final double[] valueStep;
+	/** Muss der Eingabeparameter eine Ganzzahl sein? */
 	private final JCheckBox[] integers;
 
 	/**
@@ -89,6 +96,11 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		}
 	}
 
+	/**
+	 * Ermittelt Vorschlagswerte für Minimum, Maximum und Schrittweite für den Iterationsbereich über einen Eingangsparameter
+	 * @param record	Eingangsparameter für den die Vorschlagswerte ermittelt werden sollen
+	 * @return	Array mit Vorschlagswerten für Minimum, Maximum und Schrittweite
+	 */
 	private double[] getRange(final ParameterCompareSetupValueInput record) {
 		double min=1;
 		double max=10;

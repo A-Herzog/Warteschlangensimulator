@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 18:21+0200\n"
+"POT-Creation-Date: 2020-10-15 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10464,6 +10464,9 @@ msgstr "Minimum"
 msgid "ParameterCompare.Table.Info.StdDev"
 msgstr "Standardabweichung"
 
+msgid "ParameterCompare.Table.IntermediateValue"
+msgstr "Zwischenwert"
+
 msgid "ParameterCompare.Table.MoveModelDown.Hint"
 msgstr "Modell in der Liste nach unten verschieben"
 
@@ -10644,6 +10647,18 @@ msgstr "Drei Nachkommastellen"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitFull"
 msgstr "Maximalzahl an Nachkommastellen"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation0"
+msgstr "Tabelle exportieren wie angezeigt"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation1"
+msgstr "Beim Exportieren einige Zwischenwerte per Interpolation hinzufügen"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation2"
+msgstr "Beim Exportieren viele Zwischenwerte per Interpolation hinzufügen"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation3"
+msgstr "Beim Exportieren sher viele Zwischenwerte per Interpolation hinzufügen"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.RunScript"
 msgstr "Skript auf alle Ergebnisse anwenden"

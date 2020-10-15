@@ -44,9 +44,12 @@ public class ParameterCompareSortDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 6037938544402526106L;
 
+	/** Parameter-Vergleichs-Einstellungen */
 	private final ParameterCompareSetup setup;
 
 	private final List<JRadioButton> radioButtons;
+
+	/** Sortierung aufsteigend? */
 	private final JCheckBox sortAscending;
 
 	/**

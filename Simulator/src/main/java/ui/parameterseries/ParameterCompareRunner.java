@@ -38,9 +38,30 @@ public class ParameterCompareRunner {
 	/** Wird aufgerufen, wenn Logging-Daten ausgegeben werden sollen */
 	private final Consumer<String> logOutput;
 
+	/**
+	 * Anzahl an parallelen Parameterreihen-Simulationen<br>
+	 * (Ist 1, wenn die Simulationen selbst parallelisiert werden können)
+	 * @see #getThreadCount(EditModel)
+	 */
 	private int parallelRuns;
+
+	/**
+	 * Runner für die einzelnen Parameterreihen-Einträgen<br>
+	 * (Für jedes Parameterreihen-Modell ein Eintrag, also durchaus mehr als {@link #parallelRuns}.)
+	 */
 	private ParameterCompareRunnerModel[] modelRunner;
+
+	/**
+	 * Wurde die Simulation abgebrochen?
+	 * @see #cancelAll()
+	 */
 	private boolean canceled;
+
+	/**
+	 * Thread der die eigentlichen Parameterreihen-Simulationen anstößt.
+	 * @see #start()
+	 * @see #runParameterSeries()
+	 */
 	private Thread runner;
 
 	/**
@@ -56,6 +77,12 @@ public class ParameterCompareRunner {
 		canceled=false;
 	}
 
+	/**
+	 * Bestimmt wie viele Parameterreihen-Modelle parallel simuliert werden sollen.<br>
+	 * (Ist 1, wenn die Simulationen selbst parallelisiert werden können.)
+	 * @param model	Ausgangs-Editor-Modell (um prüfen zu können, ob dieses bereits parallel simuliert werden kann)
+	 * @return	Anzahl an parallelen Parameterreihen-Simulationen
+	 */
 	private int getThreadCount(final EditModel model) {
 		if (model.getSingleCoreReason().size()==0) return 1; /* Modell als solches kann bereits parallel simuliert werden */
 		if (model.repeatCount>1) return 1; /* Modell als solches kann bereits parallel simuliert werden */
@@ -71,10 +98,20 @@ public class ParameterCompareRunner {
 		return threadCount;
 	}
 
+	/**
+	 * Gibt eine Ausgabe über {@link #logOutput} aus.
+	 * @param text	Auszugebende Meldung
+	 */
 	private synchronized void logOutput(final String text) {
 		if (logOutput!=null) logOutput.accept(text);
 	}
 
+	/**
+	 * Wird von {@link #runParameterSeries()} aufgerufen, wenn die
+	 * Parameterreihen-Simulation beendet wurde.
+	 * @param runComplete	Wurde die Parameterreihen-Simulation erfolgreich beendet?
+	 * @see #runParameterSeries()
+	 */
 	private synchronized void done(final boolean runComplete) {
 		if (whenDone!=null) whenDone.accept(runComplete);
 	}
@@ -163,6 +200,10 @@ public class ParameterCompareRunner {
 		return error;
 	}
 
+	/**
+	 * Bricht alle laufenden Simulationen ab.
+	 * @see #runParameterSeries()
+	 */
 	private void cancelAll() {
 		for (ParameterCompareRunnerModel runner: modelRunner) {
 			if (runner==null) continue;
@@ -172,6 +213,10 @@ public class ParameterCompareRunner {
 		modelRunner=null;
 	}
 
+	/**
+	 * Führt die eigentliche Simulation der Parameterreihen-Modelle durch.
+	 * @see #runner
+	 */
 	private void runParameterSeries() {
 		final long startTime=System.currentTimeMillis();
 
@@ -256,7 +301,7 @@ public class ParameterCompareRunner {
 	}
 
 	/**
-	 * Bricht die Verarbeitung ab
+	 * Bricht die Verarbeitung ab.
 	 */
 	public void cancel() {
 		canceled=true;
