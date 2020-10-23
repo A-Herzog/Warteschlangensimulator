@@ -29,6 +29,7 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import simulator.db.DBConnect;
+import simulator.db.DBConnect.SortMode;
 import simulator.db.DBSettings;
 import simulator.editmodel.EditModel;
 import ui.images.Images;
@@ -48,13 +49,61 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementInputDB extends ModelElementMultiInSingleOutBox implements ElementWithNewVariableNames, ElementNoRemoteSimulation, ElementWithDB {
+	/**
+	 * Einstellungen zur Verbindung zur Datenbank
+	 * @see #getDb()
+	 */
 	private DBSettings db;
+
+	/**
+	 * Name der Tabelle aus der die Daten ausgelesen werden sollen
+	 * @see #getTable()
+	 * @see #setTable(String)
+	 */
 	private String table;
+
+	/**
+	 * Name der zu ladenden Tabellenspalte
+	 * @see #getLoadColumn()
+	 * @see #setLoadColumn(String)
+	 */
 	private String loadColumn;
+
+	/**
+	 * Name der Spalte nach der die Werte sortiert werden sollen
+	 * @see #getSortColumn()
+	 * @see #setSortColumn(String)
+	 */
 	private String sortColumn;
+
+	/**
+	 * Sortierrichtung für die Sortierspalte
+	 * @see #getSortMode()
+	 * @see #setSortMode(simulator.db.DBConnect.SortMode)
+	 * @see SortMode
+	 */
 	private DBConnect.SortMode sortMode;
+
+	/**
+	 * Name der Variable, in die der Wert geschrieben werden soll
+	 * @see #getVariable()
+	 * @see #setVariable(String)
+	 */
 	private String variable;
+
+	/**
+	 * Verhalten beim Erreichen des Dateiendes
+	 * @see #getEofMode()
+	 * @see #setEofMode(EofModes)
+	 * @see EofModes
+	 */
 	private EofModes eofMode;
+
+	/**
+	 * Vorgabewert, der verwendet wird, wenn im Modus {@link ModelElementInputDB.EofModes#EOF_MODE_DEFAULT_VALUE} das Dateiende erreicht wurde
+	 * @see #getDefaultValue()
+	 * @see #setDefaultValue(String)
+	 */
 	private String defaultValue;
 
 	/**
@@ -187,6 +236,10 @@ public class ModelElementInputDB extends ModelElementMultiInSingleOutBox impleme
 		return Language.tr("Surface.InputDB.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

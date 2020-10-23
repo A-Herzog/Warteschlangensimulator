@@ -34,6 +34,7 @@ public class JQuickAccessBuilder {
 	private final List<JQuickAccessRecord> list;
 	/** Eingegebener Text in Kleinbuchstaben */
 	private final String quickAccessTextLower;
+	/** Soll auch in den Vorspanntexten gesucht werden? */
 	private final boolean searchInPreText;
 
 	/**

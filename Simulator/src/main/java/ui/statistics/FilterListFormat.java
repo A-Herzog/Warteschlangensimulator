@@ -21,8 +21,11 @@ package ui.statistics;
  * @see FilterListRecord#process(simulator.statistics.Statistics, FilterListFormat)
  */
 public class FilterListFormat {
+	/** Ist die Ausgabe als Zeitwerte eingestellt (statt als Zahlenwerte)? */
 	private boolean isTime;
+	/** Ist die Ausgabe als Prozentwerte eingestellt (statt als Dezimalwerte)? */
 	private boolean isPercent;
+	/** Ist die Ausgabe in System-Notation eingestellt (statt lokaler Notation)? */
 	private boolean isSystem;
 
 	/**

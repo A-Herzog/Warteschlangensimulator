@@ -34,9 +34,30 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
  * @see ModelElementTransportSource
  */
 public final class TransportResourceRecord implements Cloneable {
+	/**
+	 * Bedienergruppen und deren Anzahlen, die für die Bedienung der Kunden notwendig sind
+	 * @see #getResources()
+	 */
 	private final Map<String,Integer> resources; /* Name der Ressource, benötigte Anzahl */
+
+	/**
+	 * Ausdruck zur Berechnung der Priorität für die Ressourcenzuweisung
+	 * @see #getResourcePriority()
+	 * @see #setResourcePriority(String)
+	 */
 	private String resourcePriority;
+
+	/**
+	 * Objekt mit Daten zur verzögerten Ressourcenfreigabe
+	 * @see #getDelayedRelease()
+	 */
 	private DistributionSystem delayedRelease;
+
+	/**
+	 * Verwendete Zeitbasis (ob die Verteilungs-/Ausdruckswerte für die verzögerte Ressourcenfreigabe Sekunden-, Minuten- oder Stunden-Angaben darstellen sollen)
+	 * @see #getTimeBase()
+	 * @see #setTimeBase(ui.modeleditor.ModelSurface.TimeBase)
+	 */
 	private ModelSurface.TimeBase timeBase;
 
 	/**

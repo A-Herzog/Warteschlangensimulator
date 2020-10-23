@@ -17,8 +17,6 @@ package ui.modelproperties;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.List;
 
@@ -47,14 +45,22 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 	/** Hilfe-Callback */
 	private final Runnable help;
 
+	/** Im Konstruktor übergebenes {@link ModelSchedule}-Objekt in das beim Schließen des Dialogs die Daten zurückgeschrieben werden */
 	private ModelSchedule originalSchedule;
+	/** Anzahl an Sekunden, die ein Zeitslot dauern soll */
 	private int durationPerSlot;
+	/**  Maximaler y-Achsen-Wert im Editor */
 	private int editorMaxY;
+	/**  Wie soll der Plan nach seinem Ende fortgesetzt werden? */
 	private ModelSchedule.RepeatMode repeatMode;
 
+	/** Schaltfläche "An den Anfang" */
 	private final JButton buttonHome;
+	/** Schaltfläche "Zurück" */
 	private final JButton buttonLeft;
+	/** Schaltfläche "Weiter" */
 	private final JButton buttonRight;
+	/** Panel in dem die Zeitslots des Zeitplans als Balken dargestellt werden */
 	private final SchedulePanel schedulePanel;
 
 	/**
@@ -75,28 +81,43 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 
-		JToolBar toolBar=new JToolBar();
+		content.add(schedulePanel=new SchedulePanel(schedule.getSlots(),editorMaxY,durationPerSlot,20),BorderLayout.CENTER);
+
+		final JToolBar toolBar=new JToolBar();
 		toolBar.setFloatable(false);
 		content.add(toolBar,BorderLayout.NORTH);
 		toolBar.add(buttonHome=new JButton(Language.tr("Schedule.EditDialog.ToTheStart")));
 		buttonHome.setToolTipText(Language.tr("Schedule.EditDialog.ToTheStart.Hint"));
-		buttonHome.addActionListener(new ToolBarButtonListener());
+		buttonHome.addActionListener(e->{
+			schedulePanel.setStartPosition(0);
+			enableButtons();
+		});
 		buttonHome.setIcon(Images.GENERAL_HOME.getIcon());
 		toolBar.addSeparator();
 		toolBar.add(buttonLeft=new JButton(Language.tr("Schedule.EditDialog.TimeStepBack")));
 		buttonLeft.setToolTipText(Language.tr("Schedule.EditDialog.TimeStepBack.Hint"));
-		buttonLeft.addActionListener(new ToolBarButtonListener());
+		buttonLeft.addActionListener(e->{
+			schedulePanel.setStartPosition(schedulePanel.getStartPosition()-1);
+			enableButtons();
+		});
 		buttonLeft.setIcon(Images.ARROW_LEFT.getIcon());
 		toolBar.add(buttonRight=new JButton(Language.tr("Schedule.EditDialog.TimeStepFurther")));
 		buttonRight.setToolTipText(Language.tr("Schedule.EditDialog.TimeStepFurther.Hint"));
-		buttonRight.addActionListener(new ToolBarButtonListener());
+		buttonRight.addActionListener(e->{
+			schedulePanel.setStartPosition(schedulePanel.getStartPosition()+1);
+			enableButtons();
+		});
 		buttonRight.setIcon(Images.ARROW_RIGHT.getIcon());
-
-		content.add(schedulePanel=new SchedulePanel(schedule.getSlots(),editorMaxY,durationPerSlot,20),BorderLayout.CENTER);
 
 		enableButtons();
 	}
 
+	/**
+	 * Aktiviert oder deaktiviert {@link #buttonHome} und {@link #buttonLeft}
+	 * in Abhängigkeit davon, welcher Balken gerade ganz links in dem Diagramm angezeigt wird.
+	 * @see #buttonHome
+	 * @see #buttonLeft
+	 */
 	private void enableButtons() {
 		buttonHome.setEnabled(schedulePanel.getStartPosition()>0);
 		buttonLeft.setEnabled(schedulePanel.getStartPosition()>0);
@@ -123,31 +144,5 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		editorMaxY=dialog.getEditorMaxY();
 		repeatMode=dialog.getRepeatMode();
 		schedulePanel.setSetupData(editorMaxY,durationPerSlot);
-	}
-
-	private class ToolBarButtonListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			final Object sender=e.getSource();
-
-			if (sender==buttonHome) {
-				schedulePanel.setStartPosition(0);
-				enableButtons();
-				return;
-			}
-
-			if (sender==buttonLeft) {
-				schedulePanel.setStartPosition(schedulePanel.getStartPosition()-1);
-				enableButtons();
-				return;
-			}
-
-			if (sender==buttonRight) {
-				schedulePanel.setStartPosition(schedulePanel.getStartPosition()+1);
-				enableButtons();
-				return;
-			}
-		}
 	}
 }

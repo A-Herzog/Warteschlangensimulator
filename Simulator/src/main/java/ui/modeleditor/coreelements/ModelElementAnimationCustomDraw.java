@@ -40,11 +40,50 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public abstract class ModelElementAnimationCustomDraw extends ModelElementPosition implements ElementWithAnimationDisplay {
+	/**
+	 * Größe der Markierungsboxen an den Ecken des Elements
+	 * @see #drawBorderBox(Graphics2D, Point, double)
+	 */
 	private static final int SELECT_BOX_SIZE=7;
 
+	/**
+	 * Sichert ab, dass nicht gleichzeitig lesend und schreibend
+	 * auf {@link #animationDouble}, {@link #animationInteger} oder
+	 * {@link #animationLong} zugegriffen wird.
+	 * @see #animationDouble
+	 * @see #animationInteger
+	 * @see #animationLong
+	 * @see #getAnimationDouble()
+	 * @see #setAnimationDouble(Double)
+	 * @see #getAnimationInteger()
+	 * @see #setAnimationInteger(Integer)
+	 * @see #getAnimationLong()
+	 * @see #setAnimationLong(long)
+	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * Double-Datenobjekt für die Verbindung von
+	 * Simulation und Animation.
+	 * @see #getAnimationDouble()
+	 * @see #setAnimationDouble(Double)
+	 */
 	private Double animationDouble=null;
+
+	/**
+	 * Integer-Datenobjekt für die Verbindung von
+	 * Simulation und Animation.
+	 * @see #getAnimationInteger()
+	 * @see #setAnimationInteger(Integer)
+	 */
 	private Integer animationInteger=null;
+
+	/**
+	 * Long-Wert für die Verbindung von
+	 * Simulation und Animation.
+	 * @see #getAnimationLong()
+	 * @see #setAnimationLong(long)
+	 */
 	private long animationLong=0;
 
 	/**

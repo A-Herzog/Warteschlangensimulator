@@ -33,6 +33,9 @@ import ui.images.Images;
  * @see JQuickAccessBuilder
  */
 public class JQuickAccessBuilderMenu extends JQuickAccessBuilder {
+	/**
+	 * Suchergebnisdatensatz-Icon für den Fall, dass der Menüpunkt kein Icon besitzt.
+	 */
 	private static final Icon DEFAULT_ICON;
 
 	static {
@@ -67,7 +70,11 @@ public class JQuickAccessBuilderMenu extends JQuickAccessBuilder {
 		}
 	}
 
-	private enum IgnoreMode {Normal, OnlyFirst, Ignore}
+	private enum IgnoreMode {
+		Normal,
+		OnlyFirst,
+		Ignore
+	}
 
 	private IgnoreMode getIgnoreMode(final String menuName) {
 		if (menuName.equals(Language.tr("Main.Menu.File.LoadExample"))) return IgnoreMode.OnlyFirst;

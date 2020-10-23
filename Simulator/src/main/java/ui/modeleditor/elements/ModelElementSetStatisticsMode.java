@@ -71,7 +71,18 @@ public class ModelElementSetStatisticsMode extends ModelElementMultiInSingleOutB
 		CONDITION
 	}
 
+	/**
+	 * Statistik-Ein/Aus-Modus
+	 * @see #getMode()
+	 * @see #setMode(Mode)
+	 */
 	private Mode mode;
+
+	/**
+	 * Bedingung im Modus <code>Mode.CONDITION</code>
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
 	private String condition;
 
 	/**
@@ -179,6 +190,10 @@ public class ModelElementSetStatisticsMode extends ModelElementMultiInSingleOutB
 		}
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,255,180);
 
 	/**

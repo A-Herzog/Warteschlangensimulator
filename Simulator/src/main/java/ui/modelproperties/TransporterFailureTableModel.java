@@ -63,6 +63,9 @@ public class TransporterFailureTableModel extends JTableExtAbstractTableModel {
 	/** Hilfe-Callback */
 	private final Runnable help;
 
+	/**
+	 * Liste der Ausfall-Ereignisse
+	 */
 	private final List<ModelTransporterFailure> list;
 
 	/**
@@ -97,12 +100,21 @@ public class TransporterFailureTableModel extends JTableExtAbstractTableModel {
 		return list;
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
 		if (cellEditor!=null) cellEditor.stopCellEditing();
 	}
 
+	/**
+	 * Liefert eine Text-Beschreibung zu einem Ausfallereignis
+	 * @param failure	Ausfallereignis
+	 * @return	Beschreibung
+	 * @see #getValueAt(int, int)
+	 */
 	private String getFailureInfo(final ModelTransporterFailure failure) {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("<html><body>");
@@ -207,6 +219,9 @@ public class TransporterFailureTableModel extends JTableExtAbstractTableModel {
 		return !readOnly;
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche
+	 */
 	private class AddButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -220,10 +235,20 @@ public class TransporterFailureTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben) */
 		private final int mode;
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param mode	Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int mode, final int row) {
 			this.mode=mode;
 			this.row=row;
@@ -261,9 +286,17 @@ public class TransporterFailureTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

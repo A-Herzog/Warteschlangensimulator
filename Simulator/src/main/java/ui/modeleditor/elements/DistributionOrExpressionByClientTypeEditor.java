@@ -62,11 +62,16 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	 */
 	private static final long serialVersionUID = 3506994764763479366L;
 
+	/**
+	 * Namen der modellweiten Variablen
+	 */
 	private final String[] variables;
+
 	private final String[] clientTypes;
 
 	private AbstractRealDistribution distribution;
 	private String expression;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private final List<AbstractRealDistribution> clientTypeDistribution;
 	private final List<String> clientTypeExpression;

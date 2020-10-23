@@ -45,12 +45,16 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 	 */
 	private static final long serialVersionUID = 2606544913680450121L;
 
+	/** Zugehörige Tabelle (um diese Anweisen zu können, sich zu aktualisieren) */
 	private final JTableExt table;
+	/** Hilfe-Callback */
 	private final Runnable help;
+	/** {@link ModelElementAnalogAssign}-Element welches die Zuweisungen enthält */
 	private final ModelElementAnalogAssign element;
 	private final List<Integer> changeID;
 	private final List<ModelElementAnalogAssign.ChangeMode> changeMode;
 	private final List<String> changeExpression;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/**
@@ -75,6 +79,9 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -189,6 +196,7 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 
 	private class EditButtonListener implements ActionListener {
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
 		public EditButtonListener(final int col, final int row) {

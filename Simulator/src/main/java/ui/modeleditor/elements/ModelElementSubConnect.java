@@ -100,6 +100,10 @@ public class ModelElementSubConnect extends ModelElementBox {
 		}
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(250,250,250);
 
 	/**

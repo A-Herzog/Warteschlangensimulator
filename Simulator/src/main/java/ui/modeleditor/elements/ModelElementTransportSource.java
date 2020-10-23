@@ -59,10 +59,29 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private List<Integer> connectionIds=null;
 
+	/**
+	 * Datensatz zu den Transportzeiten
+	 * @see #getTransportTimeRecord()
+	 */
 	private TransportTimeRecord transportTimeRecord;
+
+	/**
+	 * Einstellungen-Objekt mit den Daten zu den Transportzielen
+	 * @see #getTransportTargetSystem()
+	 */
 	private TransportTargetSystem transportTargetSystem;
+
+	/**
+	 * Objekt mit den Einstellungen zur Ressourcennutzung für den Transport
+	 * @see #getTransportResourceRecord()
+	 */
 	private TransportResourceRecord transportResourceRecord;
 
+	/**
+	 * Namen der zugehörigen "Bereich betreten"-Station
+	 * (der jeweilige Bereich wird dann verlassen, wenn ein Kunde über diese Station transportiert wird)
+	 * @see #getSectionStartName()
+	 */
 	private String sectionStartName;
 
 	/**
@@ -260,6 +279,10 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 		}
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,212,212);
 
 	/**

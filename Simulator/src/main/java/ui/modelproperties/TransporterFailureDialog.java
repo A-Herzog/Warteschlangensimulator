@@ -64,24 +64,42 @@ public class TransporterFailureDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -3105602711204903124L;
 
+	/** Editor-Modell (für {@link ExpressionBuilder}) */
 	private final EditModel model;
+	/** Zeichenfläche (für {@link ExpressionBuilder}) */
 	private final ModelSurface surface;
 
+	/** Auswahloption "Ausfall nach Anzahl bedienter Kunden" */
 	private final JRadioButton failureNumber;
+	/** Auswahloption "Ausfall nach gefahrener Strecke" */
 	private final JRadioButton failureDistance;
+	/** Auswahloption "Ausfall nach gearbeiteter Zeit" */
 	private final JRadioButton failureWorking;
+	/** Auswahloption "Ausfallabstände gemäß Verteilung" */
 	private final JRadioButton failureDistribution;
+	/** Auswahloption "Ausfallabstände gemäß Ausdruck" */
 	private final JRadioButton failureExpression;
+	/** Eingabefeld für Option "Ausfall nach Anzahl bedienter Kunden" */
 	private final JTextField failureNumberEdit;
+	/** Eingabefeld für Option "Ausfall nach gefahrener Strecke" */
 	private final JTextField failureDistanceEdit;
+	/** Eingabefeld für Option "Ausfall nach gearbeiteter Zeit" */
 	private final JTextField failureWorkingEdit;
+	/** Schaltfläche zum bearbeiten der Verteilung im Fall "Ausfallabstände gemäß Verteilung" */
 	private final JButton failureDistributionButton;
+	/** Verteilung für "Ausfallabstände gemäß Verteilung" */
 	private AbstractRealDistribution failureDistributionDist;
+	/** Eingabefeld für Option "Ausfallabstände gemäß Ausdruck" */
 	private final JTextField failureExpressionEdit;
+	/** Dropdownbox "Bestimmung der Ausfallzeit gemäß" */
 	private final JComboBox<String> downTimeSelect;
+	/** Panel zum bearbeiten der Ausfalldauern-Verteilung oder des Ausfalldauern-Ausdrucks */
 	private final JPanel downTimeCards;
+	/** Layxout für {@link #downTimeCards} zur Aktiverung des Verteilungseditor oder des Eingabefeldes */
 	private final CardLayout downTimeCardLayout;
+	/** Verteilungseditor für die Ausfalldauern */
 	private final JDistributionPanel downTimeDistribution;
+	/** Eingabefeld für die Ausfalldauern */
 	private final JTextField downTimeExpression;
 
 	/**
@@ -218,6 +236,11 @@ public class TransporterFailureDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Zeigt den Dialog zum Bearbeiten der Verteilung
+	 * der Zeitspannen zwischen zwei Ausfällen an.
+	 * @see #failureDistance
+	 */
 	private void editInterDownTimeDistribution() {
 		final JDistributionEditorDialog dialog=new JDistributionEditorDialog(getOwner(),failureDistributionDist,10*86400,JDistributionPanel.BOTH,true,true,SetupData.getSetup().imageSize);
 		dialog.setVisible(true);

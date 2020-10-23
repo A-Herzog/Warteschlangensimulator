@@ -49,9 +49,11 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = -61897197344899292L;
 
+	/** Zugehörige Tabelle (um diese anweisen zu können, sich neu aufzubauen, wenn die Daten verändert wurden) */
 	private final JTableExt table;
 	private final List<ModelElementTank.Valve> valvesOriginal;
 	private final List<ModelElementTank.Valve> valves;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/**
@@ -69,6 +71,9 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -196,6 +201,7 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 	}
 
 	private class ButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 		private final int move;
 

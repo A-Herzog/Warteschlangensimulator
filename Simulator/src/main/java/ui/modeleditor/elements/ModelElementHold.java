@@ -49,8 +49,25 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementHold extends ModelElementMultiInSingleOutBox implements ModelElementAnimationForceMove {
+	/**
+	 * Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
 	private String condition;
+
+	/**
+	 * Individuelle kundenbasierende Prüfung
+	 * @see #isClientBasedCheck()
+	 * @see #setClientBasedCheck(boolean)
+	 */
 	private boolean clientBasedCheck;
+
+	/**
+	 * Regelmäßige Prüfung der Bedingung
+	 * @see #isUseTimedChecks()
+	 * @see #setUseTimedChecks(boolean)
+	 */
 	private boolean useTimedChecks;
 
 	/**
@@ -193,6 +210,10 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		return Language.tr("Surface.Hold.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

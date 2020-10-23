@@ -95,10 +95,35 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 		MODE_STRING
 	}
 
+	/**
+	 * Einstellungen zur Verbindung zur Datenbank
+	 * @see #getDb()
+	 */
 	private DBSettings db;
+
+	/**
+	 * Name der Tabelle in die die Daten geschrieben werden sollen
+	 * @see #getTable()
+	 * @see #setTable(String)
+	 */
 	private String table;
+
+	/**
+	 * Liste mit den Modi der Ausgabeelemente
+	 * @see #getModes()
+	 */
 	private List<OutputMode> mode;
+
+	/**
+	 * Liste mit den Tabellenspalten für die einzelnen Ausgabeelemente
+	 * @see #getColumns()
+	 */
 	private List<String> column;
+
+	/**
+	 * Liste mit den zusätzlichen Daten der Ausgabeelemente
+	 * @see #getData()
+	 */
 	private List<String> data;
 
 	/**
@@ -274,6 +299,10 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 		return Language.tr("Surface.OutputDB.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

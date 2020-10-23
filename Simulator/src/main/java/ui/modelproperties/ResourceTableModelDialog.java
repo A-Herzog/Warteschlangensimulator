@@ -69,36 +69,85 @@ public class ResourceTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 5239819610274811096L;
 
+	/**
+	 * Objekt das die verfügbaren Animations-Icons vorhält
+	 */
 	private final AnimationImageSource imageSource;
+
+	/**
+	 * Namen der modellweiten Variablen
+	 */
 	private final String[] variables;
 
+	/**
+	 * Liste der bereits vorhandenen Bedienergruppennamen (inkl. des Names der aktuellen Gruppe)
+	 */
 	private final String[] names;
+
+	/**
+	 * Index des aktuellen Namens in der Liste der vorhandenen Namen {@link #names} (zum Zeitpunkt des Aufrufs des Dialogs)
+	 */
 	private final int index;
+
+	/**
+	 * Liste mit den Namen der verfügbaren Schichtpläne
+	 */
 	private final String[] scheduleNames;
+
+	/**
+	 * Zu bearbeitende Bedienergruppe
+	 */
 	private final ModelResource resource;
 
+	/** Eingabefeld "Name der Bedienergruppe" */
 	private final JTextField inputField;
+	/** Optional sichtbarer Hinweis auf ungültige Namen */
 	private final JLabel infoLabel;
 
+	/* Anzahl und Aussehen */
+
+	/** Option "Feste Anzahl" */
 	private final JRadioButton optionNumber;
+	/** Eingabefeld für "Feste Anzahl" */
 	private final JTextField inputNumber;
+	/** Option "Unendlich viele" */
 	private final JRadioButton optionInfinite;
+	/** Option "Zeitplan" */
 	private final JRadioButton optionSchedule;
+	/** Auswahlfeld für "Zeitplan" */
 	private final JComboBox<String> selectSchedule;
+	/** Datenmodell für Auswahlfeld "Icon für Ressource" ({@link #iconChooserList}) */
 	private final DefaultComboBoxModel<JLabel> iconChooserList;
+	/** Auswahlfeld "Icon für Ressource" */
 	private final JComboBox<JLabel> iconChooser;
 
+	/* Kosten */
+
+	/** Eingabefeld "Kosten pro aktiver Stunde" */
 	private final JTextField inputCostsPerActiveHour;
+	/** Eingabefeld "Kosten pro Stunde Arbeit" */
 	private final JTextField inputCostsPerProcessHour;
+	/** Eingabefeld "Kosten pro Stunde Leerlauf" */
 	private final JTextField inputCostsPerIdleHour;
 
+	/* Ausfälle / Pausen */
+
+	/** Datenmodell für die Tabelle der Ausfälle */
 	private final ResourceFailureTableModel failureData;
 
+	/* Rüstzeiten */
+
+	/** Modus für die Art der Rüstzeiten */
 	private final JComboBox<String> moveTimesMode;
+	/** Panel zur Auswahl der Zeiteinheit für die Rüstzeit */
 	private final JPanel timeBasePanel;
+	/** Auswahlfeld zur Festlegung der Zeiteinheit für die Rüstzeit */
 	private final JComboBox<String> timeBaseCombo;
+	/** Panel das den Wahrscheinlichkeitseditor oder das Eingabefeld für die Formel enthält */
 	private final JPanel moveTimesCards;
+	/** Verteilungseditor für die Rüstzeiten */
 	private final JDistributionPanel moveTimesDistribution;
+	/** Formel-Eingabefeld für die Rüstzeiten */
 	private final JTextField moveTimeField;
 
 	/**
@@ -107,7 +156,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 	 * @param help	Hilfe-Callback
 	 * @param names	Liste der bereits vorhandenen Bedienergruppennamen (inkl. des Names der aktuellen Gruppe)
 	 * @param resource	Zu bearbeitende Bedienergruppe
-	 * @param scheduleNames	Liste mit den Namen dr verfügbaren Schichtpläne
+	 * @param scheduleNames	Liste mit den Namen der verfügbaren Schichtpläne
 	 * @param model	Vollständiges Editor-Modell (wird für den Expression-Builder benötigt)
 	 * @param surface	Haupt-Zeichenfläche (wird benötigt um zu vermitteln, wo eine Bedienergruppe im Einsatz ist, und für den Expression-Builder)
 	 * @param modelImages	Liste mit den Animations-Icons (zur Auswahl von einem für die Bedienergruppe)

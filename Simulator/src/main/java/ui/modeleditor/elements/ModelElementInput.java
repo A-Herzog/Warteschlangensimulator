@@ -50,9 +50,33 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementInput extends ModelElementMultiInSingleOutBox implements ElementWithNewVariableNames, ElementNoRemoteSimulation, ElementWithInputFile {
+	/**
+	 * Name der Datei, aus der die Werte gelesen werden sollen
+	 * @see #getInputFile()
+	 * @see #setInputFile(String)
+	 */
 	private String inputFile;
+
+	/**
+	 * Name der Variable, in die der Wert geschrieben werden soll
+	 * @see #getVariable()
+	 * @see #setVariable(String)
+	 */
 	private String variable;
+
+	/**
+	 * Verhalten beim Erreichen des Dateiendes
+	 * @see #getEofMode()
+	 * @see #setEofMode(EofModes)
+	 * @see EofModes
+	 */
 	private EofModes eofMode;
+
+	/**
+	 * Vorgabewert an, der verwendet wird, wenn im Modus {@link ModelElementInput.EofModes#EOF_MODE_DEFAULT_VALUE} das Dateiende erreicht wurde
+	 * @see #getDefaultValue()
+	 * @see #setDefaultValue(String)
+	 */
 	private String defaultValue;
 
 	/**
@@ -168,6 +192,10 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 		return Language.tr("Surface.Input.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

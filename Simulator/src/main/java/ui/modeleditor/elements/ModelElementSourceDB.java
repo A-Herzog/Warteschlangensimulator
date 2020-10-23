@@ -60,10 +60,38 @@ public class ModelElementSourceDB extends ModelElementBox implements ElementWith
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private int connectionId=-1;
 
+	/**
+	 * Einstellungen zur Verbindung zur Datenbank
+	 * @see #getDb()
+	 */
 	private DBSettings db;
+
+	/**
+	 * Name der Tabelle aus der die Daten ausgelesen werden sollen
+	 * @see #getTable()
+	 * @see #setTable(String)
+	 */
 	private String table;
+
+	/**
+	 * Name der zu ladenden Tabellenspalte
+	 * @see #getLoadColumn()
+	 * @see #setLoadColumn(String)
+	 */
 	private String loadColumn;
+
+	/**
+	 * Name Tabellenspalte, die die Kundentypnamen enthält
+	 * @see #getClientTypeColumn()
+	 * @see #setClientTypeColumn(String)
+	 */
 	private String clientTypeColumn;
+
+	/**
+	 * Name der Tabellenspalte mit Zusatzdaten (oder ein leerer String, wenn keine Zusatzdaten-Tabellenspalte definiert ist)
+	 * @see #getInfoColumn()
+	 * @see #setInfoColumn(String)
+	 */
 	private String infoColumn;
 
 	private final List<String> clientTypeNames=new ArrayList<>();
@@ -110,6 +138,10 @@ public class ModelElementSourceDB extends ModelElementBox implements ElementWith
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		if (connection!=null) connection.setName(Language.tr("Surface.Source.LabelArrivals"));
 	}
@@ -301,6 +333,10 @@ public class ModelElementSourceDB extends ModelElementBox implements ElementWith
 		return Language.tr("Surface.SourceDB.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,255,180);
 
 	/**

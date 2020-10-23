@@ -35,9 +35,13 @@ import ui.parameterseries.ParameterCompareSetup;
  * @see CommandLineSystem
  */
 public class CommandParameterCompareVariance extends AbstractCommand {
+	/** Eingabedatei für das Parameterreihen-Setup */
 	private File inFile;
+	/** Ausgabedatei für das Parameterreihen-Setup (inkl. Ergebnissen) */
 	private File outFile;
+	/** Anzahl der Wiederholungen */
 	private int repeatCount;
+	/** Ankünfte pro Wiederholung */
 	private long arrivals;
 
 	@Override

@@ -91,6 +91,11 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	private Map<String,AbstractRealDistribution> distributionByType;
 	private Map<String,String> expressionByType;
 
+	/**
+	 * Kosten pro Bedienvorgang
+	 * @see #getCosts()
+	 * @see #setCosts(String)
+	 */
 	private String costs;
 
 	/**
@@ -377,6 +382,10 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		return Language.tr("Surface.Delay.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

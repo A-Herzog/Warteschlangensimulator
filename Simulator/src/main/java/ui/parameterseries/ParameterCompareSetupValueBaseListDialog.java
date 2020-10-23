@@ -350,6 +350,12 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		updateList(1);
 	}
 
+	/**
+	 * Erstellt auf Basis einer Schaltfläche einen Menüpunkt
+	 * @param button	Ausgangsschaltfläche
+	 * @return	Neuer Menüpunkt
+	 * @see #showContextMenu(MouseEvent)
+	 */
 	private JMenuItem buttonToMenu(final JButton button) {
 		final JMenuItem item=new JMenuItem(button.getText(),button.getIcon());
 		item.setToolTipText(button.getToolTipText());
@@ -358,6 +364,10 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		return item;
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zu einem Listeneintrag an.
+	 * @param event	Auslösendes Mausereignis
+	 */
 	private void showContextMenu(final MouseEvent event) {
 		final JPopupMenu menu=new JPopupMenu();
 

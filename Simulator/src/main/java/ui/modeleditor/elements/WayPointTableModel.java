@@ -45,9 +45,11 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = 6666152316668456454L;
 
+	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
 	private final List<WayPointRecord> recordsOriginal;
 	private final List<WayPointRecord> records;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private final String[] stations;
 
@@ -111,6 +113,9 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();

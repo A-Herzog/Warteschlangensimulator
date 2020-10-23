@@ -63,8 +63,22 @@ public class ModelElementWayPoint extends ModelElementPosition {
 	 */
 	public static final String DEFAULT_ICON="flag_red";
 
+	/**
+	 * Namen des Icons, das in dem Element angezeigt werden soll
+	 * @see #getIcon()
+	 * @see #setIcon(String)
+	 */
 	private String icon;
+
+	/**
+	 * Liste mit allen Wegpunkte-Datensätzen
+	 * @see #getRecords()
+	 */
 	private List<WayPointRecord> wayPoints;
+
+	/**
+	 * Objekt das die verfügbaren Animations-Icons vorhält
+	 */
 	private final AnimationImageSource imageSource;
 
 	/**

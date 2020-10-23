@@ -47,6 +47,11 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementSectionStart
  */
 public class ModelElementSectionEnd extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Namen der zugehörigen "Bereich betreten"-Station
+	 * @see #getSectionStartName()
+	 * @see #setSectionStartName(String)
+	 */
 	private String sectionStartName;
 
 	/**
@@ -162,6 +167,10 @@ public class ModelElementSectionEnd extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.SectionEnd.SectionName")+": "+sectionStartName;
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

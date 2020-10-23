@@ -44,6 +44,9 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementActionRecord
  */
 public class ModelElementAction extends ModelElementBox implements ModelElementSignalTrigger, ElementWithNewVariableNames {
+	/**
+	 * Liste mit allen Bedingungen und auszulösenden Aktionen
+	 */
 	private final List<ModelElementActionRecord> records;
 
 	/**
@@ -136,6 +139,10 @@ public class ModelElementAction extends ModelElementBox implements ModelElementS
 		return Language.tr("Surface.Action.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,200,80);
 
 	/**

@@ -60,10 +60,40 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 		Java
 	}
 
+	/**
+	 * Skript
+	 * @see #getScript()
+	 * @see #setScript(String)
+	 */
 	private String script;
+
+	/**
+	 * Skriptsprache
+	 * @see #getMode()
+	 * @see #setMode(ScriptMode)
+	 */
 	private ScriptMode mode;
+
+	/**
+	 * Name der Datei, aus der die Werte gelesen werden sollen
+	 * @see #getInputFile()
+	 * @see #setInputFile(String)
+	 */
 	private String inputFile;
+
+	/**
+	 * Verhalten beim Erreichen des Dateiendes
+	 * @see #getEofMode()
+	 * @see #setEofMode(EofModes)
+	 * @see EofModes
+	 */
 	private EofModes eofMode;
+
+	/**
+	 * Vorgabewert, der verwendet wird, wenn im Modus {@link ModelElementInput.EofModes#EOF_MODE_DEFAULT_VALUE} das Dateiende erreicht wurde
+	 * @see #getDefaultValue()
+	 * @see #setDefaultValue(double)
+	 */
 	private double defaultValue;
 
 	/**
@@ -164,6 +194,10 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 		return Language.tr("Surface.InputJS.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

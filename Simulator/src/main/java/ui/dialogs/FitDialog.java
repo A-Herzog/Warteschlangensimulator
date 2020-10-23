@@ -129,6 +129,10 @@ public class FitDialog extends BaseDialog {
 		setResizable(true);
 	}
 
+	/**
+	 * Erstellt die Tabs innerhalb von {@link #tabs}
+	 * @param tabs	Tabs-Elternelement
+	 */
 	private void createTabs(final JTabbedPane tabs) {
 		JPanel p,p2;
 		JToolBar toolbar;
@@ -193,13 +197,26 @@ public class FitDialog extends BaseDialog {
 		tabs.setIconAt(3,Images.FIT_PAGE_RESULT.getIcon());
 	}
 
+	/**
+	 * Reagier auf einen Klick auf eine Schaltfläche.
+	 */
 	private class ButtonListener implements ActionListener {
+		/** Index der Schaltfläche */
 		private final int buttonNr;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param buttonNr	Index der Schaltfläche
+		 */
 		public ButtonListener(final int buttonNr) {
 			this.buttonNr=buttonNr;
 		}
 
+		/**
+		 * Lädt die Werte aus einem Array
+		 * @param newValues	Zu ladende Werte
+		 * @return	Liefert <code>true</code>, wenn die Daten verarbeitet werden konnten.
+		 */
 		private boolean loadValuesFromArray(double[][] newValues) {
 			if (newValues==null || newValues.length==0 || newValues[0]==null || newValues[0].length==0) return false;
 
@@ -228,6 +245,10 @@ public class FitDialog extends BaseDialog {
 			return true;
 		}
 
+		/**
+		 * Lädt die Werte aus der Zwischenablage.
+		 * @return	Liefert <code>true</code>, wenn die Daten verarbeitet werden konnten.
+		 */
 		private boolean loadValuesFromClipboard() {
 			Transferable cont=getToolkit().getSystemClipboard().getContents(this);
 			if (cont==null) return false;
@@ -238,10 +259,17 @@ public class FitDialog extends BaseDialog {
 			return loadValuesFromArray(JDataLoader.loadNumbersTwoRowsFromString(FitDialog.this,s,1,Integer.MAX_VALUE));
 		}
 
+		/**
+		 * Lädt die Werte aus einer Datei.
+		 * @return	Liefert <code>true</code>, wenn die Daten verarbeitet werden konnten.
+		 */
 		private boolean loadValuesFromFile() {
 			return loadValuesFromArray(JDataLoader.loadNumbersTwoRows(FitDialog.this,Language.tr("FitDialog.LoadValues"),1,Integer.MAX_VALUE));
 		}
 
+		/**
+		 * Führt die Verteilungsanpassung durch.
+		 */
 		private void calcFit() {
 			final DistributionFitter fitter=new DistributionFitter();
 			fitter.process(inputDistribution.getDistribution());
@@ -254,10 +282,18 @@ public class FitDialog extends BaseDialog {
 			outputDistribution.setDistribution(fitter.getFitDistribution());
 		}
 
+		/**
+		 * Kopiert die Ergebnisse in die Zwischenablage.
+		 */
 		private void copyResults() {
 			getToolkit().getSystemClipboard().setContents(new StringSelection(outputReportPlain),null);
 		}
 
+		/**
+		 * Lädt die Werte per Drag&amp;drop aus einer Datei.
+		 * @param data	Drag&amp;drop-Objekt
+		 * @return	Liefert <code>true</code>, wenn die Daten verarbeitet werden konnten.
+		 */
 		private boolean fileDrop(final FileDropperData data) {
 			return loadValuesFromArray(JDataLoader.loadNumbersTwoRowsFromFile(FitDialog.this,data.getFile(),1,Integer.MAX_VALUE));
 		}

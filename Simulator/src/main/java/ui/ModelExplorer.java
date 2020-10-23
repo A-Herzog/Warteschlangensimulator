@@ -20,9 +20,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
@@ -147,13 +146,11 @@ public class ModelExplorer extends JPanel {
 		repaint();
 	}
 
-	private class ModelExplorerMouseListener implements MouseListener, MouseMotionListener {
-		@Override public void mouseClicked(MouseEvent e) {}
+	/**
+	 * Reagiert auf Mausklicks und Drag-Operationen
+	 */
+	private class ModelExplorerMouseListener extends MouseAdapter {
 		@Override public void mousePressed(MouseEvent e) {centerVisibleArea(e.getX(),e.getY());}
-		@Override public void mouseReleased(MouseEvent e) {}
-		@Override public void mouseEntered(MouseEvent e) {}
-		@Override public void mouseExited(MouseEvent e) {}
 		@Override public void mouseDragged(MouseEvent e) {centerVisibleArea(e.getX(),e.getY());}
-		@Override public void mouseMoved(MouseEvent e) {}
 	}
 }

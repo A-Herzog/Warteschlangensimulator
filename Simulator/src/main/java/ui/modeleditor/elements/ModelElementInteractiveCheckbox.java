@@ -56,8 +56,25 @@ import ui.speedup.BackgroundSystem;
  * @author Alexander Herzog
  */
 public class ModelElementInteractiveCheckbox extends ModelElementPosition implements ElementWithAnimationDisplay, ElementWithNewVariableNames, ElementAnimationClickable, InteractiveElement {
+	/**
+	 * Name der einzustellenden Variable
+	 * @see #getVariable()
+	 * @see #setVariable(String)
+	 */
 	private String variable;
+
+	/**
+	 * Wert der Variable, wenn die Checkbox markiert ist
+	 * @see #getValueChecked()
+	 * @see #setValueChecked(double)
+	 */
 	private double valueChecked;
+
+	/**
+	 * Wert der Variable, wenn die Checkbox nicht markiert ist
+	 * @see #getValueUnchecked()
+	 * @see #setValueUnchecked(double)
+	 */
 	private double valueUnchecked;
 
 	private volatile boolean animationRunning=false;

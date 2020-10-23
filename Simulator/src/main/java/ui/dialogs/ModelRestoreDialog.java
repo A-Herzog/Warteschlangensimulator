@@ -102,6 +102,12 @@ public class ModelRestoreDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert eine html-Beschreibung zu einer Modelldatei.
+	 * @param file	Modelldatei
+	 * @return	html-Beschreibung
+	 * @see #getListData()
+	 */
 	private String getModelDescription(final File file) {
 		final DateFormat dateFormat=DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.MEDIUM);
 		final StringBuilder info=new StringBuilder();
@@ -115,7 +121,14 @@ public class ModelRestoreDialog extends BaseDialog {
 		return info.toString();
 	}
 
-	private static Image makeColorTransparent(BufferedImage im, final Color color) {
+	/**
+	 * Definiert eine bestimmte Farbe in einem Bild als transparent
+	 * @param im	Ausgangsbild
+	 * @param color	Farbe die als transparent angenommen werden soll
+	 * @return	Neues Bild mit Transparenz
+	 * @see #getModelImage(File)
+	 */
+	private static Image makeColorTransparent(final BufferedImage im, final Color color) {
 		final ImageFilter filter=new RGBImageFilter() {
 			/* the color we are looking for... Alpha bits are set to opaque */
 			public int markerRGB = color.getRGB() | 0xFF000000;
@@ -132,6 +145,12 @@ public class ModelRestoreDialog extends BaseDialog {
 		return Toolkit.getDefaultToolkit().createImage(ip);
 	}
 
+	/**
+	 * Liefert ein Bild eines Modells
+	 * @param file	Modelldatei
+	 * @return	Bild des Modells
+	 * @see #getListData()
+	 */
 	private Image getModelImage(final File file) {
 		final EditModel model=new EditModel();
 		if (model.loadFromFile(file)!=null) return null;
@@ -140,6 +159,12 @@ public class ModelRestoreDialog extends BaseDialog {
 		return makeColorTransparent(surfacePanel.getImage(550,200),Color.WHITE);
 	}
 
+	/**
+	 * Liefert eine Liste mit Beschreibungen (in Form von Labels)
+	 * zu allen wiederherstellbaren Modellen
+	 * @return	Liste mit Beschreibungen zu allen wiederherstellbaren Modellen
+	 * @see #list
+	 */
 	private List<JLabel> getListData() {
 		final List<JLabel> list=new ArrayList<>();
 		for (File file: files) {
@@ -177,6 +202,10 @@ public class ModelRestoreDialog extends BaseDialog {
 		return files[list.getSelectedIndex()];
 	}
 
+	/**
+	 * Renderer für die Einträge von {@link ModelRestoreDialog#list}
+	 * @see ModelRestoreDialog#list
+	 */
 	private static class JLabelRender implements ListCellRenderer<JLabel> {
 		@Override
 		public Component getListCellRendererComponent(JList<? extends JLabel> list, JLabel value, int index, boolean isSelected, boolean cellHasFocus) {

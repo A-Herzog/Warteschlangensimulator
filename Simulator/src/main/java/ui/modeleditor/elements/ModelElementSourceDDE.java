@@ -59,9 +59,32 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private int connectionId=-1;
 
+	/**
+	 * Name der Arbeitsmappe aus der die Daten ausgelesen werden sollen
+	 * @see #getWorkbook()
+	 * @see #setWorkbook(String)
+	 */
 	private String workbook;
+
+	/**
+	 * Name der Tabelle aus der die Daten ausgelesen werden sollen
+	 * @see #getTable()
+	 * @see #setTable(String)
+	 */
 	private String table;
+
+	/**
+	 * 1-basierende Nummer der ersten Zeile aus der Daten ausgelesen werden sollen
+	 * @see #getStartRow()
+	 * @see #setStartRow(int)
+	 */
 	private int startRow;
+
+	/**
+	 * Name der Spalte aus der die Daten ausgelesen werden sollen
+	 * @see #getColumn()
+	 * @see #setColumn(String)
+	 */
 	private String column;
 
 	private final List<String> clientTypeNames=new ArrayList<>();
@@ -107,6 +130,10 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		if (connection!=null) connection.setName(Language.tr("Surface.Source.LabelArrivals"));
 	}
@@ -290,6 +317,10 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 		return Language.tr("Surface.SourceDDE.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,255,180);
 
 	/**

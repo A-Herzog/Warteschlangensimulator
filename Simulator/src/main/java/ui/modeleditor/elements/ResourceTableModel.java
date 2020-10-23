@@ -52,11 +52,17 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = 9171941501499316592L;
 
+	/** Tabelle in der das Datenmodell zum Einsatz kommen soll */
 	private final JTableExt table;
+	/** Hilfe-Callback welches aufgerufen wird, wenn in einem der untergeordneten Dialoge auf die "Hilfe"-Schaltfläche geklickt wird. */
 	private final Runnable help;
+	/** Gesamtes Modell (um Icons für die Listenansicht auszulesen) */
 	private final EditModel model;
+	/** Liste der verfügbaren Ressourcen (kann evtl. geändert werden, d.h. es muss das Original übergeben werden) */
 	private final ModelResources resources;
+	/** Liste der benötigten Ressourcen (zur Anzeige und zum Bearbeiten) */
 	private final Map<String,Integer> map;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	private final List<String> usedNames;
@@ -86,6 +92,9 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -145,6 +154,9 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		return Language.tr("Surface.Resource.Group.Error");
 	}
 
+	/**
+	 * Objekt das die verfügbaren Animations-Icons vorhält
+	 */
 	private final AnimationImageSource imageSource=new AnimationImageSource();
 
 	private Icon getIconForResource(final String resourceName) {
@@ -197,6 +209,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 
 	private class EditButtonListener implements ActionListener {
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
 		public EditButtonListener(final int col, final int row) {
@@ -266,9 +279,17 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

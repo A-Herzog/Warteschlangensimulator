@@ -53,7 +53,17 @@ public class ModelElementTransportSourceRouter extends ModelElementBox implement
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private List<Integer> connectionIds=null;
 
+	/**
+	 * Datensatz zu den Transportzeiten
+	 * @see #getTransportTimeRecord()
+	 */
 	private TransportTimeRecord transportTimeRecord;
+
+	/**
+	 * Name der Zielstation, wenn keine der Routing-Regeln zutrifft
+	 * @see #getDefaultStation()
+	 * @see #setDefaultStation(String)
+	 */
 	private String defaultStation;
 
 	/**
@@ -213,6 +223,10 @@ public class ModelElementTransportSourceRouter extends ModelElementBox implement
 		return Language.tr("Surface.TransportSourceRouter.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,212,212);
 
 	/**

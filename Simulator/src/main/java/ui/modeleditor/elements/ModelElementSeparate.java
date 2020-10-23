@@ -129,6 +129,10 @@ public class ModelElementSeparate extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.Separate.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

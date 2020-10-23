@@ -48,8 +48,25 @@ public final class TransportTimeRecord implements Cloneable {
 		DELAY_TYPE_NOTHING
 	}
 
+	/**
+	 * Objekt, welches die Verteilungen und Ausdrücke für die Transportzeiten vorhält
+	 * @see #getTransportTime()
+	 */
 	private DistributionSystem transportTime;
+
+	/**
+	 * Verwendete Zeitbasis (ob die Verteilungswerte Sekunden-, Minuten- oder Stunden-Angaben darstellen sollen)
+	 * @see #getTimeBase()
+	 * @see #setTimeBase(ui.modeleditor.ModelSurface.TimeBase)
+	 */
 	private ModelSurface.TimeBase timeBase;
+
+	/**
+	 * Art der Verzögerung beim Transport
+	 * @see #getDelayType()
+	 * @see #setDelayType(DelayType)
+	 * @see DelayType
+	 */
 	private DelayType delayType=DelayType.DELAY_TYPE_TRANSFER;
 
 	/**

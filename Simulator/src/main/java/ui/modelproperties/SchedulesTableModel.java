@@ -56,12 +56,19 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = 6000743642076941503L;
 
+	/** Objekt das die Zeitplan-Datensätze enthält */
 	private ModelSchedules schedules;
+	/** Liste mit allen Zeitplänen in dem Zeitplanlisten-Objekt */
 	private List<ModelSchedule> schedulesList;
+	/** Haupt-Zeichenfläche (um ggf. Zeitpläne bei den Stationen umzubenennen) */
 	private ModelSurface surface;
+	/** Ressourcen-Objekt des Modells (um ggf. Zeitpläne bei den Ressourcen umzubenennen) */
 	private ModelResources resources;
+	/** Zu dem Tabellenmodell gehörenden Tabellenobjekt (wird sowohl zum Ausrichten von Dialogen als auch um ein Update der Tabelle anzustoßen benötigt) */
 	private final JTableExt table;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Callback */
 	private final Runnable help;
 
 	/**
@@ -95,6 +102,9 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		schedulesList.sort((o1,o2)->{
 			if (o1==null || o2==null) return 0;
@@ -158,6 +168,11 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Liefert eine Beschreibung für einen Zeitplan
+	 * @param schedule	Zeitplan
+	 * @return	Beschreibung für einen Zeitplan
+	 */
 	private String getScheduleInfo(final ModelSchedule schedule) {
 		int count=schedule.getSlotCount();
 		int time=schedule.getDurationPerSlot();
@@ -170,6 +185,13 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		return sb.toString();
 	}
 
+	/**
+	 * Prüft, ob ein Zeitplan an einer bestimmten Station verwendet wird.
+	 * @param name	Name des Zeitplans
+	 * @param element	Station bei der geprüft werden soll, ob an dieser der Zeitplan verwendet wird
+	 * @return	Liefert <code>true</code>, wenn der Zeitplan an der Station verwendet wird
+	 * @see #scheduleInUse(String)
+	 */
 	private boolean scheduleInUse(final String name, final ModelElementBox element) {
 		if (element instanceof ModelElementSource) {
 			ModelElementSourceRecord record=((ModelElementSource)element).getRecord();
@@ -186,6 +208,11 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		return false;
 	}
 
+	/**
+	 * Liefert eine Liste der Stations-IDs die einen bestimmten Zeitplan verwenden.
+	 * @param name	Name des Zeitplans
+	 * @return	Liste der Stations-IDs an denen der Zeitplan verwendet wird
+	 */
 	private List<Object> scheduleInUse(final String name) {
 		final List<Object> usingIDs=new ArrayList<>();
 
@@ -204,6 +231,11 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		return usingIDs;
 	}
 
+	/**
+	 * Erstellt einen Infotext, der darauf hinweist, dass ein Zeitplan an einer oder mehreren Stationen verwendet wird
+	 * @param sb	Ausgabe-{@link StringBuilder}
+	 * @param usingIDs	Liste der IDs an denen der Zeitplan verwendet wird
+	 */
 	private void getInUseInfoText(final StringBuilder sb, List<Object> usingIDs) {
 		if (usingIDs.size()==0) return;
 		List<String> usingStations=new ArrayList<>();
@@ -247,6 +279,12 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 
 	}
 
+	/**
+	 * Informiert eine Reihe von Stationen darüber, dass sich der Name eines Zeitplans geändert hat.
+	 * @param usingIDs	Liste der IDs der zu benachrichtigenden Stationen
+	 * @param oldName	Alter Name des Zeitplans
+	 * @param newName	Neuer Name des Zeitplans
+	 */
 	private void renameScheduleInModel(final List<Object> usingIDs, final String oldName, final String newName) {
 		for (Object id: usingIDs) {
 			if (id instanceof Integer) {
@@ -273,6 +311,10 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Liste der Listener, die beim Ändern der verknüpften Ressourcen aufgerufen werden sollen
+	 * @see #fireUpdateResources()
+	 */
 	private List<Runnable> updateResourcesListeners=new ArrayList<>();
 
 	/**
@@ -304,6 +346,9 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		for (Runnable listener: updateResourcesListeners) listener.run();
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche
+	 */
 	private class AddButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -317,10 +362,20 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten-Schaltflächen.
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Umbenennen, 1: Daten des Zeitplans ändern) */
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Auszuführender Befehl (0: Umbenennen, 1: Daten des Zeitplans ändern)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;
@@ -364,9 +419,17 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

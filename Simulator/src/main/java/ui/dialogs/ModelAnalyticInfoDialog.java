@@ -92,6 +92,11 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Erstellt einen Text, der analytische Informationen und evtl. Simulationsdaten enth‰lt.
+	 * @param analyticInfo	Analytische Informationen
+	 * @param simulationResults	Simulationsergebnisse (kann <code>null</code> sein)
+	 */
 	private void buildText(final AnalyticInfo analyticInfo, final AnalyticInfo.SimulationResults simulationResults) {
 		textBuilder.addHeading(1,Language.tr("Statistics.ErlangCCompare.SimModel"));
 
@@ -100,6 +105,11 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		buildTextAnalytic(analyticInfo,simulationResults);
 	}
 
+	/**
+	 * Gibt auf Basis der analytischen Informationen Daten zum Modell aus.
+	 * @param analyticInfo	Analytische Informationen
+	 * @see #buildText(AnalyticInfo, ui.statistics.analyticcompare.AnalyticInfo.SimulationResults)
+	 */
 	private void buildTextModelInfo(final AnalyticInfo analyticInfo) {
 		textBuilder.addHeading(2,Language.tr("Statistics.ErlangCompare.Arrival"));
 		textBuilder.beginParagraph();
@@ -112,6 +122,11 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		textBuilder.endParagraph();
 	}
 
+	/**
+	 * Gibt die Simulationsergebnisse aus.
+	 * @param simulationResults	Simulationsergebnisse
+	 * @see #buildText(AnalyticInfo, ui.statistics.analyticcompare.AnalyticInfo.SimulationResults)
+	 */
 	private void buildTextSimResults(final AnalyticInfo.SimulationResults simulationResults) {
 		textBuilder.addHeading(2,Language.tr("Statistics.ErlangCCompare.SimResults"));
 
@@ -136,6 +151,11 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Gibt die analytischen Ergebnisse gem‰ﬂ einer bestimmten Formel aus.
+	 * @param results	Analytische Ergebnisse gem‰ﬂ einer bestimmten Formel
+	 * @see #buildTextAnalytic(AnalyticInfo, ui.statistics.analyticcompare.AnalyticInfo.SimulationResults)
+	 */
 	private void outputAnalyticResults(final AnalyticInfo.InfoResult results) {
 		if (results==null) return;
 
@@ -177,6 +197,12 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Erstellt einen Text, der analytische Informationen Simulationsdaten enth‰lt.
+	 * @param analyticInfo	Analytische Informationen
+	 * @param simulationResults	Simulationsergebnisse (kann <code>null</code> sein)
+	 * @see #buildText(AnalyticInfo, ui.statistics.analyticcompare.AnalyticInfo.SimulationResults)
+	 */
 	private void buildTextAnalytic(final AnalyticInfo analyticInfo, final AnalyticInfo.SimulationResults simulationResults) {
 		textBuilder.addHeading(1,Language.tr("Statistics.ErlangCCompare.Results.ErlangC"));
 		outputAnalyticResults(analyticInfo.getErlangC(simulationResults));
@@ -190,6 +216,12 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		outputAnalyticResults(analyticInfo.getAllenCunneen(simulationResults));
 	}
 
+	/**
+	 * Speichert die Daten in einer Datei.
+	 * @param text	Auszugebender Text
+	 * @param file	Ausgabedatei
+	 * @see #saveToFile()
+	 */
 	private void saveTextToFile(final String text, final File file) {
 		if (file.isFile()) {
 			if (!file.delete()) {
@@ -203,6 +235,10 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Speichert die Daten in einer Datei.
+	 * Dazu wird zun‰chst ein Dateiauswahldialog angezeigt.
+	 */
 	private void saveToFile() {
 		final File file=StyledTextBuilder.getSaveFile(this,Language.tr("AnalyticModelCompare.Dialog.Save.Title"));
 		if (file==null) return;

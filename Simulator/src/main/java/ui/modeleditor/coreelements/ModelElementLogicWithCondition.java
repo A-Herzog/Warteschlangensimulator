@@ -33,6 +33,10 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
  * @see ModelElementLogic
  */
 public abstract class ModelElementLogicWithCondition extends ModelElementLogic {
+	/**
+	 * Aktueller Wert der Bedingung
+	 * @see #getCondition()
+	 */
 	private String condition;
 
 	/**

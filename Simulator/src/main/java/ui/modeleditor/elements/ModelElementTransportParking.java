@@ -44,8 +44,25 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementTransportParking extends ModelElementBox implements ModelDataRenameListener {
+	/**
+	 * Transportertyp, der hier parken kann
+	 * @see #getTransporterType()
+	 * @see #setTransporterType(String)
+	 */
 	private String transporterType;
+
+	/**
+	 * Anzahl an Transportern, die hier parken können
+	 * @see #getWaitingCapacity()
+	 * @see #setWaitingCapacity(int)
+	 */
 	private int waitingCapacity;
+
+	/**
+	 * Priorität mit der verfügbare Transporter angezogen werden
+	 * @see #getWaitingPriority()
+	 * @see #setWaitingPriority(String)
+	 */
 	private String waitingPriority;
 
 	/**
@@ -213,6 +230,10 @@ public class ModelElementTransportParking extends ModelElementBox implements Mod
 		return Language.tr("Surface.TransportParking.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,212,212);
 
 	/**

@@ -33,6 +33,7 @@ import tools.SetupData;
  * @see CommandLineSystem
  */
 public class CommandSetNUMA extends AbstractCommand {
+	/** NUMA an- oder ausschalten */
 	private boolean useNUMA=false;
 
 	@Override

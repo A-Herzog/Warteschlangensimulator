@@ -310,6 +310,10 @@ public class ModelElementAnalogValue extends ModelElementBox {
 		return Language.tr("Surface.AnalogValue.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=Color.RED;
 
 	/**

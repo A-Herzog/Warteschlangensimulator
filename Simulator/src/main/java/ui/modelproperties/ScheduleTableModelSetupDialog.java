@@ -54,15 +54,24 @@ public class ScheduleTableModelSetupDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -7856120681087030477L;
 
-	private static String[] durationPerSlotTemplateStrings=new String[]{"1 Minute","15 Minuten","30 Minuten","1 Stunde","1 Tag"};
+	/** Namen für die Auswahlmöglichkeiten für die Dauern der Zeitslots */
+	private static String[] durationPerSlotTemplateStrings;
+	/** Zeitdauern (in Sekunden) für die Auswahlmöglichkeiten für die Dauern der Zeitslots */
 	private static final int[] durationPerSlotTemplateValues=new int[]{60,900,1800,3600,86400};
+	/** Index in {@link #durationPerSlotTemplateValues} für die standardmäßige Dauer eines Zeitslots */
 	private static final int durationPerSlotTemplateDefaultIndex=2;
 
+	/** Auswahlfeld "Dauer eines Intervalls" */
 	private final JComboBox<String> durationPerSlotSelect;
+	/** Eingabefeld "Maximalwert pro Intervall" */
 	private final JTextField editorMaxYEdit;
+	/** Option "Zeitplan wiederholen" (Am Ende des Zeitplans) */
 	private final JRadioButton repeatModeRepeat;
+	/** Option "Zeitplan wiederholen, aber vorher Tag mit 0 auffüllen" (Am Ende des Zeitplans) */
 	private final JRadioButton repeatModeRepeatFillDays;
+	/** Option "Auf letztem Wert verweilen" (Am Ende des Zeitplans) */
 	private final JRadioButton repeatModeLastValue;
+	/** Option "Mit 0 fortsetzen" (Am Ende des Zeitplans) */
 	private final JRadioButton repeatModeZero;
 
 	/**

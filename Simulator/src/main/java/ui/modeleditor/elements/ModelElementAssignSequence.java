@@ -45,6 +45,11 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementAssignSequence extends ModelElementMultiInSingleOutBox  {
+	/**
+	 * Fertigungsplan
+	 * @see #getSequence()
+	 * @see #setSequence(String)
+	 */
 	private String sequence;
 
 	/**
@@ -160,6 +165,10 @@ public class ModelElementAssignSequence extends ModelElementMultiInSingleOutBox 
 		return Language.tr("Surface.AssignSequence.SequenceName")+": "+sequence;
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,255,180);
 
 	/**

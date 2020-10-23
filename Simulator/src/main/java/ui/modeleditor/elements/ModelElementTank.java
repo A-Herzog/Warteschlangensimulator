@@ -55,9 +55,31 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementTank extends ModelElementBox {
+	/**
+	 * Kapazität des Tanks
+	 * @see #getCapacity()
+	 * @see #setCapacity(double)
+	 */
 	private double capacity;
+
+	/**
+	 * Initialwert
+	 * @see #getInitialValue()
+	 * @see #setInitialValue(double)
+	 */
 	private double initialValue;
+
+	/**
+	 * Liste der Ventile
+	 * @see #getValves()
+	 */
 	private List<Valve> valves;
+
+	/**
+	 * Gibt an, wie häufig das System über die Änderung des Wertes benachrichtigt werden soll (in Sekunden).
+	 * @see #getAnalogNotify()
+	 * @see #setAnalogNotify(double)
+	 */
 	private double analogNotify;
 
 	/**
@@ -229,6 +251,10 @@ public class ModelElementTank extends ModelElementBox {
 		return Language.tr("Surface.Tank.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=Color.BLUE;
 
 	/**

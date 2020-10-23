@@ -69,39 +69,90 @@ public class TransporterTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -888684759824862063L;
 
+	/**
+	 * Objekt das die verfügbaren Animations-Icons vorhält
+	 */
 	private final AnimationImageSource imageSource;
 
+	/** Haupt-Zeichenfläche (wird benötigt um zu vermitteln, wo eine Transportergruppe im Einsatz ist, und für den Expression-Builder) */
 	private final ModelSurface surface;
+	/** Namen aller Variablen */
 	private final String[] variables;
+	/** Namen aller Variablen inkl. des Bezeichners für die Abstände */
 	private final String[] variablesWithDistances;
+	/** Liste der bereits vorhandenen Transportergruppennamen (inkl. des Names der aktuellen Gruppe) */
 	private final String[] names;
+	/** Index der aktuellen Gruppe in {@link #names} */
 	private final int index;
+	/** Aktuelle Transportergruppe */
 	private final ModelTransporter transporter;
 
+	/* Allgemeine Einstellungen */
+
+	/** Name der Transportergruppe */
 	private final JTextField inputField;
+	/** Info-Feld (z.B. Hinweis auf ungültigen Namen) zu dem Namenseingabefeld */
 	private final JLabel infoLabel;
 
+	/* Dialogseite "Kapazität und Aussehen" */
+
+	/** Eingabefeld "Kapazität pro Transporter" */
 	private final JTextField capacity;
+	/** Datenmodell für Dropdownbox "Icon für Fahrt nach rechts (unbeladen)" */
 	private final DefaultComboBoxModel<JLabel> iconChooserListEastEmpty;
+	/** Dropdownbox "Icon für Fahrt nach rechts (unbeladen)" */
 	private final JComboBox<JLabel> iconChooserEastEmpty;
+	/** Datenmodell für Dropdownbox "Icon für Fahrt nach links (unbeladen)" */
 	private final DefaultComboBoxModel<JLabel> iconChooserListWestEmpty;
+	/** Dropdownbox "Icon für Fahrt nach links (unbeladen)" */
 	private final JComboBox<JLabel> iconChooserWestEmpty;
+	/** Datenmodell für Dropdownbox "Icon für Fahrt nach rechts (beladen)" */
 	private final DefaultComboBoxModel<JLabel> iconChooserListEastLoaded;
+	/** Dropdownbox "Icon für Fahrt nach rechts (beladen)" */
 	private final JComboBox<JLabel> iconChooserEastLoaded;
+	/** Datenmodell für Dropdownbox "Icon für Fahrt nach links (beladen)" */
 	private final DefaultComboBoxModel<JLabel> iconChooserListWestLoaded;
+	/** Dropdownbox "Icon für Fahrt nach links (beladen)" */
 	private final JComboBox<JLabel> iconChooserWestLoaded;
 
-	private final JTextField expression;
-	private final JButton tableButton;
-	private final TransporterDistancesTableModel distancesTableModel;
+	/* Dialogseite "Anzahl" */
 
+	/** Tabelle für die Anzahlen an Transportern an den Stationen */
 	private final TransporterStationsTableModel countTableModel;
 
+	/* Dialogseite "Entfernungen" */
+
+	/** Eingabefeld "Umrechnung Entfernung zu Zeit" */
+	private final JTextField expression;
+	/** Schaltfläche für Kontextmenü mit Hilfsfunktionen */
+	private final JButton tableButton;
+	/** Tabelle zur Definition der Abstände zwischen den Stationen */
+	private final TransporterDistancesTableModel distancesTableModel;
+
+	/* Dialogseite "Ausfälle/Pausen" */
+
+	/** Tabelle für die Ausfallzeiten */
 	private final TransporterFailureTableModel failureData;
 
+	/* Dialogseite "Beladezeit" */
+
+	/** Panel zur Definition der Ladezeiten */
 	private final TransporterTableModelDialogLoadingTimes loadingTimes;
+
+	/* Dialogseite "Entladezeit" */
+
+	/** Panel zur Definition der Entladezeiten */
 	private final TransporterTableModelDialogLoadingTimes unloadingTimes;
 
+	/**
+	 * Erstellt eine Dropdownliste zur Auswahl eines Icons für die Transporter
+	 * @param parent	Übergeordnetes Element für die Dropdownliste
+	 * @param modelImages	Liste der verfügbaren Icons
+	 * @param labelText	Beschriftung für die Dropdownliste
+	 * @param iconName	Aktuell gewähltes Icon
+	 * @param iconDefaultName	Standardmäßig zu wählendes Icon
+	 * @return	Liefert ein Array aus Dropdownliste und Datenmodell dazu
+	 */
 	private Object[] getIconChooser(final JComponent parent, final ModelAnimationImages modelImages, final String labelText, final String iconName, final String iconDefaultName) {
 		final JPanel panel;
 		final JLabel label;
@@ -415,6 +466,11 @@ public class TransporterTableModelDialog extends BaseDialog {
 		transporter.setUnloadTime(unloadingTimes.getData());
 	}
 
+	/**
+	 * Zeigt das Drowdownmenü an, das beim Anklicken von
+	 * {@link #tableButton} aktiviert werden soll.
+	 * @see #tableButton
+	 */
 	private void commandTableMenu() {
 		final JPopupMenu popupMenu=new JPopupMenu();
 

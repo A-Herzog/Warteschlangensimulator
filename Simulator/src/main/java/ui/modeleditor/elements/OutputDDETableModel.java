@@ -54,9 +54,13 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = -7559702535582420139L;
 
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Liste mit den Ausgabemodi */
 	private final List<ModelElementOutputDDE.OutputMode> mode;
+	/** Liste mit den je nach Ausgabemodus notwendigen zusätzlichen Daten */
 	private final List<String> data;
+	/** Liste mit allen Variablennamen */
 	private final String[] variableNames;
 	private final JTableExt table;
 
@@ -93,6 +97,9 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 		return data;
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();

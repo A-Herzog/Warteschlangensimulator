@@ -59,6 +59,10 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationPieChart extends ModelElementPosition implements ElementWithAnimationDisplay {
+	/**
+	 * Größe der Markierungsboxen an den Ecken des Elements
+	 * @see #drawBorderBox(Graphics2D, Point, double)
+	 */
 	private static final int SELECT_BOX_SIZE=7;
 
 	/**
@@ -82,6 +86,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	private final List<String> expression=new ArrayList<>();
 	private final List<Color> expressionColor=new ArrayList<>();
 
+	/** Beschriftungen an den Tortensegmenten anzeigen */
 	private LabelMode labelMode;
 
 	private int borderWidth=1;

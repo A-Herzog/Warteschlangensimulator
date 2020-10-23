@@ -60,6 +60,9 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 	private boolean[] idAllowRates;
 	private int[] ids;
 
+	/**
+	 * Namen der modellweiten Variablen
+	 */
 	private final String[] variables;
 
 	private final JComboBox<String> comboID;

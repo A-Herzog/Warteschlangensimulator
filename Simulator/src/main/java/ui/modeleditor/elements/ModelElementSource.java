@@ -68,6 +68,10 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private int connectionId=-1;
 
+	/**
+	 * Kundenankünfte-Datensatz
+	 * @see #getRecord()
+	 */
 	private final ModelElementSourceRecord record;
 
 	/**
@@ -110,6 +114,10 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		final String name=getName().trim();
 		if (connection!=null) connection.setName(Language.tr("Surface.Source.LabelArrivals")+((name.isEmpty())?"":(" ("+name+")")));
@@ -210,6 +218,10 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 		return Language.tr("Surface.Source.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,255,180);
 
 	/**

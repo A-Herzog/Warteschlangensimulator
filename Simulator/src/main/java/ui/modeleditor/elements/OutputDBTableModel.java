@@ -54,10 +54,15 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = 4147425861546783704L;
 
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Liste mit den Ausgabemodi */
 	private final List<ModelElementOutputDB.OutputMode> mode;
+	/** Liste mit den Datenbankspalten in die die Ausgaben erfolgen sollen */
 	private final List<String> column;
+	/** Liste mit den je nach Ausgabemodus notwendigen zusätzlichen Daten */
 	private final List<String> data;
+	/** Liste mit allen Variablennamen */
 	private final String[] variableNames;
 	private final JTableExt table;
 	private final List<String> dbColumnNames;
@@ -106,6 +111,9 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 		return data;
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();

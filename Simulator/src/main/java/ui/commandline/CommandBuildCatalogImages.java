@@ -34,6 +34,7 @@ import ui.modeleditor.ModelElementCatalogDescriptionBuilder;
  * @see CommandLineSystem
  */
 public class CommandBuildCatalogImages extends AbstractCommand {
+	/** Sprache */
 	private String language;
 
 	@Override

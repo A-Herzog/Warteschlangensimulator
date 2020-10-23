@@ -53,6 +53,9 @@ public class BarStackTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -110037828381567665L;
 
+	/**
+	 * Liste mit allen im Modell zur Verfügung stehenden Variablennamen (zur Prüfung des Ausdrücks)
+	 */
 	private final String[] variableNames;
 
 	private final JTextField editExpression;

@@ -46,25 +46,54 @@ public class SchedulePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 6915816603375099302L;
 
+	/**
+	 * Anzahl der Beschriftungen unter den Balken an der x-Achse
+	 */
 	private static final int XSTEPS=10;
 
+	/** Werte in den einzelnen Zeitslots */
 	private final List<Integer> data;
+	/** Nummer des ganz links dargestellten Zeitslots */
 	private int startPosition;
+	/** Als Maximum anzuzeigender y-Wert */
 	private int editorMaxY;
+	/** Zeitspanne pro Zeitslot (für die Beschriftung unter den Slots) */
 	private int durationPerSlot;
+	/** Anzahl an gleichzeitig darzustellenden Slots */
 	private final int displaySlots;
 
+	/** Schriftart für Standardtexte */
 	private final Font fontDefault;
+	/** Schriftart für fett darzustellende Texte */
 	private final Font fontBold;
 
+	/**
+	 * Größe (von der Grundlinie nach oben)
+	 * der Schrift in der Darstellung
+	 */
 	private int fontYDelta;
+
+	/**
+	 * Gesamtgröße (von ganz oben bis unter die Grundlinie)
+	 * der Schrift in der Darstellung
+	 */
 	private int fontHeight;
+
+	/** Abstand zu Diagrammbox links */
 	private int marginBoxLeft;
+	/** Abstand zu Diagrammbox oben */
 	private int marginBoxTop;
+	/** Abstand zu Diagrammbox unten */
 	private int marginBoxBottom;
+	/** Breite der Diagrammbox */
 	private int boxWidth;
+	/** Höhe der Diagrammbox */
 	private int boxHeight;
 
+	/**
+	 * Letzte Position des Mauszeigers
+	 * (um auch außerhalb von Maus-Ereignissen auf diese zugreifen zu können)
+	 */
 	private Point lastMousePoint;
 
 	/**
@@ -126,6 +155,11 @@ public class SchedulePanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Zeichnet den Rahmen (Hintergrund für den gesamten Bereich)
+	 * @param g	Grafikausgabeobjekt
+	 * @see #paint(Graphics)
+	 */
 	private void paintFrame(final Graphics2D g) {
 		final Rectangle2D.Double rect=new Rectangle2D.Double(0,0,getWidth(),getHeight());
 
@@ -134,6 +168,11 @@ public class SchedulePanel extends JPanel {
 		/* kein Rahmen - g.setColor(Color.GRAY); g.draw(rect); */
 	}
 
+	/**
+	 * Zeichnet die Box für den eigentlichen Diagrammbereich
+	 * @param g	Grafikausgabeobjekt
+	 * @see #paint(Graphics)
+	 */
 	private void paintBox(final Graphics2D g) {
 		final Rectangle2D.Double rect=new Rectangle2D.Double(marginBoxLeft,marginBoxTop,boxWidth,boxHeight);
 
@@ -143,6 +182,12 @@ public class SchedulePanel extends JPanel {
 		g.draw(rect);
 	}
 
+	/**
+	 * Gibt den Titel der Darstellung aus
+	 * @param g	Grafikausgabeobjekt
+	 * @param title	Anzuzeigender Titel
+	 * @see #paint(Graphics)
+	 */
 	private void paintTitle(final Graphics2D g, final String title) {
 		g.setFont(fontBold);
 		g.setColor(Color.BLACK);
@@ -150,6 +195,11 @@ public class SchedulePanel extends JPanel {
 		g.drawString(title,marginBoxLeft+(boxWidth-g.getFontMetrics().stringWidth(title))/2,fontHeight/2+fontYDelta);
 	}
 
+	/**
+	 * Zeichnet die Achsen des Diagramms
+	 * @param g	Grafikausgabeobjekt
+	 * @see #paint(Graphics)
+	 */
 	private void paintAxis(final Graphics2D g) {
 		g.setFont(fontDefault);
 		g.setColor(Color.BLACK);
@@ -182,6 +232,11 @@ public class SchedulePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Zeichnet die Datenbalken.
+	 * @param g	Grafikausgabeobjekt
+	 * @see #paint(Graphics)
+	 */
 	private void paintData(final Graphics2D g) {
 		for (int i=0;i<displaySlots;i++) {
 			final int value=getDataValue(startPosition+i);
@@ -221,15 +276,32 @@ public class SchedulePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Liefert den Wert für einen Balken
+	 * @param nr	Index des Balkens bzw. des Zeitslots
+	 * @return	Wert für den Balken
+	 * @see #setDataValue(int, int)
+	 */
 	private int getDataValue(final int nr) {
 		return (nr>=data.size())?0:data.get(nr);
 	}
 
+	/**
+	 * Stellt den Wert für einen Balken ein
+	 * @param nr	Index des Balkens bzw. des Zeitslots
+	 * @param value	Neuer Wert für den Balken
+	 * @see #getDataValue(int)
+	 */
 	private void setDataValue(final int nr, final int value) {
 		while (data.size()<=nr) data.add(0);
 		data.set(nr,value);
 	}
 
+	/**
+	 * Liefert die Beschriftung (unter der x-Achse) für einen Balken
+	 * @param nr	Index des Balkens bzw. des Zeitslots
+	 * @return	Beschriftung für den Balken
+	 */
 	private String getSlotInfo(int nr) {
 		final int slot=startPosition+nr;
 		final int time=slot*durationPerSlot;
@@ -279,6 +351,13 @@ public class SchedulePanel extends JPanel {
 		paintData((Graphics2D)g);
 	}
 
+	/**
+	 * Bestimmt basierend auf einer Mausposition den Index
+	 * eines Zeitslots und den y-Wert der Mausposition.
+	 * @param xMouse	Horizontale Mausposition
+	 * @param yMouse	Vertikale Mausposition
+	 * @return	Array aus Index des Zeitslots und neuem Wert für diesen Slot
+	 */
 	private int[] getSlotDataFromPosition(final int xMouse, final int yMouse) {
 		for (int i=0;i<displaySlots;i++) {
 			int x=1+marginBoxLeft+i*boxWidth/displaySlots;
@@ -297,6 +376,9 @@ public class SchedulePanel extends JPanel {
 		return null;
 	}
 
+	/**
+	 * Reagiert auf Mausbewegungen und Mausklicks.
+	 */
 	private class SchedulePanelMouseListener extends MouseAdapter implements MouseMotionListener {
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -310,9 +392,6 @@ public class SchedulePanel extends JPanel {
 			lastMousePoint=null;
 			repaint();
 		}
-
-		@Override
-		public void mouseDragged(MouseEvent e) {}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {

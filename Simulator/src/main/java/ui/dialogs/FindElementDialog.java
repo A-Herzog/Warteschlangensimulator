@@ -172,6 +172,10 @@ public class FindElementDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Liefert die kleinste im Modell vorkommende ID.
+	 * @return	Kleinste im Modell vorkommende ID oder 0, wenn das Modell leer ist
+	 */
 	private int getSmallestId() {
 		int minId=Integer.MAX_VALUE;
 
@@ -185,10 +189,23 @@ public class FindElementDialog extends BaseDialog {
 		return (minId==Integer.MAX_VALUE)?0:minId;
 	}
 
+	/**
+	 * Konfiguriert das {@link #resultsInfo}-Element
+	 * @param htmlColor	Zu verwendende Farbe (in html-Notation)
+	 * @param text	Auszugebender Text
+	 * @see #resultsInfo
+	 * @see #buildIDsList()
+	 */
 	private void setInfo(final String htmlColor, final String text) {
 		resultsInfo.setText("<html><body><span style=\"color: "+htmlColor+"\">"+text+"</span></body></html>");
 	}
 
+	/**
+	 * Zeichnet die Darstellung einer Station in ein Icon
+	 * @param element	Zu zeichnende Station
+	 * @return	Icon das die Station repräsentiert
+	 * @see #getLabel(ModelSurface, int)
+	 */
 	private Icon drawElementToIcon(final ModelElement element) {
 		final Point p1=element.getPosition(true);
 		final Point p2=element.getLowerRightPosition();
@@ -211,6 +228,13 @@ public class FindElementDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Erstellt eine Beschreibung aus Icon und Text zu einer Station
+	 * @param surface	Haupt-Zeichenfläche
+	 * @param id	ID der Station
+	 * @return	Beschreibungs-Label
+	 * @see #search()
+	 */
 	private JLabel getLabel(final ModelSurface surface, final int id) {
 		/* Element und übergeordnetes Element finden */
 		ModelElement element=null;
@@ -249,6 +273,13 @@ public class FindElementDialog extends BaseDialog {
 		return label;
 	}
 
+	/**
+	 * Prüft, ob eine Station zu den Sucheingaben passt
+	 * @param element	Zu prüfende Station
+	 * @param search	Suchtext
+	 * @return	Liefert <code>true</code>, wenn die Station zu den Sucheingaben passt
+	 * @see #buildIDsList()
+	 */
 	private boolean testName(final ModelElement element, final String search) {
 		final String searchLower=search.toLowerCase();
 
@@ -258,6 +289,10 @@ public class FindElementDialog extends BaseDialog {
 		return false;
 	}
 
+	/**
+	 * Erstellt eine Liste mit allen in dem Modell auftretenden IDs.
+	 * @see #resultsIds
+	 */
 	private void buildIDsList() {
 		resultsIds.clear();
 
@@ -316,6 +351,10 @@ public class FindElementDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Führt die Suche aus.
+	 * @see #searchEdit
+	 */
 	private void search() {
 		buildIDsList();
 

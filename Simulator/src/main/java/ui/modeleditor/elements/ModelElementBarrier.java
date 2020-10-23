@@ -52,6 +52,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementSignal
  */
 public class ModelElementBarrier extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener, ModelElementAnimationForceMove {
+	/**
+	 * Liste der Signale, auf die diese Schranke reagiert
+	 * @see #getOptions()
+	 */
 	private final List<ModelElementBarrierSignalOption> options;
 
 	/**
@@ -143,6 +147,10 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 		return Language.tr("Surface.Barrier.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,200,80);
 
 	/**

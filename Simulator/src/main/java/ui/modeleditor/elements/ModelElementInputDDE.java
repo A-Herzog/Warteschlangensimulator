@@ -48,12 +48,54 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implements ElementWithNewVariableNames, ElementWithDDEInputOutput, ElementNoRemoteSimulation {
+	/**
+	 * Name der Arbeitsmappe aus der die Daten ausgelesen werden sollen
+	 * @see #getWorkbook()
+	 * @see #setWorkbook(String)
+	 */
 	private String workbook;
+
+	/**
+	 * Name der Tabelle aus der die Daten ausgelesen werden sollen
+	 * @see #getTable()
+	 * @see #setTable(String)
+	 */
 	private String table;
+
+	/**
+	 * 1-basierende Nummer der ersten Zeile aus der Daten ausgelesen werden sollen
+	 * @see #getStartRow()
+	 * @see #setStartRow(int)
+	 */
 	private int startRow;
+
+	/**
+	 * Name der Spalte aus der die Daten ausgelesen werden sollen
+	 * @see #getColumn()
+	 * @see #setColumn(String)
+	 */
 	private String column;
+
+	/**
+	 * Name der Variable, in die der Wert geschrieben werden soll
+	 * @see #getVariable()
+	 * @see #setVariable(String)
+	 */
 	private String variable;
+
+	/**
+	 * Verhalten beim Erreichen des Dateiendes
+	 * @see #getEofMode()
+	 * @see #setEofMode(EofModes)
+	 * @see EofModes
+	 */
 	private EofModes eofMode;
+
+	/**
+	 * Vorgabewert, der verwendet wird, wenn im Modus {@link ModelElementInputDDE.EofModes#EOF_MODE_DEFAULT_VALUE} das Dateiende erreicht wurde
+	 * @see #getDefaultValue()
+	 * @see #setDefaultValue(String)
+	 */
 	private String defaultValue;
 
 	/**
@@ -183,6 +225,10 @@ public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implem
 		return Language.tr("Surface.InputDDE.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

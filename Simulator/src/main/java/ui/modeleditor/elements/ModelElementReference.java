@@ -272,6 +272,10 @@ public class ModelElementReference extends ModelElementBox implements ModelEleme
 		return element.getTypeName();
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

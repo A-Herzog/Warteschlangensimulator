@@ -49,7 +49,11 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 8571023684342497012L;
 
+	/**
+	 * Liste der globalen Variablen (zum Prüfen von Ausdrücken)
+	 */
 	private final String[] variableNames;
+
 	private final JTextField expressionEdit;
 	private final JTextField valueEdit;
 

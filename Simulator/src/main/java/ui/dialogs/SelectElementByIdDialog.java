@@ -89,6 +89,11 @@ public class SelectElementByIdDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Liefert Informationen zu dem Modell.
+	 * @param surface	Haupt-Zeichenfläche
+	 * @return	Informationen zu dem Modell
+	 */
 	private String getInfo(final ModelSurface surface) {
 		/* Zählung */
 		int countStations=0;
@@ -112,6 +117,12 @@ public class SelectElementByIdDialog extends BaseDialog {
 		return String.format("<html><body>"+Language.tr("FindElement.Info")+"</body></html>",countStations,countEdges,countOthers,countStations+countEdges+countOthers);
 	}
 
+	/**
+	 * Liefert ein Beschreibungs-Label zu einer Station
+	 * @param surface	Haupt-Zeichenfläche
+	 * @param id	ID der Station
+	 * @return	Beschreibungs-Label zu einer Station
+	 */
 	private JLabel getLabel(final ModelSurface surface, final int id) {
 		/* Element und übergeordnetes Element finden */
 		ModelElementBox element=null;
@@ -148,6 +159,11 @@ public class SelectElementByIdDialog extends BaseDialog {
 		return label;
 	}
 
+	/**
+	 * Liefert eine Listendarstellung einer Stationen
+	 * @param surface	Haupt-Zeichenfläche
+	 * @return	Listendarstellung einer Stationen
+	 */
 	private JList<JLabel> getList(final ModelSurface surface) {
 		/* Alle IDs auslesen */
 		List<Integer> idsList=new ArrayList<>();

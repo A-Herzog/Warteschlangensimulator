@@ -189,6 +189,10 @@ public class ModelElementAnalogAssign extends ModelElementMultiInSingleOutBox {
 		return changeExpression;
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,255,180);
 
 	/**

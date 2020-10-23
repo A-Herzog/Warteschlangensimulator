@@ -40,7 +40,17 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementTank
  */
 public class ModelElementTankFlowBySignal extends ModelElementBox {
+	/**
+	 * Einstellungen zu diesem Fluss
+	 * @see #getFlowData()
+	 */
 	private final ModelElementTankFlowData data;
+
+	/**
+	 * Name des Signals, dass den Fluss auslöst
+	 * @see #getSignalName()
+	 * @see #setSignalName(String)
+	 */
 	private String signalName;
 
 	/**
@@ -132,6 +142,10 @@ public class ModelElementTankFlowBySignal extends ModelElementBox {
 		return Language.tr("Surface.TankFlowBySignal.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(64,127,255);
 
 	/**
@@ -209,8 +223,8 @@ public class ModelElementTankFlowBySignal extends ModelElementBox {
 	}
 
 	/**
-	 * Liefert den Namen des Signals, dass den Fluss auslöst.
-	 * @return	Name des Signals, dass den Fluss auslöst
+	 * Liefert den Namen des Signals, das den Fluss auslöst.
+	 * @return	Name des Signals, das den Fluss auslöst
 	 */
 	public String getSignalName() {
 		return signalName;

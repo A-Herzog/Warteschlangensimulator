@@ -17,6 +17,7 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +39,23 @@ import ui.images.Images;
  * @see ModelElementBarrierSignalOption
  */
 public class BarrierSignalTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 8386629305184893632L;
 
+	/** Zugehörige Tabelle (um diese veranlassen zu können, sich zu aktualisieren) */
 	private final JTableExt table;
+	/** Darzustellende Daten */
 	private final List<ModelElementBarrierSignalOption> options;
+	/** Liste mit allen Signalnamen im System */
 	private final String[] signals;
+	/** Liste mit allen Kundentypnamen im System */
 	private final String[] clientTypes;
+	/** Hilfe-Callback */
 	private final Runnable help;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/**
@@ -72,6 +83,9 @@ public class BarrierSignalTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -184,10 +198,20 @@ public class BarrierSignalTableModel extends JTableExtAbstractTableModel {
 		for (ModelElementBarrierSignalOption option: this.options) options.add(option.clone());
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben) */
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;
@@ -228,9 +252,17 @@ public class BarrierSignalTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

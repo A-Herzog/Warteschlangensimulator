@@ -279,6 +279,12 @@ public final class CreateSankey extends BaseDialog {
 		return new ArrayList<>(stations);
 	}
 
+	/**
+	 * Zeigt in Abhängigkeit vom gewählten Betriebsmodus des Dialogs
+	 * einen passenden Auswahldialog für die Ausgabedatei an.
+	 * Im Erfolgsfall werden die Daten in {@link #editFile} eingetragen.
+	 * @see #editFile
+	 */
 	private void selectFile() {
 		final String oldFile=editFile.getText().trim();
 		final File initialFolder=(oldFile.isEmpty())?null:new File(oldFile).getParentFile();
@@ -347,6 +353,12 @@ public final class CreateSankey extends BaseDialog {
 		return true;
 	}
 
+	/**
+	 * Liefert die R-Sankey-Daten.
+	 * @param names	Stationsnamen
+	 * @param data	Stationsverknüpfungen
+	 * @return	R-Sankey-Daten
+	 */
 	private String storeSankeyR(final List<String> names, final List<long[]> data) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -377,6 +389,13 @@ public final class CreateSankey extends BaseDialog {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert die HTML-Sankey-Daten.
+	 * @param names	Stationsnamen
+	 * @param data	Stationsverknüpfungen
+	 * @param includeLibrary	Sollen die notwendigen JS-Bibliotheken direkt in den HTML-Code eingebettet werden?
+	 * @return	HTML-Sankey-Daten
+	 */
 	private String storeSankeyHTML(final List<String> names, final List<long[]> data, final boolean includeLibrary) {
 		final String namesString="\""+String.join("\",\n  \"",names)+"\"";
 		final String links=data.stream().map(v->"{\"source\": "+v[0]+", \"target\": "+v[1]+", \"value\": "+v[2]+"}").collect(Collectors.joining(",\n  "));
@@ -437,6 +456,14 @@ public final class CreateSankey extends BaseDialog {
 		return html.toString();
 	}
 
+	/**
+	 * Liefert den JS-Code mehrerer JS-Bibliotheken
+	 * @param resourceNames	Liste der JS-Bibliotheken
+	 * @param result	Ausgabe-{@link StringBuilder}
+	 * @return	Liefert im Erfolgsfall (wenn alle Ressourcen gefunden wurden) <code>true</code>
+	 * @see #storeSankeyHTML(List, List, boolean)
+	 * @see #storeLibrary(File)
+	 */
 	@SuppressWarnings("resource")
 	private boolean getLibrary(final String[] resourceNames, final StringBuilder result) {
 		for (String resourceName: resourceNames) {
@@ -469,6 +496,12 @@ public final class CreateSankey extends BaseDialog {
 		return true;
 	}
 
+	/**
+	 * Speichert die JS-Sankey-Bibliotheken als externe Dateien
+	 * @param folder	Ausgabeordner
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #storeData()
+	 */
 	private boolean storeLibrary(final File folder) {
 		final StringBuilder result=new StringBuilder();
 

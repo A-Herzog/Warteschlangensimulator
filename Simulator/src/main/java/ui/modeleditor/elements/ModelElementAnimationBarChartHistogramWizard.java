@@ -63,6 +63,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 4525789972511231412L;
 
+	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
 
 	private final List<HistogramType> types;

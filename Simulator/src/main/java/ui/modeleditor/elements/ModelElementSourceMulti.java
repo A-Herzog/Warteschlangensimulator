@@ -58,6 +58,10 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private int connectionId=-1;
 
+	/**
+	 * Kundenankünfte-Datensätze
+	 * @see #getRecords()
+	 */
 	private final List<ModelElementSourceRecord> records;
 
 	/**
@@ -196,6 +200,10 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 		return Language.tr("Surface.SourceMulti.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,255,180);
 
 	/**

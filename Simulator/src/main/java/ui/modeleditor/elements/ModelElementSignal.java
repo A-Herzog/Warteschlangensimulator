@@ -125,6 +125,10 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 		return Language.tr("Surface.Signal.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,200,80);
 
 	/**

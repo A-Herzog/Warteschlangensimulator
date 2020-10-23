@@ -46,13 +46,47 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public final class ModelElementText extends ModelElementPosition {
+	/**
+	 * Vorgabe-Textfarbe
+	 * @see #color
+	 */
 	private static final Color DEFAULT_COLOR=Color.BLACK;
 
+	/**
+	 * Darzustellender Text
+	 * @see #getText()
+	 * @see #setText(String)
+	 */
 	private String text;
+
 	private FontCache.FontFamily fontFamily=FontCache.defaultFamily;
+
+	/**
+	 * Schriftgröße
+	 * @see #getTextSize()
+	 * @see #setTextSize(int)
+	 */
 	private int textSize=14;
+
+	/**
+	 * Ausgabe des Textes im Fettdruck
+	 * @see #getTextBold()
+	 * @see #setTextBold(boolean)
+	 */
 	private boolean bold;
+
+	/**
+	 * Ausgabe des Textes im Kursivdruck
+	 * @see #getTextItalic()
+	 * @see #setTextItalic(boolean)
+	 */
 	private boolean italic;
+
+	/**
+	 * Textfarbe
+	 * @see #getColor()
+	 * @see #setColor(Color)
+	 */
 	private Color color=DEFAULT_COLOR;
 
 	/**

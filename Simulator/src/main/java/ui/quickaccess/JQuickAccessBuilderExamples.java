@@ -52,6 +52,12 @@ public class JQuickAccessBuilderExamples extends JQuickAccessBuilder {
 		}
 	}
 
+	/**
+	 * Prüft, ob ein Beispiel zu der Sucheingabe passt.
+	 * @param owner	Übergeordnetes Element
+	 * @param exampleName	Zu prüfendes Beispiel
+	 * @param loader	 Beim Anklicken auszuführende Aktion
+	 */
 	private void process(final Component owner, final String exampleName, final Consumer<EditModel> loader) {
 		final int index=EditModelExamples.getExampleIndexFromName(exampleName);
 		if (index<0) return;

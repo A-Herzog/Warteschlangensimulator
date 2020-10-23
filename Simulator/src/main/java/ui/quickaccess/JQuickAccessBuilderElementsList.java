@@ -55,6 +55,12 @@ public class JQuickAccessBuilderElementsList extends JQuickAccessBuilder {
 		}
 	}
 
+	/**
+	 * Prüft, ob eine Station zu der Sucheingabe passt.
+	 * @param element	Zu prüfende Station
+	 * @param selectElement	 Beim Anklicken auszuführende Aktion
+	 * @see #work(ModelSurface, Consumer)
+	 */
 	private void processElement(final ModelElementPosition element, final Consumer<JQuickAccessRecord> selectElement) {
 		final String name;
 		if (element.getName().isEmpty()) {

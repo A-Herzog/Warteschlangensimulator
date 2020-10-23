@@ -52,17 +52,45 @@ public class RulerPanel extends JPanel {
 	 */
 	public final ModelSurfacePanel surfacePanel;
 
+	/**
+	 * Scroll-Panel das die Zeichenfläche enthält
+	 */
 	private final JScrollPane scrollPane;
+
+	/**
+	 * Lineal oben
+	 */
 	private final TopRuler topRuler;
+
+	/**
+	 * Lineal links
+	 */
 	private final LeftRuler leftRuler;
 
 	private int leftDelta=0;
 	private int scrollX=0;
 	private int scrollY=0;
 	private double invZoom=1;
+
+	/**
+	 * Aktuelle horizontale Mausposition
+	 * @see #mouseY
+	 * @see #setMousePosition(Point)
+	 * @see #paint(Graphics)
+	 */
 	private int mouseX=-1;
+
+	/**
+	 * Aktuelle vertikale Mausposition
+	 * @see #mouseX
+	 * @see #setMousePosition(Point)
+	 * @see #paint(Graphics)
+	 */
 	private int mouseY=-1;
 
+	/**
+	 * Farbe für den auf den Linealen jeweils markiert dargestellten Bereich
+	 */
 	private final Color areaColor;
 
 	/**
@@ -98,6 +126,14 @@ public class RulerPanel extends JPanel {
 		update();
 	}
 
+	/**
+	 * Übermittelt die aktuelle Mausposition aus einem
+	 * Maus-Ereignis an diese Klasse, damit sie für die
+	 * Darstellung der Lineale zur Verfügung steht.
+	 * @param p	Aktuelle Mausposition
+	 * @see #mouseX
+	 * @see #mouseY
+	 */
 	private void setMousePosition(final Point p) {
 		mouseX=(p==null)?-1:p.x;
 		mouseY=(p==null)?-1:p.y;
@@ -143,9 +179,20 @@ public class RulerPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Lineal oben
+	 * @see RulerPanel#topRuler
+	 */
 	private class TopRuler extends JPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID=-6787406004853918103L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
 		public TopRuler() {
 			super();
 			setPreferredSize(new Dimension(0,15));
@@ -157,8 +204,6 @@ public class RulerPanel extends JPanel {
 
 			int xAbs=leftDelta;
 			double xRel=scrollX*invZoom;
-
-
 
 			final int width=getWidth();
 			final int height=getHeight();
@@ -201,11 +246,22 @@ public class RulerPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Lineal links
+	 * @see RulerPanel#leftRuler
+	 */
 	private class LeftRuler extends JPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID=8366048604838451140L;
 
 		private final AffineTransform transformRotate;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
 		public LeftRuler() {
 			super();
 			setPreferredSize(new Dimension(15,0));

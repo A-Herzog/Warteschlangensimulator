@@ -151,6 +151,9 @@ public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel 
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche
+	 */
 	private class AddButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -164,10 +167,20 @@ public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel 
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten- und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Spalte der Schaltfläche (0 : bearbeiten, 1: nach oben, 2: nach unten) */
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Spalte der Schaltfläche (0 : bearbeiten, 1: nach oben, 2: nach unten)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;
@@ -204,9 +217,17 @@ public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel 
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

@@ -152,6 +152,10 @@ public class ModelElementTransportDestination extends ModelElementBox implements
 		return Language.tr("Surface.TransportDestination.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,212,212);
 
 	/**

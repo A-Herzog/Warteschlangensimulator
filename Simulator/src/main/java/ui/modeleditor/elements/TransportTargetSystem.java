@@ -55,9 +55,31 @@ public final class TransportTargetSystem implements Cloneable {
 		ROUTING_MODE_TEXT_PROPERTY,
 	}
 
+	/**
+	 * Modus zur Auswahl der Zielstation
+	 * @see #getMode()
+	 * @see #setMode(RoutingMode)
+	 */
 	private RoutingMode mode;
+
+	/**
+	 * Liste der Routing-Einträge
+	 * @see #getRouting()
+	 */
 	private final List<TransportTargetRecord> routing;
+
+	/**
+	 * Name der Text-Kundeneigenschaft zur Bestimmung des Routing-Ziels
+	 * @see #getRoutingProperty()
+	 * @see #setRoutingProperty(String)
+	 */
 	private String property;
+
+	/**
+	 * Name der Zielstation, wenn keine der Routing-Regeln zutrifft
+	 * @see #getDefaultStation()
+	 * @see #setDefaultStation(String)
+	 */
 	private String defaultStation;
 
 	/**

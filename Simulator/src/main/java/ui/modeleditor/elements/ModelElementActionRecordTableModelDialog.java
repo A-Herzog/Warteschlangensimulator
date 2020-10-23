@@ -64,7 +64,14 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -4694694293692841647L;
 
+	/**
+	 * Namen der modellweiten Variablen
+	 */
 	private final String[] variables;
+
+	/**
+	 * Zu bearbeitender Datensatz
+	 */
 	private final ModelElementActionRecord record;
 
 	private static final String bold1="<html><body><b>";

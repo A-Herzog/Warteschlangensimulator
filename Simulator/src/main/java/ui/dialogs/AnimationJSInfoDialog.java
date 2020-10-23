@@ -72,9 +72,22 @@ public class AnimationJSInfoDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Renderer für einen einzelnen Eintrag in der Liste der JS-Ergebnisse.
+	 */
 	private class JSDataListCellRenderer implements ListCellRenderer<CallbackLoggerWithJS.JSData> {
+		/**
+		 * Standard-Zellen-Renderer;
+		 * wird in {@link #getListCellRendererComponent(JList, JSData, int, boolean, boolean)} angepasst.
+		 */
 		private final DefaultListCellRenderer defaultRenderer=new DefaultListCellRenderer();
 
+		/**
+		 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+		 * HTML-Entitäten um.
+		 * @param text	Umzuwandelnder Text
+		 * @return	Umgewandelter Text
+		 */
 		private String encodeHTML(String text) {
 			text=text.replace("&","&amp;");
 			text=text.replace("<","&lt;");
@@ -82,6 +95,12 @@ public class AnimationJSInfoDialog extends BaseDialog {
 			return text;
 		}
 
+		/**
+		 * Fügt Stationsinformationen zu der Ausgabe hinzu
+		 * @param data	JS-Daten-Objekt
+		 * @param sb	Ausgabe
+		 * @see #getListCellRendererComponent(JList, JSData, int, boolean, boolean)
+		 */
 		private void addStationInfo(final CallbackLoggerWithJS.JSData data, final StringBuilder sb) {
 			sb.append(SimData.formatSimTime(data.time));
 			sb.append(": ");
@@ -95,12 +114,24 @@ public class AnimationJSInfoDialog extends BaseDialog {
 			sb.append("<b><span style=\"background-color: #"+colorCode+";\" color=\"black\">&nbsp; "+encodeHTML(data.station)+" &nbsp;</span></b><br>\n");
 		}
 
+		/**
+		 * Wandelt eine als Zahl angegebene Zeilennummer in eine Zeichenkette (mit mindestens 3 Zeichen) um.
+		 * @param nr	Zeilennummer
+		 * @return	Zeilennummer als Text
+		 * @see #addScript(String, StringBuilder)
+		 */
 		private String lineNumber(final int nr) {
 			String s=""+nr;
 			while (s.length()<3) s="0"+s;
 			return s;
 		}
 
+		/**
+		 * Fügt den Text eines Skripts zu der Ausgabe hinzu.
+		 * @param script	Skript
+		 * @param sb	Ausgabe
+		 * @see #getListCellRendererComponent(JList, JSData, int, boolean, boolean)
+		 */
 		private void addScript(final String script, final StringBuilder sb) {
 			sb.append("<div style=\"margin-top: 5px; margin-left: 10px;\">\n");
 			sb.append("<span style=\"text-decoration: underline;\">"+Language.tr("Animation.JSResults.Script")+":</span><br><tt>\n");
@@ -119,6 +150,12 @@ public class AnimationJSInfoDialog extends BaseDialog {
 			sb.append("</tt></div>\n");
 		}
 
+		/**
+		 * Fügt die Rückgabe eines Skripts zu der Ausgabe hinzu.
+		 * @param result	Rückgabe des Skripts
+		 * @param sb	Ausgabe
+		 * @see #getListCellRendererComponent(JList, JSData, int, boolean, boolean)
+		 */
 		private void addResult(final String result, final StringBuilder sb) {
 			sb.append("<div style=\"margin-top: 5px; margin-left: 10px;\">\n");
 			sb.append("<span style=\"text-decoration: underline;\">"+Language.tr("Animation.JSResults.ReturnValue")+":</span><br><b>\n");

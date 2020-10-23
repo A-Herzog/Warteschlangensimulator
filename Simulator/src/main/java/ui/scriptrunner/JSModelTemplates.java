@@ -184,7 +184,6 @@ public class JSModelTemplates {
 		return new Record(String.format(Language.tr("JSRunner.Templates.ChangeService.Info"),process.getName()+" (id="+process.getId()+")"),code.toString());
 	}
 
-
 	private List<Record> changeInterArrival() {
 		final List<Record> list=new ArrayList<>();
 		for (ModelElement element: model.surface.getElements()) if (element instanceof ModelElementSource) {

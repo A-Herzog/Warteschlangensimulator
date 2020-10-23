@@ -47,9 +47,13 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = 2614695330555791582L;
 
+	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
+	/** Objekt welches die Textzuweisungen vorhält */
 	private final ModelElementAssignStringRecord record;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
 
 	private final List<String> keys;
@@ -75,6 +79,9 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -148,6 +155,7 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 
 	private class EditButtonListener implements ActionListener {
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
 		public EditButtonListener(final int col, final int row) {
@@ -187,9 +195,17 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

@@ -55,6 +55,12 @@ public class ProblemReporter {
 		this.file=file;
 	}
 
+	/**
+	 * Fügt die Daten in einer Zip-Datei ein.
+	 * @param zipOutput	Zip-Datei
+	 * @return	Gibt an, ob die Ausgabe erfolgreich war.
+	 * @throws IOException	Wird ausgelöst, wenn die Ausgabe in die Zip-Datei fehlgeschlagen ist.
+	 */
 	private boolean processRecords(final ZipOutputStream zipOutput) throws IOException {
 		zipOutput.putNextEntry(new ZipEntry("setup.xml"));
 		SetupData.getSetup().saveToStream(zipOutput);

@@ -56,11 +56,38 @@ import ui.speedup.BackgroundSystem;
  * @author Alexander Herzog
  */
 public class ModelElementInteractiveSlider extends ModelElementPosition implements ElementWithAnimationDisplay, ElementWithNewVariableNames, ElementAnimationClickable, InteractiveElement {
+	/**
+	 * Größe der Markierungsboxen an den Ecken des Elements
+	 * @see #drawBorderBox(Graphics2D, Point, double)
+	 */
 	private static final int SELECT_BOX_SIZE=7;
 
+	/**
+	 * Name der einzustellenden Variable
+	 * @see #getVariable()
+	 * @see #setVariable(String)
+	 */
 	private String variable;
+
+	/**
+	 * Liefert den Minimalwert
+	 * @see #getMinValue()
+	 * @see #setMaxValue(double)
+	 */
 	private double minValue;
+
+	/**
+	 * Liefert den Maximalwert
+	 * @see #getMinValue()
+	 * @see #setMaxValue(double)
+	 */
 	private double maxValue;
+
+	/**
+	 * Schrittweite
+	 * @see #getStep()
+	 * @see #setStep(double)
+	 */
 	private double step;
 
 	private volatile boolean animationRunning=false;

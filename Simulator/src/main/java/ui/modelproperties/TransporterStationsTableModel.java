@@ -56,8 +56,11 @@ public class TransporterStationsTableModel extends AbstractTableModel {
 	private final JTable table;
 	/** Transporter-Objekt aus dem die Anzahl-Werte ausgelesen werden sollen und in das sie später ggf. zurückgeschrieben werden sollen */
 	private final ModelTransporter transporter;
+	/** Namen der Stationen */
 	private final List<String> stations;
+	/** Ausführliche Namen der Stationen */
 	private final List<String> stationsLong;
+	/** Anzahl der Transporter die sich anfänglich an den jeweiligen Stationen befinden sollen */
 	private final String[] count;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
@@ -96,12 +99,22 @@ public class TransporterStationsTableModel extends AbstractTableModel {
 		}
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
 		if (cellEditor!=null) cellEditor.stopCellEditing();
 	}
 
+	/**
+	 * Fügt eine Station zu den Stationslisten hinzu
+	 * @param element	Stationselement
+	 * @param parent	Elternelement, wenn sich die Station nicht auf der Hauptebene befindet
+	 * @see #stations
+	 * @see #stationsLong
+	 */
 	private void addStation(final ModelElement element, final ModelElement parent) {
 		if ((element instanceof ModelElementTransportTransporterSource) || (element instanceof ModelElementTransportParking)) {
 			final String name=element.getName();
@@ -142,6 +155,10 @@ public class TransporterStationsTableModel extends AbstractTableModel {
 		}
 	}
 
+	/**
+	 * Liefert die Summe über alle Transporter des aktuellen Typs
+	 * @return	Anzahl der Transporter des aktuellen Typs
+	 */
 	private String getSum() {
 		int sum=0;
 		for (int i=0;i<count.length;i++) {

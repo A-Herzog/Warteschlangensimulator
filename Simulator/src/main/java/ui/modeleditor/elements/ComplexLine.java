@@ -61,8 +61,26 @@ public final class ComplexLine implements Cloneable {
 	 */
 	public static final int MAX_TYPE=LINE_TYPE_NAMES.length-1;
 
+	/**
+	 * Linienbreite
+	 * @see #getWidth()
+	 * @see #setWidth(int)
+	 */
 	private int width;
+
+	/**
+	 * Linienfarbe
+	 * @see #getColor()
+	 * @see #setColor(Color)
+	 */
 	private Color color;
+
+	/**
+	 * Linientyp
+	 * @see #getType()
+	 * @see #setType(int)
+	 * @see #LINE_TYPE_NAMES
+	 */
 	private int type;
 
 	/**

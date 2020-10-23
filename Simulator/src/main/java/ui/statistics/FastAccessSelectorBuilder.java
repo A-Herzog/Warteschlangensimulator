@@ -125,8 +125,16 @@ public class FastAccessSelectorBuilder {
 			return null;
 		}
 
+		/**
+		 * Getter für den xml-Attribut-Namen
+		 * @see #getName()
+		 */
 		private final Supplier<String> xmlAttributeName;
 
+		/**
+		 * Konstruktor des Enum
+		 * @param xmlAttributeName	Getter für den xml-Attribut-Namen
+		 */
 		IndicatorMode(final Supplier<String> xmlAttributeName) {
 			this.xmlAttributeName=xmlAttributeName;
 		}

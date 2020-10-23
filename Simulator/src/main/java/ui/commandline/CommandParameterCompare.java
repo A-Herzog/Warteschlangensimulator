@@ -34,8 +34,12 @@ import ui.parameterseries.ParameterCompareSetup;
  * @see CommandLineSystem
  */
 public class CommandParameterCompare extends AbstractCommand {
+	/** Eingabedatei für das Parameterreihen-Setup */
 	private File inFile;
+	/** Ausgabedatei für das Parameterreihen-Setup (inkl. Ergebnissen) */
 	private File outFile;
+	/** Tatsächliches inneres System zur Ausführung der Parameterreihensimulation */
+	private ParameterCompareRunner runner;
 
 	@Override
 	public String[] getKeys() {
@@ -67,8 +71,6 @@ public class CommandParameterCompare extends AbstractCommand {
 
 		return null;
 	}
-
-	private ParameterCompareRunner runner;
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {

@@ -50,6 +50,11 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementStateStatistics extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Gruppenname des Zählers
+	 * @see #getGroupName()
+	 * @see #setGroupName(String)
+	 */
 	private String groupName;
 
 	/**
@@ -138,6 +143,10 @@ public class ModelElementStateStatistics extends ModelElementMultiInSingleOutBox
 		return Language.tr("Surface.StateStatistics.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

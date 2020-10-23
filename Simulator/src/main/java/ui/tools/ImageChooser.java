@@ -347,6 +347,10 @@ public class ImageChooser extends JPanel {
 	}
 
 	private class ImageHolderPanel extends JPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 4214953664624697281L;
 
 		private void drawImage(final Graphics graphics) {

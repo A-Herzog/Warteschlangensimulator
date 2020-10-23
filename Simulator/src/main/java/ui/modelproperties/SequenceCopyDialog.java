@@ -46,17 +46,21 @@ public class SequenceCopyDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 3306795145111165668L;
 
+	/** Kopierter Fertigungsplan (in diesen wird beim Schließen des Dialogs der neue Name eingetragen) */
 	private final ModelSequence sequence;
+	/** Bereits verwente Namen für Fertigungspläne */
 	private final String[] namesInUse;
 
+	/** Eingabefeld für den Namen des Fertigungsplans */
 	private final JTextField nameEdit;
+	/** Zeigt ggf. Fehlermeldungen an, wenn der eingegebene Name für den Fertigungsplan ungültig ist */
 	private final JLabel nameInfo;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param sequence	Kopierter Fertigungsplan (in diesen wird beim Schließen des Dialogs der neue Name eingetragen)
-	 * @param list	Liste der bsiherigen Fertigungspläne (die den neuen Plan noch nicht enthält)
+	 * @param list	Liste der bisherigen Fertigungspläne (die den neuen Plan noch nicht enthält)
 	 * @param help	Hilfe-Runnable
 	 */
 	public SequenceCopyDialog(final Component owner, final ModelSequence sequence, final ModelSequence[] list, final Runnable help) {

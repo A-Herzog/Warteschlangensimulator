@@ -110,6 +110,10 @@ public class ModelElementDuplicate extends ModelElementBox implements ModelDataR
 		return Language.tr("Surface.Duplicate.NewClientType")+": "+newClientType;
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		if (connectionsOut!=null) for (int i=0;i<connectionsOut.size();i++) {
 			final ModelElementEdge connection=connectionsOut.get(i);
@@ -248,6 +252,10 @@ public class ModelElementDuplicate extends ModelElementBox implements ModelDataR
 		return Language.tr("Surface.Duplicate.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(204,99,255);
 
 	/**

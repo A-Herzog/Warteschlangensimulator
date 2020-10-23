@@ -92,6 +92,13 @@ public class StationStatisticsDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert eine Liste der Stationen
+	 * @param parent	Übergeordnetes Element oder <code>null</code>, wenn es um die Hauptebene geht
+	 * @param surface	Zeichenfläche
+	 * @return	Liste der Stationen
+	 * @see Record
+	 */
 	private List<Record> getElements(final ModelElementSub parent, final ModelSurface surface) {
 		final List<Record> list=new ArrayList<>();
 		for (ModelElement element: surface.getElements()) {
@@ -130,10 +137,20 @@ public class StationStatisticsDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Datensatz für eine Station
+	 */
 	private static class Record {
+		/** Name der Station */
 		public final String name;
+		/** Modellelement der Station */
 		public final ModelElementBox element;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param parent	Übergeordnetes Element (oder <code>null</code>, wenn sich die Station auf der Hauptebene befindet)
+		 * @param element	Modellelement der Station
+		 */
 		public Record(final ModelElementSub parent, final ModelElementBox element) {
 			this.element=element;
 			if (parent==null) {
@@ -143,6 +160,11 @@ public class StationStatisticsDialog extends BaseDialog {
 			}
 		}
 
+		/**
+		 * Erstellt den Namen für die Station.
+		 * @param element	Stationselement
+		 * @return	Name der Station
+		 */
 		private static String buildName(final ModelElementBox element) {
 			final StringBuilder name=new StringBuilder();
 			name.append(element.getTypeName());
@@ -152,6 +174,10 @@ public class StationStatisticsDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Renderer für die Elemente von {@link StationStatisticsDialog#listRecords}
+	 * @see StationStatisticsDialog#listRecords
+	 */
 	private class JCheckBoxCellRenderer implements ListCellRenderer<JCheckBox> {
 		@Override
 		public Component getListCellRendererComponent(JList<? extends JCheckBox> list, JCheckBox value, int index, boolean isSelected, boolean cellHasFocus) {

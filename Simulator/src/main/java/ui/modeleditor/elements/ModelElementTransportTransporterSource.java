@@ -68,15 +68,59 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private List<Integer> connectionIds=null;
 
+	/**
+	 * Einstellungen-Objekt mit den Daten zu den Transportzielen
+	 * @see #getTransportTargetSystem()
+	 */
 	private TransportTargetSystem transportTargetSystem;
 
+	/**
+	 * Transportertyp, der hier parken kann
+	 * @see #getTransporterType()
+	 * @see #setTransporterType(String)
+	 */
 	private String transporterType;
+
+	/**
+	 * Anzahl an wartenden Kunden ab denen ein Transporter angefordert wird
+	 * @see #getRequestMinWaiting()
+	 * @see #setRequestMinWaiting(int)
+	 */
 	private int requestMinWaiting;
+
+	/**
+	 * Priorität mit der verfügbare Transporter im Bedarfsfall angezogen werden
+	 * @see #getRequestPriority()
+	 * @see #setRequestPriority(String)
+	 */
 	private String requestPriority;
+
+	/**
+	 * Anzahl an Transportern, die hier parken können
+	 * @see #getWaitingCapacity()
+	 * @see #setWaitingCapacity(int)
+	 */
 	private int waitingCapacity;
+
+	/**
+	 * Priorität mit der verfügbare Transporter angezogen werden
+	 * @see #getWaitingPriority()
+	 * @see #setWaitingPriority(String)
+	 */
 	private String waitingPriority;
+
+	/**
+	 * Daten der Kundentypenprioritäten bei der Zuweisung zu Transportern
+	 * @see #getClientPriority(String)
+	 * @see #getClientPriorities()
+	 */
 	private Map<String,String> clientPriority;
 
+	/**
+	 * Namen der zugehörigen "Bereich betreten"-Station
+	 * @see #getSectionStartName()
+	 * @see #setSectionStartName(String)
+	 */
 	private String sectionStartName;
 
 	/**
@@ -387,6 +431,10 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 		}
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,212,212);
 
 	/**

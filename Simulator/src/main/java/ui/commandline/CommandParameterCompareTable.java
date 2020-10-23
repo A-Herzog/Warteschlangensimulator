@@ -34,7 +34,9 @@ import ui.parameterseries.ParameterCompareSetup;
  * @see CommandLineSystem
  */
 public class CommandParameterCompareTable extends AbstractCommand {
+	/** Eingabedatei für das Parameterreihen-Setup (inkl. Ergebnissen) */
 	private File inFile;
+	/** Tabellen-Ausgabedatei */
 	private File outFile;
 
 	@Override

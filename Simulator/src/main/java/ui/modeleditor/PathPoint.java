@@ -97,6 +97,12 @@ public class PathPoint {
 		}
 	}
 
+	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+	 * HTML-Entitäten um.
+	 * @param text	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
 	private String encodeHTML(final String text) {
 		return text.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
 	}

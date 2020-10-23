@@ -60,7 +60,18 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 		Java
 	}
 
+	/**
+	 * Skript
+	 * @see #getScript()
+	 */
 	private String script;
+
+	/**
+	 * Skriptsprache
+	 * @see #getMode()
+	 * @see #setMode(ScriptMode)
+	 * @see ScriptMode
+	 */
 	private ScriptMode mode;
 
 	/**
@@ -152,6 +163,10 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.SetJS.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,255,180);
 
 	/**

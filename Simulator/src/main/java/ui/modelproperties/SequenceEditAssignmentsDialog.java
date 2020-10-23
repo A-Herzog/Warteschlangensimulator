@@ -61,14 +61,25 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 4649381127763073872L;
 
+	/** Im Konstruktor übergebenen Originalzuordnung in die erst beim Schließen des Dialogs die neuen Daten zurückgeschrieben werden */
 	private final Map<Integer,String> assignmentsOriginal;
+	/** Arbeitsinstanz der Zuordnung */
 	private final Map<Integer,String> assignments;
+	/** Hilfe-Runnable */
 	private final Runnable help;
+	/** Editor-Model (für den Expression-Builder-Dialog) */
 	private final EditModel model;
 
+	/** "Hinzufügen"-Schaltfläche */
 	private final JButton buttonAdd;
+	/** "Bearbeiten"-Schaltfläche */
 	private final JButton buttonEdit;
+	/** "Löschen"-Schaltfläche */
 	private final JButton buttonDelete;
+
+	/**
+	 * Listendarstellung der Kundenvariablen-Zuweisungen beim Routing
+	 */
 	private final JList<JLabel> list;
 
 	/**
@@ -147,6 +158,14 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche
+	 * @param icon	Icon für die Schaltfläche
+	 * @param command	Beim Anklicken der Schaltfläche auszuführender Befehl
+	 * @return	Neu erstellte Schaltfläche
+	 */
 	private JButton getButton(final String title, final String hint, final Icon icon, final Runnable command) {
 		final JButton button=new JButton(title);
 		if (hint!=null && !hint.isEmpty()) button.setToolTipText(hint);
@@ -155,11 +174,25 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		return button;
 	}
 
+	/**
+	 * Aktiviert oder deaktiviert die Schaltflächen
+	 * {@link #buttonEdit} und {@link #buttonDelete}
+	 * in Abhängigkeit vom gewählten Eintrag in {@link #list}.
+	 * @see #buttonEdit
+	 * @see #buttonDelete
+	 * @see #list
+	 */
 	private void updateToolbar() {
 		buttonEdit.setEnabled(list.getSelectedIndex()>=0);
 		buttonDelete.setEnabled(list.getSelectedIndex()>=0);
 	}
 
+	/**
+	 * Erstellt basierend auf den Daten ein neues Listenmodell
+	 * @param sortedKeys	Sortierte Liste der Schlüssel
+	 * @return	Neues Listenmodell
+	 * @see #updateList(int)
+	 */
 	private DefaultListModel<JLabel> getListModel(final int[] sortedKeys) {
 		final DefaultListModel<JLabel> model=new DefaultListModel<>();
 
@@ -171,6 +204,11 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		return model;
 	}
 
+	/**
+	 * Aktualisiert die Listendarstellung nach dem sich die Daten verändert haben.
+	 * @param selectKey	Nach dem Neuaufbau zu selektierender Schlüssel
+	 * @see #list
+	 */
 	private void updateList(final int selectKey) {
 		final int[] sortedKeys=assignments.keySet().stream().mapToInt(i->i).sorted().toArray();
 		final DefaultListModel<JLabel> listModel=getListModel(sortedKeys);
@@ -188,12 +226,22 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		updateToolbar();
 	}
 
+	/**
+	 * Zeigt einen Dialog zum Bearbeiten einer einzelnen Zuweisung an.
+	 * @param key	Bisheriger Schlüssel
+	 * @param expression	Bisheriger Wert
+	 * @return	Liefert im Erfolgsfall ein Array aus zwei Elementen: Neuer Schlüsse, neuer Wert
+	 */
 	private Object[] editDialog(final int key, final String expression) {
 		final SequenceEditAssignmentsEditDialog dialog=new SequenceEditAssignmentsEditDialog(this,key,expression,help,model);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
 		return new Object[]{Integer.valueOf(dialog.getKey()),dialog.getExpression()};
 	}
 
+	/**
+	 * Befehl: Hinzufügen
+	 * @see #buttonAdd
+	 */
 	private void commandAdd() {
 		int nextFreeKey=1;
 		while (assignments.get(nextFreeKey)!=null) nextFreeKey++;
@@ -203,6 +251,11 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		updateList((Integer)result[0]);
 	}
 
+	/**
+	 * Befehl: Bearbeiten
+	 * @param index	Index des ausgewählten Listeneintrags
+	 * @see #buttonEdit
+	 */
 	private void commandEdit(final int index) {
 		final int[] sortedKeys=assignments.keySet().stream().mapToInt(i->i).sorted().toArray();
 		final Object[] result=editDialog(sortedKeys[index],assignments.get(sortedKeys[index]));
@@ -212,6 +265,11 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		updateList((Integer)result[0]);
 	}
 
+	/**
+	 * Befehl: Löschen
+	 * @param index	Index des ausgewählten Listeneintrags
+	 * @see #buttonDelete
+	 */
 	private void commandDelete(final int index) {
 		final int[] sortedKeys=assignments.keySet().stream().mapToInt(i->i).sorted().toArray();
 		final String s=CalcSymbolClientUserData.CLIENT_DATA_COMMANDS[0]+"("+sortedKeys[index]+"):="+assignments.get(sortedKeys[index]);
@@ -220,6 +278,12 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		updateList(-1);
 	}
 
+	/**
+	 * Erstellt auf Basis einer Schaltfläche einen Menüpunkt
+	 * @param button	Ausgangsschaltfläche
+	 * @return	Neuer Menüpunkt
+	 * @see #showContextMenu(MouseEvent)
+	 */
 	private JMenuItem buttonToMenu(final JButton button) {
 		final JMenuItem item=new JMenuItem(button.getText(),button.getIcon());
 		item.setToolTipText(button.getToolTipText());
@@ -228,6 +292,10 @@ public class SequenceEditAssignmentsDialog extends BaseDialog {
 		return item;
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zu einem Listeneintrag an.
+	 * @param event	Auslösendes Mausereignis
+	 */
 	private void showContextMenu(final MouseEvent event) {
 		final JPopupMenu menu=new JPopupMenu();
 

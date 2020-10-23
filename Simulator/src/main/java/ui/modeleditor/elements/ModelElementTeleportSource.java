@@ -53,6 +53,11 @@ import ui.modeleditor.fastpaint.Shapes;
 public class ModelElementTeleportSource extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementAnimationForceMove {
 	private List<ModelElementEdge> connections;
 
+	/**
+	 * Name der Zielstation
+	 * @see #getDestination()
+	 * @see #setDestination(String)
+	 */
 	private String destination;
 
 	/* Wird nur beim Laden und Clonen verwendet. */
@@ -213,6 +218,10 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 		return "\u2192 "+destination;
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(212,128,128);
 
 	/**

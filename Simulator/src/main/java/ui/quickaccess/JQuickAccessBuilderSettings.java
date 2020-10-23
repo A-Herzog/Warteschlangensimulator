@@ -39,6 +39,11 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 		super(Language.tr("QuickAccess.Settings"),Language.tr("QuickAccess.Settings.Hint"),quickAccessText,false);
 	}
 
+	/**
+	 * Erstellt eine Zuordnung zwischen Bezeichnern und Einstellungendialog-Dialogseiten.
+	 * @return	Zuordnung zwischen Bezeichnern und Einstellungendialog-Dialogseiten
+	 * @see #work(Consumer)
+	 */
 	private Map<String,SetupDialog.Page> buildMap() {
 		final Map<String,SetupDialog.Page> map=new HashMap<>();
 		SetupDialog.Page page;

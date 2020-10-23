@@ -72,10 +72,15 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 3050008572741778868L;
 
+	/** Gibt an, ob diese Quelle von sich aus Kunden generiert (<code>true</code>) oder nur von außen angestoßen wird (<code>false</code>). */
 	private final boolean hasOwnArrivals;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
 	private final EditModel model;
+	/** Zeichenoberfläche */
 	private final ModelSurface surface;
+	/** Hilfe-Runnable */
 	private final Runnable helpRunnable;
 	private ModelElementSourceRecord lastRecord;
 	private String lastName;

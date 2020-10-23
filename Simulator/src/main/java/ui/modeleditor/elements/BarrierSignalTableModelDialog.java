@@ -52,7 +52,9 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 7619263878414705864L;
 
+	/** Liste mit allen Signalnamen im System */
 	private final String[] signals;
+	/** Liste mit allen Kundentypnamen im System */
 	private final String[] clientTypes;
 
 	private final JComboBox<String> signal;

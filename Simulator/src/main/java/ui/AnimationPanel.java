@@ -33,6 +33,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
@@ -122,6 +123,10 @@ import ui.modelproperties.ModelPropertiesDialog;
  * @author Alexander Herzog
  */
 public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -4834682399637727518L;
 
 	/**
@@ -129,7 +134,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private final JFrame window;
 
+	/**
+	 * Referenz auf das Setup-Singleton.
+	 */
 	private final transient SetupData setup;
+
 	private final String infoMJPEG;
 	private final String infoNoSum;
 	private final String infoSum;

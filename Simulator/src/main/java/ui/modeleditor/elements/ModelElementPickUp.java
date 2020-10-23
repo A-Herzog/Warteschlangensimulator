@@ -67,9 +67,33 @@ public class ModelElementPickUp extends ModelElementMultiInSingleOutBox implemen
 		BATCH_MODE_PERMANENT
 	}
 
+	/**
+	 * ID der Warteschlange, aus der der jeweils andere Kunde entnommen werden soll
+	 * @see #getQueueID()
+	 * @see #setQueueID(int)
+	 */
 	private int queueID;
+
+	/**
+	 * Batch-Modus
+	 * @see #getBatchMode()
+	 * @see #setBatchMode(BatchMode)
+	 * @see BatchMode
+	 */
 	private BatchMode batchMode;
+
+	/**
+	 * Neuer Kundentyp (wenn die Kunden nicht einzeln weitergeleitet werden)
+	 * @see #getNewClientType()
+	 * @see #setNewClientType(String)
+	 */
 	private String newClientType;
+
+	/**
+	 * Soll der aktuelle Kunde alleine weiter geleitet werden, wenn in der anderen Warteschlange keine Kunden warten?
+	 * @see #isSendAloneIfQueueEmpty()
+	 * @see #setSendAloneIfQueueEmpty(boolean)
+	 */
 	private boolean sendAloneIfQueueEmpty;
 
 	/**
@@ -262,6 +286,10 @@ public class ModelElementPickUp extends ModelElementMultiInSingleOutBox implemen
 		return Language.tr("Surface.PickUp.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

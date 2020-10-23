@@ -130,6 +130,10 @@ public class ModelElementThroughput extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.Throughput.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

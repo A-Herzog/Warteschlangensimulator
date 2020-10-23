@@ -51,10 +51,32 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementRectangle extends ModelElementDecoration {
+	/**
+	 * Füllfarbe des Kastens (kann <code>null</code> sein für transparent)
+	 * @see #getFillColor()
+	 * @see #setFillColor(Color)
+	 */
 	private Color fillColor=null;
+
+	/**
+	 * Optionale zweite Füllfarbe des Kastens für Farbverläufe
+	 * @see #getGradientFillColor()
+	 * @see #setGradientFillColor(Color)
+	 */
 	private Color gradientColor=null;
+
+	/**
+	 * Deckkraft der Hintergrundfarbe
+	 * @see #getFillAlpha()
+	 * @see #setFillAlpha(double)
+	 */
 	private double fillAlpha=1.0;
 
+	/**
+	 * Eckenabrundungsfaktor (Wert von 0 bis 1)
+	 * @see #getRounding()
+	 * @see #setRounding(double)
+	 */
 	private double rounding=0;
 
 	/**

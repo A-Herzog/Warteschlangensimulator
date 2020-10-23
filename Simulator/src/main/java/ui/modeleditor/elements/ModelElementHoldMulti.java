@@ -62,7 +62,17 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 	private List<Integer> connectionsInIds=null;
 	private List<Integer> connectionsOutIds=null;
 
+	/**
+	 * Maps, die den Stations-IDs die jeweiligen Bedingungen zuordnet
+	 * @see #getConditions()
+	 */
 	private final Map<Integer,String> conditions;
+
+	/**
+	 * Regelmäßige Prüfung der Bedingung
+	 * @see #isUseTimedChecks()
+	 * @see #setUseTimedChecks(boolean)
+	 */
 	private boolean useTimedChecks;
 
 	/**
@@ -105,6 +115,10 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		if (connectionsOut==null) return;
 		for (ModelElementEdge connection: connectionsOut) {
@@ -239,6 +253,10 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 		return Language.tr("Surface.HoldMulti.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

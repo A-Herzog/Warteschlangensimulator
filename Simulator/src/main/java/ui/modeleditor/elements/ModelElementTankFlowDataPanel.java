@@ -71,8 +71,11 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 	private final JRadioButton stopSignal;
 	private final JComboBox<String> stopSignalCombo;
 
+	/** Datenelement das in diesem Panel bearbeitet werden soll */
 	private final ModelElementTankFlowData data;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Wird hier ein Wert ungleich <code>null</code> übergeben, so wird dieses Runnable am Ende der Initialisierung des Panels ausgelöst, um so einem übergeordneten Dialog zu ermöglichen, sich neu auszurichten */
 	private final Runnable reflowDialog;
 
 	/**

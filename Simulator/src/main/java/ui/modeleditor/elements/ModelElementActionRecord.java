@@ -97,6 +97,9 @@ public class ModelElementActionRecord {
 		THRESHOLD_DOWN
 	}
 
+	/**
+	 * Gibt an, ob der Datensatz Ursache und Wirkung oder nur Wirkung enthält
+	 */
 	private final ActionMode actionMode;
 
 	private ConditionType conditionType;

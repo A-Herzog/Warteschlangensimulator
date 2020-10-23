@@ -51,7 +51,17 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementRelease
  */
 public class ModelElementSeize extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener, ModelElementAnimationForceMove {
+	/**
+	 * Bedienergruppen und deren Anzahlen, die für die Bedienung der Kunden notwendig sind
+	 * @see #getNeededResources()
+	 */
 	private Map<String,Integer> resources; /* Name der Ressource, benötigte Anzahl */
+
+	/**
+	 * Ressourcen-Priorisierungs-Formel
+	 * @see #getResourcePriority()
+	 * @see #setResourcePriority(String)
+	 */
 	private String resourcePriority;
 
 	/**
@@ -158,6 +168,10 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 		return Language.tr("Surface.Seize.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(64,127,255);
 
 	/**
@@ -308,7 +322,7 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 
 	/**
 	 * Liefert die Formel zurück, gemäß derer die Priorisierung der Bedienstation bei der Zuweisung von verfügbaren Ressourcen erfolgen soll.
-	 * @return	Aktuelle Ressorcen-Priorisierungs-Formel
+	 * @return	Aktuelle Ressourcen-Priorisierungs-Formel
 	 */
 	public String getResourcePriority() {
 		return resourcePriority;
@@ -316,7 +330,7 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 
 	/**
 	 * Stellt die Formel ein, gemäß derer die Priorisierung der Bedienstation bei der Zuweisung von verfügbaren Ressourcen erfolgen soll.
-	 * @param newResourcePriority Neue Ressorcen-Priorisierungs-Formel
+	 * @param newResourcePriority Neue Ressourcen-Priorisierungs-Formel
 	 */
 	public void setResourcePriority(final String newResourcePriority) {
 		if (newResourcePriority==null || newResourcePriority.trim().isEmpty()) return;

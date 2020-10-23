@@ -30,9 +30,12 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public class DrawIOExport {
+	/** Ausgabe-xml-Objekt */
 	private final XMLTools xml;
+	/** Ausgabe-xml-Dokument */
 	private final Document doc;
 	private final Element graphModel;
+	/** Wurzelelement des Ausgabe-xml-Dokuments */
 	private final Element root;
 	private final Map<Integer,String> idsMap;
 	private final String baseId;
@@ -103,6 +106,13 @@ public class DrawIOExport {
 		return node;
 	}
 
+	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" und auch Umlaute usw.
+	 * in ihre entsprechenden HTML-Entitäten um. Außerdem werden Zeilenumbrüche
+	 * durch &lt;br&gt; umgewandelt.
+	 * @param text	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
 	private String encodeHTML(String text) {
 		text=text.trim();
 		final StringBuilder result=new StringBuilder();
@@ -126,10 +136,20 @@ public class DrawIOExport {
 		return result.toString();
 	}
 
+	/**
+	 * Lieft einen CSS-Farbcode für eine Farbe
+	 * @param color	Umzuwandelnde Farbe
+	 * @return	CSS-Farbcode
+	 */
 	private String getColor(final Color color) {
 		return String.format("#%02x%02x%02x",color.getRed(),color.getGreen(),color.getBlue());
 	}
 
+	/**
+	 * Verarbeitet die Daten zu einem Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelSurface, EditModel)
+	 */
 	private void process(final ModelElement element) {
 		if (element instanceof ModelElementBox) {
 			processBox((ModelElementBox)element);
@@ -269,6 +289,11 @@ public class DrawIOExport {
 		return style.toString();
 	}
 
+	/**
+	 * Verarbeitet ein Box-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelElement)
+	 */
 	private void processBox(final ModelElementBox element) {
 		final Element node=addElement(element);
 		node.setAttribute("vertex","1");
@@ -284,6 +309,11 @@ public class DrawIOExport {
 		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
+	/**
+	 * Verarbeitet ein Text-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelElement)
+	 */
 	private void processText(final ModelElementText element) {
 		final Element node=addElement(element);
 		node.setAttribute("vertex","1");
@@ -317,6 +347,11 @@ public class DrawIOExport {
 		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
+	/**
+	 * Verarbeitet ein Linien-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelElement)
+	 */
 	private void processLine(final ModelElementLine element) {
 		final Element node=addElement(element);
 		node.setAttribute("vertex","1");
@@ -336,6 +371,11 @@ public class DrawIOExport {
 		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
+	/**
+	 * Verarbeitet ein Rechteck-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelElement)
+	 */
 	private void processRectangle(final ModelElementRectangle element) {
 		final Element node=addElement(element);
 		node.setAttribute("vertex","1");
@@ -357,6 +397,11 @@ public class DrawIOExport {
 		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
+	/**
+	 * Verarbeitet ein Ellipse-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelElement)
+	 */
 	private void processEllipse(final ModelElementEllipse element) {
 		final Element node=addElement(element);
 		node.setAttribute("vertex","1");

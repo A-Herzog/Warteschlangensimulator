@@ -51,8 +51,11 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = -3888805430308717205L;
 
+	/** Tabelle in der das Datenmodell zum Einsatz kommen soll */
 	private final JTableExt table;
+	/** Hilfe-Callback welches aufgerufen wird, wenn in einem der untergeordneten Dialoge auf die "Hilfe"-Schaltfläche geklickt wird. */
 	private final Runnable help;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private final String[] variableNames;
 	private final Map<String,String> initialVariableValues;
@@ -99,6 +102,9 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -218,6 +224,7 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 
 	private class EditButtonListener implements ActionListener {
 		private final int nr;
+		/** Zeilennummer */
 		private final int row;
 
 		public EditButtonListener(final int nr, final int row) {
@@ -300,9 +307,17 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

@@ -39,6 +39,12 @@ public class CommandLineDescriptionBuilder {
 	public CommandLineDescriptionBuilder() {
 	}
 
+	/**
+	 * Ersetzt normale Anführungszeichen durch LaTeX-konforme Anführungszeichen
+	 * @param text	Zu bearbeitender Text
+	 * @return	Text mit umgewandelten Anführungszeichen
+	 * @see #run(File)
+	 */
 	private String replaceQuotationMarks(final String text) {
 		final StringBuilder newText=new StringBuilder();
 		for (int i=0;i<text.length();i++) {

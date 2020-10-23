@@ -56,7 +56,18 @@ import ui.speedup.BackgroundSystem;
  * @author Alexander Herzog
  */
 public class ModelElementInteractiveRadiobutton extends ModelElementPosition implements ElementWithAnimationDisplay, ElementWithNewVariableNames, ElementAnimationClickable, InteractiveElement {
+	/**
+	 * Name der einzustellenden Variable
+	 * @see #getVariable()
+	 * @see #setVariable(String)
+	 */
 	private String variable;
+
+	/**
+	 * Wert der Variable, wenn das Radiobutton markiert ist
+	 * @see #getValueChecked()
+	 * @see #setValueChecked(double)
+	 */
 	private double valueChecked;
 
 	private volatile boolean animationRunning=false;

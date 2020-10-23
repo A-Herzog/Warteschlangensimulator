@@ -53,14 +53,29 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	 */
 	private static final long serialVersionUID = -8059012715680468181L;
 
+	/** Gibt an, ob die Quelle selbst Kunden erzeugen können soll oder ob sie jeweils von außen angestoßen wird */
 	private final boolean hasOwnArrivals;
+	/** Tabelle in der das Datenmodell zum Einsatz kommen soll */
 	private final JTableExt table;
+	/** Hilfe-Callback welches aufgerufen wird, wenn in einem der untergeordneten Dialoge auf die "Hilfe"-Schaltfläche geklickt wird. */
 	private final Runnable help;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
 	private final EditModel model;
+	/** Zeichenoberfläche */
 	private final ModelSurface surface;
+	/** Element, dessen Zuweisungen bearbeitet werden sollen (für den ExpressionBuilder und um die Variablenliste zusammenzustellen) */
 	private final ModelElement element;
+	/**
+	 * Kundendaten
+	 * @see #setClientData(ModelClientData)
+	 */
 	private ModelClientData clientData;
+
+	/**
+	 * Objekt das die verfügbaren Animations-Icons vorhält
+	 */
 	private final AnimationImageSource imageSource;
 
 	private final List<ModelElementSourceRecord> records;
@@ -102,6 +117,9 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		this.clientData=clientData;
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -276,6 +294,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 
 	private class EditButtonListener implements ActionListener {
 		private final int nr;
+		/** Zeilennummer */
 		private final int row;
 
 		public EditButtonListener(final int nr, final int row) {

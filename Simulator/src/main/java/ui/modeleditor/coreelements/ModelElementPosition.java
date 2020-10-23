@@ -57,8 +57,22 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementPosition extends ModelElement {
+	/**
+	 * Position der oberen linken Ecke
+	 * @see #getPosition(boolean)
+	 */
 	private Point position;
+
+	/**
+	 * Größe der Box
+	 * @see #getSize()
+	 */
 	private Dimension size;
+
+	/**
+	 * Statistikdaten für das Element erfassen?
+	 * @see #isStationStatisticsActive()
+	 */
 	private boolean stationStatisticsActive;
 
 	/**
@@ -342,6 +356,11 @@ public class ModelElementPosition extends ModelElement {
 		return true;
 	}
 
+	/**
+	 * Wird in {@link #getPosition(boolean)} für die
+	 * Read-only-Version des Punktes verwendet.
+	 * @see #getPosition(boolean)
+	 */
 	private Point pointCache;
 
 	/**

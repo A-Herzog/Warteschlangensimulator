@@ -54,6 +54,10 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationBar extends ModelElementPosition implements ElementWithAnimationDisplay {
+	/**
+	 * Größe der Markierungsboxen an den Ecken des Elements
+	 * @see #drawBorderBox(Graphics2D, Point, double)
+	 */
 	private static final int SELECT_BOX_SIZE=7;
 
 	/**

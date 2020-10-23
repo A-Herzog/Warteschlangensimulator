@@ -40,9 +40,13 @@ import simulator.editmodel.EditModel;
  */
 public final class ModelClientData implements Cloneable {
 	private static final Color[] DEFAULT_COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
+	/** Standards-Icon für eine Benutzergruppe */
 	private static final String DEFAULT_ICON="user";
+	/** Standardkosten pro Wartesekunde für eine Benutzergruppe */
 	private static final double DEFAULT_COSTS_WAITING=0.0;
+	/** Standardkosten pro Transfersekunde für eine Benutzergruppe */
 	private static final double DEFAULT_COSTS_TRANSFER=0.0;
+	/** Standardkosten pro Bediensekunde für eine Benutzergruppe */
 	private static final double DEFAULT_COSTS_PROCESS=0.0;
 
 	/**

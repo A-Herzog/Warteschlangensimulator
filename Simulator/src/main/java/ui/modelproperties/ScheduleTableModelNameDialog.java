@@ -45,9 +45,13 @@ public class ScheduleTableModelNameDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 7337581671808114921L;
 
+	/** Liste der Namen aller Zeitpläne (inkl. der aktuellen) */
 	private final String[] usedNames;
+	/** Index dieses Zeitplans in {@link #usedNames} */
 	private final int ownIndex;
+	/** Eingabefeld für den Namen des Zeitplans */
 	private final JTextField nameEdit;
+	/** Evtl. sichtbare Fehlermeldung, wenn der eingegebene Name für den Zeitplan nicht gültig ist */
 	private final JLabel errorLabel;
 
 	/**
@@ -88,6 +92,10 @@ public class ScheduleTableModelNameDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Liefert einen Namensvorschlag für einen neuen Zeitplan
+	 * @return	Namensvorschlag für einen neuen Zeitplan (Namensvorschlag existiert sich noch nicht als Bedienergruppe)
+	 */
 	private String getNextFreeName() {
 		int nr=1;
 		while (true) {

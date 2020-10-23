@@ -50,12 +50,17 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 	 */
 	private static final long serialVersionUID = 4122007587514525620L;
 
+	/** Zugehörige Tabelle (um diese anweisen zu können, sich neu aufzubauen, wenn die Daten verändert wurden) */
 	private final JTableExt table;
 	private final List<ModelElementTankValveSetup.ValveSetup> valveSetups;
 	private final List<ModelElementTankValveSetup.ValveSetup> valveSetupsOriginal;
+	/** Haupt-Zeichenfläche (für den Expression-Builder) */
 	private final ModelSurface mainSurface;
+	/** Gesamtes Editor-Modell (für den Expression-Builder) */
 	private final EditModel model;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
 
 	/**
@@ -79,6 +84,9 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -109,6 +117,12 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 		return 2;
 	}
 
+	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+	 * HTML-Entitäten um.
+	 * @param line	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
 	private String encodeHTMLentities(final String line) {
 		if (line==null) return "";
 		String result;

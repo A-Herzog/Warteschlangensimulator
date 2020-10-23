@@ -51,12 +51,18 @@ public class SequenceEditDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 6625482419664030626L;
 
+	/** Zu bearbeitender Fertigungsplan */
 	private final ModelSequence sequence;
+	/** Schritte des Fertigungsplans */
 	private final List<ModelSequenceStep> steps;
+	/** Beim Aufruf des Dialogs belegte Namen für Fertigungspläne */
 	private final String[] names;
+	/** Index des Namens des aktuellen Plans in der Liste aller Fertigungspläne {@link #nameEdit} */
 	private final int namesIndex;
 
+	/** Tabellendarstellung der Fertigungsplanschritte */
 	private final JTableExt table;
+	/** Eingabefeld für den Namen des Fertigungsplans */
 	private final JTextField nameEdit;
 
 	/**

@@ -56,6 +56,10 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationTextValueJS extends ModelElementPosition implements ElementWithAnimationDisplay {
+	/**
+	 * Standard-Textfarbe
+	 * @see #color
+	 */
 	private static final Color DEFAULT_COLOR=Color.BLACK;
 
 	/**
@@ -81,6 +85,12 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	private int textSize=14;
 	private boolean bold;
 	private boolean italic;
+
+	/**
+	 * Textfarbe
+	 * @see #getColor()
+	 * @see #setColor(Color)
+	 */
 	private Color color=DEFAULT_COLOR;
 
 	/**

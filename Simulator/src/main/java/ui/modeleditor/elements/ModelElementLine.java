@@ -45,8 +45,26 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementLine extends ModelElementDecoration {
+	/**
+	 * Linientyp
+	 * @see #getLineType()
+	 * @see #setLineType(int)
+	 * @see ComplexLine
+	 */
 	private int lineType;
+
+	/**
+	 * Pfeilgröße am Linienstart
+	 * @see #getArrowStart()
+	 * @see #setArrowStart(int)
+	 */
 	private int arrowStart;
+
+	/**
+	 * Pfeilgröße am Linienende
+	 * @see #getArrowEnd()
+	 * @see #setArrowEnd(int)
+	 */
 	private int arrowEnd;
 
 	/**

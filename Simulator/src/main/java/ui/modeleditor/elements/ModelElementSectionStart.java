@@ -131,6 +131,10 @@ public class ModelElementSectionStart extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.SectionStart.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

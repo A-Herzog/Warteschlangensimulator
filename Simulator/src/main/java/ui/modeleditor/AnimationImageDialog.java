@@ -166,6 +166,9 @@ public class AnimationImageDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Aktualisiert die Listendarstellung.
+	 */
 	private void updateList() {
 		listModel.clear();
 
@@ -177,6 +180,10 @@ public class AnimationImageDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Hinzufügen
+	 * @param image	Hinzuzufügendes Bild
+	 */
 	private void commandAdd(final BufferedImage image) {
 		if (readOnly) return;
 
@@ -193,6 +200,9 @@ public class AnimationImageDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Bearbeiten
+	 */
 	private void commandEdit() {
 		if (readOnly) return;
 		if (list.getSelectedIndex()<0) return;
@@ -218,6 +228,9 @@ public class AnimationImageDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Löschen
+	 */
 	private void commandDelete() {
 		if (readOnly) return;
 		if (list.getSelectedIndex()<0) return;
@@ -226,6 +239,10 @@ public class AnimationImageDialog extends BaseDialog {
 		updateList();
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zu dem gewählten Listeneintrag an.
+	 * @param event	Maus-Ereignis zur Ausrichtung des Kontextmenüs
+	 */
 	private void commandContextMenu(final MouseEvent event) {
 		final JPopupMenu menu=new JPopupMenu();
 

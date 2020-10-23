@@ -90,6 +90,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	private List<Integer> connectionsInIds=null;
 	private List<Integer> connectionsOutIds=null;
 
+	/**
+	 * Verzweigungsmodus
+	 * @see #getMode()
+	 * @see DecideMode
+	 */
 	private DecideMode mode=DecideMode.MODE_CHANCE;
 
 	private String key;
@@ -150,6 +155,10 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		return Language.tr("Surface.Duplicate.NewClientType")+": "+newClientType;
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		if (connectionsOut==null) return;
 
@@ -444,6 +453,10 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		}
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(204,99,255);
 
 	/**

@@ -48,6 +48,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementSplit extends ModelElementMultiInSingleOutBox implements ElementWithNewClientNames, ModelDataRenameListener {
+	/**
+	 * Kundenankünfte-Datensätze
+	 * @see #getRecords()
+	 */
 	private final List<ModelElementSourceRecord> records;
 
 	/**
@@ -162,6 +166,10 @@ public class ModelElementSplit extends ModelElementMultiInSingleOutBox implement
 		return Language.tr("Surface.Split.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,255,180);
 
 	/**

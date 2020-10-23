@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -37,6 +38,10 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelElementLogicWithCondition
  */
 public class ModelElementLogicWithConditionDialog extends ModelElementBaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -5924170933747046706L;
 
 	/** Eingabefeld für die Bedingung */

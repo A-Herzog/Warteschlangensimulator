@@ -33,7 +33,9 @@ import systemtools.commandline.AbstractCommand;
  * @see CommandLineSystem
  */
 public class CommandBuildCommandlineDescriptions extends AbstractCommand {
+	/** Sprache */
 	private String language;
+	/** Pfad für die Ausgabedateien */
 	private String path;
 
 	@Override

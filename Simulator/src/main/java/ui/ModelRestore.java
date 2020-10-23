@@ -33,6 +33,10 @@ public class ModelRestore {
 	private static final String FILE_PREFIX="AutoStore";
 	private static final String FILE_SUFFIX=".xml";
 
+	/**
+	 * Löschen der geladenen Datei erfolgreich
+	 * @see #isDeleteOnLoadSuccessful()
+	 */
 	private static boolean deleteOnLoadSuccessful=true;
 
 	/**

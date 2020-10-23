@@ -47,8 +47,24 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementSeize
  */
 public class ModelElementRelease extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener {
+	/**
+	 * Zugehöriges Ressourcen-Belegungs-Element
+	 * @see #getSeizeName()
+	 * @see #setSeizeName(String)
+	 */
 	private String seizeName;
+
+	/**
+	 * Verwendete Zeitbasis
+	 * @see #getTimeBase()
+	 * @see #setTimeBase(ui.modeleditor.ModelSurface.TimeBase)
+	 */
 	private ModelSurface.TimeBase timeBase;
+
+	/**
+	 * Verzögerte Ressourcenfreigabe
+	 * @see #getReleaseDelay()
+	 */
 	private DistributionSystem releaseDelay;
 
 	/**
@@ -154,6 +170,10 @@ public class ModelElementRelease extends ModelElementMultiInSingleOutBox impleme
 		return Language.tr("Surface.Release.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(64,127,255);
 
 	/**

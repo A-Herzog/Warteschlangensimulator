@@ -58,6 +58,7 @@ public class WaitPanel extends JPanel {
 	private static final int MODE_MULTI_DAYS=0;
 	private static final int MODE_SINGLE_LONG_RUN=1;
 
+	/** Art der Simulation */
 	private static final int operationMode=MODE_SINGLE_LONG_RUN;
 
 	/**
@@ -366,8 +367,13 @@ public class WaitPanel extends JPanel {
 	 */
 	private class UpdateInfoTask extends TimerTask {
 		private long countTimerIntervals=0;
+		/** Art der Simulation */
 		private final int mode;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param mode	Art der Simulation
+		 */
 		public UpdateInfoTask(final int mode) {
 			this.mode=mode;
 		}

@@ -54,11 +54,16 @@ public class TransportResourceRecordPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 7027999560443225809L;
 
+	/** Daten, die in dem Panel bearbeitet werden sollen */
 	private final TransportResourceRecord data;
 	private final DistributionSystem delayedRelease;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Runnable */
 	private final Runnable help;
+	/** Gesamtes Modell (zum Auslesen von Daten für den Expression-Builder) */
 	private final EditModel model;
+	/** Zeichenoberfläche (zum Auslesen von Daten für den Expression-Builder) */
 	private final ModelSurface surface;
 
 	private JTextField textResourcePriority;

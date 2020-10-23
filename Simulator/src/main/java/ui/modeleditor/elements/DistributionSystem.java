@@ -39,8 +39,11 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
  * @see ModelElementProcess
  */
 public final class DistributionSystem implements Cloneable {
+	/** Language-Key für den Bezeichner für die Unterelemente (z.B. für Kundentypen) */
 	private final String subLangKey;
+	/** Language-Key für den Bezeichnung der Zeiten, der beim Speichern verwendet wird (z.B. Bedienzeiten/Nachbearbeitungszeiten/...) */
 	private final String typeLangKey;
+	/** Gibt an, ob auch der Basis-Typ (für alle Kundentypen) <code>null</code> sein darf. */
 	private final boolean canBeNull;
 
 	private AbstractRealDistribution distribution;

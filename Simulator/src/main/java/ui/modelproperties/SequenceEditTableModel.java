@@ -115,6 +115,14 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche
+	 * @param icon	Icon für die Schaltfläche
+	 * @param command	Beim Anklicken der Schaltfläche auszuführender Befehl
+	 * @return	Neu erstellte Schaltfläche
+	 */
 	private JButton getButton(final String title, final String hint, final Icon icon, final Runnable command) {
 		final JButton button=new JButton(title);
 		button.setToolTipText(hint);
@@ -123,6 +131,12 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 		return button;
 	}
 
+	/**
+	 * Liefert einen Eintrag für die letzte Zeile
+	 * @param columnIndex	Spaltenindex
+	 * @return	Eintrag für eine Zelle
+	 * @see #getValueAt(int, int)
+	 */
 	private Object getValueAtLastRow(int columnIndex) {
 		if (columnIndex!=1 && columnIndex!=2) return "";
 
@@ -138,6 +152,11 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 		return panel;
 	}
 
+	/**
+	 * Liefert die Ziel-Dropdownbox für einen Fertigungsschritt
+	 * @param index	Index des Fertigungsschritts
+	 * @return	Ziel-Dropdownbox
+	 */
 	private JComboBox<String> getDestinationCombo(final int index) {
 		final JComboBox<String> combo=new JComboBox<>(destinations);
 
@@ -153,6 +172,12 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 
 		return combo;
 	}
+
+	/**
+	 * Liefert die Dropdownbox zur Auswahl des nächsten Fertigungsschritts nach einem bestimmten Schritt
+	 * @param index	Index des Ausgangsfertigungsschritts
+	 * @return	Dropdownbox für den nächsten Fertigungsschritt
+	 */
 
 	private JComboBox<String> getNextCombo(final int index) {
 		final List<String> next=new ArrayList<>();
@@ -212,22 +237,37 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Befehl: Hinzufügen
+	 */
 	private void commandAdd() {
 		steps.add(new ModelSequenceStep());
 		updateTable();
 	}
 
+	/**
+	 * Befehl: Bearbeiten
+	 * @param index	Index des ausgewählten Listeneintrags
+	 */
 	private void commandEdit(final int index) {
 		final SequenceEditAssignmentsDialog dialog=new SequenceEditAssignmentsDialog(table,steps.get(index).getAssignments(),help,model);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) updateTable();
 	}
 
+	/**
+	 * Befehl: Löschen
+	 * @param index	Index des ausgewählten Listeneintrags
+	 */
 	private void commandDelete(final int index) {
 		if (!MsgBox.confirm(table,Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.Title"),String.format(Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.Info"),index+1),Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.InfoYes"),Language.tr("Editor.Dialog.Sequences.Edit.DeleteConfirm.InfoNo"))) return;
 		steps.remove(index);
 		updateTable();
 	}
 
+	/**
+	 * Befehl: Eintrag nach oben verschieben
+	 * @param index	Index des ausgewählten Listeneintrags
+	 */
 	private void commandMoveUp(final int index) {
 		final ModelSequenceStep temp=steps.get(index);
 		steps.set(index,steps.get(index-1));
@@ -235,6 +275,10 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Befehl: Eintrag nach unten verschieben
+	 * @param index	Index des ausgewählten Listeneintrags
+	 */
 	private void commandMoveDown(final int index) {
 		final ModelSequenceStep temp=steps.get(index);
 		steps.set(index,steps.get(index+1));

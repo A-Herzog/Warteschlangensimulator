@@ -64,20 +64,35 @@ public class SequencesEditPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -3732693280948871122L;
 
+	/** Objekt, welches die Fertigungspläne enthält */
 	private final ModelSequences sequences;
+	/** Liste aller Fertigungspläne */
 	private final List<ModelSequence> sequencesList;
+	/** Liste mit den Namen aller Zielstationen */
 	private final String[] destinations;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Runnable */
 	private final Runnable help;
+	/** Editor-Model (für den Expression-Builder-Dialog) */
 	private final EditModel model;
 
+	/** "Hinzufügen"-Schaltfläche */
 	private final JButton buttonAdd;
+	/** "Bearbeiten"-Schaltfläche */
 	private final JButton buttonEdit;
+	/** "Löschen"-Schaltfläche */
 	private final JButton buttonDelete;
+	/** "Kopieren"-Schaltfläche */
 	private final JButton buttonCopy;
+	/** "Nach oben verschieben"-Schaltfläche */
 	private final JButton buttonMoveUp;
+	/** "Nach unten verschieben"-Schaltfläche */
 	private final JButton buttonMoveDown;
 
+	/**
+	 * Listendarstellung der Fertigungspläne
+	 */
 	private final JList<JLabel> list;
 
 	/**
@@ -161,6 +176,15 @@ public class SequencesEditPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche und fügt sie zur Symbolleiste hinzu.
+	 * @param toolbar	Symbolleiste auf der die neue Schaltfläche eingefügt werden soll
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Optionales Icon für die Schaltfläche (darf <code>null</code> sein)
+	 * @param listener	Aktion die beim Anklicken der Schaltfläche ausgeführt werden soll
+	 * @return	Neue Schaltfläche (ist bereits in die Symbolleiste eingefügt)
+	 */
 	private JButton addButton(final JToolBar toolbar, final String title, final String hint, final Icon icon, final ActionListener listener) {
 		final JButton button=new JButton(title);
 		button.setToolTipText(hint);
@@ -193,6 +217,11 @@ public class SequencesEditPanel extends JPanel {
 		return list.toArray(new String[0]);
 	}
 
+	/**
+	 * Aktiviert oder deaktiviert die Schaltflächen
+	 * in Abhängigkeit vom gewählten Eintrag in {@link #list}.
+	 * @see #list
+	 */
 	private void updateToolbar() {
 		buttonEdit.setEnabled(!readOnly && list.getSelectedIndex()>=0);
 		buttonDelete.setEnabled(!readOnly && list.getSelectedIndex()>=0);
@@ -201,6 +230,11 @@ public class SequencesEditPanel extends JPanel {
 		buttonMoveDown.setEnabled(!readOnly && list.getSelectedIndex()>=0 && list.getSelectedIndex()<list.getModel().getSize()-1);
 	}
 
+	/**
+	 * Aktualisiert die Listendarstellung nach dem sich die Daten verändert haben.
+	 * @param deltaSelectedIndex	Zukünftig zu selektierender Eintrag relativ zum bisher selektierten Eintrag
+	 * @see #list
+	 */
 	private void updateList(final int deltaSelectedIndex) {
 		final int selectedIndex=list.getSelectedIndex();
 
@@ -228,11 +262,21 @@ public class SequencesEditPanel extends JPanel {
 		updateToolbar();
 	}
 
+	/**
+	 * Zeigt einen Dialog zum Bearbeiten eines einzelnen Fertigungsplans an
+	 * @param sequence	Zu bearbeitender Fertigungsplan
+	 * @param index	Index des Fertigungsplan in der Liste alle Fertigungspläne (kann -1 sein für einen neuen Fertigungsplan)
+	 * @return	Liefert <code>true</code>, wenn der Dialog per "Ok" geschlossen wurde
+	 */
 	private boolean editDialog(final ModelSequence sequence, final int index) {
 		final SequenceEditDialog dialog=new SequenceEditDialog(this,sequence,sequencesList.toArray(new ModelSequence[0]),index,destinations,help,model);
 		return dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK;
 	}
 
+	/**
+	 * Befehl: Hinzufügen
+	 * @see #buttonAdd
+	 */
 	private void commandAdd() {
 		if (readOnly) return;
 		ModelSequence newSequence=new ModelSequence();
@@ -241,12 +285,22 @@ public class SequencesEditPanel extends JPanel {
 		updateList(Integer.MAX_VALUE);
 	}
 
+	/**
+	 * Befehl: Bearbeiten
+	 * @param index	Index des ausgewählten Listeneintrags
+	 * @see #buttonEdit
+	 */
 	private void commandEdit(final int index) {
 		if (readOnly) return;
 		if (!editDialog(sequencesList.get(index),index)) return;
 		updateList(0);
 	}
 
+	/**
+	 * Befehl: Löschen
+	 * @param index	Index des ausgewählten Listeneintrags
+	 * @see #buttonDelete
+	 */
 	private void commandDelete(final int index) {
 		if (readOnly) return;
 		if (index<0) return;
@@ -255,6 +309,11 @@ public class SequencesEditPanel extends JPanel {
 		updateList(-1);
 	}
 
+	/**
+	 * Befehl: Kopieren
+	 * @param index	Index des ausgewählten Listeneintrags
+	 * @see #buttonCopy
+	 */
 	private void commandCopy(final int index) {
 		if (readOnly) return;
 
@@ -266,12 +325,23 @@ public class SequencesEditPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Vertauscht zwei Freitungspläne
+	 * @param index1	Index des ersten Freitungsplans
+	 * @param index2	Index des zweiten Freitungsplans
+	 * @see #commandMoveUp()
+	 * @see #commandMoveDown()
+	 */
 	private void commandSwap(final int index1, final int index2) {
 		final ModelSequence temp=sequencesList.get(index1);
 		sequencesList.set(index1,sequencesList.get(index2));
 		sequencesList.set(index2,temp);
 	}
 
+	/**
+	 * Befehl: Nach oben verschieben
+	 * @see #buttonMoveUp
+	 */
 	private void commandMoveUp() {
 		if (readOnly) return;
 		final int index=list.getSelectedIndex();
@@ -280,6 +350,10 @@ public class SequencesEditPanel extends JPanel {
 		updateList(-1);
 	}
 
+	/**
+	 * Befehl: Nach unten verschieben
+	 * @see #buttonMoveDown
+	 */
 	private void commandMoveDown() {
 		if (readOnly) return;
 		final int index=list.getSelectedIndex();
@@ -288,6 +362,12 @@ public class SequencesEditPanel extends JPanel {
 		updateList(1);
 	}
 
+	/**
+	 * Erstellt auf Basis einer Schaltfläche einen Menüpunkt
+	 * @param button	Ausgangsschaltfläche
+	 * @return	Neuer Menüpunkt
+	 * @see #showContextMenu(MouseEvent)
+	 */
 	private JMenuItem buttonToMenu(final JButton button) {
 		final JMenuItem item=new JMenuItem(button.getText(),button.getIcon());
 		item.setToolTipText(button.getToolTipText());
@@ -296,6 +376,10 @@ public class SequencesEditPanel extends JPanel {
 		return item;
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zu einem Listeneintrag an.
+	 * @param event	Auslösendes Mausereignis
+	 */
 	private void showContextMenu(final MouseEvent event) {
 		if (readOnly) return;
 		final JPopupMenu menu=new JPopupMenu();

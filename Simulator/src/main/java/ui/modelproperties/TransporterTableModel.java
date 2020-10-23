@@ -59,6 +59,7 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = -7363232010136439807L;
 
+	/** Objekt das die verfügbaren Animations-Icons vorhält */
 	private AnimationImageSource imageSource;
 	/** Liste der Transportergruppen die in der Tabelle angezeigt werden sollen */
 	private final List<ModelTransporter> transporters;
@@ -94,6 +95,13 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Prüft, ob eine Transportergruppe an einer bestimmten Station verwendet wird.
+	 * @param name	Name der Transportergruppe
+	 * @param element	Station bei der geprüft werden soll, ob an dieser die Transportergruppe verwendet wird
+	 * @return	Liefert <code>true</code>, wenn die Transportergruppe an der Station verwendet wird
+	 * @see #transporterInUse(String)
+	 */
 	private boolean transporterInUse(final String name, final ModelElementBox element) {
 		if (element instanceof ModelElementTransportParking) {
 			if (((ModelElementTransportParking)element).getTransporterType().equalsIgnoreCase(name)) return true;
@@ -106,6 +114,11 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		return false;
 	}
 
+	/**
+	 * Liefert eine Liste der Stations-IDs die eine bestimmte Transportergruppe verwenden.
+	 * @param name	Name der Transportergruppe
+	 * @return	Liste der Stations-IDs an denen die Transportergruppe verwendet wird
+	 */
 	private List<Integer> transporterInUse(final String name) {
 		final List<Integer> usingIDs=new ArrayList<>();
 
@@ -172,6 +185,12 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		return !readOnly;
 	}
 
+	/**
+	 * Informiert eine Reihe von Stationen darüber, dass sich der Name einer Transportergruppe geändert hat.
+	 * @param usingIDs	Liste der IDs der zu benachrichtigenden Stationen
+	 * @param oldName	Alter Name der Transportergruppe
+	 * @param newName	Neuer Name der Transportergruppe
+	 */
 	private void renameTransporterInStations(final List<Integer> usingIDs, final String oldName, final String newName) {
 		for (Integer id: usingIDs) {
 			final ModelElement element=surface.getByIdIncludingSubModels(id);
@@ -179,6 +198,11 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Erstellt einen Infotext, der darauf hinweist, dass eine Transportergruppe an einer oder mehreren Stationen verwendet wird
+	 * @param sb	Ausgabe-{@link StringBuilder}
+	 * @param usingIDs	Liste der IDs an denen die Transportergruppe verwendet wird
+	 */
 	private void getInUseInfoText(final StringBuilder sb, List<Integer> usingIDs) {
 		if (usingIDs.size()==0) return;
 
@@ -193,6 +217,11 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		sb.append("\n\n");
 	}
 
+
+	/**
+	 * Liefert einen Namensvorschlag für eine neue Transportergruppe
+	 * @return	Namensvorschlag für eine neue Transportergruppe (Namensvorschlag existiert sich noch nicht als Transportergruppe)
+	 */
 	private String getFreeName() {
 		final String baseName=Language.tr("Transporters.Group.DefaultName");
 		String name=baseName;
@@ -209,6 +238,9 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		return name;
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche.
+	 */
 	private class AddButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -225,9 +257,17 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten-Schaltfläche.
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int row) {
 			this.row=row;
 		}
@@ -271,9 +311,17 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

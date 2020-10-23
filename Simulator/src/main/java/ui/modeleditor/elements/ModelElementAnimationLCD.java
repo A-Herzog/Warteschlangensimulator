@@ -48,9 +48,24 @@ import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExpression {
+	/**
+	 * Standard-Farbe für die aktiven LCD-Segmente
+	 * @see #color
+	 */
 	private static final Color DEFAULT_COLOR=Color.RED;
 
+	/**
+	 * Anzahl an anzuzeigenden 7-Segment-Elementen
+	 * @see #getDigits()
+	 * @see #setDigits(int)
+	 */
 	private int digits;
+
+	/**
+	 * Farbe für die aktiven LCD-Segmente
+	 * @see #getColor()
+	 * @see #setColor(Color)
+	 */
 	private Color color=DEFAULT_COLOR;
 
 	/**

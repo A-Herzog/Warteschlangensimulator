@@ -36,6 +36,7 @@ import ui.script.ScriptEditorPanel;
  * @see JSModelRunnerPanel
  */
 public class JSModelRunner {
+	/** Wurde die Verarbeitung abgebrochen? */
 	private boolean canceled;
 	/** Skriptmodus */
 	private final ScriptEditorPanel.ScriptMode mode;

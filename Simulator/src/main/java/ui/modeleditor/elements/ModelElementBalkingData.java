@@ -29,8 +29,25 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
  * @see ModelElementBalking
  */
 public class ModelElementBalkingData {
+	/**
+	 * Ausdruck zur Berechnung der Zurückschreckwahrscheinlichkeit
+	 * @see #getExpression()
+	 * @see #setExpression(String)
+	 */
 	private String expression;
+
+	/**
+	 * Zurückschreckwahrscheinlichkeit
+	 * @see #getProbability()
+	 * @see #setProbability(double)
+	 */
 	private double probability;
+
+	/**
+	 * Kundentyp auf den sich diese Zurückschreckwahrscheinlichkeit beziehen soll
+	 * @see #getClientType()
+	 * @see #setClientType(String)
+	 */
 	private String clientType;
 
 	/**

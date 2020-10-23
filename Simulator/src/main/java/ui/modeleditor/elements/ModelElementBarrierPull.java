@@ -52,7 +52,18 @@ import ui.modeleditor.fastpaint.Shapes;
  *
  */
 public class ModelElementBarrierPull extends ModelElementMultiInSingleOutBox implements ModelElementAnimationForceMove {
+	/**
+	 * Name des nächsten Elements
+	 * @see #getNextName()
+	 * @see #setNextName(String)
+	 */
 	private String nextName;
+
+	/**
+	 * Maximale Anzahl an Kunden im Segment
+	 * @see #getNextMax()
+	 * @see #setNextMax(String)
+	 */
 	private String nextMax;
 
 	/**
@@ -144,6 +155,10 @@ public class ModelElementBarrierPull extends ModelElementMultiInSingleOutBox imp
 		return Language.tr("Surface.BarrierPull.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,200,80);
 
 	/**

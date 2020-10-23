@@ -520,6 +520,14 @@ public class AnalyticInfo {
 			info=new StringBuilder();
 		}
 
+		/**
+		 * Stellt die analytisch berechneten Ergebnisse ein.
+		 * @param ENQ	Mittlere Warteschlangenlänge E[NQ]
+		 * @param EN	Mittlere Anzahl an Kunden im System E[N]
+		 * @param EW	Mittlere Wartezeit der Kunden E[W]
+		 * @param EV	Mittlere Verweilzeit der Kunden E[V]
+		 * @param simulationResults	Zugehörige Simulationsergebnisse für den Vergleich (kann <code>null</code> sein)
+		 */
 		private void setResults(final double ENQ, final double EN, final double EW, final double EV, final SimulationResults simulationResults) {
 			if (simulationResults==null) {
 				numbers.append(buildInfoNumber("E[NQ]",ENQ,0));
@@ -536,6 +544,10 @@ public class AnalyticInfo {
 			}
 		}
 
+		/**
+		 * Fügt einen Informationstext zu dem Objekt hinzu
+		 * @param info	Informationstext (kann aus mehreren durch '\n' getrennten Zeilen bestehen)
+		 */
 		private void addInfo(final String info) {
 			if (this.info.length()>0) this.info.append('\n');
 			this.info.append(info);

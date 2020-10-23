@@ -43,7 +43,9 @@ public class CommandBuildCatalogDescriptions extends AbstractCommand {
 		HTML
 	}
 
+	/** Sprache */
 	private String language;
+	/** Pfad für die Ausgabedateien */
 	private String path;
 	/** Ausgabeformat */
 	private Mode mode=Mode.LATEX;

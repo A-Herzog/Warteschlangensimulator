@@ -25,9 +25,27 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementListGroup extends ModelElementBox {
+	/**
+	 * 0-basierender Index der Gruppe
+	 * @see #getIndex()
+	 */
 	private final int groupIndex;
+
+	/**
+	 * Name der Gruppe
+	 * @see #getTypeName()
+	 */
 	private final String groupName;
+
+	/**
+	 * Untereinträge anzeigen
+	 * @see #isShowSub()
+	 */
 	private boolean showSub;
+
+	/**
+	 * Liste der Elemente in dieser Gruppe
+	 */
 	private final List<ModelElement> subElements;
 
 	/**

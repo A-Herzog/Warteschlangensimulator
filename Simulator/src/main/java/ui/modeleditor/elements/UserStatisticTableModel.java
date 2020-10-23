@@ -47,13 +47,21 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = -5314140428056671403L;
 
+	/** Hilfe-Callback */
 	private final Runnable help;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Bezeichner für die Kenngrößen */
 	private final List<String> keys;
+	/** Handelt es sich jeweils im Zeitangaben (<code>true</code>) oder Zahlen (<code>false</code>) */
 	private final List<Boolean> isTime;
+	/** Zu erfassende Kenngrößen-Ausdrücke */
 	private final List<String> expressions;
+	/** Gesamtes Modell (für den Expression-Builder) */
 	private final EditModel model;
+	/** Haupt-Zeichenfläche (für den Expression-Builder) */
 	private final ModelSurface surface;
+	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
 
 	/**
@@ -104,6 +112,9 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 		return expressions;
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();

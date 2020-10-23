@@ -54,11 +54,13 @@ public class BackgroundSystem {
 	/** Verzögerung vor dem Start der Hintergrundsimulation im agressiven Modus */
 	private static final int DELAY_FAST=1_500;
 
+	/** Hintergrund-System in Abhängigkeit von den Editoren */
 	private static Map<EditorPanel,BackgroundSystem> system;
 
 	/** Referenz auf das Setup-Singleton */
 	private static final SetupData setup=SetupData.getSetup();
 	private SetupData.BackgroundProcessingMode lastBackgroundMode;
+	/** Timer für regelmäßige Modellprüfungen */
 	private Timer timer;
 
 	private EditModel lastModel;
@@ -82,10 +84,16 @@ public class BackgroundSystem {
 		lastUsage=System.currentTimeMillis();
 	}
 
+	/**
+	 * Timer für Prüfungen aktivieren.
+	 */
 	private void initTimer() {
 		if (timer==null) timer=new Timer("SimBackground",true);
 	}
 
+	/**
+	 * Timer für Prüfungen beenden.
+	 */
 	private void doneTimer() {
 		if (timer!=null) {
 			timer.cancel();
@@ -146,6 +154,12 @@ public class BackgroundSystem {
 		return true;
 	}
 
+	/**
+	 * Prüft, ob ein Modell ein Skript-Element enthält.
+	 * @param model	Zu prüfendes Modell
+	 * @return	Liefert <code>true</code>, wenn das Modell ein Skript-Element enthält
+	 * @see #canBackgroundProcess(EditModel)
+	 */
 	private boolean containsJSElements(final EditModel model) {
 		for (ModelElement element1: model.surface.getElements()) {
 			if (element1 instanceof ModelElementDecideJS) return true;
@@ -162,6 +176,12 @@ public class BackgroundSystem {
 		return false;
 	}
 
+	/**
+	 * Prüft, ob das Modell im Hintergrund simuliert werden kann.
+	 * @param model	Zu prüfendes Modell
+	 * @return	Liefer <code>true</code>, wenn das Modell im Hintergrund simuliert werden kann
+	 * @see #process(EditModel, boolean)
+	 */
 	private boolean canBackgroundProcess(final EditModel model) {
 		/* Keine Hintergrundverarbeitung, wenn Ausgabeelemente im Spiel sind. */
 		if (!model.canRunInBackground()) return false;
@@ -334,6 +354,10 @@ public class BackgroundSystem {
 		stop(true);
 	}
 
+	/**
+	 * Stoppt alle möglichen Hintergrund-Simulationen.
+	 * @param killTimer	Soll auch der Timer für weitere Prüfungen angehalten werden?
+	 */
 	private void stop(final boolean killTimer) {
 		if (lastTask!=null) lastTask.cancel();
 		if (lastSimulator!=null) lastSimulator.cancel();

@@ -68,32 +68,141 @@ public final class ModelElementSourceRecord implements Cloneable {
 		NEXT_SIGNAL
 	}
 
+	/**
+	 * Namen des Datensatzes
+	 * @see #getName()
+	 * @see #setName(String)
+	 * @see #hasName()
+	 */
 	private String name;
 
+	/**
+	 * Verwendete Zeitbasis (ob die Verteilungswerte Sekunden-, Minuten- oder Stunden-Angaben darstellen sollen)
+	 * @see #getTimeBase()
+	 * @see #setTimeBase(ui.modeleditor.ModelSurface.TimeBase)
+	 */
 	private ModelSurface.TimeBase timeBase;
 
+	/**
+	 * Art der Bestimmung der Zwischenankunftszeiten
+	 * @see #getNextMode()
+	 */
 	private NextMode nextMode;
 
+	/**
+	 * Verteilung der Zwischenankunftszeiten
+	 * @see #getInterarrivalTimeDistribution()
+	 * @see #setInterarrivalTimeDistribution(AbstractRealDistribution)
+	 */
 	private AbstractRealDistribution distribution;
+
+	/**
+	 * Ausdruck gemäß dessen die Zwischenankunftszeiten bestimmt werden
+	 * @see #getInterarrivalTimeExpression()
+	 * @see #setInterarrivalTimeExpression(String)
+	 */
 	private String expression;
+
+	/**
+	 * Namen des Zeitplans gemäß dessen die Zwischenankunftszeiten bestimmt werden
+	 * @see #getInterarrivalTimeSchedule()
+	 * @see #setInterarrivalTimeSchedule(String)
+	 */
 	private String schedule;
+
+	/**
+	 * Bedingung gemäß derer weitere Kundenankünfte ausgelöst werden sollen
+	 * @see #getArrivalCondition()
+	 * @see #setArrivalCondition(String, double)
+	 */
 	private String condition;
+
+	/**
+	 * Mindestabstand zwischen Kundenankünften, die über eine Bedingung ausgelöst werden sollen
+	 * @see #getArrivalConditionMinDistance()
+	 * @see #setArrivalCondition(String, double)
+	 */
 	private double conditionMinDistance;
+
+	/**
+	 * Liste der Signalnamen, die eine Kundenankunft auslösen sollen
+	 * @see #getArrivalSignalNames()
+	 * @see #setSignalMode()
+	 */
 	private final List<String> signalNames;
+
+	/**
+	 * Zu prüfender Schwellenwertausdruck
+	 * @see #getThresholdExpression()
+	 * @see #setThresholdExpression(String)
+	 */
 	private String thresholdExpression;
+
+	/**
+	 * Schwellenwert gegen den der Schwellenwertausdruck abgeglichen werden soll
+	 * @see #getThresholdValue()
+	 * @see #setThresholdValue(double)
+	 */
 	private double thresholdValue;
+
+	/**
+	 * Gibt an, ob eine Kundenankunft beim Über- oder beim Unterschreiten des Schwellenwertes ausgelöst werden soll.
+	 * @see #isThresholdDirectionUp()
+	 * @see #setThresholdDirectionUp(boolean)
+	 */
 	private boolean thresholdDirectionUp;
 
+	/**
+	 * Ankunfts-Batch-Größe oder <code>null</code>, wenn es mehrere verschiedene Batch-Größen geben soll
+	 * @see #getBatchSize()
+	 * @see #setBatchSize(String)
+	 */
 	private String batchSize; /* wenn hier null eingetragen wird, gelten die <code>batchSizeRates</code> */
+
+	/**
+	 * Ankunfts-Batch-Verteilung oder <code>null</code> wenn es eine fixe Batch-Größe gibt
+	 * @see #getMultiBatchSize()
+	 * @see #setMultiBatchSize(double[])
+	 */
 	private double[] batchSizeRates; /* erster Eintrag steht für Batch-Größe==1 */
+
+	/**
+	 * Gesamtanzahl an Ankunftsereignissen (-1 für unendlich viele)
+	 * @see #getMaxArrivalCount()
+	 * @see #setMaxArrivalCount(long)
+	 */
 	private long maxArrivalCount;
+
+	/**
+	 * Gesamtanzahl an Kundenankünften (-1 für unendlich viele)
+	 * @see #getMaxArrivalClientCount()
+	 * @see #setMaxArrivalClientCount(long)
+	 */
 	private long maxArrivalClientCount;
+
+	/**
+	 * Zeitpunkt am dem die erste Zwischenankunftszeit beginnt
+	 * @see #getArrivalStart()
+	 * @see #setArrivalStart(double)
+	 */
 	private double arrivalsStart;
 
+	/**
+	 * Datensatz für Zahlenzuweisungen
+	 * @see #getSetRecord()
+	 */
 	private final ModelElementSetRecord setRecord;
 
+	/**
+	 * Datensatz für Textzuweisungen
+	 * @see #getStringRecord()
+	 */
 	private final ModelElementAssignStringRecord stringRecord;
 
+	/**
+	 * Listener, die aufgerufen werden, wenn es eine Änderung im Datensatz gibt.
+	 * @see #fireChanged()
+	 */
 	private List<Runnable> changeListener;
 
 	/**
@@ -136,6 +245,13 @@ public final class ModelElementSourceRecord implements Cloneable {
 		changeListener=new ArrayList<>();
 	}
 
+	/**
+	 * Benachrichtigt alle {@link #changeListener} Listener
+	 * über Änderungen an dem Datensatz.
+	 * @see #changeListener
+	 * @see #addChangeListener(Runnable)
+	 * @see #removeChangeListener(Runnable)
+	 */
 	private void fireChanged() {
 		for (Runnable listener: changeListener) listener.run();
 	}

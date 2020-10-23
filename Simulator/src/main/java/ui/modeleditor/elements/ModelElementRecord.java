@@ -47,7 +47,18 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementRecord extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Erster zu erfassenden Ausdruck
+	 * @see #getExpression1()
+	 * @see #setExpression1(String)
+	 */
 	private String expression1;
+
+	/**
+	 * Zweiter zu erfassenden Ausdruck
+	 * @see #getExpression2()
+	 * @see #setExpression2(String)
+	 */
 	private String expression2;
 
 	/**
@@ -172,6 +183,10 @@ public class ModelElementRecord extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.Record.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

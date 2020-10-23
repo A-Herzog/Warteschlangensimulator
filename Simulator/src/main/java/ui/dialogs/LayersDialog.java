@@ -136,6 +136,14 @@ public class LayersDialog extends BaseDialog {
 		setLocationRelativeTo(getOwner());
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche
+	 * @param icon	Icon für die Schaltfläche
+	 * @param command	Beim Anklicken der Schaltfläche auszuführender Befehl
+	 * @return	Neue Schaltfläche
+	 */
 	private JButton addButton(final String title, final String hint, final Images icon, final Runnable command) {
 		final JButton button=new JButton(title,icon.getIcon());
 		button.setToolTipText(hint);
@@ -143,6 +151,12 @@ public class LayersDialog extends BaseDialog {
 		return button;
 	}
 
+	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+	 * HTML-Entitäten um.
+	 * @param line	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
 	private static String encodeHTMLentities(final String line) {
 		if (line==null) return "";
 		String result;
@@ -152,6 +166,9 @@ public class LayersDialog extends BaseDialog {
 		return result;
 	}
 
+	/**
+	 * Aktualisiert die Liste der Ebenen.
+	 */
 	private void updateList() {
 		/* Daten aus Modell */
 		final List<String> layers=model.surface.getLayers();
@@ -185,6 +202,11 @@ public class LayersDialog extends BaseDialog {
 		updateButtons();
 	}
 
+	/**
+	 * Aktiviert in Abhängigkeit von der in der Liste gewählten Ebene
+	 * die Schaltflächen zur Konfiguration der Ebenen.
+	 * @see #list
+	 */
 	private void updateButtons() {
 		/* Daten aus Modell */
 		final List<String> layers=model.surface.getLayers();
@@ -218,6 +240,9 @@ public class LayersDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Ebene hinzufügen
+	 */
 	private void commandAdd() {
 		/* Daten aus Modell */
 		final List<String> layers=model.surface.getLayers();
@@ -249,6 +274,10 @@ public class LayersDialog extends BaseDialog {
 		updateButtons();
 	}
 
+	/**
+	 * Befehl: Ebene umbenennen
+	 * @param index	Index der Ebene in der Liste
+	 */
 	private void commandRename(final int index) {
 		/* Daten aus Modell */
 		final List<String> layers=model.surface.getLayers();
@@ -280,6 +309,10 @@ public class LayersDialog extends BaseDialog {
 		updateList();
 	}
 
+	/**
+	 * Befehl: Ebene löschen
+	 * @param index	Index der Ebene in der Liste
+	 */
 	private void commandDelete(final int index) {
 		/* Daten aus Modell */
 		final List<String> layers=model.surface.getLayers();
@@ -304,6 +337,10 @@ public class LayersDialog extends BaseDialog {
 		updateList();
 	}
 
+	/**
+	 * Befehl: Sichtbarkeitsstatus der Ebene umschalten
+	 * @param index	Index der Ebene in der Liste
+	 */
 	private void commandChangeVisible(final int index) {
 		final String layer=model.surface.getLayers().get(index);
 
@@ -313,6 +350,9 @@ public class LayersDialog extends BaseDialog {
 		updateList();
 	}
 
+	/**
+	 * Befehl: Gewählte Ebene als aktuelle Ebene (für das Hinzufügen von Elementen) wählen
+	 */
 	private void commandSetActive() {
 		final String layer=model.surface.getLayers().get(list.getSelectedIndex());
 		model.surface.setActiveLayer(layer);
@@ -320,6 +360,12 @@ public class LayersDialog extends BaseDialog {
 		updateList();
 	}
 
+	/**
+	 * Erstellt auf Basis einer Schaltfläche einen Menüpunkt
+	 * @param button	Ausgangsschaltfläche
+	 * @return	Neuer Menüpunkt
+	 * @see #showContextMenu(MouseEvent)
+	 */
 	private JMenuItem buttonToMenu(final JButton button) {
 		final JMenuItem item=new JMenuItem(button.getText(),button.getIcon());
 		item.setToolTipText(button.getToolTipText());
@@ -328,6 +374,10 @@ public class LayersDialog extends BaseDialog {
 		return item;
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zu einem Listeneintrag an.
+	 * @param event	Auslösendes Mausereignis
+	 */
 	private void showContextMenu(final MouseEvent event) {
 		final JPopupMenu menu=new JPopupMenu();
 

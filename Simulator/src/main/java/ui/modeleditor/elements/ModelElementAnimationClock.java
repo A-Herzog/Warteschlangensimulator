@@ -45,8 +45,17 @@ import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawExpression {
+	/**
+	 * Standard-Farbe
+	 * @see #color
+	 */
 	private static final Color DEFAULT_COLOR=new Color(225,225,225);
 
+	/**
+	 * Aktuelle Farbe
+	 * @see #getColor()
+	 * @see #setColor(Color)
+	 */
 	private Color color=DEFAULT_COLOR;
 
 	/**

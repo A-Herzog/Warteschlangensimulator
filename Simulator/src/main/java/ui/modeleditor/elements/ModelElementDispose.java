@@ -54,6 +54,11 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private List<Integer> connectionIds=null;
 
+	/**
+	 * Simulation abbrechen, wenn an dieser Station ein Kunde eintrifft?
+	 * @see #isStoppSimulationOnClientArrival()
+	 * @see #setStoppSimulationOnClientArrival(boolean)
+	 */
 	private boolean stoppSimulationOnClientArrival;
 
 	/**
@@ -187,6 +192,10 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 		}
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,148,148);
 
 	/**

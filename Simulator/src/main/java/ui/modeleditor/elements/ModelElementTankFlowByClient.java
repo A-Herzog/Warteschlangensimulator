@@ -43,6 +43,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementTank
  */
 public class ModelElementTankFlowByClient extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Einstellungen zu diesem Fluss
+	 * @see #getFlowData()
+	 */
 	private final ModelElementTankFlowData data;
 
 	/**
@@ -132,6 +136,10 @@ public class ModelElementTankFlowByClient extends ModelElementMultiInSingleOutBo
 		return Language.tr("Surface.TankFlowByClient.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(64,127,255);
 
 	/**

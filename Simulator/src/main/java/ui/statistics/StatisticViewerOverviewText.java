@@ -1408,7 +1408,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			s=NumberTools.formatNumber(d,2);
 			if (s.equals("0")) {
 				s=StatisticTools.formatNumber(((double)statistics.simulationData.runTime*1000)*statistics.simulationData.runThreads/sum,2);
-				addLine(Language.tr("Statistics.SystemData.TimePerClient")+" (*) : "+s+" µs");
+				addLine(Language.tr("Statistics.SystemData.TimePerClient")+" (*): "+s+" µs");
 			} else {
 				s=StatisticTools.formatNumber(d,2);
 				addLine(Language.tr("Statistics.SystemData.TimePerClient")+" (*): "+s+" ms");

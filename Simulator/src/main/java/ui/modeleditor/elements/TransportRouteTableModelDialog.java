@@ -53,8 +53,19 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 96327428990066609L;
 
+	/**
+	 * Liste mit allen Kundentypennamen (für Kundentyp-abhängiges Routing)
+	 */
 	private final String[] clientTypes;
+
+	/**
+	 * Liste mit möglichen Zielstationen
+	 */
 	private final String[] stations;
+
+	/**
+	 * Namen der modellweiten Variablen
+	 */
 	private final String[] variables;
 
 	private final JRadioButton optionClientType;

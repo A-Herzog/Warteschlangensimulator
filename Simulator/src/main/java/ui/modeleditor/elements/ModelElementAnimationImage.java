@@ -64,9 +64,24 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationImage extends ModelElementPosition implements ElementWithAnimationDisplay {
+	/**
+	 * Größe der Markierungsboxen an den Ecken des Elements
+	 * @see #drawBorderBox(Graphics2D, Point, double)
+	 */
 	private static final int SELECT_BOX_SIZE=7;
 
+	/**
+	 * Breite der Linie
+	 * @see #getBorderWidth()
+	 * @see #setBorderWidth(int)
+	 */
 	private int borderWidth=1;
+
+	/**
+	 * Aktuelle Farbe der Linie
+	 * @see #getBorderColor()
+	 * @see #setBorderColor(Color)
+	 */
 	private Color borderColor=Color.BLACK;
 
 	private Semaphore drawLock=new Semaphore(1);

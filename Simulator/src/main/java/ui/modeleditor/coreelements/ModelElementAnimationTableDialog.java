@@ -101,6 +101,15 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche und fügt sie zur Symbolleiste hinzu.
+	 * @param toolbar	Symbolleiste auf der die neue Schaltfläche eingefügt werden soll
+	 * @param name	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Optionales Icon für die Schaltfläche (darf <code>null</code> sein)
+	 * @param listener	Aktion die beim Anklicken der Schaltfläche ausgeführt werden soll
+	 * @return	Neue Schaltfläche (ist bereits in die Symbolleiste eingefügt)
+	 */
 	private JButton addButton(final JToolBar toolbar, final String name, final Icon icon, final String hint, final ActionListener listener) {
 		final JButton button=new JButton(name);
 		if (icon!=null) button.setIcon(icon);
@@ -110,6 +119,9 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		return button;
 	}
 
+	/**
+	 * Befehl: Angezeigte Daten in die Zwischenablage kopieren
+	 */
 	private void commandCopy() {
 		buttonAutoUpdate.setSelected(false);
 		if (timer!=null) timer.cancel();
@@ -117,6 +129,9 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		copyTable(tableModel.table);
 	}
 
+	/**
+	 * Befehl: Angezeigte Daten speichern
+	 */
 	private void commandSave() {
 		buttonAutoUpdate.setSelected(false);
 		if (timer!=null) timer.cancel();
@@ -148,10 +163,16 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Anzeige aktualisieren
+	 */
 	private void commandUpdate() {
 		tableModel.updateData();
 	}
 
+	/**
+	 * Befehl: Anzeige automatisch aktualisieren (an/aus)
+	 */
 	private void commandAutoUpdate() {
 		buttonAutoUpdate.setSelected(!buttonAutoUpdate.isSelected());
 
@@ -176,16 +197,36 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 	 * @see ModelElementAnimationTableDialog#tableModel
 	 */
 	private static class TableTableModel extends AbstractTableModel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -8304016520194169458L;
 
+		/**
+		 * Getter für die anzuzeigende Tabelle im Content-Bereich
+		 */
 		private final Supplier<Table> tableGetter;
+
+		/**
+		 * Anzuzeigende Tabelle im Content-Bereich
+		 */
 		public Table table;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param tableGetter	Getter für die anzuzeigende Tabelle im Content-Bereich
+		 */
 		public TableTableModel(final Supplier<Table> tableGetter) {
 			this.tableGetter=tableGetter;
 			updateData();
 		}
 
+		/**
+		 * Aktualisiert {@link #table} mit Hilfe von {@link #tableGetter}.
+		 * @see #table
+		 * @see #tableGetter
+		 */
 		public void updateData() {
 			table=tableGetter.get();
 			fireTableDataChanged();

@@ -50,7 +50,11 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -9107725290348536791L;
 
+	/**
+	 * Liste der globalen Variablen (zum Prüfen von Ausdrücken)
+	 */
 	private final String[] variableNames;
+
 	private final JTextField expressionEdit;
 	private final JTextField minValueEdit;
 	private final JTextField maxValueEdit;

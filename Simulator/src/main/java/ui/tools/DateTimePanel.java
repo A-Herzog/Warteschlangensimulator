@@ -85,6 +85,10 @@ public class DateTimePanel extends JPanel {
 	}
 
 	private class DateLabelFormatter extends AbstractFormatter {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = -6177382334742454499L;
 		@Override public Object stringToValue(String text) {
 			long l=DateTools.getUserDate(text);
@@ -127,8 +131,18 @@ public class DateTimePanel extends JPanel {
 		return DateTools.toMS(d)+lastValidTime*1000;
 	}
 
+	/**
+	 * Listener, die bei Änderungen der Einstellungen benachrichtigt werden sollen.
+	 * @see #fireChangeListener()
+	 * @see #addChangeListener(ActionListener)
+	 * @see #removeChangeListener(ActionListener)
+	 */
 	private List<ActionListener> changeListeners=new ArrayList<>();
 
+	/**
+	 * Benachrichtigt alle in {@link #changeListeners} registrierten Listener,
+	 * dass sich die Einstellungen verändert haben.
+	 */
 	private void fireChangeListener() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"change");
 		for (ActionListener changeListener: changeListeners) changeListener.actionPerformed(event);

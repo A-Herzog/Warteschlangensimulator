@@ -60,8 +60,25 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		Java
 	}
 
+	/**
+	 * Skript
+	 * @see #getScript()
+	 * @see #setScript(String)
+	 */
 	private String script;
+
+	/**
+	 * Skriptsprache
+	 * @see #getMode()
+	 * @see #setMode(ScriptMode)
+	 */
 	private ScriptMode mode;
+
+	/**
+	 * Dateiname der Datei für die Ausgaben
+	 * @see #getOutputFile()
+	 * @see #setOutputFile(String)
+	 */
 	private String outputFile;
 
 	/**
@@ -206,6 +223,10 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		return Language.tr("Surface.OutputJS.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

@@ -33,6 +33,7 @@ import tools.SetupData;
  * @see CommandLineSystem
  */
 public class CommandSetDynamicThreadBalance extends AbstractCommand {
+	/** Dynamische Thread-Lastverteilung aktivieren oder deaktivieren */
 	private boolean useDynamicThreadBalance=false;
 
 	@Override

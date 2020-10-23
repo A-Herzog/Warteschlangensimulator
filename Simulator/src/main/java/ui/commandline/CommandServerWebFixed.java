@@ -37,8 +37,11 @@ import xml.XMLTools;
  * @see CommandLineSystem
  */
 public class CommandServerWebFixed extends AbstractCommand {
+	/** Serverport */
 	private int serverPort;
+	/** Zu verwendende Modelldatei */
 	private File modelFile;
+	/** Signalisiert dass der Server beendet werden soll. */
 	private boolean isQuit;
 
 	@Override
@@ -59,6 +62,11 @@ public class CommandServerWebFixed extends AbstractCommand {
 		return Language.tr("CommandLine.ServerWebFixedModel.Description.Long").split("\n");
 	}
 
+	/**
+	 * Prüft, ob die übergebene Datei eine Modell Datei ist
+	 * @param file	Zu prüfende Datei
+	 * @return	Gibt <code>true</code> zurück, wenn es sich um eine Modell Datei handelt
+	 */
 	private final boolean isModelFile(final File file) {
 		final XMLTools xml=new XMLTools(file);
 		final Element root=xml.load();

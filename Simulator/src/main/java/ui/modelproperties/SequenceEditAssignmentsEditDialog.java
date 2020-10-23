@@ -55,7 +55,9 @@ public class SequenceEditAssignmentsEditDialog extends BaseDialog {
 	/** Editor-Model (für den Expression-Builder-Dialog) */
 	private final EditModel model;
 
+	/** Eingabefeld für den Schlüssel der Key=Value-Zuweisung */
 	private final JTextField keyEdit;
+	/** Eingabefeld für den Formelausdruck der an den Schlüssel zugewiesen werden soll */
 	private final JTextField expressionEdit;
 
 	/**

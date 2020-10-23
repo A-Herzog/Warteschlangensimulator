@@ -94,6 +94,12 @@ public class ModelDescriptionBuilderTable extends ModelDescriptionBuilder {
 		/* Ressourcenwerte werden in der Tabelle nicht ausgegeben */
 	}
 
+	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+	 * HTML-Entitäten um.
+	 * @param line	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
 	private String encodeHTML(final String line) {
 		String result;
 		result=line.replaceAll("&","&amp;");

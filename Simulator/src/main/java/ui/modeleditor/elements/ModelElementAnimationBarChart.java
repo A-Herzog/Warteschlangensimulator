@@ -59,6 +59,10 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationBarChart extends ModelElementPosition implements ElementWithAnimationDisplay {
+	/**
+	 * Größe der Markierungsboxen an den Ecken des Elements
+	 * @see #drawBorderBox(Graphics2D, Point, double)
+	 */
 	private static final int SELECT_BOX_SIZE=7;
 
 	private Semaphore drawLock=new Semaphore(1);

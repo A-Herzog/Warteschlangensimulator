@@ -48,9 +48,32 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Kosten an der Station
+	 * @see #getStationCosts()
+	 * @see #setStationCosts(String)
+	 */
 	private String stationCosts;
+
+	/**
+	 * Zusätzliche Kunden-Wartezeit-Kosten
+	 * @see #getClientWaitingCosts()
+	 * @see #setClientWaitingCosts(String)
+	 */
 	private String clientWaitingCosts;
+
+	/**
+	 * Zusätzliche Kunden-Transferzeit-Kosten
+	 * @see #getClientTransferCosts()
+	 * @see #setClientTransferCosts(String)
+	 */
 	private String clientTransferCosts;
+
+	/**
+	 * Zusätzliche Kunden-Bedienzeit-Kosten
+	 * @see #getClientProcessCosts()
+	 * @see #setClientProcessCosts(String)
+	 */
 	private String clientProcessCosts;
 
 	/**
@@ -148,6 +171,10 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.Costs.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,255,180);
 
 	/**

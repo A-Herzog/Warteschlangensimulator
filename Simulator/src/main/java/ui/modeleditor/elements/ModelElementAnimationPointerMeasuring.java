@@ -48,10 +48,20 @@ import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationPointerMeasuring extends ModelElementAnimationCustomDrawExpression {
+	/**
+	 * Standard-Farbe für den Zeiger
+	 * @see #color
+	 */
 	private static final Color DEFAULT_COLOR=Color.BLUE;
 
 	private int minValue;
 	private int maxValue;
+
+	/**
+	 * Farbe für den Zeiger
+	 * @see #getColor()
+	 * @see #setColor(Color)
+	 */
 	private Color color=DEFAULT_COLOR;
 
 	/**

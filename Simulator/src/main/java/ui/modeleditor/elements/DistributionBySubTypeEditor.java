@@ -80,8 +80,11 @@ public class DistributionBySubTypeEditor extends JPanel {
 	private static final String cardDistribution="Distribution";
 	private static final String cardExpression="Expression";
 
+	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
 	private final EditModel model;
+	/** Element vom Typ <code>ModelSurface</code> (wird benötigt, um die Liste der Kundentypen oder Stationen auszulesen) */
 	private final ModelSurface surface;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private final String[] subTypes;
 	private final DistributionSystem sourceData;

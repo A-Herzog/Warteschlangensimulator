@@ -78,8 +78,19 @@ import ui.speedup.BackgroundSystem;
  * @author Alexander Herzog
  */
 public class ModelElementBox extends ModelElementPosition implements ElementWithAnimationDisplay {
+	/**
+	 * Benutzerdefinierte Hintergrundfarbe
+	 * @see #getUserBackgroundColor()
+	 * @see #setUserBackgroundColor(Color)
+	 * @see #getDrawBackgroundColor()
+	 */
 	private Color userBackgroundColor;
+
+	/**
+	 * Referenz auf das Setup-Singleton.
+	 */
 	private final SetupData setup=SetupData.getSetup();
+
 	private boolean drawText=true;
 
 	/**

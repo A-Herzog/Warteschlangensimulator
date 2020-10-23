@@ -29,8 +29,11 @@ import mathtools.NumberTools;
  * @see ModelElementWayPoint
  */
 public class WayPointRecord {
+	/** Startstation der Transporter, die diesen Wegpunkt passieren sollen */
 	private String stationA;
+	/** Zielstation der Transporter, die diesen Wegpunkt passieren sollen */
 	private String stationB;
+	/** Reihenfolge zur Ansteuerung dieses Wegspunkts auf dem Weg von der Start- zur Zielstation */
 	private int index;
 
 	/**

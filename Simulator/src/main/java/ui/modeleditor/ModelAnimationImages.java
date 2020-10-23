@@ -47,8 +47,11 @@ public final class ModelAnimationImages implements Cloneable {
 	 */
 	public static String[] XML_NODE_NAME=new String[] {"ModellAnimationsBilder"};
 
+	/** Namen der lokal gespeicherten Bilder */
 	private final List<String> names;
+	/** Hashwerte zu den Bilddaten */
 	private final List<String> imagesHashes;
+	/** Bilddaten */
 	private final List<BufferedImage> images;
 
 	/**

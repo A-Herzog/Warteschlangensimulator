@@ -60,6 +60,10 @@ import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord;
  * @see ModelElementSeparate
  */
 public class ModelElementBatch extends ModelElementMultiInSingleOutBox implements ElementWithNewClientNames, ModelElementAnimationForceMove {
+	/**
+	 * Batch-Datensatz
+	 * @see #getBatchRecord()
+	 */
 	private final BatchRecord batchRecord;
 
 	/**
@@ -187,6 +191,10 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 		return Language.tr("Surface.Batch.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

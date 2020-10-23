@@ -103,6 +103,10 @@ public final class SelectExampleDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Erstellt die Baumstruktur, die alle Beispiele enthält.
+	 * @return	Baumstruktur, die alle Beispiele enthält
+	 */
 	private TreeNode buildTree() {
 		final DefaultMutableTreeNode root=new DefaultMutableTreeNode("");
 
@@ -145,10 +149,20 @@ public final class SelectExampleDialog extends BaseDialog {
 		return ((ExampleData)userObject).getModel();
 	}
 
+	/**
+	 * Datensatz für ein Beispiel
+	 * @see SelectExampleDialog#buildTree()
+	 */
 	private class ExampleData {
+		/** Name des Beispiels */
 		private final String name;
+		/** Modell für das Beispiel */
 		private EditModel model;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name des Beispiels
+		 */
 		public ExampleData(final String name) {
 			this.name=name;
 		}
@@ -158,6 +172,10 @@ public final class SelectExampleDialog extends BaseDialog {
 			return name;
 		}
 
+		/**
+		 * Liefert das Modell für dieses Beispiel
+		 * @return	Modell für dieses Beispiel
+		 */
 		public EditModel getModel() {
 			if (model==null) {
 				final int index=EditModelExamples.getExampleIndexFromName(name);

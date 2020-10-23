@@ -28,7 +28,6 @@ import systemtools.commandline.AbstractCommand;
  * @see CommandLineSystem
  */
 public class CommandServerLimited extends CommandServer {
-
 	@Override
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();

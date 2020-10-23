@@ -47,11 +47,15 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 	 */
 	private static final long serialVersionUID = -6468064552683722803L;
 
+	/** Zugehörige Tabelle (damit die Tabelle angewiesen werden kann, sich neu zu zeichnen, wenn die Daten verändert wurden) */
 	private final JTableExt table;
+	/** Hilfe-Callback */
 	private final Runnable help;
+	/** {@link ModelElementAnimationImage}-Element aus dem die Daten für die Tabelle ausgelesen und in das sie auch wieder zurückgeschrieben werden sollen */
 	private final ModelElementAnimationImage element;
 	private final List<String> expression;
 	private final List<BufferedImage> images;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/**
@@ -79,6 +83,9 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -165,10 +172,20 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 		element.setExpressionData(data);
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben) */
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;
@@ -217,9 +234,17 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

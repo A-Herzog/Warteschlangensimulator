@@ -104,6 +104,14 @@ public class FindBatchSizeDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Liefert ein Modellelement basierend auf dem in den Statistikdaten
+	 * eingebetteten Modell und dem Namen der Station
+	 * @param statistics	Statistikdaten
+	 * @param name	Name der Station (muss "(id=...)" enthalten)
+	 * @return	Modellelement oder <code>null</code>, wenn kein Modellelement mit dem entsprechenden Namen gefunden werden konnte
+	 * @see #getDistance(Statistics, double)
+	 */
 	private ModelElement getElementFromStatisticName(final Statistics statistics, String name) {
 		if (statistics==null) return null;
 		final EditModel model=statistics.editModel;

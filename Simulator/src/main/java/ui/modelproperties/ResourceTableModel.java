@@ -46,6 +46,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSeize;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.modeleditor.elements.ModelElementTransportSource;
 
 /**
  * Diese Klasse hält das Tabellenmodell für die Anzeige von Bedienergruppen
@@ -60,13 +61,21 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = -382448545912017044L;
 
+	/** Objekt das die verfügbaren Animations-Icons vorhält */
 	private AnimationImageSource imageSource;
+	/** Liste mit den darzustellenden Bedienergruppen */
 	private ModelResources resources;
+	/** Liste mit den darzustellenden Bedienergruppen */
 	private ModelSchedules schedules;
+	/** Vollständiges Editor-Modell (wird für den Expression-Builder benötigt) */
 	private EditModel model;
+	/** Haupt-Zeichenfläche (wird benötigt um zu vermitteln, wo eine Bedienergruppe im Einsatz ist, und für den Expression-Builder) */
 	private ModelSurface surface;
+	/** Zu dem Tabellenmodell gehörenden Tabellenobjekt (wird sowohl zum Ausrichten von Dialogen als auch um ein Update der Tabelle anzustoßen benötigt) */
 	private final JTableExt table;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Callback */
 	private final Runnable help;
 
 	/**
@@ -112,6 +121,12 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		if (cellEditor!=null) cellEditor.stopCellEditing();
 	}
 
+	/**
+	 * Prüft, ob eine Bedienergruppe an einer bestimmten Station verwendet wird.
+	 * @param name	Name der Bedienergruppe
+	 * @param element	Zu prüfende Station
+	 * @return	Liefert <code>true</code>, wenn ide Bedienergruppe an der Station verwendet wird
+	 */
 	private boolean resourceInUse(final String name, final ModelElementBox element) {
 		if (element instanceof ModelElementProcess) {
 			for (Map<String,Integer> map: ((ModelElementProcess)element).getNeededResources()) if (map.get(name)!=null) return true;
@@ -122,9 +137,18 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 			return (((ModelElementSeize)element).getNeededResources().get(name)!=null);
 		}
 
+		if (element instanceof ModelElementTransportSource) {
+			return (((ModelElementTransportSource)element).getTransportResourceRecord().getResources().get(name)!=null);
+		}
+
 		return false;
 	}
 
+	/**
+	 * Liefert die IDs der Stationen an denen eine Bedienergruppe verwendet wird
+	 * @param name	Name der Bedienergruppe
+	 * @return	Liste der IDs der Stationen an denen eine Bedienergruppe verwendet wird
+	 */
 	private List<Integer> resourceInUse(final String name) {
 		final List<Integer> usingIDs=new ArrayList<>();
 
@@ -148,6 +172,12 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		return 2;
 	}
 
+	/**
+	 * Anzahl an Bedienern in einer bestimmten Bedienergruppe
+	 * @param rowIndex	0-basierter Index der Bedienergruppe
+	 * @return	Anzahl an Bedienern in der Gruppe (kann auch "unendlich" oder der Name eines Zeitplans sein)
+	 * @see #getValueAt(int, int)
+	 */
 	private String getCount(final int rowIndex) {
 		final ModelResource resource=resources.get(resources.getName(rowIndex));
 		if (resource.getMode()==ModelResource.Mode.MODE_NUMBER) {
@@ -196,6 +226,12 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		return !readOnly;
 	}
 
+	/**
+	 * Informiert eine Reihe von Stationen darüber, dass sich der Name einer Bedienergruppe geändert hat.
+	 * @param usingIDs	Liste der IDs der zu benachrichtigenden Stationen
+	 * @param oldName	Alter Name der Bedienergruppe
+	 * @param newName	Neuer Name der Bedienergruppe
+	 */
 	private void renameResouceInStations(final List<Integer> usingIDs, final String oldName, final String newName) {
 		for (Integer id: usingIDs) {
 			final ModelElement element=surface.getByIdIncludingSubModels(id);
@@ -203,6 +239,11 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Erstellt einen Infotext, der darauf hinweist, dass eine Bedienergruppe an einer oder mehreren Stationen verwendet wird
+	 * @param sb	Ausgabe-{@link StringBuilder}
+	 * @param usingIDs	Liste der IDs an denen die Bedienergruppe verwendet wird
+	 */
 	private void getInUseInfoText(final StringBuilder sb, List<Integer> usingIDs) {
 		if (usingIDs.size()==0) return;
 
@@ -217,6 +258,10 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		sb.append("\n\n");
 	}
 
+	/**
+	 * Liefert einen Namensvorschlag für eine neue Bedienergruppe
+	 * @return	Namensvorschlag für eine neue Bedienergruppe (Namensvorschlag existiert sich noch nicht als Bedienergruppe)
+	 */
 	private String getFreeName() {
 		final String baseName=Language.tr("Resources.Group.DefaultName");
 		String name=baseName;
@@ -228,6 +273,9 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		return name;
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche
+	 */
 	private class AddButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -243,10 +291,20 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben) */
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;
@@ -300,9 +358,17 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

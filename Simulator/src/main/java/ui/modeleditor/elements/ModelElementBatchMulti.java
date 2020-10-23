@@ -55,6 +55,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementSeparate
  */
 public class ModelElementBatchMulti extends ModelElementMultiInSingleOutBox implements ElementWithNewClientNames, ModelElementAnimationForceMove, ModelDataRenameListener {
+	/**
+	 * Batch-Datensätze
+	 * @see #getBatchRecords()
+	 */
 	private final Map<String,BatchRecord> batchRecords;
 
 	/**
@@ -167,6 +171,10 @@ public class ModelElementBatchMulti extends ModelElementMultiInSingleOutBox impl
 		return Language.tr("Surface.BatchMulti.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

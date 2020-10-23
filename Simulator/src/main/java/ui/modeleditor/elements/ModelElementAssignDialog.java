@@ -43,6 +43,7 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 491234735571463778L;
 
 	private final String oldName;
+	/** Kundendatenelement aus dem Modell (zum Auslesen von Icons und ggf. um Kundentypen umzubenennen) */
 	private final ModelClientData clientData;
 	private JButton editClientDataButton;
 

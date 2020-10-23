@@ -96,12 +96,44 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 		MODE_STRING
 	}
 
+	/**
+	 * Name der Arbeitsmappe in die die Daten geschrieben werden sollen
+	 * @see #getWorkbook()
+	 * @see #setWorkbook(String)
+	 */
 	private String workbook;
+
+	/**
+	 * Name der Tabelle in die die Daten geschrieben werden sollen
+	 * @see #getTable()
+	 * @see #setTable(String)
+	 */
 	private String table;
+
+	/**
+	 * 1-basierende Nummer der ersten Zeile in die Daten geschrieben werden sollen
+	 * @see #getStartRow()
+	 * @see #setStartRow(int)
+	 */
 	private int startRow;
+
+	/**
+	 * Name der ersten Spalte in die Daten geschrieben werden sollen
+	 * @see #getColumn()
+	 * @see #setColumn(String)
+	 */
 	private String startColumn;
 
+	/**
+	 * Liste mit den Modi der Ausgabeelemente
+	 * @see #getModes()
+	 */
 	private List<OutputMode> mode;
+
+	/**
+	 * Liste mit den zusätzlichen Daten der Ausgabeelemente
+	 * @see #getData()
+	 */
 	private List<String> data;
 
 	/**
@@ -319,6 +351,10 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 		return Language.tr("Surface.OutputDDE.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

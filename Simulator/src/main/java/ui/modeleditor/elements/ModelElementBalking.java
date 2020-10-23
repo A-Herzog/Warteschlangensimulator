@@ -106,6 +106,10 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		if (connectionsOut==null) return;
 
@@ -230,6 +234,10 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 		return Language.tr("Surface.Balking.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(204,99,255);
 
 	/**

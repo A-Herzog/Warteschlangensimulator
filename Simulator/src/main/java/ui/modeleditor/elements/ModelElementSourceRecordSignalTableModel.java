@@ -44,7 +44,9 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 	 */
 	private static final long serialVersionUID = 1037435442061965707L;
 
+	/** Zugehörige Tabelle (um diese zu einem Update zu veranlassen, wenn sich die Daten geändert haben) */
 	private final JTableExt table;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private final List<String> signalNames;
 	private final List<String> data;
@@ -63,6 +65,9 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 		signalNames=mainSurface.getAllSignalNames();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();

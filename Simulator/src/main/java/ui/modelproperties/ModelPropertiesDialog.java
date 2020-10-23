@@ -181,64 +181,137 @@ public class ModelPropertiesDialog extends BaseDialog {
 		FIND_BATCH_SIZE
 	}
 
+	/**
+	 * Modell aus dem die Daten entnommen und in das die Daten geschrieben werden sollen
+	 */
 	private final EditModel model;
+
+	/**
+	 * Liefert nach dem Schließen des Dialogs eine Information darüber, welche Aktion als nächstes ausgeführt werden soll.
+	 * @see #getNextAction()
+	 */
 	private NextAction nextAction=NextAction.NONE;
+
+	/** Objekt zum lokalen Speichern der Zeitpläne (außerhalb des Modells, in das sie erst beim Schließen des Dialogs zurückgeschrieben werden */
 	private final ModelSchedules localSchedules;
+	/** Objekt zum lokalen Speichern der Bedienergruppen (außerhalb des Modells, in das sie erst beim Schließen des Dialogs zurückgeschrieben werden */
 	private final ModelResources localResources;
+	/** Objekt zum lokalen Speichern der Transporter (außerhalb des Modells, in das sie erst beim Schließen des Dialogs zurückgeschrieben werden */
 	private final ModelTransporters localTransporters;
+	/** Objekt das die verfügbaren Animations-Icons vorhält */
 	private final AnimationImageSource imageSource;
+	/** Hilfe-Callback für diesen Dialog (zur Übergabe beim Aufruf von Unterdialogen) */
 	private final Runnable help;
 
+	/* Dialogseite "Modellbeschreibung" */
+
+	/** Eingabefeld: "Name des Modells" */
 	private JTextField name;
+	/** Eingabefeld: "Autor des Modells" */
 	private JTextField author;
+	/** Eingabefeld: "Modellbeschreibung" */
 	private JTextArea description;
 
+	/* Dialogseite "Simulation" */
+
+	/** Option "Anzahl an Kundenankünften als Kriterium für das Simulationsende verwenden" */
 	private JCheckBox terminationByClientClount;
+	/** Eingabefeld "Zu simulierende Ankünfte" */
 	private JTextField clientCount;
+	/** Eingabefeld "Einschwingphase" */
 	private JTextField warmUpTime;
+	/** Erklärung zu Eingabefeld {@link #warmUpTime} */
 	private JLabel warmUpTimeInfo;
+	/** Option "Zu prüfende Bedingung als Kriterium für das Simulationsende verwenden" */
 	private JCheckBox terminationByCondition;
+	/** Eingabefeld "Bedingung für Simulationsende" */
 	private JTextField terminationCondition;
+	/** Option "Simulation nach bestimmter Zeit beenden" */
 	private JCheckBox terminationByTime;
+	/** Eingabefeld "Zeitpunkt an dem die Simulation endet" */
 	private JTextField terminationTime;
+	/** Option "Fester Startwert für Zufallszahlengenerator" */
 	private JCheckBox useFixedSeed;
+	/** Eingabefeld "Startwert" */
 	private JTextField fixedSeed;
+	/** Eingabefeld "Anzahl an Wiederholungen des gesamten Simulationslaufs" */
 	private JTextField repeatCount;
+	/** Eingabefeld "In Verteilung aufzuzeichnende Stunden" */
 	private JTextField distributionRecordHours;
+	/** Option "Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann" */
 	private JCheckBox stoppOnCalcError;
+	/** Option "Zeitabhängige Bedingungsprüfungen aktivieren" */
 	private JCheckBox useTimedChecks;
+	/** Eingabefeld "Zeitabstand" */
 	private JTextField editTimedChecks;
+	/** Option "Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen" */
 	private JCheckBox recordIncompleteClients;
 
-	private DefaultListModel<JLabel> clientColorsListModel;
+	/* Dialogseite "Kunden" */
 
+	/** Datenmodell für {@link #clientColorsList} */
+	private DefaultListModel<JLabel> clientColorsListModel;
+	/** Liste mit den vorhandenen Kundentypen */
 	private JList<JLabel> clientColorsList;
 
+	/* Dialogseite "Bediener" */
+
+	/** Datenmodell für die Liste mit den Modell-Ressourcen */
 	private ResourceTableModel resourcesData;
+	/** Auswahlfeld "Ressourcenpriorität an einer Station bei Gleichstand" */
 	private JComboBox<String> secondaryResourcePriority;
 
+	/* Dialogseite "Transporter" */
+
+	/** Datenmodell für die Liste der Transporter */
 	private TransporterTableModel transportersData;
 
+	/* Dialogseite "Zeitpläne" */
+
+	/** Datenmodell für die Liste Zeitpläne */
 	private SchedulesTableModel schedulesData;
 
+	/* Dialogseite "Fertigungspläne" */
+
+	/** Eingabefeld für die Fertigungspläne */
 	private SequencesEditPanel sequencesEdit;
 
+	/* Dialogseite "Initiale Variablenwerte" */
+
+	/** Datenmodell für die Liste der initialen Variablenwerte */
 	private VariablesTableModel variablesTableModel;
 
+	/* Dialogseite "Laufzeitstatistik" */
+
+	/** Eingabefeld "Zeitspanne pro Erfassungsintervall" */
 	private JTextField stepWideEdit;
+	/** Auswahlfeld für die Einheit für {@link #stepWideEdit} */
 	private JComboBox<String> stepWideCombo;
+	/** Datenmodell für die Liste der Laufzeitstatistikdatne */
 	private AdditionalStatisticsTableModel statisticsData;
 
-	private JComboBox<String> correlationMode;
-	private JTextField correlationRange;
-	private JTextField batchMeansSize;
-	private JCheckBox useFinishConfidence;
-	private JTextField finishConfidenceHalfWidth;
-	private JTextField finishConfidenceLevel;
+	/* Dialogseite "Ausgabeanalyse" */
 
+	/** Auswahlfeld "Autokorrelation der Wartezeiten erfassen" */
+	private JComboBox<String> correlationMode;
+	/** Eingabefeld "Maximaler Kundenabstand für Korrelationserfassung" */
+	private JTextField correlationRange;
+	/** Eingabefeld "Batch-Größe" */
+	private JTextField batchMeansSize;
+	/** Option Beenden der Simulation beim Erreichen eines Batch-Means-Konfidenzradius"" */
+	private JCheckBox useFinishConfidence;
+	/** Eingabefeld "Konfidenzradius für die Wartezeiten über alle Kunden (in Sekunden)" */
+	private JTextField finishConfidenceHalfWidth;
+	/** Eingabefeld "Konfidenzniveau für das Konfidenzintervall" */
+	private JTextField finishConfidenceLevel;
+	/** Warnung bei ungünstigen Parametern für die Korrelationserfassung, siehe {@link #testCorrelationWarning()} */
 	private JLabel correlationWarning;
 
+	/* Dialogseite "Pfadaufzeichnung" */
+
+	/** Option "Stationsübergänge zählen" */
 	private JCheckBox pathRecordingStationTransitions;
+	/** Option "Pfade der Kunden aufzeichnen" */
 	private JCheckBox pathRecordingClientPaths;
 
 	/**
@@ -369,6 +442,14 @@ public class ModelPropertiesDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Fügt einen Text in einem eigenen Panel ein.
+	 * @param parent	Übergeordnetes Element
+	 * @param text	Auszugebender Text
+	 * @param position	Wenn das übergeordnete Panel ein {@link BorderLayout} verwendet, kann hier die Position angegeben werden
+	 * @return	Neues Label in einem eigenen Panel in dem übergeordneten Panel
+	 * @see #addGeneralTab(JPanel)
+	 */
 	private JLabel addLabel(final JPanel parent, final String text, final String position) {
 		JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		if (parent.getLayout() instanceof BorderLayout) {
@@ -381,6 +462,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		return label;
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Modellbeschreibung"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addGeneralTab(final JPanel content) {
 		JPanel sub;
 		JPanel line;
@@ -453,6 +538,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Simulation"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addSimulationTab(final JPanel content) {
 		JPanel sub;
 		Object[] data;
@@ -630,6 +719,28 @@ public class ModelPropertiesDialog extends BaseDialog {
 		recordIncompleteClients.setEnabled(!readOnly);
 	}
 
+	/**
+	 * Aktualisiert den Info-Label zu der Einschwingphase {@link #warmUpTimeInfo},
+	 * wenn der Zahlenwert in {@link #warmUpTime} verändert wurde.
+	 * @see #warmUpTime
+	 * @see #warmUpTimeInfo
+	 */
+	private void updateWarmUpTimeInfo() {
+		final Integer I=NumberTools.getNotNegativeInteger(clientCount,true);
+		final Double D=NumberTools.getNotNegativeDouble(warmUpTime,true);
+		if (I==null || I==0 || D==null) {
+			warmUpTimeInfo.setVisible(false);
+		} else {
+			final int additionalClients=(int)Math.round(I.intValue()*D.doubleValue());
+			warmUpTimeInfo.setText("<html><body>"+String.format(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase.Info2"),NumberTools.formatLong(additionalClients)));
+			warmUpTimeInfo.setVisible(true);
+		}
+	}
+
+	/**
+	 * Initialisiert die Dialogseite "Kunden"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addClientsTab(final JPanel content) {
 		clientColorsList=new JList<>(clientColorsListModel=new DefaultListModel<>());
 		clientColorsList.setCellRenderer(new ElementListCellRenderer());
@@ -651,6 +762,12 @@ public class ModelPropertiesDialog extends BaseDialog {
 		updateClientDataList();
 	}
 
+	/**
+	 * Ruft den Dialog zum Bearbeiten der spezifischen Einstellungen
+	 * für den aktuell gewählten Kundentyp auf.
+	 * @see #editClientData(Component, Runnable, EditModel, String, boolean)
+	 * @see #addClientsTab(JPanel)
+	 */
 	private void editSelectedClientColor() {
 		if (readOnly) return;
 
@@ -659,18 +776,6 @@ public class ModelPropertiesDialog extends BaseDialog {
 		final String clientType=model.surface.getClientTypes().get(selected);
 
 		if (editClientData(this,help,model,clientType,false)) updateClientDataList();
-	}
-
-	private void updateWarmUpTimeInfo() {
-		final Integer I=NumberTools.getNotNegativeInteger(clientCount,true);
-		final Double D=NumberTools.getNotNegativeDouble(warmUpTime,true);
-		if (I==null || I==0 || D==null) {
-			warmUpTimeInfo.setVisible(false);
-		} else {
-			final int additionalClients=(int)Math.round(I.intValue()*D.doubleValue());
-			warmUpTimeInfo.setText("<html><body>"+String.format(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase.Info2"),NumberTools.formatLong(additionalClients)));
-			warmUpTimeInfo.setVisible(true);
-		}
 	}
 
 	/**
@@ -699,6 +804,11 @@ public class ModelPropertiesDialog extends BaseDialog {
 		return true;
 	}
 
+	/**
+	 * Aktualisiert die Liste der Kundentypen.
+	 * @see #addClientsTab(JPanel)
+	 * @see #editClientData(Component, Runnable, EditModel, String, boolean)
+	 */
 	private void updateClientDataList() {
 		final int selected=clientColorsList.getSelectedIndex();
 		clientColorsListModel.clear();
@@ -706,6 +816,15 @@ public class ModelPropertiesDialog extends BaseDialog {
 		clientColorsList.setSelectedIndex(selected);
 	}
 
+	/**
+	 * Zeichnet ein farbiges Rechteck in ein Grafikobjekt
+	 * (um zu verdeutlichen, welche Farbe für einen Kundentyp gelten soll)
+	 * @param g	Ausgabe-Grafikobjekt
+	 * @param color	Zu verwendende Farbe
+	 * @param x	x-Position des Kastens
+	 * @param y	y-Position des Kastens
+	 * @see #getLabel(String)
+	 */
 	private void drawColorToImage(final Graphics g, final Color color, final int x, final int y) {
 		if (color==null) {
 			g.setColor(Color.BLACK);
@@ -719,6 +838,13 @@ public class ModelPropertiesDialog extends BaseDialog {
 		g.drawRect(x+0,y+0,31,31);
 	}
 
+	/**
+	 * Erstellt ein {@link JLabel}-Element für die {@link #clientColorsList}
+	 * zur Darstellung der Daten eines Kundentyps.
+	 * @param clientType	Kundentyp dessen Daten dargestellt werden solle
+	 * @return	{@link JLabel} das die Daten für die Listendarstellung enthält
+	 * @see #updateClientDataList()
+	 */
 	private JLabel getLabel(final String clientType) {
 		final Color color=model.clientData.getColor(clientType);
 		String iconName=model.clientData.getIcon(clientType);
@@ -750,6 +876,11 @@ public class ModelPropertiesDialog extends BaseDialog {
 		return label;
 	}
 
+	/**
+	 * Renderer für die Kundentypenliste
+	 * @see ModelPropertiesDialog#addClientsTab(JPanel)
+	 * @see ModelPropertiesDialog#clientColorsList
+	 */
 	private class ElementListCellRenderer extends DefaultListCellRenderer {
 		/**
 		 * Serialisierungs-ID der Klasse
@@ -768,6 +899,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Bediener"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addResourcesTab(final JPanel content) {
 		final JTableExt table=new JTableExt();
 		resourcesData=new ResourceTableModel(model,model.surface,localResources,localSchedules,table,readOnly,help);
@@ -803,6 +938,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		content.add(setupArea,BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Transporter"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addTransportersTab(final JPanel content) {
 		final JTableExt table=new JTableExt();
 		transportersData=new TransporterTableModel(model,model.surface,localTransporters,table,readOnly,help);
@@ -817,6 +956,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		content.add(new JScrollPane(table));
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Zeitpläne"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addSchedulesTab(final JPanel content) {
 		final JTableExt table=new JTableExt();
 		schedulesData=new SchedulesTableModel(model.surface,localResources,localSchedules,table,readOnly,help);
@@ -829,12 +972,28 @@ public class ModelPropertiesDialog extends BaseDialog {
 		content.add(new JScrollPane(table));
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Fertigungspläne"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
+	private void addSequencesTab(final JPanel content) {
+		content.add(sequencesEdit=new SequencesEditPanel(model.sequences,model.surface,readOnly,help,model),BorderLayout.CENTER);
+	}
+
+	/**
+	 * Initialisiert die Dialogseite "Initiale Variablenwerte"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addInitialVariableValuesTab(final JPanel content) {
 		final Object[] data=VariablesTableModel.buildTable(model,readOnly,help);
 		content.add((JScrollPane)data[0],BorderLayout.CENTER);
 		variablesTableModel=(VariablesTableModel)data[1];
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Laufzeitstatistik"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addRunTimeStatisticsTab(final JPanel content) {
 		content.setLayout(new BorderLayout());
 
@@ -896,6 +1055,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		content.add(new JScrollPane(table),BorderLayout.CENTER);
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Ausgabeanalyse"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addOutputAnalysisTab(final JPanel content) {
 		JPanel sub;
 		Object[] data;
@@ -1020,6 +1183,12 @@ public class ModelPropertiesDialog extends BaseDialog {
 		testCorrelationWarning();
 	}
 
+	/**
+	 * Zeigt eine Warnung aus, wenn die gewählte Länge für die Korrelationsaufzeichnung
+	 * oberhalb bzw. nah bei der Anzahl an insgesamt zu simulierenden Kunden liegt und
+	 * damit eine vollständige Erfassung nicht möglich ist.
+	 * @see #correlationRange
+	 */
 	private void testCorrelationWarning() {
 		if (correlationMode.getSelectedIndex()==0) {correlationWarning.setVisible(false); return;}
 
@@ -1050,6 +1219,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Initialisiert die Dialogseite "Pfadaufzeichnung"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addPathRecordingTab(final JPanel content) {
 		JPanel sub;
 
@@ -1069,10 +1242,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		pathRecordingClientPaths.setEnabled(!readOnly);
 	}
 
-	private void addSequencesTab(final JPanel content) {
-		content.add(sequencesEdit=new SequencesEditPanel(model.sequences,model.surface,readOnly,help,model),BorderLayout.CENTER);
-	}
-
+	/**
+	 * Initialisiert die Dialogseite "Simulationssystem"
+	 * @param content	Inhalt des zugehörigen Tabs
+	 */
 	private void addStatusTab(final JPanel content) {
 		final String error=StartAnySimulator.testModel(model);
 		final StringBuilder sb=new StringBuilder();
@@ -1109,6 +1282,12 @@ public class ModelPropertiesDialog extends BaseDialog {
 		content.add(new JLabel(sb.toString()),BorderLayout.NORTH);
 	}
 
+	/**
+	 * Prüft die eingegebene Abbruchbedingung für die Simulation.
+	 * @return	Liefert im Erfolgsfall -1, sonst die 0-basierende Position des Fehlers innerhalb der Zeichenkette
+	 * @see #terminationCondition
+	 * @see #checkData()
+	 */
 	private int checkTerminationCondition() {
 		if (terminationCondition.getText().trim().isEmpty()) {
 			terminationCondition.setBackground(SystemColor.text);
@@ -1120,22 +1299,52 @@ public class ModelPropertiesDialog extends BaseDialog {
 		return error;
 	}
 
+	/**
+	 * Prüft die eingegebene Abbruchzeit für die Simulation.
+	 * @return	Liefert <code>true</code>, wenn die eingegebene Abbruchzeit gültig ist.
+	 * @see #terminationTime
+	 * @see #checkData()
+	 */
 	private boolean checkTerminationTime() {
 		return (TimeTools.getTime(terminationTime,true)!=null);
 	}
 
+	/**
+	 * Prüft den eingegebenen Startwert für den Zufallszahlengenerator.
+	 * @return	Liefert <code>true</code>, wenn der eingegebene Startwert für den Zufallszahlengenerator gültig ist.
+	 * @see #fixedSeed
+	 * @see #checkData()
+	 */
 	private boolean checkFixedSeed() {
 		return (NumberTools.getLong(fixedSeed,true)!=null);
 	}
 
+	/**
+	 * Prüft die angegebene Anzahl an Wiederholungen der Simulation.
+	 * @return	Liefert <code>true</code>, wenn die angegebene Anzahl an Wiederholungen der Simulation gültig ist.
+	 * @see #repeatCount
+	 * @see #checkData()
+	 */
 	private boolean checkRepeatCount() {
 		return (NumberTools.getPositiveLong(repeatCount,true)!=null);
 	}
 
+	/**
+	 * Prüft die angegebene Anzahl an Stunden für die Erfassung der Verteilungen in der Statistik.
+	 * @return	Liefert <code>true</code>, wenn die Stundenanzahl gültig ist.
+	 * @see #distributionRecordHours
+	 * @see #checkData()
+	 */
 	private boolean checkDistributionRecordHours() {
 		return (NumberTools.getNotNegativeLong(distributionRecordHours,true)!=null);
 	}
 
+	/**
+	 * Prüft ob das angegebene Intervall für die zeitabhängigen Prüfungen gültig ist.
+	 * @return	Liefert <code>true</code>, wenn das Prüfungsintervall gültig ist.
+	 * @see #editTimedChecks
+	 * @see #checkData()
+	 */
 	private boolean checkTimedChecks() {
 		if (!useTimedChecks.isSelected()) {
 			editTimedChecks.setBackground(SystemColor.text);
@@ -1144,8 +1353,20 @@ public class ModelPropertiesDialog extends BaseDialog {
 		return (NumberTools.getPositiveDouble(editTimedChecks,true)!=null);
 	}
 
+	/**
+	 * Wurde über {@link #addNameToModel(String)} ein Beschriftungselement zu
+	 * der Modell-Zeichenfläche hinzugefügt, so wird dieses auch hier gespeichert.
+	 * Wird die Funktion später (während der Dialog immer noch offen ist) erneut
+	 * ausgeführt, so wird der Inhalt des Beschriftungselements entsprechend
+	 * geändert und nicht ein zweites Element angelegt.
+	 */
 	private ModelElementText nameElement=null;
 
+	/**
+	 * Fügt den Namen des Modells als Beschriftungselement in das Modell ein.
+	 * @param name	Name des Modells
+	 * @see #nameElement
+	 */
 	private void addNameToModel(final String name) {
 		int minY=Integer.MAX_VALUE;
 

@@ -45,7 +45,12 @@ import ui.statistics.FilterListRecord;
  * @see CommandLineSystem
  */
 public final class CommandFilter extends AbstractSimulationCommand {
-	private File statisticsInputFile, filterFile, filterResultFile;
+	/** Statistikeingabedatei */
+	private File statisticsInputFile;
+	/** Filterskript */
+	private File filterFile;
+	/** Ausgabedatei */
+	private File filterResultFile;
 
 	@Override
 	public String[] getKeys() {
@@ -79,6 +84,13 @@ public final class CommandFilter extends AbstractSimulationCommand {
 		return null;
 	}
 
+	/**
+	 * Führt die eigentliche Verarbeitung durch.
+	 * @param statistic	Statistikdaten, auf denen der Filter operieren soll
+	 * @param commands	Auszuführender Filter
+	 * @param results	Ausgabedatei
+	 * @param out	Konsolen-Ausgabe (für Fehlermeldungen usw.)
+	 */
 	private void runFilter(Statistics statistic, String commands, File results, PrintStream out) {
 		boolean error=false;
 		String result=null;

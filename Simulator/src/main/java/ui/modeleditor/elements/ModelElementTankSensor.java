@@ -54,9 +54,33 @@ public class ModelElementTankSensor extends ModelElementBox implements ModelElem
 		DIRECTION_DOWN
 	}
 
+	/**
+	 * ID des Tanks, bei dem der Füllstand überwacht werden soll
+	 * @see #getTankId()
+	 * @see #setTankId(int)
+	 */
 	private int tankId;
+
+	/**
+	 * Schwellenwert bei dessen Über- oder Unterschreibung das Signal ausgewählt wird
+	 * @see #getThreshold()
+	 * @see #setThreshold(double)
+	 */
 	private double threshold;
+
+	/**
+	 * Gibt an, ob der Schwellenwert ein Absolutwert (<code>false</code>) oder ein Prozentwert (<code>true</code>) ist.
+	 * @see #isThresholdIsPercent()
+	 * @see #setThresholdIsPercent(boolean)
+	 */
 	private boolean thresholdIsPercent;
+
+	/**
+	 * Signal bei Unter- oder Überschreitung des Schwellenwerts auslösen
+	 * @see #getThresholdDirection()
+	 * @see #setThresholdDirection(ThresholdDirection)
+	 * @see ThresholdDirection
+	 */
 	private ThresholdDirection thresholdDirection;
 
 	/**
@@ -156,6 +180,10 @@ public class ModelElementTankSensor extends ModelElementBox implements ModelElem
 		return Language.tr("Surface.TankSensor.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,200,80);
 
 	/**

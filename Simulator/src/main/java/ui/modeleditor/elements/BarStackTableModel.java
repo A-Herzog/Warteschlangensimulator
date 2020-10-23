@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +41,19 @@ import ui.images.Images;
  * @see ModelElementAnimationBarStack
  */
 public class BarStackTableModel extends JTableExtAbstractTableModel {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6108339972603381841L;
 
+	/** Tabelle, in der das Modell verwendet werden soll */
 	private final JTableExt table;
+	/** Modell-Element dessen Ausdrücke und Farben konfiguriert werden sollen */
 	private final ModelElementAnimationBarStack element;
+	/** Hilfe-Callback */
 	private final Runnable help;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	private final List<String> expressions=new ArrayList<>();
@@ -73,6 +82,9 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -162,6 +174,7 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 
 	private class EditButtonListener implements ActionListener {
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
 		public EditButtonListener(final int col, final int row) {
@@ -209,9 +222,17 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

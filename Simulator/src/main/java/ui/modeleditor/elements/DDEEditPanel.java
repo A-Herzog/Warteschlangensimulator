@@ -47,9 +47,13 @@ public class DDEEditPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -3684756803611814267L;
 
+	/** Übergeordnetes Element (wird für Auswahldialog, den dieses Panel initiieren kann, benötigt) */
 	private final Component owner;
+	/** Modellelement dessen Daten bearbeitet werden sollen */
 	private final ElementWithDDEInputOutput element;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Hilfe-Runnable */
 	private final Runnable helpRunnable;
 
 	private final JTextField editWorkbook;

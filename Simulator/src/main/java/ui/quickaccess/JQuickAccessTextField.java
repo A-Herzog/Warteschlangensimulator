@@ -68,8 +68,17 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 	 */
 	private final PopupMode popupMode;
 
+	/**
+	 * Hintergrundverarbeitung für die Eingaben.
+	 * @see #process()
+	 */
 	private ExecutorService executor;
+
+	/**
+	 * Zuletzt eingegebener Suchtext
+	 */
 	private String lastText;
+
 	private JPopupMenu lastMenu;
 
 	/**
@@ -285,14 +294,28 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		closePopup();
 	}
 
+	/**
+	 * Verarbeitet eine Sucheingabe.
+	 * @see JQuickAccessTextField#process()
+	 */
 	private class QuickAccessRunner implements Runnable {
+		/** Eingegebener Suchbegriff */
 		private final String text;
+		/** Wurde die Suche abgebrochen? */
 		private volatile boolean canceled;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param text	Eingegebener Suchbegriff
+		 */
 		public QuickAccessRunner(final String text) {
 			this.text=text;
 			canceled=false;
 		}
 
+		/**
+		 * Bricht die aktuelle Suche ab.
+		 */
 		public void cancel() {
 			canceled=true;
 		}
@@ -348,6 +371,11 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 	 */
 	public abstract List<JQuickAccessRecord> getQuickAccessRecords(final String quickAccessText);
 
+	/**
+	 * Renderer für die Anzeige der Einträge des in {@link JQuickAccessTextField#getPopupWithPanel(List)}
+	 * generierten Popupmenüs.
+	 * @see JQuickAccessTextField#getPopupWithPanel(List)
+	 */
 	private static class QuickAccessListCellRenderer extends JLabel implements ListCellRenderer<JQuickAccessRecord> {
 		/**
 		 * Serialisierungs-ID der Klasse

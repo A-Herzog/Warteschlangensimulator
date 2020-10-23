@@ -230,7 +230,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 	/** Ist die Rückgängig-Funktion verfügbar? ({@link #disableUndo()} */
 	private boolean canUndo=true;
-	/** Read-Only-Modus */
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private boolean showEditModelProperties=true;
 	private boolean operationRunning=false;

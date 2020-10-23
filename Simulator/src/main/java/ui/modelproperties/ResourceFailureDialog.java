@@ -69,21 +69,37 @@ public class ResourceFailureDialog extends BaseDialog {
 	/** Zeichenfläche (für {@link ExpressionBuilder}) */
 	private final ModelSurface surface;
 
+	/** Option "Ausfall nach Anzahl bedienter Kunden" */
 	private final JRadioButton failureNumber;
+	/** Option "Ausfall nach Anwesenheitszeit" */
 	private final JRadioButton failureAvailable;
+	/** Option "Ausfall nach gearbeiteter Zeit" */
 	private final JRadioButton failureWorking;
+	/** Option "Ausfallabstände gemäß Verteilung" */
 	private final JRadioButton failureDistribution;
+	/** Option "Ausfallabstände gemäß Ausdruck" */
 	private final JRadioButton failureExpression;
+	/** Eingabefeld für Option "Ausfall nach Anzahl bedienter Kunden" ({@link #failureNumber}) */
 	private final JTextField failureNumberEdit;
+	/** Eingabefeld für Option "Ausfall nach Anwesenheitszeit ({@link #failureAvailable})" */
 	private final JTextField failureAvailableEdit;
+	/** Eingabefeld für Option "Ausfall nach gearbeiteter Zeit" ({@link #failureWorking}) */
 	private final JTextField failureWorkingEdit;
+	/** Schaltfläche zum Bearbeiten der Verteilung für Option "Ausfallabstände gemäß Verteilung" ({@link #failureDistribution}) */
 	private final JButton failureDistributionButton;
+	/** Verteilung für {@link #failureDistribution} */
 	private AbstractRealDistribution failureDistributionDist;
+	/** Eingabefeld für Option "Ausfallabstände gemäß Ausdruck" ({@link #failureExpression}) */
 	private final JTextField failureExpressionEdit;
+	/** Auswahlfeld zur Wahl des Typs der Länge der Ausfallzeiten */
 	private final JComboBox<String> downTimeSelect;
+	/** Platzhalter für die Eingabebereiche für die Längen der Ausfallzeiten */
 	private final JPanel downTimeCards;
+	/** Layout zur Festlegung der aktuellen Anzeige in {@link #downTimeCards} */
 	private final CardLayout downTimeCardLayout;
+	/** Festlegung der Länge der Ausfallzeiten über eine Verteilung */
 	private final JDistributionPanel downTimeDistribution;
+	/** Festlegung der Länge der Ausfallzeiten über einen Rechenausdruck */
 	private final JTextField downTimeExpression;
 
 	/**
@@ -220,6 +236,10 @@ public class ResourceFailureDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Reagiert auf Klicks auf {@link #failureDistributionButton}
+	 * zur Bearbeitung der Ausfallabstände über eine Verteilung.
+	 */
 	private void editInterDownTimeDistribution() {
 		final JDistributionEditorDialog dialog=new JDistributionEditorDialog(getOwner(),failureDistributionDist,10*86400,JDistributionPanel.BOTH,true,true,SetupData.getSetup().imageSize);
 		dialog.setVisible(true);

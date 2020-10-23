@@ -56,8 +56,22 @@ import ui.modeleditor.fastpaint.Shapes;
  */
 public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 
+	/**
+	 * Liste mit den Statistikbezeichnern
+	 * @see #getKeys()
+	 */
 	private List<String> key;
+
+	/**
+	 * Liste mit den Angaben, ob es sich bei den Werten um Zeiten handelt
+	 * @see #getIsTime()
+	 */
 	private List<Boolean> isTime;
+
+	/**
+	 * Liste mit den auszuwertenden Ausdrücken
+	 * @see #getExpressions()
+	 */
 	private List<String> expression;
 
 	/**
@@ -191,6 +205,10 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.UserStatistic.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

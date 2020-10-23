@@ -45,6 +45,11 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
+	/**
+	 * Icon für die Kunden
+	 * @see #getIcon()
+	 * @see #setIcon(String)
+	 */
 	private String icon;
 
 	/**
@@ -160,6 +165,10 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 		return lastTypeName;
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,255,180);
 
 	/**

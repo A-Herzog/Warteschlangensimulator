@@ -106,7 +106,12 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	private int connectionOutSuccessId=-1;
 	private int connectionOutCancelId=-1;
 
+	/**
+	 * Verwendete Zeitbasis
+	 * @see #getTimeBase()
+	 */
 	private ModelSurface.TimeBase timeBase;
+
 	private ProcessType processTimeType;
 	private int batchMin; /* >=1 */
 	private int batchMax; /* >=batchMin */
@@ -807,6 +812,10 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		return Language.tr("Surface.Process.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(64,127,255);
 
 	/**
@@ -1281,6 +1290,14 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		return "ModelElementProcess";
 	}
 
+	/**
+	 * Liefert für die Modellbeschreibung eine Information darüber,
+	 * wie viele Bediener in einer Bedienergruppe vorhanden sind.
+	 * Dies kann ein Zahlenwert, aber auch "unendlich viele" usw. sein.
+	 * @param name	Name der Bedienergruppe
+	 * @return	Anzahl an Bedienern in der Gruppe
+	 * @see #buildDescription(ModelDescriptionBuilder)
+	 */
 	private String getResourceAvailable(final String name) {
 		final ModelResource resource=getModel().resources.getNoAutoAdd(name);
 		if (resource==null) return "";

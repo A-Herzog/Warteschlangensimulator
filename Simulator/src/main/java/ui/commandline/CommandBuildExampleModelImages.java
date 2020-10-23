@@ -18,6 +18,7 @@ import systemtools.commandline.AbstractCommand;
  * @see CommandLineSystem
  */
 public class CommandBuildExampleModelImages extends AbstractCommand {
+	/** Sprache */
 	private String language;
 
 	@Override

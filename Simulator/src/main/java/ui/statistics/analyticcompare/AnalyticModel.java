@@ -52,9 +52,13 @@ import ui.modeleditor.elements.ModelElementUserStatistic;
  * @author Alexander Herzog
  */
 public class AnalyticModel {
+	/** Kundenquelle */
 	private ModelElementSource source;
+	/** Bedienstation */
 	private ModelElementProcess process;
+	/** Ausgangselemente */
 	private final Set<ModelElementDispose> dispose;
+	/** Bedienergruppen */
 	private ModelResources resources;
 
 	/**

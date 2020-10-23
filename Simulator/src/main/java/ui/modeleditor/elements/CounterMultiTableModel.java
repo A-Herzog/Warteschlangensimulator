@@ -49,8 +49,11 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = 4363552821558486303L;
 
+	/** Tabelle, in der das Modell verwendet werden soll */
 	private final JTableExt table;
+	/** Editormodell, aus dem die Daten entnommen und in die die Daten zurückgeschrieben werden sollen */
 	private final ModelElementCounterMulti element;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private String[] variables;
 
@@ -85,6 +88,9 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();

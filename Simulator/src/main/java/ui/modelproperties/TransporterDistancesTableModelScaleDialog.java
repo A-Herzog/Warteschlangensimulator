@@ -44,7 +44,9 @@ public class TransporterDistancesTableModelScaleDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 2381393842257178303L;
 
+	/** Eingabefeld für "Minimaler Abstand" */
 	private final JTextField minDistance;
+	/** Eingabefeld für "Maximaler Abstand" */
 	private final JTextField maxDistance;
 
 	/**

@@ -500,6 +500,12 @@ public class StyledTextBuilder {
 		return pdf.save(file);
 	}
 
+	/**
+	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" in ihre entsprechenden
+	 * HTML-Entitäten um.
+	 * @param line	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
 	private String encodeHTML(final String line) {
 		if (line==null) return "";
 		String result;

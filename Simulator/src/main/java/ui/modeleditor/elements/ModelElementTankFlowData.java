@@ -58,13 +58,60 @@ public final class ModelElementTankFlowData implements Cloneable {
 		STOP_BY_SIGNAL
 	}
 
+	/**
+	 * ID des Quell-Elements
+	 * @see #getSourceID()
+	 * @see #setSourceID(int)
+	 */
 	private int sourceID;
+
+	/**
+	 * 0-basierende Nummer des Ventils an dem Quell-Element
+	 * @see #getSourceValveNr()
+	 * @see #setSourceValveNr(int)
+	 */
 	private int sourceValveNr;
+
+	/**
+	 * ID des Ziel-Elements
+	 * @see #getDestinationID()
+	 * @see #setDestinationID(int)
+	 */
 	private int destinationID;
+
+	/**
+	 * 0-basierende Nummer des Ventils an dem Ziel-Element
+	 * @see #getDestinationValveNr()
+	 * @see #setDestinationValveNr(int)
+	 */
 	private int destinationValveNr;
+
+	/**
+	 * Eigenschaft, durch die der Fluss gestoppt werden soll.
+	 * @see #getStopCondition()
+	 * @see FlowStopCondition
+	 */
 	private FlowStopCondition stopCondition;
+
+	/**
+	 * Zeitdauer nach der der Fluss gestoppt werden soll
+	 * @see #getStopTime()
+	 * @see #setStopByTime(double)
+	 */
 	private double stopTime;
+
+	/**
+	 * Durchflussmenge nach der der Fluss gestoppt werden soll
+	 * @see #getStopQuantity()
+	 * @see #setStopByQuantity(double)
+	 */
 	private double stopQuantity;
+
+	/**
+	 * Name des Signals, das den Fluss stoppt
+	 * @see #getStopSignal()
+	 * @see #setStopBySignal(String)
+	 */
 	private String stopSignal;
 
 	/**

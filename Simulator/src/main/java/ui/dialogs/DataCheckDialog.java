@@ -101,6 +101,9 @@ public final class DataCheckDialog extends BaseDialog {
 		return numberOfExternalDataSources;
 	}
 
+	/**
+	 * Führt die Prüfung aus.
+	 */
 	private void check() {
 		final List<DataCheckResult> results=model.getDataCheckResults();
 
@@ -125,6 +128,9 @@ public final class DataCheckDialog extends BaseDialog {
 		 */
 		private static final long serialVersionUID = 4229271216146250189L;
 
+		/**
+		 * Ergebnisse der Prüfung
+		 */
 		private final List<DataCheckResult> results;
 
 		/**
@@ -135,6 +141,10 @@ public final class DataCheckDialog extends BaseDialog {
 			results=new ArrayList<>();
 		}
 
+		/**
+		 * Stellt die Ergebnisse der Prüfung für die Tabellenansicht ein.
+		 * @param results	Ergebnisse der Prüfung
+		 */
 		public void setResults(final List<DataCheckResult> results) {
 			this.results.clear();
 			for (final DataCheckResult result: results) if (result.status!=DataCheckResult.Status.NO_EXTERNAL_DATA) this.results.add(result);

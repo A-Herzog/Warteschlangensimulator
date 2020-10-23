@@ -53,8 +53,10 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public final class ModelElementEdge extends ModelElement {
-	/* Element im Katalog registrieren */
-	static {ModelElementCatalog.getCatalog().addElement(new ModelElementEdge(null,null,null,null));}
+	/** Element im Katalog registrieren **/
+	static {
+		ModelElementCatalog.getCatalog().addElement(new ModelElementEdge(null,null,null,null));
+	}
 
 	private static final int ARROW_SIZE=10;
 	private static final int ARC_RADIUS=10;

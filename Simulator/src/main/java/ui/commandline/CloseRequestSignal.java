@@ -27,8 +27,11 @@ import java.util.concurrent.Semaphore;
  */
 public class CloseRequestSignal {
 	/* private final CloseSignalHandler signal; */
+	/** Signalisiert dass die Befehlsausführung beendet werden soll. */
 	private boolean quit=false;
+	/** Konsolen-Eingabe zur Entgegennahme von Beenden-Befehlen */
 	private final InputStream listenKeys;
+	/** Stellt sicher, dass parallele Aufrufe von {@link #isQuit()} keine Probleme verursachen */
 	private final Semaphore mutex;
 
 	/**

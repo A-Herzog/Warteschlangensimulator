@@ -56,8 +56,18 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 	/* Wird nur beim Laden und Clonen verwendet. */
 	private int connectionId=-1;
 
+	/**
+	 * Tabelle, aus der die Ankünfte geladen werden
+	 * @see #getInputFile()
+	 * @see #setInputFile(String)
+	 */
 	private String tableFileName="";
 
+	/**
+	 * Gibt an, ob die Zahlen in Spalte 1 absolute Zeitangaben oder Abstände vom jeweils vorherigen Wert sind.
+	 * @see #isNumbersAreDistances()
+	 * @see #setNumbersAreDistances(boolean)
+	 */
 	private boolean numbersAreDistances=false;
 
 	private final List<String> clientTypeNames=new ArrayList<>();
@@ -98,6 +108,10 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		if (connection!=null) connection.setName(Language.tr("Surface.Source.LabelArrivals"));
 	}
@@ -238,6 +252,10 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 		return Language.tr("Surface.SourceTable.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,255,180);
 
 	/**

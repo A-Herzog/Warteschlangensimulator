@@ -140,8 +140,11 @@ public final class EditorPanel extends EditorPanelBase {
 
 	private boolean allowChangeOperationsOnReadOnly=false;
 
+	/** Name des Modells */
 	private String name;
+	/** Beschreibung des Modells */
 	private String description;
+	/** Autor des Modells */
 	private String author;
 	private long clientCount;
 	private double warmUpTime;

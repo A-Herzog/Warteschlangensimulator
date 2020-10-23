@@ -51,7 +51,9 @@ public class JSModelRunnerPanel extends SpecialPanel {
 	/** Editor-Modell auf dessen Basis die Skript-Datenreihe erstellt werden soll */
 	private final EditModel model;
 
+	/** Schaltfläche "Start" */
 	private final JButton startButton;
+	/** Schaltfläche "Hilfe" */
 	private final JButton helpButton;
 
 	private ScriptPanel scriptPanel;
@@ -138,7 +140,6 @@ public class JSModelRunnerPanel extends SpecialPanel {
 
 	private void commandRun(final boolean start) {
 		if ((runner!=null)==start) return;
-
 
 		if (start) {
 			/* Skript speichern */

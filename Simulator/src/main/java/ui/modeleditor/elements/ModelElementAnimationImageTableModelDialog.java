@@ -50,7 +50,9 @@ public class ModelElementAnimationImageTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 5124598515121790386L;
 
+	/** Gesamtes Editor-Modell (für den Expression-Builder) */
 	private final EditModel model;
+	/** Haupt-Zeichenfläche (für den Expression-Builder) */
 	private final ModelSurface surface;
 	private final JTextField expressionEdit;
 	private final ImageChooser imageChooser;

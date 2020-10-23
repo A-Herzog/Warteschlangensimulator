@@ -52,6 +52,10 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationTextSelect extends ModelElementPosition implements ElementWithAnimationDisplay {
+	/**
+	 * Standard-Textfarbe
+	 * @see #color
+	 */
 	private static final Color DEFAULT_COLOR=Color.BLACK;
 
 	private String textDefault="";
@@ -65,6 +69,12 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	private int textSize=14;
 	private boolean bold;
 	private boolean italic;
+
+	/**
+	 * Textfarbe
+	 * @see #getColor()
+	 * @see #setColor(Color)
+	 */
 	private Color color=DEFAULT_COLOR;
 
 	/**

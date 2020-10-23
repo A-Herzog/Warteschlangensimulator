@@ -244,6 +244,12 @@ public class LogSetupDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Fügt eine Überschrift ein.
+	 * @param parent	Übergeordnetes Element
+	 * @param label	Anzuzeigende Überschrift
+	 * @param marginAbove	Abstand über der Überschrift?
+	 */
 	private void addHeading(final JPanel parent, final String label, final boolean marginAbove) {
 		final JPanel line;
 
@@ -252,10 +258,23 @@ public class LogSetupDialog extends BaseDialog {
 		line.add(new JLabel("<html><body><b>"+label+"</b></body></html>"));
 	}
 
+	/**
+	 * Fügt eine Checkbox ein
+	 * @param parent	Übergeordnetes Element
+	 * @param label	Beschriftung der Checkbox
+	 * @return	Neue Checkbox
+	 */
 	private JCheckBox addOption(final JPanel parent, final String label) {
 		return addOption(parent,label,null);
 	}
 
+	/**
+	 * Fügt eine Checkbox ein
+	 * @param parent	Übergeordnetes Element
+	 * @param label	Beschriftung der Checkbox
+	 * @param tooltip	Tooltip für die Checkbox
+	 * @return	Neue Checkbox
+	 */
 	private JCheckBox addOption(final JPanel parent, final String label, final String tooltip) {
 		final JPanel line;
 		final JCheckBox option;
@@ -270,6 +289,13 @@ public class LogSetupDialog extends BaseDialog {
 		return option;
 	}
 
+	/**
+	 * Fügt eine Dateiauswahlelement ein.
+	 * @param parent	Übergeordnetes Element
+	 * @param labelText	Beschriftung für das Eingabefeld
+	 * @param tooltipSelect	Tooltip für die Auswahlbox hinter der Eingabezeile
+	 * @return	Neue Eingabezeile
+	 */
 	private JTextField addFileEditor(final JPanel parent, final String labelText, final String tooltipSelect) {
 		final JPanel line;
 		final JLabel label;
@@ -289,11 +315,18 @@ public class LogSetupDialog extends BaseDialog {
 		return field;
 	}
 
+	/**
+	 * Fügt eine Eingabezeile mit Platzhaltertext ein.
+	 * @param parent	Übergeordnetes Element
+	 * @param labelText	Beschriftung für das Eingabefeld
+	 * @param tooltip	Tooltip für die Eingabezeile
+	 * @param placeholder	Platzhaltertext, der in der Eingabezeile angezeigt wird so lange diese leer ist
+	 * @return	Neue Eingabezeile
+	 */
 	private JPlaceholderTextField addPlaceholderEdit(final JPanel parent, final String labelText, final String tooltip, final String placeholder) {
 		final JPanel line;
 		final JLabel label;
 		final JPlaceholderTextField field;
-
 
 		parent.add(line=new JPanel(new BorderLayout()));
 		line.add(label=new JLabel(labelText+": "),BorderLayout.WEST);
@@ -363,6 +396,14 @@ public class LogSetupDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Prüft, ob die Liste der eingegebenen IDs gültig ist.
+	 * @param field	Textfeld das die IDs enthält.
+	 * @return	Liefert <code>true</code>, wenn die Liste nur gültige IDs enthält.
+	 * @see #stationIDsFileEdit
+	 * @see #stationIDsDDEEdit
+	 * @see #checkData()
+	 */
 	private boolean checkIDs(final JTextField field) {
 		if (field.getText().trim().isEmpty()) return true;
 
@@ -460,6 +501,10 @@ public class LogSetupDialog extends BaseDialog {
 		setup.saveSetup();
 	}
 
+	/**
+	 * Liefert den gewählten Logging-Modus.
+	 * @return	Logging-Modus (0: Datei, 1: DDE)
+	 */
 	private int getLogMode() {
 		return (logMode==null)?0:logMode.getSelectedIndex();
 	}

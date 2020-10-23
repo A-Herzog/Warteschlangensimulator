@@ -61,11 +61,17 @@ public class BatchRecord implements Cloneable {
 		RANGE
 	}
 
+	/** Feste Batch-Größe */
 	private int batchSizeFixed;
+	/** Minimale Batch-Größe im Fall einer variablen Batch-Größe */
 	private int batchSizeMin;
+	/** Maximale Batch-Größe im Fall einer variablen Batch-Größe */
 	private int batchSizeMax;
+	/** Art der Batch-Bildung */
 	private BatchMode batchMode;
+	/** Feste oder variable Batch-Größe */
 	private BatchSizeMode batchSizeMode;
+	/** Neuer Kundentyp (sofern die Kunden nicht einzeln weitergeleitet werden sollen) */
 	private String newClientType;
 
 	/**
@@ -383,6 +389,11 @@ public class BatchRecord implements Cloneable {
 		return null;
 	}
 
+	/**
+	 * Name für den geladenen Datensatz
+	 * @see #loadFromXML(Element)
+	 * @see #getLoadedRecordName()
+	 */
 	private String loadedRecordName="";
 
 	/**

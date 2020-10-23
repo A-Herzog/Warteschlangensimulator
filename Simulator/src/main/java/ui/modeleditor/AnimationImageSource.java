@@ -21,6 +21,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -374,12 +375,15 @@ public class AnimationImageSource {
 		initIconsMap();
 	}
 
+	/**
+	 * Relativer Pfad für die Animations-Icon-Ressourcen
+	 */
 	private static final String IMAGE_PATH="animation/";
 
 	private Map<Long,BufferedImage> cache;
 
 	/**
-	 * Konstruktor der Klasse <code>AnimationImageSource</code>
+	 * Konstruktor der Klasse
 	 */
 	public AnimationImageSource() {
 		cache=new HashMap<>();
@@ -393,6 +397,12 @@ public class AnimationImageSource {
 		cache.clear();
 	}
 
+	/**
+	 * Erzeugt eine Grafik die ein Symbol für ein leeres Bild enthält
+	 * @param size	Größe der Grafik
+	 * @return	Grafik die ein Symbol für ein leeres Bild enthält
+	 * @see #loadImageFromResource(String, ModelAnimationImages, int)
+	 */
 	private BufferedImage getEmptyImage(int size) {
 		if (size<=0) size=32;
 		if (size>=2048) size=2048;
@@ -625,6 +635,10 @@ public class AnimationImageSource {
 	 * @author Alexander Herzog
 	 */
 	public static class IconComboBoxCellRenderer extends DefaultListCellRenderer {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
 		private static final long serialVersionUID = 6913560392242517601L;
 
 		@Override

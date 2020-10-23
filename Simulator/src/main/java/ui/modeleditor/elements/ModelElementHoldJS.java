@@ -61,9 +61,32 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 		Java
 	}
 
+	/**
+	 * Optionale zusätzliche Bedingung
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
 	private String condition;
+
+	/**
+	 * Skript auf dessen Basis die Kunden weitergeleitet werden sollen
+	 * @see #getScript()
+	 * @see #setScript(String)
+	 */
 	private String script;
+
+	/**
+	 * Skriptsprache
+	 * @see #getMode()
+	 * @see #setMode(ScriptMode)
+	 */
 	private ScriptMode mode;
+
+	/**
+	 * Regelmäßige Prüfung der Bedingung
+	 * @see #isUseTimedChecks()
+	 * @see #setUseTimedChecks(boolean)
+	 */
 	private boolean useTimedChecks;
 
 	/**
@@ -227,6 +250,10 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 		return Language.tr("Surface.HoldJS.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

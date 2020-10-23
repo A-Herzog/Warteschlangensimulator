@@ -29,6 +29,10 @@ import java.util.stream.Collectors;
  * @see FilterListRecord
  */
 public final class FilterList {
+	/**
+	 * Liste der Einträge
+	 * @see #getList()
+	 */
 	private final List<FilterListRecord> list;
 
 	/**

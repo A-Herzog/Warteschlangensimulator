@@ -53,14 +53,22 @@ public class TransporterTableModelDialogLoadingTimes extends JPanel {
 	 */
 	private static final long serialVersionUID = 8218899396948508334L;
 
+	/**
+	 * Namen der modellweiten Variablen
+	 */
 	private final String[] variables;
 
+	/** Wie soll die Zeitdauer festgelegt werden? (Aus, über Verteilung, über Rechenausdruck) */
 	private final JComboBox<String> mode;
 
+	/** Panel das den Verteilungseditor oder das Eingabefeld für den Rechenausdruck aufnimmt */
 	private final JPanel main;
+	/** Layout für {@link #main} über das die verschiedenen Editoren eingeblendet werden */
 	private final CardLayout mainCards;
 
+	/** Verteilungseditor für die Zeiten */
 	private final JDistributionPanel distribution;
+	/** Eingabefeld für den Rechenausdruck für die Zeiten */
 	private final JTextField expression;
 
 	/**
@@ -122,6 +130,12 @@ public class TransporterTableModelDialogLoadingTimes extends JPanel {
 		checkData(false);
 	}
 
+	/**
+	 * Liefert die Auswahlmöglichkeiten für {@link #mode}.
+	 * @param loading	Handelt es sich um die Beladung (<code>true</code>) oder die Entladung (<code>false</code>) eines Transporters?
+	 * @return	Beschriftungen für die Auswahloptionen.
+	 * @see #mode
+	 */
 	private String[] getModeStrings(final boolean loading) {
 		if (loading) {
 			return new String[] {

@@ -74,7 +74,18 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 	private List<Integer> connectionsInIds=null;
 	private List<Integer> connectionsOutIds=null;
 
+	/**
+	 * Skript zur Fallunterscheidung
+	 * @see #getScript()
+	 * @see #setScript(String)
+	 */
 	private String script;
+
+	/**
+	 * Skriptsprache
+	 * @see #getMode()
+	 * @see #setMode(ScriptMode)
+	 */
 	private ScriptMode mode;
 
 	/**
@@ -117,6 +128,10 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		if (connectionsOut==null) return;
 
@@ -237,6 +252,10 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 		return Language.tr("Surface.DecideJS.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(204,99,255);
 
 	/**

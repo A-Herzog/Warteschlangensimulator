@@ -42,7 +42,16 @@ import ui.modeleditor.fastpaint.Shapes;
  * @param <E>	Müssen von <code>ModelElementBox</code> abgeleitete Elemente sein.
  */
 public class ModelElementNavigatorListCellRenderer<E extends ModelElementBox> implements ListCellRenderer<E> {
+	/**
+	 * Referenz auf das Setup-Singleton.
+	 */
 	private final SetupData setup=SetupData.getSetup();
+
+	/**
+	 * Zoomlevel
+	 * @see #setZoom(double)
+	 * @see #getElementRenderer(ModelElementPosition, boolean)
+	 */
 	private double zoom=1.0;
 
 	/**

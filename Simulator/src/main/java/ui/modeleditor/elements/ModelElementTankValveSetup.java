@@ -50,6 +50,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementTank
  */
 public class ModelElementTankValveSetup extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Liste der Ventil-Setups
+	 * @see #getValveSetups()
+	 */
 	private final List<ValveSetup> valveSetups;
 
 	/**
@@ -142,6 +146,10 @@ public class ModelElementTankValveSetup extends ModelElementMultiInSingleOutBox 
 		return Language.tr("Surface.TankValveSetup.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,255,180);
 
 	/**

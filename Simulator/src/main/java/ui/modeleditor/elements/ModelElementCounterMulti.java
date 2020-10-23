@@ -53,8 +53,22 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementCounterMulti extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Gruppenname des Zählers
+	 * @see #getGroupName()
+	 */
 	private String groupName;
+
+	/**
+	 * Liste der Bedingungen
+	 * @see #getConditions()
+	 */
 	private final List<String> conditions;
+
+	/**
+	 * Liste der Zählernamen
+	 * @see #getCounterNames()
+	 */
 	private final List<String> counterNames;
 
 	/**
@@ -153,6 +167,10 @@ public class ModelElementCounterMulti extends ModelElementMultiInSingleOutBox {
 		return Language.tr("Surface.CounterMulti.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

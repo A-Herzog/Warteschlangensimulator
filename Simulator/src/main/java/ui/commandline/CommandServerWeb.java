@@ -32,7 +32,9 @@ import systemtools.commandline.AbstractCommand;
  * @see CommandLineSystem
  */
 public class CommandServerWeb extends AbstractCommand {
+	/** Serverport */
 	private int serverPort;
+	/** Signalisiert dass der Server beendet werden soll. */
 	private boolean isQuit;
 
 	@Override

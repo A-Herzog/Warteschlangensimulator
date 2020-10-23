@@ -56,7 +56,11 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public final class ModelElementVertex extends ModelElementPosition implements ModelElementEdgeMultiIn, ModelElementEdgeOut {
+	/**
+	 * Referenz auf das Setup-Singleton.
+	 */
 	private final SetupData setup=SetupData.getSetup();
+
 	private List<ModelElementEdge> connectionsIn;
 	private ModelElementEdge connectionOut;
 

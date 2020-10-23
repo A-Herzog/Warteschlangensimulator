@@ -46,14 +46,23 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = -6468064552683722803L;
 
+	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
+	/** Hilfe-Callback */
 	private final Runnable help;
+	/** Liste mit allen Routing-Zielen */
 	private final List<TransportTargetRecord> routes;
+	/** Liste mit allen Kundentypennamen (für Kundentyp-abhängiges Routing) */
 	private final String[] clientTypes;
+	/** Liste mit möglichen Zielstationen */
 	private final String[] stations;
+	/** Liste mit den globalen Variablen (zur Prüfung der Ausdrücke) */
 	private final String[] variables;
+	/** Gesamtes Modell (für den Expression-Builder) */
 	private final EditModel model;
+	/** Haupt-Zeichenfläche (für den Expression-Builder) */
 	private final ModelSurface surface;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/**
@@ -85,6 +94,9 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -181,10 +193,20 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 		for (TransportTargetRecord route: this.routes) routes.add(route.clone());
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben) */
 		private final int col;
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;
@@ -225,9 +247,17 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 */
 	private class DeleteButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 */
 		public DeleteButtonListener(final int row) {
 			this.row=row;
 		}

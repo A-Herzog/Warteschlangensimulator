@@ -103,6 +103,12 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Prüft eine Station auf sicherheitskritische Eigenschaften.
+	 * @param element	Zu prüfende Station
+	 * @return	Liefert ggf. ein Informationobjekt mit Daten zu der sicherheitskritischen Eigenschaften zurück oder <code>null</code>, wenn keine sicherheitskritischen Eigenschaften vorliegne
+	 * @see #getCriticalElements(ModelSurface)
+	 */
 	private static CriticalElement testElement(final ModelElementBox element) {
 		if (element instanceof ModelElementOutput) {
 			return new CriticalElement(element,CriticalType.FILE_OUTPUT,((ModelElementOutput)element).getOutputFile());
@@ -135,6 +141,12 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		return null;
 	}
 
+	/**
+	 * Liefert Informationen zu den sicherheitskritischen Eigenschaften aller Stationen.
+	 * @param surface	Haupt-Zeichenfläche
+	 * @return	Liste mit allen sicherheitskritischen Eigenschaften (kann leer sein, ist aber nie <code>null</code>)
+	 * @see #doSecurityCheck(EditModel, Component)
+	 */
 	private static List<CriticalElement> getCriticalElements(final ModelSurface surface) {
 		final List<CriticalElement> list=new ArrayList<>();
 
@@ -247,9 +259,15 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		 * @see Serializable
 		 */
 		private static final long serialVersionUID = 3042549921461322668L;
+		/** Liste mit den sicherheitskritischen Eigenschaften */
 		private final List<CriticalElement> list;
+		/** Schaltflächen zur Anzeige von Details */
 		private final JButton[] button;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param list	Liste mit den sicherheitskritischen Eigenschaften
+		 */
 		public ModelSecurityCheckTableModel(final List<CriticalElement> list) {
 			this.list=list;
 			button=new JButton[list.size()];

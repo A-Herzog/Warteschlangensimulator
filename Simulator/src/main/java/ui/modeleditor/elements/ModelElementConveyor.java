@@ -98,7 +98,13 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 	private String capacityNeededGlobal;
 	private Map<String,String> capacityNeeded;
 
+	/**
+	 * Verwendete Zeitbasis
+	 * @see #getTimeBase()
+	 * @see #setTimeBase(ui.modeleditor.ModelSurface.TimeBase)
+	 */
 	private ModelSurface.TimeBase timeBase;
+
 	private double transportTime;
 	private TransportTimeType transportTimeType;
 
@@ -372,6 +378,10 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 		return Language.tr("Surface.Conveyor.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,212,212);
 
 	/**

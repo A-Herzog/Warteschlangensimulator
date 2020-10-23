@@ -50,8 +50,25 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementEllipse extends ModelElementDecoration {
+	/**
+	 * Füllfarbe der Ellipse
+	 * @see #getFillColor()
+	 * @see #setFillColor(Color)
+	 */
 	private Color fillColor=null;
+
+	/**
+	 * Optionale zweite Füllfarbe der Ellipse für Farbverläufe
+	 * @see #getGradientFillColor()
+	 * @see #setGradientFillColor(Color)
+	 */
 	private Color gradientColor=null;
+
+	/**
+	 * Deckkraft der Hintergrundfarbe
+	 * @see #getFillAlpha()
+	 * @see #setFillAlpha(double)
+	 */
 	private double fillAlpha=1.0;
 
 	/**

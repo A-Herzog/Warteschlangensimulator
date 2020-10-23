@@ -165,6 +165,10 @@ public class ModelElementTeleportDestination extends ModelElementBox implements 
 		return getName();
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(128,128,212);
 
 	/**

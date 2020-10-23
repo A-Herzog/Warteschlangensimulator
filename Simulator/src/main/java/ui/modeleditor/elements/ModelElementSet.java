@@ -49,6 +49,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementSet extends ModelElementMultiInSingleOutBox implements ElementWithNewVariableNames {
+	/**
+	 * Zuordnungsdatensatz
+	 * @see #getRecord()
+	 */
 	private final ModelElementSetRecord record;
 
 	/**
@@ -137,6 +141,10 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 		return Language.tr("Surface.Set.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(255,255,180);
 
 	/**

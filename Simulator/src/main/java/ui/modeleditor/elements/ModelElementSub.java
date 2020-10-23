@@ -62,6 +62,10 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	private List<ModelElementEdge> connectionsIn;
 	private List<ModelElementEdge> connectionsOut;
 
+	/**
+	 * Untermodell
+	 * @see #getSubSurface()
+	 */
 	private ModelSurface subSurface;
 
 	/* Wird nur beim Laden und Clonen verwendet. */
@@ -246,6 +250,10 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 		return Language.tr("Surface.Sub.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(250,250,250);
 
 	/**

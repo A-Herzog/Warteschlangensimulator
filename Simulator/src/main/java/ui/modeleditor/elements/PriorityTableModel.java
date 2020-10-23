@@ -52,7 +52,9 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 	private static final long serialVersionUID = 4369405484601947657L;
 
 	private final JTableExt table;
+	/** Editor-Element (entweder vom Typ {@link ModelElementProcess} oder {@link ModelElementTransportTransporterSource}) */
 	private final ModelElement element;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private final String[] clientTypes;
 	private final String[] priorities;
@@ -79,6 +81,9 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -110,6 +115,9 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Objekt das die verfügbaren Animations-Icons vorhält
+	 */
 	private final AnimationImageSource imageSource=new AnimationImageSource();
 
 	private Icon getClientTypeIcon(final String name) {

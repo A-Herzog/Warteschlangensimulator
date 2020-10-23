@@ -33,8 +33,11 @@ import systemtools.commandline.AbstractCommand;
  * @see CommandLineSystem
  */
 public class CommandServer extends AbstractCommand {
+	/** Serverport */
 	private int serverPort;
+	/** Serverpasswort */
 	private String serverPassword;
+	/** Signalisiert dass der Server beendet werden soll. */
 	private boolean isQuit;
 
 	@Override

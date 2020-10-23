@@ -66,9 +66,13 @@ public class TransporterDistancesTableModel extends AbstractTableModel {
 	private final JTable table;
 	/** Transporter-Objekt aus dem die Anzahl-Werte ausgelesen werden sollen und in das sie später ggf. zurückgeschrieben werden sollen */
 	private final ModelTransporter transporter;
+	/** Modellelemente für die Stationen */
 	private final List<ModelElementBox> stationElements;
+	/** Namen der Stationen */
 	private final List<String> stations;
+	/** Ausführliche Namen der Stationen */
 	private final List<String> stationsLong;
+	/** Entfernungen zwischen den Stationen */
 	private final String[][] distances;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
@@ -123,12 +127,23 @@ public class TransporterDistancesTableModel extends AbstractTableModel {
 		}
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
 		if (cellEditor!=null) cellEditor.stopCellEditing();
 	}
 
+	/**
+	 * Fügt eine Station zu den Stationslisten hinzu
+	 * @param element	Stationselement
+	 * @param parent	Elternelement, wenn sich die Station nicht auf der Hauptebene befindet
+	 * @see #stationElements
+	 * @see #stations
+	 * @see #stationsLong
+	 */
 	private void addStation(final ModelElement element, final ModelElement parent) {
 		if ((element instanceof ModelElementTransportTransporterSource) || (element instanceof ModelElementTransportParking) || (element instanceof ModelElementTransportDestination)) {
 			final String name=element.getName();
@@ -227,6 +242,13 @@ public class TransporterDistancesTableModel extends AbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Ermittelt das Untermodell-Element das ein konkretes Unterelement enthält
+	 * @param surface	Haupt-Zeichenfläche
+	 * @param child	Unterelement
+	 * @return	Zugehöriges Untermodell-Element
+	 * @see #getModelDistance(ModelSurface, ModelElementBox, ModelElementBox)
+	 */
 	private ModelElementSub getParentStation(final ModelSurface surface, final ModelElementBox child) {
 		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementSub) {
 			for (ModelElement element2: ((ModelElementSub)element).getSubSurface().getElements()) if (element2==child) return (ModelElementSub)element;
@@ -234,6 +256,14 @@ public class TransporterDistancesTableModel extends AbstractTableModel {
 		return null; /* Nicht gefunden */
 	}
 
+	/**
+	 * Berechnet den Abstand von zwei Station auf der Zeichenfläche
+	 * @param surface	Zeichenfläche
+	 * @param station1	Erste Station
+	 * @param station2	Zweite Station
+	 * @return	Abstand auf der Zeichenfläche
+	 * @see #getModelDistances(ModelSurface)
+	 */
 	private int getModelDistance(final ModelSurface surface, ModelElementBox station1, ModelElementBox station2) {
 		if (station1.getSurface()!=station2.getSurface()) {
 			/* Elemente sind auf verschiedenen Modell-Ebenen, beide auf Hauptebene projizieren */
@@ -251,6 +281,11 @@ public class TransporterDistancesTableModel extends AbstractTableModel {
 		return (int)Math.round(Math.sqrt(x*x+y*y));
 	}
 
+	/**
+	 * Leitet aus dem Modell die Entfernungen ab
+	 * @param surface	Zeichenfläche
+	 * @return	Array mit den Entfernungen zwischen den Stationen
+	 */
 	private int[][] getModelDistances(final ModelSurface surface) {
 		final int[][] modelDistances=new int[stationElements.size()][];
 
@@ -265,6 +300,13 @@ public class TransporterDistancesTableModel extends AbstractTableModel {
 		return modelDistances;
 	}
 
+	/**
+	 * Legt die Transporter-Enfernungen gemäß den Abständen der Stationen auf der Zeichenfläche fest
+	 * @param surface	Haupt-Zeichenfläche
+	 * @param minDistance	Minimal zu verwendende Entfernung
+	 * @param maxDistance	Maximal zu verwendende Entfernung
+	 * @see #getModelDistances(ModelSurface)
+	 */
 	private void fillByModel(final ModelSurface surface, final double minDistance, final double maxDistance) {
 		/* Abstände im Modell bestimmen */
 		final int[][] modelDistances=getModelDistances(surface);

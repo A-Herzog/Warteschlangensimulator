@@ -51,13 +51,19 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 	 */
 	private static final long serialVersionUID = -1341554699421029347L;
 
+	/** Sollen nur Aktionen oder Trigger und Aktionen erstellt werden */
 	private final ModelElementActionRecord.ActionMode actionMode;
+	/** Zugehörige Tabelle (um diese Anweisen zu können, sich zu aktualisieren) */
 	private final JTableExt table;
+	/** Haupt-Zeichenfläche (für Expression-Builder) */
 	private final ModelSurface mainSurface;
+	/** Vollständiges Modell (für Expression-Builder) */
 	private  final EditModel model;
+	/** Hilfe-Callback */
 	private final Runnable help;
 	private final List<ModelElementActionRecord> recordsOriginal;
 	private final List<ModelElementActionRecord> records;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
 	/**
@@ -87,6 +93,9 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 		updateTable();
 	}
 
+	/**
+	 * Aktualisiert die Tabellendarstellung
+	 */
 	private void updateTable() {
 		fireTableDataChanged();
 		TableCellEditor cellEditor=table.getCellEditor();
@@ -223,12 +232,37 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 		recordsOriginal.addAll(records);
 	}
 
-	private enum Command {CMD_ADD, CMD_EDIT, CMD_DELETE, CMD_MOVE_UP, CMD_MOVE_DOWN}
+	/**
+	 * Befehle für die Schaltflächen
+	 * @see EditButtonListener
+	 */
+	private enum Command {
+		/** Eintrag hinzufügen */
+		CMD_ADD,
+		/** Eintrag bearbeiten */
+		CMD_EDIT,
+		/** Eintrag löschen */
+		CMD_DELETE,
+		/** Eintrag in der Liste nach oben verschieben */
+		CMD_MOVE_UP,
+		/** Eintrag in der Liste nach unten verschieben */
+		CMD_MOVE_DOWN
+	}
 
+	/**
+	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Zeilennummer */
 		private final int row;
+		/** Auszuführender Befehl */
 		private final Command command;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 * @param command	Auszuführender Befehl
+		 */
 		public EditButtonListener(final int row, final Command command) {
 			this.row=row;
 			this.command=command;

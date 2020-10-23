@@ -164,6 +164,12 @@ public class NextEventsViewerDialog extends BaseDialog {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(result.toString()),null);
 	}
 
+	/**
+	 * Erstellt Labels zur Darstellung der nächsten Ereignisse
+	 * @param events	Liste der nächsten Ereignisse
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Array mit Labels zur Darstellung der nächsten Ereignisse
+	 */
 	private JLabel[] getListContent(final List<Event> events, final SimulationData simData) {
 		final List<JLabel> result=new ArrayList<>();
 
@@ -175,6 +181,13 @@ public class NextEventsViewerDialog extends BaseDialog {
 		return result.toArray(new JLabel[0]);
 	}
 
+	/**
+	 * Erstellt einen html-Beschreibungstext für eine Ereignis.
+	 * @param event	Ereignis
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	html-Beschreibungstext für das Ereignis
+	 * @see #getListContent(List, SimulationData)
+	 */
 	private String processEvent(final Event event, final SimulationData simData) {
 		if (event instanceof ProcessReleaseResources) {
 			final ProcessReleaseResources e=(ProcessReleaseResources)event;

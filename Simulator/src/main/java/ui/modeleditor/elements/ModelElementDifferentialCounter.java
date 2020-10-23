@@ -51,6 +51,11 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Veränderung des Zählers beim Durchlauf eines Kunden
+	 * @see #getChange()
+	 * @see #setChange(int)
+	 */
 	private int change=1;
 
 	/**
@@ -149,6 +154,10 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 		if (change>=0) return Language.tr("Surface.DifferentialCounter.Value")+"+="+change; else return Language.tr("Surface.DifferentialCounter.Value")+"-="+(-change);
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

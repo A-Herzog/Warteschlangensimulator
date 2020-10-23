@@ -189,6 +189,14 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		return sb.toString();
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche
+	 * @param icon	Icon für die Schaltfläche
+	 * @param command	Beim Anklicken der Schaltfläche auszuführender Befehl
+	 * @return	Neu erstellte Schaltfläche
+	 */
 	private JButton getButton(final String title, final String hint, final Icon icon, final Runnable command) {
 		final JButton button=new JButton(title);
 		button.setToolTipText(hint);

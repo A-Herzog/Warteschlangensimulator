@@ -103,6 +103,15 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche und fügt sie zur Symbolleiste hinzu.
+	 * @param toolbar	Symbolleiste auf der die neue Schaltfläche eingefügt werden soll
+	 * @param name	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Optionales Icon für die Schaltfläche (darf <code>null</code> sein)
+	 * @param listener	Aktion die beim Anklicken der Schaltfläche ausgeführt werden soll
+	 * @return	Neue Schaltfläche (ist bereits in die Symbolleiste eingefügt)
+	 */
 	private JButton addButton(final JToolBar toolbar, final String name, final Icon icon, final String hint, final ActionListener listener) {
 		final JButton button=new JButton(name);
 		if (icon!=null) button.setIcon(icon);
@@ -112,6 +121,9 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		return button;
 	}
 
+	/**
+	 * Befehl: Angezeigte Daten in die Zwischenablage kopieren
+	 */
 	private void commandCopy() {
 		buttonAutoUpdate.setSelected(false);
 		if (timer!=null) timer.cancel();
@@ -119,6 +131,9 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		getToolkit().getSystemClipboard().setContents(new StringSelection(textArea.getText()),null);
 	}
 
+	/**
+	 * Befehl: Angezeigte Daten als Text speichern
+	 */
 	private void commandSave() {
 		buttonAutoUpdate.setSelected(false);
 		if (timer!=null) timer.cancel();
@@ -154,12 +169,18 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Anzeige aktualisieren
+	 */
 	private void commandUpdate() {
 		textArea.setText(info.get());
 		textArea.setSelectionStart(0);
 		textArea.setSelectionEnd(0);
 	}
 
+	/**
+	 * Befehl: Anzeige automatisch aktualisieren (an/aus)
+	 */
 	private void commandAutoUpdate() {
 		buttonAutoUpdate.setSelected(!buttonAutoUpdate.isSelected());
 

@@ -44,6 +44,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementInteractiveButton extends ModelElementBox implements ElementWithAnimationDisplay, ModelElementSignalTrigger, ElementWithNewVariableNames, ElementAnimationClickable {
+	/**
+	 * Liste mit allen auszulösenden Aktionen
+	 * @see #getRecordsList()
+	 */
 	private final List<ModelElementActionRecord> records;
 
 	/**
@@ -136,6 +140,10 @@ public class ModelElementInteractiveButton extends ModelElementBox implements El
 		return Language.tr("Surface.InteractiveButton.Name");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(220,220,220);
 
 	/**

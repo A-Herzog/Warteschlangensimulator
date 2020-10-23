@@ -38,9 +38,13 @@ import xml.XMLTools;
  * @see CommandLineSystem
  */
 public class CommandOptimizer extends AbstractCommand {
+	/** Modelldatei (Ausgangsmodell für die Optimierung) */
 	private File modelFile;
+	/** Optimierer-Konfigurationsdatei */
 	private File setupFile;
+	/** Ist die Optimierung abgeschlossen? */
 	private boolean optimizationDone=false;
+	/** Tatsächlier interner Optimierer */
 	private OptimizerBase optimizer;
 
 	@Override
@@ -61,7 +65,12 @@ public class CommandOptimizer extends AbstractCommand {
 		return Language.tr("CommandLine.Optimizer.Description.Long").split("\n");
 	}
 
-	private final boolean isModelFile(File file) {
+	/**
+	 * Prüft, ob die übergebene Datei eine Modelldatei ist
+	 * @param file	Zu prüfende Datei
+	 * @return	Gibt <code>true</code> zurück, wenn es sich um eine Modelldatei handelt
+	 */
+	private final boolean isModelFile(final File file) {
 		Element root=new XMLTools(file).load();
 		if (root==null) return false;
 
@@ -70,7 +79,12 @@ public class CommandOptimizer extends AbstractCommand {
 		return false;
 	}
 
-	private final boolean isSetupFile(File file) {
+	/**
+	 * Prüft, ob die übergebene Datei eine Optimierer-Konfigurationsdatei ist
+	 * @param file	Zu prüfende Datei
+	 * @return	Gibt <code>true</code> zurück, wenn es sich um eine Optimierer-Konfigurationsdatei handelt
+	 */
+	private final boolean isSetupFile(final File file) {
 		Element root=new XMLTools(file).load();
 		if (root==null) return false;
 
@@ -94,6 +108,11 @@ public class CommandOptimizer extends AbstractCommand {
 		return null;
 	}
 
+	/**
+	 * Setzt {@link #optimizationDone} auf <code>true</code>, d.h.
+	 * gibt an, dass die Optimierung abgeschlossen wurde.
+	 * @see #run(AbstractCommand[], InputStream, PrintStream)
+	 */
 	private void setOptimizationDone() {
 		optimizationDone=true;
 	}

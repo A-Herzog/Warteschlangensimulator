@@ -112,6 +112,11 @@ public class AnalyticSource {
 
 	}
 
+	/**
+	 * Liefert eine Verteilung zur Beschreibung der Zwischenankunftszeiten
+	 * @param record	Kundenquelle-Datensatz
+	 * @return	Verteilung zur Beschreibung der Zwischenankunftszeiten
+	 */
 	private AbstractRealDistribution getDistribution(final ModelElementSourceRecord record) {
 		switch (record.getNextMode()) {
 		case NEXT_DISTRIBUTION:

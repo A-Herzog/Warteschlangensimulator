@@ -103,9 +103,23 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		MODE_STRING
 	}
 
+	/**
+	 * Dateiname der Datei für die Ausgaben
+	 * @see #getOutputFile()
+	 * @see #setOutputFile(String)
+	 */
 	private String outputFile;
 
+	/**
+	 * Liste mit den Modi der Ausgabeelemente
+	 * @see #getModes()
+	 */
 	private List<OutputMode> mode;
+
+	/**
+	 * Liste mit den zusätzlichen Daten der Ausgabeelemente
+	 * @see #getData()
+	 */
 	private List<String> data;
 
 	/**
@@ -261,6 +275,10 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		return Language.tr("Surface.Output.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(230,230,230);
 
 	/**

@@ -52,9 +52,13 @@ public class MultiResourceTable extends JPanel {
 	 */
 	private static final long serialVersionUID = 4821242036162357877L;
 
+	/** ugehörige Bedienstation aus der die Daten geladen werden und in die sie auch wieder zurückgeschrieben werden */
 	private final ModelElementProcess process;
+	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
+	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Wird aufgerufen (sofern ungleich <code>null</code>), wenn sich die definierten Ressourcen verändern */
 	private final Runnable statusChanged;
 
 	private final List<Map<String,Integer>> data;

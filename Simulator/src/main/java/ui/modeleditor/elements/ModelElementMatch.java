@@ -93,11 +93,29 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	private List<ModelElementEdge> connectionsIn;
 	private ModelElementEdge connectionOut;
 
+	/**
+	 * Modus wie Eigenschaften der Kunden beim Zusammenführen abgeglichen werden sollen
+	 * @see #getMatchMode()
+	 * @see #setMatchMode(MatchMode)
+	 * @see MatchPropertyMode
+	 */
 	private MatchPropertyMode matchPropertyMode;
+
 	private int matchPropertyNumber;
 	private String matchPropertyString;
 
+	/**
+	 * Match-Modus
+	 * @see #getMatchMode()
+	 * @see #setMatchMode(MatchMode)
+	 */
 	private MatchMode matchMode;
+
+	/**
+	 * Neuer Kundentyp (wenn die Kunden nicht einfach einzeln weitergeleitet werden)
+	 * @see #getNewClientType()
+	 * @see #setNewClientType(String)
+	 */
 	private String newClientType;
 
 	/* Wird nur beim Laden und Clonen verwendet. */
@@ -163,6 +181,10 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		}
 	}
 
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
 	private void updateEdgeLabel() {
 		final String s=newClientType;
 		if (connectionOut!=null) connectionOut.setName(s.isEmpty()?"":(Language.tr("Surface.Match.NewClientType")+" \""+s+"\""));
@@ -396,6 +418,10 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		return Language.tr("Surface.Match.Name.Short");
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(180,225,255);
 
 	/**

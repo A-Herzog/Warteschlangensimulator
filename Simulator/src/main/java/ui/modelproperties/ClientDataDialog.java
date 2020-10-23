@@ -56,16 +56,27 @@ public class ClientDataDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 7425813595312162449L;
 
+	/**
+	 * Objekt das die verfügbaren Animations-Icons vorhält
+	 */
 	private final AnimationImageSource imageSource;
 
+	/** Auswahloption: Farbe automatisch festlegen */
 	private final JRadioButton optionAutomaticColor;
+	/** Auswahloption: Benutzerdefinierte Farbefestlegen */
 	private final JRadioButton optionUserColor;
+	/** Auswahlfeld für benutzerdefinierte Farbe */
 	private final SmallColorChooser colorChooser;
+	/** Datenmodell für Animations-Icon Auswahlfeld {@link #iconChooser} */
 	private final DefaultComboBoxModel<JLabel> iconChooserList;
+	/** Animations-Icon Auswahlfeld */
 	private final JComboBox<JLabel> iconChooser;
 
+	/** Eingabefeld für die Wartezeitkosten */
 	private final JTextField costsWaiting;
+	/** Eingabefeld für die Transferzeitkosten */
 	private final JTextField costsTransfer;
+	/** Eingabefeld für die Bedienzeitkosten */
 	private final JTextField costsProcess;
 
 	/**

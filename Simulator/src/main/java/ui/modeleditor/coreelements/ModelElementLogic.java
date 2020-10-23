@@ -45,6 +45,10 @@ public abstract class ModelElementLogic extends ModelElementMultiInSingleOutBox 
 		setSize(new Dimension(50,50));
 	}
 
+	/**
+	 * Vorgabe-Hintergrundfarbe für die Box
+	 * @see #getTypeDefaultBackgroundColor()
+	 */
 	private static final Color defaultBackgroundColor=new Color(245,245,245);
 
 	/**
