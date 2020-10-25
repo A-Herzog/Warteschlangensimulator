@@ -163,10 +163,10 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 				);
 		chartPanel.setPopupMenu(null);
 
+		setTheme(); /* Muss vor der folgenden Farbkonfiguration erfolgen. */
+
 		chart.setBackgroundPaint(null);
 		chart.getPlot().setBackgroundPaint(new GradientPaint(1,0,new Color(0xFA,0xFA,0xFF),1,150,new Color(0xEA,0xEA,0xFF)));
-
-		setTheme();
 
 		final TextTitle t=chart.getTitle();
 		if (t!=null) {
