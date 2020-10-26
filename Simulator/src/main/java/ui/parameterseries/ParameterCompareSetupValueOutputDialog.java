@@ -64,22 +64,34 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 	/** Ausgabewert-Datensatz */
 	private final ParameterCompareSetupValueOutput output;
 
+	/** Eingabefeld "Name der Ausgabegröße" */
 	private final JTextField nameEdit;
+	/** Auswahlfeld "Art der Ausgabegröße" */
 	private final JComboBox<String> modeCombo;
+	/** Panel zum Bearbeiten der Einstellungen gemäß der Auswahl in "Art der Ausgabegröße" */
 	private final JPanel cardPanel;
+	/** Layout zur Konfiguration von {@link #cardPanel} */
 	private final CardLayout cardLayout;
 
+	/** Eingabefeld "XML-Element" */
 	private final JTextField xmlTagEdit;
+	/** Schaltfläche zur Auswahl eines XML-Elements für {@link #xmlTagEdit} */
 	private final JButton xmlTagButton;
 
+	/** Eingabefeld "Ausdruck" */
 	private final JTextField expressionEdit;
 
+	/** Eingabefeld "Skript" (für Javascript) */
 	private final JTextField scriptEditJS;
+	/** Schaltfläche zur Auswahl einer Skriptdatei für {@link #scriptEditJS} */
 	private final JButton scriptButtonJS;
 
+	/** Eingabefeld "Skript" (für Javas) */
 	private final JTextField scriptEditJava;
+	/** Schaltfläche zur Auswahl einer Skriptdatei für {@link #scriptEditJava} */
 	private final JButton scriptButtonJava;
 
+	/** Option "Anzeige des Ergebniswertes als Zeit" */
 	private final JCheckBox isTimeCheck;
 
 	/**
@@ -217,7 +229,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 
 		cardPanel.add(sub=new JPanel(),"3");
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("ParameterCompare.Settings.Output.Mode.Command.Command"),"");
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("ParameterCompare.Settings.Output.Mode.Command.Command")+":","");
 		sub.add(line=(JPanel)data[0]);
 		expressionEdit=(JTextField)data[1];
 		expressionEdit.addKeyListener(new KeyListener() {

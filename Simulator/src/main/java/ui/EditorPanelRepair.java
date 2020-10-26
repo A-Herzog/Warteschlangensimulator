@@ -68,6 +68,11 @@ public class EditorPanelRepair {
 		this.editorPanel=editorPanel;
 	}
 
+	/**
+	 * Lädt ein neues Modell in den Editor.
+	 * @param model	Neues Modell
+	 * @see #editorPanel
+	 */
 	private void reloadToEditor(final EditModel model) {
 		final File file=editorPanel.getLastFile();
 		editorPanel.setModel(model);
@@ -75,6 +80,11 @@ public class EditorPanelRepair {
 		editorPanel.setModelChanged(true);
 	}
 
+	/**
+	 * Korrigiert die Ressourcen in einem Modell.
+	 * @param model	Eingangsmodell
+	 * @return	Reparaturstatus
+	 */
 	private RepairState fixResources(final EditModel model) {
 		/* Enthält das Modell eine einzelne Bedienstation? */
 		final List<ModelElementProcess> process=new ArrayList<>();
@@ -117,6 +127,11 @@ public class EditorPanelRepair {
 		return state;
 	}
 
+	/**
+	 * Korrigiert die Anzahl an Wiederholungen der Simulation.
+	 * @param model	Eingangsmodell
+	 * @return	Reparaturstatus
+	 */
 	private RepairState fixRepeatCount(final EditModel model) {
 		/* Nur eine Wiederholung? -> Nichts zu tun*/
 		if (model.repeatCount<=1) return RepairState.NOT_CHANGED;
@@ -133,10 +148,20 @@ public class EditorPanelRepair {
 		return RepairState.FIXED;
 	}
 
+	/**
+	 * Sind an einer Kundenquelle eine begrenzte Anzahl an Ankünften konfiguriert?
+	 * @param record	Kundenquellen-Datensatz
+	 * @return	Begrenzte Anzahl an Ankünften?
+	 */
 	private boolean isLimitedSource(final ModelElementSourceRecord record) {
 		return (record.getMaxArrivalClientCount()>0 || record.getMaxArrivalCount()>0);
 	}
 
+	/**
+	 * Korrigiert die Verknüpfungen im Modell.
+	 * @param model	Eingangsmodell
+	 * @return	Reparaturstatus
+	 */
 	private RepairState fixConnections(final EditModel model) {
 		final List<ModelElementBox> source=new ArrayList<>();
 		final List<ModelElementDelay> delay=new ArrayList<>();

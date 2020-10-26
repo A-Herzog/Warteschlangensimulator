@@ -206,6 +206,11 @@ public class StyledTextBuilder {
 		}
 	}
 
+
+	/** Wandelt eine Zahl zwischen 0 und 15 in ein Hexadezimal-Zeichen um.
+	 * @param b	Umzuwandelnde Zahl
+	 * @return	Hexadezimal-Zeichen
+	 */
 	private char hex(final int b) {
 		if (b<10) return (char)(b+((short)'0')); else return (char)(b-10+((short)'a'));
 	}

@@ -58,7 +58,16 @@ public class BarStackTableModelDialog extends BaseDialog {
 	 */
 	private final String[] variableNames;
 
+	/**
+	 * Zu bearbeitender Rechenausdruck für das Balkensegment
+	 * @see #getExpression()
+	 */
 	private final JTextField editExpression;
+
+	/**
+	 * Auswahl der Farbe für das Balkensegment
+	 * @see #getColor()
+	 */
 	private final SmallColorChooser colorChooserBar;
 
 	/**

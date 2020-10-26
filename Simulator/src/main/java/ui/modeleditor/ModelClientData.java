@@ -39,6 +39,7 @@ import simulator.editmodel.EditModel;
  * @see EditModel
  */
 public final class ModelClientData implements Cloneable {
+	/** Vorgabefarben für die Kundentypen */
 	private static final Color[] DEFAULT_COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 	/** Standards-Icon für eine Benutzergruppe */
 	private static final String DEFAULT_ICON="user";
@@ -54,11 +55,16 @@ public final class ModelClientData implements Cloneable {
 	 */
 	public static String[] XML_NODE_NAME=new String[]{"KundentypenDaten"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
+	/** Zuordnung von Kundentypen zu Farben */
 	private Map<String,Color> colorMap;
+	/** Zuordnung von Kundentypen zu Icons */
 	private Map<String,String> iconMap;
 
+	/** Zuordnung von Kundentypen zu Wartezeitkosten */
 	private Map<String,Double> costsWaitingMap;
+	/** Zuordnung von Kundentypen zu Transferzeitkosten */
 	private Map<String,Double> costsTransferMap;
+	/** Zuordnung von Kundentypen zu Bedienzeitkosten */
 	private Map<String,Double> costsProcessMap;
 
 	/**

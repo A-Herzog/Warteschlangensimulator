@@ -48,9 +48,12 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 	 */
 	private static final long serialVersionUID = 1863917114149952906L;
 
+	/** Statistikdaten bezogen auf einen kurzen Lauf über das angegebene Editor-Modell (zur Auswahl von XML-Elementen als Zielwerte) */
 	private final Statistics miniStatistics;
 
+	/** Liste der Ausgabeparameter-Einstellungen (Objekt, das dem Dialog übergeben wurde) */
 	private final List<ParameterCompareSetupValueOutput> outputOriginal;
+	/** Liste der Ausgabeparameter-Einstellungen (Arbeitskopie) */
 	private final List<ParameterCompareSetupValueOutput> output;
 
 	/**
@@ -85,6 +88,11 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		start();
 	}
 
+	/**
+	 * Liefert den Beschreibungstext für einen Output-Parameter
+	 * @param record	Output-Parameter Datensatz
+	 * @return	Beschreibungstext
+	 */
 	private String getOutputInfo(final ParameterCompareSetupValueOutput record) {
 		switch (record.getMode()) {
 		case MODE_XML: return String.format(Language.tr("ParameterCompare.Settings.Output.List.InfoXML"),record.getTag());
@@ -117,6 +125,11 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		return listModel;
 	}
 
+	/**
+	 * Zeigt einen Dialog zum Bearbeiten eines Ausgabeparameters an.
+	 * @param record	Ausgabeparameters-Datensatz
+	 * @return	Liefert <code>true</code>, wenn der Dialog mit "Ok" geschlossen wurde
+	 */
 	private boolean editOutput(final ParameterCompareSetupValueOutput record) {
 		final ParameterCompareSetupValueOutputDialog dialog=new ParameterCompareSetupValueOutputDialog(owner,record,model,miniStatistics,help);
 		return dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK;
@@ -190,6 +203,11 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		Collections.swap(output,index1,index2);
 	}
 
+	/**
+	 * Prüft, ob ein bestimmter Parameter bereits in der Liste {@link #output} enthalten ist.
+	 * @param output	Evtl. neuer Eingabeparameter
+	 * @return	Liefert <code>true</code>, wenn der angegebene Ausgabeparameter bereits in der Liste der Ausgabeparameter enthalten ist
+	 */
 	private boolean isParameterInUse(final ParameterCompareSetupValueOutput output) {
 		for (ParameterCompareSetupValueOutput test: this.output) {
 			if (test.getMode()!=output.getMode()) continue;
@@ -200,7 +218,12 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		return false;
 	}
 
-	private ParameterCompareSetupValueOutput recordToOutput(ListPopup.ScriptHelperRecord record) {
+	/**
+	 * Generiert einen Ausgabeparameter-Datensatz basierend auf einer Vorlage
+	 * @param record	Vorlage
+	 * @return	Ausgabeparameter-Datensatz
+	 */
+	private ParameterCompareSetupValueOutput recordToOutput(final ListPopup.ScriptHelperRecord record) {
 		final ParameterCompareSetupValueOutput output=new ParameterCompareSetupValueOutput();
 		output.setName(record.title);
 		output.setTag(record.xml);
@@ -208,6 +231,11 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		return output;
 	}
 
+	/**
+	 * Fügt einen Ausgabeparameter basierend auf einer Vorlage zur Liste der Ausgabeparameter hinzu
+	 * @param template	Ausgabeparameter-Vorlage
+	 * @see #output
+	 */
 	private void addValueFromTemplate(final ParameterCompareSetupValueOutput template) {
 		output.add(template);
 		updateList(Integer.MAX_VALUE);

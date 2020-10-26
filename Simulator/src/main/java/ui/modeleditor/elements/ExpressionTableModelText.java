@@ -52,6 +52,9 @@ public class ExpressionTableModelText extends JTableExtAbstractTableModel {
 	private final Runnable help;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/**
+	 * Liste der globalen Variablen (zum Prüfen von Ausdrücken)
+	 */
 	private final String[] variableNames;
 	private final Map<String,String> initialVariableValues;
 	private final Map<Integer,String> stationIDs;

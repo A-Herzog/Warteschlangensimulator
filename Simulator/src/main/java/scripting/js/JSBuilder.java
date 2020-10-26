@@ -44,6 +44,10 @@ public class JSBuilder {
 	 */
 	public final JSOutputWriter output;
 
+	/**
+	 * Java-Objekte, die in Javascript verfügbar sein sollen
+	 * @see #addBinding(String, Object)
+	 */
 	private final Map<String,Object> binding;
 
 	/**
@@ -85,6 +89,10 @@ public class JSBuilder {
 		this(maxExecutionTimeMS,getEngineFromSetup(),outputCallback);
 	}
 
+	/**
+	 * Liefert den Namen der zu verwendenden JS-Engine.
+	 * @return	Name der zu verwendenden JS-Engine
+	 */
 	private static JSEngineNames getEngineFromSetup() {
 		return JSEngineNames.fromName(SetupData.getSetup().jsEngine);
 	}
@@ -98,6 +106,12 @@ public class JSBuilder {
 		binding.put(name,object);
 	}
 
+	/**
+	 * Erstellt einen JS-Runner über die Java-Scripting-Schnittstelle.
+	 * @param engineName	Zu verwendende Engine
+	 * @return	JS-Runner
+	 * @see #build()
+	 */
 	private JSEngine buildScriptEngineBased(final JSEngineNames engineName) {
 		final ScriptEngineManager manager=new ScriptEngineManager();
 		final ScriptEngine engine=manager.getEngineByName(engineName.name);
@@ -122,12 +136,22 @@ public class JSBuilder {
 	}
 	 */
 
+	/**
+	 * Erstellt einen JS-Runner auf Basis von Rhino (ohne Umweg über die Java-Scripting-Schnittstelle).
+	 * @return	JS-Runner
+	 * @see #build()
+	 */
 	private JSEngine buildRhinoEngineDirect() {
 		final JSEngineRhinoDirect runner=new JSEngineRhinoDirect(maxExecutionTimeMS,output);
 		if (!runner.initEngine(binding)) return null;
 		return runner;
 	}
 
+	/**
+	 * Erstellt einen JS-Runner auf Basis von GraalVM (ohne Umweg über die Java-Scripting-Schnittstelle).
+	 * @return	JS-Runner
+	 * @see #build()
+	 */
 	private JSEngine buildGraalNative() {
 		final JSEngineGraalNative runner=new JSEngineGraalNative(maxExecutionTimeMS,output);
 		if (!runner.initEngine(binding)) return null;

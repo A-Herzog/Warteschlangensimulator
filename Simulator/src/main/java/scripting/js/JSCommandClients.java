@@ -29,9 +29,11 @@ import simulator.runmodel.SimulationData;
 public final class JSCommandClients extends JSBaseCommand {
 	/** Simulationsdaten-Objekt (kann auch <code>null</code> sein) */
 	private SimulationData simData;
+	/** Anzahl der wartenden Kunden ({@link #clients}) */
 	private int count;
 	/** Liste der wartenden Kunden */
 	private List<RunDataClient> clients;
+	/** Freizugebende Kunden */
 	private boolean[] releaseClients;
 
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */

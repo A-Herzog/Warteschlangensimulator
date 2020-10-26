@@ -92,6 +92,12 @@ public class ModelElementBaseIDDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Zeigt eine Information zu der angegebenen ID an.
+	 * @param text	Anzuzeigender Text
+	 * @see #info
+	 * @see #checkData(boolean)
+	 */
 	private void setInfo(final String text) {
 		info.setText("<html><bod>"+text.replaceAll("\\n","<br>")+"</body></html>");
 		pack();

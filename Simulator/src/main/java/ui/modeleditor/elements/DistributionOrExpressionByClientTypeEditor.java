@@ -67,6 +67,9 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	 */
 	private final String[] variables;
 
+	/**
+	 * Namen der Kundentypen im System
+	 */
 	private final String[] clientTypes;
 
 	private AbstractRealDistribution distribution;

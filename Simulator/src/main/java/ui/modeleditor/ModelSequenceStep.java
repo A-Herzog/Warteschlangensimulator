@@ -37,8 +37,24 @@ public final class ModelSequenceStep implements Cloneable {
 	 */
 	public static String[] XML_NODE_NAME=new String[]{"FertigungsplanSchritt"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
+	/**
+	 * Zielstation für diesen Schritt
+	 * @see #getTarget()
+	 * @see #setTarget(String)
+	 */
 	private String target;
+
+	/**
+	 * Nächster Schritt im Fertigungsplan (0-basierend) oder -1, wenn einfach der nächste Schritt in der Liste angesteuert werden soll
+	 * @see #getNext()
+	 * @see #setNext(int)
+	 */
 	private int next;
+
+	/**
+	 * Zuordnung der Kundendaten-Zuweisungen
+	 * @see #getAssignments()
+	 */
 	private final Map<Integer,String> assignments;
 
 	/**

@@ -51,8 +51,15 @@ import xml.XMLTools;
  * @see SimulationImpl
  */
 public class StatisticsImpl implements StatisticsInterface {
+	/**
+	 * Abbruch-Status
+	 * @see #cancel()
+	 */
 	private boolean canceled=false;
-	/** Gibt an, ob die Statistikdaten als Datei gespeichert werden dürfen */
+
+	/**
+	 * Gibt an, ob die Statistikdaten als Datei gespeichert werden dürfen
+	 */
 	private final boolean allowSave;
 
 	/** XMl-Statistik-Daten, die gefiltert werden sollen */

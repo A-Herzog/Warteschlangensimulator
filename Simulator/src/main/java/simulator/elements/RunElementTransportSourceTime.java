@@ -100,6 +100,7 @@ public class RunElementTransportSourceTime {
 		return null;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
 	/**

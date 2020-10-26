@@ -40,10 +40,23 @@ public final class ModelLongRunStatistics implements Cloneable {
 	 */
 	public static String[] XML_NODE_STEPWIDE_ATTR=new String[] {"Schrittweite"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
+	/**
+	 * Vorgabewert für die Erfassungsschrittweite in Sekunden
+	 * @see #stepWideSec
+	 */
 	private static final long default_stepWideSec=10*3600;
 
+	/**
+	 * Liste der zu erfassenden Daten
+	 * @see #getData()
+	 */
 	private final List<ModelLongRunStatisticsElement> data;
 
+	/**
+	 * Erfassungsschrittweite in Sekunden
+	 * @see #getStepWideSec()
+	 * @see #setStepWideSec(long)
+	 */
 	private long stepWideSec;
 
 	/**

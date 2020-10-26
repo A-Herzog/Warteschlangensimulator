@@ -33,7 +33,9 @@ import ui.modeleditor.ModelSchedules;
  * @author Alexander Herzog
  */
 public final class RunDataResources implements Cloneable {
+	/** Namen aller im System vorhandenen Bedienergruppen */
 	private String[] names;
+	/** Bedienergruppen */
 	private RunDataResource[] list;
 	private List<Consumer<SimulationData>> resourceCountChangeListeners=new ArrayList<>();
 

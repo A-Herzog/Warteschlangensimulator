@@ -80,6 +80,10 @@ public class OptimizerPanelConstrainsDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Erstellt eine Liste mit den Nebenbedingungen basierend auf dem Eingabefeld
+	 * @return	Liste mit den Nebenbedingungen
+	 */
 	private List<String> getConstrainsFromGUI() {
 		final List<String> newConstrains=new ArrayList<>();
 		for (String line: textArea.getText().split("\n")) if (!line.trim().isEmpty()) newConstrains.add(line.trim());

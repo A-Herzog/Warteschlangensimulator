@@ -39,8 +39,11 @@ public class DateTimePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 7930790169278463380L;
 
+	/** Datenmodell für die Datumsauswahl */
 	private UtilDateModel dateModel;
+	/** Eingabefeld für die Zeit */
 	private JTextField timeEdit;
+	/** Letzter gültiger Zeitstempel */
 	private int lastValidTime=0;
 
 	/**
@@ -56,7 +59,7 @@ public class DateTimePanel extends JPanel {
 		i18nStrings.setProperty("text.year",Language.tr("DateTimeEditor.Year"));
 		dateModel=new UtilDateModel();
 		final JDatePanelImpl datePanel=new JDatePanelImpl(dateModel,i18nStrings);
-		JDatePickerImpl datePicker=new JDatePickerImpl(datePanel,new DateLabelFormatter());
+		final JDatePickerImpl datePicker=new JDatePickerImpl(datePanel,new DateLabelFormatter());
 		datePicker.setEnabled(!readOnly);
 		if (readOnly) for (Component component: datePicker.getComponents()) if (component instanceof JComponent) ((JComponent)component).setEnabled(false);
 		datePicker.addActionListener(e->fireChangeListener());
@@ -84,6 +87,10 @@ public class DateTimePanel extends JPanel {
 		setDate(ms);
 	}
 
+	/**
+	 * Klasse zur Formatierung von Datumsangaben
+	 * @see JDatePickerImpl
+	 */
 	private class DateLabelFormatter extends AbstractFormatter {
 		/**
 		 * Serialisierungs-ID der Klasse

@@ -70,16 +70,28 @@ public class TutorialWindow extends JFrame {
 	private final MainPanel mainPanel;
 	/** Fenster in dem sich das {@link #mainPanel} befindet */
 	private final JFrame mainFrame;
+	/** Position des Hauptfesnters vor dem Aufruf des Tutorial-Fensters */
 	private Point saveMainFrameLocation;
+	/** Größe des Hauptfesnters vor dem Aufruf des Tutorial-Fensters */
 	private Dimension saveMainFrameSize;
 
+	/** Aktuelle Sprache */
 	private final String language;
+	/** Aktuelle Tutorial-Seite */
 	private TutorialPage page=null;
+	/** Liste der Tutorial-Seiten */
 	private final List<TutorialPage> pages;
 
+	/** Regelmäßige Prüfung des Modells */
 	private final Timer timer;
+	/** Hilfe-Browser für die Tutorial-Seiten */
 	private final HTMLBrowserPanel browser;
 
+	/**
+	 * Tutorial-Fensters<br>
+	 * (Da es nur ein Tutorial-Fenster geben darf, schließt
+	 * der Konstruktor ggf. vorherige Tutorial-Fenster.)
+	 */
 	private static TutorialWindow currentTutorialWindow=null;
 
 	/**

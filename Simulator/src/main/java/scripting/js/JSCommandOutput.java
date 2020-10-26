@@ -32,7 +32,9 @@ import mathtools.TimeTools;
 public final class JSCommandOutput extends JSBaseCommand {
 	/** Wird hier <code>true</code> übergeben, so erfolgt die Ausgabe der eigentlichen Meldungen in eine Datei */
 	private final boolean outputToFile;
+	/** Wird hier <code>true</code> übergeben, so erfolgt die Ausgabe der eigentlichen Meldungen in eine Datei */
 	private File outputFile;
+	/** Abbruch-Status ({@link #cancel()}) */
 	private boolean canceled=false;
 	private boolean time;
 	private boolean percent;

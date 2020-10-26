@@ -59,15 +59,25 @@ public class BackgroundSystem {
 
 	/** Referenz auf das Setup-Singleton */
 	private static final SetupData setup=SetupData.getSetup();
+	/** Wie soll die Hintergrundverarbeitung ablaufen? */
 	private SetupData.BackgroundProcessingMode lastBackgroundMode;
 	/** Timer für regelmäßige Modellprüfungen */
 	private Timer timer;
 
+	/** Letztes übergebenes Modell (bezogen auf {@link #lastModel}) */
 	private EditModel lastModel;
+	/** Letzter Simulations-Starter (bezogen auf {@link #lastModel}) */
 	private StartAnySimulator lastStarter;
+	/** Letzter Simulator (bezogen auf {@link #lastModel}) */
 	private AnySimulator lastSimulator;
+	/** Zuletzt verwendeter Task zum Starten einer simulation  (bezogen auf {@link #lastModel}) */
 	private TimerTask lastTask;
 
+	/**
+	 * Letzter Zeitpunkt, an der auf das aktuelle Objekt zugegriffen
+	 * wurde, um so ggf. Systeme für die die zugehörigen Fenster
+	 * längst geschlossen wurden, beenden zu können.
+	 */
 	private long lastUsage;
 
 	/**
@@ -284,6 +294,11 @@ public class BackgroundSystem {
 		return lastBackgroundMode;
 	}
 
+	/**
+	 * Startet einen fertig vorbereiteten Simulator.
+	 * @see #process(EditModel, boolean)
+	 * @see #getStartedSimulator(EditModel, SimLogging, int[], Set)
+	 */
 	private synchronized void startWaitingSimulator() {
 		doneTimer();
 		if (lastStarter!=null && lastSimulator==null) {

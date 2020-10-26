@@ -57,11 +57,17 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 	/** Liste mit allen Kundentypnamen im System */
 	private final String[] clientTypes;
 
+	/** Auswahlbox zur Auswahl des Signals bei dem die Freigabe erfolgen soll */
 	private final JComboBox<String> signal;
+	/** Eingabefeld für die initiale Anzahl an Freigaben */
 	private final JTextField initialClients;
+	/** Option: Bei Signal bestimmte Anzahl an Kunden freigeben */
 	private final JRadioButton optionNumber;
+	/** Option: Bei Signal alle wartenden Kunden freigeben */
 	private final JRadioButton optionAll;
+	/** Eingabefeld für die Anzahl an Kunden die pro Signal freigegeben werden sollen */
 	private final JTextField clientsPerSignal;
+	/** Auswahl auf die Kunden welches Typs sich die Freigabe beziehen soll (inkl. der Möglichkeit "alle Kundentypen") */
 	private JComboBox<String> clientType;
 
 	/**

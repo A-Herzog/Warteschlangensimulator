@@ -47,7 +47,9 @@ public class ParameterCompareSetupValueInputListDialog extends ParameterCompareS
 	 */
 	private static final long serialVersionUID = -6451260447527475586L;
 
+	/** Liste der Eingabeparameter-Einstellungen (Objekt, das dem Dialog übergeben wurde) */
 	private final List<ParameterCompareSetupValueInput> inputOriginal;
+	/** Liste der Eingabeparameter-Einstellungen (Arbeitskopie) */
 	private final List<ParameterCompareSetupValueInput> input;
 
 	/**
@@ -120,6 +122,11 @@ public class ParameterCompareSetupValueInputListDialog extends ParameterCompareS
 		return listModel;
 	}
 
+	/**
+	 * Zeigt einen Dialog zum Bearbeiten eines Eingabeparameters an.
+	 * @param record	Eingabeparameters-Datensatz
+	 * @return	Liefert <code>true</code>, wenn der Dialog mit "Ok" geschlossen wurde
+	 */
 	private boolean editInput(final ParameterCompareSetupValueInput record) {
 		final ParameterCompareSetupValueInputDialog dialog=new ParameterCompareSetupValueInputDialog(owner,record,model,help);
 		return dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK;
@@ -190,6 +197,11 @@ public class ParameterCompareSetupValueInputListDialog extends ParameterCompareS
 		Collections.swap(input,index1,index2);
 	}
 
+	/**
+	 * Prüft, ob ein bestimmter Parameter bereits in der Liste {@link #input} enthalten ist.
+	 * @param input	Evtl. neuer Eingabeparameter
+	 * @return	Liefert <code>true</code>, wenn der angegebene Eingabeparameter bereits in der Liste der Eingabeparameter enthalten ist
+	 */
 	private boolean isParameterInUse(final ParameterCompareSetupValueInput input) {
 		for (ParameterCompareSetupValueInput test: this.input) {
 			if (test.getMode()!=input.getMode()) continue;
@@ -200,6 +212,11 @@ public class ParameterCompareSetupValueInputListDialog extends ParameterCompareS
 		return false;
 	}
 
+	/**
+	 * Fügt einen Eingabeparameter basierend auf einer Vorlage zur Liste der Eingabeparameter hinzu
+	 * @param template	Eingabeparameter-Vorlage
+	 * @see #input
+	 */
 	private void addParameterFromTemplate(final ParameterCompareSetupValueInput template) {
 		input.add(template);
 		updateList(Integer.MAX_VALUE);

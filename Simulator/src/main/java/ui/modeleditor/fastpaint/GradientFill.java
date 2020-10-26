@@ -36,6 +36,7 @@ public class GradientFill {
 	private boolean lastPaintDirection;
 	private GradientPaint lastPaint;
 
+	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
 	private final BrighterColor brighter;
 

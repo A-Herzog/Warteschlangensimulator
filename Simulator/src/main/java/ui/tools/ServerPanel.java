@@ -73,42 +73,76 @@ public final class ServerPanel extends SpecialPanel {
 	 */
 	private static final long serialVersionUID = 6115906891815733405L;
 
+	/** Objekt für den Simulationsserver */
 	private final SimulationServerGUIConnect serverCalc;
+	/** Objekt für den Webserver */
 	private final CalcWebServer serverCalcWeb;
+	/** Objekt für den Fernsteuerungsserver */
 	private final SimulatorWebServer serverWeb;
+	/** Objekt für den DDE-Server */
 	private final SimulationDDEServer serverDDE;
 
+	/** Schaltfläche Simulationsserver starten/stoppen */
 	private final JButton startStopCalcButton;
+	/** Schaltfläche Webserver starten/stoppen */
 	private final JButton startStopCalcWebButton;
+	/** Schaltfläche Fernsteuerungsserver starten/stoppen */
 	private final JButton startStopWebButton;
+	/** Schaltfläche DDE-Server starten/stoppen */
 	private final JButton startStopDDEButton;
+	/** "Hilfe"-Schaltfläche */
 	private final JButton helpButton;
 
+	/** Eingabefeld - Rechenserver - Port */
 	private final JSpinner calcPortEditSpinner;
+	/** Eingabefeld - Rechenserver - Port (Modell) */
 	private final SpinnerModel calcPortEdit;
+	/** Eingabefeld - Rechenserver - Passwort */
 	private final JTextField calcPasswordEdit;
+	/** Option - Rechenserver - "Anfragen limitieren" */
 	private final JCheckBox calcLimitThreadsCheckBox;
+	/** Option - Rechenserver - "Autostart" */
 	private final JCheckBox calcAutoStartCheckBox;
 
+	/** Eingabefeld - Webserver - Port */
 	private final JSpinner calcWebPortEditSpinner;
+	/** Eingabefeld - Webserver - Port (Modell) */
 	private final SpinnerModel calcWebPortEdit;
+	/** Option - Webserver - "Autostart" */
 	private final JCheckBox calcWebAutoStartCheckBox;
+	/** Anklickbarer Link zum Öffnen der Webserver-Seite im Browser */
 	private final JLabel calcWebOpenBrowserButton;
 
+	/** Eingabefeld - Fernsteuerungs-Server - Port */
 	private final JSpinner webPortEditSpinner;
+	/** Eingabefeld - Fernsteuerungs-Server - Port (Modell) */
 	private final SpinnerModel webPortEdit;
+	/** Option - Fernsteuerungs-Server - "Autostart" */
 	private final JCheckBox webAutoStartCheckBox;
+	/** Anklickbarer Link zum Öffnen der Fernsteuerungs-Server-Seite im Browser */
 	private final JLabel webOpenBrowserButton;
 
+	/** Option - DDE-Server - "Autostart" */
 	private final JCheckBox ddeAutoStartCheckBox;
 
+	/** Ausgabebereich für Meldungen des Rechenservers */
 	private final JTextArea calcOutput;
 
+	/** Statuszeilen-Infofeld für den Rechenserver */
 	private final JLabel calcStatusBar;
+	/** Statuszeilen-Infofeld für den Webserver */
 	private final JLabel calcWebStatusBar;
+	/** Statuszeilen-Infofeld für den Fernsteuerungs-Server */
 	private final JLabel webStatusBar;
+	/** Statuszeilen-Infofeld für den DDE-Server */
 	private final JLabel ddeStatusBar;
 
+	/**
+	 * Notify-Objekt das von {@link ReloadManager} benachrichtigt
+	 * wird, wenn in einem anderen Fenster ein Serverdienst
+	 * gestartet oder beendet wurde.
+	 * @see ReloadManager
+	 */
 	private final NotifyRunner notifyRunner;
 
 	/**
@@ -286,6 +320,12 @@ public final class ServerPanel extends SpecialPanel {
 		setupButtons();
 	}
 
+	/**
+	 * Liefert einen Beschreibungstext, ob ein Serverdienst läuft oder nicht
+	 * @param running	Läuft der Dienst?
+	 * @param name	Name des Dienstes
+	 * @return	Beschreibungstext
+	 */
 	private String getServerStatus(final boolean running, final String name) {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("<html><body>");
@@ -304,10 +344,17 @@ public final class ServerPanel extends SpecialPanel {
 		return sb.toString();
 	}
 
+	/**
+	 * Schaltflächen gemäß gestarteten/gestoppten Servern aktualisieren
+	 */
 	private void setupButtons() {
 		setupButtons(true);
 	}
 
+	/**
+	 * Schaltflächen gemäß gestarteten/gestoppten Servern aktualisieren
+	 * @param triggerNotifiy	Andere Fenster benachrichtigen?
+	 */
 	private void setupButtons(final boolean triggerNotifiy) {
 		URL imgURL;
 
@@ -388,6 +435,11 @@ public final class ServerPanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Prüft, ob der angegebene Port für den Rechenserver gültig ist.
+	 * @param showErrorMessage	Soll im Fehlerfall eine Fehlermeldung ausgegeben werden?
+	 * @return	Ist der angegebene Port gültig?
+	 */
 	private int checkCalcPort(final boolean showErrorMessage) {
 		final Integer I=(Integer)calcPortEdit.getValue();
 		if (I==null) {
@@ -407,6 +459,9 @@ public final class ServerPanel extends SpecialPanel {
 		return port;
 	}
 
+	/**
+	 * Befehl: Rechenserver starten/stoppen
+	 */
 	private void commandStartStopCalc() {
 		if (serverCalc.isServerRunning()) {
 			serverCalc.stopServer();
@@ -417,6 +472,11 @@ public final class ServerPanel extends SpecialPanel {
 		setupButtons();
 	}
 
+	/**
+	 * Prüft, ob der angegebene Port für den Webserver gültig ist.
+	 * @param showErrorMessage	Soll im Fehlerfall eine Fehlermeldung ausgegeben werden?
+	 * @return	Ist der angegebene Port gültig?
+	 */
 	private int checkCalcWebPort(final boolean showErrorMessage) {
 		final Integer I=(Integer)calcWebPortEdit.getValue();
 		if (I==null) {
@@ -436,6 +496,9 @@ public final class ServerPanel extends SpecialPanel {
 		return port;
 	}
 
+	/**
+	 * Befehl: Webserver starten/stoppen
+	 */
 	private void commandStartStopCalcWeb() {
 		if (serverCalcWeb.isRunning()) {
 			serverCalcWeb.stop();
@@ -451,6 +514,11 @@ public final class ServerPanel extends SpecialPanel {
 		setupButtons();
 	}
 
+	/**
+	 * Prüft, ob der angegebene Port für den Fernsteuerungs-Server gültig ist.
+	 * @param showErrorMessage	Soll im Fehlerfall eine Fehlermeldung ausgegeben werden?
+	 * @return	Ist der angegebene Port gültig?
+	 */
 	private int checkWebPort(final boolean showErrorMessage) {
 		final Integer I=(Integer)webPortEdit.getValue();
 		if (I==null) {
@@ -470,6 +538,9 @@ public final class ServerPanel extends SpecialPanel {
 		return port;
 	}
 
+	/**
+	 * Befehl: Fernsteuerungsserver starten/stoppen
+	 */
 	private void commandStartStopWeb() {
 		if (serverWeb.isRunning()) {
 			serverWeb.stop();
@@ -487,6 +558,9 @@ public final class ServerPanel extends SpecialPanel {
 		setupButtons();
 	}
 
+	/**
+	 * Befehl: DDE-Server starten/stoppen
+	 */
 	private void commandStartStopDDE() {
 		if (serverDDE.isRunning()) {
 			serverDDE.stop();
@@ -498,10 +572,17 @@ public final class ServerPanel extends SpecialPanel {
 		setupButtons();
 	}
 
+	/**
+	 * Befehl: Hilfe
+	 */
 	private void commandHelp() {
 		Help.topicModal(ServerPanel.this,"SimulationServer");
 	}
 
+	/**
+	 * Befehl: Lokale URL mit bestimmtem Port aufrufen im Webbrowser aufrufen
+	 * @param port	Port
+	 */
 	private void commandOpenBrowser(int port) {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("http://localhost");
@@ -593,7 +674,13 @@ public final class ServerPanel extends SpecialPanel {
 		SimulationDDEServer.updatePanel(mainPanel);
 	}
 
+	/**
+	 * Benachrichtigt dieses Panel, dass von einem anderen Fenster
+	 * aus ein Serverdienst gestartet oder beendet wurde.
+	 * @see ReloadManager
+	 */
 	private class NotifyRunner implements Runnable {
+		/** ID dieser Benachrichtigung */
 		public static final String id="server";
 		@Override
 		public void run() {

@@ -79,6 +79,11 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 	 */
 	private String lastText;
 
+	/**
+	 * Zuvor generiertes Popupmenü<br>
+	 * (Wird beim Öffnen eines neuen Popupmenüs geschlossen.)
+	 * @see #closePopup()
+	 */
 	private JPopupMenu lastMenu;
 
 	/**
@@ -132,6 +137,11 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		});
 	}
 
+	/**
+	 * Liefert die Treffer zu einem Suchbegriff
+	 * @param text	Suchbegriff
+	 * @return	Liste der Treffer (kann auch <code>null</code> sein)
+	 */
 	private List<JQuickAccessRecord> getPopupRecords(String text) {
 		if (text==null) return null;
 		text=text.trim();
@@ -162,6 +172,12 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		return data;
 	}
 
+	/**
+	 * Generiert auf Basis der Suchtreffer ein Popupmenü.
+	 * @param data	Liste der Suchtreffer
+	 * @return	Neues Popupmenü
+	 * @see PopupMode#PANEL
+	 */
 	private JPopupMenu getPopupWithPanel(final List<JQuickAccessRecord> data) {
 		/* Panel mit den Einträgen */
 		final JList<JQuickAccessRecord> list=new JList<>(data.toArray(new JQuickAccessRecord[0]));
@@ -206,6 +222,12 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		return menu;
 	}
 
+	/**
+	 * Generiert auf Basis der Suchtreffer ein Popupmenü.
+	 * @param data	Liste der Suchtreffer
+	 * @return	Neues Popupmenü
+	 * @see PopupMode#DIRECT
+	 */
 	private JPopupMenu getPopupDirect(final List<JQuickAccessRecord> data) {
 		final JPopupMenu menu=new JPopupMenu();
 
@@ -227,14 +249,28 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		return menu;
 	}
 
+	/**
+	 * Zuletzt gestartetes Verarbeitungsobjekt<br>
+	 * (Wird abgebrochen, wenn während es noch arbeitet eine neue Eingabe erfolgt.)
+	 * @see #process()
+	 */
 	private QuickAccessRunner lastRunner;
 
+	/**
+	 * Schließt das aktuelle Popupmenü.
+	 * @see #lastMenu
+	 */
 	private void closePopup() {
 		if (lastMenu==null) return;
 		lastMenu.setVisible(false);
 		lastMenu=null;
 	}
 
+	/**
+	 * Reagiert auf einen Tastendruck in der Eingabezeile.
+	 * @param e	Tastendruck-Ereignis
+	 * @return	Wurde das Ereignis verarbeitet?
+	 */
 	private boolean processKey(final KeyEvent e) {
 		if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
 			closePopup();
@@ -254,6 +290,9 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		return false;
 	}
 
+	/**
+	 * Stößt die Verarbeitung des eingegebenen Textes an.
+	 */
 	private void process() {
 		if (lastText!=null && getText().equals(lastText) && lastMenu!=null && lastMenu.isVisible()) return;
 		lastText=getText();
@@ -273,6 +312,11 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		executor.execute(lastRunner);
 	}
 
+	/**
+	 * Reagiert auf einen Enter-Tastendruck in der Eingabezeile oder im Menü.
+	 * @see #process()
+	 * @see QuickAccessRunner#run()
+	 */
 	private void processEnter() {
 		final MenuElement[] path=MenuSelectionManager.defaultManager().getSelectedPath();
 		if (path!=null && path.length>0 && path[path.length-1] instanceof JMenuItem) {
@@ -285,6 +329,11 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 		}
 	}
 
+	/**
+	 * Löst die Klick-Aktionen für einen Menüpunkt aus
+	 * @param item	Menüpunkt dessen {@link ActionListener} ausgelöst werden sollen
+	 * @see #processEnter()
+	 */
 	private void processMenuItemAction(final JMenuItem item) {
 		if (item==null) return;
 		final ActionEvent event=new ActionEvent(lastMenu,1,"click");

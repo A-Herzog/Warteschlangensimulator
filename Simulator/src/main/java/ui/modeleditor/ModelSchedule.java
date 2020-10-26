@@ -53,12 +53,39 @@ public final class ModelSchedule implements Cloneable {
 		REPEAT_MODE_ZERO
 	}
 
+	/**
+	 * Name des Zeitplans
+	 * @see #getName()
+	 * @see #setName(String)
+	 */
 	private String name;
 
+	/**
+	 * Anzahl an Sekunden, die ein Zeitslot dauern soll
+	 * @see #getDurationPerSlot()
+	 * @see #setDurationPerSlot(int)
+	 */
 	private int durationPerSlot;
+
+	/**
+	 * Maximaler y-Achsen-Wert im Editor
+	 * @see #getEditorMaxY()
+	 * @see #setEditorMaxY(int)
+	 */
 	private int editorMaxY;
+
+	/**
+	 * Art der Fortsetzung des Plans
+	 * @see #getRepeatMode()
+	 * @see #setRepeatMode(RepeatMode)
+	 */
 	private RepeatMode repeatMode;
 
+	/**
+	 * Werte pro Zeitslot
+	 * @see #getSlots()
+	 * @see #setSlots(List)
+	 */
 	private int[] slots;
 
 	/**

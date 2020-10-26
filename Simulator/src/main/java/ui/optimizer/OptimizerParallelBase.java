@@ -49,10 +49,41 @@ import simulator.statistics.Statistics;
  * @see OptimizerParallelKernelBase
  */
 public abstract class OptimizerParallelBase extends OptimizerBase {
+	/**
+	 * Zu verwendender Optimierer-Kernel
+	 * @see #getOptimizerKernel()
+	 */
 	private OptimizerParallelKernelBase kernel;
+
+	/**
+	 * Simulatoren für die parallel auszuführenden
+	 * Optimierungsschritten
+	 * @see #runModelsParallel(EditModel[])
+	 * @see #runModelsSerial(EditModel[])
+	 */
 	private volatile Object[] simulator;
+
+	/**
+	 * Welche Simulation läuft gerade?
+	 * @see #runModelsSerial(EditModel[])
+	 */
 	private volatile AtomicInteger runningSimulatorNr=new AtomicInteger();
+
+	/**
+	 * Timer, der prüft, welche Simulationen laufen und ggf.
+	 * weitere Simulationen startet.
+	 * @see #runModelsParallel(EditModel[])
+	 * @see #runModelsSerial(EditModel[])
+	 * @see #cancel()
+	 */
 	private volatile Timer timer;
+
+	/**
+	 * Speichert Einstellungen (und Ergebnisse) zu bereits durchgeführten
+	 * Optimierungsschritten, um so zu verhindern, dass Simulationen mit
+	 * bereits verwendeten Einstellungen erneut durchgeführt werden.
+	 * @see #getCachedResult(double[])
+	 */
 	private List<OptimizationResult> resultsCache;
 
 	@Override
@@ -87,6 +118,15 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		initNextRun(null,null);
 	}
 
+	/**
+	 * Legt Simulator-Starter Objekte in {@link #simulator} für die
+	 * Modelle an.
+	 * @param model	Modelle deren Start vorbereitet werden soll
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #simulator
+	 * @see #runModelsParallel(EditModel[])
+	 * @see #runModelsSerial(EditModel[])
+	 */
 	private boolean prepareModels(final EditModel[] model) {
 		simulator=new Object[model.length];
 		for (int i=0;i<model.length;i++) {
@@ -104,6 +144,13 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		}
 		return true;
 	}
+
+	/**
+	 * Simuliert eine Reihe von Modellen.<br>
+	 * Da die Simulation der Modelle nicht inherent parallelisiert werden kann, werden stets mehrere Simulation gleichzeitig durchgeführt.
+	 * @param model	Zu simulierende Modelle
+	 * @see #runModels(EditModel[])
+	 */
 
 	private synchronized void runModelsParallel(final EditModel[] model) {
 		if (!prepareModels(model)) return;
@@ -162,6 +209,12 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		},100,100);
 	}
 
+	/**
+	 * Simuliert eine Reihe von Modellen.<br>
+	 * Da die Simulation der Modelle inherent parallelisiert werden kann, wird immer nur eine Simulation gleichzeitig durchgeführt.
+	 * @param model	Zu simulierende Modelle
+	 * @see #runModels(EditModel[])
+	 */
 	private synchronized void runModelsSerial(final EditModel[] model) {
 		if (!prepareModels(model)) return;
 
@@ -227,6 +280,10 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		},100,100);
 	}
 
+	/**
+	 * Simuliert eine Reihe von Modellen.
+	 * @param model	Zu simulierende Modelle
+	 */
 	private synchronized void runModels(final EditModel[] model) {
 		for (int i=0;i<model.length;i++) {
 			if (model[i]==null) continue;
@@ -239,6 +296,12 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		}
 	}
 
+	/**
+	 * Schließt die Simulationen in einer Optimierungssrunde ab
+	 * @param statistics	Simulationsergebnisse in der aktuellen Runde
+	 * @see #runModelsParallel(EditModel[])
+	 * @see #runModelsSerial(EditModel[])
+	 */
 	private synchronized void runDone(final Statistics[] statistics) {
 		final double[] values=new double[statistics.length];
 		final boolean[] emergencyShutDown=new boolean[statistics.length];
@@ -321,6 +384,13 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		initNextRun(values,emergencyShutDown);
 	}
 
+	/**
+	 * Bereitet die Simulationen der nächsten Modelle vor und startet diese ggf.
+	 * @param lastResults	Letzte Ergebniswerte
+	 * @param simulationWasEmergencyStopped	Wurden einzelne Simulationen im letzten Schritt abgebrochen?
+	 * @see #runModels(EditModel[])
+	 * @see #done(boolean)
+	 */
 	private void initNextRun(final double[] lastResults, final boolean[] simulationWasEmergencyStopped) {
 		final EditModel[] currentModels=kernel.setupNextStep(lastResults,simulationWasEmergencyStopped);
 		for (String line: kernel.getMessages()) logOutput(line);
@@ -361,22 +431,49 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		done(false);
 	}
 
+	/**
+	 * Liefert zu einem Kontrollvariablen-Setup die zugehörigen Ergebnisse
+	 * (oder <code>null</code>, wenn das konkrete Kontrollvariablen-Setup
+	 * noch nicht simuliert wurde).
+	 * @param control	Kontrollvariablen-Setup
+	 * @return	Ergebnisse für das Kontrollvariablen-Setup soll <code>null</code>
+	 * @see #resultsCache
+	 */
 	private OptimizationResult getCachedResult(final double[] control) {
 		for (OptimizationResult result: resultsCache) if (result.match(control)) return result;
 		return null;
 	}
 
+	/**
+	 * Ergebnisse eines Optimierungsschritts
+	 * @see OptimizerParallelBase#resultsCache
+	 * @see OptimizerParallelBase#getCachedResult(double[])
+	 */
 	private class OptimizationResult {
+		/** Kontrollvariablen-Setup */
 		private final double[] control;
+		/** Ergebnis der Simulation */
 		private final double result;
+		/** Handelt es sich um einen gültigen Ergebniswert? */
 		private final boolean valueOk;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param control	Kontrollvariablen-Setup
+		 * @param result	Ergebnis der Simulation
+		 * @param valueOk	Handelt es sich um einen gültigen Ergebniswert?
+		 */
 		public OptimizationResult(final double[] control, final double result, final boolean valueOk) {
 			this.control=Arrays.copyOf(control,control.length);
 			this.result=result;
 			this.valueOk=valueOk;
 		}
 
+		/**
+		 * Gilt der aktuelle Ergebnisdatensatz für ein bestimmtes Kontrollvariablen-Setup?
+		 * @param control	Kontrollvariablen-Setup das mit dem in diesem Objekt hinterlegten Kontrollvariablen-Setup verglichen werden soll
+		 * @return	Liefert <code>true</code>, wenn das Kontrollvariablen-Setup in diesem Objekt mit dem übergebenen Kontrollvariablen-Setup übereinstimmt
+		 */
 		public boolean match(final double[] control) {
 			for (int i=0;i<control.length;i++) if (this.control[i]!=control[i]) return false;
 			return true;

@@ -146,6 +146,7 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 		return data;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
 	private String[] getOutputTableLine(final SimulationData simData, final RunDataClient client) {

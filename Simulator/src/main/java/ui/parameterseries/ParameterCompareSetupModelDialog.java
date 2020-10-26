@@ -36,7 +36,7 @@ import tools.JTableExt;
 import ui.modeleditor.ModelElementBaseDialog;
 
 /**
- * Dialog zum Bearbeiten von eines Modells innerhalb
+ * Dialog zum Bearbeiten eines Modells innerhalb
  * der Parameter-Vergleichs-Funktion
  * @author Alexander Herzog
  */

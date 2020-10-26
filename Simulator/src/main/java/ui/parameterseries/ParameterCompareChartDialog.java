@@ -49,11 +49,17 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -2783273631806165939L;
 
+	/** Inhaltspanel */
 	private final JPanel content;
+	/** Auswahlfeld für die anzuzeigende Größe */
 	private final JComboBox<String> select;
+	/** Anzuzeigende Datenreihen */
 	private final Map<String,double[]> data;
+	/** Diagramme die die Datenreihen anzeigen */
 	private final Map<String,LineChart> lineCharts;
+	/** Aktuelles Diagramm */
 	private LineChart lineChart;
+	/** Container für die Diagramm {@link #lineChart} */
 	private Container lineChartContainer;
 
 	/**
@@ -99,12 +105,23 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert oder generiert ein Diagramm zu einem bestimmten Ausgabewert
+	 * @param heading	Überschrift des Diagramms
+	 * @return	Entsprechendes Diagramm
+	 * @see #setChart(String)
+	 */
 	private LineChart getLineChart(final String heading) {
 		LineChart chart=lineCharts.get(heading);
 		if (chart==null) lineCharts.put(heading,chart=new LineChart(heading,data.get(heading)));
 		return chart;
 	}
 
+	/**
+	 * Stellt das aktuell anzuzeigende Diagramm ein
+	 * @param heading	Überschrift des neuen Diagramms
+	 * @see #getLineChart(String)
+	 */
 	private void setChart(final String heading) {
 		if (lineChartContainer!=null) content.remove(lineChartContainer);
 		lineChart=getLineChart(heading);
@@ -126,10 +143,21 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Liniendiagramm
+	 * @see ParameterCompareChartDialog#getLineChart(String)
+	 */
 	private class LineChart extends StatisticViewerLineChart {
+		/** Überschrift */
 		private final String heading;
+		/** Datenreihe */
 		private final double[] data;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param heading	Überschrift
+		 * @param data	Datenreihe
+		 */
 		public LineChart(final String heading, final double[] data) {
 			this.heading=heading;
 			this.data=data;

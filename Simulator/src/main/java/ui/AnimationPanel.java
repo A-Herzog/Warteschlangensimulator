@@ -143,20 +143,31 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private final String infoNoSum;
 	private final String infoSum;
 
+	/** Gibt an, ob die Animation direkt nach der Initialisierung starten soll oder ob sich das System anfänglich im Pausemodus befinden soll */
 	private boolean startPaused;
+	/** Ist <code>true</code>, wenn die Warm-up-Phase bei der Animation zunächst als Simulation vorab ausgeführt werden soll */
 	private boolean fastWarmUp;
+	/** Besitzt das Modell Analogwert-Elemente? */
 	private boolean hasAnalogElements;
+	/** Besitzt das Modell Fließbänder? */
 	private boolean hasConveyorElements;
+	/** Editor-Modell */
 	private transient EditModel model;
+	/** Zeichenfläche */
 	private ModelSurfacePanel surfacePanel;
 	private transient ModelSurfaceAnimator surfaceAnimator;
 	private Semaphore simulatorLock=new Semaphore(1);
+	/** Simulator für das Modell */
 	private transient Simulator simulator;
 	private transient CallbackLoggerWithJS parentLogger;
+	/** Logger, über den die Einzelschritt ausgaben angezeigt werden */
 	private transient CallbackLoggerWithJS logger;
 	private boolean running;
+	/** Runnable, das aufgerufen wird, wenn die Simulation beendet wurde */
 	private Runnable animationDone;
+	/** Runnable, das aufgerufen wird, wenn die Simulation ohne Animation zu Ende geführt werden soll */
 	private Runnable sendToSimulation;
+	/** System zur Erzeugung einer MJPEG-Videodatei aus einzelnen Animationsbildern */
 	private transient VideoSystem encoder;
 
 	private transient Timer timer;
@@ -171,30 +182,64 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private int delay;
 	private boolean speedChanged;
 
+	/** Listener für Klicks auf die verschiedenen Symbolleisten-Schaltflächen */
 	private final transient ToolBarListener toolbarListener;
-	private JLabel labelZoom;
-	private final JButton buttonAbort;
-	private final JButton buttonScreenshot;
-	private final JButton buttonSimulation;
-	private final JButton buttonTools;
-	private final JButton buttonPlayPause;
-	private final JButton buttonStep;
-	private final JButton buttonSpeed;
-	private final JButton buttonProperties;
-	private final JLabel statusBar;
-	private final JProgressBar progressBar;
-	private final JButton buttonZoomOut;
-	private final JButton buttonZoomIn;
-	private final JButton buttonZoomDefault;
-	private final JButton buttonFindModel;
 
+	/* Symbolleiste oben */
+
+	/** Schaltfläche "Beenden" */
+	private final JButton buttonAbort;
+	/** Schaltfläche "Bild speichern" */
+	private final JButton buttonScreenshot;
+	/** Schaltfläche "Simulation" (Animation als Simulation zu Ende führen) */
+	private final JButton buttonSimulation;
+	/** Schaltfläche "Einstellungen" (zum Auslösen eines Popupmenüs) */
+	private final JButton buttonTools;
+	/** Schaltfläche "Start"/"Pause" */
+	private final JButton buttonPlayPause;
+	/** Schaltfläche "Einzelschritt" */
+	private final JButton buttonStep;
+	/** Schaltfläche "Geschwindigkeit" (zum Auslösen eines Popupmenüs) */
+	private final JButton buttonSpeed;
+
+	/** Popupmenüpunkt "Animationsstart" - "Animation sofort starten" */
 	private JMenuItem menuStartModeRun;
+	/** Popupmenüpunkt "Animationsstart" - "Im Pause-Modus starten" */
 	private JMenuItem menuStartModePause;
+	/** Popupmenüpunkt "Analoge Werte in Animation" - "Schnelle Animation" */
 	private JMenuItem menuAnalogValuesFast;
+	/** Popupmenüpunkt "Analoge Werte in Animation" - "Änderungen exakt anzeigen (langsam)" */
 	private JMenuItem menuAnalogValuesExact;
+	/** Popupmenüpunkt "Verzeichnis zum Speichern von Bildern" - "Im Nutzerverzeichnis" */
 	private JMenuItem menuScreenshotModeHome;
+	/** Popupmenüpunkt "Verzeichnis zum Speichern von Bildern" - "Im ausgewählten Verzeichnis" */
 	private JMenuItem menuScreenshotModeCustom;
+	/** Popupmenüpunkt "Logging-Daten im Einzelschrittmodus anzeigen" */
 	private JCheckBoxMenuItem menuShowLog;
+
+	/* Vertikale Symbolleiste */
+
+	/** Schaltfläche "Modell" */
+	private final JButton buttonProperties;
+
+	/* Statusleiste */
+
+	/** Statusinformationen */
+	private final JLabel statusBar;
+	/** Fortschritt der Animation */
+	private final JProgressBar progressBar;
+	/** Aktueller Zoomfaktor */
+	private JLabel labelZoom;
+	/** Schaltfläche für Zoomfaktor verringern */
+	private JButton buttonZoomOut;
+	/** Schaltfläche für Zoomfaktor vergrößern */
+	private JButton buttonZoomIn;
+	/** Schaltfläche für Standard-Zoomfaktor */
+	private JButton buttonZoomDefault;
+	/** Schaltfläche "Modell zentrieren" */
+	private JButton buttonFindModel;
+
+	/* Logging-Bereich unten */
 
 	private final JPanel logArea;
 	private final JLabel logLabel;
@@ -453,7 +498,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * Stellt das zu simulierende Modell ein. Der Simulator wird durch diese Methode gestartet, darf
 	 * also nicht bereits vorher gestartet worden sein. Vor der Erstellung des Simulator-Objekts muss
 	 * außerdem zunächst die <code>makeAnimationModel</code>-Methode auf das Editor-Modell angewandt werden.
-	 * @param model	Editor-Modell (für die Animation des Simulationsverlaufs in einem <code>ModelSurfacePanel</code>-Objekt)
+	 * @param model	Editor-Modell (für die Animation des Simulationsverlaufs in einem {@link ModelSurfacePanel}-Objekt)
 	 * @param simulator	Simulator für das Modell (darf noch nicht gestartet worden sein)
 	 * @param logger	Logger, über den die Einzelschritt ausgaben angezeigt werden
 	 * @param recordFile	Videodatei, in der die Animation aufgezeichnet werden soll
@@ -564,6 +609,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return simulator;
 	}
 
+	/**
+	 * Besitzt das Modell Analogwert-Elemente?
+	 * @param model	Modell
+	 * @return	Liefert <code>true</code>, wenn das Modell Analogwert-Elemente besitzt
+	 * @see #hasAnalogElements
+	 */
 	private boolean hasAnalogElements(final EditModel model) {
 		for (ModelElement element: model.surface.getElements()) {
 			if (element instanceof ModelElementAnalogValue) return true;
@@ -576,6 +627,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return false;
 	}
 
+	/**
+	 * Besitzt das Modell Fließbänder?
+	 * @param model	Modell
+	 * @return	Liefert <code>true</code>, wenn das Modell Fließbänder besitzt
+	 * @see #hasConveyorElements
+	 */
 	private boolean hasConveyorElements(final EditModel model) {
 		for (ModelElement element: model.surface.getElements()) {
 			if (element instanceof ModelElementConveyor) return true;
@@ -586,6 +643,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return false;
 	}
 
+	/**
+	 * Gibt es im Modell Elemente, die auf Animationsdaten reagieren (z.B. um die Darstellung zu aktualisieren)?
+	 * @param model	Modell
+	 * @return	Liefert <code>true</code>, wenn das Modell Elemente besitzt, die auf Animationsdaten reagieren
+	 * @see ElementWithAnimationDisplay
+	 */
 	private boolean hasAnimationListener(final EditModel model) {
 		for (ModelElement element: model.surface.getElements()) {
 			if (element instanceof ElementWithAnimationDisplay) return true;
@@ -898,6 +961,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 	}
 
+	/**
+	 * Aktualisiert die Zoomfaktoranzeige, wenn sich der Zoomfaktor geändert hat.
+	 * @see #labelZoom
+	 */
 	private void zoomChanged() {
 		labelZoom.setText(FastMath.round(100*surfacePanel.getZoom())+"% ");
 	}
@@ -910,8 +977,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return surfacePanel.getZoom();
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zur Auswahl des Zoomfaktors an.
+	 * @param parent	Übergeordnetes Element zur Ausrichtung des Popupmenüs.
+	 * @see #labelZoom
+	 */
 	private void showZoomContextMenu(final Component parent) {
-
 		final JPopupMenu popup=new JPopupMenu();
 
 		final int value=Math.max(1,Math.min(20,(int)Math.round(surfacePanel.getZoom()*5)));
@@ -1439,6 +1510,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return surfaceAnimator.runJava(script);
 	}
 
+	/**
+	 * Listener für Klicks auf die verschiedenen Symbolleisten-Schaltflächen
+	 * @see AnimationPanel#toolbarListener
+	 */
 	private class ToolBarListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

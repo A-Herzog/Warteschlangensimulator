@@ -46,29 +46,91 @@ import xml.XMLTools;
  * @author Alexander Herzog
  */
 public class UpdateSystem {
+	/** Datei zur Speicherung angefangener Downloads bzw. zur Speicherung der Dateianteile während des Downloads */
 	private static final File updateInstallerPart=new File(System.getProperty("java.io.tmpdir"),"SimulatorSetup.exe.part");
+	/** Finaler Dateiname der Update-Datei */
 	private static final File updateInstaller=new File(System.getProperty("java.io.tmpdir"),"SimulatorSetup.exe");
+	/** Dateiname der Update-Datei, wenn diese gerade ausgeführt werden soll. (Wird beim Start eine entsprechende Datei gefunden, so nimmt der Simulator an, dass das Update ausgeführt wurde und löscht diese.) */
 	private static final File updateInstallerRun=new File(System.getProperty("java.io.tmpdir"),"SimulatorSetupWork.exe");
 
+	/**
+	 * Singleton-Instanz dieser Klasse
+	 * @see #getUpdateSystem()
+	 */
 	private static UpdateSystem updateSystem;
+
+	/**
+	 * Stellt sicher, dass nicht gleichzeitig mehrere
+	 * {@link #getUpdateSystem()}-Aufrufe erfolgen und
+	 * so mehrere Singleton-Instanzen generiert werden.
+	 * @see #getUpdateSystem()
+	 */
 	private static final Lock mutex=new ReentrantLock();
 
+	/**
+	 * Status der Update-Prüfung bzw. des Update-Downloads
+	 * @see UpdateSystem#updateDownloadStatus
+	 */
 	private enum UpdateStatus {
+		/** Noch keine Verarbeitungen durchgeführt */
 		STATUS_NOTHING,
+		/** Update wird heruntergeladen */
 		STATUS_LOADING,
+		/** Es wird nach neuen Versionen gesucht */
 		STATUS_CHECKING,
+		/** Der Download der neuen Version ist fehlgeschlagen */
 		STATUS_FAILED,
+		/** Der Download der neuen version wurde erfolgreich abgeschlossen */
 		STATUS_SUCCESS,
+		/** Es steht eine neue Version zur Verfügung. Diese muss jedoch manuell geladen werden. */
 		STATUS_SUCCESS_MANUAL
 	}
 
+	/**
+	 * Ist ein automatisches Updates für diese Installation möglich?
+	 * @see #isAutomaticUpdatePossible()
+	 */
 	private boolean automaticUpdatePossible;
+
+	/**
+	 * Gibt an, ob die Update-Prüfung fehlgeschlagen ist.
+	 * @see #checkUpdateAvailable(boolean)
+	 */
 	private boolean checkFailed;
+
+	/**
+	 * Gibt an, ob die Update-Prüfung durchgeführt werden konnte.
+	 * @see #checkUpdateAvailable(boolean)
+	 */
 	private boolean checkDone;
+
+	/**
+	 * Versionskennung der neuen Version auf dem Server
+	 * @see #getNewVersion()
+	 */
 	private String newVersionAvailable;
+
+	/**
+	 * Handelt es sich um den ersten Programmstart heute?
+	 * @see #checkLastStart()
+	 */
 	private boolean firstStartToday;
+
+	/** Status der Update-Prüfung bzw. des Update-Downloads */
 	private volatile UpdateStatus updateDownloadStatus=UpdateStatus.STATUS_NOTHING;
+
+	/**
+	 * Gesamtgröße der Download-Datei zur Berechnung von {@link #updateDownloadStatusPercent}
+	 * in {@link #downloadFile(InputStream, File)}
+	 * @see #downloadFile(InputStream, File)
+	 */
 	private volatile int updateDownloadStatusFullSize=0;
+
+	/**
+	 * Download-Fortschritt für den Setup-Dialog
+	 * @see #getInfoString()
+	 * @see #downloadFile(InputStream, File)
+	 */
 	private volatile int updateDownloadStatusPercent=0;
 
 	/**
@@ -86,9 +148,10 @@ public class UpdateSystem {
 	}
 
 	/**
-	 * Konstruktor der Klasse <code>UpdateSystem</code><br>
-	 * Da es sich um ein Singleton handelt, kann der Konstruktor nicht direkt aufgerufen werden,
-	 * sondern muss die Instanz über <code>getUpdateSystem()</code> abgerufen werden.
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht direkt instanziert werden, sondern es kann
+	 * nur über {@link #getUpdateSystem()} das Singleton-Objekt dieser
+	 * Klasse angefordert werden.
 	 * @see #getUpdateSystem()
 	 */
 	private UpdateSystem() {
@@ -103,6 +166,10 @@ public class UpdateSystem {
 		}
 	}
 
+	/**
+	 * Führt Aufräumarbeiten vor einer Update-Suche aus.
+	 * @return	Liefert <code>true</code>, wenn sich das System in einem Zustand befindet, in dem eine neue Update-Suche möglich ist
+	 */
 	private boolean cleanUpOnCheck() {
 		boolean allOk=true;
 
@@ -119,6 +186,11 @@ public class UpdateSystem {
 		return allOk;
 	}
 
+	/**
+	 * Führt einen Befehl auf der Betriebsystem-Kommandozeile aus
+	 * @param cmd	Auszuführender Befehl
+	 * @return	Liefert <code>true</code>, wenn der Befehl erfolgreich ans System übermittelt werden konnte
+	 */
 	private boolean runCommand(final String cmd) {
 		try {
 			Runtime.getRuntime().exec(cmd);
@@ -126,6 +198,10 @@ public class UpdateSystem {
 		return true;
 	}
 
+	/**
+	 * Führt eine Update-Prüfung aus.
+	 * @return	Liefert <code>true</code>, wenn ein Update vorhanden ist
+	 */
 	private boolean checkUpdateNow() {
 		cleanUpOnCheck();
 
@@ -268,6 +344,11 @@ public class UpdateSystem {
 		}
 	}
 
+	/**
+	 * Lädt eine Textdatei von einer angegebenen Adresse
+	 * @param urlString	Zu ladende URL
+	 * @return	Inhalt der Textdatei oder im Fehlerfall <code>null</code>
+	 */
 	private String downloadTextFile(final String urlString) {
 		URL url;
 		try {
@@ -277,6 +358,13 @@ public class UpdateSystem {
 		return NetHelper.loadText(url,false,true);
 	}
 
+	/**
+	 * Lädt Daten aus einem URL-Input-Stream und speichert diese in einem Datei-Output-Stream
+	 * @param inputStream	URL-Input-Stream
+	 * @param outputFile	Datei-Output-Stream
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #downloadFile(String, File)
+	 */
 	private boolean downloadFile(final InputStream inputStream, final File outputFile) {
 		if (inputStream==null) return false;
 
@@ -300,6 +388,12 @@ public class UpdateSystem {
 		return true;
 	}
 
+	/**
+	 * Lädt Daten von einer URL und speichert diese in einer Datei
+	 * @param urlString	URL von der die Daten geladen werden sollen
+	 * @param outputFile	Ausgabedatei
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean downloadFile(final String urlString, final File outputFile) {
 		try (InputStream inputStream=openServerFile(urlString)) {
 			return downloadFile(inputStream,outputFile);
@@ -308,16 +402,27 @@ public class UpdateSystem {
 		}
 	}
 
+	/**
+	 * Löscht einen angefangenen (und fehlgeschlagenen) Update-Download
+	 * @return	Liefert <code>true</code>, wenn die temporäre Datei entweder gar nicht existierte oder aber erfolgreich gelöscht werden konnte
+	 */
 	private boolean deleteInstallerPart() {
 		if (!updateInstallerPart.exists()) return true;
 		return updateInstallerPart.delete();
 	}
 
+	/**
+	 * Stellt den Status "Download fehlgeschlagen" ein.
+	 * @see UpdateStatus#STATUS_FAILED
+	 */
 	private void setFailedStatus() {
 		updateDownloadStatus=UpdateStatus.STATUS_FAILED;
 		deleteInstallerPart();
 	}
 
+	/**
+	 * Startet einen Update-Download-Prozess.
+	 */
 	private void downloadUpdate() {
 		updateDownloadStatus=UpdateStatus.STATUS_LOADING;
 		new Thread(()->{

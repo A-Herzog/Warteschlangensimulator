@@ -23,6 +23,7 @@ import java.util.List;
  * @author Alexander Herzog
  */
 public class OptimizerCatalog {
+	/** Liste der verfügbaren Optimierer */
 	private final List<OptimizerBase> list;
 
 	/**

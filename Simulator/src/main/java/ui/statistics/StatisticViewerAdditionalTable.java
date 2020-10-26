@@ -36,6 +36,7 @@ import ui.help.Help;
 public class StatisticViewerAdditionalTable extends StatisticViewerTable {
 	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Erfassungsschrittweite in Sekunden */
 	private final long stepWide;
 
 	/**
@@ -47,6 +48,11 @@ public class StatisticViewerAdditionalTable extends StatisticViewerTable {
 		stepWide=statistics.editModel.longRunStatistics.getStepWideSec();
 	}
 
+	/**
+	 * Zeigt im Fußbereich der Hilfeseite eine "Erklärung einblenden"-Schaltfläche, die,
+	 * wenn sie angeklickt wird, eine html-Hilfeseite anzeigt.
+	 * @param topic	Hilfe-Thema (wird als Datei in den "description_*"-Ordern gesucht)
+	 */
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerAdditionalTable.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));

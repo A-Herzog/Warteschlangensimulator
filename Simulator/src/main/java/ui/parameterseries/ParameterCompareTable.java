@@ -42,7 +42,9 @@ public class ParameterCompareTable extends JPanel {
 	 */
 	private static final long serialVersionUID = 3242958130381580291L;
 
+	/** Tabelle zur Anzeige der Modelle */
 	private final JTableExt table;
+	/** Tabellenmodell für {@link #table} */
 	private final ParameterCompareTableModel tableModel;
 
 	/**

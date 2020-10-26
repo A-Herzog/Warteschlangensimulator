@@ -42,6 +42,7 @@ public final class RunDataResource implements Cloneable {
 	private boolean firstRequest;
 	private String name;
 	private String icon;
+	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
 	private AbstractRealDistribution moveDistribution;

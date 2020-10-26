@@ -170,7 +170,7 @@ public final class ComplexLine implements Cloneable {
 		g2.setStroke(cacheStroke);
 	}
 
-	private Line2D.Double cacheLine=new Line2D.Double(0,0,0,0);
+	private final Line2D.Double cacheLine=new Line2D.Double(0,0,0,0);
 
 	private Shape getLine(final Point p1, final Point p2) {
 		cacheLine.x1=p1.x;

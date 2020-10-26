@@ -103,7 +103,9 @@ public class ParameterComparePanel extends SpecialPanel {
 	 */
 	private static final long serialVersionUID = 1080219911724293243L;
 
+	/** Aktuelles Parameterreihen-Setup-Objekt */
 	private final ParameterCompareSetup setup;
+	/** Parameterreihen-Setup-Objekt um Veränderungen zu detektieren */
 	private final ParameterCompareSetup setupOriginal;
 	/** Editor-Modell auf dessen Basis die Parameterreihe erstellt werden soll */
 	private final EditModel modelFromEditor;
@@ -140,8 +142,23 @@ public class ParameterComparePanel extends SpecialPanel {
 
 	/** Verarbeitung der Parameterreihe */
 	private ParameterCompareRunner runner;
+
+	/**
+	 * In den Editor (nach Schließen des Panels) zu ladendes Modell (kann <code>null</code> bleiben)
+	 * @see #getModelForEditor()
+	 */
 	private EditModel loadModelIntoEditor=null;
+
+	/**
+	 * In die Statistikansicht (nach Schließen des Panels) zu ladende Daten (kann <code>null</code> bleiben)
+	 * @see #getStatisticsForEditor()
+	 */
 	private Statistics loadStatisticsIntoEditor=null;
+
+	/**
+	 * Nach dem Schließen des Panels in die Vergleichsansicht zu ladende Daten (kann <code>null</code> bleiben)
+	 * @see #getCompareModels()
+	 */
 	private List<Statistics> compareModels=null;
 
 	/**
@@ -234,6 +251,12 @@ public class ParameterComparePanel extends SpecialPanel {
 		table.updateTable();
 	}
 
+	/**
+	 * Bereitet das Parameterreihen-Setup in {@link #setup}
+	 * für das Landen in die GUI vor.
+	 * @see #loadSetupToGUI(ParameterCompareSetup)
+	 * @see #setup
+	 */
 	private void prepareSetup() {
 		if (setup.getModels().size()==0) {
 			final ParameterCompareSetupModel simModel=new ParameterCompareSetupModel();
@@ -265,6 +288,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Lädt ein Skript aus einer Datei
+	 * @param fileName	Dateiname des Skripts
+	 * @return	Liefert im Erfolgsfall den Inhalt des Skript oder im Fehlerfall <code>null</code>
+	 */
 	private String getScript(final String fileName) {
 		final File file=new File(fileName);
 		if (!file.isFile()) return null;
@@ -276,6 +304,12 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Berechnet dwn Ergebniswert für einen Ausgabeparameter
+	 * @param statistics	Statistikdaten auf deren Basis der Ergebniswert berechnet werden soll
+	 * @param output	Ausgabeparameter
+	 * @return	Wert des Ausgabeparameters
+	 */
 	private Double recalcResult(final Statistics statistics, final ParameterCompareSetupValueOutput output) {
 		String s;
 		String script;
@@ -318,6 +352,10 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Berechnet die Ausgabewerte für die Ausgabeparameter
+	 * @param oldOutput	Bisherige Ausgabeparameter (zum Prüfen, ob und wenn ja was neu berechnet werden muss)
+	 */
 	private void recalcResults(final List<ParameterCompareSetupValueOutput> oldOutput) {
 		final boolean[] needUpdate=new boolean[setup.getOutput().size()];
 		boolean needAnyUpdate=false;
@@ -386,12 +424,21 @@ public class ParameterComparePanel extends SpecialPanel {
 		runner.start();
 	}
 
+	/**
+	 * Gibt eine Meldung über {@link #logOutput} aus.
+	 * @param line	Auszugebende Nachricht
+	 * @see #logOutput
+	 */
 	private void logOutput(final String line) {
 		final String s=logOutput.getText();
 		if (s.isEmpty()) logOutput.setText(line); else logOutput.setText(s+"\n"+line);
 		logOutput.setCaretPosition(logOutput.getDocument().getLength());
 	}
 
+	/**
+	 * Konfiguriert die GUI-Elemente entsprechend für eine laufende oder nicht-laufende Parameterreigensimulation.
+	 * @param run	Läuft die Parameterreihen-Simulation gerade?
+	 */
 	private void setGUIRunMode(final boolean run) {
 		if (run) {
 			startButton.setText(Language.tr("ParameterCompare.Toolbar.Stop"));
@@ -437,6 +484,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		table.updateTable();
 	}
 
+	/**
+	 * Liefert den nächsten verfügbaren Statistikdateinamen in einem Verzeichnis
+	 * @param folder	Verzeichnis in dem die Statistikdatei gespeichert werden soll
+	 * @return	Neuer, noch nicht vergebener Dateiname
+	 */
 	private File getNextStatisticsFile(final File folder) {
 		if (folder==null) return null;
 
@@ -614,12 +666,21 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: Statistikdaten in Statistikansicht im Hauptfenster laden
+	 * @param statistics	Zu ladende Statistikdaten
+	 */
 	private void commandLoadToEditor(final Statistics statistics) {
 		if (!allowDispose()) return;
 		loadStatisticsIntoEditor=statistics;
 		close();
 	}
 
+	/**
+	 * Befehl: Modell in Modell-Editor laden
+	 * @param editModel	Zu ladendes Modell
+	 * @param newWindow	Im aktuellen Fenster (<code>false</code>) oder in einem neuen Fenster (<code>true</code>)
+	 */
 	private void commandLoadToEditor(final EditModel editModel, final boolean newWindow) {
 		if (newWindow) {
 			final MainFrame frame=new MainFrame(null,editModel);
@@ -631,6 +692,9 @@ public class ParameterComparePanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: Basis-Modell aus Editor in Parameterreihen-Panel laden
+	 */
 	private void commandLoadFromEditor() {
 		if (modelFromEditor==null) return;
 
@@ -748,6 +812,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		setup.saveSetup();
 	}
 
+	/**
+	 * Erstellt die Datenreihen für eine Diagrammdarstellung
+	 * @return	Datenreihen für eine Diagrammdarstellung
+	 * @see #commandShowResultsChart(ParameterCompareSetupValueOutput)
+	 */
 	private Map<String,double[]> buildChartData() {
 		final Map<String,double[]> results=new HashMap<>();
 		final Table table=setup.getTableData(false,false).transpose(true);
@@ -897,6 +966,10 @@ public class ParameterComparePanel extends SpecialPanel {
 		close();
 	}
 
+	/**
+	 * Zeigt das Vorlagen-Popupmenü an
+	 * @param parent	Elternelement zur Ausrichtung des Menüs
+	 */
 	private void showTemplatesMenu(final Component parent) {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -920,6 +993,11 @@ public class ParameterComparePanel extends SpecialPanel {
 		popup.show(parent,0,parent.getHeight());
 	}
 
+	/**
+	 * Reagiert auf einen Klick im Vorlagen-Popupmenü
+	 * @param record	Ausgewählte Vorlage
+	 * @see #showTemplatesMenu(Component)
+	 */
 	private void processTemplateMenuClick(final ParameterCompareTemplatesDialog.TemplateRecord record) {
 		final ParameterCompareTemplatesDialog dialog=new ParameterCompareTemplatesDialog(this,setup.getEditModel(),record,()->commandHelp());
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {

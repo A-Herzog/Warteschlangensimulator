@@ -51,9 +51,13 @@ public abstract class OptimizerBase {
 	private Consumer<Boolean> whenDone;
 	/** Callback, welches aufgerufen wird, wenn ein Optimierungsschritt abgeschlossen wurde */
 	private Runnable whenStepDone;
+	/** Ausgabeverzeichnis für die Optimiererergebnisse */
 	private File outputFolder;
+	/** Ergebnisauswertung: Skript ausführen */
 	private String targetScript;
+	/** Ergebnisauswertung: XML-Eintrag auswerten */
 	private String targetXML;
+	/** Liste der Ergebnisse der einzelnen Optimierungs-Teilschritte */
 	private List<OptimizationRunResults> optimizationRunResultsList;
 
 	/**
@@ -216,6 +220,14 @@ public abstract class OptimizerBase {
 		return 0.0;
 	}
 
+	/**
+	 * Wendet {@link #targetXML} auf die Statistikergebnisse an und liefert
+	 * den so ermittelten Zielwert zurück.
+	 * @param doc	Statistikergebnisse
+	 * @return	Zielwert
+	 * @see #targetXML
+	 * @see #checkTarget(Document)
+	 */
 	private Double checkTargetXML(final Document doc) {
 		try (final JSOutputWriter output=new JSOutputWriter(line->logOutput(line))) {
 			final JSCommandXML command=new JSCommandXML(output,doc,false);
@@ -231,6 +243,14 @@ public abstract class OptimizerBase {
 		}
 	}
 
+	/**
+	 * Wendet das Skript {@link #targetScript} auf die Statistikergebnisse an und liefert
+	 * den so ermittelten Zielwert zurück.
+	 * @param doc	Statistikergebnisse
+	 * @return	Zielwert
+	 * @see #targetScript
+	 * @see #checkTarget(Document)
+	 */
 	private Double checkTargetScript(final Document doc) {
 		Double D;
 

@@ -45,7 +45,7 @@ public final class DistributionSystemSetupTimes implements Cloneable {
 
 	/**
 	 * Übernimmt alle Daten von einem anderen <code>DistributionSystemSetupTimes</code>-Objekt.
-	 * @param source	Anderes <code>DistributionSystemSetupTimes</code>-Objhekt, von dem die Daten übernommen werden sollen
+	 * @param source	Anderes <code>DistributionSystemSetupTimes</code>-Objekt, von dem die Daten übernommen werden sollen
 	 */
 	public void setData(final DistributionSystemSetupTimes source) {
 		if (source==null) return;

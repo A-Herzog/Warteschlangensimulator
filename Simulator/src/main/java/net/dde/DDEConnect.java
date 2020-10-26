@@ -45,6 +45,12 @@ public class DDEConnect {
 
 	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
+
+	/**
+	 * Recycled das {@link StringBuilder}-Objekt
+	 * für {@link #getCellName(int, int)}.
+	 * @see #getCellName(int, int)
+	 */
 	private final StringBuilder nameBuilderCache;
 
 	/**

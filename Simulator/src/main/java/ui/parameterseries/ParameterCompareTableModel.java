@@ -206,9 +206,17 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		return button;
 	}
 
+	/** Panels für die letzte Zeile der Tabelle */
 	private JPanel[] lastRow=null;
+	/** Schaltflächen zur Anzeige der Diagramme für die Ausgabeparameter */
 	private List<JButton> lastRowChartButtons=new ArrayList<>();
 
+	/**
+	 * Liefert einen Eintrag aus der letzten Tabellenzeile
+	 * @param columnIndex	Spalte
+	 * @return	Eintrag für die letzte Tabellenzeile
+	 * @see #getValueAt(int, int)
+	 */
 	private Object getValueInLastRow(int columnIndex) {
 		if (columnIndex==getColumnCount()-1) return getValueInLastCol(null,-1);
 
@@ -243,14 +251,34 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		return lastRow[columnIndex]=panel;
 	}
 
+	/**
+	 * Liegen insgesamt (für mindestens ein Modell) Simulationsergebnisse vor?
+	 * @return	Liefert <code>true</code>, wenn Simulationsergebnisse vorhanden sind
+	 */
 	private boolean hasResults() {
 		for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) return true;
 		return false;
 	}
 
+	/**
+	 * Cache für Einträge in {@link #getValueInLastCol(ParameterCompareSetupModel, int)}
+	 * @see #getValueInLastCol(ParameterCompareSetupModel, int)
+	 */
 	private Map<Integer,LastRowPanel> panelCache=new HashMap<>();
+
+	/**
+	 * Zwischengespeicherte Einträge für {@link #getValueInLastCol(ParameterCompareSetupModel, int)}
+	 * @see #getValueInLastCol(ParameterCompareSetupModel, int)
+	 */
 	private int panelCacheRows=-1;
 
+	/**
+	 * Liefert einen Eintrag aus der letzten Tabellenspalte
+	 * @param model	Simulationsmodell für die aktuelle Zeile
+	 * @param rowIndex	Zeile
+	 * @return	Eintrag für die letzte Tabellenspalte
+	 * @see #getValueAt(int, int)
+	 */
 	private LastRowPanel getValueInLastCol(final ParameterCompareSetupModel model, int rowIndex) {
 		if (panelCacheRows!=getRowCount()) {panelCache.clear(); panelCacheRows=getRowCount();}
 		LastRowPanel panel=panelCache.get(rowIndex);
@@ -266,12 +294,29 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		return panel;
 	}
 
+	/**
+	 * Liefert einen Eintrag aus der ersten Tabellenspalte
+	 * @param model	Simulationsmodell für die aktuelle Zeile
+	 * @param rowIndex	Zeile
+	 * @return	Eintrag für die erste Tabellenspalte
+	 * @see #getValueAt(int, int)
+	 */
 	private Object getValueInFirstColumn(final ParameterCompareSetupModel model, int rowIndex) {
 		return getValueInLastCol(model,rowIndex).getFirstColumn();
 	}
 
+	/**
+	 * Icon für {@link #getBusyMarker(int)}
+	 * @see #getBusyMarker(int)
+	 */
 	private ImageIcon busyIcon=null;
 
+	/**
+	 * Liefert ein Label, welches anzeigt, dass die Simulation läuft,
+	 * und gleichzeitig den Fortschrittswert anzeigt.
+	 * @param percent	Fortschrittswert (0..100)
+	 * @return	Label aus animiertem Icon und Fortschrittswert
+	 */
 	private JLabel getBusyMarker(final int percent) {
 		final JLabel label;
 		if (percent>0) {
@@ -291,12 +336,29 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		return label;
 	}
 
+	/**
+	 * Formatiert eine Zahl gemäß der Einstellungen zur Parameterreihe
+	 * @param value	Als Zeichenkette zu formatierende Zahl
+	 * @return	Zahl als Zeichenkette
+	 * @see #digits
+	 * @see #getValueAt(ParameterCompareSetupModel, int, int)
+	 */
 	private String formatNumber(final double value) {
 		if (digits==1) return NumberTools.formatNumber(value,1);
 		if (digits==3) return NumberTools.formatNumber(value,3);
 		return NumberTools.formatNumberMax(value);
 	}
 
+	/**
+	 * Liefert einen Tabellenwert für einen Eintrag,
+	 * der sich nicht in der ersten Spalte oder der
+	 * letzten Zeile befindet.
+	 * @param model	Zugehöriges Parameterreihen-Modell
+	 * @param rowIndex	Zeileindex
+	 * @param columnIndex	Spaltenindex
+	 * @return	Eintrag für die Zelle
+	 * @see #getValueAt(int, int)
+	 */
 	private Object getValueAt(final ParameterCompareSetupModel model, int rowIndex, int columnIndex) {
 		/* Modellname */
 
@@ -352,6 +414,11 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		return getValueAt(setup.getModels().get(rowIndex),rowIndex,columnIndex);
 	}
 
+	/**
+	 * Zeigt den Dialog zum Bearbeiten eines Modells an
+	 * @param simModel	Zu bearbeitendes Modell
+	 * @return	Liefert <code>true</code>, wenn der Bearbeitendialog mit "Ok" geschlossen wurde
+	 */
 	private boolean editModel(final ParameterCompareSetupModel simModel) {
 		final ParameterCompareSetupModelDialog dialog=new ParameterCompareSetupModelDialog(table,simModel,setup.getInput(),help);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return false;
@@ -359,6 +426,9 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		return true;
 	}
 
+	/**
+	 * Befehl: Modell hinzufügen
+	 */
 	private void commandAdd() {
 		final ParameterCompareSetupModel simModel=new ParameterCompareSetupModel();
 		if (!editModel(simModel)) return;
@@ -366,6 +436,13 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		if (update==null) updateTable(); else update.run();
 	}
 
+	/**
+	 * Befehl: Modell bearbeiten
+	 * @param simModel	Zu bearbeitendes Modell
+	 * @param rowIndex	Nummer des Modells in der Tabelle
+	 * @return	Liefert <code>true</code>, wenn der Bearbeitendialog mit "Ok" geschlossen wurde
+	 * @see #editModel(ParameterCompareSetupModel)
+	 */
 	private boolean commandEdit(final ParameterCompareSetupModel simModel, final int rowIndex) {
 		if (!editModel(simModel)) return false;
 		panelCache.remove(rowIndex);
@@ -373,6 +450,11 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		return true;
 	}
 
+	/**
+	 * Befehl: Modell löschen
+	 * @param index	Nummer des Modells in der Tabelle
+	 * @param simModel	Zu löschendes Modell
+	 */
 	private void commandDelete(final int index, final ParameterCompareSetupModel simModel) {
 		if (simModel==null) {
 			if (!MsgBox.confirm(table,Language.tr("ParameterCompare.Table.DeleteModel.Confirm.Title"),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoAll"),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoAllYes"),Language.tr("ParameterCompare.Table.DeleteModel.Confirm.InfoAllNo"))) return;
@@ -384,16 +466,28 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		if (update==null) updateTable(); else update.run();
 	}
 
+	/**
+	 * Befehl: Modell in der Tabelle nach oben verschieben
+	 * @param index	Index des zu verschiebenden Modells
+	 */
 	private void commandMoveUp(final int index) {
 		Collections.swap(setup.getModels(),index,index-1);
 		if (update==null) updateTable(); else update.run();
 	}
 
+	/**
+	 * Befehl: Modell in der Tabelle nach unten verschieben
+	 * @param index	Index des zu verschiebenden Modells
+	 */
 	private void commandMoveDown(final int index) {
 		Collections.swap(setup.getModels(),index,index+1);
 		if (update==null) updateTable(); else update.run();
 	}
 
+	/**
+	 * Befehl: Modelle per Assistent anlegen
+	 * @see ParameterCompareAssistantDialog
+	 */
 	private void commandAddByAssistant() {
 		if (setup.getInput().size()==0) {
 			MsgBox.error(table,Language.tr("ParameterCompare.Table.AddModelByAssistant.ErrorNoInput.Title"),Language.tr("ParameterCompare.Table.AddModelByAssistant.ErrorNoInput.Info"));
@@ -406,6 +500,9 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Befehl: Modell gemäß Eingabeparameter-Werten sortieren
+	 */
 	private void commandSortByInputParameter() {
 		if (setup.getInput().size()==0) {
 			MsgBox.error(table,Language.tr("ParameterCompare.Table.SortModels.ErrorNoInput.Title"),Language.tr("ParameterCompare.Table.SortModels.ErrorNoInput.Info"));
@@ -423,6 +520,10 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Befehl: Statistikergebnisse zu einem bestimmten Modell anzeigen
+	 * @param index	Index des Modells
+	 */
 	private void commandShowStatistics(final int index) {
 		if (index<0) {
 			if (compareResults!=null) compareResults.run();
@@ -442,6 +543,10 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		viewer.setVisible(true);
 	}
 
+	/**
+	 * Befehl: Statistikergebnisse für ein bestimmtes Modell speichern
+	 * @param index	Index des Modells
+	 */
 	private void commandSaveStatistics(final int index) {
 		final Statistics statistics=setup.getModels().get(index).getStatistics();
 
@@ -457,6 +562,10 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Befehl: Diagramm für einen bestimmten Ausgabeparameter anzeigen
+	 * @param index	Index des Ausgabeparameters
+	 */
 	private void commandShowResultsChart(final int index) {
 		if (showResultsChart!=null) showResultsChart.accept(index);
 	}
@@ -470,6 +579,9 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		table.invalidate();
 	}
 
+	/**
+	 * Liefert die Panels für die letzte Zeile
+	 */
 	private class LastRowPanel extends JPanel {
 		/**
 		 * Serialisierungs-ID der Klasse
@@ -477,11 +589,18 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		 */
 		private static final long serialVersionUID = -4461230060003315302L;
 
+		/** Parameterreihen-Modell */
 		public final ParameterCompareSetupModel panelModel;
-
+		/** Index der Zeile für die dieses Panel verwendet werden soll */
 		private final int rowIndex;
+		/** Schaltflächen im Panel */
 		private JButton[] buttons;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param model	Parameterreihen-Modell
+		 * @param rowIndex	Index der Zeile für die dieses Panel verwendet werden soll
+		 */
 		public LastRowPanel(final ParameterCompareSetupModel model, final int rowIndex) {
 			super();
 			panelModel=model;
@@ -519,6 +638,9 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
 		}
 
+		/**
+		 * Aktualisiert die aktiviert/deaktiviert Darstellung der Schaltflächen
+		 */
 		public void updateButtons() {
 			buttons[0].setEnabled(panelModel!=null);
 			buttons[1].setEnabled(panelModel!=null && rowIndex>0);
@@ -529,8 +651,16 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			}
 		}
 
+		/**
+		 * Panel für die erste Spalte
+		 * @see #getFirstColumn()
+		 */
 		private JPanel firstColumn;
 
+		/**
+		 * Liefert das Panel für die erste Spalte
+		 * @return	Panel für die erste Spalte
+		 */
 		public JPanel getFirstColumn() {
 			if (firstColumn==null) {
 				firstColumn=new JPanel(new BorderLayout());

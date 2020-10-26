@@ -53,6 +53,7 @@ public final class RunDataClients {
 	 */
 	private static final int CLIENT_CACHE_SIZE=5_000;
 
+	/** Fortlaufende Nummer des zuletzt ausgelieferten Kunden-Objektes */
 	private long clientNumber;
 	private final RunDataClient[] clientCache;
 	private List<RunDataClient> clientsInUse;
@@ -62,10 +63,34 @@ public final class RunDataClients {
 
 	private long[] lastInterLeaveByClientType;
 
+	/**
+	 * Cache für die "Wartezeiten der Kunden (pro Kundentyp)"-Statistikobjekte
+	 * @see Statistics#clientsWaitingTimes
+	 */
 	private RunData.IndicatorAccessCacheClientTypes cacheClientsWaitingTimes;
+
+	/**
+	 * Cache für die "Transferzeiten der Kunden (pro Kundentyp)"-Statistikobjekte
+	 * @see Statistics#clientsTransferTimes
+	 */
 	private RunData.IndicatorAccessCacheClientTypes cacheClientsTransferTimes;
+
+	/**
+	 * Cache für die "Bedienzeiten der Kunden (pro Kundentyp)"-Statistikobjekte
+	 * @see Statistics#clientsProcessingTimes
+	 */
 	private RunData.IndicatorAccessCacheClientTypes cacheClientsProcessingTimes;
+
+	/**
+	 * Cache für die "Verweilzeiten der Kunden (pro Kundentyp)"-Statistikobjekte
+	 * @see Statistics#clientsResidenceTimes
+	 */
 	private RunData.IndicatorAccessCacheClientTypes cacheClientsResidenceTimes;
+
+	/**
+	 * Cache für die "Zwischenabgangszeiten der Kunden aus dem System"-Statistikobjekte
+	 * @see Statistics#clientsInterleavingTime
+	 */
 	private RunData.IndicatorAccessCacheClientTypes cacheClientsInterleaveTime;
 
 	/**

@@ -223,7 +223,7 @@ public class CompareSelectDialog extends BaseDialog  {
 
 	/**
 	 * Reagiert auf Drag&amp;Drop einer Datei auf den Dialog
-	 * @param file	Datei, die übermittelt wirde
+	 * @param file	Datei, die übermittelt wurde
 	 * @return	Gibt an, ob die Datei erfolgreich in die Liste der zu vergleichenden Statistikdateien aufgenommen werden konnte
 	 */
 	private final boolean dropFile(File file) {

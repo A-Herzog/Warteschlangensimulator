@@ -131,6 +131,7 @@ public class RunElementOutput extends RunElementPassThrough {
 		return RunModelCreatorStatus.ok;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
 	private String getOutputString(final SimulationData simData, final RunDataClient client) {

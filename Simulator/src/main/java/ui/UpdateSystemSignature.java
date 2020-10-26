@@ -70,9 +70,19 @@ public class UpdateSystemSignature {
 		} catch (NoSuchAlgorithmException e) {e.printStackTrace();}
 	}
 
+	/**
+	 * Public-Key der Signatur
+	 * (der Private-Key befindet sich im Signatur-Generator mit dem die Signaturdateien
+	 * generiert werden)
+	 */
 	private static String signaturePublicKey="30820122300D06092A864886F70D01010105000382010F003082010A0282010100919C475DF248B4414EB9F6B58AA5DE54C650876D1D4CED787FD9B4C8CA8630E229990DDF0E5DB0C1CD5121FD7D7AF2BC8B8C553B1098FFAC7BF55C6D77965E0067602CB34EF0F6185B84CE640224BFD1CA187C5A36AB7AD547F08E15B8496F88B339DB3C374A5F684CB1EF8CDF0A00FCDAE22482E984A3BE85DE1017F7244C3A3799853328F9F16A69C7CAEEB7D753F871D4987B1D89AA11258A96C60B4C16ABA09954DFDDE65D7B03CCCDBF01EDB3C0C1ECB2D5C71FC07CA3A2A6AC699D95BA665C9F209A8FDE34F831E64396CC0D831A3F0AFAA02BF6AE3855FD8495F03295DD3B7929C58025ED83628AD26ECC936E3463133DEDAE4E217FCFBF6B9327F6DD0203010001";
 
-	private final byte[] getFile(File file) {
+	/**
+	 * Liefert den Inhalt einer Datei als Byte-Array
+	 * @param file	Zu ladende Datei
+	 * @return	Liefert im Erfolgsfall das Byte-Array, sonst <code>null</code>
+	 */
+	private final byte[] getFile(final File file) {
 		try (FileInputStream in=new FileInputStream(file)) {
 			byte[] data=new byte[in.available()];
 			in.read(data);
@@ -80,9 +90,15 @@ public class UpdateSystemSignature {
 		} catch (IOException e) {return null;}
 	}
 
-	private final String generateSignature(String privateKeyString, File file) {
-		byte[] encodedPrivateKey=HexBin.decode(privateKeyString);
-		byte[] data=getFile(file); if (data==null) return "";
+	/**
+	 * Berechnet die Signatur für die Update-Datei.
+	 * @param privateKeyString	Privater Schlüssel, der für die Signaturberechnung verwendet werden soll. Der öffentliche Schlüssel ist in der Klasse als Programmcode enthalten.
+	 * @param file	Datei über die die Signatur berechnet werden soll
+	 * @return	Gibt die Signatur zurück oder im Fehlerfall einen leeren String.
+	 */
+	private final String generateSignature(final String privateKeyString, final File file) {
+		final byte[] encodedPrivateKey=HexBin.decode(privateKeyString);
+		final byte[] data=getFile(file); if (data==null) return "";
 
 		EncodedKeySpec privateKeySpec=new PKCS8EncodedKeySpec(encodedPrivateKey);
 		KeyFactory generator; try {generator=KeyFactory.getInstance("RSA");} catch (NoSuchAlgorithmException e) {return "";}
@@ -93,9 +109,16 @@ public class UpdateSystemSignature {
 		try {return HexBin.encode(sign.sign());} catch (SignatureException e) {return "";}
 	}
 
-	private final boolean validateSignature(String publicKeyString, File file, String signature) {
-		byte[] encodedPublicKey=HexBin.decode(publicKeyString);
-		byte[] data=getFile(file); if (data==null) return false;
+	/**
+	 * Prüft ob die Update-Datei eine gültige Signatur besitzt.
+	 * @param publicKeyString	Öffentlicher Schlüssel
+	 * @param file	Zu prüfende Datei
+	 * @param signature	Signatur der Datei
+	 * @return	Gibt <code>true</code> zurück, wenn die Prüfsumme der Datei mit dem private key unterschrieben war.
+	 */
+	private final boolean validateSignature(final String publicKeyString, final File file, final String signature) {
+		final byte[] encodedPublicKey=HexBin.decode(publicKeyString);
+		final byte[] data=getFile(file); if (data==null) return false;
 
 		EncodedKeySpec publicKeySpec=new X509EncodedKeySpec(encodedPublicKey);
 		KeyFactory generator; try {generator=KeyFactory.getInstance("RSA");} catch (NoSuchAlgorithmException e) {return false;}
@@ -108,7 +131,7 @@ public class UpdateSystemSignature {
 
 	/**
 	 * Berechnet die Signatur für die Update-Datei.
-	 * @param privateKeyString	Privater Schlüssel, der für die Signaturberechnung verwendet werden soll. Der öffentliche Schlüssel ist in der Klasse als Programmcode enthalten. Der private Schlüssel befindet sich nur als Kommentar in der Datei.
+	 * @param privateKeyString	Privater Schlüssel, der für die Signaturberechnung verwendet werden soll. Der öffentliche Schlüssel ist in der Klasse als Programmcode enthalten.
 	 * @return	Gibt die Signatur zurück oder im Fehlerfall einen leeren String.
 	 */
 	public final String sign(String privateKeyString) {
@@ -117,7 +140,7 @@ public class UpdateSystemSignature {
 
 	/**
 	 * Berechnet die Signatur für die Update-Datei.
-	 * @param privateKeyString	Privater Schlüssel, der für die Signaturberechnung verwendet werden soll. Der öffentliche Schlüssel ist in der Klasse als Programmcode enthalten. Der private Schlüssel befindet sich nur als Kommentar in der Datei.
+	 * @param privateKeyString	Privater Schlüssel, der für die Signaturberechnung verwendet werden soll. Der öffentliche Schlüssel ist in der Klasse als Programmcode enthalten.
 	 * @param signatureFile	Datei, in der die Signatur gespeichert werden soll.
 	 * @return	Gibt an, ob die Signierung erfolgreich war.
 	 */

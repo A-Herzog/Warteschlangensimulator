@@ -43,13 +43,15 @@ public class HTMLOutputBuilder extends SpecialOutputBuilder {
 		FULL,
 		/** Normale Verarbeitung, aber Modell-XML-Datei nicht in base64-Form einbetten */
 		NOXML,
-		/** Nur den Javascipt-Code für das Modell ausgeben (für Ausgabe über den Fernsteuerungsserver) */
+		/** Nur den Javascript-Code für das Modell ausgeben (für Ausgabe über den Fernsteuerungsserver) */
 		JSONLY
 	}
 
 	/** Ausgabemodus */
 	private final Mode mode;
+	/** Größe der Zeichenfläche */
 	private final Point canvasSize;
+	/** JS-Hilfsfunktionen, die vor dem JS-Hauptbereich ausgegeben werden sollen */
 	private final Map<String,String> userJSFunctions;
 
 	/**
@@ -202,6 +204,11 @@ public class HTMLOutputBuilder extends SpecialOutputBuilder {
 		return null;
 	}
 
+	/**
+	 * Gibt den Namen des Modells in in einem html-Kommentar aus.
+	 * @param element	Element dessen Name ausgegeben werden soll
+	 * @see #processElement(ModelElement)
+	 */
 	private void outputElementName(final ModelElement element) {
 		final String name=element.getName();
 		if (name==null || name.trim().isEmpty()) {

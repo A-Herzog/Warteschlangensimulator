@@ -380,6 +380,10 @@ public class AnimationImageSource {
 	 */
 	private static final String IMAGE_PATH="animation/";
 
+	/**
+	 * Speichert bereits einmal generierte Bilder
+	 * @see #get(String, ModelAnimationImages, int)
+	 */
 	private Map<Long,BufferedImage> cache;
 
 	/**

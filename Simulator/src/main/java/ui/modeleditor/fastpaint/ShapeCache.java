@@ -29,6 +29,7 @@ import tools.SetupData;
  * @see Shapes
  */
 public abstract class ShapeCache {
+	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
 	private GradientFill filler;
 	private final IntersectionClipping clipper;

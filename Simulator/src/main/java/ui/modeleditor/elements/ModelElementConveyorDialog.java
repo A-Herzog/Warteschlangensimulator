@@ -56,6 +56,7 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 8867788548959155049L;
 
+	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 	private List<String> clientTypes;
 

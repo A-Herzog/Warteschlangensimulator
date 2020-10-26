@@ -195,6 +195,9 @@ public final class TemplatesListDialog extends BaseDialog {
 		return UserTemplateTools.getAllElements(useTemplate);
 	}
 
+	/**
+	 * Befehl: Vorlage verwenden
+	 */
 	private void commandUse() {
 		if (list.getSelectedIndex()<0) {
 			MsgBox.error(this,Language.tr("UserTemplates.TemplatesDialog.SelectErrorTitle"),Language.tr("UserTemplates.TemplatesDialog.SelectErrorInfo"));
@@ -205,6 +208,9 @@ public final class TemplatesListDialog extends BaseDialog {
 		close(BaseDialog.CLOSED_BY_OK);
 	}
 
+	/**
+	 * Befehl: Vorlage bearbeiten
+	 */
 	private void commandEdit() {
 		if (list.getSelectedIndex()<0) {
 			MsgBox.error(this,Language.tr("UserTemplates.TemplatesDialog.SelectErrorTitle"),Language.tr("UserTemplates.TemplatesDialog.SelectErrorInfo"));
@@ -221,6 +227,9 @@ public final class TemplatesListDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Vorlage löschen
+	 */
 	private void commandDelete() {
 		if (list.getSelectedIndex()<0) {
 			MsgBox.error(this,Language.tr("UserTemplates.TemplatesDialog.SelectErrorTitle"),Language.tr("UserTemplates.TemplatesDialog.SelectErrorInfo"));
@@ -242,6 +251,10 @@ public final class TemplatesListDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Zeigt das Popupmenü zu einem Eintrag in der Liste der Vorlagen an.
+	 * @param point	Position an der das Popupmenü angezeigt werden soll
+	 */
 	private void showPopup(final Point point) {
 		final boolean templateSelected=(list.getSelectedIndex()>=0);
 		final JPopupMenu popup=new JPopupMenu();
@@ -271,15 +284,30 @@ public final class TemplatesListDialog extends BaseDialog {
 
 	}
 
+	/**
+	 * Datensatz zu einer Vorlage
+	 */
 	private class ListRecord {
+		/** Vorlage */
 		public UserTemplate template;
+		/** Globale Vorlage (<code>true</code>) oder modellspezifisch (<code>false</code>)? */
 		public boolean global;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param template	Vorlage
+		 * @param global	Globale Vorlage (<code>true</code>) oder modellspezifisch (<code>false</code>)?
+		 */
 		public ListRecord(final UserTemplate template, final boolean global) {
 			this.template=template.clone();
 			this.global=global;
 		}
 	}
 
+	/**
+	 * Renderer für die Einträge in der Vorlagenliste
+	 * @see TemplatesListDialog#list
+	 */
 	private class ListRecordRenderer extends DefaultListCellRenderer {
 		/**
 		 * Serialisierungs-ID der Klasse

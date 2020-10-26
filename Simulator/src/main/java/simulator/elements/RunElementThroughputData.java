@@ -53,6 +53,7 @@ public class RunElementThroughputData extends RunElementData implements RunEleme
 		return statistic.getQuotient();
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
 	/**

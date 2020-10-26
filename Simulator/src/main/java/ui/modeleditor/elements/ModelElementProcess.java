@@ -931,6 +931,10 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		NextStationHelper.nextStationsProcessing(this,parentMenu,addNextStation);
 	}
 
+	/**
+	 * Sind an der Bedienstation mehrere Verteilungen hinterlegt?
+	 * @return	Liefert <code>true</code>, wenn mehrere Verteilungen vorhanden sind
+	 */
 	private boolean processHasMultiTimes() {
 		if (getWorking().getNames().length>0) return true;
 		if (getPostProcessing().get()!=null) return true;

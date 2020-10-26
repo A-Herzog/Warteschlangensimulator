@@ -17,6 +17,7 @@ package ui.modeleditor;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,10 @@ import ui.modeleditor.elements.ModelElementWayPoint;
  * @see PathBuilder
  */
 public class PathEditorDialog extends BaseDialog {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = 3832675453026139621L;
 
 	private final PathBuilder builder;

@@ -100,6 +100,10 @@ public class SimulationData extends SimData {
 	 */
 	public boolean logInfoSystem;
 
+	/**
+	 * Thread-übergreifendes System um alle Threads möglichst gleichmäßig mit Kundenankünften zu versorgen
+	 * @see RunData
+	 */
 	private DynamicLoadBalancer dynamicLoadBalancer;
 
 	/**
@@ -390,10 +394,16 @@ public class SimulationData extends SimData {
 		doEmergencyShutDown(Language.tr("Simulation.OutOfMemory")+"\n"+text);
 	}
 
+	/**
+	 * Maximal zulässige Anzahl an Kunden im System.<br>
+	 * Wird einmalig von {@link #testMaxAllowedClientsInSystem()} berechnet und
+	 * dann nur noch aus diesem Feld ausgelesen.
+	 * @see #testMaxAllowedClientsInSystem()
+	 */
 	private int maxAllowed=-1;
 
 	/**
-	 * Prüft, ob die maximal zulässige Anzahl an Kunden im system eingehalten wird.
+	 * Prüft, ob die maximal zulässige Anzahl an Kunden im System eingehalten wird.
 	 * @return	Liefert im Erfolgsfall <code>true</code>. Im Fehlerfall wird die Simulation per {@link #doEmergencyShutDown(String)} abgebrochen und es wird <code>false</code> zurückgeliefert.
 	 */
 	public boolean testMaxAllowedClientsInSystem() {

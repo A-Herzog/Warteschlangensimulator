@@ -55,11 +55,18 @@ public class WaitPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 3524929788005334671L;
 
-	private static final int MODE_MULTI_DAYS=0;
-	private static final int MODE_SINGLE_LONG_RUN=1;
+	/**
+	 * Art der Simulation
+	 */
+	private enum OperationMode {
+		/** Mehrere Tage */
+		MODE_MULTI_DAYS,
+		/** Ein langer Lauf */
+		MODE_SINGLE_LONG_RUN
+	}
 
 	/** Art der Simulation */
-	private static final int operationMode=MODE_SINGLE_LONG_RUN;
+	private static final OperationMode operationMode=OperationMode.MODE_SINGLE_LONG_RUN;
 
 	/**
 	 * Wurde die Simulation erfolgreich beendet?
@@ -210,6 +217,10 @@ public class WaitPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Schließt die Simulation ab.
+	 * @param successful	War die Simulation erfolgreich?
+	 */
 	private void finalizeSimulation(final boolean successful) {
 		if (timer!=null) timer.cancel();
 		simulationSuccessful=successful;
@@ -218,6 +229,10 @@ public class WaitPanel extends JPanel {
 		if (simulationDone!=null) SwingUtilities.invokeLater(simulationDone);
 	}
 
+	/**
+	 * Aktualisierung der Daten im Falle einer Simulation über mehrere Simulations-Tage.
+	 * @see OperationMode#MODE_MULTI_DAYS
+	 */
 	private void updateInfoDayMode() {
 		final long day=simulator.getSimDayCount();
 		final long days=simulator.getSimDaysCount();
@@ -256,6 +271,10 @@ public class WaitPanel extends JPanel {
 		progress.setValue((int)Math.round(1000.0*day/days));
 	}
 
+	/**
+	 * Aktualisierung der Daten im Falle einer lang laufenden Simulation.
+	 * @see OperationMode#MODE_SINGLE_LONG_RUN
+	 */
 	private void updateInfoLongRun() {
 		final long current=simulator.getCurrentClients();
 		final long sum=simulator.getCountClients();
@@ -366,15 +385,16 @@ public class WaitPanel extends JPanel {
 	 * @see WaitPanel#setSimulator(AnySimulator, Runnable)
 	 */
 	private class UpdateInfoTask extends TimerTask {
+		/** Zählt die Aufrufe der {@link #run()}-Methode */
 		private long countTimerIntervals=0;
 		/** Art der Simulation */
-		private final int mode;
+		private final OperationMode mode;
 
 		/**
 		 * Konstruktor der Klasse
 		 * @param mode	Art der Simulation
 		 */
-		public UpdateInfoTask(final int mode) {
+		public UpdateInfoTask(final OperationMode mode) {
 			this.mode=mode;
 		}
 

@@ -714,6 +714,11 @@ public class RunDataClient {
 		pathRecordingUsed++;
 	}
 
+	/**
+	 * Liefert den Pfad, den der Kunden eingeschlagen hat, als Zeichenkette
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Pfad des Kunden als Zeichenkette
+	 */
 	private String buildPathName(final SimulationData simData) {
 		final StringBuilder result=new StringBuilder();
 		for (int i=0;i<pathRecordingUsed;i++) {

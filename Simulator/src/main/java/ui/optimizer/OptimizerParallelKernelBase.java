@@ -64,6 +64,14 @@ public abstract class OptimizerParallelKernelBase extends OptimizerKernelBase {
 	 */
 	protected abstract EditModel[] setupModels(final double[] lastTargetValues, final int[] bestModels);
 
+	/**
+	 * Bestimmt die evolutionäre Fitness der Modelle aus der aktuellen Generation
+	 * @param lastTargetValues	Zielwerte der jeweiligen Modelle
+	 * @param simulationWasEmergencyStopped	Wurden bestimmte Simulationen abgebrochen?
+	 * @return	Liefert die Fitness der aktuellen Modelle
+	 * @see #getBestModels(double[])
+	 * @see #setupNextStep(double[], boolean[])
+	 */
 	private double[] getFitness(final double[] lastTargetValues, final boolean[] simulationWasEmergencyStopped) {
 		final double[] fitness=new double[lastTargetValues.length];
 
@@ -91,6 +99,13 @@ public abstract class OptimizerParallelKernelBase extends OptimizerKernelBase {
 		return fitness;
 	}
 
+	/**
+	 * Liefert die in Bezug auf die Fitness besten Modelle der aktuellen Generation
+	 * @param fitness	Fitnesswerte für die Modelle
+	 * @return	Indices der besten Modelle
+	 * @see #getFitness(double[], boolean[])
+	 * @see #setupNextStep(double[], boolean[])
+	 */
 	private int[] getBestModels(final double[] fitness) {
 		final List<Integer> best=new ArrayList<>();
 

@@ -122,13 +122,21 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 
 	/** Vorlagentyp */
 	private final ParameterCompareTemplatesDialog.TemplateMode mode;
+	/** Zu variierender Eingabeparameter */
 	private final ParameterCompareSetupValueInput inputRecord;
+	/** Basismodell */
 	private final EditModel model;
+	/** Option "Simulationsmodelle anlegen" */
 	private final JCheckBox buildModels;
+	/** Eingabefeld "Minimaler Wert" */
 	private final JTextField editMin;
+	/** Eingabefeld "Maximaler Wert" */
 	private final JTextField editMax;
+	/** Eingabefeld "Schrittweite" */
 	private final JTextField editStep;
+	/** Zusätzliche Information zu {@link #editMin} */
 	private final JLabel infoMin;
+	/** Zusätzliche Information zu {@link #editMax} */
 	private final JLabel infoMax;
 
 	/**
@@ -172,6 +180,11 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return new ImageIcon(imgURL);
 	}
 
+	/**
+	 * Liefert eine Liste aller Stationen eines Modells
+	 * @param model	Modell dem die Stationen entnommen werden sollen
+	 * @return	Liste aller Stationen des Modells
+	 */
 	private static List<ModelElementBox> getStations(final EditModel model) {
 		final List<ModelElementBox> list=new ArrayList<>();
 		for (ModelElement element1: model.surface.getElements()) {
@@ -183,6 +196,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Zwischenankunftszeiten
+	 * @param model	Ausgangsmodell
+	 * @param stations	Liste der Stationen im Ausgangsmodell
+	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Zwischenankunftszeiten
+	 */
 	private static List<TemplateRecord> getTemplatesInterarrival(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
@@ -223,6 +242,11 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Bedienergruppen
+	 * @param model	Ausgangsmodell
+	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Bedienergruppen
+	 */
 	private static List<TemplateRecord> getTemplatesResources(final EditModel model) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
@@ -243,6 +267,11 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Sind an der Bedienstation mehrere Verteilungen hinterlegt?
+	 * @param process	Bedienstation
+	 * @return	Liefert <code>true</code>, wenn mehrere Verteilungen vorhanden sind
+	 */
 	private static boolean processHasMultiTimes(final ModelElementProcess process) {
 		if (process.getWorking().getNames().length>0) return true;
 		if (process.getPostProcessing().get()!=null) return true;
@@ -251,6 +280,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return false;
 	}
 
+	/**
+	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Bedienzeiten
+	 * @param model	Ausgangsmodell
+	 * @param stations	Liste der Stationen im Ausgangsmodell
+	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Bedienzeiten
+	 */
 	private static List<TemplateRecord> getTemplatesServiceTimes(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
@@ -276,6 +311,11 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Variablen
+	 * @param model	Ausgangsmodell
+	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Variablen
+	 */
 	private static List<TemplateRecord> getTemplatesVariables(final EditModel model) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
@@ -293,10 +333,21 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Sind an der Verzögerungsstation mehrere Verteilungen hinterlegt?
+	 * @param delay	Verzögerungsstation
+	 * @return	Liefert <code>true</code>, wenn mehrere Verteilungen vorhanden sind
+	 */
 	private static boolean delayHasMultiTimes(final ModelElementDelay delay) {
 		return delay.getSubDataCount()>0;
 	}
 
+	/**
+	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Verzögerungsszeiten
+	 * @param model	Ausgangsmodell
+	 * @param stations	Liste der Stationen im Ausgangsmodell
+	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Verzögerungsszeiten
+	 */
 	private static List<TemplateRecord> getTemplatesDelayTimes(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
@@ -322,6 +373,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Analogwerte
+	 * @param model	Ausgangsmodell
+	 * @param stations	Liste der Stationen im Ausgangsmodell
+	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Analogwerte
+	 */
 	private static List<TemplateRecord> getTemplatesAnalogValues(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
@@ -344,6 +401,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Fließbänder
+	 * @param model	Ausgangsmodell
+	 * @param stations	Liste der Stationen im Ausgangsmodell
+	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Fließbänder
+	 */
 	private static List<TemplateRecord> getTemplatesConveyor(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
@@ -361,6 +424,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert möglichen Parametereihen-Vorlagen mit Bezug auf die Batch-Größen
+	 * @param model	Ausgangsmodell
+	 * @param stations	Liste der Stationen im Ausgangsmodell
+	 * @return	Liste mit Parametereihen-Vorlagen mit Bezug auf die Batch-Größen
+	 */
 	private static List<TemplateRecord> getTemplatesBatchSize(final EditModel model, final List<ModelElementBox> stations) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
@@ -402,6 +471,12 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return map;
 	}
 
+	/**
+	 * Liefert den Startwert für einen bestimmten Parameter.
+	 * @param model	Ausgangsmodell
+	 * @param record	Eingabeparameter für die Parameterreihe (beinhaltet einen Modellparameter)
+	 * @return	Startwert für einen bestimmten Parameter
+	 */
 	private String getDefaultParameterValue(final EditModel model, final ParameterCompareSetupValueInput record) {
 		switch (record.getMode()) {
 		case MODE_RESOURCE:
@@ -420,6 +495,11 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		return "";
 	}
 
+	/**
+	 * Berechnet einen Vorschlag für die Schrittweite.
+	 * @param range	Bereich für den Parameter
+	 * @return	Vorschlag für die Schrittweite
+	 */
 	private double calcStepWide(final double range) {
 		if (range==0) return 1;
 		return range/20;
@@ -539,6 +619,13 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Bestimmt die rechnerische Auslastung des Systems,
+	 * wenn der Eingabeparameter {@link #inputRecord} auf
+	 * den übergebenen Wert gestellt wird.
+	 * @param value	Wert für den Eingabeparameter
+	 * @return	Auslastung des Systems oder <code>null</code>, wenn die Auslastung nicht analytisch berechnet werden kann
+	 */
 	private Double getRho(final double value) {
 		final Object obj=ParameterCompareTools.setModelValue(model,inputRecord,value);
 		if (!(obj instanceof EditModel)) return null;

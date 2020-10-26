@@ -33,6 +33,10 @@ public final class ModelSequences implements Cloneable {
 	 */
 	public static String[] XML_NODE_NAME=new String[]{"Fertigungsplaene"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
+	/**
+	 * Liste der Fertigungspläne
+	 * @see #getSequences()
+	 */
 	private final List<ModelSequence> sequences;
 
 	/**

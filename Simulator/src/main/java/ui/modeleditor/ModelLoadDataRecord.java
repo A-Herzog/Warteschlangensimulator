@@ -30,7 +30,17 @@ import ui.parameterseries.ParameterCompareSetupValueInputListDialog;
  * @see ModelLoadData
  */
 public final class ModelLoadDataRecord implements Cloneable {
+	/**
+	 * Bezeichner der Tabellenzelle, dessen Wert verwendet werden soll
+	 * @see #getCell()
+	 * @see #setCell(String)
+	 */
 	private String cell;
+
+	/**
+	 * Objekt, welches den Datenpunkt innerhalb des Modells, der verändert werden soll, spezifiziert
+	 * @see #getChange()
+	 */
 	private final ParameterCompareSetupValueInput change;
 
 	/**

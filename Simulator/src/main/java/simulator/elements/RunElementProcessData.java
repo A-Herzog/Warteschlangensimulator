@@ -290,6 +290,7 @@ public class RunElementProcessData extends RunElementData {
 		return timeInQueue;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSecFactor=1.0/1000.0;
 
 	/**

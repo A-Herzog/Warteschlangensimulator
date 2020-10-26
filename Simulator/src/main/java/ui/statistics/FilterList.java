@@ -109,13 +109,29 @@ public final class FilterList {
 		return save(list.iterator());
 	}
 
+	/**
+	 * Wandelt eine Base64-codierte Zeichenkette in mehrere Textzeilen um
+	 * @param line	Base64-codierte Zeichenkette
+	 * @return	Textzeilen
+	 * @see #encodeMultiLine(String)
+	 */
 	private static String decodeMultiLine(final String line) {
 		byte[] buffer=null;
-		try {buffer=Base64.getDecoder().decode(line);} catch (IllegalArgumentException e) {buffer=null;}
+		try {
+			buffer=Base64.getDecoder().decode(line);
+		} catch (IllegalArgumentException e) {
+			buffer=null;
+		}
 		if (buffer==null) return "";
 		return new String(buffer);
 	}
 
+	/**
+	 * Wandelt mehrere Textzeilen in eine Base64-codierte Zeichenkette
+	 * @param lines	Textzeilen
+	 * @return	Base64-codierte Zeichenkette
+	 * @see #decodeMultiLine(String)
+	 */
 	private static String encodeMultiLine(final String lines) {
 		return Base64.getEncoder().encodeToString(lines.getBytes());
 	}

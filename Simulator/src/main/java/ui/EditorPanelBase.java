@@ -129,11 +129,42 @@ public abstract class EditorPanelBase extends JPanel {
 	 */
 	protected final boolean readOnly;
 
+	/**
+	 * Ausgangsmodell (um zu prüfen, ob das Modell verändert wurde)
+	 */
 	private EditModel modelOriginal;
+
+	/**
+	 * Wurde das Modell seit dem letzten Speichern verändert?
+	 * @see #isModelChanged()
+	 * @see #setModelChanged(boolean)
+	 */
 	private boolean modelChanged;
+
+
+	/**
+	 * Zuletzt beim Speichern verwendeter Dateinamen
+	 * @see #setLastFile(File)
+	 * @see #getLastFile()
+	 */
 	private File lastFile=null;
+
+	/**
+	 * Stellt sicher, dass keine überlappenden Set- und Get-Operationen
+	 * in Bezug auf das Modell erfolgen.
+	 * @see #setModel(EditModel)
+	 * @see #setModel(EditModel, boolean)
+	 * @see #getModel()
+	 * @see #getModelExternalData()
+	 */
 	private final Semaphore mutexGetSetModel=new Semaphore(1);
 
+	/**
+	 * Listener, die benachrichtigt werden, wenn sich der Geändert-Status des Modells ändert.
+	 * @see #fireChangedStateListeners()
+	 * @see #addChangedStateListeners(Runnable)
+	 * @see #removeChangedStateListeners(Runnable)
+	 */
 	private final Set<Runnable> changedStateListeners=new HashSet<>();
 
 	/**
@@ -409,6 +440,13 @@ public abstract class EditorPanelBase extends JPanel {
 		return null;
 	}
 
+	/**
+	 * Zeitdauer, die zum Laden des letzten Modells notwendig war
+	 * @see #getLastLoadTime()
+	 * @see #loadModel(File)
+	 * @see #loadModel(Element, File)
+	 * @see #loadModelFromStream(InputStream)
+	 */
 	private long lastLoadTime=0;
 
 	/**
@@ -632,8 +670,18 @@ public abstract class EditorPanelBase extends JPanel {
 		});
 	}
 
+	/**
+	 * Stellt sicher, dass innerhalb eines Aufrufs von {@link #fireChangedStateListeners()}
+	 * kein weiterer Aufruf der Methode erfolgt.
+	 * @see #fireChangedStateListeners()
+	 */
 	private final Semaphore fireChangedStateListenersRunning = new Semaphore(1);
 
+	/**
+	 * Benachrichtigt die Listener, die über State-Change-Ergebnisse informiert werden sollen.
+	 * @see #addChangedStateListeners(Runnable)
+	 * @see #removeChangedStateListeners(Runnable)
+	 */
 	private void fireChangedStateListeners() {
 		if (!fireChangedStateListenersRunning.tryAcquire()) return;
 		try {

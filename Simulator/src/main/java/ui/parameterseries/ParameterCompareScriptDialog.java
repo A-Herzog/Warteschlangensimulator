@@ -107,6 +107,14 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Wendet ein Skript auf ein Modell an.
+	 * @param mode	Skriptsprache
+	 * @param script	Skript
+	 * @param model	Modell
+	 * @param addOutput	Ausgabe-Callback
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean runScriptOnModel(final ScriptEditorPanel.ScriptMode mode, final String script, final ParameterCompareSetupModel model, final Consumer<String> addOutput) {
 		switch (mode) {
 		case Javascript:
@@ -137,6 +145,11 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 		return true;
 	}
 
+	/**
+	 * Liefert ein Beispiel-Skript jeweils in Javascript und in Java
+	 * @param setup	Parameterreihen-Einstellungen
+	 * @return	2-elementiges Array mit einem Beispiel-Skript jeweils in Javascript und in Java
+	 */
 	private String[] getExamples(final ParameterCompareSetup setup) {
 		final StringBuilder js1=new StringBuilder();
 		final StringBuilder js2=new StringBuilder();
@@ -195,7 +208,10 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 			java2.append("  sim.getOutput().newLine();\n");
 		}
 
-		return new String[] {js1.toString()+"\n"+js2.toString(),"void function(SimulationInterface sim) {\n"+java1.toString()+"\n"+java2.toString()+"}\n"};
+		return new String[] {
+				js1.toString()+"\n"+js2.toString(),
+				"void function(SimulationInterface sim) {\n"+java1.toString()+"\n"+java2.toString()+"}\n"
+		};
 	}
 
 	@Override

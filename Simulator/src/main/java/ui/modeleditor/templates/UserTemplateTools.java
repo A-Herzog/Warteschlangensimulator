@@ -43,10 +43,20 @@ public class UserTemplateTools {
 	private UserTemplateTools() {
 	}
 
+	/**
+	 * Fügt mehrere Kanten zu einer Elementenliste hinzu (sofern diese in der Liste noch nicht enthalten sind)
+	 * @param edges	Hinzuzufügende Kanten
+	 * @param elements	Liste mit Elementen
+	 */
 	private static void addEdges(final ModelElementEdge[] edges, final List<ModelElement> elements) {
 		for (ModelElementEdge edge: edges) addEdge(edge,elements);
 	}
 
+	/**
+	 * Fügt eine Kante zu einer Elementenliste hinzu (sofern sie in dieser noch nicht enthalten ist)
+	 * @param edge	Hinzuzufügende Kante
+	 * @param elements	Liste mit Elementen
+	 */
 	private static void addEdge(final ModelElementEdge edge, final List<ModelElement> elements) {
 		if (!elements.contains(edge)) elements.add(edge);
 	}

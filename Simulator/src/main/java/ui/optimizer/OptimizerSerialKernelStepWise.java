@@ -34,20 +34,33 @@ import simulator.editmodel.EditModel;
  * @see OptimizerSerialStepWise
  */
 public class OptimizerSerialKernelStepWise extends OptimizerSerialKernelBase {
+	/** Aktueller Status der Optimierung */
 	private enum Status {
+		/** Erster Simulationslauf insgesamt */
 		STATUS_START,
+		/** Erster Schritt für eine Variable */
 		STATUS_VARIABLE_START,
+		/** Veränderung einer Variable */
 		STATUS_VARIABLE_CHANGED
 	}
 
+	/** Änderungsgeschwindigkeit der Variablenwerte pro Rund */
 	private double[] changeSpeed;
+	/** Aktueller Status der Optimierung */
 	private Status currentStatus;
+	/** Aktuell in Bearbeitung befindliche Kontrollvariable */
 	private int currentControlIndex;
+	/** Aktuelle Optimierungsrunde */
 	private int round;
+	/** Letzter Wert der aktuellen Kontrollvariable */
 	private double lastOldValue;
+	/** Änderungsrichtungen der Variable */
 	private int[] lastChanceDir;
+	/** Liste der bereits ausprobierten Kombinationen */
 	private List<double[]> alreadyVisitedStates;
+	/** Letzte geänderte Kontrollvariable */
 	private int lastControlChangeIndex;
+	/** Letzt Runde in der eine Kontrollvariable geändert wurde */
 	private int lastControlChangeRound;
 
 	/**
@@ -68,6 +81,10 @@ public class OptimizerSerialKernelStepWise extends OptimizerSerialKernelBase {
 		changeSpeed[3]=Math.max(0.01,Math.min(changeSpeed[2],setup.serialChangeSpeed4));
 	}
 
+	/**
+	 * Liefert die Änderungsrate für die aktuelle Runde.
+	 * @return	Änderungsrate für die aktuelle Runde
+	 */
 	private double getChangeSpeed() {
 		return changeSpeed[Math.min(changeSpeed.length-1,round-1)];
 	}

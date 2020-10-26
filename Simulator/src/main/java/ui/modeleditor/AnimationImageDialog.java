@@ -261,6 +261,11 @@ public class AnimationImageDialog extends BaseDialog {
 		menu.show(event.getComponent(),event.getX(),event.getY());
 	}
 
+	/**
+	 * Lädt ein Bild per Drag&amp;drop aus einer Datei.
+	 * @param data	Drag&amp;drop-Objekt
+	 * @return	Liefert <code>true</code>, wenn die Daten verarbeitet werden konnten.
+	 */
 	private boolean fileDropped(final FileDropperData data) {
 		try {
 			final BufferedImage image=ImageIO.read(data.getFile());

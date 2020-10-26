@@ -258,8 +258,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
-	 * Aktiviert eine Beschreibungs-Seite zu der aktuellen Textausgabe.
-	 * @param topic	Hilfeseite, die im Beschreibungsbereich angezeigt werden soll
+	 * Zeigt im Fuﬂbereich der Hilfeseite eine "Erkl‰rung einblenden"-Schaltfl‰che, die,
+	 * wenn sie angeklickt wird, eine html-Hilfeseite anzeigt.
+	 * @param topic	Hilfe-Thema (wird als Datei in den "description_*"-Ordern gesucht)
 	 */
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerOverviewText.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");

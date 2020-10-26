@@ -686,6 +686,11 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 			return clone;
 		}
 
+		/**
+		 * Speichert die Einstellungen in einem XML-Knoten
+		 * @param doc	XML-Dokument
+		 * @param node	Eltern-XML-Knoten
+		 */
 		private void addDataToXML(final Document doc, final Element node) {
 			Element sub=doc.createElement(Language.trPrimary("Optimizer.XML.ControlVariables"));
 			node.appendChild(sub);
@@ -706,6 +711,11 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 			}
 		}
 
+		/**
+		 * Versucht die Einstellungen aus einem XML-Knoten zu laden
+		 * @param node	XML-Knoten der die Daten enthält
+		 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+		 */
 		private String loadFromXML(final Element node) {
 			Integer I;
 			Double D;

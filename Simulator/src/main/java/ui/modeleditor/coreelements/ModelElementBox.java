@@ -91,6 +91,11 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	 */
 	private final SetupData setup=SetupData.getSetup();
 
+	/**
+	 * Texte in die Stationsbox zeichnen?
+	 * @see #isDrawText()
+	 * @see #setDrawText(boolean)
+	 */
 	private boolean drawText=true;
 
 	/**

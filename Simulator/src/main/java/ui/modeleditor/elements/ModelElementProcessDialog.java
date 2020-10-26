@@ -63,6 +63,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
+	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
 	private JTabbedPane tabs;

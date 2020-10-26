@@ -187,6 +187,11 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 		return true;
 	}
 
+	/**
+	 * Initialisiert das xml-Dokument {@link #statisticsDocument} für die
+	 * Aufnahme von Statistik-xml-Daten
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean initStatisticsDocument() {
 		DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
 		DocumentBuilder db;

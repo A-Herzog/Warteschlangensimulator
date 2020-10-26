@@ -60,14 +60,17 @@ public class ParameterCompareStatisticSelectDialog extends BaseDialog {
 	public enum Mode {
 		/** Modelle zum Vergleichen auswählen */
 		MODE_COMPARE,
-		/** Statistikdaten zum Speichenr auswählen */
+		/** Statistikdaten zum Speichern auswählen */
 		MODE_STORE
 	}
 
 	/** Modus des Dialogs (entweder Vergleichen von Modellen oder Speichern von Statistikdaten) */
 	private final Mode mode;
+	/** Eingabefeld für den Ausgabeordner */
 	private JTextField folderEdit;
+	/** Liste der Modelle, die exportiert werden können */
 	private final List<ParameterCompareSetupModel> models;
+	/** Listendarstellung der Modell (inkl. Auswahlmöglichkeit der zu exportierenden Modelle) */
 	private final JList<JCheckBox> list;
 
 	/**
@@ -137,6 +140,11 @@ public class ParameterCompareStatisticSelectDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert den Titel des Dialogs
+	 * @param mode	Modus des Dialogs (entweder Vergleichen von Modellen oder Speichern von Statistikdaten)
+	 * @return	Titel des Dialogs
+	 */
 	private static String getTitle(final Mode mode) {
 		switch (mode) {
 		case MODE_COMPARE: return Language.tr("ParameterCompare.Select.Title.Compare");
@@ -214,6 +222,10 @@ public class ParameterCompareStatisticSelectDialog extends BaseDialog {
 		return new File(folderEdit.getText().trim());
 	}
 
+	/**
+	 * Renderer für die Liste {@link ParameterCompareStatisticSelectDialog#list}
+	 * @see ParameterCompareStatisticSelectDialog#list
+	 */
 	private class JCheckBoxCellRenderer implements ListCellRenderer<JCheckBox> {
 		@Override
 		public Component getListCellRendererComponent(JList<? extends JCheckBox> list, JCheckBox value, int index, boolean isSelected, boolean cellHasFocus) {

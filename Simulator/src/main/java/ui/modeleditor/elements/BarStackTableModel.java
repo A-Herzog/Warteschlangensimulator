@@ -56,7 +56,9 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
+	/** Liste der Rechenausdrücke für die Balkensegmente */
 	private final List<String> expressions=new ArrayList<>();
+	/** Liste der Farben für die Balkensegmente */
 	private final List<Color> colors=new ArrayList<>();
 
 	/**
@@ -172,11 +174,20 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 		element.getBarColors().addAll(colors);
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben) */
 		private final int col;
 		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;

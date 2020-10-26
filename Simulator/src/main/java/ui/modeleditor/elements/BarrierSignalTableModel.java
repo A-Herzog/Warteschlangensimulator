@@ -102,6 +102,11 @@ public class BarrierSignalTableModel extends JTableExtAbstractTableModel {
 		return 2;
 	}
 
+	/**
+	 * Liefert die Beschreibung für ein Freigabesignal
+	 * @param option	Signal
+	 * @return	Beschreibung
+	 */
 	private String getDescription(final ModelElementBarrierSignalOption option) {
 		final StringBuilder sb=new StringBuilder();
 

@@ -31,11 +31,15 @@ import ui.optimizer.OptimizerSetup.ControlVariable;
  * @see OptimizerParallelGenetic
  */
 public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase {
+	/** Maximaler Veränderungsfaktor der Werte pro Runde */
 	private final double[] maxDeltaFactor;
+	/** Populationsgröße */
 	private final int populationSize;
+	/** Wie viele Modelle sollen jeweils als Elterngeneration übernommen werden? */
 	private final int bestModelsCount;
-
+	/** Werte der Kontrollvariablen für alle Modelle der aktuellen Runde */
 	private double[][] controlValues;
+	/** Optimierungsrunde (Zählung startet mit 1) */
 	private int round;
 
 	/**
@@ -59,6 +63,13 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 		maxDeltaFactor[4]=Math.max(0.01,Math.min(maxDeltaFactor[3],setup.geneticChangeSpeed5));
 	}
 
+	/**
+	 * Verändert den Wert einer Kontrollvariable
+	 * @param value	Bisheriger Wert
+	 * @param index	Index der Kontrollvariable
+	 * @return	Neuer Wert der Kontrollvariable
+	 * @see #mutateControl(double[][])
+	 */
 	private double mutateIndex(double value, final int index) {
 		final ControlVariable setup=this.setup.controlVariables.get(index);
 
@@ -86,6 +97,11 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 		return value;
 	}
 
+	/**
+	 * Erstellt ein neues, verändertes Set von Kontrollvariablen basierend auf den Kontrollvariablenwerten aller Modelle aus der Vorrunde
+	 * @param initialControl	Kontrollvariablenwerte der Modelle der Vorrunde
+	 * @return	Neues Kontrollvariablen-Set
+	 */
 	private double[] mutateControl(final double[][] initialControl) {
 		final double[] control=new double[initialControl[0].length];
 
@@ -104,6 +120,14 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 		return control;
 	}
 
+	/**
+	 * Prüft, ob es sich bei einer Kontrollvariablenbelegung um ein neues Setup
+	 * handelt oder ob diese Belegung in der Liste aller Kontrollvariablenbelegungen
+	 * schon enthalten ist.
+	 * @param control	Potentiell neue Kontrollvariablenbelegung
+	 * @param controls	Liste aller schon vorhandenen Kontrollvariablenbelegungen
+	 * @return	Liefert <code>true</code>, wenn es sich um eine neue Kontrollvariablenbelegung handelt
+	 */
 	private boolean controlIsNew(final double[] control, final List<List<Double>> controls) {
 		for (List<Double> test: controls) {
 			boolean isNew=false;
@@ -113,6 +137,12 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 		return true;
 	}
 
+	/**
+	 * Überträgt die Kontrollvariablenbelegungen aus {@link #setupModels(double[][])} nach {@link #controlValues}.
+	 * @param controls	Neue Kontrollvariablenbelegungen
+	 * @see #controlValues
+	 * @see #setupModels(double[][])
+	 */
 	private void storeControlValues(List<List<Double>> controls) {
 		controlValues=new double[controls.size()][];
 		for (int i=0;i<controlValues.length;i++) {
@@ -122,6 +152,11 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 		}
 	}
 
+	/**
+	 * Erstellt die Simulationsmodelle für die nächste Runde
+	 * @param initialControl	Kontrollvariablenwerte für die neuene Modelle
+	 * @return	Neue Modelle
+	 */
 	private EditModel[] setupModels(final double[][] initialControl) {
 		final List<EditModel> models=new ArrayList<>();
 		final List<List<Double>> controls=new ArrayList<>();

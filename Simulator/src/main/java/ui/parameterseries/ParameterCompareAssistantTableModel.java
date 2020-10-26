@@ -176,6 +176,12 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		}
 	}
 
+	/**
+	 * Liefert den Namen eines Eingangsparameter
+	 * @param index	Index des Eingangsparameters
+	 * @return	Name des Parameters
+	 * @see #getValueAt(int, int)
+	 */
 	private String getParameterName(final int index) {
 		final ParameterCompareSetupValueInput record=input.get(index);
 
@@ -200,6 +206,12 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Beschreibung für einen Eingangsparameter
+	 * @param index	Index des Eingangsparameters
+	 * @return	Beschreibung
+	 * @see #getValueAt(int, int)
+	 */
 	private String getDefaultParameterValue(final int index) {
 		final ParameterCompareSetupValueInput record=input.get(index);
 
@@ -285,11 +297,21 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		return null;
 	}
 
+	/**
+	 * Liefer die Nummer des als nächstes anzupassenden Eingabeparameters
+	 * @param lastLevel	Zuvor angepasster Parameter
+	 * @return	Nummer des als nächstes anzupassenden Eingabeparameters
+	 */
 	private int nextLevel(final int lastLevel) {
 		for (int i=Math.max(-1,lastLevel)+1;i<active.length;i++) if (active[i].isSelected()) return i;
 		return -1;
 	}
 
+	/**
+	 * Erstellt einen Text aus den Werten der Eingabeparameter
+	 * @param values	Werte der Eingabeparameter
+	 * @return	Werten der Eingabeparameter als Text
+	 */
 	private String valuesToString(final Double[] values) {
 		final StringBuilder sb=new StringBuilder();
 		for (Double value: values) if (value!=null) {
@@ -299,6 +321,10 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert die nächste verfügbare Modellnummer
+	 * @return	Nächste verfügbare Modellnummer
+	 */
 	private int getNextFreeModelNumber() {
 		int nr=1;
 		while (true) {
@@ -312,6 +338,12 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		}
 	}
 
+	/**
+	 * Fügt ein Modell zu der Parameterreihen-Modellliste hinzu
+	 * @param values	Werte für die Eingabeparameter
+	 * @param nr	Nummer des Modells
+	 * @param parametersInNames	Stellt ein, ob bei der Erstellung der Modelle die gewählten Parmeterwerte in die Modellnamen aufgenommen werden sollen
+	 */
 	private void addModel(final Double[] values, final int nr, final boolean parametersInNames) {
 		final ParameterCompareSetupModel model=new ParameterCompareSetupModel();
 		String addOn="";
@@ -321,6 +353,14 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		setup.getModels().add(model);
 	}
 
+	/**
+	 * Erstellt die Modelle für die Parameterreihe.
+	 * @param values	Schon belegte Werte
+	 * @param level	Anzupassender Parameter
+	 * @param parametersInNames	Stellt ein, ob bei der Erstellung der Modelle die gewählten Parmeterwerte in die Modellnamen aufgenommen werden sollen
+	 * @see #addModel(Double[], int, boolean)
+	 * @see #storeData(boolean)
+	 */
 	private void build(final Double[] values, final int level, final boolean parametersInNames) {
 		double min=valueMin[level];
 		double max=valueMax[level];

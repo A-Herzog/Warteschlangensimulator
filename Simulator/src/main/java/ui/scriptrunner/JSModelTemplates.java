@@ -39,20 +39,20 @@ import ui.script.ScriptEditorPanel;
 import ui.script.ScriptPanel;
 
 /**
- * Zeigt ein Kontextmenü zur Auswahl von Javascipt-Beispiel-Vorlagen an.
+ * Zeigt ein Kontextmenü zur Auswahl von Javascript-Beispiel-Vorlagen an.
  * @author Alexander Herzog
  * @see ScriptPanel
  */
 public class JSModelTemplates {
 	/** Für welche Sprache sollen die Vorlagen bereitgestellt werden? */
 	private final ScriptEditorPanel.ScriptMode mode;
-	/** Editor-Modell auf dessen Basis Javascipt-Beispiel-Vorlagen angeboten werden sollen */
+	/** Editor-Modell auf dessen Basis Javascript-Beispiel-Vorlagen angeboten werden sollen */
 	private final EditModel model;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param mode	Für welche Sprache sollen die Vorlagen bereitgestellt werden?
-	 * @param model	Editor-Modell auf dessen Basis Javascipt-Beispiel-Vorlagen angeboten werden sollen
+	 * @param model	Editor-Modell auf dessen Basis Javascript-Beispiel-Vorlagen angeboten werden sollen
 	 */
 	public JSModelTemplates(final ScriptEditorPanel.ScriptMode mode, final EditModel model) {
 		this.mode=mode;
@@ -262,9 +262,20 @@ public class JSModelTemplates {
 		popupMenu.show(anchor,0,anchor.getHeight());
 	}
 
+	/**
+	 * Skript-Vorlagen-Datensatz
+	 */
 	private class Record {
+		/** Name der Vorlage */
 		public final String name;
+		/** Skriptcode der Vorlage */
 		public final String code;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name der Vorlage
+		 * @param code	Skriptcode der Vorlage
+		 */
 		public Record(final String name, final String code) {
 			this.name=name;
 			this.code=code;

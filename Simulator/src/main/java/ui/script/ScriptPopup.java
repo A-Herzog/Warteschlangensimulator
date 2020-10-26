@@ -125,7 +125,7 @@ public class ScriptPopup {
 		FileOutput,
 
 		/**
-		 * Anzeige der Befehle zum ändern des Modells (muss gemeinsam mit <code>Statistics</code> verwendet werden).
+		 * Anzeige der Befehle zum Ändern des Modells (muss gemeinsam mit <code>Statistics</code> verwendet werden).
 		 */
 		Model,
 

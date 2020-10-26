@@ -26,6 +26,7 @@ import ui.MainPanel;
  */
 public class SimulatorWebServer extends WebServer {
 	private static SimulatorWebServer instance;
+	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
 
 	/**

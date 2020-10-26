@@ -275,6 +275,9 @@ public class OptimizerPanel extends SpecialPanel {
 		});
 	}
 
+	/**
+	 * Initialisiert das Panel mit den Registerreitern darin.
+	 */
 	private void initGUI() {
 		tabs=new JTabbedPane();
 		add(tabs,BorderLayout.CENTER);
@@ -482,6 +485,11 @@ public class OptimizerPanel extends SpecialPanel {
 		commandListSelectionChanged();
 	}
 
+	/**
+	 * Initialisiert die Ergebnisdiagramm-Ausgabe.
+	 * @param parentPanel	Eltern-Panel in das das Diagramm eingebettet wird
+	 * @see #initGUI()
+	 */
 	private void initGraphics(final JPanel parentPanel) {
 		/* Plot */
 
@@ -523,8 +531,15 @@ public class OptimizerPanel extends SpecialPanel {
 		parentPanel.add(chartPanel,BorderLayout.CENTER);
 	}
 
+	/**
+	 * Ergebnisse der letzten Optimierungsläufe für die Diagrammdarstellung.
+	 * @see #updateDiagram()
+	 */
 	private List<OptimizationRunResults> lastResults;
 
+	/**
+	 * Aktualisiert die Diagrammdarstellung.
+	 */
 	private void updateDiagram() {
 		final List<OptimizationRunResults> results;
 		if (optimizer==null) {
@@ -604,6 +619,10 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Zeigt das Kopieren-Popupmenü an.
+	 * @param button	Kopieren-Schaltfläche zur Ausrichtung des Menüs.
+	 */
 	private void copyPopup(final JButton button) {
 		final JPopupMenu popup=new JPopupMenu();
 		JMenuItem item;
@@ -621,6 +640,10 @@ public class OptimizerPanel extends SpecialPanel {
 		popup.show(button,0,button.getHeight());
 	}
 
+	/**
+	 * Zeigt das Speichern-Popupmenü an.
+	 * @param button	Speichern-Schaltfläche zur Ausrichtung des Menüs.
+	 */
 	private void savePopup(final JButton button) {
 		final JPopupMenu popup=new JPopupMenu();
 		JMenuItem item;
@@ -628,7 +651,6 @@ public class OptimizerPanel extends SpecialPanel {
 		popup.add(item=new JMenuItem(Language.tr("Optimizer.Tab.Optimization.Step.Result.Save.Log")));
 		item.setIcon(Images.OPTIMIZER_EXPORT_TEXT.getIcon());
 		item.addActionListener(e->{
-
 			final JFileChooser fc=new JFileChooser();
 			CommonVariables.initialDirectoryToJFileChooser(fc);
 			fc.setDialogTitle(StatisticsBasePanel.viewersSaveText);
@@ -661,12 +683,20 @@ public class OptimizerPanel extends SpecialPanel {
 		popup.show(button,0,button.getHeight());
 	}
 
+	/**
+	 * Befehl: Diagramm kopieren
+	 * @see #copyPopup(JButton)
+	 */
 	private void copyDiagram() {
 		final int imageSize=Math.max(100,SetupData.getSetup().imageSize);
 		final BufferedImage image=chart.createBufferedImage(imageSize,imageSize);
 		ImageTools.copyImageToClipboard(image);
 	}
 
+	/**
+	 * Befehl: Diagramm speichern
+	 * @see #savePopup(JButton)
+	 */
 	private void saveDiagram() {
 		final File file=ImageTools.showSaveDialog(this,true);
 		if (file==null) return;
@@ -676,6 +706,11 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Extrahiert eine Datentabelle basierend auf den Diagrammdaten.
+	 * @return	Datentabelle mit den Optimierungsergebnissen
+	 * @see #xydata
+	 */
 	private Table getTableFromChart() {
 		final Table table=new Table();
 
@@ -696,6 +731,11 @@ public class OptimizerPanel extends SpecialPanel {
 		return table.transpose(true);
 	}
 
+	/**
+	 * Extrahiert eine Datentabelle mit integriertem Diagramm basierend auf den Diagrammdaten.
+	 * @return	Datentabelle mit den Optimierungsergebnissen mit integriertem Diagramm
+	 * @see #xydata
+	 */
 	private TableChart getTableChartFromChart() {
 		final TableChart tableChart=new TableChart(getTableFromChart());
 
@@ -705,10 +745,20 @@ public class OptimizerPanel extends SpecialPanel {
 		return tableChart;
 	}
 
+	/**
+	 * Befehl: Diagramm speichern
+	 * @param file	Ausgabedateiname
+	 * @return	Liefert im Erfolgsfall <code>true</code> zurück.
+	 */
 	private boolean saveDiagram(final File file) {
 		return ImageTools.saveChart(this,chart,file,SetupData.getSetup().imageSize,()->getTableChartFromChart());
 	}
 
+	/**
+	 * Lädt die Optimierereinstellungen aus einem Setup-Objekt in die Programmoberfläche
+	 * @param setup	Zu ladende Optimierereinstellungen
+	 * @see #getSetupFromGUI(boolean)
+	 */
 	private void loadSetupToGUI(final OptimizerSetup setup) {
 		this.setup=setup;
 
@@ -766,6 +816,12 @@ public class OptimizerPanel extends SpecialPanel {
 		commandListSelectionChanged();
 	}
 
+	/**
+	 * Schreibt die Optimierereinstellungen aus der Programmoberfläche in ein neues Optimierereinstellungen-Objekt
+	 * @param ignoreErrors	Sollen im Fall von ungültigen Einstellungen in der Oberfläche Standardwerte verwendet werden (<code>true</code>) oder soll <code>null</code> zurückgeliefert werden (<code>false</code>)
+	 * @return	Neues Optimierereinstellungen-Objekt (kann im Fall, wenn Fehler nicht ignoriert werden sollen, <code>null</code> sein)
+	 * @see #loadSetupToGUI(OptimizerSetup)
+	 */
 	private OptimizerSetup getSetupFromGUI(final boolean ignoreErrors) {
 		final OptimizerSetup setup=new OptimizerSetup();
 
@@ -833,6 +889,10 @@ public class OptimizerPanel extends SpecialPanel {
 		return setup;
 	}
 
+	/**
+	 * Dürfen die Einstellungen verworfen werden (ggf. nach Nutzerrückfrage)?
+	 * @return	Liefert <code>true</code>, wenn die Daten verworfen werden dürfen
+	 */
 	private boolean allowDispose() {
 		final OptimizerSetup newSetup=getSetupFromGUI(true);
 		if (setup.equalsOptimizerSetup(newSetup)) return true;
@@ -859,11 +919,20 @@ public class OptimizerPanel extends SpecialPanel {
 		close();
 	}
 
+	/**
+	 * Fügt eine Zeile an die Status-Logging-Ausgabe an.
+	 * @param line	Auszugebende Zeile
+	 */
 	private void addStatusLine(String line) {
 		if (log.getText().isEmpty()) log.setText(line); else log.setText(log.getText()+"\n"+line);
 		log.setCaretPosition(log.getText().length());
 	}
 
+	/**
+	 * Schaltet die GUI-Schaltflächen aktiv oder inaktiv
+	 * je nach dem ob die Optimierung gerade läuft oder nicht
+	 * @param run	Läuft die Optimierung gerade
+	 */
 	private void setGUIRunMode(final boolean run) {
 		if (run) {
 			startButton.setText(Language.tr("Optimizer.Toolbar.Stop"));
@@ -911,6 +980,10 @@ public class OptimizerPanel extends SpecialPanel {
 		setWaitIndicatorVisible(run);
 	}
 
+	/**
+	 * Befehl: Optimierereinstellungen laden
+	 * @return	Liefert <code>true</code>, wenn die Einstellungen geladen werden konnten
+	 */
 	private boolean loadSetup() {
 		final File file=XMLTools.showLoadDialog(getParent(),Language.tr("Optimizer.Settings.Load"));
 		if (file==null) return false;
@@ -926,6 +999,11 @@ public class OptimizerPanel extends SpecialPanel {
 		return true;
 	}
 
+	/**
+	 * Befehl: Optimierereinstellungen speichern
+	 * @param setup	Zu speichernde Optimierereinstellungen
+	 * @return	Liefert <code>true</code>, wenn die Einstellungen gespeichert werden konnten
+	 */
 	private boolean saveSetup(final OptimizerSetup setup) {
 		final File file=XMLTools.showSaveDialog(getParent(),Language.tr("Optimizer.Settings.Save"),SetupData.getSetup().defaultSaveFormatOptimizerSetups);
 		if (file==null) return false;
@@ -943,6 +1021,9 @@ public class OptimizerPanel extends SpecialPanel {
 		return true;
 	}
 
+	/**
+	 * Befehl: Kontrollvariable hinzufügen
+	 */
 	private void commandControlAdd() {
 		OptimizerPanelControlVariableDialog dialog=new OptimizerPanelControlVariableDialog(this,model,null,()->Help.topicModal(OptimizerPanel.this,"Optimizer"));
 		dialog.setVisible(true);
@@ -951,6 +1032,9 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: Kontrollvariable bearbeiten
+	 */
 	private void commandControlEdit() {
 		if (controlList.getSelectedIndex()<0) return;
 		OptimizerPanelControlVariableDialog dialog=new OptimizerPanelControlVariableDialog(this,model,controlListModel.get(controlList.getSelectedIndex()),()->Help.topicModal(OptimizerPanel.this,"Optimizer"));
@@ -960,11 +1044,17 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: Kontrollvariable löschen
+	 */
 	private void commandControlDelete() {
 		if (controlList.getSelectedIndex()<0) return;
 		controlListModel.remove(controlList.getSelectedIndex());
 	}
 
+	/**
+	 * Befehl: Kontrollvariable in der Liste nach oben verschieben
+	 */
 	private void commandControlUp() {
 		if (controlList.getSelectedIndex()<1) return;
 		final ControlVariable temp=controlListModel.get(controlList.getSelectedIndex()-1);
@@ -973,6 +1063,9 @@ public class OptimizerPanel extends SpecialPanel {
 		controlList.setSelectedIndex(controlList.getSelectedIndex()-1);
 	}
 
+	/**
+	 * Befehl: Kontrollvariable in der Liste nach unten verschieben
+	 */
 	private void commandControlDown() {
 		if (controlList.getSelectedIndex()<0 || controlList.getSelectedIndex()==controlListModel.size()-1) return;
 		final ControlVariable temp=controlListModel.get(controlList.getSelectedIndex()+1);
@@ -981,11 +1074,18 @@ public class OptimizerPanel extends SpecialPanel {
 		controlList.setSelectedIndex(controlList.getSelectedIndex()+1);
 	}
 
+	/**
+	 * Befehl: Nebenbedingungen konfigurieren
+	 * @see OptimizerPanelConstrainsDialog
+	 */
 	private void commandControlSetupConstrains() {
 		if (constrains==null) constrains=new ArrayList<>();
 		new OptimizerPanelConstrainsDialog(this,constrains);
 	}
 
+	/**
+	 * Befehl: XML-Anweisung für Zielwert aus Popup auswählen
+	 */
 	private final void commandSelectXMLPopup() {
 		final JPopupMenu popupMenu=new JPopupMenu();
 
@@ -1005,6 +1105,10 @@ public class OptimizerPanel extends SpecialPanel {
 		popupMenu.show(targetXMLTagButton,0,targetXMLTagButton.getHeight());
 	}
 
+	/**
+	 * Befehl: XML-Anweisung für Zielwert über Dialog auswählen
+	 * @see #commandSelectXMLPopup()
+	 */
 	private final void commandSelectXML() {
 		final org.w3c.dom.Document xmlDoc=miniStatistics.saveToXMLDocument(); /* Da es hier um eine Abbruch- bzw. Zielbedingung geht, muss die Ergebnis-xml-Datei verwendet werden. */
 		if (xmlDoc==null) return;
@@ -1016,6 +1120,16 @@ public class OptimizerPanel extends SpecialPanel {
 		targetXMLTagSelect.setSelected(true);
 	}
 
+	/**
+	 * Aktiviert oder deaktiviert Schaltflächen je nach dem
+	 * ob und wenn ja welcher Eintrag in der Liste der
+	 * Kontrollvariablen selektiert ist.
+	 * @see #controlList
+	 * @see #controlEdit
+	 * @see #controlDelete
+	 * @see #controlUp
+	 * @see #controlDown
+	 */
 	private final void commandListSelectionChanged() {
 		controlEdit.setEnabled(controlList.getSelectedIndex()>=0);
 		controlDelete.setEnabled(controlList.getSelectedIndex()>=0);
@@ -1042,7 +1156,13 @@ public class OptimizerPanel extends SpecialPanel {
 		return true;
 	}
 
-	private String selectJSOrJavaFile(String dialogTitle, String oldFileName) {
+	/**
+	 * Zeigt einen Dialog zur Auswahl einer Java- oder Javascript-Datei an
+	 * @param dialogTitle	Anzuzeigender Dialogtitel
+	 * @param oldFileName	Bisheriger Dateiname (zur Auswahl des initialen Verzeichnisses)
+	 * @return	Ausgewählte Datei oder <code>null</code>, wenn die Auswahl abgebrochen wurde
+	 */
+	private String selectJSOrJavaFile(final String dialogTitle, final String oldFileName) {
 		JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
 		fc.setDialogTitle(dialogTitle);
@@ -1066,6 +1186,10 @@ public class OptimizerPanel extends SpecialPanel {
 		return file.getAbsolutePath();
 	}
 
+	/**
+	 * Zeigt einen Dialog zur Auswahl eines Ausgabeverzeichnisses an.
+	 * @return	Gewähltes Ausgabeverzeichnis oder <code>null</code>, wenn die Auswahl abgebrochen wurde
+	 */
 	private final String selectFolder() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -1118,6 +1242,9 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Befehl: Optimierungsmethode wählen
+	 */
 	private void showSelectKernelPopup() {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -1140,6 +1267,9 @@ public class OptimizerPanel extends SpecialPanel {
 		popup.show(kernelButton,0,kernelButton.getHeight());
 	}
 
+	/**
+	 * Befehl: Optimierungsmethoden konfigurieren
+	 */
 	private void setupKernelParameters() {
 		final OptimizerSetup tempSetup=getSetupFromGUI(true);
 		final OptimizerPanelAlgorithmParametersDialog dialog=new OptimizerPanelAlgorithmParametersDialog(this,tempSetup,()->Help.topicModal(OptimizerPanel.this,"Optimizer"));
@@ -1159,6 +1289,9 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -1221,6 +1354,10 @@ public class OptimizerPanel extends SpecialPanel {
 		}
 	}
 
+	/**
+	 * Renderer für die Einträge der Kontrollvariablenliste
+	 * @see OptimizerPanel#controlList
+	 */
 	private class ControlListCellRenderer extends DefaultListCellRenderer {
 		/**
 		 * Serialisierungs-ID der Klasse

@@ -163,6 +163,7 @@ public class RunElementTransportSourceTargets {
 		return null;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
 	private int getDestinationStationByClientSequence(final SimulationData simData, final RunDataClient client, final boolean testOnly) {

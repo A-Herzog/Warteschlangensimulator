@@ -52,21 +52,87 @@ public final class ModelResource implements Cloneable {
 		MODE_SCHEDULE
 	}
 
+	/**
+	 * Name der Ressource
+	 * @see #getName()
+	 * @see #setName(String)
+	 */
 	private String name;
+
+	/**
+	 * Icon der Ressource
+	 * @see #getIcon()
+	 * @see #setIcon(String)
+	 */
 	private String icon;
 
+	/**
+	 * Modus der Ressource
+	 * @see Mode
+	 * @see #getMode()
+	 */
 	private Mode modeCount;
+
+	/**
+	 * Anzahl an Bedienern in der Ressource (Wert &ge;0 oder -1, wenn unendlich viele Bediener vorhanden sind)
+	 * @see #getCount()
+	 * @see #setCount(int)
+	 */
 	private int count;
+
+	/**
+	 * Name des Schichtplans
+	 * @see #getSchedule()
+	 * @see #setSchedule(String)
+	 */
 	private String schedule;
 
+	/**
+	 * Kosten pro Betriebsstunde und Bediener
+	 * @see #getCostsPerActiveHour()
+	 * @see #setCostsPerActiveHour(double)
+	 */
 	private double costsPerActiveHour;
+
+	/**
+	 * Kosten pro aktiver Arbeitsstunde und Bediener
+	 * @see #getCostsPerProcessHour()
+	 * @see #setCostsPerProcessHour(double)
+	 */
 	private double costsPerProcessHour;
+
+	/**
+	 * Kosten pro Leerlaufstunde und Bediener
+	 * @see #getCostsPerIdleHour()
+	 * @see #setCostsPerIdleHour(double)
+	 */
 	private double costsPerIdleHour;
 
+	/**
+	 * Liste der Ausfall-Ereignisse
+	 * @see #getFailures()
+	 */
 	private final List<ModelResourceFailure> failures;
 
+	/**
+	 * Rüstzeiten-Verteilung beim Wechsel eines Bedieners von einer Station zu einer anderen
+	 * @see #getMoveTimes()
+	 * @see #setMoveTimes(Object)
+	 */
 	private AbstractRealDistribution moveTimesDistribution;
+
+	/**
+	 * Rüstzeiten-Ausdruck beim Wechsel eines Bedieners von einer Station zu einer anderen
+	 * @see #getMoveTimes()
+	 * @see #setMoveTimes(Object)
+	 */
 	private String moveTimesExpression;
+
+	/**
+	 * Verwendete Zeitbasis für Rüstzeiten
+	 * @see #getMoveTimeBase()
+	 * @see #setMoveTimeBase(ui.modeleditor.ModelSurface.TimeBase)
+	 */
 	private ModelSurface.TimeBase moveTimeBase;
 
 	/**

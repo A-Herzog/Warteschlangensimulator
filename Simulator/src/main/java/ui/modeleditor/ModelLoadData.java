@@ -59,9 +59,33 @@ public final class ModelLoadData implements Cloneable {
 		DDE
 	}
 
+	/**
+	 * Ist das Daten laden zu Simulationsbeginn aktiv?
+	 * @see #isActive()
+	 * @see #setActive(boolean)
+	 */
 	private boolean active;
+
+	/**
+	 * Art der Datenquelle
+	 * @see Mode
+	 * @see #getMode()
+	 * @see #setMode(Mode)
+	 */
 	private Mode mode;
+
+	/**
+	 * Namen der Tabellendatei (Dateimodus) bzw. des Excel-Workbook (DDE-Modus)
+	 * @see #getWorkbook()
+	 * @see #setWorkbook(String)
+	 */
 	private String workbook;
+
+	/**
+	 * Namen des Arbeitsblattes (leer für erstes Arbeitsblatt)
+	 * @see #getTable()
+	 * @see #setTable(String)
+	 */
 	private String table;
 
 	private final List<ModelLoadDataRecord> list;

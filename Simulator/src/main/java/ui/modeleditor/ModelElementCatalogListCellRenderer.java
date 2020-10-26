@@ -46,6 +46,11 @@ import ui.modeleditor.fastpaint.Shapes;
  * @param <E>	Müssen von <code>ModelElementPosition</code> abgeleitete Elemente sein.
  */
 public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition> implements ListCellRenderer<E> {
+	/**
+	 * Zoomlevel
+	 * @see #setZoom(double)
+	 * @see #getElementRenderer(ModelElementPosition, boolean)
+	 */
 	private double zoom=1.0;
 
 	/**
@@ -56,7 +61,9 @@ public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition>
 		this.zoom=zoom;
 	}
 
+	/** Icon für "-" */
 	private Icon iconMinus=null;
+	/** Icon für "+" */
 	private Icon iconPlus=null;
 
 	private Component getGroupRenderer(final String groupName, final boolean statusOpen) {

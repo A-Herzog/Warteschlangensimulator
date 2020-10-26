@@ -49,7 +49,14 @@ public class JSModelRunner {
 	/** Wird aufgerufen, wenn die Skriptausführung abgeschlossen wurde. */
 	private final Runnable doneNotify;
 
+	/**
+	 * Führt die eigentliche Javascript-Verarbeitung durch.
+	 */
 	private JSRunComplexScript scriptRunner;
+
+	/**
+	 * Führt die eigentliche Java-Verarbeitung durch.
+	 */
 	private DynamicRunner dynamicRunner;
 
 	/**
@@ -128,11 +135,20 @@ public class JSModelRunner {
 		}
 	}
 
+	/**
+	 * Gibt eine Nachricht über {@link #outputNotify} aus.
+	 * @param text	Auszugebende Meldung
+	 * @see #outputNotify
+	 */
 	private void output(final String text) {
 		if (canceled || outputNotify==null) return;
 		SwingUtilities.invokeLater(()->outputNotify.accept(text));
 	}
 
+	/**
+	 * Ruft {@link #doneNotify} im Kontext des Swing-Threads auf.
+	 * @see #doneNotify
+	 */
 	private void done() {
 		if (canceled || doneNotify==null) return;
 		SwingUtilities.invokeLater(doneNotify);

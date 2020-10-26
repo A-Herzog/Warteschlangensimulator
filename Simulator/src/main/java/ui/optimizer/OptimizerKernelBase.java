@@ -30,6 +30,11 @@ import ui.optimizer.OptimizerSetup.ControlVariable;
  * @author Alexander Herzog
  */
 public class OptimizerKernelBase {
+	/**
+	 * Liste mit allen Nachrichten, die über {@link #addMessage(String)} erzeugt wurden.
+	 * @see #addMessage(String)
+	 * @see #getMessages()
+	 */
 	private final List<String> messages;
 
 	/**
@@ -72,7 +77,7 @@ public class OptimizerKernelBase {
 	}
 
 	/**
-	 * Liefert eine Liste mit allen Nachrichten, die intern über <code>addMessages</code> erzeugt wurden.
+	 * Liefert eine Liste mit allen Nachrichten, die intern über {@link #addMessage(String)} erzeugt wurden.
 	 * @return	Liste mit allen momentanen Nachrichten
 	 * @see #addMessage(String)
 	 */
@@ -111,12 +116,24 @@ public class OptimizerKernelBase {
 		return model;
 	}
 
+	/**
+	 * Liefert die Variablennamen für die Kontrollvariablen
+	 * (zur Verwendung in den Nebenbedingungen-Ausdrücken).
+	 * @param count	Gesamtzahl an Kontrollvariablen
+	 * @return	Variablennamen für die Kontrollvariablen
+	 */
 	private String[] getVariableNames(final int count) {
 		final List<String> list=new ArrayList<>();
 		for (int i=1;i<=count;i++) list.add(String.format("Var%d",i));
 		return list.toArray(new String[0]);
 	}
 
+	/**
+	 * Rechenausdrücke für die Nebenbedingungen<br>
+	 * (Kann <code>null</code> sein, wenn es keine Nebenbedingungen gibt.)
+	 * @see #initControlValuesConditions()
+	 * @see #controlValuesValide(double[])
+	 */
 	private ExpressionMultiEval[] controlValuesConditions;
 
 	/**

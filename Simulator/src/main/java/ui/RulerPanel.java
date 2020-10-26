@@ -67,9 +67,27 @@ public class RulerPanel extends JPanel {
 	 */
 	private final LeftRuler leftRuler;
 
+	/**
+	 * Verschiebung der linken Koordinate des oberen Lineals und des Panels gegeneinander
+	 */
 	private int leftDelta=0;
+
+	/**
+	 * Linke Ecke des sichtbaren Bereichs
+	 * @see #update()
+	 */
 	private int scrollX=0;
+
+	/**
+	 * Obere Ecke des sichtbaren Bereichs
+	 * @see #update()
+	 */
 	private int scrollY=0;
+
+	/**
+	 * 1/Zoomfaktor
+	 * @see #update()
+	 */
 	private double invZoom=1;
 
 	/**
@@ -172,6 +190,9 @@ public class RulerPanel extends JPanel {
 		updateRulersOnly();
 	}
 
+	/**
+	 * Aktualisiert die Darstellung der Lineale.
+	 */
 	private void updateRulersOnly() {
 		if (topRuler.isVisible()) {
 			topRuler.repaint();
@@ -257,6 +278,7 @@ public class RulerPanel extends JPanel {
 		 */
 		private static final long serialVersionUID=8366048604838451140L;
 
+		/** Rotations-System für die Schriften des linken Lineals */
 		private final AffineTransform transformRotate;
 
 		/**

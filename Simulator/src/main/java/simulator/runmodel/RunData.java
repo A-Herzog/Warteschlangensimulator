@@ -45,6 +45,7 @@ import simulator.elements.TransporterPosition;
 import simulator.events.SystemChangeEvent;
 import simulator.events.TimedCheckEvent;
 import simulator.simparser.ExpressionCalc;
+import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
@@ -92,30 +93,135 @@ public class RunData {
 	 */
 	public boolean stopp=false;
 
-	/**
+	/*
 	 * Zugriff auf die stationsabhängigen Daten beschleunigen, in dem diese direkt nach IDs sortiert in
 	 * einem Array gespeichert werden und nicht jedes Mal die HashMap nach dem Namen durchsucht werden muss.
 	 */
+
+	/**
+	 * Cache für die "Zwischenankunftszeiten der Kunden (bei den "Kundenquelle"-Elementen)"-Statistikobjekte
+	 * @see Statistics#clientsInterarrivalTime
+	 */
 	private IndicatorAccessCacheStations cacheClientsInterarrivalTime;
+
+	/**
+	 * Cache für die "Zwischenankunftszeiten der Kunden bei den einzelnen Stationen"-Statistikobjekte
+	 * @see Statistics#stationsInterarrivalTime
+	 */
 	private IndicatorAccessCacheStations cacheStationsInterarrivalTime;
+
+	/**
+	 * Cache für die "Zwischenankunftszeiten der Kunden bei den einzelnen Stationen ausdifferenziert nach der Anzahl an Kunden an der Station"-Statistikobjekte
+	 * @see Statistics#stationsInterarrivalTimeByState
+	 */
 	private IndicatorAccessCacheStationsNumber cacheStationsInterarrivalTimeByState;
+
+	/**
+	 * Cache für die "Zwischenankunftszeiten der Kunden bei den einzelnen Stationen (zusätzlich differenziert nach Kundentyp)"-Statistikobjekte
+	 * @see Statistics#stationsInterarrivalTimeByClientType
+	 */
 	private IndicatorAccessCacheStationsClientTypes cacheStationsInterarrivalTimeByClientType;
+
+	/**
+	 * Cache für die "Zwischenabgangszeiten der Kunden bei den einzelnen Stationen"-Statistikobjekte
+	 * @see Statistics#stationsInterleavingTime
+	 */
 	private IndicatorAccessCacheStations cacheStationsInterleavingTime;
+
+	/**
+	 * Cache für die "Zwischenabgangszeiten der Kunden bei den einzelnen Stationen (zusätzlich differenziert nach Kundentyp)"-Statistikobjekte
+	 * @see Statistics#stationsInterleavingTimeByClientType
+	 */
 	private IndicatorAccessCacheStationsClientTypes cacheStationsInterleavingTimeByClientType;
+
+	/**
+	 * Cache für die "Wartezeiten an den Stationen"-Statistikobjekte
+	 * @see Statistics#stationsWaitingTimes
+	 */
 	private IndicatorAccessCacheStations cacheStationsWaitingTimes;
+
+	/**
+	 * Cache für die "Transferzeiten an den Stationen"-Statistikobjekte
+	 * @see Statistics#stationsTransferTimes
+	 */
 	private IndicatorAccessCacheStations cacheStationsTransferTimes;
+
+	/**
+	 * Cache für die "Bedienzeiten an den Stationen"-Statistikobjekte
+	 * @see Statistics#stationsProcessingTimes
+	 */
 	private IndicatorAccessCacheStations cacheStationsProcessingTimes;
+
+	/**
+	 * Cache für die "Verweilzeiten an den Stationen"-Statistikobjekte
+	 * @see Statistics#stationsResidenceTimes
+	 */
 	private IndicatorAccessCacheStations cacheStationsResidenceTimes;
+
+	/**
+	 * Cache für die "Wartezeiten an den Stationen (zusätzlich differenziert nach Kundentyp)"-Statistikobjekte
+	 * @see Statistics#stationsWaitingTimesByClientType
+	 */
 	private IndicatorAccessCacheStationsClientTypes cacheStationsWaitingTimesByClientType;
+
+	/**
+	 * Cache für die "Transferzeiten an den Stationen (zusätzlich differenziert nach Kundentyp)"-Statistikobjekte
+	 * @see Statistics#stationsTransferTimesByClientType
+	 */
 	private IndicatorAccessCacheStationsClientTypes cacheStationsTransferTimesByClientType;
+
+	/**
+	 * Cache für die "Bedienzeiten an den Stationen (zusätzlich differenziert nach Kundentyp)"-Statistikobjekte
+	 * @see Statistics#stationsProcessingTimesByClientType
+	 */
 	private IndicatorAccessCacheStationsClientTypes cacheStationsProcessingTimesByClientType;
+
+	/**
+	 * Cache für die "Verweilzeiten an den Stationen (zusätzlich differenziert nach Kundentyp)"-Statistikobjekte
+	 * @see Statistics#stationsResidenceTimesByClientType
+	 */
 	private IndicatorAccessCacheStationsClientTypes cacheStationsResidenceTimesByClientType;
+
+	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden an den Stationen (erfasst nach Stationen)"-Statistikobjekte
+	 * @see Statistics#clientsAtStationByStation
+	 */
 	private IndicatorAccessCacheStations cacheClientsAtStation;
+
+	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden an den Stationen (erfasst nach Stationen und Kundentypen)"-Statistikobjekte
+	 * @see Statistics#clientsAtStationByStationAndClient
+	 */
 	private IndicatorAccessCacheStationsClientTypes cacheClientsAtStationByClientType;
+
+	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden an den Stationen (erfasst nach Kundentypen)"-Statistikobjekte
+	 * @see Statistics#clientsInSystemByClient
+	 */
 	private IndicatorAccessCacheClientTypes cacheClientsInSystemByType;
+
+	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden in den Warteschlangen an den Stationen (erfasst nach Stationen)"-Statistikobjekte
+	 * @see Statistics#clientsAtStationQueueByStation
+	 */
 	private IndicatorAccessCacheStations cacheClientsAtStationQueueByStation;
+
+	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden in den Warteschlangen an den Stationen (erfasst nach Stationen und Kundentypen)"-Statistikobjekte
+	 * @see Statistics#clientsAtStationQueueByStationAndClient
+	 */
 	private IndicatorAccessCacheStationsClientTypes cacheClientsAtStationQueueByStationByClientType;
+
+	/**
+	 * Cache für die "Verteilung der Anzahl an Kunden in den Warteschlangen an den Stationen (erfasst nach Kundentypen)"-Statistikobjekte
+	 * @see Statistics#clientsAtStationQueueByClient
+	 */
 	private IndicatorAccessCacheClientTypes cacheClientsAtStationQueueByClient;
+
+	/**
+	 * Cache für die "Erfassung der an den Stationen entstehenden Kosten"-Statistikobjekte
+	 * @see Statistics#stationCosts
+	 */
 	private IndicatorAccessCacheStations cacheStationCosts;
 
 	/**
@@ -176,8 +282,16 @@ public class RunData {
 
 	private Map<File,RunDataOutputWriter> outputWriter;
 
+	/**
+	 * Anzahl der Kunden im System, die an irgendeiner Station warten
+	 * @see #logClientEntersStationQueue(SimulationData, RunElement, RunElementData, RunDataClient)
+	 * @see #logClientLeavesStationQueue(SimulationData, RunElement, RunElementData, RunDataClient)
+	 */
 	private int waitingClients;
 
+	/**
+	 * Thread-übergreifendes System um alle Threads möglichst gleichmäßig mit Kundenankünften zu versorgen
+	 */
 	private final DynamicLoadBalancer dynamicLoadBalancer;
 
 	/**
@@ -823,6 +937,7 @@ public class RunData {
 		private final StatisticsMultiPerformanceIndicator multi;
 		/** Liste mit allen Kundentypnamen ({@link RunModel#clientTypes}) */
 		private final String[] clientTypes;
+		/** Statistik-Teil-Indikator für die Kundentypen */
 		private final StatisticsPerformanceIndicator[] indicators;
 
 		/**

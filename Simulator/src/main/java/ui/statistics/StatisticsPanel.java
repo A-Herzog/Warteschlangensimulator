@@ -58,6 +58,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	/** Statistikdatensätze, deren Daten angezeigt werden sollen */
 	private Statistics[] statistics;
 
+	/** Viewer für den Schnellzugriff */
 	private StatisticViewerFastAccess fastAccess;
 
 	/**
@@ -307,6 +308,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		}
 	}
 
+	/**
+	 * Sind Kundenbewegungsdaten (Stationsübergänge) in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Kundenbewegungsdaten enthalten sind
+	 */
 	private boolean testClientMovement(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.stationTransition.size()>0) return true;
@@ -314,6 +320,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Pfadaufzeichnungen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Pfadaufzeichnungen enthalten sind
+	 */
 	private boolean testClientPathRecording(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientPaths.size()>0) return true;
@@ -321,6 +332,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Daten zur Bedienergruppen-Verfügbarkeit in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Bedienergruppen-Verfügbarkeit enthalten sind
+	 */
 	private boolean testResourcesAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.resourceCount.size()>0) return true;
@@ -328,6 +344,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		}
 		return false;
 	}
+
+	/**
+	 * Sind Daten zu Bedienergruppen Ausfällen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Bedienergruppen Ausfälle enthalten sind
+	 */
 
 	private boolean testResourceFailures(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
@@ -338,6 +360,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Daten zur Transportergruppen-Verfügbarkeit in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Transportergruppen-Verfügbarkeit enthalten sind
+	 */
 	private boolean testTransportersAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.editModel.transporters.count()>0) return true;
@@ -345,6 +372,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Daten zu Transportergruppen Ausfällen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Transportergruppen Ausfälle enthalten sind
+	 */
 	private boolean testAdditionalStatisticsAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.longRunStatistics.size()>0) return true;
@@ -352,6 +384,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Autokorrelationsdaten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Autokorrelationsdaten enthalten sind
+	 */
 	private boolean testAutoCorrelationAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsAllWaitingTimes.isCorrelationAvailable()) return true;
@@ -359,6 +396,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Benutzerstatistikdaten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Benutzerstatistikdaten enthalten sind
+	 */
 	private boolean testUserStatisticsAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.userStatistics.size()>0) return true;
@@ -366,6 +408,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Zähler-Daten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Zähler-Daten enthalten sind
+	 */
 	private boolean testCounterAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.counter.size()>0 || statistic.differentialCounter.size()>0) return true;
@@ -373,6 +420,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Durchsatzzähler-Daten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Durchsatzzähler-Daten enthalten sind
+	 */
 	private boolean testThroughputAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.throughputStatistics.size()>0) return true;
@@ -380,6 +432,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Daten zur Zustandsstatistik in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Daten zur Zustandsstatistik enthalten sind
+	 */
 	private boolean testStateStatisticsAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.stateStatistics.size()>0) return true;
@@ -387,6 +444,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Zwischenankunftszeiten für mehrere Kundentypen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Zwischenankunftszeiten für mehrere Kundentypen enthalten sind
+	 */
 	private boolean testMultiClientTypesInterarrival(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsInterarrivalTime.size()>1) return true;
@@ -394,6 +456,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Warte-/Transfer-/Bedien-/Verweilzeiten mindestens einen Kundentyp in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Warte-/Transfer-/Bedien-/Verweilzeiten für mindestens einen Kundentyp enthalten sind
+	 */
 	private boolean testClientTimes(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsWaitingTimes.size()>0) return true;
@@ -404,6 +471,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Warte-/Transfer-/Bedien-/Verweilzeiten für mehrere Kundentypen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Warte-/Transfer-/Bedien-/Verweilzeiten für mehrere Kundentypen enthalten sind
+	 */
 	private boolean testMultiClientTypes(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsWaitingTimes.size()>1) return true;
@@ -435,6 +507,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Daten zu mehreren Stationen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Daten zu mehreren Stationen enthalten sind
+	 */
 	private boolean testMultiStations(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.stationsWaitingTimes.size()>1) return true;
@@ -445,6 +522,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Daten zu mehreren Kundentypen innerhalb der Stationsdaten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Daten zu mehreren Kundentypen innerhalb der Stationsdaten enthalten sind
+	 */
 	private boolean testMultiStationsClientTypes(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.stationsWaitingTimesByClientType.size()>1) return true;
@@ -470,6 +552,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Daten zu Analogwerten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Daten zu Analogwerten enthalten sind
+	 */
 	private boolean testAnalogStatistics(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.analogStatistics.size()>0) return true;
@@ -477,6 +564,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind kundenspezifische Werte in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt kundenspezifische Werte enthalten sind
+	 */
 	private boolean testClientData(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientData.size()>0) return true;
@@ -484,6 +576,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Kosten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Kosten enthalten sind
+	 */
 	private boolean testCosts(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsCostsWaiting.size()>0) return true;
@@ -507,6 +604,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 	}
 
+	/**
+	 * Sind Wertaufzeichnungen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Wertaufzeichnungen enthalten sind
+	 */
 	private boolean testValueRecording(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.valueRecording.size()>0) return true;
@@ -514,6 +616,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Wartezeiten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Wartezeiten enthalten sind
+	 */
 	private boolean testWaitingTimes(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsAllWaitingTimes.getMax()>0) return true;
@@ -521,6 +628,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Transportzeiten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Transportzeiten enthalten sind
+	 */
 	private boolean testTransferTimes(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsAllTransferTimes.getMax()>0) return true;
@@ -528,12 +640,23 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Bedienzeiten in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Bedienzeiten enthalten sind
+	 */
 	private boolean testProcessTimes(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsAllProcessingTimes.getMax()>0) return true;
 		}
 		return false;
 	}
+
+	/**
+	 * Können Erlang-C-Vergleichrechnungen zu den Statistikdatenen durchgeführt werden?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn zu mindestens einem Statistikobjekt Erlang-C-Vergleichsrechnungen durchgeführt werden können
+	 */
 
 	private boolean testErlangCCompare(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
@@ -542,6 +665,11 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Sind Werteverteilungen in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Werteverteilungen enthalten sind
+	 */
 	private boolean testDistributions(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.clientsAllResidenceTimes.getDistribution()!=null) return true;
@@ -561,7 +689,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	/**
 	 * Wandelt die Statistikknoten in Baumeinträge um.
 	 * @param root	Wurzelelement der Statistikknoten
-	 * @see #updateViewer()
+	 * @see #updateViewer(boolean)
 	 */
 	private void addNodesToTree(final StatisticNode root) {
 		List<StatisticViewer> viewer;

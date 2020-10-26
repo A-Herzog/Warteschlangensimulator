@@ -52,6 +52,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 491234735571463778L;
 
+	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
 	private JComboBox<String> timeBase;

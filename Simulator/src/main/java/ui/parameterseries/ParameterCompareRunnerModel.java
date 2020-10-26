@@ -43,6 +43,7 @@ import ui.ModelChanger;
  */
 public class ParameterCompareRunnerModel {
 	/**
+	 * Verarbeitungsstatus
 	 * @see ParameterCompareRunnerModel#getStatus()
 	 */
 	public enum Status {
@@ -70,11 +71,23 @@ public class ParameterCompareRunnerModel {
 	/** Liste mit den Ausgabeskripten */
 	private final String[] outputScripts;
 
+	/** Verarbeitungsstatus */
 	private volatile Status status;
 
+	/** Simulator der die eigentliche Verarbeitung ausführt */
 	private volatile AnySimulator simulator;
 
+	/**
+	 * Zu verwendende Variationsstudien-Einstellungen
+	 * @see #prepare(EditModel, ParameterCompareSetupModel)
+	 */
 	private ParameterCompareSetupModel model;
+
+	/**
+	 * Gegenüber dem Ausgangsmodell auf Basis von {@link #model}
+	 * variiertes Simulationsmodell.
+	 * @see #prepare(EditModel, ParameterCompareSetupModel)
+	 */
 	private EditModel changedModel;
 
 	/**
@@ -111,10 +124,22 @@ public class ParameterCompareRunnerModel {
 		if (model==null) return ""; else return model.getName();
 	}
 
+	/**
+	 * Gibt eine Meldung über {@link #logOutput} aus.
+	 * @param message	Auszugebende Nachricht
+	 * @see #logOutput
+	 */
 	private synchronized void logOutput(final String message) {
 		if (logOutput!=null) logOutput.accept(message);
 	}
 
+	/**
+	 * Berechnet den Ergebniswert für einen Ausgabeparameter.
+	 * @param statistics	Statistikdaten auf deren Basis der Ergebniswert berechnet werden soll
+	 * @param output	Ausgabeparameter
+	 * @return	Wert des Ausgabeparameters
+	 * @see #processResults(Statistics)
+	 */
 	private Double calcResultValue(final Statistics statistics, final ParameterCompareSetupValueOutput output) {
 		switch (output.getMode()) {
 		case MODE_XML:
@@ -147,6 +172,13 @@ public class ParameterCompareRunnerModel {
 		}
 	}
 
+	/**
+	 * Bestimmt einen Ausgabewert auf Basis eines Javascript-Programms.
+	 * @param statistics	Statistikdaten auf deren Basis der Ergebniswert bestimmt werden soll
+	 * @param script	Auszuführendes Skript
+	 * @return	Ausgabewert
+	 * @see #processResults(Statistics)
+	 */
 	private Double calcResultValueByScriptJS(final Statistics statistics, final String script) {
 		final JSRunDataFilter filter=new JSRunDataFilter(statistics.saveToXMLDocument());
 		filter.run(script);
@@ -163,6 +195,13 @@ public class ParameterCompareRunnerModel {
 		}
 	}
 
+	/**
+	 * Bestimmt einen Ausgabewert auf Basis eines Java-Programms.
+	 * @param statistics	Statistikdaten auf deren Basis der Ergebniswert bestimmt werden soll
+	 * @param script	Auszuführendes Skript
+	 * @return	Ausgabewert
+	 * @see #processResults(Statistics)
+	 */
 	private Double calcResultValueByScriptJava(final Statistics statistics, final String script) {
 		final DynamicRunner runner=DynamicFactory.getFactory().load(script);
 		if (runner.getStatus()!=DynamicStatus.OK) {
@@ -187,6 +226,11 @@ public class ParameterCompareRunnerModel {
 		return D;
 	}
 
+	/**
+	 * Berechnet die Werte für die Ausgabeparameter
+	 * @param statistics	Statistikdaten auf deren Basis die Ergebniswerte bestimmt werden sollen
+	 * @see #model
+	 */
 	private void processResults(final Statistics statistics) {
 		if (statistics!=null) for (int i=0;i<setup.getOutput().size();i++) {
 			final ParameterCompareSetupValueOutput output=setup.getOutput().get(i);

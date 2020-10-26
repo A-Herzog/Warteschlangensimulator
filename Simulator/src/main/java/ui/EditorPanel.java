@@ -136,64 +136,151 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	private static final long serialVersionUID = 871808238984135272L;
 
-	private boolean guiReady=false; /* Brauchen wir, wenn der Code von ProGuard verändert wird */
+	/**
+	 * Wird am Ende des Konstruktors auf <code>true</code> gesetzt und stellt sicher,
+	 * dass vorher noch keine Listener benachrichtigt werden.
+	 * @see #fireTemplatesVisibleChanged()
+	 * @see #fireNavigatorVisibleChanged()
+	 */
+	private boolean guiReady=false;
 
+	/**
+	 * Schaltet einige Funktionen zum Bearbeiten auch während des Read-Only-Modus frei.<br>
+	 * Erlaubt wird das Bearbeiten von Elementen sowie das Verschieben.
+	 * Das Löschen von Elementen und das Erstellen neuer Elemente bleibt aber verboten.
+	 * @see #allowEditorDialogs()
+	 */
 	private boolean allowChangeOperationsOnReadOnly=false;
 
-	/** Name des Modells */
+	/* Angaben zum Modell */
+
+	/**
+	 * Name des Modells
+	 * @see EditModel#name
+	 */
 	private String name;
-	/** Beschreibung des Modells */
+
+	/**
+	 * Beschreibung des Modells
+	 * @see EditModel#description
+	 */
 	private String description;
-	/** Autor des Modells */
+
+	/**
+	 * Autor des Modells
+	 * @see EditModel#author
+	 */
 	private String author;
+
+	/**
+	 * Anzahl der zu simulierenden Kundenankünfte
+	 * @see EditModel#clientCount
+	 */
 	private long clientCount;
+
+	/**
+	 * Länge der Einschwingphase (als Anteil der Kundenankünfte), bevor die Statistikzählung beginnt.
+	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besteht aus zusätzlichen Ankünften.
+	 * @see EditModel#warmUpTime
+	 */
 	private double warmUpTime;
+
+	/* Allgemeines zur GUI */
 
 	/** Übergeordnetes Element */
 	private final Component owner;
 
+	/** Listener für Klicks auf die verschiedenen Symbolleisten-Schaltflächen */
 	private ToolbarListener toolbarListener;
-	private JLabel labelZoom;
-	private JButton buttonTemplates;
-	private JButton buttonProperties;
-	private JButton buttonAddEdge;
-	private JButton buttonAddElement;
-	private JButton buttonEdit;
-	private JButton buttonDelete;
-	private JButton buttonZoomOut, buttonZoomOut2;
-	private JButton buttonZoomIn, buttonZoomIn2;
-	private JButton buttonZoomDefault, buttonZoomDefault2;
-	private JButton buttonFindModel, buttonFindModel2;
-	private JToolBar.Separator separatorUndoRedo;
-	private JButton buttonUndo;
-	private JButton buttonRedo;
-	private JButton buttonExplorer;
 
-	private ModelSurfacePanel surfacePanel;
-	private RulerPanel rulerPanel;
-
-	private JToolBar additionalInfoArea;
-	private JLabel additionalInfoLabel;
-	private JLabel statusBar;
-	private JPanel leftArea;
-	private JList<ModelElementPosition> templates;
-	private ModelElementCatalogListCellRenderer<ModelElementPosition> templatesRenderer;
-	private JPanel leftAreaTemplates;
-	private JPlaceholderTextField leftAreaQuickFilter;
-	private JButton leftAreaTemplatesFilterButton;
-
-	private JPanel rightArea;
-	private JList<ModelElementBox> navigator;
-	private DefaultListModel<ModelElementBox> navigatorModel;
-	private ModelElementNavigatorListCellRenderer<ModelElementBox> navigatorRenderer;
-
-	private final List<ActionListener> fileDropListeners;
-	private final List<ActionListener> undoRedoDoneListener;
-
+	/**
+	 * Callback welches im Bedarfsfall (zur Anzeige von Tooltipdaten) ein Statistik-Objekt liefert
+	 * @see #setStatisticsGetter(Supplier)
+	 * @see #getStatisticsInfoForElement(ModelElementBox)
+	 */
 	private Supplier<Statistics> statisticsGetter;
 
+	/**
+	 * Callback-Methode, die aufgerufen werden soll, wenn in der Modell-Übersicht auf "Suchen" geklickt wird
+	 * @see #setElementSearchCallback(Runnable)
+	 */
 	private Runnable callbackElementSearch;
+
+	/**
+	 * Callback-Methode, die aufgerufen werden soll, wenn in der Modell-Übersicht auf "Elementeliste" geklickt wird
+	 * @see #setElementListCallback(Runnable)
+	 */
 	private Runnable callbackElementList;
+
+	/* Infobereich oben */
+
+	/** Infozeile oben */
+	private JToolBar additionalInfoArea;
+	/** Textfeld in der Infozeile oben */
+	private JLabel additionalInfoLabel;
+
+	/* Vertikale Symbolleiste */
+
+	/** Schaltfläche "Modell" */
+	private JButton buttonProperties;
+	/** Schaltfläche "Element" (hinzufügen) */
+	private JButton buttonTemplates;
+	/** Schaltfläche "Kante" (hinzufügen) */
+	private JButton buttonAddEdge;
+	/** Separator vor den Rückgängig/Wiederholen-Schaltflächen */
+	private JToolBar.Separator separatorUndoRedo;
+	/** Schaltfläche "Rückgängig" */
+	private JButton buttonUndo;
+	/** Schaltfläche "Wiederholen" */
+	private JButton buttonRedo;
+	/** Schaltfläche "Überblick" (Modell-Explorer) */
+	private JButton buttonExplorer;
+
+	/* Statusleiste */
+
+	/** Statusinformationen */
+	private JLabel statusBar;
+	/** Aktueller Zoomfaktor */
+	private JLabel labelZoom;
+	/** Schaltfläche für Zoomfaktor verringern */
+	private JButton buttonZoomOut;
+	/** Schaltfläche für Zoomfaktor vergrößern */
+	private JButton buttonZoomIn;
+	/** Schaltfläche für Standard-Zoomfaktor */
+	private JButton buttonZoomDefault;
+	/** Schaltfläche "Modell zentrieren" */
+	private JButton buttonFindModel;
+
+	/** Zeichenfläche */
+	private ModelSurfacePanel surfacePanel;
+	/** Lineale */
+	private RulerPanel rulerPanel;
+
+	/* Ausklapp-Panel links */
+
+	/** Panel links von der Zeichenfläche */
+	private JPanel leftArea;
+	/** Listendarstellung der Vorlagen */
+	private JList<ModelElementPosition> templates;
+	/** Renderer für die Listendarstellung der Vorlagen */
+	private ModelElementCatalogListCellRenderer<ModelElementPosition> templatesRenderer;
+	/** Vorlagen-Bereich innerhalb des Panel links */
+	private JPanel leftAreaTemplates;
+	/** Schnellfilter für die Vorlagenliste */
+	private JPlaceholderTextField leftAreaQuickFilter;
+	/** Popupmenü-Schaltfläche für die Vorlagenliste */
+	private JButton leftAreaTemplatesFilterButton;
+
+	/* Ausklapp-Panel links */
+
+	/** Panel rechts von der Zeichenfläche */
+	private JPanel rightArea;
+	/** Listendarstellung der Elemente im Modell */
+	private JList<ModelElementBox> navigator;
+	/** Datenmodell für die Listendarstellung der Elemente im Modell */
+	private DefaultListModel<ModelElementBox> navigatorModel;
+	/** Renderer für die Listendarstellung der Elemente im Modell */
+	private ModelElementNavigatorListCellRenderer<ModelElementBox> navigatorRenderer;
 
 	/**
 	 * Konstruktor der Klasse <code>EditorPanel</code>
@@ -208,8 +295,6 @@ public final class EditorPanel extends EditorPanelBase {
 		this.owner=(owner==null)?this:owner;
 		buttonProperties.setVisible(showEditModelProperties);
 		surfacePanel.setShowEditModelProperties(showEditModelProperties);
-		fileDropListeners=new ArrayList<>();
-		undoRedoDoneListener=new ArrayList<>();
 		if (!canUndo) {
 			surfacePanel.disableUndo();
 			if (separatorUndoRedo!=null) separatorUndoRedo.setVisible(false);
@@ -229,8 +314,6 @@ public final class EditorPanel extends EditorPanelBase {
 	public EditorPanel(final Component owner) {
 		super();
 		this.owner=(owner==null)?this:owner;
-		fileDropListeners=new ArrayList<>();
-		undoRedoDoneListener=new ArrayList<>();
 		guiReady=true;
 		fireTemplatesVisibleChanged();
 	}
@@ -241,8 +324,19 @@ public final class EditorPanel extends EditorPanelBase {
 		super.paint(g);
 	}
 
+	/**
+	 * Wurden die Info-Labels auf der Zeichenfläche bereits einmal
+	 * deaktiviert?<br>
+	 * (Im Modus "nur am Anfang anzeigen" werden sie dann nicht
+	 * wieder aktiviert.)
+	 * @see #setupInfoLabels(boolean)
+	 */
 	private boolean infoLabelsDone=false;
 
+	/**
+	 * Aktiviert oder deaktiviert die Info-Labels auf der Zeichenfläche.
+	 * @param turnOff	Info-Labels aktivieren (<code>false</code>) oder deaktivieren (<code>true</code>)
+	 */
 	private void setupInfoLabels(final boolean turnOff) {
 		if (surfacePanel==null) return;
 		final SetupData.SurfaceHelp surfaceHelp=SetupData.getSetup().surfaceHelp;
@@ -323,6 +417,14 @@ public final class EditorPanel extends EditorPanelBase {
 		surfacePanel.centerModel();
 	}
 
+	/**
+	 * Ist die Abweichung zwischen zentriertem Modell und dem
+	 * Modell im Status nach oben links gescrollt pro Richtung kleiner
+	 * als der angegeben Wert, so wird bei {@link #smartCenterModel()}
+	 * nach oben links gescrollt statt das Modell tatsächlich
+	 * zu zentrieren.
+	 * @see #smartCenterModel()
+	 */
 	private static final int MAX_CENTER_DELTA=100;
 
 	/**
@@ -379,6 +481,10 @@ public final class EditorPanel extends EditorPanelBase {
 		return surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP1 || surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP2;
 	}
 
+	/**
+	 * Listener, die beim Ändern des Sichtbarkeitsstatus der Vorlagenleiste benachrichtigt werden sollen
+	 * @see #fireTemplatesVisibleChanged()
+	 */
 	private final Set<Runnable> templatesVisibleChangeListeners=new HashSet<>();
 
 	/**
@@ -399,6 +505,10 @@ public final class EditorPanel extends EditorPanelBase {
 		return templatesVisibleChangeListeners.remove(listener);
 	}
 
+	/**
+	 * Löst die Listener aus, die beim Ändern des Sichtbarkeitsstatus der Vorlagenleiste benachrichtigt werden sollen.
+	 * @see #templatesVisibleChangeListeners
+	 */
 	private void fireTemplatesVisibleChanged() {
 		if (templatesVisibleChangeListeners==null || !guiReady) return;
 		for (Runnable listener: templatesVisibleChangeListeners)
@@ -425,6 +535,12 @@ public final class EditorPanel extends EditorPanelBase {
 		fireTemplatesVisibleChanged();
 	}
 
+	/**
+	 * Wählt ein Element in der Vorlagenleiste aus (und macht diese ggf. vorher sichtbar)
+	 * @param element	@param element	Zu selektierendes Element
+	 * @return	Liefert <code>true</code>, wenn das Element selektiert werden konnte. (Ein Grund für <code>false</code> ist, dass die betreffende Gruppe nicht ausgeklappt ist.)
+	 * @see #selectTemplateInList(ModelElementPosition)
+	 */
 	private boolean selectTemplateInListDirect(final ModelElementPosition element) {
 		if (element==null) return true;
 		final String className=element.getClass().getName();
@@ -448,6 +564,11 @@ public final class EditorPanel extends EditorPanelBase {
 		return false;
 	}
 
+	/**
+	 * Expandiert eine Vorlagengruppe, die ein bestimmtes Element enthält
+	 * @param element	Element dessen Vorlagengruppe expandiert werden soll
+	 * @see #selectTemplateInList(ModelElementPosition)
+	 */
 	private void expandGroupForElement(final ModelElementPosition element) {
 		ListModel<ModelElementPosition> model=templates.getModel();
 		final int count=model.getSize();
@@ -480,6 +601,10 @@ public final class EditorPanel extends EditorPanelBase {
 		selectTemplateInListDirect(element);
 	}
 
+	/**
+	 * Listener, die beim Ändern des Sichtbarkeitsstatus des Navigators benachrichtigt werden sollen
+	 * @see #fireNavigatorVisibleChanged()
+	 */
 	private final Set<Runnable> navigatorVisibleChangeListeners=new HashSet<>();
 
 	/**
@@ -500,6 +625,10 @@ public final class EditorPanel extends EditorPanelBase {
 		return navigatorVisibleChangeListeners.remove(listener);
 	}
 
+	/**
+	 * Löst die Listener, die beim Ändern des Sichtbarkeitsstatus des Navigators benachrichtigt werden sollen, aus.
+	 * @see #navigatorVisibleChangeListeners
+	 */
 	private void fireNavigatorVisibleChanged() {
 		if (navigatorVisibleChangeListeners==null || !guiReady) return;
 		for (Runnable listener: navigatorVisibleChangeListeners)
@@ -515,6 +644,14 @@ public final class EditorPanel extends EditorPanelBase {
 		fireNavigatorVisibleChanged();
 	}
 
+	/**
+	 * Erzeugt eine Schaltfläche mit um 90° gegen den Uhrzeigersinn rotierter Beschriftung.
+	 * @param toolbar	Symbolleiste in die die neue Schaltfläche eingefügt werden soll (kann <code>null</code> sein, dann wird die Schaltfläche in keine Symbolleiste eingefügt)
+	 * @param title	Beschriftung der Schaltfläche (darf nicht leer sein)
+	 * @param hint	Tooltip für die Schaltfläche (kann <code>null</code> sein)
+	 * @param icon	Icon für die Schaltfläche (kann <code>null</code> sein)
+	 * @return	Neue Schaltfläche
+	 */
 	private JButton createRotatedToolbarButton(final JToolBar toolbar, final String title, final String hint, final Icon icon) {
 		ImageIcon rotatedIcon=null;
 
@@ -556,6 +693,11 @@ public final class EditorPanel extends EditorPanelBase {
 		return button;
 	}
 
+	/**
+	 * Generiert basierend auf einem Hotkey die Textbeschreibung für den Hotkey (z.B. zur Anzeige in Symbolleisten-Schaltflächen Tooltips)
+	 * @param key	Hotkey
+	 * @return	Textbeschreibung für den Hotkey
+	 */
 	private String keyStrokeToString(final KeyStroke key) {
 		final int modifiers=key.getModifiers();
 		final StringBuilder text=new StringBuilder();
@@ -567,6 +709,11 @@ public final class EditorPanel extends EditorPanelBase {
 		return text.toString();
 	}
 
+	/**
+	 * Erzeugte die vertikale Symbolleiste links
+	 * @return	Liefert {@link #leftArea} zurück
+	 * @see #leftArea
+	 */
 	private JComponent createLeftToolBar() {
 		final SetupData setup=SetupData.getSetup();
 
@@ -652,6 +799,11 @@ public final class EditorPanel extends EditorPanelBase {
 		return leftArea;
 	}
 
+	/**
+	 * Erzeugt das Navigator-Panel auf der rechten Seite
+	 * @return	Liefert {@link #rightArea} zurück
+	 * @see #rightArea
+	 */
 	private JComponent createNavigatorPanel() {
 		navigator=new JList<>();
 		navigator.setCellRenderer(navigatorRenderer=new ModelElementNavigatorListCellRenderer<>());
@@ -772,6 +924,12 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Listener, die benachrichtigt werden, wenn eine Datei auf der Komponente abgelegt wird
+	 * @see #dropFile(FileDropperData)
+	 */
+	private final List<ActionListener> fileDropListeners=new ArrayList<>();
+
+	/**
 	 * Fügt einen Listener hinzu, der benachrichtigt wird, wenn eine Datei auf der Komponente abgelegt wird
 	 * @param fileDropListener	Zu benachrichtigender Listener (der Dateiname ist über die <code>getActionCommand()</code>-Methode des übergebenen <code>ActionEvent</code>-Objekts abrufbar)
 	 */
@@ -788,10 +946,13 @@ public final class EditorPanel extends EditorPanelBase {
 		return fileDropListeners.remove(fileDropListener);
 	}
 
-	private boolean dropFile(final FileDropperData data) {
+	/**
+	 * Löst die Listener, die benachrichtigt werden, wenn eine Datei auf der Komponente abgelegt wird, aus.
+	 * @param data	Informationen zu der abgelegten Datei
+	 */
+	private void dropFile(final FileDropperData data) {
 		final ActionEvent event=FileDropperData.getActionEvent(data);
 		for (ActionListener listener: fileDropListeners) listener.actionPerformed(event);
-		return true;
 	}
 
 	@Override
@@ -901,37 +1062,35 @@ public final class EditorPanel extends EditorPanelBase {
 			@Override public void mouseClicked(MouseEvent e) {}
 		});
 		labelZoom.setToolTipText(Language.tr("Editor.SetupZoom"));
-		zoomArea.add(buttonZoomOut2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomOut")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_OUT.getIcon()));
-		buttonZoomOut2.setPreferredSize(new Dimension(20,20));
-		buttonZoomOut2.setBorderPainted(false);
-		buttonZoomOut2.setFocusPainted(false);
-		buttonZoomOut2.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomIn2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
-		buttonZoomIn2.setPreferredSize(new Dimension(20,20));
-		buttonZoomIn2.setBorderPainted(false);
-		buttonZoomIn2.setFocusPainted(false);
-		buttonZoomIn2.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomDefault2=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
-		buttonZoomDefault2.setPreferredSize(new Dimension(20,20));
-		buttonZoomDefault2.setBorderPainted(false);
-		buttonZoomDefault2.setFocusPainted(false);
-		buttonZoomDefault2.setContentAreaFilled(false);
-		zoomArea.add(buttonFindModel2=createToolbarButton(null,"",Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
-		buttonFindModel2.setPreferredSize(new Dimension(20,20));
-		buttonFindModel2.setBorderPainted(false);
-		buttonFindModel2.setFocusPainted(false);
-		buttonFindModel2.setContentAreaFilled(false);
+		zoomArea.add(buttonZoomOut=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomOut")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_OUT.getIcon()));
+		buttonZoomOut.setPreferredSize(new Dimension(20,20));
+		buttonZoomOut.setBorderPainted(false);
+		buttonZoomOut.setFocusPainted(false);
+		buttonZoomOut.setContentAreaFilled(false);
+		zoomArea.add(buttonZoomIn=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
+		buttonZoomIn.setPreferredSize(new Dimension(20,20));
+		buttonZoomIn.setBorderPainted(false);
+		buttonZoomIn.setFocusPainted(false);
+		buttonZoomIn.setContentAreaFilled(false);
+		zoomArea.add(buttonZoomDefault=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
+		buttonZoomDefault.setPreferredSize(new Dimension(20,20));
+		buttonZoomDefault.setBorderPainted(false);
+		buttonZoomDefault.setFocusPainted(false);
+		buttonZoomDefault.setContentAreaFilled(false);
+		zoomArea.add(buttonFindModel=createToolbarButton(null,"",Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
+		buttonFindModel.setPreferredSize(new Dimension(20,20));
+		buttonFindModel.setBorderPainted(false);
+		buttonFindModel.setFocusPainted(false);
+		buttonFindModel.setContentAreaFilled(false);
 
 		updateStatusBar();
 	}
 
-	private static final String statusHTMLStart="<html><body>";
-	private static final String statusHTMLGreen="<span style=\"color: green;\">";
-	private static final String statusHTMLOrange="<span style=\"color: orange;\">";
-	private static final String statusHTMLRed="<span style=\"color: red;\">";
-	private static final String statusHTMLSpanEnd="</span>";
-	private static final String statusHTMLEnd="</body></html>";
-
+	/**
+	 * Aktualisiert die Auflistung der Elemente des Modells
+	 * im Navigator.
+	 * @see #navigator
+	 */
 	private void updateNavigatorList() {
 		if (surfacePanel==null) return;
 		if (surfacePanel.isOperationRunning()) return;
@@ -958,6 +1117,42 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * HTML-Kopf für Statuszeilen-Benachrichtigungen
+	 * @see #updateStatusBar()
+	 */
+	private static final String statusHTMLStart="<html><body>";
+
+	/**
+	 * HTML-Span-Beginn in Grün für Statuszeilen-Benachrichtigungen
+	 * @see #updateStatusBar()
+	 */
+	private static final String statusHTMLGreen="<span style=\"color: green;\">";
+
+	/**
+	 * HTML-Span-Beginn in Orange für Statuszeilen-Benachrichtigungen
+	 * @see #updateStatusBar()
+	 */
+	private static final String statusHTMLOrange="<span style=\"color: orange;\">";
+
+	/**
+	 * HTML-Span-Beginn in Rot für Statuszeilen-Benachrichtigungen
+	 * @see #updateStatusBar()
+	 */
+	private static final String statusHTMLRed="<span style=\"color: red;\">";
+
+	/**
+	 * HTML-Span-Ende für Statuszeilen-Benachrichtigungen
+	 * @see #updateStatusBar()
+	 */
+	private static final String statusHTMLSpanEnd="</span>";
+
+	/**
+	 * HTML-Fuß für Statuszeilen-Benachrichtigungen
+	 * @see #updateStatusBar()
+	 */
+	private static final String statusHTMLEnd="</body></html>";
+
+	/**
 	 * Muss aufgerufen werden, wenn die Statuszeile aktualisiert werden soll.<br>
 	 * (Z.B. nach dem Neuladen des Setup.)
 	 */
@@ -969,10 +1164,6 @@ public final class EditorPanel extends EditorPanelBase {
 		final SetupData setup=SetupData.getSetup();
 
 		if (buttonAddEdge!=null) buttonAddEdge.setSelected(surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP1 || surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP2);
-		if (buttonAddElement!=null) buttonAddElement.setSelected(surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_ELEMENT);
-
-		if (buttonEdit!=null) buttonEdit.setEnabled(surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_NORMAL && surface.getSelectedElement()!=null && surface.getSelectedElement() instanceof ModelElementBox);
-		if (buttonDelete!=null) buttonDelete.setEnabled(!readOnly && surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_NORMAL && (surface.getSelectedElement()!=null || !surface.getSelectedArea(true).isEmpty()));
 
 		updateNavigatorList();
 
@@ -1065,6 +1256,11 @@ public final class EditorPanel extends EditorPanelBase {
 		surfacePanel.allowEditorDialogs();
 	}
 
+	/**
+	 * Aktualisiert die Schaltflächen {@link #buttonUndo} und {@link #buttonRedo}
+	 * @see #buttonUndo
+	 * @see #buttonRedo
+	 */
 	private void updateCanUndoRedo() {
 		buttonUndo.setEnabled(!readOnly && surfacePanel.canUndo());
 		buttonRedo.setEnabled(!readOnly && surfacePanel.canRedo());
@@ -1119,8 +1315,17 @@ public final class EditorPanel extends EditorPanelBase {
 		if (nextAction!=null) fireNextAction(nextAction);
 	}
 
-	private List<Consumer<ModelPropertiesDialog.NextAction>> nextActionListeners=new ArrayList<>();
+	/**
+	 * Listener, die benachrichtigt werden, wenn der Modelleigenschaften-Dialog geschlossen wird und eine weitere Aktion ausgeführt werden soll
+	 * @see #fireNextAction(ui.modelproperties.ModelPropertiesDialog.NextAction)
+	 */
+	private final List<Consumer<ModelPropertiesDialog.NextAction>> nextActionListeners=new ArrayList<>();
 
+	/**
+	 * Löst die Listener, die benachrichtigt werden, wenn der Modelleigenschaften-Dialog geschlossen wird und eine weitere Aktion ausgeführt werden soll, aus.
+	 * @param nextAction	Auszuführende nächste Aktion
+	 * @see #nextActionListeners
+	 */
 	private void fireNextAction(final ModelPropertiesDialog.NextAction nextAction) {
 		nextActionListeners.forEach(action->action.accept(nextAction));
 	}
@@ -1191,6 +1396,10 @@ public final class EditorPanel extends EditorPanelBase {
 		return true;
 	}
 
+	/**
+	 * Listener für Klicks auf die verschiedenen Symbolleisten-Schaltflächen
+	 * @see EditorPanel#toolbarListener
+	 */
 	private class ToolbarListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -1207,39 +1416,22 @@ public final class EditorPanel extends EditorPanelBase {
 				surfacePanel.startAddEdge();
 				return;
 			}
-			if (buttonAddElement!=null && source==buttonAddElement) {
-				if (surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_ELEMENT) {
-					surfacePanel.cancelAdd();
-					return;
-				}
-				JPopupMenu popupMenu=new JPopupMenu();
-				ModelElementCatalog catalog=ModelElementCatalog.getCatalog();
-				for (String name: catalog.getMenuNames()) {
-					JMenuItem item=new JMenuItem(name);
-					item.addActionListener(ev->{
-						if (!(ev.getSource() instanceof JMenuItem)) return;
-						ModelElementPosition element=ModelElementCatalog.getCatalog().getMenuElement(((JMenuItem)(ev.getSource())).getText());
-						if (element!=null) surfacePanel.startAddElement(element);
-					});
-					item.setIcon(catalog.getMenuIcon(name));
-					item.setToolTipText(catalog.getMenuToolTip(name));
-					popupMenu.add(item);
-				}
-				popupMenu.show(buttonAddElement,0,buttonAddElement.getHeight());
-				return;
-			}
-			if (source==buttonEdit) {surfacePanel.editSelectedElement(); return;}
-			if (source==buttonDelete) {surfacePanel.deleteSelectedElements(); return;}
-			if (source==buttonZoomOut || source==buttonZoomOut2) {zoomOut();  return;}
-			if (source==buttonZoomIn || source==buttonZoomIn2) {zoomIn(); return;}
-			if (source==buttonZoomDefault || source==buttonZoomDefault2) {zoomDefault(); return;}
-			if (source==buttonFindModel || source==buttonFindModel2) {centerModel(); return;}
+			if (source==buttonZoomOut) {zoomOut();  return;}
+			if (source==buttonZoomIn) {zoomIn(); return;}
+			if (source==buttonZoomDefault) {zoomDefault(); return;}
+			if (source==buttonFindModel) {centerModel(); return;}
 			if (source==buttonUndo) {doUndo(); return;}
 			if (source==buttonRedo) {doRedo(); return;}
 			if (source==buttonExplorer) {showExplorer(buttonExplorer); return;}
 		}
 	}
 
+	/**
+	 * Zeigt den Modell-Exportieren-Dialog an.
+	 * @param parent	Übergeordnetes Element
+	 * @param title	Titel des Dateiauswahldialogs
+	 * @return	Liefert im Erfolgsfall die gewählte Datei, sonst <code>null</code>
+	 */
 	private File showExportDialog(Component parent, final String title) {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -1463,6 +1655,16 @@ public final class EditorPanel extends EditorPanelBase {
 		surfacePanel.doRedo();
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden, wenn sich die Verfügbarkeit von Undo/Redo-Schritten ändert
+	 * @see #fireUndoRedoDoneListener()
+	 */
+	private final List<ActionListener> undoRedoDoneListener=new ArrayList<>();
+
+	/**
+	 * Löst die Listener, die benachrichtigt werden, wenn sich die Verfügbarkeit von Undo/Redo-Schritten ändert, aus.
+	 * @see #undoRedoDoneListener
+	 */
 	private void fireUndoRedoDoneListener() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"undoredodone");
 		for (ActionListener listener: undoRedoDoneListener) listener.actionPerformed(event);
@@ -1494,6 +1696,11 @@ public final class EditorPanel extends EditorPanelBase {
 		return surfacePanel.getImage(size,size);
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zur Auswahl des Zoomfaktors an.
+	 * @param parent	Übergeordnetes Element zur Ausrichtung des Popupmenüs.
+	 * @see #labelZoom
+	 */
 	private void showZoomContextMenu(final Component parent) {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -1546,6 +1753,11 @@ public final class EditorPanel extends EditorPanelBase {
 		showExplorer(buttonExplorer);
 	}
 
+	/**
+	 * Zeigt den Modellüberblick (Modell-Explorer) an.
+	 * @param parent	Übergeordnetes Element zur Ausrichtung des Modellüberblicks-Panels
+	 * @see #buttonExplorer
+	 */
 	private void showExplorer(final Component parent) {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -1606,8 +1818,13 @@ public final class EditorPanel extends EditorPanelBase {
 		setup.saveSetup();
 	}
 
+	/**
+	 * Zeigt das Popupmenü zur Filterung der Vorlagen
+	 * in der Vorlagen-Leiste an.
+	 * @see #leftAreaTemplatesFilterButton
+	 */
 	private void showFilterTemplatesPopup() {
-		JPopupMenu popup=new JPopupMenu();
+		final JPopupMenu popup=new JPopupMenu();
 
 		JMenuItem item;
 
@@ -1756,7 +1973,11 @@ public final class EditorPanel extends EditorPanelBase {
 		surfacePanel.setAutoConnect(autoConnect);
 	}
 
-	private List<ActionListener> selectionListeners=new ArrayList<>();
+	/**
+	 * Listener, die benachrichtigt werden, wenn Elemente ausgewählt werden
+	 * @see #fireSelectionListener()
+	 */
+	private final List<ActionListener> selectionListeners=new ArrayList<>();
 
 	/**
 	 * Fügt einen Listener hinzu, der benachrichtigt wird, wenn Elemente ausgewählt werden
@@ -1775,12 +1996,20 @@ public final class EditorPanel extends EditorPanelBase {
 		return selectionListeners.remove(selectionListener);
 	}
 
+	/**
+	 * Löst die Listener, die benachrichtigt werden, wenn Elemente ausgewählt werden, aus.
+	 * @see #selectionListeners
+	 */
 	private void fireSelectionListener() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"selectionchanged");
 		for (ActionListener listener: selectionListeners) listener.actionPerformed(event);
 	}
 
-	private List<IntConsumer> linkListeners=new ArrayList<>();
+	/**
+	 * Listener, die benachrichtigt werden, wenn ein Zeichenflächen-Link angeklickt wird
+	 * @see #fireLinkListener(int)
+	 */
+	private final List<IntConsumer> linkListeners=new ArrayList<>();
 
 	/**
 	 * Fügt einen Listener hinzu, der benachrichtigt wird, wenn ein Zeichenflächen-Link angeklickt wird
@@ -1800,6 +2029,11 @@ public final class EditorPanel extends EditorPanelBase {
 		return linkListeners.remove(linkListener);
 	}
 
+	/**
+	 * Löst die Listener, die benachrichtigt werden, wenn ein Zeichenflächen-Link angeklickt wird, aus.
+	 * @param link	Nummer des angeklickten Zeichenflächen-Links
+	 * @see #linkListeners
+	 */
 	private void fireLinkListener(final int link) {
 		for (IntConsumer linkListener: linkListeners) linkListener.accept(link);
 	}
@@ -2019,7 +2253,11 @@ public final class EditorPanel extends EditorPanelBase {
 		return null;
 	}
 
-	private Set<Consumer<ParameterCompareTemplatesDialog.TemplateRecord>> buildParameterSeriesListeners=new HashSet<>();
+	/**
+	 * Listener, die benachrichtigt werden, wenn der Nutzer per Kontextmenü die Erstellung einer Parameterreihe auslöst
+	 * @see #fireBuildParameterSeries(ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord)
+	 */
+	private final Set<Consumer<ParameterCompareTemplatesDialog.TemplateRecord>> buildParameterSeriesListeners=new HashSet<>();
 
 	/**
 	 * Fügt einen Listener zu der Liste der Listener hinzu, die benachrichtigt werden sollen, wenn der Nutzer per Kontextmenü die Erstellung einer Parameterreihe auslöst.
@@ -2039,6 +2277,10 @@ public final class EditorPanel extends EditorPanelBase {
 		return buildParameterSeriesListeners.remove(listener);
 	}
 
+	/**
+	 * Löst die Listener, die benachrichtigt werden, wenn der Nutzer per Kontextmenü die Erstellung einer Parameterreihe auslöst, aus.
+	 * @param template	Gewählte Parameterreihen-Vorlage
+	 */
 	private void fireBuildParameterSeries(final ParameterCompareTemplatesDialog.TemplateRecord template) {
 		buildParameterSeriesListeners.stream().forEach(listener->listener.accept(template));
 	}

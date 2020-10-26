@@ -40,6 +40,7 @@ import ui.modeleditor.elements.ModelElementWayPoint;
  * @see PathEditorDialog
  */
 public class PathPoint {
+	/** Station die durch dieses Objekt repräsentiert werden soll */
 	private final ModelElement element;
 
 	private final String name;

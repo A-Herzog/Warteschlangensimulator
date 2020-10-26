@@ -116,10 +116,20 @@ public class ParameterCompareRunner {
 		if (whenDone!=null) whenDone.accept(runComplete);
 	}
 
+	/**
+	 * Wird aufgerufen, wenn die Simulation eines einzelnen Modells abgeschlossen wurde.
+	 * @param runner	Zugehöriges Runner-Objekt
+	 */
 	private synchronized void modelDone(final ParameterCompareRunnerModel runner) {
 		if (updateTable!=null) updateTable.accept(runner.getNr());
 	}
 
+	/**
+	 * Prüft das Modell
+	 * @param setup	Parameterreihen-Setup
+	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
+	 * @see #check(ParameterCompareSetup)
+	 */
 	private String checkIntern(final ParameterCompareSetup setup) {
 		/* Modell testen */
 		final EditModel editModel=setup.getEditModel();

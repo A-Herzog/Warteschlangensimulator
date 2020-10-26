@@ -139,10 +139,21 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		saveTable(this,tableModel.table);
 	}
 
+	/**
+	 * Kopiert die Daten einer Tabelle in die Zwischenablage.
+	 * @param table	Zu kopierende Tabelle
+	 * @see #commandCopy()
+	 */
 	private static void copyTable(final Table table) {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(table.toStringTabs()),null);
 	}
 
+	/**
+	 * Speichert die Daten einer Tabelle in einer Datei.
+	 * @param owner	Übergeordnetes Element (zur Ausrichtung des Dialogs zur Abfrage des Dateinamens)
+	 * @param table	Zu speichernde Tabelle
+	 * @see #commandSave()
+	 */
 	private static void saveTable(final Component owner, final Table table) {
 		final File file=Table.showSaveDialog(owner,Language.tr("FileType.Save.Table"));
 		if (file==null) return;

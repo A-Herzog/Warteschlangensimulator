@@ -603,6 +603,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		return userImage;
 	}
 
+	/**
+	 * Konfiguriert die Darstellung der Farbe auf {@link #colorButton}.
+	 * @see #colorButton
+	 */
 	private void setupColorButton() {
 		final BufferedImage image;
 		if (userImage==null) {
@@ -619,6 +623,11 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		colorButton.setIcon(new ImageIcon(image));
 	}
 
+	/**
+	 * Zeigt den Dialog zur Auswahl einer Farbe an.
+	 * @see #colorButton
+	 * @see ModelElementBaseColorDialog
+	 */
 	private void showColorSelectDialog() {
 		if (readOnly) return;
 		final ModelElementBaseColorDialog dialog=new ModelElementBaseColorDialog(this,helpRunnable,defaultColor,userColor,userImage,element.getModel().animationImages);
@@ -630,6 +639,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Zeit den Dialog zum Bearbeiten der Stationsbeschreibung an.
+	 * @see ModelElementDescriptionDialog
+	 */
 	private void showDescriptionEditDialog() {
 		final ModelElementDescriptionDialog dialog=new ModelElementDescriptionDialog(this,description,readOnly,element.getHelpPageName());
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
@@ -637,6 +650,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Zeigt den Dialog zum Bearbeiten der Stations-ID an.
+	 * @see ModelElementBaseIDDialog
+	 */
 	private void changeID() {
 		final ModelSurface mainSurface=(element.getSurface().getParentSurface()==null)?element.getSurface():element.getSurface().getParentSurface();
 		final ModelElementBaseIDDialog dialog=new ModelElementBaseIDDialog(this,helpRunnable,element.getId(),mainSurface);

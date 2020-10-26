@@ -57,13 +57,54 @@ public final class ModelResourceFailure implements Cloneable {
 		FAILURE_BY_EXPRESSION,
 	}
 
+	/**
+	 * Ressourcen-Ausfallmodus
+	 * @see #getFailureMode()
+	 * @see FailureMode
+	 */
 	private FailureMode modeFailure;
+
+	/**
+	 * Anzahl an Bedienungen, nach denen ein Bediener dieser Ressource in Pause/Ausfallzeit geht
+	 * @see #getFailureNumber()
+	 * @see #setFailureByNumber(int)
+	 */
 	private int servedNumber;
+
+	/**
+	 * Zeitdauer, nach der ein Bediener dieser Ressource in Pause/Ausfallzeit geht
+	 * @see #getFailureTime()
+	 * @see #setFailureByWorkingTime(double)
+	 * @see #setFailureByAvailableTime(double)
+	 */
 	private double servedTime;
+
+	/**
+	 * Verteilung gem‰ﬂ der die Ressource ausf‰llt
+	 * @see #getFailureDistribution()
+	 * @see #setFailureByDistribution(AbstractRealDistribution)
+	 */
 	private AbstractRealDistribution interDownTimeDistribution;
+
+	/**
+	 * Ausdruck gem‰ﬂ der die Ressource ausf‰llt
+	 * @see #getFailureExpression()
+	 * @see #setFailureByExpression(String)
+	 */
 	private String interDownTimeExpression;
 
+	/**
+	 * Verteilung der Pausen/Ausfallzeiten der Bediener dieser Ressource
+	 * @see #getDownTimeDistribution()
+	 * @see #setDownTimeDistribution(AbstractRealDistribution)
+	 */
 	private AbstractRealDistribution downTimeDistribution;
+
+	/**
+	 * Ausdruck gem‰ﬂ dessen die Pausen/Ausfallzeiten der Bediener dieser Ressource bestimmt werden sollen
+	 * @see #getDownTimeExpression()
+	 * @see #setDownTimeExpression(String)
+	 */
 	private String downTimeExpression;
 
 	/**
@@ -73,6 +114,9 @@ public final class ModelResourceFailure implements Cloneable {
 		clear();
 	}
 
+	/**
+	 * Lˆscht alle momentan in diesem Objekt hinterlegten Daten.
+	 */
 	private void clear() {
 		modeFailure=FailureMode.FAILURE_BY_NUMBER;
 		servedNumber=1000;

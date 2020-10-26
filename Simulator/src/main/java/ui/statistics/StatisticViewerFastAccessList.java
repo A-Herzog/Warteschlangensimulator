@@ -66,6 +66,7 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 	 */
 	private static final long serialVersionUID = -7570159030451235613L;
 
+	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
 
 	private final DefaultListModel<FilterListRecord> listModel;

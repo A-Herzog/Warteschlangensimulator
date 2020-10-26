@@ -33,6 +33,10 @@ public final class ModelTransporters implements Cloneable {
 	 */
 	public static String[] XML_NODE_NAME=new String[]{"Transporters"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
+	/**
+	 * Liste der Transporter
+	 * @see #getTransporters()
+	 */
 	private final List<ModelTransporter> transporters;
 
 	/**

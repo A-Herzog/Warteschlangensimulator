@@ -66,13 +66,17 @@ public class ModelViewerFrame extends JDialog {
 
 	/** "Schlieﬂen"-Schaltfl‰che */
 	private final JButton buttonClose;
+	/** "Modell speichern"-Schaltfl‰che */
 	private final JButton buttonFileSaveModel;
+	/** "Statistik speichern"-Schaltfl‰che */
 	private final JButton buttonFileSaveStatistics;
 	/** "Modell-Editor"-Schaltfl‰che */
 	private final JButton buttonViewEditor;
 	/** "Simulationsergebnisse"-Schaltfl‰che */
 	private final JButton buttonViewStatistics;
+	/** "Modell in Editor laden"-Schaltfl‰che */
 	private final JButton buttonLoadToCurrentEditor;
+	/** "Modell in Editor in neuem Fenster laden"-Schaltfl‰che */
 	private final JButton buttonLoadToNewEditor;
 
 	/**

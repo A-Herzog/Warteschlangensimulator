@@ -102,6 +102,12 @@ public class ParameterCompareInputValuesTemplates {
 		this(editModel,input->false);
 	}
 
+	/**
+	 * Sind an der Bedienstation mehrere Verteilungen hinterlegt?
+	 * @param process	Bedienstation
+	 * @return	Liefert <code>true</code>, wenn mehrere Verteilungen vorhanden sind
+	 * @see #getList(Set)
+	 */
 	private boolean processHasMultiTimes(final ModelElementProcess process) {
 		if (process.getWorking().getNames().length>0) return true;
 		if (process.getPostProcessing().get()!=null) return true;
@@ -110,6 +116,12 @@ public class ParameterCompareInputValuesTemplates {
 		return false;
 	}
 
+	/**
+	 * Sind an der Verzögerungsstation mehrere Verteilungen hinterlegt?
+	 * @param delay	Verzögerungsstation
+	 * @return	Liefert <code>true</code>, wenn mehrere Verteilungen vorhanden sind
+	 * @see #getList(Set)
+	 */
 	private boolean delayHasMultiTimes(final ModelElementDelay delay) {
 		return delay.getSubDataCount()>0;
 	}
@@ -377,6 +389,14 @@ public class ParameterCompareInputValuesTemplates {
 		}
 	}
 
+	/**
+	 * Erzeugt einen Vorlagen-Menüpunkt
+	 * @param input Vorlage
+	 * @param iconGetter	Callback über das Icons für Einträge ermittelt werden können
+	 * @param action	Aktion die beim Anklicken ausgeführt werden soll
+	 * @return	Liefert den neuen Menüpunkt zurück
+	 * @see #addTemplatesToMenu
+	 */
 	private static JMenuItem getTemplateMenuItem(final ParameterCompareSetupValueInput input, final Function<ModelChanger.Mode,Icon> iconGetter, final Consumer<ParameterCompareSetupValueInput> action) {
 		final JMenuItem item=new JMenuItem(input.getName());
 		final Icon icon=iconGetter.apply(input.getMode());
@@ -384,7 +404,6 @@ public class ParameterCompareInputValuesTemplates {
 		item.addActionListener(e->action.accept(input));
 		return item;
 	}
-
 
 	/**
 	 * Fügt Einträge zu einem Menü hinzu

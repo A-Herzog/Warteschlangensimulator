@@ -30,8 +30,11 @@ import statistics.StatisticsDataPerformanceIndicator;
  * @see RunElementData
  */
 public class RunElementUserStatisticData extends RunElementData {
+	/** Array der Nutzerdaten-Statistik-Bezeichner unter denen die Werte erfasst werden sollen */
 	private final String[] keys;
+	/** Array der Angaben, ob die Nutzerdaten Zeitangaben sind oder nicht */
 	private final boolean[] isTime;
+	/** Array der Ausdrücke die ausgewertet und in der Nutzerdaten-Statistik erfasst werden sollen */
 	private final ExpressionCalc[] expressions;
 	private final StatisticsDataPerformanceIndicator[] indicators;
 

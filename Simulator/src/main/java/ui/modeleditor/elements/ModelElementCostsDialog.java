@@ -46,6 +46,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -7008913895872273448L;
 
+	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
 	private JTextField stationCosts;

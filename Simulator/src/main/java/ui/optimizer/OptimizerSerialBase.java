@@ -40,8 +40,24 @@ import simulator.statistics.Statistics;
  * @see OptimizerSerialKernelBase
  */
 public abstract class OptimizerSerialBase extends OptimizerBase {
+	/**
+	 * Zu verwendender Optimierer-Kernel
+	 * @see #getOptimizerKernel()
+	 */
 	private OptimizerSerialKernelBase kernel;
+
+	/**
+	 * Simulator für den aktuellen Optimierungsschritt
+	 * @see #runModel(int, EditModel)
+	 */
 	private volatile AnySimulator simulator;
+
+	/**
+	 * Timer, der prüft, welche Simulationen laufen und ggf.
+	 * weitere Simulationen startet.
+	 * @see #runModel(int, EditModel)
+	 * @see #cancel()
+	 */
 	private volatile Timer timer;
 
 	@Override
@@ -73,6 +89,11 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 		initNextRun(0,0,false);
 	}
 
+	/**
+	 * Simuliert ein Modell.
+	 * @param stepNr	Optimierungsschritt
+	 * @param model	Zu simulierendes Modell
+	 */
 	private synchronized void runModel(final int stepNr, final EditModel model) {
 		final StartAnySimulator starter=new StartAnySimulator(model);
 		final String error=starter.prepare();
@@ -104,6 +125,12 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 		}
 	}
 
+	/**
+	 * Wird beim Abschluss einer Simulation aufgerufen.
+	 * @param stepNr	Optimierungsschritt
+	 * @param statistics	Statistikergebnisse
+	 * @see #runModel(int, EditModel)
+	 */
 	private synchronized void runDone(final int stepNr, final Statistics statistics) {
 		/* Statistik speichern */
 		final Document doc=statistics.saveToXMLDocument();
@@ -147,6 +174,14 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 		initNextRun(stepNr+1,value,statistics.simulationData.emergencyShutDown);
 	}
 
+	/**
+	 * Bereitet die Simulation des nächsten Modells vor und startet diese ggf.
+	 * @param stepNr	Optimierungsschritt
+	 * @param lastResult	Letzter Ergebniswert
+	 * @param simulationWasEmergencyStopped	Wurde die Simulation im letzten Schritt abgebrochen?
+	 * @see #runModel(int, EditModel)
+	 * @see #done(boolean)
+	 */
 	private void initNextRun(final int stepNr, final double lastResult, final boolean simulationWasEmergencyStopped) {
 		final EditModel currentModel=kernel.setupNextStep(stepNr,lastResult,simulationWasEmergencyStopped);
 		for (String line: kernel.getMessages()) logOutput(line);

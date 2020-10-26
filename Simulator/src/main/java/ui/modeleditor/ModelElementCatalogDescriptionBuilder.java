@@ -63,10 +63,15 @@ import ui.modeleditor.fastpaint.Shapes;
 public class ModelElementCatalogDescriptionBuilder {
 	@SuppressWarnings("rawtypes")
 	private final Class helpFolderRelativeClass;
+	/** Relativer Ressourcenpfad zu den Hilfeseiten in der aktuellen Sprache */
 	private final String helpFolder;
+	/** Text "siehe Seite" für Verweise */
 	private final String seePageString;
+	/** Texte "-Element", die bei "<code>&lt;a href="..."&gt;...&lt;/a&gt;-Element</code>" erkannt werden sollen */
 	private final String[] elementString;
+	/** Seitennamen zu denen keine Verlinkungen erfolgen sollen */
 	private final String[] removeRefs;
+	/** Sollen Anführungszeichen in die deutsche Variante überführt werden? */
 	private final boolean replaceQuotationMarks;
 
 	/**

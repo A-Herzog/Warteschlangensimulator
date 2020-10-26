@@ -64,17 +64,27 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 	/** Editor-Modell, welches die Basis für die Parameterstudie darstellt */
 	private final EditModel model;
 
+	/** Eingabefeld "Name des Parameters" */
 	private final JTextField nameEdit;
+	/** Auswahlfeld "Art des Parameters" */
 	private final JComboBox<String> modeCombo;
+	/** Panel zum Bearbeiten der Einstellungen gemäß der Auswahl in "Art des Parameters" */
 	private final JPanel cardPanel;
+	/** Layout zur Konfiguration von {@link #cardPanel} */
 	private final CardLayout cardLayout;
 
+	/** Auswahlfeld "Name der Ressource" */
 	private final JComboBox<String> resCombo;
+	/** Auswahlfeld "Name der globalen Variable" */
 	private final JComboBox<String> varCombo;
+	/** Eingabefeld "XML-Element" */
 	private final JTextField xmlTagEdit;
+	/** Schaltfläche zur Auswahl eines XML-Elements für {@link #xmlTagEdit} */
 	private final JButton xmlTagButton;
+	/** Auswahlfeld "Modus" (zur Interpretation des XML-Elements) */
 	private final JComboBox<String> xmlMode;
 
+	/** Label zur Ausgabe von Informationen, ob die Einstellungen in dem Dialog gültig sind */
 	private final JLabel infoLabel;
 
 	/**
@@ -197,6 +207,13 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 		updateInfo();
 	}
 
+	/**
+	 * Erzeugt eine Auswahlbox.
+	 * @param sub	Elternelement
+	 * @param label	Beschriftung der Auswahlbox
+	 * @param content	Auswahloptionen
+	 * @return	Neue Auswahlbox (ist bereits in das Elternelement eingefügt)
+	 */
 	private JComboBox<String> getComboBox(final JPanel sub, final String label, final String[] content) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		sub.add(line);
@@ -211,6 +228,10 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 		return combo;
 	}
 
+	/**
+	 * Aktualisiert die Ausgabe von Informationen in {@link #infoLabel}.
+	 * @see #infoLabel
+	 */
 	private void updateInfo() {
 		final String head="<html><body><b>";
 		final String foot="</b></body></html>";

@@ -35,14 +35,15 @@ import xml.XMLTools;
  * @see UserTemplate
  */
 public final class UserTemplates implements Cloneable {
+	/** Instanz für die globalen Vorlagen */
 	private static UserTemplates instance;
+	/** Liste aller Vorlagen */
 	private final List<UserTemplate> templates;
+	/** Katalog aller verfügbaren Elemente */
 	private static final ModelElementCatalog catalog=ModelElementCatalog.getCatalog();
 
 	/**
 	 * Konstruktor der Klasse.<br>
-	 * Diese Klasse kann nicht direkt instanziert werden.
-	 * Stattdessen muss die Methode {@link UserTemplates#getInstance()} verwendet werden.
 	 * @see UserTemplates#getInstance()
 	 */
 	public UserTemplates() {
@@ -50,8 +51,8 @@ public final class UserTemplates implements Cloneable {
 	}
 
 	/**
-	 * Liefert die Instanz des Singletons.
-	 * @return	Instanz des Singletons
+	 * Liefert die Instanz des Singletons für die globalen Vorlagen.
+	 * @return	Instanz des Singletons für die globalen Vorlagen
 	 */
 	public static synchronized UserTemplates getInstance() {
 		if (instance==null) {
@@ -61,6 +62,10 @@ public final class UserTemplates implements Cloneable {
 		return instance;
 	}
 
+	/**
+	 * Liefert die Datei zum Speichern der globalen Vorlagen
+	 * @return	Datei zum Speichern der globalen Vorlagen
+	 */
 	private File getGlobalTemplatesFile() {
 		return new File(SetupData.getSetupFolder(),"Templates.cfg");
 	}
@@ -141,6 +146,10 @@ public final class UserTemplates implements Cloneable {
 		}
 	}
 
+	/**
+	 * Initialisiert die Liste der globalen Vorlagen.
+	 * @see #getInstance()
+	 */
 	private void loadGlobalTemplates() {
 		final File templatesFile=getGlobalTemplatesFile();
 		if (templatesFile==null) return;

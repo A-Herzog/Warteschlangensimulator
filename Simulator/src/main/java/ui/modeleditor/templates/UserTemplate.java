@@ -32,7 +32,9 @@ import ui.modeleditor.ModelSurface;
  * @see UserTemplates
  */
 public final class UserTemplate implements Cloneable {
+	/** Oberfläche, die die Elemente enthält */
 	private ModelSurface surface;
+	/** Name der Elementenvorlage */
 	private String name;
 
 	/**

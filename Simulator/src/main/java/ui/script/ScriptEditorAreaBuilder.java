@@ -55,6 +55,7 @@ public class ScriptEditorAreaBuilder {
 	/** Initialer Text für das Eingabefeld */
 	private String initialText;
 	private ActionListener fileDropListener;
+	/** Aktive AutoComplete-Funktionen */
 	private Set<ScriptPopup.ScriptFeature> features;
 	private DefaultCompletionProvider autoCompleteProvider;
 
@@ -187,6 +188,11 @@ public class ScriptEditorAreaBuilder {
 		autoCompleteProvider.addCompletion(completion);
 	}
 
+	/**
+	 * Erstellt die AutoComplete-Einträge für das
+	 * Javascript-System-Objekt (steht nur zur Verfügung, wenn das Simulation-Objekt nicht vorhanden ist).
+	 * @see ScriptFeature#JSSystem
+	 */
 	private void buildRuntime() {
 		if (language==ScriptMode.Javascript && !features.contains(ScriptFeature.JSSystem)) return;
 
@@ -212,6 +218,11 @@ public class ScriptEditorAreaBuilder {
 
 	}
 
+	/**
+	 * Erstellt die AutoComplete-Einträge zur
+	 * Anzeige der Befehle für den Zugriff auf die Simulationseigenschaften.
+	 * @see ScriptFeature#Simulation
+	 */
 	private void buildSystem() {
 		if (!features.contains(ScriptFeature.Simulation)) return;
 
@@ -276,6 +287,11 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.setResourceCount"),Language.tr("ScriptPopup.Simulation.setResourceCount.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceSet);
 	}
 
+	/**
+	 * Erstellt die AutoComplete-Einträge zur
+	 * Anzeige der Befehle für den Zugriff auf die Eigenschaften einzelner Kunden.
+	 * @see ScriptFeature#Client
+	 */
 	private void buildClient() {
 		if (!features.contains(ScriptFeature.Client)) return;
 
@@ -372,6 +388,11 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Client.ValueText")+" - "+Language.tr("ScriptPopup.Client.ValueText.Set"),Language.tr("ScriptPopup.Client.ValueText.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueText.Set.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),clientSetText);
 	}
 
+	/**
+	 * Erstellt die AutoComplete-Einträge zur
+	 * Anzeige der Befehle für den Zugriff auf die Liste der wartenden Kunden.
+	 * @see ScriptFeature#ClientsList
+	 */
 	private void buildClients() {
 		if (!features.contains(ScriptFeature.ClientsList)) return;
 
@@ -528,6 +549,12 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Output.Separator.Tabs"),Language.tr("ScriptPopup.Output.Separator.Tabs.Hint"),Images.SCRIPT_RECORD_FORMAT.getIcon(),outputSeparatorTabs);
 	}
 
+	/**
+	 * Erstellt die AutoComplete-Einträge zur
+	 * Anzeige der Befehle zum Ändern des Modells.
+	 * @see ScriptFeature#Model
+	 * @see ScriptFeature#Statistics
+	 */
 	private void buildModel() {
 		if (!features.contains(ScriptFeature.Model) || !features.contains(ScriptFeature.Statistics)) return;
 
@@ -590,6 +617,11 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("Statistic.FastAccess.Template.ChangeModel")+" - "+Language.tr("Statistic.FastAccess.Template.StationID.Get"),Language.tr("Statistic.FastAccess.Template.ChangeModel.Hint")+" - "+Language.tr("Statistic.FastAccess.Template.StationID.Get.Tooltip"),Images.SCRIPT_RECORD_MODEL_EDIT.getIcon(),modelGetID);
 	}
 
+	/**
+	 * Erstellt die AutoComplete-Einträge zur
+	 * Anzeige der Befehle für den Abruf des Eingabewertes.
+	 * @see ScriptFeature#InputValue
+	 */
 	private void buildInput() {
 		if (!features.contains(ScriptFeature.InputValue)) return;
 
@@ -654,6 +686,11 @@ public class ScriptEditorAreaBuilder {
 		}
 	}
 
+	/**
+	 * Erstellt die AutoComplete-Einträge zur
+	 * Anzeige der Befehle zum Zugriff auf die Statistik.
+	 * @see ScriptFeature#Statistics
+	 */
 	private void buildStatistics() {
 		if (!features.contains(ScriptFeature.Statistics)) return;
 

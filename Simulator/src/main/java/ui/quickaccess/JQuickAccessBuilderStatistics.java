@@ -55,6 +55,13 @@ public class JQuickAccessBuilderStatistics extends JQuickAccessBuilder {
 		if (root!=null) processBranch(root,null,callback);
 	}
 
+	/**
+	 * Verarbeitet einen Zweig in der Statistik
+	 * @param branch	Zweig in der Statistik-Baumstruktur
+	 * @param parentPath	Text-Pfad zu dem aktuellen Zweig
+	 * @param callback	Aktion beim Anklicken des Suchtreffers
+	 * @see #work(StatisticsPanel, Runnable)
+	 */
 	private void processBranch(final StatisticNode branch, final String parentPath, final Consumer<JQuickAccessRecord> callback) {
 		if (branch.getChildCount()==0) {
 			URL url=null;

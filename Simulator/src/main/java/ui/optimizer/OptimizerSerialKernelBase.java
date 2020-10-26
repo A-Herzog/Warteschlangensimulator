@@ -27,7 +27,15 @@ import ui.optimizer.OptimizerSetup.ControlVariable;
  * @author Alexander Herzog
  */
 public abstract class OptimizerSerialKernelBase extends OptimizerKernelBase {
+	/**
+	 * Handelt es sich momentan um den ersten Optimierungsschritt
+	 * (zu dem es also keine Vorgänger Zielwerte gibt)?
+	 */
 	private boolean isFirstStep;
+
+	/**
+	 * Zielwert im letzten Optimierungsschritt
+	 */
 	private double previousTargetValue;
 
 	/**

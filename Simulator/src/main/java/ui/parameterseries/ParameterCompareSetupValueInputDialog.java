@@ -39,7 +39,7 @@ public class ParameterCompareSetupValueInputDialog extends BaseDialog {
 	private static final long serialVersionUID = -112285444307635605L;
 
 	/**
-	 * Editor-Panle innerhalb des Fensters
+	 * Editor-Panel innerhalb des Fensters
 	 */
 	private final ParameterCompareSetupValueInputPanel editor;
 

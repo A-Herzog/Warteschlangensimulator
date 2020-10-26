@@ -34,6 +34,13 @@ public class TransparentColor {
 	public TransparentColor() {
 	}
 
+	/**
+	 * Bestimmt eine teiltransparente Farbe zu einer gegebenen Farbe.
+	 * @param color	Farbe, zu der eine teiltransparente Farbe bestimmt werden soll
+	 * @param alpha	Deckkraft
+	 * @return	Teiltransparente Variante der gegebenen Farbe
+	 * @see #get(Color, double)
+	 */
 	private static Color build(final Color color, final double alpha) {
 		if (color==null) return Color.BLACK;
 		final int alphaInt=Math.max(0,Math.min(255,(int)Math.round(alpha*255)));
@@ -41,7 +48,7 @@ public class TransparentColor {
 	}
 
 	/**
-	 * Bestimmt eine teiltransparente Farbe zu einer gegebenen Farbe
+	 * Bestimmt eine teiltransparente Farbe zu einer gegebenen Farbe.
 	 * @param color	Farbe, zu der eine teiltransparente Farbe bestimmt werden soll
 	 * @param alpha	Deckkraft
 	 * @return	Teiltransparente Variante der gegebenen Farbe

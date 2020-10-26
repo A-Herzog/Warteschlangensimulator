@@ -9,11 +9,16 @@ import org.apache.commons.math3.util.FastMath;
  * @see RunData#nextClientIsLast(SimulationData)
  */
 public class DynamicLoadBalancer {
+	/** Minimale Größe für ein Ankünfte-Paket */
 	private static final long MIN_LOAD_PACKAGE_SIZE=1_000;
 
+	/** Gesamtzahl der zu simulierenden Ankünfte */
 	private long arrivalsToBeSimulated;
+	/** 25% von {@link #arrivalsToBeSimulated} */
 	private final long last25Percent;
+	/** Großes Ankünfte-Paket (wird vor Erreichen der letzten 25% jeweils ausgeliefert) */
 	private final long arrivalPackageLarge;
+	/** Kleines Ankünfte-Paket (wird ab dem Erreichen der letzten 25% jeweils ausgeliefert) */
 	private final long arrivalPackageSmall;
 
 	/**

@@ -213,6 +213,11 @@ public class BatchRecordPanel extends JPanel {
 		if (this.active!=null) this.active.setSelected(active);
 	}
 
+	/**
+	 * Wurde im Konstruktor angegeben, dass eine Checkbox zum Aktivieren/Deaktivieren
+	 * dieses Datensatzes angezeigt werden soll, so kann über diese Methode der Status
+	 * der Checkbox auf "aktiv" eingestellt werden.
+	 */
 	private void setActive() {
 		if (active!=null) active.setSelected(true);
 	}

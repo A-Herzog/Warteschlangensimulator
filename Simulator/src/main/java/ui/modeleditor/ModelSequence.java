@@ -35,7 +35,17 @@ public final class ModelSequence implements Cloneable {
 	 */
 	public static String[] XML_NODE_NAME=new String[]{"Fertigungsplan"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
+	/**
+	 * Name des Fertigungsplans
+	 * @see #getName()
+	 * @see #setName(String)
+	 */
 	private String name;
+
+	/**
+	 * Liste der Fertigungsplan-Schritte
+	 * @see #getSteps()
+	 */
 	private final List<ModelSequenceStep> steps;
 
 	/**
@@ -48,7 +58,7 @@ public final class ModelSequence implements Cloneable {
 
 	/**
 	 * Liefert den Namen des Fertigungsplans
-	 * @return Namen des Fertigungsplans
+	 * @return Name des Fertigungsplans
 	 */
 	public String getName() {
 		return name;

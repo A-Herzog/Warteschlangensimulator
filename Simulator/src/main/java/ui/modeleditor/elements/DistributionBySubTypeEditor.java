@@ -87,6 +87,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	private final String[] subTypes;
+	/** Im Konstruktor übergebenes Datenobjekt in das bei {@link #storeData()} die Daten zurückgeschrieben werden */
 	private final DistributionSystem sourceData;
 	private final DistributionSystem data;
 
@@ -100,8 +101,6 @@ public class DistributionBySubTypeEditor extends JPanel {
 	private final JPanel expressionLines;
 	private final JTextField expressionEdit;
 
-	private List<ActionListener> userChangeListeners;
-
 	/**
 	 * Konstruktor der Klasse <code>DistributionBySubTypeEditor</code>
 	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
@@ -114,8 +113,6 @@ public class DistributionBySubTypeEditor extends JPanel {
 	 */
 	public DistributionBySubTypeEditor(final EditModel model, final ModelSurface surface, final boolean readOnly, final String title, final DistributionSystem data, final Mode mode) {
 		super();
-
-		userChangeListeners=new ArrayList<>();
 
 		/* Daten vorbereiten */
 		this.model=model;
@@ -247,6 +244,12 @@ public class DistributionBySubTypeEditor extends JPanel {
 	}
 
 	/**
+	 * Listener, die im Falle einer Nutzereingabe zu benachrichtigenden sind
+	 * @see #fireUserChangeListener()
+	 */
+	private final List<ActionListener> userChangeListeners=new ArrayList<>();
+
+	/**
 	 * Fügt einen Listener zu der Liste der im Falle einer Nutzereingabe zu benachrichtigenden Objekte hinzu
 	 * @param actionListener	Neuer Listener
 	 */
@@ -263,6 +266,10 @@ public class DistributionBySubTypeEditor extends JPanel {
 		return userChangeListeners.remove(actionListener);
 	}
 
+	/**
+	 * Löst die Listener, die im Falle einer Nutzereingabe zu benachrichtigenden sind, aus.
+	 * @see #userChangeListeners
+	 */
 	private void fireUserChangeListener() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"");
 		for (ActionListener listener: userChangeListeners) listener.actionPerformed(event);

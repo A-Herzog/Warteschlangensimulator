@@ -105,7 +105,14 @@ public final class ModelSurface {
 		 */
 		public final long multiply;
 
-		TimeBase(final int id) {this.id=id; multiply=TIMEBASE_MULTIPLY[id];}
+		/**
+		 * Konstruktor des Enum
+		 * @param id	Interne ID des Zeitbasis-Wertes
+		 */
+		TimeBase(final int id) {
+			this.id=id;
+			multiply=TIMEBASE_MULTIPLY[id];
+		}
 
 		/**
 		 * Liefert eine Zeitbasis auf Basis einer ID
@@ -138,6 +145,10 @@ public final class ModelSurface {
 		/** ID der Raster-Anzeige-Art für das Setup */
 		public final String id;
 
+		/**
+		 * Konstruktor des Enum
+		 * @param id	ID der Raster-Anzeige-Art für das Setup
+		 */
 		Grid(final String id) {
 			this.id=id;
 		}
@@ -158,9 +169,13 @@ public final class ModelSurface {
 	private final List<Runnable> requestCopyListeners;
 	private final List<Runnable> requestCutListeners;
 	private final List<Runnable> stateChangeListener;
+	/** Element vom Typ {@link EditModel} (wird benötigt, um die Liste der globalen Variablen zu laden) */
 	private final EditModel model;
+	/** Übergeordnetes <code>ModelSurface</code>-Element (zur Bestimmung der nächsten freien id), kann <code>null</code> sein, wenn dies das primäre Surface ist. */
 	private final ModelSurface parentSurface;
+	/** Zu verwendendes Ressourcen-Objekt (kann über <code>getResources()</code> wieder abgerufen werden, wird sonst von diesem Objekt nicht verwendet) */
 	private final ModelResources resources;
+	/** Zu verwendendes Zeitpläne-Objekt (kann über <code>getSchedules()</code> wieder abgerufen werden, wird sonst von diesem Objekt nicht verwendet) */
 	private final ModelSchedules schedules;
 
 	private ModelElement saveLastSelected;
@@ -173,8 +188,8 @@ public final class ModelSurface {
 	private String activeLayer;
 
 	/**
-	 * Konstruktor der Klasse <code>ModelSurface</code>
-	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
+	 * Konstruktor der Klasse
+	 * @param model	Element vom Typ {@link EditModel} (wird benötigt, um die Liste der globalen Variablen zu laden)
 	 * @param resources Zu verwendendes Ressourcen-Objekt (kann über <code>getResources()</code> wieder abgerufen werden, wird sonst von diesem Objekt nicht verwendet)
 	 * @param schedules Zu verwendendes Zeitpläne-Objekt (kann über <code>getSchedules()</code> wieder abgerufen werden, wird sonst von diesem Objekt nicht verwendet)
 	 * @param parentSurface	Übergeordnetes <code>ModelSurface</code>-Element (zur Bestimmung der nächsten freien id), kann <code>null</code> sein, wenn dies das primäre Surface ist.

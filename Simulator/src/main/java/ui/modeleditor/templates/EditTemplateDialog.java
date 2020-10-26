@@ -115,6 +115,12 @@ public class EditTemplateDialog extends BaseDialog {
 		initGUI(UserTemplateTools.getAllElements(oldTemplate),oldTemplate.getName(),isGlobal);
 	}
 
+	/**
+	 * Baut die Zeichenfläche (mit Vorlagenelementen darin) usw. auf.
+	 * @param inputStream	Vorlage
+	 * @param name	Name der Vorlage
+	 * @param isGlobal	Gibt an, ob es sich bei der zu bearbeitenden Vorlage um eine globale Vorlage handelt
+	 */
 	private void initGUI(final ByteArrayInputStream inputStream, final String name, final boolean isGlobal) {
 		/* Zeichenfläche aus Stream erstellen */
 
@@ -163,6 +169,11 @@ public class EditTemplateDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert eine Informationszeile mit weiteren Angaben zu den Elementen der Vorlage
+	 * @param elements	Liste der Elemente der Vorlage
+	 * @return	Informationszeile
+	 */
 	private String getInfo(final List<ModelElement> elements) {
 		final int countAll=elements.size();
 		final int countStations=(int)elements.stream().filter(element->(element instanceof ModelElementBox)).count();

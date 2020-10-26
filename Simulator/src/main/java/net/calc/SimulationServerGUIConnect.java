@@ -41,6 +41,7 @@ public class SimulationServerGUIConnect {
 	private final List<String> output;
 	private final Semaphore lock;
 	private final Set<Consumer<List<String>>> listeners;
+	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
 
 	/**

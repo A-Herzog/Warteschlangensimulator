@@ -52,6 +52,7 @@ import ui.modeleditor.elements.ModelElementTank;
  * @see RunElementInteractiveButton
  */
 public class RunElementActionRecord {
+	/** Zugehöriges Editor-Element */
 	private final ModelElementActionRecord editRecord;
 
 	private ModelElementActionRecord.ActionMode actionMode;

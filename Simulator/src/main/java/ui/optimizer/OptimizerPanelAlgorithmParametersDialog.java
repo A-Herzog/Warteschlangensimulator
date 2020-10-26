@@ -123,6 +123,13 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Erzeugt eine Eingabezeile
+	 * @param parent	Elternelemente in das die Eingabezeile eingefügt werden soll
+	 * @param label	Beschriftung der Eingabezeile
+	 * @param value	Initialer Wert
+	 * @return	Neue Eingabezeile (schon in das Elternelement eingefügt)
+	 */
 	private JTextField addTabInputLine(final JPanel parent, final String label, final String value) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		parent.add(line);
@@ -139,6 +146,13 @@ public class OptimizerPanelAlgorithmParametersDialog extends BaseDialog {
 		return textField;
 	}
 
+	/**
+	 * Erzeugt eine Checkbox
+	 * @param parent	Elternelemente in das die Eingabezeile eingefügt werden soll
+	 * @param label	Beschriftung der Checkbox
+	 * @param selected	Soll die Checkbox initial markiert sein?
+	 * @return	Neue Checkbox (schon in das Elternelement eingefügt)
+	 */
 	private JCheckBox addTabCheckBoxLine(final JPanel parent, final String label, final boolean selected) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		parent.add(line);

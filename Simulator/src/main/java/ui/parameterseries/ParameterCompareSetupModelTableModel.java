@@ -44,6 +44,7 @@ public class ParameterCompareSetupModelTableModel extends JTableExtAbstractTable
 	private final JTableExt table;
 	/** Liste der Eingabeparameter-Einstellungen */
 	private final List<ParameterCompareSetupValueInput> input;
+	/** Werte der Eingabeparameter */
 	private final List<Double> data;
 
 	/**
@@ -93,6 +94,11 @@ public class ParameterCompareSetupModelTableModel extends JTableExtAbstractTable
 		}
 	}
 
+	/**
+	 * Liefert den Beschreibungstext für einen Input-Parameter
+	 * @param record	Input-Parameter Datensatz
+	 * @return	Beschreibungstext
+	 */
 	private String getInputInfo(final ParameterCompareSetupValueInput record) {
 		switch (record.getMode()) {
 		case MODE_RESOURCE:

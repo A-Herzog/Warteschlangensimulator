@@ -20,6 +20,7 @@ import java.awt.Rectangle;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -35,6 +36,10 @@ import ui.modeleditor.coreelements.ModelElementPosition;
  * @author Alexander Herzog
  */
 public class ModelElementCatalogTransferHandler extends TransferHandler {
+	/**
+	 * Serialisierungs-ID der Klasse
+	 * @see Serializable
+	 */
 	private static final long serialVersionUID = -6846928178641998737L;
 
 	@Override

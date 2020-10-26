@@ -30,6 +30,7 @@ import statistics.StatisticsDataCollector;
  * @author Alexander Herzog
  */
 public class TestWarmUp {
+	/** Aufgezeichnete Wartezeiten */
 	private final StatisticsDataCollector data;
 
 	/**
@@ -48,6 +49,13 @@ public class TestWarmUp {
 		data=dataCollector;
 	}
 
+	/**
+	 * Liefert ein Datenobjekt zur Berechnung von tau
+	 * @param data	Aufgezeichnete Wartezeiten
+	 * @return	tau
+	 * @see #getTauSquared(StatisticsDataCollector)
+	 * @see #getTauSquaredClassic(StatisticsDataCollector)
+	 */
 	private StatisticsDataCollector getTauData(final StatisticsDataCollector data) {
 		int m2=data.getCount()/2;
 		if (data.getCount()%2!=0) m2++;

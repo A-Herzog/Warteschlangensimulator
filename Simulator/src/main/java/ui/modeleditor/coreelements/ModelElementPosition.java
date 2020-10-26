@@ -445,7 +445,18 @@ public class ModelElementPosition extends ModelElement {
 		fireChanged();
 	}
 
+	/**
+	 * Gespeicherte x-Position, um später zu dieser zurück zu kehren.
+	 * @see #temporaryMoveToTop()
+	 * @see #temporaryMoveRestore()
+	 */
 	private int saveX;
+
+	/**
+	 * Gespeicherte y-Position, um später zu dieser zurück zu kehren.
+	 * @see #temporaryMoveToTop()
+	 * @see #temporaryMoveRestore()
+	 */
 	private int saveY;
 
 	/**

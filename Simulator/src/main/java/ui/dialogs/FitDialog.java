@@ -198,7 +198,7 @@ public class FitDialog extends BaseDialog {
 	}
 
 	/**
-	 * Reagier auf einen Klick auf eine Schaltfläche.
+	 * Reagiert auf einen Klick auf eine Schaltfläche.
 	 */
 	private class ButtonListener implements ActionListener {
 		/** Index der Schaltfläche */

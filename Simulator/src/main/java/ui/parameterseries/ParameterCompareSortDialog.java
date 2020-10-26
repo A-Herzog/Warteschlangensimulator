@@ -47,6 +47,7 @@ public class ParameterCompareSortDialog extends BaseDialog {
 	/** Parameter-Vergleichs-Einstellungen */
 	private final ParameterCompareSetup setup;
 
+	/** Optionen zur Auswahl wonach sortiert werden soll */
 	private final List<JRadioButton> radioButtons;
 
 	/** Sortierung aufsteigend? */

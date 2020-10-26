@@ -19,8 +19,17 @@ import java.util.Set;
  * @see MainFrame.ReloadMode
  */
 public class ReloadManager {
-	/** Menge aller aktuell geöffneten Fenster */
+	/**
+	 * Menge aller aktuell geöffneten Fenster
+	 */
 	private static final Set<MainFrame> frames=new HashSet<>();
+
+	/**
+	 * Benachrichtigungsgruppen
+	 * @see #addBroadcastReceiver(String, Runnable)
+	 * @see #removeBroadcastReceiver(Runnable)
+	 * @see #notify(Runnable)
+	 */
 	private static final Map<String,Set<Runnable>> broadcastReceivers=new HashMap<>();
 
 	/**

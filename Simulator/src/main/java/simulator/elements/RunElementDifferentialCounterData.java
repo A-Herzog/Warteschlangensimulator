@@ -57,6 +57,7 @@ public class RunElementDifferentialCounterData extends RunElementData implements
 		valueIndex=nr;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
 	/**

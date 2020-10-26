@@ -50,6 +50,10 @@ public class JQuickAccessBuilderMenu extends JQuickAccessBuilder {
 		super(Language.tr("QuickAccess.Menu"),Language.tr("QuickAccess.Menu.Hint"),quickAccessText,false);
 	}
 
+	/**
+	 * Aktion beim Anklicken eines Suchtreffers.
+	 * @see #processMenu(JMenu, String)
+	 */
 	private static final Consumer<JQuickAccessRecord> callback=record->{
 		final JMenuItem clickedItem=((JMenuItem)record.data);
 		final ActionEvent event=new ActionEvent(clickedItem,ActionEvent.ACTION_PERFORMED,clickedItem.getActionCommand());
@@ -70,18 +74,36 @@ public class JQuickAccessBuilderMenu extends JQuickAccessBuilder {
 		}
 	}
 
+	/**
+	 * Sollen bestimmte Einträge in dem Untermenü bei der Suche ignoriert werden?
+	 * @see JQuickAccessBuilderMenu#getIgnoreMode(String)
+	 */
 	private enum IgnoreMode {
+		/** Alle Einträge verarbeiten (Standardfall) */
 		Normal,
+		/** Ersten Eintrag überspringen */
 		OnlyFirst,
+		/** Ganzes Menü überspringen */
 		Ignore
 	}
 
+	/**
+	 * Sollen bestimmte Einträge in dem Untermenü bei der Suche ignoriert werden?
+	 * @param menuName	Name des Untermenüs
+	 * @return	Welche Einträge sollen übersprungen werden?
+	 */
 	private IgnoreMode getIgnoreMode(final String menuName) {
 		if (menuName.equals(Language.tr("Main.Menu.File.LoadExample"))) return IgnoreMode.OnlyFirst;
 		if (menuName.equals(Language.tr("Main.Menu.File.RecentlyUsed"))) return IgnoreMode.Ignore;
 		return IgnoreMode.Normal;
 	}
 
+	/**
+	 * Führt die Verarbeitung für ein (Teil-)Menü durch.
+	 * @param menu	Menü in dem gesucht werden soll
+	 * @param parentPath	Pfad zum Eltern-Anteil des Menüs
+	 * @see #work(JMenuBar)
+	 */
 	private void processMenu(final JMenu menu, final String parentPath) {
 		if (menu==null) return;
 

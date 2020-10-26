@@ -55,6 +55,7 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 	private final ModelElementCounterMulti element;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
 	private List<String> condition;

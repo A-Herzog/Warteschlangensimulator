@@ -421,32 +421,31 @@ public class DBConnect implements Closeable {
 		if (connection!=null) try {if (!connection.isClosed()) connection.close();} catch (SQLException e) {}
 	}
 
-	private List<String> defaultTablesListReader(final ResultSet list, final boolean extendedMode) throws SQLException {
+	/**
+	 * Liest die Liste der Tabellen in einer Datenbank aus einer entsprechenden SQL-Antwort aus.
+	 * @param list	SQL-Antwort
+	 * @return	Liste der Tabellen in der Datenbank
+	 * @throws SQLException	Wird ausgelöst, wenn beim Lesen der SQL-Daten ein Fehler aufgetreten ist
+	 */
+	private List<String> defaultTablesListReader(final ResultSet list) throws SQLException {
 		final List<String> tables=new ArrayList<>();
 
-		final int count=list.getMetaData().getColumnCount();
-		/* for (int i=0;i<count;i++) System.out.println(list.getMetaData().getColumnName(i+1)); */
-
 		while (list.next()) {
-			if (extendedMode) {
-				final StringBuilder sb=new StringBuilder();
-				for (int i=0;i<count;i++) {
-					if (sb.length()>0) sb.append("\t");
-					sb.append(list.getString(i+1));
-				}
-				tables.add(sb.toString());
-			} else {
-				tables.add(list.getString(1).trim());
-			}
+			tables.add(list.getString(1).trim());
 		}
 		return tables;
 	}
 
+	/**
+	 * Liefert eine Liste aller in der Datenbank enthaltenen Tabellen.
+	 * @return	Liste aller Tabellen in der Datenbank (kann leer sein, aber ist nie <code>null</code>)
+	 * @see #listTables()
+	 */
 	private List<String> buildTableNamesList() {
 		if (statement==null) return new ArrayList<>();
 
 		try (ResultSet result=statement.executeQuery(type.listAllTablesCommand)) {
-			return defaultTablesListReader(result,false);
+			return defaultTablesListReader(result);
 		} catch (SQLException e) {return new ArrayList<>();}
 	}
 
@@ -459,12 +458,24 @@ public class DBConnect implements Closeable {
 		return tableNames.toArray(new String[0]);
 	}
 
+	/**
+	 * Wandelt einen Tabellennamen in den Tabellennamen mit korrekter Groß- und Kleinschreibung um
+	 * @param tableName	Tabellenname
+	 * @return	Tabellenname in korrekter Groß- und Kleinschreibung
+	 */
 	private String getExactTableName(final String tableName) {
 		if (tableNames==null) tableNames=buildTableNamesList();
 		for (String s: tableNames) if (s.equalsIgnoreCase(tableName)) return s.replace(";","");
 		return null;
 	}
 
+	/**
+	 * Liefert die Spaltennamen einer Tabelle
+	 * @param result	SQL-Rückgabewert der die Spaltennamen enthält
+	 * @return	Spaltennamen in der Tabelle
+	 * @throws SQLException	Wird ausgelöst, wenn das SQL-Objekt die Anforderungen nicht erfüllen kann
+	 * @see #buildColumnNamesList(String)
+	 */
 	private List<String> buildColumnNamesList(final ResultSet result) throws SQLException {
 		final ResultSetMetaData meta=result.getMetaData();
 		final int colCount=meta.getColumnCount();
@@ -473,12 +484,25 @@ public class DBConnect implements Closeable {
 		return colNames;
 	}
 
+	/**
+	 * Liefert die Spaltennamen einer Tabelle
+	 * in einer Firebird-Datenbank
+	 * @param result	SQL-Rückgabewert der die Spaltennamen enthält
+	 * @return	Spaltennamen in der Tabelle
+	 * @throws SQLException	Wird ausgelöst, wenn das SQL-Objekt die Anforderungen nicht erfüllen kann
+	 * @see #buildColumnNamesList(String)
+	 */
 	private List<String> buildColumnNamesListFirebird(final ResultSet result) throws SQLException {
 		final List<String> columnNames=new ArrayList<>();
 		while (result.next()) columnNames.add(result.getString(1).trim());
 		return columnNames;
 	}
 
+	/**
+	 * Liefert die Spaltennamen einer Tabelle
+	 * @param exactTableName	Name der Tabelle
+	 * @return	Spaltennamen in der Tabelle
+	 */
 	private List<String> buildColumnNamesList(final String exactTableName) {
 		if (statement==null) return new ArrayList<>();
 
@@ -516,7 +540,7 @@ public class DBConnect implements Closeable {
 	}
 
 	/**
-	 * Liefert eine Zuordnung aller Tabellennamen zu allen jeweiligen Spaltennamen
+	 * Liefert eine Zuordnung aller Tabellennamen zu allen jeweiligen Spaltennamen.
 	 * @return	Zuordnung aller Tabellennamen zu allen jeweiligen Spaltennamen
 	 */
 	public Map<String,List<String>> listAll() {
@@ -526,6 +550,12 @@ public class DBConnect implements Closeable {
 		return result;
 	}
 
+	/**
+	 * Liefert die Nummer einer Spalte in einer Tabelle.
+	 * @param exactTableName	Name der Tabelle
+	 * @param columnName	Name der Spalte
+	 * @return	Nummer der Spalte oder -1, wenn Tabelle oder Spalte nicht gefunden werden konnten
+	 */
 	private int getColumnNumber(final String exactTableName, final String columnName) {
 		if (columnName==null || columnName.trim().isEmpty()) return 0; /* Wenn keine Spalte angegeben, erste Spalte verwenden */
 
@@ -538,6 +568,12 @@ public class DBConnect implements Closeable {
 		return -1;
 	}
 
+	/**
+	 * Liefert den Namen einer Spalte in korrekter Groß- und Kleinschreibung.
+	 * @param exactTableName	Name der Tabelle
+	 * @param columnName	Name der Spalte
+	 * @return	Name der Spalte in korrekter Groß- und Kleinschreibung
+	 */
 	private String getExactColumnName(final String exactTableName, final String columnName) {
 		if (columnName==null || columnName.trim().isEmpty()) return null;
 
@@ -718,19 +754,39 @@ public class DBConnect implements Closeable {
 		return tableIterator.additional[additionalIndex];
 	}
 
+	/**
+	 * Iterator-Klasse für {@link Double}-Werte aus einer Tabellenspalte
+	 */
 	private class TableReadDoubleIterator implements Iterator<Double> {
+		/** SQL-Antwort */
 		private final ResultSet result;
+		/** Liste mit allen in der Tabelle vorhandenen Spaltennamen */
 		private final String[] columnNames;
+		/** Index der für den Iterator relevanten Datenspalte */
 		private final int numberColumnIndex;
+		/** Indices der zusätzlichen Datenspalten für die weiteren Werte */
 		private final int[] additionalColumnsIndex;
+		/** Nächster auszuliefernder Wert (wird für {@link #hasNext()} bereits einen Aufruf früher gelesen) */
 		private Double next;
+		/** Zusätzlicher Werte für die nächste Abfrage*/
 		private String[] additionalNext;
+		/** Aktuelles Set zusätzlicher Werte */
 		private String[] additional;
 
+		/**
+		 * Konstruktor der Klasse<br>
+		 * Erstellt einen leeren Iterator, der keine Daten liefert.
+		 */
 		private TableReadDoubleIterator() {
 			this(null,null,null);
 		}
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param result	SQL-Antwort
+		 * @param numberColumn	Name der Spalte
+		 * @param additionalColumns	Namen der Spalten für weitere optionale Antwortwerte
+		 */
 		private TableReadDoubleIterator(final ResultSet result, final String numberColumn, final String[] additionalColumns) {
 			this.result=result;
 			columnNames=getColumnNames();
@@ -745,6 +801,10 @@ public class DBConnect implements Closeable {
 			if (result!=null && numberColumnIndex>=0) readNext();
 		}
 
+		/**
+		 * Liefert eine Liste mit allen in der Tabelle vorhandenen Spaltennamen.
+		 * @return	Liste mit allen in der Tabelle vorhandenen Spaltennamen
+		 */
 		private String[] getColumnNames() {
 			final List<String> columnNamesList=new ArrayList<>();
 
@@ -756,6 +816,11 @@ public class DBConnect implements Closeable {
 			return columnNamesList.toArray(new String[0]);
 		}
 
+		/**
+		 * Liefert den Spaltenindex einer Tabellenspalte.
+		 * @param name	Name der Tabellenspalte
+		 * @return	Zugehöriger Index oder -1, wenn die Tabelle keine entsprechende Spalte enthält
+		 */
 		private int getColumnIndex(String name) {
 			if (name==null || name.trim().isEmpty()) return -1;
 
@@ -763,11 +828,15 @@ public class DBConnect implements Closeable {
 
 			for (int i=0;i<columnNames.length;i++) if (columnNames[i].equalsIgnoreCase(name)) return i;
 
-
-
 			return -1;
 		}
 
+		/**
+		 * Liest den nächsten Wert und speichert ihn in {@link #next}.
+		 * Das muss vor der eigentlichen Anfrage des Wertes passieren,
+		 * damit {@link #hasNext()} eine sinnvolle Antwort geben kann.
+		 * Zusätzlich werden auch die weiteren Spaltenwerte gelesen.
+		 */
 		private void readNext() {
 			next=null;
 			Arrays.fill(additionalNext,null);
@@ -800,19 +869,39 @@ public class DBConnect implements Closeable {
 		}
 	}
 
+	/**
+	 * Iterator-Klasse für {@link String}-Werte aus einer Tabellenspalte
+	 */
 	private class TableReadStringIterator implements Iterator<String> {
+		/** SQL-Antwort */
 		private final ResultSet result;
+		/** Liste mit allen in der Tabelle vorhandenen Spaltennamen */
 		private final String[] columnNames;
+		/** Index der für den Iterator relevanten Datenspalte */
 		private final int numberColumnIndex;
+		/** Indices der zusätzlichen Datenspalten für die weiteren Werte */
 		private final int[] additionalColumnsIndex;
+		/** Nächster auszuliefernder Wert (wird für {@link #hasNext()} bereits einen Aufruf früher gelesen) */
 		private String next;
+		/** Zusätzlicher Werte für die nächste Abfrage*/
 		private String[] additionalNext;
+		/** Aktuelles Set zusätzlicher Werte */
 		private String[] additional;
 
+		/**
+		 * Konstruktor der Klasse<br>
+		 * Erstellt einen leeren Iterator, der keine Daten liefert.
+		 */
 		private TableReadStringIterator() {
 			this(null,null,null);
 		}
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param result	SQL-Antwort
+		 * @param numberColumn	Name der Spalte
+		 * @param additionalColumns	Namen der Spalten für weitere optionale Antwortwerte
+		 */
 		private TableReadStringIterator(final ResultSet result, final String numberColumn, final String[] additionalColumns) {
 			this.result=result;
 			columnNames=getColumnNames();
@@ -827,6 +916,10 @@ public class DBConnect implements Closeable {
 			if (result!=null && numberColumnIndex>=0) readNext();
 		}
 
+		/**
+		 * Liefert eine Liste mit allen in der Tabelle vorhandenen Spaltennamen.
+		 * @return	Liste mit allen in der Tabelle vorhandenen Spaltennamen
+		 */
 		private String[] getColumnNames() {
 			final List<String> columnNamesList=new ArrayList<>();
 
@@ -838,6 +931,11 @@ public class DBConnect implements Closeable {
 			return columnNamesList.toArray(new String[0]);
 		}
 
+		/**
+		 * Liefert den Spaltenindex einer Tabellenspalte.
+		 * @param name	Name der Tabellenspalte
+		 * @return	Zugehöriger Index oder -1, wenn die Tabelle keine entsprechende Spalte enthält
+		 */
 		private int getColumnIndex(String name) {
 			if (name==null || name.trim().isEmpty()) return -1;
 
@@ -845,11 +943,15 @@ public class DBConnect implements Closeable {
 
 			for (int i=0;i<columnNames.length;i++) if (columnNames[i].equalsIgnoreCase(name)) return i;
 
-
-
 			return -1;
 		}
 
+		/**
+		 * Liest den nächsten Wert und speichert ihn in {@link #next}.
+		 * Das muss vor der eigentlichen Anfrage des Wertes passieren,
+		 * damit {@link #hasNext()} eine sinnvolle Antwort geben kann.
+		 * Zusätzlich werden auch die weiteren Spaltenwerte gelesen.
+		 */
 		private void readNext() {
 			next=null;
 			Arrays.fill(additionalNext,null);

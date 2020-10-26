@@ -120,7 +120,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 	/**
 	 * Länge der Einschwingphase (als Anteil der Kundenankünfte), bevor die Statistikzählung beginnt.<br>
-	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besateht aus zusätzlichen Ankünften.
+	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besteht aus zusätzlichen Ankünften.
 	 */
 	public double warmUpTime;
 

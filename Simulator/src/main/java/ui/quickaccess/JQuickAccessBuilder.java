@@ -68,6 +68,16 @@ public class JQuickAccessBuilder {
 		this.searchInPreText=searchInPreText;
 	}
 
+	/**
+	 * Liefert den html-Text für einen Suchtreffer.
+	 * @param pre	Voranzustellender Text (kann <code>null</code> sein)
+	 * @param text	Haupttext
+	 * @param index1	Ist dieser Wert &ge;0, so wird ab dieser Position der Treffer im Vorspann-Text fett dargestellt
+	 * @param index2	Ist dieser Wert &ge;0, so wird ab dieser Position der Treffer im Haupt-Text fett dargestellt
+	 * @return	html-formatierter Suchtreffer
+	 * @see #test(String, String)
+	 * @see #testPlainResult(String, String)
+	 */
 	private String buildResultText(final String pre, final String text, final int index1, final int index2) {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("<html><body>");
@@ -101,6 +111,12 @@ public class JQuickAccessBuilder {
 		return sb.toString();
 	}
 
+	/**
+	 * Prüft, ob ein Datensatz zu dem Suchbegriff passt
+	 * @param pre	Vorspanntext (darf <code>null</code> sein)
+	 * @param text	Eigentlicher Text für den Eintrag
+	 * @return	Liefert im Erfolgsfall den html-Text für den Suchtreffer, sonst <code>null</code>
+	 */
 	private String test(final String pre, final String text) {
 		final int index1=(pre!=null)?pre.toLowerCase().indexOf(quickAccessTextLower):-1;
 		final int index2=text.toLowerCase().indexOf(quickAccessTextLower);
@@ -113,6 +129,12 @@ public class JQuickAccessBuilder {
 		return buildResultText(pre,text,index1,index2);
 	}
 
+	/**
+	 * Prüft, ob ein Datensatz zu dem Suchbegriff passt
+	 * @param pre	Vorspanntext (darf <code>null</code> sein)
+	 * @param text	Eigentlicher Text für den Eintrag
+	 * @return	Liefert im Erfolgsfall den html-Text für den Suchtreffer (ohne Fett-Darstellung des Treffers), sonst <code>null</code>
+	 */
 	private String testPlainResult(final String pre, final String text) {
 		final int index1=(pre!=null)?pre.toLowerCase().indexOf(quickAccessTextLower):-1;
 		final int index2=text.toLowerCase().indexOf(quickAccessTextLower);

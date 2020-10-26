@@ -33,7 +33,9 @@ import language.Language;
  * @see PathPoint
  */
 public class PathPointEntry {
+	/** Ausgangsstation */
 	private final PathPoint point;
+	/** Mögliche Zwischenstationen */
 	private final List<PathPoint> options;
 
 	private final JPanel panel;

@@ -122,6 +122,10 @@ public class ImageChooser extends JPanel {
 		initDropTarget();
 	}
 
+	/**
+	 * Richtet die Komponente als Drag&amp;drop-Empfänger ein.
+	 * @return	Liefert <code>true</code>, wenn die Drag&amp;drop-Einstellungen vorgenommen werden konnten
+	 */
 	private boolean initDropTarget() {
 		final DropTarget dt=new DropTarget();
 		setDropTarget(dt);
@@ -149,6 +153,14 @@ public class ImageChooser extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche und fügt diese an {@link #toolBar} an.
+	 * @param name	Name der neuen Schaltfläche
+	 * @param hint	Optionaler Tooltip für die Schaltfläche
+	 * @param icon	Optionales Icon für die Schaltfläche
+	 * @return	Liefert die neue Schaltfläche zurück (ist bereits an {@link #toolBar} angefügt)
+	 * @see #toolBar
+	 */
 	private JButton addButton(final String name, final String hint, final Icon icon) {
 		JButton button=new JButton(name);
 		if (hint!=null) button.setToolTipText(hint);
@@ -196,6 +208,10 @@ public class ImageChooser extends JPanel {
 		updateGUI();
 	}
 
+	/**
+	 * Aktiviert oder deaktiviert die einzelnen Schaltflächen
+	 * je nach dem, ob ein Bild vorhanden ist usw.
+	 */
 	private void updateGUI() {
 		buttonCopy.setEnabled(image!=null);
 		buttonPaste.setEnabled(enabled);
@@ -203,6 +219,11 @@ public class ImageChooser extends JPanel {
 		buttonSave.setEnabled(image!=null);
 	}
 
+	/**
+	 * Reagiert auf Drag&amp;Drop einer Datei auf das Panel
+	 * @param file	Datei, die übermittelt wurde
+	 * @return	Gibt an, ob die Datei erfolgreich geladen werden konnte
+	 */
 	private boolean dropFile(final File file) {
 		try {
 			BufferedImage newImage=ImageIO.read(file);
@@ -329,6 +350,10 @@ public class ImageChooser extends JPanel {
 		try {return ImageIO.write(image,s,file);} catch (IOException e) {return false;}
 	}
 
+	/**
+	 * Zeigt das Popupmenü zur Auswahl eines der Vorgabebilder an.
+	 * @param parent	Elternkomponente zur Ausrichtung des Popupmenüs
+	 */
 	private void showTemplatesMenu(final Component parent) {
 		JPopupMenu menu=new JPopupMenu();
 
@@ -346,6 +371,9 @@ public class ImageChooser extends JPanel {
 		menu.show(parent,0,parent.getHeight());
 	}
 
+	/**
+	 * Internes Panel in das das eigentliche Bild gezeichnet wird
+	 */
 	private class ImageHolderPanel extends JPanel {
 		/**
 		 * Serialisierungs-ID der Klasse
@@ -353,6 +381,10 @@ public class ImageChooser extends JPanel {
 		 */
 		private static final long serialVersionUID = 4214953664624697281L;
 
+		/**
+		 * Zeichnet das Bild in ein Grafik-Objekt
+		 * @param graphics	Grafik-Objekt in das das Bild gezeichnet werden soll
+		 */
 		private void drawImage(final Graphics graphics) {
 			if (image==null) return;
 
@@ -377,6 +409,9 @@ public class ImageChooser extends JPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -389,6 +424,12 @@ public class ImageChooser extends JPanel {
 		}
 	}
 
+	/**
+	 * Listener die benachrichtigt werden, wenn ein Bild geladen wird
+	 * @see #fireChange()
+	 * @see #addChangeListener(ActionListener)
+	 * @see #removeChangeListener(ActionListener)
+	 */
 	private Set<ActionListener> changeListeners=new HashSet<>();
 
 	/**
@@ -405,10 +446,16 @@ public class ImageChooser extends JPanel {
 	 * @param clickListener	In Zukunft nicht mehr zu benachrichtigender Listener
 	 * @return	Gibt <code>true</code> zurück, wenn der Listener erfolgreich aus der Liste entfernt werden konnte
 	 */
-	public boolean removeClickListener(final ActionListener clickListener) {
+	public boolean removeChangeListener(final ActionListener clickListener) {
 		return changeListeners.remove(clickListener);
 	}
 
+	/**
+	 * Benachrichtigt die Listener, dass ein Bild geladen wurde.
+	 *  @see #changeListeners
+	 *  @see #addChangeListener(ActionListener)
+	 *  @see #removeChangeListener(ActionListener)
+	 */
 	private void fireChange() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"change");
 		for (ActionListener listener: changeListeners) listener.actionPerformed(event);

@@ -30,7 +30,9 @@ import ui.dialogs.ModelRestoreDialog;
  * @author Alexander Herzog
  */
 public class ModelRestore {
+	/** Anfang für alle Dateinamen für die Auto-Wiederherstellung */
 	private static final String FILE_PREFIX="AutoStore";
+	/** Ende für alle Dateinamen für die Auto-Wiederherstellung */
 	private static final String FILE_SUFFIX=".xml";
 
 	/**
@@ -46,6 +48,10 @@ public class ModelRestore {
 	 */
 	private ModelRestore() {}
 
+	/**
+	 * Liefert eine Liste mit allen wiederherstellbaren Modelldatieen
+	 * @return	Liste mit allen wiederherstellbaren Modelldatieen
+	 */
 	private static File[] getModelFiles() {
 		return SetupData.getSetupFolder().listFiles((dir,name)->{
 			if (!name.startsWith(FILE_PREFIX)) return false;
@@ -55,6 +61,11 @@ public class ModelRestore {
 		});
 	}
 
+	/**
+	 * Liefert einen bislang noch nicht vergebenen Namen für die Auto-Wiederherstellungs-Datei
+	 * @param maxFiles	Maximalanzahl an Auto-Wiederherstellungs-Dateien die berücksichtigt werden sollen
+	 * @return	Auto-Wiederherstellungs-Datei oder <code>null</code>, wenn die zulässige Maximalanzahl bereits erreicht ist
+	 */
 	private static File getAvailableModelFileName(final int maxFiles) {
 		int nr=-1;
 		File file;
@@ -66,6 +77,11 @@ public class ModelRestore {
 		return file;
 	}
 
+	/**
+	 * Lädt und löscht eine Modelldatei
+	 * @param file	Zu ladende Datei
+	 * @return	Liefert im Erfolgfall das Modell
+	 */
 	private static EditModel loadAndDeleteFile(final File file) {
 		if (file==null) return null;
 		final EditModel model=new EditModel();
@@ -85,6 +101,13 @@ public class ModelRestore {
 		return deleteOnLoadSuccessful;
 	}
 
+	/**
+	 * Zeigt einen Dialog zur Auswahl des wiederherzustellenden Modells an.
+	 * @param owner	Übergeordnetes Element
+	 * @param files	Liste der zum Wiederherstellen verfügbaren Modellen
+	 * @return	Zum Wiederherstellen ausgewählte Datei (oder <code>null</code>, wenn kein Modell ausgewählt wurde)
+	 * @see ModelRestoreDialog
+	 */
 	private static File selectModel(final Component owner, final File[] files) {
 		if (files==null  || files.length==0) return null;
 		if (files.length==1) return files[0];

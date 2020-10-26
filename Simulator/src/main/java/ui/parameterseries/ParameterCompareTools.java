@@ -55,6 +55,13 @@ public class ParameterCompareTools {
 		return dialog.getXMLSelector();
 	}
 
+	/**
+	 * Berechnet den Wert eines Rechenausdrucks im Kontext eines Modells.
+	 * @param model	Modell dessen Daten in dem Rechenausdruck zur Verfügung stehen sollen
+	 * @param expression	Rechenausdruck
+	 * @return	Liefert entweder einen Zahlenwert oder <code>null</code>, wenn der Ausdruck nicht geparst oder berechnet werden konnte
+	 * @see #getModelValue(EditModel, ParameterCompareSetupValueInput)
+	 */
 	private static Double calcValue(final EditModel model, final String expression) {
 		final ExpressionCalc calc=new ExpressionCalc(model.getModelVariableNames());
 		if (calc.parse(expression)>=0) return null;

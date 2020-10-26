@@ -124,6 +124,11 @@ public class ModelExplorer extends JPanel {
 		}
 	}
 
+	/**
+	 * Zeigt einen bestimmten Bereich im Modell an.
+	 * @param x	Horizontaler Mittelpunkt des anzuzeigenden Bereichs
+	 * @param y	Vertikaler Mittelpunkt des anzuzeigenden Bereichs
+	 */
 	private void centerVisibleArea(final int x, final int y) {
 		final Point p1=surface.getUpperLeftModelCorner();
 		final Point p2=surface.getLowerRightModelCorner();

@@ -71,6 +71,10 @@ public class ScriptEditorPanel extends JPanel {
 	 */
 	public static final String DEFAULT_JAVA="void function(SimulationInterface sim) {\n\n}\n";
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn der Nutzer Eingaben in das Skriptfeld vornimmt, aus.
+	 * @see #fireKeyAction()
+	 */
 	private final List<Runnable> keyActionListeners;
 
 	/**
@@ -191,6 +195,7 @@ public class ScriptEditorPanel extends JPanel {
 	private final RSyntaxTextArea scriptEditJava;
 	private final JPanel scriptEditMulti;
 	private final CardLayout scriptEditMultiLayout;
+	/** Auswahlfeld für die Skriptsprache */
 	private final JComboBox<String> languageCombo;
 
 	private String lastScript="";
@@ -594,6 +599,10 @@ public class ScriptEditorPanel extends JPanel {
 		return keyActionListeners.remove(listener);
 	}
 
+	/**
+	 * Löst die Listener, die benachrichtigt werden sollen, wenn der Nutzer Eingaben in das Skriptfeld vornimmt, aus.
+	 * @see #keyActionListeners
+	 */
 	private void fireKeyAction() {
 		for (Runnable runnable: keyActionListeners) runnable.run();
 	}

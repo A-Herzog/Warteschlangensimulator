@@ -47,6 +47,7 @@ import ui.modeleditor.elements.ModelElementTransportTransporterSource;
  * @see RunDataTransporter
  */
 public final class RunDataTransporters implements Cloneable {
+	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
 	/**

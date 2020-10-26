@@ -82,11 +82,21 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 		MODE_PARAMETER_COMPARE
 	}
 
+	/**
+	 * Liefert das übergeordnete Fenster zu einer Komponente
+	 * @param parent	Komponente für die das übergeordnete Fenster gesucht werden soll
+	 * @return	Übergeordnetes Fenster oder <code>null</code>, wenn kein entsprechendes Fenster gefunden wurde
+	 */
 	private static Window getOwnerWindow(Component parent) {
 		while (parent!=null && !(parent instanceof Window)) parent=parent.getParent();
 		return (Window)parent;
 	}
 
+	/**
+	 * Liefert den Titel für den Dialog.
+	 * @param mode	Zweck der Modellvorbereitung durch diesen Dialog
+	 * @return	Titel für den Dialog
+	 */
 	private static String getTitle(final Mode mode) {
 		switch (mode) {
 		case MODE_OPTIMIZATION: return Language.tr("Optimizer.Prepare.Title");
@@ -96,6 +106,11 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 		}
 	}
 
+	/**
+	 * Liefert den Informationstext für den Dialog.
+	 * @param mode	Zweck der Modellvorbereitung durch diesen Dialog
+	 * @return	Informationstext für den Dialog
+	 */
 	private static String getInfo(final Mode mode) {
 		switch (mode) {
 		case MODE_OPTIMIZATION: return Language.tr("Optimizer.Prepare.Info");
@@ -170,7 +185,10 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 			return;
 		}
 		simulator=starter.start();
-		new Thread(()->{simulator.finalizeRun(); if (simulator!=null) finalizeRun();}).start();
+		new Thread(()->{
+			simulator.finalizeRun();
+			if (simulator!=null) finalizeRun();
+		}).start();
 
 		/* Fenster als solches vorbereiten */
 
@@ -179,10 +197,17 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Bricht die Simulation final ab.
+	 */
 	private synchronized void cancelRun() {
+		/* simulator.cancel(); wurde bereits vorher ausgeführt. */
 		simulator=null;
 	}
 
+	/**
+	 * Wird aufgerufen, wenn die Simulation beendet wurde.
+	 */
 	private synchronized void finalizeRun() {
 		if (simulator!=null) {
 			statistics=simulator.getStatistic();

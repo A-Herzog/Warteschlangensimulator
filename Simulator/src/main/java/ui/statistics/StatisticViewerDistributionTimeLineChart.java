@@ -137,6 +137,11 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		this.data=data;
 	}
 
+	/**
+	 * Zeigt im Fußbereich der Hilfeseite eine "Erklärung einblenden"-Schaltfläche, die,
+	 * wenn sie angeklickt wird, eine html-Hilfeseite anzeigt.
+	 * @param topic	Hilfe-Thema (wird als Datei in den "description_*"-Ordern gesucht)
+	 */
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerDistributionTimeLineChart.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));

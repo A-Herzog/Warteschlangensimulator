@@ -267,6 +267,13 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner);
 	}
 
+	/**
+	 * Erzeugt eine Auswahlbox.
+	 * @param sub	Elternelement
+	 * @param label	Beschriftung der Auswahlbox
+	 * @param content	Auswahloptionen
+	 * @return	Neue Auswahlbox (ist bereits in das Elternelement eingefügt)
+	 */
 	private JComboBox<String> getComboBox(final JPanel sub, final String label, final String[] content) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		sub.add(line);
@@ -281,6 +288,10 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		return combo;
 	}
 
+	/**
+	 * Aktualisiert die Ausgabe von Informationen zur Kontrollvariable und ihrem Startwert.
+	 * @see #startValueInfo
+	 */
 	private void updateInfo() {
 		switch (modeCombo.getSelectedIndex()) {
 		case 0: /* Ressource */
@@ -477,6 +488,9 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		return controlVariable;
 	}
 
+	/**
+	 * Zeigt das Popupmenü zur Auswalh eines XML-Eintrags an.
+	 */
 	private void showXMLPopup() {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -495,6 +509,10 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		popup.show(xmlTagButton,0,xmlTagButton.getHeight());
 	}
 
+	/**
+	 * Zeigt einen Dialog zur Auswahl eines XML-Eintrags an.
+	 * @see #showXMLPopup()
+	 */
 	private void addByDialog() {
 		final Document xmlDoc=model.saveToXMLDocument();
 		if (xmlDoc==null) return;
@@ -505,6 +523,11 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		updateInfo();
 	}
 
+	/**
+	 * Konfiguriert {@link #xmlTagEdit} gemäß einer Vorlage.
+	 * @param template	Zu verwendende Vorlage
+	 * @see #showXMLPopup()
+	 */
 	private void addByTemplate(final ParameterCompareSetupValueInput template) {
 		xmlTagEdit.setText(template.getTag());
 		updateInfo();

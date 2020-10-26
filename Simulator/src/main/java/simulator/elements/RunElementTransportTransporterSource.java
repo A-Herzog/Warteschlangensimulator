@@ -178,6 +178,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		return transporterIndex;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
 	private void getClientsToMove(final SimulationData simData, final List<RunDataClient> moveList) {

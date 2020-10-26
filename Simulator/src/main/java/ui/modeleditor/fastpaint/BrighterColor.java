@@ -26,9 +26,20 @@ import org.apache.commons.math3.util.FastMath;
  * @author Alexander Herzog
  */
 public class BrighterColor {
+	/**
+	 * Maximalwert um den die drei Farbkanäle jeweils verändert werden
+	 */
 	private static final int BRIGHTER_STEP=128;
 
+	/**
+	 * Zuletzt umgewandelte Farbe
+	 */
 	private Color lastColor;
+
+	/**
+	 * Ergebnis der letzten Umwandlung
+	 * (um dieses ggf. wieder wiederverwenden zu können)
+	 */
 	private Color lastBrighterColor;
 
 	/**
@@ -37,6 +48,12 @@ public class BrighterColor {
 	public BrighterColor() {
 	}
 
+	/**
+	 * Berechnet zu einer Farbe eine hellere Farbe
+	 * @param color	Ausgangsfarbe
+	 * @return	Hellere Variante der Farbe
+	 * @see #get(Color)
+	 */
 	private static Color build(final Color color) {
 		final Color brighter=color.brighter();
 		if (!brighter.equals(color)) return brighter;

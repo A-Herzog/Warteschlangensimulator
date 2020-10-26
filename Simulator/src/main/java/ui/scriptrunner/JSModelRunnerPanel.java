@@ -56,7 +56,9 @@ public class JSModelRunnerPanel extends SpecialPanel {
 	/** Schaltfläche "Hilfe" */
 	private final JButton helpButton;
 
+	/** Skript-Editor-Panel */
 	private ScriptPanel scriptPanel;
+	/** System zur Skriptausführung */
 	private JSModelRunner runner;
 
 	/** Anzeige als vollwertigem Skriptrunner, der das Fenster als alleiniges Element füllt, (<code>true</code>) oder als einfaches Panel z.B. als Tab innerhalb eines Dialogs (<code>false</code>). */
@@ -138,6 +140,10 @@ public class JSModelRunnerPanel extends SpecialPanel {
 		super.close();
 	}
 
+	/**
+	 * Befehl: Skript ausführen oder Ausführung abbrechen
+	 * @param start	Skript ausführen (<code>true</code>) oder Ausführung abbrechen (<code>false</code>)
+	 */
 	private void commandRun(final boolean start) {
 		if ((runner!=null)==start) return;
 

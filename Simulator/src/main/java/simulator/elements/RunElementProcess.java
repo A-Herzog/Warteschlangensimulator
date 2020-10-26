@@ -305,6 +305,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		return data;
 	}
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSecFactor=1.0/1000.0;
 
 	private double getClientScore(final SimulationData simData, final RunElementProcessData processData, final RunDataClient client) {
