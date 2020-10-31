@@ -66,6 +66,12 @@ public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition>
 	/** Icon für "+" */
 	private Icon iconPlus=null;
 
+	/**
+	 * Liefert den Listenzellen-Renderer für die Gruppennamen
+	 * @param groupName	Gruppenname
+	 * @param statusOpen	Soll die Gruppe geöffnet dargestellt werden?
+	 * @return	Listenzellen-Renderer für die Gruppennamen
+	 */
 	private Component getGroupRenderer(final String groupName, final boolean statusOpen) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -90,9 +96,26 @@ public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition>
 		return panel;
 	}
 
+	/**
+	 * Erstes zwischengespeichertes Bildobjekt für {@link #getElementRenderer(ModelElementPosition, boolean)}<br>
+	 * Es wird nicht der Bildinhalt, sondern nur das Objekt im Speicher wiederverwendet.
+	 * @see #getElementRenderer(ModelElementPosition, boolean)
+	 */
 	private BufferedImage tempImage1=null;
+
+	/**
+	 * Zweites zwischengespeichertes Bildobjekt für {@link #getElementRenderer(ModelElementPosition, boolean)}<br>
+	 * Es wird nicht der Bildinhalt, sondern nur das Objekt im Speicher wiederverwendet.
+	 * @see #getElementRenderer(ModelElementPosition, boolean)
+	 */
 	private BufferedImage tempImage2=null;
 
+	/**
+	 * Liefert den Listenzellen-Renderer für ein Element
+	 * @param element	Element das dargestellt werden soll
+	 * @param isSelected	Soll das Element markiert dargestellt werden?
+	 * @return	Listenzellen-Renderer für das Element
+	 */
 	private Component getElementRenderer(final ModelElementPosition element, final boolean isSelected) {
 		if (tempImage1==null) {
 			tempImage1=new BufferedImage(200+2*Shapes.SHADOW_WIDTH,200+2*Shapes.SHADOW_WIDTH,BufferedImage.TYPE_4BYTE_ABGR);
@@ -147,6 +170,11 @@ public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition>
 		return panel;
 	}
 
+	/**
+	 * Liefert einen Listenzellen-Renderer für ein fehlendes Element
+	 * @param unknownClassName	Name der Klasse für die kein Element existiert
+	 * @return	Listenzellen-Renderer für das fehlende Element
+	 */
 	private Component getErrorRenderer(final String unknownClassName) {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.add(new JLabel("<html><span style=\"color: red\">"+unknownClassName+"</span></html>"));

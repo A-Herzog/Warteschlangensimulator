@@ -61,6 +61,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelElementCatalogDescriptionBuilder#buildAll(PrintStream)
  */
 public class ModelElementCatalogDescriptionBuilder {
+	/** Klasse zu der der Ressourcenpfad relativ sein soll */
 	@SuppressWarnings("rawtypes")
 	private final Class helpFolderRelativeClass;
 	/** Relativer Ressourcenpfad zu den Hilfeseiten in der aktuellen Sprache */
@@ -172,6 +173,13 @@ public class ModelElementCatalogDescriptionBuilder {
 		return result;
 	}
 
+	/**
+	 * Liefert einen Dateinamen für eine Bilddate
+	 * @param folder	Ausgangsverzechnis
+	 * @param nr	Nummer des Bildes
+	 * @param name	Basisdateiname
+	 * @return	Bilddatei
+	 */
 	private static File getImageFileName(final File folder, final int nr, final String name) {
 		final StringBuilder fileName=new StringBuilder();
 		fileName.append(String.format("%02d - ",nr));
@@ -184,6 +192,14 @@ public class ModelElementCatalogDescriptionBuilder {
 		return new File(folder,fileName.toString());
 	}
 
+	/**
+	 * Speichert alle Stations-Grafiken nach Gruppen sortiert
+	 * @param folder	Ausgabeverzeichnis
+	 * @param titleList	Name der Gruppen
+	 * @param imageList	Namen der unter den Gruppennamen darzustellenden Bilder
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #saveGroupImages(String, File, double, PrintStream)
+	 */
 	private static boolean saveAllStationsImage(final File folder, final List<String> titleList, final List<BufferedImage> imageList) {
 		int sumWidth=0;
 		int maxHeight=0;
@@ -263,6 +279,12 @@ public class ModelElementCatalogDescriptionBuilder {
 		return true;
 	}
 
+	/**
+	 * Skaliert ein Bild
+	 * @param source	Ausgangsbild
+	 * @param scale	Skalierungsfaktor
+	 * @return	Neues Bild
+	 */
 	private static BufferedImage scaleImage(BufferedImage source, final double scale) {
 		if (source==null || scale<=0) return source;
 		final BufferedImage destination=new BufferedImage((int)Math.round(source.getWidth()*scale),(int)Math.round(source.getHeight()*scale),source.getType());
@@ -270,6 +292,14 @@ public class ModelElementCatalogDescriptionBuilder {
 		return destination;
 	}
 
+	/**
+	 * Gibt eine Stationsgrafik als Datei und als Verknüpfung in einem LaTeX-Dokument aus
+	 * @param folder	Ausgabeverzeichnis für die Grafikdatei
+	 * @param text	LaTeX-Dokument
+	 * @param name	Name der Station
+	 * @param element	Stationselement
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
 	private String outputImageFile(final File folder, final StringBuilder text, final String name, final ModelElementPosition element) {
 		final BufferedImage image=scaleImage(getImage(element,2.0),2.0);
 		String refName=element.getHelpPageName();
@@ -303,6 +333,13 @@ public class ModelElementCatalogDescriptionBuilder {
 		return null;
 	}
 
+	/**
+	 * Bettet eine Stationgrafik als html-Inline-Grafik in ein html-Element ein
+	 * @param text	html-Dokument
+	 * @param name	Name der Station
+	 * @param element	Stationselement
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
 	private String outputImageInline(final StringBuilder text, final String name, final ModelElementPosition element) {
 		final BufferedImage image=scaleImage(getImage(element,2.0),2.0);
 
@@ -317,6 +354,11 @@ public class ModelElementCatalogDescriptionBuilder {
 		}
 	}
 
+	/**
+	 * Baut Hilfe-html-Links in einer Zeile in Export-LaTeX-Links um
+	 * @param line	Textzeile mit Hilfe-html-Link
+	 * @return	Ausgabe-LaTeX-Zeile
+	 */
 	private String tryProcessLink(final String line) {
 		String s=line;
 		int index1;
@@ -363,6 +405,12 @@ public class ModelElementCatalogDescriptionBuilder {
 		return result.toString();
 	}
 
+	/**
+	 * Baut einen Hilfe-html-Link in einen Export-html-Link um
+	 * @param link	Hilfe-html-Link
+	 * @return	Export-html-Link
+	 * @see #tryProcessLinkHTML(String)
+	 */
 	private String processSingleHTMLLink(final String link) {
 		int index=link.indexOf("<a href=\"");
 		if (index<0) return link;
@@ -387,6 +435,11 @@ public class ModelElementCatalogDescriptionBuilder {
 
 	}
 
+	/**
+	 * Baut Hilfe-html-Links in einer Zeile in Export-html-Links um
+	 * @param line	Textzeile mit Hilfe-html-Link
+	 * @return	Ausgabe-html-Zeile
+	 */
 	private String tryProcessLinkHTML(String line) {
 		final StringBuilder result=new StringBuilder();
 		while (line!=null && !line.isEmpty()) {
@@ -414,6 +467,13 @@ public class ModelElementCatalogDescriptionBuilder {
 		return result.toString();
 	}
 
+	/**
+	 * Ersetzt einen Text (ohne Berücksichtigung der Groß- und Kleinschreibung) durch einen neuen Text
+	 * @param line	Ausgangszeile
+	 * @param oldText	Alter Text
+	 * @param newText	Neuer Text
+	 * @return	Zeile mit ersetztem Text
+	 */
 	private static String extReplace(final String line, final String oldText, final String newText) {
 		final int index=line.toLowerCase().indexOf(oldText.toLowerCase());
 		if (index<0) return null;
@@ -425,6 +485,15 @@ public class ModelElementCatalogDescriptionBuilder {
 		return result.toString();
 	}
 
+	/**
+	 * Ersetzt zwei mögliche Ausgangszeichenketten (ohne Berücksichtigung der Groß- und Kleinschreibung) durch jeweils neue Zeichenketten
+	 * @param line	Ausgangszeile
+	 * @param oldA	Alter Text 1
+	 * @param oldB	Alter Text 2
+	 * @param newA	Neuer Text 1
+	 * @param newB	Neuer Text 2
+	 * @return	Zeile mit ersetztem Text
+	 */
 	private static String extReplace(final String line, final String oldA, final String oldB, final String newA, final String newB) {
 		final int index1=line.toLowerCase().indexOf(oldA.toLowerCase());
 		final int index2=line.toLowerCase().indexOf(oldB.toLowerCase());
@@ -437,28 +506,58 @@ public class ModelElementCatalogDescriptionBuilder {
 		return result.toString();
 	}
 
+	/**
+	 * Ersetzt &lt;b&gt; durch die LaTeX-Repräsentation
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit LaTeX-Befehl für den Tag
+	 */
 	private String tryReplaceB(final String line) {
 		return extReplace(line,"<b>","</b>","\\textbf{","}");
 	}
 
+	/**
+	 * Ersetzt &lt;u&gt; durch die LaTeX-Repräsentation
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit LaTeX-Befehl für den Tag
+	 */
 	private String tryReplaceU(final String line) {
 		final String s=extReplace(line,"<u>","</u><br>","\\textbf{","}~\\\\");
 		if (s!=null) return s;
 		return extReplace(line,"<u>","</u>","\\textbf{","}");
 	}
 
+	/**
+	 * Ersetzt &lt;tt&gt; durch die LaTeX-Repräsentation
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit LaTeX-Befehl für den Tag
+	 */
 	private String tryReplaceTT(final String line) {
 		return extReplace(line,"<tt>","</tt>","\\texttt{","}");
 	}
 
+	/**
+	 * Ersetzt &lt;h2&gt; durch die LaTeX-Repräsentation
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit LaTeX-Befehl für den Tag
+	 */
 	private String tryReplaceH2(final String line) {
 		return extReplace(line,"<h2>","</h2>","\\subsection*{","}");
 	}
 
+	/**
+	 * Ersetzt &lt;h3&gt; durch die LaTeX-Repräsentation
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit LaTeX-Befehl für den Tag
+	 */
 	private String tryReplaceH3(final String line) {
 		return extReplace(line,"<h3>","</h3>","\\subsubsection*{","}");
 	}
 
+	/**
+	 * Ersetzt &lt;ul&gt; durch die LaTeX-Repräsentation
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit LaTeX-Befehl für den Tag
+	 */
 	private String tryReplaceUL(final String line) {
 		String s;
 		s=extReplace(line,"<ul>","\\begin{itemize}"); if (s!=null) return s;
@@ -468,10 +567,20 @@ public class ModelElementCatalogDescriptionBuilder {
 		return null;
 	}
 
+	/**
+	 * Ersetzt &lt;sup&gt; durch die LaTeX-Repräsentation
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit LaTeX-Befehl für den Tag
+	 */
 	private String tryReplaceSUP(final String line) {
 		return extReplace(line,"<sup>","</sup>","$^{","}$");
 	}
 
+	/**
+	 * Ersetzen Anführungszeichen in LaTeX-Symbole um
+	 * @param line	html-Zeile
+	 * @return	Ausgabe-LaTeX-Zeile mit ersetzen Anführungszeichen
+	 */
 	private String tryProcessQuotationMarks(final String line) {
 		if (!replaceQuotationMarks) return null;
 		String s;
@@ -485,6 +594,11 @@ public class ModelElementCatalogDescriptionBuilder {
 		return null;
 	}
 
+	/**
+	 * Ersetzt html-Symbole durch normale Zeichen
+	 * @param line	html-Zeile
+	 * @return	Ausgabe-Zeile mit normalen Zeichen
+	 */
 	private String replaceSpecialChars(final String line) {
 		String result=line.replace("&amp;","\\&");
 		result=result.replace("&lt;","<");
@@ -492,6 +606,11 @@ public class ModelElementCatalogDescriptionBuilder {
 		return result;
 	}
 
+	/**
+	 * Übersetzt ein Hilfe-html-Dokument in ein LaTeX-Dokument
+	 * @param lines	Eingabe-Hilfe-html-Dokument
+	 * @param text	Ausgabe-LaTeX-Dokument
+	 */
 	private void processTextLaTeX(final String[] lines, final StringBuilder text) {
 		boolean inBody=false;
 		boolean lastWasEmpty=true;
@@ -539,6 +658,11 @@ public class ModelElementCatalogDescriptionBuilder {
 		}
 	}
 
+	/**
+	 * Übersetzt ein Hilfe-html-Dokument in ein Export-html-Dokument
+	 * @param lines	Eingabe-Hilfe-html-Dokument
+	 * @param text	Ausgabe-html-Dokument
+	 */
 	private void processTextHTML(final String[] lines, final StringBuilder text) {
 		boolean inBody=false;
 		boolean start=true;
@@ -572,6 +696,14 @@ public class ModelElementCatalogDescriptionBuilder {
 		}
 	}
 
+	/**
+	 * Gibt die Beschreibung für eine Station aus
+	 * @param outputFolder	Ausgabeverzeichnis
+	 * @param text	Ausgabe-Dokument (html oder LaTeX)
+	 * @param element	Auszugebendes Element
+	 * @param textProcessor	System zur Übersetzung des Hilfe-Dokuments in das Zielformat
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
 	private String outputDescription(final File outputFolder, final StringBuilder text, final ModelElementPosition element, final BiConsumer<String[],StringBuilder> textProcessor) {
 		if (element.getHelpPageName()==null) return null; /* Keine Hilfe für dieses Element */
 
@@ -660,6 +792,12 @@ public class ModelElementCatalogDescriptionBuilder {
 		return null;
 	}
 
+	/**
+	 * Erstellt den html-Kopfbereich für die Ausgabe
+	 * @param text	html-Dokument
+	 * @param lang	Sprache
+	 * @param title	Titel des Dokuments
+	 */
 	private void htmlHeader(final StringBuilder text, final String lang, final String title) {
 		text.append("<!DOCTYPE html>\n");
 		text.append("<html dir=\"ltr\" lang=\""+lang+"\">\n");
@@ -678,12 +816,20 @@ public class ModelElementCatalogDescriptionBuilder {
 		text.append("\n");
 	}
 
+	/**
+	 * Erstellt den html-Fußbereich für die Ausgabe
+	 * @param text	html-Dokument
+	 */
 	private void htmlFooter(final StringBuilder text) {
 		text.append("\n");
 		text.append("</body>\n");
 		text.append("</html>\n");
 	}
 
+	/**
+	 * Liste der als Link-Ziele verfügbaren html-Seiten
+	 * @see #runHTML(File, String, String)
+	 */
 	private List<String> htmlHelpPageNames;
 
 	/**
@@ -752,6 +898,12 @@ public class ModelElementCatalogDescriptionBuilder {
 		return null;
 	}
 
+	/**
+	 * Bereitet das Ausgabeverzeichnis vor
+	 * @param folder	Ausgabeverzeichnis
+	 * @param out	Ausgabestream für Meldungen (darf nicht <code>null</code> sein)
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private static boolean initFolder(final String folder, final PrintStream out) {
 		if (!new File(folder).isDirectory()) {
 			if (!new File(folder).mkdirs()) {
@@ -763,6 +915,10 @@ public class ModelElementCatalogDescriptionBuilder {
 		return true;
 	}
 
+	/**
+	 * Bei der Übertragung nicht zu berücksichtigende Links.
+	 * @see #buildLanguageLaTeX(String, String, PrintStream)
+	 */
 	private static final String[] removeRefsStatic=new String[]{"JS","Java","EditorModelDialog","PathEditorDialog","ModelElementEdge"};
 
 	/**

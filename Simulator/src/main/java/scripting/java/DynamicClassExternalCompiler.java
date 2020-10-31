@@ -25,6 +25,7 @@ import java.io.InputStream;
  * @author Alexander Herzog
  */
 public class DynamicClassExternalCompiler extends DynamicClassFileBased {
+	/** Pfad zum JDK */
 	private final String JDKPath;
 
 	/**

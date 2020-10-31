@@ -48,8 +48,9 @@ public class ModelElementMultiInSingleOutBox extends ModelElementBox implements 
 	 */
 	protected ModelElementEdge connectionOut;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/** IDs der einlaufenden Kanten (Wird nur beim Laden und Clonen verwendet.) */
 	private List<Integer> connectionsInIds=null;
+	/** ID der auflaufenden Kante (Wird nur beim Laden und Clonen verwendet.) */
 	private int connectionOutId=-1;
 
 	/**

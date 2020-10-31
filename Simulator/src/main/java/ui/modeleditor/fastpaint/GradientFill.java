@@ -30,14 +30,20 @@ import tools.SetupData;
  * @author Alexander Herzog
  */
 public class GradientFill {
+	/** Letzter Zeichenbereich */
 	private Rectangle lastPaintRect=new Rectangle();
+	/** Letzte Farbe 1 */
 	private Color lastPaintColor;
+	/** Letzte Farbe 2 */
 	private Color lastPaintColor2;
+	/** Letzte Zeichenrichtung */
 	private boolean lastPaintDirection;
+	/** Farbverlauf beim letzten Aufruf von {@link #build(Rectangle, Color, Color, boolean)} */
 	private GradientPaint lastPaint;
 
 	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
+	/** Referenz auf das Objekt zur Erstellung von helleren Farben */
 	private final BrighterColor brighter;
 
 	/**
@@ -48,6 +54,14 @@ public class GradientFill {
 		brighter=new BrighterColor();
 	}
 
+	/**
+	 * Stellt die Hintergrundfarbe zum Füllen einer Form ein.
+	 * @param objectRect	Zeichenbereich für das Objekt selbst
+	 * @param fillColor	Hintergrundfarbe (wird Setup-abhängig direkt oder als Farbverlauf von links nach rechts bzw. von oben nach unten verwendet)
+	 * @param fillColorBrighter	Hellere Fassung der Hintergrundfarbe
+	 * @param verticalGradient	Gibt an, ob der optionale Farbverlauf horizontal (<code>false</code>) oder vertikal (<code>true</code>) gezeichnet werden soll
+	 * @return	Farbverlauf
+	 */
 	private static GradientPaint build(final Rectangle objectRect, final Color fillColor, final Color fillColorBrighter, final boolean verticalGradient) {
 		final Point2D p1, p2;
 

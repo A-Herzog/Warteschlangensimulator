@@ -267,6 +267,13 @@ public class ModelLoadDataDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+
+	/**
+	 * Aktualisiert die Darstellung von {@link #workbookButton}
+	 * wenn der Modus in {@link #mode} geändert wurde.
+	 * @see #workbookButton
+	 * @see #mode
+	 */
 	private void modeChanged() {
 		switch (mode.getSelectedIndex()) {
 		case 0:
@@ -280,6 +287,10 @@ public class ModelLoadDataDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Zeigt einen Dialog zur Auswahl einer Tabellendatei bzw. einer DDE-Arbeitsmappe an.
+	 * @see #workbookButton
+	 */
 	private void selectWorkbook() {
 		switch (mode.getSelectedIndex()) {
 		case 0:
@@ -301,6 +312,11 @@ public class ModelLoadDataDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Lädt die Listendarstellung neu
+	 * @param selectIndex	Index des Eintrags der nach dem erneuten Laden der Liste selektiert werden soll (Werte &lt;0 führen zur Auswahl des ersten Eintrags, sofern es einen solchen gibt)
+	 * @see #list
+	 */
 	private void reloadList(int selectIndex) {
 		if (selectIndex<0) selectIndex=list.getSelectedIndex();
 
@@ -317,6 +333,9 @@ public class ModelLoadDataDialog extends BaseDialog {
 		selectionChanged();
 	}
 
+	/**
+	 * Befehl: Eintrag hinzufügen
+	 */
 	private void commandAdd() {
 		final ModelLoadDataRecordDialog dialog=new ModelLoadDataRecordDialog(this,null,model);
 		final ModelLoadDataRecord record=dialog.getRecord();
@@ -326,6 +345,10 @@ public class ModelLoadDataDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Eintrag bearbeiten
+	 * @see #buttonEdit
+	 */
 	private void commandEdit() {
 		final int index=list.getSelectedIndex();
 		if (index<0) return;
@@ -338,6 +361,10 @@ public class ModelLoadDataDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Befehl: Eintrag löschen
+	 * @see #buttonDelete
+	 */
 	private void commandDelete() {
 		final int index=list.getSelectedIndex();
 		if (index<0) return;
@@ -348,6 +375,10 @@ public class ModelLoadDataDialog extends BaseDialog {
 		reloadList(Math.max(0,index-1));
 	}
 
+	/**
+	 * Befehl: Eintrag in der Liste nach oben verschieben
+	 * @see #buttonMoveUp
+	 */
 	private void commandMoveUp() {
 		final int index=list.getSelectedIndex();
 		if (index<1) return;
@@ -359,6 +390,10 @@ public class ModelLoadDataDialog extends BaseDialog {
 		reloadList(index-1);
 	}
 
+	/**
+	 * Befehl: Eintrag in der Liste nach unten verschieben
+	 * @see #buttonMoveDown
+	 */
 	private void commandMoveDown() {
 		final int index=list.getSelectedIndex();
 		if (index<0 || index>=listData.size()-1) return;
@@ -370,6 +405,10 @@ public class ModelLoadDataDialog extends BaseDialog {
 		reloadList(index+1);
 	}
 
+	/**
+	 * Zeigt das Kontextmenü zu einem Listeneintrag an.
+	 * @param e	Auslösendes Mausereignis
+	 */
 	private void showContextMenu(final MouseEvent e) {
 		final int index=list.getSelectedIndex();
 
@@ -416,6 +455,10 @@ public class ModelLoadDataDialog extends BaseDialog {
 		menu.show((Component)e.getSource(),e.getX(),e.getY());
 	}
 
+	/**
+	 * Aktiviert oder deaktiviert einzelne Schaltflächen,
+	 * wenn sich die Listenauswahl verändert hat.
+	 */
 	private void selectionChanged() {
 		buttonEdit.setEnabled(list.getSelectedIndex()>=0);
 		buttonDelete.setEnabled(list.getSelectedIndex()>=0);

@@ -105,9 +105,11 @@ public class WebServerResponse {
 		}
 	}
 
+	/** Zu verwendender Mime-Typ */
 	private Mime mime;
 	private byte[] data;
 	private int length;
+	/** Steht hier ein nicht-leerer String, so wird dem Browser mitgeteilt, dass das Dokument zum Speichern und nicht zum Anzeigen bestimmt ist und der hier angegebene Name wird als Vorschlag verwendet. */
 	private String downloadName;
 
 	/**

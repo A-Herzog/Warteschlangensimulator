@@ -42,6 +42,9 @@ import ui.modeleditor.coreelements.ModelElementBox;
  * @see ModelDescriptionBuilder
  */
 public class ModelDescriptionBuilderStyled extends ModelDescriptionBuilder {
+	/**
+	 * Objekt zur Erstellung allgemeiner formatierter Textausgaben
+	 */
 	private final StyledTextBuilder textBuilder;
 
 	/**
@@ -201,6 +204,10 @@ public class ModelDescriptionBuilderStyled extends ModelDescriptionBuilder {
 		textBuilder.saveSlideShape(shape,1);
 	}
 
+	/**
+	 * Liefert ein Bild des Modells
+	 * @return	Bild des Modells
+	 */
 	private BufferedImage getModelImage() {
 		ModelSurfacePanel surfacePanel=new ModelSurfacePanel();
 		surfacePanel.setSurface(getModel(),getModel().surface,getModel().clientData,getModel().sequences);

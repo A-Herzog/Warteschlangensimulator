@@ -67,9 +67,13 @@ public class StatisticsImpl implements StatisticsInterface {
 	/** Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen */
 	private final Consumer<String> errorOutput;
 
+	/** Ausgabe als Prozentwert (<code>true</code>) oder normale Fließkommazahl (<code>false</code>)? */
 	private boolean percent;
+	/** Legt fest, ob Zahlen in System- (<code>true</code>) oder lokaler Notation (<code>false</code>) ausgegeben werden sollen. */
 	private boolean systemNumbers;
+	/** Als Zeitangabe (<code>true</code>) oder als Zahl (<code>false</code>) ausgeben? */
 	private boolean time;
+	/** Trennzeichen für die Ausgabe von Verteilungsdaten */
 	private char separator=';';
 
 	/**

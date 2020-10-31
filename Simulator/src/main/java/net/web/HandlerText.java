@@ -34,6 +34,7 @@ public class HandlerText implements WebServerHandler {
 	private final String localURL;
 	/** Basisklasse zu der <code>localURL</code> relativ aufgefasst werden soll */
 	private final Object localURLBaseClass;
+	/** Supplier, der im Anfragefall den Text liefert */
 	private final Supplier<String> textSupplier;
 	/** Mime-Typ des Dokuments */
 	private final WebServerResponse.Mime mime;

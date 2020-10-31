@@ -74,8 +74,11 @@ import ui.modeleditor.elements.WayPointRecord;
  * @author Alexander Herzog
  */
 public class ModelSurfaceAnimatorBase {
+	/** Breite einer Stations-Box */
 	private static final int BOX_WIDTH=100;
+	/** Höhe einer Stations-Box */
 	private static final int BOX_HEIGHT=50;
+	/** Höhe und Breite eines Animationsicons */
 	private static final int ICON_SIZE=BOX_HEIGHT/2;
 	/** Standardicon zur Darstellung von Kunden */
 	public static final String DEFAULT_CLIENT_ICON_NAME="user";
@@ -89,18 +92,38 @@ public class ModelSurfaceAnimatorBase {
 	public static final String DEFAULT_TRANSPORTER_EAST_ICON_NAME="lorry";
 	/** Standardicon zur Darstellung von beladenen Transportern in Fahrtrichtung links */
 	public static final String DEFAULT_TRANSPORTER_WEST_ICON_NAME="lorry-left";
+	/** Anzahl der Schritte bei der Bewegung eines Kunden */
 	private static final int ANIMATION_STEPS=25;
+	/** Anzahl der Schritte bei der Bewegung eines Transporters */
 	private static final int TRANSPORTER_ANIMATION_STEPS=50;
-	private static final int DEFAULT_DISTANCE=250; /* Entfernung, auf die sich die Anzahl an Schritten beziehen */
+	/** Entfernung, auf die sich die Anzahlen an Schritten beziehen */
+	private static final int DEFAULT_DISTANCE=250;
 
+	/** Gibt an, ob Simulation und Darstellung auf zwei Threads aufgeteilt werden sollen */
 	private final boolean multiCore;
+	/**
+	 * Langsam-Modus (sequenzielle Abarbeitung unabhängig von der Multi-Core-Einstellung und ohne Frame-Drop) aktiv?
+	 * @see #isSlowMode()
+	 * @see #setSlowMode(boolean)
+	 */
 	private boolean slowMode;
+	/** Ressourcen und Transporter während der Animation anzeigen */
 	private final boolean animateResources;
 
+	/** Startzeitpunkt (in Systemzeit) für die Bilder/Sekunde-Zählung */
 	private long fpsStartTime;
+	/** Anzahl an berechneten Bildern seit dem Start der Zählung */
 	private long fpsFrameCount;
+	/** Zeitpunkt der letzten Bild-Ausgabe */
 	private long fpsLastPaint;
 
+	/**
+	 * Zur Konfiguration von {@link #operatorsList} und {@link #transportersList}
+	 * vor dem ersten Anbimationsschritt
+	 * @see #operatorsList
+	 * @see #transportersList
+	 * @see #updateSurfaceAnimationDisplayElements(SimulationData, boolean, boolean)
+	 */
 	private boolean firstUpdateStep;
 
 	/**
@@ -113,6 +136,9 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	protected final ModelSurfacePanel surfacePanel;
 
+	/**
+	 * Übergeordnetes Fenster in dem sich das Panel befindet (zur Minimiert-Erkennung, um in diesem Fall bei Fernsteuerung dennoch Animationen auszulösen)
+	 */
 	private final JFrame surfacePanelWindow;
 
 	/**
@@ -120,30 +146,110 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	protected final ModelSurface surface;
 
+	/**
+	 * Liste der Elemente die über Änderungen der Simulationsdaten benachrichtigt werden möchten
+	 * @see #getAnimationElements()
+	 */
 	private final ElementWithAnimationDisplay[] animationElements;
+
+	/**
+	 * Array mit den Breiten aller Stations-Boxen (nach Stations-IDs indiziert)
+	 * @see #getElementBoxSizes()
+	 */
 	private final int[] elementBoxWidth;
+
+	/**
+	 * Array mit den Höhen aller Stations-Boxen (nach Stations-IDs indiziert)
+	 * @see #getElementBoxSizes()
+	 */
 	private final int[] elementBoxHeight;
 
+	/**
+	 * Sichert den Zugriff auf die Listen der in Bewegung befindlichen Icons ab
+	 */
 	private final Semaphore drawClientsMutex;
+
+	/**
+	 * Objekt welches die Icons für die Animation vorhält
+	 */
 	private final AnimationImageSource images;
 
+	/**
+	 * Gibt an, ob es längere Zeitspannen ohne Systemänderung gab, die durch das Wiederholen einzelner Frames im Video abgebildet werden sollten
+	 */
 	private boolean noAdditionalFrames;
+
+	/**
+	 * Liste der im System aktiven Kunden
+	 */
 	private RunDataClient[] clientsList;
+
+	/**
+	 * Liste der Bediener im System
+	 * #updateSurfaceAnimationDisplayElements(SimulationData, boolean, boolean)
+	 */
 	private RunDataResourceOperator[] operatorsList;
+
+	/**
+	 * Liste der Transporter im System
+	 * #updateSurfaceAnimationDisplayElements(SimulationData, boolean, boolean)
+	 */
 	private RunDataTransporter[] transportersList;
 
+	/**
+	 * Zuordnung von Wegpunktelisten zu Start- und Zielstationen
+	 * @see #buildWayPointsList(ModelSurface)
+	 */
 	private Map<Integer,Map<Integer,List<ModelElementWayPoint>>> wayPoints;
 
+	/**
+	 * Liste der statischen Animations-Icons
+	 */
 	private List<DrawIcon> drawStaticIcons;
+
+	/**
+	 * Liste der in Bewegung befindlichen Animations-Icons
+	 */
 	private List<DrawIcon> drawMovingIcons;
 
+	/**
+	 * Wird während der Animation eines Schritts
+	 * auf <code>false</code> und danach auf
+	 * <code>true</code> gesetzt.
+	 * @see #animate(MoveClient, int, SimulationData)
+	 * @see #animate(List, int, SimulationData, boolean)
+	 * @see #animate(String, String, RunDataTransporter, int, SimulationData)
+	 */
 	private volatile boolean animationDone;
 
+	/**
+	 * Gibt an, ob während der Animation Daten für die Netzwerkausgabe aufgezeichnet werden sollen.
+	 * @see #setFullRecording(boolean)
+	 * @see #fullRecordingStaticIcons
+	 * @see #fullRecordingMovingIcons
+	 */
 	private boolean fullRecording;
+
+	/**
+	 * Statische Icons für die Ausgabe der Animation per Netzwerk
+	 * @see #fullRecording
+	 * @see #setFullRecording(boolean)
+	 */
 	private List<DrawIcon> fullRecordingStaticIcons;
+
+	/**
+	 * In Bewegung befindliche Icons für die Ausgabe der Animation per Netzwerk
+	 * @see #fullRecording
+	 * @see #setFullRecording(boolean)
+	 */
 	private List<DrawMovingIcon> fullRecordingMovingIcons;
 
-	private SimulationData storedSimData; /* Um jeder Zeit Ausdrücke berechnen zu können. */
+	/**
+	 * Zwischengespeichertes Simulationsdatenobjekt
+	 * um jeder Zeit Ausdrücke berechnen zu können.
+	 * @see #doPaintSurface(SimulationData)
+	 */
+	private SimulationData storedSimData;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelSurfaceAnimatorBase</code>
@@ -174,12 +280,21 @@ public class ModelSurfaceAnimatorBase {
 		reset();
 	}
 
+	/**
+	 * Erstellt eine Liste der Elemente die über Änderungen der Simulationsdaten
+	 * benachrichtigt werden möchten.
+	 * @return	Liste der Elemente die über Änderungen der Simulationsdaten benachrichtigt werden möchten
+	 */
 	private ElementWithAnimationDisplay[] getAnimationElements() {
 		final List<ElementWithAnimationDisplay> list=new ArrayList<>();
 		for (ModelElement element: surface.getElements()) if (element instanceof ElementWithAnimationDisplay) list.add((ElementWithAnimationDisplay)element);
 		return list.toArray(new ElementWithAnimationDisplay[0]);
 	}
 
+	/**
+	 * Liefert ein Array mit den Breiten und Höhen aller Stations-Boxen
+	 * @return	2-elementiges Array mit den Breiten und Höhen aller Stations-Boxen (nach Stations-IDs indiziert)
+	 */
 	private int[][] getElementBoxSizes() {
 		final ModelSurface mainSurface=(surface.getParentSurface()==null)?surface:surface.getParentSurface();
 
@@ -208,6 +323,12 @@ public class ModelSurfaceAnimatorBase {
 		return new int[][]{width,height};
 	}
 
+	/**
+	 * Liefert eine Transporter-Quell- oder -Ziel-Station über den Namen
+	 * @param surface	Haupt-Zeichenfläche
+	 * @param name	Name der Station
+	 * @return	Liefert im Erfolgsfall das Stationsobjekt oder <code>null</code>, wenn keine passende Station gefunden wurde
+	 */
 	private ModelElement getTransportStationByName(final ModelSurface surface, final String name) {
 		if (name.isEmpty()) return null;
 
@@ -231,6 +352,11 @@ public class ModelSurfaceAnimatorBase {
 		return null;
 	}
 
+	/**
+	 * Liefert eine Liste aller Transporter-Quell- und -Ziel-Stationen auf einer Zeichenfläche
+	 * @param surface	Zeichenfläche deren Transporter-Stationen aufgelistet werden sollen
+	 * @return	Liste aller Transporter-Quell- und -Ziel-Stationen
+	 */
 	private List<ModelElement> getTransportStationsOnSurface(final ModelSurface surface) {
 		final List<ModelElement> elements=new ArrayList<>();
 
@@ -244,6 +370,12 @@ public class ModelSurfaceAnimatorBase {
 		return elements;
 	}
 
+	/**
+	 * Fügt einen Wegpunkt zu einer Wegpunkte-Zuordnung hinzu
+	 * @param surface	Zeichenfläche
+	 * @param wayPoints	Wegpunkte-Zuordnung
+	 * @param wayPoint	Wegpunkt
+	 */
 	private void addWayPoint(final ModelSurface surface, final Map<Integer,Map<Integer,Map<Integer,ModelElementWayPoint>>> wayPoints, final ModelElementWayPoint wayPoint) {
 		for (WayPointRecord record: wayPoint.getRecords()) {
 			final String stationNameA=record.getStationA();
@@ -272,6 +404,11 @@ public class ModelSurfaceAnimatorBase {
 		}
 	}
 
+	/**
+	 * Lieferte die Wegpunkte als Liste sortiert nach IDs
+	 * @param map	Zuordnung von IDs zu Wegpunkten
+	 * @return	Sortierte Wegpunkteliste
+	 */
 	private List<ModelElementWayPoint> sortedWayPoints(final Map<Integer,ModelElementWayPoint> map) {
 		final int[] indices=map.keySet().stream().mapToInt(I->I.intValue()).sorted().toArray();
 		final List<ModelElementWayPoint> list=new ArrayList<>();
@@ -279,6 +416,11 @@ public class ModelSurfaceAnimatorBase {
 		return list;
 	}
 
+	/**
+	 * Liefert eine Zuordnung von Wegpunktelisten zu Start- und Zielstationen.
+	 * @param surface	Zeichenfläche
+	 * @return	Zuordnung von Wegpunktelisten zu Start- und Zielstationen
+	 */
 	private Map<Integer,Map<Integer,List<ModelElementWayPoint>>> buildWayPointsList(ModelSurface surface) {
 		if (surface.getParentSurface()!=null) surface=surface.getParentSurface();
 
@@ -349,6 +491,12 @@ public class ModelSurfaceAnimatorBase {
 		} finally {drawClientsMutex.release();}
 	}
 
+	/**
+	 * Fügt die Animations-Icons in jeweils eine von zwei passenden Ziellisten ein
+	 * @param sourceList	Ausgangsliste
+	 * @param destinationListStatic	Liste in die statische Icons eingefügt werden sollen
+	 * @param destinationListMoving	Liste in die in Bewegung befindliche Icons eingefügt werden sollen
+	 */
 	private void addOrReplace(final List<DrawIcon> sourceList, final List<DrawIcon> destinationListStatic, final List<DrawMovingIcon> destinationListMoving) {
 		for (DrawIcon draw: sourceList) if (draw!=null) {
 
@@ -378,6 +526,11 @@ public class ModelSurfaceAnimatorBase {
 		}
 	}
 
+	/**
+	 * Fügt die Animations-Icons in eine Ziellisten ein
+	 * @param sourceList	Ausgangsliste
+	 * @param destinationList	Liste in die die Icons eingefügt werden sollen
+	 */
 	private void addOrExtend(final List<DrawIcon> sourceList, final List<DrawMovingIcon> destinationList) {
 		for (DrawIcon draw: sourceList) if (draw!=null) {
 			boolean done=false;
@@ -450,8 +603,19 @@ public class ModelSurfaceAnimatorBase {
 		this.slowMode=slowMode;
 	}
 
+	/**
+	 * Gibt an, dass der dedizierte Zeichenthread mit
+	 * der Ausgabe der Daten fertig ist.
+	 * @see #paintRunner
+	 * @see #doPaintSurface(SimulationData)
+	 */
 	private volatile boolean paintDone;
 
+	/**
+	 * Zeichenroutine die innerhalb eines eigenständigen
+	 * Threads ausgeführt wird.
+	 * @see #doPaintSurface(SimulationData)
+	 */
 	private final Runnable paintRunner=new Runnable() {
 		@Override
 		public void run() {
@@ -528,8 +692,18 @@ public class ModelSurfaceAnimatorBase {
 		return !noAdditionalFrames;
 	}
 
+	/**
+	 * Cache für Anfragen in {@link #stationAtMainLevel(int)}
+	 * @see #stationAtMainLevel(int)
+	 */
 	private int[] stationAtMainLevelByIdCache;
 
+	/**
+	 * Liefert die zu einer Station (die möglicherweise in einem
+	 * Untermodell enthalten ist) die zugehörige Station auf der Hauptzeichenfläche.
+	 * @param stationID	ID der Station
+	 * @return	ID der zugehörigen Station auf der Hauptebene
+	 */
 	private int stationAtMainLevel(final int stationID) {
 		if (stationID<0) return stationID;
 
@@ -551,14 +725,17 @@ public class ModelSurfaceAnimatorBase {
 		return stationID;
 	}
 
-	private List<DrawIcon> staticDrawList;
-	private int[] stationClients;
-	private int[] stationOperators;
-	private int[] stationTransporters;
-
-	private DrawIcon[] staticIconsCache;
+	/**
+	 * Cache für {@link #getElementByIDFromCache(int)} Aufrufe
+	 * @see #getElementByIDFromCache(int)
+	 */
 	private ModelElementBox[] stationByIdCache;
 
+	/**
+	 * Liefert ein Stations-Objekt basierend auf der ID
+	 * @param stationID	ID der Station
+	 * @return	Stations-Objekt
+	 */
 	private ModelElementBox getElementByIDFromCache(final int stationID) {
 		final ModelElementBox el;
 		if (stationID>=stationByIdCache.length) {
@@ -576,9 +753,41 @@ public class ModelSurfaceAnimatorBase {
 		return el;
 	}
 
+	/**
+	 * Liste mit Animations-Icons
+	 * @see #addStaticIcon(int, int, String, Object)
+	 * @see DrawIcon
+	 */
+	private List<DrawIcon> staticDrawList;
+
+	/**
+	 * Cache für {@link DrawIcon}-Objekte
+	 * @see #addStaticIcon(int, int, String, Object)
+	 * @see DrawIcon
+	 */
+	private DrawIcon[] staticIconsCache;
+
+	/**
+	 * Cache für {@link DrawIcon}-Objekte
+	 * @see #addStaticIcon(int, int, String, Object)
+	 * @see DrawIcon
+	 */
 	private DrawIcon[] newStaticIconsCache;
+
+	/**
+	 * Aktueller Index in {@link #newStaticIconsCache}
+	 * @see #newStaticIconsCache
+	 * @see #addStaticIcon(int, int, String, Object)
+	 */
 	private int newStaticIconsCacheIndex;
 
+	/**
+	 * Fügt ein statisches Animations-Icon ein
+	 * @param x	x-Position des Icons
+	 * @param y	y-Position des Icons
+	 * @param icon	Name des Icons
+	 * @param data	Weitere Daten zu dem Icon
+	 */
 	private void addStaticIcon(final int x, final int y, final String icon, final Object data) {
 		DrawIcon drawIcon=null;
 		if (staticIconsCache!=null && staticIconsCache.length>newStaticIconsCacheIndex && staticIconsCache[newStaticIconsCacheIndex]!=null) {
@@ -589,6 +798,23 @@ public class ModelSurfaceAnimatorBase {
 		staticDrawList.add(drawIcon);
 	}
 
+	/** Anzahl an Kunden an den Stationen */
+	private int[] stationClients;
+	/** Anzahl an Bedienern an den Stationen */
+	private int[] stationOperators;
+	/** Anzahl an Transportern an den Stationen */
+	private int[] stationTransporters;
+
+	/**
+	 * Erstellt eine Liste mit den statischen Animations-Icons
+	 * @param clientsList	Liste der Kunden
+	 * @param skipClients	Für die statische Liste zu ignorierende Kunden
+	 * @param skipTransporter	Für die statische Liste zu ignorierende Transporter
+	 * @param operatorsList	Liste der Bediener
+	 * @param transporersList	Liste der Transporter
+	 * @param currentTime	Aktuelle Simulationszeit
+	 * @return	Liste mit den statischen Animations-Icons
+	 */
 	@SuppressWarnings("unchecked")
 	private List<DrawIcon> getStaticDrawIconsList(final RunDataClient[] clientsList, final Object skipClients, final RunDataTransporter skipTransporter, final RunDataResourceOperator[] operatorsList, final RunDataTransporter[] transporersList, final long currentTime) {
 		if (staticDrawList==null) {
@@ -688,6 +914,14 @@ public class ModelSurfaceAnimatorBase {
 		return staticDrawList;
 	}
 
+	/**
+	 * Fügt einen Kunden zur Darstellung auf einem Fließband hinzu
+	 * @param client	Kunde
+	 * @param icon	Icon des Kunden
+	 * @param element	Fließband-Element
+	 * @param stationID	ID des Fließband-Elements
+	 * @param currentTime	Aktuelle Simulationszeit
+	 */
 	private void addStaticClientIconConveyor(final RunDataClient client, final String icon, final ModelElementConveyor element, final int stationID, final long currentTime) {
 		final int boxWidth=elementBoxWidth[stationID];
 		final int pos;
@@ -727,6 +961,14 @@ public class ModelSurfaceAnimatorBase {
 		addStaticIcon(x,y,icon,client);
 	}
 
+	/**
+	 * Fügt ein statisches Icon für einen Kunden hinzu.
+	 * @param client	Kundenobjekt
+	 * @param icon	Name des Icons
+	 * @param element	Station an der das Icon erscheinen soll
+	 * @param stationID	ID der Station an der das Icon erscheinen soll
+	 * @see #addStaticIcon(int, int, String, Object)
+	 */
 	private void addStaticClientIconDefault(final RunDataClient client, final String icon, final ModelElementBox element, final int stationID) {
 		final int waiting=stationClients[stationID];
 		final Point p=element.getPosition(true);
@@ -737,6 +979,12 @@ public class ModelSurfaceAnimatorBase {
 		addStaticIcon(x,y,icon,client);
 	}
 
+	/**
+	 * Fügt statische Icons für alle Kunden hinzu.
+	 * @param skipClients	Für die statische Liste zu ignorierende Kunden
+	 * @param skipTransporter	Für die statische Liste zu ignorierende Transporter
+	 * @param currentTime	Aktuelle Simulationszeit
+	 */
 	private void buildStaticClientsDrawList(final List<MoveClient> skipClients, final RunDataTransporter skipTransporter, final long currentTime) {
 		drawClientsMutex.acquireUninterruptibly();
 		try {
@@ -748,6 +996,12 @@ public class ModelSurfaceAnimatorBase {
 		} finally {drawClientsMutex.release();}
 	}
 
+	/**
+	 * Fügt statische Icons für alle Kunden hinzu.
+	 * @param skipClient	Für die statische Liste zu ignorierenden Kunden
+	 * @param skipTransporter	Für die statische Liste zu ignorierende Transporter
+	 * @param currentTime	Aktuelle Simulationszeit
+	 */
 	private void buildStaticClientsDrawListSingle(final MoveClient skipClient, final RunDataTransporter skipTransporter, final long currentTime) {
 		drawClientsMutex.acquireUninterruptibly();
 		try {
@@ -759,6 +1013,14 @@ public class ModelSurfaceAnimatorBase {
 		} finally {drawClientsMutex.release();}
 	}
 
+	/**
+	 * Berechnet den Animationspfad für einen Kunden.
+	 * @param client	Kunde
+	 * @param stationFrom	Startstation
+	 * @param stationTo	Zielstation
+	 * @return	Animationspfad
+	 * @see AnimationPath
+	 */
 	private AnimationPath getDirectAnimationPath(final RunDataClient client, final ModelElementBox stationFrom, final ModelElementBox stationTo) {
 		/* Teleport-Übergänge zeichnen sich gerade dadurch aus, nicht in der Animation sichtbar zu sein. */
 		if ((stationFrom instanceof ModelElementTeleportSource) && (stationTo instanceof ModelElementTeleportDestination)) {
@@ -777,6 +1039,16 @@ public class ModelSurfaceAnimatorBase {
 		return path;
 	}
 
+	/**
+	 * Berechnet den Animationspfad für einen Transporter.
+	 * @param transporter	Transporter
+	 * @param transporterIconEast	Icon für Bewegungen nach rechts
+	 * @param transporterIconWest	Icon für Bewegungen nach links
+	 * @param stationFrom	Startstation
+	 * @param stationTo	Zielstation
+	 * @return	Animationspfad
+	 * @see AnimationPath
+	 */
 	private AnimationPath getDirectAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final ModelElementBox stationFrom, final ModelElementBox stationTo) {
 		final AnimationPath path=new AnimationPath(transporter,transporterIconEast,transporterIconWest);
 		final Point p1=stationFrom.getMiddlePosition(true);
@@ -790,6 +1062,14 @@ public class ModelSurfaceAnimatorBase {
 		return path;
 	}
 
+	/**
+	 * Berechnet den Animationspfad für einen Kunden über mehrere Stationen.
+	 * @param client	Kunde
+	 * @param stationFrom	Startstation
+	 * @param stationTo	Zielstation
+	 * @return	Animationspfad
+	 * @see AnimationPath
+	 */
 	private AnimationPath getFullAnimationPath(final RunDataClient client, final ModelElementBox stationFrom, final ModelElementBox stationTo) {
 		final List<ModelElement> elements=getPathFromStationToStation(stationFrom,stationTo);
 		if (elements==null || elements.size()<3) {
@@ -819,6 +1099,16 @@ public class ModelSurfaceAnimatorBase {
 		return path;
 	}
 
+	/**
+	 * Berechnet den Animationspfad für einen Transporter über mehrere Stationen.
+	 * @param transporter	Transporter
+	 * @param transporterIconEast	Icon für Bewegungen nach rechts
+	 * @param transporterIconWest	Icon für Bewegungen nach links
+	 * @param stationFrom	Startstation
+	 * @param stationTo	Zielstation
+	 * @return	Animationspfad
+	 * @see AnimationPath
+	 */
 	private AnimationPath getFullTransporterAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final ModelElementBox stationFrom, final ModelElementBox stationTo) {
 		final List<ModelElement> elements=getTransporterPathFromStationToStation(stationFrom,stationTo);
 		if (elements==null || elements.size()<3) {
@@ -848,6 +1138,12 @@ public class ModelSurfaceAnimatorBase {
 		return path;
 	}
 
+	/**
+	 * Liefert eine Liste der Stationen für einen Kunden von einer Start zu einer Zielstation
+	 * @param stationFrom	Startstation
+	 * @param stationTo	Zielstation
+	 * @return	Liste der Stationen auf dem Pfad von Start- zu Zielstation
+	 */
 	private List<ModelElement> getPathFromStationToStation(final ModelElementBox stationFrom, final ModelElementBox stationTo) {
 		List<ModelElement> path=new ArrayList<>();
 
@@ -875,6 +1171,12 @@ public class ModelSurfaceAnimatorBase {
 		return null;
 	}
 
+	/**
+	 * Liefert eine Liste der Stationen für einen Transporter von einer Start zu einer Zielstation
+	 * @param stationFrom	Startstation
+	 * @param stationTo	Zielstation
+	 * @return	Liste der Stationen auf dem Pfad von Start- zu Zielstation
+	 */
 	private List<ModelElement> getTransporterPathFromStationToStation(final ModelElementBox stationFrom, final ModelElementBox stationTo) {
 		List<ModelElement> path=new ArrayList<>();
 
@@ -891,6 +1193,12 @@ public class ModelSurfaceAnimatorBase {
 		return path;
 	}
 
+	/**
+	 * Erstellt die Animationspfade für mehrere Kunden
+	 * @param clients	Liste der Kunden für die die Animationspfade erstellt werden sollen
+	 * @return	Liste mit Animationspfaden
+	 * @see AnimationPath
+	 */
 	private List<AnimationPath> getAnimationPathes(final List<MoveClient> clients) {
 		if (clients==null || clients.size()==0) return new ArrayList<>();
 
@@ -907,6 +1215,12 @@ public class ModelSurfaceAnimatorBase {
 		return pathList;
 	}
 
+	/**
+	 * Erstellt den Animationspfad für einen Kunden
+	 * @param move	Kunde für den der Animationspfad erstellt werden soll
+	 * @return	Liste mit dem einen Animationspfad
+	 * @see AnimationPath
+	 */
 	private List<AnimationPath> getAnimationPath(final MoveClient move) {
 		final List<AnimationPath> pathList=new ArrayList<>(1);
 
@@ -920,6 +1234,16 @@ public class ModelSurfaceAnimatorBase {
 		return pathList;
 	}
 
+	/**
+	 * Erstellt den Animationspfad für einen Transporter
+	 * @param transporter	Transporter für den der Animationspfad erstellt werden soll
+	 * @param transporterIconEast	Icon für Bewegungen nach rechts
+	 * @param transporterIconWest	Icon für Bewegungen nach links
+	 * @param transporterStationID1	ID der Startstation
+	 * @param transporterStationID2	ID der Zielstation
+	 * @return	Liste mit dem einen Animationspfad
+	 * @see AnimationPath
+	 */
 	private List<AnimationPath> getAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final int transporterStationID1, final int transporterStationID2) {
 		final List<AnimationPath> pathList=new ArrayList<>(1);
 
@@ -933,6 +1257,12 @@ public class ModelSurfaceAnimatorBase {
 		return pathList;
 	}
 
+	/**
+	 * Führt die Animation der Elemente in einer Animationspfade-Liste aus
+	 * @param pathList	Liste der Animationen
+	 * @param delay	Zu verwendende Verzögerung
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void animatePathList(final List<AnimationPath> pathList, final int delay, final SimulationData simData) {
 		if (pathList==null || pathList.size()==0) return;
 		int points=0;
@@ -1050,14 +1380,27 @@ public class ModelSurfaceAnimatorBase {
 		animationDone=true;
 	}
 
+	/**
+	 * Repräsentiert ein Icon während der Animation
+	 */
 	private class DrawIcon {
+		/** x-Position des Icons */
 		public final int x;
+		/** y-Position des Icons */
 		public final int y;
+		/** Name des Icons */
 		public final String icon;
+		/** ID der Startstation */
 		public final int stationA;
+		/** ID der Zielstation */
 		public final int stationB;
+		/** Daten zu dem Icon */
 		public final Object data;
 
+		/**
+		 * Kopier-Konstruktor
+		 * @param drawIcon	Zu kopierendes Icon-Objekt
+		 */
 		public DrawIcon(final DrawIcon drawIcon) {
 			this.x=drawIcon.x;
 			this.y=drawIcon.y;
@@ -1067,6 +1410,12 @@ public class ModelSurfaceAnimatorBase {
 			this.stationB=drawIcon.stationB;
 		}
 
+		/**
+		 * Erweiterter Kopier-Konstruktor
+		 * @param drawIcon	Zu kopierendes Icon-Objekt
+		 * @param newSource	Neue Startstations-ID
+		 * @param newDestination	Neue Zielstations-ID
+		 */
 		public DrawIcon(final DrawIcon drawIcon, final int newSource, final int newDestination) {
 			this.x=drawIcon.x;
 			this.y=drawIcon.y;
@@ -1076,6 +1425,13 @@ public class ModelSurfaceAnimatorBase {
 			this.stationB=newDestination;
 		}
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param x	x-Position des Icons
+		 * @param y	y-Position des Icons
+		 * @param icon	Name des Icons
+		 * @param data	Daten zu dem Icon
+		 */
 		public DrawIcon(final int x, final int y, final String icon, final Object data) {
 			this.x=x;
 			this.y=y;
@@ -1101,15 +1457,29 @@ public class ModelSurfaceAnimatorBase {
 		}
 	}
 
-	private class DrawMovingIcon { /* Für die Netzwerk-Übertragung, nicht für die lokale Animation selbst */
+	/**
+	 * Repräsentation eines sich bewegenden Animations-Icons
+	 * für die Netzwerk-Übertragung, nicht für die lokale Animation selbst
+	 */
+	private class DrawMovingIcon {
+		/** Daten zu dem Icon */
 		public final Object data;
+		/** Liste der Zwischenpunkte der Bewegung */
 		public final List<DrawIcon> list;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param data	Daten zu dem Icon
+		 */
 		public DrawMovingIcon(final Object data) {
 			this.data=data;
 			this.list=new ArrayList<>();
 		}
 
+		/**
+		 * Fügt einen Zwischenpunkt zu der Bewegung hinzu
+		 * @param drawIcon	Zwischenpunkt der Bewegung
+		 */
 		public void add(final DrawIcon drawIcon) {
 			if (list.size()>0) {
 				final DrawIcon lastIcon=list.get(list.size()-1);
@@ -1156,16 +1526,33 @@ public class ModelSurfaceAnimatorBase {
 		}
 	}
 
+	/**
+	 * Cache für in {@link AnimationPath#buildRoute(ModelElementPosition, ModelElementPosition, int)} berechnete Pfade.
+	 * @see AnimationPath#buildRoute(ModelElementPosition, ModelElementPosition, int)
+	 */
 	private Map<ModelElementPosition,Map<ModelElementPosition,Map<Integer,Point[]>>> routeCache=new HashMap<>();
 
+	/**
+	 * Repräsentiert einen Pfad in einer Animation
+	 */
 	private class AnimationPath {
+		/** Name des Icons für Bewegungen nach rechts */
 		private final String iconEast;
+		/** Name des Icons für Bewegungen nach links */
 		private final String iconWest;
+		/** x-Positionen der einzelnen Schritte */
 		private int[] x;
+		/** y-Positionen der einzelnen Schritte */
 		private int[] y;
+		/** Anzahl an Schritten auf dem Pfad */
 		private int count;
+		/** Daten zu dem Animations-Icon */
 		private final Object data;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param client	Kunde der bewegt werden soll
+		 */
 		public AnimationPath(final RunDataClient client) {
 			data=client;
 			iconEast=(client.icon==null)?DEFAULT_CLIENT_ICON_NAME:client.iconLast;
@@ -1175,6 +1562,12 @@ public class ModelSurfaceAnimatorBase {
 			count=0;
 		}
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param data	Daten zu dem Animations-Icon
+		 * @param iconEast	Name des Icons für Bewegungen nach rechts
+		 * @param iconWest	Name des Icons für Bewegungen nach links
+		 */
 		public AnimationPath(final Object data, final String iconEast, final String iconWest) {
 			this.data=data;
 			this.iconEast=(iconEast==null)?DEFAULT_CLIENT_ICON_NAME:iconEast;
@@ -1184,6 +1577,11 @@ public class ModelSurfaceAnimatorBase {
 			count=0;
 		}
 
+		/**
+		 * Fügt einen Schritt zu der Bewegung hinzu
+		 * @param x	x-Position für den Schritt
+		 * @param y	y-Position für den Schritt
+		 */
 		public void addPoint(final int x, final int y) {
 			if (count>0 && this.x[count-1]==x && this.y[count-1]==y) return;
 
@@ -1196,10 +1594,19 @@ public class ModelSurfaceAnimatorBase {
 			count++;
 		}
 
+		/**
+		 * Liefert die Anzahl an Schritten auf dem Pfad.
+		 * @return	Anzahl an Schritten auf dem Pfad
+		 */
 		public int getPointCount() {
 			return count;
 		}
 
+		/**
+		 * Liefert das Icon für einen bestimmten Schritt
+		 * @param pointNr	Schritt
+		 * @return	Icon
+		 */
 		public DrawIcon getDrawClient(int pointNr) {
 			if (count==0) return new DrawIcon(0,0,iconEast,data);
 
@@ -1211,6 +1618,13 @@ public class ModelSurfaceAnimatorBase {
 			return new DrawIcon(x[pointNr],y[pointNr],icon,data);
 		}
 
+		/**
+		 * Bestimmt den Typ der Verbindungslinie (gerade oder abgewinkelt) zwischen zwei Stationen
+		 * @param source	Startstation
+		 * @param destination	Zielstation
+		 * @return	Verbindungslinientyp
+		 * @see ui.modeleditor.elements.ModelElementEdge.LineMode
+		 */
 		private ModelElementEdge.LineMode getLineMode(final ModelElementPosition source, final ModelElementPosition destination) {
 			for (ModelElement element: surface.getElements()) if (element instanceof ModelElementEdge) {
 				final ModelElementEdge edge=(ModelElementEdge)element;
@@ -1223,12 +1637,24 @@ public class ModelSurfaceAnimatorBase {
 			return ModelElementEdge.LineMode.DIRECT;
 		}
 
+		/**
+		 * Bestimmt das Vorzeichen eines Wertes
+		 * @param value	Wert dessen Vorzeichen bestimmt werden soll
+		 * @return	Vorzeichen (1, 0 oder -1)
+		 */
 		private int sign(final int value) {
 			if (value>0) return 1;
 			if (value<0) return -1;
 			return 0;
 		}
 
+		/**
+		 * Berechnet die Zwischenpunkte zwischen zwei Stationen
+		 * @param source	Startstation
+		 * @param destination	Zielstation
+		 * @param steps	Anzahl an Schritten
+		 * @return	Punkte auf der Strecke
+		 */
 		private Point[] calcRoute(final ModelElementPosition source, final ModelElementPosition destination, final int steps) {
 			final Point p1=source.getMiddlePosition(false);
 			final Point p2=destination.getMiddlePosition(false);
@@ -1316,6 +1742,12 @@ public class ModelSurfaceAnimatorBase {
 			return route;
 		}
 
+		/**
+		 * Erstellt eine Animationsroute von einer Start- zu einer Zielstation
+		 * @param source	Startstation
+		 * @param destination	Zielstation
+		 * @param steps	Anzahl an Schritten auf der Route
+		 */
 		public void buildRoute(final ModelElementPosition source, final ModelElementPosition destination, final int steps) {
 			final Point[] route;
 			Map<ModelElementPosition,Map<Integer,Point[]>> destCache=routeCache.get(source);
@@ -1341,6 +1773,12 @@ public class ModelSurfaceAnimatorBase {
 		}
 	}
 
+	/**
+	 * Wandelt ein Icon in eine base64-html-Repräsentation für
+	 * den Animations-html-Netzwerk-Export um.
+	 * @param iconName	Name des Icons
+	 * @return	base64-html-Repräsentation des Icons
+	 */
 	private String base64Icon(final String iconName) {
 		final BufferedImage image=images.get(iconName,modelImages,ICON_SIZE,1.0);
 		try (final ByteArrayOutputStream output=new ByteArrayOutputStream()) {
@@ -1352,8 +1790,23 @@ public class ModelSurfaceAnimatorBase {
 		}
 	}
 
+	/**
+	 * Zeitpunkt des letzten Aufrufs von {@link #getAnimationStepInfo(long, RunModel, List, List)}
+	 * @see #getAnimationStepInfo(long, RunModel, List, List)
+	 */
 	private long lastFullRecordingTimeStep=-1;
+
+	/**
+	 * Cache für statische Icons für {@link #getAnimationStepInfo(long, RunModel, List, List)}
+	 * @see #getAnimationStepInfo(long, RunModel, List, List)
+	 */
+
 	private List<DrawIcon> oldFullRecordingStaticIcons;
+
+	/**
+	 * Cache für bewegliche Icons für {@link #getAnimationStepInfo(long, RunModel, List, List)}
+	 * @see #getAnimationStepInfo(long, RunModel, List, List)
+	 */
 	private List<DrawMovingIcon> oldFullRecordingMovingIcons;
 
 	/**
@@ -1369,6 +1822,12 @@ public class ModelSurfaceAnimatorBase {
 		fullRecordingMovingIcons=null;
 	}
 
+	/**
+	 * Erstellt eine Daten-Zuordnung zu einem Icon
+	 * @param runModel	Laufzeit-Datenmodell
+	 * @param drawIcon	Zu übertragendes Icon
+	 * @return	Daten-Zuordnung zu dem Icon für den html-Netzwerk-Export
+	 */
 	private Map<String,String> drawIconToMap(final RunModel runModel, final DrawIcon drawIcon) {
 		final Map<String,String> map=new HashMap<>();
 		map.put("x",""+drawIcon.x);

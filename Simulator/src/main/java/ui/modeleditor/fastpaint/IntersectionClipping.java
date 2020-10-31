@@ -23,9 +23,12 @@ import java.awt.Rectangle;
  * @author Alexander Herzog
  */
 public class IntersectionClipping {
-	private Rectangle lastIntersection=null;
+	/** Letzte Zeichenobjektgröße */
 	private Rectangle lastObjectRect=null;
+	/** Letzter gültiger Zeichenbereich  */
 	private Rectangle lastDrawRect=null;
+	/** Schnittmenge beim letzten Aufruf von {@link #set(Graphics, Rectangle, Rectangle)} */
+	private Rectangle lastIntersection=null;
 
 	/**
 	 * Konstruktor der Klasse

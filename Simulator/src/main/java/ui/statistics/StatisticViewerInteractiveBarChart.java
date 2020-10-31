@@ -65,12 +65,19 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN};
 
+	/** Gesamt-Panel (bestehen aus Diagramm oben und Steuerelementen unten */
 	private JPanel fullPanel;
+	/** Play/Pause-Schaltfläche */
 	private JButton sliderButton;
+	/** Schieberegler zur Anzeige und Steuerung der Zeit */
 	private JSlider slider;
+	/** Anzeige des aktuellen Zeitpunkts */
 	private JLabel sliderInfo;
+	/** Maximalwert für die y-Achse */
 	private double maxValue;
+	/** Schrittweite für einen Slider-Schritt */
 	private int runStepWide;
+	/** Timer-Objekt um den Schieberegler zeitgesteuert zu verschieben */
 	private Timer sliderTimer;
 
 	/**
@@ -82,6 +89,10 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		this.statistics=statistics;
 	}
 
+	/**
+	 * Liefert den Maximalwert der sich während der Simulation ergeben hat (zur Bestimmung des y-Achsen-Bereichs).
+	 * @return	Maximalwert während der Simulation
+	 */
 	private double getMaxValue() {
 		double max=0;
 		for (StatisticsLongRunPerformanceIndicator indicator: (StatisticsLongRunPerformanceIndicator[])statistics.longRunStatistics.getAll(StatisticsLongRunPerformanceIndicator.class)) {
@@ -90,6 +101,10 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		return max;
 	}
 
+	/**
+	 * Liefert die Anzahl an Schritten für den {@link #slider}
+	 * @return	Anzahl an Schritten für den {@link #slider}
+	 */
 	private int getSteps() {
 		if (statistics.longRunStatistics.size()==0) return 0;
 		return ((StatisticsLongRunPerformanceIndicator)statistics.longRunStatistics.getAll()[0]).getValueCount();
@@ -109,6 +124,11 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		}
 	}
 
+	/**
+	 * Zeichnet die Diagramme nach einer Änderung der {@link #slider}-Einstellung neu.
+	 * @param index	Neuer Slider-Wert
+	 * @see #changeSlider(int)
+	 */
 	private void drawDiagram(final int index) {
 		data.clear();
 		int count=0;
@@ -123,6 +143,11 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		if (maxValue>0) plot.getRangeAxis().setRange(0,maxValue);
 	}
 
+	/**
+	 * Aktualisiert die Darstellung (Diagramm und Bereichsinfo) nach einer Änderung der {@link #slider}-Einstellung neu.
+	 * @param index	Neuer Slider-Wert
+	 * @see #slider
+	 */
 	private void changeSlider(final int index) {
 		final long delta=statistics.editModel.longRunStatistics.getStepWideSec();
 		final long startSec=index*delta;
@@ -131,11 +156,20 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		drawDiagram(index);
 	}
 
+	/**
+	 * Stellt die Darstellung von {@link #sliderButton} ein.
+	 * @param play	Läuft die Animation gerade (<code>true</code>), dann Pause-Schaltfläche anzeigen, sonst Play-Schaltfläche
+	 * @see #sliderButton
+	 */
 	private void setButtonMode(final boolean play) {
 		sliderButton.setIcon(play?Images.STATISTICS_ANIMATION_PAUSE.getIcon():Images.STATISTICS_ANIMATION_PLAY.getIcon());
 		sliderButton.setToolTipText(play?Language.tr("Statistics.AdditionalStatistics.InteractivePause"):Language.tr("Statistics.AdditionalStatistics.InteractivePlay"));
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Play/Pause-Schaltfläche.
+	 * @see #sliderButton
+	 */
 	private void buttonClick() {
 		if (sliderTimer!=null) {
 			/* Stop */
@@ -164,6 +198,10 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		}
 	}
 
+	/**
+	 * Führt die anfängliche Initialisierung durch.
+	 * @see #getViewer(boolean)
+	 */
 	private void initFullPanel() {
 		fullPanel=new JPanel(new BorderLayout());
 
@@ -192,6 +230,13 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		return fullPanel;
 	}
 
+	/**
+	 * Zeigt einen Auswahldialog zur Auswahl einer Bild- oder eine Videodatei an
+	 * @param owner	Übergeordnetes Element
+	 * @param allowXLSX	Sollen auch xlsx-Dateien zugelassen werden?
+	 * @return	Gewählte Ausgabedatei oder <code>null</code>, wenn der Nutzer die Auswahl abgebrochen hat
+	 * @see #save(Component)
+	 */
 	private static File selectImageOrVideoFile(final Component owner, final boolean allowXLSX) {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);

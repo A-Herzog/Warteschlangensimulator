@@ -188,6 +188,11 @@ public class HandlerAnimation implements WebServerHandler {
 		response.setText("",true);
 	}
 
+	/**
+	 * Escaped doppelte Anführungszeichen
+	 * @param text	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
 	private String escapeString(final String text) {
 		return text.replace("\"","\\\"");
 	}

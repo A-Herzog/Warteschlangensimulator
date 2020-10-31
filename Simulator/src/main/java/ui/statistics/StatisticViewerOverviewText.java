@@ -171,6 +171,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return statisticName;
 	}
 
+	/**
+	 * Standardmäßig zu verwendende Konfidenzniveaus, wenn keine spezifischen
+	 * Niveaus in den Einstellungen definiert sind.
+	 * @see #getConfidenceLevels()
+	 */
 	private static final double[] DEFAULT_CONFIDENCE_LEVELS=new double[]{0.1,0.05,0.01};
 
 	/**
@@ -308,7 +313,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.COUNT);
 	}
 
-
+	/**
+	 * Ausgabe von
+	 * "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)
+	 * @see Mode#MODE_OVERVIEW
+	 */
 	private void buildOverview() {
 		addHeading(1,Language.tr("Statistics.ResultsOverview"));
 
@@ -886,6 +895,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Ausgabe von
+	 * "Stationsbeschreibung" (automatisch generierte Beschreibung aller Stationen im Modell)
+	 * @see Mode#MODE_MODEL
+	 */
 	private void buildModelInfo() {
 		addHeading(1,Language.tr("Statistics.ModelOverview"));
 
@@ -918,6 +932,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		outputEmergencyShutDownInfo(false);
 	}
 
+	/**
+	 * Ausgabe von
+	 * "Stationsbeschreibung" (automatisch generierte Beschreibung aller Stationen im Modell)
+	 * @see Mode#MODE_MODEL_DESCRIPTION
+	 */
 	private void buildModelDescription() {
 		addHeading(1,Language.tr("Statistics.ModelDescription"));
 
@@ -1087,6 +1106,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		endParagraph();
 	}
 
+	/**
+	 * Ausgabe von
+	 * Zwischenankunftszeiten der Kunden am System
+	 * @see Mode#MODE_INTERARRIVAL_CLIENTS
+	 */
 	private void buildInterarrivalSystem() {
 		addHeading(1,Language.tr("Statistics.InterArrivalTimes"));
 
@@ -1167,6 +1191,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return false;
 	}
 
+	/**
+	 * Ausgabe von
+	 * Zwischenankunftszeiten der Kunden an den Stationen
+	 * @see Mode#MODE_INTERARRIVAL_STATIONS
+	 */
 	private void buildInterarrivalStations() {
 		addHeading(1,Language.tr("Statistics.ArrivalsAtStations"));
 
@@ -1281,6 +1310,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("InterarrivalStations");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Zwischenabgangszeiten der Kunden aus dem System
+	 * @see Mode#MODE_INTERLEAVE_CLIENTS
+	 */
 	private void buildInterleaveSystem() {
 		addHeading(1,Language.tr("Statistics.InterLeaveTimes"));
 
@@ -1309,6 +1343,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("InterleaveSystem");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Zwischenabgangszeiten der Kunden an den Stationen
+	 * @see Mode#MODE_INTERLEAVE_STATIONS
+	 */
 	private void buildInterleaveStations() {
 		addHeading(1,Language.tr("Statistics.LeavingsAtStations"));
 
@@ -1371,6 +1410,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("InterleaveStations");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Informationen zum Simulationssystem
+	 * @see Mode#MODE_SYSTEM_INFO
+	 */
 	private void buildSystemInfo() {
 		addHeading(1,Language.tr("Statistics.SystemData"));
 		beginParagraph();
@@ -1530,6 +1574,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Ausgabe von
+	 * Wartezeit auf Kundentyp-Basis
+	 * @see Mode#MODE_WAITINGPROCESSING_CLIENTS
+	 */
 	private void buildClients() {
 		addHeading(1,Language.tr("Statistics.WaitingAndProcessTimesByClients"));
 
@@ -1567,6 +1616,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("TimesClients");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Wartezeiten an den Stationen
+	 * @see Mode#MODE_WAITINGPROCESSING_STATIONS
+	 */
 	private void buildStations() {
 		addHeading(1,Language.tr("Statistics.WaitingAndProcessTimesByStations"));
 
@@ -1663,6 +1717,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("TimeStations");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Wartezeiten an den Stationen (zusätzlich nach Kundentypen ausdifferenziert)
+	 * @see Mode#MODE_WAITINGPROCESSING_STATIONS_CLIENTS
+	 */
 	private void buildStationsClients() {
 		addHeading(1,Language.tr("Statistics.WaitingAndProcessTimesByStationsAndClients"));
 
@@ -1766,6 +1825,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("TimeStationsClients");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Anzahl an Kunden im System und an den Stationen
+	 * @see Mode#MODE_CLIENTS_COUNT
+	 */
 	private void buildClientsCount() {
 		addHeading(1,Language.tr("Statistics.NumberOfClientsInTheSystemAndAtTheStations"));
 
@@ -1960,6 +2024,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("ClientCount");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Auslastung der Bedienergruppen
+	 * @see Mode#MODE_UTILIZATION
+	 */
 	private void buildUtilization() {
 		addHeading(1,Language.tr("Statistics.ResourceUtilization"));
 
@@ -2051,6 +2120,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("UtilizationResource");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Auslastung der Transportergruppen
+	 * @see Mode#MODE_TRANSPORTER_UTILIZATION
+	 */
 	private void buildTransporterUtilization() {
 
 		addHeading(1,Language.tr("Statistics.TransporterUtilization"));
@@ -2178,6 +2252,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Ausgabe von
+	 * Zählerwerten
+	 * @see Mode#MODE_COUNTER
+	 */
 	private void buildCounter() {
 		addHeading(1,Language.tr("Statistics.Counter"));
 
@@ -2218,6 +2297,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Ausgabe von
+	 * Durchsatzwerten
+	 * @see Mode#MODE_THROUGHPUT
+	 */
 	private void buildThroughput() {
 		addHeading(1,Language.tr("Statistics.Throughput"));
 
@@ -2233,6 +2317,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("Throughput");
 	}
 
+	/**
+	 * Ausgabe von
+	 * "Zustandsstatistik" (erfasst an speziellen Zustandsstatistik-Stationen)
+	 * @see Mode#MODE_STATE_STATISTICS
+	 */
 	private void buildStateStatistics() {
 		addHeading(1,Language.tr("Statistics.StateStatistics"));
 
@@ -2259,6 +2348,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("StateStatistics");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Analogwert-Statistik
+	 * @see Mode#MODE_ANALOG_STATISTICS
+	 */
 	private void buildAnalogStatistics() {
 		addHeading(1,Language.tr("Statistics.AnalogStatistics"));
 
@@ -2282,6 +2376,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("AnalogStatistics");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Kosten
+	 * @see Mode#MODE_COSTS
+	 */
 	private void buildCosts() {
 		addHeading(1,Language.tr("Statistics.Costs"));
 
@@ -2422,6 +2521,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	/**
 	 * Korrelationslevels zu denen angegeben werden soll, ab welchem
 	 * Abstand dieser Wert erreicht bzw. unterschritten wird.
+	 * @see #outputAutocorrelationData(StatisticsDataPerformanceIndicator, int[])
 	 */
 	public static final double[] AUTOCORRELATION_LEVELS=new double[]{0.1,0.05,0.01,0.005,0.001};
 
@@ -2441,6 +2541,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		endParagraph();
 	}
 
+	/**
+	 * Ausgabe von
+	 * Autokorrelationswerten
+	 * @see Mode#MODE_AUTOCORRELATION
+	 */
 	private void buildAutocorrelation() {
 		addHeading(1,Language.tr("Statistics.ResultsAutocorrelation"));
 
@@ -2548,6 +2653,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return true;
 	}
 
+	/**
+	 * Ausgabe von
+	 * benutzerdefinierter Statistik
+	 * @see Mode#MODE_USER_STATISTICS
+	 */
 	private void buildUserStatistics() {
 		addHeading(1,Language.tr("Statistics.UserStatistics"));
 
@@ -2598,6 +2708,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("UserStatistics");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Statistik über die Kundendatenfelder
+	 * @see Mode#MODE_CLIENT_DATA
+	 */
 	private void buildClientData() {
 		addHeading(1,Language.tr("Statistics.ClientData"));
 

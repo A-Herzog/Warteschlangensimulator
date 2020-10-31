@@ -103,6 +103,13 @@ public final class ComplexLine implements Cloneable {
 		this(1,null,0);
 	}
 
+	/**
+	 * Berechnet den Zeichenbereich einer zu einem Rechteck vergrößerten Linie
+	 * @param p1	Startpunkt der Linie
+	 * @param p2	Endpunkt der Linie
+	 * @param zoom	Zoomfaktor
+	 * @return	Eckpunkte des Rechtecks
+	 */
 	private Point2D.Double[] calcArea(final Point p1, final Point p2, final double zoom) {
 		final double lenA=FastMath.sqrt((p2.x-p1.x)*(p2.x-p1.x)+(p2.y-p1.y)*(p2.y-p1.y));
 		final double lenB=width*zoom;
@@ -133,16 +140,42 @@ public final class ComplexLine implements Cloneable {
 		return list.toArray(new Point2D.Double[0]);
 	}
 
+	/**
+	 * Erstellt ein Polygon basierend auf einer Reihe von Punkten
+	 * @param points	Punkte aus denen das Polygon geformt werden soll
+	 * @return	Polygon
+	 */
 	private Polygon polygonFromPoints(final Point2D.Double[] points) {
 		final Polygon polygon=new Polygon();
 		for (Point2D.Double point: points) polygon.addPoint((int)FastMath.round(point.x),(int)FastMath.round(point.y));
 		return polygon;
 	}
 
+	/**
+	 * Letzter Linienstil
+	 * @see #setStroke(Graphics2D, double)
+	 */
 	private BasicStroke cacheStroke;
+
+	/**
+	 * Linienbreite für letzten Linienstil
+	 * @see #cacheStroke
+	 * @see #setStroke(Graphics2D, double)
+	 */
 	private float cacheStrokeWidth;
+
+	/**
+	 * Linientyp für letzten Linienstil
+	 * @see #cacheStroke
+	 * @see #setStroke(Graphics2D, double)
+	 */
 	private int cacheStrokeType;
 
+	/**
+	 * Stellt den Linienstil ein
+	 * @param g2	Grafikausgabeobjekt
+	 * @param zoom	Zoomfaktor
+	 */
 	private void setStroke(final Graphics2D g2, final double zoom) {
 		float strokeWide=width*(float)zoom;
 		if (cacheStroke==null || Math.abs(cacheStrokeWidth-strokeWide)>0.0001 || cacheStrokeType!=type) {
@@ -170,8 +203,22 @@ public final class ComplexLine implements Cloneable {
 		g2.setStroke(cacheStroke);
 	}
 
+	/**
+	 * Speichert das Linienobjekt für weitere
+	 * Aufrufe von {@link #getLine(Point, Point)}
+	 * zwischen. (Es wird nur das Objekt im
+	 * Speicher aufgehoben, die Inhalte sind nicht
+	 * von Bedeutung.)
+	 * @see #getLine(Point, Point)
+	 */
 	private final Line2D.Double cacheLine=new Line2D.Double(0,0,0,0);
 
+	/**
+	 * Erstellt eine Linie zwischen zwei Punkten
+	 * @param p1	Startpunkt der Linie
+	 * @param p2	Endpunkt der Linie
+	 * @return	Neue Linie
+	 */
 	private Shape getLine(final Point p1, final Point p2) {
 		cacheLine.x1=p1.x;
 		cacheLine.y1=p1.y;

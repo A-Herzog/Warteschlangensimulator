@@ -32,8 +32,11 @@ import simulator.runmodel.SimulationData;
 public class ClientsImpl implements ClientsInterface {
 	/** Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen */
 	private final SimulationData simData;
+	/** Anzahl der wartenden Kunden ({@link #clients}) */
 	private int count;
+	/** Liste der wartenden Kunden */
 	private List<RunDataClient> clients;
+	/** Gibt an, welche Kunden freigegeben werden sollen */
 	private boolean[] releaseClients;
 
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */

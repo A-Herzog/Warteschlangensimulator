@@ -84,6 +84,10 @@ public class CalcFuture {
 		 */
 		public final int id;
 
+		/**
+		 * Konstruktor des Enum
+		 * @param id	ID zur Identifikation des Status
+		 */
 		Status(final int id) {
 			this.id=id;
 		}
@@ -101,22 +105,38 @@ public class CalcFuture {
 		PARAMETER_SERIES
 	}
 
+	/** Sichert den Zugriff auf den Status und die Nachrichten ab */
 	private final ReentrantLock lock;
+	/** ID des Tasks zur späteren Identifikation in der Liste aller Tasks */
 	private final long id;
+	/** System-Zeitpunkt an dem die Anfrage einging (d.h. an dem der Konstruktor aufgerufen wurde) */
 	private final long requestTime;
+	/** Festgelegtes Modell (darf <code>null</code> sein); im Fall eines festen Modells erfolgt nur noch eine Parametrisierung */
 	private final EditModel originalModel;
+	/** Eingabedaten (werden bereits im Konstruktor erfasst, aber die Modell-Erstellung daraus erfolgt erst später) */
 	private final byte[] input;
+	/** Geladene Tabelle zum Parametrisieren des Modells */
 	private final MultiTable inputTable;
+	/** Dateiname der geladenen Tabelle zum Parametrisieren des Modells */
 	private final String inputTableName;
+	/** IP-Adresse des entfernten Klienten */
 	private final String ip;
+	/** Aktueller Ausführungsstatus */
 	private Status status;
+	/** Art der Simulation */
 	private SimulationType simulationType;
+	/** Liste der während der Verarbeitung aufgetretenen Meldungen */
 	private final List<String> messages;
+	/** Ausgabe-Statistikdaten */
 	private Statistics statistics;
+	/** Ergebnisse der Simulation in Binärform ({@link #getBytes()}) */
 	private byte[] zip;
+	/** Dateityp für die Ergebnis-Binärform-Daten */
 	private XMLTools.FileType fileType;
 
+	/** Simulator (nur während der Ausführung einer normalen Simulation ungleich <code>null</code>) */
 	private volatile AnySimulator simulator=null;
+	/** Parameterreihensimulator (nur während der Ausführung einer Parameterreihensimulation unlgeich <code>null</code>) */
 	private volatile ParameterCompareRunner runner=null;
 
 	/**
@@ -161,6 +181,11 @@ public class CalcFuture {
 		}
 	}
 
+	/**
+	 * Lädt eine Datei als Binärdaten
+	 * @param input	Zu ladende Datei
+	 * @return	Binärdaten oder im Fehlerfall <code>null</code>
+	 */
 	private byte[] loadFile(final File input) {
 		if (input==null) return null;
 
@@ -182,6 +207,12 @@ public class CalcFuture {
 		return id;
 	}
 
+	/**
+	 * Stellt den aktuellen Status ein
+	 * @param status	Neuer Status
+	 * @see #status
+	 * @see #getStatus()
+	 */
 	private void setStatus(final Status status) {
 		lock.lock();
 		try {
@@ -221,6 +252,12 @@ public class CalcFuture {
 		return ip;
 	}
 
+	/**
+	 * Fügt eine Nachricht zu der Liste der Nachrichten hinzu
+	 * @param message	Neue Nachricht
+	 * @see #messages
+	 * @see #getMessages()
+	 */
 	private void addMessage(final String message) {
 		lock.lock();
 		try {
@@ -243,16 +280,37 @@ public class CalcFuture {
 		}
 	}
 
+	/**
+	 * Fügt eine Fehlermeldung zu der Liste der Nachrichten hinzu
+	 * und setzt den Fehler-Status
+	 * @param message	Fehlermeldung
+	 * @see #messages
+	 * @see #getMessages()
+	 * @see Status#DONE_ERROR
+	 */
 	private void setError(final String message) {
 		addMessage(message);
 		setStatus(Status.DONE_ERROR);
 	}
 
+	/**
+	 * Erstellt ein Ausgabe-Ergebnis bereit.
+	 * @param statistics	Ausgabe-Statistikdaten
+	 * @param output	Ergebnisse in Binärform
+	 * @param fileType	Dateityp der Binärform-Ergebnisse
+	 * @param message	Meldung bzw. Abschluss-Status
+	 */
 	private void setResult(final Statistics statistics, final ByteArrayOutputStream output, final XMLTools.FileType fileType, final String message) {
 		this.statistics=statistics;
 		setResult(output,fileType,message);
 	}
 
+	/**
+	 * Erstellt ein Ausgabe-Ergebnis bereit.
+	 * @param output	Ergebnisse in Binärform
+	 * @param fileType	Dateityp der Binärform-Ergebnisse
+	 * @param message	Meldung bzw. Abschluss-Status
+	 */
 	private void setResult(final ByteArrayOutputStream output, final XMLTools.FileType fileType, final String message) {
 		addMessage(message);
 
@@ -299,6 +357,10 @@ public class CalcFuture {
 		return fileType;
 	}
 
+	/**
+	 * Führt die Simulation eines einzelnen Modells durch.
+	 * @param model	Zu simulierendes Modell
+	 */
 	private void runModel(final EditModel model) {
 		if (!StartAnySimulator.isRemoveSimulateable(model)) {
 			setError(SimulationServer.PREPARE_NO_REMOTE_MODEL);
@@ -321,6 +383,10 @@ public class CalcFuture {
 		}
 	}
 
+	/**
+	 * Führt eine Parameterreihensimulation durch.
+	 * @param setup	Parameterreihen-Konfiguration
+	 */
 	private void runSeries(final ParameterCompareSetup setup) {
 		runner=new ParameterCompareRunner(null,null,msg->addMessage(msg));
 		try {
@@ -401,6 +467,12 @@ public class CalcFuture {
 		return statistics;
 	}
 
+	/**
+	 * html-Daten für den interaktiven Statistik-Viewers
+	 * werden in diesem Objekt für weitere Abfragen über
+	 * {@link #getStatisticsViewer()} vorgehalten.
+	 * @see #getStatisticsViewer()
+	 */
 	private byte[] viewerData=null;
 
 	/**
@@ -424,6 +496,11 @@ public class CalcFuture {
 		}
 	}
 
+	/**
+	 * Liefert einen Text zu dem aktuellen Status.
+	 * @return	Text zu dem aktuellen Status
+	 * @see #getStatus()
+	 */
 	private String getStatusText() {
 		if (status==null) return Language.tr("CalcWebServer.Status.Unknown");
 		switch (status) {
@@ -435,6 +512,11 @@ public class CalcFuture {
 		}
 	}
 
+	/**
+	 * Liefert die Meldungen in JSON-formatierter Form zurück.
+	 * @return	JSON-formatierte Meldungen
+	 * @see #getStatusJSON()
+	 */
 	private String jsonFormatMessages() {
 		final StringBuilder result=new StringBuilder();
 		result.append("[");

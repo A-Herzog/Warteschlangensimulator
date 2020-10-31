@@ -31,11 +31,18 @@ public class RunDataOutputWriter {
 	/** Datei, in die die Ausgabe erfolgen soll */
 	private final File outputFile;
 
-	private static final int MODE_TEXT=0;
-	private static final int MODE_CSV=1;
-	private static final int MODE_TABLE=2;
+	/** Ausgabemodus */
+	private enum Mode {
+		/** Ausgabe als Text */
+		MODE_TEXT,
+		/** Ausgabe als CSV-Tabelle */
+		MODE_CSV,
+		/** Ausgabe über ein Tabellenobjekt */
+		MODE_TABLE
+	}
 
-	private int mode;
+	/** Ausgabemodus */
+	private Mode mode;
 	private boolean outputErrors;
 
 	private FileWriter outputFileWriter;
@@ -52,16 +59,16 @@ public class RunDataOutputWriter {
 		if (outputFile==null) return;
 
 		final String nameLower=outputFile.toString().toLowerCase();
-		mode=MODE_TEXT;
-		if (nameLower.endsWith(".csv")) mode=MODE_CSV;
+		mode=Mode.MODE_TEXT;
+		if (nameLower.endsWith(".csv")) mode=Mode.MODE_CSV;
 
-		if (Table.SaveMode.SAVEMODE_XLSX.fileNameMatch(nameLower)) mode=MODE_TABLE;
-		if (Table.SaveMode.SAVEMODE_XLS.fileNameMatch(nameLower)) mode=MODE_TABLE;
-		if (Table.SaveMode.SAVEMODE_DIF.fileNameMatch(nameLower)) mode=MODE_TABLE;
-		if (Table.SaveMode.SAVEMODE_HTML.fileNameMatch(nameLower)) mode=MODE_TABLE;
-		if (Table.SaveMode.SAVEMODE_DOCX.fileNameMatch(nameLower)) mode=MODE_TABLE;
+		if (Table.SaveMode.SAVEMODE_XLSX.fileNameMatch(nameLower)) mode=Mode.MODE_TABLE;
+		if (Table.SaveMode.SAVEMODE_XLS.fileNameMatch(nameLower)) mode=Mode.MODE_TABLE;
+		if (Table.SaveMode.SAVEMODE_DIF.fileNameMatch(nameLower)) mode=Mode.MODE_TABLE;
+		if (Table.SaveMode.SAVEMODE_HTML.fileNameMatch(nameLower)) mode=Mode.MODE_TABLE;
+		if (Table.SaveMode.SAVEMODE_DOCX.fileNameMatch(nameLower)) mode=Mode.MODE_TABLE;
 
-		if (mode==MODE_TEXT || mode==MODE_CSV) {
+		if (mode==Mode.MODE_TEXT || mode==Mode.MODE_CSV) {
 			try {outputFileWriter=new FileWriter(outputFile,true);} catch (IOException e) {
 				outputFileWriter=null;
 				return;

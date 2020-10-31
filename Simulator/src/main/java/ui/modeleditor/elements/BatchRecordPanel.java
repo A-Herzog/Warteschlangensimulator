@@ -45,19 +45,31 @@ public class BatchRecordPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 540893978614092794L;
 
+	/** Batch-Datensatz der in diesem Panel zum Bearbeiten angeboten werden soll */
 	private final BatchRecord batchRecord;
 
+	/** Soll der Datensatz aktiv sein? */
 	private JCheckBox active;
 
+	/** Option: Feste Batch-Größe */
 	private JRadioButton modeFixed;
+	/** Option: Batch-Größe in einem bestimmten Bereich */
 	private JRadioButton modeRange;
+	/** Eingabefeld für die feste Batch-Größe */
 	private final JTextField batchFieldFixed;
+	/** Eingabefeld für die minimale Batch-Größe bei Verwendung einer variablen Batch-Größe */
 	private final JTextField batchFieldMin;
+	/** Eingabefeld für die maximale Batch-Größe bei Verwendung einer variablen Batch-Größe */
 	private final JTextField batchFieldMax;
+	/** Option: Kunden gemeinsam weiterleiten */
 	private final JRadioButton optionForward;
+	/** Option: Temporären Batch bilden */
 	private final JRadioButton optionTemporary;
+	/** Eingabefeld für den neuen Kundentyp für einen temporären Batch */
 	private final JTextField tempTypeField;
+	/** Option: Permanenten Batch bilden */
 	private final JRadioButton optionNewType;
+	/** Eingabefeld für den neuen Kundentyp für einen permanenten Batch */
 	private final JTextField newTypeField;
 
 	/**

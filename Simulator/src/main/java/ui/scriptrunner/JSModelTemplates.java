@@ -59,6 +59,12 @@ public class JSModelTemplates {
 		this.model=model;
 	}
 
+	/**
+	 * Berechnet einen Vorschlagswert für eine Schrittweite
+	 * @param min	Minimalwert
+	 * @param max	Maximalwert
+	 * @return	Vorschlagswert für eine Schrittweite von Minimalwert zu Maximalwert
+	 */
 	private int calcStep(final int min, final int max) {
 		int count=max-min;
 		int step=1;
@@ -66,6 +72,12 @@ public class JSModelTemplates {
 		return step;
 	}
 
+	/**
+	 * Liefert eine Vorlage zum Ändern der Anzahl an Bedienern in einer Ressource.
+	 * @param name	Name der Ressource
+	 * @return	Skript-Vorlagen-Datensatz
+	 * @see #changeResourceCount()
+	 */
 	private Record changeResourceCount(final String name) {
 		final ModelResource resource=model.resources.get(name);
 		if (resource==null || resource.getMode()!=ModelResource.Mode.MODE_NUMBER || resource.getCount()<0) return null;
@@ -102,6 +114,10 @@ public class JSModelTemplates {
 		return new Record(String.format(Language.tr("JSRunner.Templates.ChangeResource.Info"),name),code.toString());
 	}
 
+	/**
+	 * Liefert Vorlagen zum Ändern der Anzahl an Bedienern in einer Ressource.
+	 * @return	Liste mit Skript-Vorlagen-Datensätzen
+	 */
 	private List<Record> changeResourceCount() {
 		final List<Record> list=new ArrayList<>();
 		for (String name: model.resources.list()) {
@@ -111,6 +127,12 @@ public class JSModelTemplates {
 		return list;
 	}
 
+	/**
+	 * Liefert eine Vorlage zum Ändern der Zwischenankunftszeiten an einer Kundenquelle.
+	 * @param source	Kundenquelle
+	 * @return	Skript-Vorlagen-Datensatz
+	 * @see #changeInterArrival()
+	 */
 	private Record changeInterArrival(final ModelElementSource source) {
 		if (source.getRecord().getNextMode()!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION) return null;
 		if (!DistributionTools.canSetMean(source.getRecord().getInterarrivalTimeDistribution())) return null;
@@ -147,6 +169,12 @@ public class JSModelTemplates {
 		return new Record(String.format(Language.tr("JSRunner.Templates.ChangeInterArrival.Info"),source.getName()+" (id="+source.getId()+")"),code.toString());
 	}
 
+	/**
+	 * Liefert eine Vorlage zum Ändern der Bedienzeiten an einer Bedienstation.
+	 * @param process	Bedienstation
+	 * @return	Skript-Vorlagen-Datensatz
+	 * @see #changeService()
+	 */
 	private Record changeService(final ModelElementProcess process) {
 		if (!(process.getWorking().get() instanceof AbstractRealDistribution)) return null;
 		final AbstractRealDistribution distribution=(AbstractRealDistribution)process.getWorking().get();
@@ -184,6 +212,10 @@ public class JSModelTemplates {
 		return new Record(String.format(Language.tr("JSRunner.Templates.ChangeService.Info"),process.getName()+" (id="+process.getId()+")"),code.toString());
 	}
 
+	/**
+	 * Liefert Vorlagen zum Ändern der Zwischenankunftszeiten an den Kundenquellen.
+	 * @return	Liste mit Skript-Vorlagen-Datensätzen
+	 */
 	private List<Record> changeInterArrival() {
 		final List<Record> list=new ArrayList<>();
 		for (ModelElement element: model.surface.getElements()) if (element instanceof ModelElementSource) {
@@ -193,6 +225,10 @@ public class JSModelTemplates {
 		return list;
 	}
 
+	/**
+	 * Liefert Vorlagen zum Ändern der Bedienzeiten an den Bedienstationen.
+	 * @return	Liste mit Skript-Vorlagen-Datensätzen
+	 */
 	private List<Record> changeService() {
 		final List<Record> list=new ArrayList<>();
 		for (ModelElement element: model.surface.getElements()) if (element instanceof ModelElementProcess) {
@@ -202,6 +238,12 @@ public class JSModelTemplates {
 		return list;
 	}
 
+	/**
+	 * Fügt eine Reihe von Einträgen in ein Untermenü ein.
+	 * @param sub	Untermenü
+	 * @param list	Liste mit Skript-Vorlagen-Datensätzen
+	 * @param listener	Listener der aufgerufen wird, wenn der Nutzer ein bestimmtes Codefragment aufrufen möchte
+	 */
 	private void addRecordListToSub(final JMenu sub, final List<Record> list, final Consumer<String> listener) {
 		for (Record record: list) {
 			final JMenuItem item=new JMenuItem(record.name);

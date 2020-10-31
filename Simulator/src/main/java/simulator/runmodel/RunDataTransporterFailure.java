@@ -33,6 +33,7 @@ import ui.modeleditor.ModelTransporterFailure;
  * @see RunDataTransporter
  */
 public class RunDataTransporterFailure {
+	/** Liste mit allen Transportern im Modell */
 	private final RunDataTransporters list;
 	/** Durch was soll der Ausfall ausgelöst werden */
 	ModelTransporterFailure.FailureMode failureMode;
@@ -53,8 +54,11 @@ public class RunDataTransporterFailure {
 	/** Ausdruck (als Rechenobjekt) zur Bestimmung der Länge der Pausenzeit */
 	ExpressionCalc downTimeExpression;
 
+	/** Anzahl der Bedienungen */
 	private int servedCount;
+	/** Geleistete Bedienzeit */
 	private long servedTime;
+	/** Gefahrene Strecke */
 	private double servedDistance;
 	/** Startzeitpunkt (in Millisekunden) der aktuellen Pausezeit */
 	public long pauseStartTime;

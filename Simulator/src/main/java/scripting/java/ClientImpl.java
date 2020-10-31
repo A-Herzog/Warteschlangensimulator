@@ -39,6 +39,10 @@ public class ClientImpl implements ClientInterface {
 	private final SimulationData simData;
 	/** Aktueller Kunde */
 	private RunDataClient client;
+	/**
+	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
+	 * @see #getExpression(String)
+	 */
 	private Map<String,ExpressionCalc> expressionCache;
 
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
@@ -60,6 +64,11 @@ public class ClientImpl implements ClientInterface {
 		this.client=client;
 	}
 
+	/**
+	 * Versucht eine Zeichenkette in ein Rechenobjekt umzuwandeln.
+	 * @param text	Zeichenkette, die die Formel enthält
+	 * @return	Liefert im Erfolgsfall ein Rechenobjekt, sonst eine Fehlermeldung
+	 */
 	private Object getExpression(final String text) {
 		if (expressionCache==null) expressionCache=new HashMap<>();
 		ExpressionCalc expression=expressionCache.get(text);

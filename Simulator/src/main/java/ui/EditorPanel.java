@@ -537,7 +537,7 @@ public final class EditorPanel extends EditorPanelBase {
 
 	/**
 	 * Wählt ein Element in der Vorlagenleiste aus (und macht diese ggf. vorher sichtbar)
-	 * @param element	@param element	Zu selektierendes Element
+	 * @param element	Zu selektierendes Element
 	 * @return	Liefert <code>true</code>, wenn das Element selektiert werden konnte. (Ein Grund für <code>false</code> ist, dass die betreffende Gruppe nicht ausgeklappt ist.)
 	 * @see #selectTemplateInList(ModelElementPosition)
 	 */
@@ -830,6 +830,15 @@ public final class EditorPanel extends EditorPanelBase {
 		return rightArea;
 	}
 
+	/**
+	 * Generiert eine Titelzeile oberhalb der seitlichen Panels (für Elementenvorlagen und Modellnavigator)
+	 * @param title	Titel des seitlichen Panels
+	 * @param icon	Icon zur Anzeige neben dem  seitlichen Panel (optional, kann <code>null</code> sein)
+	 * @param actionLeft	Optionale Aktion zum Schließen (Icon links anzeigen) (kann <code>null</code> sein)
+	 * @param actionRight	Optionale Aktion zum Schließen (Icon rechts anzeigen) (kann <code>null</code> sein)
+	 * @param hotkey	Im Tooltip des Schließen-Icons anzuzeigender Hotkey
+	 * @return	Neues Panel
+	 */
 	private JPanel getTopInfoPanel(final String title, final Icon icon, final ActionListener actionLeft, final ActionListener actionRight, final String hotkey) {
 		final JPanel top=new JPanel(new BorderLayout());
 		top.setBackground(Color.LIGHT_GRAY);
@@ -886,6 +895,13 @@ public final class EditorPanel extends EditorPanelBase {
 		return top;
 	}
 
+	/**
+	 * Speichert die Einstellungen, welche Gruppen in der Elementvorlagenliste geöffnet sind im Setup.
+	 * @param groupIndex	Index der Gruppe deren Status sich geändert hat
+	 * @param open	Ist die Gruppe geöffnet?
+	 * @see #templates
+	 * @see #expandGroupForElement(ModelElementPosition)
+	 */
 	private void saveGroupOpenStatus(final int groupIndex, final boolean open) {
 		final SetupData setup=SetupData.getSetup();
 		final String s=setup.openTemplateGroups;
@@ -914,6 +930,11 @@ public final class EditorPanel extends EditorPanelBase {
 		setup.saveSetup();
 	}
 
+	/**
+	 * Aktualisiert die Darstellung innerhalb der Elementenvorlagenliste
+	 * (geöffnete und geschlossene Gruppen, Filtereingabe).
+	 * @see #templates
+	 */
 	private void updateTemplatesFilter() {
 		final SetupData setup=SetupData.getSetup();
 		final String filter=leftAreaQuickFilter.getText().trim();
@@ -1225,6 +1246,13 @@ public final class EditorPanel extends EditorPanelBase {
 		}
 	}
 
+	/**
+	 * Zeigt eine zusätzliche Infozeile über dem Modelleditor an.
+	 * @param show	Zeile anzeigen oder ausblenden?
+	 * @param text	Anzuzeigender Text
+	 * @see #additionalInfoArea
+	 * @see #additionalInfoLabel
+	 */
 	private void setAdditionalInfoLabel(final boolean show, final String text) {
 		additionalInfoArea.setVisible(show && text!=null);
 		if (text!=null) additionalInfoLabel.setText(statusHTMLStart+"<b>"+text+"</b>"+statusHTMLEnd);
@@ -1232,6 +1260,13 @@ public final class EditorPanel extends EditorPanelBase {
 		additionalInfoLabel.setIcon(Images.GENERAL_INFO.getIcon());
 	}
 
+	/**
+	 * Stellt den Text für die Statuszeile ein.
+	 * @param text	Anzuzeigender Text
+	 * @param tooltip	Tooltip für den Text
+	 * @param icon	Icon für den Text
+	 * @see #updateStatusBar()
+	 */
 	private void setStatusBarInfo(final String text, final String tooltip, final Icon icon) {
 		statusBar.setText(text);
 		statusBar.setToolTipText(tooltip);
@@ -1384,6 +1419,15 @@ public final class EditorPanel extends EditorPanelBase {
 		}
 	}
 
+	/**
+	 * Wird von {@link ModelSurfacePanel} aufgerufen, um mitzuteilen,
+	 * dass sich die Anzahl an Bedienern in einer Gruppe verändern soll
+	 * (ausgelöst dort über das Kontextmenü).
+	 * @param name	Name der Bedienergruppe
+	 * @param count	Neue Anzahl
+	 * @return	Liefert <code>true</code>, wenn die angegebene Gruppe existiert und die Änderung möglich war (weil die Gruppe über eine Anzahl definiert ist)
+	 * @see ModelSurfacePanel#addResourceCountSetter
+	 */
 	private boolean changeResourceCount(final String name, final int count) {
 		final EditModel model=getModel();
 		final ModelResource resource=model.resources.getNoAutoAdd(name);
@@ -1791,6 +1835,12 @@ public final class EditorPanel extends EditorPanelBase {
 		popup.show(parent,parent.getWidth()+1,-explorer.getHeight()-30+parent.getHeight());
 	}
 
+	/**
+	 * Stellt sicher, dass nur eine Gruppe in der Elementenvorlagenliste
+	 * gleichzeitig geöffnet ist.
+	 * @see #showFilterTemplatesPopup()
+	 * @see #templates
+	 */
 	private void enforceOnlyOneGroupOpen() {
 		final SetupData setup=SetupData.getSetup();
 
@@ -2096,6 +2146,12 @@ public final class EditorPanel extends EditorPanelBase {
 		this.statisticsGetter=statisticsGetter;
 	}
 
+	/**
+	 * Setzt aus mehreren Zeilen eine html-formatierte Statistikausgabe zusammen
+	 * @param lines	Eingabezeilen
+	 * @return	html-formatierte Statistikausgabe
+	 * @see #getStatisticsInfoForElement(ModelElementBox)
+	 */
 	private String formatStatisticsData(final String[] lines) {
 		if (lines==null || lines.length==0) return null;
 		final StringBuilder sb=new StringBuilder();
@@ -2107,18 +2163,46 @@ public final class EditorPanel extends EditorPanelBase {
 		return sb.toString();
 	}
 
+	/**
+	 * Setzt aus mehreren Zeilen eine html-formatierte Statistikausgabe zusammen
+	 * @param lines	Eingabezeilen
+	 * @return	html-formatierte Statistikausgabe
+	 * @see #getStatisticsInfoForElement(ModelElementBox)
+	 */
 	private String formatStatisticsData(final List<String> lines) {
 		return formatStatisticsData(lines.toArray(new String[0]));
 	}
 
+	/**
+	 * Wandelt eine Zeile eine html-formatierte Statistikausgabe um
+	 * @param line	Eingabezeile
+	 * @return	html-formatierte Statistikausgabe
+	 * @see #getStatisticsInfoForElement(ModelElementBox)
+	 */
 	private String formatStatisticsData(final String line) {
 		return formatStatisticsData(new String[]{line});
 	}
 
+	/**
+	 * Wandelt eine Zeitangabe in eine Zeichenkette um
+	 * @param time	Zeitangabe
+	 * @return	Textdarstellung der Zeitangabe
+	 * @see #getStatisticsInfoForElement(ModelElementBox)
+	 */
 	private String formatTime(final double time) {
 		return TimeTools.formatExactTime(time)+" ("+StatisticTools.formatNumber(time)+")";
 	}
 
+	/**
+	 * Liefert, sofern verfügbar, Statistikdaten, die sich auf eine bestimmte
+	 * Station beziehen. (Die Statistikdaten werden über {@link #statisticsGetter}
+	 * bezogen und von {@link ModelSurfacePanel} verwendet, um sie in einem
+	 * Tooltip anzuzeigen.
+	 * @param element	Station für die die Statistikdaten zurückgegeben werden sollen
+	 * @return	html-formatierte Statistikdaten oder <code>null</code>, wenn keine Daten dazur Verfügung stehen
+	 * @see #statisticsGetter
+	 * @see #surfacePanel
+	 */
 	private String getStatisticsInfoForElement(final ModelElementBox element) {
 		if (statisticsGetter==null) return null;
 		final Statistics statistics=statisticsGetter.get();

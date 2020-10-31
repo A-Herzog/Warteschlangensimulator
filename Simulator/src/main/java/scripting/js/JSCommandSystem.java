@@ -45,7 +45,10 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/** Aktueller Kunde (kann auch <code>null</code> sein) */
 	private RunDataClient client;
 	private double inputValue;
-
+	/**
+	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
+	 * @see #getExpression(String)
+	 */
 	private Map<String,ExpressionCalc> expressionCache;
 
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
@@ -78,6 +81,11 @@ public final class JSCommandSystem extends JSBaseCommand {
 		inputValue=value;
 	}
 
+	/**
+	 * Versucht eine Zeichenkette in ein Rechenobjekt umzuwandeln.
+	 * @param text	Zeichenkette, die die Formel enthält
+	 * @return	Liefert im Erfolgsfall ein Rechenobjekt, sonst eine Fehlermeldung
+	 */
 	private Object getExpression(final String text) {
 		ExpressionCalc expression=expressionCache.get(text);
 		if (expression!=null) return expression;

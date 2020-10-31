@@ -30,10 +30,17 @@ import ui.statistics.StatisticsPanel;
 public class SimulationDDEServer extends DDEServerSystem {
 	private static final String SERVICE_NAME="QS";
 
+	/**
+	 * Singleton-Instanz dieser Klasse
+	 * @see #getInstance(MainPanel)
+	 */
 	private static SimulationDDEServer instance;
 
-	/** Hauptpanel des Simulators */
+	/**
+	 * Hauptpanel für die diese Instanz gelten soll
+	 */
 	private final MainPanel mainPanel;
+
 	private Timer timer;
 
 	/**

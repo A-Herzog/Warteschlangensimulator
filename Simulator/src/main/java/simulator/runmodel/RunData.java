@@ -280,6 +280,10 @@ public class RunData {
 	 */
 	public ExpressionCalc[][][] sequenceStepAssignmentExpression;
 
+	/**
+	 * Zuordnung der schon initialisierten Dateiausgabe-Objekte
+	 * @see #getOutputWriter(File)
+	 */
 	private Map<File,RunDataOutputWriter> outputWriter;
 
 	/**

@@ -65,9 +65,26 @@ public class SelectIDDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -3524092476641852821L;
 
+	/**
+	 * ID der gewählten Station
+	 * @see #getSelectedID()
+	 */
 	private int selectedID;
+
+	/**
+	 * Initial zu wählender Eintrag in {@link #combo}
+	 * @see #getIDs(EditModel)
+	 */
 	private int selectedIndex;
+
+	/**
+	 * IDs der Stationen in {@link #combo}
+	 */
 	private int[] ids;
+
+	/**
+	 * Auswahlbox zur Auswahl einer Station
+	 */
 	private final JComboBox<String> combo;
 
 	/**
@@ -136,6 +153,12 @@ public class SelectIDDialog extends BaseDialog {
 		this(owner,model,help,null,false);
 	}
 
+	/**
+	 * Erstellt eine Zuordnung von IDs zu Stationen
+	 * @param surface	Zeichenfläche der die Stationen entnommen werden sollen
+	 * @param ids	Zuordnung von IDs zu Stationen
+	 * @param stationTypes	Zu betrachtende Stationstypen (ist die Liste <code>null</code> oder leer, so werden alle Stationen übernommen)
+	 */
 	private static void addIDsToMap(final ModelSurface surface, final Map<Integer,ModelElementBox> ids, final Class<?>[] stationTypes) {
 		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
 			if (element instanceof ModelElementSource) continue;
@@ -190,6 +213,12 @@ public class SelectIDDialog extends BaseDialog {
 		return ids;
 	}
 
+	/**
+	 * Liefert eine Liste mit Stationsnamen (und ihren IDs)
+	 * @param ids	Zuordnung von IDs zu Stationselementen
+	 * @param preferProcessStations	Bedienstationen an den Anfang stellen
+	 * @return	Liste mit Stationsnamen (und ihren IDs)
+	 */
 	private String[] getIDNames(final Map<Integer,ModelElementBox> ids, final boolean preferProcessStations) {
 		this.ids=ids.keySet().stream().mapToInt(i->i).sorted().toArray();
 

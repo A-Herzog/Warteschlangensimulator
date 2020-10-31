@@ -151,8 +151,15 @@ public class ScriptPopup {
 	/** Hilfe-Runnable */
 	private final Runnable help;
 
+	/**
+	 * In dem Popupmenü anzuzeigende Eintragsgruppen
+	 * @see ScriptPopup.ScriptFeature
+	 */
 	private final Set<ScriptFeature> features;
 
+	/**
+	 * Wurzelelement für das Popupmenü
+	 */
 	private final ScriptPopupItemSub root;
 
 	/**
@@ -242,6 +249,14 @@ public class ScriptPopup {
 		}
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge für
+	 * "Javascript-System-Objekt (steht nur zur Verfügung, wenn das Simulation-Objekt nicht vorhanden ist).<br>
+	 * Hat auf die Darstellung der Befehle für Java keine Auswirkung."
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see ScriptFeature#JSSystem
+	 */
 	private void buildRuntime(final ScriptPopupItemSub parent) {
 		if (scriptMode==ScriptMode.Javascript && !features.contains(ScriptFeature.JSSystem)) return;
 
@@ -271,6 +286,13 @@ public class ScriptPopup {
 		parent.addChild(group);
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle für den Zugriff auf die Simulationseigenschaften
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see ScriptFeature#Simulation
+	 */
 	private void buildSystem(final ScriptPopupItemSub parent) {
 		if (!features.contains(ScriptFeature.Simulation)) return;
 		if (model==null) return;
@@ -347,6 +369,13 @@ public class ScriptPopup {
 		parent.addChild(group);
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle für den Zugriff auf die Eigenschaften einzelner Kunden.
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see ScriptFeature#Client
+	 */
 	private void buildClient(final ScriptPopupItemSub parent) {
 		if (!features.contains(ScriptFeature.Client)) return;
 
@@ -449,6 +478,13 @@ public class ScriptPopup {
 		parent.addChild(group);
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle für den Zugriff auf die Liste der wartenden Kunden
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see ScriptFeature#ClientsList
+	 */
 	private void buildClients(final ScriptPopupItemSub parent) {
 		if (!features.contains(ScriptFeature.ClientsList)) return;
 
@@ -521,6 +557,13 @@ public class ScriptPopup {
 		parent.addChild(group);
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle für den Abruf des Eingabewertes
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see ScriptFeature#InputValue
+	 */
 	private void buildInput(final ScriptPopupItemSub parent) {
 		if (!features.contains(ScriptFeature.InputValue)) return;
 
@@ -539,6 +582,16 @@ public class ScriptPopup {
 		parent.addChild(cmd);
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle zur Ausgabe
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @param leanMode	Eigene Untergruppe (<code>false</code>) oder direkt einbetten (<code>true</code>)?
+	 * @param fileMode	Dateiausgabe (<code>true</code>) oder direkte Ausgabe (<code>false</code>)
+	 * @param force	Ausgabe im {@link ScriptFeature#Output}-Modus auch dann erzwingen, wenn das Feature nicht aktiviert ist
+	 * @see ScriptFeature#Output
+	 */
 	private void buildOutput(final ScriptPopupItemSub parent, final boolean leanMode, final boolean fileMode, final boolean force) {
 		if (fileMode) {
 			if (!features.contains(ScriptFeature.FileOutput)) return;
@@ -642,6 +695,13 @@ public class ScriptPopup {
 		if (group!=parent) parent.addChild(group);
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle zum Zugriff auf die Statistik (Elemente hinzufügen)
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see ScriptFeature#Statistics
+	 */
 	private void buildAdd(final ScriptPopupItemSub parent) {
 		if (!features.contains(ScriptFeature.Statistics)) return;
 		if (statistics==null) return;
@@ -655,6 +715,14 @@ public class ScriptPopup {
 		}
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle zum  Ändern des Modells
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see ScriptFeature#Model
+	 * @see ScriptFeature#Statistics
+	 */
 	private void buildModel(final ScriptPopupItemSub parent) {
 		if (!features.contains(ScriptFeature.Model) || !features.contains(ScriptFeature.Statistics)) return;
 		if (statistics==null || model==null) return;
@@ -726,6 +794,12 @@ public class ScriptPopup {
 		parent.addSeparator();
 	}
 
+	/**
+	 * Fügt Befehle zum Zugriff über Parameterreihen-Eingabeparameter zu dem Popupmenü hinzu.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @param list	Liste der Parameterreihen-Eingabeparameter
+	 * @see #buildModel(ScriptPopupItemSub)
+	 */
 	private void addInputValuesToScriptPopup(final ScriptPopupItemSub parent, final List<Object> list) {
 		for (Object obj: list) {
 			if (obj instanceof ParameterCompareSetupValueInput) {
@@ -746,10 +820,21 @@ public class ScriptPopup {
 		}
 	}
 
+	/**
+	 * Wandelt Anführungszeichen in geschützte Anführungszeichen um.
+	 * @param text	Text, der ggf. Anführungszeichen enthält
+	 * @return	Text mit escapten Anführungszeichen
+	 */
 	private String escape(final String text) {
 		return text.replace("\"","\\\"");
 	}
 
+	/**
+	 * Liefert einen Skript-Code-Element zum Zugriff auf einen Parameterreihen-Eingabeparameter
+	 * @param input	Parameterreihen-Eingabeparameter
+	 * @return	Skript-Element
+	 * @see #addInputValuesToScriptPopup(ScriptPopupItemSub, List)
+	 */
 	private String inputToScript(final ParameterCompareSetupValueInput input) {
 		final String number=Language.tr("Statistic.FastAccess.Template.Parameter.Number");
 		final String tag=escape(input.getTag());
@@ -810,6 +895,14 @@ public class ScriptPopup {
 		return "";
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle zum Zugriff auf die Statistik (Tools)
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @param addOutputCommands	Fügt auch Ausgabebefehle hinzu
+	 * @see ScriptFeature#Statistics
+	 */
 	private void buildStatisticsTools(final ScriptPopupItemSub parent, final boolean addOutputCommands) {
 		if (!features.contains(ScriptFeature.Statistics)) return;
 		if (statistics==null) return;
@@ -853,6 +946,13 @@ public class ScriptPopup {
 		}
 	}
 
+	/**
+	 * Stellt Popupmenü-Einträge zur
+	 * Anzeige der Befehle zum Zugriff auf die Statistik
+	 * zur Verfügung.
+	 * @param parent	Übergeordnetes Popupmenü
+	 * @see ScriptFeature#Statistics
+	 */
 	private void buildStatistics(final ScriptPopupItemSub parent) {
 		if (!features.contains(ScriptFeature.Statistics)) return;
 		if (statistics==null) return;

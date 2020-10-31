@@ -41,6 +41,10 @@ public class SystemImpl implements SystemInterface {
 	private final SimulationData simData;
 	/** Laufzeitmodell */
 	private final RunModel runModel;
+	/**
+	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
+	 * @see #getExpression(String)
+	 */
 	private Map<String,ExpressionCalc> expressionCache;
 
 	/**
@@ -52,6 +56,11 @@ public class SystemImpl implements SystemInterface {
 		runModel=simData.runModel;
 	}
 
+	/**
+	 * Versucht eine Zeichenkette in ein Rechenobjekt umzuwandeln.
+	 * @param text	Zeichenkette, die die Formel enthält
+	 * @return	Liefert im Erfolgsfall ein Rechenobjekt, sonst eine Fehlermeldung
+	 */
 	private Object getExpression(final String text) {
 		if (expressionCache==null) expressionCache=new HashMap<>();
 		ExpressionCalc expression=expressionCache.get(text);

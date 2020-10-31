@@ -38,6 +38,11 @@ public class HandlerStatus extends HandlerText {
 		super(serverURL,()->getStatus(mainPanel),WebServerResponse.Mime.JSON,true);
 	}
 
+	/**
+	 * Escaped doppelte Anführungszeichen
+	 * @param text	Umzuwandelnder Text
+	 * @return	Umgewandelter Text
+	 */
 	private static String escapeString(final String text) {
 		return text.replace("\"","\\\"");
 	}

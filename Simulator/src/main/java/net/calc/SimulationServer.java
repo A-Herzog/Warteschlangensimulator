@@ -54,7 +54,9 @@ public class SimulationServer extends NetServer {
 
 	/** Wird <code>true</code> übergeben, so werden nicht mehr gleichzeitige Tasks angenommen, als logische CPU-Kerne für die Threads vorhanden sind. */
 	private final boolean limitThreadCount;
+	/** Gibt an, wie viele Simulationsthreads momentan laufen */
 	private int runningThreads;
+	/** Zählt, wie viele Simulationen bereits ausgeführt wurden */
 	private int simulationCount;
 
 	/**

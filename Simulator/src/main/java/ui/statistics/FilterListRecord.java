@@ -258,6 +258,12 @@ public final class FilterListRecord {
 		writeToJLabel(mode,text,label);
 	}
 
+	/**
+	 * Formatiert eine Zahl gem‰ﬂ einer Formatvorgabe als Zeichenkette
+	 * @param value	Zahl die als Zeichenkette formatiert werden soll
+	 * @param format	Formatvorgabe
+	 * @return	Zeichenkette
+	 */
 	private String formatNumber(final double value, final FilterListFormat format) {
 		if (format.isTime()) {
 			return (format.isSystem())?TimeTools.formatExactSystemTime(value):TimeTools.formatExactTime(value);

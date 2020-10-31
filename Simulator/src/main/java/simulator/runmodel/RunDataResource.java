@@ -40,7 +40,9 @@ import ui.modeleditor.ModelSurface;
  */
 public final class RunDataResource implements Cloneable {
 	private boolean firstRequest;
+	/** Name der Ressource */
 	private String name;
+	/** Icon der Ressource */
 	private String icon;
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
@@ -69,8 +71,11 @@ public final class RunDataResource implements Cloneable {
 	private StatisticsValuePerformanceIndicator statisticsCostsProcess;
 	private StatisticsValuePerformanceIndicator statisticsCostsIdle;
 
+	/** Kosten pro Betriebsstunde und Bediener */
 	private double costsPerActiveHour;
+	/** Kosten pro aktiver Arbeitsstunde und Bediener */
 	private double costsPerProcessHour;
+	/** Kosten pro Leerlaufstunde und Bediener */
 	private double costsPerIdleHour;
 
 	/**

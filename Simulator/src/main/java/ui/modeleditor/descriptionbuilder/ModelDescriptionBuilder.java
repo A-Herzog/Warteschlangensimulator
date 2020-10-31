@@ -55,8 +55,24 @@ public abstract class ModelDescriptionBuilder {
 	 */
 	private final List<Integer> elementIDs;
 
+	/**
+	 * Aktuell in Bearbeitung befindliche Station
+	 * @see #beginStation(ModelElement)
+	 * @see #done()
+	 */
 	private ModelElementBox currentStation;
+
+	/**
+	 * Für die aktuelle Station erfasste Eigenschaften.
+	 */
 	private Map<Integer,List<String[]>> properties;
+
+	/**
+	 * Vorschlagswert für die als nächstes zu bearbeitende Station
+	 * @see #addEdgeOut(ModelElementEdge)
+	 * @see #addConditionalEdgeOut(String, ModelElement)
+	 * @see #getNextElementSuggestion()
+	 */
 	private ModelElementBox nextElementSuggestion;
 
 	/**
@@ -89,6 +105,11 @@ public abstract class ModelDescriptionBuilder {
 		return model;
 	}
 
+	/**
+	 * Liefert den Namen einer Station
+	 * @param element	Station
+	 * @return	Name der Station
+	 */
 	private static String getBoxStationName(final ModelElement element) {
 		final StringBuilder sb=new StringBuilder();
 		sb.append(element.getContextMenuElementName());
@@ -102,6 +123,11 @@ public abstract class ModelDescriptionBuilder {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert einen Vorschlagswert für die Folgestation einer Station
+	 * @param element	Station deren auslaufende Kanten betrachtet werden sollen
+	 * @return	Vorschlagswert für Folgestation
+	 */
 	private static ModelElementBox getNextBoxStation(ModelElement element) {
 		while (!(element instanceof ModelElementBox)) {
 			if (element==null) return null;
@@ -300,6 +326,12 @@ public abstract class ModelDescriptionBuilder {
 		return nextElementSuggestion;
 	}
 
+	/**
+	 * Prüft, ob eine bestimmte Station bei der Erstellung der Beschreibung übersprungen werden soll
+	 * @param element	Zu prüfende Station
+	 * @return	Liefert <code>true</code>, wenn die Station übersprungen werden soll
+	 * @see #elementIDs
+	 */
 	private boolean skipElement(final ModelElement element) {
 		if (elementIDs==null) return false; /* Alle Elemente verarbeiten */
 		return !elementIDs.contains(element.getId());

@@ -251,6 +251,11 @@ public final class CreateSankey extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Erstellt die Liste der Stationen.
+	 * @return	Liste der Stationen
+	 * @see #stations
+	 */
 	private List<String> getStationsList() {
 		final Set<String> stations=new HashSet<>();
 		final int rows=table.getSize(0);
@@ -543,12 +548,24 @@ public final class CreateSankey extends BaseDialog {
 	}
 	 */
 
+	/**
+	 * Wandelt einen Stationsnamen passend für die Ausgabe um.
+	 * @param name	Stationsname
+	 * @return	Stationsname in einer für die Ausgabe passenden Form.
+	 * @see #storeData()
+	 */
 	private String processName(String name) {
 		if (name.equals(stationNameStart)) name=nameStart.getText().trim();
 		if (name.equals(stationNameEnd)) name=nameEnd.getText().trim();
 		return name.replace("\"","\\\"");
 	}
 
+	/**
+	 * Liefert eine Zuordnung, die angibt, wie viele Kunden von einer Station
+	 * zu einer anderen gewechselt sind, auf Basis der Übergangstabelle.
+	 * @param table	Tabelle mit Verknüpfungsdaten
+	 * @return	Zuordnung von Start- und Zielstation zu der Anzahl an jeweiligen Übergängen
+	 */
 	private Map<String,Map<String,Long>> buildMapFromTransitions(final Table table) {
 		final Map<String,Map<String,Long>> allConnections=new HashMap<>();
 
@@ -570,6 +587,13 @@ public final class CreateSankey extends BaseDialog {
 		return allConnections;
 	}
 
+	/**
+	 * Liefert die Anzahlen an Übergängen zwischen den Stationen
+	 * @param connections	Allgemeine Stations-Übergangs-Zuordnung
+	 * @param usedStations	Betrachtete Stationen
+	 * @return	Übergänge zwischen den betrachteten Stationen (jeder Listeneintrag ist ein 3-elementiges Array aus Quell-ID, Ziel-ID und Anzagl)
+	 * @see #storeData()
+	 */
 	private List<long[]> getSankeyConnectionData(final Map<String,Map<String,Long>> connections, final List<String> usedStations) {
 		final List<long[]> data=new ArrayList<>();
 		for (Map.Entry<String,Map<String,Long>> entry1: connections.entrySet()) {
@@ -585,6 +609,14 @@ public final class CreateSankey extends BaseDialog {
 		return data;
 	}
 
+	/**
+	 * Fügt eine Verbindung zu der allgemeinen Stations-Übergangs-Zuordnung hinzu.
+	 * @param connections	Allgemeine Stations-Übergangs-Zuordnung
+	 * @param from	Quell-Station
+	 * @param to	Ziel-Station
+	 * @param count	Anzahl an Kunden
+	 * @see #buildSelectedStationsMap(Map, Set)
+	 */
 	private void addConnection(final Map<String,Map<String,Long>> connections, final String from, final String to, final long count) {
 		Map<String,Long> sub=connections.get(from);
 		if (sub==null) connections.put(from,sub=new HashMap<>());
@@ -592,6 +624,17 @@ public final class CreateSankey extends BaseDialog {
 		if (L==null) sub.put(to,count); else sub.put(to,Long.valueOf(L.longValue()+count));
 	}
 
+	/**
+	 * Fügt eine Verbindung zu der allgemeinen Stations-Übergangs-Zuordnung hinzu.<br>
+	 * (Diese Methode ist für den Fall gedacht, dass eine Zwischenstation zwischen zwei Stationen für die Ausgabe nicht vorgesehen ist.)
+	 * @param allConnections	Zuordnung aller Übergänge
+	 * @param usedStations	Tatsächlich betrachtete Stationen
+	 * @param connections	Allgemeine Stations-Übergangs-Zuordnung
+	 * @param from	Quell-Station
+	 * @param to	Ziel-Station
+	 * @param count	Anzahl an Kunden
+	 * @see #buildSelectedStationsMap(Map, Set)
+	 */
 	private void addConnectionIndirect(final Map<String,Map<String,Long>> allConnections, final Set<String> usedStations, final Map<String,Map<String,Long>> connections, final String from, final String to, final long count) {
 		/* from->to existiert nicht, daher Kunden aufteilen auf die to->... Ausgänge */
 
@@ -615,6 +658,13 @@ public final class CreateSankey extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Berechnet die Anzahl an Kundenübergängen zwischen bestimmten Stationen
+	 * @param allConnections	Zuordnung aller Übergänge
+	 * @param usedStations	Tatsächlich betrachtete Stationen
+	 * @return	Zuordnung der Kundenübergänge zwischen den betrachteten Stationen
+	 * @see #storeData()
+	 */
 	private Map<String,Map<String,Long>> buildSelectedStationsMap(Map<String,Map<String,Long>> allConnections, final Set<String> usedStations) {
 		final Map<String,Map<String,Long>> realConnections=new HashMap<>();
 
@@ -637,6 +687,13 @@ public final class CreateSankey extends BaseDialog {
 		return realConnections;
 	}
 
+	/**
+	 * Berechnet die Anzahl an Kundenübergängen zwischen bestimmten Stationen
+	 * @param table	Tabelle der die Übergangsdaten entnommen werden sollen
+	 * @param usedStations	Tatsächlich betrachtete Stationen
+	 * @return	Zuordnung der Kundenübergänge zwischen den betrachteten Stationen
+	 * @see #storeData()
+	 */
 	private Map<String,Map<String,Long>> buildMapFromPaths(final Table table, final Set<String> usedStations) {
 		final Map<String,Map<String,Long>> connections=new HashMap<>();
 

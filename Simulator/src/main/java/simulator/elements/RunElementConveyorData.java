@@ -35,6 +35,9 @@ import simulator.simparser.ExpressionCalc;
  * @see RunElementData
  */
 public class RunElementConveyorData extends RunElementData {
+	/**
+	 * Initiale Größe für {@link #waitingClients}
+	 */
 	private static final int DEFAULT_QUEUE_SIZE=256;
 
 	/**
@@ -57,7 +60,11 @@ public class RunElementConveyorData extends RunElementData {
 	 */
 	public boolean queueLockedForPickUp;
 
+	/**
+	 * Notwendige Zeit, um einen Kunden über das Fließband zu bewegen
+	 */
 	private long transportTimeMS;
+
 	private boolean notifyTriggered;
 
 	/**

@@ -32,6 +32,10 @@ import xml.ChiperTools;
  * @author Alexander Herzog
  */
 public final class NetTransfer {
+	/**
+	 * Vorgabewert für die maximale Größe von empfangbaren Datenblöcken
+	 * (zur Vermeidung von externen Angreifern induzierten Out-of-Memory-Fehlern)
+	 */
 	private static final int DEFAULT_MAX_TRANSFER_SIZE=250*1024*1024;
 
 	/** Offener Socket (wird von dieser Klasse auch nicht geschlossen) */

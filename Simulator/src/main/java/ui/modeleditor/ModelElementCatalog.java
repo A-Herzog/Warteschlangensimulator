@@ -43,7 +43,7 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.*;
 
 /**
- * Katalog, an dem sich alle von <code>ModelElement</code> abgeleiteten final nutzbaren Modell-Elemente registrieren sollen.
+ * Katalog, an dem sich alle von {@link ModelElement} abgeleiteten final nutzbaren Modell-Elemente registrieren sollen.
  * @author Alexander Herzog
  * @see ModelElement
  * @see #getCatalog()
@@ -67,9 +67,30 @@ public final class ModelElementCatalog {
 	 */
 	public static Mode mode=Mode.FULL;
 
+	/**
+	 * Singleton-Instanz von {@link ModelElementCatalog}
+	 * @see #getCatalog()
+	 */
 	private static ModelElementCatalog catalog;
+
+	/**
+	 * Zuordnung der Elemente zu ihren Namen
+	 * @see #getMenuNames()
+	 */
 	private Map<String,ModelElementPosition> elementsAdd;
+
+	/**
+	 * Zuordnung der Elemente zu ihren xml-Namen
+	 * @see #getXMLElement(String)
+	 */
 	private Map<String,ModelElement> elementsLoad;
+
+
+	/**
+	 * Alle Elemente nach Gruppen sortiert
+	 * @see #getGroupCount()
+	 * @see #getAll()
+	 */
 	private Map<String,Map<String,ModelElementPosition>> elementsGroups;
 
 	/** Bezeichner für die Elementenvorlagengruppe "Eingang/Ausgang" */
@@ -116,6 +137,10 @@ public final class ModelElementCatalog {
 		initCatalog();
 	}
 
+	/**
+	 * Initialisiert den Elementvorlagen-Katalog.
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean initCatalog() {
 		final ExecutorService executor=new ThreadPoolExecutor(0,Runtime.getRuntime().availableProcessors(),5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			private final AtomicInteger threadNumber=new AtomicInteger(1);
@@ -515,6 +540,15 @@ public final class ModelElementCatalog {
 		return elementsLoad.get(nameXML);
 	}
 
+	/**
+	 * Liefert ein Liste mit Einträgen für alle Modell-Element-Vorlagen
+	 * @param visibleGroups Sichtbare Gruppen; es werden nur Elemente in den Gruppen ausgegeben, die sichtbar sein sollen (kann leer oder <code>null</code> sein)
+	 * @param openGroups	Ausgeklappte Gruppen; Elemente in nicht offenen Gruppen werden eingeklappt (kann leer oder <code>null</code> sein)
+	 * @param filter	Filter-String; es werden nur Elemente ausgegeben, die zu dem Filter passen (kann leer oder <code>null</code> sein)
+	 * @param isSubModel	Gibt an, ob die Vorlagen für ein Submodell (d.h. dann ohne das Submodell-Element) ausgegeben werden soll
+	 * @return	Liste für eine Auswahlliste zum Einfügen von neuen Elementen
+	 * @see #getTemplatesListModel(String, String, String, boolean)
+	 */
 	private List<ModelElementPosition> getTemplatesList(final String visibleGroups, final String openGroups, final String filter, final boolean isSubModel) {
 		List<ModelElementPosition> list=new ArrayList<>();
 

@@ -698,6 +698,12 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		});
 	}
 
+	/**
+	 * Erzeugt ein Bild, das eine bestimmt Linienbreite für ein Auswahlfeld darstellt.
+	 * @param width	Linienbreite
+	 * @param imageSize	Größe für das Bild
+	 * @return	Bild zur Darstellung einer Linienbreite
+	 */
 	private static BufferedImage getLineWidthImage(final int width, final int imageSize) {
 		final BufferedImage image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_4BYTE_ABGR);
 

@@ -244,6 +244,10 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return Color.LIGHT_GRAY;
 	}
 
+	/**
+	 * Hintergrundfarbe im Falle der Hochkontrast-Darstellung
+	 * @see #getDrawBackgroundColor()
+	 */
 	private static final Color highContrastColor=new Color(255,255,240);
 
 	/**
@@ -291,9 +295,30 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		fireChanged();
 	}
 
+	/**
+	 * Zoomfaktor auf den sich {@link #lastFontDefaultBox} und {@link #lastFontBoldBox} beziehen
+	 * @see #lastFontDefaultBox
+	 * @see #lastFontBoldBox
+	 */
 	private double lastZoomFontBox=-1;
+
+	/**
+	 * Kontrast-Status auf den sich {@link #lastFontDefaultBox} und {@link #lastFontBoldBox} beziehen
+	 * @see #lastFontDefaultBox
+	 * @see #lastFontBoldBox
+	 */
 	private boolean lastUseHighContrasts;
+
+	/**
+	 * Cache für die normale Schriftart
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFontDefaultBox;
+
+	/**
+	 * Cache für fette Schriftart
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFontBoldBox;
 
 	/**
@@ -386,9 +411,33 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		drawRect(graphics,drawRect,zoom,borderColor,borderWidth,getDrawBackgroundColor(),2);
 	}
 
+	/**
+	 * Zoomfaktor auf den sich {@link #infoFont}, {@link #infoFontAscent}
+	 * und {@link #infoFontHeight} beziehen.
+	 * @see #infoFont
+	 * @see #infoFontAscent
+	 * @see #infoFontHeight
+	 */
 	private double infoFontZoom;
+
+	/**
+	 * Cache für die Schriftart in {@link #drawRect(Graphics, Rectangle, double, Color, int, Color, int)}
+	 * @see #drawRect(Graphics, Rectangle, double, Color, int, Color, int)
+	 */
 	private Font infoFont;
+
+	/**
+	 * Berechnete Höhe über Grundlinie für {@link #infoFont}
+	 * @see #infoFont
+	 * @see #drawRect(Graphics, Rectangle, double, Color, int, Color, int)
+	 */
 	private int infoFontAscent;
+
+	/**
+	 * Berechnete Gesamthöhe für {@link #infoFont}
+	 * @see #infoFont
+	 * @see #drawRect(Graphics, Rectangle, double, Color, int, Color, int)
+	 */
 	private int infoFontHeight;
 
 	/**
@@ -537,12 +586,54 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return true;
 	}
 
+	/**
+	 * Sichert den Zugriff auf {@link #runDataInfo} und {@link #runDataInfoString} ab.
+	 * @see #runDataInfo
+	 * @see #runDataInfoString
+	 * @see #getRunDataAnimationInfo()
+	 * @see #setAnimationStringBuilder(StringBuilder, Runnable)
+	 */
 	private Semaphore runDataDrawLock=new Semaphore(1);
+
+	/**
+	 * Laufzeitdaten zu dem Element
+	 * @see #getRunData()
+	 * @see #initAnimation(SimulationData)
+	 */
 	private RunElementData runData=null;
+
+	/**
+	 * Bezeichner "aktuell="
+	 */
 	private String runDataCurrentString;
+
+	/**
+	 * Bezeichner "gesamt="
+	 */
 	private String runDataSumString;
+
+	/**
+	 * Ausgabeobjekt für die Erstellung von Animations-Ausgabedaten
+	 * @see #getRunDataAnimationInfo()
+	 * @see #setAnimationStringBuilder(StringBuilder, Runnable)
+	 */
 	private StringBuilder runDataInfo;
+
+	/**
+	 * Zeichenkette zur Ausgabe von Animations-Ausgaben
+	 * @see #getRunDataAnimationInfo()
+	 * @see #setAnimationStringBuilder(StringBuilder, Runnable)
+	 */
 	private String runDataInfoString;
+
+	/**
+	 * Gibt an, ob nur die Anzahl an Kunden, die diese Station passiert haben
+	 * oder aber zusätzlich auch die aktuelle Anzahl an Kunden an der Station
+	 * während der Animation angezeigt werden sollen.<br>
+	 * Nur Gesamtanzahl = <code>false</code>, Gesamtanzahl und aktueller Wert = <code>true</code>
+
+	 * @see #showFullAnimationRunData()
+	 */
 	private boolean runDataFullInformation;
 
 	/**
@@ -616,11 +707,31 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return runData;
 	}
 
+	/**
+	 * Aktuelle Anzahl der Kunden an der Station beim letzten Aufruf von {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private long lastClientsAtStation=-1;
+
+	/**
+	 * Gesamtzahl der Kunden an der Station beim letzten Aufruf von {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private long lastClients=-1;
+
+	/**
+	 * Array der {@link StringBuilder} für die Ausgabe
+	 * der Animationsdaten
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private StringBuilder[] animationSB;
+
+	/**
+	 * Index des nächsten {@link StringBuilder}-Objektes für die
+	 * Ausgabe
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private int animationSBNext;
-	private StringBuilder animationFormatLongSB;
 
 	@Override
 	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {
@@ -635,8 +746,6 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			if (runData.clients==lastClients) return false;
 			lastClients=runData.clients;
 		}
-
-		if (animationFormatLongSB==null) animationFormatLongSB=new StringBuilder();
 
 		if (runDataFullInformation) {
 			if (animationSB==null) {
@@ -671,7 +780,15 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return true;
 	}
 
-	private Runnable updateSimulationDataRunnableInstance=()->{animationSBNext=(animationSBNext++)%2;}; /* Spart Speicherplatz */
+	/**
+	 * Runnable zur Aktualisierung des jeweils zu verwndenden {@link StringBuilder}-Objektes
+	 * in {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 * @see #setAnimationStringBuilder(StringBuilder, Runnable)
+	 */
+	private Runnable updateSimulationDataRunnableInstance=()->{ /* Spart Speicherplatz */
+		animationSBNext=(animationSBNext++)%2;
+	};
 
 	/**
 	 * Stellt einen {@link StringBuilder} ein, dem beim Ausgeben der Infodaten unter einer Station während der Animation der Text entnommen werden soll.
@@ -698,6 +815,13 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		descriptionBuilder.beginStation(this);
 	}
 
+	/**
+	 * Liefert die Implementierung der "infoBox"-Javascript-Funktion
+	 * für die Ausgabe des Elements in Javascript-Code.
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 * @return	Javascript-Funktion
+	 * @see #specialHTMLOutput(HTMLOutputBuilder)
+	 */
 	private String getInfoBox(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -716,6 +840,13 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert die Implementierung der "boxElementFont"-Javascript-Funktion
+	 * für die Ausgabe des Elements in Javascript-Code.
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 * @return	Javascript-Funktion
+	 * @see #specialHTMLOutput(HTMLOutputBuilder)
+	 */
 	private String getBoxElementFont(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -732,6 +863,10 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialHTMLOutput(final HTMLOutputBuilder outputBuilder) {
 		/* Notwendige JS-Funktionen bereithalten */
 		outputBuilder.addJSUserFunction("infoBox",builder->getInfoBox(builder));
@@ -816,8 +951,28 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		return false;
 	}
 
+	/**
+	 * Aktuelles zusätzliches Icon das auf das Shape gezeichnet wird
+	 * @see #setAdditionalClientIconFromName(String)
+	 * @see #setAdditionalIconFromName(String)
+	 * @see #setAdditionalTransporterIconFromName(String)
+	 */
 	private String lastAdditionalIcon=null;
+
+	/**
+	 * Aktuelles zusätzliches Kunden-Icon das auf das Shape gezeichnet wird
+	 * @see #setAdditionalClientIconFromName(String)
+	 * @see #setAdditionalIconFromName(String)
+	 * @see #setAdditionalTransporterIconFromName(String)
+	 */
 	private String lastAdditionalClientIcon=null;
+
+	/**
+	 * Aktuelles zusätzliches Transporter-Icon das auf das Shape gezeichnet wird
+	 * @see #setAdditionalClientIconFromName(String)
+	 * @see #setAdditionalIconFromName(String)
+	 * @see #setAdditionalTransporterIconFromName(String)
+	 */
 	private String lastAdditionalTransporterIcon=null;
 
 	/**
@@ -908,6 +1063,13 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		}
 	}
 
+	/**
+	 * Liefert den Namen dieser Station für andere Elemente die auf diese Referenzieren
+	 * @return	Name dieser Station für andere Elemente die auf diese Referenzieren
+	 * @see #addVisualizationTrafficLightsMenuItem(String, JMenu, Consumer)
+	 * @see #addVisualizationTrafficLightsMenuItem(String, JMenu, Consumer, String)
+	 * @see #addVisualizationMenuItem(JMenu, Consumer, VisualizationType)
+	 */
 	private String getNameForReference() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append(getTypeName());

@@ -36,6 +36,7 @@ public final class ModelTransporterFailure implements Cloneable {
 	public static String[] XML_NODE_NAME=new String[]{"TransporterAusfall"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
 	/**
+	 * Nach welcher Regel sollen Ausfälle erfolgen?
 	 * @see ModelTransporterFailure#getFailureMode()
 	 * @see ModelTransporterFailure#getFailureNumber()
 	 * @see ModelTransporterFailure#setFailureByNumber(int)
@@ -57,13 +58,24 @@ public final class ModelTransporterFailure implements Cloneable {
 		FAILURE_BY_EXPRESSION
 	}
 
+	/**
+	 * Nach welcher Regel sollen Ausfälle erfolgen?
+	 * @see FailureMode
+	 */
 	private FailureMode modeFailure;
+
+	/** Anzahl an Bedienungen, nach denen der Transporter in Pause/Ausfallzeit geht */
 	private int servedNumber;
+	/** Zeitdauer oder Strecke, nach der der Transporter in Pause/Ausfallzeit geht */
 	private double servedTimeOrDistance;
+	/** Verteilung gemäß der der Transporter ausfällt */
 	private AbstractRealDistribution interDownTimeDistribution;
+	/** Ausdruck, der die Abstände zwischen zwei Ausfällen bestimmt */
 	private String interDownTimeExpression;
 
+	/** Verteilung der Pausen/Ausfallzeiten-Dauern des Transporters */
 	private AbstractRealDistribution downTimeDistribution;
+	/** Ausdruck gemäß dessen die Pausen/Ausfallzeiten-Dauern des Transporters bestimmt werden sollen */
 	private String downTimeExpression;
 
 	/**
@@ -73,6 +85,9 @@ public final class ModelTransporterFailure implements Cloneable {
 		clear();
 	}
 
+	/**
+	 * Löscht alle momentan in diesem Objekt hinterlegten Daten.
+	 */
 	private void clear() {
 		modeFailure=FailureMode.FAILURE_BY_NUMBER;
 		servedNumber=1000;

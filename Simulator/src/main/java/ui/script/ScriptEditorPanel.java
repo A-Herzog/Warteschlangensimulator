@@ -193,11 +193,19 @@ public class ScriptEditorPanel extends JPanel {
 	private final RSyntaxTextArea scriptEditJavascript;
 	/** Eingabefeld für Java-Code */
 	private final RSyntaxTextArea scriptEditJava;
+	/** Panel welches die Editoren für die verschiedenen Skriptsprachen aufnimmt */
 	private final JPanel scriptEditMulti;
+	/** Layout zur Einblendung der verschiedenen Editoren in {@link #scriptEditMulti} */
 	private final CardLayout scriptEditMultiLayout;
 	/** Auswahlfeld für die Skriptsprache */
 	private final JComboBox<String> languageCombo;
 
+	/**
+	 * Zu letzt eingestelltes oder gespeichertes Skript
+	 * (zur Prüfung, ob das aktuelle Skript im Editor
+	 * ohne Sicherheitsabfrage verworfen werden darf)
+	 * @see #allowDiscard()
+	 */
 	private String lastScript="";
 
 	/**
@@ -317,6 +325,15 @@ public class ScriptEditorPanel extends JPanel {
 	protected void addCustomToolbarButtons(final JToolBar toolbar) {
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche und fügt sie zur Symbolleiste hinzu.
+	 * @param toolbar	Symbolleiste auf der die neue Schaltfläche eingefügt werden soll
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param icon	Optionales Icon für die Schaltfläche (darf <code>null</code> sein)
+	 * @param hint	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param readOnly	Soll die Schaltfläche aktiviert sein (<code>false</code>) oder deaktiviert werden (<code>true</code>)?
+	 * @return	Neue Schaltfläche (ist bereits in die Symbolleiste eingefügt)
+	 */
 	private JButton addToolbarButton(final JToolBar toolbar, final String title, final Icon icon, final String hint, final boolean readOnly) {
 		final JButton button=new JButton(title);
 		toolbar.add(button);
@@ -327,10 +344,19 @@ public class ScriptEditorPanel extends JPanel {
 		return button;
 	}
 
+	/**
+	 * Wird aufgerufen, wenn in der Auswahlbox die Skriptsprache
+	 * verändert wurde nun nun der Editor angepasst werden soll.
+	 * @see #languageCombo
+	 */
 	private void languageChanged() {
 		scriptEditMultiLayout.show(scriptEditMulti,""+languageCombo.getSelectedIndex());
 	}
 
+	/**
+	 * Stellt das aktuelle Skript im Editor ein
+	 * @param script	Neues Skript
+	 */
 	private void setCurrentScript(final String script) {
 		switch (languageCombo.getSelectedIndex()) {
 		case 0: scriptEditJavascript.setText(script); break;
@@ -372,6 +398,11 @@ public class ScriptEditorPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Befehl: Skript laden
+	 * @param file	Zu ladende Datei (wird <code>null</code> übergeben, so wird ein Dateiauswahldialog angezeigt)
+	 * @return	Liefer <code>true</code>, wenn eine Datei geladen wurde
+	 */
 	private boolean commandLoad(File file) {
 		if (file==null) {
 			final JFileChooser fc=new JFileChooser();
@@ -409,6 +440,10 @@ public class ScriptEditorPanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Befehl: Skript speichern
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean commandSave() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -450,6 +485,10 @@ public class ScriptEditorPanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Zeigt ein Popupmenü mit Befehlsvorschlägen an.
+	 * @see #buttonTools
+	 */
 	private void commandPopup() {
 		ScriptPopup.ScriptMode mode=ScriptPopup.ScriptMode.Javascript;
 		switch (languageCombo.getSelectedIndex()) {
@@ -466,6 +505,9 @@ public class ScriptEditorPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Schaltflächen
+	 */
 	private class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

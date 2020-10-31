@@ -35,6 +35,7 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @see RunDataTransporters
  */
 public class RunDataTransporter {
+	/** Objekt welches die Daten aller Transporter vorhält */
 	private final RunDataTransporters list;
 	private StatisticsTimePerformanceIndicator statisticUtilization;
 	private StatisticsTimePerformanceIndicator statisticDownTime;
@@ -305,7 +306,6 @@ public class RunDataTransporter {
 				statisticUtilization.set(simData.currentTime*toSec,list.getWorkingTransporters(type));
 			}
 			/* Bewegung für Ausfall-System zählen */
-
 			for (RunDataTransporterFailure failure: failures) failure.countServed(clientCount,transferTimeMS,transferDistance);
 		}
 

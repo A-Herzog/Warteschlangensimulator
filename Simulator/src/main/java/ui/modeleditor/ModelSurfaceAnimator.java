@@ -61,10 +61,19 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 		MODE_MULTI
 	}
 
+	/** Animationsmodus */
 	private final AnimationMoveMode mode;
+	/** Wird hier ein Wert ungleich <code>null</code> angegeben, so werden die gezeichneten Animationsschritte in dem übergebenen System aufgezeichnet */
 	private VideoSystem recordSystem;
+	/** Fügt in das Video den jeweils aktuellen Simulationszeit-Wert ein */
 	private boolean paintTimeStamp;
+	/** Größe der Zeichenfläche (für die Aufzeichnung von Videos, {@link #recordStep(SimulationData)}) */
 	private Dimension surfaceSize;
+
+	/**
+	 * Aktuelle Simulationszeit
+	 * @see #process(SimulationData, RunDataClient, int)
+	 */
 	private long currentTime;
 
 	/**
@@ -81,7 +90,16 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 		this.mode=mode;
 	}
 
+	/**
+	 * Simulationszeit an der die letzte Bewegung stattgefunden hat
+	 * @see #processMulti(SimulationData, RunDataClient, int)
+	 */
 	private long lastMultiMoveTime;
+
+	/**
+	 * Liste der sich bewegenden Kunden-Icons
+	 * @see #processMulti(SimulationData, RunDataClient, int)
+	 */
 	private List<MoveClient> multiMovedClients;
 
 
@@ -125,6 +143,15 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 		surfaceSize=new Dimension((int)FastMath.ceil((maxX+minX)/8.0)*8,(int)FastMath.ceil((maxY+minY)/8.0)*8);
 	}
 
+	/**
+	 * Trägt die aktuelle Simulationszeit in ein Ausgabe-Grafikobjekt
+	 * ein, welches dann als Video aufgezeichnet wird.
+	 * @param graphics	Ausgabe-Grafikobjekt
+	 * @param area	Ausgabeflächengröße
+	 * @param zoom	Aktueller Zoomfaktor
+	 * @param time	Aktueller Zeitpunkt (in Simulationszeit)
+	 * @see #recordStep(SimulationData)
+	 */
 	private void surfacePaintTime(final Graphics graphics, final Rectangle area, final double zoom, final long time) {
 		final String timeCode=TimeTools.formatLongTime(time);
 
@@ -139,6 +166,10 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 		graphics.drawString(timeCode,5,area.height-metrics.getDescent()-5);
 	}
 
+	/**
+	 * Zeichnet einen Simulationsschritt auf
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void recordStep(final SimulationData simData) {
 		final BufferedImage image=recordSystem.getImageObjectFromCache(surfaceSize.width,surfaceSize.height);
 		final Graphics graphics=image.getGraphics();
@@ -213,12 +244,28 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 		animate(iconEast,iconWest,transporter,delay,simData);
 	}
 
+	/**
+	 * Teilt dem Animationssystem mit, dass sich ein Kunde bewegt hat oder es sonst Veränderungen im System gab
+	 * (Einzelbewegung).
+	 * @param simData	Simulationsdaten-Objekt
+	 * @param client	Kunde, der sich bewegt hat (kann auch <code>null</code> sein)
+	 * @param delay	Verzögerung pro Animationsschritt
+	 * @see #process(SimulationData, RunDataClient, int)
+	 */
 	private void processSingle(final SimulationData simData, final RunDataClient client, final int delay) {
 		if (client==null || client.lastStationID==-1 || client.nextStationID==-1) return;
 
 		animate(new MoveClient(client),delay,simData);
 	}
 
+	/**
+	 * Teilt dem Animationssystem mit, dass sich ein Kunde bewegt hat oder es sonst Veränderungen im System gab
+	 * (Mehrfachbewegung).
+	 * @param simData	Simulationsdaten-Objekt
+	 * @param client	Kunde, der sich bewegt hat (kann auch <code>null</code> sein)
+	 * @param delay	Verzögerung pro Animationsschritt
+	 * @see #process(SimulationData, RunDataClient, int)
+	 */
 	private void processMulti(final SimulationData simData, RunDataClient client, final int delay) {
 		if (client!=null && (client.lastStationID==-1 || client.nextStationID==-1)) client=null;
 		boolean forceMove=false;

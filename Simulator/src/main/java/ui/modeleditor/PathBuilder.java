@@ -34,11 +34,27 @@ import ui.modeleditor.elements.WayPointRecord;
  * @see PathEditorDialog
  */
 public class PathBuilder {
+	/**
+	 * Soll in {@link #runLog} erfasst werden,
+	 * wenn kein Pfad gefunden werden konnte?
+	 * @see #getPath(ModelElement, ModelElement, List, List)
+	 */
 	private static final boolean LOG_NO_PATH_FOUND=false;
 
-	/** Zeichenfläche auf der Hauptebene */
+	/**
+	 * Zeichenfläche auf der Hauptebene
+	 */
 	private final ModelSurface mainSurface;
+
+	/**
+	 * Liste der Von-Nach-Verknüpfungen
+	 */
 	private final List<Connection> connections;
+
+	/**
+	 * Logging-Informationen des letzten Laufs
+	 * @see #getRunLog()
+	 */
 	private final List<String> runLog;
 
 	/**
@@ -72,6 +88,11 @@ public class PathBuilder {
 		connections.add(new Connection(previous,next));
 	}
 
+	/**
+	 * Entfernt alle Wegpunkt-Einstellungen aus den
+	 * {@link ModelElementWayPoint}-Elementen auf der Zeichenfläche.
+	 * @param surface	Zeichenfläche auf der und auf deren Unterzeichenflächen alle Wegpunkt-Einstellungen gelöscht werden sollen
+	 */
 	private void clearWayPoints(final ModelSurface surface) {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementWayPoint) ((ModelElementWayPoint)element).getRecords().clear();
@@ -79,6 +100,12 @@ public class PathBuilder {
 		}
 	}
 
+	/**
+	 * Erstellt eine Liste mit allen Stationen und ihren Namen auf einer Zeichenfläche
+	 * @param list	Liste mit allen Stationen
+	 * @param names	Liste mit den Namen der Stationen
+	 * @param surface	Zeichenfläche die durchsucht werden soll
+	 */
 	private void getStationsList(final List<ModelElement> list, final List<String> names, final ModelSurface surface) {
 		for (ModelElement element: surface.getElements()) {
 			/* Untermodelle */
@@ -104,6 +131,10 @@ public class PathBuilder {
 		}
 	}
 
+	/**
+	 * Liefert eine Liste mit allen Stationen.
+	 * @return	Liste mit allen Stationen
+	 */
 	private List<ModelElement> getStationsList() {
 		final List<String> names=new ArrayList<>();
 		final List<ModelElement> list=new ArrayList<>();
@@ -111,6 +142,14 @@ public class PathBuilder {
 		return list;
 	}
 
+	/**
+	 * Ermittelt einen Pfad von einer Start- zu einer Zielstation
+	 * @param origin	Startstation
+	 * @param destination	Zielstation
+	 * @param alreadyUsed	Bereits verwendete Stationen
+	 * @param stations	Liste alle Stationen
+	 * @return	Pfad
+	 */
 	private List<ModelElement> getPath(final ModelElement origin, final ModelElement destination, final List<ModelElement> alreadyUsed, final List<ModelElement> stations) {
 		alreadyUsed.add(origin);
 		try {
@@ -139,6 +178,13 @@ public class PathBuilder {
 		}
 	}
 
+	/**
+	 * Ermittelt einen Pfad von einer Start- zu einer Zielstation
+	 * @param origin	Startstation
+	 * @param destination	Zielstation
+	 * @param stations	Liste alle Stationen
+	 * @return	Pfad
+	 */
 	private List<ModelElement> getPath(final ModelElement origin, final ModelElement destination, final List<ModelElement> stations) {
 		final List<ModelElement> path=new ArrayList<>();
 
@@ -166,6 +212,11 @@ public class PathBuilder {
 		return path;
 	}
 
+	/**
+	 * Erstellt die Pfade in dem Modell basierend auf den definierten Pfad-Elementen
+	 * (oder führt nur ein Logging ohne tatsächliche Veränderung der Daten aus).
+	 * @param loggingOnly	Nur Logging-Daten erzeugen und keine wirklichen Pfade generieren?
+	 */
 	private void run(final boolean loggingOnly) {
 		/* Logging-Daten von früheren Läufen derselben Instanz löschen */
 		runLog.clear();
@@ -215,6 +266,12 @@ public class PathBuilder {
 
 	}
 
+	/**
+	 * Liefert eine Zeichenkette die den Übergang von einer Station zu einer anderen beschreibt.
+	 * @param origin	Startstation
+	 * @param destination	Zielstation
+	 * @return	Zeichenkette die den Stationsübergang beschreibt
+	 */
 	private String getFromToString(final ModelElement origin, final ModelElement destination) {
 		return origin.getName()+" (id="+origin.getId()+") -> "+destination.getName()+" (id="+destination.getId()+")";
 	}
@@ -241,10 +298,20 @@ public class PathBuilder {
 		return runLog.toArray(new String[0]);
 	}
 
+	/**
+	 * Repräsentiert eine einzelne Verbindung
+	 */
 	private class Connection {
+		/** Ausgangsstation */
 		public final ModelElement previous;
+		/** Liste der Zielstationen */
 		public final List<ModelElement> next;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param previous	Ausgangsstation
+		 * @param next	Liste der Zielstationen
+		 */
 		public Connection(final ModelElement previous, final List<ModelElement> next) {
 			this.previous=previous;
 			this.next=next;

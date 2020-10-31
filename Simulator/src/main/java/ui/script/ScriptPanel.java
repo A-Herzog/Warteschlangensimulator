@@ -65,13 +65,24 @@ public abstract class ScriptPanel extends JPanel {
 	private final EditModel model;
 	/** Optionale Beispielskripte für die jeweiligen Sprachen */
 	private final Map<ScriptEditorPanel.ScriptMode,String> example;
+	/** Registerreiter für die verschiedenen Seiten (Skripteditor und Skriptausgabe) */
 	private final JTabbedPane tabs;
+	/** Schaltfläche zur Anzige des Vorlagen-Dropdown-Menüs */
 	private JButton templatesButton;
+	/** Skripteditor */
 	private final ScriptEditorPanel editor;
+	/** Schaltflächen, die während der Skriptausführung deaktiviert werden sollen ({@link #setEnabledGUI(boolean)}) */
 	private final List<JButton> buttons;
+	/** Wird während der Ausführung des Skripts angezeigt */
 	private final JLabel waitIndicator;
 
+	/** Skriptausgabe */
 	private final JTextArea outputArea;
+
+	/**
+	 * Thread zur Verarbeitung des Skripts
+	 * @see #commandRun()
+	 */
 	private volatile Thread thread=null;
 
 	/**
@@ -130,6 +141,17 @@ public abstract class ScriptPanel extends JPanel {
 		tabs.setIconAt(1,Images.SCRIPT_PANEL_OUTPUT.getIcon());
 	}
 
+	/**
+	 * Erstellt eine neue Schaltfläche und fügt sie zur Symbolleiste hinzu.
+	 * @param toolbar	Symbolleiste auf der die neue Schaltfläche eingefügt werden soll
+	 * @param title	Beschriftung der Schaltfläche
+	 * @param hint	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Optionales Icon für die Schaltfläche (darf <code>null</code> sein)
+	 * @param listener	Aktion die beim Anklicken der Schaltfläche ausgeführt werden soll
+	 * @param addToList	Soll die Schaltfläche auch zu der {@link #buttons}-Liste hinzugefügt werden?
+	 * @return	Neue Schaltfläche (ist bereits in die Symbolleiste eingefügt)
+	 * @see #buttons
+	 */
 	private JButton addButton(final JToolBar toolbar, final String title, final String hint, final Icon icon, final ActionListener listener, final boolean addToList) {
 		final JButton button=new JButton(title);
 		button.setToolTipText(hint);
@@ -226,6 +248,9 @@ public abstract class ScriptPanel extends JPanel {
 		tabs.setSelectedIndex(1);
 	}
 
+	/**
+	 * Befehl: Vorlage laden
+	 */
 	private void commandTemplate() {
 		final JSModelTemplates templates=new JSModelTemplates(editor.getMode(),model);
 		templates.showMenu(templatesButton,code->{
@@ -234,6 +259,9 @@ public abstract class ScriptPanel extends JPanel {
 		});
 	}
 
+	/**
+	 * Befehl: Beispielskript laden
+	 */
 	private void commandLoadExample() {
 		final ScriptEditorPanel.ScriptMode mode=editor.getMode();
 		final String newScript=example.get(mode);
@@ -242,6 +270,9 @@ public abstract class ScriptPanel extends JPanel {
 		editor.setScript(mode,newScript);
 	}
 
+	/**
+	 * Befehl: Skript ausführen
+	 */
 	private void commandRun() {
 		outputArea.setText("");
 		showResultsTab();
@@ -256,12 +287,18 @@ public abstract class ScriptPanel extends JPanel {
 		thread.start();
 	}
 
+	/**
+	 * Befehl: Ausgaben in die Zwischenablage kopieren
+	 */
 	private void commandResultsCopy() {
 		final StringSelection stringSelection=new StringSelection(outputArea.getText());
 		final Clipboard clipboard=Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(stringSelection,null);
 	}
 
+	/**
+	 * Befehl: Ausgaben speichern
+	 */
 	private void commandResultsSave() {
 		final String fileName=ScriptTools.selectTextSaveFile(this,Language.tr("ParameterCompare.ScriptRunner.Results.Save.Title"),null);
 		if (fileName==null) return;

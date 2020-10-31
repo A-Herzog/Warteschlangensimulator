@@ -61,11 +61,19 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 	 */
 	private final SetupData setup=SetupData.getSetup();
 
+	/**
+	 * Liste der einlaufenden Kanten
+	 */
 	private List<ModelElementEdge> connectionsIn;
+
+	/**
+	 * Auslaufende Kante
+	 */
 	private ModelElementEdge connectionOut;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/** IDs der einlaufenden Kanten (Wird nur beim Laden und Clonen verwendet.) */
 	private List<Integer> connectionsInIds=null;
+	/** ID der auflaufenden Kante (Wird nur beim Laden und Clonen verwendet.) */
 	private int connectionOutId=-1;
 
 	/**

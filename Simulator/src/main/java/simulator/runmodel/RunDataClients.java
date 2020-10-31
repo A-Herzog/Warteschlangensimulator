@@ -55,10 +55,21 @@ public final class RunDataClients {
 
 	/** Fortlaufende Nummer des zuletzt ausgelieferten Kunden-Objektes */
 	private long clientNumber;
+	/** Momentan nicht verwendete Kundendatenobjekte */
 	private final RunDataClient[] clientCache;
+	/**
+	 * Liste der momentan verwendeten Kundendatenobjekte (kann <code>null</code> sein, ist nicht immer aktiv)
+	 * @see #requestClientsInUseList()
+	 */
 	private List<RunDataClient> clientsInUse;
+	/**
+	 * Liste der momentan verwendeten Kundendatenobjekte (kann <code>null</code> sein, ist nicht immer aktiv)
+	 * @see #requestFastClientsInUseList()
+	 */
 	private Set<RunDataClient> clientsInUseFast;
+	/** Anzahl der aktiven Einträge in {@link #clientCache} */
 	private int clientCacheUsed;
+	/** Aktuelle Anzahl an Kunden im System */
 	private int clientsInSystem;
 
 	private long[] lastInterLeaveByClientType;

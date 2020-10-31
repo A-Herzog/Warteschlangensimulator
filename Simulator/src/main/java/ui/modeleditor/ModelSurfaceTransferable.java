@@ -50,15 +50,20 @@ public class ModelSurfaceTransferable implements Transferable, Serializable {
 	/** {@link DataFlavor} für Modell als Bild */
 	public static final DataFlavor IMAGE_FLAVOR=DataFlavor.imageFlavor;
 
+	/** Zu übertragende als Stream gespeicherte Elemente */
 	private final byte[] transferModel;
+	/** Zu übertragende Modellbeschreibung als RTF-Text */
 	private final String transferRtf;
+	/** Zu übertragende Modellbeschreibung als Plain-Text */
 	private final String transferTxt;
+	/** Zu übertragendes Bild des Modells */
 	private final byte[] transferImage;
+	/** Flavors unter dem die Daten in der Zwischenablage abgelegt werden */
 	private final DataFlavor[] flavors;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelSurfaceTransferable</code>
-	 * @param model	Zu übertrangende als Stream gespeicherte Elemente
+	 * @param model	Zu übertragende als Stream gespeicherte Elemente
 	 * @param txt	Zu übertragende Modellbeschreibung als Plain-Text
 	 * @param rtf	Zu übertragende Modellbeschreibung als RTF-Text
 	 * @param image	Zu übertragendes Bild des Modells

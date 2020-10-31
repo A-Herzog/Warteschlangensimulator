@@ -35,11 +35,13 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see SimulationImpl
  */
 public class ModelImpl implements ModelInterface {
+	/** Abbruch-Status. (Nach einem Abbruch werden keine Simulationsläufe mehr ausgeführt.) */
 	private boolean canceled;
 	/** Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen */
 	private final Consumer<String> output;
 	/** Ausgangsmodell */
 	private final EditModel original;
+	/** Arbeitskopie des Ausgangsmodells */
 	private EditModel model;
 	/** Statistik-Objekt, welches die Simulationsergebnisse später bereitstellen soll */
 	private final StatisticsImpl statisticsConnect;

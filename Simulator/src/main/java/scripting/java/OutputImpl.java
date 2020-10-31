@@ -39,9 +39,13 @@ public class OutputImpl implements OutputInterface {
 	private final boolean outputToFile;
 	private File outputFile;
 	private boolean canceled=false;
+	/** Als Zeitangabe (<code>true</code>) oder als Zahl (<code>false</code>) ausgeben? */
 	private boolean time;
+	/** Ausgabe als Prozentwert (<code>true</code>) oder normale Fließkommazahl (<code>false</code>)? */
 	private boolean percent;
+	/** Legt fest, ob Zahlen in System- (<code>true</code>) oder lokaler Notation (<code>false</code>) ausgegeben werden sollen. */
 	private boolean systemNumbers;
+	/** Trennzeichen für die Ausgabe von Verteilungsdaten */
 	private char separator=';';
 
 	private boolean isOutputPlainDouble=true;

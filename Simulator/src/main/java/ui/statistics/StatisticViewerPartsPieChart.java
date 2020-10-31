@@ -69,6 +69,11 @@ public class StatisticViewerPartsPieChart extends StatisticViewerPieChart {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Ausgabe von
+	 * Ausgabe von Warte-, Transfer- und Bedienzeit über alle Kundengruppen
+	 * @see Mode#MODE_WAITINGPROCESSING
+	 */
 	private void requestClientsChart() {
 		initPieChart(Language.tr("Statistics.DistributionOfTimes"));
 

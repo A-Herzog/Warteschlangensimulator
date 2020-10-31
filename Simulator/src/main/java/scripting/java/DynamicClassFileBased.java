@@ -32,7 +32,9 @@ import org.apache.commons.codec.Charsets;
  * @author Alexander Herzog
  */
 public abstract class DynamicClassFileBased extends DynamicClassBase {
+	/** Name des Unterverzeichnisses des System-Temp-Ordners, in dem die temporären class-Dateien abgelegt werden sollen. */
 	private final String tempFolderName;
+	/** Zu verwendender Class-Path */
 	private final String classPath;
 
 	/**

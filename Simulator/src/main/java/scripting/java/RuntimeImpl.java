@@ -33,8 +33,17 @@ import tools.NetHelper;
  * @see SimulationImpl
  */
 public class RuntimeImpl implements RuntimeInterface {
+	/**
+	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
+	 * @see #getExpression(String)
+	 */
 	private Map<String,ExpressionCalc> expressionCache;
 
+	/**
+	 * Versucht eine Zeichenkette in ein Rechenobjekt umzuwandeln.
+	 * @param text	Zeichenkette, die die Formel enthält
+	 * @return	Liefert im Erfolgsfall ein Rechenobjekt, sonst eine Fehlermeldung
+	 */
 	private Object getExpression(final String text) {
 		if (expressionCache==null) expressionCache=new HashMap<>();
 		ExpressionCalc expression=expressionCache.get(text);

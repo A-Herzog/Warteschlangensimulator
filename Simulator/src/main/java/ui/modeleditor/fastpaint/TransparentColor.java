@@ -24,8 +24,11 @@ import java.awt.Color;
  * @author Alexander Herzog
  */
 public class TransparentColor {
+	/** Letzte Ausgangsfarbe */
 	private Color lastColor;
+	/** Letzter Transparenz-Wert */
 	private double lastAlpha;
+	/** Letzte umgewandelte Farbe */
 	private Color lastProcessedColor;
 
 	/**

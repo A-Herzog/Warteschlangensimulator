@@ -64,9 +64,14 @@ import systemtools.statistics.XWPFDocumentPictureTools;
  * @author Alexander Herzog
  */
 public class StyledTextBuilder {
+	/** Bislang erfasste Textzeilen */
 	private final List<String> lines;
+	/** Arten (Inhalte, Überschriften, ...) der Textzeilen */
 	private final List<Integer> lineTypes; /* 0=Text, 1,2,3,...=Überschriften, -1=Absatzbeginn, -2=Absatzende */
 
+	/**
+	 * Datenkopf für die Ausgabe als html-Code
+	 */
 	private static final String HTML_HEADER=
 			"<!DOCTYPE html>\n"+
 					"<html>\n"+
@@ -78,6 +83,10 @@ public class StyledTextBuilder {
 					"  </style>\n"+
 					"</head>\n"+
 					"<body>\n\n";
+
+	/**
+	 * Fußbereich für die Ausgabe als html-Code
+	 */
 	private static final String HTML_FOOTER="\n</body></html>";
 
 	/**
@@ -215,6 +224,11 @@ public class StyledTextBuilder {
 		if (b<10) return (char)(b+((short)'0')); else return (char)(b-10+((short)'a'));
 	}
 
+	/**
+	 * Wandelt eine Textzeile in RTF-Code um
+	 * @param line	Textzeile
+	 * @return	RTF-formatierte Textzeile
+	 */
 	private String convertLineToRTF(final String line) {
 		final StringBuilder result=new StringBuilder();
 		for (int i=0;i<line.length();i++) {

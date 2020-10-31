@@ -146,6 +146,10 @@ public class DDEConnect {
 		return nameBuilderCache.toString();
 	}
 
+	/**
+	 * Erstellt wenn möglich ein DDE-Verbindungs-Objekt.
+	 * @return	Liefert im Erfolgsfall das DDE-Verbindungs-Objekt. Wenn keine DDE-Verbindung möglich ist, wird <code>null</code> geliefert.
+	 */
 	private DDEClientConversation getConversation() {
 		try {
 			return new DDEClientConversation();
@@ -160,6 +164,13 @@ public class DDEConnect {
 		return getConversation()!=null;
 	}
 
+	/**
+	 * Stellt eine DDE-Verbindung mit einer Arbeitsmappe und einer Tabelle darin her.
+	 * @param workbook	Arbeitsmappe
+	 * @param sheet	Tabelle
+	 * @return	Liefert im Erfolgsfall die DDE-Verbindung, sonst <code>null</code>
+	 * @see #disconnect(DDEClientConversation)
+	 */
 	private DDEClientConversation connect(final String workbook, final String sheet) {
 		if (workbook==null || sheet==null || workbook.trim().isEmpty() || sheet.trim().isEmpty()) return null;
 
@@ -174,6 +185,13 @@ public class DDEConnect {
 		}
 	}
 
+	/**
+	 * Liest eine Datenzelle über eine bestehende DDE-Verbindung
+	 * @param conversation	DDE-Verbindung
+	 * @param row	Zeilenindex der zu lesenden Zelle
+	 * @param column	Spaltenindex der zu lesenden Zelle
+	 * @return	Liefert im Erfolgsfall den Zelleninhalt, sonst <code>null</code>
+	 */
 	private String readCell(final DDEClientConversation conversation, final int row, final int column) {
 		if (conversation==null) return null;
 		try {
@@ -183,6 +201,10 @@ public class DDEConnect {
 		}
 	}
 
+	/**
+	 * Beendet eine per {@link #connect(String, String)} hergestellte Verbindung.
+	 * @param conversation	Zu beendende Verbindung
+	 */
 	private void disconnect(final DDEClientConversation conversation) {
 		if (conversation==null) return;
 		try {conversation.disconnect();} catch (DDEException e) {}
@@ -266,6 +288,14 @@ public class DDEConnect {
 		return new DataIterator(connect(workbook,sheet),startRow,column);
 	}
 
+	/**
+	 * Schreibt eine Datenzelle über eine bestehende DDE-Verbindung
+	 * @param conversation	DDE-Verbindung
+	 * @param row	Zeilenindex der zu schreibenden Zelle
+	 * @param column	Spaltenindex der zu schreibenden Zelle
+	 * @param value	Zu schreibender Wert
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean writeCell(final DDEClientConversation conversation, final int row, final int column, final String value) {
 		if (conversation==null) return false;
 		try {
@@ -276,6 +306,11 @@ public class DDEConnect {
 		}
 	}
 
+	/**
+	 * DDE-Verbindung zum Schreiben von Daten
+	 * @see #setData(String, String, int, int, String)
+	 * @see #closeSetDataConnection()
+	 */
 	private DDEClientConversation putDataConversation;
 
 	/**
@@ -315,13 +350,25 @@ public class DDEConnect {
 	 * @see DDEConnect#getData(String, String, int, int)
 	 */
 	public class DataIterator implements Iterator<Double> {
+		/** DDE-Verbindung */
 		private DDEClientConversation conversation;
+		/** Index der als nächstes zu lesenden Zeile */
 		private int nextRow;
+		/** Spalte deren Zellen gelesen werden sollen */
 		private final int column;
+		/** Aktuelle Zusatzdaten aus den weiteren Spalten */
 		private List<String> currentData;
+		/** Zusatzdaten aus den weiteren Spalten */
 		private List<String> nextData;
+		/** Zusatzdaten aus den weiteren Spalten für die nächste Abfrage */
 		private Double next;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param conversation	DDE-Verbindung
+		 * @param startRow	Startzeile für die Iteration
+		 * @param column	Spalte deren Zellen gelesen werden sollen
+		 */
 		private DataIterator(final DDEClientConversation conversation, final int startRow, final int column) {
 			this.conversation=conversation;
 			nextRow=startRow;
@@ -329,6 +376,9 @@ public class DDEConnect {
 			gotoNext();
 		}
 
+		/**
+		 * Lädt die nächste Zeile
+		 */
 		private void gotoNext() {
 			/* Verbindung schon geschlossen? Dann restliche Daten löschen. */
 			if (conversation==null) {

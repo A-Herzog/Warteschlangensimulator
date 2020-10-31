@@ -38,8 +38,17 @@ import java.util.concurrent.Semaphore;
  * @see <a href="https://blog.jayway.com/2014/06/13/sandboxing-plugins-in-java/">https://blog.jayway.com/2014/06/13/sandboxing-plugins-in-java/</a>
  */
 public class DynamicSecurity {
-
+	/**
+	 * Instanz dieser Klasse
+	 * @see #getInstance()
+	 */
 	private static volatile DynamicSecurity instance;
+
+	/**
+	 * Stellt sicher, dass keine zwei parallelen
+	 * {@link #getInstance()} Aufrufe erfolgen.
+	 * @see #getInstance()
+	 */
 	private static final Semaphore mutex=new Semaphore(1);
 
 	/**
@@ -86,6 +95,9 @@ public class DynamicSecurity {
 		private final Permissions restrictedPermissions;
 		private final Permissions allPermissions;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
 		public DynamicSecurityPolicy() {
 			restrictedPermissions=new Permissions();
 			restrictedPermissions.add(new FilePermission("<<ALL FILES>>","read,readlink,write"));

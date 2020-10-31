@@ -51,7 +51,9 @@ public abstract class NetServer {
 	private final int maxTransferSize;
 	/** Socket der auf eingehende Verbindungen wartet */
 	private ServerSocket listenSocket;
+	/** Thread in dem {@link #listenSocket} arbeitet */
 	private Thread listenThread;
+	/** Zählt die Anfragen */
 	private long runnerCounter;
 
 	/**
@@ -128,6 +130,12 @@ public abstract class NetServer {
 		return true;
 	}
 
+	/**
+	 * Wartet auf eintreffende Anfragen.<br>
+	 * Diese Methode beinhaltet die Hauptschleife
+	 * von {@link #listenThread}.
+	 * @see #listenThread
+	 */
 	@SuppressWarnings("resource")
 	private void listen() {
 		logGlobal(String.format(LOG_START,port));
@@ -137,6 +145,7 @@ public abstract class NetServer {
 		while (!Thread.interrupted()) {
 			try {
 				new ServerThread(runnerCounter,listenSocket.accept());
+				runnerCounter++;
 			} catch (IOException e) {}
 		}
 		try {listenSocket.close();} catch (IOException e) {}
@@ -145,11 +154,21 @@ public abstract class NetServer {
 		logGlobal(String.format(LOG_STOP,port));
 	}
 
+	/**
+	 * Verarbeitungsthread
+	 */
 	private class ServerThread extends Thread {
+		/** ID der Anfrage */
 		private final long id;
+		/** Verbindungs-Socket zum Anfragesteller */
 		private final Socket runSocket;
 		private boolean firstLog=true;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param id	ID der Anfrage
+		 * @param runSocket	Verbindungs-Socket zum Anfragesteller
+		 */
 		public ServerThread(final long id, final Socket runSocket) {
 			super("ServerWorker");
 			this.id=id;

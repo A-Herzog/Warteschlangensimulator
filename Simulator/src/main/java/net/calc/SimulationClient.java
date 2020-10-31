@@ -41,17 +41,25 @@ public class SimulationClient implements AnySimulator {
 
 	/** Zu simulierendes Modell */
 	private final EditModel model;
+	/** Objekt über das die Verbindung zum Server aufgebaut wird */
 	private final NetClient net;
 	private NetTransfer transfer;
 	private boolean started;
 
 	private String prepareError;
+	/** Summe der in allen Threads bisher simulierten Ereignisse */
 	private long eventCount;
+	/** Wie viele Ereignisse werden pro Sekunde verarbeitet? */
 	private int eventsPerSecond;
+	/** Nummer des gerade im Simulator in Bearbeitung befindlichen Tages */
 	private long simDayCount;
+	/** Gesamtanzahl an Wiederholungen in der Simulation */
 	private long simDaysCount;
+	/** Anzahl an bislang simulierten Kundenankünften */
 	private long currentClients;
+	/** Aktuelle Anzahl an Kunden im System */
 	private int currentWIP;
+	/** Gesamtanzahl an zu simulierenden Kundenankünften */
 	private long countClients;
 	private Statistics statistics;
 

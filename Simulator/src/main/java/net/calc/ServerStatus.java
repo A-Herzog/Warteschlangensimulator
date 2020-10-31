@@ -28,6 +28,7 @@ import systemtools.MsgBox;
  * @author Alexander Herzog
  */
 public class ServerStatus {
+	/** Objekt über das die Verbindung zum Server aufgebaut wird */
 	private final NetClient netClient;
 
 	/**

@@ -27,7 +27,9 @@ public final class DynamicMethod {
 	private static long idCounter;
 	private static final Semaphore mutex;
 
+	/** Einstellungen zum Laden der Methode */
 	private final DynamicSetup setup;
+	/** Text, der als java-Methode interpretiert werden soll. Der Text muss mit dem Rückgabewert beginnen, darf also keinen Access-Modifier enthalten. */
 	private final String methodText;
 	private final String className;
 	private final String classText;

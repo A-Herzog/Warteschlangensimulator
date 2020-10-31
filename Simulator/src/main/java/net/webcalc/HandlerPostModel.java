@@ -34,8 +34,11 @@ import net.web.WebServerResponse;
  * @see CalcWebServer
  */
 public class HandlerPostModel implements WebServerHandler {
+	/** Pfad zu dem Dokument aus Server-Sicht (sollte mit "/" beginnen) */
 	private final String serverURL;
+	/** ID des Formularfeldes für den Dateiupload (um den Originaldateinamen auszulesen) */
 	private final String idOfFileNameField;
+	/** Callback, welches die Daten an die Verarbeitungsklasse übergibt */
 	private final Consumer<UploadInfo> fileLoader;
 
 	/**
@@ -50,6 +53,11 @@ public class HandlerPostModel implements WebServerHandler {
 		this.fileLoader=fileLoader;
 	}
 
+	/**
+	 * Verarbeitet eine empfangene Datei
+	 * @param session	Datensatz zu der empfangenen Datei
+	 * @return	Ergebnis der Verarbeitung
+	 */
 	private String processUpload(final IHTTPSession session) {
 		try {
 			final Map<String,String> files=new HashMap<>();

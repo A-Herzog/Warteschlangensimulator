@@ -30,9 +30,11 @@ import com.pretty_tools.dde.server.DDEServer;
  * @author Alexander Herzog
  */
 public class DDEServerSystem {
+	/** DDE-Server */
 	private DDEServer server;
 	/** Name des Services über den der DDE-Server angesprochen werden können soll */
 	private String service;
+	/** Sichert parallele Zugriffe auf {@link #server} ab */
 	private Semaphore lock;
 
 	/**
@@ -173,7 +175,14 @@ public class DDEServerSystem {
 		return false;
 	}
 
+	/**
+	 * Konkrete Implementierung von {@link DDEServer}
+	 */
 	private class DDEServerExt extends DDEServer {
+		/**
+		 * Konstruktor der Klasse
+		 * @param service	Name des angebotenen Service
+		 */
 		public DDEServerExt(final String service) {
 			super(service);
 		}

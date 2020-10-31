@@ -222,6 +222,11 @@ public class AnalyticProcess {
 		}
 	}
 
+	/**
+	 * Ermittelt eine Verteilung basierend auf einem allgemeineren Zeiten-System
+	 * @param distributionSystem	Zeiten-System
+	 * @return	Verteilung oder <code>null</code>, wenn die Zeiten nicht auf einer Verteilung basieren
+	 */
 	private AbstractRealDistribution getDistribution(final DistributionSystem distributionSystem) {
 		if (distributionSystem==null) return null;
 		final Object data=distributionSystem.get();
@@ -238,6 +243,12 @@ public class AnalyticProcess {
 		return null;
 	}
 
+	/**
+	 * Ermittelt die Art der Priorisierung basierend auf einer Prioritätsformel
+	 * @param priorityString	Prioritätsformel
+	 * @return	Art der Priorisierung
+	 * @see Priority
+	 */
 	private Priority getPriority(final String priorityString) {
 		Priority priority=Priority.OTHER;
 		if (Objects.equals(priorityString,"w")) priority=Priority.FIFO;
@@ -245,6 +256,12 @@ public class AnalyticProcess {
 		return priority;
 	}
 
+	/**
+	 * Ermittelt die Anzahl an Bedienern in einer Gruppe
+	 * @param resourceName	Name der Bedienergruppe
+	 * @param resources	Listenobjekt über alle Bedienergruppen
+	 * @return	Anzahl an Bedienern in der Bedienergruppe oder -1, wenn keine Anzahl ermittelt werden konnte
+	 */
 	private int getAvailableOperators(final String resourceName, final ModelResources resources) {
 		final ModelResource resource=resources.get(resourceName);
 		if (resource==null) return -1;

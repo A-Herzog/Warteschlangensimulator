@@ -121,7 +121,13 @@ public class Shapes {
 		/** Name der Form */
 		public final String name;
 
-		ShapeType(final String name) {this.name=name;}
+		/**
+		 * Konstruktor der Enum
+		 * @param name	Name der Form
+		 */
+		ShapeType(final String name) {
+			this.name=name;
+		}
 	}
 
 	/**
@@ -130,20 +136,32 @@ public class Shapes {
 	 */
 	public final ShapeType shapeType;
 
+	/**  Zur der Form gehörendes Clipping-Objekt */
 	private IntersectionClipping clipper;
+	/** Cache für Formen */
 	private ShapeCache cache;
+	/** Cache für Schriftarten */
 	private final FontCache fontCache;
 
+	/** Füllstand bei Rechtecken (0..1) oder ein Wert &lt;0, wenn keine Füllstandsanzeige erfolgen soll */
 	private double fillLevel;
+	/** Farbe für den unteren Anteil der Füllstandsanzeige (oder <code>null</code> für keine Füllung) */
 	private Color lowerColor;
+	/** Farbverlauf für den unteren Anteil der Füllstandsanzeige */
 	private GradientFill lowerFill;
+	/** Farbe für den oberen Anteil der Füllstandsanzeige (oder <code>null</code> für keine Füllung) */
 	private Color upperColor;
+	/** Farbverlauf für den oberen Anteil der Füllstandsanzeige */
 	private GradientFill upperFill;
 
+	/** Zusätzliches Icon das auf das Shape gezeichnet werden soll (kann <code>null</code> sein) */
 	private BufferedImage icon;
+	/** Gemäß {@link #iconZoomedLevel} skaliertes Icon */
 	private BufferedImage iconZoomed;
+	/** Zoomfaktor in dem {@link #iconZoomed} vorliegt */
 	private double iconZoomedLevel;
 
+	/** Optional statt der Form zu zeichnendes Bild (kann <code>null</code> sein) */
 	private BufferedImage customImage;
 
 	/**
@@ -163,6 +181,10 @@ public class Shapes {
 		customImage=null;
 	}
 
+	/**
+	 * Initialisiert den Cache für die Formen.
+	 * @see #cache
+	 */
 	private void initCache() {
 		if (cache!=null) return;
 		if (clipper==null) clipper=new IntersectionClipping();
@@ -197,6 +219,14 @@ public class Shapes {
 		this.customImage=customImage;
 	}
 
+	/**
+	 * Zeichnet die Füllung für eine Form
+	 * @param graphics	Ausgabe-Grafikobjekt
+	 * @param rect	Bereich für die Form
+	 * @param offsetX	Zusätzliche Verschiebung in x-Richtung
+	 * @param offsetY	Zusätzliche Verschiebung in y-Richtung
+	 * @param isShadow	Handelt es sich bei der zu füllenden Fläche um den Schatten der eigentlichen Form?
+	 */
 	private void fill(final Graphics graphics, final Rectangle rect, final int offsetX, final int offsetY, final boolean isShadow) {
 		switch (shapeType) {
 		case SHAPE_RECTANGLE:
@@ -251,6 +281,12 @@ public class Shapes {
 		}
 	}
 
+	/**
+	 * Erstellt die konkrete Polygon-Form für den
+	 * gewählten Formtyp ({@link #shapeType})
+	 * @param rect	Rechteck das den Rahmen für die Form bildet
+	 * @return	Polygon-Form
+	 */
 	private Polygon buildShape(final Rectangle rect) {
 		final int[] xPoints;
 		final int[] yPoints;
@@ -322,13 +358,35 @@ public class Shapes {
 		return new Polygon(xPoints,yPoints,xPoints.length);
 	}
 
+	/**
+	 * Zeichnet einen Rahmen für ein Rechteck.
+	 * Es wird dabei die aktuelle Farbe verwendet.
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param borderWidth	Rahmenbreite
+	 */
 	private void drawFrameRectangle(final Graphics graphics, final Rectangle objectRect, final int borderWidth) {
 		for (int i=0;i<borderWidth;i++) graphics.drawRect(objectRect.x+i,objectRect.y+i,objectRect.width-2*i,objectRect.height-2*i);
 	}
 
+	/**
+	 * Farbe für den oberen Bereich des Rahmens in {@link #drawInlinedFrameRectangle(Graphics, Rectangle, int)}
+	 * @see #drawInlinedFrameRectangle(Graphics, Rectangle, int)
+	 */
 	private static final Color inlineUpper=Color.LIGHT_GRAY;
+
+	/**
+	 * Farbe für den unteren Bereich des Rahmens in {@link #drawInlinedFrameRectangle(Graphics, Rectangle, int)}
+	 * @see #drawInlinedFrameRectangle(Graphics, Rectangle, int)
+	 */
 	private static final Color inlineLower=Color.GRAY;
 
+	/**
+	 * Zeichnet einen Rahmen für ein Rechteck mit verschiedenen Farben für den oberen und den unteren Bereich
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param borderWidth	Rahmenbreite
+	 */
 	private void drawInlinedFrameRectangle(final Graphics graphics, final Rectangle objectRect, final int borderWidth) {
 		for (int i=0;i<borderWidth;i++) graphics.drawRect(objectRect.x+i,objectRect.y+i,objectRect.width-2*i,objectRect.height-2*i);
 
@@ -348,11 +406,25 @@ public class Shapes {
 		graphics.setColor(saveColor);
 	}
 
+	/**
+	 * Zeichnet einen abgerundeten Rahmen für ein Rechteck.
+	 * Es wird dabei die aktuelle Farbe verwendet.
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param borderWidth	Rahmenbreite
+	 */
 	private void drawFrameRoundedRectangle(final Graphics graphics, final Rectangle objectRect, final int borderWidth) {
 		final int arc=FastMath.min(objectRect.width,objectRect.height)/2;
 		for (int i=0;i<borderWidth;i++) graphics.drawRoundRect(objectRect.x+i,objectRect.y+i,objectRect.width-2*i,objectRect.height-2*i,arc,arc);
 	}
 
+	/**
+	 * Zeichnet Linien links und rechts in ein bestehendes Rechteck
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param borderWidth	Rahmenbreite
+	 * @param deltaFactor	Abstand der Linien vom Rahmen (2=50%, 4=25%, ...)
+	 */
 	private void drawDoubleLine(final Graphics graphics, final Rectangle objectRect, final int borderWidth, final int deltaFactor) {
 		final int w=objectRect.width/deltaFactor;
 		final int y1=objectRect.y;
@@ -366,6 +438,14 @@ public class Shapes {
 		}
 	}
 
+	/**
+	 * Zeichnet einen Text in der linken oberen Ecke eines bestehenden Rechtecks ein
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param text	Auszugebender Text
+	 * @param zoom	Zoomfaktor
+	 * @param indent	Stärke der Einrückung (0..1)
+	 */
 	private void drawTextUpperLeftCorner(final Graphics graphics, final Rectangle objectRect, final String text, final double zoom, final double indent) {
 		graphics.setFont(fontCache.getFont(FontCache.defaultFamily,Font.BOLD,(int)FastMath.round(8*zoom)));
 		graphics.setColor(Color.DARK_GRAY);
@@ -374,6 +454,33 @@ public class Shapes {
 		graphics.drawString(text,objectRect.x+indentInt,objectRect.y+deltaY+indentInt);
 	}
 
+	/**
+	 * Zeichnet ein Icon in der linken oberen Ecke eines bestehenden Rechtecks ein
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param borderWidth	Rahmenbreite
+	 * @param zoom	Zoomfaktor
+	 * @see #icon
+	 */
+	private void drawIcon(final Graphics graphics, final Rectangle objectRect, final int borderWidth, final double zoom) {
+		if (icon==null) return;
+		if (iconZoomed==null || iconZoomedLevel!=zoom) {
+			iconZoomed=ScaledImageCache.getScaledImageCache().getScaledImage(icon,zoom);
+			iconZoomedLevel=zoom;
+		}
+
+		graphics.drawImage(iconZoomed,objectRect.x+borderWidth+1,objectRect.y+borderWidth+1,null);
+	}
+
+	/**
+	 * Zeichnet eine geometrische Form
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param borderColor	Rahmenfarbe
+	 * @param borderWidth	Rahmenbreite
+	 * @param zoom	Zoomfaktor
+	 * @see #draw(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)
+	 */
 	private void drawFrame(final Graphics graphics, final Rectangle objectRect, final Color borderColor, final int borderWidth, final double zoom) {
 		if (borderColor==null) return;
 		graphics.setColor(borderColor);
@@ -428,6 +535,16 @@ public class Shapes {
 		}
 	}
 
+	/**
+	 * Zeichnet statt einer Form ein nutzerdefiniertes Bild
+	 * @param graphics	Grafik-Ausgabeobjekt
+	 * @param objectRect	Rechteck
+	 * @param borderColor	Rahmenfarbe
+	 * @param borderWidth	Rahmenbreite
+	 * @param zoom	Zoomfaktor
+	 * @see #draw(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)
+	 * @see #customImage
+	 */
 	private void drawCustomImage(final Graphics graphics, final Rectangle objectRect, final Color borderColor, final int borderWidth, final double zoom) {
 		final int w=(int)(100*zoom);
 		final int h=(int)(50*zoom);
@@ -439,16 +556,6 @@ public class Shapes {
 			graphics.setColor(borderColor);
 			drawFrameRectangle(graphics,objectRect,borderWidth);
 		}
-	}
-
-	private void drawIcon(final Graphics graphics, final Rectangle objectRect, final int borderWidth, final double zoom) {
-		if (icon==null) return;
-		if (iconZoomed==null || iconZoomedLevel!=zoom) {
-			iconZoomed=ScaledImageCache.getScaledImageCache().getScaledImage(icon,zoom);
-			iconZoomedLevel=zoom;
-		}
-
-		graphics.drawImage(iconZoomed,objectRect.x+borderWidth+1,objectRect.y+borderWidth+1,null);
 	}
 
 	/**
@@ -522,6 +629,11 @@ public class Shapes {
 		iconZoomed=null;
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe eines Polygons mit Schatten zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLShadowPolygon(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
 
@@ -537,6 +649,10 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe eines Polygons zur Ausgabe des Modells als HTML-Datei
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLPolygon() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("function drawPolygon(rect,points,borderColor,borderWidth,fillColor1,fillColor2) {\n");
@@ -572,6 +688,11 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe eines Rechtecks mit Schatten zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLShadowRectangle(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("rectangleInt",builder->getHTMLRectangle());
 
@@ -585,6 +706,10 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe eines Rechtecks zur Ausgabe des Modells als HTML-Datei
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLRectangle() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("function drawRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2) {\n");
@@ -624,6 +749,10 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe eines partiell gefüllten (=Füllstand) Rechtecks zur Ausgabe des Modells als HTML-Datei
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLRectanglePartial() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("function drawRectanglePartialInt(rect,borderColor,borderWidth,lowerColor,upperColor,fillLevel) {\n");
@@ -665,6 +794,10 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe eines Rechtecks mit innerem Schatten zur Ausgabe des Modells als HTML-Datei
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLRectangleInline() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("function drawRectangleInlineInt(rect,borderColor,borderWidth,fillColor1,fillColor2) {\n");
@@ -718,6 +851,10 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe eines Rechtecks mit innerem Schatten und teilweiser Füllung (=Füllstand) zur Ausgabe des Modells als HTML-Datei
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLRectangleInlinePartial() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("function drawRectangleInlinePartialInt(rect,borderColor,borderWidth,lowerColor,upperColor,fillLevel) {\n");
@@ -773,6 +910,10 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe von zusätzlichen Linien innerhalb eines Rechtecks zur Ausgabe des Modells als HTML-Datei
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLDrawDoubleLine() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("function drawDoubleLine(rect,borderColor,borderWidth,delta) {\n");
@@ -792,6 +933,10 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zur Ausgabe von Text auf der Zeichenfläche zur Ausgabe des Modells als HTML-Datei
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLDrawText() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("function drawTextUpperLeftCorner(rect,text,indent) {\n");
@@ -807,6 +952,10 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zum Erstellen eines abgerundeten Rechecks zur Ausgabe des Modells als HTML-Datei
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLRoundedRectangle() {
 		final StringBuilder sb=new StringBuilder();
 
@@ -859,6 +1008,11 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Javascript-Funktion zum Erstellen eines abgerundeten Rechecks mit Schatten zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Funktion
+	 */
 	private String getHTMLShadowRoundedRectangle(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("roundedRectangleInt",builder->getHTMLRoundedRectangle());
 
@@ -872,10 +1026,20 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert den Namen für die Javascript-Funktion zum Zeichnen der Form
+	 * @return	Name für die Javascript-Funktion zum Zeichnen der Form
+	 * @see #getHTMLShape(HTMLOutputBuilder)
+	 */
 	private String getHTMLShapeDrawFunctionName() {
 		return "draw"+shapeType.name.substring(0,1).toUpperCase()+shapeType.name.substring(1);
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für eine Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLShape(final HTMLOutputBuilder outputBuilder) {
 		final SetupData setup=SetupData.getSetup();
 		final StringBuilder sb=new StringBuilder();
@@ -1082,6 +1246,14 @@ public class Shapes {
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet die Form in einen {@link HTMLOutputBuilder} ein.
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 * @param objectRect	Zeichenbereich für das Objekt selbst
+	 * @param borderColor	Rahmenfarbe
+	 * @param borderWidth	Rahmenbreite
+	 * @param fillColor	Füllfarbe (aus der ggf. ein Farbverlauf berechnet wird)
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder, final Rectangle objectRect, final Color borderColor, final int borderWidth, final Color fillColor) {
 		outputBuilder.addJSUserFunction(shapeType.name,builder->getHTMLShape(builder));
 

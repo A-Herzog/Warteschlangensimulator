@@ -58,8 +58,11 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
+	/** Liste der Bedingungen */
 	private List<String> condition;
+	/** Liste der zu den Bedingungen gehörenden Zähler-Namen */
 	private List<String> counter;
+	/** Name des Zähler für "keine Bedingung trifft zu" */
 	private String counterElse;
 
 	/**
@@ -118,6 +121,11 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Liefert einen Zelleneintrag für die letzte Zeile.
+	 * @param columnIndex	Spalte
+	 * @return	Zelleneintrag für die letzte Zeile
+	 */
 	private Object getValueAtLastRow(int columnIndex) {
 		if (columnIndex==0) {
 			return Language.tr("Surface.CounterMulti.Table.Heading.Condition.Else");
@@ -138,6 +146,14 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		return null;
 	}
 
+	/**
+	 * Liefert den Wert einer Zelle
+	 * @param rowIndex	Zeilenindex
+	 * @param columnIndex	Spaltenindex
+	 * @param condition	Zähler-Bedingung für die Zeile
+	 * @param counter	Zähler-Name für die Zeile
+	 * @return	Wert der Zelle
+	 */
 	private Object getValueAt(int rowIndex, int columnIndex, final String condition, final String counter) {
 		if (columnIndex==0) {
 			return condition;
@@ -241,12 +257,20 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		return !readOnly && (rowIndex<counter.size() || columnIndex>0);
 	}
 
+	/**
+	 * Fügt eine Zeile zu der Tabelle hinzu
+	 */
 	private void addCounter() {
 		condition.add("");
 		counter.add(Language.tr("Surface.CounterMulti.Table.Heading.CounterName.Default"));
 		updateTable();
 	}
 
+	/**
+	 * Öffnet den Expression-Builder-Dialog für eine Zähler-Bedingung
+	 * @param index	Index des Eintrags in {@link #condition} für die der Expression-Builder-Dialog aufgerufen werden soll
+	 * @see #condition
+	 */
 	private void expressionBuilder(final int index) {
 		final EditModel model=element.getModel();
 		final ModelSurface surface=model.surface;
@@ -260,12 +284,20 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Löscht einen Eintrag in der Tabelle
+	 * @param index	Zu löschende Zeile
+	 */
 	private void deleteCounter(final int index) {
 		condition.remove(index);
 		counter.remove(index);
 		updateTable();
 	}
 
+	/**
+	 * Verschiebt einen Eintrag um eine Position in der Liste nach oben
+	 * @param index	Nach oben zu verschiebende Zeile
+	 */
 	private void moveUp(final int index) {
 		String s;
 
@@ -280,6 +312,10 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		updateTable();
 	}
 
+	/**
+	 * Verschiebt einen Eintrag um eine Position in der Liste nach unten
+	 * @param index	Nach unten zu verschiebende Zeile
+	 */
 	private void moveDown(final int index) {
 		String s;
 

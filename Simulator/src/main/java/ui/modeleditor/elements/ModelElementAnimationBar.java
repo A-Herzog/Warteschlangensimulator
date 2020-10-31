@@ -80,15 +80,36 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		DIRECTION_LEFT
 	}
 
+	/**
+	 * Richtung des Balken
+	 * @see #getDirection()
+	 * @see #setDirection(FillDirection)
+	 */
 	private FillDirection direction=FillDirection.DIRECTION_UP;
 
+	/**
+	 * Rechenausdruck
+	 * @see #getExpression()
+	 * @see #setExpression(String)
+	 */
 	private String expression="123";
 
 	private Semaphore drawLock=new Semaphore(1);
 	private boolean simValueActive;
 	private double simValue;
 
+	/**
+	 * Minimalwert für die Balkendarstellung
+	 * @see #getMinValue()
+	 * @see #setMinValue(double)
+	 */
 	private double minValue=0.0;
+
+	/**
+	 * Maximalwert für die Balkendarstellung
+	 * @see #getMaxValue()
+	 * @see #setMaxValue(double)
+	 */
 	private double maxValue=10.0;
 
 	private int borderWidth=1;

@@ -27,6 +27,7 @@ public class DynamicRunner {
 	private DynamicStatus status;
 	/** Optionale zusätzliche Fehlermeldung	(kann <code>null</code> sein) */
 	private String error;
+	/** Dynamische Methode */
 	private final DynamicMethod method;
 
 	/**

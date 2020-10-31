@@ -31,6 +31,7 @@ import javax.swing.JPopupMenu;
  * @see ScriptPopup
  */
 public class ScriptPopupItemSub extends ScriptPopupItem {
+	/** Liste der Unterelemente in diesem Untermenü */
 	private final List<ScriptPopupItem> children;
 
 	/**
@@ -59,6 +60,12 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 		children.add(null);
 	}
 
+	/**
+	 * Fügt die Elemente des Untermenüs zu einem {@link JPopupMenu}-Menü hinzu
+	 * @param popupMenu	Popupmenü zu dem die Einträge dieser Liste als Untermenü hinzugefügt werden sollen
+	 * @param clickedItem	Callback das aufgerufen werden soll, wenn einer der Menüpunkte angeklickt wurde
+	 * @param allowAdd	Erlaubt das Vorabprüfen, ob der Befehl im Popupmenü angezeigt werden soll
+	 */
 	private void addChildrenToMenu(final JMenu popupMenu, final Consumer<ScriptPopupItem> clickedItem, final Predicate<ScriptPopupItem> allowAdd) {
 		boolean lastObjIsSeparator=false;
 		for (ScriptPopupItem child: children) {

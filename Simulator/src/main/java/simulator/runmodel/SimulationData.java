@@ -258,6 +258,7 @@ public class SimulationData extends SimData {
 		if (statistics.clientsAllWaitingTimesCollector!=null) statistics.clientsAllWaitingTimesCollector.reset();
 	}
 
+	/** Statistikdaten des vorherigen Simulationstages */
 	private Statistics lastDaysStatistics=null;
 
 	@Override

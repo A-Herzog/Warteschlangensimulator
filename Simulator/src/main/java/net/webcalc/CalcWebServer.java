@@ -43,10 +43,15 @@ import tools.SetupData;
  * @see WebServer
  */
 public class CalcWebServer extends WebServer {
+	/** Sichert den Zugriff auf die Liste der aktiven Aufgaben ab */
 	private final ReentrantLock lock;
+	/** Liste der aktiven Aufgaben */
 	private final List<CalcFuture> list;
+	/** System zur Ausführung von Aufgaben */
 	private final ExecutorService executor;
+	/** Zähler für die Aufgaben */
 	private int idCounter;
+	/** Festgelegtes Modell (wird <code>null</code> übergeben, so können beliebige Modelle geladen werden) */
 	private final EditModel model;
 
 	/**
@@ -94,6 +99,11 @@ public class CalcWebServer extends WebServer {
 		this(null);
 	}
 
+	/**
+	 * Liefert eine Textbeschreibung mit Daten zum Simulationsrechner.
+	 * @return	Textbeschreibung mit Daten zum Simulationsrechner
+	 * @see #getStatus()
+	 */
 	private String getSystemStatus() {
 		final StringBuilder status=new StringBuilder();
 
@@ -109,6 +119,10 @@ public class CalcWebServer extends WebServer {
 	}
 
 
+	/**
+	 * Liefert ein JSON-Objekt mit Daten zum aktuellen Status (System-Status und gewählte Sprache).
+	 * @return	JSON-Objekt mit Daten zum aktuellen Status
+	 */
 	private String getStatus() {
 		final StringBuilder status=new StringBuilder();
 
@@ -131,6 +145,10 @@ public class CalcWebServer extends WebServer {
 		return status.toString();
 	}
 
+	/**
+	 * Verarbeitet eine empfangene Datei
+	 * @param info	Datensatz zu der empfangenen Datei
+	 */
 	private void processFile(final HandlerPostModel.UploadInfo info) {
 		lock.lock();
 		try {
@@ -143,6 +161,11 @@ public class CalcWebServer extends WebServer {
 		}
 	}
 
+	/**
+	 * Löscht einen Auftrag aus der Liste
+	 * @param request	ID des zu löschenden Auftrags
+	 * @return	Webserver-Antwort-Objekt
+	 */
 	private WebServerResponse deleteTask(final String request) {
 		final Long L=NumberTools.getNotNegativeLong(request);
 		if (L!=null) {
@@ -163,6 +186,11 @@ public class CalcWebServer extends WebServer {
 		return response;
 	}
 
+	/**
+	 * Liefert die Ergebnisdaten eines Auftrags
+	 * @param request	ID des Auftrags
+	 * @return	Webserver-Antwort-Objekt
+	 */
 	private WebServerResponse downloadResults(final String request) {
 		final Long L=NumberTools.getNotNegativeLong(request);
 		if (L!=null) {
@@ -199,6 +227,11 @@ public class CalcWebServer extends WebServer {
 		return null;
 	}
 
+	/**
+	 * Zeigt die Ergebnisse einer Simulation im Online-Viewer an
+	 * @param request	ID des Auftrags zu dem die Ergebnisse angezeigt werden sollen
+	 * @return	Webserver-Rückgabe (Online-Viewer)
+	 */
 	private WebServerResponse viewResults(final String request) {
 		final Long L=NumberTools.getNotNegativeLong(request);
 		if (L!=null) {
@@ -219,6 +252,11 @@ public class CalcWebServer extends WebServer {
 		return null;
 	}
 
+	/**
+	 * Stellt die Sprache für den Webserver ein
+	 * @param request	Neue Sprache
+	 * @return	Webserver-Antwort-Objekt
+	 */
 	private WebServerResponse setLanguage(final String request) {
 		if (request==null || request.trim().isEmpty()) return null;
 		final String lang=request.trim().toLowerCase();
@@ -238,6 +276,10 @@ public class CalcWebServer extends WebServer {
 		return response;
 	}
 
+	/**
+	 * Singleton-Instanz dieser Klasse
+	 * @see #getInstance()
+	 */
 	private static CalcWebServer instance;
 
 	/**

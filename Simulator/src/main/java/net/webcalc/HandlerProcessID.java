@@ -28,7 +28,9 @@ import net.web.WebServerResponse;
  * @see CalcWebServer
  */
 public class HandlerProcessID implements WebServerHandler {
+	/** Pfad zu dem Dokument aus Server-Sicht (sollte mit "/" beginnen und auch enden) */
 	private final String serverURL;
+	/** Verarbeitung in Abhängigkeit von dem Text nach der <code>serverURL</code> */
 	private final Function<String,WebServerResponse> process;
 
 	/**

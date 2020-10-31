@@ -91,6 +91,11 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Ausgabe von
+	 * Übergängen zwischen Stationen
+	 * @see Mode#STATION_TRANSITION
+	 */
 	private void buildMovementText() {
 		addHeading(1,Language.tr("Statistics.ClientMovement"));
 
@@ -157,6 +162,11 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 	 */
 	private static final int MAX_ROWS=2_000;
 
+	/**
+	 * Ausgabe der
+	 * Pfade der Kunden
+	 * @see Mode#CLIENT_PATHS
+	 */
 	private void buildPathText() {
 		addHeading(1,Language.tr("Statistics.ClientPathRecording"));
 
@@ -183,6 +193,11 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		addDescription("ClientPaths");
 	}
 
+	/**
+	 * Ausgabe der
+	 * Pfadlängen
+	 * @see Mode#CLIENT_PATH_LENGTHS
+	 */
 	private void buildPathLengths() {
 		addHeading(1,Language.tr("Statistics.ClientPathLengths"));
 

@@ -38,9 +38,12 @@ import ui.modeleditor.coreelements.ModelElementEdgeOut;
  * @see ModelElementSub
  */
 public class ModelElementSubIn extends ModelElementSubConnect implements ModelElementEdgeOut {
+	/**
+	 * Auslaufende Kante
+	 */
 	private ModelElementEdge connectionOut;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/** ID der auflaufenden Kante (Wird nur beim Laden und Clonen verwendet.) */
 	private int connectionOutId=-1;
 
 	/**

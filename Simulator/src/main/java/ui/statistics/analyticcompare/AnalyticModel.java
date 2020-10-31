@@ -116,6 +116,12 @@ public class AnalyticModel {
 		return build(statistics.editModel);
 	}
 
+	/**
+	 * Sucht in einem Modell nach Quelle, Bedienstation und Ausgang
+	 * @param editModel	Zu betrachtendes Editor-Modell
+	 * @return	Liefert <code>true</code>, wenn Stationen aller notwendigen Typen gefunden wurden
+	 * @see #build(EditModel)
+	 */
 	private boolean findStations(final EditModel editModel) {
 		for (ModelElement element: editModel.surface.getElements()) {
 			if (element instanceof ModelElementSource) {
@@ -137,6 +143,11 @@ public class AnalyticModel {
 		return true;
 	}
 
+	/**
+	 * Stationstypen, die bei der Bearbeitung in
+	 * {@link #checkConnections()} übersprungen werden sollen.
+	 * @see #checkConnections()
+	 */
 	private static Class<?>[] ignoreStations=new Class[] {
 			ModelElementCounter.class,
 			ModelElementCounterMulti.class,
@@ -158,6 +169,12 @@ public class AnalyticModel {
 			ModelElementUserStatistic.class
 	};
 
+	/**
+	 * Prüft, ob die gefundenen Stationen in der Form verknüpft sind,
+	 * so dass eine analytische Auswertung möglich ist.
+	 * @return	Liefert <code>true</code>, wenn die Stationen passend verknüpft sind
+	 * @see #build(EditModel)
+	 */
 	private boolean checkConnections() {
 		ModelElementEdge edge;
 

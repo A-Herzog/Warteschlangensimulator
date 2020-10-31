@@ -187,16 +187,16 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @see ModelSurfacePanel#clipboardData
 	 */
 	public enum ClickMode {
-		/** Betriebmodus: Normal */
+		/** Betriebsmodus: Normal */
 		MODE_NORMAL,
 
 		/** Betriebsmodus: Element hinzufügen */
 		MODE_ADD_ELEMENT,
 
-		/** Betreibsmodus: Kante hinzufügen (Auswahl des ersten zu verbindenden Elements) */
+		/** Betriebsmodus: Kante hinzufügen (Auswahl des ersten zu verbindenden Elements) */
 		MODE_ADD_EDGE_STEP1,
 
-		/** Betreibsmodus: Kante hinzufügen (Auswahl des zweiten zu verbindenden Elements) */
+		/** Betriebsmodus: Kante hinzufügen (Auswahl des zweiten zu verbindenden Elements) */
 		MODE_ADD_EDGE_STEP2,
 
 		/** Betriebsmodus: Inhalt der Zwischenablage (Elemente) einfügen */
@@ -232,16 +232,26 @@ public final class ModelSurfacePanel extends JPanel {
 	private boolean canUndo=true;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Darf der Menüpunkt "Modelleigenschaften" im Kontextmenü angezeigt werden? */
 	private boolean showEditModelProperties=true;
+	/** Gibt an, ob gerade eine Operation, die evtl. mehrere Elemente umfasst, läuft und daher Statusausgaben usw. zunächst nicht verarbeitet werden sollen. */
 	private boolean operationRunning=false;
 
+	/** Zugehöriges Modell */
 	private transient EditModel model=new EditModel();
+	/** Zeichenfläche die dargestellt werden soll */
 	private transient ModelSurface surface=null;
+	/** Kundendaten aus {@link #model} */
 	private transient ModelClientData clientData;
+	/** Fertigungspläne aus {@link #model} */
 	private transient ModelSequences sequences;
+	/** Optionale (Animations-)Simulationsdaten ({@link #setAnimationSimulationData(SimulationData)}) */
 	private transient SimulationData simData;
-	private final transient Runnable redrawListener;
+	/** Reagiert auf {@link ModelSurface#addRedrawListener(Runnable)} */
+	private final transient Runnable requestRedrawListener;
+	/** Reagiert auf {@link ModelSurface#addRequestCopyListener(Runnable)} */
 	private final transient Runnable requestCopyListener;
+	/** Reagiert auf {@link ModelSurface#addRequestCutListener(Runnable)} */
 	private final transient Runnable requestCutListener;
 	/** Aktueller Zoomfaktor */
 	private double zoom;
@@ -249,38 +259,110 @@ public final class ModelSurfacePanel extends JPanel {
 	private ModelSurface.Grid raster;
 	/** Farben für den Hintergrund */
 	private Color[] colors=new Color[]{ModelSurface.DEFAULT_BACKGROUND_COLOR,ModelSurface.DEFAULT_RASTER_COLOR};
+	/** Mausposition beim Start einer Drag&amp;drop-Operation */
 	private Point dragStartMousePosition=null;
+	/** Per Drag&amp;drop zu verschiebendes Element */
 	private transient ModelElement dragElement;
+	/** Per Drag&amp;drop zu kopierendes Element */
 	private transient ModelElement dragCopyElement;
+	/** Eckpunkt an dem ein Element in der Größe verändert wird */
 	private int dragStartElementBorderPointNr;
+	/** Startposition für die Größenänderung eines Elements */
 	private Point dragStartElementPosition;
+	/** Auswahlbereich */
 	private Rectangle selectBox;
+
+	/**
+	 * Aktueller Betriebsmodus
+	 * @see #getMode()
+	 * @see #setMode(ClickMode)
+	 */
 	private ClickMode mode=ClickMode.MODE_NORMAL;
+
+	/** Hinzuzufügendes Element */
 	private transient ModelElement modeAddElement;
+	/** Element von dem aus nach dem Einfügen eines neuen Elements eine Verbindung zu dem neuen Element hergestellt werden soll */
 	private transient ModelElementBox modeAddElementSource;
+	/** Datenobjekt zum Einfügen aus der Zwischenablage */
 	private transient ByteArrayInputStream clipboardData;
+	/** Text zum Einfügen aus der Zwischenablage */
 	private String clipboardText;
+	/** Bild zum Einfügen aus der Zwischenablage */
 	private transient BufferedImage clipboardImage;
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn sich der Selektionmodus ändert
+	 * @see #fireStateChangeListener()
+	 */
 	private final transient List<ActionListener> stateChangeListener;
+
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn sich die Verfügbarkeit von Undo/Redo-Schritten ändert
+	 * @see #fireUndoRedoDoneListener()
+	 */
 	private final transient List<ActionListener> undoRedoDoneListener;
+
+	/**
+	 * Listen, die über Änderungen am Zoomfaktor benachrichtigt werden sollen
+	 */
 	private final transient List<ActionListener> zoomChangeListeners;
 
+	/**
+	 * Hält das Cursor-Objekt für "Verknüpfung hier nicht möglich" vor
+	 */
 	private transient Cursor cursorNotAllowed;
 
-	private transient ModelSurface lastSurfaceState=null; /* Zur Erkennung, ob das Modell geändert wurde */
+	/**
+	 * Kopie des letzten Status der Zeichenflächendaten
+	 * zu Erkennung, ob es Veränderungen gab
+	 */
+	private transient ModelSurface lastSurfaceState=null;
+
+	/**
+	 * Zeitpunkt (in System-Millisekunden) an dem die Zeichenfläche
+	 * das letzte Mal auf Änderungen überprüft wurde, um so prüfen
+	 * zu können, ob {@link #MIN_UNDO_TIME_DELTA} überschritten  wurde
+	 * und ggf. ein weiterer Rückgängig-Schritt erfasst werden soll.
+	 */
 	private long lastSurfaceStateTime=0;
+
+	/**
+	 * Liste mit Zeichenflächen-Puffer für Rückgängig-Operationen
+	 */
 	private final transient List<ModelSurface> undoBuffer;
+
+	/**
+	 * Liste mit Zeichenflächen-Puffer für Wiederholen-Operationen
+	 */
 	private final transient List<ModelSurface> redoBuffer;
 
+	/**
+	 * Optionales UserPaint-Objekt, welches beim Zeichnen zusätzlich aufgerufen wird
+	 * @see #setAdditionalUserPaint(UserPaint)
+	 */
 	private transient UserPaint additionalUserPaint;
+
+	/**
+	 * Informationen zur linken Symbolleiste auf der leeren Zeichenfläche anzeigen?
+	 */
 	private final boolean useInfoPaint;
 
+	/**
+	 * Optionales Callback, das zu einem Element weitere Tooltip-Daten (aus der Statistik) liefert
+	 * @see #setAdditionalTooltipGetter(Function)
+	 */
 	private transient Function<ModelElementBox,String> additionalTooltipGetter;
 
+	/**
+	 * Gibt an, ob Kanten zu neu eingefügten Elementen wenn möglich automatisch hinzugefügt werden sollen.
+	 * @see #getAutoConnect()
+	 * @see #setAutoConnect(ConnectMode)
+	 */
 	private ConnectMode autoConnect=ConnectMode.OFF;
 
+	/** Vertikale Positionen für die Infotexte auf der Zeichenfläche */
 	private transient int[] infoPositions;
+	/** Klick-Bereiche für die Infotexte auf der Zeichenfläche */
 	private transient Rectangle[] linkPositions;
 
 	/**
@@ -299,10 +381,10 @@ public final class ModelSurfacePanel extends JPanel {
 		undoBuffer=new ArrayList<>();
 		redoBuffer=new ArrayList<>();
 
-		redrawListener=()->repaint();
 		setZoom(SetupData.getSetup().lastZoom);
 		raster=ModelSurface.Grid.LINES;
 
+		requestRedrawListener=()->repaint();
 		requestCopyListener=()->copyToClipboard();
 		requestCutListener=()->{copyToClipboard(); deleteSelectedElements();};
 
@@ -347,18 +429,24 @@ public final class ModelSurfacePanel extends JPanel {
 		this.showEditModelProperties=showEditModelProperties;
 	}
 
+	/**
+	 * Setzt das {@link ModelSurface}-Element welches die Modell-Elemente beinhaltet;
+	 * dabei wird kein Undo-Schritt erfasst
+	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
+	 * @param surface	Darzustellendes <code>ModelSurface</code>-Element
+	 */
 	private void setSurfaceNoUndoCheck(final EditModel model, final ModelSurface surface) {
 		if (surface==this.surface) return;
 
 		if (this.surface!=null) {
-			this.surface.removeRedrawListener(redrawListener);
+			this.surface.removeRedrawListener(requestRedrawListener);
 			this.surface.removeRequestCopyListener(requestCopyListener);
 			this.surface.removeRequestCutListener(requestCutListener);
 		}
 		this.model=model;
 		this.surface=surface;
 		if (this.surface!=null) {
-			this.surface.addRedrawListener(redrawListener);
+			this.surface.addRedrawListener(requestRedrawListener);
 			this.surface.addRequestCopyListener(requestCopyListener);
 			this.surface.addRequestCutListener(requestCutListener);
 			model.surface=surface;
@@ -370,7 +458,7 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
-	 * Setzt das <code>ModelSurface</code>-Element welches die Modell-Elemente beinhaltet
+	 * Setzt das {@link ModelSurface}-Element welches die Modell-Elemente beinhaltet
 	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
 	 * @param surface	Darzustellendes <code>ModelSurface</code>-Element
 	 * @param clientData	Kundendaten-Objekt (beim Ändern der Namen im Surface werden hier ggf. neue Kundentypen als Kopien von vorhandenen angelegt)
@@ -410,6 +498,10 @@ public final class ModelSurfacePanel extends JPanel {
 		return zoomChangeListeners.remove(zoomChangeListener);
 	}
 
+	/**
+	 * Benachrichtigt die Listen, dass der Zoomfaktor geändert wurde
+	 * @see #zoomChangeListeners
+	 */
 	private void fireZoomChangeListeners() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,NumberTools.formatNumber(getZoom()));
 		for (ActionListener listener: zoomChangeListeners) listener.actionPerformed(event);
@@ -529,6 +621,10 @@ public final class ModelSurfacePanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn eine Datei auf der Komponente abgelegt wird
+	 * @see #dropFile(File, Point)
+	 */
 	private List<ActionListener> fileDropListeners=new ArrayList<>();
 
 	/**
@@ -548,7 +644,12 @@ public final class ModelSurfacePanel extends JPanel {
 		return fileDropListeners.remove(fileDropListener);
 	}
 
-	private boolean dropFile(final File file, final Point point) {
+	/**
+	 * Reagiert auf das Ablegen einer Datei auf der Zeichenfläche
+	 * @param file	Per Drag&amp;drop abgelegte Datei
+	 * @param point	Position auf der Zeichenfläche
+	 */
+	private void dropFile(final File file, final Point point) {
 		BufferedImage image=null;
 		try {image=ImageIO.read(file);} catch (IOException e) {image=null;}
 		if (image!=null) {
@@ -567,12 +668,10 @@ public final class ModelSurfacePanel extends JPanel {
 			element.setPosition(new Point(x,y));
 			surface.add(element);
 			setMode(ClickMode.MODE_NORMAL);
-			return true;
 		}
 
 		final ActionEvent event=FileDropperData.getActionEvent(null,file,this,point);
 		for (ActionListener listener: fileDropListeners) listener.actionPerformed(event);
-		return true;
 	}
 
 	/**
@@ -590,7 +689,7 @@ public final class ModelSurfacePanel extends JPanel {
 							@SuppressWarnings("unchecked")
 							final List<File> fileList=(List<File>)(transfer.getTransferData(DataFlavor.javaFileListFlavor));
 							final Iterator<File> iterator=fileList.iterator();
-							while (iterator.hasNext()) if (dropFile(iterator.next(),dtde.getLocation())) break;
+							if (iterator.hasNext()) dropFile(iterator.next(),dtde.getLocation());
 							return true;
 						} catch (UnsupportedFlavorException | IOException e) {return false;}
 					}
@@ -632,13 +731,18 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
-	 * Liefert den aktuellen Betriebsmodus zurück
+	 * Liefert den aktuellen Betriebsmodus zurück.
 	 * @return	Aktueller Betriebsmodus
 	 */
 	public ClickMode getMode() {
 		return mode;
 	}
 
+	/**
+	 * Stellt den aktuellen Betriebsmodus ein.
+	 * @param mode	Neuer Betriebsmodus
+	 * @see #getMode()
+	 */
 	private void setMode(final ClickMode mode) {
 		boolean fireStateChange=(this.mode!=mode);
 		this.mode=mode;
@@ -651,20 +755,48 @@ public final class ModelSurfacePanel extends JPanel {
 		if (fireStateChange) fireStateChangeListener();
 	}
 
+	/**
+	 * Startet die verzögerte Reaktion auf Änderungen an dem Modell
+	 * (bzw. hält die Auslösung der Listener zurück)
+	 * @see #finishDelayStateChangeListener()
+	 */
 	private void startDelayStateChangeListener() {
 		delayStateChangeListener=true;
 		needToFireStateChangeListener=false;
 	}
 
+	/**
+	 * Beendet die per {@link #startDelayStateChangeListener()}
+	 * gestartete Verzögerung der {@link #stateChangeListener}
+	 * und löst diese falls mittlerweile nötig aus.
+	 * @see #startDelayStateChangeListener()
+	 */
 	private void finishDelayStateChangeListener() {
 		delayStateChangeListener=false;
 		if (needToFireStateChangeListener) fireStateChangeListener();
 		needToFireStateChangeListener=false;
 	}
 
+	/**
+	 * Soll die Auslösung der {@link #stateChangeListener} verzögert werden?
+	 * @see #fireStateChangeListener()
+	 * @see #startDelayStateChangeListener()
+	 * @see #finishDelayStateChangeListener()
+	 */
 	private boolean delayStateChangeListener;
+
+	/**
+	 * Gibt es momentan zurückgehaltene {@link #stateChangeListener}-Auslösungen?
+	 * @see #fireStateChangeListener()
+	 * @see #startDelayStateChangeListener()
+	 * @see #finishDelayStateChangeListener()
+	 */
 	private boolean needToFireStateChangeListener;
 
+	/**
+	 * Löst die Listener, die benachrichtigt werden sollen, wenn sich der Selektionmodus ändert, aus.
+	 * @see #stateChangeListener
+	 */
 	private void fireStateChangeListener() {
 		if (delayStateChangeListener) {needToFireStateChangeListener=true; return;}
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"statechange");
@@ -688,6 +820,10 @@ public final class ModelSurfacePanel extends JPanel {
 		return stateChangeListener.remove(listener);
 	}
 
+	/**
+	 * Löst die Listener, die benachrichtigt werden sollen, wenn sich die Verfügbarkeit von Undo/Redo-Schritten ändert, aus.
+	 * @see #undoRedoDoneListener
+	 */
 	private void fireUndoRedoDoneListener() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"undoredodone");
 		for (ActionListener listener: undoRedoDoneListener) listener.actionPerformed(event);
@@ -826,6 +962,14 @@ public final class ModelSurfacePanel extends JPanel {
 		setMode(ClickMode.MODE_ADD_ELEMENT);
 	}
 
+	/**
+	 * Versucht zwei Stationen über eine Verbindungskante
+	 * zu verbinden (Funktion zur automatischen Verbindung neuer Stationen).
+	 * @param element1	Ausgangsstation
+	 * @param element2	Zielstation
+	 * @return	Liefert <code>true</code>, wenn eine Verbindungskante eingefügt werden konnte
+	 * @see #addElement(ModelElementPosition, Point)
+	 */
 	private boolean autoConnect(final ModelElement element1, final ModelElement element2) {
 		if (!(element1 instanceof ModelElementPosition)) return false;
 		if (!(element2 instanceof ModelElementPosition)) return false;
@@ -843,6 +987,14 @@ public final class ModelSurfacePanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Versucht zwei Stationen über eine Verbindungskante
+	 * zu verbinden (Funktion zur intelligenten Verbindung neuer Stationen).
+	 * @param lastSelected	Zuletzt selektierte Station (wird in Kombination mit dem Abstand berücksichtigt; die Verbindung muss also nicht notwendig von dieser Station ausgehen)
+	 * @param element	Zielstation
+	 * @return	Liefert <code>true</code>, wenn eine Verbindungskante eingefügt werden konnte
+	 * @see #addElement(ModelElementPosition, Point)
+	 */
 	private boolean smartConnect(final ModelElement lastSelected, final ModelElement element) {
 		if (!(element instanceof ModelElementPosition)) return false;
 		final ModelElementPosition box=(ModelElementPosition)element;
@@ -911,6 +1063,10 @@ public final class ModelSurfacePanel extends JPanel {
 		fireStateChangeListener();
 	}
 
+	/**
+	 * Wird aufgerufen, wenn das Modell verändert wurde.
+	 * @param previousModel	Vorheriges Modell (für die Rückgängig-Funktion)
+	 */
 	private void modelChanged(final ModelSurface previousModel) {
 		if (!canUndo) return;
 		undoBuffer.add(previousModel.clone(false,previousModel.getResources().clone(),previousModel.getSchedules().clone(),previousModel.getParentSurface(),null));
@@ -921,6 +1077,10 @@ public final class ModelSurfacePanel extends JPanel {
 		fireUndoRedoDoneListener();
 	}
 
+	/**
+	 * Prüft, ob das Modell verändert wurde
+	 * @param forceCheck	Prüfung erzwingen
+	 */
 	private void checkIfModelChanged(final boolean forceCheck) {
 		if (!canUndo || readOnly) return;
 		if ((forceCheck || (mode==ClickMode.MODE_NORMAL && dragStartElementPosition==null)) && surface!=null) {
@@ -1029,6 +1189,12 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Zeichnet die zuästzlichen Infotexte auf der Zeichenfläche ein.
+	 * @param g	Grafikausgabeobjekt
+	 * @param viewArea	Sichtbarer Bereich
+	 * @see #paint(Graphics)
+	 */
 	private void paintInfo(final Graphics g, final Rectangle viewArea) {
 		if (infoPositions==null) {
 			linkPositions=null;
@@ -1324,6 +1490,13 @@ public final class ModelSurfacePanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Fügt bei einer DOCX-Ausgabe ein Bild des Modells in die Ausgabe ein.
+	 * @param docx	DOCX-Ausgabe-Dokument
+	 * @param xSize	Größe des Bildes in x-Richtung
+	 * @param ySize	Größe des Bildes in y-Richtung
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean addImageToDOCX(final XWPFDocument docx, final int xSize, final int ySize) {
 		final BufferedImage image=getImage(xSize,ySize);
 		try (ByteArrayOutputStream streamOut=new ByteArrayOutputStream()) {
@@ -1333,6 +1506,11 @@ public final class ModelSurfacePanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Fügt bei einer DOCX-Ausgabe eine Überschrift in die Ausgabe ein.
+	 * @param docx	DOCX-Ausgabe-Dokument
+	 * @param line	Überschriftzeilen
+	 */
 	private void addHeadingToDOCX(final XWPFDocument docx, final String line) {
 		final XWPFParagraph p=docx.createParagraph();
 		final XWPFRun r=p.createRun();
@@ -1429,6 +1607,11 @@ public final class ModelSurfacePanel extends JPanel {
 		try {return ImageIO.write(image,format.toLowerCase(),file);} catch (IOException e) {return false;}
 	}
 
+	/**
+	 * Ruft den Modelleigenschaften-Dialog einer Station auf.
+	 * @param element	Aktuelle Station
+	 * @param modifieres	Gedrückte Umschalt-Tasten
+	 */
 	private void showElementProperties(final ModelElement element, final int modifieres) {
 		if (element==null) return;
 		surface.setSelectedArea(null,zoom);
@@ -1463,6 +1646,10 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Ruft den Dialog zum Bearbeiten eines Untermodells auf.
+	 * @param element	Aktuelle Station
+	 */
 	private void showElementSubEditor(final ModelElement element) {
 		if (!(element instanceof ModelElementSub)) return;
 		surface.setSelectedArea(null,zoom);
@@ -1540,9 +1727,7 @@ public final class ModelSurfacePanel extends JPanel {
 				List<File> fileList=(List<File>)list;
 
 				final Iterator<File> iterator=fileList.iterator();
-				while (iterator.hasNext()) {
-					if (dropFile(iterator.next(),null)) break;
-				}
+				if (iterator.hasNext()) dropFile(iterator.next(),null);
 			}
 		}
 
@@ -1560,6 +1745,12 @@ public final class ModelSurfacePanel extends JPanel {
 		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 	}
 
+	/**
+	 * Prüft, ob zwischen zwei Elementen eine Verbindungkanten eingefügt werden darf.
+	 * @param element1	Mögliches Ausgangelement
+	 * @param element2	Mögliches Zielelement
+	 * @return	Liefert <code>true</code>, wenn zwischen den Elementen eine Verbindungskante eingefügt werden darf
+	 */
 	private boolean canAddEdge(final ModelElement element1, final ModelElement element2) {
 		if (element1==null || element2==null) return false;
 		if (element1==element2) return false;
@@ -1582,6 +1773,10 @@ public final class ModelSurfacePanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn die Modelleigenschaften aufgerufen werden sollen
+	 * @see #fireShowPropertiesDialog(String)
+	 */
 	private final List<ActionListener> showModelPropertiesListeners=new ArrayList<>();
 
 	/**
@@ -1640,6 +1835,10 @@ public final class ModelSurfacePanel extends JPanel {
 		return showModelPropertiesListeners.remove(showModelPropertiesListener);
 	}
 
+	/**
+	 * Liste der Consumer, die benachrichtigt werden sollen, wenn die Anzahl an Bedienern in einer Gruppe geändert werden soll
+	 * @see #setResourceCount(String, int)
+	 */
 	private final transient List<BiConsumer<String,Integer>> resourceCountSetter=new ArrayList<>();
 
 	/**
@@ -1659,10 +1858,21 @@ public final class ModelSurfacePanel extends JPanel {
 		return resourceCountSetter.remove(setter);
 	}
 
+	/**
+	 * Löst die Consumer, die benachrichtigt werden sollen, wenn die Anzahl an Bedienern in einer Gruppe geändert werden soll, aus.
+	 * @param name	Name der Bedienergruppe
+	 * @param count	Neue Anzahl an Bedienern in der Gruppe
+	 */
 	private void setResourceCount(final String name, final int count) {
 		for (BiConsumer<String,Integer> setter: resourceCountSetter) setter.accept(name,count);
 	}
 
+	/**
+	 * Fügt einen Menüpunkt zum Einfügen einer Visualisierung zu einem Menü hinzu
+	 * @param parentMenu	Übergeordnetes Menü
+	 * @param element	Visualisierungselement das durch den Menüpunkt eingefügt werden soll
+	 * @return	Liefert den bereits eingefügten Menüpunkt zurück
+	 */
 	private JMenuItem addVisualizationContextMenuItem(final JMenu parentMenu, final ModelElementPosition element) {
 		final JMenuItem item=new JMenuItem(element.getContextMenuElementName()+" - "+element.getName());
 		item.setToolTipText(element.getToolTip());
@@ -1673,6 +1883,10 @@ public final class ModelSurfacePanel extends JPanel {
 		return item;
 	}
 
+	/**
+	 * Fügt mehrere Visualisierungs-Kontextmenü-Einträge zu einem Menü hinzu
+	 * @param parentMenu	Übergeordnetes Menü
+	 */
 	private void addVisualizationContextMenuItems(final JMenu parentMenu) {
 
 		ModelElementAnimationTextValue text;
@@ -1745,6 +1959,10 @@ public final class ModelSurfacePanel extends JPanel {
 		addVisualizationContextMenuItem(parentMenu,chart);
 	}
 
+	/**
+	 * Zeigt das Kontextmenü an einem bestimmten Punkt an.
+	 * @param point	Klickpunkt an dem das Kontextmenü angezeigt werden soll
+	 */
 	private void showModelContextMenu(final Point point) {
 		final JPopupMenu menu=new JPopupMenu();
 
@@ -1797,6 +2015,7 @@ public final class ModelSurfacePanel extends JPanel {
 	/**
 	 * Aktiviert die per {@link #addShowModelPropertiesListener(ActionListener)} registrierten Listener.
 	 * @param propertiesType	Art des Eigenschaftendialogs der geöffnet werden soll
+	 * @see #showModelPropertiesListeners
 	 */
 	public void fireShowPropertiesDialog(final String propertiesType) {
 		final ActionEvent event=new ActionEvent(ModelSurfacePanel.this,AWTEvent.RESERVED_ID_MAX+1,propertiesType);
@@ -1817,6 +2036,10 @@ public final class ModelSurfacePanel extends JPanel {
 		TOGGLE
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn die Elementenvorlagenleiste ein- oder ausgeblendet werden soll
+	 * @see #setElementTemplatesVisibility(ElementTemplatesVisibility)
+	 */
 	private final List<Consumer<ElementTemplatesVisibility>> setElementTemplatesVisibilityListeners=new ArrayList<>();
 
 	/**
@@ -1836,6 +2059,11 @@ public final class ModelSurfacePanel extends JPanel {
 		return setElementTemplatesVisibilityListeners.remove(setElementTemplatesVisibilityListener);
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn die Elementenvorlagenleiste ein- oder ausgeblendet werden soll
+	 * @param visible	Soll die Elementenvorlagenleiste ein- oder ausgeblendet werden?
+	 * @see #setElementTemplatesVisibilityListeners
+	 */
 	private void setElementTemplatesVisibility(final ElementTemplatesVisibility visible) {
 		for (Consumer<ElementTemplatesVisibility> listener: setElementTemplatesVisibilityListeners) listener.accept(visible);
 	}
@@ -1931,6 +2159,10 @@ public final class ModelSurfacePanel extends JPanel {
 		this.simData=simData;
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn Elemente ausgewählt werden
+	 * @see #fireSelectionListener()
+	 */
 	private transient List<ActionListener> selectionListeners=new ArrayList<>();
 
 	/**
@@ -1950,11 +2182,19 @@ public final class ModelSurfacePanel extends JPanel {
 		return selectionListeners.remove(selectionListener);
 	}
 
+	/**
+	 * Löst die Listener, die benachrichtigt werden sollen, wenn Elemente ausgewählt werden, aus.
+	 * @see #selectionListeners
+	 */
 	private void fireSelectionListener() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"selectionchanged");
 		for (ActionListener listener: selectionListeners) listener.actionPerformed(event);
 	}
 
+	/**
+	 * Listener die auf Klicks auf Zeichenflächen-Links reagieren sollen
+	 * @see #fireLinkListener(int)
+	 */
 	private transient List<Consumer<Integer>> linkListeners=new ArrayList<>();
 
 	/**
@@ -1975,6 +2215,11 @@ public final class ModelSurfacePanel extends JPanel {
 		return linkListeners.remove(linkListener);
 	}
 
+	/**
+	 * Löst die Listener, die auf Klicks auf Zeichenflächen-Links reagieren sollen, aus.
+	 * @param link	Nummer des Links
+	 * @see #linkListeners
+	 */
 	private void fireLinkListener(final int link) {
 		for (Consumer<Integer> linkListener: linkListeners) linkListener.accept(link);
 	}
@@ -2043,6 +2288,12 @@ public final class ModelSurfacePanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Fügt eine Tabellen-basierte Kundenquelle zu dem Modell hinzu
+	 * @param file	Tabellendatei
+	 * @param position	Einfügeposition
+	 * @return	Liefert true, wenn die Quelle erfolgreich hinzugefügt werden konnte
+	 */
 	private boolean addTableFileBasedSource(final File file, final Point position) {
 		final ModelElementSourceTable source=new ModelElementSourceTable(model,surface);
 		source.setInputFile(file.toString());
@@ -2051,6 +2302,12 @@ public final class ModelSurfacePanel extends JPanel {
 		return true;
 	}
 
+	/**
+	 * Fügt eine Tabellen-basierte Eingabe-Station zu dem Modell hinzu
+	 * @param file	Tabellendatei
+	 * @param position	Einfügeposition
+	 * @return	Liefert true, wenn die Eingabe-Station erfolgreich hinzugefügt werden konnte
+	 */
 	private boolean addTableFileBasedInput(final File file, final Point position) {
 		final ModelElementInput input=new ModelElementInput(model,surface);
 		input.setInputFile(file.toString());
@@ -2075,6 +2332,13 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Befindet sich ein Punkt im dem Bereich
+	 *  eines Infotext-Links?
+	 * @param point	Zu prüfender Punkt
+	 * @return	Liefert die 0-basierte Nummer der zugehörigen Infotextes oder -1, wenn sich der Punkt nicht im Bereich eines Infotextes befindet
+	 * @see #linkPositions
+	 */
 	private int emptyScreenLinkPosition(final Point point) {
 		final Rectangle viewArea;
 		if (getParent() instanceof JViewport) {
@@ -2091,6 +2355,10 @@ public final class ModelSurfacePanel extends JPanel {
 		return -1;
 	}
 
+	/**
+	 * Zeigt das QuickFix-Popupmenü für ein Element an (wenn es Fehler gibt, sonst passiert nichts)
+	 * @param element	Element für dass das QuickFix-Popupmenü angezeigt werden soll
+	 */
 	private void showQuickFixPopup(final ModelElementPosition element) {
 		final JPopupMenu popupMenu=element.getQuickFixPopupMenu();
 		if (popupMenu==null) return;
@@ -2118,6 +2386,11 @@ public final class ModelSurfacePanel extends JPanel {
 		return operationRunning;
 	}
 
+	/**
+	 * Liefert eine Beschreibung für eine Station zur Anzeige in einem Tooltip.
+	 * @param element	Element für das die Beschreibung generiert werden soll
+	 * @return	Beschreibung
+	 */
 	private String getTooltipDescription(final ModelElementBox element) {
 		if (element==null || !SetupData.getSetup().showStationDescription) return "";
 
@@ -2127,19 +2400,30 @@ public final class ModelSurfacePanel extends JPanel {
 		return simpleDescriptionBuilder.getDescription();
 	}
 
+	/**
+	 * Liefert, sofern hinterlegt, einen zusätzlichen Tooltip-Text für ein Element
+	 * @param element	Element für das der zusätzliche Tooltip-Text abgerufen werden soll
+	 * @return	Zusätzlicher Tooltip-Text (kann <code>null</code> sein, wenn kein zusätzlicher Text zur Verfügung steht)
+	 * @see #additionalTooltipGetter
+	 * @see #setAdditionalTooltipGetter(Function)
+	 */
 	private String getAdditionalTooltip(final ModelElementBox element) {
 		if (additionalTooltipGetter==null) return null;
 		return additionalTooltipGetter.apply(element);
 	}
 
 	/**
-	 * Stellt ein Callback ein, dass zu einem Element weitere Tooltip-Daten (aus der Statistik) liefert
+	 * Stellt ein Callback ein, das zu einem Element weitere Tooltip-Daten (aus der Statistik) liefert
 	 * @param additionalTooltipGetter	Callback, das weitere Tooltip-Daten liefert. (Dass Callback kann <code>null</code> sein und auch die zurückgelieferten Tooltip-Daten können jederzeit <code>null</code> sein)
 	 */
 	public void setAdditionalTooltipGetter(final Function<ModelElementBox,String> additionalTooltipGetter) {
 		this.additionalTooltipGetter=additionalTooltipGetter;
 	}
 
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn der Nutzer per Kontextmenü die Erstellung einer Parameterreihe auslöst
+	 * @see #fireBuildParameterSeries(ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord)
+	 */
 	private final transient Set<Consumer<ParameterCompareTemplatesDialog.TemplateRecord>> buildParameterSeriesListeners=new HashSet<>();
 
 	/**
@@ -2160,10 +2444,17 @@ public final class ModelSurfacePanel extends JPanel {
 		return buildParameterSeriesListeners.remove(listener);
 	}
 
+	/**
+	 * Löst eine Benachrichtigung der Listener, die benachrichtigt werden sollen, wenn der Nutzer per Kontextmenü die Erstellung einer Parameterreihe auslöst, aus.
+	 * @param template	Vorlage für die Parameterreihe
+	 */
 	private void fireBuildParameterSeries(final ParameterCompareTemplatesDialog.TemplateRecord template) {
 		buildParameterSeriesListeners.stream().forEach(listener->listener.accept(template));
 	}
 
+	/**
+	 * Reagiert auf Mausklicks auf der Zeichenfläche
+	 */
 	private class ModelSurfacePanelMouseListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -2440,6 +2731,10 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Mausbewegungen (Drag&amp;drop und Infos für Tooltips beim
+	 * Überfahren von Elementen usw.) auf der Zeichenfläche
+	 */
 	private class ModelSurfacePanelMouseMotionListener implements MouseMotionListener {
 		@Override
 		public void mouseDragged(MouseEvent e) {
@@ -2618,6 +2913,9 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Mausrad-Bewegungen auf der Zeichenfläche
+	 */
 	private class ModelSurfacePanelMouseWheelListener implements MouseWheelListener {
 		@Override
 		public void mouseWheelMoved(MouseWheelEvent e) {
@@ -2659,6 +2957,9 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Tastendrücken auf der Zeichenfläche
+	 */
 	private class ModelSurfacePanelKeyListener implements KeyListener {
 		@Override
 		public void keyTyped(KeyEvent e) {

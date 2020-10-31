@@ -57,6 +57,12 @@ public final class ModelPaths implements Cloneable {
 		connections.clear();
 	}
 
+	/**
+	 * Vergleicht ob zwei Listen exakt dieselben Einträge (ggf. in abweichender Reihenfolge) beinhalten.
+	 * @param list1	Erste Liste
+	 * @param list2	Zweite Liste
+	 * @return	Liefert <code>true</code>, wenn beide Listen dieselben Eintäge beinhalten
+	 */
 	private boolean compareLists(final List<String> list1, final List<String> list2) {
 		if (list1==null || list2==null) return false;
 		if (list1.size()!=list2.size()) return false;

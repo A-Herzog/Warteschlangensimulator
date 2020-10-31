@@ -88,12 +88,36 @@ public final class ModelLoadData implements Cloneable {
 	 */
 	private String table;
 
+	/**
+	 * Liste der einzelnen Datensätze
+	 * @see #getList()
+	 */
 	private final List<ModelLoadDataRecord> list;
 
+	/**
+	 * Fehlermeldungen beim letzten Aufruf von {@link #changeModel(EditModel, File, boolean)}
+	 * @see #getChangeWarnings()
+	 */
 	private final List<String> changeWarnings;
+
+	/**
+	 * Datentabelle
+	 */
 	private Table sourceTable;
+
+	/**
+	 * Name der DDE-Arbeitsmappe
+	 */
 	private String sourceDDEWorkbook;
+
+	/**
+	 * Name der Tabelle in der DDE-Arbeitsmappe
+	 */
 	private String sourceDDETable;
+
+	/**
+	 * DDE-Verbindungsobjekt
+	 */
 	private DDEConnect sourceDDE;
 
 	/**
@@ -327,6 +351,11 @@ public final class ModelLoadData implements Cloneable {
 		return changeWarnings;
 	}
 
+	/**
+	 * Versucht die Verbindung aufzubauen
+	 * @param baseFolder	Basisverzeichnis für den Dateimodus
+	 * @return	Liefert im Erfolgsfall <code>true</code>, sonst eine Fehlermeldung
+	 */
 	private String prepareSource(final File baseFolder) {
 		if (mode==null) return Language.tr("ModelLoadData.ProcessError.NoMode");
 		final String workbook=getWorkbook().trim();
@@ -372,11 +401,21 @@ public final class ModelLoadData implements Cloneable {
 		return null;
 	}
 
+	/**
+	 * Beendet die Verbdinung
+	 * @see #prepareSource(File)
+	 */
 	private void finalizeSource() {
 		sourceTable=null;
 		sourceDDE=null;
 	}
 
+	/**
+	 * Ermittelt den Wert einer Zelle
+	 * @param cellName	Bezeichner der Zelle
+	 * @param nr	Nummer des Datensatzes in dessen Kontext die Zelle geladen werden soll
+	 * @return	Liefert im Erfolgsfall einen Zahlenwert, sonst eine Zeichenkette
+	 */
 	private Object getCellValue(final String cellName, final int nr) {
 		if (cellName==null || cellName.trim().isEmpty()) return String.format(Language.tr("ModelLoadData.ProcessError.NoCellID"),nr+1);
 		final int[] index=Table.cellIDToNumbers(cellName);
@@ -464,7 +503,6 @@ public final class ModelLoadData implements Cloneable {
 	 * @see #willChangeModel()
 	 * @see #getChangeWarnings()
 	 */
-
 	public EditModel changeModel(final EditModel model, final MultiTable data, final String tableFileName, final boolean force) {
 		if (!prepareChange(force)) return null;
 
@@ -495,6 +533,12 @@ public final class ModelLoadData implements Cloneable {
 		return changedModel;
 	}
 
+
+	/**
+	 * Bereitet die Änderungen an dem Modell vor.
+	 * @param force	Gibt an, ob der Wert der "active"-Eigenschaft berücksichtigt werden soll (<code>false</code>) oder ob die Daten immer geladen werden sollen (<code>true</code>).
+	 * @return	Gibt an, ob sich das Modell ändern wird
+	 */
 	private boolean prepareChange(final boolean force) {
 		changeWarnings.clear();
 
@@ -507,6 +551,11 @@ public final class ModelLoadData implements Cloneable {
 		return true;
 	}
 
+	/**
+	 * Führt nach dem Laden der Daten die Veränderung des Modells durch.
+	 * @param changedModel Kopie des Ausgangsmodells
+	 * @return	Modell mit geladenen Daten
+	 */
 	private EditModel changeModel(EditModel changedModel) {
 		for (int nr=0;nr<list.size();nr++) {
 			final ModelLoadDataRecord record=list.get(nr);

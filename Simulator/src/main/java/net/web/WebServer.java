@@ -30,6 +30,11 @@ import simulator.editmodel.EditModel;
  */
 public class WebServer {
 	private ServerSystem serverSystem;
+
+	/**
+	 * Liste der momentan registrierten Handler
+	 * @see #getHandlersList()
+	 */
 	private final List<WebServerHandler> handlers;
 
 	/**

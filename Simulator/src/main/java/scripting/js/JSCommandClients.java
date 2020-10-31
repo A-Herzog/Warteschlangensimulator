@@ -33,7 +33,7 @@ public final class JSCommandClients extends JSBaseCommand {
 	private int count;
 	/** Liste der wartenden Kunden */
 	private List<RunDataClient> clients;
-	/** Freizugebende Kunden */
+	/** Gibt an, welche Kunden freigegeben werden sollen */
 	private boolean[] releaseClients;
 
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */

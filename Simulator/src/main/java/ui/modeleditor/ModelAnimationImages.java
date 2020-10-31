@@ -176,6 +176,11 @@ public final class ModelAnimationImages implements Cloneable {
 		return AnimationImageSource.scaleImage(image,size);
 	}
 
+	/**
+	 * Liefert eine base64-codierte Fassung eines der Bilder aus {@link #images}
+	 * @param index	Index des Bildes aus {@link #images}
+	 * @return	base64-codierte Fassung des Bildes
+	 */
 	private String getLocalBase64(final int index) {
 		if (index<0) return null;
 
@@ -269,12 +274,23 @@ public final class ModelAnimationImages implements Cloneable {
 		}
 	}
 
+	/**
+	 * Wandelt ein base64-encodiertes Bild in ein Bildobjekt um
+	 * @param imageString	Base64-encodiertes Bild
+	 * @return	Bildobjekt
+	 */
 	private BufferedImage imageFromBase64(final String imageString) {
 		try {
 			return ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(imageString)));
 		} catch (IOException | IllegalArgumentException e) {return null;}
 	}
 
+	/**
+	 * Fügt ein Bild zu der Liste der verfügbaren Bilder hinzu.
+	 * @param name	Name des Bildes
+	 * @param imageString	Base64-codierte Daten des Bildes
+	 * @see #loadFromXML(Element)
+	 */
 	private void addLoadedImage(final String name, final String imageString) {
 		if (name==null || name.isEmpty()) return;
 		if (imageString==null || imageString.isEmpty()) return;

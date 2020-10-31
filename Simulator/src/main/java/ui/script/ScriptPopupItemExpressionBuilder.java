@@ -49,6 +49,10 @@ public class ScriptPopupItemExpressionBuilder extends ScriptPopupItem {
 		this.scriptMode=scriptMode;
 	}
 
+	/**
+	 * Liefert den Basisbefehl zur Berechnung eines Ausdrucks.
+	 * @return	Basisbefehl zur Berechnung eines Ausdrucks
+	 */
 	private String getBaseCommand() {
 		switch (scriptMode) {
 		case Javascript:

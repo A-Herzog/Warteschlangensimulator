@@ -47,21 +47,35 @@ public final class ModelTransporter implements Cloneable {
 	 */
 	public static String DEFAULT_DISTANCE="distance";
 
+	/** Name der Transportergruppe */
 	private String name;
+	/** Icon für die Animation des Transporters bei unbeladenen Fahrten nach rechts */
 	private String iconEastEmpty;
+	/** Icon für die Animation des Transporters bei unbeladenen Fahrten nach links */
 	private String iconWestEmpty;
+	/** Icon für die Animation des Transporters bei beladenen Fahrten nach rechts */
 	private String iconEastLoaded;
+	/** Icon für die Animation des Transporters bei beladenen Fahrten nach links */
 	private String iconWestLoaded;
+	/** Anzahl an Transportern des Typs pro Station */
 	private final Map<String,Integer> count;
+	/** Kapazität eines Transporters dieses Typs */
 	private int capacity;
+	/** Entfernungsmatrix zwischen den Stationen */
 	private final Map<String,Map<String,Double>> distances;
+	/** Ausdruck zur Umrechnung der Entfernungen zu Transferzeiten */
 	private String expression;
 
+	/** Liste der Ausfall-Ereignisse */
 	private final List<ModelTransporterFailure> failures;
 
+	/** Beladungszeit-Verteilung */
 	private AbstractRealDistribution loadDistribution;
+	/** Beladungszeit-Rechenausdruck */
 	private String loadExpression;
+	/** Entladungszeit-Verteilung */
 	private AbstractRealDistribution unloadDistribution;
+	/** Entladungszeit-Rechenausdruck */
 	private String unloadExpression;
 
 	/**
@@ -73,7 +87,7 @@ public final class ModelTransporter implements Cloneable {
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param name	Name des Transporters
+	 * @param name	Name der Transportergruppe
 	 */
 	public ModelTransporter(final String name) {
 		this.name=name;
@@ -193,8 +207,8 @@ public final class ModelTransporter implements Cloneable {
 	}
 
 	/**
-	 * Liefert die Kapazität des eines Transporters dieses Typs
-	 * @return	Kapazität des eines Transporters dieses Typs
+	 * Liefert die Kapazität eines Transporters dieses Typs
+	 * @return	Kapazität eines Transporters dieses Typs
 	 */
 	public int getCapacity() {
 		return capacity;

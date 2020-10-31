@@ -47,6 +47,10 @@ import ui.modeleditor.coreelements.ModelElementBox;
  * @see ModelDescriptionBuilder
  */
 public class ModelDescriptionBuilderTable extends ModelDescriptionBuilder {
+	/**
+	 * Daten zu den einzelnen Stationen
+	 * @see StationTable
+	 */
 	private final List<StationTable> tables;
 
 	/**
@@ -187,6 +191,10 @@ public class ModelDescriptionBuilderTable extends ModelDescriptionBuilder {
 		return output.toString();
 	}
 
+	/**
+	 * Liefert ein Bild des Modells
+	 * @return	Bild des Modells
+	 */
 	private BufferedImage getModelImage() {
 		ModelSurfacePanel surfacePanel=new ModelSurfacePanel();
 		surfacePanel.setSurface(getModel(),getModel().surface,getModel().clientData,getModel().sequences);
@@ -270,10 +278,20 @@ public class ModelDescriptionBuilderTable extends ModelDescriptionBuilder {
 		} catch (IOException e) {return false;}
 	}
 
+	/**
+	 * Tabellendaten zu einer einzelnen Station
+	 * @see ModelDescriptionBuilderTable#tables
+	 */
 	private class StationTable {
+		/** Name der Station */
 		public final String name;
+		/** Eigenschaften der Station */
 		public final List<String[]> properties;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name der Station
+		 */
 		public StationTable(final String name) {
 			this.name=name;
 			properties=new ArrayList<>();

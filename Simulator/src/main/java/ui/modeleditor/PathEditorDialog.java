@@ -55,9 +55,13 @@ public class PathEditorDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 3832675453026139621L;
 
+	/** System zur Erstellung der Pfade */
 	private final PathBuilder builder;
+	/** Liste der Pfadpunkte */
 	private final List<PathPoint> data;
+	/** Vorschaubereich */
 	private final JTextArea previewArea;
+	/** Vorschaubereich nicht aktualisieren? */
 	private boolean disablePreviewUpdate;
 
 	/**
@@ -115,6 +119,10 @@ public class PathEditorDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Generiert das Einstellungen-Panel.
+	 * @return	Einstellungen-Panel
+	 */
 	private JPanel getSetupPanel() {
 		final JPanel content=new JPanel();
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
@@ -122,17 +130,29 @@ public class PathEditorDialog extends BaseDialog {
 		return content;
 	}
 
+	/**
+	 * Bereitet den Pfad-Builder vor.
+	 */
 	private void prepareBuilder() {
 		builder.clear();
 		for (PathPoint point: data) point.addToBuilder(builder);
 	}
 
+	/**
+	 * Aktualisiert die Vorschauansicht.
+	 * @see #previewArea
+	 */
 	private void updatePreview() {
 		if (previewArea==null || disablePreviewUpdate) return;
 		prepareBuilder();
 		previewArea.setText(String.join("\n",builder.runInfo()));
 	}
 
+	/**
+	 * Erstellt die Liste der Stationen
+	 * @param surface	Zeichenfläche
+	 * @param parentSurface	Übergeordnete Zeichenfläche oder <code>null</code>, wenn die Zeichenfläche aus dem vorherigen Parameter bereits die Haupt-Zeichenfläche ist
+	 */
 	private void buildStationsList(final ModelSurface surface, final ModelSurface parentSurface) {
 		for (ModelElement element: surface.getElements()) {
 			/* Untermodelle */

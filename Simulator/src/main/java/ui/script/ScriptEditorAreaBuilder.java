@@ -54,9 +54,11 @@ public class ScriptEditorAreaBuilder {
 	private final Consumer<KeyEvent> keyListener;
 	/** Initialer Text für das Eingabefeld */
 	private String initialText;
+	/** Datei-Drag&amp;Drop-Funktionalität für das Eingabefeld ({@link #addFileDropper(ActionListener)}) */
 	private ActionListener fileDropListener;
 	/** Aktive AutoComplete-Funktionen */
 	private Set<ScriptPopup.ScriptFeature> features;
+	/** System für AutoComplete-Vorschläge */
 	private DefaultCompletionProvider autoCompleteProvider;
 
 	/**
@@ -160,8 +162,8 @@ public class ScriptEditorAreaBuilder {
 		buildClient();
 		buildClients();
 		buildInput();
-		buildOutput(false,false,false);
-		buildOutput(false,true,false);
+		buildOutput(false,false);
+		buildOutput(true,false);
 		if (features.contains(ScriptFeature.Model)) {
 			buildModel();
 			buildStatisticsTools(false);
@@ -178,6 +180,13 @@ public class ScriptEditorAreaBuilder {
 		return editor;
 	}
 
+	/**
+	 * Fügt einen AutoComplete-Datensatz hinzu
+	 * @param shortDescription	Kurzbeschreibung des Befehls
+	 * @param summary	Beschreibung des Befehls
+	 * @param icon	Icon für den Eintrag
+	 * @param command	Einzufügendes Text
+	 */
 	private void addAutoComplete(final String shortDescription, final String summary, final Icon icon, final String command) {
 		if (command==null || command.trim().isEmpty()) return;
 		final BasicCompletion completion=new BasicCompletion(autoCompleteProvider,command);
@@ -461,7 +470,15 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessTime);
 	}
 
-	private void buildOutput(final boolean leanMode, final boolean fileMode, final boolean force) {
+	/**
+	 * Erstellt die AutoComplete-Einträge für
+	 * "Anzeige der Befehle zur Ausgabe" und "Anzeige der Befehle zur Dateiausgabe".
+	 * @param fileMode	Dateiausgabe (<code>true</code>) oder direkte Ausgabe (<code>false</code>)
+	 * @param force	Ausgabe im {@link ScriptFeature#Output}-Modus auch dann erzwingen, wenn das Feature nicht aktiviert ist
+	 * @see ScriptFeature#FileOutput
+	 * @see ScriptFeature#Output
+	 */
+	private void buildOutput(final boolean fileMode, final boolean force) {
 		if (fileMode) {
 			if (!features.contains(ScriptFeature.FileOutput)) return;
 		} else {
@@ -638,12 +655,18 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.InputValue"),Language.tr("ScriptPopup.InputValue.Hint"),Images.SCRIPT_RECORD_INPUT.getIcon(),inputGet);
 	}
 
+	/**
+	 * Erstellt die AutoComplete-Einträge zur
+	 * Anzeige der Befehle zum Zugriff auf die Statistik.
+	 * @param addOutputCommands	Zusätzliche Ausgabebefehle hinzufügen
+	 * @see ScriptFeature#Statistics
+	 */
 	private void buildStatisticsTools(final boolean addOutputCommands) {
 		if (!features.contains(ScriptFeature.Statistics)) return;
 
 		/* Allgemeine Funktionen zur Konfiguration der Ausgabe */
 
-		if (addOutputCommands) buildOutput(true,false,true);
+		if (addOutputCommands) buildOutput(false,true);
 
 		/* XML-Elemente wählen */
 

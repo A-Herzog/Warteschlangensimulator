@@ -34,11 +34,15 @@ public class DrawIOExport {
 	private final XMLTools xml;
 	/** Ausgabe-xml-Dokument */
 	private final Document doc;
+	/** Repräsentation des "mxGraphModel"-xml-Elements in der Ausgabedatei */
 	private final Element graphModel;
 	/** Wurzelelement des Ausgabe-xml-Dokuments */
 	private final Element root;
+	/** Zuordnung von Stations-IDs zu Draw.io-IDs */
 	private final Map<Integer,String> idsMap;
+	/** Basis-ID für die Ausgabeelemente */
 	private final String baseId;
+	/** Fortlaufende ID der Ausgabeelemente */
 	private int drawIds;
 
 	/**
@@ -84,14 +88,29 @@ public class DrawIOExport {
 		cell.setAttribute("parent","0");
 	}
 
+	/**
+	 * Gültige Zeichen für eine ID
+	 * @see #generateID(int)
+	 */
 	private static final String idChars="01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+	/**
+	 * Erzeugt eine ID einer vorgegebenen Länge
+	 * @param len	Länge der ID
+	 * @return	ID
+	 * @see #baseId
+	 */
 	private String generateID(final int len) {
 		final StringBuilder id=new StringBuilder();
 		for (int i=0;i<len;i++) id.append(idChars.charAt((int)Math.floor(Math.random()*idChars.length())));
 		return id.toString();
 	}
 
+	/**
+	 * Fügt eine Station zu dem Ausgabedokument hinzu
+	 * @param element	Auszugebende Station
+	 * @return	Liefert den xml-Knoten im Ausgabedokument
+	 */
 	private Element addElement(final ModelElement element) {
 		final Element node=doc.createElement("mxCell");
 
@@ -187,6 +206,11 @@ public class DrawIOExport {
 		}
 	}
 
+	/**
+	 * Erstellt die Stil-Daten für eine Station zusammen
+	 * @param element	Zu verarbeitendes Element
+	 * @return	Stil-Daten
+	 */
 	private Map<String,String> getStyle(final ModelElementBox element) {
 		final Map<String,String> style=new HashMap<>();
 
@@ -271,11 +295,22 @@ public class DrawIOExport {
 		return style;
 	}
 
+	/**
+	 * Liefert die Darstellungsrichtung (bzw. Ausrichtung des Farbverlaufs) für ein Element
+	 * @param element	Zu verarbeitendes Element
+	 * @return	Darstellungsrichtung
+	 */
 	private String getDirection(final ModelElementBox element) {
 		final Map<String,String> style=getStyle(element);
 		return style.get("direction");
 	}
 
+	/**
+	 * Wandelt eine Stil-Daten-Zuordnung in eine Zeichenkette um
+	 * @param map	Stil-Daten-Zuordnung
+	 * @return	Zeichenkette mit den Stil-Daten
+	 * @see #getStyle(ModelElementBox)
+	 */
 	private String styleToString(final Map<String,String> map) {
 		final StringBuilder style=new StringBuilder();
 		for (Map.Entry<String,String> entry: map.entrySet()) {
@@ -332,6 +367,11 @@ public class DrawIOExport {
 		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
+	/**
+	 * Verarbeitet ein Animations-Text-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelElement)
+	 */
 	private void processAnimationTextValue(final ModelElementAnimationTextValue element) {
 		final Element node=addElement(element);
 		node.setAttribute("vertex","1");
@@ -422,6 +462,11 @@ public class DrawIOExport {
 		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
+	/**
+	 * Verarbeitet ein allgemeines Positions-Element
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelElement)
+	 */
 	private void processPosition(final ModelElementPosition element) {
 		final Element node=addElement(element);
 		node.setAttribute("vertex","1");
@@ -440,6 +485,12 @@ public class DrawIOExport {
 
 	}
 
+	/**
+	 * Verarbeitet eine Verbindungskante
+	 * @param edge	Auszugebende Verbindungskante
+	 * @param lineMode	Art der Verbindungskante
+	 * @param surface	Zeichenfläche
+	 */
 	private void processEdge(final ModelElementEdge edge, final ModelElementEdge.LineMode lineMode, final ModelSurface surface) {
 		final Map<String,String> style=new HashMap<>();
 

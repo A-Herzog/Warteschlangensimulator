@@ -50,6 +50,12 @@ public class ScriptPopupItemStatistics extends ScriptPopupItem {
 		this.scriptMode=scriptMode;
 	}
 
+	/**
+	 *	Fügt einen Text an der aktuellen Cursorposition in ein Textfeld ein und setzt den Cursor daran auf die Position nach dem neuen Text
+	 * @param text	Einzufügender Text (wird automatisch um einen Zeilenumbruch am Ende ergänzt)
+	 * @param textArea	Textfeld, in das der neue Text eingetragen werden soll
+	 * @param update	Nach dem Einfügen auszuführende Aktion (kann <code>null</code> sein)
+	 */
 	private void insert(final String text, final JTextArea textArea, final Runnable update) {
 		if (textArea==null) return;
 

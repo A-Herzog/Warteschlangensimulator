@@ -52,6 +52,9 @@ public class DDEEditPanelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 2267758592237360567L;
 
+	/**
+	 * Baumstruktur die die Arbeitsmappen und die Tabellen darin darstellt
+	 */
 	private JTree tree;
 
 	/**

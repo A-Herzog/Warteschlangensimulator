@@ -48,6 +48,7 @@ import java.util.concurrent.Semaphore;
 import java.util.function.Consumer;
 
 import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -139,8 +140,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private final transient SetupData setup;
 
+	/** Statuszeilen-Text zur Anzahl der aufgezeichneten Bilder */
 	private final String infoMJPEG;
+	/** Statuszeilen-Text mit Informationen zur Simulation (bei unbegrenzter Zeit) */
 	private final String infoNoSum;
+	/** Statuszeilen-Text mit Informationen zur Simulation (bei begrenzter Simulationszeit) */
 	private final String infoSum;
 
 	/** Gibt an, ob die Animation direkt nach der Initialisierung starten soll oder ob sich das System anfänglich im Pausemodus befinden soll */
@@ -155,13 +159,17 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private transient EditModel model;
 	/** Zeichenfläche */
 	private ModelSurfacePanel surfacePanel;
+	/** Animationssystem */
 	private transient ModelSurfaceAnimator surfaceAnimator;
+	/** Sichert parallele Zugriffe auf {@link #simulator} ab. */
 	private Semaphore simulatorLock=new Semaphore(1);
 	/** Simulator für das Modell */
 	private transient Simulator simulator;
+	/** Vorgelagerter, im Konstruktor übergebener optionaler Logger */
 	private transient CallbackLoggerWithJS parentLogger;
 	/** Logger, über den die Einzelschritt ausgaben angezeigt werden */
 	private transient CallbackLoggerWithJS logger;
+	/** Läuft die Animation momentan? */
 	private boolean running;
 	/** Runnable, das aufgerufen wird, wenn die Simulation beendet wurde */
 	private Runnable animationDone;
@@ -170,16 +178,27 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	/** System zur Erzeugung einer MJPEG-Videodatei aus einzelnen Animationsbildern */
 	private transient VideoSystem encoder;
 
+	/** Ruft regelmäßig {@link #abortRunTest()} auf */
 	private transient Timer timer;
+	/** Wurde die Simulation erfolgreich beendet? ({@link #isSimulationSuccessful()}) */
 	private boolean simulationSuccessful;
+	/** Soll die Simulation abgebrochen werden? */
 	private boolean abortRun;
+	/** Soll die Simulation ohne Animationsausgabe zu Ende geführt werden? ({@link #finishAsSimulation()}) */
 	private boolean continueAsSimulation;
+	/** Simulationsdatenobjekt */
 	private transient SimulationData simData;
+	/** Stellt sicher, dass {@link #simulator} nicht auf <code>null</code> gesetzt wird, während {@link #updateViewer(SimulationData)} läuft */
 	private Semaphore mutex;
+	/** Zeitpunkt (bezogen auf die Simulationszeit) des letzten Aufrufs von {@link #delaySystem(SimulationData, int)} */
 	private long lastTimeStep;
+	/** Zeit für einen Zeitschritt ({@link #calculateMinimalTimeStep()}) */
 	private double delaySystem;
+	/** Tatsächliche Verzögerung pro Animationsschritt (0..100); ist im Einzelschrittmodus 100, während {@link #delay} unverändert bleibt */
 	private int delayInt;
+	/** Verzögerung pro Animationsschritt (0..100) */
 	private int delay;
+	/** Wird von {@link #animationDelayChanged()} auf <code>true</code> gesetzt und dann von {@link #delaySystem(SimulationData, int)} ausgewertet, wenn sich die Animationsgeschwindigkeit geändert hat. */
 	private boolean speedChanged;
 
 	/** Listener für Klicks auf die verschiedenen Symbolleisten-Schaltflächen */
@@ -241,22 +260,42 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 	/* Logging-Bereich unten */
 
+	/** Logging-Ausgabe-Bereich */
 	private final JPanel logArea;
+	/** Textfeld zur Ausgabe der Logging-Ausgaben */
 	private final JLabel logLabel;
+	/** Aktueller Zeitwert auf den sich die Logging-Ausgaben beziehen */
 	private long logTimeStamp;
+	/** Wiederverwendbarer {@link StringBuilder} für die Logging-Ausgaben */
 	private StringBuilder logText;
+	/** Wiederverwendbarer {@link StringBuilder} für die Logging-Ausgaben ohne Formatierung */
 	private StringBuilder logTextPlain;
+	/** Welcher der verfügbaren Logging-Ausgaben wird gerade angezeigt? (aktuell oder vorherige) */
 	private int logTextDisplayIndex;
+	/** Liste der vorherigen Logging-Ausgaben */
 	private List<String> logTextHistory;
+	/** Liste der vorherigen Logging-Ausgaben ohne Formatierung */
 	private List<String> logTextHistoryPlain;
+	/** Schaltfläche "Vorherige Logging-Ausgabe" */
 	private final JButton logPrevious;
+	/** Schaltfläche "Nächste Logging-Ausgabe" */
 	private final JButton logNext;
+	/** Schaltfläche "Aktuelle Logging-Ausgabe" */
 	private final JButton logCurrent;
+	/** Schaltfläche "Logging-Ausgabe kopieren" */
 	private final JButton logCopy;
+	/** Schaltfläche "Ausdruck berechnen" */
 	private final JButton logExpression;
+	/** Schaltfläche "Ergebnisse der Javascript-Skriptausführung" */
 	private final JButton logJS;
+	/** Schaltfläche "Nächste geplante Ereignisse" */
 	private final JButton logEvents;
 
+	/**
+	 * Unter-Animator-Element ein, welches ebenfalls bei Animationsschritten benachrichtigt werden soll<br>
+	 * (Kann <code>null</code> sein, wenn ein Untermodell-Fenster offen ist)
+	 * @see #setSubViewer(RunModelAnimationViewer)
+	 */
 	private RunModelAnimationViewer subViewer;
 
 	/**
@@ -395,6 +434,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		addAction("keyF7",e->step(false));
 	}
 
+	/**
+	 * Generiert basierend auf einem Hotkey die Textbeschreibung für den Hotkey (z.B. zur Anzeige in Symbolleisten-Schaltflächen Tooltips)
+	 * @param key	Hotkey
+	 * @return	Textbeschreibung für den Hotkey
+	 */
 	private String keyStrokeToString(final KeyStroke key) {
 		final int modifiers=key.getModifiers();
 		final StringBuilder text=new StringBuilder();
@@ -406,6 +450,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return text.toString();
 	}
 
+	/**
+	 * Legt eine Aktion an und fügt diese in die {@link ActionMap} des Panels ein.
+	 * @param name	Name der Aktion
+	 * @param action	Auszuführendes Callback beim Aufruf der Aktion
+	 */
 	private void addAction(final String name, final Consumer<ActionEvent> action) {
 		getActionMap().put(name,new AbstractAction() {
 			private static final long serialVersionUID=-6092283861324716876L;
@@ -423,6 +472,14 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	protected void addUserButtons(final JToolBar toolbar) {}
 
+	/**
+	 * Erzeugt eine Schaltfläche mit um 90° gegen den Uhrzeigersinn rotierter Beschriftung.
+	 * @param toolbar	Symbolleiste in die die neue Schaltfläche eingefügt werden soll (kann <code>null</code> sein, dann wird die Schaltfläche in keine Symbolleiste eingefügt)
+	 * @param title	Beschriftung der Schaltfläche (darf nicht leer sein)
+	 * @param hint	Tooltip für die Schaltfläche (kann <code>null</code> sein)
+	 * @param icon	Icon für die Schaltfläche (kann <code>null</code> sein)
+	 * @return	Neue Schaltfläche
+	 */
 	private JButton createRotatedToolbarButton(final JToolBar toolbar, final String title, final String hint, final Icon icon) {
 		ImageIcon rotatedIcon=null;
 
@@ -464,6 +521,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return button;
 	}
 
+	/**
+	 * Stellt die linke obere Ecke des sichtbaren Bereichs von {@link #surfacePanel} ein.
+	 * @param position	Position der linken oberen Ecke
+	 */
 	private void setSurfacePosition(final Point position) {
 		if (surfacePanel.getParent() instanceof JViewport) {
 			JViewport viewport=(JViewport)surfacePanel.getParent();
@@ -471,6 +532,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 	}
 
+	/**
+	 * Minimaler Zeitschritt aus Sicht einer Kundenquelle
+	 * @param record	Kundenquelle
+	 * @param oldMin	Bisheriger minimaler Zeitschritt
+	 * @return	Neuer minimaler Zeitschritt
+	 * @see #calculateMinimalTimeStep()
+	 */
 	private double calculateMinimalTimeStepFromRecord(final ModelElementSourceRecord record, final double oldMin) {
 		final double mean=DistributionTools.getMean(record.getInterarrivalTimeDistribution());
 		final long multiply=record.getTimeBase().multiply;
@@ -478,6 +546,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return oldMin;
 	}
 
+	/**
+	 * Berechnet einen minimalen Zeitschritt für die Animation.
+	 * @see #delaySystem
+	 */
 	private void calculateMinimalTimeStep() {
 		double min=86400;
 
@@ -590,7 +662,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		if (startPaused && !fastWarmUp) {
 			surfaceAnimator.setFullRecording(startFullRecording);
-			running=true; playPause();
+			running=true;
+			playPause();
 			if (this.logger!=null) this.logger.setActive(true);
 			simulator.start(true);
 		} else {
@@ -711,6 +784,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return fast;
 	}
 
+	/**
+	 * Beendet die Simulation
+	 * @param successful	War der Abschluss erfolgreich?
+	 * @see #abortRunTest()
+	 * @see #stepInt(boolean, boolean)
+	 */
 	private void finalizeSimulation(final boolean successful) {
 		if (surfaceAnimator==null) return;
 		if (simulator==null) return;
@@ -742,12 +821,41 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return simulationSuccessful;
 	}
 
+	/**
+	 * Zeitpunkt der letzten Statuszeilen-Aktualisierung
+	 * @see #updateStatus(long)
+	 */
 	private long lastStatusUpdate;
+
+	/**
+	 * Anzahl an bislang simulierten Kundenankünften beim letzten Aufruf von {@link #updateStatus(long)}
+	 * @see #updateStatus(long)
+	 */
 	private long lastStatusCurrent;
+
+	/**
+	 * Letzter Zeichenkettenwert für die bislang simulierten Kundenankünfte
+	 * @see #lastStatusCurrent
+	 * @see #updateStatus(long)
+	 */
 	private String lastStatusCurrentString;
+
+	/**
+	 * Gesamtanzahl an zu simulierenden Kundenankünften beim letzten Aufruf von {@link #updateStatus(long)}
+	 * @see #updateStatus(long)
+	 */
 	private long lastStatusSum;
+
+	/**
+	 * Letzter Zeichenkettenwert für die Gesamtanzahl an zu simulierenden Kundenankünften
+	 * @see #updateStatus(long)
+	 */
 	private String lastStatusSumString;
 
+	/**
+	 * Aktualisiert die Anzeige in der Statuszeile
+	 * @param currentTime	Aktuelle Simulationszeit
+	 */
 	private void updateStatus(final long currentTime) {
 		final long time=System.currentTimeMillis();
 		if (time-lastStatusUpdate<20) return;
@@ -781,6 +889,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 	}
 
+	/**
+	 * Führt die Animation und die Verzögerungen aus.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param timeStepDelay	Verzögerungswert (0..25)
+	 */
 	private void delaySystem(final SimulationData simData, int timeStepDelay) {
 		if (lastTimeStep>0) {
 			double seconds=(simData.currentTime-lastTimeStep)/1000.0;
@@ -832,6 +945,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return updateViewer(simData,null,false);
 	}
 
+	/**
+	 * Letzter Zeitpunkt (in System-Millisekunden) an dem {@link #updateViewer(SimulationData, RunDataClient, boolean)}
+	 * aufgerufen wurde.
+	 * @see #updateViewer(SimulationData, RunDataClient, boolean)
+	 */
 	private long lastUpdateStep=0;
 
 	@Override
@@ -907,7 +1025,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				updateStatus(simData.currentTime); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
 			}
 			surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4));
-		} finally {mutex.release();}
+		} finally {
+			mutex.release();
+		}
 		return true;
 	}
 
@@ -920,6 +1040,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (!running) abortRunTest();
 	}
 
+	/**
+	 * Bricht die Simulation ab, wenn {@link #abortRun} gesetzt ist.
+	 * Reagiert außerdem, wenn sich der Simulator beendet hat.
+	 * @return	Liefert <code>true</code>, wenn die Simulation noch läuft
+	 */
 	private boolean abortRunTest() {
 		if (abortRun) {
 			if (simulator!=null) {
@@ -938,6 +1063,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return true;
 	}
 
+	/**
+	 * Prüft in regelmäßigen Abständen ob die Simulation abgebrochen wurde.
+	 * @see AnimationPanel#abortRunTest()
+	 */
 	private class UpdateInfoTask extends TimerTask {
 		@Override
 		public void run() {
@@ -953,6 +1082,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 	}
 
+	/**
+	 * Wird aufgerufen, wenn die Animationsgeschwindigkeit geändert wurde.
+	 * @see #delay
+	 * @see #speedChanged
+	 */
 	private void animationDelayChanged() {
 		speedChanged=true;
 		if (delay/10!=setup.animationDelay) {
@@ -1011,12 +1145,20 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		popup.show(parent,0,-350);
 	}
 
+	/**
+	 * Zeigt den Modelleigenschaften-Dialog (im Nur-Lese-Modus) an.
+	 * @see ModelPropertiesDialog
+	 */
 	private void showModelPropertiesDialog() {
 		if (model==null) return;
 		final ModelPropertiesDialog dialog=new ModelPropertiesDialog(this,model,true,null);
 		dialog.setVisible(true);
 	}
 
+	/**
+	 * Zeigt das Popupmenü zur Einstellung der Simulationsgeschwindigkeit an.
+	 * @see #buttonSpeed
+	 */
 	private void animationSpeedPopup() {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -1043,6 +1185,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		popup.show(buttonSpeed,0,buttonSpeed.getHeight());
 	}
 
+	/**
+	 * Zeigt das Popupmenü zur Konfiguration der Animation an.
+	 * @see #buttonTools
+	 */
 	private void animationToolsPopup() {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -1095,6 +1241,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		popup.show(buttonTools,0,buttonTools.getHeight());
 	}
 
+	/**
+	 * Befehl: Animation anhalten oder fortsetzen
+	 * @see #buttonPlayPause
+	 */
 	private void playPause() {
 		simulatorLock.acquireUninterruptibly();
 		try {
@@ -1132,10 +1282,27 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 	}
 
+	/**
+	 * Wurden im letzten Zeitschritt Logging-Daten ergänzt?
+	 * @see #multiSingleCoreSteps(boolean)
+	 * @see #stepInt(boolean, boolean)
+	 * @see #loggerCallback(CallbackLoggerData)
+	 */
 	private volatile boolean stepLogChanged;
 
+	/**
+	 * Wird von {@link #step(boolean)} verwendet,
+	 * um sicher zu stellen, dass der vorherige Update-Thread
+	 * abgeschlossen ist, bevor der nächste startet.
+	 * @see #step(boolean)
+	 */
 	private Semaphore stepLock=new Semaphore(1);
 
+	/**
+	 * Führt einen Animationsschritt im Single-Core-Modus aus.
+	 * @param fullRecording	Modus zur vollständigen Erfassung der Animationsdaten
+	 * @see #step(boolean)
+	 */
 	private void multiSingleCoreSteps(final boolean fullRecording) {
 		stepInt(false,fullRecording);
 		SwingUtilities.invokeLater(()->{
@@ -1161,6 +1328,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		}
 	}
 
+	/**
+	 * Führt einen Animationsschritt aus.
+	 * @param multiCore	Weiteren CPU-Kern für die Animation verwenden (<code>true</code>)?
+	 * @param fullRecording	Modus zur vollständigen Erfassung der Animationsdaten
+	 * @see #step(boolean)
+	 * @see #multiSingleCoreSteps(boolean)
+	 */
 	private void stepInt(final boolean multiCore, final boolean fullRecording) {
 		if (logger!=null) {
 			logger.setActive(true);
@@ -1191,6 +1365,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (finalize) finalizeSimulation(true);
 	}
 
+	/**
+	 * Befehl: Simulation ohne Animationsausgabe zu Ende führen
+	 * @see #continueAsSimulation
+	 */
 	private void finishAsSimulation() {
 		continueAsSimulation=true;
 		if (!running) playPause();
@@ -1208,6 +1386,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (sendToSimulation!=null) SwingUtilities.invokeLater(sendToSimulation);
 	}
 
+	/**
+	 * Ermittelt den in einem Verzeichnis nächsten verfügbaren Dateinamen für einen Screenshot
+	 * @param path	Verzeichnis in dem der Screenshot abgelegt werden soll
+	 * @return	Verfügbarer Dateiname
+	 * @see #saveScreenshot()
+	 */
 	private File getNextScreenshotFile(final String path) {
 		final File folder;
 		if (path==null || path.trim().isEmpty()) {
@@ -1225,6 +1409,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return file;
 	}
 
+	/**
+	 * Befehl: Screenshot des aktuellen Modellzustands aufnehmen
+	 * @see #buttonScreenshot
+	 */
 	private void saveScreenshot() {
 		final File file=getNextScreenshotFile(setup.imagePathAnimation);
 		if (file==null) return;
@@ -1239,8 +1427,16 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return surfacePanel.getImageMaxSize(-1,-1);
 	}
 
+	/**
+	 * Maximale Größe für einen Logging-Eintrag
+	 * @see #loggerCallback(CallbackLoggerData)
+	 */
 	private static final int MAX_LOG_VIEWER_SIZE=4_000;
 
+	/**
+	 * Erfasst Logging-Daten für die Ausgabe im unteren Fensterbereich
+	 * @param data	Logging-Daten
+	 */
 	private void loggerCallback(final CallbackLoggerData data) {
 		stepLogChanged=true;
 
@@ -1302,6 +1498,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		logJS.setEnabled(!logger.getJSData().isEmpty());
 	}
 
+	/**
+	 * Zeigt neuere oder ältere Logging-Nachrichten an
+	 * @param move	Verschiebungsrichtung (-1: vorherige Meldung, 0: neuste Meldung, 1: nächste Meldung)
+	 * @see #logPrevious
+	 * @see #logNext
+	 * @see #logCurrent
+	 */
 	private void displayLogMessage(final int move) {
 		switch (move) {
 		case -1: /* Vorherige Meldung */
@@ -1322,29 +1525,53 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		logCurrent.setEnabled(logTextDisplayIndex<logTextHistory.size()-1);
 	}
 
+	/**
+	 * Befehl: Logging-Ausgaben in die Zwischenablage kopieren
+	 * @see #logCopy
+	 */
 	private void copyLogMessage() {
 		final Clipboard clipboard=Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(new StringSelection(logTextHistoryPlain.get(logTextDisplayIndex)),null);
 	}
 
+	/**
+	 * Befehl: "Animationsstart" - "Animation sofort starten"/"Im Pause-Modus starten"
+	 * @param paused	Animation im Pausemodus starten?
+	 * @see #menuStartModePause
+	 * @see #menuStartModeRun
+	 */
 	private void commandAnimationStartMode(final boolean paused) {
 		if (setup.animationStartPaused==paused) return;
 		setup.animationStartPaused=paused;
 		setup.saveSetup();
 	}
 
+	/**
+	 * Befehl: "Analoge Werte in Animation" - "Schnelle Animation"/"Änderungen exakt anzeigen (langsam)"
+	 * @param useSlowModeAnimation	Animation langsamer dafür analoge Werte besser darstellen?
+	 * @see #menuAnalogValuesFast
+	 * @see #menuAnalogValuesExact
+	 */
 	private void commandAnalogValuesSlow(final boolean useSlowModeAnimation) {
 		if (setup.useSlowModeAnimation==useSlowModeAnimation) return;
 		setup.useSlowModeAnimation=useSlowModeAnimation;
 		setup.saveSetup();
 	}
 
+	/**
+	 * Befehl: "Verzeichnis zum Speichern von Bildern" - "Im Nutzerverzeichnis"
+	 * @see #menuScreenshotModeHome
+	 */
 	private void commandScreenshotModeHome() {
 		setup.imagePathAnimation="";
 		setup.saveSetup();
 		updateScreenshotButtonHint();
 	}
 
+	/**
+	 * Befehl: "Verzeichnis zum Speichern von Bildern" - "Im ausgewählten Verzeichnis"
+	 * @see #menuScreenshotModeCustom
+	 */
 	private void commandScreenshotModeCustom() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -1361,12 +1588,23 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		updateScreenshotButtonHint();
 	}
 
+	/**
+	 * Aktualisiert den Tooltip-Text für {@link #buttonScreenshot}
+	 * gemäß dem gewählten Ausgabeordner für Screenshots.
+	 * @see #buttonScreenshot
+	 * @see #commandScreenshotModeHome()
+	 * @see #commandScreenshotModeCustom()
+	 */
 	private void updateScreenshotButtonHint() {
 		String folder=FileSystemView.getFileSystemView().getHomeDirectory().toString();
 		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty()) folder=setup.imagePathAnimation.trim();
 		buttonScreenshot.setToolTipText(Language.tr("Animation.Toolbar.Image.Info")+" ("+Language.tr("Animation.Toolbar.Image.Info.Folder")+": "+folder+")");
 	}
 
+	/**
+	 * Befehl: "Logging-Daten im Einzelschrittmodus anzeigen" (an/aus umschalten)
+	 * @see #menuShowLog
+	 */
 	private void toggleShowSingleStepLogData() {
 		setup.showSingleStepLogData=!setup.showSingleStepLogData;
 		setup.saveSetup();
@@ -1398,11 +1636,39 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		return delayInt;
 	}
 
+	/**
+	 * Beim letzten Aufruf von {@link #calcExpression()} zuletzt eingegebener Rechenausdruck.
+	 * @see #calcExpression()
+	 * @see ExpressionCalculatorDialog
+	 */
 	private String lastCaluclationExpression=null;
+
+	/**
+	 * Beim letzten Aufruf von {@link #calcExpression()} zuletzt eingegebener Javascript-Code.
+	 * @see #calcExpression()
+	 * @see ExpressionCalculatorDialog
+	 */
 	private String lastCaluclationJavaScript=null;
+
+	/**
+	 * Beim letzten Aufruf von {@link #calcExpression()} zuletzt eingegebener Java-Code.
+	 * @see #calcExpression()
+	 * @see ExpressionCalculatorDialog
+	 */
 	private String lastCaluclationJava=null;
+
+	/**
+	 * Beim letzten Aufruf von {@link #calcExpression()} zuletzt aktiver Tab.
+	 * @see #calcExpression()
+	 * @see ExpressionCalculatorDialog
+	 */
 	private int lastCaluclationTab=0;
 
+	/**
+	 * Befehl: Ausdruck berechnen
+	 * @see #logExpression
+	 * @see ExpressionCalculatorDialog
+	 */
 	private void calcExpression() {
 		final ExpressionCalculatorDialog dialog=new ExpressionCalculatorDialog(
 				this,
@@ -1422,10 +1688,20 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		lastCaluclationJava=dialog.getLastJava();
 	}
 
+	/**
+	 * Befehl: Ergebnisse der Javascript-Skriptausführung anzeigen
+	 * @see #logJS
+	 * @see AnimationJSInfoDialog
+	 */
 	private void showJSResults() {
 		new AnimationJSInfoDialog(this,logger.getJSData());
 	}
 
+	/**
+	 * Befehl: Nächste geplante Ereignisse anzeigen
+	 * @see #logEvents
+	 * @see NextEventsViewerDialog
+	 */
 	private void showEventslist() {
 		new NextEventsViewerDialog(this,simData.eventManager.getAllEvents(),simData);
 	}

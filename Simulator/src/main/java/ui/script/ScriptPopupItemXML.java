@@ -73,6 +73,10 @@ public class ScriptPopupItemXML extends ScriptPopupItem {
 		this.scriptMode=scriptMode;
 	}
 
+	/**
+	 * Liefert den Basisbefehl zur Abfrage einer xml-Eigenschaft.
+	 * @return	Basisbefehl zur Abfrage einer xml-Eigenschaft
+	 */
 	private String getBaseCommand() {
 		switch (scriptMode) {
 		case Javascript:
@@ -84,6 +88,10 @@ public class ScriptPopupItemXML extends ScriptPopupItem {
 		}
 	}
 
+	/**
+	 * Liefert den Basisausgabebefehl zur Ausgabe einer xml-Eigenschaft.
+	 * @return	Basisausgabebefehl zur Ausgabe einer xml-Eigenschaft.
+	 */
 	private String getOutputBaseCommand() {
 		switch (scriptMode) {
 		case Javascript: return "Output";

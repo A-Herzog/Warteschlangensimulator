@@ -90,8 +90,15 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		TEXT,
 	}
 
-	private List<ModelElementEdge> connectionsIn;
-	private ModelElementEdge connectionOut;
+	/**
+	 * Liste der einlaufenden Kanten
+	 */
+	protected final List<ModelElementEdge> connectionsIn;
+
+	/**
+	 * Auslaufende Kante
+	 */
+	protected ModelElementEdge connectionOut;
 
 	/**
 	 * Modus wie Eigenschaften der Kunden beim Zusammenführen abgeglichen werden sollen
@@ -118,8 +125,9 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	 */
 	private String newClientType;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/** IDs der einlaufenden Kanten (Wird nur beim Laden und Clonen verwendet.) */
 	private List<Integer> connectionsInIds=null;
+	/** ID der auflaufenden Kante (Wird nur beim Laden und Clonen verwendet.) */
 	private int connectionOutId=-1;
 
 	/**

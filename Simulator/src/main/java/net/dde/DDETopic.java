@@ -33,6 +33,7 @@ public abstract class DDETopic {
 	private final DDEItem itemTopicItemList;
 	private final DDEItem itemFormats;
 	private final List<DDEItem> items;
+	/** Sichert parallele Zugriffe auf {@link #getItemsStream()} ab */
 	private final Semaphore lock;
 
 	/**

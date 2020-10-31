@@ -31,7 +31,9 @@ import tools.SetupData;
 public abstract class ShapeCache {
 	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
+	/** Objekt für die Farbverläufe */
 	private GradientFill filler;
+	/**  Zu der Zeichnung gehörendes Clipping-Objekt */
 	private final IntersectionClipping clipper;
 
 	/**
@@ -44,10 +46,34 @@ public abstract class ShapeCache {
 		this.clipper=clipper;
 	}
 
+	/**
+	 * Zwischenspeichern des Objektes zum Aufstellen des Rechteckbereichs
+	 * @see #getPolygon(Rectangle, int, int, int)
+	 */
 	private Rectangle polygonRect=null;
+
+	/**
+	 * Rechteckbereich beim letzten Aufruf von {@link #getPolygon(Rectangle, int, int, int)}
+	 * @see #getPolygon(Rectangle, int, int, int)
+	 */
 	private Rectangle lastPolygonRect=null;
+
+	/**
+	 * Letztes Polygon
+	 * @see #getPolygon(Rectangle, int, int, int)
+	 */
 	private Polygon lastPolygon;
+
+	/**
+	 * Letztes verschobenes Rechteck
+	 * @see #getPolygon(Rectangle, int, int, int)
+	 */
 	private Rectangle lastPolygonMovedRect=null;
+
+	/**
+	 * Letztes verschobenes Polygon
+	 * @see #getPolygon(Rectangle, int, int, int)
+	 */
 	private Polygon lastPolygonMoved;
 
 	/**

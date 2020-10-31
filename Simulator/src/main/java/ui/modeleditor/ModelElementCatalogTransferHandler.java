@@ -31,8 +31,8 @@ import ui.modeleditor.coreelements.ModelElementListGroup;
 import ui.modeleditor.coreelements.ModelElementPosition;
 
 /**
- * Ermöglicht das Übertragen von Vorlagen (<code>ModelElementPosition</code>) aus einer Liste in
- * ein <code>ModelSurfacePanel</code>-Element.
+ * Ermöglicht das Übertragen von Vorlagen ({@link ModelElementPosition}) aus einer Liste in
+ * ein {@link ModelSurfacePanel}-Element.
  * @author Alexander Herzog
  */
 public class ModelElementCatalogTransferHandler extends TransferHandler {
@@ -47,6 +47,10 @@ public class ModelElementCatalogTransferHandler extends TransferHandler {
 		return TransferHandler.COPY;
 	}
 
+	/**
+	 * Erzeugt und stellt das Bild, das während des Drag&amp;drop-Vorgangs angezeigt werden soll, ein.
+	 * @param element	Element das in dem Bild zu sehen sein soll
+	 */
 	private void generateImage(final ModelElementPosition element) {
 		final Point point=element.getLowerRightPosition();
 		BufferedImage image=new BufferedImage(point.x+1,point.y+1,BufferedImage.TYPE_4BYTE_ABGR);

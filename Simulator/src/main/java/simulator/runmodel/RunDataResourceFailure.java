@@ -82,8 +82,22 @@ public class RunDataResourceFailure {
 	 */
 	ExpressionCalc downTimeExpression;
 
+	/**
+	 * Anzahl an Bedienungen seit letztem Ausfall
+	 * @see #countServed(long)
+	 */
 	private int servedCount;
+
+	/**
+	 * Geleistete Bedienzeit (in MS) seit letztem Ausfall
+	 * @see #countServed(long)
+	 */
 	private long servedTime;
+
+	/**
+	 * Nächster geplanter Pause-Zeitpunkt
+	 * @see #scheduleDownTime(SimulationData, long, String)
+	 */
 	private long pauseStartTime;
 
 	/**

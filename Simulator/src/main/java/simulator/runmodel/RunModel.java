@@ -55,7 +55,7 @@ import ui.modeleditor.elements.ModelElementSub;
 
 /**
  * Laufzeit-Modell
- * Dieses Modell wird read-only in der Simulation verwendet. Im Gegensatz zu dem Editor-Modell ist es auf konsistenz geprüft,
+ * Dieses Modell wird read-only in der Simulation verwendet. Im Gegensatz zu dem Editor-Modell ist es auf Konsistenz geprüft,
  * Bediensationen sind per Referenzen verknüpft, nicht mehr nur durch Freitextfelder.
  * @author Alexander Herzog
  * @see EditModel

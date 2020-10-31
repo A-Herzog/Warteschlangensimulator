@@ -37,6 +37,7 @@ public final class RunDataResources implements Cloneable {
 	private String[] names;
 	/** Bedienergruppen */
 	private RunDataResource[] list;
+	/** Listener, die benachrichtigt werden sollen, wenn sich in einer Gruppe die Anzahl an Bedienern geändert hat */
 	private List<Consumer<SimulationData>> resourceCountChangeListeners=new ArrayList<>();
 
 	/**
@@ -220,6 +221,12 @@ public final class RunDataResources implements Cloneable {
 		return sum;
 	}
 
+	/**
+	 * Auslastungsstatistik aller Ressourcen als Array<br>
+	 * Wird einmalig in {@link #getUsageStatistics(SimulationData)} erstellt
+	 * und dann nur noch ausgeliefert.
+	 * @see #getUsageStatistics(SimulationData)
+	 */
 	private StatisticsTimePerformanceIndicator[] statisticsUsage=null;
 
 	/**
@@ -272,6 +279,12 @@ public final class RunDataResources implements Cloneable {
 		for (RunDataResource resource: list) resource.prepareOperatorObjects(simData);
 	}
 
+	/**
+	 * Liste aller Bediener<br>
+	 * Wird einmalig in {@link #getOperators(SimulationData, boolean)}
+	 * erstellt und dann nur noch ausgeliefert.
+	 * @see #getOperators(SimulationData, boolean)
+	 */
 	private RunDataResourceOperator[] operators;
 
 	/**

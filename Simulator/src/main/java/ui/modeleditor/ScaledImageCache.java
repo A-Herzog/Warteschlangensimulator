@@ -35,10 +35,14 @@ import org.apache.jena.ext.com.google.common.base.Objects;
  * @see #getScaledImageCache()
  */
 public class ScaledImageCache {
+	/** Maximalzahl an Einträgen in dem Cache */
 	private static final int MAX_CACHE_SIZE=20;
 
+	/** Hash-Werte der Bilder im Cache */
 	private String[] cacheHash;
+	/** Bilder-Cache */
 	private BufferedImage[] cacheData;
+	/** Zeitpunkt des letzten Zugriffs auf einen Eintrag */
 	private long[] cacheLastAccess;
 
 	/**
@@ -53,17 +57,25 @@ public class ScaledImageCache {
 		cacheLastAccess=new long[MAX_CACHE_SIZE];
 	}
 
+	/**
+	 * Singleton-Instanz von {@link ScaledImageCache}
+	 * @see #getScaledImageCache()
+	 */
 	private static ScaledImageCache scaledImageCache=null;
 
 	/**
-	 * Fordert die Singleton-Instanz von <code>ScaledImageCache</code> an.
-	 * @return	Instanz von <code>ScaledImageCache</code>
+	 * Fordert die Singleton-Instanz von {@link ScaledImageCache} an.
+	 * @return	Instanz von {@link ScaledImageCache}
 	 */
 	public static ScaledImageCache getScaledImageCache() {
 		if (scaledImageCache==null) scaledImageCache=new ScaledImageCache();
 		return scaledImageCache;
 	}
 
+	/**
+	 * Zu verwendende Hash-Algorithmen zur Bestimmung der Hash-Werte der
+	 * Bilder beim Cachen
+	 */
 	private static final String[] hashAlgorithms=new String[] {"SHA-256","SHA","MD5"};
 
 	/**
@@ -85,7 +97,7 @@ public class ScaledImageCache {
 	}
 
 	/**
-	 * Prüft, ob zwei Biler inhaltlich identisch sind
+	 * Prüft, ob zwei Bilder inhaltlich identisch sind
 	 * @param image1	Bild 1 (kann <code>null</code> sein)
 	 * @param image2	Bild 2 (kann <code>null</code> sein)
 	 * @return	Liefert <code>true</code> wenn entweder beide Bilder <code>null</code> sind oder aber die Objekte inhaltlich identisch sind
@@ -97,6 +109,13 @@ public class ScaledImageCache {
 		return Objects.equal(getHash(image1),getHash(image2));
 	}
 
+	/**
+	 * Liefert ein Bild aus dem Cache
+	 * @param hash	Hash-Wert des Ausgangs-Bildes
+	 * @param width	Breite des skalierten Bildes
+	 * @param height	Höhe des skalierten Bildes
+	 * @return	Liefert im Erfolgsfall das skalierte Bild oder <code>null</code>, wenn sich kein passender Datensatz im Cache befindet
+	 */
 	private BufferedImage getFromCache(final String hash, final int width, final int height) {
 		final long time=System.currentTimeMillis();
 		BufferedImage result=null;
@@ -115,6 +134,11 @@ public class ScaledImageCache {
 		return result;
 	}
 
+	/**
+	 * Speichert ein Skaliertes Bild im Cache
+	 * @param hash	Hash-Wert des Ausgangs-Bildes
+	 * @param image	Skaliertes, zu speicherndes Bild
+	 */
 	private void storeToCache(final String hash, final BufferedImage image) {
 		boolean done=false;
 		int oldestIndex=0;
@@ -146,6 +170,13 @@ public class ScaledImageCache {
 		}
 	}
 
+	/**
+	 * Skaliert ein Bild
+	 * @param original	Ausgangsgröße
+	 * @param width	Breite des skalierten Bildes
+	 * @param height	Höhe des skalierten Bildes
+	 * @return	Skaliertes Bild
+	 */
 	private Image getDirectScaledImage(final BufferedImage original, final int width, final int height) {
 		int oldW=original.getWidth();
 		int oldH=original.getHeight();

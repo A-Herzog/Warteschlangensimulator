@@ -250,11 +250,50 @@ public class ModelElementPosition extends ModelElement {
 		fireChanged();
 	}
 
+	/**
+	 * x-Position beim letzten Aufruf von {@link #getRect(double)}
+	 * um ggf. {@link #lastPositionRectangle} wiederverwenden zu können
+	 * @see #lastPositionRectangle
+	 * @see #getRect(double)
+	 */
 	private int lastPositionRectanglePositionX=-1;
+
+	/**
+	 * y-Position beim letzten Aufruf von {@link #getRect(double)}
+	 * um ggf. {@link #lastPositionRectangle} wiederverwenden zu können
+	 * @see #lastPositionRectangle
+	 * @see #getRect(double)
+	 */
 	private int lastPositionRectanglePositionY=-1;
+
+	/**
+	 * Breite des Rechtecks beim letzten Aufruf von {@link #getRect(double)}
+	 * um ggf. {@link #lastPositionRectangle} wiederverwenden zu können
+	 * @see #lastPositionRectangle
+	 * @see #getRect(double)
+	 */
 	private int lastPositionRectangleSizeW=-1;
+
+	/**
+	 * Höhe des Rechtecks beim letzten Aufruf von {@link #getRect(double)}
+	 * um ggf. {@link #lastPositionRectangle} wiederverwenden zu können
+	 * @see #lastPositionRectangle
+	 * @see #getRect(double)
+	 */
 	private int lastPositionRectangleSizeH=-1;
+
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #getRect(double)}
+	 * um ggf. {@link #lastPositionRectangle} wiederverwenden zu können
+	 * @see #lastPositionRectangle
+	 * @see #getRect(double)
+	 */
 	private double lastPositionRectangleZoom=-1;
+
+	/**
+	 * Rückgabewert des letzten Aufrufs von {@link #getRect(double)}
+	 * @see #getRect(double)
+	 */
 	private Rectangle lastPositionRectangle;
 
 	/**
@@ -377,6 +416,11 @@ public class ModelElementPosition extends ModelElement {
 		return pointCache;
 	}
 
+	/**
+	 * Hält das {@link Point}-Objekt für die Mitte des Elements
+	 * in der Nur-Lese-Fassung vor.
+	 * @see #getMiddlePosition(boolean)
+	 */
 	private Point readOnlyMiddle=null;
 
 	/**
@@ -504,12 +548,22 @@ public class ModelElementPosition extends ModelElement {
 		return sb.toString();
 	}
 
+	/**
+	 * Generiert einen Menüpunkt für einen QuickFix-Eintrag
+	 * @param status	QuickFix-Datensatz
+	 * @return	Neuer Menüpunkt
+	 */
 	private JMenuItem getQuickFixInfo(final RunModelCreatorStatus status) {
 		final JMenuItem item=new JMenuItem("<html><body><b>"+splitLine(status.message,40).replace("\n","<br>")+"</b></body></html>");
 		item.setEnabled(false);
 		return item;
 	}
 
+	/**
+	 * Generiert einen Menüpunkt für einen QuickFix-Eintrag
+	 * @param fix	QuickFix-Datensatz
+	 * @return	Neuer Menüpunkt
+	 */
 	private JMenuItem getQuickFixItem(final RunModelFixer fix) {
 		final JMenuItem item=new JMenuItem(fix.info);
 		item.addActionListener(e->{
@@ -519,18 +573,32 @@ public class ModelElementPosition extends ModelElement {
 		return item;
 	}
 
+	/**
+	 * Fügt mehrere QuickFix-Menüpunkte zu einem Menü hinzu
+	 * @param menu	Menü
+	 * @param fixer	Liste der QuickFix-Einträge
+	 */
 	private void buildQuickFixMenu(final JMenu menu, final List<RunModelFixer> fixer) {
 		menu.add(getQuickFixInfo(fixer.get(0).status));
 		menu.addSeparator();
 		for (RunModelFixer fix: fixer) menu.add(getQuickFixItem(fix));
 	}
 
+	/**
+	 * Fügt mehrere QuickFix-Menüpunkte zu einem Menü hinzu
+	 * @param menu	Menü
+	 * @param fixer	Liste der QuickFix-Einträge
+	 */
 	private void buildQuickFixMenu(final JPopupMenu menu, List<RunModelFixer> fixer) {
 		menu.add(getQuickFixInfo(fixer.get(0).status));
 		menu.addSeparator();
 		for (RunModelFixer fix: fixer) menu.add(getQuickFixItem(fix));
 	}
 
+	/**
+	 * Maximalanzahl an QuickFix-Einträgen zu Folgestationen
+	 * @see #findEdgesTo(Class[], List)
+	 */
 	private static final int MAX_EDGE_FIX_OPTIONS=10;
 
 	/**

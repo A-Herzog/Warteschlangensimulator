@@ -434,6 +434,12 @@ public class AnimationImageSource {
 		return bufferedImage;
 	}
 
+	/**
+	 * Liefert ein mit einer bestimmten Farbe gefülltes Bild
+	 * @param index	Auswahl der Farbe
+	 * @param preferredSize	Größe des Bildes
+	 * @return	Neues Bild
+	 */
 	private BufferedImage getInternalImage(final int index, int preferredSize) {
 		if (preferredSize<=0) preferredSize=128;
 		if (preferredSize>=2048) preferredSize=2048;
@@ -477,8 +483,19 @@ public class AnimationImageSource {
 		return image;
 	}
 
+	/**
+	 * Bereits geladenen Bilder zwischenspeichern
+	 * @see #loadImageFromResource(String, ModelAnimationImages, int)
+	 */
 	private static Map<String,BufferedImage> resourceCache=new HashMap<>();
 
+	/**
+	 * Lädt ein Bild in einer bestimmten Größe aus einer Ressource
+	 * @param name	Name des Bildes (ohne Pfad und ohne Dateiendung)
+	 * @param modelImages	Benutzerdefinierte Animationsicons
+	 * @param preferredSize	Gewünschte Breite des Bildes
+	 * @return	Bild in der angegebenen Größe (existiert das Bild nicht, wird ein Fehler-Bild geliefert, d.h. es wird immer ein Bild geliefert)
+	 */
 	private synchronized BufferedImage loadImageFromResource(final String name, final ModelAnimationImages modelImages, final int preferredSize) {
 		/* Bilder aus Modell laden */
 		if (modelImages!=null) {
@@ -576,6 +593,11 @@ public class AnimationImageSource {
 		return get(name,modelImages,(int)FastMath.round(baseSize*zoom));
 	}
 
+	/**
+	 * Liefert eine sortierte Liste der Namen der verfügbaren Bilder
+	 * @param modelImages	Benutzerdefinierte Animationsicons
+	 * @return	Sortierte Liste der Namen der verfügbaren Bilder
+	 */
 	private List<String> getSortedIconsList(final ModelAnimationImages modelImages) {
 		final List<String> names=new ArrayList<>(ICONS.keySet());
 		if (modelImages!=null) names.addAll(Arrays.asList(modelImages.getLocalNames()));

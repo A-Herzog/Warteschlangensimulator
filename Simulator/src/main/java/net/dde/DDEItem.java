@@ -18,8 +18,8 @@ package net.dde;
 import java.util.function.Supplier;
 
 /**
- * Diese Klasse repräsentiert ein repräsentiert ein Datenfeld
- * innerhalb eines Themas innerhalb eines durch ein
+ * Diese Klasse repräsentiert ein Datenfeld
+ * innerhalb eines DDE-Themas innerhalb eines durch ein
  * {@link DDEServerSystem}-Objekt erzeugten DDE-Servers.
  * @author Alexander Herzog
  * @see DDEServerSystem
@@ -30,6 +30,7 @@ public final class DDEItem {
 	private final Supplier<String> getter;
 	/** Gibt an, ob der Server benachrichtigt werden soll, wenn sich die Daten geändert haben */
 	private final boolean updateable;
+	/** Letzter über {@link #getter} erhaltener Wert ({@link #updateTest()}) */
 	private String lastValue;
 
 	/**

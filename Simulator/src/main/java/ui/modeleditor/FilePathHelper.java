@@ -53,6 +53,11 @@ public class FilePathHelper {
 		}
 	}
 
+	/**
+	 * Prüft eine Datenbankeinstellung in Bezug auf die Pfade für die Datenbankdatei
+	 * @param settings	Zu prüfende Einstellung
+	 * @param modelFile	Dateiname der Modelldatei dessen Pfad für Anpassungen verwendet wird
+	 */
 	private static void checkDB(final DBSettings settings, final File modelFile) {
 		if (settings.getType()!=DBConnect.DBType.SQLITE_FILE) return;
 
@@ -61,6 +66,11 @@ public class FilePathHelper {
 		if (!configOld.equals(configNew)) settings.setConfig(configNew);
 	}
 
+	/**
+	 * Prüft die Pfadangaben in Bezug auf eine bestimmte Station
+	 * @param element	Zu prüfende Station
+	 * @param modelFile	Dateiname der Modelldatei dessen Pfad für Anpassungen verwendet wird
+	 */
 	private static void checkElement(final ModelElement element, final File modelFile) {
 		if (element instanceof ElementWithInputFile) {
 			final ElementWithInputFile input=(ElementWithInputFile)element;

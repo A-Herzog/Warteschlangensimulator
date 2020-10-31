@@ -43,14 +43,36 @@ public class PathPoint {
 	/** Station die durch dieses Objekt repräsentiert werden soll */
 	private final ModelElement element;
 
+	/** Name der Station */
 	private final String name;
+	/** Ausführlicher Name der Station */
 	private final String nameLong;
 
+	/**
+	 * Mögliche weitere Pfad-Punkte
+	 */
 	private final List<PathPoint> options;
 
+	/**
+	 * Panel, das die Einstellungs-Elemente enthält
+	 * @see #getPanel()
+	 */
 	private final JPanel panel;
+
+	/**
+	 * Eingabebereich
+	 */
 	private final JPanel editArea;
+
+
+	/**
+	 * Liste der Einträge aus denen die temporären Pfade bestehen
+	 */
 	private final List<PathPointEntry> list;
+
+	/**
+	 * Liste der Listener, die über Änderungen benachrichtigt werden sollen
+	 */
 	private final List<Runnable> changeListeners;
 
 	/**
@@ -77,6 +99,11 @@ public class PathPoint {
 		panel.add(Box.createVerticalStrut(15));
 	}
 
+	/**
+	 * Erstellt den ausführlichen Namen für das Element.
+	 * @param mainSurface	Haupt-Zeichenfläche
+	 * @return	Ausführlicher Name der Station
+	 */
 	private String buildName(final ModelSurface mainSurface) {
 		ModelElementSub parent=null;
 		if (element.getSurface().getParentSurface()!=null) {
@@ -167,6 +194,10 @@ public class PathPoint {
 		return panel;
 	}
 
+	/**
+	 * Aktualisiert den Eingabebereich.
+	 * @param isReset	Handelt es sich um eine Zurücksetz-Operation ({@link #reset()})?
+	 */
 	private void updateEditArea(final boolean isReset) {
 		/* Liste komplett leer oder letzter Wert nicht auf Vorgabe */
 		if (list.size()==0 || list.get(list.size()-1).getSelected()!=null) {
@@ -207,6 +238,10 @@ public class PathPoint {
 		return changeListeners.remove(changeListener);
 	}
 
+	/**
+	 * Benachrichtigt alle Listener, die über Änderungen benachrichtigt werden sollen.
+	 * @see #changeListeners
+	 */
 	private void fireChangeListeners() {
 		Container c=editArea;
 		while (c!=null) {
@@ -294,6 +329,10 @@ public class PathPoint {
 		return false;
 	}
 
+	/**
+	 * Schaltet eine Verbindung ein.
+	 * @param point	Verbindung
+	 */
 	private void setConnectedOn(final PathPoint point) {
 		for (PathPointEntry entry: list) if (entry.getSelected()==point) return;
 
@@ -301,6 +340,10 @@ public class PathPoint {
 		updateEditArea(false);
 	}
 
+	/**
+	 * Schaltet eine Verbindung aus.
+	 * @param point	Verbindung
+	 */
 	private void setConnectedOff(final PathPoint point) {
 		int index=0;
 		while (index<list.size()) if (list.get(index).getSelected()==point) {

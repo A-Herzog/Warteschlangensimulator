@@ -927,13 +927,29 @@ public class ListPopup {
 		}
 	}
 
+	/**
+	 * Hält die Daten für ein Untermenü für das Popupmenü vor.
+	 * @see ListPopup#addSub(JMenu, ScriptHelperSub, Consumer)
+	 */
 	private class ScriptHelperSub {
+		/** Name des Untermenüs */
 		public final String title;
+		/** Tooltip für das Untermenü */
 		private final String tooltip;
+		/** Icon für das Untermenü */
 		private final Icon icon;
+		/** Einträge im Untermenü */
 		public final List<Object> list;
+		/** Übergeordnetes Menü */
 		public final ScriptHelperSub parent;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param parent	Übergeordnetes Menü
+		 * @param title	Name des Untermenüs
+		 * @param tooltip	Tooltip für das Untermenü
+		 * @param icon	Icon für das Untermenü
+		 */
 		public ScriptHelperSub(final ScriptHelperSub parent, final String title, final String tooltip, final Icon icon) {
 			this.parent=parent;
 			this.title=title;

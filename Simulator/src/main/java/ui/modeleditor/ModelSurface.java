@@ -164,11 +164,33 @@ public final class ModelSurface {
 	 */
 	public static String[] XML_NODE_NAME=new String[]{"ModellElemente"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
+	/**
+	 * Liste aller Elemente auf der Zeichenfläche
+	 */
 	private final List<ModelElement> elements;
+
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn das Modell geändert wurde und neu gezeichnet werden muss
+	 */
 	private final List<Runnable> redrawListeners;
+
+	/**
+	 * Listener, die darüber benachrichtigt werden sollen, dass das aktuelle Element kopiert werden möchte
+	 * @see #fireRequestCopy()
+	 */
 	private final List<Runnable> requestCopyListeners;
+
+	/**
+	 * Listener, die darüber benachrichtigt werden sollen, dass das aktuelle Element ausgeschnitten werden möchte
+	 * @see #fireRequestCut()
+	 */
 	private final List<Runnable> requestCutListeners;
+
+	/**
+	 * Listener, die benachrichtigt werden sollen, wenn es Änderungen an dem Modell gab.
+	 */
 	private final List<Runnable> stateChangeListener;
+
 	/** Element vom Typ {@link EditModel} (wird benötigt, um die Liste der globalen Variablen zu laden) */
 	private final EditModel model;
 	/** Übergeordnetes <code>ModelSurface</code>-Element (zur Bestimmung der nächsten freien id), kann <code>null</code> sein, wenn dies das primäre Surface ist. */
@@ -178,13 +200,33 @@ public final class ModelSurface {
 	/** Zu verwendendes Zeitpläne-Objekt (kann über <code>getSchedules()</code> wieder abgerufen werden, wird sonst von diesem Objekt nicht verwendet) */
 	private final ModelSchedules schedules;
 
+	/**
+	 * Zuletzt selektiertes Element
+	 * @see #getLastSelectedElement()
+	 * @see #setSelectedElement(ModelElement)
+	 */
 	private ModelElement saveLastSelected;
+
+	/**
+	 * Zuletzt selektiertes Positions-Element
+	 * @see #getLastSelectedPositionElement()
+	 * @see #setSelectedElement(ModelElement)
+	 */
 	private ModelElementPosition saveLastSelectedPosition;
 
+	/**
+	 * Speichert die Referenz auf ein {@link AnimationPanel}.
+	 * Diese wird über {@link #getAnimationPanel()} extern verwendet.
+	 * @see #getAnimationPanel()
+	 * @see #setAnimatorPanel(AnimationPanel)
+	 */
 	private AnimationPanel animationPanel;
 
+	/** Liste der vorhandenen Ebenen */
 	private final List<String> layers;
+	/** Liste der sichtbaren Ebenen */
 	private final List<String> visibleLayers;
+	/** Name der Ebene in die neue Elemente eingefügt werden sollen */
 	private String activeLayer;
 
 	/**
@@ -511,8 +553,23 @@ public final class ModelSurface {
 		return true;
 	}
 
+	/**
+	 * Objekt für den die Darstellung des Farbverlaufs im Hintergrund
+	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, boolean, boolean, Grid, Color[])
+	 */
 	private final GradientFill gradient=new GradientFill();
 
+	/**
+	 * Zeichnet den Hintergrund der Zeichenfläche
+	 * @param graphics	<code>Graphics</code>-Objekt, in das die Elemente gezeichnet werden sollen
+	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param zoom	Zoomfaktor
+	 * @param showBackground	Hintergrund anzeigen?
+	 * @param showBoundingBox	Wenn Hintergrund aus: Wenigstens weißen Kasten? (bei svg-Export: aus, sonst: an)
+	 * @param raster	Raster anzeigen?
+	 * @param colors	2- oder 3-elementiges Array aus Hintergrund-, Raster- und optional oberer Gradienthintergrundfarbe
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean, boolean, Grid, Color[], boolean)
+	 */
 	private void drawBackgroundToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors) {
 		Color backgroundColor=DEFAULT_BACKGROUND_COLOR;
 		Color backgroundColorGradient=null;
@@ -576,6 +633,11 @@ public final class ModelSurface {
 		return true;
 	}
 
+	/**
+	 * Soll {@link #getNextFreeId()} tatsächlich nach freien IDs suchen?
+	 * Beim Laden von Modellen und beim Kopieren von Modellen ist dies unnötig.
+	 * @see #getNextFreeId()
+	 */
 	private boolean turnOffIDScanner=false;
 
 	/**
@@ -584,7 +646,7 @@ public final class ModelSurface {
 	 * @return	Nächste globale freie ID
 	 */
 	public int getNextFreeId() {
-		if (turnOffIDScanner) return 1; /* Wenn das Element nur temporär initialisiert wird und gleich sowieso alles biem Laden überschrieben wird, brauchen wir auch keine ID zu suchen. */
+		if (turnOffIDScanner) return 1; /* Wenn das Element nur temporär initialisiert wird und gleich sowieso alles beim Laden überschrieben wird, brauchen wir auch keine ID zu suchen. */
 		int nextFreeId=1;
 		while (true) {
 			boolean ok=true;
@@ -830,9 +892,24 @@ public final class ModelSurface {
 		}
 	}
 
+	/**
+	 * Katalog mit den verfügbaren Elementen
+	 * @see #findElementType(String)
+	 */
 	private ModelElementCatalog catalog=null;
+
+	/**
+	 * XML-Namen für Verbindungskanten
+	 * @see #findElementType(String)
+	 */
 	private String[] edgeLoadNames=null;
 
+	/**
+	 * Bestimmt auf Basis eines XML-Namens eine Objektklasse
+	 * @param name	XML-Name
+	 * @return	Passendes Objekt oder <code>null</code>, wenn kein Elementtyp für den XML-Namen gefunden wurde
+	 * @see #loadElementFromXML(String, Element)
+	 */
 	private ModelElement findElementType(final String name) {
 		/* Kante */
 		if (edgeLoadNames==null) edgeLoadNames=ModelElementEdge.getXMLNodeNamesStatic();
@@ -899,6 +976,11 @@ public final class ModelSurface {
 		return null;
 	}
 
+	/**
+	 * Gibt nach dem Laden eines Modell an, ob alle Elemente vollständig
+	 * geladen werden konnten, oder ob es unbekannte Elemente gab.
+	 * @see #isUnknownElementsOnLoad()
+	 */
 	private boolean unknownElementsOnLoad=false;
 
 	/**
@@ -959,6 +1041,11 @@ public final class ModelSurface {
 		return null;
 	}
 
+	/**
+	 * Wird in {@link #getClientTypes()} verwendet,
+	 * um Doppelaufrufe zu verhindern.
+	 * @see #getClientTypes()
+	 */
 	private boolean getClientTypesRunning=false;
 
 	/**
@@ -1113,6 +1200,10 @@ public final class ModelSurface {
 		return getTransferData(getSelectedElements());
 	}
 
+	/**
+	 * Liefert eine Modellbeschreibung
+	 * @return	Modellbeschreibung
+	 */
 	private ModelDescriptionBuilderStyled getDescriptionBuilder() {
 		final List<ModelElement> descriptionElements=new ArrayList<>();
 
@@ -1198,6 +1289,12 @@ public final class ModelSurface {
 		return image.getSubimage(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
 	}
 
+	/**
+	 * Erstellt eine Zeichenfläche auf Basis von Zwischenablagen-Daten
+	 * @param stream	Zwischenablagen-Daten
+	 * @return	Geladene Zeichenfläche
+	 * @see #setTransferData(ByteArrayInputStream, Point, double)
+	 */
 	private ModelSurface getSurfaceFromTransferData(final ByteArrayInputStream stream) {
 		final ModelSurface temp=new ModelSurface(model,resources,schedules,null);
 
@@ -1322,12 +1419,23 @@ public final class ModelSurface {
 		return namesList.toArray(new String[0]);
 	}
 
+	/**
+	 * Prüft, ob eine Liste von Signalen tatsächlich Werte enthält
+	 * @param signalList	Liste von Signalen
+	 * @return	Liefert <code>true</code>, wenn die Liste leer oder <code>null</code> ist oder nur aus leeren oder <code>null</code>-Werten besteht
+	 */
 	private boolean isSignalListEmpty(final String[] signalList) {
 		if (signalList==null || signalList.length==0) return true;
 		for (String signal: signalList) if (signal!=null && !signal.trim().isEmpty()) return false;
 		return true;
 	}
 
+	/**
+	 * Trägt alle Signal-auslösenden Elemente in eine Liste ein.
+	 * @param list	Liste der Signal-auslösenden Elemente
+	 * @param namedOnly	Gibt an, ob alle oder nur benannte Signale erfasst werden sollen.
+	 * @see #getAllSignalNames()
+	 */
 	private void listSignals(final List<ModelElementSignalTrigger> list, final boolean namedOnly) {
 		for (ModelElement element: elements) {
 			if (!(element instanceof ModelElementBox)) continue;
@@ -1375,6 +1483,12 @@ public final class ModelSurface {
 		return names;
 	}
 
+	/**
+	 * Zählt wie häufig welche Stations-IDs auftritt.
+	 * @param ids	Von dieser Methode aufzubauende Zählung, wie häufig welche ID auftritt
+	 * @param repair	Modell automatisch reparieren?
+	 * @see #checkDoubleIDs(boolean)
+	 */
 	private void buildCheckMap(final Map<Integer,Integer> ids, final boolean repair) {
 		for (ModelElement element: elements) {
 			int id=element.getId();
@@ -1416,6 +1530,12 @@ public final class ModelSurface {
 		return damagedIDsList.stream().mapToInt(I->I.intValue()).toArray();
 	}
 
+	/**
+	 * Vertauscht zwei Einträge in {@link #elements}
+	 * @param index1	Index des ersten Eintrags
+	 * @param index2	Index des zweiten Eintrags
+	 * @see #elements
+	 */
 	private void swapElementsInList(final int index1, final int index2) {
 		final ModelElement element1=elements.get(index1);
 		elements.set(index1,elements.get(index2));
@@ -1470,6 +1590,11 @@ public final class ModelSurface {
 		moveElementToBack(getSelectedElement(),max);
 	}
 
+	/**
+	 * Liefert eine Liste der gewählten Positions-Elemente (also z.B. keine Kanten)
+	 * @return	Liste der gewählten Positions-Elemente (kann leer sein, ist aber nie <code>null</code>)
+	 * @see #getSelectedElements()
+	 */
 	private List<ModelElementPosition> getSelectedPositionElements() {
 		return getSelectedElements().stream().filter(element->element instanceof ModelElementPosition).map(element->(ModelElementPosition)element).collect(Collectors.toList());
 	}
@@ -1610,7 +1735,7 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Benachrichtigt alle Listener, dass das aktuelle Element kopiert werden möchte.
+	 * Benachrichtigt alle Listener, dass das aktuelle Element ausgeschnitten werden möchte.
 	 */
 	public void fireRequestCut() {
 		for (Runnable listener: requestCutListeners) listener.run();
@@ -1638,11 +1763,27 @@ public final class ModelSurface {
 		return true;
 	}
 
+	/**
+	 * Wird auf während einiger Operationen temporär auf <code>true</code>
+	 * gesetzt, damit während dieser keine {@link #stateChangeListener}
+	 * benachrichtigt werden. Die Benachrichtigung wird nicht verworfen,
+	 * sondern nur verschoben und die Notwendigkeit in
+	 * {@link #needToFireStateChangeListener} vermerkt.
+	 * @see #fireStateChangeListener()
+	 * @see #needToFireStateChangeListener
+	 */
 	private boolean delayFireStateChangeListener=false;
+
+	/**
+	 * Soll bei Aufhebung von {@link #delayFireStateChangeListener}
+	 * eine Benachrichtigung der Listener erfolgen?
+	 * @see #delayFireStateChangeListener
+	 * @see #fireStateChangeListener()
+	 */
 	private boolean needToFireStateChangeListener=false;
 
 	/**
-	 * Benachrichtigt alle Listener, dass es eine Änderung an dem Modell gab,
+	 * Benachrichtigt alle Listener, dass es eine Änderung an dem Modell gab.
 	 */
 	public void fireStateChangeListener() {
 		if (delayFireStateChangeListener) {needToFireStateChangeListener=true; return;}
@@ -1675,11 +1816,11 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Definiert ein <code>AnimationPanel</code>, welches für die Animation des aktuellen Surface-Elements
+	 * Definiert ein {@link AnimationPanel}, welches für die Animation des aktuellen Surface-Elements
 	 * verwendet wird. Dieser Wert wird nicht von dem Objekt selbst verwendet, sondern kann über die
-	 * <code>getAnimationPanel</code>-Methode abgefragt werden.
+	 * {@link #getAnimationPanel()}-Methode abgefragt werden.
 	 * @param animationPanel	Animations-Panel für dieses Element
-	 * @see ModelSurface#getAnimationPanel()
+	 * @see #getAnimationPanel()
 	 */
 	public void setAnimatorPanel(final AnimationPanel animationPanel) {
 		this.animationPanel=animationPanel;
@@ -1688,7 +1829,7 @@ public final class ModelSurface {
 	/**
 	 * Liefert das aktuelle für dieses Element eingestellte <code>AnimationPanel</code>
 	 * @return Aktuelles <code>AnimationPanel</code>
-	 * @see ModelSurface#setAnimatorPanel(AnimationPanel)
+	 * @see #setAnimatorPanel(AnimationPanel)
 	 */
 	public AnimationPanel getAnimationPanel() {
 		return animationPanel;
@@ -1714,10 +1855,24 @@ public final class ModelSurface {
 		}
 	}
 
+	/**
+	 * Prüft, ob ein bestimmter Name bereits in Verwendung ist.
+	 * @param name	Zu prüfender Name
+	 * @param ignoreElement	Element, welches bei der Prüfung nicht berücksichtigt werden soll
+	 * @return	Liefert <code>true</code>, wenn der Name bereits genutzt wird
+	 * @see #smartRename(ModelElement)
+	 */
 	private boolean isNameInUse(final String name, final ModelElement ignoreElement) {
 		return elements.stream().filter(e->(e instanceof ModelElementBox) && e!=ignoreElement).map(e->((ModelElementBox)e).getName()).filter(s->s.equals(name)).findFirst().isPresent();
 	}
 
+	/**
+	 * Besteht ein Name aus einem Text gefolgt von einer Zahl,
+	 * so kann dieser über diese Methode getrennt werden.
+	 * @param name	Name
+	 * @return	Liefert im Erfolgsfall ein Array aus Textbestandteil und Zahl oder <code>null</code>, wenn der Name nicht in das Schema passt
+	 * @see #smartRename(ModelElement)
+	 */
 	private Object[] splitName(final String name) {
 		final int len=name.length();
 		if (len<2) return null;
@@ -1736,7 +1891,7 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Benennt ein Element evtl. nach dem Kopieren um
+	 * Benennt ein Element evtl. nach dem Kopieren um.
 	 * @param element	Neues Element, das durch Kopieren entstanden ist
 	 * @see SetupData#renameOnCopy
 	 */

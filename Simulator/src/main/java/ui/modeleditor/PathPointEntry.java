@@ -33,15 +33,35 @@ import language.Language;
  * @see PathPoint
  */
 public class PathPointEntry {
-	/** Ausgangsstation */
+	/**
+	 * Ausgangsstation
+	 */
 	private final PathPoint point;
-	/** Mögliche Zwischenstationen */
+
+	/**
+	 * Mögliche Zwischenstationen
+	 */
 	private final List<PathPoint> options;
 
+	/**
+	 * Panel in dem Auswahlbox und Checkbox angezeigt werden sollen
+	 * @see #getPanel()
+	 */
 	private final JPanel panel;
+
+	/** Auswahlfeld für die möglichen nächsten Stationen */
 	private final JComboBox<String> combo;
+	/** Option: Gegenrichtung auch verwenden */
 	private final JCheckBox check;
+
+	/**
+	 * Liste der Listener, die über Änderungen benachrichtigt werden sollen
+	 */
 	private final List<Runnable> changeListeners;
+
+	/**
+	 * Handelt es sich um eine interne Änderung von Daten, die keine Aktionen auslösen soll?
+	 */
 	private boolean isInternalChange;
 
 	/**
@@ -84,12 +104,22 @@ public class PathPointEntry {
 		this(point,options,null);
 	}
 
+	/**
+	 * Liefert die Namen der möglichen Folgestationen.
+	 * @return	Liste der Namen der möglichen Folgestationen
+	 * @see #combo
+	 */
 	private String[] getNextStationNames() {
 		final List<String> list=options.stream().map(p->p.getLongName()).collect(Collectors.toList());
 		list.add(0,Language.tr("PathEditor.NoSelection"));
 		return list.toArray(new String[0]);
 	}
 
+	/**
+	 * Wird aufgerufen, wenn sich die Auswahl geändert hat,
+	 * um die weiteren GUI-Elemente zu aktualisieren.
+	 * @see #combo
+	 */
 	private void selectionChanged() {
 		for (PathPoint option: options) option.setNextNamesListCheckBoxes();
 		check.setEnabled(combo.getSelectedIndex()>0);
@@ -97,6 +127,11 @@ public class PathPointEntry {
 		fireChangeListeners();
 	}
 
+	/**
+	 * Wird aufgerufen, wenn die Checkbox, ob die Gegenrichtung
+	 * auch entsprechend einbezogen werden soll, geändert wurde.
+	 * @see #check
+	 */
 	private void checkChanged() {
 		final int index=combo.getSelectedIndex();
 		if (index<1) return;
@@ -135,7 +170,7 @@ public class PathPointEntry {
 	}
 
 	/**
-	 * Liefert die Einstellungen als Panel
+	 * Liefert die Einstellungen als Panel.
 	 * @return	Einstellungen als Panel
 	 */
 	public JPanel getPanel() {
@@ -159,6 +194,10 @@ public class PathPointEntry {
 		return changeListeners.remove(changeListener);
 	}
 
+	/**
+	 * Benachrichtigt alle Listener, die über Änderungen benachrichtigt werden sollen.
+	 * @see #changeListeners
+	 */
 	private void fireChangeListeners() {
 		for (Runnable listener: changeListeners) listener.run();
 	}

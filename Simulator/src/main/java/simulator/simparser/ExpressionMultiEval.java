@@ -231,7 +231,7 @@ public class ExpressionMultiEval {
 
 	/**
 	 * Besteht der gesamte Ausdruck nur aus einem Vergleich
-	 * (also ohne Verwendung von {@value #operators})?
+	 * (also ohne Verwendung von {@link #operators})?
 	 * @return	Liefert, wenn es sich um einen einzelnen Vergleich handelt, diesen zurück, sonst <code>null</code>.
 	 * @see #parseTokens(List)
 	 */
