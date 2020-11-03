@@ -195,7 +195,7 @@ Function GetJRE
 
   ; Registry-Eintrag zur JDK
   ClearErrors
-  ReadRegStr $R1 HKLM64 SOFTWARE\JavaSoft\JDK CurrentVersion
+  ReadRegStr $R1 HKLM64 "SOFTWARE\JavaSoft\JDK\" "CurrentVersion"
   ReadRegStr $R0 HKLM64 "SOFTWARE\JavaSoft\JDK\$R1" "JavaHome"
   DetailPrint "RegJDK current: $R1"
   DetailPrint "RegJDK path: $R0"
