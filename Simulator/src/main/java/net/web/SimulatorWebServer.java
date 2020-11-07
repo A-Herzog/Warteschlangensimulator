@@ -25,8 +25,15 @@ import ui.MainPanel;
  * @author Alexander Herzog
  */
 public class SimulatorWebServer extends WebServer {
+	/**
+	 * Singleton-Instanz dieser Klasse
+	 * @see #getInstance(MainPanel)
+	 */
 	private static SimulatorWebServer instance;
-	/** Referenz auf das Setup-Singleton */
+
+	/**
+	 * Referenz auf das Setup-Singleton
+	 */
 	private final SetupData setup;
 
 	/**

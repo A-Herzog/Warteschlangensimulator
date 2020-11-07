@@ -56,12 +56,19 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 	 */
 	private static final long serialVersionUID = 6137736072797243359L;
 
+	/** Eingabefeld für den im Diagramm darzustellenden Zeitbereich */
 	private JTextField timeAreaEdit;
+	/** Auswahlbox für die Zeiteinheit für {@link #timeAreaEdit} */
 	private JComboBox<String> timeAreaComboBox;
+	/** Tabelle zur Definition der Datenreihen */
 	private ExpressionTableModelLine expressionTableModel;
+	/** Auswahlbox für die Rahmenbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Farbe der Rahmenbreite */
 	private SmallColorChooser colorChooserLine;
+	/** Option: Hintergrundfarbe verwenden? */
 	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
 
 	/**

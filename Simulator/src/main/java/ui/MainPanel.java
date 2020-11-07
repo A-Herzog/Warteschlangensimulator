@@ -679,7 +679,7 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
-	 * Über diese Methode kann dem Panal ein Callback mitgeteilt werden,
+	 * Über diese Methode kann dem Panel ein Callback mitgeteilt werden,
 	 * das aufgerufen wird, wenn das Fenster neu geladen werden soll.
 	 * @param reloadWindow	Callback, welches ein Neuladen des Fensters veranlasst.
 	 */

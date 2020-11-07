@@ -50,9 +50,13 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -2104982799396808067L;
 
+	/** Name aller modellweit verfügbaren Variablennamen */
 	private String[] variableNames;
+	/** Eingabefeld für den Bezeichner für die Kenngröße */
 	private JTextField key;
+	/** Option: Handelt es sich um eine Zeitangabe? */
 	private JCheckBox isTime;
+	/** Eingabefeld für die zu erfassende Kenngröße */
 	private JTextField expression;
 
 	/**

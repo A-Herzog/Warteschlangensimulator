@@ -64,6 +64,7 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 	private final List<String> data;
 	/** Liste mit allen Variablennamen */
 	private final String[] variableNames;
+	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
 	private final List<String> dbColumnNames;
 
@@ -285,10 +286,32 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
-	private enum ActionIndex {ACTION_ADD, ACTION_COMBO_MODE_CHANGE, ACTION_COMBO_COLUMN_CHANGE, ACTION_UP, ACTION_DOWN, ACTION_DELETE, ACTION_EDIT_DATA}
+	/**
+	 * Auszuführende Aktion
+	 * @see TableButtonListener
+	 */
+	private enum ActionIndex {
+		/** Eintrag hinzufügen */
+		ACTION_ADD,
+		ACTION_COMBO_MODE_CHANGE,
+		ACTION_COMBO_COLUMN_CHANGE,
+		/** Eintrag nach oben verschieben */
+		ACTION_UP,
+		/** Eintrag nach unten verschieben */
+		ACTION_DOWN,
+		/** Eintrag löschen */
+		ACTION_DELETE,
+		/** Zusätzliche Daten zu dem Ausgabe-Eintrag bearbeiten */
+		ACTION_EDIT_DATA
+	}
 
+	/**
+	 * Reagiert auf Eingaben und die Schaltflächen in der Tabelle
+	 */
 	private class TableButtonListener implements ActionListener {
+		/** Tabellenzeile */
 		final int row;
+		/** Auszuführende Aktion */
 		final ActionIndex actionIndex;
 		final Object object;
 

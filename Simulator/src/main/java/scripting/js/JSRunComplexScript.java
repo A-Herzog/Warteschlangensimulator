@@ -26,16 +26,51 @@ import simulator.statistics.Statistics;
  * @author Alexander Herzog
  */
 public class JSRunComplexScript {
-	/** Callback für Ausgaben */
+	/**
+	 * Callback für Ausgaben
+	 */
 	private final Consumer<String> outputCallback;
-	/** Ausgangsmodell */
+
+	/**
+	 * Ausgangsmodell
+	 */
 	private final EditModel model;
+
+	/**
+	 * Verändertes Modell
+	 * @see #getChangedModel()
+	 */
 	private EditModel modelChanged;
+
+	/**
+	 * Stellt das Javascript-"Model"-Objekt zur Verfügung.
+	 * @see #run(String)
+	 */
 	private JSRunComplexScriptModel modelJS;
+
+	/**
+	 * Stellt das Javascript-"Statistics"-Objekt zur Verfügung.
+	 * @see #run(String)
+	 */
 	private JSCommandXML statisticsJS;
+
+
+	/**
+	 * Stellt das Javascript-"FileOutput"-Objekt zur Verfügung.
+	 * @see #run(String)
+	 */
 	private JSCommandOutput fileJS;
 
+	/**
+	 * Erfolg der letzten Skriptausführung
+	 * @see #getLastSuccess()
+	 */
 	private boolean lastSuccess;
+
+	/**
+	 * Ausgabe des Skriptes
+	 * @see #getResults()
+	 */
 	private String lastResults;
 
 	/**
@@ -113,7 +148,7 @@ public class JSRunComplexScript {
 
 	/**
 	 * Gibt an, ob die letzte Skriptausführung erfolgreich war.
-	 * @return	Erfolg der letzten	Skriptausführung
+	 * @return	Erfolg der letzten Skriptausführung
 	 */
 	public boolean getLastSuccess() {
 		return lastSuccess;

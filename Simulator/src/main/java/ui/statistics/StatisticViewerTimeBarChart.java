@@ -121,6 +121,12 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Kürzt einen Stationsnamen; gibt, wenn ein in Anführungszeichen
+	 * stehender Name definiert ist, diesen zurück.
+	 * @param name	Vollständiger Name der Station
+	 * @return	Liefert entweder den übergebenen Namen (wenn er nicht gekürzt werden kann) oder eine gekürzte Fassung
+	 */
 	private String processStationName(final String name) {
 		if (name==null || name.isEmpty()) return "";
 		int index=name.indexOf('"');
@@ -131,6 +137,14 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		return s.substring(0,index);
 	}
 
+	/**
+	 * Erstellt ein Balkendiagramm.
+	 * @param title	Diagrammtitel
+	 * @param type	Type der Einträge (z.B. "Kundentypen")
+	 * @param indicator	Darzustellendes Statistikobjekt
+	 * @param colorMap	Farbenliste für die Darstellung
+	 * @param processStationNames	Sollen die Stationsnamen gekürzt werden?
+	 */
 	private void chartRequest(final String title, final String type, final StatisticsMultiPerformanceIndicator indicator, final Map<String,Color> colorMap, final boolean processStationNames) {
 		initBarChart(title);
 		setupBarChart(title,type,title+" ("+Language.tr("Statistics.InSeconds")+")",false);
@@ -153,6 +167,15 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		setOutlineColor(Color.BLACK);
 	}
 
+	/**
+	 * Erstellt ein Balkendiagramm der Flussfaktoren.
+	 * @param title	Diagrammtitel
+	 * @param type	Type der Einträge (z.B. "Kundentypen")
+	 * @param indicatorProcessing	Statistikdaten zu den Bedienzeiten
+	 * @param indicatorResidence	Statistikdaten zu den Verweilzeiten
+	 * @param colorMap	Farbenliste für die Darstellung
+	 * @param processStationNames	Sollen die Stationsnamen gekürzt werden?
+	 */
 	private void chartRequestFlowFactor(final String title, final String type, final StatisticsMultiPerformanceIndicator indicatorProcessing, final StatisticsMultiPerformanceIndicator indicatorResidence, final Map<String,Color> colorMap, final boolean processStationNames) {
 		initBarChart(title);
 		setupBarChart(title,type,title,false);
@@ -180,6 +203,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		setOutlineColor(Color.BLACK);
 	}
 
+	/**
+	 * Balkendiagramm zum Vergleich der Auslastungen der Bedeinergruppen
+	 * @see Mode#MODE_RESOURCE_UTILIZATION
+	 */
 	private void resourceUtilizationChartRequest() {
 		initBarChart(Language.tr("Statistics.UtilizationAndFailures"));
 		setupBarChart(Language.tr("Statistics.UtilizationAndFailures"),Language.tr("Statistics.UtilizationAndFailures.Type"),Language.tr("Statistics.UtilizationAndFailures.Mean"),false);
@@ -211,6 +238,10 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		setOutlineColor(Color.BLACK);
 	}
 
+	/**
+	 * Balkendiagramm zum Vergleich der Auslastungen der Transportergruppen
+	 * @see Mode#MODE_TRANSPORTER_UTILIZATION
+	 */
 	private void transporterUtilizationChartRequest() {
 		initBarChart(Language.tr("Statistics.TransporterUtilization"));
 		setupBarChart(Language.tr("Statistics.TransporterUtilization"),Language.tr("Statistics.TransporterUtilization.Type"),Language.tr("Statistics.TransporterUtilization.Mean"),false);

@@ -46,8 +46,11 @@ public class ModelElementAnimationImageDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -7981574083085828123L;
 
+	/** Tabelle zur Konfiguration der anzuzeigenden Bilder */
 	private ModelElementAnimationImageTableModel tableImages;
+	/** Auswahlbox für die Rahmenbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl der Rahmenfarbe */
 	private SmallColorChooser colorChooser;
 
 	/**

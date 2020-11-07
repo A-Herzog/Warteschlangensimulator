@@ -57,18 +57,50 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 	private final Runnable help;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+
 	/**
 	 * Liste der globalen Variablen (zum Prüfen von Ausdrücken)
 	 */
 	private final String[] variableNames;
+
+	/**
+	 * Liste mit allen globalen Variablen und ihren Startwerten
+	 */
 	private final Map<String,String> initialVariableValues;
+
+	/**
+	 * Zuordnung von Stations-IDs zu Stationsbeschreibungen
+	 */
 	private final Map<Integer,String> stationIDs;
+
+	/**
+	 * Zuordnung von Stations-IDs zu Stationsnamen
+	 */
 	private final Map<Integer,String> stationNameIDs;
 
+	/**
+	 * In der Tabelle anzuzeigende Rechenausdrücke
+	 */
 	private final List<String> expression=new ArrayList<>();
+
+	/**
+	 * In der Tabelle anzuzeigende Minimalwerte
+	 */
 	private final List<Double> minValue=new ArrayList<>();
+
+	/**
+	 * In der Tabelle anzuzeigende Maximalwerte
+	 */
 	private final List<Double> maxValue=new ArrayList<>();
+
+	/**
+	 * In der Tabelle anzuzeigende Farben
+	 */
 	private final List<Color> expressionColor=new ArrayList<>();
+
+	/**
+	 * In der Tabelle anzuzeigende Linienbereiten
+	 */
 	private final List<Integer> expressionWidth=new ArrayList<>();
 
 	/**
@@ -225,11 +257,20 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 		element.setExpressionData(data);
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Bearbeiten oder Hinzufügen, 1: Bereich ändern, 2: Farbe ändern, 3: Nach oben verschieben, 4: Nach unten verschieben) */
 		private final int nr;
 		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param nr	Auszuführender Befehl (0: Bearbeiten oder Hinzufügen, 1: Bereich ändern, 2: Farbe ändern, 3: Nach oben verschieben, 4: Nach unten verschieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int nr, final int row) {
 			this.nr=nr;
 			this.row=row;

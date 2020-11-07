@@ -861,6 +861,11 @@ public final class ModelElementEdge extends ModelElement {
 		return true;
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLDrawEdge(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -906,6 +911,10 @@ public final class ModelElementEdge extends ModelElement {
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		final Connect[] points=getLine(1.0);
 		if (points==null) return;

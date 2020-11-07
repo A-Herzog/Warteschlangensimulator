@@ -75,15 +75,49 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		Java
 	}
 
+	/**
+	 * Skript dessen Ergebnisse ausgegeben werden sollen
+	 * @see #getScript()
+	 * @see #setScript(String)
+	 */
 	private String script;
+
+	/**
+	 * Skriptsprache
+	 * @see #getMode()
+	 * @see #setMode(ScriptMode)
+	 */
 	private ScriptMode mode;
 
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #simTextValue}
+	 * zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
 	private String simTextValue=null;
 
 	private FontCache.FontFamily fontFamily=FontCache.defaultFamily;
+
+	/**
+	 * Schriftgröße
+	 * @see #getTextSize()
+	 * @see #setTextSize(int)
+	 */
 	private int textSize=14;
+
+	/**
+	 * Text in Fettdruck anzeigen?
+	 * @see #getTextBold()
+	 * @see #setTextBold(boolean)
+	 */
 	private boolean bold;
+
+	/**
+	 * Text kursiv anzeigen?
+	 * @see #getTextItalic()
+	 * @see #setTextItalic(boolean)
+	 */
 	private boolean italic;
 
 	/**
@@ -577,6 +611,11 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		return "ModelElementAnimationTextJS";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLText(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -603,6 +642,10 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawAnimationTextValueJS",builder->getHTMLText(builder));
 

@@ -48,8 +48,25 @@ import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
  */
 public class ModelElementAnimationTrafficLights extends ModelElementAnimationCustomDraw {
 
+	/**
+	 * Drei Lichter in der der Ampel?
+	 * @see #getLightsCount()
+	 * @see #setLightsCount(int)
+	 */
 	private boolean threeLights=false;
+
+	/**
+	 * Bedingung für das erste Licht
+	 * @see #getExpressionOne()
+	 * @see #setExpressionOne(String)
+	 */
 	private String expressionOne="";
+
+	/**
+	 * Bedingung für das zweite Licht
+	 * @see #getExpressionTwo()
+	 * @see #setExpressionTwo(String)
+	 */
 	private String expressionTwo="";
 
 	/**
@@ -300,9 +317,32 @@ public class ModelElementAnimationTrafficLights extends ModelElementAnimationCus
 		return null;
 	}
 
+	/**
+	 * Rechenobjekt für {@link #expressionOne} zur Berechnung
+	 * der Formel während der Animation
+	 * @see #expressionOne
+	 * @see #evalExpression(SimulationData, int)
+	 */
 	private ExpressionMultiEval animationExpressionOne;
+
+	/**
+	 * Rechenobjekt für {@link #expressionTwo} zur Berechnung
+	 * der Formel während der Animation
+	 * @see #expressionTwo
+	 * @see #evalExpression(SimulationData, int)
+	 */
 	private ExpressionMultiEval animationExpressionTwo;
 
+	/**
+	 * Wertet {@link #animationExpressionOne} oder
+	 * {@link #animationExpressionTwo} aus und liefert
+	 * den zu zeichnenden Wert zurück.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param nr	Index der auszuwertenden Bedingung
+	 * @return	Ist die Bedingung erfüllt?
+	 * @see #animationExpressionOne
+	 * @see #animationExpressionTwo
+	 */
 	private boolean evalExpression(final SimulationData simData, final int nr) {
 		final ExpressionMultiEval eval=(nr==1)?animationExpressionOne:animationExpressionTwo;
 		if (eval==null) return false;
@@ -340,6 +380,11 @@ public class ModelElementAnimationTrafficLights extends ModelElementAnimationCus
 		return "ModelElementAnimationTrafficLights";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationTrafficLightsThree(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -372,6 +417,11 @@ public class ModelElementAnimationTrafficLights extends ModelElementAnimationCus
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationTrafficLightsTwo(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 

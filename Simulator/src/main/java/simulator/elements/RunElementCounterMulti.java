@@ -37,6 +37,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementCounterMulti
  */
 public class RunElementCounterMulti extends RunElementPassThrough {
+	/** Name der Zählergruppe zu der dieser Zähler gehört */
 	private String groupName;
 	/** Bedingungen für die Mehrfachzähler */
 	public String[] conditions;

@@ -58,18 +58,44 @@ public class ListPopup {
 		this.help=help;
 	}
 
+	/**
+	 * Erstellt ein {@link ScriptHelperSub}-Untermenü
+	 * @param list	Liste der bisherigen Menüpunkte zu der das neue Untermenü hinzugefügt werden soll
+	 * @param title	Name des Untermenüs
+	 * @param tooltip	Tooltip für das Untermenü
+	 * @param icon	Icon für das Untermenü
+	 * @return	Liefert das neu erstellte Untermenü
+	 */
 	private ScriptHelperSub getSubList(final List<Object> list, final String title, final String tooltip, final Icon icon) {
 		final ScriptHelperSub sub=new ScriptHelperSub(null,title,tooltip,icon);
 		list.add(sub);
 		return sub;
 	}
 
+	/**
+	 * Erstellt ein {@link ScriptHelperSub}-Untermenü
+	 * @param parent	Übergeordnetes Menü zu der das neue Untermenü hinzugefügt werden soll
+	 * @param title	Name des Untermenüs
+	 * @param tooltip	Tooltip für das Untermenü
+	 * @param icon	Icon für das Untermenü
+	 * @return	Liefert das neu erstellte Untermenü
+	 */
 	private ScriptHelperSub getSubList(final ScriptHelperSub parent, final String title, final String tooltip, final Icon icon) {
 		final ScriptHelperSub sub=new ScriptHelperSub(parent,title,tooltip,icon);
 		parent.list.add(sub);
 		return sub;
 	}
 
+	/**
+	 * Erstellt ein {@link ScriptHelperSub}-Untermenü
+	 * @param list	Liste der bisherigen Menüpunkte zu der das neue Untermenü hinzugefügt werden soll
+	 * @param allowAdd	Optionales Callback zum prüfen, ob der Eintrag wirklich hinzugefügt werden soll
+	 * @param title	Name des Untermenüs
+	 * @param tooltip	Tooltip für das Untermenü
+	 * @param icon	Icon für das Untermenü
+	 * @param xmlMode	Um was für eine Information handelt es sich?
+	 * @param xmlSelectionCommand	XML-Auswahl-Befehl
+	 */
 	private void tryAddRecord(final List<Object> list, final Predicate<ScriptHelperRecord> allowAdd, final String title, final String tooltip, final Icon icon, final XMLMode xmlMode, final String xmlSelectionCommand) {
 		final ScriptHelperRecord record=new ScriptHelperRecord(title,title,tooltip,icon,xmlMode,xmlSelectionCommand);
 		if (allowAdd!=null) {
@@ -78,11 +104,26 @@ public class ListPopup {
 		list.add(record);
 	}
 
+	/**
+	 * Liefert den Gesamttitel eines Eintrag
+	 * @param parent	Eintrag
+	 * @return	Gesamttitel (inkl. der Elternelemente)
+	 */
 	private String buildParentTitle(final ScriptHelperSub parent) {
 		if (parent.parent!=null) return buildParentTitle(parent.parent)+" - "+parent.title;
 		return parent.title;
 	}
 
+	/**
+	 * Erstellt ein {@link ScriptHelperSub}-Untermenü
+	 * @param parent	Übergeordnetes Menü zu der das neue Untermenü hinzugefügt werden soll
+	 * @param allowAdd	Optionales Callback zum prüfen, ob der Eintrag wirklich hinzugefügt werden soll
+	 * @param title	Name des Untermenüs
+	 * @param tooltip	Tooltip für das Untermenü
+	 * @param icon	Icon für das Untermenü
+	 * @param xmlMode	Um was für eine Information handelt es sich?
+	 * @param xmlSelectionCommand	XML-Auswahl-Befehl
+	 */
 	private void tryAddRecord(final ScriptHelperSub parent, final Predicate<ScriptHelperRecord> allowAdd, final String title, final String tooltip, final Icon icon, final XMLMode xmlMode, final String xmlSelectionCommand) {
 		final ScriptHelperRecord record=new ScriptHelperRecord(buildParentTitle(parent)+" - "+title,title,tooltip,icon,xmlMode,xmlSelectionCommand);
 		if (allowAdd!=null) {
@@ -91,6 +132,12 @@ public class ListPopup {
 		parent.list.add(record);
 	}
 
+	/**
+	 * Erstellt eine Liste mit passenden Vorlagen.
+	 * @param statistics	Statistikobjekt
+	 * @param allowAdd	Optionales Callback zum prüfen, ob ein Eintrag wirklich hinzugefügt werden soll
+	 * @return	Liste mit Vorlagen
+	 */
 	private List<Object> getStatisticsTemplatesList(final Statistics statistics, final Predicate<ScriptHelperRecord> allowAdd) {
 		final List<Object> list=new ArrayList<>();
 
@@ -599,6 +646,16 @@ public class ListPopup {
 		return menu;
 	}
 
+	/**
+	 * Fügt Bearbeiten-Menüpunkte zu einem Popupmenü hinzu
+	 * @param popupMenu	Popupmenü
+	 * @param model	Editor-Modell
+	 * @param statistics	Statistik-Objekt, aus dem die Bezeichner für Stationen usw. ausgelesen werden
+	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
+	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
+	 * @param help	Hilfe-Runnable
+	 * @param allowSave	Gibt an, ob der Menüpunkt zur Generierung eines Speichern-Befehls in dem Menü angezeigt werden soll
+	 */
 	private void addEditToPopup(final JPopupMenu popupMenu, final EditModel model, final Statistics statistics, final JTextArea textArea, final Runnable update, final Runnable help, final boolean allowSave) {
 		JMenu menu;
 
@@ -658,6 +715,13 @@ public class ListPopup {
 		}
 	}
 
+	/**
+	 * Erstellt ein Untermenü
+	 * @param parent	Übergeordnetes Menü
+	 * @param main	Wurzel-Script-Helper-Objekt
+	 * @param listener	Liste der Unterpunkte
+	 * @return	Liefert <code>true</code>, wenn Einträge hinzugefügt werden konnten
+	 */
 	private boolean addSub(final JMenu parent, final ScriptHelperSub main, final Consumer<ScriptHelperRecord> listener) {
 		if (main.list.isEmpty()) return false;
 		final JMenu menu=main.addToPopup(parent);
@@ -780,6 +844,13 @@ public class ListPopup {
 		popupMenu.show(owner,0,owner.getHeight());
 	}
 
+	/**
+	 * Fügt einen XML-Daten-Ausgabebefehl in in das Skript-Eingabefeld ein.
+	 * @param text	XML-Pfad
+	 * @param xmlMode	Um was für eine Information handelt es sich?
+	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
+	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
+	 */
 	private void commandXMLOutput(final String text, final XMLMode xmlMode, final JTextArea textArea, final Runnable update) {
 		if (xmlMode==XMLMode.XML_NUMBER || xmlMode==XMLMode.XML_NUMBER_TIME) {
 			commandText("Output.println(Statistics.xmlNumber(\""+text.replace("\"","\\\"")+"\"));",textArea,update);
@@ -788,6 +859,12 @@ public class ListPopup {
 		}
 	}
 
+	/**
+	 * Fügt einen Text in das Skript-Eingabefeld ein.
+	 * @param text	Auszugebender Text
+	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
+	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
+	 */
 	private void commandText(final String text, final JTextArea textArea, final Runnable update) {
 		if (textArea!=null) {
 			String s=textArea.getText();
@@ -800,6 +877,14 @@ public class ListPopup {
 		}
 	}
 
+	/**
+	 * Zeigt einen Dialog zur Auswahl eines XML-Elements an und fügt dann einen entsprechenden Ausgabebefehl in das Skript-Eingabefeld ein.
+	 * @param doc	XML-Dokument
+	 * @param command	Befehl zur Ausgabe des XML-Pfades
+	 * @param help	Hilfe-Runnable
+	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
+	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
+	 */
 	private void commandSelect(final Document doc, final String command, final Runnable help, final JTextArea textArea, final Runnable update) {
 		final StatisticViewerFastAccessDialog dialog=new StatisticViewerFastAccessDialog(null,doc,help,false);
 		dialog.setVisible(true);
@@ -820,18 +905,42 @@ public class ListPopup {
 		if (update!=null) update.run();
 	}
 
+	/**
+	 * Zeigt einen Dialog zur Auswahl eines XML-Elements aus den Modelldaten an und fügt dann einen entsprechenden Ausgabebefehl in das Skript-Eingabefeld ein.
+	 * @param model	Editor-Modell
+	 * @param help	Hilfe-Runnable
+	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
+	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
+	 */
 	private void commandSelectModelXMLTag(final EditModel model, final Runnable help, final JTextArea textArea, final Runnable update) {
 		commandSelect(model.saveToXMLDocument(),"Model.xml",help,textArea,update);
 	}
 
+	/**
+	 * Zeigt einen Dialog zur Auswahl eines XML-Elements aus den Statistikdaten an und fügt dann einen entsprechenden Ausgabebefehl in das Skript-Eingabefeld ein.
+	 * @param statistics	Statistikobjekt
+	 * @param help	Hilfe-Runnable
+	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
+	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
+	 */
 	private void commandSelectStatisticsXMLTag(final Statistics statistics, final Runnable help, final JTextArea textArea, final Runnable update) {
 		commandSelect(statistics.saveToXMLDocument(),"Statistics.xml",help,textArea,update);
 	}
 
+	/**
+	 * Fügt einen Befehl zur Ausgabe eines Tabulators in das Skript-Eingabefeld ein.
+	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
+	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
+	 */
 	private void commandAddTab(final JTextArea textArea, final Runnable update) {
 		commandText("Output.tab();",textArea,update);
 	}
 
+	/**
+	 * Fügt einen Befehl zur Ausgabe eines Zeilenumbruchs in das Skript-Eingabefeld ein.
+	 * @param textArea	Textfeld, in das die Daten eingefügt werden sollen
+	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
+	 */
 	private void commandAddNewLine(final JTextArea textArea, final Runnable update) {
 		commandText("Output.newLine();",textArea,update);
 	}
@@ -958,12 +1067,22 @@ public class ListPopup {
 			list=new ArrayList<>();
 		}
 
+		/**
+		 * Fügt das Untermenü an ein Popupmenü an.
+		 * @param popup	Popupmenü
+		 * @return	Untermenü welches angefügt wurde
+		 */
 		public JMenu addToPopup(final JPopupMenu popup) {
 			final JMenu menu=getSubMenu(title,tooltip,icon);
 			popup.add(menu);
 			return menu;
 		}
 
+		/**
+		 * Fügt das Untermenü an ein Menü an.
+		 * @param popup	Übergeordnetes Menü
+		 * @return	Untermenü welches angefügt wurde
+		 */
 		public JMenu addToPopup(final JMenu popup) {
 			final JMenu menu=getSubMenu(title,tooltip,icon);
 			popup.add(menu);

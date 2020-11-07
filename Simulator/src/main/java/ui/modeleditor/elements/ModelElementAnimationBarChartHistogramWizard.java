@@ -66,22 +66,42 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
 
+	/** Verfügbare Histogrammtypen */
 	private final List<HistogramType> types;
+	/** Liste der IDs der Datenlieferanten-Station */
 	private final List<HistogramIDRecord> idsBox;
+	/** Liste der IDs der Bedienergruppen */
 	private final List<HistogramIDRecord> idsResource;
+	/** /** Liste der IDs der Transportergruppen */
 	private final List<HistogramIDRecord> idsTransporter;
+	/** Liste der IDs der benutzerdefinierten Statistik-Stationen */
 	private final List<HistogramIDRecord> idsStatistics;
 
+	/** Auswahlbox Histogrammtyp */
 	private final JComboBox<String> comboType;
+	/** Auswahlbox ID der Datenlieferanten-Station / der Bedinergruppe / der Transportergruppe */
 	private final JComboBox<String> comboID;
+	/** Eingabefeld für den Index des Eintrags innerhalb einer benutzerdefinierten Statistikstation */
 	private final JTextField editNr;
+	/** Eingabefeld für den Startwert */
 	private final JTextField editStart;
+	/** Eingabefeld für die Schrittweite */
 	private final JTextField editStepWidth;
+	/** Eingabefeld für die Anzahl an Werten */
 	private final JTextField editCount;
+	/** Schaltfläche zur Auswahl der Farbe der Datenreihe */
 	private final JButton buttonColor;
+	/** Option: Bisherige Diagrammbalken entfernen */
 	private final JCheckBox replaceRecords;
 
+	/** Aktuell gewählte Farbe für die Datenreihe */
 	private Color barColor;
+
+	/**
+	 * Zuletzt gewählter Typ
+	 * @see #typeChanged()
+	 * @see #comboType
+	 */
 	private int lastType;
 
 	/**
@@ -222,6 +242,13 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Combobox einfügen
+	 * @param parent	Panel in das die Combobox eingefügt werden soll
+	 * @param name	Beschriftung der Combobox
+	 * @param entries	Auswahloptionen in der Combobox
+	 * @return	Neue Combobox
+	 */
 	private JComboBox<String> addCombo(final JPanel parent, final String name, final List<String> entries) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		parent.add(line);
@@ -233,6 +260,11 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		return combo;
 	}
 
+	/**
+	 * Liefert Histogramm-Datensätze zu den Stationen.
+	 * @param model	Editor-Modell
+	 * @return	Histogramm-Datensätze
+	 */
 	private List<HistogramIDRecord> getBoxElements(final EditModel model) {
 		final List<HistogramIDRecord> list=new ArrayList<>();
 
@@ -246,6 +278,11 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert Histogramm-Datensätze zu den Bedinergruppen.
+	 * @param model	Editor-Modell
+	 * @return	Histogramm-Datensätze
+	 */
 	private List<HistogramIDRecord> getResources(final EditModel model) {
 		final List<HistogramIDRecord> list=new ArrayList<>();
 
@@ -266,6 +303,11 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert Histogramm-Datensätze zu den Transportergruppen.
+	 * @param model	Editor-Modell
+	 * @return	Histogramm-Datensätze
+	 */
 	private List<HistogramIDRecord> getTransporters(final EditModel model) {
 		final List<HistogramIDRecord> list=new ArrayList<>();
 
@@ -286,6 +328,11 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Liefert Histogramm-Datensätze zu den benutzerdefinierten Statistikelementen.
+	 * @param model	Editor-Modell
+	 * @return	Histogramm-Datensätze
+	 */
 	private List<HistogramIDRecord> getStatisticElements(final EditModel model) {
 		final List<HistogramIDRecord> list=new ArrayList<>();
 
@@ -299,6 +346,12 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Aktualisiert die Einstellungen nach einer
+	 * Änderung der Auswahl in {@link #comboType}
+	 * @see #comboType
+	 * @see #lastType
+	 */
 	private void typeChanged() {
 		int lastID=Math.max(0,comboID.getSelectedIndex());
 		if (lastType>=0) {
@@ -330,6 +383,13 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		checkData(false);
 	}
 
+	/**
+	 * Konfiguriert die {@link #buttonColor}-Schaltfläche
+	 * gemäß der in {@link #barColor} angegebenen Farbe.
+	 * @see #buttonColor
+	 * @see #barColor
+	 * @see #showColorSelectDialog()
+	 */
 	private void setupColorButton() {
 		final BufferedImage image=new BufferedImage(16,16,BufferedImage.TYPE_4BYTE_ABGR);
 		final Graphics g=image.getGraphics();
@@ -340,6 +400,11 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		buttonColor.setIcon(new ImageIcon(image));
 	}
 
+	/**
+	 * Zeigt den Dialog zur Auswahl einer Farbe
+	 * @see ModelElementBaseColorDialog
+	 * @see #buttonColor
+	 */
 	private void showColorSelectDialog() {
 		final ModelElementBaseColorDialog dialog=new ModelElementBaseColorDialog(this,helpRunnable,barColor);
 		dialog.setVisible(true);
@@ -493,13 +558,40 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		return replaceRecords.isSelected();
 	}
 
-	private enum HistogramID {ID_NON, ID_BOX_ELEMENT, ID_RESOURCE, ID_TRANSPORTER, ID_STATISTIC_STATION}
+	/**
+	 * Art des Histogramm-Datensatzes
+	 * {@link ModelElementAnimationBarChartHistogramWizard#types}
+	 */
+	private enum HistogramID {
+		/** Keine ID */
+		ID_NON,
+		/** ID einer Station */
+		ID_BOX_ELEMENT,
+		/** ID einer Bedienergruppe */
+		ID_RESOURCE,
+		/** ID einer Transportergruppe */
+		ID_TRANSPORTER,
+		/** ID einer benutzerdefinierten Statistik-Station */
+		ID_STATISTIC_STATION
+	}
 
+	/**
+	 * Histogramm-Datensatz
+	 */
 	private class HistogramType {
+		/** Name für die Liste */
 		public final String name;
+		/** Rechenbefehl zur Abfrage der jeweiligen Daten */
 		public final String command;
+		/** Histogramm-Modus */
 		public final HistogramID idMode;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name für die Liste
+		 * @param command	Rechenbefehl zur Abfrage der jeweiligen Daten
+		 * @param idMode	Histogramm-Modus
+		 */
 		public HistogramType(final String name, final String command, final HistogramID idMode) {
 			this.name=name;
 			this.command=command;
@@ -507,10 +599,24 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Teil-Datensätze die die Einträge der
+	 * Listen der Stationen, Gruppen usw. vorhalten
+	 * @see ModelElementAnimationBarChartHistogramWizard#idsBox
+	 * @see ModelElementAnimationBarChartHistogramWizard#idsResource
+	 * @see ModelElementAnimationBarChartHistogramWizard#idsTransporter
+	 * @see ModelElementAnimationBarChartHistogramWizard#idsStatistics
+	 */
 	private class HistogramIDRecord {
+		/** Name der Station */
 		public final String name;
+		/** ID der Station bzw. Gruppe */
 		public final int id;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param element	Station von der Name und ID ausgelesen werden sollen
+		 */
 		public HistogramIDRecord(final ModelElementBox element) {
 			final StringBuilder sb=new StringBuilder();
 			sb.append(element.getTypeName());
@@ -524,6 +630,11 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 			id=element.getId();
 		}
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name der Station bzw. Gruppe
+		 * @param id	ID der Station bzw. Gruppe
+		 */
 		public HistogramIDRecord(final String name, final int id) {
 			this.name=name;
 			this.id=id;

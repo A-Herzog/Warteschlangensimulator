@@ -59,6 +59,11 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Handelt es sich bei einem Eintrag um Zeit-Werte?
+	 * @param key	Bezeichner des Eintrags
+	 * @return	Zeit-Werte (<code>true</code>) oder Zustände (<code>false</code>)
+	 */
 	private boolean isUserStatisticsTime(final String key) {
 		for (ModelElement element: statistics.editModel.surface.getElements()) {
 			if (element instanceof ModelElementUserStatistic) {
@@ -78,6 +83,10 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 		return true;
 	}
 
+	/**
+	 * Handelt es sich bei allen Einträgen zum Zeit-Werte?
+	 * @return	Liefert <code>true</code>, wenn alle Einträge Zeit-Werte sind
+	 */
 	private boolean isAllUserStatisticsTime() {
 		for (String name: statistics.userStatistics.getNames()) if (!isUserStatisticsTime(name)) return false;
 		return true;

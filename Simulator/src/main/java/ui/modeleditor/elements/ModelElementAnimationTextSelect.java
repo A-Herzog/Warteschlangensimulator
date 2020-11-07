@@ -58,16 +58,58 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	 */
 	private static final Color DEFAULT_COLOR=Color.BLACK;
 
+	/**
+	 * Standardtext, der angezeigt wird, wenn keine der Bedingungen erfüllt ist
+	 * @see #getDefaultText()
+	 * @see #setDefaultText(String)
+	 */
 	private String textDefault="";
+
+	/**
+	 * Ausdrücke zur Bestimmung des anzuzeigenden Textes
+	 * @see #getTextExpressions()
+	 */
 	private List<String> textExpressions=new ArrayList<>();
+
+	/**
+	 * Texte, die gemäß der Ausdrücke angezeigt werden sollen
+	 * @see #getTextValues()
+	 */
 	private List<String> textValues=new ArrayList<>();
 
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #simTextValue}
+	 * zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * Während der Animation auszugebender Text
+	 */
 	private String simTextValue=null;
 
 	private FontCache.FontFamily fontFamily=FontCache.defaultFamily;
+
+	/**
+	 * Schriftgröße
+	 * @see #getTextSize()
+	 * @see #setTextSize(int)
+	 */
 	private int textSize=14;
+
+	/**
+	 * Ausgabe des Textes im Fettdruck?
+	 * @see #getTextBold()
+	 * @see #setTextBold(boolean)
+	 */
 	private boolean bold;
+
+	/**
+	 * Ausgabe des Textes im Kursivdruck?
+	 * @see #getTextItalic()
+	 * @see #setTextItalic(boolean)
+	 */
 	private boolean italic;
 
 	/**
@@ -515,6 +557,11 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		return null;
 	}
 
+	/**
+	 * Formelobjekte zu {@link #textExpressions}
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private ExpressionEval[] animationExpression;
 	private String[] animationText;
 
@@ -564,6 +611,11 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		return "ModelElementAnimationTextSelect";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLText(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -590,6 +642,10 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawAnimationTextSelect",builder->getHTMLText(builder));
 

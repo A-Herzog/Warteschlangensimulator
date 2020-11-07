@@ -168,11 +168,24 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		this.mode=mode;
 	}
 
+	/**
+	 * Liefert einen Stationsnamen
+	 * @param statisticName	Eingabe-Stationsname (kann <code>null</code> sein)
+	 * @return	Ausgabe-Stationsname (ist nie <code>null</code>)
+	 */
 	private String fullStationName(final String statisticName) {
 		if (statisticName==null || statisticName.trim().isEmpty()) return "";
 		return statisticName;
 	}
 
+	/**
+	 * Liefert die Spaltenüberschriften.
+	 * @param col1	Optionale erste Spalte (kann <code>null</code> sein)
+	 * @param col2	Optionale zweite Spalte (kann <code>null</code> sein)
+	 * @param info	Optionaler Wert, der an die Indikatoren angehängt wird (kann <code>null</code> sein; üblich sowas wie "[X]")
+	 * @param confidenceLevels	Konfidenzlevels für die Spalten vorgesehen werden solle (kann <code>null</code> sein)
+	 * @return	Spaltenüberschriften
+	 */
 	private String[] getColumnNames(final String col1, final String col2, String info, final double[] confidenceLevels) {
 		final List<String> columns=new ArrayList<>();
 
@@ -200,6 +213,13 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		return columns.toArray(new String[0]);
 	}
 
+	/**
+	 * Erzeugt eine Datenzeile.
+	 * @param col1	Inhalt für Spalte 1 (kann <code>null</code> sein)
+	 * @param data	Statistikobjekt dem Mittelwert usw. entnommen werden sollen
+	 * @param confidenceLevels	Niveaus zu denen Konfidenzintervallgrößen ausgegeben werden sollen (kann <code>null</code> sein)
+	 * @return	Datenzeile
+	 */
 	private String[] getDataLine(final String col1, final StatisticsDataPerformanceIndicator data, final double[] confidenceLevels) {
 		final List<String> line=new ArrayList<>();
 
@@ -229,6 +249,12 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		return line.toArray(new String[0]);
 	}
 
+	/**
+	 * Erzeugt eine Datenzeile.
+	 * @param col1	Inhalt für Spalte 1 (kann <code>null</code> sein)
+	 * @param data	Statistikobjekt dem Mittelwert usw. entnommen werden sollen
+	 * @return	Datenzeile
+	 */
 	private String[] getDataLine(final String col1, final StatisticsDataPerformanceIndicatorWithNegativeValues data) {
 		final List<String> line=new ArrayList<>();
 
@@ -247,6 +273,12 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		return line.toArray(new String[0]);
 	}
 
+	/**
+	 * Erzeugt eine Datenzeile.
+	 * @param col1	Inhalt für Spalte 1 (kann <code>null</code> sein)
+	 * @param data	Statistikobjekt dem Mittelwert usw. entnommen werden sollen
+	 * @return	Datenzeile
+	 */
 	private String[] getDataLine(final String col1, final StatisticsTimePerformanceIndicator data) {
 		final List<String> line=new ArrayList<>();
 
@@ -277,6 +309,13 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Prüft, ob <b>alle</b> angegebenen Statistikobjekt über Konfidenzintervalldaten verfügen.
+	 * @param indicator1	Erstes Statistikobjekt
+	 * @param indicator2	Zweites Statistikobjekt (kann <code>null</code> sein, dann gilt die Bedingung für dieses Objekt als erfüllt)
+	 * @param indicator3	Drittes Statistikobjekt (kann <code>null</code> sein, dann gilt die Bedingung für dieses Objekt als erfüllt)
+	 * @return	Liefert <code>true</code>, wenn alle übergebenen (ungleich <code>null</code>) Objekte über Konfidenzintervalldaten verfügen
+	 */
 	private boolean hasConfidence(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3) {
 		String[] names=indicator1.getNames();
 		if (names.length==0) return false;
@@ -297,6 +336,20 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		return true;
 	}
 
+	/**
+	 * Erstellt eine Übersichtstabelle über mehrere Zeit-Kenngrößen
+	 * @param indicator1	Statistikobjekt 1
+	 * @param indicator2	Statistikobjekt 2 (kann <code>null</code> sein)
+	 * @param indicator3	Statistikobjekt 3 (kann <code>null</code> sein)
+	 * @param indicator4	Statistikobjekt 4 (kann <code>null</code> sein)
+	 * @param type1	Bezeichner für Spalte 1 für Statistikobjekt 1 (kann <code>null</code> sein)
+	 * @param type2	Bezeichner für Spalte 1 für Statistikobjekt 2 (kann <code>null</code> sein)
+	 * @param type3	Bezeichner für Spalte 1 für Statistikobjekt 3 (kann <code>null</code> sein)
+	 * @param type4	Bezeichner für Spalte 1 für Statistikobjekt 4 (kann <code>null</code> sein)
+	 * @param label	Bezeichner für Spalte 1 in der Überschriftenzeile
+	 * @param isStationsList	Handelt es sich bei den Untereinträgen der Statistikobjekte um Stationsnamen?
+	 * @param isInterArrival	Handelt es sich um Zwischenankunftszeiten?
+	 */
 	private void buildTimesOverviewTable(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3, final StatisticsMultiPerformanceIndicator indicator4, final String type1, final String type2, final String type3, final String type4, final String label, final boolean isStationsList, final boolean isInterArrival) {
 		final Table table=new Table();
 
@@ -340,6 +393,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		}
 	}
 
+	/**
+	 * Erstellt eine Verteilungstabelle.
+	 * @param indicator	Statistikobjekt
+	 * @param label	Spaltenüberschrift über ersten Spalte
+	 */
 	private void buildTimesDistributionTable(final StatisticsMultiPerformanceIndicator indicator, final String label) {
 		final Table table=new Table();
 		final List<String> headers=new ArrayList<>();
@@ -375,6 +433,12 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableTimeDistribution");
 	}
 
+	/**
+	 * Erstellt eine Übersichtstabelle über Zählwerte-Verteilungen
+	 * @param indicators	Statistikobjekt mit Daten zu mehreren Teil-Verteilungen
+	 * @param system	Statistikobjekt für die systemweiten Daten (kann <code>null</code> sein)
+	 * @param type	Kann "N" oder "NQ" sein und gibt an, welche Informationen unter der Tabelle als Hilfe eingeblendet werden sollen
+	 */
 	private void buildCountOverviewTable(final StatisticsMultiPerformanceIndicator indicators, final StatisticsTimePerformanceIndicator system, final String type) {
 		final Table table=new Table();
 
@@ -394,6 +458,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		if (type.equals("NQ")) addDescription("TableCountOverviewNQ");
 	}
 
+	/**
+	 * Erstellt eine Verteilungstabelle über Zählwerte-Verteilungen
+	 * @param indicators	Statistikobjekt mit Daten zu mehreren Teil-Verteilungen
+	 * @param system	Statistikobjekt für die systemweiten Daten (kann <code>null</code> sein)
+	 */
 	private void buildCountDistributionTable(final StatisticsMultiPerformanceIndicator indicators, final StatisticsTimePerformanceIndicator system) {
 		final Table table=new Table();
 		final List<String> labels=new ArrayList<>();
@@ -433,6 +502,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableCountDistribution");
 	}
 
+	/**
+	 * Ausgabe einer
+	 * Tabelle mit den Anzahlen an Ankünften an den Stationen.
+	 * @see Mode#MODE_OVERVIEW_STATIONS_ARRIVAL_COUNT
+	 */
 	private void buildInterarrivalCountTable() {
 		final Table table=new Table();
 
@@ -459,6 +533,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableInterarrivalCount");
 	}
 
+	/**
+	 * Ausgabe der
+	 * Ressourcenauslastung (Übersichtstabelle)
+	 * @see Mode#MODE_UTILIZATION
+	 */
 	private void buildUtilizationTable() {
 		final Table table=new Table();
 
@@ -526,6 +605,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableResourceUtilization");
 	}
 
+	/**
+	 * Ausgabe von
+	 * Ausfallzeiten der Ressourcen (Übersichtstabelle)
+	 * @see Mode#MODE_DOWNTIMES
+	 */
 	private void buildDownTimesTable() {
 		final Table table=new Table();
 
@@ -573,6 +657,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableResourceDownTimes");
 	}
 
+	/**
+	 * Ausgabe der
+	 * Transporterauslastung (Übersichtstabelle)
+	 * @see Mode#MODE_TRANSPORTER_UTILIZATION
+	 */
 	private void buildTransporterUtilizationTable() {
 		final Table table=new Table();
 
@@ -624,6 +713,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableTransporterUtilization");
 	}
 
+	/**
+	 * Ausgabe der
+	 * Ausfallzeiten der Transporter (Übersichtstabelle)
+	 * @see Mode#MODE_TRANSPORTER_DOWNTIMES
+	 */
 	private void buildTransporterDownTimesTable() {
 		final Table table=new Table();
 
@@ -666,6 +760,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableTransporterDownTimes");
 	}
 
+	/**
+	 * Ausgabe der
+	 * Kundendatenfelder (Übersichtstabelle)
+	 * @see Mode#MODE_CLIENT_DATA
+	 */
 	private void buildClientDataTable() {
 		final Table table=new Table();
 
@@ -680,6 +779,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableClientData");
 	}
 
+	/**
+	 * Ausgabe der
+	 * Kundendatenfelder (Tabelle mit Verteilung der Werte)
+	 * @see Mode#MODE_CLIENT_DATA_DISTRIBUTION
+	 */
 	private void buildClientDataDistributionTable() {
 		final Table table=new Table();
 		final List<String> headers=new ArrayList<>();
@@ -714,6 +818,12 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		addDescription("TableClientDataDistribution");
 	}
 
+	/**
+	 * Liefert eine {@link ModelElementRecord}-Station mit einem bestimmten Namen
+	 * @param surface	Zeichenfläche auf der und auf deren Unterzeichenflächen gesucht werden soll
+	 * @param data	Name der Station
+	 * @return	Liefert im Erfolgsfall das Stationsobjekt, sonst <code>null</code>
+	 */
 	private final ModelElementRecord getStation(final ModelSurface surface, final String data) {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementRecord && element.getName().equals(data)) return (ModelElementRecord)element;
@@ -725,6 +835,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		return null;
 	}
 
+	/**
+	 * Liefert, wenn vorhanden den y-Werte-Rechenausdruck (sonst x-Werte) aus einer {@link ModelElementRecord}-Station
+	 * @param data	Name der Station
+	 * @return	Rechenausdruck
+	 */
 	private String getExpressions(final String data) {
 		final boolean value2=data.endsWith("-2");
 		final String shortData=data.substring(0,data.length()-2);
@@ -734,6 +849,11 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		return value2?record.getExpression2():record.getExpression1();
 	}
 
+	/**
+	 * Ausgabe der
+	 * Tabelle mit den an den Datenaufzeichnung-Stationen erfassten Werten
+	 * @see Mode#MODE_VALUE_RECORDING
+	 */
 	private void buildValueRecordingTable() {
 		final Table table=new Table();
 		final List<String> headers=new ArrayList<>();

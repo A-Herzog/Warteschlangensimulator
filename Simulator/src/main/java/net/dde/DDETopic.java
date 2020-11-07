@@ -30,10 +30,17 @@ import java.util.stream.Stream;
  * @see DDEServerSystem
  */
 public abstract class DDETopic {
+	/** Vorgabe-DDE-Item "TopicItemList" */
 	private final DDEItem itemTopicItemList;
+	/** Vorgabe-DDE-Item "Formats" */
 	private final DDEItem itemFormats;
+	/** Liste der Verfügbaren DDE-Items */
 	private final List<DDEItem> items;
-	/** Sichert parallele Zugriffe auf {@link #getItemsStream()} ab */
+
+	/**
+	 * Sichert parallele Zugriffe auf {@link #getItemsStream()} ab.
+	 * @see #getItemsStream()
+	 */
 	private final Semaphore lock;
 
 	/**

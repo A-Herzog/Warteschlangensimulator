@@ -54,7 +54,9 @@ public class ModelElementAnimationImageTableModelDialog extends BaseDialog {
 	private final EditModel model;
 	/** Haupt-Zeichenfläche (für den Expression-Builder) */
 	private final ModelSurface surface;
+	/** Eingabefeld für die Bedingung, deren Erfüllung zur Anzeige des jeweiligen Bildes führen soll */
 	private final JTextField expressionEdit;
+	/** Auswahl des Bildes, das angezeigt werden soll, wenn die Bedingung erfüllt ist */
 	private final ImageChooser imageChooser;
 
 	/**

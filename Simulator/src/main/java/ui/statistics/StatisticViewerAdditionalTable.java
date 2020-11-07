@@ -58,6 +58,10 @@ public class StatisticViewerAdditionalTable extends StatisticViewerTable {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Liefert die Anzahl an erfassten Schritten.
+	 * @return	Anzahl an erfassten Schritten
+	 */
 	private int getStepCount() {
 		final String[] names=statistics.longRunStatistics.getNames();
 		if (names.length==0) return 0;
@@ -65,6 +69,11 @@ public class StatisticViewerAdditionalTable extends StatisticViewerTable {
 		return indicator.getValueCount();
 	}
 
+	/**
+	 * Liefert das Zeitintervall für einen Erfassungsschritt.
+	 * @param index	Erfassungsschritt
+	 * @return	Zeitintervall
+	 */
 	private String getTimeSlotString(final int index) {
 		return TimeTools.formatLongTime(stepWide*index)+"-"+TimeTools.formatLongTime(stepWide*(index+1)-1);
 	}

@@ -37,7 +37,9 @@ public class OutputImpl implements OutputInterface {
 	private final Consumer<String> output;
 	/** Wird hier <code>true</code> übergeben, so erfolgt die Ausgabe der eigentlichen Meldungen in eine Datei */
 	private final boolean outputToFile;
+	/** Ausgabedatei ({@link #setFile(Object)}) */
 	private File outputFile;
+	/** Abbruch-Status */
 	private boolean canceled=false;
 	/** Als Zeitangabe (<code>true</code>) oder als Zahl (<code>false</code>) ausgeben? */
 	private boolean time;
@@ -48,9 +50,26 @@ public class OutputImpl implements OutputInterface {
 	/** Trennzeichen für die Ausgabe von Verteilungsdaten */
 	private char separator=';';
 
+	/**
+	 * Ist die Ausgabe nur eine Double-Zahl?
+	 * @see #isOutputDouble()
+	 * @see #getOutputDouble()
+	 */
 	private boolean isOutputPlainDouble=true;
+
+	/**
+	 * Wenn es sich bei der Ausgabe nur um eine Double-Zahl handelt, so hält dieses Feld die Zahl vor.
+	 * @see #isOutputDouble()
+	 * @see #getOutputDouble()
+	 */
 	private double outputPlainDouble;
 
+	/**
+	 * Cache für {@link #printDouble(double)},
+	 * um das {@link StringBuilder}-Objekt nicht
+	 * immer wieder neu anlegen zu müssen.
+	 * @see #printDouble(double)
+	 */
 	private StringBuilder outputTemp;
 
 	/**
@@ -64,6 +83,11 @@ public class OutputImpl implements OutputInterface {
 		this.outputToFile=outputToFile;
 	}
 
+	/**
+	 * Gibt eine Meldung über {@link #output} aus.
+	 * @param line	Meldung
+	 * @see #output
+	 */
 	private void addOutput(final String line) {
 		if (output!=null) output.accept(line);
 	}
@@ -154,6 +178,16 @@ public class OutputImpl implements OutputInterface {
 		addOutputMain("\t");
 	}
 
+	/**
+	 * Wird an {@link #print(Object)} eine Zahl übergeben,
+	 * so wird die Ausgabe an diese Methode weitergereicht,
+	 * um das unnötige Boxen der Zahl zu vermeiden und um
+	 * diese später direkt über {@link #getOutputDouble()}
+	 * bereitstellen zu können.
+	 * @param value	Auszugebende Zahl
+	 * @see #getOutputDouble()
+	 * @see #print(Object)
+	 */
 	private void printDouble(double value) {
 		if (time) {
 			if (systemNumbers) {
@@ -204,6 +238,11 @@ public class OutputImpl implements OutputInterface {
 		}
 	}
 
+	/**
+	 * Gibt eine Meldung je nach Konfiguration in eine Datei
+	 * ({@link #outputFile}) oder über {@link #addOutput(String)} aus.
+	 * @param line	Auszugebende Meldung
+	 */
 	private void addOutputMain(final String line) {
 		if (canceled) return;
 		if (outputToFile) {

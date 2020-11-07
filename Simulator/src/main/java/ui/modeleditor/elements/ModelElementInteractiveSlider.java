@@ -640,6 +640,11 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 		if (variable==null || variable.trim().isEmpty()) return new String[0]; else return new String[]{variable.trim()};
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLSlider(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -666,6 +671,10 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawSlider",builder->getHTMLSlider(builder));
 

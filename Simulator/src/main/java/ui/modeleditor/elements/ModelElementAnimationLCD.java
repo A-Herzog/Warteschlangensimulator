@@ -173,9 +173,30 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 		return element;
 	}
 
+	/**
+	 * Zeichenstil für {@link #drawMinus(Graphics2D, int, int, int, int)}
+	 * und {@link #drawDigit(Graphics2D, int, int, int, int, boolean, int)}
+	 * @see #drawMinus(Graphics2D, int, int, int, int)
+	 * @see #drawDigit(Graphics2D, int, int, int, int, boolean, int)
+	 */
 	private Stroke stroke=null;
+
+	/**
+	 * Linienbreite für {@link #drawMinus(Graphics2D, int, int, int, int)}
+	 * und {@link #drawDigit(Graphics2D, int, int, int, int, boolean, int)}
+	 * @see #drawMinus(Graphics2D, int, int, int, int)
+	 * @see #drawDigit(Graphics2D, int, int, int, int, boolean, int)
+	 */
 	private int strokeWidth=0;
 
+	/**
+	 * Zeichnet ein Segment mit einem Minus-Zeichen
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectX	x-Koordinate des Ausgabe-Rechtecks
+	 * @param rectW	Breite des Ausgabe-Rechtecks
+	 * @param rectY	y-Koordinate des Ausgabe-Rechtecks
+	 * @param rectH	Höhe des Ausgabe-Rechtecks
+	 */
 	private void drawMinus(final Graphics2D g, final int rectX, final int rectW, final int rectY, final int rectH) {
 		final int min=Math.max(1,Math.min(rectW,rectH)/10);
 		if (stroke==null || strokeWidth!=min) {
@@ -216,6 +237,16 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 		g.drawLine(P3x,P3y,P4x,P4y); /* horizontal Mitte */
 	}
 
+	/**
+	 * Zeichnet ein Segment mit einer Ziffer
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectX	x-Koordinate des Ausgabe-Rechtecks
+	 * @param rectW	Breite des Ausgabe-Rechtecks
+	 * @param rectY	y-Koordinate des Ausgabe-Rechtecks
+	 * @param rectH	Höhe des Ausgabe-Rechtecks
+	 * @param hasValue	Soll eine Ziffer in das Segment gezeichnet werden?
+	 * @param value	Zu zeichnende Ziffer
+	 */
 	private void drawDigit(final Graphics2D g, final int rectX, final int rectW, final int rectY, final int rectH, final boolean hasValue, final int value) {
 		final int min=Math.max(1,Math.min(rectW,rectH)/10);
 		if (stroke==null || strokeWidth!=min) {
@@ -425,6 +456,11 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 		return "ModelElementAnimationLCD";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationLCD(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 

@@ -51,8 +51,19 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 1510688071490180154L;
 
+	/**
+	 * Eingabefeld für den auszugebenden Ausdruck
+	 */
 	private JTextField editExpression;
+
+	/**
+	 * Anzahl an darzustellenden 7-Segment-Ziffern
+	 */
 	private SpinnerNumberModel spinDigits;
+
+	/**
+	 * Auswahl der Farbe für die aktiven Segmente
+	 */
 	private SmallColorChooser colorChooser;
 
 	/**

@@ -56,13 +56,21 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 	 */
 	private static final long serialVersionUID = -4770924059010228218L;
 
+	/** Auswahlbox für die Richtung, in die sich der Balken aufbaut */
 	private JComboBox<String> selectDirection;
+	/** Option: Soll ein expliziter Maximalwert verwendet werden? */
 	private JCheckBox useMaximum;
+	/** Eingabefeld für den Maximalwert */
 	private JTextField editMaximum;
+	/** Tabelle zur Definition Balkensegmente */
 	private BarStackTableModel tableModel;
+	/** Auswahlbox für die Linienbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl der Rahmenfarbe */
 	private SmallColorChooser colorChooserLine;
+	/** Hintergrundfarbe verwenden? */
 	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
 
 	/**

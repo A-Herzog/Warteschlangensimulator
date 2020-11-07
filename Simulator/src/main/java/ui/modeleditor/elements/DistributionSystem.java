@@ -46,10 +46,14 @@ public final class DistributionSystem implements Cloneable {
 	/** Gibt an, ob auch der Basis-Typ (für alle Kundentypen) <code>null</code> sein darf. */
 	private final boolean canBeNull;
 
+	/** Globale Verteilung */
 	private AbstractRealDistribution distribution;
+	/** Globale Rechenausdruck */
 	private String expression;
 
+	/** Untertypen-abhängige Verteilungen */
 	private final Map<String,AbstractRealDistribution> distributionByType;
+	/** Untertypen-abhängige Rechenausdrücke */
 	private final Map<String,String> expressionByType;
 
 	/**

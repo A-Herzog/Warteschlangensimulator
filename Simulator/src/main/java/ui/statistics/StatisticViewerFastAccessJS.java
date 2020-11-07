@@ -53,10 +53,15 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	 */
 	private static final long serialVersionUID = 7766458667440808352L;
 
+	/** Eingabefeld für das Skript */
 	private RSyntaxTextArea filter;
+	/** Zuletzt gespeichertes Skript */
 	private String lastSavedFilterText;
+	/** Zuletzt ausgeführtes Skript */
 	private String lastInterpretedFilterText;
+	/** Ergebnis der Ausführung von {@link #lastInterpretedFilterText} */
 	private String lastInterpretedFilterResult;
+	/** Javascript-Interpreter zur Filterung von Statistikausgaben */
 	private JSRunDataFilter dataFilter;
 
 	/**
@@ -138,6 +143,13 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 		setup.saveSetupWithWarning(null);
 	}
 
+	/**
+	 * Speichert das Skript oder die Ergebnisse in einer Datei.
+	 * @param parentFrame	Übergeordnetes Fenster (zur Ausrichtung des Dialogs)
+	 * @param text	Zu speichernder Text
+	 * @param isJS	Skript (<code>true</code>) oder Ausgabetext (<code>false</code>)
+	 * @return	Liefert <code>true</code>, wenn der Text erfolgreich gespeichert werden konnte
+	 */
 	private boolean saveTextToFile(Component parentFrame, String text, final boolean isJS) {
 		final String fileName;
 		if (isJS) {
@@ -155,6 +167,12 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 		return JSRunDataFilterTools.saveText(text,file,false);
 	}
 
+	/**
+	 * Lädt ein Skript aus einer Datei.
+	 * @param parentFrame	Übergeordnetes Fenster (zur Ausrichtung des Dialogs)
+	 * @param isJS	Skript (<code>true</code>) oder Ausgabetext (<code>false</code>)
+	 * @return	Liefert im Erfolgsfall den geladenen Text
+	 */
 	private String loadTextFromFile(Container parentFrame, final boolean isJS) {
 		final String fileName;
 		if (isJS) {
@@ -168,6 +186,11 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 		return JSRunDataFilterTools.loadText(file);
 	}
 
+	/**
+	 * Darf das aktuelle Skript verworfen werden (ggf. Nutzer fragen) ?
+	 * @param parentFrame	Übergeordnetes Fenster (zur Ausrichtung des Dialogs)
+	 * @return	Liefert <code>true</code>, wenn das Skript verworfen werden darf
+	 */
 	private boolean discardFilterOk(Container parentFrame) {
 		if (filter.getText().equals(lastSavedFilterText)) return true;
 

@@ -61,6 +61,7 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 		PIE
 	}
 
+	/** Vor den Tabelleneinträgen stilisierte Balken- oder Liniendiagramme darstellen? */
 	private final IconMode iconMode;
 
 	/** Tabelle in der das Datenmodell zum Einsatz kommen soll */
@@ -69,15 +70,35 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 	private final Runnable help;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+
 	/**
 	 * Liste der globalen Variablen (zum Prüfen von Ausdrücken)
 	 */
 	private final String[] variableNames;
+
+	/**
+	 * Liste mit allen globalen Variablen und ihren Startwerten
+	 */
 	private final Map<String,String> initialVariableValues;
+
+	/**
+	 * Zuordnung von Stations-IDs zu Stationsbeschreibungen
+	 */
 	private final Map<Integer,String> stationIDs;
+
+	/**
+	 * Zuordnung von Stations-IDs zu Stationsnamen
+	 */
 	private final Map<Integer,String> stationNameIDs;
 
+	/**
+	 * In der Tabelle anzuzeigende Rechenausdrücke
+	 */
 	private final List<String> expression=new ArrayList<>();
+
+	/**
+	 * In der Tabelle anzuzeigende Farben
+	 */
 	private final List<Color> expressionColor=new ArrayList<>();
 
 	/**
@@ -301,11 +322,20 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 		expressionColor.add((color==null)?Color.BLUE:color);
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Bearbeiten oder Hinzufügen, 1: Farbe ändern, 2: Nach oben verschieben, 3: Nach unten verschieben) */
 		private final int nr;
 		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param nr	Auszuführender Befehl (0: Bearbeiten oder Hinzufügen, 1: Farbe ändern, 2: Nach oben verschieben, 3: Nach unten verschieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int nr, final int row) {
 			this.nr=nr;
 			this.row=row;

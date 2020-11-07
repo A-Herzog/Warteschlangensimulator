@@ -48,10 +48,15 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 7667068339479220507L;
 
+	/** Auswahl der Linienbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl des Linientyps */
 	private JComboBox<JLabel> lineType;
+	/** Auswahl möglicher Pfeilspitzen am Linienbeginn */
 	private JComboBox<String> arrowStart;
+	/** Auswahl möglicher Pfeilspitzen am Linienende */
 	private JComboBox<String> arrowEnd;
+	/** Auswahl der Farbe der Linie */
 	private SmallColorChooser colorChooser;
 
 	/**

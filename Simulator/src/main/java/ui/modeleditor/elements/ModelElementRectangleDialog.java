@@ -53,7 +53,9 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 	private JComboBox<JLabel> lineWidth;
 	private JComboBox<String> rounding;
 	private SmallColorChooser colorChooserLine;
+	/** Option: Hintergrundfarbe verwenden? */
 	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
 	private JCheckBox gradient;
 	private SmallColorChooser colorChooserGradient;

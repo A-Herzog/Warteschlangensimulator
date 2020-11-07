@@ -471,6 +471,11 @@ public final class ModelElementText extends ModelElementPosition {
 		return "ModelElementText";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLText(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -492,6 +497,10 @@ public final class ModelElementText extends ModelElementPosition {
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawPlainText",builder->getHTMLText(builder));
 

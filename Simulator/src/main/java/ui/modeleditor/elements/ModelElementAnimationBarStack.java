@@ -81,18 +81,68 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		DIRECTION_LEFT
 	}
 
+	/**
+	 * Richtung, in die sich der Balken aufbaut
+	 * @see FillDirection
+	 * @see #getDirection()
+	 * @see #setDirection(FillDirection)
+	 */
 	private FillDirection direction=FillDirection.DIRECTION_UP;
 
+	/**
+	 * Rechenausdrücke
+	 * @see #getExpressions()
+	 */
 	private final List<String> expressions=new ArrayList<>();
 
+	/**
+	 * Sichert ab, dass Simulations- und Zeichen-Thread
+	 * nicht gleichzeitig auf {@link #simValues}
+	 * zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * In {@link #updateSimulationData(SimulationData, boolean)}
+	 * aufgezeichnete und in {@link #fillBox(Graphics2D, Rectangle)}
+	 * anzuzeigende Animationsdaten.
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 * @see #fillBox(Graphics2D, Rectangle)
+	 */
 	private double[] simValues=null;
 
+	/**
+	 * Maximalwert (&le;0 für automatisch)
+	 * @see #getMaxValue()
+	 * @see #setMaxValue(double)
+	 */
 	private double maxValue=0.0;
 
+	/**
+	 * Breite der Linie
+	 * @see #getBorderWidth()
+	 * @see #setBorderWidth(int)
+	 */
 	private int borderWidth=1;
+
+	/**
+	 * Farbe der Linie
+	 * @see #getBorderColor()
+	 * @see #setBorderColor(Color)
+	 */
 	private Color borderColor=Color.BLACK;
+
+	/**
+	 * Füllfarbe des Kastens
+	 * @see #getBackgroundColor()
+	 * @see #setBackgroundColor(Color)
+	 */
 	private Color backgroundColor=null;
+
+	/**
+	 * Farbe der Balken
+	 * @see #getBarColors()
+	 */
 	private final List<Color> barColors=new ArrayList<>();
 
 	/**
@@ -409,6 +459,13 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		graphics.fill(rectangle);
 	}
 
+	/**
+	 * Füllt ein Rechteck gemäß dem in {@link #simValues} angegebenen Füllstand.
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Teilweise zu füllendes Rechteck
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * @see #simValues
+	 */
 	private void fillBox(final Graphics2D g, final Rectangle rectangle) {
 		double[] d=null;
 		double maxVal=4;
@@ -581,6 +638,12 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		return Language.trAll("Surface.AnimationBarStack.XML.Root");
 	}
 
+	/**
+	 * Übersetzt die Füllrichtung in einen xml-Ausdruck.
+	 * @param direction	Füllrichtung
+	 * @return	Füllrichtung in einer xml-speicherbaren Form
+	 * @see #addPropertiesDataToXML(Document, Element)
+	 */
 	private String getDirectionString(final FillDirection direction) {
 		switch (direction) {
 		case DIRECTION_DOWN: return Language.trPrimary("Surface.AnimationBarStack.XML.DataArea.Direction.Down");
@@ -704,6 +767,11 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		return null;
 	}
 
+	/**
+	 * Formelobjekte zu {@link #expressions}
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private ExpressionCalc[] animationExpression;
 
 	@Override
@@ -736,6 +804,11 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		return "ModelElementAnimationBarStack";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationBarStack(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -780,6 +853,10 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawAnimationBarStack",builder->getHTMLAnimationBarStack(builder));
 

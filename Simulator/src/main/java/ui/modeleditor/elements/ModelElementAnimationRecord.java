@@ -57,13 +57,35 @@ import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
  * @see ModelElementRecord
  */
 public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBase {
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #statistics1}
+	 * {@link #statistics2} und {@link #valuesString} zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
 	private StatisticsDataCollector statistics1;
 	private StatisticsDataCollector statistics2;
 	private String valuesString;
 
+	/**
+	 * Name des {@link ModelElementRecord}-Elements dessen Daten angezeigt werden sollen
+	 * @see #getRecordId()
+	 * @see #setRecordId(int)
+	 */
 	private int recordId;
+
+	/**
+	 * Anzahl der anzuzeigenden Datenpunkte
+	 * @see #getDisplayPoints()
+	 * @see #setDisplayPoints(int)
+	 */
 	private int displayPoints;
+
+	/**
+	 * Farbe für die Datenpunkte
+	 * @see #getDataColor()
+	 * @see #setDataColor(Color)
+	 */
 	private Color dataColor;
 
 	/**
@@ -189,6 +211,11 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		return element;
 	}
 
+	/**
+	 * Zeichnet Dummy-Linien während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 */
 	private void drawDummyDiagramLines(final Graphics2D g, final Rectangle rectangle) {
 		final int[] v=new int[]{1,3,7,2,5,8,4,2,5,8};
 
@@ -208,7 +235,18 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	private final Stroke lineStroke=new BasicStroke(1);
 	private final Stroke pointStroke=new BasicStroke(2);
 
+	/**
+	 * Zoomfaktor beim letzten Aufruf von
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private double lastZoom;
+
+	/**
+	 * Schriftart beim letzten Aufruf von
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private Font lastFont;
 
 	private void drawDiagramLines(final Graphics2D g, final Rectangle rectangle, final double[] data, final int count) {
@@ -457,6 +495,11 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		return "ModelElementAnimationRecord";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationRecord(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -528,6 +571,11 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		return simData!=null;
 	}
 
+	/**
+	 * Liefert die Daten in Tabellenform für die Ausgabe einer Datentabelle während der Animation
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Tabelle mit den aktuellen Ausgabedaten
+	 */
 	private Table getAnimationRunTimeTableData(final SimulationData simData) {
 		final Table table=new Table();
 

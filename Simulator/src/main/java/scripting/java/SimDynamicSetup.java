@@ -29,6 +29,10 @@ import tools.SetupData;
  * @see DynamicSetup
  */
 public class SimDynamicSetup implements DynamicSetup {
+	/**
+	 * Zu verwendender Class-Path
+	 * @see #getClassPath()
+	 */
 	private String classPath=null;
 
 	@Override
@@ -109,6 +113,12 @@ public class SimDynamicSetup implements DynamicSetup {
 		return CompileMode.INTERNAL_COMPILER_NO_FILES;
 	}
 
+	/**
+	 * Sucht das JDK ausgehend von einem Startpfad.
+	 * @param startPath	Startpfad für die Suche (es wird in den Unterverzeichnissen gesucht)
+	 * @return	Pfad zum JDK
+	 * @see #getJDKPath()
+	 */
 	private String findJDK(String startPath) {
 		if (startPath==null || startPath.trim().isEmpty()) return null;
 		startPath=startPath.trim();

@@ -70,7 +70,7 @@ public interface DynamicSetup {
 	}
 
 	/**
-	 * Pfad zum JDK
+	 * Liefert den Pfad zum JDK.
 	 * @return	Pfad zum JDK
 	 */
 	String getJDKPath();

@@ -67,12 +67,21 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 		addDescription("ErlangCCompare");
 	}
 
+	/**
+	 * Gibt aus, dass zu dem gegebenen Modell
+	 * kein analytisches Vergleichsmodell erstellt
+	 * werden kann.
+	 */
 	private void buildNotCompareable() {
 		beginParagraph();
 		addLine(Language.tr("Statistics.ErlangCCompare.NotCompareable"));
 		endParagraph();
 	}
 
+	/**
+	 * Gibt allgemeine Modell-Informationen aus.
+	 * @param analyticInfo	Analytisches Vergleichsmodell
+	 */
 	private void buildTextModelInfo(final AnalyticInfo analyticInfo) {
 		addHeading(2,Language.tr("Statistics.ErlangCCompare.SimModel"));
 
@@ -87,6 +96,10 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 		endParagraph();
 	}
 
+	/**
+	 * Gibt die Simulationsergebnisse aus.
+	 * @param simulationResults	Simulationsergebnisse
+	 */
 	private void buildTextSimResults(final AnalyticInfo.SimulationResults simulationResults) {
 		addHeading(2,Language.tr("Statistics.ErlangCCompare.SimResults"));
 
@@ -111,6 +124,10 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Gibt die Ergebnisse der analytische Rechnungen aus.
+	 * @param results	Ergebnisse der analytische Rechnungen
+	 */
 	private void outputAnalyticResults(final AnalyticInfo.InfoResult results) {
 		if (results==null) return;
 
@@ -152,6 +169,11 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Gibt die Vergleichsrechnungen für die verschiedenen analytischen Modelle aus.
+	 * @param analyticInfo	Analytisches Vergleichsmodell
+	 * @param simulationResults	Simulationsergebnisse
+	 */
 	private void buildTextAnalytic(final AnalyticInfo analyticInfo, final AnalyticInfo.SimulationResults simulationResults) {
 		addHeading(2,Language.tr("Statistics.ErlangCCompare.Results.ErlangC"));
 		outputAnalyticResults(analyticInfo.getErlangC(simulationResults));

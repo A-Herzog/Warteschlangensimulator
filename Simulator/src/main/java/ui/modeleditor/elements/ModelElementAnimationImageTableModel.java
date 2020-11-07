@@ -53,7 +53,9 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 	private final Runnable help;
 	/** {@link ModelElementAnimationImage}-Element aus dem die Daten für die Tabelle ausgelesen und in das sie auch wieder zurückgeschrieben werden sollen */
 	private final ModelElementAnimationImage element;
+	/** Bedingungen zur Auswahl der Bilder */
 	private final List<String> expression;
+	/** Anzuzeigende Bilder */
 	private final List<BufferedImage> images;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;

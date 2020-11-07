@@ -28,11 +28,17 @@ public class MJPEGGenerator {
 	 *
 	 */
 
+	/** Breite des Videobildes */
 	private int width = 0;
+	/** Höhe des Videobildes */
 	private int height = 0;
+	/** Framerate (in fps) */
 	private double framerate = 0;
+	/** Anzahl der Bilder, die das Video enthält */
 	private int numFrames = 0;
+	/** Ausgabedatei */
 	private File aviFile = null;
+	/** Ausgabe-Stream für {@link #aviFile} */
 	private FileOutputStream aviOutput = null;
 	private FileChannel aviChannel = null;
 

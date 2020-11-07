@@ -50,9 +50,13 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 	 */
 	private static final long serialVersionUID = -4565047267829598870L;
 
+	/** Eingabefeld für den Rechenausdruck */
 	private JTextField editExpression;
+	/** Eingabefeld für den Minimalwert der Anzeigeakala */
 	private JTextField editMinValue;
+	/** Eingabefeld für den Maximalwert der Anzeigeakala */
 	private JTextField editMaxValue;
+	/** Auswahl der Farbe des Zeigers */
 	private SmallColorChooser colorChooser;
 
 	/**

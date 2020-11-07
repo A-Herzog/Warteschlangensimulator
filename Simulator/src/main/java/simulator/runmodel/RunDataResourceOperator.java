@@ -42,13 +42,26 @@ public class RunDataResourceOperator {
 	 */
 	private long workingStart;
 
+	/**
+	 * ID der Station, an der sich der Bediener befand,
+	 * bevor seine aktuelle Arbeit startete.<br>
+	 * (-1, wenn der Bediener an keiner Station ist.)
+	 * @see #startWorking(SimulationData, int)
+	 */
 	private int stationIDLast;
+
+	/**
+	 * ID der Station, an der sich der Bediener befindet<br>
+	 * (-1, wenn der Bediener an keiner Station ist.)
+	 * @see #getStation()
+	 */
 	private int stationID;
 
 	/** Verteilung mit Rüstzeiten beim Wechsel des Bedieners von einer Station an eine andere */
 	private final AbstractRealDistribution moveDistribution;
 	/** Rechenausdruck zur Bestimmung der Rüstzeiten beim Wechsel des Bedieners von einer Station an eine andere */
 	private final String moveExpression;
+	/** Rechenobjekt zur Bestimmung der Rüstzeiten beim Wechsel des Bedieners von einer Station an eine andere */
 	private ExpressionCalc moveExpressionObj;
 	/** Zeitbasis für die Rüstzeiten beim Wechsel des Bedieners von einer Station an eine andere */
 	private final ModelSurface.TimeBase moveTimeBase;

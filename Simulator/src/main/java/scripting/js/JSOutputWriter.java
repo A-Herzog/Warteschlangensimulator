@@ -25,11 +25,32 @@ import java.util.function.Consumer;
  * @author Alexander Herzog
  */
 public class JSOutputWriter extends Writer {
+	/**
+	 * Maximale Größe für den {@link #results} Puffer.
+	 * @see #results
+	 */
 	private static final int maxOutputChars=10_000_000;
 
+	/**
+	 * Interner Puffer für die Ausgaben
+	 * (für den Fall <code>outputCallback==null</code>).
+	 * @see #getResults()
+	 */
 	private final StringBuilder results;
+
+	/**
+	 * Temporärer {@link StringBuilder} für Ausgaben,
+	 * die an {@link #outputCallback} weitergeleitet
+	 * werden sollen.
+	 * @see #outputCallback
+	 */
 	private final StringBuilder outputCallbackBuilder;
-	/** Wird hier ein Wert ungleich <code>null</code> angegeben, so werden die Ausgaben hier weitergeleitet. Sonst werden sie intern gepuffert. */
+
+	/**
+	 * Wird hier ein Wert ungleich <code>null</code> angegeben,
+	 * so werden die Ausgaben hier weitergeleitet.
+	 * Sonst werden sie intern gepuffert.
+	 */
 	private final Consumer<String> outputCallback;
 
 	/**

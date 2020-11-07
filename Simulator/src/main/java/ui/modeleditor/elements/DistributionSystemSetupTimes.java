@@ -34,6 +34,7 @@ import mathtools.distribution.tools.DistributionTools;
  * @see ModelElementProcess
  */
 public final class DistributionSystemSetupTimes implements Cloneable {
+	/** Rüstzeiten beim Übergang von einem Kundentyp zu einem anderen (die Einträge können Verteilungen oder Formeln sein) */
 	private final Map<String,Map<String,Object>> data;
 
 	/**
@@ -119,6 +120,12 @@ public final class DistributionSystemSetupTimes implements Cloneable {
 		}
 	}
 
+	/**
+	 * Vergleicht zwei Rüstzeiten-Objekte
+	 * @param data1	Rüstzeiten 1
+	 * @param data2	Rüstzeiten 2
+	 * @return	Liefert <code>true</code>, wenn beide genau dieselben Rüstzeit-Daten enthalten
+	 */
 	private boolean compare(final Map<String,Map<String,Object>> data1, final Map<String,Map<String,Object>> data2) {
 		for (Map.Entry<String,Map<String,Object>> entry1 : data1.entrySet()) {
 			final Map<String,Object> map1=entry1.getValue();

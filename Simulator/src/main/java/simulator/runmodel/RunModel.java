@@ -309,6 +309,13 @@ public class RunModel {
 		return -1;
 	}
 
+	/**
+	 * Stellt die Liste der globalen Variablen zusammen und belegt diese mit ihren Startwerten.
+	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
+	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @see #getRunModel(EditModel, boolean)
+	 */
 	private static String initVariables(final EditModel editModel, final RunModel runModel) {
 		/* Variablenliste aufstellen */
 		final List<String> variables=new ArrayList<>();
@@ -349,19 +356,15 @@ public class RunModel {
 		return null;
 	}
 
-	private static long getArrivingRealClientCount(final RunModel runModel) {
-		long sum=0;
-		for (RunElement element: runModel.elementsFast) {
-			if (element instanceof RunSource) {
-				if (!(element instanceof RunElementSourceTable)) return runModel.clientCount;
-				final long value=((RunElementSourceTable)element).getArrivalCount();
-				if (value<0) return runModel.clientCount; /* Quelle hat die eigenen Daten noch nicht geladen. */
-				sum+=value;
-			}
-		}
-		return Math.min(sum,runModel.clientCount);
-	}
-
+	/**
+	 * Überträgt die allgemeinen Daten (Anzahl an Wiederholungen, Einschwingphase usw.) vom Editor- in das Laufzeit-Modell.<br>
+	 * Es werden zunächst nur die Daten übertragen, die keine Stationen im Laufzeit-Modell voraussetzen. Die weiteren globalen
+	 * Daten werden nach der Erstellung der Stationen von {@link #initGeneralData2(EditModel, RunModel)} übertragen.
+	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
+	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @see #getRunModel(EditModel, boolean)
+	 */
 	private static String initGeneralData(final EditModel editModel, final RunModel runModel) {
 		if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria");
 
@@ -470,6 +473,33 @@ public class RunModel {
 		return null;
 	}
 
+	/**
+	 * Liefert die Anzahl, wie viele Kunden insgesamt eintreffen werden.<br>
+	 * Bei Modellen, die nur Tabellenquellen verwenden, ist dies das Minimum aus der Summe aller Tabellenzeilen und {@link RunModel#clientCount}. Bei allen anderen Modellen ist dies stets {@link RunModel#clientCount}.
+	 * @param runModel	Laufzeitmodell
+	 * @return	Anzahl an insgesamt eintreffenden Kunden
+	 * @see #realArrivingClientCount
+	 */
+	private static long getArrivingRealClientCount(final RunModel runModel) {
+		long sum=0;
+		for (RunElement element: runModel.elementsFast) {
+			if (element instanceof RunSource) {
+				if (!(element instanceof RunElementSourceTable)) return runModel.clientCount;
+				final long value=((RunElementSourceTable)element).getArrivalCount();
+				if (value<0) return runModel.clientCount; /* Quelle hat die eigenen Daten noch nicht geladen. */
+				sum+=value;
+			}
+		}
+		return Math.min(sum,runModel.clientCount);
+	}
+
+	/**
+	 * Überträgt den Teil der allgemeinen Daten, der voraussetzt, dass sich bereits Stationen im Laufzeit-Modell befinden, vom Editor- in das Laufzeit-Modell.
+	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
+	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @see #getRunModel(EditModel, boolean)
+	 */
 	private static String initGeneralData2(final EditModel editModel, final RunModel runModel) {
 		/* Evtl. treffen weniger Kunden ein, als eingestellt ist (nämlich wenn nur Tabellenquellen verwendet werden). */
 		runModel.realArrivingClientCount=getArrivingRealClientCount(runModel);
@@ -528,10 +558,23 @@ public class RunModel {
 		return null;
 	}
 
+	/**
+	 * Ist bei einer Kundenquelle die Anzahl an Ankünften limitiert?
+	 * @param record	Kundenquellen-Datensatz
+	 * @return	Liefert <code>true</code>, wenn entweder nur eine fest endliche Anzahl an Kunden eintreffen soll oder eine feste endliche Anzahl an Batchen (die ihrerseitg begrenzt groß sind) eintreffen soll
+	 */
 	private static boolean isLimitedSource(final ModelElementSourceRecord record) {
 		return (record.getMaxArrivalClientCount()>0 || record.getMaxArrivalCount()>0);
 	}
 
+	/**
+	 * Überträgt die Stationen aus dem Editor-Modell in das Laufzeit-Modell.
+	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
+	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
+	 * @param testOnly	Wird hier <code>true</code> übergeben, so werden externe Datenquellen nicht wirklich geladen
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @see #getRunModel(EditModel, boolean)
+	 */
 	private static String initElementsData(final EditModel editModel, final RunModel runModel, final boolean testOnly) {
 		/* Liste der RunElemente aufbauen */
 		final RunModelCreator creator=new RunModelCreator(editModel,runModel,testOnly);
@@ -589,6 +632,13 @@ public class RunModel {
 		return null;
 	}
 
+	/**
+	 * Überträgt die Daten zur Laufzeitstatistik-Erfassung vom Editor- in das Laufzeit-Modell.
+	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
+	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @see #getRunModel(EditModel, boolean)
+	 */
 	private static String initAdditionalStatistics(final EditModel editModel, final RunModel runModel) {
 		if (!editModel.longRunStatistics.isActive()) return null;
 

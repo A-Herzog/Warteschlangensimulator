@@ -26,10 +26,28 @@ import java.util.function.Consumer;
  * @author Alexander Herzog
  */
 public class JSEngineGraalNative extends JSEngine {
+	/**
+	 * Hält <code>builder.build()</code> vor.
+	 * @see #initEngine(Map)
+	 */
 	private Object contextObj=null;
+
+	/**
+	 * Hält <code>contextObj.eval(sourceClass)</code> vor.
+	 * @see #initEngine(Map)
+	 */
 	private Method contextEval=null;
 
+	/**
+	 * Klasse org.graalvm.polyglot.Source
+	 * @see #initEngine(Map)
+	 */
 	private Class<?> sourceClass=null;
+
+	/**
+	 * Hält das übersetzte Skript vor
+	 * @see #initScript(String)
+	 */
 	private Object sourceObj;
 
 	/**
@@ -41,6 +59,13 @@ public class JSEngineGraalNative extends JSEngine {
 		super(maxExecutionTimeMS,output);
 	}
 
+	/**
+	 * Liefert eine Klasse zu einem Klassennamen.<br>
+	 * Im Gegensatz zu <code>Class.forName</code> wird im Fehlerfall
+	 * keine Exception ausgelöst, sondern <code>null</code> zurückgeliefert.
+	 * @param name	Name der Klasse
+	 * @return	Klasse oder <code>null</code>, wenn es keine Klasse zu dem Namen gibt
+	 */
 	private Class<?> getClassFromName(final String name) {
 		try {
 			return Class.forName(name);

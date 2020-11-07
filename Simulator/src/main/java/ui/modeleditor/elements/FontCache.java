@@ -102,7 +102,17 @@ public class FontCache {
 	 */
 	public static final FontFamily defaultFamily=FontFamily.DIALOG;
 
+	/**
+	 * Zuordnung von Schriftarten (Name, Größe, Stil) zu den
+	 * entsprechenden Objekten
+	 * @see #getFont(String, int, int)
+	 */
 	private final Map<FontFamily,Map<Integer,Map<Integer,Font>>> map;
+
+	/**
+	 * Zuordnung von Schriftartennamen zu {@link FontFamily}-Objekten
+	 * @see #getFamilyFromName(String)
+	 */
 	private final Map<String,FontFamily> nameLowerMap;
 
 	/**
@@ -120,6 +130,10 @@ public class FontCache {
 		}
 	}
 
+	/**
+	 * Singleton-Instanz des Objektes
+	 * @see #getFontCache()
+	 */
 	private static FontCache fontCache;
 
 	static {

@@ -84,11 +84,21 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	 */
 	private Color borderColor=Color.BLACK;
 
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #displayImage} zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
 
+	/** Bedingungen zur Auswahl der Bilder */
 	private final List<String> expression=new ArrayList<>();
+	/** Anzuzeigende Bilder */
 	private final List<BufferedImage> expressionImage=new ArrayList<>();
 
+	/**
+	 * Aktuell anzuzeigendes Bild
+	 * @see #drawImage(Graphics2D, Rectangle)
+	 */
 	private int displayImage=-1;
 
 	/**
@@ -384,6 +394,11 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 		graphics.fill(rectangle);
 	}
 
+	/**
+	 * Zeichnet das aktuelle Bild gem‰ﬂ {@link #displayImage}
+	 * @param g	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
+	 * @param rectangle	Zeichenbereich f¸r das Bild
+	 */
 	private void drawImage(final Graphics2D g, final Rectangle rectangle) {
 		if (expression.size()==0) {
 			expression.add(null);
@@ -588,8 +603,21 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 		return null;
 	}
 
+	/**
+	 * Formelobjekte zu {@link #expression}
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private ExpressionEval[] animationExpression;
 
+	/**
+	 * Wertet {@link #animationExpression} aus und liefert
+	 * den zu zeichnenden Wert zur¸ck.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param index	Index des Bildes f¸r das die Bedingung ausgewertet werden soll
+	 * @return	Ist die Bedingung erf¸llt?
+	 * @see #animationExpression
+	 */
 	private boolean evalExpression(final SimulationData simData, final int index) {
 		final ExpressionEval calc=animationExpression[index];
 		if (calc==null) return false;
@@ -629,6 +657,11 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 		return "ModelElementAnimationImage";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten f¸r die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten f¸r die Station
+	 */
 	private String getHTMLDrawImage(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -655,6 +688,10 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawAnimationImage",builder->getHTMLDrawImage(builder));
 

@@ -49,11 +49,17 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -2715231750705476641L;
 
+	/** Eingabefeld für den anzuzeigenden Text */
 	private JTextArea textField;
+	/** Auswahl der Schriftart */
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
+	/** Eingabefeld für die Schriftgröße */
 	private JTextField sizeField;
+	/** Option: Text fett darstellen */
 	private JCheckBox optionBold;
+	/** Option: Text kursiv darstellen */
 	private JCheckBox optionItalic;
+	/** Auswahl der Textfarbe */
 	private SmallColorChooser colorChooser;
 
 	/**

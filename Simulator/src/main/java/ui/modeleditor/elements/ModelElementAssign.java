@@ -90,6 +90,10 @@ public class ModelElementAssign extends ModelElementMultiInSingleOutBox implemen
 		if (connectionOut!=null) connectionOut.setName((s.isEmpty())?"":(Language.tr("Surface.Assign.NewClientType")+": "+s));
 	}
 
+	/**
+	 * Aktualisiert die Darstellung des zusätzlichen Icons auf der Station.
+	 * @see #fireChanged()
+	 */
 	private void updateIcon() {
 		setAdditionalClientIconFromName(getName());
 	}

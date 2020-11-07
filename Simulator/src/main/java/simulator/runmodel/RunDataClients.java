@@ -72,6 +72,14 @@ public final class RunDataClients {
 	/** Aktuelle Anzahl an Kunden im System */
 	private int clientsInSystem;
 
+	/**
+	 * Zeitpunkte, an denen ein Kunde der jeweiligen Typen
+	 * zum letzten Mal das System verlassen hat. Daraus
+	 * werden in {@link #logClientData(RunDataClient, SimulationData)}
+	 * die Zwischenabgangszeiten berechnet.
+	 * @see #logClientData(RunDataClient, SimulationData)
+	 * @see #cacheClientsInterleaveTime
+	 */
 	private long[] lastInterLeaveByClientType;
 
 	/**
@@ -177,6 +185,12 @@ public final class RunDataClients {
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static double scale=1.0d/1000.0d;
 
+	/**
+	 * Wird aufgerufen, wenn ein Kunde das System verlässt und seine Daten aufgezeichnet werden sollen.
+	 * @param client	Kundendatenobjekt, welches erfasst werden soll
+	 * @param simData	Simulationsdaten
+	 * @see #disposeClient(RunDataClient, SimulationData)
+	 */
 	private void logClientData(final RunDataClient client, final SimulationData simData) {
 		/* Allgemeine Daten zusammenstellen */
 		final int clientType=client.type;
@@ -273,8 +287,20 @@ public final class RunDataClients {
 		disposeClientWithoutStatistics(client,simData);
 	}
 
+	/**
+	 * Wird in {@link #testStopByConfidenceLevel(SimulationData)} verwendet, um
+	 * die Konfidenzintervallberechnung nicht zu häufig durchzuführen.
+	 */
 	private long testStopCounter=0;
 
+	/**
+	 * Prüft, ob der Ziel-Batch-Means-Konfidenzradius für die Wartezeiten erreicht ist.<br>
+	 * Es muss vorab sichergestellt sein, dass der Batch-Means-Konfidenzradius als Simulationsende
+	 * verwendet werden soll.
+	 * @param simData	Simulationsdaten
+	 * @return	Liefert <code>true</code>, wenn der Ziel-Batch-Means-Konfidenzradius für die Wartezeiten erreicht ist und die Simulation beendet werden kann
+	 * @see #disposeClient(RunDataClient, SimulationData)
+	 */
 	private boolean testStopByConfidenceLevel(final SimulationData simData) {
 		testStopCounter++;
 		if (testStopCounter%500!=0) return false;

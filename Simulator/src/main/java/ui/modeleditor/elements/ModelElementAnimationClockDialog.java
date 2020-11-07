@@ -49,7 +49,9 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -4923048473167643207L;
 
+	/** Eingabefeld für den darzustellenden Ausdruck */
 	private JTextField editExpression;
+	/** Auswahl der Hintergrundfarbe der Uhr */
 	private SmallColorChooser colorChooser;
 
 	/**

@@ -32,6 +32,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementDispose
  */
 public class RunElementDispose extends RunElement {
+	/**
+	 * Soll die Simulation abgebrochen werden, wenn an dieser Station ein Kunde eintrifft?
+	 * @see #processArrival(SimulationData, RunDataClient)
+	 */
 	private boolean stoppSimulationOnClientArrival;
 
 	/**

@@ -1,6 +1,10 @@
+1i\/** Automatically generated language strings class */
 1i\package language;
-1i\@SuppressWarnings("javadoc")
+/public class Messages_/i\/** Automatically generated language strings class */
+/private static final java.lang.String/i\  /** Array containing all language data */
 /public java.util.Enumeration/i\  @SuppressWarnings({ "rawtypes", "unchecked" }) @Override
 /public boolean hasMoreElements/i\  		@Override
 /public java.lang.Object nextElement/i\  		@Override
 /public java.lang.Object handleGetObject/i\  @Override
+/static void clinit_part_/i\  /**\n   * Part of the language array creation\n   * @param t	Language data array\n   */
+/public java.util.ResourceBundle getParent/i\  /**\n   * Returns the parent bundle of this bundle.\n   * @return Parent bundle\n   */

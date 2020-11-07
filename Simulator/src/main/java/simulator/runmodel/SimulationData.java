@@ -176,14 +176,30 @@ public class SimulationData extends SimData {
 		return (simDaysByOtherThreads+currentDay)/clientCountDiv;
 	}
 
+	/**
+	 * Setzt alle Daten (nach dem Ende der Einschwingphase) in einem Statistikobjekt zurück.
+	 * @param indicators	Statistikobjekt
+	 * @see #endWarmUp()
+	 */
 	private void resetAllDataPerformanceIndicators(final StatisticsMultiPerformanceIndicator indicators) {
 		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])indicators.getAll(StatisticsDataPerformanceIndicator.class)) indicator.reset();
 	}
 
+	/**
+	 * Setzt alle Daten (nach dem Ende der Einschwingphase) in einem Statistikobjekt zurück.
+	 * @param indicators	Statistikobjekt
+	 * @see #endWarmUp()
+	 */
 	private void resetAllValuePerformanceIndicators(final StatisticsMultiPerformanceIndicator indicators) {
 		for (StatisticsValuePerformanceIndicator indicator: (StatisticsValuePerformanceIndicator[])indicators.getAll(StatisticsValuePerformanceIndicator.class)) indicator.reset();
 	}
 
+	/**
+	 * Setzt alle Daten (nach dem Ende der Einschwingphase) in einem Statistikobjekt zurück.
+	 * @param indicators	Statistikobjekt
+	 * @param time	Referenzzeit für den Start in der Erfassung von folgenden Daten in dem Statistikobjekt
+	 * @see #endWarmUp()
+	 */
 	private void resetAllTimePerformanceIndicators(final StatisticsMultiPerformanceIndicator indicators, final double time) {
 		for (StatisticsTimePerformanceIndicator indicator: (StatisticsTimePerformanceIndicator[])indicators.getAll(StatisticsTimePerformanceIndicator.class)) indicator.setTime(time);
 	}

@@ -35,8 +35,11 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementHold
  */
 public class RunElementHold extends RunElementPassThrough implements StateChangeListener, PickUpQueue {
+	/** Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss */
 	private String condition;
+	/** Individuelle kundenbasierende Prüfung? */
 	private boolean useClientBasedCheck;
+	/** Regelmäßige Prüfung der Bedingung? */
 	private boolean useTimedChecks;
 
 	/**

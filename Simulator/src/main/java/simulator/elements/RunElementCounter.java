@@ -33,7 +33,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementCounter
  */
 public class RunElementCounter extends RunElementPassThrough {
+	/** Name des Zählers */
 	private String counterName;
+	/** Name der Zählergruppe zu der dieser Zähler gehört */
 	private String groupName;
 
 	/**

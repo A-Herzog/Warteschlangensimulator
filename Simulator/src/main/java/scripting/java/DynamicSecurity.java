@@ -30,7 +30,7 @@ import java.util.concurrent.Semaphore;
  * Diese Klasse aktiviert einen Security-Manager und eine Policy, um dafür zu sorgen,
  * dass Nutzer-Java-Code möglichst wenig weitere Aktionen über die vorgegebenen
  * Schnittstellen hinaus ausführen können.
- * Die Klasse ist ein Singleton und kann nicht über einen Konstruktur instanziert werden.
+ * Die Klasse ist ein Singleton und kann nicht über einen Konstruktor instanziert werden.
  * Stattdessen muss die statische {@link DynamicSecurity#getInstance()} verwendet werden.
  * Die eigentliche Verarbeitung findet im Konstruktor statt, d.h. mit der Instanz kann
  * später auch nichts weiter gemacht werden.
@@ -60,6 +60,12 @@ public class DynamicSecurity {
 		if (!prepareSecurity()) return;
 	}
 
+	/**
+	 * Aktiviert einen Security-Manager, so dass der
+	 * in {@link #setPolicy()} eingestellte Regelsatz
+	 * Geltung findet.
+	 * @return	Liefert <code>true</code>, wenn der Regelsatz verwendet wird.
+	 */
 	private boolean prepareSecurity() {
 		if (System.getSecurityManager()==null) {
 			System.setSecurityManager(new SecurityManager());
@@ -73,6 +79,11 @@ public class DynamicSecurity {
 		}
 	}
 
+	/**
+	 * Aktiviert den in {@link DynamicSecurityPolicy}
+	 * definierten Regelsatz.
+	 * @see DynamicSecurityPolicy
+	 */
 	private void setPolicy() {
 		Policy.setPolicy(new DynamicSecurityPolicy());
 	}
@@ -91,8 +102,15 @@ public class DynamicSecurity {
 		}
 	}
 
+	/**
+	 * Regelsatz zur Einschränkung der Handlungsfreiheit
+	 * des dynamisch nachgeladenen benutzerdefinierten Codes.
+	 * @see DynamicSecurity#setPolicy()
+	 */
 	private class DynamicSecurityPolicy extends Policy {
+		/** Regelsatz: begrenzter Zugriff */
 		private final Permissions restrictedPermissions;
+		/** Regelsatz: vollständiger Zugriff */
 		private final Permissions allPermissions;
 
 		/**

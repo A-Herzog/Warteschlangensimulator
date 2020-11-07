@@ -55,10 +55,18 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	 */
 	private final String[] variableNames;
 
+	/** Eingabefeld für den Rechenausdruck */
 	private final JTextField expressionEdit;
+	/** Eingabefeld für den Minimalwert */
 	private final JTextField minValueEdit;
+	/** Eingabefeld für den Maximalwert */
 	private final JTextField maxValueEdit;
 
+	/**
+	 * Liefert den Titel für den Dialog.
+	 * @param iconMode	Soll der Dialog zum Bearbeiten einer Balkendiagrammreihe oder eines Tortensegments verwendet werden?
+	 * @return	Titel für den Dialog
+	 */
 	private static String getTitle(final ExpressionTableModelBar.IconMode iconMode) {
 		switch (iconMode) {
 		case BAR: return Language.tr("Surface.ExpressionTableModel.Dialog");

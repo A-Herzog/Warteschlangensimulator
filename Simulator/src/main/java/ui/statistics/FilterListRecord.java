@@ -276,6 +276,14 @@ public final class FilterListRecord {
 		}
 	}
 
+	/**
+	 * Liefert den Inhalt eines XML-Elements.
+	 * @param statistics	Statistik-Objekt
+	 * @param format	Formate-Objekt, welches die momentan getätigten Formateinstellungen bereithält
+	 * @param xml	XML-Pfad
+	 * @return	Inhalt des XML-Pfades
+	 * @see Mode#XML
+	 */
 	private String processXML(final Statistics statistics, final FilterListFormat format, final String xml) {
 		final String text=ModelChanger.getStatisticValue(statistics,xml);
 		final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(text));
@@ -283,7 +291,15 @@ public final class FilterListRecord {
 		return formatNumber(D.doubleValue(),format);
 	}
 
-	private String processExpression(final Statistics statistics, final FilterListFormat format, final String xml) {
+	/**
+	 * Wertet einen aus Rechenausdruck aus.
+	 * @param statistics	Statistik-Objekt
+	 * @param format	Formate-Objekt, welches die momentan getätigten Formateinstellungen bereithält
+	 * @param text	Auszuwertendes Rechenausdruck
+	 * @return	Ergebnis der Auswertung
+	 * @see Mode#Expression
+	 */
+	private String processExpression(final Statistics statistics, final FilterListFormat format, final String text) {
 		final ExpressionCalc expression=new ExpressionCalc(new String[0]);
 		final int errorPos=expression.parse(text);
 		if (errorPos>=0) return text+"\n"+String.format(Language.tr("Statistics.Filter.CoundNotProcessExpression.Info"),errorPos+1);

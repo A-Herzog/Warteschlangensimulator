@@ -66,6 +66,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	private final Mode mode;
 	/** Callback, das aufgerufen wird, wenn ein "Details"-Link angeklickt wurde */
 	private final Consumer<Mode> modeClick;
+	/** System zu Erstellung von Ausdrücken zum Abruf von XML-Daten */
 	private final FastAccessSelectorBuilder fastAccessBuilder;
 
 	/**
@@ -166,6 +167,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return mode;
 	}
 
+	/**
+	 * Liefert einen Stationsnamen
+	 * @param statisticName	Eingabe-Stationsname (kann <code>null</code> sein)
+	 * @return	Ausgabe-Stationsname (ist nie <code>null</code>)
+	 */
 	private String fullStationName(final String statisticName) {
 		if (statisticName==null || statisticName.trim().isEmpty()) return "";
 		return statisticName;
@@ -210,6 +216,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return levels.stream().mapToDouble(D->D.doubleValue()).toArray();
 	}
 
+	/**
+	 * Gibt Konfidenzdaten (sofern diese vorliegen) aus.
+	 * @param indicator	Staitstikobjekt für das die Konfidenzdaten ausgegeben werden sollen
+	 */
 	private void outputConfidenceData(final StatisticsDataPerformanceIndicator indicator) {
 		if (indicator.getBatchCount()<1) return;
 
@@ -230,6 +240,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		endParagraph();
 	}
 
+	/**
+	 * Gibt die über die Thread-Aufteilung ermittelten Konfidenzdaten aus.
+	 */
 	private void outputThreadConfidenceData() {
 		final double mean=statistics.clientsAllWaitingTimes.getMean();
 		final List<String> names=new ArrayList<>(Arrays.asList(statistics.threadBasedConfidence.getNames()));
@@ -277,6 +290,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return fastAccessBuilder.getPopup(hint);
 	}
 
+	/**
+	 * Zeigt (wenn vorhanden) Warnung und Informationen zu Simulation-Notabbruch-Aktionen an.
+	 * @param fullInfo	Warnungen anzeigen (<code>true</code>) oder nur auf Abbrüche und Warnungen hinweisen (<code>false</code>)
+	 */
 	private void outputEmergencyShutDownInfo(final boolean fullInfo) {
 		if (!statistics.simulationData.emergencyShutDown && (statistics.simulationData.warnings==null || statistics.simulationData.warnings.length==0)) return;
 
@@ -301,14 +318,29 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		endParagraph();
 	}
 
+	/**
+	 * Liefert eine Zeitangabe als Zeit und als Dezimalzahl als Zeichenkette.
+	 * @param value	Auszugebende Zeitangabe
+	 * @return	Zeitangabe als Zeit und als Dezimalzahl
+	 */
 	private String timeAndNumber(final double value) {
 		return StatisticTools.formatExactTime(value)+" ("+StatisticTools.formatNumber(value)+")";
 	}
 
+	/**
+	 * Liefert den XML-Selektor um auf den Mittelwert ein bestimmtes Statistikobjekt per XML zuzugreifen.
+	 * @param indicator	Statistikobjekt
+	 * @return	XML-Selektor für den Mittelwert eines Statistikobjekts
+	 */
 	private String xmlMean(final StatisticsPerformanceIndicator indicator) {
 		return fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MEAN);
 	}
 
+	/**
+	 * Liefert den XML-Selektor um auf die Anzahl an Werten in einem bestimmten Statistikobjekt per XML zuzugreifen.
+	 * @param indicator	Statistikobjekt
+	 * @return	XML-Selektor für die Anzahl an Werten in einem Statistikobjekt
+	 */
 	private String xmlCount(final StatisticsPerformanceIndicator indicator) {
 		return fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.COUNT);
 	}
@@ -973,6 +1005,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		descriptionBuilder.done();
 	}
 
+	/**
+	 * Gibt Quantil-Informationen zu einem Zeit-Statistikobjekt aus.
+	 * @param identifier	Bezeichner für das Statistikobjekt (z.B. "W")
+	 * @param indicator	Statistikobjekt
+	 */
 	private void outputQuantilInfoTime(final String identifier, final StatisticsDataPerformanceIndicator indicator) {
 		if (!SetupData.getSetup().showQuantils) return;
 		if (indicator.getDistribution()==null) return;
@@ -998,6 +1035,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Gibt Quantil-Informationen zu einem Zahlen-Statistikobjekt aus.
+	 * @param identifier	Bezeichner für das Statistikobjekt (z.B. "W")
+	 * @param indicator	Statistikobjekt
+	 */
 	private void outputQuantilInfoNumber(final String identifier, final StatisticsDataPerformanceIndicator indicator) {
 		if (!SetupData.getSetup().showQuantils) return;
 		if (indicator.getDistribution()==null) return;
@@ -1023,6 +1065,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Gibt Quantil-Informationen zu einem Zahlen-Statistikobjekt aus.
+	 * @param identifier	Bezeichner für das Statistikobjekt (z.B. "W")
+	 * @param indicator	Statistikobjekt
+	 */
 	private void outputQuantilInfoNumber(final String identifier, final StatisticsDataPerformanceIndicatorWithNegativeValues indicator) {
 		if (!SetupData.getSetup().showQuantils) return;
 
@@ -1046,6 +1093,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Gibt Quantil-Informationen zu einem Zahlen-Statistikobjekt aus.
+	 * @param identifier	Bezeichner für das Statistikobjekt (z.B. "W")
+	 * @param indicator	Statistikobjekt
+	 */
 	private void outputQuantilInfoNumber(final String identifier, final StatisticsTimePerformanceIndicator indicator) {
 		if (indicator==null) return;
 
@@ -1072,8 +1124,19 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 	}
 
+	/**
+	 * Maximalanzahl an auszugebenden Verteilungsdaten in
+	 * {@link #outputShortStateDistribution(String, StatisticsTimePerformanceIndicator)}
+	 * @see #outputShortStateDistribution(String, StatisticsTimePerformanceIndicator)
+	 */
 	private static final int MAX_SHORT_STATE_DISTRIBUTION=5;
 
+	/**
+	 * Gibt Verteilungsdaten aus, sofern bei der Zähldichte nur für wenige Einträge Werte ungleich 0 vorliegen.
+	 * @param identifier	Bezeichner für das Statistikobjekt (z.B. "W")
+	 * @param indicator	Statistikobjekt
+	 * @see #MAX_SHORT_STATE_DISTRIBUTION
+	 */
 	private void outputShortStateDistribution(final String identifier, final StatisticsTimePerformanceIndicator indicator) {
 		if (indicator==null) return;
 		if (indicator.getReadOnlyDistribution()==null) return;
@@ -1168,6 +1231,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("InterarrivalSystem");
 	}
 
+	/**
+	 * Liefert die Summe der Ankünfte über alle Kundentypen.
+	 * @return	Summe der Ankünfte über alle Kundentypen
+	 */
 	private long getArrivalSum() {
 		long arrivalSum=0;
 		for (String type : statistics.clientsInterarrivalTime.getNames()) {
@@ -1176,6 +1243,13 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		return arrivalSum;
 	}
 
+	/**
+	 * Gibt es in einem Multi-Statistik-Objekt mehrere Einträge, die mit demselben Bezeichner beginnen?
+	 * @param indicators	Multi-Statistik-Objekt
+	 * @param name	Bezeichner
+	 * @param marker	Markierung bei zu der der Bezeichner ausgewertet werden soll
+	 * @return	Liefert <code>true</code>, wenn es mehrere Einträge in dem Multi-Statistik-Objekt gibt, bei denen der Bezeichner mit dem angegebenen Bezeichner bis zu der Markierung beginnt
+	 */
 	private boolean hasMultipleRecordsOfType(final StatisticsMultiPerformanceIndicator indicators, String name, final char marker) {
 		while (!name.isEmpty() && name.charAt(name.length()-1)!=marker) name=name.substring(0,name.length()-1);
 		if (name.isEmpty()) return true;
@@ -1488,6 +1562,17 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		outputEmergencyShutDownInfo(true);
 	}
 
+	/**
+	 * Erstellt die Ausgabe für einen Kundentyp.
+	 * @param waitingTime	Wartezeiten für den Kundentyp
+	 * @param transferTime	Transferzeiten für den Kundentyp
+	 * @param processingTime	Bedienzeiten für den Kundentyp
+	 * @param residenceTime	Verweilzeiten für den Kundentyp
+	 * @param hasWaitingTimes	Sollen Daten zu den Wartezeiten ausgegeben werden?
+	 * @param hasTransferTimes	Sollen Daten zu den Transferzeiten ausgegeben werden?
+	 * @param hasProcessingTimes	Sollen Daten zu den Bedienzeiten ausgegeben werden?
+	 * @param hasResidenceTimes	Sollen Daten zu den Verweilzeiten ausgegeben werden?
+	 */
 	private void buildClientData(final StatisticsDataPerformanceIndicator waitingTime, final StatisticsDataPerformanceIndicator transferTime, final StatisticsDataPerformanceIndicator processingTime, final StatisticsDataPerformanceIndicator residenceTime, final boolean hasWaitingTimes, final boolean hasTransferTimes, final boolean hasProcessingTimes, final boolean hasResidenceTimes) {
 		String repeatInfo="";
 		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
@@ -2178,6 +2263,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("UtilizationTransporter");
 	}
 
+	/**
+	 * Gibt Zählerwerte aus.
+	 * @param level	Level für Überschriften
+	 * @param details	Detailausgabe?
+	 * @see #buildCounter()
+	 */
 	private void buildCounterInt(final int level, final boolean details) {
 		String repeatInfo="";
 		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
@@ -2272,6 +2363,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("Counter");
 	}
 
+	/**
+	 * Gibt Durchsatzwerte aus.
+	 * @see #buildThroughput()
+	 */
 	private void buildThroughputInt() {
 		if (statistics.throughputStatistics.size()>0) {
 			beginParagraph();
@@ -2525,6 +2620,11 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 */
 	public static final double[] AUTOCORRELATION_LEVELS=new double[]{0.1,0.05,0.01,0.005,0.001};
 
+	/**
+	 * Gibt die Autokorrelationsdaten zu einem Statistikobjekt aus
+	 * @param indicator	Statistikobjekt
+	 * @param maxDistance	Abstände für die die Autokorrelationswerte ausgegeben werden sollen
+	 */
 	private void outputAutocorrelationData(final StatisticsDataPerformanceIndicator indicator, final int[] maxDistance) {
 		beginParagraph();
 		final int maxSize=(indicator.getCorrelationData().length-1)*StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING;
@@ -2634,6 +2734,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addDescription("Autocorrleation");
 	}
 
+	/**
+	 * Prüft, ob es sich bei einem Nutzer-Statistik-Bezeichner um eine Zeitangabe handelt.
+	 * @param key	Nutzer-Statistik-Bezeichner
+	 * @return Liefert <code>true</code>, wenn es sich um eine Zeitangabe handelt
+	 * @see ModelElementUserStatistic
+	 */
 	private boolean isUserStatisticsTime(final String key) {
 		for (ModelElement element: statistics.editModel.surface.getElements()) {
 			if (element instanceof ModelElementUserStatistic) {

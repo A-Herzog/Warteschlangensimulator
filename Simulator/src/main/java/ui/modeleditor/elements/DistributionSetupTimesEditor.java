@@ -61,7 +61,9 @@ public class DistributionSetupTimesEditor extends JPanel {
 	 */
 	private static final long serialVersionUID = -734275539715521114L;
 
+	/** Bezeichner für die Verteilungseditor {@link CardLayout}-Karte */
 	private static final String cardDistribution="Distribution";
+	/** Bezeichner für die Formeleingabe {@link CardLayout}-Karte */
 	private static final String cardExpression="Expression";
 
 	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
@@ -70,20 +72,37 @@ public class DistributionSetupTimesEditor extends JPanel {
 	private final ModelSurface surface;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+
+	/** Im Konstruktor übergebenes Datenobjekt in das bei {@link #storeData()} die Daten zurückgeschrieben werden */
 	private final DistributionSystemSetupTimes dataOriginal;
+	/** Temporäres Datenobjekt für die Arbeit in dem Panel; bei Erfolg werden die Daten am Ende in {@link #dataOriginal} zurückgeschrieben */
 	private final DistributionSystemSetupTimes data;
+	/** Namen der Untertypen (Kundentypen) */
 	private final String[] clientTypes;
 
+	/** Index des zuletzt in {@link #typeCombo} ausgewählten Eintrags */
 	private int typeLast;
+	/** Auswahl des aktiven Untertypen-Eintrags */
 	private final JComboBox<String> typeCombo;
+	/** Lokalen Wert für den aktuellen Untertyp verwenden? */
 	private final JCheckBox activeCheckBox;
+	/** Zeigt den Infotext an, von welchem Kundentyp zu welchem Kundentyp die aktuelle Rüstzeit gilt */
 	private final JLabel infoLabel;
+	/** Auswahl: Verteilung oder Rechenausdruck */
 	private final JComboBox<String> modeSelect;
+	/** Panel das Verteilungseditor und Formel-Eingabefeld vorhält */
 	private final JPanel cards;
+	/** Verteilungseditor */
 	private final JDistributionPanel distributionPanel;
+	/** Panel für das Formel-Eingabefeld */
 	private final JPanel expressionLines;
+	/** Eingabefeld für die Formel */
 	private final JTextField expressionEdit;
 
+	/**
+	 * Listener, die im Falle einer Nutzereingabe benachrichtigt werden sollen
+	 * @see #fireUserChangeListener()
+	 */
 	private List<ActionListener> userChangeListeners;
 
 	/**
@@ -193,6 +212,11 @@ public class DistributionSetupTimesEditor extends JPanel {
 		}
 	}
 
+	/**
+	 * Liefert eine Auflistung aller möglichen Rüstzeittypen.
+	 * @return	Auflistung aller möglichen Rüstzeittypen
+	 * @see #typeCombo
+	 */
 	private String[] getTypeItems() {
 		final List<String> list=new ArrayList<>(clientTypes.length*clientTypes.length);
 
@@ -218,6 +242,10 @@ public class DistributionSetupTimesEditor extends JPanel {
 		return userChangeListeners.remove(actionListener);
 	}
 
+	/**
+	 * Löst alle Listener, die im Falle einer Nutzereingabe benachrichtigt werden sollen, aus.
+	 * @see #userChangeListeners
+	 */
 	private void fireUserChangeListener() {
 		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"");
 		for (ActionListener listener: userChangeListeners) listener.actionPerformed(event);
@@ -239,6 +267,15 @@ public class DistributionSetupTimesEditor extends JPanel {
 		return data.isActive();
 	}
 
+	/**
+	 * Stellt die aktive Karte in {@link #cards} ein,
+	 * d.h. wechselt zwischen Verteilungseditor und Formeleingabe.
+	 * @param cardName	Name der anzuzeigenden Karte
+	 * @see #cardDistribution
+	 * @see #cardExpression
+	 * @see #cards
+	 * @see #modeSelect
+	 */
 	private void setCard(final String cardName) {
 		((CardLayout)cards.getLayout()).show(cards,cardName);
 
@@ -252,6 +289,9 @@ public class DistributionSetupTimesEditor extends JPanel {
 		});
 	}
 
+	/**
+	 * Prüft den eingegeben Rechenausdruck.
+	 */
 	private void checkExpression() {
 		if (expressionEdit.getText().trim().isEmpty()) {
 			expressionEdit.setBackground(SystemColor.text);
@@ -262,6 +302,11 @@ public class DistributionSetupTimesEditor extends JPanel {
 		if (error>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(SystemColor.text);
 	}
 
+	/**
+	 * Wird aufgerufen, wenn ein anderer darzustellender Untertyp ausgewählt wurde.
+	 * @see #typeLast
+	 * @see #typeCombo
+	 */
 	private void activeClientTypeChanged() {
 		if (clientTypes.length==0) return;
 

@@ -291,8 +291,16 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return null;
 	}
 
+	/**
+	 * Basis-Statistikknoten der Baumstruktur
+	 * @see #updateViewer(boolean)
+	 */
 	private StatisticNode lastRoot;
 
+	/**
+	 * Aktualisiert den aktuellen Viewer.
+	 * @param updateTree	Baumstruktur auch aktualisieren?
+	 */
 	private void updateViewer(final boolean updateTree) {
 		final StatisticNode root=new StatisticNode();
 		String modelName=null;
@@ -486,6 +494,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Prüft, ob bestimmte Werte größer als 0 sind.
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @param tester	Callback zur Auswahl des konkret zu prüfenden Teil-Indikators
+	 * @return	Liefert <code>true</code>, wenn das Maximum mindestens eines Eintrags innerhalb des gewählten Indikators größer als 0 ist.
+	 */
 	private boolean testMultiTypesPositive(final Statistics[] statistics, final Function<Statistics,StatisticsMultiPerformanceIndicator> tester) {
 		for (Statistics statistic: statistics) {
 			final StatisticsMultiPerformanceIndicator multi=tester.apply(statistic);
@@ -537,6 +551,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		return false;
 	}
 
+	/**
+	 * Gibt es Stationen an denen die Zwischenankunftszeiten nach aktuellen Stationszustand ausdifferenziert vorliegen?<br>
+	 * (Diese Ausdifferenzierung erfolgt an Batch-Bildungs-Stationen.)
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Zwischenankunftszeiten zu mindestens einer Station ausdifferziert nach Stationszustand vorliegen
+	 */
 	private boolean testMultiStationsClientsByStates(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			final String[] names=statistic.stationsInterarrivalTimeByState.getNames();

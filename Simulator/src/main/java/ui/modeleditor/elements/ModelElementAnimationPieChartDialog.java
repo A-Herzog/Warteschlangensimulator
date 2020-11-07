@@ -50,11 +50,17 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 	 */
 	private static final long serialVersionUID=-893526302857552173L;
 
+	/** Auswahlbox für ide Art der Beschriftung */
 	private JComboBox<String> labelMode;
+	/** Tabelle zur Definition der Diagrammsegmente */
 	private ExpressionTableModelBar expressionTableModel;
+	/** Auswahlbox für die Rahmenbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl der Rahmenfarbe */
 	private SmallColorChooser colorChooserLine;
+	/** Option: Hintergrundfarbe verwenden? */
 	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
 
 	/**

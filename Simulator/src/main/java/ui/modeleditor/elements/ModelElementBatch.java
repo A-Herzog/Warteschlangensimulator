@@ -103,6 +103,10 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Darstellung des zusätzlichen Icons auf der Station.
+	 * @see #fireChanged()
+	 */
 	private void updateIcon() {
 		if (batchRecord!=null && batchRecord.getBatchMode()!=null) switch (batchRecord.getBatchMode()) {
 		case BATCH_MODE_COLLECT:

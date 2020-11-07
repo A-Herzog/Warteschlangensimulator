@@ -62,8 +62,22 @@ public class ModelElementAnalogAssign extends ModelElementMultiInSingleOutBox {
 		CHANGE_MODE_RATE
 	}
 
+	/**
+	 * Liste der "Analoger Wert"-Element-IDs, an denen Änderungen vorgenommen werden sollen
+	 * @see #getChangeID()
+	 */
 	private final List<Integer> changeID;
+
+	/**
+	 * Liste der Änderungs-Modi (Wert oder Rate)
+	 * @see #getChangeMode()
+	 */
 	private final List<ChangeMode> changeMode;
+
+	/**
+	 * Liste der Ausdrücke, deren Werte an die Stationen zugewiesen werden sollen
+	 * @see #getChangeExpression()
+	 */
 	private final List<String> changeExpression;
 
 	/**
@@ -183,7 +197,7 @@ public class ModelElementAnalogAssign extends ModelElementMultiInSingleOutBox {
 
 	/**
 	 * Liefert die Liste der Ausdrücken, deren Werte zugewiesen werden sollen.
-	 * @return	Liste der Ausdrücken, deren Werte zugewiesen werden sollen
+	 * @return	Liste der Ausdrücke, deren Werte an die Stationen zugewiesen werden sollen
 	 */
 	public List<String> getChangeExpression() {
 		return changeExpression;

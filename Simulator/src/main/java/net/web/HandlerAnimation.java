@@ -70,6 +70,12 @@ public class HandlerAnimation implements WebServerHandler {
 		this.mainPanel=mainPanel;
 	}
 
+	/**
+	 * Liefert den Wert eines weiteren HTML-Get-Parameters
+	 * @param session	Anfragedaten
+	 * @param parameterName	Name des HTML-Get-Parameters
+	 * @return	Wert des Parameters oder <code>null</code>, wenn der Parameter nicht gesetzt ist
+	 */
 	private String getParameter(final IHTTPSession session, final String parameterName) {
 		for (Map.Entry<String,List<String>> entry: session.getParameters().entrySet()) {
 			if (entry.getKey().equalsIgnoreCase(parameterName) && entry.getValue()!=null && entry.getValue().size()==1) return entry.getValue().get(0);
@@ -77,6 +83,11 @@ public class HandlerAnimation implements WebServerHandler {
 		return null;
 	}
 
+	/**
+	 * Liefert die Basis-html-Webseite aus dem "res"-Ordner aus.
+	 * @param response	Server-Antwort-Objekt welches die Basis-html-Webseite enthält
+	 * @see #process(IHTTPSession)
+	 */
 	private void setGlobalHTMLResponse(final WebServerResponse response) {
 		final String url=localURL.replace("%LANG%",Language.getCurrentLanguage());
 		try (final InputStream stream=getClass().getResourceAsStream(url)) {
@@ -84,6 +95,10 @@ public class HandlerAnimation implements WebServerHandler {
 		} catch (IOException e) {}
 	}
 
+	/**
+	 * Liefert das Modell als html-js-Fassung.
+	 * @return	Modell als html-js-Fassung
+	 */
 	private String getStaticJS() {
 		final HTMLOutputBuilder builder=new HTMLOutputBuilder(mainPanel.editorPanel.getModel(),HTMLOutputBuilder.Mode.JSONLY);
 		final String[] data=builder.build();
@@ -91,10 +106,20 @@ public class HandlerAnimation implements WebServerHandler {
 		return data[0]+data[1]+data[2];
 	}
 
+	/**
+	 * Gibt das Modell als html-js-Fassung über eine Server-Antwort aus.
+	 * @param response	Server-Antwort-Objekt
+	 * @see #process(IHTTPSession)
+	 */
 	private void getModelJS(final WebServerResponse response) {
 		response.setJS(getStaticJS(),false);
 	}
 
+	/**
+	 * Liefert eine base64 encodierte Fassung eines Icons
+	 * @param icon	Zu codierendes Icon
+	 * @return	base64-html-encodiertes Icon für die Verwendung in html-Code
+	 */
 	private String base64Icon(final Icon icon) {
 		try (final ByteArrayOutputStream output=new ByteArrayOutputStream()) {
 
@@ -111,6 +136,13 @@ public class HandlerAnimation implements WebServerHandler {
 		}
 	}
 
+	/**
+	 * Trägt die Daten aller Stationen auf einer Zeichenfläche in eine Zuordnung ein.
+	 * @param editModel	Editor-Modell
+	 * @param surface	Zeichenfläche deren Stationen (und die Stationen von Unter-Zeichenflächen) bearbeitet werden sollen
+	 * @param map	Zuordnung in die die Stationen eingetragen werden sollen
+	 * @see #listStationsJSON(WebServerResponse)
+	 */
 	private void addStationsToMap(final EditModel editModel, final ModelSurface surface, final Map<String,Object> map) {
 		for (ModelElement element: surface.getElements()) {
 			final Map<String,String> data=new HashMap<>();
@@ -149,6 +181,11 @@ public class HandlerAnimation implements WebServerHandler {
 		}
 	}
 
+	/**
+	 * Liefert eine Liste aller im Modell enthaltenen Stationen als json-Objekt.
+	 * @param response	Server-Antwort-Objekt
+	 * @see #process(IHTTPSession)
+	 */
 	private void listStationsJSON(final WebServerResponse response) {
 		final Map<String,Object> info=new HashMap<>();
 
@@ -159,6 +196,11 @@ public class HandlerAnimation implements WebServerHandler {
 		response.setJSON(json,true);
 	}
 
+	/**
+	 * Führt einen Animationsschritt aus.
+	 * @param response	Server-Antwort-Objekt
+	 * @see #process(IHTTPSession)
+	 */
 	private void doAnimationStep(final WebServerResponse response) {
 		if (mainPanel.currentPanel instanceof ServerPanel) {
 			((ServerPanel)mainPanel.currentPanel).requestClose();
@@ -197,6 +239,15 @@ public class HandlerAnimation implements WebServerHandler {
 		return text.replace("\"","\\\"");
 	}
 
+	/**
+	 * Wandelt eine Zuordnung von Zeichenketten zu Objekten in
+	 * eine json-Zeichenkette um. Die Objekte in der Zuordnung
+	 * dürfen dabei Zeichenketten oder erneut Zuordnung von
+	 * Zeichenketten zu Objekten sein.
+	 * @param map	Zuordnung von Zeichenketten zu Objekten
+	 * @param indent	Einrückung der Zeilen in der json-Zeichenkette
+	 * @return	json-Zeichenkette
+	 */
 	private String makeJSON(final Map<String,Object> map, String indent) {
 		final StringBuilder sb=new StringBuilder();
 		if (indent.isEmpty()) sb.append("{\n");
@@ -223,10 +274,23 @@ public class HandlerAnimation implements WebServerHandler {
 		return sb.toString();
 	}
 
+	/**
+	 * Wandelt eine Zuordnung von Zeichenketten zu Objekten in
+	 * eine json-Zeichenkette um. Die Objekte in der Zuordnung
+	 * dürfen dabei Zeichenketten oder erneut Zuordnung von
+	 * Zeichenketten zu Objekten sein.
+	 * @param info	Zuordnung von Zeichenketten zu Objekten
+	 * @return	json-Zeichenkette
+	 */
 	private String makeJSON(final Map<String,Object> info) {
 		return makeJSON(info,"");
 	}
 
+	/**
+	 * Liefert den Status der Animation als Server-Antwort zurück.
+	 * @param response	Server-Antwort-Objekt
+	 * @see #process(IHTTPSession)
+	 */
 	private void getAnimationStatusJSON(final WebServerResponse response) {
 		final Map<String,Object> info;
 
@@ -243,12 +307,21 @@ public class HandlerAnimation implements WebServerHandler {
 		response.setJSON(json,true);
 	}
 
+	/**
+	 * Bricht die laufende Animation ab.
+	 * @see #process(IHTTPSession)
+	 */
 	private void terminateAnimation() {
 		if (mainPanel.currentPanel instanceof AnimationPanel) {
 			((AnimationPanel)mainPanel.currentPanel).closeRequest();
 		}
 	}
 
+	/**
+	 * Stellt das Modell als Grafikdatei als Server-Antwort bereit
+	 * @param response	Server-Antwort-Objekt
+	 * @see #process(IHTTPSession)
+	 */
 	private void getScreenshotPNG(final WebServerResponse response) {
 		final BufferedImage image;
 		if (!(mainPanel.currentPanel instanceof AnimationPanel)) {
@@ -259,6 +332,12 @@ public class HandlerAnimation implements WebServerHandler {
 		response.setPNG(image);
 	}
 
+	/**
+	 * Berechnet einen Ausdruck.
+	 * @param response	Server-Antwort-Objekt über das das Ergebnis ausgegeben werden soll
+	 * @param expression	Zu berechnender Ausdruck
+	 * @see #process(IHTTPSession)
+	 */
 	private void calculateExpression(final WebServerResponse response, final String expression) {
 		if (expression==null || expression.trim().isEmpty()) return;
 		if (!(mainPanel.currentPanel instanceof AnimationPanel)) return;

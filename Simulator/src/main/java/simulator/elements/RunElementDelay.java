@@ -44,7 +44,9 @@ public class RunElementDelay extends RunElementPassThrough {
 	private double timeBaseMultiply;
 	private AbstractRealDistribution[] distribution;
 	private String[] expression;
+	/** Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
 	private ModelElementDelay.DelayType delayType;
+	/** Kosten pro Bedienvorgang */
 	private String costs;
 
 	/**

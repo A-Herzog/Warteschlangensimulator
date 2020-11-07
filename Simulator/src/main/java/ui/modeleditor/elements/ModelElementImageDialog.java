@@ -43,8 +43,11 @@ public class ModelElementImageDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 7824874736501593918L;
 
+	/** Auswahlbox für die Linienbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooser;
+	/** Auswahl des Bildes */
 	private ImageChooser imageChooser;
 
 	/**

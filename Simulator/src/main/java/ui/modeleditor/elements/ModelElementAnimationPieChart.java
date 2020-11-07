@@ -80,19 +80,61 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		ALL_PARTS
 	}
 
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #recordedValues}
+	 * zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * Aufgezeichnete Werte zur Anzeige während der Animation
+	 */
 	private double[] recordedValues;
 
+	/**
+	 * Rechenausdrücke für die Segmente
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<String> expression=new ArrayList<>();
+
+	/**
+	 * Farben für die Segmente
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<Color> expressionColor=new ArrayList<>();
 
 	/** Beschriftungen an den Tortensegmenten anzeigen */
 	private LabelMode labelMode;
 
+	/**
+	 * Breite der Linie
+	 * @see #getBorderWidth()
+	 * @see #setBorderWidth(int)
+	 */
 	private int borderWidth=1;
+
+	/**
+	 * Farbe der Linie
+	 * @see #getBorderColor()
+	 * @see #setBorderColor(Color)
+	 */
 	private Color borderColor=Color.BLACK;
+
+	/**
+	 * Füllfarbe des Kastens
+	 * @see #getBackgroundColor()
+	 * @see #setBackgroundColor(Color)
+	 */
 	private Color backgroundColor=null;
 
+	/**
+	 * Cache der Bereichsfüllung-Zeichners
+	 * für {@link #drawDiagramSegments(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramSegments(Graphics2D, Rectangle, double)
+	 */
 	private GradientFill[] filler;
 
 	/**
@@ -404,10 +446,25 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		graphics.fill(rectangle);
 	}
 
+	/**
+	 * Farben für die Dummy-Segmente (die im Editor, also vor dem Start einer Animation, angezeigt werden)
+	 * @see #drawDummyDiagramSegments(Graphics2D, Rectangle, double)
+	 */
 	private static final Color[] dummyColor={Color.BLUE,Color.RED,Color.GREEN};
+
+	/**
+	 * Werte für die Dummy-Segmente (die im Editor, also vor dem Start einer Animation, angezeigt werden)
+	 * @see #drawDummyDiagramSegments(Graphics2D, Rectangle, double)
+	 */
 	private static final double[] dummyValue={0.6,0.4,0.8};
 
-
+	/**
+	 * Zeichnet eine Beschriftung für ein Tortensegment.
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 * @param angle	Winkel an dem die Beschriftung angezeigt werden soll
+	 * @param value	Anzuzeigender Wert
+	 */
 	private void drawLabel(final Graphics2D g, final Rectangle rectangle, final int angle, final double value) {
 		final String text=NumberTools.formatPercent(value,0);
 		final FontMetrics metrics=g.getFontMetrics();
@@ -422,6 +479,12 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		g.drawString(text,mx-width/2,my-(ascent+descent)/2+ascent);
 	}
 
+	/**
+	 * Zeichnet Dummy-Segmente während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawDummyDiagramSegments(final Graphics2D g, final Rectangle rectangle, final double zoom) {
 		double sum=0;
 		for (double value: dummyValue) sum+=value;
@@ -447,6 +510,12 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		}
 	}
 
+	/**
+	 * Zeichnet die Segmente des Tortendiagramms
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawDiagramSegments(final Graphics2D g, final Rectangle rectangle, final double zoom) {
 		if (recordedValues==null) {
 			drawDummyDiagramSegments(g,rectangle,zoom);
@@ -675,8 +744,21 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		return null;
 	}
 
+	/**
+	 * Rechenausdruck der während der Animation ausgewertet
+	 * werden soll, um den darzustellenden Wert zu erhalten.
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private ExpressionCalc[] animationExpression;
 
+	/**
+	 * Wertet {@link #animationExpression} aus und liefert
+	 * den zu zeichnenden Wert zurück.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param index	Auszuwertender Array-Index
+	 * @return	Darzustellender Wert
+	 */
 	private double calcExpression(final SimulationData simData, final int index) {
 		final ExpressionCalc calc=animationExpression[index];
 		if (calc==null) return 0.0;
@@ -684,8 +766,17 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		return calc.calcOrDefault(simData.runData.variableValues,simData,null,0);
 	}
 
-
+	/**
+	 * In {@link #updateSimulationData(SimulationData, boolean)} berechnete Ausgabedaten
+	 * {@link #updateSimulationData(SimulationData, boolean)}
+	 */
 	private double[][] dataSets;
+
+	/**
+	 * Für die Ausgabe aktiver Eintrag in {@link #dataSets}
+	 * @see #dataSets
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private int drawActiveDataSet;
 
 	@Override
@@ -734,6 +825,11 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		return "ModelElementAnimationPieChart";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationPieChart(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -783,6 +879,10 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawAnimationPieChart",builder->getHTMLAnimationPieChart(builder));
 
@@ -828,6 +928,11 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		return simData!=null;
 	}
 
+	/**
+	 * Liefert die Daten in Tabellenform für die Ausgabe einer Datentabelle während der Animation
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Tabelle mit den aktuellen Ausgabedaten
+	 */
 	private Table getAnimationRunTimeTableData(final SimulationData simData) {
 		final Table table=new Table();
 

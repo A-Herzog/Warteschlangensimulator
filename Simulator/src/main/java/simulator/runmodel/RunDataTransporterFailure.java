@@ -97,6 +97,11 @@ public class RunDataTransporterFailure {
 		}
 	}
 
+	/**
+	 * Plant das Ereignis zum Ende der aktuellen Pausenzeit für einen Transporter ein.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param transporter	Transporter
+	 */
 	private void scheduleTransporterPauseEndEvent(final SimulationData simData, final RunDataTransporter transporter) {
 		final TransporterPauseEndEvent event=(TransporterPauseEndEvent)(simData.getEvent(TransporterPauseEndEvent.class));
 		event.transporter=transporter;
@@ -129,6 +134,12 @@ public class RunDataTransporterFailure {
 		}
 	}
 
+	/**
+	 * Bestimmt die Länge einer Ausfallzeit eines Transporters
+	 * @param simData	Simulationsdatenobjekt
+	 * @param logTransporterName	Bezeichner des Transporters für das Logging
+	 * @return	Pausenzeit in MS
+	 */
 	private long getDownTime(final SimulationData simData, final String logTransporterName) {
 		if (downTimeExpression!=null) {
 			try {
@@ -144,7 +155,7 @@ public class RunDataTransporterFailure {
 	}
 
 	/**
-	 * Prüft, ob der ein Transporter gemäß eines Pausenzeiten-Ausfalldatensatzes
+	 * Prüft, ob ein Transporter gemäß eines Pausenzeiten-Ausfalldatensatzes
 	 * in eine Pause geschickt werden muss und bedingt diese ggf. auch gleich.
 	 * @param simData	Simulationsdatenobjekt
 	 * @param transporter	Zu prüfender Transporter

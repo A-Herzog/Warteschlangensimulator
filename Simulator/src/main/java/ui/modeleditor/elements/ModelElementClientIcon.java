@@ -89,6 +89,10 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Darstellung des zusätzlichen Icons auf der Station.
+	 * @see #fireChanged()
+	 */
 	private void updateIcon() {
 		setAdditionalIconFromName(getIcon());
 	}

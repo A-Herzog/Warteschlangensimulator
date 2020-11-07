@@ -19,6 +19,7 @@ public class StatisticTools {
 	private StatisticTools() {
 	}
 
+	/** Referenz auf das Setup-Singleton */
 	private static final SetupData setup=SetupData.getSetup();
 
 
@@ -41,8 +42,22 @@ public class StatisticTools {
 		return NumberTools.formatNumber(number,Math.max(minDigits,Math.max(1,setup.statisticsNumberDigits)));
 	}
 
-	/* Nicht Thread-save, brauchen wir hier aber auch nicht, ist für die GUI. */
+	/**
+	 * Wird in {@link #formatPercent(double)} und {@link #formatPercent(double, int)}
+	 * verwendet und hier gecacht.<br>
+	 * Ist nicht Thread-save, brauchen wir hier aber auch nicht, ist für die GUI.
+	 * @see #formatPercent(double)
+	 * @see #formatPercent(double, int)
+	 */
 	private static StringBuilder sb1=new StringBuilder();
+
+	/**
+	 * Wird in {@link #formatPercent(double)} und {@link #formatPercent(double, int)}
+	 * verwendet und hier gecacht.<br>
+	 * Ist nicht Thread-save, brauchen wir hier aber auch nicht, ist für die GUI.
+	 * @see #formatPercent(double)
+	 * @see #formatPercent(double, int)
+	 */
 	private static StringBuilder sb2=new StringBuilder();
 
 	/**

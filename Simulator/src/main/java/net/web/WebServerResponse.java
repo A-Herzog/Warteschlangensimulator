@@ -107,7 +107,9 @@ public class WebServerResponse {
 
 	/** Zu verwendender Mime-Typ */
 	private Mime mime;
+	/** Auszugebende Daten */
 	private byte[] data;
+	/** Länge der auszugebenden Daten */
 	private int length;
 	/** Steht hier ein nicht-leerer String, so wird dem Browser mitgeteilt, dass das Dokument zum Speichern und nicht zum Anzeigen bestimmt ist und der hier angegebene Name wird als Vorschlag verwendet. */
 	private String downloadName;
@@ -120,10 +122,22 @@ public class WebServerResponse {
 		mime=null;
 	}
 
+	/**
+	 * Versucht eine Zeichenkette für die Ausgabe UTF8 zu encodieren
+	 * @param text	Zeichenkette
+	 * @return	UTF8-Zeichenkette
+	 */
 	private String utf8encode(final String text) {
 		return new String(StandardCharsets.UTF_8.encode(text).array()).trim();
 	}
 
+	/**
+	 * Stellt einen Text als Antwort ein.
+	 * @param mime	Zu verwendendes Mime-Format
+	 * @param text	Antworttext
+	 * @param utf8encode	Umwandlung des Textes nach UTF8 notwendig?
+	 * @return	Liefert <code>true</code>, wenn die Antwort konfiguriert werden konnte.
+	 */
 	private boolean setTextFormat(final Mime mime, final String text, final boolean utf8encode) {
 		if (mime==null) return false;
 		if (text==null) return false;

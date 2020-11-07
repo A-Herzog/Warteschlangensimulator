@@ -28,11 +28,26 @@ import ui.MainPanel;
  * @see SimulationDDEServer
  */
 public class DDETopicCalc extends DDETopic {
+	/**
+	 * Anzahl an zwischenzuspeichernden Anfragen und Ergebnissen
+	 * @see #lastRequests
+	 * @see #lastValues
+	 */
 	private static final int MAX_LAST_REQUESTS=100;
 
 	/** Haupt-Panel des Simulators (über das auf das Animations-Panel verlinkt wird welches die eigentlichen Berechnungen durchführt) */
 	private final MainPanel mainPanel;
+
+	/**
+	 * Liste der letzten Anfragen
+	 * @see #lastValues
+	 */
 	private final List<String> lastRequests;
+
+	/**
+	 * Liste der Ergebnisse auf die letzten Anfragen
+	 * @see #lastRequests
+	 */
 	private final List<String> lastValues;
 
 	/**
@@ -52,6 +67,13 @@ public class DDETopicCalc extends DDETopic {
 		return true;
 	}
 
+	/**
+	 * Fügt einen Eintrag zu der Liste der zuletzt berechneten Ausdrücke hinzu.
+	 * @param key	Formel
+	 * @param value	Ergebnisse
+	 * @see #lastRequests
+	 * @see #lastValues
+	 */
 	private void updateRecentlyUsedList(final String key, final String value) {
 		final int index=lastRequests.indexOf(key);
 		if (index>=0) {
@@ -73,6 +95,11 @@ public class DDETopicCalc extends DDETopic {
 		}
 	}
 
+	/**
+	 * Berechnet einen Ausdruck und liefert das Ergebnis zurück.
+	 * @param expression	Zu berechnender Ausdruck
+	 * @return	Liefert im Erfolgsfall das Ergebnis als Zeichenkette und im Fehlerfall eine leere Zeichenkette
+	 */
 	private synchronized String calcExpression(final String expression) {
 		if (expression==null || expression.trim().isEmpty()) return "";
 		if (!(mainPanel.currentPanel instanceof AnimationPanel)) return "";

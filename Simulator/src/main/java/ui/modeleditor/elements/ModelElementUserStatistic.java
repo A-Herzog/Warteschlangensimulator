@@ -121,7 +121,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	}
 
 	/**
-	 * Gibt an, ob die Statistik zu einem Bezeichnet eine Zeitangabe ist oder nicht
+	 * Gibt an, ob die Statistik zu einem Bezeichner eine Zeitangabe ist oder nicht
 	 * @param key	Bezeichner, zu dem ermittelt werden soll, ob es sich um eine Zeitangabe handelt oder nicht
 	 * @return	Gibt <code>null</code> zurück, wenn es keine Statistik zu dem angegebenen Bezeichner gibt, sonst wahr oder falsch.
 	 */

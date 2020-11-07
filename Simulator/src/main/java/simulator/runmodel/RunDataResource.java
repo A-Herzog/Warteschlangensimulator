@@ -39,36 +39,125 @@ import ui.modeleditor.ModelSurface;
  * @author Alexander Herzog
  */
 public final class RunDataResource implements Cloneable {
+	/**
+	 * Beim ersten {@link #lockTest(int, SimulationData)} werden
+	 * weitere Vorverarbeitungen durchgeführt. Über dieses
+	 * Feld wird erfasst, ob der Zugriff der erste ist.
+	 * @see #lockTest(int, SimulationData)
+	 */
 	private boolean firstRequest;
-	/** Name der Ressource */
+
+	/**
+	 * Name der Ressource
+	 */
 	private String name;
-	/** Icon der Ressource */
+
+	/**
+	 * Icon der Ressource
+	 */
 	private String icon;
-	/** Liste aller globalen Variablen in dem Modell */
+
+	/**
+	 * Liste aller globalen Variablen in dem Modell
+	 */
 	private String[] variables;
 
+	/**
+	 * Rüstzeit-Verteilung beim Wechsel eines Bedieners von einer Station zu einer anderen
+	 */
 	private AbstractRealDistribution moveDistribution;
+
+	/**
+	 * Rüstzeit-Rechenausdruck beim Wechsel eines Bedieners von einer Station zu einer anderen
+	 */
 	private String moveExpression;
+
+	/**
+	 * Zeitbasis für die Rüstzeiten
+	 * @see #moveDistribution
+	 * @see #moveExpression
+	 */
 	private ModelSurface.TimeBase moveTimeBase;
 
+	/**
+	 * Anzahl an Bedienern in der Ressource
+	 * (kann -1 für unendlich viele oder -2 für Schichtplan sein)
+	 * @see #availableSchedule
+	 */
 	private int available;
+
+	/**
+	 * Optionaler Schichtplan zur Bestimmung der Anzahl an Bedienern in der Gruppe
+	 * @see #available
+	 */
 	private ModelSchedule availableSchedule;
+
+	/**
+	 * Anzahl an aktuell belegten Bedienern in dieser Gruppe
+	 */
 	private int inUse;
+
+	/**
+	 * Anzahl an Bedienern in dieser Gruppe, die sich aktuell in einer Pausenzeit befinden
+	 */
 	private int inDownTime;
+
+	/**
+	 * Letzter Zeitpunkt an dem sich der Zustand der Ressouce verändert hat
+	 * (d.h. Zeitpunkt ab dem  der aktuelle Zustand gilt)
+	 * @see #timesToStatistics(SimulationData)
+	 */
 	private long lastStateChange;
 
+	/**
+	 * Ausfall-Objekte zu der Ressource
+	 */
 	private RunDataResourceFailure[] failuresGlobal;
 
+	/**
+	 * Objekte für die einzelnen Bediener
+	 */
 	private RunDataResourceOperatorFull[] operators;
+
+	/**
+	 * Objekte für die einzelnen Bediener wenn nicht das volle Feature-Spektrum benötigt wird
+	 */
 	private RunDataResourceOperator[] operatorsThin;
 
+	/**
+	 * Muss einer Erfassung der Anzahl an verfügbaren Bedienern in der Gruppe erfolgen?
+	 * (Weil sich die Anzahl ändern kann.)
+	 */
 	private boolean needToFullCount;
 
+	/**
+	 * Statistikerfassung der Anzahl an verfügbaren Bedienern
+	 */
 	private StatisticsTimePerformanceIndicator statisticsCount;
+
+	/**
+	 * Statistikerfassung der Anzahl an belegten Bedienern
+	 */
 	private StatisticsTimePerformanceIndicator statisticsUsage;
+
+	/**
+	 * Statistikerfassung der Anzahl an Bedienern in Pausenzeit
+	 */
 	private StatisticsTimePerformanceIndicator statisticsDownTime;
+
+	/**
+	 * Statistikerfassung der Kosten für Anwesenheit
+	 */
 	private StatisticsValuePerformanceIndicator statisticsCostsActive;
+
+	/**
+	 * Statistikerfassung der Anzahl Kosten für Bedienzeiten
+	 */
 	private StatisticsValuePerformanceIndicator statisticsCostsProcess;
+
+	/**
+	 * Statistikerfassung der Anzahl Kosten für Leerlaufzeiten
+	 */
 	private StatisticsValuePerformanceIndicator statisticsCostsIdle;
 
 	/** Kosten pro Betriebsstunde und Bediener */
@@ -182,6 +271,13 @@ public final class RunDataResource implements Cloneable {
 		}
 	}
 
+	/**
+	 * Erstellt Objekte für die einzelnen Bediener in der Gruppe.
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #prepareOperatorObjects(SimulationData)
+	 * @see RunDataResourceOperatorFull
+	 * @see RunDataResourceOperator
+	 */
 	private void initOperators(final SimulationData simData) {
 		if (available>0) {
 			operators=new RunDataResourceOperatorFull[available];
@@ -221,11 +317,22 @@ public final class RunDataResource implements Cloneable {
 		return clone;
 	}
 
+	/**
+	 * Kopiert die Ausfalldatensätze aus einem anderen Objekt in dieses.
+	 * @param failures	Ausgangsliste mit den hierhin zu kopierenden Ausfalldatensätzen
+	 * @see #clone()
+	 */
 	private void addFailures(RunDataResourceFailure[] failures) {
 		failuresGlobal=new RunDataResourceFailure[failures.length];
 		for (int i=0;i<failures.length;i++) failuresGlobal[i]=new RunDataResourceFailure(failures[i],name,variables);
 	}
 
+	/**
+	 * Muss vor der ersten Erfassung von Daten in der Statistik ausgerufen werden.
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #getStatisticsUsage(SimulationData)
+	 * @see #timesToStatistics(SimulationData)
+	 */
 	private void initStatistics(final SimulationData simData) {
 		if (statisticsUsage==null) {
 			statisticsCount=(StatisticsTimePerformanceIndicator)simData.statistics.resourceCount.get(name);
@@ -269,12 +376,26 @@ public final class RunDataResource implements Cloneable {
 	/** Umrechnungsfaktor von Millisekunden auf Stunden, um die Division während der Simulation zu vermeiden */
 	private static final double toHoursFactor=1.0/1000.0/3600.0;
 
+	/**
+	 * Bestimmt wie viele Bediener in der Gruppe in einem bestimmten Zeitbereich verfügbar waren.
+	 * @param timeMS1	Start des Zeitbereits
+	 * @param timeMS2	Ende des Zeitbereichs
+	 * @return	Anzahl an verfügbaren Bediener-Stunden
+	 * @see #timesToStatistics(SimulationData)
+	 */
 	private double calcAvailableHours(final long timeMS1, final long timeMS2) {
 		if (available==-1) return 0; /* unendlich viele Bediener -> hier wird ein Overhead von 0 angenommen */
 		if (available==-2) return availableSchedule.getAvailbaleHoursByTimeRange(timeMS1,timeMS2); /* Schichtplan */
 		return available*(timeMS2-timeMS1)*toHoursFactor; /* Feste Anzahl an Bedienern */
 	}
 
+	/**
+	 * Erfasst eine Zeitspanne in der Statistik
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #lockDo(int, SimulationData, int)
+	 * @see #releaseDo(int, SimulationData)
+	 * @see #setCount(SimulationData, int)
+	 */
 	private void timesToStatistics(final SimulationData simData) {
 		/* Wenn noch nicht geschehen: Statistik-Sub-Objekte für schnelleren Zugriff direkt cachen */
 		if (statisticsUsage==null) initStatistics(simData);
@@ -467,6 +588,15 @@ public final class RunDataResource implements Cloneable {
 		return value;
 	}
 
+	/**
+	 * Waren zum Zeitpunkt der formalen Reduktion der Anzahl an verfügbaren Bediener
+	 * alle Bediener zu belegt, so muss später geprüft werden, ob nun frei gewordene
+	 * Bediener entfernt werden können.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param count	Jetzt verfügbare Anzahl an Bedienern
+	 * @see #releaseDo(int, SimulationData)
+	 * @see #setCount(SimulationData, int)
+	 */
 	private void tryReduceOperatorsCount(final SimulationData simData, final int count) {
 		if (operators.length<=count) return;
 

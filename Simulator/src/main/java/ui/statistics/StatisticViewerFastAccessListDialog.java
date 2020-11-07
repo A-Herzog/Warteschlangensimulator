@@ -65,11 +65,17 @@ public final class StatisticViewerFastAccessListDialog extends BaseDialog {
 	 */
 	private final Runnable help;
 
+	/** Auswahlbox für die Art zu Eintrags */
 	private final JComboBox<JLabel> modeCombo;
+	/** Gewählte Texte je {@link #modeCombo}-Eintrag */
 	private String[] lastTexts;
+	/** Letzter in {@link #modeCombo} gewählter Index */
 	private int lastComboIndex;
+	/** Eingabefeld für Texte */
 	private final JTextField textEdit;
+	/** Schaltfläche zur Auswahl eines XML-Elements */
 	private final JButton selectButton;
+	/** Schaltfläche zum Bearbeiten eines Rechenausdrucks */
 	private final JButton expressionButton;
 
 	/**
@@ -169,10 +175,22 @@ public final class StatisticViewerFastAccessListDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert die in {@link FilterListRecord.Mode} verfügbaren
+	 * Modi für {@link #modeCombo}.
+	 * @return	Liste der verfügbaren Modi für {@link FilterListRecord}
+	 * @see FilterListRecord.Mode
+	 * @see #modeCombo
+	 */
 	private JLabel[] getModes() {
 		return Arrays.asList(FilterListRecord.Mode.values()).stream().map(mode->{JLabel label=new JLabel(); FilterListRecord.writeToJLabel(mode,null,label); return label;}).toArray(JLabel[]::new);
 	}
 
+	/**
+	 * Wird aufgerufen, wenn sich der gewählte Eintrag
+	 * in {@link #modeCombo} geändert hat.
+	 * @see #modeCombo
+	 */
 	private void comboUpdated() {
 		/* Alten Text sichern*/
 		if (lastComboIndex>=0) {
@@ -193,11 +211,22 @@ public final class StatisticViewerFastAccessListDialog extends BaseDialog {
 		expressionButton.setVisible(mode==FilterListRecord.Mode.Expression);
 	}
 
+	/**
+	 * Wird beim Klicken auf {@link #selectButton} aufgerufen.
+	 * Zeigt ein Popupmenü zur Auswahl eines XML-Elements an.
+	 * @see #selectButton
+	 */
 	private void commandSelect() {
 		final ListPopup helper=new ListPopup(selectButton,help);
 		helper.popupCustom(statistics,record->textEdit.setText(record.xml),record->true,true);
 	}
 
+	/**
+	 * Wird beim Klicken auf {@link #expressionButton} aufgerufen.
+	 * Zeigt einen Dialog zum Bearbeiten des Ausdrucks an.
+	 * @see #expressionButton
+	 * @see ExpressionBuilder
+	 */
 	private void commandExpression() {
 		final ModelSurface mainSurface=statistics.editModel.surface;
 		final ExpressionBuilder builder=new ExpressionBuilder(this,textEdit.getText(),false,new String[0],new HashMap<>(),ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),false,true,false);

@@ -175,6 +175,10 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Darstellung des zusätzlichen Icons auf der Station.
+	 * @see #fireChanged()
+	 */
 	private void updateIcon() {
 		if (matchMode!=null) switch (matchMode) {
 		case MATCH_MODE_COLLECT:

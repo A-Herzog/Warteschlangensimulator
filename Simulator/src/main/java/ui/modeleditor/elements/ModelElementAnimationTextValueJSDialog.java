@@ -51,11 +51,17 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 	 */
 	private static final long serialVersionUID = -3914193192263655248L;
 
+	/** Editor für das Skript */
 	private ScriptEditorPanel editor;
+	/** Auswahlbox der Schriftart */
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
+	/** Eingabefeld für die Schriftgröße */
 	private JTextField sizeField;
+	/** Option: Schrift in Fettdruck anzeigen */
 	private JCheckBox optionBold;
+	/** Option: Schrift kursiv anzeigen */
 	private JCheckBox optionItalic;
+	/** Auswahl der Textfarbe */
 	private SmallColorChooser colorChooser;
 
 	/**

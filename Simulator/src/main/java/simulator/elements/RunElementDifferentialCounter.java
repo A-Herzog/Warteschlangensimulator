@@ -33,7 +33,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementDifferentialCounter
  */
 public class RunElementDifferentialCounter extends RunElementPassThrough {
+	/** Name des Zählers */
 	private String counterName;
+	/** Veränderung des Zählerwertes, wenn ein Kunde diese Station passiert */
 	private int change;
 
 	/**

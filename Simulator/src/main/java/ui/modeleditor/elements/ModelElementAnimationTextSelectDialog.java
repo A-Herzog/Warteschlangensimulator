@@ -52,12 +52,19 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 	 */
 	private static final long serialVersionUID = 5107663089458560385L;
 
+	/** Tabelle zur Definition der möglichen Bedingungen und Ausgaben */
 	private ExpressionTableModelText expressionTableModel;
+	/** Eingabefeld für den Standardtext, der angezeigt werden soll, wenn keine der Bedingungen zutrifft */
 	private JTextField defaultTextEdit;
+	/** Auswahlfeld für die Schriftart */
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
+	/** Eingabefeld für die Schriftgröße */
 	private JTextField sizeField;
+	/** Option: Text in Fettdruck darstellen */
 	private JCheckBox optionBold;
+	/** Option: Text kursiv darstellen */
 	private JCheckBox optionItalic;
+	/** Auswahl der Farbe für den Text */
 	private SmallColorChooser colorChooser;
 
 	/**

@@ -74,38 +74,62 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	 */
 	private final ModelElementActionRecord record;
 
+	/** HTML-Kopf für die Ausgabe von fett dargestelltem Text */
 	private static final String bold1="<html><body><b>";
+	/** HTML-Fuß für die Ausgabe von fett dargestelltem Text */
 	private static final String bold2="</b></body></html>";
 
+	/** Art der Bedingung: Rechenausdruck-Bedingung */
 	private final JRadioButton triggerCondition;
+	/** Art der Bedingung: Schwellenwert */
 	private final JRadioButton triggerThreshold;
+	/** Art der Bedingung: Signal */
+	private final JRadioButton triggerSignal;
 
+	/** Art der auszulösenden Aktion: Variablenzuweisung */
 	private final JRadioButton actionAssign;
+	/** Art der auszulösenden Aktion: Analogwertzuweisung */
 	private final JRadioButton actionAnalog;
+	/** Art der auszulösenden Aktion: Signalauslöseung */
 	private final JRadioButton actionSignal;
+	/** Art der auszulösenden Aktion: Skriptausführung */
 	private final JRadioButton actionScript;
 
+	/** Eingabefeld für die Bedingung im Fall {@link #triggerCondition} */
 	private final JTextField conditionEdit;
+	/** Eingabefeld für den minimalen zeitlichen Abstand für zwei bedingungs-ausgelöste Aktionen im Fall {@link #triggerCondition} */
 	private final JTextField conditionMinDistanceEdit;
 
+	/** Eingabefeld für den Schwellenwert-Ausdruck im Fall {@link #triggerThreshold} */
 	private final JTextField thresholdExpressionEdit;
+	/** Eingabefeld für den Schwellenwert-Zahlenwert im Fall {@link #triggerThreshold} */
 	private final JTextField thresholdValueEdit;
+	/** Option: Schwellenwert muss für Signalauslösung überschritten werden (im Fall {@link #triggerThreshold}) */
 	private final JRadioButton thresholdDirectionUp;
+	/** Option: Schwellenwert muss für Signalauslösung unterschritten werden (im Fall {@link #triggerThreshold}) */
 	private final JRadioButton thresholdDirectionDown;
 
-	private final JRadioButton triggerSignal;
+	/** Signal das die Aktion auslöst im Fall {@link #triggerSignal} */
 	private final JComboBox<String> triggerSignalName;
 
+	/** Textfeld für den Variablennamen bei einer {@link #actionAssign} Aktion */
 	private final JTextField assignVariableEdit;
+	/** Textfeld für den Ausdruck für die Variablenzuweisung bei einer {@link #actionAssign} Aktion */
 	private final JTextField assignExpressionEdit;
 
+	/** Namen aller Analogwert-Stationen */
 	private String[] analogIDNames;
+	/** Stations-IDs aller Analogwert-Stationen */
 	private int[] analogIDs;
+	/** Auswahlfeld für das analoge Element bei einer {@link #actionAnalog} Aktion */
 	private final JComboBox<String> analogElementCombo;
+	/** Textfeld für den Wert für eine analoger Wert Zuweisung bei einer {@link #actionAnalog} Aktion */
 	private final JTextField analogExpressionEdit;
 
+	/** Textfeld für das auszulösende Signal bei einer {@link #actionSignal} Aktion */
 	private final JTextField signalNameEdit;
 
+	/** Textfeld für das auszuführende Skript bei einer {@link #actionScript} Aktion */
 	private final ScriptEditorPanel scriptEdit;
 
 	/**
@@ -341,6 +365,11 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Fügt einen Tasten-Listener zu einem Feld hinzu
+	 * @param field	Feld das einen neuen Tasten-Listener erhalten soll
+	 * @param work	Wird aufgerufen, wenn in dem Feld eine Taste gedrückt oder losgelassen wird
+	 */
 	private void addKeyListener(final Component field, final Runnable work) {
 		field.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {if (work!=null) work.run(); checkData(false);}
@@ -349,6 +378,12 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		});
 	}
 
+	/**
+	 * Erstellt Listen mit Namen und IDs der Analogwert-Stationen
+	 * @param mainSurface	Hauptzeichenfläche
+	 * @see #analogIDNames
+	 * @see #analogIDs
+	 */
 	private void buildAnalogIDNames(final ModelSurface mainSurface) {
 		final List<String> names=new ArrayList<>();
 		final List<Integer> ids=new ArrayList<>();
@@ -374,6 +409,12 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		analogIDs=ids.stream().mapToInt(Integer::intValue).toArray();
 	}
 
+	/**
+	 * Fügt eine Variablen zu einer Variablenliste hinzu (wenn die neue Variable nicht sowieso schon enthalten ist)
+	 * @param defaultVariablesList	Ausgangs-Variablenliste
+	 * @param add	Hinzuzufügender Variablennamen
+	 * @return	Neue Variablenliste die den zusätzlichen Variablennamen auf jeden Fall enthält
+	 */
 	private String[] getExtVariablesList(final String[] defaultVariablesList, final String add) {
 		if (add==null || add.trim().isEmpty()) return defaultVariablesList;
 		for (String s: defaultVariablesList) if (s.equalsIgnoreCase(add)) return defaultVariablesList;

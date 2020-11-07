@@ -47,9 +47,13 @@ public class ModelElementInteractiveSliderDialog extends ModelElementBaseDialog 
 	 */
 	private static final long serialVersionUID = -7524897419484118673L;
 
+	/** Eingabefeld für den Variablennamen */
 	private JTextField editVariable;
+	/** Eingabefeld für den Minimalwert */
 	private JTextField editMinValue;
+	/** Eingabefeld für den Maximalwert */
 	private JTextField editMaxValue;
+	/** Eingabefeld für die Schrittweite */
 	private JTextField editStep;
 
 	/**

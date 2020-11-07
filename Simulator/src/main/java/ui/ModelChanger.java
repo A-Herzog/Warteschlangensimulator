@@ -59,6 +59,13 @@ public class ModelChanger {
 	 */
 	private ModelChanger() {}
 
+	/**
+	 * Ändert einen Wert in einer Verteilung
+	 * @param xmlChangeMode	Art der Änderung (siehe <code>XML_ELEMENT_MODES</code>)
+	 * @param oldValue	Alte Verteilung (oder alte Zahl)
+	 * @param newValue	Einzutragender Zahlenwert
+	 * @return	Neue Verteilung (oder neue Zahl)
+	 */
 	private static String changeElementValue(final int xmlChangeMode, final String oldValue, final double newValue) {
 		if (xmlChangeMode==0) {
 			return NumberTools.formatNumber(newValue);
@@ -79,7 +86,16 @@ public class ModelChanger {
 		}
 	}
 
-	private static String changeElement(Scanner selectors, final int xmlChangeMode, Element parent, List<String> parentTags, double newValue) {
+	/**
+	 * Ändert den Wert eines XML-Objekt
+	 * @param selectors	Zusammenstellung der Pfad-Komponenten
+	 * @param xmlChangeMode	Art der Änderung (siehe <code>XML_ELEMENT_MODES</code>)
+	 * @param parent	Übergeordnetes XML-Element
+	 * @param parentTags	Namen der übergeordneten Elemente
+	 * @param newValue	Neuer Wert für das XML-Objekt
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
+	private static String changeElement(final Scanner selectors, final int xmlChangeMode, final Element parent, final List<String> parentTags, final double newValue) {
 		/* Selektor dekodieren */
 		String sel=selectors.next();
 		String tag=sel, attr="", attrValue="";
@@ -157,7 +173,15 @@ public class ModelChanger {
 		return changeElement(selectors,xmlChangeMode,searchResult,tags,newValue);
 	}
 
-	private static String changeElement(Scanner selectors, Element parent, List<String> parentTags, String newValue) {
+	/**
+	 * Ändert den Wert eines XML-Objekt
+	 * @param selectors	Zusammenstellung der Pfad-Komponenten
+	 * @param parent	Übergeordnetes XML-Element
+	 * @param parentTags	Namen der übergeordneten Elemente
+	 * @param newValue	Neuer Wert für das XML-Objekt
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
+	private static String changeElement(final Scanner selectors, final Element parent, final List<String> parentTags, final String newValue) {
 		/* Selektor dekodieren */
 		String sel=selectors.next();
 		String tag=sel, attr="", attrValue="";
@@ -229,7 +253,15 @@ public class ModelChanger {
 		return changeElement(selectors,searchResult,tags,newValue);
 	}
 
-	private static String getElement(Scanner selectors, final int xmlChangeMode, Element parent, List<String> parentTags) {
+	/**
+	 * Liefert den Wert eines XML-Objekt
+	 * @param selectors	Zusammenstellung der Pfad-Komponenten
+	 * @param xmlChangeMode	Art der Änderung (siehe <code>XML_ELEMENT_MODES</code>)
+	 * @param parent	Übergeordnetes XML-Element
+	 * @param parentTags	Namen der übergeordneten Elemente
+	 * @return	Liefert den Wert des Elements oder eine Fehlermeldung
+	 */
+	private static String getElement(final Scanner selectors, final int xmlChangeMode, final Element parent, final List<String> parentTags) {
 		/* Selektor dekodieren */
 		String sel=selectors.next();
 		String tag=sel, attr="", attrValue="";
@@ -326,6 +358,14 @@ public class ModelChanger {
 		}
 	}
 
+	/**
+	 * Verändert einen Ressourcen-Wert in einem Modell
+	 * @param originalModel	Ausgangsmodell
+	 * @param tag	Ressource, deren Wert geändert werden soll
+	 * @param value	Neuer einzutragender Wert
+	 * @return	Gibt im Erfolgsfall ein neues Modell vom Typ <code>EditModel</code> zurück. Im Fehlerfall wird eine Fehlermeldung als String zurückgegeben.
+	 * @see #changeModel(EditModel, Mode, String, int, double)
+	 */
 	private static Object changeModelRes(final EditModel originalModel, final String tag, final double value) {
 		int intValue=(int)Math.max(0,Math.round(value));
 
@@ -338,6 +378,14 @@ public class ModelChanger {
 		return editModel;
 	}
 
+	/**
+	 * Verändert einen Variablen-Wert in einem Modell
+	 * @param originalModel	Ausgangsmodell
+	 * @param tag	Variable, deren Wert geändert werden soll
+	 * @param value	Neuer einzutragender Wert
+	 * @return	Gibt im Erfolgsfall ein neues Modell vom Typ <code>EditModel</code> zurück. Im Fehlerfall wird eine Fehlermeldung als String zurückgegeben.
+	 * @see #changeModel(EditModel, Mode, String, int, double)
+	 */
 	private static Object changeModelVar(final EditModel originalModel, final String tag, final double value) {
 		final EditModel editModel=originalModel.clone();
 
@@ -353,6 +401,15 @@ public class ModelChanger {
 		return editModel;
 	}
 
+	/**
+	 * Verändert einen XML-Tag-Wert in einem Modell
+	 * @param originalModel	Ausgangsmodell
+	 * @param tag	XML-Tag, derren Inhalt geändert werden soll
+	 * @param xmlChangeMode	Art der Änderung (siehe <code>XML_ELEMENT_MODES</code>)
+	 * @param value	Neuer einzutragender Wert
+	 * @return	Gibt im Erfolgsfall ein neues Modell vom Typ <code>EditModel</code> zurück. Im Fehlerfall wird eine Fehlermeldung als String zurückgegeben.
+	 * @see #changeModel(EditModel, Mode, String, int, double)
+	 */
 	private static Object changeModelXML(final EditModel originalModel, final String tag, final int xmlChangeMode, final double value) {
 		final Document xmlDoc=originalModel.saveToXMLDocument();
 		if (xmlDoc==null) return Language.tr("Batch.Parameter.XMLTag.NotAbleToSave");
@@ -387,6 +444,14 @@ public class ModelChanger {
 		}
 	}
 
+	/**
+	 * Verändert einen Ressourcen-Wert in einem Modell
+	 * @param originalModel	Ausgangsmodell
+	 * @param tag	Ressource, deren Wert geändert werden soll
+	 * @param value	Neuer einzutragender Wert
+	 * @return	Gibt im Erfolgsfall ein neues Modell vom Typ <code>EditModel</code> zurück. Im Fehlerfall wird eine Fehlermeldung als String zurückgegeben.
+	 * @see #changeModel(EditModel, int, String, String)
+	 */
 	private static Object changeModelRes(final EditModel originalModel, final String tag, final String value) {
 		final Integer I=NumberTools.getInteger(value);
 		if (I==0 || I<0) return String.format(Language.tr("Batch.Parameter.Changed.InvalidValueForResource"),value,tag);
@@ -401,6 +466,14 @@ public class ModelChanger {
 		return editModel;
 	}
 
+	/**
+	 * Verändert einen Variablen-Wert in einem Modell
+	 * @param originalModel	Ausgangsmodell
+	 * @param tag	Variable, deren Wert geändert werden soll
+	 * @param value	Neuer einzutragender Wert
+	 * @return	Gibt im Erfolgsfall ein neues Modell vom Typ <code>EditModel</code> zurück. Im Fehlerfall wird eine Fehlermeldung als String zurückgegeben.
+	 * @see #changeModel(EditModel, int, String, String)
+	 */
 	private static Object changeModelVar(final EditModel originalModel, final String tag, final String value) {
 		final EditModel editModel=originalModel.clone();
 
@@ -416,6 +489,14 @@ public class ModelChanger {
 		return editModel;
 	}
 
+	/**
+	 * Verändert einen XML-Tag-Wert in einem Modell
+	 * @param originalModel	Ausgangsmodell
+	 * @param tag	XML-Tag, dessen Inhalt geändert werden soll
+	 * @param value	Neuer einzutragender Wert
+	 * @return	Gibt im Erfolgsfall ein neues Modell vom Typ <code>EditModel</code> zurück. Im Fehlerfall wird eine Fehlermeldung als String zurückgegeben.
+	 * @see #changeModel(EditModel, int, String, String)
+	 */
 	private static Object changeModelXML(final EditModel originalModel, final String tag, final String value) {
 		final Document xmlDoc=originalModel.saveToXMLDocument();
 		if (xmlDoc==null) return Language.tr("Batch.Parameter.XMLTag.NotAbleToSave");

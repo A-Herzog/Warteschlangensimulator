@@ -67,6 +67,13 @@ public class JSEngineScriptEngine extends JSEngine {
 		return engine.getClass().getSimpleName();
 	}
 
+	/**
+	 * Löscht bestimmte Klassen und Methoden aus der Javascript-zu-Java-Bindung
+	 * um sicher zu stellen, dass von Javascript aus nicht auf die Funktionen
+	 * des Hauptprogramms bzw. der Java-Umgebung zugegriffen werden kann.
+	 * @param bindings	Javascript-zu-Java-Bindung
+	 * @see #initEngine(ScriptEngine, Map)
+	 */
 	private void disableJavaClassAccess(final Map<String,Object> bindings) {
 		bindings.put("com",null);
 		bindings.put("java",null);
@@ -87,7 +94,17 @@ public class JSEngineScriptEngine extends JSEngine {
 		bindings.remove("readFully");
 	}
 
+	/**
+	 * Später auszuführendes Skript
+	 * @see #initScript(String)
+	 */
 	private String script;
+
+	/**
+	 * In ein Objekt übersetztes Skript {@link #script}.
+	 * @see #script
+	 * @see #initScript(String)
+	 */
 	private CompiledScript compiledScript;
 
 	@Override

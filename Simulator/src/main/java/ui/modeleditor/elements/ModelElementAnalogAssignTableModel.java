@@ -51,8 +51,11 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 	private final Runnable help;
 	/** {@link ModelElementAnalogAssign}-Element welches die Zuweisungen enthält */
 	private final ModelElementAnalogAssign element;
+	/** Liste der "Analoger Wert"-Element-IDs, an denen Änderungen vorgenommen werden sollen */
 	private final List<Integer> changeID;
+	/** Liste der Änderungs-Modi (Wert oder Rate) */
 	private final List<ModelElementAnalogAssign.ChangeMode> changeMode;
+	/** Liste der Ausdrücke, deren Werte an die Stationen zugewiesen werden sollen */
 	private final List<String> changeExpression;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
@@ -98,6 +101,11 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 		return 4;
 	}
 
+	/**
+	 * Liefert den Namen einer Analogwert-Station zu einer ID
+	 * @param index	ID der Station
+	 * @return	Name der Station
+	 */
 	private String getChangeID(final int index) {
 		final int id=changeID.get(index);
 		final ModelElement elementID=element.getSurface().getByIdIncludingSubModels(id);
@@ -194,11 +202,20 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 		element.getChangeExpression().addAll(changeExpression);
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Eintrag bearbeiten oder hinzufügen, 1: Eintrag löschen, 2: Nach oben verschieben, 3: Nach unten verschieben) */
 		private final int col;
 		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Auszuführender Befehl (0: Eintrag bearbeiten oder hinzufügen, 1: Eintrag löschen, 2: Nach oben verschieben, 3: Nach unten verschieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;

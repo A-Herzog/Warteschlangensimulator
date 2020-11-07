@@ -49,9 +49,13 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
+	/** Eingabefeld für die Kosten an der Station */
 	private JTextField stationCosts;
+	/** Eingabefeld für die zusätzlichen Kunden-Wartezeit-Kosten */
 	private JTextField clientWaitingCosts;
+	/** Eingabefeld für die zusätzlichen Kunden-Transferzeit-Kosten */
 	private JTextField clientTransferCosts;
+	/** Eingabefeld für die zusätzlichen Kunden-Bedienzeit-Kosten */
 	private JTextField clientProcessCosts;
 
 	/**

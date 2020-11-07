@@ -40,6 +40,9 @@ public class ModelElementAnalogAssignDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 5452639514092710192L;
 
+	/**
+	 * Liste mit den Zuweisungsdatensätzen
+	 */
 	private ModelElementAnalogAssignTableModel tableData;
 
 	/**

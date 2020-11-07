@@ -58,16 +58,24 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
+	/** Liste mit allen Kundentyp im Modell */
 	private List<String> clientTypes;
 
+	/** Eingabefeld für die auf dem Fließband verfügbare Kapazität */
 	private JTextField capacityAvailable;
+	/** Eingabefeld für den im allgemeinen gültige Formel zur Bestimmung des Platzbedarfes */
 	private JTextField capacityNeededGlobal;
+	/** Liste der der Formeln zur Bestimmung des Platzbedarfes pro Kundentyp */
 	private List<JTextField> capacityNeeded;
 
+	/** Auswahlbox für die Zeiteinheit in {@link #transportTime} */
 	private JComboBox<String> timeBase;
+	/** Eingabefeld für die Zeit, die notwendig ist, um einen Kunden von der einen zur anderen Seite des Fließbandes zu befördern */
 	private JTextField transportTime;
+	/** Auswahlbox für den Statistiktyp als was die Transportzeit erfasst werden soll */
 	private JComboBox<String> transportTimeType;
 
+	/** Auswahlbox für die Bewegungsrichtung */
 	private JComboBox<String> moveDirection;
 	private JTextField conveyorSize;
 

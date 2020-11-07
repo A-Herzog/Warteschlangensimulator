@@ -50,11 +50,25 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 2643627718628007295L;
 
+	/**
+	 * Eingabefeld für die Anzahl an einlaufenden Kanten
+	 */
 	private SpinnerModel inputField;
+
+	/**
+	 * Eingabefeld für die Anzahl an auslaufenden Kanten
+	 */
 	private SpinnerModel outputField;
 
+	/**
+	 * Beschreibung für das Untermodell
+	 */
 	private JTextArea description;
 
+	/**
+	 * Liefert <code>true</code>, wenn nach dem Schließen dieses Dialogs der Untermodell-Editor geöffnet werden soll
+	 * @see #getOpenEditor()
+	 */
 	private boolean openEditor;
 
 	/**

@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 import tools.SetupData;
 
 /**
- * Diese Klasse stellt ein im Hintergrund arbeitendes Singelton zur Verfügung,
+ * Diese Klasse stellt ein im Hintergrund arbeitendes Singleton zur Verfügung,
  * welches von GUI-Klassen zum Betrieb eines Simulationsservers, der nicht
  * dauerhaft sichtbar sein muss, verwendet werden kann.
  * @author Alexander Herzog
@@ -37,11 +37,35 @@ public class SimulationServerGUIConnect {
 	 */
 	private static final int MAX_LINES=1_000;
 
+	/**
+	 * Internes Server-Objekt
+	 * @see #startServer(int, String, boolean)
+	 * @see #stopServer()
+	 * @see #isServerRunning()
+	 */
 	private SimulationServer server;
+
+	/**
+	 * Ausgaben des Servers
+	 */
 	private final List<String> output;
+
+	/**
+	 * Absicherung paralleler Zugriffe auf {@link #output}
+	 * @see #output
+	 */
 	private final Semaphore lock;
+
+	/**
+	 * Listener, die über Ausgaben des Servers benachrichtigt werden sollen
+	 * @see #output(String)
+	 * @see #output
+	 */
 	private final Set<Consumer<List<String>>> listeners;
-	/** Referenz auf das Setup-Singleton */
+
+	/**
+	 * Referenz auf das Setup-Singleton
+	 */
 	private final SetupData setup;
 
 	/**
@@ -57,6 +81,10 @@ public class SimulationServerGUIConnect {
 		setup=SetupData.getSetup();
 	}
 
+	/**
+	 * Instanz dieser Klasse
+	 * @see #getInstance()
+	 */
 	private static SimulationServerGUIConnect instance=null;
 
 	/**
@@ -176,6 +204,11 @@ public class SimulationServerGUIConnect {
 		listeners.clear();
 	}
 
+	/**
+	 * Schreibt eine Zeile in {@link #output}
+	 * @param line	Auszugebende Zeile
+	 * @see #output
+	 */
 	private void output(final String line) {
 		lock.acquireUninterruptibly();
 		try {

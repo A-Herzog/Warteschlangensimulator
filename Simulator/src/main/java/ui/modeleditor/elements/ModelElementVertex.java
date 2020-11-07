@@ -209,8 +209,22 @@ public final class ModelElementVertex extends ModelElementPosition implements Mo
 		}
 	}
 
+	/**
+	 * Zoomlevel für den {@link #infoFont} gilt.
+	 */
 	private double infoFontZoom;
+
+	/**
+	 * Schriftart für die Verwendung in {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font infoFont;
+
+	/**
+	 * Höhe der Schriftart über der Basislinie
+	 * @see #infoFont
+	 * @see #infoFontZoom
+	 */
 	private int infoFontAscent;
 
 	/**

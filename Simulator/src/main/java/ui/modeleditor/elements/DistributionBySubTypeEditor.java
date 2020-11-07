@@ -77,7 +77,9 @@ public class DistributionBySubTypeEditor extends JPanel {
 		MODE_TRANSPORT_DESTINATION
 	}
 
+	/** Bezeichner für die Verteilungseditor {@link CardLayout}-Karte */
 	private static final String cardDistribution="Distribution";
+	/** Bezeichner für die Formeleingabe {@link CardLayout}-Karte */
 	private static final String cardExpression="Expression";
 
 	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
@@ -86,19 +88,30 @@ public class DistributionBySubTypeEditor extends JPanel {
 	private final ModelSurface surface;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Namen der Untertypen (Kundentypen oder Transportziele) */
 	private final String[] subTypes;
 	/** Im Konstruktor übergebenes Datenobjekt in das bei {@link #storeData()} die Daten zurückgeschrieben werden */
 	private final DistributionSystem sourceData;
+	/** Temporäres Datenobjekt für die Arbeit in dem Panel; bei Erfolg werden die Daten am Ende in {@link #sourceData} zurückgeschrieben */
 	private final DistributionSystem data;
 
+	/** Index des zuletzt in {@link #subTypeSelect} ausgewählten Eintrags */
 	private int subTypeLast;
+	/** Auswahl des aktiven Untertypen-Eintrags */
 	private final JComboBox<String> subTypeSelect;
+	/** Informationstext, der anzeigt ob Einstellungen für bestimmte Untertypen vorhanden sind */
 	private final JLabel localIsActive;
+	/** Globale Vorgabe für den aktuellen Untertyp verwenden? */
 	private final JCheckBox useGlobal;
+	/** Auswahl: Verteilung oder Rechenausdruck */
 	private final JComboBox<String> modeSelect;
+	/** Panel das Verteilungseditor und Formel-Eingabefeld vorhält */
 	private final JPanel cards;
+	/** Verteilungseditor */
 	private final JDistributionPanel distributionPanel;
+	/** Panel für das Formel-Eingabefeld */
 	private final JPanel expressionLines;
+	/** Eingabefeld für die Formel */
 	private final JTextField expressionEdit;
 
 	/**
@@ -283,6 +296,15 @@ public class DistributionBySubTypeEditor extends JPanel {
 		sourceData.setData(data);
 	}
 
+	/**
+	 * Stellt die aktive Karte in {@link #cards} ein,
+	 * d.h. wechselt zwischen Verteilungseditor und Formeleingabe.
+	 * @param cardName	Name der anzuzeigenden Karte
+	 * @see #cardDistribution
+	 * @see #cardExpression
+	 * @see #cards
+	 * @see #modeSelect
+	 */
 	private void setCard(final String cardName) {
 		((CardLayout)cards.getLayout()).show(cards,cardName);
 
@@ -296,6 +318,9 @@ public class DistributionBySubTypeEditor extends JPanel {
 		});
 	}
 
+	/**
+	 * Prüft den eingegeben Rechenausdruck.
+	 */
 	private void checkExpression() {
 		if (expressionEdit.getText().trim().isEmpty()) {
 			expressionEdit.setBackground(Color.red);
@@ -306,6 +331,11 @@ public class DistributionBySubTypeEditor extends JPanel {
 		if (error>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(SystemColor.text);
 	}
 
+	/**
+	 * Wird aufgerufen, wenn ein anderer darzustellender Untertyp ausgewählt wurde.
+	 * @see #subTypeLast
+	 * @see #subTypeSelect
+	 */
 	private void activeClientTypeChanged() {
 		if (subTypeLast>=0 && !readOnly) {
 			final String clientTypeName=(subTypeLast==0)?null:subTypes[subTypeLast-1];

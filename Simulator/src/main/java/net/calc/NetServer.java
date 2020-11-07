@@ -162,6 +162,7 @@ public abstract class NetServer {
 		private final long id;
 		/** Verbindungs-Socket zum Anfragesteller */
 		private final Socket runSocket;
+		/** Ist dies die erste Logging-Ausgabe? (Wenn ja, erst noch Verbindungs-Info ausgeben.) */
 		private boolean firstLog=true;
 
 		/**
@@ -179,6 +180,11 @@ public abstract class NetServer {
 			}
 		}
 
+		/**
+		 * Führt die eigentliche Verarbeitung innerhalb des Threads durch.
+		 * @return	Liefert <code>true</code>, wenn die Verarbeitung erfolgreich abgeschlossen werden konnte
+		 * @see #run()
+		 */
 		private boolean processServerTask() {
 			try {
 				process(new NetTransfer(runSocket,compress,key,maxTransferSize),s->{

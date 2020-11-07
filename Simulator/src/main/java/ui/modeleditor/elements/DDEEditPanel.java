@@ -56,9 +56,13 @@ public class DDEEditPanel extends JPanel {
 	/** Hilfe-Runnable */
 	private final Runnable helpRunnable;
 
+	/** Eingabefeld für die Arbeitsmappe */
 	private final JTextField editWorkbook;
+	/** Eingabefeld für die Tabelle innerhalb der Arbeitsmappe */
 	private final JTextField editTable;
+	/** Eingabefeld für die erste zu berücksichtigende Zeile in der Tabelle */
 	private final JTextField editStartRow;
+	/** Eingabefeld für die zu lesende Spalte in der Tabelle */
 	private final JTextField editColumn;
 
 	/**
@@ -155,6 +159,13 @@ public class DDEEditPanel extends JPanel {
 		checkData(false);
 	}
 
+	/**
+	 * Reagiert auf die Schaltfläche zur Auswahl von Arbeitsmappe und Tabelle
+	 * und zeigt {@link DDEEditPanelDialog} zur Auswahl an.
+	 * @see DDEEditPanelDialog
+	 * @see #editWorkbook
+	 * @see #editTable
+	 */
 	private void selectDDEData() {
 		final Map<String,List<String>> list=new DDEConnect().listTables();
 		if (list.size()==0) {

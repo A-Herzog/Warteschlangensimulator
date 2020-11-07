@@ -47,6 +47,11 @@ public class HandlerStatus extends HandlerText {
 		return text.replace("\"","\\\"");
 	}
 
+	/**
+	 * Liefert ein json-Objekt mit Daten zu Modell und Simulator zurück.
+	 * @param mainPanel	Hauptpanel des Simulators
+	 * @return	json-Objekt mit Daten zu Modell und Simulator zurück
+	 */
 	private static String getStatus(final MainPanel mainPanel) {
 		final EditorPanel editorPanel=mainPanel.editorPanel;
 		final EditModel model=editorPanel.getModel();

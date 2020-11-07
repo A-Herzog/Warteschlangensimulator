@@ -44,6 +44,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	private SimulationData simData;
 	/** Aktueller Kunde (kann auch <code>null</code> sein) */
 	private RunDataClient client;
+	/** Eingangsgröße (z.B. aus einer Datei geladener Zahlenwert) */
 	private double inputValue;
 	/**
 	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
@@ -439,6 +440,11 @@ public final class JSCommandSystem extends JSBaseCommand {
 		return simData.statistics.clientsInSystemQueues.getCurrentState();
 	}
 
+	/**
+	 * Liefert den Index einer Variable in RunModel#variableName
+	 * @param variableName	Name der Variable
+	 * @return	Index der Variable (kann -1 für "nicht gefunden" und -2-x für  Kundendatenfeld x sein)
+	 */
 	private int getVariableIndex(final String variableName) {
 		if (simData==null) return -1;
 
@@ -452,6 +458,12 @@ public final class JSCommandSystem extends JSBaseCommand {
 		return -1;
 	}
 
+	/**
+	 * Stellt den Wert einer Variable ein.
+	 * @param index	Index der Variable ({@link #getVariableIndex(String)})
+	 * @param value	Neuer Wert für die Variable
+	 * @see #getVariableIndex(String)
+	 */
 	private void setValueInt(final int index, final double value) {
 		if (simData==null) return;
 		if (index>=0) {
@@ -504,11 +516,21 @@ public final class JSCommandSystem extends JSBaseCommand {
 		}
 	}
 
+	/**
+	 * Liefert basierend auf einer ID die zugehörige Station.
+	 * @param id	ID für die die Station gesucht werden soll
+	 * @return	Stationsobjekt oder <code>null</code>, wenn keine zu der ID passende Station gefunden wurde
+	 */
 	private RunElement getRunElement(final int id) {
 		if (id<0 || id>=simData.runModel.elementsFast.length) return null;
 		return simData.runModel.elementsFast[id];
 	}
 
+	/**
+	 * Liefert basierend auf einer ID die zugehörige Station.
+	 * @param id	ID für die die Station gesucht werden soll
+	 * @return	Stationsobjekt oder <code>null</code>, wenn keine zu der ID passende Station gefunden wurde
+	 */
 	private RunElement getRunElement(final Object id) {
 		if (id==null) return null;
 		if (id instanceof Integer) return getRunElement(((Integer)id).intValue());
@@ -527,6 +549,11 @@ public final class JSCommandSystem extends JSBaseCommand {
 		return null;
 	}
 
+	/**
+	 * Berechnet einen Ausdruck im Kontext der Simulation.
+	 * @param value	Zu berechnender Ausdruck
+	 * @return	Ergebnis der Berechnung oder <code>null</code>, wenn der Ausdruck nicht berechnet werden konnte
+	 */
 	private Double evaluateValue(final Object value) {
 		if (value instanceof Double) return (Double)value;
 		if (value instanceof Integer) return ((Integer)value).doubleValue();

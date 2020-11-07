@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Vector;
 
 import fi.iki.elonen.NanoHTTPD;
-import simulator.editmodel.EditModel;
 
 /**
  * Diese Klasse kapselt einen Webserver, der
@@ -29,6 +28,9 @@ import simulator.editmodel.EditModel;
  * @see WebServerHandler
  */
 public class WebServer {
+	/**
+	 * Internes HTTP-Server-Objekt
+	 */
 	private ServerSystem serverSystem;
 
 	/**
@@ -53,12 +55,16 @@ public class WebServer {
 		return handlers;
 	}
 
+	/**
+	 * Internes HTTP-Server
+	 * @see NanoHTTPD
+	 */
 	private class ServerSystem extends NanoHTTPD {
+		/**
+		 * Konstruktor der Klasse
+		 * @param port	Portnummer auf dem der Server auf Anfragen reagieren soll
+		 */
 		public ServerSystem(final int port) {
-			super(port);
-		}
-
-		public ServerSystem(final int port, final EditModel model) {
 			super(port);
 		}
 

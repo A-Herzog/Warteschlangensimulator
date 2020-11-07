@@ -33,6 +33,7 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @see RunElementData
  */
 public class RunElementDifferentialCounterData extends RunElementData implements RunElementDataWithValue {
+	/** Wert der Änderung des Zählers, wenn ein Kunde die Station passiert */
 	private final int change;
 	private int valueIndex;
 	private final StatisticsTimePerformanceIndicator statistic;

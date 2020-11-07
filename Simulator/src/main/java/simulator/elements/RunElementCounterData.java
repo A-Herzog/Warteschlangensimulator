@@ -36,8 +36,21 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 	 */
 	public final StatisticsSimpleCountPerformanceIndicator statistic;
 
+	/**
+	 * Zugehöriges Statistikobjekt
+	 */
 	private final StatisticsMultiPerformanceIndicator counterStatistic;
+
+	/**
+	 * Name der Zählergruppe in ggf. für die Statistik angepassten Schreibweise
+	 */
 	private final String groupName;
+
+	/**
+	 * Name der Zählergruppe mit angehängtem "-", so dass bei der Zählung
+	 * alle passenden Zähler in der Gruppe in der Statistik leichter
+	 * bzw. speichersparsamer gefunden werden können
+	 */
 	private final String groupNameExt;
 
 	private StatisticsSimpleCountPerformanceIndicator[] indicators;

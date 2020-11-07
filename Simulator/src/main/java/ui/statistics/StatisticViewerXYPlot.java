@@ -79,6 +79,11 @@ public class StatisticViewerXYPlot extends StatisticViewerJFreeChart {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Liefert die Station mit Namen {@link #data}
+	 * @param surface	Haupt-Zeichenfläche
+	 * @return	Stationsobjekt oder <code>null</code>, wenn keine Aufteichnungsstation mit dem entsprechenden Namen gefunden wurde
+	 */
 	private final ModelElementRecord getStation(final ModelSurface surface) {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementRecord && element.getName().equals(data)) return (ModelElementRecord)element;
@@ -90,6 +95,10 @@ public class StatisticViewerXYPlot extends StatisticViewerJFreeChart {
 		return null;
 	}
 
+	/**
+	 * Liefert die Rechenausdrücke für die x- und y-Werte an der Station mit Namen {@link #data}
+	 * @return	x- und y-Rechenasudrücke an der Station
+	 */
 	private String[] getExpressions() {
 		final ModelElementRecord record=getStation(statistics.editModel.surface);
 		if (record==null) return new String[]{Language.tr("Statistics.Value1"),Language.tr("Statistics.Value2")};

@@ -73,12 +73,24 @@ public class SimulationServer extends NetServer {
 		simulationCount=0;
 	}
 
+	/**
+	 * Liefert eine Fehlermeldung zum Clienten zurück.
+	 * @param transfer	Transfer-Objekt
+	 * @param log	Eigenes System zu Erfassung von Meldungen
+	 * @param message	Auszugebende Meldung
+	 */
 	private void returnError(final NetTransfer transfer, final Consumer<String> log, final String message) {
 		transfer.sendByte(1);
 		transfer.sendString(message);
 		log.accept(message);
 	}
 
+	/**
+	 * Startet die Simulation
+	 * @param transfer	Transfer-Objekt
+	 * @param log	Eigenes System zu Erfassung von Meldungen
+	 * @return	Liefert im Erfolgsfall den gestarteten Simulator, sonst <code>null</code>
+	 */
 	private Simulator startSimulator(final NetTransfer transfer, final Consumer<String> log) {
 		/* Schon zu viele Threads? */
 		if (runningThreads>=Runtime.getRuntime().availableProcessors() && limitThreadCount) {
@@ -126,6 +138,11 @@ public class SimulationServer extends NetServer {
 		return simulator;
 	}
 
+	/**
+	 * Führt eine Simulation aus.
+	 * @param transfer	Transfer-Objekt
+	 * @param log	Eigenes System zu Erfassung von Meldungen
+	 */
 	private void processCommandSimulation(final NetTransfer transfer, final Consumer<String> log) {
 		final Simulator simulator=startSimulator(transfer,log);
 		if (simulator==null) return;
@@ -179,6 +196,11 @@ public class SimulationServer extends NetServer {
 		}
 	}
 
+	/**
+	 * Liefert Daten zu dem Server über das Transfer-Objekt zurück.
+	 * @param transfer	Transfer-Objekt
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean processCommandInfo(final NetTransfer transfer) {
 		final ByteArrayOutputStream info=new ByteArrayOutputStream();
 		final DataOutputStream writer=new DataOutputStream(info);
@@ -210,6 +232,15 @@ public class SimulationServer extends NetServer {
 		}
 	}
 
+	/**
+	 * Sender Statusinformationen im Rahmen einer laufenden Simulation an den Clienten.
+	 * @param transfer	Transfer-Objekt
+	 * @param simulator	Simulator der die aktuelle Simulation ausführt.
+	 * @param clientCount	Gesamtanzahl an zu simulierenden Kundenankünften
+	 * @param daysCount	 Gesamtanzahl an Wiederholungen in der Simulation
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 * @see #processCommandSimulation(NetTransfer, Consumer)
+	 */
 	private boolean sendInfo(final NetTransfer transfer, final Simulator simulator, final long clientCount, final long daysCount) {
 		transfer.sendByte(2);
 		final ByteArrayOutputStream info=new ByteArrayOutputStream();

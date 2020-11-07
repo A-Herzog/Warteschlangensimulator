@@ -147,6 +147,13 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Erzeugt ein Linien-Diagramm
+	 * @param title	Titel
+	 * @param indicator	Darzustellende Verteilungen
+	 * @param xLabel	Beschriftung der x-Achse
+	 * @param colorMap	Farben für die Linien
+	 */
 	private void requestDiagrammTimeDistribution(final String title, StatisticsMultiPerformanceIndicator indicator, final String xLabel, final Map<String,Color> colorMap) {
 		initLineChart(title);
 		setupChartTimePercent(title,xLabel,Language.tr("Statistics.Part"));
@@ -166,6 +173,11 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		smartZoom(1);
 	}
 
+	/**
+	 * Ist eine Verteilung auf 0 konzentriert?
+	 * @param dist	Zu prüfende Verteilung
+	 * @return	Verteilung auf 0 konzentriert?
+	 */
 	private boolean isDistNull(final DataDistributionImpl dist) {
 		if (dist==null) return true;
 		if (dist.densityData==null || dist.densityData.length<2) return true;
@@ -173,6 +185,14 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		return true;
 	}
 
+	/**
+	 * Erzeugt ein Zustands-Linien-Diagramm
+	 * @param title	Titel
+	 * @param indicator	Darzustellende Verteilungen
+	 * @param system	Darzustellende Gesamt-Verteilungen (kann <code>null</code> sein)
+	 * @param xLabel	Beschriftung der x-Achse
+	 * @param colorMap	Farben für die Linien
+	 */
 	private void requestDiagrammStateDistribution(final String title, StatisticsMultiPerformanceIndicator indicator, final StatisticsTimePerformanceIndicator system, final String xLabel, final Map<String,Color> colorMap) {
 		initLineChart(title);
 		setupChartValuePercent(title,xLabel,Language.tr("Statistics.Part"));
@@ -219,6 +239,11 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		smartZoom(1);
 	}
 
+	/**
+	 * Generiert ein Verteilungsdiagramm der Werte der Laufzeitstatistik.
+	 * @param title	Titel
+	 * @param indicator	Datenreihen
+	 */
 	private void requestDiagrammSpecialDistribution(final String title, StatisticsMultiPerformanceIndicator indicator) {
 		initLineChart(title);
 		setupChartTimeValue(title,Language.tr("Statistic.Viewer.Chart.Time"),Language.tr("Statistic.Viewer.Chart.Value"));
@@ -235,6 +260,13 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		smartZoom(1);
 	}
 
+	/**
+	 * Generiert ein Verteilungsdiagramm der an den Datenaufzeichnung-Stationen erfassten Werte.
+	 * @param title	Titel
+	 * @param name	Name der Datenreihe
+	 * @param values	Werte
+	 * @param count	Anzahl an Werten
+	 */
 	private void requestDiagrammDataCollection(final String title, final String name, final double[] values, final int count) {
 		initLineChart(title);
 		setupChartTimeValue(title,Language.tr("Statistic.Viewer.Chart.Time"),Language.tr("Statistic.Viewer.Chart.Value"));

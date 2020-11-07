@@ -72,22 +72,35 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	 */
 	private final String[] clientTypes;
 
+	/** Globale Verteilung */
 	private AbstractRealDistribution distribution;
+	/** Globale Rechenausdruck */
 	private String expression;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Verteilungen für die Untertypen */
 	private final List<AbstractRealDistribution> clientTypeDistribution;
+	/** Rechenausdrücke für die Untertypen */
 	private final List<String> clientTypeExpression;
+	/** Gewählter Modus für den globalen Fall */
 	private int modeGlobal;
+	/** Gewählte Modi für die Untertypen */
 	private final int[] modes;
 
+	/** Letzter in {@link #clientTypes} gewählter Eintrag */
 	private int clientTypeLast;
 
+	/** Auswahlbox zur Auswahl des Untertyp */
 	private final JComboBox<String> clientTypeSelect;
+	/** Sind Einstellung für diesen Kundentyp aktiv? */
 	private final JCheckBox clientTypeActive;
+	/** Aktueller Modus: Verteilung oder Rechenausdruck */
 	private final JComboBox<String> modeSelect;
+	/** Panel das den Verteilungseditor oder das Eingabefeld für den Rechenausdruck aufnimmt */
 	private final JPanel editArea;
+	/** Verteilungseditor */
 	private final JDistributionPanel distributionPanel;
+	/** Eingabefeld für den Rechenausdruck */
 	private final JTextField expressionEdit;
 
 	/**
@@ -173,6 +186,9 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		((JPanel)obj[0]).add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,true,model,surface),BorderLayout.EAST);
 	}
 
+	/**
+	 * Prüft den eingegebenen Rechenausdruck.
+	 */
 	private void checkExpression() {
 		if (!readOnly) {
 			String text=expressionEdit.getText().trim();
@@ -185,6 +201,9 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		}
 	}
 
+	/**
+	 * Wird aufgerufen, wenn sich die Eingabe in {@link #expressionEdit} ändert.
+	 */
 	private void expressionEditChanged() {
 		if (clientTypeSelect.getSelectedIndex()>0 && !readOnly && clientTypeActive.isSelected()) {
 			String expr=expression;
@@ -310,6 +329,11 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		return map;
 	}
 
+	/**
+	 * Wird aufgerufen, wenn zwischen Verteilungseditor und
+	 * Rechenausdruck-Eingabe umgeschaltet wird.
+	 * @see #modeSelect
+	 */
 	private void activeModeChanged() {
 		String card=(modeSelect.getSelectedIndex()==0)?"dist":"expr";
 		((CardLayout)editArea.getLayout()).show(editArea,card);
@@ -317,6 +341,11 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		if (modeSelect.getSelectedIndex()==1) checkExpression();
 	}
 
+	/**
+	 * Wird aufgerufen, wenn der aktuelle Kundentyp für den Editor geändert wurde.
+	 * @see #clientTypeLast
+	 * @see #clientTypeSelect
+	 */
 	private void activeClientTypeChanged() {
 		if (clientTypeLast>=0 && !readOnly) {
 			if (clientTypeLast==0) {

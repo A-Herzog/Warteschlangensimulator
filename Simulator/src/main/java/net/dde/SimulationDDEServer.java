@@ -28,6 +28,9 @@ import ui.statistics.StatisticsPanel;
  * @author Alexander Herzog
  */
 public class SimulationDDEServer extends DDEServerSystem {
+	/**
+	 * Name des Services über den der DDE-Server angesprochen werden können soll
+	 */
 	private static final String SERVICE_NAME="QS";
 
 	/**
@@ -41,6 +44,12 @@ public class SimulationDDEServer extends DDEServerSystem {
 	 */
 	private final MainPanel mainPanel;
 
+	/**
+	 * Timer, der in regelmäßigen Abständen {@link #updateTest()} aufruft.
+	 * @see #updateTest()
+	 * @see #startTimer()
+	 * @see #stopTimer()
+	 */
 	private Timer timer;
 
 	/**
@@ -67,6 +76,11 @@ public class SimulationDDEServer extends DDEServerSystem {
 		return instance;
 	}
 
+	/**
+	 * Startet den Timer zur Update-Prüfung.
+	 * @see #start()
+	 * @see #timer
+	 */
 	private void startTimer() {
 		timer=new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -74,6 +88,11 @@ public class SimulationDDEServer extends DDEServerSystem {
 		},500,500);
 	}
 
+	/**
+	 * Stoppt den Timer zur Update-Prüfung.
+	 * @see #stop()
+	 * @see #timer
+	 */
 	private void stopTimer() {
 		if (timer!=null) timer.cancel();
 		timer=null;
@@ -93,6 +112,10 @@ public class SimulationDDEServer extends DDEServerSystem {
 		return ok;
 	}
 
+	/**
+	 * Führt in Reaktion auf den DDE-"Step"-Befehl einen Animationsschritt aus.
+	 * @see #processCommand(String)
+	 */
 	private void doAnimationStep() {
 		if (mainPanel.currentPanel instanceof AnimationPanel) {
 			((AnimationPanel)mainPanel.currentPanel).step(true);
@@ -108,6 +131,10 @@ public class SimulationDDEServer extends DDEServerSystem {
 		try {Thread.sleep(50);} catch (InterruptedException e) {}
 	}
 
+	/**
+	 * Bricht in Reaktion auf den DDE-"Stop"-Befehl die Animation ab.
+	 * @see #processCommand(String)
+	 */
 	private void terminateAnimation() {
 		if (mainPanel.currentPanel instanceof AnimationPanel) {
 			((AnimationPanel)mainPanel.currentPanel).closeRequest();

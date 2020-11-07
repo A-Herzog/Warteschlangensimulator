@@ -46,7 +46,9 @@ public class ModelElementRecordDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 3703533906857752715L;
 
+	/** Rechenausdruck für die x-Werte */
 	private JTextField expression1;
+	/** Rechenausdruck für die y-Werte */
 	private JTextField expression2;
 
 	/**
@@ -73,6 +75,13 @@ public class ModelElementRecordDialog extends ModelElementBaseDialog {
 		return InfoPanel.stationRecord;
 	}
 
+	/**
+	 * Fügt ein Eingabefeld (inkl. Expression-Builder-Schaltfläche) zu einem Panel hinzu.
+	 * @param parent	Übergeordnetes Panel
+	 * @param label	Beschriftung für das Eingabefeld
+	 * @param value	Initialer Wert, der in dem Feld angezeigt werden soll
+	 * @return	Liefert das neue Eingabefeld (bereits in der übergeordnetes Panel eingefügt)
+	 */
 	private JTextField addTextField(final JPanel parent, final String label, final String value) {
 		final Object[] data=getInputPanel(label+":",value);
 		final JTextField expression=(JTextField)data[1];
@@ -100,6 +109,14 @@ public class ModelElementRecordDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Prüft die Formel in einem einem Eingabefeld
+	 * @param expression	Eingabefeld dessen Formel geprüft werden soll
+	 * @param showErrorMessage	Sollen Fehlermeldungen angezeigt werden?
+	 * @param errorExpression	Fehlermeldung für ungültige Formeln (mit zwei Platzhaltern: Formal als Zeichenkette und Fehlerstelle als Zahl)
+	 * @param errorEmpty	Fehlermeldung für leere Felder (wird hier <code>null</code> übergeben, so sind leere Eingaben gültig)
+	 * @return	Liefert <code>true</code>, wenn die Eingabe gültig ist.
+	 */
 	private boolean checkInput(final JTextField expression, final boolean showErrorMessage, final String errorExpression, final String errorEmpty) {
 		final String text=expression.getText();
 		if (!text.trim().isEmpty()) {

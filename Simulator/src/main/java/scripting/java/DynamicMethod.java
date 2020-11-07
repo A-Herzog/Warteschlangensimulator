@@ -24,17 +24,56 @@ import java.util.concurrent.Semaphore;
  * @author Alexander Herzog
  */
 public final class DynamicMethod {
+	/**
+	 * Fortlaufender Zähler für IDs in Klassennamen
+	 * @see #getNextClassID()
+	 */
 	private static long idCounter;
+
+	/**
+	 * Sichert die Aufrufe von {@link #getNextClassID()} ab.
+	 * @see #getNextClassID()
+	 */
 	private static final Semaphore mutex;
 
-	/** Einstellungen zum Laden der Methode */
+	/**
+	 * Einstellungen zum Laden der Methode
+	 */
 	private final DynamicSetup setup;
-	/** Text, der als java-Methode interpretiert werden soll. Der Text muss mit dem Rückgabewert beginnen, darf also keinen Access-Modifier enthalten. */
+
+	/**
+	 * Text, der als java-Methode interpretiert werden soll. Der Text muss mit dem Rückgabewert beginnen, darf also keinen Access-Modifier enthalten.
+	 */
 	private final String methodText;
+
+	/**
+	 * Name der zu generierenden Klasse
+	 */
 	private final String className;
+
+	/**
+	 * Vollständiger Text der Klassen-Datei
+	 */
 	private final String classText;
+
+	/**
+	 * Liefert optional eine zusätzliche Fehlermeldung, wenn das Laden nicht erfolgreich war.
+	 * @see #getError()
+	 */
 	private String error;
+
+	/**
+	 * Instanz der geladenen Klasse
+	 * @see #getDynamicObject()
+	 * @see #load()
+	 */
 	private Object dynamicObject;
+
+	/**
+	 * Aufzurufende Methode innerhalb von {@link #dynamicObject}
+	 * @see #initDynamicMethod()
+	 * @see #invokeDynamicMethod(Object)
+	 */
 	private Method dynamicMethod;
 
 	static {
@@ -42,6 +81,12 @@ public final class DynamicMethod {
 		idCounter=System.nanoTime()%1_000_000_000_000L;
 	}
 
+	/**
+	 * Erstellt einen eindeutigen (einmaligen) Klassennamen
+	 * @param id	Eindeutige, einmalige ID für den Klassennamen
+	 * @return		Klassenname
+	 * @see #getNextClassID()
+	 */
 	private static String buildClassID(long id) {
 		final StringBuilder sb=new StringBuilder();
 		while (id>0) {
@@ -52,6 +97,11 @@ public final class DynamicMethod {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert fortlaufende IDs die als Teil von {@link #className} verwendet
+	 * werden können, um systemweit eindeutige Klassennamen generieren zu können.
+	 * @return	Für das Gesamtsystem eindeutige fortlaufende ID für die Klassennamen
+	 */
 	private static String getNextClassID() {
 		mutex.acquireUninterruptibly();
 		try {
@@ -61,6 +111,11 @@ public final class DynamicMethod {
 		}
 	}
 
+	/**
+	 * Entfernt alle möglichen Modifizierer vor dem Namen der einzubindenden Methode.
+	 * @param methodText	Vollständiger Text der Methode inkl. möglichen Modifizierern vor dem Namen der Methode
+	 * @return	Text der Methode ohne Modifizierer vor dem Namen
+	 */
 	private String removeModifiers(String methodText) {
 		methodText=methodText.trim();
 		if (methodText.toLowerCase().startsWith("public ")) methodText=methodText.substring(7).trim();
@@ -93,6 +148,12 @@ public final class DynamicMethod {
 		classText=sb.toString();
 	}
 
+	/**
+	 * Liefert die Klasse, die zum Kompilieren und Laden der Klasse verwendet werden soll.
+	 * @return	Klasse, die zum Kompilieren und Laden der Klasse verwendet werden soll.
+	 * @see #test()
+	 * @see #load()
+	 */
 	private Class<? extends DynamicClassBase> getDynamicClassClass() {
 		return setup.getCompileMode().dynamicLoaderClass;
 	}
@@ -167,6 +228,12 @@ public final class DynamicMethod {
 		return false;
 	}
 
+	/**
+	 * Hält das Objekt zur Übergabe der Parameter an die benutzerdefinierte
+	 * Methode vor, um so das erneute Anlegen des Arrays für die
+	 * Parameter zu vermeiden.
+	 * @see #invokeDynamicMethod(Object)
+	 */
 	private final Object[] paramsHolder=new Object[1];
 
 	/**

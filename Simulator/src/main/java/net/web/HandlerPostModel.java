@@ -51,6 +51,11 @@ public class HandlerPostModel implements WebServerHandler {
 		this.mainPanel=mainPanel;
 	}
 
+	/**
+	 * Lädt das Modell aus einer xml- oder json-Datei.
+	 * @param file	Datei die das zu ladende Modell enthält
+	 * @return	Liefert im Erfolgsfall das Modell und im Fehlerfall eine Fehlermeldung
+	 */
 	private Object loadModel(final File file) {
 		EditModel model;
 
@@ -67,6 +72,11 @@ public class HandlerPostModel implements WebServerHandler {
 		return errorXML; /* Im Zweifelsfall den XML-Fehler zurückmelden. */
 	}
 
+	/**
+	 * Nimmt per Upload empfangene Daten entgegen und versucht auf der Basis ein Modell zu laden.
+	 * @param session	Anfragedaten
+	 * @return	Liefert eine Meldung (Fehler- oder Erfolgsmeldung) zu der Verarbeitung der Daten zurück
+	 */
 	private String processUpload(final IHTTPSession session) {
 		if (!(mainPanel.currentPanel instanceof EditorPanel) && !(mainPanel.currentPanel instanceof StatisticsPanel)) return Language.tr("WebServer.Upload.ErrorWrongMode");
 		if (mainPanel.editorPanel.isModelChanged()) return Language.tr("WebServer.Upload.ErrorModelChanged");

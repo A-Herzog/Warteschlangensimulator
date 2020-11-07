@@ -546,7 +546,9 @@ public class ModelElementTank extends ModelElementBox {
 	 * @see ModelElementTank
 	 */
 	public static class Valve {
+		/** Startwert für die Öffnung des Ventils */
 		private double initialValue;
+		/** Zeiteinheit für Festlegung des Ventildurchflusses pro Zeiteinheit */
 		private ModelSurface.TimeBase timeBase;
 
 		/**

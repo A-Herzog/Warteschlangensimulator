@@ -27,6 +27,9 @@ import ui.modeleditor.ModelSurface;
  * @see RunDataResource
  */
 public class RunDataResourceOperatorFull extends RunDataResourceOperator {
+	/**
+	 * Ausfalldatensätze für den Bediener
+	 */
 	private final RunDataResourceFailure[] failures;
 
 	/**

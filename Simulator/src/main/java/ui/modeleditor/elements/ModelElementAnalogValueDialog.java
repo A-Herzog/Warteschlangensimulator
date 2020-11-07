@@ -47,16 +47,30 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -4472904120653635356L;
 
+	/**
+	 * Umrechnungsfaktor um die Änderungsrate auf Sekunden zu normieren
+	 * @see #changeRateUnit
+	 * @see #analogNotifyUnit
+	 */
 	private static double[] MULTIPLY=new double[]{1,60,3600,86400};
 
+	/** Eingabefeld für den initialen Wert */
 	private JTextField initalValue;
+	/** Option: Minimalwert verwenden? */
 	private JCheckBox valueMinUse;
+	/** Eingabefeld für den Minimalwert */
 	private JTextField valueMin;
+	/** Option: Maximalwert verwenden? */
 	private JCheckBox valueMaxUse;
+	/** Eingabefeld für den Maximalwert */
 	private JTextField valueMax;
+	/** Eingabefeld für die Änderungsrate */
 	private JTextField changeRate;
+	/** Anzusetzende Zeiteinheit für die Änderungsrate */
 	private JComboBox<String> changeRateUnit;
+	/** Eingabefeld für den Änderungsbenachrichtigungsabstand */
 	private JTextField analogNotify;
+	/** Anzusetzende Zeiteinheit für den Änderungsbenachrichtigungsabstand */
 	private JComboBox<String> analogNotifyUnit;
 
 	/**
@@ -77,6 +91,13 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		setMinSizeRespectingScreensize(700,0);
 	}
 
+	/**
+	 * Lädt einen Wert in ein Eingabefeld und stellt die Zeiteinheiten-Auswahlbox passend ein.
+	 * @param value	Zu verwendender Wert
+	 * @param text	Eingabefeld in das der Wert (ggf. skaliert) eingetragen werden soll
+	 * @param unit	Zeiteinheiten-Auswahlbox
+	 * @param mul	Mit {@link #MULTIPLY} multiplizieren oder beim Umrechnen dadurch dividieren?
+	 */
 	private void loadValue(double value, final JTextField text, final JComboBox<String> unit, boolean mul) {
 		text.setEditable(!readOnly);
 		text.addKeyListener(new KeyListener() {
@@ -109,6 +130,14 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		unit.setSelectedIndex(index);
 	}
 
+	/**
+	 * Erstellt eine Eingabeoption bestehend aus Checkbox und Eingabefeld
+	 * @param label	Beschriftung
+	 * @param check	Initialer Status der Checkbox
+	 * @param text	Initialer Wert für das Eingabefeld
+	 * @param size	Breite des Eingabefeldes
+	 * @return	Liefert ein Array aus Zeile, Checkbox und Eingabefeld
+	 */
 	private Object[] getCheckInput(final String label, final boolean check, final String text, final int size) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 

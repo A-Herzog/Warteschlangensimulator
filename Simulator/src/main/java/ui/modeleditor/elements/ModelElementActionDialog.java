@@ -40,6 +40,9 @@ public class ModelElementActionDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -8866293723412873307L;
 
+	/**
+	 * Tabellendaten für die Aktionen, die in dem Element ausgelöst werden solleb
+	 */
 	private ModelElementActionRecordTableModel tableData;
 
 	/**

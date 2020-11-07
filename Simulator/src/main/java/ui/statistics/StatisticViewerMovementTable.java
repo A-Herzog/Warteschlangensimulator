@@ -116,9 +116,20 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		return table;
 	}
 
+	/**
+	 * Repräsentiert einen Pfad durch das System
+	 */
 	private static class PathRecord implements Comparable<PathRecord> {
+		/** Stationen auf dem Pfad */
 		public final String name;
+		/** Anzahl der Kunden, die diesen Pfad eingeschlagen haben */
 		public final long count;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Stationen auf dem Pfad
+		 * @param count	Anzahl der Kunden, die diesen Pfad eingeschlagen haben
+		 */
 		public PathRecord(final String name, final long count) {
 			this.name=name;
 			this.count=count;
@@ -131,6 +142,10 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 			return 0;
 		}
 
+		/**
+		 * Liefert Beschreibung und Anzahl zu dem Pfad.
+		 * @return	Beschreibung und Anzahl
+		 */
 		public String[] getLine() {
 			final String[] line=new String[2];
 			line[0]=name;
@@ -138,6 +153,11 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 			return line;
 		}
 
+		/**
+		 * Liefert Beschreibung, Anzahl und Anteil zu dem Pfad.
+		 * @param sum	Gesamtanzahl über alle Pfade (um die Anteile berechnen zu können)
+		 * @return	Beschreibung, Anzahl und Anteil
+		 */
 		public String[] getLine(final long sum) {
 			final String[] line=new String[3];
 			line[0]=name;
@@ -243,6 +263,10 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		return table;
 	}
 
+	/**
+	 * Liefert die Spaltentitel.
+	 * @return	Spaltentitel
+	 */
 	private static String[] getColumnNames() {
 		final List<String> columns=new ArrayList<>();
 		columns.add(Language.tr("Statistics.ClientPathRecording.Count"));

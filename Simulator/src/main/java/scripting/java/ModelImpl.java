@@ -60,6 +60,11 @@ public class ModelImpl implements ModelInterface {
 		this.statisticsConnect=statisticsConnect;
 	}
 
+	/**
+	 * Gibt eine Meldung über {@link #output} aus.
+	 * @param line	Meldung
+	 * @see #output
+	 */
 	private void addOutput(final String line) {
 		if (canceled) return;
 		if (output!=null) output.accept(line);
@@ -84,6 +89,13 @@ public class ModelImpl implements ModelInterface {
 		return ModelChanger.getValue(model,xmlName);
 	}
 
+	/**
+	 * Ändert einen Wert im Modell
+	 * @param xmlName	XML-Bezeichner des zu ändernden Eintrags
+	 * @param xmlChangeMode Art der Änderung (0: Wert, 1: Mittelwert, 2: Standardabweichung, 4-6: Verteilungsparameter 1-4)
+	 * @param value	Neuer Wert
+	 * @return Gibt <code>true</code> zurück, wenn das Modell erfolgreich verändert werden konnte.
+	 */
 	private boolean set(final String xmlName, final int xmlChangeMode, final double value) {
 		if (xmlName==null) return false;
 
@@ -277,6 +289,12 @@ public class ModelImpl implements ModelInterface {
 		}
 	}
 
+	/**
+	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
+	 * @param surface	Zeichenfläche auf der (und deren Unterzeichenflächen) gesucht werden soll
+	 * @param name	Name der Station
+	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
+	 */
 	private int getStationID(final ModelSurface surface, final String name) {
 		for (ModelElement element1: surface.getElements()) {
 			if (element1.getName().equalsIgnoreCase(name)) return element1.getId();

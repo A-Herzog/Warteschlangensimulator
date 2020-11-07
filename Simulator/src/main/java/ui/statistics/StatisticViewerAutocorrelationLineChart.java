@@ -68,6 +68,12 @@ public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLine
 		this.mode=mode;
 	}
 
+	/**
+	 * Fügt eine Datenreihe zu dem Diagramm hinzu.
+	 * @param indicator	Datenreihe
+	 * @param name	Name der Datenreihe
+	 * @param color	Farbe für die Datenreihe
+	 */
 	private void addSeries(final StatisticsDataPerformanceIndicator indicator, final String name, final Color color) {
 		if (!indicator.isCorrelationAvailable()) return;
 

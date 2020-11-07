@@ -54,7 +54,18 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 	 */
 	private static final Color DEFAULT_COLOR=Color.BLUE;
 
+	/**
+	 * Minimalwert der Skala
+	 * @see #getMinValue()
+	 * @see #setMinValue(int)
+	 */
 	private int minValue;
+
+	/**
+	 * Maximalwert der Skala
+	 * @see #getMaxValue()
+	 * @see #setMaxValue(int)
+	 */
 	private int maxValue;
 
 	/**
@@ -191,17 +202,60 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		return element;
 	}
 
+	/**
+	 * Zeichenstil für den Rahmen beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private Stroke borderStroke=null;
+
+	/**
+	 * Linienbreite für den Rahmen beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private int borderStrokeWidth=0;
 
+	/**
+	 * Zeichenstil für den Zeiger beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private Stroke pointerStroke=null;
+
+	/**
+	 * Linienbreite für den Zeiger beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private int pointerStrokeWidth=0;
 
+	/**
+	 * Beschriftung für den Minimalwert der Skala beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private String lastMinValueString=null;
+
+	/**
+	 * Beschriftung für den Mittelwert der Skala beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private String lastMiddleValueString=null;
+
+	/**
+	 * Beschriftung für den Maximalwert der Skala beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private String lastMaxValueString=null;
 
+	/**
+	 * Minimalwert der Skala beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 * @see #lastMinValueString
+	 */
 	private int lastMinValue=0;
+
+	/**
+	 * Maximalwert der Skala beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 * @see #lastMaxValueString
+	 */
 	private int lastMaxValue=0;
 
 	@Override
@@ -386,6 +440,11 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		return "ModelElementAnimationPointerMeasuring";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationPointerMeasuring(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 

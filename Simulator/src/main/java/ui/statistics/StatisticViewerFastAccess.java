@@ -57,11 +57,16 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 	/** Statistik-Objekt, dem die Daten entnommen werden sollen */
 	private final Statistics statistic;
 
+	/** Ausgabe der Ergebnisse */
 	private JTextArea results;
+	/** Tabs-Bereich für die verschiedenen Filter-Varianten */
 	private JTabbedPane tabs;
 
+	/** Filterung über eine Anweisungsliste */
 	private StatisticViewerFastAccessList fastAccessList;
+	/** Filterung per Javascript */
 	private StatisticViewerFastAccessJS fastAccessJS;
+	/** Filterung per Java-Code */
 	private StatisticViewerFastAccessJava fastAccessJava;
 
 	/**
@@ -89,6 +94,11 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 		return ViewerType.TYPE_SPECIAL;
 	}
 
+	/**
+	 * Hält den in {@link #getViewer(boolean)}
+	 * generierten Viewer für spätere Abfragen vor.
+	 * @see #getViewer(boolean)
+	 */
 	private JSplitPane viewer;
 
 	@Override
@@ -168,6 +178,9 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 		}
 	}
 
+	/**
+	 * Wird aufgerufen, wenn sich die Ergebnisse verändert haben.
+	 */
 	private void resultsChanged() {
 		final int index=tabs.getSelectedIndex();
 		if (index<0) return;

@@ -41,6 +41,9 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 1758925669523956820L;
 
+	/**
+	 * Tabellenmodell der in dem Dialog darzustellenden Tabelle
+	 */
 	private UserStatisticTableModel tableModel;
 
 	/**

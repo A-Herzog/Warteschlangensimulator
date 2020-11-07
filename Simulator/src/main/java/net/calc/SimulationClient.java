@@ -43,9 +43,12 @@ public class SimulationClient implements AnySimulator {
 	private final EditModel model;
 	/** Objekt über das die Verbindung zum Server aufgebaut wird */
 	private final NetClient net;
+	/** {@link NetTransfer}-Objekt über das die Kommunikation mit dem Server erfolgt */
 	private NetTransfer transfer;
+	/** Steht während der Simulation auf <code>true</code>. Nach der Simulation (im Erfolgs- und im Fehlerfall) wieder auf <code>false</code>. */
 	private boolean started;
 
+	/** Nimmt eine Fehlermeldung auf, wenn bei der Vorbereitung des Modells ein Fehler aufgetreten ist. */
 	private String prepareError;
 	/** Summe der in allen Threads bisher simulierten Ereignisse */
 	private long eventCount;
@@ -61,6 +64,10 @@ public class SimulationClient implements AnySimulator {
 	private int currentWIP;
 	/** Gesamtanzahl an zu simulierenden Kundenankünften */
 	private long countClients;
+	/**
+	 * Statistik-Objekt, welches alle Daten des Simulationslaufs enthält (oder <code>null</code>, wenn die Simulation - ggf. auch durch den Server - abgebrochen wurde)
+	 * @see #getStatistic()
+	 */
 	private Statistics statistics;
 
 	/**
@@ -151,6 +158,11 @@ public class SimulationClient implements AnySimulator {
 		return started;
 	}
 
+	/**
+	 * Aktualisiert die über die verschiedenen Methoden
+	 * abrufbaren Datenfelder zum Simulationsfortschritt.
+	 * @param wait	Soll auf die Verfügbarkeit von Statusdaten vom Server gewartet werden?
+	 */
 	private void updateStatus(final boolean wait) {
 		if (transfer==null) return;
 		byte[] id;

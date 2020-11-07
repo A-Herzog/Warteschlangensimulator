@@ -56,8 +56,11 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -612344610045167231L;
 
+	/** Liste der Namen der Stationen mit analogen Werden */
 	private String[] idNames;
+	/** Kann an den {@link #ids}-Stationen auch eine Rate eingestellt werden? */
 	private boolean[] idAllowRates;
+	/** IDs der Stationen mit analogen Werden */
 	private int[] ids;
 
 	/**
@@ -65,8 +68,11 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 	 */
 	private final String[] variables;
 
+	/** Auswahlbox für die ID der Station an der eine Änderung vorgenommen werden soll */
 	private final JComboBox<String> comboID;
+	/** Was soll verändert werden? (Wert oder Rate) */
 	private final JComboBox<String> comboMode;
+	/** Eingabefeld für den zuzuweisenden Wert */
 	private final JTextField edit;
 
 	/**
@@ -135,6 +141,10 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 		setResizable(true);
 	}
 
+	/**
+	 * Wird aufgerufen, wenn die gewählte Station geändert wird.
+	 * @see #comboID
+	 */
 	private void selectedIDChanged() {
 		if (comboID.getSelectedIndex()<0) return;
 		if (idAllowRates[comboID.getSelectedIndex()]) {
@@ -145,6 +155,13 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Erstellt die Liste der Stationen mit analogen Werten.
+	 * @param mainSurface	Hauptzeichenfläche
+	 * @see #ids
+	 * @see #idNames
+	 * @see #idAllowRates
+	 */
 	private void buildIDNames(final ModelSurface mainSurface) {
 		final List<String> names=new ArrayList<>();
 		final List<Boolean> rates=new ArrayList<>();

@@ -27,8 +27,25 @@ import java.util.List;
  * @author Alexander Herzog
  */
 public abstract class DynamicClassBase implements Closeable, AutoCloseable {
+	/**
+	 * Liste der Dateien, die beim Schließen dieses Objektes gelöscht werden sollen
+	 * @see #addFileToDeleteList(File)
+	 * @see #close()
+	 */
 	private final List<File> deleteFiles=new ArrayList<>();
+
+	/**
+	 * Liefert im Falle einiger bestimmter Fehler optional eine zusätzliche Fehlermeldung.
+	 * @see #getError()
+	 * @see #setError(String)
+	 */
 	private String error=null;
+
+	/**
+	 * Instanz der geladenen Klasse
+	 * @see #setLoadedClass(Class)
+	 * @see #getLoadedObject()
+	 */
 	private Class<?> loadedClass=null;
 
 	/**
@@ -39,7 +56,7 @@ public abstract class DynamicClassBase implements Closeable, AutoCloseable {
 	}
 
 	/**
-	 * Nimmt eine Datei in die Liste der Dateien, die beim Schließen dieses Objektes gelöscht werden soll, auf.
+	 * Nimmt eine Datei in die Liste der Dateien, die beim Schließen dieses Objektes gelöscht werden sollen, auf.
 	 * @param deleteMeLater	Später zu löschende Datei.
 	 */
 	protected final void addFileToDeleteList(final File deleteMeLater) {

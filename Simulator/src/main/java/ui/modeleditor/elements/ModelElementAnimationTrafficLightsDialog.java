@@ -51,8 +51,11 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 	 */
 	private static final long serialVersionUID = 8546156095792170133L;
 
+	/** Auswahlbox für die Anzahl der Lichter der Ampel (kann 2 oder 3 sein) */
 	private JComboBox<String> numberOfLights;
+	/** Eingabefeld für die Bedingung für das erste Licht */
 	private JTextField expressionOne;
+	/** Eingabefeld für die Bedingung für das zweite Licht */
 	private JTextField expressionTwo;
 
 	/**

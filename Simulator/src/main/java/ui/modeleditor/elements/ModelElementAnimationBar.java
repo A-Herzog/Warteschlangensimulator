@@ -94,8 +94,24 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 */
 	private String expression="123";
 
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #simValueActive}
+	 * und {@link #simValue} zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * Soll {@link #simValue} (<code>true</code>) oder
+	 * ein Dummy-Wert (<code>false</code>) gezeichnet
+	 * werden?
+	 */
 	private boolean simValueActive;
+
+	/**
+	 * Zu zeichnender Wert im Bereich
+	 * {@link #minValue} und {@link #maxValue}.
+	 */
 	private double simValue;
 
 	/**
@@ -112,11 +128,39 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 */
 	private double maxValue=10.0;
 
+	/**
+	 * Breite der Linie
+	 * @see #getBorderWidth()
+	 * @see #setBorderWidth(int)
+	 */
 	private int borderWidth=1;
+
+	/**
+	 * Farbe der Linie
+	 * @see #getBorderColor()
+	 * @see #setBorderColor(Color)
+	 */
 	private Color borderColor=Color.BLACK;
+
+	/**
+	 * Füllfarbe des Kastens
+	 * @see #getBackgroundColor()
+	 * @see #setBackgroundColor(Color)
+	 */
 	private Color backgroundColor=null;
+
+	/**
+	 * Farbe des Balkens
+	 * @see #getBarColor()
+	 * @see #setBarColor(Color)
+	 */
 	private Color barColor=Color.RED;
 
+	/**
+	 * Cache des Bereichsfüllung-Zeichners
+	 * für {@link #fillBox(Graphics2D, Rectangle)}
+	 * @see #fillBox(Graphics2D, Rectangle)
+	 */
 	private GradientFill filler;
 
 	/**
@@ -467,6 +511,14 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		graphics.fill(rectangle);
 	}
 
+	/**
+	 * Füllt ein Rechteck gemäß dem in {@link #simValue} angegebenen Füllstand.
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Teilweise zu füllendes Rechteck
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * @see #simValue
+	 * @see #simValueActive
+	 */
 	private void fillBox(final Graphics2D g, final Rectangle rectangle) {
 		double d=0;
 		drawLock.acquireUninterruptibly();
@@ -611,6 +663,12 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		return Language.trAll("Surface.AnimationBar.XML.Root");
 	}
 
+	/**
+	 * Übersetzt die Füllrichtung in einen xml-Ausdruck.
+	 * @param direction	Füllrichtung
+	 * @return	Füllrichtung in einer xml-speicherbaren Form
+	 * @see #addPropertiesDataToXML(Document, Element)
+	 */
 	private String getDirectionString(final FillDirection direction) {
 		switch (direction) {
 		case DIRECTION_DOWN: return Language.trPrimary("Surface.AnimationBar.XML.DataArea.Direction.Down");
@@ -729,8 +787,21 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		return null;
 	}
 
+	/**
+	 * Rechenausdruck der während der Animation ausgewertet
+	 * werden soll, um den darzustellenden Wert zu erhalten.
+	 * @see #initAnimation(SimulationData)
+	 * @see #calcExpression(SimulationData)
+	 */
 	private ExpressionCalc animationExpression;
 
+	/**
+	 * Wertet {@link #animationExpression} aus und liefert
+	 * den zu zeichnenden Wert zurück.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Darzustellender Wert
+	 * @see #simValue
+	 */
 	private double calcExpression(final SimulationData simData) {
 		if (animationExpression==null) return 0.0;
 		simData.runData.setClientVariableValues(null);
@@ -766,6 +837,11 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		return "ModelElementAnimationBar";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationBar(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -811,6 +887,10 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawAnimationBar",builder->getHTMLAnimationBar(builder));
 

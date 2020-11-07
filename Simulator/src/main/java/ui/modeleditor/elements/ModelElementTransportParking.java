@@ -104,6 +104,10 @@ public class ModelElementTransportParking extends ModelElementBox implements Mod
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Darstellung des zusätzlichen Icons auf der Station.
+	 * @see #fireChanged()
+	 */
 	private void updateIcon() {
 		setAdditionalTransporterIconFromName(getTransporterType());
 	}

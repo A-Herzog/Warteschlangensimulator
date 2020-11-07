@@ -55,14 +55,23 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -2546131729099509268L;
 
+	/** Eingabefeld für den Ausdruck dessen Auswertung den Füllstand für den Balken angeben soll */
 	private JTextField editExpression;
+	/** Auswahlbox für die Füllrichtung des Balkens */
 	private JComboBox<String> selectDirection;
+	/** Eingabefeld für den Minimalwert */
 	private JTextField editMinimum;
+	/** Eingabefeld für den Maximalwert */
 	private JTextField editMaximum;
+	/** Auswahlbox für ide Linienbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl der Linienfarbe */
 	private SmallColorChooser colorChooserLine;
+	/** Option: Hintergrundfarbe verwenden? */
 	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
+	/** Auswahl der Balkenfarbe */
 	private SmallColorChooser colorChooserBar;
 
 	/**

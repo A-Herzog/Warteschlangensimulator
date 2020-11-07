@@ -440,6 +440,10 @@ public class ModelElementInteractiveRadiobutton extends ModelElementPosition imp
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawRadiobutton",builder->getHTMRadiobutton(builder));
 

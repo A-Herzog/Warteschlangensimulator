@@ -58,15 +58,25 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 	 */
 	private static final long serialVersionUID = 6830401157286607539L;
 
+	/** Option: Minimalwert manuell festlegen */
 	private JCheckBox minValueCheckBox;
+	/** Eingabefeld für den manuell festgelegten Minimalwert */
 	private JTextField minValueEdit;
+	/** Option: Maximalwert manuell festlegen */
 	private JCheckBox maxValueCheckBox;
+	/** Eingabefeld für den manuell festgelegten Maximalwert */
 	private JTextField maxValueEdit;
+	/** Tabelle zur Definition der einzelnen Balken */
 	private ExpressionTableModelBar expressionTableModel;
+	/** Auswahlbox für die Linienbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl der Linienfarbe */
 	private SmallColorChooser colorChooserLine;
-	private JCheckBox background;
+	/** Option: 3D-Effekte für die Balken? */
 	private JCheckBox use3D;
+	/** Option: Hintergrundfarbe verwenden? */
+	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
 
 	/**

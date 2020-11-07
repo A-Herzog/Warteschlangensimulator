@@ -26,6 +26,12 @@ import mathtools.Table;
  * @author Alexander Herzog
  */
 public class RunDataOutputWriter {
+	/**
+	 * Gibt an bei welchem Füllstand Einträge
+	 * aus {@link #outputBuffer} in
+	 * {@link #outputFileWriter} ausgegeben werden sollen.
+	 * @see #output(String)
+	 */
 	private static final int BUFFER_SIZE=2^18;
 
 	/** Datei, in die die Ausgabe erfolgen soll */
@@ -41,12 +47,33 @@ public class RunDataOutputWriter {
 		MODE_TABLE
 	}
 
-	/** Ausgabemodus */
+	/**
+	 * Ausgabemodus
+	 */
 	private Mode mode;
+
+	/**
+	 * Ist <code>true</code>, wenn mindestens eine Zeile nicht ausgegeben werden konnte.
+	 * @see #hasOutputErrors()
+	 */
 	private boolean outputErrors;
 
+	/**
+	 * File-Writer-Objekt für die Ausgabe in den Modi {@link Mode#MODE_TEXT} und {@link Mode#MODE_CSV}
+	 */
 	private FileWriter outputFileWriter;
+
+	/**
+	 * Puffer, der die Ergebnisse zwischenspeichert bis diese in {@link #outputFileWriter} übertragen werden
+	 * @see #outputFileWriter
+	 * @see #BUFFER_SIZE
+	 */
 	private StringBuilder outputBuffer;
+
+	/**
+	 * Tabelle, die die Ergebnisse aufnimmt, wenn die Ausgabe nicht in den Text-Modi
+	 * {@link Mode#MODE_TEXT} oder {@link Mode#MODE_CSV} erfolgt.
+	 */
 	private Table table;
 
 	/**
@@ -102,6 +129,11 @@ public class RunDataOutputWriter {
 		return outputErrors;
 	}
 
+	/**
+	 * Wandelt eine Tabellenzeile in CSV-Code um
+	 * @param outputTableLine	Tabellenzeile in Form einzelner Zellen
+	 * @return	CSV-codierte Tabellenzeile
+	 */
 	private String toCSV(String[] outputTableLine) {
 		final StringBuilder sb=new StringBuilder();
 

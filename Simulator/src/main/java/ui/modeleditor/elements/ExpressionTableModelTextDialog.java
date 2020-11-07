@@ -54,7 +54,9 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 	 */
 	private final String[] variableNames;
 
+	/** Eingabefeld für die Formel-Bedingung */
 	private final JTextField expressionEdit;
+	/** Eingabefeld für den anzuzeigenden Text, wenn die Formel-Bedingung erfüllt ist */
 	private final JTextField valueEdit;
 
 	/**

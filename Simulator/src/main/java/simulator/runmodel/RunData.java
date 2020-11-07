@@ -818,14 +818,34 @@ public class RunData {
 		((StatisticsValuePerformanceIndicator)(cacheStationCosts.get(station))).add(costs);
 	}
 
+	/**
+	 * Ermöglicht einen schnelleren Zugriff auf die einzelnen Teil-Indikatoren
+	 * innerhalb eines {@link StatisticsMultiPerformanceIndicator}-Objektes,
+	 * wenn sich diese auf Stationen (die schneller über ihre IDs identifiziert
+	 * werden können) beziehen.
+	 * @author Alexander Herzog
+	 * @see StatisticsMultiPerformanceIndicator
+	 * @see RunElement
+	 */
 	private class IndicatorAccessCacheStations {
+		/** Statistik-Objekt, bei dem der Zugriff auf die Teil-Indikatoren beschleunigt werden soll */
 		private final StatisticsMultiPerformanceIndicator multi;
+		/** Statistik-Teil-Indikator für die Stationen */
 		private StatisticsPerformanceIndicator[] indicators;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param multi	Statistik-Objekt, bei dem der Zugriff auf die Teil-Indikatoren beschleunigt werden soll
+		 */
 		public IndicatorAccessCacheStations(final StatisticsMultiPerformanceIndicator multi) {
 			this.multi=multi;
 		}
 
+		/**
+		 * Liefert ein Statistikobjekt für eine konkrete Station
+		 * @param station	Station
+		 * @return	Statistikobjekt
+		 */
 		public StatisticsPerformanceIndicator get(final RunElement station) {
 			final int id=station.id;
 			if (indicators!=null && indicators.length>id && indicators[id]!=null) return indicators[id];
@@ -842,16 +862,39 @@ public class RunData {
 		}
 	}
 
+	/**
+	 * Ermöglicht einen schnelleren Zugriff auf die einzelnen Teil-Indikatoren
+	 * innerhalb eines {@link StatisticsMultiPerformanceIndicator}-Objektes,
+	 * wenn sich diese auf Stationen (die schneller über ihre IDs identifiziert
+	 * werden können) beziehen.
+	 * @author Alexander Herzog
+	 * @see StatisticsMultiPerformanceIndicator
+	 * @see RunElement
+	 */
 	private class IndicatorAccessCacheStationsNumber {
+		/** Statistik-Objekt, bei dem der Zugriff auf die Teil-Indikatoren beschleunigt werden soll */
 		private final StatisticsMultiPerformanceIndicator multi;
+		/** Teilbezeichner zwischen Stationsname und Kundentypnummer im Statistikobjektnamen (z.B. "NQ") */
 		private final String name;
+		/** Statistik-Teil-Indikator für die Stationen und einen Status darin */
 		private ArrayList<StatisticsPerformanceIndicator>[] indicators;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param multi	Statistik-Objekt, bei dem der Zugriff auf die Teil-Indikatoren beschleunigt werden soll
+		 * @param name	Teilbezeichner zwischen Stationsname und Status im Statistikobjektnamen (z.B. "NQ")
+		 */
 		public IndicatorAccessCacheStationsNumber(final StatisticsMultiPerformanceIndicator multi, final String name) {
 			this.multi=multi;
 			this.name=name;
 		}
 
+		/**
+		 * Liefert ein Statistikobjekt für eine konkrete Station und einen konkreten Status
+		 * @param station	Station
+		 * @param nr	Status (z.B. Anzahl an wartenden Kunden)
+		 * @return	Statistikobjekt
+		 */
 		@SuppressWarnings("unchecked")
 		public StatisticsPerformanceIndicator get(final RunElement station, final int nr) {
 			final int id=station.id;
@@ -874,14 +917,37 @@ public class RunData {
 		}
 	}
 
+	/**
+	 * Ermöglicht einen schnelleren Zugriff auf die einzelnen Teil-Indikatoren
+	 * innerhalb eines {@link StatisticsMultiPerformanceIndicator}-Objektes,
+	 * wenn sich diese auf Stationen und darin auf Kundentypen (die jeweils
+	 * schneller über ihre IDs identifiziert werden können) beziehen.
+	 * @author Alexander Herzog
+	 * @see StatisticsMultiPerformanceIndicator
+	 * @see RunElement
+	 * @see RunDataClient
+	 */
 	private class IndicatorAccessCacheStationsClientTypes {
+		/** Statistik-Objekt, bei dem der Zugriff auf die Teil-Indikatoren beschleunigt werden soll */
 		private final StatisticsMultiPerformanceIndicator multi;
+		/** Statistik-Teil-Indikator für die Stationen und die Kundentypen darin */
 		private StatisticsPerformanceIndicator[][] indicators;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param multi	Statistik-Objekt, bei dem der Zugriff auf die Teil-Indikatoren beschleunigt werden soll
+		 */
 		public IndicatorAccessCacheStationsClientTypes(final StatisticsMultiPerformanceIndicator multi) {
 			this.multi=multi;
 		}
 
+		/**
+		 * Liefert ein Statistikobjekt für eine konkrete Station und einen konkreten Kundentyp darin
+		 * @param simData	Simulationsdatenobjekt
+		 * @param station	Station
+		 * @param client	Kundentyp
+		 * @return	Statistikobjekt
+		 */
 		public StatisticsPerformanceIndicator get(final SimulationData simData, final RunElement station, final RunDataClient client) {
 			final int id1=station.id;
 			final int id2=client.type;
@@ -904,6 +970,13 @@ public class RunData {
 			return indicator;
 		}
 
+		/**
+		 * Liefert ein Statistikobjekt für eine konkrete Station und einen konkreten Kundentyp darin
+		 * @param simData	Simulationsdatenobjekt
+		 * @param station	Station
+		 * @param clientID	ID des Kundentyps
+		 * @return	Statistikobjekt
+		 */
 		public StatisticsPerformanceIndicator get(final SimulationData simData, final RunElement station, final int clientID) {
 			final int id1=station.id;
 			final int id2=clientID;
@@ -930,7 +1003,7 @@ public class RunData {
 	/**
 	 * Ermöglicht einen schnelleren Zugriff auf die einzelnen Teil-Indikatoren
 	 * innerhalb eines {@link StatisticsMultiPerformanceIndicator}-Objektes,
-	 * wenn sich diese auf Kundentypen (die schneller über ihre IDs indentifiziert
+	 * wenn sich diese auf Kundentypen (die schneller über ihre IDs identifiziert
 	 * werden können) beziehen.
 	 * @author Alexander Herzog
 	 * @see StatisticsMultiPerformanceIndicator
@@ -1010,18 +1083,41 @@ public class RunData {
 		return data.statisticClientsAtStationByClientTypeValue[client.type]=FastMath.max(0,data.statisticClientsAtStationByClientTypeValue[client.type]+change);
 	}
 
-	/* <code>stationData</code> darf <code>null</code> sein, dann wird der Wert aus <code>station</code> ermittelt. */
+	/**
+	 * Erfasst eine Änderung der Anzahl an einer Stationswarteschlange
+	 * @param simData	Simulationsdatenobjekt
+	 * @param station	Station an der der Wert verändert werden soll (muss nur dann einen Wert ungleich <code>null</code> besitzen, wenn <code>stationData</code> keinen Wert ungleich <code>null</code> besitzt)
+	 * @param stationData	Station an der der Wert verändert werden soll (schneller als über <code>station</code>; ist dieser Parameter <code>null</code>, so muss ein <code>station</code> ein Wert übergeben werden)
+	 * @param change	Veränderung der Anzahl
+	 * @return	Neue Anzahl
+	 */
 	private int clientsAtStationQueue(final SimulationData simData, final RunElement station, final RunElementData stationData, final int change) {
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
 		return data.clientsAtStationQueue=FastMath.max(0,data.clientsAtStationQueue+change);
 	}
 
+	/**
+	 * Ändert den Wert von {@link RunElementData#statisticClientsAtStationQueueByClientTypeValue} für eine Station.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param station	Station an der der Wert verändert werden soll (muss nur dann einen Wert ungleich <code>null</code> besitzen, wenn <code>stationData</code> keinen Wert ungleich <code>null</code> besitzt)
+	 * @param stationData	Station an der der Wert verändert werden soll (schneller als über <code>station</code>; ist dieser Parameter <code>null</code>, so muss ein <code>station</code> ein Wert übergeben werden)
+	 * @param client	Kunde von dem der Typ ausgelesen wird
+	 * @param change	Veränderung der Anzahl
+	 * @return	Neue Anzahl
+	 */
 	private int clientsAtStationQueueByType(final SimulationData simData, final RunElement station, final RunElementData stationData, final RunDataClient client, final int change) {
 		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
 		if (data.statisticClientsAtStationQueueByClientTypeValue==null) data.statisticClientsAtStationQueueByClientTypeValue=new int[simData.runModel.clientTypes.length];
 		return data.statisticClientsAtStationQueueByClientTypeValue[client.type]=FastMath.max(0,data.statisticClientsAtStationQueueByClientTypeValue[client.type]+change);
 	}
 
+	/**
+	 * Erfasst eine Änderung der Anzahl an wartenden Kunden pro Kundentyp
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Kunde von dem der Typ ausgelesen wird
+	 * @param change	Veränderung der Anzahl
+	 * @return	Neue Anzahl
+	 */
 	private int clientsAtStationQueue(final SimulationData simData, final RunDataClient client, final int change) {
 		final int clientType=client.type;
 
@@ -1058,16 +1154,71 @@ public class RunData {
 		elementData[id]=data;
 	}
 
+	/**
+	 * Listener die über Änderungen in Bezug auf verfügbare Bediener benachrichtigt werden sollen
+	 * @see #fireReleasedResourcesNotify(SimulationData)
+	 */
 	private FreeResourcesListener[] freeResourcesListener;
+
+	/**
+	 * Rechenausdrücke zur Bestimmung der Aufrufreihenfolgen von {@link #freeResourcesListenerPriorityConst}
+	 * @see #freeResourcesListener
+	 * @see #fireReleasedResourcesNotify(SimulationData)
+	 */
 	private ExpressionCalc[] freeResourcesListenerPriority;
+
+	/**
+	 * Liefert einer oder liefern mehrere der Rechenausdrücke in {@link #freeResourcesListenerPriority} konstante Werte?
+	 * @see #freeResourcesListenerPriority
+	 * @see #fireReleasedResourcesNotify(SimulationData)
+	 */
 	private Double[] freeResourcesListenerPriorityConst;
+
+	/**
+	 * Cache des Arrays zur Bestimmung der aktuellen Werte von {@link #freeResourcesListenerPriority}
+	 * @see #freeResourcesListenerPriority
+	 * @see #fireReleasedResourcesNotify(SimulationData)
+	 */
 	private double[] globalFreeResourcesListenerCurrentPriority;
+
+	/**
+	 * Globale Liste zur Erfassung der Indices der zu benachrichtigen Listener für freie Bediener
+	 * @see #fireReleasedResourcesNotify(SimulationData)
+	 * @see #fireReleaseTransporterNotify(RunDataTransporter, SimulationData)
+	 */
 	private List<Integer> globalFreeResourcesMaxIndex;
+
+	/**
+	 * Steht die Liste {@link #globalFreeResourcesMaxIndex} momentan
+	 * zur Verfügung?
+	 * @see #globalFreeResourcesMaxIndex
+	 * @see #fireReleasedResourcesNotify(SimulationData)
+	 * @see #fireReleaseTransporterNotify(RunDataTransporter, SimulationData)
+	 */
 	private boolean canUseGlobalFreeResourcesListenerCurrentPriority=true;
 
+	/**
+	 * Wird {@link #secondaryPriority} gerade von einem anderen
+	 * Aufruf verwendet oder darf ein Aufruf von {@link #getSecondaryPriorityIndex(SimulationData, List)}
+	 * die globale Liste verwenden?
+	 * @see #secondaryPriority
+	 * @see #getSecondaryPriorityIndex(SimulationData, List)
+	 */
 	private boolean canUseGlobalSecondaryPriorityList=true;
+
+	/**
+	 * Globales Listenobjekt zur Bestimmung der zweiten Prioritäten.
+	 * @see #getSecondaryPriorityIndex(SimulationData, List)
+	 */
 	private List<Integer> secondaryPriority;
 
+	/**
+	 * Ermittlung des zu erst zu benachrichtigenden Listeners bei Prioritätsgleichstand in der ersten Ebene
+	 * (es werden dann z.B. die Prioritäten der wartenden Kunden ausgewertet).
+	 * @param simData	Simulationsdatenobjekt
+	 * @param indexList	Indizes der zu betrachtenden Listener
+	 * @return	Zu benachrichtigender Listener
+	 */
 	private int getSecondaryPriorityIndex(final SimulationData simData, final List<Integer> indexList) {
 		if (resources.secondaryResourcePriority==ModelResources.SecondaryResourcePriority.CLIENT_PRIORITY) {
 			/* Auswahl der Station gemäß der Kundenpriorität */
@@ -1199,7 +1350,17 @@ public class RunData {
 		}
 	}
 
+	/**
+	 * Listener die über verfügbare gewordene Transporter benachrichtigt werden sollen
+	 * @see #fireReleaseTransporterNotify(RunDataTransporter, SimulationData)
+	 */
 	private TransporterPosition[] freeTransporterListener;
+
+	/**
+	 * Prioritäten der Listener in {@link #freeTransporterListener}
+	 * @see #freeTransporterListener
+	 * @see #fireReleaseTransporterNotify(RunDataTransporter, SimulationData)
+	 */
 	private Double[] freeTransporterListenerPriority;
 
 	/**
@@ -1290,9 +1451,29 @@ public class RunData {
 		}
 	}
 
+	/**
+	 * Listener die benachrichtigt werden sollen, wenn sich der Systemzustand ändert.
+	 * @see #fireStateChangeNotify(SimulationData)
+	 */
 	private StateChangeListener[] stateChangeListener;
+
+	/**
+	 * Aus {@link #stateChangeListener} abzumeldender Listener.
+	 * @see #fireStateChangeNotify(SimulationData)
+	 * @see #removeStateChangeListener(StateChangeListener)
+	 */
 	private StateChangeListener stateChangeListenerRemove=null;
+
+	/**
+	 * Zeitpunkt der letzten Zustandsänderung
+	 * @see #fireStateChangeNotify(SimulationData)
+	 */
 	private long lastStateChange=0;
+
+	/**
+	 * Zeitpunkt der letzten Auslösung der Listener
+	 * @see #fireStateChangeNotify(SimulationData)
+	 */
 	private long lastTriggered=0;
 
 	/**
@@ -1381,7 +1562,17 @@ public class RunData {
 		}
 	}
 
+	/**
+	 * Listener die über Bewegungen der Kunden informiert werden sollen
+	 * @see #fireClientMoveNotify(SimulationData, RunDataClient, boolean)
+	 */
 	private ClientMoveListener[] clientMoveListener;
+
+	/**
+	 * Listener der nicht mehr über Kundenbewegungen informiert werden möchte
+	 * @see #fireClientMoveNotify(SimulationData, RunDataClient, boolean)
+	 * @see #removeClientMoveListener(ClientMoveListener)
+	 */
 	private ClientMoveListener clientMoveListenerRemove;
 
 	/**
@@ -1417,7 +1608,17 @@ public class RunData {
 		}
 	}
 
+	/**
+	 * Listener die über Bewegungen der Transporter informiert werden sollen
+	 * @see #fireTransporterMoveNotify(SimulationData, RunDataTransporter)
+	 */
 	private TransporterMoveListener[] transporterMoveListener;
+
+	/**
+	 * Listener der nicht mehr über Transporterbewegungen informiert werden möchte
+	 * @see #fireTransporterMoveNotify(SimulationData, RunDataTransporter)
+	 * @see #removeClientMoveListener(TransporterMoveListener)
+	 */
 	private TransporterMoveListener transporterMoveListenerRemove;
 
 	/**
@@ -1449,6 +1650,10 @@ public class RunData {
 		}
 	}
 
+	/**
+	 * Listener die über Signalauslösungen benachrichtigt werden möchten
+	 * @see #fireSignal(SimulationData, String)
+	 */
 	private SignalListener[] signalListener;
 
 	/**
@@ -1568,6 +1773,11 @@ public class RunData {
 		return isWarmUp?Language.tr("Dialog.Button.Yes").toLowerCase():Language.tr("Dialog.Button.No").toLowerCase();
 	}
 
+	/**
+	 * Liste der Stationen, die zeitabhängig benachrichtigt werden wollen
+	 * @see #requestTimedChecks(SimulationData, StateChangeListener)
+	 * @see #runTimedCheckNow(SimulationData)
+	 */
 	private Set<StateChangeListener> timedCheckStations=new HashSet<>();
 
 	/**
@@ -1613,11 +1823,37 @@ public class RunData {
 		return !timedCheckStations.isEmpty();
 	}
 
+	/**
+	 * Erfassung der Übergänge zwischen den Stationen
+	 * @see #recordClientMovement(SimulationData, RunDataClient)
+	 */
 	private StatisticsSimpleCountPerformanceIndicator[][] movementCounter;
-	private StatisticsSimpleCountPerformanceIndicator[] movementCountetFromStart;
+
+	/**
+	 * Erfassung der Übergänge zwischen den Stationen
+	 * @see #recordClientMovement(SimulationData, RunDataClient)
+	 */
+	private StatisticsSimpleCountPerformanceIndicator[] movementCounterFromStart;
+
+	/**
+	 * Erfassung der Übergänge zwischen den Stationen
+	 * @see #recordClientMovement(SimulationData, RunDataClient)
+	 */
 	private StatisticsSimpleCountPerformanceIndicator[] movementCounterToEnd;
+
+	/**
+	 * Erfassung der Übergänge zwischen den Stationen
+	 * @see #recordClientMovement(SimulationData, RunDataClient)
+	 */
 	private StatisticsSimpleCountPerformanceIndicator movementCounterEmpty;
 
+	/**
+	 * Liefert den Namen für einen bestimmten Kunden-Stationsübergangs-Zähler
+	 * @param simData	Simulationsdatenobjekt
+	 * @param fromID	ID der Startstation (oder -1 für Systemeingang)
+	 * @param toID	ID der Zielstation (oder -1 für Systemausgang)
+	 * @return	Name des Kunden-Stationsübergangs-Zählers
+	 */
 	private String getClientMovementCounterName(final SimulationData simData, final int fromID, final int toID) {
 		final String fromName;
 		if (fromID>=0) {
@@ -1635,10 +1871,23 @@ public class RunData {
 		return fromName+" -> "+toName;
 	}
 
+	/**
+	 * Liefert einen Kunden-Stationsübergangs-Zähler
+	 * @param simData	Simulationsdatenobjekt
+	 * @param fromID	ID der Startstation (oder -1 für Systemeingang)
+	 * @param toID	ID der Zielstation (oder -1 für Systemausgang)
+	 * @return	Kunden-Stationsübergangs-Zähler
+	 */
 	private StatisticsSimpleCountPerformanceIndicator getNewClientMovementCounter(final SimulationData simData, final int fromID, final int toID) {
 		return (StatisticsSimpleCountPerformanceIndicator)simData.statistics.stationTransition.get(getClientMovementCounterName(simData,fromID,toID));
 	}
 
+	/**
+	 * Erfasst den Stationsübergang eines Kunden
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Kunde
+	 * @see #fireClientMoveNotify(SimulationData, RunDataClient, boolean)
+	 */
 	private void recordClientMovement(final SimulationData simData, final RunDataClient client) {
 		if (client.isWarmUp || !client.inStatistics) return;
 
@@ -1657,9 +1906,9 @@ public class RunData {
 			}
 
 			if (fromID<0) {
-				if (movementCountetFromStart==null) movementCountetFromStart=new StatisticsSimpleCountPerformanceIndicator[simData.runModel.elementsFast.length];
-				if (movementCountetFromStart[toID]==null) movementCountetFromStart[toID]=getNewClientMovementCounter(simData,fromID,toID);
-				movementCountetFromStart[toID].add();
+				if (movementCounterFromStart==null) movementCounterFromStart=new StatisticsSimpleCountPerformanceIndicator[simData.runModel.elementsFast.length];
+				if (movementCounterFromStart[toID]==null) movementCounterFromStart[toID]=getNewClientMovementCounter(simData,fromID,toID);
+				movementCounterFromStart[toID].add();
 				return;
 			}
 
@@ -1677,8 +1926,17 @@ public class RunData {
 		}
 	}
 
-	private long arrivalsToBeSimulated=0; /* Ankünfte direkt zählen. */
-	private long currentArrivalPackage=0; /* Ankünfte von Load-Balancer erhalten. */
+	/**
+	 * Zählung der Ankünfte
+	 * @see #nextClientIsLast(SimulationData)
+	 */
+	private long arrivalsToBeSimulated=0;
+
+	/**
+	 * Vom Load-Balancer erhaltene Ankünfte
+	 * @see #nextClientIsLast(SimulationData)
+	 */
+	private long currentArrivalPackage=0;
 
 	/**
 	 * Liefert die Information, ob der aktuell zu generierende Kunde der letzte sein soll.<br>

@@ -40,7 +40,9 @@ public final class NetTransfer {
 
 	/** Offener Socket (wird von dieser Klasse auch nicht geschlossen) */
 	private final Socket socket;
+	/** Stream über den Daten über das Netz versendet werden können */
 	private DataOutputStream outputStream;
+	/** Stream über den Daten über das Netz empfangen werden können */
 	private DataInputStream inputStream;
 	/** Sollen die Daten komprimiert übertragen werden? */
 	private final boolean compress;
@@ -48,10 +50,17 @@ public final class NetTransfer {
 	private final String key;
 	/** Maximale Größe von empfangbaren Datenblöcken (zur Vermeidung von externen Angreifern induzierten Out-of-Memory-Fehlern) */
 	private final int maxTransferSize;
+	/** Wird in {@link #getBytes()} zum Lesen aus {@link #inputStream} verwendet */
 	private byte[] receiveBlock;
+	/** Wird in {@link #getBytes()} zum Lesen aus {@link #inputStream} verwendet */
 	private int received;
+	/** Wird in {@link #getBytes()} zum Lesen aus {@link #inputStream} verwendet - konkret zum Überspringen von zu großen und damit fehlerhaften Datenblöcken */
 	private int skipBytes;
-	private boolean decodeOrdecryptError;
+	/**
+	 * Wird auf <code>true</code> gesetzt, wenn die letzte Übertragung <code>null</code> lieferte und der Grund nicht ein Timeout, sondern ein Verbindungsfehler war.
+	 * @see #receivedInvalidData()
+	 */
+	private boolean decodeOrDecryptError;
 
 	/**
 	 * Konstruktor der Klasse
@@ -70,7 +79,7 @@ public final class NetTransfer {
 		skipBytes=0;
 		outputStream=null;
 		inputStream=null;
-		decodeOrdecryptError=false;
+		decodeOrDecryptError=false;
 	}
 
 	/**
@@ -95,6 +104,11 @@ public final class NetTransfer {
 		this(socket,compress,null,DEFAULT_MAX_TRANSFER_SIZE);
 	}
 
+	/**
+	 * Komprimiert Daten vor dem Senden.
+	 * @param data	Zu sendende Daten
+	 * @return	Komprimierte Daten zum Senden
+	 */
 	private byte[] compress(byte[] data) {
 		final ByteArrayOutputStream result=new ByteArrayOutputStream();
 
@@ -108,6 +122,11 @@ public final class NetTransfer {
 		return result.toByteArray();
 	}
 
+	/**
+	 * Dekomprimiert geladene Daten.
+	 * @param data	Geladene Daten
+	 * @return	Dekomprimierte geladene Daten
+	 */
 	private byte[] decompress(byte[] data) {
 		final ByteArrayOutputStream bufferStream;
 		final byte[] buf=new byte[32768];
@@ -122,19 +141,29 @@ public final class NetTransfer {
 		return bufferStream.toByteArray();
 	}
 
+	/**
+	 * Komprimiert und verschlüsselt Daten vor dem Senden.
+	 * @param input	Zu sendende Daten
+	 * @return	Verschlüsselte Daten zum Senden
+	 */
 	private byte[] encode(byte[] input) {
 		if (compress) input=compress(input);
 		if (key!=null) input=ChiperTools.encrypt(input,key);
 		return input;
 	}
 
+	/**
+	 * Entschlüsselt und dekomprimiert empfangene Daten
+	 * @param input	Empfangene Daten
+	 * @return	Entschlüsselte und dekomprimierte empfangene Daten (oder <code>null</code>, wenn der Schlüssel nicht passt)
+	 */
 	private byte[] decode(byte[] input) {
 		if (input==null) return null;
 
 		if (key!=null) {
 			input=ChiperTools.decrypt(input,key);
 			if (input==null) {
-				decodeOrdecryptError=true;
+				decodeOrDecryptError=true;
 				return null;
 			}
 		}
@@ -142,7 +171,7 @@ public final class NetTransfer {
 		if (compress) {
 			input=decompress(input);
 			if (input==null) {
-				decodeOrdecryptError=true;
+				decodeOrDecryptError=true;
 				return null;
 			}
 		}
@@ -243,13 +272,13 @@ public final class NetTransfer {
 	 * @see NetTransfer#getBytes()
 	 */
 	public byte[] waitForBytes(int timeOutMS) {
-		decodeOrdecryptError=false;
+		decodeOrDecryptError=false;
 		byte[] result=getBytes();
-		if (result!=null || decodeOrdecryptError) return result;
+		if (result!=null || decodeOrDecryptError) return result;
 		while (true) {
 			try {Thread.sleep(50);} catch (InterruptedException e) {Thread.currentThread().interrupt(); return null;}
 			result=getBytes();
-			if (result!=null || decodeOrdecryptError) return result;
+			if (result!=null || decodeOrDecryptError) return result;
 			timeOutMS-=50;
 			if (timeOutMS<=0) return null;
 		}
@@ -276,13 +305,13 @@ public final class NetTransfer {
 	 * @see NetTransfer#getString()
 	 */
 	public String waitForString(int timeOutMS) {
-		decodeOrdecryptError=false;
+		decodeOrDecryptError=false;
 		String result=getString();
-		if (result!=null || decodeOrdecryptError) return result;
+		if (result!=null || decodeOrDecryptError) return result;
 		while (true) {
 			try {Thread.sleep(50);} catch (InterruptedException e) {Thread.currentThread().interrupt(); return null;}
 			result=getString();
-			if (result!=null || decodeOrdecryptError) return result;
+			if (result!=null || decodeOrDecryptError) return result;
 			timeOutMS-=50;
 			if (timeOutMS<=0) return null;
 		}
@@ -360,6 +389,6 @@ public final class NetTransfer {
 	 * @return	Gibt <code>true</code> an, wenn die letzte Übertragung <code>null</code> lieferte und der Grund nicht ein Timeout, sondern ein Verbindungsfehler war.
 	 */
 	public boolean receivedInvalidData() {
-		return decodeOrdecryptError;
+		return decodeOrDecryptError;
 	}
 }

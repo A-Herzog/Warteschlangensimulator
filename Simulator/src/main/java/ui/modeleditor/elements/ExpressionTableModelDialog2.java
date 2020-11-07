@@ -45,7 +45,9 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -6910980984317800965L;
 
+	/** Auswahl der Linienbreite */
 	private final JComboBox<JLabel> lineWidth;
+	/** Auswahl der Farbe */
 	private final SmallColorChooser colorChooser;
 
 	/**

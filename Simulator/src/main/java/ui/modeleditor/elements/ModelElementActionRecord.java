@@ -71,7 +71,6 @@ public class ModelElementActionRecord {
 
 	/**
 	 * Art der Aktion, die ausgelöst wird
-	 * @author Alexander Herzog
 	 */
 	public enum ActionType {
 		/** Aktion: Variablenzuweisung vornehmen */
@@ -87,8 +86,6 @@ public class ModelElementActionRecord {
 	/**
 	 * Wenn die Aktion auf Basis eines Schwellenwertes ausgelöst werden soll:
 	 * Bei Über- oder Unterschreitung des Schwellenwertes?
-	 * @author Alexander Herzog
-	 *
 	 */
 	public enum ThresholdDirection {
 		/** Aktion auslösen bei Überschreitung des Schwellenwertes */
@@ -102,22 +99,44 @@ public class ModelElementActionRecord {
 	 */
 	private final ActionMode actionMode;
 
+	/**
+	 * Art der auslösenden Bedingung
+	 * @see ConditionType
+	 */
 	private ConditionType conditionType;
+
+	/**
+	 * Art der Aktion, die ausgelöst werden soll
+	 * @see ActionType
+	 */
 	private ActionType actionType;
 
+	/** Auslösende Bedingung im Fall <code>conditionType=ConditionType.CONDITION_CONDITION</code> */
 	private String condition;
+	/** Minimaler zeitliche Abstand zur Auslösung von Sktionen durch {@link #condition} im Fall <code>conditionType=ConditionType.CONDITION_CONDITION</code> */
 	private double conditionMinDistance;
+	/** Schwellenwert-Rechenausdruck im Fall <code>conditionType=ConditionType.CONDITION_THRESHOLD</code> */
 	private String thresholdExpression;
+	/** Schwellenwert-Zahlenwert im Fall <code>conditionType=ConditionType.CONDITION_THRESHOLD</code> */
 	private double thresholdValue;
+	/** Aktion beim unter- oder überschreiten des Schwellenwerts im Fall <code>conditionType=ConditionType.CONDITION_THRESHOLD</code> auslösen? */
 	private ThresholdDirection thresholdDirection;
+	/** Signal das im Fall <code>conditionType=ConditionType.CONDITION_SIGNAL</code> die Aktion auslöst */
 	private String conditionSignal;
 
+	/** Name der Variable für die Variablenzuweisung bei Aktionstyp <code>actionType=ActionType.ACTION_ASSIGN</code> */
 	private String assignVariable;
+	/** Wert für die Variable für die Variablenzuweisung bei Aktionstyp <code>actionType=ActionType.ACTION_ASSIGN</code> */
 	private String assignExpression;
+	/** Name des auszulösenden Signals bei Aktionstyp <code>actionType=ActionType.ACTION_SIGNAL</code> */
 	private String signalName;
+	/** ID der Analogwert-Station im Fall bei Aktionstyp <code>actionType=ActionType.ACTION_ANALOG_VALUE</code> */
 	private int analogID;
+	/** Zuzuweisender Analogwert im Fall bei Aktionstyp <code>actionType=ActionType.ACTION_ANALOG_VALUE</code> */
 	private String analogValue;
+	/** Auszuführendes Skript bei Aktionstyp <code>actionType=ActionType.ACTION_SCRIPT</code> */
 	private String script;
+	/** Sprache des auszuführenden Skripts bei Aktionstyp <code>actionType=ActionType.ACTION_SCRIPT</code> */
 	private ScriptMode scriptMode;
 
 	/**

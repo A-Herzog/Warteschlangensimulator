@@ -66,6 +66,11 @@ public class DDEServerSystem {
 		return server!=null;
 	}
 
+	/**
+	 * Prüft, ob bereits ein DDE-Server läuft, der denselben
+	 * Service anbietet.
+	 * @return	Liefert <code>true</code>, wenn es für den Service, den dieser Server anbieten möchte, bereits einen anderen laufenden DDE-Server gibt
+	 */
 	private boolean otherServerRunning() {
 		DDEClientConversation conversation=null;
 		try {

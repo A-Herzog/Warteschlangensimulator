@@ -59,13 +59,20 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 6357684372735211428L;
 
+	/** ID des Aufzeichnungselemente von dem die Daten stammen sollen */
 	private List<Integer> ids;
 	private JComboBox<String> selectRecord;
+	/** Eingabefeld für die Anzahl an anzuzeigenden Punkten */
 	private JTextField displayPoints;
+	/** Auswahl der Farbe für die Datenpunkte */
 	private SmallColorChooser colorChooserData;
+	/** Auswahlbox für die Rahmenbreite */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl der Rahmenfarbe */
 	private SmallColorChooser colorChooserLine;
+	/** Option: Hintergrundfarbe verwenden? */
 	private JCheckBox background;
+	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
 
 	/**

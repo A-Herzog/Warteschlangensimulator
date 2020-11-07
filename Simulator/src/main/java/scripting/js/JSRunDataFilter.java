@@ -26,9 +26,21 @@ import simulator.statistics.Statistics;
  * @author Alexander Herzog
  */
 public final class JSRunDataFilter {
-	/** XMl-Statistik-Daten, die gefiltert werden sollen */
+	/**
+	 * XML-Statistik-Daten, die gefiltert werden sollen
+	 */
 	private final Document xml;
+
+	/**
+	 * Erfolg der letzten Skriptausführung
+	 * @see #getLastSuccess()
+	 */
 	private boolean lastSuccess;
+
+	/**
+	 * Ausgabe des Skriptes
+	 * @see #getResults()
+	 */
 	private String lastResults;
 
 	/**
@@ -80,7 +92,7 @@ public final class JSRunDataFilter {
 
 	/**
 	 * Gibt an, ob die letzte Skriptausführung erfolgreich war.
-	 * @return	Erfolg der letzten	Skriptausführung
+	 * @return	Erfolg der letzten Skriptausführung
 	 */
 	public boolean getLastSuccess() {
 		return lastSuccess;

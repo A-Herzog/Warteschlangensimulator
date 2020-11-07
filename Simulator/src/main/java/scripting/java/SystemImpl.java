@@ -153,11 +153,21 @@ public class SystemImpl implements SystemInterface {
 		}
 	}
 
+	/**
+	 * Liefert basierend auf einer ID die zugehörige Station.
+	 * @param id	ID für die die Station gesucht werden soll
+	 * @return	Stationsobjekt oder <code>null</code>, wenn keine zu der ID passende Station gefunden wurde
+	 */
 	private RunElement getRunElement(final int id) {
 		if (id<0 || id>=runModel.elementsFast.length) return null;
 		return runModel.elementsFast[id];
 	}
 
+	/**
+	 * Liefert basierend auf einer ID die zugehörige Station.
+	 * @param id	ID für die die Station gesucht werden soll
+	 * @return	Stationsobjekt oder <code>null</code>, wenn keine zu der ID passende Station gefunden wurde
+	 */
 	private RunElement getRunElement(final Object id) {
 		if (id==null) return null;
 		if (id instanceof Integer) return getRunElement(((Integer)id).intValue());
@@ -176,6 +186,11 @@ public class SystemImpl implements SystemInterface {
 		return null;
 	}
 
+	/**
+	 * Berechnet einen Ausdruck im Kontext der Simulation.
+	 * @param value	Zu berechnender Ausdruck
+	 * @return	Ergebnis der Berechnung oder <code>null</code>, wenn der Ausdruck nicht berechnet werden konnte
+	 */
 	private Double evaluateValue(final Object value) {
 		if (value instanceof Double) return (Double)value;
 		if (value instanceof Integer) return ((Integer)value).doubleValue();

@@ -94,8 +94,25 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 		MOVE_RIGHT_TO_LEFT;
 	}
 
+	/**
+	 * Auf dem Fließband verfügbare Kapazität
+	 * @see #getCapacityAvailable()
+	 * @see #setCapacityAvailable(double)
+	 */
 	private double capacityAvailable;
+
+	/**
+	 * Im allgemeinen gültige Formel zur Bestimmung des Platzbedarfes
+	 * @see #getCapacityNeededGlobal()
+	 * @see #setCapacityNeededGlobal(String)
+	 */
 	private String capacityNeededGlobal;
+
+	/**
+	 * Formel zur Bestimmung des Platzbedarfes oder <code>null</code>, wenn keine Formel hinterlegt ist.
+	 * @see #getCapacityNeeded(String)
+	 * @see #setCapacityNeeded(String, String)
+	 */
 	private Map<String,String> capacityNeeded;
 
 	/**
@@ -105,9 +122,25 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 	 */
 	private ModelSurface.TimeBase timeBase;
 
+	/**
+	 * Zeit, die notwendig ist, um einen Kunden von der einen zur anderen Seite des Fließbandes zu befördern
+	 * @see #getTransportTime()
+	 * @see #setTransportTime(double)
+	 */
 	private double transportTime;
+
+	/**
+	 * Statistiktyp als was die Transportzeit erfasst werden soll
+	 * @see #getTransportTimeType()
+	 * @see #setTransportTime(double)
+	 */
 	private TransportTimeType transportTimeType;
 
+	/**
+	 * Bewegungsrichtung für die Animation
+	 * @see #getMoveDirection()
+	 * @see #setMoveDirection(MoveDirection)
+	 */
 	private MoveDirection moveDirection;
 
 	/**

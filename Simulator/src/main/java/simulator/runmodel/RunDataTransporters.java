@@ -56,10 +56,30 @@ public final class RunDataTransporters implements Cloneable {
 	 */
 	public String[] type;
 
+	/**
+	 * Formeln zur Umrechnung von Entfernungs-Matrix-Einträgen zu Fahrtzeiten
+	 */
 	private String[] expressionString;
+
+	/**
+	 * Formelobjekte zur Umrechnung von Entfernungs-Matrix-Einträgen zu Fahrtzeiten
+	 * @see #expressionString
+	 */
 	private ExpressionCalc[] expression;
+
+	/**
+	 * Entfernungs-Matrixen
+	 */
 	private double[][][] distances;
+
+	/**
+	 * Liste der Variablen - ergänzt um die Distanz-Variable
+	 */
 	private String[] variableNamesWithDistance;
+
+	/**
+	 * Liste aller Transporter in allen Gruppen
+	 */
 	private RunDataTransporter[][] transporters;
 
 	/**
@@ -71,7 +91,7 @@ public final class RunDataTransporters implements Cloneable {
 
 	/**
 	 * Liefert den Index des Transportertyps in der Liste der Transportertypen
-	 * @param name	Name des Trynportertyps
+	 * @param name	Name des Tranportertyps
 	 * @return	Index in der Liste oder -1, wenn es den Transportertyp nicht in der Liste gibt
 	 * @see RunDataTransporters#type
 	 */
@@ -80,6 +100,11 @@ public final class RunDataTransporters implements Cloneable {
 		return -1;
 	}
 
+	/**
+	 * Liefert eine Liste der Stationen die als Zielpunkte für Transporterfahrten in Frage kommen
+	 * @param surface	Zeichenfläche die durchsucht werden soll (auch Unter-Zeichenflächen werden berücksichtigt)
+	 * @return	Zuordnung von Namen zu IDs der möglichen Zielpunkte von Transporterfahrten
+	 */
 	private Map<String,Integer> getDestinationMatrixStations(final ModelSurface surface) {
 		final Map<String,Integer> map=new HashMap<>();
 		for (ModelElement element: surface.getElements()) {
@@ -257,8 +282,6 @@ public final class RunDataTransporters implements Cloneable {
 		}
 	}
 
-	private double[] variableValues=null;
-
 	/**
 	 * Liefert die Strecke, die ein Transporter zurücklegen muss, um von einer Station zu einer anderen zu fahren
 	 * @param indexTransporter	Typ des Transporters
@@ -276,6 +299,12 @@ public final class RunDataTransporters implements Cloneable {
 		/* Entfernung bestimmen */
 		return distances[indexTransporter][idFrom][idTo];
 	}
+
+	/**
+	 * Cache für das Variablenwerte-Array zur Nutzung in {@link #getTransferTime(RunDataTransporter, double, boolean, SimulationData)}
+	 * @see #getTransferTime(RunDataTransporter, double, boolean, SimulationData)
+	 */
+	private double[] variableValues=null;
 
 	/**
 	 * Liefert die Zeit, die ein Transporter benötigt, um eine bestimmte Distanz zurückzulegen
@@ -425,6 +454,10 @@ public final class RunDataTransporters implements Cloneable {
 		return transporterList.toArray(new RunDataTransporter[0]);
 	}
 
+	/**
+	 * Auslastungsstatistik aller Transportergruppen als Array
+	 * @see #getUsageStatistics(SimulationData)
+	 */
 	private StatisticsTimePerformanceIndicator[] statisticsUsage=null;
 
 	/**
@@ -440,6 +473,10 @@ public final class RunDataTransporters implements Cloneable {
 		return statisticsUsage;
 	}
 
+	/**
+	 * Ausfallstatistik aller Transportergruppen als Array
+	 * @see #getDownTimeStatistics(SimulationData)
+	 */
 	private StatisticsTimePerformanceIndicator[] statisticsDown=null;
 
 	/**

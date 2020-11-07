@@ -52,18 +52,76 @@ import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagramBase {
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #recordedDrawValues}
+	 * {@link #recordedDrawValues}, {@link #recordedDrawValuesHeight}
+	 * und {@link #recordedTimeStamps} zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * Während der Animation aufgezeichnete Werte
+	 */
 	private List<double[]> recordedValues;
+
+	/**
+	 * Während der Animation aufgezeichnete Werte umgerechnet in Bildschirm-Koordinaten
+	 */
 	private List<Integer[]> recordedDrawValues;
+
+	/**
+	 * Höhe des Zeichenbereichs, um {@link #recordedValues} in
+	 * {@link #recordedDrawValues} umzurechnen
+	 */
 	private double recordedDrawValuesHeight;
+
+	/**
+	 * Zeitpunkte zu denen {@link #recordedValues} erfasst wurden
+	 * @see #recordedValues
+	 */
 	private long[] recordedTimeStamps;
 
+	/**
+	 * Rechenausdrücke
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<String> expression=new ArrayList<>();
+
+	/**
+	 * Minimalwerte
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<Double> minValue=new ArrayList<>();
+
+	/**
+	 * Maximalwerte
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<Double> maxValue=new ArrayList<>();
+
+	/**
+	 * Linienfarben
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<Color> expressionColor=new ArrayList<>();
+
+	/**
+	 * Linienbreiten
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<Integer> expressionWidth=new ArrayList<>();
 
+	/**
+	 * Im Diagramm darzustellender Zeitbereich (in Sekunden)
+	 * @see #getTimeArea()
+	 * @see #setTimeArea(int)
+	 */
 	private long timeArea=60*5;
 
 	/**
@@ -241,6 +299,12 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		return element;
 	}
 
+	/**
+	 * Zeichnet Dummy-Linien während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawDummyDiagramLines(final Graphics2D g, final Rectangle rectangle, final double zoom) {
 		g.setColor(Color.BLUE);
 		g.setStroke(new BasicStroke(Math.max(1,Math.round(2*zoom))));
@@ -259,14 +323,55 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		g.drawLine(x3,y3,x4,y2);
 	}
 
+	/**
+	 * Zoomfaktor beim letzten Aufruf von
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private double lastZoom;
+
+	/**
+	 * Zeichenstile für die Datenreihen beim letzten Aufruf von
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private BasicStroke[] drawCacheStroke;
+
+	/**
+	 * Farben für die Datenreihen beim letzten Aufruf von
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private Color[] drawCacheColor;
+
+	/**
+	 * Cache des Arrays für die x-Werte für die Datenreihen beim letzten Aufruf von
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private int[] drawCacheXValues;
+
+	/**
+	 * Cache des Arrays für die x-Werte für die Datenreihen beim letzten Aufruf von
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private int[] drawCacheYValues;
 
+	/**
+	 * Cache für positive {@link Integer}-Werte in
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private static Integer[] drawIntegersPlus=new Integer[1000];
+
+	/**
+	 * Cache für positive {@link Integer}-Werte in
+	 * {@link #drawDiagramData(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
 	private static Integer[] drawIntegersMinus=new Integer[1000];
+
 	static {
 		for (int i=0;i<drawIntegersPlus.length;i++) drawIntegersPlus[i]=i;
 		for (int i=0;i<drawIntegersMinus.length;i++) drawIntegersMinus[i]=-i;
@@ -461,8 +566,21 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		return null;
 	}
 
+	/**
+	 * Rechenausdruck der während der Animation ausgewertet
+	 * werden soll, um den darzustellenden Wert zu erhalten.
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private ExpressionCalc[] animationExpression;
 
+	/**
+	 * Wertet {@link #animationExpression} aus und liefert
+	 * den zu zeichnenden Wert zurück.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param index	Auszuwertender Array-Index
+	 * @return	Darzustellender Wert
+	 */
 	private double calcExpression(final SimulationData simData, final int index) {
 		final ExpressionCalc calc=animationExpression[index];
 		if (calc==null) return 0.0;
@@ -470,7 +588,18 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		return calc.calcOrDefault(simData.runData.variableValues,simData,null,0);
 	}
 
+	/**
+	 * Cache für Datenwerte für die Datenreihen in
+	 * {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private List<double[]> cacheDouble=new ArrayList<>();
+
+	/**
+	 * Cache für Ganzzahlwerte für die Datenreihen in
+	 * {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private List<Integer[]> cacheInteger=new ArrayList<>();
 
 	@Override
@@ -561,6 +690,11 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		return "ModelElementAnimationDiagram";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationDiagram(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -632,6 +766,11 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		return simData!=null;
 	}
 
+	/**
+	 * Liefert die Daten in Tabellenform für die Ausgabe einer Datentabelle während der Animation
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Tabelle mit den aktuellen Ausgabedaten
+	 */
 	private Table getAnimationRunTimeTableData(final SimulationData simData) {
 		final Table table=new Table();
 

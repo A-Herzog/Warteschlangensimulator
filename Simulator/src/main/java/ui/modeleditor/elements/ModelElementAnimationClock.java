@@ -142,10 +142,34 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		return element;
 	}
 
+	/**
+	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendete Hintergrundfarbe
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private Color lastColor;
+
+	/**
+	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendete Linienfarbe
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private Color lastColorLine;
+
+	/**
+	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendete Linienbreite
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private int lastWidth;
+
+	/**
+	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendeter Zeichenstil
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private BasicStroke lastWidthStroke;
+
+	/**
+	 * Zeichenstil für Info-Ausgaben
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
 	private final BasicStroke infoStroke=new BasicStroke(1);
 
 	@Override
@@ -286,6 +310,11 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		return "ModelElementAnimationClock";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationClock(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 

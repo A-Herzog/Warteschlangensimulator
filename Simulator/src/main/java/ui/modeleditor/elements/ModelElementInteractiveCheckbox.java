@@ -478,6 +478,10 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawCheckbox",builder->getHTMCheckbox(builder));
 

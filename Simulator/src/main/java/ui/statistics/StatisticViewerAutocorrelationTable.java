@@ -63,6 +63,15 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 		this.mode=mode;
 	}
 
+	/**
+	 * Fügt eine Zeile zu der Autokorrelations-Tabelle hinzu.
+	 * @param table	Autokorrelations-Tabelle
+	 * @param label	Bezeichnung der Zeile (Wert für die erste Spalte)
+	 * @param indicator	Statistikobjekt dem die Autokorrelationsdaten entnommen werden sollen
+	 * @param maxDistance	Maximale darzustellende Distanz
+	 * @return	Liefert <code>true</code>, wenn Autokorrelationsdaten vorlagen
+	 * @see #buildDefaultTable()
+	 */
 	private boolean addDefaultTableRow(final Table table, final String label, final StatisticsDataPerformanceIndicator indicator, final int[] maxDistance) {
 		if (!indicator.isCorrelationAvailable()) return false;
 
@@ -91,6 +100,10 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Standard-Tabellenausgabe der Autokorrelationen der Wartezeiten
+	 * @see Mode#MODE_DEFAULT
+	 */
 	private void buildDefaultTable() {
 		int[] maxDistance=new int[StatisticViewerOverviewText.AUTOCORRELATION_LEVELS.length];
 		boolean individualData=false;
@@ -141,6 +154,13 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 		addDescription("TableAutocorrelationDefault");
 	}
 
+	/**
+	 * Gibt eine Spalte für die Details-Autokorrelations-Tabelle aus.
+	 * @param indicator	Statistikobjekt dem die Autokorrelationsdaten entnommen werden sollen
+	 * @param name	Bezeichnung der Spalte
+	 * @param table	Autokorrelations-Tabelle (wird später transponiert)
+	 * @param cols	Spaltenüberschriften
+	 */
 	private void addDetailsTableRow(final StatisticsDataPerformanceIndicator indicator, final String name, final Table table, final List<String> cols) {
 		if (!indicator.isCorrelationAvailable()) return;
 
@@ -148,6 +168,10 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 		table.addLine(Arrays.stream(indicator.getCorrelationData()).mapToObj(d->StatisticTools.formatPercent(d,3)).collect(Collectors.toList()));
 	}
 
+	/**
+	 * Tabellenausgabe der Autokorrelationen der Wartezeiten inkl. Ausgabe des Maximums
+	 * @see Mode#MODE_DETAILS
+	 */
 	private void buildDetailsTable() {
 		final Table table=new Table();
 		final List<String> cols=new ArrayList<>();

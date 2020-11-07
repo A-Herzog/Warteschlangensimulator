@@ -61,7 +61,9 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 	private  final EditModel model;
 	/** Hilfe-Callback */
 	private final Runnable help;
+	/** Originaldatensatz dem im Konstruktor übergeben wird und in den durch {@link #storeData()} die veränderten Daten zurückgeschrieben werden */
 	private final List<ModelElementActionRecord> recordsOriginal;
+	/** Arbeitskopie von {@link #recordsOriginal} zur Anzeige in der Tabelle und zur Veränderung */
 	private final List<ModelElementActionRecord> records;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
@@ -112,6 +114,12 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 		return 2;
 	}
 
+	/**
+	 * Liefert den Beschreibungstext für die erste Spalte für einen Aktionsdatensatz
+	 * @param record	Aktionsdatensatz
+	 * @return	Beschreibungstext für die erste Spalte der Tabelle
+	 * @see #getValueAt(int, int)
+	 */
 	private String getActionText(final ModelElementActionRecord record) {
 		final StringBuilder sb=new StringBuilder();
 

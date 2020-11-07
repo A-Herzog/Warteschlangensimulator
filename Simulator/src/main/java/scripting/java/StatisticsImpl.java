@@ -96,10 +96,26 @@ public class StatisticsImpl implements StatisticsInterface {
 		this.xml=xml;
 	}
 
+	/**
+	 * Gibt eine Fehlermeldung über {@link #errorOutput} aus.
+	 * @param text	Fehlermeldung
+	 * @see #errorOutput
+	 */
 	private void addOutput(final String text) {
 		if (errorOutput!=null) errorOutput.accept(text);
 	}
 
+	/**
+	 * Selektiert ein XML-Objekt
+	 * @param selectors	Zusammenstellung der Pfad-Komponenten
+	 * @param parent	Übergeordnetes XML-Element
+	 * @param parentTags	Namen der übergeordneten Elemente
+	 * @param systemNumbers	 Legt fest, ob Zahlen in System- oder lokaler Notation ausgegeben werden sollen.
+	 * @param percent	Als Prozentwert oder normale Fließkommazahl
+	 * @param time	Als Zeitangabe oder als Zahl
+	 * @param distributionSeparator	Trenner für die Einträge bei Verteilungen
+	 * @return	Gibt ein String-Array aus zwei Elementen zurück. Im ersten Eintrag wird ein Fehler und im zweiten ein Wert zurückgegeben. Genau einer der beiden Einträge ist immer <code>null</code>.
+	 */
 	private String[] findElement(Scanner selectors, Element parent, List<String> parentTags, boolean systemNumbers, boolean percent, boolean time, char distributionSeparator) {
 		/* Selektor dekodieren */
 		String sel=selectors.next();
@@ -169,6 +185,10 @@ public class StatisticsImpl implements StatisticsInterface {
 		return findElement(selectors,searchResult,tags,systemNumbers,percent,time,distributionSeparator);
 	}
 
+	/**
+	 * Einträge die nicht formatiert werden sollen.
+	 * @see #doNotFormatCheck(List)
+	 */
 	private static String[] doNotFormat;
 
 	static {
@@ -190,6 +210,11 @@ public class StatisticsImpl implements StatisticsInterface {
 		};
 	}
 
+	/**
+	 * Prüft, ob für den Inhalt eines XML-Pfades von der Formatierung ausgenommen werden soll.
+	 * @param path	XML-Pfad
+	 * @return	Keine Formatierung des Inhalts?
+	 */
 	private static boolean doNotFormatCheck(List<String> path) {
 		if (path==null || path.size()==0) return false;
 		for (int i=0;i<doNotFormat.length;i++) {
@@ -290,6 +315,12 @@ public class StatisticsImpl implements StatisticsInterface {
 		addOutput(Language.tr("Statistics.Filter.InvalidParameters")+" ("+separator+")");
 	}
 
+	/**
+	 * Versucht eine Zeichenkette in ein Verteilungsobjekt umzuwandeln
+	 * @param value	Zeichenkette
+	 * @return	Liefert im Erfolgsfall ein Verteilungsobjekt und im Fehlerfall eine Fehlermeldung
+	 * @see #getDistribution(String)
+	 */
 	private Object getDistributionFromString(final String value) {
 		AbstractRealDistribution dist=DistributionTools.distributionFromString(value,86400);
 		if (dist==null) return String.format(Language.tr("Statistics.Filter.InvalidDistribution"),value);
@@ -305,6 +336,11 @@ public class StatisticsImpl implements StatisticsInterface {
 		return dist;
 	}
 
+	/**
+	 * Versucht ein Verteilungsobjekt basierend auf dem Inhalt eines XML-Pfades zu erzeugen
+	 * @param path	XML-Pfad
+	 * @return	Liefert im Erfolgsfall ein Verteilungsobjekt und im Fehlerfall eine Fehlermeldung
+	 */
 	private Object getDistribution(final String path) {
 		if (path==null) return "";
 
@@ -517,7 +553,13 @@ public class StatisticsImpl implements StatisticsInterface {
 		canceled=true;
 	}
 
-	private Document translate(final Document xml,final String language) {
+	/**
+	 * Übersetzt ein XML-Dokument
+	 * @param xml	Zu übersetzendes XML-Dokument
+	 * @param language	Neue Sprache ("de" oder "en")
+	 * @return	Liefert das neue XML-Dokument
+	 */
+	private Document translate(final Document xml, final String language) {
 		final String currentLanguage=Language.getCurrentLanguage();
 
 		try {
@@ -555,6 +597,12 @@ public class StatisticsImpl implements StatisticsInterface {
 		return true;
 	}
 
+	/**
+	 * Versucht basierend auf dem Namen einer Station die zugehörige ID zu ermitteln
+	 * @param surface	Zeichenfläche auf der (und deren Unterzeichenflächen) gesucht werden soll
+	 * @param name	Name der Station
+	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
+	 */
 	private int getStationID(final ModelSurface surface, final String name) {
 		for (ModelElement element1: surface.getElements()) {
 			if (element1.getName().equalsIgnoreCase(name)) return element1.getId();

@@ -132,6 +132,11 @@ public class RunDataResourceFailure {
 		}
 	}
 
+	/**
+	 * Plant ein Ereignis zur Prüfung, ob ein Bediener jetzt in die Pause geschickt werden kann, ein.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param eventTime	Zeitpunkt zu dem das Ereignis ausgeführt werden soll
+	 */
 	private void scheduleResourceCheckEvent(final SimulationData simData, final long eventTime) {
 		final ResourcesReCheckEvent event=(ResourcesReCheckEvent)(simData.getEvent(ResourcesReCheckEvent.class));
 		event.init(eventTime);
@@ -171,6 +176,12 @@ public class RunDataResourceFailure {
 		}
 	}
 
+	/**
+	 * Bestimmt die Länge einer Ausfallzeit
+	 * @param simData	Simulationsdatenobjekt
+	 * @param resourceName	Name der Ressource
+	 * @return	Länge der Ausfallzeit
+	 */
 	private long getDownTime(final SimulationData simData, final String resourceName) {
 		if (downTimeExpression!=null) {
 			try {

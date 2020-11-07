@@ -43,6 +43,9 @@ public class ModelElementAssignSequenceDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -7609471043565949709L;
 
+	/**
+	 * Auswahlbox zur Auswahl des zuzuweisenden Fertigungsplans
+	 */
 	private JComboBox<String> sequenceCombo;
 
 	/**

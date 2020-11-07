@@ -65,20 +65,81 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 */
 	private static final int SELECT_BOX_SIZE=7;
 
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #recordedValues}
+	 * zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * Aufgezeichnete Werte die in {@link #drawDiagramBars(Graphics2D, Rectangle)}
+	 * gezeichnet werden sollen
+	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 */
 	private double[] recordedValues;
 
+	/**
+	 * Liste der Rechenausdrücke für die Diagramm-Einträge
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<String> expression=new ArrayList<>();
+
+	/**
+	 * Liste der Farben für die Diagramm-Einträge
+	 * @see #getExpressionData()
+	 * @see #setExpressionData(List)
+	 */
 	private final List<Color> expressionColor=new ArrayList<>();
 
+	/**
+	 * Minimalwert (kann <code>null</code> sein, wenn der Minimalwert automatisch ermittelt werden soll)
+	 * @see #getMinValue()
+	 * @see #getMaxValue()
+	 */
 	private Double minValue;
+
+	/**
+	 * Maximalwert (kann <code>null</code> sein, wenn der Maximalwert automatisch ermittelt werden soll)
+	 * @see #getMinValue()
+	 * @see #getMaxValue()
+	 */
 	private Double maxValue;
 
+	/**
+	 * Breite der Linie
+	 * @see #getBorderWidth()
+	 * @see #setBorderWidth(int)
+	 */
 	private int borderWidth=1;
+
+	/**
+	 * Farbe der Linie
+	 * @see #getBorderColor()
+	 * @see #setBorderColor(Color)
+	 */
 	private Color borderColor=Color.BLACK;
+
+	/**
+	 * Füllfarbe des Kastens
+	 * @see #getBackgroundColor()
+	 * @see #setBackgroundColor(Color)
+	 */
 	private Color backgroundColor=null;
+
+	/**
+	 * 3D-Effekte für die Balken
+	 * @see #isUse3D()
+	 * @see #setUse3D(boolean)
+	 */
 	private boolean use3D=true;
 
+	/**
+	 * Cache der Bereichsfüllung-Zeichners
+	 * für {@link #drawDiagramBars(Graphics2D, Rectangle)}
+	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 */
 	private GradientFill[] filler;
 
 	/**
@@ -434,9 +495,23 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		graphics.fill(rectangle);
 	}
 
+	/**
+	 * Farben für die Dummy-Balken (die im Editor, also vor dem Start einer Animation, angezeigt werden)
+	 * @see #drawDummyDiagramBars(Graphics2D, Rectangle)
+	 */
 	private static final Color[] dummyColor={Color.BLUE,Color.RED,Color.GREEN};
+
+	/**
+	 * Werte für die Dummy-Balken (die im Editor, also vor dem Start einer Animation, angezeigt werden)
+	 * @see #drawDummyDiagramBars(Graphics2D, Rectangle)
+	 */
 	private static final double[] dummyValue={0.6,0.4,0.8};
 
+	/**
+	 * Zeichnet Dummy-Balken während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 */
 	private void drawDummyDiagramBars(final Graphics2D g, final Rectangle rectangle) {
 		final int w=(rectangle.width-2*10-(dummyValue.length-1)*5)/dummyValue.length;
 		int x=rectangle.x+10;
@@ -455,10 +530,30 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		}
 	}
 
+	/**
+	 * Cache für das Recheckobjekt das in {@link #drawDiagramBars(Graphics2D, Rectangle)}
+	 * benötigt wird.
+	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 */
 	private Rectangle barDrawRect;
+
+	/**
+	 * Cache für die x-Koordinaten der Balken in {@link #drawDiagramBars(Graphics2D, Rectangle)}
+	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 */
 	private int[] xPoints=new int[4];
+
+	/**
+	 * Cache für die y-Koordinaten der Balken in {@link #drawDiagramBars(Graphics2D, Rectangle)}
+	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 */
 	private int[] yPoints=new int[4];
 
+	/**
+	 * Zeichnet die Balken auf die Zeichenfläche
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 */
 	private void drawDiagramBars(final Graphics2D g, final Rectangle rectangle) {
 		if (recordedValues==null) {
 			drawDummyDiagramBars(g,rectangle);
@@ -756,8 +851,21 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		return null;
 	}
 
+	/**
+	 * Rechenausdruck der während der Animation ausgewertet
+	 * werden soll, um den darzustellenden Wert zu erhalten.
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private ExpressionCalc[] animationExpression;
 
+	/**
+	 * Wertet {@link #animationExpression} aus und liefert
+	 * den zu zeichnenden Wert zurück.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param index	Auszuwertender Array-Index
+	 * @return	Darzustellender Wert
+	 */
 	private double calcExpression(final SimulationData simData, final int index) {
 		final ExpressionCalc calc=animationExpression[index];
 		if (calc==null) return 0.0;
@@ -765,7 +873,17 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		return calc.calcOrDefault(simData.runData.variableValues,simData,null,0);
 	}
 
+	/**
+	 * In {@link #updateSimulationData(SimulationData, boolean)} berechnete Ausgabedaten
+	 * {@link #updateSimulationData(SimulationData, boolean)}
+	 */
 	private double[][] dataSets;
+
+	/**
+	 * Für die Ausgabe aktiver Eintrag in {@link #dataSets}
+	 * @see #dataSets
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private int drawActiveDataSet;
 
 	@Override
@@ -814,6 +932,11 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		return "ModelElementAnimationBarChart";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLAnimationBarChart(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -861,6 +984,10 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawAnimationBarChart",builder->getHTMLAnimationBarChart(builder));
 
@@ -912,6 +1039,11 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		return simData!=null;
 	}
 
+	/**
+	 * Liefert die Daten in Tabellenform für die Ausgabe einer Datentabelle während der Animation
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Tabelle mit den aktuellen Ausgabedaten
+	 */
 	private Table getAnimationRunTimeTableData(final SimulationData simData) {
 		final Table table=new Table();
 

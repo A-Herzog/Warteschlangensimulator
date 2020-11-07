@@ -59,6 +59,14 @@ public class StatisticViewerModelImage extends StatisticViewerImage {
 		}
 	}
 
+	/**
+	 * Erstellt das Bild des Modells und speichert
+	 * es in {@link #image}.
+	 * @param width	Breite des Bildes
+	 * @param height	Höhe des Bildes
+	 * @see #image
+	 * @see ModelSurfacePanel#getImage(int, int)
+	 */
 	private void buildImage(final int width, final int height) {
 		if (surfacePanel==null) panelNeeded();
 		image=surfacePanel.getImage(width,height);

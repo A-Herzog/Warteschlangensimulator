@@ -90,6 +90,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	private int digits=1;
 	private long dateZero=0;
 
+	/**
+	 * Sichert ab, dass Simulations- und Zeichenthread
+	 * nicht gleichzeitig auf {@link #simTextValue},
+	 * {@link #simTextValueLong} und {@link #simTextValueDouble} zugreifen.
+	 */
 	private Semaphore drawLock=new Semaphore(1);
 	private String simTextValue=null;
 	private long simTextValueLong;
@@ -606,8 +611,20 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		return null;
 	}
 
+	/**
+	 * Rechenausdruck der während der Animation ausgewertet
+	 * werden soll, um den darzustellenden Wert zu erhalten.
+	 * @see #initAnimation(SimulationData)
+	 * @see #calcExpression(SimulationData)
+	 */
 	private ExpressionCalc animationExpression;
 
+	/**
+	 * Wertet {@link #animationExpression} aus und liefert
+	 * den zu zeichnenden Wert zurück.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Darzustellender Wert
+	 */
 	private double calcExpression(final SimulationData simData) {
 		if (animationExpression==null) return 0.0;
 		simData.runData.setClientVariableValues(null);
@@ -675,6 +692,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		return "ModelElementAnimationText";
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMLText(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -701,6 +723,10 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		return sb.toString();
 	}
 
+	/**
+	 * Zeichnet das Element in einem {@link HTMLOutputBuilder}
+	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
+	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
 		outputBuilder.addJSUserFunction("drawAnimationTextValue",builder->getHTMLText(builder));
 

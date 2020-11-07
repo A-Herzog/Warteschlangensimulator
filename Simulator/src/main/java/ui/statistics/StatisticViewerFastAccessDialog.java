@@ -78,13 +78,21 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	/** Sollen Optionen zum Einfügen des gewählten Elements in ein Skript angeboten werden (<code>false</code>) oder geht es nur um die Auswahl des XML-Elements als solches (<code>true</code>) */
 	private final boolean plainMode;
 
+	/** Baumstruktur der XML-Elemente */
 	private JTree tree;
+	/** Inhaltsbereich zur Auswahl von Inhalt oder XML-Attribut */
 	private JPanel contentArea;
+	/** Anzeige des Namens des gewählten Elements */
 	private JLabel xmlInfoLabel;
+	/** Anzeige der Auswahloptionen für den Inhalt */
 	private JTable contentTable;
+	/** Anzeige der Auswahloptionen für Attribute */
 	private JTable attributeTable;
+	/** Zusammenfassung der Auswahl-Radiobuttons */
 	private ButtonGroup buttonGroup;
+	/** Zusammenfassung der Einfügeart-Radiobuttons {@link #insertButtons} */
 	private ButtonGroup insertButtonGroup;
+	/** Einfügeart */
 	private JRadioButton[] insertButtons;
 
 	/**
@@ -106,6 +114,11 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		setResizable(true);
 	}
 
+	/**
+	 * Erzeugt zu einem XML-Element einen Baumeintrag
+	 * @param xmlNode	XML-Element
+	 * @return	Baumeintrag
+	 */
 	private DefaultMutableTreeNode createTreeNode(Element xmlNode) {
 		DefaultMutableTreeNode treeNode=new DefaultMutableTreeNode(new XMLNodeWrapper(xmlNode));
 
@@ -118,6 +131,11 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		return treeNode;
 	}
 
+	/**
+	 * Legt die Inhaltselemente (Baumstruktur und Inhaltsbereich)
+	 * des Dialogs an.
+	 * @param content	Panel das den gesamten Dialogbereich darstellt
+	 */
 	private void createSimpleContent(JPanel content) {
 		content.setLayout(new BorderLayout());
 		JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -137,7 +155,13 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		setTableData((XMLNodeWrapper)((DefaultMutableTreeNode)tree.getModel().getRoot()).getUserObject());
 	}
 
-	private void setTableData(XMLNodeWrapper node) {
+	/**
+	 * Aktualisiert die Anzeige im Inhaltsbereich,
+	 * wenn ein anderer Eintrag in der Baumstruktur ausgewählt wurde.
+	 * @param node	Ausgewählter XML-Eintrag
+	 * @see XMLNodeWrapper
+	 */
+	private void setTableData(final XMLNodeWrapper node) {
 		buttonGroup=new ButtonGroup();
 
 		if (xmlInfoLabel==null) {
@@ -187,7 +211,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		}
 		contentTable.getTableHeader().setReorderingAllowed(false);
 		contentTable.getColumnModel().getColumn(0).setCellRenderer(new RadioButtonRenderer());
-		contentTable.getColumnModel().getColumn(0).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+		contentTable.getColumnModel().getColumn(0).setCellEditor(new RadioButtonEditor());
 
 		final DefaultReadOnlyTableModel attributeModel=new DefaultReadOnlyTableModel(node.getAttributeTableData(buttonGroup));
 		if (attributeTable==null) {
@@ -215,7 +239,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		}
 		attributeTable.getTableHeader().setReorderingAllowed(false);
 		attributeTable.getColumnModel().getColumn(0).setCellRenderer(new RadioButtonRenderer());
-		attributeTable.getColumnModel().getColumn(0).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+		attributeTable.getColumnModel().getColumn(0).setCellEditor(new RadioButtonEditor());
 
 		if (!plainMode) {
 			if (insertButtonGroup==null) {
@@ -280,6 +304,13 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		return 0;
 	}
 
+	/**
+	 * Datenmodell für
+	 * {@link StatisticViewerFastAccessDialog#contentTable} und
+	 * {@link StatisticViewerFastAccessDialog#attributeTable}
+	 * @see StatisticViewerFastAccessDialog#contentTable
+	 * @see StatisticViewerFastAccessDialog#attributeTable
+	 */
 	private class DefaultReadOnlyTableModel extends DefaultTableModel {
 		/**
 		 * Serialisierungs-ID der Klasse
@@ -287,6 +318,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		 */
 		private static final long serialVersionUID = 2744629774042523677L;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param data	Anzuzeigende Einträge
+		 */
 		public DefaultReadOnlyTableModel(Object[][] data) {
 			super(data,new String[]{Language.tr("Statistic.FastAccess.SelectXMLTag.Property"),Language.tr("Statistic.FastAccess.SelectXMLTag.Value")});
 		}
@@ -295,6 +330,13 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		public boolean isCellEditable(int rowIndex, int columnIndex) {return columnIndex==0;}
 	}
 
+	/**
+	 * Renderer für die Radiobutton-Einträge in
+	 * {@link StatisticViewerFastAccessDialog#contentTable} und in
+	 * {@link StatisticViewerFastAccessDialog#attributeTable}
+	 * @see StatisticViewerFastAccessDialog#contentTable
+	 * @see StatisticViewerFastAccessDialog#attributeTable
+	 */
 	private class RadioButtonRenderer extends DefaultTableCellRenderer {
 		/**
 		 * Serialisierungs-ID der Klasse
@@ -309,6 +351,11 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Tabelleneintrag, der ein Radiobutton beinhaltet
+	 * @see StatisticViewerFastAccessDialog#contentTable
+	 * @see StatisticViewerFastAccessDialog#attributeTable
+	 */
 	private class RadioButtonEditor extends DefaultCellEditor implements ItemListener {
 		/**
 		 * Serialisierungs-ID der Klasse
@@ -316,10 +363,16 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		 */
 		private static final long serialVersionUID = -2826551849190366679L;
 
+		/**
+		 * Darzustellendes Radiobutton
+		 */
 		private JRadioButton button;
 
-		public RadioButtonEditor(JCheckBox checkBox) {
-			super(checkBox);
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public RadioButtonEditor() {
+			super(new JCheckBox());
 		}
 
 		@Override
@@ -342,6 +395,11 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Wrapper zur Darstellung der Daten im Inhaltsberich
+	 * zu einem XML-Element
+	 * @see StatisticViewerFastAccessDialog#setTableData(XMLNodeWrapper)
+	 */
 	private class XMLNodeWrapper {
 		/**
 		 * Elemente, die ein Typ="..."-Attribut zur Unterscheidung verwenden
@@ -452,11 +510,19 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.ValueRecording")+","+Language.trPrimary("Statistics.XML.ValueRecordingName")
 		};
 
+		/** XML-Element auf das sich dieser Wrapper bezieht */
 		public final Element xmlNode;
+		/** Wird eine ID zur Unterscheidung benötigt? */
 		public final boolean needID;
+		/** Wird eine zahlenbasierte ID zur Unterscheidung benötigt? */
 		public final boolean needNrID;
+		/** Wert der Zahlen-ID für dieses Element */
 		public final int nrID;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param xmlNode	XML-Element auf das sich dieser Wrapper bezieht
+		 */
 		public XMLNodeWrapper(Element xmlNode) {
 			this.xmlNode=xmlNode;
 
@@ -493,6 +559,12 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			}
 		}
 
+		/**
+		 * Prüft, ob zwei XML-Pfade gleichwertig sind
+		 * @param path1	XML-Pfad 1
+		 * @param path2	XML-Pfad 2
+		 * @return	Liefert <code>true</code>, wenn die beiden Pfad auf dasselbe Element verweisen
+		 */
 		private boolean tagPathsEqual(final String path1, final String path2) {
 			if (path1==null || path2==null) return false;
 			final String[] parts1=path1.split(",");
@@ -506,6 +578,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			return true;
 		}
 
+		/**
+		 * Liefert basierend auf der aktuellen Auswahl den zugehörigen ID-Selektor für das XML-Element
+		 * @return	ID-Selektor für das XML-Element
+		 */
 		private String getIDSelector() {
 			if (needID) {
 				String[] testIDs=new String[]{Language.tr("Surface.XML.Element.id"),Language.tr("Surface.XML.ClientData.Name"),Language.tr("Surface.XML.Connection.Type")};
@@ -531,11 +607,20 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			return xmlNode.getNodeName()+getIDSelector();
 		}
 
+		/**
+		 * Bezeichner für den aktuellen XML-Eintrag (nicht den ganzen Pfad, nur für das aktuelle Element)
+		 * @return	Bezeichner für den aktuellen XML-Eintrag
+		 */
 		public String toXMLString() {
 			if (xmlNode==null) return "("+Language.tr("Statistic.FastAccess.SelectXMLTag.empty")+")";
 			return xmlNode.getNodeName()+getIDSelector();
 		}
 
+		/**
+		 * Liefert den vollständigen Pfad zu dem aktuellen XML-Element
+		 * @param attribute	Optional Pfad zu einem Attribut innerhalb des XML-Elements (kann <code>null</code> sein)
+		 * @return	Pfad zu dem XML-Element bzw. dem Attribut innerhalb des XML-Elements
+		 */
 		private String getPath(String attribute) {
 			if (xmlNode==null) return "";
 			String s=toXMLString();
@@ -554,6 +639,11 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			return s;
 		}
 
+		/**
+		 * Liefert den vollständigen Pfad zu dem aktuellen XML-Element
+		 * @param attribute	Optional Pfad zu einem Attribut innerhalb des XML-Elements (kann <code>null</code> sein)
+		 * @return	Pfad zu dem XML-Element bzw. dem Attribut innerhalb des XML-Elements
+		 */
 		private String[] getPathList(String attribute) {
 			if (xmlNode==null) return new String[0];
 			List<String> list=new ArrayList<>();
@@ -573,6 +663,12 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			return list.toArray(new String[0]);
 		}
 
+		/**
+		 * Liefert die Darstellung für einen Wert in einem XML-Element oder einem Attribut
+		 * @param value	Wert des Eintrags
+		 * @param attribute	Optional Attribut innerhalb des XML-Eintrags (kann <code>null</code> sein)
+		 * @return	Darstellung für einen Wert
+		 */
 		private String formatValue(String value, String attribute) {
 			List<String> path=new ArrayList<>();
 			if (attribute!=null && !attribute.isEmpty()) path.add(attribute);
@@ -587,6 +683,12 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			return JSCommandXML.formatNumber(value,path,false,false,false,';');
 		}
 
+		/**
+		 * Liefert die Daten für die Inhalte-Tabelle
+		 * @param buttonGroup	Zusammenfassungs-Elemente für die Radiobuttons
+		 * @return	Daten für die Inhalte-Tabelle
+		 * @see StatisticViewerFastAccessDialog#contentTable
+		 */
 		public Object[][] getContentTableData(ButtonGroup buttonGroup) {
 			Object[][] data=new Object[1][2];
 			String s=null;
@@ -610,6 +712,12 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			return data;
 		}
 
+		/**
+		 * Liefert die Daten für die Attribute-Tabelle
+		 * @param buttonGroup	Zusammenfassungs-Elemente für die Radiobuttons
+		 * @return	Daten für die Attribute-Tabelle
+		 * @see StatisticViewerFastAccessDialog#attributeTable
+		 */
 		public Object[][] getAttributeTableData(ButtonGroup buttonGroup) {
 			NamedNodeMap map=null;
 			if (xmlNode!=null) map=xmlNode.getAttributes();
@@ -632,7 +740,18 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		}
 	}
 
+	/**
+	 * Wird verwendet um auf eine veränderte Auswahl in der Baumstruktur
+	 * {@link StatisticViewerFastAccessDialog#tree} zu reagieren.
+	 * @see StatisticViewerFastAccessDialog#tree
+	 */
 	private class TreeSelectionChanged implements TreeSelectionListener {
+		/**
+		 * Liefert den aktuell in {@link StatisticViewerFastAccessDialog#tree}
+		 * gewählten Eintrag
+		 * @return	Aktuell ausgewählter Baumeintrag
+		 * @see StatisticViewerFastAccessDialog#tree
+		 */
 		private DefaultMutableTreeNode getSelItem() {
 			TreePath path=tree.getSelectionPath(); if (path==null || path.getPathCount()==0) return null;
 			Object obj=path.getPath()[path.getPathCount()-1];

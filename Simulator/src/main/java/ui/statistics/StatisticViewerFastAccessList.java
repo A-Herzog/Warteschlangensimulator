@@ -69,15 +69,23 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 	/** Referenz auf das Setup-Singleton */
 	private final SetupData setup;
 
+	/** Datenmodell für die Liste der Ausgabe-Anweisungen {@link #list} */
 	private final DefaultListModel<FilterListRecord> listModel;
+	/** Liste der Ausgabe-Anweisungen */
 	private final JList<FilterListRecord> list;
 
+	/** Zuletzt gespeichertes Skript */
 	private String lastSavedFilterText;
 
+	/** Schaltfläche "Eintrag hinzufügen" */
 	private JButton toolbarAdd;
+	/** Schaltfläche "Eintrag bearbeiten" */
 	private JButton toolbarEdit;
+	/** Schaltfläche "Eintrag löschen" */
 	private JButton toolbarDelete;
+	/** Schaltfläche "Eintrag in der Liste nach oben verschieben" */
 	private JButton toolbarUp;
+	/** Schaltfläche "Eintrag in der Liste nach unten verschieben" */
 	private JButton toolbarDown;
 
 	/**
@@ -161,6 +169,12 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		toolbarDown.addActionListener(e->commandDown());
 	}
 
+	/**
+	 * Aktualisiert den aktiv/deaktiviert Status
+	 * der Schaltflächen in der Symbolleiste,
+	 * wenn ein neuer Eintrag in der Liste
+	 * selektiert wurde.
+	 */
 	private void selectionChanged() {
 		final int count=listModel.size();
 		final int index=list.getSelectedIndex();
@@ -190,6 +204,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		}
 	}
 
+	/**
+	 * Fügt einen Eintrag zu der Liste hinzu.
+	 * @param helperRecord	Ausgewählter Menüpunkt
+	 */
 	private void addHelperRecord(final ScriptHelperRecord helperRecord) {
 		final FilterListRecord record=new FilterListRecord();
 		record.mode=FilterListRecord.Mode.XML;
@@ -200,6 +218,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		process(false);
 	}
 
+	/**
+	 * Fügt einen Eintrag zu der Liste hinzu.
+	 * @param mode	Auszuführender Befehl
+	 */
 	private void addSpecialRecord(final FilterListRecord.Mode mode) {
 		final FilterListRecord record=new FilterListRecord();
 		record.mode=mode;
@@ -209,6 +231,11 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		process(false);
 	}
 
+	/**
+	 * Zeigt den Dialog zum Hinzufügen von Listeneinträgen an.
+	 * @param initialMode	Initial zu aktivierender Modus
+	 * @see StatisticViewerFastAccessListDialog
+	 */
 	private void showAddDialog(final FilterListRecord.Mode initialMode) {
 		FilterListRecord record=null;
 		if (initialMode!=null) {
@@ -225,6 +252,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		}
 	}
 
+	/**
+	 * Befehl: Eintrag hinzufügen
+	 * @see #toolbarAdd
+	 */
 	private void commandAdd() {
 		ListPopup helper=new ListPopup(toolbarAdd,null);
 		final JPopupMenu popupMenu=new JPopupMenu();
@@ -252,6 +283,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		popupMenu.show(toolbarAdd,0,toolbarAdd.getHeight());
 	}
 
+	/**
+	 * Befehl: Eintrag bearbeiten
+	 * @see #toolbarEdit
+	 */
 	private void commandEdit() {
 		final int index=list.getSelectedIndex();
 		if (index<0) return;
@@ -263,6 +298,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		}
 	}
 
+	/**
+	 * Befehl: Eintrag löschen
+	 * @see #toolbarDelete
+	 */
 	private void commandDelete() {
 		final int index=list.getSelectedIndex();
 		if (index<0) return;
@@ -273,6 +312,11 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		process(false);
 	}
 
+	/**
+	 * Vertauscht zwei Einträge in der Liste
+	 * @param index1	Index des ersten Eintrags
+	 * @param index2	Index des zweiten Eintrags
+	 */
 	private void commandSwap(final int index1, final int index2) {
 		final FilterListRecord record1=listModel.getElementAt(index1);
 		final FilterListRecord record2=listModel.getElementAt(index2);
@@ -281,6 +325,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		process(false);
 	}
 
+	/**
+	 * Befehl: Eintrag in der Liste nach oben verschieben
+	 * @see #toolbarUp
+	 */
 	private void commandUp() {
 		final int index=list.getSelectedIndex();
 		if (index<1) return;
@@ -288,6 +336,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		list.setSelectedIndex(index-1);
 	}
 
+	/**
+	 * Befehl: Eintrag in der Liste nach unten verschieben
+	 * @see #toolbarDown
+	 */
 	private void commandDown() {
 		final int index=list.getSelectedIndex();
 		if (index<0 || index>=listModel.size()-1) return;
@@ -295,6 +347,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		list.setSelectedIndex(index+1);
 	}
 
+	/**
+	 * Darf die Liste verworfen werden (ggf. Nutzer fragen)?
+	 * @return	Liefert <code>true</code>, wenn die Liste verworfen werden darf
+	 */
 	private boolean discardOk() {
 		final String text=saveListToText();
 		if (text.trim().equals(lastSavedFilterText.trim())) return true;
@@ -315,6 +371,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		process(false);
 	}
 
+	/**
+	 * Lädt die Listendarstellung aus einem Text
+	 * @param text	Zuvor gespeicherte Listendarstellung
+	 */
 	private void loadTextToList(final String text) {
 		final FilterList filterList=new FilterList();
 		filterList.load(text);
@@ -324,10 +384,18 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		selectionChanged();
 	}
 
+	/**
+	 * Liefert den Speicher-Text der Listendarstellung.
+	 * @return	Speicher-Text der Listendarstellung
+	 */
 	private String saveListToText() {
 		return FilterList.save(listModel.elements());
 	}
 
+	/**
+	 * Lädt ein neues Skript.
+	 * @return	Liefert <code>true</code>, wenn ein Skript geladen wurde
+	 */
 	private boolean loadIntern() {
 		if (!discardOk()) return false;
 		final String fileName=ScriptTools.selectTextFile(getParent(),null,null);
@@ -349,6 +417,10 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		loadIntern();
 	}
 
+	/**
+	 * Speichert das aktuelle Skript in einer Datei.
+	 * @return	Liefer <code>true</code>, wenn das Skript gespeichert werden konnte.
+	 */
 	private boolean saveToFile() {
 		final String fileName=ScriptTools.selectTextSaveFile(getParent(),null,null);
 		if (fileName==null) return false;
@@ -378,6 +450,12 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 	protected void commandTools(JButton sender) {
 	}
 
+	/**
+	 * Erstellt auf Basis der Daten einer Schaltfläche einen Menüpunkt.
+	 * @param button	Ausgangs-Schaltfläche
+	 * @param popup	Popupmenü dem der neue Menüpunkt hinzugefügt werden soll
+	 * @param keyStroke	Optionaler Hotkey für den Menüpunkt (kann <code>null</code> sein)
+	 */
 	private void buttonToPopup(final JButton button, final JPopupMenu popup, final KeyStroke keyStroke) {
 		final JMenuItem item=new JMenuItem(button.getText());
 		if (button.getIcon()!=null) item.setIcon(button.getIcon());
@@ -388,6 +466,11 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		popup.add(item);
 	}
 
+	/**
+	 * Zeigt das Popupmenü zu einem Eintrag in
+	 * {@link StatisticViewerFastAccessList#list} an.
+	 * @param event	Auslösendes Maus-Ereignis (zur Ausrichtung des Popupmenüs)
+	 */
 	private void commandPopup(final MouseEvent event) {
 		final JPopupMenu popup=new JPopupMenu();
 
@@ -402,6 +485,11 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		popup.show(list,event.getX(),event.getY());
 	}
 
+	/**
+	 * Renderer für die Einträge in
+	 * {@link StatisticViewerFastAccessList#list}
+	 * @see StatisticViewerFastAccessList#list
+	 */
 	private static class FilterListRenderer extends DefaultListCellRenderer {
 		/**
 		 * Serialisierungs-ID der Klasse

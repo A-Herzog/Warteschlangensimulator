@@ -57,6 +57,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 	private List<String> stations;
 	private List<String> stationsLong;
 	private JComboBox<String> select;
+	/** Eingabefeld für die maximale Anzahl an Kunden im Segment */
 	private JTextField maxEdit;
 
 	/**

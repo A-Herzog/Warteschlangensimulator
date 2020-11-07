@@ -36,11 +36,35 @@ public abstract class JSEngine {
 	 */
 	protected static final String ENGINE_NAME_BINDING="JS_ENGINE_NAME";
 
-	/** Maximale Skriptlaufzeit */
+	/**
+	 * Maximale Skriptlaufzeit
+	 */
 	private final int maxExecutionTimeMS;
+
+	/**
+	 * Thread-Pool zur Ausführung des Skriptes
+	 * in einem eigenen Thread (der notfalls vom
+	 * Hauptthread aus abgebrochen werden kann).
+	 * @see #executeCallable(Callable)
+	 */
 	private final ThreadPoolExecutor executorPool;
+
+	/**
+	 * Ausgabe des Skriptes
+	 * @see #getResult()
+	 */
 	private String lastResult;
+
+	/**
+	 * Erfasst, wie lange die letzte Skriptausführung dauerte
+	 * @see #getResult()
+	 */
 	private long lastExecutionTimeMS;
+
+	/**
+	 * Zählt, wie häufig das Skript aufgerufen wurde.
+	 * @see #run()
+	 */
 	private long executionCount;
 
 	/**
@@ -82,7 +106,17 @@ public abstract class JSEngine {
 	 */
 	protected abstract void execute() throws Exception;
 
-	private final Callable<Boolean> scriptCallable=()->{execute(); return true;};
+	/**
+	 * Callback das das Skript kapselt.<br>
+	 * Dieses Callback wird an {@link #executeCallable(Callable)}
+	 * übergeben, um das Skript in einem eigenen
+	 * Thread ausführen zu können.
+	 * @see #executeCallable(Callable)
+	 */
+	private final Callable<Boolean> scriptCallable=()->{
+		execute();
+		return true;
+	};
 
 	/**
 	 * Ausführung des Skriptes.
@@ -134,6 +168,13 @@ public abstract class JSEngine {
 		return lastResult;
 	}
 
+	/**
+	 * Führt das Skript in einem eigenen Thread aus, um es so ggf.
+	 * nach Überschreitung von {@link #maxExecutionTimeMS} abbrechen
+	 * zu können.
+	 * @param callable	Callback das das auszuführende Skript enthält
+	 * @return	Liefert <code>true</code>, wenn das Skript erfolgreich und im vorgegebenen Zeitrahmen ausgeführt werden konnte
+	 */
 	private boolean executeCallable(final Callable<Boolean> callable) {
 		final Future<Boolean> result=executorPool.submit(callable);
 		try {

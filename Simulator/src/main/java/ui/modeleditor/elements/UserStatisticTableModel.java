@@ -182,17 +182,47 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
-	private enum ActionIndex {ACTION_ADD, ACTION_UP, ACTION_DOWN, ACTION_DELETE, ACTION_EDIT}
+	/**
+	 * Im {@link TableButtonListener} auszuführende Aktion.
+	 * @see	TableButtonListener
+	 */
+	private enum ActionIndex {
+		/** Eintrag hinzufügen */
+		ACTION_ADD,
+		/** Eintrag in der Liste nach oben verschieben */
+		ACTION_UP,
+		/** Eintrag in der Liste nach unten verschieben */
+		ACTION_DOWN,
+		/** Eintrag löschen */
+		ACTION_DELETE,
+		/** Eintrag bearbeiten */
+		ACTION_EDIT
+	}
 
+	/**
+	 * Reagiert auf Klicks auf die Schaltflächen in den Tabellenzellen
+	 */
 	private class TableButtonListener implements ActionListener {
+		/** Zeile */
 		final int row;
+		/** Auszuführende Aktion */
 		final ActionIndex actionIndex;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param actionIndex	Auszuführende Aktion
+		 */
 		public TableButtonListener(final int row, final ActionIndex actionIndex) {
 			this.row=row;
 			this.actionIndex=actionIndex;
 		}
 
+		/**
+		 * Konstruktor der Klasse<br>
+		 * Als Zeilenindex wird 0 angenommen.
+		 * @param actionIndex	Auszuführende Aktion
+		 */
 		public TableButtonListener(final ActionIndex actionIndex) {
 			this(0,actionIndex);
 		}

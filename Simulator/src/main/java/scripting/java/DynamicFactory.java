@@ -25,9 +25,25 @@ import language.Language;
  * @see DynamicRunner
  */
 public final class DynamicFactory {
+	/**
+	 * Hält Einstellungen zum Laden von Java-Code
+	 * @see DynamicSetup
+	 * @see SimDynamicSetup
+	 */
 	private final DynamicSetup setup;
 
+	/**
+	 * Singleton-Instanz dieser Klasse
+	 * @see #getFactory()
+	 */
 	private static volatile DynamicFactory factory=null;
+
+	/**
+	 * Sichert ab, dass nicht mehrere parallele Aufrufe
+	 * von {@link #getFactory()} erfolgen und so am Ende
+	 * zwei Singleton-Instanzen entstehen.
+	 * @see #getFactory()
+	 */
 	private static final Semaphore mutex=new Semaphore(1);
 
 	/**

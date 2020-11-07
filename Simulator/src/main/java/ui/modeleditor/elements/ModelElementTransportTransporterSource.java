@@ -168,6 +168,10 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 		super.fireChanged();
 	}
 
+	/**
+	 * Aktualisiert die Darstellung des zusätzlichen Icons auf der Station.
+	 * @see #fireChanged()
+	 */
 	private void updateIcon() {
 		setAdditionalTransporterIconFromName(getTransporterType());
 	}

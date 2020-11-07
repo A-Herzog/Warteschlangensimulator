@@ -47,6 +47,7 @@ public class ModelElementCounterDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 8074769774808895018L;
 
+	/** Eingabefeld für den Gruppennamen des Zählers */
 	private JComboBox<String> groupName;
 
 	/**

@@ -52,7 +52,7 @@ public class MultiResourceTable extends JPanel {
 	 */
 	private static final long serialVersionUID = 4821242036162357877L;
 
-	/** ugehörige Bedienstation aus der die Daten geladen werden und in die sie auch wieder zurückgeschrieben werden */
+	/** Zugehörige Bedienstation aus der die Daten geladen werden und in die sie auch wieder zurückgeschrieben werden */
 	private final ModelElementProcess process;
 	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
@@ -171,6 +171,9 @@ public class MultiResourceTable extends JPanel {
 		if (statusChanged!=null) statusChanged.run();
 	}
 
+	/**
+	 * Befehl: Alternative in der Liste nach oben verschieben
+	 */
 	private void alternativeMoveUp() {
 		selectAlternative();
 		final int nr=lastSelected;
@@ -183,6 +186,9 @@ public class MultiResourceTable extends JPanel {
 		alternativesList.repaint();
 	}
 
+	/**
+	 * Befehl: Alternative in der Liste nach unten verschieben
+	 */
 	private void alternativeMoveDown() {
 		selectAlternative();
 		final int nr=lastSelected;
@@ -195,12 +201,18 @@ public class MultiResourceTable extends JPanel {
 		alternativesList.repaint();
 	}
 
+	/**
+	 * Befehl: Alternative hinzufügen
+	 */
 	private void alternativeAdd() {
 		selectAlternative();
 		data.add(process.createNewResourceMap());
 		updateAlternativesList(data.size()-1);
 	}
 
+	/**
+	 * Befehl: Alternative löschen
+	 */
 	private void alternativeDelete() {
 		if (!MsgBox.confirm(this,Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.Title"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.Info"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.InfoYes"),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete.Confirm.InfoNo"))) return;
 		data.remove(lastSelected);

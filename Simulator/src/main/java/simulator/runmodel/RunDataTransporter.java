@@ -37,7 +37,9 @@ import statistics.StatisticsTimePerformanceIndicator;
 public class RunDataTransporter {
 	/** Objekt welches die Daten aller Transporter vorhält */
 	private final RunDataTransporters list;
+	/** Statistikobjekt zur Erfassung der Auslastung der Transporter in der Gruppe zu der dieser Transporter gehört */
 	private StatisticsTimePerformanceIndicator statisticUtilization;
+	/** Statistikobjekt zur Erfassung der Ausfallzeiten der Transporter in der Gruppe zu der dieser Transporter gehört */
 	private StatisticsTimePerformanceIndicator statisticDownTime;
 
 	/**
@@ -81,6 +83,10 @@ public class RunDataTransporter {
 	 */
 	public final AbstractRealDistribution loadDistribution;
 
+	/**
+	 * Optionaler Rechenausdruck zur Bestimmung der Ladezeiten
+	 * @see #loadExpression
+	 */
 	private final String loadExpressionString;
 
 	/**
@@ -93,6 +99,10 @@ public class RunDataTransporter {
 	 */
 	public final AbstractRealDistribution unloadDistribution;
 
+	/**
+	 * Optionaler Rechenausdruck zur Bestimmung der Entladezeiten
+	 * @see #unloadExpression
+	 */
 	private final String unloadExpressionString;
 
 	/**
@@ -121,6 +131,9 @@ public class RunDataTransporter {
 	 */
 	public List<RunDataClient> clients;
 
+	/**
+	 * Ausfalldatensätze für den Transporter
+	 */
 	private final RunDataTransporterFailure[] failures;
 
 	/**
@@ -336,6 +349,12 @@ public class RunDataTransporter {
 		}
 	}
 
+	/**
+	 * Prüft, ob der Transporter gemäß eines Pausenzeiten-Ausfalldatensatzes in eine Pause geschickt
+	 * werden muss und bedingt diese ggf. auch gleich.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Liefert <code>true</code>, wenn der Transporter in eine Pausenzeit geschickt wurde
+	 */
 	private boolean testStartPause(final SimulationData simData) {
 		for (RunDataTransporterFailure failure: failures) {
 			if (failure.testStartPause(simData,this)) return true;

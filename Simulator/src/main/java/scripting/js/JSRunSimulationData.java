@@ -26,14 +26,43 @@ import simulator.runmodel.SimulationData;
  * @author Alexander Herzog
  */
 public class JSRunSimulationData {
+	/**
+	 * Stellt das Javascript-"Simulation"-Objekt zur Verfügung.
+	 * @see #compile(String)
+	 */
 	private final JSCommandSystem simulatorCommand;
-	/** Soll es ein JS-"Output"-Objekt geben? */
+
+	/**
+	 * Soll es ein JS-"Output"-Objekt geben?
+	 */
 	private final boolean hasOutput;
-	/** Soll es ein JS-"Clients"-Objekt geben? */
+
+	/**
+	 * Soll es ein JS-"Clients"-Objekt geben?
+	 */
 	private final boolean hasMultiClientData;
+
+	/**
+	 * Stellt das Javascript-"Output"-Objekt zur Verfügung.
+	 * @see #compile(String)
+	 */
 	private JSCommandOutput outputCommand;
+
+	/**
+	 * Stellt das Javascript-"Clients"-Objekt zur Verfügung.
+	 * @see #compile(String)
+	 */
 	private JSCommandClients clientsCommand;
+
+	/**
+	 * Scripting-System das die eigentliche Verarbeitung übernimmt
+	 */
 	private JSEngine runner;
+
+	/**
+	 * War die letzte Skriptausführung erfolgreich?
+	 * @see #getLastSuccess()
+	 */
 	private boolean lastSuccess;
 
 	/**

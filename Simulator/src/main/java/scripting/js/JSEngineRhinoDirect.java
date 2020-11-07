@@ -14,12 +14,47 @@ import org.mozilla.javascript.WrapFactory;
  * @author Alexander Herzog
  */
 public class JSEngineRhinoDirect extends JSEngine {
+	/**
+	 * Kontext zur Skriptausführung
+	 * @see #initEngine(Map)
+	 * @see #execute()
+	 */
 	private ScriptableObject scope;
+
+	/**
+	 * Hält das übersetzte Skript vor.
+	 * @see #initScript(String)
+	 * @see #execute()
+	 */
 	private Script script;
+
+	/**
+	 * Wird bei {@link #initScript(String)} mit möglichen
+	 * Fehlermeldungen belegt, die dann bei {@link #execute()}
+	 * eine Exception auslösen.
+	 * @see #initScript(String)
+	 * @see #execute()
+	 */
 	private String compileError;
 
+	/**
+	 * System zum Wrappen von Zahlen (schneller bzw. speichersparsamer als die Rhino-interne Implementierung)
+	 * @see #execute()
+	 * @see FastWrapFactory
+	 */
 	private final FastWrapFactory wrapFactory=new FastWrapFactory();
+
+	/**
+	 * Ergänzte Fassung der Rhino-Context-Factory die sicherstellt,
+	 * dass alle Codeoptimierungen aktiv sind.
+	 * @see FastContextFactory
+	 */
 	private final FastContextFactory contextFactory=new FastContextFactory();
+
+	/**
+	 * Kontext für die Skriptausführung.
+	 * @see #execute()
+	 */
 	private Context context=null;
 
 	/**
@@ -38,6 +73,11 @@ public class JSEngineRhinoDirect extends JSEngine {
 		}
 	}
 
+	/**
+	 * Fügt in {@link #initEngine(Map)} eine direkt aufrufbare "print"-Funktion
+	 * bereit, die Ausgaben an Output.println weiterleitet.
+	 * @see #initEngine(Map)
+	 */
 	private static final String print="function print(str) {Output.println(str);}";
 
 	/**
@@ -104,13 +144,26 @@ public class JSEngineRhinoDirect extends JSEngine {
 		}
 	}
 
+	/**
+	 * System zum Wrappen von Zahlen (schneller bzw. speichersparsamer als die Rhino-interne Implementierung)
+	 * @see JSEngineRhinoDirect#wrapFactory
+	 * @see JSEngineRhinoDirect#execute()
+	 */
 	private static final class FastWrapFactory extends WrapFactory {
+		/**
+		 * Konstruktor der Klasse
+		 */
 		public FastWrapFactory() {
 			super();
 			setJavaPrimitiveWrap(false);
 		}
 	}
 
+	/**
+	 * Ergänzte Fassung der Rhino-Context-Factory die sicherstellt,
+	 * dass alle Codeoptimierungen aktiv sind.
+	 * @see JSEngineRhinoDirect#contextFactory
+	 */
 	private static final class FastContextFactory extends ContextFactory {
 		@Override
 		protected boolean hasFeature(Context cx, int featureIndex) {

@@ -63,9 +63,10 @@ import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord;
  * @author Alexander Herzog
  */
 public class ModelElementSource extends ModelElementBox implements ElementWithNewClientNames, ModelElementEdgeOut, ModelDataRenameListener, ElementWithNewVariableNames {
+	/** Auslaufende Kante */
 	private ModelElementEdge connection;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/** ID der auslaufenden Kante (wird nur beim Laden und Clonen verwendet) */
 	private int connectionId=-1;
 
 	/**
@@ -123,6 +124,10 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 		if (connection!=null) connection.setName(Language.tr("Surface.Source.LabelArrivals")+((name.isEmpty())?"":(" ("+name+")")));
 	}
 
+	/**
+	 * Aktualisiert die Darstellung des zusätzlichen Icons auf der Station.
+	 * @see #fireChanged()
+	 */
 	private void updateIcon() {
 		setAdditionalClientIconFromName(getName());
 	}

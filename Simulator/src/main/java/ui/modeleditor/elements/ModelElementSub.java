@@ -57,9 +57,13 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see ModelSurface
  */
 public class ModelElementSub extends ModelElementBox implements ElementWithNewClientNames, ElementWithNewVariableNames, ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ModelElementAnimationForceMove {
+	/** Anzahl der einlaufenden Kanten */
 	private int countConnectionsIn;
+	/** Anzahl der auslaufenden Kanten */
 	private int countConnectionsOut;
+	/** Liste der einlaufenden Kanten */
 	private List<ModelElementEdge> connectionsIn;
+	/** Liste der auslaufenden Kanten */
 	private List<ModelElementEdge> connectionsOut;
 
 	/**

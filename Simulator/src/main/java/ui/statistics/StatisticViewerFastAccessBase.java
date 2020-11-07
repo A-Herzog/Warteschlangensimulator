@@ -49,6 +49,10 @@ public abstract class StatisticViewerFastAccessBase extends JPanel {
 	 */
 	private final Runnable resultsChanged;
 
+	/**
+	 * Aktuelle Filterergebnisse
+	 * @see #getResults()
+	 */
 	private String results;
 
 	/**
@@ -187,6 +191,10 @@ public abstract class StatisticViewerFastAccessBase extends JPanel {
 	 */
 	protected abstract void commandTools(final JButton sender);
 
+	/**
+	 * Hilfe aufrufen.
+	 * @see #helpFastAccess
+	 */
 	private void commandHelp() {
 		if (helpFastAccess!=null) helpFastAccess.run();
 	}

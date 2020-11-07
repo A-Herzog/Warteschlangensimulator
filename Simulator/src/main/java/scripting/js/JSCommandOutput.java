@@ -45,9 +45,26 @@ public final class JSCommandOutput extends JSBaseCommand {
 	/** Trennzeichen für die Ausgabe von Verteilungsdaten */
 	private char separator=';';
 
+	/**
+	 * Ist die Ausgabe nur eine Double-Zahl?
+	 * @see #isOutputDouble()
+	 * @see #getOutputDouble()
+	 */
 	private boolean isOutputPlainDouble=true;
+
+	/**
+	 * Wenn es sich bei der Ausgabe nur um eine Double-Zahl handelt, so hält dieses Feld die Zahl vor.
+	 * @see #isOutputDouble()
+	 * @see #getOutputDouble()
+	 */
 	private double outputPlainDouble;
 
+	/**
+	 * Cache für {@link #printDouble(double)},
+	 * um das {@link StringBuilder}-Objekt nicht
+	 * immer wieder neu anlegen zu müssen.
+	 * @see #printDouble(double)
+	 */
 	private StringBuilder outputTemp;
 
 	/**
@@ -164,6 +181,16 @@ public final class JSCommandOutput extends JSBaseCommand {
 		addOutputMain("\t");
 	}
 
+	/**
+	 * Wird an {@link #print(Object)} eine Zahl übergeben,
+	 * so wird die Ausgabe an diese Methode weitergereicht,
+	 * um das unnötige Boxen der Zahl zu vermeiden und um
+	 * diese später direkt über {@link #getOutputDouble()}
+	 * bereitstellen zu können.
+	 * @param value	Auszugebende Zahl
+	 * @see #getOutputDouble()
+	 * @see #print(Object)
+	 */
 	private void printDouble(double value) {
 		if (time) {
 			if (systemNumbers) {
@@ -210,6 +237,11 @@ public final class JSCommandOutput extends JSBaseCommand {
 
 	}
 
+	/**
+	 * Gibt eine Meldung je nach Konfiguration in eine Datei
+	 * ({@link #outputFile}) oder über {@link #addOutput(String)} aus.
+	 * @param line	Auszugebende Meldung
+	 */
 	private void addOutputMain(final String line) {
 		if (canceled) return;
 		if (outputToFile) {

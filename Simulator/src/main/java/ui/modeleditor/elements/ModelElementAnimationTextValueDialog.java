@@ -67,10 +67,15 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 	private JSpinner digits;
 	private JCheckBox optionPercent;
 	private DateTimePanel dateTime;
+	/** Auswahlbox der Schriftart */
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
+	/** Eingabefeld für die Schriftgröße */
 	private JTextField sizeField;
+	/** Option: Schrift in Fettdruck anzeigen */
 	private JCheckBox optionBold;
+	/** Option: Schrift kursiv anzeigen */
 	private JCheckBox optionItalic;
+	/** Auswahl der Textfarbe */
 	private SmallColorChooser colorChooser;
 
 	/**

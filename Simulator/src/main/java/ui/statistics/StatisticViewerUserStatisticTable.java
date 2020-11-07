@@ -67,6 +67,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		this.mode=mode;
 	}
 
+	/**
+	 * Handelt es sich bei einem Eintrag um Zeit-Werte?
+	 * @param key	Bezeichner des Eintrags
+	 * @return	Zeit-Werte (<code>true</code>) oder Zustände (<code>false</code>)
+	 */
 	private boolean isUserStatisticsTime(final String key) {
 		for (ModelElement element: statistics.editModel.surface.getElements()) {
 			if (element instanceof ModelElementUserStatistic) {
@@ -96,6 +101,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Besitzt ein Statistik-Indikator Konfidenzintervall-Informationen
+	 * @param indicator	Statistik-Indikator
+	 * @return	Liegen Konfidenzintervall-Informationen vor?
+	 */
 	private boolean hasConfidence(final StatisticsMultiPerformanceIndicator indicator) {
 		String[] names=indicator.getNames();
 		if (names.length==0) return false;
@@ -104,6 +114,10 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		return true;
 	}
 
+	/**
+	 * Erstellt die Übersichtstabelle
+	 * @see Mode#MODE_DEFAULT
+	 */
 	private void buildDefaultTable() {
 		final boolean hasConfidence=hasConfidence(statistics.userStatistics);
 		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
@@ -179,6 +193,10 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerTable {
 		addDescription("TableUserStatisticDefault");
 	}
 
+	/**
+	 * Erstellt die Tabelle mit der Verteilung der Daten
+	 * @see Mode#MODE_DETAILS
+	 */
 	private void buildDetailsTable() {
 		final Table table=new Table();
 		final List<String> headers=new ArrayList<>();
