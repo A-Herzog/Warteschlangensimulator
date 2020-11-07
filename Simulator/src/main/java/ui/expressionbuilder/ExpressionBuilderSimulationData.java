@@ -1959,7 +1959,7 @@ public class ExpressionBuilderSimulationData {
 					sub,
 					filterUpper,
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.ClientNumber")+" (ClientNumber)",
-					"isClientInStatistics()",
+					"ClientNumber()",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.ClientNumber.Info"));
 			addTreeNodeClient(
 					sub,
