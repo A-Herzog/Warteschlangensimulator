@@ -33,14 +33,21 @@ Section ""
 
   Call GetJRE
   Pop $R0
- 
+
   StrCpy $0 '"$R0" -jar ${PrgFileName}.jar $R1'
  
   SetOutPath $EXEDIR
   ClearErrors
   ExecWait $0  
   IfErrors 0 MainEnd
+  
+  IfFileExists ".\tools\JavaDownloader.exe" 0 MainError
+  Exec ".\tools\JavaDownloader.exe"
+  Goto MainEnd
+  
+  MainError:
   MessageBox MB_OK "Program could not be executed.$\nMaybe there is no Java environment.$\n$\nUsed path to Java environment:$\n$R0"
+    
   MainEnd:
 SectionEnd
 
