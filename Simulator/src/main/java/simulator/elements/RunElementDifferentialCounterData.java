@@ -27,7 +27,7 @@ import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 
 /**
- * Laufzeitdaten eines <code>RunElementDifferentialCounter</code>-Laufzeit-Objekts
+ * Laufzeitdaten eines {@link RunElementDifferentialCounter}-Laufzeit-Objekts
  * @author Alexander Herzog
  * @see RunElementDifferentialCounter
  * @see RunElementData
@@ -36,10 +36,11 @@ public class RunElementDifferentialCounterData extends RunElementData implements
 	/** Wert der Änderung des Zählers, wenn ein Kunde die Station passiert */
 	private final int change;
 	private int valueIndex;
+	/** Zugehöriges Statistikobjekt */
 	private final StatisticsTimePerformanceIndicator statistic;
 
 	/**
-	 * Konstruktor der Klasse <code>RunElementCounterData</code>
+	 * Konstruktor der Klasse {@link RunElementCounterData}
 	 * @param station	Station für den hier die Daten erfasst werden sollen
 	 * @param counterName	Name des Differenzzählers (um das zugehörige globale Zählerobjekt zu adressieren)
 	 * @param change	Wert der Änderung des Zählers, wenn ein Kunde die Station passiert

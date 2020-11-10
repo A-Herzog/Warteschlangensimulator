@@ -40,7 +40,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementDecideJS
  */
 public class RunElementDecideByScript extends RunElement {
+	/** IDs der über die auslaufenden Kanten erreichbaren Folgestationen */
 	private List<Integer> connectionIds;
+	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
 	private String script;
 	private ModelElementDecideJS.ScriptMode mode;

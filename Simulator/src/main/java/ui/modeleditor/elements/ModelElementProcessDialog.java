@@ -66,30 +66,67 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
+	/** Registerseiten des Dialogs */
 	private JTabbedPane tabs;
 
+	/** Auswahlboxen für die zu verwendende Zeiteinheit auf den verschiedenen Dialogseiten */
 	private JComboBox<String>[] timeBase;
+
+	/* Dialogseite "Bedienzeiten" */
+
+	/** Auswahlbox zur Auswahl als was die Prozesszeit erfasst werden soll */
 	private JComboBox<String> processTimeType;
+	/** Panel zur Konfiguration der Prozesszeiten */
 	private DistributionBySubTypeEditor distributionsWorking;
 
+	/* Dialogseite "Rüstzeiten" */
+
+	/** Panel zur Konfiguration der Rüstzeiten */
 	private DistributionSetupTimesEditor editorSetupTimes;
 
+	/* Dialogseite "Nachbearbeitungszeiten" */
+
+	/** Option: Nachbearbeitungszeiten verwenden? */
 	private JCheckBox checkBoxPostProcessing;
+	/** Panel zur Konfiguration der Nachbearbeitungszeiten */
 	private DistributionBySubTypeEditor distributionsPostProcessing;
 
+	/* Dialogseite "Wartezeittoleranzen" */
+
+	/** Option: Kunden sind nur bereit, begrenzt lange zu warten */
 	private JCheckBox checkBoxCancel;
+	/** Panel zur Konfiguration der Wartezeittoleranzen */
 	private DistributionBySubTypeEditor distributionsCancel;
 
+	/* Dialogseite "Prioritäten und Batch-Größen" */
+
+	/** Eingabefeld für die minimale Batch-Größe */
 	private JTextField textBatchMin;
+	/** Eingabefeld für die maximale Batch-Größe */
 	private JTextField textBatchMax;
-	private JTextField textResourcePriority;
-	private JPanel resourceAssistant;
-	private JButton resourceAssistantUse;
-	private MultiResourceTable resourceData;
+	/** Tabelle zur Konfiguration der Prioritäten der Kundentypen */
 	private PriorityTableModel tablePriorityModel;
 
+	/* Dialogseite "Bediener" */
+
+	/** Eingabefeld zur Konfiguration der Ressourcen-Zuweisungs-Priorität der Station */
+	private JTextField textResourcePriority;
+	/** Panel in dem {@link #resourceAssistantUse} angeboten wird */
+	private JPanel resourceAssistant;
+	/** Schaltfläche "Neue Bedienergruppe anlegen" */
+	private JButton resourceAssistantUse;
+
+	/** Tabellendarstellung der notwendigen Bediener getrennt nach Alternativen */
+	private MultiResourceTable resourceData;
+
+
+	/* Dialogseite "Kosten" */
+
+	/** Eingabefeld für die Kosten pro Bedienvorgang */
 	private JTextField textCosts;
+	/** Eingabefeld für die Kosten pro Bediensekunde */
 	private JTextField textCostsPerProcessSecond;
+	/** Eingabefeld für die Kosten pro Nachbearbeitungssekunde */
 	private JTextField textCostsPerPostProcessSecond;
 
 	/**
@@ -108,6 +145,12 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Liefert eine der gekoppelten Auswahlboxen zur Auswahl
+	 * der Zeiteinheit für Verteilungen und Ausdrücke.
+	 * @param index	Nummer (0..3) der Auswahlbox
+	 * @return	Auswahlbox für die Zeiteinheit
+	 */
 	@SuppressWarnings("unchecked")
 	private JPanel getTimeBasePanel(final int index) {
 		if (timeBase==null) timeBase=new JComboBox[4];
@@ -178,7 +221,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.SetupTimes"),tab=new JPanel(new BorderLayout()));
 		tab.add(area=new JPanel(),BorderLayout.NORTH);
 		area.setLayout(new BoxLayout(area,BoxLayout.PAGE_AXIS));
-		area.add(getTimeBasePanel(2));
+		area.add(getTimeBasePanel(1));
 		tab.add(editorSetupTimes=new DistributionSetupTimesEditor(element.getModel(),element.getSurface(),readOnly,process.getSetupTimes()),BorderLayout.CENTER);
 		editorSetupTimes.addUserChangeListener(e->updateTabTitles());
 
@@ -325,6 +368,12 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		return tabs;
 	}
 
+	/**
+	 * Erstellt das Info-Panel zum Aufrufen des Dialogs zur
+	 * automatischen Erstellung einer Bedienergruppe.
+	 * @return	Panel zur Anzeige von {@link #resourceAssistantUse}
+	 * @see #resourceAssistant
+	 */
 	private JPanel getAssistentPanel() {
 		final JPanel result=new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -356,6 +405,10 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		return result;
 	}
 
+	/**
+	 * Soll unmittelbar nach dem Schließen dieses Dialogs der Modelleigenschaften-Dialog zur Bearbeitung der Ressourcen geöffnet werden?
+	 * @see #isRequestOpenResourceDialog()
+	 */
 	private boolean requestOpenResourceDialog=false;
 
 	/**
@@ -368,6 +421,11 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		return requestOpenResourceDialog;
 	}
 
+	/**
+	 * Prüft die Eingaben im Dialog.
+	 * @param showErrorMessage	Soll im Fehlerfall eine Fehlermeldung ausgegeben werden?
+	 * @return	Liefert <code>true</code>, wenn alle Eingaben in Ordnung sind
+	 */
 	private boolean checkInput(final boolean showErrorMessage) {
 		if (readOnly) return false;
 
@@ -521,6 +579,10 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		process.setCostsPerPostProcessSecond(textCostsPerPostProcessSecond.getText());
 	}
 
+	/**
+	 * Passt die Beschriftungen auf den Registerreitern an,
+	 * wenn sich die Einstellungen im Dialog verändert haben.
+	 */
 	private void updateTabTitles() {
 		final String html1="<html><body>";
 		final String html2="</body></html>";

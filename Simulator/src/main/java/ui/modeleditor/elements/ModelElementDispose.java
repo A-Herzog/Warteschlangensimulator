@@ -49,9 +49,13 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementDispose extends ModelElementBox implements ModelElementEdgeMultiIn {
+	/** Liste der einlaufenden Kanten */
 	private List<ModelElementEdge> connections;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * Liste der IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
+	 * @see #connections
+	 */
 	private List<Integer> connectionIds=null;
 
 	/**

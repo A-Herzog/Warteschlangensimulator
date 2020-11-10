@@ -95,8 +95,17 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	 * zugreifen.
 	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * Während der Animation anzuzeigender Text
+	 */
 	private String simTextValue=null;
 
+	/**
+	 * Zu verwendende Schriftart
+	 * @see #getFontFamily()
+	 * @see #setFontFamily(ui.modeleditor.elements.FontCache.FontFamily)
+	 */
 	private FontCache.FontFamily fontFamily=FontCache.defaultFamily;
 
 	/**
@@ -333,6 +342,11 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		return element;
 	}
 
+	/**
+	 * Bestimmt den anzuzeigenden Text oder die Überschrift.
+	 * @param getTitle	Text (<code>false</code>) oder Überschrift (<code>true</code>) liefern
+	 * @return	Anzuzeigender Text oder Überschrift
+	 */
 	private String getDisplayText(final boolean getTitle) {
 		if (getTitle) {
 			if (surface==null) return Language.tr("Surface.AnimationTextJS.ScriptResult");
@@ -349,11 +363,42 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		return Language.tr("Surface.AnimationTextJS.Type.Value");
 	}
 
+	/**
+	 * Schriftgröße beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private int lastTextSize=-1;
+
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastZoomFont=-1;
+
+	/**
+	 * Schriftausgestaltung (fett, kursiv) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastStyleFont=-1;
+
+	/**
+	 * Schriftart beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private FontCache.FontFamily lastFamily=null;
+
+	/**
+	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
+	 * Schriftart für den Text
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFontMain;
+
+	/**
+	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
+	 * Schriftart für den Titel
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFontTitle;
 
 	/**
@@ -582,8 +627,28 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		return true;
 	}
 
+	/**
+	 * Javascript-Ausführungs-System zur Bestimmung
+	 * des während der Animation auszugebenden Textes
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private JSRunSimulationData jsRunner;
+
+	/**
+	 * Java-Ausführungs-System zur Bestimmung
+	 * des während der Animation auszugebenden Textes
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private DynamicRunner javaRunner;
+
+	/**
+	 * Objekt zum Zwischenspeichern der Ausgaben
+	 * der Skriptausführung
+	 * @see #initAnimation(SimulationData)
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private StringBuilder animationOutput;
 
 	@Override

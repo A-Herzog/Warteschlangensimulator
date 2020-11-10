@@ -55,9 +55,13 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
 
+	/** Auswahlbox für die Zeitbasis */
 	private JComboBox<String> timeBase;
+	/** Auswahlbox für die Art der Erfassung der Verzögerungszeit */
 	private JComboBox<String> processTimeType;
+	/** Konfiguration der Verzögerungszeit (Verteilungseditor oder Eingabefeld für Ausdruck) */
 	private DistributionOrExpressionByClientTypeEditor distributions;
+	/** Eingabefeld für die Kosten pro Bedienvorgang */
 	private JTextField textCosts;
 
 	/**

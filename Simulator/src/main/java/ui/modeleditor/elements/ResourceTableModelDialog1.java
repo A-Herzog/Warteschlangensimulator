@@ -57,13 +57,22 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -31158625542021496L;
 
+	/**
+	 * Ressourcenliste, in der alle verfügbaren Bedienergruppen verzeichnet sind. (Die Liste wird möglicher Weise durch diesen Dialog direkt erweitert.)
+	 */
 	private final ModelResources resources;
 
+	/** Option: Bestehende Bedienergruppe verwenden */
 	private JRadioButton optionExisting;
+	/** Option: Neue Bedienergruppe anlegen */
 	private JRadioButton optionNew;
+	/** Auswahlbox zur Wahl der zu verwendenden Bedienergruppe im Fall {@link #optionExisting} */
 	private JComboBox<String> selectGroup;
+	/** Info-Label mit Angaben zur Größe der in {@link #selectGroup} gewählten Gruppe */
 	private JLabel selectGroupInfo;
+	/** Eingabefeld für einen Namen für eine neue Bedienergruppe im Fall {@link #optionNew} */
 	private final JTextField textGroupName;
+	/** Eingabefeld für die Gruppengröße der neuen Bedienergruppe im Fall {@link #optionNew} */
 	private final JTextField textGroupSize;
 
 	/**
@@ -177,6 +186,10 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 		setLocationRelativeTo(getOwner());
 	}
 
+	/**
+	 * Liefert den nächsten verfügbaren Gruppennamen.
+	 * @return	Möglicher Name für eine neue Bedienergruppe
+	 */
 	private String getFreeResourceName() {
 		final String baseName=Language.tr("Resources.Group.DefaultName");
 		String name=baseName;
@@ -188,6 +201,12 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 		return name;
 	}
 
+	/**
+	 * Aktualisiert nach einer Wahl in {@link #selectGroup}
+	 * die zugehörige Anzeige der Gruppengröße in {@link #updateGroupSizeInfo()}
+	 * @see #selectGroup
+	 * @see #selectGroupInfo
+	 */
 	private void updateGroupSizeInfo() {
 		int max=-1;
 

@@ -54,8 +54,11 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 8181228879880400557L;
 
+	/** Namen (zur Speicherung) der als kontrollierte Stationen in Frage kommende Stationen */
 	private List<String> stations;
+	/** Ausführliche Namen (inkl. Eltern-Station) der als kontrollierte Stationen in Frage kommende Stationen */
 	private List<String> stationsLong;
+	/** Auswahlbox für die kontrollierte Station */
 	private JComboBox<String> select;
 	/** Eingabefeld für die maximale Anzahl an Kunden im Segment */
 	private JTextField maxEdit;
@@ -76,6 +79,12 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Prüft, ob eine Station als kontrollierte Station in Frage kommt
+	 * @param element	Zu prüfende Station
+	 * @return	Liefert <code>true</code>, wenn die Station <b>nicht</b> als kontrollierte Station in Frage kommt
+	 * @see #buildStationsList(ModelSurface, String)
+	 */
 	private boolean forbiddenStation(final ModelElementBox element) {
 		if (element instanceof ModelElementSource) return true;
 		if (element instanceof ModelElementSourceMulti) return true;
@@ -90,6 +99,13 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 		return false;
 	}
 
+	/**
+	 * Erstellt die Liste der Stationen, die als kontrollierte Stationen in Frage kommen.
+	 * @param surface	Zeichenfläche, die durchsucht werden soll (untergeordnete Zeichenflächen werden ebenfalls durchsucht)
+	 * @param parentElementName	Name für übergeordnetes Untermodell-Element (ist <code>null</code>, wenn es um die Haupt-Zeichenfläche geht)
+	 * @see #stations
+	 * @see #stationsLong
+	 */
 	private void buildStationsList(final ModelSurface surface, final String parentElementName) {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementBox && !element.getName().trim().isEmpty()) {

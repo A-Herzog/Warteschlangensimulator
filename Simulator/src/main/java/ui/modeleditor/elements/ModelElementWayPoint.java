@@ -182,8 +182,29 @@ public class ModelElementWayPoint extends ModelElementPosition {
 		return element;
 	}
 
+	/**
+	 * Name des zuletzt in {@link #drawElementShape(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)}
+	 * verwendeten Icons
+	 * @see #drawElementShape(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)
+	 */
 	private String lastDrawIcon;
+
+	/**
+	 * Breite des zuletzt in {@link #drawElementShape(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)}
+	 * gezeichneten Icons
+	 * @see #drawElementShape(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)
+	 */
 	private int lastDrawWidth;
+
+	/**
+	 * Stimmen die aktuellen Werte für Icon und Icongröße bei einem Aufruf von
+	 * {@link #drawElementShape(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)}
+	 * noch mit den vorherigen Werten {@link #lastDrawIcon} und {@link #lastDrawWidth}
+	 * überein, so kann dieses bereits generierte Bild wiederverwendet werden.
+	 * @see #lastDrawIcon
+	 * @see #lastDrawWidth
+	 * @see #drawElementShape(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)
+	 */
 	private BufferedImage lastDrawImage;
 
 	/**
@@ -283,6 +304,10 @@ public class ModelElementWayPoint extends ModelElementPosition {
 		popupMenu.add(item);
 	}
 
+	/**
+	 * Befehl: Wegstrecken-Editor öffnen
+	 * @param owner	Übergeordnetes Element (zur Ausrichtung des Fensters)
+	 */
 	private void commandPathEditor(final Component owner) {
 		if (getSurface()==null) return;
 		final ModelSurface mainSurface=(getSurface().getParentSurface()==null)?getSurface():getSurface().getParentSurface();

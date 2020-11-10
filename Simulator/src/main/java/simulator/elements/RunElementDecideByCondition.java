@@ -38,8 +38,11 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementDecide
  */
 public class RunElementDecideByCondition extends RunElement {
+	/** IDs der über die auslaufenden Kanten erreichbaren Folgestationen */
 	private List<Integer> connectionIds;
+	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
+	/** Bedingungen, die erfüllt sein müssen, damit ein Kunde an einen bestimmten Ausgang geleitet wird (<code>null</code>-Einträge bedeuten: immer erfüllt) */
 	private String[] conditions;
 
 	private String[] clientTypeNames;

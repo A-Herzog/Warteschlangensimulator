@@ -239,6 +239,11 @@ public class ModelElementInteractiveButton extends ModelElementBox implements El
 		for (int i=0;i<records.size();i++) records.get(i).buildDescription(descriptionBuilder,1000+100*i);
 	}
 
+	/**
+	 * Wurde die Schaltfläche angeklickt?
+	 * @see #clicked
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private volatile boolean clicked=false;
 
 	@Override
@@ -251,6 +256,11 @@ public class ModelElementInteractiveButton extends ModelElementBox implements El
 		clicked=false;
 	}
 
+	/**
+	 * Löst die in dem Objekt hinterlegten Aktionen aus.
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private void triggerAction(final SimulationData simData) {
 		((RunElementInteractiveButton)simData.runModel.elementsFast[getId()]).clicked(simData);
 	}

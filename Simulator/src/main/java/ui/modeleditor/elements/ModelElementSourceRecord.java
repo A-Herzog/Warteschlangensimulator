@@ -853,6 +853,14 @@ public final class ModelElementSourceRecord implements Cloneable {
 		stringRecord.saveToXML(doc,node);
 	}
 
+	/**
+	 * Liest ein Datum aus einem XML-Knoten ein
+	 * @param name	Name des XML-Knoten
+	 * @param content	Textinhalt des XML-Knotens
+	 * @param node	Zu interpretierender XML-Knoten
+	 * @return	Tritt ein Fehler auf, so wird die Fehlermeldung als String zurückgegeben. Im Erfolgsfall wird <code>null</code> zurückgegeben.
+	 * @see #loadPropertyFromXML(Element)
+	 */
 	private String loadProperty(final String name, final String content, final Element node) {
 		if (this.name!=null) {
 			if (Language.trAll("Surface.XML.Element.Name",name)) {

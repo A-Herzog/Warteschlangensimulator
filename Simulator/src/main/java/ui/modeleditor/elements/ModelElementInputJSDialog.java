@@ -54,13 +54,25 @@ public class ModelElementInputJSDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -3995072389487163570L;
 
+	/**
+	 * Eingabefeld für den Dateinamen der Eingabedatei
+	 */
 	private JTextField fileNameEdit;
+
+	/** Option: Nach Dateiende keine Zuweisungen mehr durchführen */
 	private JRadioButton optionSkip;
+	/** Option: Vorgabewert nach Ende der Datei für Zuweisungen verwenden */
 	private JRadioButton optionDefaultValue;
+	/** Option: Datei nach Ende erneut von vorne einlesen */
 	private JRadioButton optionLoop;
+	/** Simulation beim Erreichen des Dateiendes beenden */
 	private JRadioButton optionTerminate;
+	/** Vorgabewert für den Fall {@link #optionDefaultValue} */
 	private JTextField defaultValueEdit;
 
+	/**
+	 * Skripteditor
+	 */
 	private ScriptEditorPanel editor;
 
 	/**

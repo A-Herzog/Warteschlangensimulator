@@ -55,7 +55,14 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 4497874184675168386L;
 
+	/**
+	 * Eingabefelder für die Bedingungen
+	 */
 	private List<JTextField> conditions;
+
+	/**
+	 * Option: Bedingung zusätzlich zeitgesteuert prüfen
+	 */
 	private JCheckBox useTimedChecks;
 
 	/**
@@ -74,6 +81,11 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Liefert den Namen des Ziels, das über eine auslaufende Kante erreicht werden kann
+	 * @param edge	Auslaufende Kante
+	 * @return	Name des Ziels
+	 */
 	private String getDestination(ModelElementEdge edge) {
 		while (true) {
 			if (edge==null) return null;
@@ -157,6 +169,11 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Prüft die in {@link #conditions} angegebenen Bedingungen
+	 * @param showErrorDialog	Im Fehlerfall eine Meldung ausgeben?
+	 * @return	Liefert im Erfolgsfall die Bedingungen, sonst <code>null</code>
+	 */
 	private List<String> getConditions(final boolean showErrorDialog) {
 		List<String> values=new ArrayList<>();
 

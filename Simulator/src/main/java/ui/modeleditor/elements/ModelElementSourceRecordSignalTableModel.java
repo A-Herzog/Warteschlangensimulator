@@ -48,7 +48,9 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 	private final JTableExt table;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Liste der Namen der Stationen, die Signale auslösen können */
 	private final List<String> signalNames;
+	/** Neue Liste der Signale zur Kundengenerierung */
 	private final List<String> data;
 
 	/**
@@ -117,6 +119,12 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 		return 2;
 	}
 
+	/**
+	 * Legt eine Auswahlbox zur Auswahl des Auslösesignals an
+	 * @param rowIndex	Tabellenzeile in die die Auswahlbox eingefügt werden soll
+	 * @param signal	Bisheriger Wert für den Signalnamen
+	 * @return	Auswahlbox zur Auswahl eines Auslösesignals
+	 */
 	private JComboBox<String> getSignalCombo(final int rowIndex, final String signal) {
 		final JComboBox<String> combo=new JComboBox<>(signalNames.toArray(new String[0]));
 
@@ -134,7 +142,7 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==data.size()) {
-			if (columnIndex==0) return makeButtonPanel(new String[]{Language.tr("Surface.Source.Dialog.Signals.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener(ActionIndex.ACTION_ADD)});
+			if (columnIndex==0) return makeButtonPanel(new String[]{Language.tr("Surface.Source.Dialog.Signals.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
 			return "";
 		}
 
@@ -154,19 +162,42 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 		return null;
 	}
 
-	private enum ActionIndex {ACTION_ADD, ACTION_DELETE}
+	/**
+	 * Auszuführende Aktion
+	 * @see TableButtonListener
+	 */
+	private enum ActionIndex {
+		/** Auslösendes Signal hinzufügen */
+		ACTION_ADD,
+		/** Auslösendes Signal löschen */
+		ACTION_DELETE
+	}
 
+	/**
+	 * Reagiert auf Klicks auf die Schaltflächen in den Tabellenzellen
+	 */
 	private class TableButtonListener implements ActionListener {
+		/** Zeile */
 		final int row;
+		/** Auszuführende Aktion */
 		final ActionIndex actionIndex;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param actionIndex	Auszuführende Aktion
+		 */
 		public TableButtonListener(final int row, final ActionIndex actionIndex) {
 			this.row=row;
 			this.actionIndex=actionIndex;
 		}
 
-		public TableButtonListener(final ActionIndex actionIndex) {
-			this(0,actionIndex);
+		/**
+		 * Konstruktor der Klasse<br>
+		 * (Modus: Hinzufügen)
+		 */
+		public TableButtonListener() {
+			this(0,ActionIndex.ACTION_ADD);
 		}
 
 		@Override

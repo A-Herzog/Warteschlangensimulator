@@ -41,6 +41,9 @@ public class ModelElementSplitDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 26157308123139871L;
 
+	/**
+	 * Tabelle zur Anzeige und Konfiguration der Kunden-Teil-Quellen-Daten
+	 */
 	private ModelElementSourceMultiTableModel recordsTableModel;
 
 	/**

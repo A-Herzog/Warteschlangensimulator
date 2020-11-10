@@ -71,6 +71,12 @@ public class ModelElementCounterDialog extends ModelElementBaseDialog {
 		return InfoPanel.stationCounter;
 	}
 
+	/**
+	 * Liefert eine Liste der Zähler-Gruppennamen
+	 * @param surface	Zeichenfläche, die durchsucht werden soll (Unter-Zeichenflächen werden ebenfalls durchsucht)
+	 * @return	Liste der Zähler-Gruppennamen
+	 * @see #groupName
+	 */
 	private Set<String> getCounterGroupNames(final ModelSurface surface) {
 		final Set<String> groupNames=new HashSet<>();
 		for (ModelElement element: surface.getElements()) {

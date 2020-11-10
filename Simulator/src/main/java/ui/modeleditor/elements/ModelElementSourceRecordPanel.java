@@ -82,56 +82,128 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	private final ModelSurface surface;
 	/** Hilfe-Runnable */
 	private final Runnable helpRunnable;
+
+	/**
+	 * Zu bearbeitender Datensatz
+	 * @see #setData(ModelElementSourceRecord, ModelElement)
+	 * @see #getData(ModelElementSourceRecord)
+	 */
 	private ModelElementSourceRecord lastRecord;
+
+	/**
+	 * Name des Datensatzes beim Aufruf
+	 * (um bei {@link #getData(ModelElementSourceRecord)} evtl. ein Umbenenn-Ereignis auszulösen)
+	 * @see #setData(ModelElementSourceRecord, ModelElement)
+	 */
 	private String lastName;
 
+	/** Panel zur Namenseingabe (wenn der Datensatz einen Namen besitzt) */
 	private final JPanel namePanel;
+	/** Eingabefeld für den Namen */
 	private final JTextField nameEdit;
+	/** Dialog zum Bearbeiten der Kundentypeigenschaften aufrufen ({@link #editClientData()}) */
 	private final JButton nameButton;
 
+	/** Registerreiter der Dialogs */
 	private final JTabbedPane tabs;
 
+	/** Inhaltsbereich zum Einblenden verschiedener Einstellungen */
 	private JPanel cards;
+	/** Auswahlbox für die in {@link #cards} anzuzeigenden Inhalte */
 	private final JComboBox<String> selectCard;
 
+	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Wahrscheinlichkeitsverteilung" */
+
+	/** Zeiteinheit für {@link #distributionPanel} */
 	private final JComboBox<String> timeBase1;
+	/** Definition der Zwischenankunftszeiten über eine Verteilung */
 	private final JDistributionPanel distributionPanel;
 
+	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Ausdruck" */
+
+	/** Zeiteinheit für {@link #expression} */
 	private JComboBox<String> timeBase2;
+	/** Eingabefeld zur Definition der Zwischenankunftszeiten über einen Rechenausdruck */
 	private final JTextField expression;
 
+	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Zeitplan" */
+
+	/** Liste der verfügbaren Zeitpläne */
 	private final String[] scheduleNames;
+	/** Auswahlbox zur Wahl des Zeitplans für die Ankunftszeitpunkte */
 	private final JComboBox<String> schedule;
 
+	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Bedingung" */
+
+	/** Eingabefeld für die Ankünfte-Bedingung */
 	private final JTextField condition;
+	/** Eingabefeld für den minimalen Abstand zwischen zwei durch die Bedingung {@link #condition} gesteuerten Ankünften */
 	private final JTextField conditionMinDistance;
 
-	private final ModelElementSourceRecordSignalTableModel signalsTableModel;
+	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Schwellenwert" */
 
+	/** Eingabefeld für den Schwellenwert-Ausdruck */
 	private final JTextField thresholdExpression;
+	/** Eingabefeld für den Wert, den der Schwellenwert-Ausdruck für eine Ankunft über- oder unterschreiten soll */
 	private final JTextField thresholdExpressionValue;
+	/** Auswahlbox zur Festlegung ob eine Ankunft bei Über- oder Unterschreitung des Schwellenwertes ausgelöst werden soll */
 	private final JComboBox<String> thresholdDirection;
 
-	private final JRadioButton optionFixedSize;
-	private final JRadioButton optionSizesDistribution;
-	private final JTextField batchField;
-	private final JButton batchButton;
-	private final JRadioButton optionInfinite;
-	private final JRadioButton optionFixedNumberArrivals;
-	private final JRadioButton optionFixedNumberClients;
-	private final JTextField numberFieldArrivals;
-	private final JTextField numberFieldClients;
-	private JPanel arrivalStartSub1;
-	private JPanel arrivalStartSub2;
-	private final JTextField arrivalStart;
-	private JLabel arrivalStartTimeUnit;
+	/* Dialogseite "Zwichenankunftszeiten" -  Karte: "Signal" */
 
+	/** Tabelle zur Auswahl der Ereignisse, die Ankünfte auslösen */
+	private final ModelElementSourceRecordSignalTableModel signalsTableModel;
+
+	/* Dialogseite "Batch-Größe" */
+
+	/** Option: Feste Batch-Größe */
+	private final JRadioButton optionFixedSize;
+	/** Option: Batch-Größen Verteilung */
+	private final JRadioButton optionSizesDistribution;
+	/** Eingabefeld für die feste Batch-Größe im Fall {@link #optionFixedSize} */
+	private final JTextField batchField;
+	/** Schaltfläche zur Bearbeitung der Batch-Größen Verteilung im Fall {@link #optionSizesDistribution} */
+	private final JButton batchButton;
+
+	/** Verteilung der Batch-Größen für den Modus {@link #optionSizesDistribution} */
 	private double[] batchRates;
 
+	/* Dialogseite "Anzahl an Kunden" */
+
+	/** Option: Unbegrenzte Anzahl an Ankünften */
+	private final JRadioButton optionInfinite;
+	/** Option: Anzahl an Ankunftsereignissen */
+	private final JRadioButton optionFixedNumberArrivals;
+	/** Option: Anzahl an eintreffenden Kunden insgesamt */
+	private final JRadioButton optionFixedNumberClients;
+	/** Eingabefeld für die Anzahl an Ankünften im Modus {@link #optionFixedNumberArrivals} */
+	private final JTextField numberFieldArrivals;
+	/** Eingabefeld für die Anzahl Kunden im Modus {@link #optionFixedNumberClients} */
+	private final JTextField numberFieldClients;
+
+	/* Dialogseite "Startzeitpunkt" */
+
+	/** Teil-Panel 1 zur Definition des Startzeitpunkts (ist nicht immer sichtbar) */
+	private JPanel arrivalStartSub1;
+	/** Teil-Panel 2 zur Definition des Startzeitpunkts (ist nicht immer sichtbar) */
+	private JPanel arrivalStartSub2;
+	/** Eingabefeld zur Definition des Startzeitpunkts */
+	private final JTextField arrivalStart;
+	/** Beschriftung (Zeiteinheit) für #arrivalStart */
+	private JLabel arrivalStartTimeUnit;
+
+	/* Dialogseite "Zuweisung von Kundenvariablen" */
+
+	/** Panel für die Konfiguration der Zuweisung von Kundenvariablen */
 	private final JPanel panelNumbers;
+	/** Tabelle zur Bearbeitung der Zuweisung von Kundenvariablen */
 	private VariablesTableModel modelNumbers;
 
+	/* Dialogseite "Zuweisung von Texten" */
+
+	/** Panel für die Konfiguration der Zuweisung von Texten */
 	private final JPanel panelText;
+	/** Tabelle zur Bearbeitung der Zuweisung von Texten */
 	private VariablesTextsTableModel modelText;
 
 	/**
@@ -480,8 +552,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		});
 		arrivalStartSub2.add(arrivalStartTimeUnit=new JLabel((String)timeBase1.getSelectedItem()));
 
-		arrivalStartSub1.setVisible(selectCard.getSelectedIndex()!=2);
-		arrivalStartSub2.setVisible(selectCard.getSelectedIndex()!=2);
+		final int cardIndex=selectCard.getSelectedIndex();
+		arrivalStartSub1.setVisible(cardIndex!=2 && cardIndex!=3 && cardIndex!=5);
+		arrivalStartSub2.setVisible(cardIndex!=2 && cardIndex!=3 && cardIndex!=5);
 
 		/* Zuweisungen (Zahlen) */
 
@@ -619,6 +692,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		checkData(false);
 	}
 
+	/**
+	 * Öffnet den Dialog zum Bearbeiten der Batch-Größen Verteilung.
+	 * @see ModelElementSourceBatchDialog
+	 * @see #batchButton
+	 */
 	private void editBatchSizesDistibution() {
 		final ModelElementSourceBatchDialog dialog=new ModelElementSourceBatchDialog(this,"ModelElementSource",readOnly,batchRates);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
@@ -627,6 +705,10 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Passt die Beschriftungen auf den Registerreitern an,
+	 * wenn sich die Einstellungen im Dialog verändert haben.
+	 */
 	private void updateTabTitle() {
 		String info;
 		Long L;
@@ -931,6 +1013,10 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Ruft den Dialog zum Bearbeiten der Kundentypeigenschaften auf.
+	 * @see #nameButton
+	 */
 	private void editClientData() {
 		final String name=(lastName.isEmpty())?nameEdit.getText().trim():lastName;
 		if (name.isEmpty()) {

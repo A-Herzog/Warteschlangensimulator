@@ -59,6 +59,11 @@ public final class ModelElementText extends ModelElementPosition {
 	 */
 	private String text;
 
+	/**
+	 * Zu verwendende Schriftart
+	 * @see #getFontFamily()
+	 * @see #setFontFamily(ui.modeleditor.elements.FontCache.FontFamily)
+	 */
 	private FontCache.FontFamily fontFamily=FontCache.defaultFamily;
 
 	/**
@@ -273,13 +278,52 @@ public final class ModelElementText extends ModelElementPosition {
 		return element;
 	}
 
+	/**
+	 * Schriftgröße beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private int lastTextSize=-1;
+
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastZoomFont=-1;
+
+	/**
+	 * Schriftausgestaltung (fett, kursiv) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastStyleFont=-1;
+
+	/**
+	 * Schriftart beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private FontCache.FontFamily lastFamily=null;
+
+	/**
+	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
+	 * Schriftart für den Text
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFont;
 
+	/**
+	 * Letzter in {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * ausgegebener Text.
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private String lastText;
+
+	/**
+	 * Aufgeteilter Text {@link #lastText}.<br>
+	 * Entspricht bei einem Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * der neue Text immer noch {@link #lastText}, so kann direkt dieser
+	 * bereits aufgeteilte Text wiederverwendet werden.
+	 * @see #lastText
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private String[] lastTextSplit;
 
 	/**
@@ -416,6 +460,12 @@ public final class ModelElementText extends ModelElementPosition {
 		sub.setTextContent(EditModel.saveColor(color));
 	}
 
+	/**
+	 * Wurde in einem früheren Aufruf von
+	 * {@link #loadProperty(String, String, Element)}
+	 * bereits eine Textzeile geladen?
+	 * @see #loadProperty(String, String, Element)
+	 */
 	private boolean lineLoaded=false;
 
 	/**

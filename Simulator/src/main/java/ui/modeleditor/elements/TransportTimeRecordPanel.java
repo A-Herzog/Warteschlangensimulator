@@ -41,10 +41,16 @@ public class TransportTimeRecordPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 4541268310614766813L;
 
+	/**
+	 * Daten, die in dem Panel bearbeitet werden sollen
+	 */
 	private final TransportTimeRecord data;
 
+	/** Auswahlbox für die Zeiteinheit in {@link #distributionEditor} */
 	private JComboBox<String> timeBase;
+	/** Auswahlbox dafür, als was die Zeit in der Statistik erfasst werden soll */
 	private JComboBox<String> transportTimeType;
+	/** Konfiguration der Transportzeit (Verteilung oder Rechenausdruck) */
 	private DistributionBySubTypeEditor distributionEditor;
 
 	/**

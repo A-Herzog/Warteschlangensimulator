@@ -60,12 +60,19 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 	 */
 	private static final long serialVersionUID = 6936633077601457873L;
 
+	/** Option: Ausdruck */
 	private JRadioButton optionExpression;
+	/** Option: Aktuelle Simulationszeit */
 	private JRadioButton optionTime;
+	/** Option: Aktuelles Datum */
 	private JRadioButton optionDate;
+	/** Eingabefeld für den Rechenausdruck */
 	private JTextField editExpression;
+	/** Eingabefeld für die Anzahl an anzuzeigenden Nachkommastellen */
 	private JSpinner digits;
+	/** Option: Ausgabe als Prozentwert */
 	private JCheckBox optionPercent;
+	/** Auswahlfeld für den Bezugspunkt für die Ausgabe des aktuellen Datums */
 	private DateTimePanel dateTime;
 	/** Auswahlbox der Schriftart */
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
@@ -145,7 +152,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		line.add(optionTime=new JRadioButton(Language.tr("Surface.AnimationText.Dialog.CurrentSimulationTime")));
 		optionTime.setEnabled(!readOnly);
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionDate=new JRadioButton(Language.tr("Surface.AnimationText.Dialog.CurrentSimulationDate")+":"));
+		line.add(optionDate=new JRadioButton(Language.tr("Surface.AnimationText.Dialog.CurrentSimulationDate")));
 		optionDate.setEnabled(!readOnly);
 		line.add(dateTime=new DateTimePanel(readOnly,DateTools.getNow(false)));
 

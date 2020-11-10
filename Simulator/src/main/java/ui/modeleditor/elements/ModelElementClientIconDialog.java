@@ -42,7 +42,9 @@ public class ModelElementClientIconDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 3856457045122236178L;
 
+	/** Datenmodell für die Auswahlbox zur Wahl des Icons ({@link #iconChooser}) */
 	private DefaultComboBoxModel<JLabel> iconChooserList;
+	/** Auswahlbox zur Wahl des Icons */
 	private JComboBox<JLabel> iconChooser;
 
 	/**

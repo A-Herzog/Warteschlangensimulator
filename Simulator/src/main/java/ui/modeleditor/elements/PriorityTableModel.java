@@ -51,12 +51,15 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 	 */
 	private static final long serialVersionUID = 4369405484601947657L;
 
+	/** Tabelle in der das Datenmodell zum Einsatz kommen soll */
 	private final JTableExt table;
 	/** Editor-Element (entweder vom Typ {@link ModelElementProcess} oder {@link ModelElementTransportTransporterSource}) */
 	private final ModelElement element;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Liste aller Kundentypen in dem Modell */
 	private final String[] clientTypes;
+	/** Liste der zu den Kunden in {@link #clientTypes} gehörenden Prioritäten */
 	private final String[] priorities;
 
 	/**
@@ -120,6 +123,11 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 	 */
 	private final AnimationImageSource imageSource=new AnimationImageSource();
 
+	/**
+	 * Liefert das Icon für eine Bedienergruppe.
+	 * @param name	Bedienergruppe
+	 * @return	Icon für die Bedienergruppe
+	 */
 	private Icon getClientTypeIcon(final String name) {
 		String icon=null;
 		if (name!=null) icon=element.getModel().clientData.getIcon(name);
@@ -144,6 +152,10 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 		priorities[rowIndex]=(String)aValue;
 	}
 
+	/**
+	 * Öffnet den Dialog, um einen Prioritäts-Rechenausdruck zu bearbeiten
+	 * @param rowIndex	Index bzw. Zeile des zu bearbeitenden Prioritäts-Rechenausdrucks
+	 */
 	private void editExpression(final int rowIndex) {
 		if (readOnly) return;
 

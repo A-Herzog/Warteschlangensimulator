@@ -55,11 +55,21 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementHoldMulti extends ModelElementBox implements ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ModelElementAnimationForceMove {
+	/** Liste der einlaufenden Kanten */
 	private final List<ModelElementEdge> connectionsIn;
+	/** Liste der auslaufenden Kanten */
 	private final List<ModelElementEdge> connectionsOut;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * Liste der IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
+	 * @see #connectionsIn
+	 */
 	private List<Integer> connectionsInIds=null;
+
+	/**
+	 * Liste der IDs der auslaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
+	 * @see #connectionsOut
+	 */
 	private List<Integer> connectionsOutIds=null;
 
 	/**

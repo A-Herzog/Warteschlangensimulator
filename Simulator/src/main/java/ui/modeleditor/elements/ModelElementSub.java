@@ -72,8 +72,16 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	 */
 	private ModelSurface subSurface;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionsIn
+	 */
 	private List<Integer> connectionsInIds=null;
+
+	/**
+	 * IDs der auslaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionsOut
+	 */
 	private List<Integer> connectionsOutIds=null;
 
 	/**

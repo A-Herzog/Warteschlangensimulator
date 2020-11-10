@@ -57,14 +57,23 @@ public class VariablesTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -4069400013879691172L;
 
+	/** Liste aller bisher vorhandenen Variablennamen */
 	private final String[] names;
+	/** Eingabefeld für den Variablennamen */
 	private final JTextField variable;
+	/** Warnung, die angezeigt wird, wenn {@link #variable} einen ungültigen Variablennamen enthält */
 	private final JLabel warningLabel;
+	/** Option: Ausdruck auswerten und zuweisen */
 	private final JRadioButton optionExpression;
+	/** Eingabefeld für den Rechenausdruck im Fall {@link #optionExpression} */
 	private final JTextField expression;
+	/** Option: Bisherige Wartezeit des aktuellen Kunden zuweisen */
 	private final JRadioButton optionWaiting;
+	/** Option: Bisherige Transferzeit des aktuellen Kunden zuweisen */
 	private final JRadioButton optionTransfer;
+	/** Option: Bisherige Bedienzeit des aktuellen Kunden zuweisen */
 	private final JRadioButton optionProcess;
+	/** Option: Bisherige Verweilzeit des aktuellen Kunden zuweisen */
 	private final JRadioButton optionResidence;
 
 	/**

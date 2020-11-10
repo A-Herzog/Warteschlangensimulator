@@ -89,6 +89,11 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	 */
 	private String simTextValue=null;
 
+	/**
+	 * Zu verwendende Schriftart
+	 * @see #getFontFamily()
+	 * @see #setFontFamily(ui.modeleditor.elements.FontCache.FontFamily)
+	 */
 	private FontCache.FontFamily fontFamily=FontCache.defaultFamily;
 
 	/**
@@ -327,6 +332,11 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		return element;
 	}
 
+	/**
+	 * Bestimmt den anzuzeigenden Text oder die Überschrift.
+	 * @param getTitle	Text (<code>false</code>) oder Überschrift (<code>true</code>) liefern
+	 * @return	Anzuzeigender Text oder Überschrift
+	 */
 	private String getDisplayText(final boolean getTitle) {
 		if (getTitle) {
 			if (surface==null) return Language.tr("Surface.AnimationTextSelect.TemplateMode.Title");
@@ -343,11 +353,42 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		return Language.tr("Surface.AnimationTextSelect.TemplateMode.Value");
 	}
 
+	/**
+	 * Schriftgröße beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private int lastTextSize=-1;
+
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastZoomFont=-1;
+
+	/**
+	 * Schriftausgestaltung (fett, kursiv) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastStyleFont=-1;
+
+	/**
+	 * Schriftart beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private FontCache.FontFamily lastFamily=null;
+
+	/**
+	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
+	 * Schriftart für den Text
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFontMain;
+
+	/**
+	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
+	 * Schriftart für den Titel
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFontTitle;
 
 	/**
@@ -563,6 +604,11 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 	 * @see #updateSimulationData(SimulationData, boolean)
 	 */
 	private ExpressionEval[] animationExpression;
+
+	/**
+	 * Animationstexte von {@link #textValues} abgeleitet
+	 * @see #textValues
+	 */
 	private String[] animationText;
 
 	@Override

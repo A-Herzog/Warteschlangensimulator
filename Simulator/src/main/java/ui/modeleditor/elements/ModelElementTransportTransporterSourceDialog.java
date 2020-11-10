@@ -61,20 +61,35 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 	 */
 	private static final long serialVersionUID = -9026608309380773385L;
 
+	/** Namen aller modellweit verfügbaren Variablennamen */
 	private String[] variableNames;
+	/** Liste mit den Namen aller modellweit verfügbaren Transporter */
 	private String[] transporterNames;
 
+	/** Auswahl des Transportertyps für diese Station */
 	private JComboBox<String> transporterType;
+	/** Eingabefeld für die Mindestanzahl an wartenden Kunden bevor ein Transporter angefordert wird */
 	private JTextField requestMinWaiting;
+	/** Eingabefeld für die Priorität zur Anforderung von Transportern (für einen unmittelbaren Transport) */
 	private JTextField requestPriority;
+	/** Eingabefeld für die Transporter-Wartekapazität an dieser Station */
 	private JTextField waitingCapacity;
+	/** Eingabefeld für die Priorität zur Anforderung von Transportern (zum Parken) */
 	private JTextField waitingPriority;
 
+	/**
+	 * Objekt zur Konfiguration der Transport-Ziele
+	 */
 	private TransportTargetSystemPanel transportTargetSystemPanel;
 
+	/**
+	 * Tabelle zur Konfiguration der Kundenprioritäten
+	 */
 	private PriorityTableModel tablePriorityModel;
 
+	/** Option: Bereich verlassen bei Transportbeginn */
 	private JCheckBox useSectionStart;
+	/** Auswahl des im Falle von {@link #useSectionStart} zu verlassenden Bereichs */
 	private JComboBox<String> sectionStart;
 
 	/**
@@ -139,6 +154,10 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 		return tabs;
 	}
 
+	/**
+	 * Erzeugt die Dialog-Registerseite "Transporter"
+	 * @return	Dialog-Registerseite
+	 */
 	private JPanel getTransporterTab() {
 		final JPanel content=new JPanel();
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
@@ -229,6 +248,10 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 		return content;
 	}
 
+	/**
+	 * Erzeugt die Dialog-Registerseite "Prioritäten"
+	 * @return	Dialog-Registerseite
+	 */
 	private JPanel getPrioritiesTab() {
 		final JPanel content=new JPanel(new BorderLayout());
 
@@ -236,6 +259,7 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 		content.add(new JScrollPane(tablePriority=new JTableExt()),BorderLayout.CENTER);
 		tablePriority.setModel(tablePriorityModel=new PriorityTableModel(tablePriority,element,readOnly));
 		tablePriority.setIsPanelCellTable(0);
+		tablePriority.setIsPanelCellTable(2);
 		tablePriority.getColumnModel().getColumn(0).setMaxWidth(200);
 		tablePriority.getColumnModel().getColumn(0).setMinWidth(200);
 		tablePriority.setEnabled(!readOnly);
@@ -245,6 +269,10 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 		return content;
 	}
 
+	/**
+	 * Erzeugt die Dialog-Registerseite "Bereich verlassen"
+	 * @param tab	Dialog-Registerseite in die die Dialogelement eingefügt werden sollen
+	 */
 	private void buildSectionsTab(final JPanel tab) {
 		final JPanel content=new JPanel();
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
@@ -279,6 +307,13 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 		sectionStart.addActionListener(e->useSectionStart.setSelected(true));
 	}
 
+	/**
+	 * Liefert die Namen aller Bereich-Betreten-Stationen
+	 * (um diese als Option zum Verlassen beim Transport anzubieten).
+	 * @return	Liste der Namen aller Bereich-Betreten-Stationen
+	 * @see #useSectionStart
+	 * @see #sectionStart
+	 */
 	private String[] getSectionStartStations() {
 		final List<String> list=new ArrayList<>();
 

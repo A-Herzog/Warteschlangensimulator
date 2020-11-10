@@ -45,7 +45,14 @@ public class ResourceTableModelDialog2 extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 8062767531018749001L;
 
+	/**
+	 * Maximal verfügbare Anzahl an Bedienern in dieser Gruppe (-1 für unbegrenzt viele)
+	 */
 	private final int groupMax;
+
+	/**
+	 * Eingabefeld für die notwendige Anzahl an Bedienern für einen Bedienvorgang
+	 */
 	private final JTextField input;
 
 	/**

@@ -117,6 +117,11 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 		return 2;
 	}
 
+	/**
+	 * Wandelt einen Ausgabemodus in einen Index für die Auswahlbox um.
+	 * @param mode	Ausgabemodus
+	 * @return	Index für die Auswahlbox
+	 */
 	private int modeToInt(final ModelElementOutputDDE.OutputMode mode) {
 		switch (mode) {
 		case MODE_TIMESTAMP: return 0;
@@ -134,9 +139,13 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 		case MODE_STRING: return 12;
 		}
 		return 0;
-
 	}
 
+	/**
+	 * Wandelt einen Auswahlbox-Index in einen Ausgabemodus um.
+	 * @param index	Auswahlbox-Index
+	 * @return	Ausgabemodus
+	 */
 	private ModelElementOutputDDE.OutputMode intToMode(final int index) {
 		switch (index) {
 		case 0: return ModelElementOutputDDE.OutputMode.MODE_TIMESTAMP;
@@ -156,6 +165,12 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 		return ModelElementOutputDDE.OutputMode.MODE_TIMESTAMP;
 	}
 
+	/**
+	 * Erstellt ein Panel zur Auswahl des Ausgabemodus
+	 * @param rowIndex	Zeile in der Tabelle für das Panel
+	 * @param selectedMode	Initial auszuwählender Ausgabemodus
+	 * @return	Panel zur Auswahl des Ausgabemodus
+	 */
 	private JPanel makeModePanel(final int rowIndex, final ModelElementOutputDDE.OutputMode selectedMode) {
 		final JPanel panel=new JPanel(new BorderLayout());
 
@@ -198,7 +213,7 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 		if (rowIndex==mode.size()) {
 			switch (columnIndex) {
 			case 0: return "";
-			case 1:	return makeButtonPanel(new String[]{Language.tr("Surface.OutputDDE.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener(ActionIndex.ACTION_ADD)});
+			case 1:	return makeButtonPanel(new String[]{Language.tr("Surface.OutputDDE.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
 			}
 		}
 
@@ -258,20 +273,36 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 		final int row;
 		/** Auszuführende Aktion */
 		final ActionIndex actionIndex;
+		/** Zusätzliche Daten für die jeweilige Aktion */
 		final Object object;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param actionIndex	Auszuführende Aktion
+		 * @param object	Zusätzliche Daten für die jeweilige Aktion
+		 */
 		public TableButtonListener(final int row, final ActionIndex actionIndex, final Object object) {
 			this.row=row;
 			this.actionIndex=actionIndex;
 			this.object=object;
 		}
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param actionIndex	Auszuführende Aktion
+		 */
 		public TableButtonListener(final int row, final ActionIndex actionIndex) {
 			this(row,actionIndex,null);
 		}
 
-		public TableButtonListener(final ActionIndex actionIndex) {
-			this(0,actionIndex,null);
+		/**
+		 * Konstruktor der Klasse<br>
+		 * (Modus: Hinzufügen)
+		 */
+		public TableButtonListener() {
+			this(0,ActionIndex.ACTION_ADD,null);
 		}
 
 		@SuppressWarnings("unchecked")

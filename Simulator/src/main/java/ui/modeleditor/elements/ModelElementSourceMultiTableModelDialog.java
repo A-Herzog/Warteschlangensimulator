@@ -43,7 +43,14 @@ public class ModelElementSourceMultiTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 5750673145282095397L;
 
+	/**
+	 * Panel zum Bearbeiten der Kunden-Quelle-Einstellungen
+	 */
 	private final ModelElementSourceRecordPanel recordPanel;
+
+	/**
+	 * Datenelement, welches die modellweite Kundentypenliste vorhält (falls sich durch die Veränderung des Datensatzes Kundentypnamen ändern)
+	 */
 	private final ModelClientData clientData;
 
 	/**

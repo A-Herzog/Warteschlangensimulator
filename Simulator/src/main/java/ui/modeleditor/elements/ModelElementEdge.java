@@ -58,7 +58,14 @@ public final class ModelElementEdge extends ModelElement {
 		ModelElementCatalog.getCatalog().addElement(new ModelElementEdge(null,null,null,null));
 	}
 
+	/**
+	 * Größe des Pfeils
+	 */
 	private static final int ARROW_SIZE=10;
+
+	/**
+	 * Krümmungsradius bei abgerundeten abgewinkelten Linien
+	 */
 	private static final int ARC_RADIUS=10;
 
 	/**
@@ -82,11 +89,26 @@ public final class ModelElementEdge extends ModelElement {
 	 */
 	private LineMode lineMode=null;
 
+	/**
+	 * Element von dem die Kante ausgeht
+	 */
 	private ModelElement connectionStart;
+
+	/**
+	 * Element zu dem die Kante führt
+	 */
 	private ModelElement connectionEnd;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * ID des Elements von dem die Kante ausgeht (wird nur beim Laden und Clonen verwendet, ist sonst -1)
+	 * @see #connectionStart
+	 */
 	private int connectionStartId=-1;
+
+	/**
+	 * ID des Elements zu dem die Kante führt (wird nur beim Laden und Clonen verwendet, ist sonst -1)
+	 * @see #connectionEnd
+	 */
 	private int connectionEndId=-1;
 
 	/**
@@ -241,11 +263,21 @@ public final class ModelElementEdge extends ModelElement {
 		}
 	}
 
+	/**
+	 * Legt die zentrale Position eines Elements fest.
+	 * @param element	Element
+	 * @param point	Mittelpunkt des Elements
+	 */
 	private static void setMiddlePositon(final ModelElementPosition element, final Point point) {
 		final Dimension dimension=element.getSize();
 		element.setPosition(new Point((int)Math.round(point.x-dimension.width/2.0),(int)Math.round(point.y-dimension.height/2.0)));
 	}
 
+	/**
+	 * Fügt eine Verbindungskante zwischen zwei Elementen ein
+	 * @param element1	Ausgangselement
+	 * @param element2	Zielelement
+	 */
 	private void addEdge(final ModelElementPosition element1, final ModelElementPosition element2) {
 		final ModelElementEdge edge=new ModelElementEdge(getModel(),surface,element1,element2);
 		surface.add(edge);
@@ -253,6 +285,13 @@ public final class ModelElementEdge extends ModelElement {
 		element2.addEdgeIn(edge);
 	}
 
+	/**
+	 * Fügt eine Ecke hinzu
+	 * @param surfacePanel	Zeichenfläche
+	 * @param element1	Ausgangselement
+	 * @param element2	Zielelement
+	 * @param point	Position der zwischen Ausgangs- und Zielelement einzufügenden Ecke
+	 */
 	private void contextAddVertex(final ModelSurfacePanel surfacePanel, final ModelElementPosition element1, final ModelElementPosition element2, final Point point) {
 		/* Ecke hinzufügen */
 		final ModelElementVertex vertex=new ModelElementVertex(getModel(),surface);
@@ -268,6 +307,13 @@ public final class ModelElementEdge extends ModelElement {
 		addEdge(vertex,element2);
 	}
 
+	/**
+	 * Fügt eine Teleport-Strecke hinzu
+	 * @param surfacePanel	Zeichenfläche
+	 * @param element1	Ausgangselement
+	 * @param element2	Zielelement
+	 * @param point	Position der zwischen Ausgangs- und Zielelement einzufügenden Teleport-Strecke
+	 */
 	private void contextAddTeleport(final ModelSurfacePanel surfacePanel, final ModelElementPosition element1, final ModelElementPosition element2, final Point point) {
 		/* Namen abfragen */
 		final String name=JOptionPane.showInputDialog(surfacePanel.getParent(),Language.tr("Surface.Connection.AddTeleport.TargetName"),String.format("->id=%d",element2.getId()));
@@ -313,14 +359,41 @@ public final class ModelElementEdge extends ModelElement {
 		}
 	}
 
-	private enum Side {TOP, LEFT, BOTTOM, RIGHT}
+	/**
+	 * Wo erfolgt die Anbindung an eine Station?
+	 * @see Connect
+	 */
+	private enum Side {
+		/** Oben */
+		TOP,
+		/** Links */
+		LEFT,
+		/** Unten */
+		BOTTOM,
+		/** Rechts */
+		RIGHT
+	}
 
+	/**
+	 * Beschreibt die Anbindung der Kante an eine Station
+	 * @see ModelElementEdge#getLine(double)
+	 */
 	private static class Connect {
+		/** x-Koordinate des Punktes der Anbindung */
 		public final int x;
+		/** y-Koordinate des Punktes der Anbindung */
 		public final int y;
+		/** Punkt der Anbindung */
 		public final Point p;
+		/** Wo erfolgt die Anbindung an eine Station? */
 		public final Side side;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param x	x-Koordinate des Punktes der Anbindung
+		 * @param y	y-Koordinate des Punktes der Anbindung
+		 * @param side	Wo erfolgt die Anbindung an eine Station?
+		 */
 		public Connect(final int x, final int y, final Side side) {
 			this.x=x;
 			this.y=y;
@@ -329,11 +402,35 @@ public final class ModelElementEdge extends ModelElement {
 		}
 	}
 
+	/**
+	 * Startpunkt beim letzten Aufruf von {@link #getLine(double)}
+	 * @see #getLine(double)
+	 */
 	private Point lastLineP1;
+
+	/**
+	 * Startpunkt beim letzten Aufruf von {@link #getLine(double)}
+	 * @see #getLine(double)
+	 */
 	private Point lastLineP2;
+
+	/**
+	 * Zoomfaktor  beim letzten Aufruf von {@link #getLine(double)}
+	 * @see #getLine(double)
+	 */
 	private double lastZoom;
+
+	/**
+	 * Start- und Zielpunkt beim letzten Aufruf von {@link #getLine(double)}
+	 * @see #getLine(double)
+	 */
 	private Connect[] lastLine;
 
+	/**
+	 * Ermittelt Start- und Zielpunkt der Linie
+	 * @param zoom	Zoomfaktor
+	 * @return	Start- und Zielpunkt
+	 */
 	private Connect[] getLine(final double zoom) {
 		if (connectionStart==null || connectionEnd==null) return null;
 
@@ -376,6 +473,11 @@ public final class ModelElementEdge extends ModelElement {
 		return lastLine;
 	}
 
+	/**
+	 * Liefert die Art der Verknüpfungslinien.
+	 * @param points	Zu verbindende Punkte
+	 * @return	Art der Verknüpfungslinien
+	 */
 	private LineMode getDrawLineMode(final Connect[] points) {
 		LineMode drawLineMode=lineMode;
 		final EditModel model=getModel();
@@ -391,8 +493,22 @@ public final class ModelElementEdge extends ModelElement {
 		return drawLineMode;
 	}
 
+	/**
+	 * Cache für den ersten Punkt des Pfeils
+	 * @see #drawArrow(Graphics, ComplexLine, Point, Point, double)
+	 */
 	private Point arrow1=new Point();
+
+	/**
+	 * Cache für den zweiten Punkt des Pfeils
+	 * @see #drawArrow(Graphics, ComplexLine, Point, Point, double)
+	 */
 	private Point arrow2=new Point();
+
+	/**
+	 * Cache für den Linienmitte-Punkt
+	 * @see #drawText(Graphics, Point, double)
+	 */
 	private Point middle=new Point();
 
 	/**
@@ -506,10 +622,26 @@ public final class ModelElementEdge extends ModelElement {
 		drawText(graphics,middle,zoom);
 	}
 
+	/**
+	 * Zeichnet eine Linie
+	 * @param graphics	Ausgabe-Grafikobjekt
+	 * @param painter	Linienzeichner
+	 * @param point1	Startpunkt
+	 * @param point2	Zielpunkt
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawLine(final Graphics graphics, final ComplexLine painter, final Point point1, final Point point2, final double zoom) {
 		painter.draw(graphics,point1,point2,zoom);
 	}
 
+	/**
+	 * Zeichnet eine Pfeilspitze
+	 * @param graphics	Ausgabe-Grafikobjekt
+	 * @param painter	Linienzeichner
+	 * @param point1	Startpunkt der Linie
+	 * @param point2	Zielpunkt der Linie
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawArrow(final Graphics graphics, final ComplexLine painter, final Point point1, final Point point2, final double zoom) {
 		/* Pfeile berechnen */
 		double v0=point2.x-point1.x, v1=point2.y-point1.y;
@@ -527,13 +659,36 @@ public final class ModelElementEdge extends ModelElement {
 		painter.draw(graphics,point2,arrow2,zoom);
 	}
 
+	/**
+	 * Zeichnet einen Bogen mit den Einstellungen der Linie
+	 * @param graphics	{@link Graphics}-Objekt in das der Bogen eingezeichnet werden soll
+	 * @param painter	Linienzeichner
+	 * @param point1	Startpunkt des Bogens
+	 * @param point2	Zielpunkt des Bogens
+	 * @param zoom	Zoomfaktor (1.0==100%)
+	 */
 	private void drawArcClockWise(final Graphics graphics, final ComplexLine painter, final Point point1, final Point point2, final double zoom) {
 		painter.drawArc(graphics,point1,point2,zoom);
 	}
 
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawText(Graphics, Point, double)}
+	 * @see #drawText(Graphics, Point, double)
+	 */
 	private double lastZoomFont=-1;
+
+	/**
+	 * Schriftartenobjekt beim letzten Aufruf von {@link #drawText(Graphics, Point, double)}
+	 * @see #drawText(Graphics, Point, double)
+	 */
 	private Font lastFont;
 
+	/**
+	 * Gibt {@link #getName()} aus.
+	 * @param graphics	Ausgabe-Grafikobjekt
+	 * @param middle	Mittelpunkt des Textes
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawText(final Graphics graphics, final Point middle, final double zoom) {
 		final String text=getName();
 		if (text!=null && !text.isEmpty()) {
@@ -546,6 +701,14 @@ public final class ModelElementEdge extends ModelElement {
 		}
 	}
 
+	/**
+	 * Prüft, ob ein Punkt auf oder zumindest in unmittelbarer Nähe einer Linie liegt
+	 * @param point	Zu prüfender Punkt
+	 * @param p1	Startpunkt der Linie
+	 * @param p2	Endpunkt der Linie
+	 * @param zoom	Zoomfaktor
+	 * @return	Liefert <code>true</code>, wenn sich der Punkt in unmittelbarer Nähe der Linie befindet
+	 */
 	private boolean lineContainsPoint(final Point point, final Point p1, final Point p2, final double zoom) {
 		/* Gerade: u1+t1*v1 */
 		final double[] u1=new double[]{p1.x,p1.y};
@@ -821,6 +984,12 @@ public final class ModelElementEdge extends ModelElement {
 		fireChanged();
 	}
 
+	/**
+	 * Prüft, ob sich diese Kante in einer Liste von Kanten befindet
+	 * @param list	Liste der Kanten
+	 * @return	Liefert <code>true</code>, wenn sich diese Kante in der Liste der Kanten befindet
+	 * @see #isConnectionOk()
+	 */
 	private boolean edgeInList(final ModelElementEdge[] list) {
 		for (ModelElementEdge edge: list) if (edge==this) return true;
 		return false;
@@ -938,6 +1107,11 @@ public final class ModelElementEdge extends ModelElement {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
 	}
 
+	/**
+	 * Cache für das Objekt zur Speicherung des Linienmittelpunktes
+	 * im Nur-Lese-Rückgabemodus von {@link #getMiddlePosition(boolean)}
+	 * @see #getMiddlePosition(boolean)
+	 */
 	private Point readOnlyMiddle=null;
 
 	@Override

@@ -38,6 +38,10 @@ public class ModelElementTeleportDestinationDialog extends ModelElementBaseDialo
 	 */
 	private static final long serialVersionUID = 6335008225629084531L;
 
+	/**
+	 * Name der Station beim Aufrufen des Dialogs<br>
+	 * (um ggf. beim Schlieﬂen des Dialogs das Modell zu benachrichtigen, dass sich der Signalname ver‰ndert hat)
+	 */
 	private final String oldName;
 
 	/**

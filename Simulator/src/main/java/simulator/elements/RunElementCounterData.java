@@ -53,7 +53,17 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 	 */
 	private final String groupNameExt;
 
+	/**
+	 * Statistikobjekte für die Zähler in der Gruppe<br>
+	 * (Ist notwendig, um in {@link #getValue(boolean)} auch einen Anteil liefern zu können.)
+	 */
 	private StatisticsSimpleCountPerformanceIndicator[] indicators;
+
+	/**
+	 * Entspricht dieser Wert noch der Anzahl an Einträgen in {@link #counterStatistic},
+	 * so kann {@link #indicators} in {@link #getValue(boolean)} direkt weiterverwendet
+	 * werden, ansonsten muss es neu aufgebaut werden.
+	 */
 	private int indicatorsSize;
 
 	/**

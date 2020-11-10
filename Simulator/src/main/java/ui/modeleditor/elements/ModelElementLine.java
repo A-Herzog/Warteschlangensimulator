@@ -215,11 +215,34 @@ public class ModelElementLine extends ModelElementDecoration {
 		}
 	}
 
+	/**
+	 * Größe des Pfeils (bezogen auf Zoomfaktor=100%)
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private static final int ARROW_SIZE_UNIT=6;
 
+	/**
+	 * Cache für das Startpunkt der Linie Objekt
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private final Point line1=new Point();
+
+	/**
+	 * Cache für das Endpunkt der Linie Objekt
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private final Point line2=new Point();
+
+	/**
+	 * Cache für die erste Pfeilspitze
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private final Point arrow1=new Point();
+
+	/**
+	 * Cache für die zweite Pfeilspitze
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private final Point arrow2=new Point();
 
 	/**

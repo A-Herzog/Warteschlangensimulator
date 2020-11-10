@@ -63,8 +63,20 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	 * {@link #statistics2} und {@link #valuesString} zugreifen.
 	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * x-Werte für die Diagrammdarstellung während der Animation
+	 */
 	private StatisticsDataCollector statistics1;
+
+	/**
+	 * y-Werte für die Diagrammdarstellung während der Animation
+	 */
 	private StatisticsDataCollector statistics2;
+
+	/**
+	 * Beschriftung für "Anzahl Werte" in der Diagrammdarstellung während der Animation
+	 */
 	private String valuesString;
 
 	/**
@@ -232,7 +244,16 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		drawDiagramPoints(g,rectangle,data1,data2,data1.length);
 	}
 
+	/**
+	 * Zeichenstil für Linien
+	 * @see #drawDiagramLines(Graphics2D, Rectangle, double[], int)
+	 */
 	private final Stroke lineStroke=new BasicStroke(1);
+
+	/**
+	 * Zeichenstil für Punkte
+	 * @see #drawDiagramPoints(Graphics2D, Rectangle, double[], double[], int)
+	 */
 	private final Stroke pointStroke=new BasicStroke(2);
 
 	/**
@@ -249,6 +270,13 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	 */
 	private Font lastFont;
 
+	/**
+	 * Stellt Linien in einem x-Diagramm dar
+	 * @param g	Ausgabe-Grafikobjekt
+	 * @param rectangle	Zeichenbereich
+	 * @param data	Daten-Array
+	 * @param count	Anzahl an Werten in dem Daten-Array
+	 */
 	private void drawDiagramLines(final Graphics2D g, final Rectangle rectangle, final double[] data, final int count) {
 		if (count<2 || displayPoints<2) return;
 		final int index2=count-1;
@@ -292,6 +320,14 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		g.drawString(NumberTools.formatNumber(max)+", "+NumberTools.formatLong(Math.min(count,displayPoints))+" "+valuesString,x,rectangle.y+1+ascent);
 	}
 
+	/**
+	 * Stellt Linien in einem x-y-Diagramm dar
+	 * @param g	Ausgabe-Grafikobjekt
+	 * @param rectangle	Zeichenbereich
+	 * @param data1	x-Daten-Array
+	 * @param data2	y-Daten-Array
+	 * @param count	Anzahl an Werten in dem Daten-Array
+	 */
 	private void drawDiagramPoints(final Graphics2D g, final Rectangle rectangle, final double[] data1, final double[] data2, final int count) {
 		if (count<2 || displayPoints<2) return;
 		final int index2=count-1;

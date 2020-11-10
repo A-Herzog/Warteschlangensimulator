@@ -36,9 +36,28 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementCosts
  */
 public class RunElementCosts extends RunElementPassThrough {
+	/**
+	 * Kosten an der Station (kann <code>null</code> sein)
+	 * @see RunElementCostsData#stationCosts
+	 */
 	private String stationCosts;
+
+	/**
+	 * Zusätzliche Kunden-Wartezeit-Kosten (kann <code>null</code> sein)
+	 * @see RunElementCostsData#clientWaitingCosts
+	 */
 	private String clientWaitingCosts;
+
+	/**
+	 * Zusätzliche Kunden-Transferzeit-Kosten (kann <code>null</code> sein)
+	 * @see RunElementCostsData#clientTransferCosts
+	 */
 	private String clientTransferCosts;
+
+	/**
+	 * Zusätzliche Kunden-Bedienzeit-Kosten (kann <code>null</code> sein)
+	 * @see RunElementCostsData#clientProcessCosts
+	 */
 	private String clientProcessCosts;
 
 	/**

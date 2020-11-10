@@ -30,9 +30,32 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
  * @see ModelElementBarrier
  */
 public final class ModelElementBarrierSignalOption implements Cloneable {
+	/**
+	 * Namen des Signals, auf das dieses Element hören soll
+	 * @see #getSignalName()
+	 * @see #setSignalName(String)
+	 */
 	private String signalName="";
+
+	/**
+	 * Name eines Kundentyps oder <code>null</code>, wenn die Freigabe auf alle Kundentypen wirken soll.
+	 * @see #getClientType()
+	 * @see #setClientType(String)
+	 */
 	private String clientType;
+
+	/**
+	 * Anzahl an Kunden, die das Element passieren können, bevor die Schrankenwirkung einsetzt
+	 * @see #getInitialClients()
+	 * @see #setInitialClients(int)
+	 */
 	private int initialClients;
+
+	/**
+	 * Maximale Anzahl an wartenden Kunden, die freigegeben werden, wenn das zugehörige Signal ausgelöst wird
+	 * @see #getClientsPerSignal()
+	 * @see #setClientsPerSignal(int)
+	 */
 	private int clientsPerSignal;
 
 	/**
@@ -195,6 +218,13 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 		return null;
 	}
 
+	/**
+	 * Lädt einen Eintrag aus einem xml-Element
+	 * @param name	Name des XML-Elements
+	 * @param content	Inhalt dex XML-Elements
+	 * @param node	XML-Elements
+	 * @return	Liefert im Erfolgsfall <code>null</code> sonst eine Fehlermeldung
+	 */
 	private String loadProperty(final String name, final String content, final Element node) {
 		if (Language.trAll("Surface.Barrier.XML.SignalName",name)) {
 			signalName=node.getTextContent();

@@ -59,25 +59,27 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -1706008891307759220L;
 
+	/** Auswahlbox für die Verzweigungsart */
 	private JComboBox<String> modeSelect;
+	/** Konfigurationspanel für die gewählte Verzweigungsart */
 	private JPanel contentCards;
 
-	/* Zufall */
+	/** Eingabefelder für die Raten (im Zufall-Modus) */
 	private List<JTextField> rates;
 
-	/* Bedingung */
+	/** Eingabefelder für die Bedingungen */
 	private List<JTextField> conditions;
 
-	/* Kundentyp */
+	/** Auswahlboxen für die Kundentypen */
 	private List<JComboBox<String>> clientTypes;
 
-	/* Key */
+	/** Eingabefeld für den Schlüssel */
 	private JTextField key;
 
-	/* Values */
+	/** Eingabefelder für die Werte */
 	private List<JTextField> values;
 
-	/* Optional neue Kundentypen */
+	/** Konfigurationbereich für die neuen Kundentypen pro Ausgang */
 	private NewClientTypesPanel newClientTypes;
 
 	/**
@@ -96,6 +98,11 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Liefert den Namen des Ziels, das über eine auslaufende Kante erreicht werden kann
+	 * @param edge	Auslaufende Kante
+	 * @return	Name des Ziels
+	 */
 	private String getDestination(ModelElementEdge edge) {
 		while (true) {
 			if (edge==null) return null;
@@ -402,11 +409,21 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		return tabs;
 	}
 
+	/**
+	 * Stellt den sichtbaren Bereich in {@link #contentCards} ein.
+	 * @param name	Name für den anzuzeigenden Bereich
+	 * @see #modeSelect
+	 */
 	private void setActiveCard(final String name) {
 		final CardLayout cardLayout=(CardLayout)(contentCards.getLayout());
 		cardLayout.show(contentCards,name);
 	}
 
+	/**
+	 * Liefert die Raten für die Verzweigungen gemäß den Einstellungen
+	 * @param showErrorDialog	Im Fehlerfall eine Meldung ausgeben?
+	 * @return	Liefert im Erfolgsfall die Raten und im Fehlerfall <code>null</code>
+	 */
 	private List<Double> getRates(final boolean showErrorDialog) {
 		List<Double> values=new ArrayList<>();
 
@@ -433,6 +450,11 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		return values;
 	}
 
+	/**
+	 * Liefert die Verzweigungsbedingungen gemäß den Einstellungen
+	 * @param showErrorDialog	Im Fehlerfall eine Meldung ausgeben?
+	 * @return	Liefert im Erfolgsfall die Bedingungen und im Fehlerfall <code>null</code>
+	 */
 	private List<String> getConditions(final boolean showErrorDialog) {
 		List<String> values=new ArrayList<>();
 
@@ -455,6 +477,10 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		return values;
 	}
 
+	/**
+	 * Prüft die Einstellungen in {@link #clientTypes}.
+	 * @return	Liefert im Erfolgsfall <code>true</code> (im Fehlerfall wird außerdem eine Fehlermeldung ausgegeben)
+	 */
 	private boolean getCheckClientTypes() {
 		final List<String> usedClientTypes=new ArrayList<>();
 
@@ -475,6 +501,11 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		return true;
 	}
 
+	/**
+	 * Prüft die Einstellungen in {@link #key} und in {@link #values}.
+	 * @param showErrorMessages	Im Fehlerfall eine Meldung ausgeben?
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean getCheckKeyValues(final boolean showErrorMessages) {
 		boolean ok=true;
 

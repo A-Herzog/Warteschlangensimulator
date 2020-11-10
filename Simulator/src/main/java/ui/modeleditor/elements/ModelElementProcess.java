@@ -98,12 +98,36 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		PROCESS_TYPE_NOTHING
 	}
 
+	/**
+	 * Einlaufende Kanten
+	 */
 	private List<ModelElementEdge> connectionsIn;
-	private ModelElementEdge connectionOutSuccess, connectionOutCancel;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * Auslaufende Kante für erfolgreiche Kunden
+	 */
+	private ModelElementEdge connectionOutSuccess;
+
+	/**
+	 * Auslaufende Kante für Warteabbrecher (optional)
+	 */
+	private ModelElementEdge connectionOutCancel;
+
+	/**
+	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 */
 	private List<Integer> connectionsInIds=null;
+
+	/**
+	 * IDs der auslaufenden Kante für erfolgreiche Kunden (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionOutSuccess
+	 */
 	private int connectionOutSuccessId=-1;
+
+	/**
+	 * IDs der auslaufenden Kante für Warteabbrecher (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionOutCancel
+	 */
 	private int connectionOutCancelId=-1;
 
 	/**
@@ -112,18 +136,90 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	 */
 	private ModelSurface.TimeBase timeBase;
 
+	/**
+	 * Art der Zählung der Prozesszeiten
+	 * @see #getProcessTimeType()
+	 * @see #setProcessTimeType(ProcessType)
+	 */
 	private ProcessType processTimeType;
+
+	/**
+	 * Minimale Batch-Größe
+	 * @see #getBatchMinimum()
+	 * @see #setBatchMinimum(int)
+	 */
 	private int batchMin; /* >=1 */
+
+	/**
+	 * Maximale Batch-Größe
+	 * @see #getBatchMaximum()
+	 * @see #setBatchMaximum(int)
+	 */
 	private int batchMax; /* >=batchMin */
+
+	/**
+	 * Objekt, welches die Verteilungen und Ausdrücke für die Bedienzeiten vorhält
+	 * @see #getWorking()
+	 */
 	private DistributionSystem working;
+
+	/**
+	 * Objekt, welches die Verteilungen und Ausdrücke für die Nachbearbeitungszeiten vorhält
+	 * @see #getPostProcessing()
+	 */
 	private DistributionSystem postProcessing;
+
+	/**
+	 * Objekt, welches die Verteilungen und Ausdrücke für die Wartezeittoleranzen vorhält
+	 * @see #getCancel()
+	 */
 	private DistributionSystem cancel;
+
+	/**
+	 * Objekt, welches die Verteilungen und Ausdrücke für die Rüstzeiten vorhält
+	 * @see #getSetupTimes()
+	 */
 	private DistributionSystemSetupTimes setupTimes;
+
+	/**
+	 * Priorität für Kunden eines bestimmten Kundentyp
+	 * @see #getPriority(String)
+	 * @see #setPriority(String, String)
+	 */
 	private final Map<String,String> priority; /*  Kundentyp, Priorität-Formel */
+
+	/**
+	 * Bedienergruppen und deren Anzahlen, die für die Bedienung der Kunden notwendig sind
+	 * @see #getNeededResources()
+	 */
 	private final List<Map<String,Integer>> resources; /* Name der Ressource, benötigte Anzahl */
+
+	/**
+	 * Ressorcen-Priorisierungs-Formel
+	 * @see #getResourcePriority()
+	 * @see #setResourcePriority(String)
+	 */
 	private String resourcePriority;
+
+	/**
+	 * Kosten pro Bedienvorgang
+	 * @see #getCosts()
+	 * @see #setCosts(String)
+	 */
 	private String costs;
+
+	/**
+	 * Kosten pro Bediensekunde
+	 * @see #getCostsPerProcessSecond()
+	 * @see #setCostsPerProcessSecond(String)
+	 */
 	private String costsPerProcessSecond;
+
+	/**
+	 * Kosten pro Nachbearbeitungssekunde
+	 * @see #getCostsPerPostProcessSecond()
+	 * @see #setCostsPerPostProcessSecond(String)
+	 */
 	private String costsPerPostProcessSecond;
 
 	/**

@@ -35,6 +35,13 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementAction
  */
 public class RunElementAction extends RunElement implements StateChangeListener, SignalListener {
+	/**
+	 * Liste der Aktions-Datensätze.<br>
+	 * Diese Datensätze werden in {@link #getData(SimulationData)}
+	 * an {@link RunElementActionData} in Form eines schnelleren
+	 * Arrays übergeben und stehen dann als
+	 * {@link RunElementActionData#records} zur Verfügung.
+	 */
 	private List<RunElementActionRecord> records;
 
 	/**

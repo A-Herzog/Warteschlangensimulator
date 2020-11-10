@@ -54,8 +54,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementDecideJS extends ModelElementBox implements ModelElementEdgeMultiIn, ModelElementEdgeMultiOut {
-	private List<ModelElementEdge> connectionsIn;
-	private List<ModelElementEdge> connectionsOut;
+	/** Liste der einlaufenden Kanten */
+	private final List<ModelElementEdge> connectionsIn;
+	/** Liste der auslaufenden Kanten */
+	private final List<ModelElementEdge> connectionsOut;
 
 	/**
 	 * Skriptsprache
@@ -70,8 +72,16 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 		Java
 	}
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * Liste der IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
+	 * @see #connectionsIn
+	 */
 	private List<Integer> connectionsInIds=null;
+
+	/**
+	 * Liste der IDs der auslaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
+	 * @see #connectionsOut
+	 */
 	private List<Integer> connectionsOutIds=null;
 
 	/**

@@ -49,9 +49,14 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementTransportDestination extends ModelElementBox implements ModelElementEdgeOut {
+	/**
+	 * Auslaufende Kante
+	 */
 	private ModelElementEdge connection;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * ID der auslaufenden Kante (wird nur beim Laden und Clonen verwendet)
+	 */
 	private int connectionId=-1;
 
 	/**

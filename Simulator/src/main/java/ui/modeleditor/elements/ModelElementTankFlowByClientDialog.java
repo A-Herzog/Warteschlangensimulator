@@ -37,6 +37,9 @@ public class ModelElementTankFlowByClientDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 6233496637014286459L;
 
+	/**
+	 * Panel zur Konfiguration eines Flusses
+	 */
 	private ModelElementTankFlowDataPanel data;
 
 	/**

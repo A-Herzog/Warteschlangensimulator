@@ -50,15 +50,49 @@ public class TransportTargetSystemPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -5911117945099961882L;
 
+	/**
+	 * Daten, die in dem Panel bearbeitet werden sollen
+	 */
 	private final TransportTargetSystem data;
 
+	/**
+	 * Liste mit den Namen aller möglichen Zielstationen
+	 */
 	private final String[] stations;
 
+	/**
+	 * Auswahlbox für die Auswahl des Modus zur Bestimmung
+	 * der Zielstation (Tabelle, Fertigungsplan, Kundeneigenschaft)
+	 */
 	private final JComboBox<String> mode;
+
+	/**
+	 * Panel zur Aufnahme der eigentlichen Einstellungen
+	 * der Definition der Transportziele
+	 */
 	private final JPanel cardPanel;
+
+	/**
+	 * Layout für {@link #cardPanel} zur Einblendung
+	 * der verschiedenen GUI-Varianten
+	 */
 	private final CardLayout cardLayout;
+
+	/**
+	 * Tabelle zur Definition von Transportzielen
+	 */
 	private final TransportRouteTableModel tableRouting;
+
+	/**
+	 * Eingabefeld für den Namen der Kundeneigenschaft,
+	 * auf deren Basis das Transportziel ermittelt werden soll
+	 */
 	private final JTextField propertyName;
+
+	/**
+	 * Auswahlbox für die Zielstation im Fall
+	 * wenn keine der definierten Regeln anwendbar ist
+	 */
 	private final JComboBox<String> defaultStation;
 
 	/**

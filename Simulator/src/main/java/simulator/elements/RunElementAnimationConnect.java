@@ -34,6 +34,13 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see RunModelAnimationViewer
  */
 public class RunElementAnimationConnect extends RunElement implements StateChangeListener, ClientMoveListener, TransporterMoveListener {
+	/**
+	 * Über dieses Objekt benachrichtigt diese Pseudo-Stations die
+	 * Animationsanzeige über Veränderungen des Systems.
+	 * @see #systemStateChangeNotify(SimulationData)
+	 * @see #clientMoveNotify(SimulationData, RunDataClient, boolean)
+	 * @see #transporterMoveNotify(SimulationData, RunDataTransporter)
+	 */
 	private RunModelAnimationViewer animationViewer;
 
 	/**

@@ -48,8 +48,11 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 5587091033538325111L;
 
+	/** Eingabefeld für die Bedingung */
 	private JTextField condition;
+	/** Option: Individuelle Prüfung pro Kunde */
 	private JCheckBox clientBasedCheck;
+	/** Option: Bedingung zusätzlich zeitgesteuert prüfen */
 	private JCheckBox useTimedChecks;
 
 	/**

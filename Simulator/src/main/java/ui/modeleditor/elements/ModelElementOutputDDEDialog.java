@@ -41,7 +41,14 @@ public class ModelElementOutputDDEDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 4133614521655543844L;
 
+	/**
+	 * Panel zur Konfiguration der DDE-Verbindung
+	 */
 	private DDEEditPanel editDDE;
+
+	/**
+	 * Tabelle zur Konfiguration der auszugebenden Daten
+	 */
 	private OutputDDETableModel tableModel;
 
 	/**

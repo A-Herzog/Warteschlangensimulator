@@ -108,7 +108,20 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	 */
 	private MatchPropertyMode matchPropertyMode;
 
+	/**
+	 * Index der Kundendateneigenschaft, die beim Zusammenführen berücksichtigt werden soll
+	 * @see #getMatchPropertyNumber()
+	 * @see #setMatchPropertyNumber(int)
+	 * @see #matchPropertyString
+	 */
 	private int matchPropertyNumber;
+
+	/**
+	 * Schlüssel der Kundendaten-Texteigenschaft, die beim Zusammenführen berücksichtigt werden soll
+	 * @see #getMatchPropertyString()
+	 * @see #setMatchPropertyString(String)
+	 * @see #matchPropertyNumber
+	 */
 	private String matchPropertyString;
 
 	/**
@@ -219,7 +232,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	}
 
 	/**
-	 * Liefert, wenn beim Zusammenführen ein Eigenschaftsabgleich auf Basis eines Zahenwertes erfolgen soll, den Index der Kundendateneigenschaft.
+	 * Liefert, wenn beim Zusammenführen ein Eigenschaftsabgleich auf Basis eines Zahlenwertes erfolgen soll, den Index der Kundendateneigenschaft.
 	 * @return	Index der Kundendateneigenschaft
 	 */
 	public int getMatchPropertyNumber() {
@@ -227,7 +240,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	}
 
 	/**
-	 * Stellt für den Fall, dass beim Zusammenführen ein Eigenschaftsabgleich auf Basis eines Zahenwertes erfolgen soll, den Index der Kundendateneigenschaft ein.
+	 * Stellt für den Fall, dass beim Zusammenführen ein Eigenschaftsabgleich auf Basis eines Zahlenwertes erfolgen soll, den Index der Kundendateneigenschaft ein.
 	 * @param newMatchPropertyNumber	Index der Kundendateneigenschaft
 	 */
 	public void setMatchPropertyNumber(final int newMatchPropertyNumber) {

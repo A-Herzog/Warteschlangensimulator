@@ -51,9 +51,14 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementSourceTable extends ModelElementBox implements ElementWithNewClientNames, ModelElementEdgeOut, ElementNoRemoteSimulation, ElementWithInputFile {
+	/**
+	 * Auslaufende Kante
+	 */
 	private ModelElementEdge connection;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * ID der auslaufenden Kante (wird nur beim Laden und Clonen verwendet)
+	 */
 	private int connectionId=-1;
 
 	/**
@@ -70,6 +75,10 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 	 */
 	private boolean numbersAreDistances=false;
 
+	/**
+	 * Kundentypennamen, die in der Tabelle vorkommen
+	 * @see #getClientTypeNames()
+	 */
 	private final List<String> clientTypeNames=new ArrayList<>();
 
 	/**

@@ -65,6 +65,12 @@ public class RunElementConveyorData extends RunElementData {
 	 */
 	private long transportTimeMS;
 
+	/**
+	 * Existiert ein von {@link #triggerUpdateEvent(SimulationData)}
+	 * generiertes, noch nicht abgearbeitetes Event?
+	 * @see #triggerUpdateEvent(SimulationData)
+	 * @see ConveyorSystemChangeEvent
+	 */
 	private boolean notifyTriggered;
 
 	/**
@@ -171,6 +177,10 @@ public class RunElementConveyorData extends RunElementData {
 		simData.runData.fireStateChangeNotify(simData);
 	}
 
+	/**
+	 * Generiert ein Event zur Aktualisierung der Fließbanddaten
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void triggerUpdateEvent(final SimulationData simData) {
 		if (notifyTriggered && transportTimeMS>1000) return;
 		final ConveyorSystemChangeEvent event=(ConveyorSystemChangeEvent)simData.getEvent(ConveyorSystemChangeEvent.class);

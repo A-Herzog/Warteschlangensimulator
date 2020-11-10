@@ -39,6 +39,9 @@ public class ModelElementAssignStringDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 3177924513955998727L;
 
+	/**
+	 * Tabellenmodell zum Bearbeiten der Textzuweisungen
+	 */
 	private VariablesTextsTableModel model;
 
 	/**

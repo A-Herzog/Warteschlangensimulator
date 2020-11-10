@@ -48,7 +48,14 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -2479508586936324612L;
 
+	/**
+	 * Panel zur Konfiguration der DDE-Verbindung
+	 */
 	private DDEEditPanel editDDE;
+
+	/**
+	 * Eingabebereich für die Namen der zu ladenden Kundentypen
+	 */
 	private JTextArea clientsEdit;
 
 	/**

@@ -40,6 +40,10 @@ public class ModelElementInteractiveButtonDialog extends ModelElementBaseDialog 
 	 */
 	private static final long serialVersionUID = 1583767261373743838L;
 
+	/**
+	 * Tabelle zur Konfiguration der Aktionen, die beim
+	 * Anklicken ausgelöst werden sollen.
+	 */
 	private ModelElementActionRecordTableModel tableData;
 
 	/**

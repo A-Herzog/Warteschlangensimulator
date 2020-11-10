@@ -443,9 +443,32 @@ public class ModelElementTank extends ModelElementBox {
 		return true;
 	}
 
+	/**
+	 * Cache der verfügbaren {@link StringBuilder}
+	 * für {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private StringBuilder[] animationSB;
+
+	/**
+	 * Nächster in {@link #animationSB} zu verwendender Eintrag
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private int animationSBNext;
+
+
+	/**
+	 * Letzter in {@link #updateSimulationData(SimulationData, boolean)}
+	 * dargestellter Wert
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private double lastValue=0;
+
+	/**
+	 * Zeichenkettenrepräsentation von {@link #lastValue}
+	 * die ggf. wiederverwendet werden kann.
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private String valueName;
 
 	@Override
@@ -520,6 +543,10 @@ public class ModelElementTank extends ModelElementBox {
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.AnalogValue.UpdateStepWide"),NumberTools.formatNumberMax(analogNotify),5000);
 	}
 
+	/**
+	 * Wird vor dem ersten Zeichnen in der Animation aufgerufen,
+	 * um {@link ModelElementPosition#shape} initial zu konfigurieren.
+	 */
 	private void prepareDraw() {
 		double part=-1;
 		if (initialValue>=0 && capacity>0) {

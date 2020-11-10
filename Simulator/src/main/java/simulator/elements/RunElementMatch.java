@@ -43,7 +43,9 @@ public class RunElementMatch extends RunElementPassThrough {
 	private int matchPropertyNumberIndex;
 	private String matchPropertyString;
 
+	/** Batch-Bildungs-Modus */
 	private ModelElementMatch.MatchMode batchMode;
+	/** Index des neuen Batch-Kundentyps (bei der temporären oder permanenten Batch-Bildung) */
 	private int newClientType;
 
 	/**

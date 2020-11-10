@@ -84,11 +84,47 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		DELAY_TYPE_NOTHING
 	}
 
+
+	/**
+	 * Verwendete Zeitbasis (ob die Verteilungswerte Sekunden-, Minuten- oder Stunden-Angaben darstellen sollen)
+	 * @see #getTimeBase()
+	 * @see #setTimeBase(ui.modeleditor.ModelSurface.TimeBase)
+	 */
 	private ModelSurface.TimeBase timeBase;
+
+	/**
+	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #getDelayType()
+	 * @see #setDelayType(DelayType)
+	 */
 	private DelayType delayType;
+
+	/**
+	 * Verteilung der Verzögerungszeiten, die im allgemeinen Fall gelten soll
+	 * @see #getDelayTime()
+	 * @see #setDelayTime(String, AbstractRealDistribution, String)
+	 */
 	private AbstractRealDistribution distributionGlobal;
+
+	/**
+	 * Ausdruck zur Bestimmung der Wartezeiten oder <code>null</code> wenn eine Verteilung und kein Ausdruck verwendet werden soll
+	 * @see #getDelayExpression()
+	 * @see #setDelayTime(AbstractRealDistribution, String)
+	 */
 	private String expressionGlobal;
+
+	/**
+	 * Verteilungen der Verzögerungszeiten pro Kundentyp (optional)
+	 * @see #getDelayTime(String)
+	 * @see #setDelayTime(String, AbstractRealDistribution, String)
+	 */
 	private Map<String,AbstractRealDistribution> distributionByType;
+
+	/**
+	 * Ausdruck zur Bestimmung der Verzögerungszeiten pro Kundentyp (optional)
+	 * @see #getDelayExpression(String)
+	 * @see #setDelayTime(String, AbstractRealDistribution, String)
+	 */
 	private Map<String,String> expressionByType;
 
 	/**
@@ -520,6 +556,12 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		return Language.trAll("Surface.Delay.XML.Root");
 	}
 
+	/**
+	 * Fügt die Attribute (Zeitbasis, Art der Zählung der Verzögerung) zu dem globalen
+	 * Verzögerungs-XML-Element hinzu
+	 * @param sub	XML-Element
+	 * @see #addPropertiesDataToXML(Document, Element)
+	 */
 	private void addAttributesToGlobalElement(final Element sub) {
 		sub.setAttribute(Language.trPrimary("Surface.Delay.XML.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
 		switch (delayType) {
@@ -579,6 +621,11 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		}
 	}
 
+	/**
+	 * Lädt die Attribute (Zeitbasis, Art der Zählung der Verzögerung) aus dem globalen
+	 * Verzögerungs-XML-Element
+	 * @param node	XML-Element
+	 */
 	private void loadGlobalProperties(final Element node) {
 		final String timeBaseName=Language.trAllAttribute("Surface.Delay.XML.TimeBase",node);
 		timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);

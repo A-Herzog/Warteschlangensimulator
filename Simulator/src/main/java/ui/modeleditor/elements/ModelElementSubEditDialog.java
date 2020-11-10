@@ -53,8 +53,11 @@ public class ModelElementSubEditDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -6057942278443843417L;
 
+	/** Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden) */
 	private final EditModel model;
+	/** Surface der obersten Ebene (enthält Ressourcen usw.) */
 	private final ModelSurface mainSurface;
+	/** Editor-Panel in dem das Untermodell bearbeitet werden kann */
 	private final EditorPanel editorPanel;
 
 	/**
@@ -140,6 +143,13 @@ public class ModelElementSubEditDialog extends BaseDialog {
 		setLocationRelativeTo(this.owner); /* this.owner==ownerWindow; owner==nur JPanel oder sowas */
 	}
 
+	/**
+	 * Bereitet die Untermodell-Zeichenfläche vor
+	 * @param original	Original Untermodell-Zeichenfläche
+	 * @param edgesIn	IDs der von außen einlaufenden Kanten
+	 * @param edgesOut	IDs der nach außen auslaufenden Kanten
+	 * @return	Neue Untermodell-Zeichenfläche
+	 */
 	private ModelSurface prepareSurface(final ModelSurface original, final int[] edgesIn, final int[] edgesOut) {
 		ModelSurface prepared=original.clone(false,null,null,mainSurface,model);
 

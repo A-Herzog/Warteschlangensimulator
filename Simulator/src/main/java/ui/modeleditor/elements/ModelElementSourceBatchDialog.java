@@ -52,10 +52,15 @@ public class ModelElementSourceBatchDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 4182770820151357513L;
 
+	/** Eingabefeld für die minimale Batch-Größe */
 	private final JTextField sizeMin;
+	/** Eingabefeld für die maximale Batch-Größe */
 	private final JTextField sizeMax;
+	/** Bereich in dem {@link #rates} angelegt werden */
 	private final JComponent scroll;
+	/** Bisherige Eingabe in {@link #sizeMax} (um entsprechend viele Eingabefelder vorzuhalten) */
 	private long lastSizeMax=-1;
+	/** Eingabefelder für die Raten mit denen die möglichen Batch-Größen auftreten */
 	private List<JTextField> rates;
 
 	/**
@@ -105,6 +110,10 @@ public class ModelElementSourceBatchDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Konfiguriert {@link #rates}
+	 * @param distribution	Anfängliche Raten für die Ankunfts-Batch-Größen oder <code>null</code>, um nur Felder anzulegen
+	 */
 	private void changeMaxSize(final double[] distribution) {
 		Long newSizeMax=NumberTools.getPositiveLong(sizeMax,true);
 		if (newSizeMax==null) return;

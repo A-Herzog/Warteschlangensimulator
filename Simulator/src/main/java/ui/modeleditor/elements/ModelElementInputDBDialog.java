@@ -60,21 +60,62 @@ public class ModelElementInputDBDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -7980566588068167525L;
 
+	/**
+	 * Panel zur Konfiguration der Datenbankverbindung
+	 */
 	private DBSettingsPanel db;
+
+	/**
+	 * Zeigt eine Warnung an, wenn keine Datenbankverbindung hergestellt werden konnte.
+	 * @see #dbSettingsChanged()
+	 */
 	private JLabel errorLabel;
+
+	/**
+	 * Auswahlbox für die Tabelle in der Datenbank
+	 */
 	private JComboBox<String> comboTable;
+
+	/**
+	 * Auswahlbox für in der Tabelle zu ladende Spalte
+	 */
 	private JComboBox<String> comboLoad;
+
+	/**
+	 * Auswahlbox für die Sortier-Spalte
+	 */
 	private JComboBox<String> comboSort;
+
+	/**
+	 * Auswahlbox für den Sortiermodus in der Sortier-Spalte
+	 */
 	private JComboBox<String> comboSortMode;
 
+	/** Option: Nach Tabellenende keine Zuweisungen mehr durchführen */
 	private JRadioButton optionSkip;
+	/** Option: Vorgabewert nach Ende der Tabelle für Zuweisungen verwenden */
 	private JRadioButton optionDefaultValue;
+	/** Option: Tabelle nach Ende erneut von vorne einlesen */
 	private JRadioButton optionLoop;
+	/** Simulation beim Erreichen des Tabellenendes beenden */
 	private JRadioButton optionTerminate;
+	/** Vorgabewert für den Fall {@link #optionDefaultValue} */
 	private JTextField defaultValueEdit;
+
+	/**
+	 * Eingabefeld für den Variablennamen an die die Zuweisung gerichtet werden soll
+	 */
 	private JTextField variableEdit;
+
+	/**
+	 * Zeigt wenn nötig eine Warnung zu der dem angegebenen Variablennamen an.
+	 * @see #variableEdit
+	 */
 	private JLabel warningLabel;
 
+	/**
+	 * Zuordnung aller Tabellennamen zu allen jeweiligen Spaltennamen
+	 */
 	private Map<String,List<String>> columns;
 
 	/**
@@ -214,6 +255,13 @@ public class ModelElementInputDBDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Trägt neue Einträge in eine Auswahlbox ein
+	 * und versucht den zuvor gewählten Eintrag
+	 * wieder auszuwählen.
+	 * @param combo	Auswahlbox
+	 * @param items	Neue Einträge (kann <code>null</code> sein)
+	 */
 	private void changeComboAndRestore(final JComboBox<String> combo, final String[] items) {
 		String last=null;
 		if (combo.getSelectedIndex()>=0) last=(String)combo.getSelectedItem();
@@ -228,6 +276,11 @@ public class ModelElementInputDBDialog extends ModelElementBaseDialog {
 		}
 	}
 
+	/**
+	 * Wird aufgerufen, wenn die Verbindungseinstellungen
+	 * zu der Datenbank verändert wurden.
+	 * @see #db
+	 */
 	private void dbSettingsChanged() {
 		try (DBConnect connect=new DBConnect(db.storeToCopy(),false)) {
 			if (connect.getInitError()!=null) {
@@ -246,6 +299,11 @@ public class ModelElementInputDBDialog extends ModelElementBaseDialog {
 		tableChanged();
 	}
 
+	/**
+	 * Wird aufgerufen, wenn in {@link #comboTable}
+	 * eine andere Tabelle gewählt wurde.
+	 * @see #comboTable
+	 */
 	private void tableChanged() {
 		List<String> cols=new ArrayList<>();
 		if (columns!=null) {

@@ -42,6 +42,9 @@ public class ModelElementTankValveSetupDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -2318993244622873645L;
 
+	/**
+	 * Tabelle zur Konfiguration der Ventil-Einstellungen
+	 */
 	private ModelElementTankValveSetupTableModel tableModel;
 
 	/**

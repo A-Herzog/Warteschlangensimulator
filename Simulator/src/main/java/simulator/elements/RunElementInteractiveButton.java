@@ -36,6 +36,13 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementInteractiveButton
  */
 public class RunElementInteractiveButton extends RunElement {
+	/**
+	 * Liste der Aktions-Datensätze.<br>
+	 * Diese Datensätze werden in {@link #getData(SimulationData)}
+	 * an {@link RunElementInteractiveButtonData} in Form eines schnelleren
+	 * Arrays übergeben und stehen dann als
+	 * {@link RunElementInteractiveButtonData#records} zur Verfügung.
+	 */
 	private List<RunElementActionRecord> records;
 
 	/**

@@ -42,6 +42,7 @@ public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialo
 	 */
 	private static final long serialVersionUID = 8074769774808895018L;
 
+	/** Eingabefeld für die Änderung des Zählers, wenn ein Kunde die Station passiert */
 	private JTextField change;
 
 	/**

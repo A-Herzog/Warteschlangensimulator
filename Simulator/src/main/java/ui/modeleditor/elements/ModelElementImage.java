@@ -65,7 +65,20 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementImage extends ModelElementDecoration {
+	/**
+	 * Anzuzeigendes Bild
+	 * @see #getImage()
+	 * @see #setImage(BufferedImage)
+	 */
 	private BufferedImage image; /* Wird Immutable behandelt, kann daher als Referenz an Clone von ModelElementImage weitergegeben werden. Bei Änderungen wird hier ein neuer Wert gesetzt. */
+
+	/**
+	 * Wird in {@link #drawImage(Graphics, double)} verwendet,
+	 * um möglichst wenig Rechenarbeit in
+	 * {@link ScaledImageCache#getScaledImage(String, BufferedImage, int, int)}
+	 * zu generieren.
+	 * @see #drawImage(Graphics, double)
+	 */
 	private String imageHash;
 
 	/**
@@ -158,6 +171,11 @@ public class ModelElementImage extends ModelElementDecoration {
 		return true;
 	}
 
+	/**
+	 * Erstellt eine Kopie eines Bildobjektes
+	 * @param source	Ausgangs-Bildobjekt
+	 * @return	Kopie des Bildobjektes
+	 */
 	private static BufferedImage copyImage(final BufferedImage source) {
 		final ColorModel cm=source.getColorModel();
 		final boolean isAlphaPremultiplied=cm.isAlphaPremultiplied();
@@ -300,6 +318,11 @@ public class ModelElementImage extends ModelElementDecoration {
 		}
 	}
 
+	/**
+	 * Gibt das Bild aus.
+	 * @param graphics	Ausgabe-Grafikobjekt
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawImage(final Graphics graphics, final double zoom) {
 		requireImageLoaded();
 		if (image==null) return;
@@ -320,6 +343,12 @@ public class ModelElementImage extends ModelElementDecoration {
 		graphics.drawImage(scaledImage,p3.x,p3.y,null);
 	}
 
+	/**
+	 * Zeichnet den Rahmen um die Grafik
+	 * @param graphics	Ausgabe-Grafikobjekt
+	 * @param zoom	Zoomfaktor
+	 * @param showSelectionFrames	Normaler Rahmen (<code>false</code>) oder Rahmen für ein selektiertes Element (<code>true</code>)
+	 */
 	private void drawFrame(final Graphics graphics, final double zoom, final boolean showSelectionFrames) {
 		if (lineWidth==0 && !isSelected() && !isSelectedArea()) return;
 
@@ -420,11 +449,25 @@ public class ModelElementImage extends ModelElementDecoration {
 		}
 	}
 
+	/**
+	 * Bilder in eigenem Thread im Hintergrund laden?
+	 */
 	private static final boolean USE_BACKGROUND_LOAD=true;
 
+	/**
+	 * Thread-Pool für den Hintergrund-Lader
+	 * @see #loadFuture
+	 * @see #USE_BACKGROUND_LOAD
+	 */
 	private static final ExecutorService loadService=new ThreadPoolExecutor(0,Integer.MAX_VALUE,60L,TimeUnit.SECONDS,new SynchronousQueue<>(),new ThreadFactory() {
 		@Override public Thread newThread(Runnable r) {return new Thread(r,"Model Element Image Loader");}
 	});
+
+	/**
+	 * Aufgabe für den Thread-Pool zum Laden des Bildes
+	 * @see #loadService
+	 * @see #USE_BACKGROUND_LOAD
+	 */
 	private Future<Integer> loadFuture=null;
 
 	/**
@@ -435,6 +478,12 @@ public class ModelElementImage extends ModelElementDecoration {
 		if (USE_BACKGROUND_LOAD && loadService!=null) loadService.shutdown();
 	}
 
+	/**
+	 * Wird aufgerufen, bevor auf das Bild zugegriffen wird, um
+	 * sicher zu stellen, dass ein möglicher Hintergrund-Ladeprozess
+	 * mittlerweile abgeschlossen wurde.
+	 * @see #loadFuture
+	 */
 	private void requireImageLoaded() {
 		if (loadFuture==null) return;
 		try {

@@ -30,7 +30,16 @@ import language.Language;
  * @see ModelElementSourceRecord
  */
 public final class ModelElementAssignStringRecord implements Cloneable {
+	/**
+	 * Liste der Schlüssel
+	 * @see #getKeys()
+	 */
 	private final List<String> keys;
+
+	/**
+	 * Liste der zuzuweisenden Werte
+	 * @see #getValues()
+	 */
 	private final List<String> values;
 
 	/**
@@ -112,8 +121,16 @@ public final class ModelElementAssignStringRecord implements Cloneable {
 		return false;
 	}
 
-	/* Altes Format */
+	/**
+	 * Zu ladender Schlüssel (im alten XML-Format)
+	 * @see #loadXMLNode(Element)
+	 */
 	private String loadKey=null;
+
+	/**
+	 * Zu ladender Wert (im alten XML-Format)
+	 * @see #loadXMLNode(Element)
+	 */
 	private String loadValue=null;
 
 	/**

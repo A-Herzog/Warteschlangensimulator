@@ -51,12 +51,30 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -4202107646574026037L;
 
+	/**
+	 * Panel zur Konfiguration der Datenbankverbindung
+	 */
 	private DBSettingsPanel db;
+
+	/**
+	 * Zeigt eine Warnung an, wenn keine Datenbankverbindung hergestellt werden konnte.
+	 * @see #dbSettingsChanged()
+	 */
 	private JLabel errorLabel;
+
+	/**
+	 * Auswahlbox für die Tabelle in der Datenbank
+	 */
 	private JComboBox<String> comboTable;
 
+	/**
+	 * Zuordnung aller Tabellennamen zu allen jeweiligen Spaltennamen
+	 */
 	private Map<String,List<String>> columns;
 
+	/**
+	 * Tabelle zur Konfiguration der auszugebenden Daten
+	 */
 	private OutputDBTableModel tableModel;
 
 	/**
@@ -136,6 +154,13 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Trägt neue Einträge in eine Auswahlbox ein
+	 * und versucht den zuvor gewählten Eintrag
+	 * wieder auszuwählen.
+	 * @param combo	Auswahlbox
+	 * @param items	Neue Einträge (kann <code>null</code> sein)
+	 */
 	private void changeComboAndRestore(final JComboBox<String> combo, final String[] items) {
 		String last=null;
 		if (combo.getSelectedIndex()>=0) last=(String)combo.getSelectedItem();
@@ -150,6 +175,11 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 		}
 	}
 
+	/**
+	 * Wird aufgerufen, wenn die Verbindungseinstellungen
+	 * zu der Datenbank verändert wurden.
+	 * @see #db
+	 */
 	private void dbSettingsChanged() {
 		try (DBConnect connect=new DBConnect(db.storeToCopy(),false)) {
 			if (connect.getInitError()!=null) {
@@ -168,6 +198,11 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 		tableChanged();
 	}
 
+	/**
+	 * Wird aufgerufen, wenn in {@link #comboTable}
+	 * eine andere Tabelle gewählt wurde.
+	 * @see #comboTable
+	 */
 	private void tableChanged() {
 		List<String> cols=new ArrayList<>();
 		if (columns!=null) {

@@ -31,14 +31,30 @@ import ui.modeleditor.elements.ModelElementConveyor;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
- * Äquivalent zu <code>ModelElementConveyor</code>
+ * Äquivalent zu {@link ModelElementConveyor}
  * @author Alexander Herzog
  * @see ModelElementConveyor
  */
 public class RunElementConveyor extends RunElementPassThrough implements PickUpQueue {
+	/**
+	 * Auf dem Fließband verfügbare Kapazität
+	 */
 	private double capacityAvailable;
+
+	/**
+	 * Formel zur Bestimmung des Platzbedarfes pro Kundentyp
+	 *  {@link RunElementConveyorData#capacityNeeded}
+	 */
 	private String[] capacityNeeded;
+
+	/**
+	 * Zeit in MS, die notwendig ist, um einen Kunden von der einen zur anderen Seite des Fließbandes zu befördern
+	 */
 	private long transportTimeMS;
+
+	/**
+	 * Statistiktyp als was die Transportzeit erfasst werden soll
+	 */
 	private ModelElementConveyor.TransportTimeType transportTimeType;
 
 	/**
@@ -119,6 +135,10 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 		return data;
 	}
 
+	/**
+	 * Prüft, ob die Bedienung von wartenden Kunden gestartet werden kann.
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void tryStartProcessing(final SimulationData simData) {
 		final RunElementConveyorData data=getData(simData);
 		if (data.waitingClients.size()==0) return;

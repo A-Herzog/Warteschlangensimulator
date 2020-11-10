@@ -32,10 +32,15 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementAnalogValue
  */
 public class RunElementAnalogValue extends RunElementAnalogProcessing {
+	/** Minimalwert, den der analoge Wert annehmen kann */
 	private double valueMin;
+	/** Soll der Minimalwert {@link #valueMin} verwendet werden (oder kann der reale Wert beliebig klein werden)? */
 	private boolean valueMinUse;
+	/** Maximalwert, den der analoge Wert annehmen kann */
 	private double valueMax;
+	/** Soll der Maximalwert {@link #valueMax} verwendet werden (oder kann der reale Wert beliebig groß werden)? */
 	private boolean valueMaxUse;
+	/** Anfängliche Änderungsrate (bezogen auf die Zeiteinheit Sekunde) */
 	private double initialRate;
 
 	/**

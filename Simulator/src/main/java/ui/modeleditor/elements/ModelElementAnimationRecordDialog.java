@@ -61,6 +61,7 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 
 	/** ID des Aufzeichnungselemente von dem die Daten stammen sollen */
 	private List<Integer> ids;
+	/** Auswahlbox zur Wahl der Aufzeichnungsstation */
 	private JComboBox<String> selectRecord;
 	/** Eingabefeld für die Anzahl an anzuzeigenden Punkten */
 	private JTextField displayPoints;
@@ -90,6 +91,11 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 		return InfoPanel.stationAnimationRecord;
 	}
 
+	/**
+	 * Liefert eine Auflistung der Stationen zur Aufzeichnung von Daten
+	 * @param surface	Zeichenfläche die (inkl. ihrer Unterzeichenflächen) durchsucht werden soll
+	 * @return	Zuordnung von IDs zu Stationsnamen der Aufzeichnungsstationen
+	 */
 	private final Map<Integer,String> getRecordElements(final ModelSurface surface) {
 		final Map<Integer,String> map=new HashMap<>();
 		for (ModelElement element: surface.getElements()) {

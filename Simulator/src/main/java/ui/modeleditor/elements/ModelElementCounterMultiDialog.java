@@ -50,7 +50,14 @@ public class ModelElementCounterMultiDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 6583652937859431659L;
 
+	/**
+	 * Auswahl des Gruppennamens für den Mehrfachzähler
+	 */
 	private JComboBox<String> groupName;
+
+	/**
+	 * Tabelle zur Konfiguration der Teil-Zähler
+	 */
 	private CounterMultiTableModel model;
 
 	/**
@@ -74,6 +81,12 @@ public class ModelElementCounterMultiDialog extends ModelElementBaseDialog {
 		return InfoPanel.stationCounterMulti;
 	}
 
+	/**
+	 * Liefert eine Liste der Zähler-Gruppennamen
+	 * @param surface	Zeichenfläche, die durchsucht werden soll (Unter-Zeichenflächen werden ebenfalls durchsucht)
+	 * @return	Liste der Zähler-Gruppennamen
+	 * @see #groupName
+	 */
 	private Set<String> getCounterGroupNames(final ModelSurface surface) {
 		final Set<String> groupNames=new HashSet<>();
 		for (ModelElement element: surface.getElements()) {

@@ -47,10 +47,13 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 
 	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
+	/** Original-Routenliste (dieses Objekt wird durch {@link #storeData()} aktualisiert) */
 	private final List<WayPointRecord> recordsOriginal;
+	/** Temporäre Artbeitskopie der Routenliste */
 	private final List<WayPointRecord> records;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
+	/** Liste mit den Namen aller Stationen die als Start- oder Zielpunkt einer Route in Frage kommen */
 	private final String[] stations;
 
 	/**
@@ -70,6 +73,12 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 		stations=getStationsList(mainSurface);
 	}
 
+	/**
+	 * Liefert eine Liste mit allen Stationen die als Start- oder
+	 * Zielpunkt einer Route in Frage kommen.
+	 * @param mainSurface	Haupt-Zeichenfläche
+	 * @return	Liste mit allen Stationen die als Start- oder Zielpunkt einer Route in Frage kommen
+	 */
 	private String[] getStationsList(final ModelSurface mainSurface) {
 		final List<String> stations=new ArrayList<>();
 
@@ -132,6 +141,12 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 		return 4;
 	}
 
+	/**
+	 * Liefert eine Auswahlbox für eine Station
+	 * @param index	Index des Eintrags in der List
+	 * @param dest	Handelt es sich um ein Ziel?
+	 * @return	Auswahlbox für eine Station
+	 */
 	private JComboBox<String> getStationCombo(final int index, final boolean dest) {
 		final JComboBox<String> combo=new JComboBox<>(stations);
 
@@ -167,7 +182,7 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==records.size()) {
-			if (columnIndex==3) return makeButtonPanel(new String[]{Language.tr("Surface.WayPoint.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener(ActionIndex.ACTION_ADD)});
+			if (columnIndex==3) return makeButtonPanel(new String[]{Language.tr("Surface.WayPoint.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
 			return "";
 		}
 
@@ -218,19 +233,46 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 		recordsOriginal.addAll(records);
 	}
 
-	private enum ActionIndex {ACTION_ADD, ACTION_UP, ACTION_DOWN, ACTION_DELETE}
+	/**
+	 * Auszuführende Aktion
+	 * @see TableButtonListener
+	 */
+	private enum ActionIndex {
+		/** Eintrag hinzufügen */
+		ACTION_ADD,
+		/** Eintrag in der Liste nach oben verschieben */
+		ACTION_UP,
+		/** Eintrag in der Liste nach unten verschieben */
+		ACTION_DOWN,
+		/** Eintrag löschen */
+		ACTION_DELETE
+	}
 
+	/**
+	 * Reagiert auf Klicks auf die Schaltflächen in den Tabellenzellen
+	 */
 	private class TableButtonListener implements ActionListener {
+		/** Zeile */
 		final int row;
+		/** Auszuführende Aktion */
 		final ActionIndex actionIndex;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param actionIndex	Auszuführende Aktion
+		 */
 		public TableButtonListener(final int row, final ActionIndex actionIndex) {
 			this.row=row;
 			this.actionIndex=actionIndex;
 		}
 
-		public TableButtonListener(final ActionIndex actionIndex) {
-			this(0,actionIndex);
+		/**
+		 * Konstruktor der Klasse<br>
+		 * (Modus: Hinzufügen)
+		 */
+		public TableButtonListener() {
+			this(0,ActionIndex.ACTION_ADD);
 		}
 
 		@Override

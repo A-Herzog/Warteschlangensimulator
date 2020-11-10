@@ -44,6 +44,9 @@ public class NewClientTypesPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -7672837912637436515L;
 
+	/**
+	 * Liste der Namens-Eingabefelder
+	 */
 	private final List<JTextField> nameEdit;
 
 	/**

@@ -215,6 +215,13 @@ public class ModelElementEllipse extends ModelElementDecoration {
 		return element;
 	}
 
+	/**
+	 * Prüft, ob sich ein Punkt innerhalb der Ellipse befindet
+	 * @param point	Punkt, bei dem geprüft werden soll, ob er sich innerhalb der Ellipse befindet
+	 * @param zoom	Zoomfaktor
+	 * @return	Gibt <code>true</code> zurück, wenn sich der Punkt innerhalb der Ellipse befindet
+	 * @see #containsPoint(Point, double)
+	 */
 	private boolean ellipsePoint(final Point point, final double zoom) {
 		final Point p=getPosition(true);
 		final Dimension s=getSize();
@@ -298,8 +305,22 @@ public class ModelElementEllipse extends ModelElementDecoration {
 		}
 	}
 
+	/**
+	 * Objekt für eine Farbverlaufsfüllung
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private GradientFill gradientFill=null;
+
+	/**
+	 * Bereich für die Farbverlaufsfüllung
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Rectangle gradientFillRectangle=null;
+
+	/**
+	 * Objekt zur Berechnung einer teiltransparenten Farbe
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private TransparentColor alphaColor=null;
 
 	/**

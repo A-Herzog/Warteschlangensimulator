@@ -33,6 +33,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementClientIcon
  */
 public class RunElementClientIcon extends RunElementPassThrough {
+	/**
+	 * Zuzuweisendes Icon für die Kunden
+	 */
 	private String icon;
 
 	/**

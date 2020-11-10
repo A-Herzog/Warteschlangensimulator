@@ -50,25 +50,42 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -4252147656372254664L;
 
+	/** Liste der Namen der möglichen Quell-Tanks */
 	private final List<String> sourceNames;
+	/** Liste der IDs der möglichen Quell-Tanks */
 	private final List<Integer> sourceIDs;
+	/** Liste der Anzahlen an Ventilen an den möglichen Quell-Tanks */
 	private final List<Integer> sourceValveCount;
+	/** Liste der Namen der möglichen Ziel-Tanks */
 	private final List<String> destinationNames;
+	/** Liste der IDs der möglichen Ziel-Tanks */
 	private final List<Integer> destinationIDs;
+	/** Liste der Anzahlen an Ventilen an den möglichen Ziel-Tanks */
 	private final List<Integer> destinationValveCount;
+	/** Liste der möglichen Auslöse-Signalen */
 	private final List<String> signalNames;
 
+	/** Auswahlbox für den Quell-Tank */
 	private final JComboBox<String> sourceID;
+	/** Auswahlbox für das Ventil am Quell-Tank */
 	private final JComboBox<String> sourceValve;
 
+	/** Auswahlbox für den Ziel-Tank */
 	private final JComboBox<String> destinationID;
+	/** Auswahlbox für das Ventil am Ziel-Tank */
 	private final JComboBox<String> destinationValve;
 
+	/** Option: Fluss nach bestimmter Zeit beenden */
 	private final JRadioButton stopTime;
+	/** Eingabefeld für die Zeit nach der der Fluss stoppen soll (im Modus {@link #stopTime}) */
 	private final JTextField stopTimeEdit;
+	/** Option: Fluss nach einer bestimmten Durchflussmenge beenden */
 	private final JRadioButton stopQuantity;
+	/** Eingabefeld für die Durchflussmenge (im Modus {@link #stopQuantity}) */
 	private final JTextField stopQuantityEdit;
+	/** Option: Fluss bei Signal stoppen */
 	private final JRadioButton stopSignal;
+	/** Auswahlbox für das Signal zum Stoppen des Flusses (im Modus {@link #stopSignal}) */
 	private final JComboBox<String> stopSignalCombo;
 
 	/** Datenelement das in diesem Panel bearbeitet werden soll */
@@ -209,6 +226,14 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Aktualisiert nach der Wahl eines anderen
+	 * Quell-Tanks in {@link #sourceID} die
+	 * Auswahlbox für das Ventil am Quell-Tank
+	 * {@link #sourceValve}
+	 * @see #sourceID
+	 * @see #sourceValve
+	 */
 	private void updateValveComboSource() {
 		final int index=sourceID.getSelectedIndex();
 		final int count=(index>=0)?sourceValveCount.get(index):0;
@@ -226,6 +251,14 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		if (reflowDialog!=null) reflowDialog.run();
 	}
 
+	/**
+	 * Aktualisiert nach der Wahl eines anderen
+	 * Ziel-Tanks in {@link #destinationID} die
+	 * Auswahlbox für das Ventil am Ziel-Tank
+	 * {@link #destinationValve}
+	 * @see #destinationID
+	 * @see #destinationValve
+	 */
 	private void updateValveComboDestination() {
 		final int index=destinationID.getSelectedIndex();
 		final int count=(index>=0)?destinationValveCount.get(index):0;
@@ -243,6 +276,11 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		if (reflowDialog!=null) reflowDialog.run();
 	}
 
+	/**
+	 * Prüft, ob eine Station zu der Liste der Tanks hinzugefügt werden kann
+	 * @param element	Zu prüfende Station
+	 * @see #initLists(ModelSurface)
+	 */
 	private void checkAndAddToLists(final ModelElement element) {
 		if (element instanceof ModelElementTank) {
 			final ModelElementTank tank=(ModelElementTank)element;
@@ -256,6 +294,16 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Initialisiert die Listen der Tanks und Ventile beim Aufruf.
+	 * @param mainSurface	Hauptzeichenfläche
+	 * @see #sourceNames
+	 * @see #sourceIDs
+	 * @see #sourceValveCount
+	 * @see #destinationNames
+	 * @see #destinationIDs
+	 * @see #destinationValveCount
+	 */
 	private void initLists(final ModelSurface mainSurface) {
 		sourceNames.add(Language.tr("Surface.TankFlowPanel.Source.NotConnected"));
 		sourceIDs.add(-1);

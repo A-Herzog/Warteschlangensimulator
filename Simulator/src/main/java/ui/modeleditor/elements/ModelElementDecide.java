@@ -83,11 +83,21 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		MODE_KEY_VALUE
 	}
 
+	/** Liste der einlaufenden Kanten */
 	private final List<ModelElementEdge> connectionsIn;
+	/** Liste der auslaufenden Kanten */
 	private final List<ModelElementEdge> connectionsOut;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * Liste der IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
+	 * @see #connectionsIn
+	 */
 	private List<Integer> connectionsInIds=null;
+
+	/**
+	 * Liste der IDs der auslaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
+	 * @see #connectionsOut
+	 */
 	private List<Integer> connectionsOutIds=null;
 
 	/**
@@ -97,12 +107,40 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	private DecideMode mode=DecideMode.MODE_CHANCE;
 
+	/**
+	 * Schlüssel gemäß dessen Werten die Verzweigung erfolgen soll
+	 * @see #getKey()
+	 * @see #setKey(String)
+	 */
 	private String key;
+
+	/**
+	 * Liste der Raten für die Verzweigungen
+	 * @see #getRates()
+	 */
 	private final List<Double> rates;
+
+	/**
+	 * Liste der Bedingungen für die Verzweigungen
+	 * @see #getConditions()
+	 */
 	private final List<String> conditions;
+
+	/**
+	 * Verzweigungswerte
+	 * @see #getValues()
+	 */
 	private final List<String> values;
+
+	/**
+	 * Liste der Namen der Kundentypen für die Verzweigungen
+	 * @see #getClientTypes()
+	 */
 	private final List<String> clientTypes;
 
+	/**
+	 * Liste mit neuen Kundentypen gemäß den Ausgängen (leere Strings stehen für "keine Änderung")
+	 */
 	private List<String> newClientTypes=null;
 
 	/**
@@ -148,6 +186,11 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		super.fireChanged();
 	}
 
+	/**
+	 * Liefert den Kundentyp je Ausgangskante
+	 * @param index	Index der Ausgangskante
+	 * @return	Kundentypbeschriftung an Ausgangskante
+	 */
 	private String getNewClientType(final int index) {
 		if (index<0 || newClientTypes==null || newClientTypes.size()<=index) return "";
 		final String newClientType=newClientTypes.get(index).trim();

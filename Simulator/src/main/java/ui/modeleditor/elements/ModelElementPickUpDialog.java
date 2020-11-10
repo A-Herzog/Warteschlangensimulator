@@ -51,15 +51,24 @@ public class ModelElementPickUpDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -3315657286325820864L;
 
+	/** Liste mit den Namen der Stationen, die Warteschlangen besitzen */
 	private String[] queueNames;
+	/** Liste mit den IDs der Stationen, die Warteschlangen besitzen */
 	private int[] queueIDs;
 
+	/** Auswahlbox für die fremde Warteschlange */
 	private JComboBox<String> selectQueue;
+	/** Option: Kunde allein weiterleiten, wenn Warteschlange ({@link #selectQueue}) leer ist */
 	private JCheckBox sendAloneIfQueueEmpty;
+	/** Option: Kunden gemeinsam weiterleiten */
 	private JRadioButton optionForward;
+	/** Option: Temporären Batch bilden */
 	private JRadioButton optionTemporary;
+	/** Eingabefeld für den neuen Kundentyp für einen temporären Batch */
 	private JTextField tempTypeField;
+	/** Option: Permanenten Batch bilden */
 	private JRadioButton optionNewType;
+	/** Eingabefeld für den neuen Kundentyp für einen permanenten Batch */
 	private JTextField newTypeField;
 
 	/**
@@ -81,9 +90,14 @@ public class ModelElementPickUpDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Sucht nach Stationen mit Warteschlangen.
+	 * @see #queueNames
+	 * @see #queueIDs
+	 */
 	private void loadQueueData() {
-		List<String> names=new ArrayList<>();
-		List<Integer> ids=new ArrayList<>();
+		final List<String> names=new ArrayList<>();
+		final List<Integer> ids=new ArrayList<>();
 
 		for (ModelElement element: element.getSurface().getElements()) {
 			if (element instanceof ModelElementProcess) {

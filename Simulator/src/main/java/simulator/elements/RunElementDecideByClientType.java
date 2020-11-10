@@ -37,8 +37,11 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementDecide
  */
 public class RunElementDecideByClientType extends RunElement {
+	/** IDs der über die auslaufenden Kanten erreichbaren Folgestationen */
 	private List<Integer> connectionIds;
+	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
+	/** Liste der Kundentypen, die angibt, an welchen Ausgang Kunden welchen Typs geleitet werden sollen */
 	private int[] clientTypeConnectionIndex;
 
 	private String[] clientTypeNames;

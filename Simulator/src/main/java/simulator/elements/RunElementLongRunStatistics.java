@@ -38,7 +38,11 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelLongRunStatistics
  */
 public class RunElementLongRunStatistics extends RunElement implements StateChangeListener {
+	/**
+	 * Auszuwertende Ausdrücke
+	 */
 	private String[] expressions;
+
 	private StatisticsLongRunPerformanceIndicator.Mode[] modes;
 	private long stepWideMS;
 

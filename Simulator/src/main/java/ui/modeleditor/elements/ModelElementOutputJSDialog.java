@@ -17,8 +17,6 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.Serializable;
 
@@ -50,8 +48,14 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -2395379269131512946L;
 
+	/**
+	 * Eingabefeld für den Dateinamen der Ausgabedatei
+	 */
 	private JTextField fileNameEdit;
 
+	/**
+	 * Skripteditor
+	 */
 	private ScriptEditorPanel editor;
 
 	/**
@@ -87,7 +91,7 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 			JButton button=new JButton();
 			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.FileName.Select"));
-			button.addActionListener(new SelectFileListener());
+			button.addActionListener(e->selectFile());
 			button.setEnabled(!readOnly);
 			upperPanel.add(button,BorderLayout.EAST);
 
@@ -142,31 +146,32 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 		}
 	}
 
-	private class SelectFileListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			File oldFile=new File(fileNameEdit.getText());
-			File initialDirectory=oldFile.getParentFile();
+	/**
+	 * Zeigt einen Dialog zur Auswahl einer Ausgabedatei an.
+	 * @see #fileNameEdit
+	 */
+	private void selectFile() {
+		File oldFile=new File(fileNameEdit.getText());
+		File initialDirectory=oldFile.getParentFile();
 
-			JFileChooser fc;
-			if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-				fc=new JFileChooser();
-				CommonVariables.initialDirectoryToJFileChooser(fc);
-			}
-			fc.setDialogTitle(Language.tr("Surface.Output.Dialog.FileName.Select"));
-			FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
-			fc.addChoosableFileFilter(txt);
-			fc.setFileFilter(txt);
-
-			if (fc.showSaveDialog(ModelElementOutputJSDialog.this)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			File file=fc.getSelectedFile();
-
-			if (file.getName().indexOf('.')<0) {
-				if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			}
-
-			fileNameEdit.setText(file.toString());
+		JFileChooser fc;
+		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
+			fc=new JFileChooser();
+			CommonVariables.initialDirectoryToJFileChooser(fc);
 		}
+		fc.setDialogTitle(Language.tr("Surface.Output.Dialog.FileName.Select"));
+		FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
+		fc.addChoosableFileFilter(txt);
+		fc.setFileFilter(txt);
+
+		if (fc.showSaveDialog(ModelElementOutputJSDialog.this)!=JFileChooser.APPROVE_OPTION) return;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		File file=fc.getSelectedFile();
+
+		if (file.getName().indexOf('.')<0) {
+			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
+		}
+
+		fileNameEdit.setText(file.toString());
 	}
 }

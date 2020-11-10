@@ -18,8 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -53,8 +51,22 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -1828468870634988424L;
 
+	/**
+	 * Eingabefeld für den Dateinamen der Ausgabedatei
+	 */
 	private JTextField fileNameEdit;
+
+	/**
+	 * Zeigt je nach Typ der gewählten Ausgabetabelle an,
+	 * dass bei bestimmten Tabellentypen die Ausgabe am Ende
+	 * enbloc erfolgt und daher nicht zeilenweise
+	 * nachvollzogen werden kann.
+	 */
 	private JLabel info;
+
+	/**
+	 * Tabelle zur Konfiguration der auszugebenden Daten
+	 */
 	private OutputTableModel tableModel;
 
 	/**
@@ -98,7 +110,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			JButton button=new JButton();
 			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.FileName.Select"));
-			button.addActionListener(new SelectFileListener());
+			button.addActionListener(e->selectFile());
 			button.setEnabled(!readOnly);
 			line.add(button,BorderLayout.EAST);
 
@@ -130,6 +142,12 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 		setResizable(true);
 	}
 
+	/**
+	 * Prüft, ob für die gewählte Ausgabedatei die Warnung, dass die Ausgabe nicht
+	 * zeilenweise erfolgen kann, angezeigt werden muss.
+	 * @see #fileNameEdit
+	 * @see #info
+	 */
 	private void updateInfo() {
 		final String nameLower=fileNameEdit.getText().toLowerCase();
 		info.setVisible(nameLower.endsWith(".xls") || nameLower.endsWith(".xlsx"));
@@ -157,17 +175,18 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 		}
 	}
 
-	private class SelectFileListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			File oldFile=new File(fileNameEdit.getText());
-			File initialDirectory=oldFile.getParentFile();
+	/**
+	 * Zeigt einen Dialog zur Auswahl einer Ausgabedatei an.
+	 * @see #fileNameEdit
+	 */
+	private void selectFile() {
+		File oldFile=new File(fileNameEdit.getText());
+		File initialDirectory=oldFile.getParentFile();
 
-			final File file=Table.showSaveDialog(ModelElementOutputDialog.this,"Surface.Output.Dialog.FileName.Select",initialDirectory);
-			if (file!=null) {
-				fileNameEdit.setText(file.toString());
-				updateInfo();
-			}
+		final File file=Table.showSaveDialog(ModelElementOutputDialog.this,"Surface.Output.Dialog.FileName.Select",initialDirectory);
+		if (file!=null) {
+			fileNameEdit.setText(file.toString());
+			updateInfo();
 		}
 	}
 }

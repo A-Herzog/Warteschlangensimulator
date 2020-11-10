@@ -65,8 +65,15 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
 
+	/**
+	 * Liste der in der Tabelle verwendeten Bedienergruppennamen
+	 */
 	private final List<String> usedNames;
 
+	/**
+	 * Liste der Listener, die bei Tabellenänderungen benachrichtigt werden sollen
+	 * @see #updateTable()
+	 */
 	private final List<ActionListener> tableChangeListener;
 
 	/**
@@ -139,6 +146,11 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		return 2;
 	}
 
+	/**
+	 * Liefert die Anzahl an Bedienern in einer Gruppe (kann auch "unendlich viele" oder der Name eines Schichtplans sein)
+	 * @param name	Bedienergruppe
+	 * @return	Anzahl an Bedienern in der Gruppe
+	 */
 	private String getCount(final String name) {
 		final ModelResource resource=resources.getNoAutoAdd(name);
 		if (resource==null) return Language.tr("Surface.Resource.Group.DoesNotExist");
@@ -159,6 +171,11 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	 */
 	private final AnimationImageSource imageSource=new AnimationImageSource();
 
+	/**
+	 * Liefert das Icon für eine Bedienergruppe.
+	 * @param resourceName	Bedienergruppe
+	 * @return	Icon für die Bedienergruppe
+	 */
 	private Icon getIconForResource(final String resourceName) {
 		final ModelResource resource=resources.getNoAutoAdd(resourceName);
 		String icon=null;
@@ -207,11 +224,21 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		return !readOnly;
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten- und Verschieben-Schaltflächen
+	 * in der Tabelle
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Spaltennummer (0: Name bearbeiten, 1: nach oben verschieben, 2: nach unten verschieben, 3: notwendige Anzahl verändern) */
 		private final int col;
 		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Spaltennummer (0: Name bearbeiten, 1: nach oben verschieben, 2: nach unten verschieben, 3: notwendige Anzahl verändern)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;
@@ -227,7 +254,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 
 			switch (col) {
 			case 0:
-				ResourceTableModelDialog1 dialog1=new ResourceTableModelDialog1(table,help,map,row,resources,model,true);
+				final ResourceTableModelDialog1 dialog1=new ResourceTableModelDialog1(table,help,map,row,resources,model,true);
 				dialog1.setVisible(true);
 				if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {
@@ -262,7 +289,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 				name=usedNames.get(row);
 				if (resources.get(name).getMode()==ModelResource.Mode.MODE_NUMBER) max=resources.get(name).getCount(); else max=-1;
 				used=map.get(name);
-				ResourceTableModelDialog2 dialog2=new ResourceTableModelDialog2(table,help,name,max,used);
+				final ResourceTableModelDialog2 dialog2=new ResourceTableModelDialog2(table,help,name,max,used);
 				dialog2.setVisible(true);
 				if (dialog2.getClosedBy()==BaseDialog.CLOSED_BY_OK) {map.put(name,dialog2.getCount()); updateTable();}
 				break;

@@ -223,6 +223,11 @@ public class SimDataBuilder {
 		}
 	}
 
+	/**
+	 * Gibt Quantil-Informationen zu einem Zahlen-Statistikobjekt aus.
+	 * @param identifier	Bezeichner für das Statistikobjekt (z.B. "W")
+	 * @param indicator	Statistikobjekt
+	 */
 	private void outputQuantil(final String identifier, final StatisticsTimePerformanceIndicator indicator) {
 		if (indicator==null) return;
 
@@ -243,8 +248,19 @@ public class SimDataBuilder {
 		}
 	}
 
+	/**
+	 * Maximalanzahl an auszugebenden Verteilungsdaten in
+	 * {@link #outputShortStateDistribution(String, StatisticsTimePerformanceIndicator)}
+	 * @see #outputShortStateDistribution(String, StatisticsTimePerformanceIndicator)
+	 */
 	private static final int MAX_SHORT_STATE_DISTRIBUTION=5;
 
+	/**
+	 * Gibt Verteilungsdaten aus, sofern bei der Zähldichte nur für wenige Einträge Werte ungleich 0 vorliegen.
+	 * @param identifier	Bezeichner für das Statistikobjekt (z.B. "W")
+	 * @param indicator	Statistikobjekt
+	 * @see #MAX_SHORT_STATE_DISTRIBUTION
+	 */
 	private void outputShortStateDistribution(final String identifier, final StatisticsTimePerformanceIndicator indicator) {
 		if (indicator==null) return;
 		if (indicator.getReadOnlyDistribution()==null) return;

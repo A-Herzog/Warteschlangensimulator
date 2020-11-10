@@ -47,7 +47,9 @@ import ui.modeleditor.elements.ModelElementVertex;
  * @see ModelElementDecide
  */
 public class RunElementDecideByStation extends RunElement {
+	/** IDs der über die auslaufenden Kanten erreichbaren Folgestationen */
 	private List<Integer> connectionIds;
+	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
 	private List<Integer> nextIds;
 	private RunElement[] next;

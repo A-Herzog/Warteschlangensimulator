@@ -55,14 +55,23 @@ public class ModelElementTankValveSetupTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -3934000835288739956L;
 
+	/** Haupt-Zeichenfläche (für den Expression-Builder) */
 	private final ModelSurface mainSurface;
+	/** Gesamtes Editor-Modell (für den Expression-Builder) */
 	private final EditModel model;
+	/** Zu bearbeitender Ventil-Konfigurationsdatensatz */
 	private final ModelElementTankValveSetup.ValveSetup valveSetup;
+	/** Liste der IDs aller Tank-Stationen im Modell */
 	private final List<Integer> tankIds;
+	/** Verfügbare Ventile pro Tank */
 	private final int[] tankValvesCount;
+	/** Zuletzt in {@link #valveCombo} ausgewähltes Ventil */
 	private int lastValveNr;
+	/** Auswahlbox für den Tank in diesem Konfigurationseintrag */
 	private final JComboBox<String> tankCombo;
+	/** Auswahlbox für die Nummer des Ventils des Tanks in diesem Konfigurationseintrag */
 	private final JComboBox<String> valveCombo;
+	/** Eingabefeld für den maximalen Durchfluss pro Sekunde */
 	private final JTextField maxFlowEdit;
 
 	/**
@@ -125,6 +134,11 @@ public class ModelElementTankValveSetupTableModelDialog extends BaseDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * Liefert eine Liste aller Tank-Stationen im Modell.
+	 * @param mainSurface	Hauptzeichenfläche
+	 * @return	Liste aller Tank-Stationen im Modell
+	 */
 	private List<ModelElementTank> listAllTanks(final ModelSurface mainSurface) {
 		final List<ModelElementTank> list=new ArrayList<>();
 		for (ModelElement element1: mainSurface.getElements()) {
@@ -136,6 +150,12 @@ public class ModelElementTankValveSetupTableModelDialog extends BaseDialog {
 		return list;
 	}
 
+	/**
+	 * Aktualisiert {@link #valveCombo} nach dem in
+	 * {@link #tankCombo} ein anderer Tank ausgewählt wurde.
+	 * @see #tankCombo
+	 * @see #valveCombo
+	 */
 	private void updateValveCombo() {
 		if (lastValveNr<0) lastValveNr=valveCombo.getSelectedIndex();
 

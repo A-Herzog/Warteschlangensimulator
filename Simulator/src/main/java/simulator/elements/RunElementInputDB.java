@@ -55,9 +55,21 @@ public class RunElementInputDB extends RunElementPassThrough {
 		CLIENT_TEXT
 	}
 
+	/**
+	 * Verhalten beim Erreichen des Dateiendes
+	 */
 	private ModelElementInputDB.EofModes mode;
+
+	/**
+	 * Vorgabewert (Zahl)
+	 */
 	private double defaultValue;
+
+	/**
+	 * Vorgabewert (Text)
+	 */
 	private String defaultText;
+
 	private double[] inputData;
 	private String[] inputStrings;
 	private AssignMode assignMode;

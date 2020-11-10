@@ -38,6 +38,9 @@ public class ModelElementDecideJSDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 4081622299729502435L;
 
+	/**
+	 * Editor für das Entscheidungs-Skript
+	 */
 	private ScriptEditorPanel editor;
 
 	/**

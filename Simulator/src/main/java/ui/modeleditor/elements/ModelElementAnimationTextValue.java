@@ -85,9 +85,33 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		MODE_DATE
 	}
 
+	/**
+	 *  Wie soll der Ausgabetext formatiert werden?
+	 *  @see #getMode()
+	 *  @see #setMode(ModeExpression)
+	 *  @see ModeExpression
+	 */
 	private ModeExpression mode=ModeExpression.MODE_EXPRESSION_NUMBER;
+
+	/**
+	 * Rechenausdruck
+	 * @see #getExpression()
+	 * @see #setExpression(String)
+	 */
 	private String expression="123";
+
+	/**
+	 * Anzahl an anzuzeigenden Nachkommastellen
+	 * @see #getDigits()
+	 * @see #setDigits(int)
+	 */
 	private int digits=1;
+
+	/**
+	 * Unix-Zeitstempel (in Sekunden) der dem Start der Simulation entspricht
+	 * @see #getDateZero()
+	 * @see #setDateZero(long)
+	 */
 	private long dateZero=0;
 
 	/**
@@ -96,13 +120,48 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	 * {@link #simTextValueLong} und {@link #simTextValueDouble} zugreifen.
 	 */
 	private Semaphore drawLock=new Semaphore(1);
+
+	/**
+	 * Während der Animation anzuzeigender Text
+	 */
 	private String simTextValue=null;
+
+	/**
+	 * Während der Animation anzuzeigende Uhrzeit
+	 */
 	private long simTextValueLong;
+
+	/**
+	 * Während der Animation anzuzeigendes Datum
+	 */
 	private double simTextValueDouble;
 
+	/**
+	 * Zu verwendende Schriftart
+	 * @see #getFontFamily()
+	 * @see #setFontFamily(ui.modeleditor.elements.FontCache.FontFamily)
+	 */
 	private FontCache.FontFamily fontFamily=FontCache.defaultFamily;
+
+	/**
+	 * Schriftgröße
+	 * @see #getTextSize()
+	 * @see #setTextSize(int)
+	 */
 	private int textSize=14;
+
+	/**
+	 * Ausgabe des Textes im Fettdruck
+	 * @see #getTextBold()
+	 * @see #setTextBold(boolean)
+	 */
 	private boolean bold;
+
+	/**
+	 * Ausgabe des Textes im Kursivdruck
+	 * @see #getTextItalic()
+	 * @see #setTextItalic(boolean)
+	 */
 	private boolean italic;
 
 	/**
@@ -363,6 +422,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		return element;
 	}
 
+	/**
+	 * Bestimmt den anzuzeigenden Text oder die Überschrift.
+	 * @param getTitle	Text (<code>false</code>) oder Überschrift (<code>true</code>) liefern
+	 * @return	Anzuzeigender Text oder Überschrift
+	 */
 	private String getDisplayText(final boolean getTitle) {
 		if (getTitle) {
 			if (surface==null) return Language.tr("Surface.AnimationText.Type.Property");
@@ -385,11 +449,42 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		}
 	}
 
+	/**
+	 * Schriftgröße beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private int lastTextSize=-1;
+
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastZoomFont=-1;
+
+	/**
+	 * Schriftausgestaltung (fett, kursiv) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastStyleFont=-1;
+
+	/**
+	 * Schriftart beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private FontCache.FontFamily lastFamily=null;
+
+	/**
+	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
+	 * Schriftart für den Text
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFontMain;
+
+	/**
+	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
+	 * Schriftart für den Titel
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFontTitle;
 
 	/**
@@ -631,6 +726,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		return animationExpression.calcOrDefault(simData.runData.variableValues,simData,null,0);
 	}
 
+	/**
+	 * Temporärer {@link StringBuilder} zum
+	 * Umwandeln von Zahlen in Zeichenketten
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private StringBuilder animationSB;
 
 	@Override

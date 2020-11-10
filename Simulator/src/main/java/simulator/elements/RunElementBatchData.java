@@ -26,6 +26,10 @@ import simulator.runmodel.RunDataClient;
  * @see RunElementData
  */
 public class RunElementBatchData extends RunElementData {
+	/**
+	 * Minimale Batch-Größe<br>
+	 * (die maximale Batch-Größe ergibt sich implizit aus z.B. der Länge von {@link #clients})
+	 */
 	private int batchSizeMin;
 
 	/**

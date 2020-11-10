@@ -77,6 +77,13 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 		setMinSizeRespectingScreensize(600,0);
 	}
 
+	/**
+	 * Liefer die Beschriftung für die Pfeil-Typ-Auswahlbox.
+	 * @param p	Punkt an Linienstart oder -ende
+	 * @param p1	Linienstart
+	 * @param p2	Linienende
+	 * @return	Beschriftung für die Pfeil-Typ-Auswahlbox
+	 */
 	private String getArrowLabel(final Point p, final Point p1, final Point p2) {
 		final double deltaX=Math.abs(p1.x-p2.x);
 		final double deltaY=Math.abs(p1.y-p2.y);
@@ -104,6 +111,13 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 		return String.join(", ",data);
 	}
 
+	/**
+	 * Erstellt eine Auswahlbox zur Auswahl der Pfeilgröße am Linienende
+	 * @param parent	Übergeordnetes Element in das die Auswahlbox eingefügt werden soll
+	 * @param title	Beschriftung der Auswahlbox
+	 * @param arrowSize	Initial zu wählende Größe (0..3)
+	 * @return	Auswahlbox zur Auswahl der Pfeilgröße am Linienende
+	 */
 	private JComboBox<String> addArrowDropdown(final JPanel parent, final String title, final int arrowSize) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		parent.add(line);

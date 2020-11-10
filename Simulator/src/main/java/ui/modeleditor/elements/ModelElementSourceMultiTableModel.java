@@ -78,6 +78,9 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	 */
 	private final AnimationImageSource imageSource;
 
+	/**
+	 * Liste der Daten für die Teil-Kundenquellen
+	 */
 	private final List<ModelElementSourceRecord> records;
 
 	/**
@@ -136,6 +139,11 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		return 2;
 	}
 
+	/**
+	 * Liefert eine Beschreibung zu einem Kunden-Teil-Quelle-Datensatz.
+	 * @param record	Kunden-Teil-Quelle-Datensatz
+	 * @return	Beschreibung zu dem Kunden-Teil-Quelle-Datensatz
+	 */
 	private String getInfoText(final ModelElementSourceRecord record) {
 		final StringBuilder sb=new StringBuilder();
 
@@ -292,11 +300,20 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführende Aktion (0: Neu/Bearbeiten; 1: Löschen) */
 		private final int nr;
 		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param nr	Auszuführende Aktion (0: Neu/Bearbeiten; 1: Löschen)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int nr, final int row) {
 			this.nr=nr;
 			this.row=row;

@@ -77,6 +77,7 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 
 	/** Auswahlbox für die Bewegungsrichtung */
 	private JComboBox<String> moveDirection;
+	/** Eingabefeld für die Bereite (auf der Zeichenfläche) des Fließbandes */
 	private JTextField conveyorSize;
 
 	/**
@@ -232,6 +233,11 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Fügt einen Tasten-Listener zur Prüfung der Eingaben zu einem Textfeld hinzu.
+	 * @param field	Textfeld
+	 * @see #checkData(boolean)
+	 */
 	private void addListener(final JTextField field) {
 		field.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}

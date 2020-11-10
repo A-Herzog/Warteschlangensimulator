@@ -41,7 +41,9 @@ public final class ModelElementSetRecord implements Cloneable {
 	/** Besonderer Wert für "Verweilzeit zuweisen" (wird statt eines Rechenausdrucks intern verwendet; ist nie sichtbar) */
 	public static final String SPECIAL_RESIDENCE="<<Verweilzeit>>";
 
+	/** Variablen an die Werte zugewiesen werden sollen */
 	private final List<String> variables;
+	/** Rechenausdrücke deren Ergebnisse an {@link #variables} zugewiesen werden sollen */
 	private final List<String> expressions;
 
 	/**

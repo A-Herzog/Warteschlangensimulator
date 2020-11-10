@@ -47,6 +47,9 @@ public class ModelElementTeleportSourceDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -4461520538246262403L;
 
+	/**
+	 * Auswahlbox für das Teleport-Ziel
+	 */
 	private JComboBox<String> destination;
 
 	/**
@@ -102,6 +105,10 @@ public class ModelElementTeleportSourceDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Liefert eine Liste mit allen verfügbaren Teleport-Zielen.
+	 * @return	Liste mit allen verfügbaren Teleport-Zielen
+	 */
 	private List<String> getTeleportDestinations() {
 		final Set<String> destinations=new HashSet<>();
 

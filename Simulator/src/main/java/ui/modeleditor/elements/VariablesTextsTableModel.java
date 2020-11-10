@@ -56,7 +56,9 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
 
+	/** Liste aller Schlüssel */
 	private final List<String> keys;
+	/** Liste aller Werte */
 	private final List<String> values;
 
 	/**
@@ -139,6 +141,9 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 		return !readOnly;
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche
+	 */
 	private class AddButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -153,11 +158,21 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten- und Verschieben-Schaltflächen
+	 * in der Tabelle
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Auszuführender Befehl (0: Eintrag bearbeiten, -1: Eintrag nach oben verschieben, 1: Eintrag nach unten verschieben) */
 		private final int col;
 		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Auszuführender Befehl (0: Eintrag bearbeiten, -1: Eintrag nach oben verschieben, 1: Eintrag nach unten verschieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;

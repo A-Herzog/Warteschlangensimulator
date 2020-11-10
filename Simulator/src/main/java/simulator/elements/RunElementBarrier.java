@@ -33,19 +33,36 @@ import ui.modeleditor.elements.ModelElementBarrierSignalOption;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
- * Äquivalent zu <code>ModelElementBarrier</code>
+ * Äquivalent zu {@link ModelElementBarrier}
  * @author Alexander Herzog
  * @see ModelElementBarrier
  */
 public class RunElementBarrier extends RunElementPassThrough implements SignalListener, PickUpQueue {
+	/**
+	 * Namen der Signale, auf die dieses Element hören soll
+	 */
 	private String[] signalName;
+
+	/**
+	 * Anzahl an Kunden, die das Element passieren können, bevor die Schrankenwirkung einsetzt
+	 */
 	private int[] initialClients;
+
+	/**
+	 * Maximale Anzahl an wartenden Kunden, die freigegeben werden, wenn das zugehörige Signal ausgelöst wird<br>
+	 * ({@link Integer#MAX_VALUE}, wenn alle momentan wartenden freigegeben werden sollen)
+	 */
 	private int[] clientsPerSignal;
+
+	/**
+	 * Index des Kundentyps auf den die Freigabe wirken soll<br>
+	 * (-1, wenn die Freigabe für alle Typen gelten soll)
+	 */
 	private int[] clientType;
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param element	Zugehöriges Editor-Element
+	 * @param element Zugehöriges Editor-Element
 	 */
 	public RunElementBarrier(final ModelElementBarrier element) {
 		super(element,buildName(element,Language.tr("Simulation.Element.Barrier.Name")));
@@ -125,9 +142,17 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		return data;
 	}
 
+	/**
+	 * Gibt es noch Kunden, die über die initiale Freigabe durchgereicht werden sollen?
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 * @param index	Index des Eintrags in {@link RunElementBarrierData#initialClients} der geprüft werden soll
+	 * @return	Liefert <code>true</code>, wenn der Kunde direkt durchgereicht werden darf
+	 */
 	private boolean initialProcess(final SimulationData simData, final RunElementBarrierData data, final RunDataClient client, final int index) {
 		/* Keine Direktdurchleite-Kunden mehr? */
-		if (data.initialClients[index]<=0)  return false;
+		if (data.initialClients[index]<=0) return false;
 
 		/* Falscher Kundentyp? */
 		if (clientType[index]>=0 && clientType[index]!=client.type) return false;
@@ -168,6 +193,14 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		}
 	}
 
+	/**
+	 * Prüft, ob basierend auf einem ausgelösten Signal Kunden freigegeben werden können.
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param clientType	Kundentyp des Kunden, um den es gerade geht
+	 * @return	Liefert <code>true</code>, wenn der Kunde freigegeben werden kann
+	 * @see #processSignal(SimulationData, RunElementBarrierData, int)
+	 */
 	private boolean releaseClient(final SimulationData simData, final RunElementBarrierData data, final int clientType) {
 		if (data.waitingClients.size()==0) return false;
 
@@ -176,7 +209,10 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		if (clientType<0) {
 			client=data.waitingClients.remove(0);
 		} else {
-			for (int i=0;i<data.waitingClients.size();i++) if (data.waitingClients.get(i).type==clientType) {client=data.waitingClients.remove(i); break;}
+			for (int i=0;i<data.waitingClients.size();i++) if (data.waitingClients.get(i).type==clientType) {
+				client=data.waitingClients.remove(i);
+				break;
+			}
 			if (client==null) return false;
 		}
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
@@ -197,9 +233,15 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		return true;
 	}
 
+	/**
+	 * Prüft, ob basierend auf einem ausgelösten Signal Kunden freigegeben werden können.
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param index	Index des Eintrags in {@link RunElementBarrierData#initialClients} der geprüft werden soll
+	 */
 	private void processSignal(final SimulationData simData, final RunElementBarrierData data, final int index) {
 		for (int i=0;i<clientsPerSignal[index];i++) {
-			/* Kunde freigeben ?*/
+			/* Kunde freigeben ? */
 			if (releaseClient(simData,data,clientType[index])) continue;
 
 			/* Sonst als Guthaben verbuchen */

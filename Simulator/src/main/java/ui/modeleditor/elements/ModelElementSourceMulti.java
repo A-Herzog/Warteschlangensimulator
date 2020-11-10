@@ -53,9 +53,10 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementSourceMulti extends ModelElementBox implements ElementWithNewClientNames, ModelElementEdgeOut, ModelDataRenameListener {
+	/** Auslaufende Kante */
 	private ModelElementEdge connection;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/** ID der auslaufenden Kante (wird nur beim Laden und Clonen verwendet) */
 	private int connectionId=-1;
 
 	/**

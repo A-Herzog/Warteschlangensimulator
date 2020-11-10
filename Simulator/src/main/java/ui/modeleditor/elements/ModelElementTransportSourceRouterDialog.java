@@ -44,8 +44,19 @@ public class ModelElementTransportSourceRouterDialog extends ModelElementBaseDia
 	 */
 	private static final long serialVersionUID = 8381498487499996914L;
 
+	/**
+	 * Objekt zur Konfiguration der Transportzeiten
+	 */
 	private TransportTimeRecordPanel transportTimeRecordPanel;
+
+	/**
+	 * Liste mit den Namen aller möglichen Zielstationen
+	 */
 	private String[] stations;
+
+	/**
+	 * Auswahlbox für die standardmäßige Zielstation
+	 */
 	private JComboBox<String> defaultStation;
 
 	/**

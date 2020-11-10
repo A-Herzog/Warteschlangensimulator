@@ -44,7 +44,14 @@ public class ModelElementTankFlowBySignalDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 2994666788602531951L;
 
+	/**
+	 * Auswahlbox zur Auswahl des Signals das den Fluss auslösen soll
+	 */
 	private JComboBox<String> signalCombo;
+
+	/**
+	 * Panel zur Konfiguration eines Flusses
+	 */
 	private ModelElementTankFlowDataPanel data;
 
 	/**

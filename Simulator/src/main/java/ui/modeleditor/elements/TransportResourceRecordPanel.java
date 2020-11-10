@@ -56,6 +56,7 @@ public class TransportResourceRecordPanel extends JPanel {
 
 	/** Daten, die in dem Panel bearbeitet werden sollen */
 	private final TransportResourceRecord data;
+	/** Daten zur verzögerten Ressourcen-Freigabe */
 	private final DistributionSystem delayedRelease;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
@@ -66,9 +67,25 @@ public class TransportResourceRecordPanel extends JPanel {
 	/** Zeichenoberfläche (zum Auslesen von Daten für den Expression-Builder) */
 	private final ModelSurface surface;
 
+	/**
+	 * Eingabefeld: Priorität bei der Ressourcenzuweisung
+	 */
 	private JTextField textResourcePriority;
+
+	/**
+	 * Tabellendaten mit den benötigten Ressourcen
+	 * für die Tabelle, die in diesem Panel angezeigt werden soll
+	 */
 	private ResourceTableModel tableResource;
+
+	/**
+	 * Zeitbasis für die verzögerte Ressourcenfreigabe
+	 */
 	private ModelSurface.TimeBase timeBase;
+
+	/**
+	 * Gibt einen Informationstext aus, wenn die verzögerte Freigabe aktiv ist
+	 */
 	private JLabel delayedReleaseInfo;
 
 	/**
@@ -128,6 +145,10 @@ public class TransportResourceRecordPanel extends JPanel {
 		checkData(false);
 	}
 
+	/**
+	 * Befehl: Verzögerte Ressourcenfreigabe bearbeiten
+	 * @see TransportResourceRecordDelayDialog
+	 */
 	private void editDelayedRelease() {
 		final TransportResourceRecordDelayDialog dialog=new TransportResourceRecordDelayDialog(this,timeBase,delayedRelease,model,surface,readOnly,help);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
@@ -136,6 +157,11 @@ public class TransportResourceRecordPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Aktualisiert die Info-Anzeige zur verzögerten Ressourcenfreigabe
+	 * @see #delayedRelease
+	 * @see #delayedReleaseInfo
+	 */
 	private void updateDelayedReleaseInfo() {
 		if (delayedRelease.hasData()) {
 			delayedReleaseInfo.setText(Language.tr("Surface.TransportSource.Dialog.Ressource.DelayedRelease.Info.Active"));

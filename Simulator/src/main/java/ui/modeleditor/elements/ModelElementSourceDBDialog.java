@@ -55,14 +55,45 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 5793850421024606739L;
 
+	/**
+	 * Panel zur Konfiguration der Datenbankverbindung
+	 */
 	private DBSettingsPanel db;
+
+	/**
+	 * Zeigt eine Warnung an, wenn keine Datenbankverbindung hergestellt werden konnte.
+	 * @see #dbSettingsChanged()
+	 */
 	private JLabel errorLabel;
+
+	/**
+	 * Auswahlbox für die Tabelle in der Datenbank
+	 */
 	private JComboBox<String> comboTable;
+
+	/**
+	 * Auswahlbox für in der Tabelle zu ladende Spalte (mit Ankunftszeiten)
+	 */
 	private JComboBox<String> comboLoad;
+
+	/**
+	 * Auswahlbox für die Kundentypen-Spalte in der Tabelle
+	 */
 	private JComboBox<String> comboClientType;
+
+	/**
+	 * Auswahlbox für die Kundendatenspalte-Spalte in der Tabelle
+	 */
 	private JComboBox<String> comboInfo;
+
+	/**
+	 * Eingabebereich für die Namen der zu ladenden Kundentypen
+	 */
 	private JTextArea clientsEdit;
 
+	/**
+	 * Zuordnung aller Tabellennamen zu allen jeweiligen Spaltennamen
+	 */
 	private Map<String,List<String>> columns;
 
 	/**
@@ -154,6 +185,13 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Trägt neue Einträge in eine Auswahlbox ein
+	 * und versucht den zuvor gewählten Eintrag
+	 * wieder auszuwählen.
+	 * @param combo	Auswahlbox
+	 * @param items	Neue Einträge (kann <code>null</code> sein)
+	 */
 	private void changeComboAndRestore(final JComboBox<String> combo, final String[] items) {
 		String last=null;
 		if (combo.getSelectedIndex()>=0) last=(String)combo.getSelectedItem();
@@ -168,6 +206,11 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		}
 	}
 
+	/**
+	 * Wird aufgerufen, wenn die Verbindungseinstellungen
+	 * zu der Datenbank verändert wurden.
+	 * @see #db
+	 */
 	private void dbSettingsChanged() {
 		try (DBConnect connect=new DBConnect(db.storeToCopy(),false)) {
 			if (connect.getInitError()!=null) {
@@ -186,6 +229,11 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		tableChanged();
 	}
 
+	/**
+	 * Wird aufgerufen, wenn in {@link #comboTable}
+	 * eine andere Tabelle gewählt wurde.
+	 * @see #comboTable
+	 */
 	private void tableChanged() {
 		List<String> cols=new ArrayList<>();
 		if (columns!=null) {
@@ -204,6 +252,11 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		comboInfo.setEnabled(!readOnly);
 	}
 
+	/**
+	 * Prüft die Eingaben in {@link #clientsEdit} auf Gültigkeit.
+	 * @param showErrorMessages	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
 	private boolean checkClients(final boolean showErrorMessages) {
 		if (clientsEdit.getText().trim().isEmpty()) {
 			clientsEdit.setBackground(Color.RED);

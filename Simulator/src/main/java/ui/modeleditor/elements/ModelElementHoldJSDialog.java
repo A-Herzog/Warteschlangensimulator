@@ -49,8 +49,11 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 2971721070323863626L;
 
+	/** Eingabebereich für das Skript */
 	private ScriptEditorPanel editor;
+	/** Option: Bedingung zusätzlich zeitgesteuert prüfen */
 	private JCheckBox useTimedChecks;
+	/** Eingabefeld für die optionale Bedingung für die Skriptausführung */
 	private JTextField condition;
 
 	/**
@@ -114,6 +117,11 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Prüft die in {@link #condition} angegebene Bedingung
+	 * @param showErrorMessage	Im Fehlerfall eine Meldung ausgeben?
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
 	private boolean checkCondition(final boolean showErrorMessage) {
 		final String text=condition.getText().trim();
 

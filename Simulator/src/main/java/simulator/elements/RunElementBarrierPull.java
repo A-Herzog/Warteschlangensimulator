@@ -35,7 +35,14 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementBarrierPull
  */
 public class RunElementBarrierPull extends RunElementPassThrough implements StateChangeListener, PickUpQueue {
+	/**
+	 * Maximale Anzahl an Kunden im Segment
+	 */
 	private String maxClients;
+
+	/**
+	 * ID des Elements bis zu dem die Anzahl an Kunden überwacht werden soll
+	 */
 	private int nextControlledID;
 
 	/**
@@ -46,6 +53,12 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 		super(element,buildName(element,Language.tr("Simulation.Element.BarrierPull.Name")));
 	}
 
+	/**
+	 * Liefert die ID einer Station basierend auf ihrem Namen.
+	 * @param nextName	Name der Station
+	 * @param editModel	Editor-Modell
+	 * @return	Liefert im Erfolgsfall die ID und -1, wenn keine Station mit dem Namen gefunden wurde
+	 */
 	private int getNextID(final String nextName, final EditModel editModel) {
 		for (ModelElement element: editModel.surface.getElements()) {
 			if (element.getName().equals(nextName)) return element.getId();
@@ -144,6 +157,11 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 		return client;
 	}
 
+	/**
+	 * Gibt einen wartenden Kunden frei.
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 */
 	private void releaseClient(final SimulationData simData, final RunElementBarrierPullData data) {
 		/* Kunde aus Warteschlange entfernen und weiterleiten */
 		RunDataClient client=data.waitingClients.remove(0);

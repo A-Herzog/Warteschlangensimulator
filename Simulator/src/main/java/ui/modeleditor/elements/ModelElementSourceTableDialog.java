@@ -55,8 +55,19 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 6808289592022606483L;
 
+	/**
+	 * Eingabefeld für den Dateinamen der Tabelle
+	 */
 	private JTextField tableEdit;
+
+	/**
+	 * Option: Zeitangabenspalte beschreibt Zwischenankunftszeiten (Alternative: feste Zeitpunkte)
+	 */
 	private JRadioButton optionDistances;
+
+	/**
+	 * Eingabebereich für die Namen der zu ladenden Kundentypen
+	 */
 	private JTextArea clientsEdit;
 
 	/**

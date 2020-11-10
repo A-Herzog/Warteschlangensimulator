@@ -33,14 +33,18 @@ import ui.modeleditor.elements.ModelElementHoldJS;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
- * Äquivalent zu <code>ModelElementHoldJS</code>
+ * Äquivalent zu {@link ModelElementHoldJS}
  * @author Alexander Herzog
  * @see ModelElementHoldJS
  */
 public class RunElementHoldJS extends RunElementPassThrough implements StateChangeListener, PickUpQueue {
+	/** Optionale zusätzliche Bedingung */
 	private String condition;
+	/** Skript auf dessen Basis die Kunden weitergeleitet werden sollen */
 	private String script;
+	/** Skriptsprache für {@link #script} */
 	private ModelElementHoldJS.ScriptMode mode;
+	/** Regelmäßige Prüfung der Bedingung? */
 	private boolean useTimedChecks;
 
 	/**

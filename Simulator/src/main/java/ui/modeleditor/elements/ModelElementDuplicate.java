@@ -56,13 +56,31 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementDuplicate extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ElementWithNewClientNames {
+	/**
+	 * Einlaufende Kanten
+	 */
 	private List<ModelElementEdge> connectionsIn;
+
+	/**
+	 * Auslaufende Kanten
+	 */
 	private List<ModelElementEdge> connectionsOut;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionsIn
+	 */
 	private List<Integer> connectionsInIds=null;
+
+	/**
+	 * IDs der auslaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionsOut
+	 */
 	private List<Integer> connectionsOutIds=null;
 
+	/**
+	 * Liste mit neuen Kundentypen gemäß den Ausgängen (leere Strings stehen für "keine Änderung")
+	 */
 	private List<String> newClientTypes=null;
 
 	/**
@@ -103,6 +121,11 @@ public class ModelElementDuplicate extends ModelElementBox implements ModelDataR
 		super.fireChanged();
 	}
 
+	/**
+	 * Liefert den Kundentyp je Ausgangskante
+	 * @param index	Index der Ausgangskante
+	 * @return	Kundentypbeschriftung an Ausgangskante
+	 */
 	private String getNewClientType(final int index) {
 		if (index<0 || newClientTypes==null || newClientTypes.size()<=index) return "";
 		final String newClientType=newClientTypes.get(index).trim();

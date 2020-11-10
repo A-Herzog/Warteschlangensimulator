@@ -50,11 +50,30 @@ public class ModelElementTransportSourceDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 3463014644258916438L;
 
+	/**
+	 * Objekt zur Konfiguration der Transportzeiten
+	 */
 	private TransportTimeRecordPanel transportTimeRecordPanel;
+
+	/**
+	 * Objekt zur Konfiguration der Transport-Ziele
+	 */
 	private TransportTargetSystemPanel transportTargetSystemPanel;
+
+	/**
+	 * Objekt zur Konfiguration der für den Transport benötigten Ressourcen
+	 */
 	private TransportResourceRecordPanel transportResourceRecordPanel;
 
+	/**
+	 * Option: Bereich verlassen bei Transportbeginn
+	 */
 	private JCheckBox useSectionStart;
+
+	/**
+	 * Auswahl des im Falle von {@link #useSectionStart} zu verlassenden Bereichs
+	 * @see #useSectionStart
+	 */
 	private JComboBox<String> sectionStart;
 
 	/**
@@ -119,6 +138,10 @@ public class ModelElementTransportSourceDialog extends ModelElementBaseDialog {
 		return tabs;
 	}
 
+	/**
+	 * Erzeugt die Dialog-Registerseite "Bereich verlassen"
+	 * @param tab	Dialog-Registerseite in die die Dialogelement eingefügt werden sollen
+	 */
 	private void buildSectionsTab(final JPanel tab) {
 		final JPanel content=new JPanel();
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
@@ -153,6 +176,13 @@ public class ModelElementTransportSourceDialog extends ModelElementBaseDialog {
 		sectionStart.addActionListener(e->useSectionStart.setSelected(true));
 	}
 
+	/**
+	 * Liefert die Namen aller Bereich-Betreten-Stationen
+	 * (um diese als Option zum Verlassen beim Transport anzubieten).
+	 * @return	Liste der Namen aller Bereich-Betreten-Stationen
+	 * @see #useSectionStart
+	 * @see #sectionStart
+	 */
 	private String[] getSectionStartStations() {
 		final List<String> list=new ArrayList<>();
 

@@ -51,7 +51,9 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 
 	/** Zugehörige Tabelle (um diese anweisen zu können, sich neu aufzubauen, wenn die Daten verändert wurden) */
 	private final JTableExt table;
+	/** Im Konstruktor übergebenes Ventile-Objekt welches in {@link #storeData()} aktualisiert wird */
 	private final List<ModelElementTank.Valve> valvesOriginal;
+	/** Temporäre Arbeitskopie der Ventil-Daten */
 	private final List<ModelElementTank.Valve> valves;
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
@@ -91,7 +93,7 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 	}
 
 	@Override
-	public final boolean isCellEditable(int rowIndex, int columnIndex) {
+	public final boolean isCellEditable(final int rowIndex, final int columnIndex) {
 		if (readOnly) return false;
 		if (rowIndex==valves.size()) {
 			return columnIndex==3;
@@ -101,7 +103,7 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 	}
 
 	@Override
-	public String getColumnName(int column) {
+	public String getColumnName(final int column) {
 		switch (column) {
 		case 0: return Language.tr("Surface.Tank.Dialog.Valve.Nr");
 		case 1: return Language.tr("Surface.Tank.Dialog.Valve.InitialFlow");
@@ -111,6 +113,11 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Liefert die Auswahlbox für die Zeiteinheit in Spalte 3
+	 * @param valve	Ventil für das die Zeiteinheit eingestellt werden soll
+	 * @return	Auswahlbox für die Zeiteinheit
+	 */
 	private JComboBox<String> getCombo(final ModelElementTank.Valve valve) {
 		final JComboBox<String> combo=new JComboBox<>(new String[]{
 				Language.tr("Surface.Tank.Dialog.Unit.DeltaSeconds"),
@@ -200,16 +207,31 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 		valvesOriginal.addAll(valves);
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Verschieben-Schaltflächen
+	 * und die Löschen-Schaltflächen in der Tabelle
+	 */
 	private class ButtonListener implements ActionListener {
 		/** Zeilennummer */
 		private final int row;
+		/** Verschieberichtung (-1 oder 1) oder Löschen (0) */
 		private final int move;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeilennummer
+		 * @param moveUp	Verschiebung nach oben (<code>true</code>) oder nach unten (<code>false</code>)
+		 */
 		public ButtonListener(final int row, final boolean moveUp) {
 			this.row=row;
 			if (moveUp) move=-1; else move=1;
 		}
 
+		/**
+		 * Konstruktor der Klasse<br>
+		 * (Modus: Löschen)
+		 * @param row	Zeilennummer
+		 */
 		public ButtonListener(final int row) {
 			this.row=row;
 			move=0;

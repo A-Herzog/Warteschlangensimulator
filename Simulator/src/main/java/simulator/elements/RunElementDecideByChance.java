@@ -38,8 +38,11 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementDecide
  */
 public class RunElementDecideByChance extends RunElement {
+	/** IDs der über die auslaufenden Kanten erreichbaren Folgestationen */
 	private List<Integer> connectionIds;
+	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
+	/** Wahrscheinlichkeiten für die verschiedenen auslaufenden Kanten */
 	private double[] probabilites;
 
 	private String[] clientTypeNames;

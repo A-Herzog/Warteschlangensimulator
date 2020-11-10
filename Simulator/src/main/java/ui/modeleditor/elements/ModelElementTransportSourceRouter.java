@@ -48,9 +48,14 @@ import ui.modeleditor.fastpaint.Shapes;
  * @author Alexander Herzog
  */
 public class ModelElementTransportSourceRouter extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn {
+	/**
+	 * Einlaufende Kanten
+	 */
 	private List<ModelElementEdge> connections;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 */
 	private List<Integer> connectionIds=null;
 
 	/**

@@ -66,6 +66,7 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 	private final String[] variableNames;
 	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
+	/** Liste mit zur Auswahl bereitstehenden Datenbankspaltennamen */
 	private final List<String> dbColumnNames;
 
 	/**
@@ -140,6 +141,11 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 		return 3;
 	}
 
+	/**
+	 * Wandelt einen Ausgabemodus in einen Index für die Auswahlbox um.
+	 * @param mode	Ausgabemodus
+	 * @return	Index für die Auswahlbox
+	 */
 	private int modeToInt(final ModelElementOutputDB.OutputMode mode) {
 		switch (mode) {
 		case MODE_TIMESTAMP: return 0;
@@ -159,6 +165,11 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 		return 0;
 	}
 
+	/**
+	 * Wandelt einen Auswahlbox-Index in einen Ausgabemodus um.
+	 * @param index	Auswahlbox-Index
+	 * @return	Ausgabemodus
+	 */
 	private ModelElementOutputDB.OutputMode intToMode(final int index) {
 		switch (index) {
 		case 0: return ModelElementOutputDB.OutputMode.MODE_TIMESTAMP;
@@ -178,6 +189,12 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 		return ModelElementOutputDB.OutputMode.MODE_TIMESTAMP;
 	}
 
+	/**
+	 * Erstellt ein Panel zur Auswahl des Ausgabemodus
+	 * @param rowIndex	Zeile in der Tabelle für das Panel
+	 * @param selectedMode	Initial auszuwählender Ausgabemodus
+	 * @return	Panel zur Auswahl des Ausgabemodus
+	 */
 	private JPanel makeModePanel(final int rowIndex, final ModelElementOutputDB.OutputMode selectedMode) {
 		final JPanel panel=new JPanel(new BorderLayout());
 
@@ -215,6 +232,12 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 		return panel;
 	}
 
+	/**
+	 * Erstellt das Panel zur Auswahl der Datenbank-Tabellenspalte in die der Datensatz geschrieben werden soll.
+	 * @param rowIndex	Zeile der Tabelle bzw. Index des Eintrags
+	 * @param selectedColumnName	Aktuell ausgewählte Tabellenspalte
+	 * @return	Panel zur Auswahl der Datenbank-Tabellenspalte
+	 */
 	private JPanel makeColumnPanel(final int rowIndex, final String selectedColumnName) {
 		final JPanel panel=new JPanel(new BorderLayout());
 
@@ -247,7 +270,7 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==mode.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.OutputDB.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener(ActionIndex.ACTION_ADD)});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.OutputDB.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
 			case 1: return "";
 			case 2: return "";
 			}
@@ -293,7 +316,9 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 	private enum ActionIndex {
 		/** Eintrag hinzufügen */
 		ACTION_ADD,
+		/** Stellt den geänderten Ausgabemodus ein */
 		ACTION_COMBO_MODE_CHANGE,
+		/** Stellt eine geänderte Datenbank-Tabellenspalte ein */
 		ACTION_COMBO_COLUMN_CHANGE,
 		/** Eintrag nach oben verschieben */
 		ACTION_UP,
@@ -313,20 +338,36 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 		final int row;
 		/** Auszuführende Aktion */
 		final ActionIndex actionIndex;
+		/** Zusätzliche Daten für die jeweilige Aktion */
 		final Object object;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param actionIndex	Auszuführende Aktion
+		 * @param object	Zusätzliche Daten für die jeweilige Aktion
+		 */
 		public TableButtonListener(final int row, final ActionIndex actionIndex, final Object object) {
 			this.row=row;
 			this.actionIndex=actionIndex;
 			this.object=object;
 		}
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param actionIndex	Auszuführende Aktion
+		 */
 		public TableButtonListener(final int row, final ActionIndex actionIndex) {
 			this(row,actionIndex,null);
 		}
 
-		public TableButtonListener(final ActionIndex actionIndex) {
-			this(0,actionIndex,null);
+		/**
+		 * Konstruktor der Klasse<br>
+		 * (Modus: Hinzufügen)
+		 */
+		public TableButtonListener() {
+			this(0,ActionIndex.ACTION_ADD,null);
 		}
 
 		@SuppressWarnings("unchecked")

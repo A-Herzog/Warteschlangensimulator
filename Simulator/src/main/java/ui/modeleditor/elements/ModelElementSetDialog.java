@@ -39,6 +39,9 @@ public class ModelElementSetDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -9185897343104852730L;
 
+	/**
+	 * Tabelle zur Konfiguration der Zuweisungen, die in der Station vorgenommen werden sollen
+	 */
 	private VariablesTableModel model;
 
 	/**

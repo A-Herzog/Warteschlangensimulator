@@ -49,13 +49,35 @@ public class ModelElementTankDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 2385029706949492016L;
 
+	/**
+	 * Umrechnungsfaktor um die Änderungsrate auf Sekunden zu normieren
+	 * @see #analogNotifyUnit
+	 */
 	private static double[] MULTIPLY=new double[]{1,60,3600,86400};
 
+	/**
+	 * Eingabefeld für die Kapazität des Tanks
+	 */
 	private JTextField capacity;
+
+	/**
+	 * Eingabefeld für den initialen Füllstand des Tanks
+	 */
 	private JTextField initalValue;
+
+	/**
+	 * Eingabefeld für den Änderungsbenachrichtigungsabstand
+	 */
 	private JTextField analogNotify;
+
+	/**
+	 * Anzusetzende Zeiteinheit für den Änderungsbenachrichtigungsabstand
+	 */
 	private JComboBox<String> analogNotifyUnit;
 
+	/**
+	 * Tabellen zur Konfiguration der Ventile des Tanks
+	 */
 	private ModelElementTankTableModel valvesTableModel;
 
 	/**
@@ -75,6 +97,13 @@ public class ModelElementTankDialog extends ModelElementBaseDialog {
 		setResizable(true);
 	}
 
+	/**
+	 * Lädt einen Wert in ein Eingabefeld und stellt die Zeiteinheiten-Auswahlbox passend ein.
+	 * @param value	Zu verwendender Wert
+	 * @param text	Eingabefeld in das der Wert (ggf. skaliert) eingetragen werden soll
+	 * @param unit	Zeiteinheiten-Auswahlbox
+	 * @param mul	Mit {@link #MULTIPLY} multiplizieren oder beim Umrechnen dadurch dividieren?
+	 */
 	private void loadValue(double value, final JTextField text, final JComboBox<String> unit, boolean mul) {
 		text.setEditable(!readOnly);
 		text.addKeyListener(new KeyListener() {

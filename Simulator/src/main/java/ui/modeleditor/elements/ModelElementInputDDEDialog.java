@@ -51,13 +51,31 @@ public class ModelElementInputDDEDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 4609646068661729008L;
 
+	/**
+	 * Panel zur Konfiguration der DDE-Verbindung
+	 */
 	private DDEEditPanel editDDE;
+
+	/** Option: Nach Tabellenende keine Zuweisungen mehr durchführen */
 	private JRadioButton optionSkip;
+	/** Option: Vorgabewert nach Ende der Tabelle für Zuweisungen verwenden */
 	private JRadioButton optionDefaultValue;
+	/** Option: Tabelle nach Ende erneut von vorne einlesen */
 	private JRadioButton optionLoop;
+	/** Simulation beim Erreichen des Tabellenendes beenden */
 	private JRadioButton optionTerminate;
+	/** Vorgabewert für den Fall {@link #optionDefaultValue} */
 	private JTextField defaultValueEdit;
+
+	/**
+	 * Eingabefeld für den Variablennamen an die die Zuweisung gerichtet werden soll
+	 */
 	private JTextField variableEdit;
+
+	/**
+	 * Zeigt wenn nötig eine Warnung zu der dem angegebenen Variablennamen an.
+	 * @see #variableEdit
+	 */
 	private JLabel warningLabel;
 
 	/**

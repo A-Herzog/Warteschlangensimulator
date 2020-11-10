@@ -50,15 +50,21 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -632809253464205676L;
 
+	/** Auswahlbox für die Breite der Linie des Rechtecks */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahlbox zur Wahl der Stärke der Abrundung der Ecken */
 	private JComboBox<String> rounding;
+	/** Auswahl der Farbe der Linie des Rechtecks */
 	private SmallColorChooser colorChooserLine;
 	/** Option: Hintergrundfarbe verwenden? */
 	private JCheckBox background;
 	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
+	/** Option: Farbverlauf verwenden */
 	private JCheckBox gradient;
+	/** Auswahl der Farbe für den Farbverlauf */
 	private SmallColorChooser colorChooserGradient;
+	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
 	private JSlider alpha;
 
 	/**

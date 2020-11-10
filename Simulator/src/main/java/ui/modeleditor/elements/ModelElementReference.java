@@ -49,11 +49,25 @@ import ui.modeleditor.fastpaint.Shapes.ShapeType;
  * @author Alexander Herzog
  */
 public class ModelElementReference extends ModelElementBox implements ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ModelElementAnimationForceMove {
+	/**
+	 * Einlaufende Kanten
+	 */
 	private List<ModelElementEdge> connectionsIn;
+
+	/**
+	 * Auslaufende Kanten
+	 */
 	private List<ModelElementEdge> connectionsOut;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 * @see #connectionsIn
+	 */
 	private List<Integer> connectionsInIds=null;
+
+	/**
+	 * IDs der auslaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 */
 	private List<Integer> connectionsOutIds=null;
 
 	/**

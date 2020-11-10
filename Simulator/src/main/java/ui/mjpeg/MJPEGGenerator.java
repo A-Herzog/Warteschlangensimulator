@@ -194,8 +194,12 @@ public class MJPEGGenerator {
 		return b;
 	}
 
+	/**
+	 * AVI-Datenblock "RIFF" (RIFF-Datenkopf)
+	 */
 	private class RIFFHeader
 	{
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'R','I','F','F'};
 		public int fileSize = 0;
 		public byte[] fcc2 = new byte[]{'A','V','I',' '};
@@ -221,6 +225,9 @@ public class MJPEGGenerator {
 		}
 	}
 
+	/**
+	 * AVI-Datenblock "AVIH" (AVI-Haupt-Datenkopf)
+	 */
 	private class AVIMainHeader
 	{
 		/*
@@ -240,6 +247,7 @@ public class MJPEGGenerator {
     DWORD  dwReserved[4];
 		 */
 
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'a','v','i','h'};
 		public int cb = 56;
 		public int dwMicroSecPerFrame = 0; //  (1 / frames per sec) * 1,000,000
@@ -286,8 +294,12 @@ public class MJPEGGenerator {
 		}
 	}
 
+	/**
+	 * AVI-Datenblock "LIST" (Stream-Liste)
+	 */
 	private class AVIStreamList
 	{
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'L','I','S','T'};
 		public int size = 124;
 		public byte[] fcc2 = new byte[]{'s','t','r','l'};
@@ -308,6 +320,9 @@ public class MJPEGGenerator {
 		}
 	}
 
+	/**
+	 * AVI-Datenblock "STRH" (Stream-Header)
+	 */
 	private class AVIStreamHeader
 	{
 		/*
@@ -334,6 +349,7 @@ public class MJPEGGenerator {
      }  rcFrame;
 		 */
 
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'s','t','r','h'};
 		public int cb = 64;
 		public byte[] fccType = new byte[]{'v','i','d','s'};
@@ -387,6 +403,9 @@ public class MJPEGGenerator {
 		}
 	}
 
+	/**
+	 * AVI-Datenblock "STRF" (Stream-Format)
+	 */
 	private class AVIStreamFormat
 	{
 		/*
@@ -405,6 +424,7 @@ public class MJPEGGenerator {
     DWORD  biClrImportant;
 		 */
 
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'s','t','r','f'};
 		public int cb = 40;
 		public int biSize = 40; // same as cb
@@ -448,8 +468,12 @@ public class MJPEGGenerator {
 		}
 	}
 
+	/**
+	 * AVI-Datenblock für die Film-Liste
+	 */
 	private class AVIMovieList
 	{
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'L','I','S','T'};
 		public int listSize = 0;
 		public byte[] fcc2 = new byte[]{'m','o','v','i'};
@@ -471,8 +495,12 @@ public class MJPEGGenerator {
 		}
 	}
 
+	/**
+	 * AVI-Datenblock für die Index-Liste
+	 */
 	private class AVIIndexList
 	{
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'i','d','x','1'};
 		public int cb = 0;
 		public List<AVIIndex> ind = new ArrayList<>();
@@ -511,8 +539,12 @@ public class MJPEGGenerator {
 		}
 	}
 
+	/**
+	 * AVI-Datenblock für den Index
+	 */
 	private class AVIIndex
 	{
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'0','0','d','b'};
 		public int dwFlags = 16;
 		public int dwOffset = 0;
@@ -536,8 +568,12 @@ public class MJPEGGenerator {
 		}
 	}
 
+	/**
+	 * AVI-Datenblock "JUNK"
+	 */
 	private class AVIJunk
 	{
+		/** Kennung für den Datenblock */
 		public byte[] fcc = new byte[]{'J','U','N','K'};
 		public int size = 1808;
 		public byte[] data = new byte[size];

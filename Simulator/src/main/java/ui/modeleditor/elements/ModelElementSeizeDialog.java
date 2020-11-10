@@ -50,7 +50,9 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 1005631480133240168L;
 
+	/** Eingabefeld für die Ressourcenpriorität */
 	private JTextField textResourcePriority;
+	/** Tabelle zur Definition der zu belegenden Ressourcen */
 	private ResourceTableModel tableResource;
 
 	/**
@@ -113,6 +115,12 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+
+	/**
+	 * Überprüft die Eingaben
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird im Fehlerfall eine Fehlermeldung ausgegeben
+	 * @return	Gibt <code>true</code> zurück, wenn die Eingaben in Ordnung sind
+	 */
 	private boolean checkInput(final boolean showErrorMessage) {
 		if (readOnly) return false;
 

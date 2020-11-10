@@ -52,12 +52,29 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -1887665763539776879L;
 
+	/** Liste mit den IDs aller Tanks */
 	private List<Integer> tankIDs;
+	/** Namen aller Tanks */
 	private String[] tankNames;
 
+	/**
+	 * Auswahlbox zur Auswahl des Tanks den dieser Sensor überwachen soll
+	 */
 	private JComboBox<String> tankCombo;
+
+	/**
+	 * Eingabefeld für den Schwellenwert
+	 */
 	private JTextField thresholdEdit;
+
+	/**
+	 * Option: Schwellenwert ist Prozentangabe (sonst: Schwellenwert ist Absolutwert)
+	 */
 	private JRadioButton thresholdPercent;
+
+	/**
+	 * Option: Aktion beim Überschreiten des Schwellenwerts auslösen (sonst: beim Unterschreiten auslösen)
+	 */
 	private JRadioButton thresholdUp;
 
 	/**
@@ -79,9 +96,17 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
-	private Object[] getSelect(final JPanel content, final String title, final String option1, final String option2) {
+	/**
+	 * Fügt zwei Radiobuttons in einen Inhaltsbereich ein.
+	 * @param content	Inhaltsbereich
+	 * @param title	Überschrift über den Radiobuttons
+	 * @param option1	Beschriftung für das erste Radiobutton
+	 * @param option2	Beschriftung für das zweite Radiobutton
+	 * @return	2-elementiges Array aus den beiden Radiobutton-Objekten
+	 */
+	private JRadioButton[] getSelect(final JPanel content, final String title, final String option1, final String option2) {
 		JPanel line;
-		JRadioButton button1, button2;
+		final JRadioButton button1, button2;
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body><b>"+title+"</b></body></html>"));
@@ -98,9 +123,13 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 		buttonGroup.add(button1);
 		buttonGroup.add(button2);
 
-		return new Object[]{button1,button2};
+		return new JRadioButton[]{button1,button2};
 	}
 
+	/**
+	 * Erstellt eine Liste mit den IDs aller Tanks.
+	 * @see #tankIDs
+	 */
 	private void buildTankIDs() {
 		tankIDs=new ArrayList<>();
 		final List<String> names=new ArrayList<>();

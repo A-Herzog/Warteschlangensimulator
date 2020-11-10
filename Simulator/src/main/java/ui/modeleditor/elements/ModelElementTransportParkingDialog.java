@@ -52,11 +52,16 @@ public class ModelElementTransportParkingDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 1937351216296016056L;
 
+	/** Liste der Namen aller modellweit verfügbaren Variablennamen */
 	private String[] variableNames;
+	/** Liste mit den Namen aller modellweit verfügbaren Transporter */
 	private String[] transporterNames;
 
+	/** Auswahl des Transportertyps für diese Station */
 	private JComboBox<String> transporterType;
+	/** Eingabefeld für die Transporter-Wartekapazität an dieser Station */
 	private JTextField waitingCapacity;
+	/** Eingabefeld für die Priorität zur Anforderung von Transportern */
 	private JTextField waitingPriority;
 
 	/**

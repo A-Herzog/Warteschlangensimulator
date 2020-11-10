@@ -36,7 +36,18 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementAssignString
  */
 public class RunElementAssignString extends RunElementPassThrough {
+	/**
+	 * Liste der Schlüssel, an die in {@link #processArrival(SimulationData, RunDataClient)}
+	 * Zuweisungen erfolgen sollen.
+	 * @see RunDataClient#setUserDataString(String, String)
+	 */
 	private String[] stringKeys;
+
+	/**
+	 * Liste der Werte, die in {@link #processArrival(SimulationData, RunDataClient)}
+	 * zugewiesen werden sollen.
+	 * @see RunDataClient#setUserDataString(String, String)
+	 */
 	private String[] stringValues;
 
 	/**

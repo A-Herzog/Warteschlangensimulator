@@ -45,7 +45,9 @@ public class VariablesTextsTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -4219560141889593262L;
 
+	/** Eingabefeld für den Schlüssel */
 	private final JTextField keyEdit;
+	/** Eingabefeld für den Wert */
 	private final JTextField valueEdit;
 
 	/**

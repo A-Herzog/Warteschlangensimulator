@@ -49,16 +49,26 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -2581147688988297708L;
 
+	/** Option: Kunden gemeinsam weiterleiten */
 	private JRadioButton optionForward;
+	/** Option: Temporären Batch bilden */
 	private JRadioButton optionTemporary;
+	/** Eingabefeld für den neuen Kundentyp für einen temporären Batch */
 	private JTextField tempTypeField;
+	/** Option: Permanenten Batch bilden */
 	private JRadioButton optionNewType;
+	/** Eingabefeld für den neuen Kundentyp für einen permanenten Batch */
 	private JTextField newTypeField;
 
+	/** Option: Kein Eigenschaftsabgleich */
 	private JRadioButton optionPropertyNone;
+	/** Option: Abgleich über Kundendatenfeld mit Index */
 	private JRadioButton optionPropertyNumber;
+	/** Option: Abgleich über Kundendatentextfeld mit Schlüssel  */
 	private JRadioButton optionPropertyText;
+	/** Eingabefeld für den Index im Fall {@link #optionPropertyNumber} */
 	private JTextField optionPropertyNumberField;
+	/** Eingabefeld für den Schlüssel im Fall {@link #optionPropertyText} */
 	private JTextField optionPropertyTextField;
 
 	/**

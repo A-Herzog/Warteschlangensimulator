@@ -47,10 +47,15 @@ public class ModelElementReleaseDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 7121355472159712717L;
 
+	/** Auflistung der Namen aller Ressourcen-Belegen-Stationen */
 	private String[] seizes;
+	/** Auswahlbox für die Ressourcen-Belegen-Station, die das Gegenstück zu dieser Station darstellen soll */
 	private JComboBox<String> seizeSelect;
+	/** Option: Ressource erst verzögert freigeben */
 	private JCheckBox checkBoxDelayRelease;
+	/** Zeiteinheit für {@link #distributionEditor} */
 	private JComboBox<String> timeBase;
+	/** Verteilungseditor für verzögerte Ressourcenfreigabe */
 	private DistributionBySubTypeEditor distributionEditor;
 
 	/**
@@ -68,6 +73,11 @@ public class ModelElementReleaseDialog extends ModelElementBaseDialog {
 		setSizeRespectingScreensize(750,600);
 	}
 
+	/**
+	 * Liefert eine Auflistung der Namen aller Ressourcen-Belegen-Stationen.
+	 * @return	Auflistung der Namen aller Ressourcen-Belegen-Stationen
+	 * @see #seizes
+	 */
 	private String[] getSeizes() {
 		List<String> names=new ArrayList<>();
 		for (ModelElement e: element.getSurface().getElements()) if (e instanceof ModelElementSeize) names.add(e.getName());

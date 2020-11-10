@@ -40,9 +40,14 @@ import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
  * @see ModelElementSub
  */
 public class ModelElementSubOut extends ModelElementSubConnect implements ModelElementEdgeMultiIn {
+	/**
+	 * Einlaufende Kanten
+	 */
 	private List<ModelElementEdge> connectionsIn;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 */
 	private List<Integer> connectionsInIds=null;
 
 	/**

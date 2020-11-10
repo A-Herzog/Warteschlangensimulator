@@ -35,9 +35,13 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementBatch
  */
 public class RunElementBatch extends RunElementPassThrough {
+	/** Minimale Batch-Größe */
 	private int batchSizeMin;
+	/** Maximale Batch-Größe */
 	private int batchSizeMax;
+	/** Batch-Bildungs-Modus */
 	private BatchRecord.BatchMode batchMode;
+	/** Index des neuen Batch-Kundentyps (bei der temporären oder permanenten Batch-Bildung) */
 	private int newClientType;
 
 	/**
@@ -123,6 +127,14 @@ public class RunElementBatch extends RunElementPassThrough {
 		return data;
 	}
 
+	/**
+	 * Die Batch-Größe wurde erreicht, Kunden werden weitergeleitet.<br>
+	 * Modus: Kunden einfach gemeinsam weiterleiten
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
+	 * @see ui.modeleditor.elements.BatchRecord.BatchMode#BATCH_MODE_COLLECT
+	 */
 	private void processSendMultipleClients(final SimulationData simData, final RunElementBatchData data, final RunDataClient newClient) {
 		/* Logging */
 		if (simData.loggingActive) {
@@ -153,6 +165,14 @@ public class RunElementBatch extends RunElementPassThrough {
 		data.waiting=0;
 	}
 
+	/**
+	 * Die Batch-Größe wurde erreicht, Kunden werden weitergeleitet.<br>
+	 * Modus: Temporären Batch bilden
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
+	 * @see ui.modeleditor.elements.BatchRecord.BatchMode#BATCH_MODE_TEMPORARY
+	 */
 	private void processSendTemporaryBatchedClients(final SimulationData simData, final RunElementBatchData data, final RunDataClient newClient) {
 		/* Logging */
 		if (simData.loggingActive) {
@@ -201,6 +221,14 @@ public class RunElementBatch extends RunElementPassThrough {
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
 	}
 
+	/**
+	 * Die Batch-Größe wurde erreicht, Kunden werden weitergeleitet.<br>
+	 * Modus: Permanenten Batch bilden
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
+	 * @see ui.modeleditor.elements.BatchRecord.BatchMode#BATCH_MODE_PERMANENT
+	 */
 	private void processSendPermanentBatchedClients(final SimulationData simData, final RunElementBatchData data, final RunDataClient newClient) {
 		/* Logging */
 		if (simData.loggingActive) {
@@ -252,8 +280,13 @@ public class RunElementBatch extends RunElementPassThrough {
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
 	}
 
+	/**
+	 * Die Batch-Größe wurde erreicht, Kunden werden weitergeleitet.
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
+	 */
 	private void processSend(final SimulationData simData, final RunElementBatchData data, final RunDataClient newClient) {
-		/* Batch-Größe erreicht, Kunden werden weitergeleitet */
 		switch (batchMode) {
 		case BATCH_MODE_COLLECT:
 			processSendMultipleClients(simData,data,newClient);

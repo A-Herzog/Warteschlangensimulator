@@ -49,11 +49,29 @@ public class RunElementBarrierPullData extends RunElementData {
 	 */
 	public long lastSendTime;
 
+	/**
+	 * Maximale Anzahl an Kunden im Segment
+	 */
 	private final ExpressionCalc maxClients;
+
+	/**
+	 * ID des Elements bis zu dem die Anzahl an Kunden überwacht werden soll
+	 */
 	private final int nextControlledID;
 
+	/**
+	 * Nächste Station
+	 */
 	private RunElement nextDirect;
+
+	/**
+	 * Element bis zu dem die Anzahl an Kunden überwacht werden soll (Übersetzung von {@link #nextControlledID})
+	 */
 	private RunElement nextControlled;
+
+	/**
+	 * Weitere Stationen auf der kontrollierten Strecke deren Kundenbestände folglich berücksichtigt werden müssen.
+	 */
 	private RunElement[] nextControlledAddon;
 
 	/**
@@ -63,7 +81,6 @@ public class RunElementBarrierPullData extends RunElementData {
 	 * @param maxClients	Maximalanzahl an Kunden in dem Abschnitt
 	 * @param variableNames	Liste aller Variablennamen (für den <code>maxClients</code>-Rechenausdruck)
 	 */
-
 	public RunElementBarrierPullData(final RunElement station, final int nextControlledID, final String maxClients, final String[] variableNames) {
 		super(station);
 		queueLockedForPickUp=false;
@@ -74,6 +91,14 @@ public class RunElementBarrierPullData extends RunElementData {
 		this.maxClients.parse(maxClients);
 	}
 
+
+	/**
+	 * Sucht weitere {@link RunElementBarrierPull}-Stationen, die sich auf eine Bedienstation beziehen.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param process	Bedienstation
+	 * @param list	Liste der Pull-Barrieren, die sich auf die Bedienstation beziehen
+	 * @see #initConnections(SimulationData)
+	 */
 	private void getBarrierAddOns(final SimulationData simData, final RunElement process, final List<RunElement> list) {
 		for (RunElement element: simData.runModel.elementsFast) if (element instanceof RunElementBarrierPull) {
 			final RunElementBarrierPull barrier=(RunElementBarrierPull)element;
@@ -81,6 +106,14 @@ public class RunElementBarrierPullData extends RunElementData {
 		}
 	}
 
+	/**
+	 * Sucht Stationen, die sich auf dem Weg zwischen zwei Stationen befinden
+	 * @param simData	Simulationsdatenobjekt
+	 * @param processA	Startstation
+	 * @param processB	Zielstation
+	 * @param list	Liste der Zwischenstationen
+	 * @see #initConnections(SimulationData)
+	 */
 	private void getPathAddOns(final SimulationData simData, final RunElement processA, final RunElement processB, final List<RunElement> list) {
 		final List<RunElement> partialList=new ArrayList<>();
 		int steps=0;
@@ -95,6 +128,13 @@ public class RunElementBarrierPullData extends RunElementData {
 		/* Kein Weg gefunden */
 	}
 
+	/**
+	 * Konfiguriert die Stationen, die für die Schranke relevant sind.
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #nextDirect
+	 * @see #nextControlled
+	 * @see #nextControlledAddon
+	 */
 	private void initConnections(final SimulationData simData) {
 		nextDirect=station.getNext();
 		nextControlled=simData.runModel.elementsFast[nextControlledID];

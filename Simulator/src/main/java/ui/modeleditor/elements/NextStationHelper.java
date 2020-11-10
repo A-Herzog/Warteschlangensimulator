@@ -37,6 +37,12 @@ public class NextStationHelper {
 	private NextStationHelper() {
 	}
 
+	/**
+	 * Vorschläge für Bedienstationen in das Popupmenü einfügen
+	 * @param source	Ausgangsstation
+	 * @param parentMenu	Untermenü des Kontextmenüs, welches die Einträge aufnimmt
+	 * @param addNextStation	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 */
 	private static void groupProcess(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!(source instanceof ModelElementProcess)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementProcess(null,null));
 		if (!(source instanceof ModelElementDelay)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDelay(null,null));
@@ -45,12 +51,24 @@ public class NextStationHelper {
 		if (!(source instanceof ModelElementHoldMulti)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementHoldMulti(null,null));
 	}
 
+	/**
+	 * Vorschläge für Zuweisungsstationen in das Popupmenü einfügen
+	 * @param source	Ausgangsstation
+	 * @param parentMenu	Untermenü des Kontextmenüs, welches die Einträge aufnimmt
+	 * @param addNextStation	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 */
 	private static void groupAssign(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!(source instanceof ModelElementAssign)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementAssign(null,null));
 		if (!(source instanceof ModelElementDecide)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDecide(null,null));
 		if (!(source instanceof ModelElementDuplicate)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDuplicate(null,null));
 	}
 
+	/**
+	 * Vorschläge für Zählerstationen in das Popupmenü einfügen
+	 * @param source	Ausgangsstation
+	 * @param parentMenu	Untermenü des Kontextmenüs, welches die Einträge aufnimmt
+	 * @param addNextStation	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 */
 	private static void groupCounter(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!(source instanceof ModelElementCounter)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementCounter(null,null));
 		if (!(source instanceof ModelElementCounterMulti)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementCounterMulti(null,null));
@@ -58,6 +76,12 @@ public class NextStationHelper {
 		if (!(source instanceof ModelElementThroughput)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementThroughput(null,null));
 	}
 
+	/**
+	 * Vorschläge für Ausgänge in das Popupmenü einfügen
+	 * @param source	Ausgangsstation
+	 * @param parentMenu	Untermenü des Kontextmenüs, welches die Einträge aufnimmt
+	 * @param addNextStation	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 */
 	private static void groupDispose(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDispose(null,null));
 	}

@@ -50,7 +50,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -2104982799396808067L;
 
-	/** Name aller modellweit verfügbaren Variablennamen */
+	/** Liste der Namen aller modellweit verfügbaren Variablennamen */
 	private String[] variableNames;
 	/** Eingabefeld für den Bezeichner für die Kenngröße */
 	private JTextField key;

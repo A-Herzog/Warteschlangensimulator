@@ -57,17 +57,27 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -1324564696068004152L;
 
+	/** Wert "Global" + Liste aller Kundentypennamen */
 	private String[] clientNames;
+	/** Icons für die Einträge in {@link #clientNames} */
 	private Object[] clientIcons;
+	/** Gewähltes Zurückschreckverhalten pro Eintrag von {@link #clientNames} */
 	private Object[] clientData;
 
+	/** Letzter gewählter Eintrag in {@link #combo} */
 	private int lastCombo;
+	/** Auswahlbox des Kundentyps */
 	private JComboBox<String> combo;
+	/** Option: Globale Vorgabe verwenden */
 	private JRadioButton optionGlobal;
+	/** Option: Zurückschreckwahrscheinlichkeit */
 	private JRadioButton optionProbability;
+	/** Option: Zurückschrecken gemäß Bedingung */
 	private JRadioButton optionCondition;
 
+	/** Eingabefeld für die Zurückschreckwahrscheinlichkeit ({@link #optionProbability}) */
 	private JTextField probability;
+	/** Eingabefeld für die Zurückschreckbedingung ({@link #optionCondition}) */
 	private JTextField expression;
 
 	/**
@@ -86,6 +96,13 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Bereitet {@link #clientNames} und {@link #clientIcons} vor
+	 * und lädt die Daten aus der Station in {@link #clientData}.
+	 * @see #clientNames
+	 * @see #clientIcons
+	 * @see #clientData
+	 */
 	private void loadData() {
 		final ModelElementBalking balking=(ModelElementBalking)element;
 
@@ -186,6 +203,10 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Reagiert auf Änderungen in der Auswahl in {@link #combo}
+	 * @see #combo
+	 */
 	private void comboChanged() {
 		if (lastCombo>=0) {
 			Object obj=null;

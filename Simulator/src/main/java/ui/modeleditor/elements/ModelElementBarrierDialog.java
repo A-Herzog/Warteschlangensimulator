@@ -40,6 +40,9 @@ public class ModelElementBarrierDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 5734915086647346063L;
 
+	/**
+	 * Tabellendarstellung der möglichen Signale zur Öffnung einer Schranke
+	 */
 	private BarrierSignalTableModel tableSignal;
 
 	/**

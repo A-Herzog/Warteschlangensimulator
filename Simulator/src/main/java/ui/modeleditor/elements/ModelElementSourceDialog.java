@@ -41,10 +41,25 @@ public final class ModelElementSourceDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
+	/**
+	 * Panel zum Bearbeiten der Kunden-Quelle-Einstellungen
+	 */
 	private ModelElementSourceRecordPanel recordPanel;
 
+	/**
+	 * Name der Station beim Aufrufen des Dialogs<br>
+	 * (um ggf. beim Schlieﬂen des Dialogs das Modell zu benachrichtigen, dass sich der Signalname ver‰ndert hat)
+	 */
 	private final String oldName;
+
+	/**
+	 * Kundendatenelement aus dem Modell (zum Auslesen von Icons und ggf. um Kundentypen umzubenennen)
+	 */
 	private final ModelClientData clientData;
+
+	/**
+	 * Schaltfl‰che "Kundentypeigenschaften bearbeiten"
+	 */
 	private JButton editClientDataButton;
 
 	/**
@@ -121,6 +136,10 @@ public final class ModelElementSourceDialog extends ModelElementBaseDialog {
 		}
 	}
 
+	/**
+	 * Ruft den Dialog zum Bearbeiten der Kundentypeigenschaften auf.
+	 * @see #editClientDataButton
+	 */
 	private void editClientData() {
 		final String name=(oldName.isEmpty())?getElementName():oldName;
 		if (name.isEmpty()) {

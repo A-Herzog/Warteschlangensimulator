@@ -51,6 +51,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 
 	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
+	/** Zu bearbeitendes Modell */
 	private final EditModel model; /* Entweder model oder record sind null. */
 	/** Zu bearbeitender Zuweisungsdatensatz */
 	private final ModelElementSetRecord record; /* Entweder model oder record sind null. */
@@ -61,10 +62,15 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 	/** Hilfe-Callback */
 	private final Runnable helpRunnable;
 
+	/** Liste mit den Namen der Variablen (aus dem Modell oder aus dem Zuweisungsdatensatz) */
 	private final List<String> variables;
+	/** Zuordnung von Variablennamen zu ihren initialen Werten (aus dem Modell) */
 	private final Map<String,String> initialVariableValues;
+	/** Liste mit den Ausdrücken für die Variablen (aus dem Modell oder aus dem Zuweisungsdatensatz) */
 	private final List<String> expressions;
+	/** Zuordnung von Stations-IDs zu Stationsbeschreibungen */
 	private final Map<Integer,String> stationIDs;
+	/** Zuordnung von Stations-IDs zu Stationsnamen */
 	private final Map<Integer,String> stationNameIDs;
 
 	/**
@@ -91,6 +97,14 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		expressions=new ArrayList<>(Arrays.asList(record.getExpressions()));
 		updateTable();
 	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param table	Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben)
+	 * @param model	Editor-Modell
+	 * @param readOnly	Nur-Lese-Status
+	 * @param helpRunnable	Hilfe-Callback
+	 */
 
 	private VariablesTableModel(final JTableExt table, final EditModel model, final boolean readOnly, final Runnable helpRunnable) {
 		super();
@@ -128,6 +142,11 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		return 2;
 	}
 
+	/**
+	 * Liefert eine Beschreibung (zur Anzeige) eines Rechenausdrucks
+	 * @param expression	Rechenausdruck
+	 * @return	Anzeigbare Fassung der Rechenausdrucks
+	 */
 	private String expressionDisplayName(final String expression) {
 		if (expression.equals(ModelElementSetRecord.SPECIAL_WAITING)) return Language.tr("Surface.Set.Table.Special.WaitingTime");
 		if (expression.equals(ModelElementSetRecord.SPECIAL_TRANSFER)) return Language.tr("Surface.Set.Table.Special.TransferTime");
@@ -206,6 +225,9 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		return !readOnly;
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche
+	 */
 	private class AddButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -227,11 +249,20 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten- und Verschieben-Schaltflächen
+	 */
 	private class EditButtonListener implements ActionListener {
+		/** Spaltennummer (0: Bearbeiten, 1: Nach oben verschieben, 2: Nach unten verschieben) */
 		private final int col;
 		/** Zeilennummer */
 		private final int row;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param col	Spaltennummer (0: Bearbeiten, 1: Nach oben verschieben, 2: Nach unten verschieben)
+		 * @param row	Zeilennummer
+		 */
 		public EditButtonListener(final int col, final int row) {
 			this.col=col;
 			this.row=row;
@@ -332,6 +363,12 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		}
 	}
 
+	/**
+	 * Liefert eine Liste aller Variablennamen
+	 * @param includeOwnVariables	Namen aus diesem Objekt hinzufügen?
+	 * @param addToList	Optionale weitere Variablennamen (kann <code>null</code> sein)
+	 * @return	Gesamtliste der Variablennmane
+	 */
 	private String[] getVariableNames(final boolean includeOwnVariables, String[] addToList) {
 		if (element==null || element.getModel()==null) return new String[0];
 

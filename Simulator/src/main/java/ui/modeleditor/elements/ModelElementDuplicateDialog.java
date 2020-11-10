@@ -39,6 +39,10 @@ public class ModelElementDuplicateDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
+	/**
+	 * Konfigurationbereich für die neuen Kundentypen
+	 * pro Ausgang
+	 */
 	private NewClientTypesPanel newClientTypes;
 
 	/**

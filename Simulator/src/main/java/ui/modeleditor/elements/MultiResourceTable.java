@@ -61,16 +61,42 @@ public class MultiResourceTable extends JPanel {
 	/** Wird aufgerufen (sofern ungleich <code>null</code>), wenn sich die definierten Ressourcen verändern */
 	private final Runnable statusChanged;
 
+	/** Daten der Bedienergruppen zum Bearbeiten im Dialog */
 	private final List<Map<String,Integer>> data;
+	/** Datenmodell für {@link #table} */
 	private ResourceTableModel model;
+	/** Zuletzt ausgewählte Bedienalternative */
 	private int lastSelected;
 
+	/**
+	 * Auswahlbox für die Bediener-Bedarfs-Alternativen
+	 */
 	private final JComboBox<String> alternativesList;
+
+	/**
+	 * Schaltfläche "Alternative früher prüfen"
+	 */
 	private final JButton alternativeUp;
+
+	/**
+	 * Schaltfläche "Alternative später prüfen"
+	 */
 	private final JButton alternativeDown;
+
+	/**
+	 * Schaltfläche "Alternative hinzufügen"
+	 */
 	private final JButton alternativeAdd;
+
+	/**
+	 * Schaltfläche "Alternative löschen"
+	 */
 	private final JButton alternativeDelete;
 
+	/**
+	 * Tabelle zur Konfiguration der notwendigen
+	 * Bediener innerhalb der aktuellen Alternative.
+	 */
 	private final JTableExt table;
 
 	/**
@@ -108,6 +134,11 @@ public class MultiResourceTable extends JPanel {
 		updateAlternativesList(0);
 	}
 
+	/**
+	 * Kopiert die Daten aus einer Bediener-Bedarfs-Alternativen-Liste in eine andere
+	 * @param source	Ausgangsliste
+	 * @param dest	Zielliste (wird vor dem Übertragen geleert)
+	 */
 	private void copyData(final List<Map<String,Integer>> source, final List<Map<String,Integer>> dest) {
 		dest.clear();
 		for (Map<String,Integer> map: source) {
@@ -119,6 +150,13 @@ public class MultiResourceTable extends JPanel {
 		if (dest.size()==0) dest.add(process.createNewResourceMap());
 	}
 
+	/**
+	 * Erzeugt eine Schaltfläche
+	 * @param listener	Beim Anklicken auszuführende Aktion
+	 * @param tooltip	Tooltip für die Schaltfläche
+	 * @param icon	Icon für die Schaltfläche (kann <code>null</code> sein)
+	 * @return	Neue Schaltfläche
+	 */
 	private JButton addButton(final ActionListener listener, final String tooltip, final Icon icon) {
 		final JButton button=new JButton("");
 		button.addActionListener(listener);
@@ -127,6 +165,12 @@ public class MultiResourceTable extends JPanel {
 		return button;
 	}
 
+	/**
+	 * Aktualisiert die Listendarstellung der Bediener-Bedarfs-Alternativen.
+	 * @param select	Index des nach der Aktualisierung auszuwählenden Eintrags
+	 * @see #alternativesList
+	 * @see #lastSelected
+	 */
 	private void updateAlternativesList(final int select) {
 		final int count=data.size();
 		final ComboBoxModel<String> model=new ComboBoxModel<String>() {
@@ -146,6 +190,15 @@ public class MultiResourceTable extends JPanel {
 		}
 	}
 
+	/**
+	 * Wird aufgerufen wenn in der Liste der Bediener-Bedarfs-Alternativen
+	 * {@link #alternativesList} ein neuer Eintrag ausgewählt wurde
+	 * und folglich die Tabellendarstellung aktualisiert werden muss.
+	 * @see #alternativesList
+	 * @see #lastSelected
+	 * @see #data
+	 * @see #table
+	 */
 	private void selectAlternative() {
 		if (lastSelected>=0 && model!=null) {
 			model.storeData(data.get(lastSelected));

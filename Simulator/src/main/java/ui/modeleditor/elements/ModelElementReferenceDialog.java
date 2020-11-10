@@ -47,8 +47,11 @@ public class ModelElementReferenceDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -6987289177662484589L;
 
+	/** IDs aller als Ausgangspunkt für Referenzen nutzbaren Stationen */
 	private int[] ids;
+	/** Namen aller als Ausgangspunkt für Referenzen nutzbaren Stationen */
 	private String[] names;
+	/** Auswahlbox zur Festlegung der als Ausgangspunkt für die Referenz zu nutzenden Station */
 	private JComboBox<String> combo;
 
 	/**
@@ -67,10 +70,21 @@ public class ModelElementReferenceDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Liefert den Namen einer Station unter dem sie als Referenz-Ausgangspunkt angeboten werden soll.
+	 * @param element	Station als Referenz-Ausgangspunkt
+	 * @return	Anzuzeigender Name für die Station
+	 * @see #buildList()
+	 */
 	private String getName(final ModelElementBox element) {
 		return String.format(Language.tr("Surface.Reference.Dialog.Name"),element.getTypeName(),element.getName(),element.getId());
 	}
 
+	/**
+	 * Erstellt die Liste aller als Ausgangspunkt für Referenzen nutzbaren Stationen.
+	 * @see #ids
+	 * @see #names
+	 */
 	private void buildList() {
 		/* Daten zusammenstellen */
 		final Map<Integer,String> map=new HashedMap<>();

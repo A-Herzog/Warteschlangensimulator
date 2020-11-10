@@ -47,7 +47,14 @@ public class ModelElementInteractiveRadiobuttonDialog extends ModelElementBaseDi
 	 */
 	private static final long serialVersionUID = -8196275879384809537L;
 
+	/**
+	 * Eingabefeld für den Namen der Variable, die mit dem Radiobutton verknüpft werden soll
+	 */
 	private JTextField editVariable;
+
+	/**
+	 * Eingabefeld für den Wert auf den die Variable beim Wählen des Radiobutton gesetzt werden soll
+	 */
 	private JTextField editValueChecked;
 
 	/**

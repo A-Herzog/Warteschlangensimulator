@@ -90,8 +90,21 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 	 */
 	private double step;
 
+	/**
+	 * Läuft momentan eine Animation?
+	 */
 	private volatile boolean animationRunning=false;
+
+	/**
+	 * Anzuzeigender Variablenwert
+	 * @see #drawSlider(Graphics2D, Rectangle, double)
+	 */
 	private volatile double variableValue=0;
+
+	/**
+	 * Position des Schiebereglers
+	 * @see #drawSlider(Graphics2D, Rectangle, double)
+	 */
 	private volatile double percent=0.33; /* Während Editor Standardwert. Während der Animation wird hier der anzuzeigende Wert hinterlegt. */
 
 	/**
@@ -350,6 +363,12 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 		graphics.fill(rectangle);
 	}
 
+	/**
+	 * Zeichnet den eigentlichen Schieberegler
+	 * @param graphics	Grafik-Objekt, in das gezeichnet werden soll
+	 * @param rectangle	Größe des Elements
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawSlider(final Graphics2D graphics, final Rectangle rectangle, final double zoom) {
 		final Color saveColor=graphics.getColor();
 		final Stroke saveStroke=graphics.getStroke();
@@ -389,11 +408,37 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 		graphics.setStroke(saveStroke);
 	}
 
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawErrorMessage(Graphics, Rectangle, Rectangle, double)}
+	 * @see #drawErrorMessage(Graphics, Rectangle, Rectangle, double)
+	 */
 	private double infoFontZoom;
+
+	/**
+	 * Schriftart beim letzten Aufruf von {@link #drawErrorMessage(Graphics, Rectangle, Rectangle, double)}
+	 * @see #drawErrorMessage(Graphics, Rectangle, Rectangle, double)
+	 */
 	private Font infoFont;
+
+	/**
+	 * Höhe der Schrift über der Grundlinie beim letzten Aufruf von {@link #drawErrorMessage(Graphics, Rectangle, Rectangle, double)}
+	 * @see #drawErrorMessage(Graphics, Rectangle, Rectangle, double)
+	 */
 	private int infoFontAscent;
+
+	/**
+	 * Gesamthöhe der Schrift beim letzten Aufruf von {@link #drawErrorMessage(Graphics, Rectangle, Rectangle, double)}
+	 * @see #drawErrorMessage(Graphics, Rectangle, Rectangle, double)
+	 */
 	private int infoFontHeight;
 
+	/**
+	 * Gibt wenn nötig eine Fehlermeldung zu dem Element aus.
+	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
+	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param objectRect	Größe des Elements
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawErrorMessage(final Graphics graphics, final Rectangle drawRect, final Rectangle objectRect, final double zoom) {
 		final String error=BackgroundSystem.checkModelElement(this);
 		if (error==null) return;
@@ -598,6 +643,11 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.InteractiveSlider.Description.Range"),"["+NumberTools.formatNumber(minValue)+";"+NumberTools.formatNumber(maxValue)+"] "+Language.tr("ModelDescription.InteractiveSlider.Description.Step")+"="+NumberTools.formatNumber(step),1100);
 	}
 
+	/**
+	 * Wurde der Slider angeklickt? (Und wenn ja an welcher Stelle?)
+	 * @see #clicked
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private volatile Point clicked=null;
 
 	@Override
@@ -610,6 +660,13 @@ public class ModelElementInteractiveSlider extends ModelElementPosition implemen
 		clicked=null;
 	}
 
+	/**
+	 * Löst die in dem Objekt hinterlegten Aktionen aus.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param x	x-Koordinate an der auf den Slider geklickt wurde
+	 * @param y	y-Koordinate an der auf den Slider geklickt wurde
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private void triggerAction(final SimulationData simData, final int x, final int y) {
 		((RunElementInteractiveSlider)simData.runModel.elementsFast[getId()]).clicked(simData,((double)x)/getSize().width);
 	}

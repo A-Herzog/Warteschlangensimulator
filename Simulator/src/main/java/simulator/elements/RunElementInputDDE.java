@@ -40,9 +40,21 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementInputDDE
  */
 public class RunElementInputDDE extends RunElementPassThrough {
+	/**
+	 * Verhalten beim Erreichen des Dateiendes
+	 */
 	private ModelElementInputDDE.EofModes mode;
+
+	/**
+	 * Vorgabewert (Zahl)
+	 */
 	private double defaultValue;
+
+	/**
+	 * Vorgabewert (Text)
+	 */
 	private String defaultText;
+
 	private double[] inputData;
 	private String[] inputStrings;
 	private AssignMode assignMode;

@@ -146,8 +146,25 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 		return Language.tr("Surface.ClientIcon.Name");
 	}
 
+	/**
+	 * Hält den in {@link #getTypeName()} generierten Namen vor.
+	 * Wenn sich die Rahmeneinstellungen nicht verändert haben
+	 * ({@link #lastIconName} und {@link #lastLangName}), so
+	 * wird dieser bei späteren Aufrufen direkt wieder ausgeliefert.
+	 * @see #getTypeName()
+	 */
 	private String lastTypeName;
+
+	/**
+	 * Gewähltes Icon beim letzten Aufruf von {@link #getTypeName()}
+	 * @see #getTypeName()
+	 */
 	private String lastIconName;
+
+	/**
+	 * Sprache beim letzten Aufruf von {@link #getTypeName()}
+	 * @see #getTypeName()
+	 */
 	private String lastLangName;
 
 	/**

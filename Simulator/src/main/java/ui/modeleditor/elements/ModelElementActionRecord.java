@@ -245,7 +245,7 @@ public class ModelElementActionRecord {
 
 	/**
 	 * Gibt an, ob der Datensatz Ursache und Wirkung oder nur Wirkung enthält
-	 * @return	Umfang des Datensatzes
+	 * @return	Ursache des Datensatzes
 	 * @see ModelElementActionRecord.ActionMode
 	 */
 	public ActionMode getActionMode() {
@@ -462,7 +462,7 @@ public class ModelElementActionRecord {
 
 	/**
 	 * Liefert im Fall, dass die Aktion einen Analogwert einstellen soll, die id der Analogwertstation.
-	 * @return	id der Analogwertstation, an der ein Wert eingestellt werden soll
+	 * @return	ID der Analogwertstation, an der ein Wert eingestellt werden soll
 	 * @see ModelElementActionRecord#getActionType()
 	 * @see ModelElementActionRecord#setAnalogID(int)
 	 */
@@ -503,8 +503,8 @@ public class ModelElementActionRecord {
 	}
 
 	/**
-	 * Liefert im Fall, dass bei der Aktion Javascript-Code ausgeführt werden soll, diesen Javascript-Code.
-	 * @return	Als Aktion Auszuführender Javascript-Code
+	 * Liefert im Fall, dass bei der Aktion Javascript- oder Java-Code ausgeführt werden soll, diesen Code.
+	 * @return	Als Aktion Auszuführender Javascript- oder Java-Code
 	 * @see ModelElementActionRecord#getActionType()
 	 * @see ModelElementActionRecord#setScript(String)
 	 */
@@ -513,8 +513,8 @@ public class ModelElementActionRecord {
 	}
 
 	/**
-	 * Stellt im Fall, dass bei der Aktion Javascript-Code ausgeführt werden soll, diesen Javascript-Code ein.
-	 * @param script	Als Aktion Auszuführender Javascript-Code
+	 * Stellt im Fall, dass bei der Aktion Javascript- oder Java-Code ausgeführt werden soll, diesen Code ein.
+	 * @param script	Als Aktion Auszuführender Javascript-oder Java-Code
 	 * @see ModelElementActionRecord#getActionType()
 	 * @see ModelElementActionRecord#getScript()
 	 */

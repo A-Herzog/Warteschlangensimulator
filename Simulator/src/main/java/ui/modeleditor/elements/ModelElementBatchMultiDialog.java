@@ -45,10 +45,15 @@ public class ModelElementBatchMultiDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -3486370612949864100L;
 
+	/** Liste aller Kundentypen im Modell */
 	private List<String> clientTypes;
+	/** Auswahlbox für den aktuell zu bearbeitenden Kundentyp */
 	private JComboBox<String> selectClientType;
+	/**  Konfigurationbereich für den aktuell gewählten Kundentyp */
 	private JPanel main;
+	/** Layout zur Konfiguration von {@link #main} */
 	private CardLayout mainLayout;
+	/** Konfigurationpanel für die Einstellungen zu einem Kundentyp */
 	private List<BatchRecordPanel> batchRecordPanels;
 
 	/**
@@ -114,6 +119,10 @@ public class ModelElementBatchMultiDialog extends ModelElementBaseDialog {
 		return content;
 	}
 
+	/**
+	 * Reagiert auf eine veränderte Auswahl in {@link #selectClientType}
+	 * @see #selectClientType
+	 */
 	private void selectedClientTypeChanged() {
 		final int index=selectClientType.getSelectedIndex();
 		if (index<0) return;

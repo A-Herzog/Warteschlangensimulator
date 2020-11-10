@@ -36,6 +36,9 @@ public class ModelElementBatchDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 491234735571463778L;
 
+	/**
+	 * Panel zur Konfiguration der Batch-Einstellungen
+	 */
 	private BatchRecordPanel batchRecordPanel;
 
 	/**

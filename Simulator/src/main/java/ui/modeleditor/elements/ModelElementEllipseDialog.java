@@ -47,14 +47,19 @@ public class ModelElementEllipseDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -632809253464205676L;
 
+	/** Auswahlbox für die Breite der Linie der Ellipse */
 	private JComboBox<JLabel> lineWidth;
+	/** Auswahl der Farbe der Linie der Ellipse */
 	private SmallColorChooser colorChooserLine;
 	/** Option: Hintergrundfarbe verwenden? */
 	private JCheckBox background;
 	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
+	/** Option: Farbverlauf verwenden */
 	private JCheckBox gradient;
+	/** Auswahl der Farbe für den Farbverlauf */
 	private SmallColorChooser colorChooserGradient;
+	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
 	private JSlider alpha;
 
 	/**

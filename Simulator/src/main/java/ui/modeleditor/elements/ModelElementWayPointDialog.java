@@ -45,8 +45,20 @@ public class ModelElementWayPointDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -8966929906311201419L;
 
+	/**
+	 * Datenmodell für die Iconauswahl in {@link #iconChooser}
+	 */
 	private DefaultComboBoxModel<JLabel> iconChooserList;
+
+	/**
+	 * Auswahlbox für das Icon des Wegpunktes
+	 */
 	private JComboBox<JLabel> iconChooser;
+
+	/**
+	 * Tabelle zur Konfiguration der Start-Ziel-Wegkombiniationen
+	 * auf denen dieser Wegpunkt angesteuert werden soll.
+	 */
 	private WayPointTableModel tableModel;
 
 	/**

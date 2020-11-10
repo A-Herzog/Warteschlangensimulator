@@ -43,11 +43,17 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementBalking
  */
 public class RunElementBalking extends RunElementPassThrough {
+	/** ID der Station in Richtung "Abbruch" */
 	private int connectionBalkingId;
+	/** Station in Richtung "Abbruch" (wird aus {@link #connectionBalkingId} abgeleitet) */
 	private RunElement connectionBalking;
+	/** ID des zu überwachendes / nächstes Element */
 	private int testStationId;
+	/** Zu überwachendes / nächstes Element (wird aus {@link #testStationId} abgeleitet) */
 	private RunElementProcess testStation;
+	/** Zurückschreckwahrscheinlichkeit je Kundentyp (nur gültig, wenn kein Rechenausdruck in {@link #expression} für den Kundentyp gesetzt ist) */
 	private double[] probability;
+	/** Rechenausdruck für die Zurückschreckwahrscheinlichkeit je Kundentyp (kann für einzelne Kundentypen <code>null</code> sein, dann gilt für diese {@link #probability}) */
 	private String[] expression;
 
 	/**
@@ -58,6 +64,11 @@ public class RunElementBalking extends RunElementPassThrough {
 		super(element,buildName(element,Language.tr("Simulation.Element.Balking.Name")));
 	}
 
+	/**
+	 * Findet entlang eines Pfades die nächste Bedienstation.
+	 * @param startEdge	Kante der gefolgt werden soll
+	 * @return	ID der nächsten Bedienstation oder -1, wenn keine Bedienstation gefunden wurde
+	 */
 	private int findNextProcessStation(final ModelElementEdge startEdge) {
 		if (startEdge==null) return -1;
 		ModelElement element=startEdge.getConnectionEnd();

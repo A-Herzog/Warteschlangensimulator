@@ -50,11 +50,24 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	 */
 	private static final long serialVersionUID = 2350842116679968356L;
 
+	/** Editor-Modell */
 	private final EditModel model;
+	/** Panel zur Anzeige des Untermodells */
 	private final ModelSurfacePanel surfacePanel;
+	/** Animator-System für {@link #surfacePanel} */
 	private final ModelSurfaceAnimator surfaceAnimator;
 
+	/**
+	 * Gewählter Delay-Wert
+	 * @see AnimationPanel#getDelayIntern()
+	 */
 	private int delayInt;
+	/**
+	 * Simulationsdatenobjekt
+	 * @see #updateViewer(SimulationData)
+	 * @see #updateViewer(SimulationData, RunDataTransporter)
+	 * @see #updateViewer(SimulationData, RunDataClient, boolean)
+	 */
 	private SimulationData simData;
 
 	/**
@@ -90,6 +103,15 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		return updateViewer(simData,null,false);
 	}
 
+	/**
+	 * Zeitpunkt des letzten Aufrufs von
+	 * {@link #updateViewer(SimulationData)} oder
+	 * {@link #updateViewer(SimulationData, RunDataTransporter)} oder
+	 * {@link #updateViewer(SimulationData, RunDataClient, boolean)}.
+	 * @see #updateViewer(SimulationData)
+	 * @see #updateViewer(SimulationData, RunDataTransporter)
+	 * @see #updateViewer(SimulationData, RunDataClient, boolean)
+	 */
 	private long lastUpdateStep=0;
 
 	@Override

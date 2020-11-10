@@ -40,8 +40,16 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementInputJS
  */
 public class RunElementInputJS extends RunElementPassThrough {
+	/**
+	 * Verhalten beim Erreichen des Dateiendes
+	 */
 	private ModelElementInput.EofModes mode;
+
+	/**
+	 * Vorgabewert (Zahl)
+	 */
 	private double defaultValue;
+
 	private double[] inputData;
 	private String script;
 	private ModelElementInputJS.ScriptMode modeScript;

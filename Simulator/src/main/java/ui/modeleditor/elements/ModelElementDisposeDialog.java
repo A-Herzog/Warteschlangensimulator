@@ -40,6 +40,9 @@ public class ModelElementDisposeDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
+	/**
+	 * Option: Simulation abbrechen, wenn an dieser Station ein Kunde eintrifft?
+	 */
 	private JCheckBox stoppSimulationOnClientArrival;
 
 	/**

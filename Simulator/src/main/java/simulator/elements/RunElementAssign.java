@@ -33,7 +33,14 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementAssign
  */
 public class RunElementAssign extends RunElementPassThrough {
+	/**
+	 * Index des zuzuweisenden Kundentyps
+	 */
 	private int clientType;
+
+	/**
+	 * Icon des zuzuweisenden Kundentyps
+	 */
 	private String clientIcon;
 
 	/**

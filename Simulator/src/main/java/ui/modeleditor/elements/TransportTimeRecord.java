@@ -163,6 +163,12 @@ public final class TransportTimeRecord implements Cloneable {
 		if (!transportTime.nameInUse(newName)) transportTime.renameSubType(oldName,newName);
 	}
 
+	/**
+	 * Fügt die Attribute (Zeitbasis, Art der Zählung der Zeit) zu dem globalen
+	 * XML-Element hinzu
+	 * @param sub	XML-Element
+	 * @see #addPropertiesToXML(Document, Element)
+	 */
 	private void addAttributesToGlobalElement(final Element sub) {
 		sub.setAttribute(Language.trPrimary("Surface.TransportSource.XML.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
 		switch (delayType) {
@@ -190,6 +196,11 @@ public final class TransportTimeRecord implements Cloneable {
 		transportTime.save(doc,node,element->addAttributesToGlobalElement(element));
 	}
 
+	/**
+	 * Lädt die Attribute (Zeitbasis, Art der Zählung der Zeit) aus dem globalen
+	 * XML-Element
+	 * @param node	XML-Element
+	 */
 	private void loadGlobalProperties(final Element node) {
 		final String timeBaseName=Language.trAllAttribute("Surface.TransportSource.XML.TimeBase",node);
 		timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);

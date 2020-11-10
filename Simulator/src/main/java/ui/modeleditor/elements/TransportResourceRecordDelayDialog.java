@@ -44,10 +44,16 @@ public class TransportResourceRecordDelayDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -8918568202461941741L;
 
+	/**
+	 * Verzögerungsdaten
+	 */
 	private final DistributionSystem data;
 
+	/** Option: Verzögerte Freigabe aktiv? */
 	private final JCheckBox active;
+	/** Auswahlbox für die Zeiteinheit in {@link #distributionEditor} */
 	private final JComboBox<String> timeBase;
+	/** Konfiguration der Verzögerungszeit (Verteilung oder Rechenausdruck) */
 	private final DistributionBySubTypeEditor distributionEditor;
 
 	/**

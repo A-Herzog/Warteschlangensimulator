@@ -68,10 +68,15 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 	 */
 	private final String[] variables;
 
+	/** Option: Transport (gemäß dieser Regel) auslösen bei Kundentyp */
 	private final JRadioButton optionClientType;
+	/** Auswahlbox für den Kundentyp im Fall {@link #optionClientType} */
 	private final JComboBox<String> selectClientType;
+	/** Option: Transport (gemäß dieser Regel) bei erfüllter Bedingung auslösen */
 	private final JRadioButton optionExpression;
+	/** Eingabefeld für die Bedignung im Fall {@link #optionExpression} */
 	private final JTextField editExpression;
+	/** Auswahlbox für das Transportziel dieser Regel */
 	private final JComboBox<String> selectDestination;
 
 	/**

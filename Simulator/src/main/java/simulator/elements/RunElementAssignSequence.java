@@ -33,7 +33,14 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementAssignSequence
  */
 public class RunElementAssignSequence extends RunElementPassThrough {
+	/**
+	 * Name des zuzuweisenden Fertigunsplans
+	 */
 	private String sequenceName;
+
+	/**
+	 * Index des zuzuweisenden Fertigunsplans
+	 */
 	private int sequenceIndex;
 
 	/**

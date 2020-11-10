@@ -38,6 +38,9 @@ public class ModelElementSetJSDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 1150440090216789623L;
 
+	/**
+	 * Eingabebereich für das Skript
+	 */
 	private ScriptEditorPanel editor;
 
 	/**

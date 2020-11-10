@@ -52,7 +52,9 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 
 	/** Zugehörige Tabelle (um diese anweisen zu können, sich neu aufzubauen, wenn die Daten verändert wurden) */
 	private final JTableExt table;
+	/** Temporäre Arbeitskopie der Ventil-Einstellungen */
 	private final List<ModelElementTankValveSetup.ValveSetup> valveSetups;
+	/** Original Ventil-Einstellungen (wird in {@link #storeData()} aktualisiert) */
 	private final List<ModelElementTankValveSetup.ValveSetup> valveSetupsOriginal;
 	/** Haupt-Zeichenfläche (für den Expression-Builder) */
 	private final ModelSurface mainSurface;
@@ -132,6 +134,11 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 		return result;
 	}
 
+	/**
+	 * Liefert eine Beschreibung für eine Ventil-Einstellung.
+	 * @param valveSetup	Ventil-Einstellung
+	 * @return	Beschreibung der Ventil-Einstellung
+	 */
 	private String getValveSetupText(final ModelElementTankValveSetup.ValveSetup valveSetup) {
 		final StringBuilder sb=new StringBuilder();
 		final ModelElement element=mainSurface.getById(valveSetup.tankId);
@@ -148,7 +155,7 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==valveSetups.size()) {
-			if (columnIndex==1) return makeButtonPanel(new String[]{Language.tr("Surface.TankValveSetup.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener(ActionIndex.ACTION_ADD)});
+			if (columnIndex==1) return makeButtonPanel(new String[]{Language.tr("Surface.TankValveSetup.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
 			return "";
 		}
 
@@ -190,19 +197,48 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 		valveSetupsOriginal.addAll(valveSetups);
 	}
 
-	private enum ActionIndex {ACTION_ADD, ACTION_EDIT, ACTION_DELETE, ACTION_MOVE_UP, ACTION_MOVE_DOWN}
+	/**
+	 * Auszuführende Aktion
+	 * @see TableButtonListener
+	 */
+	private enum ActionIndex {
+		/** Eintrag hinzufügen */
+		ACTION_ADD,
+		/** Eintrag bearbeiten */
+		ACTION_EDIT,
+		/** Eintrag löschen */
+		ACTION_DELETE,
+		/** Eintrag in der Liste nach oben verschieben */
+		ACTION_MOVE_UP,
+		/** Eintrag in der Liste nach unten verschieben */
+		ACTION_MOVE_DOWN
+	}
 
+	/**
+	 * Reagiert auf Klicks auf die Schaltflächen in den Tabellenzellen
+	 */
 	private class TableButtonListener implements ActionListener {
+		/** Zeile */
 		final int row;
+		/** Auszuführende Aktion */
 		final ActionIndex actionIndex;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param actionIndex	Auszuführende Aktion
+		 */
 		public TableButtonListener(final int row, final ActionIndex actionIndex) {
 			this.row=row;
 			this.actionIndex=actionIndex;
 		}
 
-		public TableButtonListener(final ActionIndex actionIndex) {
-			this(0,actionIndex);
+		/**
+		 * Konstruktor der Klasse<br>
+		 * Modus: Hinzufügen
+		 */
+		public TableButtonListener() {
+			this(0,ActionIndex.ACTION_ADD);
 		}
 
 		@Override

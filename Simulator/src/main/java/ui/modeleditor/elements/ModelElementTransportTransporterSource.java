@@ -63,9 +63,14 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 	 */
 	public static final String DEFAULT_CLIENT_PRIORITY="w";
 
+	/**
+	 * Einlaufende Kanten
+	 */
 	private List<ModelElementEdge> connections;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 */
 	private List<Integer> connectionIds=null;
 
 	/**

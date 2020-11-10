@@ -309,8 +309,22 @@ public class ModelElementRectangle extends ModelElementDecoration {
 		}
 	}
 
+	/**
+	 * Objekt für eine Farbverlaufsfüllung
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private GradientFill gradientFill=null;
+
+	/**
+	 * Bereich für die Farbverlaufsfüllung
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Rectangle gradientFillRectangle=null;
+
+	/**
+	 * Objekt zur Berechnung einer teiltransparenten Farbe
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private TransparentColor alphaColor=null;
 
 	/**

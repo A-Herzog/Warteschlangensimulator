@@ -50,9 +50,13 @@ public class ModelElementSetStatisticsModeDialog extends ModelElementBaseDialog 
 	 */
 	private static final long serialVersionUID = 3485729583844072517L;
 
+	/** Option: Statistikerfassung einschalten */
 	private JRadioButton optionModeOn;
+	/** Option: Statistikerfassung ausschalten */
 	private JRadioButton optionModeOff;
+	/** Option: Statistikerfassung gemäß Bedingung {@link #editCondition} ein- oder ausschalten */
 	private JRadioButton optionModeCondition;
+	/** Eingabefeld für die Bedingung zum Ein- oder Aussschalten der Statistik im Fall {@link #optionModeCondition} */
 	private JTextField editCondition;
 
 	/**

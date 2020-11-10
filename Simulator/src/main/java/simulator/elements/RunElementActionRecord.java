@@ -35,6 +35,7 @@ import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementActionRecord;
+import ui.modeleditor.elements.ModelElementActionRecord.ActionType;
 import ui.modeleditor.elements.ModelElementActionRecord.ConditionType;
 import ui.modeleditor.elements.ModelElementActionRecord.ThresholdDirection;
 import ui.modeleditor.elements.ModelElementAnalogValue;
@@ -55,35 +56,65 @@ public class RunElementActionRecord {
 	/** Zugehöriges Editor-Element */
 	private final ModelElementActionRecord editRecord;
 
+	/** Ursache des Datensatzes */
 	private ModelElementActionRecord.ActionMode actionMode;
 
+	/** Art der Bedingung, die die Aktion auslösen soll */
 	private ModelElementActionRecord.ConditionType conditionType;
+	/** Art der Aktion */
 	private ModelElementActionRecord.ActionType actionType;
 
+	/* Auslöser */
+
+	/** Bedingung, die, wenn sie erfüllt ist, die Aktion auslöst (im Modus {@link ConditionType#CONDITION_CONDITION}) */
 	private String condition;
+	/** Rechenobjekt zur Bedinung {@link #condition} */
 	private ExpressionMultiEval conditionObj;
+	/**  Minimaler Zeitabstand zwischen zwei Bedingungsprüfungen in MS (im Modus {@link ConditionType#CONDITION_CONDITION}) */
 	private long conditionMinDistance;
+	/** Schwellenwertausdruck, dessen Über- oder Unterschreitung die Aktion auslösen soll (im Modus {@link ConditionType#CONDITION_THRESHOLD}) */
 	private String thresholdExpression;
+	/** Rechenobjekt zu dem Schwellenwert {@link #thresholdExpression} */
 	private ExpressionCalc thresholdExpressionObj;
+	/** Schwellenwert, dessen Über- oder Unterschreitung die Aktion auslösen soll (im Modus {@link ConditionType#CONDITION_THRESHOLD}) */
 	private double thresholdValue;
+	/** Angabe, ob die Aktion beim Über- oder Unterschreiten des Schwellenwertes ausgelöst werden soll (im Modus {@link ConditionType#CONDITION_THRESHOLD}) */
 	private ThresholdDirection thresholdDirection;
+	/** Signal das die Aktion auslösen soll (im Modus {@link ConditionType#CONDITION_SIGNAL}) */
 	private String conditionSignalName;
 
+	/* Auszuführende Aktion */
+
+	/** Index der Variable an die eine Zuweisung von {@link #assignExpressionObj} erfolgen soll (im Modus {@link ActionType#ACTION_ASSIGN}) */
 	private int assignVariableIndex;
+	/** Ausdruck für die Variablenzuweisung (im Modus {@link ActionType#ACTION_ASSIGN}) */
 	private String assignExpression;
+	/** Rechenausdruck für {@link #assignExpression} */
 	private ExpressionCalc assignExpressionObj;
+	/** Name des auszulösenden Signals (im Modus {@link ActionType#ACTION_SIGNAL}) */
 	private String signalName;
+	/** ID der Analogwertstation, an der ein Wert eingestellt werden soll (im Modus {@link ActionType#ACTION_ANALOG_VALUE}) */
 	private int analogID;
+	/** Datenelement der Analogwert-Station {@link #analogID} */
 	private RunElementAnalogProcessingData analogData;
+	/** Analogwert der eingestellt werden soll (im Modus {@link ActionType#ACTION_ANALOG_VALUE}) */
 	private String analogValue;
+	/** Rechenobjekt für {@link #analogValue} */
 	private ExpressionCalc analogValueObj;
+	/** Als Aktion Auszuführender Javascript- oder Java-Code (im Modus {@link ActionType#ACTION_SCRIPT}) */
 	private String script;
+	/** Liefert die gewählte Sprache für das Skript in {@link #script} (im Modus {@link ActionType#ACTION_SCRIPT}) */
 	private ModelElementActionRecord.ScriptMode scriptMode;
+	/** Ausführungssystem für Javascript-Code aus {@link #script} */
 	private JSRunSimulationData jsRunner;
+	/** Ausführungssystem für Javas-Code aus {@link #script} */
 	private DynamicRunner javaRunner;
 
+	/** Zeitpunkt der letzten Auslösung des Ereignisses über die Bedingung im Modus ConditionType#CONDITION_CONDITION */
 	private long lastConditionTrigger;
+	/** Zeitpunkt der Prüfung des Schwellenwertes im Modus {@link ConditionType#CONDITION_THRESHOLD} */
 	private long lastThresholdCheckTime;
+	/** Wert des Schwellenwertausdrucks bei der letzten Prüfung ({@link #lastThresholdCheckTime}) */
 	private double lastThresholdCheckValue;
 
 	/**
@@ -296,6 +327,13 @@ public class RunElementActionRecord {
 		}
 	}
 
+	/**
+	 * Prüft, ob sich die Simulationsdaten so verändert haben, dass die Bedingung des Action-Datensatzes erfüllt ist.<br>
+	 * Modus: Prüfung einer Bedingung
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Gibt <code>true</code> zurück, wenn die Bedingung für die Auslösung der Aktion erfüllt ist
+	 * @see #checkTrigger(SimulationData, String)
+	 */
 	private boolean checkTriggerCondition(final SimulationData simData) {
 		/* Mindestabstand */
 		if (lastConditionTrigger>=0 && lastConditionTrigger<=simData.currentTime) {
@@ -314,6 +352,14 @@ public class RunElementActionRecord {
 		return true;
 	}
 
+	/**
+	 * Prüft, ob sich die Simulationsdaten so verändert haben, dass die Bedingung des Action-Datensatzes erfüllt ist.<br>
+	 * Modus: Prüfung eines Schwellenwertes
+	 * @param simData	Simulationsdatenobjekt
+	 * @param stationLogName	Name der Station, an der die Prüfung stattfindet
+	 * @return	Gibt <code>true</code> zurück, wenn die Bedingung für die Auslösung der Aktion erfüllt ist
+	 * @see #checkTrigger(SimulationData, String)
+	 */
 	private boolean checkTriggerThreshold(final SimulationData simData, final String stationLogName) {
 		double newValue=0;
 		try {

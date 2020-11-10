@@ -51,6 +51,9 @@ import ui.modeleditor.fastpaint.Shapes;
  *
  */
 public class ModelElementTeleportSource extends ModelElementBox implements ModelDataRenameListener, ModelElementEdgeMultiIn, ModelElementAnimationForceMove {
+	/**
+	 * Einlaufende Kanten
+	 */
 	private List<ModelElementEdge> connections;
 
 	/**
@@ -60,7 +63,9 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 	 */
 	private String destination;
 
-	/* Wird nur beim Laden und Clonen verwendet. */
+	/**
+	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
+	 */
 	private List<Integer> connectionIds=null;
 
 	/**

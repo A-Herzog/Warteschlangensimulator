@@ -45,6 +45,10 @@ public class ModelElementSectionEndDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 7399579014904281396L;
 
+	/**
+	 * Auswahlbox für die zu diesem Bereichs-Ende
+	 * gehörenden Bereichs-Start.
+	 */
 	private JComboBox<String> sectionStart;
 
 	/**
@@ -63,6 +67,10 @@ public class ModelElementSectionEndDialog extends ModelElementBaseDialog {
 		pack();
 	}
 
+	/**
+	 * Liefert eine Liste der Namen der Bereichs-Start-Station.
+	 * @return	Liste der Namen der Bereichs-Start-Station
+	 */
 	private String[] getSectionStartStations() {
 		final List<String> list=new ArrayList<>();
 

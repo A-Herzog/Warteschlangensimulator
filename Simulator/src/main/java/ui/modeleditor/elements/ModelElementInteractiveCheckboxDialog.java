@@ -47,8 +47,19 @@ public class ModelElementInteractiveCheckboxDialog extends ModelElementBaseDialo
 	 */
 	private static final long serialVersionUID = 5160508922050000799L;
 
+	/**
+	 * Eingabefeld für den Namen der Variable, die mit der Checkbox verknüpft werden soll
+	 */
 	private JTextField editVariable;
+
+	/**
+	 * Eingabefeld für den Wert auf den die Variable beim Wählen der Checkbox gesetzt werden soll
+	 */
 	private JTextField editValueChecked;
+
+	/**
+	 * Eingabefeld für den Wert auf den die Variable beim Abwählen der Checkbox gesetzt werden soll
+	 */
 	private JTextField editValueUnchecked;
 
 	/**

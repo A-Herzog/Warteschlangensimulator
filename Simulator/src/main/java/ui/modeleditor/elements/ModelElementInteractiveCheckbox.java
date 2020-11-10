@@ -77,7 +77,14 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 	 */
 	private double valueUnchecked;
 
+	/**
+	 * Läuft momentan eine Animation?
+	 */
 	private volatile boolean animationRunning=false;
+
+	/**
+	 * Wurde die Checkbox ausgewählt?
+	 */
 	private volatile boolean boxChecked=false;
 
 	/**
@@ -206,11 +213,37 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 		return element;
 	}
 
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawErrorMessage(Graphics, Rectangle, Rectangle, double)}
+	 * @see #drawErrorMessage(Graphics, Rectangle, Rectangle, double)
+	 */
 	private double infoFontZoom;
+
+	/**
+	 * Schriftart beim letzten Aufruf von {@link #drawErrorMessage(Graphics, Rectangle, Rectangle, double)}
+	 * @see #drawErrorMessage(Graphics, Rectangle, Rectangle, double)
+	 */
 	private Font infoFont;
+
+	/**
+	 * Höhe der Schrift über der Grundlinie beim letzten Aufruf von {@link #drawErrorMessage(Graphics, Rectangle, Rectangle, double)}
+	 * @see #drawErrorMessage(Graphics, Rectangle, Rectangle, double)
+	 */
 	private int infoFontAscent;
+
+	/**
+	 * Gesamthöhe der Schrift beim letzten Aufruf von {@link #drawErrorMessage(Graphics, Rectangle, Rectangle, double)}
+	 * @see #drawErrorMessage(Graphics, Rectangle, Rectangle, double)
+	 */
 	private int infoFontHeight;
 
+	/**
+	 * Gibt wenn nötig eine Fehlermeldung zu dem Element aus.
+	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
+	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param objectRect	Größe des Elements
+	 * @param zoom	Zoomfaktor
+	 */
 	private void drawErrorMessage(final Graphics graphics, final Rectangle drawRect, final Rectangle objectRect, final double zoom) {
 		final String error=BackgroundSystem.checkModelElement(this);
 		if (error==null) return;
@@ -243,8 +276,22 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 		graphics.setClip(clipShape);
 	}
 
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private double lastZoomFont=-1;
+
+	/**
+	 * Schriftart beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Font lastFont;
+
+	/**
+	 * Zeichenstil für das Häkchen
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
 	private Stroke checkLine=new BasicStroke(2);
 
 	/**
@@ -412,6 +459,11 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.InteractiveCheckbox.Description.Values"),NumberTools.formatNumber(valueChecked)+" / "+NumberTools.formatNumber(valueUnchecked)+"]",1100);
 	}
 
+	/**
+	 * Wurde die Schaltfläche angeklickt?
+	 * @see #clicked
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private volatile boolean clicked=false;
 
 	@Override
@@ -424,6 +476,11 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 		clicked=false;
 	}
 
+	/**
+	 * Löst die in dem Objekt hinterlegten Aktionen aus.
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private void triggerAction(final SimulationData simData) {
 		((RunElementInteractiveCheckbox)simData.runModel.elementsFast[getId()]).clicked(simData);
 	}
@@ -452,6 +509,11 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 		if (variable==null || variable.trim().isEmpty()) return new String[0]; else return new String[]{variable.trim()};
 	}
 
+	/**
+	 * Liefert die Javascript-Daten für die Station zur Ausgabe des Modells als HTML-Datei
+	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @return	Javascript-Daten für die Station
+	 */
 	private String getHTMCheckbox(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 

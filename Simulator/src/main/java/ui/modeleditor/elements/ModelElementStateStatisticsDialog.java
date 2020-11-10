@@ -43,6 +43,9 @@ public class ModelElementStateStatisticsDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 4627379159238637068L;
 
+	/**
+	 * Eingabefeld für den Gruppenname des Zählers
+	 */
 	private JTextField groupName;
 
 	/**

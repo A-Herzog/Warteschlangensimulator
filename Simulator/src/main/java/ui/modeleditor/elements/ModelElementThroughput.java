@@ -271,12 +271,49 @@ public class ModelElementThroughput extends ModelElementMultiInSingleOutBox {
 		return true;
 	}
 
+	/**
+	 * Cache der verfügbaren {@link StringBuilder}
+	 * für {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private StringBuilder[] animationSB;
+
+	/**
+	 * Temporärer {@link StringBuilder} zum
+	 * Umwandeln von Zahlen in Zeichenketten
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private StringBuilder animationSBCache;
+
+	/**
+	 * Nächster in {@link #animationSB} zu verwendender Eintrag
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private int animationSBNext;
+
+
+	/**
+	 * Letzter in {@link #updateSimulationData(SimulationData, boolean)}
+	 * dargestellter Wert
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private double lastValue=0;
+
+	/**
+	 * Zeichenkettenrepräsentation von {@link #lastValue}
+	 * die ggf. wiederverwendet werden kann.
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
 	private String valueName;
-	private String unitSecond, unitMinute, unitHour, unitDay;
+
+	/** Wert " (1/Sekunde)" (um diesen nicht immer wieder neu erstellen zu müssen) */
+	private String unitSecond;
+	/** Wert " (1/Minute)" (um diesen nicht immer wieder neu erstellen zu müssen) */
+	private String unitMinute;
+	/** Wert " (1/Stunde)" (um diesen nicht immer wieder neu erstellen zu müssen) */
+	private String unitHour;
+	/** Wert " (1/Tag)" (um diesen nicht immer wieder neu erstellen zu müssen) */
+	private String unitDay;
 
 	@Override
 	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {

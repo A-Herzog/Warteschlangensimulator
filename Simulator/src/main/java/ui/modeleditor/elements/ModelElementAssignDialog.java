@@ -42,9 +42,22 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = 491234735571463778L;
 
+	/**
+	 * Name der Station beim Aufrufen des Dialogs<br>
+	 * (um ggf. beim Schlieﬂen des Dialogs das Modell zu benachrichtigen, dass sich der Signalname ver‰ndert hat)
+	 */
 	private final String oldName;
-	/** Kundendatenelement aus dem Modell (zum Auslesen von Icons und ggf. um Kundentypen umzubenennen) */
+
+	/**
+	 * Kundendatenelement aus dem Modell (zum Auslesen von Icons und ggf. um Kundentypen umzubenennen)
+	 */
 	private final ModelClientData clientData;
+
+	/**
+	 * Schaltfl‰che "Kundentypeigenschaften bearbeiten"
+	 * @see #initUserButtons()
+	 * @see #editClientDataButton
+	 */
 	private JButton editClientDataButton;
 
 	/**
@@ -104,6 +117,11 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 		}
 	}
 
+	/**
+	 * ÷ffnet den Kundentypeigenschaften-Dialog.
+	 * @see #editClientDataButton
+	 * @see ModelPropertiesDialog#editClientData(Component, Runnable, simulator.editmodel.EditModel, String, boolean)
+	 */
 	private void editClientData() {
 		final String name=(oldName.isEmpty())?getElementName():oldName;
 		if (name.isEmpty()) {

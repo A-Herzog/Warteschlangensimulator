@@ -43,9 +43,13 @@ import ui.modeleditor.elements.ModelElementTank;
  * @see ModelElementAnalogAssign
  */
 public class RunElementAnalogAssign extends RunElementPassThrough {
+	/** IDs der Stationen an denen Änderungen vorgenommen werden sollen */
 	private int[] changeID;
+	/** Stationsobjekte an denen Änderungen vorgenommen werden sollen (wird aus {@link #changeID} abgeleitet) */
 	private RunElementAnalogProcessing[] changeElement;
+	/** In {@link #changeElement} Werte (<code>false</code>) oder Raten (<code>true</code>) ändern */
 	private boolean[] changeRate;
+	/** Auszuwertende und zuzuweisende Ausdrücke */
 	private String[] changeExpression;
 
 	/**
