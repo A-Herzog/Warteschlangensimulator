@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-05 21:44+0100\n"
+"POT-Creation-Date: 2020-11-11 12:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6174,8 +6174,11 @@ msgstr "nicht verfügbar (JRE)"
 msgid "InfoDialog.JavaCompiler.Yes"
 msgstr "verfügbar (JDK)"
 
+msgid "InfoDialog.JavaPath"
+msgstr "Java-Pfad"
+
 msgid "InfoDialog.JavaVersion"
-msgstr "Java Version"
+msgstr "Java-Version"
 
 msgid "InfoDialog.MemoryAvailable"
 msgstr "Verfügbarer Speicher (für Anwendung)"
@@ -13578,8 +13581,8 @@ msgstr "Fehler in Zeile %d"
 msgid "Simulation.Java.Error.LoadError"
 msgstr "Fehler beim Laden er kompilierten Klasse"
 
-msgid "Simulation.Java.Error.NoCompiler"
-msgstr "Der Java-Kompiler \"javac\" konnte nicht gefunden werden."
+msgid "Simulation.Java.Error.NoCompiler.Internal"
+msgstr "Es steht kein Java-Komiler zur Verfügung."
 
 msgid "Simulation.Java.Error.NoInputFileOrData"
 msgstr "Es wurde keine zu verwendende Eingabedatei bzw. kein Eingabetext angegeben."
@@ -27264,6 +27267,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Simulation.Creator.NoLicense"
 #~ msgstr "Diese Programmversion ist nicht lizensiert. Die Simulation kann nicht gestartet werden."
+
+#~ msgid "Simulation.Java.Error.NoCompiler"
+#~ msgstr "Der Java-Kompiler \"javac\" konnte nicht gefunden werden."
 
 #~ msgid "Statistics.InterLeavingTimes"
 #~ msgstr "Zwischenabgangszeiten"

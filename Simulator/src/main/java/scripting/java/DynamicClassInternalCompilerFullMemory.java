@@ -55,6 +55,8 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 		if (className==null) return DynamicStatus.COMPILE_ERROR;
 
 		/* Kompiler finden */
+		if (!DynamicFactory.hasCompiler()) return DynamicStatus.NO_COMPILER;
+
 		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
 		if (compiler==null) return DynamicStatus.NO_COMPILER;
 

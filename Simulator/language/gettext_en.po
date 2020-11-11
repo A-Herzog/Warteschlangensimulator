@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-05 21:44+0100\n"
+"POT-Creation-Date: 2020-11-11 12:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6184,6 +6184,9 @@ msgstr "not available (JRE)"
 
 msgid "InfoDialog.JavaCompiler.Yes"
 msgstr "available (JDK)"
+
+msgid "InfoDialog.JavaPath"
+msgstr "Java path"
 
 msgid "InfoDialog.JavaVersion"
 msgstr "Java version"
@@ -13579,8 +13582,8 @@ msgstr "Error in line %d"
 msgid "Simulation.Java.Error.LoadError"
 msgstr "Error on loading the compiled class"
 
-msgid "Simulation.Java.Error.NoCompiler"
-msgstr "The Java compiler \"javac\" could not be found."
+msgid "Simulation.Java.Error.NoCompiler.Internal"
+msgstr "No Java compiler is available."
 
 msgid "Simulation.Java.Error.NoInputFileOrData"
 msgstr "No input file or input data was specified."
@@ -27234,6 +27237,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Simulation.Creator.NoLicense"
 #~ msgstr "This program version is not licensed. The simulation cannot be started."
+
+#~ msgid "Simulation.Java.Error.NoCompiler"
+#~ msgstr "The Java compiler \"javac\" could not be found."
 
 #~ msgid "Statistics.InterLeavingTimes"
 #~ msgstr "Inter-leaving times"

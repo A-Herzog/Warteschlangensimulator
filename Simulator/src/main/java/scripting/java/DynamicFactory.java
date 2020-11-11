@@ -103,6 +103,8 @@ public final class DynamicFactory {
 	 * @return	{@link DynamicRunner}-Objekt welches das geladene Skript oder eine Fehlermeldung enthält.
 	 */
 	public DynamicRunner load(final String script) {
+		if (!hasCompiler()) return new DynamicRunner(script,DynamicStatus.NO_COMPILER,null);
+
 		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script);
 		final DynamicStatus status=dynamicMethod.load();
 		if (status!=DynamicStatus.OK) return new DynamicRunner(script,status,dynamicMethod.getError());
@@ -118,7 +120,7 @@ public final class DynamicFactory {
 		switch (status) {
 		case COMPILE_ERROR: return Language.tr("Simulation.Java.Error.CompileError");
 		case LOAD_ERROR: return Language.tr("Simulation.Java.Error.LoadError");
-		case NO_COMPILER: return Language.tr("Simulation.Java.Error.NoCompiler");
+		case NO_COMPILER: return Language.tr("Simulation.Java.Error.NoCompiler.Internal");
 		case NO_INPUT_FILE_OR_DATA: return Language.tr("Simulation.Java.Error.NoInputFileOrData");
 		case NO_TEMP_FOLDER: return Language.tr("Simulation.Java.Error.NoTempFolder");
 		case OK: return Language.tr("Simulation.Java.Error.Ok");
@@ -163,5 +165,28 @@ public final class DynamicFactory {
 	 */
 	public static boolean isInMemoryProcessing() {
 		return getFactory().setup.getCompileMode().inMemoryProcessing;
+	}
+
+	/**
+	 * Gibt an, ob ein Java-Compiler verfügbar ist.
+	 * @return	Java-Compiler verfügbar?
+	 */
+	public static boolean hasCompiler() {
+		try {
+			Class.forName("javax.tools.ToolProvider");
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+
+		/*
+		try {
+			final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
+			return compiler!=null;
+		} catch (NoClassDefFoundError e) {
+			return false;
+		}
+		 */
+
+		return true;
 	}
 }

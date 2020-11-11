@@ -56,6 +56,8 @@ public class DynamicClassInternalCompilerHalfMemory extends DynamicClassFileBase
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst ein Objekt vom Typ {@link DynamicStatus} oder einen String, der dann eine zusätzliche Fehlermeldung zum Typ {@link DynamicStatus#COMPILE_ERROR} liefert.
 	 */
 	private Object compileFullyInternal(final String javaClassName, final String javaText, final File outputFolder) {
+		if (!DynamicFactory.hasCompiler()) return DynamicStatus.NO_COMPILER;
+
 		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
 		if (compiler==null) return DynamicStatus.NO_COMPILER;
 

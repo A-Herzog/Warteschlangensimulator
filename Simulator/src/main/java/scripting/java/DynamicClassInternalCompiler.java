@@ -39,6 +39,8 @@ public class DynamicClassInternalCompiler extends DynamicClassFileBased {
 
 	@Override
 	protected Object compile(final File javaFile, final String classPath, final File outputFolder) {
+		if (!DynamicFactory.hasCompiler()) return DynamicStatus.NO_COMPILER;
+
 		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
 		if (compiler==null) return DynamicStatus.NO_COMPILER;
 

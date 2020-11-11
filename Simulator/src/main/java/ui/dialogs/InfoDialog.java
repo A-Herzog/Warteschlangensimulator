@@ -58,11 +58,10 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.tools.JavaCompiler;
-import javax.tools.ToolProvider;
 
 import language.Language;
 import mathtools.NumberTools;
+import scripting.java.DynamicFactory;
 import scripting.js.JSEngineNames;
 import systemtools.GUITools;
 import systemtools.MsgBox;
@@ -130,12 +129,11 @@ public class InfoDialog extends JDialog {
 
 		/* Java-Version */
 		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")");
+		list.add(Language.tr("InfoDialog.JavaPath")+": "+System.getProperty("java.home"));
 		list.add(Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No")));
 
 		/* Java-Kompiler verfügbar? */
-		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
-		final String compilerName=System.getProperty("jvmci.Compiler");
-		list.add(Language.tr("InfoDialog.JavaCompiler")+": "+((compiler==null)?Language.tr("InfoDialog.JavaCompiler.No"):Language.tr("InfoDialog.JavaCompiler.Yes"))+((compilerName!=null)?(", "+compilerName):""));
+		list.add(Language.tr("InfoDialog.JavaCompiler")+": "+(DynamicFactory.hasCompiler()?Language.tr("InfoDialog.JavaCompiler.Yes"):Language.tr("InfoDialog.JavaCompiler.No")));
 
 		/* JS-Engines */
 		list.add(Language.tr("InfoDialog.JSEngine")+": "+String.join(", ",JSEngineNames.available().stream().map(e->e.name).toArray(String[]::new)));
