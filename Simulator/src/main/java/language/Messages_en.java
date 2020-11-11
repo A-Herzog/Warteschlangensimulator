@@ -2702,6 +2702,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6963] = "Client sources are the starting point of the client's movement through the system. A multi source allows to define independent inter-arrival times for clients of different types at one station.";
     t[6968] = "FontFamily.Dialog";
     t[6969] = "Java default font";
+    t[6970] = "Surface.Process.Dialog.Tab.Operators.Alternative.CountInfo";
+    t[6971] = "There are %d service alternatives.";
     t[6972] = "ParameterCompare.Settings.VarianceAnalysis.ErrorTitle";
     t[6973] = "Invalid number of repetitions";
     t[6976] = "Surface.DDE.Select.Button.Title";
@@ -4014,14 +4016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10307] = "The simulation did not return statistics data.";
     t[10308] = "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow.Tooltip";
     t[10309] = "Transfers this model in a new window to the model editor.";
-    t[10314] = "Simulation.Log.DecideBySequence.Info";
-    t[10315] = "Client: %s, station: %s, branching to output %d of %d";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[10314] = "Simulation.Log.DecideBySequence.Info";
+    t[10315] = "Client: %s, station: %s, branching to output %d of %d";
     t[10320] = "Surface.ExpressionTableModel.Dialog.MaximalValue.Error.Info";
     t[10321] = "The entered maximum value \"%s\" is invalid.";
     t[10326] = "Surface.CounterMulti.XML.Root";
@@ -6020,14 +6022,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15695] = "Create simple model";
     t[15698] = "Surface.XML.Resource.CostsPerProcessHour";
     t[15699] = "CostsPerWorkingHour";
-    t[15718] = "Surface.SourceDB.Infotext";
-    t[15719] = "Client sources are the starting point of the client's movement through the system. Database sources allow to load the concrete client arrival times from an external database.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[15718] = "Surface.SourceDB.Infotext";
+    t[15719] = "Client sources are the starting point of the client's movement through the system. Database sources allow to load the concrete client arrival times from an external database.";
     t[15724] = "ModelLoadData.EditDialog.Workbook.SelectDDE";
     t[15725] = "Select DDE source";
     t[15728] = "Main.Menu.Extras";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20819] = "For resource \"%s\" the specified down time expression \"%s\" is invalid at character %d.";
     t[20842] = "Surface.InputDDE.Dialog.Variable";
     t[20843] = "Variable";
-    t[20852] = "ExpressionBuilder.SimulationCharacteristics.MinimalTime";
-    t[20853] = "Minimal time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20852] = "ExpressionBuilder.SimulationCharacteristics.MinimalTime";
+    t[20853] = "Minimal time";
     t[20856] = "Surface.AnimationPieChart.Infotext";
     t[20857] = "Displays multiple values as a pie chart during animation.";
     t[20858] = "Simulation.Element.TankValveSetup.Name";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25989] = "Inverse gaussian distribution";
     t[26002] = "Editor.DialogBase.OpenModelResources.Info";
     t[26003] = "Do you want to close this dialog by \"Ok\" and\nopen the model-wide resources list?";
-    t[26008] = "Color.FFEBCD";
-    t[26009] = "Blanched almond";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[26008] = "Color.FFEBCD";
+    t[26009] = "Blanched almond";
     t[26014] = "Window.Layers.Rename.ErrorInfo";
     t[26015] = "The specified new name for the layer is already in use by another layer.";
     t[26016] = "Dialog.Overwrite.Yes.Info";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31267] = "Section to be left";
     t[31270] = "FileType.LaTeX";
     t[31271] = "LaTeX files";
-    t[31280] = "ExpressionBuilder.Rounding.ceil.Info";
-    t[31281] = "<p>Rounds the value passed as parameter to the next integer (in upper direction).</p><p>Example: <tt>ceil(1.1)</tt> returns 2.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31280] = "ExpressionBuilder.Rounding.ceil.Info";
+    t[31281] = "<p>Rounds the value passed as parameter to the next integer (in upper direction).</p><p>Example: <tt>ceil(1.1)</tt> returns 2.</p>";
     t[31290] = "Statistics.Filter.ScriptInitError";
     t[31291] = "The script could not be prepared for execution.";
     t[31292] = "ScriptPopup.Simulation";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36477] = "Delete layer.";
     t[36478] = "ModelSecurityCheck.ScriptViewer";
     t[36479] = "Script viewer";
-    t[36480] = "Simulation.Element.TransportTransporterSource.Name";
-    t[36481] = "Transporter start";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36480] = "Simulation.Element.TransportTransporterSource.Name";
+    t[36481] = "Transporter start";
     t[36488] = "ParameterCompare.Settings.Output.List.Delete.Confirm.YesInfo";
     t[36489] = "Remove the selected output value from list.";
     t[36490] = "SimulationServer.Toolbar.WebStart";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41821] = "Balking by condition";
     t[41834] = "Surface.Decide.Dialog.DecideBy";
     t[41835] = "Decide by";
-    t[41836] = "Statistics.MinimumResidenceTime";
-    t[41837] = "Minimum residence time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41836] = "Statistics.MinimumResidenceTime";
+    t[41837] = "Minimum residence time";
     t[41840] = "Optimizer.Tab.Optimization.Step.Result.Unzoom.Hint";
     t[41841] = "Sets the zoom factor so that the entire chart is visible.";
     t[41846] = "Surface.PopupMenu.ParameterCompare.ChangeBatchSize.Short";

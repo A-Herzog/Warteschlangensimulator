@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 12:02+0100\n"
+"POT-Creation-Date: 2020-11-11 20:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22726,6 +22726,9 @@ msgstr "Alternative"
 
 msgid "Surface.Process.Dialog.Tab.Operators.Alternative.Add"
 msgstr "Fügt eine neue alternative Bedienerbelegung hinzu."
+
+msgid "Surface.Process.Dialog.Tab.Operators.Alternative.CountInfo"
+msgstr "Es existieren insgesamt %d Bedienalternativen."
 
 msgid "Surface.Process.Dialog.Tab.Operators.Alternative.Delete"
 msgstr "Löscht die aktuelle Bedienerbelegung."

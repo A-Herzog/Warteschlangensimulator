@@ -23,10 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Box;
 import javax.swing.ComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListDataListener;
@@ -94,6 +96,11 @@ public class MultiResourceTable extends JPanel {
 	private final JButton alternativeDelete;
 
 	/**
+	 * Info zur Anzeige der Anzahl an verfügbaren Bedien-Alternativen
+	 */
+	private final JLabel alternativeInfo;
+
+	/**
 	 * Tabelle zur Konfiguration der notwendigen
 	 * Bediener innerhalb der aktuellen Alternative.
 	 */
@@ -128,6 +135,8 @@ public class MultiResourceTable extends JPanel {
 		line.add(alternativeDown=addButton(e->alternativeMoveDown(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Down"),Images.ARROW_DOWN.getIcon()));
 		line.add(alternativeAdd=addButton(e->alternativeAdd(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Add"),Images.MODELPROPERTIES_OPERATORS_ADD.getIcon()));
 		line.add(alternativeDelete=addButton(e->alternativeDelete(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Delete"),Images.MODELPROPERTIES_OPERATORS_DELETE.getIcon()));
+		line.add(Box.createHorizontalStrut(5));
+		line.add(alternativeInfo=new JLabel());
 
 		add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);
 
@@ -221,6 +230,10 @@ public class MultiResourceTable extends JPanel {
 		alternativeDown.setEnabled(!readOnly && lastSelected<alternativesList.getItemCount()-1);
 		alternativeAdd.setEnabled(!readOnly);
 		alternativeDelete.setEnabled(!readOnly && alternativesList.getItemCount()>1);
+
+		alternativeInfo.setVisible(data.size()>1);
+		alternativeInfo.setText(String.format(Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.CountInfo"),data.size()));
+
 		if (statusChanged!=null) statusChanged.run();
 	}
 

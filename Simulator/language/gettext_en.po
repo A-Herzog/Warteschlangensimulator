@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 12:02+0100\n"
+"POT-Creation-Date: 2020-11-11 20:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22718,6 +22718,9 @@ msgstr "Alternative"
 
 msgid "Surface.Process.Dialog.Tab.Operators.Alternative.Add"
 msgstr "Adds a new alternative operator setup."
+
+msgid "Surface.Process.Dialog.Tab.Operators.Alternative.CountInfo"
+msgstr "There are %d service alternatives."
 
 msgid "Surface.Process.Dialog.Tab.Operators.Alternative.Delete"
 msgstr "Deletes the current operator setup."
