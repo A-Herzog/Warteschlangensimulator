@@ -67,6 +67,14 @@ public class RunElementTeleportDestination extends RunElementPassThrough {
 		return RunModelCreatorStatus.ok;
 	}
 
+	/**
+	 * Ändert die Zählung an einer Untermodell-Station.
+	 * @param subId	ID der Untermodell-Station
+	 * @param client	Aktueller Kunde
+	 * @param delta	Veränderung der Zählung
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #fixSubModelCount(int, int, RunDataClient, SimulationData)
+	 */
 	private void countSub(final int subId, final RunDataClient client, final int delta, final SimulationData simData) {
 		if (subId<0) return;
 
@@ -78,6 +86,13 @@ public class RunElementTeleportDestination extends RunElementPassThrough {
 		simData.runData.clientsAtStationByType(simData,sub,null,client,delta);
 	}
 
+	/**
+	 * Wenn Kunde in oder aus Submodell bewegt wurde, muss die Anzahl an Kunden im Submodell angepasst werden.
+	 * @param lastID	Letzte Station des Kunden
+	 * @param nextID	Nächste Station für den Kunden
+	 * @param client	Kundenobjekt
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void fixSubModelCount(final int lastID, final int nextID, final RunDataClient client, final SimulationData simData) {
 		final RunElement lastStation=(lastID>=0)?simData.runModel.elementsFast[lastID]:null;
 		final RunElement nextStation=(nextID>=0)?simData.runModel.elementsFast[nextID]:null;

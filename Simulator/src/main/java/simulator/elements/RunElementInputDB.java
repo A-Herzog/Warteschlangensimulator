@@ -70,10 +70,39 @@ public class RunElementInputDB extends RunElementPassThrough {
 	 */
 	private String defaultText;
 
+	/**
+	 * Geladene Zahlen für die Modi
+	 * {@link AssignMode#VARIABLE} und
+	 * {@link AssignMode#CLIENT_NUMBER}
+	 * @see AssignMode#VARIABLE
+	 * @see AssignMode#CLIENT_NUMBER
+	 */
 	private double[] inputData;
+
+	/**
+	 * Geladene Zeichenkette für den Modus
+	 * {@link AssignMode#CLIENT_TEXT}
+	 * @see AssignMode#CLIENT_TEXT
+	 */
 	private String[] inputStrings;
+
+	/**
+	 * Was soll bei der Zuweisung passieren?
+	 */
 	private AssignMode assignMode;
+
+	/**
+	 * Bei einer Zuweisung an eine Variable
+	 * (Modus {@link AssignMode#VARIABLE})
+	 * wird hier der Index der Variable angegeben.
+	 */
 	private int variableIndex;
+
+	/**
+	 * Bei einer Zuweisung an ein Kundendatentextfeld
+	 * (Modus {@link AssignMode#CLIENT_TEXT})
+	 * wird hier der Schlüssel für die Zuweisung angegeben.
+	 */
 	private String key;
 
 	/**
@@ -138,7 +167,12 @@ public class RunElementInputDB extends RunElementPassThrough {
 		return input;
 	}
 
-	private String loadDatabase(ModelElementInputDB inputElement) {
+	/**
+	 * Lädt die Daten über die Datenbankverbindung
+	 * @param inputElement	Modell-Element dem die Verbindungsdaten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
+	private String loadDatabase(final ModelElementInputDB inputElement) {
 		try (DBConnect connect=new DBConnect(inputElement.getDb(),false)) {
 			if (connect.getInitError()!=null) return Language.tr("Simulation.Creator.DatabaseError")+": "+connect.getInitError();
 
@@ -191,6 +225,12 @@ public class RunElementInputDB extends RunElementPassThrough {
 		return data;
 	}
 
+	/**
+	 * Führt die eigentliche Eingabe-Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Liefert <code>true</code>, wenn die Simulation fortgestzt werden soll, oder <code>false</code> für Simulationsende (wegen Datenende)
+	 */
 	private boolean processInput(final SimulationData simData, final RunDataClient client) {
 		final RunElementInputDBData data=getData(simData);
 

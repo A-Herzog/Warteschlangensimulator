@@ -44,10 +44,15 @@ public class RunElementSourceData extends RunElementData {
 	/** Bedingung zur Kundenfreigabe  (kann <code>null</code> sein) */
 	public final ExpressionMultiEval condition;
 
+	/** Rechenausdruck für den Schwellenwert zur Erzeugung von Ankünften */
 	private final ExpressionCalc threshold;
+	/** Vergleichswert für den Schwellenwert-Ausdruck {@link #threshold} */
 	private final double thresholdValue;
+	/** Soll eine Ankunft beim Über- oder Unterschrreiten des Schwellenwerts ausgelöst werden? */
 	private final boolean thresholdIsDirectionUp;
+	/** Letzter Wert des Schwellenwert-Ausdrucks */
 	private double thresholdLastValue;
+	/** Enthält {@link #thresholdLastValue} einen gültigen Wert (<code>true</code>) oder wurde noch kein Wert aufgezeichnet (<code>false</code>)? */
 	private boolean thresholdIsLastValueAvailable;
 
 	/** Ausdrücke für Zuweisungen von Zahlen-Eigenschaften zu neuen Kunden */

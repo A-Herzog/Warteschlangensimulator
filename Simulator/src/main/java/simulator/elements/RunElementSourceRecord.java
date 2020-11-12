@@ -87,6 +87,7 @@ public class RunElementSourceRecord {
 
 	/** Ankunfts-Batch-Größe oder <code>null</code>, wenn es mehrere verschiedene Batch-Größen geben soll */
 	public String batchSize;
+	/** Kumulative Wahrscheinlichkeiten für die einzelnen Batch-Größen */
 	private double[] batchSizesPSums;
 
 	/** Gesamtanzahl an Ankunftsereignissen (-1 für unendlich viele) */
@@ -94,16 +95,20 @@ public class RunElementSourceRecord {
 	/** Gesamtanzahl an Kundenankünften (-1 für unendlich viele) */
 	public long maxArrivalClientCount;
 
+	/** Zeitpunkt (in Millisekunden) am dem die erste Zwischenankunftszeit beginnt */
 	private long arrivalStartMS;
 
-	/* Zuweisungen (Zahlen) */
+	/** Kundendatenfelder-Indices für die Zuweisung von Werten (Zahlen) an neue Kunden **/
 	private int[] variableIndex;
+	/** Rechenausdrücke deren Ergebnisse an die in {@link #variableIndex} adressierten Kundendatenfelder zugewiesen werden sollen */
 	private String[] expressions;
 
-	/* Zuweisungen (Texte) */
+	/** Kundentextdatenfelder-Schlüssel für die Zuweisungen (Texte) an neue Kunden */
 	private String[] stringKeys;
+	/** Werte die an die in {@link #stringKeys} adressierten Kundentextdatenfelder-Schlüssel zugewiesen werden sollen */
 	private String[] stringValues;
 
+	/** Optionaler, zusätzlicher Index dieses Datensatzes (z.B. für Mehrfachquellen) */
 	private int index;
 
 	/**
@@ -252,6 +257,12 @@ public class RunElementSourceRecord {
 		return RunModelCreatorStatus.ok;
 	}
 
+	/**
+	 * Liefert die ID einer Signal-Station
+	 * @param surface	Zeichenfläche die durchsucht werden soll
+	 * @param name	Name des Signals
+	 * @return	Liefert im Erfolgsfall die ID der Signalstation, sonst -1
+	 */
 	private int getSignalByName(final ModelSurface surface, final String name) {
 		for (ModelElementSignalTrigger element: surface.getAllSignals(false)) {
 			if (element.getSignalNames()!=null) for (String signal: element.getSignalNames()) {
@@ -321,11 +332,28 @@ public class RunElementSourceRecord {
 		return batchSizesPSums.length-1;
 	}
 
+	/**
+	 * Erfasst die Ausführung eines Ereignisses.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param event	Name des Ereignisses
+	 * @param info	Zusätzliche Daten zu dem Ereignis
+	 * @param element	Station an dem das Ereignis aufgetreten ist
+	 */
 	private void log(final SimulationData simData, final String event, final String info, final RunElement element) {
 		if (simData.loggingIDs!=null && !simData.loggingIDs[element.id]) return;
 		if (!simData.logInfoStation) return;
 		simData.logEventExecution(element.logTextColor,event,element.id,info);
 	}
+
+	/**
+	 * Plant die Zeit-gesteuerte nächste Kundenankunft (bzw. Batch-Ankunft) ein
+	 * @param simData	Simulationsdatenobjekt
+	 * @param rawTimeDelta	Zeitabstand direkt basierend auf Basis der Verteilung
+	 * @param isFirstArrival	Gibt an, ob es sich um die erste Ankunft durch dieses Element handelt
+	 * @param element	Referenz auf das Source- oder SourceMulti-Element
+	 * @param stationName	Name der Station
+	 * @return	Gibt die Anzahl an erzeugten Kundenankünften zurück
+	 */
 
 	private int scheduleNextArrivalTime(final SimulationData simData, final double rawTimeDelta, final boolean isFirstArrival, final RunElement element, final String stationName) {
 		/* Zwischenankunftszeit */
@@ -356,6 +384,13 @@ public class RunElementSourceRecord {
 		return 1;
 	}
 
+	/**
+	 * Plant die Zeitplan-gesteuerte nächste Kundenankunft (bzw. Batch-Ankunft) ein
+	 * @param simData	Simulationsdatenobjekt
+	 * @param element	Referenz auf das Source- oder SourceMulti-Element
+	 * @param stationName	Name der Station
+	 * @return	Gibt die Anzahl an erzeugten Kundenankünften zurück
+	 */
 	private int scheduleArrivalBySchedule(final SimulationData simData, final RunElement element, final String stationName) {
 		/* Nach Abbruch ist wirklich Schluss */
 		if (simData.runData.stopp) return 0;
@@ -412,6 +447,17 @@ public class RunElementSourceRecord {
 		return arrivalCount;
 	}
 
+	/**
+	 * Plant die Bedingungs-gesteuerte nächste Kundenankunft (bzw. Batch-Ankunft) ein
+	 * @param simData	Simulationsdatenobjekt
+	 * @param element	Referenz auf das Source- oder SourceMulti-Element
+	 * @param condition	Zu prüfende Bedingung (nur wenn diese erfüllt ist, wird eine Ankunft eingeplant)
+	 * @param lastArrival	Letzter Ankunftszeitpunkt (kann -1 sein, wenn noch keine Ankünfte vorhanden sind)
+	 * @param stationName	Name der Station
+	 * @param arrivalCount	Anzahl an bislang erzeugten Ankünften (um ggf. bei einer eingestellten Maximalanzahl keine weiteren Ankünfte mehr zu generieren)
+	 * @param arrivalClientCount	Anzahl an bislang erzeugten Kunden  (um ggf. bei einer eingestellten Maximalanzahl keine weiteren Ankünfte mehr zu generieren)
+	 * @return	Gibt die Anzahl an erzeugten Kundenankünften zurück
+	 */
 	private int scheduleArrivalByCondition(final SimulationData simData, final RunElement element, final ExpressionMultiEval condition, final long lastArrival, final String stationName, final long arrivalCount, final long arrivalClientCount) {
 		/* Nach Abbruch ist wirklich Schluss */
 		if (simData.runData.stopp) return 0;
@@ -594,9 +640,27 @@ public class RunElementSourceRecord {
 	 * @see RunElementSourceRecord#getRuntimeExpressions(String[])
 	 */
 	public static class SourceSetExpressions {
-		private enum SetMode {MODE_EXPRESSION, MODE_WAITING_TIME, MODE_TRANSFER_TIME, MODE_PROCESS_TIME, MODE_RESIDENCE_TIME}
+		/**
+		 * Art der Datenquelle für die Zuweisung
+		 */
+		private enum SetMode {
+			/** Rechenausdruck auswerten und zuweisen */
+			MODE_EXPRESSION,
+			/** Bisherige Wartezeit zuweisen */
+			MODE_WAITING_TIME,
+			/** Bisherige Transferzeit zuweisen */
+			MODE_TRANSFER_TIME,
+			/** Bisherige Bedienzeit zuweisen */
+			MODE_PROCESS_TIME,
+			/** Bisherige Verweilzeit zuweisen */
+			MODE_RESIDENCE_TIME
+		}
+
+		/** Index des Ziel-Kundendatenfeldes für die Zuweisung  */
 		private int[] variableIndex;
+		/** Auszuwertendes Ausdruck für die Quelldaten im Modus {@link SetMode#MODE_EXPRESSION} */
 		private ExpressionCalc[] expressions;
+		/** Art der Datenquelle für die Zuweisung */
 		private SetMode[] mode;
 
 		/**

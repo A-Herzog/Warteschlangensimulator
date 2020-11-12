@@ -56,8 +56,20 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 	 */
 	private long[] valveTimes;
 
+	/**
+	 * Sichert parallele Zugriffe auf {@link #outgoing}
+	 * und {@link #incoming} ab.
+	 */
 	private final Semaphore lock;
+
+	/**
+	 * Auslaufende Flüsse
+	 */
 	private final List<RunElementTankFlow> outgoing;
+
+	/**
+	 * Einlaufende Flüsse
+	 */
 	private final List<RunElementTankFlow> incoming;
 
 	/**
@@ -189,6 +201,11 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 		}
 	}
 
+	/**
+	 * Entfernt einen ausgehenden Fluss aus der Liste der ausgehenden Flüsse {@link #outgoing}.
+	 * @param flow	Zu entfernender Fluss
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void removeOutgoingFlowNotify(final RunElementTankFlow flow, final SimulationData simData) {
 		lock.acquireUninterruptibly();
 		try {
@@ -198,6 +215,11 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 		}
 	}
 
+	/**
+	 * Entfernt einen eingehenden Fluss aus der Liste der eingehenden Flüsse {@link #outgoing}.
+	 * @param flow	Zu entfernender Fluss
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void removeIncomingFlowNotify(final RunElementTankFlow flow, final SimulationData simData) {
 		lock.acquireUninterruptibly();
 		try {
@@ -207,6 +229,11 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 		}
 	}
 
+	/**
+	 * Beendet einen einlaufenden Fluss.
+	 * @param index	Index des Flusses in {@link #incoming}
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void endIncomingFlow(final int index, final SimulationData simData) {
 		/* Aus eigener Liste austragen */
 		final RunElementTankFlow flow=incoming.remove(index);
@@ -218,6 +245,11 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 		if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.Tank"),String.format(Language.tr("Simulation.Log.Tank.StopInfo"),flow.logInfo(),station.name));
 	}
 
+	/**
+	 * Beendet einen auslaufenden Fluss.
+	 * @param index	Index des Flusses in {@link #incoming}
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void endOutgoingFlow(final int index, final SimulationData simData) {
 		/* Aus eigener Liste austragen */
 		final RunElementTankFlow flow=outgoing.remove(index);

@@ -43,9 +43,12 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementSourceMulti
  */
 public class RunElementSourceMulti extends RunElement implements StateChangeListener, SignalListener, RunSource {
+	/** ID der Folgestation */
 	private int connectionId;
+	/** Folgestation (Übersetzung aus {@link #connectionId}) */
 	private RunElement connection;
 
+	/** Kundenquelle-Datensätze */
 	private RunElementSourceRecord[] records;
 
 	/**
@@ -162,6 +165,14 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		for (int i=0;i<records.length;i++) scheduleNextArrival(simData,true,i);
 	}
 
+	/**
+	 * Dieser Wert wird in {@link #processArrivalEvent(SimulationData, boolean, int)}
+	 * einmalig berechnet und hier gespeichert. Es gibt an, nach wie vielen Ankünften
+	 * die Simulation abgebrochen wird (weil es offenbar einen Fehler gegeben haben
+	 * muss, der ein reguläres Ende verhindert). Es handelt sich um den 1000-fachen
+	 * Wert der eigentlich für den Thread geplanten Anzahl an Ankünften.
+	 * @see #processArrivalEvent(SimulationData, boolean, int)
+	 */
 	private long systemMaxArrival=-1;
 
 	/**

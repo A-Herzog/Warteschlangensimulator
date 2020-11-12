@@ -38,24 +38,42 @@ import simulator.simparser.ExpressionCalc;
  * @see RunElementData
  */
 public class RunElementProcessData extends RunElementData {
-	private static final int DEFAULT_QUEUE_SIZE=256;
+	/**
+	 * Anfängliche Größe für die Listen zur Speicherung
+	 * der wartenden Kunden
+	 * @see #waitingClients
+	 * @see #waitingCancelEvents
+	 */
+	private static final int INITIAL_QUEUE_SIZE=256;
 
 	/** Liste mit den momentan an der Station wartenden Kunden */
 	public final List<RunDataClient> waitingClients;
 
+	/** Liste der Warteabbruch-Ereignisse (um diese ggf. unbearbeitet löschen zu können) */
 	private final List<WaitingCancelEvent> waitingCancelEvents;
-	private final boolean hasWaitingCancelations; /* Wenn hier false steht, ist waitingCancelEvents==null */
+	/** Liegen begrenzte Wartezeittoleranzen vor? (Wenn hier <code>false</code> steht, ist <code>waitingCancelEvents==null</code>) */
+	private final boolean hasWaitingCancelations;
 
+	/** Rüstzeitverteilungen */
 	private final AbstractRealDistribution[][] distributionSetup;
+	/** Bedienzeitenverteilung */
 	private final AbstractRealDistribution[] distributionProcess;
+	/** Nachbearbeitungszeitenverteilung */
 	private final AbstractRealDistribution[] distributionPostProcess;
+	/** Wartezeittoleranzenverteilung */
 	private final AbstractRealDistribution[] distributionCancel;
+	/** Zu dem Datenobjekt zugehöriges {@link RunElementProcess}-Element */
 	private final RunElementProcess station;
+	/** Minimale Bedien-Batch-Größe */
 	private final int batchMinSize;
 
+	/** Rechenausdrücke für Rüstzeiten */
 	private final ExpressionCalc[][] expressionSetup;
+	/** Rechenausdrücke für Bedienzeiten */
 	private final ExpressionCalc[] expressionProcess;
+	/** Rechenausdrücke für Nachbearbeitungszeiten */
 	private final ExpressionCalc[] expressionPostProcess;
+	/** Rechenausdrücke für Wartezeittoleranzen */
 	private final ExpressionCalc[] expressionCancel;
 
 	/** Rechenausdruck für die Ressourcenpriorität der Bedienstation (ist nie <code>null</code>) */
@@ -108,11 +126,17 @@ public class RunElementProcessData extends RunElementData {
 	 */
 	public final boolean hasCosts;
 
+	/**
+	 * Kundentyp des Kunden dessen Bedienung
+	 * zuletzt gestartet wurde (um ggf. Rüstzeiten
+	 * bestimmen zu können).
+	 * @see #getSetupTime(SimulationData, RunDataClient)
+	 */
 	private int lastClientIndex=-1;
 
 	/**
-	 * Konstruktor der Klasse <code>RunElementProcessData</code>
-	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementProcess</code>-Element
+	 * Konstruktor der Klasse {@link RunElementProcessData}
+	 * @param station	Zu dem Datenobjekt zugehöriges {@link RunElementProcess}-Element
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 * @param costs	Kosten pro Bedienvorgang (kann <code>null</code> sein)
 	 * @param costsPerProcessSecond	Kosten pro Bediensekunde (kann <code>null</code> sein)
@@ -122,7 +146,7 @@ public class RunElementProcessData extends RunElementData {
 		super(station);
 		allFirstComeFirstServe=true;
 		queueLockedForPickUp=false;
-		waitingClients=new ArrayList<>(DEFAULT_QUEUE_SIZE);
+		waitingClients=new ArrayList<>(INITIAL_QUEUE_SIZE);
 		/* Wird unten initialisiert (nur wenn es überhaupt Abbrüche geben kann): waitingCancelEvents=new ArrayList<>(DEFAULT_QUEUE_SIZE); */
 
 		this.station=station;
@@ -174,7 +198,7 @@ public class RunElementProcessData extends RunElementData {
 		for (AbstractRealDistribution dist: distributionCancel) if (dist!=null) {b=true; break;}
 		if (!b) for (ExpressionCalc expression: expressionCancel) if (expression!=null) {b=true; break;}
 		hasWaitingCancelations=b;
-		if (hasWaitingCancelations) waitingCancelEvents=new ArrayList<>(DEFAULT_QUEUE_SIZE); else waitingCancelEvents=null;
+		if (hasWaitingCancelations) waitingCancelEvents=new ArrayList<>(INITIAL_QUEUE_SIZE); else waitingCancelEvents=null;
 
 		if (costs==null || costs.trim().isEmpty()) {
 			this.costs=null;

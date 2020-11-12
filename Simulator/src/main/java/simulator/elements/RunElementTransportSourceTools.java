@@ -31,6 +31,11 @@ import ui.modeleditor.elements.ModelElementTransportDestination;
  * @see RunElementTransportSource
  */
 public class RunElementTransportSourceTools {
+	/**
+	 * Konstruktor der Klasse<br>
+	 * Diese Klasse kann nicht instanziert werden.
+	 * Sie stellt nur statische Hilfsroutinen zur Verfügung.
+	 */
 	private RunElementTransportSourceTools() {
 	}
 

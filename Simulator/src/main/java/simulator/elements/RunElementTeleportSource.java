@@ -34,8 +34,11 @@ import ui.modeleditor.elements.ModelElementTeleportSource;
  * @see ModelElementTeleportSource
  */
 public class RunElementTeleportSource extends RunElement {
+	/** Name der Teleport-Zielstation */
 	private String destinationString;
+	/** ID der Teleport-Zielstation */
 	private int destinationID;
+	/** Teleport-Zielstation (übersetzt aus {@link #destinationID}) */
 	private RunElement destination;
 
 	/**

@@ -34,6 +34,7 @@ import ui.modeleditor.elements.ModelElementThroughput;
  * @see ModelElementThroughput
  */
 public class RunElementThroughput extends RunElementPassThrough {
+	/** Name des Zählers  (für die Statistikerfassung) */
 	private String throughputCounterName;
 
 	/**

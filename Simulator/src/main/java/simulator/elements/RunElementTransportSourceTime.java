@@ -40,12 +40,21 @@ import ui.modeleditor.elements.TransportTimeRecord.DelayType;
  * @see RunElementTransportSource
  */
 public class RunElementTransportSourceTime {
+	/**
+	 * Multiplikationsfaktor für {@link #distribution} oder {@link #expression}
+	 */
 	private double timeBaseMultiply;
+
+	/**
+	 * Verteilungen zur Bestimmung der Transportzeiten.<br>
+	 * Ist auf jeden Fall nicht <code>null</code>, kann aber <code>null</code>-Einträge besitzen.
+	 */
 	private AbstractRealDistribution[] distribution;
 
 	/**
 	 * Liste mit den Ausdrücken zur Bestimmung der Transportzeiten.<br>
-	 * Ist auf jeden Fall nicht <code>null</code>, kann aber <code>null</code>-Einträge besitzen
+	 * Ist auf jeden Fall nicht <code>null</code>, kann aber <code>null</code>-Einträge besitzen.<br>
+	 * Wird nur verwendet, wenn der korrespondierende {@link #distribution}-Eintrag <code>null</code> ist.
 	 */
 	public String[] expression;
 
@@ -55,6 +64,9 @@ public class RunElementTransportSourceTime {
 	 */
 	public TransportTimeRecord.DelayType delayType;
 
+	/**
+	 * Zu dem Transport gehörendes Editor-Transport-Start-Element (zum Auslesen der ID für mögliche Fehlermeldungen)
+	 */
 	private final ModelElement element;
 
 	/**

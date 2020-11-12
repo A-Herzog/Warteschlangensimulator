@@ -37,8 +37,11 @@ public class RunElementInteractiveSlider extends RunElement {
 	/** Index der Variable, auf die der Slider wirkt, in der Liste aller Variablen {@link RunModel#variableNames} */
 	public int variableIndex;
 
+	/** Minimalwert */
 	private double minValue;
+	/** Maximalwert */
 	private double maxValue;
+	/** Schrittweite */
 	private double step;
 
 	/**

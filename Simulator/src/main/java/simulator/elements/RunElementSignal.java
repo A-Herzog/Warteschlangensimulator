@@ -33,6 +33,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementSignal
  */
 public class RunElementSignal extends RunElementPassThrough {
+	/** Name des auszulösenden Signals */
 	private String signalName;
 
 	/**

@@ -20,13 +20,12 @@ import simulator.coreelements.RunElementData;
 import simulator.runmodel.SimulationData;
 
 /**
- * Laufzeitdaten eines <code>RunElementSectionEnd</code>-Laufzeit-Objekts
+ * Laufzeitdaten eines {@link RunElementSectionEnd}-Laufzeit-Objekts
  * @author Alexander Herzog
  * @see RunElementSectionEnd
  * @see RunElementData
  */
 public class RunElementSectionEndData extends RunElementData {
-
 	/**
 	 * Konstruktor der Klasse <code>RunElementSectionEndData</code>
 	 * @param station	Station zu diesem Datenelement

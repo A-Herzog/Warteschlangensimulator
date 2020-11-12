@@ -34,6 +34,9 @@ import ui.modeleditor.elements.SimDataBuilder;
  * @see RunElementTankFlowBySignal
  */
 public class RunElementTankFlow {
+	/**
+	 * Zeitdauer nach der der Fluss gestoppt werden soll
+	 */
 	private final double stopTime;
 
 	/**
@@ -88,7 +91,16 @@ public class RunElementTankFlow {
 	 */
 	public final RunElementTank destination;
 
+	/**
+	 * Datenobjekt des Quelltanks
+	 * @see #source
+	 */
 	private RunElementTankData sourceData;
+
+	/**
+	 * Datenobjekt des Zieltanks
+	 * @see #destination
+	 */
 	private RunElementTankData destinationData;
 
 	/**
@@ -160,12 +172,25 @@ public class RunElementTankFlow {
 		flowDone=false;
 	}
 
+	/**
+	 * Handelt es sich bei einer Station um einen Tank?
+	 * @param id	ID der zu prüfenden Station
+	 * @param model	Editor-Modell
+	 * @return	Liefert <code>true</code>, wenn sich die ID auf einen Tank bezieht
+	 */
 	private boolean isTank(final int id, final EditModel model) {
 		final ModelElement element=model.surface.getByIdIncludingSubModels(id);
 		if (element==null) return false;
 		return (element instanceof ModelElementTank);
 	}
 
+	/**
+	 * Handelt es sich bei der angegebenen Ventil-Nummer um eine gültige Angabe?
+	 * @param id	ID des Tanks
+	 * @param nr	Nummer des Ventils an dem Tank
+	 * @param model	Editor-Modell
+	 * @return	Liefert <code>true</code>, wenn der angegebene Tank existiert und es an ihm das angegebene Ventil gibt
+	 */
 	private boolean isValidValveNr(final int id, final int nr, final EditModel model) {
 		final ModelElement element=model.surface.getByIdIncludingSubModels(id);
 		if (element==null) return false;
@@ -231,6 +256,13 @@ public class RunElementTankFlow {
 		return sb.toString();
 	}
 
+	/**
+	 * Führt einen Teil eines konkreten Flusses aus.
+	 * @param addQuantity	Zu verlagernde Menge
+	 * @param newTime	Aktueller Zeitpunkt
+	 * @return	Gibt die Menge an, die verlagert werden konnte.
+	 * @see #processFlow(SimulationData)
+	 */
 	private double addFlowQuanity(final double addQuantity, final long newTime) {
 		final double partQuantity;
 		switch (stopCondition) {
@@ -260,6 +292,12 @@ public class RunElementTankFlow {
 		return partQuantity;
 	}
 
+	/**
+	 * Wie viel Zeit ist bis (z.B. zum geplanten Endes des Flusses) wirklich verstrichen?
+	 * @param newTime	Aktuelle Zeit
+	 * @return	Vergangene Zeit
+	 * @see #processFlow(SimulationData)
+	 */
 	private long realTimeDelta(final long newTime) {
 		if (newTime==lastTime) return 0;
 		if (stopCondition==ModelElementTankFlowData.FlowStopCondition.STOP_BY_TIME && flowStartTime+stopTimeMS<newTime) return (flowStartTime+stopTimeMS)-lastTime;

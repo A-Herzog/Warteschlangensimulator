@@ -46,16 +46,25 @@ import ui.modeleditor.elements.TransportResourceRecord;
  * @see ModelElementTransportSource
  */
 public class RunElementTransportSource extends RunElement implements FreeResourcesListener {
+	/** Laufzeitdaten für die Transportzeiten */
 	private final RunElementTransportSourceTime transportTime;
+	/** Laufzeitdaten für die Transportziele */
 	private final RunElementTransportSourceTargets transportTargets;
 
+	/** Array mit den Ressourcenbedarfszuordnungen  */
 	private int[] resources;
+	/** Ausdruck zur Berechnung der Priorität für die Ressourcenzuweisung */
 	private String resourcePriority;
+	/** Optionale transportziel-abhängige Verteilungen zur Verzögerungen bei der Ressourcenfreigabe */
 	private AbstractRealDistribution[] releaseDelayDistributions;
+	/** Optionale transportziel-abhängige Rechenausdrücke für die Verzögerungen bei der Ressourcenfreigabe */
 	private String[] releaseDelayExpressions;
+	/** Umrechnungsfaktoren auf Sekunden für {@link #releaseDelayDistributions} und {@link #releaseDelayExpressions} */
 	private double releaseDelayTimeBaseMultiply;
 
+	/** "Bereich betreten"-Station des Bereichs, der bei diesem Transport implizit verlassen werden soll (optional; Übersetzung aus {@link #sectionID}) */
 	private RunElementSectionStart section;
+	/** ID der "Bereich betreten"-Station des Bereichs, der bei diesem Transport implizit verlassen werden soll (optional) */
 	private int sectionID;
 
 	/**
@@ -139,6 +148,12 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 		return source;
 	}
 
+	/**
+	 * Liefert basierend auf einer ID den Namen einer Station.
+	 * @param id	ID der Station
+	 * @param surface	Zeichenfläche
+	 * @return	Liefert im Erfolgsfall den Namen, sonst <code>null</code>
+	 */
 	private String getStationNameById(final int id, ModelSurface surface) {
 		if (surface.getParentSurface()!=null) surface=surface.getParentSurface();
 
@@ -171,6 +186,13 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 		return data;
 	}
 
+	/**
+	 * Liefert die Zeit, die nach dem Transport vergehen soll, bis die Ressourcen
+	 * weider freigegeben werden sollen.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param targetID	ID der Zielstation zu der der Transport erfolgt ist
+	 * @return	Verzögerungszeit vor der Freigabe der Ressourcen
+	 */
 	private double getReleaseDelay(final SimulationData simData, final int targetID) {
 		if (releaseDelayDistributions!=null && releaseDelayDistributions[targetID]!=null) {
 			return DistributionRandomNumber.randomNonNegative(releaseDelayDistributions[targetID])*releaseDelayTimeBaseMultiply;
@@ -189,6 +211,13 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 		return 0.0;
 	}
 
+	/**
+	 * Befördert einen Kunden zur Zielstation
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Zu befördernder Kunde
+	 * @param waitingTime	Wartezeit die vor dem Transport für den Kunden entstanden ist
+	 * @param additionalTransportTime	Optionale zusätzliche Rüstzeit
+	 */
 	private void transportClient(SimulationData simData, RunDataClient client, final long waitingTime, final double additionalTransportTime) {
 		final RunElementTransportSourceData data=getData(simData);
 

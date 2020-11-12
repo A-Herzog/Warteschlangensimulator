@@ -53,6 +53,12 @@ public class RunElementDecideByScriptData extends RunElementData {
 	 */
 	private final DynamicRunner javaRunner;
 
+	/**
+	 * Ausgabeobjekt das die Java-Ausgaben aufnimmt.
+	 * (In der Javascript-Variante erfolgen Rückgaben direkt,
+	 * so dass kein solches Objekt benötigt wird.)
+	 * @see #getNextStationJava(SimulationData, RunDataClient)
+	 */
 	private final StringBuilder output;
 
 	/**
@@ -88,6 +94,14 @@ public class RunElementDecideByScriptData extends RunElementData {
 		}
 	}
 
+	/**
+	 * Ermittelt auf Basis des hinterlegten Skripts welchen Ausgangspfad der aktuelle Kunde wählen soll.<br>
+	 * (Skriptsprache: Javascript)
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde (auf seine Daten kann im Skript zugegriffen werden)
+	 * @return	1-basierende Nummer des zu verwendenden Ausgangspfads
+	 * @see #getNextStation(SimulationData, RunDataClient)
+	 */
 	private int getNextStationJS(final SimulationData simData, final RunDataClient client) {
 		jsRunner.setSimulationData(simData,client);
 		String result=jsRunner.runCompiled();
@@ -113,6 +127,14 @@ public class RunElementDecideByScriptData extends RunElementData {
 		}
 	}
 
+	/**
+	 * Ermittelt auf Basis des hinterlegten Skripts welchen Ausgangspfad der aktuelle Kunde wählen soll.<br>
+	 * (Skriptsprache: Java)
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde (auf seine Daten kann im Skript zugegriffen werden)
+	 * @return	1-basierende Nummer des zu verwendenden Ausgangspfads
+	 * @see #getNextStation(SimulationData, RunDataClient)
+	 */
 	private int getNextStationJava(final SimulationData simData, final RunDataClient client) {
 		javaRunner.parameter.client.setClient(client);
 		javaRunner.run();

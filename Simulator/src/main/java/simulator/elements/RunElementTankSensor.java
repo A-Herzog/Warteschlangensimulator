@@ -30,16 +30,22 @@ import ui.modeleditor.elements.ModelElementTankSensor;
 import ui.modeleditor.elements.ModelElementTankSensor.ThresholdDirection;
 
 /**
- * Äquivalent zu <code>ModelElementTankSensor</code>
+ * Äquivalent zu {@link ModelElementTankSensor}
  * @author Alexander Herzog
  * @see ModelElementTankSensor
  */
 public class RunElementTankSensor extends RunElement implements StateChangeListener {
+	/** Name des auszulösenden Signals */
 	private String signalName;
+	/** ID des zu überwachenden Tanks */
 	private int tankId;
+	/** Zu überwachender Tank (übersetzt aus {@link #tankId}) */
 	private RunElementTank tank;
+	/** Schwellenwert */
 	private double threshold;
+	/** Handelt es sich bei {@link #threshold} um eine Prozentangabe (<code>true</code>) oder um einen absoluten Füllstand (<code>false</code>)? */
 	private boolean thresholdIsPercent;
+	/** Soll das Signal beim Unter- oder beim Überschreiten des Schwellenwerts ausgelöst werden? */
 	private ThresholdDirection thresholdDirection;
 
 	/**
@@ -119,6 +125,11 @@ public class RunElementTankSensor extends RunElement implements StateChangeListe
 		return data;
 	}
 
+	/**
+	 * Prüft, ob der Schwellenwert über- oder unterschritten wurde.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Liefert <code>true</code>, wenn das Signal ausgelöst werden soll
+	 */
 	private boolean testTrigger(final SimulationData simData) {
 		final RunElementTankSensorData data=getData(simData);
 		final double lastValue=data.lastValue;

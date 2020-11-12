@@ -48,14 +48,17 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementProcess
  */
 public class RunElementProcess extends RunElement implements FreeResourcesListener, PickUpQueue {
+	/** ID der Station an die erfolgreiche Kunden weitergeleitet werden */
 	private int connectionIdSuccess;
+	/** ID der Station an die Warteabbrecher weitergeleitet werden */
 	private int connectionIdCancel;
+	/** Station an die erfolgreiche Kunden weitergeleitet werden (Übersetzung von {@link #connectionIdSuccess}) */
 	private RunElement connectionSuccess;
+	/** Station an die Warteabbrecher weitergeleitet werden (Übersetzung von {@link #connectionIdSuccess}) */
 	private RunElement connectionCancel;
 
 	/** Minimale Batch-Größe */
 	public int batchMinSize;
-
 	/** Maximale Batch-Größe */
 	public int batchMaxSize;
 
@@ -80,6 +83,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	/** Prioritäts-Rechenausdrücke */
 	public String[] priority;
 
+	/** Art der Zählung der Prozesszeiten */
 	private ModelElementProcess.ProcessType processTimeType=ModelElementProcess.ProcessType.PROCESS_TYPE_PROCESS;
 
 	/** Ressourcenpriorität */
@@ -87,8 +91,22 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	/** Ressourcenbedarf pro Ressourcen-Alternative */
 	public int[][] resources;
 
+	/**
+	 * Kosten pro Bedienvorgang
+	 * @see RunElementProcessData#costs
+	 */
 	private String costs;
+
+	/**
+	 * Kosten pro Bediensekunde
+	 * @see RunElementProcessData#costsPerProcessSecond
+	 */
 	private String costsPerProcessSecond;
+
+	/**
+	 * Kosten pro Nachbearbeitungssekunde
+	 * @see RunElementProcessData#costsPerPostProcessSecond
+	 */
 	private String costsPerPostProcessSecond;
 
 	/**
@@ -308,6 +326,13 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSecFactor=1.0/1000.0;
 
+	/**
+	 * Berechnet den Score-Wert eines Kunden
+	 * @param simData	Simulationsdatenobjekt
+	 * @param processData	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 * @return	Score-Wert des Kunden
+	 */
 	private double getClientScore(final SimulationData simData, final RunElementProcessData processData, final RunDataClient client) {
 		final ExpressionCalc calc=processData.priority[client.type];
 		if (calc==null) { /* = Text war "w", siehe RunElementProcessData()  */
@@ -323,6 +348,14 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		}
 	}
 
+	/**
+	 * Erfasst die Kosten für einen Bedienvorgang
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Aktueller Kunde
+	 * @param timeProcess	Angefallene Bedienzeit
+	 * @param timePostProcess	Angefallene Nachbearbeitungszeit
+	 */
 	private void logCosts(final SimulationData simData, final RunElementProcessData data, final RunDataClient client, final double timeProcess, final double timePostProcess) {
 		boolean clientVariablesSet=false;
 
@@ -383,6 +416,14 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (costs!=0.0) simData.runData.logStationCosts(simData,this,costs);
 	}
 
+	/**
+	 * Startet die Bedienung eines einzelnen Kunden.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param resourceAlternative	Gewählte Ressourcen-Alternative (0-basierend)
+	 * @param additionalPrepareTime	Notwendige Rüstzeit (kann 0 sein)
+	 * @see #processArrival(SimulationData, RunDataClient)
+	 */
 	private void startProcessingSingle(final SimulationData simData, final RunElementProcessData data, final int resourceAlternative, final double additionalPrepareTime) {
 		final RunElementProcessData processData=getData(simData);
 
@@ -463,6 +504,14 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		simData.eventManager.addEvent(event);
 	}
 
+	/**
+	 * Startet die Bedienung eines Batches.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param resourceAlternative	Gewählte Ressourcen-Alternative (0-basierend)
+	 * @param additionalPrepareTime	Notwendige Rüstzeit (kann 0 sein)
+	 * @see #processArrival(SimulationData, RunDataClient)
+	 */
 	private void startProcessingBatch(final SimulationData simData, final RunElementProcessData data, final int resourceAlternative, final double additionalPrepareTime) {
 		final RunElementProcessData processData=getData(simData);
 

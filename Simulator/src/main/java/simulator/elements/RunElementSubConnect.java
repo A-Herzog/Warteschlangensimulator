@@ -37,7 +37,9 @@ import ui.modeleditor.elements.ModelElementSubOut;
  * @see ModelElementSubOut
  */
 public class RunElementSubConnect extends RunElement {
+	/** ID der Folgestation */
 	private int connectionId;
+	/** Folgestation (aus {@link #connectionId} übersetzt) */
 	private RunElement connection;
 
 	/**

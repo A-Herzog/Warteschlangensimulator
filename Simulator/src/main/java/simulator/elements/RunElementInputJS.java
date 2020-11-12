@@ -50,8 +50,19 @@ public class RunElementInputJS extends RunElementPassThrough {
 	 */
 	private double defaultValue;
 
+	/**
+	 * Geladene Zahlen
+	 */
 	private double[] inputData;
+
+	/**
+	 * Auszuführendes Skript
+	 */
 	private String script;
+
+	/**
+	 * Skriptsprache für das Skript {@link #script}
+	 */
 	private ModelElementInputJS.ScriptMode modeScript;
 
 	/**
@@ -123,6 +134,12 @@ public class RunElementInputJS extends RunElementPassThrough {
 		return data;
 	}
 
+	/**
+	 * Führt die eigentliche Eingabe-Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Liefert <code>true</code>, wenn die Simulation fortgestzt werden soll, oder <code>false</code> für Simulationsende (wegen Datenende)
+	 */
 	private boolean processInput(final SimulationData simData, final RunDataClient client) {
 		final RunElementInputJSData data=getData(simData);
 

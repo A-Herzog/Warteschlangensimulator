@@ -36,6 +36,7 @@ public class RunElementUserStatisticData extends RunElementData {
 	private final boolean[] isTime;
 	/** Array der Ausdrücke die ausgewertet und in der Nutzerdaten-Statistik erfasst werden sollen */
 	private final ExpressionCalc[] expressions;
+	/** Statistikobjekte für die verschiedenen Bezeichner {@link #keys} (wird von {@link #processClient(SimulationData, RunDataClient)} nach Bedarf gefüllt) */
 	private final StatisticsDataPerformanceIndicator[] indicators;
 
 	/**

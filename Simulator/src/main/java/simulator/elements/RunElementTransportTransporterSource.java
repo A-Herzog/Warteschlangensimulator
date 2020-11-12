@@ -42,17 +42,27 @@ import ui.modeleditor.elements.ModelElementTransportTransporterSource;
  * @see ModelElementTransportTransporterSource
  */
 public class RunElementTransportTransporterSource extends RunElement implements TransporterPosition {
+	/** Laufzeitdaten für die Transportziele */
 	private final RunElementTransportSourceTargets transportTargets;
 
+	/** Index des Transportertyps der diese Station ansteuert */
 	private int transporterIndex;
+	/** Anzahl an Transportern, die hier parken können */
 	private int waitingCapacity;
+	/** Priorität mit der verfügbare Transporter (zum Parken) angezogen werden */
 	private String priorityWaitingString;
+	/** Anzahl an wartenden Kunden ab denen ein Transporter angefordert wird */
 	private int requestingMinNumber;
+	/** Priorität mit der verfügbare Transporter im Bedarfsfall angezogen werden */
 	private String priorityRequestingString;
+	/** Priorität für Kunden (nach Typen) zur Auswahl, wer als nächstes befördert wird */
 	private String[] priorityClientString;
+	/** Anzahl an Kunden, die der Transporter gleichzeitig transportieren kann */
 	private int transporterClientCapacity;
 
+	/** "Bereich betreten"-Station des Bereichs, der bei diesem Transport implizit verlassen werden soll (optional; Übersetzung aus {@link #sectionID}) */
 	private RunElementSectionStart section;
+	/** ID der "Bereich betreten"-Station des Bereichs, der bei diesem Transport implizit verlassen werden soll (optional) */
 	private int sectionID;
 
 	/**
@@ -181,6 +191,12 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
+	/**
+	 * Wählt die aktuell zu transportierenden Kunden aus.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param moveList	Liste in die die zutransportierenden Kunden eingetragen werden sollen
+	 * @see #processChange(SimulationData)
+	 */
 	private void getClientsToMove(final SimulationData simData, final List<RunDataClient> moveList) {
 		moveList.clear();
 		final RunElementTransportTransporterSourceData data=getData(simData);
@@ -261,6 +277,12 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		}
 	}
 
+	/**
+	 * Reagiert auf eine Kunden- oder Transporterankunft.
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #processArrival(SimulationData, RunDataClient)
+	 * @see #transporterArrival(RunDataTransporter, SimulationData)
+	 */
 	private void processChange(final SimulationData simData) {
 		final RunElementTransportTransporterSourceData data=getData(simData);
 
@@ -328,6 +350,14 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		processChange(simData);
 	}
 
+	/**
+	 * Ändert die Zählung an einer Untermodell-Station.
+	 * @param subId	ID der Untermodell-Station
+	 * @param client	Aktueller Kunde
+	 * @param delta	Veränderung der Zählung
+	 * @param simData	Simulationsdatenobjekt
+	 * @see #fixSubModelCount(int, int, RunDataClient, SimulationData)
+	 */
 	private void countSub(final int subId, final RunDataClient client, final int delta, final SimulationData simData) {
 		if (subId<0) return;
 
@@ -339,6 +369,13 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		simData.runData.clientsAtStationByType(simData,sub,null,client,delta);
 	}
 
+	/**
+	 * Wenn Kunde in oder aus Submodell bewegt wurde, muss die Anzahl an Kunden im Submodell angepasst werden.
+	 * @param lastID	Letzte Station des Kunden
+	 * @param nextID	Nächste Station für den Kunden
+	 * @param client	Kundenobjekt
+	 * @param simData	Simulationsdatenobjekt
+	 */
 	private void fixSubModelCount(final int lastID, final int nextID, final RunDataClient client, final SimulationData simData) {
 		final RunElement lastStation=simData.runModel.elementsFast[lastID];
 		final RunElement nextStation=simData.runModel.elementsFast[nextID];
@@ -420,6 +457,11 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		transporter.moveTo(id,0,simData);
 	}
 
+	/**
+	 * Berechnet die Priorität zum Anfordern von Transportern.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Priorität zum Anfordern von Transportern
+	 */
 	private double getRequestPriorityInt(final SimulationData simData) {
 		final RunElementTransportTransporterSourceData data=getData(simData);
 

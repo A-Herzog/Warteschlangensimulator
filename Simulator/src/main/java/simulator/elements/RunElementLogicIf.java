@@ -36,7 +36,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementLogicIf
  */
 public class RunElementLogicIf extends RunElementLogic {
+	/** ID des zugehörigen "Else"-, "ElseIf" oder "EndIf"-Elements */
 	private int nextId;
+	/** Zugehöriges "Else"-, "ElseIf" oder "EndIf"-Element (Übersetzung aus {@link #nextId}) */
 	private RunElement next;
 
 	/**

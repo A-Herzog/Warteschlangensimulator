@@ -55,10 +55,39 @@ public class RunElementInputDDE extends RunElementPassThrough {
 	 */
 	private String defaultText;
 
+	/**
+	 * Geladene Zahlen für die Modi
+	 * {@link AssignMode#VARIABLE} und
+	 * {@link AssignMode#CLIENT_NUMBER}
+	 * @see AssignMode#VARIABLE
+	 * @see AssignMode#CLIENT_NUMBER
+	 */
 	private double[] inputData;
+
+	/**
+	 * Geladene Zeichenkette für den Modus
+	 * {@link AssignMode#CLIENT_TEXT}
+	 * @see AssignMode#CLIENT_TEXT
+	 */
 	private String[] inputStrings;
+
+	/**
+	 * Was soll bei der Zuweisung passieren?
+	 */
 	private AssignMode assignMode;
+
+	/**
+	 * Bei einer Zuweisung an eine Variable
+	 * (Modus {@link AssignMode#VARIABLE})
+	 * wird hier der Index der Variable angegeben.
+	 */
 	private int variableIndex;
+
+	/**
+	 * Bei einer Zuweisung an ein Kundendatentextfeld
+	 * (Modus {@link AssignMode#CLIENT_TEXT})
+	 * wird hier der Schlüssel für die Zuweisung angegeben.
+	 */
 	private String key;
 
 	/**
@@ -126,7 +155,12 @@ public class RunElementInputDDE extends RunElementPassThrough {
 		return input;
 	}
 
-	private String loadData(ModelElementInputDDE inputElement) {
+	/**
+	 * Lädt die Daten über die DDE-Verbindung
+	 * @param inputElement	Modell-Element dem die Verbindungsdaten entnommen werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 */
+	private String loadData(final ModelElementInputDDE inputElement) {
 		final DDEConnect connect=new DDEConnect();
 
 		if (assignMode==AssignMode.CLIENT_TEXT) {
@@ -166,6 +200,12 @@ public class RunElementInputDDE extends RunElementPassThrough {
 		return data;
 	}
 
+	/**
+	 * Führt die eigentliche Eingabe-Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Liefert <code>true</code>, wenn die Simulation fortgestzt werden soll, oder <code>false</code> für Simulationsende (wegen Datenende)
+	 */
 	private boolean processInput(final SimulationData simData, final RunDataClient client) {
 		final RunElementInputDDEData data=getData(simData);
 

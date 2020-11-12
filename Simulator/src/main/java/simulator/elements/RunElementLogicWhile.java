@@ -33,7 +33,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementLogicWhile
  */
 public class RunElementLogicWhile extends RunElementLogic {
+	/** ID des zugehörigen "EndWhile"-Elements */
 	private int nextId;
+	/** Zugehöriges "EndWhile"-Element (Übersetzung aus {@link #nextId}) */
 	private RunElementLogicEndWhile next;
 
 	/**

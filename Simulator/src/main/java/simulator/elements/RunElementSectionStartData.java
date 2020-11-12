@@ -29,6 +29,13 @@ import simulator.runmodel.SimulationData;
  * @see RunElementData
  */
 public class RunElementSectionStartData extends RunElementData {
+	/**
+	 * Andere "Bereich betreten"-Stationen, die sich ebenfalls auf
+	 * denselben Bereich beziehen (dies umfasst die im Konstruktor
+	 * übergebene Station <b>nicht</b>). Die Aufstellung dient dazu,
+	 * alle passenden "Bereich betreten"-Stationen in Bezug auf die
+	 * Zählung synchron zu halten.
+	 */
 	private RunElementSectionStartData[] moreSectionStartStations;
 
 	/**

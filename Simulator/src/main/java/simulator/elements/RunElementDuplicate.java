@@ -42,8 +42,11 @@ public class RunElementDuplicate extends RunElement {
 	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
 
+	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
+	/** IDs der Kundentyp-Zuweisungen an den Ausgängen (kann in Gänze <code>null</code> sein, oder einzelne Einträge können -1 sein) */
 	private int[] clientTypeIds;
+	/** Icons für die Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeIcons;
 
 	/**

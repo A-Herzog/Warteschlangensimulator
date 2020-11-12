@@ -32,11 +32,12 @@ import ui.modeleditor.elements.ModelElementSplit;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
- * Äquivalent zu <code>ModelElementSplit</code>
+ * Äquivalent zu {@link ModelElementSplit}
  * @author Alexander Herzog
  * @see ModelElementSplit
  */
 public class RunElementSplit extends RunElementPassThrough {
+	/** Datensätze gemäß denen die neuen Kunden, die sich aus dem Zerlegen bestehender Kunden ergeben haben, erzeugt werden sollen */
 	private RunElementSourceRecord[] records;
 
 	/**
@@ -105,6 +106,11 @@ public class RunElementSplit extends RunElementPassThrough {
 		return data;
 	}
 
+	/**
+	 * Baut das bestehende Kundenobjekt ab (und erfasst seine Daten in der Statistik).
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	An der Station eingetroffender Kunde
+	 */
 	private void disposeOldClient(final SimulationData simData, final RunDataClient client) {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Dispose"),String.format(Language.tr("Simulation.Log.Dispose.Info"),client.logInfo(simData),name));
@@ -125,6 +131,13 @@ public class RunElementSplit extends RunElementPassThrough {
 		simData.runData.clients.disposeClient(client,simData);
 	}
 
+	/**
+	 * Führt die eigentliche Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param index	Index in {@link #records} gemäß dem der neue Kunde generiert werden soll
+	 * @param isWarmUpClient	Handelt es sich bei dem eingetroffenen Kunden um einen Warm-up-Kunden
+	 * @param isLastClient	Ist der eingetroffene Kunde als letzter Kunde markiert
+	 */
 	private void processArrivalEvent(final SimulationData simData, final int index, final boolean isWarmUpClient, final boolean isLastClient) {
 		final RunElementSplitData data=getData(simData);
 

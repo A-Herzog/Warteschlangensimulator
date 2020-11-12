@@ -43,12 +43,18 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutputDDE
  */
 public class RunElementOutputDDE extends RunElementPassThrough {
+	/** Ausgabe-DDE-Arbeitsmappe */
 	private String workbook;
+	/** Ausgabe-DDE-Tabelle in Arbeitsmappe {@link #workbook} */
 	private String table;
+	/** 0-basierter Index der ersten Zeile in die Daten geschrieben werden sollen */
 	private int startRow;
+	/** 0-basierter Index der ersten Spalte in die Daten geschrieben werden sollen */
 	private int startColumn;
 
+	/** Liste mit den Modi der Ausgabeelemente */
 	private ModelElementOutputDDE.OutputMode[] mode;
+	/** Zusätzliche Daten zu den jeweiligen Ausgabe-Datensätzen in {@link #mode} */
 	private Object[] data;
 
 	/**
@@ -149,6 +155,13 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
+	/**
+	 * Liefert eine Tabellenzeile als Ausgabe.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Tabellenzeile
+	 * @see #processOutput(SimulationData, RunDataClient)
+	 */
 	private String[] getOutputTableLine(final SimulationData simData, final RunDataClient client) {
 		final String[] line=new String[mode.length];
 		for (int i=0;i<mode.length;i++) switch (mode[i]) {
@@ -203,6 +216,11 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 		return line;
 	}
 
+	/**
+	 * Führt die eigentliche Ausgabe-Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 */
 	private void processOutput(final SimulationData simData, final RunDataClient client) {
 		final String[] line=getOutputTableLine(simData,client);
 		if (line==null || line.length==0) return;

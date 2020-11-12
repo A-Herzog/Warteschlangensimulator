@@ -26,6 +26,7 @@ import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
 import simulator.events.StationLeaveEvent;
+import simulator.runmodel.RunData;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunDataOutputWriter;
 import simulator.runmodel.RunModel;
@@ -40,9 +41,13 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutputJS
  */
 public class RunElementOutputJS extends RunElementPassThrough {
+	/** Ausgabedatei */
 	private File outputFile;
+	/** Auszuführendes Skript zur Generierung der Ausgabe */
 	private String script;
+	/** Skriptsprache des Skriptes in {@link #script} */
 	private ModelElementOutputJS.ScriptMode mode;
+	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File)}) */
 	private RunDataOutputWriter outputWriter;
 
 	/**
@@ -106,6 +111,13 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		return data;
 	}
 
+	/**
+	 * Liefert eine Textzeile als Ausgabe.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Tabellenzeile
+	 * @see #processOutput(SimulationData, RunDataClient)
+	 */
 	private String getOutputString(final SimulationData simData, final RunDataClient client) {
 		final RunElementOutputJSData data=getData(simData);
 
@@ -135,6 +147,11 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		return result;
 	}
 
+	/**
+	 * Führt die eigentliche Ausgabe-Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 */
 	private void processOutput(final SimulationData simData, final RunDataClient client) {
 		if (outputFile==null) return;
 		if (outputWriter==null) outputWriter=simData.runData.getOutputWriter(outputFile);

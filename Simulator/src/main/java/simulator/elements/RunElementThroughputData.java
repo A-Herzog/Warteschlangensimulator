@@ -32,6 +32,12 @@ public class RunElementThroughputData extends RunElementData implements RunEleme
 	 * Statistikobjekt welches den Durchsatzwert also Quotient Kunden/Zeit speichert
 	 */
 	public final StatisticsQuotientPerformanceIndicator statistic;
+
+	/**
+	 * Anfangswert der Erfassung des Durchsatzes
+	 * @see #reset(long)
+	 * @see #countClient(long)
+	 */
 	private double startTime;
 
 	/**

@@ -40,10 +40,16 @@ import ui.modeleditor.elements.TransportTargetSystem;
  * @see RunElementTransportSource
  */
 public class RunElementTransportSourceTargets {
+	/** ID der Zielstation, zu der Kunden transportiert werden sollen, wenn keine der Routing-Regeln zutrifft */
 	private int defaultStation;
+	/** Modus zur Auswahl der Zielstation */
 	private TransportTargetSystem.RoutingMode mode;
+
+	/**
+	 * Liste mit Kundentypen, die, wenn erfüllt, ein Transportziel bestimmen.<br>
+	 * Einträge können -1 sein und auch die komplette Variable kann <code>null</code> sein.
+	 */
 	private int[] routingClientType;
-	private int[] routingDestination;
 
 	/**
 	 * Liste mit den Ausdrücken, die, wenn erfüllt, ein Transportziel bestimmen.<br>
@@ -51,8 +57,19 @@ public class RunElementTransportSourceTargets {
 	 */
 	public String[] routingExpression;
 
+	/**
+	 * IDs der Ziele gemäß {@link #routingClientType} und {@link #routingExpression}
+	 */
+	private int[] routingDestination;
+
+	/**
+	 * Kundentextdaten-Schlüssel aus dem das Routing-Ziel ausgelesen werden soll
+	 */
 	private String routingClientPropertyName;
 
+	/**
+	 * Zu dem Transport gehörendes Editor-Transport-Start-Element (zum Auslesen der ID für mögliche Fehlermeldungen)
+	 */
 	private final ModelElement element;
 
 	/**
@@ -166,6 +183,14 @@ public class RunElementTransportSourceTargets {
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
+	/**
+	 * Zielstation gemäß Fertigungsplan bestimmen
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @param testOnly	Keine Verarbeitung von Zuweisungen und Erhöhung des Feritungsplansschritts, sondern nur die Station liefern
+	 * @return	ID der Zielstation
+	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionEval[], boolean)
+	 */
 	private int getDestinationStationByClientSequence(final SimulationData simData, final RunDataClient client, final boolean testOnly) {
 		final int nr=client.sequenceNr;
 		if (nr<0) return defaultStation;
@@ -193,6 +218,14 @@ public class RunElementTransportSourceTargets {
 		return id;
 	}
 
+	/**
+	 * Zielstation gemäß Kundentyp und Rechenausdruck bestimmen
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @param routingExpresions	Auszuwertende Rechenausdrücke
+	 * @return	ID der Zielstation
+	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionEval[], boolean)
+	 */
 	private int getDestinationStationByRouting(final SimulationData simData, final RunDataClient client, final ExpressionEval[] routingExpresions) {
 		for (int i=0;i<routingDestination.length;i++) {
 			final int clientType=routingClientType[i];
@@ -215,6 +248,13 @@ public class RunElementTransportSourceTargets {
 		return routingDestination[routingDestination.length-1];
 	}
 
+	/**
+	 * Zielstation gemäß Kundentextdatenfeld bestimmen
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	ID der Zielstation
+	 * @see #getDestinationStation(SimulationData, RunDataClient, ExpressionEval[], boolean)
+	 */
 	private int getDestinationStationByClientProperty(final SimulationData simData, final RunDataClient client) {
 		/* Texteigenschaft für Zielstation vorhanden? */
 		final String stationName=client.getUserDataString(routingClientPropertyName);

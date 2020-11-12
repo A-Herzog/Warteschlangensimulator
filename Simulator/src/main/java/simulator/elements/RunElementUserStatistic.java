@@ -36,8 +36,11 @@ import ui.modeleditor.elements.ModelElementUserStatistic;
  * @see ModelElementUserStatistic
  */
 public class RunElementUserStatistic extends RunElementPassThrough {
+	/** Array der Nutzerdaten-Statistik-Bezeichner unter denen die Werte erfasst werden sollen */
 	private String[] keys;
+	/** Array der Angaben, ob die Nutzerdaten Zeitangaben sind oder nicht */
 	private boolean[] isTime;
+	/** Array der Ausdrücke die ausgewertet und in der Nutzerdaten-Statistik erfasst werden sollen */
 	private String[] expressions;
 
 	/**

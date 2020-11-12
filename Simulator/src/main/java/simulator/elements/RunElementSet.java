@@ -40,7 +40,15 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementSet
  */
 public class RunElementSet extends RunElementPassThrough {
+	/**
+	 * Indices der Variablen an die Werte zugewiesen werden sollen
+	 */
 	private int[] variableIndex;
+
+	/**
+	 * Rechenausdrücke deren Ergebnisse an die mit {@link #variableIndex}
+	 * bezeichneten Variablen zugewiesen werden sollen
+	 */
 	private String[] expressions;
 
 	/**

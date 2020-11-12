@@ -43,7 +43,14 @@ public class RunElementLongRunStatistics extends RunElement implements StateChan
 	 */
 	private String[] expressions;
 
+	/**
+	 * Modi für die Erfassung der einzelnen Werte in {@link #expressions}
+	 */
 	private StatisticsLongRunPerformanceIndicator.Mode[] modes;
+
+	/**
+	 * Erfassungsschrittweite in Millisekunden
+	 */
 	private long stepWideMS;
 
 	/**

@@ -46,7 +46,9 @@ import ui.modeleditor.coreelements.ModelElementEdgeOut;
  * @author Alexander Herzog
  */
 public abstract class RunElementSourceExtern extends RunElement implements RunSource {
+	/** ID der Folgestation */
 	private int connectionId;
+	/** Folgestation (Übersetzung aus {@link #connectionId}) */
 	private RunElement connection;
 
 	/**
@@ -68,6 +70,12 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		super(element,name);
 	}
 
+	/**
+	 * Bildet eine Liste mit Kundentyp-Namen (in ggf. falscher Groß- und Kleinschreibung
+	 * und ggf. mit leeren Einträgen und Dubletten) auf Simulationsmodell-Kunden ab
+	 * @param rawList	Liste mit Kundentyp-Namen
+	 * @return	Aufbereitete Liste mit Kundentyp-Namen
+	 */
 	private static final String[] getClientTypes(final List<String> rawList) {
 		final List<String> newList=new ArrayList<>();
 		for (String type: rawList) {
@@ -213,7 +221,12 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		/* Wird nie aufgerufen: Source-Elemente haben keine einlaufenden Kanten bzw. führen keine Verarbeitung von Kunden durch. */
 	}
 
-	private void scheduleNextArrival(SimulationData simData, int index) {
+	/**
+	 * Legt das Ereignis für die nächste Kundenankunft an.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param index	0-basierte Nummer des Kunden in der Liste
+	 */
+	private void scheduleNextArrival(final SimulationData simData, final int index) {
 		final RunElementSourceExternData data=getData(simData);
 
 		int nextIndex=data.nextIndex[index];
@@ -341,15 +354,36 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		return sum;
 	}
 
+	/**
+	 * Ankunftsdatensatz
+	 * @see RunElementSourceExtern#arrivals
+	 * @see RunElementSourceExtern#loadTable(Table, List, boolean)
+	 * @see RunElementSourceExtern#processArrivalEvent(SimulationData, boolean, int)
+	 */
 	private class Arrival {
+		/** Ankunftszeit in MS */
 		public final long time;
+		/** Kundendatenfelder-Indices für die Zuweisungen der Ergebnisse von {@link #dataFormula} */
 		public int[] dataIndex=null;
+		/** Rechenformeln deren Ergebnisse an die Kundendatenfelder {@link #dataIndex} zugewiesen werden sollen */
 		public String[] dataFormula=null;
+		/** Kundentextdatenfelder-Zuweisungen (Schlüssel zu Wert) */
 		public Map<String,String> dataKeyValue=null;
 
+		/**
+		 * Konstruktor der Klasse
+		 * @param time	Ankunftszeit in Sekunden
+		 */
 		public Arrival(final double time) {
 			this.time=FastMath.round(time*1000);
 		}
+
+		/**
+		 * Verarbeitet eine Kundendaten- bzw. Kundentextdatenfeld-Zuweisung
+		 * @param cell	Zu interpretierende Zelle
+		 * @param data	Array der Länge 2, welches entweder Index und Formel oder Schlüssel und Wert aufnimmt
+		 * @return	Gibt an, ob die Zelle erfolgreich verarbeitet werden konnte
+		 */
 
 		private boolean processCell(final String cell, final Object[] data) {
 			final int pos=cell.indexOf('=');
@@ -374,6 +408,12 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			return false;
 		}
 
+		/**
+		 * Verarbeitet eine Tabellenzeile
+		 * @param line	Zeile
+		 * @param startColumn	Erste zu berücksichtigende Spalte (0-basierend gezählt)
+		 * @return	Liefert im Erfolgsfall -1, sonst den 0-basierenden Index der fehlerhaften Spalte
+		 */
 		public int loadData(final List<String> line, final int startColumn) {
 			List<Integer> dataIndex=null;
 			List<String> dataFormula=null;

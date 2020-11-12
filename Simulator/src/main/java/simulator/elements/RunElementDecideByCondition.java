@@ -45,8 +45,11 @@ public class RunElementDecideByCondition extends RunElement {
 	/** Bedingungen, die erfüllt sein müssen, damit ein Kunde an einen bestimmten Ausgang geleitet wird (<code>null</code>-Einträge bedeuten: immer erfüllt) */
 	private String[] conditions;
 
+	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
+	/** IDs der Kundentyp-Zuweisungen an den Ausgängen (kann in Gänze <code>null</code> sein, oder einzelne Einträge können -1 sein) */
 	private int[] clientTypeIds;
+	/** Icons für die Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeIcons;
 
 	/**

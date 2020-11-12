@@ -38,18 +38,24 @@ import ui.modeleditor.elements.ModelElementSeize;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
- * Äquivalent zu <code>ModelElementRelease</code>
+ * Äquivalent zu {@link ModelElementRelease}
  * @author Alexander Herzog
  * @see ModelElementRelease
  */
 public class RunElementRelease extends RunElementPassThrough {
+	/** ID des zugehörigen "Ressource belegen"-Elements */
 	private int seizeId;
+	/** Zugehöriges "Ressource belegen"-Element (aus {@link #seizeId} übersetzt) */
 	private RunElementSeize seize;
 
+	/** Multiplikationsfaktor für {@link #distributionDelayedRelease} oder {@link #expressionDelayedRelease} */
 	private double timeBaseMultiply;
+	/** Zeitdauernverteilungen für die verzögerte Ressourcenfreigabe (jeweils in Abhängigkeit vom Kundentyp) */
 	private AbstractRealDistribution[] distributionDelayedRelease;
+	/** Rechenausdrücke für die Zeitdauern für die verzögerte Ressourcenfreigabe (jeweils in Abhängigkeit vom Kundentyp) */
 	private String[] expressionDelayedRelease;
 
+	/** Gibt an wie viele Bediener in welcher Bedienergruppe freizugeben sind */
 	private int[] resources;
 
 	/**

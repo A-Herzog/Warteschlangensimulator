@@ -71,10 +71,39 @@ public class RunElementInput extends RunElementPassThrough {
 	 */
 	private String defaultText;
 
+	/**
+	 * Geladene Zahlen für die Modi
+	 * {@link AssignMode#VARIABLE} und
+	 * {@link AssignMode#CLIENT_NUMBER}
+	 * @see AssignMode#VARIABLE
+	 * @see AssignMode#CLIENT_NUMBER
+	 */
 	private double[] inputData;
+
+	/**
+	 * Geladene Zeichenkette für den Modus
+	 * {@link AssignMode#CLIENT_TEXT}
+	 * @see AssignMode#CLIENT_TEXT
+	 */
 	private String[] inputStrings;
+
+	/**
+	 * Was soll bei der Zuweisung passieren?
+	 */
 	private AssignMode assignMode;
+
+	/**
+	 * Bei einer Zuweisung an eine Variable
+	 * (Modus {@link AssignMode#VARIABLE})
+	 * wird hier der Index der Variable angegeben.
+	 */
 	private int variableIndex;
+
+	/**
+	 * Bei einer Zuweisung an ein Kundendatentextfeld
+	 * (Modus {@link AssignMode#CLIENT_TEXT})
+	 * wird hier der Schlüssel für die Zuweisung angegeben.
+	 */
 	private String key;
 
 	/**
@@ -85,6 +114,12 @@ public class RunElementInput extends RunElementPassThrough {
 		super(element,buildName(element,Language.tr("Simulation.Element.Input.Name")));
 	}
 
+	/**
+	 * Versucht eine Reihe von <code>double</code>-Werten aus einer einfachen Textdatei zu laden.
+	 * @param file	Zu ladende Datei
+	 * @return	Array mit <code>double</code>-Werten oder im Fehlerfall <code>null</code>
+	 * @see #loadDoubleData(File)
+	 */
 	private static double[] loadDoubleSimpleText(final File file) {
 		double[] buffer=new double[10];
 		int size=0;
@@ -106,6 +141,12 @@ public class RunElementInput extends RunElementPassThrough {
 		return Arrays.copyOf(buffer,size);
 	}
 
+	/**
+	 * Versucht eine Reihe von <code>double</code>-Werten aus einer komplexen Tabellendatei zu laden.
+	 * @param file	Zu ladende Datei
+	 * @return	Array mit <code>double</code>-Werten oder im Fehlerfall <code>null</code>
+	 * @see #loadDoubleData(File)
+	 */
 	private static double[] loadDoubleTable(final File file) {
 		final Table table=new Table();
 		if (!table.load(file)) return null;
@@ -141,6 +182,12 @@ public class RunElementInput extends RunElementPassThrough {
 		return loadDoubleSimpleText(file);
 	}
 
+	/**
+	 * Versucht eine Reihe von Zeichenketten aus einer einfachen Textdatei zu laden.
+	 * @param file	Zu ladende Datei
+	 * @return	Array mit {@link String}-Werten oder im Fehlerfall <code>null</code>
+	 * @see #loadStringData(File)
+	 */
 	private static String[] loadStringSimpleText(final File file) {
 		final List<String> buffer=new ArrayList<>();
 
@@ -156,6 +203,12 @@ public class RunElementInput extends RunElementPassThrough {
 		return buffer.toArray(new String[0]);
 	}
 
+	/**
+	 * Versucht eine Reihe von Zeichenketten aus einer komplexen Tabellendatei zu laden.
+	 * @param file	Zu ladende Datei
+	 * @return	Array mit {@link String}-Werten oder im Fehlerfall <code>null</code>
+	 * @see #loadStringData(File)
+	 */
 	private static String[] loadStringTable(final File file) {
 		final Table table=new Table();
 		if (!table.load(file)) return null;
@@ -273,6 +326,12 @@ public class RunElementInput extends RunElementPassThrough {
 		return data;
 	}
 
+	/**
+	 * Führt die eigentliche Eingabe-Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Liefert <code>true</code>, wenn die Simulation fortgestzt werden soll, oder <code>false</code> für Simulationsende (wegen Datenende)
+	 */
 	private boolean processInput(final SimulationData simData, final RunDataClient client) {
 		final RunElementInputData data=getData(simData);
 

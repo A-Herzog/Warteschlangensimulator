@@ -44,7 +44,9 @@ public class RunElementDecideByScript extends RunElement {
 	private List<Integer> connectionIds;
 	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
+	/** Auszuführendes Skript */
 	private String script;
+	/** Skriptspache für {@link #script} */
 	private ModelElementDecideJS.ScriptMode mode;
 
 	/**

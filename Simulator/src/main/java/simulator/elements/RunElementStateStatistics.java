@@ -29,12 +29,14 @@ import ui.modeleditor.elements.ModelElementStateStatistics;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
- * Äquivalent zu <code>ModelElementStateStatistics</code>
+ * Äquivalent zu {@link ModelElementStateStatistics}
  * @author Alexander Herzog
  * @see ModelElementStateStatistics
  */
 public class RunElementStateStatistics extends RunElementPassThrough {
+	/** Zustand in den des Statistikobjekt versetzt werden soll, wenn ein Kunde diese Station passiert */
 	private String stateName;
+	/** Gruppenname */
 	private String groupName;
 
 	/**

@@ -45,8 +45,11 @@ public class RunElementDecideByChance extends RunElement {
 	/** Wahrscheinlichkeiten für die verschiedenen auslaufenden Kanten */
 	private double[] probabilites;
 
+	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
+	/** IDs der Kundentyp-Zuweisungen an den Ausgängen (kann in Gänze <code>null</code> sein, oder einzelne Einträge können -1 sein) */
 	private int[] clientTypeIds;
+	/** Icons für die Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeIcons;
 
 	/**

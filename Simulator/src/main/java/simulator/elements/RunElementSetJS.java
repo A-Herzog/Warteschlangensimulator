@@ -37,7 +37,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementSetJS
  */
 public class RunElementSetJS extends RunElementPassThrough {
+	/** Auszuführendes Skript */
 	private String script;
+	/** Skriptsprache des Skriptes in {@link #script} */
 	private ModelElementSetJS.ScriptMode mode;
 
 	/**

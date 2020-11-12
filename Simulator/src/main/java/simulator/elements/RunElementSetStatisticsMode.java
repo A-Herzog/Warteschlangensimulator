@@ -26,6 +26,7 @@ import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementSetStatisticsMode;
+import ui.modeleditor.elements.ModelElementSetStatisticsMode.Mode;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
@@ -34,7 +35,9 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementSetStatisticsMode
  */
 public class RunElementSetStatisticsMode extends RunElementPassThrough {
+	/** Modus: Erfassung immer ein- oder ausschalten oder gemäß Ausdruck {@link #condition} */
 	private ModelElementSetStatisticsMode.Mode mode;
+	/** Bedingung für die Statistikumschaltung im Modus {@link Mode#CONDITION} */
 	private String condition;
 
 	/**

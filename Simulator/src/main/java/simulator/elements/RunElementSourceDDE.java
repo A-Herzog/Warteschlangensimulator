@@ -43,7 +43,13 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 		super(element,buildName(element,Language.tr("Simulation.Element.SourceDDE.Name")));
 	}
 
-	private String loadTable(ModelElementSourceDDE sourceElement, final List<String> clientTypes) {
+	/**
+	 * Lädt die Kundenankünfte über eine DDE-Verbindung.
+	 * @param sourceElement	Editor-Element aus dem die DDE-Einstellungen geladen werden
+	 * @param clientTypes	Kundentypen die beim Laden der Daten berücksichtigt werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
+	 */
+	private String loadTable(final ModelElementSourceDDE sourceElement, final List<String> clientTypes) {
 		final Table table=new Table();
 
 		final DDEConnect connect=new DDEConnect();

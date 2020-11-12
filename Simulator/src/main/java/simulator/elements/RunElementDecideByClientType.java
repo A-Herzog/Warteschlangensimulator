@@ -44,8 +44,11 @@ public class RunElementDecideByClientType extends RunElement {
 	/** Liste der Kundentypen, die angibt, an welchen Ausgang Kunden welchen Typs geleitet werden sollen */
 	private int[] clientTypeConnectionIndex;
 
+	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
+	/** IDs der Kundentyp-Zuweisungen an den Ausgängen (kann in Gänze <code>null</code> sein, oder einzelne Einträge können -1 sein) */
 	private int[] clientTypeIds;
+	/** Icons für die Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeIcons;
 
 	/**

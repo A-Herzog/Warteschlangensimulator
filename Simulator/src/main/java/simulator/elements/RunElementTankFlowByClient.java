@@ -33,6 +33,7 @@ import ui.modeleditor.elements.ModelElementTankFlowByClient;
  * @see ModelElementTankFlowByClient
  */
 public class RunElementTankFlowByClient extends RunElementPassThrough {
+	/** Laufzeitdaten zu dem auszulösenden Fluss */
 	private RunElementTankFlow flowData;
 
 	/**

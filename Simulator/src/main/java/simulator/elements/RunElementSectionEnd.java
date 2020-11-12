@@ -34,8 +34,10 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementSectionEnd
  */
 public class RunElementSectionEnd extends RunElementPassThrough {
-	private RunElementSectionStart section;
+	/** ID der zugehörigen "Bereich betreten"-Station */
 	private int sectionID;
+	/** Zugehörige "Bereich betreten"-Station (aus {@link #sectionID} übersetzt) */
+	private RunElementSectionStart section;
 
 	/**
 	 * Konstruktor der Klasse

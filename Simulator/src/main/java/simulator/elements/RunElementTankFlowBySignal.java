@@ -32,7 +32,9 @@ import ui.modeleditor.elements.ModelElementTankFlowBySignal;
  * @see ModelElementTankFlowBySignal
  */
 public class RunElementTankFlowBySignal extends RunElement implements SignalListener {
+	/** Name des Signals, das den Fluss auslöst */
 	private String signalName;
+	/** Laufzeitdaten zu dem auszulösenden Fluss */
 	private RunElementTankFlow flowData;
 
 	/**

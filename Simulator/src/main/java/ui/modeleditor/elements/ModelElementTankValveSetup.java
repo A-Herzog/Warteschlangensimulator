@@ -276,7 +276,7 @@ public class ModelElementTankValveSetup extends ModelElementMultiInSingleOutBox 
 	 */
 	public static class ValveSetup {
 		/**
-		 * ID des zu Tanks an dem sich das zu konfigurierende Ventil befindet
+		 * ID des Tanks an dem sich das zu konfigurierende Ventil befindet
 		 */
 		public int tankId;
 

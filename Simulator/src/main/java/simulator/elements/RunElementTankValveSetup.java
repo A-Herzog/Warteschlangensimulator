@@ -38,7 +38,9 @@ import ui.modeleditor.elements.ModelElementTankValveSetup;
  * @see ModelElementTankValveSetup
  */
 public class RunElementTankValveSetup extends RunElementPassThrough {
+	/** Liste der Ventil-Setups */
 	private ModelElementTankValveSetup.ValveSetup[] valveSetups;
+	/** Tanks auf die sich die jeweiligen Einstellungen in {@link #valveSetups} beziehen */
 	private RunElementTank[] tanks;
 
 	/**

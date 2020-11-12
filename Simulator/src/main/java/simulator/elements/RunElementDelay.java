@@ -41,8 +41,11 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementDelay
  */
 public class RunElementDelay extends RunElementPassThrough {
+	/** Multiplikationsfaktor für {@link #distribution} oder {@link #expression} */
 	private double timeBaseMultiply;
+	/** Verteilung zur Kundentyp-abhängigen Bestimmung der Verzögerung */
 	private AbstractRealDistribution[] distribution;
+	/** Rechenausdruck zur Kundentyp-abhängigen Bestimmung der Verzögerung; wird nur ausgewertet, wenn der entsprechende {@link #distribution}-Eintrag <code>null</code> ist */
 	private String[] expression;
 	/** Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
 	private ModelElementDelay.DelayType delayType;

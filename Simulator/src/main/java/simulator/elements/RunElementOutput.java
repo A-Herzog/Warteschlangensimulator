@@ -19,6 +19,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.healthmarketscience.jackcess.Table;
+
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
@@ -28,6 +30,7 @@ import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
 import simulator.events.StationLeaveEvent;
+import simulator.runmodel.RunData;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunDataOutputWriter;
 import simulator.runmodel.RunModel;
@@ -43,11 +46,16 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutput
  */
 public class RunElementOutput extends RunElementPassThrough {
+	/** Gibt an, ob die Ausgabe zeilenweise (<code>false</code>) oder über ein {@link Table}-Objekt (<code>true</code>) erfolgen soll */
 	private boolean tableMode;
+	/** Dateiname der Datei für die Ausgaben */
 	private File outputFile;
+	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File)}) */
 	private RunDataOutputWriter outputWriter;
 
+	/** Liste mit den Modi der Ausgabeelemente */
 	private ModelElementOutput.OutputMode[] mode;
+	/** Zusätzliche Daten zu den jeweiligen Ausgabe-Datensätzen in {@link #mode} */
 	private Object[] data;
 
 	/**
@@ -110,6 +118,13 @@ public class RunElementOutput extends RunElementPassThrough {
 		return output;
 	}
 
+	/**
+	 * Prüft, ob die Ausgabe auf Basis des Dateinamens über ein
+	 * {@link Table}-Objekt (d.h. am Ende am Stück) erfolgen soll.
+	 * @param file	Ausgabedatei
+	 * @return	Liefert <code>true</code>, wenn ein {@link Table}-Objekt für die Ausgabe verwendet werden soll
+	 * @see #tableMode
+	 */
 	private boolean isTable(final File file) {
 		if (file==null) return false;
 		final String nameLower=file.toString().toLowerCase();
@@ -134,6 +149,13 @@ public class RunElementOutput extends RunElementPassThrough {
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
+	/**
+	 * Liefert eine Textzeile als Ausgabe.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Tabellenzeile
+	 * @see #processOutput(SimulationData, RunDataClient)
+	 */
 	private String getOutputString(final SimulationData simData, final RunDataClient client) {
 		final StringBuilder sb=new StringBuilder();
 		for (int i=0;i<mode.length;i++) switch (mode[i]) {
@@ -192,6 +214,13 @@ public class RunElementOutput extends RunElementPassThrough {
 		return sb.toString();
 	}
 
+	/**
+	 * Liefert eine Tabellenzeile als Ausgabe.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @return	Tabellenzeile
+	 * @see #processOutput(SimulationData, RunDataClient)
+	 */
 	private String[] getOutputTableLine(final SimulationData simData, final RunDataClient client) {
 		final String[] line=new String[mode.length];
 		for (int i=0;i<mode.length;i++) switch (mode[i]) {
@@ -252,6 +281,10 @@ public class RunElementOutput extends RunElementPassThrough {
 		return line;
 	}
 
+	/**
+	 * Liefert die Überschriften für die Tabellenausgabe.
+	 * @return Überschriften für die Tabellenausgabe
+	 */
 	private String[] getOutputTableHeadings() {
 		final String[] line=new String[mode.length];
 		for (int i=0;i<mode.length;i++) switch (mode[i]) {
@@ -298,6 +331,11 @@ public class RunElementOutput extends RunElementPassThrough {
 		return line;
 	}
 
+	/**
+	 * Führt die eigentliche Ausgabe-Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 */
 	private void processOutput(final SimulationData simData, final RunDataClient client) {
 		if (outputFile==null) return;
 		if (outputWriter==null) {

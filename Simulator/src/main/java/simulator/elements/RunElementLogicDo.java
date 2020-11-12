@@ -33,6 +33,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementLogicDo
  */
 public class RunElementLogicDo extends RunElementLogic {
+	/** ID des zugehörigen "Until"-Elements */
 	private int nextId;
 
 	/**

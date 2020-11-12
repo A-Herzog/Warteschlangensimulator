@@ -37,8 +37,11 @@ import ui.modeleditor.elements.ModelElementTransportParking;
  * @see ModelElementTransportParking
  */
 public class RunElementTransportParking extends RunElement implements TransporterPosition {
+	/** Index des Transportertyps der diese Station ansteuert */
 	private int transporterIndex;
+	/** Anzahl an Transportern, die hier parken können */
 	private int capacity;
+	/** Priorität mit der verfügbare Transporter angezogen werden */
 	private String priorityString;
 
 	/**
@@ -170,6 +173,11 @@ public class RunElementTransportParking extends RunElement implements Transporte
 		transporter.moveTo(id,0,simData);
 	}
 
+	/**
+	 * Berechnet die Priorität zum Anfordern von Transportern.
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Priorität zum Anfordern von Transportern
+	 */
 	private double getRequestPriorityInt(final SimulationData simData) {
 		final RunElementTransportParkingData data=getData(simData);
 

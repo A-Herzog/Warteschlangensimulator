@@ -41,11 +41,16 @@ public class RunElementDecideByKeyValue extends RunElement {
 	private List<Integer> connectionIds;
 	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
+	/** Für die Wahl der auslaufenden Kante auszuwertender Kundentextdaten-Schlüssel */
 	private String key;
+	/** Werte für {@link #key} die zu der Wahl einer jeweiligen auslaufenden Kante führen */
 	private String[] values;
 
+	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
+	/** IDs der Kundentyp-Zuweisungen an den Ausgängen (kann in Gänze <code>null</code> sein, oder einzelne Einträge können -1 sein) */
 	private int[] clientTypeIds;
+	/** Icons für die Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeIcons;
 
 	/**

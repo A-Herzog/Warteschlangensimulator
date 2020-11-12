@@ -43,10 +43,15 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutputDB
  */
 public class RunElementOutputDB extends RunElementPassThrough {
+	/** Liste mit den Modi der Ausgabeelemente */
 	private ModelElementOutputDB.OutputMode[] mode;
+	/** Zusätzliche Daten zu den jeweiligen Ausgabe-Datensätzen in {@link #mode} */
 	private Object[] data;
+	/** Liste mit den Tabellenspalten für die einzelnen Ausgabeelemente */
 	private String[] column;
+	/** Datenbank-Einstellungen für die Ausgabe */
 	private DBSettings settings;
+	/** Name der Tabelle in der Datenbank in die die Daten eingetragen werden sollen */
 	private String tableName;
 
 	/**
@@ -144,6 +149,13 @@ public class RunElementOutputDB extends RunElementPassThrough {
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSec=1.0/1000.0;
 
+	/**
+	 * Liefert den Ausgabewert für einen Ausgabedatensatz
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 * @param index	Index des Datensatzes in {@link #mode} bzw. {@link #data}
+	 * @return	Ausgabewert des Ausgabedatensatzes
+	 */
 	private String getCellValue(final SimulationData simData, final RunDataClient client, final int index) {
 		switch (mode[index]) {
 		case MODE_TIMESTAMP:
@@ -183,6 +195,11 @@ public class RunElementOutputDB extends RunElementPassThrough {
 		}
 	}
 
+	/**
+	 * Führt die eigentliche Ausgabe-Verarbeitung durch.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param client	Aktueller Kunde
+	 */
 	private void processOutput(final SimulationData simData, final RunDataClient client) {
 		final RunElementOutputDBData data=getData(simData);
 		if (data.connect==null) return;

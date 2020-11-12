@@ -36,6 +36,7 @@ import ui.modeleditor.elements.ModelElementSub;
 public class RunElementSeize extends RunElementPassThrough implements FreeResourcesListener {
 	/** Formel-String zur Ermittlung der Ressourcenpriorität dieser Station */
 	public String resourcePriority;
+	/** Gibt an wie viele Bediener in welcher Bedienergruppe zu belegen sind */
 	private int[] resources;
 
 	/**

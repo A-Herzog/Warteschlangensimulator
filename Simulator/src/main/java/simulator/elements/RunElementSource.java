@@ -38,11 +38,15 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementSource
  */
 public class RunElementSource extends RunElement implements StateChangeListener, SignalListener, RunSource {
+	/** ID der Folgestation */
 	private int connectionId;
+	/** Folgestation (Übersetzung aus {@link #connectionId}) */
 	private RunElement connection;
 
+	/** Kundenquelle-Datensatz */
 	private RunElementSourceRecord record;
 
+	/** Anzahl an Kunden (global über alle Quellen), die als Warm-up-Kunden gezählt werden sollen (SimulationData#endWarmUp()) */
 	private long warmUpClients;
 
 	/** Kundentyp name der an dieser Station generierten Kunden */
@@ -244,7 +248,18 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		return false;
 	}
 
+	/**
+	 * Wurde bereits geprüft, ob die Bedingung
+	 * einen deterministischen Wert liefert?
+	 * @see #systemStateChangeNotify(SimulationData)
+	 */
 	private boolean fixedResultConditionTested=false;
+
+	/**
+	 * Liefert die Bedingung {@link RunElementSourceData#condition}
+	 * deterministisch immer <code>false</code>?
+	 * @see #systemStateChangeNotify(SimulationData)
+	 */
 	private boolean isConstFalse=false;
 
 	@Override

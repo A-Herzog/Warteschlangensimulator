@@ -37,10 +37,14 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementRecord
  */
 public class RunElementRecord extends RunElementPassThrough {
+	/** Maximalanzahl an aufzuzeichnenden Werten */
 	private static final int MAX_VALUES=2_000_000;
 
+	/** Statistik-Name für die Werteaufzeichnung */
 	private String recordName;
+	/** Erster auszuwertender Ausdruck */
 	private String expression1;
+	/** Zweiter auszuwertender Ausdruck (kann <code>null</code> sein) */
 	private String expression2;
 
 	/**

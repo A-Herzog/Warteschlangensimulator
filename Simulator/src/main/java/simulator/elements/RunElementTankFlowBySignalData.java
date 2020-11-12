@@ -25,8 +25,11 @@ import simulator.coreelements.RunElementData;
  * @see RunElementData
  */
 public class RunElementTankFlowBySignalData extends RunElementData {
+	/** Laufzeitdaten zu dem auszulösenden Fluss */
 	private final RunElementTankFlow flowData;
+	/** Quelltank */
 	private final RunElementTank source;
+	/** Zieltank */
 	private final RunElementTank destination;
 
 	/**

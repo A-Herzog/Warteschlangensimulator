@@ -25,22 +25,51 @@ import simulator.simparser.ExpressionCalc;
 import statistics.StatisticsLongRunPerformanceIndicator;
 
 /**
- * Laufzeitdaten eines <code>RunElementSpecialStatistics</code>-Laufzeit-Objekts
+ * Laufzeitdaten eines {@link RunElementLongRunStatistics}-Laufzeit-Objekts
  * @author Alexander Herzog
  * @see RunElementLongRunStatistics
  * @see RunElementData
  */
 public class RunElementLongRunStatisticsData extends RunElementData {
+	/**
+	 * Statistikbezeichner für die Erfassung der Ausdrücke aus
+	 * {@link RunElementLongRunStatistics#expressions}
+	 */
 	private final String[] expressionStrings;
+
+	/**
+	 * Rechenobjekte der Ausdrücke aus
+	 * {@link RunElementLongRunStatistics#expressions}
+	 */
 	private final ExpressionCalc[] expressions;
+
+	/**
+	 * Zugehörige Statistikobjekte für die Erfassung der Werte in {@link #expressions}
+	 */
 	private final StatisticsLongRunPerformanceIndicator[] expressionStatistics;
+
+	/**
+	 * Modi für die Erfassung der einzelnen Werte in {@link #expressions}
+	 */
 	private final StatisticsLongRunPerformanceIndicator.Mode[] expressionMode;
+
+	/**
+	 * Letzte Zeitpunkte an denen die Ausdrücke {@link #expressions} ausgewertet wurden
+	 */
 	private final long[] lastTime;
+
+	/**
+	 * Letzte Werte bei der Auswertung von {@link #expressions}
+	 */
 	private final double[] lastValue;
+
+	/**
+	 * Schrittweite für die Datenerfassung (in Millisekunden)
+	 */
 	private final long stepWide;
 
 	/**
-	 * Konstruktor der Klasse <code>RunElementSpecialStatisticsData</code>
+	 * Konstruktor der Klasse {@link RunElementLongRunStatisticsData}
 	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementSpecialStatistics</code>-Element
 	 * @param expresions	Auszuwertende Ausdrücke als String
 	 * @param modes	Modi für die Ausdrücke (<code>StatisticsLongRunPerformanceIndicator.MODE_*</code>)

@@ -40,11 +40,17 @@ import ui.modeleditor.elements.ModelElementSubOut;
  * @see ModelElementSub
  */
 public class RunElementSub extends RunElement {
+	/** IDs der Stationen von denen Kunden von außen eintreffen (äußeres Array gibt die Nummer der Kante an, darin die IDs der Stationen) */
 	private int[][] connectionInIds;
+	/** IDs der Folgestationen nach dem Verlassen des Untermodells */
 	private int[] connectionOutIds;
+	/** IDs der Stationen über die Kunden in das Untermodell einlaufen */
 	private int[] internInIds;
+	/** IDs der Stationen über die Kunden aus dem Untermodell auslaufen */
 	private int[] internOutIds;
+	/** Folgestationen nach dem Verlassen des Untermodells (Übersetzung aus {@link #connectionOutIds}) */
 	private RunElement[] connectionOut;
+	/** Stationen über die Kunden in das Untermodell einlaufen (Übersetzung aus {@link #internInIds}) */
 	private RunElement[] internIn;
 
 	/**

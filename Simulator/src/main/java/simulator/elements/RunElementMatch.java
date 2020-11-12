@@ -29,6 +29,7 @@ import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementMatch;
+import ui.modeleditor.elements.ModelElementMatch.MatchPropertyMode;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
@@ -37,10 +38,29 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementMatch
  */
 public class RunElementMatch extends RunElementPassThrough {
+	/**
+	 * Array mit den einlaufenden Kanten in der ersten Ebene
+	 * und den IDs der Stationen, die über die jeweiligen Pfade
+	 * zu der Station führen in der zweiten Ebene.
+	 * @see #getClientQueueNumber(RunDataClient)
+	 */
 	private int[][] connectionIn;
 
+	/**
+	 * Von welcher Art ist die Eigenschaft, die zwischen den wartenden Kunden abgeglichen werden soll?
+	 */
 	private ModelElementMatch.MatchPropertyMode matchPropertyMode;
+
+	/**
+	 * Kundendateneigenschaft zum Abgleich im Modus
+	 * @see MatchPropertyMode#NUMBER
+	 */
 	private int matchPropertyNumberIndex;
+
+	/**
+	 * Kundendateneigenschaft zum Abgleich im Modus
+	 * @see MatchPropertyMode#TEXT
+	 */
 	private String matchPropertyString;
 
 	/** Batch-Bildungs-Modus */
@@ -149,6 +169,16 @@ public class RunElementMatch extends RunElementPassThrough {
 		return data;
 	}
 
+	/**
+	 * Löst die Freigabe von Kunden aus.
+	 * Modus: Kunden einfach gemeinsam weiterleiten
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @param selectQueuedClients	Indices der zu sendenden Kunden in den Teilwarteschlangen (jeweils ein Eintrag pro Teilwarteschlange)
+	 * @see ui.modeleditor.elements.ModelElementMatch.MatchMode#MATCH_MODE_COLLECT
+	 */
 	private void processSendMultipleClients(final SimulationData simData, final RunElementMatchData data, final RunDataClient newClient, final int newClientQueueNumber, final int[] selectQueuedClients) {
 		StringBuilder sb=null;
 		/* Logging */
@@ -201,6 +231,16 @@ public class RunElementMatch extends RunElementPassThrough {
 		data.moveNr=0;
 	}
 
+	/**
+	 * Löst die Freigabe von Kunden aus.
+	 * Modus: Temporären Batch bilden
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @param selectQueuedClients	Indices der zu sendenden Kunden in den Teilwarteschlangen (jeweils ein Eintrag pro Teilwarteschlange)
+	 * @see ui.modeleditor.elements.ModelElementMatch.MatchMode#MATCH_MODE_TEMPORARY
+	 */
 	private void processSendTemporaryBatchedClients(final SimulationData simData, final RunElementMatchData data, final RunDataClient newClient, final int newClientQueueNumber, final int[] selectQueuedClients) {
 		/* Neuen Kunden anlegen */
 		final RunDataClient batchedClient=simData.runData.clients.getClient(newClientType,simData);
@@ -276,6 +316,16 @@ public class RunElementMatch extends RunElementPassThrough {
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
 	}
 
+	/**
+	 * Löst die Freigabe von Kunden aus.
+	 * Modus: Permanenten Batch bilden
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @param selectQueuedClients	Indices der zu sendenden Kunden in den Teilwarteschlangen (jeweils ein Eintrag pro Teilwarteschlange)
+	 * @see ui.modeleditor.elements.ModelElementMatch.MatchMode#MATCH_MODE_PERMANENT
+	 */
 	private void processSendPermanentBatchedClients(final SimulationData simData, final RunElementMatchData data, final RunDataClient newClient, final int newClientQueueNumber, final int[] selectQueuedClients) {
 		boolean isLastClient=false;
 
@@ -356,6 +406,13 @@ public class RunElementMatch extends RunElementPassThrough {
 		StationLeaveEvent.addLeaveEvent(simData,batchedClient,this,0);
 	}
 
+	/**
+	 * Löst die Freigabe von Kunden aus.
+	 * @param simData	Simulationsdaten
+	 * @param newClient	Aktuell gerade eingetroffener Kunde
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @param selectQueuedClients	Indices der zu sendenden Kunden in den Teilwarteschlangen (jeweils ein Eintrag pro Teilwarteschlange)
+	 */
 	private void processSendClients(final SimulationData simData, final RunDataClient newClient, final int newClientQueueNumber, final int[] selectQueuedClients) {
 		final RunElementMatchData data=getData(simData);
 		switch (batchMode) {
@@ -371,6 +428,12 @@ public class RunElementMatch extends RunElementPassThrough {
 		}
 	}
 
+	/**
+	 * Trägt einen Kunden in eine Teilwarteschlange ein.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param newClient	Neu eingetroffener Kunde
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 */
 	private void addClientToQueue(final SimulationData simData, final RunDataClient newClient, final int newClientQueueNumber) {
 		final RunElementMatchData data=getData(simData);
 
@@ -388,6 +451,11 @@ public class RunElementMatch extends RunElementPassThrough {
 		}
 	}
 
+	/**
+	 * Überprüft, in welche Teilwarteschlange ein Kunde einsortiert werden soll.
+	 * @param client	Neuer Kunde
+	 * @return	Index der Teilwarteschlange für den Kunden
+	 */
 	private int getClientQueueNumber(final RunDataClient client) {
 		for (int i=0;i<connectionIn.length;i++) {
 			for (int id: connectionIn[i]) if (id==client.lastStationID) return i;
@@ -395,6 +463,16 @@ public class RunElementMatch extends RunElementPassThrough {
 		return 0;
 	}
 
+	/**
+	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?<br>
+	 * Modus: Kein Abgleich von Eigenschaften
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Neu eingetroffener Kunde
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
+	 * @see #testReadyToSend(SimulationData, RunDataClient, int)
+	 */
 	private int[] testReadyToSendSimple(final SimulationData simData, final RunElementMatchData data, final RunDataClient newClient, final int newClientQueueNumber) {
 		/* Warten in allen anderen Schlangen Kunden? */
 		for (int i=0;i<data.waitingClients.length;i++) {
@@ -404,6 +482,16 @@ public class RunElementMatch extends RunElementPassThrough {
 		return data.selectQueuedClients;
 	}
 
+	/**
+	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?<br>
+	 * Modus: Abgleich eines Kundendatenfeldes
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Neu eingetroffener Kunde
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
+	 * @see #testReadyToSend(SimulationData, RunDataClient, int)
+	 */
 	private int[] testReadyToSendNumberProperty(final SimulationData simData, final RunElementMatchData data, final RunDataClient newClient, final int newClientQueueNumber) {
 		final int[] selected=data.selectQueuedClients;
 		/* Abgleich eines Zahlenwertes */
@@ -426,6 +514,16 @@ public class RunElementMatch extends RunElementPassThrough {
 		return selected;
 	}
 
+	/**
+	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?<br>
+	 * Modus: Abgleich eines Kundendatentextfeldes
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param newClient	Neu eingetroffener Kunde
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
+	 * @see #testReadyToSend(SimulationData, RunDataClient, int)
+	 */
 	private int[] testReadyToSendTextProperty(final SimulationData simData, final RunElementMatchData data, final RunDataClient newClient, final int newClientQueueNumber) {
 		final int[] selected=data.selectQueuedClients;
 		/* Abgleich einer Text-Eigenschaft */
@@ -447,6 +545,13 @@ public class RunElementMatch extends RunElementPassThrough {
 		return selected;
 	}
 
+	/**
+	 * Gibt es passende Kunden, so dass eine Freigabe erfolgen kann?
+	 * @param simData	Simulationsdatenobjekt
+	 * @param newClient	Neu eingetroffener Kunde
+	 * @param newClientQueueNumber	Index der Teilwarteschlange an der der Kunde eingetroffen ist
+	 * @return	Indices der freizugebenden Kunden (jeweils ein Eintrag pro Teilwarteschlange) oder <code>null</code>, wenn keine Freigabe erfolgen kann
+	 */
 	private int[] testReadyToSend(final SimulationData simData, final RunDataClient newClient, final int newClientQueueNumber) {
 		final RunElementMatchData data=getData(simData);
 

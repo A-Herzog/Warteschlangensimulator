@@ -25,7 +25,7 @@ import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 
 /**
- * Laufzeitdaten eines <code>RunElementSeize</code>-Laufzeit-Objekts
+ * Laufzeitdaten eines {@link RunElementSeize}-Laufzeit-Objekts
  * @author Alexander Herzog
  * @see RunElementSeize
  * @see RunElementData
@@ -34,6 +34,7 @@ public class RunElementSeizeData extends RunElementData {
 	/** Liste mit den momentan an der Station wartenden Kunden */
 	public final Deque<RunDataClient> waitingClients;
 
+	/** Zu dem Datenobjekt zugehöriges {@link RunElementSeize}-Element */
 	private final RunElementSeize station;
 
 	/**
@@ -47,8 +48,8 @@ public class RunElementSeizeData extends RunElementData {
 	public final ExpressionCalc resourcePriority;
 
 	/**
-	 * Konstruktor der Klasse <code>RunElementSeizeData</code>
-	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementSeize</code>-Element
+	 * Konstruktor der Klasse {@link RunElementSeizeData}
+	 * @param station	Zu dem Datenobjekt zugehöriges {@link RunElementSeize}-Element
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 */
 	public RunElementSeizeData(final RunElementSeize station, final String[] variableNames) {

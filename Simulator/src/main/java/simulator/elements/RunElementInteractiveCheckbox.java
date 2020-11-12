@@ -20,6 +20,7 @@ import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
 import simulator.events.InteractiveCheckboxClickedEvent;
+import simulator.runmodel.RunData;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
@@ -33,8 +34,11 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementInteractiveCheckbox
  */
 public class RunElementInteractiveCheckbox extends RunElement {
+	/** Index der zu ändernden Variable in {@link RunData#variableValues} */
 	private int variableIndex;
+	/** Einzustellender Wert beim Aktivieren der Checkbox */
 	private double valueChecked;
+	/** Einzustellender Wert beim Deaktivieren der Checkbox */
 	private double valueUnchecked;
 
 	/**

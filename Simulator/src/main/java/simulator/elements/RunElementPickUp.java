@@ -41,12 +41,17 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementPickUp
  */
 public class RunElementPickUp extends RunElementPassThrough implements StateChangeListener {
+	/** ID der fremden Warteschlange, aus der der jeweils andere Kunde entnommen werden soll */
 	private int queueId;
+	/** Fremde Station aus deren Warteschlange der jeweils andere Kunde entnommen werden soll (Übersetzung von {@link #queueId}) */
 	private RunElement queue;
 
+	/** Kunden notfalls alleine weiterleiten, wenn die entfernte Warteschlange leer ist? */
 	private boolean sendAloneIfQueueEmpty;
 
+	/** Batch-Bildungs-Modus */
 	private ModelElementPickUp.BatchMode batchMode;
+	/** Index des neuen Batch-Kundentyps (bei der temporären oder permanenten Batch-Bildung) */
 	private int newClientType;
 
 	/**
@@ -120,6 +125,11 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 		return data;
 	}
 
+	/**
+	 * Versucht einen Kunden aus der entfernten Warteschlange zu entnehmen
+	 * @param simData	Simulationsdatenobjekt
+	 * @return	Aus der entfernten Warteschlange entnommener Kunde oder <code>null</code>, wenn dort kein Kunde zur Verfügung stand
+	 */
 	private RunDataClient getFirstClientFromQueue(final SimulationData simData) {
 		if (!(queue instanceof PickUpQueue)) return null;
 		final PickUpQueue pickUpQueue=(PickUpQueue)queue;
@@ -128,7 +138,6 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 
 		/* Logging */
 		if (client!=null && simData.loggingActive) {
-			/* Aufteilung in zwei Abschnitte nötig, sonst beschwert sich Avira... */
 			final String s=String.format(Language.tr("Simulation.Log.PickUp.Info"),queue.name,client.logInfo(simData),name);
 			log(simData,Language.tr("Simulation.Log.PickUp"),s);
 		}
@@ -136,6 +145,12 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 		return client;
 	}
 
+	/**
+	 * Startet die Verarbeitung
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param otherClient	Aus der entfernten Warteschlange entnommener Kunde (kann <code>null</code> sein)
+	 */
 	private void processMatch(final SimulationData simData, final RunElementPickUpData data, final RunDataClient otherClient) {
 		/* Kunde aus Warteschlange entfernen und weiterleiten */
 		final RunDataClient client=data.waitingClients.poll();

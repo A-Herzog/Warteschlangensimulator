@@ -44,7 +44,13 @@ public class RunElementSourceDB extends RunElementSourceExtern {
 		super(element,buildName(element,Language.tr("Simulation.Element.SourceDB.Name")));
 	}
 
-	private String loadDatabase(ModelElementSourceDB sourceElement, final List<String> clientTypes) {
+	/**
+	 * Lädt die Kundenankünfte aus einer Datenbanktabelle.
+	 * @param sourceElement	Editor-Element aus dem die Datenbankeinstellungen geladen werden
+	 * @param clientTypes	Kundentypen die beim Laden der Tabelle berücksichtigt werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
+	 */
+	private String loadDatabase(final ModelElementSourceDB sourceElement, final List<String> clientTypes) {
 		try (DBConnect connect=new DBConnect(sourceElement.getDb(),false)) {
 			if (connect.getInitError()!=null) return Language.tr("Simulation.Creator.DatabaseError")+": "+connect.getInitError();
 

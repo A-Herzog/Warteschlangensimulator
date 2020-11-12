@@ -137,6 +137,12 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		}
 	}
 
+	/**
+	 * Gibt einen wartenden Kunden frei.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param clientIndex	Index des Kundenobjektes in {@link RunElementHoldData#waitingClients}
+	 */
 	private void releaseClient(final SimulationData simData, final RunElementHoldJSData data, final int clientIndex) {
 		/* Kunde aus Warteschlange entfernen und weiterleiten */
 		final RunDataClient client=data.waitingClients.remove(clientIndex);

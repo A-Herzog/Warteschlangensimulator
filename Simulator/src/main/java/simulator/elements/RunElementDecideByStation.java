@@ -42,7 +42,7 @@ import ui.modeleditor.elements.ModelElementTeleportSource;
 import ui.modeleditor.elements.ModelElementVertex;
 
 /**
- * Äquivalent zu <code>ModelElementDecide</code>
+ * Äquivalent zu {@link ModelElementDecide}
  * @author Alexander Herzog
  * @see ModelElementDecide
  */
@@ -51,12 +51,18 @@ public class RunElementDecideByStation extends RunElement {
 	private List<Integer> connectionIds;
 	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
+	/** IDs der über die jeweiligen Ausgangskanten folgenden relevanten Stationen */
 	private List<Integer> nextIds;
+	/** Über die jeweiligen Ausgangskanten folgenden relevanten Stationen (Übersetzung der IDs aus {@link #nextIds}) */
 	private RunElement[] next;
+	/** Verzweigungsmodus (4 Modi: kürzeste Warteschlange/wenigste Kunden an der nächsten Station/Bedienstation) */
 	private ModelElementDecide.DecideMode mode;
 
+	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
+	/** IDs der Kundentyp-Zuweisungen an den Ausgängen (kann in Gänze <code>null</code> sein, oder einzelne Einträge können -1 sein) */
 	private int[] clientTypeIds;
+	/** Icons für die Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeIcons;
 
 	/**
@@ -67,6 +73,13 @@ public class RunElementDecideByStation extends RunElement {
 		super(element,buildName(element,Language.tr("Simulation.Element.DecideByStation.Name")));
 	}
 
+	/**
+	 * Liefert die über eine Kante bzw. Folgestation als nächstes erreichbare Station.
+	 * @param editModel	Editor-Modell
+	 * @param element	Aktuelle Station von der die Suche ausgehen soll
+	 * @param processStation	Nächste Station (<code>false</code>) oder nächste Bedienstation (<code>true</code>) suchen?
+	 * @return	Liefert  im Erfolgsfall die ID der passenden Folgestation, sonst -1
+	 */
 	private int getNext(final EditModel editModel, ModelElement element, final boolean processStation) {
 		while (element!=null) {
 

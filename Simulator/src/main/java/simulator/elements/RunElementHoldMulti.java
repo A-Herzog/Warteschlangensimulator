@@ -43,6 +43,7 @@ public class RunElementHoldMulti extends RunElement implements StateChangeListen
 	private List<Integer> connectionIds;
 	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
 	private RunElement[] connections;
+	/** Bedingungen pro auslaufender Kante */
 	private String[] conditions;
 	/** Regelmäßige Prüfung der Bedingung? */
 	private boolean useTimedChecks;
