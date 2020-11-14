@@ -477,7 +477,7 @@ public class MainPanel extends MainPanelBase {
 			}
 
 			if (!fileLoadedOnLoad && !isReload && setup.startModel.isEmpty() && !isAutoRestore) {
-				new BackgroundPrepareCompiledClasses();
+				BackgroundPrepareCompiledClasses.run();
 			}
 		});
 	}

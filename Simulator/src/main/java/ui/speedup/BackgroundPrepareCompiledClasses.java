@@ -40,7 +40,7 @@ public class BackgroundPrepareCompiledClasses {
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public BackgroundPrepareCompiledClasses() {
+	private BackgroundPrepareCompiledClasses() {
 		final SetupData setup=SetupData.getSetup();
 		final SetupData.BackgroundProcessingMode backgroundMode=setup.backgroundSimulation;
 		if (!setup.serverUse && (backgroundMode==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION || backgroundMode==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION_ALWAYS)) {
@@ -48,7 +48,7 @@ public class BackgroundPrepareCompiledClasses {
 			final ScheduledExecutorService scheduler=new ScheduledThreadPoolExecutor(1,new ThreadFactory() {
 				@Override
 				public Thread newThread(Runnable r) {
-					Thread t=new Thread(r,"Precompile Simulator classes");
+					final Thread t=new Thread(r,"Precompile Simulator classes");
 					t.setDaemon(true);
 					return t;
 				}
@@ -59,7 +59,22 @@ public class BackgroundPrepareCompiledClasses {
 	}
 
 	/**
-	 * Verzögert ausgeführter Thread-Inhalt zum Vorabladen der Klassen.
+	 * Wurde {@link #run()} noch nie ausgeführt?
+	 */
+	private static boolean firstRun=true;
+
+	/**
+	 * Klassen vorab laden.
+	 */
+	public static void run() {
+		if (!firstRun) return;
+		firstRun=false;
+		new BackgroundPrepareCompiledClasses();
+
+	}
+
+	/**
+	 * Verzögert ausgeführter Thread-Inhalt zum vorab Laden der Klassen.
 	 */
 	private void work() {
 		final EditModel model=EditModelExamples.getExampleByIndex(null,0);
