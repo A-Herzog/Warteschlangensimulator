@@ -3619,7 +3619,7 @@
 <!ELEMENT StatisticsInterArrivalTimesClients (StationData)*>
 <!ELEMENT StatisticsInterArrivalTimesStations (StationData)*>
 <!ELEMENT StatisticsInterArrivalTimesStationsClients (StationData)*>
-<!ELEMENT StatisticsInterLeavingTimesClients (StationData)*>
+<!ELEMENT StatisticsInterLeavingTimesClients (ClientType)*>
 <!ELEMENT StatisticsInterLeavingTimesStations (StationData)*>
 <!ELEMENT StatisticsInterArrivalTimesStationsQueueLength (StationData)*>
 <!ELEMENT StatisticsInterLeavingTimesStationsClients (StationData)*>

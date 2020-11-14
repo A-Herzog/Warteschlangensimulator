@@ -487,7 +487,7 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(stationsInterarrivalTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterArrivalStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 
 		/* Zwischenabgangszeiten */
-		addPerformanceIndicator(clientsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingClients"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
+		addPerformanceIndicator(clientsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingClients"),new StatisticsDataPerformanceIndicator(nameClientType,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsInterleavingTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 		addPerformanceIndicator(stationsInterleavingTimeByClientType=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InterLeavingStationsByClientType"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 

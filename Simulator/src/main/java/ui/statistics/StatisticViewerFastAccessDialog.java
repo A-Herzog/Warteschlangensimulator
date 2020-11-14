@@ -431,7 +431,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterArrivalStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 
 				/* Zwischenabgangszeiten */
-				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingClients")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingClients")+","+Language.trPrimary("Statistics.XML.ClientType"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingStations")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.InterLeavingStationsByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
 
@@ -462,7 +462,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				/* Anzahlen an Kunden */
 				/* + Datenfelder für alle Kunden -> Keine Untergliederung nach Typ-Attribut */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStation")+","+Language.trPrimary("Statistics.XML.Station"),
-				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByType")+","+Language.trPrimary("Statistics.XML.Station"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByType")+","+Language.trPrimary("Statistics.XML.ClientType"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationQueue")+","+Language.trPrimary("Statistics.XML.Station"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsInSystemQueue")+","+Language.trPrimary("Statistics.XML.ClientType"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientsAtStationByClientType")+","+Language.trPrimary("Statistics.XML.Station"),
