@@ -2,7 +2,7 @@
 <!DOCTYPE Modell SYSTEM "https://qs.highfives.io/xml/Simulator.dtd">
 <Modell xmlns="https://qs.highfives.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://qs.highfives.io https://qs.highfives.io/xml/Simulator.xsd">
   <ModellVersion>3.7.0</ModellVersion>
-  <ModellAutor>Alexa</ModellAutor>
+  <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">500000000</ModellKunden>
   <ModellAufwaermphase>0</ModellAufwaermphase>
   <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
