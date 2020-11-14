@@ -1805,7 +1805,7 @@
 >
 <!ELEMENT StatistikKundenAnStation (Station)*>
 <!ELEMENT StatistikKundenAnStationNachKundentyp (Station)*>
-<!ELEMENT StatistikKundentypenImSystem (Station)*>
+<!ELEMENT StatistikKundentypenImSystem (Kundentyp)*>
 <!ELEMENT StatistikKundenAnStationWartend (Station)*>
 <!ELEMENT StatistikKundenAnStationWartendNachKundentyp (Station)*>
 <!ELEMENT StatistikKundentypenImSystemWartend (Kundentyp)*>
@@ -3751,7 +3751,7 @@
 >
 <!ELEMENT StatisticsClientsAtStation (StationData)*>
 <!ELEMENT StatisticsClientsAtStationByClientType (StationData)*>
-<!ELEMENT StatisticsClienttypesInSystem (StationData)*>
+<!ELEMENT StatisticsClienttypesInSystem (ClientType)*>
 <!ELEMENT StatisticsClientsAtStationQueue (StationData)*>
 <!ELEMENT StatisticsClientsAtStationQueueByClientType (StationData)*>
 <!ELEMENT StatisticsClientsInSystemQueue (ClientType)*>

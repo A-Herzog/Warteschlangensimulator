@@ -1741,15 +1741,15 @@
 <xs:complexType name="StatistikBasis"><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Anzahl" type="xs:string"/>
-	<xs:attribute name="Maximum" type="xs:string" use="required"/>
-	<xs:attribute name="Minimum" type="xs:string" use="required"/>
-	<xs:attribute name="Mittelwert" type="xs:string" use="required"/>
-	<xs:attribute name="Standardabweichung" type="xs:string" use="required"/>
-	<xs:attribute name="Summe" type="xs:string" use="required"/>
+	<xs:attribute name="Maximum" type="xs:string"/>
+	<xs:attribute name="Minimum" type="xs:string"/>
+	<xs:attribute name="Mittelwert" type="xs:string"/>
+	<xs:attribute name="Standardabweichung" type="xs:string"/>
+	<xs:attribute name="Summe" type="xs:string"/>
 	<xs:attribute name="Summe2" type="xs:string"/>
 	<xs:attribute name="Typ" type="xs:string"/>
     <xs:attribute name="Zeit" type="xs:string"/>
-	<xs:attribute name="Variationskoeffizient" type="xs:string" use="required"/>
+	<xs:attribute name="Variationskoeffizient" type="xs:string"/>
 	<xs:attribute name="Verteilung" type="xs:string"/>
 	<xs:attribute name="Autokorrelation" type="xs:string"/>
     <xs:attribute name="Autokorrelation0100" type="xs:string"/>
@@ -1871,7 +1871,7 @@
 <xs:element name="StatistikKundentypenImSystemWartendUeberall" type="StatistikBasis"/>
 <xs:element name="StatistikKundenAnStation" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenAnStationNachKundentyp" type="StatistikStationBasis"/>
-<xs:element name="StatistikKundentypenImSystem" type="StatistikStationBasis"/>
+<xs:element name="StatistikKundentypenImSystem" type="StatistikKundentypBasis"/>
 <xs:element name="StatistikKundenAnStationWartend" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundenAnStationWartendNachKundentyp" type="StatistikStationBasis"/>
 <xs:element name="StatistikKundentypenImSystemWartend" type="StatistikKundentypBasis"/>
@@ -3739,15 +3739,15 @@
 <xs:complexType name="StatisticsBase"><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Count" type="xs:string"/>
-	<xs:attribute name="Maximum" type="xs:string" use="required"/>
-	<xs:attribute name="Minimum" type="xs:string" use="required"/>
-	<xs:attribute name="Mean" type="xs:string" use="required"/>
-	<xs:attribute name="StandardDeviation" type="xs:string" use="required"/>
-	<xs:attribute name="Sum" type="xs:string" use="required"/>
+	<xs:attribute name="Maximum" type="xs:string"/>
+	<xs:attribute name="Minimum" type="xs:string"/>
+	<xs:attribute name="Mean" type="xs:string"/>
+	<xs:attribute name="StandardDeviation" type="xs:string"/>
+	<xs:attribute name="Sum" type="xs:string"/>
 	<xs:attribute name="Sum2" type="xs:string"/>
 	<xs:attribute name="Type" type="xs:string"/>
     <xs:attribute name="Time" type="xs:string"/>
-	<xs:attribute name="CoefficientOfVariation" type="xs:string" use="required"/>
+	<xs:attribute name="CoefficientOfVariation" type="xs:string"/>
 	<xs:attribute name="Distribution" type="xs:string"/>
 	<xs:attribute name="Autocorrelation" type="xs:string"/>
     <xs:attribute name="Autocorrelation0100" type="xs:string"/>
@@ -3869,7 +3869,7 @@
 <xs:element name="StatisticsClientsInSystemAllQueues" type="StatisticsBase"/>
 <xs:element name="StatisticsClientsAtStation" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsAtStationByClientType" type="StatisticsStationBase"/>
-<xs:element name="StatisticsClienttypesInSystem" type="StatisticsStationBase"/>
+<xs:element name="StatisticsClienttypesInSystem" type="StatisticsClientBase"/>
 <xs:element name="StatisticsClientsAtStationQueue" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsAtStationQueueByClientType" type="StatisticsStationBase"/>
 <xs:element name="StatisticsClientsInSystemQueue" type="StatisticsClientBase"/>
