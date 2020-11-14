@@ -5,6 +5,11 @@
 <!-- Beschreibung der Modell-Dateien -->
 
 <!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten)*>
+<!ATTLIST Modell
+  xmlns	CDATA	#IMPLIED
+  xmlns:xsi	CDATA	#IMPLIED
+  xsi:schemaLocation	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModellVersion (#PCDATA)>
 <!ELEMENT ModellName (#PCDATA)>
@@ -1463,6 +1468,11 @@
 <!-- Beschreibung der Statistik-Dateien -->
 
 <!ELEMENT Statistik (Modell | Simulation | StatistikThreadBasierendeWartzeitKonfidenz | StatistikZwischenankunftszeitenKunden | StatistikZwischenankunftszeitenStationen | StatistikZwischenankunftszeitenStationenKunden | StatistikZwischenabgangszeitenKunden | StatistikZwischenabgangszeitenStationen | StatistikZwischenankunftszeitenStationenWarteschlange | StatistikZwischenabgangszeitenStationenKunden | StatistikKundenbewegung | StatistikKundenpfade | StatistikWartezeitenKunden | StatistikTransferzeitenKunden | StatistikBedienzeitenKunden | StatistikVerweilzeitenKunden | StatistikWartezeitenAlleKunden | StatistikTransferzeitenAlleKunden | StatistikBedienzeitenAlleKunden | StatistikVerweilzeitenAlleKunden | StatistikWartezeitenStationen | StatistikTransferzeitenStationen | StatistikBedienzeitenStationen | StatistikVerweilzeitenStationen | StatistikWartezeitenStationenKunden | StatistikTransferzeitenStationenKunden | StatistikBedienzeitenStationenKunden | StatistikVerweilzeitenStationenKunden | StatistikKundenImSystem | StatistikKundentypenImSystemWartendUeberall | StatistikKundenAnStation | StatistikKundenAnStationNachKundentyp | StatistikKundentypenImSystem | StatistikKundenAnStationWartend | StatistikKundenAnStationWartendNachKundentyp |StatistikKundentypenImSystemWartend | StatistikRessourceAnzahlen | StatistikAuslastung | StatistikPausenzeiten | StatistikTransporterAuslastung | StatistikTransporterPausenzeiten | StatistikZaehler | StatistikDifferenzZaehler | StatistikKundenWartezeitKosten | StatistikKundenTransferzeitKosten | StatistikKundenBedienzeitKosten | StatistikStationenKosten | StatistikRessourcenArbeitszeitKosten | StatistikRessourcenAuslastungsKosten | StatistikRessourcenLeerlaufKosten | StatistikLaufzeitWerte | StatistikBenutzerdefiniert | StatistikStatusZeit | StatistikAnalogWert | StatistikDurchsatz | StatistikWerteaufzeichnung | StatistikKundendaten)*>
+<!ATTLIST Statistik
+  xmlns	CDATA	#IMPLIED
+  xmlns:xsi	CDATA	#IMPLIED
+  xsi:schemaLocation	CDATA	#IMPLIED
+>
 
 <!ELEMENT Simulation (StatistikLaufdatum | StatistikLaufzeit | StatistikSystem | StatistikNutzer | StatistikThreads | StatistikEreignisse | StatistikInternerAbbruch | StatistikWiederholungen | StatistikThreadLaufzeiten)*>
 
@@ -1897,6 +1907,11 @@
 <!-- Beschreibung der Optimierer-Einstellungen-Dateien -->
 
 <!ELEMENT OptimiererEinstellungen (OptimiererKontrollvariable | OptimiererNebenbedingung | OptimiererZiel | OptimiererAusgabeverzeichnis | OptimiererKern | OptimiererKernSeriell | OptimiererKernGenetisch)*>
+<!ATTLIST OptimiererEinstellungen
+  xmlns	CDATA	#IMPLIED
+  xmlns:xsi	CDATA	#IMPLIED
+  xsi:schemaLocation	CDATA	#IMPLIED
+>
 
 <!ELEMENT OptimiererKontrollvariable (#PCDATA)>
 <!ATTLIST OptimiererKontrollvariable
@@ -1951,6 +1966,11 @@
 <!-- Documentation of the model files -->
 
 <!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData)*>
+<!ATTLIST Model
+  xmlns	CDATA	#IMPLIED
+  xmlns:xsi	CDATA	#IMPLIED
+  xsi:schemaLocation	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModelVersion (#PCDATA)>
 <!ELEMENT ModelName (#PCDATA)>
@@ -3409,6 +3429,11 @@
 <!-- Documentation of the statistics data -->
 
 <!ELEMENT Statistics (Model | SimulationData | StatisticsThreadBasedWaitingTimeConfidence | StatisticsInterArrivalTimesClients | StatisticsInterArrivalTimesStations | StatisticsInterArrivalTimesStationsClients | StatisticsInterLeavingTimesClients | StatisticsInterLeavingTimesStations | StatisticsInterArrivalTimesStationsQueueLength | StatisticsInterLeavingTimesStationsClients | StatisticsClientMovement | StatisticsClientPaths | StatisticsWaitingTimesClients | StatisticsTransferTimesClients | StatisticsProcessTimesClients | StatisticsResidenceTimesClients | StatisticsWaitingTimesAllClients | StatisticsTransferTimesAllClients | StatisticsProcessTimesAllClients | StatisticsResidenceTimesAllClients | StatisticsWaitingTimesStations | StatisticsTransferTimesStations | StatisticsProcessTimesStations | StatisticsResidenceTimesStations | StatisticsWaitingTimesStationsClients | StatisticsTransferTimesStationsClients | StatisticsProcessTimesStationsClients | StatisticsResidenceTimesStationsClients | StatisticsClientsInSystem | StatisticsClientsInSystemAllQueues | StatisticsClientsAtStation | StatisticsClientsAtStationByClientType | StatisticsClienttypesInSystem | StatisticsClientsAtStationQueue | StatisticsClientsAtStationQueueByClientType |StatisticsClientsInSystemQueue | StatisticsResourceNumbers | StatisticsUtilization | StatisticsDownTime | StatisticsTransporterUtilization | StatisticsTransporterDownTimes | StatisticsCounter | StatisticsDifferenceCounter | StatisticsClientWaitingTimeCosts | StatisticsClientTransferTimeCosts | StatisticsClientProcessTimeCosts | StatisticsStationsCosts | StatisticsResourcesAvailabilityCosts | StatisticsResourcesWorkTimeCosts | StatisticsResourcesIdleTimeCosts | StatisticsRunTimeValues | StatisticsUserDefined | StatisticsStatusTime | StatisticsAnalogValue | StatisticsThroughput | StatisticsValueRecordingName | StatisticsClientData)*>
+<!ATTLIST Statistics
+  xmlns	CDATA	#IMPLIED
+  xmlns:xsi	CDATA	#IMPLIED
+  xsi:schemaLocation	CDATA	#IMPLIED
+>
 
 <!ELEMENT SimulationData (StatisticsRunDate | StatisticsRunTime | StatisticsSystem | StatisticsUser | StatisticsThreads | StatisticsEvents | StatisticsInternalTermination | StatisticsRepeats | StatisticsThreadRunTimes)*>
 
@@ -3843,6 +3868,11 @@
 <!-- Documentation of the optimizer setup data -->
 
 <!ELEMENT OptimizerSettings (OptimizerControlVariable | OptimizerConstrain | OptimizerTarget | OptimizerOutputFolder | OptimizerKernel | OptimizerKernelSerial | OptimizerKernelGenetic)*>
+<!ATTLIST OptimizerSettings
+  xmlns	CDATA	#IMPLIED
+  xmlns:xsi	CDATA	#IMPLIED
+  xsi:schemaLocation	CDATA	#IMPLIED
+>
 
 <!ELEMENT OptimizerControlVariable (#PCDATA)>
 <!ATTLIST OptimizerControlVariable
