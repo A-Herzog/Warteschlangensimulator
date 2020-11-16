@@ -43,12 +43,31 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsSimpleValuePerformanceIndicator;
 import tools.SetupData;
 import tools.UsageStatistics;
+import ui.speedup.BackgroundPrepareCompiledClasses;
 
 /**
  * Vollständiger Multi-Core-fähiger Simulator
  * @author Alexander Herzog
  */
 public class Simulator extends SimulatorBase implements AnySimulator {
+	/**
+	 * Wurde bereits mindestens einmal {@link #start(boolean)}
+	 * oder {@link #start()} aufgerufen?
+	 */
+	private static boolean simulationStarted=false;
+
+
+	/**
+	 * Wurde bereits mindestens einmal {@link #start(boolean)}
+	 * oder {@link #start()} aufgerufen?
+	 * @return	Liefert <code>true</code>, wenn bereits eine Simulation gestartet wurde (und das Hintergrund-Vorabladen der Klassen durch {@link BackgroundPrepareCompiledClasses} keinen Sinn mehr ergibt).
+	 * @see #simulationStarted
+	 * @see BackgroundPrepareCompiledClasses
+	 */
+	public static boolean isSimulationStarted() {
+		return simulationStarted;
+	}
+
 	/**
 	 * Welche Arten von Ereignissen sollen erfasst werden?
 	 * @author Alexander Herzog
@@ -388,6 +407,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	@Override
 	public final void start(final boolean startPaused) {
+		simulationStarted=true;
 		if (runModel==null) return;
 		super.start(!SetupData.getSetup().highPriority,startPaused);
 	}

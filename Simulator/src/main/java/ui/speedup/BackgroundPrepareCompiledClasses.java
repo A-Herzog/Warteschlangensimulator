@@ -77,6 +77,8 @@ public class BackgroundPrepareCompiledClasses {
 	 * Verzögert ausgeführter Thread-Inhalt zum vorab Laden der Klassen.
 	 */
 	private void work() {
+		if (Simulator.isSimulationStarted()) return; /* Keine Verarbeitung, wenn bereits eine Simulation ausgeführt wurde. */
+
 		final EditModel model=EditModelExamples.getExampleByIndex(null,0);
 		model.clientCount=250_000;
 		model.distributionRecordHours=0;
