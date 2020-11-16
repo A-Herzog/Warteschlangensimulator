@@ -61,6 +61,7 @@ import ui.modeleditor.elements.ModelElementOutputDB;
 import ui.modeleditor.elements.ModelElementOutputDDE;
 import ui.modeleditor.elements.ModelElementOutputJS;
 import ui.modeleditor.elements.ModelElementRecord;
+import ui.modeleditor.elements.ModelElementSetJS;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceDB;
 import ui.modeleditor.elements.ModelElementSourceDDE;
@@ -1032,6 +1033,14 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			reasons.add(String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId()));
 		}
 		if (element instanceof ModelElementRecord) reasons.add(String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId()));
+
+		/* Eingabe über Anweisung in Script-Element */
+
+		if (element instanceof ModelElementSetJS) {
+			if (((ModelElementSetJS)element).scriptRequiresSingleCoreMode()) {
+				reasons.add(String.format(Language.tr("Surface.SingleCoreReason.ScriptContent"),element.getId()));
+			}
+		}
 
 		/* Zeitpläne werden verwendet für ein Kundenquellen */
 

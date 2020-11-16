@@ -323,4 +323,32 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.hold,fixer);
 	}
+
+	/**
+	 * Prüft, ob das Skript auf externe Daten zugreift, was eine
+	 * Parallelisierung der Simulation verhindern würde.
+	 * @return	Kann das Skript parallel in mehreren Instanzen ausgeführt werden?
+	 * @see EditModel#getSingleCoreReason()
+	 */
+	public boolean scriptRequiresSingleCoreMode() {
+		if (script==null) return false;
+
+		for (String line: script.split("\n")) {
+			final String lower=line.toLowerCase();
+			switch (mode) {
+			case Javascript:
+				if (lower.contains("system.getinput(")) return true;
+				if (lower.contains("simulation.getinput(")) return true;
+				break;
+			case Java:
+				if (lower.contains("getruntime().getinput(")) return true;
+				if (lower.contains("getinputvalue().getinput(")) return true;
+				break;
+			default:
+				break;
+			}
+		}
+
+		return false;
+	}
 }

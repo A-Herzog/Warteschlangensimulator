@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 20:57+0100\n"
+"POT-Creation-Date: 2020-11-16 17:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23594,6 +23594,9 @@ msgstr "The input/output element id=%d requires a complete sequential processing
 
 msgid "Surface.SingleCoreReason.ResourceUsesSchedule"
 msgstr "The resource %s uses a schedule (%s) for the number of available operators."
+
+msgid "Surface.SingleCoreReason.ScriptContent"
+msgstr "At station id=%d commands for loading external data are used."
 
 msgid "Surface.SingleCoreReason.SourceUsesSchedule"
 msgstr "The source id=%d uses a schedule (%s) for the arrivals."

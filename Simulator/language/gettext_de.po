@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-11 20:57+0100\n"
+"POT-Creation-Date: 2020-11-16 17:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23602,6 +23602,9 @@ msgstr "Das Eingabe/Ausgabe-Element id=%d erfordert eine vollständig sequienzie
 
 msgid "Surface.SingleCoreReason.ResourceUsesSchedule"
 msgstr "Die Ressource %s verwendet einen Zeitplan (%s) für die Anzahl an verfügbaren Bedienern."
+
+msgid "Surface.SingleCoreReason.ScriptContent"
+msgstr "An Station id=%d werden Befehle zum externen Laden von Daten verwendet."
 
 msgid "Surface.SingleCoreReason.SourceUsesSchedule"
 msgstr "Die Quelle id=%d verwendet einen Zeitplan (%s) für die Ankünfte."
