@@ -119,7 +119,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 
 		final String text=condition.getText();
 		if (!text.trim().isEmpty()) {
-			final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+			final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
 			if (error>=0) {
 				condition.setBackground(Color.red);
 				if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Hold.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Hold.Dialog.Condition.Error.Info"),text,error+1));

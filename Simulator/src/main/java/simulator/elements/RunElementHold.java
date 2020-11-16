@@ -149,7 +149,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 					/* Ist die Bedingung erfüllt? */
 					final boolean conditionIsTrue;
 					if (useClientBasedCheck) {
-						simData.runData.setClientVariableValues(client);
+						simData.runData.setClientVariableValues(client.waitingTime+(simData.currentTime-client.lastWaitingStart),client.transferTime,client.processTime); /* Auch die bisherige Wartezeit an der aktuellen Station schon mitzählen. */
 						conditionIsTrue=(data.condition==null || data.condition.eval(variableValues,simData,client));
 					} else {
 						simData.runData.setClientVariableValues(null);
