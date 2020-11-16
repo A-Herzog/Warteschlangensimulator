@@ -26,8 +26,8 @@ import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.function.Supplier;
@@ -486,12 +486,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		buttonAsNameToSurface.setToolTipText(Language.tr("Editor.Dialog.Tab.ModelDescription.NameOfTheModel.AddNameToModel"));
 		buttonAsNameToSurface.setEnabled(!readOnly && !model.name.trim().isEmpty());
 		buttonAsNameToSurface.addActionListener(e->addNameToModel(name.getText().trim()));
-		name.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				buttonAsNameToSurface.setEnabled(!readOnly && !name.getText().trim().isEmpty());
-			}
-		});
+		addKeyListener(name,()->buttonAsNameToSurface.setEnabled(!readOnly && !name.getText().trim().isEmpty()));
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.Author")+":",(model.author==null)?"":model.author);
 		top.add((JPanel)data[0]);
@@ -564,20 +559,20 @@ public class ModelPropertiesDialog extends BaseDialog {
 		lines.add((JPanel)data[0]);
 		clientCount=(JTextField)data[1];
 		clientCount.setEditable(!readOnly);
-		clientCount.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {terminationByClientClount.setSelected(true); NumberTools.getNotNegativeInteger(clientCount,true); testCorrelationWarning(); updateWarmUpTimeInfo();}
-			@Override public void keyPressed(KeyEvent e) {terminationByClientClount.setSelected(true); NumberTools.getNotNegativeInteger(clientCount,true); testCorrelationWarning(); updateWarmUpTimeInfo();}
-			@Override public void keyReleased(KeyEvent e) {terminationByClientClount.setSelected(true); NumberTools.getNotNegativeInteger(clientCount,true); testCorrelationWarning(); updateWarmUpTimeInfo();}
+		addKeyListener(clientCount,()->{
+			terminationByClientClount.setSelected(true);
+			NumberTools.getNotNegativeInteger(clientCount,true);
+			testCorrelationWarning();
+			updateWarmUpTimeInfo();
 		});
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase")+":",NumberTools.formatPercent(model.warmUpTime,3),6);
 		lines.add((JPanel)data[0]);
 		warmUpTime=(JTextField)data[1];
 		warmUpTime.setEditable(!readOnly);
-		warmUpTime.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {NumberTools.getNotNegativeDouble(warmUpTime,true); updateWarmUpTimeInfo();}
-			@Override public void keyPressed(KeyEvent e) {NumberTools.getNotNegativeDouble(warmUpTime,true); updateWarmUpTimeInfo();}
-			@Override public void keyReleased(KeyEvent e) {NumberTools.getNotNegativeDouble(warmUpTime,true); updateWarmUpTimeInfo();}
+		addKeyListener(warmUpTime,()->{
+			NumberTools.getNotNegativeDouble(warmUpTime,true);
+			updateWarmUpTimeInfo();
 		});
 		((JPanel)data[0]).add(new JLabel("("+Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase.Info")+")"));
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -599,10 +594,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 		terminationCondition=(JTextField)data[1];
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,terminationCondition,true,false,model,model.surface),BorderLayout.EAST);
 		terminationCondition.setEditable(!readOnly);
-		terminationCondition.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {terminationByCondition.setSelected(true); checkTerminationCondition();}
-			@Override public void keyPressed(KeyEvent e) {terminationByCondition.setSelected(true); checkTerminationCondition();}
-			@Override public void keyReleased(KeyEvent e) {terminationByCondition.setSelected(true); checkTerminationCondition();}
+		addKeyListener(terminationCondition,()->{
+			terminationByCondition.setSelected(true);
+			checkTerminationCondition();
 		});
 
 		lines.add(Box.createVerticalStrut(25));
@@ -619,10 +613,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 		lines.add(sub);
 		terminationTime=(JTextField)data[1];
 		terminationTime.setEditable(!readOnly);
-		terminationTime.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {terminationByTime.setSelected(true); checkTerminationTime();}
-			@Override public void keyPressed(KeyEvent e) {terminationByTime.setSelected(true); checkTerminationTime();}
-			@Override public void keyReleased(KeyEvent e) {terminationByTime.setSelected(true); checkTerminationTime();}
+		addKeyListener(terminationTime,()->{
+			terminationByTime.setSelected(true);
+			checkTerminationTime();
 		});
 
 		lines.add(Box.createVerticalStrut(25));
@@ -639,10 +632,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 		lines.add(sub);
 		fixedSeed=(JTextField)data[1];
 		fixedSeed.setEditable(!readOnly);
-		fixedSeed.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {useFixedSeed.setSelected(true); checkFixedSeed();}
-			@Override public void keyPressed(KeyEvent e) {useFixedSeed.setSelected(true); checkFixedSeed();}
-			@Override public void keyReleased(KeyEvent e) {useFixedSeed.setSelected(true); checkFixedSeed();}
+		addKeyListener(fixedSeed,()->{
+			useFixedSeed.setSelected(true);
+			checkFixedSeed();
 		});
 		if (!readOnly) {
 			final JButton fixedSeedButton=new JButton(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.RandomButton"));
@@ -669,11 +661,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		lines.add(sub);
 		repeatCount=(JTextField)data[1];
 		repeatCount.setEditable(!readOnly);
-		repeatCount.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {checkRepeatCount();}
-			@Override public void keyPressed(KeyEvent e) {checkRepeatCount();}
-			@Override public void keyReleased(KeyEvent e) {checkRepeatCount();}
-		});
+		addKeyListener(repeatCount,()->checkRepeatCount());
 
 		/* Anzahl Stunden in Verteilungen */
 
@@ -682,11 +670,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		lines.add(sub);
 		distributionRecordHours=(JTextField)data[1];
 		distributionRecordHours.setEditable(!readOnly);
-		distributionRecordHours.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {checkDistributionRecordHours();}
-			@Override public void keyPressed(KeyEvent e) {checkDistributionRecordHours();}
-			@Override public void keyReleased(KeyEvent e) {checkDistributionRecordHours();}
-		});
+		addKeyListener(distributionRecordHours,()->checkDistributionRecordHours());
 		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
 
 		/* Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann. */
@@ -705,10 +689,9 @@ public class ModelPropertiesDialog extends BaseDialog {
 		useTimedChecks.addActionListener(e->checkTimedChecks());
 		sub.add(editTimedChecks=new JTextField(NumberTools.formatNumber((model.timedChecksDelta>0)?(model.timedChecksDelta/1000.0):1.0),5));
 		editTimedChecks.setEnabled(!readOnly);
-		editTimedChecks.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {useTimedChecks.setSelected(true); checkTimedChecks();}
-			@Override public void keyPressed(KeyEvent e) {useTimedChecks.setSelected(true); checkTimedChecks();}
-			@Override public void keyReleased(KeyEvent e) {useTimedChecks.setSelected(true); checkTimedChecks();}
+		addKeyListener(editTimedChecks,()->{
+			useTimedChecks.setSelected(true);
+			checkTimedChecks();
 		});
 		sub.add(new JLabel(Language.tr("Editor.Dialog.Tab.Simulation.TimedChecks.Seconds")));
 
@@ -746,16 +729,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		clientColorsList.setCellRenderer(new ElementListCellRenderer());
 		content.add(new JScrollPane(clientColorsList));
 
-		clientColorsList.addMouseListener(new MouseListener() {
-			@Override public void mouseReleased(MouseEvent e) {}
+		clientColorsList.addMouseListener(new MouseAdapter() {
 			@Override public void mousePressed(MouseEvent e) {if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {editSelectedClientColor(); e.consume(); return;}}
-			@Override public void mouseExited(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseClicked(MouseEvent e) {}
 		});
-		clientColorsList.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {}
-			@Override public void keyReleased(KeyEvent e) {}
+		clientColorsList.addKeyListener(new KeyAdapter() {
 			@Override public void keyPressed(KeyEvent e) {if (e.getKeyCode()==KeyEvent.VK_ENTER) {editSelectedClientColor(); e.consume(); return;}}
 		});
 
@@ -1004,11 +981,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		line.add(label);
 		line.add(stepWideEdit=new JTextField(10));
 		stepWideEdit.setEditable(!readOnly);
-		stepWideEdit.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {NumberTools.getPositiveDouble(stepWideEdit,true);}
-			@Override public void keyPressed(KeyEvent e) {NumberTools.getPositiveDouble(stepWideEdit,true);}
-			@Override public void keyReleased(KeyEvent e) {NumberTools.getPositiveDouble(stepWideEdit,true);}
-		});
+		addKeyListener(stepWideEdit,()->NumberTools.getPositiveDouble(stepWideEdit,true));
 		line.add(stepWideCombo=new JComboBox<>(new String[] {
 				Language.tr("Statistics.Seconds"),
 				Language.tr("Statistics.Minutes"),
@@ -1099,22 +1072,10 @@ public class ModelPropertiesDialog extends BaseDialog {
 		lines.add((JPanel)data[0]);
 		correlationRange=(JTextField)data[1];
 		correlationRange.setEditable(!readOnly);
-		correlationRange.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {
-				NumberTools.getPositiveLong(correlationRange,true);
-				if (correlationMode.getSelectedIndex()==0) correlationMode.setSelectedIndex(1);
-				testCorrelationWarning();
-			}
-			@Override public void keyPressed(KeyEvent e) {
-				NumberTools.getPositiveLong(correlationRange,true);
-				if (correlationMode.getSelectedIndex()==0) correlationMode.setSelectedIndex(1);
-				testCorrelationWarning();
-			}
-			@Override public void keyReleased(KeyEvent e) {
-				NumberTools.getPositiveLong(correlationRange,true);
-				if (correlationMode.getSelectedIndex()==0) correlationMode.setSelectedIndex(1);
-				testCorrelationWarning();
-			}
+		addKeyListener(correlationRange,()->{
+			NumberTools.getPositiveLong(correlationRange,true);
+			if (correlationMode.getSelectedIndex()==0) correlationMode.setSelectedIndex(1);
+			testCorrelationWarning();
 		});
 
 		lines.add(Box.createVerticalStrut(25));
@@ -1130,11 +1091,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		lines.add(sub=(JPanel)data[0]);
 		batchMeansSize=(JTextField)data[1];
 		batchMeansSize.setEditable(!readOnly);
-		batchMeansSize.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {NumberTools.getPositiveLong(batchMeansSize,true);}
-			@Override public void keyPressed(KeyEvent e) {NumberTools.getPositiveLong(batchMeansSize,true);}
-			@Override public void keyReleased(KeyEvent e) {NumberTools.getPositiveLong(batchMeansSize,true);}
-		});
+		addKeyListener(batchMeansSize,()->NumberTools.getPositiveLong(batchMeansSize,true));
 		sub.add(button=new JButton(Language.tr("Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto"),Images.MSGBOX_OK.getIcon()));
 		button.setToolTipText(Language.tr("Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto.Hint"));
 		button.setEnabled(!readOnly);
@@ -1157,20 +1114,17 @@ public class ModelPropertiesDialog extends BaseDialog {
 		lines.add((JPanel)data[0]);
 		finishConfidenceHalfWidth=(JTextField)data[1];
 		finishConfidenceHalfWidth.setEditable(!readOnly);
-		finishConfidenceHalfWidth.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);}
-			@Override public void keyPressed(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);}
-			@Override public void keyReleased(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);}
+		addKeyListener(finishConfidenceHalfWidth,()->{
+			useFinishConfidence.setEnabled(true);
+			NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);
 		});
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level")+":",NumberTools.formatPercent(model.finishConfidenceLevel),10);
 		lines.add((JPanel)data[0]);
 		finishConfidenceLevel=(JTextField)data[1];
 		finishConfidenceLevel.setEditable(!readOnly);
-		finishConfidenceLevel.addKeyListener(new KeyListener(){
-			@Override public void keyTyped(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceLevel,true);}
-			@Override public void keyPressed(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceLevel,true);}
-			@Override public void keyReleased(KeyEvent e) {useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceLevel,true);}
+		addKeyListener(finishConfidenceLevel,()->{
+			useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceLevel,true);
 		});
 
 		lines.add(Box.createVerticalStrut(25));
@@ -1636,5 +1590,18 @@ public class ModelPropertiesDialog extends BaseDialog {
 	 */
 	public NextAction getNextAction() {
 		return nextAction;
+	}
+
+	/**
+	 * Fügt eine Callback zur Reaktion auf Tastendrücke zu einem Eingabefeld hinzu.
+	 * @param field	Eingabefeld
+	 * @param action	Aktion die bei Tastendrücken ausgelöst werden soll
+	 */
+	private void addKeyListener(final JTextField field, final Runnable action) {
+		field.addKeyListener(new KeyListener(){
+			@Override public void keyTyped(KeyEvent e) {action.run();}
+			@Override public void keyPressed(KeyEvent e) {action.run();}
+			@Override public void keyReleased(KeyEvent e) {action.run();}
+		});
 	}
 }
