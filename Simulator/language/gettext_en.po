@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 17:48+0100\n"
+"POT-Creation-Date: 2020-11-17 11:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6833,6 +6833,12 @@ msgstr "Undo"
 
 msgid "Main.Menu.Edit.Undo.Mnemonic"
 msgstr "U"
+
+msgid "Main.Menu.Edit.UndoRedoSelect"
+msgstr "Select undo/redo step..."
+
+msgid "Main.Menu.Edit.UndoRedoSelect.Mnemonic"
+msgstr "S"
 
 msgid "Main.Menu.Extras"
 msgstr "Extras"
@@ -26350,6 +26356,24 @@ msgstr "Count"
 
 msgid "Transporters.Group.RowTitle.Name"
 msgstr "Name"
+
+msgid "UndoRedoSelect.CurrentStep"
+msgstr "Current state"
+
+msgid "UndoRedoSelect.RedoStep"
+msgstr "Redo step %d"
+
+msgid "UndoRedoSelect.Save"
+msgstr "Save"
+
+msgid "UndoRedoSelect.Save.Tooltip"
+msgstr "Saves the selected model from the history."
+
+msgid "UndoRedoSelect.Title"
+msgstr "Select undo/redo step"
+
+msgid "UndoRedoSelect.UndoStep"
+msgstr "Undo step %d"
 
 msgid "Update.Status.CheckFailed"
 msgstr "Update checking failed."

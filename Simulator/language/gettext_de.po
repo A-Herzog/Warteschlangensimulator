@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 17:48+0100\n"
+"POT-Creation-Date: 2020-11-17 11:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6822,6 +6822,12 @@ msgstr "Rückgängig"
 
 msgid "Main.Menu.Edit.Undo.Mnemonic"
 msgstr "R"
+
+msgid "Main.Menu.Edit.UndoRedoSelect"
+msgstr "Rückgängig/Wiederholen-Schritt auswählen..."
+
+msgid "Main.Menu.Edit.UndoRedoSelect.Mnemonic"
+msgstr "S"
 
 msgid "Main.Menu.Extras"
 msgstr "Extras"
@@ -26359,6 +26365,24 @@ msgstr "Anzahl"
 
 msgid "Transporters.Group.RowTitle.Name"
 msgstr "Name"
+
+msgid "UndoRedoSelect.CurrentStep"
+msgstr "Aktueller Zustand"
+
+msgid "UndoRedoSelect.RedoStep"
+msgstr "Wiederholen-Schritt %d"
+
+msgid "UndoRedoSelect.Save"
+msgstr "Speichern"
+
+msgid "UndoRedoSelect.Save.Tooltip"
+msgstr "Speichert das gewählte Modell aus dem Verlauf."
+
+msgid "UndoRedoSelect.Title"
+msgstr "Rückgängig/Wiederholen-Schritt auswählen"
+
+msgid "UndoRedoSelect.UndoStep"
+msgstr "Rückgängig-Schritt %d"
 
 msgid "Update.Status.CheckFailed"
 msgstr "Die Updateprüfung ist fehlgeschlagen."

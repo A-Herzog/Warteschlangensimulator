@@ -261,6 +261,8 @@ public class MainPanel extends MainPanelBase {
 	private JMenuItem menuEditUndo;
 	/** Menüpunkt "Bearbeiten" - "Wiederholen" */
 	private JMenuItem menuEditRedo;
+	/** Menüpunkt "Bearbeiten" - "Rückgängig/Wiederholen-Schritt auswählen" */
+	private JMenuItem menuEditUndoRedoSelect;
 	/** Menüpunkt "Bearbeiten" - "Neue Elemente automatisch verbinden" - "Aus" */
 	private JRadioButtonMenuItem menuEditAutoConnectOff;
 	/** Menüpunkt "Bearbeiten" - "Neue Elemente automatisch verbinden" - "Mit zuletzt markiertem Element verbinden" */
@@ -394,6 +396,7 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.addUndoRedoDoneListener(e->{
 			menuEditUndo.setEnabled(editorPanel.canUndo());
 			menuEditRedo.setEnabled(editorPanel.canRedo());
+			menuEditUndoRedoSelect.setEnabled(editorPanel.canUndo() || editorPanel.canRedo());
 		});
 		editorPanel.addSelectionListener(e->selectionChanged());
 		editorPanel.addLinkListener(link->{switch (link) {
@@ -535,6 +538,7 @@ public class MainPanel extends MainPanelBase {
 		/* Bearbeiten */
 		addAction("EditUndo",e->editorPanel.doUndo());
 		addAction("EditRedo",e->editorPanel.doRedo());
+		addAction("EditUndoRedoSelect",e->editorPanel.doUnDoRedoByDialog());
 		addAction("EditCut",e->editorPanel.cutSelectedElementsToClipboard());
 		addAction("EditCopy",e->editorPanel.copySelectedElementsToClipboard());
 		addAction("EditCopyModel",e->editorPanel.exportModelToClipboard());
@@ -971,6 +975,8 @@ public class MainPanel extends MainPanelBase {
 		menuEditUndo.setEnabled(false);
 		menuEditRedo=createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.Redo"),Images.EDIT_REDO.getIcon(),Language.tr("Main.Menu.Edit.Redo.Mnemonic"),KeyEvent.VK_Y,"EditRedo");
 		menuEditRedo.setEnabled(false);
+		menuEditUndoRedoSelect=createMenuItem(menu,Language.tr("Main.Menu.Edit.UndoRedoSelect"),Language.tr("Main.Menu.Edit.UndoRedoSelect.Mnemonic"),"EditUndoRedoSelect");
+		menuEditUndoRedoSelect.setEnabled(false);
 		menu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.Cut"),Images.EDIT_CUT.getIcon(),Language.tr("Main.Menu.Edit.Cut.Mnemonic"),KeyEvent.VK_X,"EditCut"));
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.Copy"),Images.EDIT_COPY.getIcon(),Language.tr("Main.Menu.Edit.Copy.Mnemonic"),KeyEvent.VK_C,"EditCopy"));

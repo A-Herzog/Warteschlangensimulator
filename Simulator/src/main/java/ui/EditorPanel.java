@@ -1700,6 +1700,15 @@ public final class EditorPanel extends EditorPanelBase {
 	}
 
 	/**
+	 * Zeigt einen Dialog zur Auswahl des Rückgängig- oder Wiederholen-Schritts an.
+	 * @see #canUndo()
+	 * @see #canRedo()
+	 */
+	public void doUnDoRedoByDialog() {
+		surfacePanel.doUnDoRedoByDialog();
+	}
+
+	/**
 	 * Listener, die benachrichtigt werden, wenn sich die Verfügbarkeit von Undo/Redo-Schritten ändert
 	 * @see #fireUndoRedoDoneListener()
 	 */

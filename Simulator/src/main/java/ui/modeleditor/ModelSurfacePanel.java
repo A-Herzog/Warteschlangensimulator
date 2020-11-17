@@ -99,6 +99,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.SimulationData;
+import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MsgBox;
 import systemtools.statistics.PDFWriter;
@@ -106,6 +107,7 @@ import systemtools.statistics.XWPFDocumentPictureTools;
 import tools.SetupData;
 import ui.EditorPanel;
 import ui.MainFrame;
+import ui.dialogs.UndoRedoDialog;
 import ui.images.Images;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -1123,7 +1125,7 @@ public final class ModelSurfacePanel extends JPanel {
 
 		redoBuffer.add(surface.clone(false,surface.getResources(),surface.getSchedules().clone(),surface.getParentSurface(),null));
 
-		ModelSurface restoreSurface=undoBuffer.remove(undoBuffer.size()-1);
+		final ModelSurface restoreSurface=undoBuffer.remove(undoBuffer.size()-1);
 		setSurfaceNoUndoCheck(model,restoreSurface);
 		lastSurfaceState=restoreSurface.clone(false,restoreSurface.getResources().clone(),restoreSurface.getSchedules().clone(),restoreSurface.getParentSurface(),null);
 
@@ -1141,13 +1143,38 @@ public final class ModelSurfacePanel extends JPanel {
 
 		undoBuffer.add(surface.clone(false,surface.getResources(),surface.getSchedules(),surface.getParentSurface(),null));
 
-		ModelSurface restoreSurface=redoBuffer.remove(redoBuffer.size()-1);
+		final ModelSurface restoreSurface=redoBuffer.remove(redoBuffer.size()-1);
 		setSurfaceNoUndoCheck(model,restoreSurface);
 		lastSurfaceState=restoreSurface.clone(false,restoreSurface.getResources().clone(),restoreSurface.getSchedules().clone(),restoreSurface.getParentSurface(),null);
 
 		restoreSurface.setSelectedElement(null);
 		fireSelectionListener();
 		fireUndoRedoDoneListener();
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Auswahl des Rückgängig- oder Wiederholen-Schritts an.
+	 * @see #canUndo
+	 * @see #canRedo()
+	 */
+	public void doUnDoRedoByDialog() {
+		if (undoBuffer.size()==0 && redoBuffer.size()==0) return;
+
+		final UndoRedoDialog dialog=new UndoRedoDialog(this,model,undoBuffer,surface,redoBuffer);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+		final int step=dialog.getSelectedStep();
+
+		if (step>0) {
+			/* Redo */
+			for (int i=0;i<step;i++) doRedo();
+			return;
+		}
+
+		if (step<0) {
+			/* Undo */
+			for (int i=0;i<-step;i++) doUndo();
+			return;
+		}
 	}
 
 	/**
