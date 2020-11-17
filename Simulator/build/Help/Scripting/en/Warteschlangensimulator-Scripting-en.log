@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  2 OCT 2020 22:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  17 NOV 2020 21:23
 entering extended mode
 **./Warteschlangensimulator-Scripting-en.tex
 (Warteschlangensimulator-Scripting-en.tex
@@ -784,10 +784,10 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
-<../../Warteschlangennetz-mittel.png, id=532, 2902.33244pt x 1981.27437pt>
-File: ../../Warteschlangennetz-mittel.png Graphic file (type png)
-<use ../../Warteschlangennetz-mittel.png>
-Package pdftex.def Info: ../../Warteschlangennetz-mittel.png  used on input lin
+<../../Warteschlangennetz-mittel.jpg, id=532, 2902.33244pt x 1981.27437pt>
+File: ../../Warteschlangennetz-mittel.jpg Graphic file (type jpg)
+<use ../../Warteschlangennetz-mittel.jpg>
+Package pdftex.def Info: ../../Warteschlangennetz-mittel.jpg  used on input lin
 e 26.
 (pdftex.def)             Requested size: 455.24408pt x 310.7524pt.
  (../../Version.tex) [1
@@ -795,7 +795,7 @@ Non-PDF special ignored!
 <special> papersize=614.295pt,794.96999pt
 
 {C:/Users/Alexa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <../../Warte
-schlangennetz-mittel.png>]
+schlangennetz-mittel.jpg>]
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
 6.
  ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd"
@@ -860,12 +860,12 @@ LaTeX Font Info:    Trying to load font information for T1+lmss on input line 1
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<wand.png, id=705, 16.06pt x 16.06pt>
+<wand.png, id=703, 16.06pt x 16.06pt>
 File: wand.png Graphic file (type png)
 <use wand.png>
 Package pdftex.def Info: wand.png  used on input line 19.
 (pdftex.def)             Requested size: 7.11317pt x 7.11322pt.
-<DialogExpressionBuilder.png, id=707, 599.23875pt x 450.18187pt>
+<DialogExpressionBuilder.png, id=706, 599.23875pt x 450.18187pt>
 File: DialogExpressionBuilder.png Graphic file (type png)
 <use DialogExpressionBuilder.png>
 Package pdftex.def Info: DialogExpressionBuilder.png  used on input line 28.
@@ -1070,10 +1070,10 @@ s not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 45.
  ) 
 Here is how much of TeX's memory you used:
- 11531 strings out of 491273
- 172090 string characters out of 3112170
- 299117 words of memory out of 3000000
- 16486 multiletter control sequences out of 15000+200000
+ 11533 strings out of 491273
+ 172129 string characters out of 3112170
+ 299118 words of memory out of 3000000
+ 16487 multiletter control sequences out of 15000+200000
  97284 words of font info for 81 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  49i,8n,39p,347b,487s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1095,10 +1095,10 @@ ogram Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt9.pfb>
-Output written on Warteschlangensimulator-Scripting-en.pdf (103 pages, 4880731 
+Output written on Warteschlangensimulator-Scripting-en.pdf (103 pages, 1534567 
 bytes).
 PDF statistics:
- 1255 PDF objects out of 1440 (max. 8388607)
+ 1254 PDF objects out of 1440 (max. 8388607)
  238 named destinations out of 1000 (max. 500000)
  1076 words of extra memory for PDF output out of 10000 (max. 10000000)
 

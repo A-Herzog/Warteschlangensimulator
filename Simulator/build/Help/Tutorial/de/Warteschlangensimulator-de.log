@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  2 OCT 2020 22:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  17 NOV 2020 21:23
 entering extended mode
 **./Warteschlangensimulator-de.tex
 (Warteschlangensimulator-de.tex
@@ -821,10 +821,10 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
-<../../Warteschlangennetz-mittel.png, id=68, 2902.33244pt x 1981.27437pt>
-File: ../../Warteschlangennetz-mittel.png Graphic file (type png)
-<use ../../Warteschlangennetz-mittel.png>
-Package pdftex.def Info: ../../Warteschlangennetz-mittel.png  used on input lin
+<../../Warteschlangennetz-mittel.jpg, id=68, 2902.33244pt x 1981.27437pt>
+File: ../../Warteschlangennetz-mittel.jpg Graphic file (type jpg)
+<use ../../Warteschlangennetz-mittel.jpg>
+Package pdftex.def Info: ../../Warteschlangennetz-mittel.jpg  used on input lin
 e 27.
 (pdftex.def)             Requested size: 455.24408pt x 310.7524pt.
  (../../Version.tex) [1
@@ -832,7 +832,7 @@ Non-PDF special ignored!
 <special> papersize=614.295pt,794.96999pt
 
 {C:/Users/Alexa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <../../Warte
-schlangennetz-mittel.png>]
+schlangennetz-mittel.jpg>]
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
 7.
  ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd"
@@ -890,7 +890,7 @@ Kapitel 1.
 
 ]
 Kapitel 2.
-<ProgramWindow.png, id=111, 760.34062pt x 572.89032pt>
+<ProgramWindow.png, id=109, 760.34062pt x 572.89032pt>
 File: ProgramWindow.png Graphic file (type png)
 <use ProgramWindow.png>
 Package pdftex.def Info: ProgramWindow.png  used on input line 57.
@@ -910,7 +910,7 @@ File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 ] [6]
 Kapitel 4.
-<ProgramWindowModel.png, id=132, 760.34062pt x 572.89032pt>
+<ProgramWindowModel.png, id=130, 760.34062pt x 572.89032pt>
 File: ProgramWindowModel.png Graphic file (type png)
 <use ProgramWindowModel.png>
 Package pdftex.def Info: ProgramWindowModel.png  used on input line 124.
@@ -919,24 +919,24 @@ Package pdftex.def Info: ProgramWindowModel.png  used on input line 124.
 
 
 ]
-<IconSource.png, id=137, 104.39pt x 54.2025pt>
+<IconSource.png, id=135, 104.39pt x 54.2025pt>
 File: IconSource.png Graphic file (type png)
 <use IconSource.png>
 Package pdftex.def Info: IconSource.png  used on input line 134.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<DialogSource.png, id=138, 688.5725pt x 613.29124pt>
+<DialogSource.png, id=136, 688.5725pt x 613.29124pt>
 File: DialogSource.png Graphic file (type png)
 <use DialogSource.png>
 Package pdftex.def Info: DialogSource.png  used on input line 141.
 (pdftex.def)             Requested size: 284.52756pt x 253.41621pt.
  [8 <./ProgramWindowModel.png> <./IconSource.png>]
-<IconProcess.png, id=144, 104.39pt x 54.2025pt>
+<IconProcess.png, id=142, 104.39pt x 54.2025pt>
 File: IconProcess.png Graphic file (type png)
 <use IconProcess.png>
 Package pdftex.def Info: IconProcess.png  used on input line 155.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
  [9 <./DialogSource.png>]
-<DialogProcess.png, id=151, 1014.79124pt x 595.22375pt>
+<DialogProcess.png, id=150, 1014.79124pt x 595.22375pt>
 File: DialogProcess.png Graphic file (type png)
 <use DialogProcess.png>
 Package pdftex.def Info: DialogProcess.png  used on input line 162.
@@ -944,7 +944,7 @@ Package pdftex.def Info: DialogProcess.png  used on input line 162.
 
 [10 <./IconProcess.png> <./DialogProcess.png>] [11] [12]
 Kapitel 5.
-<ProgramWindowResults.png, id=168, 760.34062pt x 572.89032pt>
+<ProgramWindowResults.png, id=167, 760.34062pt x 572.89032pt>
 File: ProgramWindowResults.png Graphic file (type png)
 <use ProgramWindowResults.png>
 Package pdftex.def Info: ProgramWindowResults.png  used on input line 212.
@@ -957,14 +957,14 @@ Package pdftex.def Info: ProgramWindowResults.png  used on input line 212.
 
 ]
 Kapitel 6.
-<DialogExpressionBuilder.png, id=186, 599.23875pt x 450.18187pt>
+<DialogExpressionBuilder.png, id=185, 599.23875pt x 450.18187pt>
 File: DialogExpressionBuilder.png Graphic file (type png)
 <use DialogExpressionBuilder.png>
 Package pdftex.def Info: DialogExpressionBuilder.png  used on input line 240.
 (pdftex.def)             Requested size: 398.33858pt x 299.25728pt.
 [17] [18 <./DialogExpressionBuilder.png>]
 Kapitel 7.
-<DialogModel.png, id=197, 621.07031pt x 578.16pt>
+<DialogModel.png, id=196, 621.07031pt x 578.16pt>
 File: DialogModel.png Graphic file (type png)
 <use DialogModel.png>
 Package pdftex.def Info: DialogModel.png  used on input line 258.
@@ -978,33 +978,33 @@ Kapitel 8.
 
 
 ]
-<IconDelay.png, id=222, 104.39pt x 54.2025pt>
+<IconDelay.png, id=221, 104.39pt x 54.2025pt>
 File: IconDelay.png Graphic file (type png)
 <use IconDelay.png>
 Package pdftex.def Info: IconDelay.png  used on input line 368.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconAssign.png, id=223, 104.39pt x 54.2025pt>
+<IconAssign.png, id=222, 104.39pt x 54.2025pt>
 File: IconAssign.png Graphic file (type png)
 <use IconAssign.png>
 Package pdftex.def Info: IconAssign.png  used on input line 377.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
  [24 <./IconDelay.png>] [25 <./IconAssign.png>]
-<IconDecide.png, id=235, 104.39pt x 54.2025pt>
+<IconDecide.png, id=234, 104.39pt x 54.2025pt>
 File: IconDecide.png Graphic file (type png)
 <use IconDecide.png>
 Package pdftex.def Info: IconDecide.png  used on input line 389.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconDuplicate.png, id=236, 104.39pt x 54.2025pt>
+<IconDuplicate.png, id=235, 104.39pt x 54.2025pt>
 File: IconDuplicate.png Graphic file (type png)
 <use IconDuplicate.png>
 Package pdftex.def Info: IconDuplicate.png  used on input line 410.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconCondition.png, id=237, 104.39pt x 54.2025pt>
+<IconCondition.png, id=236, 104.39pt x 54.2025pt>
 File: IconCondition.png Graphic file (type png)
 <use IconCondition.png>
 Package pdftex.def Info: IconCondition.png  used on input line 419.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconSubModel.png, id=238, 104.39pt x 54.2025pt>
+<IconSubModel.png, id=237, 104.39pt x 54.2025pt>
 File: IconSubModel.png Graphic file (type png)
 <use IconSubModel.png>
 Package pdftex.def Info: IconSubModel.png  used on input line 428.
@@ -1027,10 +1027,10 @@ ged.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 435.
  ) 
 Here is how much of TeX's memory you used:
- 12003 strings out of 491273
- 179322 string characters out of 3112170
- 326858 words of memory out of 3000000
- 17132 multiletter control sequences out of 15000+200000
+ 12005 strings out of 491273
+ 179361 string characters out of 3112170
+ 326859 words of memory out of 3000000
+ 17133 multiletter control sequences out of 15000+200000
  58356 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  49i,7n,39p,1546b,493s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1043,9 +1043,9 @@ nc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
 ic/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
-Output written on Warteschlangensimulator-de.pdf (28 pages, 4758692 bytes).
+Output written on Warteschlangensimulator-de.pdf (28 pages, 1412515 bytes).
 PDF statistics:
- 293 PDF objects out of 1000 (max. 8388607)
+ 292 PDF objects out of 1000 (max. 8388607)
  59 named destinations out of 1000 (max. 500000)
  213 words of extra memory for PDF output out of 10000 (max. 10000000)
 

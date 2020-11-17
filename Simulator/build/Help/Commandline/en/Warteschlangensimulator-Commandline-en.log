@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  2 OCT 2020 22:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  17 NOV 2020 21:23
 entering extended mode
 **./Warteschlangensimulator-Commandline-en.tex
 (Warteschlangensimulator-Commandline-en.tex
@@ -822,10 +822,10 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
-<../../Warteschlangennetz-mittel.png, id=64, 2902.33244pt x 1981.27437pt>
-File: ../../Warteschlangennetz-mittel.png Graphic file (type png)
-<use ../../Warteschlangennetz-mittel.png>
-Package pdftex.def Info: ../../Warteschlangennetz-mittel.png  used on input lin
+<../../Warteschlangennetz-mittel.jpg, id=64, 2902.33244pt x 1981.27437pt>
+File: ../../Warteschlangennetz-mittel.jpg Graphic file (type jpg)
+<use ../../Warteschlangennetz-mittel.jpg>
+Package pdftex.def Info: ../../Warteschlangennetz-mittel.jpg  used on input lin
 e 27.
 (pdftex.def)             Requested size: 455.24408pt x 310.7524pt.
  (../../Version.tex) [1
@@ -833,7 +833,7 @@ Non-PDF special ignored!
 <special> papersize=614.295pt,794.96999pt
 
 {C:/Users/Alexa/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <../../Warte
-schlangennetz-mittel.png>]
+schlangennetz-mittel.jpg>]
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
 7.
  ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd"
@@ -923,10 +923,10 @@ has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
  ) 
 Here is how much of TeX's memory you used:
- 11894 strings out of 491273
- 177398 string characters out of 3112170
- 319894 words of memory out of 3000000
- 17067 multiletter control sequences out of 15000+200000
+ 11896 strings out of 491273
+ 177437 string characters out of 3112170
+ 319895 words of memory out of 3000000
+ 17068 multiletter control sequences out of 15000+200000
  53181 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  49i,7n,39p,349b,487s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -939,10 +939,10 @@ ram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2
 ic/lm/lmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Fil
 es/MiKTeX 2.9/fonts/type1/public/lm/lmtt9.pfb>
-Output written on Warteschlangensimulator-Commandline-en.pdf (8 pages, 4519799 
+Output written on Warteschlangensimulator-Commandline-en.pdf (8 pages, 1173545 
 bytes).
 PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
+ 167 PDF objects out of 1000 (max. 8388607)
  25 named destinations out of 1000 (max. 500000)
  130 words of extra memory for PDF output out of 10000 (max. 10000000)
 

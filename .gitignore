@@ -2,4 +2,8 @@ Release/
 .metadata/
 Simulator/build/Help/*/de/*.log
 Simulator/build/Help/*/en/*.log
+Simulator/build/Help/*/de/*.out
+Simulator/build/Help/*/en/*.out
+Simulator/build/Help/*/de/*.aux
+Simulator/build/Help/*/en/*.aux
 Simulator/*.dll
