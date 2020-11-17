@@ -82,7 +82,7 @@ public final class SelectExampleDialog extends BaseDialog {
 		/* Baumstruktur links */
 		main.setLeftComponent(new JScrollPane(tree=new JTree(new DefaultTreeModel(buildTree()))));
 		tree.setRootVisible(false);
-		tree.setMinimumSize(new Dimension(200,0));
+		tree.getParent().setMinimumSize(new Dimension(200,0));
 		tree.addTreeSelectionListener(e->viewer.setModel(getExample()));
 		((DefaultTreeCellRenderer)tree.getCellRenderer()).setLeafIcon(Images.MODEL.getIcon());
 		tree.addMouseListener(new MouseAdapter() {
