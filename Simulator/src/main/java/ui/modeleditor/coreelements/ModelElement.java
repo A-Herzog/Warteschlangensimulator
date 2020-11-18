@@ -61,6 +61,7 @@ import statistics.StatisticsLongRunPerformanceIndicator;
 import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
+import ui.modeleditor.ElementRendererTools;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelLongRunStatisticsElement;
 import ui.modeleditor.ModelSequences;
@@ -822,6 +823,25 @@ public class ModelElement {
 	protected void addQuickFix(final JPopupMenu menu, final boolean asSubMenu) {}
 
 	/**
+	 * Erstellt ein Panel in dem das Element und ein Infotext angezeigt werden.
+	 * (für die Einbettung in ein Kontextmenü).
+	 * @return	Panel in dem das Element und ein Infotext angezeigt werden
+	 * @see #showContextMenu(Component, Point, boolean, boolean, ModelSurfacePanel, Consumer, ModelClientData, ModelSequences, SimulationData)
+	 */
+	private JComponent getElementSymbol() {
+		final String info="<html><body>"+getContextMenuElementName()+"<br><b>id="+getId()+"</b></body></html>";
+
+		if (this instanceof ModelElementPosition) {
+			return ElementRendererTools.getElementRenderer((ModelElementPosition)this,info,false,null,200,100);
+		}
+
+		final JLabel label=new JLabel(info);
+		final Icon icon=buildIcon();
+		if (icon!=null) label.setIcon(icon);
+		return label;
+	}
+
+	/**
 	 * Zeigt as Kontextmenü zu dem Element an einer bestimmten Stelle auf dem Bildschirm an
 	 * @param invoker	Aufrufendes Element (zu dem die Position des Kontextmenüs relativ ist)
 	 * @param point	Position, an der das Menü angezeigt werden soll
@@ -840,12 +860,8 @@ public class ModelElement {
 		URL url;
 
 		/* Darstellung des Elements */
-		final JLabel label=new JLabel("<html><body>"+getContextMenuElementName()+"<br><b>id="+getId()+"</b></body></html>");
-		final Icon icon=buildIcon();
-		if (icon!=null) label.setIcon(icon);
-
 		final JPanel panel=new JPanel(new BorderLayout());
-		panel.add(label,BorderLayout.WEST);
+		panel.add(getElementSymbol(),BorderLayout.WEST);
 		panel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		popupMenu.add(panel);
 		/* Führt zu falscher Anordnung, wenn weitere Panels im Menü vorhanden sind: popupMenu.add(label); */

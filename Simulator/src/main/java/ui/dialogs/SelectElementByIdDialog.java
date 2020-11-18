@@ -18,15 +18,13 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -36,6 +34,7 @@ import javax.swing.SwingUtilities;
 import language.Language;
 import systemtools.BaseDialog;
 import ui.help.Help;
+import ui.modeleditor.ElementRendererTools;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -59,7 +58,8 @@ public class SelectElementByIdDialog extends BaseDialog {
 	/** Alle im Modell vorhandenen IDs */
 	private int[] ids;
 	/** Anzeige der Elemente */
-	private final JList<JLabel> list;
+	//private final JList<JLabel> list;
+	private final JList<ElementRendererTools.InfoRecord> list;
 
 	/**
 	 * Konstruktor der Klasse <code>SelectElementByIdDialog</code>
@@ -74,12 +74,8 @@ public class SelectElementByIdDialog extends BaseDialog {
 		content.setLayout(new BorderLayout());
 
 		content.add(new JScrollPane(list=getList(surface)),BorderLayout.CENTER);
-		list.addMouseListener(new MouseListener() {
-			@Override public void mouseReleased(MouseEvent e) {}
+		list.addMouseListener(new MouseAdapter() {
 			@Override public void mousePressed(MouseEvent e) {if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {close(BaseDialog.CLOSED_BY_OK); e.consume(); return;}}
-			@Override public void mouseExited(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseClicked(MouseEvent e) {}
 		});
 
 		JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -118,53 +114,11 @@ public class SelectElementByIdDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert ein Beschreibungs-Label zu einer Station
-	 * @param surface	Haupt-Zeichenfläche
-	 * @param id	ID der Station
-	 * @return	Beschreibungs-Label zu einer Station
-	 */
-	private JLabel getLabel(final ModelSurface surface, final int id) {
-		/* Element und übergeordnetes Element finden */
-		ModelElementBox element=null;
-		ModelElementSub parent=null;
-		for (ModelElement el: surface.getElements()) if (el instanceof ModelElementBox) {
-			if (el.getId()==id) {element=(ModelElementBox)el; break;}
-			if (el instanceof ModelElementSub) for (ModelElement sub: ((ModelElementSub)el).getSubSurface().getElements()) if (sub instanceof ModelElementBox) {
-				if (sub.getId()==id) {parent=(ModelElementSub)el; element=(ModelElementBox)sub; break;}
-				if (parent!=null) break;
-			}
-		}
-
-		if (element==null) return new JLabel("");
-
-		/* Text aufbauen */
-		final StringBuilder sb=new StringBuilder();
-		sb.append("<b><span style=\"font-size: larger;\">");
-		sb.append(element.getContextMenuElementName());
-		sb.append("</span> (");
-		final String name=element.getName();
-		if (name.isEmpty()) sb.append(Language.tr("FindElement.NoName")); else sb.append(name);
-		sb.append(")</b><br><span style=\"color: orange;\">");
-		sb.append("id="+element.getId());
-		sb.append("</span><br><span style=\"color: blue;\"><i>");
-		if (parent==null) sb.append(Language.tr("FindElement.Level.Top")); else sb.append(String.format(Language.tr("FindElement.Level.Sub"),parent.getId()));
-		sb.append("</span></i>");
-
-		/* Bild aufbauen */
-		final Icon icon=element.buildIcon();
-
-		/* Label erstellen */
-		final JLabel label=new JLabel("<html><body>"+sb.toString()+"</body></html>");
-		if (icon!=null) label.setIcon(icon);
-		return label;
-	}
-
-	/**
 	 * Liefert eine Listendarstellung einer Stationen
 	 * @param surface	Haupt-Zeichenfläche
 	 * @return	Listendarstellung einer Stationen
 	 */
-	private JList<JLabel> getList(final ModelSurface surface) {
+	private JList<ElementRendererTools.InfoRecord> getList(final ModelSurface surface) {
 		/* Alle IDs auslesen */
 		List<Integer> idsList=new ArrayList<>();
 		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
@@ -177,36 +131,8 @@ public class SelectElementByIdDialog extends BaseDialog {
 		for (int i=0;i<ids.length;i++) ids[i]=idsList.get(i);
 		Arrays.sort(ids);
 
-		/* Liste zusammensetzen */
-		List<JLabel> data=new ArrayList<>();
-		for (int i=0;i<ids.length;i++) data.add(getLabel(surface,ids[i]));
-
 		/* ... und ausgeben */
-		JList<JLabel> list=new JList<>(data.toArray(new JLabel[0]));
-		list.setCellRenderer(new ElementListCellRenderer());
-		return list;
-	}
-
-	/**
-	 * Renderer für die Liste der Elemente
-	 * @see SelectElementByIdDialog#list
-	 */
-	private class ElementListCellRenderer extends DefaultListCellRenderer {
-		/**
-		 * Serialisierungs-ID der Klasse
-		 * @see Serializable
-		 */
-		private static final long serialVersionUID = 4327039078742103357L;
-
-		@Override
-		public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
-			Component renderer=super.getListCellRendererComponent(list,value, index, isSelected, cellHasFocus);
-			if (value instanceof JLabel) {
-				((ElementListCellRenderer)renderer).setText(((JLabel)value).getText());
-				((ElementListCellRenderer)renderer).setIcon(((JLabel)value).getIcon());
-			}
-			return renderer;
-		}
+		return ElementRendererTools.buildList(surface,ids);
 	}
 
 	/**

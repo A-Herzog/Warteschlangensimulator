@@ -15,19 +15,10 @@
  */
 package ui.modeleditor;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -38,7 +29,6 @@ import language.Language;
 import ui.images.Images;
 import ui.modeleditor.coreelements.ModelElementListGroup;
 import ui.modeleditor.coreelements.ModelElementPosition;
-import ui.modeleditor.fastpaint.Shapes;
 
 /**
  * Ermöglicht das Zeichnen der Liste der Modell-Elemente zur Auswahl eines Elements zum Einfügen in die Liste
@@ -49,7 +39,6 @@ public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition>
 	/**
 	 * Zoomlevel
 	 * @see #setZoom(double)
-	 * @see #getElementRenderer(ModelElementPosition, boolean)
 	 */
 	private double zoom=1.0;
 
@@ -96,120 +85,27 @@ public class ModelElementCatalogListCellRenderer<E extends ModelElementPosition>
 		return panel;
 	}
 
-	/**
-	 * Erstes zwischengespeichertes Bildobjekt für {@link #getElementRenderer(ModelElementPosition, boolean)}<br>
-	 * Es wird nicht der Bildinhalt, sondern nur das Objekt im Speicher wiederverwendet.
-	 * @see #getElementRenderer(ModelElementPosition, boolean)
-	 */
-	private BufferedImage tempImage1=null;
-
-	/**
-	 * Zweites zwischengespeichertes Bildobjekt für {@link #getElementRenderer(ModelElementPosition, boolean)}<br>
-	 * Es wird nicht der Bildinhalt, sondern nur das Objekt im Speicher wiederverwendet.
-	 * @see #getElementRenderer(ModelElementPosition, boolean)
-	 */
-	private BufferedImage tempImage2=null;
-
-	/**
-	 * Liefert den Listenzellen-Renderer für ein Element
-	 * @param element	Element das dargestellt werden soll
-	 * @param isSelected	Soll das Element markiert dargestellt werden?
-	 * @return	Listenzellen-Renderer für das Element
-	 */
-	private Component getElementRenderer(final ModelElementPosition element, final boolean isSelected) {
-		if (tempImage1==null) {
-			tempImage1=new BufferedImage(200+2*Shapes.SHADOW_WIDTH,200+2*Shapes.SHADOW_WIDTH,BufferedImage.TYPE_4BYTE_ABGR);
-		} else {
-			final Graphics2D graphics=(Graphics2D)tempImage1.getGraphics();
-			graphics.setBackground(new Color(255,255,255,0));
-			graphics.clearRect(0,0,tempImage1.getWidth(),tempImage1.getHeight());
-		}
-
-		element.drawToGraphics(tempImage1.getGraphics(),new Rectangle(Shapes.SHADOW_WIDTH,Shapes.SHADOW_WIDTH,200,200),zoom,false); /* damit getLowerRightPosition() einen korrekten Wert enthält */
-
-		final Point p=element.getLowerRightPosition();
-		final Dimension d=new Dimension(p.x,p.y);
-		final Dimension size=new Dimension(
-				(int)Math.round(d.width*zoom)+20,
-				Math.max(25,(int)Math.round((d.height+Shapes.SHADOW_WIDTH)*zoom))+1
-				);
-		final Color backgroundColor=isSelected?(new Color(200,220,255)):Color.WHITE;
-
-		final JPanel panel=new JPanel(new BorderLayout());
-		panel.setBackground(backgroundColor);
-
-		if (tempImage2==null || tempImage2.getWidth()!=size.width || tempImage2.getHeight()!=size.height) {
-			tempImage2=new BufferedImage(size.width,size.height,BufferedImage.TYPE_4BYTE_ABGR);
-		} else {
-			final Graphics2D graphics=(Graphics2D)tempImage2.getGraphics();
-			graphics.setBackground(new Color(255,255,255,0));
-			graphics.clearRect(0,0,tempImage2.getWidth(),tempImage2.getHeight());
-		}
-		element.drawToGraphics(tempImage2.getGraphics(),new Rectangle(0,0,size.width,size.height-1),zoom,false);
-
-		final JPanel surface=new JPanel() {
-			private static final long serialVersionUID = -4343888464611276523L;
-			@Override public void paint(Graphics g) {g.drawImage(tempImage2,0,0,null);}
-		};
-		panel.add(surface,BorderLayout.CENTER);
-		surface.setSize(size);
-		surface.setPreferredSize(size);
-		surface.setMinimumSize(size);
-		surface.setMaximumSize(size);
-
-		final String name=ModelElementCatalog.getCatalog().getMenuNameWithDefault(element);
-		final JPanel info=new JPanel(new FlowLayout(FlowLayout.CENTER));
-		info.setBackground(backgroundColor);
-		panel.add(info,BorderLayout.SOUTH);
-		info.add(new JLabel(name));
-
-		String tooltip=element.getToolTip();
-		if (tooltip==null) tooltip=element.getContextMenuElementName();
-		panel.setToolTipText(tooltip);
-
-		return panel;
-	}
-
-	/**
-	 * Liefert einen Listenzellen-Renderer für ein fehlendes Element
-	 * @param unknownClassName	Name der Klasse für die kein Element existiert
-	 * @return	Listenzellen-Renderer für das fehlende Element
-	 */
-	private Component getErrorRenderer(final String unknownClassName) {
-		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel.add(new JLabel("<html><span style=\"color: red\">"+unknownClassName+"</span></html>"));
-		return panel;
-	}
-
 	@Override
 	public Component getListCellRendererComponent(JList<? extends E> list, E value, int index, boolean isSelected, boolean cellHasFocus) {
 		if (value instanceof ModelElementListGroup) {
 			return getGroupRenderer(((ModelElementListGroup)value).getTypeName(),((ModelElementListGroup)value).isShowSub());
 		}
-		if (value instanceof ModelElementPosition) {
 
-			boolean groupOpen=true;
-			int lastGroupIndex=index-1;
-			while (lastGroupIndex>=0) {
-				final ModelElementPosition element=list.getModel().getElementAt(lastGroupIndex);
-				if (element instanceof ModelElementListGroup) {
-					groupOpen=((ModelElementListGroup)element).isShowSub();
-					break;
-				}
-				lastGroupIndex--;
+		boolean groupOpen=true;
+		int lastGroupIndex=index-1;
+		while (lastGroupIndex>=0) {
+			final ModelElementPosition element=list.getModel().getElementAt(lastGroupIndex);
+			if (element instanceof ModelElementListGroup) {
+				groupOpen=((ModelElementListGroup)element).isShowSub();
+				break;
 			}
-
-			if (groupOpen) {
-				return getElementRenderer(value,isSelected);
-			} else {
-				JPanel p=new JPanel();
-				p.setMinimumSize(new Dimension(0,0));
-				p.setPreferredSize(new Dimension(0,0));
-				p.setMaximumSize(new Dimension(0,0));
-				p.setBorder(BorderFactory.createEmptyBorder());
-				return p;
-			}
+			lastGroupIndex--;
 		}
-		return getErrorRenderer(value.getClass().getName());
+
+		if (groupOpen) {
+			return ElementRendererTools.getElementRenderer(value,zoom,false,isSelected);
+		} else {
+			return ElementRendererTools.getEmptyRenderer();
+		}
 	}
 }

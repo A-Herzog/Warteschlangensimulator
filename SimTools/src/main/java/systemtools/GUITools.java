@@ -54,6 +54,31 @@ public class GUITools {
 	}
 
 	/**
+	 * Skalierungsfaktor der Programmoberfläche laut Betriebssystemangabe.<br>
+	 * (-1 bedeutet, dass der Faktor noch nicht ausgelesen wurde.)
+	 * @see #getOSScaleFactor()
+	 */
+	private static double osScaleFactor=-1;
+
+	/**
+	 * Ermittelt den Skalierungsfaktor der Programmoberfläche laut Betriebssystemangabe.
+	 * @return	Skalierungsfaktor der Programmoberfläche laut Betriebssystemangabe
+	 */
+	public static double getOSScaleFactor() {
+		if (osScaleFactor<0) {
+			final String versionString=System.getProperty("java.version");
+			if (versionString.startsWith("1.8") || GraphicsEnvironment.isHeadless()) {
+				/* Erst Java 9 kann mit einer systemweiten Skalierung umgehen. */
+				osScaleFactor=1.0;
+			} else {
+				osScaleFactor=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getDefaultTransform().getScaleX();
+			}
+		}
+
+		return osScaleFactor;
+	}
+
+	/**
 	 * Konstruktor der Klasse<br>
 	 * Diese Klasse kann nicht instanziert werden.
 	 * Sie stellt lediglich statische Hilfroutinen zur Verfügung.

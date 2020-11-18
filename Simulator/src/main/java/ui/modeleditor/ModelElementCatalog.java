@@ -624,6 +624,7 @@ public final class ModelElementCatalog {
 	 * @return	Name für das Element im Vorlagen-Menü
 	 */
 	public String getMenuNameWithDefault(final ModelElementPosition element) {
+		if (element==null) return "";
 		String name=ModelElementCatalog.getCatalog().getMenuName(element);
 		if (name==null) {
 			if (element instanceof ModelElementBox) {

@@ -26,6 +26,7 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
 
+import systemtools.GUITools;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementListGroup;
 import ui.modeleditor.coreelements.ModelElementPosition;
@@ -52,9 +53,13 @@ public class ModelElementCatalogTransferHandler extends TransferHandler {
 	 * @param element	Element das in dem Bild zu sehen sein soll
 	 */
 	private void generateImage(final ModelElementPosition element) {
+		final double scale=GUITools.getOSScaleFactor();
+
 		final Point point=element.getLowerRightPosition();
-		BufferedImage image=new BufferedImage(point.x+1,point.y+1,BufferedImage.TYPE_4BYTE_ABGR);
-		element.drawToGraphics(image.getGraphics(),new Rectangle(0,0,point.x,point.y),1.0,false);
+		final int width=(int)Math.round(point.x*scale);
+		final int height=(int)Math.round(point.y*scale);
+		final BufferedImage image=new BufferedImage(width+1,height+1,BufferedImage.TYPE_4BYTE_ABGR);
+		element.drawToGraphics(image.getGraphics(),new Rectangle(0,0,width,height),1.0*scale,false);
 		setDragImage(image);
 	}
 
