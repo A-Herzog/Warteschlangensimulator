@@ -2,6 +2,8 @@ unit MainUnit;
 
 {$mode objfpc}{$H+}
 
+{DEFINE Testing}
+
 interface
 
 uses

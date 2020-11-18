@@ -1,27 +1,28 @@
 object MainForm: TMainForm
   Left = 278
-  Height = 240
+  Height = 360
   Top = 120
-  Width = 482
+  Width = 723
   BorderStyle = bsDialog
   Caption = 'Warteschlangensimulator - Java Downloader'
-  ClientHeight = 240
-  ClientWidth = 482
+  ClientHeight = 360
+  ClientWidth = 723
+  DesignTimePPI = 144
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '2.0.6.0'
   object InfoLabel: TLabel
-    Left = 13
-    Height = 30
-    Top = 64
-    Width = 460
+    Left = 20
+    Height = 50
+    Top = 96
+    Width = 689
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Automatic installation is recommended and will not require admin rights.'#13#10'A manually downloaded Java installer will need admin rights for installation.'
     Font.CharSet = ANSI_CHARSET
     Font.Color = clGreen
-    Font.Height = -12
+    Font.Height = -18
     Font.Name = 'Segoe UI'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -31,29 +32,30 @@ object MainForm: TMainForm
     WordWrap = True
   end
   object Fix1: TBitBtn
-    Left = 128
-    Height = 30
+    Left = 192
+    Height = 45
     Hint = 'Open AdoptOpenJDK homepage for manual Java download and installation'
-    Top = 112
-    Width = 105
+    Top = 168
+    Width = 158
     Caption = 'Manual'
     Kind = bkYes
     OnClick = Fix1Click
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
   end
   object Fix2: TBitBtn
-    Left = 13
-    Height = 30
+    Left = 20
+    Height = 45
     Hint = 'Install Java from AdoptOpenJDK automatically'
-    Top = 112
-    Width = 105
+    Top = 168
+    Width = 158
     Caption = 'Automatic'
     Default = True
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
-    Font.Height = -12
+    Font.Height = -18
     Font.Name = 'Segoe UI'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -66,15 +68,15 @@ object MainForm: TMainForm
     TabOrder = 0
   end
   object Label2: TLabel
-    Left = 16
-    Height = 39
-    Top = 160
-    Width = 460
+    Left = 24
+    Height = 69
+    Top = 240
+    Width = 690
     Anchors = [akTop, akLeft, akRight]
     Caption = 'When using automatic installation the Java environment will be downloaded for use with Warteschlangensimulator only and will also be uninstalled together with Warteschlangensimulator.'
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
-    Font.Height = -11
+    Font.Height = -17
     Font.Name = 'Segoe UI'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
@@ -83,61 +85,64 @@ object MainForm: TMainForm
     WordWrap = True
   end
   object ProgressBar: TProgressBar
-    Left = 13
-    Height = 20
-    Top = 210
-    Width = 379
+    Left = 20
+    Height = 30
+    Top = 315
+    Width = 568
     Anchors = [akLeft, akRight, akBottom]
     Max = 150
+    ParentFont = False
     TabOrder = 3
   end
   object Cancel: TBitBtn
-    Left = 398
-    Height = 22
+    Left = 597
+    Height = 33
     Hint = 'Cancels the download'
-    Top = 209
-    Width = 75
+    Top = 313
+    Width = 112
     Anchors = [akRight, akBottom]
     Caption = 'Cancel'
     Enabled = False
     Kind = bkCancel
     ModalResult = 2
     OnClick = CancelClick
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 4
   end
   object Shape1: TShape
     Left = 0
-    Height = 49
+    Height = 74
     Top = 0
-    Width = 482
+    Width = 723
     Anchors = [akTop, akLeft, akRight]
     Brush.Color = 15794175
     Pen.Style = psClear
   end
   object Fix3: TBitBtn
-    Left = 243
-    Height = 30
+    Left = 364
+    Height = 45
     Hint = 'Close this helper, do nothing'
-    Top = 112
-    Width = 105
+    Top = 168
+    Width = 158
     Caption = 'Close'
     Kind = bkClose
+    ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 2
   end
   object Label1: TLabel
-    Left = 8
-    Height = 30
-    Top = 8
-    Width = 465
+    Left = 12
+    Height = 50
+    Top = 12
+    Width = 697
     Anchors = [akTop, akLeft, akRight]
     Caption = 'No Java runtime environment was found on your system. Java is needed to run Warteschlangensimulator. This tool can help you to download and install Java.'
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
-    Font.Height = -12
+    Font.Height = -18
     Font.Name = 'Segoe UI'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft
