@@ -1546,6 +1546,7 @@ public final class EditorPanel extends EditorPanelBase {
 		if (file.getName().toLowerCase().endsWith(".jpg")) format="jpg";
 		if (file.getName().toLowerCase().endsWith(".jpeg")) format="jpg";
 		if (file.getName().toLowerCase().endsWith(".gif")) format="gif";
+		if (file.getName().toLowerCase().endsWith(".bmp")) format="bmp";
 		if (file.getName().toLowerCase().endsWith(".pdf")) format="pdf";
 		if (file.getName().toLowerCase().endsWith(".svg")) format="svg";
 		if (file.getName().toLowerCase().endsWith(".eps")) format="eps";
