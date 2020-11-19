@@ -271,6 +271,14 @@ This file lists the third-party components used by "Simulator" project and their
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik Anim, Batik SVG DOM
 
+### Batik image codecs
+
+- Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-codec
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: https://xmlgraphics.apache.org/
+- Used by: Batik Ext
+
 ### Batik Ext
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-ext
