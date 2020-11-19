@@ -84,8 +84,13 @@ public class ElementRendererTools {
 
 		final Point p1=element.getPosition(true);
 		final Point p2=element.getLowerRightPosition();
-		final int width=p2.x-p1.x;
-		final int height=p2.y-p1.y;
+		int width=p2.x-p1.x;
+		int height=p2.y-p1.y;
+
+		if (width==0 && height==0) {
+			width=40;
+			height=40;
+		}
 
 		return new Dimension(
 				(int)Math.round((width+Shapes.SHADOW_WIDTH)*zoom)+10,
@@ -101,8 +106,9 @@ public class ElementRendererTools {
 	 * @param clip	Optionaler Clipping-Bereich für die Ausgabe (kann <code>null</code> sein)
 	 * @param height	Höhe des Ausgabebereichs
 	 * @param showIDs	ID an der Station anzeigen?
+	 * @param maxZoom	Maximal zu verwendender Zoomfaktor
 	 */
-	public static void drawElement(final ModelElementPosition element, final Graphics graphics, final int width, final int height, final Rectangle clip, final boolean showIDs) {
+	public static void drawElement(final ModelElementPosition element, final Graphics graphics, final int width, final int height, final Rectangle clip, final boolean showIDs, final double maxZoom) {
 		final Point p1=element.getPosition(true);
 		final Point p2=element.getLowerRightPosition();
 		final int elementWidth=p2.x-p1.x;
@@ -114,9 +120,16 @@ public class ElementRendererTools {
 			try {
 				setup.showIDs=showIDs;
 
-				final double z1=((double)(width-10-Shapes.SHADOW_WIDTH))/elementWidth;
-				final double z2=((double)(height-10-Shapes.SHADOW_WIDTH))/(elementHeight+(showIDs?5:0));
-				final double zoom=Math.min(z1,z2);
+				double zoom;
+
+				if (elementWidth==0 || elementHeight==0) {
+					zoom=1;
+				} else {
+					final double z1=((double)(width-10-Shapes.SHADOW_WIDTH))/elementWidth;
+					final double z2=((double)(height-10-Shapes.SHADOW_WIDTH))/(elementHeight+(showIDs?5:0));
+					zoom=Math.round(Math.min(z1,z2)*10)/10.0;
+				}
+				zoom=Math.min(zoom,maxZoom);
 
 				element.drawToGraphics(graphics,(clip!=null)?clip:new Rectangle(0,0,width,height),zoom,false);
 
@@ -162,7 +175,7 @@ public class ElementRendererTools {
 		panel.add(info,BorderLayout.SOUTH);
 		info.add(new JLabel(name));
 
-		final RendererPanel renderer=new RendererPanel(element,backgroundColor,showIDs);
+		final RendererPanel renderer=new RendererPanel(element,backgroundColor,showIDs,zoom);
 		final Dimension d=ElementRendererTools.getElementBoxSize(element,zoom,showIDs);
 		renderer.setSize(d);
 		renderer.setPreferredSize(d);
@@ -194,7 +207,7 @@ public class ElementRendererTools {
 			info.add(new JLabel(infoText));
 		}
 
-		final RendererPanel renderer=new RendererPanel(element,backgroundColor,showIDs);
+		final RendererPanel renderer=new RendererPanel(element,backgroundColor,showIDs,1.0);
 		final Dimension d=ElementRendererTools.getElementBoxSize(element,1.0,showIDs);
 
 		if (maxWidth>=0 && d.width>maxWidth) {
@@ -309,18 +322,25 @@ public class ElementRendererTools {
 		private final boolean showIDs;
 
 		/**
+		 * Maximal zu verwendender Zoomfaktor
+		 */
+		private final double maxZoom;
+
+		/**
 		 * Konstruktor der Klasse
 		 * @param element	Darzustellendes Element (darf <code>null</code> sein)
 		 * @param backgroundColor	Hintergrundfarbe für das Panel
 		 * @param showIDs	IDs an den Stationen anzeigen?
+		 * @param maxZoom	Maximal zu verwendender Zoomfaktor
 		 */
-		public RendererPanel(final ModelElementPosition element, final Color backgroundColor, final boolean showIDs) {
+		public RendererPanel(final ModelElementPosition element, final Color backgroundColor, final boolean showIDs, final double maxZoom) {
 			super();
 			setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
 			this.element=element;
 			this.backgroundColor=backgroundColor;
 			this.showIDs=showIDs;
+			this.maxZoom=maxZoom;
 		}
 
 		@Override
@@ -335,7 +355,7 @@ public class ElementRendererTools {
 			}
 
 			if (element!=null) {
-				ElementRendererTools.drawElement(element,graphics,width,height,graphics.getClipBounds(),showIDs);
+				drawElement(element,graphics,width,height,graphics.getClipBounds(),showIDs,maxZoom);
 			}
 		}
 	}
