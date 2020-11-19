@@ -667,7 +667,7 @@ public final class EditorPanel extends EditorPanelBase {
 			}
 		}
 
-		final JButton button=ButtonRotator.getRotatedButton(title,rotatedIcon);
+		final JButton button=new ButtonRotator.RotatedButton(title,rotatedIcon);
 
 		if (toolbar!=null) toolbar.add(button);
 		if (hint!=null) button.setToolTipText(hint);

@@ -20,10 +20,13 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.swing.Icon;
@@ -31,6 +34,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 
 /**
  * Ermöglicht es {@link JButton}-Objekte für den Einsatz auf {@link JToolBar}
@@ -55,7 +59,7 @@ public class ButtonRotator {
 	 * enthalten sind.
 	 * @param text	Auszugebender Text
 	 * @param icon	Links neben dem Text auszugebendes Icon (kann <code>null</code> sein)
-	 * @param increaseFontSize	Vergrößert die Schriftgrüße um einen Punkt
+	 * @param increaseFontSize	Vergrößert die Schriftgröße um einen Punkt
 	 * @return	Bild aus Icon und Text
 	 */
 	public static BufferedImage getButtonImage(final String text, final Icon icon, final boolean increaseFontSize) {
@@ -209,5 +213,156 @@ public class ButtonRotator {
 		final JButton button=new JButton("");
 		button.setIcon(new ImageIcon(image));
 		return button;
+	}
+
+	/**
+	 * Schaltfläche, die um 90° gegen den Uhrzeigersinn gedreht ist.<br>
+	 * Im Gegensatz zu {@link ButtonRotator#getRotatedButton(String, Icon)}
+	 * und {@link ButtonRotator#getRotatedButton(String, URL)} wird der
+	 * Inhalt der Schaltfläche nicht als Bild gedreht, sondern direkt in
+	 * gedrehter Form gezeichnet. Diese Methode ist mit Desktop-Skalierungen
+	 * kompatibel.
+	 * @author Alexander Herzog
+	 */
+	public static class RotatedButton extends JButton {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=4725371058785120184L;
+
+		/**
+		 * Abstand von Icon und Text zum Rand und untereinander
+		 */
+		private static final int MARGIN=5;
+
+		/**
+		 * Drehwinkel (sollten -90° sein)
+		 */
+		private static final double rotationAngle=-Math.PI/2;
+
+		/**
+		 * Anzuzeigender Text
+		 */
+		private final String text;
+
+		/**
+		 * Anzuzeigendes Icon
+		 */
+		private final Icon icon;
+
+		/**
+		 * Hinweise für {@link Graphics} zum Aktivieren
+		 * des Antialiasing.
+		 * @see #paint(Graphics)
+		 */
+		private final RenderingHints renderingHints;
+
+		/**
+		 * Breite des Icons (vor der Rotation)
+		 * @see #icon
+		 */
+		private int wIcon;
+
+		/**
+		 * Höhe des Icons (vor der Rotation)
+		 * @see #icon
+		 */
+		private int hIcon;
+
+		/**
+		 * Breite des Textes (vor der Rotation)
+		 * @see #text
+		 */
+		private int wText;
+
+		/**
+		 * Höhe des Textes über der Grundlinie (vor der Rotation)
+		 * @see #text
+		 */
+		private int h1Text;
+
+		/**
+		 * Höhe des Textes unter der Grundlinie (vor der Rotation)
+		 * @see #text
+		 */
+		private int h2Text;
+
+		/**
+		 * Ist das Icon höher als der Text den Text um so viele
+		 * Pixel nach unten schieben, damit er mittig zum Icon
+		 * passt.
+		 * @see #calcSize(Graphics)
+		 */
+		private int shiftTextDown;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param text	Anzuzeigender Text
+		 * @param icon	Anzuzeigendes Icon
+		 */
+		public RotatedButton(final String text, final Icon icon) {
+			this.text=text;
+			this.icon=icon;
+			renderingHints=new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		}
+
+		/**
+		 * Berechnet die Größe der beteiligten Elemente und stellt
+		 * wenn nötig die Größe der Schaltfläche ein.
+		 * @param g	Ausgabe-Grafikobjekt
+		 * @see #paint(Graphics)
+		 * @see #wIcon
+		 * @see #hIcon
+		 * @see #wText
+		 * @see #h1Text
+		 * @see #h2Text
+		 * @see #shiftTextDown
+		 */
+		private void calcSize(final Graphics g) {
+			/* Dimensionen der einzelnen Elemente bestimmen */
+			if (wIcon==0) {
+				wIcon=icon.getIconWidth();
+				hIcon=icon.getIconHeight();
+				final FontMetrics metrics=g.getFontMetrics();
+				wText=metrics.stringWidth(text);
+				h1Text=metrics.getAscent();
+				h2Text=metrics.getDescent();
+				if (hIcon>h1Text+h2Text) shiftTextDown=(int)Math.round(((double)(hIcon-h1Text-h2Text))/2);
+			}
+
+			/* Notwendige Größe für die gesamte Schaltfläche bestimmen */
+			final int w=MARGIN+wIcon+MARGIN+wText+MARGIN;
+			final int h=MARGIN+Math.max(hIcon,h1Text+h2Text)+MARGIN;
+
+			/* Schaltflächengröße wenn nötig ändern */
+			if (h!=getWidth() || w!=getHeight()) { /* w<->h: Wir zeichnen gedreht. */
+				final Dimension d=new Dimension(h,w);
+				setSize(d);
+				setPreferredSize(d);
+				setMinimumSize(d);
+				setMaximumSize(d);
+				SwingUtilities.getWindowAncestor(this).doLayout();
+			}
+		}
+
+		@Override
+		public void paint(final Graphics g) {
+			calcSize(g);
+
+			super.paint(g);
+
+			final Graphics2D graphics=(Graphics2D)g;
+			graphics.setRenderingHints(renderingHints);
+
+			final AffineTransform orig=graphics.getTransform();
+			try {
+				graphics.rotate(rotationAngle);
+				graphics.drawString(text,-MARGIN-wText,MARGIN+h1Text+shiftTextDown);
+				icon.paintIcon(this,graphics,-MARGIN-wText-MARGIN-wIcon,MARGIN);
+			} finally {
+				graphics.setTransform(orig);
+			}
+		}
 	}
 }
