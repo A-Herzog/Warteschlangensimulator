@@ -145,6 +145,8 @@ public class ModelExplorer extends JPanel {
 			int yTop=Math.max(0,yCenter-rect.height/2);
 			xTop=Math.min(xTop,(int)Math.round(p2.x*surfacePanel.getZoom()-rect.width));
 			yTop=Math.min(yTop,(int)Math.round(p2.y*surfacePanel.getZoom()-rect.height));
+			if (xTop<0) xTop=0;
+			if (yTop<0) yTop=0;
 			((JViewport)surfacePanel.getParent()).setViewPosition(new Point(xTop,yTop));
 		}
 
