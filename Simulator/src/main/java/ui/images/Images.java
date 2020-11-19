@@ -519,6 +519,9 @@ public enum Images {
 	/** Symbol "Animation - Screenshot aufnehmen" */
 	ANIMATION_SCREENSHOT("image.gif"),
 
+	/** Symbol "Animation - Export" */
+	ANIMATION_EXPORT("disk.png"),
+
 	/** Symbol "Animation in Logdatei aufzeichnen" */
 	ANIMATION_LOG("Text.gif"),
 

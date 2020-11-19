@@ -101,6 +101,7 @@ import simulator.editmodel.EditModel;
 import simulator.runmodel.SimulationData;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
+import systemtools.ImageTools;
 import systemtools.MsgBox;
 import systemtools.statistics.PDFWriter;
 import systemtools.statistics.XWPFDocumentPictureTools;
@@ -1696,6 +1697,22 @@ public final class ModelSurfacePanel extends JPanel {
 		final Clipboard clipboard=Toolkit.getDefaultToolkit().getSystemClipboard();
 		final ModelSurfaceTransferable transferable=new ModelSurfaceTransferable(surface.getTransferData(),surface.getTransferTxt(),surface.getTransferRtf(),surface.getTransferImage());
 		clipboard.setContents(transferable,null);
+	}
+
+	/**
+	 * Kopiert das gesamte Modell als Bild in die Zwischenablage
+	 * (ggf. mit aktuellen Animationsdaten).
+	 * @param xSize	Größe des Bildes in x-Richtung
+	 * @param ySize	Größe des Bildes in y-Richtung
+	 */
+	public void copyToClipboardAsImage(final int xSize, final int ySize) {
+		final int MAX_IMAGE_SIZE=10_000; /* Maximale Größe */
+
+		final int maxXSize=Math.min(MAX_IMAGE_SIZE,xSize);
+		final int maxYSize=Math.min(MAX_IMAGE_SIZE,ySize);
+		final BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10);
+
+		ImageTools.copyImageToClipboard(image);
 	}
 
 	/**

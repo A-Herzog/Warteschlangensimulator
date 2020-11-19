@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
@@ -73,6 +74,8 @@ import javax.swing.JViewport;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import org.apache.commons.math3.util.FastMath;
@@ -210,6 +213,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private final JButton buttonAbort;
 	/** Schaltfläche "Bild speichern" */
 	private final JButton buttonScreenshot;
+	/** Schaltfläche "Exportieren" */
+	private final JButton buttonExport;
 	/** Schaltfläche "Simulation" (Animation als Simulation zu Ende führen) */
 	private final JButton buttonSimulation;
 	/** Schaltfläche "Einstellungen" (zum Auslösen eines Popupmenüs) */
@@ -327,6 +332,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		buttonScreenshot=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Image"),Language.tr("Animation.Toolbar.Image.Info"),Images.ANIMATION_SCREENSHOT.getIcon());
 		updateScreenshotButtonHint();
+		buttonExport=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Export"),Language.tr("Animation.Toolbar.Export.Info"),Images.ANIMATION_EXPORT.getIcon());
+
 		buttonSimulation=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Simulation"),Language.tr("Animation.Toolbar.Simulation.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0))+")",Images.SIMULATION.getIcon());
 		buttonSimulation.setVisible(false);
 		buttonTools=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Tools"),Language.tr("Animation.Toolbar.Tools.Info"),Images.GENERAL_TOOLS.getIcon());
@@ -1251,6 +1258,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (running) {
 				/* Pause */
 				running=false;
+				buttonExport.setEnabled(true);
 				buttonStep.setEnabled(true);
 				buttonPlayPause.setText(Language.tr("Animation.Toolbar.Play"));
 				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Play.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
@@ -1268,6 +1276,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				logArea.setVisible(false);
 				delayInt=delay;
 				running=true;
+				buttonExport.setEnabled(false);
 				buttonStep.setEnabled(false);
 				buttonPlayPause.setText(Language.tr("Animation.Toolbar.Pause"));
 				buttonPlayPause.setToolTipText(Language.tr("Animation.Toolbar.Pause.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0))+")");
@@ -1417,6 +1426,70 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		final File file=getNextScreenshotFile(setup.imagePathAnimation);
 		if (file==null) return;
 		surfacePanel.saveImageToFile(file,"png",setup.imageSize,setup.imageSize);
+	}
+
+	/**
+	 * Zeigt den Modell-Exportieren-Dialog an.
+	 * @param parent	Übergeordnetes Element
+	 * @param title	Titel des Dateiauswahldialogs
+	 * @return	Liefert im Erfolgsfall die gewählte Datei, sonst <code>null</code>
+	 */
+	private File showExportDialog(Component parent, final String title) {
+		final JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(title);
+		final FileFilter jpg=new FileNameExtensionFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
+		final FileFilter gif=new FileNameExtensionFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
+		final FileFilter png=new FileNameExtensionFilter(Language.tr("FileType.png")+" (*.png)","png");
+		final FileFilter bmp=new FileNameExtensionFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		final FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+		fc.addChoosableFileFilter(png);
+		fc.addChoosableFileFilter(jpg);
+		fc.addChoosableFileFilter(gif);
+		fc.addChoosableFileFilter(bmp);
+		fc.addChoosableFileFilter(pdf);
+
+		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
+
+		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		File file=fc.getSelectedFile();
+
+		if (file.getName().indexOf('.')<0) {
+			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
+			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
+			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
+			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
+		}
+
+		return file;
+	}
+
+	/**
+	 * Befehl: Screenshot des aktuellen Modellzustands aufnehmen - dafür Dateiname explizit wählen
+	 */
+	private void saveScreenshotSelectFile() {
+		final Window window=SwingUtilities.getWindowAncestor(getParent());
+
+		final File file=showExportDialog(getParent(),Language.tr("Editor.ExportModel"));
+
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(window,file)) return;
+		}
+
+		String format="png";
+		if (file.getName().toLowerCase().endsWith(".jpg")) format="jpg";
+		if (file.getName().toLowerCase().endsWith(".jpeg")) format="jpg";
+		if (file.getName().toLowerCase().endsWith(".gif")) format="gif";
+		if (file.getName().toLowerCase().endsWith(".bmp")) format="bmp";
+		if (file.getName().toLowerCase().endsWith(".pdf")) format="pdf";
+
+		/* Bild */
+		if (!surfacePanel.saveImageToFile(file,format,setup.imageSize,setup.imageSize)) {
+			MsgBox.error(window,Language.tr("XML.ExportErrorTitle"),Language.tr("Editor.ExportModel.Error"));
+		}
 	}
 
 	/**
@@ -1787,6 +1860,24 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Zeigt ein Popupmenü mit Funktionen zum Export des Modells an.
+	 * @param parent	Übergeordnetes Element zur Ausrichtung des Menüs
+	 * @see #buttonExport
+	 */
+	private void showExportMenu(final JButton parent) {
+		final JPopupMenu popupMenu=new JPopupMenu();
+		JMenuItem item;
+
+		popupMenu.add(item=new JMenuItem(Language.tr("Animation.Toolbar.Export.Copy"),Images.EDIT_COPY.getIcon()));
+		item.addActionListener(e->surfacePanel.copyToClipboardAsImage(setup.imageSize,setup.imageSize));
+
+		popupMenu.add(item=new JMenuItem(Language.tr("Animation.Toolbar.Export.Save"),Images.GENERAL_SAVE.getIcon()));
+		item.addActionListener(e->saveScreenshotSelectFile());
+
+		popupMenu.show(parent,0,parent.getHeight());
+	}
+
+	/**
 	 * Listener für Klicks auf die verschiedenen Symbolleisten-Schaltflächen
 	 * @see AnimationPanel#toolbarListener
 	 */
@@ -1800,6 +1891,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==buttonFindModel) {surfacePanel.centerModel(); return;}
 			if (source==buttonAbort) {closeRequest(); buttonAbort.setEnabled(false); return;}
 			if (source==buttonScreenshot) {saveScreenshot(); return;}
+			if (source==buttonExport) {showExportMenu(buttonExport); return;}
 			if (source==buttonSimulation) {finishAsSimulation(); return;}
 			if (source==buttonTools) {animationToolsPopup(); return;}
 			if (source==buttonPlayPause) {playPause(); return;}

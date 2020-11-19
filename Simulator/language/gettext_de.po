@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-19 09:45+0100\n"
+"POT-Creation-Date: 2020-11-19 23:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -473,11 +473,23 @@ msgstr "aktuell"
 msgid "Animation.StationRunInfo.Sum"
 msgstr "gesamt"
 
+msgid "Animation.Toolbar.Export"
+msgstr "Exportieren"
+
+msgid "Animation.Toolbar.Export.Copy"
+msgstr "Modell in die Zwischenablage kopieren"
+
+msgid "Animation.Toolbar.Export.Info"
+msgstr "Modell als Bild speichern oder in die Zwischenablage kopieren"
+
+msgid "Animation.Toolbar.Export.Save"
+msgstr "Modell als Bilddatei speichern..."
+
 msgid "Animation.Toolbar.Image"
 msgstr "Bild speichern"
 
 msgid "Animation.Toolbar.Image.Info"
-msgstr "Speichert einen Screenshot der Animation als Bilddatei"
+msgstr "Speichert sofort einen Screenshot der Animation als Bilddatei (ohne Rückfrage)"
 
 msgid "Animation.Toolbar.Image.Info.Folder"
 msgstr "Ordner"
