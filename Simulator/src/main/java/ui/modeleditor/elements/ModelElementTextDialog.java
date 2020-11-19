@@ -34,8 +34,11 @@ import language.Language;
 import mathtools.NumberTools;
 import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
+import tools.IconListCellRenderer;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.modeleditor.elements.ModelElementText.TextAlign;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementText}-Element anbietet
@@ -59,6 +62,8 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	private JCheckBox optionBold;
 	/** Option: Text kursiv darstellen */
 	private JCheckBox optionItalic;
+	/** Ausrichtung */
+	private JComboBox<String> textAlign;
 	/** Auswahl der Textfarbe */
 	private SmallColorChooser colorChooser;
 
@@ -131,6 +136,27 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			optionItalic.setEnabled(!readOnly);
 
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Align")+":"));
+			subPanel.add(textAlign=new JComboBox<>(new String[] {
+					Language.tr("Surface.Text.Dialog.Align.Left"),
+					Language.tr("Surface.Text.Dialog.Align.Center"),
+					Language.tr("Surface.Text.Dialog.Align.Right"),
+			}));
+			textAlign.setRenderer(new IconListCellRenderer(new Images[]{
+					Images.TEXT_ALIGN_LEFT,
+					Images.TEXT_ALIGN_CENTER,
+					Images.TEXT_ALIGN_RIGHT
+			}));
+			label.setLabelFor(textAlign);
+			switch (text.getTextAlign()) {
+			case LEFT: textAlign.setSelectedIndex(0); break;
+			case CENTER: textAlign.setSelectedIndex(1); break;
+			case RIGHT: textAlign.setSelectedIndex(2); break;
+			default: textAlign.setSelectedIndex(0); break;
+			}
+			textAlign.setEnabled(!readOnly);
+
+			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Color")+":"));
 
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -176,6 +202,11 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			if (I!=null) text.setTextSize(I);
 			text.setTextBold(optionBold.isSelected());
 			text.setTextItalic(optionItalic.isSelected());
+			switch (textAlign.getSelectedIndex()) {
+			case 0: text.setTextAlign(TextAlign.LEFT); break;
+			case 1: text.setTextAlign(TextAlign.CENTER); break;
+			case 2: text.setTextAlign(TextAlign.RIGHT); break;
+			}
 			text.setColor(colorChooser.getColor());
 		}
 	}

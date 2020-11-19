@@ -357,13 +357,14 @@
   id			CDATA	#REQUIRED
 >
 
-<!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe)*>
+<!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementTextAusrichtung)*>
 <!ATTLIST ModellElementText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementTextzeile (#PCDATA)>
+<!ELEMENT ModellElementTextAusrichtung (#PCDATA)>
 
 <!ELEMENT ModellElementEcke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementVerbindung)*>
 <!ATTLIST ModellElementEcke
@@ -2318,13 +2319,14 @@
   id	CDATA	#REQUIRED
 >
 
-<!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor)*>
+<!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementTextAlign)*>
 <!ATTLIST ModelElementText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementTextLine (#PCDATA)>
+<!ELEMENT ModelElementTextAlign (#PCDATA)>
 
 <!ELEMENT ModelElementVertex (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementConnection)*>
 <!ATTLIST ModelElementVertex

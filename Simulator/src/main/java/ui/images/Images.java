@@ -162,6 +162,15 @@ public enum Images {
 	/** Symbol "Pfeilgröße 'groß'" */
 	ARROW_SIZE_LARGE("arrow_size_large.png"),
 
+	/** Symbol "Text - linksbündig" */
+	TEXT_ALIGN_LEFT("text_align_left.png"),
+
+	/** Symbol "Text - zentriert" */
+	TEXT_ALIGN_CENTER("text_align_center.png"),
+
+	/** Symbol "Text - rechtsbündig" */
+	TEXT_ALIGN_RIGHT("text_align_right.png"),
+
 	/* Bearbeiten */
 
 	/** Symbol "Bearbeiten - Rückgängig" */

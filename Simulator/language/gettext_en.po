@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 11:32+0100\n"
+"POT-Creation-Date: 2020-11-19 09:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5958,9 +5958,6 @@ msgstr "Determine statistics batch size"
 
 msgid "FindElement.Info"
 msgstr "The model consists of %d stations, %d connection edges and %d other elements.<br>All together there are %d elements in the model."
-
-msgid "FindElement.Invisible"
-msgstr "element is hidden"
 
 msgid "FindElement.Level.Sub"
 msgstr "Element in in sub element id=%s"
@@ -24729,6 +24726,18 @@ msgstr "ModelElementTeleportOrigin"
 msgid "Surface.Text.DefaultText"
 msgstr "Description text"
 
+msgid "Surface.Text.Dialog.Align"
+msgstr "Text alignment"
+
+msgid "Surface.Text.Dialog.Align.Center"
+msgstr "centered"
+
+msgid "Surface.Text.Dialog.Align.Left"
+msgstr "left-justified"
+
+msgid "Surface.Text.Dialog.Align.Right"
+msgstr "right-justified"
+
 msgid "Surface.Text.Dialog.Bold"
 msgstr "Bold"
 
@@ -24788,6 +24797,18 @@ msgstr "ModelElementText"
 
 msgid "Surface.Text.XML.Text"
 msgstr "ModelElementTextLine"
+
+msgid "Surface.Text.XML.TextAlign"
+msgstr "ModelElementTextAlign"
+
+msgid "Surface.Text.XML.TextAlign.Center"
+msgstr "center"
+
+msgid "Surface.Text.XML.TextAlign.Left"
+msgstr "left"
+
+msgid "Surface.Text.XML.TextAlign.Right"
+msgstr "right"
 
 msgid "Surface.Throughput.Dialog.Title"
 msgstr "Edit throughput counter"
@@ -27081,6 +27102,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Editor.SurfaceTooltip.License"
 #~ msgstr "Get license now"
+
+#~ msgid "FindElement.Invisible"
+#~ msgstr "element is hidden"
 
 #~ msgid "InfoDialog.Libraries"
 #~ msgstr ""

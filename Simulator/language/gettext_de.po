@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 11:32+0100\n"
+"POT-Creation-Date: 2020-11-19 09:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5947,9 +5947,6 @@ msgstr "Statistik-Batch-Größe bestimmen"
 
 msgid "FindElement.Info"
 msgstr "Das Modell besteht aus %d Stationen, %d Verbindungskanten und %d weiteren Elementen.<br>Insgesamt sind %d Elemente enthalten."
-
-msgid "FindElement.Invisible"
-msgstr "Element ist ausgeblendet"
 
 msgid "FindElement.Level.Sub"
 msgstr "Element befindet sich in Unterelement id=%s"
@@ -24737,6 +24734,18 @@ msgstr "ModellElementTeleportStart"
 msgid "Surface.Text.DefaultText"
 msgstr "Beschreibungstext"
 
+msgid "Surface.Text.Dialog.Align"
+msgstr "Ausrichtung"
+
+msgid "Surface.Text.Dialog.Align.Center"
+msgstr "zentriert"
+
+msgid "Surface.Text.Dialog.Align.Left"
+msgstr "linksbündig"
+
+msgid "Surface.Text.Dialog.Align.Right"
+msgstr "rechtsbündig"
+
 msgid "Surface.Text.Dialog.Bold"
 msgstr "Fett"
 
@@ -24796,6 +24805,18 @@ msgstr "ModellElementText"
 
 msgid "Surface.Text.XML.Text"
 msgstr "ModellElementTextzeile"
+
+msgid "Surface.Text.XML.TextAlign"
+msgstr "ModellElementTextAusrichtung"
+
+msgid "Surface.Text.XML.TextAlign.Center"
+msgstr "mittig"
+
+msgid "Surface.Text.XML.TextAlign.Left"
+msgstr "links"
+
+msgid "Surface.Text.XML.TextAlign.Right"
+msgstr "rechts"
 
 msgid "Surface.Throughput.Dialog.Title"
 msgstr "Durchsatzzähler bearbeiten"
@@ -27111,6 +27132,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Editor.SurfaceTooltip.License"
 #~ msgstr "Jetzt lizensieren"
+
+#~ msgid "FindElement.Invisible"
+#~ msgstr "Element ist ausgeblendet"
 
 #~ msgid "InfoDialog.Libraries"
 #~ msgstr ""

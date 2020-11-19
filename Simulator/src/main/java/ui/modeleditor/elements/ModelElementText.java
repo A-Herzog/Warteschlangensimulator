@@ -19,10 +19,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.net.URL;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -95,6 +98,58 @@ public final class ModelElementText extends ModelElementPosition {
 	private Color color=DEFAULT_COLOR;
 
 	/**
+	 * Ausrichtung der Textzeilen
+	 */
+	public enum TextAlign {
+		/** Linksbündig */
+		LEFT(()->Language.trPrimary("Surface.Text.XML.TextAlign.Left"),name->Language.trAll("Surface.Text.XML.TextAlign.Left",name)),
+		/** Zentriert */
+		CENTER(()->Language.trPrimary("Surface.Text.XML.TextAlign.Center"),name->Language.trAll("Surface.Text.XML.TextAlign.Center",name)),
+		/** Rechtsbündig */
+		RIGHT(()->Language.trPrimary("Surface.Text.XML.TextAlign.Right"),name->Language.trAll("Surface.Text.XML.TextAlign.Right",name));
+
+		/** Liefert den Namen der Ausrichtungsart zum Speichern in xml-Dateien */
+		private final Supplier<String> getName;
+		/** Prüft, ob ein xml-Bezeichner (beim Laden) zu der Ausrichtungsart passt */
+		private final Function<String,Boolean> testName;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param getName	Liefert den Namen der Ausrichtungsart zum Speichern in xml-Dateien
+		 * @param testName	Prüft, ob ein xml-Bezeichner (beim Laden) zu der Ausrichtungsart passt
+		 */
+		TextAlign(final Supplier<String> getName, final Function<String,Boolean> testName) {
+			this.getName=getName;
+			this.testName=testName;
+		}
+
+		/**
+		 * Liefert den Namen der Ausrichtungsart zum Speichern in xml-Dateien.
+		 * @return	Namen der Ausrichtungsart zum Speichern in xml-Dateien
+		 */
+		public String getName() {
+			return getName.get();
+		}
+
+		/**
+		 * Ermittelt basierend auf einem xml-Bezeichner die zugehörige Ausrichtungsart.
+		 * @param name	xml-Bezeichner
+		 * @return	Ausrichtungsart (passt der xml-Bezeichner zu keiner Ausrichtungsart, so wird {@link TextAlign#LEFT} als Fallback geliefert)
+		 */
+		public static TextAlign fromName(final String name) {
+			for (TextAlign textAlign: values()) if (textAlign.testName.apply(name)) return textAlign;
+			return LEFT;
+		}
+	}
+
+	/**
+	 * Ausrichtung der Textzeilen
+	 * @see #getTextAlign()
+	 * @see #setTextAlign(TextAlign)
+	 */
+	private TextAlign textAlign;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementText</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -103,6 +158,7 @@ public final class ModelElementText extends ModelElementPosition {
 		super(model,surface,new Dimension(0,0),Shapes.ShapeType.SHAPE_RECTANGLE);
 		useSizeOnCompare=false;
 		text=Language.tr("Surface.Text.DefaultText");
+		textAlign=TextAlign.LEFT;
 	}
 
 	/**
@@ -224,7 +280,29 @@ public final class ModelElementText extends ModelElementPosition {
 	 * @param color	Textfarbe
 	 */
 	public void setColor(final Color color) {
-		if (color!=null) this.color=color;
+		if (color!=null) {
+			this.color=color;
+			fireChanged();
+		}
+	}
+
+	/**
+	 * Liefert die aktuelle Ausrichtung der Textzeilen.
+	 * @return	Ausrichtung der Textzeilen
+	 */
+	public TextAlign getTextAlign() {
+		return textAlign;
+	}
+
+	/**
+	 * Stellt die Ausrichtung der Textzeilen ein.
+	 * @param textAlign	Ausrichtung der Textzeilen
+	 */
+	public void setTextAlign(final TextAlign textAlign) {
+		if (textAlign!=null) {
+			this.textAlign=textAlign;
+			fireChanged();
+		}
 	}
 
 	/**
@@ -244,6 +322,7 @@ public final class ModelElementText extends ModelElementPosition {
 		if (textSize!=otherText.textSize) return false;
 		if (bold!=otherText.bold) return false;
 		if (italic!=otherText.italic) return false;
+		if (textAlign!=otherText.textAlign) return false;
 		return true;
 	}
 
@@ -262,6 +341,7 @@ public final class ModelElementText extends ModelElementPosition {
 			bold=copySource.bold;
 			italic=copySource.italic;
 			color=copySource.color;
+			textAlign=copySource.textAlign;
 		}
 	}
 
@@ -327,6 +407,14 @@ public final class ModelElementText extends ModelElementPosition {
 	private String[] lastTextSplit;
 
 	/**
+	 * Länge der längsten Zeile beim letzten Aufruf von
+	 * {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #lastTextSplit
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int lastMaxWidth;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -346,6 +434,7 @@ public final class ModelElementText extends ModelElementPosition {
 			lastTextSize=textSize;
 			lastZoomFont=zoom;
 			lastStyleFont=style;
+			lastMaxWidth=0;
 		}
 		graphics.setFont(lastFont);
 		graphics.setColor(color);
@@ -353,6 +442,7 @@ public final class ModelElementText extends ModelElementPosition {
 		if (lastText==null || !lastText.equals(getText())) {
 			lastText=getText().trim();
 			lastTextSplit=lastText.split("\\n");
+			lastMaxWidth=0;
 		}
 
 		int width=0;
@@ -373,8 +463,33 @@ public final class ModelElementText extends ModelElementPosition {
 		int x=(int)FastMath.round(pos.x*zoom);
 		int y=(int)FastMath.round(pos.y*zoom);
 		y+=graphics.getFontMetrics().getAscent();
+
+		FontMetrics metrics=null;
+		if (lastMaxWidth==0) {
+			metrics=graphics.getFontMetrics();
+			for (String line: lastTextSplit) lastMaxWidth=Math.max(lastMaxWidth,metrics.stringWidth(line));
+		}
+
+		int lineWidth;
 		for (String line: lastTextSplit) {
-			graphics.drawString(line,x,y);
+			switch (textAlign) {
+			case LEFT:
+				graphics.drawString(line,x,y);
+				break;
+			case CENTER:
+				if (metrics==null) metrics=graphics.getFontMetrics();
+				lineWidth=metrics.stringWidth(line);
+				graphics.drawString(line,x+(lastMaxWidth-lineWidth)/2,y);
+				break;
+			case RIGHT:
+				if (metrics==null) metrics=graphics.getFontMetrics();
+				lineWidth=metrics.stringWidth(line);
+				graphics.drawString(line,x+(lastMaxWidth-lineWidth),y);
+				break;
+			default:
+				graphics.drawString(line,x,y);
+				break;
+			}
 			y+=lineHeight;
 		}
 		if (isSelected() && showSelectionFrames) {
@@ -458,6 +573,13 @@ public final class ModelElementText extends ModelElementPosition {
 		sub=doc.createElement(Language.trPrimary("Surface.Text.XML.Color"));
 		node.appendChild(sub);
 		sub.setTextContent(EditModel.saveColor(color));
+
+		/* Ausrichtung */
+		if (textAlign!=TextAlign.LEFT) {
+			sub=doc.createElement(Language.trPrimary("Surface.Text.XML.TextAlign"));
+			node.appendChild(sub);
+			sub.setTextContent(textAlign.getName());
+		}
 	}
 
 	/**
@@ -510,6 +632,12 @@ public final class ModelElementText extends ModelElementPosition {
 			lineLoaded=true;
 			if (!text.isEmpty()) text+="\n";
 			text+=content;
+			return null;
+		}
+
+		/* Ausrichtung */
+		if (Language.trAll("Surface.Text.XML.TextAlign",name)) {
+			textAlign=TextAlign.fromName(content);
 			return null;
 		}
 
