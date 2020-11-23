@@ -245,8 +245,8 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 
 		if (scheduleNext) {
 			/* Ankunft des nächsten Kunden einplanen */
-			if (systemMaxArrival<=0 && simData.runModel.clientCount>=0) systemMaxArrival=FastMath.max(1000,2*simData.runModel.clientCount/simData.runModel.clientCountDiv);
-			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || simData.runData.clientsArrived<systemMaxArrival) {
+			if (isLastClient && !simData.runData.isWarmUp && systemMaxArrival<=0 && simData.runModel.clientCount>=0) systemMaxArrival=FastMath.max(1000,FastMath.max(simData.runData.clientsArrived*3/2,2*simData.runModel.clientCount/simData.runModel.clientCountDiv));
+			if (simData.runData.isWarmUp || simData.runModel.clientCount<0 || systemMaxArrival<=0 || simData.runData.clientsArrived<systemMaxArrival) {
 				boolean done=false;
 				if (records[index].maxArrivalCount>=0 && data.arrivalCount[index]>=records[index].maxArrivalCount) {
 					done=true;
