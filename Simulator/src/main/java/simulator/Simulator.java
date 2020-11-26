@@ -317,7 +317,9 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 				partialWaitingTime.add(partialStatistics.clientsAllWaitingTimes);
 				statistics.addData(partialStatistics);
 				final double waiting=partialStatistics.clientsAllWaitingTimes.getMean();
-				if (i<threads.length/2) {count1++; waiting1+=waiting;} else {count2++; waiting2+=waiting;}
+				if (partialStatistics.clientsAllWaitingTimes.getCount()>0) { /* Daten nur berücksichtigen, wenn in dem Thread überhaupt Ergebnisse angefallen sind */
+					if (i<threads.length/2) {count1++; waiting1+=waiting;} else {count2++; waiting2+=waiting;}
+				}
 			}
 
 			/* Warnung, wenn die mittlere Wartezeit der ersten Hälfte von der zweiten Hälfte abweicht */
