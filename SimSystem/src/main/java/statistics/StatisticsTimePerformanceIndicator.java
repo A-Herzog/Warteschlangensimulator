@@ -510,7 +510,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 * @return	Maximale Zustand, in dem sich das System eine positive Zeit lang befunden hat
 	 */
 	public int getTimeMax() {
-		if (stateTime==null && time0<0 && timeMax<0) return 0;
+		if ((stateTime==null || sum==0) && time0<0 && timeMax<0) return 0;
 		/*
 		So würde ggf. abgeschnitten werden:
 		for (int i=stateTime.length-1;i>=0;i--) if (stateTime[i]>0) return i;
@@ -524,7 +524,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 * @return	Minimaler Zustand, in dem sich das System eine positive Zeit lang befunden hat
 	 */
 	public int getTimeMin() {
-		if (stateTime==null && time0<0 && timeMax<0) return 0;
+		if ((stateTime==null || sum==0) && time0<0 && timeMax<0) return 0;
 		/*
 		So würde ggf. abgeschnitten werden:
 		for (int i=0;i<stateTime.length;i++) if (stateTime[i]>0) return i;
