@@ -121,10 +121,11 @@
 \BOOKMARK [1][-]{section.24.2}{24.2 Zugriff auf Parameter des Simulationsmodells}{chapter.24}% 121
 \BOOKMARK [1][-]{section.24.3}{24.3 Anzahl an Bedienern in einer Ressource}{chapter.24}% 122
 \BOOKMARK [1][-]{section.24.4}{24.4 Signale ausl\366sen}{chapter.24}% 123
-\BOOKMARK [0][-]{chapter.25}{25 ClientInterface abrufbar \374ber sim.getClient\(\)}{part.3}% 124
-\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface abrufbar \374ber sim.getInputValue\(\)}{part.3}% 125
-\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface abrufbar \374ber sim.getClients\(\)}{part.3}% 126
-\BOOKMARK [0][-]{chapter.28}{28 OutputInterface abrufbar \374ber sim.getOutput\(\)}{part.3}% 127
-\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface abrufbar \374ber sim.getFileOutput\(\)}{part.3}% 128
-\BOOKMARK [0][-]{chapter.30}{30 ModelInterface abrufbar \374ber sim.getModel\(\)}{part.3}% 129
-\BOOKMARK [0][-]{chapter.31}{31 XML-Auswahlbefehle}{part.3}% 130
+\BOOKMARK [1][-]{section.24.5}{24.5 Externen Code aufrufen}{chapter.24}% 124
+\BOOKMARK [0][-]{chapter.25}{25 ClientInterface abrufbar \374ber sim.getClient\(\)}{part.3}% 125
+\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface abrufbar \374ber sim.getInputValue\(\)}{part.3}% 126
+\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface abrufbar \374ber sim.getClients\(\)}{part.3}% 127
+\BOOKMARK [0][-]{chapter.28}{28 OutputInterface abrufbar \374ber sim.getOutput\(\)}{part.3}% 128
+\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface abrufbar \374ber sim.getFileOutput\(\)}{part.3}% 129
+\BOOKMARK [0][-]{chapter.30}{30 ModelInterface abrufbar \374ber sim.getModel\(\)}{part.3}% 130
+\BOOKMARK [0][-]{chapter.31}{31 XML-Auswahlbefehle}{part.3}% 131

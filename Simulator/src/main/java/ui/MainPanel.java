@@ -85,6 +85,7 @@ import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.FileDropperData;
 import net.calc.ServerStatus;
+import scripting.java.ExternalConnectDialog;
 import simcore.logging.SimLogging;
 import simulator.AnySimulator;
 import simulator.Simulator;
@@ -595,6 +596,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ModelExternalDataEdit",e->commandModelExternalDataEdit());
 		addAction("ModelExternalDataLoadNow",e->commandModelExternalDataLoadNow());
 		addAction("ModelExternalDataLoadOnStart",e->commandModelExternalDataLoadOnStart());
+		addAction("ModelPluginFolder",e->commandModelPluginFolder());
 		addAction("ModelListElements",e->commandModelListElements());
 		addAction("ModelModelDescription",e->commandModelDescription());
 		addAction("ModelAnalyticModelCompare",e->commandModelAnalyticCompare());
@@ -1077,6 +1079,8 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(submenu,Language.tr("Main.Menu.Model.ExternalData.Edit"),Images.GENERAL_SELECT_TABLE_IN_FILE.getIcon(),Language.tr("Main.Menu.Model.ExternalData.Edit.Mnemonic"),"ModelExternalDataEdit");
 		createMenuItem(submenu,Language.tr("Main.Menu.Model.ExternalData.LoadNow"),Language.tr("Main.Menu.Model.ExternalData.LoadNow.Mnemonic"),"ModelExternalDataLoadNow");
 		menuModelLoadExternalDataOnStart=createCheckBoxMenuItem(submenu,Language.tr("Main.Menu.Model.ExternalData.LoadOnStart"),Language.tr("Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic"),"ModelExternalDataLoadOnStart");
+
+		createMenuItem(menu,Language.tr("Main.Menu.Model.PluginFolder"),Images.MODEL_PLUGINS.getIcon(),Language.tr("Main.Menu.Model.PluginFolder.Mnemonic"),"ModelPluginFolder");
 
 		menu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.ListElements"),Images.MODEL_LIST_ELEMENTS.getIcon(),Language.tr("Main.Menu.View.ListElements.Mnemonic"),"ModelListElements"));
@@ -2087,6 +2091,24 @@ public class MainPanel extends MainPanelBase {
 		final ModelLoadData loadData=editorPanel.getModelExternalData();
 		loadData.setActive(!loadData.isActive());
 		editorPanel.setModelChanged(true);
+	}
+
+	/**
+	 * Befehl: Modell - Plugin-Verzeichnis
+	 */
+	private void commandModelPluginFolder() {
+		final EditModel model=editorPanel.getModel();
+		final ExternalConnectDialog dialog=new ExternalConnectDialog(this,model.pluginsFolder);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			final String newPluginsFolder=dialog.getFolder();
+			if (!newPluginsFolder.equals(model.pluginsFolder)) {
+				model.pluginsFolder=newPluginsFolder;
+				final File file=editorPanel.getLastFile();
+				editorPanel.setModel(model);
+				editorPanel.setLastFile(file);
+				editorPanel.setModelChanged(true);
+			}
+		}
 	}
 
 	/**

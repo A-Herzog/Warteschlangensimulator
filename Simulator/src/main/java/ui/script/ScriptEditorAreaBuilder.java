@@ -240,6 +240,8 @@ public class ScriptEditorAreaBuilder {
 		String systemWarmUp="";
 		String systemWIP="";
 		String systemNQ="";
+		String systemWIPAll="";
+		String systemNQAll="";
 		String systemVar="";
 		String systemSetAnalogValue="";
 		String systemSetAnalogRate="";
@@ -247,20 +249,29 @@ public class ScriptEditorAreaBuilder {
 		String systemResourceGetAll="";
 		String systemResourceGet="";
 		String systemResourceSet="";
+		String systemResourceDown="";
+		String systemAllResourceDown="";
+		String systemSignal="";
+		String systemRunPlugin="";
 
 		if (language==ScriptMode.Javascript) {
 			systemCalc="Simulation.calc(\"1+2\");";
 			systemTime="Simulation.time();";
 			systemWarmUp="Simulation.isWarmUp();";
-			systemWIP="Simulation.getWIP(id)";
-			systemNQ="Simulation.getNQ(id)";
-			systemVar="Simulation.set(\"variable\",123)";
-			systemSetAnalogValue="Simulation.setValue(id,123)";
-			systemSetAnalogRate="Simulation.setRate(id,Wert)";
-			systemSetAnalogMaxFlow="Simulation.setValveMaxFlow(id,1,123)";
-			systemResourceGetAll="Simulation.getAllResourceCount()";
-			systemResourceGet="Simulation.getResourceCount(resourceId)";
-			systemResourceSet="Simulation.setResourceCount(resourceId,123)";
+			systemWIP="Simulation.getWIP(id);";
+			systemNQ="Simulation.getNQ(id);";
+			systemWIPAll="Simulation.getWIP();";
+			systemNQAll="Simulation.getNQ();";
+			systemVar="Simulation.set(\"variable\",123);";
+			systemSetAnalogValue="Simulation.setValue(id,123);";
+			systemSetAnalogRate="Simulation.setRate(id,Wert);";
+			systemSetAnalogMaxFlow="Simulation.setValveMaxFlow(id,1,123);";
+			systemResourceGetAll="Simulation.getAllResourceCount();";
+			systemResourceGet="Simulation.getResourceCount(resourceId);";
+			systemResourceSet="Simulation.setResourceCount(resourceId,123);";
+			systemResourceDown="Simulation.getResourceDown(resourceId);";
+			systemAllResourceDown="Simulation.getAllResourceDown();";
+			systemSignal="Simulation.signal(\"signalName\");";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -269,6 +280,8 @@ public class ScriptEditorAreaBuilder {
 			systemWarmUp="sim.getSystem().isWarmUp();";
 			systemWIP="sim.getSystem().getWIP(id);";
 			systemNQ="sim.getSystem().getNQ(id);";
+			systemWIPAll="sim.getSystem().getWIP();";
+			systemNQAll="sim.getSystem().getNQ();";
 			systemVar="sim.getSystem().set(\"variable\",123);";
 			systemSetAnalogValue="sim.getSystem().setAnalogValue(id,123);";
 			systemSetAnalogRate="sim.getSystem().setAnalogRate(id,123);";
@@ -276,6 +289,10 @@ public class ScriptEditorAreaBuilder {
 			systemResourceGetAll="sim.getSystem().getAllResourceCount();";
 			systemResourceGet="sim.getSystem().getResourceCount(resourceId);";
 			systemResourceSet="sim.getSystem().setResourceCount(resourceId,123);";
+			systemResourceDown="sim.getSystem().getResourceDown(resourceId);";
+			systemAllResourceDown="sim.getSystem().getAllResourceDown();";
+			systemSignal="sim.getSystem().signal(\"signalName\");";
+			systemRunPlugin="sim.getSystem().runPlugin(\"className\",\"methodName\",userData);";
 		}
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.Calc"),Language.tr("ScriptPopup.Simulation.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),systemCalc);
@@ -284,6 +301,8 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getWIP"),Language.tr("ScriptPopup.Simulation.getWIP.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemWIP);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getNQ"),Language.tr("ScriptPopup.Simulation.getNQ.Hint"),Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon(),systemNQ);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.getWIPAll"),Language.tr("ScriptPopup.Simulation.getWIPAll.Hint"),Images.SCRIPT_RECORD_DATA_STATION.getIcon(),systemWIPAll);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.getNQAll"),Language.tr("ScriptPopup.Simulation.getNQAll.Hint"),Images.SCRIPT_RECORD_DATA_STATION_QUEUE.getIcon(),systemNQAll);
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.setVariable"),Language.tr("ScriptPopup.Simulation.setVariable.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),systemVar);
 
@@ -294,6 +313,14 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getAllResourceCount"),Language.tr("ScriptPopup.Simulation.getAllResourceCount.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceGetAll);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getResourceCount"),Language.tr("ScriptPopup.Simulation.getResourceCount.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceGet);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.setResourceCount"),Language.tr("ScriptPopup.Simulation.setResourceCount.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceSet);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.getResourceDown"),Language.tr("ScriptPopup.Simulation.getResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceDown);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.getAllResourceDown"),Language.tr("ScriptPopup.Simulation.getAllResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemAllResourceDown);
+
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.Signal"),Language.tr("ScriptPopup.Simulation.Signal.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemSignal);
+
+		if (language==ScriptMode.Java) {
+			addAutoComplete(Language.tr("ScriptPopup.Simulation.runPlugin"),Language.tr("ScriptPopup.Simulation.runPlugin.Hint"),Images.SCRIPT_FILE.getIcon(),systemRunPlugin);
+		}
 	}
 
 	/**
@@ -326,24 +353,24 @@ public class ScriptEditorAreaBuilder {
 
 		if (language==ScriptMode.Javascript) {
 			clientCalc="Simulation.calc(\"1+2\");";
-			clientTypeName="Simulation.clientTypeName()";
-			clientWarmUp="Simulation.isWarmUpClient()";
-			clientInStatistics="Simulation.isClientInStatistics()";
-			clientSetInStatistics="Simulation.setClientInStatistics(true)";
-			clientNumber="Simulation.clientNumber()";
-			clientWaitingSeconds="Simulation.clientWaitingSeconds()";
-			clientWaitingTime="Simulation.clientWaitingTime()";
+			clientTypeName="Simulation.clientTypeName();";
+			clientWarmUp="Simulation.isWarmUpClient();";
+			clientInStatistics="Simulation.isClientInStatistics();";
+			clientSetInStatistics="Simulation.setClientInStatistics(true);";
+			clientNumber="Simulation.clientNumber();";
+			clientWaitingSeconds="Simulation.clientWaitingSeconds();";
+			clientWaitingTime="Simulation.clientWaitingTime();";
 			clientWaitingSecondsSet="Simulation.clientWaitingSecondsSet(123.456);";
-			clientTransferSeconds="Simulation.clientTransferSeconds()";
-			clientTransferTime="Simulation.clientTransferTime()";
+			clientTransferSeconds="Simulation.clientTransferSeconds();";
+			clientTransferTime="Simulation.clientTransferTime();";
 			clientTransferSecondsSet="Simulation.clientTransferSecondsSet(123.456);";
-			clientProcessSeconds="Simulation.clientProcessSeconds()";
-			clientProcessTime="Simulation.clientProcessTime()";
+			clientProcessSeconds="Simulation.clientProcessSeconds();";
+			clientProcessTime="Simulation.clientProcessTime();";
 			clientProcessSecondsSet="Simulation.clientProcessSecondsSet(123.456);";
-			clientGetValue="Simulation.getClientValue(index)";
-			clientSetValue="Simulation.setClientValue(index,123)";
-			clientGetText="Simulation.getClientText(\"key\")";
-			clientSetText="Simulation.setClientText(\"key\",\"value\")";
+			clientGetValue="Simulation.getClientValue(index);";
+			clientSetValue="Simulation.setClientValue(index,123);";
+			clientGetText="Simulation.getClientText(\"key\");";
+			clientSetText="Simulation.setClientText(\"key\",\"value\");";
 		}
 
 		if (language==ScriptMode.Java) {

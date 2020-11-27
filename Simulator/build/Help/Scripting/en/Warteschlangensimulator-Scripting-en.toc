@@ -120,7 +120,8 @@
 \contentsline {section}{\numberline {24.1}Base functions}{83}{section.24.1}%
 \contentsline {section}{\numberline {24.2}Accessing parameters of the simulation model}{83}{section.24.2}%
 \contentsline {section}{\numberline {24.3}Number of operators in a resource}{84}{section.24.3}%
-\contentsline {section}{\numberline {24.4}Fire signal}{84}{section.24.4}%
+\contentsline {section}{\numberline {24.4}Trigger signal}{84}{section.24.4}%
+\contentsline {section}{\numberline {24.5}Run external code}{84}{section.24.5}%
 \contentsline {chapter}{\numberline {25}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{85}{chapter.25}%
 \contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{87}{chapter.26}%
 \contentsline {chapter}{\numberline {27}\texttt {ClientsInterface} accessible via \texttt {sim.getClients()}}{89}{chapter.27}%

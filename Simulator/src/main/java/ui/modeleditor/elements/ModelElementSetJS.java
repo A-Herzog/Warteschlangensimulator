@@ -46,20 +46,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * Führt ein Skript, in dem Zuweisungen stattfinden können, aus.
  * @author Alexander Herzog
  */
-public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
-	/**
-	 * Zu verwendende Programmiersprache für das Skript
-	 * @author Alexander Herzog
-	 * @see ModelElementSetJS#getMode()
-	 * @see ModelElementSetJS#setMode(ScriptMode)
-	 */
-	public enum ScriptMode {
-		/** Javascript als Sprache verwenden */
-		Javascript,
-		/** Java als Sprache verwenden */
-		Java
-	}
-
+public class ModelElementSetJS extends ModelElementMultiInSingleOutBox implements ElementWithScript {
 	/**
 	 * Skript
 	 * @see #getScript()
@@ -70,7 +57,7 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 	 * Skriptsprache
 	 * @see #getMode()
 	 * @see #setMode(ScriptMode)
-	 * @see ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
 	private ScriptMode mode;
 
@@ -275,6 +262,7 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 	 * Das aktuelle Skript.
 	 * @return	Skript
 	 */
+	@Override
 	public String getScript() {
 		return script;
 	}
@@ -283,6 +271,7 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 	 * Setzt das aktuelle Skript
 	 * @param script	Neues Skript
 	 */
+	@Override
 	public void setScript(final String script) {
 		if (script!=null) this.script=script;
 	}
@@ -290,8 +279,9 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 	/**
 	 * Gibt die Skriptsprache an
 	 * @return	Skriptsprache
-	 * @see ModelElementSetJS.ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
+	@Override
 	public ScriptMode getMode() {
 		return mode;
 	}
@@ -299,8 +289,9 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 	/**
 	 * Stellt die Skriptsprache ein.
 	 * @param mode	Skriptsprache
-	 * @see ModelElementSetJS.ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
+	@Override
 	public void setMode(final ScriptMode mode) {
 		if (mode!=null) this.mode=mode;
 	}
@@ -322,33 +313,5 @@ public class ModelElementSetJS extends ModelElementMultiInSingleOutBox {
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.hold,fixer);
-	}
-
-	/**
-	 * Prüft, ob das Skript auf externe Daten zugreift, was eine
-	 * Parallelisierung der Simulation verhindern würde.
-	 * @return	Kann das Skript parallel in mehreren Instanzen ausgeführt werden?
-	 * @see EditModel#getSingleCoreReason()
-	 */
-	public boolean scriptRequiresSingleCoreMode() {
-		if (script==null) return false;
-
-		for (String line: script.split("\n")) {
-			final String lower=line.toLowerCase();
-			switch (mode) {
-			case Javascript:
-				if (lower.contains("system.getinput(")) return true;
-				if (lower.contains("simulation.getinput(")) return true;
-				break;
-			case Java:
-				if (lower.contains("getruntime().getinput(")) return true;
-				if (lower.contains("getinputvalue().getinput(")) return true;
-				break;
-			default:
-				break;
-			}
-		}
-
-		return false;
 	}
 }

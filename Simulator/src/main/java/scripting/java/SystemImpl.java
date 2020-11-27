@@ -282,4 +282,10 @@ public class SystemImpl implements SystemInterface {
 		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Signal"),-1,String.format(Language.tr("Simulation.Log.Signal.Info2"),signalName));
 		simData.runData.fireSignal(simData,signalName);
 	}
+
+	@Override
+	public Object runPlugin(final String className, final String functionName, final Object data) {
+		if (simData.pluginsConnect==null) return null;
+		return simData.pluginsConnect.runFunction(className,functionName,this,data);
+	}
 }

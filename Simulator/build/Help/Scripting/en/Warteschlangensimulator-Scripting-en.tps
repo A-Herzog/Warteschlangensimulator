@@ -10,9 +10,9 @@ MinPos.y=-1
 MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
-NormalPos.top=26
-NormalPos.right=1657
-NormalPos.bottom=789
+NormalPos.top=36
+NormalPos.right=3577
+NormalPos.bottom=1680
 Class=LaTeXView
 Document=Warteschlangensimulator-Scripting-en.tex
 

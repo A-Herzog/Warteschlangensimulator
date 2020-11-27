@@ -316,15 +316,28 @@ Returns the current number of operators in down time in the resource with the sp
 
 \end{itemize}
 
-\section{Fire signal}
+\section{Trigger signal}
 
 \begin{itemize}
 
 \item
-\cmd{Simulation.signal(final String signalName)}:\\
+\cmd{signal(final String signalName)}:\\
 Fires the signal with the given name.
 
 \end{itemize}
+
+\section{Run external code}
+
+\begin{itemize}
+
+\item
+\cmd{Object runPlugin(final String className, final String functionName,\\final Object data)}:\\
+Runs the specified method in the specified class and passes the optional parameter \cm{data} to the method.
+The return value of the method will be returned by \cm{runPlugin}. If calling the external method fails,
+\cm{runPlugin} will return \cm{null}.
+
+\end{itemize}
+
 
 
 \chapter{\texttt{ClientInterface} accessible via \texttt{sim.getClient()}}

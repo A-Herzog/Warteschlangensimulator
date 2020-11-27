@@ -69,6 +69,14 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	}
 
 	/**
+	 * Stellt ein, dass mindestens einmal eine Simulation gestartet wurde.
+	 * @see #isSimulationStarted()
+	 */
+	private static void setSimulationStarted() {
+		simulationStarted=true;
+	}
+
+	/**
 	 * Welche Arten von Ereignissen sollen erfasst werden?
 	 * @author Alexander Herzog
 	 */
@@ -409,7 +417,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	@Override
 	public final void start(final boolean startPaused) {
-		simulationStarted=true;
+		setSimulationStarted();
 		if (runModel==null) return;
 		super.start(!SetupData.getSetup().highPriority,startPaused);
 	}

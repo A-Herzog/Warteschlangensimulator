@@ -53,24 +53,11 @@ import ui.modeleditor.fastpaint.Shapes;
  * gemäß einem Javascript Skript
  * @author Alexander Herzog
  */
-public class ModelElementDecideJS extends ModelElementBox implements ModelElementEdgeMultiIn, ModelElementEdgeMultiOut {
+public class ModelElementDecideJS extends ModelElementBox implements ModelElementEdgeMultiIn, ModelElementEdgeMultiOut, ElementWithScript {
 	/** Liste der einlaufenden Kanten */
 	private final List<ModelElementEdge> connectionsIn;
 	/** Liste der auslaufenden Kanten */
 	private final List<ModelElementEdge> connectionsOut;
-
-	/**
-	 * Skriptsprache
-	 * @author Alexander Herzog
-	 * @see ModelElementDecideJS#getMode()
-	 * @see ModelElementDecideJS#setMode(ScriptMode)
-	 */
-	public enum ScriptMode {
-		/** Sprache: Javascript */
-		Javascript,
-		/** Sprache: Java */
-		Java
-	}
 
 	/**
 	 * Liste der IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet, ist sonst <code>null</code>)
@@ -372,6 +359,7 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 	 * Liefert das Skript zur Fallunterscheidung zurück
 	 * @return	Skript
 	 */
+	@Override
 	public String getScript() {
 		return script;
 	}
@@ -380,6 +368,7 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 	 * Stellt ein neues Skript zur Fallunterscheidung ein
 	 * @param script	Skript
 	 */
+	@Override
 	public void setScript(final String script) {
 		if (script==null) this.script=""; else this.script=script.trim();
 	}
@@ -387,8 +376,9 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 	/**
 	 * Gibt die Skriptsprache an
 	 * @return	Skriptsprache
-	 * @see ModelElementDecideJS.ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
+	@Override
 	public ScriptMode getMode() {
 		return mode;
 	}
@@ -396,8 +386,9 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 	/**
 	 * Stellt die Skriptsprache ein.
 	 * @param mode	Skriptsprache
-	 * @see ModelElementDecideJS.ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
+	@Override
 	public void setMode(final ScriptMode mode) {
 		if (mode!=null) this.mode=mode;
 	}

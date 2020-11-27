@@ -348,6 +348,9 @@ public enum Images {
 	/** Symbol "Modell - Hinzufügen (aus Zwischenablage) - Text" */
 	MODEL_ADD_TEXT("Text.png"),
 
+	/** Symbol "Modell - Plugins-Verzeichnis" */
+	MODEL_PLUGINS("plugin.png"),
+
 	/** Symbol "Modelleigenschaften - Seite 'Modellbeschreibung'" */
 	MODELPROPERTIES_DESCRIPTION("brick_edit.png"),
 
@@ -945,7 +948,6 @@ public enum Images {
 	/** Symbol "Schnellfilter-Modus - Liste mit Anweisungen" */
 	SCRIPT_MODE_LIST("text_list_bullets.png"),
 
-
 	/** Symbol "Skript-Ausdruck - Text" */
 	SCRIPT_RECORD_TEXT("font.png"),
 
@@ -1014,6 +1016,9 @@ public enum Images {
 
 	/** Symbol "Skript ausführen - Ausgabe" */
 	SCRIPT_PANEL_OUTPUT("application_xp_terminal.png"),
+
+	/** Symbol "Skriptdatei" */
+	SCRIPT_FILE("plugin.png"),
 
 	/* Verteilung anpassen */
 

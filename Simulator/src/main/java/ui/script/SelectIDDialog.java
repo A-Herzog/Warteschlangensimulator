@@ -19,7 +19,9 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -88,15 +90,22 @@ public class SelectIDDialog extends BaseDialog {
 	private final JComboBox<String> combo;
 
 	/**
+	 * Soll auch ein leerer Parameter zulässig sein?
+	 */
+	private final boolean allowEmpty;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param ids	Zuordnung von vorhandenen IDs zu Stationen
 	 * @param help	Hilfe-Runnable
 	 * @param stationRestrictions	Gibt an, ob es sich bei der Zuordnung um eine Liste aller Stationen (<code>false</code>) oder nur um eine bestimmte Auswahl (<code>true</code>) handelt
 	 * @param preferProcessStations	Soll wenn möglich in der Liste eine Bedienstation oder Verzögerungsstation initial ausgewählt werden?
+	 * @param allowEmpty	Soll auch ein leerer Parameter zulässig sein?
 	 */
-	public SelectIDDialog(final Component owner, final Map<Integer,ModelElementBox> ids, final Runnable help, final boolean stationRestrictions, final boolean preferProcessStations) {
+	public SelectIDDialog(final Component owner, final Map<Integer,ModelElementBox> ids, final Runnable help, final boolean stationRestrictions, final boolean preferProcessStations, final boolean allowEmpty) {
 		super(owner,Language.tr("ScriptPopup.SelectIDDialog.Title"));
+		this.allowEmpty=allowEmpty;
 		selectedID=-1;
 		selectedIndex=-1;
 		if (ids.size()==0) {
@@ -120,7 +129,7 @@ public class SelectIDDialog extends BaseDialog {
 		final JLabel label=new JLabel(Language.tr("ScriptPopup.SelectIDDialog.Station")+":");
 		line.add(label);
 
-		line.add(combo=new JComboBox<>(getIDNames(ids,preferProcessStations)));
+		line.add(combo=new JComboBox<>(getIDNames(ids,preferProcessStations,allowEmpty)));
 		if (selectedIndex<0) selectedIndex=0;
 		combo.setSelectedIndex(selectedIndex);
 		label.setLabelFor(combo);
@@ -138,9 +147,10 @@ public class SelectIDDialog extends BaseDialog {
 	 * @param help	Hilfe-Runnable
 	 * @param stationTypes	Optionale Liste der Klassennamen der Stationen, die in die Auswahl aufgenommen werden sollen (wird hier <code>null</code> oder eine leere Liste übergeben, so erfolgt keine Einschränkung)
 	 * @param preferProcessStations	Soll wenn möglich in der Liste eine Bedienstation oder Verzögerungsstation initial ausgewählt werden?
+	 * @param allowEmpty	Soll auch ein leerer Parameter zulässig sein?
 	 */
-	public SelectIDDialog(final Component owner, final EditModel model, final Runnable help, final Class<?>[] stationTypes, final boolean preferProcessStations) {
-		this(owner,getIDs(model,stationTypes),help,(stationTypes!=null && stationTypes.length>0),true);
+	public SelectIDDialog(final Component owner, final EditModel model, final Runnable help, final Class<?>[] stationTypes, final boolean preferProcessStations, final boolean allowEmpty) {
+		this(owner,getIDs(model,stationTypes),help,(stationTypes!=null && stationTypes.length>0),true,allowEmpty);
 	}
 
 	/**
@@ -150,7 +160,7 @@ public class SelectIDDialog extends BaseDialog {
 	 * @param help	Hilfe-Runnable
 	 */
 	public SelectIDDialog(final Component owner, final EditModel model, final Runnable help) {
-		this(owner,model,help,null,false);
+		this(owner,model,help,null,false,false);
 	}
 
 	/**
@@ -217,29 +227,40 @@ public class SelectIDDialog extends BaseDialog {
 	 * Liefert eine Liste mit Stationsnamen (und ihren IDs)
 	 * @param ids	Zuordnung von IDs zu Stationselementen
 	 * @param preferProcessStations	Bedienstationen an den Anfang stellen
+	 * @param allowEmpty	Soll auch ein leerer Parameter zulässig sein?
 	 * @return	Liste mit Stationsnamen (und ihren IDs)
 	 */
-	private String[] getIDNames(final Map<Integer,ModelElementBox> ids, final boolean preferProcessStations) {
+	private String[] getIDNames(final Map<Integer,ModelElementBox> ids, final boolean preferProcessStations, final boolean allowEmpty) {
 		this.ids=ids.keySet().stream().mapToInt(i->i).sorted().toArray();
 
-		final String[] names=new String[this.ids.length];
+		final List<String> names=new ArrayList<>();
+		if (allowEmpty) names.add(Language.tr("ScriptPopup.SelectIDDialog.Station.NoID"));
 		for (int i=0;i<this.ids.length;i++) {
 			final ModelElementBox element=ids.get(this.ids[i]);
 			final StringBuilder sb=new StringBuilder();
 			sb.append(element.getTypeName());
 			if (!element.getName().trim().isEmpty()) sb.append(String.format(" \"%s\"",element.getName()));
 			sb.append(String.format(" (id=%d)",element.getId()));
-			names[i]=sb.toString();
+			names.add(sb.toString());
 
-			if (preferProcessStations && selectedIndex<0 && ((element instanceof ModelElementProcess) || (element instanceof ModelElementDelay))) selectedIndex=i;
+			if (preferProcessStations && selectedIndex<0 && ((element instanceof ModelElementProcess) || (element instanceof ModelElementDelay))) selectedIndex=names.size()-1;
 		}
 
-		return names;
+		return names.toArray(new String[0]);
 	}
 
 	@Override
 	protected void storeData() {
-		selectedID=ids[combo.getSelectedIndex()];
+		final int index=combo.getSelectedIndex();
+		if (index<0) {
+			selectedID=-1;
+		} else {
+			if (allowEmpty) {
+				if (index==0) selectedID=-2; else selectedID=ids[index-1];
+			} else {
+				selectedID=ids[index];
+			}
+		}
 	}
 
 	/**

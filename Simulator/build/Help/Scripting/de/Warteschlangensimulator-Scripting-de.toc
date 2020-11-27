@@ -121,6 +121,7 @@
 \contentsline {section}{\numberline {24.2}Zugriff auf Parameter des Simulationsmodells}{85}{section.24.2}%
 \contentsline {section}{\numberline {24.3}Anzahl an Bedienern in einer Ressource}{86}{section.24.3}%
 \contentsline {section}{\numberline {24.4}Signale auslösen}{86}{section.24.4}%
+\contentsline {section}{\numberline {24.5}Externen Code aufrufen}{86}{section.24.5}%
 \contentsline {chapter}{\numberline {25}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{87}{chapter.25}%
 \contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{89}{chapter.26}%
 \contentsline {chapter}{\numberline {27}\texttt {ClientsInterface} abrufbar über \texttt {sim.getClients()}}{91}{chapter.27}%

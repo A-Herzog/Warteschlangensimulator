@@ -21,6 +21,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
+import scripting.java.ExternalConnect;
 import simcore.SimData;
 import simcore.eventcache.AssociativeEventCache;
 import simcore.eventmanager.LongRunMultiSortedArrayListEventManager;
@@ -107,6 +108,12 @@ public class SimulationData extends SimData {
 	private DynamicLoadBalancer dynamicLoadBalancer;
 
 	/**
+	 * System zum Aufruf von Methoden in externen Skripten
+	 * @see RunModel#pluginsFolder
+	 */
+	public ExternalConnect pluginsConnect;
+
+	/**
 	 * Konstruktor der Klasse <code>SimulationData</code>
 	 * @param threadNr		Gibt die Nummer des Threads an, für den das <code>SimDat</code>-Objekt erstellt wird.
 	 * @param threadCount	Anzahl der Rechenthreads
@@ -155,6 +162,10 @@ public class SimulationData extends SimData {
 		}
 		runModel.clientCountDiv=clientCountDiv;
 		/* System.out.println("Thread-"+(threadNr+1)+": "+simDays+" "+simDaysByOtherThreads); */
+
+		if (runModel.pluginsFolder!=null && !runModel.pluginsFolder.trim().isEmpty()) {
+			pluginsConnect=new ExternalConnect(new File(runModel.pluginsFolder));
+		}
 
 		this.dynamicLoadBalancer=dynamicLoadBalancer;
 	}

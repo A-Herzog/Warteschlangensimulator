@@ -47,20 +47,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * Hält die Kunden auf, bis eine bestimmte Javascript-basierende Bedingung erfüllt ist
  * @author Alexander Herzog
  */
-public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implements ModelElementAnimationForceMove {
-	/**
-	 * Zu verwendende Programmiersprache für das Skript
-	 * @author Alexander Herzog
-	 * @see ModelElementHoldJS#getMode()
-	 * @see ModelElementHoldJS#setMode(ScriptMode)
-	 */
-	public enum ScriptMode {
-		/** Javascript als Sprache verwenden */
-		Javascript,
-		/** Java als Sprache verwenden */
-		Java
-	}
-
+public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implements ModelElementAnimationForceMove, ElementWithScript {
 	/**
 	 * Optionale zusätzliche Bedingung
 	 * @see #getCondition()
@@ -140,6 +127,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	 * Liefert das Skript, auf dessen Basis Kunden für die Weiterleitung freigegeben werden sollen.
 	 * @return Skript auf dessen Basis die Kunden weitergeleitet werden sollen
 	 */
+	@Override
 	public String getScript() {
 		return script;
 	}
@@ -148,6 +136,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	 * Stellt das Skript ein, auf dessen Basis Kunden für die Weiterleitung freigegeben werden sollen.
 	 * @param newScript	Neues Skript auf dessen Basis die Kunden weitergeleitet werden sollen
 	 */
+	@Override
 	public void setScript(final String newScript) {
 		if (newScript!=null) script=newScript;
 	}
@@ -171,8 +160,9 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	/**
 	 * Gibt die Skriptsprache an
 	 * @return	Skriptsprache
-	 * @see ModelElementHoldJS.ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
+	@Override
 	public ScriptMode getMode() {
 		return mode;
 	}
@@ -180,8 +170,9 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	/**
 	 * Stellt die Skriptsprache ein.
 	 * @param mode	Skriptsprache
-	 * @see ModelElementHoldJS.ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
+	@Override
 	public void setMode(final ScriptMode mode) {
 		if (mode!=null) this.mode=mode;
 	}

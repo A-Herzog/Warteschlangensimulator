@@ -337,9 +337,20 @@ Liefert die aktuelle Anzahl an Bedienern in Ausfallzeit in der Ressource mit der
 \begin{itemize}
 
 \item
-\cmd{Simulation.signal(final String signalName)}:\\
+\cmd{signal(final String signalName)}:\\
 Löst das Signal mit dem angegebenen Namen aus.
 
+\end{itemize}
+
+\section{Externen Code aufrufen}
+
+\begin{itemize}
+
+\item
+\cmd{Object runPlugin(final String className, final String functionName,\\final Object data)}:\\
+Ruft in der angegebenen Klasse die angegebene Methode auf und übermittelt an diese den in
+\cm{data} angegebenen optionalen Parameter. Der Rückgabewert der Methode wird von \cm{runPlugin}
+zurückgegeben. Schlägt der Aufruf fehl, so liefert \cm{runPlugin} den Wert \cm{null} zurück.
 \end{itemize}
 
 

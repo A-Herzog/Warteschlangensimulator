@@ -134,4 +134,13 @@ public interface SystemInterface {
 	 * @param signalName	Name des Signal
 	 */
 	void signal(final String signalName);
+
+	/**
+	 * Ruft eine Methode in einer Klassendatei, die im Plugins-Ordner liegt, auf.
+	 * @param className	Name der Klassendatei (ohne Dateinamenserweiterung) bzw. Name der Klasse
+	 * @param functionName	Name der aufzurufenden Methode innerhalb der Klasse
+	 * @param data	Zusätzliche Daten, die als Parameter an die Methode übergeben werden
+	 * @return	Rückgabewert der Methode
+	 */
+	Object runPlugin(final String className, final String functionName, final Object data);
 }

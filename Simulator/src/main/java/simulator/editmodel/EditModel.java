@@ -51,6 +51,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ComplexLine;
 import ui.modeleditor.elements.ElementNoRemoteSimulation;
+import ui.modeleditor.elements.ElementWithScript;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementInput;
@@ -61,7 +62,6 @@ import ui.modeleditor.elements.ModelElementOutputDB;
 import ui.modeleditor.elements.ModelElementOutputDDE;
 import ui.modeleditor.elements.ModelElementOutputJS;
 import ui.modeleditor.elements.ModelElementRecord;
-import ui.modeleditor.elements.ModelElementSetJS;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceDB;
 import ui.modeleditor.elements.ModelElementSourceDDE;
@@ -336,6 +336,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public final ModelLoadData modelLoadData;
 
 	/**
+	 * Verzeichnis für optionale externe Java-Klassendateien
+	 */
+	public String pluginsFolder;
+
+	/**
 	 * Konstruktor der Klasse <code>EditModel</code>
 	 */
 	public EditModel() {
@@ -359,6 +364,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		recordClientPaths=false;
 		recordIncompleteClients=false;
 		modelLoadData=new ModelLoadData();
+		pluginsFolder="";
 		resetData();
 	}
 
@@ -426,6 +432,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		recordIncompleteClients=false;
 		templates=null;
 		modelLoadData.clear();
+		pluginsFolder="";
 	}
 
 	/**
@@ -479,6 +486,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.recordIncompleteClients=recordIncompleteClients;
 		if (templates!=null) clone.templates=templates.clone();
 		clone.modelLoadData.copyDataFrom(modelLoadData);
+		clone.pluginsFolder=pluginsFolder;
 
 		return clone;
 	}
@@ -548,6 +556,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (recordClientPaths!=otherModel.recordClientPaths) return false;
 		if (recordIncompleteClients!=otherModel.recordIncompleteClients) return false;
 		if (!modelLoadData.equalsModelLoadData(otherModel.modelLoadData)) return false;
+		if (!pluginsFolder.equalsIgnoreCase(otherModel.pluginsFolder)) return false;
 
 		if (templates==null) {
 			if (otherModel.templates!=null) return false;
@@ -855,6 +864,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		if (Language.trAll("Surface.XML.RecordIncompleteClients",name)) {
 			recordIncompleteClients=!text.trim().isEmpty() && !text.equals("0");
+			return null;
 		}
 
 		if (UserTemplates.isTemplatesNode(name)) {
@@ -866,6 +876,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		for (String test: ModelLoadData.XML_NODE_NAME) if (name.equalsIgnoreCase(test)) {
 			final String error=modelLoadData.loadFromXML(node);
 			if (error!=null) return error;
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.PluginsFolder",name)) {
+			pluginsFolder=text;
 			return null;
 		}
 
@@ -983,6 +998,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (templates!=null) templates.save(doc,node);
 
 		modelLoadData.addDataToXML(doc,node);
+
+		if (pluginsFolder!=null && !pluginsFolder.trim().isEmpty()) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.PluginsFolder")));
+			sub.setTextContent(pluginsFolder);
+		}
 	}
 
 	/**
@@ -1036,8 +1056,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Eingabe über Anweisung in Script-Element */
 
-		if (element instanceof ModelElementSetJS) {
-			if (((ModelElementSetJS)element).scriptRequiresSingleCoreMode()) {
+		if (element instanceof ElementWithScript) {
+			if (((ElementWithScript)element).scriptRequiresSingleCoreMode()) {
 				reasons.add(String.format(Language.tr("Surface.SingleCoreReason.ScriptContent"),element.getId()));
 			}
 		}
@@ -1133,6 +1153,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (element1 instanceof ModelElementHoldJS) return false;
 			if (element1 instanceof ModelElementSetJS) return false;
 			 */
+			if (element1 instanceof ElementWithScript) return !((ElementWithScript)element1).scriptRequiresSingleCoreMode();
+
 			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
 				if (element2 instanceof ModelElementSourceTable) return false;
 				if (element2 instanceof ModelElementSourceDB) return false;
@@ -1149,6 +1171,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 				if (element2 instanceof ModelElementHoldJS) return false;
 				if (element2 instanceof ModelElementSetJS) return false;
 				 */
+				if (element1 instanceof ElementWithScript) return !((ElementWithScript)element2).scriptRequiresSingleCoreMode();
 			}
 		}
 

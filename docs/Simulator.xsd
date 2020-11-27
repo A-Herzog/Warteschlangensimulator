@@ -42,6 +42,8 @@
   <xs:element name="ModellUnvollstaendigeKundenAufzeichnung" type="xs:string"/>
   <xs:element ref="Benutzervorlagen"/>
   <xs:element ref="ExterneDaten"/>
+  <xs:element name="ModellPluginsVerzeichnis" type="xs:string"/>
+  
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="ModellKunden"><xs:complexType><xs:simpleContent>
@@ -2042,7 +2044,8 @@
   <xs:element name="ModelRecordIncompleteClients" type="xs:string"/>
   <xs:element ref="UserTemplates"/>
   <xs:element ref="ExternalData"/>
-  </xs:choice></xs:sequence></xs:complexType></xs:element>
+  <xs:element name="ModelPluginsFolder" type="xs:string"/>  
+</xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="ModelClients"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:integer">

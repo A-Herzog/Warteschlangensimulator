@@ -286,6 +286,13 @@ public class RunModel {
 	public boolean recordIncompleteClients;
 
 	/**
+	 * Verzeichnis für optionale externe Java-Klassendateien
+	 * (wird direkt aus {@link EditModel} übernommen und
+	 * später von {@link SimulationData} ausgewertet.
+	 */
+	public String pluginsFolder;
+
+	/**
 	 * Ein <code>RunModel</code> kann nicht direkt erzeugt werden, sondern es kann nur ein <code>EditModel</code>
 	 * mittels der Funktion <code>getRunModel</code> in ein <code>RunModel</code> umgeformt werden. Dabei wird das
 	 * Modell auf Konsistenz geprüft und alle notwendigen Verknüpfungen werden hergestellt.
@@ -469,6 +476,9 @@ public class RunModel {
 
 		/* Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden? */
 		runModel.recordIncompleteClients=editModel.recordIncompleteClients;
+
+		/* Plugins-Verzeichnis */
+		runModel.pluginsFolder=editModel.pluginsFolder;
 
 		return null;
 	}

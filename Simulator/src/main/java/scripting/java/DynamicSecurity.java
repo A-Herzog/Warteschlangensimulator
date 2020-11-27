@@ -126,6 +126,7 @@ public class DynamicSecurity {
 			restrictedPermissions.add(new RuntimePermission("getenv.JDK_JAVAC_OPTIONS"));
 			restrictedPermissions.add(new RuntimePermission("closeClassLoader"));
 			restrictedPermissions.add(new RuntimePermission("getProtectionDomain"));
+			restrictedPermissions.add(new RuntimePermission("accessDeclaredMembers")); /* Brauchen wir für Aufrufe über ExternalConnect */
 			restrictedPermissions.add(new ReflectPermission("suppressAccessChecks")); /* Den brauchen wir für GraalVM */
 			allPermissions=new Permissions();
 			allPermissions.add(new AllPermission());

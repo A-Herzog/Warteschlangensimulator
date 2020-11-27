@@ -46,20 +46,7 @@ import ui.modeleditor.fastpaint.Shapes;
  * Liest eine Zahl aus einer Datei und verarbeitet diese per Javascript.
  * @author Alexander Herzog
  */
-public class ModelElementInputJS extends ModelElementMultiInSingleOutBox implements ElementNoRemoteSimulation {
-	/**
-	 * Zu verwendende Programmiersprache für das Skript
-	 * @author Alexander Herzog
-	 * @see ModelElementInputJS#getMode()
-	 * @see ModelElementInputJS#setMode(ScriptMode)
-	 */
-	public enum ScriptMode {
-		/** Javascript als Sprache verwenden */
-		Javascript,
-		/** Java als Sprache verwenden */
-		Java
-	}
-
+public class ModelElementInputJS extends ModelElementMultiInSingleOutBox implements ElementNoRemoteSimulation, ElementWithScript {
 	/**
 	 * Skript
 	 * @see #getScript()
@@ -213,6 +200,7 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	 * Das aktuelle Skript.
 	 * @return	Skript
 	 */
+	@Override
 	public String getScript() {
 		return script;
 	}
@@ -221,6 +209,7 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	 * Setzt das aktuelle Skript
 	 * @param script	Neues Skript
 	 */
+	@Override
 	public void setScript(final String script) {
 		if (script!=null) this.script=script;
 	}
@@ -228,8 +217,9 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	/**
 	 * Gibt die Skriptsprache an
 	 * @return	Skriptsprache
-	 * @see ModelElementSetJS.ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
+	@Override
 	public ScriptMode getMode() {
 		return mode;
 	}
@@ -237,8 +227,9 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	/**
 	 * Stellt die Skriptsprache ein.
 	 * @param mode	Skriptsprache
-	 * @see ModelElementSetJS.ScriptMode
+	 * @see ElementWithScript.ScriptMode
 	 */
+	@Override
 	public void setMode(final ScriptMode mode) {
 		if (mode!=null) this.mode=mode;
 	}

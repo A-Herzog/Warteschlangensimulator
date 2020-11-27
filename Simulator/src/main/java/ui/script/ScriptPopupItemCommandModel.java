@@ -71,7 +71,7 @@ public abstract class ScriptPopupItemCommandModel extends ScriptPopupItem {
 		if (textArea==null) return;
 
 		final String parameter=getParameter(owner,model,help);
-		if (parameter==null || parameter.trim().isEmpty()) return;
+		if (parameter==null) return;
 
 		insertTextIntoTextArea(textArea,String.format(command,parameter));
 

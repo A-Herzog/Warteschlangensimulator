@@ -256,10 +256,21 @@ The following methods are available in this interface:
   </li>
 </ul>
 
+<h3>Trigger signal</h3>
+
 <ul>
-  <li><tt>Simulation.signal(final String signalName)</tt><br>
+  <li><tt>signal(final String signalName)</tt><br>
   Fires the signal with the given name.
   </li>
+</ul>
+
+<h3>Run external code</h3>
+
+<ul>
+  <li><tt>Object runPlugin(final String className, final String functionName, final Object data)</tt><br>
+  Runs the specified method in the specified class and passes the optional parameter <tt>data</tt> to the method.
+  The return value of the method will be returned by <tt>runPlugin</tt>. If calling the external method fails,
+  <tt>runPlugin</tt> will return <tt>null</tt>. 
 </ul>
 
 

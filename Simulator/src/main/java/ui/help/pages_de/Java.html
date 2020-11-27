@@ -276,11 +276,19 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Interface stellt 
 <h3>Signale auslösen</h3>
 
 <ul>
-  <li><tt>Simulation.signal(final String signalName)</tt><br>
+  <li><tt>void signal(final String signalName)</tt><br>
   Löst das Signal mit dem angegebenen Namen aus.
   </li>
 </ul>
 
+<h3>Externen Code aufrufen</h3>
+
+<ul>
+  <li><tt>Object runPlugin(final String className, final String functionName, final Object data)</tt><br>
+  Ruft in der angegebenen Klasse die angegebene Methode auf und übermittelt an diese den in
+  <tt>data</tt> angegebenen optionalen Parameter. Der Rückgabewert der Methode wird von <tt>runPlugin</tt>
+  zurückgegeben. Schlägt der Aufruf fehl, so liefert <tt>runPlugin</tt> den Wert <tt>null</tt> zurück. 
+</ul>
 
 
 

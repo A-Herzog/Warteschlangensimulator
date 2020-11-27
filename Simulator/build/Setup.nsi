@@ -207,7 +207,11 @@ Section "Install" Inst
   SetOutPath "$INSTDIR\tools"
   
   File /r "..\..\Release\tools\*.*"
-
+  
+  SetOutPath "$INSTDIR\userscripts"
+  
+  File /r "..\..\Release\userscripts\*.*"
+  
   CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGEXE}"
   
   !insertmacro MULTIUSER_RegistryAddInstallInfo
@@ -239,6 +243,7 @@ Section "un.Uninstall" uninst
   RmDir /r $INSTDIR\jre
   RmDir /r $INSTDIR\jdk
 
+  Delete "$INSTDIR\Simulator.sh"
   Delete "$INSTDIR\Simulator.exe"
   Delete "$INSTDIR\Simulator.old"
   Delete "$INSTDIR\Simulator.new"
@@ -252,6 +257,7 @@ Section "un.Uninstall" uninst
   RmDir /r $INSTDIR\docs
   RmDir /r $INSTDIR\libs
   RmDir /r $INSTDIR\tools
+  RmDir /r $INSTDIR\userscripts
   
   Delete "$APPDATA\Temp\${SetupFileName}.part"
   Delete "$APPDATA\Temp\${SetupFileName}"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-19 23:10+0100\n"
+"POT-Creation-Date: 2020-11-27 13:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5771,6 +5771,30 @@ msgstr "Befehl"
 msgid "ExpressionCalculator.Toolbar.ToolsJava.Hint"
 msgstr "Skriptbefehl einfügen"
 
+msgid "ExternalConnect.Dialog.ExamplesLink"
+msgstr "Beispielverzeichnis öffnen"
+
+msgid "ExternalConnect.Dialog.ExamplesLink.ErrorInfo"
+msgstr ""
+"Das Beispielskripteverzeichnis\n"
+"%s\n"
+"konnte nicht geöffnet werden."
+
+msgid "ExternalConnect.Dialog.ExamplesLink.ErrorTitle"
+msgstr "Verzeichnis konnte nicht geöffnet werden"
+
+msgid "ExternalConnect.Dialog.ExamplesLink.Hint"
+msgstr "Öffnet das Verzeichnis, in dem sich die Beispielskripte befinden, im Dateimanager"
+
+msgid "ExternalConnect.Dialog.Folder"
+msgstr "Verzeichnis"
+
+msgid "ExternalConnect.Dialog.Folder.Tooltip"
+msgstr "Verzeichnis auswählen"
+
+msgid "ExternalConnect.Dialog.Title"
+msgstr "Java-Plugins-Verzeichnis"
+
 msgid "FastAccessBuilder.Add.Java"
 msgstr "Zu Schnellzugriff - Java hinzufügen"
 
@@ -7230,6 +7254,12 @@ msgstr "a"
 
 msgid "Main.Menu.Model.Mnemonic"
 msgstr "M"
+
+msgid "Main.Menu.Model.PluginFolder"
+msgstr "Java-Plugins-Verzeichnis auswählen..."
+
+msgid "Main.Menu.Model.PluginFolder.Mnemonic"
+msgstr "J"
 
 msgid "Main.Menu.Model.Templates"
 msgstr "Vorlagen..."
@@ -11823,6 +11853,9 @@ msgstr "Keine Stationen"
 msgid "ScriptPopup.SelectIDDialog.Station"
 msgstr "Stationsname"
 
+msgid "ScriptPopup.SelectIDDialog.Station.NoID"
+msgstr "<keine ID, über alle>"
+
 msgid "ScriptPopup.SelectIDDialog.Title"
 msgstr "Station wählen"
 
@@ -11868,6 +11901,12 @@ msgstr "Bediener"
 msgid "ScriptPopup.Simulation.Resources.Hint"
 msgstr "Bedieneranzahl auslesen und einstellen"
 
+msgid "ScriptPopup.Simulation.Signal"
+msgstr "Signal auslösen"
+
+msgid "ScriptPopup.Simulation.Signal.Hint"
+msgstr "Löst das Signal, dessen Name angegeben wurde, aus."
+
 msgid "ScriptPopup.Simulation.Time"
 msgstr "Simulationszeit"
 
@@ -11880,11 +11919,23 @@ msgstr "Gesamtzahl an Bedienern"
 msgid "ScriptPopup.Simulation.getAllResourceCount.Hint"
 msgstr "Liefert die Gesamtzahl an Bedienern"
 
+msgid "ScriptPopup.Simulation.getAllResourceDown"
+msgstr "Gesamtzahl an Bedienern in Pausezeit"
+
+msgid "ScriptPopup.Simulation.getAllResourceDown.Hint"
+msgstr "Liefert die Gesamtzahl an Bedienern in Pausezeit"
+
 msgid "ScriptPopup.Simulation.getNQ"
 msgstr "Warteschlangenlänge"
 
 msgid "ScriptPopup.Simulation.getNQ.Hint"
 msgstr "Aktuelle Länge der Warteschlange an einer Station"
+
+msgid "ScriptPopup.Simulation.getNQAll"
+msgstr "Warteschlangenlänge (gesamt)"
+
+msgid "ScriptPopup.Simulation.getNQAll.Hint"
+msgstr "Aktuelle Länge aller Warteschlangen im System zusammen"
 
 msgid "ScriptPopup.Simulation.getResourceCount"
 msgstr "Bediener in einer Gruppe"
@@ -11892,11 +11943,29 @@ msgstr "Bediener in einer Gruppe"
 msgid "ScriptPopup.Simulation.getResourceCount.Hint"
 msgstr "Anzahl an Bedienern in einer Gruppe auslesen"
 
+msgid "ScriptPopup.Simulation.getResourceDown"
+msgstr "Bediener in Pausezeit in einer Gruppe"
+
+msgid "ScriptPopup.Simulation.getResourceDown.Hint"
+msgstr "Anzahl an Bedienern in Pausezeit in einer Gruppe auslesen"
+
 msgid "ScriptPopup.Simulation.getWIP"
 msgstr "Anzahl an Kunden"
 
 msgid "ScriptPopup.Simulation.getWIP.Hint"
 msgstr "Aktuelle Anzahl an Kunden an einer Station"
+
+msgid "ScriptPopup.Simulation.getWIPAll"
+msgstr "Anzahl an Kunden im System"
+
+msgid "ScriptPopup.Simulation.getWIPAll.Hint"
+msgstr "Aktuelle Anzahl an Kunden im System"
+
+msgid "ScriptPopup.Simulation.runPlugin"
+msgstr "Externe Methode aufrufen"
+
+msgid "ScriptPopup.Simulation.runPlugin.Hint"
+msgstr "Ruft eine Methode in einer externen Klasse auf"
 
 msgid "ScriptPopup.Simulation.setAnalogRate"
 msgstr "Änderungsrate einstellen"
@@ -25693,6 +25762,9 @@ msgstr "Von"
 
 msgid "Surface.XML.PathSegments.Connection.To"
 msgstr "Nach"
+
+msgid "Surface.XML.PluginsFolder"
+msgstr "ModellPluginsVerzeichnis"
 
 msgid "Surface.XML.RecordIncompleteClients"
 msgstr "ModellUnvollstaendigeKundenAufzeichnung"
