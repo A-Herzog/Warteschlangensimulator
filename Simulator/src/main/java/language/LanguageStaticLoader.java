@@ -614,6 +614,8 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo=Language.tr("Statistic.Viewer.Toolbar.Excel.Error.Info");
 		StatisticsBasePanel.viewersToolbarODS=Language.tr("Statistic.Viewer.Toolbar.OpenODS");
 		StatisticsBasePanel.viewersToolbarODSHint=Language.tr("Statistic.Viewer.Toolbar.OpenODS.Hint");
+		StatisticsBasePanel.viewersToolbarPDF=Language.tr("Statistic.Viewer.Toolbar.OpenPDF");
+		StatisticsBasePanel.viewersToolbarPDFHint=Language.tr("Statistic.Viewer.Toolbar.OpenPDF.Hint");
 		StatisticsBasePanel.viewersToolbarSelectAll=Language.tr("Statistic.Viewer.Toolbar.SelectAll");
 		StatisticsBasePanel.viewersToolbarSelectAllHint=Language.tr("Statistic.Viewer.Toolbar.SelectAll.Hint");
 		StatisticsBasePanel.viewersToolbarSelectNone=Language.tr("Statistic.Viewer.Toolbar.SelectNone");

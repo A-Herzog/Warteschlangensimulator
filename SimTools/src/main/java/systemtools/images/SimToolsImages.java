@@ -68,6 +68,9 @@ public enum SimToolsImages {
 	/** Symbol "Tabelle direkt zu Excel übertragen" */
 	SAVE_TABLE_EXCEL("page_excel.png"),
 
+	/** Symbol "Als pdf speichern" */
+	SAVE_PDF("page_white_acrobat.png"),
+
 	/** Symbol "Zoom" */
 	ZOOM("zoom.png"),
 

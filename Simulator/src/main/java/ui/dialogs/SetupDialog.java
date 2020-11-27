@@ -233,6 +233,8 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox openExcel;
 	/** Anbieten, Statistik-Tabellen in Open/LibreOffice zu öffnen? */
 	private final JCheckBox openODS;
+	/** Anbieten, Statistik-Ergebnisse als pdf zu öffnen? */
+	private final JCheckBox openPDF;
 
 	/* Seite: Dateiformate */
 
@@ -713,6 +715,9 @@ public final class SetupDialog extends BaseDialog {
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(openODS=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenODS")));
 
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(openPDF=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.OpenPDF")));
+
 		/* Seite: Dateiformate */
 
 		tabs.add(Language.tr("SettingsDialog.Tabs.Exporting"),tab=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -1058,6 +1063,7 @@ public final class SetupDialog extends BaseDialog {
 		openODT.setSelected(setup.openODT);
 		openExcel.setSelected(setup.openExcel);
 		openODS.setSelected(setup.openODS);
+		openPDF.setSelected(setup.openPDF);
 
 		/* Seite: Dateiformate */
 
@@ -1286,6 +1292,7 @@ public final class SetupDialog extends BaseDialog {
 		setup.openODT=openODT.isSelected();
 		setup.openExcel=openExcel.isSelected();
 		setup.openODS=openODS.isSelected();
+		setup.openPDF=openPDF.isSelected();
 
 		/* Seite: Dateiformate */
 
@@ -1475,6 +1482,7 @@ public final class SetupDialog extends BaseDialog {
 			openODT.setSelected(false);
 			openExcel.setSelected(true);
 			openODS.setSelected(false);
+			openPDF.setSelected(false);
 			break;
 		case 4: /* Seite: Dateiformate */
 			defaultUserName.setText(System.getProperty("user.name"));

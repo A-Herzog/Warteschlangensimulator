@@ -229,22 +229,38 @@ public class StatisticViewerTable implements StatisticViewer {
 	public JButton[] getAdditionalButton() {
 		final boolean excel=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.EXCEL);
 		final boolean ods=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.ODS);
+		final boolean pdf=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.PDF);
 
-		if (excel && ods) {
+		int count=0;
+		if (excel) count++;
+		if (ods) count++;
+		if (pdf) count++;
+
+		if (count>1) {
 			final JButton button=new JButton(StatisticsBasePanel.viewersToolbarOpenTable);
 			button.setToolTipText(StatisticsBasePanel.viewersToolbarOpenTableHint);
 			button.setIcon(SimToolsImages.OPEN.getIcon());
 			button.addActionListener(e->{
 				final JPopupMenu menu=new JPopupMenu();
 				JMenuItem item;
-				menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarExcel));
-				item.setIcon(SimToolsImages.SAVE_TABLE_EXCEL.getIcon());
-				item.setToolTipText(StatisticsBasePanel.viewersToolbarExcelHint);
-				item.addActionListener(ev->openExcel());
-				menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarODS));
-				item.setIcon(SimToolsImages.SAVE_TABLE.getIcon());
-				item.setToolTipText(StatisticsBasePanel.viewersToolbarODSHint);
-				item.addActionListener(ev->openODS());
+				if (excel) {
+					menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarExcel));
+					item.setIcon(SimToolsImages.SAVE_TABLE_EXCEL.getIcon());
+					item.setToolTipText(StatisticsBasePanel.viewersToolbarExcelHint);
+					item.addActionListener(ev->openExcel());
+				}
+				if (ods) {
+					menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarODS));
+					item.setIcon(SimToolsImages.SAVE_TABLE.getIcon());
+					item.setToolTipText(StatisticsBasePanel.viewersToolbarODSHint);
+					item.addActionListener(ev->openODS());
+				}
+				if (pdf) {
+					menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarPDF));
+					item.setIcon(SimToolsImages.SAVE_PDF.getIcon());
+					item.setToolTipText(StatisticsBasePanel.viewersToolbarPDFHint);
+					item.addActionListener(ev->openPDF(SwingUtilities.getWindowAncestor(viewer)));
+				}
 				menu.show(button,0,button.getHeight());
 
 			});
@@ -267,6 +283,14 @@ public class StatisticViewerTable implements StatisticViewer {
 			return new JButton[]{button};
 		}
 
+		if (pdf) {
+			final JButton button=new JButton(StatisticsBasePanel.viewersToolbarPDF);
+			button.setToolTipText(StatisticsBasePanel.viewersToolbarPDFHint);
+			button.setIcon(SimToolsImages.SAVE_PDF.getIcon());
+			button.addActionListener(e->openPDF(SwingUtilities.getWindowAncestor(viewer)));
+			return new JButton[]{button};
+		}
+
 		return null;
 	}
 
@@ -280,6 +304,26 @@ public class StatisticViewerTable implements StatisticViewer {
 				file.deleteOnExit();
 				Desktop.getDesktop().open(file);
 			}
+		} catch (IOException e1) {
+			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
+		}
+	}
+
+	/**
+	 * Öffnet den Text (über eine temporäre Datei) als pdf
+	 * @param owner	Übergeordnete Komponente für die eventuelle Anzeige von Dialogen
+	 */
+	private void openPDF(final Component owner) {
+		try {
+			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".pdf");
+
+			final PDFWriter pdf=new PDFWriter(owner,15,10);
+			if (!pdf.systemOK) return;
+			if (!savePDF(pdf)) return;
+			if (!pdf.save(file)) return;
+
+			file.deleteOnExit();
+			Desktop.getDesktop().open(file);
 		} catch (IOException e1) {
 			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
 		}
@@ -547,7 +591,7 @@ public class StatisticViewerTable implements StatisticViewer {
 		if (columnNames.isEmpty()) buildTable();
 
 		if (file.getName().toLowerCase().endsWith(".pdf")) {
-			PDFWriter pdf=new PDFWriter(owner,15,10);
+			final PDFWriter pdf=new PDFWriter(owner,15,10);
 			if (!pdf.systemOK) return false;
 			if (!savePDF(pdf)) return false;
 			return pdf.save(file);
@@ -691,6 +735,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	@Override
 	public boolean savePDF(PDFWriter pdf) {
 		if (columnNames.isEmpty()) buildTable();
+		initData();
 
 		if (!pdf.writeTableLine(columnNames,11,true,0)) return false;
 		for (int i=0;i<data.size();i++) if (!pdf.writeTableLine(data.get(i),11,false,(i==data.size()-1)?25:0)) return false;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 13:57+0100\n"
+"POT-Creation-Date: 2020-11-27 23:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12515,6 +12515,9 @@ msgstr "OpenOffice/LibreOffice Tabelle"
 msgid "SettingsDialog.Tabs.Statistics.OpenODT"
 msgstr "OpenOffice/LibreOffice Text"
 
+msgid "SettingsDialog.Tabs.Statistics.OpenPDF"
+msgstr "PDF"
+
 msgid "SettingsDialog.Tabs.Statistics.OpenWord"
 msgstr "Word"
 
@@ -15493,6 +15496,12 @@ msgstr "OpenOffice/LibreOffice"
 
 msgid "Statistic.Viewer.Toolbar.OpenODT.Hint"
 msgstr "Text in OpenOffice/LibreOffice anzeigen"
+
+msgid "Statistic.Viewer.Toolbar.OpenPDF"
+msgstr "PDF"
+
+msgid "Statistic.Viewer.Toolbar.OpenPDF.Hint"
+msgstr "PDF anzeigen"
 
 msgid "Statistic.Viewer.Toolbar.OpenTable"
 msgstr "Öffnen"

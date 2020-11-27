@@ -40,8 +40,11 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.DialogTypeSelection;
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 import org.apache.poi.xwpf.usermodel.Document;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -420,12 +423,50 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	@Override
 	public JButton[] getAdditionalButton() {
 		final boolean excel=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.EXCEL);
+		final boolean pdf=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.PDF);
+
+		int count=0;
+		if (excel) count++;
+		if (pdf) count++;
+
+		if (count>1) {
+			final JButton button=new JButton(StatisticsBasePanel.viewersToolbarOpenTable);
+			button.setToolTipText(StatisticsBasePanel.viewersToolbarOpenTableHint);
+			button.setIcon(SimToolsImages.OPEN.getIcon());
+			button.addActionListener(e->{
+				final JPopupMenu menu=new JPopupMenu();
+				JMenuItem item;
+				if (excel) {
+					menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarExcel));
+					item.setIcon(SimToolsImages.SAVE_TABLE_EXCEL.getIcon());
+					item.setToolTipText(StatisticsBasePanel.viewersToolbarExcelHint);
+					item.addActionListener(ev->openExcel());
+				}
+				if (pdf) {
+					menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarPDF));
+					item.setIcon(SimToolsImages.SAVE_PDF.getIcon());
+					item.setToolTipText(StatisticsBasePanel.viewersToolbarPDFHint);
+					item.addActionListener(ev->openPDF(SwingUtilities.getWindowAncestor(viewer)));
+				}
+				menu.show(button,0,button.getHeight());
+
+			});
+			return new JButton[]{button};
+		}
 
 		if (excel) {
 			final JButton button=new JButton(StatisticsBasePanel.viewersToolbarExcel);
 			button.setToolTipText(StatisticsBasePanel.viewersToolbarExcel);
 			button.setIcon(SimToolsImages.SAVE_TABLE_EXCEL.getIcon());
 			button.addActionListener(e->openExcel());
+			return new JButton[]{button};
+		}
+
+		if (pdf) {
+			final JButton button=new JButton(StatisticsBasePanel.viewersToolbarPDF);
+			button.setToolTipText(StatisticsBasePanel.viewersToolbarPDFHint);
+			button.setIcon(SimToolsImages.SAVE_PDF.getIcon());
+			button.addActionListener(e->openPDF(SwingUtilities.getWindowAncestor(viewer)));
 			return new JButton[]{button};
 		}
 
@@ -442,6 +483,26 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 				file.deleteOnExit();
 				Desktop.getDesktop().open(file);
 			}
+		} catch (IOException e1) {
+			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
+		}
+	}
+
+	/**
+	 * Öffnet den Text (über eine temporäre Datei) als pdf
+	 * @param owner	Übergeordnete Komponente für die eventuelle Anzeige von Dialogen
+	 */
+	private void openPDF(final Component owner) {
+		try {
+			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".pdf");
+
+			final PDFWriter pdf=new PDFWriter(owner,15,10);
+			if (!pdf.systemOK) return;
+			if (!savePDF(pdf)) return;
+			if (!pdf.save(file)) return;
+
+			file.deleteOnExit();
+			Desktop.getDesktop().open(file);
 		} catch (IOException e1) {
 			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
 		}

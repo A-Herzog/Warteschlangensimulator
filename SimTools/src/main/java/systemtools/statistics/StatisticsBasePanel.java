@@ -98,7 +98,9 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		/** Auf Textseiten anbieten: OpenOffice/LibreOffice Text */
 		ODT,
 		/** Auf Tabellenseiten anbieten: OpenOffice/LibreOffice Spreadsheet */
-		ODS
+		ODS,
+		/** Auf Text- und Tabellenseiten anbieten: pdf */
+		PDF,
 	}
 
 	/** Bezeichner für den Typ des Baumeintrags "Text" */
@@ -239,6 +241,10 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersToolbarODS="OpenOffice/LibreOffice";
 	/** Bezeichner für den Tooltip für das Toolbar-Button "OpenOffice/LibreOffice Tabelle" */
 	public static String viewersToolbarODSHint="Tabelle in OpenOffice/LibreOffice anzeigen";
+	/** Bezeichner für das Toolbar-Button "PDF" */
+	public static String viewersToolbarPDF="PDF";
+	/** Bezeichner für den Tooltip für das Toolbar-Button "PDF" */
+	public static String viewersToolbarPDFHint="Als PDF anzeigen";
 	/** Bezeichner für Prefix für Excel-Temp-Dateien */
 	public static String viewersToolbarExcelPrefix="Simulator_Temp";
 	/** Bezeichner für Titel für Fehlermeldung für Excel-Speicherung */

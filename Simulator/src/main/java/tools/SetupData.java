@@ -782,6 +782,11 @@ public class SetupData extends SetupBase {
 	public boolean openODS;
 
 	/**
+	 * Option auf Statistik-Viewer-Seiten: "Öffnen als pdf"
+	 */
+	public boolean openPDF;
+
+	/**
 	 * Lineale um die Zeichenfläche anzeigen.
 	 */
 	public boolean showRulers;
@@ -963,6 +968,7 @@ public class SetupData extends SetupBase {
 		openODT=false;
 		openExcel=true;
 		openODS=false;
+		openPDF=false;
 		showRulers=false;
 		showMemoryUsage=false;
 		statisticsNumberDigits=1;
@@ -1621,9 +1627,10 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("openstatistics")) {
 				openWord=loadBoolean(e.getAttribute("docx"),true);
-				openODT=loadBoolean(e.getAttribute("odt"),true);
+				openODT=loadBoolean(e.getAttribute("odt"),false);
 				openExcel=loadBoolean(e.getAttribute("xlsx"),true);
-				openODS=loadBoolean(e.getAttribute("ods"),true);
+				openODS=loadBoolean(e.getAttribute("ods"),false);
+				openPDF=loadBoolean(e.getAttribute("pdf"),false);
 				continue;
 			}
 
@@ -2127,12 +2134,13 @@ public class SetupData extends SetupBase {
 			node.setTextContent(quickAccessFilter);
 		}
 
-		if (!openWord || openODT || !openExcel || openODS) {
+		if (!openWord || openODT || !openExcel || openODS || openPDF) {
 			root.appendChild(node=doc.createElement("OpenStatistics"));
 			node.setAttribute("docx",openWord?"1":"0");
 			node.setAttribute("odt",openODT?"1":"0");
 			node.setAttribute("xlsx",openExcel?"1":"0");
 			node.setAttribute("ods",openODS?"1":"0");
+			node.setAttribute("pdf",openPDF?"1":"0");
 		}
 
 		if (showRulers) {

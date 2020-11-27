@@ -881,22 +881,37 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	public JButton[] getAdditionalButton() {
 		final boolean word=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.WORD);
 		final boolean odt=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.ODT);
+		final boolean pdf=StatisticsBasePanel.viewerPrograms.contains(StatisticsBasePanel.ViewerPrograms.PDF);
+		int count=0;
+		if (word) count++;
+		if (odt) count++;
+		if (pdf) count++;
 
-		if (word && odt) {
+		if (count>1) {
 			final JButton button=new JButton(StatisticsBasePanel.viewersToolbarOpenText);
 			button.setToolTipText(StatisticsBasePanel.viewersToolbarOpenTextHint);
 			button.setIcon(SimToolsImages.OPEN.getIcon());
 			button.addActionListener(e->{
 				final JPopupMenu menu=new JPopupMenu();
 				JMenuItem item;
-				menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarWord));
-				item.setIcon(SimToolsImages.SAVE_TEXT_WORD.getIcon());
-				item.setToolTipText(StatisticsBasePanel.viewersToolbarWordHint);
-				item.addActionListener(ev->openWord());
-				menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarODT));
-				item.setIcon(SimToolsImages.SAVE_TEXT.getIcon());
-				item.setToolTipText(StatisticsBasePanel.viewersToolbarODTHint);
-				item.addActionListener(ev->openODT());
+				if (word) {
+					menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarWord));
+					item.setIcon(SimToolsImages.SAVE_TEXT_WORD.getIcon());
+					item.setToolTipText(StatisticsBasePanel.viewersToolbarWordHint);
+					item.addActionListener(ev->openWord());
+				}
+				if (odt) {
+					menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarODT));
+					item.setIcon(SimToolsImages.SAVE_TEXT.getIcon());
+					item.setToolTipText(StatisticsBasePanel.viewersToolbarODTHint);
+					item.addActionListener(ev->openODT());
+				}
+				if (pdf) {
+					menu.add(item=new JMenuItem(StatisticsBasePanel.viewersToolbarPDF));
+					item.setIcon(SimToolsImages.SAVE_PDF.getIcon());
+					item.setToolTipText(StatisticsBasePanel.viewersToolbarPDFHint);
+					item.addActionListener(ev->openPDF(SwingUtilities.getWindowAncestor(textPane)));
+				}
 				menu.show(button,0,button.getHeight());
 
 			});
@@ -916,6 +931,14 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			button.setToolTipText(StatisticsBasePanel.viewersToolbarODTHint);
 			button.setIcon(SimToolsImages.SAVE_TEXT.getIcon());
 			button.addActionListener(e->openODT());
+			return new JButton[]{button};
+		}
+
+		if (pdf) {
+			final JButton button=new JButton(StatisticsBasePanel.viewersToolbarPDF);
+			button.setToolTipText(StatisticsBasePanel.viewersToolbarPDFHint);
+			button.setIcon(SimToolsImages.SAVE_PDF.getIcon());
+			button.addActionListener(e->openPDF(SwingUtilities.getWindowAncestor(textPane)));
 			return new JButton[]{button};
 		}
 
@@ -944,6 +967,22 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".odt");
 			if (saveODT(file)) {
+				file.deleteOnExit();
+				Desktop.getDesktop().open(file);
+			}
+		} catch (IOException e1) {
+			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
+		}
+	}
+
+	/**
+	 * Öffnet den Text (über eine temporäre Datei) als pdf
+	 * @param owner	Übergeordnete Komponente für die eventuelle Anzeige von Dialogen
+	 */
+	private void openPDF(final Component owner) {
+		try {
+			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".pdf");
+			if (savePDF(owner,file)) {
 				file.deleteOnExit();
 				Desktop.getDesktop().open(file);
 			}
