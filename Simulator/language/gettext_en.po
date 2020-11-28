@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 23:40+0100\n"
+"POT-Creation-Date: 2020-11-28 19:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11712,6 +11712,12 @@ msgstr "Cancel output"
 
 msgid "ScriptPopup.Output.Cancel.Hint"
 msgstr "Sets the cancel status. (When output is canceled to further file output will be performed.)"
+
+msgid "ScriptPopup.Output.Digits"
+msgstr "Digits"
+
+msgid "ScriptPopup.Output.Digits.Hint"
+msgstr "Sets the number of digits when printing numbers in local notation."
 
 msgid "ScriptPopup.Output.Format"
 msgstr "Output format for numbers"

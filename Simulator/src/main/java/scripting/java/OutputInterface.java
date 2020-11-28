@@ -35,6 +35,12 @@ public interface OutputInterface {
 	void setSeparator(final String separator);
 
 	/**
+	 * Stellt ein, wie viele Nachkommastellen bei der Ausgabe von Zahlen lokaler Notation ausgegeben werden sollen.
+	 * @param digits	Nachkommastellen bei der Ausgabe von Zahlen lokaler Notation
+	 */
+	void setDigits(final int digits);
+
+	/**
 	 * Gibt einen String oder eine Zahl aus (ohne folgenden Zeilenumbruch)
 	 * @param obj	Auszugebendes Objekt
 	 */

@@ -489,7 +489,13 @@ The <tt>OutputInterface</tt> interface provides functions for output of filtered
     <li><tt>"Line"</tt>: Line break as separators</tt>
     <li><tt>"Tabs"</tt>: Tabulators as separators</tt>
   </ul>
-  </li>  
+  </li>
+  <li><tt>void setDigits(final int digits)</tt><br>
+  This command allows to define the number of digits to be displayed when
+  printing a number in local notation. A negative value means that all
+  available digits are being printed.
+  (If the system notation is used, always all available digits are being printed.)
+  </li>
   <li><tt>void print(final Object obj)</tt><br>
   Outputs the passed expression.
   Strings will be written directly. Numbers are formated according to the format

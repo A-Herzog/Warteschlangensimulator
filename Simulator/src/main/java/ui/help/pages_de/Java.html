@@ -518,6 +518,12 @@ Das <tt>OutputInterface</tt>-Interface stellt Funktionen zur Ausgabe der gefilte
     <li><tt>"Tabs"</tt>: Tabulatoren als Trenner</tt>
   </ul>  
   </li>
+  <li><tt>void setDigits(final int digits)</tt><br>
+  Über diesen Befehl kann eingestellt werden, wie viele Nachkommastellen bei der
+  Ausgabe von Zahlen gemäß lokaler Notation ausgegeben werden sollen. Ein
+  negativer Wert bedeutet, dass alle verfügbaren Nachkommastellen ausgegeben.
+  (Bei Verwendung der System-Notation werden stets alle verfügbaren Nachkommastellen ausgegeben.)
+  </li>
   <li><tt>void print(final Object obj)</tt><br>
   Gibt den übergebenen Ausdruck aus.
   Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per

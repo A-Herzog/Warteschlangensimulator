@@ -555,23 +555,23 @@ Interpreting numbers as time values.
 \cmd{Output.setSeparator("{}Format")}:\\
 This command allows to select the separator to be used when printing out arrays.
 \begin{itemize}
-
 \item
 \cmd{Semicolon}:\\
 Semicolons as separators.
-
 \item
 \cmd{Line}:\\
 Line break as separators.
-
 \item
 \cmd{Tabs}:\\
 Tabulators as separators.
+\end{itemize}
 
 \item
-\cmd{Output.cancel()}:\\
-Sets the cancel status. (When output is canceled to further file output will be performed.)
-\end{itemize}
+\cmd{Output.setDigits(digits)}:\\
+This command allows to define the number of digits to be displayed when
+printing a number in local notation. A negative value means that all
+available digits are being printed.
+(If the system notation is used, always all available digits are being printed.)
 
 \item
 \cmd{Output.print("{}Expression")}:\\

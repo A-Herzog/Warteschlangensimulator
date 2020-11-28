@@ -571,19 +571,23 @@ Interpreting numbers as time values.
 \cmd{void setSeparator(final String separator)}:\\
 This command allows to select the separator to be used when printing out arrays.
 \begin{itemize}
-
 \item
 \cmd{Semicolon}:\\
 Semicolons as separators.
-
 \item
 \cmd{Line}:\\
 Line break as separators.
-
 \item
 \cmd{Tabs}:\\
 Tabulators as separators.
 \end{itemize}
+
+\item
+\cmd{void setDigits(final int digits)}:\\
+This command allows to define the number of digits to be displayed when
+printing a number in local notation. A negative value means that all
+available digits are being printed.
+(If the system notation is used, always all available digits are being printed.)
 
 \item
 \cmd{void print(final Object obj)}:\\

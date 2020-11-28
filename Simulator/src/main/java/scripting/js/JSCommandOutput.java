@@ -44,6 +44,8 @@ public final class JSCommandOutput extends JSBaseCommand {
 	private boolean systemNumbers;
 	/** Trennzeichen für die Ausgabe von Verteilungsdaten */
 	private char separator=';';
+	/** Anzahl an auszugebenden Nachkommastellen im Local-Mode */
+	private int digits=-1;
 
 	/**
 	 * Ist die Ausgabe nur eine Double-Zahl?
@@ -109,6 +111,14 @@ public final class JSCommandOutput extends JSBaseCommand {
 		if (parameter.equalsIgnoreCase("tab") || parameter.equalsIgnoreCase("tabs") || parameter.equalsIgnoreCase("tabulator")) {separator='\t'; return;}
 
 		addOutput(Language.tr("Statistics.Filter.InvalidParameters")+" ("+parameter+")");
+	}
+
+	/**
+	 * Stellt ein, wie viele Nachkommastellen bei der Ausgabe von Zahlen lokaler Notation ausgegeben werden sollen.
+	 * @param digits	Nachkommastellen bei der Ausgabe von Zahlen lokaler Notation
+	 */
+	public void setDigits(final int digits) {
+		this.digits=digits;
 	}
 
 	/**
@@ -209,9 +219,17 @@ public final class JSCommandOutput extends JSBaseCommand {
 				}
 			} else {
 				if (percent) {
-					addOutputMain(NumberTools.formatNumberMax(value*100,outputTemp)+"%");
+					if (digits<1 || digits>13) {
+						addOutputMain(NumberTools.formatNumberMax(value*100,outputTemp)+"%");
+					} else {
+						addOutputMain(NumberTools.formatNumber(value*100,digits,outputTemp)+"%");
+					}
 				} else {
-					addOutputMain(NumberTools.formatNumberMax(value,outputTemp));
+					if (digits<1 || digits>13) {
+						addOutputMain(NumberTools.formatNumberMax(value,outputTemp));
+					} else {
+						addOutputMain(NumberTools.formatNumber(value,digits,outputTemp));
+					}
 				}
 			}
 		}

@@ -614,6 +614,13 @@ Tabulatoren als Trenner.
 \end{itemize}
 
 \item
+\cmd{void setDigits(final int digits)}:\\
+Über diesen Befehl kann eingestellt werden, wie viele Nachkommastellen bei der
+Ausgabe von Zahlen gemäß lokaler Notation ausgegeben werden sollen. Ein
+negativer Wert bedeutet, dass alle verfügbaren Nachkommastellen ausgegeben.
+(Bei Verwendung der System-Notation werden stets alle verfügbaren Nachkommastellen ausgegeben.)
+
+\item
 \cmd{void print(final Object obj)}:\\
 Gibt den übergebenen Ausdruck aus.
 Zeichenketten werden direkt ausgegeben. Zahlenwerte werden gemäß den per

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 23:40+0100\n"
+"POT-Creation-Date: 2020-11-28 19:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11708,6 +11708,12 @@ msgstr "Ausgabe abbrechen"
 
 msgid "ScriptPopup.Output.Cancel.Hint"
 msgstr "Setzt den Abbruch-Status. (Nach einem Abbruch werden Dateiausgaben nicht mehr ausgeführt.)"
+
+msgid "ScriptPopup.Output.Digits"
+msgstr "Nachkommastellen"
+
+msgid "ScriptPopup.Output.Digits.Hint"
+msgstr "Stellt die Anzahl an Nachkommastellen für die Ausgabe von Zahlen in lokaler Notation ein."
 
 msgid "ScriptPopup.Output.Format"
 msgstr "Ausgabeformat für Zahlen"

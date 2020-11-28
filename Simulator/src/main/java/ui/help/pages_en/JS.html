@@ -476,7 +476,13 @@ The <tt>Output</tt> object provides functions for output of filtered results:
     <li><tt>"Line"</tt>: Line break as separators</tt>
     <li><tt>"Tabs"</tt>: Tabulators as separators</tt>
   </ul>
-  </li>  
+  </li>
+  <li><tt>Output.setDigits(digits)</tt><br>
+  This command allows to define the number of digits to be displayed when
+  printing a number in local notation. A negative value means that all
+  available digits are being printed.
+  (If the system notation is used, always all available digits are being printed.)
+  </li>    
   <li><tt>Output.print("Expression")</tt><br>
   Outputs the passed expression.
   Strings will be written directly. Numbers are formated according to the format

@@ -522,6 +522,7 @@ public class ScriptEditorAreaBuilder {
 		String outputSeparatorSemicolon="";
 		String outputSeparatorLine="";
 		String outputSeparatorTabs="";
+		String outputDigits="";
 		String outputPrint="";
 		String outputPrintln="";
 		String outputNewLine="";
@@ -540,6 +541,7 @@ public class ScriptEditorAreaBuilder {
 			outputSeparatorSemicolon=obj+".setSeparator(\"Semicolon\");";
 			outputSeparatorLine=obj+".setSeparator(\"Line\");";
 			outputSeparatorTabs=obj+".setSeparator(\"Tabs\");";
+			outputDigits=obj+".setDigits(digits);";
 			outputPrint=obj+".print(\"Text\");";
 			outputPrintln=obj+".println(\"Text\");";
 			outputNewLine=obj+".newLine();";
@@ -559,6 +561,7 @@ public class ScriptEditorAreaBuilder {
 			outputSeparatorSemicolon=obj+".setSeparator(\"Semicolon\");";
 			outputSeparatorLine=obj+".setSeparator(\"Line\");";
 			outputSeparatorTabs=obj+".setSeparator(\"Tabs\");";
+			outputDigits=obj+".setDigits(digits);";
 			outputPrint=obj+".print(\"Text\");";
 			outputPrintln=obj+".println(\"Text\");";
 			outputNewLine=obj+".newLine();";
@@ -591,6 +594,8 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Output.Separator.Semicolon"),Language.tr("ScriptPopup.Output.Separator.Semicolon.Hint"),Images.SCRIPT_RECORD_FORMAT.getIcon(),outputSeparatorSemicolon);
 		addAutoComplete(Language.tr("ScriptPopup.Output.Separator.Line"),Language.tr("ScriptPopup.Output.Separator.Line.Hint"),Images.SCRIPT_RECORD_FORMAT.getIcon(),outputSeparatorLine);
 		addAutoComplete(Language.tr("ScriptPopup.Output.Separator.Tabs"),Language.tr("ScriptPopup.Output.Separator.Tabs.Hint"),Images.SCRIPT_RECORD_FORMAT.getIcon(),outputSeparatorTabs);
+
+		addAutoComplete(Language.tr("ScriptPopup.Output.Digits"),Language.tr("ScriptPopup.Output.Digits.Hint"),Images.SCRIPT_RECORD_FORMAT.getIcon(),outputDigits);
 	}
 
 	/**
