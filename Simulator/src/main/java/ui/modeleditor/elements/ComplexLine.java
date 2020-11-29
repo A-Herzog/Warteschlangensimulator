@@ -23,6 +23,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -337,6 +338,44 @@ public final class ComplexLine implements Cloneable {
 		if (p2.y<p1.y && p2.x<p1.x) g2.drawArc(p2.x,p2.y-hHalf,2*wHalf,2*hHalf,180,90);
 		/* 4. Viertel */
 		if (p2.y<p1.y && p2.x>p1.x) g2.drawArc(p1.x,p2.y,2*wHalf,2*hHalf,90,90);
+
+		g2.setStroke(saveStroke);
+	}
+
+	/**
+	 * Cache für das Bezierkurven-Objekt
+	 * @see #drawBezier(Graphics, Point, double, double, double, double, Point, double)
+	 */
+	private CubicCurve2D.Double cubicCurve;
+
+	/**
+	 * Zeichner eine Bezierkurve
+	 * @param graphics	{@link Graphics}-Objekt in das der Bogen eingezeichnet werden soll
+	 * @param p1	Startpunkt der Kurve
+	 * @param ctrlx1	x-Koordinate des Kontrollpunkts für den Startpunkt
+	 * @param ctrly1	y-Koordinate des Kontrollpunkts für den Startpunkt
+	 * @param ctrlx2	x-Koordinate des Kontrollpunkts für den Endpunkt
+	 * @param ctrly2	y-Koordinate des Kontrollpunkts für den Endpunkt
+	 * @param p2	Endpunkt der Kurve
+	 * @param zoom	Zoomfaktor (1.0==100%)
+	 */
+	public void drawBezier(final Graphics graphics, final Point p1, final double ctrlx1, final double ctrly1, final double ctrlx2, final double ctrly2, final Point p2, final double zoom) {
+		final Graphics2D g2=(Graphics2D)graphics;
+		final Stroke saveStroke=g2.getStroke();
+
+		g2.setColor(color);
+		setStroke(g2,zoom);
+
+		if (cubicCurve==null) cubicCurve=new CubicCurve2D.Double();
+		cubicCurve.x1=p1.x;
+		cubicCurve.y1=p1.y;
+		cubicCurve.ctrlx1=ctrlx1;
+		cubicCurve.ctrly1=ctrly1;
+		cubicCurve.ctrlx2=ctrlx2;
+		cubicCurve.ctrly2=ctrly2;
+		cubicCurve.x2=p2.x;
+		cubicCurve.y2=p2.y;
+		g2.draw(cubicCurve);
 
 		g2.setStroke(saveStroke);
 	}

@@ -1661,7 +1661,9 @@ public class ModelSurfaceAnimatorBase {
 			final Point[] route=new Point[steps+1];
 			route[0]=p1;
 			route[steps]=p2;
-			if (getLineMode(source,destination)==ModelElementEdge.LineMode.DIRECT) {
+			final ModelElementEdge.LineMode lineMode=getLineMode(source,destination);
+			if (lineMode==ModelElementEdge.LineMode.DIRECT || lineMode==ModelElementEdge.LineMode.CUBIC_CURVE) {
+				/* Direkte Verbindung oder Bezierkurve */
 				final int deltaX=p2.x-p1.x;
 				final int deltaY=p2.y-p1.y;
 				for (int i=1;i<steps;i++) {
@@ -1670,6 +1672,7 @@ public class ModelSurfaceAnimatorBase {
 					route[i]=new Point(x,y);
 				}
 			} else {
+				/* Abgewinkelte Linie oder abgewinkelte Linie mit abgerundeten Ecken */
 				final Point p1a=source.getConnectionToPosition(p2);
 				final int middleX=(p1.x+p2.x)/2;
 				final int middleY=(p1.y+p2.y)/2;

@@ -843,6 +843,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (Language.trAll("Surface.XML.LineMode.Direct",text)) edgeLineMode=ModelElementEdge.LineMode.DIRECT;
 			if (Language.trAll("Surface.XML.LineMode.MultiLine",text)) edgeLineMode=ModelElementEdge.LineMode.MULTI_LINE;
 			if (Language.trAll("Surface.XML.LineMode.MultiLineRounded",text)) edgeLineMode=ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
+			if (Language.trAll("Surface.XML.LineMode.CubicCurve",text)) edgeLineMode=ModelElementEdge.LineMode.CUBIC_CURVE;
 			return null;
 		}
 
@@ -977,6 +978,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		case DIRECT: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.Direct")); break;
 		case MULTI_LINE: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.MultiLine")); break;
 		case MULTI_LINE_ROUNDED: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.MultiLineRounded")); break;
+		case CUBIC_CURVE: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.CubicCurve")); break;
 		}
 
 		if (timedChecksDelta>0) {

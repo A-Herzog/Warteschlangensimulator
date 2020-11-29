@@ -80,7 +80,9 @@ public final class ModelElementEdge extends ModelElement {
 		/** Abgewinkelte Linie */
 		MULTI_LINE,
 		/** Abgewinkelte Linie mit abgerundeten Ecken */
-		MULTI_LINE_ROUNDED
+		MULTI_LINE_ROUNDED,
+		/** Kubische Kurve */
+		CUBIC_CURVE,
 	}
 
 	/**
@@ -247,6 +249,8 @@ public final class ModelElementEdge extends ModelElement {
 		check.addActionListener(e->{lineMode=LineMode.MULTI_LINE; fireChanged();});
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon(),lineMode==LineMode.MULTI_LINE_ROUNDED));
 		check.addActionListener(e->{lineMode=LineMode.MULTI_LINE_ROUNDED; fireChanged();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.CubicCurve"),Images.EDGE_MODE_CUBIC_CURVE.getIcon(),lineMode==LineMode.CUBIC_CURVE));
+		check.addActionListener(e->{lineMode=LineMode.CUBIC_CURVE	; fireChanged();});
 
 		if ((connectionStart instanceof ModelElementPosition) && (connectionEnd instanceof ModelElementPosition)) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.Connection.AddVertex"),Images.MODELEDITOR_ELEMENT_VERTEX.getIcon()));
@@ -355,6 +359,7 @@ public final class ModelElementEdge extends ModelElement {
 		case DIRECT: return Images.EDGE_MODE_DIRECT.getIcon();
 		case MULTI_LINE: return Images.EDGE_MODE_MULTI_LINE.getIcon();
 		case MULTI_LINE_ROUNDED: return Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon();
+		case CUBIC_CURVE: return Images.EDGE_MODE_CUBIC_CURVE.getIcon();
 		default: return null;
 		}
 	}
@@ -495,13 +500,13 @@ public final class ModelElementEdge extends ModelElement {
 
 	/**
 	 * Cache für den ersten Punkt des Pfeils
-	 * @see #drawArrow(Graphics, ComplexLine, Point, Point, double)
+	 * @see #drawArrow(Graphics, ComplexLine, Point, Point, double, boolean)
 	 */
 	private Point arrow1=new Point();
 
 	/**
 	 * Cache für den zweiten Punkt des Pfeils
-	 * @see #drawArrow(Graphics, ComplexLine, Point, Point, double)
+	 * @see #drawArrow(Graphics, ComplexLine, Point, Point, double, boolean)
 	 */
 	private Point arrow2=new Point();
 
@@ -510,6 +515,13 @@ public final class ModelElementEdge extends ModelElement {
 	 * @see #drawText(Graphics, Point, double)
 	 */
 	private Point middle=new Point();
+
+	/**
+	 * Wie stark sollen die Kontrollpunkte auf einer Bezierkurven-Kante wirken?
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * @see LineMode#CUBIC_CURVE
+	 */
+	private static final double CUBIC_CURVE_CTRL_FACTOR=0.5;
 
 	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
@@ -539,7 +551,7 @@ public final class ModelElementEdge extends ModelElement {
 		/* Linie(n) zeichnen */
 		switch (getDrawLineMode(points)) {
 		case DIRECT:
-			drawArrow(graphics,painter,p1,p2,zoom);
+			drawArrow(graphics,painter,p1,p2,zoom,false);
 			break;
 		case MULTI_LINE:
 			if (points[0].side==Side.TOP || points[0].side==Side.BOTTOM) {
@@ -548,14 +560,14 @@ public final class ModelElementEdge extends ModelElement {
 				final Point m2=new Point(p2.x,middle.y);
 				drawLine(graphics,painter,p1,m1,zoom);
 				drawLine(graphics,painter,m1,m2,zoom);
-				drawArrow(graphics,painter,m2,p2,zoom);
+				drawArrow(graphics,painter,m2,p2,zoom,false);
 			} else {
 				/* horizontal, vertikal, horizontal */
 				final Point m1=new Point(middle.x,p1.y);
 				final Point m2=new Point(middle.x,p2.y);
 				drawLine(graphics,painter,p1,m1,zoom);
 				drawLine(graphics,painter,m1,m2,zoom);
-				drawArrow(graphics,painter,m2,p2,zoom);
+				drawArrow(graphics,painter,m2,p2,zoom,false);
 			}
 			break;
 		case MULTI_LINE_ROUNDED:
@@ -586,7 +598,7 @@ public final class ModelElementEdge extends ModelElement {
 				}
 				drawLine(graphics,painter,p1,m1a,zoom);
 				drawLine(graphics,painter,m1b,m2a,zoom);
-				drawArrow(graphics,painter,m2b,p2,zoom);
+				drawArrow(graphics,painter,m2b,p2,zoom,false);
 			} else {
 				/* horizontal, vertikal, horizontal */
 				final Point m1=new Point(middle.x,p1.y);
@@ -613,8 +625,32 @@ public final class ModelElementEdge extends ModelElement {
 				}
 				drawLine(graphics,painter,p1,m1a,zoom);
 				drawLine(graphics,painter,m1b,m2a,zoom);
-				drawArrow(graphics,painter,m2b,p2,zoom);
+				drawArrow(graphics,painter,m2b,p2,zoom,false);
 			}
+			break;
+		case CUBIC_CURVE:
+			final int deltaX=Math.max(20,Math.abs(p1.x-p2.x));
+			final int deltaY=Math.max(20,Math.abs(p1.y-p2.y));
+			double ctrlx1=p1.x;
+			double ctrly1=p1.y;
+			switch (points[0].side) {
+			case BOTTOM: ctrly1+=deltaY*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			case LEFT:ctrlx1-=deltaX*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			case RIGHT: ctrlx1+=deltaX*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			case TOP: ctrly1-=deltaY*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			}
+
+			double ctrlx2=p2.x;
+			double ctrly2=p2.y;
+			switch (points[1].side) {
+			case BOTTOM: ctrly2+=deltaY*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			case LEFT:ctrlx2-=deltaX*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			case RIGHT: ctrlx2+=deltaX*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			case TOP: ctrly2-=deltaY*CUBIC_CURVE_CTRL_FACTOR*zoom; break;
+			}
+
+			painter.	drawBezier(graphics,p1,ctrlx1,ctrly1,ctrlx2,ctrly2,p2,zoom);
+			drawArrow(graphics,painter,new Point((int)FastMath.round(ctrlx2),(int)FastMath.round(ctrly2)),p2,zoom,true);
 			break;
 		}
 
@@ -641,8 +677,9 @@ public final class ModelElementEdge extends ModelElement {
 	 * @param point1	Startpunkt der Linie
 	 * @param point2	Zielpunkt der Linie
 	 * @param zoom	Zoomfaktor
+	 * @param arrowHeadOnly	Vollständigen Pfeil zeichnen (<code>false</code>) oder nur die Pfeilspitze (<code>true</code>)
 	 */
-	private void drawArrow(final Graphics graphics, final ComplexLine painter, final Point point1, final Point point2, final double zoom) {
+	private void drawArrow(final Graphics graphics, final ComplexLine painter, final Point point1, final Point point2, final double zoom, final boolean arrowHeadOnly) {
 		/* Pfeile berechnen */
 		double v0=point2.x-point1.x, v1=point2.y-point1.y;
 		final double length=Math.sqrt(v0*v0+v1*v1);
@@ -654,7 +691,7 @@ public final class ModelElementEdge extends ModelElement {
 		arrow2.y=(int)FastMath.round(point2.y-ARROW_SIZE*zoom*v1-ARROW_SIZE*zoom*w1);
 
 		/* Linien zeichnen */
-		painter.draw(graphics,point1,point2,zoom);
+		if (!arrowHeadOnly) painter.draw(graphics,point1,point2,zoom);
 		painter.draw(graphics,point2,arrow1,zoom);
 		painter.draw(graphics,point2,arrow2,zoom);
 	}
@@ -779,6 +816,7 @@ public final class ModelElementEdge extends ModelElement {
 
 		switch (getDrawLineMode(points)) {
 		case DIRECT:
+		case CUBIC_CURVE: /* Die Bezierkurve behandeln wir näherungsweise wie gerade Linien. */
 			return lineContainsPoint(point,p1,p2,zoom);
 		case MULTI_LINE:
 			if (points[0].side==Side.TOP || points[0].side==Side.BOTTOM) {
@@ -915,6 +953,7 @@ public final class ModelElementEdge extends ModelElement {
 			case DIRECT: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.Direct")); break;
 			case MULTI_LINE: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.MultiLine")); break;
 			case MULTI_LINE_ROUNDED: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.MultiLineRounded")); break;
+			case CUBIC_CURVE: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.CubicCurve")); break;
 			}
 		}
 	}
@@ -953,6 +992,7 @@ public final class ModelElementEdge extends ModelElement {
 			if (Language.trAll("Surface.XML.LineMode.Direct",content)) lineMode=ModelElementEdge.LineMode.DIRECT;
 			if (Language.trAll("Surface.XML.LineMode.MultiLine",content)) lineMode=ModelElementEdge.LineMode.MULTI_LINE;
 			if (Language.trAll("Surface.XML.LineMode.MultiLineRounded",content)) lineMode=ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
+			if (Language.trAll("Surface.XML.LineMode.CubicCurve",content)) lineMode=ModelElementEdge.LineMode.CUBIC_CURVE;
 			return null;
 		}
 

@@ -96,7 +96,8 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 		final String[] lineModeArray=new String[] {
 				Language.tr("Surface.Connection.LineMode.Direct"),
 				Language.tr("Surface.Connection.LineMode.MultiLine"),
-				Language.tr("Surface.Connection.LineMode.MultiLineRounded")
+				Language.tr("Surface.Connection.LineMode.MultiLineRounded"),
+				Language.tr("Surface.Connection.LineMode.CubicCurve")
 		};
 		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.Connection.LineMode")+":","",Arrays.asList(lineModeArray));
 		sub.add((JPanel)data[0]);
@@ -106,12 +107,14 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 		case DIRECT: this.lineMode.setSelectedIndex(0); break;
 		case MULTI_LINE: this.lineMode.setSelectedIndex(1); break;
 		case MULTI_LINE_ROUNDED: this.lineMode.setSelectedIndex(2); break;
+		case CUBIC_CURVE: this.lineMode.setSelectedIndex(3); break;
 		default: this.lineMode.setSelectedIndex(2); break;
 		}
 		this.lineMode.setRenderer(new IconListCellRenderer(new Images[]{
 				Images.EDGE_MODE_DIRECT,
 				Images.EDGE_MODE_MULTI_LINE,
-				Images.EDGE_MODE_MULTI_LINE_ROUNDED
+				Images.EDGE_MODE_MULTI_LINE_ROUNDED,
+				Images.EDGE_MODE_CUBIC_CURVE
 		}));
 
 		data=ModelElementBaseDialog.getLineWidthInputPanel(Language.tr("Window.EdgeStyle.LineWidth.Normal")+":",1,5,edgeNormal.getWidth());
@@ -159,6 +162,7 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 		case 0: return ModelElementEdge.LineMode.DIRECT;
 		case 1: return ModelElementEdge.LineMode.MULTI_LINE;
 		case 2: return ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
+		case 3: return ModelElementEdge.LineMode.CUBIC_CURVE;
 		default: return ModelElementEdge.LineMode.DIRECT;
 		}
 	}

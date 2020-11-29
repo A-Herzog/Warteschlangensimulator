@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-28 19:51+0100\n"
+"POT-Creation-Date: 2020-11-29 19:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19722,6 +19722,9 @@ msgstr "Add vertex on path"
 msgid "Surface.Connection.LineMode"
 msgstr "Edge display mode"
 
+msgid "Surface.Connection.LineMode.CubicCurve"
+msgstr "Bezier curve"
+
 msgid "Surface.Connection.LineMode.Direct"
 msgstr "Direct"
 
@@ -25681,6 +25684,9 @@ msgstr "Level"
 
 msgid "Surface.XML.LineMode"
 msgstr "ModelElementConnectionDrawStyle"
+
+msgid "Surface.XML.LineMode.CubicCurve"
+msgstr "Bezier"
 
 msgid "Surface.XML.LineMode.Direct"
 msgstr "Direct"

@@ -8922,6 +8922,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22899] = "Batchgr\u00f6\u00dfe";
     t[22900] = "Simulation.Creator.InvalidNeededCapacityExpression";
     t[22901] = "An Station id=%d ist die ben\u00f6tigte Transportkapazit\u00e4t f\u00fcr Kundentyp %s \"%s\" ab Zeichen %d ung\u00fcltig.";
+    t[22912] = "Surface.Connection.LineMode.CubicCurve";
+    t[22913] = "Bezierkurve";
     t[22914] = "Surface.Line.Name";
     t[22915] = "Linie";
     t[22924] = "Statistics.XML.Element.Counter";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25835] = "Analytische Warteschlangenmodelle";
     t[25836] = "Statistics.MinimalInterArrivalTime";
     t[25837] = "Minimale Zwischenankunftszeit";
-    t[25838] = "ExpressionBuilder.ClientsInSystemQueue";
-    t[25839] = "Wartende Kunden im System";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25838] = "ExpressionBuilder.ClientsInSystemQueue";
+    t[25839] = "Wartende Kunden im System";
     t[25840] = "Simulation.Creator.SliderNoVariable";
     t[25841] = "An Station id=%d wurde kein Name f\u00fcr die zu \u00e4ndernde Variable angegeben.";
     t[25842] = "Surface.Counter.Dialog.GroupName.Error.Title";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31103] = "Keine konstante Anzahl an Bedienern.";
     t[31112] = "Simulation.Creator.SeizeReleaseClient";
     t[31113] = "Kunde verl\u00e4sst die Wartschlange";
-    t[31118] = "ExpressionBuilder.TrigonometricFunctions";
-    t[31119] = "Winkelfunktionen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31118] = "ExpressionBuilder.TrigonometricFunctions";
+    t[31119] = "Winkelfunktionen";
     t[31124] = "ParameterCompare.Settings.Input.List.Delete.Confirm.YesInfo";
     t[31125] = "Gew\u00e4hlten Eingabeparameter aus der Liste entfernen.";
     t[31126] = "Surface.Process.Dialog.on";
@@ -13406,6 +13408,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34619] = "Kein Bild gew\u00e4hlt";
     t[34622] = "CommandLine.Help.Help.Short";
     t[34623] = "Zeigt diese Hilfe an.";
+    t[34650] = "Surface.XML.LineMode.CubicCurve";
+    t[34651] = "Bezier";
     t[34652] = "Statistics.TransporterUtilization.Failure";
     t[34653] = "Ausfall";
     t[34654] = "Main.Toolbar.SaveStatistics.Hint";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36277] = "Das Modell besitzt keine Quelle.";
     t[36278] = "LoadCalculator.Units.Time";
     t[36279] = "Zeitdauer";
-    t[36280] = "Surface.InputDB.XML.EofMode";
-    t[36281] = "ModellElementEingabeDBTabellenende";
-    t[36284] = "Editor.Dialog.Sequences.Edit.Column.Destination";
-    t[36285] = "Zielstation";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36280] = "Surface.InputDB.XML.EofMode";
+    t[36281] = "ModellElementEingabeDBTabellenende";
+    t[36284] = "Editor.Dialog.Sequences.Edit.Column.Destination";
+    t[36285] = "Zielstation";
     t[36290] = "Surface.ExpressionTableModel.Dialog.MaximalValue.Error.Title";
     t[36291] = "Ung\u00fcltiger Maximum-Wert";
     t[36294] = "Statistic.FastAccess.Template.ClientsInSystem.Tooltip";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41573] = "Ankunftszeitenspalte";
     t[41574] = "Editor.ModelOverview.Navigator.Hint";
     t[41575] = "Zeigt den Modellnavigator an.";
-    t[41586] = "Main.Menu.Help.DistributionReference.Mnemonic";
-    t[41587] = "W";
-    t[41596] = "ParameterCompare.Settings.List.AddByXML.Hint";
-    t[41597] = "Zu verwendendes XML-Element direkt ausw\u00e4hlen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41586] = "Main.Menu.Help.DistributionReference.Mnemonic";
+    t[41587] = "W";
+    t[41596] = "ParameterCompare.Settings.List.AddByXML.Hint";
+    t[41597] = "Zu verwendendes XML-Element direkt ausw\u00e4hlen";
     t[41602] = "CommandLine.ServerWebFixedModel.Description.Long";
     t[41603] = "Dieser Befehl erwartet zwei weitere Parameter:\nden zu verwendenden Port und den Dateinamen\nder Modelldatei.";
     t[41608] = "Surface.TankFlowBySignal.XML.SignalName";

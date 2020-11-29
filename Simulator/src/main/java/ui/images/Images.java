@@ -904,6 +904,9 @@ public enum Images {
 	/** Symbol "Verbindungskanten-Modus - abgerundet" */
 	EDGE_MODE_MULTI_LINE_ROUNDED("Line3.png"),
 
+	/** Symbol "Verbindungskanten-Modus - Bezierkurve" */
+	EDGE_MODE_CUBIC_CURVE("Line4.png"),
+
 	/* Skripte */
 
 	/** Symbol "Skript ausführen" */

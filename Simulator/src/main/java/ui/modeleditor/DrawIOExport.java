@@ -510,6 +510,10 @@ public class DrawIOExport {
 			style.put("edgeStyle","orthogonalEdgeStyle");
 			style.put("curved","1");
 			break;
+		case CUBIC_CURVE:
+			style.put("edgeStyle","orthogonalEdgeStyle");
+			style.put("curved","1");
+			break;
 		default:
 			style.put("edgeStyle","orthogonalEdgeStyle");
 			break;

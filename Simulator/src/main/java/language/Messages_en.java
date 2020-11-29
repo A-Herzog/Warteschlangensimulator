@@ -8922,6 +8922,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22899] = "Batch size";
     t[22900] = "Simulation.Creator.InvalidNeededCapacityExpression";
     t[22901] = "At station id=%d the needed transport capacity for client type %s \"%s\" is invalid at character %d.";
+    t[22912] = "Surface.Connection.LineMode.CubicCurve";
+    t[22913] = "Bezier curve";
     t[22914] = "Surface.Line.Name";
     t[22915] = "Line";
     t[22924] = "Statistics.XML.Element.Counter";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25835] = "Analytical queueing models";
     t[25836] = "Statistics.MinimalInterArrivalTime";
     t[25837] = "Minimal inter-arrival time";
-    t[25838] = "ExpressionBuilder.ClientsInSystemQueue";
-    t[25839] = "Waiting client in the system";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25838] = "ExpressionBuilder.ClientsInSystemQueue";
+    t[25839] = "Waiting client in the system";
     t[25840] = "Simulation.Creator.SliderNoVariable";
     t[25841] = "At station id=%d no name was specified for the variable to be changed.";
     t[25842] = "Surface.Counter.Dialog.GroupName.Error.Title";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31103] = "no fixed number of operators.";
     t[31112] = "Simulation.Creator.SeizeReleaseClient";
     t[31113] = "Client leaves queue";
-    t[31118] = "ExpressionBuilder.TrigonometricFunctions";
-    t[31119] = "Trigonometric functions";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[31118] = "ExpressionBuilder.TrigonometricFunctions";
+    t[31119] = "Trigonometric functions";
     t[31124] = "ParameterCompare.Settings.Input.List.Delete.Confirm.YesInfo";
     t[31125] = "Remove the selected input parameter from list.";
     t[31126] = "Surface.Process.Dialog.on";
@@ -13406,6 +13408,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34619] = "No image selected";
     t[34622] = "CommandLine.Help.Help.Short";
     t[34623] = "Shows this help.";
+    t[34650] = "Surface.XML.LineMode.CubicCurve";
+    t[34651] = "Bezier";
     t[34652] = "Statistics.TransporterUtilization.Failure";
     t[34653] = "Failure";
     t[34654] = "Main.Toolbar.SaveStatistics.Hint";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36277] = "The model does not have a source.";
     t[36278] = "LoadCalculator.Units.Time";
     t[36279] = "Time";
-    t[36280] = "Surface.InputDB.XML.EofMode";
-    t[36281] = "ModelElementInputDBEndOfTable;ModellElementEingabeDBEndOfTable";
-    t[36284] = "Editor.Dialog.Sequences.Edit.Column.Destination";
-    t[36285] = "Destination station";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[36280] = "Surface.InputDB.XML.EofMode";
+    t[36281] = "ModelElementInputDBEndOfTable;ModellElementEingabeDBEndOfTable";
+    t[36284] = "Editor.Dialog.Sequences.Edit.Column.Destination";
+    t[36285] = "Destination station";
     t[36290] = "Surface.ExpressionTableModel.Dialog.MaximalValue.Error.Title";
     t[36291] = "Invalid maximum value";
     t[36294] = "Statistic.FastAccess.Template.ClientsInSystem.Tooltip";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41573] = "Arrival times column";
     t[41574] = "Editor.ModelOverview.Navigator.Hint";
     t[41575] = "Shows the navigator panel.";
-    t[41586] = "Main.Menu.Help.DistributionReference.Mnemonic";
-    t[41587] = "D";
-    t[41596] = "ParameterCompare.Settings.List.AddByXML.Hint";
-    t[41597] = "Directly select the XML element to be used";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41586] = "Main.Menu.Help.DistributionReference.Mnemonic";
+    t[41587] = "D";
+    t[41596] = "ParameterCompare.Settings.List.AddByXML.Hint";
+    t[41597] = "Directly select the XML element to be used";
     t[41602] = "CommandLine.ServerWebFixedModel.Description.Long";
     t[41603] = "This command expects two additional parameters:\nthe port to be used and the file name of the\nmodel to be loaded.";
     t[41608] = "Surface.TankFlowBySignal.XML.SignalName";
