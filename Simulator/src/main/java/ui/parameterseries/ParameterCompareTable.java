@@ -82,8 +82,11 @@ public class ParameterCompareTable extends JPanel {
 		table.getTableHeader().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				/* Doppelklick links */
 				if (e.getClickCount()!=2) return;
 				if (!SwingUtilities.isLeftMouseButton(e)) return;
+
+				/* Spalte */
 				final int colNr=table.columnAtPoint(e.getPoint());
 				if (colNr<0) return;
 
@@ -96,6 +99,26 @@ public class ParameterCompareTable extends JPanel {
 				if (colNr<tableModel.getColumnCount()-1) {
 					/* Ausgabeparameter */
 					if (setupOutput!=null) setupOutput.run();
+					return;
+				}
+				/* sonst: Steuerungsspalte */
+			}
+		});
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				/* Doppelklick links */
+				if (e.getClickCount()!=2) return;
+				if (!SwingUtilities.isLeftMouseButton(e)) return;
+
+				/* Spalte */
+				final int colNr=table.columnAtPoint(e.getPoint());
+				final int rowNr=table.rowAtPoint(e.getPoint());
+				if (colNr<0 || rowNr<0) return;
+
+				if (colNr<=setup.getInput().size()) {
+					/* Modellnamen-Spalte oder Eingabeparameter */
+					tableModel.commandEdit(rowNr);
 					return;
 				}
 				/* sonst: Steuerungsspalte */

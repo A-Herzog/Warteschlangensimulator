@@ -451,6 +451,16 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	}
 
 	/**
+	 * Befehl: Modell bearbeiten
+	 * @param rowIndex	Nummer des Modells in der Tabelle
+	 * @return	Liefert <code>true</code>, wenn der Bearbeitendialog mit "Ok" geschlossen wurde
+	 * @see #editModel(ParameterCompareSetupModel)
+	 */
+	public boolean commandEdit(final int rowIndex) {
+		return commandEdit(setup.getModels().get(rowIndex),rowIndex);
+	}
+
+	/**
 	 * Befehl: Modell löschen
 	 * @param index	Nummer des Modells in der Tabelle
 	 * @param simModel	Zu löschendes Modell
