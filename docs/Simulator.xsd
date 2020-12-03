@@ -394,7 +394,7 @@
 
 <xs:element name="ModellElementBatch"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
-    <xs:attribute name="Groesse" type="xs:integer"/>
+    <xs:attribute name="Groesse" type="xs:string"/>
 	<xs:attribute name="Minimum" type="xs:integer"/>
 	<xs:attribute name="Maximum" type="xs:integer"/>
   </xs:extension>
@@ -2394,7 +2394,7 @@
 
 <xs:element name="ModelElementBatchData"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
-    <xs:attribute name="Size" type="xs:integer"/>
+    <xs:attribute name="Size" type="xs:string"/>
 	<xs:attribute name="Minimum" type="xs:integer"/>
 	<xs:attribute name="Maximum" type="xs:integer"/>
   </xs:extension>
