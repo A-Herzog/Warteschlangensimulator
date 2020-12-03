@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-29 19:59+0100\n"
+"POT-Creation-Date: 2020-12-03 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23895,6 +23895,12 @@ msgstr "client"
 msgid "Surface.Source.Dialog.Tab.BatchSize.DifferentSizes"
 msgstr "different sizes"
 
+msgid "Surface.Source.Dialog.Tab.BatchSize.Info"
+msgstr ""
+"In case of batch arrivals, the inter-arrival times refer to the distances from one batch to the next.\n"
+"If, for example, batches of each 3 clients arrive with an average inter-arrival time of 2 minutes,\n"
+"one client arrives every 40 seconds on average."
+
 msgid "Surface.Source.Dialog.Tab.InterArrivalTimes"
 msgstr "Inter-arrival time"
 
@@ -23970,6 +23976,12 @@ msgstr "Time base"
 msgid "Surface.Source.Dialog.Title"
 msgstr "Edit source"
 
+msgid "Surface.Source.DialogBatchSize.EditorName.Rates"
+msgstr "Range"
+
+msgid "Surface.Source.DialogBatchSize.EditorName.Table"
+msgstr "Individual values"
+
 msgid "Surface.Source.DialogBatchSize.Maximum"
 msgstr "Maximum batch size"
 
@@ -23985,8 +23997,62 @@ msgstr "For batch size %d an invalid rate %s has be specified. The rates have to
 msgid "Surface.Source.DialogBatchSize.Rate.Error.Title"
 msgstr "Invalid batch size rate"
 
+msgid "Surface.Source.DialogBatchSize.Rate.ErrorSum.Info"
+msgstr ""
+"The sum of all rates is 0.\n"
+"A positive rate has to be specified for at least one batch size."
+
+msgid "Surface.Source.DialogBatchSize.Rate.ErrorSum.Title"
+msgstr "Invalid rates sum"
+
+msgid "Surface.Source.DialogBatchSize.Table.Add"
+msgstr "Add possible batch size"
+
+msgid "Surface.Source.DialogBatchSize.Table.Delete"
+msgstr "Delete batch size"
+
+msgid "Surface.Source.DialogBatchSize.Table.Edit"
+msgstr "Edit batch size"
+
+msgid "Surface.Source.DialogBatchSize.Table.ErrorInfo"
+msgstr ""
+"For batch size %d the invalid rate %s was sepcified.\n"
+"The batch size rates have to be non-negative numbers."
+
+msgid "Surface.Source.DialogBatchSize.Table.ErrorTitle"
+msgstr "Invalid rate"
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Rate"
+msgstr "Rate"
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size"
+msgstr "Batch size"
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size.ContainsErrorInfo"
+msgstr "The specified batch size %s is already defined in another row."
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size.ContainsErrorTitle"
+msgstr "Batch size already in use"
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size.ErrorInfo"
+msgstr ""
+"The specified batch size %s is invalid.\n"
+"Batch sizes have to be positive integer numbers."
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size.ErrorTitle"
+msgstr "Invalid batch size"
+
 msgid "Surface.Source.DialogBatchSize.Title"
 msgstr "Edit batch size distribution"
+
+msgid "Surface.Source.DialogBatchSize.Tools.All0"
+msgstr "Set all rates to 0"
+
+msgid "Surface.Source.DialogBatchSize.Tools.All1"
+msgstr "Set all rates to 1"
+
+msgid "Surface.Source.DialogBatchSize.Tools.Hint"
+msgstr "Change all rates simultaneously"
 
 msgid "Surface.Source.Infotext"
 msgstr "Client sources are the starting point of the client's movement through the system. Clients can be generated at a source according to inter-arrival times, expressions, etc."

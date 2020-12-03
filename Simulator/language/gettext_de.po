@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-29 19:59+0100\n"
+"POT-Creation-Date: 2020-12-03 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23903,6 +23903,12 @@ msgstr "Kunde"
 msgid "Surface.Source.Dialog.Tab.BatchSize.DifferentSizes"
 msgstr "verschiedene Größen"
 
+msgid "Surface.Source.Dialog.Tab.BatchSize.Info"
+msgstr ""
+"Die Zwischenankunftszeiten beziehen sich im Fall von Batch-Ankünften auf die Abstände von\n"
+"einem Batch zum nächsten. Treffen z.B. immer 3er Batche mit einer mittleren Zwischenankunftszeit\n"
+"von 2 Minuten ein, so trifft umgerechnet im Mittel alle 40 Sekunden ein Kunde ein."
+
 msgid "Surface.Source.Dialog.Tab.InterArrivalTimes"
 msgstr "Zwischenankunftszeiten"
 
@@ -23978,6 +23984,12 @@ msgstr "Zeitbasis"
 msgid "Surface.Source.Dialog.Title"
 msgstr "Quelle bearbeiten"
 
+msgid "Surface.Source.DialogBatchSize.EditorName.Rates"
+msgstr "Bereich"
+
+msgid "Surface.Source.DialogBatchSize.EditorName.Table"
+msgstr "Einzelwerte"
+
 msgid "Surface.Source.DialogBatchSize.Maximum"
 msgstr "Maximale Batch-Größe"
 
@@ -23993,8 +24005,62 @@ msgstr "Die für die Batch-Größe %d angegebene Rate %s ist ungültig. Die Rate
 msgid "Surface.Source.DialogBatchSize.Rate.Error.Title"
 msgstr "Ungültige Batch-Größen-Rate"
 
+msgid "Surface.Source.DialogBatchSize.Rate.ErrorSum.Info"
+msgstr ""
+"Die Summe über alle Raten ist 0.\n"
+"Es muss jedoch mindestens für eine Batch-Größe eine positive Rate angegeben werden."
+
+msgid "Surface.Source.DialogBatchSize.Rate.ErrorSum.Title"
+msgstr "Raten-Summe ungültig"
+
+msgid "Surface.Source.DialogBatchSize.Table.Add"
+msgstr "Mögliche Batch-Größe hinzufügen"
+
+msgid "Surface.Source.DialogBatchSize.Table.Delete"
+msgstr "Batch-Größe löschen"
+
+msgid "Surface.Source.DialogBatchSize.Table.Edit"
+msgstr "Batch-Größe bearbeiten"
+
+msgid "Surface.Source.DialogBatchSize.Table.ErrorInfo"
+msgstr ""
+"Für Batch-Größe %d wurde die ungültige Rate %s angegeben.\n"
+"Es muss eine nichtnegative Zahl angegeben werden."
+
+msgid "Surface.Source.DialogBatchSize.Table.ErrorTitle"
+msgstr "Ungültige Rate"
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Rate"
+msgstr "Rate"
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size"
+msgstr "Batch-Größe"
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size.ContainsErrorInfo"
+msgstr "Die angegebene Batch-Größe %s wird bereits in einer anderen Zeile verwendet."
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size.ContainsErrorTitle"
+msgstr "Batch-Größe bereits vorhanden"
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size.ErrorInfo"
+msgstr ""
+"Die angegebene Batch-Größe %s ist ungültig.\n"
+"Batch-Größen müssen positive Ganzzahlen sein."
+
+msgid "Surface.Source.DialogBatchSize.TableColumn.Size.ErrorTitle"
+msgstr "Ungültige Batch-Größe"
+
 msgid "Surface.Source.DialogBatchSize.Title"
 msgstr "Batch-Größenverteilung bearbeiten"
+
+msgid "Surface.Source.DialogBatchSize.Tools.All0"
+msgstr "Alle Raten auf 0 setzen"
+
+msgid "Surface.Source.DialogBatchSize.Tools.All1"
+msgstr "Alle Raten auf 1 setzen"
+
+msgid "Surface.Source.DialogBatchSize.Tools.Hint"
+msgstr "Alle Raten gleichzeitig ändern"
 
 msgid "Surface.Source.Infotext"
 msgstr "Kundenquellen stellen den Startpunkt der Bewegung der Kunden durch das System dar. Kunden können an einer Quelle gemäß Zwischenankunftszeiten, Ausdrücken usw. generiert werden."

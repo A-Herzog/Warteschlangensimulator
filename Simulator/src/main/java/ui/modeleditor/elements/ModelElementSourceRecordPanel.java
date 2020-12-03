@@ -38,6 +38,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 
@@ -476,6 +477,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		buttonGroup.add(optionSizesDistribution);
 
 		batchButton.setEnabled(!readOnly || optionSizesDistribution.isSelected());
+
+		tab.add(label=new JLabel("<html><body style=\"margin: 5px 10px;\">"+Language.tr("Surface.Source.Dialog.Tab.BatchSize.Info")+"</body></html>"),BorderLayout.CENTER);
+		label.setVerticalAlignment(SwingConstants.TOP);
+		label.setVerticalTextPosition(SwingConstants.TOP);
+		label.setPreferredSize(new Dimension(100,100));
 
 		/* Anzahl an Ankünften */
 

@@ -45,9 +45,12 @@ ein oder mehrere <b>Signale</b> bestimmt werden sollen.
 Über die Batch-Größe kann zusätzlich
 angegeben werden, dass pro Ankunft nicht ein einzelner Kunde, sondern zeitgleich jeweils
 mehrere Kunden eintreffen sollen. Dabei kann eingestellt werden, dass immer gleich
-viele Kunden pro Ankunft eintreffen (fest Batch-Größe) oder aber es kann eine Verteilung
+viele Kunden pro Ankunft eintreffen (feste Batch-Größe) oder aber es kann eine Verteilung
 der Raten, gemäß denen die jeweilige Größe des Ankunfts-Batches bestimmt werden soll,
 angegeben werden.
+Die Zwischenankunftszeiten beziehen sich im Fall von Batch-Ankünften auf die Abstände von
+einem Batch zum nächsten. Treffen z.B. immer 3er Batche mit einer mittleren Zwischenankunftszeit
+von 2 Minuten ein, so trifft umgerechnet im Mittel alle 40 Sekunden ein Kunde ein.
 </p>
 
 <h3>Anzahl an Ankünften</h3>

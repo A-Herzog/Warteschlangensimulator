@@ -17,27 +17,16 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Box;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.JTabbedPane;
 
 import language.Language;
-import mathtools.NumberTools;
 import systemtools.BaseDialog;
-import systemtools.MsgBox;
 import ui.help.Help;
-import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Dieser Dialog ermöglicht das Konfigurieren von Batch-Größen
@@ -52,16 +41,15 @@ public class ModelElementSourceBatchDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 4182770820151357513L;
 
-	/** Eingabefeld für die minimale Batch-Größe */
-	private final JTextField sizeMin;
-	/** Eingabefeld für die maximale Batch-Größe */
-	private final JTextField sizeMax;
-	/** Bereich in dem {@link #rates} angelegt werden */
-	private final JComponent scroll;
-	/** Bisherige Eingabe in {@link #sizeMax} (um entsprechend viele Eingabefelder vorzuhalten) */
-	private long lastSizeMax=-1;
-	/** Eingabefelder für die Raten mit denen die möglichen Batch-Größen auftreten */
-	private List<JTextField> rates;
+	/**
+	 * Tabs für die verschiedenen Editoren
+	 */
+	private final JTabbedPane tabs;
+
+	/**
+	 * Liste der verschiedenen Editoren
+	 */
+	private final List<ModelElementSourceBatchEditorAbstract> editors;
 
 	/**
 	 * Konstruktor der Klasse
@@ -73,110 +61,61 @@ public class ModelElementSourceBatchDialog extends BaseDialog {
 	public ModelElementSourceBatchDialog(final Component owner, final String helpTopic, final boolean readOnly, final double[] distribution) {
 		super(owner,Language.tr("Surface.Source.DialogBatchSize.Title"),readOnly);
 
-		final Container finalContainer=this.owner;
-		final JPanel contentPanel=createGUI(()->Help.topicModal(finalContainer,helpTopic));
+		editors=new ArrayList<>();
+		final JPanel contentPanel=createGUI(()->Help.topicModal(this,helpTopic));
 		contentPanel.setLayout(new BorderLayout());
+		contentPanel.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
 
-		JPanel panel;
-		JLabel label;
-
-		panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		contentPanel.add(panel,BorderLayout.NORTH);
-
-		panel.add(label=new JLabel(Language.tr("Surface.Source.DialogBatchSize.Minimum")+":"));
-		panel.add(sizeMin=new JTextField(5));
-		sizeMin.setEditable(false);
-		sizeMin.setText("1");
-		label.setLabelFor(sizeMin);
-		panel.add(label=new JLabel(Language.tr("Surface.Source.DialogBatchSize.Maximum")+":"));
-		panel.add(sizeMax=new JTextField(5));
-		sizeMax.setEditable(!readOnly);
-		sizeMax.setText(""+distribution.length);
-		label.setLabelFor(sizeMax);
-
-		contentPanel.add(new JScrollPane(scroll=Box.createVerticalBox()),BorderLayout.CENTER);
-		rates=new ArrayList<>();
-
-		sizeMax.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {changeMaxSize(null);}
-			@Override public void keyReleased(KeyEvent e) {changeMaxSize(null);}
-			@Override public void keyPressed(KeyEvent e) {changeMaxSize(null);}
-		});
-		changeMaxSize(distribution);
+		addEditor(new ModelElementSourceBatchEditor1(readOnly),distribution);
+		addEditor(new ModelElementSourceBatchEditor2(readOnly),distribution);
 
 		setMinSizeRespectingScreensize(450,450);
 		pack();
+		if (getHeight()>750) setSize(getWidth(),750);
 		setLocationRelativeTo(this.owner);
 		setVisible(true);
 	}
 
 	/**
-	 * Konfiguriert {@link #rates}
-	 * @param distribution	Anfängliche Raten für die Ankunfts-Batch-Größen oder <code>null</code>, um nur Felder anzulegen
+	 * Fügt einen weiteren Editor in einem weiteren Tab hinzu.
+	 * @param editor	Neuer Editor
+	 * @param distribution	Initiale Daten für den Editor
 	 */
-	private void changeMaxSize(final double[] distribution) {
-		Long newSizeMax=NumberTools.getPositiveLong(sizeMax,true);
-		if (newSizeMax==null) return;
-
-		if (newSizeMax==lastSizeMax) return;
-		lastSizeMax=newSizeMax;
-
-		String[] oldData;
-		if (distribution==null) {
-			oldData=new String[rates.size()];
-			for (int i=0;i<rates.size();i++) oldData[i]=rates.get(i).getText();
-
-		} else {
-			oldData=new String[distribution.length];
-			for (int i=0;i<distribution.length;i++) oldData[i]=NumberTools.formatNumber(distribution[i]);
-		}
-
-		scroll.removeAll();
-		rates.clear();
-
-		for (int i=0;i<newSizeMax;i++) {
-			final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.DialogBatchSize.Rate")+" "+(i+1)+":",(i>=oldData.length)?"1":oldData[i],5);
-			scroll.add((JPanel)data[0]);
-			final JTextField input=(JTextField)data[1];
-			rates.add(input);
-			input.setEditable(!readOnly);
-			input.addKeyListener(new KeyListener() {
-				@Override public void keyTyped(KeyEvent e) {checkData(false);}
-				@Override public void keyReleased(KeyEvent e) {checkData(false);}
-				@Override public void keyPressed(KeyEvent e) {checkData(false);}
-			});
-		}
-
-		scroll.add(Box.createVerticalGlue());
-		checkData(false);
-		scroll.revalidate();
+	private void addEditor(final ModelElementSourceBatchEditorAbstract editor, final double[] distribution) {
+		editor.setDistribution(distribution);
+		tabs.addTab(editor.getEditorName(),editor);
+		editors.add(editor);
+		editor.addChangeListener(sender->changeListener(sender));
 	}
 
 	/**
-	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
-	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
-	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 * Läuft gerade ein Benachrichtigungsvorgang? Wenn ja, keine weiteren
+	 * Benachrichtigungen auslösen (sollte sowieso nicht passieren, aber
+	 * so ist es abgesichert).
+	 * @see #changeListener(ModelElementSourceBatchEditor)
 	 */
-	private boolean checkData(final boolean showErrorMessage) {
-		if (readOnly) return false;
+	private boolean changeListenerRunning=false;
 
-		boolean ok=true;
-		for (JTextField input: rates) {
-			final Double D=NumberTools.getNotNegativeDouble(input,true);
-			if (D==null) {
-				if (showErrorMessage) {
-					MsgBox.error(this,Language.tr("Surface.Source.DialogBatchSize.Rate.Error.Title"),String.format(Language.tr("Surface.Source.DialogBatchSize.Rate.Error.Info"),rates.indexOf(input)+1,input.getText()));
-					return false;
-				}
-				ok=false;
-			}
+	/**
+	 * Benachrichtigt alle anderen Editoren, dass in einem Editor die Daten verändert wurden.
+	 * @param sender	Editor, der die Benachrichtigung ausgelöst hat
+	 */
+	private void changeListener(final ModelElementSourceBatchEditor sender) {
+		if (changeListenerRunning) return;
+		final double[] newDistribution=sender.getDistribution();
+		changeListenerRunning=true;
+		try {
+			for (ModelElementSourceBatchEditorAbstract editor: editors) if (editor!=sender) editor.setDistribution(newDistribution);
+
+		} finally {
+			changeListenerRunning=false;
 		}
-		return ok;
 	}
 
 	@Override
 	protected boolean checkData() {
-		return checkData(true);
+		final ModelElementSourceBatchEditorAbstract editor=editors.get(tabs.getSelectedIndex());
+		return editor.checkData();
 	}
 
 	/**
@@ -186,11 +125,7 @@ public class ModelElementSourceBatchDialog extends BaseDialog {
 	 * @return	Raten für die Ankunfts-Batch-Größen
 	 */
 	public double[] getBatchRates() {
-		final double[] result=new double[rates.size()];
-		for (int i=0;i<rates.size();i++) {
-			final Double D=NumberTools.getNotNegativeDouble(rates.get(i),false);
-			if (D!=null) result[i]=D;
-		}
-		return result;
+		final ModelElementSourceBatchEditorAbstract editor=editors.get(tabs.getSelectedIndex());
+		return editor.getDistribution();
 	}
 }

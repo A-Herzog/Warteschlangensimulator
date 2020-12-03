@@ -26,7 +26,7 @@ The dialog consists of a number of tabs which allow to setup the different prope
 <p>
 With respect to the inter-arrival times, it is possible to determine whether these
 should be determined according to a <b>distribution</b>, according to an <b>expression</b>,
-on a <b>schedule</b> or by a <b>release condition</b>, a <b>thresholdvalue</b> or by
+on a <b>schedule</b> or by a <b>release condition</b>, a <b>threshold value</b> or by
 one or multiple <b>signals</b>.
 </p>
 
@@ -37,6 +37,9 @@ A batch size larger than 1 can be used to specify that, per arrival, not a singl
 but several clients should arrive at the same time. It is possible to set up the same number
 of clients per arrival (fixed batch size) or a distribution of the rates according to which
 the respective sizes of the arrival batches are to be determined.
+In case of batch arrivals, the inter-arrival times refer to the distances from one batch to the next.
+If, for example, batches of each 3 clients arrive with an average inter-arrival time of 2 minutes,
+one client arrives every 40 seconds on average.
 </p>
 
 <h3>Number of arrivals</h3>
