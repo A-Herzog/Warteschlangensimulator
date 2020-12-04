@@ -58,6 +58,8 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		MODE_INTERARRIVAL_CLIENTS,
 		/** Verteilungsdiagramm der Zwischenankunftszeiten der Kunden an den einzelnen Stationen */
 		MODE_INTERARRIVAL_STATION,
+		/** Verteilungsdiagramm der Zwischenankunftszeiten der Kunden an den einzelnen Stationen auf Batch-Basis */
+		MODE_INTERARRIVAL_STATION_BATCH,
 		/** Verteilungsdiagramm der Zwischenankunftszeiten der Kunden an den einzelnen Stationen nach Kundentypen weiter ausdifferenziert */
 		MODE_INTERARRIVAL_STATION_CLIENTS,
 		/** Verteilungsdiagramm der Zwischenankunftszeiten der Kunden an den einzelnen Stationen nach Warteschlangenlänge weiter ausdifferenziert */
@@ -165,6 +167,33 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			Color color=null;
 			if (colorMap!=null) color=colorMap.get(names[i]);
 			if (color==null) color=COLORS[i%COLORS.length];
+
+			final DataDistributionImpl dist=indicators[i].getNormalizedDistribution();
+			if (dist!=null) addSeriesTruncated(title+" - "+names[i],color,dist,1800);
+		}
+
+		smartZoom(1);
+	}
+
+	/**
+	 * Erzeugt ein Linien-Diagramm; nimmt keine leeren Datensätze auf.
+	 * @param title	Titel
+	 * @param indicator	Darzustellende Verteilungen
+	 * @param xLabel	Beschriftung der x-Achse
+	 * @param colorMap	Farben für die Linien
+	 */
+	private void requestDiagrammTimeDistributionNoEmpty(final String title, StatisticsMultiPerformanceIndicator indicator, final String xLabel, final Map<String,Color> colorMap) {
+		initLineChart(title);
+		setupChartTimePercent(title,xLabel,Language.tr("Statistics.Part"));
+
+		final String[] names=indicator.getNames();
+		final StatisticsDataPerformanceIndicator[] indicators=indicator.getAll(StatisticsDataPerformanceIndicator.class);
+
+		for (int i=0;i<names.length;i++) {
+			Color color=null;
+			if (colorMap!=null) color=colorMap.get(names[i]);
+			if (color==null) color=COLORS[i%COLORS.length];
+			if (indicators[i].getCount()==0) continue;
 
 			final DataDistributionImpl dist=indicators[i].getNormalizedDistribution();
 			if (dist!=null) addSeriesTruncated(title+" - "+names[i],color,dist,1800);
@@ -287,6 +316,10 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			break;
 		case MODE_INTERARRIVAL_STATION:
 			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheInterArrivalTimes"),statistics.stationsInterarrivalTime,Language.tr("Statistics.Distance"),null);
+			addDescription("PlotTimeDistribution");
+			break;
+		case MODE_INTERARRIVAL_STATION_BATCH:
+			requestDiagrammTimeDistributionNoEmpty(Language.tr("Statistics.DistributionOfTheInterArrivalTimesBatch"),statistics.stationsInterarrivalTimeBatch,Language.tr("Statistics.Distance"),null);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_INTERARRIVAL_STATION_CLIENTS:

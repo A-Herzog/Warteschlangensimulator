@@ -57,6 +57,11 @@ public class RunElementData {
 	public long lastArrival;
 
 	/**
+	 * Speichert, wann jeweils zum letzten Mal ein Kunden-Batch bei einer bestimmten Station eingetroffen ist.
+	 */
+	public long lastBatchArrival;
+
+	/**
 	 * Speichert, wann jeweils zum letzten Mal ein Kunde (pro Kundentyp) bei einer bestimmten Station eingetroffen ist.<br>
 	 * Ist initial <code>null</code>, wird erst bei der ersten Ankunft initialisiert.
 	 */
@@ -176,6 +181,12 @@ public class RunElementData {
 	public StatisticsDataPerformanceIndicator statisticStationsInterarrivalTime;
 
 	/**
+	 * Ermöglicht den Zugriff auf die "Zwischenankunftszeiten an der Station (Batch)"-Statistik.<br>
+	 * (Kann <code>null</code> sein, wenn noch keine entsprechenden Daten angefallen sind.)
+	 */
+	public StatisticsDataPerformanceIndicator statisticStationsInterarrivalTimeBatch;
+
+	/**
 	 * Ermöglicht den Zugriff auf die "Zwischenankunftszeiten an der Station (nach Kundentypen)"-Statistik.<br>
 	 * (Kann <code>null</code> sein, wenn noch keine entsprechenden Daten angefallen sind.)
 	 */
@@ -207,6 +218,7 @@ public class RunElementData {
 		this.station=station;
 		clients=0;
 		lastArrival=-1;
+		lastBatchArrival=-1;
 		lastArrivalByClientType=null;
 		lastLeave=-1;
 		lastLeaveByClientType=null;

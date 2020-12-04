@@ -183,8 +183,10 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		final RunElementSourceMultiData data=getData(simData);
 		boolean isLastClient=false;
 
+		boolean batchArrivals=true;
 		final int batchSize;
 		if (data.batchSizes[index]!=null) {
+			if (data.batchSizes[index].isConstValue()) batchArrivals=(data.batchSizes[index].getConstValue()!=1.0);
 			batchSize=(int)Math.round(data.batchSizes[index].calcOrDefault(simData.runData.variableValues,-1));
 			if (batchSize<=0) {
 				simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.InvalidBatchSize"),name));
@@ -195,6 +197,10 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		}
 		data.arrivalClientCount[index]+=batchSize;
 
+		if (batchArrivals) {
+			/* Zwischenankunftszeiten auf Batch-Basis in der Statistik erfassen */
+			simData.runData.logStationBatchArrival(simData.currentTime,simData,this,data);
+		}
 
 		for (int i=1;i<=batchSize;i++) {
 

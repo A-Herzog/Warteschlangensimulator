@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-03 14:06+0100\n"
+"POT-Creation-Date: 2020-12-04 14:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16074,6 +16074,9 @@ msgstr "Distribution of the waiting times at the stations"
 msgid "Statistics.DistributionOfTheInterArrivalTimes"
 msgstr "Distribution of the inter-arrival times"
 
+msgid "Statistics.DistributionOfTheInterArrivalTimesBatch"
+msgstr "Distribution of the inter-arrival times by batches"
+
 msgid "Statistics.DistributionOfTheInterArrivalTimesByClientType"
 msgstr "Distribution of the inter-arrival times by client types"
 
@@ -16386,6 +16389,9 @@ msgstr "Inter-arrival times"
 msgid "Statistics.InterArrivalTimesAtTheStations"
 msgstr "Inter-arrival times at the stations"
 
+msgid "Statistics.InterArrivalTimesAtTheStationsBatch"
+msgstr "Inter-arrival times (by batches) at the stations"
+
 msgid "Statistics.InterArrivalTimesAtTheStationsByClientTypes"
 msgstr "Inter-arrival times at the stations by client types"
 
@@ -16400,6 +16406,9 @@ msgstr "Inter-arrival times by queue lengths"
 
 msgid "Statistics.InterArrivalTimesAtTheSystem"
 msgstr "Inter-arrival times at the system"
+
+msgid "Statistics.InterArrivalTimesBatch"
+msgstr "Inter-arrival times by batches"
 
 msgid "Statistics.InterArrivalTimesInTheSimulation"
 msgstr "Inter-arrival times in the simulation"
@@ -17332,6 +17341,9 @@ msgstr "StatisticsInterArrivalTimesClients"
 
 msgid "Statistics.XML.Element.InterArrivalStations"
 msgstr "StatisticsInterArrivalTimesStations"
+
+msgid "Statistics.XML.Element.InterArrivalStationsBatch"
+msgstr "StatisticsInterArrivalTimesStationsBatch"
 
 msgid "Statistics.XML.Element.InterArrivalStationsByClientType"
 msgstr "StatisticsInterArrivalTimesStationsClients"

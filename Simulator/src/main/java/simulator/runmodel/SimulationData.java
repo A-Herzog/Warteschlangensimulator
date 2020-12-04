@@ -224,6 +224,7 @@ public class SimulationData extends SimData {
 
 		resetAllDataPerformanceIndicators(statistics.clientsInterarrivalTime);
 		resetAllDataPerformanceIndicators(statistics.stationsInterarrivalTime);
+		resetAllDataPerformanceIndicators(statistics.stationsInterarrivalTimeBatch);
 		resetAllDataPerformanceIndicators(statistics.stationsInterarrivalTimeByState);
 		resetAllDataPerformanceIndicators(statistics.stationsInterarrivalTimeByClientType);
 		resetAllDataPerformanceIndicators(statistics.clientsInterleavingTime);

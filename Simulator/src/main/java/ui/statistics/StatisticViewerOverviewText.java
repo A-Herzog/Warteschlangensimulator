@@ -1326,6 +1326,32 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			outputConfidenceData(indicator);
 		}
 
+		/* Ankünfte an den Stationen in Batchen gerechnet */
+
+		boolean first=true;
+		for (String station : stations) {
+			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)(statistics.stationsInterarrivalTimeBatch.get(station));
+			if (indicator.getCount()==0) continue;
+			if (first) {
+				addHeading(2,Language.tr("Statistics.InterArrivalTimesAtTheStationsBatch"));
+				first=false;
+			}
+			addHeading(3,fullStationName(station));
+			beginParagraph();
+			addLine(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
+			addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[IB]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+			addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[IB]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+			addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[IB]="+timeAndNumber(indicator.getVar()));
+			addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[IB]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+			addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[IB]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+			addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[IB]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+			endParagraph();
+
+			outputQuantilInfoTime("IB",indicator);
+
+			outputConfidenceData(indicator);
+		}
+
 		/* Ankünfte an den Stationen nach Kundentypen */
 
 		boolean headindPrinted=false;

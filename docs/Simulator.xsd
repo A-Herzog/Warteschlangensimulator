@@ -1661,7 +1661,8 @@
   <xs:element ref="Simulation"/>
   <xs:element ref="StatistikThreadBasierendeWartzeitKonfidenz"/>
   <xs:element ref="StatistikZwischenankunftszeitenKunden"/>
-  <xs:element ref="StatistikZwischenankunftszeitenStationen"/>  
+  <xs:element ref="StatistikZwischenankunftszeitenStationen"/>
+  <xs:element ref="StatistikZwischenankunftszeitenStationenBatch"/>
   <xs:element ref="StatistikZwischenankunftszeitenStationenKunden"/>
   <xs:element ref="StatistikZwischenabgangszeitenKunden"/>
   <xs:element ref="StatistikZwischenabgangszeitenStationen"/>
@@ -1843,6 +1844,7 @@
 
 <xs:element name="StatistikZwischenankunftszeitenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikZwischenankunftszeitenStationen" type="StatistikStationBasis"/>
+<xs:element name="StatistikZwischenankunftszeitenStationenBatch" type="StatistikStationBasis"/>
 <xs:element name="StatistikZwischenankunftszeitenStationenKunden" type="StatistikStationBasis"/>
 <xs:element name="StatistikZwischenabgangszeitenKunden" type="StatistikKundentypBasis"/>
 <xs:element name="StatistikZwischenabgangszeitenStationen" type="StatistikStationBasis"/>
@@ -3662,6 +3664,7 @@
   <xs:element ref="StatisticsThreadBasedWaitingTimeConfidence"/>
   <xs:element ref="StatisticsInterArrivalTimesClients"/>
   <xs:element ref="StatisticsInterArrivalTimesStations"/>
+  <xs:element ref="StatisticsInterArrivalTimesStationsBatch"/>
   <xs:element ref="StatisticsInterArrivalTimesStationsClients"/>
   <xs:element ref="StatisticsInterLeavingTimesClients"/>
   <xs:element ref="StatisticsInterLeavingTimesStations"/>
@@ -3843,6 +3846,7 @@
 
 <xs:element name="StatisticsInterArrivalTimesClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsInterArrivalTimesStations" type="StatisticsStationBase"/>
+<xs:element name="StatisticsInterArrivalTimesStationsBatch" type="StatisticsStationBase"/>
 <xs:element name="StatisticsInterArrivalTimesStationsClients" type="StatisticsStationBase"/>
 <xs:element name="StatisticsInterLeavingTimesClients" type="StatisticsClientBase"/>
 <xs:element name="StatisticsInterLeavingTimesStations" type="StatisticsStationBase"/>

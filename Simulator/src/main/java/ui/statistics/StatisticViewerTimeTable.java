@@ -70,6 +70,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		MODE_OVERVIEW_STATIONS_ARRIVAL_COUNT,
 		/** Zwischenankunftszeiten an den Stationen (Übersichtstabelle) */
 		MODE_OVERVIEW_STATIONS_INTERARRIVAL,
+		/** Zwischenankunftszeiten an den Stationen auf Batch-Basis (Übersichtstabelle) */
+		MODE_OVERVIEW_STATIONS_INTERARRIVAL_BATCH,
 		/** Zwischenankunftszeiten an den Stationen nach Kundentypen weiter ausdifferenziert (Übersichtstabelle) */
 		MODE_OVERVIEW_STATIONS_INTERARRIVAL_CLIENTS,
 		/** Zwischenankunftszeiten an den Stationen nach Warteschlangenlänge weiter ausdifferenziert (Übersichtstabelle) */
@@ -80,6 +82,8 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		MODE_OVERVIEW_STATIONS_INTERLEAVE_CLIENTS,
 		/** Zwischenankunftszeiten an den Stationen (Tabelle mit Verteilung der Werte) */
 		MODE_DISTRIBUTION_STATIONS_INTERARRIVAL,
+		/** Zwischenankunftszeiten an den Stationen auf Batch-Basis (Tabelle mit Verteilung der Werte) */
+		MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_BATCH,
 		/** Zwischenankunftszeiten an den Stationen nach Kundentypen weiter ausdifferenziert (Tabelle mit Verteilung der Werte) */
 		MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_CLIENTS,
 		/** Zwischenankunftszeiten an den Stationen nach Warteschlangenlänge weiter ausdifferenziert (Tabelle mit Verteilung der Werte) */
@@ -894,11 +898,13 @@ public class StatisticViewerTimeTable extends StatisticViewerTable {
 		case MODE_DISTRIBUTION_CLIENTS_INTERLEAVE: buildTimesDistributionTable(statistics.clientsInterleavingTime,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_OVERVIEW_STATIONS_ARRIVAL_COUNT: buildInterarrivalCountTable(); break;
 		case MODE_OVERVIEW_STATIONS_INTERARRIVAL: buildTimesOverviewTable(statistics.stationsInterarrivalTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
+		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_BATCH: buildTimesOverviewTable(statistics.stationsInterarrivalTimeBatch,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,true); break;
 		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_CLIENTS: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByClientType,null,null,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,true); break;
 		case MODE_OVERVIEW_STATIONS_INTERARRIVAL_STATES: buildTimesOverviewTable(statistics.stationsInterarrivalTimeByState,null,null,null,null,null,null,null,Language.tr("Statistics.StationState"),true,true); break;
 		case MODE_OVERVIEW_STATIONS_INTERLEAVE: buildTimesOverviewTable(statistics.stationsInterleavingTime,null,null,null,null,null,null,null,Language.tr("Statistics.Station"),true,false); break;
 		case MODE_OVERVIEW_STATIONS_INTERLEAVE_CLIENTS: buildTimesOverviewTable(statistics.stationsInterleavingTimeByClientType,null,null,null,null,null,null,null,Language.tr("Statistics.StationClient"),true,false); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL: buildTimesDistributionTable(statistics.stationsInterarrivalTime,Language.tr("Statistics.DistanceInSeconds")); break;
+		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_BATCH: buildTimesDistributionTable(statistics.stationsInterarrivalTimeBatch,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_CLIENTS: buildTimesDistributionTable(statistics.stationsInterarrivalTimeByClientType,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERARRIVAL_STATES: buildTimesDistributionTable(statistics.stationsInterarrivalTimeByState,Language.tr("Statistics.DistanceInSeconds")); break;
 		case MODE_DISTRIBUTION_STATIONS_INTERLEAVE: buildTimesDistributionTable(statistics.stationsInterleavingTime,Language.tr("Statistics.DistanceInSeconds")); break;

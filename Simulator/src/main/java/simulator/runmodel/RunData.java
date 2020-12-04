@@ -111,6 +111,12 @@ public class RunData {
 	private IndicatorAccessCacheStations cacheStationsInterarrivalTime;
 
 	/**
+	 * Cache für die "Zwischenankunftszeiten der Kunden bei den einzelnen Stationen (Batch)"-Statistikobjekte
+	 * @see Statistics#stationsInterarrivalTimeBatch
+	 */
+	private IndicatorAccessCacheStations cacheStationsInterarrivalTimeBatch;
+
+	/**
 	 * Cache für die "Zwischenankunftszeiten der Kunden bei den einzelnen Stationen ausdifferenziert nach der Anzahl an Kunden an der Station"-Statistikobjekte
 	 * @see Statistics#stationsInterarrivalTimeByState
 	 */
@@ -356,6 +362,7 @@ public class RunData {
 
 		cacheClientsInterarrivalTime=new IndicatorAccessCacheStations(simData.statistics.clientsInterarrivalTime);
 		cacheStationsInterarrivalTime=new IndicatorAccessCacheStations(simData.statistics.stationsInterarrivalTime);
+		cacheStationsInterarrivalTimeBatch=new IndicatorAccessCacheStations(simData.statistics.stationsInterarrivalTimeBatch);
 		cacheStationsInterarrivalTimeByState=new IndicatorAccessCacheStationsNumber(simData.statistics.stationsInterarrivalTimeByState,"NQ");
 		cacheStationsInterarrivalTimeByClientType=new IndicatorAccessCacheStationsClientTypes(simData.statistics.stationsInterarrivalTimeByClientType);
 		cacheStationsInterleavingTime=new IndicatorAccessCacheStations(simData.statistics.stationsInterleavingTime);
@@ -483,6 +490,39 @@ public class RunData {
 			Arrays.fill(data.lastArrivalByClientType,-1);
 		}
 		data.lastArrivalByClientType[clientType]=now;
+	}
+
+	/**
+	 * Erfasst die Ankunft eines Kunden-Batches an einer Bedienstation für die Statistik (Zwischenankunftszeiten an den Stationen).<br>
+	 * Diese Funktion wirkt nur direkt auf die Statistik und verändert keine Modelldaten. Sie ist vollständig optional und
+	 * wird nur von den Stationen, an denen Batches eintreffen, verwendet.
+	 * @param now	Ankunftszeitpunkt
+	 * @param simData	Objekt vom Typ <code>SimulationData</code>, welches das Laufzeitmodell (vom Typ <code>RunModel</code> im Feld <code>runModel</code>) und die Statistik (vom Typ <code>Statistics</code> im Feld <code>statistics</code>) enthält und den Zugriff auf die von <code>SimData</code> geerbten Basis-Funktionen ermöglicht
+	 * @param station	Station, an der der Kunde eingetroffen ist
+	 * @param stationData	Optionales Objekt mit den thread-lokalen Daten zu der Station (kann <code>null</code> sein, dann ermittelt es diese Funktion selbst)
+	 */
+	public void logStationBatchArrival(final long now, final SimulationData simData, final RunElement station, final RunElementData stationData) {
+		final RunElementData data=(stationData==null)?station.getData(simData):stationData;
+
+		if (isWarmUp) {
+			data.lastBatchArrival=now;
+			return;
+		}
+
+		if (data.lastBatchArrival<0 || data.lastBatchArrival>now) data.lastBatchArrival=0; /* Wenn kein Warmup, dann wird Zeitpunkt 0 als erste "Ankunft" für die Zählung der Zwischenankunftszeiten verwendet. */
+
+		if (data.lastBatchArrival>=0 && data.lastBatchArrival<=now) {
+			final double delta=scale*(now-data.lastBatchArrival);
+			StatisticsDataPerformanceIndicator indicator;
+
+			if (station.stationStatisticsActive) {
+				/* Allgemein */
+				indicator=data.statisticStationsInterarrivalTimeBatch;
+				if (indicator==null) indicator=data.statisticStationsInterarrivalTimeBatch=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeBatch.get(station));
+				indicator.add(delta);
+			}
+		}
+		data.lastBatchArrival=now;
 	}
 
 	/**
@@ -708,6 +748,7 @@ public class RunData {
 		if (stationData.statisticClientsAtStation==null) stationData.statisticClientsAtStation=(StatisticsTimePerformanceIndicator)(cacheClientsAtStation.get(station));
 		if (stationData.statisticClientsAtStationQueue==null) stationData.statisticClientsAtStationQueue=(StatisticsTimePerformanceIndicator)(cacheClientsAtStationQueueByStation.get(station));
 		if (stationData.statisticStationsInterarrivalTime==null) stationData.statisticStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTime.get(station));
+		if (stationData.statisticStationsInterarrivalTimeBatch==null) stationData.statisticStationsInterarrivalTimeBatch=(StatisticsDataPerformanceIndicator)(cacheStationsInterarrivalTimeBatch.get(station));
 		if (stationData.statisticStationsInterleaveTime==null) stationData.statisticStationsInterleaveTime=(StatisticsDataPerformanceIndicator)(cacheStationsInterleavingTime.get(station));
 		if (stationData.statisticSourceStationsInterarrivalTime==null) stationData.statisticSourceStationsInterarrivalTime=(StatisticsDataPerformanceIndicator)(cacheClientsInterarrivalTime.get(station));
 
