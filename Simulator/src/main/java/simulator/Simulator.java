@@ -315,8 +315,8 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 			writeBaseDataToStatistics(statistics);
 
 			/* Daten von den Threads einsammeln */
-			int count1=0;
-			int count2=0;
+			long count1=0;
+			long count2=0;
 			double waiting1=0;
 			double waiting2=0;
 			final List<StatisticsDataPerformanceIndicator> partialWaitingTime=new ArrayList<>();
@@ -324,18 +324,24 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 				final Statistics partialStatistics=((SimulationData)threads[i].simData).statistics;
 				partialWaitingTime.add(partialStatistics.clientsAllWaitingTimes);
 				statistics.addData(partialStatistics);
-				final double waiting=partialStatistics.clientsAllWaitingTimes.getMean();
-				if (partialStatistics.clientsAllWaitingTimes.getCount()>0) { /* Daten nur berücksichtigen, wenn in dem Thread überhaupt Ergebnisse angefallen sind */
-					if (i<threads.length/2) {count1++; waiting1+=waiting;} else {count2++; waiting2+=waiting;}
+				final long count=partialStatistics.clientsAllWaitingTimes.getCount();
+				final double waiting=partialStatistics.clientsAllWaitingTimes.getSum();
+				if (count>0) { /* Daten nur berücksichtigen, wenn in dem Thread überhaupt Ergebnisse angefallen sind */
+					if (i<threads.length/2) {count1+=count; waiting1+=waiting;} else {count2+=count; waiting2+=waiting;}
 				}
 			}
 
 			/* Warnung, wenn die mittlere Wartezeit der ersten Hälfte von der zweiten Hälfte abweicht */
 			if (count1>0 && count2>0 && waiting1>0 && waiting2>0) {
-				if (!editModel.useTerminationCondition) {
-					final double delta=Math.abs((waiting1/count1)-(waiting2/count2))/((waiting1+waiting2)/(count1+count2));
-					/* System.out.println("Delta="+NumberTools.formatPercent(delta,2)); */
-					if (delta>0.1) statistics.simulationData.addWarning(String.format(Language.tr("Statistics.Warnings.SimulationRunNotLongEnough"),NumberTools.formatPercent(delta)));
+				if (!editModel.useTerminationCondition && count1>0 && count2>0) {
+					final double mean1=waiting1/count1;
+					final double mean2=waiting2/count2;
+					final double fullMean=(waiting1+waiting2)/(count1+count2);
+					if (fullMean>0) {
+						final double delta=Math.abs(mean1-mean2)/fullMean;
+						/* System.out.println("Delta="+NumberTools.formatPercent(delta,2)); */
+						if (delta>0.2) statistics.simulationData.addWarning(String.format(Language.tr("Statistics.Warnings.SimulationRunNotLongEnough"),NumberTools.formatPercent(delta)));
+					}
 				}
 			}
 
