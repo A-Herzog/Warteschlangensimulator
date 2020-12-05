@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-04 14:59+0100\n"
+"POT-Creation-Date: 2020-12-05 22:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9774,6 +9774,27 @@ msgstr "The value has to be a number in the range from 0 to %d."
 msgid "Optimizer.XMLError.ValueHasToBePositiveIntegerNumber"
 msgstr "The value has to be a positive integer number."
 
+msgid "ParameterCompare.ConnectParameters.Error.Info"
+msgstr "The formula \"%s\" is invalid at character %d."
+
+msgid "ParameterCompare.ConnectParameters.Error.Title"
+msgstr "Invalid formula"
+
+msgid "ParameterCompare.ConnectParameters.Info1"
+msgstr "The values for input parameter %d can be changed in this dialog based on the values of the other input parameters."
+
+msgid "ParameterCompare.ConnectParameters.Info2"
+msgstr "The values of the other input parameters are available via the following variables:"
+
+msgid "ParameterCompare.ConnectParameters.NoModels.Info"
+msgstr "No models for transfering the input parameter values have been defined."
+
+msgid "ParameterCompare.ConnectParameters.NoModels.Title"
+msgstr "No models"
+
+msgid "ParameterCompare.ConnectParameters.Title"
+msgstr "Transfer input parameter values"
+
 msgid "ParameterCompare.DialogHint"
 msgstr "The parameter series function can be used to investigate the effect of varying one or more parameters on the characteristics of the system. First, define the variables to be varied using the input parameters button, then use the output values function to select which characteristic values should be output in each step. Then you can use the buttons below the table to create models where the selected input parameters are varied and simulate them using \"Start simulation\"."
 
@@ -10601,6 +10622,9 @@ msgstr "Create parameter series setup from template"
 
 msgid "ParameterCompare.Templates.rho"
 msgstr "rho"
+
+msgid "ParameterCompare.Toolbar.ConnectInputParameters"
+msgstr "Connect input parameters"
 
 msgid "ParameterCompare.Toolbar.Load"
 msgstr "Load"

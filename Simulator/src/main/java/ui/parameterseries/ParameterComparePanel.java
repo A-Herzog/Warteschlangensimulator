@@ -205,6 +205,7 @@ public class ParameterComparePanel extends SpecialPanel {
 				m->commandLoadToEditor(m),
 				()->commandPopupCompareStatistics(),
 				i->commandShowResultsChart(i),
+				i->commandConnectInputParameters(i),
 				()->commandSetupInput(),
 				()->commandSetupOutput()));
 		table.setDisplayDigits(SetupData.getSetup().parameterSeriesTableDigits);
@@ -845,6 +846,22 @@ public class ParameterComparePanel extends SpecialPanel {
 	 */
 	private void commandShowResultsChart(final int index) {
 		commandShowResultsChart(setup.getOutput().get(index));
+	}
+
+	/**
+	 * Befehl: Eingabeparameter verbinden
+	 * @param index	0-basierter Index des Ziel-Eingabeparameters
+	 */
+	private void commandConnectInputParameters(final int index) {
+		if (setup.getModels().size()==0) {
+			MsgBox.error(this,Language.tr("ParameterCompare.ConnectParameters.NoModels.Title"),Language.tr("ParameterCompare.ConnectParameters.NoModels.Info"));
+			return;
+		}
+
+		final ParameterCompareConnectParametersDialog dialog=new ParameterCompareConnectParametersDialog(this,setup,index);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			table.updateTable();
+		}
 	}
 
 	/**

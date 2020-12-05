@@ -80,6 +80,8 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	private final Runnable compareResults;
 	/** Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Anzeige der Vergleichsdiagramme) klickt */
 	private final Consumer<Integer> showResultsChart;
+	/** Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Verbindung der Eingabeparameter) klickt */
+	private final Consumer<Integer> connectParameters;
 
 	/**
 	 * Konstruktor der Klasse
@@ -90,8 +92,9 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * @param loadToEditor	Wird aufgerufen, wenn der Nutzer die Funktion zum Laden eines Modells aus den Ergebnissen in den Editor gewählt hat.
 	 * @param compareResults	Wird aufgerufen, wenn der Nutzer den Button zum Vergleichen der Statistikergebnisse verschiedener Modell anklickt
 	 * @param showResultsChart	Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Anzeige der Vergleichsdiagramme) klickt
+	 * @param connectParameters	Wird aufgerufen, wenn der Nutzer auf eine Schaltfläche in der letzten Zeile (zur Verbindung der Eingabeparameter) klickt
 	 */
-	public ParameterCompareTableModel(final JTableExt table, final ParameterCompareSetup setup, final Runnable help, final Runnable update, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Consumer<Integer> showResultsChart) {
+	public ParameterCompareTableModel(final JTableExt table, final ParameterCompareSetup setup, final Runnable help, final Runnable update, final Consumer<Statistics> loadToEditor, final Runnable compareResults, final Consumer<Integer> showResultsChart, final Consumer<Integer> connectParameters) {
 		super();
 		digits=1;
 		this.table=table;
@@ -101,6 +104,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		this.loadToEditor=loadToEditor;
 		this.compareResults=compareResults;
 		this.showResultsChart=showResultsChart;
+		this.connectParameters=connectParameters;
 	}
 
 	/**
@@ -218,8 +222,10 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 * @see #getValueAt(int, int)
 	 */
 	private Object getValueInLastRow(int columnIndex) {
+		/* Letzte Spalte */
 		if (columnIndex==getColumnCount()-1) return getValueInLastCol(null,-1);
 
+		/* Cache vorbereiten */
 		if (lastRow==null || lastRow.length!=getColumnCount()) {
 			lastRow=new JPanel[getColumnCount()];
 			lastRowChartButtons.clear();
@@ -227,22 +233,35 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		final boolean hasStatistics=hasResults();
 		for (JButton button: lastRowChartButtons) button.setEnabled(hasStatistics);
 
+		/* Wert aus Cache */
 		if (lastRow[columnIndex]!=null) return lastRow[columnIndex];
 
+		/* Panel anlegen */
 		final JPanel panel=new JPanel(new BorderLayout());
 		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
 		toolbar.setFloatable(false);
 		panel.add(toolbar,BorderLayout.CENTER);
 
+		/* Erste Spalte ("Modell") */
 		if (columnIndex==0) {
 			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.AddModel.Hint"),Images.EDIT_ADD.getIcon(),()->commandAdd()));
 			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.AddModelByAssistant.Hint"),Images.PARAMETERSERIES_ADD_BY_ASSISTANT.getIcon(),()->commandAddByAssistant()));
 			toolbar.add(getButton("",Language.tr("ParameterCompare.Table.SortModels.Hint"),Images.PARAMETERSERIES_SORT_TABLE.getIcon(),()->commandSortByInputParameter()));
 		}
 
+		/* Eingabeparameter-Spalten */
+		if (columnIndex>0 && columnIndex<=setup.getInput().size()) {
+			if (setup.getInput().size()>1) { /* Nur, wenn wir mehrere Input-Parameter haben */
+				final int nr=columnIndex-1;
+				final JButton b=getButton("",Language.tr("ParameterCompare.Toolbar.ConnectInputParameters"),Images.PARAMETERSERIES_CONNECT_INPUT.getIcon(),()->commandConnectInputParameters(nr));
+				toolbar.add(b);
+			}
+		}
+
+		/* Ausgabeparameter-Spalten */
 		if (columnIndex>setup.getInput().size() && columnIndex<lastRow.length-1) {
 			final int nr=columnIndex-setup.getInput().size()-1;
-			JButton b=getButton("",Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),()->commandShowResultsChart(nr));
+			final JButton b=getButton("",Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),()->commandShowResultsChart(nr));
 			toolbar.add(b);
 			lastRowChartButtons.add(b);
 			b.setEnabled(hasStatistics);
@@ -578,6 +597,14 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 */
 	private void commandShowResultsChart(final int index) {
 		if (showResultsChart!=null) showResultsChart.accept(index);
+	}
+
+	/**
+	 * Befehl: Eingabeparameter verbinden
+	 * @param index	Index des Ziel-Eingabeparameters
+	 */
+	private void commandConnectInputParameters(final int index) {
+		if (connectParameters!=null) connectParameters.accept(index);
 	}
 
 	/**

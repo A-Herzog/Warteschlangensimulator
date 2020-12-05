@@ -614,6 +614,9 @@ public enum Images {
 	/** Symbol "Parameterreihe - Ergebnisse verarbeiten - Diagramme" */
 	PARAMETERSERIES_PROCESS_RESULTS_CHARTS("chart_curve.png"),
 
+	/** Symbol "Parameterreihe - Eingabeparameter verbinden */
+	PARAMETERSERIES_CONNECT_INPUT("brick_edit.png"),
+
 	/** Symbol "Parameterreihe - XML-Element wählen */
 	PARAMETERSERIES_SELECT_XML("add.png"),
 

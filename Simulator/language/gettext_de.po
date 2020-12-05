@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-04 14:59+0100\n"
+"POT-Creation-Date: 2020-12-05 22:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9767,6 +9767,27 @@ msgstr "Der Wert muss eine Zahl von 0 bis %d sein."
 msgid "Optimizer.XMLError.ValueHasToBePositiveIntegerNumber"
 msgstr "Der Wert muss eine positive Ganzzahl sein."
 
+msgid "ParameterCompare.ConnectParameters.Error.Info"
+msgstr "Die eingegebene Formel \"%s\" ist ab Zeichen %d ungültig."
+
+msgid "ParameterCompare.ConnectParameters.Error.Title"
+msgstr "Ungültige Formel"
+
+msgid "ParameterCompare.ConnectParameters.Info1"
+msgstr "Die Werte für Eingabeparameter %d können in diesem Dialog auf Basis der Werte der anderen Eingabeparameter verändert werden."
+
+msgid "ParameterCompare.ConnectParameters.Info2"
+msgstr "Die Werte der übrigen Eingabeparameter stehen über folgende Variablen zur Verfügung:"
+
+msgid "ParameterCompare.ConnectParameters.NoModels.Info"
+msgstr "Es existieren keine Modelle zwischen denen die Eingabeparameterwerte übertragen werden könnten."
+
+msgid "ParameterCompare.ConnectParameters.NoModels.Title"
+msgstr "Keine Modelle vorhanden"
+
+msgid "ParameterCompare.ConnectParameters.Title"
+msgstr "Eingabeparameterwerte übertragen"
+
 msgid "ParameterCompare.DialogHint"
 msgstr "Mit Hilfe der Parameterreihenfunktion kann die Auswirkung der Variation eines oder mehrerer Parameter auf die Kenngrößen des Systems untersucht werden. Definieren Sie zunächst über die Eingangsparameter-Schaltfläche die zu variierenden Größen, wählen Sie dann über die Ausgabewerte-Funktion, welche Kenngrößen in jedem Schritt ausgegeben werden sollen. Anschließend können Sie über die Schaltflächen unter der Tabelle Modelle, bei denen die gewählten Eingangsparameter variiert werden, erstellen und diese über \"Simulation starten\" simulieren."
 
@@ -10596,6 +10617,9 @@ msgstr "Parameterreiheneinstellungen über Vorlage erstellen"
 
 msgid "ParameterCompare.Templates.rho"
 msgstr "rho"
+
+msgid "ParameterCompare.Toolbar.ConnectInputParameters"
+msgstr "Eingabeparameter verbinden"
 
 msgid "ParameterCompare.Toolbar.Load"
 msgstr "Laden"
