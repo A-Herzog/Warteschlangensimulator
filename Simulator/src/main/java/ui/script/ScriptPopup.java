@@ -1206,7 +1206,7 @@ public class ScriptPopup {
 				Language.tr("Statistic.FastAccess.Template.ClientsInSystemQueue.Tooltip"),
 				Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),
 				XMLMode.XML_NUMBER,
-				Language.tr("Statistics.XML.Element.ClientsInSystemQueue")+mean,
+				Language.tr("Statistics.XML.Element.ClientsInSystemWaiting")+mean,
 				scriptMode));
 
 		/* Kunden an den Stationen */
