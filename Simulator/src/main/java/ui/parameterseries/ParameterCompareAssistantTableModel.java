@@ -16,6 +16,7 @@
 package ui.parameterseries;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JCheckBox;
@@ -359,7 +360,7 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 	 * @param level	Anzupassender Parameter
 	 * @param parametersInNames	Stellt ein, ob bei der Erstellung der Modelle die gewählten Parmeterwerte in die Modellnamen aufgenommen werden sollen
 	 * @see #addModel(Double[], int, boolean)
-	 * @see #storeData(boolean)
+	 * @see #storeData(boolean, boolean)
 	 */
 	private void build(final Double[] values, final int level, final boolean parametersInNames) {
 		double min=valueMin[level];
@@ -381,10 +382,10 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 
 	/**
 	 * Erstellt in dem im Konstruktor übergebenen Modell eine Parameterreihe gemäß den
-	 * in diesen Tabellendaten angegebenen Einstellungen.
+	 * in diesen Tabellendaten angegebenen Einstellungen (im Modus "Alle Variationen").
 	 * @param parametersInNames	Stellt ein, ob bei der Erstellung der Modelle die gewählten Parmeterwerte in die Modellnamen aufgenommen werden sollen
 	 */
-	public void storeData(final boolean parametersInNames) {
+	private void storeDataMulti(final boolean parametersInNames) {
 		for (int i=0;i<valueMax.length;i++) {
 			if (valueMax[i]<valueMin[i]) {
 				final double d=valueMax[i]; valueMax[i]=valueMin[i]; valueMin[i]=d;
@@ -393,5 +394,49 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		}
 
 		build(new Double[valueMax.length],nextLevel(-1),parametersInNames);
+	}
+
+	/**
+	 * Erstellt ein einzelnes Modell im Modus "nur Parameter im Gleichlauf".
+	 * @param values	Werte für das Modell
+	 * @param parametersInNames	Stellt ein, ob bei der Erstellung der Modelle die gewählten Parmeterwerte in die Modellnamen aufgenommen werden sollen
+	 */
+	private void buildSimple(final double[] values, final boolean parametersInNames) {
+		final Double[] values2=new Double[values.length];
+		for (int i=0;i<values.length;i++) if (integers[i].isSelected()) values2[i]=Math.abs(values[i]); else values2[i]=values[i];
+		addModel(values2,getNextFreeModelNumber(),parametersInNames);
+	}
+
+	/**
+	 * Erstellt in dem im Konstruktor übergebenen Modell eine Parameterreihe gemäß den
+	 * in diesen Tabellendaten angegebenen Einstellungen (im Modus "nur Parameter im Gleichlauf").
+	 * @param parametersInNames	Stellt ein, ob bei der Erstellung der Modelle die gewählten Parmeterwerte in die Modellnamen aufgenommen werden sollen
+	 */
+	private void storeDataSimple(final boolean parametersInNames) {
+		final double[] values=Arrays.copyOf(valueMin,valueMin.length);
+
+		boolean done=false;
+		while (!done) {
+			buildSimple(values,parametersInNames);
+			done=true;
+			for (int i=0;i<values.length;i++) if (values[i]<valueMax[i]) {
+				done=false;
+				values[i]+=valueStep[i];
+			}
+		}
+	}
+
+	/**
+	 * Erstellt in dem im Konstruktor übergebenen Modell eine Parameterreihe gemäß den
+	 * in diesen Tabellendaten angegebenen Einstellungen.
+	 * @param parametersInNames	Stellt ein, ob bei der Erstellung der Modelle die gewählten Parmeterwerte in die Modellnamen aufgenommen werden sollen
+	 * @param fullMultiMode	Alle Variationen erstellen (<code>true</code>) oder nur Parameter im Gleichlauf verändern
+	 */
+	public void storeData(final boolean parametersInNames, final boolean fullMultiMode) {
+		if (fullMultiMode || valueMax.length==1) {
+			storeDataMulti(parametersInNames);
+		} else {
+			storeDataSimple(parametersInNames);
+		}
 	}
 }

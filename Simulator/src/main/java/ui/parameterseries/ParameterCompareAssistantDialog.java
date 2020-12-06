@@ -20,7 +20,10 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 
+import javax.swing.Box;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -45,6 +48,8 @@ public class ParameterCompareAssistantDialog extends BaseDialog {
 	private final JCheckBox includeParametersInName;
 	/** Datenmodell der Vorgaben für die Erstellung der Modelle */
 	private final ParameterCompareAssistantTableModel tableModel;
+	/** Auswahl des Modus, wie mit mehreren Eingabeparameter umgegangen werden soll */
+	private final JComboBox<String> mode;
 
 	/**
 	 * Konstruktor der Klasse
@@ -59,6 +64,22 @@ public class ParameterCompareAssistantDialog extends BaseDialog {
 
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
+
+		if (setup.getInput().size()>1) {
+			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			content.add(line,BorderLayout.NORTH);
+			final JLabel label=new JLabel(Language.tr("ParameterCompare.Table.AddModelByAssistant.Mode")+":");
+			line.add(label);
+			line.add(Box.createHorizontalStrut(5));
+			line.add(mode=new JComboBox<>(new String[] {
+					Language.tr("ParameterCompare.Table.AddModelByAssistant.Mode.Full"),
+					Language.tr("ParameterCompare.Table.AddModelByAssistant.Mode.Simple")
+			}));
+			label.setLabelFor(mode);
+			mode.setSelectedIndex(0);
+		} else {
+			mode=null;
+		}
 
 		/* Tabelle */
 
@@ -106,6 +127,6 @@ public class ParameterCompareAssistantDialog extends BaseDialog {
 
 	@Override
 	public void storeData() {
-		tableModel.storeData(includeParametersInName.isSelected());
+		tableModel.storeData(includeParametersInName.isSelected(),mode==null || mode.getSelectedIndex()==0);
 	}
 }

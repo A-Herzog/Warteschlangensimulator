@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-05 22:31+0100\n"
+"POT-Creation-Date: 2020-12-06 16:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10468,6 +10468,15 @@ msgstr "No input parameters defined"
 
 msgid "ParameterCompare.Table.AddModelByAssistant.Hint"
 msgstr "Automatically create models according to parameters"
+
+msgid "ParameterCompare.Table.AddModelByAssistant.Mode"
+msgstr "Mode"
+
+msgid "ParameterCompare.Table.AddModelByAssistant.Mode.Full"
+msgstr "Generate all variations"
+
+msgid "ParameterCompare.Table.AddModelByAssistant.Mode.Simple"
+msgstr "Change parameters simultaneously only"
 
 msgid "ParameterCompare.Table.AddModelByAssistant.ModelName"
 msgstr "Parameter series %d"
