@@ -83,6 +83,8 @@ public class ParameterCompareTable extends JPanel {
 		table.getTableHeader().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				if (!table.isEnabled()) return;
+
 				/* Doppelklick links */
 				if (e.getClickCount()!=2) return;
 				if (!SwingUtilities.isLeftMouseButton(e)) return;
@@ -108,6 +110,8 @@ public class ParameterCompareTable extends JPanel {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				if (!table.isEnabled()) return;
+
 				/* Doppelklick links */
 				if (e.getClickCount()!=2) return;
 				if (!SwingUtilities.isLeftMouseButton(e)) return;
@@ -116,6 +120,7 @@ public class ParameterCompareTable extends JPanel {
 				final int colNr=table.columnAtPoint(e.getPoint());
 				final int rowNr=table.rowAtPoint(e.getPoint());
 				if (colNr<0 || rowNr<0) return;
+				if (rowNr>=setup.getModels().size()) return; /* Klick auf Steuerzeile */
 
 				if (colNr<=setup.getInput().size()) {
 					/* Modellnamen-Spalte oder Eingabeparameter */
