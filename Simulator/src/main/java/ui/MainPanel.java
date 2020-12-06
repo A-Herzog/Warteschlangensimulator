@@ -520,7 +520,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("FileNewExample",e->commandFileModeExample());
 		addAction("FileNewGenerator",e->commandFileModelGenerator());
 		addAction("FileNewWindow",e->commandFileNewWindow());
-		addAction("FileLoad",e->commandFileModelLoad(null,null));
+		addAction("FileLoad",e->commandFileModelLoadAll());
 		/* Letzte Modell -> über action(Object) */
 		addAction("FileSave",e->commandFileModelSave(false));
 		addAction("FileSaveAs",e->commandFileModelSave(true));
@@ -1523,7 +1523,7 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	@Override
-	public boolean loadAnyFile(final File file, final Component dropComponent, final Point dropPosition, boolean errorMessageOnFail) {
+	public boolean loadAnyFile(final File file, final Component dropComponent, final Point dropPosition, final boolean errorMessageOnFail) {
 		if (!checkFileExists(file,errorMessageOnFail)) return false;
 
 		/* Modell aus HTML-Datei laden */
@@ -1535,6 +1535,16 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		/* XML oder json laden */
+		return loadAnyXMLFile(file,errorMessageOnFail);
+	}
+
+	/**
+	 * Versucht ein Modell, eine Parameterreihe usw. aus einer xml-Datei zu laden
+	 * @param file	Zu ladende Datei
+	 * @param errorMessageOnFail	Soll im Falle eines Fehlers eine Meldung ausgegeben werden?
+	 * @return	Gibt <code>true</code> zurück, wenn die Datei erfolgreich geladen werden konnte.
+	 */
+	private boolean loadAnyXMLFile(final File file, final boolean errorMessageOnFail) {
 		final XMLTools xml=new XMLTools(file);
 		final Element root=xml.load();
 		if (root==null) {
@@ -1711,9 +1721,22 @@ public class MainPanel extends MainPanelBase {
 
 	/**
 	 * Befehl: Modell - Laden
+	 * @return	Liefert <code>true</code> wenn ein Modell, die Parameterreihe usw. geladen wurde
+	 */
+	private boolean commandFileModelLoadAll() {
+		if (!isDiscardModelOk()) return true;
+
+		final File file=XMLTools.showLoadDialog(getParent(),EditorPanelBase.LOAD_MODEL);
+		if (file==null) return false;
+
+		return loadAnyXMLFile(file,true);
+	}
+
+	/**
+	 * Befehl: Modell - Laden
 	 * @param rootOptional	XML-Root-Element (kann <code>null</code> sein)
 	 * @param file	Zu ladende Datei (wird <code>null</code> übergeben, so wird ein Dateiauswahldialog angezeigt)
-	 * @return	Liefert <code>true</code> wenn ein Model lgeladen wurde
+	 * @return	Liefert <code>true</code> wenn ein Modell geladen wurde
 	 */
 	private boolean commandFileModelLoad(final Element rootOptional, final File file) {
 		if (!isDiscardModelOk()) return true;
