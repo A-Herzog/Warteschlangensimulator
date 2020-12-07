@@ -47,6 +47,12 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 	private final String groupName;
 
 	/**
+	 * Ist der Gruppenname leer?<br>
+	 * Dies beschleunigt {@link #getValue(boolean)}.
+	 */
+	private final boolean groupNameIsEmpty;
+
+	/**
 	 * Name der Zählergruppe mit angehängtem "-", so dass bei der Zählung
 	 * alle passenden Zähler in der Gruppe in der Statistik leichter
 	 * bzw. speichersparsamer gefunden werden können
@@ -79,6 +85,7 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 		this.groupName=groupName.replace('-','_');
 		groupNameExt=this.groupName+"-";
 		statistic=(StatisticsSimpleCountPerformanceIndicator)counterStatistic.get(this.groupNameExt+counterName);
+		groupNameIsEmpty=groupName.isEmpty();
 	}
 
 	@Override
@@ -87,7 +94,7 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 		if (fullValue) return statistic.get();
 
 		/* Anteil */
-		if (groupName.isEmpty()) return 1.0; /* Kein Gruppenname, keine Summe */
+		if (groupNameIsEmpty) return 1.0; /* Kein Gruppenname, keine Summe */
 
 		/* Liste der Statistikdaten für diese Gruppe */
 		if (indicators==null || indicatorsSize!=counterStatistic.size()) {
