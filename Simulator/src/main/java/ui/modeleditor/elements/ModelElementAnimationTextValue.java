@@ -733,6 +733,36 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	 */
 	private StringBuilder animationSB;
 
+	/**
+	 * Unterschiede zwischen angezeigten und aktuellem Wert,
+	 * die in Abhängigkeit von der Anzahl an Nachkommastellen
+	 * kein Neuzeichnen erfordern.
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private static final double[] maxDelta=new double[] {
+			FastMath.pow(10,0),
+			FastMath.pow(10,-1),
+			FastMath.pow(10,-2),
+			FastMath.pow(10,-3),
+			FastMath.pow(10,-4),
+			FastMath.pow(10,-5),
+			FastMath.pow(10,-6),
+			FastMath.pow(10,-7),
+			FastMath.pow(10,-8),
+			FastMath.pow(10,-9),
+			FastMath.pow(10,-10),
+			FastMath.pow(10,-11),
+			FastMath.pow(10,-12),
+			FastMath.pow(10,-13),
+			FastMath.pow(10,-14),
+			FastMath.pow(10,-15),
+			FastMath.pow(10,-16),
+			FastMath.pow(10,-17),
+			FastMath.pow(10,-18),
+			FastMath.pow(10,-19),
+			FastMath.pow(10,-20)
+	};
+
 	@Override
 	public boolean updateSimulationData(final SimulationData simData, final boolean isPreview) {
 		String s=null;
@@ -742,7 +772,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_EXPRESSION_NUMBER:
 			if (isPreview) return false;
 			d=calcExpression(simData);
-			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<FastMath.pow(10,-(digits+1))) return false;
+			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<maxDelta[digits+1]) return false;
 			if (animationSB==null) animationSB=new StringBuilder();
 			s=NumberTools.formatNumber(d,digits,animationSB);
 			simTextValueDouble=d;
@@ -750,7 +780,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		case MODE_EXPRESSION_PERCENT:
 			if (isPreview) return false;
 			d=calcExpression(simData);
-			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<FastMath.pow(10,-(digits+4))) return false;
+			if (simTextValue!=null && Math.abs(simTextValueDouble-d)<maxDelta[digits+4]) return false;
 			if (animationSB==null) animationSB=new StringBuilder();
 			s=NumberTools.formatPercent(d,digits,animationSB);
 			simTextValueDouble=d;
