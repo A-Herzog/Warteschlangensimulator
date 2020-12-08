@@ -18,7 +18,6 @@ package mathtools.distribution.tools;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.math3.random.RandomGenerator;
-import org.apache.commons.math3.util.FastMath;
 
 /**
  * Dies ist der standardmäßig von <code>DistributionRandomNumber</code>
@@ -91,6 +90,8 @@ public class ThreadLocalRandomGenerator implements RandomGenerator {
 
 	@Override
 	public double nextGaussian() {
-		return FastMath.cos(TwoTimesPI*nextDouble())*StrictMath.sqrt(-2*Math.log(nextDouble())); /* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
+		return Math.cos(TwoTimesPI*nextDouble())*StrictMath.sqrt(-2*Math.log(nextDouble()));
+		/* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
+		/* FastMath.cos benötigt viel mehr Speicher als Math.cos */
 	}
 }

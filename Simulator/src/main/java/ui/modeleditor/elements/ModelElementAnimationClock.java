@@ -194,12 +194,14 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		int x;
 		int y;
 
+		/* FastMath.sin und FastMath.cos benötigt mehr Speicher, daher verwenden wir Math.sin und Math.cos */
+
 		g.setStroke(infoStroke);
 		for (int i=0;i<12;i++) {
-			x=mx+(int)FastMath.round(0.9*rx*FastMath.sin(i/12.0*2*FastMath.PI));
-			y=my-(int)FastMath.round(0.9*ry*FastMath.cos(i/12.0*2*FastMath.PI));
-			final int x2=mx+(int)FastMath.round(rx*FastMath.sin(i/12.0*2*FastMath.PI));
-			final int y2=my-(int)FastMath.round(ry*FastMath.cos(i/12.0*2*FastMath.PI));
+			x=mx+(int)FastMath.round(0.9*rx*Math.sin(i/12.0*2*FastMath.PI));
+			y=my-(int)FastMath.round(0.9*ry*Math.cos(i/12.0*2*FastMath.PI));
+			final int x2=mx+(int)FastMath.round(rx*Math.sin(i/12.0*2*FastMath.PI));
+			final int y2=my-(int)FastMath.round(ry*Math.cos(i/12.0*2*FastMath.PI));
 			g.drawLine(x,y,x2,y2);
 		}
 
@@ -209,12 +211,12 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		}
 		g.setStroke(lastWidthStroke);
 
-		x=mx+(int)FastMath.round(2.0/3.0*rx*FastMath.sin((time%43200)/43200.0*2*FastMath.PI));
-		y=my-(int)FastMath.round(2.0/3.0*ry*FastMath.cos((time%43200)/43200.0*2*FastMath.PI));
+		x=mx+(int)FastMath.round(2.0/3.0*rx*Math.sin((time%43200)/43200.0*2*FastMath.PI));
+		y=my-(int)FastMath.round(2.0/3.0*ry*Math.cos((time%43200)/43200.0*2*FastMath.PI));
 		g.drawLine(mx,my,x,y);
 
-		x=mx+(int)FastMath.round(0.95*rx*FastMath.sin((time%3600)/3600.0*2*FastMath.PI));
-		y=my-(int)FastMath.round(0.95*ry*FastMath.cos((time%3600)/3600.0*2*FastMath.PI));
+		x=mx+(int)FastMath.round(0.95*rx*Math.sin((time%3600)/3600.0*2*FastMath.PI));
+		y=my-(int)FastMath.round(0.95*ry*Math.cos((time%3600)/3600.0*2*FastMath.PI));
 		g.drawLine(mx,my,x,y);
 	}
 
