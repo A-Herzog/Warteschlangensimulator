@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-06 16:02+0100\n"
+"POT-Creation-Date: 2020-12-07 21:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1463,6 +1463,30 @@ msgstr "The following error occured while loading the statistic data"
 
 msgid "CommandLine.Filter.Name"
 msgstr "Filter"
+
+msgid "CommandLine.FolderSimulation.CannotProcessFile"
+msgstr "Cannot process file format."
+
+msgid "CommandLine.FolderSimulation.Description.Long"
+msgstr "The command expects the name of the folder to process as additional parameter."
+
+msgid "CommandLine.FolderSimulation.Description.Short"
+msgstr "Simulates all models und parameter series in a folder."
+
+msgid "CommandLine.FolderSimulation.Name"
+msgstr "Folder"
+
+msgid "CommandLine.FolderSimulation.NoFilesInFolder"
+msgstr "There are no files in folder %s."
+
+msgid "CommandLine.FolderSimulation.OutputFileExists"
+msgstr "There is already an output file for this file."
+
+msgid "CommandLine.FolderSimulation.ParameterIsNotFolder"
+msgstr "The specified folder %s does not exist."
+
+msgid "CommandLine.FolderSimulation.ParameterSeriesAlreadyDone"
+msgstr "The parameter series was already simulated completely."
 
 msgid "CommandLine.GC.Description.Long"
 msgstr "This command expects no additional parameters."

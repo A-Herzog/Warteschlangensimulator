@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-06 16:02+0100\n"
+"POT-Creation-Date: 2020-12-07 21:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1463,6 +1463,30 @@ msgstr "Beim Laden der Statistikdaten ist folgender Fehler aufgetreten"
 
 msgid "CommandLine.Filter.Name"
 msgstr "Filter"
+
+msgid "CommandLine.FolderSimulation.CannotProcessFile"
+msgstr "Das Dateiformat kann nicht verarbeitet werden."
+
+msgid "CommandLine.FolderSimulation.Description.Long"
+msgstr "Dieser Befehl erwartet als Parameter den Namen des zu verarbeitenden Verzeichnisses."
+
+msgid "CommandLine.FolderSimulation.Description.Short"
+msgstr "Simuliert alle Modelle und Parameterreihen in einem Verzeichnis."
+
+msgid "CommandLine.FolderSimulation.Name"
+msgstr "Verzeichnis"
+
+msgid "CommandLine.FolderSimulation.NoFilesInFolder"
+msgstr "In dem Verzeichnis %s befinden sich keine Dateien."
+
+msgid "CommandLine.FolderSimulation.OutputFileExists"
+msgstr "Es existiert bereits eine Ausgabedatei zu dieser Datei."
+
+msgid "CommandLine.FolderSimulation.ParameterIsNotFolder"
+msgstr "Das angegebene Verzeichnis %s existiert nicht."
+
+msgid "CommandLine.FolderSimulation.ParameterSeriesAlreadyDone"
+msgstr "Die Parameterreihe wurde bereits vollständig simuliert."
 
 msgid "CommandLine.GC.Description.Long"
 msgstr "Dieser Befehl erwartet keine weiteren Parameter."
