@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-07 21:27+0100\n"
+"POT-Creation-Date: 2020-12-10 13:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13501,6 +13501,9 @@ msgstr "Costs"
 msgid "Simulation.Element.Counter.Name"
 msgstr "Counter"
 
+msgid "Simulation.Element.CounterBatch.Name"
+msgstr "Batch counter"
+
 msgid "Simulation.Element.CounterMulti.Name"
 msgstr "Multi counter"
 
@@ -13905,6 +13908,12 @@ msgstr "Counter triggered"
 
 msgid "Simulation.Log.Counter.Info"
 msgstr "Client: %s, station: %s, coutner name: %s, group name: %s"
+
+msgid "Simulation.Log.CounterBatch"
+msgstr "Batch counter triggered"
+
+msgid "Simulation.Log.CounterBatch.Info"
+msgstr "Client: %s, station: %s, coutner name: %s"
 
 msgid "Simulation.Log.CounterMulti"
 msgstr "Multi Counter"
@@ -16059,6 +16068,9 @@ msgstr "The simulation model does not contain counters."
 msgid "Statistics.Counter.RepeatInfo"
 msgstr "(Counter values are in total over all repetitions of the simulation.)"
 
+msgid "Statistics.CounterBatch"
+msgstr "Batch counter"
+
 msgid "Statistics.CounterGroup"
 msgstr "Counter group"
 
@@ -17377,6 +17389,12 @@ msgstr "StatisticsClientWaitingTimeCosts"
 
 msgid "Statistics.XML.Element.Counter"
 msgstr "StatisticsCounter"
+
+msgid "Statistics.XML.Element.CounterBatch"
+msgstr "StatisticsCounterBatch"
+
+msgid "Statistics.XML.Element.CounterBatchName"
+msgstr "StatisticsCounterBatchName"
 
 msgid "Statistics.XML.Element.CounterName"
 msgstr "StatisticsCounterName"
@@ -20030,6 +20048,30 @@ msgstr "ModelElementCounterGroup"
 
 msgid "Surface.Counter.XML.Root"
 msgstr "ModelElementCounter"
+
+msgid "Surface.CounterBatch.Dialog.Title"
+msgstr "Edit batch counter"
+
+msgid "Surface.CounterBatch.Infotext"
+msgstr "If clients pass through this station with a time interval of 0 seconds, they are counted as a batch."
+
+msgid "Surface.CounterBatch.Name"
+msgstr "Batch counter"
+
+msgid "Surface.CounterBatch.Name.Short"
+msgstr "Batch counter"
+
+msgid "Surface.CounterBatch.SimInfo.BatchGeneral"
+msgstr "All batches"
+
+msgid "Surface.CounterBatch.SimInfo.BatchSize"
+msgstr "Batch size %d"
+
+msgid "Surface.CounterBatch.Tooltip"
+msgstr "Counts the clients who pass this station simultaneously."
+
+msgid "Surface.CounterBatch.XML.Root"
+msgstr "ModelElementCounterBatch"
 
 msgid "Surface.CounterMulti.Dialog.GroupName.Error.Info"
 msgstr "No group name was specified for the counter."

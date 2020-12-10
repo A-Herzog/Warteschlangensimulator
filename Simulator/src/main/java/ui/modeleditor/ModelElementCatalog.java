@@ -194,6 +194,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementCounter(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementCounterMulti(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementThroughput(null,null),null,GROUP_ASSIGN);
+				addElement(new ModelElementCounterBatch(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementStateStatistics(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementDifferentialCounter(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementSectionStart(null,null),null,GROUP_ASSIGN);

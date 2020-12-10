@@ -481,6 +481,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				/* Zähler / Differenzzähler */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.Counter")+","+Language.trPrimary("Statistics.XML.Element.CounterName"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.DifferenceCounter")+","+Language.trPrimary("Statistics.XML.Element.DifferenceCounterName"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.CounterBatch")+","+Language.trPrimary("Statistics.XML.Element.CounterBatchName"),
 
 				/* Kosten */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.CostsWaiting")+","+Language.trPrimary("Statistics.XML.Costs"),

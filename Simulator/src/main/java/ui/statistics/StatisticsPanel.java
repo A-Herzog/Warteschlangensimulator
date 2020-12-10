@@ -423,7 +423,9 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	 */
 	private boolean testCounterAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
-			if (statistic.counter.size()>0 || statistic.differentialCounter.size()>0) return true;
+			if (statistic.counter.size()>0) return true;
+			if (statistic.differentialCounter.size()>0) return true;
+			if (statistic.counterBatch.size()>0) return true;
 		}
 		return false;
 	}

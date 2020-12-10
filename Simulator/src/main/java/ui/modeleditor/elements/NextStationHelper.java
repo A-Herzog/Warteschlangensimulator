@@ -74,6 +74,7 @@ public class NextStationHelper {
 		if (!(source instanceof ModelElementCounterMulti)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementCounterMulti(null,null));
 		if (!(source instanceof ModelElementDifferentialCounter)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDifferentialCounter(null,null));
 		if (!(source instanceof ModelElementThroughput)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementThroughput(null,null));
+		if (!(source instanceof ModelElementCounterBatch)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementCounterBatch(null,null));
 	}
 
 	/**

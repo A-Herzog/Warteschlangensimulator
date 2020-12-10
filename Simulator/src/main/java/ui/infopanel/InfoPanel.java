@@ -206,6 +206,9 @@ public class InfoPanel {
 	/** Info-ID für den "Durchsatz"-Bearbeiten-Dialog (Gruppe "Zuweisungen") */
 	public static final String stationThroughput=groupElement+"Throughput";
 
+	/** Info-ID für den "Batch-Zähler"-Bearbeiten-Dialog (Gruppe "Zuweisungen") */
+	public static final String stationCounterBatch=groupElement+"CounterBatch";
+
 	/** Info-ID für den "Zustand"-Bearbeiten-Dialog (Gruppe "Zuweisungen") */
 	public static final String stationStateStatistics=groupElement+"StateStatistics";
 
@@ -734,6 +737,10 @@ public class InfoPanel {
 		register(stationThroughput,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_ASSIGN+"|"+Language.tr("Surface.Throughput.Name"),
 				()->Language.tr("Surface.Throughput.Infotext"));
+
+		register(stationCounterBatch,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_ASSIGN+"|"+Language.tr("Surface.CounterBatch.Name"),
+				()->Language.tr("Surface.CounterBatch.Infotext"));
 
 		register(stationStateStatistics,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_ASSIGN+"|"+Language.tr("Surface.StateStatistics.Name"),

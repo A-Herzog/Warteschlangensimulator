@@ -311,7 +311,7 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator transporterInDownTime;
 
 	/* ====================================================
-	 * Zähler / Differenzzähler
+	 * Zähler / Differenzzähler / Batch-Zähler
 	 * ====================================================
 	 */
 
@@ -324,6 +324,12 @@ public class Statistics extends StatisticsBase {
 	 * Erfassung von Differenzzählern
 	 */
 	public final StatisticsMultiPerformanceIndicator differentialCounter;
+
+	/**
+	 * Erfassung von Batch-Zählerdaten
+	 */
+	public final StatisticsMultiPerformanceIndicator counterBatch;
+
 
 	/* ====================================================
 	 * Kosten
@@ -543,9 +549,10 @@ public class Statistics extends StatisticsBase {
 		addPerformanceIndicator(transporterUtilization=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationTransporter"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationTransporterType"))));
 		addPerformanceIndicator(transporterInDownTime=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.InDownTimeTransporter"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.UtilizationTransporterType"))));
 
-		/* Zähler / Differenzzähler */
+		/* Zähler / Differenzzähler / Batch-Zähler */
 		addPerformanceIndicator(counter=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.Counter"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterName"))));
 		addPerformanceIndicator(differentialCounter=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.DifferenceCounter"),new StatisticsTimePerformanceIndicator(Language.trAll("Statistics.XML.Element.DifferenceCounterName"))));
+		addPerformanceIndicator(counterBatch=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatch"),new StatisticsDataPerformanceIndicator(Language.trAll("Statistics.XML.Element.CounterBatchName"),secondsToRecordInDistributions,secondsToRecordInDistributions,-1,batchSize,true)));
 
 		/* Kosten */
 		addPerformanceIndicator(clientsCostsWaiting=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.CostsWaiting"),new StatisticsValuePerformanceIndicator(nameCosts)));

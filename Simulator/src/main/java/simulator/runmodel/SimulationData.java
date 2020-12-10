@@ -260,6 +260,7 @@ public class SimulationData extends SimData {
 		resetAllTimePerformanceIndicators(statistics.transporterUtilization,time);
 		resetAllTimePerformanceIndicators(statistics.transporterInDownTime,time);
 		for (StatisticsSimpleCountPerformanceIndicator indicator: (StatisticsSimpleCountPerformanceIndicator[])statistics.counter.getAll(StatisticsSimpleCountPerformanceIndicator.class)) indicator.reset();
+		resetAllDataPerformanceIndicators(statistics.counterBatch);
 		resetAllTimePerformanceIndicators(statistics.differentialCounter,time);
 		resetAllValuePerformanceIndicators(statistics.clientsCostsWaiting);
 		resetAllValuePerformanceIndicators(statistics.clientsCostsTransfer);

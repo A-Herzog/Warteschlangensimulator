@@ -449,6 +449,7 @@
   <xs:element ref="ModellElementVariable"/>  
   <xs:element ref="ModellElementSkript"/>
   <xs:element ref="ModellElementZaehler"/>
+  <xs:element ref="ModellElementZaehlerBatch"/>
   <xs:element ref="ModellElementZaehlerMehrfach"/>
   <xs:element ref="ModellElementDurchsatz"/>
   <xs:element ref="ModellElementZustandsstatistik"/>
@@ -994,6 +995,8 @@
     <xs:element name="ModellElementZaehlerGruppe" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementZaehlerBatch" type="ModellElementVerbundenBasis"/>
 
 <xs:element name="ModellElementZaehlerMehrfach"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -1700,6 +1703,7 @@
   <xs:element ref="StatistikTransporterAuslastung"/>
   <xs:element ref="StatistikTransporterPausenzeiten"/>
   <xs:element ref="StatistikZaehler"/>
+  <xs:element ref="StatistikZaehlerBatch"/>
   <xs:element ref="StatistikDifferenzZaehler"/>
   <xs:element ref="StatistikKundenWartezeitKosten"/>
   <xs:element ref="StatistikKundenTransferzeitKosten"/>
@@ -1810,6 +1814,8 @@
   <xs:attribute name="Anteil" type="xs:string"/>
 </xs:complexType></xs:element>
 
+<xs:element name="StatistikZaehlerBatchName" type="StatistikBasis"/>
+
 <xs:element name="StatistikDifferenzZaehlerName" type="StatistikBasis"/>
 
 <xs:element name="StatistikKosten"><xs:complexType>
@@ -1897,6 +1903,9 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikZaehler"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikZaehlerName" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikZaehlerBatch"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikZaehlerBatchName" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikDifferenzZaehler"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikDifferenzZaehlerName" minOccurs="0" maxOccurs="unbounded"/>
@@ -2451,6 +2460,7 @@
   <xs:element ref="ModelElementVariable"/>
   <xs:element ref="ModelElementScript"/>
   <xs:element ref="ModelElementCounter"/>
+  <xs:element ref="ModelElementCounterBatch"/>
   <xs:element ref="ModelElementCounterMulti"/>
   <xs:element ref="ModelElementThroughput"/>
   <xs:element ref="ModelElementStateStatistics"/>
@@ -2996,6 +3006,8 @@
     <xs:element name="ModelElementCounterGroup" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementCounterBatch" type="ModelElementConnectedBase"/>
 
 <xs:element name="ModelElementCounterMulti"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3702,6 +3714,7 @@
   <xs:element ref="StatisticsTransporterUtilization"/>
   <xs:element ref="StatisticsTransporterDownTimes"/>
   <xs:element ref="StatisticsCounter"/>
+  <xs:element ref="StatisticsCounterBatch"/>
   <xs:element ref="StatisticsDifferenceCounter"/>
   <xs:element ref="StatisticsClientWaitingTimeCosts"/>
   <xs:element ref="StatisticsClientTransferTimeCosts"/>
@@ -3812,6 +3825,8 @@
   <xs:attribute name="Part" type="xs:string"/>
 </xs:complexType></xs:element>
 
+<xs:element name="StatisticsCounterBatchName" type="StatisticsBase"/>
+
 <xs:element name="StatisticsDifferenceCounterName" type="StatisticsBase"/>
 
 <xs:element name="StatisticsCosts"><xs:complexType>
@@ -3899,6 +3914,9 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsCounter"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsCounterName" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsCounterBatch"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsCounterBatchName" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsDifferenceCounter"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsDifferenceCounterName" minOccurs="0" maxOccurs="unbounded"/>

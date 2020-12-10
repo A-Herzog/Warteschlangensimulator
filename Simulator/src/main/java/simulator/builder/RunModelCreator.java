@@ -37,6 +37,7 @@ import simulator.elements.RunElementClientIcon;
 import simulator.elements.RunElementConveyor;
 import simulator.elements.RunElementCosts;
 import simulator.elements.RunElementCounter;
+import simulator.elements.RunElementCounterBatch;
 import simulator.elements.RunElementCounterMulti;
 import simulator.elements.RunElementDecideByChance;
 import simulator.elements.RunElementDecideByClientType;
@@ -187,6 +188,7 @@ public final class RunModelCreator {
 		templates.add(new RunElementSetJS(null));
 		templates.add(new RunElementCounter(null));
 		templates.add(new RunElementCounterMulti(null));
+		templates.add(new RunElementCounterBatch(null));
 		templates.add(new RunElementThroughput(null));
 		templates.add(new RunElementStateStatistics(null));
 		templates.add(new RunElementMatch(null));

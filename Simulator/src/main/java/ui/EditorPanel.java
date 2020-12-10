@@ -111,6 +111,7 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ModelElementAssign;
 import ui.modeleditor.elements.ModelElementBatch;
 import ui.modeleditor.elements.ModelElementCounter;
+import ui.modeleditor.elements.ModelElementCounterBatch;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDifferentialCounter;
 import ui.modeleditor.elements.ModelElementMatch;
@@ -2316,6 +2317,22 @@ public final class EditorPanel extends EditorPanelBase {
 				if (name.startsWith(groupName)) sum+=((StatisticsSimpleCountPerformanceIndicator)statistics.counter.get(name)).get();
 			}
 			return formatStatisticsData(NumberTools.formatLong(value)+" ("+StatisticTools.formatPercent(((double)value)/sum)+")");
+		}
+
+		if (element instanceof ModelElementCounterBatch) {
+			final List<String> lines=new ArrayList<>();
+			final String stationName=element.getName();
+			for (String name: statistics.counterBatch.getNames()) {
+				if (!name.startsWith(stationName)) continue;
+				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)statistics.counterBatch.get(name);
+				if (indicator.getCount()==0) continue;
+				if (stationName.equals(name)) {
+					lines.add("E[IB]="+formatTime(indicator.getMean())+", #IB="+NumberTools.formatLong(indicator.getCount()));
+				} else {
+					lines.add(name.substring(stationName.length()+1)+": E[IB]="+formatTime(indicator.getMean())+", #IB="+NumberTools.formatLong(indicator.getCount()));
+				}
+			}
+			return formatStatisticsData(lines);
 		}
 
 		if (element instanceof ModelElementDifferentialCounter) {

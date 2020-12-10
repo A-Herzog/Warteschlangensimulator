@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-07 21:27+0100\n"
+"POT-Creation-Date: 2020-12-10 13:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13500,6 +13500,9 @@ msgstr "Kosten"
 msgid "Simulation.Element.Counter.Name"
 msgstr "Zähler"
 
+msgid "Simulation.Element.CounterBatch.Name"
+msgstr "Batch-Zähler"
+
 msgid "Simulation.Element.CounterMulti.Name"
 msgstr "Mehrfachzähler"
 
@@ -13904,6 +13907,12 @@ msgstr "Zähler ausgelöst"
 
 msgid "Simulation.Log.Counter.Info"
 msgstr "Kunde: %s, Station: %s, Zählername: %s, Gruppenname: %s"
+
+msgid "Simulation.Log.CounterBatch"
+msgstr "Batch-Zähler ausgelöst"
+
+msgid "Simulation.Log.CounterBatch.Info"
+msgstr "Kunde: %s, Station: %s, Zählername: %s"
 
 msgid "Simulation.Log.CounterMulti"
 msgstr "Mehrfachzähler"
@@ -16060,6 +16069,9 @@ msgstr "Das Simulationsmodell enthält keine Zähler."
 msgid "Statistics.Counter.RepeatInfo"
 msgstr "(Die Zählerwerte sind Summen über alle Wiederholungen der Simulation.)"
 
+msgid "Statistics.CounterBatch"
+msgstr "Batch-Zähler"
+
 msgid "Statistics.CounterGroup"
 msgstr "Zählergruppe"
 
@@ -17378,6 +17390,12 @@ msgstr "StatistikKundenWartezeitKosten"
 
 msgid "Statistics.XML.Element.Counter"
 msgstr "StatistikZaehler"
+
+msgid "Statistics.XML.Element.CounterBatch"
+msgstr "StatistikZaehlerBatch"
+
+msgid "Statistics.XML.Element.CounterBatchName"
+msgstr "StatistikZaehlerBatchName"
 
 msgid "Statistics.XML.Element.CounterName"
 msgstr "StatistikZaehlerName"
@@ -20031,6 +20049,30 @@ msgstr "ModellElementZaehlerGruppe"
 
 msgid "Surface.Counter.XML.Root"
 msgstr "ModellElementZaehler"
+
+msgid "Surface.CounterBatch.Dialog.Title"
+msgstr "Batch-Zähler bearbeiten"
+
+msgid "Surface.CounterBatch.Infotext"
+msgstr "Durchlaufen Kunden mit einem zeitlichen Abstand von 0 Sekunden diese Station, so werden diese als Batch gezählt."
+
+msgid "Surface.CounterBatch.Name"
+msgstr "Batch-Zähler"
+
+msgid "Surface.CounterBatch.Name.Short"
+msgstr "Batch-Zähler"
+
+msgid "Surface.CounterBatch.SimInfo.BatchGeneral"
+msgstr "Alle Batche"
+
+msgid "Surface.CounterBatch.SimInfo.BatchSize"
+msgstr "Batch-Größe %d"
+
+msgid "Surface.CounterBatch.Tooltip"
+msgstr "Zählt die Kunden, die diese Station jeweils gleichzeitig passieren."
+
+msgid "Surface.CounterBatch.XML.Root"
+msgstr "ModellElementZaehlerBatch"
 
 msgid "Surface.CounterMulti.Dialog.GroupName.Error.Info"
 msgstr "Es wurde kein Gruppenname für den Zähler angegeben."

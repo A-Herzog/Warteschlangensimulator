@@ -895,7 +895,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		 * Gruppe: Zähler
 		 */
 
-		if (statistics.counter.size()>0 || statistics.differentialCounter.size()>0) {
+		if (statistics.counter.size()>0 || statistics.differentialCounter.size()>0 || statistics.counterBatch.size()>0 ) {
 			addHeading(2,Language.tr("Statistics.Counter"));
 			buildCounterInt(3,false);
 			beginParagraph();
@@ -2300,6 +2300,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (statistics.simulationData.runRepeatCount>1) repeatInfo=" ("+Language.tr("Statistics.SimulatedClients.RepeatInfo")+")";
 
 		/* Normale Zähler */
+
 		List<String> groups=new ArrayList<>();
 		for (String fullName: statistics.counter.getNames()) {
 			final String[] parts=fullName.split("-",2);
@@ -2350,7 +2351,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addHeading(level,Language.tr("Statistics.DifferenceCounter"));
 			if (!details) beginParagraph();
 			for (String name: statistics.differentialCounter.getNames()) {
-				StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)statistics.differentialCounter.get(name);
+				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)statistics.differentialCounter.get(name);
 				if (details) {
 					addHeading(level+1,name);
 					beginParagraph();
@@ -2367,6 +2368,33 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			}
 			if (!details) endParagraph();
 		}
+
+		/* Batch-Zähler */
+
+		if (statistics.counterBatch.size()>0) {
+			addHeading(level,Language.tr("Statistics.CounterBatch"));
+			if (!details) beginParagraph();
+			for (String name: statistics.counterBatch.getNames()) {
+				final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)statistics.counterBatch.get(name);
+				if (indicator.getCount()==0) continue;
+				if (details) {
+					addHeading(level+1,name);
+					beginParagraph();
+					addLine(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
+					addLine(Language.tr("Statistics.AverageInterArrivalTime")+": E[IB]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+					addLine(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[IB]="+timeAndNumber(indicator.getSD()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.SD));
+					addLine(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[IB]="+timeAndNumber(indicator.getVar()));
+					addLine(Language.tr("Statistics.CVInterArrivalTime")+": CV[IB]="+StatisticTools.formatNumber(indicator.getCV()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.CV));
+					addLine(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[IB]="+timeAndNumber(indicator.getMin()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MINIMUM));
+					addLine(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[IB]="+timeAndNumber(indicator.getMax()),fastAccessBuilder.getXMLSelector(indicator,IndicatorMode.MAXIMUM));
+					endParagraph();
+				} else {
+					addLine(name+" "+Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+repeatInfo,xmlCount(indicator));
+					addLine(name+" "+Language.tr("Statistics.AverageInterArrivalTime")+": E[IB]="+timeAndNumber(indicator.getMean()),xmlMean(indicator));
+				}
+			}
+			if (!details) endParagraph();
+		}
 	}
 
 	/**
@@ -2377,7 +2405,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	private void buildCounter() {
 		addHeading(1,Language.tr("Statistics.Counter"));
 
-		if (statistics.counter.size()==0 && statistics.differentialCounter.size()==0) {
+		if (statistics.counter.size()==0 && statistics.differentialCounter.size()==0 && statistics.counterBatch.size()==0 ) {
 			beginParagraph();
 			addLine(Language.tr("Statistics.Counter.NoCounter"));
 			endParagraph();

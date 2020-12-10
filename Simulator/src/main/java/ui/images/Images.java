@@ -1324,6 +1324,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Zähler'" */
 	MODELEDITOR_ELEMENT_COUNTER("Counter.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Batch-Zähler'" */
+	MODELEDITOR_ELEMENT_COUNTER_BATCH("Counter.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Multizähler'" */
 	MODELEDITOR_ELEMENT_COUNTER_MULTI("Counter.png"),
 

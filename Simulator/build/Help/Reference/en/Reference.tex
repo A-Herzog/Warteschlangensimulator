@@ -415,6 +415,23 @@ The name of the type assign string element has no further meaning for the simula
 For each assignment a non-empty key has to be choosen. The value can optionally be an empty string.
 
 
+\section{Batch counter}
+\label{ref:ModelElementCounterBatch}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementCounterBatch.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+If clients pass through this station with a time interval of 0 seconds, they are counted as a batch.
+The counting is done on a batch basis as well as differentiated by batch sizes.
+
+\subsection*{Settings}
+
+The counter name defines the name under which the results are to be recorded in the statistics.
+
+
 \section{Client statistics}
 \label{ref:ModelElementSetStatisticsMode}
 

@@ -346,7 +346,7 @@
 
 <!-- Beschreibung der Modell-Elemente: Einzelne Elemente -->
 
-<!ELEMENT ModellElemente (ModellElementKante | ModellElementText | ModellElementEcke | ModellElementLinie | ModellElementKasten | ModellElementEllipse | ModellElementBild | ModellElementQuelle | ModellElementMehrfachQuelle | ModellElementTabellenQuelle | ModellElementDatenbankQuelle | ModellElementDDEQuelle | ModellElementEnde | ModellElementZuweisung | ModellElementZuweisungText | ModellElementFertigungsplanZuweisung | ModellElementKosten | ModellElementVerzoegerung | ModellElementTrennen | ModellElementZusammenfassen | ModellElementMehrfachZusammenfassen | ModellElementZusammenfuehren | ModellElementZerteilen | ModellElementDuplizieren | ModellElementVerzweigen | ModellElementVerzweigenJS | ModellElementZurueckschrecken | ModellElementBedienstation | ModellElementBedingung | ModellElementBedingungMehrfach | ModellElementBedingungScript | ModellElementSignal | ModellElementSchranke | ModellElementSchrankePull | ModellElementRessourceBelegen | ModellElementRessourceFreigeben | ModellElementKundenstatistik | ModellElementVariable | ModellElementSkript | ModellElementZaehler | ModellElementZaehlerMehrfach | ModellElementDurchsatz | ModellElementZustandsstatistik | ModellElementAufzeichnung | ModellElementDateiausgabe | ModellElementEingabe | ModellElementEingabeScript | ModellElementEingabeDB | ModellElementEingabeDDE | ModellElementScriptDateiausgabe | ModellElementDatenbankausgabe | ModellElementAusgabeDDE | ModellElementBenutzerstatistik | ModellElementDifferenzZaehler | ModellElementBereichStart | ModellElementBereichEnde | ModellElementAusleiten | ModellElementLogikIf | ModellElementLogikElseIf | ModellElementLogikElse | ModellElementLogikEndIf | ModellElementLogikWhile | ModellElementLogikEndWhile | ModellElementLogikDo | ModellElementLogikUntil | ModellElementTransportStart | ModellElementTransportZiel | ModellElementTransporterStart | ModellElementTransportParkplatz | ModellElementWegpunkt | ModellElementTeleportStart | ModellElementTeleportZiel | ModellElementFliessband | ModellElementAnalogerWert | ModellElementAnalogWertZuweisung | ModellElementTank | ModellElementFluss | ModellElementFlussSignal | ModellElementSensor | ModellElementVentilSetups | ModellElementAktion | ModellElementIcon | ModellElementAnimationText | ModellElementAnimationTextJS | ModellElementAnimationTextAuswahl | ModellElementAnimationBalken | ModellElementAnimationStapelBalken | ModellElementAnimationAmpel | ModellElementAnimationLCD | ModellElementAnimationAnalogSkala | ModellElementAnimationBalkenDiagramm | ModellElementAnimationLinienDiagramm | ModellElementAnimationTortenDiagramm | ModellElementAnimationUhr | ModellElementAnimationBild | ModellElementAnimationAufzeichnung | ModellElementUntermodell | ModellElementUntermodellEingang | ModellElementUntermodellAusgang | ModellElementReferenz | ModellElementSchaltflaeche | ModellElementSchieberegler | ModellElementCheckbox | ModellElementRadiobutton | ModellEbene)*>
+<!ELEMENT ModellElemente (ModellElementKante | ModellElementText | ModellElementEcke | ModellElementLinie | ModellElementKasten | ModellElementEllipse | ModellElementBild | ModellElementQuelle | ModellElementMehrfachQuelle | ModellElementTabellenQuelle | ModellElementDatenbankQuelle | ModellElementDDEQuelle | ModellElementEnde | ModellElementZuweisung | ModellElementZuweisungText | ModellElementFertigungsplanZuweisung | ModellElementKosten | ModellElementVerzoegerung | ModellElementTrennen | ModellElementZusammenfassen | ModellElementMehrfachZusammenfassen | ModellElementZusammenfuehren | ModellElementZerteilen | ModellElementDuplizieren | ModellElementVerzweigen | ModellElementVerzweigenJS | ModellElementZurueckschrecken | ModellElementBedienstation | ModellElementBedingung | ModellElementBedingungMehrfach | ModellElementBedingungScript | ModellElementSignal | ModellElementSchranke | ModellElementSchrankePull | ModellElementRessourceBelegen | ModellElementRessourceFreigeben | ModellElementKundenstatistik | ModellElementVariable | ModellElementSkript | ModellElementZaehler | ModellElementZaehlerBatch | ModellElementZaehlerMehrfach | ModellElementDurchsatz | ModellElementZustandsstatistik | ModellElementAufzeichnung | ModellElementDateiausgabe | ModellElementEingabe | ModellElementEingabeScript | ModellElementEingabeDB | ModellElementEingabeDDE | ModellElementScriptDateiausgabe | ModellElementDatenbankausgabe | ModellElementAusgabeDDE | ModellElementBenutzerstatistik | ModellElementDifferenzZaehler | ModellElementBereichStart | ModellElementBereichEnde | ModellElementAusleiten | ModellElementLogikIf | ModellElementLogikElseIf | ModellElementLogikElse | ModellElementLogikEndIf | ModellElementLogikWhile | ModellElementLogikEndWhile | ModellElementLogikDo | ModellElementLogikUntil | ModellElementTransportStart | ModellElementTransportZiel | ModellElementTransporterStart | ModellElementTransportParkplatz | ModellElementWegpunkt | ModellElementTeleportStart | ModellElementTeleportZiel | ModellElementFliessband | ModellElementAnalogerWert | ModellElementAnalogWertZuweisung | ModellElementTank | ModellElementFluss | ModellElementFlussSignal | ModellElementSensor | ModellElementVentilSetups | ModellElementAktion | ModellElementIcon | ModellElementAnimationText | ModellElementAnimationTextJS | ModellElementAnimationTextAuswahl | ModellElementAnimationBalken | ModellElementAnimationStapelBalken | ModellElementAnimationAmpel | ModellElementAnimationLCD | ModellElementAnimationAnalogSkala | ModellElementAnimationBalkenDiagramm | ModellElementAnimationLinienDiagramm | ModellElementAnimationTortenDiagramm | ModellElementAnimationUhr | ModellElementAnimationBild | ModellElementAnimationAufzeichnung | ModellElementUntermodell | ModellElementUntermodellEingang | ModellElementUntermodellAusgang | ModellElementReferenz | ModellElementSchaltflaeche | ModellElementSchieberegler | ModellElementCheckbox | ModellElementRadiobutton | ModellEbene)*>
 
 <!ELEMENT ModellEbene (#PCDATA)>
 <!ATTLIST ModellEbene
@@ -776,6 +776,13 @@
   statistik		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZaehlerGruppe (#PCDATA)>
+
+<!ELEMENT ModellElementZaehlerBatch (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ATTLIST ModellElementZaehlerBatch
+  id			CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
+>
 
 <!ELEMENT ModellElementZaehlerMehrfach (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZaehlerGruppe | ModellElementZaehlerMehrfachZaehler)*>
 <!ATTLIST ModellElementZaehlerMehrfach
@@ -1470,7 +1477,7 @@
 
 <!-- Beschreibung der Statistik-Dateien -->
 
-<!ELEMENT Statistik (Modell | Simulation | StatistikThreadBasierendeWartzeitKonfidenz | StatistikZwischenankunftszeitenKunden | StatistikZwischenankunftszeitenStationen | StatistikZwischenankunftszeitenStationenBatch | StatistikZwischenankunftszeitenStationenKunden | StatistikZwischenabgangszeitenKunden | StatistikZwischenabgangszeitenStationen | StatistikZwischenankunftszeitenStationenWarteschlange | StatistikZwischenabgangszeitenStationenKunden | StatistikKundenbewegung | StatistikKundenpfade | StatistikWartezeitenKunden | StatistikTransferzeitenKunden | StatistikBedienzeitenKunden | StatistikVerweilzeitenKunden | StatistikWartezeitenAlleKunden | StatistikTransferzeitenAlleKunden | StatistikBedienzeitenAlleKunden | StatistikVerweilzeitenAlleKunden | StatistikWartezeitenStationen | StatistikTransferzeitenStationen | StatistikBedienzeitenStationen | StatistikVerweilzeitenStationen | StatistikWartezeitenStationenKunden | StatistikTransferzeitenStationenKunden | StatistikBedienzeitenStationenKunden | StatistikVerweilzeitenStationenKunden | StatistikKundenImSystem | StatistikKundentypenImSystemWartendUeberall | StatistikKundenAnStation | StatistikKundenAnStationNachKundentyp | StatistikKundentypenImSystem | StatistikKundenAnStationWartend | StatistikKundenAnStationWartendNachKundentyp |StatistikKundentypenImSystemWartend | StatistikRessourceAnzahlen | StatistikAuslastung | StatistikPausenzeiten | StatistikTransporterAuslastung | StatistikTransporterPausenzeiten | StatistikZaehler | StatistikDifferenzZaehler | StatistikKundenWartezeitKosten | StatistikKundenTransferzeitKosten | StatistikKundenBedienzeitKosten | StatistikStationenKosten | StatistikRessourcenArbeitszeitKosten | StatistikRessourcenAuslastungsKosten | StatistikRessourcenLeerlaufKosten | StatistikLaufzeitWerte | StatistikBenutzerdefiniert | StatistikStatusZeit | StatistikAnalogWert | StatistikDurchsatz | StatistikWerteaufzeichnung | StatistikKundendaten)*>
+<!ELEMENT Statistik (Modell | Simulation | StatistikThreadBasierendeWartzeitKonfidenz | StatistikZwischenankunftszeitenKunden | StatistikZwischenankunftszeitenStationen | StatistikZwischenankunftszeitenStationenBatch | StatistikZwischenankunftszeitenStationenKunden | StatistikZwischenabgangszeitenKunden | StatistikZwischenabgangszeitenStationen | StatistikZwischenankunftszeitenStationenWarteschlange | StatistikZwischenabgangszeitenStationenKunden | StatistikKundenbewegung | StatistikKundenpfade | StatistikWartezeitenKunden | StatistikTransferzeitenKunden | StatistikBedienzeitenKunden | StatistikVerweilzeitenKunden | StatistikWartezeitenAlleKunden | StatistikTransferzeitenAlleKunden | StatistikBedienzeitenAlleKunden | StatistikVerweilzeitenAlleKunden | StatistikWartezeitenStationen | StatistikTransferzeitenStationen | StatistikBedienzeitenStationen | StatistikVerweilzeitenStationen | StatistikWartezeitenStationenKunden | StatistikTransferzeitenStationenKunden | StatistikBedienzeitenStationenKunden | StatistikVerweilzeitenStationenKunden | StatistikKundenImSystem | StatistikKundentypenImSystemWartendUeberall | StatistikKundenAnStation | StatistikKundenAnStationNachKundentyp | StatistikKundentypenImSystem | StatistikKundenAnStationWartend | StatistikKundenAnStationWartendNachKundentyp |StatistikKundentypenImSystemWartend | StatistikRessourceAnzahlen | StatistikAuslastung | StatistikPausenzeiten | StatistikTransporterAuslastung | StatistikTransporterPausenzeiten | StatistikZaehler | StatistikZaehlerBatch | StatistikDifferenzZaehler | StatistikKundenWartezeitKosten | StatistikKundenTransferzeitKosten | StatistikKundenBedienzeitKosten | StatistikStationenKosten | StatistikRessourcenArbeitszeitKosten | StatistikRessourcenAuslastungsKosten | StatistikRessourcenLeerlaufKosten | StatistikLaufzeitWerte | StatistikBenutzerdefiniert | StatistikStatusZeit | StatistikAnalogWert | StatistikDurchsatz | StatistikWerteaufzeichnung | StatistikKundendaten)*>
 <!ATTLIST Statistik
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -1658,6 +1665,24 @@
   Anteil	CDATA	#IMPLIED
 >
 
+<!ELEMENT StatistikZaehlerBatchName EMPTY>
+<!ATTLIST StatistikZaehlerBatchName
+  Anzahl				CDATA	#IMPLIED
+  Maximum				CDATA	#REQUIRED
+  Minimum				CDATA	#REQUIRED
+  Mittelwert			CDATA	#REQUIRED
+  Standardabweichung	CDATA	#REQUIRED
+  Summe					CDATA	#REQUIRED
+  Summe2				CDATA	#IMPLIED
+  Variationskoeffizient	CDATA	#REQUIRED
+  Verteilung			CDATA	#IMPLIED
+  Quantil10				CDATA	#IMPLIED
+  Quantil25				CDATA	#IMPLIED
+  Quantil50				CDATA	#IMPLIED
+  Quantil75				CDATA	#IMPLIED
+  Quantil90				CDATA	#IMPLIED  
+>
+
 <!ELEMENT StatistikDifferenzZaehlerName (#PCDATA)>
 <!ATTLIST StatistikDifferenzZaehlerName
   Maximum				CDATA	#REQUIRED
@@ -1829,6 +1854,7 @@
 <!ELEMENT StatistikTransporterAuslastung (StatistikTransporter)*>
 <!ELEMENT StatistikTransporterPausenzeiten (StatistikTransporter)*>
 <!ELEMENT StatistikZaehler (StatistikZaehlerName)*>
+<!ELEMENT StatistikZaehlerBatch (StatistikZaehlerBatchName)*>
 <!ELEMENT StatistikDifferenzZaehler (StatistikDifferenzZaehlerName)*>
 <!ELEMENT StatistikKundenWartezeitKosten (StatistikKosten)*>
 <!ELEMENT StatistikKundenTransferzeitKosten (StatistikKosten)*>
@@ -2311,7 +2337,7 @@
 
 <!-- Documentation of the model elements: individual elements -->
 
-<!ELEMENT ModelElements (ModelElementEdge | ModelElementText | ModelElementVertex | ModelElementLine | ModelElementRectangle | ModelElementEllipse | ModelElementImage | ModelElementSource | ModelElementMultiSource | ModelElementTableSource | ModelElementDatabaseSource | ModelElementDDESource | ModelElementDispose | ModelElementAssignment | ModelElementAssignmentText | ModelElementSequenceAssignment | ModelElementCosts | ModelElementDelay | ModelElementSeparate | ModelElementBatch | ModelElementMultiBatch | ModelElementMatch | ModelElementSplit | ModelElementDuplicate | ModelElementDecide | ModelElementDecideJS | ModelElementBalking | ModelElementProcessStation | ModelElementHold | ModelElementHoldMulti | ModelElementHoldScript | ModelElementSignal | ModelElementBarrier | ModelElementBarrierPull | ModelElementSeizeResource | ModelElementReleaseResource | ModelElementClientStatistics | ModelElementVariable | ModelElementScript | ModelElementCounter | ModelElementCounterMulti | ModelElementThroughput | ModelElementStateStatistics | ModelElementInput | ModelElementInputScript | ModelElementInputDB | ModelElementInputDDE | ModelElementRecord | ModelElementOutput | ModelElementScriptOutput | ModelElementDatabaseOutput | ModelElementOutputDDE | ModelElementUserStatistics | ModelElementDifferenceCounter | ModelElementSectionStart | ModelElementSectionEnd | ModelElementPickUp | ModelElementLogicIf | ModelElementLogicElseIf | ModelElementLogicElse | ModelElementLogicEndIf | ModelElementLogicWhile | ModelElementLogicEndWhile | ModelElementLogicDo | ModelElementLogicUntil | ModelElementTransportOrigin | ModelElementTransportDestination | ModelElementTransporterOrigin | ModelElementTransportParkingLot | ModelElementWayPoint | ModelElementTeleportOrigin | ModelElementTeleportDestination | ModelElementConveyor | ModelElementAnalogValue | ModelElementAnalogValueAssignment | ModelElementTank | ModelElementFlow | ModelElementFlowSignal | ModelElementSensor | ModelElementValveSetups | ModelElementAction | ModelElementIcon | ModelElementAnimationText | ModelElementAnimationTextJS | ModelElementAnimationTextSelect | ModelElementAnimationBar | ModelElementAnimationStackBar | ModelElementAnimationTrafficLights | ModelElementAnimationLCD | ModelElementAnimationPointerMeasuring | ModelElementAnimationBarDiagram | ModelElementAnimationLineDiagram | ModelElementAnimationPieDiagram | ModelElementAnimationClock | ModelElementAnimationImage | ModelElementAnimationRecord | ModelElementSubModel | ModelElementSubModelInput | ModelElementSubModelOutput | ModelElementReference | ModelElementButton | ModelElementSlider | ModelElementCheckbox | ModelElementRadiobutton | ModelLayer)*>
+<!ELEMENT ModelElements (ModelElementEdge | ModelElementText | ModelElementVertex | ModelElementLine | ModelElementRectangle | ModelElementEllipse | ModelElementImage | ModelElementSource | ModelElementMultiSource | ModelElementTableSource | ModelElementDatabaseSource | ModelElementDDESource | ModelElementDispose | ModelElementAssignment | ModelElementAssignmentText | ModelElementSequenceAssignment | ModelElementCosts | ModelElementDelay | ModelElementSeparate | ModelElementBatch | ModelElementMultiBatch | ModelElementMatch | ModelElementSplit | ModelElementDuplicate | ModelElementDecide | ModelElementDecideJS | ModelElementBalking | ModelElementProcessStation | ModelElementHold | ModelElementHoldMulti | ModelElementHoldScript | ModelElementSignal | ModelElementBarrier | ModelElementBarrierPull | ModelElementSeizeResource | ModelElementReleaseResource | ModelElementClientStatistics | ModelElementVariable | ModelElementScript | ModelElementCounter | ModelElementCounterBatch | ModelElementCounterMulti | ModelElementThroughput | ModelElementStateStatistics | ModelElementInput | ModelElementInputScript | ModelElementInputDB | ModelElementInputDDE | ModelElementRecord | ModelElementOutput | ModelElementScriptOutput | ModelElementDatabaseOutput | ModelElementOutputDDE | ModelElementUserStatistics | ModelElementDifferenceCounter | ModelElementSectionStart | ModelElementSectionEnd | ModelElementPickUp | ModelElementLogicIf | ModelElementLogicElseIf | ModelElementLogicElse | ModelElementLogicEndIf | ModelElementLogicWhile | ModelElementLogicEndWhile | ModelElementLogicDo | ModelElementLogicUntil | ModelElementTransportOrigin | ModelElementTransportDestination | ModelElementTransporterOrigin | ModelElementTransportParkingLot | ModelElementWayPoint | ModelElementTeleportOrigin | ModelElementTeleportDestination | ModelElementConveyor | ModelElementAnalogValue | ModelElementAnalogValueAssignment | ModelElementTank | ModelElementFlow | ModelElementFlowSignal | ModelElementSensor | ModelElementValveSetups | ModelElementAction | ModelElementIcon | ModelElementAnimationText | ModelElementAnimationTextJS | ModelElementAnimationTextSelect | ModelElementAnimationBar | ModelElementAnimationStackBar | ModelElementAnimationTrafficLights | ModelElementAnimationLCD | ModelElementAnimationPointerMeasuring | ModelElementAnimationBarDiagram | ModelElementAnimationLineDiagram | ModelElementAnimationPieDiagram | ModelElementAnimationClock | ModelElementAnimationImage | ModelElementAnimationRecord | ModelElementSubModel | ModelElementSubModelInput | ModelElementSubModelOutput | ModelElementReference | ModelElementButton | ModelElementSlider | ModelElementCheckbox | ModelElementRadiobutton | ModelLayer)*>
 
 <!ELEMENT ModelLayer (#PCDATA)>
 <!ATTLIST ModelLayer
@@ -2741,6 +2767,13 @@
   statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementCounterGroup (#PCDATA)>
+
+<!ELEMENT ModelElementCounterBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ATTLIST ModelElementCounterBatch
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModelElementCounterMulti (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCounterGroup | ModelElementCounterMultiCounter)*>
 <!ATTLIST ModelElementCounterMulti
@@ -3435,7 +3468,7 @@
 
 <!-- Documentation of the statistics data -->
 
-<!ELEMENT Statistics (Model | SimulationData | StatisticsThreadBasedWaitingTimeConfidence | StatisticsInterArrivalTimesClients | StatisticsInterArrivalTimesStations | StatisticsInterArrivalTimesStationsBatch | StatisticsInterArrivalTimesStationsClients | StatisticsInterLeavingTimesClients | StatisticsInterLeavingTimesStations | StatisticsInterArrivalTimesStationsQueueLength | StatisticsInterLeavingTimesStationsClients | StatisticsClientMovement | StatisticsClientPaths | StatisticsWaitingTimesClients | StatisticsTransferTimesClients | StatisticsProcessTimesClients | StatisticsResidenceTimesClients | StatisticsWaitingTimesAllClients | StatisticsTransferTimesAllClients | StatisticsProcessTimesAllClients | StatisticsResidenceTimesAllClients | StatisticsWaitingTimesStations | StatisticsTransferTimesStations | StatisticsProcessTimesStations | StatisticsResidenceTimesStations | StatisticsWaitingTimesStationsClients | StatisticsTransferTimesStationsClients | StatisticsProcessTimesStationsClients | StatisticsResidenceTimesStationsClients | StatisticsClientsInSystem | StatisticsClientsInSystemAllQueues | StatisticsClientsAtStation | StatisticsClientsAtStationByClientType | StatisticsClienttypesInSystem | StatisticsClientsAtStationQueue | StatisticsClientsAtStationQueueByClientType |StatisticsClientsInSystemQueue | StatisticsResourceNumbers | StatisticsUtilization | StatisticsDownTime | StatisticsTransporterUtilization | StatisticsTransporterDownTimes | StatisticsCounter | StatisticsDifferenceCounter | StatisticsClientWaitingTimeCosts | StatisticsClientTransferTimeCosts | StatisticsClientProcessTimeCosts | StatisticsStationsCosts | StatisticsResourcesAvailabilityCosts | StatisticsResourcesWorkTimeCosts | StatisticsResourcesIdleTimeCosts | StatisticsRunTimeValues | StatisticsUserDefined | StatisticsStatusTime | StatisticsAnalogValue | StatisticsThroughput | StatisticsValueRecordingName | StatisticsClientData)*>
+<!ELEMENT Statistics (Model | SimulationData | StatisticsThreadBasedWaitingTimeConfidence | StatisticsInterArrivalTimesClients | StatisticsInterArrivalTimesStations | StatisticsInterArrivalTimesStationsBatch | StatisticsInterArrivalTimesStationsClients | StatisticsInterLeavingTimesClients | StatisticsInterLeavingTimesStations | StatisticsInterArrivalTimesStationsQueueLength | StatisticsInterLeavingTimesStationsClients | StatisticsClientMovement | StatisticsClientPaths | StatisticsWaitingTimesClients | StatisticsTransferTimesClients | StatisticsProcessTimesClients | StatisticsResidenceTimesClients | StatisticsWaitingTimesAllClients | StatisticsTransferTimesAllClients | StatisticsProcessTimesAllClients | StatisticsResidenceTimesAllClients | StatisticsWaitingTimesStations | StatisticsTransferTimesStations | StatisticsProcessTimesStations | StatisticsResidenceTimesStations | StatisticsWaitingTimesStationsClients | StatisticsTransferTimesStationsClients | StatisticsProcessTimesStationsClients | StatisticsResidenceTimesStationsClients | StatisticsClientsInSystem | StatisticsClientsInSystemAllQueues | StatisticsClientsAtStation | StatisticsClientsAtStationByClientType | StatisticsClienttypesInSystem | StatisticsClientsAtStationQueue | StatisticsClientsAtStationQueueByClientType |StatisticsClientsInSystemQueue | StatisticsResourceNumbers | StatisticsUtilization | StatisticsDownTime | StatisticsTransporterUtilization | StatisticsTransporterDownTimes | StatisticsCounter | StatisticsCounterBatch | StatisticsDifferenceCounter | StatisticsClientWaitingTimeCosts | StatisticsClientTransferTimeCosts | StatisticsClientProcessTimeCosts | StatisticsStationsCosts | StatisticsResourcesAvailabilityCosts | StatisticsResourcesWorkTimeCosts | StatisticsResourcesIdleTimeCosts | StatisticsRunTimeValues | StatisticsUserDefined | StatisticsStatusTime | StatisticsAnalogValue | StatisticsThroughput | StatisticsValueRecordingName | StatisticsClientData)*>
 <!ATTLIST Statistics
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -3623,6 +3656,25 @@
   Part	CDATA	#IMPLIED
 >
 
+<!ELEMENT StatisticsCounterBatchName EMPTY>
+<!ATTLIST StatisticsCounterBatchName
+  Count						CDATA	#IMPLIED
+  Maximum					CDATA	#REQUIRED
+  Minimum					CDATA	#REQUIRED
+  Mean						CDATA	#REQUIRED
+  StandardDeviation			CDATA	#REQUIRED
+  Sum						CDATA	#REQUIRED
+  Sum2						CDATA	#IMPLIED
+  Type						CDATA	#REQUIRED
+  CoefficientOfVariation	CDATA	#REQUIRED
+  Distribution				CDATA	#IMPLIED
+  Quantil10					CDATA	#IMPLIED
+  Quantil25					CDATA	#IMPLIED
+  Quantil50					CDATA	#IMPLIED
+  Quantil75					CDATA	#IMPLIED
+  Quantil90					CDATA	#IMPLIED
+>
+
 <!ELEMENT StatisticsDifferenceCounterName (#PCDATA)>
 <!ATTLIST StatisticsDifferenceCounterName
   Maximum					CDATA	#REQUIRED
@@ -3794,6 +3846,7 @@
 <!ELEMENT StatisticsTransporterUtilization (StatisticsTransporter)*>
 <!ELEMENT StatisticsTransporterDownTimes (StatisticsTransporter)*>
 <!ELEMENT StatisticsCounter (StatisticsCounterName)*>
+<!ELEMENT StatisticsCounterBatch (StatisticsCounterBatchName)*>
 <!ELEMENT StatisticsDifferenceCounter (StatisticsDifferenceCounterName)*>
 <!ELEMENT StatisticsClientWaitingTimeCosts (StatisticsCosts)*>
 <!ELEMENT StatisticsClientTransferTimeCosts (StatisticsCosts)*>

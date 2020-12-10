@@ -28,6 +28,7 @@ import ui.modeleditor.elements.ModelElementAssignString;
 import ui.modeleditor.elements.ModelElementClientIcon;
 import ui.modeleditor.elements.ModelElementCosts;
 import ui.modeleditor.elements.ModelElementCounter;
+import ui.modeleditor.elements.ModelElementCounterBatch;
 import ui.modeleditor.elements.ModelElementCounterMulti;
 import ui.modeleditor.elements.ModelElementDifferentialCounter;
 import ui.modeleditor.elements.ModelElementDispose;
@@ -151,6 +152,7 @@ public class AnalyticModel {
 	private static Class<?>[] ignoreStations=new Class[] {
 			ModelElementCounter.class,
 			ModelElementCounterMulti.class,
+			ModelElementCounterBatch.class,
 			ModelElementAssign.class,
 			ModelElementAssignString.class,
 			ModelElementClientIcon.class,
