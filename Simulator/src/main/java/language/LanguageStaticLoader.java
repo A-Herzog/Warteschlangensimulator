@@ -694,6 +694,14 @@ public class LanguageStaticLoader {
 		BaseCommandLineSystem.commandHelpInfo1=Language.tr("CommandLine.Help.Info1");
 		BaseCommandLineSystem.commandHelpInfo2=Language.tr("CommandLine.Help.Info2");
 		BaseCommandLineSystem.commandHelpError=Language.tr("CommandLine.Help.Error");
+		BaseCommandLineSystem.commandInteractiveName=Language.tr("CommandLine.Interactive.Name");
+		BaseCommandLineSystem.commandInteractiveNamesOtherLanguages=Language.trOther("CommandLine.Interactive.Name").toArray(new String[0]);
+		BaseCommandLineSystem.commandHelpInteractiveShort=Language.tr("CommandLine.Interactive.Description.Short");
+		BaseCommandLineSystem.commandHelpInteractiveLong=Language.tr("CommandLine.Interactive.Description.Long");
+		BaseCommandLineSystem.commandHelpInteractiveStart=Language.tr("CommandLine.Interactive.Start");
+		BaseCommandLineSystem.commandHelpInteractiveStop=Language.tr("CommandLine.Interactive.Stop");
+		BaseCommandLineSystem.commandHelpInteractiveReady=Language.tr("CommandLine.Interactive.Ready");
+
 		CommandLineDialog.title=Language.tr("CommandLine.Dialog.Title");
 		CommandLineDialog.stop=Language.tr("CommandLine.Dialog.StopCommand");
 		CommandLineDialog.stopHint=Language.tr("CommandLine.Dialog.StopCommand.Hint");

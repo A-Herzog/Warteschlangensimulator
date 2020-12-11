@@ -24,6 +24,12 @@ import java.io.PrintStream;
  * @see BaseCommandLineSystem
  */
 public abstract class AbstractCommand {
+	/**
+	 * Referenz auf das Kommandozeilensystem selbst.<br>
+	 * Wird von {@link BaseCommandLineSystem} gesetzt, wenn der Befehl dort registriert wird.<br>
+	 * Kann <code>null</code> sein, wenn der Befehl über den Dialog ausgeführt wird.
+	 */
+	BaseCommandLineSystem system;
 
 	/**
 	 * Gibt die Namen der Parameter an, die diesen Befehl ausführen sollen.
@@ -46,6 +52,14 @@ public abstract class AbstractCommand {
 	 */
 	public boolean isHidden() {
 		return false;
+	}
+
+	/**
+	 * Kann dieser Befehl über die GUI verarbeitet werden.
+	 * @return	Im Falle von <code>false</code> wird der Befehl nicht in dem GUI-Kommandozeilen-Dialog angezeigt.
+	 */
+	public boolean isGUIProcessable() {
+		return !isHidden();
 	}
 
 	/**

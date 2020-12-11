@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 13:46+0100\n"
+"POT-Creation-Date: 2020-12-11 13:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1531,6 +1531,24 @@ msgstr ""
 
 msgid "CommandLine.Help.Name"
 msgstr "Hilfe"
+
+msgid "CommandLine.Interactive.Description.Long"
+msgstr "Dieser Befehl erwartet keine weiteren Parameter."
+
+msgid "CommandLine.Interactive.Description.Short"
+msgstr "Startet den interaktiven Modus."
+
+msgid "CommandLine.Interactive.Name"
+msgstr "Interaktiv"
+
+msgid "CommandLine.Interactive.Ready"
+msgstr "Bereit."
+
+msgid "CommandLine.Interactive.Start"
+msgstr "Interaktiver Modus gestartet. Zum Beenden \"exit\" eingeben."
+
+msgid "CommandLine.Interactive.Stop"
+msgstr "Interaktiver Modus wird beendet."
 
 msgid "CommandLine.Optimizer.Description.Long"
 msgstr ""

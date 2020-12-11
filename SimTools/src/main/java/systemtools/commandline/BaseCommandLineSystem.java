@@ -21,12 +21,13 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Basisklasse zur Bearbeitung von Kommandozeilen-Aufrufen
  * @author Alexander Herzog
  * @see AbstractCommand
- * @version 1.1
+ * @version 1.2
  */
 public class BaseCommandLineSystem {
 	/** Bezeichner "Fehler" (in Großbuchstaben) */
@@ -112,6 +113,21 @@ public class BaseCommandLineSystem {
 	/** Fehler bei "Hilfe"-Befehl: Kein Befehl mit dem Namen bekannt zu dem Hilfe angezeigt werden könnte." */
 	public static String commandHelpError="Es existiert kein Kommandozeilen-Befehl \"%s\".";
 
+	/** Name des "Interaktiv"-Befehls */
+	public static String commandInteractiveName="Interaktiv";
+	/** Name des "Hilfe"-Befehls optional in weiteren Sprachen */
+	public static String[] commandInteractiveNamesOtherLanguages=new String[0];
+	/** Kurzhilfe für den "Interaktiv"-Befehl */
+	public static String commandHelpInteractiveShort="Startet den interaktiven Modus.";
+	/** Hilfe für den "Interaktiv"-Befehl */
+	public static String commandHelpInteractiveLong="Dieser Befehl erwartet keine weiteren Parameter.";
+	/** Start-Anzeige für den "Interaktiv"-Befehl */
+	public static String commandHelpInteractiveStart="Interaktiver Modus gestartet. Zum Beenden \"exit\" eingeben.";
+	/** Stop-Anzeige für den "Interaktiv"-Befehl */
+	public static String commandHelpInteractiveStop="Interaktiver Modus wird beendet.";
+	/** Anzeige "Bereit" für den "Interaktiv"-Befehl */
+	public static String commandHelpInteractiveReady="Bereit.";
+
 	/** Name des Programms */
 	private final String programName;
 	/** Version des Programms */
@@ -140,6 +156,7 @@ public class BaseCommandLineSystem {
 		this.version=version;
 		this.author=author;
 		this.commands=getCommands().toArray(new AbstractCommand[0]);
+		for (AbstractCommand cmd: this.commands) cmd.system=this;
 		this.in=in;
 		this.out=out;
 	}
@@ -152,6 +169,7 @@ public class BaseCommandLineSystem {
 		List<AbstractCommand> list=new ArrayList<>();
 
 		list.add(new CommandHelp());
+		list.add(new CommandInteractive());
 
 		return list;
 	}
@@ -191,13 +209,11 @@ public class BaseCommandLineSystem {
 	}
 
 	/**
-	 * Startet die Kommandozeilen-Variante des Simulators
-	 * @param arguments Kommandozeilenparameter, die an <code>main</code> übergeben wurden.
-	 * @return Gibt <code>true</code> zurück, wenn Kommandozeilenparameter übergeben wurden und folglich die Kommandozeilen-Variante aktiviert wurde.
+	 * Führt einen Kommandozeilen-Befehl aus und
+	 * gibt dabei keine initiale Versionskennung aus.
+	 * @param arguments Kommandozeilenparameter
 	 */
-	public boolean run(String[] arguments) {
-		if (arguments.length==0) return false;
-		out.println(programName+" "+version+", (c) "+author);
+	private void runInternal(final String[] arguments) {
 		command=findCommand(arguments[0]);
 		if (command==null) {
 			out.println(errorBig+": "+unknownCommand);
@@ -209,6 +225,65 @@ public class BaseCommandLineSystem {
 				if (canRun(command)) command.run(commands,in,out);
 			}
 		}
+	}
+
+	/**
+	 * Führt einen Kommandozeilen-Befehl aus
+	 * @param arguments Kommandozeilenparameter, die an <code>main</code> übergeben wurden.
+	 * @return Gibt <code>true</code> zurück, wenn Kommandozeilenparameter übergeben wurden und folglich die Kommandozeilen-Variante aktiviert wurde.
+	 */
+	public boolean run(final String[] arguments) {
+		if (arguments.length==0) return false;
+		out.println(programName+" "+version+", (c) "+author);
+		runInternal(arguments);
+		return true;
+	}
+
+	/**
+	 * Teilt eine Kommandozielen-Zeichenkette in einzelne Parameter auf.
+	 * @param text	Aufzuteilender Text
+	 * @return	Einzelne Parameter
+	 */
+	private String[] splitArguments(final String text) {
+		final List<String> arguments=new ArrayList<>();
+
+		final StringBuilder part=new StringBuilder();
+		char sequence='\0';
+		for (char c: text.toCharArray()) {
+			if (c=='"' || c=='\'') {
+				if (sequence=='\0') sequence=c;
+				if (sequence==c) sequence='\0';
+				part.append(c);
+				continue;
+			}
+			if (c==' ' && sequence=='\0') {
+				final String s=part.toString().trim();
+				if (!s.isEmpty()) arguments.add(s);
+				part.setLength(0);
+				continue;
+			}
+
+			part.append(c);
+		}
+
+		if (part.length()>0) {
+			final String s=part.toString().trim();
+			if (!s.isEmpty()) arguments.add(s);
+		}
+
+
+		return arguments.toArray(new String[0]);
+	}
+
+	/**
+	 * Führt einen Kommandozeilen-Befehl aus und
+	 * gibt dabei keine initiale Versionskennung aus.
+	 * @param arguments Kommandozeilenparameter
+	 * @return Gibt <code>true</code> zurück, wenn Kommandozeilenparameter übergeben wurden und folglich die Kommandozeilen-Variante aktiviert wurde.
+	 */
+	public boolean runDirect(final String arguments) {
+		if (arguments==null || arguments.trim().isEmpty()) return false;
+		runInternal(splitArguments(arguments));
 		return true;
 	}
 
@@ -217,5 +292,27 @@ public class BaseCommandLineSystem {
 	 */
 	public void setQuit() {
 		if (command!=null) command.setQuit();
+	}
+
+	/**
+	 * Startet den interaktiven Befehlszeilenmodus.
+	 * @param readyInfo	Anzeige "Bereit."
+	 */
+	public void runInteractive(final String readyInfo) {
+		if (in==null) return;
+
+		try (Scanner scanner=new Scanner(in)) {
+			out.println(readyInfo);
+			while(scanner.hasNext()){
+				final String cmd=scanner.nextLine();
+				if (cmd==null || cmd.trim().isEmpty()) continue;
+
+				final String cmdLower=cmd.toLowerCase();
+				if (cmdLower.equals("exit") || cmdLower.equals("quit") || cmdLower.equals("exit()") || cmdLower.equals("quit()")) break;
+
+				runDirect(cmd);
+				out.println(readyInfo);
+			}
+		}
 	}
 }
