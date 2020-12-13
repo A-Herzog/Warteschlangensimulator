@@ -1,3 +1,13 @@
+benchmark:
+
+Performs a single benchmark run using the specified number of CPU cores.
+Results are appended to benchmark-results.txt.
+
+Führt einen einzelnen Benchmark-Lauf unter Verwendung der angegebenen Anzahl an CPU-Kernen durch.
+Die Ergebnisse werden an die Datei benchmark-results.txt angehängt.
+
+
+
 benchmark-upto:
 
 Performs benchmarks runs using the 1,2,... up to the specified number of CPU cores.
@@ -106,3 +116,9 @@ docker-sim-build:
 
 Builds a docker image for running Warteschlangensimulator
 in server mode on port 81.
+
+
+
+filter.py:
+
+Python script for running a filter script on multiple statistics files.
