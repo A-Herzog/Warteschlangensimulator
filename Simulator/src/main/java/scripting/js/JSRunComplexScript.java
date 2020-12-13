@@ -107,7 +107,7 @@ public class JSRunComplexScript {
 	 * @param statistics	Statistikdaten für die Nutzung im JS-Skript
 	 */
 	public void setStatistics(final Statistics statistics) {
-		this.statisticsJS.setXML(statistics.saveToXMLDocument());
+		this.statisticsJS.setXML(statistics.saveToXMLDocument(),statistics.loadedStatistics);
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class JSRunComplexScript {
 		builder.addBinding("System",new JSCommandSystem());
 		builder.addBinding("Output",new JSCommandOutput(builder.output,false));
 		builder.addBinding("Model",modelJS=new JSRunComplexScriptModel(builder.output,this));
-		builder.addBinding("Statistics",statisticsJS=new JSCommandXML(builder.output,null,true));
+		builder.addBinding("Statistics",statisticsJS=new JSCommandXML(builder.output,null,null,true));
 		builder.addBinding("FileOutput",fileJS=new JSCommandOutput(builder.output,true));
 
 		final JSEngine runner=builder.build();

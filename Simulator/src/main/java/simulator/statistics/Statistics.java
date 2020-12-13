@@ -464,6 +464,11 @@ public class Statistics extends StatisticsBase {
 	private static int MAX_DISTRIBUTION_RECORD_HOURS=48;
 
 	/**
+	 * Optional: Name der Datei aus der die XML-Statistik-Daten stammen
+	 */
+	public File loadedStatistics;
+
+	/**
 	 * Konstruktor der Klasse <code>Statistics</code>
 	 * @param correlationRange	Maximaler Autokorrelationswert der bei der Erfassung der Daten vorgesehen werden soll.
 	 * @param correlationMode	Art der Erfassung der Autokorrelation

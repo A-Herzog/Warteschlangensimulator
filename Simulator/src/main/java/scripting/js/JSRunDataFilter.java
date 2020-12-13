@@ -15,6 +15,8 @@
  */
 package scripting.js;
 
+import java.io.File;
+
 import org.w3c.dom.Document;
 
 import language.Language;
@@ -32,6 +34,11 @@ public final class JSRunDataFilter {
 	private final Document xml;
 
 	/**
+	 * Optional: Name der Datei aus der die XML-Statistik-Daten stammen
+	 */
+	private File xmlFile;
+
+	/**
 	 * Erfolg der letzten Skriptausführung
 	 * @see #getLastSuccess()
 	 */
@@ -46,9 +53,11 @@ public final class JSRunDataFilter {
 	/**
 	 * Konstruktor der Klasse
 	 * @param xml	XMl-Statistik-Daten, die gefiltert werden sollen
+	 * @param xmlFile	Optional: Name der Datei aus der die XML-Statistik-Daten stammen
 	 */
-	public JSRunDataFilter(final Document xml) {
+	public JSRunDataFilter(final Document xml, final File xmlFile) {
 		this.xml=xml;
+		this.xmlFile=xmlFile;
 		lastSuccess=false;
 		lastResults="";
 	}
@@ -62,11 +71,12 @@ public final class JSRunDataFilter {
 		final JSBuilder builder=new JSBuilder(2_000);
 		final Statistics statistics=new Statistics();
 		statistics.loadFromXML(xml.getDocumentElement());
+		statistics.loadedStatistics=xmlFile;
 		final JSCommandSystem commandSystem;
 		builder.addBinding("System",commandSystem=new JSCommandSystem());
 		commandSystem.setSimulationData(Simulator.getSimulationDataFromStatistics(statistics),null);
 		builder.addBinding("Output",new JSCommandOutput(builder.output,false));
-		builder.addBinding("Statistics",new JSCommandXML(builder.output,xml,false));
+		builder.addBinding("Statistics",new JSCommandXML(builder.output,xml,xmlFile,false));
 		final JSEngine runner=builder.build();
 		if (runner==null) {
 			lastResults=String.format(Language.tr("Statistics.Filter.EngineInitError"),builder.engineName.name);

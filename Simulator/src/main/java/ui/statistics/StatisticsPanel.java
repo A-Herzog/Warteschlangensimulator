@@ -237,6 +237,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 		Statistics newStatistics=new Statistics();
 		String error=newStatistics.loadFromFile(file);
 		if (error!=null) return error;
+		newStatistics.loadedStatistics=file;
 
 		setStatistics(newStatistics);
 
@@ -245,13 +246,15 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 	/**
 	 * Lädt die Statistikdaten aus einem XML-Element
+	 * @param file	Datei, aus der die Statistikdaten geladen wurden (kann <code>null</code> sein).
 	 * @param root	XML-Wurzelelement, aus dem die Statistikdaten geladen werden sollen.
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public String loadStatisticsFromXML(final Element root) {
+	public String loadStatisticsFromXML(final File file, final Element root) {
 		Statistics newStatistics=new Statistics();
 		String error=newStatistics.loadFromXML(root);
 		if (error!=null) return error;
+		newStatistics.loadedStatistics=file;
 
 		setStatistics(newStatistics);
 
@@ -286,6 +289,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			if (!runReportGeneratorHTMLApp(file,true)) return Language.tr("Main.Statistic.ErrorSaving");
 		} else {
 			if (!statistics[0].saveToFile(file)) return Language.tr("Main.Statistic.ErrorSaving");
+			statistics[0].loadedStatistics=file;
 		}
 
 		return null;

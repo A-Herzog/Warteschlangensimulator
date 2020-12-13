@@ -279,7 +279,7 @@ public class ModelImpl implements ModelInterface {
 			simulator.finalizeRun();
 			final Statistics statistics=simulator.getStatistic();
 			if (statistics!=null) {
-				statisticsConnect.setStatistics(statistics.saveToXMLDocument());
+				statisticsConnect.setStatistics(statistics.saveToXMLDocument(),null);
 				return true;
 			} else {
 				return false;

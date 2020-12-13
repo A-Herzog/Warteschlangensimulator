@@ -230,7 +230,7 @@ public abstract class OptimizerBase {
 	 */
 	private Double checkTargetXML(final Document doc) {
 		try (final JSOutputWriter output=new JSOutputWriter(line->logOutput(line))) {
-			final JSCommandXML command=new JSCommandXML(output,doc,false);
+			final JSCommandXML command=new JSCommandXML(output,doc,null,false);
 			final Object result=command.xmlNumber(targetXML);
 			if (result instanceof Double) return (Double)result;
 			if (result instanceof String) {
@@ -256,7 +256,7 @@ public abstract class OptimizerBase {
 
 		switch (ScriptPanel.getScriptType(targetScript)) {
 		case Javascript:
-			final JSRunDataFilter filter=new JSRunDataFilter(doc);
+			final JSRunDataFilter filter=new JSRunDataFilter(doc,null);
 			filter.run(targetScript);
 			if (!filter.getLastSuccess()) {
 				logOutput(String.format("  "+Language.tr("Optimizer.Error.ErrorExecutingScript")+":\n%s",filter.getResults()));
@@ -270,7 +270,7 @@ public abstract class OptimizerBase {
 			final DynamicRunner runner=DynamicFactory.getFactory().load(targetScript);
 			final StringBuilder results=new StringBuilder();
 			runner.parameter.output=new OutputImpl(line->results.append(line),false);
-			runner.parameter.statistics=new StatisticsImpl(line->results.append(line),doc,false);
+			runner.parameter.statistics=new StatisticsImpl(line->results.append(line),doc,null,false);
 			if (runner.getStatus()!=DynamicStatus.OK) {
 				logOutput(String.format("  "+Language.tr("Optimizer.Error.ErrorExecutingScript")+":\n%s",DynamicFactory.getLongStatusText(runner)));
 				return null;

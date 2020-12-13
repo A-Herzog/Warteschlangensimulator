@@ -118,7 +118,7 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 	private boolean runScriptOnModel(final ScriptEditorPanel.ScriptMode mode, final String script, final ParameterCompareSetupModel model, final Consumer<String> addOutput) {
 		switch (mode) {
 		case Javascript:
-			final JSRunDataFilter filter=new JSRunDataFilter(model.getStatisticsDocument());
+			final JSRunDataFilter filter=new JSRunDataFilter(model.getStatisticsDocument(),null);
 			filter.run(script);
 			if (!filter.getLastSuccess()) {
 				MsgBox.error(this,Language.tr("ParameterCompare.ScriptRunner.Script.Run.Error.Title"),String.format(Language.tr("ParameterCompare.ScriptRunner.Script.Run.Error.Info"),filter.getResults()));
@@ -134,7 +134,7 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 			}
 			runner.parameter.system=new SystemImpl(Simulator.getSimulationDataFromStatistics(model.getStatistics()));
 			runner.parameter.output=new OutputImpl(addOutput,false);
-			runner.parameter.statistics=new StatisticsImpl(addOutput,model.getStatisticsDocument(),false);
+			runner.parameter.statistics=new StatisticsImpl(addOutput,model.getStatisticsDocument(),null,false);
 			runner.run();
 			if (runner.getStatus()!=DynamicStatus.OK) {
 				MsgBox.error(this,Language.tr("ParameterCompare.ScriptRunner.Script.Run.Error.Title"),String.format(Language.tr("ParameterCompare.ScriptRunner.Script.Run.Error.Info"),DynamicFactory.getLongStatusText(runner)));

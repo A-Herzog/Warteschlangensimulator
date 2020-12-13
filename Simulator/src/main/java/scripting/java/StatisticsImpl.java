@@ -64,6 +64,8 @@ public class StatisticsImpl implements StatisticsInterface {
 
 	/** XMl-Statistik-Daten, die gefiltert werden sollen */
 	private Document xml;
+	/** Optional: Name der Datei aus der die XML-Statistik-Daten stammen */
+	private File xmlFile;
 	/** Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen */
 	private final Consumer<String> errorOutput;
 
@@ -80,10 +82,12 @@ public class StatisticsImpl implements StatisticsInterface {
 	 * Konstruktor der Klasse
 	 * @param output	Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen
 	 * @param xml	XMl-Statistik-Daten, die gefiltert werden sollen
+	 * @param xmlFile	Optional: Name der Datei aus der die XML-Statistik-Daten stammen
 	 * @param allowSave	Gibt an, ob die Statistikdaten als Datei gespeichert werden dürfen
 	 */
-	public StatisticsImpl(final Consumer<String> output, final Document xml, final boolean allowSave) {
+	public StatisticsImpl(final Consumer<String> output, final Document xml, final File xmlFile, final boolean allowSave) {
 		this.xml=xml;
+		this.xmlFile=xmlFile;
 		this.errorOutput=output;
 		this.allowSave=allowSave;
 	}
@@ -91,9 +95,11 @@ public class StatisticsImpl implements StatisticsInterface {
 	/**
 	 * Stellt das zu verwendende XML-Dokument ein
 	 * @param xml	Zu verwendendes XML-Dokument
+	 * @param xmlFile	Optional: Name der Datei aus der die XML-Statistik-Daten stammen
 	 */
-	public void setStatistics(final Document xml) {
+	public void setStatistics(final Document xml, final File xmlFile) {
 		this.xml=xml;
+		this.xmlFile=xmlFile;
 	}
 
 	/**
@@ -543,7 +549,7 @@ public class StatisticsImpl implements StatisticsInterface {
 		}
 		final String script=String.join("\n",lines);
 
-		final JSRunDataFilter filter=new JSRunDataFilter(xml);
+		final JSRunDataFilter filter=new JSRunDataFilter(xml,xmlFile);
 		filter.run(script);
 		return filter.getResults();
 	}
@@ -629,8 +635,23 @@ public class StatisticsImpl implements StatisticsInterface {
 		if (model.loadFromXML(root)==null) return getStationID(model.surface,name);
 
 		final Statistics statistics=new Statistics();
-		if (statistics.loadFromXML(root)==null) return getStationID(statistics.editModel.surface,name);
+		if (statistics.loadFromXML(root)==null) {
+			statistics.loadedStatistics=xmlFile;
+			return getStationID(statistics.editModel.surface,name);
+		}
 
 		return -1;
+	}
+
+	@Override
+	public String getStatisticsFile() {
+		if (xmlFile==null) return "";
+		return xmlFile.toString();
+	}
+
+	@Override
+	public String getStatisticsFileName() {
+		if (xmlFile==null) return "";
+		return xmlFile.getName();
 	}
 }

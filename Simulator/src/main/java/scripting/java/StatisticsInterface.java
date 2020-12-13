@@ -123,4 +123,16 @@ public interface StatisticsInterface {
 	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
 	 */
 	int getStationID(final String name);
+
+	/**
+	 * Liefert den vollständigen Pfad- und Dateinamen der Statistikdatei, aus der die Daten stammen.
+	 * @return	Vollständiger Pfad- und Dateinamen der Statistikdatei (kann leer, aber nicht <code>null</code> sein)
+	 */
+	String getStatisticsFile();
+
+	/**
+	 * Liefert den Dateinamen der Statistikdatei, aus der die Daten stammen.
+	 * @return	Dateiname der Statistikdatei (kann leer, aber nicht <code>null</code> sein)
+	 */
+	String getStatisticsFileName();
 }

@@ -323,7 +323,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		case MODE_SCRIPT_JS:
 			script=getScript(output.getTag());
 			if (script==null) return null;
-			final JSRunDataFilter filter=new JSRunDataFilter(statistics.saveToXMLDocument());
+			final JSRunDataFilter filter=new JSRunDataFilter(statistics.saveToXMLDocument(),null);
 			filter.run(script);
 			if (!filter.getLastSuccess()) return null;
 			s=filter.getResults();
@@ -336,7 +336,7 @@ public class ParameterComparePanel extends SpecialPanel {
 
 			final StringBuilder results=new StringBuilder();
 			runner.parameter.output=new OutputImpl(line->results.append(line),false);
-			runner.parameter.statistics=new StatisticsImpl(line->results.append(line),statistics.saveToXMLDocument(),false);
+			runner.parameter.statistics=new StatisticsImpl(line->results.append(line),statistics.saveToXMLDocument(),null,false);
 			runner.run();
 			if (runner.getStatus()!=DynamicStatus.OK) return null;
 			return NumberTools.getDouble(results.toString().trim());

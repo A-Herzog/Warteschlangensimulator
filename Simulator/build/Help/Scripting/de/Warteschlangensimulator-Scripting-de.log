@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  28 NOV 2020 19:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  12 DEC 2020 20:40
 entering extended mode
 **./Warteschlangensimulator-Scripting-de.tex
 (Warteschlangensimulator-Scripting-de.tex
@@ -786,7 +786,7 @@ LaTeX Info: Redefining \nameref on input line 18.
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
 )
-<../../Warteschlangennetz-mittel.jpg, id=528, 2902.33244pt x 1981.27437pt>
+<../../Warteschlangennetz-mittel.jpg, id=536, 2902.33244pt x 1981.27437pt>
 File: ../../Warteschlangennetz-mittel.jpg Graphic file (type jpg)
 <use ../../Warteschlangennetz-mittel.jpg>
 Package pdftex.def Info: ../../Warteschlangennetz-mittel.jpg  used on input line 26.
@@ -850,12 +850,12 @@ LaTeX Font Info:    Trying to load font information for T1+lmss on input line 15
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<wand.png, id=697, 16.06pt x 16.06pt>
+<wand.png, id=707, 16.06pt x 16.06pt>
 File: wand.png Graphic file (type png)
 <use wand.png>
 Package pdftex.def Info: wand.png  used on input line 19.
 (pdftex.def)             Requested size: 7.11317pt x 7.11322pt.
-<DialogExpressionBuilder.png, id=700, 599.23875pt x 450.18187pt>
+<DialogExpressionBuilder.png, id=710, 599.23875pt x 450.18187pt>
 File: DialogExpressionBuilder.png Graphic file (type png)
 <use DialogExpressionBuilder.png>
 Package pdftex.def Info: DialogExpressionBuilder.png  used on input line 28.
@@ -1052,14 +1052,14 @@ Package atveryend Info: Executing hook `AfterLastShipout' on input line 45.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 45.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 45.
 Package rerunfilecheck Info: File `Warteschlangensimulator-Scripting-de.out' has not changed.
-(rerunfilecheck)             Checksum: B4DC68453D74D1B01BF48896F82A95B1;11708.
+(rerunfilecheck)             Checksum: 80944D101CBBD29A9D2D05F8370F7E3E;11900.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 45.
  ) 
 Here is how much of TeX's memory you used:
- 12292 strings out of 491273
- 182996 string characters out of 3112170
+ 12296 strings out of 491273
+ 183048 string characters out of 3112170
  325417 words of memory out of 3000000
- 17225 multiletter control sequences out of 15000+200000
+ 17227 multiletter control sequences out of 15000+200000
  97284 words of font info for 81 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  49i,8n,39p,367b,591s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1075,9 +1075,9 @@ lic/lm/lmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:/
 lic/lm/lmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
 e1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fonts/
 type1/public/lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt9.pfb>
-Output written on Warteschlangensimulator-Scripting-de.pdf (105 pages, 1562884 bytes).
+Output written on Warteschlangensimulator-Scripting-de.pdf (105 pages, 1564910 bytes).
 PDF statistics:
- 1256 PDF objects out of 1440 (max. 8388607)
- 239 named destinations out of 1000 (max. 500000)
- 1068 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1267 PDF objects out of 1440 (max. 8388607)
+ 241 named destinations out of 1000 (max. 500000)
+ 1084 words of extra memory for PDF output out of 10000 (max. 10000000)
 

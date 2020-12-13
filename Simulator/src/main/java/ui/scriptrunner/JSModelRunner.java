@@ -106,7 +106,7 @@ public class JSModelRunner {
 				} else {
 					runner.parameter.output=new OutputImpl(line->output(line),false);
 					runner.parameter.fileoutput=new OutputImpl(line->output(line),true);
-					runner.parameter.statistics=new StatisticsImpl(line->output(line),null,true);
+					runner.parameter.statistics=new StatisticsImpl(line->output(line),null,null,true);
 					if (model!=null) {
 						runner.parameter.model=new ModelImpl(line->output(line),model,runner.parameter.statistics);
 					}

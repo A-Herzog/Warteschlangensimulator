@@ -109,25 +109,27 @@
 \BOOKMARK [0][-]{chapter.19}{19 FileOutput object}{part.2}% 109
 \BOOKMARK [0][-]{chapter.20}{20 Model object}{part.2}% 110
 \BOOKMARK [1][-]{section.20.1}{20.1 Accessing station data}{chapter.20}% 111
-\BOOKMARK [0][-]{chapter.21}{21 XML selection commands}{part.2}% 112
-\BOOKMARK [-1][-]{part.3}{III Java commands reference}{}% 113
-\BOOKMARK [0][-]{chapter.22}{22 StatisticsInterface accessible via sim.getStatistics\(\)}{part.3}% 114
-\BOOKMARK [1][-]{section.22.1}{22.1 Definition of the output format}{chapter.22}% 115
-\BOOKMARK [1][-]{section.22.2}{22.2 Accessing statistics xml data}{chapter.22}% 116
-\BOOKMARK [1][-]{section.22.3}{22.3 Saving the statistics data to files}{chapter.22}% 117
-\BOOKMARK [1][-]{section.22.4}{22.4 Accessing station data}{chapter.22}% 118
-\BOOKMARK [0][-]{chapter.23}{23 RuntimeInterface accessible via sim.getRuntime\(\)}{part.3}% 119
-\BOOKMARK [0][-]{chapter.24}{24 SystemInterface accessible via sim.getSystem\(\)}{part.3}% 120
-\BOOKMARK [1][-]{section.24.1}{24.1 Base functions}{chapter.24}% 121
-\BOOKMARK [1][-]{section.24.2}{24.2 Accessing parameters of the simulation model}{chapter.24}% 122
-\BOOKMARK [1][-]{section.24.3}{24.3 Number of operators in a resource}{chapter.24}% 123
-\BOOKMARK [1][-]{section.24.4}{24.4 Trigger signal}{chapter.24}% 124
-\BOOKMARK [1][-]{section.24.5}{24.5 Run external code}{chapter.24}% 125
-\BOOKMARK [0][-]{chapter.25}{25 ClientInterface accessible via sim.getClient\(\)}{part.3}% 126
-\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface accessible via sim.getInputValue\(\)}{part.3}% 127
-\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface accessible via sim.getClients\(\)}{part.3}% 128
-\BOOKMARK [0][-]{chapter.28}{28 OutputInterface accessible via sim.getOutput\(\)}{part.3}% 129
-\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface accessible via sim.getFileOutput\(\)}{part.3}% 130
-\BOOKMARK [0][-]{chapter.30}{30 ModelInterface accessible via sim.getModel\(\)}{part.3}% 131
-\BOOKMARK [1][-]{section.30.1}{30.1 Accessing station data}{chapter.30}% 132
-\BOOKMARK [0][-]{chapter.31}{31 XML selection commands}{part.3}% 133
+\BOOKMARK [1][-]{section.20.2}{20.2 Retrieve the associated statistics file}{chapter.20}% 112
+\BOOKMARK [0][-]{chapter.21}{21 XML selection commands}{part.2}% 113
+\BOOKMARK [-1][-]{part.3}{III Java commands reference}{}% 114
+\BOOKMARK [0][-]{chapter.22}{22 StatisticsInterface accessible via sim.getStatistics\(\)}{part.3}% 115
+\BOOKMARK [1][-]{section.22.1}{22.1 Definition of the output format}{chapter.22}% 116
+\BOOKMARK [1][-]{section.22.2}{22.2 Accessing statistics xml data}{chapter.22}% 117
+\BOOKMARK [1][-]{section.22.3}{22.3 Saving the statistics data to files}{chapter.22}% 118
+\BOOKMARK [1][-]{section.22.4}{22.4 Accessing station data}{chapter.22}% 119
+\BOOKMARK [1][-]{section.22.5}{22.5 Retrieve the associated statistics file}{chapter.22}% 120
+\BOOKMARK [0][-]{chapter.23}{23 RuntimeInterface accessible via sim.getRuntime\(\)}{part.3}% 121
+\BOOKMARK [0][-]{chapter.24}{24 SystemInterface accessible via sim.getSystem\(\)}{part.3}% 122
+\BOOKMARK [1][-]{section.24.1}{24.1 Base functions}{chapter.24}% 123
+\BOOKMARK [1][-]{section.24.2}{24.2 Accessing parameters of the simulation model}{chapter.24}% 124
+\BOOKMARK [1][-]{section.24.3}{24.3 Number of operators in a resource}{chapter.24}% 125
+\BOOKMARK [1][-]{section.24.4}{24.4 Trigger signal}{chapter.24}% 126
+\BOOKMARK [1][-]{section.24.5}{24.5 Run external code}{chapter.24}% 127
+\BOOKMARK [0][-]{chapter.25}{25 ClientInterface accessible via sim.getClient\(\)}{part.3}% 128
+\BOOKMARK [0][-]{chapter.26}{26 InputValueInterface accessible via sim.getInputValue\(\)}{part.3}% 129
+\BOOKMARK [0][-]{chapter.27}{27 ClientsInterface accessible via sim.getClients\(\)}{part.3}% 130
+\BOOKMARK [0][-]{chapter.28}{28 OutputInterface accessible via sim.getOutput\(\)}{part.3}% 131
+\BOOKMARK [0][-]{chapter.29}{29 FileOutputInterface accessible via sim.getFileOutput\(\)}{part.3}% 132
+\BOOKMARK [0][-]{chapter.30}{30 ModelInterface accessible via sim.getModel\(\)}{part.3}% 133
+\BOOKMARK [1][-]{section.30.1}{30.1 Accessing station data}{chapter.30}% 134
+\BOOKMARK [0][-]{chapter.31}{31 XML selection commands}{part.3}% 135

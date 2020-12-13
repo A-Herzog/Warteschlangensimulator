@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-11 13:18+0100\n"
+"POT-Creation-Date: 2020-12-12 20:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15249,6 +15249,18 @@ msgstr "ID of a station"
 
 msgid "Statistic.FastAccess.Template.StationID.Get.Tooltip"
 msgstr "Gets the ID of a station based on its name."
+
+msgid "Statistic.FastAccess.Template.StatisticsFileFull"
+msgstr "Path and file name of the statistics file"
+
+msgid "Statistic.FastAccess.Template.StatisticsFileFull.Tooltip"
+msgstr "Retruns the full Path and file name of the statistics file"
+
+msgid "Statistic.FastAccess.Template.StatisticsFileName"
+msgstr "File name of the statistics file"
+
+msgid "Statistic.FastAccess.Template.StatisticsFileName.Tooltip"
+msgstr "Retruns the file name of the statistics file"
 
 msgid "Statistic.FastAccess.Template.StatisticsTranslate.de"
 msgstr "Translate statistics to \"de\""

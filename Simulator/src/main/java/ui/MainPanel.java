@@ -1856,7 +1856,7 @@ public class MainPanel extends MainPanelBase {
 	private boolean commandFileStatisticsLoad(final Element rootOptional, final File file) {
 		final String error;
 		if (rootOptional!=null) {
-			error=statisticsPanel.loadStatisticsFromXML(rootOptional);
+			error=statisticsPanel.loadStatisticsFromXML(file,rootOptional);
 		} else {
 			error=statisticsPanel.loadStatistics(file);
 		}

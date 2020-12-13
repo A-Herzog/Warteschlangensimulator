@@ -55,6 +55,8 @@ public class JSCommandXML extends JSBaseCommand {
 
 	/** XMl-Statistik-Daten, die gefiltert werden sollen */
 	private Document xml;
+	/** Optional: Name der Datei aus der die XML-Statistik-Daten stammen */
+	private File xmlFile;
 	/** Gibt an, ob die Statistikdaten als Datei gespeichert werden dürfen */
 	private final boolean allowSave;
 
@@ -71,20 +73,24 @@ public class JSCommandXML extends JSBaseCommand {
 	 * Konstruktor der Klasse <code>JSFilterCommandXML</code>
 	 * @param output	Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen
 	 * @param xml	XMl-Statistik-Daten, die gefiltert werden sollen
+	 * @param xmlFile	Optional: Name der Datei aus der die XML-Statistik-Daten stammen
 	 * @param allowSave	Gibt an, ob die Statistikdaten als Datei gespeichert werden dürfen
 	 */
-	public JSCommandXML(final JSOutputWriter output, final Document xml, final boolean allowSave) {
+	public JSCommandXML(final JSOutputWriter output, final Document xml, final File xmlFile, final boolean allowSave) {
 		super(output);
 		this.xml=xml;
+		this.xmlFile=xmlFile;
 		this.allowSave=allowSave;
 	}
 
 	/**
 	 * Stellt das zu verwendende XML-Dokument ein
 	 * @param xml	Zu verwendendes XML-Dokument
+	 * @param xmlFile	Optional: Name der Datei aus der die XML-Statistik-Daten stammen
 	 */
-	public void setXML(final Document xml) {
+	public void setXML(final Document xml, final File xmlFile) {
 		this.xml=xml;
+		this.xmlFile=xmlFile;
 	}
 
 	/**
@@ -473,7 +479,7 @@ public class JSCommandXML extends JSBaseCommand {
 		}
 		final String script=String.join("\n",lines);
 
-		final JSRunDataFilter filter=new JSRunDataFilter(xml);
+		final JSRunDataFilter filter=new JSRunDataFilter(xml,xmlFile);
 		filter.run(script);
 		return filter.getResults();
 	}
@@ -654,8 +660,29 @@ public class JSCommandXML extends JSBaseCommand {
 		if (model.loadFromXML(root)==null) return getStationID(model.surface,name);
 
 		final Statistics statistics=new Statistics();
-		if (statistics.loadFromXML(root)==null) return getStationID(statistics.editModel.surface,name);
+		if (statistics.loadFromXML(root)==null) {
+			statistics.loadedStatistics=xmlFile;
+			return getStationID(statistics.editModel.surface,name);
+		}
 
 		return -1;
+	}
+
+	/**
+	 * Liefert den vollständigen Pfad- und Dateinamen der Statistikdatei, aus der die Daten stammen.
+	 * @return	Vollständiger Pfad- und Dateinamen der Statistikdatei (kann leer, aber nicht <code>null</code> sein)
+	 */
+	public String getStatisticsFile() {
+		if (xmlFile==null) return "";
+		return xmlFile.toString();
+	}
+
+	/**
+	 * Liefert den Dateinamen der Statistikdatei, aus der die Daten stammen.
+	 * @return	Dateiname der Statistikdatei (kann leer, aber nicht <code>null</code> sein)
+	 */
+	public String getStatisticsFileName() {
+		if (xmlFile==null) return "";
+		return xmlFile.getName();
 	}
 }

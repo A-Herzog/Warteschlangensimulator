@@ -705,17 +705,23 @@ public class ScriptEditorAreaBuilder {
 		String statisticsSave="";
 		String statisticsSaveNext="";
 		String statisticsFilter="";
+		String statisticsFileFull="";
+		String statisticsFileName="";
 
 		if (language==ScriptMode.Javascript) {
 			statisticsSave="Statistics.save(\"FileName\");";
 			statisticsSaveNext="Statistics.saveNext(\"Path\");";
 			statisticsFilter="Statistics.filter(\"FileName\");";
+			statisticsFileFull="Statistics.getStatisticsFile();";
+			statisticsFileName="Statistics.getStatisticsFileName();";
 		}
 
 		if (language==ScriptMode.Java) {
 			statisticsSave="sim.getStatistics().save(\"FileName\");";
 			statisticsSaveNext="sim.getStatistics().saveNext(\"Path\");";
 			statisticsFilter=""; /* Diese Option gibt's nur im JS-Modus. */
+			statisticsFileFull="sim.getStatistics().getStatisticsFile();";
+			statisticsFileName="sim.getStatistics().getStatisticsFileName();";
 		}
 
 		/* Speichern der Ergebnisse */
@@ -739,6 +745,11 @@ public class ScriptEditorAreaBuilder {
 			addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsTranslate.de"),Language.tr("Statistic.FastAccess.Template.StatisticsTranslate.de.Tooltip"),Images.LANGUAGE_DE.getIcon(),"sim.getStatistics().translate(\"de\");");
 			addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsTranslate.en"),Language.tr("Statistic.FastAccess.Template.StatisticsTranslate.en.Tooltip"),Images.LANGUAGE_EN.getIcon(),"sim.getStatistics().translate(\"en\");");
 		}
+
+		/* Dateiname der geladenen Statistikdatei */
+
+		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsFileFull"),Language.tr("Statistic.FastAccess.Template.StatisticsFileFull.Tooltip"),Images.STATISTICS.getIcon(),statisticsFileFull);
+		addAutoComplete(Language.tr("Statistic.FastAccess.Template.StatisticsFileName"),Language.tr("Statistic.FastAccess.Template.StatisticsFileName.Tooltip"),Images.STATISTICS.getIcon(),statisticsFileName);
 	}
 
 	/**

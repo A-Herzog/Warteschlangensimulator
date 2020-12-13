@@ -114,7 +114,7 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	@Override
 	public void setStatistics(final Statistics statistics) {
 		super.setStatistics(statistics);
-		dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument());
+		dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics.loadedStatistics);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 		if (text.trim().isEmpty()) {
 			lastInterpretedFilterResult="";
 		} else {
-			if (dataFilter==null) dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument());
+			if (dataFilter==null) dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics.loadedStatistics);
 			dataFilter.run(text);
 			lastInterpretedFilterResult=dataFilter.getResults();
 		}

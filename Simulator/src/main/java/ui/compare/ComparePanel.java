@@ -112,6 +112,7 @@ public class ComparePanel extends SpecialPanel {
 			Statistics data=new Statistics();
 			String s=data.loadFromFile(statisticFiles[i]); if (s!=null) break;
 			statistic[i]=data;
+			statistic[i].loadedStatistics=statisticFiles[i];
 		}
 		return statistic;
 	}

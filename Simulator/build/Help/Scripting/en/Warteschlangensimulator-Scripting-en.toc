@@ -108,6 +108,7 @@
 \contentsline {chapter}{\numberline {19}\texttt {FileOutput} object}{69}{chapter.19}%
 \contentsline {chapter}{\numberline {20}\texttt {Model} object}{71}{chapter.20}%
 \contentsline {section}{\numberline {20.1}Accessing station data}{72}{section.20.1}%
+\contentsline {section}{\numberline {20.2}Retrieve the associated statistics file}{72}{section.20.2}%
 \contentsline {chapter}{\numberline {21}XML selection commands}{73}{chapter.21}%
 \contentsline {part}{III\hspace {1em}Java commands reference}{75}{part.3}%
 \contentsline {chapter}{\numberline {22}\texttt {StatisticsInterface} accessible via \texttt {sim.getStatistics()}}{77}{chapter.22}%
@@ -115,6 +116,7 @@
 \contentsline {section}{\numberline {22.2}Accessing statistics xml data}{77}{section.22.2}%
 \contentsline {section}{\numberline {22.3}Saving the statistics data to files}{79}{section.22.3}%
 \contentsline {section}{\numberline {22.4}Accessing station data}{79}{section.22.4}%
+\contentsline {section}{\numberline {22.5}Retrieve the associated statistics file}{79}{section.22.5}%
 \contentsline {chapter}{\numberline {23}\texttt {RuntimeInterface} accessible via \texttt {sim.getRuntime()}}{81}{chapter.23}%
 \contentsline {chapter}{\numberline {24}\texttt {SystemInterface} accessible via \texttt {sim.getSystem()}}{83}{chapter.24}%
 \contentsline {section}{\numberline {24.1}Base functions}{83}{section.24.1}%

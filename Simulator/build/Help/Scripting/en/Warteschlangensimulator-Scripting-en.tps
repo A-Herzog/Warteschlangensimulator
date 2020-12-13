@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ScriptingJS.tex
 
 [Frame1_View0,0]
-TopLine=530
-Cursor=20444
+TopLine=662
+Cursor=24800
 
 [Frame2]
 Flags=0
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=ScriptingJava.tex
 
 [Frame2_View0,0]
-TopLine=540
-Cursor=21860
+TopLine=164
+Cursor=7051
 
 [SessionInfo]
 FrameCount=3

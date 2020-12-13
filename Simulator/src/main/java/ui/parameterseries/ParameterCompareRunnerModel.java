@@ -180,7 +180,7 @@ public class ParameterCompareRunnerModel {
 	 * @see #processResults(Statistics)
 	 */
 	private Double calcResultValueByScriptJS(final Statistics statistics, final String script) {
-		final JSRunDataFilter filter=new JSRunDataFilter(statistics.saveToXMLDocument());
+		final JSRunDataFilter filter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics.loadedStatistics);
 		filter.run(script);
 		if (!filter.getLastSuccess()) {
 			logOutput(String.format(Language.tr("ParameterCompare.ResultsError.ScriptError"),getNr()+1,getName(),filter.getResults()));
@@ -211,7 +211,7 @@ public class ParameterCompareRunnerModel {
 
 		final StringBuilder results=new StringBuilder();
 		runner.parameter.output=new OutputImpl(line->results.append(line),false);
-		runner.parameter.statistics=new StatisticsImpl(line->results.append(line),statistics.saveToXMLDocument(),false);
+		runner.parameter.statistics=new StatisticsImpl(line->results.append(line),statistics.saveToXMLDocument(),statistics.loadedStatistics,false);
 		runner.run();
 		if (runner.getStatus()!=DynamicStatus.OK) {
 			logOutput(String.format(Language.tr("ParameterCompare.ResultsError.ScriptError"),getNr()+1,getName(),DynamicFactory.getLongStatusText(runner)));

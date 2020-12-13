@@ -96,6 +96,7 @@
 \contentsline {section}{\numberline {14.2}Zugriff auf die Statistik-XML-Daten}{58}{section.14.2}%
 \contentsline {section}{\numberline {14.3}Speichern der Statistikdaten in Dateien}{59}{section.14.3}%
 \contentsline {section}{\numberline {14.4}Zugriff auf das Modell}{59}{section.14.4}%
+\contentsline {section}{\numberline {14.5}Abfrage der zugehörigen Statistikdatei}{59}{section.14.5}%
 \contentsline {chapter}{\numberline {15}\texttt {System}-Objekt}{61}{chapter.15}%
 \contentsline {chapter}{\numberline {16}\texttt {Simulation}-Objekt}{63}{chapter.16}%
 \contentsline {section}{\numberline {16.1}Basisfunktionen}{63}{section.16.1}%
@@ -115,6 +116,7 @@
 \contentsline {section}{\numberline {22.2}Zugriff auf die Statistik-XML-Daten}{80}{section.22.2}%
 \contentsline {section}{\numberline {22.3}Speichern der Statistikdaten in Dateien}{81}{section.22.3}%
 \contentsline {section}{\numberline {22.4}Zugriff auf das Modell}{81}{section.22.4}%
+\contentsline {section}{\numberline {22.5}Abfrage der zugehörigen Statistikdatei}{81}{section.22.5}%
 \contentsline {chapter}{\numberline {23}\texttt {RuntimeInterface} abrufbar über \texttt {sim.getRuntime}}{83}{chapter.23}%
 \contentsline {chapter}{\numberline {24}\texttt {SystemInterface} abrufbar über \texttt {sim.getSystem()}}{85}{chapter.24}%
 \contentsline {section}{\numberline {24.1}Basisfunktionen}{85}{section.24.1}%
