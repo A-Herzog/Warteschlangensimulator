@@ -91,7 +91,7 @@ public final class CommandFilter extends AbstractSimulationCommand {
 	 * @param results	Ausgabedatei
 	 * @param out	Konsolen-Ausgabe (für Fehlermeldungen usw.)
 	 */
-	private void runFilter(Statistics statistic, String commands, File results, PrintStream out) {
+	public static void runFilter(Statistics statistic, String commands, File results, PrintStream out) {
 		boolean error=false;
 		String result=null;
 
@@ -110,7 +110,7 @@ public final class CommandFilter extends AbstractSimulationCommand {
 
 		if (result==null) switch (ScriptPanel.getScriptType(commands)) {
 		case Javascript:
-			final JSRunDataFilter dataFilter=new JSRunDataFilter(statistic.saveToXMLDocument());
+			final JSRunDataFilter dataFilter=new JSRunDataFilter(statistic.saveToXMLDocument(),statistic.loadedStatistics);
 			dataFilter.run(commands);
 			result=dataFilter.getResults();
 			error=!dataFilter.getLastSuccess();
@@ -123,7 +123,7 @@ public final class CommandFilter extends AbstractSimulationCommand {
 			} else {
 				final StringBuilder sb=new StringBuilder();
 				runner.parameter.output=new OutputImpl(line->sb.append(line),false);
-				runner.parameter.statistics=new StatisticsImpl(line->sb.append(line),statistic.saveToXMLDocument(),false);
+				runner.parameter.statistics=new StatisticsImpl(line->sb.append(line),statistic.saveToXMLDocument(),statistic.loadedStatistics,false);
 				runner.run();
 				if (runner.getStatus()!=DynamicStatus.OK) {
 					error=true;
@@ -158,9 +158,14 @@ public final class CommandFilter extends AbstractSimulationCommand {
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
-		Statistics inputStatistics=new Statistics();
-		String s=inputStatistics.loadFromFile(statisticsInputFile);
-		if (s!=null) {out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Filter.ErrorLoadingStatistic")+": "+s); return;}
+		final Statistics inputStatistics=new Statistics();
+		final String error=inputStatistics.loadFromFile(statisticsInputFile);
+		if (error!=null) {
+			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Filter.ErrorLoadingStatistic")+": "+error);
+			return;
+		}
+		inputStatistics.loadedStatistics=statisticsInputFile;
+
 		final String commands=Table.loadTextFromFile(filterFile);
 		if (commands==null) {
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Filter.ErrorLoadingFilterConfiguration"));

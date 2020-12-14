@@ -10,19 +10,20 @@
 \contentsline {section}{\numberline {2.1}Bedienstation}{7}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Verzögerung}{9}{section.2.2}%
 \contentsline {chapter}{\numberline {3}Zuweisungen}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Bereich betreten}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Bereich verlassen}{11}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Differenzzähler}{11}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Durchsatz}{12}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Kosten}{12}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Kundenstatistik}{12}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Multizähler}{12}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Script}{13}{section.3.8}%
-\contentsline {section}{\numberline {3.9}Textzuweisung}{13}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Typzuweisung}{13}{section.3.10}%
-\contentsline {section}{\numberline {3.11}Variable}{14}{section.3.11}%
-\contentsline {section}{\numberline {3.12}Zustand}{14}{section.3.12}%
-\contentsline {section}{\numberline {3.13}Zähler}{15}{section.3.13}%
+\contentsline {section}{\numberline {3.1}Batch-Zähler}{11}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Bereich betreten}{11}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Bereich verlassen}{11}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Differenzzähler}{12}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Durchsatz}{12}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Kosten}{12}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Kundenstatistik}{12}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Multizähler}{13}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Script}{13}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Textzuweisung}{13}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Typzuweisung}{14}{section.3.11}%
+\contentsline {section}{\numberline {3.12}Variable}{14}{section.3.12}%
+\contentsline {section}{\numberline {3.13}Zustand}{14}{section.3.13}%
+\contentsline {section}{\numberline {3.14}Zähler}{15}{section.3.14}%
 \contentsline {chapter}{\numberline {4}Verzweigungen}{17}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Duplizieren}{17}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Verzweigen}{17}{section.4.2}%

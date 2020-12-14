@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -224,6 +225,9 @@ public class CommandFolderSimulation extends AbstractCommand {
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final String[] files=folder.list();
+
+		Arrays.sort(files);
+
 		if (files==null) {
 			out.println(String.format(Language.tr("CommandLine.FolderSimulation.NoFilesInFolder"),folder.toString()));
 			return;

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  17 NOV 2020 21:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  14 DEC 2020 21:04
 entering extended mode
 **./Warteschlangensimulator-Commandline-de.tex
 (Warteschlangensimulator-Commandline-de.tex
@@ -906,30 +906,46 @@ File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1.
  [5]
-[6])
+[6]
+Package atenddvi Info: Last page = 8.
+ [7])
 \tf@thm=\write6
 \openout6 = `Warteschlangensimulator-Commandline-de.thm'.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 67.
-Package atenddvi Info: Last page = 8.
- [7]
+ [8]
 Package atveryend Info: Executing hook `AfterLastShipout' on input line 67.
- (Warteschlangensimulator-Commandline-de.aux)
+ (Warteschlangensimulator-Commandline-de.aux
+
+Package atenddvi Warning: Rerun LaTeX, last page has changed.
+
+)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 67.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
-Package rerunfilecheck Info: File `Warteschlangensimulator-Commandline-de.out' 
-has not changed.
-(rerunfilecheck)             Checksum: 53439955B0A33057A279817480FADA69;930.
+
+
+Package rerunfilecheck Warning: File `Warteschlangensimulator-Commandline-de.ou
+t' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Warteschlangensimulator-Commandline
+-de.out':
+(rerunfilecheck)             Before: 53439955B0A33057A279817480FADA69;930
+(rerunfilecheck)             After:  3E7B1AABC742067A3081075ECF92D9E3;1057.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
  ) 
 Here is how much of TeX's memory you used:
- 11893 strings out of 491273
- 177391 string characters out of 3112170
- 319959 words of memory out of 3000000
+ 11896 strings out of 491273
+ 177421 string characters out of 3112170
+ 321908 words of memory out of 3000000
  17065 multiletter control sequences out of 15000+200000
  53181 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,6n,39p,349b,487s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,7n,39p,349b,487s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/M
 iKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
 ype1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
@@ -939,10 +955,10 @@ ram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2
 ic/lm/lmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Fil
 es/MiKTeX 2.9/fonts/type1/public/lm/lmtt9.pfb>
-Output written on Warteschlangensimulator-Commandline-de.pdf (8 pages, 1179319 
+Output written on Warteschlangensimulator-Commandline-de.pdf (9 pages, 1181267 
 bytes).
 PDF statistics:
- 167 PDF objects out of 1000 (max. 8388607)
- 25 named destinations out of 1000 (max. 500000)
+ 173 PDF objects out of 1000 (max. 8388607)
+ 28 named destinations out of 1000 (max. 500000)
  130 words of extra memory for PDF output out of 10000 (max. 10000000)
 

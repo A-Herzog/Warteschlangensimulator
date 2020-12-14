@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-12 20:09+0100\n"
+"POT-Creation-Date: 2020-12-14 21:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1456,13 +1456,43 @@ msgid "CommandLine.Filter.Done.Success"
 msgstr "The results filter was executed successfully."
 
 msgid "CommandLine.Filter.ErrorLoadingFilterConfiguration"
-msgstr "An error occurd while trying to load the filter configuration."
+msgstr "An error occured while trying to load the filter configuration."
 
 msgid "CommandLine.Filter.ErrorLoadingStatistic"
 msgstr "The following error occured while loading the statistic data"
 
 msgid "CommandLine.Filter.Name"
 msgstr "Filter"
+
+msgid "CommandLine.FolderFilter.CannotProcessFile"
+msgstr "Cannot process file format."
+
+msgid "CommandLine.FolderFilter.Description.Long"
+msgstr ""
+"The command expects exactly three additional parameters:\n"
+"1. Name of the input folder\n"
+"2. Name of the input filter configuration file\n"
+"3. Name of the output file which will contain the filtered results\n"
+"If the output file already exists, the new results will be added.\n"
+"Otherwise the file will be created."
+
+msgid "CommandLine.FolderFilter.Description.Short"
+msgstr "Filter all statistic files in a folder."
+
+msgid "CommandLine.FolderFilter.ErrorLoadingFilterConfiguration"
+msgstr "An error occured while trying to load the filter configuration."
+
+msgid "CommandLine.FolderFilter.Name"
+msgstr "FolderFilter"
+
+msgid "CommandLine.FolderFilter.NoFilesInFolder"
+msgstr "There are no files in folder %s."
+
+msgid "CommandLine.FolderFilter.NoStatisticFile"
+msgstr "The file is no statistics file."
+
+msgid "CommandLine.FolderFilter.ParameterIsNotFolder"
+msgstr "The specified folder %s does not exist."
 
 msgid "CommandLine.FolderSimulation.CannotProcessFile"
 msgstr "Cannot process file format."

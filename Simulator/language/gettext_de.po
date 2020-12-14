@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-12 20:09+0100\n"
+"POT-Creation-Date: 2020-12-14 21:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1463,6 +1463,36 @@ msgstr "Beim Laden der Statistikdaten ist folgender Fehler aufgetreten"
 
 msgid "CommandLine.Filter.Name"
 msgstr "Filter"
+
+msgid "CommandLine.FolderFilter.CannotProcessFile"
+msgstr "Das Dateiformat kann nicht verarbeitet werden."
+
+msgid "CommandLine.FolderFilter.Description.Long"
+msgstr ""
+"Dieser Befehl erwartet genau drei weitere Parameter:\n"
+"1. Name des Verzeichnisses\n"
+"2. Name der Eingabe-Filterkonfigurationsdatei\n"
+"3. Name der Ausgabedatei, die die Filterergebnisse aufnehmen soll\n"
+"Wenn die Ausgabedatei bereits existiert, werden die neuen Ergebnisse angehängt.\n"
+"Ansonsten wird die Datei neu angelegt."
+
+msgid "CommandLine.FolderFilter.Description.Short"
+msgstr "Alle Statistikdateien in einem Verzeichnis filtern."
+
+msgid "CommandLine.FolderFilter.ErrorLoadingFilterConfiguration"
+msgstr "Beim Laden der Filterkonfiguration ist ein Fehler aufgetreten."
+
+msgid "CommandLine.FolderFilter.Name"
+msgstr "VerzeichnisFilter"
+
+msgid "CommandLine.FolderFilter.NoFilesInFolder"
+msgstr "In dem Verzeichnis %s befinden sich keine Dateien."
+
+msgid "CommandLine.FolderFilter.NoStatisticFile"
+msgstr "Die Datei ist keine Statistikdatei."
+
+msgid "CommandLine.FolderFilter.ParameterIsNotFolder"
+msgstr "Das angegebene Verzeichnis %s existiert nicht."
 
 msgid "CommandLine.FolderSimulation.CannotProcessFile"
 msgstr "Das Dateiformat kann nicht verarbeitet werden."
