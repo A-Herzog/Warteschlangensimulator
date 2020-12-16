@@ -198,6 +198,8 @@ public class ExpressionBuilder extends BaseDialog {
 		});
 		ModelElementBaseDialog.addUndoFeature(input);
 
+		ExpressionBuilderAutoComplete.process(this,input);
+
 		setSizeRespectingScreensize(800,600);
 		setMinSizeRespectingScreensize(800,600);
 		setResizable(true);
@@ -302,7 +304,7 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @param filter	Optionaler Filter (kann <code>null</code> sein)
 	 * @return	Wurzelelement der neuen Baumstruktur
 	 */
-	private TreeNode buildTreeData(final String filter) {
+	public TreeNode buildTreeData(final String filter) {
 		final String filterUpper=(filter!=null && !filter.trim().isEmpty())?filter.trim().toUpperCase():null;
 
 		final DefaultMutableTreeNode root=new DefaultMutableTreeNode();

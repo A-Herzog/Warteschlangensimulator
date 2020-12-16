@@ -58,6 +58,7 @@ import systemtools.SmallColorChooser;
 import tools.SetupData;
 import ui.calculator.PlotterPanel.Graph;
 import ui.expressionbuilder.ExpressionBuilder;
+import ui.expressionbuilder.ExpressionBuilderAutoComplete;
 import ui.help.Help;
 import ui.images.Images;
 import ui.scriptrunner.JSModelRunnerPanel;
@@ -151,6 +152,7 @@ public class CalculatorDialog extends BaseDialog {
 				outputEdit.setText(calc(inputEdit.getText()));
 			}
 		});
+		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(owner,inputEdit.getText(),false,new String[0],null,null,null,false,true,true),inputEdit);
 
 
 		if (initialExpression!=null) {

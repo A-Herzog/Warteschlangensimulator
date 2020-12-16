@@ -57,6 +57,7 @@ import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.expressionbuilder.ExpressionBuilder;
+import ui.expressionbuilder.ExpressionBuilderAutoComplete;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -530,6 +531,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		});
 		final Dimension size=button.getPreferredSize();
 		button.setPreferredSize(new Dimension(size.height,size.height));
+
+		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(owner,inputLine.getText(),isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false),inputLine);
+
 		return button;
 	}
 
