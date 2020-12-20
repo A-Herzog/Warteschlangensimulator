@@ -93,7 +93,7 @@ public class StatisticViewerBarChart extends StatisticViewerJFreeChart {
 	 * @param yLabel	Beschriftung der y-Achse
 	 * @param yPercent	Soll die y-Achse als Prozentwert formatiert werden?
 	 */
-	protected void setupBarChart(String title, String xLabel, String yLabel, boolean yPercent) {
+	protected void setupBarChart(final String title, final String xLabel, final String yLabel, final boolean yPercent) {
 		chart.setTitle(title);
 		plot.getDomainAxis().setLabel(xLabel);
 		plot.getDomainAxis().setMaximumCategoryLabelLines(3);
@@ -110,6 +110,9 @@ public class StatisticViewerBarChart extends StatisticViewerJFreeChart {
 		} else {
 			plot.getRangeAxis().setLabel(yLabel);
 		}
+
+		chartSetup.setupAxis(plot.getDomainAxis());
+		chartSetup.setupAxis(plot.getRangeAxis());
 	}
 
 	/**

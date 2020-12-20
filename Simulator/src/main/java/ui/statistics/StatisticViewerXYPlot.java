@@ -123,6 +123,9 @@ public class StatisticViewerXYPlot extends StatisticViewerJFreeChart {
 		final String[] axisLabels=getExpressions();
 		initChart(ChartFactory.createScatterPlot(data,axisLabels[0],axisLabels[1],dataset));
 
+		chartSetup.setupAxis(((XYPlot)chart.getPlot()).getDomainAxis());
+		chartSetup.setupAxis(((XYPlot)chart.getPlot()).getRangeAxis());
+
 		/* Infotext  */
 		addDescription("PlotXY");
 	}

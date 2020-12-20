@@ -21,8 +21,10 @@ import java.awt.datatransfer.Clipboard;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -252,16 +254,28 @@ public interface StatisticViewer {
 	boolean ownSettings(JPanel owner);
 
 	/**
-	 * Liefert dem Viewer ein Callback über das es die Größe zum Speichern von Bildern erfragen kann.
+	 * Liefert dem Viewer ein Callback über das er die Größe zum Speichern von Bildern erfragen kann.
 	 * @param getImageSize	Callback zum Erfragen der Größe zum Speichern von Bildern
 	 */
 	void setRequestImageSize(final IntSupplier getImageSize);
 
 	/**
-	 * Liefert dem Viewer ein Callback über das es die Größe zum Speichern von Bildern verändern kann.
+	 * Liefert dem Viewer ein Callback über das er die Größe zum Speichern von Bildern verändern kann.
 	 * @param setImageSize	Callback zum Einstellen der Größe zum Speichern von Bildern
 	 */
 	void setUpdateImageSize(final IntConsumer setImageSize);
+
+	/**
+	 * Liefert dem Viewer ein Callback über das er die Einstellungen zu den Diagrammen erfragt kann.
+	 * @param getChartSetup	Callback zum Erfragen der Einstellungen zu den Diagrammen
+	 */
+	void setRequestChartSetup(final Supplier<ChartSetup> getChartSetup);
+
+	/**
+	 * Liefert dem Viewer ein Callback über das er die Einstellungen zu den Diagrammen verändern kann.
+	 * @param setChartSetup	Callback zum Einstellen der Einstellungen zu den Diagrammen
+	 */
+	void setUpdateChartSetup(final Consumer<ChartSetup> setChartSetup);
 
 	/**
 	 * Soll für diese Komponente der Standard-FileDrop-Listener des {@link StatisticsBasePanel} verwendet werden?

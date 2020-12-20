@@ -17,8 +17,10 @@ package systemtools.statistics;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -85,4 +87,10 @@ public abstract class StatisticViewerSpecialBase implements StatisticViewer {
 
 	@Override
 	public void setUpdateImageSize(final IntConsumer setImageSize) {}
+
+	@Override
+	public void setRequestChartSetup(Supplier<ChartSetup> getChartSetup) {}
+
+	@Override
+	public void setUpdateChartSetup(Consumer<ChartSetup> setChartSetup) {	}
 }

@@ -65,6 +65,8 @@ public class StatisticViewerPieChart extends StatisticViewerJFreeChart {
 		pie=(PiePlot)chart.getPlot();
 
 		pie.setToolTipGenerator(new StandardPieToolTipGenerator(StandardPieToolTipGenerator.DEFAULT_TOOLTIP_FORMAT,NumberTools.getLocale()));
+
+		chartSetup.setupPiePlot(pie);
 	}
 
 	/**

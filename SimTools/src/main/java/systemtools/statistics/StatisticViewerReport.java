@@ -37,8 +37,10 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -1057,6 +1059,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 
 	@Override
 	public void setUpdateImageSize(final IntConsumer setImageSize) {}
+
+	@Override
+	public void setRequestChartSetup(Supplier<ChartSetup> getChartSetup) {}
+
+	@Override
+	public void setUpdateChartSetup(Consumer<ChartSetup> setChartSetup) {	}
 
 	/**
 	 * Soll für diese Komponente der Standard-FileDrop-Listener des {@link StatisticsBasePanel} verwendet werden?

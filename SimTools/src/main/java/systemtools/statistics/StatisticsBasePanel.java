@@ -146,6 +146,48 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersSaveImageSizeTitle="Exportieren von Grafiken";
 	/** Eingabeprompt im Eingabedialog zur Definition der Größe der zu speichernden Bilder */
 	public static String viewersSaveImageSizePrompt="Auflösung beim Speichern";
+
+	/** Diagrammeinstellungen: Titel */
+	public static String viewersChartSetupTitle="Diagrammeinstellungen";
+	/** Diagrammeinstellungen: Standardwerte */
+	public static String viewersChartSetupDefaults="Standardwerte";
+	/** Diagrammeinstellungen: Tooltip für Standardwerte */
+	public static String viewersChartSetupDefaultsHint="Standardeinstellungen wiederherstellen";
+	/** Diagrammeinstellungen: Standardwerte - Diese Dialogseite */
+	public static String viewersChartSetupDefaultsThis="Diese Dialogseite";
+	/** Diagrammeinstellungen: Standardwerte - Alle Dialogseiten */
+	public static String viewersChartSetupDefaultsAll="Alle Dialogseiten";
+	/** Diagrammeinstellungen: Schriftgröße */
+	public static String viewersChartSetupFontSize="Schriftgröße";
+	/** Diagrammeinstellungen: Schrift - fett */
+	public static String viewersChartSetupFontBold="fett";
+	/** Diagrammeinstellungen: Schrift - kursiv */
+	public static String viewersChartSetupFontItalic="kursiv";
+	/** Diagrammeinstellungen: Dialogseite "Diagrammtitel" */
+	public static String viewersChartSetupTitleFont="Diagrammtitel";
+	/** Diagrammeinstellungen: Dialogseite "Achsenbeschriftung" */
+	public static String viewersChartSetupAxisFont="Achsenbeschriftung";
+	/** Diagrammeinstellungen: Achsenbeschriftung - Achsennamen */
+	public static String viewersChartSetupAxisLabelsFont="Achsennamen";
+	/** Diagrammeinstellungen: Achsenbeschriftung - Achsenwerte */
+	public static String viewersChartSetupAxisValuesFont="Achsenwerte";
+	/** Diagrammeinstellungen: Dialogseite "Legende" */
+	public static String viewersChartSetupLegendFont="Legende";
+	/** Diagrammeinstellungen: Dialogseite "Zeichenfläche" */
+	public static String viewersChartSetupSurface="Zeichenfläche";
+	/** Diagrammeinstellungen: Hintergrundfarbe */
+	public static String viewersChartSetupSurfaceBackgroundColor="Hintergrundfarbe";
+	/** Diagrammeinstellungen: Hintergrundfarbe - Farbverlauf */
+	public static String viewersChartSetupSurfaceBackgroundGradient="Hintergrundfarbverlauf";
+	/** Diagrammeinstellungen: Hintergrundfarbe - Farbverlauf aktiv? */
+	public static String viewersChartSetupSurfaceBackgroundGradientActive="Farbverlauf aktiv?";
+	/** Diagrammeinstellungen: Rahmen */
+	public static String viewersChartSetupSurfaceOutlineColor="Rahmen";
+	/** Diagrammeinstellungen: Rahmenbreite */
+	public static String viewersChartSetupSurfaceOutlineWidth="Rahmenbreite";
+	/** Diagrammeinstellungen: Hinweis, das die Einstellungen nur für neue Diagramme gelten */
+	public static String viewersChartSetupUpdateInfo="Veränderte Einstellungen werden erst für neu generierte Diagramme verwendet.";
+
 	/** Titel der Fehlermeldung "Ungültige Bildgröße" */
 	public static String viewersSaveImageSizeErrorTitle="Bildgröße muss eine natürliche Zahl sein";
 	/** Inhalt der Fehlermeldung "Ungültige Bildgröße" */
@@ -735,6 +777,18 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	protected abstract void setImageSize(final int newSize);
 
 	/**
+	 * Liefert die aktuellen Einstellungen der Diagramme
+	 * @return	Einstellungen der Diagramme
+	 */
+	protected abstract ChartSetup getChartSetup();
+
+	/**
+	 * Stellt die neuen Einstellungen der Diagramme ein.
+	 * @param chartSetup	Neue Einstellungen der Diagramme
+	 */
+	protected abstract void setChartSetup(final ChartSetup chartSetup);
+
+	/**
 	 * Stellt die Callbacks zur Einstellung der Bild-Export-Größe in den Teilviewern ein
 	 * @param node	Statistikknoten dessen Viewer (und dessen Kind-Element-Viewer) konfiguriert werden sollen
 	 * @see #setData(StatisticNode, String)
@@ -743,6 +797,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		for (StatisticViewer viewer: node.viewer) {
 			viewer.setRequestImageSize(()->getImageSize());
 			viewer.setUpdateImageSize(size->setImageSize(size));
+			viewer.setRequestChartSetup(()->getChartSetup());
+			viewer.setUpdateChartSetup(setup->setChartSetup(setup));
 		}
 
 		for (int i=0;i<node.getChildCount();i++) setImageSizeCallbacks(node.getChild(i));

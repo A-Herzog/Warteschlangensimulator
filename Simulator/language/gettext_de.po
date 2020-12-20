@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 21:05+0100\n"
+"POT-Creation-Date: 2020-12-20 15:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15479,6 +15479,63 @@ msgstr "Standardbreite"
 
 msgid "Statistic.Viewer.Context.Width.This"
 msgstr "Spaltenbreite - diese Spalte"
+
+msgid "Statistic.Viewer.DiagramSettings.Axis"
+msgstr "Achsenbeschriftung"
+
+msgid "Statistic.Viewer.DiagramSettings.Axis.LabelsFont"
+msgstr "Achsennamen"
+
+msgid "Statistic.Viewer.DiagramSettings.Axis.ValuesFont"
+msgstr "Achsenwerte"
+
+msgid "Statistic.Viewer.DiagramSettings.Background.Color"
+msgstr "Hintergrundfarbe"
+
+msgid "Statistic.Viewer.DiagramSettings.Background.Gradient"
+msgstr "Hintergrundfarbverlauf"
+
+msgid "Statistic.Viewer.DiagramSettings.Background.Gradient.Active"
+msgstr "Farbverlauf aktiv?"
+
+msgid "Statistic.Viewer.DiagramSettings.Defaults"
+msgstr "Standardwerte"
+
+msgid "Statistic.Viewer.DiagramSettings.Defaults.AllPages"
+msgstr "Alle Dialogseiten"
+
+msgid "Statistic.Viewer.DiagramSettings.Defaults.Hint"
+msgstr "Standardeinstellungen wiederherstellen"
+
+msgid "Statistic.Viewer.DiagramSettings.Defaults.ThisPage"
+msgstr "Diese Dialogseite"
+
+msgid "Statistic.Viewer.DiagramSettings.DiagramTitle"
+msgstr "Diagrammtitel"
+
+msgid "Statistic.Viewer.DiagramSettings.Font.Bold"
+msgstr "fett"
+
+msgid "Statistic.Viewer.DiagramSettings.Font.Italic"
+msgstr "kursiv"
+
+msgid "Statistic.Viewer.DiagramSettings.Font.Size"
+msgstr "Schriftgröße"
+
+msgid "Statistic.Viewer.DiagramSettings.LegendFont"
+msgstr "Legende"
+
+msgid "Statistic.Viewer.DiagramSettings.Outline.Color"
+msgstr "Rahmen"
+
+msgid "Statistic.Viewer.DiagramSettings.Outline.Width"
+msgstr "Rahmenbreite"
+
+msgid "Statistic.Viewer.DiagramSettings.Surface"
+msgstr "Zeichenfläche"
+
+msgid "Statistic.Viewer.DiagramSettings.Title"
+msgstr "Diagrammeinstellungen"
 
 msgid "Statistic.Viewer.Information"
 msgstr "Information"

@@ -27,8 +27,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -302,6 +304,12 @@ class StatisticViewerHTMLText implements StatisticViewer {
 
 	@Override
 	public void setUpdateImageSize(final IntConsumer setImageSize) {}
+
+	@Override
+	public void setRequestChartSetup(Supplier<ChartSetup> getChartSetup) {}
+
+	@Override
+	public void setUpdateChartSetup(Consumer<ChartSetup> setChartSetup) {	}
 
 	/**
 	 * Soll für diese Komponente der Standard-FileDrop-Listener des {@link StatisticsBasePanel} verwendet werden?

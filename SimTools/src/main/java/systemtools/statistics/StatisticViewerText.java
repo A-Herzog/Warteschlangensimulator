@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -1500,6 +1501,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 	@Override
 	public void setUpdateImageSize(final IntConsumer setImageSize) {}
+
+	@Override
+	public void setRequestChartSetup(Supplier<ChartSetup> getChartSetup) {}
+
+	@Override
+	public void setUpdateChartSetup(Consumer<ChartSetup> setChartSetup) {	}
 
 	/**
 	 * Zeigt im Fuﬂbereich der Hilfeseite eine "Erkl‰rung einblenden"-Schaltfl‰che, die,

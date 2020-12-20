@@ -144,6 +144,24 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	}
 
 	/**
+	 * Liefert die Icon-URL für einen Diagrammtyp
+	 * @param viewerImageType	Diagrammtyp
+	 * @return	Zugehörige Icon-URL
+	 */
+	public static URL getImageViewerIcon(final StatisticViewer.ViewerImageType viewerImageType) {
+		switch (viewerImageType) {
+		case IMAGE_TYPE_LINE: return iconImageLine;
+		case IMAGE_TYPE_BAR: return iconImageBar;
+		case IMAGE_TYPE_PIE: return iconImagePie;
+		case IMAGE_TYPE_NOIMAGE: return iconImageLine;
+		case IMAGE_TYPE_PICTURE: return iconImagePicture;
+		case IMAGE_TYPE_XY: return iconImageXY;
+		case IMAGE_TYPE_SHIFTPLAN: return iconImageShiftPlan;
+		default: return iconImageLine;
+		}
+	}
+
+	/**
 	 * Liefert das zu einem {@link StatisticViewer} zugehörige Icon.
 	 * @param viewer	{@link StatisticViewer} zu dem das Icon geliefert werden soll
 	 * @return	Icon-URL zu dem passenden Icon oder im Fehlerfall <code>null</code>
@@ -152,31 +170,13 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 		if (viewer==null) return null;
 
 		switch (viewer.getType()) {
-		case TYPE_TEXT:
-			return iconText;
-
-		case TYPE_TABLE:
-			return iconTable;
-
-		case TYPE_IMAGE:
-			switch (viewer.getImageType()) {
-			case IMAGE_TYPE_LINE: return iconImageLine;
-			case IMAGE_TYPE_BAR: return iconImageBar;
-			case IMAGE_TYPE_PIE: return iconImagePie;
-			case IMAGE_TYPE_NOIMAGE: return iconImageLine;
-			case IMAGE_TYPE_PICTURE: return iconImagePicture;
-			case IMAGE_TYPE_XY: return iconImageXY;
-			case IMAGE_TYPE_SHIFTPLAN: return iconImageShiftPlan;
-			default: return iconImageLine;
-			}
-
-		case TYPE_REPORT:
-			return iconReport;
-
-		case TYPE_SPECIAL:
-			return iconSpecial;
+		case TYPE_TEXT: return iconText;
+		case TYPE_TABLE: return iconTable;
+		case TYPE_IMAGE: return getImageViewerIcon(viewer.getImageType());
+		case TYPE_REPORT: return iconReport;
+		case TYPE_SPECIAL: return iconSpecial;
+		default: return iconSpecial;
 		}
-		return null;
 	}
 
 	/**

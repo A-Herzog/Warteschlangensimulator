@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 21:05+0100\n"
+"POT-Creation-Date: 2020-12-20 15:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15480,6 +15480,63 @@ msgstr "Default column width"
 
 msgid "Statistic.Viewer.Context.Width.This"
 msgstr "Column width - this column"
+
+msgid "Statistic.Viewer.DiagramSettings.Axis"
+msgstr "Axis labeling"
+
+msgid "Statistic.Viewer.DiagramSettings.Axis.LabelsFont"
+msgstr "Axis labels"
+
+msgid "Statistic.Viewer.DiagramSettings.Axis.ValuesFont"
+msgstr "Axis values"
+
+msgid "Statistic.Viewer.DiagramSettings.Background.Color"
+msgstr "Background color"
+
+msgid "Statistic.Viewer.DiagramSettings.Background.Gradient"
+msgstr "Background gradient"
+
+msgid "Statistic.Viewer.DiagramSettings.Background.Gradient.Active"
+msgstr "Gradient active?"
+
+msgid "Statistic.Viewer.DiagramSettings.Defaults"
+msgstr "Default values"
+
+msgid "Statistic.Viewer.DiagramSettings.Defaults.AllPages"
+msgstr "All pages"
+
+msgid "Statistic.Viewer.DiagramSettings.Defaults.Hint"
+msgstr "Restore default settings"
+
+msgid "Statistic.Viewer.DiagramSettings.Defaults.ThisPage"
+msgstr "This page"
+
+msgid "Statistic.Viewer.DiagramSettings.DiagramTitle"
+msgstr "Diagram titel"
+
+msgid "Statistic.Viewer.DiagramSettings.Font.Bold"
+msgstr "bold"
+
+msgid "Statistic.Viewer.DiagramSettings.Font.Italic"
+msgstr "italic"
+
+msgid "Statistic.Viewer.DiagramSettings.Font.Size"
+msgstr "Font size"
+
+msgid "Statistic.Viewer.DiagramSettings.LegendFont"
+msgstr "Legend"
+
+msgid "Statistic.Viewer.DiagramSettings.Outline.Color"
+msgstr "Outline"
+
+msgid "Statistic.Viewer.DiagramSettings.Outline.Width"
+msgstr "Outline width"
+
+msgid "Statistic.Viewer.DiagramSettings.Surface"
+msgstr "Surface"
+
+msgid "Statistic.Viewer.DiagramSettings.Title"
+msgstr "Diagram settings"
 
 msgid "Statistic.Viewer.Information"
 msgstr "Information"

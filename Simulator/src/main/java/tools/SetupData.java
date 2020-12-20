@@ -35,6 +35,7 @@ import mathtools.NumberTools;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.GUITools;
 import systemtools.SetupBase;
+import systemtools.statistics.ChartSetup;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -820,6 +821,11 @@ public class SetupData extends SetupBase {
 	public String quantilLevels;
 
 	/**
+	 * Schriftarten- und Farbeneinstellungen für die Statistikdiagramme
+	 */
+	public ChartSetup chartSetup;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -975,6 +981,8 @@ public class SetupData extends SetupBase {
 		statisticsPercentDigits=1;
 		batchMeansConfidenceLevels="";
 		quantilLevels="";
+		if (chartSetup==null) chartSetup=new ChartSetup();
+		chartSetup.reset();
 		lastError=null;
 	}
 
@@ -1662,6 +1670,11 @@ public class SetupData extends SetupBase {
 				quantilLevels=e.getTextContent();
 				continue;
 			}
+
+			if (name.equals("chartsetup")) {
+				chartSetup.loadFromXML(e);
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -2168,6 +2181,9 @@ public class SetupData extends SetupBase {
 			root.appendChild(node=doc.createElement("QuantilLevels"));
 			node.setTextContent(quantilLevels);
 		}
+
+		root.appendChild(node=doc.createElement("ChartSetup"));
+		chartSetup.saveToXML(node);
 	}
 
 	/**

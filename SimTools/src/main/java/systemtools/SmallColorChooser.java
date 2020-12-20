@@ -505,6 +505,8 @@ public class SmallColorChooser extends JPanel {
 		namedColors.put(ColorNameFFFF00, new Color(0xFFFF00));
 		namedColors.put(ColorName9ACD32, new Color(0x9ACD32));
 		namedColors.put(ColorNameFFFFFA, new Color(0xFFFFFA));
+		namedColors.put(ColorNameADD8E6+" 2", new Color(0xFAFAFF));
+		namedColors.put(ColorNameADD8E6+" 3", new Color(0xEAEAFF));
 	}
 
 	/**
@@ -585,10 +587,15 @@ public class SmallColorChooser extends JPanel {
 	 * @param color	Auszuwählende Farbe; wird <code>null</code> oder eine in der Anzeige nicht vorhandene Farbe gewählt, so wird Schwarz ausgewählt
 	 */
 	public void setColor(final Color color) {
-		int index=colorsInList.indexOf(color);
-		if (index<0) index=0;
-		for (int i=0;i<getComponentCount();i++) ((ColorBox)getComponent(i)).setSelected(i==index);
+		int index;
+		if (color==null) {
+			index=0;
+		} else {
+			index=colorsInList.indexOf(color);
+			if (index<0) index=0;
+		}
 
+		for (int i=0;i<getComponentCount();i++) ((ColorBox)getComponent(i)).setSelected(i==index);
 	}
 
 	/**
@@ -727,7 +734,9 @@ public class SmallColorChooser extends JPanel {
 			g.setColor(color);
 			g.fillRect(0,0,size.width-1,size.height-1);
 			if (selected) {
-				g.setColor(new Color(255-color.getRed(),255-color.getGreen(),255-color.getBlue()));
+				Color selColor=new Color(255-color.getRed(),255-color.getGreen(),255-color.getBlue());
+				if (Math.abs(selColor.getRed()-color.getRed())<5 && Math.abs(selColor.getGreen()-color.getGreen())<5 && Math.abs(selColor.getBlue()-color.getBlue())<5) selColor=Color.WHITE;
+				g.setColor(selColor);
 				g.drawRect(0,0,size.width-1,size.height-1);
 				g.drawLine(0,0,size.width-1,size.height-1);
 				g.drawLine(size.width-1,0,0,size.height-1);

@@ -15,12 +15,10 @@
  */
 package systemtools.statistics;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.datatransfer.Clipboard;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterJob;
@@ -33,12 +31,14 @@ import java.util.Base64;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 import javax.imageio.ImageIO;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.DialogTypeSelection;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -51,10 +51,10 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
-import org.jfree.chart.title.TextTitle;
 
 import mathtools.NumberTools;
 import mathtools.TableChart;
+import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
@@ -67,6 +67,11 @@ import systemtools.images.SimToolsImages;
  * @version 1.5
  */
 public abstract class StatisticViewerJFreeChart implements StatisticViewer {
+	/**
+	 * Einstellungen zu Schriftgrößen und Farben
+	 */
+	protected final ChartSetup chartSetup;
+
 	/**
 	 * Ermöglicht für abgeleitete Klassen einen Zugriff auf das {@link ChartPanel}-Element
 	 */
@@ -95,6 +100,13 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	 * @see #addDescription(URL, Consumer)
 	 */
 	private DescriptionViewer descriptionPane=null;
+
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public StatisticViewerJFreeChart() {
+		chartSetup=new ChartSetup();
+	}
 
 	@Override
 	public ViewerType getType() {
@@ -169,15 +181,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		setTheme(); /* Muss vor der folgenden Farbkonfiguration erfolgen. */
 
 		chart.setBackgroundPaint(null);
-		chart.getPlot().setBackgroundPaint(new GradientPaint(1,0,new Color(0xFA,0xFA,0xFF),1,150,new Color(0xEA,0xEA,0xFF)));
-
-		final TextTitle t=chart.getTitle();
-		if (t!=null) {
-			final Font font=t.getFont();
-			t.setFont(new Font(font.getFontName(),Font.PLAIN,font.getSize()-4));
-		}
-
-		chart.getLegend().setBackgroundPaint(null);
+		chartSetup.setupChart(chart);
 	}
 
 	/**
@@ -205,10 +209,18 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	}
 
 	@Override
-	public void copyToClipboard(Clipboard clipboard) {
+	public void copyToClipboard(final Clipboard clipboard) {
 		if (chartPanel==null) firstChartRequest();
 		final int imageSize=getImageSize();
-		ImageTools.copyImageToClipboard(ImageTools.drawToImage(chart,imageSize,imageSize));
+
+		chartSetup.setUserScale(Math.max(1,Math.min(5,imageSize/750)));
+		chartSetup.setupAll(chart);
+		try {
+			ImageTools.copyImageToClipboard(ImageTools.drawToImage(chart,imageSize,imageSize));
+		} finally {
+			chartSetup.setUserScale(1);
+			chartSetup.setupAll(chart);
+		}
 	}
 
 	@Override
@@ -510,16 +522,32 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 
 	@Override
 	public String ownSettingsName() {
-		return StatisticsBasePanel.viewersSaveImageSizePrompt;
+		ChartSetup chartSetup=null;
+		if (getChartSetupCallback!=null) chartSetup=getChartSetupCallback.get();
+		if (chartSetup==null) {
+			return StatisticsBasePanel.viewersSaveImageSizePrompt;
+		} else {
+			return StatisticsBasePanel.viewersChartSetupTitle;
+		}
 	}
 
 	@Override
 	public Icon ownSettingsIcon() {
-		return SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getIcon();
+		ChartSetup chartSetup=null;
+		if (getChartSetupCallback!=null) chartSetup=getChartSetupCallback.get();
+		if (chartSetup==null) {
+			return SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getIcon();
+		} else {
+			return new ImageIcon(StatisticTreeCellRenderer.getImageViewerIcon(getImageType()));
+		}
 	}
 
-	@Override
-	public boolean ownSettings(JPanel owner) {
+	/**
+	 * Zeigt einen Dialog zur Veränderung der Bild-Speichergröße an.
+	 * @param owner	Übergeordnetes Element
+	 * @return	Gibt <code>true</code> zurück, wenn die Konfiguration erfolgreich verändert wurde
+	 */
+	private boolean changeImageSize(final JPanel owner) {
 		String size=""+getImageSize();
 		while (true) {
 			size=(String)JOptionPane.showInputDialog(owner,StatisticsBasePanel.viewersSaveImageSizePrompt,StatisticsBasePanel.viewersSaveImageSizeTitle,JOptionPane.PLAIN_MESSAGE,null,null,size);
@@ -530,6 +558,33 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 				return true;
 			}
 			MsgBox.error(owner,StatisticsBasePanel.viewersSaveImageSizeErrorTitle,StatisticsBasePanel.viewersSaveImageSizeErrorInfo);
+		}
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Veränderung der Einstellung der Diagramme an.
+	 * @param owner	Übergeordnetes Element
+	 * @return	Gibt <code>true</code> zurück, wenn die Konfiguration erfolgreich verändert wurde
+	 */
+	private boolean changeChartSetup(final JPanel owner) {
+		final ChartSetupDialog dialog=new ChartSetupDialog(owner,getImageSize(),getChartSetupCallback.get());
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			if (setImageSizeCallback!=null) setImageSizeCallback.accept(dialog.getSaveSize());
+			if (setChartSetupCallback!=null) setChartSetupCallback.accept(dialog.getChartSetup());
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean ownSettings(final JPanel owner) {
+		ChartSetup chartSetup=null;
+		if (getChartSetupCallback!=null) chartSetup=getChartSetupCallback.get();
+		if (chartSetup==null) {
+			return changeImageSize(owner);
+		} else {
+			return changeChartSetup(owner);
 		}
 	}
 
@@ -562,6 +617,29 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	@Override
 	public void setUpdateImageSize(final IntConsumer setImageSize) {
 		setImageSizeCallback=setImageSize;
+	}
+
+	/**
+	 * Callback zum Auslesen der Einstellungen der Diagramme
+	 * @see #setRequestChartSetup(Supplier)
+	 */
+	private Supplier<ChartSetup> getChartSetupCallback;
+
+	/**
+	 * Callback zum Zurückschreiben der Einstellungen der Diagramme
+	 * @see #setUpdateChartSetup(Consumer)
+	 */
+	private Consumer<ChartSetup> setChartSetupCallback;
+
+	@Override
+	public void setRequestChartSetup(final Supplier<ChartSetup> getChartSetup) {
+		getChartSetupCallback=getChartSetup;
+		if (getChartSetupCallback!=null) chartSetup.copyFrom(getChartSetupCallback.get());
+	}
+
+	@Override
+	public void setUpdateChartSetup(final Consumer<ChartSetup> setChartSetup) {
+		setChartSetupCallback=setChartSetup;
 	}
 
 	/**

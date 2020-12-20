@@ -150,6 +150,18 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		plot.setRangeGridlinesVisible(true);
 		plot.setRangeGridlinePaint(Color.black);
 		plot.setDomainGridlinePaint(Color.black);
+
+		setAxisFonts();
+	}
+
+	/**
+	 * Stellt die Schriftgrößen für die Achsenbeschriftungen
+	 * gemäß {@link StatisticViewerJFreeChart#chartSetup} ein.
+	 * @see StatisticViewerJFreeChart#chartSetup
+	 */
+	private void setAxisFonts() {
+		chartSetup.setupAxis(plot.getDomainAxis());
+		chartSetup.setupAxis(plot.getRangeAxis());
 	}
 
 	/**
@@ -240,6 +252,8 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		plot.getRangeAxis().setLabel(yLabel);
 
 		toolTipFormat=ToolTipFormat.DAY_VALUE;
+
+		setAxisFonts();
 	}
 
 	/**
@@ -260,6 +274,8 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		plot.setRangeAxis(axis);
 
 		toolTipFormat=ToolTipFormat.DAY_PERCENT;
+
+		setAxisFonts();
 	}
 
 	/**
@@ -294,6 +310,8 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 
 		plot.getDomainAxis().setLabel(xLabel+" ("+StatisticsBasePanel.viewersChartInSeconds+")");
 		plot.getRangeAxis().setLabel(yLabel);
+
+		setAxisFonts();
 	}
 
 	/**
@@ -317,6 +335,8 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		plot.getRangeAxis().setLabel(yLabel);
 
 		scaleFactor=3600;
+
+		setAxisFonts();
 	}
 
 	/**
@@ -340,6 +360,8 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		plot.getRangeAxis().setLabel(yLabel);
 
 		scaleFactor=60;
+
+		setAxisFonts();
 	}
 
 	/**
@@ -363,6 +385,8 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		plot.getRangeAxis().setLabel(yLabel);
 
 		scaleFactor=1;
+
+		setAxisFonts();
 	}
 
 	/**
@@ -384,6 +408,8 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 
 		plot.getDomainAxis().setLabel(xLabel);
 		plot.getRangeAxis().setLabel(yLabel);
+
+		setAxisFonts();
 	}
 
 	/**
@@ -407,6 +433,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 	 */
 	protected void setupLongTime(final String title, final String xLabel, final String yLabel) {
 		chart.setTitle(title);
+
 		plot.getDomainAxis().setLabel(xLabel+" ("+StatisticsBasePanel.viewersChartInHours+")");
 		plot.getRangeAxis().setLabel(yLabel);
 	}
@@ -428,6 +455,8 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		axis.setNumberFormatOverride(formater);
 		axis.setLabel(yLabel);
 		plot.setRangeAxis(axis);
+
+		setAxisFonts();
 	}
 
 	/**

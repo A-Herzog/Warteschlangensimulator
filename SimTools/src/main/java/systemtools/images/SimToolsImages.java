@@ -89,6 +89,9 @@ public enum SimToolsImages {
 	/** Symbol "Einklappen" (Minus) */
 	MINUS("SmallMinus2.png"),
 
+	/** Symbol "Rückgängig" */
+	UNDO("arrow_undo.png"),
+
 	/** Symbol "Nach links" */
 	ARROW_LEFT("arrow_left.gif"),
 
@@ -160,6 +163,9 @@ public enum SimToolsImages {
 
 	/** Symbol in der Statistik "Schichtplan" */
 	STATISTICS_DIAGRAM_SHIFT_PLAN("clock.png"),
+
+	/** Symbol in "Schriftart" */
+	STATISTICS_DIAGRAM_FONT_SIZE("font.png"),
 
 	/* Meldungsdialoge */
 
