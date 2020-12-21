@@ -225,8 +225,8 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		if (element instanceof ModelElementAnimationPointerMeasuring) {
 			final ModelElementAnimationPointerMeasuring pointerMeasuring=(ModelElementAnimationPointerMeasuring)element;
 			pointerMeasuring.setExpression(editExpression.getText());
-			pointerMeasuring.setMinValue(NumberTools.getPositiveLong(editMinValue,true).intValue());
-			pointerMeasuring.setMaxValue(NumberTools.getPositiveLong(editMaxValue,true).intValue());
+			pointerMeasuring.setMinValue(NumberTools.getNotNegativeLong(editMinValue,true).intValue());
+			pointerMeasuring.setMaxValue(NumberTools.getNotNegativeLong(editMaxValue,true).intValue());
 			pointerMeasuring.setColor(colorChooser.getColor());
 		}
 	}
