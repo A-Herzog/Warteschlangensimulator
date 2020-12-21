@@ -17,7 +17,8 @@ package ui.modeleditor;
 
 import java.io.File;
 
-import simulator.db.DBConnect;
+import simulator.db.DBConnectSetup;
+import simulator.db.DBConnectSetups;
 import simulator.db.DBSettings;
 import simulator.editmodel.EditModel;
 import ui.modeleditor.coreelements.ModelElement;
@@ -59,7 +60,9 @@ public class FilePathHelper {
 	 * @param modelFile	Dateiname der Modelldatei dessen Pfad für Anpassungen verwendet wird
 	 */
 	private static void checkDB(final DBSettings settings, final File modelFile) {
-		if (settings.getType()!=DBConnect.DBType.SQLITE_FILE) return;
+		final DBConnectSetup setup=DBConnectSetups.getByType(settings.getType());
+		if (setup==null) return;
+		if (!setup.selectSource.isFile) return;
 
 		final String configOld=settings.getConfig();
 		final String configNew=checkInputFile(configOld,modelFile);

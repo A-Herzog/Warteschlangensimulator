@@ -21,7 +21,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
-import simulator.db.DBConnect.DBType;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
 /**
@@ -35,8 +34,8 @@ public final class DBSettings implements Cloneable {
 	 */
 	public static String[] XML_NODE_NAME=new String[]{"DatenbankVerbindung"}; /* wird dynamisch mit Sprachdaten geladen, siehe LanguageStaticLoader */
 
-	/** Datenbanktyp (siehe {@link DBConnect.DBType}) */
-	private DBType type;
+	/** Datenbanktyp */
+	private String type;
 	/** Datenbank-Zugriffs-Konfiguration (Serveradresse, Dateiname usw.) */
 	private String config;
 	/** Optional notwendiger Nutzername für den Zugriff auf die Datenbank */
@@ -48,7 +47,7 @@ public final class DBSettings implements Cloneable {
 	 * Konstruktor der Klasse
 	 */
 	public DBSettings() {
-		type=DBConnect.DBType.SQLITE_FILE;
+		type=DBConnectSetups.getByType("SQLite").name;
 		config="";
 		user="";
 		password="";
@@ -56,12 +55,12 @@ public final class DBSettings implements Cloneable {
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param type	Datenbanktyp (siehe {@link DBConnect.DBType})
+	 * @param type	Datenbanktyp
 	 * @param config	Datenbank-Zugriffs-Konfiguration (Serveradresse, Dateiname usw.)
 	 * @param user	Optional notwendiger Nutzername für den Zugriff auf die Datenbank
 	 * @param password	Optional notwendiges Passwort für den Zugriff auf die Datenbank
 	 */
-	public DBSettings(final DBType type, final String config, final String user, final String password) {
+	public DBSettings(final String type, final String config, final String user, final String password) {
 		this();
 		setType(type);
 		setConfig(config);
@@ -71,10 +70,10 @@ public final class DBSettings implements Cloneable {
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param type	Datenbanktyp (siehe {@link DBConnect.DBType})
+	 * @param type	Datenbanktyp
 	 * @param config	Datenbank-Zugriffs-Konfiguration (Serveradresse, Dateiname usw.)
 	 */
-	public DBSettings(final DBType type, final String config) {
+	public DBSettings(final String type, final String config) {
 		this(type,config,null,null);
 	}
 
@@ -90,10 +89,9 @@ public final class DBSettings implements Cloneable {
 	/**
 	 * Liefert den Datenbanktyp.
 	 * @return	Datenbanktyp
-	 * @see DBSettings#setType(DBType)
-	 * @see DBConnect.DBType
+	 * @see DBSettings#setType(String)
 	 */
-	public DBType getType() {
+	public String getType() {
 		return type;
 	}
 
@@ -101,9 +99,8 @@ public final class DBSettings implements Cloneable {
 	 * Stellt den Datenbanktyp ein.
 	 * @param type	Datenbanktyp
 	 * @see DBSettings#getType()
-	 * @see DBConnect.DBType
 	 */
-	public void setType(final DBType type) {
+	public void setType(final String type) {
 		if (type!=null) this.type=type;
 	}
 
@@ -118,13 +115,15 @@ public final class DBSettings implements Cloneable {
 
 	/**
 	 * Liefert die Einstellungen (Servername, Dateiname usw.) für die Datenbankverbindung
-	 * führt dabei optionale in {@link DBType} hinterlegte Verarbeitungen durch.
+	 * führt dabei optionale Verarbeitungen durch.
 	 * @return	Einstellungen für die Datenbankverbindung
 	 * @see DBSettings#setConfig(String)
 	 */
 	public String getProcessedConfig() {
-		if (type==null) return config;
-		return type.processSettings(config);
+		final DBConnectSetup setup=DBConnectSetups.getByType(type);
+		if (setup==null) return config;
+
+		return setup.processSettings.processcor.apply(config);
 	}
 
 	/**
@@ -220,7 +219,7 @@ public final class DBSettings implements Cloneable {
 		Element node=doc.createElement(XML_NODE_NAME[0]);
 		parent.appendChild(node);
 
-		if (type!=null) node.setAttribute(Language.trPrimary("Surface.XML.Database.Mode"),type.name);
+		if (type!=null) node.setAttribute(Language.trPrimary("Surface.XML.Database.Mode"),type);
 		if (config!=null && !config.isEmpty()) node.setAttribute(Language.trPrimary("Surface.XML.Database.Config"),config);
 		if (user!=null && !user.isEmpty()) node.setAttribute(Language.trPrimary("Surface.XML.Database.User"),user);
 		if (password!=null && !password.isEmpty()) node.setAttribute(Language.trPrimary("Surface.XML.Database.Password"),password);
@@ -233,10 +232,11 @@ public final class DBSettings implements Cloneable {
 	 */
 	public String loadFromXML(final Element node) {
 		final String modeString=Language.trAllAttribute("Surface.XML.Database.Mode",node);
-		DBType t=null;
-		for (DBType test: DBConnect.DBType.values()) if (test.name.equalsIgnoreCase(modeString)) {t=test; break;}
-		if (t==null) return String.format(Language.tr("Surface.XML.Database.Mode.ErrorUnknown"),modeString);
-		type=t;
+
+		DBConnectSetups.getInstance();
+		final DBConnectSetup setup=DBConnectSetups.getByType(modeString);
+		if (setup==null) return String.format(Language.tr("Surface.XML.Database.Mode.ErrorUnknown"),modeString);
+		type=setup.name;
 
 		config=Language.trAllAttribute("Surface.XML.Database.Config",node);
 		user=Language.trAllAttribute("Surface.XML.Database.User",node);
@@ -261,7 +261,7 @@ public final class DBSettings implements Cloneable {
 	 * @param position	Position ab der die Zeilen eingefügt werden sollen
 	 */
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder, final int position) {
-		descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Type"),type.name,position);
+		descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Type"),type,position);
 		if (config!=null && !config.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Config"),config,position+1);
 		if (user!=null && !user.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.User"),user,position+2);
 		if (password!=null && !password.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Password"),password,position+3);
@@ -270,7 +270,7 @@ public final class DBSettings implements Cloneable {
 	@Override
 	public String toString() {
 		final StringBuilder sb=new StringBuilder();
-		sb.append(type.name);
+		sb.append(type);
 		sb.append(" (");
 		boolean first=true;
 		if (config!=null && !config.trim().isEmpty()) {

@@ -17,13 +17,21 @@ package simulator.db;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import systemtools.BaseDialog;
@@ -81,6 +89,21 @@ public class DBConnectDialog extends BaseDialog {
 
 		main.add(new JScrollPane(output=new JTextArea()),BorderLayout.CENTER);
 
+		/* Info */
+
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+
+		JLabel label;
+		line.add(label=new JLabel("<html><body><span style=\"color: blue; text-decoration: underline;\">"+Language.tr("Surface.Database.TestDialog.UserDBConfigFile")+"</span></body></html>"));
+		label.setToolTipText(Language.tr("Surface.Database.TestDialog.UserDBConfigFile.Hint"));
+		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				if (SwingUtilities.isLeftMouseButton(e)) commandOpenUserDBConfigFile();
+			}
+		});
+
 		/* Vorbereiten und anzeigen */
 
 		setMinSizeRespectingScreensize(600,400);
@@ -116,5 +139,21 @@ public class DBConnectDialog extends BaseDialog {
 			}
 		}
 		output.setText(sb.toString());
+	}
+
+	/**
+	 * Öffnet die JDBC.cfg-Konfigurationsdatei.
+	 * @return	Liefert <code>true</code>, wenn die Datei erfolgreich geöffnet werden konnte.
+	 */
+	private boolean commandOpenUserDBConfigFile() {
+		final File file=DBConnectSetups.getConfigurationFile();
+		if (file==null) return false;
+
+		try {
+			Desktop.getDesktop().open(file);
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
 	}
 }

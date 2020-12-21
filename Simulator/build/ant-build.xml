@@ -285,6 +285,7 @@
 				<include name="*.dll"/>
 			</fileset>
 		</copy>
+		<copy file="${Simulator.location}/JDBC.cfg" todir="${Release.location}"/>
 		
 		<echo message="Copy help files" />		
 		<copy todir="${Release.location}/docs">
@@ -323,7 +324,7 @@
 				
 		<echo message="Generate zip package" />
 		<zip destfile="${Release.location}/Simulator.zip">
-		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,docs/**,libs/**,tools/**,userscripts/**"/>
+		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**"/>
 		  <zipfileset dir="${Simulator.location}/tools/JDDE" includes="*.dll"/>
 		</zip>
 
@@ -331,6 +332,7 @@
 		<delete file="${Release.location}/Simulator.exe" />
 		<delete file="${Release.location}/Simulator.sh" />
 		<delete file="${Release.location}/Simulator.jar" />
+		<delete file="${Release.location}/JDBC.cfg" />
 		<delete file="${Release.location}/JavaDDEx64.dll" />
 		<delete file="${Release.location}/JavaDDE.dll" />
 		<delete dir="${Release.location}/docs" />

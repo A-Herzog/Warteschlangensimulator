@@ -33,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.UnaryOperator;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -45,166 +43,6 @@ import mathtools.NumberTools;
  * @author Alexander Herzog
  */
 public class DBConnect implements Closeable {
-	/**
-	 * Liste der unterstützten Datenbankformate
-	 * @author Alexander Herzog
-	 */
-	public enum DBType {
-		/**
-		 * SQLite-Dateien<br>
-		 * Hinweis: Config ist Dateiname, Nutzername und Passwort werden nicht verwendet.
-		 */
-		SQLITE_FILE(
-				"SQLite",
-				"org.sqlite.JDBC",
-				"sqlite",
-				"SELECT tbl_name FROM sqlite_master WHERE type='table';",
-				null,
-				true),
-
-		/**
-		 * HSQLDB (Hyper Structured Query Language Database) in Verzeichnis<br>
-		 * Hinweis: Config ist Pfad und muss abschließenden Trenner beinhalten, Nutzername ist "SA" und Passwort "".
-		 */
-		HSQLDB_LOCAL(
-				"HSQLDB Local",
-				"org.hsqldb.jdbc.JDBCDriver",
-				"hsqldb:file",
-				"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.SYSTEM_TABLES WHERE TABLE_TYPE='TABLE';",
-				null,
-				true),
-
-		/**
-		 * HSQLDB (Hyper Structured Query Language Database) über Server<br>
-		 * Hinweis: Config ist Serveradresse und muss mit "//" beginnen und mit "/" enden. Im Standardfall sind Nutzername "SA" und Passwort "".
-		 */
-		HSQLDB_SERVER(
-				"HSQLDB Server",
-				"org.hsqldb.jdbc.JDBCDriver",
-				"hsqldb:hsql",
-				"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.SYSTEM_TABLES WHERE TABLE_TYPE='TABLE';",
-				null,
-				true),
-
-		/**
-		 * Postgre SQL über Server<br>
-		 * Hinweis: Config ist Serveradresse und Datenbankname im Format "//host/db". Nutzername und Passwort müssen gesetzt sein.
-		 */
-		POSTGRESQL_SERVER(
-				"PostgreSQL Server",
-				"org.postgresql.Driver",
-				"postgresql",
-				"SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';",
-				null,
-				true),
-
-		/**
-		 * MariaDB über Server<br>
-		 * Hinweis: Config ist Serveradresse und Datenbankname im Format "//host:3306/db". Nutzername und Passwort müssen gesetzt sein.
-		 */
-		MARIADB_SERVER(
-				"MariaDB Server",
-				"org.mariadb.jdbc.Driver",
-				"mariadb",
-				"SHOW TABLES;",
-				null,
-				true),
-
-		/**
-		 * Firebird-Server
-		 */
-		FIREBIRD_SERVER(
-				"Firebird Server",
-				"org.firebirdsql.jdbc.FBDriver",
-				"firebirdsql",
-				"select rdb$relation_name from rdb$relations where rdb$view_blr is null and (rdb$system_flag is null or rdb$system_flag = 0);",
-				"encoding=UTF8",
-				true),
-
-		/**
-		 * Access
-		 */
-		ACCESS(
-				"Access",
-				"net.ucanaccess.jdbc.UcanaccessDriver",
-				"ucanaccess",
-				"SELECT TABLE_NAME FROM INFORMATION_SCHEMA.SYSTEM_TABLES WHERE TABLE_TYPE='TABLE' AND TABLE_SCHEM='PUBLIC';",
-				null,
-				false,
-				s->"//"+s.replace("\\","/"));
-
-		/** Name des Datenbank-Servers */
-		public final String name;
-
-		/** Treiber in der Java-Klassen-Notation */
-		public final String driver;
-
-		/** Bezeichnung für den Konnektor */
-		public final String connector;
-
-		/** SQL-Befehl in der entsprechenden Datenbanknotation um die Liste aller Tabellen abzurufen */
-		public final String listAllTablesCommand;
-
-		/** Dürfen Spaltenbezeichner in Anführungszeichen gesetzt werden? */
-		public final boolean useQuotes;
-
-		/** Optional weitere Einstellungen, die beim Aufbau der Verbindung benötigt werden. Kann <code>null</code> sein. */
-		public final String properties;
-
-		/** Optionale Funktion zur Verarbeitung der vom Nutzer eingegebenen Einstellungen zur anschließenden Übergabe an den DB-Treiber. */
-		public final Function<String,String> processSettings;
-
-		/**
-		 * Konstruktor des Enum
-		 * @param name	Name des Datenbank-Servers
-		 * @param driver	Treiber in der Java-Klassen-Notation
-		 * @param connector	Bezeichnung für den Konnektor
-		 * @param listAllTablesCommand	SQL-Befehl in der entsprechenden Datenbanknotation um die Liste aller Tabellen abzurufen
-		 * @param properties	Optional weitere Einstellungen, die beim Aufbau der Verbindung benötigt werden. Kann <code>null</code> sein.
-		 * @param useQuotes	Dürfen Spaltenbezeichner in Anführungszeichen gesetzt werden?
-		 */
-		DBType(final String name, final String driver, final String connector, final String listAllTablesCommand, final String properties, final boolean useQuotes) {
-			this.name=name;
-			this.driver=driver;
-			this.connector=connector;
-			this.listAllTablesCommand=listAllTablesCommand;
-			this.properties=properties;
-			this.useQuotes=useQuotes;
-			this.processSettings=null;
-		}
-
-		/**
-		 * Konstruktor des Enum
-		 * @param name	Name des Datenbank-Servers
-		 * @param driver	Treiber in der Java-Klassen-Notation
-		 * @param connector	Bezeichnung für den Konnektor
-		 * @param listAllTablesCommand	SQL-Befehl in der entsprechenden Datenbanknotation um die Liste aller Tabellen abzurufen
-		 * @param properties	Optional weitere Einstellungen, die beim Aufbau der Verbindung benötigt werden. Kann <code>null</code> sein.
-		 * @param useQuotes	Dürfen Spaltenbezeichner in Anführungszeichen gesetzt werden?
-		 * @param processSettings	Optionale Funktion zur Verarbeitung der vom Nutzer eingegebenen Einstellungen zur anschließenden Übergabe an den DB-Treiber.
-		 */
-		DBType(final String name, final String driver, final String connector, final String listAllTablesCommand, final String properties, final boolean useQuotes, final UnaryOperator<String> processSettings) {
-			this.name=name;
-			this.driver=driver;
-			this.connector=connector;
-			this.listAllTablesCommand=listAllTablesCommand;
-			this.properties=properties;
-			this.useQuotes=useQuotes;
-			this.processSettings=processSettings;
-		}
-
-		/**
-		 * Führt eine Verarbeitung der vom Nutzer eingegebenen Einstellungen zur anschließenden Übergabe an den DB-Treiber durch.
-		 * @param settings	Nutzereinstellungen
-		 * @return	Verarbeitete Einstellungen in der Form in der sie an den Treiber übergeben werden können
-		 */
-		public String processSettings(final String settings) {
-			if (settings==null || settings.isEmpty()) return settings;
-			if (this.processSettings==null) return settings;
-			return this.processSettings.apply(settings);
-		}
-	}
-
 	/**
 	 * Sortierfolge bei Abfrage der Daten
 	 * @see DBConnect#readTableColumn(String, String, String, SortMode, String[])
@@ -237,9 +75,8 @@ public class DBConnect implements Closeable {
 	/**
 	 * Im Konstruktor gewählter Typ.<br>
 	 * Kann später nicht mehr geändert werden.
-	 * @see DBConnect.DBType
 	 */
-	public final DBType type;
+	public final DBConnectSetup type;
 
 	/**
 	 * Im Konstruktor gewählte Konfiguration (Serveradresse, Dateiname usw.).<br>
@@ -260,7 +97,7 @@ public class DBConnect implements Closeable {
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param type	Datenbanktyp (siehe {@link DBConnect.DBType})
+	 * @param type	Datenbanktyp
 	 * @param config	Datenbank-Zugriffs-Konfiguration (Serveradresse, Dateiname usw.)
 	 * @param user	Optional notwendiger Nutzername für den Zugriff auf die Datenbank
 	 * @param password	Optional notwendiges Passwort für den Zugriff auf die Datenbank
@@ -268,7 +105,7 @@ public class DBConnect implements Closeable {
 	 * @see DBConnect#getInitError()
 	 * @see DBConnect#close()
 	 */
-	public DBConnect(final DBType type, final String config, final String user, final String password, final boolean allowCreateLocalFile) {
+	public DBConnect(final DBConnectSetup type, final String config, final String user, final String password, final boolean allowCreateLocalFile) {
 		initError=null;
 		this.type=type;
 		this.config=config;
@@ -289,13 +126,13 @@ public class DBConnect implements Closeable {
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param type	Datenbanktyp (siehe {@link DBConnect.DBType})
+	 * @param type	Datenbanktyp
 	 * @param config	Datenbank-Zugriffs-Konfiguration (Serveradresse, Dateiname usw.)
 	 * @param allowCreateLocalFile	Soll im Bedarfsfall eine lokale Datenbankdatei / ein lokales Datenbanverzeichnis angelegt werden dürfen
 	 * @see DBConnect#getInitError()
 	 * @see DBConnect#close()
 	 */
-	public DBConnect(final DBType type, final String config, final boolean allowCreateLocalFile) {
+	public DBConnect(final DBConnectSetup type, final String config, final boolean allowCreateLocalFile) {
 		this(type,config,null,null,allowCreateLocalFile);
 	}
 
@@ -306,18 +143,18 @@ public class DBConnect implements Closeable {
 	 * @see DBSettings
 	 */
 	public DBConnect(final DBSettings settings, final boolean allowCreateLocalFile) {
-		this((settings==null)?null:settings.getType(),(settings==null)?null:settings.getProcessedConfig(),(settings==null || settings.getUser().trim().isEmpty())?null:settings.getUser(),(settings==null || settings.getPassword().trim().isEmpty())?null:settings.getPassword(),allowCreateLocalFile);
+		this((settings==null)?null:DBConnectSetups.getByType(settings.getType()),(settings==null)?null:settings.getProcessedConfig(),(settings==null || settings.getUser().trim().isEmpty())?null:settings.getUser(),(settings==null || settings.getPassword().trim().isEmpty())?null:settings.getPassword(),allowCreateLocalFile);
 	}
 
 	/**
 	 * Prüft, ob die lokale Engine nicht extra für diesen Test eine Datei oder ein Verzeichnis anlegt.
-	 * @param type	Datenbanktyp (siehe {@link DBConnect.DBType})
+	 * @param setup	Datenbanktyp
 	 * @param config	Datenbank-Zugriffs-Konfiguration (Serveradresse, Dateiname usw.)
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 * @see #initConnection(String, String, String, boolean)
 	 */
-	private boolean localDataTest(final DBType type, final String config) {
-		if (type==DBType.SQLITE_FILE) {
+	private boolean localDataTest(final DBConnectSetup setup, final String config) {
+		if (setup.selectSource.isFile) {
 			if (config==null || config.trim().isEmpty()) return false;
 			final File file=new File(config);
 			if (!file.isFile()) {
@@ -327,7 +164,7 @@ public class DBConnect implements Closeable {
 			return true;
 		}
 
-		if (type==DBType.HSQLDB_LOCAL) {
+		if (setup.selectSource.isFolder) {
 			if (config==null || config.trim().isEmpty()) return false;
 			final File file=new File(config);
 			if (!file.isDirectory()) {

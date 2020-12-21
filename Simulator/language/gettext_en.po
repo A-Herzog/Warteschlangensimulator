@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-20 15:06+0100\n"
+"POT-Creation-Date: 2020-12-21 15:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20343,6 +20343,12 @@ msgstr "Connection settings"
 msgid "Surface.Database.Config.ButtonHintAccess"
 msgstr "Select Access database file"
 
+msgid "Surface.Database.Config.ButtonHintFile"
+msgstr "Select file"
+
+msgid "Surface.Database.Config.ButtonHintFolder"
+msgstr "Select database folder"
+
 msgid "Surface.Database.Config.ButtonHintHSQLDBLocal"
 msgstr "Select HSQLDB database folder"
 
@@ -20370,6 +20376,9 @@ msgstr "Configuration: Format //host/database"
 msgid "Surface.Database.Config.InfoSQLite"
 msgstr "Configuration: SQLite file"
 
+msgid "Surface.Database.Config.InfoUser"
+msgstr "Configuration: user-defined database"
+
 msgid "Surface.Database.FileTypeAccess"
 msgstr "Access data base file"
 
@@ -20393,6 +20402,12 @@ msgstr "Test connection"
 
 msgid "Surface.Database.TestDialog.Title"
 msgstr "Check database connection"
+
+msgid "Surface.Database.TestDialog.UserDBConfigFile"
+msgstr "Open JDBC connector configuration"
+
+msgid "Surface.Database.TestDialog.UserDBConfigFile.Hint"
+msgstr "Opens the configuration file in which user-defined JDBC connectors can be set up."
 
 msgid "Surface.Database.Type"
 msgstr "Database type"

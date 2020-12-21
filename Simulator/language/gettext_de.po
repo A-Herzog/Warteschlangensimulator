@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-20 15:06+0100\n"
+"POT-Creation-Date: 2020-12-21 15:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20344,6 +20344,12 @@ msgstr "Verbindungseinstellungen"
 msgid "Surface.Database.Config.ButtonHintAccess"
 msgstr "Access-Datenbankdatei auswählen"
 
+msgid "Surface.Database.Config.ButtonHintFile"
+msgstr "Datei auswählen"
+
+msgid "Surface.Database.Config.ButtonHintFolder"
+msgstr "Datebankverzeichnis auswählen"
+
 msgid "Surface.Database.Config.ButtonHintHSQLDBLocal"
 msgstr "HSQLDB-Datebankverzeichnis auswählen"
 
@@ -20371,6 +20377,9 @@ msgstr "Konfiguration: Format //HostName//DBName"
 msgid "Surface.Database.Config.InfoSQLite"
 msgstr "Konfiguration: SQLite-Datei"
 
+msgid "Surface.Database.Config.InfoUser"
+msgstr "Konfiguration: Benutzerdefinierte Datenbank"
+
 msgid "Surface.Database.FileTypeAccess"
 msgstr "Access-Datenbankdatei"
 
@@ -20394,6 +20403,12 @@ msgstr "Verbindung prüfen"
 
 msgid "Surface.Database.TestDialog.Title"
 msgstr "Datenbankverbindung prüfen"
+
+msgid "Surface.Database.TestDialog.UserDBConfigFile"
+msgstr "JDBC-Connectoren-Konfiguration öffnen"
+
+msgid "Surface.Database.TestDialog.UserDBConfigFile.Hint"
+msgstr "Öffnet die Konfigurationsdatei über die weitere JDBC-Connectoren für die Verwendung im Warteschlangensimulator konfiguriert werden können."
 
 msgid "Surface.Database.Type"
 msgstr "Datenbanktyp"

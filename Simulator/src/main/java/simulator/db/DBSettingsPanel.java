@@ -39,6 +39,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import language.Language;
 import mathtools.Table;
 import mathtools.distribution.swing.CommonVariables;
+import simulator.db.DBConntectSetupTemplates.DBType;
 import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -104,14 +105,14 @@ public class DBSettingsPanel extends JPanel {
 
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.Database.Type")+":"));
-		final String[] typeNames=Arrays.asList(DBConnect.DBType.values()).stream().map(t->t.name).toArray(String[]::new);
+		final String[] typeNames=DBConnectSetups.getNames();
 		line.add(comboType=new JComboBox<>(typeNames));
 		final Icon[] iconList=new Icon[typeNames.length];
 		Arrays.fill(iconList,Images.SIMULATION_CHECK_DATABASE.getIcon());
 		comboType.setRenderer(new IconListCellRenderer(iconList));
 		label.setLabelFor(comboType);
 		comboType.setEnabled(!readOnly);
-		comboType.setSelectedIndex(settings.getType().ordinal());
+		comboType.setSelectedIndex(DBConnectSetups.index(settings.getType()));
 		comboType.addActionListener(e->comboChanged());
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Database.Config")+":",settings.getConfig());
@@ -159,46 +160,51 @@ public class DBSettingsPanel extends JPanel {
 	 * @see #comboType
 	 */
 	private void comboChanged() {
-		final DBConnect.DBType currentType=DBConnect.DBType.values()[comboType.getSelectedIndex()];
+		final DBConnectSetup currentType=DBConnectSetups.byIndex(comboType.getSelectedIndex());
+		final DBType type=DBConntectSetupTemplates.getByName(currentType.name);
 
-		editUser.setEnabled(!readOnly && currentType!=DBConnect.DBType.SQLITE_FILE);
-		editPassword.setEnabled(!readOnly && currentType!=DBConnect.DBType.SQLITE_FILE);
+		editUser.setEnabled(!readOnly && type!=DBConntectSetupTemplates.DBType.SQLITE_FILE);
+		editPassword.setEnabled(!readOnly && type!=DBConntectSetupTemplates.DBType.SQLITE_FILE);
 
-		switch (currentType) {
-		case SQLITE_FILE:
-			labelConfig.setText(Language.tr("Surface.Database.Config.InfoSQLite"));
-			buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintSQLite"));
+		buttonConfig.setVisible(currentType.selectSource!=DBConnectSetup.SelectSource.NONE);
+		if (currentType.selectSource.isFile) {
 			buttonConfig.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
-			buttonConfig.setVisible(true);
-			break;
-		case HSQLDB_LOCAL:
-			labelConfig.setText(Language.tr("Surface.Database.Config.InfoHSQLDBLocal"));
-			buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintHSQLDBLocal"));
+			buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintFile"));
+		}
+		if (currentType.selectSource.isFolder) {
 			buttonConfig.setIcon(Images.GENERAL_SELECT_FOLDER.getIcon());
-			buttonConfig.setVisible(true);
-			break;
-		case HSQLDB_SERVER:
-			labelConfig.setText(Language.tr("Surface.Database.Config.InfoHSQLDBServer"));
-			buttonConfig.setVisible(false);
-			break;
-		case POSTGRESQL_SERVER:
-			labelConfig.setText(Language.tr("Surface.Database.Config.InfoPostgreSQL"));
-			buttonConfig.setVisible(false);
-			break;
-		case MARIADB_SERVER:
-			labelConfig.setText(Language.tr("Surface.Database.Config.InfoMariaDB"));
-			buttonConfig.setVisible(false);
-			break;
-		case FIREBIRD_SERVER:
-			labelConfig.setText(Language.tr("Surface.Database.Config.InfoFirebird"));
-			buttonConfig.setVisible(false);
-			break;
-		case ACCESS:
-			labelConfig.setText(Language.tr("Surface.Database.Config.InfoAccess"));
-			buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintSQLite"));
-			buttonConfig.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
-			buttonConfig.setVisible(true);
-			break;
+			buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintFolder"));
+		}
+
+		if (type==null) {
+			labelConfig.setText(Language.tr("Surface.Database.Config.InfoUser"));
+		} else {
+			switch (type) {
+			case SQLITE_FILE:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoSQLite"));
+				buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintSQLite"));
+				break;
+			case HSQLDB_LOCAL:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoHSQLDBLocal"));
+				buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintHSQLDBLocal"));
+				break;
+			case HSQLDB_SERVER:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoHSQLDBServer"));
+				break;
+			case POSTGRESQL_SERVER:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoPostgreSQL"));
+				break;
+			case MARIADB_SERVER:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoMariaDB"));
+				break;
+			case FIREBIRD_SERVER:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoFirebird"));
+				break;
+			case ACCESS:
+				labelConfig.setText(Language.tr("Surface.Database.Config.InfoAccess"));
+				buttonConfig.setToolTipText(Language.tr("Surface.Database.Config.ButtonHintAccess"));
+				break;
+			}
 		}
 
 		fireChangedNotify();
@@ -210,9 +216,9 @@ public class DBSettingsPanel extends JPanel {
 	 * @see #buttonConfig
 	 */
 	private void configButtonClick() {
-		final DBConnect.DBType currentType=DBConnect.DBType.values()[comboType.getSelectedIndex()];
+		final DBConnectSetup currentType=DBConnectSetups.byIndex(comboType.getSelectedIndex());
 
-		if (currentType==DBConnect.DBType.SQLITE_FILE) {
+		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_SQLITE) {
 			final JFileChooser fc;
 			if (!editConfig.getText().trim().isEmpty()) fc=new JFileChooser(editConfig.getText()); else {
 				fc=new JFileChooser();
@@ -232,7 +238,21 @@ public class DBSettingsPanel extends JPanel {
 			fireChangedNotify();
 		}
 
-		if (currentType==DBConnect.DBType.HSQLDB_LOCAL) {
+		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_GENERAL) {
+			final JFileChooser fc;
+			if (!editConfig.getText().trim().isEmpty()) fc=new JFileChooser(editConfig.getText()); else {
+				fc=new JFileChooser();
+				CommonVariables.initialDirectoryToJFileChooser(fc);
+			}
+			fc.setDialogTitle(Language.tr("Surface.Database.Config.ButtonHintFile"));
+			if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return;
+			CommonVariables.initialDirectoryFromJFileChooser(fc);
+			File file=fc.getSelectedFile();
+			editConfig.setText(file.toString());
+			fireChangedNotify();
+		}
+
+		if (currentType.selectSource==DBConnectSetup.SelectSource.FOLDER) {
 			final JFileChooser fc=new JFileChooser();
 			CommonVariables.initialDirectoryToJFileChooser(fc);
 			fc.setDialogTitle(Language.tr("Surface.Database.Config.ButtonHintHSQLDBLocal"));
@@ -244,7 +264,7 @@ public class DBSettingsPanel extends JPanel {
 			fireChangedNotify();
 		}
 
-		if (currentType==DBConnect.DBType.ACCESS) {
+		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_ACCESS) {
 			final JFileChooser fc;
 			if (!editConfig.getText().trim().isEmpty()) fc=new JFileChooser(editConfig.getText()); else {
 				fc=new JFileChooser();
@@ -271,7 +291,7 @@ public class DBSettingsPanel extends JPanel {
 	 * @see #storeData()
 	 */
 	private void storeData(final DBSettings settings) {
-		settings.setType(DBConnect.DBType.values()[comboType.getSelectedIndex()]);
+		settings.setType(DBConnectSetups.byIndex(comboType.getSelectedIndex()).name);
 		settings.setConfig(editConfig.getText().trim());
 		settings.setUser(editUser.getText().trim());
 		settings.setPassword(editPassword.getText().trim());
