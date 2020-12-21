@@ -225,13 +225,12 @@ public class CommandFolderSimulation extends AbstractCommand {
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final String[] files=folder.list();
-
-		Arrays.sort(files);
-
 		if (files==null) {
 			out.println(String.format(Language.tr("CommandLine.FolderSimulation.NoFilesInFolder"),folder.toString()));
 			return;
 		}
+
+		Arrays.sort(files);
 
 		for (String file: files) {
 			processFile(new File(folder,file),out);
