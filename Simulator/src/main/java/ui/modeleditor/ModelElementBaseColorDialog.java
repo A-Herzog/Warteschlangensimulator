@@ -34,12 +34,13 @@ import javax.swing.JRadioButton;
 import language.Language;
 import systemtools.BaseDialog;
 import systemtools.SmallColorChooser;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.tools.ImageChooser;
 
 /**
- * Dialog, der die Auswahl einer Hintergrundfarbe für ein <code>ModelElementBox</code>-Element ermöglicht.<br>
- * Dieser Dialog wird von <code>ModelElementBaseDialog</code> verwendet, wenn dieser mit einem Objekt, dessen Typ
- * sich von <code>ModelElementBox</code> ableitet, instanziert wird.
+ * Dialog, der die Auswahl einer Hintergrundfarbe für ein {@link ModelElementBox}-Element ermöglicht.<br>
+ * Dieser Dialog wird von {@link ModelElementBaseDialog} verwendet, wenn dieser mit einem Objekt, dessen Typ
+ * sich von {@link ModelElementBox} ableitet, instanziert wird.
  * @author Alexander Herzog
  * @see ModelElementBaseDialog
  */
@@ -62,7 +63,7 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 	private final ImageChooser imageChooser;
 
 	/**
-	 * Konstruktor der Klasse <code>ModelElementBaseColorDialog</code>
+	 * Konstruktor der Klasse {@link ModelElementBaseColorDialog}
 	 * @param owner	Übergeordnetes Element
 	 * @param help	Runnable, das aufgerufen wird, wenn der Nutzer auf die Hilfe-Schaltfläche klickt
 	 * @param defaultColor	Vorgabefarbe für das Element (zur Anzeige neben dem Vorgabe-Radiobutton)

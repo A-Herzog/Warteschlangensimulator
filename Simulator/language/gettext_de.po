@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 15:08+0100\n"
+"POT-Creation-Date: 2020-12-22 15:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3057,7 +3057,7 @@ msgid "Editor.Dialog.Title"
 msgstr "Modelleigenschaften"
 
 msgid "Editor.DialogBase.ColorTooltip"
-msgstr "Stellt die Hintergrundfarbe und das Bild des Elements ein"
+msgstr "Stellt die Hintergrundfarbe und das Bild des Elements ein."
 
 msgid "Editor.DialogBase.Description.Dialog.Info"
 msgstr "Beschreibung für das aktuelle Element:"
@@ -3073,6 +3073,9 @@ msgstr "Ausdruck im Editor bearbeiten"
 
 msgid "Editor.DialogBase.ExpressionHelpTooltip"
 msgstr "Hilfe zur Berechnung von Ausdrücken"
+
+msgid "Editor.DialogBase.Font.Tooltip"
+msgstr "Stellt die Schriftarten in der Elementenbox ein."
 
 msgid "Editor.DialogBase.ID.EqualsOldID"
 msgstr "Die angegebene ID entspricht der bisherigen ID."
@@ -3169,6 +3172,18 @@ msgstr "Modell exportieren"
 
 msgid "Editor.ExportModel.Error"
 msgstr "Beim Speichern der Daten ist ein Fehler aufgetreten."
+
+msgid "Editor.FontSelect.ButtonUndo"
+msgstr "Standard wiederherstellen"
+
+msgid "Editor.FontSelect.Tabs.Large"
+msgstr "Große Schrift"
+
+msgid "Editor.FontSelect.Tabs.Small"
+msgstr "Kleine Schrift"
+
+msgid "Editor.FontSelect.Title"
+msgstr "Schriftarten einstellen"
 
 msgid "Editor.GeneralData.Description"
 msgstr "Modell-Beschreibung"
@@ -25837,6 +25852,24 @@ msgstr "ModellElementHintergrundfarbe"
 
 msgid "Surface.XML.BackgroundColor.Image"
 msgstr "ModellElementStationsbild"
+
+msgid "Surface.XML.BoxFont.Bold"
+msgstr "fett"
+
+msgid "Surface.XML.BoxFont.Family"
+msgstr "Schriftart"
+
+msgid "Surface.XML.BoxFont.Italic"
+msgstr "kursiv"
+
+msgid "Surface.XML.BoxFont.Large"
+msgstr "ModellElementBoxSchriftGross"
+
+msgid "Surface.XML.BoxFont.Size"
+msgstr "Groesse"
+
+msgid "Surface.XML.BoxFont.Small"
+msgstr "ModellElementBoxSchriftKlein"
 
 msgid "Surface.XML.ClientData"
 msgstr "KundenDaten;KundenFarbe"

@@ -406,6 +406,22 @@
   <xs:attribute name="Alternative" type="xs:string"/>
 </xs:complexType></xs:element>
 
+<xs:element name="ModellElementBoxSchriftGross"><xs:complexType>
+  <xs:attribute name="Groesse" type="xs:string" use="required"/>
+  <xs:attribute name="Schriftart" type="xs:string" use="required"/>
+  <xs:attribute name="fett" type="xs:string"/>
+  <xs:attribute name="kursiv" type="xs:string"/>
+</xs:complexType></xs:element>
+
+<xs:element name="ModellElementBoxSchriftKlein"><xs:complexType>
+  <xs:attribute name="Groesse" type="xs:string" use="required"/>
+  <xs:attribute name="Schriftart" type="xs:string" use="required"/>
+  <xs:attribute name="fett" type="xs:string"/>
+  <xs:attribute name="kursiv" type="xs:string"/>
+</xs:complexType></xs:element>
+
+
+
 <!-- Beschreibung der Modell-Elemente: Einzelne Elemente -->
 
 <xs:element name="ModellElemente"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -530,6 +546,8 @@
 	<xs:element name="ModellElementBeschreibung" type="xs:string"/>
 	<xs:element ref="ModellElementGroesse"/>
 	<xs:element name="ModellElementEbene" type="xs:string"/>
+	<xs:element ref="ModellElementBoxSchriftGross"/>
+	<xs:element ref="ModellElementBoxSchriftKlein"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="geschuetzt" type="xs:integer"/>
@@ -544,6 +562,8 @@
 	<xs:element ref="ModellElementVerbindung"/>
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>
     <xs:element name="ModellElementStationsbild" type="xs:string"/>
+	<xs:element ref="ModellElementBoxSchriftGross"/>
+	<xs:element ref="ModellElementBoxSchriftKlein"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="geschuetzt" type="xs:integer"/>
@@ -2417,6 +2437,22 @@
   <xs:attribute name="Alternative" type="xs:string"/>
 </xs:complexType></xs:element>
 
+<xs:element name="ModelElementBoxFontLarge"><xs:complexType>
+  <xs:attribute name="Size" type="xs:string" use="required"/>
+  <xs:attribute name="FontFamily" type="xs:string" use="required"/>
+  <xs:attribute name="bold" type="xs:string"/>
+  <xs:attribute name="italic" type="xs:string"/>
+</xs:complexType></xs:element>
+
+<xs:element name="ModelElementBoxFontSmall"><xs:complexType>
+  <xs:attribute name="Size" type="xs:string" use="required"/>
+  <xs:attribute name="FontFamily" type="xs:string" use="required"/>
+  <xs:attribute name="bold" type="xs:string"/>
+  <xs:attribute name="italic" type="xs:string"/>
+</xs:complexType></xs:element>
+
+
+
 <!-- Documentation of the model elements: individual elements -->
 
 <xs:element name="ModelElements"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -2541,6 +2577,8 @@
 	<xs:element name="ModelElementDescription" type="xs:string"/>
 	<xs:element ref="ModelElementSize"/>
 	<xs:element name="ModelElementLayer" type="xs:string"/>
+	<xs:element ref="ModelElementBoxFontLarge"/>
+	<xs:element ref="ModelElementBoxFontSmall"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="protected" type="xs:integer"/>
@@ -2555,6 +2593,8 @@
 	<xs:element ref="ModelElementConnection"/>
 	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
     <xs:element name="ModelElementStationimage" type="xs:string"/>
+	<xs:element ref="ModelElementBoxFontLarge"/>
+	<xs:element ref="ModelElementBoxFontSmall"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="id" type="xs:integer" use="required"/>
   <xs:attribute name="protected" type="xs:integer"/>

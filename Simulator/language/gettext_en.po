@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 15:08+0100\n"
+"POT-Creation-Date: 2020-12-22 15:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3056,7 +3056,7 @@ msgid "Editor.Dialog.Title"
 msgstr "Model properties"
 
 msgid "Editor.DialogBase.ColorTooltip"
-msgstr "Sets the background color or the image of the element"
+msgstr "Sets the background color or the image of the element."
 
 msgid "Editor.DialogBase.Description.Dialog.Info"
 msgstr "Description for the current element:"
@@ -3072,6 +3072,9 @@ msgstr "Edit expression in editor"
 
 msgid "Editor.DialogBase.ExpressionHelpTooltip"
 msgstr "Help for calculating expressions"
+
+msgid "Editor.DialogBase.Font.Tooltip"
+msgstr "Sets the fonts in the element box."
 
 msgid "Editor.DialogBase.ID.EqualsOldID"
 msgstr "The specified iD equals the current id."
@@ -3168,6 +3171,18 @@ msgstr "Export model"
 
 msgid "Editor.ExportModel.Error"
 msgstr "An error occured while trying to store the data."
+
+msgid "Editor.FontSelect.ButtonUndo"
+msgstr "Restore default"
+
+msgid "Editor.FontSelect.Tabs.Large"
+msgstr "Large font"
+
+msgid "Editor.FontSelect.Tabs.Small"
+msgstr "Small font"
+
+msgid "Editor.FontSelect.Title"
+msgstr "Define fonts"
 
 msgid "Editor.GeneralData.Description"
 msgstr "Model description"
@@ -25828,6 +25843,24 @@ msgstr "ModelElementBackgroundColor"
 
 msgid "Surface.XML.BackgroundColor.Image"
 msgstr "ModelElementStationimage"
+
+msgid "Surface.XML.BoxFont.Bold"
+msgstr "bold"
+
+msgid "Surface.XML.BoxFont.Family"
+msgstr "FontFamily"
+
+msgid "Surface.XML.BoxFont.Italic"
+msgstr "italic"
+
+msgid "Surface.XML.BoxFont.Large"
+msgstr "ModelElementBoxFontLarge"
+
+msgid "Surface.XML.BoxFont.Size"
+msgstr "size"
+
+msgid "Surface.XML.BoxFont.Small"
+msgstr "ModelElementBoxFontSmall"
 
 msgid "Surface.XML.ClientData"
 msgstr "ClientData"

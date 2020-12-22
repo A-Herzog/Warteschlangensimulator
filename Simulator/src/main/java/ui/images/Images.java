@@ -111,6 +111,9 @@ public enum Images {
 	/** Symbol "Schloss geschlossen" (z.B. Schreibschutz) */
 	GENERAL_LOCK_CLOSED("lock.png"),
 
+	/** Symbol "Schriftart" */
+	GENERAL_FONT("font.png"),
+
 	/** Symbol "Bearbeiten" */
 	GENERAL_EDIT("pencil.png"),
 

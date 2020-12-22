@@ -59,6 +59,7 @@ import ui.modeleditor.ModelTransporters;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
+import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementAnimationBar;
 import ui.modeleditor.elements.ModelElementAnimationLCD;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
@@ -85,6 +86,32 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	 * @see #getDrawBackgroundColor()
 	 */
 	private Color userBackgroundColor;
+
+	/**
+	 * Standardschriftart für große Texte in der Elementenbox
+	 * @see #boxFontLarge
+	 */
+	public static final Font DEFAULT_FONT_LARGE=new Font(Font.DIALOG,Font.BOLD,13);
+
+	/**
+	 * Standardschriftart für kleine Texte in der Elementenbox
+	 * @see #boxFontSmall
+	 */
+	public static final Font DEFAULT_FONT_SMALL=new Font(Font.DIALOG,Font.PLAIN,11);
+
+	/**
+	 * Schriftart für große Texte in der Elementenbox
+	 * @see #getFontLarge()
+	 * @see #setFontLarge(Font)
+	 */
+	private Font boxFontLarge=DEFAULT_FONT_LARGE;
+
+	/**
+	 * Schriftart für kleine Texte in der Elementenbox
+	 * @see #getFontSmall()
+	 * @see #setFontSmall(Font)
+	 */
+	private Font boxFontSmall=DEFAULT_FONT_SMALL;
 
 	/**
 	 * Referenz auf das Setup-Singleton.
@@ -159,11 +186,14 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementBox)) return false;
+		final ModelElementBox box=(ModelElementBox)element;
 
-		if (userBackgroundColor!=null || ((ModelElementBox)element).userBackgroundColor!=null) {
-			if (userBackgroundColor==null || ((ModelElementBox)element).userBackgroundColor==null) return false;
-			if (!((ModelElementBox)element).userBackgroundColor.equals(userBackgroundColor)) return false;
+		if (userBackgroundColor!=null || box.userBackgroundColor!=null) {
+			if (userBackgroundColor==null || box.userBackgroundColor==null) return false;
+			if (!box.userBackgroundColor.equals(userBackgroundColor)) return false;
 		}
+		if (!box.boxFontLarge.equals(boxFontLarge)) return false;
+		if (!box.boxFontSmall.equals(boxFontSmall)) return false;
 
 		return true;
 	}
@@ -176,7 +206,10 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementBox) {
-			userBackgroundColor=((ModelElementBox)element).userBackgroundColor;
+			final ModelElementBox box=(ModelElementBox)element;
+			userBackgroundColor=box.userBackgroundColor;
+			boxFontLarge=box.boxFontLarge;
+			boxFontSmall=box.boxFontSmall;
 		}
 	}
 
@@ -296,6 +329,42 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	}
 
 	/**
+	 * Liefert die große Schriftart für die Elementenbox.
+	 * @return	Große Schriftart für die Elementenbox
+	 */
+	public Font getFontLarge() {
+		return boxFontLarge;
+	}
+
+	/**
+	 * Stellt die große Schriftart für die Elementenbox ein.
+	 * @param fontLarge	Große Schriftart für die Elementenbox
+	 */
+	public void setFontLarge(final Font fontLarge) {
+		if (fontLarge==null) return;
+		this.boxFontLarge=fontLarge;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert die kleine Schriftart für die Elementenbox.
+	 * @return	Kleine Schriftart für die Elementenbox
+	 */
+	public Font getFontSmall() {
+		return boxFontSmall;
+	}
+
+	/**
+	 * Stellt die kleine Schriftart für die Elementenbox ein.
+	 * @param fontSmall	Klein Schriftart für die Elementenbox
+	 */
+	public void setFontSmall(final Font fontSmall) {
+		if (fontSmall==null) return;
+		this.boxFontSmall=fontSmall;
+		fireChanged();
+	}
+
+	/**
 	 * Zoomfaktor auf den sich {@link #lastFontDefaultBox} und {@link #lastFontBoldBox} beziehen
 	 * @see #lastFontDefaultBox
 	 * @see #lastFontBoldBox
@@ -322,6 +391,22 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	private Font lastFontBoldBox;
 
 	/**
+	 * Schriftart für große Schriften in der Box
+	 * (um prüfen zu können, ob die Schriften neu generiert werden müssen)
+	 * @see #boxFontLarge
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private Font lastBoxFontLarge;
+
+	/**
+	 * Schriftart für kleine Schriften in der Box
+	 * (um prüfen zu können, ob die Schriften neu generiert werden müssen)
+	 * @see #boxFontSmall
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private Font lastBoxFontSmall;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -345,9 +430,11 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			}
 		}
 
-		if (lastZoomFontBox!=zoom || lastFontDefaultBox==null || lastFontBoldBox==null || lastUseHighContrasts!=setup.useHighContrasts) {
-			lastFontDefaultBox=new Font(Font.DIALOG,setup.useHighContrasts?Font.BOLD:0,(int)FastMath.round(11*zoom));
-			lastFontBoldBox=new Font(Font.DIALOG,Font.BOLD,(int)FastMath.round(13*zoom));
+		if (lastZoomFontBox!=zoom || lastFontDefaultBox==null || lastFontBoldBox==null || lastUseHighContrasts!=setup.useHighContrasts || !boxFontLarge.equals(lastBoxFontLarge) || !boxFontSmall.equals(lastBoxFontSmall)) {
+			lastBoxFontLarge=new Font(boxFontLarge.getName(),boxFontLarge.getStyle(),boxFontLarge.getSize());
+			lastBoxFontSmall=new Font(boxFontSmall.getName(),boxFontSmall.getStyle(),boxFontSmall.getSize());
+			lastFontDefaultBox=new Font(boxFontSmall.getName(),setup.useHighContrasts?Font.BOLD:boxFontSmall.getStyle(),(int)FastMath.round(boxFontSmall.getSize()*zoom));
+			lastFontBoldBox=new Font(boxFontLarge.getName(),boxFontLarge.getStyle(),(int)FastMath.round(boxFontLarge.getSize()*zoom));
 			lastZoomFontBox=zoom;
 			lastUseHighContrasts=setup.useHighContrasts;
 		}
@@ -532,6 +619,24 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 				sub.setTextContent(new String(Base64.getEncoder().encode(stream.toByteArray())));
 			} catch (IOException e) {}
 		}
+
+		if (!boxFontLarge.equals(DEFAULT_FONT_LARGE)) {
+			final Element sub=doc.createElement(Language.tr("Surface.XML.BoxFont.Large"));
+			node.appendChild(sub);
+			sub.setAttribute(Language.tr("Surface.XML.BoxFont.Family"),boxFontLarge.getName());
+			sub.setAttribute(Language.tr("Surface.XML.BoxFont.Size"),""+boxFontLarge.getSize());
+			if (boxFontLarge.isBold()) sub.setAttribute(Language.tr("Surface.XML.BoxFont.Bold"),"1");
+			if (boxFontLarge.isItalic()) sub.setAttribute(Language.tr("Surface.XML.BoxFont.Italic"),"1");
+		}
+
+		if (!boxFontSmall.equals(DEFAULT_FONT_SMALL)) {
+			final Element sub=doc.createElement(Language.tr("Surface.XML.BoxFont.Small"));
+			node.appendChild(sub);
+			sub.setAttribute(Language.tr("Surface.XML.BoxFont.Family"),boxFontSmall.getName());
+			sub.setAttribute(Language.tr("Surface.XML.BoxFont.Size"),""+boxFontSmall.getSize());
+			if (boxFontSmall.isBold()) sub.setAttribute(Language.tr("Surface.XML.BoxFont.Bold"),"1");
+			if (boxFontSmall.isItalic()) sub.setAttribute(Language.tr("Surface.XML.BoxFont.Italic"),"1");
+		}
 	}
 
 	/**
@@ -563,6 +668,30 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			} catch (IOException | IllegalArgumentException e) {
 				return null;
 			}
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.BoxFont.Large",name)) {
+			final String family=Language.trAllAttribute("Surface.XML.BoxFont.Family",node);
+			final Long size=NumberTools.getPositiveLong(Language.trAllAttribute("Surface.XML.BoxFont.Size",node));
+			int style=Font.PLAIN;
+			final String bold=Language.trAllAttribute("Surface.XML.BoxFont.Bold",node);
+			final String italic=Language.trAllAttribute("Surface.XML.BoxFont.Italic",node);
+			if (!bold.isEmpty() && !bold.equals("0")) style+=Font.BOLD;
+			if (!italic.isEmpty() && !italic.equals("0")) style+=Font.ITALIC;
+			boxFontLarge=new Font(FontCache.getFontCache().getFamilyFromName(family).name,style,(size==null)?DEFAULT_FONT_LARGE.getSize():size.intValue());
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.BoxFont.Small",name)) {
+			final String family=Language.trAllAttribute("Surface.XML.BoxFont.Family",node);
+			final Long size=NumberTools.getPositiveLong(Language.trAllAttribute("Surface.XML.BoxFont.Size",node));
+			int style=Font.PLAIN;
+			final String bold=Language.trAllAttribute("Surface.XML.BoxFont.Bold",node);
+			final String italic=Language.trAllAttribute("Surface.XML.BoxFont.Italic",node);
+			if (!bold.isEmpty() && !bold.equals("0")) style+=Font.BOLD;
+			if (!italic.isEmpty() && !italic.equals("0")) style+=Font.ITALIC;
+			boxFontSmall=new Font(FontCache.getFontCache().getFamilyFromName(family).name,style,(size==null)?DEFAULT_FONT_SMALL.getSize():size.intValue());
 			return null;
 		}
 

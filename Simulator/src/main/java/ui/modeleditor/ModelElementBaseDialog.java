@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -97,6 +98,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 	/** Beschreibung des Elements */
 	private String description;
+	/** Schriftgröße für große Schriften in der Elementenbox */
+	private Font fontLarge;
+	/** Schriftgröße für kleine Schriften in der Elementenbox */
+	private Font fontSmall;
 	/** Titel des Fensters (ohne Ergänzungen) */
 	private final String plainTitle;
 	/** Eingabefeld für den Namen des Elements */
@@ -109,6 +114,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	private BufferedImage userImage;
 	/** Schaltfläche zum Ändern der ID des Elements */
 	private final JButton idButton;
+	/** Schaltfläche Schriftarten  */
+	private final JButton fontButton;
 	/** Schaltfläche zum Aktivieren/Deaktivieren des Schreibschutzes für das Element */
 	private final JButton protectedButton;
 	/** Schaltfläche zum Ändern der Farbe des Elements */
@@ -182,6 +189,16 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 			if (element instanceof ModelElementBox) {
 				final ModelElementBox boxElement=(ModelElementBox)element;
+
+				sub.add(fontButton=new JButton());
+				fontButton.setPreferredSize(new Dimension(26,26));
+				fontButton.setToolTipText(Language.tr("Editor.DialogBase.Font.Tooltip"));
+				fontButton.addActionListener(e->showFontDialog());
+				fontButton.setEnabled(!readOnly);
+				fontButton.setIcon(Images.GENERAL_FONT.getIcon());
+				fontLarge=boxElement.getFontLarge();
+				fontSmall=boxElement.getFontSmall();
+
 				defaultColor=boxElement.getTypeDefaultBackgroundColor();
 				userColor=boxElement.getUserBackgroundColor();
 				userImage=boxElement.getUserBackgroundImage();
@@ -191,6 +208,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				setupColorButton();
 				colorButton.addActionListener(e->showColorSelectDialog());
 			} else {
+				fontButton=null;
 				defaultColor=null;
 				userColor=null;
 				userImage=null;
@@ -204,6 +222,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			descriptionButton.setIcon(Images.MODELEDITOR_COMMENT.getIcon());
 		} else {
 			nameField=null;
+			fontButton=null;
 			defaultColor=null;
 			userColor=null;
 			idButton=null;
@@ -644,6 +663,21 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	}
 
 	/**
+	 * Zeigt den Dialog zur Auswahl der Schriftarten für die Station an.
+	 * @see #fontButton
+	 * @see ModelElementBaseFontDialog
+	 */
+	private void showFontDialog() {
+		if (readOnly) return;
+		final ModelElementBaseFontDialog dialog=new ModelElementBaseFontDialog(this,helpRunnable,fontLarge,fontSmall);
+		dialog.setVisible(true);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			fontLarge=dialog.getFontLarge();
+			fontSmall=dialog.getFontSmall();
+		}
+	}
+
+	/**
 	 * Zeit den Dialog zum Bearbeiten der Stationsbeschreibung an.
 	 * @see ModelElementDescriptionDialog
 	 */
@@ -684,6 +718,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			final ModelElementBox boxElement=(ModelElementBox)element;
 			boxElement.setUserBackgroundColor(getElementColor());
 			boxElement.setUserBackgroundImage(getElementImage());
+			boxElement.setFontLarge(fontLarge);
+			boxElement.setFontSmall(fontSmall);
 		}
 		if (protectedButton!=null) element.setDeleteProtection(protectedButton.isSelected());
 	}
