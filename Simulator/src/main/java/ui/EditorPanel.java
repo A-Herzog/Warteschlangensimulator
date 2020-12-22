@@ -527,8 +527,11 @@ public final class EditorPanel extends EditorPanelBase {
 
 		if (!readOnly) {
 			final SetupData setup=SetupData.getSetup();
-			setup.showTemplates=isTemplatesVisible();
-			setup.saveSetup();
+			final boolean isTemplatesVisible=isTemplatesVisible();
+			if (setup.showTemplates!=isTemplatesVisible) {
+				setup.showTemplates=isTemplatesVisible;
+				setup.saveSetup();
+			}
 		}
 
 		setupInfoLabels(templatesVisible);
