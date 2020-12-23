@@ -440,7 +440,7 @@ public class MainPanel extends MainPanelBase {
 				if (index<0) commandFileModelNew(); else commandFileModelExample(index);
 			}
 			if (!isReload) {
-				javaVersionCheck();
+				startUpChecks();
 			}
 
 			if (InfoPanel.getInstance().isVisible(InfoPanel.globalWelcome) && !fileLoadedOnLoad && !isReload) {
@@ -1590,7 +1590,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Liefert die Versionskennung der Java-Laufzeitumgebung
 	 * @return	Versionskennung zerlegt in einzelne Teile
-	 * @see #javaVersionCheck()
+	 * @see #startUpChecks()
 	 */
 	private static int[] getJavaVersion() {
 		final String version=System.getProperty("java.version");
@@ -1621,7 +1621,7 @@ public class MainPanel extends MainPanelBase {
 	 * Prüft, ob die verwendete Java-Version noch aktuell ist
 	 * und zeigt ggf. eine Warnung an.
 	 */
-	private void javaVersionCheck() {
+	private void startUpChecks() {
 		if (setup.languageWasAutomaticallySet()) {
 			final JPanel infoPanel=setMessagePanel("",Language.tr("Window.LanguageAutomatic"),MessagePanelIcon.INFO);
 			infoPanel.setBackground(new Color(255,255,240));
@@ -1630,21 +1630,30 @@ public class MainPanel extends MainPanelBase {
 				infoPanel.setBackground(new Color(255,240,0));
 			}},7500);
 		} else {
-			if (!setup.testJavaVersion) return;
-			final int[] ver=getJavaVersion();
-			boolean ok=true;
-			if (ver[0]==8 && ver[1]<JAVA8_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==9 && ver[1]<JAVA9_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==10 && ver[1]<JAVA10_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==11 && ver[1]<JAVA11_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==12 && ver[1]<JAVA12_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==13 && ver[1]<JAVA13_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==14 && ver[1]<JAVA14_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
-			if (ok) return;
-
-			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),Language.tr("Window.JavaSecurityWarnung.Link"),MessagePanelIcon.WARNING);
-			new Timer().schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
+			final UpdateSystem update=UpdateSystem.getUpdateSystem();
+			if (setup.autoUpdate==SetupData.AutoUpdate.SEARCH || (setup.autoUpdate==SetupData.AutoUpdate.INSTALL && !update.isAutomaticUpdatePossible())) {
+				update.checkUpdateNow(true);
+				if (update.isNewVersionAvailable()==UpdateSystem.NewVersionAvailableStatus.NEW_VERSION_AVAILABLE) {
+					final JPanel panel=setMessagePanel(Language.tr("Dialog.Title.Info"),update.getInfoString(),"https://"+WEB_URL,MessagePanelIcon.INFO);
+					panel.setBackground(Color.GREEN);
+					new Timer().schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
+				}
+			} else {
+				if (!setup.testJavaVersion) return;
+				final int[] ver=getJavaVersion();
+				boolean ok=true;
+				if (ver[0]==8 && ver[1]<JAVA8_SECURE_MIN_VERSION) ok=false;
+				if (ver[0]==9 && ver[1]<JAVA9_SECURE_MIN_VERSION) ok=false;
+				if (ver[0]==10 && ver[1]<JAVA10_SECURE_MIN_VERSION) ok=false;
+				if (ver[0]==11 && ver[1]<JAVA11_SECURE_MIN_VERSION) ok=false;
+				if (ver[0]==12 && ver[1]<JAVA12_SECURE_MIN_VERSION) ok=false;
+				if (ver[0]==13 && ver[1]<JAVA13_SECURE_MIN_VERSION) ok=false;
+				if (ver[0]==14 && ver[1]<JAVA14_SECURE_MIN_VERSION) ok=false;
+				if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
+				if (ok) return;
+				setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),Language.tr("Window.JavaSecurityWarnung.Link"),MessagePanelIcon.WARNING);
+				new Timer().schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
+			}
 		}
 	}
 

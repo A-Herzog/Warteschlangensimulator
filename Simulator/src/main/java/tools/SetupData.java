@@ -316,8 +316,43 @@ public class SetupData extends SetupBase {
 
 	/**
 	 * Soll sich das Programm (wenn möglich) automatisch aktualisieren?
+	 * @see SetupData#autoUpdate
 	 */
-	public boolean autoUpdate;
+	public enum AutoUpdate {
+		/** Nicht nach Updates suchen */
+		OFF("Off"),
+		/** Nach Updates suchen, aber nicht automatisch installieren */
+		SEARCH("Search"),
+		/** Nach Updates suchen und wenn möglich automatisch installieren */
+		INSTALL("Install");
+
+		/** Name des Auto-Updates-Modus zum Speichern in der Konfiguration */
+		public final String name;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name des Auto-Updates-Modus zum Speichern in der Konfiguration
+		 */
+		AutoUpdate(final String name) {
+			this.name=name;
+		}
+
+		/**
+		 * Liefert zu einem Namen das passende Auto-Update-Enum.
+		 * @param name	Name (aus der Konfiguration geladen)
+		 * @return	Passendes Enum (oder Fallback-Wert)
+		 * @see #name
+		 */
+		public static AutoUpdate getByName(final String name) {
+			for (AutoUpdate autoUpdate: values()) if (autoUpdate.name.equalsIgnoreCase(name)) return autoUpdate;
+			return INSTALL;
+		}
+	}
+
+	/**
+	 * Soll sich das Programm (wenn möglich) automatisch aktualisieren?
+	 */
+	public AutoUpdate autoUpdate;
 
 	/**
 	 * Alle CPU-Kerne für Simulation nutzen?
@@ -886,7 +921,7 @@ public class SetupData extends SetupBase {
 		useLastFiles=true;
 		lastFiles=null;
 		testJavaVersion=true;
-		autoUpdate=true;
+		autoUpdate=AutoUpdate.INSTALL;
 		useMultiCoreSimulation=true;
 		useMultiCoreSimulationMaxCount=1024;
 		useMultiCoreAnimation=true;
@@ -1290,7 +1325,13 @@ public class SetupData extends SetupBase {
 			}
 
 			if (name.equals("autoupdate")) {
-				autoUpdate=loadBoolean(e.getTextContent(),true);
+				final String content=e.getTextContent();
+				autoUpdate=AutoUpdate.INSTALL;
+				if (content.equals("0")) {
+					autoUpdate=AutoUpdate.OFF;
+				} else {
+					autoUpdate=AutoUpdate.getByName(content);
+				}
 				continue;
 			}
 
@@ -1816,9 +1857,9 @@ public class SetupData extends SetupBase {
 			node.setTextContent("0");
 		}
 
-		if (!autoUpdate) {
+		if (autoUpdate!=AutoUpdate.INSTALL) {
 			root.appendChild(node=doc.createElement("AutoUpdate"));
-			node.setTextContent("0");
+			node.setTextContent(autoUpdate.name);
 		}
 
 		if (!useMultiCoreSimulation || useMultiCoreSimulationMaxCount!=1024 || useNUMAMode || !useDynamicThreadBalance) {

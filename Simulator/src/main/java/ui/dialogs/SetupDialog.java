@@ -272,7 +272,7 @@ public final class SetupDialog extends BaseDialog {
 	/** Java-Version beim Programmstart prüfen */
 	private final JCheckBox programStartJavaCheck;
 	/** Programm automatisch aktualisieren */
-	private final JCheckBox autoUpdate;
+	private final JComboBox<String> autoUpdate;
 	/** Informationen zum Fortschritt der Aktualisierung */
 	private final JLabel updateInfo;
 	/** Schaltfläche um ein manuelles Update auszulösen */
@@ -905,7 +905,30 @@ public final class SetupDialog extends BaseDialog {
 		});
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		p.add(autoUpdate=new JCheckBox(Language.tr("SettingsDialog.AutoUpdate")));
+		p.add(label=new JLabel(Language.tr("SettingsDialog.AutoUpdate")+":"));
+		final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
+		if (updateSystem.isAutomaticUpdatePossible()) {
+			p.add(autoUpdate=new JComboBox<>(new String[] {
+					Language.tr("SettingsDialog.AutoUpdate.Off"),
+					Language.tr("SettingsDialog.AutoUpdate.Search"),
+					Language.tr("SettingsDialog.AutoUpdate.Install")
+			}));
+			autoUpdate.setRenderer(new IconListCellRenderer(new Images[]{
+					Images.GENERAL_OFF,
+					Images.GENERAL_INFO,
+					Images.GENERAL_ON,
+			}));
+		} else {
+			p.add(autoUpdate=new JComboBox<>(new String[] {
+					Language.tr("SettingsDialog.AutoUpdate.Off"),
+					Language.tr("SettingsDialog.AutoUpdate.Search"),
+			}));
+			autoUpdate.setRenderer(new IconListCellRenderer(new Images[]{
+					Images.GENERAL_OFF,
+					Images.GENERAL_INFO
+			}));
+		}
+		label.setLabelFor(autoUpdate);
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(updateInfo=new JLabel());
@@ -1116,15 +1139,31 @@ public final class SetupDialog extends BaseDialog {
 
 		/* Seite: Updates */
 
-		final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
 		programStartJavaCheck.setSelected(setup.testJavaVersion);
-		autoUpdate.setEnabled(updateSystem.isAutomaticUpdatePossible());
-		autoUpdate.setSelected(autoUpdate.isEnabled() && setup.autoUpdate);
+		if (updateSystem.isAutomaticUpdatePossible()) {
+			switch (setup.autoUpdate) {
+			case OFF: autoUpdate.setSelectedIndex(0); break;
+			case SEARCH: autoUpdate.setSelectedIndex(1); break;
+			case INSTALL: autoUpdate.setSelectedIndex(2); break;
+			default: autoUpdate.setSelectedIndex(2); break;
+			}
+		} else {
+			switch (setup.autoUpdate) {
+			case OFF: autoUpdate.setSelectedIndex(0); break;
+			case SEARCH: autoUpdate.setSelectedIndex(1); break;
+			default: autoUpdate.setSelectedIndex(1); break;
+			}
+		}
 		updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
-		if (setup.autoUpdate && updateSystem.isAutomaticUpdatePossible()) {
+		if (setup.autoUpdate==SetupData.AutoUpdate.INSTALL && updateSystem.isAutomaticUpdatePossible()) {
 			runUpdateCheck();
 		} else {
-			updateCheckButton.setVisible(true);
+			if (updateSystem.isNewVersionAvailable()==UpdateSystem.NewVersionAvailableStatus.NEW_VERSION_AVAILABLE) {
+				updateCheckButton.setVisible(false);
+				manualUpdateButton.setVisible(true);
+			} else {
+				updateCheckButton.setVisible(true);
+			}
 		}
 
 		/* Dialog anzeigen */
@@ -1342,7 +1381,11 @@ public final class SetupDialog extends BaseDialog {
 		/* Seite: Updates */
 
 		setup.testJavaVersion=programStartJavaCheck.isSelected();
-		setup.autoUpdate=autoUpdate.isSelected();
+		switch (autoUpdate.getSelectedIndex()) {
+		case 0: setup.autoUpdate=SetupData.AutoUpdate.OFF; break;
+		case 1: setup.autoUpdate=SetupData.AutoUpdate.SEARCH; break;
+		case 2: setup.autoUpdate=SetupData.AutoUpdate.INSTALL; break;
+		}
 
 		/* Einstellungen speichern */
 
@@ -1499,7 +1542,7 @@ public final class SetupDialog extends BaseDialog {
 			break;
 		case 6: /* Seite: Updates */
 			programStartJavaCheck.setSelected(true);
-			if (autoUpdate.isEnabled()) autoUpdate.setSelected(true);
+			autoUpdate.setSelectedIndex(autoUpdate.getModel().getSize()-1);
 			break;
 		}
 	}

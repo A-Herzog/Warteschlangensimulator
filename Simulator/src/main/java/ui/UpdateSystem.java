@@ -160,9 +160,12 @@ public class UpdateSystem {
 		if (checkUpdateNow()) return;
 		checkAutomaticUpdatePossible();
 		checkLastStart();
-		if (SetupData.getSetup().autoUpdate && automaticUpdatePossible) {
+		final SetupData.AutoUpdate autoUpdate=SetupData.getSetup().autoUpdate;
+		if (autoUpdate!=SetupData.AutoUpdate.OFF) {
 			checkUpdateAvailable(false);
-			if (newVersionAvailable!=null) downloadUpdate();
+			if (automaticUpdatePossible && autoUpdate==SetupData.AutoUpdate.INSTALL) {
+				if (newVersionAvailable!=null) downloadUpdate();
+			}
 		}
 	}
 
@@ -552,7 +555,7 @@ public class UpdateSystem {
 		if (updateDownloadStatus!=UpdateStatus.STATUS_NOTHING) return;
 		checkUpdateAvailable(true);
 		if (newVersionAvailable!=null && automaticUpdatePossible) {
-			if (SetupData.getSetup().autoUpdate || !checkOnly) downloadUpdate();
+			if (SetupData.getSetup().autoUpdate==SetupData.AutoUpdate.INSTALL || !checkOnly) downloadUpdate();
 		}
 	}
 

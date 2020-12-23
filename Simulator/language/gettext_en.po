@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-22 15:26+0100\n"
+"POT-Creation-Date: 2020-12-23 13:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2203,6 +2203,9 @@ msgstr "Confirmation"
 
 msgid "Dialog.Title.Error"
 msgstr "Error"
+
+msgid "Dialog.Title.Info"
+msgstr "Notice"
 
 msgid "Dialog.Title.Information"
 msgstr "Information"
@@ -12264,6 +12267,15 @@ msgstr "Only before simulation/animation"
 
 msgid "SettingsDialog.AutoUpdate"
 msgstr "Update program automatically"
+
+msgid "SettingsDialog.AutoUpdate.Install"
+msgstr "Search updates and install automatically"
+
+msgid "SettingsDialog.AutoUpdate.Off"
+msgstr "Off"
+
+msgid "SettingsDialog.AutoUpdate.Search"
+msgstr "Search for updates only"
 
 msgid "SettingsDialog.BackgroundProcessing"
 msgstr "Background processing"
