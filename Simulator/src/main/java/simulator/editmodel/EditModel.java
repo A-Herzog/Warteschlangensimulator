@@ -16,13 +16,20 @@
 package simulator.editmodel;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import javax.imageio.ImageIO;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -46,6 +53,7 @@ import ui.modeleditor.ModelSchedules;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelTransporters;
+import ui.modeleditor.ScaledImageCache;
 import ui.modeleditor.coreelements.DataCheckResult;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -270,6 +278,16 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public final Color[] surfaceColors=Arrays.copyOf(DEFAULT_COLORS,DEFAULT_COLORS.length);
 
 	/**
+	 * Optionales Hintergrundbild
+	 */
+	public BufferedImage surfaceBackgroundImage;
+
+	/**
+	 * Skalierungsfaktor für das optionale Hintergrundbild
+	 */
+	public double surfaceBackgroundImageScale;
+
+	/**
 	 * Liste der Pfadsegmente für den Wegstrecken-Editor
 	 */
 	public final ModelPaths pathSegments;
@@ -417,6 +435,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		globalVariablesNames.clear();
 		globalVariablesExpressions.clear();
 		for (int i=0;i<surfaceColors.length;i++) surfaceColors[i]=DEFAULT_COLORS[i];
+		surfaceBackgroundImage=null;
+		surfaceBackgroundImageScale=1.0;
 		sequences.clear();
 		transporters.clear();
 		pathSegments.clear();
@@ -471,6 +491,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.globalVariablesNames.addAll(globalVariablesNames);
 		clone.globalVariablesExpressions.addAll(globalVariablesExpressions);
 		for (int i=0;i<surfaceColors.length;i++) clone.surfaceColors[i]=surfaceColors[i];
+		clone.surfaceBackgroundImage=ScaledImageCache.copyImage(surfaceBackgroundImage);
+		clone.surfaceBackgroundImageScale=surfaceBackgroundImageScale;
 		clone.sequences.setDataFrom(sequences);
 		clone.transporters.setDataFrom(transporters);
 		clone.pathSegments.setDataFrom(pathSegments);
@@ -542,6 +564,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (globalVariablesExpressions.size()!=otherModel.globalVariablesExpressions.size()) return false;
 		for (int i=0;i<globalVariablesExpressions.size();i++) if (!globalVariablesExpressions.get(i).equals(otherModel.globalVariablesExpressions.get(i))) return false;
 		for (int i=0;i<surfaceColors.length;i++) if (!Objects.equals(surfaceColors[i],otherModel.surfaceColors[i])) return false;
+		if (!ScaledImageCache.compare(surfaceBackgroundImage,otherModel.surfaceBackgroundImage)) return false;
+		if (surfaceBackgroundImageScale!=otherModel.surfaceBackgroundImageScale) return false;
 		if (!sequences.equalsModelSequences(otherModel.sequences)) return false;
 		if (!transporters.equalsModelTransporters(otherModel.transporters)) return false;
 		if (!pathSegments.equalsModelPaths(otherModel.pathSegments)) return false;
@@ -758,6 +782,19 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.SurfaceBackgroundImage",name)) {
+			final Double D=NumberTools.getPositiveDouble(Language.trAllAttribute("Surface.XML.SurfaceBackgroundImage.Scale",node));
+			if (D!=null) surfaceBackgroundImageScale=D.doubleValue();
+			if (!text.isEmpty()) {
+				try {
+					final ByteArrayInputStream stream=new ByteArrayInputStream(Base64.getDecoder().decode(text));
+					final BufferedImage image=ImageIO.read(stream);
+					if (image!=null) surfaceBackgroundImage=image;
+				} catch (IOException | IllegalArgumentException e) {}
+			}
+			return null;
+		}
+
 		for (String test: ModelSequences.XML_NODE_NAME) if (name.equalsIgnoreCase(test)) {
 			final String error=sequences.loadFromXML(node);
 			if (error!=null) return error;
@@ -947,6 +984,18 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceColor.Background"),saveColor(surfaceColors[0]));
 			sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceColor.Raster"),saveColor(surfaceColors[1]));
 			if (surfaceColors[2]!=null) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceColor.Background2"),saveColor(surfaceColors[2]));
+		}
+
+		if (surfaceBackgroundImage!=null || surfaceBackgroundImageScale!=1.0) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.SurfaceBackgroundImage")));
+			if (surfaceBackgroundImageScale!=1.0) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceBackgroundImage.Scale"),NumberTools.formatSystemNumber(surfaceBackgroundImageScale));
+			if (surfaceBackgroundImage!=null) {
+				try {
+					final ByteArrayOutputStream stream=new ByteArrayOutputStream();
+					ImageIO.write(surfaceBackgroundImage,"png",stream);
+					sub.setTextContent(new String(Base64.getEncoder().encode(stream.toByteArray())));
+				} catch (IOException e) {}
+			}
 		}
 
 		sequences.addDataToXML(doc,node);

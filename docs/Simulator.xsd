@@ -28,6 +28,7 @@
   <xs:element ref="ModellZusatzStatistik"/>
   <xs:element ref="InitialeVariable"/>
   <xs:element ref="ModellFarbe"/>
+  <xs:element ref="ModellHintergrundBild"/>
   <xs:element ref="ModellFertigungsplaene"/>
   <xs:element ref="ModellTransporterListe"/>
   <xs:element ref="ModellPfadsegmente"/>
@@ -164,6 +165,12 @@
   <xs:attribute name="Raster" type="xs:string"/>
   <xs:attribute name="HintergrundFarbverlauf" type="xs:string"/>
 </xs:complexType></xs:element>
+
+<xs:element name="ModellHintergrundBild"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+	<xs:attribute name="Skalierung" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellFertigungsplaene"><xs:complexType>
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -2061,6 +2068,7 @@
   <xs:element ref="ModelAdditionalStatistics"/>
   <xs:element ref="InitialVariable"/>
   <xs:element ref="ModelColor"/>
+  <xs:element ref="ModelBackgroundImage"/>
   <xs:element ref="ModelSequences"/>
   <xs:element ref="ModelTransporters"/>
   <xs:element ref="ModelPathSegments"/>
@@ -2196,6 +2204,12 @@
   <xs:attribute name="Raster" type="xs:string"/>
   <xs:attribute name="BackgroundGradient" type="xs:string"/>
 </xs:complexType></xs:element>
+
+<xs:element name="ModelBackgroundImage"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+	<xs:attribute name="Scale" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelSequences"><xs:complexType>
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

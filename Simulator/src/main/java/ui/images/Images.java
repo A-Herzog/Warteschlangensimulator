@@ -212,6 +212,9 @@ public enum Images {
 	/** Symbol "Hintergrundfarbe" */
 	EDIT_BACKGROUND_COLOR("color_wheel.png"),
 
+	/** Symbol "Hintergrundbild" */
+	EDIT_BACKGROUND_IMAGE("image.gif"),
+
 	/** Symbol "Verbindungskante" */
 	EDIT_EDGES("link.png"),
 

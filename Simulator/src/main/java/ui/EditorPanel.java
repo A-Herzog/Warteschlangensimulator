@@ -104,6 +104,7 @@ import ui.modeleditor.ModelElementNavigatorListCellRenderer;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.modeleditor.ScaledImageCache;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementListGroup;
@@ -1015,7 +1016,10 @@ public final class EditorPanel extends EditorPanelBase {
 		surfacePanel.addSelectionListener(e->fireSelectionListener());
 		surfacePanel.addLinkListener(link->fireLinkListener(link));
 		surfacePanel.setRaster(SetupData.getSetup().grid);
-		if (model!=null) surfacePanel.setColors(model.surfaceColors);
+		if (model!=null) {
+			surfacePanel.setColors(model.surfaceColors);
+			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale);
+		}
 		rulerPanel=new RulerPanel(surfacePanel,SetupData.getSetup().showRulers);
 		surfacePanel.addStateChangeListener(e->updateStatusBar());
 		surfacePanel.addUndoRedoDoneListener(e->updateCanUndoRedo());
@@ -1321,6 +1325,8 @@ public final class EditorPanel extends EditorPanelBase {
 		model.surfaceColors[0]=colors[0];
 		model.surfaceColors[1]=colors[1];
 		if (colors.length>2) model.surfaceColors[2]=colors[2];
+		model.surfaceBackgroundImage=ScaledImageCache.copyImage(surfacePanel.getBackgroundImage());
+		model.surfaceBackgroundImageScale=surfacePanel.getBackgroundImageScale();
 	}
 
 	@Override
@@ -1332,6 +1338,7 @@ public final class EditorPanel extends EditorPanelBase {
 		warmUpTime=model.warmUpTime;
 		if (surfacePanel!=null) {
 			surfacePanel.setColors(model.surfaceColors); /* Reihenfolge ist wichtig. setSurface würde bedingt durch fireNotify Farbe von Modell aus surfacePanel überschreiben, daher erst Farbe aus Modell in surfacePanel übertragen. */
+			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale);
 			surfacePanel.setSurface(model,model.surface.clone(false,model.resources.clone(),model.schedules.clone(),model.surface.getParentSurface(),model),model.clientData,model.sequences);
 		}
 		if (model.surface.getElementCount()>0) setupInfoLabels(true);
@@ -1407,15 +1414,29 @@ public final class EditorPanel extends EditorPanelBase {
 	public void showBackgroundColorDialog() {
 		final EditModel model=getModel();
 
-		final BackgroundColorDialog dialog=new BackgroundColorDialog(owner,model.surfaceColors,readOnly);
+		final BackgroundColorDialog dialog=new BackgroundColorDialog(owner,model.surfaceColors,model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,readOnly);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		final Color[] colors=dialog.getColors();
 		if (colors==null || colors.length!=3) return;
+		boolean needUpdate=false;
 		if (!Objects.deepEquals(model.surfaceColors,colors)) {
 			model.surfaceColors[0]=colors[0];
 			model.surfaceColors[1]=colors[1];
 			model.surfaceColors[2]=colors[2];
+			needUpdate=true;
+		}
+		final BufferedImage newImage=dialog.getImage();
+		if (!ScaledImageCache.compare(model.surfaceBackgroundImage,newImage)) {
+			model.surfaceBackgroundImage=newImage;
+			needUpdate=true;
+		}
+		final double newScale=dialog.getScale();
+		if (newScale!=model.surfaceBackgroundImageScale) {
+			model.surfaceBackgroundImageScale=newScale;
+			needUpdate=true;
+		}
+		if (needUpdate) {
 			final File file=getLastFile();
 			setModel(model);
 			setLastFile(file);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 13:56+0100\n"
+"POT-Creation-Date: 2020-12-24 13:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7459,7 +7459,7 @@ msgid "Main.Menu.View"
 msgstr "View"
 
 msgid "Main.Menu.View.BackgroundColor"
-msgstr "Setup background color..."
+msgstr "Setup background color and image..."
 
 msgid "Main.Menu.View.BackgroundColor.Mnemonic"
 msgstr "b"
@@ -26318,6 +26318,12 @@ msgstr "Target"
 msgid "Surface.XML.StoppOnCalcError"
 msgstr "ModelStoppOnCalcError"
 
+msgid "Surface.XML.SurfaceBackgroundImage"
+msgstr "ModelBackgroundImage"
+
+msgid "Surface.XML.SurfaceBackgroundImage.Scale"
+msgstr "Scale"
+
 msgid "Surface.XML.SurfaceColor"
 msgstr "ModelColor"
 
@@ -27121,6 +27127,23 @@ msgstr "The program has to be in model editor or statistics viewer mode for a mo
 
 msgid "WebServer.Upload.Success"
 msgstr "The model was uploaded."
+
+msgid "Window.BackgroundColor.ImageScale"
+msgstr "Scale factor"
+
+msgid "Window.BackgroundColor.ImageScale.ErrorInfo"
+msgstr ""
+"The specified scale factor \"%s\" is invalid.\n"
+"A positive number has to be specified."
+
+msgid "Window.BackgroundColor.ImageScale.ErrorTitle"
+msgstr "Invalid scale factor"
+
+msgid "Window.BackgroundColor.Tab.Color"
+msgstr "Background color"
+
+msgid "Window.BackgroundColor.Tab.Image"
+msgstr "Background image"
 
 msgid "Window.BackgroundColor.Title"
 msgstr "Background color of the drawing surface"

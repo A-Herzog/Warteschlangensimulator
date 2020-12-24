@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 13:56+0100\n"
+"POT-Creation-Date: 2020-12-24 13:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7448,7 +7448,7 @@ msgid "Main.Menu.View"
 msgstr "Ansicht"
 
 msgid "Main.Menu.View.BackgroundColor"
-msgstr "Hintergrundfarbe einstellen..."
+msgstr "Hintergrundfarbe und -bild einstellen..."
 
 msgid "Main.Menu.View.BackgroundColor.Mnemonic"
 msgstr "H"
@@ -26327,6 +26327,12 @@ msgstr "Ziel"
 msgid "Surface.XML.StoppOnCalcError"
 msgstr "ModellBeiRechenfehlerAbbrechen"
 
+msgid "Surface.XML.SurfaceBackgroundImage"
+msgstr "ModellHintergrundBild"
+
+msgid "Surface.XML.SurfaceBackgroundImage.Scale"
+msgstr "Skalierung"
+
 msgid "Surface.XML.SurfaceColor"
 msgstr "ModellFarbe"
 
@@ -27130,6 +27136,23 @@ msgstr "Das Programm muss sich im Modell-Editor- oder im Statistikanzeige-Modus 
 
 msgid "WebServer.Upload.Success"
 msgstr "Das Modell wurde geladen."
+
+msgid "Window.BackgroundColor.ImageScale"
+msgstr "Skalierungsfaktor"
+
+msgid "Window.BackgroundColor.ImageScale.ErrorInfo"
+msgstr ""
+"Der angegebene Skalierungsfaktor \"%s\" ist ungültig.\n"
+"Es muss eine positive Zahl angegeben werden."
+
+msgid "Window.BackgroundColor.ImageScale.ErrorTitle"
+msgstr "Ungültiger Skalierungsfaktor"
+
+msgid "Window.BackgroundColor.Tab.Color"
+msgstr "Hintergrundfarbe"
+
+msgid "Window.BackgroundColor.Tab.Image"
+msgstr "Hintergrundbild"
 
 msgid "Window.BackgroundColor.Title"
 msgstr "Hintergrundfarbe der Zeichenfläche"

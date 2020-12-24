@@ -17,7 +17,9 @@ package ui.modeleditor;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -168,6 +170,20 @@ public class ScaledImageCache {
 			cacheData[oldestIndex]=image;
 			cacheLastAccess[oldestIndex]=time;
 		}
+	}
+
+	/**
+	 * Erstellt eine Kopie eines Bildobjektes
+	 * @param source	Ausgangs-Bildobjekt
+	 * @return	Kopie des Bildobjektes
+	 */
+	public static BufferedImage copyImage(final BufferedImage source) {
+		if (source==null) return null;
+
+		final ColorModel cm=source.getColorModel();
+		final boolean isAlphaPremultiplied=cm.isAlphaPremultiplied();
+		final WritableRaster raster=source.copyData(null);
+		return new BufferedImage(cm,raster,isAlphaPremultiplied,null);
 	}
 
 	/**

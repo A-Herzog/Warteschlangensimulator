@@ -18,17 +18,29 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import systemtools.BaseDialog;
+import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
 import ui.help.Help;
+import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.tools.ImageChooser;
 
 /**
  * Dialog, der das Einstellen von Hintergrund- un Rasterfarbe ermöglicht.
@@ -54,24 +66,41 @@ public class BackgroundColorDialog extends BaseDialog {
 	/** Nutzerdefinierte Gradientenfarbe auswählen */
 	private final SmallColorChooser gradientColor;
 
+	/** Hintergrundbild */
+	private final ImageChooser backgroundImage;
+	/** Skalierung für Hintergrundbild */
+	private final JTextField backgroundImageScale;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param colors	Bisherige Farben (2-elementiges Array aus Hintergrund- und Rasterfarbe)
+	 * @param image	Hintergrundbild (kann <code>null</code> sein)
+	 * @param scale	Skalierung für das Hintergrundbild (muss größer als 0 sein)
 	 * @param readOnly	Gibt an, ob die Einstellungen verändert werden dürfen
 	 */
-	public BackgroundColorDialog(final Component owner, final Color[] colors, final boolean readOnly) {
+	public BackgroundColorDialog(final Component owner, final Color[] colors, final BufferedImage image, final double scale, final boolean readOnly) {
 		super(owner,Language.tr("Window.BackgroundColor.Title"),readOnly);
 
 		final JPanel content=createGUI(()->Help.topicModal(BackgroundColorDialog.this,"EditorColorDialog"));
+		content.setLayout(new BorderLayout());
+		final JTabbedPane tabs=new JTabbedPane();
+		content.add(tabs,BorderLayout.CENTER);
+
+		JPanel tabOuter;
+		JPanel tab;
+		JPanel line, cell;
+
+		/* Tab "Farben" */
+		tabs.addTab(Language.tr("Window.BackgroundColor.Tab.Color"),tabOuter=new JPanel(new BorderLayout()));
+		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
+		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 
 		final Color c1=(colors!=null && colors.length>=2 && colors[0]!=null)?colors[0]:ModelSurface.DEFAULT_BACKGROUND_COLOR;
 		final Color c2=(colors!=null && colors.length>=2 && colors[1]!=null)?colors[1]:ModelSurface.DEFAULT_RASTER_COLOR;
 		final Color c3=(colors!=null && colors.length>=3 && colors[2]!=null)?colors[2]:null;
 
-		JPanel line, cell;
-
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
 		/* Hintergrundfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
@@ -97,8 +126,54 @@ public class BackgroundColorDialog extends BaseDialog {
 		gradientColor.setEnabled(!readOnly);
 		gradientColor.addClickListener(e->gradientCheck.setSelected(true));
 
+		/* Tab "Hintergrundbild" */
+		tabs.addTab(Language.tr("Window.BackgroundColor.Tab.Image"),tabOuter=new JPanel(new BorderLayout()));
+		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
+		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
+		tab.add(backgroundImage=new ImageChooser(image,null));
+		backgroundImage.setPreferredSize(new Dimension(0,500));
+
+		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Window.BackgroundColor.ImageScale")+":",NumberTools.formatNumberMax(scale),7);
+		tab.add((JPanel)data[0]);
+		backgroundImageScale=(JTextField)data[1];
+		backgroundImageScale.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+		});
+
+		/* Icons auf Tabs */
+		tabs.setIconAt(0,Images.EDIT_BACKGROUND_COLOR.getIcon());
+		tabs.setIconAt(1,Images.EDIT_BACKGROUND_IMAGE.getIcon());
+
+		/* Dialog starten */
 		pack();
 		setLocationRelativeTo(getOwner());
+	}
+
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessages	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	private boolean checkData(final boolean showErrorMessages) {
+		boolean ok=true;
+
+		final Double D=NumberTools.getPositiveDouble(backgroundImageScale,true);
+		if (D==null) {
+			if (showErrorMessages) {
+				MsgBox.error(this,Language.tr("Window.BackgroundColor.ImageScale.ErrorTitle"),String.format(Language.tr("Window.BackgroundColor.ImageScale.ErrorInfo"),backgroundImageScale.getText()));
+				return false;
+			}
+			ok=false;
+		}
+
+		return ok;
+	}
+
+	@Override
+	protected boolean checkData() {
+		return checkData(true);
 	}
 
 	/**
@@ -113,5 +188,22 @@ public class BackgroundColorDialog extends BaseDialog {
 		if (rasterCheck.isSelected()) c2=rasterColor.getColor();
 		Color c3=(gradientCheck.isSelected())?gradientColor.getColor():null;
 		return new Color[] {c1,c2,c3};
+	}
+
+	/**
+	 * Liefert das eingestellte Hintergrundbild.
+	 * @return	Hintergrundbild (kann <code>null</code> sein)
+	 */
+	public BufferedImage getImage() {
+		if (getClosedBy()!=CLOSED_BY_OK) return null;
+		return backgroundImage.getImage();
+	}
+
+	/**
+	 * Liefert den Skalierungsfaktor für das Hintergrundbild.
+	 * @return	Skalierungsfaktor für das Hintergrundbild
+	 */
+	public double getScale() {
+		return NumberTools.getPositiveDouble(backgroundImageScale,true);
 	}
 }
