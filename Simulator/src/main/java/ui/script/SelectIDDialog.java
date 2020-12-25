@@ -46,6 +46,7 @@ import ui.modeleditor.elements.ModelElementOutput;
 import ui.modeleditor.elements.ModelElementOutputDB;
 import ui.modeleditor.elements.ModelElementOutputDDE;
 import ui.modeleditor.elements.ModelElementOutputJS;
+import ui.modeleditor.elements.ModelElementOutputLog;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementRecord;
 import ui.modeleditor.elements.ModelElementSource;
@@ -185,6 +186,7 @@ public class SelectIDDialog extends BaseDialog {
 			if (element instanceof ModelElementOutputDB) continue;
 			if (element instanceof ModelElementOutputDDE) continue;
 			if (element instanceof ModelElementOutputJS) continue;
+			if (element instanceof ModelElementOutputLog) continue;
 			if (element instanceof ModelElementRecord) continue;
 
 			if (stationTypes!=null && stationTypes.length>0) {

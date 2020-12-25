@@ -485,6 +485,7 @@
   <xs:element ref="ModellElementScriptDateiausgabe"/>
   <xs:element ref="ModellElementDatenbankausgabe"/>
   <xs:element ref="ModellElementAusgabeDDE"/>
+  <xs:element ref="ModellElementAusgabeLog"/>
   <xs:element ref="ModellElementBenutzerstatistik"/>
   <xs:element ref="ModellElementDifferenzZaehler"/>
   <xs:element ref="ModellElementBereichStart"/>
@@ -1155,6 +1156,12 @@
   <xs:attribute name="Daten" type="xs:string"/>
   <xs:attribute name="Typ" type="xs:string"/>
 </xs:complexType></xs:element>
+
+<xs:element name="ModellElementAusgabeLog"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+	<xs:element ref="ModellElementAusgabeelement"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementBenutzerstatistik"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -2523,6 +2530,7 @@
   <xs:element ref="ModelElementScriptOutput"/>
   <xs:element ref="ModelElementDatabaseOutput"/>
   <xs:element ref="ModelElementOutputDDE"/>
+  <xs:element ref="ModelElementOutputLog"/>
   <xs:element ref="ModelElementUserStatistics"/>
   <xs:element ref="ModelElementDifferenceCounter"/>
   <xs:element ref="ModelElementSectionStart"/>
@@ -3193,6 +3201,12 @@
   <xs:attribute name="Value" type="xs:string"/>
   <xs:attribute name="Type" type="xs:string"/>
 </xs:complexType></xs:element>
+
+<xs:element name="ModelElementOutputLog"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+	<xs:element ref="ModelElementOutputElement"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementUserStatistics"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

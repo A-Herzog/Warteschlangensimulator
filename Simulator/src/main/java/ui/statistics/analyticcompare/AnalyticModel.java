@@ -37,6 +37,7 @@ import ui.modeleditor.elements.ModelElementOutput;
 import ui.modeleditor.elements.ModelElementOutputDB;
 import ui.modeleditor.elements.ModelElementOutputDDE;
 import ui.modeleditor.elements.ModelElementOutputJS;
+import ui.modeleditor.elements.ModelElementOutputLog;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementRecord;
 import ui.modeleditor.elements.ModelElementSectionEnd;
@@ -167,6 +168,7 @@ public class AnalyticModel {
 			ModelElementOutputJS.class,
 			ModelElementOutputDB.class,
 			ModelElementOutputDDE.class,
+			ModelElementOutputLog.class,
 			ModelElementRecord.class,
 			ModelElementUserStatistic.class
 	};

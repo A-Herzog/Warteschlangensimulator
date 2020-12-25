@@ -339,6 +339,9 @@ public class InfoPanel {
 	/** Info-ID für den "Ausgabe (DDE)"-Bearbeiten-Dialog (Gruppe "Daten Ein-/Ausgabe") */
 	public static final String stationOutputDDE=groupElement+"OutputDDE";
 
+	/** Info-ID für den "Ausgabe (Log)"-Bearbeiten-Dialog (Gruppe "Daten Ein-/Ausgabe") */
+	public static final String stationOutputLog=groupElement+"OutputLog";
+
 	/** Info-ID für den "Aufzeichnung"-Bearbeiten-Dialog (Gruppe "Daten Ein-/Ausgabe") */
 	public static final String stationRecord=groupElement+"Record";
 
@@ -910,6 +913,10 @@ public class InfoPanel {
 		register(stationOutputDDE,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DATAINPUTOUTPUT+"|"+Language.tr("Surface.OutputDDE.Name"),
 				()->Language.tr("Surface.OutputDDE.Infotext"));
+
+		register(stationOutputLog,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DATAINPUTOUTPUT+"|"+Language.tr("Surface.OutputLog.Name"),
+				()->Language.tr("Surface.OutputLog.Infotext"));
 
 		register(stationRecord,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DATAINPUTOUTPUT+"|"+Language.tr("Surface.Record.Name"),

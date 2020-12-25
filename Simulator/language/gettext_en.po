@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:45+0100\n"
+"POT-Creation-Date: 2020-12-25 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13690,6 +13690,9 @@ msgstr "Output (DDE)"
 msgid "Simulation.Element.OutputJS.Name"
 msgstr "Output (Script)"
 
+msgid "Simulation.Element.OutputLog.Name"
+msgstr "Output (Log)"
+
 msgid "Simulation.Element.PickUp.Name"
 msgstr "Pick up"
 
@@ -14321,6 +14324,12 @@ msgid "Simulation.Log.OutputJS"
 msgstr "Output (Script)"
 
 msgid "Simulation.Log.OutputJS.Info"
+msgstr "Client: %s, station: %s"
+
+msgid "Simulation.Log.OutputLog"
+msgstr "Output (DB)"
+
+msgid "Simulation.Log.OutputLog.Info"
 msgstr "Client: %s, station: %s"
 
 msgid "Simulation.Log.Parking"
@@ -22493,7 +22502,7 @@ msgid "Surface.OutputDDE.Table.Up"
 msgstr "Move output element up"
 
 msgid "Surface.OutputDDE.Tooltip"
-msgstr "Writes one or more expressions via DDE to an Excel table"
+msgstr "Writes one or more expressions via DDE to an Excel table."
 
 msgid "Surface.OutputDDE.XML.Column"
 msgstr "ModelElementOutputDDEStartColumn"
@@ -22551,6 +22560,24 @@ msgstr "Javascript"
 
 msgid "Surface.OutputJS.XML.Script.Language"
 msgstr "Language"
+
+msgid "Surface.OutputLog.Dialog.Title"
+msgstr "Edit logging output"
+
+msgid "Surface.OutputLog.Infotext"
+msgstr "If a client passes this station, one or more current values are appended to the log output. If loggig is not activated, no output will happen."
+
+msgid "Surface.OutputLog.Name"
+msgstr "Log output"
+
+msgid "Surface.OutputLog.Name.Short"
+msgstr "Output (Log)"
+
+msgid "Surface.OutputLog.Tooltip"
+msgstr "Writes one or more expressions to the logging output."
+
+msgid "Surface.OutputLog.XML.Root"
+msgstr "ModelElementOutputLog"
 
 msgid "Surface.PickUp.Dialog.DirectForwardIfQueueIsEmpty"
 msgstr "Forward client alone if queue is empty"

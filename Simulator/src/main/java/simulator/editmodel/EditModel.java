@@ -69,6 +69,7 @@ import ui.modeleditor.elements.ModelElementOutput;
 import ui.modeleditor.elements.ModelElementOutputDB;
 import ui.modeleditor.elements.ModelElementOutputDDE;
 import ui.modeleditor.elements.ModelElementOutputJS;
+import ui.modeleditor.elements.ModelElementOutputLog;
 import ui.modeleditor.elements.ModelElementRecord;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceDB;
@@ -1199,6 +1200,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (element1 instanceof ModelElementOutputJS) return false;
 			if (element1 instanceof ModelElementOutputDB) return false;
 			if (element1 instanceof ModelElementOutputDDE) return false;
+			if (element1 instanceof ModelElementOutputLog) return false;
 			/*
 			if (element1 instanceof ModelElementDecideJS) return false;
 			if (element1 instanceof ModelElementHoldJS) return false;
@@ -1217,6 +1219,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 				if (element2 instanceof ModelElementOutputJS) return false;
 				if (element2 instanceof ModelElementOutputDB) return false;
 				if (element2 instanceof ModelElementOutputDDE) return false;
+				if (element2 instanceof ModelElementOutputLog) return false;
 				/*
 				if (element2 instanceof ModelElementDecideJS) return false;
 				if (element2 instanceof ModelElementHoldJS) return false;
@@ -1245,6 +1248,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if ((element instanceof ModelElementOutputJS) && ((ModelElementOutputJS)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 			if ((element instanceof ModelElementOutputDB) && ((ModelElementOutputDB)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 			if ((element instanceof ModelElementOutputDDE) && ((ModelElementOutputDDE)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
+			if ((element instanceof ModelElementOutputLog) && ((ModelElementOutputLog)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 			if ((element instanceof ModelElementRecord) && ((ModelElementRecord)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 		}
 

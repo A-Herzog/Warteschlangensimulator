@@ -287,6 +287,7 @@ public final class ModelElementCatalog {
 					addElement(new ModelElementOutputJS(null,null),null,GROUP_DATAINPUTOUTPUT);
 					addElement(new ModelElementOutputDB(null,null),null,GROUP_DATAINPUTOUTPUT);
 					if (new DDEConnect().available()) addElement(new ModelElementOutputDDE(null,null),null,GROUP_DATAINPUTOUTPUT); else addElementHidden(new ModelElementOutputDDE(null,null),null);
+					addElement(new ModelElementOutputLog(null,null),null,GROUP_DATAINPUTOUTPUT);
 					addElement(new ModelElementRecord(null,null),null,GROUP_DATAINPUTOUTPUT);
 				} catch (Exception e) {
 					e.printStackTrace();

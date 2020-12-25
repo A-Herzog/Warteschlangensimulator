@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:45+0100\n"
+"POT-Creation-Date: 2020-12-25 16:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13689,6 +13689,9 @@ msgstr "Ausgabe (DDE)"
 msgid "Simulation.Element.OutputJS.Name"
 msgstr "Ausgabe (Skript)"
 
+msgid "Simulation.Element.OutputLog.Name"
+msgstr "Ausgabe (Log)"
+
 msgid "Simulation.Element.PickUp.Name"
 msgstr "Ausleiten"
 
@@ -14320,6 +14323,12 @@ msgid "Simulation.Log.OutputJS"
 msgstr "Ausgabe (Skript)"
 
 msgid "Simulation.Log.OutputJS.Info"
+msgstr "Kunde: %s, Station: %s"
+
+msgid "Simulation.Log.OutputLog"
+msgstr "Ausgabe (Log)"
+
+msgid "Simulation.Log.OutputLog.Info"
 msgstr "Kunde: %s, Station: %s"
 
 msgid "Simulation.Log.Parking"
@@ -22539,7 +22548,7 @@ msgid "Surface.OutputJS.Name.Short"
 msgstr "Ausgabe (Skript)"
 
 msgid "Surface.OutputJS.Tooltip"
-msgstr "Schreibt die Ergebnisses eines Javasciprt-Programms in eine Datei."
+msgstr "Schreibt die Ergebnisses eines Javascript-Programms in eine Datei."
 
 msgid "Surface.OutputJS.XML.File"
 msgstr "ModellElementAusgabedatei"
@@ -22558,6 +22567,24 @@ msgstr "Javascript"
 
 msgid "Surface.OutputJS.XML.Script.Language"
 msgstr "Sprache"
+
+msgid "Surface.OutputLog.Dialog.Title"
+msgstr "Logging-Ausgabe bearbeiten"
+
+msgid "Surface.OutputLog.Infotext"
+msgstr "Passiert ein Kunde diese Station, so werden ein oder mehrere aktuelle Werte in das Logging-System ausgegeben. Ist das Logging nicht aktiviert, so erfolgt keine Ausgabe."
+
+msgid "Surface.OutputLog.Name"
+msgstr "Logging-Ausgabe"
+
+msgid "Surface.OutputLog.Name.Short"
+msgstr "Ausgabe (Log)"
+
+msgid "Surface.OutputLog.Tooltip"
+msgstr "Schreibt einen oder mehrere Ausdrücke in die Logging-Ausgabe."
+
+msgid "Surface.OutputLog.XML.Root"
+msgstr "ModellElementAusgabeLog"
 
 msgid "Surface.PickUp.Dialog.DirectForwardIfQueueIsEmpty"
 msgstr "Kunde alleine weiterleiten, wenn Warteschlange leer"

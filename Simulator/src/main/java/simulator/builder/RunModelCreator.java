@@ -75,6 +75,7 @@ import simulator.elements.RunElementOutput;
 import simulator.elements.RunElementOutputDB;
 import simulator.elements.RunElementOutputDDE;
 import simulator.elements.RunElementOutputJS;
+import simulator.elements.RunElementOutputLog;
 import simulator.elements.RunElementPickUp;
 import simulator.elements.RunElementProcess;
 import simulator.elements.RunElementRecord;
@@ -201,6 +202,7 @@ public final class RunModelCreator {
 		templates.add(new RunElementOutputJS(null));
 		templates.add(new RunElementOutputDB(null));
 		templates.add(new RunElementOutputDDE(null));
+		templates.add(new RunElementOutputLog(null));
 		templates.add(new RunElementRecord(null));
 		templates.add(new RunElementUserStatistic(null));
 		templates.add(new RunElementDifferentialCounter(null));
