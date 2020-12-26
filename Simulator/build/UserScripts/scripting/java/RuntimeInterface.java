@@ -40,4 +40,25 @@ public interface RuntimeInterface {
 	 * @return	Loaded value or <code>errorValue</code> in case of an error
 	 */
 	double getInput(final String url, final double errorValue);
+	
+	/**
+	 * Executes an external command and returns immediately.
+	 * @param commandLine	Command to execute
+	 * @return	Returns <code>true</code> if the command could be executed
+	 */
+	boolean execute(final String commandLine);
+
+	/**
+	 * Executes an external command and returns the output.
+	 * @param commandLine	Command to execute
+	 * @return	Returns the output if successful, otherwise <code>null</code>
+	 */
+	String executeAndReturnOutput(final String commandLine);
+
+	/**
+	 * Executes an external command and waits for completion.
+	 * @param commandLine	Command to execute
+	 * @return	Returns the return code if successful, -1 otherwise
+	 */
+	int executeAndWait(final String commandLine);
 }

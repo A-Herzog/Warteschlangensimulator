@@ -54,7 +54,7 @@ Document=ScriptingJava.tex
 
 [Frame2_View0,0]
 TopLine=159
-Cursor=7777
+Cursor=8009
 
 [SessionInfo]
 FrameCount=3

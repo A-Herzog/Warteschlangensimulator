@@ -196,6 +196,25 @@ the runtime of a script.
 Loads a numerical value via the specified address and returns it.
 If no value could be loaded, the error value specified in the second parameter is returned.
 
+\item
+\cmd{System.execute("program.exe")}:\\
+Executes an external command and returns immediately. Returns true, if the program could be started.
+Executing external programs by scripts is disabled by default. If can be activated
+in the program settings dialog.
+
+\item
+\cmd{System.executeAndReturnOutput("program.exe")}:\\
+Executes an external command and returns the output.
+Executing external programs by scripts is disabled by default. If can be activated
+in the program settings dialog.
+
+\item
+\cmd{System.executeAndWait("program.exe")}:\\
+Executes an external command, waits for completion and returns the return code of the program.
+In case of an error -1 will be returned.
+Executing external programs by scripts is disabled by default. If can be activated
+in the program settings dialog.
+
 \end{itemize}
 
 
@@ -226,6 +245,25 @@ the Erlang C calculator, etc.
 \cmd{Simulation.getInput("http://Adresse",-1)}:\\
 Loads a numerical value via the specified address and returns it.
 If no value could be loaded, the error value specified in the second parameter is returned.
+
+\item
+\cmd{Simulation.execute("program.exe")}:\\
+Executes an external command and returns immediately. Returns true, if the program could be started.
+Executing external programs by scripts is disabled by default. If can be activated
+in the program settings dialog.
+
+\item
+\cmd{Simulation.executeAndReturnOutput("program.exe")}:\\
+Executes an external command and returns the output.
+Executing external programs by scripts is disabled by default. If can be activated
+in the program settings dialog.
+
+\item
+\cmd{Simulation.executeAndWait("program.exe")}:\\
+Executes an external command, waits for completion and returns the return code of the program.
+In case of an error -1 will be returned.
+Executing external programs by scripts is disabled by default. If can be activated
+in the program settings dialog.
 
 \item
 \cmd{Simulation.isWarmUp()}:\\

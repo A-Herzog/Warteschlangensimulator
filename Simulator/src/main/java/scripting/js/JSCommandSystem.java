@@ -15,8 +15,13 @@
  */
 package scripting.js;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +39,7 @@ import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import tools.NetHelper;
+import tools.SetupData;
 
 /**
  * Stellt das "System"- bzw. "Simulation"-Objekt in Javascript-Umgebungen zur Verfügung
@@ -656,6 +662,72 @@ public final class JSCommandSystem extends JSBaseCommand {
 		final Double D=NumberTools.getDouble(text);
 		if (D==null) return errorValue;
 		return D.doubleValue();
+	}
+
+	/**
+	 * Führt einen externen Befehl aus und kehrt sofort zurück.
+	 * @param commandLine	Auszuführender Befehl
+	 * @return	Liefert <code>true</code>, wenn der Befehl ausgeführt werden konnte
+	 */
+	public boolean execute(final String commandLine) {
+		/* Sicherheitsprüfung */
+		if (!SetupData.getSetup().modelSecurityAllowExecuteExternal) return false;
+
+		/* Ausführung */
+		try {
+			final Process p=Runtime.getRuntime().exec(commandLine);
+			if (p==null) return false;
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
+	/**
+	 * Führt einen externen Befehl aus und liefert die Ausgabe zurück.
+	 * @param commandLine	Auszuführender Befehl
+	 * @return	Liefert im Erfolgsfall die Ausgabe zurück, sonst <code>null</code>
+	 */
+	public String executeAndReturnOutput(final String commandLine) {
+		/* Sicherheitsprüfung */
+		if (!SetupData.getSetup().modelSecurityAllowExecuteExternal) return null;
+
+		/* Ausführung */
+		try {
+			final Process p=Runtime.getRuntime().exec(commandLine);
+			if (p==null) return null;
+			p.waitFor();
+
+			final StringBuilder result=new StringBuilder();
+			try (Reader reader = new BufferedReader(new InputStreamReader(p.getInputStream(),StandardCharsets.UTF_8))) {
+				int c=0;
+				while ((c=reader.read())!=-1) {
+					result.append((char)c);
+				}
+			}
+			return result.toString();
+		} catch (IOException | InterruptedException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Führt einen externen Befehl aus und wartet auf den Abschluss.
+	 * @param commandLine	Auszuführender Befehl
+	 * @return	Liefert im Erfolgsfall den Rückgabecode, sonst -1.
+	 */
+	public int executeAndWait(final String commandLine) {
+		/* Sicherheitsprüfung */
+		if (!SetupData.getSetup().modelSecurityAllowExecuteExternal) return -1;
+
+		/* Ausführung */
+		try {
+			final Process p=Runtime.getRuntime().exec(commandLine);
+			if (p==null) return -1;
+			return p.waitFor();
+		} catch (IOException | InterruptedException e) {
+			return -1;
+		}
 	}
 
 	/**

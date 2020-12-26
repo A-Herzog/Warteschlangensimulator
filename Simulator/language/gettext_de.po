@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-25 16:30+0100\n"
+"POT-Creation-Date: 2020-12-26 23:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1418,6 +1418,9 @@ msgstr "Die Ausgabedatei %s existiert bereits."
 
 msgid "CommandLine.Error.File.OutputFileIsFolder"
 msgstr "Die Ausgabedatei %s ist bereits als Verzeichnisname vergeben."
+
+msgid "CommandLine.Error.LoadingFile"
+msgstr "Beim Laden der Datei %s ist ein Fehler aufgetreten."
 
 msgid "CommandLine.Error.LoadingModel"
 msgstr "Beim Laden des Modells ist folgender Fehler aufgetreten:"
@@ -11952,6 +11955,24 @@ msgstr "Ausdruck per Dialog erstellen"
 msgid "ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"
 msgstr "Öffnet den Dialog zur Auswahl eines Rechenausdrucks"
 
+msgid "ScriptPopup.Runtime.Execute"
+msgstr "Programm ausführen"
+
+msgid "ScriptPopup.Runtime.Execute.Hint"
+msgstr "Führt einen externen Befehl aus und kehrt sofort zurück."
+
+msgid "ScriptPopup.Runtime.ExecuteAndReturnOutput"
+msgstr "Programm ausführen und Ergebnis liefern"
+
+msgid "ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint"
+msgstr "Führt einen externen Befehl aus und liefert die Ausgabe zurück."
+
+msgid "ScriptPopup.Runtime.ExecuteAndWait"
+msgstr "Programm ausführen und warten"
+
+msgid "ScriptPopup.Runtime.ExecuteAndWait.Hint"
+msgstr "Führt einen externen Befehl aus und wartet auf den Abschluss."
+
 msgid "ScriptPopup.Runtime.Hint"
 msgstr "Befehle im Kontext des Programms ausführen"
 
@@ -12430,6 +12451,18 @@ msgstr ""
 
 msgid "SettingsDialog.ModellSecurity.Strict"
 msgstr "Laden immer verbieten"
+
+msgid "SettingsDialog.ModellSecurityExternal"
+msgstr "Ausführung externer Programme durch Skripte zulassen"
+
+msgid "SettingsDialog.ModellSecurityExternal.Hint"
+msgstr "Dies stellt ein Sicherheitsrisiko dar."
+
+msgid "SettingsDialog.ModellSecurityExternal.Info"
+msgstr ""
+"Wenn Skripte externe Programme aufrufen können, sind damit prinzipiell beliebige Veränderungen am Computer möglich.\n"
+"Damit stellt das Öffnen und Ausführungen von Modellen ein Sicherheitsrisiko dar.\n"
+"Es wird daher empfohlen, diese Option nur zu aktivieren, wenn dies unbedingt notwendig ist."
 
 msgid "SettingsDialog.NotifyMode"
 msgstr "Benachrichtigung zu Simulationsende anzeigen"

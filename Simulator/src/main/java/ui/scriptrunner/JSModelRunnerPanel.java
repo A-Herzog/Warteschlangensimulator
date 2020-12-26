@@ -120,8 +120,44 @@ public class JSModelRunnerPanel extends SpecialPanel {
 		/* Skript laden */
 		if (fullMode) {
 			final SetupData setup=SetupData.getSetup();
-			scriptPanel.setEditorScript(setup.javascript);
+			scriptPanel.setEditorScript(setup.scriptScriptRunner);
 		}
+	}
+
+	/**
+	 * Liefert das aktuelle Skript.
+	 * @return	Aktuelles Skript
+	 * @see #setScript(String)
+	 */
+	public String getScript() {
+		return scriptPanel.getEditorScript();
+	}
+
+	/**
+	 * Stellt ein neues Skript ein.
+	 * @param script	Neues Skript
+	 * @see #getScript()
+	 */
+	public void setScript(final String script) {
+		scriptPanel.setEditorScript(script);
+	}
+
+	/**
+	 * Stellt ein neues Skript ein.
+	 * @param mode	Skriptsprache
+	 * @param script	Neues Skript
+	 * @see #getScript()
+	 */
+	public void setScript(final ScriptEditorPanel.ScriptMode mode, final String script) {
+		scriptPanel.setEditorScript(mode,script);
+	}
+
+	/**
+	 * Liefert die aktuell für den Editor gewählte Skriptsprache
+	 * @return	Aktuelle Skriptsprache
+	 */
+	public ScriptEditorPanel.ScriptMode getScriptMode() {
+		return scriptPanel.getEditorMode();
 	}
 
 	@Override
@@ -133,7 +169,7 @@ public class JSModelRunnerPanel extends SpecialPanel {
 	protected void close() {
 		if (fullMode) {
 			final SetupData setup=SetupData.getSetup();
-			setup.javascript=scriptPanel.getEditorScript();
+			setup.scriptScriptRunner=scriptPanel.getEditorScript();
 			setup.saveSetup();
 		}
 
@@ -151,7 +187,7 @@ public class JSModelRunnerPanel extends SpecialPanel {
 			/* Skript speichern */
 			if (fullMode) {
 				final SetupData setup=SetupData.getSetup();
-				setup.javascript=scriptPanel.getEditorScript();
+				setup.scriptScriptRunner=scriptPanel.getEditorScript();
 				setup.saveSetup();
 			}
 

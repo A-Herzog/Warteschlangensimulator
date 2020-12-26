@@ -239,6 +239,25 @@ Laufzeit des Skriptes verwendet werden.
 Lädt einen Zahlenwert über die angegebene Adresse und liefert diesen zurück.
 Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
 Fehlerwert zurückgeliefert.
+
+\item
+\cmd{boolean execute(final String commandLine)}:\\
+Führt ein externes Programm aus und kehrt sofort zurück. Liefert true, wenn das Programm gestartet werden konnte.
+Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+und muss zunächst im Einstellungen-Dialog aktiviert.
+
+\item
+\cmd{String executeAndReturnOutput(final String commandLine)}:\\
+Führt ein externes Programm aus und liefert die Ausgaben des Programms zurück.
+Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+und muss zunächst im Einstellungen-Dialog aktiviert.
+
+\item
+\cmd{int executeAndWait(final String commandLine)}:\\
+Führt ein externes Programm aus und liefert den Rückgabecode des Programms zurück.
+Im Fehlerfall wird -1 zurückgeliefert.
+Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+und muss zunächst im Einstellungen-Dialog aktiviert.
 	
 \end{itemize}
 

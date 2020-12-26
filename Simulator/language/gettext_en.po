@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-25 16:30+0100\n"
+"POT-Creation-Date: 2020-12-26 23:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1418,6 +1418,9 @@ msgstr "The output file %s already exists."
 
 msgid "CommandLine.Error.File.OutputFileIsFolder"
 msgstr "The specified output file name %s is already in use for a folder."
+
+msgid "CommandLine.Error.LoadingFile"
+msgstr "An error occurred while loading %s."
 
 msgid "CommandLine.Error.LoadingModel"
 msgstr "The following error occured while loading the model:"
@@ -11956,6 +11959,24 @@ msgstr "Select expression by dialog"
 msgid "ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"
 msgstr "Opens the dialog for selecting an expression"
 
+msgid "ScriptPopup.Runtime.Execute"
+msgstr "Execute program"
+
+msgid "ScriptPopup.Runtime.Execute.Hint"
+msgstr "Executes an external command and returns immediately."
+
+msgid "ScriptPopup.Runtime.ExecuteAndReturnOutput"
+msgstr "Execute program and return output"
+
+msgid "ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint"
+msgstr "Executes an external command and returns the output."
+
+msgid "ScriptPopup.Runtime.ExecuteAndWait"
+msgstr "Execute program and wait"
+
+msgid "ScriptPopup.Runtime.ExecuteAndWait.Hint"
+msgstr "Executes an external command and waits for completion."
+
 msgid "ScriptPopup.Runtime.Hint"
 msgstr "Execute commands in the context of the program"
 
@@ -12434,6 +12455,18 @@ msgstr ""
 
 msgid "SettingsDialog.ModellSecurity.Strict"
 msgstr "Always deny loading"
+
+msgid "SettingsDialog.ModellSecurityExternal"
+msgstr "Allow scripts to execute external programs"
+
+msgid "SettingsDialog.ModellSecurityExternal.Hint"
+msgstr "This is a security risk."
+
+msgid "SettingsDialog.ModellSecurityExternal.Info"
+msgstr ""
+"If scripts can call external programs, then in principle arbitrary changes to the computer are possible.\n"
+"This means that opening and executing models represents a security risk.\n"
+"It is therefore recommended to activate this option only if absolutely necessary."
 
 msgid "SettingsDialog.NotifyMode"
 msgstr "Show notification when simulation is done"

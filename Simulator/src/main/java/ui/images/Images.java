@@ -1014,6 +1014,9 @@ public enum Images {
 	/** Symbol "Skript-Ausdruck - Simulationsdaten - Eingabewert" */
 	SCRIPT_RECORD_INPUT("keyboard.png"),
 
+	/** Symbol "Skript-Ausdruck - Simulationsdaten - Programm ausführen" */
+	SCRIPT_RECORD_EXECUTE_PROGRAM("application_xp_terminal.png"),
+
 	/** Symbol "Skript-Ausdruck - Simulationsdaten - Analoger Wert" */
 	SCRIPT_RECORD_ANALOG_VALUE("Bar.png"),
 

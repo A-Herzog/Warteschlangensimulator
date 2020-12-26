@@ -30,6 +30,7 @@ import language.Language;
 import simulator.editmodel.EditModel;
 import simulator.elements.RunElementTank;
 import simulator.statistics.Statistics;
+import tools.SetupData;
 import ui.ModelChanger;
 import ui.images.Images;
 import ui.modeleditor.ModelResource;
@@ -263,17 +264,26 @@ public class ScriptPopup {
 		String runtimeCalc="";
 		String runtimeTime="";
 		String runtimeLoad="";
+		String runtimeExecute1="";
+		String runtimeExecute2="";
+		String runtimeExecute3="";
 
 		if (scriptMode==ScriptMode.Javascript && features.contains(ScriptFeature.JSSystem)) {
 			runtimeCalc="System.calc(\"1+2\");";
 			runtimeTime="System.time();";
 			runtimeLoad="System.getInput(\"https://www.valuegetter\",-1);";
+			runtimeExecute1="System.execute(\"program.exe\");";
+			runtimeExecute2="System.executeAndReturnOutput(\"program.exe\");";
+			runtimeExecute3="System.executeAndWait(\"program.exe\");";
 		}
 
 		if (scriptMode==ScriptMode.Java) {
 			runtimeCalc="sim.getRuntime().calc(\"1+2\");";
 			runtimeTime="sim.getRuntime().getTime();";
 			runtimeLoad="sim.getRuntime().getInput(\"https://www.valuegetter\",-1);";
+			runtimeExecute1="sim.getRuntime().execute(\"program.exe\");";
+			runtimeExecute2="sim.getRuntime().executeAndReturnOutput(\"program.exe\");";
+			runtimeExecute3="sim.getRuntime().executeAndWait(\"program.exe\");";
 		}
 
 		final ScriptPopupItemSub group=new ScriptPopupItemSub(Language.tr("ScriptPopup.Runtime"),Language.tr("ScriptPopup.Runtime.Hint"),Images.SCRIPT_RECORD_RUNTIME.getIcon());
@@ -282,6 +292,11 @@ public class ScriptPopup {
 		group.addChild(new ScriptPopupItemExpressionBuilder(Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder"),Language.tr("ScriptPopup.Runtime.CalcByExpressionBuilder.Hint"),statistics,scriptMode));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.Time"),Language.tr("ScriptPopup.Runtime.Time.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),runtimeTime));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.LoadValue"),Language.tr("ScriptPopup.Runtime.LoadValue.Hint"),Images.SCRIPT_RECORD_INPUT.getIcon(),runtimeLoad));
+		if (SetupData.getSetup().modelSecurityAllowExecuteExternal) {
+			group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.Execute"),Language.tr("ScriptPopup.Runtime.Execute.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute1));
+			group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput"),Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute2));
+			group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Runtime.ExecuteAndWait"),Language.tr("ScriptPopup.Runtime.ExecuteAndWait.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute3));
+		}
 
 		parent.addChild(group);
 	}

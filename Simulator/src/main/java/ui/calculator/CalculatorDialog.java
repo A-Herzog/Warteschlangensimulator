@@ -91,6 +91,9 @@ public class CalculatorDialog extends BaseDialog {
 	/** Eingabefelder für den Wahrscheinlichkeitsverteilungsplotter */
 	private final JDistributionEditorPanel distributionEditor;
 
+	/** Script-Editor */
+	private final JSModelRunnerPanel scriptEditor;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
@@ -208,7 +211,8 @@ public class CalculatorDialog extends BaseDialog {
 
 		/* Tab "Skript" */
 		tabs.addTab(Language.tr("CalculatorDialog.Tab.Skript"),tab=new JPanel(new BorderLayout()));
-		tab.add(new JSModelRunnerPanel(this,null,null,null,false));
+		tab.add(scriptEditor=new JSModelRunnerPanel(this,null,null,null,false));
+		scriptEditor.setScript(SetupData.getSetup().scriptCalculator);
 
 		/* Icons auf den Tabs */
 		tabs.setIconAt(0,Images.EXTRAS_CALCULATOR.getIcon());
@@ -383,5 +387,14 @@ public class CalculatorDialog extends BaseDialog {
 		});
 		popupMenu.add(colorChooser);
 		popupMenu.show(colorButton,0,colorButton.getHeight());
+	}
+
+	@Override
+	protected boolean closeButtonOK() {
+		final SetupData setup=SetupData.getSetup();
+		setup.scriptCalculator=scriptEditor.getScript();
+		setup.saveSetup();
+
+		return true;
 	}
 }

@@ -41,4 +41,25 @@ public interface RuntimeInterface {
 	 * @return	Gelesener Wert oder <code>errorValue</code> im Fehlerfall
 	 */
 	double getInput(final String url, final double errorValue);
+
+	/**
+	 * Führt einen externen Befehl aus und kehrt sofort zurück.
+	 * @param commandLine	Auszuführender Befehl
+	 * @return	Liefert <code>true</code>, wenn der Befehl ausgeführt werden konnte
+	 */
+	boolean execute(final String commandLine);
+
+	/**
+	 * Führt einen externen Befehl aus und liefert die Ausgabe zurück.
+	 * @param commandLine	Auszuführender Befehl
+	 * @return	Liefert im Erfolgsfall die Ausgabe zurück, sonst <code>null</code>
+	 */
+	String executeAndReturnOutput(final String commandLine);
+
+	/**
+	 * Führt einen externen Befehl aus und wartet auf den Abschluss.
+	 * @param commandLine	Auszuführender Befehl
+	 * @return	Liefert im Erfolgsfall den Rückgabecode, sonst -1.
+	 */
+	int executeAndWait(final String commandLine);
 }

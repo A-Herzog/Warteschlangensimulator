@@ -511,9 +511,14 @@ public class SetupData extends SetupBase {
 	public int lastFilterMode;
 
 	/**
-	 *  JS Skript
+	 *  Skript für Script-Runner
 	 */
-	public String javascript;
+	public String scriptScriptRunner;
+
+	/**
+	 *  Skript für Rechner
+	 */
+	public String scriptCalculator;
 
 	/**
 	 * Modell im Hintergrund prüfen und in Statuszeile anzeigen, ob Fehler vorliegen.
@@ -699,6 +704,11 @@ public class SetupData extends SetupBase {
 	 * Wie soll beim Laden von Modellen mit potentiell sicherheitskritischen Elementen verfahren werden?
 	 */
 	public ModelSecurity modelSecurity;
+
+	/**
+	 * Erlaubt das Ausführen externer Programme durch Skripte
+	 */
+	public boolean modelSecurityAllowExecuteExternal;
 
 	/**
 	 * Benachrichtigung beim Ende von Simulation, Parameterreihe oder Optimierung anzeigen
@@ -953,7 +963,8 @@ public class SetupData extends SetupBase {
 		filterJava="";
 		filterList="";
 		lastFilterMode=0;
-		javascript="";
+		scriptScriptRunner="";
+		scriptCalculator="";
 		backgroundSimulation=BackgroundProcessingMode.BACKGROUND_SIMULATION;
 		autoConnect=ModelSurfacePanel.ConnectMode.OFF;
 		renameOnCopy=RenameOnCopyMode.SMART;
@@ -986,6 +997,7 @@ public class SetupData extends SetupBase {
 		jsEngine="";
 		cancelSimulationOnScriptError=true;
 		modelSecurity=ModelSecurity.ASK;
+		modelSecurityAllowExecuteExternal=false;
 		notifyMode=NotifyMode.LONGRUN;
 		useProxy=false;
 		proxyHost="";
@@ -1453,7 +1465,12 @@ public class SetupData extends SetupBase {
 			}
 
 			if (name.equals("javascript")) {
-				javascript=e.getTextContent();
+				scriptScriptRunner=e.getTextContent();
+				continue;
+			}
+
+			if (name.equals("calculatorscript")) {
+				scriptCalculator=e.getTextContent();
 				continue;
 			}
 
@@ -1588,6 +1605,11 @@ public class SetupData extends SetupBase {
 				if (text.equals("allowall")) {modelSecurity=ModelSecurity.ALLOWALL; continue;}
 				if (text.equals("ask")) {modelSecurity=ModelSecurity.ASK; continue;}
 				if (text.equals("strict")) {modelSecurity=ModelSecurity.STRICT; continue;}
+				continue;
+			}
+
+			if (name.equals("modelsecurityexternal")) {
+				modelSecurityAllowExecuteExternal=loadBoolean(e.getTextContent(),false);
 				continue;
 			}
 
@@ -1973,9 +1995,14 @@ public class SetupData extends SetupBase {
 			node.setTextContent(""+lastFilterMode);
 		}
 
-		if (javascript!=null && !javascript.trim().isEmpty()) {
+		if (scriptScriptRunner!=null && !scriptScriptRunner.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("Javascript"));
-			node.setTextContent(javascript);
+			node.setTextContent(scriptScriptRunner);
+		}
+
+		if (scriptCalculator!=null && !scriptCalculator.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("CalculatorScript"));
+			node.setTextContent(scriptCalculator);
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {
@@ -2110,6 +2137,11 @@ public class SetupData extends SetupBase {
 			case ASK: node.setTextContent("Ask"); break;
 			case STRICT: node.setTextContent("Strict"); break;
 			}
+		}
+
+		if (modelSecurityAllowExecuteExternal) {
+			root.appendChild(node=doc.createElement("ModelSecurityExternal"));
+			node.setTextContent("1");
 		}
 
 		if (notifyMode!=NotifyMode.LONGRUN) {

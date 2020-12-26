@@ -155,6 +155,24 @@ The following methods are available in this object:
   Loads a numerical value via the specified address and returns it.
   If no value could be loaded, the error value specified in the second parameter is returned.
   </li>
+  
+  <li><tt>System.execute("program.exe")</tt><br>
+  Executes an external command and returns immediately. Returns true, if the program could be started.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
+  </li>  
+  <li><tt>System.executeAndReturnOutput("program.exe")</tt><br>
+  Executes an external command and returns the output.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
+  </li>
+  <li><tt>System.executeAndWait("program.exe")</tt><br>
+  Executes an external command, waits for completion and returns the return code of the program.
+  In case of an error -1 will be returned.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
+  </li>
+  
 </ul>
 
 
@@ -185,6 +203,23 @@ The following methods are in this object available:
   <li><tt>Simulation.getInput("http://Adresse",-1)</tt><br>
   Loads a numerical value via the specified address and returns it.
   If no value could be loaded, the error value specified in the second parameter is returned.
+  </li>
+  
+  <li><tt>Simulation.execute("program.exe")</tt><br>
+  Executes an external command and returns immediately. Returns true, if the program could be started.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
+  </li>  
+  <li><tt>Simulation.executeAndReturnOutput("program.exe")</tt><br>
+  Executes an external command and returns the output.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
+  </li>
+  <li><tt>Simulation.executeAndWait("program.exe")</tt><br>
+  Executes an external command, waits for completion and returns the return code of the program.
+  In case of an error -1 will be returned.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
   </li>
   
   <li><tt>Simulation.isWarmUp()</tt><br>

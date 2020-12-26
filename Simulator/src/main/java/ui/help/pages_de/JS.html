@@ -173,6 +173,22 @@ Simulation steht das <tt>System</tt>-Objekt nicht zur Verfügung. Das Objekt ste
   Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
   Fehlerwert zurückgeliefert.
   </li>
+  <li><tt>System.execute("program.exe")</tt><br>
+  Führt ein externes Programm aus und kehrt sofort zurück. Liefert true, wenn das Programm gestartet werden konnte.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
+  </li>  
+  <li><tt>System.executeAndReturnOutput("program.exe")</tt><br>
+  Führt ein externes Programm aus und liefert die Ausgaben des Programms zurück.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
+  </li>
+  <li><tt>System.executeAndWait("program.exe")</tt><br>
+  Führt ein externes Programm aus und liefert den Rückgabecode des Programms zurück.
+  Im Fehlerfall wird -1 zurückgeliefert.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
+  </li>
 </ul>
 
 
@@ -205,6 +221,23 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt fol
   Lädt einen Zahlenwert über die angegebene Adresse und liefert diesen zurück.
   Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
   Fehlerwert zurückgeliefert.
+  </li>
+  
+  <li><tt>Simulation.execute("program.exe")</tt><br>
+  Führt ein externes Programm aus und kehrt sofort zurück. Liefert true, wenn das Programm gestartet werden konnte.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
+  </li>  
+  <li><tt>Simulation.executeAndReturnOutput("program.exe")</tt><br>
+  Führt ein externes Programm aus und liefert die Ausgaben des Programms zurück.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
+  </li>
+  <li><tt>Simulation.executeAndWait("program.exe")</tt><br>
+  Führt ein externes Programm aus und liefert den Rückgabecode des Programms zurück.
+  Im Fehlerfall wird -1 zurückgeliefert.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
   </li>
 
   <li><tt>Simulation.isWarmUp()</tt><br>

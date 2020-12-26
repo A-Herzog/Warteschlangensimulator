@@ -98,7 +98,7 @@
 \contentsline {chapter}{\numberline {15}\texttt {System} object}{59}{chapter.15}%
 \contentsline {chapter}{\numberline {16}\texttt {Simulation} object}{61}{chapter.16}%
 \contentsline {section}{\numberline {16.1}Base functions}{61}{section.16.1}%
-\contentsline {section}{\numberline {16.2}Accessing client-specific data}{61}{section.16.2}%
+\contentsline {section}{\numberline {16.2}Accessing client-specific data}{62}{section.16.2}%
 \contentsline {section}{\numberline {16.3}Accessing parameters of the simulation model}{63}{section.16.3}%
 \contentsline {section}{\numberline {16.4}Accessing the current input value}{64}{section.16.4}%
 \contentsline {section}{\numberline {16.5}Number of operators in a resource}{64}{section.16.5}%

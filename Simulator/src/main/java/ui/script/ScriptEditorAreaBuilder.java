@@ -34,6 +34,7 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 
 import language.Language;
 import mathtools.distribution.tools.FileDropper;
+import tools.SetupData;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.script.ScriptPopup.ScriptFeature;
@@ -208,23 +209,36 @@ public class ScriptEditorAreaBuilder {
 		String runtimeCalc="";
 		String runtimeTime="";
 		String runtimeLoad="";
+		String runtimeExecute1="";
+		String runtimeExecute2="";
+		String runtimeExecute3="";
 
 		if (language==ScriptMode.Javascript && features.contains(ScriptFeature.JSSystem)) {
 			runtimeCalc="System.calc(\"1+2\");";
 			runtimeTime="System.time();";
 			runtimeLoad="System.getInput(\"https://www.valuegetter\",-1);";
+			runtimeExecute1="System.execute(\"program.exe\");";
+			runtimeExecute2="System.executeAndReturnOutput(\"program.exe\");";
+			runtimeExecute3="System.executeAndWait(\"program.exe\");";
 		}
 
 		if (language==ScriptMode.Java) {
 			runtimeCalc="sim.getRuntime().calc(\"1+2\");";
 			runtimeTime="sim.getRuntime().getTime();";
 			runtimeLoad="sim.getRuntime().getInput(\"https://www.valuegetter\",-1);";
+			runtimeExecute1="sim.getRuntime().execute(\"program.exe\");";
+			runtimeExecute2="sim.getRuntime().executeAndReturnOutput(\"program.exe\");";
+			runtimeExecute3="sim.getRuntime().executeAndWait(\"program.exe\");";
 		}
 
 		addAutoComplete(Language.tr("ScriptPopup.Runtime.Calc"),Language.tr("ScriptPopup.Runtime.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),runtimeCalc);
 		addAutoComplete(Language.tr("ScriptPopup.Runtime.Time"),Language.tr("ScriptPopup.Runtime.Time.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),runtimeTime);
 		addAutoComplete(Language.tr("ScriptPopup.Runtime.LoadValue"),Language.tr("ScriptPopup.Runtime.LoadValue.Hint"),Images.SCRIPT_RECORD_INPUT.getIcon(),runtimeLoad);
-
+		if (SetupData.getSetup().modelSecurityAllowExecuteExternal) {
+			addAutoComplete(Language.tr("ScriptPopup.Runtime.Execute"),Language.tr("ScriptPopup.Runtime.Execute.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute1);
+			addAutoComplete(Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput"),Language.tr("ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute2);
+			addAutoComplete(Language.tr("ScriptPopup.Runtime.ExecuteAndWait"),Language.tr("ScriptPopup.Runtime.ExecuteAndWait.Hint"),Images.SCRIPT_RECORD_EXECUTE_PROGRAM.getIcon(),runtimeExecute3);
+		}
 	}
 
 	/**

@@ -176,6 +176,22 @@ Es ist immer verfügbar. Das Interface stellt folgende Methoden zur Verfügung:
   Wenn kein Wert geladen werden konnte, wird der im zweiten Parameter angegebene
   Fehlerwert zurückgeliefert.
   </li>
+  <li><tt>boolean execute(final String commandLine)</tt><br>
+  Führt ein externes Programm aus und kehrt sofort zurück. Liefert true, wenn das Programm gestartet werden konnte.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
+  </li>  
+  <li><tt>String executeAndReturnOutput(final String commandLine)</tt><br>
+  Führt ein externes Programm aus und liefert die Ausgaben des Programms zurück.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
+  </li>
+  <li><tt>int executeAndWait(final String commandLine)</tt><br>
+  Führt ein externes Programm aus und liefert den Rückgabecode des Programms zurück.
+  Im Fehlerfall wird -1 zurückgeliefert.<br>
+  <u>Hinweis:</u> Die Ausführung externer Programme durch Skripte ist standardmäßig deaktiviert
+  und muss zunächst im <a href="Setup.html">Einstellungen-Dialog</a> aktiviert.
+  </li>
 </ul>
 
 

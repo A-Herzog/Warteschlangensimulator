@@ -158,6 +158,22 @@ The <tt>RuntimeInterface</tt> is always available. The following methods are ava
   Loads a numerical value via the specified address and returns it.
   If no value could be loaded, the error value specified in the second parameter is returned.
   </li>
+  <li><tt>boolean execute(final String commandLine)</tt><br>
+  Executes an external command and returns immediately. Returns true, if the program could be started.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
+  </li>  
+  <li><tt>String executeAndReturnOutput(final String commandLine)</tt><br>
+  Executes an external command and returns the output.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
+  </li>
+  <li><tt>int executeAndWait(final String commandLine)</tt><br>
+  Executes an external command, waits for completion and returns the return code of the program.
+  In case of an error -1 will be returned.<br>
+  <u>Notice:</u> Executing external programs by scripts is disabled by default. If can be activated
+  in the <a href="Setup.html">program settings dialog</a>.
+  </li>
 </ul>
 
 

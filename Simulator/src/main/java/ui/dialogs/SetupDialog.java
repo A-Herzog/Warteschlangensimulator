@@ -162,6 +162,8 @@ public final class SetupDialog extends BaseDialog {
 	private final JComboBox<String> startModel;
 	/** Verhalten beim Landen von Modellen mit Sicherheitsproblemen */
 	private final JComboBox<String> modelSecurity;
+	/** Externe Programme via Skript startbar? */
+	private final JCheckBox modelSecurityExternal;
 	/** Beim Programmstart Hilfe auf der Zeichenfläche anzeigen? */
 	private final JComboBox<String> surfaceHelp;
 	/** Benachrichtigungen zum Simulationsende */
@@ -299,6 +301,8 @@ public final class SetupDialog extends BaseDialog {
 		Object[] data;
 		JLabel label;
 		JButton button;
+		JToolBar infoToolbar;
+		JButton infoButton;
 
 		/* Seite: Benutzeroberfläche */
 
@@ -427,14 +431,21 @@ public final class SetupDialog extends BaseDialog {
 				Images.GENERAL_LOCK_CLOSED
 		}));
 		label.setLabelFor(modelSecurity);
-		final JToolBar infoToolbar=new JToolBar();
+		p.add(infoToolbar=new JToolBar());
 		infoToolbar.setFloatable(false);
-		p.add(infoToolbar);
-		final JButton infoButton=new JButton();
+		infoToolbar.add(infoButton=new JButton());
 		infoButton.setToolTipText(Language.tr("SettingsDialog.ModellSecurity.Hint"));
 		infoButton.setIcon(Images.HELP.getIcon());
 		infoButton.addActionListener(e->MsgBox.info(this,Language.tr("SettingsDialog.ModellSecurity"),Language.tr("SettingsDialog.ModellSecurity.Info")));
-		infoToolbar.add(infoButton);
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(modelSecurityExternal=new JCheckBox(Language.tr("SettingsDialog.ModellSecurityExternal")));
+		p.add(infoToolbar=new JToolBar());
+		infoToolbar.setFloatable(false);
+		infoToolbar.add(infoButton=new JButton());
+		infoButton.setToolTipText(Language.tr("SettingsDialog.ModellSecurityExternal.Hint"));
+		infoButton.setIcon(Images.HELP.getIcon());
+		infoButton.addActionListener(e->MsgBox.info(this,Language.tr("SettingsDialog.ModellSecurityExternal"),Language.tr("SettingsDialog.ModellSecurityExternal.Info")));
 
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -1006,6 +1017,8 @@ public final class SetupDialog extends BaseDialog {
 		case STRICT: modelSecurity.setSelectedIndex(2); break;
 		}
 
+		modelSecurityExternal.setSelected(setup.modelSecurityAllowExecuteExternal);
+
 		switch (setup.surfaceHelp) {
 		case NEVER: surfaceHelp.setSelectedIndex(0); break;
 		case START_ONLY: surfaceHelp.setSelectedIndex(1); break;
@@ -1254,6 +1267,7 @@ public final class SetupDialog extends BaseDialog {
 		case 1: setup.modelSecurity=SetupData.ModelSecurity.ASK; break;
 		case 2: setup.modelSecurity=SetupData.ModelSecurity.STRICT; break;
 		}
+		setup.modelSecurityAllowExecuteExternal=modelSecurityExternal.isSelected();
 		switch (surfaceHelp.getSelectedIndex()) {
 		case 0: setup.surfaceHelp=SetupData.SurfaceHelp.NEVER; break;
 		case 1: setup.surfaceHelp=SetupData.SurfaceHelp.START_ONLY; break;
@@ -1491,6 +1505,7 @@ public final class SetupDialog extends BaseDialog {
 			templateStartMode.setSelectedIndex(0);
 			startModel.setSelectedIndex(0);
 			modelSecurity.setSelectedIndex(1);
+			modelSecurityExternal.setSelected(false);
 			notifyMode.setSelectedIndex(1);
 			hintDialogs="";
 			break;

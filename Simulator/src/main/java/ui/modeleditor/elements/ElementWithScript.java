@@ -80,9 +80,18 @@ public interface ElementWithScript {
 			case Javascript:
 				if (lower.contains("system.getinput(")) return true;
 				if (lower.contains("simulation.getinput(")) return true;
+				if (lower.contains("system.execute(")) return true;
+				if (lower.contains("simulation.execute(")) return true;
+				if (lower.contains("system.executeAndReturnOutput(")) return true;
+				if (lower.contains("simulation.executeAndReturnOutput(")) return true;
+				if (lower.contains("system.executeAndWait(")) return true;
+				if (lower.contains("simulation.executeAndWait(")) return true;
 				break;
 			case Java:
 				if (lower.contains("getruntime().getinput(")) return true;
+				if (lower.contains("getruntime().execute(")) return true;
+				if (lower.contains("getruntime().executeAndReturnOutput(")) return true;
+				if (lower.contains("getruntime().executeAndWait(")) return true;
 				if (lower.contains("getinputvalue().getinput(")) return true;
 				if (lower.contains("getsystem().runplugin(")) return true;
 				break;
