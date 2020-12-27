@@ -2457,7 +2457,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6212] = "Surface.Rectangle.XML.BackgroundColor.Alpha";
     t[6213] = "Alpha";
     t[6214] = "CommandLine.Simulation.Description.Long";
-    t[6215] = "Dieser Befehl erwartet genau zwei weitere Parameter:\n1. Eingabe-Modell-Datei\n2. Ausgabe-Statstik-Datei\nDie Eingabedatei muss existieren, die Ausgabedatei darf nicht existieren.";
+    t[6215] = "Dieser Befehl erwartet zwei oder drei weitere Parameter:\n1. Eingabe-Modell-Datei\n2. Eingabe-Datentabelle (optional)\n3. Ausgabe-Statistik-Datei\nDie Eingabedatei und die Eingabe-Datentabelle (sofern angegeben) m\u00fcssen existieren, die Ausgabedatei darf nicht existieren.";
     t[6220] = "Statistics.InterArrivalTimes";
     t[6221] = "Zwischenankunftszeiten";
     t[6226] = "ScriptPopup.Simulation.Resources.Hint";

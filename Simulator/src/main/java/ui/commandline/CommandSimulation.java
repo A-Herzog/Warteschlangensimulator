@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import language.Language;
+import mathtools.MultiTable;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import systemtools.commandline.AbstractCommand;
@@ -37,6 +38,8 @@ import systemtools.commandline.BaseCommandLineSystem;
 public final class CommandSimulation extends AbstractSimulationCommand {
 	/** Zu simulierende Modelldatei */
 	private File modelFile;
+	/** Optional zu ladende Tabellendatei */
+	private File dataInputFile;
 	/** Statistikausgabedatei */
 	private File statisticsFile;
 
@@ -60,27 +63,58 @@ public final class CommandSimulation extends AbstractSimulationCommand {
 
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
-		String s=parameterCountCheck(2,additionalArguments); if (s!=null) return s;
+		String s=parameterCountCheck(2,3,additionalArguments); if (s!=null) return s;
+
 		modelFile=new File(additionalArguments[0]);
-		statisticsFile=new File(additionalArguments[1]);
+		if (additionalArguments.length==3) {
+			dataInputFile=new File(additionalArguments[1]);
+			statisticsFile=new File(additionalArguments[2]);
+		} else {
+			statisticsFile=new File(additionalArguments[1]);
+		}
+
 		if (!modelFile.isFile()) return String.format(Language.tr("CommandLine.Error.File.InputDoesNotExist"),modelFile);
 		if (!isModelFile(modelFile)) return String.format(Language.tr("CommandLine.Error.File.InputNoValidModelFile"),modelFile);
+
+		if (dataInputFile!=null) {
+			if (!dataInputFile.isFile()) return String.format(Language.tr("CommandLine.Error.File.InputDoesNotExist"),dataInputFile);
+		}
+
 		if (statisticsFile.exists()) return String.format(Language.tr("CommandLine.Error.File.OutputAlreadyExist"),statisticsFile);
 		return null;
 	}
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
+		/* Modell laden */
 		EditModel editModel=new EditModel();
-		String s=editModel.loadFromFile(modelFile);
-		if (s!=null) {out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.LoadingModel")+" "+s); return;}
-		File parentFolder=null;
-		if (modelFile!=null) parentFolder=modelFile.getParentFile();
-		final EditModel changedEditModel=editModel.modelLoadData.changeModel(editModel,parentFolder);
+		final String error=editModel.loadFromFile(modelFile);
+		if (error!=null) {
+			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.LoadingModel")+" "+error);
+			return;
+		}
+
+		/* Externe Daten laden */
+		final EditModel changedEditModel;
+		if (dataInputFile==null) {
+			final File parentFolder=modelFile.getParentFile();
+			changedEditModel=editModel.modelLoadData.changeModel(editModel,parentFolder);
+		} else {
+			final MultiTable table=new MultiTable();
+			if (!table.load(dataInputFile)) {
+				out.println(BaseCommandLineSystem.errorBig+": "+String.format(Language.tr("CommandLine.Error.LoadingFile"),dataInputFile.toString()));
+				return;
+			}
+			changedEditModel=editModel.modelLoadData.changeModel(editModel,table,dataInputFile.getName(),true);
+		}
+
+		/* Wenn externe Daten geladen wurden, ggf. Warnmeldung ausgeben */
 		if (changedEditModel!=null) {
 			outputModelLoadDataWarnings(editModel.modelLoadData.getChangeWarnings(),out);
 			editModel=changedEditModel;
 		}
+
+		/* Simulation durchführen, Ergebnisse speichern */
 		final Statistics statistics=singleSimulation(editModel,false,out);
 		if (statistics!=null) saveStatistics(statistics,statisticsFile,out);
 	}
