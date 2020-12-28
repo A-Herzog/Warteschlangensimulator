@@ -121,15 +121,51 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	}
 
 	/**
+	 * Rückgabewert für {@link ModelElementUserStatistic#getIsTimeForKey(String)}
+	 * @see ModelElementUserStatistic#getIsTimeForKey(String)
+	 */
+	public enum IsTime {
+		/** Bezeichner ist Zeitangabe */
+		YES(true),
+		/** Bezeichner ist keine Zeitangabe */
+		NO(false),
+		/** Bezeichner existiert nicht */
+		NOT_FOUND(true);
+
+		/**
+		 * Boolean-Repräsentation des Wertes
+		 */
+		public boolean bool;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param bool	Boolean-Repräsentation des Wertes
+		 */
+		IsTime(final boolean bool) {
+			this.bool=bool;
+		}
+
+		/**
+		 * Liefert die zu einem boolschen Wert gehörige Repräsentation in diesem Enum
+		 * @param bool	Boolscher Wert zu dem die Repräsentation in diesem Enum geliefert werden soll
+		 * @return	Enum passend zu dem boolschen Wert
+		 */
+		public static IsTime fromBoolean(final boolean bool) {
+			return bool?YES:NO;
+		}
+	}
+
+	/**
 	 * Gibt an, ob die Statistik zu einem Bezeichner eine Zeitangabe ist oder nicht
 	 * @param key	Bezeichner, zu dem ermittelt werden soll, ob es sich um eine Zeitangabe handelt oder nicht
 	 * @return	Gibt <code>null</code> zurück, wenn es keine Statistik zu dem angegebenen Bezeichner gibt, sonst wahr oder falsch.
+	 * @see IsTime
 	 */
-	public Boolean getIsTimeForKey(final String key) {
+	public IsTime getIsTimeForKey(final String key) {
 		for (int i=0;i<Math.min(this.key.size(),isTime.size());i++) {
-			if (this.key.get(i).equalsIgnoreCase(key)) return isTime.get(i);
+			if (this.key.get(i).equalsIgnoreCase(key)) return IsTime.fromBoolean(isTime.get(i));
 		}
-		return null;
+		return IsTime.NOT_FOUND;
 	}
 
 	/**

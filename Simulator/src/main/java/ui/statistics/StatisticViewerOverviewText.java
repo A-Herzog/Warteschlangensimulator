@@ -2797,14 +2797,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	private boolean isUserStatisticsTime(final String key) {
 		for (ModelElement element: statistics.editModel.surface.getElements()) {
 			if (element instanceof ModelElementUserStatistic) {
-				final Boolean B=((ModelElementUserStatistic)element).getIsTimeForKey(key);
-				if (B!=null) return B.booleanValue();
+				final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)element).getIsTimeForKey(key);
+				if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) return B.bool;
 			}
 			if (element instanceof ModelElementUserStatistic) {
 				for (ModelElement sub: ((ModelElementUserStatistic)element).getSurface().getElements()) {
 					if (sub instanceof ModelElementUserStatistic) {
-						final Boolean B=((ModelElementUserStatistic)sub).getIsTimeForKey(key);
-						if (B!=null) return B.booleanValue();
+						final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)sub).getIsTimeForKey(key);
+						if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) return B.bool;
 					}
 				}
 			}
