@@ -117,6 +117,9 @@ public enum Images {
 	/** Symbol "Bearbeiten" */
 	GENERAL_EDIT("pencil.png"),
 
+	/** Symbol "Tabelle" */
+	GENERAL_TABLE("Table.png"),
+
 	/** Symbol "Dialog-Button 'Ok'" */
 	MSGBOX_OK("accept.png"),
 

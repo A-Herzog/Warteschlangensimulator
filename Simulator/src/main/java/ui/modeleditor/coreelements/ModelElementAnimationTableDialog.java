@@ -16,34 +16,46 @@
 package ui.modeleditor.coreelements;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Supplier;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import language.Language;
+import mathtools.NumberTools;
 import mathtools.Table;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import systemtools.statistics.StatisticViewerBarChart;
+import systemtools.statistics.StatisticViewerJFreeChart;
+import systemtools.statistics.StatisticViewerLineChart;
+import systemtools.statistics.StatisticViewerPieChart;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.elements.ModelElementAnimationBarChart;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
+import ui.modeleditor.elements.ModelElementAnimationPieChart;
 import ui.modeleditor.elements.ModelElementAnimationRecord;
 
 /**
@@ -60,10 +72,22 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -7508979174535787490L;
 
+	/** Dialogtitel */
+	private final String title;
 	/** Timer für automatische Aktualisierungen */
 	private Timer timer=null;
+	/** Registerreiter (kann <code>null</code> sein, wenn nur eine Tabelle vorhanden ist) */
+	private final JTabbedPane tabs;
+	/** Panel in dem Diagram-Tab */
+	private final JPanel diagramTab;
 	/** Datenmodell für die Ausgabetabelle */
 	private final TableTableModel tableModel;
+	/** Diagrammanzeige */
+	private StatisticViewerJFreeChart chart;
+	/** Element dem die Daten entnommen wurden (kann <code>null</code> sein) */
+	private final ModelElementPosition element;
+	/** Schaltfläche um bei den Diagrammen den Standardzoomfaktor wiederherzustellen */
+	private final JButton buttonUnzoom;
 	/** Schaltfläche zum Umschalten zwischen automatischer und manueller Aktualisierung */
 	private final JButton buttonAutoUpdate;
 
@@ -72,28 +96,71 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 	 * @param owner	Übergeordnetes Fenster
 	 * @param title	Anzuzeigender Titel
 	 * @param info	Anzuzeigende Tabelle im Content-Bereich
+	 * @param element	Element dem die Daten entnommen wurden (kann <code>null</code> sein)
 	 */
-	public ModelElementAnimationTableDialog(final Component owner, final String title, final Supplier<Table> info) {
+	public ModelElementAnimationTableDialog(final Component owner, final String title, final Supplier<Table> info, final ModelElementPosition element) {
 		super(owner,title);
 
+		/* Daten in Element übernehmen */
+		this.title=title;
+		if ((element instanceof ModelElementAnimationBarChart) || (element instanceof ModelElementAnimationLineDiagram) || (element instanceof ModelElementAnimationPieChart)) {
+			this.element=element;
+		} else {
+			this.element=null;
+		}
 		timer=null;
 
+		/* GUI vorbereiten */
 		showCloseButton=true;
 		final JPanel content=createGUI(()->Help.topicModal(ModelElementAnimationTableDialog.this.owner,"AnimationStatistics"));
 		content.setLayout(new BorderLayout());
 
+		/* Toolbar */
 		final JToolBar toolbar=new JToolBar();
 		toolbar.setFloatable(false);
 		content.add(toolbar,BorderLayout.NORTH);
 		addButton(toolbar,Language.tr("Dialog.Button.Copy"),Images.EDIT_COPY.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.CopyHint"),e->commandCopy());
 		addButton(toolbar,Language.tr("Dialog.Button.Save"),Images.GENERAL_SAVE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveHint"),e->commandSave());
+		if (this.element!=null) {
+			buttonUnzoom=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Unzoom"),Images.ZOOM.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UnzoomHint"),e->commandUnzoom());
+			buttonUnzoom.setVisible(false);
+		} else {
+			buttonUnzoom=null;
+		}
+
 		toolbar.addSeparator();
 		addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Update"),Images.ANIMATION_DATA_UPDATE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateHint"),e->commandUpdate());
 		buttonAutoUpdate=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdate"),Images.ANIMATION_DATA_UPDATE_AUTO.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdateHint"),e->commandAutoUpdate());
 
-		tableModel=new TableTableModel(info);
-		content.add(new JScrollPane(new JTable(tableModel)),BorderLayout.CENTER);
+		if (this.element==null) {
+			/* Nur Tabelle */
+			tabs=null;
+			diagramTab=null;
+			tableModel=new TableTableModel(info);
+			content.add(new JScrollPane(new JTable(tableModel)),BorderLayout.CENTER);
+		} else {
+			/* Tabelle und Diagramm */
+			tabs=new JTabbedPane();
+			content.add(tabs,BorderLayout.CENTER);
+			JPanel tab;
+			tabs.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.Table"),tab=new JPanel(new BorderLayout()));
+			tableModel=new TableTableModel(info);
+			tab.add(new JScrollPane(new JTable(tableModel)),BorderLayout.CENTER);
+			tabs.add(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.Diagram"),tab=new JPanel(new BorderLayout()));
+			if (this.element instanceof ModelElementAnimationBarChart) chart=new ElementDataBarChart((ModelElementAnimationBarChart)this.element);
+			if (this.element instanceof ModelElementAnimationLineDiagram) chart=new ElementDataLineChart((ModelElementAnimationLineDiagram)this.element);
+			if (this.element instanceof ModelElementAnimationPieChart) chart=new ElementDataPieChart((ModelElementAnimationPieChart)this.element);
+			diagramTab=tab;
+			SwingUtilities.invokeLater(()->{
+				final Container c=chart.getViewer(true);
+				if (c!=null) diagramTab.add(c,BorderLayout.CENTER);
+			});
+			tabs.setIconAt(0,Images.GENERAL_TABLE.getIcon());
+			tabs.setIconAt(1,new ImageIcon(element.getAddElementIcon()));
+			tabs.addChangeListener(e->buttonUnzoom.setVisible(tabs.getSelectedIndex()==1));
+		}
 
+		/* Dialog starten */
 		setMinSizeRespectingScreensize(400,300);
 		setSizeRespectingScreensize(800,600);
 		setLocationRelativeTo(this.owner);
@@ -126,7 +193,11 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		buttonAutoUpdate.setSelected(false);
 		if (timer!=null) timer.cancel();
 
-		copyTable(tableModel.table);
+		if (tabs==null || tabs.getSelectedIndex()==0) {
+			copyTable(tableModel.table);
+		} else {
+			if (chart!=null) chart.copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
+		}
 	}
 
 	/**
@@ -136,7 +207,18 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		buttonAutoUpdate.setSelected(false);
 		if (timer!=null) timer.cancel();
 
-		saveTable(this,tableModel.table);
+		if (tabs==null || tabs.getSelectedIndex()==0) {
+			saveTable(this,tableModel.table);
+		} else {
+			if (chart!=null) chart.save(this);
+		}
+	}
+
+	/**
+	 * Befehl: Standardzoomfaktor wiederherstellen
+	 */
+	private void commandUnzoom() {
+		if (chart!=null) chart.unZoom();
 	}
 
 	/**
@@ -179,6 +261,16 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 	 */
 	private void commandUpdate() {
 		tableModel.updateData();
+
+		if (chart!=null) {
+			((ElementDataDiagram)chart).updateData();
+			final Container c=chart.getViewer(true);
+			if (c!=null) {
+				diagramTab.removeAll();
+				diagramTab.add(c,BorderLayout.CENTER);
+				diagramTab.doLayout();
+			}
+		}
 	}
 
 	/**
@@ -278,6 +370,126 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		item.addActionListener(e->copyTable(table));
 
 		menu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Save"),Images.GENERAL_SAVE.getIcon()));
-		item.addActionListener(e->saveTable(owner,table));
+		item.addActionListener(e->saveTable(SwingUtilities.windowForComponent(owner),table));
+	}
+
+	/**
+	 * Gemeinsames Interface für die Diagramme in diesem Dialog
+	 */
+	private interface ElementDataDiagram {
+		/**
+		 * Aktualisierung der Diagrammdaten
+		 */
+		void updateData();
+	}
+
+	/**
+	 * Balkendiagramm zur Anzeige in diesem Dialog
+	 */
+	private class ElementDataBarChart extends StatisticViewerBarChart implements ElementDataDiagram {
+		/**
+		 * Element dem die Farbinformationen entnommen werden sollen
+		 */
+		private final ModelElementAnimationBarChart element;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param element	Element dem die Farbinformationen entnommen werden sollen
+		 */
+		public ElementDataBarChart(final ModelElementAnimationBarChart element) {
+			this.element=element;
+			updateData();
+		}
+
+		@Override
+		public void updateData() {
+			final Table table=tableModel.table;
+			if (table.getSize(0)==0 || table.getSize(1)<2) return;
+
+			initBarChart(title);
+			setupBarChart(title,table.getValue(0,0),table.getValue(0,1),false);
+
+			for (int i=1;i<table.getSize(0);i++) {
+				final Double D=NumberTools.getDouble(table.getValue(i,1));
+				final String name=table.getValue(i,0);
+				data.addValue(D,name,name);
+				plot.getRendererForDataset(data).setSeriesPaint(i-1,(Color)element.getExpressionData().get(i-1)[1]);
+			}
+
+			initTooltips();
+			setOutlineColor(Color.BLACK);
+		}
+	}
+
+	/**
+	 * Liniendiagramm zur Anzeige in diesem Dialog
+	 */
+	private class ElementDataLineChart extends StatisticViewerLineChart implements ElementDataDiagram {
+		/**
+		 * Element dem die Farbinformationen entnommen werden sollen
+		 */
+		private final ModelElementAnimationLineDiagram element;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param element	Element dem die Farbinformationen entnommen werden sollen
+		 */
+		public ElementDataLineChart(final ModelElementAnimationLineDiagram element) {
+			this.element=element;
+			updateData();
+		}
+
+		@Override
+		public void updateData() {
+			final Table table=tableModel.table;
+			if (table.getSize(0)==0 || table.getSize(1)<2) return;
+
+			initLineChart(title);
+			setupChartValue(title,table.getValue(0,0),Language.tr("Statistics.Value"));
+
+			final Table table2=table.transpose();
+			for (int i=1;i<table2.getSize(0);i++) {
+				final List<String> line=table2.getLine(i);
+				final String name=line.get(0);
+				line.remove(0);
+				final double[] data=line.stream().mapToDouble(s->NumberTools.getDouble(s)).toArray();
+				addSeries(name,(Color)element.getExpressionData().get(i-1)[3],data);
+			}
+
+			smartZoom(1);
+		}
+	}
+
+	/**
+	 * Tortendiagramm zur Anzeige in diesem Dialog
+	 */
+	private class ElementDataPieChart extends StatisticViewerPieChart implements ElementDataDiagram {
+		/**
+		 * Element dem die Farbinformationen entnommen werden sollen
+		 */
+		private final ModelElementAnimationPieChart element;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param element	Element dem die Farbinformationen entnommen werden sollen
+		 */
+		public ElementDataPieChart(final ModelElementAnimationPieChart element) {
+			this.element=element;
+			updateData();
+		}
+
+		@Override
+		public void updateData() {
+			final Table table=tableModel.table;
+			if (table.getSize(0)==0 || table.getSize(1)<2) return;
+
+			initPieChart(title);
+
+			for (int i=1;i<table.getSize(0);i++) {
+				final Double D=NumberTools.getDouble(table.getValue(i,1));
+				final String name=table.getValue(i,0);
+				addPieSegment(name,D,(Color)element.getExpressionData().get(i-1)[1]);
+			}
+		}
 	}
 }

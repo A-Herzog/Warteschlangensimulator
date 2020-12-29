@@ -661,7 +661,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 	@Override
 	public void showElementAnimationStatisticsData(final Component owner, final SimulationData simData) {
 		if (simData==null) return;
-		new ModelElementAnimationTableDialog(owner,getContextMenuElementName()+" (id="+getId()+")",()->getAnimationRunTimeTableData(simData));
+		new ModelElementAnimationTableDialog(owner,getContextMenuElementName()+" (id="+getId()+")",()->getAnimationRunTimeTableData(simData),null);
 	}
 
 	@Override

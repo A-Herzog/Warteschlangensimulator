@@ -1066,7 +1066,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	@Override
 	public void showElementAnimationStatisticsData(final Component owner, final SimulationData simData) {
 		if (simData==null) return;
-		new ModelElementAnimationTableDialog(owner,getContextMenuElementName()+" (id="+getId()+")",()->getAnimationRunTimeTableData(simData));
+		new ModelElementAnimationTableDialog(owner,getContextMenuElementName()+" (id="+getId()+")",()->getAnimationRunTimeTableData(simData),this);
 	}
 
 	@Override
@@ -1074,4 +1074,5 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		if (simData==null) return;
 		ModelElementAnimationTableDialog.buildPopupMenuItem(owner,menu,getAnimationRunTimeTableData(simData));
 	}
+
 }

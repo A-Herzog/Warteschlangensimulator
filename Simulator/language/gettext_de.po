@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-28 14:21+0100\n"
+"POT-Creation-Date: 2020-12-29 20:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23033,6 +23033,18 @@ msgstr "Fehler beim Speichern"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.SaveHint"
 msgstr "Speichert die Daten als Textdatei"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.Diagram"
+msgstr "Diagramm"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.Table"
+msgstr "Tabelle"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Unzoom"
+msgstr "Standardzoom"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.UnzoomHint"
+msgstr "Stellt den Standardzoomfaktor wieder her."
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Update"
 msgstr "Aktualisieren"
