@@ -122,7 +122,7 @@ div.messages {
 	margin-top: 5px;
 }
 
-#status_system, #status_language {
+#status_system, #status_language, #info_system {
 	margin-top: 20px;
 	font-size: smaller;
 	font-color: gray;
@@ -134,4 +134,14 @@ div.messages {
 	margin-top: 10px;
 	background-color: lightgreen;
 	font-weight: bold;		
+}
+
+.cmd {
+  display: inline-block;
+  font-family:'Lucida Console', monospace;
+  border: 1px solid gray;
+  color: #555;
+  background-color: #F0F0F0;
+  padding: 3px 5px;
+  margin-bottom: 5px;
 }

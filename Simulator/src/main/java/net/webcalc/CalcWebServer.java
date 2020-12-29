@@ -15,6 +15,7 @@
  */
 package net.webcalc;
 
+import java.io.ByteArrayOutputStream;
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +29,21 @@ import java.util.concurrent.locks.ReentrantLock;
 import language.Language;
 import language.LanguageStaticLoader;
 import language.Messages_Java11;
+import mathtools.MultiTable;
 import mathtools.NumberTools;
+import mathtools.Table;
 import net.web.HandlerFavicon;
 import net.web.HandlerText;
 import net.web.WebServer;
 import net.web.WebServerHandler;
 import net.web.WebServerResponse;
+import simulator.AnySimulator;
+import simulator.Simulator;
+import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
+import simulator.statistics.Statistics;
 import tools.SetupData;
+import xml.XMLTools;
 
 /**
  * Webserver, der Rechenanfragen per Browser entgegen nimmt.
@@ -80,6 +88,7 @@ public class CalcWebServer extends WebServer {
 			handlers.add(new HandlerText("/","res/index_model_%LANG%.html",this,WebServerResponse.Mime.HTML));
 		} else {
 			handlers.add(new HandlerText("/","res/index_data_%LANG%.html",this,WebServerResponse.Mime.HTML));
+			handlers.add(new HandlerText("/direct_info","res/index_data_info_%LANG%.html",this,WebServerResponse.Mime.HTML));
 		}
 		handlers.add(new HandlerText("/css.css","res/css.css",this,WebServerResponse.Mime.CSS));
 		handlers.add(new HandlerText("/main.js","res/js_%LANG%.js",this,WebServerResponse.Mime.JS));
@@ -89,6 +98,10 @@ public class CalcWebServer extends WebServer {
 		handlers.add(new HandlerProcessID("/download/",request->downloadResults(request)));
 		handlers.add(new HandlerProcessID("/view/",request->viewResults(request)));
 		handlers.add(new HandlerProcessID("/language/",request->setLanguage(request)));
+
+		if (model!=null) {
+			handlers.add(new HandlerProcessID("/direct/",request->simDirect(request)));
+		}
 	}
 
 	/**
@@ -146,7 +159,7 @@ public class CalcWebServer extends WebServer {
 	}
 
 	/**
-	 * Verarbeitet eine empfangene Datei
+	 * Verarbeitet eine empfangene Datei.
 	 * @param info	Datensatz zu der empfangenen Datei
 	 */
 	private void processFile(final HandlerPostModel.UploadInfo info) {
@@ -162,7 +175,7 @@ public class CalcWebServer extends WebServer {
 	}
 
 	/**
-	 * Löscht einen Auftrag aus der Liste
+	 * Löscht einen Auftrag aus der Liste.
 	 * @param request	ID des zu löschenden Auftrags
 	 * @return	Webserver-Antwort-Objekt
 	 */
@@ -187,7 +200,7 @@ public class CalcWebServer extends WebServer {
 	}
 
 	/**
-	 * Liefert die Ergebnisdaten eines Auftrags
+	 * Liefert die Ergebnisdaten eines Auftrags.
 	 * @param request	ID des Auftrags
 	 * @return	Webserver-Antwort-Objekt
 	 */
@@ -197,34 +210,44 @@ public class CalcWebServer extends WebServer {
 			lock.lock();
 			try {
 				for (int i=0;i<list.size();i++) if (list.get(i).getId()==L && list.get(i).getStatus()==CalcFuture.Status.DONE_SUCCESS) {
-					final WebServerResponse response=new WebServerResponse();
-					switch (list.get(i).getXMLFileType()) {
-					case CRYPT_XML:
-						response.setXML(list.get(i).getBytes(),"results.cs");
-						break;
-					case JSON:
-						response.setJSON(list.get(i).getBytes(),"results.json");
-						break;
-					case TAR_XML:
-						response.setTARGZ(list.get(i).getBytes(),"results.tar.gz");
-						break;
-					case XML:
-						response.setXML(list.get(i).getBytes(),"results.xml");
-						break;
-					case ZIP_XML:
-						response.setZIP(list.get(i).getBytes(),"results.zip");
-						break;
-					default:
-						response.setXML(list.get(i).getBytes(),"results.xml");
-						break;
-					}
-					return response;
+					return getBinaryDataResponse(list.get(i).getBytes(),list.get(i).getXMLFileType());
 				}
 			} finally {
 				lock.unlock();
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Erstellt ein Webserver-Antwort-Objekt mit den angegebenen Binärdaten als Inhalt.
+	 * @param data	Binärdaten, die als Download angeboten werden sollen
+	 * @param fileType	Typ der Binärdaten
+	 * @return	Webserver-Antwort-Objekt
+	 */
+	private WebServerResponse getBinaryDataResponse(final byte[] data, final XMLTools.FileType fileType) {
+		final WebServerResponse response=new WebServerResponse();
+		switch (fileType) {
+		case CRYPT_XML:
+			response.setXML(data,"results.cs");
+			break;
+		case JSON:
+			response.setJSON(data,"results.json");
+			break;
+		case TAR_XML:
+			response.setTARGZ(data,"results.tar.gz");
+			break;
+		case XML:
+			response.setXML(data,"results.xml");
+			break;
+		case ZIP_XML:
+			response.setZIP(data,"results.zip");
+			break;
+		default:
+			response.setXML(data,"results.xml");
+			break;
+		}
+		return response;
 	}
 
 	/**
@@ -253,7 +276,7 @@ public class CalcWebServer extends WebServer {
 	}
 
 	/**
-	 * Stellt die Sprache für den Webserver ein
+	 * Stellt die Sprache für den Webserver ein.
 	 * @param request	Neue Sprache
 	 * @return	Webserver-Antwort-Objekt
 	 */
@@ -274,6 +297,71 @@ public class CalcWebServer extends WebServer {
 		final WebServerResponse response=new WebServerResponse();
 		response.setText(lang,false);
 		return response;
+	}
+
+	/**
+	 * Interpretiert die URL-Parameter als Zuweisungen für eine Tabelle
+	 * die dann als externe Daten in ein Modell geladen werden kann.
+	 * @param request	URL-Parameter die mehrere durch "&amp;" getrennte Zuweisungen der Form "A1=123" enthalten
+	 * @return	Tabelle in die die Zuweisungen eingetragen sind
+	 */
+	private Table getAssignmentsTable(final String request) {
+		final String[] parts=request.split("&");
+		final Table table=new Table();
+		for (String part: parts) {
+			final String[] s=part.split("=");
+			if (s.length!=2) continue;
+			final int[] cell=Table.cellIDToNumbers(s[0]);
+			if (cell==null) continue;
+			final Double D=NumberTools.getDouble(s[1]);
+			if (D==null) continue;
+			table.setValue(cell[0],cell[1],NumberTools.formatNumberMax(D));
+		}
+
+		return table;
+	}
+
+	/**
+	 * Simuliert das festvorgegebene Modell mit den in den Parametern übergebenen Werten
+	 * und liefert das Ergebnis unmittelbar zurück.
+	 * @param request	Werte die in das Modell geladen werden sollen
+	 * @return	Liefert im Erfolgsfall die Statistikergebnisse, sonst eine Fehlermeldung
+	 */
+	private WebServerResponse simDirect(final String request) {
+		/* Existiert ein Modell? */
+		if (model==null) {
+			final WebServerResponse response=new WebServerResponse();
+			response.setText(Language.tr("CalcWebServer.NoModel"),WebServerResponse.Mime.TEXT,true);
+			return response;
+		}
+
+		/* Anfrage aufbereiten */
+		if (request==null || request.trim().isEmpty()) return null;
+		final Table table=getAssignmentsTable(request);
+
+		/* Externe Daten laden */
+		final EditModel changedEditModel;
+		final MultiTable multi=new MultiTable();
+		multi.add("",table);
+		changedEditModel=model.modelLoadData.changeModel(model,multi,"URLdata",true);
+
+		/* Simulation durchführen */
+		final StartAnySimulator starter=new StartAnySimulator(changedEditModel,null,null,Simulator.logTypeFull);
+		final String prepareError=starter.prepare();
+		if (prepareError!=null) {
+			final WebServerResponse response=new WebServerResponse();
+			response.setText(prepareError,WebServerResponse.Mime.TEXT,true);
+			return response;
+		}
+		final AnySimulator simulator=starter.start();
+		simulator.finalizeRun();
+
+		/* Ergebnisse bereitstellen */
+		final Statistics statistics=simulator.getStatistic();
+		final ByteArrayOutputStream output=new ByteArrayOutputStream();
+		final XMLTools.FileType fileType=SetupData.getSetup().defaultSaveFormatStatistics.fileType;
+		statistics.saveToStream(output,fileType);
+		return getBinaryDataResponse(output.toByteArray(),fileType);
 	}
 
 	/**
