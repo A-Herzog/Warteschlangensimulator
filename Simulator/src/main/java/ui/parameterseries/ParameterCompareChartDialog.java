@@ -21,14 +21,22 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
 import org.jfree.data.xy.XYSeries;
 
@@ -96,6 +104,24 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 
 		/* Diagramm */
 		setChart(initialHeading);
+
+		/* Kopier-Hotkeys setzen */
+		final JRootPane root=getRootPane();
+
+		SwingUtilities.invokeLater(()->{
+			final KeyStroke keyCtrlC=KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_DOWN_MASK,true); /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
+			final KeyStroke keyCtrlIns=KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.CTRL_DOWN_MASK,true);  /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
+			root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyCtrlC,"CopyViewer");
+			root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyCtrlIns,"CopyViewer");
+		});
+
+		root.getActionMap().put("CopyViewer",new AbstractAction() {
+			private static final long serialVersionUID=3692362064092790425L;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lineChart.copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
+			}
+		});
 
 		/* Starten */
 		setMinSizeRespectingScreensize(800,600);

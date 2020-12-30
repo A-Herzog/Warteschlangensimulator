@@ -67,6 +67,20 @@ public class StatisticTree extends JTree {
 	}
 
 	/**
+	 * Aktuell gewählter {@link StatisticNode}
+	 * @see TreeSelectionChanged
+	 * @see #fireNodeSelected()
+	 */
+	private StatisticNode lastSelectedNode;
+
+	/**
+	 * Aktuell gewählter {@link DefaultMutableTreeNode}
+	 * @see TreeSelectionChanged
+	 * @see #fireNodeSelected()
+	 */
+	private DefaultMutableTreeNode lastSelectedTreeNode;
+
+	/**
 	 * Reagiert darauf, wenn in der Baumstruktur ein anderer Eintrag ausgewählt wurde.
 	 * @see StatisticTree#nodeSelected(StatisticNode, DefaultMutableTreeNode)
 	 */
@@ -76,12 +90,32 @@ public class StatisticTree extends JTree {
 			DefaultMutableTreeNode node;
 			if (e==null || e.getNewLeadSelectionPath()==null) node=null; else node=(DefaultMutableTreeNode)e.getNewLeadSelectionPath().getLastPathComponent();
 
-			if (node==null || node.getUserObject()==null) {nodeSelected(null,node); return;}
+			if (node==null || node.getUserObject()==null) {
+				nodeSelected(null,node);
+				lastSelectedNode=null;
+				lastSelectedTreeNode=node;
+				return;
+			}
 
-			if (!(node.getUserObject() instanceof StatisticNode)) nodeSelected(null,node); else nodeSelected((StatisticNode)(node.getUserObject()),node);
+			if (!(node.getUserObject() instanceof StatisticNode)) {
+				nodeSelected(null,node);
+				lastSelectedNode=null;
+				lastSelectedTreeNode=node;
+			} else {
+				nodeSelected((StatisticNode)(node.getUserObject()),node);
+				lastSelectedNode=(StatisticNode)(node.getUserObject());
+				lastSelectedTreeNode=node;
+			}
 		}
 	}
 
+	/**
+	 * Löst die Aktionen vergleichbar mit dem Klicken auf einen Baumeintrag aus.
+	 * @see #nodeSelected
+	 */
+	public void fireNodeSelected() {
+		nodeSelected(lastSelectedNode,lastSelectedTreeNode);
+	}
 
 	/**
 	 * Wird aufgerufen, wenn ein Eintrag im Baum ausgewählt wurde

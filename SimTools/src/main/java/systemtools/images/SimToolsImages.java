@@ -74,6 +74,9 @@ public enum SimToolsImages {
 	/** Symbol "Zoom" */
 	ZOOM("zoom.png"),
 
+	/** Symbol "Volbild" */
+	FULLSCREEN("application.png"),
+
 	/** Symbol "Einstellungen" */
 	SETUP("wrench.png"),
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-29 20:18+0100\n"
+"POT-Creation-Date: 2020-12-30 22:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15729,8 +15729,14 @@ msgstr "<p>Bitte wählen Sie in der Baumstruktur eine <b>Unterkategorie</b> aus,
 msgid "Statistic.Viewer.Toolbar.Copy"
 msgstr "Kopieren"
 
+msgid "Statistic.Viewer.Toolbar.Copy.DefaultSize"
+msgstr "In Standardgröße (%dx%d Pixel) kopieren"
+
 msgid "Statistic.Viewer.Toolbar.Copy.Hint"
 msgstr "Kopiert die Ergebnisse von dieser Seite in die Zwischenablage."
+
+msgid "Statistic.Viewer.Toolbar.Copy.WindowSize"
+msgstr "In Fenstergröße (%dx%d Pixel) kopieren"
 
 msgid "Statistic.Viewer.Toolbar.Excel"
 msgstr "Excel"
@@ -15746,6 +15752,27 @@ msgstr "Tabelle in Excel anzeigen"
 
 msgid "Statistic.Viewer.Toolbar.Excel.Prefix"
 msgstr "QS_Temp"
+
+msgid "Statistic.Viewer.Toolbar.NewWindow"
+msgstr "Fenster"
+
+msgid "Statistic.Viewer.Toolbar.NewWindow.Fullscreen"
+msgstr "Vollbild"
+
+msgid "Statistic.Viewer.Toolbar.NewWindow.Fullscreen.Hint"
+msgstr "Vergrößert den Dialog, so dass er den Bildschirm ausfüllt."
+
+msgid "Statistic.Viewer.Toolbar.NewWindow.Hint"
+msgstr "Zeigt die Daten in einem neuen Fenster an."
+
+msgid "Statistic.Viewer.Toolbar.NewWindow.Size"
+msgstr "Fenstergröße"
+
+msgid "Statistic.Viewer.Toolbar.NewWindow.Size.Hint"
+msgstr "Verändert die Fenstergröße."
+
+msgid "Statistic.Viewer.Toolbar.NewWindow.Title"
+msgstr "Statistikdaten"
 
 msgid "Statistic.Viewer.Toolbar.OpenODS"
 msgstr "OpenOffice/LibreOffice"
@@ -15792,8 +15819,14 @@ msgstr "Druckt die Ergebnisse von dieser Seite aus."
 msgid "Statistic.Viewer.Toolbar.Save"
 msgstr "Speichern"
 
+msgid "Statistic.Viewer.Toolbar.Save.DefaultSize"
+msgstr "In Standardgröße (%dx%d Pixel) speichern"
+
 msgid "Statistic.Viewer.Toolbar.Save.Hint"
 msgstr "Speichert die auf dieser Seite angezeigten Ergebnisse in einer Datei."
+
+msgid "Statistic.Viewer.Toolbar.Save.WindowSize"
+msgstr "In Fenstergröße (%dx%d Pixel) speichern"
 
 msgid "Statistic.Viewer.Toolbar.SaveTables"
 msgstr "Tabellen speichern"

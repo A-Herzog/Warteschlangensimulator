@@ -140,7 +140,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	protected void firstChartRequest() {}
 
 	/**
-	 * Konkretes Anzeigeobjekt, das üger {@link #getViewer(boolean)} geliefert wird.
+	 * Konkretes Anzeigeobjekt, das über {@link #getViewer(boolean)} geliefert wird.
 	 * @see #getViewer(boolean)
 	 */
 	private Container viewer=null;
