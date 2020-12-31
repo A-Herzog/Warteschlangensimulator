@@ -115,7 +115,9 @@ public class Main {
 		/* Grafische Oberfläche starten */
 		try {
 			SwingUtilities.invokeAndWait(new RunSimulator());
-		} catch (InvocationTargetException | InterruptedException e) {}
+		} catch (InvocationTargetException | InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
