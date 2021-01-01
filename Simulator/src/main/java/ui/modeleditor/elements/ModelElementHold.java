@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.net.URL;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
@@ -87,8 +87,8 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_HOLD.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_HOLD.getIcon();
 	}
 
 	/**

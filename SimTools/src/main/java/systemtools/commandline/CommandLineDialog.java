@@ -130,7 +130,7 @@ public class CommandLineDialog extends BaseDialog {
 		this.commandLineSystemGetter=commandLineSystemGetter;
 		commands=commandLineSystemGetter.apply(null).getCommands().stream().filter(cmd->!cmd.isHidden() && cmd.isGUIProcessable()).toArray(AbstractCommand[]::new);
 
-		addUserButton(stop,stopHint,SimToolsImages.CANCEL.getURL());
+		addUserButton(stop,stopHint,SimToolsImages.CANCEL.getIcon());
 		final JPanel content=createGUI(600,800,()->helpCallback.accept(getOwner()));
 
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));

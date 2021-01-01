@@ -77,7 +77,7 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		editorMaxY=schedule.getEditorMaxY();
 		repeatMode=schedule.getRepeatMode();
 
-		addUserButton(Language.tr("Schedule.EditDialog.Settings"),Images.GENERAL_SETUP.getURL());
+		addUserButton(Language.tr("Schedule.EditDialog.Settings"),Images.GENERAL_SETUP.getIcon());
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 

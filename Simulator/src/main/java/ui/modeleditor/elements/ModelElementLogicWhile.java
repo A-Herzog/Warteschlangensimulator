@@ -15,7 +15,7 @@
  */
 package ui.modeleditor.elements;
 
-import java.net.URL;
+import javax.swing.Icon;
 
 import language.Language;
 import simulator.editmodel.EditModel;
@@ -44,8 +44,8 @@ public class ModelElementLogicWhile extends ModelElementLogicWithCondition {
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_LOGIC_WHILE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_LOGIC_WHILE.getIcon();
 	}
 
 	/**

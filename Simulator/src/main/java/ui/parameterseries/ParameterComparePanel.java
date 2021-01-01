@@ -38,7 +38,6 @@ import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -177,21 +176,21 @@ public class ParameterComparePanel extends SpecialPanel {
 		setup=new ParameterCompareSetup(modelFromEditor);
 		setupOriginal=new ParameterCompareSetup(modelFromEditor);
 
-		newSetupButton=addUserButton(Language.tr("ParameterCompare.Toolbar.New"),Language.tr("ParameterCompare.Toolbar.New.Hint"),Images.PARAMETERSERIES_SETUP_NEW.getURL());
-		loadSetupButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Load"),Language.tr("ParameterCompare.Toolbar.Load.Hint"),Images.PARAMETERSERIES_SETUP_LOAD.getURL());
-		saveSetupButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Save"),Language.tr("ParameterCompare.Toolbar.Save.Hint"),Images.PARAMETERSERIES_SETUP_SAVE.getURL());
+		newSetupButton=addUserButton(Language.tr("ParameterCompare.Toolbar.New"),Language.tr("ParameterCompare.Toolbar.New.Hint"),Images.PARAMETERSERIES_SETUP_NEW.getIcon());
+		loadSetupButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Load"),Language.tr("ParameterCompare.Toolbar.Load.Hint"),Images.PARAMETERSERIES_SETUP_LOAD.getIcon());
+		saveSetupButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Save"),Language.tr("ParameterCompare.Toolbar.Save.Hint"),Images.PARAMETERSERIES_SETUP_SAVE.getIcon());
 		addSeparator();
-		templatesButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Templates"),Language.tr("ParameterCompare.Toolbar.Templates.Hint"),Images.PARAMETERSERIES_SETUP_TEMPLATES.getURL());
+		templatesButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Templates"),Language.tr("ParameterCompare.Toolbar.Templates.Hint"),Images.PARAMETERSERIES_SETUP_TEMPLATES.getIcon());
 		addSeparator();
-		showBaseModel=addUserButton(Language.tr("ParameterCompare.Toolbar.ShowBaseModel"),Language.tr("ParameterCompare.Toolbar.ShowBaseModel.Hint"),Images.PARAMETERSERIES_SETUP_SHOW_BASE_MODEL.getURL());
-		setupInput=addUserButton(Language.tr("ParameterCompare.Toolbar.SetupInput"),Language.tr("ParameterCompare.Toolbar.SetupInput.Hint"),Images.PARAMETERSERIES_SETUP_INPUT.getURL());
-		setupOutput=addUserButton(Language.tr("ParameterCompare.Toolbar.SetupOutput"),Language.tr("ParameterCompare.Toolbar.SetupOutput.Hint"),Images.PARAMETERSERIES_SETUP_OUTPUT.getURL());
-		startButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Start"),Language.tr("ParameterCompare.Toolbar.Start.Hint"),Images.PARAMETERSERIES_RUN.getURL());
-		processResults=addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults"),Language.tr("ParameterCompare.Toolbar.ProcessResults.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS.getURL());
+		showBaseModel=addUserButton(Language.tr("ParameterCompare.Toolbar.ShowBaseModel"),Language.tr("ParameterCompare.Toolbar.ShowBaseModel.Hint"),Images.PARAMETERSERIES_SETUP_SHOW_BASE_MODEL.getIcon());
+		setupInput=addUserButton(Language.tr("ParameterCompare.Toolbar.SetupInput"),Language.tr("ParameterCompare.Toolbar.SetupInput.Hint"),Images.PARAMETERSERIES_SETUP_INPUT.getIcon());
+		setupOutput=addUserButton(Language.tr("ParameterCompare.Toolbar.SetupOutput"),Language.tr("ParameterCompare.Toolbar.SetupOutput.Hint"),Images.PARAMETERSERIES_SETUP_OUTPUT.getIcon());
+		startButton=addUserButton(Language.tr("ParameterCompare.Toolbar.Start"),Language.tr("ParameterCompare.Toolbar.Start.Hint"),Images.PARAMETERSERIES_RUN.getIcon());
+		processResults=addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults"),Language.tr("ParameterCompare.Toolbar.ProcessResults.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS.getIcon());
 		addSeparator();
 		addCloseButton();
 		addSeparator();
-		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getURL());
+		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon());
 
 		JPanel content=new JPanel(new BorderLayout());
 		add(content,BorderLayout.CENTER);
@@ -996,7 +995,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			final List<ParameterCompareTemplatesDialog.TemplateRecord> list=map.get(mode);
 			if (list!=null && list.size()>0) {
 				final JMenu sub=new JMenu(ParameterCompareTemplatesDialog.getTemplateModeName(mode));
-				final ImageIcon icon=ParameterCompareTemplatesDialog.getTemplateModeIcon(mode);
+				final Icon icon=ParameterCompareTemplatesDialog.getTemplateModeIcon(mode);
 				if (icon!=null) sub.setIcon(icon);
 				popup.add(sub);
 				for (ParameterCompareTemplatesDialog.TemplateRecord record: list) {

@@ -18,11 +18,11 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.net.URL;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Consumer;
 
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JPopupMenu;
 
@@ -81,8 +81,8 @@ public class ModelElementSeize extends ModelElementMultiInSingleOutBox implement
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_SEIZE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_SEIZE.getIcon();
 	}
 
 	/**

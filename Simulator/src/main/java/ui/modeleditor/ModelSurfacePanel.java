@@ -26,6 +26,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -59,7 +60,6 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,7 +73,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -404,7 +404,7 @@ public final class ModelSurfacePanel extends JPanel {
 		SwingUtilities.invokeLater(()->{requestFocus(); requestFocusInWindow();});
 
 		if (!GraphicsEnvironment.isHeadless()) try {
-			final BufferedImage image=ImageIO.read(Images.MODELEDITOR_NOT_ALLOWED_EDGE.getURL());
+			final BufferedImage image=ImageIO.read(Images.MODELEDITOR_NOT_ALLOWED_EDGE.getURLs()[0]);
 			cursorNotAllowed=Toolkit.getDefaultToolkit().createCustomCursor(image,new Point(image.getWidth()/2,image.getHeight()/2),"NotAllowed");
 		} catch (IOException e) {cursorNotAllowed=null;}
 		if (cursorNotAllowed==null) cursorNotAllowed=Cursor.getDefaultCursor();
@@ -1254,25 +1254,23 @@ public final class ModelSurfacePanel extends JPanel {
 			g.drawLine(20,y,30,y+10);
 
 			String text="";
-			URL url=null;
+			Image image=null;
 			switch (i) {
 			case 0:
 				text=Language.tr("Editor.SurfaceTooltip.SurfaceInfoProperties");
-				url=Images.MODEL.getURL();
+				image=Images.MODEL.getImage();
 				break;
 			case 1:
 				text=Language.tr("Editor.SurfaceTooltip.SurfaceInfoTemplates");
-				url=Images.EDIT_ADD.getURL();
+				image=Images.EDIT_ADD.getImage();
 				break;
 			case 2:
 				text=Language.tr("Editor.SurfaceTooltip.SurfaceInfoAddEgde");
-				url=Images.EDIT_EDGES_ADD.getURL();
+				image=Images.EDIT_EDGES_ADD.getImage();
 				break;
 			}
 
-			if (url!=null) try {
-				g.drawImage(ImageIO.read(url),70,y-8,null);
-			} catch (IOException e) {}
+			if (image!=null) g.drawImage(image,70,y-8,null);
 
 			final String[] lines=text.split("\\n");
 			int textY=y-lineH*lines.length/2;
@@ -1290,29 +1288,27 @@ public final class ModelSurfacePanel extends JPanel {
 		for (int i=0;i<linkPositions.length;i++) {
 
 			String text="";
-			URL url=null;
+			Image image=null;
 			switch (i) {
 			case 0:
 				text=Language.tr("Editor.SurfaceTooltip.InteractiveTutorial");
-				url=Images.HELP_TUTORIAL_INTERACTIVE.getURL();
+				image=Images.HELP_TUTORIAL_INTERACTIVE.getImage();
 				break;
 			case 1:
 				text=Language.tr("Editor.SurfaceTooltip.Tutorial");
-				url=Images.HELP_TUTORIAL.getURL();
+				image=Images.HELP_TUTORIAL.getImage();
 				break;
 			case 2:
 				text=Language.tr("Editor.SurfaceTooltip.Generator");
-				url=Images.MODEL_GENERATOR.getURL();
+				image=Images.MODEL_GENERATOR.getImage();
 				break;
 			case 3:
 				text=Language.tr("Editor.SurfaceTooltip.ExamplesByDialog");
-				url=Images.MODEL.getURL();
+				image=Images.MODEL.getImage();
 				break;
 			}
 
-			if (url!=null) try {
-				g.drawImage(ImageIO.read(url),20,y-8,null);
-			} catch (IOException e) {}
+			if (image!=null) g.drawImage(image,20,y-8,null);
 
 			int textY=y-lineH/2;
 			g.drawString(text,40,textY+lineYShift);
@@ -1926,8 +1922,8 @@ public final class ModelSurfacePanel extends JPanel {
 	private JMenuItem addVisualizationContextMenuItem(final JMenu parentMenu, final ModelElementPosition element) {
 		final JMenuItem item=new JMenuItem(element.getContextMenuElementName()+" - "+element.getName());
 		item.setToolTipText(element.getToolTip());
-		final URL imgURL=element.getAddElementIcon();
-		if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+		final Icon icon=element.getAddElementIcon();
+		if (icon!=null) item.setIcon(icon);
 		item.addActionListener(e->startAddElement(element));
 		parentMenu.add(item);
 		return item;

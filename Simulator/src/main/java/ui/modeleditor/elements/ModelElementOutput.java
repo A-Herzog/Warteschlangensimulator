@@ -21,11 +21,11 @@ import java.awt.Desktop;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -164,8 +164,8 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_OUTPUT.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_OUTPUT.getIcon();
 	}
 
 	/**

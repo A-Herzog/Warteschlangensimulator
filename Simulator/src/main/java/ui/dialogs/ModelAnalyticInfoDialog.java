@@ -71,8 +71,8 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		showCloseButton=true;
 
 		/* GUI aufbauen */
-		addUserButton(Language.tr("AnalyticModelCompare.Dialog.Copy"),Images.EDIT_COPY.getURL());
-		addUserButton(Language.tr("AnalyticModelCompare.Dialog.Save"),Images.GENERAL_SAVE.getURL());
+		addUserButton(Language.tr("AnalyticModelCompare.Dialog.Copy"),Images.EDIT_COPY.getIcon());
+		addUserButton(Language.tr("AnalyticModelCompare.Dialog.Save"),Images.GENERAL_SAVE.getIcon());
 		final JPanel content=createGUI(()->Help.topicModal(this,"EditorAnalyticCompareDialog"));
 		content.setLayout(new BorderLayout());
 

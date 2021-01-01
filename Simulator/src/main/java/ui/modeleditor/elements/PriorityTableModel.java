@@ -17,7 +17,6 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.Map;
 
 import javax.swing.Icon;
@@ -140,7 +139,7 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 		switch (columnIndex) {
 		case 0: return makePanelIcon(clientTypes[rowIndex],getClientTypeIcon(clientTypes[rowIndex]));
 		case 1: return priorities[rowIndex];
-		case 2: return makeButtonPanel(new String[]{""},new String[]{Language.tr("Editor.DialogBase.ExpressionEditTooltip")},new URL[]{Images.EXPRESSION_BUILDER.getURL()},new ActionListener[] {e->editExpression(rowIndex)});
+		case 2: return makeButtonPanel(new String[]{""},new String[]{Language.tr("Editor.DialogBase.ExpressionEditTooltip")},new Icon[]{Images.EXPRESSION_BUILDER.getIcon()},new ActionListener[] {e->editExpression(rowIndex)});
 		default: return null;
 		}
 	}

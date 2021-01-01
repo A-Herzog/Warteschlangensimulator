@@ -75,7 +75,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 		this.simData=simData;
 
 		showCloseButton=true;
-		addUserButton(Language.tr("Animation.NextEventsViewer.Copy"),Images.EDIT_COPY.getURL());
+		addUserButton(Language.tr("Animation.NextEventsViewer.Copy"),Images.EDIT_COPY.getIcon());
 		getUserButton(0).setToolTipText(Language.tr("Animation.NextEventsViewer.Copy.Hint"));
 		final JPanel content=createGUI(null);
 		content.setLayout(new BorderLayout());

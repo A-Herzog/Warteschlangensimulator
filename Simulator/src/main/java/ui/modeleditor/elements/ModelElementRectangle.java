@@ -26,8 +26,9 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
-import java.net.URL;
 import java.util.Objects;
+
+import javax.swing.Icon;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -93,8 +94,8 @@ public class ModelElementRectangle extends ModelElementDecoration {
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_RECTANGLE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_RECTANGLE.getIcon();
 	}
 
 	/**

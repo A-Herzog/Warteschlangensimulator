@@ -23,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -43,6 +44,7 @@ import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -580,8 +582,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		/* Baumstruktur initialisieren */
 
 		obj=addTopInfoArea(treePanel,title,icon);
-		JToolBar treeToolBar=(JToolBar)obj[3];
-		JScrollPane sp=new JScrollPane(tree=new StatisticTree(commandLineCommand,null){
+		final JToolBar treeToolBar=(JToolBar)obj[3];
+		final JScrollPane sp=new JScrollPane(tree=new StatisticTree(commandLineCommand,null){
 			/**
 			 * Serialisierungs-ID der Klasse
 			 * @see Serializable
@@ -1104,9 +1106,10 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			}
 		}
 
-		URL icon=null;
+		Icon icon=null;
 		if (treeNode!=null) {
-			icon=new StatisticTreeCellRenderer().getIconURL(treeNode);
+			final Image image=new StatisticTreeCellRenderer().getIcon(treeNode);
+			if (image!=null) icon=new ImageIcon(image);
 		}
 		updateViewer(viewer,lastViewer,info,icon);
 	}
@@ -1251,7 +1254,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * Es wird dabei ein neuer Viewer angelegt.
 	 * @param currentViewer	Viewer für die aktuellen Werte
 	 * @param additionalViewer	Viewer für die Vorgänger-Werte
-	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, Icon)
 	 */
 	private void addSubViewer(final StatisticViewer currentViewer, final StatisticViewer additionalViewer) {
 		final Container viewerComponent=currentViewer.getViewer(false);
@@ -1271,7 +1274,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	/**
 	 * Setzt einen Viewer zurück und blendet ihn ein.
 	 * @param currentViewer	Viewer für die aktuellen Werte
-	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, Icon)
 	 */
 	private void resetSubViewer(final StatisticViewer currentViewer) {
 		final Container viewerComponent=currentViewer.getViewer(false).getParent();
@@ -1290,7 +1293,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * @param icon	Icon für den Viewer
 	 * @see #updateDataPanel(StatisticNode, DefaultMutableTreeNode)
 	 */
-	private final void updateViewer(final StatisticViewer[] viewer, final StatisticViewer[] lastViewer, final String title, final URL icon) {
+	private final void updateViewer(final StatisticViewer[] viewer, final StatisticViewer[] lastViewer, final String title, final Icon icon) {
 		for (int i=0;i<dataPanel.length;i++) {
 			Container container=null;
 			StatisticViewer view=null;
@@ -1367,7 +1370,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * @param viewer	Viewer in denen nach {@link JFreeChart}-Komponenten gesucht werden soll
 	 * @param chartClass	Viewer-Klasse die berücksichtigt werden soll
 	 * @return	Array mit allen {@link JFreeChart}-Komponenten; kann auch <code>null</code> sein, wenn die Viewer nicht vom passenden Klassentyp sind.
-	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, Icon)
 	 * @see #adjustLineCharts(JFreeChart[])
 	 * @see #adjustBarCharts(JFreeChart[])
 	 */
@@ -1386,7 +1389,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * Passt Viewer-übergreifend bei mehreren Liniendiagrammen den
 	 * y-Achsenbereich an, so dass alle Diagramme denselben Bereich verwenden.
 	 * @param chart	Anzupassende Diagramme
-	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, Icon)
 	 * @see #getCharts(StatisticViewer[], Class)
 	 */
 	private final void adjustLineCharts(JFreeChart[] chart) {
@@ -1408,7 +1411,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * Passt Viewer-übergreifend bei mehreren Balkendiagrammen den
 	 * y-Achsenbereich an, so dass alle Diagramme denselben Bereich verwenden.
 	 * @param chart	Anzupassende Diagramme
-	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, Icon)
 	 * @see #getCharts(StatisticViewer[], Class)
 	 */
 	private final void adjustBarCharts(final JFreeChart[] chart) {
@@ -1434,9 +1437,9 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * @param icon	Icon (kann <code>null</code> sein)
 	 * @param component	Anzuzeigende Komponente im Viewer
 	 * @param viewer	Viewer
-	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, URL)
+	 * @see #updateViewer(StatisticViewer[], StatisticViewer[], String, Icon)
 	 */
-	private final void updateViewer(final int index, final String supTitle, final String title, final URL icon, final Component component, final StatisticViewer viewer) {
+	private final void updateViewer(final int index, final String supTitle, final String title, final Icon icon, final Component component, final StatisticViewer viewer) {
 		if (index<0 || index>=dataLabel.length) return;
 
 		dataLabel[index].setText(title);
@@ -1458,7 +1461,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			dataLabel[index].doLayout();
 		}
 
-		dataLabel[index].setIcon((icon==null)?null:new ImageIcon(icon));
+		dataLabel[index].setIcon(icon);
 
 		if (dataContent[index]!=null) {
 			Component c=dataContent[index];

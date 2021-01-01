@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -188,7 +187,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==map.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.Resource.Add")},new URL[]{Images.MODELPROPERTIES_OPERATORS_ADD.getURL()},new ActionListener[]{new EditButtonListener(0,-1)});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.Resource.Add")},new Icon[]{Images.MODELPROPERTIES_OPERATORS_ADD.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
 			case 1: return "";
 			}
 		}
@@ -198,7 +197,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 				getIconForResource(usedNames.get(rowIndex)),
 
 				usedNames.get(rowIndex)+" ("+getCount(usedNames.get(rowIndex))+")",
-				new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},
+				new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 				new String[]{
 						Language.tr("Surface.Resource.EditName"),
 						Language.tr("Surface.Resource.Delete")
@@ -207,7 +206,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 				);
 		case 1: return makeEditPanelSmallBorder(
 				""+map.get(usedNames.get(rowIndex)),
-				new URL[]{Images.GENERAL_DECREASE.getURL(),Images.GENERAL_INCREASE.getURL(),Images.GENERAL_SETUP.getURL()},
+				new Icon[]{Images.GENERAL_DECREASE.getIcon(),Images.GENERAL_INCREASE.getIcon(),Images.GENERAL_SETUP.getIcon()},
 				new String[]{
 						Language.tr("Surface.Resource.NumberDecrease"),
 						Language.tr("Surface.Resource.NumberIncrease"),

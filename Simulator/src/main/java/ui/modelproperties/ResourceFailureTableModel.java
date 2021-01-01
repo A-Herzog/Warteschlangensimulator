@@ -18,10 +18,10 @@ package ui.modelproperties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -180,34 +180,34 @@ public class ResourceFailureTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==list.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Resources.Failure.Add")},new URL[]{Images.MODELPROPERTIES_OPERATORS_ADD.getURL()},new ActionListener[]{new AddButtonListener()});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Resources.Failure.Add")},new Icon[]{Images.MODELPROPERTIES_OPERATORS_ADD.getIcon()},new ActionListener[]{new AddButtonListener()});
 			case 1: return "";
 			}
 		}
 
 		switch (columnIndex) {
-		case 0: return makePanel(getFailureInfo(list.get(rowIndex)),Images.MODELPROPERTIES_OPERATORS_FAILURES.getURL());
+		case 0: return makePanelIcon(getFailureInfo(list.get(rowIndex)),Images.MODELPROPERTIES_OPERATORS_FAILURES.getIcon());
 		case 1:
 			final List<String> title=new ArrayList<>();
-			final List<URL> iconURL=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<ActionListener> listener=new ArrayList<>();
 			title.add(Language.tr("Resources.Failure.Edit"));
-			iconURL.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			listener.add(new EditButtonListener(0,rowIndex));
 			title.add(Language.tr("Resources.Failure.Delete"));
-			iconURL.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			listener.add(new DeleteButtonListener(rowIndex));
 			if (rowIndex>0) {
 				title.add(Language.tr("Resources.Failure.MoveUp"));
-				iconURL.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				listener.add(new EditButtonListener(1,rowIndex));
 			}
 			if (rowIndex<list.size()-1) {
 				title.add(Language.tr("Resources.Failure.MoveDown"));
-				iconURL.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				listener.add(new EditButtonListener(2,rowIndex));
 			}
-			return makeButtonPanel(null,title.toArray(new String[0]),iconURL.toArray(new URL[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,title.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
 		default: return null;
 		}
 	}

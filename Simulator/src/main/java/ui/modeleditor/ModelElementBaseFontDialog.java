@@ -82,7 +82,7 @@ public class ModelElementBaseFontDialog extends BaseDialog {
 	public ModelElementBaseFontDialog(final Component owner, final Runnable help, final Font fontLarge, final Font fontSmall) {
 		super(owner,Language.tr("Editor.FontSelect.Title"));
 
-		addUserButton(Language.tr("Editor.FontSelect.ButtonUndo"),Images.EDIT_UNDO.getURL());
+		addUserButton(Language.tr("Editor.FontSelect.ButtonUndo"),Images.EDIT_UNDO.getIcon());
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 		final JTabbedPane tabs=new JTabbedPane();

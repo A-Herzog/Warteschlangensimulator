@@ -19,10 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -108,7 +108,7 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==expression.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.AnimationImage.Dialog.Images.Add")},new URL[]{Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getURL()},new ActionListener[]{new EditButtonListener(0,-1)});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.AnimationImage.Dialog.Images.Add")},new Icon[]{Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
 			case 1: return "";
 			}
 		}
@@ -116,28 +116,28 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 		switch (columnIndex) {
 		case 0:
 			final String exp=(expression.get(rowIndex)==null)?Language.tr("Surface.AnimationImage.Dialog.Images.DefaultImage"):expression.get(rowIndex);
-			final List<URL> urls=new ArrayList<>();
-			urls.add(Images.GENERAL_SETUP.getURL());
+			final List<Icon> icons=new ArrayList<>();
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			final List<String> infos=new ArrayList<>();
 			infos.add(Language.tr("Surface.AnimationImage.Dialog.Images.Edit"));
 			final List<ActionListener> actions=new ArrayList<>();
 			actions.add(new EditButtonListener(0,rowIndex));
 			if (rowIndex<expression.size()-1) {
-				urls.add(Images.EDIT_DELETE.getURL());
+				icons.add(Images.EDIT_DELETE.getIcon());
 				infos.add(Language.tr("Surface.AnimationImage.Dialog.Images.Delete"));
 				actions.add(new DeleteButtonListener(rowIndex));
 			}
 			if (rowIndex>0 && rowIndex<expression.size()-1) {
-				urls.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				infos.add(Language.tr("Surface.AnimationImage.Dialog.Images.Up"));
 				actions.add(new EditButtonListener(1,rowIndex));
 			}
 			if (rowIndex<expression.size()-2) {
-				urls.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				infos.add(Language.tr("Surface.AnimationImage.Dialog.Images.Down"));
 				actions.add(new EditButtonListener(2,rowIndex));
 			}
-			return makeEditPanelSmallBorder(Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getURL(),exp,urls.toArray(new URL[0]),infos.toArray(new String[0]),actions.toArray(new ActionListener[0]));
+			return makeEditPanelSmallBorderIcon(Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getIcon(),exp,icons.toArray(new Icon[0]),infos.toArray(new String[0]),actions.toArray(new ActionListener[0]));
 		case 1:
 			return makePanel(ScaledImageCache.getScaledImageCache().getScaledImage(images.get(rowIndex),50,50));
 		default:

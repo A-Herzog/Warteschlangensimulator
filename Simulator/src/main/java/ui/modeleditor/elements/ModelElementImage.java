@@ -44,6 +44,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -97,8 +98,8 @@ public class ModelElementImage extends ModelElementDecoration {
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_IMAGE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_IMAGE.getIcon();
 	}
 
 	/**
@@ -218,7 +219,7 @@ public class ModelElementImage extends ModelElementDecoration {
 	 */
 	public void loadDummyImage() {
 		requireImageLoaded();
-		final URL url=Images.MODELEDITOR_ELEMENT_IMAGE_EXAMPLE.getURL();
+		final URL url=Images.MODELEDITOR_ELEMENT_IMAGE_EXAMPLE.getURLs()[0];
 		if (url==null) {
 			image=new BufferedImage(100,100,BufferedImage.TYPE_4BYTE_ABGR);
 		} else {

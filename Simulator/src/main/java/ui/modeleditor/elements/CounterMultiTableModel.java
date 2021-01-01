@@ -17,11 +17,11 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableCellEditor;
 
@@ -139,7 +139,7 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 			return makeButtonPanel(
 					new String[] {""},
 					new String[] {Language.tr("Surface.CounterMulti.Table.Heading.Condition.Add")},
-					new  URL[] {Images.EDIT_ADD.getURL()},
+					new  Icon[] {Images.EDIT_ADD.getIcon()},
 					new ActionListener[] {e->addCounter()});
 		}
 
@@ -166,37 +166,37 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		if (columnIndex==2) {
 			final List<String> titles=new ArrayList<>();
 			final List<String> tooltips=new ArrayList<>();
-			final List<URL> icons=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<ActionListener> listeners=new ArrayList<>();
 
 			titles.add("");
 			tooltips.add(Language.tr("Surface.CounterMulti.Table.Heading.Condition.Edit"));
-			icons.add(Images.EXPRESSION_BUILDER.getURL());
+			icons.add(Images.EXPRESSION_BUILDER.getIcon());
 			listeners.add(e->expressionBuilder(rowIndex));
 
 			titles.add("");
 			tooltips.add(Language.tr("Surface.CounterMulti.Table.Heading.Condition.Delete"));
-			icons.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			listeners.add(e->deleteCounter(rowIndex));
 
 			if (rowIndex>0) {
 				titles.add("");
 				tooltips.add(Language.tr("Surface.CounterMulti.Table.Heading.Condition.MoveUp"));
-				icons.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				listeners.add(e->moveUp(rowIndex));
 			}
 
 			if (rowIndex<this.counter.size()-1) {
 				titles.add("");
 				tooltips.add(Language.tr("Surface.CounterMulti.Table.Heading.Condition.MoveDown"));
-				icons.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				listeners.add(e->moveDown(rowIndex));
 			}
 
 			return makeButtonPanel(
 					titles.toArray(new String[0]),
 					tooltips.toArray(new String[0]),
-					icons.toArray(new URL[0]),
+					icons.toArray(new Icon[0]),
 					listeners.toArray(new ActionListener[0]));
 		}
 

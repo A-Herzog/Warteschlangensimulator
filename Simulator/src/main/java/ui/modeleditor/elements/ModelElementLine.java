@@ -22,7 +22,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.net.URL;
+
+import javax.swing.Icon;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -84,8 +85,8 @@ public class ModelElementLine extends ModelElementDecoration {
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_LINE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_LINE.getIcon();
 	}
 
 	/**

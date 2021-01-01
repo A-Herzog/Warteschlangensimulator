@@ -24,7 +24,6 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +103,7 @@ public class ModelElementPosition extends ModelElement {
 	 * Optionales Icon, welches im "Element hinzufügen"-Dropdown-Menü angezeigt werden soll.
 	 * @return	Icon für den "Element hinzufügen"-Dropdown-Menüeintrag
 	 */
-	public URL getAddElementIcon() {
+	public Icon getAddElementIcon() {
 		return null;
 	}
 

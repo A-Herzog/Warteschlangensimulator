@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.table.TableCellEditor;
 
@@ -142,7 +142,7 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==data.size()) {
-			if (columnIndex==0) return makeButtonPanel(new String[]{Language.tr("Surface.Source.Dialog.Signals.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
+			if (columnIndex==0) return makeButtonPanel(new String[]{Language.tr("Surface.Source.Dialog.Signals.Table.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new TableButtonListener()});
 			return "";
 		}
 
@@ -150,13 +150,13 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 		case 0:
 			return getSignalCombo(rowIndex,data.get(rowIndex));
 		case 1:
-			final List<URL> icons=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<String> hints=new ArrayList<>();
 			final List<ActionListener> listeners=new ArrayList<>();
-			icons.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			hints.add(Language.tr("Surface.Source.Dialog.Signals.Table.Delete"));
 			listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DELETE));
-			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new URL[0]),listeners.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new Icon[0]),listeners.toArray(new ActionListener[0]));
 		}
 
 		return null;

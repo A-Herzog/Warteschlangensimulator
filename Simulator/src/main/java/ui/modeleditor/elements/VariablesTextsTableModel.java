@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableCellEditor;
 
@@ -103,13 +103,13 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==keys.size()) {
-			return makeButtonPanel(new String[]{Language.tr("Surface.AssignString.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new AddButtonListener()});
+			return makeButtonPanel(new String[]{Language.tr("Surface.AssignString.Table.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new AddButtonListener()});
 		}
 
 		final String text=keys.get(rowIndex)+":="+values.get(rowIndex);
-		final List<URL> urls=new ArrayList<>();
-		urls.add(Images.GENERAL_SETUP.getURL());
-		urls.add(Images.EDIT_DELETE.getURL());
+		final List<Icon> icons=new ArrayList<>();
+		icons.add(Images.GENERAL_SETUP.getIcon());
+		icons.add(Images.EDIT_DELETE.getIcon());
 		final List<String> hints=new ArrayList<>();
 		hints.add(Language.tr("Surface.AssignString.Table.Edit"));
 		hints.add(Language.tr("Surface.AssignString.Table.Delete"));
@@ -118,20 +118,20 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 		listeners.add(new DeleteButtonListener(rowIndex));
 
 		if (rowIndex>0) {
-			urls.add(Images.ARROW_UP.getURL());
+			icons.add(Images.ARROW_UP.getIcon());
 			hints.add(Language.tr("Surface.AssignString.Table.Up"));
 			listeners.add(new EditButtonListener(-1,rowIndex));
 		}
 
 		if (rowIndex<keys.size()-1) {
-			urls.add(Images.ARROW_DOWN.getURL());
+			icons.add(Images.ARROW_DOWN.getIcon());
 			hints.add(Language.tr("Surface.AssignString.Table.Down"));
 			listeners.add(new EditButtonListener(1,rowIndex));
 		}
 
 		return makeEditPanelSmallBorder(
 				text,
-				urls.toArray(new URL[0]),
+				icons.toArray(new Icon[0]),
 				hints.toArray(new String[0]),
 				listeners.toArray(new ActionListener[0]));
 	}

@@ -18,7 +18,6 @@ package ui.modelproperties;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -213,25 +212,25 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 			if (assignmentsCount==1) return Language.tr("Editor.Dialog.Sequences.AssignmentsInfo.One"); else return String.format(Language.tr("Editor.Dialog.Sequences.AssignmentsInfo"),assignmentsCount);
 		case 4:
 			final List<String> title=new ArrayList<>();
-			final List<URL> iconURL=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<ActionListener> listener=new ArrayList<>();
 			title.add(Language.tr("Editor.Dialog.Sequences.Edit.EditHint"));
-			iconURL.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			listener.add(e->commandEdit(rowIndex));
 			title.add(Language.tr("Editor.Dialog.Sequences.Edit.DeleteHint"));
-			iconURL.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			listener.add(e->commandDelete(rowIndex));
 			if (rowIndex>0) {
 				title.add(Language.tr("Editor.Dialog.Sequences.Edit.MoveUpHint"));
-				iconURL.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				listener.add(e->commandMoveUp(rowIndex));
 			}
 			if (rowIndex<steps.size()-1) {
 				title.add(Language.tr("Editor.Dialog.Sequences.Edit.MoveDownHint"));
-				iconURL.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				listener.add(e->commandMoveDown(rowIndex));
 			}
-			return makeButtonPanel(null,title.toArray(new String[0]),iconURL.toArray(new URL[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,title.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
 		default:
 			return null;
 		}

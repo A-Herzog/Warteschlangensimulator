@@ -23,9 +23,10 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.net.URL;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import javax.swing.Icon;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -166,8 +167,8 @@ public final class ModelElementText extends ModelElementPosition {
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_TEXT.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_TEXT.getIcon();
 	}
 
 	/**

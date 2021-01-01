@@ -249,15 +249,15 @@ public class OptimizerPanel extends SpecialPanel {
 		this.model=model;
 		this.miniStatistics=miniStatistics;
 
-		newSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.New"),Language.tr("Optimizer.Toolbar.New.Hint"),Images.OPTIMIZER_SETUP_NEW.getURL());
-		loadSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.Load"),Language.tr("Optimizer.Toolbar.Load.Hint"),Images.OPTIMIZER_SETUP_LOAD.getURL());
-		saveSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.Save"),Language.tr("Optimizer.Toolbar.Save.Hint"),Images.OPTIMIZER_SETUP_SAVE.getURL());
+		newSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.New"),Language.tr("Optimizer.Toolbar.New.Hint"),Images.OPTIMIZER_SETUP_NEW.getIcon());
+		loadSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.Load"),Language.tr("Optimizer.Toolbar.Load.Hint"),Images.OPTIMIZER_SETUP_LOAD.getIcon());
+		saveSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.Save"),Language.tr("Optimizer.Toolbar.Save.Hint"),Images.OPTIMIZER_SETUP_SAVE.getIcon());
 		addSeparator();
-		startButton=addUserButton(Language.tr("Optimizer.Toolbar.Start"),Language.tr("Optimizer.Toolbar.Start.Hint"),Images.OPTIMIZER_RUN.getURL());
+		startButton=addUserButton(Language.tr("Optimizer.Toolbar.Start"),Language.tr("Optimizer.Toolbar.Start.Hint"),Images.OPTIMIZER_RUN.getIcon());
 		addSeparator();
 		addCloseButton();
 		addSeparator();
-		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getURL());
+		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon());
 
 		initGUI();
 		loadSetupToGUI(new OptimizerSetup());

@@ -15,7 +15,6 @@
  */
 package ui.modeleditor;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 
 import language.Language;
 import net.dde.DDEConnect;
@@ -495,12 +494,10 @@ public final class ModelElementCatalog {
 	 * @return	Icon oder <code>null</code>, wenn für den Menüeintrag kein Icon hinterlegt wurde.
 	 * @see #getMenuNames()
 	 */
-	public ImageIcon getMenuIcon(final String name) {
+	public Icon getMenuIcon(final String name) {
 		final ModelElementPosition element=elementsAdd.get(name);
 		if (element==null) return null;
-		URL imgURL=element.getAddElementIcon();
-		if (imgURL==null) return null;
-		return new ImageIcon(imgURL);
+		return element.getAddElementIcon();
 	}
 
 	/**

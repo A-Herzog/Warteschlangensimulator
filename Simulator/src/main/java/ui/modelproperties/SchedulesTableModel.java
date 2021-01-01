@@ -18,10 +18,10 @@ package ui.modelproperties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -131,22 +131,22 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==schedulesList.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Schedule.Add")},new URL[]{Images.MODELPROPERTIES_SCHEDULES_ADD.getURL()},new ActionListener[]{new AddButtonListener()});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Schedule.Add")},new Icon[]{Images.MODELPROPERTIES_SCHEDULES_ADD.getIcon()},new ActionListener[]{new AddButtonListener()});
 			case 1: return "";
 			}
 		}
 
 		switch (columnIndex) {
-		case 0: return makeEditPanelSmallBorder(
-				Images.MODELPROPERTIES_SCHEDULES.getURL(),
+		case 0: return makeEditPanelSmallBorderIcon(
+				Images.MODELPROPERTIES_SCHEDULES.getIcon(),
 				schedulesList.get(rowIndex).getName(),
-				new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},
+				new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 				new String[]{Language.tr("Schedule.EditName"),Language.tr("Schedule.Delete")},
 				new ActionListener[]{new EditButtonListener(0,rowIndex),new DeleteButtonListener(rowIndex)}
 				);
 		case 1: return makeEditPanelSmallBorder(
 				getScheduleInfo(schedulesList.get(rowIndex)),
-				new URL[]{Images.GENERAL_SETUP.getURL()},
+				new Icon[]{Images.GENERAL_SETUP.getIcon()},
 				new String[]{Language.tr("Schedule.Edit")},
 				new ActionListener[]{new EditButtonListener(1,rowIndex)}
 				);

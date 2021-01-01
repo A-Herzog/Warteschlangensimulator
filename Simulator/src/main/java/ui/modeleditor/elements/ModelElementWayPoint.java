@@ -24,12 +24,12 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
@@ -98,8 +98,8 @@ public class ModelElementWayPoint extends ModelElementPosition {
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_WAY_POINT.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_WAY_POINT.getIcon();
 	}
 
 	/**

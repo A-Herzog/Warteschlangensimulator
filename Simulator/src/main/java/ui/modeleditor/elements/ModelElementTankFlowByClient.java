@@ -18,8 +18,8 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.net.URL;
 
+import javax.swing.Icon;
 import javax.swing.JPopupMenu;
 
 import org.w3c.dom.Document;
@@ -65,8 +65,8 @@ public class ModelElementTankFlowByClient extends ModelElementMultiInSingleOutBo
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_TANK_FLOW_BY_CLIENT.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_TANK_FLOW_BY_CLIENT.getIcon();
 	}
 
 	/**

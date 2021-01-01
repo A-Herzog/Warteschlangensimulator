@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ import java.util.TreeMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -495,7 +494,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	 */
 	protected final boolean addRemoveEdgesContextMenuItems(final JPopupMenu popupMenu, final boolean readOnly) {
 		JMenuItem item;
-		final URL imgURL=Images.EDIT_EDGES_DELETE.getURL();
+		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
 		boolean needSeparator=false;
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
@@ -505,7 +504,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 					surface.remove(element);
 				}
 			});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			needSeparator=true;
 		}
@@ -516,7 +515,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 				if (connectionOutCancel!=null) surface.remove(connectionOutCancel);
 				surface.remove(connectionOutSuccess);
 			});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			needSeparator=true;
 		}
@@ -877,8 +876,8 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_PROCESS.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_PROCESS.getIcon();
 	}
 
 	/**
@@ -1047,7 +1046,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	@Override
 	protected void addParameterSeriesMenuItem(final JPopupMenu popupMenu, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildSeries) {
 		JMenuItem item;
-		final URL imgURL=Images.PARAMETERSERIES.getURL();
+		final Icon icon=Images.PARAMETERSERIES.getIcon();
 
 		/* Bedienzeiten (global) */
 		final Object obj1=getWorking().get();
@@ -1062,7 +1061,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
 				buildSeries.accept(record);
 			});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 		}
 
 		/* Bedienzeiten nach Kundentypen */
@@ -1074,8 +1073,8 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		if (clientTypeData.size()>0) {
 			final JMenu sub;
 			popupMenu.add(sub=new JMenu(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType")));
-			if (imgURL!=null) sub.setIcon(new ImageIcon(imgURL));
-			final URL imgURL2=Images.MODELPROPERTIES_CLIENTS.getURL();
+			if (icon!=null) sub.setIcon(icon);
+			final Icon icon2=Images.MODELPROPERTIES_CLIENTS.getIcon();
 			for (String clientType: clientTypeData) {
 				final String clientTypeFinal=clientType;
 				sub.add(item=new JMenuItem(clientTypeFinal));
@@ -1087,7 +1086,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 					record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
 					buildSeries.accept(record);
 				});
-				if (imgURL2!=null) item.setIcon(new ImageIcon(imgURL2));
+				if (icon2!=null) item.setIcon(icon2);
 			}
 		}
 	}

@@ -24,7 +24,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
-import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -84,8 +83,8 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM.getIcon();
 	}
 
 	/**

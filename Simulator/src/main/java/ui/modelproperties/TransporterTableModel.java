@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.TableCellEditor;
 
@@ -155,7 +156,7 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==transporters.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Transporters.Group.Add")},new URL[]{Images.MODELPROPERTIES_TRANSPORTERS_ADD.getURL()},new ActionListener[]{new AddButtonListener()});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Transporters.Group.Add")},new Icon[]{Images.MODELPROPERTIES_TRANSPORTERS_ADD.getIcon()},new ActionListener[]{new AddButtonListener()});
 			case 1: return "";
 			case 2: return "";
 			}
@@ -169,7 +170,7 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 			return makeEditPanelSmallBorderIcon(
 					new ImageIcon(image),
 					"<html><body>"+transporters.get(rowIndex).getName()+" <span style=\"color: gray;\">"+String.format(Language.tr("Transporters.Group.ID"),rowIndex+1)+"</span>",
-					new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},new String[]{Language.tr("Transporters.Group.Edit"),Language.tr("Transporters.Group.Delete")},
+					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},new String[]{Language.tr("Transporters.Group.Edit"),Language.tr("Transporters.Group.Delete")},
 					new ActionListener[]{new EditButtonListener(rowIndex),new DeleteButtonListener(rowIndex)}
 					);
 		case 1:

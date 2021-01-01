@@ -90,7 +90,7 @@ public class UndoRedoDialog extends BaseDialog {
 		this.currentModel=currentModel;
 		this.redoModels=(redoModels==null)?new ArrayList<>():redoModels;
 
-		addUserButton(Language.tr("UndoRedoSelect.Save"),Images.GENERAL_SAVE.getURL());
+		addUserButton(Language.tr("UndoRedoSelect.Save"),Images.GENERAL_SAVE.getIcon());
 		getUserButton(0).setToolTipText(Language.tr("UndoRedoSelect.Save.Tooltip"));
 
 		/* GUI erstellen */

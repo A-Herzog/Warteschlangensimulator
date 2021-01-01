@@ -15,8 +15,16 @@
  */
 package ui.images;
 
+import java.awt.Image;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -186,10 +194,10 @@ public enum Images {
 	EDIT_REDO("arrow_redo.png"),
 
 	/** Symbol "Bearbeiten - Kopieren" */
-	EDIT_COPY("copy.gif"),
+	EDIT_COPY("page-copy.png"),
 
 	/** Symbol "Bearbeiten - Kopieren (als Bild) */
-	EDIT_COPY_AS_IMAGE("image.gif"),
+	EDIT_COPY_AS_IMAGE("image.png"),
 
 	/** Symbol "Bearbeiten - Ausschneiden" */
 	EDIT_CUT("cut.gif"),
@@ -216,7 +224,7 @@ public enum Images {
 	EDIT_BACKGROUND_COLOR("color_wheel.png"),
 
 	/** Symbol "Hintergrundbild" */
-	EDIT_BACKGROUND_IMAGE("image.gif"),
+	EDIT_BACKGROUND_IMAGE("image.png"),
 
 	/** Symbol "Verbindungskante" */
 	EDIT_EDGES("link.png"),
@@ -225,7 +233,7 @@ public enum Images {
 	EDIT_EDGES_ADD("link_add.png"),
 
 	/** Symbol "Verbindungskante hinzufügen - Panel schließen" */
-	EDIT_EDGES_ADD_CLOSEPANEL("application_side_contract2.gif"),
+	EDIT_EDGES_ADD_CLOSEPANEL("application_side_contract2.png"),
 
 	/** Symbol "Verbindungskante entfernen" */
 	EDIT_EDGES_DELETE("link_delete.png"),
@@ -276,7 +284,7 @@ public enum Images {
 	ZOOM_OUT("zoom_out.png"),
 
 	/** Symbol "Auf Modell zoomen" */
-	ZOOM_CENTER_MODEL("image.gif"),
+	ZOOM_CENTER_MODEL("image.png"),
 
 	/** Symbol "Modellüberblick" */
 	MODE_OVERVIEW("find.png"),
@@ -352,7 +360,7 @@ public enum Images {
 	MODEL_ADD_STATION("station.png"),
 
 	/** Symbol "Modell - Hinzufügen (aus Zwischenablage) - Bild" */
-	MODEL_ADD_IMAGE("image.gif"),
+	MODEL_ADD_IMAGE("image.png"),
 
 	/** Symbol "Modell - Hinzufügen (aus Zwischenablage) - Text" */
 	MODEL_ADD_TEXT("Text.png"),
@@ -385,7 +393,7 @@ public enum Images {
 	MODELPROPERTIES_CLIENTS_GROUPS("group.png"),
 
 	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Icon für Kundengruppe" */
-	MODELPROPERTIES_CLIENTS_ICON("image.gif"),
+	MODELPROPERTIES_CLIENTS_ICON("image.png"),
 
 	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Kosten für Kundengruppe" */
 	MODELPROPERTIES_CLIENTS_COSTS("money_euro.png"),
@@ -442,7 +450,7 @@ public enum Images {
 	MODELPROPERTIES_SCHEDULES("time.png"),
 
 	/** Symbol "Modellbeschreibung - Seite 'Zeitpläne' - hinzufügen" */
-	MODELPROPERTIES_SCHEDULES_ADD("clock_add.png"),
+	MODELPROPERTIES_SCHEDULES_ADD("time_add.png"),
 
 	/** Symbol "Modellbeschreibung - Seite 'Fertigungspläne'" */
 	MODELPROPERTIES_SEQUENCES("text_list_numbers.png"),
@@ -503,7 +511,7 @@ public enum Images {
 	SIMULATION("action_go.gif"),
 
 	/** Symbol "Simulation - In Logdatei aufzeichnen" */
-	SIMULATION_LOG("Text.gif"),
+	SIMULATION_LOG("Text.png"),
 
 	/** Symbol "Simulation - Statistikaufzeichnung konfigurieren" */
 	SIMULATION_STATISTICS("chart_curve.png"),
@@ -529,13 +537,13 @@ public enum Images {
 	ANIMATION_RECORD("stop.png"),
 
 	/** Symbol "Animation - Screenshot aufnehmen" */
-	ANIMATION_SCREENSHOT("image.gif"),
+	ANIMATION_SCREENSHOT("image.png"),
 
 	/** Symbol "Animation - Export" */
 	ANIMATION_EXPORT("disk.png"),
 
 	/** Symbol "Animation in Logdatei aufzeichnen" */
-	ANIMATION_LOG("Text.gif"),
+	ANIMATION_LOG("Text.png"),
 
 	/** Symbol "Animation - Steuerung 'Play'" */
 	ANIMATION_PLAY("control_play_blue.png"),
@@ -582,7 +590,7 @@ public enum Images {
 	PARAMETERSERIES_INPUT_MODE_XML("brick.png"),
 
 	/** Symbol "Parameterreihe - Konfiguration - neu" */
-	PARAMETERSERIES_SETUP_NEW("page_new.gif"),
+	PARAMETERSERIES_SETUP_NEW("page_add.png"),
 
 	/** Symbol "Parameterreihe - Konfiguration - laden" */
 	PARAMETERSERIES_SETUP_LOAD("folder_page_white.png"),
@@ -686,7 +694,7 @@ public enum Images {
 	OPTIMIZER_SAVE_MODE_LAST("sum.png"),
 
 	/** Symbol "Optimierer - Einstellungen - neu" */
-	OPTIMIZER_SETUP_NEW("page_new.gif"),
+	OPTIMIZER_SETUP_NEW("page_add.png"),
 
 	/** Symbol "Optimierer - Einstellungen - laden" */
 	OPTIMIZER_SETUP_LOAD("folder_page_white.png"),
@@ -713,7 +721,7 @@ public enum Images {
 	OPTIMIZER_PAGE_OPTIMIZATION("action_go.gif"),
 
 	/** Symbol "Optimierer - Ergebnisdiagramm exportieren - als Text" */
-	OPTIMIZER_EXPORT_TEXT("Text.gif"),
+	OPTIMIZER_EXPORT_TEXT("Text.png"),
 
 	/** Symbol "Optimierer - Ergebnisdiagramm exportieren - als Grafik" */
 	OPTIMIZER_EXPORT_CHART("chart_curve.png"),
@@ -733,13 +741,13 @@ public enum Images {
 	ELEMENTTEMPLATES_GROUP_OPEN("SmallPlus2.png"),
 
 	/** Symbol "Element-Vorlagen-Leiste - Seitenleiste ausblenden" */
-	ELEMENTTEMPLATES_CLOSEPANEL("application_side_contract.gif"),
+	ELEMENTTEMPLATES_CLOSEPANEL("application_side_contract.png"),
 
 	/** Symbol "Modell-Navigator" */
 	NAVIGATOR("Navigator.png"),
 
 	/** Symbol "Modell-Navigator - Seitenleiste ausblenden" */
-	NAVIGATOR_CLOSEPANEL("application_side_contract2.gif"),
+	NAVIGATOR_CLOSEPANEL("application_side_contract2.png"),
 
 	/* Extras */
 
@@ -800,7 +808,7 @@ public enum Images {
 	HELP_BOOK("book.png"),
 
 	/** Symbol "E-Mail" */
-	HELP_EMAIL("icon_mail.gif"),
+	HELP_EMAIL("email.png"),
 
 	/** Symbol "Problemreport erstellen" */
 	HELP_BUG_REPORT("bug.png"),
@@ -885,7 +893,7 @@ public enum Images {
 	/* Datenquellen-Prüf-Dialog */
 
 	/** Symbol "Prüfung der Datenquellen" */
-	DATA_CHECK("action_refresh.gif"),
+	DATA_CHECK("arrow_refresh.png"),
 
 	/** Symbol "Prüfung der Datenquellen - Station" */
 	DATA_CHECK_STATION("station.png"),
@@ -925,10 +933,10 @@ public enum Images {
 	SCRIPTRUNNER("page_white_code_red.png"),
 
 	/** Symbol "Skript - Neu" */
-	SCRIPT_NEW("page_new.gif"),
+	SCRIPT_NEW("page_add.png"),
 
 	/** Symbol "Skript - Laden" */
-	SCRIPT_LOAD("page_up.gif"),
+	SCRIPT_LOAD("page_top.png"),
 
 	/** Symbol "Skript - Speichern" */
 	SCRIPT_SAVE("disk.png"),
@@ -1006,7 +1014,7 @@ public enum Images {
 	SCRIPT_RECORD_STATISTICS_SAVE("icon_package_get.gif"),
 
 	/** Symbol "Skript-Ausdruck - Simulationsdaten - Zeit" */
-	SCRIPT_RECORD_TIME("clock.png"),
+	SCRIPT_RECORD_TIME("time.png"),
 
 	/** Symbol "Skript-Ausdruck - Simulationsdaten - Laufzeit" */
 	SCRIPT_RECORD_RUNTIME("application.png"),
@@ -1088,7 +1096,7 @@ public enum Images {
 	SETUP_PAGE_LICENSE("key.png"),
 
 	/** Symbol "Einstellungen - Seite 'Update'" */
-	SETUP_PAGE_UPDATE("action_refresh.gif"),
+	SETUP_PAGE_UPDATE("arrow_refresh.png"),
 
 	/** Symbol "Einstellungen - Proxy" */
 	SETUP_PROXY("server.png"),
@@ -1097,7 +1105,7 @@ public enum Images {
 	SETUP_APPLICATION_START("application.png"),
 
 	/** Symbol "Einstellungen - Nach Abschluss langer Simulation Benachrichtigung anzeigen" */
-	SETUP_NOTIFY_ON_LONG_RUN("clock.png"),
+	SETUP_NOTIFY_ON_LONG_RUN("time.png"),
 
 	/** Symbol "Einstellungen - Lizenz" */
 	SETUP_LICENSE("key.png"),
@@ -1192,7 +1200,7 @@ public enum Images {
 	MODELEDITOR_ELEMENT_PROPERTIES("cog.png"),
 
 	/** Symbol "Modelleditor - Eigenschaften - Aussehen" */
-	MODELEDITOR_ELEMENT_PROPERTIES_APPEARANCE("image.gif"),
+	MODELEDITOR_ELEMENT_PROPERTIES_APPEARANCE("image.png"),
 
 	/** Symbol "Modelleditor - Eigenschaften - Text" */
 	MODELEDITOR_ELEMENT_PROPERTIES_TEXT("font.png"),
@@ -1243,7 +1251,7 @@ public enum Images {
 	MODELEDITOR_ELEMENT_SOURCE_MODE_EXPRESSION("fx.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Zeitplan" */
-	MODELEDITOR_ELEMENT_SOURCE_MODE_SCHEDULE("clock.png"),
+	MODELEDITOR_ELEMENT_SOURCE_MODE_SCHEDULE("time.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Bedingung" */
 	MODELEDITOR_ELEMENT_SOURCE_MODE_CONDITION("TrafficLights.png"),
@@ -1255,7 +1263,7 @@ public enum Images {
 	MODELEDITOR_ELEMENT_SOURCE_MODE_SIGNALS("Signal.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Dialogseite 'Zwischenankunftszeiten'" */
-	MODELEDITOR_ELEMENT_SOURCE_PAGE_INTERARRIVAL("clock.png"),
+	MODELEDITOR_ELEMENT_SOURCE_PAGE_INTERARRIVAL("time.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Dialogseite 'Batch-Größe'" */
 	MODELEDITOR_ELEMENT_SOURCE_PAGE_BATCH("group.png"),
@@ -1483,7 +1491,7 @@ public enum Images {
 	MODELEDITOR_ELEMENT_CONVEYOR_PAGE_CAPACITY("package.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Transport' - Element 'Fließband'- Dialogseite 'Transportzeit'" */
-	MODELEDITOR_ELEMENT_CONVEYOR_PAGE_TIME("clock.png"),
+	MODELEDITOR_ELEMENT_CONVEYOR_PAGE_TIME("time.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Transport' - Element 'Fließband'- Dialogseite 'Animation'" */
 	MODELEDITOR_ELEMENT_CONVEYOR_PAGE_ANIMATION("film_go.png"),
@@ -1572,7 +1580,7 @@ public enum Images {
 	/* Modelleditor: Animation */
 
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Icon'" */
-	MODELEDITOR_ELEMENT_CLIENT_ICON("image.gif"),
+	MODELEDITOR_ELEMENT_CLIENT_ICON("image.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Simulationsdaten als Text'" */
 	MODELEDITOR_ELEMENT_ANIMATION_TEXT_VALUE("Text.png"),
@@ -1587,7 +1595,7 @@ public enum Images {
 	MODELEDITOR_ELEMENT_ANIMATION_TEXT_VALUE_JS("Text.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Text gemäß Simulationsdaten'" */
-	MODELEDITOR_ELEMENT_ANIMATION_TEXT_SELECT(""),
+	MODELEDITOR_ELEMENT_ANIMATION_TEXT_SELECT("Text.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Simulationsdaten als Balken'" */
 	MODELEDITOR_ELEMENT_ANIMATION_BAR("Bar.png"),
@@ -1620,10 +1628,10 @@ public enum Images {
 	MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART_ADD("chart_pie_add.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Simulationszeit'" */
-	MODELEDITOR_ELEMENT_ANIMATION_CLOCK("clock.png"),
+	MODELEDITOR_ELEMENT_ANIMATION_CLOCK("time.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Animationsbild'" */
-	MODELEDITOR_ELEMENT_ANIMATION_IMAGE("image.gif"),
+	MODELEDITOR_ELEMENT_ANIMATION_IMAGE("image.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Animation' - Element 'Animationsbild' - Beispiel" */
 	MODELEDITOR_ELEMENT_ANIMATION_IMAGE_EXAMPLE("Picture_Example.png"),
@@ -1683,7 +1691,7 @@ public enum Images {
 	MODELEDITOR_ELEMENT_ELLIPSE("Ellipse.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Bild'" */
-	MODELEDITOR_ELEMENT_IMAGE("image.gif"),
+	MODELEDITOR_ELEMENT_IMAGE("image.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Bild' - Beispiel" */
 	MODELEDITOR_ELEMENT_IMAGE_EXAMPLE("Picture_Example.png");
@@ -1694,9 +1702,14 @@ public enum Images {
 	private final String name;
 
 	/**
-	 * URL des Icons
+	 * URLs des Icons
 	 */
-	private URL url;
+	private URL[] urls;
+
+	/**
+	 * Bild
+	 */
+	private Image image;
 
 	/**
 	 * Icon
@@ -1712,26 +1725,112 @@ public enum Images {
 	}
 
 	/**
-	 * Liefert die URL des Icons
-	 * @return	URL des Icons
+	 * Sucht ein Bild in einem Ordner und fügt es, wenn gefunden, zu einer Liste hinzu.
+	 * @param list	Liste mit URLs zu der die neue URL hinzugefügt werden soll
+	 * @param folder	Ordner in dem das Bild gesucht werden soll
+	 * @param name	Name des Bildes
 	 */
-	public URL getURL() {
-		if (url==null) url=getClass().getResource("res/"+name);
-		assert(url!=null);
-		return url;
+	private void addURL(final List<URL> list, final String folder, final String name) {
+		URL url;
+
+		url=getClass().getResource(folder+"/"+name);
+		if (url!=null) {
+			list.add(url);
+		} else {
+			url=getClass().getResource(folder+"/"+name.replace('_','-'));
+			if (url!=null) list.add(url);
+		}
 	}
 
 	/**
-	 * Liefert das Icon
+	 * Liefert die URL des Icons
+	 * @return	URL des Icons
+	 */
+	public URL[] getURLs() {
+		if (urls==null) {
+			List<URL> list=new ArrayList<>();
+			addURL(list,"res",name);
+			addURL(list,"res24",name);
+			addURL(list,"res32",name);
+			addURL(list,"res48",name);
+			urls=list.toArray(new URL[0]);
+		}
+		assert(urls!=null);
+		return urls;
+	}
+
+	/**
+	 * Wird das Programm unter Java 9 oder höher ausgeführt, so wird
+	 * der Konstruktor der Multi-Resolution-Bild-Objektes geliefert, sonst <code>null</code>.
+	 * @return	Multi-Resolution-Bild-Konstruktor oder <code>null</code>
+	 */
+	@SuppressWarnings("unchecked")
+	private static Constructor<Object> getMultiImageConstructor() {
+		try {
+			final Class<?> cls=Class.forName("java.awt.image.BaseMultiResolutionImage");
+			return (Constructor<Object>)cls.getDeclaredConstructor(int.class,Image[].class);
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Liefert das Icon.
 	 * @return	Icon
 	 */
 	public Icon getIcon() {
 		if (icon==null) {
-			final URL url=getURL();
-			if (url!=null) icon=new ImageIcon(url);
+			final Image image=getImage();
+			if (image!=null) icon=new ImageIcon(image);
 		}
 		assert(icon!=null);
 		return icon;
+	}
+
+	/**
+	 * Liefert basierend auf einer oder mehreren URLs das Standardbild (das Bild für die erste URL)
+	 * @param urls	Liste mit URLs
+	 * @return	Bild für die erste URL
+	 */
+	private Image getDefaultImage(final URL[] urls) {
+		try {
+			return ImageIO.read(urls[0]);
+		} catch (IOException e) {
+			assert(false);
+			return null;
+		}
+	}
+
+	/**
+	 * Liefert das Bild.
+	 * @return	Bild
+	 */
+	public Image getImage() {
+		if (image!=null) return image;
+
+		final URL[] urls=getURLs();
+		assert(urls.length>0);
+
+		if (urls.length==1) return image=getDefaultImage(urls);
+
+		final Constructor<Object> multiConstructor=getMultiImageConstructor();
+		if (multiConstructor==null) return image=getDefaultImage(urls);
+
+		final Image[] images=Arrays.asList(urls).stream().map(url->{
+			try {
+				return ImageIO.read(url);
+			} catch (IOException e) {
+				return image=getDefaultImage(urls);
+			}
+		}).toArray(Image[]::new);
+
+		try {
+			image=(Image)multiConstructor.newInstance(0,images);
+			assert(image!=null);
+			return image;
+		} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException e) {
+			return image=getDefaultImage(urls);
+		}
 	}
 
 	/**

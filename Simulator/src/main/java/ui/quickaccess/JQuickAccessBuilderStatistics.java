@@ -15,8 +15,10 @@
  */
 package ui.quickaccess;
 
-import java.net.URL;
+import java.awt.Image;
 import java.util.function.Consumer;
+
+import javax.swing.ImageIcon;
 
 import language.Language;
 import systemtools.statistics.StatisticNode;
@@ -64,12 +66,12 @@ public class JQuickAccessBuilderStatistics extends JQuickAccessBuilder {
 	 */
 	private void processBranch(final StatisticNode branch, final String parentPath, final Consumer<JQuickAccessRecord> callback) {
 		if (branch.getChildCount()==0) {
-			URL url=null;
-			if (branch.viewer!=null && branch.viewer.length>0) url=StatisticTreeCellRenderer.getStatisticViewerIconURL(branch.viewer[0]);
-			if (url==null) {
+			Image image=null;
+			if (branch.viewer!=null && branch.viewer.length>0) image=StatisticTreeCellRenderer.getImageViewerIcon(branch.viewer[0]);
+			if (image==null) {
 				test(parentPath,branch.toString(),Images.STATISTICS_DARK.getIcon(),callback,branch);
 			} else {
-				test(parentPath,branch.toString(),url,callback,branch);
+				test(parentPath,branch.toString(),new ImageIcon(image),callback,branch);
 			}
 			return;
 		}

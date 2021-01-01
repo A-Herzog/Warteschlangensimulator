@@ -18,13 +18,12 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -81,8 +80,8 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_BATCH.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_BATCH.getIcon();
 	}
 
 	/**
@@ -316,7 +315,7 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 		if (batchRecord.getBatchSizeMode()!=BatchRecord.BatchSizeMode.FIXED) return;
 
 		final JMenuItem item;
-		final URL imgURL=Images.PARAMETERSERIES.getURL();
+		final Icon icon=Images.PARAMETERSERIES.getIcon();
 		popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeBatchSize")));
 		item.addActionListener(e->{
 			final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_BATCH_SIZE,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeBatchSize.Short"));
@@ -325,7 +324,7 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Batch.XML.Batch")+"->["+Language.trPrimary("Surface.Batch.XML.Batch.Size")+"]");
 			buildSeries.accept(record);
 		});
-		if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+		if (icon!=null) item.setIcon(icon);
 	}
 
 	/**

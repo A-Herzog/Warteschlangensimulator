@@ -83,7 +83,7 @@ public class ModelRestoreDialog extends BaseDialog {
 		super(owner,Language.tr("AutoRestore.Dialog.Title"));
 		this.files=files;
 
-		addUserButton(Language.tr("AutoRestore.Dialog.ClearAll"),Images.EDIT_DELETE.getURL());
+		addUserButton(Language.tr("AutoRestore.Dialog.ClearAll"),Images.EDIT_DELETE.getIcon());
 
 		final JPanel content=createGUI(()->Help.topicModal(this,"AutoRestoreSelect"));
 		content.setLayout(new BorderLayout());

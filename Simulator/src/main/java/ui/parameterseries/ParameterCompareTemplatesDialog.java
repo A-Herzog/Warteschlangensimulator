@@ -21,14 +21,13 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -163,21 +162,18 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	 * @param mode	Vorlagentyp
 	 * @return	Icon des Vorlagentyps (oder <code>null</code>, wenn kein Icon vorhanden ist)
 	 */
-	public static ImageIcon getTemplateModeIcon(final TemplateMode mode) {
-		final URL imgURL;
+	public static Icon getTemplateModeIcon(final TemplateMode mode) {
 		switch (mode) {
-		case MODE_INTERARRIVAL: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_INTERARRIVAL.getURL(); break;
-		case MODE_OPERATORS: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_OPERATORS.getURL(); break;
-		case MODE_SERVICETIMES: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_SERVICETIMES.getURL(); break;
-		case MODE_VARIABLES: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_VARIABLES.getURL(); break;
-		case MODE_DELAY: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_DELAY.getURL(); break;
-		case MODE_ANALOG: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_ANALOG.getURL(); break;
-		case MODE_CONVEYOR: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_CONVEYOR.getURL(); break;
-		case MODE_BATCH_SIZE: imgURL=Images.PARAMETERSERIES_TEMPLATE_MODE_BATCHSIZE.getURL(); break;
-		default: imgURL=null; break;
+		case MODE_INTERARRIVAL: return Images.PARAMETERSERIES_TEMPLATE_MODE_INTERARRIVAL.getIcon();
+		case MODE_OPERATORS: return Images.PARAMETERSERIES_TEMPLATE_MODE_OPERATORS.getIcon();
+		case MODE_SERVICETIMES: return Images.PARAMETERSERIES_TEMPLATE_MODE_SERVICETIMES.getIcon();
+		case MODE_VARIABLES: return Images.PARAMETERSERIES_TEMPLATE_MODE_VARIABLES.getIcon();
+		case MODE_DELAY: return Images.PARAMETERSERIES_TEMPLATE_MODE_DELAY.getIcon();
+		case MODE_ANALOG: return Images.PARAMETERSERIES_TEMPLATE_MODE_ANALOG.getIcon();
+		case MODE_CONVEYOR: return Images.PARAMETERSERIES_TEMPLATE_MODE_CONVEYOR.getIcon();
+		case MODE_BATCH_SIZE: return Images.PARAMETERSERIES_TEMPLATE_MODE_BATCHSIZE.getIcon();
+		default: return null;
 		}
-		if (imgURL==null) return null;
-		return new ImageIcon(imgURL);
 	}
 
 	/**

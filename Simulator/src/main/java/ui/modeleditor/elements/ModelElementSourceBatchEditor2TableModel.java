@@ -17,10 +17,10 @@ package ui.modeleditor.elements;
 
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableCellEditor;
 
@@ -196,19 +196,19 @@ public class ModelElementSourceBatchEditor2TableModel extends JTableExtAbstractT
 			case 2:
 				final List<String> title=new ArrayList<>();
 				final List<String> tooltip=new ArrayList<>();
-				final List<URL> iconURL=new ArrayList<>();
+				final List<Icon> icons=new ArrayList<>();
 				final List<ActionListener> listener=new ArrayList<>();
 				title.add("");
 				tooltip.add(Language.tr("Surface.Source.DialogBatchSize.Table.Edit"));
-				iconURL.add(Images.GENERAL_SETUP.getURL());
+				icons.add(Images.GENERAL_SETUP.getIcon());
 				listener.add(e->editSize(rowIndex));
 				if (sizes.size()>1) {
 					title.add("");
 					tooltip.add(Language.tr("Surface.Source.DialogBatchSize.Table.Delete"));
-					iconURL.add(Images.EDIT_DELETE.getURL());
+					icons.add(Images.EDIT_DELETE.getIcon());
 					listener.add(e->deleteSize(rowIndex));
 				}
-				return makeButtonPanel(title.toArray(new String[0]),tooltip.toArray(new String[0]),iconURL.toArray(new URL[0]),listener.toArray(new ActionListener[0]));
+				return makeButtonPanel(title.toArray(new String[0]),tooltip.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
 			default:
 				return "";
 			}
@@ -219,7 +219,7 @@ public class ModelElementSourceBatchEditor2TableModel extends JTableExtAbstractT
 				return makeButtonPanel(
 						new String[] {""},
 						new String[] {Language.tr("Surface.Source.DialogBatchSize.Table.Add")},
-						new URL[] {Images.EDIT_ADD.getURL()},
+						new Icon[] {Images.EDIT_ADD.getIcon()},
 						new ActionListener[] {e->addSize()});
 			} else {
 				return "";

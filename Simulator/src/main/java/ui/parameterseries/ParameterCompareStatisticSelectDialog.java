@@ -89,8 +89,8 @@ public class ParameterCompareStatisticSelectDialog extends BaseDialog {
 		models=new ArrayList<>();
 		for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) models.add(model);
 
-		addUserButton(Language.tr("ParameterCompare.Select.None"),Images.EDIT_DELETE.getURL());
-		addUserButton(Language.tr("ParameterCompare.Select.All"),Images.EDIT_ADD.getURL());
+		addUserButton(Language.tr("ParameterCompare.Select.None"),Images.EDIT_DELETE.getIcon());
+		addUserButton(Language.tr("ParameterCompare.Select.All"),Images.EDIT_ADD.getIcon());
 
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());

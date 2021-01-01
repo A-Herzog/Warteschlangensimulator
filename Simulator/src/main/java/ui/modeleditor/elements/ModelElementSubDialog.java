@@ -84,7 +84,7 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected void initUserButtons() {
-		addUserButton(Language.tr("Surface.Sub.Dialog.OkAndOpenEditor"),Language.tr("Surface.Sub.Dialog.OkAndOpenEditor.Tooltip"),Images.MODELEDITOR_ELEMENT_SUB_EDIT.getURL());
+		addUserButton(Language.tr("Surface.Sub.Dialog.OkAndOpenEditor"),Language.tr("Surface.Sub.Dialog.OkAndOpenEditor.Tooltip"),Images.MODELEDITOR_ELEMENT_SUB_EDIT.getIcon());
 	}
 
 	@Override

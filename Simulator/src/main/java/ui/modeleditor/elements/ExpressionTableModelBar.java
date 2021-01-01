@@ -21,11 +21,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.TableCellEditor;
 
@@ -197,7 +197,7 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 				image=null;
 				addString="";
 			}
-			return makeButtonPanel(new String[]{addString},new URL[]{(image==null)?null:image.getURL()},new ActionListener[]{new EditButtonListener(0,-1)});
+			return makeButtonPanel(new String[]{addString},new Icon[]{(image==null)?null:image.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
 		}
 
 		switch (columnIndex) {
@@ -208,27 +208,27 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 			case PIE: icon=Images.MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART; break;
 			default: icon=null;
 			}
-			return makeEditPanelSmallBorder(
-					(icon==null)?null:icon.getURL(),
+			return makeEditPanelSmallBorderIcon(
+					(icon==null)?null:icon.getIcon(),
 							expression.get(rowIndex),
-							new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},
+							new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 							new String[]{Language.tr("Surface.ExpressionTableModel.Edit"),Language.tr("Surface.ExpressionTableModel.Delete")},
 							new ActionListener[]{new EditButtonListener(0,rowIndex),new DeleteButtonListener(rowIndex)}
 					);
 		case 1:
-			List<URL> icons=new ArrayList<>();
+			List<Icon> icons=new ArrayList<>();
 			List<String> hints=new ArrayList<>();
 			List<ActionListener> actions=new ArrayList<>();
-			icons.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			hints.add(Language.tr("Surface.ExpressionTableModel.SetupAppearance"));
 			actions.add(new EditButtonListener(1,rowIndex));
 			if (rowIndex>0) {
-				icons.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				hints.add(Language.tr("Surface.ExpressionTableModel.MoveUp"));
 				actions.add(new EditButtonListener(2,rowIndex));
 			}
 			if (rowIndex<expression.size()-1) {
-				icons.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				hints.add(Language.tr("Surface.ExpressionTableModel.MoveDown"));
 				actions.add(new EditButtonListener(3,rowIndex));
 			}
@@ -241,7 +241,7 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 			return makeEditPanelSmallBorderIcon(
 					new ImageIcon(image),
 					"",
-					icons.toArray(new URL[0]),
+					icons.toArray(new Icon[0]),
 					hints.toArray(new String[0]),
 					actions.toArray(new ActionListener[0])
 					);

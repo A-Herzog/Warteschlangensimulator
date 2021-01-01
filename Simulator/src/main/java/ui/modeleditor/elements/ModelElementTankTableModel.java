@@ -18,11 +18,11 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.table.TableCellEditor;
 
@@ -147,7 +147,7 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==valves.size()) {
 			if (columnIndex<3) return "";
-			return makeButtonPanel(new String[]{Language.tr("Surface.Tank.Dialog.Valve.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new ButtonListener(-1)});
+			return makeButtonPanel(new String[]{Language.tr("Surface.Tank.Dialog.Valve.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new ButtonListener(-1)});
 		}
 
 		switch (columnIndex) {
@@ -160,29 +160,29 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 		case 3:
 			final List<String> title=new ArrayList<>();
 			final List<String> tooltip=new ArrayList<>();
-			final List<URL> iconURL=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<ActionListener> listener=new ArrayList<>();
 
 			if (rowIndex>0) {
 				title.add("");
 				tooltip.add(Language.tr("Surface.Tank.Dialog.Valve.Up"));
-				iconURL.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				listener.add(new ButtonListener(rowIndex,true));
 			}
 
 			if (rowIndex<valves.size()-1) {
 				title.add("");
 				tooltip.add(Language.tr("Surface.Tank.Dialog.Valve.Down"));
-				iconURL.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				listener.add(new ButtonListener(rowIndex,false));
 			}
 
 			title.add("");
 			tooltip.add(Language.tr("Surface.Tank.Dialog.Valve.Delete"));
-			iconURL.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			listener.add(new ButtonListener(rowIndex));
 
-			return makeButtonPanel(title.toArray(new String[0]),tooltip.toArray(new String[0]),iconURL.toArray(new URL[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(title.toArray(new String[0]),tooltip.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
 		default:
 			return "";
 		}

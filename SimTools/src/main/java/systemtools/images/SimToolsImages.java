@@ -15,8 +15,16 @@
  */
 package systemtools.images;
 
+import java.awt.Image;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -42,7 +50,7 @@ public enum SimToolsImages {
 	ERROR("error.png"),
 
 	/** Symbol "Kopieren" (in Zwischenablage) */
-	COPY("copy.gif"),
+	COPY("page_copy.png"),
 
 	/** Symbol "Drucken" */
 	PRINT("printer.png"),
@@ -57,7 +65,7 @@ public enum SimToolsImages {
 	SEARCH("find.png"),
 
 	/** Symbol "Als Text speichern" */
-	SAVE_TEXT("Text.gif"),
+	SAVE_TEXT("Text.png"),
 
 	/** Symbol "Text direkt zu Word übertragen" */
 	SAVE_TEXT_WORD("page_word.png"),
@@ -74,7 +82,7 @@ public enum SimToolsImages {
 	/** Symbol "Zoom" */
 	ZOOM("zoom.png"),
 
-	/** Symbol "Volbild" */
+	/** Symbol "Vollbild" */
 	FULLSCREEN("application.png"),
 
 	/** Symbol "Einstellungen" */
@@ -144,10 +152,10 @@ public enum SimToolsImages {
 	STATISTICS_SPECIAL("lightning_go.png"),
 
 	/** Symbol in der Statistik "Text" */
-	STATISTICS_TEXT("Text.gif"),
+	STATISTICS_TEXT("Text.png"),
 
 	/** Symbol in der Statistik "Tabelle" */
-	STATISTICS_TABLE("Table.gif"),
+	STATISTICS_TABLE("Table.png"),
 
 	/** Symbol in der Statistik "Liniendiagramm" */
 	STATISTICS_DIAGRAM_LINE("chart_curve.png"),
@@ -159,13 +167,13 @@ public enum SimToolsImages {
 	STATISTICS_DIAGRAM_PIE("chart_pie.png"),
 
 	/** Symbol in der Statistik "Bild" */
-	STATISTICS_DIAGRAM_PICTURE("image_picture.gif"),
+	STATISTICS_DIAGRAM_PICTURE("image.png"),
 
 	/** Symbol in der Statistik "X-Y-Diagramm" */
 	STATISTICS_DIAGRAM_XY("chart_xy.png"),
 
 	/** Symbol in der Statistik "Schichtplan" */
-	STATISTICS_DIAGRAM_SHIFT_PLAN("clock.png"),
+	STATISTICS_DIAGRAM_SHIFT_PLAN("time.png"),
 
 	/** Symbol in "Schriftart" */
 	STATISTICS_DIAGRAM_FONT_SIZE("font.png"),
@@ -190,9 +198,14 @@ public enum SimToolsImages {
 	private final String name;
 
 	/**
-	 * URL des Icons
+	 * URLs des Icons
 	 */
-	private URL url;
+	private URL[] urls;
+
+	/**
+	 * Bild
+	 */
+	private Image image;
 
 	/**
 	 * Icon
@@ -208,26 +221,112 @@ public enum SimToolsImages {
 	}
 
 	/**
-	 * Liefert die URL des Icons
-	 * @return	URL des Icons
+	 * Sucht ein Bild in einem Ordner und fügt es, wenn gefunden, zu einer Liste hinzu.
+	 * @param list	Liste mit URLs zu der die neue URL hinzugefügt werden soll
+	 * @param folder	Ordner in dem das Bild gesucht werden soll
+	 * @param name	Name des Bildes
 	 */
-	public URL getURL() {
-		if (url==null) url=getClass().getResource("res/"+name);
-		assert(url!=null);
-		return url;
+	private void addURL(final List<URL> list, final String folder, final String name) {
+		URL url;
+
+		url=getClass().getResource(folder+"/"+name);
+		if (url!=null) {
+			list.add(url);
+		} else {
+			url=getClass().getResource(folder+"/"+name.replace('_','-'));
+			if (url!=null) list.add(url);
+		}
 	}
 
 	/**
-	 * Liefert das Icon
+	 * Liefert die URL des Icons
+	 * @return	URL des Icons
+	 */
+	private URL[] getURLs() {
+		if (urls==null) {
+			List<URL> list=new ArrayList<>();
+			addURL(list,"res",name);
+			addURL(list,"res24",name);
+			addURL(list,"res32",name);
+			addURL(list,"res48",name);
+			urls=list.toArray(new URL[0]);
+		}
+		assert(urls!=null);
+		return urls;
+	}
+
+	/**
+	 * Wird das Programm unter Java 9 oder höher ausgeführt, so wird
+	 * der Konstruktor der Multi-Resolution-Bild-Objektes geliefert, sonst <code>null</code>.
+	 * @return	Multi-Resolution-Bild-Konstruktor oder <code>null</code>
+	 */
+	@SuppressWarnings("unchecked")
+	private static Constructor<Object> getMultiImageConstructor() {
+		try {
+			final Class<?> cls=Class.forName("java.awt.image.BaseMultiResolutionImage");
+			return (Constructor<Object>)cls.getDeclaredConstructor(int.class,Image[].class);
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Liefert das Icon.
 	 * @return	Icon
 	 */
 	public Icon getIcon() {
 		if (icon==null) {
-			final URL url=getURL();
-			if (url!=null) icon=new ImageIcon(url);
+			final Image image=getImage();
+			if (image!=null) icon=new ImageIcon(image);
 		}
 		assert(icon!=null);
 		return icon;
+	}
+
+	/**
+	 * Liefert basierend auf einer oder mehreren URLs das Standardbild (das Bild für die erste URL)
+	 * @param urls	Liste mit URLs
+	 * @return	Bild für die erste URL
+	 */
+	private Image getDefaultImage(final URL[] urls) {
+		try {
+			return ImageIO.read(urls[0]);
+		} catch (IOException e) {
+			assert(false);
+			return null;
+		}
+	}
+
+	/**
+	 * Liefert das Bild.
+	 * @return	Bild
+	 */
+	public Image getImage() {
+		if (image!=null) return image;
+
+		final URL[] urls=getURLs();
+		assert(urls.length>0);
+
+		if (urls.length==1) return image=getDefaultImage(urls);
+
+		final Constructor<Object> multiConstructor=getMultiImageConstructor();
+		if (multiConstructor==null) return image=getDefaultImage(urls);
+
+		final Image[] images=Arrays.asList(urls).stream().map(url->{
+			try {
+				return ImageIO.read(url);
+			} catch (IOException e) {
+				return image=getDefaultImage(urls);
+			}
+		}).toArray(Image[]::new);
+
+		try {
+			image=(Image)multiConstructor.newInstance(0,images);
+			assert(image!=null);
+			return image;
+		} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException e) {
+			return image=getDefaultImage(urls);
+		}
 	}
 
 	/**

@@ -17,8 +17,9 @@ package ui.modeleditor.elements;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.net.URL;
 import java.util.List;
+
+import javax.swing.Icon;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -101,8 +102,8 @@ public class ModelElementTankSensor extends ModelElementBox implements ModelElem
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_SENSOR.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_SENSOR.getIcon();
 	}
 
 	/**

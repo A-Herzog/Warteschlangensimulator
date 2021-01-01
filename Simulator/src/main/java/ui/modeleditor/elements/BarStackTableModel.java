@@ -19,10 +19,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.table.TableCellEditor;
 
@@ -107,36 +107,36 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==expressions.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.AnimationBarStack.Dialog.Add")},new URL[]{Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getURL()},new ActionListener[]{new EditButtonListener(0,-1)});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.AnimationBarStack.Dialog.Add")},new Icon[]{Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
 			case 1: return "";
 			}
 		}
 
 		switch (columnIndex) {
 		case 0:
-			final List<URL> icons=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<String> names=new ArrayList<>();
 			final List<ActionListener> events=new ArrayList<>();
-			icons.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			names.add(Language.tr("Surface.AnimationBarStack.Dialog.Edit"));
 			events.add(new EditButtonListener(0,rowIndex));
-			icons.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			names.add(Language.tr("Surface.AnimationBarStack.Dialog.Delete"));
 			events.add(new DeleteButtonListener(rowIndex));
 			if (rowIndex>0) {
-				icons.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				names.add(Language.tr("Surface.AnimationBarStack.Dialog.Up"));
 				events.add(new EditButtonListener(1,rowIndex));
 			}
 			if (rowIndex<expressions.size()-1) {
-				icons.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				names.add(Language.tr("Surface.AnimationBarStack.Dialog.Down"));
 				events.add(new EditButtonListener(2,rowIndex));
 			}
-			return makeEditPanelSmallBorder(
-					Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getURL(),
+			return makeEditPanelSmallBorderIcon(
+					Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getIcon(),
 					expressions.get(rowIndex),
-					icons.toArray(new URL[0]),
+					icons.toArray(new Icon[0]),
 					names.toArray(new String[0]),
 					events.toArray(new ActionListener[0])
 					);

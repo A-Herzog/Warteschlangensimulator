@@ -78,8 +78,8 @@ public final class InfoPanelDialog extends BaseDialog {
 		super(owner,Language.tr("HintsDialog.Title"));
 
 		/* Inhaltsbereich vorbereiten */
-		addUserButton(Language.tr("HintsDialog.Button.HideAll"),Images.INFO_PANEL_SETUP_HIDE.getURL());
-		addUserButton(Language.tr("HintsDialog.Button.ShowAll"),Images.INFO_PANEL_SETUP_SHOW.getURL());
+		addUserButton(Language.tr("HintsDialog.Button.HideAll"),Images.INFO_PANEL_SETUP_HIDE.getIcon());
+		addUserButton(Language.tr("HintsDialog.Button.ShowAll"),Images.INFO_PANEL_SETUP_SHOW.getIcon());
 		getUserButton(0).setToolTipText(Language.tr("HintsDialog.Button.HideAll.Hint"));
 		getUserButton(1).setToolTipText(Language.tr("HintsDialog.Button.ShowAll.Hint"));
 		final JPanel content=createGUI(()->Help.topicModal(this,"Setup"));

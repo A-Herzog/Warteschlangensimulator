@@ -18,10 +18,10 @@ package ui.modelproperties;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -98,37 +98,37 @@ public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==data.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Editor.Dialog.Tab.RunTimeStatistics.Table.Add")},new URL[]{Images.MODELPROPERTIES_RUNTIME_STATISTICS.getURL()},new ActionListener[]{new AddButtonListener()});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Editor.Dialog.Tab.RunTimeStatistics.Table.Add")},new Icon[]{Images.MODELPROPERTIES_RUNTIME_STATISTICS.getIcon()},new ActionListener[]{new AddButtonListener()});
 			case 1: return "";
 			}
 		}
 
 		switch (columnIndex) {
 		case 0:
-			final List<URL> urls=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<String> hints=new ArrayList<>();
 			final List<ActionListener> actions=new ArrayList<>();
 
-			urls.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			hints.add(Language.tr("Editor.Dialog.Tab.RunTimeStatistics.Table.Edit"));
 			actions.add(new EditButtonListener(0,rowIndex));
-			urls.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			hints.add(Language.tr("Editor.Dialog.Tab.RunTimeStatisticsTable.Delete"));
 			actions.add(new DeleteButtonListener(rowIndex));
 			if (rowIndex>0) {
-				urls.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				hints.add(Language.tr("Editor.Dialog.Tab.RunTimeStatistics.Table.MoveUp"));
 				actions.add(new EditButtonListener(1,rowIndex));
 			}
 			if (rowIndex<data.size()-1) {
-				urls.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				hints.add(Language.tr("Editor.Dialog.Tab.RunTimeStatistics.Table.MoveDown"));
 				actions.add(new EditButtonListener(2,rowIndex));
 			}
-			return makeEditPanelSmallBorder(
-					Images.MODELPROPERTIES_RUNTIME_STATISTICS.getURL(),
+			return makeEditPanelSmallBorderIcon(
+					Images.MODELPROPERTIES_RUNTIME_STATISTICS.getIcon(),
 					data.get(rowIndex).expression,
-					urls.toArray(new URL[0]),hints.toArray(new String[0]),actions.toArray(new ActionListener[0])
+					icons.toArray(new Icon[0]),hints.toArray(new String[0]),actions.toArray(new ActionListener[0])
 					);
 		case 1:
 			return makePanel(data.get(rowIndex).getModeInfo(),null);

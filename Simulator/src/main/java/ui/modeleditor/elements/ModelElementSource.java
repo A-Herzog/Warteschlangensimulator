@@ -18,13 +18,12 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -92,8 +91,8 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_SOURCE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_SOURCE.getIcon();
 	}
 
 	/**
@@ -332,7 +331,7 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 		if (!DistributionTools.canSetMean(record.getInterarrivalTimeDistribution())) return;
 
 		final JMenuItem item;
-		final URL imgURL=Images.PARAMETERSERIES.getURL();
+		final Icon icon=Images.PARAMETERSERIES.getIcon();
 		popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime")));
 		item.addActionListener(e->{
 			TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"));
@@ -341,7 +340,7 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution"));
 			buildSeries.accept(record);
 		});
-		if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+		if (icon!=null) item.setIcon(icon);
 	}
 
 	/**
@@ -355,12 +354,12 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		JMenuItem item;
-		final URL imgURL=Images.EDIT_EDGES_DELETE.getURL();
+		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
 
 		if (connection!=null) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdge")));
 			item.addActionListener(e->surface.remove(connection));
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			popupMenu.addSeparator();
 		}

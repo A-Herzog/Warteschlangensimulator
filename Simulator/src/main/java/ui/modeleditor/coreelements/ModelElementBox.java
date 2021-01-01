@@ -26,7 +26,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -35,7 +34,6 @@ import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -2043,8 +2041,8 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	public final JMenuItem addNextStationMenuItem(final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation, final ModelElementBox nextStationTemplate) {
 		final JMenuItem item=new JMenuItem(nextStationTemplate.getContextMenuElementName());
 		item.setToolTipText(nextStationTemplate.getToolTip());
-		final URL imgURL=nextStationTemplate.getAddElementIcon();
-		if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+		final Icon icon=nextStationTemplate.getAddElementIcon();
+		if (icon!=null) item.setIcon(icon);
 		item.addActionListener(e->addNextStation.accept(nextStationTemplate));
 		parentMenu.add(item);
 		return item;

@@ -17,11 +17,11 @@ package ui.modeleditor.elements;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.Icon;
 import javax.swing.JMenu;
 
 import org.w3c.dom.Document;
@@ -64,8 +64,8 @@ public class ModelElementAction extends ModelElementBox implements ModelElementS
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ACTION.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_ACTION.getIcon();
 	}
 
 	/**

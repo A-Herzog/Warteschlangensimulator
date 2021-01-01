@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -106,8 +106,8 @@ public class QueueingCalculatorDialog extends BaseDialog {
 		tabs.addTab(tab.getTabName(),outer);
 		outer.add(tab,BorderLayout.NORTH);
 
-		final URL imgURL=tab.getTabIcon();
-		if (imgURL!=null) tabs.setIconAt(tabs.getTabCount()-1,new ImageIcon(imgURL));
+		final Icon icon=tab.getTabIcon();
+		if (icon!=null) tabs.setIconAt(tabs.getTabCount()-1,icon);
 
 		pages.add(tab);
 	}

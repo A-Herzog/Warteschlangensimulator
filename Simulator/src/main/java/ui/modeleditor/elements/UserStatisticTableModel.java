@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -136,34 +136,34 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 		if (rowIndex==keys.size()) {
 			switch (columnIndex) {
 			case 0: return "";
-			case 1:	return makeButtonPanel(new String[]{Language.tr("Surface.UserStatistic.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener(ActionIndex.ACTION_ADD)});
+			case 1:	return makeButtonPanel(new String[]{Language.tr("Surface.UserStatistic.Table.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new TableButtonListener(ActionIndex.ACTION_ADD)});
 			}
 		}
 
 		switch (columnIndex) {
 		case 0:
-			return makePanel(keys.get(rowIndex),Images.MODELEDITOR_ELEMENT_USER_STATISTICS.getURL());
+			return makePanelIcon(keys.get(rowIndex),Images.MODELEDITOR_ELEMENT_USER_STATISTICS.getIcon());
 		case 1:
-			final List<URL> icons=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<String> hints=new ArrayList<>();
 			final List<ActionListener> listeners=new ArrayList<>();
-			icons.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			hints.add(Language.tr("Surface.UserStatistic.Table.Edit"));
 			listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_EDIT));
-			icons.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			hints.add(Language.tr("Surface.UserStatistic.Table.Delete"));
 			listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DELETE));
 			if (rowIndex>0) {
-				icons.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				hints.add(Language.tr("Surface.UserStatistic.Table.MoveUp"));
 				listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_UP));
 			}
 			if (rowIndex<keys.size()-1) {
-				icons.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				hints.add(Language.tr("Surface.UserStatistic.Table.MoveDown"));
 				listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DOWN));
 			}
-			return makeEditPanelSmallBorder(expressions.get(rowIndex),icons.toArray(new URL[0]),hints.toArray(new String[0]),listeners.toArray(new ActionListener[0]));
+			return makeEditPanelSmallBorder(expressions.get(rowIndex),icons.toArray(new Icon[0]),hints.toArray(new String[0]),listeners.toArray(new ActionListener[0]));
 		}
 		return null;
 	}

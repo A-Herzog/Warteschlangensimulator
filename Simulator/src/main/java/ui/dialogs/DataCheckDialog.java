@@ -18,12 +18,11 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -68,7 +67,7 @@ public final class DataCheckDialog extends BaseDialog {
 		this.model=model;
 
 		showCloseButton=true;
-		addUserButton(Language.tr("CheckData.Button.Recheck"),Images.DATA_CHECK.getURL());
+		addUserButton(Language.tr("CheckData.Button.Recheck"),Images.DATA_CHECK.getIcon());
 		final JPanel content=createGUI(()->Help.topicModal(this,"CheckData"));
 		content.setLayout(new BorderLayout());
 
@@ -173,7 +172,7 @@ public final class DataCheckDialog extends BaseDialog {
 
 			JLabel label;
 			String s,t;
-			URL url;
+			Icon icon;
 
 			String id;
 			String name;
@@ -200,28 +199,28 @@ public final class DataCheckDialog extends BaseDialog {
 				label.setBorder(BorderFactory.createEmptyBorder(2,5,2,5));
 				label.setToolTipText(result.data);
 				switch (result.dataType) {
-				case FILE: url=Images.DATA_CHECK_MODE_FILE.getURL(); break;
-				case DB: url=Images.DATA_CHECK_MODE_DB.getURL(); break;
-				case DDE: url=Images.DATA_CHECK_MODE_DDE.getURL(); break;
-				case NONE: url=null; break;
-				default: url=null; break;
+				case FILE: icon=Images.DATA_CHECK_MODE_FILE.getIcon(); break;
+				case DB: icon=Images.DATA_CHECK_MODE_DB.getIcon(); break;
+				case DDE: icon=Images.DATA_CHECK_MODE_DDE.getIcon(); break;
+				case NONE: icon=null; break;
+				default: icon=null; break;
 				}
-				if (url!=null) label.setIcon(new ImageIcon(url));
+				if (icon!=null) label.setIcon(icon);
 				return label;
 			case 3:
 				if (result.status==DataCheckResult.Status.OK) {
 					t=Language.tr("CheckData.CheckOK");
 					s="<span style=\"color: green;\">"+t+"</span>";
-					url=Images.DATA_CHECK_RESULT_OK.getURL();
+					icon=Images.DATA_CHECK_RESULT_OK.getIcon();
 				} else {
 					t=result.errorMessage;
 					s="<span style=\"color: red;\">"+t+"</span>";
-					url=Images.DATA_CHECK_RESULT_ERROR.getURL();
+					icon=Images.DATA_CHECK_RESULT_ERROR.getIcon();
 				}
 				label=new JLabel("<html><body>"+s+"</body></html>");
 				label.setBorder(BorderFactory.createEmptyBorder(2,5,2,5));
 				label.setToolTipText(t);
-				if (url!=null) label.setIcon(new ImageIcon(url));
+				if (icon!=null) label.setIcon(icon);
 				return label;
 			default:
 				return "";

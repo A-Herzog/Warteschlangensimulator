@@ -15,11 +15,10 @@
  */
 package ui.modeleditor.elements;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
@@ -178,14 +177,14 @@ public class ModelElementSubOut extends ModelElementSubConnect implements ModelE
 	@Override
 	protected final boolean addRemoveEdgesContextMenuItems(final JPopupMenu popupMenu, final boolean readOnly) {
 		JMenuItem item;
-		final URL imgURL=Images.EDIT_EDGES_DELETE.getURL();
+		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
 			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);
 			});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 		}
 

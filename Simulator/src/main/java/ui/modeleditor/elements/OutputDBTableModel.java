@@ -21,11 +21,11 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -270,7 +270,7 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==mode.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.OutputDB.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.OutputDB.Table.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new TableButtonListener()});
 			case 1: return "";
 			case 2: return "";
 			}
@@ -281,7 +281,7 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 			return makeModePanel(rowIndex,mode.get(rowIndex));
 		case 1:
 			if (mode.get(rowIndex)==ModelElementOutputDB.OutputMode.MODE_TEXT || mode.get(rowIndex)==ModelElementOutputDB.OutputMode.MODE_EXPRESSION || mode.get(rowIndex)==ModelElementOutputDB.OutputMode.MODE_STRING) {
-				return makeEditPanel(data.get(rowIndex),Images.GENERAL_SETUP.getURL(),new TableButtonListener(rowIndex,ActionIndex.ACTION_EDIT_DATA,variableNames));
+				return makeEditPanel(data.get(rowIndex),Images.GENERAL_SETUP.getIcon(),new TableButtonListener(rowIndex,ActionIndex.ACTION_EDIT_DATA,variableNames));
 			} else {
 				final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT,5,5));
 				panel.setBackground(Color.WHITE);

@@ -78,7 +78,7 @@ abstract class HTMLFrame extends JFrame {
 		this.specialLinks=specialLinks;
 
 		/* Fenster-Icon*/
-		setIconImage(getToolkit().getImage(SimToolsImages.HELP.getURL()));
+		setIconImage(SimToolsImages.HELP.getImage());
 
 		/* HTMLPanel anlegen */
 		Container p=getContentPane();

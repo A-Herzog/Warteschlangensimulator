@@ -15,10 +15,9 @@
  */
 package ui.statistics;
 
-import java.net.URL;
 import java.util.Objects;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 
 import language.Language;
@@ -45,71 +44,71 @@ public final class FilterListRecord {
 		/**
 		 * Zeilenumbruch
 		 */
-		NewLine("NewLine",false,Images.SCRIPT_RECORD_TEXT.getURL()),
+		NewLine("NewLine",false,Images.SCRIPT_RECORD_TEXT.getIcon()),
 
 		/**
 		 * Tabulator
 		 */
-		Tabulator("Tabulator",false,Images.SCRIPT_RECORD_TEXT.getURL()),
+		Tabulator("Tabulator",false,Images.SCRIPT_RECORD_TEXT.getIcon()),
 
 		/**
 		 * Leerzeichen
 		 */
-		Space("Space",false,Images.SCRIPT_RECORD_TEXT.getURL()),
+		Space("Space",false,Images.SCRIPT_RECORD_TEXT.getIcon()),
 
 		/**
 		 * Freitext
 		 * @see FilterListRecord#text
 		 */
-		Text("Text",true,Images.SCRIPT_RECORD_TEXT.getURL()),
+		Text("Text",true,Images.SCRIPT_RECORD_TEXT.getIcon()),
 
 		/**
 		 * Rechenausdruck
 		 * @see FilterListRecord#text
 		 */
-		Expression("Expression",true,Images.SCRIPT_RECORD_EXPRESSION.getURL()),
+		Expression("Expression",true,Images.SCRIPT_RECORD_EXPRESSION.getIcon()),
 
 		/**
 		 * XML-Element
 		 * @see FilterListRecord#text
 		 */
-		XML("XML",true,Images.SCRIPT_RECORD_XML.getURL()),
+		XML("XML",true,Images.SCRIPT_RECORD_XML.getIcon()),
 
 		/**
 		 * Umschaltung des Zahlenformats auf System-Notation
 		 * @see FilterListRecord.Mode#FormatLocal
 		 */
-		FormatSystem("FormatSystem",false,Images.SCRIPT_RECORD_FORMAT.getURL()),
+		FormatSystem("FormatSystem",false,Images.SCRIPT_RECORD_FORMAT.getIcon()),
 
 		/**
 		 * Umschaltung des Zahlenformats auf lokale Notation
 		 * @see FilterListRecord.Mode#FormatSystem
 		 */
-		FormatLocal("FormatLocal",false,Images.SCRIPT_RECORD_FORMAT.getURL()),
+		FormatLocal("FormatLocal",false,Images.SCRIPT_RECORD_FORMAT.getIcon()),
 
 		/**
 		 * Umschaltung auf Ausgabe von Dezimalwerten (statt Prozentwerten)
 		 * @see FilterListRecord.Mode#FormatPercent
 		 */
-		FormatFraction("FormatFraction",false,Images.SCRIPT_RECORD_FORMAT.getURL()),
+		FormatFraction("FormatFraction",false,Images.SCRIPT_RECORD_FORMAT.getIcon()),
 
 		/**
 		 * Umschaltung auf Ausgabe von Prozentwerten (statt Dezimalwerten)
 		 * @see FilterListRecord.Mode#FormatFraction
 		 */
-		FormatPercent("FormatPercent",false,Images.SCRIPT_RECORD_FORMAT.getURL()),
+		FormatPercent("FormatPercent",false,Images.SCRIPT_RECORD_FORMAT.getIcon()),
 
 		/**
 		 * Umschalten auf Ausgabe von Zahlen (statt Zeitangaben)
 		 * @see FilterListRecord.Mode#FormatTime
 		 */
-		FormatNumber("FormatNumber",false,Images.SCRIPT_RECORD_FORMAT.getURL()),
+		FormatNumber("FormatNumber",false,Images.SCRIPT_RECORD_FORMAT.getIcon()),
 
 		/**
 		 * Umschalten auf Ausgabe von Zahlen (statt Zeitangaben)
 		 * @see FilterListRecord.Mode#FormatTime
 		 */
-		FormatTime("FormatTime",false,Images.SCRIPT_RECORD_FORMAT.getURL());
+		FormatTime("FormatTime",false,Images.SCRIPT_RECORD_FORMAT.getIcon());
 
 		/**
 		 * Bezeichner für dieses Element in der Datei
@@ -125,18 +124,18 @@ public final class FilterListRecord {
 		/**
 		 * Icon für den aktuellen Modus
 		 */
-		public final URL imgURL;
+		public final Icon icon;
 
 		/**
 		 * Konstruktor der Enumeration
 		 * @param fileTag	Bezeichner für dieses Element in der Datei
 		 * @param hasText	Verwendet dieses Element das Text-Feld?
-		 * @param imgURL	String zu der Icon-Ressource
+		 * @param icon	String zu der Icon-Ressource
 		 */
-		private Mode(final String fileTag, final boolean hasText, final URL imgURL) {
+		Mode(final String fileTag, final boolean hasText, final Icon icon) {
 			this.fileTag=fileTag;
 			this.hasText=hasText;
-			this.imgURL=imgURL;
+			this.icon=icon;
 		}
 	}
 
@@ -247,7 +246,7 @@ public final class FilterListRecord {
 		}
 
 		label.setText("<html><body>"+result+"</body></html>");
-		if (mode.imgURL!=null) label.setIcon(new ImageIcon(mode.imgURL));
+		if (mode.icon!=null) label.setIcon(mode.icon);
 	}
 
 	/**

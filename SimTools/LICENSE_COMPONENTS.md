@@ -240,6 +240,14 @@ This file lists the third-party components used by "SimTools" project and their 
 - License URL: https://creativecommons.org/licenses/by/3.0/
 - Homepage: http://www.famfamfam.com/
 
+### Pastel SVG Icons
+
+(Will only be included in SimTools if used for an open-source program.)
+
+- License: Creative Commons Attribution NonCommercial Share Alike 4.0
+- License URL: http://creativecommons.org/licenses/by-nc-sa/4.0/
+- Homepage: http://codefisher.org/pastel-svg/
+
 ---
 
 ## Full license texts of all used licenses

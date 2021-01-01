@@ -60,8 +60,8 @@ public class StationStatisticsDialog extends BaseDialog {
 		listRecords=getElements(null,model.surface);
 
 		/* GUI erstellen */
-		addUserButton(Language.tr("StationStatistics.SelectAll"),Images.EDIT_ADD.getURL());
-		addUserButton(Language.tr("StationStatistics.SelectNone"),Images.EDIT_DELETE.getURL());
+		addUserButton(Language.tr("StationStatistics.SelectAll"),Images.EDIT_ADD.getIcon());
+		addUserButton(Language.tr("StationStatistics.SelectNone"),Images.EDIT_DELETE.getIcon());
 		final JPanel content=createGUI(()->Help.topicModal(this,"StationStatisticsDialog"));
 		content.setLayout(new BorderLayout());
 		InfoPanel.addTopPanel(content,InfoPanel.globalStationStatistics);

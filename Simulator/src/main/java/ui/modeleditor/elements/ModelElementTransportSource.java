@@ -18,12 +18,11 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -108,8 +107,8 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_TRANSPORT_SOURCE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_TRANSPORT_SOURCE.getIcon();
 	}
 
 	/**
@@ -377,14 +376,14 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		JMenuItem item;
-		final URL imgURL=Images.EDIT_EDGES_DELETE.getURL();
+		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
 
 		if (connections!=null && connections.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveAllEdges")));
 			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connections)) surface.remove(element);
 			});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			popupMenu.addSeparator();
 		}

@@ -3244,6 +3244,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8223] = "hours";
     t[8224] = "Window.BackgroundColor.UserRaster";
     t[8225] = "User-defined raster color";
+    t[8232] = "Surface.PopupMenu.DefaultSizes";
+    t[8233] = "Default sizes";
     t[8244] = "ExpressionBuilder.ClientsAtQueue.AverageNumber";
     t[8245] = "<p>Returns the average number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[8246] = "Simulation.Log.ProcessCancelation";
@@ -4014,14 +4016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10069] = "At station id=%d no key for client data matching was defined.";
     t[10072] = "ParameterCompare.Toolbar.SetupOutput.Hint";
     t[10073] = "Setup output values";
-    t[10074] = "Simulation.Creator.SliderStepWideError";
-    t[10075] = "At station id=%d the specified step wide %s is invalid. A positive number has to be specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[10074] = "Simulation.Creator.SliderStepWideError";
+    t[10075] = "At station id=%d the specified step wide %s is invalid. A positive number has to be specified.";
     t[10076] = "Surface.Transporter.ErrorFailureDistance";
     t[10077] = "The specified value \"%s\" for the driving distance before a failure occures for the transporter type \"%s\" is invalid. A positive integer number has to be entered.";
     t[10086] = "ExpressionBuilder.Variables.Plural";
@@ -6020,14 +6022,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15293] = "<p>Returns the squared coefficient of variation of the number of busy operators in the specified resource.</p>";
     t[15306] = "ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance";
     t[15307] = "Limited waiting time tolerance of the clients";
-    t[15318] = "Surface.InputJS.Dialog.Mode.Loop";
-    t[15319] = "Start file from beginning after end of file.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[15318] = "Surface.InputJS.Dialog.Mode.Loop";
+    t[15319] = "Start file from beginning after end of file.";
     t[15324] = "Surface.AnalogAssign.Dialog.Columns.Modes";
     t[15325] = "Mode";
     t[15326] = "Surface.Batch.XML.Root";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20289] = "At element id=%d the minimum and the maximum value (%s and %s) are invalid. The minimum value cannot be larger than the maximum value.";
     t[20296] = "Surface.TankSensor.XML.Threshold.Direction.Up";
     t[20297] = "Up";
-    t[20298] = "ExpressionBuilder.ClientsAtStation.Median";
-    t[20299] = "<p>Returns the median of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[20298] = "ExpressionBuilder.ClientsAtStation.Median";
+    t[20299] = "<p>Returns the median of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[20306] = "Statistic.FastAccess.Template.StatisticsFileName.Tooltip";
     t[20307] = "Retruns the file name of the statistics file";
     t[20316] = "Distribution.Location";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25405] = "Reset all";
     t[25406] = "Surface.Batch.Dialog.BatchSize.Error.InfoFixed";
     t[25407] = "The specified value \"%s\" for the batch size is invalid. A positive integer number has to be entered.";
-    t[25408] = "Simulation.Log.InputDB.Info";
-    t[25409] = "Client: %s, station: %s, %s:=%s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[25408] = "Simulation.Log.InputDB.Info";
+    t[25409] = "Client: %s, station: %s, %s:=%s";
     t[25420] = "Simulation.Log.HoldMulti.InfoLeave";
     t[25421] = "Client: %s, station: %s, sending via output %d of %d";
     t[25424] = "ExpressionBuilder.StatisticalFunctions.Maximum";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30499] = "By dobble clicking a search result the corresponding element can be shown in the editor.";
     t[30500] = "Simulation.Log.SetJS";
     t[30501] = "Javascript variable assignment";
-    t[30502] = "Simulation.Log.Icon.Default";
-    t[30503] = "default icon";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[30502] = "Simulation.Log.Icon.Default";
+    t[30503] = "default icon";
     t[30504] = "InfoDialog.JavaCompiler.Yes";
     t[30505] = "available (JDK)";
     t[30514] = "Window.BackgroundColor.Tab.Image";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35683] = "a";
     t[35684] = "Examples.LimitedNumberOfClientsAtAStation";
     t[35685] = "Limited number of clients at a station";
-    t[35690] = "ScriptPopup.Output.Format.Number";
-    t[35691] = "Numbers (fraction or percent value)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[35690] = "ScriptPopup.Output.Format.Number";
+    t[35691] = "Numbers (fraction or percent value)";
     t[35692] = "Surface.Batch.Dialog.BatchSize.Error.InfoMax";
     t[35693] = "The specified value \"%s\" for the maximum batch size is invalid. A positive integer number has to be entered.";
     t[35694] = "Surface.AnimationDiagram.XML.Range";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40873] = "Save workbook";
     t[40874] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.DownNumber";
     t[40875] = "<p>Returns the number of operators over all resources that are currently in down time.</p>";
-    t[40876] = "Surface.BarrierPull.Dialog.MaxNumber";
-    t[40877] = "Maximum number of clients in segment";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[40876] = "Surface.BarrierPull.Dialog.MaxNumber";
+    t[40877] = "Maximum number of clients in segment";
     t[40878] = "ModelDescription.Arrival.Signal";
     t[40879] = "Arrival at signal";
     t[40882] = "Simulation.Log.Input.InfoClientDataString";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46013] = "Client";
     t[46018] = "Transporter.Group.Edit.Dialog.Failure.Expression.Error.Title";
     t[46019] = "Invalid inter down time expression";
-    t[46024] = "Simulation.Log.Input.Info";
-    t[46025] = "Client: %s, station: %s, %s:=%s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[46024] = "Simulation.Log.Input.Info";
+    t[46025] = "Client: %s, station: %s, %s:=%s";
     t[46028] = "Editor.Dialog.Sequences.MoveDown.Hint";
     t[46029] = "Moves the current sequence one position down in list";
     t[46044] = "XML.NoFileSelected";

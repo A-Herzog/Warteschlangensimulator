@@ -24,7 +24,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -35,7 +34,6 @@ import java.util.function.Function;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -540,8 +538,8 @@ public class ModelElement {
 	protected final JMenuItem addVisualizationMenuItem(final ModelElementPosition element, final String text, final JMenu parentMenu, final Consumer<ModelElementPosition> addElement) {
 		final JMenuItem item=new JMenuItem((text==null || text.trim().isEmpty())?element.getContextMenuElementName():text);
 		item.setToolTipText(element.getToolTip());
-		final URL imgURL=element.getAddElementIcon();
-		if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+		final Icon icon=element.getAddElementIcon();
+		if (icon!=null) item.setIcon(icon);
 		item.addActionListener(e->addElement.accept(element));
 		parentMenu.add(item);
 		return item;
@@ -857,7 +855,7 @@ public class ModelElement {
 		final JPopupMenu popupMenu=new JPopupMenu();
 		JMenu sub;
 		JMenuItem item;
-		URL url;
+		Icon icon;
 
 		/* Darstellung des Elements */
 		final JPanel panel=new JPanel(new BorderLayout());
@@ -999,11 +997,11 @@ public class ModelElement {
 				itemCheck.setEnabled(!readOnly);
 				itemCheck.addActionListener(e->deleteProtection=!deleteProtection);
 				if (deleteProtection) {
-					url=Images.GENERAL_LOCK_CLOSED.getURL();
+					icon=Images.GENERAL_LOCK_CLOSED.getIcon();
 				} else {
-					url=Images.GENERAL_LOCK_OPEN.getURL();
+					icon=Images.GENERAL_LOCK_OPEN.getIcon();
 				}
-				if (url!=null) itemCheck.setIcon(new ImageIcon(url));
+				if (icon!=null) itemCheck.setIcon(icon);
 				popupMenu.add(itemCheck);
 			}
 		}

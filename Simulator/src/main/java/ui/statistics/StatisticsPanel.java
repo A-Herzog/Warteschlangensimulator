@@ -68,7 +68,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	 * @param startSimulation	Callback, das ausgelöst wird, wenn der Nutzer auf der "Noch keine Daten"-Seite auf "Simulation jetzt starten" klickt. (Wird hier <code>null</code> übergeben, so wird diese Option nicht angezeigt.)
 	 */
 	public StatisticsPanel(final int numberOfViewers, final Runnable startSimulation) {
-		super(numberOfViewers,Language.tr("Main.Menu.View.SimulationResults"),Images.STATISTICS_DARK.getURL(),Language.trPrimary("CommandLine.Report.Name"),true);
+		super(numberOfViewers,Language.tr("Main.Menu.View.SimulationResults"),Images.STATISTICS_DARK.getURLs()[0],Language.trPrimary("CommandLine.Report.Name"),true);
 		setCallBacks(startSimulation,()->loadStatistics(null),()->Help.topicModal(StatisticsPanel.this,"MainStatistik"));
 		this.statistics=new Statistics[]{null};
 		updateViewer(true);

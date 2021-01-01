@@ -30,7 +30,6 @@ import java.util.TimerTask;
 import java.util.function.Supplier;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -156,7 +155,7 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 				if (c!=null) diagramTab.add(c,BorderLayout.CENTER);
 			});
 			tabs.setIconAt(0,Images.GENERAL_TABLE.getIcon());
-			tabs.setIconAt(1,new ImageIcon(element.getAddElementIcon()));
+			tabs.setIconAt(1,element.getAddElementIcon());
 			tabs.addChangeListener(e->buttonUnzoom.setVisible(tabs.getSelectedIndex()==1));
 		}
 

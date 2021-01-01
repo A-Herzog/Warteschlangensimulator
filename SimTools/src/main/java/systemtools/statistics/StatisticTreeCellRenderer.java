@@ -17,8 +17,8 @@ package systemtools.statistics;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Image;
 import java.io.Serializable;
-import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
@@ -42,37 +42,37 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	private static final long serialVersionUID = -2366015952361517477L;
 
 	/** Icon für Textseiten */
-	private static final URL iconText;
+	private static final Image iconText;
 	/** Icon für Tabellenseiten */
-	private static final URL iconTable;
+	private static final Image iconTable;
 	/** Icon für Liniendiagrammseiten */
-	private static final URL iconImageLine;
+	private static final Image iconImageLine;
 	/** Icon für Balkendiagrammseiten */
-	private static final URL iconImageBar;
+	private static final Image iconImageBar;
 	/** Icon für Tortendiagrammseiten */
-	private static final URL iconImagePie;
+	private static final Image iconImagePie;
 	/** Icon für Bilderseiten */
-	private static final URL iconImagePicture;
+	private static final Image iconImagePicture;
 	/** Icon für XY-Diagrammseiten */
-	private static final URL iconImageXY;
+	private static final Image iconImageXY;
 	/** Icon für Schichtplanseiten */
-	private static final URL iconImageShiftPlan;
+	private static final Image iconImageShiftPlan;
 	/** Icon für Reportgeneratorseiten */
-	private static final URL iconReport;
+	private static final Image iconReport;
 	/** Icon für sonstige Infoseiten */
-	private static final URL iconSpecial;
+	private static final Image iconSpecial;
 
 	static {
-		iconText=SimToolsImages.STATISTICS_TEXT.getURL();
-		iconTable=SimToolsImages.STATISTICS_TABLE.getURL();
-		iconImageLine=SimToolsImages.STATISTICS_DIAGRAM_LINE.getURL();
-		iconImageBar=SimToolsImages.STATISTICS_DIAGRAM_BAR.getURL();
-		iconImagePie=SimToolsImages.STATISTICS_DIAGRAM_PIE.getURL();
-		iconImagePicture=SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getURL();
-		iconImageXY=SimToolsImages.STATISTICS_DIAGRAM_XY.getURL();
-		iconImageShiftPlan=SimToolsImages.STATISTICS_DIAGRAM_SHIFT_PLAN.getURL();
-		iconReport=SimToolsImages.STATISTICS_REPORT.getURL();
-		iconSpecial=SimToolsImages.STATISTICS_SPECIAL.getURL();
+		iconText=SimToolsImages.STATISTICS_TEXT.getImage();
+		iconTable=SimToolsImages.STATISTICS_TABLE.getImage();
+		iconImageLine=SimToolsImages.STATISTICS_DIAGRAM_LINE.getImage();
+		iconImageBar=SimToolsImages.STATISTICS_DIAGRAM_BAR.getImage();
+		iconImagePie=SimToolsImages.STATISTICS_DIAGRAM_PIE.getImage();
+		iconImagePicture=SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getImage();
+		iconImageXY=SimToolsImages.STATISTICS_DIAGRAM_XY.getImage();
+		iconImageShiftPlan=SimToolsImages.STATISTICS_DIAGRAM_SHIFT_PLAN.getImage();
+		iconReport=SimToolsImages.STATISTICS_REPORT.getImage();
+		iconSpecial=SimToolsImages.STATISTICS_SPECIAL.getImage();
 	}
 
 	/**
@@ -129,18 +129,18 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	}
 
 	/**
-	 * Liefert das zugehörige Icon zu einem <code>DefaultMutableTreeNode</code> bzw. dem als Nutzerobjekt eingebetteten <code>StatisticNode</code>	 *
+	 * Liefert das zugehörige Icon zu einem <code>DefaultMutableTreeNode</code> bzw. dem als Nutzerobjekt eingebetteten <code>StatisticNode</code>
 	 * @param value	Objekt vom Typ <code>DefaultMutableTreeNode</code> zu dem das passende Icon gesucht werden soll
 	 * @return	Icon-URL zu dem passenden Icon
 	 * @see StatisticNode
 	 */
-	public URL getIconURL(Object value) {
+	public Image getIcon(Object value) {
 		if (value==null) return null;
 		if (!(value instanceof DefaultMutableTreeNode)) return null;
 		if (!(((DefaultMutableTreeNode)value).getUserObject() instanceof StatisticNode)) return null;
 		if (((StatisticNode)(((DefaultMutableTreeNode)value).getUserObject())).viewer.length==0) return null;
 
-		return getStatisticViewerIconURL(((StatisticNode)((DefaultMutableTreeNode)value).getUserObject()).viewer[0]);
+		return getImageViewerIcon(((StatisticNode)((DefaultMutableTreeNode)value).getUserObject()).viewer[0]);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * @param viewerImageType	Diagrammtyp
 	 * @return	Zugehörige Icon-URL
 	 */
-	public static URL getImageViewerIcon(final StatisticViewer.ViewerImageType viewerImageType) {
+	public static Image getImageViewerIcon(final StatisticViewer.ViewerImageType viewerImageType) {
 		switch (viewerImageType) {
 		case IMAGE_TYPE_LINE: return iconImageLine;
 		case IMAGE_TYPE_BAR: return iconImageBar;
@@ -166,7 +166,7 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * @param viewer	{@link StatisticViewer} zu dem das Icon geliefert werden soll
 	 * @return	Icon-URL zu dem passenden Icon oder im Fehlerfall <code>null</code>
 	 */
-	public static URL getStatisticViewerIconURL(final StatisticViewer viewer) {
+	public static Image getImageViewerIcon(final StatisticViewer viewer) {
 		if (viewer==null) return null;
 
 		switch (viewer.getType()) {
@@ -185,9 +185,9 @@ public class StatisticTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * @return	Gibt an, ob für den Eintrag ein Icon gefunden wurde
 	 */
 	private boolean iconProcessing(Object value) {
-		URL url=getIconURL(value);
-		if (url==null) return false;
-		setIcon(new ImageIcon(url));
+		final Image image=getIcon(value);
+		if (image==null) return false;
+		setIcon(new ImageIcon(image));
 		return true;
 	}
 

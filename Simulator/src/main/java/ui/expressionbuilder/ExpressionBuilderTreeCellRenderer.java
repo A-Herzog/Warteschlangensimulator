@@ -17,8 +17,8 @@ package ui.expressionbuilder;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Image;
 import java.io.Serializable;
-import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
@@ -43,32 +43,32 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 	private static final long serialVersionUID = -1111382540141167151L;
 
 	/** Icon für Konstanten */
-	private URL iconConst=null;
+	private Image iconConst=null;
 	/** Icon für Variablen */
-	private URL iconVariable=null;
+	private Image iconVariable=null;
 	/** Icon für Funktionen */
-	private URL iconFunction=null;
+	private Image iconFunction=null;
 	/** Icon für Wahrscheinlichkeitsverteilungen */
-	private URL iconDistribution=null;
+	private Image iconDistribution=null;
 	/** Icon für Simulationsdaten */
-	private URL iconSimData=null;
+	private Image iconSimData=null;
 	/** Icon für Stations-IDs */
-	private URL iconStationID=null;
+	private Image iconStationID=null;
 	/** Icon für Kundendaten */
-	private URL iconClientData=null;
+	private Image iconClientData=null;
 
 	/**
 	 * Konstruktor der Klasse
 	 */
 	public ExpressionBuilderTreeCellRenderer() {
 		super();
-		iconConst=Images.EXPRESSION_BUILDER_CONST.getURL();
-		iconVariable=Images.EXPRESSION_BUILDER_VARIABLE.getURL();
-		iconFunction=Images.EXPRESSION_BUILDER_FUNCTION.getURL();
-		iconDistribution=Images.EXPRESSION_BUILDER_DISTRIBUTION.getURL();
-		iconSimData=Images.EXPRESSION_BUILDER_SIMDATA.getURL();
-		iconStationID=Images.EXPRESSION_BUILDER_STATION_ID.getURL();
-		iconClientData=Images.EXPRESSION_BUILDER_CLIENT_DATA.getURL();
+		iconConst=Images.EXPRESSION_BUILDER_CONST.getImage();
+		iconVariable=Images.EXPRESSION_BUILDER_VARIABLE.getImage();
+		iconFunction=Images.EXPRESSION_BUILDER_FUNCTION.getImage();
+		iconDistribution=Images.EXPRESSION_BUILDER_DISTRIBUTION.getImage();
+		iconSimData=Images.EXPRESSION_BUILDER_SIMDATA.getImage();
+		iconStationID=Images.EXPRESSION_BUILDER_STATION_ID.getImage();
+		iconClientData=Images.EXPRESSION_BUILDER_CLIENT_DATA.getImage();
 	}
 
 	/**
@@ -114,7 +114,7 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * @param value	Baumeintrag zu dem die Icon-URL bestimmt werden soll
 	 * @return	Icon-URL zu dem Baumeintrag oder <code>null</code>, wenn keine URL bestimmt werden konnte
 	 */
-	private URL getIconURL(Object value) {
+	private Image getIcon(Object value) {
 		if (value==null) return null;
 
 		if (!(value instanceof DefaultMutableTreeNode)) return null;
@@ -140,9 +140,9 @@ class ExpressionBuilderTreeCellRenderer extends DefaultTreeCellRenderer {
 	 * @return	Icon-URL zu dem Baumeintrag oder <code>null</code>, wenn keine URL bestimmt werden konnte
 	 */
 	private boolean iconProcessing(Object value) {
-		URL url=getIconURL(value);
-		if (url==null) return false;
-		setIcon(new ImageIcon(url));
+		final Image image=getIcon(value);
+		if (image==null) return false;
+		setIcon(new ImageIcon(image));
 		return true;
 	}
 

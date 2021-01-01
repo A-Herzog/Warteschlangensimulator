@@ -22,8 +22,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.net.URL;
 import java.util.concurrent.Semaphore;
+
+import javax.swing.Icon;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -154,8 +155,8 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ANIMATION_TEXT_VALUE_JS.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_ANIMATION_TEXT_VALUE_JS.getIcon();
 	}
 
 	/**

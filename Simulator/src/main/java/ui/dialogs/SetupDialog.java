@@ -290,7 +290,7 @@ public final class SetupDialog extends BaseDialog {
 	public SetupDialog(final Component owner, final Page showPage) {
 		super(owner,Language.tr("SettingsDialog.Title"));
 
-		addUserButton(Language.tr("SettingsDialog.Default"),Language.tr("SettingsDialog.Default.Hint"),Images.EDIT_UNDO.getURL());
+		addUserButton(Language.tr("SettingsDialog.Default"),Language.tr("SettingsDialog.Default.Hint"),Images.EDIT_UNDO.getIcon());
 		JPanel main=createGUI(()->Help.topicModal(SetupDialog.this.owner,"Setup"));
 		main.setLayout(new BorderLayout());
 		main.add(tabs=new JTabbedPane(),BorderLayout.CENTER);

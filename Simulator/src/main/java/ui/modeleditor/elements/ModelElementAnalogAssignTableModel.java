@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -121,7 +121,7 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==changeID.size()) {
 			switch (columnIndex) {
-			case 3:	return makeButtonPanel(new String[]{Language.tr("Surface.AnalogAssign.Dialog.Add")},new URL[]{Images.MODELEDITOR_ELEMENT_ANALOG_ASSIGN.getURL()},new ActionListener[]{new EditButtonListener(0,-1)});
+			case 3:	return makeButtonPanel(new String[]{Language.tr("Surface.AnalogAssign.Dialog.Add")},new Icon[]{Images.MODELEDITOR_ELEMENT_ANALOG_ASSIGN.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
 			default: return "";
 			}
 		}
@@ -140,33 +140,33 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 		case 3:
 			final List<String> title=new ArrayList<>();
 			final List<String> tooltip=new ArrayList<>();
-			final List<URL> iconURL=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<ActionListener> listener=new ArrayList<>();
 
 			title.add("");
 			tooltip.add(Language.tr("Surface.AnalogAssign.Dialog.Edit.Hint"));
-			iconURL.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			listener.add(new EditButtonListener(0,rowIndex));
 
 			title.add("");
 			tooltip.add(Language.tr("Surface.AnalogAssign.Dialog.Delete.Hint"));
-			iconURL.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			listener.add(new EditButtonListener(1,rowIndex));
 
 			if (rowIndex>0) {
 				title.add("");
 				tooltip.add(Language.tr("Surface.AnalogAssign.Dialog.Up.Hint"));
-				iconURL.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				listener.add(new EditButtonListener(2,rowIndex));
 			}
 
 			if (rowIndex<changeID.size()-1) {
 				title.add("");
 				tooltip.add(Language.tr("Surface.AnalogAssign.Dialog.Down.Hint"));
-				iconURL.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				listener.add(new EditButtonListener(3,rowIndex));
 			}
-			return makeButtonPanel(title.toArray(new String[0]),tooltip.toArray(new String[0]),iconURL.toArray(new URL[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(title.toArray(new String[0]),tooltip.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
 		default:
 			return null;
 		}

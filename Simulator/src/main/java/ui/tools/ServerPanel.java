@@ -28,13 +28,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -170,7 +169,7 @@ public final class ServerPanel extends SpecialPanel {
 		startStopWebButton=addUserButton(Language.tr("SimulationServer.Toolbar.WebStart"),Language.tr("SimulationServer.Toolbar.WebStart.Hint"),null);
 		startStopDDEButton=addUserButton(Language.tr("SimulationServer.Toolbar.DDEStart"),Language.tr("SimulationServer.Toolbar.DDEStart.Hint"),null);
 		addCloseButton();
-		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getURL());
+		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon());
 
 		/* Mainpanel */
 
@@ -356,20 +355,20 @@ public final class ServerPanel extends SpecialPanel {
 	 * @param triggerNotifiy	Andere Fenster benachrichtigen?
 	 */
 	private void setupButtons(final boolean triggerNotifiy) {
-		URL imgURL;
+		Icon icon;
 
 		/* Simulationssserver */
 
 		if (serverCalc.isServerRunning()) {
 			startStopCalcButton.setText(Language.tr("SimulationServer.Toolbar.Stop"));
 			startStopCalcButton.setToolTipText(Language.tr("SimulationServer.Toolbar.Stop.Hint"));
-			imgURL=Images.SERVER_CALC_STOP.getURL();
+			icon=Images.SERVER_CALC_STOP.getIcon();
 		} else {
 			startStopCalcButton.setText(Language.tr("SimulationServer.Toolbar.Start"));
 			startStopCalcButton.setToolTipText(Language.tr("SimulationServer.Toolbar.Start.Hint"));
-			imgURL=Images.SERVER_CALC_START.getURL();
+			icon=Images.SERVER_CALC_START.getIcon();
 		}
-		if (imgURL!=null) startStopCalcButton.setIcon(new ImageIcon(imgURL));
+		if (icon!=null) startStopCalcButton.setIcon(icon);
 
 		calcPortEditSpinner.setEnabled(!serverCalc.isServerRunning());
 		calcPasswordEdit.setEnabled(!serverCalc.isServerRunning());
@@ -380,13 +379,13 @@ public final class ServerPanel extends SpecialPanel {
 		if (serverCalcWeb.isRunning()) {
 			startStopCalcWebButton.setText(Language.tr("SimulationServer.Toolbar.CalcWebStop"));
 			startStopCalcWebButton.setToolTipText(Language.tr("SimulationServer.Toolbar.CalcWebStop.Hint"));
-			imgURL=Images.SERVER_CALC_WEB_STOP.getURL();
+			icon=Images.SERVER_CALC_WEB_STOP.getIcon();
 		} else {
 			startStopCalcWebButton.setText(Language.tr("SimulationServer.Toolbar.CalcWebStart"));
 			startStopCalcWebButton.setToolTipText(Language.tr("SimulationServer.Toolbar.CalcWebStart.Hint"));
-			imgURL=Images.SERVER_CALC_WEB_START.getURL();
+			icon=Images.SERVER_CALC_WEB_START.getIcon();
 		}
-		if (imgURL!=null) startStopCalcWebButton.setIcon(new ImageIcon(imgURL));
+		if (icon!=null) startStopCalcWebButton.setIcon(icon);
 
 		calcWebPortEditSpinner.setEnabled(!serverCalcWeb.isRunning());
 
@@ -397,13 +396,13 @@ public final class ServerPanel extends SpecialPanel {
 		if (serverWeb.isRunning()) {
 			startStopWebButton.setText(Language.tr("SimulationServer.Toolbar.WebStop"));
 			startStopWebButton.setToolTipText(Language.tr("SimulationServer.Toolbar.WebStop.Hint"));
-			imgURL=Images.SERVER_WEB_STOP.getURL();
+			icon=Images.SERVER_WEB_STOP.getIcon();
 		} else {
 			startStopWebButton.setText(Language.tr("SimulationServer.Toolbar.WebStart"));
 			startStopWebButton.setToolTipText(Language.tr("SimulationServer.Toolbar.WebStart.Hint"));
-			imgURL=Images.SERVER_WEB_START.getURL();
+			icon=Images.SERVER_WEB_START.getIcon();
 		}
-		if (imgURL!=null) startStopWebButton.setIcon(new ImageIcon(imgURL));
+		if (icon!=null) startStopWebButton.setIcon(icon);
 
 		webPortEditSpinner.setEnabled(!serverWeb.isRunning());
 
@@ -414,13 +413,13 @@ public final class ServerPanel extends SpecialPanel {
 		if (serverDDE.isRunning()) {
 			startStopDDEButton.setText(Language.tr("SimulationServer.Toolbar.DDEStop"));
 			startStopDDEButton.setToolTipText(Language.tr("SimulationServer.Toolbar.DDEStop.Hint"));
-			imgURL=Images.SERVER_DDE_STOP.getURL();
+			icon=Images.SERVER_DDE_STOP.getIcon();
 		} else {
 			startStopDDEButton.setText(Language.tr("SimulationServer.Toolbar.DDEStart"));
 			startStopDDEButton.setToolTipText(Language.tr("SimulationServer.Toolbar.DDEStart.Hint"));
-			imgURL=Images.SERVER_DDE_START.getURL();
+			icon=Images.SERVER_DDE_START.getIcon();
 		}
-		if (imgURL!=null) startStopDDEButton.setIcon(new ImageIcon(imgURL));
+		if (icon!=null) startStopDDEButton.setIcon(icon);
 
 		/* Statusleiste */
 

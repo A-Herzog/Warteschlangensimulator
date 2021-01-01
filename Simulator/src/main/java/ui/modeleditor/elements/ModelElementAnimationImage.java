@@ -120,7 +120,7 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	 * @return	Standard-Vorgabe-Bild
 	 */
 	public static BufferedImage getDummyImage() {
-		final URL url=Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE_EXAMPLE.getURL();
+		final URL url=Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE_EXAMPLE.getURLs()[0];
 		if (url==null) {
 			return new BufferedImage(100,100,BufferedImage.TYPE_4BYTE_ABGR);
 		} else {
@@ -137,8 +137,8 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getIcon();
 	}
 
 	/**

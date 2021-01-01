@@ -18,8 +18,11 @@ package systemtools.statistics;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -30,7 +33,6 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -494,13 +496,17 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	 * @see #buildTree(List, List)
 	 */
 	private String htmlIconForViewer(final StatisticViewer viewer) {
-		final URL url=StatisticTreeCellRenderer.getStatisticViewerIconURL(viewer);
-		if (url==null) return "";
+		final Image image=StatisticTreeCellRenderer.getImageViewerIcon(viewer);
+		if (image==null) return "";
 
 		final ByteArrayOutputStream out=new ByteArrayOutputStream();
 
 		try {
-			ImageIO.write(ImageIO.read(url),"png",out);
+			final BufferedImage bufferedImage=new BufferedImage(image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
+			final Graphics2D bGr=bufferedImage.createGraphics();
+			bGr.drawImage(image,0,0,null);
+			bGr.dispose();
+			ImageIO.write(bufferedImage,"png",out);
 		} catch (IOException e) {return "";}
 		final byte[] bytes=out.toByteArray();
 

@@ -92,7 +92,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 	@Override
 	protected void initUserButtons() {
 		if (!readOnly) {
-			addUserButton(Language.tr("Surface.AnimationBarChart.HistogramWizard.ButtonTitle"),Language.tr("Surface.AnimationBarChart.HistogramWizard.ButtonHint"),Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_CHART.getURL());
+			addUserButton(Language.tr("Surface.AnimationBarChart.HistogramWizard.ButtonTitle"),Language.tr("Surface.AnimationBarChart.HistogramWizard.ButtonHint"),Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_CHART.getIcon());
 		}
 	}
 

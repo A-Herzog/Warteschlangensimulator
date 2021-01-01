@@ -18,11 +18,11 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -131,38 +131,38 @@ public class ExpressionTableModelText extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==expressions.size()) {
 			if (columnIndex>0) return "";
-			return makeButtonPanel(new String[]{Language.tr("Surface.ExpressionTableModelText.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new EditButtonListener(0,-1)});
+			return makeButtonPanel(new String[]{Language.tr("Surface.ExpressionTableModelText.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
 		}
 
 		switch (columnIndex) {
 		case 0:
-			return makeEditPanelSmallBorder(
-					Images.MODE_EXPRESSION.getURL(),
+			return makeEditPanelSmallBorderIcon(
+					Images.MODE_EXPRESSION.getIcon(),
 					expressions.get(rowIndex),
-					new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},
+					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 					new String[]{Language.tr("Surface.ExpressionTableModelText.Edit"),Language.tr("Surface.ExpressionTableModelText.Delete")},
 					new ActionListener[]{new EditButtonListener(0,rowIndex),new DeleteButtonListener(rowIndex)}
 					);
 		case 1:
-			List<URL> icons=new ArrayList<>();
+			List<Icon> icons=new ArrayList<>();
 			List<String> hints=new ArrayList<>();
 			List<ActionListener> actions=new ArrayList<>();
-			icons.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			hints.add(Language.tr("Surface.ExpressionTableModelText.Edit"));
 			actions.add(new EditButtonListener(1,rowIndex));
 			if (rowIndex>0) {
-				icons.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				hints.add(Language.tr("Surface.ExpressionTableModelText.MoveUp"));
 				actions.add(new EditButtonListener(3,rowIndex));
 			}
 			if (rowIndex<values.size()-1) {
-				icons.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				hints.add(Language.tr("Surface.ExpressionTableModelText.MoveDown"));
 				actions.add(new EditButtonListener(4,rowIndex));
 			}
 			return makeEditPanelSmallBorder(
 					values.get(rowIndex),
-					icons.toArray(new URL[0]),
+					icons.toArray(new Icon[0]),
 					hints.toArray(new String[0]),
 					actions.toArray(new ActionListener[0])
 					);

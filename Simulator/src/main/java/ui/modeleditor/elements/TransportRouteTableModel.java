@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -117,17 +117,17 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==routes.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new EditButtonListener(0,-1)});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
 			case 1: return "";
 			}
 		}
 
 		switch (columnIndex) {
 		case 0:
-			return makeEditPanelSmallBorder(
-					Images.MODELEDITOR_ELEMENT_TRANSPORT_TARGET.getURL(),
+			return makeEditPanelSmallBorderIcon(
+					Images.MODELEDITOR_ELEMENT_TRANSPORT_TARGET.getIcon(),
 					routes.get(rowIndex).getConditionText(),
-					new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},
+					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 					new String[]{
 							Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit"),
 							Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Delete")
@@ -144,7 +144,7 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 				/* kein Nach-Oben-Button */
 				return makeEditPanelSmallBorder(
 						routes.get(rowIndex).station,
-						new URL[]{Images.ARROW_DOWN.getURL()},
+						new Icon[]{Images.ARROW_DOWN.getIcon()},
 						new String[]{Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Down")},
 						new ActionListener[]{new EditButtonListener(2,rowIndex)});
 			}
@@ -152,13 +152,13 @@ public class TransportRouteTableModel extends JTableExtAbstractTableModel {
 				/* kein Nach-Unten-Button */
 				return makeEditPanelSmallBorder(
 						routes.get(rowIndex).station,
-						new URL[]{Images.ARROW_UP.getURL()},
+						new Icon[]{Images.ARROW_UP.getIcon()},
 						new String[]{Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Up")},
 						new ActionListener[]{new EditButtonListener(1,rowIndex)});
 			}
 			return makeEditPanelSmallBorder(
 					routes.get(rowIndex).station,
-					new URL[]{Images.ARROW_UP.getURL(),Images.ARROW_DOWN.getURL()},
+					new Icon[]{Images.ARROW_UP.getIcon(),Images.ARROW_DOWN.getIcon()},
 					new String[]{
 							Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Up"),
 							Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Down")

@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.table.TableCellEditor;
 
@@ -182,7 +182,7 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==records.size()) {
-			if (columnIndex==3) return makeButtonPanel(new String[]{Language.tr("Surface.WayPoint.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
+			if (columnIndex==3) return makeButtonPanel(new String[]{Language.tr("Surface.WayPoint.Table.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new TableButtonListener()});
 			return "";
 		}
 
@@ -194,23 +194,23 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 		case 2:
 			return ""+records.get(rowIndex).getIndex();
 		case 3:
-			final List<URL> icons=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<String> hints=new ArrayList<>();
 			final List<ActionListener> listeners=new ArrayList<>();
-			icons.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			hints.add(Language.tr("Surface.WayPoint.Table.Delete"));
 			listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DELETE));
 			if (rowIndex>0) {
-				icons.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				hints.add(Language.tr("Surface.WayPoint.Table.MoveUp"));
 				listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_UP));
 			}
 			if (rowIndex<records.size()-1) {
-				icons.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				hints.add(Language.tr("Surface.WayPoint.Table.MoveDown"));
 				listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DOWN));
 			}
-			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new URL[0]),listeners.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new Icon[0]),listeners.toArray(new ActionListener[0]));
 		}
 
 		return null;

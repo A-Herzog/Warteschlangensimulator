@@ -22,7 +22,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
-import java.net.URL;
+
+import javax.swing.Icon;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -83,8 +84,8 @@ public class ModelElementAnimationTrafficLights extends ModelElementAnimationCus
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ANIMATION_TRAFFIC_LIGHTS.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_ANIMATION_TRAFFIC_LIGHTS.getIcon();
 	}
 
 	/**

@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -103,8 +102,8 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_HOLD_MULTI.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_HOLD_MULTI.getIcon();
 	}
 
 	/**
@@ -351,7 +350,7 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
 		JMenuItem item;
-		final URL imgURL=Images.EDIT_EDGES_DELETE.getURL();
+		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
 		boolean needSeparator=false;
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
@@ -359,7 +358,7 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);
 			});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			needSeparator=true;
 		}
@@ -369,7 +368,7 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 			item.addActionListener(e->{
 				for (ModelElementEdge element : new ArrayList<>(connectionsOut)) surface.remove(element);
 			});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			needSeparator=true;
 		}

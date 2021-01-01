@@ -76,7 +76,7 @@ abstract class HTMLDialog extends JDialog {
 		this.specialLinks=specialLinks;
 
 		/* Fenster-Icon*/
-		setIconImage(getToolkit().getImage(SimToolsImages.HELP.getURL()));
+		setIconImage(SimToolsImages.HELP.getImage());
 
 		/* HTMLPanel anlegen */
 		Container p=getContentPane();

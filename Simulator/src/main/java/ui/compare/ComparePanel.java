@@ -88,9 +88,9 @@ public class ComparePanel extends SpecialPanel {
 
 		addCloseButton();
 		addSeparator();
-		showModelButton=addUserButton(Language.tr("Main.Toolbar.ShowModelForTheseResults2"),Language.tr("Main.Toolbar.ShowModelForTheseResults2.Hint"),Images.MODEL.getURL());
+		showModelButton=addUserButton(Language.tr("Main.Toolbar.ShowModelForTheseResults2"),Language.tr("Main.Toolbar.ShowModelForTheseResults2.Hint"),Images.MODEL.getIcon());
 		addSeparator();
-		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getURL());
+		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon());
 
 		/* F1-Hotkey */
 		getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F1"),"actionHelp");

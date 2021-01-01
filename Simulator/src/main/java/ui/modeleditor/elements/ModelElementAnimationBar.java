@@ -24,8 +24,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
-import java.net.URL;
 import java.util.concurrent.Semaphore;
+
+import javax.swing.Icon;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -41,6 +45,7 @@ import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.fastpaint.BrighterColor;
@@ -187,8 +192,8 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ANIMATION_BAR.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_ANIMATION_BAR.getIcon();
 	}
 
 	/**
@@ -949,5 +954,35 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	@Override
 	public void specialOutput(final SpecialOutputBuilder outputBuilder) {
 		if (outputBuilder instanceof HTMLOutputBuilder) specialOutputHTML((HTMLOutputBuilder)outputBuilder);
+	}
+
+	/**
+	 * Erstellt einen Kontextmenü-Menüpunkt zur Festlegung einer Standardgröße für das Element
+	 * @param x	Horizontale Größe (gemessen in 50-Pixel-Kästen)
+	 * @param y	Vertikale Größe (gemessen in 50-Pixel-Kästen)
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem sizeItem(final int x, final int y) {
+		final JMenuItem item=new JMenuItem(x+"x"+y);
+		item.addActionListener(e->{
+			setSize(new Dimension(x*50,y*50));
+			fireChanged();
+		});
+		return item;
+	}
+
+	@Override
+	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
+		super.addContextMenuItems(owner,popupMenu,surfacePanel,point,readOnly);
+
+		final JMenu sizesMenu=new JMenu(Language.tr("Surface.PopupMenu.DefaultSizes"));
+		sizesMenu.setIcon(Images.SETUP_WINDOW_SIZE_FULL.getIcon());
+		popupMenu.add(sizesMenu);
+
+		sizesMenu.add(sizeItem(2,2));
+		sizesMenu.add(sizeItem(5,5));
+		sizesMenu.add(sizeItem(8,5));
+		sizesMenu.add(sizeItem(12,5));
+		sizesMenu.add(sizeItem(16,5));
 	}
 }

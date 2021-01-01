@@ -33,6 +33,7 @@ import java.net.URL;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -322,8 +323,8 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 	 * Liefert ein Icon für den Tab
 	 * @return	Icon oder <code>null</code>, wenn kein Icon für den Tab angezeigt werden soll
 	 */
-	public URL getTabIcon() {
-		return Images.EXTRAS_QUEUE_FUNCTION.getURL();
+	public Icon getTabIcon() {
+		return Images.EXTRAS_QUEUE_FUNCTION.getIcon();
 	}
 
 	/**

@@ -19,11 +19,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.TableCellEditor;
 
@@ -194,7 +194,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==resources.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Resources.Group.Add")},new URL[]{Images.MODELPROPERTIES_OPERATORS_ADD.getURL()},new ActionListener[]{new AddButtonListener()});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Resources.Group.Add")},new Icon[]{Images.MODELPROPERTIES_OPERATORS_ADD.getIcon()},new ActionListener[]{new AddButtonListener()});
 			case 1: return "";
 			}
 		}
@@ -207,13 +207,13 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 			return makeEditPanelSmallBorderIcon(
 					new ImageIcon(image),
 					"<html><body>"+resources.getName(rowIndex)+" <span style=\"color: gray;\">"+String.format(Language.tr("Resources.Group.ID"),rowIndex+1)+"</span>",
-					new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},new String[]{Language.tr("Resources.Group.EditName"),Language.tr("Resources.Group.Delete")},
+					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},new String[]{Language.tr("Resources.Group.EditName"),Language.tr("Resources.Group.Delete")},
 					new ActionListener[]{new EditButtonListener(0,rowIndex),new DeleteButtonListener(rowIndex)}
 					);
 		case 1:
 			return makeEditPanelSmallBorder(
 					getCount(rowIndex),
-					new URL[]{Images.GENERAL_DECREASE.getURL(),Images.GENERAL_INCREASE.getURL(),Images.GENERAL_SETUP.getURL()},
+					new Icon[]{Images.GENERAL_DECREASE.getIcon(),Images.GENERAL_INCREASE.getIcon(),Images.GENERAL_SETUP.getIcon()},
 					new String[]{Language.tr("Resources.Number.Decrease"),Language.tr("Resources.Number.Increase"),Language.tr("Resources.Number.Edit")},
 					new ActionListener[]{new EditButtonListener(1,rowIndex),new EditButtonListener(2,rowIndex),new EditButtonListener(0,rowIndex)}
 					);

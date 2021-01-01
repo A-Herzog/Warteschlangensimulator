@@ -99,8 +99,8 @@ public class ModelDescriptionDialog extends BaseDialog {
 		showCloseButton=true;
 
 		/* GUI aufbauen */
-		addUserButton(Language.tr("ModelDescription.Dialog.Copy"),Images.EDIT_COPY.getURL());
-		addUserButton(Language.tr("ModelDescription.Dialog.Save"),Images.GENERAL_SAVE.getURL());
+		addUserButton(Language.tr("ModelDescription.Dialog.Copy"),Images.EDIT_COPY.getIcon());
+		addUserButton(Language.tr("ModelDescription.Dialog.Save"),Images.GENERAL_SAVE.getIcon());
 		final JPanel content=createGUI(()->Help.topicModal(this,"EditorDescriptionDialog"));
 		content.setLayout(new BorderLayout());
 

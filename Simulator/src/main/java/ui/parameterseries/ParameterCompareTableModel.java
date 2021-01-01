@@ -345,7 +345,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		}
 
 		if (busyIcon==null) {
-			busyIcon=new ImageIcon(Images.GENERAL_WAIT_INDICATOR.getURL());
+			busyIcon=new ImageIcon(Images.GENERAL_WAIT_INDICATOR.getURLs()[0]);
 			busyIcon.setImageObserver(table); /* sonst bleibt die Animation stehen, wenn die Zelle den Fokus verliert */
 		}
 

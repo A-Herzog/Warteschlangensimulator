@@ -19,10 +19,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.net.URL;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.swing.Icon;
 import javax.swing.JMenu;
 
 import org.apache.commons.math3.util.FastMath;
@@ -122,8 +122,8 @@ public class ModelElementAnalogValue extends ModelElementBox {
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ANALOG_VALUE.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_ANALOG_VALUE.getIcon();
 	}
 
 	/**

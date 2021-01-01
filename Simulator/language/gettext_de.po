@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 22:01+0100\n"
+"POT-Creation-Date: 2020-12-31 00:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22838,6 +22838,9 @@ msgstr "Letzte Werte anzeigen"
 
 msgid "Surface.PopupMenu.Arrange"
 msgstr "Anordnen"
+
+msgid "Surface.PopupMenu.DefaultSizes"
+msgstr "Standardgrößen"
 
 msgid "Surface.PopupMenu.Help"
 msgstr "Hilfe"

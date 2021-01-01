@@ -19,13 +19,12 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -134,13 +133,13 @@ public class SpecialPanel extends JPanel {
 	 * @param icon	Optionales Icon (kann <code>null</code> sein)
 	 * @return	Liefert das neue (bereits hinzugefügte) Button
 	 */
-	private JButton addButtonInt(final String title, final String hint, final URL icon) {
+	private JButton addButtonInt(final String title, final String hint, final Icon icon) {
 		initToolbar();
 		JButton button=new JButton(title);
 		toolbar.add(button);
 		if (hint!=null && !hint.isEmpty()) button.setToolTipText(hint);
 		button.addActionListener(buttonListener);
-		if (icon!=null) button.setIcon(new ImageIcon(icon));
+		if (icon!=null) button.setIcon(icon);
 		return button;
 	}
 
@@ -159,7 +158,7 @@ public class SpecialPanel extends JPanel {
 	 */
 	protected final void addCloseButton() {
 		if (closeButton!=null) return;
-		closeButton=addButtonInt(buttonClose,buttonCloseHint,Images.GENERAL_EXIT.getURL());
+		closeButton=addButtonInt(buttonClose,buttonCloseHint,Images.GENERAL_EXIT.getIcon());
 	}
 
 	/**
@@ -180,7 +179,7 @@ public class SpecialPanel extends JPanel {
 	 * @return	Liefert die Schaltfläche zurück
 	 * @see #userButtonClick(int, JButton)
 	 */
-	protected final JButton addUserButton(final String title, final String hint, final URL icon) {
+	protected final JButton addUserButton(final String title, final String hint, final Icon icon) {
 		JButton button=addButtonInt(title,hint,icon);
 		userButtons.add(button);
 		return button;
@@ -190,7 +189,7 @@ public class SpecialPanel extends JPanel {
 	 * Diese Methode wird aufgerufen, wenn eine der benutzerdefinierten Schaltflächen angeklickt wurde.
 	 * @param index	0-basierender Index der angeklickten Schaltfläche
 	 * @param button	Angeklickte Schaltfläche
-	 * @see #addUserButton(String, String, URL)
+	 * @see #addUserButton(String, String, Icon)
 	 */
 	protected void userButtonClick(int index, JButton button) {}
 

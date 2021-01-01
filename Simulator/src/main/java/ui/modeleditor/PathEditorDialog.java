@@ -88,7 +88,7 @@ public class PathEditorDialog extends BaseDialog {
 		for (PathPoint point: data) point.initOptions(data);
 
 		/* GUI aufbauen */
-		addUserButton(Language.tr("PathEditor.ResetAll"),Language.tr("PathEditor.ResetAll.Hint"),Images.EDIT_UNDO.getURL());
+		addUserButton(Language.tr("PathEditor.ResetAll"),Language.tr("PathEditor.ResetAll.Hint"),Images.EDIT_UNDO.getIcon());
 		JPanel content=createGUI(()->Help.topicModal(PathEditorDialog.this,"PathEditorDialog"));
 		content.setLayout(new BorderLayout());
 		content=InfoPanel.addTopPanelAndGetNewContent(content,InfoPanel.globalPathEditor);

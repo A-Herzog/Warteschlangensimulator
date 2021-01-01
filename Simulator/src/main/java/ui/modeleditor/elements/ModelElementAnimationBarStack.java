@@ -24,11 +24,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+
+import javax.swing.Icon;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -159,8 +160,8 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getIcon();
 	}
 
 	/**

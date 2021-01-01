@@ -82,9 +82,9 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		this.lineCharts=new HashMap<>();
 
 		/* User-Buttons */
-		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom.Hint"),Images.ZOOM_OUT.getURL());
-		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy.Hint"),Images.EDIT_COPY.getURL());
-		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save.Hint"),Images.GENERAL_SAVE.getURL());
+		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom.Hint"),Images.ZOOM_OUT.getIcon());
+		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy.Hint"),Images.EDIT_COPY.getIcon());
+		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save.Hint"),Images.GENERAL_SAVE.getIcon());
 
 		/* GUI */
 		showCloseButton=true;

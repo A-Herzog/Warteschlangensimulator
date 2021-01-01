@@ -21,11 +21,10 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
@@ -103,8 +102,8 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_SUB.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_SUB.getIcon();
 	}
 
 	/**
@@ -375,7 +374,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	 */
 	protected final boolean addRemoveEdgesContextMenuItems(final Component owner, final JPopupMenu popupMenu, final boolean readOnly) {
 		JMenuItem item;
-		final URL imgURL=Images.EDIT_EDGES_DELETE.getURL();
+		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
 		boolean needSeparator=false;
 
 		needSeparator=true;
@@ -388,14 +387,14 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
 			item.addActionListener(e->{for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			needSeparator=true;
 		}
 		if (connectionsOut!=null && connectionsOut.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesOut")));
 			item.addActionListener(e->{for (ModelElementEdge element : new ArrayList<>(connectionsOut)) surface.remove(element);});
-			if (imgURL!=null) item.setIcon(new ImageIcon(imgURL));
+			if (icon!=null) item.setIcon(icon);
 			item.setEnabled(!readOnly);
 			needSeparator=true;
 		}

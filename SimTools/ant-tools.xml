@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE project>
+<project basedir="." default="clean-for-not-oss" name="SimTools helper services">
+
+	<property name="Base.location" location="." />
+		
+	<target name="clean-for-not-oss">
+		<!--
+		Pastel SVG Icons are "Creative Commons Attribution NonCommercial Share Alike 4.0" licensed.
+		If using this library for commerical programs, we need to remove this icons.
+		-->
+		<delete>
+			<fileset dir="${Base.location}/src/main/java/systemtools/images/res24">
+				<exclude name="SmallMinus2.png"/>
+				<exclude name="SmallPlus2.png"/>
+				<exclude name="Table.png"/>
+				<exclude name="Text.png"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="${Base.location}/src/main/java/systemtools/images/res32">
+				<exclude name="SmallMinus2.png"/>
+				<exclude name="SmallPlus2.png"/>
+				<exclude name="Table.png"/>
+				<exclude name="Text.png"/>
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="${Base.location}/src/main/java/systemtools/images/res48">
+				<exclude name="SmallMinus2.png"/>
+				<exclude name="SmallPlus2.png"/>
+				<exclude name="Table.png"/>
+				<exclude name="Text.png"/>
+			</fileset>
+		</delete>
+	</target>
+	
+</project>

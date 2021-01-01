@@ -433,6 +433,12 @@ http://java.sun.com/products/java-media/jai
 - License URL: https://creativecommons.org/licenses/by/3.0/deed.en
 - Homepage: https://p.yusukekamiyamane.com/
 
+### Pastel SVG Icons
+
+- License: Creative Commons Attribution NonCommercial Share Alike 4.0
+- License URL: http://creativecommons.org/licenses/by-nc-sa/4.0/
+- Homepage: http://codefisher.org/pastel-svg/
+
 ---
 
 ## Installer

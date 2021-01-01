@@ -35,6 +35,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JButton;
@@ -55,7 +56,7 @@ import systemtools.images.SimToolsImages;
 /**
  * Diese Klasse stellt einige Basisfunktionen zum Erstellen von Dialogen bereit.
  * @author Alexander Herzog
- * @version 1.9
+ * @version 2.0
  */
 public class BaseDialog extends JDialog {
 	/**
@@ -360,6 +361,18 @@ public class BaseDialog extends JDialog {
 	 * Fügt eine benutzerdefinierte Schaltfläche in der Fußzeile hinzu.<br>
 	 * Diese Funktion muss <b>vor</b> <code>createGUI</code> aufgerufen werden.
 	 * @param caption	Name der Schaltfläche
+	 * @param icon	Icon der Schaltfläche (kann <code>null</code> sein)
+	 * @see BaseDialog#getUserButton(int)
+	 * @see BaseDialog#userButtonClick(int, JButton)
+	 */
+	protected final void addUserButton(String caption, Icon icon) {
+		addUserButton(caption,null,icon);
+	}
+
+	/**
+	 * Fügt eine benutzerdefinierte Schaltfläche in der Fußzeile hinzu.<br>
+	 * Diese Funktion muss <b>vor</b> <code>createGUI</code> aufgerufen werden.
+	 * @param caption	Name der Schaltfläche
 	 * @param tooltip	Tooltip für die Schaltfläche (kann <code>null</code> sein)
 	 * @param icon	URL des Icons der Schaltfläche (kann <code>null</code> sein)
 	 * @see BaseDialog#getUserButton(int)
@@ -369,6 +382,23 @@ public class BaseDialog extends JDialog {
 		JButton button=new JButton(caption);
 		if (tooltip!=null && !tooltip.isEmpty()) button.setToolTipText(tooltip);
 		if (icon!=null)	button.setIcon(new ImageIcon(icon));
+		button.addActionListener(userButtonListener);
+		userButtons.add(button);
+	}
+
+	/**
+	 * Fügt eine benutzerdefinierte Schaltfläche in der Fußzeile hinzu.<br>
+	 * Diese Funktion muss <b>vor</b> <code>createGUI</code> aufgerufen werden.
+	 * @param caption	Name der Schaltfläche
+	 * @param tooltip	Tooltip für die Schaltfläche (kann <code>null</code> sein)
+	 * @param icon	Icons der Schaltfläche (kann <code>null</code> sein)
+	 * @see BaseDialog#getUserButton(int)
+	 * @see BaseDialog#userButtonClick(int, JButton)
+	 */
+	protected final void addUserButton(String caption, String tooltip, Icon icon) {
+		JButton button=new JButton(caption);
+		if (tooltip!=null && !tooltip.isEmpty()) button.setToolTipText(tooltip);
+		if (icon!=null)	button.setIcon(icon);
 		button.addActionListener(userButtonListener);
 		userButtons.add(button);
 	}

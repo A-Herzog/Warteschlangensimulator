@@ -26,7 +26,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.net.URL;
+
+import javax.swing.Icon;
 
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
@@ -105,8 +106,8 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 	 * @return	Icon für das Dropdown-Menü
 	 */
 	@Override
-	public URL getAddElementIcon() {
-		return Images.MODELEDITOR_ELEMENT_INTERACTIVE_CHECKBOX.getURL();
+	public Icon getAddElementIcon() {
+		return Images.MODELEDITOR_ELEMENT_INTERACTIVE_CHECKBOX.getIcon();
 	}
 
 	/**

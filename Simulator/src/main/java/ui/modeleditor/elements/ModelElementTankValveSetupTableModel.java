@@ -18,11 +18,11 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -155,34 +155,34 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==valveSetups.size()) {
-			if (columnIndex==1) return makeButtonPanel(new String[]{Language.tr("Surface.TankValveSetup.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new TableButtonListener()});
+			if (columnIndex==1) return makeButtonPanel(new String[]{Language.tr("Surface.TankValveSetup.Table.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new TableButtonListener()});
 			return "";
 		}
 
 		switch (columnIndex) {
 		case 0:
-			return makePanel(getValveSetupText(valveSetups.get(rowIndex)),Images.MODELEDITOR_ELEMENT_TANK_VALVE.getURL());
+			return makePanelIcon(getValveSetupText(valveSetups.get(rowIndex)),Images.MODELEDITOR_ELEMENT_TANK_VALVE.getIcon());
 		case 1:
-			final List<URL> icons=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<String> hints=new ArrayList<>();
 			final List<ActionListener> listeners=new ArrayList<>();
 			if (rowIndex>0) {
-				icons.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				hints.add(Language.tr("Surface.TankValveSetup.Table.MoveUp"));
 				listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_MOVE_UP));
 			}
 			if (rowIndex<valveSetups.size()-1) {
-				icons.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				hints.add(Language.tr("Surface.TankValveSetup.Table.MoveDown"));
 				listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_MOVE_DOWN));
 			}
-			icons.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			hints.add(Language.tr("Surface.TankValveSetup.Table.Edit"));
 			listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_EDIT));
-			icons.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			hints.add(Language.tr("Surface.TankValveSetup.Table.Delete"));
 			listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DELETE));
-			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new URL[0]),listeners.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new Icon[0]),listeners.toArray(new ActionListener[0]));
 		}
 
 		return null;

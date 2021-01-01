@@ -78,12 +78,12 @@ public class JSModelRunnerPanel extends SpecialPanel {
 		this.fullMode=fullMode;
 
 		/* Haupttoolbar */
-		startButton=addUserButton(Language.tr("JSRunner.Toolbar.Start"),Language.tr("JSRunner.Toolbar.Start.Hint"),Images.SCRIPT_RUN.getURL());
+		startButton=addUserButton(Language.tr("JSRunner.Toolbar.Start"),Language.tr("JSRunner.Toolbar.Start.Hint"),Images.SCRIPT_RUN.getIcon());
 		if (fullMode) {
 			addSeparator();
 			addCloseButton();
 			addSeparator();
-			helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getURL());
+			helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon());
 		} else {
 			helpButton=null;
 		}

@@ -158,8 +158,8 @@ public final class CreateSankey extends BaseDialog {
 		stationNameEnd=Language.tr("Simulation.ClientMovement.End").toUpperCase();
 		this.stations=getStationsList();
 
-		addUserButton(Language.tr("Simulation.ClientMovement.SelectAll"),Images.EDIT_ADD.getURL());
-		addUserButton(Language.tr("Simulation.ClientMovement.SelectNone"),Images.EDIT_DELETE.getURL());
+		addUserButton(Language.tr("Simulation.ClientMovement.SelectAll"),Images.EDIT_ADD.getIcon());
+		addUserButton(Language.tr("Simulation.ClientMovement.SelectNone"),Images.EDIT_DELETE.getIcon());
 		final JPanel content=createGUI(()->Help.topicModal(this,"Sankey"));
 		content.setLayout(new BorderLayout());
 

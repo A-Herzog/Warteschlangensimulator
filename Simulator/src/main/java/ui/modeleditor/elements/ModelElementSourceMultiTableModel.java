@@ -19,10 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.TableCellEditor;
 
@@ -234,7 +234,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==records.size()) {
 			if (columnIndex>0) return "";
-			return makeButtonPanel(new String[]{Language.tr("Surface.MultiSourceTable.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new EditButtonListener(0,-1)});
+			return makeButtonPanel(new String[]{Language.tr("Surface.MultiSourceTable.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new EditButtonListener(0,-1)});
 		}
 
 		final ModelElementSourceRecord record=records.get(rowIndex);
@@ -247,7 +247,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			return makeEditPanelSmallBorderIcon(
 					new ImageIcon(image),
 					record.getName(),
-					new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},
+					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 					new String[]{Language.tr("Surface.MultiSourceTable.Edit"),Language.tr("Surface.MultiSourceTable.Delete")},
 					new ActionListener[]{new EditButtonListener(0,rowIndex),new EditButtonListener(1,rowIndex)}
 					);

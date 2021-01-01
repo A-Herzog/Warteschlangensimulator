@@ -18,12 +18,12 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Icon;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableCellEditor;
 
@@ -160,7 +160,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		if (rowIndex==variables.size()) {
 			switch (columnIndex) {
 			case 0: return "";
-			case 1:	return makeButtonPanel(new String[]{Language.tr("Surface.Set.Table.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new AddButtonListener()});
+			case 1:	return makeButtonPanel(new String[]{Language.tr("Surface.Set.Table.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new AddButtonListener()});
 			}
 		}
 
@@ -168,7 +168,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		case 0:
 			return makeEditPanelSmallBorder(
 					variables.get(rowIndex)+" :=",
-					new URL[]{Images.GENERAL_SETUP.getURL(),Images.EDIT_DELETE.getURL()},
+					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},
 					new String[]{
 							Language.tr("Surface.Set.Table.Edit"),
 							Language.tr("Surface.Set.Table.Delete")
@@ -180,7 +180,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 				/* kein hoch oder runter */
 				return makeEditPanelSmallBorder(
 						expressionDisplayName(expressions.get(rowIndex)),
-						new URL[]{Images.GENERAL_SETUP.getURL()},
+						new Icon[]{Images.GENERAL_SETUP.getIcon()},
 						new String[]{Language.tr("Surface.Set.Table.Edit")},
 						new ActionListener[]{new EditButtonListener(0,rowIndex)});
 			}
@@ -188,7 +188,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 				/* kein Nach-Oben-Button */
 				return makeEditPanelSmallBorder(
 						expressionDisplayName(expressions.get(rowIndex)),
-						new URL[]{Images.ARROW_DOWN.getURL(),Images.GENERAL_SETUP.getURL()},
+						new Icon[]{Images.ARROW_DOWN.getIcon(),Images.GENERAL_SETUP.getIcon()},
 						new String[]{
 								Language.tr("Surface.Set.Table.Down"),
 								Language.tr("Surface.Set.Table.Edit")
@@ -199,7 +199,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 				/* kein Nach-Unten-Button */
 				return makeEditPanelSmallBorder(
 						expressionDisplayName(expressions.get(rowIndex)),
-						new URL[]{Images.ARROW_UP.getURL(),Images.GENERAL_SETUP.getURL()},
+						new Icon[]{Images.ARROW_UP.getIcon(),Images.GENERAL_SETUP.getIcon()},
 						new String[]{
 								Language.tr("Surface.Set.Table.Up"),
 								Language.tr("Surface.Set.Table.Edit")
@@ -208,7 +208,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 			}
 			return makeEditPanelSmallBorder(
 					expressionDisplayName(expressions.get(rowIndex)),
-					new URL[]{Images.ARROW_UP.getURL(),Images.ARROW_DOWN.getURL(),Images.GENERAL_SETUP.getURL()},
+					new Icon[]{Images.ARROW_UP.getIcon(),Images.ARROW_DOWN.getIcon(),Images.GENERAL_SETUP.getIcon()},
 					new String[]{
 							Language.tr("Surface.Set.Table.Up"),
 							Language.tr("Surface.Set.Table.Down"),

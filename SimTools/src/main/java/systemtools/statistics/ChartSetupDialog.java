@@ -116,7 +116,7 @@ public class ChartSetupDialog extends BaseDialog {
 	public ChartSetupDialog(final Component owner, final int saveSize, final ChartSetup chartSetup) {
 		super(owner,StatisticsBasePanel.viewersChartSetupTitle);
 
-		addUserButton(StatisticsBasePanel.viewersChartSetupDefaults,StatisticsBasePanel.viewersChartSetupDefaultsHint,SimToolsImages.UNDO.getURL());
+		addUserButton(StatisticsBasePanel.viewersChartSetupDefaults,StatisticsBasePanel.viewersChartSetupDefaultsHint,SimToolsImages.UNDO.getIcon());
 		final JPanel content=createGUI(null);
 		content.setLayout(new BorderLayout());
 

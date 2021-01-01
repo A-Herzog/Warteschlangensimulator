@@ -99,9 +99,9 @@ public final class TemplatesListDialog extends BaseDialog {
 
 		/* Zusätzliche Buttons */
 
-		addUserButton(Language.tr("UserTemplates.TemplatesDialog.Use"),Images.EDIT_PASTE.getURL());
-		addUserButton("",Images.GENERAL_TOOLS.getURL());
-		addUserButton("",Images.EDIT_DELETE.getURL());
+		addUserButton(Language.tr("UserTemplates.TemplatesDialog.Use"),Images.EDIT_PASTE.getIcon());
+		addUserButton("",Images.GENERAL_TOOLS.getIcon());
+		addUserButton("",Images.EDIT_DELETE.getIcon());
 		getUserButton(1).setToolTipText(Language.tr("UserTemplates.TemplatesDialog.Edit"));
 		getUserButton(2).setToolTipText(Language.tr("UserTemplates.TemplatesDialog.Delete"));
 

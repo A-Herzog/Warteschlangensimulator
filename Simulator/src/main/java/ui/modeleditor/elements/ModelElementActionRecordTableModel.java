@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -179,7 +179,7 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==records.size()) {
-			if (columnIndex==1) return makeButtonPanel(new String[]{Language.tr("Surface.Action.Dialog.Add")},new URL[]{Images.EDIT_ADD.getURL()},new ActionListener[]{new EditButtonListener(0,Command.CMD_ADD)});
+			if (columnIndex==1) return makeButtonPanel(new String[]{Language.tr("Surface.Action.Dialog.Add")},new Icon[]{Images.EDIT_ADD.getIcon()},new ActionListener[]{new EditButtonListener(0,Command.CMD_ADD)});
 			return "";
 		}
 
@@ -189,30 +189,30 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 		} else {
 			/* Steuerbuttons anzeigen */
 			final List<String> tooltip=new ArrayList<>();
-			final List<URL> iconURL=new ArrayList<>();
+			final List<Icon> icons=new ArrayList<>();
 			final List<ActionListener> listener=new ArrayList<>();
 
 			tooltip.add(Language.tr("Surface.Action.Dialog.Edit"));
-			iconURL.add(Images.GENERAL_SETUP.getURL());
+			icons.add(Images.GENERAL_SETUP.getIcon());
 			listener.add(new EditButtonListener(rowIndex,Command.CMD_EDIT));
 
 			if (rowIndex>0) {
 				tooltip.add(Language.tr("Surface.Action.Dialog.MoveUp"));
-				iconURL.add(Images.ARROW_UP.getURL());
+				icons.add(Images.ARROW_UP.getIcon());
 				listener.add(new EditButtonListener(rowIndex,Command.CMD_MOVE_UP));
 			}
 
 			if (rowIndex<records.size()-1) {
 				tooltip.add(Language.tr("Surface.Action.Dialog.MoveDown"));
-				iconURL.add(Images.ARROW_DOWN.getURL());
+				icons.add(Images.ARROW_DOWN.getIcon());
 				listener.add(new EditButtonListener(rowIndex,Command.CMD_MOVE_DOWN));
 			}
 
 			tooltip.add(Language.tr("Surface.Action.Dialog.Delete"));
-			iconURL.add(Images.EDIT_DELETE.getURL());
+			icons.add(Images.EDIT_DELETE.getIcon());
 			listener.add(new EditButtonListener(rowIndex,Command.CMD_DELETE));
 
-			return makeButtonPanel(null,tooltip.toArray(new String[0]),iconURL.toArray(new URL[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,tooltip.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
 		}
 	}
 
