@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
@@ -76,7 +77,7 @@ public class ModelElementImage extends ModelElementDecoration {
 	/**
 	 * Wird in {@link #drawImage(Graphics, double)} verwendet,
 	 * um möglichst wenig Rechenarbeit in
-	 * {@link ScaledImageCache#getScaledImage(String, BufferedImage, int, int)}
+	 * {@link ScaledImageCache#getScaledImage(String, Image, int, int)}
 	 * zu generieren.
 	 * @see #drawImage(Graphics, double)
 	 */

@@ -100,14 +100,14 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 			schedulePanel.setStartPosition(schedulePanel.getStartPosition()-1);
 			enableButtons();
 		});
-		buttonLeft.setIcon(Images.ARROW_LEFT.getIcon());
+		buttonLeft.setIcon(Images.ARROW_LEFT_SHORT.getIcon());
 		toolBar.add(buttonRight=new JButton(Language.tr("Schedule.EditDialog.TimeStepFurther")));
 		buttonRight.setToolTipText(Language.tr("Schedule.EditDialog.TimeStepFurther.Hint"));
 		buttonRight.addActionListener(e->{
 			schedulePanel.setStartPosition(schedulePanel.getStartPosition()+1);
 			enableButtons();
 		});
-		buttonRight.setIcon(Images.ARROW_RIGHT.getIcon());
+		buttonRight.setIcon(Images.ARROW_RIGHT_SHORT.getIcon());
 
 		enableButtons();
 	}

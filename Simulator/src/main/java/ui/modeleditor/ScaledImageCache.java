@@ -27,6 +27,8 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.commons.math3.util.FastMath;
 import org.apache.jena.ext.com.google.common.base.Objects;
 
+import systemtools.ImageTools;
+
 /**
  * Hält Bilder in skalierter Größe vor, so dass nicht bei jedem Aufruf der Zeichenfunktion
  * erneut eine Skalierung vorgenommen werden muss.<br>
@@ -85,9 +87,9 @@ public class ScaledImageCache {
 	 * @param image	Bild, zu dem der Hash berechnet werden soll. (Kann <code>null</code> sein, dann wird "0" geliefert.)
 	 * @return	Hashwert
 	 */
-	public static String getHash(final BufferedImage image) {
+	public static String getHash(final Image image) {
 		if (image==null) return "0";
-		final byte[] pixels=((DataBufferByte)image.getRaster().getDataBuffer()).getData();
+		final byte[] pixels=((DataBufferByte)ImageTools.imageToBufferedImage(image).getRaster().getDataBuffer()).getData();
 
 		for (String algorithm: hashAlgorithms) try {
 			final MessageDigest m=MessageDigest.getInstance(algorithm);
@@ -193,9 +195,9 @@ public class ScaledImageCache {
 	 * @param height	Höhe des skalierten Bildes
 	 * @return	Skaliertes Bild
 	 */
-	private Image getDirectScaledImage(final BufferedImage original, final int width, final int height) {
-		int oldW=original.getWidth();
-		int oldH=original.getHeight();
+	private Image getDirectScaledImage(final Image original, final int width, final int height) {
+		int oldW=original.getWidth(null);
+		int oldH=original.getHeight(null);
 		int newW, newH;
 		if (oldW/oldH*height>width) {
 			newH=(int)FastMath.round(((double)oldH)/oldW*width);
@@ -216,7 +218,7 @@ public class ScaledImageCache {
 	 * @param height	Gewünschte Höhe
 	 * @return	2-elementiges Array aus: 1. skaliertem Bild (<code>BufferedImage</code>), 2. Hash des Ausgangsbildes (<code>String</code>), der bei Folgeaufrufen übergeben werden kann, um das Bild im Cache schneller zu finden
 	 */
-	public Object[] getScaledImage(final String originalHash, final BufferedImage original, final int width, final int height) {
+	public Object[] getScaledImage(final String originalHash, final Image original, final int width, final int height) {
 		if (width<=0 || height<=0) return new Object[]{new BufferedImage(1,1,BufferedImage.TYPE_4BYTE_ABGR),""};
 
 		/* Hash berechnen */
@@ -245,7 +247,7 @@ public class ScaledImageCache {
 	 * @param height	Gewünschte Höhe
 	 * @return	Skaliertes Bild
 	 */
-	public BufferedImage getScaledImage(final BufferedImage original, final int width, final int height) {
+	public BufferedImage getScaledImage(final Image original, final int width, final int height) {
 		final Object[] data=getScaledImage(null,original,width,height);
 		return (BufferedImage)data[0];
 	}
@@ -256,7 +258,7 @@ public class ScaledImageCache {
 	 * @param zoom	Zoomfaktor gegenüber der Originalbild
 	 * @return	Skaliertes Bild
 	 */
-	public BufferedImage getScaledImage(final BufferedImage original, final double zoom) {
-		return getScaledImage(original,(int)FastMath.round(original.getWidth()*zoom),(int)FastMath.round(original.getHeight()*zoom));
+	public BufferedImage getScaledImage(final Image original, final double zoom) {
+		return getScaledImage(original,(int)FastMath.round(original.getWidth(null)*zoom),(int)FastMath.round(original.getHeight(null)*zoom));
 	}
 }

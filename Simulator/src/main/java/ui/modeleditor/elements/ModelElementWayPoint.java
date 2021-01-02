@@ -19,16 +19,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -39,6 +35,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
+import systemtools.ImageTools;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelClientData;
@@ -205,7 +202,7 @@ public class ModelElementWayPoint extends ModelElementPosition {
 	 * @see #lastDrawWidth
 	 * @see #drawElementShape(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)
 	 */
-	private BufferedImage lastDrawImage;
+	private Image lastDrawImage;
 
 	/**
 	 * Zeichnet die eigentliche Form des Elements
@@ -384,18 +381,9 @@ public class ModelElementWayPoint extends ModelElementPosition {
 	private String getHTMLDrawWayPoint(final HTMLOutputBuilder outputBuilder) {
 		final StringBuilder sb=new StringBuilder();
 
-		final BufferedImage imageObj=imageSource.get(icon,getModel().animationImages,getSize().width);
+		final Image imageObj=imageSource.get(icon,getModel().animationImages,getSize().width);
 
-		String image;
-		try {
-			final ByteArrayOutputStream out=new ByteArrayOutputStream();
-			ImageIO.write(imageObj,"png",out);
-			final byte[] bytes=out.toByteArray();
-			final String base64bytes=Base64.getEncoder().encodeToString(bytes);
-			image="data:image/png;base64,"+base64bytes;
-		} catch (IOException e) {
-			image="";
-		}
+		final String image=ImageTools.imageToBase64HTML(imageObj);
 
 		sb.append("function drawWayPoint(point) {\n");
 

@@ -23,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -1103,7 +1104,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 */
 	public static void setClientIcon(final String clientTypeName, final JButton button, final EditModel model) {
 		AnimationImageSource imageSource=new AnimationImageSource();
-		final BufferedImage image=imageSource.get(model.clientData.getIcon(clientTypeName),model.animationImages,16);
+		final Image image=imageSource.get(model.clientData.getIcon(clientTypeName),model.animationImages,16);
 		button.setIcon(new ImageIcon(image));
 		button.setPreferredSize(new Dimension(26,26));
 	}

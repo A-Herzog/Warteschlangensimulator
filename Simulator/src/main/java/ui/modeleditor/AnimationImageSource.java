@@ -378,7 +378,7 @@ public class AnimationImageSource {
 	/**
 	 * Relativer Pfad für die Animations-Icon-Ressourcen
 	 */
-	private static final String IMAGE_PATH="animation/";
+	private static final String IMAGE_PATH="animation";
 
 	/**
 	 * Speichert bereits einmal generierte Bilder
@@ -487,7 +487,75 @@ public class AnimationImageSource {
 	 * Bereits geladenen Bilder zwischenspeichern
 	 * @see #loadImageFromResource(String, ModelAnimationImages, int)
 	 */
-	private static Map<String,BufferedImage> resourceCache=new HashMap<>();
+	private static Map<String,Map<Integer,BufferedImage>> resourceCache=new HashMap<>();
+
+	/**
+	 * Versucht ein Bild in einer bestimmten Größe aus dem Cache zu laden.
+	 * @param name	Name des Bildes (ohne Pfad und ohne Dateiendung)
+	 * @param preferredSize	Breite des Bildes
+	 * @return	Liefert im Erfolgsfall das Bild, sonst <code>null</code>
+	 * @see #storeToResourceCache(String, int, BufferedImage)
+	 */
+	private BufferedImage getFromResourceCache(final String name, final int preferredSize) {
+		final Map<Integer,BufferedImage> map=resourceCache.get(name);
+		if (map==null) return null;
+		return map.get(preferredSize);
+	}
+
+	/**
+	 *
+	 * @param name	Name des Bildes (ohne Pfad und ohne Dateiendung)
+	 * @param preferredSize	Breite des Bildes
+	 * @param image	Zu speicherndes Bild
+	 * @see #getFromResourceCache(String, int)
+	 */
+	private void storeToResourceCache(final String name, final int preferredSize, final BufferedImage image) {
+		Map<Integer,BufferedImage> map=resourceCache.get(name);
+		if (map==null) resourceCache.put(name,map=new HashMap<>());
+
+		map.put(preferredSize,image);
+	}
+
+	/**
+	 * Lädt ein Bild in einer bestimmten (festen) Größe aus einer Ressource (ohne Caching)
+	 * @param name	Name des Bildes (ohne Pfad und ohne Dateiendung)
+	 * @param size	Breite des Bildes
+	 * @return	Bild in der angegebenen Größe (oder <code>null</code>, wenn das Bild in der Größe nicht existiert)
+	 */
+	private BufferedImage getFromResourceFixedSize(final String name, final int size) {
+		final String folder=(size==16)?IMAGE_PATH:(IMAGE_PATH+size);
+
+
+		URL url=getClass().getResource(folder+"/"+name+".png");
+		if (url==null) url=getClass().getResource(folder+"/"+name.replace('_','-')+".png");
+		if (url==null) return null;
+		try {
+			return ImageIO.read(url);
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Lädt ein Bild in einer bestimmten Größe aus einer Ressource (ohne Caching)
+	 * @param name	Name des Bildes (ohne Pfad und ohne Dateiendung)
+	 * @param preferredSize	Gewünschte Breite des Bildes
+	 * @return	Bild in der der angegebenen Größe am nächsten kommenden Größe (oder <code>null</code>, wenn überhaupt kein Bild mit dem angegebenen Namen existiert)
+	 */
+	private BufferedImage getFromResource(final String name, final int preferredSize) {
+		int pSize=(int)Math.round(preferredSize/8.0)*8;
+		if (pSize<16) pSize=16;
+		if (pSize>48) pSize=48;
+		if (pSize==40) pSize=48;
+
+		while (pSize>=16) {
+			BufferedImage result=getFromResourceFixedSize(name,pSize);
+			if (result!=null) return result;
+			pSize-=8;
+		}
+
+		return null;
+	}
 
 	/**
 	 * Lädt ein Bild in einer bestimmten Größe aus einer Ressource
@@ -512,20 +580,18 @@ public class AnimationImageSource {
 			} catch (NumberFormatException e) {} /* weiter unten */
 		}
 
-		/* Bilder aus Ressourcen laden */
-		final BufferedImage cacheImage=resourceCache.get(name);
+		/* Bild wenn möglich aus Cache holen */
+		final BufferedImage cacheImage=getFromResourceCache(name,preferredSize);
 		if (cacheImage!=null) return cacheImage;
-		final URL url=getClass().getResource(IMAGE_PATH+name+".png");
-		if (url==null) return getEmptyImage(preferredSize);
-		try {
-			final BufferedImage image=ImageIO.read(url);
-			resourceCache.put(name,image);
-			return image;
-		} catch (IOException e) {
-			final BufferedImage image=getEmptyImage(preferredSize);
-			resourceCache.put(name,image);
-			return image;
-		}
+
+		/* Bilder aus Ressourcen laden */
+		BufferedImage resourceImage=getFromResource(name,preferredSize);
+		if (resourceImage==null) resourceImage=getEmptyImage(preferredSize);
+
+		/* Bild in Cache speichern */
+		storeToResourceCache(name,preferredSize,resourceImage);
+
+		return resourceImage;
 	}
 
 	/**

@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
@@ -842,7 +843,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 		final BufferedImage image=new BufferedImage(64,32,BufferedImage.TYPE_4BYTE_ABGR);
 		final Graphics g=image.getGraphics();
 
-		BufferedImage symbol=imageSource.get(iconName,model.animationImages,32);
+		final Image symbol=imageSource.get(iconName,model.animationImages,32);
 		g.drawImage(symbol,0,0,null);
 		drawColorToImage(g,color,32,0);
 		final Icon icon=new ImageIcon(image);

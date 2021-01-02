@@ -29,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.function.Supplier;
 
 import javax.imageio.ImageIO;
@@ -50,7 +51,7 @@ import systemtools.statistics.XWPFDocumentPictureTools;
 /**
  * Diese klasse stellt ein statische Hilfsfunktionen zum Kopieren und Speichern von Bildern zur Verfügung.
  * @author Alexander Herzog
- * @version 1.0
+ * @version 1.1
  */
 public class ImageTools {
 
@@ -285,6 +286,38 @@ public class ImageTools {
 		@Override
 		public Object getTransferData(final DataFlavor flavor) throws UnsupportedFlavorException {
 			if (flavor.equals(DataFlavor.imageFlavor)) return image; else throw new UnsupportedFlavorException(flavor);
+		}
+	}
+
+	/**
+	 * Wandelt ein einfaches Bild in ein {@link BufferedImage} um.
+	 * @param image	Eingabgsbild
+	 * @return	{@link BufferedImage} (Ist das Eingangsbild bereits ein {@link BufferedImage}, so wird es direkt zurückgeliefert)
+	 */
+	public static BufferedImage imageToBufferedImage(final Image image) {
+		if (image instanceof BufferedImage) return (BufferedImage)image;
+
+		final BufferedImage bufferedImage=new BufferedImage(image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
+		final Graphics2D graphics=bufferedImage.createGraphics();
+		graphics.drawImage(image,0,0,null);
+		graphics.dispose();
+
+		return bufferedImage;
+	}
+
+	/**
+	 * Wandelt ein Bild in ein HTML-Base64-Inline-Bild um.
+	 * @param image	Ausgangsbild
+	 * @return	HTML-Base64-Inline-Bild
+	 */
+	public static String imageToBase64HTML(final Image image) {
+		final BufferedImage bufferedImage=imageToBufferedImage(image);
+		try (final ByteArrayOutputStream output=new ByteArrayOutputStream()) {
+			if (!ImageIO.write(bufferedImage,"png",output)) return "";
+			final String base64bytes=Base64.getEncoder().encodeToString(output.toByteArray());
+			return "data:image/png;base64,"+base64bytes;
+		} catch (IOException e) {
+			return "";
 		}
 	}
 }

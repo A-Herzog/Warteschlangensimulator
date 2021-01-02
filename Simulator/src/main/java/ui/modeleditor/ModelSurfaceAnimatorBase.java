@@ -19,19 +19,14 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -52,6 +47,7 @@ import simulator.runmodel.RunDataTransporter;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import systemtools.ImageTools;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
@@ -1783,14 +1779,7 @@ public class ModelSurfaceAnimatorBase {
 	 * @return	base64-html-Repräsentation des Icons
 	 */
 	private String base64Icon(final String iconName) {
-		final BufferedImage image=images.get(iconName,modelImages,ICON_SIZE,1.0);
-		try (final ByteArrayOutputStream output=new ByteArrayOutputStream()) {
-			if (!ImageIO.write(image,"png",output)) return "";
-			final String base64bytes=Base64.getEncoder().encodeToString(output.toByteArray());
-			return "data:image/png;base64,"+base64bytes;
-		} catch (IOException e) {
-			return "";
-		}
+		return ImageTools.imageToBase64HTML(images.get(iconName,modelImages,ICON_SIZE,1.0));
 	}
 
 	/**

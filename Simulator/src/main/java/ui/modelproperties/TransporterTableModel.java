@@ -15,9 +15,9 @@
  */
 package ui.modelproperties;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
@@ -166,7 +166,7 @@ public class TransporterTableModel extends JTableExtAbstractTableModel {
 		case 0:
 			String icon=transporters.get(rowIndex).getEastLoadedIcon();
 			if (icon==null || icon.isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_TRANSPORTER_EAST_ICON_NAME;
-			final BufferedImage image=imageSource.get(icon,model.animationImages,16);
+			final Image image=imageSource.get(icon,model.animationImages,16);
 			return makeEditPanelSmallBorderIcon(
 					new ImageIcon(image),
 					"<html><body>"+transporters.get(rowIndex).getName()+" <span style=\"color: gray;\">"+String.format(Language.tr("Transporters.Group.ID"),rowIndex+1)+"</span>",

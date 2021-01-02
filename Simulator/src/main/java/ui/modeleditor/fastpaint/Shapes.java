@@ -18,6 +18,7 @@ package ui.modeleditor.fastpaint;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -155,7 +156,7 @@ public class Shapes {
 	private GradientFill upperFill;
 
 	/** Zus‰tzliches Icon das auf das Shape gezeichnet werden soll (kann <code>null</code> sein) */
-	private BufferedImage icon;
+	private Image icon;
 	/** Gem‰ﬂ {@link #iconZoomedLevel} skaliertes Icon */
 	private BufferedImage iconZoomed;
 	/** Zoomfaktor in dem {@link #iconZoomed} vorliegt */
@@ -616,7 +617,7 @@ public class Shapes {
 	 * Liefert das zus‰tzliche Icon, das auf das Shape gezeichnet wird
 	 * @return	Zus‰tzliches Icon (kann auch <code>null</code> sein)
 	 */
-	public BufferedImage getAdditionalIcon() {
+	public Image getAdditionalIcon() {
 		return icon;
 	}
 
@@ -624,7 +625,7 @@ public class Shapes {
 	 * Stellt das zus‰tzliche Icon, das auf das Shape gezeichnet wird, ein.
 	 * @param icon	Zus‰tzliches Icon (kann auch <code>null</code> sein)
 	 */
-	public void setAdditionalIcon(final BufferedImage icon) {
+	public void setAdditionalIcon(final Image icon) {
 		this.icon=icon;
 		iconZoomed=null;
 	}

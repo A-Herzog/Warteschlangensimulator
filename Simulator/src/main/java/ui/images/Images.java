@@ -156,13 +156,19 @@ public enum Images {
 	ARROW_DOWN_END("arrow_down_double.png"),
 
 	/** Symbol "Nach links" */
-	ARROW_LEFT("arrow_left.gif"),
+	ARROW_LEFT("arrow_left.png"),
 
 	/** Symbol "Nach rechts" */
-	ARROW_RIGHT("arrow_right.gif"),
+	ARROW_RIGHT("arrow_right.png"),
 
 	/** Symbol "Nach oben" */
 	ARROW_UP("arrow_up.png"),
+
+	/** Symbol "Nach links" (kurzer Pfeil) */
+	ARROW_LEFT_SHORT("arrow_left.gif"),
+
+	/** Symbol "Nach rechts" (kurzer Pfeil) */
+	ARROW_RIGHT_SHORT("arrow_right.gif"),
 
 	/** Symbol "Pfeilgröße 'aus'" */
 	ARROW_SIZE_OFF("arrow_size_off.png"),
@@ -194,7 +200,7 @@ public enum Images {
 	EDIT_REDO("arrow_redo.png"),
 
 	/** Symbol "Bearbeiten - Kopieren" */
-	EDIT_COPY("page-copy.png"),
+	EDIT_COPY("page_copy.png"),
 
 	/** Symbol "Bearbeiten - Kopieren (als Bild) */
 	EDIT_COPY_AS_IMAGE("image.png"),
@@ -239,7 +245,7 @@ public enum Images {
 	EDIT_EDGES_DELETE("link_delete.png"),
 
 	/** Symbol für "Raster anzeigen" */
-	EDIT_VIEW_RASTER("Raster.gif"),
+	EDIT_VIEW_RASTER("Raster.png"),
 
 	/** Symbol für "Lineale anzeigen" */
 	EDIT_VIEW_RULERS("Ruler.png"),

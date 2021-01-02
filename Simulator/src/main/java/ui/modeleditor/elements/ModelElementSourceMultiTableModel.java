@@ -15,9 +15,9 @@
  */
 package ui.modeleditor.elements;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -243,7 +243,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		case 0:
 			String icon=clientData.getIcon(record.getName());
 			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
-			final BufferedImage image=imageSource.get(icon,model.animationImages,16);
+			final Image image=imageSource.get(icon,model.animationImages,16);
 			return makeEditPanelSmallBorderIcon(
 					new ImageIcon(image),
 					record.getName(),
