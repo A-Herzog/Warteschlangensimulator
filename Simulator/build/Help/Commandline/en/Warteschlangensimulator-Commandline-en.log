@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  14 DEC 2020 21:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  3 JAN 2021 18:50
 entering extended mode
 **./Warteschlangensimulator-Commandline-en.tex
 (Warteschlangensimulator-Commandline-en.tex
@@ -822,7 +822,7 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 )
-<../../Warteschlangennetz-mittel.jpg, id=64, 2902.33244pt x 1981.27437pt>
+<../../Warteschlangennetz-mittel.jpg, id=72, 2902.33244pt x 1981.27437pt>
 File: ../../Warteschlangennetz-mittel.jpg Graphic file (type jpg)
 <use ../../Warteschlangennetz-mittel.jpg>
 Package pdftex.def Info: ../../Warteschlangennetz-mittel.jpg  used on input lin
@@ -906,20 +906,15 @@ File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1.
  [5]
-[6]
-Package atenddvi Info: Last page = 8.
- [7])
+[6] [7])
 \tf@thm=\write6
 \openout6 = `Warteschlangensimulator-Commandline-en.thm'.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 67.
+Package atenddvi Info: Last page = 9.
  [8]
 Package atveryend Info: Executing hook `AfterLastShipout' on input line 67.
- (Warteschlangensimulator-Commandline-en.aux
-
-Package atenddvi Warning: Rerun LaTeX, last page has changed.
-
-)
+ (Warteschlangensimulator-Commandline-en.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 67.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
 
@@ -931,21 +926,21 @@ t' has changed.
 
 Package rerunfilecheck Info: Checksums for `Warteschlangensimulator-Commandline
 -en.out':
-(rerunfilecheck)             Before: D2395BDBC5C5C872E337C28BB98DC3CB;926
-(rerunfilecheck)             After:  B83812D487E0255C4FBE07F2830DDE3D;1049.
+(rerunfilecheck)             Before: B83812D487E0255C4FBE07F2830DDE3D;1049
+(rerunfilecheck)             After:  9DD8217F0EE9574ADDEB89FF8E820663;1114.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
  ) 
 Here is how much of TeX's memory you used:
- 11899 strings out of 491273
- 177467 string characters out of 3112170
- 321358 words of memory out of 3000000
- 17068 multiletter control sequences out of 15000+200000
+ 11902 strings out of 491273
+ 177507 string characters out of 3112170
+ 319669 words of memory out of 3000000
+ 17070 multiletter control sequences out of 15000+200000
  53181 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,7n,39p,349b,487s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,6n,39p,349b,487s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/M
 iKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
 ype1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
@@ -955,10 +950,10 @@ ram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2
 ic/lm/lmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Fil
 es/MiKTeX 2.9/fonts/type1/public/lm/lmtt9.pfb>
-Output written on Warteschlangensimulator-Commandline-en.pdf (9 pages, 1174848 
+Output written on Warteschlangensimulator-Commandline-en.pdf (9 pages, 1175183 
 bytes).
 PDF statistics:
- 173 PDF objects out of 1000 (max. 8388607)
- 28 named destinations out of 1000 (max. 500000)
- 130 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 182 PDF objects out of 1000 (max. 8388607)
+ 29 named destinations out of 1000 (max. 500000)
+ 146 words of extra memory for PDF output out of 10000 (max. 10000000)
 

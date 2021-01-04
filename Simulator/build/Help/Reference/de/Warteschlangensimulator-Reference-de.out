@@ -60,58 +60,59 @@
 \BOOKMARK [1][-]{section.8.2}{8.2 Ausgabe}{chapter.8}% 60
 \BOOKMARK [1][-]{section.8.3}{8.3 Ausgabe \(DB\)}{chapter.8}% 61
 \BOOKMARK [1][-]{section.8.4}{8.4 Ausgabe \(DDE\)}{chapter.8}% 62
-\BOOKMARK [1][-]{section.8.5}{8.5 Ausgabe \(Skript\)}{chapter.8}% 63
-\BOOKMARK [1][-]{section.8.6}{8.6 Eingabe}{chapter.8}% 64
-\BOOKMARK [1][-]{section.8.7}{8.7 Eingabe \(DB\)}{chapter.8}% 65
-\BOOKMARK [1][-]{section.8.8}{8.8 Eingabe \(DDE\)}{chapter.8}% 66
-\BOOKMARK [1][-]{section.8.9}{8.9 Eingabe \(Skript\)}{chapter.8}% 67
-\BOOKMARK [0][-]{chapter.9}{9 Flusssteuerungslogik}{}% 68
-\BOOKMARK [1][-]{section.9.1}{9.1 Do}{chapter.9}% 69
-\BOOKMARK [1][-]{section.9.2}{9.2 Else}{chapter.9}% 70
-\BOOKMARK [1][-]{section.9.3}{9.3 ElseIf}{chapter.9}% 71
-\BOOKMARK [1][-]{section.9.4}{9.4 EndIf}{chapter.9}% 72
-\BOOKMARK [1][-]{section.9.5}{9.5 EndWhile}{chapter.9}% 73
-\BOOKMARK [1][-]{section.9.6}{9.6 If}{chapter.9}% 74
-\BOOKMARK [1][-]{section.9.7}{9.7 Until}{chapter.9}% 75
-\BOOKMARK [1][-]{section.9.8}{9.8 While}{chapter.9}% 76
-\BOOKMARK [0][-]{chapter.10}{10 Analoge Werte}{}% 77
-\BOOKMARK [1][-]{section.10.1}{10.1 Analogen W. \344ndern}{chapter.10}% 78
-\BOOKMARK [1][-]{section.10.2}{10.2 Analoger Wert}{chapter.10}% 79
-\BOOKMARK [1][-]{section.10.3}{10.3 Fluss}{chapter.10}% 80
-\BOOKMARK [1][-]{section.10.4}{10.4 Fluss \(Signal\)}{chapter.10}% 81
-\BOOKMARK [1][-]{section.10.5}{10.5 Sensor}{chapter.10}% 82
-\BOOKMARK [1][-]{section.10.6}{10.6 Tank}{chapter.10}% 83
-\BOOKMARK [1][-]{section.10.7}{10.7 Ventil-Setup}{chapter.10}% 84
-\BOOKMARK [0][-]{chapter.11}{11 Animation}{}% 85
-\BOOKMARK [1][-]{section.11.1}{11.1 Analogskalaanzeige}{chapter.11}% 86
-\BOOKMARK [1][-]{section.11.2}{11.2 Animationsbild}{chapter.11}% 87
-\BOOKMARK [1][-]{section.11.3}{11.3 Datenaufzeichnung anzeigen}{chapter.11}% 88
-\BOOKMARK [1][-]{section.11.4}{11.4 Icon: Person - Blau}{chapter.11}% 89
-\BOOKMARK [1][-]{section.11.5}{11.5 LCD-Anzeige}{chapter.11}% 90
-\BOOKMARK [1][-]{section.11.6}{11.6 Simulationsdaten als Balken}{chapter.11}% 91
-\BOOKMARK [1][-]{section.11.7}{11.7 Simulationsdaten als gestapelter Balken}{chapter.11}% 92
-\BOOKMARK [1][-]{section.11.8}{11.8 Simulationsdaten als Text}{chapter.11}% 93
-\BOOKMARK [1][-]{section.11.9}{11.9 Simulationsdatenampel}{chapter.11}% 94
-\BOOKMARK [1][-]{section.11.10}{11.10 Simulationsdatenbalkendiagramm}{chapter.11}% 95
-\BOOKMARK [1][-]{section.11.11}{11.11 Simulationsdatenliniendiagramm}{chapter.11}% 96
-\BOOKMARK [1][-]{section.11.12}{11.12 Simulationsdatentortendiagramm}{chapter.11}% 97
-\BOOKMARK [1][-]{section.11.13}{11.13 Simulationszeit}{chapter.11}% 98
-\BOOKMARK [1][-]{section.11.14}{11.14 Skriptergebnis als Text}{chapter.11}% 99
-\BOOKMARK [1][-]{section.11.15}{11.15 Text gem\344\337 Simulationsdaten}{chapter.11}% 100
-\BOOKMARK [0][-]{chapter.12}{12 Animation - Interaktiv}{}% 101
-\BOOKMARK [1][-]{section.12.1}{12.1 Checkbox}{chapter.12}% 102
-\BOOKMARK [1][-]{section.12.2}{12.2 Radiobutton}{chapter.12}% 103
-\BOOKMARK [1][-]{section.12.3}{12.3 Schaltfl\344che}{chapter.12}% 104
-\BOOKMARK [1][-]{section.12.4}{12.4 Schieberegler}{chapter.12}% 105
-\BOOKMARK [0][-]{chapter.13}{13 Optische Gestaltung}{}% 106
-\BOOKMARK [1][-]{section.13.1}{13.1 Beschreibungstext}{chapter.13}% 107
-\BOOKMARK [1][-]{section.13.2}{13.2 Bild}{chapter.13}% 108
-\BOOKMARK [1][-]{section.13.3}{13.3 Ellipse}{chapter.13}% 109
-\BOOKMARK [1][-]{section.13.4}{13.4 Linie}{chapter.13}% 110
-\BOOKMARK [1][-]{section.13.5}{13.5 Rechteck}{chapter.13}% 111
-\BOOKMARK [1][-]{section.13.6}{13.6 Verbindungsecke}{chapter.13}% 112
-\BOOKMARK [0][-]{chapter.14}{14 Sonstiges}{}% 113
-\BOOKMARK [1][-]{section.14.1}{14.1 Aktion}{chapter.14}% 114
-\BOOKMARK [1][-]{section.14.2}{14.2 Referenz}{chapter.14}% 115
-\BOOKMARK [1][-]{section.14.3}{14.3 Statistik}{chapter.14}% 116
-\BOOKMARK [1][-]{section.14.4}{14.4 Untermodell}{chapter.14}% 117
+\BOOKMARK [1][-]{section.8.5}{8.5 Ausgabe \(Log\)}{chapter.8}% 63
+\BOOKMARK [1][-]{section.8.6}{8.6 Ausgabe \(Skript\)}{chapter.8}% 64
+\BOOKMARK [1][-]{section.8.7}{8.7 Eingabe}{chapter.8}% 65
+\BOOKMARK [1][-]{section.8.8}{8.8 Eingabe \(DB\)}{chapter.8}% 66
+\BOOKMARK [1][-]{section.8.9}{8.9 Eingabe \(DDE\)}{chapter.8}% 67
+\BOOKMARK [1][-]{section.8.10}{8.10 Eingabe \(Skript\)}{chapter.8}% 68
+\BOOKMARK [0][-]{chapter.9}{9 Flusssteuerungslogik}{}% 69
+\BOOKMARK [1][-]{section.9.1}{9.1 Do}{chapter.9}% 70
+\BOOKMARK [1][-]{section.9.2}{9.2 Else}{chapter.9}% 71
+\BOOKMARK [1][-]{section.9.3}{9.3 ElseIf}{chapter.9}% 72
+\BOOKMARK [1][-]{section.9.4}{9.4 EndIf}{chapter.9}% 73
+\BOOKMARK [1][-]{section.9.5}{9.5 EndWhile}{chapter.9}% 74
+\BOOKMARK [1][-]{section.9.6}{9.6 If}{chapter.9}% 75
+\BOOKMARK [1][-]{section.9.7}{9.7 Until}{chapter.9}% 76
+\BOOKMARK [1][-]{section.9.8}{9.8 While}{chapter.9}% 77
+\BOOKMARK [0][-]{chapter.10}{10 Analoge Werte}{}% 78
+\BOOKMARK [1][-]{section.10.1}{10.1 Analogen W. \344ndern}{chapter.10}% 79
+\BOOKMARK [1][-]{section.10.2}{10.2 Analoger Wert}{chapter.10}% 80
+\BOOKMARK [1][-]{section.10.3}{10.3 Fluss}{chapter.10}% 81
+\BOOKMARK [1][-]{section.10.4}{10.4 Fluss \(Signal\)}{chapter.10}% 82
+\BOOKMARK [1][-]{section.10.5}{10.5 Sensor}{chapter.10}% 83
+\BOOKMARK [1][-]{section.10.6}{10.6 Tank}{chapter.10}% 84
+\BOOKMARK [1][-]{section.10.7}{10.7 Ventil-Setup}{chapter.10}% 85
+\BOOKMARK [0][-]{chapter.11}{11 Animation}{}% 86
+\BOOKMARK [1][-]{section.11.1}{11.1 Analogskalaanzeige}{chapter.11}% 87
+\BOOKMARK [1][-]{section.11.2}{11.2 Animationsbild}{chapter.11}% 88
+\BOOKMARK [1][-]{section.11.3}{11.3 Datenaufzeichnung anzeigen}{chapter.11}% 89
+\BOOKMARK [1][-]{section.11.4}{11.4 Icon: Person - Blau}{chapter.11}% 90
+\BOOKMARK [1][-]{section.11.5}{11.5 LCD-Anzeige}{chapter.11}% 91
+\BOOKMARK [1][-]{section.11.6}{11.6 Simulationsdaten als Balken}{chapter.11}% 92
+\BOOKMARK [1][-]{section.11.7}{11.7 Simulationsdaten als gestapelter Balken}{chapter.11}% 93
+\BOOKMARK [1][-]{section.11.8}{11.8 Simulationsdaten als Text}{chapter.11}% 94
+\BOOKMARK [1][-]{section.11.9}{11.9 Simulationsdatenampel}{chapter.11}% 95
+\BOOKMARK [1][-]{section.11.10}{11.10 Simulationsdatenbalkendiagramm}{chapter.11}% 96
+\BOOKMARK [1][-]{section.11.11}{11.11 Simulationsdatenliniendiagramm}{chapter.11}% 97
+\BOOKMARK [1][-]{section.11.12}{11.12 Simulationsdatentortendiagramm}{chapter.11}% 98
+\BOOKMARK [1][-]{section.11.13}{11.13 Simulationszeit}{chapter.11}% 99
+\BOOKMARK [1][-]{section.11.14}{11.14 Skriptergebnis als Text}{chapter.11}% 100
+\BOOKMARK [1][-]{section.11.15}{11.15 Text gem\344\337 Simulationsdaten}{chapter.11}% 101
+\BOOKMARK [0][-]{chapter.12}{12 Animation - Interaktiv}{}% 102
+\BOOKMARK [1][-]{section.12.1}{12.1 Checkbox}{chapter.12}% 103
+\BOOKMARK [1][-]{section.12.2}{12.2 Radiobutton}{chapter.12}% 104
+\BOOKMARK [1][-]{section.12.3}{12.3 Schaltfl\344che}{chapter.12}% 105
+\BOOKMARK [1][-]{section.12.4}{12.4 Schieberegler}{chapter.12}% 106
+\BOOKMARK [0][-]{chapter.13}{13 Optische Gestaltung}{}% 107
+\BOOKMARK [1][-]{section.13.1}{13.1 Beschreibungstext}{chapter.13}% 108
+\BOOKMARK [1][-]{section.13.2}{13.2 Bild}{chapter.13}% 109
+\BOOKMARK [1][-]{section.13.3}{13.3 Ellipse}{chapter.13}% 110
+\BOOKMARK [1][-]{section.13.4}{13.4 Linie}{chapter.13}% 111
+\BOOKMARK [1][-]{section.13.5}{13.5 Rechteck}{chapter.13}% 112
+\BOOKMARK [1][-]{section.13.6}{13.6 Verbindungsecke}{chapter.13}% 113
+\BOOKMARK [0][-]{chapter.14}{14 Sonstiges}{}% 114
+\BOOKMARK [1][-]{section.14.1}{14.1 Aktion}{chapter.14}% 115
+\BOOKMARK [1][-]{section.14.2}{14.2 Referenz}{chapter.14}% 116
+\BOOKMARK [1][-]{section.14.3}{14.3 Statistik}{chapter.14}% 117
+\BOOKMARK [1][-]{section.14.4}{14.4 Untermodell}{chapter.14}% 118

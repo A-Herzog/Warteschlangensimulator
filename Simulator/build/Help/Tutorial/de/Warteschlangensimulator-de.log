@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  14 DEC 2020 21:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  3 JAN 2021 18:50
 entering extended mode
 **./Warteschlangensimulator-de.tex
 (Warteschlangensimulator-de.tex
@@ -924,11 +924,11 @@ File: IconSource.png Graphic file (type png)
 <use IconSource.png>
 Package pdftex.def Info: IconSource.png  used on input line 134.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<DialogSource.png, id=136, 688.5725pt x 613.29124pt>
+<DialogSource.png, id=136, 775.39688pt x 691.08188pt>
 File: DialogSource.png Graphic file (type png)
 <use DialogSource.png>
 Package pdftex.def Info: DialogSource.png  used on input line 141.
-(pdftex.def)             Requested size: 284.52756pt x 253.41621pt.
+(pdftex.def)             Requested size: 284.52756pt x 253.58728pt.
  [8 <./ProgramWindowModel.png> <./IconSource.png>]
 <IconProcess.png, id=142, 104.39pt x 54.2025pt>
 File: IconProcess.png Graphic file (type png)
@@ -936,15 +936,15 @@ File: IconProcess.png Graphic file (type png)
 Package pdftex.def Info: IconProcess.png  used on input line 155.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
  [9 <./DialogSource.png>]
-<DialogProcess.png, id=150, 1014.79124pt x 595.22375pt>
+<DialogProcess.png, id=149, 1142.01656pt x 846.91406pt>
 File: DialogProcess.png Graphic file (type png)
 <use DialogProcess.png>
 Package pdftex.def Info: DialogProcess.png  used on input line 162.
-(pdftex.def)             Requested size: 398.33858pt x 233.644pt.
+(pdftex.def)             Requested size: 398.33858pt x 295.40346pt.
 
 [10 <./IconProcess.png> <./DialogProcess.png>] [11] [12]
 Kapitel 5.
-<ProgramWindowResults.png, id=167, 760.34062pt x 572.89032pt>
+<ProgramWindowResults.png, id=165, 760.34062pt x 572.89032pt>
 File: ProgramWindowResults.png Graphic file (type png)
 <use ProgramWindowResults.png>
 Package pdftex.def Info: ProgramWindowResults.png  used on input line 212.
@@ -957,14 +957,14 @@ Package pdftex.def Info: ProgramWindowResults.png  used on input line 212.
 
 ]
 Kapitel 6.
-<DialogExpressionBuilder.png, id=185, 599.23875pt x 450.18187pt>
+<DialogExpressionBuilder.png, id=183, 599.23875pt x 450.18187pt>
 File: DialogExpressionBuilder.png Graphic file (type png)
 <use DialogExpressionBuilder.png>
 Package pdftex.def Info: DialogExpressionBuilder.png  used on input line 240.
 (pdftex.def)             Requested size: 398.33858pt x 299.25728pt.
 [17] [18 <./DialogExpressionBuilder.png>]
 Kapitel 7.
-<DialogModel.png, id=196, 621.07031pt x 578.16pt>
+<DialogModel.png, id=194, 621.07031pt x 578.16pt>
 File: DialogModel.png Graphic file (type png)
 <use DialogModel.png>
 Package pdftex.def Info: DialogModel.png  used on input line 258.
@@ -978,33 +978,33 @@ Kapitel 8.
 
 
 ]
-<IconDelay.png, id=221, 104.39pt x 54.2025pt>
+<IconDelay.png, id=219, 104.39pt x 54.2025pt>
 File: IconDelay.png Graphic file (type png)
 <use IconDelay.png>
 Package pdftex.def Info: IconDelay.png  used on input line 368.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconAssign.png, id=222, 104.39pt x 54.2025pt>
+<IconAssign.png, id=220, 104.39pt x 54.2025pt>
 File: IconAssign.png Graphic file (type png)
 <use IconAssign.png>
 Package pdftex.def Info: IconAssign.png  used on input line 377.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
  [24 <./IconDelay.png>] [25 <./IconAssign.png>]
-<IconDecide.png, id=234, 104.39pt x 54.2025pt>
+<IconDecide.png, id=232, 104.39pt x 54.2025pt>
 File: IconDecide.png Graphic file (type png)
 <use IconDecide.png>
 Package pdftex.def Info: IconDecide.png  used on input line 389.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconDuplicate.png, id=235, 104.39pt x 54.2025pt>
+<IconDuplicate.png, id=233, 104.39pt x 54.2025pt>
 File: IconDuplicate.png Graphic file (type png)
 <use IconDuplicate.png>
 Package pdftex.def Info: IconDuplicate.png  used on input line 410.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconCondition.png, id=236, 104.39pt x 54.2025pt>
+<IconCondition.png, id=234, 104.39pt x 54.2025pt>
 File: IconCondition.png Graphic file (type png)
 <use IconCondition.png>
 Package pdftex.def Info: IconCondition.png  used on input line 419.
 (pdftex.def)             Requested size: 56.9055pt x 29.54762pt.
-<IconSubModel.png, id=237, 104.39pt x 54.2025pt>
+<IconSubModel.png, id=235, 104.39pt x 54.2025pt>
 File: IconSubModel.png Graphic file (type png)
 <use IconSubModel.png>
 Package pdftex.def Info: IconSubModel.png  used on input line 428.
@@ -1029,11 +1029,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 435.
 Here is how much of TeX's memory you used:
  12005 strings out of 491273
  179361 string characters out of 3112170
- 326858 words of memory out of 3000000
+ 327856 words of memory out of 3000000
  17133 multiletter control sequences out of 15000+200000
  58356 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 49i,7n,39p,1546b,493s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,6n,39p,1546b,493s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Fil
 es/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTeX 2.9/fonts/e
 nc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
@@ -1043,9 +1043,9 @@ nc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
 ic/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
-Output written on Warteschlangensimulator-de.pdf (28 pages, 1412515 bytes).
+Output written on Warteschlangensimulator-de.pdf (28 pages, 1450002 bytes).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
+ 290 PDF objects out of 1000 (max. 8388607)
  59 named destinations out of 1000 (max. 500000)
  213 words of extra memory for PDF output out of 10000 (max. 10000000)
 

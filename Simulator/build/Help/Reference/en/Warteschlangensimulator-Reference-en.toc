@@ -62,8 +62,9 @@
 \contentsline {section}{\numberline {8.5}Output}{34}{section.8.5}%
 \contentsline {section}{\numberline {8.6}Output (DB)}{35}{section.8.6}%
 \contentsline {section}{\numberline {8.7}Output (DDE)}{35}{section.8.7}%
-\contentsline {section}{\numberline {8.8}Output (Script)}{35}{section.8.8}%
-\contentsline {section}{\numberline {8.9}Recording}{36}{section.8.9}%
+\contentsline {section}{\numberline {8.8}Output (Log)}{35}{section.8.8}%
+\contentsline {section}{\numberline {8.9}Output (Script)}{36}{section.8.9}%
+\contentsline {section}{\numberline {8.10}Recording}{36}{section.8.10}%
 \contentsline {chapter}{\numberline {9}Flow control logic}{37}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Do}{37}{section.9.1}%
 \contentsline {section}{\numberline {9.2}Else}{37}{section.9.2}%

@@ -60,11 +60,12 @@
 \contentsline {section}{\numberline {8.2}Ausgabe}{33}{section.8.2}%
 \contentsline {section}{\numberline {8.3}Ausgabe (DB)}{34}{section.8.3}%
 \contentsline {section}{\numberline {8.4}Ausgabe (DDE)}{34}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Ausgabe (Skript)}{34}{section.8.5}%
-\contentsline {section}{\numberline {8.6}Eingabe}{35}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Eingabe (DB)}{35}{section.8.7}%
-\contentsline {section}{\numberline {8.8}Eingabe (DDE)}{35}{section.8.8}%
-\contentsline {section}{\numberline {8.9}Eingabe (Skript)}{36}{section.8.9}%
+\contentsline {section}{\numberline {8.5}Ausgabe (Log)}{34}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Ausgabe (Skript)}{34}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Eingabe}{35}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Eingabe (DB)}{35}{section.8.8}%
+\contentsline {section}{\numberline {8.9}Eingabe (DDE)}{36}{section.8.9}%
+\contentsline {section}{\numberline {8.10}Eingabe (Skript)}{36}{section.8.10}%
 \contentsline {chapter}{\numberline {9}Flusssteuerungslogik}{37}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Do}{37}{section.9.1}%
 \contentsline {section}{\numberline {9.2}Else}{37}{section.9.2}%
