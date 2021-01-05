@@ -19,7 +19,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
@@ -29,20 +30,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JRootPane;
+import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import org.jfree.data.xy.XYSeries;
 
 import language.Language;
 import systemtools.BaseDialog;
+import systemtools.images.SimToolsImages;
+import systemtools.statistics.StatisticViewer;
+import systemtools.statistics.StatisticViewerJFreeChart;
 import systemtools.statistics.StatisticViewerLineChart;
+import systemtools.statistics.StatisticsBasePanel;
+import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
 
@@ -56,6 +67,11 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = -2783273631806165939L;
+
+	/**
+	 * Standardexportgröße für Bilder
+	 */
+	private final int defaultExportSize;
 
 	/** Inhaltspanel */
 	private final JPanel content;
@@ -81,26 +97,51 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		this.data=data;
 		this.lineCharts=new HashMap<>();
 
-		/* User-Buttons */
-		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom.Hint"),Images.ZOOM_OUT.getIcon());
-		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy.Hint"),Images.EDIT_COPY.getIcon());
-		addUserButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save"),Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save.Hint"),Images.GENERAL_SAVE.getIcon());
+		defaultExportSize=SetupData.getSetup().imageSize;
 
 		/* GUI */
 		showCloseButton=true;
 		content=createGUI(()->Help.topicModal(ParameterCompareChartDialog.this,"ParameterSeries"));
 		content.setLayout(new BorderLayout());
 
-		/* Auswahl */
-		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		content.add(line,BorderLayout.NORTH);
-		line.add(new JLabel(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.OutputValue")+":"));
-		line.add(select=new JComboBox<>(data.keySet().stream().sorted().toArray(String[]::new)));
+		/* Toolbar */
+		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
+		toolbar.setFloatable(false);
+		content.add(toolbar,BorderLayout.NORTH);
+
+		final JLabel label=new JLabel(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.OutputValue")+":");
+		toolbar.add(label);
+		toolbar.add(Box.createHorizontalStrut(5));
+		toolbar.add(select=new JComboBox<>(data.keySet().stream().sorted().toArray(String[]::new)));
 		select.setSelectedItem(initialHeading);
 		select.addActionListener(e->{
 			setChart((String)select.getSelectedItem());
 			content.doLayout();
 		});
+		label.setLabelFor(select);
+		toolbar.add(Box.createHorizontalStrut(5));
+
+		toolbar.addSeparator();
+
+		JButton button;
+
+		toolbar.add(button=new JButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom"),Images.ZOOM_OUT.getIcon()));
+		button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom.Hint"));
+		button.addActionListener(e->lineChart.unZoom());
+
+		toolbar.add(button=new JButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy"),Images.EDIT_COPY.getIcon()));
+		button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Copy.Hint"));
+		button.addActionListener(e->copyViewer((JButton)e.getSource(),lineChart));
+
+		toolbar.add(button=new JButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save"),Images.GENERAL_SAVE.getIcon()));
+		button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save.Hint"));
+		button.addActionListener(e->saveViewer((JButton)e.getSource(),lineChart));
+
+		toolbar.add(Box.createHorizontalGlue());
+
+		toolbar.add(button=new JButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.WindowSize"),Images.SETUP_WINDOW_SIZE_FULL.getIcon()));
+		button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.WindowSize.Hint"));
+		button.addActionListener(e->showSizePopup((JButton)e.getSource()));
 
 		/* Diagramm */
 		setChart(initialHeading);
@@ -199,6 +240,134 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 
 			addFillColor(0);
 			smartZoom(0);
+		}
+	}
+
+	/**
+	 * Erzeugt einen Menüpunkt zur Wahl einer Fenstergröße.
+	 * @param width	Einzustellende Fensterbreite (Werte kleiner als 0 für Vollbild)
+	 * @param height	Einzustellende Fensterhöhe (Werte kleiner als 0 für Vollbild)
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem getSizeItem(final int width, final int height) {
+		JMenuItem item;
+		if (width<0 || height<0) {
+			item=new JMenuItem(StatisticsBasePanel.viewersToolbarFullscreen,SimToolsImages.FULLSCREEN.getIcon());
+			item.setToolTipText(StatisticsBasePanel.viewersToolbarFullscreenHint);
+			item.addActionListener(e->{
+				final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+				final Insets border=getInsets();
+				final int wPlus=border.left+border.right;
+				setBounds(-border.left,0,screenSize.width+wPlus,screenSize.height);
+				toFront();
+			});
+		} else {
+			item=new JMenuItem(width+"x"+height);
+			item.addActionListener(e->{
+				setSize(width,height);
+				setLocationRelativeTo(getOwner());
+			});
+		}
+		return item;
+	}
+
+	/**
+	 * Zeigt das Popupmenü zur Auswahl der Fenstergröße ein.
+	 * @param parent	Übergeordnetes Element für das Popupmenü
+	 */
+	private void showSizePopup(final JComponent parent) {
+		final JPopupMenu menu=new JPopupMenu();
+
+		menu.add(getSizeItem(800,600));
+		menu.add(getSizeItem(1024,768));
+		menu.add(getSizeItem(1280,720));
+		menu.add(getSizeItem(1440,810));
+		menu.add(getSizeItem(1920,1080));
+		menu.addSeparator();
+		menu.add(getSizeItem(-1,-1));
+
+		menu.show(parent,0,parent.getHeight());
+	}
+
+	/**
+	 * Stellt die Bildgröße zum Exportieren ein.
+	 * @param size	Bildgröße zum Exportieren
+	 */
+	private void setImageSize(final int size) {
+		final SetupData setup=SetupData.getSetup();
+		setup.imageSize=size;
+		setup.saveSetup();
+	}
+
+	/**
+	 * Kopiert den Viewer in der angegebenen Größe in die Zwischenablage.
+	 * @param viewer	Zu kopierender Viewer
+	 * @param size	Größe (-1 für Standardexportgröße)
+	 */
+	private void copyViewer(final StatisticViewer viewer, final int size) {
+		if (size>=0) setImageSize(size);
+		viewer.copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
+		if (size>=0) setImageSize(defaultExportSize);
+	}
+
+	/**
+	 * Speichert den Inhalt des Viewers in der angegebenen Größe in einer Datei.
+	 * @param viewer	Zu speichernder Viewer
+	 * @param size	Größe (-1 für Standardexportgröße)
+	 */
+	private void saveViewer(final StatisticViewer viewer, final int size) {
+		if (size>=0) setImageSize(size);
+		viewer.save(this);
+		if (size>=0) setImageSize(defaultExportSize);
+	}
+
+	/**
+	 * Liefert die Exportgröße gemäß Fenstergröße.
+	 * @return	Exportgröße gemäß Fenstergröße
+	 */
+	private int getScreenExportSize() {
+		return Math.max(getWidth(),getHeight());
+	}
+
+	/**
+	 * Kopiert den Viewer in die Zwischenablage.
+	 * @param sender	Auslösendes Button (zur Ausrichtung des Popupmenüs, wenn nötig)
+	 * @param viewer	Zu kopierender Viewer
+	 */
+	private void copyViewer(final JButton sender, final StatisticViewer viewer) {
+		if (viewer instanceof StatisticViewerJFreeChart) {
+			final int screenExportSize=getScreenExportSize();
+			final JPopupMenu menu=new JPopupMenu();
+			JMenuItem item;
+			menu.add(item=new JMenuItem(String.format(StatisticsBasePanel.viewersToolbarCopyDefaultSize,defaultExportSize,defaultExportSize),SimToolsImages.COPY.getIcon()));
+			item.addActionListener(e->copyViewer(viewer,-1));
+			menu.add(item=new JMenuItem(String.format(StatisticsBasePanel.viewersToolbarCopyWindowSize,screenExportSize,screenExportSize),SimToolsImages.FULLSCREEN.getIcon()));
+			item.addActionListener(e->copyViewer(viewer,screenExportSize));
+			menu.show(sender,0,sender.getHeight());
+
+		} else {
+			copyViewer(viewer,-1);
+		}
+	}
+
+	/**
+	 * Speichert den Inhalt des Viewers in der angegebenen Größe in einer Datei.
+	 * @param sender	Auslösendes Button (zur Ausrichtung des Popupmenüs, wenn nötig)
+	 * @param viewer	Zu speichernder Viewer
+	 */
+	private void saveViewer(final JButton sender, final StatisticViewer viewer) {
+		if (viewer instanceof StatisticViewerJFreeChart) {
+			final int screenExportSize=getScreenExportSize();
+			final JPopupMenu menu=new JPopupMenu();
+			JMenuItem item;
+			menu.add(item=new JMenuItem(String.format(StatisticsBasePanel.viewersToolbarSaveDefaultSize,defaultExportSize,defaultExportSize),SimToolsImages.SAVE.getIcon()));
+			item.addActionListener(e->saveViewer(viewer,-1));
+			menu.add(item=new JMenuItem(String.format(StatisticsBasePanel.viewersToolbarSaveWindowSize,screenExportSize,screenExportSize),SimToolsImages.FULLSCREEN.getIcon()));
+			item.addActionListener(e->saveViewer(viewer,screenExportSize));
+			menu.show(sender,0,sender.getHeight());
+
+		} else {
+			saveViewer(viewer,-1);
 		}
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-31 00:16+0100\n"
+"POT-Creation-Date: 2021-01-04 18:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10794,6 +10794,12 @@ msgstr "Default zoom"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Unzoom.Hint"
 msgstr "Sets the zoom factor so that the entire chart is visible."
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.WindowSize"
+msgstr "Window size"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.WindowSize.Hint"
+msgstr "Changes the window size."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChartSave"
 msgstr "Save charts"
