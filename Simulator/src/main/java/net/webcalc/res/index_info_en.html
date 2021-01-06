@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="language" content="en">
+  <meta name="title" content="Warteschlangensimulator">  
+  <link rel="stylesheet" type="text/css" href="/css.css">
+  <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+  <script src="/main.js" type="text/javascript"></script>
+  <title>Warteschlangensimulator</title>
+</head>
+
+<body>
+
+<h1>Warteschlangensimulator</h1>
+
+<div class="page">
+
+<h2>REST mode</h2>
+
+
+
+<ul>
+  <li>The functionality of the web interface is also available via a REST interface.</li>
+  <li>The current version of the interface is <tt>v1</tt>. The version identifier is specified in the URL. If the version identifier is missing, the latest version, i.e. <tt>v1</tt>, is assumed.</li>
+  <li>All commands are available in a json and an xml form.</li>
+</ul>
+
+
+
+<h3>List all current jobs</h3>
+
+<div class="cmd">
+GET /v1/jobs.json<br>
+GET /v1/jobs.xml
+</div>
+
+<p>
+Example call: <span class="cmd">curl.exe /v1/jobs.json</span>
+</p>
+
+<p>
+Provides an overview of all running and completed jobs (also contains the job IDs).
+</p>
+
+<p>
+Optionally, the <tt>offset</tt> and <tt>limit</tt> parameters can be used
+to specify a starting point (0-based) and a maximum number of entries to be output.
+Both parameters can be used independently of each other.
+</p>
+
+
+
+<h3>List data for a specific job</h3>
+
+<div class="cmd">
+HEAD /v1/jobs/&lt;id&gt;.json<br>
+HEAD /v1/jobs/&lt;id&gt;.xml
+</div>
+
+<p>
+Example call: <span class="cmd">curl.exe -X HEAD /v1/jobs/123.json</span>
+</p>
+
+<p>
+Returns the status for a job.
+</p>
+
+
+
+<h3>Simulate model</h3>
+
+<div class="cmd">
+POST /v1/jobs.json (Post field name: "model")<br>
+POST /v1/jobs.xml (Post field name: "model")
+</div>
+
+<p>
+Example call: <span class="cmd">curl.exe -X POST --form "model=@model.json" /v1/jobs.json</span>
+</p>
+
+<p>
+Loads a new task (simple model or parameters series) into the simulator.
+File formats for jobs can be json, xml, zip and tar.gz. (zip and tar.gz have contain an xml file).
+</p>
+
+
+
+<h3>Parameterize and simulate fixed model</h3>
+
+<div class="cmd">
+POST /v1/jobs.json (Post field name: "table")<br>
+POST /v1/jobs.xml (Post field name: "table")
+</div>
+
+<p>
+Example call: <span class="cmd">curl.exe -X POST --form "table=@table.csv" /v1/jobs.json</span>
+</p>
+
+<p>
+This invocation assumes that the server is operated with a fixed specified model.
+A table is loaded and the data from the table is loaded into the model according to the settings in the defined model.
+The model parameterized in this way is simulated; the results are then available as in a normal simulation.
+</p>
+
+
+
+<h3>List available functions for a job</h3>
+
+<div class="cmd">
+OPTIONS /v1/jobs/&lt;id&gt;.json<br>
+OPTIONS /v1/jobs/&lt;id&gt;.xml
+</div>
+
+<p>
+Example call: <span class="cmd">curl.exe -X OPTIONS /v1/jobs/123.json</span>
+
+<p>
+Provides a list of what can be done with the job (delete, download results, ...).
+As long as the simulation is not finished, e.g. the download links are not listed.
+</p>
+
+
+
+<h3>Delete a job</h3>
+
+<div class="cmd">
+DELETE /v1/jobs/&lt;id&gt;.json<br>
+DELETE /v1/jobs/&lt;id&gt;.xml
+</div>
+
+<p>
+Example call: <span class="cmd">curl.exe -X DELETE /v1/jobs/123.json</span>
+</p>
+
+<p>
+Deletes the data for a job. (If the job is still waiting to start, it will be deleted from the queue; if it is being simulated,
+the simulation will be aborted; if it has already completed, the statistics data will be discarded).
+As a response, a json or xml string is returned, informing whether the job could be deleted.
+</p>
+
+
+
+<h3>Download simulation results</h3>
+
+<div class="cmd">
+GET /v1/jobs/&lt;id&gt;.json<br>
+GET /v1/jobs/&lt;id&gt;.xml<br>
+GET /v1/jobs/&lt;id&gt;.zip<br>
+GET /v1/jobs/&lt;id&gt;.tar.gz
+</div>
+	
+<p>
+Example call: <span class="cmd">curl.exe --output result.zip /v1/jobs/123.zip</span>
+</p>
+
+<p>
+Returns the statistics results for a job (if they are already available) in the respective format.
+</p>
+
+
+
+<h3>Filter simulation results</h3>
+
+<div class="cmd">
+POST /v1/jobs/&lt;id&gt;.txt  (Post field name: "filter")
+</div>
+
+<p>
+Example call: <span class="cmd">curl.exe -X POST --form "filter=@filter.js" /v1/jobs/123.txt</span>
+</p>
+
+<p>
+The specified filter script is uploaded, applied to the statistics results of the specified job,
+and the results of the script are output as text.
+</p>
+
+
+
+<h3>Set simulator language</h3>
+
+<div class="cmd">
+PUT /v1/language/de.json<br>
+PUT /v1/language/en.json<br>
+PUT /v1/language/de.xml<br>
+PUT /v1/language/en.xml
+</div>
+  
+<p>
+Example call: <span class="cmd">curl.exe -X PUT /v1/language/de.json</span>
+</p>
+
+<p>
+Sets the simulator language.
+</p>
+
+
+
+<hr>
+
+<h2>Direct simulation with parameters from the URL</h2>
+
+<div style="margin-bottom: 10px;">
+Instead of uploading a table for parameterizating the model to the web interface,
+the parameters can also be passed directly in the URL:
+</div>
+
+<div class="cmd">
+/direct/A1=123&amp;B1=456
+</div>
+
+<div style="margin-bottom: 10px;">
+corresponds to uploading a table where the first cell (A1) contains the value 123
+and the second column in the first row (B1) contains the value 456.
+</div>
+
+<div>
+A simulation is started immediately. The server response is given
+as the statistics data after the simulation is completed.
+</div>
+
+<hr>
+
+<a class="button" style="margin-left: 0;" href="/">Back to main page</a>
+
+</div>
+
+</body>
+</html>
+
+  

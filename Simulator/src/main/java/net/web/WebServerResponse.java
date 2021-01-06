@@ -22,12 +22,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import org.w3c.dom.Document;
 
 import fi.iki.elonen.NanoHTTPD;
+import fi.iki.elonen.NanoHTTPD.Response.IStatus;
 import xml.XMLTools;
 
 /**
@@ -113,6 +116,10 @@ public class WebServerResponse {
 	private int length;
 	/** Steht hier ein nicht-leerer String, so wird dem Browser mitgeteilt, dass das Dokument zum Speichern und nicht zum Anzeigen bestimmt ist und der hier angegebene Name wird als Vorschlag verwendet. */
 	private String downloadName;
+	/** Rückgabecode */
+	private IStatus returnCode;
+	/** Optionale benutzerdefinierte HTTP-Header */
+	private Map<String,String> userHeaders;
 
 	/**
 	 * Konstruktor der Klasse<br>
@@ -120,6 +127,8 @@ public class WebServerResponse {
 	 */
 	public WebServerResponse() {
 		mime=null;
+		returnCode=NanoHTTPD.Response.Status.OK;
+		userHeaders=new HashMap<>();
 	}
 
 	/**
@@ -151,6 +160,22 @@ public class WebServerResponse {
 		}
 		length=text.length();
 		return true;
+	}
+
+	/**
+	 * Stellt einen neuen Rückgabecode für die HTTP-Anfragen ein (Vorgabe ist "OK" 200).
+	 * @param returnCode	Neuer Rückgabecode
+	 */
+	public void setReturnCode(final NanoHTTPD.Response.Status returnCode) {
+		if (returnCode!=null) this.returnCode=returnCode;
+	}
+
+	/**
+	 * Liefert die Zuordnung der optionalen benutzerdefinierten HTTP-Header.
+	 * @return	Benutzerdefinierte HTTP-Header
+	 */
+	public Map<String,String> getUserHeaders() {
+		return userHeaders;
 	}
 
 	/**
@@ -481,12 +506,17 @@ public class WebServerResponse {
 		 */
 
 		nanoResponse=NanoHTTPD.newFixedLengthResponse(NanoHTTPD.Response.Status.OK,mime.text,new ByteArrayInputStream(data),length);
+
 		nanoResponse.addHeader("Cache-Control","no-cache, no-store, must-revalidate");
 		/*
 		nanoResponse.addHeader("Cache-Control","must-revalidate");
 		nanoResponse.addHeader("Etag",newETag);
 		 */
+		nanoResponse.setStatus(returnCode);
+		for (Map.Entry<String,String> entry: userHeaders.entrySet()) nanoResponse.addHeader(entry.getKey(),entry.getValue());
+
 		if (downloadName!=null&& !downloadName.trim().isEmpty()) nanoResponse.addHeader("Content-Disposition","attachment; filename="+downloadName);
+
 		return nanoResponse;
 	}
 }

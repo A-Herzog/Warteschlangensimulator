@@ -514,39 +514,86 @@ public class CalcFuture {
 
 	/**
 	 * Liefert die Meldungen in JSON-formatierter Form zurück.
+	 * @param indent	Einrückung der Zeilen (kann eine leere Zeichenkette sein, darf aber nicht <code>null</code> sein)
 	 * @return	JSON-formatierte Meldungen
-	 * @see #getStatusJSON()
+	 * @see #getStatusJSON(String)
 	 */
-	private String jsonFormatMessages() {
+	private String jsonFormatMessages(final String indent) {
 		final StringBuilder result=new StringBuilder();
 		result.append("[");
 		for (int i=0;i<messages.size();i++) {
 			if (i>0) result.append(",");
+			result.append("\n"+indent+"  ");
 			result.append("\"");
 			result.append(messages.get(i));
 			result.append("\"");
 		}
-		result.append("]");
+		result.append("\n"+indent+"]");
 		return result.toString();
 	}
 
 	/**
 	 * Liefert den aktuellen Status des Task in Form eines JSON-Objektes.
+	 * @param versionRest	REST-Versionskennung (z.B. "v1")
 	 * @return	Status als JSON-Objekt
 	 */
-	public String getStatusJSON() {
+	public String getStatusJSON(final String versionRest) {
+		return getStatusJSON("",true,false,versionRest);
+	}
+
+	/**
+	 * Liefert eine JSON-Auflistung der möglichen Aktionen, die für den aktuellen Task ausgeführt werden können.
+	 * @param indent	Einrückung der Zeilen (kann eine leere Zeichenkette sein, darf aber nicht <code>null</code> sein)
+	 * @param versionRest	REST-Versionskennung (z.B. "v1")
+	 * @return	Mögliche Aktionen als JSON-Objekt
+	 */
+	public String getOptions(final String indent, final String versionRest) {
+		final StringBuilder status=new StringBuilder();
+
+		status.append(indent+"\"links\": [\n");
+		status.append(indent+"  {\"rel\": \"metadata\", \"link\": \"/"+versionRest+"/jobs/"+id+".json\", \"method\": \"head\"},\n");
+		status.append(indent+"  {\"rel\": \"methods\", \"link\": \"/"+versionRest+"/jobs/"+id+".json\", \"method\": \"options\"},\n");
+		if (this.status==Status.DONE_SUCCESS) {
+			status.append(indent+"  {\"rel\": \"download-json\", \"link\": \"/"+versionRest+"/jobs/"+id+".json\", \"method\": \"get\"},\n");
+			status.append(indent+"  {\"rel\": \"download-xml\", \"link\": \"/"+versionRest+"/jobs/"+id+".xml\", \"method\": \"get\"},\n");
+			status.append(indent+"  {\"rel\": \"download-zip-xml\", \"link\": \"/"+versionRest+"/jobs/"+id+".zip\", \"method\": \"get\"},\n");
+			status.append(indent+"  {\"rel\": \"download-tar.gz-xml\", \"link\": \"/"+versionRest+"/jobs/"+id+".tar.gz\", \"method\": \"get\"},\n");
+			status.append(indent+"  {\"rel\": \"filter\", \"link\": \"/"+versionRest+"/jobs/"+id+".txt\", \"method\": \"post\"},\n");
+		}
+		status.append(indent+"  {\"rel\": \"delete\", \"link\": \"/"+versionRest+"/jobs/"+id+".json\", \"method\": \"delete\"}\n");
+		status.append(indent+"]");
+
+		return status.toString();
+	}
+
+	/**
+	 * Liefert den aktuellen Status des Task in Form eines JSON-Objektes.
+	 * @param indent	Einrückung der Zeilen (kann eine leere Zeichenkette sein, darf aber nicht <code>null</code> sein)
+	 * @param showViewable	Soll eine Infozeile dazu ausgegeben werden, ob die Ergebnisse im Webinterface angezeigt werden können?
+	 * @param showLinks	Links für mögliche Aktionen ausgeben
+	 * @param versionRest	REST-Versionskennung (z.B. "v1")
+	 * @return	Status als JSON-Objekt
+	 */
+	public String getStatusJSON(final String indent, final boolean showViewable, final boolean showLinks, final String versionRest) {
 		final String viewable=(this.status==Status.DONE_SUCCESS && simulationType==SimulationType.MODEL)?"1":"0";
 
 		final StringBuilder status=new StringBuilder();
-		status.append("{\n");
-		status.append("  \"id\": \""+id+"\",\n");
-		status.append("  \"time\": \""+DateTools.formatUserDate(requestTime,true)+"\",\n");
-		status.append("  \"status\": \""+this.status.id+"\",\n");
-		status.append("  \"statusText\": \""+getStatusText()+"\",\n");
-		status.append("  \"viewable\": \""+viewable+"\",\n");
-		status.append("  \"client\": \""+ip+"\",\n");
-		status.append("  \"messages\": "+jsonFormatMessages()+"\n");
-		status.append("}");
+		status.append(indent+"{\n");
+		status.append(indent+"  \"id\": \""+id+"\",\n");
+		status.append(indent+"  \"time\": \""+DateTools.formatUserDate(requestTime,true)+"\",\n");
+		status.append(indent+"  \"status\": \""+this.status.id+"\",\n");
+		status.append(indent+"  \"statusText\": \""+getStatusText()+"\",\n");
+		if (showViewable) status.append(indent+"  \"viewable\": \""+viewable+"\",\n");
+		status.append(indent+"  \"client\": \""+ip+"\",\n");
+		status.append(indent+"  \"messages\": "+jsonFormatMessages(indent+"  "));
+		if (showLinks) {
+			status.append(",\n");
+			status.append(getOptions(indent+"  ",versionRest)+"\n");
+		} else {
+			status.append("\n");
+		}
+
+		status.append(indent+"}");
 		return status.toString();
 	}
 

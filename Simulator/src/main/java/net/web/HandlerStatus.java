@@ -35,7 +35,7 @@ public class HandlerStatus extends HandlerText {
 	 * @param mainPanel	Hauptpanel des Simulators
 	 */
 	public HandlerStatus(final String serverURL, final MainPanel mainPanel) {
-		super(serverURL,()->getStatus(mainPanel),WebServerResponse.Mime.JSON,true);
+		super(serverURL,param->getStatus(mainPanel),WebServerResponse.Mime.JSON,true);
 	}
 
 	/**

@@ -23,11 +23,11 @@ import net.web.WebServerHandler;
 import net.web.WebServerResponse;
 
 /**
- * Führt verschiedene Operationen aus in Abhängigkeit vom letzten Teil der URL.
+ * Dieser Handler Verarbeitet eine http-DELETE Anfrage.
  * @author Alexander Herzog
  * @see CalcWebServer
  */
-public class HandlerProcessID implements WebServerHandler {
+public class HandlerDelete implements WebServerHandler {
 	/** Pfad zu dem Dokument aus Server-Sicht (sollte mit "/" beginnen und auch enden) */
 	private final String serverURL;
 	/** Verarbeitung in Abhängigkeit von dem Text nach der <code>serverURL</code> */
@@ -38,18 +38,19 @@ public class HandlerProcessID implements WebServerHandler {
 	 * @param serverURL	Pfad zu dem Dokument aus Server-Sicht (sollte mit "/" beginnen und auch enden)
 	 * @param process	Verarbeitung in Abhängigkeit von dem Text nach der <code>serverURL</code>
 	 */
-	public HandlerProcessID(final String serverURL, final Function<String,WebServerResponse> process) {
+	public HandlerDelete(final String serverURL, final Function<String,WebServerResponse> process) {
 		if (serverURL.endsWith("/")) this.serverURL=serverURL; else this.serverURL=serverURL+"/";
 		this.process=process;
 	}
 
 	@Override
 	public WebServerResponse process(IHTTPSession session) {
-		if (session.getMethod()!=NanoHTTPD.Method.GET) return null;
+		if (session.getMethod()!=NanoHTTPD.Method.DELETE) return null;
 		final String uri=session.getUri();
 		if (uri.length()<=serverURL.length()) return null;
 		if (!uri.substring(0,serverURL.length()).equalsIgnoreCase(serverURL)) return null;
 		final String request=uri.substring(serverURL.length());
 		return process.apply(request);
 	}
+
 }

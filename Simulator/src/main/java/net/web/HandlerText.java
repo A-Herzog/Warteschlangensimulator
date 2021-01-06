@@ -17,7 +17,7 @@ package net.web;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 import fi.iki.elonen.NanoHTTPD.IHTTPSession;
 import language.Language;
@@ -35,7 +35,7 @@ public class HandlerText implements WebServerHandler {
 	/** Basisklasse zu der <code>localURL</code> relativ aufgefasst werden soll */
 	private final Object localURLBaseClass;
 	/** Supplier, der im Anfragefall den Text liefert */
-	private final Supplier<String> textSupplier;
+	private final Function<String,String> textSupplier;
 	/** Mime-Typ des Dokuments */
 	private final WebServerResponse.Mime mime;
 	/** Gibt an, ob der Text noch ins UTF8-Format konvertiert werden muss */
@@ -79,7 +79,7 @@ public class HandlerText implements WebServerHandler {
 	 * @param utf8encode	Gibt an, ob der Text noch ins UTF8-Format konvertiert werden muss
 	 * @see WebServerResponse.Mime
 	 */
-	public HandlerText(final String serverURL, final Supplier<String> textSupplier, final WebServerResponse.Mime mime, final boolean utf8encode) {
+	public HandlerText(final String serverURL, final Function<String,String> textSupplier, final WebServerResponse.Mime mime, final boolean utf8encode) {
 		this.serverURL=serverURL;
 		localURL=null;
 		localURLBaseClass=null;
@@ -95,18 +95,19 @@ public class HandlerText implements WebServerHandler {
 	 * @param mime	Mime-Typ des Dokuments
 	 * @see WebServerResponse.Mime
 	 */
-	public HandlerText(final String serverURL, final Supplier<String> textSupplier, final WebServerResponse.Mime mime) {
+	public HandlerText(final String serverURL, final Function<String,String> textSupplier, final WebServerResponse.Mime mime) {
 		this(serverURL,textSupplier,mime,false);
 	}
 
 	@Override
 	public WebServerResponse process(final IHTTPSession session) {
 		if (!testURL(session,serverURL)) return null;
+		final String parameters=session.getQueryParameterString();
 
-		WebServerResponse response=new WebServerResponse();
+		final WebServerResponse response=new WebServerResponse();
 
 		if (textSupplier!=null) {
-			response.setText(textSupplier.get(),mime,utf8encode);
+			response.setText(textSupplier.apply(parameters),mime,utf8encode);
 		}
 
 		if (localURL!=null) {
