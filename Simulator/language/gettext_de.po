@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-04 18:17+0100\n"
+"POT-Creation-Date: 2021-01-07 13:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1702,6 +1702,11 @@ msgstr "Konfiguration zurücksetzen."
 msgid "CommandLine.ResetConfig.Name"
 msgstr "Reset"
 
+msgid "CommandLine.Server.AuthNamePasswordInvalid"
+msgstr ""
+"Die Nutzername/Passwort-Angabe ist ungültig.\n"
+"Es müssen ein Nutzername und ein Passwort getrennt durch einen Doppelpunkt angegeben werden."
+
 msgid "CommandLine.Server.Description.Long"
 msgstr ""
 "Dieser Befehl erwartet 0 bis 2 weitere Parameter.\n"
@@ -1749,8 +1754,8 @@ msgstr "ServerLimited"
 
 msgid "CommandLine.ServerWeb.Description.Long"
 msgstr ""
-"Dieser Befehl erwartet einen weiteren Parameter:\n"
-"den zu verwendenden Port."
+"Dieser Befehl erwartet einen oder zwei weiteren Parameter:\n"
+"den zu verwendenden Port und optional Nutzername und Passwort getrennt durch \":\"."
 
 msgid "CommandLine.ServerWeb.Description.Short"
 msgstr "Simulator als webbasierten Rechenserver starten."
@@ -1766,9 +1771,10 @@ msgstr "Webbasierter Rechenserver gestoppt."
 
 msgid "CommandLine.ServerWebFixedModel.Description.Long"
 msgstr ""
-"Dieser Befehl erwartet zwei weitere Parameter:\n"
-"den zu verwendenden Port und den Dateinamen\n"
-"der Modelldatei."
+"Dieser Befehl erwartet zwei oder drei weitere Parameter:\n"
+"den zu verwendenden Port, den Dateinamen\n"
+"der Modelldatei\n"
+"und optional Nutzername und Passwort getrennt durch \":\"."
 
 msgid "CommandLine.ServerWebFixedModel.Description.Short"
 msgstr "Simulator als webbasierten Rechenserver für ein festes Modell starten."
@@ -14760,6 +14766,21 @@ msgstr "Laufzeitfehler"
 
 msgid "Simulation.Started"
 msgstr "Die Simulation wurde gestartet."
+
+msgid "SimulationServer.AuthRequestInfo"
+msgstr "Bitte geben Sie zu Zugangsdaten zu dem Server an."
+
+msgid "SimulationServer.Setup.AccessControl"
+msgstr "Zugangsdaten für Web- und Fernsteuerungsserver"
+
+msgid "SimulationServer.Setup.AuthInfo"
+msgstr "Die Zugangsdaten werden im Browser abgefragt, wenn hier ein Name und ein Passwort angegeben werden."
+
+msgid "SimulationServer.Setup.AuthName"
+msgstr "Name"
+
+msgid "SimulationServer.Setup.AuthPassword"
+msgstr "Passwort"
 
 msgid "SimulationServer.Setup.CalcAutoStart"
 msgstr "Autostart"

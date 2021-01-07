@@ -43,6 +43,10 @@ public class CommandServerWebFixed extends AbstractCommand {
 	private File modelFile;
 	/** Signalisiert dass der Server beendet werden soll. */
 	private boolean isQuit;
+	/** Nutzername, den der Client angeben muss (kann <code>null</code> sein, wenn keine Authentifizierung stattfinden soll) */
+	private String authName;
+	/** Passwort, dass der Client angeben muss (kann <code>null</code> sein, wenn keine Authentifizierung stattfinden soll) */
+	private String authPassword;
 
 	@Override
 	public String[] getKeys() {
@@ -79,7 +83,7 @@ public class CommandServerWebFixed extends AbstractCommand {
 
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
-		String s=parameterCountCheck(2,additionalArguments); if (s!=null) return s;
+		String s=parameterCountCheck(2,3,additionalArguments); if (s!=null) return s;
 
 		final String portData=additionalArguments[0];
 		final Integer I=NumberTools.getNotNegativeInteger(portData);
@@ -89,6 +93,16 @@ public class CommandServerWebFixed extends AbstractCommand {
 		modelFile=new File(additionalArguments[1]);
 		if (!modelFile.isFile()) return String.format(Language.tr("CommandLine.Error.File.InputDoesNotExist"),modelFile);
 		if (!isModelFile(modelFile)) return String.format(Language.tr("CommandLine.Error.File.InputNoValidModelFile"),modelFile);
+
+		if (additionalArguments.length==3) {
+			final String[] parts=additionalArguments[2].split(":");
+			if (parts.length==2) {
+				authName=parts[0];
+				authPassword=parts[1];
+			} else {
+				return Language.tr("CommandLine.Server.AuthNamePasswordInvalid");
+			}
+		}
 
 		return null;
 	}
@@ -103,6 +117,9 @@ public class CommandServerWebFixed extends AbstractCommand {
 		}
 
 		final CalcWebServer server=new CalcWebServer(model);
+		if (authName!=null && !authName.trim().isEmpty() && authPassword!=null && !authPassword.trim().isEmpty()) {
+			server.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),authName,authPassword);
+		}
 		server.start(serverPort);
 		if (out!=null) out.println(String.format(Language.tr("CommandLine.ServerWebFixedModel.Started"),serverPort));
 		final CloseRequestSignal quitSignal=new CloseRequestSignal(true,in);

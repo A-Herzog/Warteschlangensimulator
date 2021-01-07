@@ -115,8 +115,10 @@ public class SimulatorWebServer extends WebServer {
 	public static synchronized void updatePanel(final MainPanel mainPanel) {
 		if (instance==null) return;
 		final boolean running=instance.isRunning();
+		final String[] authData=instance.getAuthData();
 		if (running) instance.stop();
 		instance=new SimulatorWebServer(mainPanel);
+		instance.setAuthData(authData[0],authData[1],authData[2]);
 		if (running) instance.start(instance.getLastPort());
 	}
 }

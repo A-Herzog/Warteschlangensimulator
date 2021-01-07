@@ -42,6 +42,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -121,6 +122,11 @@ public final class ServerPanel extends SpecialPanel {
 	/** Anklickbarer Link zum Öffnen der Fernsteuerungs-Server-Seite im Browser */
 	private final JLabel webOpenBrowserButton;
 
+	/** Eingabefeld - Authentifizierungs-Name (für Web- und Fernsteuerungsserver) */
+	private final JTextField authNameEdit;
+	/** Eingabefeld - Authentifizierungs-Passwort (für Web- und Fernsteuerungsserver) */
+	private final JTextField authPasswordEdit;
+
 	/** Option - DDE-Server - "Autostart" */
 	private final JCheckBox ddeAutoStartCheckBox;
 
@@ -151,6 +157,9 @@ public final class ServerPanel extends SpecialPanel {
 	 */
 	public ServerPanel(final Runnable doneNotify, final MainPanel mainPanel) {
 		super(doneNotify);
+
+		final SetupData setupData=SetupData.getSetup();
+
 		serverCalc=SimulationServerGUIConnect.getInstance();
 		serverCalcWeb=CalcWebServer.getInstance();
 		serverWeb=SimulatorWebServer.getInstance(mainPanel);
@@ -161,6 +170,8 @@ public final class ServerPanel extends SpecialPanel {
 		JPanel line;
 		JLabel label;
 		JSpinner.NumberEditor editor;
+		JToolBar toolbar;
+		JButton button;
 
 		/* Symbolleiste */
 
@@ -190,7 +201,7 @@ public final class ServerPanel extends SpecialPanel {
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.Port")+":"));
 		calcPortEditSpinner=new JSpinner(calcPortEdit=new SpinnerNumberModel(1,1,65535,1));
-		editor=new JSpinner.NumberEditor(calcPortEditSpinner);
+		editor=new JSpinner.NumberEditor(calcPortEditSpinner,"###0.###");
 		editor.getFormat().setGroupingUsed(false);
 		calcPortEdit.setValue(serverCalc.getLastPort());
 		calcPortEditSpinner.setEditor(editor);
@@ -204,10 +215,10 @@ public final class ServerPanel extends SpecialPanel {
 		line.add(calcLimitThreadsCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.LimitThreadCount"),serverCalc.getLastLimitThreadCount()));
 		calcLimitThreadsCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.LimitThreadCount.Hint"));
 
-		line.add(calcAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.CalcAutoStart"),SetupData.getSetup().simulationServerAutoStart));
+		line.add(calcAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.CalcAutoStart"),setupData.simulationServerAutoStart));
 		calcAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.CalcAutoStart.Hint"));
 
-		/* Webserver */
+		/* Fernsteuerungs-Server */
 
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body><b>"+Language.tr("SimulationServer.Setup.CalcWebServer")+":</b></body></html>"));
@@ -215,14 +226,14 @@ public final class ServerPanel extends SpecialPanel {
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.Port")+":"));
 		calcWebPortEditSpinner=new JSpinner(calcWebPortEdit=new SpinnerNumberModel(1,1,65535,1));
-		editor=new JSpinner.NumberEditor(calcWebPortEditSpinner);
+		editor=new JSpinner.NumberEditor(calcWebPortEditSpinner,"###0.###");
 		editor.getFormat().setGroupingUsed(false);
 		calcWebPortEdit.setValue(serverWeb.getLastPort());
 		calcWebPortEditSpinner.setEditor(editor);
 		line.add(calcWebPortEditSpinner);
 		label.setLabelFor(calcWebPortEditSpinner);
 
-		line.add(calcWebAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.CalcWebAutoStart"),SetupData.getSetup().calcWebServerAutoStart));
+		line.add(calcWebAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.CalcWebAutoStart"),setupData.calcWebServerAutoStart));
 		calcWebAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.CalcWebAutoStart.Hint"));
 
 		line.add(calcWebOpenBrowserButton=new JLabel("<html><body><span style=\"color: blue; text-decoration: underline;\">"+Language.tr("SimulationServer.Setup.OpenBrowser")+"</span></body></html>"));
@@ -236,7 +247,7 @@ public final class ServerPanel extends SpecialPanel {
 			}
 		});
 
-		/* Fernsteuerungs-Server */
+		/* Webserver */
 
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body><b>"+Language.tr("SimulationServer.Setup.WebServer")+":</b></body></html>"));
@@ -244,14 +255,14 @@ public final class ServerPanel extends SpecialPanel {
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.Port")+":"));
 		webPortEditSpinner=new JSpinner(webPortEdit=new SpinnerNumberModel(1,1,65535,1));
-		editor=new JSpinner.NumberEditor(webPortEditSpinner);
+		editor=new JSpinner.NumberEditor(webPortEditSpinner,"###0.###");
 		editor.getFormat().setGroupingUsed(false);
 		webPortEdit.setValue(serverWeb.getLastPort());
 		webPortEditSpinner.setEditor(editor);
 		line.add(webPortEditSpinner);
 		label.setLabelFor(webPortEditSpinner);
 
-		line.add(webAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.WebAutoStart"),SetupData.getSetup().webServerAutoStart));
+		line.add(webAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.WebAutoStart"),setupData.webServerAutoStart));
 		webAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.WebAutoStart.Hint"));
 
 		line.add(webOpenBrowserButton=new JLabel("<html><body><span style=\"color: blue; text-decoration: underline;\">"+Language.tr("SimulationServer.Setup.OpenBrowser")+"</span></body></html>"));
@@ -265,13 +276,34 @@ public final class ServerPanel extends SpecialPanel {
 			}
 		});
 
+		/* Zugangsdaten für Web- und Fernsteuerungsserver */
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body><b>"+Language.tr("SimulationServer.Setup.AccessControl")+":</b></body></html>"));
+		line.add(Box.createHorizontalStrut(5));
+
+		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.AuthName")+":"));
+		line.add(authNameEdit=new JTextField(setupData.serverAuthName,20));
+		label.setLabelFor(authNameEdit);
+
+		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.AuthPassword")+":"));
+		line.add(authPasswordEdit=new JTextField(setupData.serverAuthPassword,20));
+		label.setLabelFor(authPasswordEdit);
+
+		line.add(toolbar=new JToolBar());
+		toolbar.setFloatable(false);
+		toolbar.add(button=new JButton(Images.GENERAL_INFO.getIcon()));
+		button.setToolTipText(Language.tr("SimulationServer.Setup.AuthInfo"));
+		button.addActionListener(e->MsgBox.info(this,Language.tr("SimulationServer.Setup.AccessControl"),Language.tr("SimulationServer.Setup.AuthInfo")));
+
+
 		/* DDE-Server */
 
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body><b>"+Language.tr("SimulationServer.Setup.DDEServer")+":</b></body></html>"));
 		line.add(Box.createHorizontalStrut(5));
 
-		line.add(ddeAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.DDEAutoStart"),SetupData.getSetup().ddeServerAutoStart));
+		line.add(ddeAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.DDEAutoStart"),setupData.ddeServerAutoStart));
 		ddeAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.DDEAutoStart.Hint"));
 
 		/* Infotext über Ausgabebereich */
@@ -408,6 +440,11 @@ public final class ServerPanel extends SpecialPanel {
 
 		webOpenBrowserButton.setVisible(serverWeb.isRunning());
 
+		/* Zugangsdaten für Web- und Fernsteuerungsserver */
+
+		authNameEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
+		authPasswordEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
+
 		/* DDE-Server */
 
 		if (serverDDE.isRunning()) {
@@ -504,6 +541,9 @@ public final class ServerPanel extends SpecialPanel {
 		} else {
 			final int port=checkCalcWebPort(true);
 			if (port>0) {
+				final String name=authNameEdit.getText().trim();
+				final String password=authPasswordEdit.getText().trim();
+				if (!name.isEmpty() && !password.isEmpty()) serverCalcWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
 				if (serverCalcWeb.start(port)) {
 				} else {
 					MsgBox.error(this,Language.tr("SimulationServer.Setup.CalcWebServer"),Language.tr("SimulationServer.Setup.CalcWebServer.MessageStartError"));
@@ -547,6 +587,9 @@ public final class ServerPanel extends SpecialPanel {
 		} else {
 			final int port=checkWebPort(true);
 			if (port>0) {
+				final String name=authNameEdit.getText().trim();
+				final String password=authPasswordEdit.getText().trim();
+				if (!name.isEmpty() && !password.isEmpty()) serverWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
 				if (serverWeb.start(port)) {
 					/* MsgBox.error(this,Language.tr("SimulationServer.Setup.WebServer"),String.format(Language.tr("SimulationServer.Setup.WebServer.MessageStarted"),port)); */
 				} else {
@@ -584,7 +627,11 @@ public final class ServerPanel extends SpecialPanel {
 	 */
 	private void commandOpenBrowser(int port) {
 		final StringBuilder sb=new StringBuilder();
-		sb.append("http://localhost");
+		sb.append("http://");
+		final String name=authNameEdit.getText();
+		final String password=authPasswordEdit.getText();
+		if (!name.isEmpty() && !password.isEmpty()) sb.append(name+":"+password+"@");
+		sb.append("localhost");
 		if (port!=80) {
 			sb.append(":");
 			sb.append(port);
@@ -618,6 +665,9 @@ public final class ServerPanel extends SpecialPanel {
 		i=checkWebPort(false); if (i>0) setup.webServerPort=i;
 		setup.webServerAutoStart=webAutoStartCheckBox.isSelected();
 
+		setup.serverAuthName=authNameEdit.getText().trim();
+		setup.serverAuthPassword=authPasswordEdit.getText().trim();
+
 		setup.ddeServerAutoStart=ddeAutoStartCheckBox.isSelected();
 
 		setup.saveSetup();
@@ -650,11 +700,17 @@ public final class ServerPanel extends SpecialPanel {
 
 		if (setup.calcWebServerAutoStart) {
 			final CalcWebServer serverCalcWeb=CalcWebServer.getInstance();
+			final String name=setup.serverAuthName;
+			final String password=setup.serverAuthPassword;
+			if (!name.isEmpty() && !password.isEmpty()) serverCalcWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
 			if (setup.calcWebServerPort>0) serverCalcWeb.start(setup.calcWebServerPort);
 		}
 
 		if (setup.webServerAutoStart) {
 			final SimulatorWebServer serverWeb=SimulatorWebServer.getInstance(mainPanel);
+			final String name=setup.serverAuthName;
+			final String password=setup.serverAuthPassword;
+			if (!name.isEmpty() && !password.isEmpty()) serverWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
 			if (setup.webServerPort>0) serverWeb.start(setup.webServerPort);
 		}
 

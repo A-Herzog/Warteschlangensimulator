@@ -36,6 +36,10 @@ public class CommandServerWeb extends AbstractCommand {
 	private int serverPort;
 	/** Signalisiert dass der Server beendet werden soll. */
 	private boolean isQuit;
+	/** Nutzername, den der Client angeben muss (kann <code>null</code> sein, wenn keine Authentifizierung stattfinden soll) */
+	private String authName;
+	/** Passwort, dass der Client angeben muss (kann <code>null</code> sein, wenn keine Authentifizierung stattfinden soll) */
+	private String authPassword;
 
 	@Override
 	public String[] getKeys() {
@@ -57,20 +61,37 @@ public class CommandServerWeb extends AbstractCommand {
 
 	@Override
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
-		String s=parameterCountCheck(1,additionalArguments); if (s!=null) return s;
+		String s=parameterCountCheck(1,2,additionalArguments); if (s!=null) return s;
 
 		final String portData=additionalArguments[0];
 		final Integer I=NumberTools.getNotNegativeInteger(portData);
 		if (I==null) return String.format(Language.tr("CommandLine.Server.InvalidPort"),portData);
 		serverPort=I;
+
+		if (additionalArguments.length==2) {
+			final String[] parts=additionalArguments[1].split(":");
+			if (parts.length==2) {
+				authName=parts[0];
+				authPassword=parts[1];
+			} else {
+				return Language.tr("CommandLine.Server.AuthNamePasswordInvalid");
+			}
+		}
+
 		return null;
 	}
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		final CalcWebServer server=new CalcWebServer();
+		if (authName!=null && !authName.trim().isEmpty() && authPassword!=null && !authPassword.trim().isEmpty()) {
+			server.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),authName,authPassword);
+		}
 		server.start(serverPort);
-		if (out!=null) out.println(String.format(Language.tr("CommandLine.ServerWeb.Started"),serverPort));
+		if (out!=null) {
+			out.println(String.format(Language.tr("CommandLine.ServerWeb.Started"),serverPort));
+
+		}
 		final CloseRequestSignal quitSignal=new CloseRequestSignal(true,in);
 		while (!isQuit && !quitSignal.isQuit()) try {Thread.sleep(50);} catch (InterruptedException e) {}
 		server.stop();

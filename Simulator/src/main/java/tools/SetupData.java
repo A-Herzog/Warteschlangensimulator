@@ -667,6 +667,16 @@ public class SetupData extends SetupBase {
 	public int calcWebServerPort;
 
 	/**
+	 * Benutzername, den Web-Rechen- und Web-Fernsteuerungsserver für die Authentifizierung verwenden sollen
+	 */
+	public String serverAuthName;
+
+	/**
+	 * Passwort, das Web-Rechen- und Web-Fernsteuerungsserver für die Authentifizierung verwenden sollen
+	 */
+	public String serverAuthPassword;
+
+	/**
 	 * DDE-Server beim Start des Programmes starten.
 	 */
 	public boolean ddeServerAutoStart;
@@ -990,6 +1000,8 @@ public class SetupData extends SetupBase {
 		webServerPort=81;
 		calcWebServerAutoStart=false;
 		calcWebServerPort=80;
+		serverAuthName="";
+		serverAuthPassword="";
 		ddeServerAutoStart=false;
 		customExcelRowName="";
 		customExcelColName="";
@@ -1574,6 +1586,12 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("networkwebserver")) {
+				serverAuthName=e.getAttribute("Name");
+				serverAuthPassword=e.getAttribute("Password");
+				continue;
+			}
+
 			if (name.equals("ddeserver")) {
 				ddeServerAutoStart=loadBoolean(e.getAttribute("AutoStart"),false);
 				continue;
@@ -2102,6 +2120,12 @@ public class SetupData extends SetupBase {
 			root.appendChild(node=doc.createElement("NetworkWebSimulationServer"));
 			node.setAttribute("Port",""+calcWebServerPort);
 			if (calcWebServerAutoStart) node.setAttribute("AutoStart","1");
+		}
+
+		if (!serverAuthName.isEmpty() || !serverAuthPassword.isEmpty()) {
+			root.appendChild(node=doc.createElement("NetworkWebServer"));
+			node.setAttribute("Name",serverAuthName);
+			node.setAttribute("Password",serverAuthPassword);
 		}
 
 		if (ddeServerAutoStart) {

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-04 18:17+0100\n"
+"POT-Creation-Date: 2021-01-07 13:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1702,6 +1702,11 @@ msgstr "Resets the program configuration."
 msgid "CommandLine.ResetConfig.Name"
 msgstr "Reset"
 
+msgid "CommandLine.Server.AuthNamePasswordInvalid"
+msgstr ""
+"The username/password specification is invalid.\n"
+"A username and password separated by a colon have to be specified."
+
 msgid "CommandLine.Server.Description.Long"
 msgstr ""
 "This command expects 0 to 2 additional parameters.\n"
@@ -1749,8 +1754,8 @@ msgstr "ServerLimited"
 
 msgid "CommandLine.ServerWeb.Description.Long"
 msgstr ""
-"This command expects one additional parameter:\n"
-"the port to be used."
+"This command expects one or tow additional parameter:\n"
+"the port to be used and optionally the user name and the password separated by \":\"."
 
 msgid "CommandLine.ServerWeb.Description.Short"
 msgstr "Starts the program as web-based simulation server."
@@ -1766,9 +1771,9 @@ msgstr "Web-based simulation server stopped."
 
 msgid "CommandLine.ServerWebFixedModel.Description.Long"
 msgstr ""
-"This command expects two additional parameters:\n"
-"the port to be used and the file name of the\n"
-"model to be loaded."
+"This command expects two or three additional parameters:\n"
+"the port to be used, the file name of the\n"
+"model to be loaded and optionally the user name and the password separated by \":\"."
 
 msgid "CommandLine.ServerWebFixedModel.Description.Short"
 msgstr "Starts the program as web-based simulation server for a fixed model."
@@ -14761,6 +14766,21 @@ msgstr "Runtime error"
 
 msgid "Simulation.Started"
 msgstr "The simulation was started."
+
+msgid "SimulationServer.AuthRequestInfo"
+msgstr "Please enter the login data to the server."
+
+msgid "SimulationServer.Setup.AccessControl"
+msgstr "Login data for web and remote control server"
+
+msgid "SimulationServer.Setup.AuthInfo"
+msgstr "The access data is requested in the browser when a name and a password are entered here."
+
+msgid "SimulationServer.Setup.AuthName"
+msgstr "Name"
+
+msgid "SimulationServer.Setup.AuthPassword"
+msgstr "Password"
 
 msgid "SimulationServer.Setup.CalcAutoStart"
 msgstr "Auto start"
