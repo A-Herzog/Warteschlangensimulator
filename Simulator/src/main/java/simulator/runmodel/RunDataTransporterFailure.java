@@ -103,6 +103,7 @@ public class RunDataTransporterFailure {
 	 * @param transporter	Transporter
 	 */
 	private void scheduleTransporterPauseEndEvent(final SimulationData simData, final RunDataTransporter transporter) {
+		if (simData.runData.stopp) return;
 		final TransporterPauseEndEvent event=(TransporterPauseEndEvent)(simData.getEvent(TransporterPauseEndEvent.class));
 		event.transporter=transporter;
 		event.failure=this;

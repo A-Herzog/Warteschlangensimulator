@@ -119,6 +119,7 @@ public abstract class RunElementAnalogProcessingData extends RunElementData {
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	private void triggerNextUpdateEvent(final SimulationData simData) {
+		if (simData.runData.stopp) return;
 		final AnalogSystemChangeEvent event=(AnalogSystemChangeEvent)simData.getEvent(AnalogSystemChangeEvent.class);
 		event.init(simData.currentTime+analogNotifiyMS);
 		event.analogProcessingData=this;

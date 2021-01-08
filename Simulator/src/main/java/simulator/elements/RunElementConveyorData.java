@@ -183,6 +183,7 @@ public class RunElementConveyorData extends RunElementData {
 	 */
 	private void triggerUpdateEvent(final SimulationData simData) {
 		if (notifyTriggered && transportTimeMS>1000) return;
+		if (simData.runData.stopp) return;
 		final ConveyorSystemChangeEvent event=(ConveyorSystemChangeEvent)simData.getEvent(ConveyorSystemChangeEvent.class);
 		event.init(simData.currentTime+transportTimeMS/10);
 		event.conveyorData=this;

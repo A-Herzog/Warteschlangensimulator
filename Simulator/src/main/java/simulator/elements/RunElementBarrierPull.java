@@ -193,6 +193,7 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 
 		/* Haben wir gerade einen Kunden losgeschickt und ist dieser evtl. noch nicht an der Zielstation? */
 		if (data.lastSendTime==simData.currentTime) {
+			if (simData.runData.stopp) return false;
 			final ReleaseRecheckEvent event=(ReleaseRecheckEvent)simData.getEvent(ReleaseRecheckEvent.class);
 			event.init(simData.currentTime+1);
 			event.station=this;

@@ -1526,6 +1526,9 @@ public class RunData {
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	public void fireStateChangeNotify(final SimulationData simData) {
+		/* Ganz wichtig: Wenn ein vorheriges Ereignis das Simulationsende ausgelöst hat, keine neuen Ereignisse mehr anlegen. */
+		if (simData.runData.stopp) return;
+
 		/* Beim ersten Aufruf: Array mit relevanten Einträgen aufbauen */
 		if (stateChangeListener==null) {
 			final List<StateChangeListener> list=new ArrayList<>();

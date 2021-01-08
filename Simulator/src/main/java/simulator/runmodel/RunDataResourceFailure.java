@@ -138,6 +138,7 @@ public class RunDataResourceFailure {
 	 * @param eventTime	Zeitpunkt zu dem das Ereignis ausgeführt werden soll
 	 */
 	private void scheduleResourceCheckEvent(final SimulationData simData, final long eventTime) {
+		if (simData.runData.stopp) return;
 		final ResourcesReCheckEvent event=(ResourcesReCheckEvent)(simData.getEvent(ResourcesReCheckEvent.class));
 		event.init(eventTime);
 		event.autoScheduleNext=0;

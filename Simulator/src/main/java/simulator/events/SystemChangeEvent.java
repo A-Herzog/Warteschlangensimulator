@@ -37,6 +37,7 @@ public class SystemChangeEvent extends Event {
 	 * @param deltaMS	Ausführungszeitpunkt als Differenz vom aktuellen Zeitpunkt aus
 	 */
 	public static void triggerEvent(final SimulationData simData, final long deltaMS) {
+		if (simData.runData.stopp) return;
 		final SystemChangeEvent stateChange=(SystemChangeEvent)simData.getEvent(SystemChangeEvent.class);
 		stateChange.init(simData.currentTime+deltaMS);
 		simData.eventManager.addEvent(stateChange);

@@ -69,7 +69,9 @@ public class RunElementDispose extends RunElement {
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Dispose"),String.format(Language.tr("Simulation.Log.Dispose.Info"),client.logInfo(simData),name));
 
 		/* Simulation regulär beenden */
+		boolean lastClient=false;
 		if (client.isLastClient) {
+			lastClient=true;
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.EndOfSimulation"),Language.tr("Simulation.Log.EndOfSimulation.FinalClientLeftSystem"));
 			simData.doShutDown();
 		}
@@ -87,6 +89,11 @@ public class RunElementDispose extends RunElement {
 
 		/* Kunde in Statistik erfassen und Objekt recyceln */
 		simData.runData.clients.disposeClient(client,simData);
+
+		/* Falls zwischenzeitlich doch noch weitere Ereignisse generiert wurden. */
+		if (lastClient) {
+			simData.doShutDown();
+		}
 	}
 
 	@Override

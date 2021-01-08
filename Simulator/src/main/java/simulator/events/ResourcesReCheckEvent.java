@@ -41,6 +41,7 @@ public class ResourcesReCheckEvent extends Event {
 		simData.runData.fireReleasedResourcesNotify(simData);
 
 		if (autoScheduleNext>0) {
+			if (simData.runData.stopp) return;
 			final ResourcesReCheckEvent event=(ResourcesReCheckEvent)(simData.getEvent(ResourcesReCheckEvent.class));
 			event.init(simData.currentTime+autoScheduleNext);
 			event.autoScheduleNext=autoScheduleNext;

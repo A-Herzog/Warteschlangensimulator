@@ -41,6 +41,7 @@ public class TimedCheckEvent extends Event {
 	public static void scheduleCheck(final SimulationData simData) {
 		final int delta=simData.runModel.timedChecksDelta;
 		if (delta<=0) return;
+		if (simData.runData.stopp) return;
 		final TimedCheckEvent checkEvent=(TimedCheckEvent)simData.getEvent(TimedCheckEvent.class);
 		checkEvent.init(simData.currentTime+delta);
 		simData.eventManager.addEvent(checkEvent);

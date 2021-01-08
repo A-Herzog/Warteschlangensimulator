@@ -258,12 +258,14 @@ public class RunElementProcessData extends RunElementData {
 			}
 			maxWaitingTime=maxWaitingTime*station.timeBaseMultiply;
 			if (maxWaitingTime>=0) {
-				final WaitingCancelEvent event=(WaitingCancelEvent)simData.getEvent(WaitingCancelEvent.class);
-				event.init(time+FastMath.round(maxWaitingTime*1000));
-				event.station=station;
-				event.client=client;
-				simData.eventManager.addEvent(event);
-				waitingCancelEvents.add(event);
+				if (!simData.runData.stopp)  {
+					final WaitingCancelEvent event=(WaitingCancelEvent)simData.getEvent(WaitingCancelEvent.class);
+					event.init(time+FastMath.round(maxWaitingTime*1000));
+					event.station=station;
+					event.client=client;
+					simData.eventManager.addEvent(event);
+					waitingCancelEvents.add(event);
+				}
 
 				/* Logging */
 				if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.ProcessWaitingTimeToleranceCalculation"),String.format(Language.tr("Simulation.Log.ProcessWaitingTimeToleranceCalculation.Info"),client.logInfo(simData),station.name,TimeTools.formatTime(FastMath.round(maxWaitingTime*1000)),TimeTools.formatTime(FastMath.round(maxWaitingTime*1000))));
