@@ -188,8 +188,6 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersChartSetupSurfaceOutlineColor="Rahmen";
 	/** Diagrammeinstellungen: Rahmenbreite */
 	public static String viewersChartSetupSurfaceOutlineWidth="Rahmenbreite";
-	/** Diagrammeinstellungen: Hinweis, das die Einstellungen nur für neue Diagramme gelten */
-	public static String viewersChartSetupUpdateInfo="Veränderte Einstellungen werden erst für neu generierte Diagramme verwendet.";
 
 	/** Titel der Fehlermeldung "Ungültige Bildgröße" */
 	public static String viewersSaveImageSizeErrorTitle="Bildgröße muss eine natürliche Zahl sein";
@@ -824,7 +822,28 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * Stellt die neuen Einstellungen der Diagramme ein.
 	 * @param chartSetup	Neue Einstellungen der Diagramme
 	 */
-	protected abstract void setChartSetup(final ChartSetup chartSetup);
+	protected void setChartSetup(final ChartSetup chartSetup) {
+		updateChartSetupInViewers(chartSetup);
+	}
+
+	/**
+	 * Aktualisiert die Diagrammeinstellungen in allen aktuellen Diagrammen.
+	 * @param chartSetup	Neue Einstellungen der Diagramme
+	 */
+	public void updateChartSetupInViewers(final ChartSetup chartSetup) {
+		if (currentRoot!=null) updateChartSetupInViewers(currentRoot,chartSetup);
+		if (lastRoot!=null) updateChartSetupInViewers(lastRoot,chartSetup);
+	}
+
+	/**
+	 * Aktualisiert die Diagrammeinstellungen in allen Diagrammen in einem Zweig des Statistikbaums.
+	 * @param node	Ausgangspunkt des Zweigs im Statistikbaum
+	 * @param chartSetup	Neue Einstellungen der Diagramme
+	 */
+	private void updateChartSetupInViewers(final StatisticNode node, final ChartSetup chartSetup) {
+		for (StatisticViewer viewer: node.viewer) if (viewer instanceof StatisticViewerJFreeChart) ((StatisticViewerJFreeChart)viewer).setChartSetup(chartSetup);
+		for (int i=0;i<node.getChildCount();i++) updateChartSetupInViewers(node.getChild(i),chartSetup);
+	}
 
 	/**
 	 * Stellt die Callbacks zur Einstellung der Bild-Export-Größe in den Teilviewern ein

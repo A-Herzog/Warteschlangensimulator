@@ -14748,6 +14748,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34577] = "Gesamtdurchschnitt";
     t[34578] = "ModelDescription.SourceDDE.Column";
     t[34579] = "Spalte";
+    t[34580] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings";
+    t[34581] = "Einstellungen";
     t[34582] = "Surface.LogicEndWhile.Name";
     t[34583] = "EndWhile";
     t[34588] = "Surface.HoldJS.Name";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37715] = "Optimierereinstellungen laden";
     t[37718] = "Surface.Process.Dialog.CostsPerClient";
     t[37719] = "Kosten pro Bedienvorgang";
-    t[37728] = "Surface.XML.Resource.Name";
-    t[37729] = "Name";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37728] = "Surface.XML.Resource.Name";
+    t[37729] = "Name";
     t[37730] = "Animation.Icon.Book";
     t[37731] = "Buch";
     t[37736] = "Surface.XML.BackgroundColor";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42527] = "Orchidee";
     t[42528] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmText";
     t[42529] = "Soll der Ausdruck \"%s\" wirklich aus der Liste gel\u00f6scht werden.";
-    t[42538] = "Color.F08080";
-    t[42539] = "Helles Coral";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42538] = "Color.F08080";
+    t[42539] = "Helles Coral";
     t[42540] = "Surface.OutputDB.XML.Element.Data";
     t[42541] = "Daten";
     t[42542] = "XML.OptimizerNotActive.NoInfo";
@@ -18132,6 +18134,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42671] = "Initiale Variablenwerte";
     t[42672] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.StandardDeviationOfTheTime";
     t[42673] = "<p>Liefert die Standardabweichung \u00fcber die Verweilzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>";
+    t[42674] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint";
+    t[42675] = "\u00d6ffnet den Dialog zur Konfiguration des Aussehens des Diagrams.";
     t[42676] = "Surface.MultiSourceTable.Delete.Confirmation.Info";
     t[42677] = "Soll die Kundenquelle \"%s\" wirklich gel\u00f6scht werden?";
     t[42690] = "Statistics.XML.Maximum";

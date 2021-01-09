@@ -1691,6 +1691,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 	@Override
 	protected void setChartSetup(final ChartSetup chartSetup) {
+		super.setChartSetup(chartSetup);
 		final SetupData setup=SetupData.getSetup();
 		setup.chartSetup.copyFrom(chartSetup);
 		setup.saveSetupWithWarning(this);

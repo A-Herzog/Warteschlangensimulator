@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-07 13:34+0100\n"
+"POT-Creation-Date: 2021-01-08 11:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10790,6 +10790,12 @@ msgstr "Save"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save.Hint"
 msgstr "Saves the diagram as an image file."
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings"
+msgstr "Settings"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint"
+msgstr "Oprns the diagram format settings dialog."
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Title"
 msgstr "Results viewer"

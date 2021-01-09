@@ -14748,6 +14748,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34577] = "Total average";
     t[34578] = "ModelDescription.SourceDDE.Column";
     t[34579] = "Column";
+    t[34580] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings";
+    t[34581] = "Settings";
     t[34582] = "Surface.LogicEndWhile.Name";
     t[34583] = "EndWhile";
     t[34588] = "Surface.HoldJS.Name";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37715] = "Load optimizer settings";
     t[37718] = "Surface.Process.Dialog.CostsPerClient";
     t[37719] = "Costs per client";
-    t[37728] = "Surface.XML.Resource.Name";
-    t[37729] = "Name";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37728] = "Surface.XML.Resource.Name";
+    t[37729] = "Name";
     t[37730] = "Animation.Icon.Book";
     t[37731] = "Book";
     t[37736] = "Surface.XML.BackgroundColor";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42527] = "Orchid";
     t[42528] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.ConfirmText";
     t[42529] = "Do you really want to delete the expression \"%s\" from list?";
-    t[42538] = "Color.F08080";
-    t[42539] = "Light coral";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42538] = "Color.F08080";
+    t[42539] = "Light coral";
     t[42540] = "Surface.OutputDB.XML.Element.Data";
     t[42541] = "Data";
     t[42542] = "XML.OptimizerNotActive.NoInfo";
@@ -18132,6 +18134,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42671] = "Initial variable values";
     t[42672] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.StandardDeviationOfTheTime";
     t[42673] = "<p>Returns the standard deviation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[42674] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint";
+    t[42675] = "Oprns the diagram format settings dialog.";
     t[42676] = "Surface.MultiSourceTable.Delete.Confirmation.Info";
     t[42677] = "Do you really want to delete the client source \"%s\"?";
     t[42690] = "Statistics.XML.Maximum";

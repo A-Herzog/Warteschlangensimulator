@@ -2805,6 +2805,7 @@ public class MainPanel extends MainPanelBase {
 			}
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
+			statisticsPanel.updateChartSetupInViewers(SetupData.getSetup().chartSetup);
 		},template);
 	}
 
@@ -2840,6 +2841,7 @@ public class MainPanel extends MainPanelBase {
 			}
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
+			statisticsPanel.updateChartSetupInViewers(SetupData.getSetup().chartSetup);
 		},null);
 		panel.setupVarianceAnalysis(repeatCount);
 		return panel;

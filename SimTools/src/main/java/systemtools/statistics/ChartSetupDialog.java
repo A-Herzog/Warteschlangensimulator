@@ -133,7 +133,6 @@ public class ChartSetupDialog extends BaseDialog {
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 		setupTitleFont=buildFontInput(tab,chartSetup.titleFont);
-		buildInfo(tab);
 
 		/* Tab "Achsenbeschriftung" */
 		tabs.addTab(StatisticsBasePanel.viewersChartSetupAxisFont,tabOuter=new JPanel(new BorderLayout()));
@@ -143,14 +142,12 @@ public class ChartSetupDialog extends BaseDialog {
 		setupAxisLabelFont=buildFontInput(tab,chartSetup.axisLabelFont);
 		buildInfoLine(tab,StatisticsBasePanel.viewersChartSetupAxisValuesFont);
 		setupAxisValueFont=buildFontInput(tab,chartSetup.axisValueFont);
-		buildInfo(tab);
 
 		/* Tab "Legende" */
 		tabs.addTab(StatisticsBasePanel.viewersChartSetupLegendFont,tabOuter=new JPanel(new BorderLayout()));
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 		setupLegendFont=buildFontInput(tab,chartSetup.legendFont);
-		buildInfo(tab);
 
 		/* Tab "Zeichenfläche" */
 		tabs.addTab(StatisticsBasePanel.viewersChartSetupSurface,tabOuter=new JPanel(new BorderLayout()));
@@ -181,8 +178,6 @@ public class ChartSetupDialog extends BaseDialog {
 		buildInfoLine(inner2,StatisticsBasePanel.viewersChartSetupSurfaceOutlineColor);
 		inner2.add(setupOutlineColor=new SmallColorChooser(chartSetup.outlineColor));
 		setupOutlineStroke=buildSizeInput(inner2,StatisticsBasePanel.viewersChartSetupSurfaceOutlineWidth,((BasicStroke)chartSetup.outlineStroke).getLineWidth(),0,20,0.5);
-
-		buildInfo(tab);
 
 		/* Tab "Auflösung beim Speichern" */
 		tabs.addTab(StatisticsBasePanel.viewersSaveImageSizePrompt,tabOuter=new JPanel(new BorderLayout()));
@@ -266,7 +261,7 @@ public class ChartSetupDialog extends BaseDialog {
 
 		final SpinnerModel spinnerModel=new SpinnerNumberModel(value,min,max,1);
 		final JSpinner spinner=new JSpinner(spinnerModel);
-		final JSpinner.NumberEditor editor=new JSpinner.NumberEditor(spinner);
+		final JSpinner.NumberEditor editor=new JSpinner.NumberEditor(spinner,"###0.###");
 		editor.getFormat().setGroupingUsed(false);
 		editor.getTextField().setColumns(4);
 		spinner.setEditor(editor);
@@ -304,17 +299,6 @@ public class ChartSetupDialog extends BaseDialog {
 		label.setLabelFor(spinner);
 
 		return spinnerModel;
-	}
-
-	/**
-	 * Für eine Infozeile dazu ein, wann die neuen Einstellungen gültig werden.
-	 * @param parent	Übergeordnetes Element
-	 */
-	private void buildInfo(final JComponent parent) {
-		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		parent.add(line);
-
-		line.add(new JLabel(StatisticsBasePanel.viewersChartSetupUpdateInfo));
 	}
 
 	/**

@@ -570,11 +570,21 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		final ChartSetupDialog dialog=new ChartSetupDialog(owner,getImageSize(),getChartSetupCallback.get());
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			if (setImageSizeCallback!=null) setImageSizeCallback.accept(dialog.getSaveSize());
-			if (setChartSetupCallback!=null) setChartSetupCallback.accept(dialog.getChartSetup());
+			final ChartSetup newChartSetup=dialog.getChartSetup();
+			if (setChartSetupCallback!=null) setChartSetupCallback.accept(newChartSetup);
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Aktualisiert die Diagram-Formateinstellungen in dem aktuellen Diagramm.
+	 * @param newChartSetup	Neue Diagram-Formateinstellungen
+	 */
+	public void setChartSetup(final ChartSetup newChartSetup) {
+		chartSetup.copyFrom(newChartSetup);
+		if (chart!=null) chartSetup.setupChart(chart);
 	}
 
 	@Override

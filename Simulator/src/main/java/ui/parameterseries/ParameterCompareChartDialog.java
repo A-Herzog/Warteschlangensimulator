@@ -49,6 +49,8 @@ import org.jfree.data.xy.XYSeries;
 import language.Language;
 import systemtools.BaseDialog;
 import systemtools.images.SimToolsImages;
+import systemtools.statistics.ChartSetup;
+import systemtools.statistics.ChartSetupDialog;
 import systemtools.statistics.StatisticViewer;
 import systemtools.statistics.StatisticViewerJFreeChart;
 import systemtools.statistics.StatisticViewerLineChart;
@@ -136,6 +138,10 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		toolbar.add(button=new JButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save"),Images.GENERAL_SAVE.getIcon()));
 		button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save.Hint"));
 		button.addActionListener(e->saveViewer((JButton)e.getSource(),lineChart));
+
+		toolbar.add(button=new JButton(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings"),Images.GENERAL_SETUP.getIcon()));
+		button.setToolTipText(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint"));
+		button.addActionListener(e->setupChart(lineChart));
 
 		toolbar.add(Box.createHorizontalGlue());
 
@@ -368,6 +374,23 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 
 		} else {
 			saveViewer(viewer,-1);
+		}
+	}
+
+	/**
+	 * Zeigt den Dialog zum Bearbeiten der Diagrammeinstellungen an.
+	 * @param viewer	Viewer bei dem die Formatierung angepasst werden soll
+	 */
+	private void setupChart(final StatisticViewerJFreeChart viewer) {
+		final SetupData setup=SetupData.getSetup();
+
+		final ChartSetupDialog dialog=new ChartSetupDialog(this,setup.imageSize,setup.chartSetup);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			setup.imageSize=dialog.getSaveSize();
+			final ChartSetup newChartSetup=dialog.getChartSetup();
+			setup.chartSetup.copyFrom(newChartSetup);
+			setup.saveSetup();
+			viewer.setChartSetup(newChartSetup);
 		}
 	}
 }
