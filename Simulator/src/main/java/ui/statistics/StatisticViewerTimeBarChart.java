@@ -360,23 +360,28 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_WAITING_STATION_CLIENT:
-			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.StationClient"),statistics.stationsWaitingTimesByClientType,null,false);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.StationClient"),statistics.stationsWaitingTimesByClientType,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_TRANSFER_STATION_CLIENT:
-			chartRequest(Language.tr("Statistics.TransferTimes"),Language.tr("Statistics.StationClient"),statistics.stationsTransferTimesByClientType,null,false);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			chartRequest(Language.tr("Statistics.TransferTimes"),Language.tr("Statistics.StationClient"),statistics.stationsTransferTimesByClientType,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_PROCESSING_STATION_CLIENT:
-			chartRequest(Language.tr("Statistics.ProcessTimes"),Language.tr("Statistics.StationClient"),statistics.stationsProcessingTimesByClientType,null,false);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			chartRequest(Language.tr("Statistics.ProcessTimes"),Language.tr("Statistics.StationClient"),statistics.stationsProcessingTimesByClientType,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_RESIDENCE_STATION_CLIENT:
-			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.StationClient"),statistics.stationsResidenceTimesByClientType,null,false);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.StationClient"),statistics.stationsResidenceTimesByClientType,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_FLOW_FACTOR_STATION_CLIENT:
-			chartRequestFlowFactor(Language.tr("Statistics.FlowFactor"),Language.tr("Statistics.StationClient"),statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,null,false);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			chartRequestFlowFactor(Language.tr("Statistics.FlowFactor"),Language.tr("Statistics.StationClient"),statistics.stationsProcessingTimesByClientType,statistics.stationsResidenceTimesByClientType,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_RESOURCE_UTILIZATION:

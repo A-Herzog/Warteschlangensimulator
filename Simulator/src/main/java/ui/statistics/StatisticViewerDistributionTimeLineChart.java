@@ -311,7 +311,8 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 
 		switch (mode) {
 		case MODE_INTERARRIVAL_CLIENTS:
-			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheInterArrivalTimes"),statistics.clientsInterarrivalTime,Language.tr("Statistics.Distance"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheInterArrivalTimes"),statistics.clientsInterarrivalTime,Language.tr("Statistics.Distance"),colorMap);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_INTERARRIVAL_STATION:
@@ -331,7 +332,8 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_INTERLEAVE_CLIENTS:
-			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheInterLeaveTimes"),statistics.clientsInterleavingTime,Language.tr("Statistics.Distance"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheInterLeaveTimes"),statistics.clientsInterleavingTime,Language.tr("Statistics.Distance"),colorMap);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_INTERLEAVE_STATION:
@@ -379,19 +381,23 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_WAITING_STATION_CLIENT:
-			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheWaitingTimes"),statistics.stationsWaitingTimesByClientType,Language.tr("Statistics.WaitingTime"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheWaitingTimes"),statistics.stationsWaitingTimesByClientType,Language.tr("Statistics.WaitingTime"),colorMap);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_TRANSFER_STATION_CLIENT:
-			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheTransferTimes"),statistics.stationsTransferTimesByClientType,Language.tr("Statistics.TransferTime"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheTransferTimes"),statistics.stationsTransferTimesByClientType,Language.tr("Statistics.TransferTime"),colorMap);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_PROCESSING_STATION_CLIENT:
-			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheProcessTimes"),statistics.stationsProcessingTimesByClientType,Language.tr("Statistics.ProcessTime"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheProcessTimes"),statistics.stationsProcessingTimesByClientType,Language.tr("Statistics.ProcessTime"),colorMap);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_RESIDENCE_STATION_CLIENT:
-			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheResidenceTimes"),statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.ResidenceTime"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammTimeDistribution(Language.tr("Statistics.DistributionOfTheResidenceTimes"),statistics.stationsResidenceTimesByClientType,Language.tr("Statistics.ResidenceTime"),colorMap);
 			addDescription("PlotTimeDistribution");
 			break;
 		case MODE_NUMBER_STATION:
@@ -399,11 +405,13 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_NUMBER_STATION_CLIENT_TYPES:
-			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationsByClientTypes")+" ("+Language.tr("Statistics.total")+")",statistics.clientsAtStationByStationAndClient,null,Language.tr("Statistics.ClientsAtStation"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationsByClientTypes")+" ("+Language.tr("Statistics.total")+")",statistics.clientsAtStationByStationAndClient,null,Language.tr("Statistics.ClientsAtStation"),colorMap);
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_NUMBER_CLIENT:
-			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsByType")+" ("+Language.tr("Statistics.total")+")",statistics.clientsInSystemByClient,statistics.clientsInSystem,Language.tr("Statistics.ClientsByType"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsByType")+" ("+Language.tr("Statistics.total")+")",statistics.clientsInSystemByClient,statistics.clientsInSystem,Language.tr("Statistics.ClientsByType"),colorMap);
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_QUEUE:
@@ -411,7 +419,8 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_QUEUE_CLIENT_TYPE:
-			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),statistics.clientsAtStationQueueByStationAndClient,null,Language.tr("Statistics.ClientsInQueue"),null);
+			colorMap=statistics.editModel.clientData.getStatisticColors(statistics.editModel.surface.getClientTypes());
+			requestDiagrammStateDistribution(Language.tr("Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes"),statistics.clientsAtStationQueueByStationAndClient,null,Language.tr("Statistics.ClientsInQueue"),colorMap);
 			addDescription("PlotCountDistribution");
 			break;
 		case MODE_ADDITIONAL_STATISTICS:
