@@ -331,16 +331,18 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 				}
 			}
 
-			/* Warnung, wenn die mittlere Wartezeit der ersten Hälfte von der zweiten Hälfte abweicht */
-			if (count1>0 && count2>0 && waiting1>0 && waiting2>0) {
-				if (!editModel.useTerminationCondition && count1>0 && count2>0) {
-					final double mean1=waiting1/count1;
-					final double mean2=waiting2/count2;
-					final double fullMean=(waiting1+waiting2)/(count1+count2);
-					if (fullMean>0) {
-						final double delta=Math.abs(mean1-mean2)/fullMean;
-						/* System.out.println("Delta="+NumberTools.formatPercent(delta,2)); */
-						if (delta>0.2) statistics.simulationData.addWarning(String.format(Language.tr("Statistics.Warnings.SimulationRunNotLongEnough"),NumberTools.formatPercent(delta)));
+			if (count1+count2>=100_000) { /* Nur wenn die Simulation hinreichend lange gelaufen ist */
+				/* Warnung, wenn die mittlere Wartezeit der ersten Hälfte von der zweiten Hälfte abweicht */
+				if (count1>0 && count2>0 && waiting1>0 && waiting2>0) {
+					if (!editModel.useTerminationCondition && count1>0 && count2>0) {
+						final double mean1=waiting1/count1;
+						final double mean2=waiting2/count2;
+						final double fullMean=(waiting1+waiting2)/(count1+count2);
+						if (fullMean>0) {
+							final double delta=Math.abs(mean1-mean2)/fullMean;
+							/* System.out.println("Delta="+NumberTools.formatPercent(delta,2)); */
+							if (delta>0.2) statistics.simulationData.addWarning(String.format(Language.tr("Statistics.Warnings.SimulationRunNotLongEnough"),NumberTools.formatPercent(delta)));
+						}
 					}
 				}
 			}
