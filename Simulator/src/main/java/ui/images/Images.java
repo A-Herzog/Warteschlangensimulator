@@ -1395,13 +1395,13 @@ public enum Images {
 	MODELEDITOR_ELEMENT_DECIDE_BY_SEQUENCE("Counter.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - nach kürzester Warteschlange an der nächsten Station" */
-	MODELEDITOR_ELEMENT_DECIDE_BY_SHORTEST_QUEUE_NEXT_STATION("Station.png"),
+	MODELEDITOR_ELEMENT_DECIDE_BY_SHORTEST_QUEUE_NEXT_STATION("station.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - nach kürzester Warteschlange an der nächsten Bedienstation" */
 	MODELEDITOR_ELEMENT_DECIDE_BY_SHORTEST_QUEUE_NEXT_PROCESS_STATION("Process.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - wenigste Kunden an der nächsten Station" */
-	MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_STATION("Station.png"),
+	MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_STATION("station.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - wenigste Kunden an der nächsten Bedienstation" */
 	MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_PROCESS_STATION("Process.png"),
@@ -1799,6 +1799,7 @@ public enum Images {
 	 * @return	Bild für die erste URL
 	 */
 	private Image getDefaultImage(final URL[] urls) {
+		if (urls==null || urls.length==0) return null;
 		try {
 			return ImageIO.read(urls[0]);
 		} catch (IOException e) {
