@@ -24,6 +24,7 @@ import language.Language;
 import mathtools.NumberTools;
 import net.webcalc.CalcWebServer;
 import systemtools.commandline.AbstractCommand;
+import tools.SetupData;
 
 /**
  * Startet einen Simulations-Web-Server.
@@ -83,15 +84,29 @@ public class CommandServerWeb extends AbstractCommand {
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
+		/* Server-Objekt */
 		final CalcWebServer server=new CalcWebServer();
+
+		/* Zugangsdaten */
 		if (authName!=null && !authName.trim().isEmpty() && authPassword!=null && !authPassword.trim().isEmpty()) {
 			server.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),authName,authPassword);
 		}
-		server.start(serverPort);
+
+		/* TLS */
+		final SetupData setup=SetupData.getSetup();
+		server.setTLSData(setup.serverTLSKeyStoreFile,setup.serverTLSKeyStorePassword);
+
+		/* Server starten */
+		final String error=server.start(serverPort);
+		if (error!=null) {
+			if (out!=null) out.println(error);
+			return;
+		}
 		if (out!=null) {
 			out.println(String.format(Language.tr("CommandLine.ServerWeb.Started"),serverPort));
-
 		}
+
+		/* Auf Ende warten */
 		final CloseRequestSignal quitSignal=new CloseRequestSignal(true,in);
 		while (!isQuit && !quitSignal.isQuit()) try {Thread.sleep(50);} catch (InterruptedException e) {}
 		server.stop();

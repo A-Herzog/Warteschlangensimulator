@@ -53,10 +53,12 @@ import net.calc.SimulationServerGUIConnect;
 import net.dde.SimulationDDEServer;
 import net.web.SimulatorWebServer;
 import net.webcalc.CalcWebServer;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.SetupData;
 import ui.MainPanel;
 import ui.ReloadManager;
+import ui.dialogs.ServerPanelTLSDialog;
 import ui.help.Help;
 import ui.images.Images;
 
@@ -126,6 +128,9 @@ public final class ServerPanel extends SpecialPanel {
 	private final JTextField authNameEdit;
 	/** Eingabefeld - Authentifizierungs-Passwort (für Web- und Fernsteuerungsserver) */
 	private final JTextField authPasswordEdit;
+
+	/** Schaltfläche - TLS konfigurieren */
+	private final JButton tlsButton;
 
 	/** Option - DDE-Server - "Autostart" */
 	private final JCheckBox ddeAutoStartCheckBox;
@@ -295,7 +300,10 @@ public final class ServerPanel extends SpecialPanel {
 		toolbar.add(button=new JButton(Images.GENERAL_INFO.getIcon()));
 		button.setToolTipText(Language.tr("SimulationServer.Setup.AuthInfo"));
 		button.addActionListener(e->MsgBox.info(this,Language.tr("SimulationServer.Setup.AccessControl"),Language.tr("SimulationServer.Setup.AuthInfo")));
-
+		toolbar.add(Box.createHorizontalStrut(10));
+		toolbar.add(tlsButton=new JButton());
+		tlsButton.setToolTipText(Language.tr("SimulationServer.Setup.TLSInfo"));
+		tlsButton.addActionListener(e->commandTLSSetup());
 
 		/* DDE-Server */
 
@@ -444,6 +452,13 @@ public final class ServerPanel extends SpecialPanel {
 
 		authNameEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
 		authPasswordEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
+		tlsButton.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
+		final SetupData setupData=SetupData.getSetup();
+		if (setupData.serverTLSKeyStoreFile!=null && !setupData.serverTLSKeyStoreFile.trim().isEmpty() && setupData.serverTLSKeyStorePassword!=null && !setupData.serverTLSKeyStorePassword.trim().isEmpty()) {
+			tlsButton.setIcon(Images.GENERAL_LOCK_CLOSED.getIcon());
+		} else {
+			tlsButton.setIcon(Images.GENERAL_LOCK_OPEN.getIcon());
+		}
 
 		/* DDE-Server */
 
@@ -544,10 +559,14 @@ public final class ServerPanel extends SpecialPanel {
 				final String name=authNameEdit.getText().trim();
 				final String password=authPasswordEdit.getText().trim();
 				if (!name.isEmpty() && !password.isEmpty()) serverCalcWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
-				if (serverCalcWeb.start(port)) {
-				} else {
-					MsgBox.error(this,Language.tr("SimulationServer.Setup.CalcWebServer"),Language.tr("SimulationServer.Setup.CalcWebServer.MessageStartError"));
-				}
+
+				final SetupData setup=SetupData.getSetup();
+				final String keyStore=setup.serverTLSKeyStoreFile;
+				final String keyStorePassword=setup.serverTLSKeyStorePassword;
+				serverCalcWeb.setTLSData(keyStore,keyStorePassword);
+
+				final String error=serverCalcWeb.start(port);
+				if (error!=null) MsgBox.error(this,Language.tr("SimulationServer.Setup.CalcWebServer"),error);
 			}
 		}
 		setupButtons();
@@ -590,11 +609,14 @@ public final class ServerPanel extends SpecialPanel {
 				final String name=authNameEdit.getText().trim();
 				final String password=authPasswordEdit.getText().trim();
 				if (!name.isEmpty() && !password.isEmpty()) serverWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
-				if (serverWeb.start(port)) {
-					/* MsgBox.error(this,Language.tr("SimulationServer.Setup.WebServer"),String.format(Language.tr("SimulationServer.Setup.WebServer.MessageStarted"),port)); */
-				} else {
-					MsgBox.error(this,Language.tr("SimulationServer.Setup.WebServer"),Language.tr("SimulationServer.Setup.WebServer.MessageStartError"));
-				}
+
+				final SetupData setup=SetupData.getSetup();
+				final String keyStore=setup.serverTLSKeyStoreFile;
+				final String keyStorePassword=setup.serverTLSKeyStorePassword;
+				serverWeb.setTLSData(keyStore,keyStorePassword);
+
+				final String error=serverWeb.start(port);
+				if (error!=null) MsgBox.error(this,Language.tr("SimulationServer.Setup.WebServer"),error);
 			}
 		}
 		setupButtons();
@@ -626,8 +648,16 @@ public final class ServerPanel extends SpecialPanel {
 	 * @param port	Port
 	 */
 	private void commandOpenBrowser(int port) {
+		final SetupData setup=SetupData.getSetup();
+
 		final StringBuilder sb=new StringBuilder();
-		sb.append("http://");
+
+		if (setup.serverTLSKeyStoreFile!=null && !setup.serverTLSKeyStoreFile.trim().isEmpty() && setup.serverTLSKeyStorePassword!=null && !setup.serverTLSKeyStorePassword.trim().isEmpty()) {
+			sb.append("https");
+		} else {
+			sb.append("http");
+		}
+		sb.append("://");
 		final String name=authNameEdit.getText();
 		final String password=authPasswordEdit.getText();
 		if (!name.isEmpty() && !password.isEmpty()) sb.append(name+":"+password+"@");
@@ -644,7 +674,14 @@ public final class ServerPanel extends SpecialPanel {
 			MsgBox.error(this,Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),sb.toString()));
 		}
 		return;
+	}
 
+	/**
+	 * Befehl: Dialog zum Bearbeiten der TLS-Einstellungen öffnen
+	 */
+	private void commandTLSSetup() {
+		final ServerPanelTLSDialog dialog=new ServerPanelTLSDialog(this);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) setupButtons();
 	}
 
 	@Override
@@ -700,17 +737,29 @@ public final class ServerPanel extends SpecialPanel {
 
 		if (setup.calcWebServerAutoStart) {
 			final CalcWebServer serverCalcWeb=CalcWebServer.getInstance();
+
 			final String name=setup.serverAuthName;
 			final String password=setup.serverAuthPassword;
 			if (!name.isEmpty() && !password.isEmpty()) serverCalcWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
+
+			final String keyStore=setup.serverTLSKeyStoreFile;
+			final String keyStorePassword=setup.serverTLSKeyStorePassword;
+			serverCalcWeb.setTLSData(keyStore,keyStorePassword);
+
 			if (setup.calcWebServerPort>0) serverCalcWeb.start(setup.calcWebServerPort);
 		}
 
 		if (setup.webServerAutoStart) {
 			final SimulatorWebServer serverWeb=SimulatorWebServer.getInstance(mainPanel);
+
 			final String name=setup.serverAuthName;
 			final String password=setup.serverAuthPassword;
 			if (!name.isEmpty() && !password.isEmpty()) serverWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
+
+			final String keyStore=setup.serverTLSKeyStoreFile;
+			final String keyStorePassword=setup.serverTLSKeyStorePassword;
+			serverWeb.setTLSData(keyStore,keyStorePassword);
+
 			if (setup.webServerPort>0) serverWeb.start(setup.webServerPort);
 		}
 

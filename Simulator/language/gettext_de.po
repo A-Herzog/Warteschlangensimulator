@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 11:45+0100\n"
+"POT-Creation-Date: 2021-01-09 17:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14809,9 +14809,6 @@ msgstr "Webserver automatisch starten, wenn das Programm gestartet wird."
 msgid "SimulationServer.Setup.CalcWebServer"
 msgstr "Webserver"
 
-msgid "SimulationServer.Setup.CalcWebServer.MessageStartError"
-msgstr "Der Fernsteuerungs-Server konnte nicht gestartet werden."
-
 msgid "SimulationServer.Setup.DDEAutoStart"
 msgstr "Autostart"
 
@@ -14851,6 +14848,48 @@ msgstr "Die angegebene Portnummer %d liegt ausßerhalb des gültigen Bereichs. E
 msgid "SimulationServer.Setup.Port.ErrorTitle"
 msgstr "Ungültiger Port"
 
+msgid "SimulationServer.Setup.TLSInfo"
+msgstr "Verschlüsselung konfigurieren"
+
+msgid "SimulationServer.Setup.TLSInfo.DialogInfo"
+msgstr "Werden hier Zertifikatdaten eingetragen, so erfolgt eine TLS-gesicherte HTTPS-Übertragung. Sonst wird unverschlüsselt per HTTP übertragen."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore"
+msgstr "Key-Store-Datei erstellen"
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyStoreFileExists"
+msgstr "Die angegebene Key-Store-Datei %s existiert bereits."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyToolNotFound"
+msgstr "Das Java KeyTool zur Erzeugung der Key-Store-Datei konnte nicht gefunden werden."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorNoKeyStoreFile"
+msgstr "Es wurde kein Dateiname für die Key-Store-Datei angegeben."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ExecuteError"
+msgstr "Bei der Ausführung von KeyTool ist ein Fehler aufgetreten."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.Hint"
+msgstr "Key-Store-Datei mit selbstsigniertem Zertifikat automatisch erstellen"
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.Success"
+msgstr ""
+"Es wurde ein selbstsigniertes Zertifikat in der angegebenen Key-Store-Datei gespeichert.\n"
+"Auf dieser Basis kann der Webserver nun verschlüsselte Verbindungen aufbauen.\n"
+"Da es sich um ein selbstsigniertes Zertifikat handelt, werden Browser die Verbindung jedoch als unsicher einstufen."
+
+msgid "SimulationServer.Setup.TLSInfo.KeyStoreFile"
+msgstr "Key-Store-Dateiname"
+
+msgid "SimulationServer.Setup.TLSInfo.KeyStoreFile.Hint"
+msgstr "Key-Store-Datei auswählen"
+
+msgid "SimulationServer.Setup.TLSInfo.KeyStorePassword"
+msgstr "Passwort für Key-Store-Datei"
+
+msgid "SimulationServer.Setup.TLSInfo.Title"
+msgstr "Verschlüsselung konfigurieren"
+
 msgid "SimulationServer.Setup.WebAutoStart"
 msgstr "Autostart"
 
@@ -14860,8 +14899,17 @@ msgstr "Fernsteuerungs-Server automatisch starten, wenn das Programm gestartet w
 msgid "SimulationServer.Setup.WebServer"
 msgstr "Fernsteuerungs-Server"
 
+msgid "SimulationServer.Setup.WebServer.MessageErrorTLS"
+msgstr "Die Zertifikatdaten aus der Datei %s konnten nicht verarbeitet werden."
+
+msgid "SimulationServer.Setup.WebServer.MessageErrorTLSFile"
+msgstr "Die Datei %s konnte nicht geladen werden."
+
 msgid "SimulationServer.Setup.WebServer.MessageStartError"
-msgstr "Der Fernsteuerungs-Server konnte nicht gestartet werden."
+msgstr "Der Server konnte nicht gestartet werden."
+
+msgid "SimulationServer.Setup.WebServer.MessageStartErrorAlreadyRunning"
+msgstr "Der Server konnte nicht gestartet werden, da er bereits läuft."
 
 msgid "SimulationServer.Status.CalcWeb"
 msgstr "Webserver"
@@ -27951,6 +27999,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Simulation.Java.Error.NoCompiler"
 #~ msgstr "Der Java-Kompiler \"javac\" konnte nicht gefunden werden."
+
+#~ msgid "SimulationServer.Setup.CalcWebServer.MessageStartError"
+#~ msgstr "Der Fernsteuerungs-Server konnte nicht gestartet werden."
 
 #~ msgid "Statistics.InterLeavingTimes"
 #~ msgstr "Zwischenabgangszeiten"

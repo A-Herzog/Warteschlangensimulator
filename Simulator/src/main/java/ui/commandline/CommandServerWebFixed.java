@@ -28,6 +28,7 @@ import mathtools.NumberTools;
 import net.webcalc.CalcWebServer;
 import simulator.editmodel.EditModel;
 import systemtools.commandline.AbstractCommand;
+import tools.SetupData;
 import xml.XMLTools;
 
 /**
@@ -109,19 +110,35 @@ public class CommandServerWebFixed extends AbstractCommand {
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
+		/* Modell laden */
 		final EditModel model=new EditModel();
-		final String error=model.loadFromFile(modelFile);
+		String error=model.loadFromFile(modelFile);
 		if (error!=null) {
 			if (out!=null) out.println(error);
 			return;
 		}
 
+		/* Server-Objekt */
 		final CalcWebServer server=new CalcWebServer(model);
+
+		/* Zugangsdaten */
 		if (authName!=null && !authName.trim().isEmpty() && authPassword!=null && !authPassword.trim().isEmpty()) {
 			server.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),authName,authPassword);
 		}
-		server.start(serverPort);
+
+		/* TLS */
+		final SetupData setup=SetupData.getSetup();
+		server.setTLSData(setup.serverTLSKeyStoreFile,setup.serverTLSKeyStorePassword);
+
+		/* Server starten */
+		error=server.start(serverPort);
+		if (error!=null) {
+			if (out!=null) out.println(error);
+			return;
+		}
 		if (out!=null) out.println(String.format(Language.tr("CommandLine.ServerWebFixedModel.Started"),serverPort));
+
+		/* Auf Ende warten */
 		final CloseRequestSignal quitSignal=new CloseRequestSignal(true,in);
 		while (!isQuit && !quitSignal.isQuit()) try {Thread.sleep(50);} catch (InterruptedException e) {}
 		server.stop();

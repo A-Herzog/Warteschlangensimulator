@@ -677,6 +677,16 @@ public class SetupData extends SetupBase {
 	public String serverAuthPassword;
 
 	/**
+	 * TLS-Key-Store-Datei für den Web-Rechen- und den Web-Fernsteuerungsserver
+	 */
+	public String serverTLSKeyStoreFile;
+
+	/**
+	 * Passwort für TLS-Key-Store-Datei für den Web-Rechen- und den Web-Fernsteuerungsserver
+	 */
+	public String serverTLSKeyStorePassword;
+
+	/**
 	 * DDE-Server beim Start des Programmes starten.
 	 */
 	public boolean ddeServerAutoStart;
@@ -1002,6 +1012,8 @@ public class SetupData extends SetupBase {
 		calcWebServerPort=80;
 		serverAuthName="";
 		serverAuthPassword="";
+		serverTLSKeyStoreFile="";
+		serverTLSKeyStorePassword="";
 		ddeServerAutoStart=false;
 		customExcelRowName="";
 		customExcelColName="";
@@ -1589,6 +1601,8 @@ public class SetupData extends SetupBase {
 			if (name.equals("networkwebserver")) {
 				serverAuthName=e.getAttribute("Name");
 				serverAuthPassword=e.getAttribute("Password");
+				serverTLSKeyStoreFile=e.getAttribute("TLSKeyStoreFile");
+				serverTLSKeyStorePassword=e.getAttribute("TLSKeyStorePassword");
 				continue;
 			}
 
@@ -2122,10 +2136,12 @@ public class SetupData extends SetupBase {
 			if (calcWebServerAutoStart) node.setAttribute("AutoStart","1");
 		}
 
-		if (!serverAuthName.isEmpty() || !serverAuthPassword.isEmpty()) {
+		if (!serverAuthName.isEmpty() || !serverAuthPassword.isEmpty() || !serverTLSKeyStoreFile.isEmpty() || !serverTLSKeyStorePassword.isEmpty()) {
 			root.appendChild(node=doc.createElement("NetworkWebServer"));
 			node.setAttribute("Name",serverAuthName);
 			node.setAttribute("Password",serverAuthPassword);
+			node.setAttribute("TLSKeyStoreFile",serverTLSKeyStoreFile);
+			node.setAttribute("TLSKeyStorePassword",serverTLSKeyStorePassword);
 		}
 
 		if (ddeServerAutoStart) {

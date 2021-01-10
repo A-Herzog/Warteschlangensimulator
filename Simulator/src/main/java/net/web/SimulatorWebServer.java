@@ -94,7 +94,7 @@ public class SimulatorWebServer extends WebServer {
 	}
 
 	@Override
-	public boolean start(final int port) {
+	public String start(final int port) {
 		setup.webServerPort=port;
 		setup.saveSetup();
 		return super.start(port);
@@ -116,9 +116,11 @@ public class SimulatorWebServer extends WebServer {
 		if (instance==null) return;
 		final boolean running=instance.isRunning();
 		final String[] authData=instance.getAuthData();
+		final String[] tlsData=instance.getTLSData();
 		if (running) instance.stop();
 		instance=new SimulatorWebServer(mainPanel);
 		instance.setAuthData(authData[0],authData[1],authData[2]);
+		instance.setTLSData(tlsData[0],tlsData[1]);
 		if (running) instance.start(instance.getLastPort());
 	}
 }

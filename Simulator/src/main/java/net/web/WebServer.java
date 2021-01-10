@@ -15,12 +15,23 @@
  */
 package net.web;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.Base64;
 import java.util.List;
 import java.util.Vector;
 
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLServerSocketFactory;
+
 import fi.iki.elonen.NanoHTTPD;
+import language.Language;
 
 /**
  * Diese Klasse kapselt einen Webserver, der
@@ -41,19 +52,29 @@ public class WebServer {
 	private final List<WebServerHandler> handlers;
 
 	/**
-	 * Hinweistext für notwendige Authentifizierung
+	 * Hinweistext für notwendige Authentifizierung (kann <code>null</code> sein)
 	 */
 	private String authRequestInfo;
 
 	/**
-	 * Notwendiger Benutzername für Authentifizierung
+	 * Notwendiger Benutzername für Authentifizierung (kann <code>null</code> sein)
 	 */
 	private String authName;
 
 	/**
-	 * Notwendiges Passwort für Authentifizierung
+	 * Notwendiges Passwort für Authentifizierung (kann <code>null</code> sein)
 	 */
 	private String authPassword;
+
+	/**
+	 * Key-Store-Datei für TLS-Absicherung (kann <code>null</code> sein)
+	 */
+	private String tlsKeyStoreFile;
+
+	/**
+	 * Passwort für die Key-Store-Datei für die TLS-Absicherung (kann <code>null</code> sein)
+	 */
+	private String tlsKeyStorePassword;
 
 	/**
 	 * Konstruktor der Klasse
@@ -98,6 +119,29 @@ public class WebServer {
 	}
 
 	/**
+	 * Stellt ein, ob eine TLS-Verschlüsselung stattfinden soll.
+	 * @param keyStoreFile	Key-Store-Datei für TLS-Absicherung (kann <code>null</code> sein)
+	 * @param keyStorePassword	Passwort für die Key-Store-Datei für die TLS-Absicherung (kann <code>null</code> sein)
+	 * @see #getTLSData()
+	 */
+	public void setTLSData(final String keyStoreFile, final String keyStorePassword) {
+		tlsKeyStoreFile=keyStoreFile;
+		tlsKeyStorePassword=keyStorePassword;
+	}
+
+	/**
+	 * Liefert die Einstellungen zur TLS-Verschlüsselung-
+	 * @return	Array aus Dateiname und Passwort. Einzelne Einträge können <code>null</code> sein, das Array aus 2 Elementen ist jedoch immer ungleich <code>null</code>.
+	 * @see #setTLSData(String, String)
+	 */
+	public String[] getTLSData() {
+		return new String[] {
+				tlsKeyStoreFile,
+				tlsKeyStorePassword
+		};
+	}
+
+	/**
 	 * Internes HTTP-Server
 	 * @see NanoHTTPD
 	 */
@@ -108,6 +152,28 @@ public class WebServer {
 		 */
 		public ServerSystem(final int port) {
 			super(port);
+		}
+
+		/**
+		 * Aktiviert den TLS-Modus des Webservers (vor dem Start aufzurufen)
+		 * @param file	Dateiname der Key-Store-Datei
+		 * @param password	Passwort für die Key-Store-Datei
+		 * @return	Liefert im Erfolgsfall <code>true</code>, sonst eine Fehlermeldung
+		 */
+		public String initTLS(final File file, final String password) {
+			try (FileInputStream keystoreStream=new FileInputStream(file)) {
+				final KeyStore keystore=KeyStore.getInstance(KeyStore.getDefaultType());
+				keystore.load(keystoreStream,password.toCharArray());
+				final KeyManagerFactory keyManagerFactory=KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+				keyManagerFactory.init(keystore,password.toCharArray());
+				final SSLServerSocketFactory factory=makeSSLSocketFactory(keystore,keyManagerFactory);
+				makeSecure(factory,null);
+				return null;
+			} catch (IOException e) {
+				return String.format(Language.tr("SimulationServer.Setup.WebServer.MessageErrorTLSFile"),file.toString());
+			} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | UnrecoverableKeyException e) {
+				return String.format(Language.tr("SimulationServer.Setup.WebServer.MessageErrorTLS"),file.toString());
+			}
 		}
 
 		/**
@@ -165,18 +231,25 @@ public class WebServer {
 	/**
 	 * Startet den Webserver (sofern er nichts bereits läuft)
 	 * @param port	Zu verwendender Port
-	 * @return	Liefert <code>true</code>, wenn der Server gestartet werden konnte, oder <code>false</code>, wenn das Starten fehlgeschlagen ist oder der Server bereits läuft.
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung.
 	 */
-	public boolean start(final int port) {
-		if (serverSystem!=null) return false;
+	public String start(final int port) {
+		if (serverSystem!=null) return Language.tr("SimulationServer.Setup.WebServer.MessageStartErrorAlreadyRunning");
 		serverSystem=new ServerSystem(port);
+		if (tlsKeyStoreFile!=null && !tlsKeyStoreFile.trim().isEmpty() && tlsKeyStorePassword!=null && !tlsKeyStorePassword.trim().isEmpty()) {
+			final String error=serverSystem.initTLS(new File(tlsKeyStoreFile),tlsKeyStorePassword);
+			if (error!=null) {
+				serverSystem=null;
+				return error;
+			}
+		}
 		try {
 			serverSystem.start();
 		} catch (IOException e) {
 			serverSystem=null;
-			return false;
+			return Language.tr("SimulationServer.Setup.WebServer.MessageStartError");
 		}
-		return true;
+		return null;
 	}
 
 	/**

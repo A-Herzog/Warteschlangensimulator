@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 11:45+0100\n"
+"POT-Creation-Date: 2021-01-09 17:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14809,9 +14809,6 @@ msgstr "Auto start web server when program is started."
 msgid "SimulationServer.Setup.CalcWebServer"
 msgstr "Web server"
 
-msgid "SimulationServer.Setup.CalcWebServer.MessageStartError"
-msgstr "The web server could not be started."
-
 msgid "SimulationServer.Setup.DDEAutoStart"
 msgstr "Auto start"
 
@@ -14851,6 +14848,48 @@ msgstr "The specified port number %d is not in the valid range. An integer numbe
 msgid "SimulationServer.Setup.Port.ErrorTitle"
 msgstr "Invalid port"
 
+msgid "SimulationServer.Setup.TLSInfo"
+msgstr "Configure encryption"
+
+msgid "SimulationServer.Setup.TLSInfo.DialogInfo"
+msgstr "If certificate data are configured here, a TLS protected HTTPS connection will be used. Otherweise an unencrypted HTTP connection will be used."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore"
+msgstr "Generate key store file"
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyStoreFileExists"
+msgstr "The specified key store file %s already exists."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyToolNotFound"
+msgstr "The Java KeyTool for creating the key store file could not be found."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorNoKeyStoreFile"
+msgstr "No file name for the key store file was specified."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ExecuteError"
+msgstr "An error occured while executing KeyTool."
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.Hint"
+msgstr "Automatically create key store file containing self-signed certificate"
+
+msgid "SimulationServer.Setup.TLSInfo.GenerateKeyStore.Success"
+msgstr ""
+"A self-signed certificate has been stored in the specified key store file.\n"
+"The web server can now establish encrypted connections on this basis.\n"
+"However, because it is a self-signed certificate, browsers will classify the connection as insecure."
+
+msgid "SimulationServer.Setup.TLSInfo.KeyStoreFile"
+msgstr "Key store file"
+
+msgid "SimulationServer.Setup.TLSInfo.KeyStoreFile.Hint"
+msgstr "Select key store file"
+
+msgid "SimulationServer.Setup.TLSInfo.KeyStorePassword"
+msgstr "Password for key store file"
+
+msgid "SimulationServer.Setup.TLSInfo.Title"
+msgstr "Configure encryption"
+
 msgid "SimulationServer.Setup.WebAutoStart"
 msgstr "Auto start"
 
@@ -14860,8 +14899,17 @@ msgstr "Auto start remote control server when program is started."
 msgid "SimulationServer.Setup.WebServer"
 msgstr "Remote control server"
 
+msgid "SimulationServer.Setup.WebServer.MessageErrorTLS"
+msgstr "The certificate data from file %s could not be loaded."
+
+msgid "SimulationServer.Setup.WebServer.MessageErrorTLSFile"
+msgstr "The file %s could not be loaded."
+
 msgid "SimulationServer.Setup.WebServer.MessageStartError"
-msgstr "The remote control server could not be started."
+msgstr "The server could not be started."
+
+msgid "SimulationServer.Setup.WebServer.MessageStartErrorAlreadyRunning"
+msgstr "The server could not be started because it is already running."
 
 msgid "SimulationServer.Status.CalcWeb"
 msgstr "Web server"
@@ -27920,6 +27968,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Simulation.Java.Error.NoCompiler"
 #~ msgstr "The Java compiler \"javac\" could not be found."
+
+#~ msgid "SimulationServer.Setup.CalcWebServer.MessageStartError"
+#~ msgstr "The web server could not be started."
 
 #~ msgid "Statistics.InterLeavingTimes"
 #~ msgstr "Inter-leaving times"
