@@ -831,7 +831,20 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	 * @param chartSetup	Neue Einstellungen der Diagramme
 	 */
 	public void updateChartSetupInViewers(final ChartSetup chartSetup) {
-		if (currentRoot!=null) updateChartSetupInViewers(currentRoot,chartSetup);
+		if (currentRoot==null) {
+			final Object root=tree.getModel().getRoot();
+			if (root instanceof DefaultMutableTreeNode) {
+				final DefaultMutableTreeNode rootNode=(DefaultMutableTreeNode)root;
+				for (int i=0;i<rootNode.getChildCount();i++) {
+					final TreeNode node=rootNode.getChildAt(i);
+					if (node instanceof DefaultMutableTreeNode && ((DefaultMutableTreeNode)node).getUserObject() instanceof StatisticNode) {
+						updateChartSetupInViewers((StatisticNode)((DefaultMutableTreeNode)node).getUserObject(),chartSetup);
+					}
+				}
+			}
+		} else {
+			updateChartSetupInViewers(currentRoot,chartSetup);
+		}
 		if (lastRoot!=null) updateChartSetupInViewers(lastRoot,chartSetup);
 	}
 
