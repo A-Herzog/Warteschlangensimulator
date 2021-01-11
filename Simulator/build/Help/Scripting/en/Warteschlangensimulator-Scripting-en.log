@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  3 JAN 2021 18:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  11 JAN 2021 23:43
 entering extended mode
 **./Warteschlangensimulator-Scripting-en.tex
 (Warteschlangensimulator-Scripting-en.tex
@@ -1072,7 +1072,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 45.
 Here is how much of TeX's memory you used:
  11539 strings out of 491273
  172207 string characters out of 3112170
- 299117 words of memory out of 3000000
+ 299118 words of memory out of 3000000
  16490 multiletter control sequences out of 15000+200000
  97284 words of font info for 81 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
