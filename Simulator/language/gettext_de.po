@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 17:51+0100\n"
+"POT-Creation-Date: 2021-01-12 16:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6760,6 +6760,18 @@ msgstr "Stations-IDs oder leer lassen für alle"
 
 msgid "LogSimulation.Title"
 msgstr "Simulationslauf aufzeichnen"
+
+msgid "MQTT.Error.AlreadyRunning"
+msgstr "Der MQTT-Client läuft bereits."
+
+msgid "MQTT.Error.ConnectingToServer"
+msgstr "Es konnte keine Verbindung mit dem MQTT-Broker \\\"%s\\\" hergestellt werden."
+
+msgid "MQTT.Error.Init"
+msgstr "Der MQTT-Client konnte nicht initialisiert werden."
+
+msgid "MQTT.Error.SubscribeTopic"
+msgstr "Es konnte keine Registrierung für das Thema \\\"%s\\\" vorgenommen werden."
 
 msgid "Main.Menu.AnalogValues"
 msgstr "Analoge Werte in Animation"
@@ -13563,6 +13575,9 @@ msgstr "Für Transportertyp \"%s\" wurde der Ausdruck \"%s\" zur Umrechnung der 
 
 msgid "Simulation.Creator.Transporter.InvalidStation"
 msgstr "Für Transportertyp \"%s\" wurde ein Startbestand an Station \"%s\" angegeben. Es existiert jedoch keine Station mit diesem Namen."
+
+msgid "Simulation.Creator.Transporter.InvalidStation2"
+msgstr "Für Transportertyp \"%s\" wurde ein Startbestand an Station \"%s\" angegeben. An dieser Station dürfen jedoch keine Transporter dieses Typs anhalten."
 
 msgid "Simulation.Creator.TransporterLoadExpression"
 msgstr "Der Ausdruck zu Bestimmung der Transporter-Ladezeiten \"%s\" ist ab Zeichen %d ungültig."

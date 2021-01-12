@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 17:51+0100\n"
+"POT-Creation-Date: 2021-01-12 16:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6770,6 +6770,18 @@ msgstr "Stations ids or keep empty for all stations"
 
 msgid "LogSimulation.Title"
 msgstr "Record simulation"
+
+msgid "MQTT.Error.AlreadyRunning"
+msgstr "The MQTT client is already running."
+
+msgid "MQTT.Error.ConnectingToServer"
+msgstr "No connection could be established to MQTT broker \\\"%s\\\"."
+
+msgid "MQTT.Error.Init"
+msgstr "The MQTT client could not be initialized."
+
+msgid "MQTT.Error.SubscribeTopic"
+msgstr "The topic \\\"%s\\\" could not be subscribed."
 
 msgid "Main.Menu.AnalogValues"
 msgstr "Analog values in animation"
@@ -13563,6 +13575,9 @@ msgstr "For transporter type \"%s\" the expression \"%s\" is used for calculatin
 
 msgid "Simulation.Creator.Transporter.InvalidStation"
 msgstr "For transporter type \"%s\" an initial number of transporters at station \"%s\" was specified. But there is no station with this name."
+
+msgid "Simulation.Creator.Transporter.InvalidStation2"
+msgstr "For transporter type \"%s\" an initial number of transporters at station \"%s\" was specified. But transporters of this type are not allowed to halt at this station."
 
 msgid "Simulation.Creator.TransporterLoadExpression"
 msgstr "The expression for calculating the transporter loading times \"%s\" is invalid at character %d."

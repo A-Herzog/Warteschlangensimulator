@@ -227,10 +227,22 @@ public final class RunDataTransporters implements Cloneable {
 			for (Map.Entry<String,Integer> entry: transporter.getCount().entrySet()) {
 				if (entry.getValue()<0) return String.format(Language.tr("Simulation.Creator.Transporter.InvalidCountAtStation"),name,entry.getKey(),entry.getValue().intValue());
 				if (entry.getValue()==0) continue;
+
+				final Integer stationID=stations.get(entry.getKey());
+				if (stationID==null) return String.format(Language.tr("Simulation.Creator.Transporter.InvalidStation"),name,entry.getKey());
+				final ModelElement element=surface.getByIdIncludingSubModels(stationID.intValue());
+				if (!(element instanceof ModelElementTransportTransporterSource) && !(element instanceof ModelElementTransportParking)) return String.format(Language.tr("Simulation.Creator.Transporter.InvalidStation2"),name,entry.getKey());
+				if (element instanceof ModelElementTransportTransporterSource) {
+					final ModelElementTransportTransporterSource source=(ModelElementTransportTransporterSource)element;
+					if (!name.equals(source.getTransporterType())) return String.format(Language.tr("Simulation.Creator.Transporter.InvalidStation2"),name,entry.getKey());
+				}
+				if (element instanceof ModelElementTransportParking) {
+					final ModelElementTransportParking parking=(ModelElementTransportParking)element;
+					if (!name.equals(parking.getTransporterType())) return String.format(Language.tr("Simulation.Creator.Transporter.InvalidStation2"),name,entry.getKey());
+				}
+
 				for (int i=0;i<entry.getValue();i++) {
 					final RunDataTransporter runTransporter=new RunDataTransporter(typeIndex,i,capacity,load,unload,iconEastEmpty,iconWestEmpty,iconEastLoaded,iconWestLoaded,failuresArray,this,variables);
-					final Integer stationID=stations.get(entry.getKey());
-					if (stationID==null) return String.format(Language.tr("Simulation.Creator.Transporter.InvalidStation"),name,entry.getKey());
 					runTransporter.position=stationID.intValue();
 					runTransporterList.add(runTransporter);
 				}

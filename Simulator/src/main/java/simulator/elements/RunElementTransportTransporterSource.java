@@ -293,6 +293,11 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 			/* Passenden freien Transporter wählen */
 			final RunDataTransporter transporter=simData.runData.transporters.getWaitingTransporter(transporterIndex,id);
 
+			if (transporter==null) {
+				/* An der Station befinden sich zwar Transporter (data.count>0), aber kein passender. Sollte eigentlich nicht sein bzw. schon beim Modell-Building abgefangen werden. */
+				break;
+			}
+
 			/* Kunden auswählen */
 			getClientsToMove(simData,transporter.clients);
 			if (transporter.clients.size()==0) break;
