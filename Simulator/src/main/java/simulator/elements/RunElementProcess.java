@@ -742,8 +742,11 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 		double maxPriority=-Double.MAX_VALUE;
 		boolean hasScore=false;
-		for (RunDataClient client: data.waitingClients) {
-			final double score=getClientScore(simData,data,client);
+		/* Benötigt viel, viel mehr Speicher: for (RunDataClient client: data.waitingClients) */
+		final List<RunDataClient> list=data.waitingClients;
+		final int size=list.size();
+		for (int i=0;i<size;i++) {
+			final double score=getClientScore(simData,data,list.get(i));
 			if (score>maxPriority) {maxPriority=score; hasScore=true;}
 		}
 		if (hasScore) return maxPriority;
