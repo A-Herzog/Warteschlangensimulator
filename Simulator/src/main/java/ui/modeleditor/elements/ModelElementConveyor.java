@@ -159,7 +159,7 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 		transportTimeType=TransportTimeType.TRANSPORT_TYPE_TRANSFER;
 
 		moveDirection=MoveDirection.MOVE_LEFT_TO_RIGHT;
-		setSize(new Dimension(150,25));
+		setSize(new Dimension(150,30));
 	}
 
 	/**
