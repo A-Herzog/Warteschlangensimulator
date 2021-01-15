@@ -39,6 +39,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
+import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -206,6 +207,10 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 		sub.add(moveDirection=new JComboBox<>(new String[] {
 				Language.tr("Surface.Conveyor.Dialog.AnimationDirection.LeftToRight"),
 				Language.tr("Surface.Conveyor.Dialog.AnimationDirection.RightToLeft")
+		}));
+		moveDirection.setRenderer(new IconListCellRenderer(new Images[]{
+				Images.ARROW_RIGHT,
+				Images.ARROW_LEFT
 		}));
 		moveDirection.setEnabled(!readOnly);
 		switch (conveyor.getMoveDirection()) {
