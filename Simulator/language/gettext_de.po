@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 16:06+0100\n"
+"POT-Creation-Date: 2021-01-15 13:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1721,6 +1721,9 @@ msgstr "Simulator als Rechenserver starten."
 msgid "CommandLine.Server.EnterPortNumber"
 msgstr "Bitte die Portnummer für den Server angeben:"
 
+msgid "CommandLine.Server.InvalidBroker"
+msgstr "Die angegebene MQTT-Broker-Adresse \"%s\" ist ungültig."
+
 msgid "CommandLine.Server.InvalidPort"
 msgstr "Der angegebene Port %s ist ungültig."
 
@@ -1751,6 +1754,37 @@ msgstr "Simulator als Rechenserver starten."
 
 msgid "CommandLine.ServerLimited.Name"
 msgstr "ServerLimited"
+
+msgid "CommandLine.ServerMQTT.Description.Long"
+msgstr ""
+"Dieser Befehl erwartet zwei oder drei weiteren Parameter:\n"
+"die Adresse des zu verwendenden MQTT-Brokers, den Namen des MQTT-Topic optional Nutzername und Passwort getrennt durch \":\"."
+
+msgid "CommandLine.ServerMQTT.Description.Short"
+msgstr "Simulator als MQTT-basierten Rechenserver starten."
+
+msgid "CommandLine.ServerMQTT.Name"
+msgstr "ServerMQTT"
+
+msgid "CommandLine.ServerMQTT.Started"
+msgstr "Der MQTT-Client-basierte Rechenserver wurde gestartet."
+
+msgid "CommandLine.ServerMQTT.Stopped"
+msgstr "MQTT-basierter Rechenserver gestoppt."
+
+msgid "CommandLine.ServerMQTTTest.Description.Long"
+msgstr ""
+"Dieser Befehl erwartet zwei oder drei weiteren Parameter:\n"
+"die Adresse des zu verwendenden MQTT-Brokers, den Namen des MQTT-Topic optional Nutzername und Passwort getrennt durch \":\"."
+
+msgid "CommandLine.ServerMQTTTest.Description.Short"
+msgstr "Simulator als MQTT-basierten Echo-Testserver starten."
+
+msgid "CommandLine.ServerMQTTTest.Name"
+msgstr "ServerMQTTTest"
+
+msgid "CommandLine.ServerMQTTTest.Stopped"
+msgstr "MQTT-basierter Testserver gestoppt."
 
 msgid "CommandLine.ServerWeb.Description.Long"
 msgstr ""
@@ -6765,13 +6799,13 @@ msgid "MQTT.Error.AlreadyRunning"
 msgstr "Der MQTT-Client läuft bereits."
 
 msgid "MQTT.Error.ConnectingToServer"
-msgstr "Es konnte keine Verbindung mit dem MQTT-Broker \\\"%s\\\" hergestellt werden."
+msgstr "Es konnte keine Verbindung mit dem MQTT-Broker \"%s\" hergestellt werden."
 
 msgid "MQTT.Error.Init"
 msgstr "Der MQTT-Client konnte nicht initialisiert werden."
 
 msgid "MQTT.Error.SubscribeTopic"
-msgstr "Es konnte keine Registrierung für das Thema \\\"%s\\\" vorgenommen werden."
+msgstr "Es konnte keine Registrierung für das Thema \"%s\" vorgenommen werden."
 
 msgid "Main.Menu.AnalogValues"
 msgstr "Analoge Werte in Animation"
@@ -14792,10 +14826,12 @@ msgid "SimulationServer.AuthRequestInfo"
 msgstr "Bitte geben Sie zu Zugangsdaten zu dem Server an."
 
 msgid "SimulationServer.Setup.AccessControl"
-msgstr "Zugangsdaten für Web- und Fernsteuerungsserver"
+msgstr "Zugangsdaten für Web- und Fernsteuerungsserver und MQTT-Klient"
 
 msgid "SimulationServer.Setup.AuthInfo"
-msgstr "Die Zugangsdaten werden im Browser abgefragt, wenn hier ein Name und ein Passwort angegeben werden."
+msgstr ""
+"Die Zugangsdaten werden im Browser abgefragt, wenn hier ein Name und ein Passwort angegeben werden.\n"
+"Die Daten werden auch bei der Verbindung zu einem MQTT-Broker verwendet."
 
 msgid "SimulationServer.Setup.AuthName"
 msgstr "Name"
@@ -14841,6 +14877,32 @@ msgstr "Anfragen limitieren"
 
 msgid "SimulationServer.Setup.LimitThreadCount.Hint"
 msgstr "Erlaubt nicht mehr gleichzeitige Anfragen als CPU-Kerne verfügbar sind"
+
+msgid "SimulationServer.Setup.MQTTAutoStart"
+msgstr "Autostart"
+
+msgid "SimulationServer.Setup.MQTTAutoStart.Hint"
+msgstr "MQTT-Klienten automatisch starten, wenn das Programm gestartet wird."
+
+msgid "SimulationServer.Setup.MQTTBroker"
+msgstr "Broker"
+
+msgid "SimulationServer.Setup.MQTTServer"
+msgstr "MQTT-Klient"
+
+msgid "SimulationServer.Setup.MQTTServer.InvalidBrokerURL"
+msgstr ""
+"Die angegebene Broker-Adresse ist ungültig.\n"
+"Eine Broker-Adresse muss mit \"tcp://\" oder \"ssl://\" beginnen.\n"
+"Dann muss der Netzwerkname des Brokers folgen.\n"
+"Abschließend kann optional, abgetrennt durch \":\" ein Port angegeben werden.\n"
+"Wird kein Port spezifiziert, so werden die Standardports (1883 bzw. 8883) verwendet."
+
+msgid "SimulationServer.Setup.MQTTServer.NoTopic"
+msgstr "Es wurde kein zu abonnierendes MQTT-Thema angegeben."
+
+msgid "SimulationServer.Setup.MQTTTopic"
+msgstr "Thema"
 
 msgid "SimulationServer.Setup.OpenBrowser"
 msgstr "Webbrowser öffnen"
@@ -14932,6 +14994,9 @@ msgstr "Webserver"
 msgid "SimulationServer.Status.DDE"
 msgstr "DDE-Server"
 
+msgid "SimulationServer.Status.MQTT"
+msgstr "MQTT-Klient"
+
 msgid "SimulationServer.Status.Off"
 msgstr "aus"
 
@@ -14967,6 +15032,18 @@ msgstr "DDE-Server stoppen"
 
 msgid "SimulationServer.Toolbar.DDEStop.Hint"
 msgstr "Stoppt den DDE-Server"
+
+msgid "SimulationServer.Toolbar.MQTTStart"
+msgstr "MQTT-Klient starten"
+
+msgid "SimulationServer.Toolbar.MQTTStart.Hint"
+msgstr "Startet den MQTT-Klient"
+
+msgid "SimulationServer.Toolbar.MQTTStop"
+msgstr "MQTT-Klient stoppen"
+
+msgid "SimulationServer.Toolbar.MQTTStop.Hint"
+msgstr "Stoppt den MQTT-Klient"
 
 msgid "SimulationServer.Toolbar.Start"
 msgstr "Simulationsserver starten"

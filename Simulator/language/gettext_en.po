@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 16:06+0100\n"
+"POT-Creation-Date: 2021-01-15 13:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1721,6 +1721,9 @@ msgstr "Starts the program as simulation server."
 msgid "CommandLine.Server.EnterPortNumber"
 msgstr "Please enter the port number for the server:"
 
+msgid "CommandLine.Server.InvalidBroker"
+msgstr "The sepcified MQTT broker address \"%s\" is invalid."
+
 msgid "CommandLine.Server.InvalidPort"
 msgstr "The specified port number %s is invalid."
 
@@ -1752,9 +1755,40 @@ msgstr "Starts the program as simulation server."
 msgid "CommandLine.ServerLimited.Name"
 msgstr "ServerLimited"
 
+msgid "CommandLine.ServerMQTT.Description.Long"
+msgstr ""
+"This command expects two or three additional parameter:\n"
+"the address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by \":\"."
+
+msgid "CommandLine.ServerMQTT.Description.Short"
+msgstr "Starts the program as MQTT-based simulation server."
+
+msgid "CommandLine.ServerMQTT.Name"
+msgstr "ServerMQTT"
+
+msgid "CommandLine.ServerMQTT.Started"
+msgstr "Started MQTT-client-based simulation server."
+
+msgid "CommandLine.ServerMQTT.Stopped"
+msgstr "MQTT-based simulation server stopped."
+
+msgid "CommandLine.ServerMQTTTest.Description.Long"
+msgstr ""
+"This command expects two or three additional parameter:\n"
+"the address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by \":\"."
+
+msgid "CommandLine.ServerMQTTTest.Description.Short"
+msgstr "Starts the program as MQTT-based echo test server."
+
+msgid "CommandLine.ServerMQTTTest.Name"
+msgstr "ServerMQTTTest"
+
+msgid "CommandLine.ServerMQTTTest.Stopped"
+msgstr "MQTT-based test server stopped."
+
 msgid "CommandLine.ServerWeb.Description.Long"
 msgstr ""
-"This command expects one or tow additional parameter:\n"
+"This command expects one or two additional parameter:\n"
 "the port to be used and optionally the user name and the password separated by \":\"."
 
 msgid "CommandLine.ServerWeb.Description.Short"
@@ -6775,13 +6809,13 @@ msgid "MQTT.Error.AlreadyRunning"
 msgstr "The MQTT client is already running."
 
 msgid "MQTT.Error.ConnectingToServer"
-msgstr "No connection could be established to MQTT broker \\\"%s\\\"."
+msgstr "No connection could be established to MQTT broker \"%s\"."
 
 msgid "MQTT.Error.Init"
 msgstr "The MQTT client could not be initialized."
 
 msgid "MQTT.Error.SubscribeTopic"
-msgstr "The topic \\\"%s\\\" could not be subscribed."
+msgstr "The topic \"%s\" could not be subscribed."
 
 msgid "Main.Menu.AnalogValues"
 msgstr "Analog values in animation"
@@ -14792,10 +14826,12 @@ msgid "SimulationServer.AuthRequestInfo"
 msgstr "Please enter the login data to the server."
 
 msgid "SimulationServer.Setup.AccessControl"
-msgstr "Login data for web and remote control server"
+msgstr "Login data for web and remote control server and MQTT client"
 
 msgid "SimulationServer.Setup.AuthInfo"
-msgstr "The access data is requested in the browser when a name and a password are entered here."
+msgstr ""
+"The access data is requested in the browser when a name and a password are entered here.\n"
+"It is also used when connectiong to the MQTT broker."
 
 msgid "SimulationServer.Setup.AuthName"
 msgstr "Name"
@@ -14841,6 +14877,32 @@ msgstr "Limit requests"
 
 msgid "SimulationServer.Setup.LimitThreadCount.Hint"
 msgstr "Does not allow more concurrent requests than CPU cores are available"
+
+msgid "SimulationServer.Setup.MQTTAutoStart"
+msgstr "Auto start"
+
+msgid "SimulationServer.Setup.MQTTAutoStart.Hint"
+msgstr "Auto start MQTT client when program is started."
+
+msgid "SimulationServer.Setup.MQTTBroker"
+msgstr "Broker"
+
+msgid "SimulationServer.Setup.MQTTServer"
+msgstr "MQTT client"
+
+msgid "SimulationServer.Setup.MQTTServer.InvalidBrokerURL"
+msgstr ""
+"The specified broker address is invalid.\n"
+"A broker address has to start with \"tcp://\" or \"ssl://\".\n"
+"Then the network name of the broker has to follow.\n"
+"Finally, a port can optionally be specified, separated by \":\".\n"
+"If no port is specified, the default ports (1883 or 8883) are used."
+
+msgid "SimulationServer.Setup.MQTTServer.NoTopic"
+msgstr "No MQTT topic to subscribe to was specified."
+
+msgid "SimulationServer.Setup.MQTTTopic"
+msgstr "Topic"
 
 msgid "SimulationServer.Setup.OpenBrowser"
 msgstr "Start web browser"
@@ -14932,6 +14994,9 @@ msgstr "Web server"
 msgid "SimulationServer.Status.DDE"
 msgstr "DDE server"
 
+msgid "SimulationServer.Status.MQTT"
+msgstr "MQTT client"
+
 msgid "SimulationServer.Status.Off"
 msgstr "off"
 
@@ -14954,7 +15019,7 @@ msgid "SimulationServer.Toolbar.CalcWebStop"
 msgstr "Stop web server"
 
 msgid "SimulationServer.Toolbar.CalcWebStop.Hint"
-msgstr "Stopps the web server"
+msgstr "Stops the web server"
 
 msgid "SimulationServer.Toolbar.DDEStart"
 msgstr "Start DDE server"
@@ -14966,7 +15031,19 @@ msgid "SimulationServer.Toolbar.DDEStop"
 msgstr "Stop DDE server"
 
 msgid "SimulationServer.Toolbar.DDEStop.Hint"
-msgstr "Stopps the DDE server"
+msgstr "Stops the DDE server"
+
+msgid "SimulationServer.Toolbar.MQTTStart"
+msgstr "Start MQTT client"
+
+msgid "SimulationServer.Toolbar.MQTTStart.Hint"
+msgstr "Starts the MQTT client"
+
+msgid "SimulationServer.Toolbar.MQTTStop"
+msgstr "Stop MQTT client"
+
+msgid "SimulationServer.Toolbar.MQTTStop.Hint"
+msgstr "Stops the MQTT client"
 
 msgid "SimulationServer.Toolbar.Start"
 msgstr "Start simulation server"
@@ -14978,7 +15055,7 @@ msgid "SimulationServer.Toolbar.Stop"
 msgstr "Stop simulation server"
 
 msgid "SimulationServer.Toolbar.Stop.Hint"
-msgstr "Stopps the simulation network server"
+msgstr "Stops the simulation network server"
 
 msgid "SimulationServer.Toolbar.WebStart"
 msgstr "Start remote control server"
@@ -20566,7 +20643,7 @@ msgid "Surface.Database.Config.InfoHSQLDBLocal"
 msgstr "Configuration: HSQLDB folder with trailing path delimeter"
 
 msgid "Surface.Database.Config.InfoHSQLDBServer"
-msgstr "Configuration: Server adress starting with \"//\" and ending with \"/\""
+msgstr "Configuration: Server address starting with \"//\" and ending with \"/\""
 
 msgid "Surface.Database.Config.InfoMariaDB"
 msgstr "Configuration: Format //host:3306/database"

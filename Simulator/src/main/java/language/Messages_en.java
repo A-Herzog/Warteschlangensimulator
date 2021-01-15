@@ -343,7 +343,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[856] = "ModelDescription.Input.EOFMode.Loop";
     t[857] = "Begin at start of file again";
     t[858] = "SimulationServer.Setup.AuthInfo";
-    t[859] = "The access data is requested in the browser when a name and a password are entered here.";
+    t[859] = "The access data is requested in the browser when a name and a password are entered here.\nIt is also used when connectiong to the MQTT broker.";
     t[864] = "Surface.AnalogAssign.Dialog.ModeRate";
     t[865] = "Set change rate";
     t[868] = "Surface.InputJS.XML.EofMode";
@@ -1051,7 +1051,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2594] = "Elements.Catalog.Assignments";
     t[2595] = "Assignments";
     t[2600] = "SimulationServer.Setup.AccessControl";
-    t[2601] = "Login data for web and remote control server";
+    t[2601] = "Login data for web and remote control server and MQTT client";
     t[2604] = "ExpressionBuilder.SimulationCharacteristics.MaximalTime";
     t[2605] = "Maximal time";
     t[2610] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate2.ErrorTitle";
@@ -1990,6 +1990,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4709] = "StatisticsThroughputName";
     t[4710] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberInfo";
     t[4711] = "<p>Generates a random number according to the gamma distribution with the parameters &alpha; and &beta; according to the first and second parameters.</p>\n<p>Example: <tt>GammaDist(5;3)</tt>.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
+    t[4716] = "SimulationServer.Setup.MQTTServer.NoTopic";
+    t[4717] = "No MQTT topic to subscribe to was specified.";
     t[4718] = "FindBatchSizeSimulation.SelectLabel";
     t[4719] = "Acceptable remaining correlation between the waiting times:";
     t[4722] = "Statistic.Viewer.Toolbar.Settings";
@@ -2008,14 +2010,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4749] = "Expression";
     t[4762] = "CommandLine.ServerLimited.Description.Long";
     t[4763] = "This command expects 0 to 2 additional parameters.\nIf these parameters exist they have the following meaning:\n1. Port to be used\n2. Password for encrypted data transfer\nIf no parameters are specified, the simulator will ask for the port via the console.\nThe server will limit the number of simultaneous requests depending on the\nnumber of available CPU cores.";
-    t[4764] = "Surface.CounterMulti.Table.Heading.Condition.Delete";
-    t[4765] = "Delete condition/counter";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4764] = "Surface.CounterMulti.Table.Heading.Condition.Delete";
+    t[4765] = "Delete condition/counter";
     t[4778] = "Simulation.Log.Balking.QueueAtTarget";
     t[4779] = "Client: %s, a station id=%d the queue length is %d";
     t[4782] = "Statistics.XML.Element.CounterBatchName";
@@ -2948,6 +2950,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6963] = "Destination station";
     t[6964] = "ModelDescription.Batch.NewClientType";
     t[6965] = "Client type for batch";
+    t[6968] = "SimulationServer.Setup.MQTTTopic";
+    t[6969] = "Topic";
     t[6974] = "Statistics.CostsForResources.Available.All";
     t[6975] = "Costs for the availability of the resources";
     t[6976] = "Surface.DistributionByClientTypeEditor.ByType";
@@ -2970,6 +2974,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7019] = "Round one with population size %d";
     t[7026] = "Simulation.Creator.AnalogInvalidMaxValue";
     t[7027] = "At element id=%d the invalid maximum value %s was specified. The maximum value cannot be larger than the initial value %s.";
+    t[7034] = "CommandLine.ServerMQTT.Stopped";
+    t[7035] = "MQTT-based simulation server stopped.";
     t[7036] = "JSRunner.Templates.ChangeResource.Title";
     t[7037] = "Number of operators in the resources";
     t[7042] = "Surface.InteractiveCheckbox.Dialog.ValueChecked.ErrorTitle";
@@ -3256,8 +3262,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7675] = "Models not used for next generation";
     t[7676] = "Simulation.Log.Station";
     t[7677] = "Station";
-    t[7684] = "Surface.InputDDE.Infotext";
-    t[7685] = "If a client passes this station, a value is loaded via a DDE connection from a running Excel instance and is assigned to a variable.";
+    t[7684] = "CommandLine.ServerMQTTTest.Description.Long";
+    t[7685] = "This command expects two or three additional parameter:\nthe address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by \":\".";
     t[7692] = "Optimizer.Target.Maximize";
     t[7693] = "Optimization target: Maximize target value";
     t[7706] = "Surface.TankValveSetup.Table.Delete.ConfirmInfo";
@@ -4010,18 +4016,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9469] = "Inter-arrival times (by batches) at the stations";
     t[9470] = "Optimizer.Tab.Target.Value.Range.InvalidRange.LowerBound";
     t[9471] = "The entered value for the lower bound of the target range is invalid. A valid number has to be specified.";
-    t[9476] = "Simulation.Output.Text";
-    t[9477] = "Text";
-    t[9478] = "Statistic.FastAccess.Template.StatisticsTranslate.en";
-    t[9479] = "Translate statistics to \"en\"";
-    t[9484] = "Statistics.ProcessTime";
-    t[9485] = "Process time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9476] = "Simulation.Output.Text";
+    t[9477] = "Text";
+    t[9478] = "Statistic.FastAccess.Template.StatisticsTranslate.en";
+    t[9479] = "Translate statistics to \"en\"";
+    t[9484] = "Statistics.ProcessTime";
+    t[9485] = "Process time";
     t[9490] = "ModelDescription.AssignString.Assignment";
     t[9491] = "Assignment";
     t[9492] = "Schedule.TimeSlot.Singular";
@@ -4140,8 +4146,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9741] = "Mode";
     t[9742] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Type";
     t[9743] = "Record type";
-    t[9744] = "Surface.Text.XML.TextAlign.Left";
-    t[9745] = "left";
+    t[9744] = "SimulationServer.Setup.MQTTAutoStart";
+    t[9745] = "Auto start";
     t[9748] = "Surface.ScriptEditor.Save.Hint";
     t[9749] = "Saves the script to a file.";
     t[9750] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.MinimalTime";
@@ -4286,8 +4292,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10053] = "Serif font";
     t[10058] = "Simulation.Creator.InvalidCapacityAvailable";
     t[10059] = "Invalid available capacity at station id=%d.";
-    t[10060] = "Surface.Throughput.Infotext";
-    t[10061] = "Records the throughput in clients per time unit of the clients passing this station in the statistics.";
+    t[10060] = "CommandLine.ServerMQTTTest.Stopped";
+    t[10061] = "MQTT-based test server stopped.";
     t[10078] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilizationAll.Number";
     t[10079] = "<p>Returns the number of transporters over all transporter groups.</p>";
     t[10082] = "ParameterCompare.Settings.Input.List.Templates.ProcessTime";
@@ -4449,7 +4455,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10452] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.EvolutionPressure";
     t[10453] = "Evolution pressure";
     t[10456] = "SimulationServer.Toolbar.Stop.Hint";
-    t[10457] = "Stopps the simulation network server";
+    t[10457] = "Stops the simulation network server";
     t[10458] = "ScriptPopup.Clients.TransferTime.Hint";
     t[10459] = "Gets the transfer time of a waiting client";
     t[10460] = "Simulation.Creator.SetStatisticsModeCondition.Missing";
@@ -4922,8 +4928,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11535] = "Save changed filter";
     t[11540] = "Wait.Status.Day.WIPZero";
     t[11541] = "%s of %s repeats simulated / %sM events / %sK events per second";
-    t[11544] = "Statistics.Filter.EngineInitError";
-    t[11545] = "The scripting environment \"%s\" could not be initialized.";
+    t[11544] = "CommandLine.ServerMQTT.Name";
+    t[11545] = "ServerMQTT";
     t[11554] = "Main.Menu.Model.PluginFolder.Mnemonic";
     t[11555] = "J";
     t[11556] = "Animation.Toolbar.Speed";
@@ -5710,6 +5716,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13315] = "Confidence interval to level %s: [ %s ; %s ] (confidence radius=%s)";
     t[13318] = "Statistic.Viewer.Report.NoTablesSelected.Title";
     t[13319] = "No data selected for saving";
+    t[13320] = "CommandLine.Server.InvalidBroker";
+    t[13321] = "The sepcified MQTT broker address \"%s\" is invalid.";
     t[13328] = "Surface.PopupMenu.ParameterCompare.ChangeServiceTime.Short";
     t[13329] = "Average service time";
     t[13356] = "ModelDescription.Dialog.Save.Failed.Title";
@@ -6014,6 +6022,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14047] = "Change notify distance";
     t[14050] = "FastAccessBuilder.Add.Java";
     t[14051] = "Add to fast access - Java";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_3 (java.lang.String[] t) {
     t[14052] = "CommandLine.FolderSimulation.OutputFileExists";
     t[14053] = "There is already an output file for this file.";
     t[14056] = "Surface.SourceMulti.XML.Source";
@@ -6022,12 +6036,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14059] = "Direct";
     t[14066] = "Statistic.FastAccess.Template.Save";
     t[14067] = "Save statistics";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_3 (java.lang.String[] t) {
     t[14070] = "Editor.Dialog.Sequences.Edit.Assignments.Add";
     t[14071] = "Add";
     t[14072] = "Surface.Set.XML.Root";
@@ -6351,7 +6359,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14872] = "SettingsDialog.Tabs.Simulation.General";
     t[14873] = "General";
     t[14874] = "MQTT.Error.SubscribeTopic";
-    t[14875] = "The topic \\\"%s\\\" could not be subscribed.";
+    t[14875] = "The topic \"%s\" could not be subscribed.";
     t[14876] = "Surface.XML.Resource.SetupTime.Expression";
     t[14877] = "SetUpTimesExpression";
     t[14878] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo";
@@ -7090,6 +7098,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16493] = "Target";
     t[16494] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.MaximalTime";
     t[16495] = "<p>Returns the maximal duration over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
+    t[16500] = "Surface.InputDDE.Infotext";
+    t[16501] = "If a client passes this station, a value is loaded via a DDE connection from a running Excel instance and is assigned to a variable.";
     t[16502] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range.Error";
     t[16503] = "The specified maximum distance of clients for the autocorrelation recording \"%s\" is invalid. A positive integer number has to be specified.";
     t[16504] = "XML.ErrorNoEmbeddedData";
@@ -7111,7 +7121,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16542] = "Animation.Icon.Attach";
     t[16543] = "Attach";
     t[16544] = "SimulationServer.Toolbar.CalcWebStop.Hint";
-    t[16545] = "Stopps the web server";
+    t[16545] = "Stops the web server";
     t[16546] = "Simulation.Log.TransporterStart.Start";
     t[16547] = "From station %s transporter %s is starting with %d clients.";
     t[16550] = "Simulation.Log.DecideByScript.ErrorScript";
@@ -7653,7 +7663,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17780] = "ModelDescription.TransportResourceRecord.DelayedRelease.GeneralCase";
     t[17781] = "Delayed resource release in the general case";
     t[17784] = "SimulationServer.Toolbar.DDEStop.Hint";
-    t[17785] = "Stopps the DDE server";
+    t[17785] = "Stops the DDE server";
     t[17786] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.StandardDeviationOfTheTime";
     t[17787] = "<p>Returns the standard deviation over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[17790] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.DensityInfo";
@@ -7966,6 +7976,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18449] = "Starts the program as simulation server.";
     t[18456] = "Surface.Output.XML.Element.Type.ClientType";
     t[18457] = "ClientType";
+    t[18460] = "CommandLine.ServerMQTT.Description.Long";
+    t[18461] = "This command expects two or three additional parameter:\nthe address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by \":\".";
     t[18462] = "Statistics.Filter.NoScript";
     t[18463] = "No script was defined.";
     t[18466] = "Optimizer.Prepare.Title";
@@ -8016,6 +8028,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18593] = "Load model to editor";
     t[18604] = "Surface.AnimationTrafficLights.Tooltip";
     t[18605] = "Traffc lights view, which is updated during animation of the model.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_4 (java.lang.String[] t) {
     t[18606] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.MinimalTime";
     t[18607] = "<p>Returns the minimal duration over all residence times for all clients.</p>";
     t[18608] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime";
@@ -8028,12 +8046,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18631] = "Branch clients via Script";
     t[18634] = "ModelLoadData.ProcessError.WriteError";
     t[18635] = "For record %d the new value %s could not be written into the model.";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_4 (java.lang.String[] t) {
     t[18636] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.CurrentTime";
     t[18637] = "<p>Returns the sum of all waiting times (over all client types).</p>";
     t[18642] = "Editor.Dialog.Sequences.Delete.Confirm.Title";
@@ -8269,7 +8281,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19218] = "CommandLine.SetMaxThreads.Info.MultiCore";
     t[19219] = "Multi-core simulation: activated (previous state %s)";
     t[19220] = "Surface.Database.Config.InfoHSQLDBServer";
-    t[19221] = "Configuration: Server adress starting with \"//\" and ending with \"/\"";
+    t[19221] = "Configuration: Server address starting with \"//\" and ending with \"/\"";
     t[19222] = "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow";
     t[19223] = "Load model to new editor";
     t[19238] = "Schedule.Delete.YesInfo";
@@ -8340,6 +8352,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19399] = "ModelElementInputDDEVariable";
     t[19400] = "Examples.Analog";
     t[19401] = "Continuous time values";
+    t[19406] = "Surface.Process.Name";
+    t[19407] = "Process station";
     t[19408] = "Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation.Info";
     t[19409] = "Send the client to the path at which on the next process station\nthere is the least number of clients.";
     t[19410] = "Simulation.Creator.InvalidResourceMoveTimeExpression";
@@ -8442,6 +8456,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19631] = "Criteria for the end of the simulation";
     t[19632] = "Simulation.Output.TransferTime";
     t[19633] = "Transfer time";
+    t[19636] = "Surface.Release.Dialog.SeizeElement";
+    t[19637] = "Releated resource seize element";
     t[19638] = "Statistic.FastAccess.Template.SaveStatisticsFilter";
     t[19639] = "Execute external Javascript program";
     t[19644] = "ExpressionBuilder.MathematicalConstants";
@@ -9508,6 +9524,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22185] = "Data from Statistic stations";
     t[22188] = "ModelLoadData.IncompatibleWarning.ScriptRunner";
     t[22189] = "This model uses external data. These data will not be updated on script execution.";
+    t[22192] = "CommandLine.ServerMQTT.Started";
+    t[22193] = "Started MQTT-client-based simulation server.";
     t[22198] = "QuickAccess.Examples";
     t[22199] = "Example models";
     t[22200] = "Statistics.Confidence.HeadingThread";
@@ -9604,8 +9622,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22399] = "to";
     t[22408] = "Main.Menu.View.ZoomIn";
     t[22409] = "Zoom in";
-    t[22412] = "Surface.TransportSourceRouter.Dialog.DefaultStation";
-    t[22413] = "Default destination if there is not sequence";
+    t[22412] = "SimulationServer.Toolbar.MQTTStart.Hint";
+    t[22413] = "Starts the MQTT client";
     t[22416] = "Surface.CounterMulti.RunInfoElse";
     t[22417] = "Condition \"else\": counter %s=%s";
     t[22420] = "Statistic.FastAccess.Template.ProcessTime.Tooltip";
@@ -9734,6 +9752,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22681] = "Less";
     t[22682] = "ScriptPopup.Client.ProcessTime";
     t[22683] = "Process time";
+    t[22684] = "Surface.Text.XML.TextAlign.Left";
+    t[22685] = "left";
     t[22692] = "Statistics.Average";
     t[22693] = "Average";
     t[22694] = "Surface.Source.Dialog.ClientTypeSettings.NoNameError.Title";
@@ -10014,6 +10034,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23275] = "The Javascript code has been modified since the last save. Do you want to save it now?";
     t[23278] = "Surface.Barrier.XML.SignalName";
     t[23279] = "ModelElementSignalName";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23284] = "Simulation.Creator.InvalidCounterExpression";
     t[23285] = "At station id=%d the counter condition %d \"%s\" is invalid at character %d.";
     t[23290] = "Schedule.Delete.Confirmation";
@@ -10034,12 +10060,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23325] = "Source for a transporter-based transport of a client to a transport destination.";
     t[23326] = "Surface.Action.Dialog.Delete.ConfirmInfo";
     t[23327] = "Dou you really want to delete the selected action?";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_5 (java.lang.String[] t) {
     t[23328] = "Statistics.SystemData.RepeatCount.Heading";
     t[23329] = "Repetitions";
     t[23330] = "Surface.Output.XML.Element.TypeDescription.ResidenceTime";
@@ -10308,6 +10328,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23957] = "No input file name was specified.";
     t[23958] = "Editor.Dialog.Sequences.Copy.NewName.ErrorInfoInUse";
     t[23959] = "The specified name \"%s\" is already in use by another sequence.";
+    t[23968] = "Statistics.Filter.EngineInitError";
+    t[23969] = "The scripting environment \"%s\" could not be initialized.";
     t[23974] = "Surface.Action.Dialog.Edit.Tabs.Trigger.ThresholdExpression";
     t[23975] = "Threshold expression";
     t[23978] = "Surface.Dispose.TooltipStopp";
@@ -10380,6 +10402,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24101] = "Program settings";
     t[24106] = "Surface.TransportSource.Dialog.TargetMode";
     t[24107] = "Select transport target by";
+    t[24114] = "SimulationServer.Toolbar.MQTTStart";
+    t[24115] = "Start MQTT client";
     t[24118] = "JSRunner.Templates.ChangeResource.Info";
     t[24119] = "Resource \"%s\"";
     t[24120] = "ModelDescription.TransportTargetSystem.Mode";
@@ -10454,6 +10478,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24277] = "The specified termination condition \"%s\" is invalid from character %d.";
     t[24278] = "Statistics.StationsProcessTimes";
     t[24279] = "Process times at the stations";
+    t[24286] = "SimulationServer.Status.MQTT";
+    t[24287] = "MQTT client";
     t[24288] = "Statistics.ErlangCompare.Info.Process.CancelDistribution";
     t[24289] = "Clients are only willing to wait for a limited time. This is not considered in the formula.";
     t[24290] = "Statistic.Viewer.Toolbar.NewWindow.Hint";
@@ -10497,7 +10523,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24390] = "Statistic.FastAccess.Template.ClientsAtStationQueue";
     t[24391] = "Average number of clients at a stations queue";
     t[24396] = "MQTT.Error.ConnectingToServer";
-    t[24397] = "No connection could be established to MQTT broker \\\"%s\\\".";
+    t[24397] = "No connection could be established to MQTT broker \"%s\".";
     t[24400] = "Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic";
     t[24401] = "U";
     t[24408] = "Surface.PopupMenu.QuickFix.OutputDDE.Row";
@@ -11322,6 +11348,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26307] = "<p>Returns the number of departures from the station whose ID was specified in the parameter.</p>";
     t[26310] = "Statistic.FastAccess.Template.Variable.Get";
     t[26311] = "Read global variable";
+    t[26314] = "SimulationServer.Setup.MQTTBroker";
+    t[26315] = "Broker";
     t[26322] = "Surface.Match.Dialog.SendTemporaryBatched.Error.Title";
     t[26323] = "Missing name for client type";
     t[26324] = "Surface.AnimationText.Type.Number";
@@ -11514,8 +11542,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26737] = "In the model a warm-up phase is defined and at the same time<br>there are element to visualizate statistic data during the animation.<br>The visualization elements will, independend of the selected expression, may not display any data until the warm-up phase (%s client arrivals) will be completed.<br>Do you want to disable the warm-up phase temporary for this animation?";
     t[26738] = "Surface.InputDB.XML.EofMode.Skip";
     t[26739] = "Skip";
-    t[26744] = "Surface.Release.Dialog.SeizeElement";
-    t[26745] = "Releated resource seize element";
+    t[26744] = "SimulationServer.Setup.MQTTServer";
+    t[26745] = "MQTT client";
     t[26746] = "Examples.RestrictedBuffer";
     t[26747] = "Restricted buffer between the stations";
     t[26748] = "Surface.AnalogValue.Dialog.InitialValue.ErrorTitle";
@@ -12012,6 +12040,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27941] = "Client arrival";
     t[27944] = "Window.JavaSecurityWarnung.Link";
     t[27945] = "https://adoptopenjdk.net/";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_6 (java.lang.String[] t) {
     t[27946] = "Surface.Action.Dialog.Info.ThresholdCondition.Down";
     t[27947] = "Trigger when falling below %s.";
     t[27950] = "Surface.OutputJS.Name";
@@ -12040,12 +12074,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27999] = "Open JDBC connector configuration";
     t[28000] = "ExpressionBuilder.SimulationCharacteristics.isWarmUp.Info";
     t[28001] = "Gets 0 or 1 depending on whether the system is still in the warm-up phase (1) or not (0).";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_6 (java.lang.String[] t) {
     t[28004] = "Surface.Tank.Dialog.Valve.Nr";
     t[28005] = "Number";
     t[28006] = "ModelDescription.Database.Type";
@@ -13720,8 +13748,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32023] = "Property (text)";
     t[32026] = "Surface.LogicDo.XML.Root";
     t[32027] = "ModelElementLogicDo";
-    t[32028] = "XML.Comment";
-    t[32029] = "This file was created using %s. Download address: %s";
+    t[32028] = "SimulationServer.Toolbar.MQTTStop";
+    t[32029] = "Stop MQTT client";
     t[32030] = "Surface.AssignString.Name";
     t[32031] = "Assign string";
     t[32036] = "Statistics.FailureTime.Average.Transporters";
@@ -13937,7 +13965,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32498] = "UserTemplates.AddDialog.Name.ErrorTitle";
     t[32499] = "No template name";
     t[32502] = "CommandLine.ServerWeb.Description.Long";
-    t[32503] = "This command expects one or tow additional parameter:\nthe port to be used and optionally the user name and the password separated by \":\".";
+    t[32503] = "This command expects one or two additional parameter:\nthe port to be used and optionally the user name and the password separated by \":\".";
     t[32504] = "Surface.TransportSourceRouter.Dialog.Title";
     t[32505] = "Edit sequence transport origin";
     t[32506] = "Surface.Decide.Dialog.OutgoingEdge.Condition";
@@ -14018,6 +14046,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32697] = "Expressions";
     t[32698] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MaximalTime";
     t[32699] = "<p>Returns the maximal duration over all processing times for all clients.</p>";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_7 (java.lang.String[] t) {
     t[32702] = "ModelDescription.Database.User";
     t[32703] = "Database user";
     t[32712] = "Statistics.XML.Element.ResidenceAllClients";
@@ -14046,12 +14080,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32779] = "Keep variable assignment.";
     t[32780] = "Surface.Process.XML.Batch.Maximum";
     t[32781] = "Maximum";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_7 (java.lang.String[] t) {
     t[32782] = "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.DensityInfo";
     t[32783] = "<p>Calculates the value of the count density of the Hypergeometrical distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>";
     t[32792] = "Color.4169E1";
@@ -14298,6 +14326,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33411] = "Transporter";
     t[33414] = "Surface.TankValveSetup.Table.Edit.MaxFlow";
     t[33415] = "Maximum flow per second";
+    t[33416] = "SimulationServer.Setup.CalcAutoStart";
+    t[33417] = "Auto start";
     t[33420] = "Statistics.AveragePathLength";
     t[33421] = "Average path length";
     t[33422] = "Simulation.Element.InputDB.Name";
@@ -15166,6 +15196,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35487] = "Start simulation anyway. The resulting log file might gets very large.";
     t[35490] = "ModelDescription.SourceTable.ClientTypes";
     t[35491] = "Client types to be loaded from table";
+    t[35492] = "SimulationServer.Toolbar.MQTTStop.Hint";
+    t[35493] = "Stops the MQTT client";
     t[35504] = "Simulation.Creator.SubEdgeOutNotConnected";
     t[35505] = "The %dth output edge of element id=%d is connected to nothing.";
     t[35508] = "Surface.MultiSourceTable.Info.NextCondition";
@@ -15584,8 +15616,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36479] = "Font color";
     t[36480] = "ModelSecurityCheck.CriticalType.DDEOutput.Workbook";
     t[36481] = "Workbook";
-    t[36482] = "Simulation.Log.LogicIf";
-    t[36483] = "Logic If";
+    t[36482] = "CommandLine.ServerMQTTTest.Description.Short";
+    t[36483] = "Starts the program as MQTT-based echo test server.";
     t[36486] = "ModelDescription.Arrival.BatchSize.Multi";
     t[36487] = "Batch sizes";
     t[36492] = "Simulation.Element.LogicEndIf.Name";
@@ -15672,6 +15704,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36699] = "seconds";
     t[36700] = "Surface.SetJS.Dialog.Script";
     t[36701] = "Script to be executed";
+    t[36708] = "Surface.Throughput.Infotext";
+    t[36709] = "Records the throughput in clients per time unit of the clients passing this station in the statistics.";
     t[36710] = "Surface.Decide.XML.Mode";
     t[36711] = "ModelElementDecideMode";
     t[36712] = "ProxySettings.ProxyUser";
@@ -15808,8 +15842,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37049] = "Idle share (all transporters)";
     t[37054] = "Window.Layers.Delete.Title";
     t[37055] = "Delete";
-    t[37056] = "Surface.Action.Dialog.Info.Condition.MinDistance.Seconds";
-    t[37057] = "seconds";
+    t[37056] = "CommandLine.ServerMQTT.Description.Short";
+    t[37057] = "Starts the program as MQTT-based simulation server.";
     t[37060] = "Statistics.UserStatistics.NothingRecorded";
     t[37061] = "No user-defined statistic data have been recorded.";
     t[37064] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.DownNumber";
@@ -15890,6 +15924,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37209] = "Set new time (by a number)";
     t[37212] = "Surface.AnimationPointerMeasuring.XML.Expression.MinValue";
     t[37213] = "MinValue";
+    t[37218] = "XML.Comment";
+    t[37219] = "This file was created using %s. Download address: %s";
     t[37220] = "InfoDialog.JavaCompiler";
     t[37221] = "Java compiler";
     t[37224] = "Statistics.StdDev";
@@ -16016,6 +16052,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37539] = "Real time (1:1)";
     t[37542] = "Simulation.Log.BatchNewClient";
     t[37543] = "Batching - new client created";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_8 (java.lang.String[] t) {
     t[37546] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
     t[37547] = "<p>Returns the squared coefficient of variation over all residence times for all clients.</p>";
     t[37548] = "Wait.Status.DayK.WIPZero";
@@ -16052,12 +16094,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37653] = "Do you want to open the external web page\n%s\nnow?";
     t[37654] = "Batch.Parameter.XMLTag.InvalidSelector";
     t[37655] = "The specified xml selector \"%s\" is invalid.";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_8 (java.lang.String[] t) {
     t[37656] = "Surface.DistributionSystemSetupTimes.XML.Expression";
     t[37657] = "ModelElementSetupTimesExpression";
     t[37658] = "Simulation.Log.DecideByChance";
@@ -16122,6 +16158,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37779] = "ModelElementLineWidth";
     t[37780] = "SimulationServer.Toolbar.DDEStart";
     t[37781] = "Start DDE server";
+    t[37782] = "SimulationServer.Setup.MQTTServer.InvalidBrokerURL";
+    t[37783] = "The specified broker address is invalid.\nA broker address has to start with \"tcp://\" or \"ssl://\".\nThen the network name of the broker has to follow.\nFinally, a port can optionally be specified, separated by \":\".\nIf no port is specified, the default ports (1883 or 8883) are used.";
     t[37786] = "Statistic.Viewer.Toolbar.OpenODS.Hint";
     t[37787] = "Show table in OpenOffice/LibreOffice";
     t[37792] = "Optimizer.Tab.Optimization.Step.Result.Copy.Hint";
@@ -16646,6 +16684,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38979] = "Icon for the clients";
     t[38980] = "Editor.Dialog.Sequences.Add.Hint";
     t[38981] = "Adds a new sequence";
+    t[38986] = "Surface.Action.Dialog.Info.Condition.MinDistance.Seconds";
+    t[38987] = "seconds";
     t[38994] = "Statistics.TransporterUtilization.Minimum";
     t[38995] = "Minimum number of driving transports";
     t[38996] = "ParameterCompare.Settings.Input.Mode.GlobalVariable.Info";
@@ -16724,6 +16764,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39189] = "Edit expression";
     t[39198] = "ScriptPopup.Client.Calc";
     t[39199] = "Calculate expression";
+    t[39210] = "Surface.TransportSourceRouter.Dialog.DefaultStation";
+    t[39211] = "Default destination if there is not sequence";
     t[39214] = "XML.ParameterCompareNotActive.Info";
     t[39215] = "The parameter series function is not active at the moment. Do you\nwant to open the parameter series function and open the selected\nparameter series settings file in the parameter series function?";
     t[39224] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations";
@@ -17206,6 +17248,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40317] = "Warteschlangensimulator-Scripting-en.pdf";
     t[40322] = "Main.Menu.Edit.Redo";
     t[40323] = "Redo";
+    t[40330] = "SimulationServer.Setup.MQTTAutoStart.Hint";
+    t[40331] = "Auto start MQTT client when program is started.";
     t[40338] = "Resources.Group.EditName.Dialog.CostsPerWorkHour.Error.Info";
     t[40339] = "The specified costs per worked hour are invalid. You have to enter a number.";
     t[40348] = "Optimizer.ControlVariableEdit.InitialValue";
@@ -17782,8 +17826,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41719] = "Maximal inter-arrival time";
     t[41724] = "Statistic.Viewer.Toolbar.SaveTables.Hint";
     t[41725] = "Save the selected tables in a workbook only.";
-    t[41732] = "SimulationServer.Setup.CalcAutoStart";
-    t[41733] = "Auto start";
+    t[41732] = "CommandLine.ServerMQTTTest.Name";
+    t[41733] = "ServerMQTTTest";
     t[41734] = "ParameterCompare.Table.Info.Minimum";
     t[41735] = "Minimum";
     t[41738] = "ModelGenerator.AddVisualization";
@@ -18014,6 +18058,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42331] = "ModelElementTransportRouteByProperty";
     t[42332] = "Help.Content.Info";
     t[42333] = "Shows a list of the section captions from this help page";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_9 (java.lang.String[] t) {
     t[42334] = "Surface.InputDDE.XML.EofMode.DefaultValue";
     t[42335] = "DefaultValue";
     t[42338] = "Main.Menu.SimulationCheckServerConnection";
@@ -18058,16 +18108,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42419] = "At element id=%d the invalid value %s was specified as flow time. The flow time has to be a positive amount of seconds.";
     t[42420] = "Surface.Action.XML.Record.Action.AssignVariable";
     t[42421] = "Variable";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_9 (java.lang.String[] t) {
     t[42432] = "Animation.SkipWarmUp.OptionSkip";
     t[42433] = "Skip warm-up phase";
-    t[42434] = "Surface.Process.Name";
-    t[42435] = "Process station";
+    t[42434] = "Simulation.Log.LogicIf";
+    t[42435] = "Logic If";
     t[42444] = "Surface.MultiSourceTable.Info.NextThreshold.Down";
     t[42445] = "falls below threshold value";
     t[42446] = "Surface.PopupMenu.SimulationStatisticsData.Unzoom";

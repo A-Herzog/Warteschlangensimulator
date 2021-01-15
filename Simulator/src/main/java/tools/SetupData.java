@@ -36,6 +36,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.GUITools;
 import systemtools.SetupBase;
 import systemtools.statistics.ChartSetup;
+import ui.MainFrame;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -667,6 +668,21 @@ public class SetupData extends SetupBase {
 	public int calcWebServerPort;
 
 	/**
+	 * Adresse des MQTT-Brokers
+	 */
+	public String mqttBroker;
+
+	/**
+	 * Beim MQTT-Broker zu abonnierendes Thema
+	 */
+	public String mqttTopic;
+
+	/**
+	 * MQTT-Klienten beim Start des Programmes starten.
+	 */
+	public boolean mqttServerAutoStart;
+
+	/**
 	 * Benutzername, den Web-Rechen- und Web-Fernsteuerungsserver für die Authentifizierung verwenden sollen
 	 */
 	public String serverAuthName;
@@ -1010,6 +1026,9 @@ public class SetupData extends SetupBase {
 		webServerPort=81;
 		calcWebServerAutoStart=false;
 		calcWebServerPort=80;
+		mqttBroker="tcp://localhost";
+		mqttTopic=MainFrame.PROGRAM_NAME+"/task";
+		mqttServerAutoStart=false;
 		serverAuthName="";
 		serverAuthPassword="";
 		serverTLSKeyStoreFile="";
@@ -1598,6 +1617,13 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("networkmqttsimulationserver")) {
+				mqttServerAutoStart=loadBoolean(e.getAttribute("AutoStart"),false);
+				mqttBroker=e.getAttribute("Broker");
+				mqttTopic=e.getAttribute("Topic");
+				continue;
+			}
+
 			if (name.equals("networkwebserver")) {
 				serverAuthName=e.getAttribute("Name");
 				serverAuthPassword=e.getAttribute("Password");
@@ -2134,6 +2160,13 @@ public class SetupData extends SetupBase {
 			root.appendChild(node=doc.createElement("NetworkWebSimulationServer"));
 			node.setAttribute("Port",""+calcWebServerPort);
 			if (calcWebServerAutoStart) node.setAttribute("AutoStart","1");
+		}
+
+		if (mqttServerAutoStart || !mqttBroker.equals("tcp://localhost") || !mqttTopic.equals(MainFrame.PROGRAM_NAME+"/task")) {
+			root.appendChild(node=doc.createElement("NetworkMQTTSimulationServer"));
+			node.setAttribute("Broker",""+mqttBroker);
+			node.setAttribute("Topic",""+mqttTopic);
+			if (mqttServerAutoStart) node.setAttribute("AutoStart","1");
 		}
 
 		if (!serverAuthName.isEmpty() || !serverAuthPassword.isEmpty() || !serverTLSKeyStoreFile.isEmpty() || !serverTLSKeyStorePassword.isEmpty()) {

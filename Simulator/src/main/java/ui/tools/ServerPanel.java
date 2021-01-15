@@ -51,6 +51,8 @@ import javax.swing.SwingUtilities;
 import language.Language;
 import net.calc.SimulationServerGUIConnect;
 import net.dde.SimulationDDEServer;
+import net.mqtt.MQTTBrokerURL;
+import net.mqtt.MQTTSimClient;
 import net.web.SimulatorWebServer;
 import net.webcalc.CalcWebServer;
 import systemtools.BaseDialog;
@@ -81,6 +83,8 @@ public final class ServerPanel extends SpecialPanel {
 	private final CalcWebServer serverCalcWeb;
 	/** Objekt für den Fernsteuerungsserver */
 	private final SimulatorWebServer serverWeb;
+	/** Objekt für den MQTT-Klienten */
+	private final MQTTSimClient serverMQTT;
 	/** Objekt für den DDE-Server */
 	private final SimulationDDEServer serverDDE;
 
@@ -90,6 +94,8 @@ public final class ServerPanel extends SpecialPanel {
 	private final JButton startStopCalcWebButton;
 	/** Schaltfläche Fernsteuerungsserver starten/stoppen */
 	private final JButton startStopWebButton;
+	/** Schaltfläche MQTT-Client starten/stoppen */
+	private final JButton startStopMQTTButton;
 	/** Schaltfläche DDE-Server starten/stoppen */
 	private final JButton startStopDDEButton;
 	/** "Hilfe"-Schaltfläche */
@@ -124,9 +130,16 @@ public final class ServerPanel extends SpecialPanel {
 	/** Anklickbarer Link zum Öffnen der Fernsteuerungs-Server-Seite im Browser */
 	private final JLabel webOpenBrowserButton;
 
-	/** Eingabefeld - Authentifizierungs-Name (für Web- und Fernsteuerungsserver) */
+	/** Eingabefeld - MQTT-Server- MQTT-Broker */
+	private JTextField mqttBrokerEdit;
+	/** Eingabefeld - MQTT-Server- MQTT-Topic */
+	private JTextField mqttTopicEdit;
+	/** Option - MQTT-Server - "Autostart" */
+	private final JCheckBox mqttAutoStartCheckBox;
+
+	/** Eingabefeld - Authentifizierungs-Name (für Web- und Fernsteuerungsserver und MQTT-Client) */
 	private final JTextField authNameEdit;
-	/** Eingabefeld - Authentifizierungs-Passwort (für Web- und Fernsteuerungsserver) */
+	/** Eingabefeld - Authentifizierungs-Passwort (für Web- und Fernsteuerungsserver und MQTT-Client) */
 	private final JTextField authPasswordEdit;
 
 	/** Schaltfläche - TLS konfigurieren */
@@ -144,6 +157,8 @@ public final class ServerPanel extends SpecialPanel {
 	private final JLabel calcWebStatusBar;
 	/** Statuszeilen-Infofeld für den Fernsteuerungs-Server */
 	private final JLabel webStatusBar;
+	/** Statuszeilen-Infofeld für den MQTT-Server */
+	private final JLabel mqttStatusBar;
 	/** Statuszeilen-Infofeld für den DDE-Server */
 	private final JLabel ddeStatusBar;
 
@@ -168,6 +183,7 @@ public final class ServerPanel extends SpecialPanel {
 		serverCalc=SimulationServerGUIConnect.getInstance();
 		serverCalcWeb=CalcWebServer.getInstance();
 		serverWeb=SimulatorWebServer.getInstance(mainPanel);
+		serverMQTT=MQTTSimClient.getInstance();
 		serverDDE=SimulationDDEServer.getInstance(mainPanel);
 		notifyRunner=new NotifyRunner();
 		ReloadManager.addBroadcastReceiver(NotifyRunner.id,notifyRunner);
@@ -183,6 +199,7 @@ public final class ServerPanel extends SpecialPanel {
 		startStopCalcButton=addUserButton(Language.tr("SimulationServer.Toolbar.Start"),Language.tr("SimulationServer.Toolbar.Start.Hint"),null);
 		startStopCalcWebButton=addUserButton(Language.tr("SimulationServer.Toolbar.CalcWebStart"),Language.tr("SimulationServer.Toolbar.CalcWebStart.Hint"),null);
 		startStopWebButton=addUserButton(Language.tr("SimulationServer.Toolbar.WebStart"),Language.tr("SimulationServer.Toolbar.WebStart.Hint"),null);
+		startStopMQTTButton=addUserButton(Language.tr("SimulationServer.Toolbar.MQTTStart"),Language.tr("SimulationServer.Toolbar.MQTTStart.Hint"),null);
 		startStopDDEButton=addUserButton(Language.tr("SimulationServer.Toolbar.DDEStart"),Language.tr("SimulationServer.Toolbar.DDEStart.Hint"),null);
 		addCloseButton();
 		helpButton=addUserButton(Language.tr("Main.Toolbar.Help"),Language.tr("Main.Toolbar.Help.Hint"),Images.HELP.getIcon());
@@ -281,6 +298,23 @@ public final class ServerPanel extends SpecialPanel {
 			}
 		});
 
+		/* MQTT-Server */
+
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body><b>"+Language.tr("SimulationServer.Setup.MQTTServer")+":</b></body></html>"));
+		line.add(Box.createHorizontalStrut(5));
+
+		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.MQTTBroker")+":"));
+		line.add(mqttBrokerEdit=new JTextField(setupData.mqttBroker,20));
+		label.setLabelFor(mqttBrokerEdit);
+
+		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.MQTTTopic")+":"));
+		line.add(mqttTopicEdit=new JTextField(setupData.mqttTopic,15));
+		label.setLabelFor(mqttTopicEdit);
+
+		line.add(mqttAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.MQTTAutoStart"),setupData.mqttServerAutoStart));
+		mqttAutoStartCheckBox.setToolTipText(Language.tr("SimulationServer.Setup.MQTTAutoStart.Hint"));
+
 		/* Zugangsdaten für Web- und Fernsteuerungsserver */
 
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -342,6 +376,9 @@ public final class ServerPanel extends SpecialPanel {
 		statusPanel.add(webStatusBar=new JLabel(""));
 		webStatusBar.setBorder(BorderFactory.createEmptyBorder(0,5,0,10));
 		webStatusBar.setIcon(Images.SERVER_WEB.getIcon());
+		statusPanel.add(mqttStatusBar=new JLabel(""));
+		mqttStatusBar.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+		mqttStatusBar.setIcon(Images.SERVER_MQTT.getIcon());
 		statusPanel.add(ddeStatusBar=new JLabel(""));
 		ddeStatusBar.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
 		ddeStatusBar.setIcon(Images.SERVER_DDE.getIcon());
@@ -448,10 +485,26 @@ public final class ServerPanel extends SpecialPanel {
 
 		webOpenBrowserButton.setVisible(serverWeb.isRunning());
 
+		/* MQTT-Server */
+
+		if (serverMQTT.isRunning()) {
+			startStopMQTTButton.setText(Language.tr("SimulationServer.Toolbar.MQTTStop"));
+			startStopMQTTButton.setToolTipText(Language.tr("SimulationServer.Toolbar.MQTTStop.Hint"));
+			icon=Images.SERVER_MQTT_STOP.getIcon();
+		} else {
+			startStopMQTTButton.setText(Language.tr("SimulationServer.Toolbar.MQTTStart"));
+			startStopMQTTButton.setToolTipText(Language.tr("SimulationServer.Toolbar.MQTTStart.Hint"));
+			icon=Images.SERVER_MQTT_START.getIcon();
+		}
+		if (icon!=null) startStopMQTTButton.setIcon(icon);
+
+		mqttBrokerEdit.setEnabled(!serverMQTT.isRunning());
+		mqttTopicEdit.setEnabled(!serverMQTT.isRunning());
+
 		/* Zugangsdaten für Web- und Fernsteuerungsserver */
 
-		authNameEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
-		authPasswordEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
+		authNameEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning() && !serverMQTT.isRunning());
+		authPasswordEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning() && !serverMQTT.isRunning());
 		tlsButton.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
 		final SetupData setupData=SetupData.getSetup();
 		if (setupData.serverTLSKeyStoreFile!=null && !setupData.serverTLSKeyStoreFile.trim().isEmpty() && setupData.serverTLSKeyStorePassword!=null && !setupData.serverTLSKeyStorePassword.trim().isEmpty()) {
@@ -478,6 +531,7 @@ public final class ServerPanel extends SpecialPanel {
 		calcStatusBar.setText(getServerStatus(serverCalc.isServerRunning(),Language.tr("SimulationServer.Status.Server")));
 		calcWebStatusBar.setText(getServerStatus(serverCalcWeb.isRunning(),Language.tr("SimulationServer.Status.CalcWeb")));
 		webStatusBar.setText(getServerStatus(serverWeb.isRunning(),Language.tr("SimulationServer.Status.Web")));
+		mqttStatusBar.setText(getServerStatus(serverMQTT.isRunning(),Language.tr("SimulationServer.Status.MQTT")));
 		ddeStatusBar.setText(getServerStatus(serverDDE.isRunning(),Language.tr("SimulationServer.Status.DDE")));
 
 		/* Andere Fenster benachrichtigen */
@@ -623,6 +677,34 @@ public final class ServerPanel extends SpecialPanel {
 	}
 
 	/**
+	 * Befehl: MQTT-Server starten/stoppen
+	 */
+	private void commandStartStoppMQTT() {
+		if (serverMQTT.isRunning()) {
+			serverMQTT.stop();
+		} else {
+			final MQTTBrokerURL broker=MQTTBrokerURL.parseString(mqttBrokerEdit.getText().trim());
+			if (broker==null) {
+				MsgBox.error(this,Language.tr("SimulationServer.Setup.MQTTServer"),Language.tr("SimulationServer.Setup.MQTTServer.InvalidBrokerURL"));
+				return;
+			}
+
+			final String topic=mqttTopicEdit.getText().trim();
+			if (topic.isEmpty()) {
+				MsgBox.error(this,Language.tr("SimulationServer.Setup.MQTTServer"),Language.tr("SimulationServer.Setup.MQTTServer.NoTopic"));
+				return;
+			}
+
+			final String name=authNameEdit.getText().trim();
+			final String password=authPasswordEdit.getText().trim();
+
+			final String error=serverMQTT.start(broker,null,topic,name,password);
+			if (error!=null) MsgBox.error(this,Language.tr("SimulationServer.Setup.MQTTServer"),error);
+		}
+		setupButtons();
+	}
+
+	/**
 	 * Befehl: DDE-Server starten/stoppen
 	 */
 	private void commandStartStopDDE() {
@@ -702,6 +784,10 @@ public final class ServerPanel extends SpecialPanel {
 		i=checkWebPort(false); if (i>0) setup.webServerPort=i;
 		setup.webServerAutoStart=webAutoStartCheckBox.isSelected();
 
+		setup.mqttBroker=mqttBrokerEdit.getText().trim();
+		setup.mqttTopic=mqttTopicEdit.getText().trim();
+		setup.mqttServerAutoStart=mqttAutoStartCheckBox.isSelected();
+
 		setup.serverAuthName=authNameEdit.getText().trim();
 		setup.serverAuthPassword=authPasswordEdit.getText().trim();
 
@@ -719,6 +805,7 @@ public final class ServerPanel extends SpecialPanel {
 		if (button==startStopCalcButton) {commandStartStopCalc(); return;}
 		if (button==startStopCalcWebButton) {commandStartStopCalcWeb(); return;}
 		if (button==startStopWebButton) {commandStartStopWeb(); return;}
+		if (button==startStopMQTTButton) {commandStartStoppMQTT(); return;}
 		if (button==startStopDDEButton) {commandStartStopDDE(); return;}
 		if (button==helpButton) {commandHelp(); return;}
 	}
@@ -761,6 +848,12 @@ public final class ServerPanel extends SpecialPanel {
 			serverWeb.setTLSData(keyStore,keyStorePassword);
 
 			if (setup.webServerPort>0) serverWeb.start(setup.webServerPort);
+		}
+
+		if (setup.mqttServerAutoStart) {
+			final MQTTSimClient serverMQTT=MQTTSimClient.getInstance();
+			final MQTTBrokerURL broker=MQTTBrokerURL.parseString(setup.mqttBroker);
+			if (broker!=null) serverMQTT.start(broker,null,setup.mqttTopic,setup.serverAuthName,setup.serverAuthPassword);
 		}
 
 		if (setup.ddeServerAutoStart) {

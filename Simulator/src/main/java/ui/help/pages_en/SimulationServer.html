@@ -43,6 +43,15 @@ The web server allows to query the status of an animation via the http protocol 
 of json objects and also to control the animation via this interface.
 </p>
 
+<h2>MQTT client</h2>
+
+<p>
+Warteschlangensimulator includes an MQTT client that can subscribe to an MQTT broker.
+The MQTT client subscribes to a topic at the broker, which can be used to submit jobs
+to the simulator. Together with the job message, a response topic must be specified
+(i.e. MQTT v5 is required), via which the simulator returns the results.
+</p>
+
 <h2>DDE-Server</h2>
 
 <p>

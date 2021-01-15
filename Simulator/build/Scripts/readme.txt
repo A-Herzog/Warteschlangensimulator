@@ -122,3 +122,8 @@ in server mode on port 81.
 filter.py:
 
 Python script for running a filter script on multiple statistics files.
+
+MQTTTest.py:
+
+Python example script demonstrating how to connect to MQTT client in
+Warteschlangensimulator to submit models to be simulated and to receive results.

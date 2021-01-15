@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Consumer;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -61,23 +62,23 @@ public class CalcFuture {
 		/**
 		 * Der Task wartet noch.
 		 */
-		WAITING(0),
+		WAITING(0,false),
 
 		/**
 		 * Der Task wird gerade ausgeführt.
 		 */
-		PROCESSING(1),
+		PROCESSING(1,false),
 
 		/**
 		 * Die Ausführung des Tasks ist beendet, war aber nicht erfolgreich.
 		 */
-		DONE_ERROR(2),
+		DONE_ERROR(2,true),
 
 		/**
 		 * Die Ausführung des Tasks wurde erfolgreich abgeschlossen.
 		 * Statistikdaten stehen zur Verfügung.
 		 */
-		DONE_SUCCESS(3);
+		DONE_SUCCESS(3,true);
 
 		/**
 		 * ID zur Identifikation des Status
@@ -85,11 +86,18 @@ public class CalcFuture {
 		public final int id;
 
 		/**
+		 * Handelt es sich um einen End-Status (Erfolg oder Abbruch)?
+		 */
+		public final boolean done;
+
+		/**
 		 * Konstruktor des Enum
 		 * @param id	ID zur Identifikation des Status
+		 * @param done	Handelt es sich um einen End-Status (Erfolg oder Abbruch)?
 		 */
-		Status(final int id) {
+		Status(final int id, final boolean done) {
 			this.id=id;
+			this.done=done;
 		}
 	}
 
@@ -134,6 +142,9 @@ public class CalcFuture {
 	/** Dateityp für die Ergebnis-Binärform-Daten */
 	private XMLTools.FileType fileType;
 
+	/** Benachrichtigung beim Simulationsende (Erfolg oder Abbruch) (kann <code>null</code> sein) */
+	private final Consumer<CalcFuture> doneNotify;
+
 	/** Simulator (nur während der Ausführung einer normalen Simulation ungleich <code>null</code>) */
 	private volatile AnySimulator simulator=null;
 	/** Parameterreihensimulator (nur während der Ausführung einer Parameterreihensimulation unlgeich <code>null</code>) */
@@ -168,10 +179,41 @@ public class CalcFuture {
 			}
 		}
 
+		doneNotify=null;
+
 		messages=new ArrayList<>();
 		lock=new ReentrantLock();
 		requestTime=System.currentTimeMillis();
 
+		initialStatusUpdate();
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param input	Eingabedaten
+	 * @param doneNotify	Benachrichtigung beim Simulationsende (Erfolg oder Abbruch) (kann <code>null</code> sein)
+	 */
+	public CalcFuture(final byte[] input, final Consumer<CalcFuture> doneNotify) {
+		id=0;
+		ip="";
+		this.input=input;
+		originalModel=null;
+		inputTable=null;
+		inputTableName=null;
+
+		this.doneNotify=doneNotify;
+
+		messages=new ArrayList<>();
+		lock=new ReentrantLock();
+		requestTime=System.currentTimeMillis();
+
+		initialStatusUpdate();
+	}
+
+	/**
+	 * Stellt den Status direkt nach dem Abschluss des Konstruktors ein.
+	 */
+	private void initialStatusUpdate() {
 		if (input==null) {
 			setStatus(Status.DONE_ERROR);
 			addMessage(Language.tr("CalcWebServer.LoadError"));
@@ -220,6 +262,8 @@ public class CalcFuture {
 		} finally {
 			lock.unlock();
 		}
+
+		if (status.done && doneNotify!=null) doneNotify.accept(this);
 	}
 
 	/**

@@ -873,6 +873,15 @@ public enum Images {
 	/** Symbol "Fernsteuerungsserver - stoppen" */
 	SERVER_WEB_STOP("film_delete.png"),
 
+	/** Symbol "MQTT-Server" */
+	SERVER_MQTT("transmit.png"),
+
+	/** Symbol "MQTT-Server - starten" */
+	SERVER_MQTT_START("transmit_add.png"),
+
+	/** Symbol "MQTT-Server - stoppen" */
+	SERVER_MQTT_STOP("transmit_delete.png"),
+
 	/** Symbol "DDE-Server" */
 	SERVER_DDE("comment.png"),
 

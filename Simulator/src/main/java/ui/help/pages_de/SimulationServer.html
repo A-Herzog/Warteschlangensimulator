@@ -47,6 +47,16 @@ in Form von json-Objekten abzufragen und die Animation ebenfalls über diese Sch
 zu steuern.
 </p>
 
+<h2>MQTT-Klient</h2>
+
+<p>
+Der Warteschlangensimulator beinhaltet einen MQTT-Klienten, der sich bei einem MQTT-Broker
+anmelden kann. Der MQTT-Klient abonniert bei dem Broker ein Thema, über das dem Simulator
+Arbeitsaufträge übermittelt werden können. Zusammen mit dem Arbeitsauftrag muss ein
+Antwortthema angegeben werden (d.h. es wird MQTT v5 benötigt), über das der Simulator
+die Ergebnisse zurückliefert.
+</p>
+
 <h2>DDE-Server</h2>
 
 <p>
