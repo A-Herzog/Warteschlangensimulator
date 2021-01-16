@@ -123,6 +123,11 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	}
 
 	@Override
+	public boolean isViewerGenerated() {
+		return panel!=null;
+	}
+
+	@Override
 	public void copyToClipboard(Clipboard clipboard) {
 		if (panel==null) panelNeeded();
 		final int imageSize=getImageSize();
@@ -329,17 +334,17 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	}
 
 	@Override
-	public String ownSettingsName() {
-		return StatisticsBasePanel.viewersSaveImageSizePrompt;
+	public String[] ownSettingsName() {
+		return new String[] {StatisticsBasePanel.viewersSaveImageSizePrompt};
 	}
 
 	@Override
-	public Icon ownSettingsIcon() {
-		return SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getIcon();
+	public Icon[] ownSettingsIcon() {
+		return new Icon[] {SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getIcon()};
 	}
 
 	@Override
-	public boolean ownSettings(JPanel owner) {
+	public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
 		String size=""+getImageSize();
 		while (true) {
 			size=(String)JOptionPane.showInputDialog(owner,StatisticsBasePanel.viewersSaveImageSizePrompt,StatisticsBasePanel.viewersSaveImageSizeTitle,JOptionPane.PLAIN_MESSAGE,null,null,size);

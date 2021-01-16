@@ -40,7 +40,6 @@ import java.util.function.Supplier;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -521,6 +520,11 @@ public class StatisticViewerTable implements StatisticViewer {
 		return viewer=descriptionPane.getSplitPanel(tableScroller);
 	}
 
+	@Override
+	public boolean isViewerGenerated() {
+		return viewer!=null;
+	}
+
 	/**
 	 * Fügt eine Textzeile bestehend aus mehreren Spalten zu einem {@link StringBuilder} hinzu.
 	 * @param output	{@link StringBuilder}  zu dem die Zeile hinzugefügt werden soll
@@ -644,14 +648,19 @@ public class StatisticViewerTable implements StatisticViewer {
 	}
 
 	@Override
-	public String ownSettingsName() {return null;}
+	public String[] ownSettingsName() {
+		return null;
+	}
 
 	@Override
-	public Icon ownSettingsIcon() {return null;}
+	public Icon[] ownSettingsIcon() {
+		return null;
+	}
 
 	@Override
-	public boolean ownSettings(JPanel owner) {return false;}
-
+	public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
+		return false;
+	}
 
 	/**
 	 * Erstellt einen Tabelleneintrag mit einer Dezimalzahl

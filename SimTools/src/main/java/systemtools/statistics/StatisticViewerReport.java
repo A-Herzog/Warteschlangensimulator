@@ -216,6 +216,11 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	}
 
 	@Override
+	public boolean isViewerGenerated() {
+		return false;
+	}
+
+	@Override
 	public void copyToClipboard(Clipboard clipboard) {
 		final StringWriter st=new StringWriter();
 		writeReportToBufferedWriter(st,null,FileFormat.FORMAT_HTML_INLINE,false);

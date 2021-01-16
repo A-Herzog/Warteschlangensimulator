@@ -40,6 +40,7 @@ import ui.MainFrame;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.statistics.StatisticViewerOverviewText;
 import xml.XMLTools;
 
 /**
@@ -907,6 +908,11 @@ public class SetupData extends SetupBase {
 	public ChartSetup chartSetup;
 
 	/**
+	 * Filter für die Abschnitte auf der Statistik-Übersichtsseite
+	 */
+	public String statisticOverviewFilter;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1073,6 +1079,7 @@ public class SetupData extends SetupBase {
 		quantilLevels="";
 		if (chartSetup==null) chartSetup=new ChartSetup();
 		chartSetup.reset();
+		statisticOverviewFilter="";
 		lastError=null;
 	}
 
@@ -1796,6 +1803,11 @@ public class SetupData extends SetupBase {
 				chartSetup.loadFromXML(e);
 				continue;
 			}
+
+			if (name.equals("statisticfilter")) {
+				statisticOverviewFilter=e.getTextContent();
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -2326,6 +2338,11 @@ public class SetupData extends SetupBase {
 		if (quantilLevels!=null && !quantilLevels.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("QuantilLevels"));
 			node.setTextContent(quantilLevels);
+		}
+
+		if (!StatisticViewerOverviewText.Filter.getDefault().equals(setup.statisticOverviewFilter)) {
+			root.appendChild(node=doc.createElement("StatisticFilter"));
+			node.setTextContent(statisticOverviewFilter);
 		}
 
 		root.appendChild(node=doc.createElement("ChartSetup"));

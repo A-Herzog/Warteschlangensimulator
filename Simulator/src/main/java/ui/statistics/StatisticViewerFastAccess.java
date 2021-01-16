@@ -131,6 +131,11 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 	}
 
 	@Override
+	public boolean isViewerGenerated() {
+		return viewer!=null;
+	}
+
+	@Override
 	public void copyToClipboard(Clipboard clipboard) {
 		clipboard.setContents(new StringSelection(results.getText()),null);
 	}
@@ -161,12 +166,6 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 	public boolean save(Component owner, File file) {
 		return JSRunDataFilterTools.saveText(results.getText(),file,false);
 	}
-
-	/* (non-Javadoc)
-	 * @see tools.ui.statistics.StatisticViewer#ownSettings()
-	 */
-	@Override
-	public String ownSettingsName() {return null;}
 
 	@Override
 	public boolean getCanDo(CanDoAction canDoType) {

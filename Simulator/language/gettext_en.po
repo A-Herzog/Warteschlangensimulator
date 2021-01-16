@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-15 13:50+0100\n"
+"POT-Creation-Date: 2021-01-16 21:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17048,6 +17048,21 @@ msgstr "Number of transporters"
 msgid "Statistics.NumberOfWaitingClients"
 msgstr "Number of waiting clients"
 
+msgid "Statistics.OverviewFilter.All"
+msgstr "All"
+
+msgid "Statistics.OverviewFilter.All.Hint"
+msgstr "Selects all partial outputs."
+
+msgid "Statistics.OverviewFilter.None"
+msgstr "None"
+
+msgid "Statistics.OverviewFilter.None.Hint"
+msgstr "Unselects all partial outputs."
+
+msgid "Statistics.OverviewFilter.Title"
+msgstr "Filter statistics view"
+
 msgid "Statistics.Part"
 msgstr "Part"
 
@@ -17148,6 +17163,9 @@ msgstr "Waiting times at stations by client types"
 
 msgid "Statistics.ResultsOverview"
 msgstr "Results overview"
+
+msgid "Statistics.ResultsOverview.Filter"
+msgstr "Filter output"
 
 msgid "Statistics.Schedule"
 msgstr "Schedule"
@@ -17343,6 +17361,12 @@ msgstr "Needed calculation time per event"
 
 msgid "Statistics.SystemData.Version"
 msgstr "Used simulator version"
+
+msgid "Statistics.TextSettings.DropdownName"
+msgstr "Text formatting"
+
+msgid "Statistics.TextSettings.Title"
+msgstr "Edit dext formatting"
 
 msgid "Statistics.Throughput"
 msgstr "Throughput"

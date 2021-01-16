@@ -24,7 +24,6 @@ import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
@@ -68,17 +67,17 @@ public abstract class StatisticViewerSpecialBase implements StatisticViewer {
 	}
 
 	@Override
-	public String ownSettingsName() {
+	public String[] ownSettingsName() {
 		return null;
 	}
 
 	@Override
-	public Icon ownSettingsIcon() {
+	public Icon[] ownSettingsIcon() {
 		return null;
 	}
 
 	@Override
-	public boolean ownSettings(JPanel owner) {
+	public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
 		return false;
 	}
 

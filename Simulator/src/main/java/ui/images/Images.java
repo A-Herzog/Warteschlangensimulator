@@ -47,6 +47,9 @@ public enum Images {
 	/** Symbol "Ende" */
 	GENERAL_EXIT("door_in.png"),
 
+	/** Symbol "Zahlen" */
+	GENERAL_NUMBERS("Counter.png"),
+
 	/** Symbol "Suchen" */
 	GENERAL_FIND("find.png"),
 

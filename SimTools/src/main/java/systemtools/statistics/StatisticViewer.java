@@ -28,7 +28,6 @@ import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
@@ -153,6 +152,12 @@ public interface StatisticViewer {
 	Container getViewer(boolean needReInit);
 
 	/**
+	 * Wurde bereits per {@link #getViewer(boolean)} ein Viewer erzeugt oder würde der Aufruf von {@link #getViewer(boolean)} erstmals einen neuen Viewer anlegen?
+	 * @return	Wurde bereits per {@link #getViewer(boolean)} ein Viewer erzeugt?
+	 */
+	boolean isViewerGenerated();
+
+	/**
 	 * Kopiert die Daten in der aktuellen Variante in die Zwischenablage.
 	 * @param clipboard	System-Zwischenablage
 	 */
@@ -234,24 +239,25 @@ public interface StatisticViewer {
 	JButton[] getAdditionalButton();
 
 	/**
-	 * Name für einen zusätzlichen Konfigurationeintrag in der Symbolleiste
-	 * @return	Name für einen Menüpunkt, um eine Konfiguration zu dieser Statistik-Ansicht aufzurufen (wird hier <code>null</code> zurückgegeben, so wird kein zusätzlicher Konfigurationsmenüpunkt angezeigt)
+	 * Namen für einen zusätzliche Konfigurationeinträge in der Symbolleiste
+	 * @return	Namen für Menüpunkte, um eine Konfigurationen zu dieser Statistik-Ansicht aufzurufen (wird hier <code>null</code> zurückgegeben, so wird kein zusätzlicher Konfigurationsmenüpunkt angezeigt)
 	 */
-	String ownSettingsName();
+	String[] ownSettingsName();
 
 	/**
-	 * Icon für einen zusätzlichen Konfigurationeintrag in der Symbolleiste
-	 * @return	Icon für einen Menüpunkt, um eine Konfiguration zu dieser Statistik-Ansicht aufzurufen (wird hier <code>null</code> zurückgegeben, so wird kein Icon angezeigt)
+	 * Icons für die zusätzlichen Konfigurationeinträge in der Symbolleiste
+	 * @return	Icons für Menüpunkte, um eine Konfiguration zu dieser Statistik-Ansicht aufzurufen (wird hier <code>null</code> zurückgegeben, so wird kein Icon angezeigt)
 	 */
-	Icon ownSettingsIcon();
+	Icon[] ownSettingsIcon();
 
 	/**
-	 * Wurde in <code>ownSettingsName</code> ein Konfigurationsmenüpunktname definiert, so wird diese Methode aufgerufen, wenn dieser Menüpunkt angeklickt wurde
+	 * Wurde in {@link #ownSettingsName()} ein Konfigurationsmenüpunktname definiert, so wird diese Methode aufgerufen, wenn dieser Menüpunkt angeklickt wurde
 	 * @param owner	Übergeordnetes Element
+	 * @param nr	Ausgewählter Menüpunkt (0-basierend)
 	 * @return	Gibt <code>true</code> zurück, wenn die Konfiguration erfolgreich verändert wurde
 	 * @see #ownSettingsName()
 	 */
-	boolean ownSettings(JPanel owner);
+	boolean ownSettings(StatisticsBasePanel owner, final int nr);
 
 	/**
 	 * Liefert dem Viewer ein Callback über das er die Größe zum Speichern von Bildern erfragen kann.

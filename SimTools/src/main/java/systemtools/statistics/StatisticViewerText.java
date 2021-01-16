@@ -49,7 +49,6 @@ import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -372,6 +371,11 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		if (descriptionPane==null) return viewer=textScroller;
 
 		return viewer=descriptionPane.getSplitPanel(textScroller);
+	}
+
+	@Override
+	public boolean isViewerGenerated() {
+		return viewer!=null;
 	}
 
 	/**
@@ -1003,17 +1007,17 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	}
 
 	@Override
-	public String ownSettingsName() {
+	public String[] ownSettingsName() {
 		return null;
 	}
 
 	@Override
-	public Icon ownSettingsIcon() {
+	public Icon[] ownSettingsIcon() {
 		return null;
 	}
 
 	@Override
-	public boolean ownSettings(final JPanel owner) {
+	public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
 		return false;
 	}
 

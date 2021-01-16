@@ -18,11 +18,15 @@ package ui.statistics;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
+import javax.swing.Icon;
 import javax.swing.JPopupMenu;
 
 import org.apache.commons.math3.util.FastMath;
@@ -43,9 +47,13 @@ import statistics.StatisticsStateTimePerformanceIndicator;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
+import systemtools.BaseDialog;
+import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticViewerText;
+import systemtools.statistics.StatisticsBasePanel;
 import tools.SetupData;
 import ui.help.Help;
+import ui.images.Images;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelTransporter;
 import ui.modeleditor.coreelements.ModelElement;
@@ -346,15 +354,117 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	}
 
 	/**
-	 * Ausgabe von
-	 * "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)
-	 * @see Mode#MODE_OVERVIEW
+	 * Mögliche Teil-Ausgaben
+	 * @see StatisticViewerOverviewText#buildOverview()
 	 */
-	private void buildOverview() {
-		addHeading(1,Language.tr("Statistics.ResultsOverview"));
+	public enum Filter {
+		/** Simulationsmodell */
+		MODEL(()->Language.tr("Statistics.SimulationModel"),viewer->viewer.buildOverviewModel()),
+		/** Mittlere Anzahl an Kunden */
+		NUMBER_CLIENTS(()->Language.tr("Statistics.AverageNumberOfClients"),viewer->viewer.buildOverviewCountClients()),
+		/** Zeiten nach Kunden */
+		TIMES_CLIENTS(()->Language.tr("Statistics.TimesByClientTypes"),viewer->viewer.buildOverviewTimesClients()),
+		/** Zeiten nach Stationen */
+		TIMES_STATIONS(()->Language.tr("Statistics.TimesByStationen"),viewer->viewer.buildOverviewTimesStations()),
+		/** Zeiten nach Stationen und Kundentypen */
+		TIMES_STATIONS_CLIENTS(()->Language.tr("Statistics.TimesByStationsAndClientTypes"),viewer->viewer.buildOverviewTimesStationsClients()),
+		/** Ressourcenauslastung */
+		UTILIZATION_RESOURCES(()->Language.tr("Statistics.Utilization"),viewer->viewer.buildOverviewUtilizationResources()),
+		/** Transporterauslastung */
+		UTILIZATION_TRANSPORTERS(()->Language.tr("Statistics.TransporterUtilization"),viewer->viewer.buildOverviewUtilizationTransporters()),
+		/** Zähler */
+		COUNTERS(()->Language.tr("Statistics.Counter"),viewer->viewer.buildOverviewCounters()),
+		/** Durchsatz */
+		THROUGHPUT(()->Language.tr("Statistics.Throughput"),viewer->viewer.buildOverviewThroughput());
 
-		/* Simulationsmodell */
+		/**
+		 * Callback zur Ermittelung des Namens der Teil-Ausgabe
+		 * @see #getName()
+		 */
+		private final Supplier<String> nameGetter;
 
+		/**
+		 * Ausgabemethode zur Erzeugung der Teil-Ausgabe
+		 * @see #process(StatisticViewerOverviewText)
+		 */
+		private final Consumer<StatisticViewerOverviewText> output;
+
+		/**
+		 * Konstruktor der Enum
+		 * @param nameGetter	Callback zur Ermittelung des Namens der Teil-Ausgabe
+		 * @param output	Ausgabemethode zur Erzeugung der Teil-Ausgabe
+		 */
+		Filter(final Supplier<String> nameGetter, final Consumer<StatisticViewerOverviewText> output) {
+			this.nameGetter=nameGetter;
+			this.output=output;
+		}
+
+		/**
+		 * Liefert den Namen der Teil-Ausgabe
+		 * @return	Name der Teil-Ausgabe
+		 */
+		public String getName() {
+			return nameGetter.get();
+		}
+
+		/**
+		 * Führt die Ausgabe des Teil-Ausgabe-Elements aus.
+		 * @param viewer	Statistik-Viewer über den die Ausgabe erfolgen soll
+		 */
+		public void process(final StatisticViewerOverviewText viewer) {
+			output.accept(viewer);
+		}
+
+		/**
+		 * Wandelt eine Konfigurations-Zeichenkette in eine Menge von Filter-Objekten um.
+		 * @param text	Konfigurations-Zeichenkette mit Filter-Einstellungen
+		 * @return	Menge mit aktiven Filter-Objekten
+		 */
+		public static Set<Filter> stringToSet(String text) {
+			final Set<Filter> result=new HashSet<>();
+			if (text==null) text="";
+			final int count=values().length;
+			while (text.length()<count) text+="X";
+			for (int i=0;i<count;i++) if (text.charAt(i)!='-') result.add(values()[i]);
+			return result;
+		}
+
+		/**
+		 * Wandelt eine Menge mit aktiven Filter-Objekten in eine Konfigurations-Zeichenkette um.
+		 * @param set	Menge mit aktiven Filter-Objekten
+		 * @return	Konfigurations-Zeichenkette mit Filter-Einstellungen
+		 */
+		public static String setToString(final Set<Filter> set) {
+			final StringBuilder result=new StringBuilder();
+			for (Filter filter: values()) if (set!=null && set.contains(filter)) result.append('X'); else result.append('-');
+			return result.toString();
+		}
+
+		/**
+		 * Führt die Ausgaben für mehrere Filter aus.
+		 * @param viewer	Statistik-Viewer über den die Ausgabe erfolgen soll
+		 * @param filters	Menge der Filter, die angegeben werden sollen
+		 */
+		public static void process(final StatisticViewerOverviewText viewer, final Set<Filter> filters) {
+			for (Filter filter: values()) if (filters==null || filters.contains(filter)) filter.process(viewer);
+		}
+
+		public static String getDefault() {
+			final StringBuilder result=new StringBuilder();
+			final int size=values().length;
+			for (int i=0;i<size;i++) result.append('X');
+			return result.toString();
+		}
+	}
+
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Simulationsmodell"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#MODEL
+	 */
+	private void buildOverviewModel() {
 		addHeading(2,Language.tr("Statistics.SimulationModel"));
 		beginParagraph();
 		if (!statistics.editModel.name.trim().isEmpty()) addLine(Language.tr("Statistics.SimulationModel.Name")+": "+statistics.editModel.name);
@@ -370,11 +480,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		endParagraph();
 
 		outputEmergencyShutDownInfo(false);
+	}
 
-		/*
-		 * Gruppe: Mittlere Anzahl an Kunden
-		 */
-
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Mittlere Anzahl an Kunden"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#NUMBER_CLIENTS
+	 */
+	private void buildOverviewCountClients() {
 		addHeading(2,Language.tr("Statistics.AverageNumberOfClients"));
 
 		/* Mittlere Anzahl an Kunden (im System / an den Stationen) */
@@ -478,14 +593,17 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				endParagraph();
 			}
 		}
+	}
 
-		long count;
-
-		/*
-		 * Gruppe: Zeiten nach Kunden
-		 */
-
-		headingWritten=false;
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Zeiten nach Kunden"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#TIMES_CLIENTS
+	 */
+	private void buildOverviewTimesClients() {
+		boolean headingWritten=false;
 
 		/* Wartezeiten nach Kundentypen */
 
@@ -493,8 +611,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.clientsWaitingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsWaitingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			sum=0;
-			count=0;
+			long sum=0;
+			long count=0;
 			if (!headingWritten) {
 				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
 				headingWritten=true;
@@ -521,8 +639,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.clientsTransferTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsTransferTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			sum=0;
-			count=0;
+			long sum=0;
+			long count=0;
 			if (!headingWritten) {
 				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
 				headingWritten=true;
@@ -549,8 +667,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.clientsProcessingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsProcessingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			sum=0;
-			count=0;
+			long sum=0;
+			long count=0;
 			if (!headingWritten) {
 				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
 				headingWritten=true;
@@ -577,8 +695,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.clientsResidenceTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsResidenceTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			sum=0;
-			count=0;
+			long sum=0;
+			long count=0;
 			if (!headingWritten) {
 				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
 				headingWritten=true;
@@ -636,16 +754,21 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addModeLink(Mode.MODE_WAITINGPROCESSING_CLIENTS);
 			endParagraph();
 		}
+	}
 
-		/*
-		 * Gruppe: Zeiten nach Stationen
-		 */
-
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Zeiten nach Stationen"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#TIMES_STATIONS
+	 */
+	private void buildOverviewTimesStations() {
 		addHeading(2,Language.tr("Statistics.TimesByStationen"));
 
 		/* Wartezeiten nach Stationen */
 
-		writeBlock=false;
+		boolean writeBlock=false;
 		for (String type: statistics.stationsWaitingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
@@ -731,16 +854,21 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addModeLink(Mode.MODE_WAITINGPROCESSING_STATIONS);
 			endParagraph();
 		}
+	}
 
-		/*
-		 * Gruppe: Zeiten nach Stationen und Kundentypen
-		 */
-
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Zeiten nach Stationen und Kundentypen"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#TIMES_STATIONS_CLIENTS
+	 */
+	private void buildOverviewTimesStationsClients() {
 		addHeading(2,Language.tr("Statistics.TimesByStationsAndClientTypes"));
 
 		/* Wartezeiten nach Stationen und Kundentypen */
 
-		writeBlock=false;
+		boolean writeBlock=false;
 		for (String type: statistics.stationsWaitingTimesByClientType.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimesByClientType.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
@@ -826,11 +954,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addModeLink(Mode.MODE_WAITINGPROCESSING_STATIONS);
 			endParagraph();
 		}
+	}
 
-		/*
-		 * Gruppe: Ressourcenauslastung
-		 */
-
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Ressourcenauslastung"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#UTILIZATION_RESOURCES
+	 */
+	private void buildOverviewUtilizationResources() {
 		if (statistics.resourceUtilization.getNames().length>0) {
 			addHeading(2,Language.tr("Statistics.Utilization"));
 			beginParagraph();
@@ -839,7 +972,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				final double meanState=indicator.getTimeMean();
 				final ModelResource resourceObj=statistics.editModel.resources.get(resource);
 				if (resourceObj!=null && resourceObj.getMode()==ModelResource.Mode.MODE_NUMBER) {
-					count=resourceObj.getCount();
+					long count=resourceObj.getCount();
 					if (count>0) {
 						final StatisticsTimePerformanceIndicator countIndicator=(StatisticsTimePerformanceIndicator)(statistics.resourceCount.getOrNull(resource));
 						if (countIndicator==null || countIndicator.getTimeMean()<0.0001) {
@@ -864,11 +997,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 			endParagraph();
 		}
+	}
 
-		/*
-		 * Gruppe: Transporterauslastung
-		 */
-
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Transporterauslastung"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#UTILIZATION_TRANSPORTERS
+	 */
+	private void buildOverviewUtilizationTransporters() {
 		if (statistics.transporterUtilization.getNames().length>0) {
 			addHeading(2,Language.tr("Statistics.TransporterUtilization"));
 			beginParagraph();
@@ -877,7 +1015,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				final double meanState=indicator.getTimeMean();
 				final ModelTransporter transporterObj=statistics.editModel.transporters.get(transporter);
 				if (transporterObj!=null) {
-					count=transporterObj.getCountAll();
+					long count=transporterObj.getCountAll();
 					addLine(Language.tr("Statistics.TransporterType")+" "+transporter+": "+Language.tr("Statistics.AverageNumberOfBusyTransporters")+"="+StatisticTools.formatNumber(meanState,2)+" (rho="+StatisticTools.formatPercent(meanState/count)+")");
 					if (transporterObj.getFailures().size()>0) {
 						final StatisticsTimePerformanceIndicator indicator2=(StatisticsTimePerformanceIndicator)(statistics.transporterInDownTime.get(transporter));
@@ -890,11 +1028,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addModeLink(Mode.MODE_TRANSPORTER_UTILIZATION);
 			endParagraph();
 		}
+	}
 
-		/*
-		 * Gruppe: Zähler
-		 */
-
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Zähler"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#COUNTERS
+	 */
+	private void buildOverviewCounters() {
 		if (statistics.counter.size()>0 || statistics.differentialCounter.size()>0 || statistics.counterBatch.size()>0 ) {
 			addHeading(2,Language.tr("Statistics.Counter"));
 			buildCounterInt(3,false);
@@ -902,11 +1045,16 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addModeLink(Mode.MODE_COUNTER);
 			endParagraph();
 		}
+	}
 
-		/*
-		 * Gruppe: Durchsatz
-		 */
-
+	/**
+	 * Teil-Ausgabe für "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)<br>
+	 * Ausgabe von "Durchsatz"
+	 * @see #buildOverview()
+	 * @see Mode#MODE_OVERVIEW
+	 * @see Filter#THROUGHPUT
+	 */
+	private void buildOverviewThroughput() {
 		if (statistics.throughputStatistics.size()>0) {
 			addHeading(2,Language.tr("Statistics.Throughput"));
 			buildThroughputInt();
@@ -914,6 +1062,18 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addModeLink(Mode.MODE_THROUGHPUT);
 			endParagraph();
 		}
+	}
+
+	/**
+	 * Ausgabe von
+	 * "Modellüberblick" (Basisinformationen zum Modell als solches; hinterlegte Modellbeschreibung und weitere Informationen)
+	 * @see Mode#MODE_OVERVIEW
+	 */
+	private void buildOverview() {
+		addHeading(1,Language.tr("Statistics.ResultsOverview"));
+
+		/* Ausgabe der Teil-Statistiken */
+		Filter.process(this,Filter.stringToSet(SetupData.getSetup().statisticOverviewFilter));
 
 		/* Infotext  */
 		addDescription("Overview");
@@ -2926,5 +3086,38 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		case MODE_TRANSPORTER_UTILIZATION: buildTransporterUtilization(); break;
 		case MODE_CLIENT_DATA: buildClientData(); break;
 		}
+	}
+
+	@Override
+	public String[] ownSettingsName() {
+		final List<String> names=new ArrayList<>();
+		names.add(Language.tr("Statistics.TextSettings.DropdownName"));
+		if (mode==Mode.MODE_OVERVIEW) names.add(Language.tr("Statistics.ResultsOverview.Filter"));
+		return names.toArray(new String[0]);
+	}
+
+	@Override
+	public Icon[] ownSettingsIcon() {
+		final List<Icon> icons=new ArrayList<>();
+		icons.add(Images.GENERAL_NUMBERS.getIcon());
+		if (mode==Mode.MODE_OVERVIEW) icons.add(SimToolsImages.STATISTICS_TEXT.getIcon());
+		return icons.toArray(new Icon[0]);
+	}
+
+	@Override
+	public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
+		boolean changed=false;
+		BaseDialog dialog=null;
+		switch (nr) {
+		case 0:
+			dialog=new StatisticViewerOverviewTextDialog(owner);
+			break;
+		case 1:
+			dialog=new StatisticViewerOverviewTextFilterDialog(owner);
+			break;
+		}
+		changed=(dialog!=null && dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK);
+		if (changed) owner.recreateViewers();
+		return changed;
 	}
 }

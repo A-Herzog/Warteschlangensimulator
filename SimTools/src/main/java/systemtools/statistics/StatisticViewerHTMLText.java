@@ -35,7 +35,6 @@ import java.util.function.Supplier;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -154,6 +153,11 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	}
 
 	@Override
+	public boolean isViewerGenerated() {
+		return textPane!=null;
+	}
+
+	@Override
 	public void copyToClipboard(Clipboard clipboard) {
 		clipboard.setContents(new StringSelection(head+infoText+foot),null);
 	}
@@ -242,13 +246,19 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	}
 
 	@Override
-	public String ownSettingsName() {return null;}
+	public String[] ownSettingsName() {
+		return null;
+	}
 
 	@Override
-	public Icon ownSettingsIcon() {return null;}
+	public Icon[] ownSettingsIcon() {
+		return null;
+	}
 
 	@Override
-	public boolean ownSettings(JPanel owner) {return false;}
+	public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
+		return false;
+	}
 
 	/**
 	 * Reagiert auf Klicks auf Links und auch auf Mausbewegungen über Links.

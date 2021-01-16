@@ -155,6 +155,11 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 		return viewer=descriptionPane.getSplitPanel(chartPanel);
 	}
 
+	@Override
+	public boolean isViewerGenerated() {
+		return viewer!=null;
+	}
+
 	/**
 	 * Initialisierung des <code>JFreeChart</code>-Objektes.
 	 * @param chart	Konkretes <code>JFreeChart</code>-Objekt, welches angezeigt werden soll.
@@ -521,24 +526,24 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	}
 
 	@Override
-	public String ownSettingsName() {
+	public String[] ownSettingsName() {
 		ChartSetup chartSetup=null;
 		if (getChartSetupCallback!=null) chartSetup=getChartSetupCallback.get();
 		if (chartSetup==null) {
-			return StatisticsBasePanel.viewersSaveImageSizePrompt;
+			return new String[] {StatisticsBasePanel.viewersSaveImageSizePrompt};
 		} else {
-			return StatisticsBasePanel.viewersChartSetupTitle;
+			return new String[] {StatisticsBasePanel.viewersChartSetupTitle};
 		}
 	}
 
 	@Override
-	public Icon ownSettingsIcon() {
+	public Icon[] ownSettingsIcon() {
 		ChartSetup chartSetup=null;
 		if (getChartSetupCallback!=null) chartSetup=getChartSetupCallback.get();
 		if (chartSetup==null) {
-			return SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getIcon();
+			return new Icon[] {SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getIcon()};
 		} else {
-			return new ImageIcon(StatisticTreeCellRenderer.getImageViewerIcon(getImageType()));
+			return new Icon[] {new ImageIcon(StatisticTreeCellRenderer.getImageViewerIcon(getImageType()))};
 		}
 	}
 
@@ -588,7 +593,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	}
 
 	@Override
-	public boolean ownSettings(final JPanel owner) {
+	public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
 		ChartSetup chartSetup=null;
 		if (getChartSetupCallback!=null) chartSetup=getChartSetupCallback.get();
 		if (chartSetup==null) {
