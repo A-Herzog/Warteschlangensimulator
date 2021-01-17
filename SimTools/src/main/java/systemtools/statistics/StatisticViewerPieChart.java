@@ -39,7 +39,7 @@ public class StatisticViewerPieChart extends StatisticViewerJFreeChart {
 	/**
 	 * Ermöglicht für abgeleitete Klassen einen Zugriff auf das {@link PiePlot}-Element
 	 */
-	protected PiePlot pie;
+	protected PiePlot<String> pie;
 
 	/**
 	 * Ermöglicht für abgeleitete Klassen einen Zugriff auf das {@link DefaultPieDataset}-Objekt,
@@ -48,7 +48,7 @@ public class StatisticViewerPieChart extends StatisticViewerJFreeChart {
 	 * @see #addPieSegment(String, double)
 	 * @see #addPieSegment(String, double, Paint)
 	 */
-	protected DefaultPieDataset data;
+	protected DefaultPieDataset<String> data;
 
 	@Override
 	public ViewerImageType getImageType() {
@@ -59,10 +59,11 @@ public class StatisticViewerPieChart extends StatisticViewerJFreeChart {
 	 * Initialisiert das Diagramm
 	 * @param title	Diagrammtitel
 	 */
+	@SuppressWarnings("unchecked")
 	public void initPieChart(String title) {
-		data=new DefaultPieDataset();
+		data=new DefaultPieDataset<>();
 		initChart(ChartFactory.createPieChart(title,data,true,true,false));
-		pie=(PiePlot)chart.getPlot();
+		pie=(PiePlot<String>)chart.getPlot();
 
 		pie.setToolTipGenerator(new StandardPieToolTipGenerator(StandardPieToolTipGenerator.DEFAULT_TOOLTIP_FORMAT,NumberTools.getLocale()));
 
@@ -124,8 +125,7 @@ public class StatisticViewerPieChart extends StatisticViewerJFreeChart {
 		final Table table=new Table();
 
 		if (data!=null) for (int i=0;i<data.getItemCount();i++) {
-			@SuppressWarnings("rawtypes")
-			final Comparable key=data.getKey(i);
+			final String key=data.getKey(i);
 			final List<String> line=new ArrayList<>(2);
 			line.add(key.toString());
 			final Number num=data.getValue(key);

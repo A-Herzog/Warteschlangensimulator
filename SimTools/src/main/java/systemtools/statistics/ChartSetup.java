@@ -226,7 +226,7 @@ public class ChartSetup {
 	 * Stellt die Tortendiagramm-spezifischen Daten ein.
 	 * @param pie	Tortendiagramm
 	 */
-	public void setupPiePlot(final PiePlot pie) {
+	public void setupPiePlot(final PiePlot<String> pie) {
 		final double scale=(userScale==1.0)?systemScale:userScale;
 		pie.setLabelFont(scaleSize(legendFont,scale));
 	}
@@ -255,10 +255,11 @@ public class ChartSetup {
 	 * Aktualisiert die Einstellungen für alle Diagrammparameter.
 	 * @param chart	Diagramm
 	 */
+	@SuppressWarnings("unchecked")
 	public void setupAll(final JFreeChart chart) {
 		setupChart(chart);
 		final Plot plot=chart.getPlot();
-		if (plot instanceof PiePlot) setupPiePlot((PiePlot)plot);
+		if (plot instanceof PiePlot) setupPiePlot((PiePlot<String>)plot);
 
 		if (plot instanceof CategoryPlot) {
 			setupAxis(((CategoryPlot)plot).getDomainAxis());
