@@ -449,6 +449,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			for (Filter filter: values()) if (filters==null || filters.contains(filter)) filter.process(viewer);
 		}
 
+		/**
+		 * Liefert den Standard-String für die Filtereinstellungen.
+		 * @return	Standard-String für die Filtereinstellungen
+		 */
 		public static String getDefault() {
 			final StringBuilder result=new StringBuilder();
 			final int size=values().length;
