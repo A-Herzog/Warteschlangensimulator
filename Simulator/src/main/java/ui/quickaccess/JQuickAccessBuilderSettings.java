@@ -62,7 +62,9 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 		map.put(Language.tr("SettingsDialog.TemplatesPanel"),page);
 		map.put(Language.tr("SettingsDialog.LoadModelOnProgramStart"),page);
 		map.put(Language.tr("SettingsDialog.ModellSecurity"),page);
+		map.put(Language.tr("SettingsDialog.ModellSecurityExternal"),page);
 		map.put(Language.tr("SettingsDialog.SurfaceHelp"),page);
+		map.put(Language.tr("SettingsDialog.SurfaceGlassInfos"),page);
 		map.put(Language.tr("SettingsDialog.NotifyMode"),page);
 
 		/* Seite: Leistung */
