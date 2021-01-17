@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-16 21:40+0100\n"
+"POT-Creation-Date: 2021-01-17 17:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3318,6 +3318,12 @@ msgstr "Load example model"
 
 msgid "Editor.SurfaceTooltip.Generator"
 msgstr "Open model generator"
+
+msgid "Editor.SurfaceTooltip.Glass.DragElement"
+msgstr "Mouse movement = verschieben<br>Shift + mouse movement = move with pixel precision<br>Ctrl + mouse movement = copy<br>Alt + Cursor = move"
+
+msgid "Editor.SurfaceTooltip.Glass.MouseWheel"
+msgstr "Mouse wheel = scroll vertically<br>Alt + mouse wheel = scroll horizontally<br>Ctrl + mouse wheel = Zoom factor<br>Cursor = scroll horizontally and vertically"
 
 msgid "Editor.SurfaceTooltip.InsertEdge1"
 msgstr "Can be used as starting element for a connection edge"
@@ -12549,6 +12555,9 @@ msgstr "Never"
 
 msgid "SettingsDialog.ProxySettings"
 msgstr "Proxy configuration"
+
+msgid "SettingsDialog.SurfaceGlassInfos"
+msgstr "Display semi-transparent information on the drawing surface"
 
 msgid "SettingsDialog.SurfaceHelp"
 msgstr "Show hints on drawing surface"
@@ -24985,6 +24994,9 @@ msgstr "ModelElementStateStatistics"
 
 msgid "Surface.Sub.Dialog.Description"
 msgstr "Description of the sub model"
+
+msgid "Surface.Sub.Dialog.DirectAccessHint"
+msgstr "Direct access to this editor:<br>Shift + double click<br>Shift + Enter"
 
 msgid "Surface.Sub.Dialog.NumberInput"
 msgstr "Number of inputs in the sub model"

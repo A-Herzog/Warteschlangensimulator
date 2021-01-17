@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-16 21:40+0100\n"
+"POT-Creation-Date: 2021-01-17 17:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3320,6 +3320,12 @@ msgstr "Beispielmodell aufrufen"
 
 msgid "Editor.SurfaceTooltip.Generator"
 msgstr "Modellgenerator aufrufen"
+
+msgid "Editor.SurfaceTooltip.Glass.DragElement"
+msgstr "Mausbewegung = verschieben<br>Umschalt + Mausbewegung = pixelgenau verschieben<br>Strg + Mausbewegung = kopieren<br>Alt + Cursor = verschieben"
+
+msgid "Editor.SurfaceTooltip.Glass.MouseWheel"
+msgstr "Mausrad = vertikal scrollen<br>Alt + Mausrad = horizontal scrollen<br>Strg + Mausrad = Zoomfaktor<br>Cursor = horizontal und vertikal scrollen"
 
 msgid "Editor.SurfaceTooltip.InsertEdge1"
 msgstr "Als Ausgangselement für Verbindungskante nutzbar"
@@ -12546,6 +12552,9 @@ msgstr "Aus"
 
 msgid "SettingsDialog.ProxySettings"
 msgstr "Proxy-Konfiguration"
+
+msgid "SettingsDialog.SurfaceGlassInfos"
+msgstr "Halbtransparente Informationen auf der Zeichenfläche anzeigen"
 
 msgid "SettingsDialog.SurfaceHelp"
 msgstr "Hinweise auf Zeichenfläche anzeigen"
@@ -24994,6 +25003,9 @@ msgstr "ModellElementZustandsstatistik"
 
 msgid "Surface.Sub.Dialog.Description"
 msgstr "Beschreibung des Untermodells"
+
+msgid "Surface.Sub.Dialog.DirectAccessHint"
+msgstr "Direkter Aufruf dieses Editors:<br>Umschalt + Doppelklick<br>Umschalt + Enter"
 
 msgid "Surface.Sub.Dialog.NumberInput"
 msgstr "Anzahl an Eingängen in das Untermodell"

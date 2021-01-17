@@ -238,6 +238,11 @@ public class SetupData extends SetupBase {
 	public SurfaceHelp surfaceHelp;
 
 	/**
+	 * Sollten halbtransparente Hinweise auf der Zeichenfläche angezeigt werden?
+	 */
+	public boolean surfaceGlassInfos;
+
+	/**
 	 * Skalierung der Programmoberfläche
 	 */
 	public double scaleGUI;
@@ -958,6 +963,7 @@ public class SetupData extends SetupBase {
 		startTemplateMode=StartTemplateMode.START_TEMPLATE_HIDDEN;
 		startModel="";
 		surfaceHelp=SurfaceHelp.START_ONLY;
+		surfaceGlassInfos=true;
 		scaleGUI=1;
 		lookAndFeel="";
 		autoSaveMode=AutoSaveMode.AUTOSAVE_OFF;
@@ -1299,6 +1305,11 @@ public class SetupData extends SetupBase {
 				if (text.equalsIgnoreCase("Never")) {surfaceHelp=SurfaceHelp.NEVER; continue;}
 				if (text.equalsIgnoreCase("StartOnly")) {surfaceHelp=SurfaceHelp.START_ONLY; continue;}
 				if (text.equalsIgnoreCase("Always")) {surfaceHelp=SurfaceHelp.ALWAYS; continue;}
+				continue;
+			}
+
+			if (name.equals("surfaceglassinfos")) {
+				surfaceGlassInfos=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -1866,6 +1877,11 @@ public class SetupData extends SetupBase {
 			case START_ONLY: node.setTextContent("StartOnly"); break;
 			case ALWAYS: node.setTextContent("Always"); break;
 			}
+		}
+
+		if (!surfaceGlassInfos) {
+			root.appendChild(node=doc.createElement("SurfaceGlassInfos"));
+			node.setTextContent("0");
 		}
 
 		if (scaleGUI!=1) {

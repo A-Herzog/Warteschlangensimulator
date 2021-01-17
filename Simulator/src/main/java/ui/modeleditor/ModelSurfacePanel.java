@@ -127,6 +127,7 @@ import ui.modeleditor.elements.ModelElementSourceTable;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementText;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
+import ui.tools.GlassInfo;
 
 /**
  * Zeichenfläche für die Modell-Elemente<br>
@@ -1688,7 +1689,7 @@ public final class ModelSurfacePanel extends JPanel {
 		dragElement=null;
 		dragCopyElement=null;
 		dragStartElementPosition=null;
-		((ModelElementSub)element).showSubEditDialog(this,readOnly && !allowChangeOperationsOnReadOnly);
+		((ModelElementSub)element).showSubEditDialog(this,readOnly && !allowChangeOperationsOnReadOnly,false);
 		fireStateChangeListener();
 	}
 
@@ -2826,6 +2827,9 @@ public final class ModelSurfacePanel extends JPanel {
 				repaint();
 			} else {
 				if (!dragElement.isUserMoveable() || dragStartElementPosition==null) return;
+
+				GlassInfo.info(getParent(),Language.tr("Editor.SurfaceTooltip.Glass.DragElement"),500);
+
 				if (e.isControlDown() && dragElement.canCopy() && !readOnly) {
 					/* Kopie platzieren */
 					final Point dragPos=dragElement.getPosition(false);
@@ -3030,6 +3034,8 @@ public final class ModelSurfacePanel extends JPanel {
 			}
 			e.consume();
 			repaint();
+
+			GlassInfo.info(getParent(),Language.tr("Editor.SurfaceTooltip.Glass.MouseWheel"),500);
 		}
 	}
 

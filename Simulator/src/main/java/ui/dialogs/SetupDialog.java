@@ -166,6 +166,8 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox modelSecurityExternal;
 	/** Beim Programmstart Hilfe auf der Zeichenfläche anzeigen? */
 	private final JComboBox<String> surfaceHelp;
+	/** Halbtransparente Informationen auf der Zeichenfläche anzeigen */
+	private final JCheckBox surfaceGlassInfos;
 	/** Benachrichtigungen zum Simulationsende */
 	private final JComboBox<String> notifyMode;
 	/** Schaltfläche zum Öffnen des Dialogs in dem die weiteren Hilfe-Panel konfiguriert werden können */
@@ -464,6 +466,9 @@ public final class SetupDialog extends BaseDialog {
 				Images.GENERAL_ON
 		}));
 		label.setLabelFor(surfaceHelp);
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(surfaceGlassInfos=new JCheckBox(Language.tr("SettingsDialog.SurfaceGlassInfos")));
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(label=new JLabel(Language.tr("SettingsDialog.NotifyMode")+":"));
@@ -1025,6 +1030,8 @@ public final class SetupDialog extends BaseDialog {
 		case ALWAYS: surfaceHelp.setSelectedIndex(2); break;
 		}
 
+		surfaceGlassInfos.setSelected(setup.surfaceGlassInfos);
+
 		switch (setup.notifyMode) {
 		case OFF: notifyMode.setSelectedIndex(0); break;
 		case LONGRUN: notifyMode.setSelectedIndex(1); break;
@@ -1273,6 +1280,7 @@ public final class SetupDialog extends BaseDialog {
 		case 1: setup.surfaceHelp=SetupData.SurfaceHelp.START_ONLY; break;
 		case 2: setup.surfaceHelp=SetupData.SurfaceHelp.ALWAYS; break;
 		}
+		setup.surfaceGlassInfos=surfaceGlassInfos.isSelected();
 		switch (notifyMode.getSelectedIndex()) {
 		case 0: setup.notifyMode=SetupData.NotifyMode.OFF; break;
 		case 1: setup.notifyMode=SetupData.NotifyMode.LONGRUN; break;
@@ -1500,12 +1508,15 @@ public final class SetupDialog extends BaseDialog {
 			fontSizes.setSelectedIndex(1);
 			useHighContrasts.setSelected(false);
 			autoSave.setSelectedIndex(0);
+			useLastFiles.setSelected(true);
 			autoRestore.setSelected(false);
 			programStartWindow.setSelectedIndex(0);
 			templateStartMode.setSelectedIndex(0);
 			startModel.setSelectedIndex(0);
 			modelSecurity.setSelectedIndex(1);
 			modelSecurityExternal.setSelected(false);
+			surfaceHelp.setSelectedIndex(1);
+			surfaceGlassInfos.setSelected(true);
 			notifyMode.setSelectedIndex(1);
 			hintDialogs="";
 			break;

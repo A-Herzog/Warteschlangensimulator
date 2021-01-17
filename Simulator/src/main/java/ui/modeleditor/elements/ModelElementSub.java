@@ -292,7 +292,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 			final ModelElementSubDialog dialog=new ModelElementSubDialog(owner,ModelElementSub.this,readOnly);
 			fireChanged();
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK && dialog.getOpenEditor()) {
-				showSubEditDialog(owner,readOnly);
+				showSubEditDialog(owner,readOnly,true);
 			}
 		};
 	}
@@ -314,8 +314,9 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	 * Zeigt den Dialog zum Bearbeiten der Elemente des Untermodells an
 	 * @param owner	Übergeordnetes Fenster für den Dialog
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so können die Einträge nur angezeigt und nicht geändert werden
+	 * @param wasTriggeredViaEditDialog	Wurde der Dialog auf dem Umweg über den Untermodell-Bearbeiten-Dialog aufgerufen? (Wenn ja, wird auf der Untermodell-Zeichenfläche ein Hinweis zum direkten Aufruf angezeigt.)
 	 */
-	public void showSubEditDialog(Component owner, boolean readOnly) {
+	public void showSubEditDialog(final Component owner, final boolean readOnly, final boolean wasTriggeredViaEditDialog) {
 		/* Ggf. Anzahl der Ein- und Ausgänge auf mindestens 1 setzen */
 		if (countConnectionsIn==0) countConnectionsIn=1;
 		if (countConnectionsOut==0) countConnectionsOut=1;
@@ -346,7 +347,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 		if (mainAnimationPanel==null) {
 			/* Bearbeiten */
 			ModelSurface temp=subSurface.clone(false,null,null,subSurface.getParentSurface(),getModel());
-			final ModelElementSubEditDialog dialog=new ModelElementSubEditDialog(owner,getModel(),surface,subSurface,idsIn,idsOut,readOnly);
+			final ModelElementSubEditDialog dialog=new ModelElementSubEditDialog(owner,getModel(),surface,subSurface,idsIn,idsOut,readOnly,wasTriggeredViaEditDialog);
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				subSurface=dialog.getSurface();
@@ -382,7 +383,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,InputEvent.SHIFT_DOWN_MASK));
 		item.setFont(item.getFont().deriveFont(Font.BOLD));
 		item.setIcon(Images.MODELEDITOR_ELEMENT_SUB_EDIT.getIcon());
-		item.addActionListener(e->showSubEditDialog(owner,readOnly));
+		item.addActionListener(e->showSubEditDialog(owner,readOnly,false));
 
 		if (connectionsIn!=null && connectionsIn.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
