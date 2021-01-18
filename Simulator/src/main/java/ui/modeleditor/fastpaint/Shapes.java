@@ -22,6 +22,7 @@ import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.function.Supplier;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -154,7 +155,8 @@ public class Shapes {
 	private Color upperColor;
 	/** Farbverlauf für den oberen Anteil der Füllstandsanzeige */
 	private GradientFill upperFill;
-
+	/** Getter für zusätzliches Icon das auf das Shape gezeichnet werden soll (kann <code>null</code> sein) */
+	private Supplier<Image> iconGetter;
 	/** Zusätzliches Icon das auf das Shape gezeichnet werden soll (kann <code>null</code> sein) */
 	private Image icon;
 	/** Gemäß {@link #iconZoomedLevel} skaliertes Icon */
@@ -464,6 +466,7 @@ public class Shapes {
 	 * @see #icon
 	 */
 	private void drawIcon(final Graphics graphics, final Rectangle objectRect, final int borderWidth, final double zoom) {
+		if (icon==null && iconGetter!=null) icon=iconGetter.get();
 		if (icon==null) return;
 		if (iconZoomed==null || iconZoomedLevel!=zoom) {
 			iconZoomed=ScaledImageCache.getScaledImageCache().getScaledImage(icon,zoom);
@@ -586,6 +589,7 @@ public class Shapes {
 			} else {
 				drawCustomImage(graphics,objectRect,borderColor,borderWidth,zoom);
 			}
+			if (icon==null && iconGetter!=null) icon=iconGetter.get();
 			if (icon!=null) {
 				drawIcon(graphics,objectRect,borderWidth,zoom);
 			}
@@ -618,6 +622,9 @@ public class Shapes {
 	 * @return	Zusätzliches Icon (kann auch <code>null</code> sein)
 	 */
 	public Image getAdditionalIcon() {
+		if (icon!=null) {
+			if (iconGetter!=null) icon=iconGetter.get();
+		}
 		return icon;
 	}
 
@@ -625,8 +632,9 @@ public class Shapes {
 	 * Stellt das zusätzliche Icon, das auf das Shape gezeichnet wird, ein.
 	 * @param icon	Zusätzliches Icon (kann auch <code>null</code> sein)
 	 */
-	public void setAdditionalIcon(final Image icon) {
-		this.icon=icon;
+	public void setAdditionalIcon(final Supplier<Image> icon) {
+		this.icon=null;
+		this.iconGetter=icon;
 		iconZoomed=null;
 	}
 

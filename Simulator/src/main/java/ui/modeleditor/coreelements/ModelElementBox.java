@@ -19,7 +19,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -1169,8 +1168,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		if (lastAdditionalIcon!=null && lastAdditionalIcon.equals(name)) return;
 		lastAdditionalIcon=name;
 		final AnimationImageSource imageSource=new AnimationImageSource();
-		final Image image=imageSource.get(name,getModel().animationImages,16);
-		shape.setAdditionalIcon(image);
+		shape.setAdditionalIcon(()->imageSource.get(name,getModel().animationImages,16));
 	}
 
 	/**
