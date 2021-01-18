@@ -618,7 +618,10 @@ public class RunDataClient {
 	 */
 	public void leaveAllSections(final SimulationData simData) {
 		if (sections!=null) {
-			for (RunElementSectionStart section: sections) {
+			/* Verbraucht viel Speicher: for (RunElementSectionStart section: sections) { */
+			final int size=sections.size();
+			for (int i=0;i<size;i++) {
+				final RunElementSectionStart section=sections.get(i);
 				section.notifyClientLeavesSection(simData,this);
 			}
 			sections.clear();
