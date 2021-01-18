@@ -68,7 +68,7 @@ public final class RunDataTransporters implements Cloneable {
 	private ExpressionCalc[] expression;
 
 	/**
-	 * Entfernungs-Matrixen
+	 * Entfernungs-Matrixen (einzelne Teil-Arrays können <code>null</code> sein)
 	 */
 	private double[][][] distances;
 
@@ -179,8 +179,7 @@ public final class RunDataTransporters implements Cloneable {
 
 			/* Entfernungsmatrix für Transportertyp */
 			final int maxID=surface.getMaxId();
-			final double[][] distancesForType=new double[maxID+1][];
-			for (int i=0;i<distancesForType.length;i++) distancesForType[i]=new double[maxID+1];
+			double[][] distancesForType=null;
 			final Map<String,Integer> stations=getDestinationMatrixStations(surface);
 			for (Map.Entry<String,Integer> stationA: stations.entrySet()) {
 				final int idA=stationA.getValue().intValue();
@@ -190,6 +189,9 @@ public final class RunDataTransporters implements Cloneable {
 					final String nameB=stationB.getKey();
 					if (idA==idB) continue;
 					final double d=transporter.getDistance(nameA,nameB);
+					if (d==0.0) continue;
+					if (distancesForType==null) distancesForType=new double[maxID+1][];
+					if (distancesForType[idA]==null) distancesForType[idA]=new double[maxID+1];
 					distancesForType[idA][idB]=d;
 				}
 			}
@@ -309,7 +311,11 @@ public final class RunDataTransporters implements Cloneable {
 		}
 
 		/* Entfernung bestimmen */
-		return distances[indexTransporter][idFrom][idTo];
+		final double[][] arr1=distances[indexTransporter];
+		if (arr1==null) return 0.0;
+		final double[] arr2=arr1[idFrom];
+		if (arr2==null) return 0.0;
+		return arr2[idTo];
 	}
 
 	/**
