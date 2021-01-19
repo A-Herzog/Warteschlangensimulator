@@ -594,7 +594,7 @@ public final class ModelSurface {
 			graphics.fillRect(drawRect.x,drawRect.y,drawRect.width,drawRect.height);
 
 			if (backgroundImage!=null && !useHighContrasts) {
-				final BufferedImage scaledImage=ScaledImageCache.getScaledImageCache().getScaledImage(backgroundImage,backgroundImageScale);
+				final BufferedImage scaledImage=ScaledImageCache.getScaledImageCache().getScaledImage(backgroundImage,backgroundImageScale*zoom);
 				graphics.drawImage(scaledImage,0,0,null);
 			}
 		} else {
