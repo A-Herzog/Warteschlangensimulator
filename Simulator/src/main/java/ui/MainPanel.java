@@ -2409,9 +2409,10 @@ public class MainPanel extends MainPanelBase {
 				fastWarmUp,
 				editorPanel.getZoom(),
 				editorPanel.getRaster(),
-				editorPanel.getPosition(),
+				editorPanel.getTopPosition(),
 				()->{
 					editorPanel.setZoom(animationPanel.getZoom());
+					editorPanel.setTopPosition(animationPanel.getTopPosition());
 					if (animationPanel.isSimulationSuccessful()) {
 						statisticsPanel.setStatistics(simulator.getStatistic());
 						for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(true);
