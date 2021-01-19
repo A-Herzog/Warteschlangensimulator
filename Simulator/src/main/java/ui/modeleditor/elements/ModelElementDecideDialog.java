@@ -32,6 +32,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
@@ -96,6 +97,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(600,0);
 		pack();
+		if (getHeight()>750) setSize(getWidth(),750);
 	}
 
 	/**
@@ -185,7 +187,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		label.setLabelFor(modeSelect);
 		modeSelect.addActionListener(e->setActiveCard((String)modeSelect.getSelectedItem()));
 
-		main.add(contentCards=new JPanel(new CardLayout()),BorderLayout.CENTER);
+		main.add(new JScrollPane(contentCards=new JPanel(new CardLayout())),BorderLayout.CENTER);
 		JPanel content;
 
 		final ModelElementEdge[] edges=decide.getEdgesOut();

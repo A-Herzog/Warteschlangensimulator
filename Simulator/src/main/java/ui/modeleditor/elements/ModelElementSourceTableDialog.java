@@ -77,8 +77,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 */
 	public ModelElementSourceTableDialog(final Component owner, final ModelElementSourceTable element, final boolean readOnly) {
-		super(owner,Language.tr("Surface.SourceTable.Dialog.Title"),element,"ModelElementSourceTable",readOnly,false);
-		setVisible(true);
+		super(owner,Language.tr("Surface.SourceTable.Dialog.Title"),element,"ModelElementSourceTable",readOnly);
 	}
 
 	/**
@@ -88,6 +87,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(550,450);
 		pack();
+		if (getHeight()>750) setSize(getWidth(),750);
 	}
 
 	@Override

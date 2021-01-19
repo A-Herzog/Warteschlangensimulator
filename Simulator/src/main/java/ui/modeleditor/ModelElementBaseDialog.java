@@ -236,10 +236,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		if (content!=null) contentPanel.add(content,BorderLayout.CENTER);
 
 		setDialogSize();
-		pack();
+		//pack();
 		SwingUtilities.invokeLater(()->{
 			if (infoPanel!=null) infoPanel.setPreferredSize(infoPanel.getSize());
-			pack();
+			//pack();
 			setLocationRelativeTo(this.owner);
 			if (makeDialogVisible) {
 				setVisible(true);
