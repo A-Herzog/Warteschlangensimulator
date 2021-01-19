@@ -96,8 +96,10 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 			return DynamicStatus.COMPILE_ERROR;
 
 		} catch (IOException e) {
+			setError(e.getMessage());
 			return DynamicStatus.COMPILE_ERROR;
 		} catch (ClassNotFoundException e) {
+			setError(e.getMessage());
 			return DynamicStatus.LOAD_ERROR;
 		}
 	}
