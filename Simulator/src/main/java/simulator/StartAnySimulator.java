@@ -193,7 +193,6 @@ public class StartAnySimulator {
 		final Object obj=RunModel.getRunModel(editModel,true);
 		if (obj instanceof String) return (String)obj;
 		return null;
-
 	}
 
 	/**
