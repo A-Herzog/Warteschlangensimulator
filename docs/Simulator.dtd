@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | GespeicherteAnsicht)*>
 <!ATTLIST Modell
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -244,6 +244,14 @@
 >
 
 <!ELEMENT ModellPluginsVerzeichnis (#PCDATA)>
+
+<!ELEMENT GespeicherteAnsicht EMPTY>
+<!ATTLIST GespeicherteAnsicht
+  Name	CDATA	#REQUIRED
+  X		CDATA	#REQUIRED
+  Y		CDATA	#REQUIRED
+  Zoom	CDATA	#REQUIRED
+>
 
 
 
@@ -2025,7 +2033,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder | SavedView)*>
 <!ATTLIST Model
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2266,20 +2274,12 @@
 
 <!ELEMENT ModelPluginsFolder (#PCDATA)>
 
-<!ELEMENT ModelElementBoxFontLarge EMPTY>
-<!ATTLIST ModelElementBoxFontLarge
-  Size			CDATA	#REQUIRED
-  FontFamily	CDATA	#REQUIRED
-  bold			CDATA	#IMPLIED
-  italic		CDATA	#IMPLIED
->
-
-<!ELEMENT ModelElementBoxFontSmall EMPTY>
-<!ATTLIST ModelElementBoxFontSmall
-  Size			CDATA	#REQUIRED
-  FontFamily	CDATA	#REQUIRED
-  bold			CDATA	#IMPLIED
-  italic		CDATA	#IMPLIED
+<!ELEMENT SavedView EMPTY>
+<!ATTLIST SavedView
+  Name	CDATA	#REQUIRED
+  X		CDATA	#REQUIRED
+  Y		CDATA	#REQUIRED
+  Zoom	CDATA	#REQUIRED
 >
 
 
@@ -2385,6 +2385,24 @@
 <!ELEMENT ModelElementOperatorsPriority (#PCDATA)>
 
 <!ELEMENT ModelElementLayer (#PCDATA)>
+
+<!ELEMENT ModelElementBoxFontLarge EMPTY>
+<!ATTLIST ModelElementBoxFontLarge
+  Size			CDATA	#REQUIRED
+  FontFamily	CDATA	#REQUIRED
+  bold			CDATA	#IMPLIED
+  italic		CDATA	#IMPLIED
+>
+
+<!ELEMENT ModelElementBoxFontSmall EMPTY>
+<!ATTLIST ModelElementBoxFontSmall
+  Size			CDATA	#REQUIRED
+  FontFamily	CDATA	#REQUIRED
+  bold			CDATA	#IMPLIED
+  italic		CDATA	#IMPLIED
+>
+
+
 
 <!-- Documentation of the model elements: individual elements -->
 

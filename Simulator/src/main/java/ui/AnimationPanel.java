@@ -109,6 +109,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfaceAnimator;
 import ui.modeleditor.ModelSurfaceAnimatorBase;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.modeleditor.SavedViews;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.ModelElementAnalogValue;
@@ -262,6 +263,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private JButton buttonZoomDefault;
 	/** Schaltfläche "Modell zentrieren" */
 	private JButton buttonFindModel;
+	/** Schaltfläche "Ansichten" */
+	private JButton buttonViews;
 
 	/* Logging-Bereich unten */
 
@@ -302,6 +305,21 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see #setSubViewer(RunModelAnimationViewer)
 	 */
 	private RunModelAnimationViewer subViewer;
+
+	/**
+	 * Erzeugt eine kleine Schaltfläche für die Zoom-Symbolleiste unten rechts in der Statusleiste
+	 * @param hint	Zusätzlich anzuzeigender Tooltip für den Symbolleisten-Eintrag (kann <code>null</code> sein, wenn kein Tooltip angezeigt werden soll)
+	 * @param icon	Pfad zu dem Icon, das in dem Symbolleisten-Eintrag angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @return	Neue Schaltfläche
+	 */
+	private JButton createZoomAreaButton(final String hint, final Icon icon) {
+		final JButton button=createToolbarButton(null,"",hint,icon);
+		button.setPreferredSize(new Dimension(20,20));
+		button.setBorderPainted(false);
+		button.setFocusPainted(false);
+		button.setContentAreaFilled(false);
+		return button;
+	}
 
 	/**
 	 * Konstruktor der Klasse
@@ -384,26 +402,15 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			@Override public void mousePressed(MouseEvent e) {showZoomContextMenu(labelZoom);}
 		});
 		labelZoom.setToolTipText(Language.tr("Editor.SetupZoom"));
-		zoomArea.add(buttonZoomOut=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomOut")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_OUT.getIcon()));
-		buttonZoomOut.setPreferredSize(new Dimension(20,20));
-		buttonZoomOut.setBorderPainted(false);
-		buttonZoomOut.setFocusPainted(false);
-		buttonZoomOut.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomIn=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
-		buttonZoomIn.setPreferredSize(new Dimension(20,20));
-		buttonZoomIn.setBorderPainted(false);
-		buttonZoomIn.setFocusPainted(false);
-		buttonZoomIn.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomDefault=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
-		buttonZoomDefault.setPreferredSize(new Dimension(20,20));
-		buttonZoomDefault.setBorderPainted(false);
-		buttonZoomDefault.setFocusPainted(false);
-		buttonZoomDefault.setContentAreaFilled(false);
-		zoomArea.add(buttonFindModel=createToolbarButton(null,"",Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
-		buttonFindModel.setPreferredSize(new Dimension(20,20));
-		buttonFindModel.setBorderPainted(false);
-		buttonFindModel.setFocusPainted(false);
-		buttonFindModel.setContentAreaFilled(false);
+
+		zoomArea.add(buttonZoomOut=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomOut")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_OUT.getIcon()));
+		zoomArea.add(buttonZoomIn=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
+		zoomArea.add(buttonZoomDefault=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
+		zoomArea.add(buttonFindModel=createZoomAreaButton(Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
+		zoomArea.add(buttonViews=createZoomAreaButton(Language.tr("Main.Menu.View.Views"),Images.ZOOM_VIEWS.getIcon()));
+		buttonViews.addMouseListener(new MouseAdapter() {
+			@Override public void mousePressed(final MouseEvent e) {if (SwingUtilities.isRightMouseButton(e)) showViewPopup(buttonViews);}
+		});
 
 		statusPanel.add(logArea=new JPanel(new BorderLayout()),BorderLayout.SOUTH);
 		logArea.setVisible(false);
@@ -1120,6 +1127,15 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Liefert die Position der linken oberen Ecke des sichtbaren Bereichs
+	 * @return	Position der linken oberen Ecke des sichtbaren Bereichs
+	 */
+	public Point getTopPosition() {
+		if (!(surfacePanel.getParent() instanceof JViewport)) return new Point(0,0);
+		return ((JViewport)surfacePanel.getParent()).getViewPosition();
+	}
+
+	/**
 	 * Zeigt das Kontextmenü zur Auswahl des Zoomfaktors an.
 	 * @param parent	Übergeordnetes Element zur Ausrichtung des Popupmenüs.
 	 * @see #labelZoom
@@ -1150,7 +1166,33 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 		popup.add(slider);
 
-		popup.show(parent,0,-350);
+		popup.show(parent,0,-popup.getPreferredSize().height);
+	}
+
+	/**
+	 * Zeigt das Kontextmenü zur Auswahl der gespeicherten Ansichten an.
+	 * @param parent	Übergeordnetes Element zur Ausrichtung des Popupmenüs.
+	 * @see #buttonViews
+	 */
+	public void showViewPopup(final Component parent) {
+		final JPopupMenu menu=new JPopupMenu();
+		JMenuItem item;
+
+		final List<SavedViews.SavedView> views=model.savedViews.getViews();
+
+		/* Ansicht laden */
+		for (SavedViews.SavedView view: views) {
+			menu.add(item=new JMenuItem(view.getName(),Images.ZOOM_VIEW.getIcon()));
+			item.addActionListener(e->view.set(surfacePanel));
+		}
+
+		if (views.size()==0) {
+			menu.add(item=new JMenuItem(Language.tr("Editor.SavedViews.NoSavedViews")));
+			item.setEnabled(false);
+		}
+
+		final Dimension size=menu.getPreferredSize();
+		menu.show(parent,20-size.width,-size.height);
 	}
 
 	/**
@@ -1890,6 +1932,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==buttonZoomIn) {surfacePanel.zoomIn(); zoomChanged(); return;}
 			if (source==buttonZoomDefault) {surfacePanel.zoomDefault(); zoomChanged(); return;}
 			if (source==buttonFindModel) {surfacePanel.centerModel(); return;}
+			if (source==buttonViews) {showViewPopup(buttonViews); return;}
 			if (source==buttonAbort) {closeRequest(); buttonAbort.setEnabled(false); return;}
 			if (source==buttonScreenshot) {saveScreenshot(); return;}
 			if (source==buttonExport) {showExportMenu(buttonExport); return;}

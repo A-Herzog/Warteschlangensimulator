@@ -293,7 +293,13 @@ public enum Images {
 	ZOOM_OUT("zoom_out.png"),
 
 	/** Symbol "Auf Modell zoomen" */
-	ZOOM_CENTER_MODEL("image.png"),
+	ZOOM_CENTER_MODEL("arrow_out.png"),
+
+	/** Symbol "Gespeicherte Ansicht" */
+	ZOOM_VIEW("application.png"),
+
+	/** Symbol "Gespeicherte Ansichten" */
+	ZOOM_VIEWS("application_cascade.png"),
 
 	/** Symbol "Modellüberblick" */
 	MODE_OVERVIEW("find.png"),

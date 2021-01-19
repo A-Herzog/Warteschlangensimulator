@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-17 17:58+0100\n"
+"POT-Creation-Date: 2021-01-19 14:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3309,6 +3309,39 @@ msgstr "Displays only the elements matching the entered search term."
 
 msgid "Editor.SaveModel.Error"
 msgstr "An error occured while trying to store the data."
+
+msgid "Editor.SavedViews.Add"
+msgstr "Save view"
+
+msgid "Editor.SavedViews.Add.DefaultName"
+msgstr "View"
+
+msgid "Editor.SavedViews.Add.ErrorNameInUse"
+msgstr "The name \"%s\" is already in use for a view."
+
+msgid "Editor.SavedViews.Add.Hint"
+msgstr "Saves the current view."
+
+msgid "Editor.SavedViews.Add.Info"
+msgstr "Name of the new view"
+
+msgid "Editor.SavedViews.Delete"
+msgstr "Delete view"
+
+msgid "Editor.SavedViews.Delete.Info"
+msgstr "Do you really want to delete view \"%s\"?"
+
+msgid "Editor.SavedViews.Delete.InfoNo"
+msgstr "Do not delete view."
+
+msgid "Editor.SavedViews.Delete.InfoYes"
+msgstr "Delete view."
+
+msgid "Editor.SavedViews.NoSavedViews"
+msgstr "No saved views available."
+
+msgid "Editor.SavedViews.Update"
+msgstr "Update view"
 
 msgid "Editor.SetupZoom"
 msgstr "Setup zoom factor"
@@ -7672,6 +7705,9 @@ msgstr "User-defined animation icons..."
 msgid "Main.Menu.View.UserDefinedAnimationIcons.Mnemonic"
 msgstr "a"
 
+msgid "Main.Menu.View.Views"
+msgstr "Saved views"
+
 msgid "Main.Menu.View.ZoomDefault"
 msgstr "Set default zoom"
 
@@ -11516,6 +11552,18 @@ msgstr "Client priority"
 
 msgid "Resources.SecondaryPriority.Random"
 msgstr "Station at random"
+
+msgid "SavedView.XML.Name"
+msgstr "Name"
+
+msgid "SavedView.XML.X"
+msgstr "X"
+
+msgid "SavedView.XML.Y"
+msgstr "Y"
+
+msgid "SavedView.XML.Zoom"
+msgstr "Zoom"
 
 msgid "Schedule.Add"
 msgstr "Add schedule"
@@ -26568,6 +26616,9 @@ msgstr "ResourceFailure"
 
 msgid "Surface.XML.RootName.Resources"
 msgstr "Resources"
+
+msgid "Surface.XML.RootName.SavedView"
+msgstr "SavedView"
 
 msgid "Surface.XML.RootName.Schedule"
 msgstr "ModelSchedule"

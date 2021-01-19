@@ -83,6 +83,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelTransporter;
 import ui.modeleditor.ModelTransporterFailure;
 import ui.modeleditor.ModelTransporters;
+import ui.modeleditor.SavedViews;
 import ui.modeleditor.elements.ComplexLine;
 import ui.tools.SpecialPanel;
 import xml.XMLData;
@@ -882,6 +883,7 @@ public class LanguageStaticLoader {
 		ModelTransporterFailure.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.TransporterFailure");
 		ModelPaths.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.PathSegments");
 		ModelLoadData.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.LoadData");
+		SavedViews.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.SavedView");
 
 		/* Statistik */
 		StatisticsSimpleCountPerformanceIndicator.xmlNameCount=Language.trAll("Statistics.XML.Count");

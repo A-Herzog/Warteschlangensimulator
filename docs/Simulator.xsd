@@ -44,6 +44,7 @@
   <xs:element ref="Benutzervorlagen"/>
   <xs:element ref="ExterneDaten"/>
   <xs:element name="ModellPluginsVerzeichnis" type="xs:string"/>
+  <xs:element ref="GespeicherteAnsicht"/>
   
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
@@ -313,6 +314,13 @@
     <xs:element name="ExterneDatenZelle" type="xs:string" minOccurs="1" maxOccurs="1"/>  
 	<xs:element ref="ModelleVergleichenEingabe" minOccurs="1" maxOccurs="1"/>  
   </xs:choice></xs:sequence>
+</xs:complexType></xs:element>
+
+<xs:element name="GespeicherteAnsicht"><xs:complexType>
+  <xs:attribute name="Name" type="xs:string"  use="required"/>
+  <xs:attribute name="X" type="xs:integer"  use="required"/>
+  <xs:attribute name="Y" type="xs:integer"  use="required"/>
+  <xs:attribute name="Zoom" type="xs:string"  use="required"/>
 </xs:complexType></xs:element>
 
 <xs:element name="ModelleVergleichenEingabe"><xs:complexType>
@@ -2091,6 +2099,7 @@
   <xs:element ref="UserTemplates"/>
   <xs:element ref="ExternalData"/>
   <xs:element name="ModelPluginsFolder" type="xs:string"/>  
+  <xs:element ref="SavedView"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="ModelClients"><xs:complexType><xs:simpleContent>
@@ -2361,6 +2370,13 @@
   </xs:choice></xs:sequence>
 </xs:complexType></xs:element>
 
+<xs:element name="SavedView"><xs:complexType>
+  <xs:attribute name="Name" type="xs:string"  use="required"/>
+  <xs:attribute name="X" type="xs:integer"  use="required"/>
+  <xs:attribute name="Y" type="xs:integer"  use="required"/>
+  <xs:attribute name="Zoom" type="xs:string"  use="required"/>
+</xs:complexType></xs:element>
+
 <xs:element name="CompareModelsInput"><xs:complexType>
   <xs:sequence minOccurs="1" maxOccurs="1"><xs:choice>
     <xs:element name="CompareModelsName" type="xs:string" minOccurs="0" maxOccurs="1"/>  
@@ -2373,6 +2389,7 @@
     <xs:attribute name="Mode" type="xs:integer"  use="required"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
+
 
 
 <!-- Documentation of the model elements: general properties -->

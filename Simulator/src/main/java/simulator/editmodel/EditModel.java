@@ -53,6 +53,7 @@ import ui.modeleditor.ModelSchedules;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelTransporters;
+import ui.modeleditor.SavedViews;
 import ui.modeleditor.ScaledImageCache;
 import ui.modeleditor.coreelements.DataCheckResult;
 import ui.modeleditor.coreelements.ModelElement;
@@ -360,7 +361,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public String pluginsFolder;
 
 	/**
-	 * Konstruktor der Klasse <code>EditModel</code>
+	 * Gespeicherte Ansichten
+	 */
+	public SavedViews savedViews;
+
+	/**
+	 * Konstruktor der Klasse {@link EditModel}
 	 */
 	public EditModel() {
 		resources=new ModelResources();
@@ -384,6 +390,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		recordIncompleteClients=false;
 		modelLoadData=new ModelLoadData();
 		pluginsFolder="";
+		savedViews=new SavedViews();
 		resetData();
 	}
 
@@ -454,6 +461,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		templates=null;
 		modelLoadData.clear();
 		pluginsFolder="";
+		savedViews.clear();
 	}
 
 	/**
@@ -510,6 +518,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (templates!=null) clone.templates=templates.clone();
 		clone.modelLoadData.copyDataFrom(modelLoadData);
 		clone.pluginsFolder=pluginsFolder;
+		clone.savedViews.copyFrom(savedViews);
 
 		return clone;
 	}
@@ -582,6 +591,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (recordIncompleteClients!=otherModel.recordIncompleteClients) return false;
 		if (!modelLoadData.equalsModelLoadData(otherModel.modelLoadData)) return false;
 		if (!pluginsFolder.equalsIgnoreCase(otherModel.pluginsFolder)) return false;
+		if (!savedViews.equalsSavedViews(savedViews)) return false;
 
 		if (templates==null) {
 			if (otherModel.templates!=null) return false;
@@ -923,6 +933,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		for (String test: SavedViews.XML_NODE_NAME) if (name.equalsIgnoreCase(test)) {
+			final String error=savedViews.loadFromXML(node);
+			if (error!=null) return error;
+			return null;
+		}
+
 		return null;
 	}
 
@@ -1055,6 +1071,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.PluginsFolder")));
 			sub.setTextContent(pluginsFolder);
 		}
+
+		savedViews.addDataToXML(doc,node);
 	}
 
 	/**

@@ -594,13 +594,26 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
-	 * Liefert die Position der linken oberen Ecke
+	 * Liefert die Position der linken oberen Ecke.
 	 * @return	Position der linken oberen Ecke (oder <code>null</code>, wenn diese nicht ermittelt werden konnte)
+	 * @see #setTopPosition(Point)
 	 */
 	public Point getTopPosition() {
 		if (surface==null || !(getParent() instanceof JViewport)) return null;
 		final JViewport viewport=(JViewport)getParent();
 		return viewport.getViewPosition();
+	}
+
+	/**
+	 * Stellt die Position der linken oberen Ecke ein.
+	 * @param topPosition	Position der linken oberen Ecke
+	 * @see #getTopPosition()
+	 */
+	public void setTopPosition(final Point topPosition) {
+		if (topPosition==null) return;
+		if (surface==null || !(getParent() instanceof JViewport)) return;
+		final JViewport viewport=(JViewport)getParent();
+		viewport.setViewPosition(topPosition);
 	}
 
 	/**

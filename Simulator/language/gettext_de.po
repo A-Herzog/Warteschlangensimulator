@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-17 17:58+0100\n"
+"POT-Creation-Date: 2021-01-19 14:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3311,6 +3311,39 @@ msgstr "Zeigt nur die Elemente an, die zu dem eingegebenen Suchbegriff passen"
 
 msgid "Editor.SaveModel.Error"
 msgstr "Beim Speichern der Daten ist ein Fehler aufgetreten."
+
+msgid "Editor.SavedViews.Add"
+msgstr "Ansicht speichern"
+
+msgid "Editor.SavedViews.Add.DefaultName"
+msgstr "Ansicht"
+
+msgid "Editor.SavedViews.Add.ErrorNameInUse"
+msgstr "Der Name \"%s\" wird bereits für eine Ansicht verwendet."
+
+msgid "Editor.SavedViews.Add.Hint"
+msgstr "Speichert die aktuelle Ansicht."
+
+msgid "Editor.SavedViews.Add.Info"
+msgstr "Name der neuen Ansicht"
+
+msgid "Editor.SavedViews.Delete"
+msgstr "Ansicht löschen"
+
+msgid "Editor.SavedViews.Delete.Info"
+msgstr "Soll die Ansicht \"%s\" wirklich gelöscht werden?"
+
+msgid "Editor.SavedViews.Delete.InfoNo"
+msgstr "Ansicht nicht löschen."
+
+msgid "Editor.SavedViews.Delete.InfoYes"
+msgstr "Ansicht löschen."
+
+msgid "Editor.SavedViews.NoSavedViews"
+msgstr "Keine gespeicherten Ansichten vorhanden."
+
+msgid "Editor.SavedViews.Update"
+msgstr "Ansicht aktualisieren"
 
 msgid "Editor.SetupZoom"
 msgstr "Zoomfaktor einstellen"
@@ -7662,6 +7695,9 @@ msgstr "Benutzerdefinierte Animationsicons..."
 msgid "Main.Menu.View.UserDefinedAnimationIcons.Mnemonic"
 msgstr "A"
 
+msgid "Main.Menu.View.Views"
+msgstr "Gespeicherte Ansichten"
+
 msgid "Main.Menu.View.ZoomDefault"
 msgstr "Zoomfaktor auf 100% einstellen"
 
@@ -11513,6 +11549,18 @@ msgstr "Kundenpriorität"
 
 msgid "Resources.SecondaryPriority.Random"
 msgstr "Station zufällig wählen"
+
+msgid "SavedView.XML.Name"
+msgstr "Name"
+
+msgid "SavedView.XML.X"
+msgstr "X"
+
+msgid "SavedView.XML.Y"
+msgstr "Y"
+
+msgid "SavedView.XML.Zoom"
+msgstr "Zoom"
 
 msgid "Schedule.Add"
 msgstr "Zeitplan hinzufügen"
@@ -26578,6 +26626,9 @@ msgstr "RessourceAusfall"
 
 msgid "Surface.XML.RootName.Resources"
 msgstr "Ressourcen"
+
+msgid "Surface.XML.RootName.SavedView"
+msgstr "GespeicherteAnsicht"
 
 msgid "Surface.XML.RootName.Schedule"
 msgstr "ModellZeitplan"

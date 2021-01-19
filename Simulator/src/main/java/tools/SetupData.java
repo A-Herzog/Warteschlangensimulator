@@ -198,6 +198,11 @@ public class SetupData extends SetupBase {
 	public double lastZoom;
 
 	/**
+	 * Fenstergrößen von Untermodell-Editoren wiederherstellen?
+	 */
+	public boolean restoreSubEditWindowSize;
+
+	/**
 	 * Sichtbarkeit der Elemente-Vorlagen-Leiste beim Programmstart
 	 * @see StartTemplateMode#START_TEMPLATE_HIDDEN
 	 * @see StartTemplateMode#START_TEMPLATE_VISIBLE
@@ -960,6 +965,7 @@ public class SetupData extends SetupBase {
 		lastPosition=new Point(0,0);
 		lastSize=new Dimension(0,0);
 		lastZoom=1.0;
+		restoreSubEditWindowSize=true;
 		startTemplateMode=StartTemplateMode.START_TEMPLATE_HIDDEN;
 		startModel="";
 		surfaceHelp=SurfaceHelp.START_ONLY;
@@ -1281,6 +1287,11 @@ public class SetupData extends SetupBase {
 			if (name.equals("lastzoom")) {
 				Double D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(e.getTextContent()));
 				if (D!=null && D<10) lastZoom=D.doubleValue();
+				continue;
+			}
+
+			if (name.equals("restoresubeditwindowsize")) {
+				restoreSubEditWindowSize=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -1853,6 +1864,11 @@ public class SetupData extends SetupBase {
 		if (lastZoom!=1.0) {
 			root.appendChild(node=doc.createElement("LastZoom"));
 			node.setTextContent(NumberTools.formatSystemNumber(lastZoom));
+		}
+
+		if (!restoreSubEditWindowSize) {
+			root.appendChild(node=doc.createElement("RestoreSubEditWindowSize"));
+			node.setTextContent("0");
 		}
 
 		if (startTemplateMode!=StartTemplateMode.START_TEMPLATE_HIDDEN) {

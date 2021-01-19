@@ -32,7 +32,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -60,7 +59,9 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -104,6 +105,7 @@ import ui.modeleditor.ModelElementNavigatorListCellRenderer;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.modeleditor.SavedViews;
 import ui.modeleditor.ScaledImageCache;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -252,6 +254,8 @@ public final class EditorPanel extends EditorPanelBase {
 	private JButton buttonZoomDefault;
 	/** Schaltfläche "Modell zentrieren" */
 	private JButton buttonFindModel;
+	/** Schaltfläche "Ansichten" */
+	private JButton buttonViews;
 
 	/** Zeichenfläche */
 	private ModelSurfacePanel surfacePanel;
@@ -453,10 +457,109 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * Liefert die Position der linken oberen Ecke des sichtbaren Bereichs
 	 * @return	Position der linken oberen Ecke des sichtbaren Bereichs
+	 * @see #setTopPosition(Point)
 	 */
-	public Point getPosition() {
+	public Point getTopPosition() {
 		if (!(surfacePanel.getParent() instanceof JViewport)) return new Point(0,0);
 		return ((JViewport)surfacePanel.getParent()).getViewPosition();
+	}
+
+	/**
+	 * Stellt die Position der linken oberen Ecke ein.
+	 * @param topPosition	Position der linken oberen Ecke
+	 * @see #getTopPosition()
+	 */
+	public void setTopPosition(final Point topPosition) {
+		surfacePanel.setTopPosition(topPosition);
+	}
+
+	/**
+	 * Zeigt das Kontextmenü zur Auswahl der gespeicherten Ansichten an.
+	 * @param parent	Übergeordnetes Element zur Ausrichtung des Popupmenüs.
+	 * @see #buttonViews
+	 */
+	public void showViewPopup(final Component parent) {
+		final JPopupMenu menu=new JPopupMenu();
+		JMenuItem item;
+		JMenu sub;
+
+		final List<SavedViews.SavedView> views=model.savedViews.getViews();
+
+		/* Ansicht laden */
+		for (SavedViews.SavedView view: views) {
+			menu.add(item=new JMenuItem(view.getName(),Images.ZOOM_VIEW.getIcon()));
+			item.addActionListener(e->view.set(surfacePanel));
+		}
+
+		if (readOnly) {
+			if (views.size()==0) {
+				menu.add(item=new JMenuItem(Language.tr("Editor.SavedViews.NoSavedViews")));
+				item.setEnabled(false);
+			}
+		} else {
+			if (views.size()>0) menu.addSeparator();
+
+			/* Ansicht speichern */
+			menu.add(item=new JMenuItem(Language.tr("Editor.SavedViews.Add"),Images.GENERAL_SAVE.getIcon()));
+			item.setToolTipText(Language.tr("Editor.SavedViews.Add.Hint"));
+			item.addActionListener(e->savedViewAdd());
+
+			if (views.size()>0) {
+				/* Ansicht aktualisieren */
+				menu.add(sub=new JMenu(Language.tr("Editor.SavedViews.Update")));
+				sub.setIcon(Images.ZOOM_VIEWS.getIcon());
+				for (SavedViews.SavedView view: views) {
+					sub.add(item=new JMenuItem(view.getName()));
+					item.addActionListener(e->view.update(surfacePanel));
+				}
+				/* Ansicht löschen */
+				menu.add(sub=new JMenu(Language.tr("Editor.SavedViews.Delete")));
+				sub.setIcon(Images.EDIT_DELETE.getIcon());
+				for (SavedViews.SavedView view: views) {
+					sub.add(item=new JMenuItem(view.getName()));
+					item.addActionListener(e->savedViewDelete(view));
+				}
+			}
+		}
+
+		final Dimension size=menu.getPreferredSize();
+		menu.show(parent,20-size.width,-size.height);
+	}
+
+	/**
+	 * Speichert eine neue Ansicht.
+	 * @see #showViewPopup(Component)
+	 */
+	private void savedViewAdd() {
+		/* Möglichen freien Namen finden */
+		String viewName=Language.tr("Editor.SavedViews.Add.DefaultName");
+		int nr=1;
+		while (model.savedViews.nameInUse(viewName)) {
+			nr++;
+			viewName=Language.tr("Editor.SavedViews.Add.DefaultName")+" "+nr;
+		}
+
+		/* Eingabe des Namens der neuen Ansicht */
+		while (true) {
+			final String selectedName=JOptionPane.showInputDialog(this,Language.tr("Editor.SavedViews.Add.Info"),viewName);
+			if (selectedName==null) return;
+			if (model.savedViews.nameInUse(selectedName)) {
+				MsgBox.error(this,Language.tr("Editor.SavedViews.Add"),String.format(Language.tr("Editor.SavedViews.Add.ErrorNameInUse"),selectedName));
+				continue;
+			}
+			model.savedViews.getViews().add(new SavedViews.SavedView(selectedName,surfacePanel));
+			return;
+		}
+	}
+
+	/**
+	 * Löscht eine gespeicherte Ansicht.
+	 * @param view	Zu löschende Ansicht
+	 */
+	private void savedViewDelete(final SavedViews.SavedView view) {
+		if (MsgBox.confirm(this,Language.tr("Editor.SavedViews.Delete"),String.format(Language.tr("Editor.SavedViews.Delete.Info"),view.getName()),Language.tr("Editor.SavedViews.Delete.InfoYes"),Language.tr("Editor.SavedViews.Delete.InfoNo"))) {
+			model.savedViews.getViews().remove(view);
+		}
 	}
 
 	/**
@@ -981,6 +1084,21 @@ public final class EditorPanel extends EditorPanelBase {
 		for (ActionListener listener: fileDropListeners) listener.actionPerformed(event);
 	}
 
+	/**
+	 * Erzeugt eine kleine Schaltfläche für die Zoom-Symbolleiste unten rechts in der Statusleiste
+	 * @param hint	Zusätzlich anzuzeigender Tooltip für den Symbolleisten-Eintrag (kann <code>null</code> sein, wenn kein Tooltip angezeigt werden soll)
+	 * @param icon	Pfad zu dem Icon, das in dem Symbolleisten-Eintrag angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @return	Neue Schaltfläche
+	 */
+	private JButton createZoomAreaButton(final String hint, final Icon icon) {
+		final JButton button=createToolbarButton(null,"",hint,icon);
+		button.setPreferredSize(new Dimension(20,20));
+		button.setBorderPainted(false);
+		button.setFocusPainted(false);
+		button.setContentAreaFilled(false);
+		return button;
+	}
+
 	@Override
 	protected void buildGUI() {
 		toolbarListener=new ToolbarListener();
@@ -1083,34 +1201,19 @@ public final class EditorPanel extends EditorPanelBase {
 		});
 
 		zoomArea.add(labelZoom=new JLabel(Math.round(100*surfacePanel.getZoom())+"% "));
-		labelZoom.addMouseListener(new MouseListener() {
-			@Override public void mouseReleased(MouseEvent e) {}
-			@Override public void mousePressed(MouseEvent e) {showZoomContextMenu(labelZoom);}
-			@Override public void mouseExited(MouseEvent e) {}
-			@Override public void mouseEntered(MouseEvent e) {}
-			@Override public void mouseClicked(MouseEvent e) {}
+		labelZoom.addMouseListener(new MouseAdapter() {
+			@Override public void mousePressed(final MouseEvent e) {showZoomContextMenu(labelZoom);}
 		});
 		labelZoom.setToolTipText(Language.tr("Editor.SetupZoom"));
-		zoomArea.add(buttonZoomOut=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomOut")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_OUT.getIcon()));
-		buttonZoomOut.setPreferredSize(new Dimension(20,20));
-		buttonZoomOut.setBorderPainted(false);
-		buttonZoomOut.setFocusPainted(false);
-		buttonZoomOut.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomIn=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
-		buttonZoomIn.setPreferredSize(new Dimension(20,20));
-		buttonZoomIn.setBorderPainted(false);
-		buttonZoomIn.setFocusPainted(false);
-		buttonZoomIn.setContentAreaFilled(false);
-		zoomArea.add(buttonZoomDefault=createToolbarButton(null,"",Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
-		buttonZoomDefault.setPreferredSize(new Dimension(20,20));
-		buttonZoomDefault.setBorderPainted(false);
-		buttonZoomDefault.setFocusPainted(false);
-		buttonZoomDefault.setContentAreaFilled(false);
-		zoomArea.add(buttonFindModel=createToolbarButton(null,"",Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
-		buttonFindModel.setPreferredSize(new Dimension(20,20));
-		buttonFindModel.setBorderPainted(false);
-		buttonFindModel.setFocusPainted(false);
-		buttonFindModel.setContentAreaFilled(false);
+
+		zoomArea.add(buttonZoomOut=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomOut")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_OUT.getIcon()));
+		zoomArea.add(buttonZoomIn=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomIn")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_IN.getIcon()));
+		zoomArea.add(buttonZoomDefault=createZoomAreaButton(Language.tr("Main.Menu.View.ZoomDefault")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM.getIcon()));
+		zoomArea.add(buttonFindModel=createZoomAreaButton(Language.tr("Main.Menu.View.CenterModel")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK))+")",Images.ZOOM_CENTER_MODEL.getIcon()));
+		zoomArea.add(buttonViews=createZoomAreaButton(Language.tr("Main.Menu.View.Views"),Images.ZOOM_VIEWS.getIcon()));
+		buttonViews.addMouseListener(new MouseAdapter() {
+			@Override public void mousePressed(final MouseEvent e) {if (SwingUtilities.isRightMouseButton(e)) showViewPopup(buttonViews);}
+		});
 
 		updateStatusBar();
 	}
@@ -1489,6 +1592,7 @@ public final class EditorPanel extends EditorPanelBase {
 			if (source==buttonZoomIn) {zoomIn(); return;}
 			if (source==buttonZoomDefault) {zoomDefault(); return;}
 			if (source==buttonFindModel) {centerModel(); return;}
+			if (source==buttonViews) {showViewPopup(buttonViews); return;}
 			if (source==buttonUndo) {doUndo(); return;}
 			if (source==buttonRedo) {doRedo(); return;}
 			if (source==buttonExplorer) {showExplorer(buttonExplorer); return;}
@@ -1806,7 +1910,7 @@ public final class EditorPanel extends EditorPanelBase {
 
 		popup.add(slider);
 
-		popup.show(parent,0,-350);
+		popup.show(parent,0,-popup.getPreferredSize().height);
 	}
 
 	/**
