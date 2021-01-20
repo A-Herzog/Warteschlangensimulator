@@ -408,7 +408,10 @@ public enum Images {
 	MODELPROPERTIES_CLIENTS_GROUPS("group.png"),
 
 	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Icon für Kundengruppe" */
-	MODELPROPERTIES_CLIENTS_ICON("image.png"),
+	MODELPROPERTIES_CLIENTS_ICON("film_go.png"),
+
+	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Farbe für Kundengruppe" */
+	MODELPROPERTIES_CLIENTS_COLOR("color_wheel.png"),
 
 	/** Symbol "Modellbeschreibung - Seite 'Kunden' - Kosten für Kundengruppe" */
 	MODELPROPERTIES_CLIENTS_COSTS("money_euro.png"),

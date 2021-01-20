@@ -30,6 +30,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
@@ -102,12 +103,46 @@ public class ClientDataDialog extends BaseDialog {
 		JTabbedPane tabs=new JTabbedPane();
 		main.add(tabs,BorderLayout.CENTER);
 
-		/* Tab: "Farbe & Icon" */
-		tabs.addTab(Language.tr("Editor.ClientDialog.Tab.ColorAndIcon"),content=new JPanel(new BorderLayout()));
+		/* Tab: "Icon" */
+		tabs.addTab(Language.tr("Editor.ClientDialog.Tab.Icon"),content=new JPanel(new BorderLayout()));
+
+		/* Icon-Combobox */
+		content.add(sub=new JPanel(),BorderLayout.NORTH);
+		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
+
+		sub.add(new JSeparator());
+
+		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body>"+Language.tr("Editor.ClientDialog.Tab.Icon.Hint")+"</body></html>"));
+
+		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Editor.ClientDialog.Tab.ColorAndIcon.IconForClientType")+":"));
+		line.add(iconChooser=new JComboBox<>());
+		iconChooserList=imageSource.getIconsComboBox(modelImages);
+		iconChooser.setModel(iconChooserList);
+		iconChooser.setRenderer(new AnimationImageSource.IconComboBoxCellRenderer());
+		iconChooser.setEnabled(!readOnly);
+		label.setLabelFor(iconChooser);
+
+		/* Icon-Combobox mit Vorgabe belegen */
+		int index=0;
+		if (icon!=null) for (int i=0;i<iconChooserList.getSize();i++) {
+			String name=iconChooserList.getElementAt(i).getText();
+			String value=AnimationImageSource.ICONS.getOrDefault(name,name);
+			if (icon.equalsIgnoreCase(value)) {index=i; break;}
+		}
+		iconChooser.setSelectedIndex(index);
+
+		/* Tab: "Farbe" */
+		tabs.addTab(Language.tr("Editor.ClientDialog.Tab.Color"),content=new JPanel(new BorderLayout()));
 
 		/* Radiobuttons */
 		content.add(sub=new JPanel(),BorderLayout.NORTH);
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
+
+		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel("<html><body>"+Language.tr("Editor.ClientDialog.Tab.Color.Hint")+"</body></html>"));
+
 		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionAutomaticColor=new JRadioButton(Language.tr("Editor.ClientDialog.Tab.ColorAndIcon.Color.Automatic")));
 		optionAutomaticColor.setEnabled(!readOnly);
@@ -125,25 +160,6 @@ public class ClientDataDialog extends BaseDialog {
 		sub.add(colorChooser=new SmallColorChooser(userColor));
 		colorChooser.setEnabled(!readOnly);
 		colorChooser.addClickListener(e->optionUserColor.setSelected(true));
-
-		/* Icon-Combobox */
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
-		sub.add(label=new JLabel(Language.tr("Editor.ClientDialog.Tab.ColorAndIcon.IconForClientType")+":"));
-		sub.add(iconChooser=new JComboBox<>());
-		iconChooserList=imageSource.getIconsComboBox(modelImages);
-		iconChooser.setModel(iconChooserList);
-		iconChooser.setRenderer(new AnimationImageSource.IconComboBoxCellRenderer());
-		iconChooser.setEnabled(!readOnly);
-		label.setLabelFor(iconChooser);
-
-		/* Icon-Combobox mit Vorgabe belegen */
-		int index=0;
-		if (icon!=null) for (int i=0;i<iconChooserList.getSize();i++) {
-			String name=iconChooserList.getElementAt(i).getText();
-			String value=AnimationImageSource.ICONS.getOrDefault(name,name);
-			if (icon.equalsIgnoreCase(value)) {index=i; break;}
-		}
-		iconChooser.setSelectedIndex(index);
 
 		/* Tab: "Kosten" */
 		tabs.addTab(Language.tr("Editor.ClientDialog.Tab.Costs"),content=new JPanel(new BorderLayout()));
@@ -182,7 +198,8 @@ public class ClientDataDialog extends BaseDialog {
 
 		/* Icons auf Tabs */
 		tabs.setIconAt(0,Images.MODELPROPERTIES_CLIENTS_ICON.getIcon());
-		tabs.setIconAt(1,Images.MODELPROPERTIES_CLIENTS_COSTS.getIcon());
+		tabs.setIconAt(1,Images.MODELPROPERTIES_CLIENTS_COLOR.getIcon());
+		tabs.setIconAt(2,Images.MODELPROPERTIES_CLIENTS_COSTS.getIcon());
 
 		pack();
 		setLocationRelativeTo(this.owner);

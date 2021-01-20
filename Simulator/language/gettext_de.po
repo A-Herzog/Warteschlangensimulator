@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 00:03+0100\n"
+"POT-Creation-Date: 2021-01-21 00:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2491,8 +2491,11 @@ msgstr "Modell ist fehlerhaft."
 msgid "Editor.Check.Ok"
 msgstr "Modell ist ok."
 
-msgid "Editor.ClientDialog.Tab.ColorAndIcon"
-msgstr "Farbe & Icon"
+msgid "Editor.ClientDialog.Tab.Color"
+msgstr "Farbe"
+
+msgid "Editor.ClientDialog.Tab.Color.Hint"
+msgstr "Die gewählte Farbe wird wird in Linien- und<br>Balkendiagrammen in der Statistik für den<br>Kundentyp verwendet."
 
 msgid "Editor.ClientDialog.Tab.ColorAndIcon.Color.Automatic"
 msgstr "Farbe automatisch wählen"
@@ -2526,6 +2529,12 @@ msgstr "Kosten pro Wartesekunde"
 
 msgid "Editor.ClientDialog.Tab.Costs.PerWaitingSecond.Error"
 msgstr "Der angegebene Wert für die Kosten pro Wartesekunde ist ungültig."
+
+msgid "Editor.ClientDialog.Tab.Icon"
+msgstr "Animationsicon"
+
+msgid "Editor.ClientDialog.Tab.Icon.Hint"
+msgstr "Das gewählte Icon wird bei der Animation<br>des Modells verwendet."
 
 msgid "Editor.ClientDialog.Title"
 msgstr "Daten für Kundentyp einstellen"
@@ -27980,6 +27989,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Editor.AddElement.Info"
 #~ msgstr "Fügt ein neues Element zu dem Modell hinzu"
+
+#~ msgid "Editor.ClientDialog.Tab.ColorAndIcon"
+#~ msgstr "Farbe & Icon"
 
 #~ msgid "Editor.Delete"
 #~ msgstr "Löschen"

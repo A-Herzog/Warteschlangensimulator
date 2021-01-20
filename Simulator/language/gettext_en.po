@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 00:03+0100\n"
+"POT-Creation-Date: 2021-01-21 00:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2490,8 +2490,11 @@ msgstr "The model is invalid."
 msgid "Editor.Check.Ok"
 msgstr "The model is ok."
 
-msgid "Editor.ClientDialog.Tab.ColorAndIcon"
-msgstr "Color & icon"
+msgid "Editor.ClientDialog.Tab.Color"
+msgstr "Color"
+
+msgid "Editor.ClientDialog.Tab.Color.Hint"
+msgstr "The selected color is used in line and bar<br>charts in the statistics for<br>the client type."
 
 msgid "Editor.ClientDialog.Tab.ColorAndIcon.Color.Automatic"
 msgstr "Select color automatically"
@@ -2525,6 +2528,12 @@ msgstr "Cost per waiting second"
 
 msgid "Editor.ClientDialog.Tab.Costs.PerWaitingSecond.Error"
 msgstr "The specified value for the costs per waiting second is invalid."
+
+msgid "Editor.ClientDialog.Tab.Icon"
+msgstr "Animation icon"
+
+msgid "Editor.ClientDialog.Tab.Icon.Hint"
+msgstr "The selected icon will be used when animating<br>the model."
 
 msgid "Editor.ClientDialog.Title"
 msgstr "Setup client type"
@@ -27949,6 +27958,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Editor.AddElement.Info"
 #~ msgstr "Adds a new element to the model"
+
+#~ msgid "Editor.ClientDialog.Tab.ColorAndIcon"
+#~ msgstr "Color & icon"
 
 #~ msgid "Editor.Delete"
 #~ msgstr "Delete"
