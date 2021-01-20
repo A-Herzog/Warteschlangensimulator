@@ -121,6 +121,7 @@ import ui.modeleditor.elements.ModelElementSourceRecord;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementTank;
 import ui.modelproperties.ModelPropertiesDialog;
+import ui.tools.GlassInfo;
 
 /**
  * Diese Klasse zeigt die Animation der Simulation in einem eingebetteten
@@ -686,6 +687,12 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (logger!=null && logger.getNextLogger()==null) simulator.pauseLogging();
 			timer=new Timer("AnimationCancelCheck",false);
 			timer.schedule(new UpdateInfoTask(),100);
+		}
+
+		if (startPaused) {
+			SwingUtilities.invokeLater(()->{
+				GlassInfo.info(this,Language.tr("Animation.GlassHint"),500);
+			});
 		}
 	}
 
