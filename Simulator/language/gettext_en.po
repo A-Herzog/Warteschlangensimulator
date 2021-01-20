@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-19 14:58+0100\n"
+"POT-Creation-Date: 2021-01-20 14:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20908,6 +20908,12 @@ msgstr "No key for the decision was specified."
 msgid "Surface.Decide.Dialog.OutgoingEdge.Key.ErrorMissing.Title"
 msgstr "No key specified"
 
+msgid "Surface.Decide.Dialog.OutgoingEdge.MultiValues"
+msgstr "Multiple values separated by \";\" per value field"
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.MultiValues.Hint"
+msgstr "If enabled, multiple values can be specified per output edge. In this case the values themselves can not contain \";\"."
+
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate"
 msgstr "Transition rate"
 
@@ -20967,6 +20973,9 @@ msgstr "Value"
 
 msgid "Surface.Decide.XML.Key"
 msgstr "ModelElementDecideKey"
+
+msgid "Surface.Decide.XML.Key.MultiTextValues"
+msgstr "MultiValues"
 
 msgid "Surface.Decide.XML.Mode"
 msgstr "ModelElementDecideMode"

@@ -856,10 +856,16 @@
 <xs:element name="ModellElementVerzweigen"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModellElementVerzweigungsmodus" type="xs:string"/>
-    <xs:element name="ModellElementVerzweigSchluessel" type="xs:string"/>
+    <xs:element ref="ModellElementVerzweigSchluessel"/>
     <xs:element ref="ModellElementVerbindung"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementVerzweigSchluessel"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="MehrfachWerte" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementVerzweigenJS"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -2910,10 +2916,16 @@
 <xs:element name="ModelElementDecide"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModelElementDecideMode" type="xs:string"/>
-    <xs:element name="ModelElementDecideKey" type="xs:string"/>
+    <xs:element ref="ModelElementDecideKey"/>
     <xs:element ref="ModelElementConnection"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementDecideKey"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="MultiValues" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementDecideJS"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

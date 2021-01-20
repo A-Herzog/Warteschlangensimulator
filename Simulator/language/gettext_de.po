@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-19 14:58+0100\n"
+"POT-Creation-Date: 2021-01-20 14:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20916,6 +20916,12 @@ msgstr "Es wurde kein Schlüssel angegeben."
 msgid "Surface.Decide.Dialog.OutgoingEdge.Key.ErrorMissing.Title"
 msgstr "Kein Schlüssel angegeben"
 
+msgid "Surface.Decide.Dialog.OutgoingEdge.MultiValues"
+msgstr "Mehrere durch \";\" getrennte Werte pro Werte-Feld"
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.MultiValues.Hint"
+msgstr "Wenn aktiviert, können mehrere Werte pro Ausgang angegeben werden. Allerdings dürften die Werte selbst dann keine \";\" enthalten."
+
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate"
 msgstr "Übergangsrate"
 
@@ -20975,6 +20981,9 @@ msgstr "Texteigenschaft"
 
 msgid "Surface.Decide.XML.Key"
 msgstr "ModellElementVerzweigSchluessel"
+
+msgid "Surface.Decide.XML.Key.MultiTextValues"
+msgstr "MehrfachWerte"
 
 msgid "Surface.Decide.XML.Mode"
 msgstr "ModellElementVerzweigungsmodus"

@@ -44,7 +44,7 @@ public class RunElementDecideByKeyValue extends RunElement {
 	/** Für die Wahl der auslaufenden Kante auszuwertender Kundentextdaten-Schlüssel */
 	private String key;
 	/** Werte für {@link #key} die zu der Wahl einer jeweiligen auslaufenden Kante führen */
-	private String[] values;
+	private String[][] values;
 
 	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
@@ -76,13 +76,24 @@ public class RunElementDecideByKeyValue extends RunElement {
 		final ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		final List<String> values=((ModelElementDecide)element).getValues();
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
-		decide.values=new String[Math.max(0,edges.length-1)];
+		decide.values=new String[Math.max(0,edges.length-1)][];
+
+		/* Mehrere Werte pro Wert-Eintrag? */
+		final boolean multiTextValues=((ModelElementDecide)element).isMultiTextValues();
 
 		/* Werte */
 		for (int i=0;i<edges.length-1;i++) {
 			final String value=(i>=values.size())?"":values.get(i);
-			if (value.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1);
-			decide.values[i]=value;
+			if (multiTextValues) {
+				final String[] v=value.split(";");
+				if (v.length==0) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1);
+				for (int j=0;j<v.length;j++) v[j]=v[j].trim();
+				for (String s: v) if (s.isEmpty()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1);
+				decide.values[i]=v;
+			} else {
+				if (value.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1);
+				decide.values[i]=new String[]{value};
+			}
 		}
 
 		/* Ausgangskanten erfassen */
@@ -112,10 +123,19 @@ public class RunElementDecideByKeyValue extends RunElement {
 		final ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		final List<String> values=((ModelElementDecide)element).getValues();
 
+		/* Mehrere Werte pro Wert-Eintrag? */
+		final boolean multiTextValues=((ModelElementDecide)element).isMultiTextValues();
+
 		/* Werte */
 		for (int i=0;i<edges.length-1;i++) {
 			final String value=(i>=values.size())?"":values.get(i);
-			if (value.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
+			if (multiTextValues) {
+				final String[] v=value.split(";");
+				if (v.length==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
+				for (String s: v) if (s.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
+			} else {
+				if (value.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
+			}
 		}
 
 		/* Ausgangskanten erfassen */
@@ -152,8 +172,13 @@ public class RunElementDecideByKeyValue extends RunElement {
 	@Override
 	public void processLeave(SimulationData simData, RunDataClient client) {
 		final String value=client.getUserDataString(key);
-		int nr=connections.length-1; /* Else */
-		for (int i=0;i<values.length;i++) if (value.equals(values[i])) {nr=i; break;}
+		int nr=-1;
+		for (int i=0;i<values.length;i++) {
+			final String[] v=values[i];
+			for (int j=0;j<v.length;j++) if (value.equals(v[j])) {nr=i; break;}
+			if (nr>=0) break;
+		}
+		if (nr<0) nr=connections.length-1; /* Else */
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.DecideByKeyValue"),String.format(Language.tr("Simulation.Log.DecideByKeyValue.Info"),client.logInfo(simData),name,key,value,nr+1,connections.length));

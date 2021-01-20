@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -76,6 +77,9 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 
 	/** Eingabefeld für den Schlüssel */
 	private JTextField key;
+
+	/** Mehrere durch ";" getrennte Werte pro Wert-Feld? */
+	private JCheckBox valuesMulti;
 
 	/** Eingabefelder für die Werte */
 	private List<JTextField> values;
@@ -149,7 +153,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		final JTabbedPane tabs=new JTabbedPane();
 
 		if (!(element instanceof ModelElementDecide)) return tabs;
-		ModelElementDecide decide=(ModelElementDecide)element;
+		final ModelElementDecide decide=(ModelElementDecide)element;
 
 		/* Verzweigungsrichtungen */
 
@@ -157,6 +161,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		tabs.addTab(Language.tr("Surface.Decide.Dialog.Directions"),main);
 
 		JPanel sub;
+		JPanel line;
 		JLabel label;
 
 		main.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
@@ -352,6 +357,11 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {getCheckKeyValues(false);}
 		});
 
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(valuesMulti=new JCheckBox(Language.tr("Surface.Decide.Dialog.OutgoingEdge.MultiValues"),decide.isMultiTextValues()));
+		valuesMulti.setToolTipText(Language.tr("Surface.Decide.Dialog.OutgoingEdge.MultiValues.Hint"));
+		valuesMulti.addActionListener(e->getCheckKeyValues(false));
+
 		values=new ArrayList<>();
 		final List<String> valuesList=decide.getValues();
 		for (int i=0;i<edges.length;i++) {
@@ -394,7 +404,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		case MODE_SHORTEST_QUEUE_PROCESS_STATION: modeSelect.setSelectedIndex(5); break;
 		case MODE_MIN_CLIENTS_NEXT_STATION: modeSelect.setSelectedIndex(6); break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION: modeSelect.setSelectedIndex(7); break;
-		case MODE_KEY_VALUE: modeSelect.setSelectedIndex(8); break;
+		case MODE_KEY_VALUE: modeSelect.setSelectedIndex(8); getCheckKeyValues(false); break;
 		}
 
 		setActiveCard((String)modeSelect.getSelectedItem());
@@ -419,6 +429,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 	private void setActiveCard(final String name) {
 		final CardLayout cardLayout=(CardLayout)(contentCards.getLayout());
 		cardLayout.show(contentCards,name);
+		getCheckKeyValues(false);
 	}
 
 	/**
@@ -504,6 +515,23 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 	}
 
 	/**
+	 * Prüft, ob ein Wert (ggf. bestehend aus mehreren Teilwerten, wenn dies zulässig ist) gültig ist.
+	 * @param value	Zu prüfender Wert einer Schlüssel-Wert-Zuweisung
+	 * @return	Gibt an, ob der Wert gültig ist
+	 */
+	private boolean checkValue(final String value) {
+		if (value.trim().isEmpty()) return false;
+
+		if (valuesMulti.isSelected()) {
+			final String[] v=value.split(";");
+			if (v==null || v.length==0) return false;
+			for (String s: v) if (s.trim().isEmpty()) return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Prüft die Einstellungen in {@link #key} und in {@link #values}.
 	 * @param showErrorMessages	Im Fehlerfall eine Meldung ausgeben?
 	 * @return	Liefert im Erfolgsfall <code>true</code>
@@ -511,6 +539,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 	private boolean getCheckKeyValues(final boolean showErrorMessages) {
 		boolean ok=true;
 
+		/* Schlüssel */
 		if (key.getText().trim().isEmpty()) {
 			key.setBackground(Color.red);
 			ok=false;
@@ -522,8 +551,9 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 			key.setBackground(SystemColor.text);
 		}
 
+		/* Werte */
 		for (int i=0;i<values.size()-1;i++) {
-			if (values.get(i).getText().trim().isEmpty()) {
+			if (!checkValue(values.get(i).getText())) {
 				values.get(i).setBackground(Color.RED);
 				ok=false;
 				if (showErrorMessages) {
@@ -619,6 +649,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 				break;
 			case MODE_KEY_VALUE:
 				decide.setKey(key.getText().trim());
+				decide.setMultiTextValues(valuesMulti.isSelected());
 				final List<String> valuesList=decide.getValues();
 				valuesList.clear();
 				for (int i=0;i<values.size()-1;i++) valuesList.add(values.get(i).getText().trim());

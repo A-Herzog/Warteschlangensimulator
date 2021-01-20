@@ -132,6 +132,12 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	private final List<String> values;
 
 	/**
+	 * Kann jeweils ein {@link #values}-Eintrag mehrere, durch ";" getrennte Werte enthalten?
+	 * @see #values
+	 */
+	private boolean multiTextValues;
+
+	/**
 	 * Liste der Namen der Kundentypen für die Verzweigungen
 	 * @see #getClientTypes()
 	 */
@@ -155,6 +161,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		rates=new ArrayList<>();
 		conditions=new ArrayList<>();
 		values=new ArrayList<>();
+		multiTextValues=true;
 		clientTypes=new ArrayList<>();
 	}
 
@@ -269,19 +276,21 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementDecide)) return false;
 
-		final List<ModelElementEdge> connectionsIn2=((ModelElementDecide)element).connectionsIn;
+		final ModelElementDecide decide=(ModelElementDecide)element;
+
+		final List<ModelElementEdge> connectionsIn2=decide.connectionsIn;
 		if (connectionsIn==null || connectionsIn2==null || connectionsIn.size()!=connectionsIn2.size()) return false;
 		for (int i=0;i<connectionsIn.size();i++) if (connectionsIn.get(i).getId()!=connectionsIn2.get(i).getId()) return false;
 
-		final List<ModelElementEdge> connectionsOut2=((ModelElementDecide)element).connectionsOut;
+		final List<ModelElementEdge> connectionsOut2=decide.connectionsOut;
 		if (connectionsOut==null || connectionsOut2==null || connectionsOut.size()!=connectionsOut2.size()) return false;
 		for (int i=0;i<connectionsOut.size();i++) if (connectionsOut.get(i).getId()!=connectionsOut2.get(i).getId()) return false;
 
-		if (((ModelElementDecide)element).mode!=mode) return false;
+		if (decide.mode!=mode) return false;
 
 		switch (mode) {
 		case MODE_CHANCE:
-			List<Double> rates2=((ModelElementDecide)element).rates;
+			List<Double> rates2=decide.rates;
 			for (int i=0;i<connectionsOut.size();i++) {
 				if (i>=rates.size() && i>=rates2.size()) continue;
 				if (i>=rates.size() || i>=rates2.size()) return false;
@@ -289,7 +298,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			}
 			break;
 		case MODE_CONDITION:
-			List<String> conditions2=((ModelElementDecide)element).conditions;
+			List<String> conditions2=decide.conditions;
 			for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 				if (i>=conditions.size() && i>=conditions2.size()) continue;
 				if (i>=conditions.size() || i>=conditions2.size()) return false;
@@ -297,7 +306,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			}
 			break;
 		case MODE_CLIENTTYPE:
-			List<String> clientTypes2=((ModelElementDecide)element).clientTypes;
+			List<String> clientTypes2=decide.clientTypes;
 			for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 				if (i>=clientTypes.size() && i>=clientTypes2.size()) continue;
 				if (i>=clientTypes.size() || i>=clientTypes2.size()) return false;
@@ -320,18 +329,19 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			/* immer alles ok */
 			break;
 		case MODE_KEY_VALUE:
-			if (!key.equals(((ModelElementDecide)element).key)) return false;
-			List<String> values2=((ModelElementDecide)element).values;
+			if (!key.equals(decide.key)) return false;
+			List<String> values2=decide.values;
 			for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 				if (i>=values.size() && i>=values2.size()) continue;
 				if (i>=values.size() || i>=values2.size()) return false;
 				if (!values.get(i).equals(values2.get(i))) return false;
 			}
+			if (multiTextValues!=decide.multiTextValues) return false;
 			break;
 		}
 
 		if (connectionsOut.size()>0) {
-			final List<String> newClientTypes2=((ModelElementDecide)element).newClientTypes;
+			final List<String> newClientTypes2=decide.newClientTypes;
 			if (newClientTypes==null && newClientTypes2!=null) return false;
 			if (newClientTypes!=null && newClientTypes2==null) return false;
 			if (newClientTypes!=null && newClientTypes2!=null) {
@@ -400,10 +410,12 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				/* nichts zu kopieren */
 				break;
 			case MODE_KEY_VALUE:
-				key=((ModelElementDecide)element).key;
-				values.addAll(((ModelElementDecide)element).values);
+				key=source.key;
+				values.addAll(source.values);
 				break;
 			}
+
+			multiTextValues=source.multiTextValues;
 
 			if (((ModelElementDecide)element).newClientTypes!=null) newClientTypes=new ArrayList<>(((ModelElementDecide)element).newClientTypes);
 		}
@@ -637,6 +649,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		if (mode==DecideMode.MODE_KEY_VALUE) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Decide.XML.Key")));
 			sub.setTextContent(key);
+			sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Key.MultiTextValues"),multiTextValues?"1":"0");
 		}
 
 		if (connectionsIn!=null) for (ModelElementEdge element: connectionsIn) {
@@ -724,6 +737,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 
 		if (Language.trAll("Surface.Decide.XML.Key",name)) {
 			key=content;
+			final String strMultiTextValues=Language.trAllAttribute("Surface.Decide.XML.Key.MultiTextValues",node);
+			if (strMultiTextValues.equals("0")) multiTextValues=false; else multiTextValues=true;
 			return null;
 		}
 
@@ -904,6 +919,22 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	public List<String> getValues() {
 		return values;
+	}
+
+	/**
+	 * Kann jeweils ein {@link #getValues()}-Eintrag mehrere, durch ";" getrennte Werte enthalten?
+	 * @return	Kann jeweils ein {@link #getValues()}-Eintrag mehrere, durch ";" getrennte Werte enthalten?
+	 */
+	public boolean isMultiTextValues() {
+		return multiTextValues;
+	}
+
+	/**
+	 * Stellt ein, ob jeweils ein {@link #getValues()}-Eintrag mehrere, durch ";" getrennte Werte enthalten darf.
+	 * @param multiTextValues	Kann jeweils ein {@link #getValues()}-Eintrag mehrere, durch ";" getrennte Werte enthalten?
+	 */
+	public void setMultiTextValues(boolean multiTextValues) {
+		this.multiTextValues=multiTextValues;
 	}
 
 	/**

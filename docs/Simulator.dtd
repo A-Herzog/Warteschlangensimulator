@@ -642,6 +642,9 @@
 >
 <!ELEMENT ModellElementVerzweigungsmodus (#PCDATA)>
 <!ELEMENT ModellElementVerzweigSchluessel (#PCDATA)>
+<!ATTLIST ModellElementVerzweigSchluessel
+  MehrfachWerte	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModellElementVerzweigenJS (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerzweigenSkript)*>
 <!ATTLIST ModellElementVerzweigenJS
@@ -2658,19 +2661,22 @@
 
 <!ELEMENT ModelElementDuplicate (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
 <!ATTLIST ModelElementDuplicate
-  id		CDATA	#REQUIRED
-  protected	CDATA	#IMPLIED
+  id			CDATA	#REQUIRED
+  protected		CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementDecide (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDecideMode | ModelElementDecideKey)*>
 <!ATTLIST ModelElementDecide
-  id		CDATA	#REQUIRED
-  protected	CDATA	#IMPLIED
+  id			CDATA	#REQUIRED
+  protected		CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementDecideMode (#PCDATA)>
 <!ELEMENT ModelElementDecideKey (#PCDATA)>
+<!ATTLIST ModelElementDecideKey
+  MultiValues	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModelElementDecideJS (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDecideScript)*>
 <!ATTLIST ModelElementDecideJS
