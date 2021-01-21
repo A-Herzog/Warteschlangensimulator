@@ -278,8 +278,22 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			if (data.calc.parse(arrival.dataFormula[i])<0) {
 				simData.runData.setClientVariableValues(newClient);
 				try {
-					final double d=data.calc.calc(simData.runData.variableValues,simData,newClient);
-					newClient.setUserData(arrival.dataIndex[i],d);
+					final double dataValue=data.calc.calc(simData.runData.variableValues,simData,newClient);
+					final int dataIndex=arrival.dataIndex[i];
+					if (dataIndex>=0) {
+						/* Normales Kundendatenfeld */
+						newClient.setUserData(dataIndex,dataValue);
+					} else {
+						/* Besonderer Wert */
+						switch (dataIndex) {
+						case -1: newClient.waitingTime=Math.round(dataValue*1000); break;
+						case -2: newClient.transferTime=Math.round(dataValue*1000); break;
+						case -3: newClient.processTime=Math.round(dataValue*1000); break;
+						case -4: newClient.waitingAdditionalCosts=dataValue; break;
+						case -5: newClient.transferAdditionalCosts=dataValue; break;
+						case -6: newClient.processAdditionalCosts=dataValue; break;
+						}
+					}
 				} catch (MathCalcError e) {
 					simData.calculationErrorStation(data.calc,this);
 				}
@@ -363,7 +377,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	private class Arrival {
 		/** Ankunftszeit in MS */
 		public final long time;
-		/** Kundendatenfelder-Indices für die Zuweisungen der Ergebnisse von {@link #dataFormula} */
+		/** Kundendatenfelder-Indices für die Zuweisungen der Ergebnisse von {@link #dataFormula} (Werte &ge;0 für Datenfelder, -1=w, -2=t, -3=p, -4=wKosten, -5=tKosten, -6=pKosten */
 		public int[] dataIndex=null;
 		/** Rechenformeln deren Ergebnisse an die Kundendatenfelder {@link #dataIndex} zugewiesen werden sollen */
 		public String[] dataFormula=null;
@@ -390,6 +404,44 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			if (pos<1 || pos>=cell.length()-1) return false;
 			final String part1=cell.substring(0,pos);
 			final String part2=cell.substring(pos+1);
+
+			final String part1Lower=part1.toLowerCase();
+
+			if (part1Lower.equals("w")) {
+				data[0]=-1;
+				data[1]=part2;
+				return true;
+			}
+
+			if (part1Lower.equals("t")) {
+				data[0]=-2;
+				data[1]=part2;
+				return true;
+			}
+
+			if (part1Lower.equals("p")) {
+				data[0]=-3;
+				data[1]=part2;
+				return true;
+			}
+
+			if (part1Lower.equals("wcosts") || part1Lower.equals("wkosten")) {
+				data[0]=-4;
+				data[1]=part2;
+				return true;
+			}
+
+			if (part1Lower.equals("tcosts") || part1Lower.equals("tkosten")) {
+				data[0]=-5;
+				data[1]=part2;
+				return true;
+			}
+
+			if (part1Lower.equals("pcosts") || part1Lower.equals("pkosten")) {
+				data[0]=-6;
+				data[1]=part2;
+				return true;
+			}
 
 			final int index=CalcSymbolClientUserData.testClientData(part1);
 			if (index>=0) {
