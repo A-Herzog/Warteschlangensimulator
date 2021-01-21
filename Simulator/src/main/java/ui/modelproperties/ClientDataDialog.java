@@ -254,7 +254,6 @@ public class ClientDataDialog extends BaseDialog {
 		return checkData(true);
 	}
 
-
 	/**
 	 * Liefert die eingestellte Farbe für den Kundentyp
 	 * @return	Eingestellte benutzerdefinierte Farbe oder <code>null</code>, wenn automatisch eine Farbe gewählt werden soll.
