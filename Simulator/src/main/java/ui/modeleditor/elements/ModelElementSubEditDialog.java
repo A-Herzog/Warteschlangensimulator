@@ -40,6 +40,7 @@ import ui.help.Help;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.tools.GlassInfo;
+import ui.tools.WindowSizeStorage;
 
 /**
  * In diesem Dialog kann ein in einem {@link ModelElementSub}-Element
@@ -64,6 +65,7 @@ public class ModelElementSubEditDialog extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse <code>ModelElementSubEditDialog</code>
 	 * @param owner	Übergeordnetes Fenster
+	 * @param id	ID des Sub-Elements, dessen Inhalt hier bearbeitet werden soll
 	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
 	 * @param mainSurface	Surface der obersten Ebene (enthält Ressourcen usw.)
 	 * @param subSurface	Zu bearbeitendes Surface
@@ -72,7 +74,7 @@ public class ModelElementSubEditDialog extends BaseDialog {
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 * @param wasTriggeredViaEditDialog	Wurde der Dialog auf dem Umweg über den Untermodell-Bearbeiten-Dialog aufgerufen? (Wenn ja, wird auf der Untermodell-Zeichenfläche ein Hinweis zum direkten Aufruf angezeigt.)
 	 */
-	public ModelElementSubEditDialog(final Component owner, final EditModel model, final ModelSurface mainSurface, final ModelSurface subSurface, final int[] edgesIn, final int[] edgesOut, final boolean readOnly, final boolean wasTriggeredViaEditDialog) {
+	public ModelElementSubEditDialog(final Component owner, final int id, final EditModel model, final ModelSurface mainSurface, final ModelSurface subSurface, final int[] edgesIn, final int[] edgesOut, final boolean readOnly, final boolean wasTriggeredViaEditDialog) {
 		super(owner,Language.tr("Surface.Sub.Dialog.Title"),readOnly);
 		JPanel content=createGUI(()->Help.topicModal(ModelElementSubEditDialog.this,"ModelElementSub"));
 		content.setBorder(null);
@@ -140,9 +142,10 @@ public class ModelElementSubEditDialog extends BaseDialog {
 		});
 
 		setSizeRespectingScreensize(1024,768);
-		setMinSizeRespectingScreensize(800,600);
 		setResizable(true);
+		setMinSizeRespectingScreensize(800,600);
 		setLocationRelativeTo(getOwner());
+		WindowSizeStorage.window(this,""+id);
 
 		if (wasTriggeredViaEditDialog) {
 			GlassInfo.info(this,Language.tr("Surface.Sub.Dialog.DirectAccessHint"),500);

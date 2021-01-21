@@ -347,7 +347,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 		if (mainAnimationPanel==null) {
 			/* Bearbeiten */
 			ModelSurface temp=subSurface.clone(false,null,null,subSurface.getParentSurface(),getModel());
-			final ModelElementSubEditDialog dialog=new ModelElementSubEditDialog(owner,getModel(),surface,subSurface,idsIn,idsOut,readOnly,wasTriggeredViaEditDialog);
+			final ModelElementSubEditDialog dialog=new ModelElementSubEditDialog(owner,getId(),getModel(),surface,subSurface,idsIn,idsOut,readOnly,wasTriggeredViaEditDialog);
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				subSurface=dialog.getSurface();
