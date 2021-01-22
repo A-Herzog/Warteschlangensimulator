@@ -142,7 +142,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE_DOUBLE_LINE);
 		timeBase=ModelSurface.TimeBase.TIMEBASE_SECONDS;
 		delayType=DelayType.DELAY_TYPE_PROCESS;
-		distributionGlobal=null;
+		distributionGlobal=new ExponentialDistribution(null,50,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 		expressionGlobal=null;
 		distributionByType=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		expressionByType=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
