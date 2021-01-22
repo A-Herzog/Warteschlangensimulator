@@ -395,6 +395,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementRectangle(null,null),Language.tr("Surface.Rectangle.Name"),GROUP_DECORATION);
 				addElement(new ModelElementEllipse(null,null),Language.tr("Surface.Ellipse.Name"),GROUP_DECORATION);
 				addElement(new ModelElementImage(null,null),Language.tr("Surface.Image.Name"),GROUP_DECORATION);
+				addElement(new ModelElementNote(null,null),Language.tr("Surface.Note.Name"),GROUP_DECORATION);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

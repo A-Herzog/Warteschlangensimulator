@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 00:40+0100\n"
+"POT-Creation-Date: 2021-01-22 12:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7455,6 +7455,12 @@ msgstr "a"
 msgid "Main.Menu.Model.Mnemonic"
 msgstr "M"
 
+msgid "Main.Menu.Model.Notes"
+msgstr "Notizen..."
+
+msgid "Main.Menu.Model.Notes.Mnemonic"
+msgstr "N"
+
 msgid "Main.Menu.Model.PluginFolder"
 msgstr "Java-Plugins-Verzeichnis auswählen..."
 
@@ -9199,6 +9205,45 @@ msgstr "Wird kein Kundentyp angegeben, so wird der bisherige Kundentyp beibehalt
 
 msgid "NewClientTypeEdit.InfoShort"
 msgstr "Kundentyp beibehalten"
+
+msgid "NotesDialog.Delete"
+msgstr "Löschen"
+
+msgid "NotesDialog.Delete.Confirm.Info"
+msgstr "Soll die gewählte Notiz wirklich gelöscht werden?"
+
+msgid "NotesDialog.Delete.Confirm.InfoNo"
+msgstr "Notiz beibehalten."
+
+msgid "NotesDialog.Delete.Confirm.InfoYes"
+msgstr "Notiz löschen."
+
+msgid "NotesDialog.Delete.Confirm.Title"
+msgstr "Notiz löschen"
+
+msgid "NotesDialog.Delete.Hint"
+msgstr "Löscht die gewählte Notiz."
+
+msgid "NotesDialog.Edit"
+msgstr "Bearbeiten"
+
+msgid "NotesDialog.Edit.Hint"
+msgstr "Bearbeitet die gewählte Notiz."
+
+msgid "NotesDialog.NoNotes.ErrorInfo"
+msgstr "In dem aktuellen Modell sind keine Notizen vorhanden."
+
+msgid "NotesDialog.NoNotes.ErrorTitle"
+msgstr "Keine Notizen im Modell"
+
+msgid "NotesDialog.Status.Main"
+msgstr "Die Notiz befindet sich auf der <b>Hauptzeichenfläche</b>."
+
+msgid "NotesDialog.Status.Sub"
+msgstr "Die Notiz befindet sich in <b>Untermodell id=%d</b>."
+
+msgid "NotesDialog.Title"
+msgstr "Notizen bearbeiten"
 
 msgid "Notifier.Message.OptimizationDone"
 msgstr "Die Optimierung wurde abgeschlossen."
@@ -22561,6 +22606,33 @@ msgstr "den folgenden Schwellenwert unterschreitet:"
 
 msgid "Surface.MultiSourceTable.Info.NextThreshold.Up"
 msgstr "den folgenden Schwellenwert überschreitet:"
+
+msgid "Surface.Note.Dialog.Icon"
+msgstr "Icon auf Zeichenfläche"
+
+msgid "Surface.Note.Dialog.Note"
+msgstr "Notiz"
+
+msgid "Surface.Note.Dialog.Title"
+msgstr "Notiz bearbeiten"
+
+msgid "Surface.Note.Infotext"
+msgstr "Notizen besitzen keine Bedeutung für Simulation oder Animation. Notizen dienen nur dem Nutzer, um wichtige Anmerkungen zu dem Modell festzuhalten."
+
+msgid "Surface.Note.Name"
+msgstr "Notiz"
+
+msgid "Surface.Note.Tooltip"
+msgstr "Notiz"
+
+msgid "Surface.Note.XML.Icon"
+msgstr "ModellElementIconName"
+
+msgid "Surface.Note.XML.Root"
+msgstr "ModellElementNotiz"
+
+msgid "Surface.Note.XML.Text"
+msgstr "ModellElementTextzeile"
 
 msgid "Surface.Output.Dialog.FileName"
 msgstr "Dateiname"

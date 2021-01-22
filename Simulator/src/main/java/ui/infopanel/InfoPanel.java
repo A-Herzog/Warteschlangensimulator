@@ -486,6 +486,9 @@ public class InfoPanel {
 	/** Info-ID für den "Bild"-Bearbeiten-Dialog (Gruppe "Optische Gestaltung") */
 	public static final String stationImage=groupElement+"Image";
 
+	/** Info-ID für den "Notiz"-Bearbeiten-Dialog (Gruppe "Optische Gestaltung") */
+	public static final String stationNote=groupElement+"Note";
+
 	/** Liste der Hinweisdatensätze */
 	private final List<Item> items;
 
@@ -1105,6 +1108,10 @@ public class InfoPanel {
 		register(stationImage,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DECORATION+"|"+Language.tr("Surface.Image.Name"),
 				()->Language.tr("Surface.Image.Infotext"));
+
+		register(stationNote,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DECORATION+"|"+Language.tr("Surface.Note.Name"),
+				()->Language.tr("Surface.Note.Infotext"));
 	}
 
 	/**

@@ -50,8 +50,10 @@ und optional für Kundendaten angegeben werden. Des weiteren muss angegeben werd
 welche Kundentypen in der Tabelle berücksichtigt werden sollen.
 
 Bei der Kundendaten-Spalte handelt es sich um eine Tabellenspalte die Ausdrücke
-der Form ,,\texttt{ClientData(1)=5}'' oder ,,\texttt{ClientData('Schlüssel')=Textwert}"
-enthält. Es können auch mehrere Kundendatenfelder gesetzt werden.
+der Form ,,\texttt{ClientData(1)=Formel}'', ,,\texttt{ClientData('Schlüssel')=Textwert}"
+oder \texttt{w=Formel} enthält. (Statt \texttt{w} stehen auch \texttt{t}, \texttt{p},
+\texttt{wCosts}, \texttt{tCosts} und \texttt{pCosts} zur Verfügung.)
+Es können auch mehrere Kundendatenfelder gesetzt werden.
 Die Ausdrücke müssen dann innerhalb der Zelle durch \textbf{Tabulatoren} getrennt werden. 
 
 
@@ -85,8 +87,9 @@ der Ankünfte der Kunden untereinander ebenfalls gemessen in Sekunden. Die zweit
 enthält zu jedem Ankunftszeitpunkt den Namen des Kundentyps des Kunden, der an dem
 angegebenen Zeitpunkt eintreffen soll. Zeilen, bei denen der angegebene Kundentyp
 nicht in der im Element eingestellten Liste der Kundentypnamen enthalten ist, werden ignoriert.
-Alle weiteren Spalten enthalten optional Ausdrücke der Form \texttt{ClientData(nr)=Formel}
-oder \texttt{ClientData('Schlüssel')=Textwert}.
+Alle weiteren Spalten enthalten optional Ausdrücke der Form \texttt{ClientData(nr)=Formel},
+\texttt{ClientData('Schlüssel')=Textwert}, \texttt{w=Formel}, \texttt{t=Formel},
+\texttt{p=Formel}, \texttt{wCosts=Formel}, \texttt{tCosts=Formel} oder\texttt{pCosts=Formel}.
 Auf diese Weise können in den neu erstellten Kundenobjekten direkt kundenspezifische Daten
 hinterlegt werden.
 
@@ -254,8 +257,9 @@ der Ankünfte der Kunden untereinander ebenfalls gemessen in Sekunden. Die zweit
 enthält zu jedem Ankunftszeitpunkt den Namen des Kundentyps des Kunden, der an dem
 angegebenen Zeitpunkt eintreffen soll. Zeilen, bei denen der angegebene Kundentyp
 nicht in der im Element eingestellten Liste der Kundentypnamen enthalten ist, werden ignoriert.
-Alle weiteren Spalten enthalten optional Ausdrücke der Form \texttt{ClientData(nr)=Formel}
-oder \texttt{ClientData('Schlüssel')=Textwert}.
+Alle weiteren Spalten enthalten optional Ausdrücke der Form \texttt{ClientData(nr)=Formel},
+\texttt{ClientData('Schlüssel')=Textwert}, \texttt{w=Formel}, \texttt{t=Formel},
+\texttt{p=Formel}, \texttt{wCosts=Formel}, \texttt{tCosts=Formel} oder\texttt{pCosts=Formel}.
 Auf diese Weise können in den neu erstellten Kundenobjekten direkt kundenspezifische Daten
 hinterlegt werden. 
 
@@ -2656,6 +2660,28 @@ des Modells und besitzen keine Bedeutung für die Simulation.
 \subsection*{Einstellungen}
 
 Der Name des Linie-Elements besitzt keine weitere Bedeutung.
+
+
+\section{Notiz}
+\label{ref:ModelElementNote}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementNote.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Notizen besitzen keine Bedeutung für Simulation oder Animation.
+Notizen dienen nur dem Nutzer, um wichtige Anmerkungen zu dem Modell festzuhalten.
+
+Eine Übersicht über alle im Modell vorhandenen Notizen kann über
+den Menüpunkt Notizen (siehe Seite \pageref{ref:Notes}) im Modell-Menü
+aufgerufen werden.
+
+\subsection*{Einstellungen}
+
+Neben dem Text selbst kann festgelegt werden, durch welches Icon die
+Notiz auf der Zeichenfläche dargestellt werden soll.
 
 
 \section{Rechteck}

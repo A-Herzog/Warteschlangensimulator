@@ -447,6 +447,7 @@
   <xs:element ref="ModellElementKasten"/>
   <xs:element ref="ModellElementEllipse"/>
   <xs:element ref="ModellElementBild"/>
+  <xs:element ref="ModellElementNotiz"/>
   <xs:element ref="ModellElementQuelle"/>
   <xs:element ref="ModellElementMehrfachQuelle"/>
   <xs:element ref="ModellElementTabellenQuelle"/>
@@ -650,6 +651,13 @@
     <xs:attribute name="Ausdruck" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementNotiz"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementTextzeile" type="xs:string"/>
+	<xs:element name="ModellElementIconName" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementQuelle"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -2507,6 +2515,7 @@
   <xs:element ref="ModelElementRectangle"/>
   <xs:element ref="ModelElementEllipse"/>
   <xs:element ref="ModelElementImage"/>
+  <xs:element ref="ModelElementNote"/>
   <xs:element ref="ModelElementSource"/>
   <xs:element ref="ModelElementMultiSource"/>
   <xs:element ref="ModelElementTableSource"/>
@@ -2710,6 +2719,13 @@
     <xs:attribute name="Expression" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementNote"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementTextLine" type="xs:string"/>
+	<xs:element name="ModelElementIconName" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementSource"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

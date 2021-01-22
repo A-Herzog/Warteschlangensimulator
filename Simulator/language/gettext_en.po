@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 00:40+0100\n"
+"POT-Creation-Date: 2021-01-22 12:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7465,6 +7465,12 @@ msgstr "U"
 msgid "Main.Menu.Model.Mnemonic"
 msgstr "M"
 
+msgid "Main.Menu.Model.Notes"
+msgstr "Notes..."
+
+msgid "Main.Menu.Model.Notes.Mnemonic"
+msgstr "N"
+
 msgid "Main.Menu.Model.PluginFolder"
 msgstr "Select Java plugins folder..."
 
@@ -9209,6 +9215,45 @@ msgstr "If no client type is specified, the current client type will be  maintai
 
 msgid "NewClientTypeEdit.InfoShort"
 msgstr "Keep current type"
+
+msgid "NotesDialog.Delete"
+msgstr "Delete"
+
+msgid "NotesDialog.Delete.Confirm.Info"
+msgstr "Do you really want to delete the current note?"
+
+msgid "NotesDialog.Delete.Confirm.InfoNo"
+msgstr "Keep note."
+
+msgid "NotesDialog.Delete.Confirm.InfoYes"
+msgstr "Delete note."
+
+msgid "NotesDialog.Delete.Confirm.Title"
+msgstr "Delete note"
+
+msgid "NotesDialog.Delete.Hint"
+msgstr "Deletes the selected note."
+
+msgid "NotesDialog.Edit"
+msgstr "Edit"
+
+msgid "NotesDialog.Edit.Hint"
+msgstr "Edits the selected note."
+
+msgid "NotesDialog.NoNotes.ErrorInfo"
+msgstr "The current model does not contain notes."
+
+msgid "NotesDialog.NoNotes.ErrorTitle"
+msgstr "No notes in model"
+
+msgid "NotesDialog.Status.Main"
+msgstr "The note is on the <b>main surface</b>."
+
+msgid "NotesDialog.Status.Sub"
+msgstr "The note is in <b>sub model id=%d</b>."
+
+msgid "NotesDialog.Title"
+msgstr "Edit notes"
 
 msgid "Notifier.Message.OptimizationDone"
 msgstr "Optimization is completed."
@@ -22553,6 +22598,33 @@ msgstr "falls below threshold value"
 
 msgid "Surface.MultiSourceTable.Info.NextThreshold.Up"
 msgstr "exceeds threshold value"
+
+msgid "Surface.Note.Dialog.Icon"
+msgstr "Icon on drawing surface"
+
+msgid "Surface.Note.Dialog.Note"
+msgstr "Note"
+
+msgid "Surface.Note.Dialog.Title"
+msgstr "Edit note"
+
+msgid "Surface.Note.Infotext"
+msgstr "Notes have no meaning for simulation or animation. Notes are only used for the user to record important comments about the model."
+
+msgid "Surface.Note.Name"
+msgstr "note"
+
+msgid "Surface.Note.Tooltip"
+msgstr "note"
+
+msgid "Surface.Note.XML.Icon"
+msgstr "ModelElementIconName"
+
+msgid "Surface.Note.XML.Root"
+msgstr "ModelElementNote"
+
+msgid "Surface.Note.XML.Text"
+msgstr "ModelElementTextLine"
 
 msgid "Surface.Output.Dialog.FileName"
 msgstr "File name"

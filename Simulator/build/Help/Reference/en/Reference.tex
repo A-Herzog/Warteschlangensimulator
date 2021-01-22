@@ -29,7 +29,9 @@ which are to be respected when loading the database table have to
 be specified.
 
 The client data column has to contain expressions of the form 
-"\texttt{ClientData(1)=5}" or "\texttt{ClientData('key')=TextValue}".
+"\texttt{ClientData(1)=5}", "\texttt{ClientData('key')=TextValue}"
+or \texttt{w=Formula}. (Instead of \texttt{w} also \texttt{t}, \texttt{p},
+\texttt{wCosts}, \texttt{tCosts} and \texttt{pCosts} are available.)
 If multiple assignments are to be made for an arriving client
 the expressions can be split by \textbf{tabs} in the cell.
 
@@ -65,7 +67,9 @@ In the second column the client type names of clients which arrive at the times
 noted in the first column are defined. Rows containing a client type which is
 not in the client types list in the table source element are ignored.
 All optional further columns have to contain expressions of the form
-\texttt{ClientData(nr)=Formula} or \texttt{ClientData('key')=TextValue}.
+\texttt{ClientData(nr)=Formula}, \texttt{ClientData('key')=TextValue},
+\texttt{w=Formula}, \texttt{t=Formula}, \texttt{p=Formula},
+\texttt{wCosts=Formula}, \texttt{tCosts=Formula} or \texttt{pCosts=Formula}.
 Using these expression new client objects can get client-specific data directly.
 
 
@@ -249,7 +253,9 @@ In the second column the client type names of clients which arrive at the times
 noted in the first column are defined. Rows containing a client type which is
 not in the client types list in the table source element are ignored.
 All optional further columns have to contain expressions of the form
-\texttt{ClientData(nr)=Formula} or \texttt{ClientData('key')=TextValue}.
+\texttt{ClientData(nr)=Formula}, \texttt{ClientData('key')=TextValue},
+\texttt{w=Formula}, \texttt{t=Formula}, \texttt{p=Formula},
+\texttt{wCosts=Formula}, \texttt{tCosts=Formula} or \texttt{pCosts=Formula}.
 Using these expression new client objects can get client-specific data directly.
 
 
@@ -2618,6 +2624,27 @@ are only used for the optical design of the model and have no significance for t
 \subsection*{Settings}
 
 The name of the line element has no further meaning.
+
+
+\section{note}
+\label{ref:ModelElementNote}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementNote.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Notes have no meaning for simulation or animation.
+Notes are only used for the user to record important comments about the model.
+
+An overview of all notes available in the model can be accessed via
+the Notes (see page \pageref{ref:Notes}) menu item in the model menu.
+
+\subsection*{Settings}
+
+In addition to the text itself, the icon which is used for displaying
+the note on the drawing surface can be selected.
 
 
 \section{Rectangle}

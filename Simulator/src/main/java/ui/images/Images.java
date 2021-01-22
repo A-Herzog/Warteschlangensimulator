@@ -353,6 +353,9 @@ public enum Images {
 	/** Symbol "Modell - Beschreibung" */
 	MODEL_DESCRIPTION("page_gear.png"),
 
+	/** Symbol "Modell - Notizen" */
+	MODEL_NOTES("note.png"),
+
 	/** Symbol "Modell - Vergleich mit analytischem Nodell" */
 	MODEL_ANALYTIC_COMPARE("fx.png"),
 

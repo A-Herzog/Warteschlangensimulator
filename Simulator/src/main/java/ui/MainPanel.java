@@ -123,6 +123,7 @@ import ui.dialogs.LogSetupDialog;
 import ui.dialogs.ModelAnalyticInfoDialog;
 import ui.dialogs.ModelDescriptionDialog;
 import ui.dialogs.ModelLoadDataWarningsDialog;
+import ui.dialogs.NotesDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
@@ -599,6 +600,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ModelPluginFolder",e->commandModelPluginFolder());
 		addAction("ModelListElements",e->commandModelListElements());
 		addAction("ModelModelDescription",e->commandModelDescription());
+		addAction("ModelModelNotes",e->commandModelNotes());
 		addAction("ModelAnalyticModelCompare",e->commandModelAnalyticCompare());
 		addAction("ModelCompareKeep",e->commandModelCompareTwoInit());
 		addAction("ModelCompareKept",e->commandModelCompareTwoRun(0));
@@ -1085,6 +1087,7 @@ public class MainPanel extends MainPanelBase {
 		menu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.ListElements"),Images.MODEL_LIST_ELEMENTS.getIcon(),Language.tr("Main.Menu.View.ListElements.Mnemonic"),"ModelListElements"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.ModelDescription"),Images.MODEL_DESCRIPTION.getIcon(),Language.tr("Main.Menu.View.ModelDescription.Mnemonic"),"ModelModelDescription"));
+		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.Model.Notes"),Images.MODEL_NOTES.getIcon(),Language.tr("Main.Menu.Model.Notes.Mnemonic"),"ModelModelNotes"));
 		enabledOnEditorPanel.add(createMenuItem(menu,Language.tr("Main.Menu.View.ModelAnalyticModelCompare"),Images.MODEL_ANALYTIC_COMPARE.getIcon(),Language.tr("Main.Menu.View.ModelAnalyticModelCompare.Mnemonic"),"ModelAnalyticModelCompare"));
 
 		menu.addSeparator();
@@ -2161,6 +2164,27 @@ public class MainPanel extends MainPanelBase {
 	private void commandModelDescription() {
 		final ModelDescriptionDialog dialog=new ModelDescriptionDialog(this,editorPanel.getModel());
 		dialog.setVisible(true);
+	}
+
+	/**
+	 * Befehl: Modell - Notizen
+	 */
+	private void commandModelNotes() {
+		final EditModel model=editorPanel.getModel();
+		final EditModel modelOriginal=model.clone();
+
+		if (NotesDialog.getNotes(model).size()==0) {
+			MsgBox.error(this,Language.tr("NotesDialog.NoNotes.ErrorTitle"),Language.tr("NotesDialog.NoNotes.ErrorInfo"));
+			return;
+		}
+		final NotesDialog dialog=new NotesDialog(this,model);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			final File file=editorPanel.getLastFile();
+			editorPanel.setModel(model);
+			editorPanel.setLastFile(file);
+			editorPanel.setModelChanged(!model.equalsEditModel(modelOriginal));
+			return;
+		}
 	}
 
 	/**
