@@ -120,11 +120,25 @@ If no parameters are specified, the simulator will ask for the port via the cons
 The server will limit the number of simultaneous requests depending on the\\
 number of available CPU cores.
 
+\section{\texttt{ServerMQTT}}
+
+\textbf{Starts the program as MQTT-based simulation server.}
+
+This command expects two or three additional parameter:\\
+the address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by "`:"`.
+
+\section{\texttt{ServerMQTTTest}}
+
+\textbf{Starts the program as MQTT-based echo test server.}
+
+This command expects two or three additional parameter:\\
+the address of the MQTT broker, the MQTT topic and optionally the user name and the password separated by "`:"`.
+
 \section{\texttt{ServerWeb}}
 
 \textbf{Starts the program as web-based simulation server.}
 
-This command expects one or tow additional parameter:\\
+This command expects one or two additional parameter:\\
 the port to be used and optionally the user name and the password separated by "`:"`.
 
 \section{\texttt{ServerWebFixed}}
