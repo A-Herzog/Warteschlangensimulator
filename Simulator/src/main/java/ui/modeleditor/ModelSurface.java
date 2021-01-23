@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.apache.commons.math3.util.FastMath;
@@ -1075,19 +1077,14 @@ public final class ModelSurface {
 			}
 		}
 
-		final List<String> clientTypes=new ArrayList<>();
+		final Set<String> clientTypes=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+
 		for (ModelElement element : elements) {
 			String[] names=null;
-
 			if (element instanceof ElementWithNewClientNames) names=((ElementWithNewClientNames)element).getNewClientTypes();
-
-			if (names!=null) for (String name: names) if (name!=null && !name.isEmpty()) {
-				boolean isNew=true;
-				for (String s : clientTypes) if (s.equalsIgnoreCase(name)) {isNew=false; break;}
-				if (isNew) clientTypes.add(name);
-			}
+			if (names!=null) for (String name: names) if (name!=null && !name.isEmpty()) clientTypes.add(name);
 		}
-		return clientTypes;
+		return new ArrayList<>(clientTypes);
 	}
 
 	/**
