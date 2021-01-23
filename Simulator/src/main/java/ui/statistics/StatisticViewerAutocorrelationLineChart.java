@@ -56,6 +56,9 @@ public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLine
 	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
+	/** Maximalanzahl an anzuzeigenden Datenreihen */
+	private static final int MAX_SERIES=100;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param statistics	Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen
@@ -80,7 +83,7 @@ public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLine
 		final XYSeries series=addSeries(name,color);
 
 		final double[] data=indicator.getCorrelationData();
-		for (int i=0;i<data.length;i++) {
+		for (int i=0;i<Math.min(data.length,MAX_SERIES);i++) {
 			series.add(i*StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING,Math.abs(data[i]),false);
 		}
 		series.fireSeriesChanged();

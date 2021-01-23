@@ -43,6 +43,9 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
+	/** Maximalanzahl an anzuzeigenden Balken */
+	private static final int MAX_BARS=100;
+
 	/**
 	 * Wählt die von {@link StatisticViewerTimeBarChart} auszugebende Information aus.
 	 * @author Alexander Herzog
@@ -154,15 +157,16 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		final String[] names=indicator.getNames();
 		final StatisticsDataPerformanceIndicator[] indicators=indicator.getAll(StatisticsDataPerformanceIndicator.class);
 
-		for (int i=0;i<names.length;i++) {
+		data.setNotify(false);
+		for (int i=0;i<Math.min(names.length,MAX_BARS);i++) {
 			Color color=null;
 			String name=names[i];
 			if (processStationNames) name=processStationName(name);
 			if (colorMap!=null) color=colorMap.get(name);
 			if (color==null) color=COLORS[i%COLORS.length];
+			if (i==names.length-1) data.setNotify(true);
 			data.addValue(indicators[i].getMean(),names[i],names[i]);
-			plot.getRendererForDataset(data).setSeriesPaint(i,color);
-
+			plot.getRendererForDataset(data).setSeriesPaint(i,color,i==name.length()-1);
 		}
 
 		initTooltips();
@@ -184,7 +188,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 
 		final String[] names=indicatorProcessing.getNames();
 
-		for (int i=0;i<names.length;i++) {
+		data.setNotify(false);
+		for (int i=0;i<Math.min(names.length,MAX_BARS);i++) {
 			Color color=null;
 			String name=names[i];
 			final StatisticsDataPerformanceIndicator indicator1=(StatisticsDataPerformanceIndicator)indicatorProcessing.get(name);
@@ -196,8 +201,9 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			final double time1=indicator1.getMean();
 			final double time2=indicator2.getMean();
 			if (time1>0) {
+				if (i==names.length-1) data.setNotify(true);
 				data.addValue(time2/time1,names[i],names[i]);
-				plot.getRendererForDataset(data).setSeriesPaint(i,color);
+				plot.getRendererForDataset(data).setSeriesPaint(i,color,i==name.length()-1);
 			}
 		}
 

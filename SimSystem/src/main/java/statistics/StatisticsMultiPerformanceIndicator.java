@@ -43,11 +43,13 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	 * Vorlagen-Objekt von dem konkrete Statistik-Objekte als Kopie abgeleitet werden
 	 */
 	private final StatisticsPerformanceIndicator template;
+
 	/**
 	 * Zuordnung von Namen zu Teilindikatoren (Namen werden ohne Berücksichtigung von Groß- und Kleinschreibung erfasst)
 	 * @see #get(String)
 	 */
 	private Map<String,StatisticsPerformanceIndicator> indicators;
+
 	/**
 	 * Zuordnung von Namen zu Teilindikatoren (Namen werden <em>mit</em> Berücksichtigung von Groß- und Kleinschreibung erfasst)<br>
 	 * Erst wird in dieser Zuordnung nach einem Namen gesucht. Wenn er hier nicht gefunden wurde (z.B. wegen abweichender Groß-/Kleinschreibung)
@@ -55,6 +57,12 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	 * @see #get(String)
 	 */
 	private Map<String,StatisticsPerformanceIndicator> cache;
+
+	/**
+	 * Zuordnung von Teilindikatoren zu Namen.
+	 * @see #getName(StatisticsPerformanceIndicator)
+	 */
+	private Map<StatisticsPerformanceIndicator,String> cacheName;
 
 	/**
 	 * Liste der Namen der untergeordneten Statistik-Elemente.<br>
@@ -81,6 +89,7 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	public void reset() {
 		indicators=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		cache=new HashMap<>();
+		cacheName=new HashMap<>();
 		namesList=null;
 	}
 
@@ -109,6 +118,8 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	private void addIndicator(final String name, final StatisticsPerformanceIndicator indicator) {
 		indicators.put(name,indicator);
 		indicator.setGroup(this);
+		cache.put(name,indicator);
+		cacheName.put(indicator,name);
 	}
 
 	/**
@@ -124,7 +135,6 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 			if (indicator==null) return null;
 			addIndicator(name,indicator);
 			namesList=null;
-			cache.put(name,indicator);
 		}
 		return indicator;
 	}
@@ -139,7 +149,10 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 		StatisticsPerformanceIndicator indicator=cache.get(name);
 		if (indicator==null) {
 			indicator=indicators.get(name);
-			if (indicator!=null) cache.put(name,indicator);
+			if (indicator!=null) {
+				cache.put(name,indicator);
+				cacheName.put(indicator,name);
+			}
 		}
 		return indicator;
 	}
@@ -150,7 +163,7 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	 * @return	Liefert <code>true</code> wenn das Teil-Objekt in diesem Statistikobjekt enthalten ist
 	 */
 	public boolean contains(final StatisticsPerformanceIndicator indicator) {
-		return indicators.containsValue(indicator);
+		return cacheName.containsKey(indicator);
 	}
 
 	/**
@@ -187,8 +200,7 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	 */
 	public String getName(final StatisticsPerformanceIndicator indicator) {
 		if (indicator==null) return null;
-		for (Map.Entry<String,StatisticsPerformanceIndicator> entry: indicators.entrySet()) if (entry.getValue()==indicator) return entry.getKey();
-		return null;
+		return cacheName.get(indicator);
 	}
 
 	/**

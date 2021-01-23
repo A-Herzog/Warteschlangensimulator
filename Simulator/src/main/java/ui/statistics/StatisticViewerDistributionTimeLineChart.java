@@ -48,6 +48,9 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
 
+	/** Maximalanzahl an anzuzeigenden Datenreihen */
+	private static final int MAX_SERIES=100;
+
 	/**
 	 * Wählt die von {@link StatisticViewerDistributionTimeLineChart} auszugebende Information aus.
 	 * @author Alexander Herzog
@@ -163,7 +166,7 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		final String[] names=indicator.getNames();
 		final StatisticsDataPerformanceIndicator[] indicators=indicator.getAll(StatisticsDataPerformanceIndicator.class);
 
-		for (int i=0;i<names.length;i++) {
+		for (int i=0;i<Math.min(names.length,MAX_SERIES);i++) {
 			Color color=null;
 			if (colorMap!=null) color=colorMap.get(names[i]);
 			if (color==null) color=COLORS[i%COLORS.length];
@@ -189,7 +192,7 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		final String[] names=indicator.getNames();
 		final StatisticsDataPerformanceIndicator[] indicators=indicator.getAll(StatisticsDataPerformanceIndicator.class);
 
-		for (int i=0;i<names.length;i++) {
+		for (int i=0;i<Math.min(names.length,MAX_SERIES);i++) {
 			Color color=null;
 			if (colorMap!=null) color=colorMap.get(names[i]);
 			if (color==null) color=COLORS[i%COLORS.length];
@@ -237,7 +240,7 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		}
 
 		int colorIndex=0;
-		for (int i=0;i<names.length;i++) {
+		for (int i=0;i<Math.min(names.length,MAX_SERIES);i++) {
 			Color color=null;
 			if (colorMap!=null) color=colorMap.get(names[i]);
 			if (color==null) color=COLORS[colorIndex%COLORS.length];
@@ -280,7 +283,7 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		final String[] names=indicator.getNames();
 		final StatisticsLongRunPerformanceIndicator[] indicators=indicator.getAll(StatisticsLongRunPerformanceIndicator.class);
 
-		for (int i=0;i<names.length;i++) {
+		for (int i=0;i<Math.min(names.length,MAX_SERIES);i++) {
 			Color color=COLORS[i%COLORS.length];
 			final DataDistributionImpl dist=indicators[i].getDistribution();
 			addSeries(names[i],color,dist);

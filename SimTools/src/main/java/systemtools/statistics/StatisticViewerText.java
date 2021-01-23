@@ -35,6 +35,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,21 +57,21 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AbstractDocument.LeafElement;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Element;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
-import javax.swing.text.StyledDocument;
 
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.odftoolkit.simple.TextDocument;
-import org.odftoolkit.simple.style.Font;
 import org.odftoolkit.simple.style.StyleTypeDefinitions;
 import org.odftoolkit.simple.text.Paragraph;
 
@@ -199,9 +200,14 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
 
 		/* Styles zusammenstellen */
-		final StyledDocument doc=textPane.getStyledDocument();
+
+		final Style oldDefaultStyle=textPane.getStyle("default");
+		final String defaultFontFamily=StyleConstants.getFontFamily(oldDefaultStyle);
+
+		final FastDefaultStyledDocument doc=new FastDefaultStyledDocument(); /* Neues Dokument erstellen; bisheriges in textPane löst bei jeder Texteinfügung ein Event aus */
 
 		final Style defaultStyle=StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+		StyleConstants.setFontFamily(defaultStyle,defaultFontFamily);
 		Style style;
 
 		style=doc.addStyle("default",defaultStyle);
@@ -224,6 +230,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		StyleConstants.setForeground(style,Color.BLUE);
 
 		/* Text einfügen */
+
 		final int size=lines.size();
 		final Style defaultStyle2=doc.getStyle("default");
 		for (int i=0;i<size;i++) {
@@ -237,7 +244,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			}
 			if (type==-2) {
 				/* Absatzende */
-				try {doc.insertString(doc.getLength(),"\n",defaultStyle2);} catch (BadLocationException e) {}
+				doc.addText(defaultStyle2,"\n");
 				continue;
 			}
 			if (type==0) {
@@ -245,30 +252,30 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				if (hint!=null && !hint.trim().isEmpty()) {
 					final SimpleAttributeSet attrSet=new SimpleAttributeSet(defaultStyle2);
 					attrSet.addAttribute("Hint",hint);
-					try {doc.insertString(doc.getLength(),line+"\n",attrSet);} catch (BadLocationException e) {}
+					doc.addText(attrSet,line+"\n");
 				} else {
-					try {doc.insertString(doc.getLength(),line+"\n",defaultStyle2);} catch (BadLocationException e) {}
+					doc.addText(defaultStyle2,line+"\n");
 				}
 				continue;
 			}
 			if (type==-3) {
 				/* Link */
-				try {
-					final SimpleAttributeSet attrSet=new SimpleAttributeSet(doc.getStyle("link"));
-					if (hint!=null && !hint.trim().isEmpty()) attrSet.addAttribute("URL",hint);
-					doc.insertString(doc.getLength(),line+"\n",attrSet);
-				} catch (BadLocationException e) {}
+				final SimpleAttributeSet attrSet=new SimpleAttributeSet(doc.getStyle("link"));
+				if (hint!=null && !hint.trim().isEmpty()) attrSet.addAttribute("URL",hint);
+				doc.addText(attrSet,line+"\n");
 				continue;
 			}
 			if (type>0) {
 				/* Überschriften */
-				try {
-					if (i>0 && lineTypes.get(i-1)!=-2) doc.insertString(doc.getLength(),"\n",defaultStyle2);
-					doc.insertString(doc.getLength(),line+"\n",doc.getStyle("h"+type));
-				} catch (BadLocationException e) {}
+				if (i>0 && lineTypes.get(i-1)!=-2) doc.addText(defaultStyle2,"\n");
+				doc.addText(doc.getStyle("h"+type),line+"\n");
 				continue;
 			}
 		}
+
+		doc.finalizeText();
+
+		textPane.setStyledDocument(doc); /* Neues Dokument setzen */
 
 		textPane.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -806,7 +813,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 				case 1: fs=18; break;
 				case 2: fs=15; break;
 				}
-				p.setFont(new Font("Arial",StyleTypeDefinitions.FontStyle.BOLD,fs));
+				p.setFont(new org.odftoolkit.simple.style.Font("Arial",StyleTypeDefinitions.FontStyle.BOLD,fs));
 				p.appendTextContent(line);
 				p=null;
 				continue;
@@ -1615,5 +1622,68 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 		final List<Integer> hits=getCaretPositions(search);
 		processSearchResults(owner,search,hits);
+	}
+
+	/**
+	 * Dokument für die Anzeige in {@link StatisticViewerText#textPane}
+	 * @see StatisticViewerText#textPane
+	 */
+	private class FastDefaultStyledDocument extends DefaultStyledDocument {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=1626728203320204205L;
+
+		/**
+		 * Liste der anzuzeigenden Einzelelemente
+		 */
+		private List<ElementSpec> buffer;
+
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public FastDefaultStyledDocument() {
+			buffer=new ArrayList<>();
+		}
+
+		/**
+		 * Standard-Element zur Darstellung eines Abschnitts-Endes
+		 * @see #addText(AttributeSet, String)
+		 */
+		private final ElementSpec endTag=new ElementSpec(null,ElementSpec.EndTagType);
+
+		/**
+		 * Standard-Element zur Darstellung eines Abschnitts-Beginns
+		 * @see #addText(AttributeSet, String)
+		 */
+		private final ElementSpec startTag=new ElementSpec(null,ElementSpec.StartTagType);
+
+		/**
+		 * Fügt ein neues Ausgabeelement zu der Liste der auszugebenden Elemente hinzu.
+		 * @param attr	Formatierungsattribute
+		 * @param text	Auszugebender Text
+		 * @see #finalizeText()
+		 */
+		public void addText(final AttributeSet attr, final String text)  {
+			buffer.add(endTag);
+			buffer.add(startTag);
+			buffer.add(new ElementSpec(attr,ElementSpec.ContentType,text.toCharArray(),0,text.length()));
+		}
+
+		/**
+		 * Überträgt die in {@link #addText(AttributeSet, String)} gesammelten Elemente
+		 * in das Dokument.
+		 * @return	Liefert <code>true</code>, wenn die Elemente erfolgreich in das Dokument übertragen werden konnten
+		 * @see #addText(AttributeSet, String)
+		 */
+		public boolean finalizeText() {
+			try {
+				insert(getLength(),buffer.toArray(new ElementSpec[0]));
+			} catch (BadLocationException e) {
+				return false;
+			}
+			return true;
+		}
 	}
 }
