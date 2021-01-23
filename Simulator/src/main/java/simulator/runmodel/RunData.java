@@ -388,7 +388,7 @@ public class RunData {
 
 		timedCheckStations.clear();
 
-		/* State Change direkt zu Beginn auslösen, damit sich Elemente, die dies zum Verzögerten Init benötigen direkt am Anfang initalisieren können. */
+		/* State Change direkt zu Beginn auslösen, damit sich Elemente, die dies zum verzögerten Init benötigen direkt am Anfang initialisieren können. */
 		fireStateChangeNotify(simData);
 
 		if (recordIncompleteClients) clients.requestFastClientsInUseList();
