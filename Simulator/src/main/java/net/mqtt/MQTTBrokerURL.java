@@ -36,6 +36,19 @@ public class MQTTBrokerURL {
 	public static final int MQTT_DEFAULT_SECURED_PORT=8883;
 
 	/**
+	 * Soll die Verbindung verschlüsselt erfolgen?
+	 * @see MQTTBrokerURL#secured
+	 */
+	public enum SecurityMode {
+		/** Unverschlüsselte Verbindung */
+		OFF,
+		/** Verschlüsselte Verbindung, keine Überprüfung des TLS-Zertifikats */
+		ON_NO_VALIDATION,
+		/** Verschlüsselte Verbindung, <em>mit</em> Überprüfung des TLS-Zertifikats */
+		ON_WITH_VALIDATION
+	}
+
+	/**
 	 * Netzwerkname des MQTT-Brokers
 	 */
 	final String broker;
@@ -48,7 +61,7 @@ public class MQTTBrokerURL {
 	/**
 	 * Soll die Verbindung verschlüsselt erfolgen?
 	 */
-	final boolean secured;
+	final SecurityMode secured;
 
 	/**
 	 * Konstruktor der Klasse
@@ -56,7 +69,7 @@ public class MQTTBrokerURL {
 	 * @param port	Port auf dem Broker (Werte &le;0 bedeuten, dass der Port automatisch bestimmt wird)
 	 * @param secured	Soll die Verbindung verschlüsselt erfolgen?
 	 */
-	public MQTTBrokerURL(final String broker, final int port, final boolean secured) {
+	public MQTTBrokerURL(final String broker, final int port, final SecurityMode secured) {
 		this.broker=broker;
 		this.port=port;
 		this.secured=secured;
@@ -67,7 +80,7 @@ public class MQTTBrokerURL {
 	 * @param broker	Netzwerkname des MQTT-Brokers
 	 * @param secured	Soll die Verbindung verschlüsselt erfolgen?
 	 */
-	public MQTTBrokerURL(final String broker, final boolean secured) {
+	public MQTTBrokerURL(final String broker, final SecurityMode secured) {
 		this.broker=broker;
 		port=-1;
 		this.secured=secured;
@@ -76,17 +89,20 @@ public class MQTTBrokerURL {
 	/**
 	 * Versucht eine Zeichenkette als Protokoll, Netzwerkname und optional Port zu parsen
 	 * @param mqttURL	Zu parsende Zeichenkette
+	 * @param verifyTLS	Sollen mögliche TLS-Zertifikate verifiziert werden?
 	 * @return	Liefert im Erfolgsfall ein {@link MQTTBrokerURL}-Objekt, sonst <code>null</code>
 	 */
-	public static MQTTBrokerURL parseString(String mqttURL) {
+	public static MQTTBrokerURL parseString(String mqttURL, final boolean verifyTLS) {
 		if (mqttURL==null) return null;
 		mqttURL=mqttURL.trim();
 		if (mqttURL.length()<7) return null;
 
 		/* Protokoll */
 		final String lower=mqttURL.toLowerCase();
-		boolean secured=false;
-		if (lower.startsWith("ssl://")) secured=true; else {
+		SecurityMode secured=SecurityMode.OFF;
+		if (lower.startsWith("ssl://")) {
+			if(verifyTLS) secured=SecurityMode.ON_WITH_VALIDATION; else secured=SecurityMode.ON_NO_VALIDATION;
+		} else {
 			if (!lower.startsWith("tcp://")) return null;
 		}
 		mqttURL=mqttURL.substring(6);
@@ -110,12 +126,12 @@ public class MQTTBrokerURL {
 	@Override
 	public String toString() {
 		final StringBuilder brokerURL=new StringBuilder();
-		if (secured) brokerURL.append("ssl"); else brokerURL.append("tcp");
+		if (secured==SecurityMode.OFF) brokerURL.append("tcp"); else brokerURL.append("ssl");
 		brokerURL.append("://");
 		brokerURL.append(broker);
 		brokerURL.append(":");
 		if (port<=0) {
-			if (secured) brokerURL.append(MQTT_DEFAULT_SECURED_PORT); else brokerURL.append(MQTT_DEFAULT_UNSECURED_PORT);
+			if (secured==SecurityMode.OFF) brokerURL.append(MQTT_DEFAULT_UNSECURED_PORT); else brokerURL.append(MQTT_DEFAULT_SECURED_PORT);
 		} else {
 			brokerURL.append(port);
 		}

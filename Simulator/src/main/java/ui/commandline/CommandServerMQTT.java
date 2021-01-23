@@ -24,6 +24,7 @@ import language.Language;
 import net.mqtt.MQTTBrokerURL;
 import net.mqtt.MQTTSimClient;
 import systemtools.commandline.AbstractCommand;
+import tools.SetupData;
 
 /**
  * Startet einen Simulations-MQTT-Server.
@@ -65,7 +66,7 @@ public class CommandServerMQTT extends AbstractCommand {
 	public String prepare(String[] additionalArguments, InputStream in, PrintStream out) {
 		String s=parameterCountCheck(2,3,additionalArguments); if (s!=null) return s;
 
-		broker=MQTTBrokerURL.parseString(additionalArguments[0]);
+		broker=MQTTBrokerURL.parseString(additionalArguments[0],SetupData.getSetup().mqttVerifyCertificates);
 		if (broker==null) return String.format(Language.tr("CommandLine.Server.InvalidBroker"),additionalArguments[0]);
 		topic=additionalArguments[1].trim();
 

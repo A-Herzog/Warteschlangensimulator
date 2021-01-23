@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-22 12:54+0100\n"
+"POT-Creation-Date: 2021-01-23 16:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15000,6 +15000,12 @@ msgstr "MQTT-Klienten automatisch starten, wenn das Programm gestartet wird."
 
 msgid "SimulationServer.Setup.MQTTBroker"
 msgstr "Broker"
+
+msgid "SimulationServer.Setup.MQTTBrokerVerify"
+msgstr "Zertifikat prüfen"
+
+msgid "SimulationServer.Setup.MQTTBrokerVerify.Hint"
+msgstr "Verlangt (wenn eine verschlüsselte Verbindung verwendet wird), dass das vom Broker verwendete Zertifikat auf Basis der in Java hinterlegten Root-CAs verifiziert werden kann."
 
 msgid "SimulationServer.Setup.MQTTServer"
 msgstr "MQTT-Klient"

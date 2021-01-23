@@ -142,9 +142,11 @@ public abstract class MQTTSimClientBase {
 			}
 
 			/* Verschlüsselte Verbindung */
-			if (broker.secured) {
+			if (broker.secured!=MQTTBrokerURL.SecurityMode.OFF) {
 				options.setSocketFactory(getTLSSocketFactory("TLSv1.3"));
-				options.setHttpsHostnameVerificationEnabled(false);
+				if (broker.secured!=MQTTBrokerURL.SecurityMode.ON_NO_VALIDATION) {
+					options.setHttpsHostnameVerificationEnabled(false);
+				}
 				options.setSSLHostnameVerifier(new HostnameVerifier() {@Override public boolean verify(String hostname, SSLSession session) {return true;}});
 			}
 

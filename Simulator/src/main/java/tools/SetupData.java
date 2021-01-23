@@ -684,6 +684,12 @@ public class SetupData extends SetupBase {
 	public String mqttBroker;
 
 	/**
+	 * Falls die Verbindung zum Broker verschlüsselt aufgebaut wird:
+	 * Soll das Zertifikat des Brokers verifiziert werden?
+	 */
+	public boolean mqttVerifyCertificates;
+
+	/**
 	 * Beim MQTT-Broker zu abonnierendes Thema
 	 */
 	public String mqttTopic;
@@ -1045,6 +1051,7 @@ public class SetupData extends SetupBase {
 		calcWebServerAutoStart=false;
 		calcWebServerPort=80;
 		mqttBroker="tcp://localhost";
+		mqttVerifyCertificates=false;
 		mqttTopic=MainFrame.PROGRAM_NAME+"/task";
 		mqttServerAutoStart=false;
 		serverAuthName="";
@@ -1650,6 +1657,7 @@ public class SetupData extends SetupBase {
 				mqttServerAutoStart=loadBoolean(e.getAttribute("AutoStart"),false);
 				mqttBroker=e.getAttribute("Broker");
 				mqttTopic=e.getAttribute("Topic");
+				mqttVerifyCertificates=loadBoolean(e.getAttribute("VerifyCertificates"),false);
 				continue;
 			}
 
@@ -2206,10 +2214,11 @@ public class SetupData extends SetupBase {
 			if (calcWebServerAutoStart) node.setAttribute("AutoStart","1");
 		}
 
-		if (mqttServerAutoStart || !mqttBroker.equals("tcp://localhost") || !mqttTopic.equals(MainFrame.PROGRAM_NAME+"/task")) {
+		if (mqttServerAutoStart || !mqttBroker.equals("tcp://localhost") || !mqttTopic.equals(MainFrame.PROGRAM_NAME+"/task") || mqttVerifyCertificates) {
 			root.appendChild(node=doc.createElement("NetworkMQTTSimulationServer"));
 			node.setAttribute("Broker",""+mqttBroker);
 			node.setAttribute("Topic",""+mqttTopic);
+			if (mqttVerifyCertificates) node.setAttribute("VerifyCertificates","1");
 			if (mqttServerAutoStart) node.setAttribute("AutoStart","1");
 		}
 
