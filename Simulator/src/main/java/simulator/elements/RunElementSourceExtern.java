@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.math3.util.FastMath;
@@ -74,18 +77,19 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * Bildet eine Liste mit Kundentyp-Namen (in ggf. falscher Groß- und Kleinschreibung
 	 * und ggf. mit leeren Einträgen und Dubletten) auf Simulationsmodell-Kunden ab
 	 * @param rawList	Liste mit Kundentyp-Namen
+	 * @param onlyFirstClientType	Sollen alle (<code>true</code>) oder nur der erste Kundentyp (<code>false</code>) zurückgegeben werden?
 	 * @return	Aufbereitete Liste mit Kundentyp-Namen
 	 */
-	private static final String[] getClientTypes(final List<String> rawList) {
-		final List<String> newList=new ArrayList<>();
-		for (String type: rawList) {
-			final String s=type.trim();
+	private static final String[] getClientTypes(final List<String> rawList, final boolean onlyFirstClientType) {
+		final Set<String> set=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+		final int size=rawList.size();
+		for (int i=0;i<size;i++) {
+			final String s=rawList.get(i).trim();
 			if (s.isEmpty()) continue;
-			boolean inList=false;
-			for (String rec: newList) if (rec.equalsIgnoreCase(s)) {inList=true; break;}
-			if (!inList) newList.add(s);
+			set.add(s);
+			if (onlyFirstClientType && set.size()>0) break;
 		}
-		return newList.toArray(new String[0]);
+		return set.toArray(new String[0]);
 	}
 
 	/**
@@ -97,7 +101,10 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
 	protected final String loadTable(final Table table, final List<String> externalTypes, final boolean numbersAreDistances) {
-		final String[] types=getClientTypes(externalTypes);
+		final String[] types=getClientTypes(externalTypes,false);
+		final Map<String,Integer> typesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		for (int i=0;i<types.length;i++) typesMap.put(types[i],i);
+
 		final List<List<RunElementSourceExtern.Arrival>> arrivalsList=new ArrayList<>(types.length);
 		for (int i=0;i<types.length;i++) arrivalsList.add(new ArrayList<>());
 
@@ -128,10 +135,9 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			/* Erst Ankunftszeit bestimmen, dann bestimmen, ob Zeile übersprungen wird. So sind relative Zeitabstände immer korrekt, auch wenn später übersprungene Zeilen fehlen. */
 
 			/* Gültiger Kundentyp in zweiter Spalte? */
-			int index=-1;
-			final String s=line.get(1).trim();
-			for (int j=0;j<types.length;j++) if (types[j].equalsIgnoreCase(s)) {index=j; break;}
-			if (index<0) continue;
+			final Integer I=typesMap.get(line.get(1).trim());
+			if (I==null) continue;
+			final int index=I;
 
 			/* Ankunftszeit erfassen */
 			final Arrival a=new Arrival(arrivalTime);
@@ -162,13 +168,14 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
 	protected final String buildClientTypesList(final List<String> externalClientTypes, final RunModel runModel) {
-		final String[] types=getClientTypes(externalClientTypes);
+		final String[] types=getClientTypes(externalClientTypes,false);
 		if (types.length==0) return String.format(Language.tr("Simulation.Creator.NoTableClientTypes"),id);
 		this.clientTypes=new int[types.length];
 		for (int i=0;i<types.length;i++) {
 			this.clientTypes[i]=-1;
-			for (int j=0;j<runModel.clientTypes.length;j++) if (runModel.clientTypes[j].equalsIgnoreCase(types[i])) {this.clientTypes[i]=j; break;}
-			if (this.clientTypes[i]<0) return String.format(Language.tr("Simulation.Creator.SetInternalError"),id);
+			Integer I=runModel.clientTypesMap.get(types[i]);
+			if (I==null) return String.format(Language.tr("Simulation.Creator.SetInternalError"),id);
+			this.clientTypes[i]=I;
 		}
 		return null;
 	}
@@ -191,7 +198,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
 	protected static final RunModelCreatorStatus testClientTypes(final List<String> externalClientTypes, final ModelElement element) {
-		if (getClientTypes(externalClientTypes).length==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTableClientTypes"),element.getId()),RunModelCreatorStatus.Status.NO_CLIENT_TYPES_TABLE);
+		if (getClientTypes(externalClientTypes,true).length==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTableClientTypes"),element.getId()),RunModelCreatorStatus.Status.NO_CLIENT_TYPES_TABLE);
 		return null;
 	}
 

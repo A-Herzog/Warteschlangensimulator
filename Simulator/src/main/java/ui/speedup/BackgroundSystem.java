@@ -45,13 +45,13 @@ import ui.modeleditor.elements.ModelElementSub;
  * @author Alexander Herzog
  */
 public class BackgroundSystem {
-	/** Maximalwert für Kunden/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
+	/** Maximalwert für Kunden/Thread im nicht-aggressiv Modus für die Hintergrundsimulation */
 	private static final int MAX_CLIENTS_PER_THREAD=2_000_000;
-	/** Maximalwert Modellelemente/Thread im nicht-agressiv Modus für die Hintergrundsimulation */
+	/** Maximalwert Modellelemente/Thread im nicht-aggressiv Modus für die Hintergrundsimulation */
 	private static final int MAX_ELEMENTS_PER_THREAD=10;
 	/** Verzögerung vor dem Start der Hintergrundsimulation im Normalfall */
 	private static final int DELAY_NORMAL=2_500;
-	/** Verzögerung vor dem Start der Hintergrundsimulation im agressiven Modus */
+	/** Verzögerung vor dem Start der Hintergrundsimulation im aggressiven Modus */
 	private static final int DELAY_FAST=1_500;
 
 	/** Hintergrund-System in Abhängigkeit von den Editoren */
@@ -245,15 +245,19 @@ public class BackgroundSystem {
 		lastBackgroundMode=setup.backgroundSimulation;
 
 		if (!canCheck(model.surface)) return null;
+		final boolean canBackgroundProcess=canBackgroundProcess(model);
 
 		/* Prüfen */
 
-		final Object obj=RunModel.getRunModel(model,true);
+		final Object obj=RunModel.getRunModel(model,!canBackgroundProcess); /* !canBackgroundProcess == testOnly: Wenn wir später sowieso nicht simulieren können, dann hier auch keine Daten laden */
 		if (obj instanceof String) return (String)obj;
 
 		/* Simulieren */
 
-		if (!canBackgroundProcess(model)) return null;
+		if (!canBackgroundProcess) {
+			lastModel=model.clone();
+			return null;
+		}
 
 		if (!startProcessing) return null;
 		lastModel=model.clone();

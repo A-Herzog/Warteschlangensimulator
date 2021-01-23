@@ -178,6 +178,13 @@ public class FastAccessSelectorBuilder {
 	}
 
 	/**
+	 * Beim letzten Aufruf von {@link #getXMLSelector(StatisticsPerformanceIndicator, IndicatorMode)} ermittelter
+	 * Eltern-Statistikindikator (wird beim nächsten Aufruf als erstes getestet)
+	 * @see #getXMLSelector(StatisticsPerformanceIndicator, IndicatorMode)
+	 */
+	private StatisticsMultiPerformanceIndicator lastParent;
+
+	/**
 	 * Findet den zu dem Indikator und der Kenngröße passenden XML-Selektor
 	 * @param indicator	Indikator aus dem die Daten stammen
 	 * @param indicatorMode	Art der Kenngröße
@@ -187,7 +194,14 @@ public class FastAccessSelectorBuilder {
 	public String getXMLSelector(final StatisticsPerformanceIndicator indicator, final IndicatorMode indicatorMode) {
 		final StringBuilder result=new StringBuilder();
 
-		final StatisticsMultiPerformanceIndicator multi=statistics.getParent(indicator);
+		final StatisticsMultiPerformanceIndicator multi;
+		if (lastParent!=null && lastParent.contains(indicator)) {
+			multi=lastParent;
+		} else {
+			multi=statistics.getParent(indicator);
+			if (multi!=null) lastParent=multi;
+		}
+
 		if (multi!=null && multi.xmlNodeNames!=null && multi.xmlNodeNames.length>0) {
 			result.append(multi.xmlNodeNames[0]);
 			result.append("->");

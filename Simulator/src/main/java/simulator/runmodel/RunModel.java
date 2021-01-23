@@ -80,7 +80,7 @@ public class RunModel {
 
 	/**
 	 * Länge der Einschwingphase (als Anteil der Kundenankünfte), bevor die Statistikzählung beginnt.<br>
-	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besateht aus zusätzlichen Ankünften.
+	 * Die Einschwingphase wird nicht von der Kundenanzahl abgezogen, sondern besteht aus zusätzlichen Ankünften.
 	 */
 	public double warmUpTime;
 
@@ -119,6 +119,12 @@ public class RunModel {
 	 * Liste mit Namen aller vorhandenen Kundentypen
 	 */
 	public String[] clientTypes;
+
+	/**
+	 * Zuordnung von Kundentypnamen zu Indices in {@link #clientTypes}
+	 * @see #clientTypes
+	 */
+	public Map<String,Integer> clientTypesMap;
 
 	/**
 	 * Kosten für die Zeitanteile pro Sekunde Kundentyp
@@ -401,6 +407,8 @@ public class RunModel {
 
 		/* Liste der Kundentypen */
 		runModel.clientTypes=editModel.surface.getClientTypes().toArray(new String[0]);
+		runModel.clientTypesMap=new HashMap<>();
+		for (int i=0;i<runModel.clientTypes.length;i++) runModel.clientTypesMap.put(runModel.clientTypes[i],i);
 
 		/* Liste mit den Kosten pro Kundentyp */
 		runModel.clientCosts=new double[runModel.clientTypes.length][];
