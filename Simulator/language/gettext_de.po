@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-23 23:22+0100\n"
+"POT-Creation-Date: 2021-01-25 00:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24944,6 +24944,27 @@ msgstr "Es wurden keine Kundentypennamen, die aus der Datenbanktabelle geladen w
 msgid "Surface.SourceDB.Dialog.ClientTypes.ErrorTitle"
 msgstr "Keine Kundentypen angegeben"
 
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton"
+msgstr "Kundentypen aus Datenbanktabelle laden"
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ErrorNoClientTypeColumn"
+msgstr "Es wurde keine Spalte für die Kundentypen angegeben."
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ErrorNoTable"
+msgstr "Es wurde keine zu ladende Tabelle angegeben."
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.Hint"
+msgstr "Lädt alle verfügbaren Kundentypen aus der Datenbanktabelle und ersetzt die bisherigen Kundentypen in diesem Dialog durch die geladenen Kundentypen."
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm"
+msgstr "Sollen die bisherigen Kundentypen durch die %d Kundentypen aus der Tabelle ersetzt werden?"
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm,InfoNo"
+msgstr "Bisherige Kundentypenliste unverändert beibehalten."
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"
+msgstr "Bisherige Kundentypen durch Kundentypen aus der Tabelle ersetzten."
+
 msgid "Surface.SourceDB.Dialog.ColumnClientType"
 msgstr "Kundentypenspalte"
 
@@ -25081,6 +25102,30 @@ msgstr "Es wurden keine Kundentypennamen, die aus der Tabelle geladen werden sol
 
 msgid "Surface.SourceTable.Dialog.ClientTypes.ErrorTitle"
 msgstr "Keine Kundentypen angegeben"
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton"
+msgstr "Kundentypen aus Tabelle laden"
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorNoTable"
+msgstr "Es wurde keine Tabellendatei angegeben, aus der die Kundentypen geladen werden könnten."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorTableLoad"
+msgstr "Die Tabellendatei \"%s\" konnte nicht geladen werden."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorTableNotFound"
+msgstr "Die angegebene Tabellendatei \"%s\" existiert nicht."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.Hint"
+msgstr "Lädt alle verfügbaren Kundentypen aus der Tabelle und ersetzt die bisherigen Kundentypen in diesem Dialog durch die geladenen Kundentypen."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm"
+msgstr "Sollen die bisherigen Kundentypen durch die %d Kundentypen aus der Tabelle ersetzt werden?"
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoNo"
+msgstr "Bisherige Kundentypenliste unverändert beibehalten."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"
+msgstr "Bisherige Kundentypen durch Kundentypen aus der Tabelle ersetzten."
 
 msgid "Surface.SourceTable.Dialog.ColumnOne.Distances"
 msgstr "Zahlenwerte in Spalte 1 sind Abstände zwischen Ankunftszeitpunkten"

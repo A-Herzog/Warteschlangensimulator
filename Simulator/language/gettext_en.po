@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-23 23:22+0100\n"
+"POT-Creation-Date: 2021-01-25 00:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24935,6 +24935,27 @@ msgstr "No client types to be loaded from the database table have been specified
 msgid "Surface.SourceDB.Dialog.ClientTypes.ErrorTitle"
 msgstr "No client types specified"
 
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton"
+msgstr "Load client types from database table"
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ErrorNoClientTypeColumn"
+msgstr "No column for client types was specified."
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ErrorNoTable"
+msgstr "No table to be loaded was specified."
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.Hint"
+msgstr "Loads all available clienttypes from the database table and replaces the previous client types in this dialog with the loaded client types."
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm"
+msgstr "Do you want to replace the previous client types with the %d client types from the table?"
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm,InfoNo"
+msgstr "Keep previous client types list unchanged."
+
+msgid "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"
+msgstr "Replace previous client types with client types from the table."
+
 msgid "Surface.SourceDB.Dialog.ColumnClientType"
 msgstr "Client types column"
 
@@ -25072,6 +25093,30 @@ msgstr "No client types to be loaded from the table file have been specified."
 
 msgid "Surface.SourceTable.Dialog.ClientTypes.ErrorTitle"
 msgstr "No client types specified"
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton"
+msgstr "Load client types from table"
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorNoTable"
+msgstr "No table file was specified from which the client types could be loaded."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorTableLoad"
+msgstr "The table file \"%s\" could not be loaded."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorTableNotFound"
+msgstr "The specified table file \"%s\" does not exist."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.Hint"
+msgstr "Loads all available clienttypes from the table and replaces the previous client types in this dialog with the loaded client types."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm"
+msgstr "Do you want to replace the previous client types with the %d client types from the table?"
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoNo"
+msgstr "Keep previous client types list unchanged."
+
+msgid "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"
+msgstr "Replace previous client types with client types from the table."
 
 msgid "Surface.SourceTable.Dialog.ColumnOne.Distances"
 msgstr "Values in row 1 are distances between arrivals"

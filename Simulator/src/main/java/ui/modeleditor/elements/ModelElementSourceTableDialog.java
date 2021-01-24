@@ -24,6 +24,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -90,6 +93,13 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		if (getHeight()>750) setSize(getWidth(),750);
 	}
 
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+	}
+
 	@Override
 	protected String getInfoPanelID() {
 		return InfoPanel.stationSourceTable;
@@ -119,7 +129,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 		tableEdit.setEditable(!readOnly);
-		final JButton button=new JButton();
+		JButton button=new JButton();
 		((JPanel)data[0]).add(button,BorderLayout.EAST);
 		button.setToolTipText(Language.tr("Surface.SourceTable.Dialog.Table.Tooltip"));
 		button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
@@ -166,9 +176,67 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		clientsEdit.setEditable(!readOnly);
 		addUndoFeature(clientsEdit);
 
+		/* Button: Kundentypen aus Tabelle laden */
+
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+		line.add(button=new JButton(Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton"),Images.MODELPROPERTIES_CLIENTS.getIcon()));
+		button.setToolTipText(Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.Hint"));
+		button.addActionListener(e->commandLoadClientTypes());
+
+		/* Start */
+
 		checkData(false);
 
 		return content;
+	}
+
+	/**
+	 * Lädt die Kundentypen aus der angegebenen Tabelle und ersetzt damit
+	 * (nach Bestätigungsrückfrage) die bisherige Kundentypenliste.
+	 */
+	private void commandLoadClientTypes() {
+		/* Tabelle laden */
+		final String tableName=tableEdit.getText().trim();
+		if (tableName.isEmpty()) {
+			MsgBox.error(this,Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton"),Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorNoTable"));
+			return;
+		}
+		final File tableFile=new File(tableName);
+		if (!tableFile.isFile()) {
+			MsgBox.error(this,Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton"),Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorTableNotFound"));
+			return;
+		}
+		final Table table=new Table();
+		if (!table.load(tableFile)) {
+			MsgBox.error(this,Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton"),Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorTableLoad"));
+			return;
+		}
+
+		/* Kundentypen zusammenstellen */
+		final Set<String> clientTypes=new HashSet<>();
+		final int size=table.getSize(0);
+		for (int i=0;i<size;i++) {
+			final List<String> line=table.getLine(i);
+			if (line==null || line.size()<2) continue;
+			String cell=line.get(1);
+			if (cell==null) continue;
+			cell=cell.trim();
+			if (cell.isEmpty()) continue;
+			clientTypes.add(cell);
+		}
+
+		/* Bisherige Kundentypen ersetzen */
+		if (clientTypes.size()==0) return;
+		if (!clientsEdit.getText().trim().isEmpty()) {
+			if (!MsgBox.confirm(this,Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton"),String.format(Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm"),clientTypes.size()),Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"),Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoNo"))) return;
+		}
+		final StringBuilder text=new StringBuilder();
+		for (String clientType: clientTypes) {
+			if (text.length()>0) text.append("\n");
+			text.append(clientType);
+		}
+		clientsEdit.setText(text.toString());
+		checkData(false);
 	}
 
 	/**

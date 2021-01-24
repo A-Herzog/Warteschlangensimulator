@@ -24,11 +24,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -40,6 +44,7 @@ import language.Language;
 import simulator.db.DBConnect;
 import simulator.db.DBSettingsPanel;
 import systemtools.MsgBox;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -116,6 +121,13 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		if (getHeight()>750) setSize(getWidth(),750);
 	}
 
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+	}
+
 	@Override
 	protected String getInfoPanelID() {
 		return InfoPanel.stationSourceDB;
@@ -177,6 +189,14 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		clientsEdit.setText(String.join("\n",source.getNewClientTypes()).trim());
 		clientsEdit.setEditable(!readOnly);
 		addUndoFeature(clientsEdit);
+
+		/* Button: Kundentypen aus Tabelle laden */
+
+		final JButton button;
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+		line.add(button=new JButton(Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton"),Images.MODELPROPERTIES_CLIENTS.getIcon()));
+		button.setToolTipText(Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.Hint"));
+		button.addActionListener(e->commandLoadClientTypes());
 
 		/* Start */
 
@@ -251,6 +271,54 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		cols2.add(0,"<"+Language.tr("Surface.SourceDB.Dialog.ColumnInfo.DoNotUse")+">");
 		changeComboAndRestore(comboInfo,cols2.toArray(new String[0]));
 		comboInfo.setEnabled(!readOnly);
+	}
+
+	/**
+	 * Lädt die Kundentypen aus der angegebenen Tabelle und ersetzt damit
+	 * (nach Bestätigungsrückfrage) die bisherige Kundentypenliste.
+	 */
+	private void commandLoadClientTypes() {
+		final Set<String> clientTypes=new HashSet<>();
+
+		try (DBConnect connect=new DBConnect(db.storeToCopy(),false)) {
+			/* Datenbankverbindung aufbauen */
+			final String error=connect.getInitError();
+			if (error!=null) {
+				MsgBox.error(this,Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton"),error);
+				return;
+			}
+			if (comboTable.getSelectedIndex()<0) {
+				MsgBox.error(this,Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton"),Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.ErrorNoTable"));
+				return;
+			}
+			if (comboClientType.getSelectedIndex()<0) {
+				MsgBox.error(this,Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton"),Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.ErrorNoClientTypeColumn"));
+				return;
+			}
+			final String tableName=(String)comboTable.getSelectedItem();
+			final String columnName=(String)comboClientType.getSelectedItem();
+
+			/* Kundentypen zusammenstellen */
+			final Iterator<String> iterate=connect.readStringTableColumn(tableName,columnName);
+			while (iterate.hasNext()) {
+				final String clientType=iterate.next();
+				if (clientType.isEmpty()) continue;
+				clientTypes.add(clientType);
+			}
+		}
+
+		/* Bisherige Kundentypen ersetzen */
+		if (clientTypes.size()==0) return;
+		if (!clientsEdit.getText().trim().isEmpty()) {
+			if (!MsgBox.confirm(this,Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton"),String.format(Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm"),clientTypes.size()),Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"),Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm,InfoNo"))) return;
+		}
+		final StringBuilder text=new StringBuilder();
+		for (String clientType: clientTypes) {
+			if (text.length()>0) text.append("\n");
+			text.append(clientType);
+		}
+		clientsEdit.setText(text.toString());
+		checkClients(false);
 	}
 
 	/**
