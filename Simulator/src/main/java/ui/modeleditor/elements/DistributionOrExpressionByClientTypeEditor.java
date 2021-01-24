@@ -72,6 +72,14 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	 */
 	private final String[] clientTypes;
 
+	/**
+	 * Zuordnung von Kundentypen zu Indices in {@link #clientTypes},
+	 * um bei einem gegebenen Namen den Index schneller ermitteln zu können.
+	 * @see #clientTypes
+	 * @see #setData(String, AbstractRealDistribution, String)
+	 */
+	private final Map<String,Integer> clientTypesMap;
+
 	/** Globale Verteilung */
 	private AbstractRealDistribution distribution;
 	/** Globale Rechenausdruck */
@@ -130,6 +138,9 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		clientTypeExpression=new ArrayList<>();
 		for (int i=0;i<clientTypes.length;i++) clientTypeExpression.add(null);
 		modes=new int[clientTypes.length];
+
+		clientTypesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		for (int i=0;i<clientTypes.length;i++) clientTypesMap.put(clientTypes[i],i);
 
 		/* GUI aufbauen */
 		setLayout(new BorderLayout(0,5));
@@ -264,9 +275,8 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	public void setData(final String name, final AbstractRealDistribution distribution, final String expression) {
 		if (name==null || name.trim().isEmpty()) {setData(-1,distribution,expression); return;}
 
-		int index=-1;
-		for (int i=0;i<clientTypes.length;i++) if (clientTypes[i].equalsIgnoreCase(name)) {index=i; break;}
-		setData(index,distribution,expression);
+		final Integer index=clientTypesMap.get(name);
+		if (index!=null) setData(index,distribution,expression);
 	}
 
 	/**

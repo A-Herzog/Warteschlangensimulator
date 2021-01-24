@@ -152,8 +152,9 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 				if (clientElement instanceof RunElementAssign) name=((RunElementAssign)clientElement).clientTypeName;
 				if (name==null) throw error();
 
-				final String[] clientTypes=getSimData().runModel.clientTypes;
-				for (int i=0;i<clientTypes.length;i++) if (clientTypes[i].equals(name)) {clientTypeIndex=i; break;}
+				final Integer clientTypeIndexObj=getSimData().runModel.clientTypesMap.get(name);
+				if (clientTypeIndexObj!=null) clientTypeIndex=clientTypeIndexObj;
+
 				lastStationClientTypeStationID=intID;
 				lastStationClientTypeClientIndex=clientTypeIndex;
 			}

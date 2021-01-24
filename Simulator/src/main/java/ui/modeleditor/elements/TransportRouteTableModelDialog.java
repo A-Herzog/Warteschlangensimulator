@@ -22,6 +22,8 @@ import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -96,6 +98,9 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 		this.variables=variables;
 		this.clientTypes=clientTypes;
 
+		final Map<String,Integer> clientTypesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		for (int i=0;i<clientTypes.length;i++) clientTypesMap.put(clientTypes[i],i);
+
 		JPanel panel;
 		JLabel label;
 
@@ -106,7 +111,7 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 		panel.add(optionClientType=new JRadioButton(Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByClientType")+":"));
 		panel.add(selectClientType=new JComboBox<>(clientTypes));
 		selectClientType.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildClientTypeIcons(clientTypes,model)));
-		selectClientType.addActionListener(e->{optionClientType.setSelected(true);});
+		selectClientType.addActionListener(e->optionClientType.setSelected(true));
 
 		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(optionExpression=new JRadioButton(Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression")+":"));
@@ -135,8 +140,7 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 			int index;
 			if (route.routingMode==TransportTargetRecord.RoutingMode.ROUTING_MODE_CLIENT_TYPE) {
 				optionClientType.setSelected(true);
-				index=-1;
-				for (int i=0;i<clientTypes.length;i++) if (clientTypes[i].equals(route.routingCondition)) {index=i; break;}
+				index=clientTypesMap.getOrDefault(route.routingCondition,-1);
 				if (index>=0) selectClientType.setSelectedIndex(index);
 			}
 			if (route.routingMode==TransportTargetRecord.RoutingMode.ROUTING_MODE_EXPRESSION) {
