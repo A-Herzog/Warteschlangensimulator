@@ -105,6 +105,13 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 	}
 
 	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+	}
+
+	/**
 	 * Liefert den Namen des Ziels, das über eine auslaufende Kante erreicht werden kann
 	 * @param edge	Auslaufende Kante
 	 * @return	Name des Ziels

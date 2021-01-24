@@ -78,6 +78,13 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 		if (getHeight()>750) setSize(getWidth(),750);
 	}
 
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+	}
+
 	@Override
 	protected String getInfoPanelID() {
 		return InfoPanel.stationSourceDDE;

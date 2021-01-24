@@ -238,7 +238,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		setDialogSize();
 		SwingUtilities.invokeLater(()->{
 			if (infoPanel!=null) infoPanel.setPreferredSize(infoPanel.getSize());
-			pack();
+			setDialogSizeLater();
 			setLocationRelativeTo(this.owner);
 			if (makeDialogVisible) {
 				setVisible(true);
@@ -322,6 +322,13 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * Stellt die Größe des Dialogfensters ein.
 	 */
 	protected void setDialogSize() {
+		pack();
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	protected void setDialogSizeLater() {
 		pack();
 	}
 
