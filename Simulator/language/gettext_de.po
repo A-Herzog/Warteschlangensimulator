@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-23 16:13+0100\n"
+"POT-Creation-Date: 2021-01-23 23:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13829,6 +13829,9 @@ msgstr "Differenzzähler"
 msgid "Simulation.Element.Dispose.Name"
 msgstr "Ausgang"
 
+msgid "Simulation.Element.DisposeWithTable.Name"
+msgstr "Speichern+Ausgang"
+
 msgid "Simulation.Element.Duplicate.Name"
 msgstr "Duplizieren"
 
@@ -21231,6 +21234,18 @@ msgstr "ModellElementDifferenzZaehler"
 msgid "Surface.Dispose.Dialog.StoppSimulationOnClientArrival"
 msgstr "Simulation abbrechen, wenn ein Kunde an dieser Station eintrifft."
 
+msgid "Surface.Dispose.Dialog.Table"
+msgstr "Ausgabetabelle"
+
+msgid "Surface.Dispose.Dialog.Table.ErrorEmpty"
+msgstr "Es wurde keine Ausgabetabellendatei angegeben."
+
+msgid "Surface.Dispose.Dialog.Table.Hint"
+msgstr "Die Kundendaten aller Kunden, die das System über diese Station verlassen, werden in diese Tabelle geschrieben."
+
+msgid "Surface.Dispose.Dialog.Table.Select"
+msgstr "Ausgabetabellendatei auswählen"
+
 msgid "Surface.Dispose.Dialog.Title"
 msgstr "Ausgang bearbeiten"
 
@@ -21251,6 +21266,27 @@ msgstr "Die Simulation wird abgebrochen, wenn eine Kunde an dieser Station eintr
 
 msgid "Surface.Dispose.XML.Root"
 msgstr "ModellElementEnde"
+
+msgid "Surface.DisposeWithTable.Dialog.Title"
+msgstr "Ausgang mit Speicherung bearbeiten"
+
+msgid "Surface.DisposeWithTable.Infotext"
+msgstr "Speichert die Daten der Kunden bevor diese das System verlassen in einer Datei. Diese Datei kann in einem anderen Modell an einer Tabellenquelle verwendet werden."
+
+msgid "Surface.DisposeWithTable.Name"
+msgstr "Speichern+Ausgang"
+
+msgid "Surface.DisposeWithTable.NameStopp"
+msgstr "Notausgang"
+
+msgid "Surface.DisposeWithTable.Tooltip"
+msgstr "Kunden in Tabelle speichern und System verlassen"
+
+msgid "Surface.DisposeWithTable.TooltipStopp"
+msgstr "Die Simulation wird abgebrochen, wenn eine Kunde an dieser Station eintrifft."
+
+msgid "Surface.DisposeWithTable.XML.Root"
+msgstr "ModellElementSpeichernEnde"
 
 msgid "Surface.DistributionByClientTypeEditor.ByType"
 msgstr "Individueller Wert für Kundentyp"
@@ -26416,6 +26452,12 @@ msgstr "Nutzername"
 
 msgid "Surface.XML.Dispose.Stopp"
 msgstr "ModellElementEndeStopp"
+
+msgid "Surface.XML.DisposeWithTable.Stopp"
+msgstr "ModellElementSpeichernEndeStopp"
+
+msgid "Surface.XML.DisposeWithTable.Table"
+msgstr "ModellElementSpeichernEndeTabelle"
 
 msgid "Surface.XML.DistributionRecordHours"
 msgstr "ModellStatistikVerteilungStunden"

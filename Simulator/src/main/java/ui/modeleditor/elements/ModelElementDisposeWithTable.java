@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2021 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,10 +44,10 @@ import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
- * Kundenausgang
+ * Kundenausgang mit Speicherung der Kundendaten
  * @author Alexander Herzog
  */
-public class ModelElementDispose extends ModelElementBox implements ModelElementEdgeMultiIn {
+public class ModelElementDisposeWithTable extends ModelElementBox implements ModelElementEdgeMultiIn, ElementWithOutputFile, ElementNoRemoteSimulation {
 	/** Liste der einlaufenden Kanten */
 	private List<ModelElementEdge> connections;
 
@@ -65,14 +65,22 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	private boolean stoppSimulationOnClientArrival;
 
 	/**
+	 * Tabellendatei zum Speichern der Kunden
+	 * @see #getOutputFile()
+	 * @see #setOutputFile(String)
+	 */
+	public String clientsOutputTable;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 */
-	public ModelElementDispose(final EditModel model, final ModelSurface surface) {
+	public ModelElementDisposeWithTable(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ARROW_LEFT);
 		connections=new ArrayList<>();
 		stoppSimulationOnClientArrival=false;
+		clientsOutputTable="";
 	}
 
 	/**
@@ -91,9 +99,9 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	@Override
 	public String getToolTip() {
 		if (stoppSimulationOnClientArrival) {
-			return Language.tr("Surface.Dispose.TooltipStopp");
+			return Language.tr("Surface.DisposeWithTable.TooltipStopp");
 		} else {
-			return Language.tr("Surface.Dispose.Tooltip");
+			return Language.tr("Surface.DisposeWithTable.Tooltip");
 		}
 	}
 
@@ -105,8 +113,8 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	@Override
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
-		if (!(element instanceof ModelElementDispose)) return false;
-		final ModelElementDispose otherDispose=(ModelElementDispose)element;
+		if (!(element instanceof ModelElementDisposeWithTable)) return false;
+		final ModelElementDisposeWithTable otherDispose=(ModelElementDisposeWithTable)element;
 
 
 		final List<ModelElementEdge> connections2=otherDispose.connections;
@@ -114,6 +122,7 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 		for (int i=0;i<connections.size();i++) if (connections.get(i).getId()!=connections2.get(i).getId()) return false;
 
 		if (stoppSimulationOnClientArrival!=otherDispose.stoppSimulationOnClientArrival) return false;
+		if (!clientsOutputTable.equals(otherDispose.clientsOutputTable)) return false;
 
 		return true;
 	}
@@ -125,8 +134,8 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	@Override
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
-		if (element instanceof ModelElementDispose) {
-			final ModelElementDispose copySource=(ModelElementDispose)element;
+		if (element instanceof ModelElementDisposeWithTable) {
+			final ModelElementDisposeWithTable copySource=(ModelElementDisposeWithTable)element;
 
 			connections.clear();
 			final List<ModelElementEdge> connections2=copySource.connections;
@@ -136,6 +145,7 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 			}
 
 			stoppSimulationOnClientArrival=copySource.stoppSimulationOnClientArrival;
+			clientsOutputTable=copySource.clientsOutputTable;
 		}
 	}
 
@@ -146,8 +156,8 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	 * @return	Kopiertes Element
 	 */
 	@Override
-	public ModelElementDispose clone(final EditModel model, final ModelSurface surface) {
-		final ModelElementDispose element=new ModelElementDispose(model,surface);
+	public ModelElementDisposeWithTable clone(final EditModel model, final ModelSurface surface) {
+		final ModelElementDisposeWithTable element=new ModelElementDisposeWithTable(model,surface);
 		element.copyDataFrom(this);
 		return element;
 	}
@@ -176,9 +186,9 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	@Override
 	public String getContextMenuElementName() {
 		if (stoppSimulationOnClientArrival) {
-			return Language.tr("Surface.Dispose.NameStopp");
+			return Language.tr("Surface.DisposeWithTable.NameStopp");
 		} else {
-			return Language.tr("Surface.Dispose.Name");
+			return Language.tr("Surface.DisposeWithTable.Name");
 		}
 	}
 
@@ -189,9 +199,9 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	@Override
 	public String getTypeName() {
 		if (stoppSimulationOnClientArrival) {
-			return Language.tr("Surface.Dispose.NameStopp");
+			return Language.tr("Surface.DisposeWithTable.NameStopp");
 		} else {
-			return Language.tr("Surface.Dispose.Name");
+			return Language.tr("Surface.DisposeWithTable.Name");
 		}
 	}
 
@@ -228,6 +238,24 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	}
 
 	/**
+	 * Liefert die Tabellendatei zum Speichern der Kunden, die das System verlassen.
+	 * @return	Tabellendatei zum Speichern der Kunden, die das System verlassen (leer für "keine Speicherung")
+	 */
+	@Override
+	public String getOutputFile() {
+		return clientsOutputTable;
+	}
+
+	/**
+	 * Stellt die Tabellendatei zum Speichern der Kunden, die das System verlassen, ein.
+	 * @param clientsOutputTable	Tabellendatei zum Speichern der Kunden, die das System verlassen (leer für "keine Speicherung")
+	 */
+	@Override
+	public void setOutputFile(final String clientsOutputTable) {
+		this.clientsOutputTable=(clientsOutputTable==null)?"":clientsOutputTable;
+	}
+
+	/**
 	 * Liefert ein <code>Runnable</code>-Objekt zurück, welches aufgerufen werden kann, wenn die Eigenschaften des Elements verändert werden sollen.
 	 * @param owner	Übergeordnetes Fenster
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
@@ -238,7 +266,7 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			new ModelElementDisposeDialog(owner,ModelElementDispose.this,readOnly);
+			new ModelElementDisposeWithTableDialog(owner,ModelElementDisposeWithTable.this,readOnly);
 		};
 	}
 
@@ -304,7 +332,7 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	 */
 	@Override
 	public String[] getXMLNodeNames() {
-		return Language.trAll("Surface.Dispose.XML.Root");
+		return Language.trAll("Surface.DisposeWithTable.XML.Root");
 	}
 
 	/**
@@ -317,9 +345,15 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 		super.addPropertiesDataToXML(doc,node);
 
 		if (stoppSimulationOnClientArrival) {
-			Element sub=doc.createElement(Language.trPrimary("Surface.XML.Dispose.Stopp"));
+			Element sub=doc.createElement(Language.trPrimary("Surface.XML.DisposeWithTable.Stopp"));
 			node.appendChild(sub);
 			sub.setTextContent("1");
+		}
+
+		if (!clientsOutputTable.isEmpty()) {
+			Element sub=doc.createElement(Language.trPrimary("Surface.XML.DisposeWithTable.Table"));
+			node.appendChild(sub);
+			sub.setTextContent(clientsOutputTable);
 		}
 
 		if (connections!=null) for (ModelElementEdge element: connections) {
@@ -342,8 +376,13 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
 
-		if (Language.trAll("Surface.XML.Dispose.Stopp",name)) {
+		if (Language.trAll("Surface.XML.DisposeWithTable.Stopp",name)) {
 			stoppSimulationOnClientArrival=content.equals("1");
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.DisposeWithTable.Table",name)) {
+			clientsOutputTable=content;
 			return null;
 		}
 
@@ -412,7 +451,7 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 
 	@Override
 	public String getHelpPageName() {
-		return "ModelElementDispose";
+		return "ModelElementDisposeWithTable";
 	}
 
 	@Override

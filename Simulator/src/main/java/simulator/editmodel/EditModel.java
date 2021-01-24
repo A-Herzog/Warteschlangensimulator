@@ -62,6 +62,7 @@ import ui.modeleditor.elements.ComplexLine;
 import ui.modeleditor.elements.ElementNoRemoteSimulation;
 import ui.modeleditor.elements.ElementWithScript;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
+import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementInput;
 import ui.modeleditor.elements.ModelElementInputDB;
@@ -1219,6 +1220,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (element1 instanceof ModelElementOutputDB) return false;
 			if (element1 instanceof ModelElementOutputDDE) return false;
 			if (element1 instanceof ModelElementOutputLog) return false;
+			if (element1 instanceof ModelElementDisposeWithTable) return false;
 			/*
 			if (element1 instanceof ModelElementDecideJS) return false;
 			if (element1 instanceof ModelElementHoldJS) return false;
@@ -1238,6 +1240,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 				if (element2 instanceof ModelElementOutputDB) return false;
 				if (element2 instanceof ModelElementOutputDDE) return false;
 				if (element2 instanceof ModelElementOutputLog) return false;
+				if (element2 instanceof ModelElementDisposeWithTable) return false;
 				/*
 				if (element2 instanceof ModelElementDecideJS) return false;
 				if (element2 instanceof ModelElementHoldJS) return false;
@@ -1268,6 +1271,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if ((element instanceof ModelElementOutputDDE) && ((ModelElementOutputDDE)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 			if ((element instanceof ModelElementOutputLog) && ((ModelElementOutputLog)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 			if ((element instanceof ModelElementRecord) && ((ModelElementRecord)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
+			if ((element instanceof ModelElementDisposeWithTable) && ((ModelElementDisposeWithTable)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 		}
 
 		/* Laufzeitstatisik */

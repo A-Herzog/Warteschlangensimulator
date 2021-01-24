@@ -38,6 +38,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementInput;
 import ui.modeleditor.elements.ModelElementInputDB;
 import ui.modeleditor.elements.ModelElementInputDDE;
@@ -178,6 +179,7 @@ public class SelectIDDialog extends BaseDialog {
 			if (element instanceof ModelElementSourceMulti) continue;
 			if (element instanceof ModelElementSourceTable) continue;
 			if (element instanceof ModelElementDispose) continue;
+			if (element instanceof ModelElementDisposeWithTable) continue;
 			if (element instanceof ModelElementInput) continue;
 			if (element instanceof ModelElementInputDB) continue;
 			if (element instanceof ModelElementInputDDE) continue;

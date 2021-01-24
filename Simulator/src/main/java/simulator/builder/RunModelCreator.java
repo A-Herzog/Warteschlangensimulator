@@ -49,6 +49,7 @@ import simulator.elements.RunElementDecideByStation;
 import simulator.elements.RunElementDelay;
 import simulator.elements.RunElementDifferentialCounter;
 import simulator.elements.RunElementDispose;
+import simulator.elements.RunElementDisposeWithTable;
 import simulator.elements.RunElementDuplicate;
 import simulator.elements.RunElementHold;
 import simulator.elements.RunElementHoldJS;
@@ -160,6 +161,7 @@ public final class RunModelCreator {
 		templates.add(new RunElementSourceDB(null));
 		templates.add(new RunElementSourceDDE(null));
 		templates.add(new RunElementDispose(null));
+		templates.add(new RunElementDisposeWithTable(null));
 		templates.add(new RunElementAssign(null));
 		templates.add(new RunElementAssignString(null));
 		templates.add(new RunElementDelay(null));

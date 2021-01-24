@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-23 16:13+0100\n"
+"POT-Creation-Date: 2021-01-23 23:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13829,6 +13829,9 @@ msgstr "Difference counter"
 msgid "Simulation.Element.Dispose.Name"
 msgstr "Exit"
 
+msgid "Simulation.Element.DisposeWithTable.Name"
+msgstr "Save and exit"
+
 msgid "Simulation.Element.Duplicate.Name"
 msgstr "Duplicate"
 
@@ -21223,6 +21226,18 @@ msgstr "ModelElementDifferenceCounter"
 msgid "Surface.Dispose.Dialog.StoppSimulationOnClientArrival"
 msgstr "Abort simulation, if a client arrives at this station."
 
+msgid "Surface.Dispose.Dialog.Table"
+msgstr "Output table"
+
+msgid "Surface.Dispose.Dialog.Table.ErrorEmpty"
+msgstr "No output table file was specified."
+
+msgid "Surface.Dispose.Dialog.Table.Hint"
+msgstr "Client data will be written to this table for all clients leaving the system via this station."
+
+msgid "Surface.Dispose.Dialog.Table.Select"
+msgstr "Select output table file"
+
 msgid "Surface.Dispose.Dialog.Title"
 msgstr "Edit exit"
 
@@ -21243,6 +21258,27 @@ msgstr "Simulation is aborted, if a client arrives at this station."
 
 msgid "Surface.Dispose.XML.Root"
 msgstr "ModelElementDispose"
+
+msgid "Surface.DisposeWithTable.Dialog.Title"
+msgstr "Edit exit with storage"
+
+msgid "Surface.DisposeWithTable.Infotext"
+msgstr "Saves the client data before the clients leave the system. This clients data file can be used at a table source in another model."
+
+msgid "Surface.DisposeWithTable.Name"
+msgstr "Save and exit"
+
+msgid "Surface.DisposeWithTable.NameStopp"
+msgstr "Emergency exit"
+
+msgid "Surface.DisposeWithTable.Tooltip"
+msgstr "Save clients to table and leave system"
+
+msgid "Surface.DisposeWithTable.TooltipStopp"
+msgstr "Simulation is aborted, if a client arrives at this station."
+
+msgid "Surface.DisposeWithTable.XML.Root"
+msgstr "ModelElementSaveDispose"
 
 msgid "Surface.DistributionByClientTypeEditor.ByType"
 msgstr "Individual value for type"
@@ -26406,6 +26442,12 @@ msgstr "UserName"
 
 msgid "Surface.XML.Dispose.Stopp"
 msgstr "ModelElementDisposeStopp"
+
+msgid "Surface.XML.DisposeWithTable.Stopp"
+msgstr "ModelElementSaveDisposeStopp"
+
+msgid "Surface.XML.DisposeWithTable.Table"
+msgstr "ModelElementSaveDisposeTable"
 
 msgid "Surface.XML.DistributionRecordHours"
 msgstr "ModelStatisticsDistributionHours"

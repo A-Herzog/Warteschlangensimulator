@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Save and exit</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Save and exit</h1>
+
+<p>
+Any number of edges can be inserted into an exit element, but no edges run out of this element.
+The exit represents the last station of a client in the queue system.
+At this station, the client leaves the system, and no further processing is possible thereafter.
+All the ways of the client have to end in such an element.
+</p>
+
+<p>
+A Save and exit element stores the data of the individual clients in a table before they leave the system.
+Tables generated in this way can be used at <a href="ModelElementSourceTable.html">table sources</a> stations
+to use the clients who left the current system as an input stream in another model.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+For a Save and exit element, a file must be specified where clients are to be recorded before leaving the system.
+</p>
+
+<p>
+The name of the exit element has no further meaning for the simulation.
+</p>
+
+<p>
+The exit element can be defined as an emergency exit: In this mode, the simulation is aborted
+as soon as a client arrives at the station.
+</p>
+
+</body>
+</html>

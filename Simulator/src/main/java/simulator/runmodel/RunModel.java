@@ -45,6 +45,7 @@ import ui.modeleditor.elements.ElementWithNewVariableNames;
 import ui.modeleditor.elements.InteractiveElement;
 import ui.modeleditor.elements.ModelElementAnimationConnect;
 import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceDB;
 import ui.modeleditor.elements.ModelElementSourceDDE;
@@ -615,6 +616,7 @@ public class RunModel {
 				if (element instanceof ModelElementSourceDB) hasSource=true;
 				if (element instanceof ModelElementSourceDDE) hasSource=true;
 				if (element instanceof ModelElementDispose) hasDispose=true;
+				if (element instanceof ModelElementDisposeWithTable) hasDispose=true;
 				String error=creator.addElement((ModelElementBox)element);
 				if (error!=null) return error;
 				if (element instanceof ModelElementSub) for (ModelElement subElement : ((ModelElementSub)element).getSubSurface().getElements()) if (subElement instanceof ModelElementBox) {

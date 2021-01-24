@@ -8,6 +8,7 @@ import ui.modeleditor.elements.ModelElementBarrierPull;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementDuplicate;
 import ui.modeleditor.elements.ModelElementHold;
 import ui.modeleditor.elements.ModelElementHoldJS;
@@ -52,7 +53,9 @@ public class QuickFixNextElements {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static final Class[] process=new Class[]{
-			ModelElementDispose.class
+			ModelElementDispose.class,
+			ModelElementDisposeWithTable.class
+
 	};
 
 	/**

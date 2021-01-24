@@ -18,8 +18,10 @@ package simulator.runmodel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -442,6 +444,16 @@ public class RunDataClient {
 	}
 
 	/**
+	 * Liefert den höchsten <em>Index</em> innerhalb der numerischen Kundendaten
+	 * (d.h. mögliche Werte bewegen sich im Bereich von 0 bis zu dem angegebenen Index, d.h. das Kundendatenarray ist um ein größer als der höchste Index)
+	 * @return	Höchster verfügbarer Index (kann -1 sein, wenn überhaupt keine numerischen Kundendaten gespeichert sind)
+	 */
+	public int getMaxUserDataIndex() {
+		if (userData==null) return -1;
+		return userData.length-1;
+	}
+
+	/**
 	 * Setzt den Wert eines bestimmten Nutzerdaten-Feldes.
 	 * @param index	Index des Feldes, dessen wert gesetzt werden soll. Der Index muss zwischen (einschließlich) 0 und <code>MAX_USER_DATA_INDEX</code> liegen.
 	 * @param value	Neuer Wert für das Feld
@@ -492,6 +504,16 @@ public class RunDataClient {
 		if (userDataStrings==null) userDataStrings=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		if (key==null) return;
 		userDataStrings.put(key,value);
+	}
+
+	/**
+	 * Liefert eine Menge mit den Schlüsseln für die Nutzerdaten-Texte vorliegen.
+	 * @return	Schlüssel zu denen Nutzerdaten-Texte vorliegen
+	 * @see #getUserDataString(String)
+	 */
+	public Set<String> getUserDataStringKeys() {
+		if (userDataStrings==null) return new HashSet<>();
+		return userDataStrings.keySet();
 	}
 
 	/**

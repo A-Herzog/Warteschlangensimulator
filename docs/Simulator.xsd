@@ -453,7 +453,8 @@
   <xs:element ref="ModellElementTabellenQuelle"/>
   <xs:element ref="ModellElementDatenbankQuelle"/>  
   <xs:element ref="ModellElementDDEQuelle"/>
-  <xs:element ref="ModellElementEnde"/>  
+  <xs:element ref="ModellElementEnde"/>
+  <xs:element ref="ModellElementSpeichernEnde"/>
   <xs:element ref="ModellElementZuweisung"/>
   <xs:element ref="ModellElementZuweisungText"/>
   <xs:element ref="ModellElementFertigungsplanZuweisung"/>
@@ -765,6 +766,13 @@
 <xs:element name="ModellElementEnde"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
 	<xs:element name="ModellElementEndeStopp" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementSpeichernEnde"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
+	<xs:element name="ModellElementEndeStopp" type="xs:string"/>
+	<xs:element name="ModellElementSpeichernEndeTabelle" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -2522,6 +2530,7 @@
   <xs:element ref="ModelElementDatabaseSource"/>  
   <xs:element ref="ModelElementDDESource"/>
   <xs:element ref="ModelElementDispose"/>
+  <xs:element ref="ModelElementSaveDispose"/>
   <xs:element ref="ModelElementAssignment"/>
   <xs:element ref="ModelElementAssignmentText"/>  
   <xs:element ref="ModelElementSequenceAssignment"/>
@@ -2833,6 +2842,13 @@
 <xs:element name="ModelElementDispose"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
 	<xs:element name="ModelElementDisposeStopp" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementSaveDispose"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
+	<xs:element name="ModelElementDisposeStopp" type="xs:string"/>
+	<xs:element name="ModelElementSaveDisposeTable" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

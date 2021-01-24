@@ -22,6 +22,7 @@ import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import ui.modeleditor.ModelResources;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.elements.ModelElementAssign;
 import ui.modeleditor.elements.ModelElementAssignString;
@@ -32,6 +33,7 @@ import ui.modeleditor.elements.ModelElementCounterBatch;
 import ui.modeleditor.elements.ModelElementCounterMulti;
 import ui.modeleditor.elements.ModelElementDifferentialCounter;
 import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementOutput;
 import ui.modeleditor.elements.ModelElementOutputDB;
@@ -59,7 +61,7 @@ public class AnalyticModel {
 	/** Bedienstation */
 	private ModelElementProcess process;
 	/** Ausgangselemente */
-	private final Set<ModelElementDispose> dispose;
+	private final Set<ModelElementBox> dispose;
 	/** Bedienergruppen */
 	private ModelResources resources;
 
@@ -139,6 +141,9 @@ public class AnalyticModel {
 			if (element instanceof ModelElementDispose) {
 				dispose.add((ModelElementDispose)element);
 			}
+			if (element instanceof ModelElementDisposeWithTable) {
+				dispose.add((ModelElementDisposeWithTable)element);
+			}
 		}
 
 		if (source==null || process==null || dispose.isEmpty()) return false;
@@ -198,7 +203,7 @@ public class AnalyticModel {
 		edge=process.getEdgeOutSuccess();
 		if (edge==null) return false;
 
-		while (!(edge.getConnectionEnd() instanceof ModelElementDispose)) {
+		while (!(edge.getConnectionEnd() instanceof ModelElementDispose) && !(edge.getConnectionEnd() instanceof ModelElementDisposeWithTable)) {
 			final ModelElement next=edge.getConnectionEnd();
 			if (!(next instanceof ModelElementEdgeOut)) return false;
 			boolean ok=false;
@@ -211,7 +216,7 @@ public class AnalyticModel {
 		if (process.getEdgeOutCancel()!=null) {
 			edge=process.getEdgeOutCancel();
 
-			while (!(edge.getConnectionEnd() instanceof ModelElementDispose)) {
+			while (!(edge.getConnectionEnd() instanceof ModelElementDispose) && !(edge.getConnectionEnd() instanceof ModelElementDisposeWithTable)) {
 				final ModelElement next=edge.getConnectionEnd();
 				if (!(next instanceof ModelElementEdgeOut)) return false;
 				boolean ok=false;

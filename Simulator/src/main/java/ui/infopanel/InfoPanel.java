@@ -172,6 +172,9 @@ public class InfoPanel {
 	/** Info-ID für den "Ausgang"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
 	public static final String stationDispose=groupElement+"Dispose";
 
+	/** Info-ID für den "Ausgang mit Speicherung"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
+	public static final String stationDisposeWithTable=groupElement+"DisposeWithTable";
+
 	/* Stationen - Verarbeitung */
 
 	/** Info-ID für den "Bedienstation"-Bearbeiten-Dialog (Gruppe "Verarbeitung") */
@@ -699,6 +702,10 @@ public class InfoPanel {
 		register(stationDispose,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_INPUTOUTPUT+"|"+Language.tr("Surface.Dispose.Name"),
 				()->Language.tr("Surface.Dispose.Infotext"));
+
+		register(stationDisposeWithTable,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_INPUTOUTPUT+"|"+Language.tr("Surface.DisposeWithTable.Name"),
+				()->Language.tr("Surface.DisposeWithTable.Infotext"));
 
 		/* Stationen - Verarbeitung */
 

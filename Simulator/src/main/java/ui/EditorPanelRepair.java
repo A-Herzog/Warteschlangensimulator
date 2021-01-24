@@ -30,6 +30,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
+import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSource;
@@ -167,6 +168,7 @@ public class EditorPanelRepair {
 		final List<ModelElementDelay> delay=new ArrayList<>();
 		final List<ModelElementProcess> process=new ArrayList<>();
 		final List<ModelElementDispose> dispose=new ArrayList<>();
+		final List<ModelElementDisposeWithTable> disposeAndSave=new ArrayList<>();
 		int maxX=0;
 		boolean needsDispose=(!model.useFinishTime && !model.useTerminationCondition);
 
@@ -214,6 +216,10 @@ public class EditorPanelRepair {
 				dispose.add((ModelElementDispose)element);
 				continue;
 			}
+			if (element instanceof ModelElementDisposeWithTable) {
+				disposeAndSave.add((ModelElementDisposeWithTable)element);
+				continue;
+			}
 		}
 		if (source.isEmpty()) return RepairState.NOT_CHANGED;
 		if (process.isEmpty() && delay.isEmpty()) return RepairState.NOT_CHANGED;
@@ -221,7 +227,7 @@ public class EditorPanelRepair {
 		RepairState state=RepairState.NOT_CHANGED;
 
 		/* Modell hat kein Ausgang-Element? */
-		if (dispose.isEmpty() && needsDispose) {
+		if (dispose.isEmpty() && disposeAndSave.isEmpty() && needsDispose) {
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixDispose.Title"),Language.tr("Window.Check.AutoFixDispose.Info"),Language.tr("Window.Check.AutoFixDispose.YesInfo"),Language.tr("Window.Check.AutoFixDispose.NoInfo"))) return RepairState.USER_CANCELED;
 			final int x=maxX+100;
 			int y=0;
@@ -260,20 +266,34 @@ public class EditorPanelRepair {
 		/* Verzögerungstation hat keinen Ausgang? */
 		for (ModelElementDelay d: delay) if (d.getEdgeOut()==null) {
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoDelayDispose"),d.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
-			final ModelElementEdge edge=new ModelElementEdge(model,model.surface,d,dispose.get(0));
-			d.addEdgeOut(edge);
-			dispose.get(0).addEdgeIn(edge);
-			model.surface.add(edge);
+			if (dispose.size()>0) {
+				final ModelElementEdge edge=new ModelElementEdge(model,model.surface,d,dispose.get(0));
+				d.addEdgeOut(edge);
+				dispose.get(0).addEdgeIn(edge);
+				model.surface.add(edge);
+			} else {
+				final ModelElementEdge edge=new ModelElementEdge(model,model.surface,d,disposeAndSave.get(0));
+				d.addEdgeOut(edge);
+				disposeAndSave.get(0).addEdgeIn(edge);
+				model.surface.add(edge);
+			}
 			state=RepairState.FIXED;
 		}
 
 		/* Bedienstation hat keinen Ausgang? */
 		for (ModelElementProcess p: process) if (p.getEdgeOutSuccess()==null) {
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoProcessDispose"),p.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
-			final ModelElementEdge edge=new ModelElementEdge(model,model.surface,p,dispose.get(0));
-			p.addEdgeOut(edge);
-			dispose.get(0).addEdgeIn(edge);
-			model.surface.add(edge);
+			if (dispose.size()>0) {
+				final ModelElementEdge edge=new ModelElementEdge(model,model.surface,p,dispose.get(0));
+				p.addEdgeOut(edge);
+				dispose.get(0).addEdgeIn(edge);
+				model.surface.add(edge);
+			} else {
+				final ModelElementEdge edge=new ModelElementEdge(model,model.surface,p,disposeAndSave.get(0));
+				p.addEdgeOut(edge);
+				disposeAndSave.get(0).addEdgeIn(edge);
+				model.surface.add(edge);
+			}
 			state=RepairState.FIXED;
 		}
 

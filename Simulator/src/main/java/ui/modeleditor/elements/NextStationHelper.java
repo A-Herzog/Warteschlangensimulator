@@ -85,6 +85,7 @@ public class NextStationHelper {
 	 */
 	private static void groupDispose(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDispose(null,null));
+		source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDisposeWithTable(null,null));
 	}
 
 	/**

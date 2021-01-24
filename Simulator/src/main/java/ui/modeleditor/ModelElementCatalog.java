@@ -163,6 +163,7 @@ public final class ModelElementCatalog {
 					if (new DDEConnect().available()) addElement(new ModelElementSourceDDE(null,null),null,GROUP_INPUTOUTPUT); else addElementHidden(new ModelElementSourceDDE(null,null),null);
 				}
 				addElement(new ModelElementDispose(null,null),null,GROUP_INPUTOUTPUT);
+				addElement(new ModelElementDisposeWithTable(null,null),null,GROUP_INPUTOUTPUT);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

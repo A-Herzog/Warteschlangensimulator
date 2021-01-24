@@ -92,6 +92,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 		if (element instanceof ModelElementSourceDB) return true;
 		if (element instanceof ModelElementSourceDDE) return true;
 		if (element instanceof ModelElementDispose) return true;
+		if (element instanceof ModelElementDisposeWithTable) return true;
 		if (element instanceof ModelElementStateStatistics) return true;
 		if (element instanceof ModelElementTankSensor) return true;
 		if (element instanceof ModelElementTank) return true;

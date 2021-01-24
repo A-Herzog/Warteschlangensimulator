@@ -39,6 +39,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementDecideJS;
+import ui.modeleditor.elements.ModelElementDisposeWithTable;
 import ui.modeleditor.elements.ModelElementHoldJS;
 import ui.modeleditor.elements.ModelElementInputJS;
 import ui.modeleditor.elements.ModelElementOutput;
@@ -121,6 +122,9 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		}
 		if (element instanceof ModelElementOutputDB) {
 			return new CriticalElement(element,CriticalType.DB_OUTPUT,((ModelElementOutputDB)element).getDb().getConfig());
+		}
+		if (element instanceof ModelElementDisposeWithTable) {
+			return new CriticalElement(element,CriticalType.FILE_OUTPUT,((ModelElementDisposeWithTable)element).getOutputFile());
 		}
 		if (element instanceof ModelElementSetJS) {
 			return new CriticalElement(element,CriticalType.SCRIPT,((ModelElementSetJS)element).getScript());
