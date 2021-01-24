@@ -218,11 +218,19 @@ public class DistributionSetupTimesEditor extends JPanel {
 	 * @see #typeCombo
 	 */
 	private String[] getTypeItems() {
-		final List<String> list=new ArrayList<>(clientTypes.length*clientTypes.length);
+		final String[] list=new String[clientTypes.length*clientTypes.length];
 
-		for (String type1: clientTypes) for (String type2: clientTypes) list.add(type1+" -> "+type2);
+		final StringBuilder sb=new StringBuilder();
+		int index=0;
+		for (String type1: clientTypes) for (String type2: clientTypes) {
+			sb.setLength(0);
+			sb.append(type1);
+			sb.append(" -> ");
+			sb.append(type2);
+			list[index++]=sb.toString();
+		}
 
-		return list.toArray(new String[0]);
+		return list;
 	}
 
 	/**
@@ -352,5 +360,21 @@ public class DistributionSetupTimesEditor extends JPanel {
 				checkExpression();
 			}
 		}
+	}
+
+	/**
+	 * Prüft, ob für die angegebene Anzahl an Kundentypen genug Speicher zur Anzeige der Combobox verfügbar ist.
+	 * @param numberOfClientTypes	Anzahl an Kundentypen im Modell
+	 * @return	Liefert <code>true</code>, wenn die Combobox bzw. der Rüstzeiten-Editor angezeigt werden kann
+	 */
+	public static boolean showSetupTimesEditor(final int numberOfClientTypes) {
+		final long maxMemoryMB=Runtime.getRuntime().maxMemory()/1024/1024;
+
+		if (numberOfClientTypes>5000) return false;
+		if (maxMemoryMB<8000 && numberOfClientTypes>2500) return false;
+		if (maxMemoryMB<4000 && numberOfClientTypes>1000) return false;
+		if (maxMemoryMB<2000 && numberOfClientTypes>500) return false;
+
+		return true;
 	}
 }

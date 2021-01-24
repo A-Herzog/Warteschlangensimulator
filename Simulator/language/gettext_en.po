@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 00:24+0100\n"
+"POT-Creation-Date: 2021-01-25 00:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23626,6 +23626,9 @@ msgstr "Processing times"
 
 msgid "Surface.Process.Dialog.Tab.SetupTimes"
 msgstr "Setup times"
+
+msgid "Surface.Process.Dialog.Tab.SetupTimes.TooManyClientTypes"
+msgstr "In the model there are too many client types to display the setup times editor."
 
 msgid "Surface.Process.Dialog.Tab.WaitingTimeTolerances"
 msgstr "Waiting time tolerances"

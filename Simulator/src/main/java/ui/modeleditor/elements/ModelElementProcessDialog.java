@@ -222,8 +222,15 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tab.add(area=new JPanel(),BorderLayout.NORTH);
 		area.setLayout(new BoxLayout(area,BoxLayout.PAGE_AXIS));
 		area.add(getTimeBasePanel(1));
-		tab.add(editorSetupTimes=new DistributionSetupTimesEditor(element.getModel(),element.getSurface(),readOnly,process.getSetupTimes()),BorderLayout.CENTER);
-		editorSetupTimes.addUserChangeListener(e->updateTabTitles());
+
+		if (DistributionSetupTimesEditor.showSetupTimesEditor(element.getSurface().getClientTypes().size())) {
+			tab.add(editorSetupTimes=new DistributionSetupTimesEditor(element.getModel(),element.getSurface(),readOnly,process.getSetupTimes()),BorderLayout.CENTER);
+			editorSetupTimes.addUserChangeListener(e->updateTabTitles());
+		} else {
+			editorSetupTimes=null;
+			area.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body style='color: red;'><b>"+Language.tr("Surface.Process.Dialog.Tab.SetupTimes.TooManyClientTypes")+"</b></body></html>"));
+		}
 
 		/* Tab "Nachbearbeitungszeiten" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes"),tab=new JPanel(new BorderLayout()));
@@ -563,7 +570,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		}
 
 		distributionsWorking.storeData();
-		editorSetupTimes.storeData();
+		if (editorSetupTimes!=null) editorSetupTimes.storeData();
 		if (checkBoxPostProcessing.isSelected()) distributionsPostProcessing.storeData(); else process.getPostProcessing().set(null);
 		if (checkBoxCancel.isSelected()) distributionsCancel.storeData(); else process.getCancel().set(null);
 
@@ -591,7 +598,9 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		final String off=Language.tr("Surface.Process.Dialog.off");
 		final String missing="<span style=\"color: red;\"><b>"+Language.tr("Surface.Process.Dialog.StillMissing").toUpperCase()+"</b></span>";
 
-		tabs.setTitleAt(1,html1+Language.tr("Surface.Process.Dialog.Tab.SetupTimes")+": "+((editorSetupTimes.isActive())?on:off)+html2);
+		if (editorSetupTimes!=null) {
+			tabs.setTitleAt(1,html1+Language.tr("Surface.Process.Dialog.Tab.SetupTimes")+": "+((editorSetupTimes.isActive())?on:off)+html2);
+		}
 		tabs.setTitleAt(2,html1+Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes")+": "+((checkBoxPostProcessing.isSelected())?on:off)+html2);
 		tabs.setTitleAt(3,html1+Language.tr("Surface.Process.Dialog.Tab.WaitingTimeTolerances")+": "+((checkBoxCancel.isSelected())?on:off)+html2);
 		tabs.setTitleAt(5,html1+Language.tr("Surface.Process.Dialog.Tab.Operators")+((resourceData==null || resourceData.isResourceDefined())?"":": "+missing)+html2);
