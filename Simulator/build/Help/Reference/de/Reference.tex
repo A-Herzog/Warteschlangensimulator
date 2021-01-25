@@ -228,6 +228,34 @@ Auf dieser Registerkarte können Textzuweisungen vom Typ Schlüssel:=Text einget
 die jedem neu erstellten Kunden automatisch zugewiesen werden sollen.
 
 
+\section{Speichern+Ausgang}
+\label{ref:ModelElementDisposeWithTable}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementDisposeWithTable.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+In ein Ausgang-Element können beliebig viele Kanten einlaufen, es laufen aus diesem Element jedoch keine Kanten mehr aus.
+Das Ausgang stellt die letzte Station eines Kunden in dem Warteschlangensystem dar. An dieser Station verlässt der Kunde
+das System, eine weitere Verarbeitung ist danach nicht mehr möglich. Alle Wege der Kunden müssen in solch einem Element enden.
+
+Ein Speichern+Ausgang-Element erfasst die einzelnen Kunden vor dem Verlassen des Systems in einer Tabelle. Auf diese Art
+generierte Tabellen könne an Tabellen-Quellen (siehe Seite \pageref{ref:ModelElementSourceTable}) verwendet werden, um so die
+Kunden, die das aktuelle System verlassen haben, als Eingangsstrom in einem anderen Modell zu verwenden.
+
+\subsection*{Einstellungen}
+
+Bei einem Speichern+Ausgang-Element muss eine Datei angegeben werden, in der die Kunden vor dem verlassen des Systems erfasst werden.
+
+Für das Ausgang-Element kann ein Name eingestellt werden. Dieser hat jedoch keine weitere Bedeutung, sondern wird lediglich
+in der Komponente auf der Zeichenfläche angezeigt.
+
+Zusätzlich kann eingestellt werden, dass ein Ausgang-Element als Notausgang verwendet werden soll: Befindet sich das Element
+in diesem Modus, so wird die Simulation abgebrochen, so bald an der Station ein Kunde eintrifft.
+
+
 \section{Tabellenquelle}
 \label{ref:ModelElementSourceTable}
 

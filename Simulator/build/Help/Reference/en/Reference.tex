@@ -161,6 +161,34 @@ On this tab client text assignments like key:=value can be setup.
 These assignments are applied to each client created by this source.
 
 
+\section{Save and exit}
+\label{ref:ModelElementDisposeWithTable}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementDisposeWithTable.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Any number of edges can be inserted into an exit element, but no edges run out of this element.
+The exit represents the last station of a client in the queue system.
+At this station, the client leaves the system, and no further processing is possible thereafter.
+All the ways of the client have to end in such an element.
+
+A Save and exit element stores the data of the individual clients in a table before they leave the system.
+Tables generated in this way can be used at table sources (see page \pageref{ref:ModelElementSourceTable}) stations
+to use the clients who left the current system as an input stream in another model.
+
+\subsection*{Settings}
+
+For a Save and exit element, a file must be specified where clients are to be recorded before leaving the system.
+
+The name of the exit element has no further meaning for the simulation.
+
+The exit element can be defined as an emergency exit: In this mode, the simulation is aborted
+as soon as a client arrives at the station.
+
+
 \section{Source}
 \label{ref:ModelElementSource}
 
