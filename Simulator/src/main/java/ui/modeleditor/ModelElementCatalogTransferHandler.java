@@ -21,6 +21,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.function.Supplier;
 
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -43,6 +44,21 @@ public class ModelElementCatalogTransferHandler extends TransferHandler {
 	 */
 	private static final long serialVersionUID = -6846928178641998737L;
 
+	/**
+	 * Getter für den Zoomfaktor<br>
+	 * (Transferobjekt wird ganz zu Beginn generiert, Zoomfaktor soll aber
+	 * ermittelt werden, wenn tatsächlich ein Transfer ansteht)
+	 */
+	private final Supplier<Double> zoom;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param zoom	Getter für den Zoomfaktor
+	 */
+	public ModelElementCatalogTransferHandler(final Supplier<Double> zoom) {
+		this.zoom=zoom;
+	}
+
 	@Override
 	public int getSourceActions(JComponent c) {
 		return TransferHandler.COPY;
@@ -59,7 +75,7 @@ public class ModelElementCatalogTransferHandler extends TransferHandler {
 		final int width=(int)Math.round(point.x*scale);
 		final int height=(int)Math.round(point.y*scale);
 		final BufferedImage image=new BufferedImage(width+1,height+1,BufferedImage.TYPE_4BYTE_ABGR);
-		element.drawToGraphics(image.getGraphics(),new Rectangle(0,0,width,height),1.0*scale,false);
+		element.drawToGraphics(image.getGraphics(),new Rectangle(0,0,width,height),zoom.get()*scale,false);
 		setDragImage(image);
 	}
 

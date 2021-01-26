@@ -277,7 +277,7 @@ public final class EditorPanel extends EditorPanelBase {
 	/** Popupmenü-Schaltfläche für die Vorlagenliste */
 	private JButton leftAreaTemplatesFilterButton;
 
-	/* Ausklapp-Panel links */
+	/* Ausklapp-Panel rechts */
 
 	/** Panel rechts von der Zeichenfläche */
 	private JPanel rightArea;
@@ -364,6 +364,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @return	Rasteranzeige
 	 */
 	public ModelSurface.Grid getRaster() {
+		if (surfacePanel==null) return ModelSurface.Grid.LINES;
 		return surfacePanel.getRaster();
 	}
 
@@ -372,6 +373,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @param raster	Rasteranzeige
 	 */
 	public void setRaster(final ModelSurface.Grid raster) {
+		if (surfacePanel==null) return;
 		surfacePanel.setRaster(raster);
 	}
 
@@ -379,6 +381,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * Verringert den Zoomfaktor.
 	 */
 	public void zoomOut() {
+		if (surfacePanel==null) return;
 		surfacePanel.zoomOut();
 		labelZoom.setText(Math.round(100*surfacePanel.getZoom())+"% ");
 	}
@@ -387,6 +390,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * Vergrößert den Zoomfaktor.
 	 */
 	public void zoomIn() {
+		if (surfacePanel==null) return;
 		surfacePanel.zoomIn();
 		labelZoom.setText(Math.round(100*surfacePanel.getZoom())+"% ");
 	}
@@ -395,6 +399,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * Stellt den Standard-Zoomfaktor wieder her.
 	 */
 	public void zoomDefault() {
+		if (surfacePanel==null) return;
 		surfacePanel.zoomDefault();
 		labelZoom.setText(Math.round(100*surfacePanel.getZoom())+"% ");
 	}
@@ -404,6 +409,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @return Aktueller Zoomfaktor
 	 */
 	public double getZoom() {
+		if (surfacePanel==null) return 1.0;
 		return surfacePanel.getZoom();
 	}
 
@@ -412,6 +418,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @param zoom	Neuer Zoomfaktor
 	 */
 	public void setZoom(final double zoom) {
+		if (surfacePanel==null) return;
 		surfacePanel.setZoom(zoom);
 		labelZoom.setText(Math.round(100*surfacePanel.getZoom())+"% ");
 	}
@@ -420,6 +427,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * Zentriert das Modell auf der Zeichenfläche.
 	 */
 	public void centerModel() {
+		if (surfacePanel==null) return;
 		surfacePanel.centerModel();
 	}
 
@@ -438,6 +446,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * Bei nur kleinen Abweichungen von der linken oberen Ecke wird zu dieser gescrollt.
 	 */
 	public void smartCenterModel() {
+		if (surfacePanel==null) return;
 		surfacePanel.centerModel();
 		final Point top=surfacePanel.getTopPosition();
 		final double zoom=surfacePanel.getZoom();
@@ -451,6 +460,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * Scrollt ganz nach oben links.
 	 */
 	public void scrollToTop() {
+		if (surfacePanel==null) return;
 		surfacePanel.scrollToTop();
 	}
 
@@ -855,7 +865,7 @@ public final class EditorPanel extends EditorPanelBase {
 		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(setup.visibleTemplateGroups,setup.openTemplateGroups,"",model.surface.getParentSurface()!=null));
 
 		templates.setDragEnabled(true);
-		templates.setTransferHandler(new ModelElementCatalogTransferHandler());
+		templates.setTransferHandler(new ModelElementCatalogTransferHandler(()->getZoom()));
 		templates.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -915,6 +925,7 @@ public final class EditorPanel extends EditorPanelBase {
 	private JComponent createNavigatorPanel() {
 		navigator=new JList<>();
 		navigator.setCellRenderer(navigatorRenderer=new ModelElementNavigatorListCellRenderer<>());
+		navigatorRenderer.setZoom(surfacePanel.getZoom());
 		navigator.setModel(navigatorModel=new DefaultListModel<>());
 
 		navigator.addMouseListener(new MouseAdapter() {
@@ -1175,6 +1186,7 @@ public final class EditorPanel extends EditorPanelBase {
 			navigatorModel.clear();
 			updateNavigatorList();
 		});
+		templatesRenderer.setZoom(surfacePanel.getZoom());
 		surfacePanel.addBuildParameterSeriesListener(template->fireBuildParameterSeries(template));
 		surfacePanel.addSetElementTemplatesVisibilityListener(visibility->{switch (visibility) {
 		case HIDE: setTemplatesVisible(false); break;
