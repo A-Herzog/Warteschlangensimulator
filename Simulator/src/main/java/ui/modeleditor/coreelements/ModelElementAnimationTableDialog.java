@@ -46,10 +46,14 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import systemtools.images.SimToolsImages;
+import systemtools.statistics.ChartSetup;
 import systemtools.statistics.StatisticViewerBarChart;
 import systemtools.statistics.StatisticViewerJFreeChart;
 import systemtools.statistics.StatisticViewerLineChart;
 import systemtools.statistics.StatisticViewerPieChart;
+import systemtools.statistics.StatisticsBasePanel;
+import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.elements.ModelElementAnimationBarChart;
@@ -87,6 +91,8 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 	private final ModelElementPosition element;
 	/** Schaltfläche um bei den Diagrammen den Standardzoomfaktor wiederherzustellen */
 	private final JButton buttonUnzoom;
+	/** Schaltfläche um bei den Diagrammen den Einstellungen-Dialog aufrufen zu können */
+	private final JButton buttonSetup;
 	/** Schaltfläche zum Umschalten zwischen automatischer und manueller Aktualisierung */
 	private final JButton buttonAutoUpdate;
 
@@ -123,7 +129,10 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		if (this.element!=null) {
 			buttonUnzoom=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Unzoom"),Images.ZOOM.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UnzoomHint"),e->commandUnzoom());
 			buttonUnzoom.setVisible(false);
+			buttonSetup=addButton(toolbar,StatisticsBasePanel.viewersToolbarSettings,SimToolsImages.SETUP.getIcon(),StatisticsBasePanel.viewersToolbarSettingsHint,e->commandSettings());
+			buttonSetup.setVisible(false);
 		} else {
+			buttonSetup=null;
 			buttonUnzoom=null;
 		}
 
@@ -149,6 +158,22 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 			if (this.element instanceof ModelElementAnimationBarChart) chart=new ElementDataBarChart((ModelElementAnimationBarChart)this.element);
 			if (this.element instanceof ModelElementAnimationLineDiagram) chart=new ElementDataLineChart((ModelElementAnimationLineDiagram)this.element);
 			if (this.element instanceof ModelElementAnimationPieChart) chart=new ElementDataPieChart((ModelElementAnimationPieChart)this.element);
+			if (chart!=null) {
+				chart.setRequestChartSetup(()->SetupData.getSetup().chartSetup);
+				chart.setRequestImageSize(()->SetupData.getSetup().imageSize);
+				chart.setUpdateChartSetup(chartSetup->{
+					final SetupData setup=SetupData.getSetup();
+					setup.chartSetup.copyFrom(chartSetup);
+					setup.saveSetup();
+
+				});
+				chart.setUpdateImageSize(newSize->{
+					final SetupData setup=SetupData.getSetup();
+					setup.imageSize=newSize;
+					setup.saveSetup();
+				});
+			}
+
 			diagramTab=tab;
 			SwingUtilities.invokeLater(()->{
 				final Container c=chart.getViewer(true);
@@ -157,6 +182,7 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 			tabs.setIconAt(0,Images.GENERAL_TABLE.getIcon());
 			tabs.setIconAt(1,element.getAddElementIcon());
 			tabs.addChangeListener(e->buttonUnzoom.setVisible(tabs.getSelectedIndex()==1));
+			tabs.addChangeListener(e->buttonSetup.setVisible(tabs.getSelectedIndex()==1));
 		}
 
 		/* Dialog starten */
@@ -218,6 +244,43 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 	 */
 	private void commandUnzoom() {
 		if (chart!=null) chart.unZoom();
+	}
+
+	/**
+	 * Befehl: Einstellungen
+	 */
+	private void commandSettings() {
+		final String[] names=chart.ownSettingsName();
+		if (names==null || names.length==0) return;
+		final Icon[] icons=chart.ownSettingsIcon();
+
+		JMenuItem item;
+		final JPopupMenu menu=new JPopupMenu();
+
+		for (int i=0;i<names.length;i++) {
+			if (names[i]==null) continue;
+			final Icon icon=(icons==null || icons.length<=i)?null:icons[i];
+			final int nr=i;
+			menu.add(item=new JMenuItem(names[i],icon));
+			item.addActionListener(e->{
+				StatisticsBasePanel dummy=new StatisticsBasePanel(1,"",null,"",false) {
+					/**
+					 * Serialisierungs-ID der Klasse
+					 * @see Serializable
+					 */
+					private static final long serialVersionUID=-1940551679813558440L;
+					@Override protected int getImageSize() {return 0;}
+					@Override protected void setImageSize(int newSize) {}
+					@Override protected ChartSetup getChartSetup() {return null;}
+				};
+				ModelElementAnimationTableDialog.this.add(dummy);
+				chart.ownSettings(dummy,nr);
+				chart.setChartSetup(SetupData.getSetup().chartSetup);
+				ModelElementAnimationTableDialog.this.remove(dummy);
+			});
+		}
+
+		menu.show(buttonSetup,0,buttonSetup.getHeight());
 	}
 
 	/**
