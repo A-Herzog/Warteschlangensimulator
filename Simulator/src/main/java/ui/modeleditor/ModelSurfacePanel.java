@@ -2902,10 +2902,14 @@ public final class ModelSurfacePanel extends JPanel {
 						if (dragStartElementBorderPointNr>=0) {
 							dragElement.setBorderPointPosition(dragStartElementBorderPointNr,point);
 						} else {
+							if (point.x<0) point.x=0;
+							if (point.y<0) point.y=0;
 							dragElement.setPosition(point);
 							for (ModelElement element : surface.getSelectedArea(true)) if (element instanceof ModelElementPosition && element!=dragElement) {
 								point=((ModelElementPosition)element).getPosition(false);
 								point.translate(subDelta.x,subDelta.y);
+								if (point.x<0) point.x=0;
+								if (point.y<0) point.y=0;
 								((ModelElementPosition)element).setPosition(point);
 							}
 						}
