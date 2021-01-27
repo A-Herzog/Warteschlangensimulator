@@ -94,6 +94,7 @@ public class ModelElementInputDDEDialog extends ModelElementBaseDialog {
 	@Override
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(700,0);
+		pack();
 	}
 
 	@Override
