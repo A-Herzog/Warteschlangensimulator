@@ -782,7 +782,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		if (correlationSums==null) return;
 
 		/*
-		 * g(k) = 1/n * sum(i=k+1..n) (x(i)-xMean)*(x(i-k)*xMean)
+		 * g(k) = 1/n * sum(i=k+1..n) (x(i)-xMean)*(x(i-k)-xMean)
 		 * g(k) \approx 1/n * (sum(i=k+1..n)x(i)*x(i-k) - (n-k)*xMean^2)
 		 * rho(k)=g(k)/xVar
 		 */
