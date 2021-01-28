@@ -190,7 +190,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 				if (data.jsRunner!=null) {
 					/* JS-Mode */
 					JSRunSimulationData jsRunner=data.jsRunner;
-					jsRunner.setSimulationData(simData,data.waitingClients);
+					jsRunner.setSimulationData(simData,id,data.waitingClients);
 					final String result=jsRunner.runCompiled();
 					if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
 						simData.doEmergencyShutDown(result);

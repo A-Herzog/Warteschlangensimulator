@@ -143,34 +143,37 @@ public class JSRunSimulationData {
 	/**
 	 * Stellt die Simulationsdaten für die Abfrage durch das Javascript-Verknüpfungs-Objekt ein
 	 * @param simData	Simulationsdaten-Objekt (kann auch <code>null</code> sein)
+	 * @param currentStation	ID der aktuellen Station
 	 */
-	public void setSimulationDataNoClient(final SimulationData simData) {
-		simulatorCommand.setSimulationData(simData,null);
+	public void setSimulationDataNoClient(final SimulationData simData, final int currentStation) {
+		simulatorCommand.setSimulationData(simData,currentStation,null);
 	}
 
 	/**
 	 * Stellt die Simulationsdaten und den aktuellen Kunden für die Abfrage durch das Javascript-Verknüpfungs-Objekt ein
 	 * @param simData	Simulationsdaten-Objekt (kann auch <code>null</code> sein)
+	 * @param currentStation	ID der aktuellen Station
 	 * @param client	Aktueller Kunde (kann auch <code>null</code> sein)
 	 */
-	public void setSimulationData(final SimulationData simData, final RunDataClient client) {
-		simulatorCommand.setSimulationData(simData,client);
+	public void setSimulationData(final SimulationData simData, final int currentStation, final RunDataClient client) {
+		simulatorCommand.setSimulationData(simData,currentStation,client);
 	}
 
 	/**
 	 * Stellt die Simulationsdaten und die Liste der wartenden Kunden für die Abfrage durch das Javascript-Verknüpfungs-Objekt ein
 	 * @param simData	Simulationsdaten-Objekt (kann auch <code>null</code> sein)
+	 * @param currentStation	ID der aktuellen Station
 	 * @param clients	Liste der wartenden Kunden
 	 */
-	public void setSimulationData(final SimulationData simData, final List<RunDataClient> clients) {
-		simulatorCommand.setSimulationData(simData,null);
+	public void setSimulationData(final SimulationData simData, final int currentStation, final List<RunDataClient> clients) {
+		simulatorCommand.setSimulationData(simData,currentStation,null);
 		clientsCommand.setSimulationData(simData,clients);
 	}
 
 	/**
 	 * Gibt an, welche der Kunden freigegeben werden sollen
 	 * @return	Array mit Angaben darüber, welche Kunden freigegeben werden sollen
-	 * @see JSRunSimulationData#setSimulationData(SimulationData, List)
+	 * @see JSRunSimulationData#setSimulationData(SimulationData, int, List)
 	 */
 	public boolean[] getSimulationDataClients() {
 		return clientsCommand.getSimulationData();

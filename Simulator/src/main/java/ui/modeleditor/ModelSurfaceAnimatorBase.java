@@ -1979,7 +1979,7 @@ public class ModelSurfaceAnimatorBase {
 		if (storedSimData==null) return Language.tr("Animation.NoSimulationDataAvailable");
 		final JSRunSimulationData jsRunner=new JSRunSimulationData(true,false);
 		jsRunner.compile(script);
-		jsRunner.setSimulationDataNoClient(storedSimData);
+		jsRunner.setSimulationDataNoClient(storedSimData,-1);
 		return jsRunner.runCompiled();
 	}
 
@@ -1992,7 +1992,7 @@ public class ModelSurfaceAnimatorBase {
 		if (storedSimData==null) return Language.tr("Animation.NoSimulationDataAvailable");
 		final DynamicRunner runner=DynamicFactory.getFactory().load(script);
 		if (runner.getStatus()!=DynamicStatus.OK) return DynamicFactory.getLongStatusText(runner);
-		runner.parameter.system=new SystemImpl(storedSimData);
+		runner.parameter.system=new SystemImpl(storedSimData,-1);
 		final StringBuilder sb=new StringBuilder();
 		runner.parameter.output=new OutputImpl(s->sb.append(s),false);
 		final Object result=runner.run();

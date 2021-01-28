@@ -70,7 +70,7 @@ public class RunElementInputJSData extends RunElementData {
 		case Java:
 			jsRunner=null;
 			javaRunner=DynamicFactory.getFactory().load(script);
-			javaRunner.parameter.system=new SystemImpl(simData);
+			javaRunner.parameter.system=new SystemImpl(simData,station.id);
 			javaRunner.parameter.client=new ClientImpl(simData);
 			javaRunner.parameter.inputValue=new InputValueImpl();
 			break;

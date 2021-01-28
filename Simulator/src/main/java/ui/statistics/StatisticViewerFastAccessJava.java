@@ -158,7 +158,7 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 		runner.parameter.output=new OutputImpl(s->results.append(s),false);
 		if (document==null) document=statistics.saveToXMLDocument();
 		runner.parameter.statistics=new StatisticsImpl(s->results.append(s),document,statistics.loadedStatistics,false);
-		runner.parameter.system=new SystemImpl(Simulator.getSimulationDataFromStatistics(statistics));
+		runner.parameter.system=new SystemImpl(Simulator.getSimulationDataFromStatistics(statistics),-1);
 		runner.run();
 		if (runner.getStatus()!=DynamicStatus.OK) {
 			MsgBox.error(this,Language.tr("Statistic.FastAccess.JavaErrorTitle"),DynamicFactory.getLongStatusText(runner));

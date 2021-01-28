@@ -373,6 +373,16 @@ The return value of the method will be returned by \cm{runPlugin}. If calling th
 
 \end{itemize}
 
+\section{Output message in logging}
+
+\begin{itemize}
+
+\item
+\cmd{void log(final Object obj)}:\\
+Outputs the passed message to the logging system (if logging is enabled).
+
+\end{itemize}
+
 
 
 \chapter{\texttt{ClientInterface} accessible via \texttt{sim.getClient()}}
@@ -485,6 +495,73 @@ Gets for the current client the string which is stored by the key \cm{key}.
 \cmd{void setText(final String key, final String value)}:\\
 Sets for the current client string \cm{value} for the key \cm{key}.
 	
+\end{itemize}
+
+\section{Temporary batches}
+
+If the current client is a temporary batch, the properties of the inner clients
+it contains can be accessed in read-only mode:
+
+\begin{itemize}
+\item
+\cmd{int batchSize()}:\\
+Returns the number of clients that are in the temporary batch.  
+If the current client is not a temporary batch, the function returns 0.
+
+\item
+\cmd{String getBatchTypeName(final int batchIndex)}:\\
+Returns the name of one of the clients in the current batch.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{double getBatchWaitingSeconds(final int batchIndex)}:\\
+Returns the previous waiting time of one of the clients in the current batch in seconds as a numerical value.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{String getBatchWaitingTime(final int batchIndex)}:\\
+Returns the previous waiting time of one of the clients in the current batch in formatted form as a string.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{double getBatchTransferSeconds(final int batchIndex)}:\\
+Returns the previous transfer time of one of the clients in the current batch in seconds as a numerical value.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{String getBatchTransferTime(final int batchIndex)}:\\
+Returns the previous transfer time of one of the clients in the current batch in formatted form as a string.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{double getBatchProcessSeconds(final int batchIndex)}:\\
+Returns the previous processing time of one of the clients in the current batch in seconds as a numerical value.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{String getBatchProcessTime(final int batchIndex)}:\\
+Returns the previous processing time of one of the clients in the current batch in formatted form as a string.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+	 
+\item
+\cmd{double getBatchResidenceSeconds(final int batchIndex)}:\\
+Returns the previous residence time of one of the clients in the current batch in seconds as a numerical value.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{String getBatchResidenceTime(final int batchIndex)}:\\
+Returns the previous residence time of one of the clients in the current batch in formatted form as a string.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{double getBatchValue(final int batchIndex, final int index)}:\\
+Returns a stored numerical value for one of the clients in the current batch.
+The passed batch index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{String getBatchText(final int batchIndex, final String key)}:\\
+Returns a stored text value for one of the clients in the current batch.
+The passed batch index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
 \end{itemize}
 
 

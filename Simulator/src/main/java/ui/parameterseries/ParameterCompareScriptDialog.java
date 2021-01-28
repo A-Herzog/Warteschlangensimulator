@@ -132,7 +132,7 @@ public class ParameterCompareScriptDialog extends BaseDialog {
 				MsgBox.error(this,Language.tr("ParameterCompare.ScriptRunner.Script.Run.Error.Title"),String.format(Language.tr("ParameterCompare.ScriptRunner.Script.Run.Error.Info"),DynamicFactory.getLongStatusText(runner)));
 				return false;
 			}
-			runner.parameter.system=new SystemImpl(Simulator.getSimulationDataFromStatistics(model.getStatistics()));
+			runner.parameter.system=new SystemImpl(Simulator.getSimulationDataFromStatistics(model.getStatistics()),-1);
 			runner.parameter.output=new OutputImpl(addOutput,false);
 			runner.parameter.statistics=new StatisticsImpl(addOutput,model.getStatisticsDocument(),null,false);
 			runner.run();

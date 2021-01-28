@@ -41,6 +41,9 @@ public class SystemImpl implements SystemInterface {
 	private final SimulationData simData;
 	/** Laufzeitmodell */
 	private final RunModel runModel;
+	/** ID der aktuellen Station */
+	private final int currentStation;
+
 	/**
 	 * Zuordnung von Rechenausdruck-Zeichenketten und bereits erstellten passenden Objekten
 	 * @see #getExpression(String)
@@ -50,10 +53,12 @@ public class SystemImpl implements SystemInterface {
 	/**
 	 * Konstruktor der Klasse
 	 * @param simData	Simulationsdatenobjekt, dessen Daten bereitgestellt werden sollen
+	 * @param currentStation	ID der aktuellen Station
 	 */
-	public SystemImpl(final SimulationData simData) {
+	public SystemImpl(final SimulationData simData, final int currentStation) {
 		this.simData=simData;
 		runModel=simData.runModel;
+		this.currentStation=currentStation;
 	}
 
 	/**
@@ -287,5 +292,16 @@ public class SystemImpl implements SystemInterface {
 	public Object runPlugin(final String className, final String functionName, final Object data) {
 		if (simData.pluginsConnect==null) return null;
 		return simData.pluginsConnect.runFunction(className,functionName,this,data);
+	}
+
+	@Override
+	public void log(final Object obj) {
+		if (obj==null) return;
+		if (!simData.logArrival) return;
+		if (currentStation<=0) {
+			simData.logEventExecution("Log",currentStation,obj.toString());
+		} else {
+			simData.runModel.elementsFast[currentStation].log(simData,"Log",obj.toString());
+		}
 	}
 }

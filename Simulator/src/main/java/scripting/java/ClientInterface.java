@@ -188,4 +188,98 @@ public interface ClientInterface {
 	 * @param value	Textwert der zu dem Schlüssel hinterlegt werden soll
 	 */
 	void setText(final String key, final String value);
+
+	/**
+	 * Handelt es sich bei dem aktuellen Kunden um einen temporären Batch,
+	 * so liefert diese Funktion die Anzahl der Kunden, die sich in dem Batch befinden.
+	 * @return	Anzahl an Kunden im Batch oder 0, wenn es sich nicht um einen temporären Batch handelt.
+	 */
+	int batchSize();
+
+	/**
+	 * Liefert den Namen eines der Kunden in dem aktuellen Batch.
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return	Name des Kunden oder <code>null</code>, wenn der Index ungültig ist.
+	 */
+	String getBatchTypeName(final int batchIndex);
+
+	/**
+	 * Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Wartezeit des Kunden
+	 * @see ClientInterface#getBatchWaitingTime(int)
+	 */
+	double getBatchWaitingSeconds(final int batchIndex);
+
+	/**
+	 * Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Wartezeit des Kunden
+	 * @see ClientInterface#getBatchWaitingSeconds(int)
+	 */
+	String getBatchWaitingTime(final int batchIndex);
+
+	/**
+	 * Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Transferzeit des Kunden
+	 * @see ClientInterface#getBatchTransferTime(int)
+	 */
+	double getBatchTransferSeconds(final int batchIndex);
+
+	/**
+	 * Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Transferzeit des Kunden
+	 * @see ClientInterface#getBatchTransferSeconds(int)
+	 */
+	String getBatchTransferTime(final int batchIndex);
+
+	/**
+	 * Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Bedienzeit des Kunden
+	 * @see ClientInterface#getBatchProcessTime(int)
+	 */
+	double getBatchProcessSeconds(final int batchIndex);
+
+	/**
+	 * Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Bedienzeit des Kunden
+	 * @see ClientInterface#getBatchProcessSeconds(int)
+	 */
+	String getBatchProcessTime(final int batchIndex);
+
+	/**
+	 * Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Verweilzeit des Kunden
+	 * @see ClientInterface#getBatchResidenceTime(int)
+	 */
+	double getBatchResidenceSeconds(final int batchIndex);
+
+	/**
+	 * Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Verweilzeit des Kunden
+	 * @see ClientInterface#getBatchResidenceSeconds(int)
+	 */
+	String getBatchResidenceTime(final int batchIndex);
+
+	/**
+	 * Liefert einen zu einem der Kunden in dem aktuellen Batch einen gespeicherten Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param index	Index zu dem der Zahlenwert abgerufen werden soll
+	 * @return	Zahlenwert zu dem Index für den Kunden. (Ist kein Wert für den Index gesetzt, so wird 0.0 zurückgeliefert.)
+	 */
+	double getBatchValue(final int batchIndex, final int index);
+
+	/**
+	 * Liefert zu einem der Kunden in dem aktuellen Batch einen gespeicherten Textwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param key	Schlüssel zu dem der Textwert abgerufen werden soll
+	 * @return	Textwert zu dem Schlüssel für den Kunden. (Ist kein Wert für den Schlüssel gesetzt, so wird ein leerer String zurückgeliefert.)
+	 */
+	String getBatchText(final int batchIndex, final String key);
 }

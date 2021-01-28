@@ -388,6 +388,16 @@ Ruft in der angegebenen Klasse die angegebene Methode auf und übermittelt an di
 zurückgegeben. Schlägt der Aufruf fehl, so liefert \cm{runPlugin} den Wert \cm{null} zurück.
 \end{itemize}
 
+\section{Meldung in Logging ausgeben}
+
+\begin{itemize}
+
+\item
+\cmd{void log(final Object obj)}:\\
+Gibt die übergebene Meldung im Logging-System aus (sofern eine Logaufzeichnung aktiviert ist).
+
+\end{itemize}
+
 
 
 \chapter{\texttt{ClientInterface} abrufbar über \texttt{sim.getClient()}}
@@ -501,6 +511,77 @@ Liefert die zu \cm{key} für den aktuellen Kunden hinterlegte Zeichenkette.
 Stellt für den aktuellen Kunden für \cm{key} die Zeichenkette \cm{value} ein.
 	
 \end{itemize}
+
+\section{Temporäre Batche}
+
+Handelt es sich bei dem aktuellen Kunden um einen temporären Batch, so kann auf die
+Eigenschaften der in ihm enthaltenen inneren Kunden lesend zugegriffen werden:
+
+\begin{itemize}
+
+\item
+\cmd{int batchSize()}:\\
+Liefert die Anzahl an Kunden, die sich in dem temporären Batch befinden.
+Ist der aktuelle Kunden keine temporärer Batch, so liefert die Funktion 0.
+
+\item
+\cmd{String getBatchTypeName(final int batchIndex)}:\\
+Liefert den Namen eines der Kunden in dem aktuellen Batch.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{double getBatchWaitingSeconds(final int batchIndex)}:\\
+Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+	
+
+\item
+\cmd{String getBatchWaitingTime(final int batchIndex)}:\\
+Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{double getBatchTransferSeconds(final int batchIndex)}:\\
+Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{String getBatchTransferTime(final int batchIndex)}:\\
+Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{double getBatchProcessSeconds(final int batchIndex)}:\\
+Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{String getBatchProcessTime(final int batchIndex)}:\\
+Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+	 
+\item
+\cmd{double getBatchResidenceSeconds(final int batchIndex)}:\\
+Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{String getBatchResidenceTime(final int batchIndex)}:\\
+Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{double getBatchValue(final int batchIndex, final int index)}:\\
+Liefert einen zu einem der Kunden in dem aktuellen Batch einen gespeicherten Zahlenwert.
+Der übergebene Batch-Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{String getBatchText(final int batchIndex, final String key)}:\\
+Liefert zu einem der Kunden in dem aktuellen Batch einen gespeicherten Textwert.
+Der übergebene Batch-Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+  
+\end{itemize}
+
 
 
 \chapter{\texttt{InputValueInterface} abrufbar über \texttt{sim.getInputValue()}}

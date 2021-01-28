@@ -388,6 +388,77 @@ Sets for the current client string \cm{value} for the key \cm{key}.\\
 
 \end{itemize}
 
+\section{Temporary batches}
+
+If the current client is a temporary batch, the properties of the inner clients
+it contains can be accessed in read-only mode:
+
+\begin{itemize}
+\item
+\cmd{Simulation.batchSize()}:\\
+Returns the number of clients that are in the temporary batch.  
+If the current client is not a temporary batch, the function returns 0.
+
+\item
+\cmd{Simulation.getBatchTypeName(batchIndex)}:\\
+Returns the name of one of the clients in the current batch.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{Simulation.getBatchWaitingSeconds(batchIndex)}:\\
+Returns the previous waiting time of one of the clients in the current batch in seconds as a numerical value.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+
+\item
+md{Simulation.getBatchWaitingTime(batchIndex)}:\\
+Returns the previous waiting time of one of the clients in the current batch in formatted form as a string.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+
+tem
+md{Simulation.getBatchTransferSeconds(batchIndex)}:\\
+Returns the previous transfer time of one of the clients in the current batch in seconds as a numerical value.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+
+\item
+\cmd{Simulation.getBatchTransferTime(batchIndex)}:\\
+Returns the previous transfer time of one of the clients in the current batch in formatted form as a string.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{Simulation.getBatchProcessSeconds(batchIndex)}:\\
+Returns the previous processing time of one of the clients in the current batch in seconds as a numerical value.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{Simulation.getBatchProcessTime(batchIndex)}:\\
+Returns the previous processing time of one of the clients in the current batch in formatted form as a string.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+	 
+\item
+\cmd{Simulation.getBatchResidenceSeconds(batchIndex)}:\\
+Returns the previous residence time of one of the clients in the current batch in seconds as a numerical value.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{Simulation.getBatchResidenceTime(batchIndex)}:\\
+Returns the previous residence time of one of the clients in the current batch in formatted form as a string.
+The passed index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{Simulation.getBatchValue(batchIndex, index)}:\\
+Returns a stored numerical value for one of the clients in the current batch.
+The passed batch index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\item
+\cmd{Simulation.getBatchText(batchIndex, key)}:\\
+Returns a stored text value for one of the clients in the current batch.
+The passed batch index is 0-based and must be in the range from 0 to \cm{batchSize()-1}.
+
+\end{itemize}
+
 \section{Accessing parameters of the simulation model}
 
 \begin{itemize}
@@ -484,6 +555,16 @@ Returns the current number of operators in down time in the resource with the sp
 \item
 \cmd{Simulation.signal(name)}:\\
 Fires the signal with the given name.
+
+\end{itemize}
+
+\section{Output message in logging}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.log(message)}:\\
+Outputs the passed message to the logging system (if logging is enabled).
 
 \end{itemize}
 

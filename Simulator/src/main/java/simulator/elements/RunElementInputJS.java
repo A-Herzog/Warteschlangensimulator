@@ -170,7 +170,7 @@ public class RunElementInputJS extends RunElementPassThrough {
 		if (data.jsRunner!=null) {
 			final JSRunSimulationData jsRunner=data.jsRunner;
 			jsRunner.setSimulationInputValue(value);
-			jsRunner.setSimulationData(simData,client);
+			jsRunner.setSimulationData(simData,id,client);
 			final String result=jsRunner.runCompiled();
 			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
 				simData.doEmergencyShutDown(result);

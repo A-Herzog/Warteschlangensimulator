@@ -143,4 +143,10 @@ public interface SystemInterface {
 	 * @return	Rückgabewert der Methode
 	 */
 	Object runPlugin(final String className, final String functionName, final Object data);
+
+	/**
+	 * Erfasst eine Meldung in der Logging-Ausgabe.
+	 * @param obj	Zu erfassende Meldung
+	 */
+	void log(final Object obj);
 }

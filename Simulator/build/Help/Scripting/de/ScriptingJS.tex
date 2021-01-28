@@ -424,6 +424,74 @@ Stellt für den aktuellen Kunden für \cm{Schlüssel} die Zeichenkette \cm{Wert}
 
 \end{itemize}
 
+\section{Temporäre Batche}
+
+Handelt es sich bei dem aktuellen Kunden um einen temporären Batch, so kann auf die
+Eigenschaften der in ihm enthaltenen inneren Kunden lesend zugegriffen werden:
+
+\begin{itemize}
+\item
+\cmd{Simulation.batchSize()}:\\
+Liefert die Anzahl an Kunden, die sich in dem temporären Batch befinden.
+Ist der aktuelle Kunden keine temporärer Batch, so liefert die Funktion 0.
+
+\item
+\cmd{Simulation.getBatchTypeName(batchIndex)}:\\
+Liefert den Namen eines der Kunden in dem aktuellen Batch.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchWaitingSeconds(batchIndex)}:\\
+Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchWaitingTime(batchIndex)}:\\
+Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchTransferSeconds(batchIndex)}:\\
+Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchTransferTime(batchIndex)}:\\
+Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchProcessSeconds(batchIndex)}:\\
+Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchProcessTime(batchIndex)}:\\
+Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+	 
+\item
+\cmd{Simulation.getBatchResidenceSeconds(batchIndex)}:\\
+Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchResidenceTime(batchIndex)}:\\
+Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchValue(batchIndex, index)}:\\
+Liefert einen zu einem der Kunden in dem aktuellen Batch einen gespeicherten Zahlenwert.
+Der übergebene Batch-Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\item
+\cmd{Simulation.getBatchText(batchIndex, key)}:\\
+Liefert zu einem der Kunden in dem aktuellen Batch einen gespeicherten Textwert.
+Der übergebene Batch-Index ist 0-basierend und muss im Bereich von 0 bis \cm{batchSize()-1} liegen.
+
+\end{itemize}
+
 \section{Zugriff auf Parameter des Simulationsmodells}
 
 \begin{itemize}
@@ -520,6 +588,18 @@ Liefert die aktuelle Anzahl an Bedienern in Ausfallzeit in der Ressource mit der
 Löst das Signal mit dem angegebenen Namen aus.
 
 \end{itemize}
+
+\section{Meldung in Logging ausgeben}
+
+\begin{itemize}
+
+\item
+\cmd{Simulation.log(message)}:\\
+Gibt die übergebene Meldung im Logging-System aus (sofern eine Logaufzeichnung aktiviert ist).
+
+\end{itemize}
+
+
 
 \chapter{\texttt{Clients}-Objekt}
 

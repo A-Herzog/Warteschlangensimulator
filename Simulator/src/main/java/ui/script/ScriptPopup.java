@@ -313,6 +313,7 @@ public class ScriptPopup {
 		if (model==null) return;
 
 		String systemCalc="";
+		String systemLog="";
 		String systemTime="";
 		String systemWarmUp="";
 		String systemWIP="";
@@ -327,6 +328,7 @@ public class ScriptPopup {
 
 		if (scriptMode==ScriptMode.Javascript) {
 			systemCalc="Simulation.calc(\"1+2\");";
+			systemLog="Simulation.log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 			systemTime="Simulation.time();";
 			systemWarmUp="Simulation.isWarmUp();";
 			systemWIP="Simulation.getWIP(%s)";
@@ -342,6 +344,7 @@ public class ScriptPopup {
 
 		if (scriptMode==ScriptMode.Java) {
 			systemCalc="sim.getSystem().calc(\"1+2\");";
+			systemLog="sim.getSystem().log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 			systemTime="sim.getSystem().getTime();";
 			systemWarmUp="sim.getSystem().isWarmUp();";
 			systemWIP="sim.getSystem().getWIP(%s);";
@@ -358,6 +361,7 @@ public class ScriptPopup {
 		final ScriptPopupItemSub group=new ScriptPopupItemSub(Language.tr("ScriptPopup.Simulation"),Language.tr("ScriptPopup.Simulation.Hint"),Images.SIMULATION.getIcon());
 		ScriptPopupItemSub sub;
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.Calc"),Language.tr("ScriptPopup.Simulation.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),systemCalc));
+		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.Log"),Language.tr("ScriptPopup.Simulation.Log.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),systemLog));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.Time"),Language.tr("ScriptPopup.Simulation.Time.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),systemTime));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.IsWarmUp"),Language.tr("ScriptPopup.Simulation.IsWarmUp.Hint"),null,systemWarmUp));
 		group.addSeparator();

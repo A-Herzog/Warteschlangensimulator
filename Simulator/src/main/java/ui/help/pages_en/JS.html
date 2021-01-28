@@ -342,6 +342,77 @@ The following methods are in this object available:
   </li>
 </ul>
 
+<h3>Temporary batches</h3>
+
+<p>
+If the current client is a temporary batch, the properties of the inner clients
+it contains can be accessed in read-only mode:
+</p>
+
+<ul>
+  <li><tt>Simulation.batchSize()</tt><br>
+  Returns the number of clients that are in the temporary batch.  
+  If the current client is not a temporary batch, the function returns 0.
+  </li>
+
+  <li><tt>Simulation.getBatchTypeName(batchIndex)</tt><br>
+  Returns the name of one of the clients in the current batch.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>Simulation.getBatchWaitingSeconds(batchIndex)</tt><br>
+  Returns the previous waiting time of one of the clients in the current batch in seconds as a numerical value.
+    The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>	
+
+  <li><tt>Simulation.getBatchWaitingTime(batchIndex)</tt><br>
+  Returns the previous waiting time of one of the clients in the current batch in formatted form as a string.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>Simulation.getBatchTransferSeconds(batchIndex)</tt><br>
+  Returns the previous transfer time of one of the clients in the current batch in seconds as a numerical value.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>Simulation.getBatchTransferTime(batchIndex)</tt><br>
+  Returns the previous transfer time of one of the clients in the current batch in formatted form as a string.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>Simulation.getBatchProcessSeconds(batchIndex)</tt><br>
+  Returns the previous processing time of one of the clients in the current batch in seconds as a numerical value.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>Simulation.getBatchProcessTime(batchIndex)</tt><br>
+  Returns the previous processing time of one of the clients in the current batch in formatted form as a string.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+	 
+  <li><tt>Simulation.getBatchResidenceSeconds(batchIndex)</tt><br>
+  Returns the previous residence time of one of the clients in the current batch in seconds as a numerical value.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>Simulation.getBatchResidenceTime(batchIndex)</tt><br>
+  Returns the previous residence time of one of the clients in the current batch in formatted form as a string.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>Simulation.getBatchValue(batchIndex, index)</tt><br>
+  Returns a stored numerical value for one of the clients in the current batch.
+  The passed batch index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>Simulation.getBatchText(batchIndex, key)</tt><br>
+  Returns a stored text value for one of the clients in the current batch.
+  The passed batch index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+</ul>
+
+
+
 <h3>Accessing parameters of the simulation model</h3>
 
 <ul>
@@ -431,6 +502,13 @@ The following methods are in this object available:
   <li><tt>Simulation.signal(name)</tt><br>
   Fires the signal with the given name.
   </li>
+</ul>
+
+<h3>Output message in logging</h3>
+
+<ul>
+  <li><tt>Simulation.log(message)</tt><br>
+  Outputs the passed message to the logging system (if logging is enabled).
 </ul>
 
 

@@ -74,7 +74,7 @@ public final class JSRunDataFilter {
 		statistics.loadedStatistics=xmlFile;
 		final JSCommandSystem commandSystem;
 		builder.addBinding("System",commandSystem=new JSCommandSystem());
-		commandSystem.setSimulationData(Simulator.getSimulationDataFromStatistics(statistics),null);
+		commandSystem.setSimulationData(Simulator.getSimulationDataFromStatistics(statistics),-1,null);
 		builder.addBinding("Output",new JSCommandOutput(builder.output,false));
 		builder.addBinding("Statistics",new JSCommandXML(builder.output,xml,xmlFile,false));
 		final JSEngine runner=builder.build();

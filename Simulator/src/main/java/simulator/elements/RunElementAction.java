@@ -60,7 +60,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 
 		action.records=new ArrayList<>();
 		for (int i=0;i<actionElement.getRecordsList().size();i++) {
-			final RunElementActionRecord record=new RunElementActionRecord(actionElement.getRecordsList().get(i));
+			final RunElementActionRecord record=new RunElementActionRecord(actionElement.getRecordsList().get(i),id);
 			final String error=record.build(editModel,runModel,testOnly);
 			if (error!=null) return error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),actionElement.getId(),i+1)+")";
 			action.records.add(record);
@@ -75,7 +75,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 		final ModelElementAction actionElement=(ModelElementAction)element;
 
 		for (int i=0;i<actionElement.getRecordsList().size();i++) {
-			final RunElementActionRecord record=new RunElementActionRecord(actionElement.getRecordsList().get(i));
+			final RunElementActionRecord record=new RunElementActionRecord(actionElement.getRecordsList().get(i),id);
 			final String error=record.test();
 			if (error!=null) return new RunModelCreatorStatus(error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),actionElement.getId(),i+1)+")");
 		}

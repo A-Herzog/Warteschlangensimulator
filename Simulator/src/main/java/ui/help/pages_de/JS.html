@@ -360,6 +360,75 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt fol
   </li>
 </ul>
 
+<h3>Temporäre Batche</h3>
+
+<p>
+Handelt es sich bei dem aktuellen Kunden um einen temporären Batch, so kann auf die
+Eigenschaften der in ihm enthaltenen inneren Kunden lesend zugegriffen werden:
+</p>
+
+<ul>
+  <li><tt>Simulation.batchSize()</tt><br>
+  Liefert die Anzahl an Kunden, die sich in dem temporären Batch befinden.
+  Ist der aktuelle Kunden keine temporärer Batch, so liefert die Funktion 0.
+  </li>
+
+  <li><tt>Simulation.getBatchTypeName(batchIndex)</tt><br>
+  Liefert den Namen eines der Kunden in dem aktuellen Batch.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>Simulation.getBatchWaitingSeconds(batchIndex)</tt><br>
+  Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>	
+
+  <li><tt>Simulation.getBatchWaitingTime(batchIndex)</tt><br>
+  Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>Simulation.getBatchTransferSeconds(batchIndex)</tt><br>
+  Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>Simulation.getBatchTransferTime(batchIndex)</tt><br>
+  Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>Simulation.getBatchProcessSeconds(batchIndex)</tt><br>
+  Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>Simulation.getBatchProcessTime(batchIndex)</tt><br>
+  Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+	 
+  <li><tt>Simulation.getBatchResidenceSeconds(batchIndex)</tt><br>
+  Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>Simulation.getBatchResidenceTime(batchIndex)</tt><br>
+  Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>Simulation.getBatchValue(batchIndex, index)</tt><br>
+  Liefert einen zu einem der Kunden in dem aktuellen Batch einen gespeicherten Zahlenwert.
+  Der übergebene Batch-Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>Simulation.getBatchText(batchIndex, key)</tt><br>
+  Liefert zu einem der Kunden in dem aktuellen Batch einen gespeicherten Textwert.
+  Der übergebene Batch-Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+</ul>
+
 <h3>Zugriff auf Parameter des Simulationsmodells</h3>
 
 <ul>
@@ -447,6 +516,13 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt fol
   <li><tt>Simulation.signal(name)</tt><br>
   Löst das Signal mit dem angegebenen Namen aus.
   </li>
+</ul>
+
+<h3>Meldung in Logging ausgeben</h3>
+
+<ul>
+  <li><tt>Simulation.log(message)</tt><br>
+  Gibt die übergebene Meldung im Logging-System aus (sofern eine Logaufzeichnung aktiviert ist).
 </ul>
 
 

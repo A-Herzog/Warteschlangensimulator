@@ -266,6 +266,7 @@ public class ScriptEditorAreaBuilder {
 		String systemResourceDown="";
 		String systemAllResourceDown="";
 		String systemSignal="";
+		String systemLog="";
 		String systemRunPlugin="";
 
 		if (language==ScriptMode.Javascript) {
@@ -286,6 +287,7 @@ public class ScriptEditorAreaBuilder {
 			systemResourceDown="Simulation.getResourceDown(resourceId);";
 			systemAllResourceDown="Simulation.getAllResourceDown();";
 			systemSignal="Simulation.signal(\"signalName\");";
+			systemLog="Simulation.log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -306,6 +308,7 @@ public class ScriptEditorAreaBuilder {
 			systemResourceDown="sim.getSystem().getResourceDown(resourceId);";
 			systemAllResourceDown="sim.getSystem().getAllResourceDown();";
 			systemSignal="sim.getSystem().signal(\"signalName\");";
+			systemLog="sim.getSystem().log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
 			systemRunPlugin="sim.getSystem().runPlugin(\"className\",\"methodName\",userData);";
 		}
 
@@ -331,6 +334,10 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getAllResourceDown"),Language.tr("ScriptPopup.Simulation.getAllResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemAllResourceDown);
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.Signal"),Language.tr("ScriptPopup.Simulation.Signal.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemSignal);
+
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.Log"),Language.tr("ScriptPopup.Simulation.Log.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),systemLog);
+
+
 
 		if (language==ScriptMode.Java) {
 			addAutoComplete(Language.tr("ScriptPopup.Simulation.runPlugin"),Language.tr("ScriptPopup.Simulation.runPlugin.Hint"),Images.SCRIPT_FILE.getIcon(),systemRunPlugin);
@@ -365,6 +372,17 @@ public class ScriptEditorAreaBuilder {
 		String clientGetText="";
 		String clientSetText="";
 
+		String batchClientSize="";
+		String batchClientTypeName="";
+		String batchClientWaitingSeconds="";
+		String batchClientWaitingTime="";
+		String batchClientTransferSeconds="";
+		String batchClientTransferTime="";
+		String batchClientProcessSeconds="";
+		String batchClientProcessTime="";
+		String batchClientGetValue="";
+		String batchClientGetText="";
+
 		if (language==ScriptMode.Javascript) {
 			clientCalc="Simulation.calc(\"1+2\");";
 			clientTypeName="Simulation.clientTypeName();";
@@ -372,6 +390,7 @@ public class ScriptEditorAreaBuilder {
 			clientInStatistics="Simulation.isClientInStatistics();";
 			clientSetInStatistics="Simulation.setClientInStatistics(true);";
 			clientNumber="Simulation.clientNumber();";
+
 			clientWaitingSeconds="Simulation.clientWaitingSeconds();";
 			clientWaitingTime="Simulation.clientWaitingTime();";
 			clientWaitingSecondsSet="Simulation.clientWaitingSecondsSet(123.456);";
@@ -381,10 +400,24 @@ public class ScriptEditorAreaBuilder {
 			clientProcessSeconds="Simulation.clientProcessSeconds();";
 			clientProcessTime="Simulation.clientProcessTime();";
 			clientProcessSecondsSet="Simulation.clientProcessSecondsSet(123.456);";
+
 			clientGetValue="Simulation.getClientValue(index);";
 			clientSetValue="Simulation.setClientValue(index,123);";
 			clientGetText="Simulation.getClientText(\"key\");";
 			clientSetText="Simulation.setClientText(\"key\",\"value\");";
+
+			batchClientSize="Simulation.batchSize();";
+			batchClientTypeName="Simulation.batchClientTypeName(batchIndex);";
+
+			batchClientWaitingSeconds="Simulation.batchClientWaitingSeconds(batchIndex);";
+			batchClientWaitingTime="Simulation.batchClientWaitingTime(batchIndex);";
+			batchClientTransferSeconds="Simulation.batchClientTransferSeconds(batchIndex);";
+			batchClientTransferTime="Simulation.batchClientTransferTime(batchIndex);";
+			batchClientProcessSeconds="Simulation.batchClientProcessSeconds(batchIndex);";
+			batchClientProcessTime="Simulation.batchClientProcessTime(batchIndex);";
+
+			batchClientGetValue="Simulation.getBatchClientValue(batchIndex,index);";
+			batchClientGetText="Simulation.getBatchClientText(batchIndex,\"key\");";
 		}
 
 		if (language==ScriptMode.Java) {
@@ -409,6 +442,19 @@ public class ScriptEditorAreaBuilder {
 			clientSetValue="sim.getClient().setValue(index,123);";
 			clientGetText="sim.getClient().getText(\"key\");";
 			clientSetText="sim.getClient().setText(\"key\",\"value\");";
+
+			batchClientSize="sim.getClient().batchSize();";
+			batchClientTypeName="sim.getClient().getBatchTypeName(batchIndex);";
+
+			batchClientWaitingSeconds="sim.getClient().getBatchWaitingSeconds(batchIndex);";
+			batchClientWaitingTime="sim.getClient().getBatchWaitingTime(batchIndex);";
+			batchClientTransferSeconds="sim.getClient().getBatchTransferSeconds(batchIndex);";
+			batchClientTransferTime="sim.getClient().getBatchTransferTime(batchIndex);";
+			batchClientProcessSeconds="sim.getClient().getBatchProcessSeconds(batchIndex);";
+			batchClientProcessTime="sim.getClient().getBatchProcessTime(batchIndex);";
+
+			batchClientGetValue="sim.getClient().getBatchValue(batchIndex,index);";
+			batchClientGetText="sim.getClient().getBatchText(batchIndex,\"key\");";
 		}
 
 		addAutoComplete(Language.tr("ScriptPopup.Client.Calc"),Language.tr("ScriptPopup.Client.Calc.Hint"),Images.SCRIPT_RECORD_EXPRESSION.getIcon(),clientCalc);
@@ -436,6 +482,22 @@ public class ScriptEditorAreaBuilder {
 
 		addAutoComplete(Language.tr("ScriptPopup.Client.ValueText")+" - "+Language.tr("ScriptPopup.Client.ValueText.Get"),Language.tr("ScriptPopup.Client.ValueText.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueText.Get.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),clientGetText);
 		addAutoComplete(Language.tr("ScriptPopup.Client.ValueText")+" - "+Language.tr("ScriptPopup.Client.ValueText.Set"),Language.tr("ScriptPopup.Client.ValueText.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueText.Set.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),clientSetText);
+
+		addAutoComplete(Language.tr("ScriptPopup.Client.getBatchSize"),Language.tr("ScriptPopup.Client.getBatchSize.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),batchClientSize);
+		addAutoComplete(Language.tr("ScriptPopup.Client.getTypeName.Batch"),Language.tr("ScriptPopup.Client.getTypeName.Batch.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),batchClientTypeName);
+
+		addAutoComplete(Language.tr("ScriptPopup.Client.WaitingTime.Batch")+" - "+Language.tr("ScriptPopup.Client.Time.Get"),Language.tr("ScriptPopup.Client.WaitingTime.Batch.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Get.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),batchClientWaitingSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Client.WaitingTime.Batch")+" - "+Language.tr("ScriptPopup.Client.Time.GetText"),Language.tr("ScriptPopup.Client.WaitingTime.Batch.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.GetText.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),batchClientWaitingTime);
+
+		addAutoComplete(Language.tr("ScriptPopup.Client.TransferTime.Batch")+" - "+Language.tr("ScriptPopup.Client.Time.Get"),Language.tr("ScriptPopup.Client.TransferTime.Batch.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Get.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),batchClientTransferSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Client.TransferTime.Batch")+" - "+Language.tr("ScriptPopup.Client.Time.GetText"),Language.tr("ScriptPopup.Client.TransferTime.Batch.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.GetText.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),batchClientTransferTime);
+
+		addAutoComplete(Language.tr("ScriptPopup.Client.ProcessTime.Batch")+" - "+Language.tr("ScriptPopup.Client.Time.Get"),Language.tr("ScriptPopup.Client.ProcessTime.Batch.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Get.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),batchClientProcessSeconds);
+		addAutoComplete(Language.tr("ScriptPopup.Client.ProcessTime.Batch")+" - "+Language.tr("ScriptPopup.Client.Time.GetText"),Language.tr("ScriptPopup.Client.ProcessTime.Batch.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.GetText.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),batchClientProcessTime);
+
+		addAutoComplete(Language.tr("ScriptPopup.Client.ValueNumber.Batch")+" - "+Language.tr("ScriptPopup.Client.ValueNumber.Get"),Language.tr("ScriptPopup.Client.ValueNumber.Batch.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueNumber.Get.Hint"),Images.SCRIPT_RECORD_DATA_COUNTER.getIcon(),batchClientGetValue);
+
+		addAutoComplete(Language.tr("ScriptPopup.Client.ValueText.Batch")+" - "+Language.tr("ScriptPopup.Client.ValueText.Get"),Language.tr("ScriptPopup.Client.ValueText.Batch.Hint")+" - "+Language.tr("ScriptPopup.Client.ValueText.Get.Hint"),Images.SCRIPT_RECORD_VARIABLE.getIcon(),batchClientGetText);
 	}
 
 	/**

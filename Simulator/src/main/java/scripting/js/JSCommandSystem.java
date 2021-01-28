@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.math3.util.FastMath;
@@ -48,6 +49,8 @@ import tools.SetupData;
 public final class JSCommandSystem extends JSBaseCommand {
 	/** Simulationsdaten-Objekt (kann auch <code>null</code> sein) */
 	private SimulationData simData;
+	/** ID der aktuellen Station */
+	private int currentStation;
 	/** Aktueller Kunde (kann auch <code>null</code> sein) */
 	private RunDataClient client;
 	/** Eingangsgröße (z.B. aus einer Datei geladener Zahlenwert) */
@@ -68,15 +71,18 @@ public final class JSCommandSystem extends JSBaseCommand {
 		super(null);
 		expressionCache=new HashMap<>();
 		inputValue=0.0;
+		currentStation=-1;
 	}
 
 	/**
 	 * Stellt die Simulationsdaten und den aktuellen Kunden für die Abfrage durch das Javascript-Verknüpfungs-Objekt ein
 	 * @param simData	Simulationsdaten-Objekt (kann auch <code>null</code> sein)
+	 * @param currentStation	ID der aktuellen Station
 	 * @param client	Aktueller Kunde (kann auch <code>null</code> sein)
 	 */
-	public void setSimulationData(final SimulationData simData, final RunDataClient client) {
+	public void setSimulationData(final SimulationData simData, final int currentStation, final RunDataClient client) {
 		this.simData=simData;
+		this.currentStation=currentStation;
 		this.client=client;
 	}
 
@@ -141,7 +147,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * Simulationsdaten-Objekt eingetragen, so liefert die Funktion die aktuelle Computerzeit
 	 * in Millisekunden für Laufzeitmessungen.
 	 * @return	Long-Wert, welcher die aktuelle Zeit liefert
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 */
 	public Object time() {
 		if (simData==null) {
@@ -205,7 +211,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert den Namen des aktuellen Kunden
 	 * @return	Name des Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 */
 	public String clientTypeName() {
 		if (simData==null || client==null) return "";
@@ -215,7 +221,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert die bisherige Wartezeit des aktuellen Kunden in Sekunden als Zahlenwert
 	 * @return Bisherige Wartezeit des aktuellen Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#clientWaitingTime()
 	 */
 	public double clientWaitingSeconds() {
@@ -226,7 +232,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert die bisherige Wartezeit des aktuellen Kunden in formatierter Form als Zeichenkette
 	 * @return Bisherige Wartezeit des aktuellen Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#clientWaitingSeconds()
 	 */
 	public String clientWaitingTime() {
@@ -246,7 +252,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert die bisherige Transferzeit des aktuellen Kunden in Sekunden als Zahlenwert
 	 * @return Bisherige Transferzeit des aktuellen Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#clientTransferTime()
 	 */
 	public double clientTransferSeconds() {
@@ -257,7 +263,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert die bisherige Transferzeit des aktuellen Kunden in formatierter Form als Zeichenkette
 	 * @return Bisherige Transferzeit des aktuellen Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#clientTransferSeconds()
 	 */
 	public String clientTransferTime() {
@@ -277,7 +283,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert die bisherige Bedienzeit des aktuellen Kunden in Sekunden als Zahlenwert
 	 * @return Bisherige Bedienzeit des aktuellen Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#clientProcessTime()
 	 */
 	public double clientProcessSeconds() {
@@ -288,7 +294,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert die bisherige Bedienzeit des aktuellen Kunden in formatierter Form als Zeichenkette
 	 * @return Bisherige Bedienzeit des aktuellen Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#clientProcessSeconds()
 	 */
 	public String clientProcessTime() {
@@ -308,7 +314,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert die bisherige Verweilzeit des aktuellen Kunden in Sekunden als Zahlenwert
 	 * @return Bisherige Verweilzeit des aktuellen Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#clientResidenceTime()
 	 */
 	public double clientResidenceSeconds() {
@@ -319,7 +325,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	/**
 	 * Liefert die bisherige Verweilzeit des aktuellen Kunden in formatierter Form als Zeichenkette
 	 * @return Bisherige Verweilzeit des aktuellen Kunden
-	 * @see JSCommandSystem#setSimulationData(SimulationData, RunDataClient)
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 * @see JSCommandSystem#clientResidenceSeconds()
 	 */
 	public String clientResidenceTime() {
@@ -398,6 +404,170 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (simData==null || client==null) return;
 		if (key==null || key.trim().isEmpty()) return;
 		client.setUserDataString(key,(value==null)?"":value);
+	}
+
+	/**
+	 * Handelt es sich bei dem aktuellen Kunden um einen temporären Batch,
+	 * so liefert diese Funktion die Anzahl der Kunden, die sich in dem Batch befinden.
+	 * @return	Anzahl an Kunden im Batch oder 0, wenn es sich nicht um einen temporären Batch handelt.
+	 */
+	public int batchSize() {
+		if (simData==null || client==null) return 0;
+		final List<RunDataClient> batch=client.getBatchData();
+		if (batch==null) return 0;
+		return batch.size();
+	}
+
+	/**
+	 * Liefert den internen Kunden in dem aktuellen temporären Batch
+	 * oder <code>null</code>, wenn kein Kundenobjekt vorhanden ist
+	 * oder der aktuelle Kunden überhaupt kein temporärer Batch ist.
+	 * @param batchIndex	0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return	Interner Kunde oder im Fehlerfall null
+	 */
+	private RunDataClient getBatchClient(final int batchIndex) {
+		if (simData==null || client==null) return null;
+		return client.getBatchData(batchIndex);
+	}
+
+	/**
+	 * Liefert den Namen eines der Kunden in dem aktuellen Batch.
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return	Name des Kunden oder <code>null</code>, wenn der Index ungültig ist.
+	 */
+	public String batchClientTypeName(final int batchIndex) {
+		final RunDataClient batchClient=getBatchClient(batchIndex);
+		if (batchClient==null) return "";
+		return simData.runModel.clientTypes[batchClient.type];
+	}
+
+	/**
+	 * Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Wartezeit des Kunden
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
+	 * @see JSCommandSystem#batchClientWaitingTime(int)
+	 */
+	public double batchClientWaitingSeconds(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.waitingTime*toSec;
+	}
+
+	/**
+	 * Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Wartezeit des Kunden
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
+	 * @see JSCommandSystem#batchClientWaitingSeconds(int)
+	 */
+	public String batchClientWaitingTime(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return "";
+		return TimeTools.formatExactTime(batchClient.waitingTime*toSec);
+	}
+
+	/**
+	 * Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Transferzeit des Kunden
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
+	 * @see JSCommandSystem#batchClientTransferTime(int)
+	 */
+	public double batchClientTransferSeconds(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.transferTime*toSec;
+	}
+
+	/**
+	 * Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Transferzeit des Kunden
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
+	 * @see JSCommandSystem#batchClientTransferSeconds(int)
+	 */
+	public String batchClientTransferTime(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return "";
+		return TimeTools.formatExactTime(batchClient.transferTime*toSec);
+	}
+
+	/**
+	 * Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Bedienzeit des Kunden
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
+	 * @see JSCommandSystem#batchClientProcessTime(int)
+	 */
+	public double batchClientProcessSeconds(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.processTime*toSec;
+	}
+
+	/**
+	 * Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Bedienzeit des Kunden
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
+	 * @see JSCommandSystem#batchClientProcessSeconds(int)
+	 */
+	public String batchClientProcessTime(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return "";
+		return TimeTools.formatExactTime(batchClient.processTime*toSec);
+	}
+
+	/**
+	 * Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Verweilzeit des Kunden
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
+	 * @see JSCommandSystem#batchClientResidenceTime(int)
+	 */
+	public double batchClientResidenceSeconds(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.residenceTime*toSec;
+	}
+
+	/**
+	 * Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @return Bisherige Verweilzeit des Kunden
+	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
+	 * @see JSCommandSystem#batchClientResidenceSeconds(int)
+	 */
+	public String batchClientResidenceTime(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return "";
+		return TimeTools.formatExactTime(batchClient.residenceTime*toSec);
+	}
+
+	/**
+	 * Liefert einen zu einem der Kunden in dem aktuellen Batch einen gespeicherten Zahlenwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param index	Index zu dem der Zahlenwert abgerufen werden soll
+	 * @return	Zahlenwert zu dem Index für den Kunden. (Ist kein Wert für den Index gesetzt, so wird 0.0 zurückgeliefert.)
+	 */
+	public double getBatchClientValue(final int batchIndex, final int index) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+
+		if (batchClient==null) return 0.0;
+		return batchClient.getUserData(index);
+	}
+
+	/**
+	 * Liefert zu einem der Kunden in dem aktuellen Batch einen gespeicherten Textwert
+	 * @param	batchIndex 0-basierter Index des Kunden in dem Batch (Werte von 0 bis {@link #batchSize()}-1)
+	 * @param key	Schlüssel zu dem der Textwert abgerufen werden soll
+	 * @return	Textwert zu dem Schlüssel für den Kunden. (Ist kein Wert für den Schlüssel gesetzt, so wird ein leerer String zurückgeliefert.)
+	 */
+	public String getBatchClientText(final int batchIndex, final String key) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return "";
+		return batchClient.getUserDataString(key);
 	}
 
 	/**
@@ -787,5 +957,20 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (simData==null || signalName==null || signalName.trim().isEmpty()) return;
 		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Signal"),-1,String.format(Language.tr("Simulation.Log.Signal.Info2"),signalName));
 		simData.runData.fireSignal(simData,signalName);
+	}
+
+	/**
+	 * Erfasst eine Meldung in der Logging-Ausgabe.
+	 * @param obj	Zu erfassende Meldung
+	 */
+	public void log(final Object obj) {
+		if (obj==null) return;
+		if (simData==null) return;
+		if (!simData.logArrival) return;
+		if (currentStation<=0) {
+			simData.logEventExecution("Log",currentStation,obj.toString());
+		} else {
+			simData.runModel.elementsFast[currentStation].log(simData,"Log",obj.toString());
+		}
 	}
 }

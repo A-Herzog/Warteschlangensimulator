@@ -63,7 +63,7 @@ public class RunElementSetJSData extends RunElementData {
 			jsRunner=null;
 			javaRunner=DynamicFactory.getFactory().load(script);
 			javaRunner.parameter.client=new ClientImpl(simData);
-			javaRunner.parameter.system=new SystemImpl(simData);
+			javaRunner.parameter.system=new SystemImpl(simData,station.id);
 			break;
 		case Javascript:
 			jsRunner=new JSRunSimulationData(false,false);

@@ -561,6 +561,27 @@ public class RunDataClient {
 	}
 
 	/**
+	 * Liefert eine Liste aller Kunden innerhalb dieses Kunden.
+	 * @return	In diesem Kunden als Batch enthaltene Kunden oder <code>null</code>, wenn es sich nicht um ein Batch handelt.
+	 */
+	public List<RunDataClient> getBatchData() {
+		if (batch==null || batchMarkedAsDone) return null;
+		return batch;
+	}
+
+	/**
+	 * Liefert einen in diesem Batch enthaltenen Kunden.
+	 * @param index	0-basierter Index des Kunden in dem Batch
+	 * @return	Liefert den Kunden oder <code>null</code>, wenn der äußere Kunde kein temporärer Batch ist oder der Index außerhalb des gültigen Bereichs liegt
+	 * @see #getBatchData()
+	 */
+	public RunDataClient getBatchData(final int index) {
+		if (batch==null || batchMarkedAsDone) return null;
+		if (index<0 || index>=batch.size()) return null;
+		return batch.get(index);
+	}
+
+	/**
 	 * Löst den Batch auf und gibt die einzelnen Kunden als Liste zurück.<br>
 	 * Die im Batch angesammelten Zeiten und Kosten werden dabei auf die einzelnen Kunden übertragen.
 	 * @return	Liste der einzelnen Kunden oder <code>null</code> wenn der aktuelle Kunde kein Batch ist.

@@ -107,7 +107,7 @@ public class RunElementSetJS extends RunElementPassThrough {
 		if (data.jsRunner!=null) {
 			/* JS-Mode */
 			final JSRunSimulationData jsRunner=data.jsRunner;
-			jsRunner.setSimulationData(simData,client);
+			jsRunner.setSimulationData(simData,id,client);
 			final String result=jsRunner.runCompiled();
 			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
 				simData.doEmergencyShutDown(result);

@@ -603,7 +603,7 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		String result=null;
 
 		if (jsRunner!=null) {
-			jsRunner.setSimulationDataNoClient(simData);
+			jsRunner.setSimulationDataNoClient(simData,getId());
 			result=jsRunner.runCompiled();
 			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
 				simData.doEmergencyShutDown(result);
@@ -664,7 +664,7 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		case Java:
 			jsRunner=null;
 			javaRunner=DynamicFactory.getFactory().load(script);
-			javaRunner.parameter.system=new SystemImpl(simData);
+			javaRunner.parameter.system=new SystemImpl(simData,getId());
 			javaRunner.parameter.client=new ClientImpl(simData);
 			animationOutput=new StringBuilder();
 			javaRunner.parameter.output=new OutputImpl(s->animationOutput.append(s),false);

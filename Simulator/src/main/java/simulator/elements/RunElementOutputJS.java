@@ -125,7 +125,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 
 		if (data.jsRunner!=null) {
 			final JSRunSimulationData jsRunner=data.jsRunner;
-			jsRunner.setSimulationData(simData,client);
+			jsRunner.setSimulationData(simData,id,client);
 			result=jsRunner.runCompiled();
 			if (!jsRunner.getLastSuccess() && simData.runModel.cancelSimulationOnScriptError) {
 				simData.doEmergencyShutDown(result);

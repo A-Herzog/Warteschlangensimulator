@@ -104,7 +104,7 @@ public class RunElementHoldJSData extends RunElementData {
 			jsRunner=null;
 			javaRunner=DynamicFactory.getFactory().load(script);
 			javaRunner.parameter.clients=new ClientsImpl(simData);
-			javaRunner.parameter.system=new SystemImpl(simData);
+			javaRunner.parameter.system=new SystemImpl(simData,station.id);
 			break;
 		case Javascript:
 			jsRunner=new JSRunSimulationData(false,true);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 00:27+0100\n"
+"POT-Creation-Date: 2021-01-28 11:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11819,6 +11819,12 @@ msgstr "Execute commands in the context of the current client"
 msgid "ScriptPopup.Client.ProcessTime"
 msgstr "Process time"
 
+msgid "ScriptPopup.Client.ProcessTime.Batch"
+msgstr "Process time (client in batch)"
+
+msgid "ScriptPopup.Client.ProcessTime.Batch.Hint"
+msgstr "Gets the process time of a client in the current batch"
+
 msgid "ScriptPopup.Client.ProcessTime.Hint"
 msgstr "Gets or sets the process time of the client"
 
@@ -11855,11 +11861,23 @@ msgstr "Gets the time as a text"
 msgid "ScriptPopup.Client.TransferTime"
 msgstr "Transfer time"
 
+msgid "ScriptPopup.Client.TransferTime.Batch"
+msgstr "Transfer time (client in batch)"
+
+msgid "ScriptPopup.Client.TransferTime.Batch.Hint"
+msgstr "Gets the transfer time of a client in the current batch"
+
 msgid "ScriptPopup.Client.TransferTime.Hint"
 msgstr "Gets or sets the transfer time of the client"
 
 msgid "ScriptPopup.Client.ValueNumber"
 msgstr "Property (number)"
+
+msgid "ScriptPopup.Client.ValueNumber.Batch"
+msgstr "Property (number) (client in batch)"
+
+msgid "ScriptPopup.Client.ValueNumber.Batch.Hint"
+msgstr "Gets a client-based number property value of a client in the current batch"
 
 msgid "ScriptPopup.Client.ValueNumber.Get"
 msgstr "Get value"
@@ -11879,6 +11897,12 @@ msgstr "Sets a client-based number property value"
 msgid "ScriptPopup.Client.ValueText"
 msgstr "Property (text)"
 
+msgid "ScriptPopup.Client.ValueText.Batch"
+msgstr "Property (text) (client in batch)"
+
+msgid "ScriptPopup.Client.ValueText.Batch.Hint"
+msgstr "Gets a client-based text property value of a client in the current batch"
+
 msgid "ScriptPopup.Client.ValueText.Get"
 msgstr "Get text"
 
@@ -11897,8 +11921,20 @@ msgstr "Sets a client-based text property value"
 msgid "ScriptPopup.Client.WaitingTime"
 msgstr "Waiting time"
 
+msgid "ScriptPopup.Client.WaitingTime.Batch"
+msgstr "Waiting time (client in batch)"
+
+msgid "ScriptPopup.Client.WaitingTime.Batch.Hint"
+msgstr "Gets the waiting time of a client in the current batch"
+
 msgid "ScriptPopup.Client.WaitingTime.Hint"
 msgstr "Gets or sets the waiting time of the client"
+
+msgid "ScriptPopup.Client.getBatchSize"
+msgstr "Size of the current batch"
+
+msgid "ScriptPopup.Client.getBatchSize.Hint"
+msgstr "Returns the size of the current batch if the current client is a temporary batch"
 
 msgid "ScriptPopup.Client.getNumber"
 msgstr "Consecutive number of the client"
@@ -11908,6 +11944,12 @@ msgstr "Get the consecutive number of the client"
 
 msgid "ScriptPopup.Client.getTypeName"
 msgstr "Name of the type of the client"
+
+msgid "ScriptPopup.Client.getTypeName.Batch"
+msgstr "Name of the type of a client in the batch"
+
+msgid "ScriptPopup.Client.getTypeName.Batch.Hint"
+msgstr "Gets the name of the type of a client in the current batch"
 
 msgid "ScriptPopup.Client.getTypeName.Hint"
 msgstr "Gets the name of the type of the client"
@@ -12226,6 +12268,15 @@ msgstr "Warm-up phase"
 
 msgid "ScriptPopup.Simulation.IsWarmUp.Hint"
 msgstr "Is the system currently in the warm-up phase?"
+
+msgid "ScriptPopup.Simulation.Log"
+msgstr "Log message"
+
+msgid "ScriptPopup.Simulation.Log.ExampleMessage"
+msgstr "Message"
+
+msgid "ScriptPopup.Simulation.Log.Hint"
+msgstr "Records a message to the logging output."
 
 msgid "ScriptPopup.Simulation.Resources"
 msgstr "Operators"

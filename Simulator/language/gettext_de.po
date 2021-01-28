@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 00:27+0100\n"
+"POT-Creation-Date: 2021-01-28 11:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11816,6 +11816,12 @@ msgstr "Befehle im Kontext des aktuellen Kunden ausführen"
 msgid "ScriptPopup.Client.ProcessTime"
 msgstr "Bisherige Bedienzeit"
 
+msgid "ScriptPopup.Client.ProcessTime.Batch"
+msgstr "Bisherige Bedienzeit (Kunde im Batch)"
+
+msgid "ScriptPopup.Client.ProcessTime.Batch.Hint"
+msgstr "Liefert die bisherige Bedienzeit eines Kunden im aktuellen Batch"
+
 msgid "ScriptPopup.Client.ProcessTime.Hint"
 msgstr "Liefert oder stellt die bisherige Bedienzeit ein"
 
@@ -11852,11 +11858,23 @@ msgstr "Liefert die Zeit als Text"
 msgid "ScriptPopup.Client.TransferTime"
 msgstr "Bisherige Transferzeit"
 
+msgid "ScriptPopup.Client.TransferTime.Batch"
+msgstr "Bisherige Transferzeit (Kunde im Batch)"
+
+msgid "ScriptPopup.Client.TransferTime.Batch.Hint"
+msgstr "Liefert die bisherige Transferzeit eines Kunden im aktuellen Batch"
+
 msgid "ScriptPopup.Client.TransferTime.Hint"
 msgstr "Liefert oder stellt die bisherige Transferzeit ein"
 
 msgid "ScriptPopup.Client.ValueNumber"
 msgstr "Eigenschaft (Zahl)"
+
+msgid "ScriptPopup.Client.ValueNumber.Batch"
+msgstr "Eigenschaft (Zahl) (Kunde im Batch)"
+
+msgid "ScriptPopup.Client.ValueNumber.Batch.Hint"
+msgstr "Liest eine kundenbasierende Zahlen-Eigenschaft eines Kunden im aktuellen Batch aus"
 
 msgid "ScriptPopup.Client.ValueNumber.Get"
 msgstr "Wert auslesen"
@@ -11876,6 +11894,12 @@ msgstr "Stellt eine kundenbasierende Zahlen-Eigenschaft aus"
 msgid "ScriptPopup.Client.ValueText"
 msgstr "Eigenschaft (Text)"
 
+msgid "ScriptPopup.Client.ValueText.Batch"
+msgstr "Eigenschaft (Text) (Kunde im Batch)"
+
+msgid "ScriptPopup.Client.ValueText.Batch.Hint"
+msgstr "Liest eine kundenbasierende Text-Eigenschaft eines Kunden im aktuellen Batch aus"
+
 msgid "ScriptPopup.Client.ValueText.Get"
 msgstr "Text auslesen"
 
@@ -11894,8 +11918,20 @@ msgstr "Stellt eine kundenbasierende Text-Eigenschaft ein"
 msgid "ScriptPopup.Client.WaitingTime"
 msgstr "Bisherige Wartezeit"
 
+msgid "ScriptPopup.Client.WaitingTime.Batch"
+msgstr "Bisherige Wartezeit (Kunde im Batch)"
+
+msgid "ScriptPopup.Client.WaitingTime.Batch.Hint"
+msgstr "Liefert die bisherige Wartezeit eines Kunden im aktuellen Batch"
+
 msgid "ScriptPopup.Client.WaitingTime.Hint"
 msgstr "Liefert oder stellt die bisherige Wartezeit ein"
+
+msgid "ScriptPopup.Client.getBatchSize"
+msgstr "Größe des aktuellen Batches"
+
+msgid "ScriptPopup.Client.getBatchSize.Hint"
+msgstr "Liefert die größe des aktuellen Batches sofern es sich bei dem Kunden um einen temporären Batch handelt"
 
 msgid "ScriptPopup.Client.getNumber"
 msgstr "Fortlaufende Nummer des Kunden"
@@ -11905,6 +11941,12 @@ msgstr "Liefert die fortlaufende Nummer des aktuellen Kunden"
 
 msgid "ScriptPopup.Client.getTypeName"
 msgstr "Namen des Typs des Kunden"
+
+msgid "ScriptPopup.Client.getTypeName.Batch"
+msgstr "Namen des Typs eines Kunden im Batch"
+
+msgid "ScriptPopup.Client.getTypeName.Batch.Hint"
+msgstr "Liefert den Namen des Typs eines der Kunden im aktuellen Batch"
 
 msgid "ScriptPopup.Client.getTypeName.Hint"
 msgstr "Liefert den Namen des Typs des Kunden"
@@ -12223,6 +12265,15 @@ msgstr "System in Einschwingphase"
 
 msgid "ScriptPopup.Simulation.IsWarmUp.Hint"
 msgstr "Befindet sich das System in der Einschwingphase?"
+
+msgid "ScriptPopup.Simulation.Log"
+msgstr "Logging-Ausgabe"
+
+msgid "ScriptPopup.Simulation.Log.ExampleMessage"
+msgstr "Meldung"
+
+msgid "ScriptPopup.Simulation.Log.Hint"
+msgstr "Erfasst eine Meldung in der Logging-Ausgabe."
 
 msgid "ScriptPopup.Simulation.Resources"
 msgstr "Bediener"

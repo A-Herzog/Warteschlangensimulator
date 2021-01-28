@@ -101,33 +101,37 @@
 \contentsline {chapter}{\numberline {16}\texttt {Simulation}-Objekt}{63}{chapter.16}%
 \contentsline {section}{\numberline {16.1}Basisfunktionen}{63}{section.16.1}%
 \contentsline {section}{\numberline {16.2}Zugriff auf kundenspezifische Daten}{64}{section.16.2}%
-\contentsline {section}{\numberline {16.3}Zugriff auf Parameter des Simulationsmodells}{65}{section.16.3}%
-\contentsline {section}{\numberline {16.4}Zugriff auf den aktuellen Eingabewert}{66}{section.16.4}%
-\contentsline {section}{\numberline {16.5}Anzahl an Bedienern in einer Ressource}{66}{section.16.5}%
-\contentsline {section}{\numberline {16.6}Signale auslösen}{66}{section.16.6}%
-\contentsline {chapter}{\numberline {17}\texttt {Clients}-Objekt}{67}{chapter.17}%
-\contentsline {chapter}{\numberline {18}\texttt {Output}-Objekt}{69}{chapter.18}%
-\contentsline {chapter}{\numberline {19}\texttt {FileOutput}-Objekt}{71}{chapter.19}%
-\contentsline {chapter}{\numberline {20}\texttt {Model}-Objekt}{73}{chapter.20}%
-\contentsline {chapter}{\numberline {21}XML-Auswahlbefehle}{75}{chapter.21}%
-\contentsline {part}{III\hspace {1em}Referenz der Java-Befehle}{77}{part.3}%
-\contentsline {chapter}{\numberline {22}\texttt {StatisticsInterface} abrufbar über \texttt {sim.getStatistics()}}{79}{chapter.22}%
-\contentsline {section}{\numberline {22.1}Definition des Ausgabeformats}{79}{section.22.1}%
-\contentsline {section}{\numberline {22.2}Zugriff auf die Statistik-XML-Daten}{80}{section.22.2}%
-\contentsline {section}{\numberline {22.3}Speichern der Statistikdaten in Dateien}{81}{section.22.3}%
-\contentsline {section}{\numberline {22.4}Zugriff auf das Modell}{81}{section.22.4}%
-\contentsline {section}{\numberline {22.5}Abfrage der zugehörigen Statistikdatei}{81}{section.22.5}%
-\contentsline {chapter}{\numberline {23}\texttt {RuntimeInterface} abrufbar über \texttt {sim.getRuntime}}{83}{chapter.23}%
-\contentsline {chapter}{\numberline {24}\texttt {SystemInterface} abrufbar über \texttt {sim.getSystem()}}{85}{chapter.24}%
-\contentsline {section}{\numberline {24.1}Basisfunktionen}{85}{section.24.1}%
-\contentsline {section}{\numberline {24.2}Zugriff auf Parameter des Simulationsmodells}{85}{section.24.2}%
-\contentsline {section}{\numberline {24.3}Anzahl an Bedienern in einer Ressource}{86}{section.24.3}%
-\contentsline {section}{\numberline {24.4}Signale auslösen}{86}{section.24.4}%
-\contentsline {section}{\numberline {24.5}Externen Code aufrufen}{86}{section.24.5}%
-\contentsline {chapter}{\numberline {25}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{87}{chapter.25}%
-\contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{89}{chapter.26}%
-\contentsline {chapter}{\numberline {27}\texttt {ClientsInterface} abrufbar über \texttt {sim.getClients()}}{91}{chapter.27}%
-\contentsline {chapter}{\numberline {28}\texttt {OutputInterface} abrufbar über \texttt {sim.getOutput()}}{93}{chapter.28}%
-\contentsline {chapter}{\numberline {29}\texttt {FileOutputInterface} abrufbar über \texttt {sim.getFileOutput()}}{95}{chapter.29}%
-\contentsline {chapter}{\numberline {30}\texttt {ModelInterface} abrufbar über \texttt {sim.getModel()}}{97}{chapter.30}%
-\contentsline {chapter}{\numberline {31}XML-Auswahlbefehle}{99}{chapter.31}%
+\contentsline {section}{\numberline {16.3}Temporäre Batche}{65}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Zugriff auf Parameter des Simulationsmodells}{66}{section.16.4}%
+\contentsline {section}{\numberline {16.5}Zugriff auf den aktuellen Eingabewert}{67}{section.16.5}%
+\contentsline {section}{\numberline {16.6}Anzahl an Bedienern in einer Ressource}{67}{section.16.6}%
+\contentsline {section}{\numberline {16.7}Signale auslösen}{68}{section.16.7}%
+\contentsline {section}{\numberline {16.8}Meldung in Logging ausgeben}{68}{section.16.8}%
+\contentsline {chapter}{\numberline {17}\texttt {Clients}-Objekt}{69}{chapter.17}%
+\contentsline {chapter}{\numberline {18}\texttt {Output}-Objekt}{71}{chapter.18}%
+\contentsline {chapter}{\numberline {19}\texttt {FileOutput}-Objekt}{73}{chapter.19}%
+\contentsline {chapter}{\numberline {20}\texttt {Model}-Objekt}{75}{chapter.20}%
+\contentsline {chapter}{\numberline {21}XML-Auswahlbefehle}{77}{chapter.21}%
+\contentsline {part}{III\hspace {1em}Referenz der Java-Befehle}{79}{part.3}%
+\contentsline {chapter}{\numberline {22}\texttt {StatisticsInterface} abrufbar über \texttt {sim.getStatistics()}}{81}{chapter.22}%
+\contentsline {section}{\numberline {22.1}Definition des Ausgabeformats}{81}{section.22.1}%
+\contentsline {section}{\numberline {22.2}Zugriff auf die Statistik-XML-Daten}{82}{section.22.2}%
+\contentsline {section}{\numberline {22.3}Speichern der Statistikdaten in Dateien}{83}{section.22.3}%
+\contentsline {section}{\numberline {22.4}Zugriff auf das Modell}{83}{section.22.4}%
+\contentsline {section}{\numberline {22.5}Abfrage der zugehörigen Statistikdatei}{83}{section.22.5}%
+\contentsline {chapter}{\numberline {23}\texttt {RuntimeInterface} abrufbar über \texttt {sim.getRuntime}}{85}{chapter.23}%
+\contentsline {chapter}{\numberline {24}\texttt {SystemInterface} abrufbar über \texttt {sim.getSystem()}}{87}{chapter.24}%
+\contentsline {section}{\numberline {24.1}Basisfunktionen}{87}{section.24.1}%
+\contentsline {section}{\numberline {24.2}Zugriff auf Parameter des Simulationsmodells}{87}{section.24.2}%
+\contentsline {section}{\numberline {24.3}Anzahl an Bedienern in einer Ressource}{88}{section.24.3}%
+\contentsline {section}{\numberline {24.4}Signale auslösen}{88}{section.24.4}%
+\contentsline {section}{\numberline {24.5}Externen Code aufrufen}{88}{section.24.5}%
+\contentsline {section}{\numberline {24.6}Meldung in Logging ausgeben}{89}{section.24.6}%
+\contentsline {chapter}{\numberline {25}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{91}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Temporäre Batche}{92}{section.25.1}%
+\contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{95}{chapter.26}%
+\contentsline {chapter}{\numberline {27}\texttt {ClientsInterface} abrufbar über \texttt {sim.getClients()}}{97}{chapter.27}%
+\contentsline {chapter}{\numberline {28}\texttt {OutputInterface} abrufbar über \texttt {sim.getOutput()}}{99}{chapter.28}%
+\contentsline {chapter}{\numberline {29}\texttt {FileOutputInterface} abrufbar über \texttt {sim.getFileOutput()}}{101}{chapter.29}%
+\contentsline {chapter}{\numberline {30}\texttt {ModelInterface} abrufbar über \texttt {sim.getModel()}}{103}{chapter.30}%
+\contentsline {chapter}{\numberline {31}XML-Auswahlbefehle}{105}{chapter.31}%

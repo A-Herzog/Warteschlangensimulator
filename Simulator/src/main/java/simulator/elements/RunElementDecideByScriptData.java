@@ -77,7 +77,7 @@ public class RunElementDecideByScriptData extends RunElementData {
 			jsRunner=null;
 			javaRunner=DynamicFactory.getFactory().load(script);
 			javaRunner.parameter.client=new ClientImpl(simData);
-			javaRunner.parameter.system=new SystemImpl(simData);
+			javaRunner.parameter.system=new SystemImpl(simData,station.id);
 			output=new StringBuilder();
 			javaRunner.parameter.output=new OutputImpl(s->output.append(s),false);
 			break;
@@ -103,7 +103,7 @@ public class RunElementDecideByScriptData extends RunElementData {
 	 * @see #getNextStation(SimulationData, RunDataClient)
 	 */
 	private int getNextStationJS(final SimulationData simData, final RunDataClient client) {
-		jsRunner.setSimulationData(simData,client);
+		jsRunner.setSimulationData(simData,station.id,client);
 		String result=jsRunner.runCompiled();
 		if (simData.loggingActive) station.logJS(simData,script,result);
 		if (!jsRunner.getLastSuccess()) {

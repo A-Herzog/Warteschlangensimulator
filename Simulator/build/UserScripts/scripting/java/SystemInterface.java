@@ -142,4 +142,10 @@ public interface SystemInterface {
 	 * @return	Return value of the methode
 	 */
 	Object runPlugin(final String className, final String functionName, final Object data);
+	
+	/**
+	 * Records a message in the logging output.
+	 * @param obj	Message to be logged
+	 */
+	void log(final Object obj);
 }

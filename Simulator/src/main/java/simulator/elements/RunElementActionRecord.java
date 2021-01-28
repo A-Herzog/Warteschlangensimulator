@@ -55,6 +55,8 @@ import ui.modeleditor.elements.ModelElementTank;
 public class RunElementActionRecord {
 	/** Zugehöriges Editor-Element */
 	private final ModelElementActionRecord editRecord;
+	/** ID der Station aus der das Element stammt */
+	private final int stationID;
 
 	/** Ursache des Datensatzes */
 	private ModelElementActionRecord.ActionMode actionMode;
@@ -120,11 +122,13 @@ public class RunElementActionRecord {
 	/**
 	 * Konstruktor der Klasse
 	 * @param editRecord	Zugehöriges Editor-Element
+	 * @param stationID	ID der Station aus der das Element stammt
 	 * @see #build(EditModel, RunModel, boolean)
 	 */
-	public RunElementActionRecord(final ModelElementActionRecord editRecord) {
+	public RunElementActionRecord(final ModelElementActionRecord editRecord, final int stationID) {
 		actionMode=editRecord.getActionMode();
 		this.editRecord=editRecord;
+		this.stationID=stationID;
 	}
 
 	/**
@@ -134,6 +138,7 @@ public class RunElementActionRecord {
 	public RunElementActionRecord(final RunElementActionRecord runRecord) {
 		actionMode=runRecord.actionMode;
 		editRecord=runRecord.editRecord;
+		stationID=runRecord.stationID;
 
 		conditionType=runRecord.conditionType;
 		actionType=runRecord.actionType;
@@ -317,7 +322,7 @@ public class RunElementActionRecord {
 				break;
 			case Java:
 				javaRunner=DynamicFactory.getFactory().load(script);
-				javaRunner.parameter.system=new SystemImpl(simData);
+				javaRunner.parameter.system=new SystemImpl(simData,stationID);
 				break;
 			}
 			break;
@@ -444,7 +449,7 @@ public class RunElementActionRecord {
 			break;
 		case ACTION_SCRIPT:
 			if (jsRunner!=null) {
-				jsRunner.setSimulationDataNoClient(simData);
+				jsRunner.setSimulationDataNoClient(simData,stationID);
 				final String result=jsRunner.runCompiled();
 				if (simData.logging instanceof CallbackLoggerWithJS) {
 					((CallbackLoggerWithJS)simData.logging).logJS(simData.currentTime,stationLogName,stationLogColor,script,result);

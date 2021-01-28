@@ -16,6 +16,7 @@
 package scripting.java;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.math3.util.FastMath;
@@ -209,5 +210,89 @@ public class ClientImpl implements ClientInterface {
 	public void setText(final String key, final String value) {
 		if (key==null || key.trim().isEmpty()) return;
 		client.setUserDataString(key,(value==null)?"":value);
+	}
+
+	@Override
+	public int batchSize() {
+		final List<RunDataClient> batch=client.getBatchData();
+		if (batch==null) return 0;
+		return batch.size();
+	}
+
+	@Override
+	public String getBatchTypeName(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return null;
+		return simData.runModel.clientTypes[batchClient.type];
+	}
+
+	@Override
+	public double getBatchWaitingSeconds(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.waitingTime*toSec;
+	}
+
+	@Override
+	public String getBatchWaitingTime(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return null;
+		return TimeTools.formatExactTime(batchClient.waitingTime*toSec);
+	}
+
+	@Override
+	public double getBatchTransferSeconds(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.transferTime*toSec;
+	}
+
+	@Override
+	public String getBatchTransferTime(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return null;
+		return TimeTools.formatExactTime(batchClient.transferTime*toSec);
+	}
+
+	@Override
+	public double getBatchProcessSeconds(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.processTime/1000.0;
+	}
+
+	@Override
+	public String getBatchProcessTime(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return null;
+		return TimeTools.formatExactTime(batchClient.processTime*toSec);
+	}
+
+	@Override
+	public double getBatchResidenceSeconds(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.residenceTime*toSec;
+	}
+
+	@Override
+	public String getBatchResidenceTime(final int batchIndex) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return null;
+		return TimeTools.formatExactTime(batchClient.residenceTime*toSec);
+	}
+
+	@Override
+	public double getBatchValue(final int batchIndex, final int index) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return 0.0;
+		return batchClient.getUserData(index);
+	}
+
+	@Override
+	public String getBatchText(final int batchIndex, final String key) {
+		final RunDataClient batchClient=client.getBatchData(batchIndex);
+		if (batchClient==null) return null;
+		return batchClient.getUserDataString(key);
 	}
 }

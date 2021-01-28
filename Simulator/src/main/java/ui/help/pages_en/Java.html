@@ -297,6 +297,13 @@ The following methods are available in this interface:
   <tt>runPlugin</tt> will return <tt>null</tt>. 
 </ul>
 
+<h3>Output message in logging</h3>
+
+<ul>
+  <li><tt>void log(final Object obj)</tt><br>
+  Outputs the passed message to the logging system (if logging is enabled).
+</ul>
+
 
 
 <h2>ClientInterface accessible via sim.getClient()</h2>
@@ -408,6 +415,75 @@ was triggered by a client. The following methods are available in this interface
   
   <li><tt>void setText(final String key, final String value)</tt><br>
   Sets for the current client string <tt>value</tt> for the key <tt>key</tt>.
+  </li>
+</ul>
+
+<h3>Temporary batches</h3>
+
+<p>
+If the current client is a temporary batch, the properties of the inner clients
+it contains can be accessed in read-only mode:
+</p>
+
+<ul>
+  <li><tt>int batchSize()</tt><br>
+  Returns the number of clients that are in the temporary batch.  
+  If the current client is not a temporary batch, the function returns 0.
+  </li>
+
+  <li><tt>String getBatchTypeName(final int batchIndex)</tt><br>
+  Returns the name of one of the clients in the current batch.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>double getBatchWaitingSeconds(final int batchIndex)</tt><br>
+  Returns the previous waiting time of one of the clients in the current batch in seconds as a numerical value.
+    The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>	
+
+  <li><tt>String getBatchWaitingTime(final int batchIndex)</tt><br>
+  Returns the previous waiting time of one of the clients in the current batch in formatted form as a string.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>double getBatchTransferSeconds(final int batchIndex)</tt><br>
+  Returns the previous transfer time of one of the clients in the current batch in seconds as a numerical value.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>String getBatchTransferTime(final int batchIndex)</tt><br>
+  Returns the previous transfer time of one of the clients in the current batch in formatted form as a string.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>double getBatchProcessSeconds(final int batchIndex)</tt><br>
+  Returns the previous processing time of one of the clients in the current batch in seconds as a numerical value.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>String getBatchProcessTime(final int batchIndex)</tt><br>
+  Returns the previous processing time of one of the clients in the current batch in formatted form as a string.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+	 
+  <li><tt>double getBatchResidenceSeconds(final int batchIndex)</tt><br>
+  Returns the previous residence time of one of the clients in the current batch in seconds as a numerical value.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>String getBatchResidenceTime(final int batchIndex)</tt><br>
+  Returns the previous residence time of one of the clients in the current batch in formatted form as a string.
+  The passed index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>double getBatchValue(final int batchIndex, final int index)</tt><br>
+  Returns a stored numerical value for one of the clients in the current batch.
+  The passed batch index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
+  </li>
+
+  <li><tt>String getBatchText(final int batchIndex, final String key)</tt><br>
+  Returns a stored text value for one of the clients in the current batch.
+  The passed batch index is 0-based and must be in the range from 0 to <tt>batchSize()-1</tt>.
   </li>
 </ul>
 

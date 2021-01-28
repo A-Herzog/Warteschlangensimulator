@@ -314,6 +314,13 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Interface stellt 
   zurückgegeben. Schlägt der Aufruf fehl, so liefert <tt>runPlugin</tt> den Wert <tt>null</tt> zurück. 
 </ul>
 
+<h3>Meldung in Logging ausgeben</h3>
+
+<ul>
+  <li><tt>void log(final Object obj)</tt><br>
+  Gibt die übergebene Meldung im Logging-System aus (sofern eine Logaufzeichnung aktiviert ist).
+</ul>
+
 
 
 <h2>ClientInterface abrufbar über sim.getClient()</h2>
@@ -426,6 +433,75 @@ einen Kunden ausgelöst wurde. Das Interface stellt folgende Methoden zur Verfü
   
   <li><tt>void setText(final String key, final String value)</tt><br>
   Stellt für den aktuellen Kunden für <tt>key</tt> die Zeichenkette <tt>value</tt> ein.
+  </li>
+</ul>
+
+<h3>Temporäre Batche</h3>
+
+<p>
+Handelt es sich bei dem aktuellen Kunden um einen temporären Batch, so kann auf die
+Eigenschaften der in ihm enthaltenen inneren Kunden lesend zugegriffen werden:
+</p>
+
+<ul>
+  <li><tt>int batchSize()</tt><br>
+  Liefert die Anzahl an Kunden, die sich in dem temporären Batch befinden.
+  Ist der aktuelle Kunden keine temporärer Batch, so liefert die Funktion 0.
+  </li>
+
+  <li><tt>String getBatchTypeName(final int batchIndex)</tt><br>
+  Liefert den Namen eines der Kunden in dem aktuellen Batch.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>double getBatchWaitingSeconds(final int batchIndex)</tt><br>
+  Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>	
+
+  <li><tt>String getBatchWaitingTime(final int batchIndex)</tt><br>
+  Liefert die bisherige Wartezeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>double getBatchTransferSeconds(final int batchIndex)</tt><br>
+  Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>String getBatchTransferTime(final int batchIndex)</tt><br>
+  Liefert die bisherige Transferzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>double getBatchProcessSeconds(final int batchIndex)</tt><br>
+  Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>String getBatchProcessTime(final int batchIndex)</tt><br>
+  Liefert die bisherige Bedienzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+	 
+  <li><tt>double getBatchResidenceSeconds(final int batchIndex)</tt><br>
+  Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in Sekunden als Zahlenwert.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>String getBatchResidenceTime(final int batchIndex)</tt><br>
+  Liefert die bisherige Verweilzeit eines der Kunden in dem aktuellen Batch in formatierter Form als Zeichenkette.
+  Der übergebene Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>double getBatchValue(final int batchIndex, final int index)</tt><br>
+  Liefert einen zu einem der Kunden in dem aktuellen Batch einen gespeicherten Zahlenwert.
+  Der übergebene Batch-Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
+  </li>
+
+  <li><tt>String getBatchText(final int batchIndex, final String key)</tt><br>
+  Liefert zu einem der Kunden in dem aktuellen Batch einen gespeicherten Textwert.
+  Der übergebene Batch-Index ist 0-basierend und muss im Bereich von 0 bis <tt>batchSize()-1</tt> liegen.
   </li>
 </ul>
 

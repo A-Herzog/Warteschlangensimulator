@@ -99,36 +99,40 @@
 \contentsline {chapter}{\numberline {16}\texttt {Simulation} object}{61}{chapter.16}%
 \contentsline {section}{\numberline {16.1}Base functions}{61}{section.16.1}%
 \contentsline {section}{\numberline {16.2}Accessing client-specific data}{62}{section.16.2}%
-\contentsline {section}{\numberline {16.3}Accessing parameters of the simulation model}{63}{section.16.3}%
-\contentsline {section}{\numberline {16.4}Accessing the current input value}{64}{section.16.4}%
-\contentsline {section}{\numberline {16.5}Number of operators in a resource}{64}{section.16.5}%
-\contentsline {section}{\numberline {16.6}Fire signal}{64}{section.16.6}%
-\contentsline {chapter}{\numberline {17}\texttt {Clients} object}{65}{chapter.17}%
-\contentsline {chapter}{\numberline {18}\texttt {Output} object}{67}{chapter.18}%
-\contentsline {chapter}{\numberline {19}\texttt {FileOutput} object}{69}{chapter.19}%
-\contentsline {chapter}{\numberline {20}\texttt {Model} object}{71}{chapter.20}%
-\contentsline {section}{\numberline {20.1}Accessing station data}{72}{section.20.1}%
-\contentsline {section}{\numberline {20.2}Retrieve the associated statistics file}{72}{section.20.2}%
-\contentsline {chapter}{\numberline {21}XML selection commands}{73}{chapter.21}%
-\contentsline {part}{III\hspace {1em}Java commands reference}{75}{part.3}%
-\contentsline {chapter}{\numberline {22}\texttt {StatisticsInterface} accessible via \texttt {sim.getStatistics()}}{77}{chapter.22}%
-\contentsline {section}{\numberline {22.1}Definition of the output format}{77}{section.22.1}%
-\contentsline {section}{\numberline {22.2}Accessing statistics xml data}{77}{section.22.2}%
-\contentsline {section}{\numberline {22.3}Saving the statistics data to files}{79}{section.22.3}%
-\contentsline {section}{\numberline {22.4}Accessing station data}{79}{section.22.4}%
-\contentsline {section}{\numberline {22.5}Retrieve the associated statistics file}{79}{section.22.5}%
-\contentsline {chapter}{\numberline {23}\texttt {RuntimeInterface} accessible via \texttt {sim.getRuntime()}}{81}{chapter.23}%
-\contentsline {chapter}{\numberline {24}\texttt {SystemInterface} accessible via \texttt {sim.getSystem()}}{83}{chapter.24}%
-\contentsline {section}{\numberline {24.1}Base functions}{83}{section.24.1}%
-\contentsline {section}{\numberline {24.2}Accessing parameters of the simulation model}{83}{section.24.2}%
-\contentsline {section}{\numberline {24.3}Number of operators in a resource}{84}{section.24.3}%
-\contentsline {section}{\numberline {24.4}Trigger signal}{84}{section.24.4}%
-\contentsline {section}{\numberline {24.5}Run external code}{84}{section.24.5}%
-\contentsline {chapter}{\numberline {25}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{85}{chapter.25}%
-\contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{87}{chapter.26}%
-\contentsline {chapter}{\numberline {27}\texttt {ClientsInterface} accessible via \texttt {sim.getClients()}}{89}{chapter.27}%
-\contentsline {chapter}{\numberline {28}\texttt {OutputInterface} accessible via \texttt {sim.getOutput()}}{91}{chapter.28}%
-\contentsline {chapter}{\numberline {29}\texttt {FileOutputInterface} accessible via \texttt {sim.getFileOutput()}}{93}{chapter.29}%
-\contentsline {chapter}{\numberline {30}\texttt {ModelInterface} accessible via \texttt {sim.getModel()}}{95}{chapter.30}%
-\contentsline {section}{\numberline {30.1}Accessing station data}{96}{section.30.1}%
-\contentsline {chapter}{\numberline {31}XML selection commands}{97}{chapter.31}%
+\contentsline {section}{\numberline {16.3}Temporary batches}{63}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Accessing parameters of the simulation model}{64}{section.16.4}%
+\contentsline {section}{\numberline {16.5}Accessing the current input value}{65}{section.16.5}%
+\contentsline {section}{\numberline {16.6}Number of operators in a resource}{65}{section.16.6}%
+\contentsline {section}{\numberline {16.7}Fire signal}{65}{section.16.7}%
+\contentsline {section}{\numberline {16.8}Output message in logging}{65}{section.16.8}%
+\contentsline {chapter}{\numberline {17}\texttt {Clients} object}{67}{chapter.17}%
+\contentsline {chapter}{\numberline {18}\texttt {Output} object}{69}{chapter.18}%
+\contentsline {chapter}{\numberline {19}\texttt {FileOutput} object}{71}{chapter.19}%
+\contentsline {chapter}{\numberline {20}\texttt {Model} object}{73}{chapter.20}%
+\contentsline {section}{\numberline {20.1}Accessing station data}{74}{section.20.1}%
+\contentsline {section}{\numberline {20.2}Retrieve the associated statistics file}{74}{section.20.2}%
+\contentsline {chapter}{\numberline {21}XML selection commands}{75}{chapter.21}%
+\contentsline {part}{III\hspace {1em}Java commands reference}{77}{part.3}%
+\contentsline {chapter}{\numberline {22}\texttt {StatisticsInterface} accessible via \texttt {sim.getStatistics()}}{79}{chapter.22}%
+\contentsline {section}{\numberline {22.1}Definition of the output format}{79}{section.22.1}%
+\contentsline {section}{\numberline {22.2}Accessing statistics xml data}{79}{section.22.2}%
+\contentsline {section}{\numberline {22.3}Saving the statistics data to files}{81}{section.22.3}%
+\contentsline {section}{\numberline {22.4}Accessing station data}{81}{section.22.4}%
+\contentsline {section}{\numberline {22.5}Retrieve the associated statistics file}{81}{section.22.5}%
+\contentsline {chapter}{\numberline {23}\texttt {RuntimeInterface} accessible via \texttt {sim.getRuntime()}}{83}{chapter.23}%
+\contentsline {chapter}{\numberline {24}\texttt {SystemInterface} accessible via \texttt {sim.getSystem()}}{85}{chapter.24}%
+\contentsline {section}{\numberline {24.1}Base functions}{85}{section.24.1}%
+\contentsline {section}{\numberline {24.2}Accessing parameters of the simulation model}{85}{section.24.2}%
+\contentsline {section}{\numberline {24.3}Number of operators in a resource}{86}{section.24.3}%
+\contentsline {section}{\numberline {24.4}Trigger signal}{86}{section.24.4}%
+\contentsline {section}{\numberline {24.5}Run external code}{86}{section.24.5}%
+\contentsline {section}{\numberline {24.6}Output message in logging}{87}{section.24.6}%
+\contentsline {chapter}{\numberline {25}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{89}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Temporary batches}{90}{section.25.1}%
+\contentsline {chapter}{\numberline {26}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{93}{chapter.26}%
+\contentsline {chapter}{\numberline {27}\texttt {ClientsInterface} accessible via \texttt {sim.getClients()}}{95}{chapter.27}%
+\contentsline {chapter}{\numberline {28}\texttt {OutputInterface} accessible via \texttt {sim.getOutput()}}{97}{chapter.28}%
+\contentsline {chapter}{\numberline {29}\texttt {FileOutputInterface} accessible via \texttt {sim.getFileOutput()}}{99}{chapter.29}%
+\contentsline {chapter}{\numberline {30}\texttt {ModelInterface} accessible via \texttt {sim.getModel()}}{101}{chapter.30}%
+\contentsline {section}{\numberline {30.1}Accessing station data}{102}{section.30.1}%
+\contentsline {chapter}{\numberline {31}XML selection commands}{103}{chapter.31}%
