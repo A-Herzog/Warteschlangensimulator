@@ -16,6 +16,7 @@
 package mathtools;
 
 import java.awt.Component;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -46,7 +47,7 @@ import mathtools.distribution.swing.CommonVariables;
 /**
  * Diese Klasse ermöglichst das Laden und Speichern mehrerer Tabellen in einer Exceldatei
  * @author Alexander Herzog
- * @version 1.4
+ * @version 1.5
  */
 public final class MultiTable {
 	/**
@@ -296,6 +297,75 @@ public final class MultiTable {
 	 */
 	public boolean load(final File file) {
 		return load(file,Table.SaveMode.SAVEMODE_BYFILENAME);
+	}
+
+	/**
+	 * Versucht eine Tabelle aus einem {@link ByteArrayInputStream} zu laden.<br>
+	 * Unterstützt werden dabei Plain-Text-Formate und xlsx-Dateien.
+	 * @param stream	Eingabestream
+	 * @return	Liefert im Erfolgsfall <code>true</code> zurück
+	 */
+	private boolean loadByteArray(final ByteArrayInputStream stream) {
+		if (stream.available()<2) return false;
+
+		final byte[] start=new byte[2];
+		try {
+			if (stream.read(start)!=2) return false;
+		} catch (IOException e) {
+			return false;
+		}
+		stream.reset();
+
+		if (start[0]=='P' && start[1]=='K') {
+			/* xlsx */
+			try {
+				try (XSSFWorkbook wb=new XSSFWorkbook(stream)) {
+					if (wb.getNumberOfSheets()<1) return false;
+					for (int i=0;i<wb.getNumberOfSheets();i++) {
+						Table table=new Table();
+						table.loadFromSheet(wb.getSheetAt(i));
+						add(wb.getSheetName(i),table);
+					}
+				}
+			} catch (Exception e) {return false;}
+			return true;
+		} else {
+			/* Plain */
+			final int size=stream.available();
+			final byte[] data=new byte[size];
+			try {
+				if (stream.read(data)!=size) return false;
+			} catch (IOException e) {
+				return false;
+			}
+			final String tableTest=new String(data);
+			final Table table=new Table();
+			table.load(tableTest);
+			add("",table);
+			return true;
+		}
+	}
+
+	/**
+	 * Versucht eine Tabelle aus einem Stream zu laden.<br>
+	 * Unterstützt werden dabei Plain-Text-Formate und xlsx-Dateien.
+	 * @param stream	Eingabestream
+	 * @return	Liefert im Erfolgsfall <code>true</code> zurück
+	 */
+	public boolean loadStream(final InputStream stream) {
+		if (stream instanceof ByteArrayInputStream) return loadByteArray((ByteArrayInputStream)stream);
+
+		try {
+			final int size=stream.available();
+			final byte[] data=new byte[size];
+			if (stream.read(data)!=size) return false;
+
+			try (ByteArrayInputStream byteArray=new ByteArrayInputStream(data)) {
+				return loadByteArray(byteArray);
+			}
+		} catch (IOException e) {
+			return false;
+		}
 	}
 
 	/**

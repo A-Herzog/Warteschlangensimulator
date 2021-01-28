@@ -3,6 +3,11 @@
 # to submit models to be simulated and to receive results.
 #
 
+#
+# Command to run Warteschlangensimulator as MQTT client:
+# java -jar ./Simulator.jar serverMQTT tcp://localhost Warteschlangensimulator/task
+#
+
 import paho.mqtt.client as mqtt
 import paho.mqtt.packettypes as mqttpackettypes
 import time

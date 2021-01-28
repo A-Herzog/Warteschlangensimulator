@@ -27,6 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.eclipse.paho.mqttv5.common.packet.UserProperty;
 
 import net.webcalc.CalcFuture;
+import simulator.editmodel.EditModel;
 
 /**
  * Diese Klasse stellt die Simulator-Serverdienste über einen
@@ -45,6 +46,12 @@ public class MQTTSimClient extends MQTTSimClientBase {
 	 * (wird von {@link #start(MQTTBrokerURL, String, String)} bzw. {@link #start(MQTTBrokerURL, String, String, String, String)} gesetzt)
 	 */
 	private String workTopic;
+
+	/**
+	 * Festgelegtes Modell, welches nur noch parametrisiert werden soll.<br>
+	 * Ist dieses Feld <code>null</code>, so können beliebige Modelle simuliert werden.
+	 */
+	private EditModel fixedModel;
 
 	/**
 	 * System zur Ausführung von Aufgaben
@@ -107,6 +114,27 @@ public class MQTTSimClient extends MQTTSimClientBase {
 		return start(broker,new String[]{echoTopic,workTopic},username,password);
 	}
 
+	/**
+	 * Startet den MQTT-Client.
+	 * @param broker	Netzwerkname des MQTT-Brokers (inkl. Protokoll und evtl. Port)
+	 * @param echoTopic	Anfrage-Thema auf das mit einem Echo an das Antwort-Thema geantwortet wird (kann <code>null</code> sein)
+	 * @param workTopic	Anfrage-Thema über das Aufträge an den Simulator übergeben werden können (kann <code>null</code> sein)
+	 * @param username	Nutzername zur Authentifizierung gegenüber dem Broker (kann <code>null</code> sein; nur wenn Name und Password nicht leer sind, werden diese übermittelt)
+	 * @param password	Passwort zur Authentifizierung gegenüber dem Broker (kann <code>null</code> sein; nur wenn Name und Password nicht leer sind, werden diese übermittelt)
+	 * @param fixedModel	Festgelegtes Modell, welches nur noch parametrisiert werden soll (kann <code>null</code> sein)
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @see #start(MQTTBrokerURL, String, String)
+	 * @see #stop()
+	 */
+	public String start(final MQTTBrokerURL broker, final String echoTopic, final String workTopic, final EditModel fixedModel, final String username, final String password) {
+		this.echoTopic=echoTopic;
+		this.workTopic=workTopic;
+
+		this.fixedModel=fixedModel;
+
+		return start(broker,new String[]{echoTopic,workTopic},username,password);
+	}
+
 	@Override
 	protected void processRequest(final String requestTopic, final String responseTopic, final byte[] payload, final List<UserProperty> userProperties) {
 		if (requestTopic==null || responseTopic.trim().isEmpty()) return;
@@ -131,7 +159,12 @@ public class MQTTSimClient extends MQTTSimClientBase {
 	private void processJob(final String responseTopic, final byte[] input, final List<UserProperty> userProperties) {
 		lock.lock();
 		try {
-			final CalcFuture future=new CalcFuture(input,f->simulationDone(responseTopic,f,userProperties));
+			final CalcFuture future;
+			if (fixedModel==null) {
+				future=new CalcFuture(input,f->simulationDone(responseTopic,f,userProperties));
+			} else {
+				future=new CalcFuture(fixedModel,input,f->simulationDone(responseTopic,f,userProperties));
+			}
 			list.add(future);
 			executor.submit(()->future.run());
 		} finally {

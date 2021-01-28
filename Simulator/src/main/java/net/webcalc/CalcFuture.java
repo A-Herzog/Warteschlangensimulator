@@ -124,9 +124,9 @@ public class CalcFuture {
 	/** Eingabedaten (werden bereits im Konstruktor erfasst, aber die Modell-Erstellung daraus erfolgt erst später) */
 	private final byte[] input;
 	/** Geladene Tabelle zum Parametrisieren des Modells */
-	private final MultiTable inputTable;
+	private MultiTable inputTable;
 	/** Dateiname der geladenen Tabelle zum Parametrisieren des Modells */
-	private final String inputTableName;
+	private String inputTableName;
 	/** IP-Adresse des entfernten Klienten */
 	private final String ip;
 	/** Aktueller Ausführungsstatus */
@@ -198,6 +198,29 @@ public class CalcFuture {
 		ip="";
 		this.input=input;
 		originalModel=null;
+		inputTable=null;
+		inputTableName=null;
+
+		this.doneNotify=doneNotify;
+
+		messages=new ArrayList<>();
+		lock=new ReentrantLock();
+		requestTime=System.currentTimeMillis();
+
+		initialStatusUpdate();
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param model	Festgelegtes Modell (darf <code>null</code> sein); im Fall eines festen Modells erfolgt nur noch eine Parametrisierung
+	 * @param input	Eingabedaten
+	 * @param doneNotify	Benachrichtigung beim Simulationsende (Erfolg oder Abbruch) (kann <code>null</code> sein)
+	 */
+	public CalcFuture(final EditModel model, final byte[] input, final Consumer<CalcFuture> doneNotify) {
+		id=0;
+		ip="";
+		this.input=input;
+		originalModel=model;
 		inputTable=null;
 		inputTableName=null;
 
@@ -480,9 +503,18 @@ public class CalcFuture {
 		} else {
 			/* Festes Modell, nur Parameter laden */
 
-			if (inputTable==null) {
+			if (inputTable==null && input==null) {
 				setStatus(Status.DONE_ERROR);
 				return;
+			}
+
+			if (input!=null) {
+				inputTable=new MultiTable();
+				if (!inputTable.loadStream(new ByteArrayInputStream(input))) {
+					setStatus(Status.DONE_ERROR);
+					return;
+				}
+				inputTableName="NetworkDataTable";
 			}
 
 			final EditModel changedEditModel=originalModel.modelLoadData.changeModel(originalModel,inputTable,inputTableName,true);

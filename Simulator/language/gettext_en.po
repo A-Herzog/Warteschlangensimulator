@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 11:54+0100\n"
+"POT-Creation-Date: 2021-01-28 19:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1774,6 +1774,19 @@ msgstr "Started MQTT-client-based simulation server."
 
 msgid "CommandLine.ServerMQTT.Stopped"
 msgstr "MQTT-based simulation server stopped."
+
+msgid "CommandLine.ServerMQTTFixed.Description.Long"
+msgstr ""
+"This command expects two or three additional parameter:\n"
+"the address of the MQTT broker, the MQTT topic, the file name\n"
+"of the model file to use and optionally\n"
+"the user name and the password separated by \":\"."
+
+msgid "CommandLine.ServerMQTTFixed.Description.Short"
+msgstr "Starts the program as MQTT-based simulation server for a fixed model."
+
+msgid "CommandLine.ServerMQTTFixed.Name"
+msgstr "ServerMQTTFixed"
 
 msgid "CommandLine.ServerMQTTTest.Description.Long"
 msgstr ""
