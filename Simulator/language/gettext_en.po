@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 19:52+0100\n"
+"POT-Creation-Date: 2021-01-29 21:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,9 @@ msgstr ""
 
 msgid "AnalyticModelCompare.Dialog.Copy"
 msgstr "Copy"
+
+msgid "AnalyticModelCompare.Dialog.DialogHint"
+msgstr "Simple queueing models can be calculated directly using analytical formulas. If the model is somewhat more complex, but still traceable to the basic concepts of the respective formula, an analytical comparison calculation is possible, the results of which will, however, differ from the simulation results."
 
 msgid "AnalyticModelCompare.Dialog.Save"
 msgstr "Save"
@@ -8168,6 +8171,9 @@ msgstr "Station costs per client"
 msgid "ModelDescription.Dialog.Copy"
 msgstr "Copy"
 
+msgid "ModelDescription.Dialog.DialogHint"
+msgstr "The model description provides an overview of all stations of the model including their most important properties."
+
 msgid "ModelDescription.Dialog.Save"
 msgstr "Save"
 
@@ -9246,6 +9252,9 @@ msgstr "Delete note"
 
 msgid "NotesDialog.Delete.Hint"
 msgstr "Deletes the selected note."
+
+msgid "NotesDialog.DialogHint"
+msgstr "In this dialog, the notes that can be placed on the drawing surface via the \"Note\" elements from the \"Optical decorations\" category can be viewed and edited."
 
 msgid "NotesDialog.Edit"
 msgstr "Edit"
@@ -27999,6 +28008,9 @@ msgstr "Delete layer."
 
 msgid "Window.Layers.Delete.Title"
 msgstr "Delete"
+
+msgid "Window.Layers.DialogHint"
+msgstr "By assigning the elements to different layers, certain aspects of the model can be specifically shown or hidden."
 
 msgid "Window.Layers.Invisible.Hint"
 msgstr "Make invisible"

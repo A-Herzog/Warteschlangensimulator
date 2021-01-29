@@ -152,6 +152,18 @@ public class InfoPanel {
 	/** Info-ID für den "Stationsstatistik"-Dialog */
 	public static final String globalStationStatistics="StationStatistics";
 
+	/** Info-ID für den "Notizen"-Dialog */
+	public static final String globalNotes="Notes";
+
+	/** Info-ID für den "Modellbeschreibung"-Dialog */
+	public static final String globalModelDescription="ModelDescription";
+
+	/** Info-ID für den "Vergleich mit analytischem Modell" */
+	public static final String globalAnalyticModelCompare="AnalyticModelCompare";
+
+	/** Info-ID für den "Ebenen"-Dialog */
+	public static final String globalLayers="Layers";
+
 	/* Stationen - Eingang/Ausgang */
 
 	/** Info-ID für den "Quelle"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
@@ -676,6 +688,30 @@ public class InfoPanel {
 		register(globalStationStatistics,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("StationStatistics.Title"),
 				()->Language.tr("StationStatistics.DialogHint"));
+
+		/* Notizen */
+
+		register(globalNotes,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("NotesDialog.Title"),
+				()->Language.tr("NotesDialog.DialogHint"));
+
+		/* Modellbeschreibung */
+
+		register(globalModelDescription,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("ModelDescription.Dialog.Title"),
+				()->Language.tr("ModelDescription.Dialog.DialogHint"));
+
+		/* Vergleich mit analytischem Modell */
+
+		register(globalAnalyticModelCompare,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("AnalyticModelCompare.Dialog.Title"),
+				()->Language.tr("AnalyticModelCompare.Dialog.DialogHint"));
+
+		/* Ebenen */
+
+		register(globalLayers,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("Window.Layers.Title"),
+				()->Language.tr("Window.Layers.DialogHint"));
 
 		/* Stationen - Eingang/Ausgang */
 

@@ -48,6 +48,7 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
+import ui.infopanel.InfoPanel;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -115,8 +116,11 @@ public class NotesDialog extends BaseDialog {
 		notesList=new ArrayList<>();
 
 		/* GUI */
-		final JPanel content=createGUI(()->Help.topicModal(this,"Notes"));
-		content.setLayout(new BorderLayout());
+		final JPanel all=createGUI(()->Help.topicModal(this,"Notes"));
+		all.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(all,InfoPanel.globalNotes);
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
 
 		/* Toolbar */
 		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);

@@ -36,6 +36,7 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
+import ui.infopanel.InfoPanel;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderTable;
@@ -101,8 +102,11 @@ public class ModelDescriptionDialog extends BaseDialog {
 		/* GUI aufbauen */
 		addUserButton(Language.tr("ModelDescription.Dialog.Copy"),Images.EDIT_COPY.getIcon());
 		addUserButton(Language.tr("ModelDescription.Dialog.Save"),Images.GENERAL_SAVE.getIcon());
-		final JPanel content=createGUI(()->Help.topicModal(this,"EditorDescriptionDialog"));
-		content.setLayout(new BorderLayout());
+		final JPanel all=createGUI(()->Help.topicModal(this,"EditorDescriptionDialog"));
+		all.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(all,InfoPanel.globalModelDescription);
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
 
 		final JTextPane textPane=new JTextPane();
 		textPane.setEditable(false);

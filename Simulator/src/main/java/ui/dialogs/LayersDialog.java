@@ -31,6 +31,7 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
+import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 
@@ -75,8 +76,11 @@ public class LayersDialog extends BaseDialog {
 		super(owner,Language.tr("Window.Layers.Title"),readOnly);
 		this.model=model;
 
-		final JPanel content=createGUI(()->Help.topicModal(this,"Layers"));
-		content.setLayout(new BorderLayout());
+		final JPanel all=createGUI(()->Help.topicModal(this,"Layers"));
+		all.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(all,InfoPanel.globalLayers);
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
 
 		/* Symbolleiste */
 		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);

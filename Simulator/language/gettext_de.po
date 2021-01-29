@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 19:52+0100\n"
+"POT-Creation-Date: 2021-01-29 21:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,9 @@ msgstr ""
 
 msgid "AnalyticModelCompare.Dialog.Copy"
 msgstr "Kopieren"
+
+msgid "AnalyticModelCompare.Dialog.DialogHint"
+msgstr "Einfache Warteschlangenmodelle können über analytische Formeln direkt berechnet werden. Ist das Modell etwas komplexer, aber noch auf die Grundkonzepte der jeweiligen Formel zurückführbar, so ist eine analytische Vergleichsrechnung möglich, deren Ergebnisse jedoch von den Simulationsergebnissen abweichen werden."
 
 msgid "AnalyticModelCompare.Dialog.Save"
 msgstr "Speichern"
@@ -8159,6 +8162,9 @@ msgstr "Kosten an der Station pro Kunde"
 msgid "ModelDescription.Dialog.Copy"
 msgstr "Kopieren"
 
+msgid "ModelDescription.Dialog.DialogHint"
+msgstr "Die Modellbeschreibung liefert einen Überblick über die alle Stationen des Modells inklusive ihrer wichtigsten Eigenschaften."
+
 msgid "ModelDescription.Dialog.Save"
 msgstr "Speichern"
 
@@ -9237,6 +9243,9 @@ msgstr "Notiz löschen"
 
 msgid "NotesDialog.Delete.Hint"
 msgstr "Löscht die gewählte Notiz."
+
+msgid "NotesDialog.DialogHint"
+msgstr "In diesem Dialog können die Notizen, die über die \"Notiz\"-Elemente aus der Kategorie \"Optische Gestaltung\" auf der Zeichenfläche platziert werden können, eingesehen und bearbeitet werden."
 
 msgid "NotesDialog.Edit"
 msgstr "Bearbeiten"
@@ -28012,6 +28021,9 @@ msgstr "Ebene löschen."
 
 msgid "Window.Layers.Delete.Title"
 msgstr "Löschen"
+
+msgid "Window.Layers.DialogHint"
+msgstr "Durch die Zuordnung der Elemente auf verschiedene Ebenen können bestimmte Aspekte des Modells gezielt ein- oder ausgeblendet werden."
 
 msgid "Window.Layers.Invisible.Hint"
 msgstr "Blendet die Elemente, die sich auf dieser Ebene befinden, aus."

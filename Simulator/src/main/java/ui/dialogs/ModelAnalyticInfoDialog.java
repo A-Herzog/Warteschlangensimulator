@@ -34,6 +34,7 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
+import ui.infopanel.InfoPanel;
 import ui.modeleditor.descriptionbuilder.StyledTextBuilder;
 import ui.statistics.analyticcompare.AnalyticInfo;
 
@@ -73,8 +74,11 @@ public class ModelAnalyticInfoDialog extends BaseDialog {
 		/* GUI aufbauen */
 		addUserButton(Language.tr("AnalyticModelCompare.Dialog.Copy"),Images.EDIT_COPY.getIcon());
 		addUserButton(Language.tr("AnalyticModelCompare.Dialog.Save"),Images.GENERAL_SAVE.getIcon());
-		final JPanel content=createGUI(()->Help.topicModal(this,"EditorAnalyticCompareDialog"));
-		content.setLayout(new BorderLayout());
+		final JPanel all=createGUI(()->Help.topicModal(this,"EditorAnalyticCompareDialog"));
+		all.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(all,InfoPanel.globalAnalyticModelCompare);
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
 
 		final JTextPane textPane=new JTextPane();
 		textPane.setEditable(false);
