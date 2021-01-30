@@ -18,6 +18,8 @@ Name "${PrgName} ${VERSION}"
 Caption "${PrgName} ${VERSION}"
 Icon "${PrgIcon}"
 OutFile "${PrgFileName}.exe"
+
+ManifestDPIAware true
  
 SilentInstall silent
 AutoCloseWindow true
