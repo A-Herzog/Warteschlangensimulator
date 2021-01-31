@@ -76,6 +76,19 @@ This file lists the third-party components used by "Simulator" project and their
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: http://jdde.pretty-tools.com/
 
+### JGit Core
+
+- Repository: https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
+- License: Eclipse Distribution License (New BSD License)
+- License URL: https://www.eclipse.org/org/documents/edl-v10.php
+- Used by: JGit JSch Based SSH Support
+
+### JGit JSch Based SSH Support
+
+- Repository: https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit.ssh.jsch
+- License: Eclipse Distribution License (New BSD License)
+- License URL: https://www.eclipse.org/org/documents/edl-v10.php
+
 ### MariaDB Java Client
 
 - Repository: https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
@@ -393,6 +406,22 @@ http://java.sun.com/products/java-media/jai
 - Homepage: https://javaee.github.io/servlet-spec/ 
 - Used by: Apache FOP Core
 
+### JavaEWAH
+
+- Repository: https://mvnrepository.com/artifact/com.googlecode.javaewah/JavaEWAH
+- License: Apache 2.0
+- License URL: https://opensource.org/licenses/Apache-2.0
+- Homepage: https://github.com/lemire/javaewah
+- Used by: JGit Core
+
+### JZlib
+
+- Repository: https://mvnrepository.com/artifact/com.jcraft/jzlib
+- License: BSD 3-clause
+- License URL: https://opensource.org/licenses/BSD-3-Clause
+- Homepage: http://www.jcraft.com/jzlib/
+- Used by: JGit JSch Based SSH Support
+
 ### QDox
 
 - Repository: https://mvnrepository.com/artifact/com.thoughtworks.qdox/qdox
@@ -400,6 +429,22 @@ http://java.sun.com/products/java-media/jai
 - License URL: https://opensource.org/licenses/Apache-2.0
 - Homepage: https://github.com/paul-hammant/qdox 
 - Used by: Apache FOP Events
+
+### SLF4J API Module
+
+- Repository: https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+- License: MIT
+- License URL: https://opensource.org/licenses/MIT
+- Homepage: http://www.slf4j.org 
+- Used by: JGit Core, JGit JSch Based SSH Support
+
+### SLF4J NOP Binding
+
+- Repository: https://mvnrepository.com/artifact/org.slf4j/slf4j-nop
+- License: MIT
+- License URL: https://opensource.org/licenses/MIT
+- Homepage: http://www.slf4j.org 
+- Used by: JGit Core, JGit JSch Based SSH Support
 
 ### Xalan Java
 
@@ -1559,6 +1604,36 @@ based on this library.  If you modify this library, you may extend this
 exception to your version of the library, but you are not obligated to
 do so.  If you do not wish to do so, delete this exception statement
 from your version.
+```
+
+### Eclipse Distribution License (New BSD License)
+
+URL: https://www.eclipse.org/org/documents/edl-v10.php
+
+```
+Eclipse Distribution License - v 1.0
+
+Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted
+provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions
+    and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+    and the following disclaimer in the documentation and/or other materials provided with the distribution.
+    Neither the name of the Eclipse Foundation, Inc. nor the names of its contributors may be used to endorse
+    or promote products derived from this software without specific prior written permission. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
 ### Eclipse Public License - v 2.0

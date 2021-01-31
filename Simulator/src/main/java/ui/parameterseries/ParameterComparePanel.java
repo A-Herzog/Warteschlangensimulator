@@ -56,6 +56,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import gitconnect.GitSetup;
+import gitconnect.GitTools;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
@@ -513,6 +515,7 @@ public class ParameterComparePanel extends SpecialPanel {
 				final File file=getNextStatisticsFile(folder);
 				if (file==null) return;
 				if (statistics.saveToFile(file)) {
+					GitTools.saveFile(this,statistics.editModel.author,statistics.editModel.authorEMail,file,GitSetup.GitSaveMode.STATISTICS);
 					logOutput(String.format(Language.tr("ParameterCompare.Toolbar.ProcessResults.SaveStatistics.Log.Success"),model.getName(),file.getName()));
 				} else {
 					logOutput(String.format(Language.tr("ParameterCompare.Toolbar.ProcessResults.SaveStatistics.Log.Failed"),model.getName(),file.getName()));
@@ -964,6 +967,8 @@ public class ParameterComparePanel extends SpecialPanel {
 			MsgBox.error(this,Language.tr("ParameterCompare.Settings.Save.Error.Title"),String.format(Language.tr("ParameterCompare.Settings.Save.Error.Info"),file.toString()));
 			return false;
 		}
+
+		GitTools.saveFile(this,setup.getEditModel().author,setup.getEditModel().authorEMail,file,GitSetup.GitSaveMode.PARAMETER_SERIES);
 
 		this.setup.transferFrom(setup);
 		setupOriginal.copyFrom(setup);

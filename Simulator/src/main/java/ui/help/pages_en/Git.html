@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Git configurations</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Git configurations</h1>
+
+<p>
+If model files, statistics data, parameter series or optimizer settings are stored in a directory via the graphical user interface
+of the simulator, they can be transferred directly to a Git repository using the simulator if the directory represents a Git repository.
+</p>
+
+<p>
+The "Git Configurations" dialog can be used to specify various folders that are Git repositories.
+In addition, a server address can be specified for each folder.
+If files are stored in this folder, they are transferred to both the local repository and the repository located on the server.
+After the configuration of the corresponding folders, no further interactions are necessary for this in the following;
+the processing takes place automatically and in the background.
+In addition, it can be set per directory whether a data synchronization from the server to the local directory should take place when the simulator program is started,
+so that the simulator will find all files in the newest revisions in the local directory in the following.
+</p>
+
+<h3>Pull</h3>
+<p>
+This function performs a data synchronization from the server to the local directory.
+It can be set per Git directory that such a pull is done automatically at program start.
+</p>
+
+<h3>Push</h3>
+<p>
+This function transfers data from the local Git directory to the server.
+New or modified files must first be added to the local Git system via a commit.
+Then they can be transferred to the server via push.
+If Git storage for simulator files is activated for a directory, the creation of a commit with subsequent push for saved files takes place automatically.
+</p>
+<p>
+If commits have been created using external programs, but these have not yet been transferred to the server via push,
+or if the server was not available during the last commit &amp; push call in the simulator,
+this transfer can started by an explicit call of the push function.
+</p>
+
+<h3>Clone</h3>
+<p>
+When setting up a local Git repository, it is recommended to start with data from a remote repository on a server.
+Cloning a remote repository transfers all data from a Git server to a local directory.
+</p>
+
+<h3>Accessing a server</h3>
+<p>
+The URL to access a Git server should most likely be of the form <tt>ssh://git@servername:portnumber/path</tt>, where <tt>:portnumber</tt> is optional.
+Authentication to the server is done using either a user name and password or an SSH key.
+An SSH key consists of a public portion (stored on the server) and a private portion.
+To connect to the server, the private key must be specified in the simulator.
+The private key has to start with the line:<br>
+ <tt>-----BEGIN RSA PRIVATE KEY-----</tt>
+<br>It can be created using the <tt>ssh-keygen -t rsa -m PEM</tt> command.
+</p>
+
+</body>
+</html>

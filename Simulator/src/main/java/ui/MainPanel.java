@@ -77,6 +77,8 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.w3c.dom.Element;
 
+import gitconnect.GitListDialog;
+import gitconnect.GitTools;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
@@ -469,6 +471,7 @@ public class MainPanel extends MainPanelBase {
 				ServerPanel.updateRunningServers(this);
 			} else {
 				ServerPanel.autoStartServers(this);
+				GitTools.startUpPull(this);
 			}
 
 			boolean isAutoRestore=false;
@@ -531,6 +534,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("FileStatisticsLoad",e->commandFileStatisticsLoad(null,null));
 		addAction("FileStatisticsSave",e->commandFileStatisticsSave());
 		addAction("FileSetup",e->commandFileSetup(null));
+		addAction("FileGit",e->commandFileGit());
 		addAction("FileQuit",e->{
 			Container c=getParent();
 			while (!(c instanceof MainFrameBase)) c=c.getParent();
@@ -968,6 +972,7 @@ public class MainPanel extends MainPanelBase {
 
 		menu.addSeparator();
 		createMenuItemCtrlShift(menu,Language.tr("Main.Menu.File.Settings"),Images.GENERAL_SETUP.getIcon(),Language.tr("Main.Menu.File.Settings.Mnemonic"),KeyEvent.VK_F2,"FileSetup");
+		createMenuItem(menu,Language.tr("Main.Menu.File.GitSettings"),Images.GIT.getIcon(),Language.tr("Main.Menu.File.GitSettings.Mnemonic"),"FileGit");
 		menu.addSeparator();
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.File.Quit"),Images.GENERAL_EXIT.getIcon(),Language.tr("Main.Menu.File.Quit.Mnemonic"),KeyEvent.VK_W,"FileQuit");
 
@@ -1905,6 +1910,13 @@ public class MainPanel extends MainPanelBase {
 		new SetupDialog(this,showPage);
 
 		reloadSetup();
+	}
+
+	/**
+	 * Befehl: Datei - Git-Einstellungen
+	 */
+	private void commandFileGit() {
+		new GitListDialog(this);
 	}
 
 	/**

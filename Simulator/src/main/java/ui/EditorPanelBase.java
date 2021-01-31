@@ -47,6 +47,8 @@ import javax.swing.JTextField;
 
 import org.w3c.dom.Element;
 
+import gitconnect.GitSetup;
+import gitconnect.GitTools;
 import language.Language;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
@@ -316,6 +318,9 @@ public abstract class EditorPanelBase extends JPanel {
 		}
 
 		if (!model.saveToFile(file)) return SAVE_MODEL_ERROR;
+
+		GitTools.saveFile(this,model.author,model.authorEMail,file,GitSetup.GitSaveMode.MODELS);
+
 		lastFile=file;
 		modelOriginal=getModel(); /* Neuen Abzug von Editor-Modell erstellen. In lokaler Variante wurde evtl. die Versionskennung beim Speichern aktualisiert. */
 		modelChanged=false;
@@ -339,6 +344,9 @@ public abstract class EditorPanelBase extends JPanel {
 		}
 
 		if (!model.saveToFile(file)) return SAVE_MODEL_ERROR;
+
+		GitTools.saveFile(this,model.author,model.authorEMail,file,GitSetup.GitSaveMode.MODELS);
+
 		return null;
 	}
 

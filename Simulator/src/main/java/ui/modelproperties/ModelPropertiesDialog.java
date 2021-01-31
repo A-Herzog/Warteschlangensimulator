@@ -210,6 +210,8 @@ public class ModelPropertiesDialog extends BaseDialog {
 	private JTextField name;
 	/** Eingabefeld: "Autor des Modells" */
 	private JTextField author;
+	/** Eingabefeld: "E-Mail-Adresse des Autors des Modells" */
+	private JTextField authorEMail;
 	/** Eingabefeld: "Modellbeschreibung" */
 	private JTextArea description;
 
@@ -500,6 +502,11 @@ public class ModelPropertiesDialog extends BaseDialog {
 			authorDefaultButton.setIcon(Images.MODELPROPERTIES_DESCRIPTION_SET_AUTHOR.getIcon());
 			authorDefaultButton.setToolTipText(Language.tr("Editor.Dialog.Tab.ModelDescription.Author.SetDefault"));
 		}
+
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.AuthorEMail")+":",(model.authorEMail==null)?"":model.authorEMail);
+		top.add((JPanel)data[0]);
+		authorEMail=(JTextField)data[1];
+		authorEMail.setEditable(!readOnly);
 
 		content.add(sub=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		label=addLabel(sub,Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription")+":",BorderLayout.NORTH);
@@ -1468,6 +1475,7 @@ public class ModelPropertiesDialog extends BaseDialog {
 
 		model.name=name.getText();
 		model.author=author.getText();
+		model.authorEMail=authorEMail.getText();
 		model.description=description.getText();
 
 		/* Simulation */

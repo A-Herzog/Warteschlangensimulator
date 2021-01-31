@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | GespeicherteAnsicht)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellStatistikVerteilungStunden | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | GespeicherteAnsicht)*>
 <!ATTLIST Modell
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -14,6 +14,7 @@
 <!ELEMENT ModellVersion (#PCDATA)>
 <!ELEMENT ModellName (#PCDATA)>
 <!ELEMENT ModellAutor (#PCDATA)>
+<!ELEMENT ModellAutorEMail (#PCDATA)>
 <!ELEMENT ModellBeschreibung (#PCDATA)>
 <!ELEMENT ModellAufwaermphase (#PCDATA)>
 <!ELEMENT ModellWiederholungen (#PCDATA)>
@@ -2051,7 +2052,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder | SavedView)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelStatisticsDistributionHours | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelTimedChecks | ModelPathRecording | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder | SavedView)*>
 <!ATTLIST Model
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2061,6 +2062,7 @@
 <!ELEMENT ModelVersion (#PCDATA)>
 <!ELEMENT ModelName (#PCDATA)>
 <!ELEMENT ModelAuthor (#PCDATA)>
+<!ELEMENT ModelAuthorEMail (#PCDATA)>
 <!ELEMENT ModelDescription (#PCDATA)>
 <!ELEMENT ModelWarmUpPhase (#PCDATA)>
 <!ELEMENT ModelRepeats (#PCDATA)>

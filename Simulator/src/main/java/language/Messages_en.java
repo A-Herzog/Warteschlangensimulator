@@ -20,8 +20,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7] = "Edge";
     t[8] = "Surface.InteractiveRadiobutton.Dialog.Variable";
     t[9] = "Variable";
-    t[12] = "ParameterCompare.Table.Column.Model";
-    t[13] = "Model";
+    t[12] = "Git.List.Tab.LocalFolder.LocalFolder.Info.NoFolderSelected";
+    t[13] = "No local Git folder was specified.";
     t[14] = "ParameterCompare.Toolbar.ProcessResults";
     t[15] = "Process results";
     t[18] = "Surface.Seize.Name.Short";
@@ -290,6 +290,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[619] = "In step %d (model %s) the results parser script returned \"%s\" which could not be interpreted as a number.";
     t[620] = "XML.OptimizerNotActive.Info";
     t[621] = "The optimizer is not active at the moment. Do you want to open\nthe optimizer using the current model as optimization base and\nopen the selected optimizer settings file in the optimizer?";
+    t[622] = "Git.List.Edit";
+    t[623] = "Edit";
     t[626] = "Editor.DialogBase.ID.NewIDInUse";
     t[627] = "The specified new ID is already in use by an other element.\nThe ID of the other element will be changed.";
     t[628] = "Dialog.Button.Paste.InfoImage";
@@ -348,6 +350,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[749] = "After flow of %s";
     t[750] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes";
     t[751] = "Residence times of the clients by type";
+    t[752] = "ProxySettings.ProxyHost.NoHostTitle";
+    t[753] = "No proxy address";
     t[758] = "Surface.Line.Dialog.Arrow.Large";
     t[759] = "large";
     t[766] = "Simulation.Log.ArriveStation";
@@ -520,6 +524,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1163] = "While stations forward clients depending on a condition either to the next station or to the following endWhile station.";
     t[1164] = "Surface.CounterMulti.Dialog.Title";
     t[1165] = "Edit multi counter";
+    t[1166] = "Git.List.Pull.Error";
+    t[1167] = "When trying to pull data from the remote repository\n%s\ninto the local directory\n%s\nthe following error occurred:\n%s";
     t[1170] = "Surface.Batch.XML.Batch.SizeMax";
     t[1171] = "Maximum";
     t[1176] = "Surface.Source.XML.Threshold.Direction";
@@ -804,6 +810,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1837] = "Settings";
     t[1842] = "SettingsDialog.AutoUpdate";
     t[1843] = "Update program automatically";
+    t[1844] = "Git.System.Error.NoFiles";
+    t[1845] = "No files were processed or there were no files to process.";
     t[1852] = "Simulation.Creator.UnknownElement";
     t[1853] = "Internal error: Unknown element id=%d \"%s\"";
     t[1858] = "Schedule.RangePerSection";
@@ -818,6 +826,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1889] = "Sequence";
     t[1894] = "Surface.Resource.EditName.Dialog.AddNew.ErrorSize.Title";
     t[1895] = "Invalid group size";
+    t[1902] = "LoadCalculator.AverageNumberOfClientsInTheSystem";
+    t[1903] = "Average number of clients in the system";
     t[1906] = "Wait.Info.StartRemote";
     t[1907] = "The simulation is running on computer \"%s\".";
     t[1908] = "Color.D8BFD8";
@@ -882,6 +892,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2031] = "ModelTransporterUnloadingDistribution";
     t[2032] = "Statistic.Viewer.Chart.InHours";
     t[2033] = "in hours";
+    t[2034] = "SettingsDialog.UseLastFiles";
+    t[2035] = "Offer recently used files for loading";
     t[2044] = "Statistics.StationClient";
     t[2045] = "Station and client type";
     t[2046] = "Surface.OutputDB.XML.Element.Column";
@@ -912,6 +924,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2101] = "Load new model from editor";
     t[2104] = "Surface.SourceDB.Tooltip";
     t[2105] = "Source that generates arrivals based on a database table.";
+    t[2108] = "Git.List.Tab.Server.Button.Push.Hint";
+    t[2109] = "Updates the server data with the data from the local Git directory.";
+    t[2110] = "Git.System.Commit.Type.StatisticsResults";
+    t[2111] = "Statistics results";
     t[2114] = "Statistic.Viewer.Toolbar.Save.Hint";
     t[2115] = "Save the results from this page as a file.";
     t[2120] = "ExpressionCalculator.Toolbar.Run.Hint";
@@ -984,6 +1000,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2309] = "Percent value";
     t[2310] = "SettingsDialog.SurfaceHelp.StartOnly";
     t[2311] = "Only at program start";
+    t[2314] = "Surface.Decide.SequenceNumber";
+    t[2315] = "Reihenfolge - No. %d";
     t[2316] = "Surface.Output.XML.Element.Type";
     t[2317] = "Type";
     t[2318] = "CalcWebServer.Simulation.Canceled";
@@ -1006,6 +1024,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2349] = "The model contains the following errors that prevent the simulation:";
     t[2352] = "Color.FFF5EE";
     t[2353] = "Sea sheel";
+    t[2354] = "Statistics.Minimum";
+    t[2355] = "Minimum";
     t[2358] = "Simulation.Log.Record.Info1";
     t[2359] = "Client: %s, station: %s, value 1: %s";
     t[2360] = "Simulation.Log.Record.Info2";
@@ -1320,6 +1340,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[3107] = "Simple by the model generator automatically created model";
     t[3110] = "Animation.Icon.Star";
     t[3111] = "Star";
+    t[3112] = "Git.System.Commit.Type.ParameterSeries";
+    t[3113] = "Parameter series";
     t[3114] = "Editor.ClientDialog.Tab.ColorAndIcon.Color.Automatic";
     t[3115] = "Select color automatically";
     t[3120] = "Surface.MultiSourceTable.ColumnClientType";
@@ -1554,6 +1576,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[3663] = "Show simulation time in recorded animation";
     t[3664] = "Surface.HoldMulti.Infotext";
     t[3665] = "Delays the arriving clients until a condition for one of the outgoing edges is met.";
+    t[3670] = "Git.List.Delete.Confirm.Info";
+    t[3671] = "Do you really want to delete the selected Git configuration?";
     t[3678] = "ParameterCompare.Settings.Output.List.Delete.Confirm.Title";
     t[3679] = "Delete output value";
     t[3684] = "ModelDescription.Release.Seize";
@@ -1930,6 +1954,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4651] = "Edit pull barrier";
     t[4656] = "Surface.AnimationBar.Tooltip";
     t[4657] = "Bar plot of a value that is updated during the animation of the model.";
+    t[4660] = "Git.List.Pull.Hint";
+    t[4661] = "Updates the local Git directory with the data from the server.";
     t[4672] = "Simulation.Creator.NoSectionName";
     t[4673] = "At element id=%d no name for the section to leave was entered.";
     t[4676] = "Editor.ClientDialog.Tab.ColorAndIcon.IconForClientType";
@@ -1984,6 +2010,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4801] = "Clients in queue at";
     t[4806] = "Simulation.Log.AnalogAssign";
     t[4807] = "Change analog value";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_1 (java.lang.String[] t) {
     t[4812] = "Distribution.FatigueLife";
     t[4813] = "Fatigue life distribution";
     t[4816] = "ParameterCompare.Mode.Operators";
@@ -2010,12 +2042,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4857] = "Round down";
     t[4860] = "Surface.Source.XML.Schedule.Count";
     t[4861] = "Count";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_1 (java.lang.String[] t) {
     t[4866] = "Transporter.Failure.RowTitle.Buttons";
     t[4867] = "Edit";
     t[4876] = "Simulation.Log.Assign";
@@ -2028,8 +2054,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4885] = "Standard deviation";
     t[4896] = "Surface.Release.Dialog.Title";
     t[4897] = "Edit resource release";
-    t[4900] = "Window.Layers.Delete.ConfirmTitle";
-    t[4901] = "Ebene l\u00f6schen";
+    t[4900] = "Git.List.Tab.Server.Auth.Key.InfoNoKey";
+    t[4901] = "No private key file was specified.";
     t[4906] = "Surface.AnimationRecord.Dialog.Appearance";
     t[4907] = "Appearance";
     t[4908] = "Surface.Set.Table.Edit.Mode.TransferTime";
@@ -2172,6 +2198,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5243] = "<p>Returns the fraction of clients, who had spent at the station whose ID is specified the specified range of seconds as residence time (exclusive the lower and inclusive the upper bound).</p>";
     t[5244] = "Surface.MultiSourceTable.Info.NextThreshold.Up";
     t[5245] = "exceeds threshold value";
+    t[5250] = "Git.List.Tab.StoreFiles.Button.All.Hint";
+    t[5251] = "Selects all file types for Git storage.";
     t[5262] = "Surface.AnimationImage.Dialog.Images.Expression";
     t[5263] = "Expression";
     t[5268] = "Batch.Parameter.XMLTag.InvalidSelector";
@@ -2194,8 +2222,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5309] = "The model was successfully repaired.";
     t[5310] = "Statistics.CVInterLeaveTime";
     t[5311] = "Coefficient of variation of the inter-leaving times";
-    t[5312] = "Surface.TankSensor.Dialog.Tank.Name";
-    t[5313] = "Tank \"%s\" (id=%d)";
+    t[5312] = "Git.System.AutoPushError.Info";
+    t[5313] = "While processing the Git changes in directory\n%s\nthe following error occurred:\n%s";
     t[5318] = "Surface.DistributionByClientTypeEditor.ByType";
     t[5319] = "Individual value for type";
     t[5326] = "Schedule.And";
@@ -2224,6 +2252,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5377] = "No event types have been selected for recording.\nAt least one event type has to be selected.";
     t[5384] = "Surface.Source.Dialog.Tab.SetNumbers";
     t[5385] = "Assignment of client variables";
+    t[5394] = "Git.List.Tab.Server.Button.Test.Success";
+    t[5395] = "A connection to\n%s\nwas successfully established.";
     t[5402] = "Elements.Catalog.Others";
     t[5403] = "Others";
     t[5404] = "JSRunner.Toolbar.Clear.Hint";
@@ -2240,6 +2270,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5443] = "o";
     t[5446] = "ScriptPopup.Output.Println.Hint";
     t[5447] = "Outputs the passed expression and adds a line break after the expression.";
+    t[5448] = "Server.Log.Start";
+    t[5449] = "The server service was started on port %d.";
     t[5450] = "Color.2F4F4F";
     t[5451] = "Dark slate gray";
     t[5460] = "Surface.TankValveSetup.Table.Edit.Valve.ErrorTitle";
@@ -2286,8 +2318,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5567] = "Configuration: Format //host:3306/database";
     t[5568] = "ParameterCompare.Table.AddModelByAssistant.Error.NeedInteger.StepValue";
     t[5569] = "For parameter %s in row %s only integer number are allowed.\nBut a floating number was entered for the step wide.";
-    t[5572] = "Simulation.Log.DecideByKeyValue.Info";
-    t[5573] = "Client: %s, station: %s, %s=%s, branching to output %d of %d";
+    t[5572] = "Git.System.Status.Behind.One";
+    t[5573] = "The local branch is older by one commit than the branch on the server.";
     t[5574] = "Statistic.FastAccess.Template.StatisticsXMLNumber";
     t[5575] = "XML value as number";
     t[5576] = "Surface.Decide.ByClientType";
@@ -2396,6 +2428,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5821] = "Return value of an expression";
     t[5830] = "ScriptPopup.Runtime.LoadValue.Hint";
     t[5831] = "Loads a numerical value via a http/https connection";
+    t[5832] = "Git.ListBranches.Add.Hint";
+    t[5833] = "Add and checkout new branch";
     t[5834] = "CommandLine.ReportBase.Error";
     t[5835] = "The report could not be created.";
     t[5836] = "ModelDescription.Barrier.Client.Singular";
@@ -2454,8 +2488,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5963] = "Data";
     t[5968] = "ScriptPopup.Clients.TransferTime.Hint";
     t[5969] = "Gets the transfer time of a waiting client";
-    t[5974] = "Simulation.Log.EndOfSimulation.Time";
-    t[5975] = "Condition \"%s\" is fulfilled.";
+    t[5974] = "Git.List.Tab.Server.Auth.Key.Passphrase.Info";
+    t[5975] = "Keep empty, if no passphrase is needed";
     t[5976] = "Surface.InputDB.XML.EofMode.DefaultValue";
     t[5977] = "DefaultValue";
     t[5978] = "Simulation.Log.OutputDB";
@@ -2542,8 +2576,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6165] = "Edits the selected input parameter";
     t[6178] = "Statistics.ErlangCompare.Distribution.Other";
     t[6179] = "Not by distribution";
-    t[6182] = "Surface.Process.Dialog.Priority.Edit";
-    t[6183] = "Edit";
+    t[6182] = "Simulation.Java.Error.NoTempFolder";
+    t[6183] = "The folder for temporary data could not be created.";
     t[6184] = "ModelGenerator.Model.Description.Properties.Queue.Shortest";
     t[6185] = "Queue selection: shortest queue";
     t[6186] = "Surface.Match.XML.MatchMode";
@@ -2872,8 +2906,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6903] = "Next round with population size %d";
     t[6914] = "Statistics.XML.Type";
     t[6915] = "Type";
-    t[6916] = "Surface.PopupMenu.SimulationStatisticsData.Data.Clients";
-    t[6917] = "Clients so far: %s";
+    t[6916] = "Git.ListBranches.Checkout.Confirm";
+    t[6917] = "Do you really want to activate branch \"%s\"?";
     t[6918] = "Surface.XML.PathSegments.Connection";
     t[6919] = "ModelPathConnection";
     t[6920] = "Dialog.Button.Load";
@@ -2910,12 +2944,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6987] = "a";
     t[6988] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction";
     t[6989] = "Exponential function";
-    t[6992] = "Surface.OutputDDE.Table.Add";
-    t[6993] = "Add output element";
+    t[6992] = "Statistics.SystemData.EditUserEMail";
+    t[6993] = "E-mail address of the author of the model";
     t[6998] = "Editor.AddElement.PlaceClipboardImage";
     t[6999] = "Click on the model surface to insert the new image from clipboard.";
-    t[7004] = "ScriptPopup.Simulation.getNQ.Hint";
-    t[7005] = "Current number of clients in a queue at a station";
+    t[7004] = "Git.List.Record.Folder";
+    t[7005] = "Local folder";
     t[7012] = "Main.Menu.View.ShowShadows";
     t[7013] = "Use station shadows";
     t[7016] = "Statistics.ErlangCCompare.Results.Input";
@@ -2938,8 +2972,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7067] = "Initial variable values";
     t[7070] = "Simulation.Creator.NoName";
     t[7071] = "Element id=%d has no name.";
-    t[7072] = "LoadCalculator.AverageNumberOfClientsInTheSystem";
-    t[7073] = "Average number of clients in the system";
+    t[7072] = "Git.List.Title";
+    t[7073] = "Git configurations";
     t[7080] = "Statistics.Autokorrelation.Details";
     t[7081] = "Autocorrelation - details";
     t[7082] = "Server.Log.SimulationFinished";
@@ -2952,6 +2986,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7099] = "Move output element down";
     t[7102] = "Surface.AnimationTrafficLights.XML.Condition.Light.Red";
     t[7103] = "red";
+    t[7104] = "Surface.Line.Dialog.ArrowPosition.Bottom";
+    t[7105] = "bottom";
     t[7106] = "ScriptPopup.Simulation.AnalogValue";
     t[7107] = "Analog value";
     t[7108] = "Statistics.XML.ValuesSquared";
@@ -3002,6 +3038,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7209] = "Font";
     t[7210] = "Statistics.NumberOfClientsInTheSystem";
     t[7211] = "Number of clients in the system";
+    t[7222] = "Git.List.Tab.Server.Button.Test";
+    t[7223] = "Test server connection";
     t[7224] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.DensityInfo";
     t[7225] = "<p>Calculates the value of the density of the Frechet distribution at the location specified as the first parameter with location parameter, scale parameter and form parameter as second to fourth parameter.</p>";
     t[7234] = "Surface.Match.Dialog.OptionProperty.Number.Error.Title";
@@ -3116,6 +3154,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7487] = "There is no element with id %d.";
     t[7488] = "Surface.Popup.AddLongRunStatistics.Process";
     t[7489] = "Number of clients in processing at the station";
+    t[7498] = "Git.List.Tab.Server.Auth.UserNamePassword";
+    t[7499] = "User name and password";
     t[7500] = "ScriptPopup.Simulation.setAnalogRate";
     t[7501] = "Set change rate";
     t[7504] = "JDistributionEditor.Copy.Graphics.Info";
@@ -3134,6 +3174,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7525] = "ModelElementUserStatistics";
     t[7530] = "Surface.TransportSource.XML.Route";
     t[7531] = "ModelElementTransportRoute";
+    t[7536] = "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderIsGit";
+    t[7537] = "The directory does contain a Git repository.";
     t[7538] = "Surface.Source.DialogBatchSize.Rate";
     t[7539] = "Rate for batch size";
     t[7544] = "Server.Status.ServerVersion";
@@ -3210,6 +3252,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7749] = "Relative percent value";
     t[7750] = "Statistic.FastAccess.Template.ResidenceTime.ByClientType";
     t[7751] = "Residence time by client type";
+    t[7764] = "Surface.Match.XML.MatchPropertyMode";
+    t[7765] = "ModelElementMatchProperty";
     t[7770] = "Surface.ExpressionTableModel.MoveUp";
     t[7771] = "Move row up";
     t[7774] = "CommandLine.BuildCommandlineDescriptions.Description.Short";
@@ -3384,6 +3428,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8185] = "S";
     t[8188] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.NotEqual";
     t[8189] = "Not equal";
+    t[8190] = "Git.List.Tab.Server.Auth";
+    t[8191] = "Authentification";
     t[8194] = "SettingsDialog.Tabs.Exporting";
     t[8195] = "File formats";
     t[8196] = "Statistic.FastAccess.Template.WaitingTime.ByStation";
@@ -3456,8 +3502,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8385] = "The model contains no stations. Create a model first before invoking this function.";
     t[8386] = "ScriptPopup.Output.Format.System";
     t[8387] = "System format";
-    t[8390] = "Schedule.EditDialog.TimeStepBack.Hint";
-    t[8391] = "Moves one time step back.";
+    t[8390] = "Git.List.Tab.Server.ServerURL";
+    t[8391] = "Server URL";
     t[8392] = "Surface.Sub.EditSub";
     t[8393] = "Edit sub model";
     t[8394] = "Statistics.FailureTime.CV";
@@ -3500,6 +3546,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8447] = "Process station";
     t[8448] = "Surface.TransportSource.Dialog.DelayTimeIs.WaitingTime";
     t[8449] = "waiting time";
+    t[8452] = "Statistics.FlowFactorByClientTypes";
+    t[8453] = "Flow factors by client types";
     t[8454] = "Main.Menu.Model.ExternalData.Edit";
     t[8455] = "Edit external model data sources...";
     t[8458] = "Statistics.SystemData.RunTime";
@@ -3530,8 +3578,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8511] = "At station id=%d no name was specified for the variable to be changed.";
     t[8518] = "Color.8B008B";
     t[8519] = "Dark magenta";
-    t[8522] = "Surface.Line.Dialog.ArrowPosition.Bottom";
-    t[8523] = "bottom";
+    t[8522] = "Git.List.Tab.Server.PullOnStart";
+    t[8523] = "Run Pull on program start";
     t[8528] = "Simulation.Creator.AnalogInvalidCapacity";
     t[8529] = "At element id=%d the invalid capacity %s was specified. The capacity has to be a positive number.";
     t[8532] = "ExpressionBuilder.BasicArithmetics.Potentiate";
@@ -3684,6 +3732,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8879] = "ModelElementEllipse";
     t[8880] = "Simulation.Log.Balking";
     t[8881] = "Balking";
+    t[8884] = "Git.List.Tab.Server.UseServer";
+    t[8885] = "Transfer data to remote repository on save (Push)?";
     t[8894] = "Schedule.Dialog.Name.InUse";
     t[8895] = "The selected name is already in use.";
     t[8896] = "SavedView.XML.Zoom";
@@ -3742,8 +3792,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9043] = "Main window";
     t[9048] = "LoadCalculator.Units.InterarrivalTime";
     t[9049] = "Inter-arrival time";
-    t[9054] = "Main.Menu.File.PrintModel";
-    t[9055] = "Print model...";
+    t[9054] = "Git.List.Tab.Server.Button.Clone.Success";
+    t[9055] = "The remote repository\n%s\nwas successfully cloned to the local directory\n%s";
     t[9064] = "Surface.SourceDDE.XML.Root";
     t[9065] = "ModelElementDDESource";
     t[9078] = "Color.00FFFF";
@@ -3840,6 +3890,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9313] = "The specified maximum value \"%s\" has to be larger than the minimum value \"%s\".";
     t[9316] = "Statistics.WaitingTransferProcessTimesAtStations";
     t[9317] = "Waiting, transfer and process times at the stations";
+    t[9318] = "Git.System.InitialPullError.Title";
+    t[9319] = "Pull remote Git repositories";
     t[9324] = "Simulation.Creator.NoSource";
     t[9325] = "The model does not have a source.";
     t[9330] = "ScriptPopup.Simulation.IsWarmUp";
@@ -3906,6 +3958,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9461] = "Frame color";
     t[9466] = "Simulation.Log.HoldMulti";
     t[9467] = "Multi condition";
+    t[9474] = "Git.System.Status.Uncommited.One";
+    t[9475] = "There is one changed files.";
     t[9488] = "Main.Menu.Edit.MoveBack.Mnemonic";
     t[9489] = "B";
     t[9490] = "Surface.AnimationRecord.XML.Root";
@@ -3924,8 +3978,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9519] = "ModelElements";
     t[9520] = "Surface.AnalogValue.Dialog.Unit.PerMinute";
     t[9521] = "per minute";
-    t[9522] = "Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo";
-    t[9523] = "The specified costs per post processing second \"%s\" are invalid at character %d.";
+    t[9522] = "Git.System.AutoPushError.Title";
+    t[9523] = "Store data to Git repository";
     t[9524] = "AutoRestore.Dialog.ErrorInfo";
     t[9525] = "Non of the auto saved models have been selected.";
     t[9530] = "Window.Simulation.ErrorInitializatingSimulation";
@@ -3962,6 +4016,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9579] = "Invalid font size";
     t[9580] = "Surface.Source.Dialog.Expression.Error.Info";
     t[9581] = "The entered expression \"%s\" is invalid at character %d.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_2 (java.lang.String[] t) {
     t[9588] = "SettingsDialog.ModellSecurityExternal.Info";
     t[9589] = "If scripts can call external programs, then in principle arbitrary changes to the computer are possible.\nThis means that opening and executing models represents a security risk.\nIt is therefore recommended to activate this option only if absolutely necessary.";
     t[9592] = "Surface.AnimationBarChart.XML.MaxValue";
@@ -4016,12 +4076,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9703] = "Functions for easy filling the table";
     t[9712] = "Dialog.OpenURL.InfoNo";
     t[9713] = "Do not open web page.";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_2 (java.lang.String[] t) {
     t[9716] = "Compare.ReplaceKeptModel.NoInfo";
     t[9717] = "The already kept model with stay kept. Nothing will be changed.";
     t[9722] = "Editor.Navigator";
@@ -4062,8 +4116,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9809] = "At element id=%d a valve setup was specified for tank id=%d, valve %d. But this valve number is invalid for this tank. The valve number for this tank has to be an integer number between 1 and %d.";
     t[9822] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
     t[9823] = "<p>Returns the squared coefficient of variation over all waiting times for all clients.</p>";
-    t[9824] = "Surface.Line.XML.ArrowEnd";
-    t[9825] = "ModelElementLineArrowEnd";
+    t[9824] = "Git.System.Error.Error";
+    t[9825] = "An error has occurred.";
     t[9826] = "Editor.Dialog.Tab.Simulation.TimedChecks.Error";
     t[9827] = "The specified seconds value \"%s\" for the time differences of the checks is invalid.\nA positive number has to be specified.";
     t[9834] = "Surface.AnimationBar.Dialog.FrameWidth";
@@ -4132,6 +4186,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9973] = "zip compressed xml";
     t[9974] = "Server.Status.UseEncryption";
     t[9975] = "Encrypted transfer";
+    t[9980] = "Surface.Source.Dialog.ArrivalStart.Error.Title";
+    t[9981] = "Invalid start time";
     t[9990] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Condition";
     t[9991] = "Condition";
     t[9994] = "Statistic.Viewer.Report.NoTablesSelected.Info";
@@ -4176,6 +4232,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10069] = "Statistics";
     t[10080] = "Animation.IconDialog.Single.IconName";
     t[10081] = "Name of the image";
+    t[10084] = "Git.List.Tab.Server.Auth.Key.InfoKeyWrongFormat";
+    t[10085] = "The key file format is invalid.";
     t[10086] = "Transporter.Group.Edit.ChangeName.Info";
     t[10087] = "Do you want to set up the new name in this elements?";
     t[10090] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.Equal.Info";
@@ -4230,8 +4288,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10211] = "Java files";
     t[10214] = "Surface.CounterMulti.Dialog.GroupName.Error.Title";
     t[10215] = "Group name missing";
-    t[10230] = "Statistics.ShareInDownTime";
-    t[10231] = "Share in down time";
+    t[10230] = "Git.List.Tab.LocalFolder.LocalFolder";
+    t[10231] = "Folder";
     t[10234] = "Surface.Source.Dialog.Threshold";
     t[10235] = "Arrivales by threshold value";
     t[10236] = "Simulation.Log.MatchNewClient.Info";
@@ -4456,6 +4514,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10745] = "ModelElementSectionStartName";
     t[10746] = "Surface.HoldJS.Dialog.Condition.Error.Title";
     t[10747] = "Invalid condition";
+    t[10748] = "Git.List.Tab.Server.Auth.Key";
+    t[10749] = "Key file";
     t[10752] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.AverageTime";
     t[10753] = "<p>Returns the average duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
     t[10754] = "Surface.SingleCoreReason.FixedArrivalClientCountAtStation";
@@ -4502,6 +4562,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10849] = "Interpreting time values as normal numbers";
     t[10856] = "Surface.AnalogAssign.XML.ModeRate";
     t[10857] = "ModelElementAnalogValueAssignmentRate";
+    t[10862] = "Simulation.CalcError.Station";
+    t[10863] = "At station %s the expression %s could not be evaluated.";
     t[10866] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll";
     t[10867] = "Utilization of all resources";
     t[10870] = "Distribution.Beta";
@@ -4538,6 +4600,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10957] = "Client: %s, station: %s, sending via output %d of %d";
     t[10960] = "Surface.Match.Dialog.OptionJustForward";
     t[10961] = "Forward clients after matching";
+    t[10962] = "Git.List.Tab.Server";
+    t[10963] = "Server";
     t[10966] = "Surface.InputDDE.XML.Root";
     t[10967] = "ModelElementInputDDE";
     t[10980] = "Main.Menu.File";
@@ -4570,6 +4634,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11045] = "Simulation";
     t[11046] = "Surface.SourceDB.Dialog.ColumnInfo.DoNotUse";
     t[11047] = "do not use";
+    t[11048] = "Surface.Process.Dialog.CostsPerPostProcessingSecond.ErrorInfo";
+    t[11049] = "The specified costs per post processing second \"%s\" are invalid at character %d.";
     t[11050] = "PathEditor.Tab.Result";
     t[11051] = "Paths preview";
     t[11054] = "FileType.xmz";
@@ -4622,6 +4688,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11149] = "<p>Calculates the absolute value of the parameter passed as parameter.</p> <p>Example: <tt>abs(5)</tt> and <tt>abs(-5)</tt> will both return 5.</p>";
     t[11150] = "Surface.Input.Dialog.FileName";
     t[11151] = "Input file";
+    t[11156] = "Git.List.Tab.Server.Button.Branches.Hint";
+    t[11157] = "Shows all branches in the repository.";
     t[11166] = "Server.Log.ServerOverloaded";
     t[11167] = "The server is already at maximum capacity. New requests are currently not accepted.";
     t[11172] = "Surface.Assign.NewClientType";
@@ -4798,8 +4866,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11567] = "seconds";
     t[11568] = "Surface.Counter.Dialog.Title";
     t[11569] = "Edit counter";
-    t[11574] = "ProxySettings.ProxyHost.NoHostTitle";
-    t[11575] = "No proxy address";
+    t[11574] = "ModelLoadData.ProcessError.WriteErrorInfo";
+    t[11575] = "For record %d the new value %s could not be written into the model:\n%s";
     t[11588] = "Color.9932CC";
     t[11589] = "Dark orchid";
     t[11590] = "Surface.WayPoint.Table.Index";
@@ -4956,6 +5024,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11961] = "Group event names with the same execution time";
     t[11964] = "Statistics.TransporterUtilization.Mean";
     t[11965] = "Mean number of transporters";
+    t[11974] = "Simulation.Log.FlowData.Destination.NoConnection";
+    t[11975] = "system";
     t[11976] = "ParameterCompare.Settings.Input.List.InfoVariable";
     t[11977] = "Initial value for global variable \"%s\"";
     t[11978] = "ExpressionBuilder.Repeats";
@@ -5086,6 +5156,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12291] = "Move up";
     t[12294] = "Surface.MultiSourceTable.ColumnData";
     t[12295] = "Configuration";
+    t[12296] = "Git.List.Pull.ErrorNoServer";
+    t[12297] = "The Git server connection is not activated.";
     t[12302] = "Surface.AnalogValue.Dialog.InitialValue";
     t[12303] = "Initial value";
     t[12304] = "Dialog.Button.Yes";
@@ -5162,6 +5234,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12491] = "no signals available";
     t[12492] = "ScriptPopup.Client.ValueNumber.Set.Hint";
     t[12493] = "Sets a client-based number property value";
+    t[12496] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression";
+    t[12497] = "Trigger transport at fulfilled condition";
     t[12506] = "Compare.DoubleFile.Info";
     t[12507] = "For model %s and model %s the same statistic file\n%s\nwas selected.";
     t[12508] = "Surface.AnimationClock.Dialog.Expression.Error.Title";
@@ -5270,6 +5344,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12781] = "Sequences";
     t[12784] = "CommandLine.SetNUMA.Description.Long";
     t[12785] = "The function expects a \"1\" or a \"0\" as parameter.";
+    t[12786] = "Git.List.Tab.StoreFiles.ParameterSeries";
+    t[12787] = "Parameter series";
     t[12796] = "Simulation.Log.CounterBatch";
     t[12797] = "Batch counter triggered";
     t[12800] = "Surface.Output.XML.Element.TypeDescription.ResidenceTime";
@@ -5362,6 +5438,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13023] = "Value";
     t[13026] = "Surface.Costs.Dialog.TransferCosts";
     t[13027] = "Transfer time costs";
+    t[13028] = "Git.System.Commit.Type.OptimizationSetup";
+    t[13029] = "Optimizer setup";
     t[13032] = "ParameterCompare.Run.Error.ReadValue";
     t[13033] = "In step %d (model %s) the value of the input parameter %d (%s) could not be read.";
     t[13044] = "Surface.SourceDDE.Dialog.ClientTypes";
@@ -5598,6 +5676,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13597] = "Burly wood";
     t[13600] = "Statistic.Viewer.Toolbar.OpenWord";
     t[13601] = "Word";
+    t[13602] = "Git.System.Commit.Type.Model";
+    t[13603] = "Model file";
     t[13606] = "Surface.TankValveSetup.XML.Setup";
     t[13607] = "ModelElementValveSetup";
     t[13608] = "Main.Menu.Help.RecommendedLiterature.Waldmann";
@@ -5628,8 +5708,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13669] = "Edit database source";
     t[13674] = "CommandLine.ParameterCompare.Description.Long";
     t[13675] = "This command expects exactly two additional parameters:\n1. Input parameter series file\n2. Output parameter series file\nThe input file has to exist.\nThe output has to be non existent.";
-    t[13696] = "ModelLoadData.ProcessError.WriteErrorInfo";
-    t[13697] = "For record %d the new value %s could not be written into the model:\n%s";
+    t[13696] = "Git.System.PleaseWait";
+    t[13697] = "Please wait while the following operation is performed:";
     t[13700] = "Statistics.ResidenceTime";
     t[13701] = "Residence time";
     t[13704] = "Statistics.AverageClientsInSystemWaiting";
@@ -5652,8 +5732,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13743] = "No release signal is defined for element id=%d.";
     t[13750] = "Simulation.Log.InvalidBatchSize";
     t[13751] = "Invalid input batch size at station %s.";
-    t[13754] = "Simulation.Log.LogicEndIf";
-    t[13755] = "Logic EndIf";
+    t[13754] = "Git.List.Tab.Server.Button.Test.Hint";
+    t[13755] = "Tries to connect to the server, but without changing any data on the server or locally.";
     t[13772] = "LogSimulation.OptionColor";
     t[13773] = "Use colors of the stations as text color for the corresponding records";
     t[13774] = "Surface.AnimationBar.Infotext";
@@ -5672,6 +5752,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13809] = "<p>Adds a minus sign <b>-</b> into the calculation.</p>";
     t[13814] = "SettingsDialog.JSEngine.GraalJS";
     t[13815] = "GraalJS engine";
+    t[13822] = "Surface.Line.XML.ArrowEnd";
+    t[13823] = "ModelElementLineArrowEnd";
     t[13824] = "CommandLine.ServerMQTTTest.Name";
     t[13825] = "ServerMQTTTest";
     t[13826] = "Simulation.CommandLine.Progress1.Shorter";
@@ -5692,8 +5774,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13865] = "Current rate";
     t[13870] = "Surface.AnalogValue.Dialog.Unit.DeltaDays";
     t[13871] = "days";
-    t[13874] = "Surface.DecideJS.XML.Script.Java";
-    t[13875] = "Java";
+    t[13874] = "Git.ListBranches.Checkout.Confirm.InfoYes";
+    t[13875] = "Activate branch \"%s\".";
     t[13878] = "Editor.QuickFilter";
     t[13879] = "Quick filter";
     t[13886] = "Statistics.FullyBusyShare.ByMaxNumber";
@@ -5764,6 +5846,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14065] = "No fundamental data could be extracted from the current model to establish an analytical model.";
     t[14076] = "Surface.OutputDDE.XML.Table";
     t[14077] = "ModelElementOutputDDETable";
+    t[14080] = "Git.List.Record.Server";
+    t[14081] = "Server URL";
     t[14098] = "Statistic.FastAccess.RunJava.Hint";
     t[14099] = "Executes the Java code.";
     t[14106] = "Color.CD853F";
@@ -5898,6 +5982,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14387] = "Input file";
     t[14390] = "Window.Info.NoInternetConnection.Address";
     t[14391] = "The address\n%s\ncould not be opened.";
+    t[14394] = "Surface.DecideJS.XML.Script.Java";
+    t[14395] = "Java";
     t[14404] = "Schedule.Dialog.TitleEdit";
     t[14405] = "Edit schedule";
     t[14410] = "Simulation.Log.TeleportDestination";
@@ -5936,6 +6022,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14471] = "Operator available again";
     t[14472] = "Batch.Parameter.Changed";
     t[14473] = "The parameter \"%s\" was set to value %s.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_3 (java.lang.String[] t) {
     t[14480] = "ModelGenerator.ServiceDistribution.Exp";
     t[14481] = "Exponential distribution";
     t[14484] = "Surface.Balking.XML.Root";
@@ -5960,8 +6052,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14523] = "The BatchCount attribute in the \"%s\" element has to be a positive integer number but is %s\".";
     t[14524] = "Surface.Sub.XML.ConnectionCount.In";
     t[14525] = "in";
-    t[14532] = "Surface.InputDDE.Dialog.Mode.DefaultValue";
-    t[14533] = "Use default value after end of table";
+    t[14532] = "Git.System.Status.Ahead";
+    t[14533] = "The local branch is newer by %s commits than the branch on the server.";
     t[14534] = "ParameterCompare.Settings.List.AddScriptJava";
     t[14535] = "Java";
     t[14540] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.GreaterOrEqual";
@@ -5970,8 +6062,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14545] = "Delete the operators group.";
     t[14546] = "Statistics.XML.Element.UtilizationResource";
     t[14547] = "StatisticsResource";
-    t[14552] = "Simulation.CalcError.Station";
-    t[14553] = "At station %s the expression %s could not be evaluated.";
+    t[14552] = "Git.List.Tab.Server.Button.Clone";
+    t[14553] = "Clone";
     t[14558] = "Statistic.FastAccess.Template.Resource.Set.Tooltip";
     t[14559] = "Sets the number of operators in some resource.";
     t[14560] = "Statistic.FastAccess.Template.AnalogValues";
@@ -6022,12 +6114,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14669] = "The specified value for the start time for the first inter-arrival time \"%s\" is invalid. The value has to be a non-negative number.";
     t[14670] = "Editor.DialogBase.Description.Dialog.Title";
     t[14671] = "Edit description";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_3 (java.lang.String[] t) {
     t[14672] = "SettingsDialog.Tabs.BackupFiles.Heading";
     t[14673] = "Security";
     t[14678] = "SettingsDialog.Tabs.Simulation.Server.Port";
@@ -6108,6 +6194,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14853] = "Edit sensor";
     t[14858] = "Surface.DDE.Select.NoData.ErrorInfo";
     t[14859] = "No workbooks and tables list could be received via DDE.";
+    t[14862] = "Git.List.Tab.Server.Auth.Key.InfoKeyOk";
+    t[14863] = "The key file is valid.";
     t[14864] = "CommandLine.FolderSimulation.OutputFileExists";
     t[14865] = "There is already an output file for this file.";
     t[14868] = "ModelDescription.Match.NewClientType";
@@ -6218,8 +6306,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15113] = "Number of clients";
     t[15120] = "Distribution.Triangular";
     t[15121] = "Triangular distribution";
-    t[15128] = "Simulation.Log.FlowData.Destination.NoConnection";
-    t[15129] = "system";
+    t[15128] = "Git.List.Pull.Success";
+    t[15129] = "New data were successfully pull from remote repository\n%s\nto the local directory\n%s";
     t[15130] = "SimulationServer.Status.Off";
     t[15131] = "off";
     t[15132] = "Surface.AnimationBarChart.Tooltip";
@@ -6328,8 +6416,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15361] = "<p>Returns the standard deviation over all residence times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[15362] = "Surface.AnimationText.Type.PercentValue";
     t[15363] = "Percent value";
-    t[15364] = "Surface.Decide.SequenceNumber";
-    t[15365] = "Reihenfolge - No. %d";
+    t[15364] = "Simulation.Creator.OutputDDE.NoWorkbook";
+    t[15365] = "At element id=%d no workbook to write the data to was specified.";
     t[15376] = "Surface.Assign.Name";
     t[15377] = "Type assignment";
     t[15384] = "Statistic.Viewer.Toolbar.SelectNone";
@@ -6510,10 +6598,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15813] = "Clients per day";
     t[15818] = "CalculatorDialog.Expression.BuildExpression";
     t[15819] = "Build expression";
+    t[15820] = "Git.System.Status.ActiveBranch";
+    t[15821] = "Active branch";
     t[15822] = "Surface.TransportSource.Dialog.Title";
     t[15823] = "Edit transport origin";
     t[15832] = "Surface.XML.ModelDescription";
     t[15833] = "ModelDescription";
+    t[15834] = "Surface.LogicDo.XML.Root";
+    t[15835] = "ModelElementLogicDo";
+    t[15836] = "Surface.PopupMenu.QuickFix.SourceRecord.ArrivalStart.Single";
+    t[15837] = "Set arrival start time to 0";
     t[15850] = "Color.7FFFD4";
     t[15851] = "Aquamarine";
     t[15856] = "Surface.Dispose.Dialog.Table";
@@ -6742,6 +6836,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16453] = "Edit";
     t[16466] = "ParameterCompare.Toolbar.Stop.Hint";
     t[16467] = "Cancels processing the models";
+    t[16468] = "SettingsDialog.Tabs.DefaultUserName.EMail";
+    t[16469] = "Default author e-mail address for new models";
     t[16470] = "Statistics.SimulatedClients.WarmUp";
     t[16471] = "Additionally in advance as warm-up phase";
     t[16472] = "Surface.Source.XML.Distribution.TimeBase";
@@ -7022,6 +7118,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17161] = "Name";
     t[17166] = "Surface.AssignString.Table.Delete.Confirm.YesInfo";
     t[17167] = "Delete assignment.";
+    t[17168] = "Window.Layers.DialogHint";
+    t[17169] = "By assigning the elements to different layers, certain aspects of the model can be specifically shown or hidden.";
     t[17170] = "Editor.ToggleTemplates.Short";
     t[17171] = "Element";
     t[17172] = "Statistics.AnalogValue";
@@ -7112,6 +7210,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17357] = "Number down";
     t[17358] = "Statistics.CV";
     t[17359] = "Coefficient of variation";
+    t[17360] = "Main.Menu.File.GitSettings";
+    t[17361] = "Git configurations...";
     t[17368] = "Surface.Action.XML.Record.ActionType.JS";
     t[17369] = "Javascript";
     t[17372] = "ScriptPopup.Client.Time.Set";
@@ -7326,6 +7426,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17835] = "No name was specified for the image.";
     t[17840] = "Surface.Balking.XML.Expression.Mode.Probability.Error";
     t[17841] = "The specified probbility \"%s\" is invalid.";
+    t[17842] = "Git.List.Add.Hint";
+    t[17843] = "Adds a git configuration.";
     t[17844] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberInfo";
     t[17845] = "<p>Generates a random number according to the gamma distribution with mean and standard deviation specified in parameters one and two.</p>\n<p>Example: <tt>GammaDistDirect(5;3)</tt>.</p>";
     t[17850] = "Statistics.Counter.NoCounter";
@@ -7584,6 +7686,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18395] = "Example models";
     t[18404] = "Statistics.MinimumUser";
     t[18405] = "Minimum";
+    t[18416] = "Git.List.Tab.Server.Button.Branches";
+    t[18417] = "Branches";
     t[18420] = "Surface.AnimationBarStack.XML.DataArea.Direction.Down";
     t[18421] = "down";
     t[18422] = "Simulation.Log.AssignSequence.Info";
@@ -7604,6 +7708,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18453] = "Resource for station id=%d";
     t[18456] = "Surface.Source.Dialog.Tab.SetTexts";
     t[18457] = "Assignment of texts";
+    t[18460] = "Git.List.Tab.Server.Auth.Off";
+    t[18461] = "Off";
     t[18464] = "Transporters.Group.InUse.Single";
     t[18465] = "<b>Attention:</b><br>\nThe transporter is in use by the element with the following ID:";
     t[18472] = "ParameterCompare.Settings.Output.List.Add.Hint";
@@ -7780,6 +7886,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18861] = "%s is requesting transporter from id=%d.";
     t[18864] = "ParameterCompare.Settings.Input.Mode.XML.InfoError";
     t[18865] = "The value could not be determined.";
+    t[18868] = "Git.List.Tab.Server.Button.InitLocal.Confirm.InfoYes";
+    t[18869] = "Create a standalone repository in the local folder.";
     t[18870] = "SimulationServer.Toolbar.MQTTStart.Hint";
     t[18871] = "Starts the MQTT client";
     t[18888] = "ModelDescription.InputDDE.EOFMode.Loop";
@@ -7806,10 +7914,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18937] = "bold";
     t[18942] = "Simulation.Element.Input.Name";
     t[18943] = "Input";
+    t[18950] = "Statistics.Utilization.StdDev";
+    t[18951] = "Standard deviation of the number of busy operators";
     t[18952] = "Simulation.Log.SourceArrival.Info";
     t[18953] = "Client: %s, warm-up: %s, station: %s, Number of clients: %d";
-    t[18954] = "Statistics.Minimum";
-    t[18955] = "Minimum";
+    t[18954] = "Git.List.Tab.StoreFiles.Statistics";
+    t[18955] = "Statistic files";
     t[18962] = "Surface.AnimationRecord.XML.RecordID";
     t[18963] = "ModelElementAnimationRecordStationID";
     t[18976] = "Color.483D8B";
@@ -7820,6 +7930,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18983] = "Load model to new editor";
     t[18984] = "ScriptPopup.Runtime";
     t[18985] = "Program";
+    t[18990] = "Git.List.Tab.Server.Button.Pull.Hint";
+    t[18991] = "Updates the local Git directory with the data from the server.";
     t[19000] = "Main.Menu.Edit.Align.Center";
     t[19001] = "Center horizontally";
     t[19002] = "Surface.BarrierPull.Name";
@@ -7908,12 +8020,20 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19161] = "Show text in OpenOffice/LibreOffice";
     t[19164] = "ModelLoadData.EditDialog.Active";
     t[19165] = "Update model when starting simulation";
+    t[19168] = "Statistic.FastAccess.Template.StatisticsFileFull.Tooltip";
+    t[19169] = "Retruns the full Path and file name of the statistics file";
     t[19182] = "Optimizer.Tab.ControlVariables.Add.Hint";
     t[19183] = "Adds a control variable";
     t[19184] = "Simulation.Element.SectionEnd.Name";
     t[19185] = "Leave section";
     t[19188] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAllNo";
     t[19189] = "Keep models.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_4 (java.lang.String[] t) {
     t[19190] = "Surface.Process.Dialog.Tab.ProcessingTimes";
     t[19191] = "Processing times";
     t[19202] = "Statistic.FastAccess.Template.Format.Local";
@@ -8012,6 +8132,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19445] = "Saves the statistic results";
     t[19446] = "Editor.AddEdge.Hint.RemoveButton";
     t[19447] = "Hide";
+    t[19454] = "Resources.Number.Increase";
+    t[19455] = "Increase number";
     t[19456] = "Simulation.Log.PickUpForwarding";
     t[19457] = "Pick up - common forwarding";
     t[19460] = "Simulation.Log.OutputLog";
@@ -8022,18 +8144,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19467] = "Open JDBC connector configuration";
     t[19470] = "Transporter.Group.Edit.ChangeName.Title";
     t[19471] = "Rename transporter";
+    t[19472] = "Git.List.Tab.Server.Auth.UserNamePassword.Name";
+    t[19473] = "User name";
     t[19474] = "Surface.Batch.Dialog.SendAsNewClient";
     t[19475] = "Forward batched clients as a single new client; type:";
     t[19476] = "Surface.InteractiveRadiobutton.Dialog.ValueChecked.ErrorInfo";
     t[19477] = "The value \"%s\" which is specified for the state \"radiobutton activated\" is invalid.";
     t[19478] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberRangeInfo";
     t[19479] = "<p>Generates a random number according to the inverse gaussian distribution with the parameters according to the third (lambda) and fourth (mu; mean) parameters.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_4 (java.lang.String[] t) {
     t[19484] = "Surface.BarrierPull.Infotext";
     t[19485] = "Clients arriving at the pull barrier will only be forwarded to the next station, if in the area from next to the pull barrier to (including) the controlled station there are less than a defined number of clients.";
     t[19486] = "ExpressionBuilder.MathematicalFunctions.IntegerPart";
@@ -8216,6 +8334,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19837] = "Last client leave: %s";
     t[19838] = "Surface.TransportTransporterSource.Dialog.Heading.Request";
     t[19839] = "Requesting transporters";
+    t[19840] = "Git.List.Tab.Server.Button.InitLocal.Hint";
+    t[19841] = "Creates a Git repository in the directory for local use only.";
     t[19852] = "Surface.Action.XML.Record.ConditionType.Threshold";
     t[19853] = "Threshold";
     t[19854] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Seconds";
@@ -8306,6 +8426,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20049] = "Logic While";
     t[20060] = "ExpressionBuilder.StatisticalFunctions.Maximum";
     t[20061] = "Maximum";
+    t[20066] = "Surface.InputDDE.Dialog.Mode.DefaultValue";
+    t[20067] = "Use default value after end of table";
     t[20074] = "Window.JavaSecurityWarnung";
     t[20075] = "The Java version you ware using is outdated and may be contains security vulnerabilities. Update:";
     t[20080] = "Surface.Barrier.XML.SignalName";
@@ -8380,6 +8502,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20217] = "Memory usage";
     t[20218] = "Surface.Split.Tooltip";
     t[20219] = "Splits a client into one or more new clients.";
+    t[20226] = "Git.System.Status.Behind";
+    t[20227] = "The local branch is older by %s commits than the branch on the server.";
     t[20236] = "Surface.XML.ModelCollectWaitingTimes";
     t[20237] = "ModelCollectIndividualWaitingTimes";
     t[20240] = "Surface.Hold.XML.Condition.ClientBased";
@@ -8502,6 +8626,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20487] = "A fixed seed value for the random numbers generator is defined.";
     t[20496] = "Statistics.XML.Station";
     t[20497] = "StationData";
+    t[20498] = "Git.List.Pull";
+    t[20499] = "Pull";
     t[20500] = "ScriptPopup.Client.getTypeName.Batch.Hint";
     t[20501] = "Gets the name of the type of a client in the current batch";
     t[20504] = "Surface.LogicEndWhile.Infotext";
@@ -8666,6 +8792,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20867] = "Execute commands in the context of the current client";
     t[20874] = "Surface.InputDB.Dialog.Variable.WaitingTime";
     t[20875] = "The pseudo variable \"w\" stands for the waiting time of the client.";
+    t[20886] = "Git.List.Tab.LocalFolder.LocalFolder.Select";
+    t[20887] = "Select local folder";
     t[20890] = "Surface.Seize.XML.Operators.Group";
     t[20891] = "Group";
     t[20900] = "PathEditor.MenuItem";
@@ -8678,8 +8806,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20915] = "dimgray";
     t[20920] = "ExpressionBuilder.CommandName.ProcessingTime";
     t[20921] = "ProcessingTime";
-    t[20924] = "Simulation.Creator.OutputDDE.NoWorkbook";
-    t[20925] = "At element id=%d no workbook to write the data to was specified.";
+    t[20924] = "Git.List.Push";
+    t[20925] = "Push";
     t[20928] = "Statistic.FastAccess.Template.ProcessTime.ByStation";
     t[20929] = "Process time by station";
     t[20930] = "Surface.WayPoint.XML.Record.StationTo.ErrorEmpty";
@@ -8690,6 +8818,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20941] = "ModelElementAnimationPointerMeasuringExpression";
     t[20944] = "Statistics.VarianceClientsInSystem";
     t[20945] = "Variance of the number of clients in the system";
+    t[20948] = "ParameterCompare.Table.Column.Model";
+    t[20949] = "Model";
     t[20952] = "Animation.Icon.FlagRed";
     t[20953] = "Flag - red";
     t[20958] = "SettingsDialog.TemplatesPanel.Hide";
@@ -8700,6 +8830,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20965] = "ModelElementCounterGroup";
     t[20984] = "Surface.Source.Dialog.Condition.MinDistance.InSeconds";
     t[20985] = "(in seconds)";
+    t[20986] = "Simulation.Log.EndOfSimulation.Time";
+    t[20987] = "Condition \"%s\" is fulfilled.";
     t[20988] = "Main.Menu.AnimationScreenshotMode.Home";
     t[20989] = "Save in home folder";
     t[20990] = "CalcWebServer.LoadOk";
@@ -8732,6 +8864,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21057] = "Expressions";
     t[21058] = "Optimizer.ControlVariableEdit.OnlyIntegerValues";
     t[21059] = "Only integer values";
+    t[21060] = "Simulation.Creator.NotClientTypesForAllDecideConnections";
+    t[21061] = "At element id=%d not for all outgoing edges client types are defined.";
     t[21068] = "ExpressionBuilder.SimulationCharacteristics.AnalogValues.Rate";
     t[21069] = "Gets the current change rate of the value of a \"Analog value\" element.";
     t[21074] = "Surface.Match.Dialog.OptionProperty.Text";
@@ -8774,12 +8908,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21159] = "Off";
     t[21160] = "Compare.Error.ModelError.CannotCompare";
     t[21161] = "The current model cannot be simulated and therefore cannot be compared with the kept model.";
+    t[21164] = "Surface.Text.Dialog.Align";
+    t[21165] = "Text alignment";
     t[21174] = "Statistics.CostsForResources.Available.Single";
     t[21175] = "Costs for the availability of the resource";
     t[21180] = "Examples.LawOfLargeNumbers";
     t[21181] = "Law of large numbers";
-    t[21182] = "Statistics.CVNumberOfClients";
-    t[21183] = "Coefficient of variation of the number of clients";
+    t[21182] = "Git.ListBranches.Add.Success";
+    t[21183] = "The new branch \"%s\" was successfully created and activated.";
     t[21190] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode.Max";
     t[21191] = "Maximum";
     t[21192] = "ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditorr.Tooltip";
@@ -8874,6 +9010,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21399] = "<p>Returns the quantil for the probability p of the number of waiting clients in the system.</p>";
     t[21408] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyStoreFileExists";
     t[21409] = "The specified key store file %s already exists.";
+    t[21410] = "Window.Layers.Delete.ConfirmTitle";
+    t[21411] = "Ebene l\u00f6schen";
     t[21416] = "Simulation.Log.Costs.Info";
     t[21417] = "Client: %s, station: %s, station costs: %s, waiting time costs: %s, transfer time costs: %s, process time costs: %s";
     t[21418] = "Statistics.Filter.MaximumScriptRunTimeExceeded";
@@ -8986,8 +9124,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21651] = "Use default color";
     t[21656] = "Editor.DialogBase.Protected.Tooltip";
     t[21657] = "Protect element against deletion";
+    t[21660] = "Git.List.Tab.Server.Auth.Key.Key";
+    t[21661] = "Private key";
     t[21662] = "Surface.XML.RootName.Schedule";
     t[21663] = "ModelSchedule";
+    t[21664] = "Git.ListBranches.Checkout";
+    t[21665] = "Checkout branch";
     t[21666] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode.Min";
     t[21667] = "Minimum";
     t[21668] = "Statistic.Viewer.Toolbar.OpenWordHint";
@@ -9124,6 +9266,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21939] = "Client: %s, station: %s";
     t[21940] = "Surface.XML.LineMode";
     t[21941] = "ModelElementConnectionDrawStyle";
+    t[21948] = "Git.List.Tab.Server.Button.InitLocal.Confirm";
+    t[21949] = "Do you want to create a Git repository in the local directory\n%s\nnow? The default way is actually to create a local Git repository\nby cloing a repository from a server.";
     t[21956] = "Main.Menu.RecordSimulation";
     t[21957] = "Record simulation to log file...";
     t[21962] = "Main.Statistic.NoStatisticsAvailable";
@@ -9136,8 +9280,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21981] = "running";
     t[21984] = "Surface.DDE.Column";
     t[21985] = "Table column";
-    t[21986] = "Server.Log.Start";
-    t[21987] = "The server service was started on port %d.";
+    t[21986] = "Git.List.Tab.Server.Button.Pull";
+    t[21987] = "Pull";
     t[21998] = "Surface.ScriptEditor.New.Hint";
     t[21999] = "Clears the current script.";
     t[22000] = "Surface.Batch.Dialog.BatchSizeFixed";
@@ -9192,8 +9336,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22149] = "Scale";
     t[22152] = "Surface.XML.TransportParking.TransporterTyp";
     t[22153] = "ModelElementTransporterType";
-    t[22154] = "Simulation.Java.Error.NoTempFolder";
-    t[22155] = "The folder for temporary data could not be created.";
+    t[22154] = "Git.ListBranches.Add.Prompt";
+    t[22155] = "Name of the new branch";
     t[22156] = "Surface.XML.Resource.CostsPerProcessHour";
     t[22157] = "CostsPerWorkingHour";
     t[22158] = "Batch.Parameter.XMLTag.InvalidDistributionParameterNumber";
@@ -9304,6 +9448,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22407] = "Open homepage";
     t[22410] = "Statistics.DistributionOfTheInterLeaveTimes";
     t[22411] = "Distribution of the inter-leaving times";
+    t[22412] = "Git.List.Tab.Server.Button.Push";
+    t[22413] = "Push";
     t[22416] = "Transporters.Group.Edit.Dialog.Times.LoadingExpression.ErrorInfoInvalid";
     t[22417] = "The entered expression \"%s\" is invalid at character %d.";
     t[22418] = "ModelDescription.Process.Resources.Available.InfiniteNumber";
@@ -9486,6 +9632,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22847] = "Average value (waiting)";
     t[22858] = "Surface.AnimationText.Tooltip";
     t[22859] = "Text information that is updated during animation of the model.";
+    t[22862] = "Git.List.Tab.StoreFiles.Models";
+    t[22863] = "Model files";
     t[22868] = "ModelDescription.Delay.Expression";
     t[22869] = "Delay expression in general case";
     t[22870] = "Simulation.Creator.AnalogFlow.InvalidStopQuantity";
@@ -9542,26 +9690,30 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22967] = "Use default value after end of file";
     t[22968] = "Statistics.ClientPathRecording.Count";
     t[22969] = "Count";
+    t[22970] = "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderNotGit";
+    t[22971] = "The directory does not contain a Git repository.";
     t[22980] = "LogSimulation.Restrictions";
     t[22981] = "Restriction of recording";
     t[22984] = "Distribution.LogLogistic";
     t[22985] = "Log-logistic distribution";
     t[22990] = "Surface.TankSensor.XML.Root";
     t[22991] = "ModelElementSensor";
-    t[22998] = "Main.Menu.File.ExportModel.Mnemonic";
-    t[22999] = "X";
+    t[22998] = "Git.List.Push.Hint";
+    t[22999] = "Transfers data that have already been included in the local repository to the server.";
     t[23002] = "Main.Menu.File.ModelProperties";
     t[23003] = "Model properties...";
     t[23004] = "Surface.DistributionByClientTypeEditor.ByTypeStation";
     t[23005] = "Individual value for destination";
     t[23008] = "Simulation.Creator.InvalidWarmUpPeriod";
     t[23009] = "%s was specified as the relative duration of the warm up phase. The duration of the warm up phase has be a non-negative value.";
-    t[23010] = "Surface.Text.Dialog.Align";
-    t[23011] = "Text alignment";
+    t[23010] = "Git.List.Tab.Server.ForcePush";
+    t[23011] = "Force push if necessary";
     t[23012] = "Statistic.FastAccess.Template.NewLine.Tooltip";
     t[23013] = "Inserts the command to output a line break at the current position.";
     t[23014] = "Statistic.FastAccess.Template.StationCosts";
     t[23015] = "Costs at the stations";
+    t[23018] = "Git.List.Push.ErrorNoServer";
+    t[23019] = "The Git server connection is not activated.";
     t[23022] = "Editor.Dialog.Sequences.Add.Hint";
     t[23023] = "Adds a new sequence";
     t[23026] = "FindBatchSizeSimulation.Info";
@@ -9724,8 +9876,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23493] = "<p>Gets the ID of the station where the client was before he entered the current station.</p>";
     t[23494] = "Notifier.Message.ParameterSeriesDone";
     t[23495] = "Parameter series simulation is completed.";
-    t[23496] = "Simulation.Creator.NotClientTypesForAllDecideConnections";
-    t[23497] = "At element id=%d not for all outgoing edges client types are defined.";
+    t[23496] = "Git.ListBranches.Checkout.Error";
+    t[23497] = "An error occurred while activating the branch \"%s\".";
     t[23498] = "Surface.Output.XML.Element.Type.WaitingTimeNumber";
     t[23499] = "WaitingTime-Number";
     t[23504] = "Editor.FontSelect.Tabs.Small";
@@ -9766,6 +9918,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23605] = "ModelElementDataArea";
     t[23606] = "Surface.XML.TransportParking.WaitingCapacity";
     t[23607] = "ModelElementTransporterWaitingCapacity";
+    t[23608] = "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderDoesNotExist";
+    t[23609] = "The foldes does not exist.";
     t[23612] = "Surface.AssignSequence.XML.Root";
     t[23613] = "ModelElementSequenceAssignment";
     t[23616] = "ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance";
@@ -9786,8 +9940,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23647] = "Password (optional)";
     t[23648] = "ModelDescription.Decide.Condition.Else";
     t[23649] = "Next station in all other cases";
-    t[23650] = "Surface.Seize.Dialog.ResourcePriority";
-    t[23651] = "Resource priority";
+    t[23650] = "Git.List.Tab.Server.Button.Status.Hint";
+    t[23651] = "Shows the status of the local repository.";
     t[23658] = "Editor.DialogBase.OpenModelTranporters.InfoYes";
     t[23659] = "Close dialog and open transporters list.";
     t[23662] = "CommandLine.FolderFilter.Description.Long";
@@ -9880,6 +10034,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23873] = "At element id=%d multiple arrival batch sizes were defined. But the sum over all rates of the batch sizes is 0. At least one rate has to be larger then 0.";
     t[23878] = "Wait.Status.LongRunNoEstimationK.WIPZero";
     t[23879] = "%sK client arrivals simulated / %sK events / %sK events per second";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_5 (java.lang.String[] t) {
     t[23882] = "ExpressionBuilder.SimulationCharacteristics.UserStatistics";
     t[23883] = "Data from Statistic stations";
     t[23886] = "Surface.InteractiveCheckbox.XML.CheckedValue";
@@ -10034,12 +10194,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24203] = "Average number of busy operators";
     t[24206] = "AnalyticModelCompare.Dialog.Title";
     t[24207] = "Compare to analytic model";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_5 (java.lang.String[] t) {
     t[24208] = "CommandLine.Benchmark.NeededCalculationTime";
     t[24209] = "Needed calulation time";
     t[24212] = "Surface.LogicUntil.Infotext";
@@ -10102,6 +10256,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24371] = "New line";
     t[24372] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.MinimalTime";
     t[24373] = "<p>Returns the minimal duration over all transfer times for all clients.</p>";
+    t[24378] = "Surface.TankSensor.Dialog.Tank.ErrorInfo";
+    t[24379] = "No tank to be monitored has been selected.";
     t[24380] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate1.ErrorInfo";
     t[24381] = "The change rate in the first and the second round for the genetic algorithm \"%s\" is invalid.\nA number between 0 (exclusive) and 1 (inclusive) has to be specified.";
     t[24390] = "Color.FF6347";
@@ -10256,8 +10412,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24745] = "Name";
     t[24746] = "Surface.Source.DialogBatchSize.Rate.Error.Title";
     t[24747] = "Invalid batch size rate";
-    t[24748] = "ParameterCompare.Settings.Output.Mode.Script.Label";
-    t[24749] = "Script";
+    t[24748] = "Git.List.Push.Success";
+    t[24749] = "New data were successfully pushed from the local directory\n%s\nto the remote repository\n%s";
     t[24762] = "InfoDialog.Title";
     t[24763] = "Program information";
     t[24766] = "Surface.PopupMenu.SimulationStatisticsData.AutoUpdate";
@@ -10380,8 +10536,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25075] = "Create resource consisting of one operator and add it to the station.";
     t[25080] = "Viewer.LoadModel.NewWindow";
     t[25081] = "Load model to new editor";
-    t[25082] = "Statistics.Utilization.StdDev";
-    t[25083] = "Standard deviation of the number of busy operators";
+    t[25082] = "Main.Menu.File.ExportModel.Mnemonic";
+    t[25083] = "X";
     t[25084] = "Surface.InputDB.Dialog.DefaultValue.ErrorTitle";
     t[25085] = "Invalid default value";
     t[25098] = "Surface.AnimationTextSelect.Dialog.Tabs.Expression";
@@ -10480,6 +10636,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25293] = "Generates LaTeX code from the html-based station help.";
     t[25298] = "Editor.Dialog.Tab.Simulation";
     t[25299] = "Simulation";
+    t[25300] = "Git.List.Tab.StoreFiles.Button.None";
+    t[25301] = "Select none";
     t[25312] = "Statistics.CostsForResources.Idle.All";
     t[25313] = "Costs for the idle time of the resources";
     t[25316] = "Table.LoadErrorLastCellInvalid";
@@ -10602,8 +10760,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25585] = "Abort simulation, if a client arrives at this station.";
     t[25588] = "SelectExampleWithPreview.Title";
     t[25589] = "Select example";
-    t[25598] = "Main.Menu.Edit.Delete";
-    t[25599] = "Delete";
+    t[25598] = "Git.List.DialogHint";
+    t[25599] = "In this dialog, Git directories can be defined. If a file is stored in such a directory in the simulator, it can be transferred to the associated Git repository automatically.";
     t[25602] = "Surface.Hold.Dialog.TimeBasedCheck";
     t[25603] = "Do additional time-based condition checks";
     t[25606] = "CommandLine.ResetConfig.Description.Long";
@@ -10672,8 +10830,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25757] = "No name was specified for the temporary client type.";
     t[25760] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.AverageTime";
     t[25761] = "<p>Returns the average duration over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
-    t[25762] = "Surface.TankSensor.Dialog.Tank.ErrorInfo";
-    t[25763] = "No tank to be monitored has been selected.";
+    t[25762] = "Git.List.Tab.Server.Button.Status";
+    t[25763] = "Status of repository";
     t[25766] = "Animation.Icon.Bricks";
     t[25767] = "Bricks";
     t[25774] = "Main.Menu.Help.CommandLineReference";
@@ -10686,8 +10844,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25783] = "Machine with set up times";
     t[25784] = "Surface.MultiSourceTable.Info.BatchMode";
     t[25785] = "batch arrival";
-    t[25788] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression";
-    t[25789] = "Trigger transport at fulfilled condition";
+    t[25788] = "Surface.TankSensor.Dialog.Tank.Name";
+    t[25789] = "Tank \"%s\" (id=%d)";
     t[25790] = "Editor.ColorChooser.Title";
     t[25791] = "Select color for element";
     t[25792] = "Viewer.LoadModel.NewWindow.Hint";
@@ -10718,6 +10876,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25855] = "Copies the values of the probability distribution vector or a graphics to the clipboard";
     t[25858] = "Schedule.Dialog.Name.InUse.Title";
     t[25859] = "Name for schedule already in use";
+    t[25860] = "Git.System.Status.Clean";
+    t[25861] = "There are no changed files.";
     t[25866] = "Main.Menu.SimulationCheckServerConnection";
     t[25867] = "Check simulation server connection...";
     t[25870] = "Editor.Dialog.Sequences.Edit.Column.Next.Default";
@@ -10936,6 +11096,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26361] = "FailureByExpression";
     t[26364] = "Simulation.RunTimeError";
     t[26365] = "Runtime error";
+    t[26368] = "Git.System.Status.Ahead.One";
+    t[26369] = "The local branch is newer by one commit than the branch on the server.";
     t[26370] = "Distribution.Mean";
     t[26371] = "Mean";
     t[26376] = "ModelDescription.InputDB.EOFMode.Terminate";
@@ -10946,6 +11108,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26385] = "Loading time";
     t[26386] = "Statistic.Viewer.Toolbar.NewWindow.Size.Hint";
     t[26387] = "Changes the window size.";
+    t[26394] = "Git.List.Tab.Server.Button.Clone.Error";
+    t[26395] = "When trying to clone the remote repository\n%s\ninto the local directory\n%s\nthe following error occurred:\n%s";
     t[26398] = "Window.BackgroundColor.UserBackground";
     t[26399] = "User-defined background";
     t[26400] = "Surface.Popup.AddVisualization.AverageNQTotal";
@@ -11062,8 +11226,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26671] = "Destination";
     t[26672] = "Batch.Parameter.ChangeType.Number";
     t[26673] = "Number";
-    t[26676] = "Surface.PopupMenu.QuickFix.SourceRecord.ArrivalStart.Single";
-    t[26677] = "Set arrival start time to 0";
+    t[26676] = "Git.List.Tab.Server.Auth.Key.SelectKey";
+    t[26677] = "Select private key file";
     t[26682] = "Surface.AnimationLCD.Tooltip";
     t[26683] = "Shows a value by using one ore more digits of a 7 segment LCD display.";
     t[26684] = "Statistics.MinimumClientsInSystem";
@@ -11108,14 +11272,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26791] = "Leave section";
     t[26792] = "Optimizer.ControlVariableEdit.Error.InvalidInitialValue";
     t[26793] = "Invalid initial value";
-    t[26798] = "Window.Layers.DialogHint";
-    t[26799] = "By assigning the elements to different layers, certain aspects of the model can be specifically shown or hidden.";
+    t[26798] = "Git.List.Delete.Confirm.InfoNo";
+    t[26799] = "Keep the selected Git configuration.";
     t[26804] = "Surface.TransportTransporterSource.RouteBy.Settings";
     t[26805] = "Direct routing";
     t[26814] = "Statistics.ArrivalsBySimulation";
     t[26815] = "Arrivals according to simulation";
     t[26820] = "Surface.PopupMenu.MoveBackwards";
     t[26821] = "Move backwards";
+    t[26826] = "Git.List.Tab.Server.Button.Clone.Hint";
+    t[26827] = "Clones the repository from the server.";
     t[26828] = "Surface.XML.Resource.FailureExpression";
     t[26829] = "FailureExpression";
     t[26830] = "ModelDescription.Conveyor.CapacityNeeded";
@@ -11270,10 +11436,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27217] = "encrypted binary";
     t[27220] = "ScriptPopup.Output.Format.Fraction";
     t[27221] = "Fraction";
+    t[27222] = "Simulation.Log.LogicEndIf";
+    t[27223] = "Logic EndIf";
     t[27226] = "Surface.TransportParking.Dialog.WaitingCapacity.ErrorInfo";
     t[27227] = "The entered parking lot capacity is invalid. A positive integer number has to be specified.";
-    t[27230] = "Surface.InteractiveCheckbox.Dialog.Variable.ErrorTitle";
-    t[27231] = "Invalid variable name";
+    t[27230] = "Simulation.Creator.ProcessExpressionCancel";
+    t[27231] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as waiting tolerance time expression (error at character %d).";
     t[27236] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.AverageTime";
     t[27237] = "<p>Returns the average duration over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[27240] = "ExpressionBuilder.ProbabilityDistributions.FDistribution.DensityInfo";
@@ -11304,6 +11472,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27295] = "Using percent notation for numbers";
     t[27296] = "Statistics.XML.Value";
     t[27297] = "Value";
+    t[27300] = "Git.ListBranches.Add";
+    t[27301] = "Add branch";
     t[27306] = "Surface.AnimationRecord.Dialog.Appearance.DataColor";
     t[27307] = "Color for displaying the data";
     t[27314] = "ModelGenerator.WaitingTimeToleranceDistribution";
@@ -11408,6 +11578,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27551] = "Logarithm to base 2";
     t[27560] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations";
     t[27561] = "Residence times at a station";
+    t[27572] = "Git.List.Edit.Hint";
+    t[27573] = "Opens the dialog for editing the selected git configuration.";
     t[27576] = "Statistics.ResidenceTimesByClientType";
     t[27577] = "Residence times for clients of type \"%s\"";
     t[27580] = "Simulation.Log.Dispose.Info";
@@ -11510,8 +11682,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27781] = "Cog";
     t[27788] = "ModelDescription.Dialog.Save.Failed.Info";
     t[27789] = "Saving the model description to file\n%s\nfailed.";
-    t[27796] = "Surface.Source.Dialog.ArrivalStart.Error.Title";
-    t[27797] = "Invalid start time";
+    t[27796] = "Git.List.Record.PullOnStart";
+    t[27797] = "Pull will be executed at the program start.";
     t[27798] = "Surface.Release.Name.Short";
     t[27799] = "Release";
     t[27800] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.MaximalTime";
@@ -11868,6 +12040,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28679] = "Costs due to waiting, transfer and process times of the clients";
     t[28684] = "Optimizer.Error.DataCouldNotBeInterpretedAsNumber";
     t[28685] = "The result \"%s\" could not be interpreted as a number.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_6 (java.lang.String[] t) {
     t[28686] = "ScriptPopup.Output";
     t[28687] = "Output";
     t[28700] = "Surface.Ellipse.Dialog.Title";
@@ -11982,6 +12160,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28943] = "Name of output value";
     t[28946] = "Surface.Tank.Dialog.Tab.General";
     t[28947] = "General settings";
+    t[28948] = "Git.ListBranches.Checkout.AlreadyActive";
+    t[28949] = "The branch \"%s\" is already active.";
     t[28950] = "SettingsDialog.Tabs.DefaultFormats.Models";
     t[28951] = "Models";
     t[28952] = "Surface.SectionEnd.Dialog.SectionStart";
@@ -12040,12 +12220,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29077] = "days";
     t[29080] = "Optimizer.ControlVariableEdit.ValidRange.From";
     t[29081] = "Zul\u00e4ssiger Bereich von";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_6 (java.lang.String[] t) {
     t[29082] = "Surface.PickUp.XML.BatchMode";
     t[29083] = "ModelElementBatchMode;BatchMode";
     t[29084] = "SettingsDialog.Tabs.Updates.ConnectingServer";
@@ -12160,8 +12334,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29307] = "Set NUMA mode";
     t[29308] = "Simulation.Creator.TransporterSourceClientPriority";
     t[29309] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as priority (error at character %d).";
-    t[29310] = "Surface.LogicDo.XML.Root";
-    t[29311] = "ModelElementLogicDo";
+    t[29310] = "Surface.Delay.XML.Type";
+    t[29311] = "Type";
     t[29320] = "Surface.AssignString.Table.Delete.Confirm.Info";
     t[29321] = "Do you really want to delete the assignment %s?";
     t[29322] = "Editor.SurfaceTooltip.PasteFromTemplate";
@@ -12234,8 +12408,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29457] = "Record station arrivals";
     t[29460] = "Surface.AssignString.Table.Edit.Dialog.Title";
     t[29461] = "Edit assignment";
-    t[29462] = "Statistic.FastAccess.Template.StatisticsFileFull.Tooltip";
-    t[29463] = "Retruns the full Path and file name of the statistics file";
+    t[29462] = "Git.System.InitialPullError.Info";
+    t[29463] = "Errors occurred while pulling the following remote Git repositories:";
     t[29468] = "ParameterCompare.Settings.Output.Mode.Command.Command";
     t[29469] = "Expression";
     t[29470] = "Surface.XML.Schedule.RepeatSchedule.Zero";
@@ -12314,14 +12488,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29657] = "invalid";
     t[29664] = "ModelGenerator.ServiceBatch";
     t[29665] = "Service batch size";
-    t[29666] = "Surface.Source.Dialog.Signals.TableCol.Control";
-    t[29667] = "Control";
+    t[29666] = "ScriptPopup.Simulation.getNQ.Hint";
+    t[29667] = "Current number of clients in a queue at a station";
     t[29670] = "Surface.Source.DefaultGroupName";
     t[29671] = "Clients";
     t[29684] = "Statistic.FastAccess.Template.ResourceIdleCosts";
     t[29685] = "Resource idle time costs";
-    t[29686] = "Resources.Number.Increase";
-    t[29687] = "Increase number";
+    t[29686] = "Git.List.Tab.Server.Auth.Key.Passphrase";
+    t[29687] = "Passphrase for keyfile";
     t[29688] = "Surface.SingleCoreReason.AnimationMode";
     t[29689] = "The simulation system is running in animation mode.";
     t[29702] = "Animation.Icon.Dog";
@@ -12364,6 +12538,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29779] = "Invalid expression";
     t[29782] = "Statistics.ErlangCompare.Info.Process.CV";
     t[29783] = "The coefficient of variation of the service times is %s. But the formula uses 1.0.";
+    t[29786] = "Simulation.Log.DecideByKeyValue.Info";
+    t[29787] = "Client: %s, station: %s, %s=%s, branching to output %d of %d";
     t[29792] = "Surface.AnimationText.Dialog.Title";
     t[29793] = "Edit simulation data display";
     t[29794] = "Statistics.StdDevNumberOfClients";
@@ -12434,6 +12610,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29961] = "EndOfFile";
     t[29966] = "Surface.Split.XML.Source";
     t[29967] = "ModelElementSplitData";
+    t[29972] = "Surface.Batch.NewClientType";
+    t[29973] = "New client type";
     t[29980] = "ModelDescription.Decide.Mode";
     t[29981] = "Mode";
     t[29982] = "JSRunner.Templates.ChangeInterArrival.Title";
@@ -12486,6 +12664,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30097] = "non";
     t[30098] = "Surface.InputJS.XML.EofMode.Loop";
     t[30099] = "Loop";
+    t[30100] = "Main.Menu.File.GitSettings.Mnemonic";
+    t[30101] = "G";
     t[30104] = "Simulation.Element.SourceDB.Name";
     t[30105] = "Database source";
     t[30106] = "Surface.SourceDDE.XML.StartRow";
@@ -12526,6 +12706,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30197] = "StatisticsTransferTimesStationsClients";
     t[30202] = "Simulation.ClientMovement.OutputFile.R";
     t[30203] = "R files";
+    t[30204] = "Statistics.ShareInDownTime";
+    t[30205] = "Share in down time";
     t[30208] = "Window.Layers.Visible.Hint";
     t[30209] = "Shows the elements on this layer.";
     t[30216] = "Animation.IconDialog.Single.Icon.Error.NoIcon";
@@ -12558,8 +12740,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30263] = "Show all categories";
     t[30266] = "Surface.PickUp.XML.ClientType";
     t[30267] = "ModelElementClientType";
-    t[30268] = "ParameterCompare.Settings.Model.Data.Column.Value";
-    t[30269] = "Value";
+    t[30268] = "Git.List.Delete";
+    t[30269] = "Delete";
     t[30270] = "ExpressionBuilder.SimulationCharacteristics.ClientData.TransferTime.Info";
     t[30271] = "Returns the current transfer time of the current client.";
     t[30272] = "Simulation.Log.AssignSequence";
@@ -12596,6 +12778,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30333] = "Skip warm-up phase";
     t[30338] = "Optimizer.Tab.ControlVariables.Range";
     t[30339] = "Range";
+    t[30344] = "Schedule.EditDialog.TimeStepBack.Hint";
+    t[30345] = "Moves one time step back.";
     t[30346] = "Surface.XML.Schedule.RepeatSchedule";
     t[30347] = "ContinueSchedule";
     t[30348] = "XML.OutOfMemoryError";
@@ -12630,6 +12814,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30411] = "Do you really want to delete the partial bar with expression \"%s\"?";
     t[30412] = "Editor.TemplateFilter.OnlyOneGroup";
     t[30413] = "Only one open category";
+    t[30414] = "Surface.OutputDDE.Table.Add";
+    t[30415] = "Add output element";
     t[30416] = "CalcWebServer.Status.Waiting";
     t[30417] = "Waiting";
     t[30418] = "Surface.AnimationLCD.XML.Root";
@@ -12664,6 +12850,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30477] = "1 day";
     t[30478] = "Surface.AnimationRecord.ValueNumber";
     t[30479] = "Value number";
+    t[30490] = "Git.ListBranches.Add.ErrorInvalidName";
+    t[30491] = "The specified name for the new branch is invalid.";
     t[30492] = "Surface.TankFlowByClient.Dialog.Title";
     t[30493] = "Edit flow";
     t[30498] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.CoefficientOfVariationOfTheTime";
@@ -12672,6 +12860,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30507] = "Count";
     t[30510] = "ParameterCompare.Mode.Interarrival";
     t[30511] = "Inter-arrival times";
+    t[30526] = "ParameterCompare.Settings.Output.Mode.Script.Label";
+    t[30527] = "Script";
     t[30530] = "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution.DensityInfo";
     t[30531] = "<p>Calculates the value of the density of the Cauchy distribution at the location specified as the first parameter with mean and shape parameters according to the second and third parameters.</p>";
     t[30540] = "Surface.HoldMulti.Name.Short";
@@ -12806,6 +12996,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30873] = "Parameter %d";
     t[30874] = "Editor.Dialog.Tab.Simulation.TimedChecks";
     t[30875] = "Use time based checks, time distance:";
+    t[30884] = "Git.List.Delete.Confirm.Title";
+    t[30885] = "Delete Git configuration";
     t[30886] = "ParameterCompare.Settings.Input.Mode.Resource.Label";
     t[30887] = "Name of the resource";
     t[30888] = "CheckData.ColumnTitle.Element";
@@ -12818,6 +13010,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30903] = "Default values";
     t[30906] = "Statistics.XML.RunTime";
     t[30907] = "StatisticsRunTime";
+    t[30914] = "ParameterCompare.Settings.Model.Data.Column.Value";
+    t[30915] = "Value";
     t[30916] = "ModelDescription.Delay.Mode.Waiting";
     t[30917] = "Waiting time";
     t[30918] = "ModelDescription.Process.ClientTypePriority";
@@ -12890,6 +13084,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31057] = "ChangeRate4";
     t[31058] = "Surface.ErrorInfo.NoTeleportDestination";
     t[31059] = "No teleport target defined";
+    t[31062] = "Git.List.Tab.StoreFiles.Button.None.Hint";
+    t[31063] = "Removes selection of all file types for Git storage.";
     t[31064] = "Surface.SourceTable.Dialog.Title";
     t[31065] = "Load client arrivals from table";
     t[31070] = "Statistics.XML.Element.InterArrivalStationsByClientType";
@@ -13044,6 +13240,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31535] = "Clear list.";
     t[31538] = "Surface.ResourceDelayedRelease.XML.Resource.TimeBase";
     t[31539] = "TimeBase";
+    t[31540] = "Surface.InteractiveCheckbox.Dialog.Variable.ErrorTitle";
+    t[31541] = "Invalid variable name";
     t[31544] = "Simulation.Creator.BarrierPull.InvalidNextMax";
     t[31545] = "At station id=%d the value %s was entered for the maximum number of clients in the segment. This expression is invalid at character %d.";
     t[31548] = "Surface.Action.Dialog.Edit.Tabs.Action.Signal.ErrorInfo";
@@ -13078,6 +13276,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31641] = "Select workbook and table via DDE connection";
     t[31650] = "ParameterCompare.Settings.Output.Mode.Script.Button.Hint";
     t[31651] = "Select script file";
+    t[31658] = "Surface.PopupMenu.SimulationStatisticsData.Data.Clients";
+    t[31659] = "Clients so far: %s";
     t[31662] = "Surface.AssignString.Table.Up";
     t[31663] = "Move up";
     t[31664] = "Editor.Dialog.Sequences.Edit.Column.Destination";
@@ -13408,6 +13608,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32529] = "Sets a text-based client property";
     t[32536] = "ParameterCompare.Templates.Maximum";
     t[32537] = "Maximum value";
+    t[32540] = "Git.List.Delete.Hint";
+    t[32541] = "Deletes the selected git configuration.";
     t[32542] = "ParameterCompare.Settings.BaseModel";
     t[32543] = "Base model";
     t[32544] = "Editor.Dialog.Tab.PathRecording.StationTransitions";
@@ -13530,6 +13732,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32823] = "<p>Returns the sum of all transfer times (over all client types).</p>";
     t[32824] = "Server.Log.PrepareNoModel";
     t[32825] = "No model received.";
+    t[32832] = "Git.List.Tab.LocalFolder";
+    t[32833] = "Local folder";
     t[32834] = "FitDialog.Tab.Fit";
     t[32835] = "Fit";
     t[32836] = "Statistics.WaitingAndProcessTimesByStationsAndClients";
@@ -13652,6 +13856,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33131] = "Light pink";
     t[33150] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.SquaredCoefficientOfVariationOfTheTime";
     t[33151] = "<p>Returns the squared coefficient of variation over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
+    t[33156] = "Git.List.Tab.Server.Button.InitLocal.Success";
+    t[33157] = "A Git repository was created in the folder\n%s.";
     t[33160] = "Simulation.Element.OutputLog.Name";
     t[33161] = "Output (Log)";
     t[33164] = "Surface.Output.XML.Element.TypeDescription.TransferTimeNumber";
@@ -13670,6 +13876,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33197] = "Starts a model optimization.";
     t[33202] = "Color.8B4513";
     t[33203] = "Saddle brown";
+    t[33210] = "Main.Menu.Edit.Delete";
+    t[33211] = "Delete";
     t[33212] = "ExpressionBuilder.ClientsAtStation.StandardDeviationOfTheNumber";
     t[33213] = "<p>Returns the standard deviation of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
     t[33216] = "Surface.XML.Transporter.FailureExpression";
@@ -13754,8 +13962,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33363] = "Help";
     t[33364] = "Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto.ReplaceYes";
     t[33365] = "Generate new description, replace current description.";
-    t[33366] = "Surface.Match.XML.MatchPropertyMode";
-    t[33367] = "ModelElementMatchProperty";
+    t[33366] = "Git.List.Tab.StoreFiles.OptimizationSetups";
+    t[33367] = "Optimizer setups";
     t[33368] = "JSRunner.Toolbar.Clear";
     t[33369] = "Clear outpus";
     t[33374] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.VarianceOfTheNumber";
@@ -13838,6 +14046,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33531] = "Unknown arrival batch size.";
     t[33538] = "ModelDescription.InputJS.EOFMode.Skip";
     t[33539] = "Do no further processing";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_7 (java.lang.String[] t) {
     t[33542] = "CommandLine.ServerLimited.Description.Long";
     t[33543] = "This command expects 0 to 2 additional parameters.\nIf these parameters exist they have the following meaning:\n1. Port to be used\n2. Password for encrypted data transfer\nIf no parameters are specified, the simulator will ask for the port via the console.\nThe server will limit the number of simultaneous requests depending on the\nnumber of available CPU cores.";
     t[33544] = "Animation.Icon.Toolbox";
@@ -13954,6 +14168,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33791] = "No example selected";
     t[33798] = "Statistic.FastAccess.Template.Format.Number.Hint";
     t[33799] = "Interpreting time values as normal numbers";
+    t[33800] = "Git.List.Delete.Confirm.InfoYes";
+    t[33801] = "Delete Git configuration.";
     t[33812] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.DestinationStation";
     t[33813] = "Destination for conditional transport";
     t[33818] = "ScriptPopup.Simulation.Signal.Hint";
@@ -14046,12 +14262,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34079] = "At element id=%d the source of the flow id=%d is not a tank.";
     t[34082] = "ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info";
     t[34083] = "<p>Calculates the value of the arc cosine function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccos(0)</tt> returns 1.5707963267949.</p>";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_7 (java.lang.String[] t) {
     t[34088] = "Surface.SourceTable.Name";
     t[34089] = "Table source";
     t[34092] = "Surface.AnimationBarStack.Dialog.Bar.down";
@@ -14194,6 +14404,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34389] = "Up";
     t[34392] = "Surface.Popup.AddVisualization.AverageValueWaiting2";
     t[34393] = "Average value (waiting in queue 2)";
+    t[34398] = "Git.ListBranches.ActiveBranch";
+    t[34399] = "active branch";
     t[34404] = "SettingsDialog.BackgroundProcessing.CheckOnly";
     t[34405] = "Check model for consistency";
     t[34406] = "Simulation.ClientMovement.NoStationSelectedErrorTitle";
@@ -14278,6 +14490,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34571] = "Residence times of the clients";
     t[34576] = "Surface.DDE.StartRow";
     t[34577] = "First table row";
+    t[34578] = "Git.List.Tab.Server.Button.Test.Error";
+    t[34579] = "While trying to connect to\n%s\nthe following error occurred:\n%s";
     t[34580] = "Surface.ExpressionTableModelText.Dialog.Expression";
     t[34581] = "Condition";
     t[34594] = "Compare.ReturnConfirm.Info";
@@ -14712,6 +14926,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35625] = "<b>Attention:</b><br>\nThe selected operators group is in use by the elements with the following IDs:";
     t[35626] = "Surface.AnalogValue.Dialog.MaximumValue";
     t[35627] = "Maximum value";
+    t[35628] = "Git.List.Record.NoServer";
+    t[35629] = "Transfer to Git server disabled.";
     t[35630] = "Statistics.ErlangCCompare.Results.Calculated";
     t[35631] = "Calculated values";
     t[35644] = "ScriptPopup.Output.Cancel";
@@ -14780,6 +14996,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35805] = "in minutes";
     t[35808] = "Surface.Popup.AddLongRunStatistics.Part";
     t[35809] = "Counter part";
+    t[35814] = "Git.System.Error.Init";
+    t[35815] = "The local Git system could not be initialized.";
     t[35816] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Schedule";
     t[35817] = "Schedule";
     t[35818] = "Surface.ScriptEditor.Load";
@@ -15564,6 +15782,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37625] = "Lorry to the left";
     t[37632] = "Statistic.FastAccess.Template.SaveStatisticsFilter";
     t[37633] = "Execute external Javascript program";
+    t[37634] = "Surface.Seize.Dialog.ResourcePriority";
+    t[37635] = "Resource priority";
     t[37652] = "ModelDescription.SourceDB.ColumnClientType";
     t[37653] = "Client type table column";
     t[37654] = "Surface.AnimationBar.Dialog.Bar.up";
@@ -15660,6 +15880,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37877] = "Current value";
     t[37878] = "Surface.InteractiveSlider.Dialog.Title";
     t[37879] = "Edit slider";
+    t[37882] = "Git.List.Add";
+    t[37883] = "Add";
     t[37892] = "ParameterCompare.ScriptRunner.Tab.Script";
     t[37893] = "Script";
     t[37896] = "Surface.Source.Dialog.ThresholdValue.Error.Title";
@@ -15806,6 +16028,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38221] = "ServerWebFixed";
     t[38224] = "CalculatorDialog.Tab.Plotter";
     t[38225] = "Function plotter";
+    t[38232] = "Surface.Process.Dialog.Priority.Edit";
+    t[38233] = "Edit";
     t[38238] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.Quantil";
     t[38239] = "<p>Returns the quantil for probability p of the durations over all transfer times for all clients.</p>";
     t[38254] = "JDistributionEditor.Save";
@@ -15822,10 +16046,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38271] = "S";
     t[38274] = "SimulationServer.Setup.LimitThreadCount";
     t[38275] = "Limit requests";
+    t[38278] = "Git.List.Tab.StoreFiles.Info";
+    t[38279] = "Which files should be transferred to the Git repository automatically when saving?";
     t[38280] = "Surface.Match.Infotext";
     t[38281] = "Matches the clients, arriving via the different incoming edges, to a new client. For generating a new client on each input at least one client has to be available.";
     t[38282] = "Statistics.CostsForResources.Working.Single";
     t[38283] = "Costs for the busy time of the resource";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_8 (java.lang.String[] t) {
     t[38286] = "FileType.SYLK";
     t[38287] = "Symbolic link files";
     t[38288] = "Surface.XML.Tank.Valve.TimeBase.PerMinute";
@@ -15932,6 +16164,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38489] = "O";
     t[38492] = "Simulation.Creator.BalkingCondition";
     t[38493] = "The balking condition \"%s\" at element id=%d is invalid at character %d.";
+    t[38502] = "Simulation.Log.Reference";
+    t[38503] = "Reference";
     t[38506] = "Editor.Dialog.Title";
     t[38507] = "Model properties";
     t[38512] = "Simulation.Creator.CostsErrorDelay";
@@ -16052,12 +16286,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38779] = "StatisticsThroughputName";
     t[38780] = "Optimizer.Error.NoOutputFileCouldBeDetermined";
     t[38781] = "No output file could be determined. The results could not be saved.";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_8 (java.lang.String[] t) {
     t[38782] = "ParameterCompare.Table.MoveModelUp.Hint";
     t[38783] = "Move model up in list";
     t[38788] = "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType.Short";
@@ -16270,8 +16498,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39261] = "Pause animation";
     t[39262] = "JDistributionEditor.Save.Graphics";
     t[39263] = "Save graphics";
-    t[39268] = "Surface.Delay.XML.Type";
-    t[39269] = "Type";
+    t[39268] = "Git.ListBranches.Title";
+    t[39269] = "Branches";
     t[39274] = "Statistics.ResultsAutocorrelation.WaitingTime.ByStationsAndClientTypes";
     t[39275] = "Waiting times at stations by client types";
     t[39276] = "Simulation.Element.Balking.Name";
@@ -16536,6 +16764,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39905] = "Layer";
     t[39908] = "Schedule.Day.Singular";
     t[39909] = "day";
+    t[39910] = "Git.List.Tab.StoreFiles";
+    t[39911] = "Store files";
     t[39920] = "Surface.Source.DialogBatchSize.TableColumn.Size";
     t[39921] = "Batch size";
     t[39922] = "Surface.Tank.Dialog.AnalogNotify.ErrorTitle";
@@ -16942,6 +17172,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40817] = "Resource shared between multiple stations";
     t[40822] = "Optimizer.Prepare.Info.ParameterCompare";
     t[40823] = "Please wait while the parameter series is prepared...";
+    t[40824] = "Git.List.Push.Error";
+    t[40825] = "When trying to push data from the local directory\n%s\ninto the remote repository\n%s\nthe following error occurred:\n%s";
     t[40832] = "UserTemplates.AddDialog.NoElementsErrorTitle";
     t[40833] = "No elements selected";
     t[40836] = "Surface.AssignSequence.Tooltip";
@@ -16960,10 +17192,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40859] = "The value \"%s\" for the batch size for confidence interval calculation is invalid. A positive integer value has to be specified.";
     t[40860] = "Statistics.XML.Time.Error";
     t[40861] = "The \"time\" attribute in the \"%s\" element has to be a number but is \"%s\".";
+    t[40862] = "Git.List.Tab.Server.Auth.UserNamePassword.Password";
+    t[40863] = "Password";
     t[40864] = "ParameterCompare.Settings.Model.Name";
     t[40865] = "Model name";
     t[40874] = "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation";
     t[40875] = "Coefficient of variation";
+    t[40876] = "Git.List.Push.NoCommitsToPush";
+    t[40877] = "There are no commits that have not yet been committed to the server.";
     t[40878] = "CommandLine.FolderFilter.ErrorLoadingFilterConfiguration";
     t[40879] = "An error occured while trying to load the filter configuration.";
     t[40888] = "Simulation.Creator.AnalogFlow.DestinationNotTank";
@@ -17010,8 +17246,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40987] = "Server name";
     t[40988] = "Surface.Popup.AddVisualization.AverageValue";
     t[40989] = "Average value";
+    t[40990] = "Git.ListBranches.Checkout.Hint";
+    t[40991] = "Activates the selected branch (Checkout)";
     t[41000] = "Surface.AnimationText.XML.FontSize";
     t[41001] = "ModelElementFontSize";
+    t[41006] = "Git.ListBranches.Checkout.Success";
+    t[41007] = "The branch \"%s\" was successfully activated.";
     t[41008] = "Statistic.FastAccess.Template.ClientsCostsWaiting";
     t[41009] = "Clients waiting time costs";
     t[41010] = "Editor.Dialog.Tab.InitialVariableValues.InfoText";
@@ -17044,6 +17284,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41081] = "There are no input parameters defined.\nYou need to setup some input parameters first before you can create a parameter series.";
     t[41092] = "Surface.XML.FlowData.StopTime";
     t[41093] = "ModelElementFlowTime";
+    t[41094] = "Surface.XML.ModelAuthorEMail";
+    t[41095] = "ModelAuthorEMail";
     t[41096] = "ParameterCompare.Settings.List.AddByXML.Hint";
     t[41097] = "Directly select the XML element to be used";
     t[41098] = "Surface.Output.Table.NoAdditionalData";
@@ -17144,8 +17386,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41317] = "Minimum value";
     t[41320] = "ParameterCompare.Run.Error.WriteValueMessage";
     t[41321] = "In step %d (model %s) the value of the input parameter %d (%s) could not be changed:";
-    t[41324] = "SettingsDialog.UseLastFiles";
-    t[41325] = "Offer recently used files for loading";
+    t[41324] = "Git.List.Tab.StoreFiles.Button.All";
+    t[41325] = "Select all";
     t[41334] = "Simulation.Creator.AnalogFlow.NoSignalName";
     t[41335] = "At element id=%d no name for the trigger signal was defined.";
     t[41336] = "Simulation.Creator.InvalidResourceInterDownTimeExpression";
@@ -17250,12 +17492,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41573] = "StatisticsClientData";
     t[41578] = "ParameterCompare.XML.Models.Root";
     t[41579] = "CompareModelsModel";
+    t[41582] = "Git.List.Tab.Server.Auth.Key.InfoKeyFilesDoesNotExist";
+    t[41583] = "The specified private key file does not exist.";
     t[41584] = "Surface.Database.Password";
     t[41585] = "Password";
     t[41586] = "Surface.Match.Dialog.SendTemporaryBatched";
     t[41587] = "Send as temporary batch; client type for batch";
     t[41592] = "ParameterCompare.Settings.Output.List.InfoXML";
     t[41593] = "Value of xml element %s";
+    t[41596] = "Git.System.Error.InitRemote";
+    t[41597] = "An error occurred while configuring the server data.";
     t[41604] = "CommandLine.ParameterCompareTable.SaveOk";
     t[41605] = "The results were saved in %s.";
     t[41606] = "ExpressionBuilder.Repeats.RepeatCount.Info";
@@ -17374,8 +17620,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41899] = "Matching - client has to wait";
     t[41908] = "CommandLine.ServerWeb.Stopped";
     t[41909] = "Web-based simulation server stopped.";
-    t[41910] = "Simulation.Log.Reference";
-    t[41911] = "Reference";
+    t[41910] = "Git.List.Tab.Server.Button.InitLocal";
+    t[41911] = "Initialize locally";
     t[41918] = "Surface.Barrier.Tooltip";
     t[41919] = "Releases waiting clients when a signal is triggered.";
     t[41922] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.CoefficientOfVariationOfTheTime";
@@ -17430,6 +17676,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42015] = "dbf databases";
     t[42038] = "ParameterCompare.XML.Name";
     t[42039] = "CompareModelsName";
+    t[42044] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.CurrentTime";
+    t[42045] = "<p>Returns the sum of the processing times that have previously occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[42046] = "Surface.OutputDDE.XML.StartRow";
     t[42047] = "ModelElementOutputDDEStartRow";
     t[42054] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.Success";
@@ -17522,6 +17770,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42239] = "An error occurred while opening the file %s.";
     t[42240] = "Simulation.ClientMovement.OutputFile";
     t[42241] = "Output file";
+    t[42242] = "Git.ListBranches.BranchName";
+    t[42243] = "Branch";
     t[42260] = "ParameterCompare.Settings.Discard";
     t[42261] = "The settings have been changed since the last save.\nDo you want to save the changed settings now?";
     t[42262] = "ModelDescription.Release.DelayedRelease.ClientType";
@@ -17546,6 +17796,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42315] = "Element1";
     t[42316] = "Surface.ExpressionTableModel.Delete.Confirmation.Info";
     t[42317] = "Do you really want to delete the data row \"%s\"?";
+    t[42322] = "Git.List.Tab.Server.Button.Branches.NoBranches";
+    t[42323] = "No branches could be identified.";
     t[42332] = "CommandLine.SetDynamicThreadBalance.Error.CannotSaveSetup";
     t[42333] = "The changed setup cannot be saved.";
     t[42336] = "Statistics.AnalogValue.Flow.Valve";
@@ -17596,6 +17848,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42455] = "Using floating point notation for numbers and percent values";
     t[42456] = "Surface.InteractiveCheckbox.Dialog.Variable.ErrorInfo";
     t[42457] = "The specified variable name is invalid.";
+    t[42458] = "Git.List.Tab.Server.Button.Test.Error.NoServerURL";
+    t[42459] = "No git server address was specified.";
     t[42460] = "Main.Menu.Help.Tutorial.pdf";
     t[42461] = "Warteschlangensimulator-en.pdf";
     t[42464] = "Optimizer.XML.Target.Direction";
@@ -17654,6 +17908,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42603] = "Schedules";
     t[42604] = "ModelDescription.StateStatistics.Group";
     t[42605] = "Statistics group";
+    t[42610] = "Statistics.CVNumberOfClients";
+    t[42611] = "Coefficient of variation of the number of clients";
     t[42612] = "CheckData.Button.Recheck";
     t[42613] = "Recheck";
     t[42622] = "ModelDescription.TransportParking.WaitingPriority";
@@ -17706,10 +17962,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42721] = "Client: %s, station: %s, ClientData(%d):=%s";
     t[42726] = "Surface.Conveyor.Dialog.CapacityNeededGlobal.ErrorTitle";
     t[42727] = "Invalid needed capacity per client";
-    t[42736] = "Statistics.FlowFactorByClientTypes";
-    t[42737] = "Flow factors by client types";
+    t[42736] = "Git.System.Status.Uncommited";
+    t[42737] = "There are %d changed files.";
     t[42742] = "SettingsDialog.WindowSizeProgrmStart.LastSize";
     t[42743] = "Restore last window size";
+    t[42744] = "Git.ListBranches.Add.Error";
+    t[42745] = "An error occurred while creating the branch \"%s\".";
     t[42752] = "FileType.AllImages";
     t[42753] = "All image files";
     t[42758] = "Window.Check.PleaseRerun";
@@ -17800,6 +18058,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42961] = "No xml element selected";
     t[42964] = "Distribution.Rayleigh";
     t[42965] = "Rayleigh distribution";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_9 (java.lang.String[] t) {
     t[42966] = "Surface.SetStatisticsMode.Dialog.Condition";
     t[42967] = "Condition";
     t[42970] = "Server.ErrorNoConnect";
@@ -17930,6 +18194,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43269] = "Destination Station";
     t[43270] = "Editor.SavedViews.Add.Info";
     t[43271] = "Name of the new view";
+    t[43274] = "Main.Menu.File.PrintModel";
+    t[43275] = "Print model...";
     t[43278] = "CommandLine.Benchmark.Name1";
     t[43279] = "Benchmark";
     t[43280] = "CommandLine.Benchmark.Name2";
@@ -18024,6 +18290,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43469] = "Threshold expression";
     t[43470] = "Statistics.ArrivalsAtStations";
     t[43471] = "Arrivals at the stations";
+    t[43472] = "Git.List.Tab.Server.Button.InitLocal.Error";
+    t[43473] = "While creating a Git repository in the local folder\n%s\nthe following error occurred:\n%s";
     t[43474] = "Simulation.Element.Throughput.Name";
     t[43475] = "Throughput";
     t[43482] = "Statistics.Confidence.Info";
@@ -18058,12 +18326,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43589] = "Model overview";
     t[43590] = "ParameterCompare.Settings.Input.List.Templates.ProcessTime";
     t[43591] = "Process times at station %s";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_9 (java.lang.String[] t) {
     t[43594] = "ParameterCompare.Settings.Input.List.InfoXML";
     t[43595] = "Value for xml element %s (%s)";
     t[43600] = "Surface.XML.PathRecording.ClientPaths";
@@ -18080,8 +18342,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43641] = "Save analytic comparison data";
     t[43642] = "Compare.Error.NoModelKept.Title";
     t[43643] = "No model kept";
-    t[43644] = "Surface.Batch.NewClientType";
-    t[43645] = "New client type";
+    t[43644] = "Git.List.Tab.Server.ForcePush.Hint";
+    t[43645] = "If the local and the remote branch are not based on a common root, normally no push is possible. This function nevertheless forces a push (upstream).";
     t[43650] = "ModelLoadData.EditDialog.Mode.DDE";
     t[43651] = "Load via DDE";
     t[43652] = "Surface.UserStatistic.Table.MoveDown";
@@ -18156,6 +18418,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43813] = "Flow factors by client types";
     t[43814] = "Surface.SourceMulti.Name";
     t[43815] = "Multi source";
+    t[43816] = "Git.Edit.Title";
+    t[43817] = "Edit git configuration";
     t[43818] = "Main.Menu.Edit.MoveBackwards";
     t[43819] = "Move backwards";
     t[43820] = "Surface.Decide.AllOtherValues";
@@ -18232,8 +18496,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43979] = "Waiting times of all clients";
     t[43982] = "Surface.Process.Name";
     t[43983] = "Process station";
-    t[43986] = "Simulation.Creator.ProcessExpressionCancel";
-    t[43987] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as waiting tolerance time expression (error at character %d).";
+    t[43986] = "Git.ListBranches.Checkout.Confirm.InfoNo";
+    t[43987] = "Keep branch \"%s\" activated.";
     t[43990] = "Surface.Action.Dialog.Edit.Tabs.Action.Assign";
     t[43991] = "Variable assignment";
     t[43994] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
@@ -18278,8 +18542,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44087] = "Do not execute the current command. All data will remain unchanged.";
     t[44092] = "Transporters.Group.Edit.Dialog.Table.Copy.Hint";
     t[44093] = "Copies the distances table to the clipboard.";
-    t[44100] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.CurrentTime";
-    t[44101] = "<p>Returns the sum of the processing times that have previously occurred at the station whose ID was specified in the parameter (over all client types).</p>";
+    t[44100] = "Editor.Dialog.Tab.ModelDescription.AuthorEMail";
+    t[44101] = "E-mail address of the author of the model";
     t[44102] = "Statistics.InterArrivalTimesInTheSimulation";
     t[44103] = "Inter-arrival times in the simulation";
     t[44108] = "Surface.Delay.Dialog.DelayTimeIs";
@@ -18314,6 +18578,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44181] = "No key for the decision was specified.";
     t[44182] = "AutoRestore.Dialog.DeleteAllInfoYes";
     t[44183] = "Clear all models.";
+    t[44186] = "Git.List.Tab.Server.Button.InitLocal.Confirm.InfoNo";
+    t[44187] = "Do not create a standalone local repository.";
+    t[44194] = "Surface.Source.Dialog.Signals.TableCol.Control";
+    t[44195] = "Control";
     t[44202] = "Surface.MultiSourceTable.Info.NextThreshold.Down";
     t[44203] = "falls below threshold value";
     t[44204] = "Surface.Match.XML.MatchMode.Permanent";

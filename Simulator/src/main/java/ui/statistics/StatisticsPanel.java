@@ -26,6 +26,8 @@ import javax.swing.JTree;
 
 import org.w3c.dom.Element;
 
+import gitconnect.GitSetup;
+import gitconnect.GitTools;
 import language.Language;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
@@ -290,6 +292,9 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			if (!runReportGeneratorHTMLApp(file,true)) return Language.tr("Main.Statistic.ErrorSaving");
 		} else {
 			if (!statistics[0].saveToFile(file)) return Language.tr("Main.Statistic.ErrorSaving");
+
+			GitTools.saveFile(this,statistics[0].editModel.author,statistics[0].editModel.authorEMail,file,GitSetup.GitSaveMode.STATISTICS);
+
 			statistics[0].loadedStatistics=file;
 		}
 

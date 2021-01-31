@@ -164,6 +164,9 @@ public class InfoPanel {
 	/** Info-ID für den "Ebenen"-Dialog */
 	public static final String globalLayers="Layers";
 
+	/** Info-ID für den "Git-Konfigurationen"-Dialog */
+	public static final String globalGit="Git";
+
 	/* Stationen - Eingang/Ausgang */
 
 	/** Info-ID für den "Quelle"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
@@ -712,6 +715,12 @@ public class InfoPanel {
 		register(globalLayers,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("Window.Layers.Title"),
 				()->Language.tr("Window.Layers.DialogHint"));
+
+		/* Git-Konfigurationen"-Dialog */
+
+		register(globalGit,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("Git.List.Title"),
+				()->Language.tr("Git.List.DialogHint"));
 
 		/* Stationen - Eingang/Ausgang */
 

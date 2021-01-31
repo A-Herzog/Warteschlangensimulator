@@ -28,6 +28,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import gitconnect.GitSetup;
 import language.Language;
 import language.LanguageStaticLoader;
 import language.Messages_Java11;
@@ -834,7 +835,6 @@ public class SetupData extends SetupBase {
 	 */
 	public XMLTools.DefaultSaveFormat defaultSaveFormatOptimizerSetups;
 
-
 	/**
 	 * Sicherheitskopien von Modelldateien anlegen
 	 */
@@ -844,6 +844,11 @@ public class SetupData extends SetupBase {
 	 * Vorgabe-Nutzername für neue Modelle und für Statistikdateien
 	 */
 	public String defaultUserName;
+
+	/**
+	 * Vorgabe-E-Mail-Adresse für neue Modelle
+	 */
+	public String defaultUserEMail;
 
 	/**
 	 * Wie viele Nachkommastellen sollen in Parameterreihen-Tabellen angezeigt werden? (mögliche Werte: 1, 3 oder 9 für Maximalanzahl)
@@ -927,6 +932,12 @@ public class SetupData extends SetupBase {
 	 * Filter für die Abschnitte auf der Statistik-Übersichtsseite
 	 */
 	public String statisticOverviewFilter;
+
+	/**
+	 * Liste der Git-Verbindungs-Konfigurationen
+	 * @see GitSetup
+	 */
+	public List<GitSetup> gitSetups;
 
 	/**
 	 * Letzter Fehler
@@ -1082,6 +1093,7 @@ public class SetupData extends SetupBase {
 		defaultSaveFormatOptimizerSetups=XMLTools.DefaultSaveFormat.ZIP_XML;
 		useBackupFiles=false;
 		defaultUserName=System.getProperty("user.name");
+		defaultUserEMail="";
 		parameterSeriesTableDigits=1;
 		parameterSeriesUpscale=0;
 		quickAccessFilter="";
@@ -1099,6 +1111,8 @@ public class SetupData extends SetupBase {
 		if (chartSetup==null) chartSetup=new ChartSetup();
 		chartSetup.reset();
 		statisticOverviewFilter="";
+		if (gitSetups==null) gitSetups=new ArrayList<>();
+		gitSetups.clear();
 		lastError=null;
 	}
 
@@ -1257,7 +1271,7 @@ public class SetupData extends SetupBase {
 
 		final NodeList l=root.getChildNodes();
 		final int count=l.getLength();
-		for (int i=0; i<count;i++) {
+		for (int i=0;i<count;i++) {
 			if (!(l.item(i) instanceof Element)) continue;
 			final Element e=(Element)l.item(i);
 			final String name=e.getNodeName().toLowerCase();
@@ -1769,6 +1783,11 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("defaultuseremail")) {
+				defaultUserEMail=e.getTextContent();
+				continue;
+			}
+
 			if (name.equals("parameterseriestabledigits")) {
 				final Long L=NumberTools.getPositiveLong(e.getTextContent());
 				if (L!=null) {
@@ -1836,6 +1855,21 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("statisticfilter")) {
 				statisticOverviewFilter=e.getTextContent();
+				continue;
+			}
+
+			if (name.equals(GitSetup.XML_PARENT_NAME.toLowerCase())) {
+				final NodeList l2=e.getChildNodes();
+				final int count2=l2.getLength();
+				for (int j=0;j<count2;j++) {
+					if (!(l2.item(j) instanceof Element)) continue;
+					final Element e2=(Element)l2.item(j);
+					if (e2.getNodeName().equalsIgnoreCase(GitSetup.XML_NAME)) {
+						final GitSetup gitSetup=new GitSetup();
+						gitSetup.load(e2);
+						gitSetups.add(gitSetup);
+					}
+				}
 				continue;
 			}
 		}
@@ -2331,6 +2365,11 @@ public class SetupData extends SetupBase {
 			node.setTextContent(defaultUserName);
 		}
 
+		if (defaultUserEMail!=null && !defaultUserEMail.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("DefaultUserEMail"));
+			node.setTextContent(defaultUserEMail);
+		}
+
 		if (parameterSeriesTableDigits!=1) {
 			root.appendChild(node=doc.createElement("ParameterSeriesTableDigits"));
 			node.setTextContent(""+parameterSeriesTableDigits);
@@ -2388,6 +2427,11 @@ public class SetupData extends SetupBase {
 
 		root.appendChild(node=doc.createElement("ChartSetup"));
 		chartSetup.saveToXML(node);
+
+		if (gitSetups.size()>0) {
+			root.appendChild(node=doc.createElement(GitSetup.XML_PARENT_NAME));
+			for (GitSetup gitSetup: gitSetups) gitSetup.save(node);
+		}
 	}
 
 	/**

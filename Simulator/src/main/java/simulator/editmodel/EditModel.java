@@ -120,6 +120,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public String author;
 
 	/**
+	 * E-Mail-Adresse des Autors des Modells
+	 */
+	public String authorEMail;
+
+	/**
 	 * Gibt an, ob die Kundenankünfteanzahl als Abbruchkriterium verwendet werden soll
 	 * @see #clientCount
 	 */
@@ -413,12 +418,23 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		return System.getProperty("user.name");
 	}
 
+	/**
+	 * Liefert den Standardwert für das "Autor E-Mail-Adresse"-Feld
+	 * @return	E-Mail-Adresse des aktuellen Nutzers
+	 */
+	public static String getDefaultAuthorEMail() {
+		final SetupData setup=SetupData.getSetup();
+		if (setup.defaultUserEMail!=null && !setup.defaultUserEMail.trim().isEmpty()) return setup.defaultUserEMail;
+		return "";
+	}
+
 	@Override
 	protected void resetData() {
 		version=systemVersion;
 		name="";
 		description="";
 		author=getDefaultAuthor();
+		authorEMail=getDefaultAuthorEMail();
 		useClientCount=true;
 		clientCount=10_000_000;
 		warmUpTime=0.01;
@@ -476,6 +492,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.name=name;
 		clone.description=description;
 		clone.author=author;
+		clone.authorEMail=authorEMail;
 		clone.useClientCount=useClientCount;
 		clone.clientCount=clientCount;
 		clone.warmUpTime=warmUpTime;
@@ -546,6 +563,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!name.equals(otherModel.name)) return false;
 		if (!description.equals(otherModel.description)) return false;
 		if (!author.equals(otherModel.author)) return false;
+		if (!authorEMail.equals(otherModel.authorEMail)) return false;
 		if (useClientCount!=otherModel.useClientCount) return false;
 		if (clientCount!=otherModel.clientCount) return false;
 		if (!ignoreAnimationData) {
@@ -661,6 +679,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (Language.trAll("Surface.XML.ModelName",name)) {this.name=text; return null;}
 		if (Language.trAll("Surface.XML.ModelDescription",name)) {description=text; return null;}
 		if (Language.trAll("Surface.XML.ModelAuthor",name)) {author=text; return null;}
+		if (Language.trAll("Surface.XML.ModelAuthorEMail",name)) {authorEMail=text; return null;}
+
 		if (Language.trAll("Surface.XML.ModelClients",name)) {
 			final Long L=NumberTools.getNotNegativeLong(text);
 			if (L==null || L==0) return String.format(Language.tr("Surface.Model.ErrorClients"),text);
@@ -953,6 +973,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!name.isEmpty()) addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelName"),name);
 		if (!description.isEmpty()) addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelDescription"),description);
 		addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelAuthor"),author);
+		if (!authorEMail.isEmpty()) addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelAuthorEMail"),authorEMail);
 		sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelClients"),clientCount);
 		sub.setAttribute(Language.trPrimary("Surface.XML.Active"),useClientCount?"1":"0");
 		addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelWarmUpPhase"),NumberTools.formatSystemNumber(warmUpTime));

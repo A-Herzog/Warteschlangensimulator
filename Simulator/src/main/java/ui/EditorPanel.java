@@ -177,6 +177,12 @@ public final class EditorPanel extends EditorPanelBase {
 	private String author;
 
 	/**
+	 * E-Mail-Adresse des Autors des Modells
+	 * @see EditModel#authorEMail
+	 */
+	private String authorEMail;
+
+	/**
 	 * Anzahl der zu simulierenden Kundenankünfte
 	 * @see EditModel#clientCount
 	 */
@@ -1430,6 +1436,7 @@ public final class EditorPanel extends EditorPanelBase {
 		model.name=name;
 		model.description=description;
 		model.author=author;
+		model.authorEMail=authorEMail;
 		model.clientCount=clientCount;
 		model.warmUpTime=warmUpTime;
 		ModelSurface surface=surfacePanel.getSurface();
@@ -1449,6 +1456,7 @@ public final class EditorPanel extends EditorPanelBase {
 		name=model.name;
 		description=model.description;
 		author=model.author;
+		authorEMail=model.authorEMail;
 		clientCount=model.clientCount;
 		warmUpTime=model.warmUpTime;
 		if (surfacePanel!=null) {

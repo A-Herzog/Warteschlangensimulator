@@ -185,6 +185,9 @@ public enum Images {
 	/** Symbol "Pfeilgröße 'groß'" */
 	ARROW_SIZE_LARGE("arrow_size_large.png"),
 
+	/** Symbol "Pfeile austauschen" */
+	ARROW_SWITCH("arrow_switch.png"),
+
 	/** Symbol "Text - linksbündig" */
 	TEXT_ALIGN_LEFT("text_align_left.png"),
 
@@ -193,6 +196,18 @@ public enum Images {
 
 	/** Symbol "Text - rechtsbündig" */
 	TEXT_ALIGN_RIGHT("text_align_right.png"),
+
+	/** Symbol "Git" */
+	GIT("sitemap_color.png"),
+
+	/** Symbol "Authentifizierung - Aus" */
+	AUTH_OFF("cross.png"),
+
+	/** Symbol "Authentifizierung - Name&Passwort" */
+	AUTH_USER("user.png"),
+
+	/** Symbol "Authentifizierung - Schlüssel" */
+	AUTH_KEY("key.png"),
 
 	/* Bearbeiten */
 

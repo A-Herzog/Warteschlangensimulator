@@ -123,7 +123,31 @@
     		<groupId>org.eclipse.paho</groupId>
     		<artifactId>org.eclipse.paho.mqttv5.client</artifactId>
     		<version>1.2.5</version>
-	</dependency>	
+	</dependency>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-nop</artifactId>
+		<version>1.7.30</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit -->
+	<dependency>
+			<groupId>org.eclipse.jgit</groupId>
+		<artifactId>org.eclipse.jgit</artifactId>
+		<version>5.10.0.202012080955-r</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+	<dependency>
+		<groupId>com.jcraft</groupId>
+		<artifactId>jsch</artifactId>
+		<version>0.1.55</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit.ssh.jsch -->
+	<dependency>
+		<groupId>org.eclipse.jgit</groupId>
+		<artifactId>org.eclipse.jgit.ssh.jsch</artifactId>
+		<version>5.10.0.202012080955-r</version>
+	</dependency>
 	<!-- local -->
 	<dependency>
 		<groupId>JDDE.group</groupId>

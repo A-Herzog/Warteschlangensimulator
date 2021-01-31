@@ -1688,6 +1688,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));
 		addLine(Language.tr("Statistics.SystemData.RunOS")+": "+statistics.simulationData.runOS);
 		if (statistics.editModel.author!=null && !statistics.editModel.author.trim().isEmpty()) addLine(Language.tr("Statistics.SystemData.EditUser")+": "+statistics.editModel.author);
+		if (statistics.editModel.authorEMail!=null && !statistics.editModel.authorEMail.trim().isEmpty()) addLine(Language.tr("Statistics.SystemData.EditUserEMail")+": "+statistics.editModel.authorEMail);
 		addLine(Language.tr("Statistics.SystemData.RunUser")+": "+statistics.simulationData.runUser);
 		endParagraph();
 

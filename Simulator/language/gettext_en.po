@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-29 21:51+0100\n"
+"POT-Creation-Date: 2021-01-31 22:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2789,6 +2789,9 @@ msgstr "Author of the model"
 
 msgid "Editor.Dialog.Tab.ModelDescription.Author.SetDefault"
 msgstr "Set current user as model author"
+
+msgid "Editor.Dialog.Tab.ModelDescription.AuthorEMail"
+msgstr "E-mail address of the author of the model"
 
 msgid "Editor.Dialog.Tab.ModelDescription.InfoText"
 msgstr "The model description has no meaning for the simulation itself. On this dialog page additional information which are stored together with the model can be defined."
@@ -6355,6 +6358,441 @@ msgstr "Sans serif font"
 msgid "FontFamily.Serif"
 msgstr "Serif font"
 
+msgid "Git.Edit.Title"
+msgstr "Edit git configuration"
+
+msgid "Git.List.Add"
+msgstr "Add"
+
+msgid "Git.List.Add.Hint"
+msgstr "Adds a git configuration."
+
+msgid "Git.List.Delete"
+msgstr "Delete"
+
+msgid "Git.List.Delete.Confirm.Info"
+msgstr "Do you really want to delete the selected Git configuration?"
+
+msgid "Git.List.Delete.Confirm.InfoNo"
+msgstr "Keep the selected Git configuration."
+
+msgid "Git.List.Delete.Confirm.InfoYes"
+msgstr "Delete Git configuration."
+
+msgid "Git.List.Delete.Confirm.Title"
+msgstr "Delete Git configuration"
+
+msgid "Git.List.Delete.Hint"
+msgstr "Deletes the selected git configuration."
+
+msgid "Git.List.DialogHint"
+msgstr "In this dialog, Git directories can be defined. If a file is stored in such a directory in the simulator, it can be transferred to the associated Git repository automatically."
+
+msgid "Git.List.Edit"
+msgstr "Edit"
+
+msgid "Git.List.Edit.Hint"
+msgstr "Opens the dialog for editing the selected git configuration."
+
+msgid "Git.List.Pull"
+msgstr "Pull"
+
+msgid "Git.List.Pull.Error"
+msgstr ""
+"When trying to pull data from the remote repository\n"
+"%s\n"
+"into the local directory\n"
+"%s\n"
+"the following error occurred:\n"
+"%s"
+
+msgid "Git.List.Pull.ErrorNoServer"
+msgstr "The Git server connection is not activated."
+
+msgid "Git.List.Pull.Hint"
+msgstr "Updates the local Git directory with the data from the server."
+
+msgid "Git.List.Pull.Success"
+msgstr ""
+"New data were successfully pull from remote repository\n"
+"%s\n"
+"to the local directory\n"
+"%s"
+
+msgid "Git.List.Push"
+msgstr "Push"
+
+msgid "Git.List.Push.Error"
+msgstr ""
+"When trying to push data from the local directory\n"
+"%s\n"
+"into the remote repository\n"
+"%s\n"
+"the following error occurred:\n"
+"%s"
+
+msgid "Git.List.Push.ErrorNoServer"
+msgstr "The Git server connection is not activated."
+
+msgid "Git.List.Push.Hint"
+msgstr "Transfers data that have already been included in the local repository to the server."
+
+msgid "Git.List.Push.NoCommitsToPush"
+msgstr "There are no commits that have not yet been committed to the server."
+
+msgid "Git.List.Push.Success"
+msgstr ""
+"New data were successfully pushed from the local directory\n"
+"%s\n"
+"to the remote repository\n"
+"%s"
+
+msgid "Git.List.Record.Folder"
+msgstr "Local folder"
+
+msgid "Git.List.Record.NoServer"
+msgstr "Transfer to Git server disabled."
+
+msgid "Git.List.Record.PullOnStart"
+msgstr "Pull will be executed at the program start."
+
+msgid "Git.List.Record.Server"
+msgstr "Server URL"
+
+msgid "Git.List.Tab.LocalFolder"
+msgstr "Local folder"
+
+msgid "Git.List.Tab.LocalFolder.LocalFolder"
+msgstr "Folder"
+
+msgid "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderDoesNotExist"
+msgstr "The foldes does not exist."
+
+msgid "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderIsGit"
+msgstr "The directory does contain a Git repository."
+
+msgid "Git.List.Tab.LocalFolder.LocalFolder.Info.FolderNotGit"
+msgstr "The directory does not contain a Git repository."
+
+msgid "Git.List.Tab.LocalFolder.LocalFolder.Info.NoFolderSelected"
+msgstr "No local Git folder was specified."
+
+msgid "Git.List.Tab.LocalFolder.LocalFolder.Select"
+msgstr "Select local folder"
+
+msgid "Git.List.Tab.Server"
+msgstr "Server"
+
+msgid "Git.List.Tab.Server.Auth"
+msgstr "Authentification"
+
+msgid "Git.List.Tab.Server.Auth.Key"
+msgstr "Key file"
+
+msgid "Git.List.Tab.Server.Auth.Key.InfoKeyFilesDoesNotExist"
+msgstr "The specified private key file does not exist."
+
+msgid "Git.List.Tab.Server.Auth.Key.InfoKeyOk"
+msgstr "The key file is valid."
+
+msgid "Git.List.Tab.Server.Auth.Key.InfoKeyWrongFormat"
+msgstr "The key file format is invalid."
+
+msgid "Git.List.Tab.Server.Auth.Key.InfoNoKey"
+msgstr "No private key file was specified."
+
+msgid "Git.List.Tab.Server.Auth.Key.Key"
+msgstr "Private key"
+
+msgid "Git.List.Tab.Server.Auth.Key.Passphrase"
+msgstr "Passphrase for keyfile"
+
+msgid "Git.List.Tab.Server.Auth.Key.Passphrase.Info"
+msgstr "Keep empty, if no passphrase is needed"
+
+msgid "Git.List.Tab.Server.Auth.Key.SelectKey"
+msgstr "Select private key file"
+
+msgid "Git.List.Tab.Server.Auth.Off"
+msgstr "Off"
+
+msgid "Git.List.Tab.Server.Auth.UserNamePassword"
+msgstr "User name and password"
+
+msgid "Git.List.Tab.Server.Auth.UserNamePassword.Name"
+msgstr "User name"
+
+msgid "Git.List.Tab.Server.Auth.UserNamePassword.Password"
+msgstr "Password"
+
+msgid "Git.List.Tab.Server.Button.Branches"
+msgstr "Branches"
+
+msgid "Git.List.Tab.Server.Button.Branches.Hint"
+msgstr "Shows all branches in the repository."
+
+msgid "Git.List.Tab.Server.Button.Branches.NoBranches"
+msgstr "No branches could be identified."
+
+msgid "Git.List.Tab.Server.Button.Clone"
+msgstr "Clone"
+
+msgid "Git.List.Tab.Server.Button.Clone.Error"
+msgstr ""
+"When trying to clone the remote repository\n"
+"%s\n"
+"into the local directory\n"
+"%s\n"
+"the following error occurred:\n"
+"%s"
+
+msgid "Git.List.Tab.Server.Button.Clone.Hint"
+msgstr "Clones the repository from the server."
+
+msgid "Git.List.Tab.Server.Button.Clone.Success"
+msgstr ""
+"The remote repository\n"
+"%s\n"
+"was successfully cloned to the local directory\n"
+"%s"
+
+msgid "Git.List.Tab.Server.Button.InitLocal"
+msgstr "Initialize locally"
+
+msgid "Git.List.Tab.Server.Button.InitLocal.Confirm"
+msgstr ""
+"Do you want to create a Git repository in the local directory\n"
+"%s\n"
+"now? The default way is actually to create a local Git repository\n"
+"by cloing a repository from a server."
+
+msgid "Git.List.Tab.Server.Button.InitLocal.Confirm.InfoNo"
+msgstr "Do not create a standalone local repository."
+
+msgid "Git.List.Tab.Server.Button.InitLocal.Confirm.InfoYes"
+msgstr "Create a standalone repository in the local folder."
+
+msgid "Git.List.Tab.Server.Button.InitLocal.Error"
+msgstr ""
+"While creating a Git repository in the local folder\n"
+"%s\n"
+"the following error occurred:\n"
+"%s"
+
+msgid "Git.List.Tab.Server.Button.InitLocal.Hint"
+msgstr "Creates a Git repository in the directory for local use only."
+
+msgid "Git.List.Tab.Server.Button.InitLocal.Success"
+msgstr ""
+"A Git repository was created in the folder\n"
+"%s."
+
+msgid "Git.List.Tab.Server.Button.Pull"
+msgstr "Pull"
+
+msgid "Git.List.Tab.Server.Button.Pull.Hint"
+msgstr "Updates the local Git directory with the data from the server."
+
+msgid "Git.List.Tab.Server.Button.Push"
+msgstr "Push"
+
+msgid "Git.List.Tab.Server.Button.Push.Hint"
+msgstr "Updates the server data with the data from the local Git directory."
+
+msgid "Git.List.Tab.Server.Button.Status"
+msgstr "Status of repository"
+
+msgid "Git.List.Tab.Server.Button.Status.Hint"
+msgstr "Shows the status of the local repository."
+
+msgid "Git.List.Tab.Server.Button.Test"
+msgstr "Test server connection"
+
+msgid "Git.List.Tab.Server.Button.Test.Error"
+msgstr ""
+"While trying to connect to\n"
+"%s\n"
+"the following error occurred:\n"
+"%s"
+
+msgid "Git.List.Tab.Server.Button.Test.Error.NoServerURL"
+msgstr "No git server address was specified."
+
+msgid "Git.List.Tab.Server.Button.Test.Hint"
+msgstr "Tries to connect to the server, but without changing any data on the server or locally."
+
+msgid "Git.List.Tab.Server.Button.Test.Success"
+msgstr ""
+"A connection to\n"
+"%s\n"
+"was successfully established."
+
+msgid "Git.List.Tab.Server.ForcePush"
+msgstr "Force push if necessary"
+
+msgid "Git.List.Tab.Server.ForcePush.Hint"
+msgstr "If the local and the remote branch are not based on a common root, normally no push is possible. This function nevertheless forces a push (upstream)."
+
+msgid "Git.List.Tab.Server.PullOnStart"
+msgstr "Run Pull on program start"
+
+msgid "Git.List.Tab.Server.ServerURL"
+msgstr "Server URL"
+
+msgid "Git.List.Tab.Server.UseServer"
+msgstr "Transfer data to remote repository on save (Push)?"
+
+msgid "Git.List.Tab.StoreFiles"
+msgstr "Store files"
+
+msgid "Git.List.Tab.StoreFiles.Button.All"
+msgstr "Select all"
+
+msgid "Git.List.Tab.StoreFiles.Button.All.Hint"
+msgstr "Selects all file types for Git storage."
+
+msgid "Git.List.Tab.StoreFiles.Button.None"
+msgstr "Select none"
+
+msgid "Git.List.Tab.StoreFiles.Button.None.Hint"
+msgstr "Removes selection of all file types for Git storage."
+
+msgid "Git.List.Tab.StoreFiles.Info"
+msgstr "Which files should be transferred to the Git repository automatically when saving?"
+
+msgid "Git.List.Tab.StoreFiles.Models"
+msgstr "Model files"
+
+msgid "Git.List.Tab.StoreFiles.OptimizationSetups"
+msgstr "Optimizer setups"
+
+msgid "Git.List.Tab.StoreFiles.ParameterSeries"
+msgstr "Parameter series"
+
+msgid "Git.List.Tab.StoreFiles.Statistics"
+msgstr "Statistic files"
+
+msgid "Git.List.Title"
+msgstr "Git configurations"
+
+msgid "Git.ListBranches.ActiveBranch"
+msgstr "active branch"
+
+msgid "Git.ListBranches.Add"
+msgstr "Add branch"
+
+msgid "Git.ListBranches.Add.Error"
+msgstr "An error occurred while creating the branch \"%s\"."
+
+msgid "Git.ListBranches.Add.ErrorInvalidName"
+msgstr "The specified name for the new branch is invalid."
+
+msgid "Git.ListBranches.Add.Hint"
+msgstr "Add and checkout new branch"
+
+msgid "Git.ListBranches.Add.Prompt"
+msgstr "Name of the new branch"
+
+msgid "Git.ListBranches.Add.Success"
+msgstr "The new branch \"%s\" was successfully created and activated."
+
+msgid "Git.ListBranches.BranchName"
+msgstr "Branch"
+
+msgid "Git.ListBranches.Checkout"
+msgstr "Checkout branch"
+
+msgid "Git.ListBranches.Checkout.AlreadyActive"
+msgstr "The branch \"%s\" is already active."
+
+msgid "Git.ListBranches.Checkout.Confirm"
+msgstr "Do you really want to activate branch \"%s\"?"
+
+msgid "Git.ListBranches.Checkout.Confirm.InfoNo"
+msgstr "Keep branch \"%s\" activated."
+
+msgid "Git.ListBranches.Checkout.Confirm.InfoYes"
+msgstr "Activate branch \"%s\"."
+
+msgid "Git.ListBranches.Checkout.Error"
+msgstr "An error occurred while activating the branch \"%s\"."
+
+msgid "Git.ListBranches.Checkout.Hint"
+msgstr "Activates the selected branch (Checkout)"
+
+msgid "Git.ListBranches.Checkout.Success"
+msgstr "The branch \"%s\" was successfully activated."
+
+msgid "Git.ListBranches.Title"
+msgstr "Branches"
+
+msgid "Git.System.AutoPushError.Info"
+msgstr ""
+"While processing the Git changes in directory\n"
+"%s\n"
+"the following error occurred:\n"
+"%s"
+
+msgid "Git.System.AutoPushError.Title"
+msgstr "Store data to Git repository"
+
+msgid "Git.System.Commit.Type.Model"
+msgstr "Model file"
+
+msgid "Git.System.Commit.Type.OptimizationSetup"
+msgstr "Optimizer setup"
+
+msgid "Git.System.Commit.Type.ParameterSeries"
+msgstr "Parameter series"
+
+msgid "Git.System.Commit.Type.StatisticsResults"
+msgstr "Statistics results"
+
+msgid "Git.System.Error.Error"
+msgstr "An error has occurred."
+
+msgid "Git.System.Error.Init"
+msgstr "The local Git system could not be initialized."
+
+msgid "Git.System.Error.InitRemote"
+msgstr "An error occurred while configuring the server data."
+
+msgid "Git.System.Error.NoFiles"
+msgstr "No files were processed or there were no files to process."
+
+msgid "Git.System.InitialPullError.Info"
+msgstr "Errors occurred while pulling the following remote Git repositories:"
+
+msgid "Git.System.InitialPullError.Title"
+msgstr "Pull remote Git repositories"
+
+msgid "Git.System.PleaseWait"
+msgstr "Please wait while the following operation is performed:"
+
+msgid "Git.System.Status.ActiveBranch"
+msgstr "Active branch"
+
+msgid "Git.System.Status.Ahead"
+msgstr "The local branch is newer by %s commits than the branch on the server."
+
+msgid "Git.System.Status.Ahead.One"
+msgstr "The local branch is newer by one commit than the branch on the server."
+
+msgid "Git.System.Status.Behind"
+msgstr "The local branch is older by %s commits than the branch on the server."
+
+msgid "Git.System.Status.Behind.One"
+msgstr "The local branch is older by one commit than the branch on the server."
+
+msgid "Git.System.Status.Clean"
+msgstr "There are no changed files."
+
+msgid "Git.System.Status.Uncommited"
+msgstr "There are %d changed files."
+
+msgid "Git.System.Status.Uncommited.One"
+msgstr "There is one changed files."
+
 msgid "Help.Back.Info"
 msgstr "Goes back to the last shown help page."
 
@@ -7168,6 +7606,12 @@ msgstr "Model generator..."
 
 msgid "Main.Menu.File.Generator.Mnemonic"
 msgstr "g"
+
+msgid "Main.Menu.File.GitSettings"
+msgstr "Git configurations..."
+
+msgid "Main.Menu.File.GitSettings.Mnemonic"
+msgstr "G"
 
 msgid "Main.Menu.File.Load"
 msgstr "Load..."
@@ -12791,6 +13235,9 @@ msgstr "zip compressed xml"
 msgid "SettingsDialog.Tabs.DefaultUserName"
 msgstr "Default author name for new models"
 
+msgid "SettingsDialog.Tabs.DefaultUserName.EMail"
+msgstr "Default author e-mail address for new models"
+
 msgid "SettingsDialog.Tabs.DefaultUserName.Name"
 msgstr "User name"
 
@@ -17503,6 +17950,9 @@ msgstr "System data"
 
 msgid "Statistics.SystemData.EditUser"
 msgstr "Author of the model"
+
+msgid "Statistics.SystemData.EditUserEMail"
+msgstr "E-mail address of the author of the model"
 
 msgid "Statistics.SystemData.EventsPerSecond"
 msgstr "Events per second"
@@ -26690,6 +27140,9 @@ msgstr "Model"
 msgid "Surface.XML.ModelAuthor"
 msgstr "ModelAuthor"
 
+msgid "Surface.XML.ModelAuthorEMail"
+msgstr "ModelAuthorEMail"
+
 msgid "Surface.XML.ModelBatchMeans"
 msgstr "ModelBatchSize"
 
@@ -28226,6 +28679,11 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "FindElement.Invisible"
 #~ msgstr "element is hidden"
+
+#~ msgid "Git.List.Tab.Server.Button.Branches.OneBranche"
+#~ msgstr ""
+#~ "The repository contains one branch:\n"
+#~ "%s"
 
 #~ msgid "InfoDialog.Libraries"
 #~ msgstr ""

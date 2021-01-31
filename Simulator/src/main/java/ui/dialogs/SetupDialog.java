@@ -244,6 +244,8 @@ public final class SetupDialog extends BaseDialog {
 
 	/** Autorenname für neue Modelle */
 	private final JTextField defaultUserName;
+	/** Autoren-E-Mail-Adresse für neue Modelle */
+	private final JTextField defaultUserEMail;
 	/** Standard-Speicherformat für Modelle */
 	private final JComboBox<String> defaultSaveFormatModels;
 	/** Standard-Speicherformat für Statistikdaten */
@@ -751,6 +753,10 @@ public final class SetupDialog extends BaseDialog {
 		button.setToolTipText(String.format(Language.tr("SettingsDialog.Tabs.DefaultUserName.Reset.Info"),System.getProperty("user.name")));
 		button.addActionListener(e->defaultUserName.setText(System.getProperty("user.name")));
 
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("SettingsDialog.Tabs.DefaultUserName.EMail")+":","");
+		mainarea.add(p=(JPanel)data[0]);
+		defaultUserEMail=(JTextField)data[1];
+
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.DefaultFormats")+"</b></body></html>"));
@@ -1111,6 +1117,7 @@ public final class SetupDialog extends BaseDialog {
 		/* Seite: Dateiformate */
 
 		defaultUserName.setText(setup.defaultUserName);
+		defaultUserEMail.setText(setup.defaultUserEMail);
 		switch (setup.defaultSaveFormatModels) {
 		case XML: defaultSaveFormatModels.setSelectedIndex(0); break;
 		case JSON: defaultSaveFormatModels.setSelectedIndex(1); break;
@@ -1358,6 +1365,7 @@ public final class SetupDialog extends BaseDialog {
 		/* Seite: Dateiformate */
 
 		setup.defaultUserName=defaultUserName.getText().trim();
+		setup.defaultUserEMail=defaultUserEMail.getText().trim();
 		switch (defaultSaveFormatModels.getSelectedIndex()) {
 		case 0: setup.defaultSaveFormatModels=XMLTools.DefaultSaveFormat.XML; break;
 		case 1: setup.defaultSaveFormatModels=XMLTools.DefaultSaveFormat.JSON; break;
@@ -1555,6 +1563,7 @@ public final class SetupDialog extends BaseDialog {
 			break;
 		case 4: /* Seite: Dateiformate */
 			defaultUserName.setText(System.getProperty("user.name"));
+			defaultUserEMail.setText("");
 			defaultSaveFormatModels.setSelectedIndex(0);
 			defaultSaveFormatStatistics.setSelectedIndex(0);
 			defaultSaveFormatParameterSeries.setSelectedIndex(2);

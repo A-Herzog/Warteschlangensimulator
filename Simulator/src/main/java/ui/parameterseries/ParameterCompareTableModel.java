@@ -39,6 +39,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableCellEditor;
 
+import gitconnect.GitSetup;
+import gitconnect.GitTools;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
@@ -589,6 +591,8 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		if (!statistics.saveToFile(file)) {
 			MsgBox.error(table,Language.tr("XML.SaveErrorTitle"),Language.tr("Main.Statistic.ErrorSaving"));
 		}
+
+		GitTools.saveFile(table,statistics.editModel.author,statistics.editModel.authorEMail,file,GitSetup.GitSaveMode.STATISTICS);
 	}
 
 	/**

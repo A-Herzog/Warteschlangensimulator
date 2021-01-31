@@ -81,6 +81,8 @@ import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import gitconnect.GitSetup;
+import gitconnect.GitTools;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
@@ -1016,6 +1018,8 @@ public class OptimizerPanel extends SpecialPanel {
 			MsgBox.error(this,Language.tr("Optimizer.Settings.Save.Error.Title"),String.format(Language.tr("Optimizer.Settings.Save.Error.Info"),file.toString()));
 			return false;
 		}
+
+		GitTools.saveFile(this,model.author,model.authorEMail,file,GitSetup.GitSaveMode.OPTIMIZATION_SETUPS);
 
 		this.setup=setup;
 		return true;

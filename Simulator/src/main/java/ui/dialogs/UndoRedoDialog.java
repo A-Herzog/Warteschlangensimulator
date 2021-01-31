@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 
+import gitconnect.GitSetup;
+import gitconnect.GitTools;
 import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
@@ -213,9 +215,11 @@ public class UndoRedoDialog extends BaseDialog {
 
 		if (!model.saveToFile(file)) {
 			MsgBox.error(this,Language.tr("XML.SaveErrorTitle"),EditorPanelBase.SAVE_MODEL_ERROR);
+			return;
 		}
-	}
 
+		GitTools.saveFile(this,model.author,model.authorEMail,file,GitSetup.GitSaveMode.MODELS);
+	}
 
 	/**
 	 * Renderer für die Liste der Elemente

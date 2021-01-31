@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Git-Konfigurationen</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Git-Konfigurationen</h1>
+
+<p>
+Werden Modelldateien, Statistikdaten, Parameterreihen oder Optimierer-Einstellungen über die grafische Oberfläche des Simulators
+in einem Verzeichnis gespeichert, so können diese, wenn das Verzeichnis ein Git-Repository darstellt, direkt mit Hilfe des
+Simulators in dieses Repository übernommen werden.
+</p>
+
+<p>
+Über den Dialog "Git-Konfigurationen" können verschiedene Ordner angegeben werden, bei denen es sich um Git-Repositories
+handelt. Außerdem kann zu jedem Ordner eine Server-Adresse angegeben werden. Werden Dateien in diesem Ordner abgelegt,
+so werden sie sowohl in das lokale als auch in das auf dem Server befindliche Repository übernommen. Nach der Konfiguration
+der entsprechenden Ordner sind hierfür im Folgenden keine weiteren Interaktionen notwendig; die Verarbeitung erfolgt
+automatisch und im Hintergrund. Außerdem kann pro Verzeichnis eingestellt werden, ob beim Programmstart des Simulators
+ein Datenabgleich vom Server in das lokale Verzeichnis erfolgen soll, so dass der Simulator im Folgenden im lokalen
+Verzeichnis alle aktuellen Dateien vorfindet.
+</p>
+
+<h3>Pull</h3>
+<p>
+Diese Funktion führt einen Datenabgleich vom Server in das lokale Verzeichnis durch. Es kann pro Git-Verzeichnis
+eingestellt werden, dass solch ein Pull automatisch beim Programmstart erfolgt.
+</p>
+
+<h3>Push</h3>
+<p>
+Diese Funktion überträgt Daten vom lokalen Git-Verzeichnis auf den Server. Neue bzw. veränderte Dateien müssen zunächst
+über einen Commit in das lokale Git-System aufgenommen werden. Danach können sie per Push auf den Server übertragen werden.
+Ist die Erfassung für Simulator-Dateien für ein Verzeichnis aktiviert, so erfolgt automatisch die Erstellung eines Commits
+mit anschließendem Push für gespeicherte Dateien.
+</p>
+<p>
+Wurden mit externen Programmen Commits erstellt, diese aber noch nicht per Push auf den Server übertragen oder aber stand
+beim letzten Commit &amp; Push Aufruf im Simulator der Server nicht zur Verfügung, so kann über den expliziten Aufruf der
+Push-Funktion diese Übertragung nachgeholt werden.
+</p>
+
+<h3>Clone</h3>
+<p>
+Bei der Einrichtung eines lokalen Git-Repositories empfiehlt es sich, die mit den Daten eines entfernten Repositories
+auf einem Server zu beginnen. Über eine Clone-Anweisung können alle Daten aus einem Repository auf einem Server in ein
+lokales Verzeichnis übertragen werden.
+</p>
+
+<h3>Zugangsdaten zu einem Server</h3>
+<p>
+Die Zugangsdaten zu einem Git-Server dürften meisten die Form <tt>ssh://git@servername:portnummer/pfad</tt> besitzen,
+wobei <tt>:portnummer</tt> optional ist. Die Authentifizierung gegenüber dem Server erfolgt entweder über einen
+Benutzernamen und ein Passwort oder über einen SSH-Schlüssel. Ein SSH-Schlüssel besteht aus einem öffentlichen
+(auf dem Server hinterlegten) und einem privaten Anteil. Zur Verbindung mit dem Server muss im Simulator der private
+Schlüssel angegeben werden. Dieser muss mit der Zeile<br>
+<tt>-----BEGIN RSA PRIVATE KEY-----</tt>
+<br>beginnen und kann z.B. mit dem Befehl <tt>ssh-keygen -t rsa -m PEM</tt> erzeugt werden.
+</p>
+
+</body>
+</html>
