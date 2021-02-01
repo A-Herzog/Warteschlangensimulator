@@ -18,6 +18,9 @@ package scripting.java;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import tools.SetupData;
 
@@ -47,7 +50,17 @@ public class SimDynamicSetup implements DynamicSetup {
 
 	@Override
 	public String[] getImports() {
-		return new String[]{"scripting.java.*"};
+		final List<String> list=new ArrayList<>();
+		list.addAll(Arrays.asList(
+				"scripting.java.*",
+				"java.lang.*",
+				"java.math.*",
+				"java.util.*",
+				"java.util.function.*",
+				"java.util.stream.*"
+				));
+		list.addAll(SetupData.getSetup().dynamicImportClasses);
+		return list.toArray(new String[0]);
 	}
 
 	@Override

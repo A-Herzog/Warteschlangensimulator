@@ -33,6 +33,7 @@ import language.Language;
 import language.LanguageStaticLoader;
 import language.Messages_Java11;
 import mathtools.NumberTools;
+import scripting.java.SimDynamicSetup;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.GUITools;
 import systemtools.SetupBase;
@@ -940,6 +941,12 @@ public class SetupData extends SetupBase {
 	public List<GitSetup> gitSetups;
 
 	/**
+	 * Zusätzlich zu importierende Klassen für dynamisch generierte Klassen
+	 * @see SimDynamicSetup#getImports()
+	 */
+	public List<String> dynamicImportClasses;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1113,6 +1120,8 @@ public class SetupData extends SetupBase {
 		statisticOverviewFilter="";
 		if (gitSetups==null) gitSetups=new ArrayList<>();
 		gitSetups.clear();
+		if (dynamicImportClasses==null) dynamicImportClasses=new ArrayList<>();
+		dynamicImportClasses.clear();
 		lastError=null;
 	}
 
@@ -1872,6 +1881,11 @@ public class SetupData extends SetupBase {
 				}
 				continue;
 			}
+
+			if (name.equals("dynamicimportclass")) {
+				dynamicImportClasses.add(e.getTextContent());
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -2431,6 +2445,11 @@ public class SetupData extends SetupBase {
 		if (gitSetups.size()>0) {
 			root.appendChild(node=doc.createElement(GitSetup.XML_PARENT_NAME));
 			for (GitSetup gitSetup: gitSetups) gitSetup.save(node);
+		}
+
+		for (String cls: dynamicImportClasses) {
+			root.appendChild(node=doc.createElement("DynamicImportClass"));
+			node.setTextContent(cls);
 		}
 	}
 
