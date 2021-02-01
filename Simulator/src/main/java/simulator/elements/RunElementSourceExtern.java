@@ -112,25 +112,28 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 
 		/* Tabelle verarbeiten */
 		final int rows=table.getSize(0);
+		boolean isSorted=true;
 		for (int i=0;i<rows;i++) {
 			/* Zeile laden */
 			final List<String> line=table.getLine(i);
 			if (line==null || line.size()<2) continue;
 
 			/* Zahlenwert in erster Spalte? */
-			final Double D=NumberTools.getNotNegativeDouble(line.get(0));
-			if (D==null) continue;
+			Double D=NumberTools.getPlainDouble(line.get(0));
+			if (D==null) D=NumberTools.getNotNegativeDouble(line.get(0));
+			if (D==null || D<0) continue;
 
 			/* Ankunftszeit */
 			final double arrivalTime;
 			if (numbersAreDistances) {
 				/* Zwischenankunftszeiten */
 				arrivalTime=lastArrivalTime+D.doubleValue();
-				lastArrivalTime=arrivalTime;
 			} else {
 				/* Ankunftszeitpunkte */
 				arrivalTime=D.doubleValue();
 			}
+			if (arrivalTime<lastArrivalTime) isSorted=false;
+			lastArrivalTime=arrivalTime;
 
 			/* Erst Ankunftszeit bestimmen, dann bestimmen, ob Zeile übersprungen wird. So sind relative Zeitabstände immer korrekt, auch wenn später übersprungene Zeilen fehlen. */
 
@@ -150,7 +153,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		arrivals=new Arrival[types.length][];
 		for (int i=0;i<types.length;i++) {
 			final Arrival[] list=arrivalsList.get(i).toArray(new Arrival[0]);
-			Arrays.sort(list,(a1,a2)->{
+			if (!isSorted) Arrays.sort(list,(a1,a2)->{
 				final long l=a1.time-a2.time;
 				if (l<0) return -1;
 				if (l>0) return 1;
@@ -261,6 +264,29 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	}
 
 	/**
+	 * Weist einen geladenen Wert an ein Kundendatenfeld zu.
+	 * @param client	Kunde bei dem der Wert zugewiesen werden soll
+	 * @param index	Index des Datenfeldes (nicht negativer Wert für normales Datenfeld, negativer Wert für Zeit oder Kosten)
+	 * @param value	Zuzuweisender Wert
+	 */
+	private void setClientValue(final RunDataClient client, final int index, final double value) {
+		if (index>=0) {
+			/* Normales Kundendatenfeld */
+			client.setUserData(index,value);
+		} else {
+			/* Besonderer Wert */
+			switch (index) {
+			case -1: client.waitingTime=Math.round(value*1000); break;
+			case -2: client.transferTime=Math.round(value*1000); break;
+			case -3: client.processTime=Math.round(value*1000); break;
+			case -4: client.waitingAdditionalCosts=value; break;
+			case -5: client.transferAdditionalCosts=value; break;
+			case -6: client.processAdditionalCosts=value; break;
+			}
+		}
+	}
+
+	/**
 	 * Führt die Ankunft eines Kunden durch und plant ggf. die nächste Ankunft ein.<br>
 	 * Aufruf über das {@link SystemArrivalEvent} über das {@link RunSource}-Interface
 	 * @param simData	Simulationsdatenobjekt
@@ -281,26 +307,19 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 
 		/* Ggf. ClientData setzen */
 		if (arrival.dataIndex!=null) for (int i=0;i<arrival.dataIndex.length;i++) {
+			/* Einfache Zahl? */
+			final Double D=NumberTools.getPlainDouble(arrival.dataFormula[i]);
+			if (D!=null) {
+				setClientValue(newClient,arrival.dataIndex[i],D);
+				continue;
+			}
+
+			/* Rechenausdruck */
 			/* langsam: final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames); - stattdessen verwenden wir das Objekt wieder. */
 			if (data.calc.parse(arrival.dataFormula[i])<0) {
 				simData.runData.setClientVariableValues(newClient);
 				try {
-					final double dataValue=data.calc.calc(simData.runData.variableValues,simData,newClient);
-					final int dataIndex=arrival.dataIndex[i];
-					if (dataIndex>=0) {
-						/* Normales Kundendatenfeld */
-						newClient.setUserData(dataIndex,dataValue);
-					} else {
-						/* Besonderer Wert */
-						switch (dataIndex) {
-						case -1: newClient.waitingTime=Math.round(dataValue*1000); break;
-						case -2: newClient.transferTime=Math.round(dataValue*1000); break;
-						case -3: newClient.processTime=Math.round(dataValue*1000); break;
-						case -4: newClient.waitingAdditionalCosts=dataValue; break;
-						case -5: newClient.transferAdditionalCosts=dataValue; break;
-						case -6: newClient.processAdditionalCosts=dataValue; break;
-						}
-					}
+					setClientValue(newClient,arrival.dataIndex[i],data.calc.calc(simData.runData.variableValues,simData,newClient));
 				} catch (MathCalcError e) {
 					simData.calculationErrorStation(data.calc,this);
 				}
