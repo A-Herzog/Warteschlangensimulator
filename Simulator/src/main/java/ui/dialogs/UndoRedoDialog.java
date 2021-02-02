@@ -109,6 +109,7 @@ public class UndoRedoDialog extends BaseDialog {
 
 		/* Modellansicht */
 		split.setRightComponent(viewer=new EditorPanel(this,null,true,false,false));
+		viewer.setSavedViewsButtonVisible(false);
 		viewer.setMinimumSize(new Dimension(500,0));
 		list.setSelectedIndex(this.undoModels.size());
 		setModel(getStep(0));

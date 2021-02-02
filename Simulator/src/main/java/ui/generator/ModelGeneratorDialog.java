@@ -64,6 +64,7 @@ public class ModelGeneratorDialog extends BaseDialog {
 		main.add(left,BorderLayout.WEST);
 		left.add(setup=new ModelGeneratorPanel(),BorderLayout.NORTH);
 		main.add(viewer=new EditorPanel(this,setup.getModel(),true,false,false));
+		viewer.setSavedViewsButtonVisible(false);
 		setup.addModelChangeListener(()->{viewer.setModel(setup.getModel());});
 
 		/* setup.getModel() liefert erst dann ein Modell ohne Überlappungen der Elemente, wenn setup ein sichtbares Panel ist. */

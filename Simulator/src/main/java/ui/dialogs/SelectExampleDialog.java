@@ -77,6 +77,7 @@ public final class SelectExampleDialog extends BaseDialog {
 
 		/* Vorschau rechts */
 		main.setRightComponent(viewer=new EditorPanel(this,null,true,false,false));
+		viewer.setSavedViewsButtonVisible(false);
 		viewer.setMinimumSize(new Dimension(400,0));
 
 		/* Baumstruktur links */

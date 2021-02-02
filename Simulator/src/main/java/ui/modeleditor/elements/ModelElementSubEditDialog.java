@@ -87,6 +87,7 @@ public class ModelElementSubEditDialog extends BaseDialog {
 		ownModel.surface=prepareSurface(subSurface,edgesIn,edgesOut);
 
 		content.add(editorPanel=new EditorPanel(this,ownModel,readOnly,false,false),BorderLayout.CENTER);
+		editorPanel.setSavedViewsButtonVisible(false);
 
 		final InputMap im=content.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		final ActionMap am=content.getActionMap();
