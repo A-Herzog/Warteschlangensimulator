@@ -124,6 +124,8 @@ public class CommandServerWebFixed extends AbstractCommand {
 		/* Zugangsdaten */
 		if (authName!=null && !authName.trim().isEmpty() && authPassword!=null && !authPassword.trim().isEmpty()) {
 			server.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),authName,authPassword);
+		} else {
+			server.setAuthData(null,null,null);
 		}
 
 		/* TLS */

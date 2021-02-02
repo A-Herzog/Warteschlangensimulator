@@ -617,7 +617,11 @@ public final class ServerPanel extends SpecialPanel {
 			if (port>0) {
 				final String name=authNameEdit.getText().trim();
 				final String password=authPasswordEdit.getText().trim();
-				if (!name.isEmpty() && !password.isEmpty()) serverCalcWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
+				if (!name.isEmpty() && !password.isEmpty()) {
+					serverCalcWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
+				} else {
+					serverCalcWeb.setAuthData(null,null,null);
+				}
 
 				final SetupData setup=SetupData.getSetup();
 				final String keyStore=setup.serverTLSKeyStoreFile;
@@ -667,7 +671,11 @@ public final class ServerPanel extends SpecialPanel {
 			if (port>0) {
 				final String name=authNameEdit.getText().trim();
 				final String password=authPasswordEdit.getText().trim();
-				if (!name.isEmpty() && !password.isEmpty()) serverWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
+				if (!name.isEmpty() && !password.isEmpty()) {
+					serverWeb.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),name,password);
+				} else {
+					serverWeb.setAuthData(null,null,null);
+				}
 
 				final SetupData setup=SetupData.getSetup();
 				final String keyStore=setup.serverTLSKeyStoreFile;
