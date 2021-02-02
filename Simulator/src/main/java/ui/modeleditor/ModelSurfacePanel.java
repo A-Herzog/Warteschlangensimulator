@@ -265,6 +265,8 @@ public final class ModelSurfacePanel extends JPanel {
 	private Color[] colors=new Color[]{ModelSurface.DEFAULT_BACKGROUND_COLOR,ModelSurface.DEFAULT_RASTER_COLOR};
 	/** Optionales Hintergrundbild */
 	private BufferedImage backgroundImage;
+	/** Hashwert des Hintergrundbildes {@link #backgroundImage} (wird automatisch in {@link #setBackgroundImage(BufferedImage, double)} gesetzt */
+	private String backgroundImageHash;
 	/** Skalierungsfaktor für das optionale Hintergrundbild */
 	private double backgroundImageScale;
 	/** Mausposition beim Start einer Drag&amp;drop-Operation */
@@ -1213,14 +1215,15 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @param raster	Raster anzeigen?
 	 * @param colors	2- oder 3-elementiges Array aus Hintergrund-, Raster- und optional oberer Gradienthintergrundfarbe
 	 * @param backgroundImage	Optionales Hintergrundbild
+	 * @param backgroundImageHash	Optionaler zusätzliches Hash-Wert des optionales Hintergrundbildes (siehe {@link ScaledImageCache#getHash(java.awt.Image)}
 	 * @param backgroundImageScale	Skalierungsfaktor für das optionale Hintergrundbild
 	 * @param showSelectionFrames	Rahmen anzeigen, wenn etwas ausgewählt ist
 	 */
-	public void paintElements(final Graphics g, final Rectangle viewArea, final boolean showBackground, final boolean showBoundingBox, final ModelSurface.Grid raster, final Color[] colors, final BufferedImage backgroundImage, final double backgroundImageScale, final boolean showSelectionFrames) {
+	public void paintElements(final Graphics g, final Rectangle viewArea, final boolean showBackground, final boolean showBoundingBox, final ModelSurface.Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale, final boolean showSelectionFrames) {
 		if (SetupData.getSetup().antialias) ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		/* Surface zeichnet alle Elemente in Graphics-Objekt */
-		surface.drawToGraphics(g,viewArea,zoom,showBackground,showBoundingBox,raster,colors,backgroundImage,backgroundImageScale,showSelectionFrames);
+		surface.drawToGraphics(g,viewArea,zoom,showBackground,showBoundingBox,raster,colors,backgroundImage,backgroundImageHash,backgroundImageScale,showSelectionFrames);
 	}
 
 	/**
@@ -1359,7 +1362,7 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 
 		/* Elemente zeichnen */
-		paintElements(g,viewArea,true,true,raster,colors,backgroundImage,backgroundImageScale,true);
+		paintElements(g,viewArea,true,true,raster,colors,backgroundImage,backgroundImageHash,backgroundImageScale,true);
 
 		/* Ggf. Hinweis zu Steuerelementen einzeichnen */
 		if (viewArea.x==0 && viewArea.y==0 && surface.count()==0 && useInfoPaint) {
@@ -1447,7 +1450,7 @@ public final class ModelSurfacePanel extends JPanel {
 		Graphics g=image.getGraphics();
 		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,false,true,ModelSurface.Grid.OFF,null,null,1.0,false);
+		surface.drawToGraphics(g,new Rectangle(0,0,xSurfaceImage,ySurfaceImage),imageZoom,false,true,ModelSurface.Grid.OFF,null,null,null,1.0,false);
 		if (additionalUserPaint!=null) {
 			g.setClip(new Rectangle(0,0,xSurfaceImage,ySurfaceImage));
 			additionalUserPaint.paint(g,imageZoom);
@@ -1482,7 +1485,7 @@ public final class ModelSurfacePanel extends JPanel {
 		svgGenerator.setSVGCanvasSize(new Dimension(maxX+minX,maxY+minY));
 
 		final Rectangle area=new Rectangle(0,0,maxX*10,maxY*10);
-		paintElements(svgGenerator,area,false,false,ModelSurface.Grid.OFF,null,null,1.0,false);
+		paintElements(svgGenerator,area,false,false,ModelSurface.Grid.OFF,null,null,null,1.0,false);
 
 		try (FileOutputStream fileWriter=new FileOutputStream(file)) {
 			final Writer out=new OutputStreamWriter(fileWriter,StandardCharsets.UTF_8);
@@ -1520,7 +1523,7 @@ public final class ModelSurfacePanel extends JPanel {
 		};
 
 		final Rectangle area=new Rectangle(0,0,maxX*10,maxY*10);
-		paintElements(vg2d,area,false,false,ModelSurface.Grid.OFF,null,null,1.0,false);
+		paintElements(vg2d,area,false,false,ModelSurface.Grid.OFF,null,null,null,1.0,false);
 
 		final CommandSequence commands=((VectorGraphics2D)vg2d).getCommands();
 		final EPSProcessor epsProcessor=new EPSProcessor();
@@ -2354,7 +2357,13 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @param scale	Skalierung für das Hintergrundbild (muss größer als 0 sein)
 	 */
 	public void setBackgroundImage(final BufferedImage image, final double scale) {
-		if (image==null) backgroundImage=null; else backgroundImage=ScaledImageCache.copyImage(image);
+		if (image==null) {
+			backgroundImage=null;
+			backgroundImageHash=null;
+		} else {
+			backgroundImage=ScaledImageCache.copyImage(image);
+			backgroundImageHash=ScaledImageCache.getHash(backgroundImage);
+		}
 		backgroundImageScale=Math.max(0.1,scale);
 	}
 
@@ -2366,6 +2375,16 @@ public final class ModelSurfacePanel extends JPanel {
 	 */
 	public BufferedImage getBackgroundImage() {
 		return backgroundImage;
+	}
+
+	/**
+	 * Liefert den Hash-Wert des aktuellen Hintergrundbildes
+	 * (kann <code>null</code> sein, wenn kein Hintergrundbild eingestellt ist)
+	 * @return	Hash-Wert des aktuellen Hintergrundbildes
+	 * @see #setBackgroundImage(BufferedImage, double)
+	 */
+	public String getBackgroundImageHash() {
+		return backgroundImageHash;
 	}
 
 	/**

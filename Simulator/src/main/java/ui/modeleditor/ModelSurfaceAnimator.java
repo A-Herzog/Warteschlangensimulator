@@ -175,7 +175,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 		final Graphics graphics=image.getGraphics();
 		final Rectangle viewArea=new Rectangle(0,0,surfaceSize.width,surfaceSize.height);
 
-		surfacePanel.paintElements(graphics,viewArea,true,true,surfacePanel.getRaster(),surfacePanel.getColors(),surfacePanel.getBackgroundImage(),surfacePanel.getBackgroundImageScale(),false);
+		surfacePanel.paintElements(graphics,viewArea,true,true,surfacePanel.getRaster(),surfacePanel.getColors(),surfacePanel.getBackgroundImage(),surfacePanel.getBackgroundImageHash(),surfacePanel.getBackgroundImageScale(),false);
 		surfaceAddOnPaint(graphics,surfacePanel.getZoom());
 		if (paintTimeStamp) surfacePaintTime(graphics,viewArea,surfacePanel.getZoom(),simData.currentTime/1000);
 
