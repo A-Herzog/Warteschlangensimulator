@@ -59,9 +59,16 @@ public class ScaledImageCache {
 	 * @see #getScaledImageCache()
 	 */
 	private ScaledImageCache() {
-		cacheHash=new String[MAX_CACHE_SIZE];
-		cacheData=new BufferedImage[MAX_CACHE_SIZE];
-		cacheLastAccess=new long[MAX_CACHE_SIZE];
+		final int maxMemoryMB=(int)(Runtime.getRuntime().maxMemory()/1024/1024);
+
+		int maxCacheRecords=MAX_CACHE_SIZE;
+		if (maxMemoryMB<=8_192) maxCacheRecords=25;
+		if (maxMemoryMB<=4_096) maxCacheRecords=10;
+		if (maxMemoryMB<=2_048) maxCacheRecords=5;
+
+		cacheHash=new String[maxCacheRecords];
+		cacheData=new BufferedImage[maxCacheRecords];
+		cacheLastAccess=new long[maxCacheRecords];
 	}
 
 	/**
@@ -112,6 +119,8 @@ public class ScaledImageCache {
 	public static boolean compare(final BufferedImage image1, final BufferedImage image2) {
 		if (image1==null && image2==null) return true;
 		if (image1==null || image2==null) return false;
+
+		if (image1==image2) return true;
 
 		return Objects.equal(getHash(image1),getHash(image2));
 	}
