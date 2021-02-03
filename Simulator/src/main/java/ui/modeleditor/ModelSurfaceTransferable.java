@@ -101,7 +101,13 @@ public class ModelSurfaceTransferable implements Transferable, Serializable {
 		if (flavor.equals(TXT_FLAVOR)) return transferTxt;
 		if (flavor.equals(IMAGE_FLAVOR)) {
 			if (transferImage==null) return new BufferedImage(10,10,BufferedImage.TYPE_INT_RGB);
-			return ImageIO.read(new ByteArrayInputStream(transferImage));
+			final boolean useCache=ImageIO.getUseCache();
+			try {
+				ImageIO.setUseCache(false); /* Wird benötigt, wenn im Stream nicht gesprungen werden kann, was bei einem ByteArrayInputStream nun definitiv möglich ist.  */
+				return ImageIO.read(new ByteArrayInputStream(transferImage));
+			} finally {
+				ImageIO.setUseCache(useCache);
+			}
 		}
 		if (flavor.equals(MODEL_FLAVOR)) return this;
 

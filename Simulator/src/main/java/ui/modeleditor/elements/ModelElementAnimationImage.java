@@ -577,7 +577,13 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 			final String exp=Language.trAllAttribute("Surface.AnimationImage.XML.Image.Expression",node).trim();
 			final BufferedImage image;
 			try {
-				image=ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(content.getBytes())));
+				final boolean useCache=ImageIO.getUseCache();
+				try {
+					ImageIO.setUseCache(false); /* Wird benötigt, wenn im Stream nicht gesprungen werden kann, was bei einem ByteArrayInputStream nun definitiv möglich ist.  */
+					image=ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(content.getBytes())));
+				} finally {
+					ImageIO.setUseCache(useCache);
+				}
 			} catch (IOException | IllegalArgumentException e) {return null;}
 
 			if (exp.isEmpty()) {

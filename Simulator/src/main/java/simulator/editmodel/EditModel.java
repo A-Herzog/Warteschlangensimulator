@@ -820,8 +820,15 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (!text.isEmpty()) {
 				try {
 					final ByteArrayInputStream stream=new ByteArrayInputStream(Base64.getDecoder().decode(text));
-					final BufferedImage image=ImageIO.read(stream);
-					if (image!=null) surfaceBackgroundImage=image;
+
+					final boolean useCache=ImageIO.getUseCache();
+					try {
+						ImageIO.setUseCache(false); /* Wird benötigt, wenn im Stream nicht gesprungen werden kann, was bei einem ByteArrayInputStream nun definitiv möglich ist.  */
+						final BufferedImage image=ImageIO.read(stream);
+						if (image!=null) surfaceBackgroundImage=image;
+					} finally {
+						ImageIO.setUseCache(useCache);
+					}
 				} catch (IOException | IllegalArgumentException e) {}
 			}
 			return null;

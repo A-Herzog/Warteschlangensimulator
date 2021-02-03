@@ -514,8 +514,14 @@ public class ModelElementImage extends ModelElementDecoration {
 				public Integer call() throws Exception {
 					try {
 						final ByteArrayInputStream stream=new ByteArrayInputStream(Base64.getDecoder().decode(content));
-						final BufferedImage image=ImageIO.read(stream);
-						if (image!=null) ModelElementImage.this.image=image;
+						final boolean useCache=ImageIO.getUseCache();
+						try {
+							ImageIO.setUseCache(false); /* Wird benötigt, wenn im Stream nicht gesprungen werden kann, was bei einem ByteArrayInputStream nun definitiv möglich ist.  */
+							final BufferedImage image=ImageIO.read(stream);
+							if (image!=null) ModelElementImage.this.image=image;
+						} finally {
+							ImageIO.setUseCache(useCache);
+						}
 					} catch (IOException | IllegalArgumentException e) {}
 					return null;
 				}

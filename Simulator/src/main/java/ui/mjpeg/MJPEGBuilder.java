@@ -74,7 +74,13 @@ public class MJPEGBuilder {
 			final int result=dataInput.read(buf);
 			if (result!=size) return null;
 			final ByteArrayInputStream buffer=new ByteArrayInputStream(buf);
-			return ImageIO.read(buffer);
+			final boolean useCache=ImageIO.getUseCache();
+			try {
+				ImageIO.setUseCache(false); /* Wird benötigt, wenn im Stream nicht gesprungen werden kann, was bei einem ByteArrayInputStream nun definitiv möglich ist.  */
+				return ImageIO.read(buffer);
+			} finally {
+				ImageIO.setUseCache(useCache);
+			}
 		} catch (IOException e) {
 			return null;
 		}

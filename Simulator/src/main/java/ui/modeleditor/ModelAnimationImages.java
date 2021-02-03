@@ -281,7 +281,13 @@ public final class ModelAnimationImages implements Cloneable {
 	 */
 	private BufferedImage imageFromBase64(final String imageString) {
 		try {
-			return ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(imageString)));
+			final boolean useCache=ImageIO.getUseCache();
+			try {
+				ImageIO.setUseCache(false); /* Wird benötigt, wenn im Stream nicht gesprungen werden kann, was bei einem ByteArrayInputStream nun definitiv möglich ist.  */
+				return ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(imageString)));
+			} finally {
+				ImageIO.setUseCache(useCache);
+			}
 		} catch (IOException | IllegalArgumentException e) {return null;}
 	}
 
