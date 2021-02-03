@@ -518,7 +518,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.globalVariablesNames.addAll(globalVariablesNames);
 		clone.globalVariablesExpressions.addAll(globalVariablesExpressions);
 		for (int i=0;i<surfaceColors.length;i++) clone.surfaceColors[i]=surfaceColors[i];
-		clone.surfaceBackgroundImage=ScaledImageCache.copyImage(surfaceBackgroundImage);
+		clone.surfaceBackgroundImage=surfaceBackgroundImage; /* Bild wird wenn immer neu zugewiesen, ist quasi immutable, daher reicht eine Referenz statt ScaledImageCache.copyImage(surfaceBackgroundImage); */
 		clone.surfaceBackgroundImageScale=surfaceBackgroundImageScale;
 		clone.sequences.setDataFrom(sequences);
 		clone.transporters.setDataFrom(transporters);
