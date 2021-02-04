@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-31 22:16+0100\n"
+"POT-Creation-Date: 2021-02-04 21:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11471,7 +11471,7 @@ msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation2
 msgstr "Beim Exportieren viele Zwischenwerte per Interpolation hinzufügen"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation3"
-msgstr "Beim Exportieren sher viele Zwischenwerte per Interpolation hinzufügen"
+msgstr "Beim Exportieren sehr viele Zwischenwerte per Interpolation hinzufügen"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.RunScript"
 msgstr "Skript auf alle Ergebnisse anwenden"

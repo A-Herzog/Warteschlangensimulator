@@ -15485,7 +15485,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36908] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation2";
     t[36909] = "Beim Exportieren viele Zwischenwerte per Interpolation hinzuf\u00fcgen";
     t[36910] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation3";
-    t[36911] = "Beim Exportieren sher viele Zwischenwerte per Interpolation hinzuf\u00fcgen";
+    t[36911] = "Beim Exportieren sehr viele Zwischenwerte per Interpolation hinzuf\u00fcgen";
     t[36912] = "Wait.Info.Day";
     t[36913] = "Bisherige Laufzeit: %s Sekunden. Gesch\u00e4tzte Restzeit: %s Sekunden.";
     t[36922] = "Animation.Icon.World";

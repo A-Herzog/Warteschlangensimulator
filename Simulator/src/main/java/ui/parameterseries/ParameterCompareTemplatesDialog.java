@@ -779,7 +779,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 
 			int modelNr=1;
 			double value=min;
-			while (value<=max) {
+			while (value-1E-10<=max) { /* value+=step; ist ungenau, daher lassen wir eine kleine Toleranz zu */
 				modelRecord=new ParameterCompareSetupModel();
 				if (mode==ParameterCompareTemplatesDialog.TemplateMode.MODE_OPERATORS || mode==ParameterCompareTemplatesDialog.TemplateMode.MODE_BATCH_SIZE) {
 					modelRecord.getInput().put(inputName,(double)Math.round(value));
