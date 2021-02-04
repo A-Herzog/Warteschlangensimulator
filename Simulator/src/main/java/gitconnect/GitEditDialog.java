@@ -38,6 +38,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.tools.FileDropper;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -248,6 +249,7 @@ public class GitEditDialog extends BaseDialog {
 		editLocalFolder.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {commandTestLocalFolder();}
 		});
+		FileDropper.addDirectoryDropper(tabOuter,editLocalFolder);
 
 		line.add(button=new JButton(Images.GENERAL_SELECT_FOLDER.getIcon()),BorderLayout.EAST);
 		button.setToolTipText(Language.tr("Git.List.Tab.LocalFolder.LocalFolder.Select"));
@@ -350,6 +352,10 @@ public class GitEditDialog extends BaseDialog {
 
 		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(labelAuthKey=new JLabel());
+		FileDropper.addFileDropper(tabOuter,editAuthKey,()->{
+			comboboxAuth.setSelectedIndex(2);
+			commandSelectAuthType();
+		});
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(checkboxForcePush=new JCheckBox(Language.tr("Git.List.Tab.Server.ForcePush"),gitSetup.forcePush));

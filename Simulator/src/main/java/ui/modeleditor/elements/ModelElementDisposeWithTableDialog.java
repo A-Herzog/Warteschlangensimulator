@@ -38,6 +38,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import language.Language;
 import mathtools.Table;
 import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.tools.FileDropper;
 import systemtools.MsgBox;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -114,6 +115,8 @@ public class ModelElementDisposeWithTableDialog extends ModelElementBaseDialog {
 		clientsOutputTable.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 		});
+		FileDropper.addFileDropper(this,clientsOutputTable);
+
 		final JButton button=new JButton("",Images.GENERAL_SELECT_TABLE_IN_FILE.getIcon());
 		button.setToolTipText(Language.tr("Surface.Dispose.Dialog.Table.Select"));
 		line.add(button,BorderLayout.EAST);

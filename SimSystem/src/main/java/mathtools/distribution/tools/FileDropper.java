@@ -27,17 +27,23 @@ import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
+
+import javax.swing.JTextField;
 
 /**
  * Ermöglicht es Datei-Drag&amp;Drop-Operationen über einen <code>ActionListener</code> zu verarbeiten.
  * @author Alexander Herzog
  * @see FileDropperData
- * @version 1.1
+ * @version 1.2
  */
 public class FileDropper {
 	/**
@@ -189,5 +195,85 @@ public class FileDropper {
 
 		@Override
 		public void dropActionChanged(DropTargetDragEvent dropTargetDragEvent) {}
+	}
+
+	/**
+	 * Statische Hilfsroutine, die für eine Komponente eine {@link File}-Dropper-Funktion registriert.
+	 * @param comp	Komponente auf die Dateien und Verzeichnisse abgelegt werden können sollen
+	 * @param drop	Methode, die bei einem Drop-Ereignis ausgeführt werden soll
+	 */
+	public static void add(final Component comp, final Function<File,Boolean> drop) {
+		new FileDropper(comp,e->{
+			final FileDropperData data=(FileDropperData)e.getSource();
+			if (drop.apply(data.getFile())) data.dragDropConsumed();
+		});
+	}
+
+	/**
+	 * Fügt einen Dateinamen in ein Eingabefeld ein, wenn eine Datei auf eine Komponente abgelegt wird.
+	 * @param comp	Komponente auf die Dateien abgelegt werden können sollen
+	 * @param input	Eingabefeld in das der Dateiname eingefügt werden soll
+	 * @param action	Optionale zusätzliche Methode, die bei einem Drop-Ereignis ausgeführt werden soll (kann <code>null</code> sein)
+	 */
+	public static void addFileDropper(final Component comp, final JTextField input, final Runnable action) {
+		final Function<File,Boolean> drop=file->{
+			if (file==null || !file.isFile()) return false;
+			input.setText(file.toString());
+			Arrays.asList(input.getKeyListeners()).forEach(a->{
+				final KeyEvent e=new KeyEvent(input,ActionEvent.ACTION_PERFORMED,System.currentTimeMillis(),0,KeyEvent.VK_LEFT,KeyEvent.CHAR_UNDEFINED);
+				a.keyPressed(e);
+				a.keyReleased(e);
+				a.keyTyped(e);
+			});
+			Arrays.asList(input.getActionListeners()).forEach(a->a.actionPerformed(new ActionEvent(input,ActionEvent.ACTION_PERFORMED,null)));
+			if (action!=null) action.run();
+			return true;
+		};
+
+		add(comp,drop);
+		add(input,drop);
+	}
+
+	/**
+	 * Fügt einen Dateinamen in ein Eingabefeld ein, wenn eine Datei auf eine Komponente abgelegt wird.
+	 * @param comp	Komponente auf die Dateien abgelegt werden können sollen
+	 * @param input	Eingabefeld in das der Dateiname eingefügt werden soll
+	 */
+	public static void addFileDropper(final Component comp, final JTextField input) {
+		addFileDropper(comp,input,null);
+	}
+
+	/**
+	 * Fügt einen Verzeichnisnamen in ein Eingabefeld ein, wenn ein Verzeichnis auf eine Komponente abgelegt wird.
+	 * @param comp	Komponente auf die Verzeichnisse abgelegt werden können sollen
+	 * @param input	Eingabefeld in das der Verzeichnisname eingefügt werden soll
+	 * @param action	Optionale zusätzliche Methode, die bei einem Drop-Ereignis ausgeführt werden soll (kann <code>null</code> sein)
+	 */
+	public static void addDirectoryDropper(final Component comp, final JTextField input, final Runnable action) {
+		final Function<File,Boolean> drop=file->{
+			if (file==null || !file.isDirectory()) return false;
+			input.setText(file.toString());
+			Arrays.asList(input.getKeyListeners()).forEach(a->{
+				final KeyEvent e=new KeyEvent(input,ActionEvent.ACTION_PERFORMED,System.currentTimeMillis(),0,KeyEvent.VK_LEFT,KeyEvent.CHAR_UNDEFINED);
+				a.keyPressed(e);
+				a.keyReleased(e);
+				a.keyTyped(e);
+			});
+			Arrays.asList(input.getActionListeners()).forEach(a->a.actionPerformed(new ActionEvent(input,ActionEvent.ACTION_PERFORMED,null)));
+			if (action!=null) action.run();
+			return true;
+		};
+
+		add(comp,drop);
+		add(input,drop);
+	}
+
+	/**
+	 * Fügt einen Verzeichnisnamen in ein Eingabefeld ein, wenn ein Verzeichnis auf eine Komponente abgelegt wird.
+	 * @param comp	Komponente auf die Verzeichnisse abgelegt werden können sollen
+	 * @param input	Eingabefeld in das der Verzeichnisname eingefügt werden soll
+	 */
+	public static void addDirectoryDropper(final Component comp, final JTextField input) {
+		addDirectoryDropper(comp,input,null);
 	}
 }

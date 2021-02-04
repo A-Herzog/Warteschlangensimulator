@@ -41,6 +41,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.Table;
+import mathtools.distribution.tools.FileDropper;
 import systemtools.MsgBox;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -140,6 +141,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 				checkData(false);
 			}
 		});
+		FileDropper.addFileDropper(this,tableEdit);
 
 		/* Radiobuttons für Tabellenspalte 1 */
 

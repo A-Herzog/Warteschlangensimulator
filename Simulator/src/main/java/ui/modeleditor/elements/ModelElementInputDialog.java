@@ -37,6 +37,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
+import mathtools.distribution.tools.FileDropper;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import systemtools.MsgBox;
@@ -135,6 +136,7 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 				@Override public void keyReleased(KeyEvent e) {checkData(false);}
 				@Override public void keyPressed(KeyEvent e) {checkData(false);}
 			});
+			FileDropper.addFileDropper(this,fileNameEdit);
 
 			JButton button=new JButton();
 			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
