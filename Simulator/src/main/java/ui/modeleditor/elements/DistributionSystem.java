@@ -244,6 +244,7 @@ public final class DistributionSystem implements Cloneable {
 			if (other.expression==null) return false;
 			if (!expression.equals(other.expression)) return false;
 		} else {
+			if (other.expression!=null) return false;
 			if (!DistributionTools.compare(distribution,other.distribution)) return false;
 		}
 
