@@ -905,14 +905,16 @@ public final class EditorPanel extends EditorPanelBase {
 		leftAreaTemplates.add(sub,BorderLayout.NORTH);
 		sub.add(getTopInfoPanel(Language.tr("Editor.Templates"),Images.ELEMENTTEMPLATES.getIcon(),e->setTemplatesVisible(false),null,"F2"),BorderLayout.NORTH);
 
-		sub.add(leftAreaQuickFilter=new JPlaceholderTextField(),BorderLayout.CENTER);
-		leftAreaQuickFilter.setPlaceholder(Language.tr("Editor.QuickFilter"));
-		leftAreaQuickFilter.setToolTipText(Language.tr("Editor.QuickFilter.Tooltip"));
-		leftAreaQuickFilter.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
-			@Override public void keyReleased(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
-			@Override public void keyPressed(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
-		});
+		if (setup.showQuickFilter) {
+			sub.add(leftAreaQuickFilter=new JPlaceholderTextField(),BorderLayout.CENTER);
+			leftAreaQuickFilter.setPlaceholder(Language.tr("Editor.QuickFilter"));
+			leftAreaQuickFilter.setToolTipText(Language.tr("Editor.QuickFilter.Tooltip"));
+			leftAreaQuickFilter.addKeyListener(new KeyListener() {
+				@Override public void keyTyped(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
+				@Override public void keyReleased(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
+				@Override public void keyPressed(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
+			});
+		}
 		final JToolBar miniToolbar=new JToolBar(SwingConstants.HORIZONTAL);
 		miniToolbar.setFloatable(false);
 		sub.add(miniToolbar,BorderLayout.EAST);
@@ -1070,7 +1072,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	private void updateTemplatesFilter() {
 		final SetupData setup=SetupData.getSetup();
-		final String filter=leftAreaQuickFilter.getText().trim();
+		final String filter=(leftAreaQuickFilter!=null)?leftAreaQuickFilter.getText().trim():"";
 		final String visibleGroups=setup.visibleTemplateGroups;
 		final String openGroups=setup.openTemplateGroups;
 		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,filter,getModel().surface.getParentSurface()!=null));

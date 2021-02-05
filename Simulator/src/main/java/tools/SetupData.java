@@ -630,6 +630,11 @@ public class SetupData extends SetupBase {
 	public boolean showQuickAccess;
 
 	/**
+	 * Elementenliste-Filter-Eingabefeld anzeigen
+	 */
+	public boolean showQuickFilter;
+
+	/**
 	 * Zugangsdaten für die Simulation auf einem Server.<br>
 	 * Entweder <code>Host:Port</code> oder <code>Host:Port:Passwort</code>
 	 */
@@ -1058,6 +1063,7 @@ public class SetupData extends SetupBase {
 		usageStatistics="";
 		showFeedbackButton=true;
 		showQuickAccess=true;
+		showQuickFilter=true;
 		serverData="localhost:8183";
 		serverUse=false;
 		simulationServerAutoStart=false;
@@ -1647,6 +1653,11 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("quickfilter")) {
+				showQuickFilter=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
 			if (name.equals("networksimulationclient")) {
 				serverUse=loadBoolean(e.getAttribute("Active"),false);
 				serverData=e.getTextContent();
@@ -2233,6 +2244,11 @@ public class SetupData extends SetupBase {
 
 		if (!showQuickAccess) {
 			root.appendChild(node=doc.createElement("QuickAccess"));
+			node.setTextContent("0");
+		}
+
+		if (!showQuickFilter	) {
+			root.appendChild(node=doc.createElement("QuickFilter"));
 			node.setTextContent("0");
 		}
 
