@@ -42,6 +42,7 @@ public final class CalcSymbolDistributionCauchy extends CalcSymbolDistribution {
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[1]<=0) return null;
 		return new CauchyDistribution(parameters[0],parameters[1]);
 	}
 }

@@ -43,6 +43,8 @@ public final class CalcSymbolDistributionTriangular extends CalcSymbolDistributi
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[2]<parameters[0]) return null;
+		if (parameters[1]<parameters[0] || parameters[1]>parameters[2]) return null;
 		return new TriangularDistributionImpl(parameters[0],parameters[1],parameters[2]);
 	}
 }

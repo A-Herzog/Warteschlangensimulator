@@ -349,7 +349,12 @@ public class SimpleParser extends CalcSystemBase {
 			return getConstValue();
 		}
 		if (root==null) throw new MathCalcError(this);
-		return root.calc(variableValues);
+		try {
+			return root.calc(variableValues);
+		} catch (Exception e) {
+			if (e instanceof MathCalcError) throw e;
+			throw new MathCalcError(e);
+		}
 	}
 
 	@Override
@@ -358,7 +363,7 @@ public class SimpleParser extends CalcSystemBase {
 		if (root==null) return fallbackValue;
 		try {
 			return root.calc(variableValues);
-		} catch (MathCalcError e) {
+		} catch (Exception e) {
 			return fallbackValue;
 		}
 	}

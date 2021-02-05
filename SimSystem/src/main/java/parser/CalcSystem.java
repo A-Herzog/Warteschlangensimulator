@@ -187,7 +187,12 @@ public class CalcSystem extends CalcSystemBase {
 		}
 		if (root==null) throw new MathCalcError(this);
 		if (variableValues!=null) values=variableValues;
-		return root.getValue(this);
+		try {
+			return root.getValue(this);
+		} catch (Exception e) {
+			if (e instanceof MathCalcError) throw e;
+			throw new MathCalcError(e);
+		}
 	}
 
 	/**
@@ -212,7 +217,7 @@ public class CalcSystem extends CalcSystemBase {
 
 		try {
 			return root.getValue(this);
-		} catch (MathCalcError e) {
+		} catch (Exception e) {
 			return fallbackValue;
 		}
 	}
@@ -223,7 +228,7 @@ public class CalcSystem extends CalcSystemBase {
 	 * @return	Gibt im Fehlerfall <code>null</code> zurück, sonst den Zahlenwert des Ergebnisses.
 	 */
 	public static Double calcSimple(String text) {
-		CalcSystem calc=new CalcSystem(text);
+		final CalcSystem calc=new CalcSystem(text);
 		if (calc.parse()>=0) return null;
 		try {
 			return NumberTools.fastBoxedValue(calc.calc());

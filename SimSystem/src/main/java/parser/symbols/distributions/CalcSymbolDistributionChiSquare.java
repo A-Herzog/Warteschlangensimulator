@@ -42,6 +42,7 @@ public final class CalcSymbolDistributionChiSquare extends CalcSymbolDistributio
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[0]<=0) return null;
 		return new ChiSquaredDistribution(parameters[0]);
 	}
 }

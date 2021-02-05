@@ -18,6 +18,8 @@ package parser.symbols.distributions;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.GammaDistribution;
 
+import mathtools.distribution.OnePointDistributionImpl;
+
 /**
  * Gamma-Verteilung - die Parameter sind hier Erwartungswert und Standardabweichung
  * @author Alexander Herzog
@@ -44,8 +46,14 @@ public final class CalcSymbolDistributionGammaDirect extends CalcSymbolDistribut
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
 		final double mean=parameters[0];
 		final double sd=parameters[1];
+
+		if (sd<=0) {
+			return new OnePointDistributionImpl(mean);
+		}
+
 		final double d2=sd*sd/Math.max(mean,0.000001);
 		final double d1=mean/Math.max(d2,0.000001);
+		if (d1<=0 || d2<=0) return null;
 		return new GammaDistribution(d1,d2);
 	}
 }

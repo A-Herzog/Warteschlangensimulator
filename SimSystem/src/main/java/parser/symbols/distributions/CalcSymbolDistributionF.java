@@ -42,6 +42,7 @@ public final class CalcSymbolDistributionF extends CalcSymbolDistribution {
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[0]<=0 || parameters[1]<=0) return null;
 		return new FDistribution(parameters[0],parameters[1]);
 	}
 }

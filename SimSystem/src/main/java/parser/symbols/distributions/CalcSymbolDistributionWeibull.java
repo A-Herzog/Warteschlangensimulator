@@ -42,6 +42,7 @@ public final class CalcSymbolDistributionWeibull extends CalcSymbolDistribution 
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[0]<=0 || parameters[1]<=0) return null;
 		return new WeibullDistribution(parameters[1],1/parameters[0]);
 	}
 }

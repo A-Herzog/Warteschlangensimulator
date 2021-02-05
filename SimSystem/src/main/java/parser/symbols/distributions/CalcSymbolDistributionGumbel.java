@@ -42,6 +42,7 @@ public final class CalcSymbolDistributionGumbel extends CalcSymbolDistribution {
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[1]<=0) return null;
 		return new GumbelDistribution(parameters[0],parameters[1]);
 	}
 }

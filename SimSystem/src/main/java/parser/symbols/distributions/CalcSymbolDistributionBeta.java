@@ -43,6 +43,7 @@ public final class CalcSymbolDistributionBeta extends CalcSymbolDistribution {
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[0]>parameters[1]) return null;
 		return new ExtBetaDistributionImpl(parameters[0],parameters[1],parameters[2],parameters[3]);
 	}
 }

@@ -42,6 +42,7 @@ public final class CalcSymbolDistributionGamma extends CalcSymbolDistribution {
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[0]<=0 || parameters[1]<=0) return null;
 		return new GammaDistribution(parameters[0],parameters[1]);
 	}
 }

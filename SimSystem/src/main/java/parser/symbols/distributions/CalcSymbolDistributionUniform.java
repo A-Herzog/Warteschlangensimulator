@@ -42,6 +42,7 @@ public final class CalcSymbolDistributionUniform extends CalcSymbolDistribution 
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[0]>parameters[1]) return null;
 		return new UniformRealDistribution(parameters[0],parameters[1]);
 	}
 }

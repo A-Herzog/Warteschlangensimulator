@@ -22,4 +22,12 @@ public class MathCalcError extends Exception {
 	public MathCalcError(final Object mathObject) {
 		super("Error executing "+mathObject.getClass().getCanonicalName());
 	}
+
+	/**
+	 * Copy-Konstruktor der Klasse
+	 * @param e	Exception-Objekt von dem die Meldung übernommen werden soll
+	 */
+	public MathCalcError(final Exception e) {
+		super(e);
+	}
 }

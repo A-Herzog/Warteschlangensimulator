@@ -18,6 +18,7 @@ package parser.symbols.distributions;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.distribution.LogNormalDistributionImpl;
+import mathtools.distribution.OnePointDistributionImpl;
 
 /**
  * Lognormalverteilung
@@ -43,6 +44,8 @@ public final class CalcSymbolDistributionLogNormal extends CalcSymbolDistributio
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
+		if (parameters[1]<=0) return new OnePointDistributionImpl(parameters[0]);
+
 		return new LogNormalDistributionImpl(parameters[0],parameters[1]);
 	}
 }
