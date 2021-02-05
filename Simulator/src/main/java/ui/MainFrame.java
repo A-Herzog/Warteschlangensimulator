@@ -19,6 +19,8 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.io.File;
 import java.io.Serializable;
 import java.net.URL;
@@ -83,6 +85,15 @@ public class MainFrame extends MainFrameBase {
 
 		setVisible(true);
 		ReloadManager.add(this);
+
+		/*
+		 * Dies ist nötig, weil sonst beim Drag&Drop von Dateien auf das Programmfenster der ganze AWT-Thread blockieren kann.
+		 * Das Problem scheint der Eingabefokus auf Eingabefeldern (JTextField) zu sein.
+		 */
+		addWindowFocusListener(new WindowFocusListener() {
+			@Override public void windowLostFocus(WindowEvent e) {getMainPanel().requestFocus();}
+			@Override public void windowGainedFocus(WindowEvent e) {}
+		});
 	}
 
 	/**
