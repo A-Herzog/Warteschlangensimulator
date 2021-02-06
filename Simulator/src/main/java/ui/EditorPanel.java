@@ -906,13 +906,16 @@ public final class EditorPanel extends EditorPanelBase {
 		sub.add(getTopInfoPanel(Language.tr("Editor.Templates"),Images.ELEMENTTEMPLATES.getIcon(),e->setTemplatesVisible(false),null,"F2"),BorderLayout.NORTH);
 
 		if (setup.showQuickFilter) {
-			sub.add(leftAreaQuickFilter=new JPlaceholderTextField(),BorderLayout.CENTER);
-			leftAreaQuickFilter.setPlaceholder(Language.tr("Editor.QuickFilter"));
-			leftAreaQuickFilter.setToolTipText(Language.tr("Editor.QuickFilter.Tooltip"));
-			leftAreaQuickFilter.addKeyListener(new KeyListener() {
-				@Override public void keyTyped(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
-				@Override public void keyReleased(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
-				@Override public void keyPressed(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
+			/* Das Schnellfilter-Eingabefeld darf erst nach dem Konstruktor (nach dem Abarbeiten von initialen Ereignissen) angelegt werden, weil sonst initiale Darg-Over-Ereignisse evtl. das ganze Programm blockieren können. */
+			SwingUtilities.invokeLater(()->{
+				sub.add(leftAreaQuickFilter=new JPlaceholderTextField(),BorderLayout.CENTER);
+				leftAreaQuickFilter.setPlaceholder(Language.tr("Editor.QuickFilter"));
+				leftAreaQuickFilter.setToolTipText(Language.tr("Editor.QuickFilter.Tooltip"));
+				leftAreaQuickFilter.addKeyListener(new KeyListener() {
+					@Override public void keyTyped(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
+					@Override public void keyReleased(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
+					@Override public void keyPressed(KeyEvent e) {updateTemplatesFilter(); leftAreaQuickFilter.requestFocus();}
+				});
 			});
 		}
 		final JToolBar miniToolbar=new JToolBar(SwingConstants.HORIZONTAL);

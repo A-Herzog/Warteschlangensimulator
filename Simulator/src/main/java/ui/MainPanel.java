@@ -1217,70 +1217,74 @@ public class MainPanel extends MainPanelBase {
 
 		final SetupData setup=SetupData.getSetup(); /* Diese Methode wird vom Konstruktor aufgerufen, daher ist das Feld "setup" noch nicht gesetzt. */
 
-		if (setup.showMemoryUsage || setup.showQuickAccess || setup.showFeedbackButton) {
-			menubar.add(Box.createHorizontalGlue());
-		}
+		SwingUtilities.invokeLater(()->{ /* Das Quick-Access-Eingabefeld darf erst nach dem Konstruktor (nach dem Abarbeiten von initialen Ereignissen) angelegt werden, weil sonst initiale Darg-Over-Ereignisse evtl. das ganze Programm blockieren können. */
 
-		/* Speicher */
-		if (setup.showMemoryUsage) {
-			menubar.add(memoryUsage=new JLabel());
-			final Font font=memoryUsage.getFont();
-			memoryUsage.setFont(new Font(font.getFontName(),0,font.getSize()-2));
-			memoryUsage.addMouseListener(new MouseAdapter() {
-				@Override public void mousePressed(MouseEvent e) {System.gc();}
-			});
-			final Timer timer=new Timer("MemoryUsage",true);
-			timer.schedule(new TimerTask() {
-				private long lastTimeStamp=0;
-				private Map<Long,Long> lastLoad;
-				private final MemoryMXBean memory=ManagementFactory.getMemoryMXBean();
-				private final ThreadMXBean threads=ManagementFactory.getThreadMXBean();
-				private final int count=Runtime.getRuntime().availableProcessors();
-				@Override
-				public void run() {
-					final long timeStamp=System.currentTimeMillis();
-					long sum=0;
-					final Map<Long,Long> load=new HashMap<>();
-					for (long id: threads.getAllThreadIds()) {
-						final long l=threads.getThreadCpuTime(id);
-						load.put(id,l);
-						sum+=(lastLoad==null)?l:(l-lastLoad.getOrDefault(id,0L));
+			if (setup.showMemoryUsage || setup.showQuickAccess || setup.showFeedbackButton) {
+				menubar.add(Box.createHorizontalGlue());
+			}
+
+			/* Speicher */
+			if (setup.showMemoryUsage) {
+				menubar.add(memoryUsage=new JLabel());
+				final Font font=memoryUsage.getFont();
+				memoryUsage.setFont(new Font(font.getFontName(),0,font.getSize()-2));
+				memoryUsage.addMouseListener(new MouseAdapter() {
+					@Override public void mousePressed(MouseEvent e) {System.gc();}
+				});
+				final Timer timer=new Timer("MemoryUsage",true);
+				timer.schedule(new TimerTask() {
+					private long lastTimeStamp=0;
+					private Map<Long,Long> lastLoad;
+					private final MemoryMXBean memory=ManagementFactory.getMemoryMXBean();
+					private final ThreadMXBean threads=ManagementFactory.getThreadMXBean();
+					private final int count=Runtime.getRuntime().availableProcessors();
+					@Override
+					public void run() {
+						final long timeStamp=System.currentTimeMillis();
+						long sum=0;
+						final Map<Long,Long> load=new HashMap<>();
+						for (long id: threads.getAllThreadIds()) {
+							final long l=threads.getThreadCpuTime(id);
+							load.put(id,l);
+							sum+=(lastLoad==null)?l:(l-lastLoad.getOrDefault(id,0L));
+						}
+						lastLoad=load;
+						final long delta=(timeStamp-lastTimeStamp)*1_000_000;
+						final long factor=Math.min(100,Math.round(((double)sum)/count/delta*100));
+						lastTimeStamp=timeStamp;
+
+						final long l1=memory.getHeapMemoryUsage().getUsed();
+						final long l2=memory.getNonHeapMemoryUsage().getUsed();
+						final long l=(l1+l2)/1024/1024;
+						memoryUsage.setText(NumberTools.formatLong(l)+" MB "+NumberTools.formatNumber(factor)+"% ");
 					}
-					lastLoad=load;
-					final long delta=(timeStamp-lastTimeStamp)*1_000_000;
-					final long factor=Math.min(100,Math.round(((double)sum)/count/delta*100));
-					lastTimeStamp=timeStamp;
+				},1000,1000);
+			}
 
-					final long l1=memory.getHeapMemoryUsage().getUsed();
-					final long l2=memory.getNonHeapMemoryUsage().getUsed();
-					final long l=(l1+l2)/1024/1024;
-					memoryUsage.setText(NumberTools.formatLong(l)+" MB "+NumberTools.formatNumber(factor)+"% ");
-				}
-			},1000,1000);
-		}
+			/* QuickAccess */
+			if (setup.showQuickAccess) {
+				menubar.add(quickAccess=JQuickAccess.buildQuickAccessField(quickAccessText->getCurrentQuickAccessRecords(quickAccessText)));
+			}
 
-		/* QuickAccess */
-		if (setup.showQuickAccess) {
-			menubar.add(quickAccess=JQuickAccess.buildQuickAccessField(quickAccessText->getCurrentQuickAccessRecords(quickAccessText)));
-		}
+			/* Feedback */
+			if (setup.showFeedbackButton) {
+				final JLabel label;
+				menubar.add(label=new JLabel("<html><body><span style=\"color: blue; text-decoration: underline;\">"+Language.tr("Main.Toolbar.Feedback")+"</span></body></html>"));
+				label.setToolTipText(Language.tr("Main.Toolbar.Feedback.Hint"));
+				label.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
+				label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				label.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(final MouseEvent e) {
+						if (SwingUtilities.isLeftMouseButton(e)) commandHelpSupport();
+					}
+				});
+				label.setSize(label.getPreferredSize());
+				label.setMaximumSize(label.getPreferredSize());
+				menubar.add(Box.createHorizontalStrut(10));
+			}
 
-		/* Feedback */
-		if (setup.showFeedbackButton) {
-			final JLabel label;
-			menubar.add(label=new JLabel("<html><body><span style=\"color: blue; text-decoration: underline;\">"+Language.tr("Main.Toolbar.Feedback")+"</span></body></html>"));
-			label.setToolTipText(Language.tr("Main.Toolbar.Feedback.Hint"));
-			label.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-			label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			label.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(final MouseEvent e) {
-					if (SwingUtilities.isLeftMouseButton(e)) commandHelpSupport();
-				}
-			});
-			label.setSize(label.getPreferredSize());
-			label.setMaximumSize(label.getPreferredSize());
-			menubar.add(Box.createHorizontalStrut(10));
-		}
+		});
 
 		return menubar;
 	}
