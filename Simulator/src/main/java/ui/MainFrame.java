@@ -91,7 +91,9 @@ public class MainFrame extends MainFrameBase {
 		 * Das Problem scheint der Eingabefokus auf Eingabefeldern (JTextField) zu sein.
 		 */
 		addWindowFocusListener(new WindowFocusListener() {
-			@Override public void windowLostFocus(WindowEvent e) {getMainPanel().requestFocus();}
+			@Override public void windowLostFocus(WindowEvent e) {
+				if (e.getOppositeWindow()==null) getMainPanel().requestFocus();
+			}
 			@Override public void windowGainedFocus(WindowEvent e) {}
 		});
 	}
