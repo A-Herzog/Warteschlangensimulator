@@ -172,6 +172,7 @@ import ui.statistics.StatisticsPanel;
 import ui.statistics.analyticcompare.AnalyticInfo;
 import ui.tools.ServerPanel;
 import ui.tools.SpecialPanel;
+import ui.tools.SwingStartUpWatchDog;
 import ui.tools.WaitPanel;
 import ui.tutorial.TutorialWindow;
 import xml.XMLTools;
@@ -487,6 +488,9 @@ public class MainPanel extends MainPanelBase {
 			if (!fileLoadedOnLoad && !isReload && setup.startModel.isEmpty() && !isAutoRestore) {
 				BackgroundPrepareCompiledClasses.run();
 			}
+
+			/* Wird zu früh eine Datei auf das Programmfenster gezogen, so blockiert die Swing Event Queue. Dann kann das Programm nur noch abgebrochen werden. */
+			SwingStartUpWatchDog.start(10);
 		});
 	}
 
