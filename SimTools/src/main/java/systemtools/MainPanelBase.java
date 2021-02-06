@@ -65,7 +65,7 @@ import systemtools.images.SimToolsImages;
  * @see #connectToFrame(Runnable, Runnable, Runnable, Runnable, DropTargetRegister)
  * @see MainFrameBase
  * @author Alexander Herzog
- * @version 1.9
+ * @version 2.0
  */
 public abstract class MainPanelBase extends JPanel {
 	/**
@@ -239,9 +239,12 @@ public abstract class MainPanelBase extends JPanel {
 		this.closeRequest=closeRequest;
 
 		if (dropTargetRegister!=null) {
-			dropTargetRegister.registerJComponent(toolBar);
-			dropTargetRegister.registerJComponent(mainPanel);
-			registerDropTargets(dropTargetRegister);
+			/* Erst später registieren, da es sonst Probleme mit initialen Drag-Over-Ereignissen geben kann. */
+			SwingUtilities.invokeLater(()->{
+				dropTargetRegister.registerJComponent(toolBar);
+				dropTargetRegister.registerJComponent(mainPanel);
+				registerDropTargets(dropTargetRegister);
+			});
 		}
 
 		if (titleChanged!=null) SwingUtilities.invokeLater(titleChanged);
