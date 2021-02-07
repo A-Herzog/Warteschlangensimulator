@@ -167,6 +167,12 @@ public enum Images {
 	/** Symbol "Nach oben" */
 	ARROW_UP("arrow_up.png"),
 
+	/** Symbol "2x nach oben" */
+	ARROW_UP_DOUBLE("arrow_up_double.png"),
+
+	/** Symbol "2x nach unten" */
+	ARROW_DOWN_DOUBLE("arrow_down_double.png"),
+
 	/** Symbol "Nach links" (kurzer Pfeil) */
 	ARROW_LEFT_SHORT("arrow_left.gif"),
 

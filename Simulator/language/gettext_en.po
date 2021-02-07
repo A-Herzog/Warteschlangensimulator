@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-04 21:51+0100\n"
+"POT-Creation-Date: 2021-02-07 00:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6419,6 +6419,15 @@ msgstr ""
 "to the local directory\n"
 "%s"
 
+msgid "Git.List.PullAll"
+msgstr "Pull all"
+
+msgid "Git.List.PullAll.Hint"
+msgstr "Updates all local Git directories with data from the server."
+
+msgid "Git.List.PullAll.Info"
+msgstr "The pull command was executed on all configuration records.<br>Successful: %d<br>Error: %d"
+
 msgid "Git.List.Push"
 msgstr "Push"
 
@@ -6446,6 +6455,15 @@ msgstr ""
 "%s\n"
 "to the remote repository\n"
 "%s"
+
+msgid "Git.List.PushAll"
+msgstr "Push all"
+
+msgid "Git.List.PushAll.Hint"
+msgstr "Transfers data that have already been included in the local repositories to the server."
+
+msgid "Git.List.PushAll.Info"
+msgstr "The push command was executed on all configuration records.<br>Successful: %d<br>Error: %d"
 
 msgid "Git.List.Record.Folder"
 msgstr "Local folder"

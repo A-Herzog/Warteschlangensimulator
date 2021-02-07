@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-04 21:51+0100\n"
+"POT-Creation-Date: 2021-02-07 00:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6411,6 +6411,15 @@ msgstr ""
 "%s\n"
 "übertragen."
 
+msgid "Git.List.PullAll"
+msgstr "Alle Pull"
+
+msgid "Git.List.PullAll.Hint"
+msgstr "Aktualisiert alle lokalen Git-Verzeichnisse mit den Daten vom Server."
+
+msgid "Git.List.PullAll.Info"
+msgstr "Der Pull-Befehl wurde für alle Konfigurationseinträge ausgeführt.<br>Erfolgreich ausgeführt: %d<br>Fehlerhaft: %d"
+
 msgid "Git.List.Push"
 msgstr "Push"
 
@@ -6427,7 +6436,7 @@ msgid "Git.List.Push.ErrorNoServer"
 msgstr "Die Git-Server-Verbindung ist nicht aktiviert."
 
 msgid "Git.List.Push.Hint"
-msgstr "Überträgt Daten, die bereits in das lokale Repository aufgenommen wurden auf den Server."
+msgstr "Überträgt Daten, die bereits in das lokale Repository aufgenommen wurden, auf den Server."
 
 msgid "Git.List.Push.NoCommitsToPush"
 msgstr "Es existieren keine Commits, die noch nicht auf den Server übertragen wurden."
@@ -6439,6 +6448,15 @@ msgstr ""
 "in das entfernte Repository\n"
 "%s\n"
 "übertragen."
+
+msgid "Git.List.PushAll"
+msgstr "Alle Push"
+
+msgid "Git.List.PushAll.Hint"
+msgstr "Überträgt Daten, die bereits in den lokalen Repositories aufgenommen wurden, auf den Server."
+
+msgid "Git.List.PushAll.Info"
+msgstr "Der Push-Befehl wurde für alle Konfigurationseinträge ausgeführt.<br>Erfolgreich ausgeführt: %d<br>Fehlerhaft: %d"
 
 msgid "Git.List.Record.Folder"
 msgstr "Lokales Verzeichnis"

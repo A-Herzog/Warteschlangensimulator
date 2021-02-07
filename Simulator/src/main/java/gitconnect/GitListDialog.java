@@ -105,6 +105,16 @@ public class GitListDialog extends BaseDialog {
 	private final JButton buttonPush;
 
 	/**
+	 * Schaltfläche "Pull alle"
+	 */
+	private final JButton buttonPullAll;
+
+	/**
+	 * Schaltfläche "Push alle"
+	 */
+	private final JButton buttonPushAll;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 */
@@ -134,12 +144,19 @@ public class GitListDialog extends BaseDialog {
 		toolbar.add(buttonDelete=new JButton(Language.tr("Git.List.Delete"),Images.EDIT_DELETE.getIcon()));
 		buttonDelete.setToolTipText(Language.tr("Git.List.Delete.Hint"));
 		buttonDelete.addActionListener(e->commandDelete());
+		toolbar.addSeparator();
 		toolbar.add(buttonPull=new JButton(Language.tr("Git.List.Pull"),Images.ARROW_DOWN.getIcon()));
 		buttonPull.setToolTipText(Language.tr("Git.List.Pull.Hint"));
 		buttonPull.addActionListener(e->commandPull());
 		toolbar.add(buttonPush=new JButton(Language.tr("Git.List.Push"),Images.ARROW_UP.getIcon()));
 		buttonPush.setToolTipText(Language.tr("Git.List.Push.Hint"));
 		buttonPush.addActionListener(e->commandPush());
+		toolbar.add(buttonPullAll=new JButton(Language.tr("Git.List.PullAll"),Images.ARROW_DOWN_DOUBLE.getIcon()));
+		buttonPullAll.setToolTipText(Language.tr("Git.List.PullAll.Hint"));
+		buttonPullAll.addActionListener(e->commandPullAll());
+		toolbar.add(buttonPushAll=new JButton(Language.tr("Git.List.PushAll"),Images.ARROW_UP_DOUBLE.getIcon()));
+		buttonPushAll.setToolTipText(Language.tr("Git.List.PushAll.Hint"));
+		buttonPushAll.addActionListener(e->commandPushAll());
 
 		/* Liste */
 		content.add(new JScrollPane(list=new JList<>()));
@@ -258,10 +275,19 @@ public class GitListDialog extends BaseDialog {
 	 * Aktualisiert den Aktivierungsstatus der Symbolleisten-Schaltflächen.
 	 */
 	private void updateButtons() {
+		/* Bearbeiten und Löschen */
 		buttonEdit.setEnabled(list.getSelectedIndex()>=0);
 		buttonDelete.setEnabled(list.getSelectedIndex()>=0);
+
+		/* Pull / Push */
 		buttonPull.setEnabled(list.getSelectedIndex()>=0 && setups.get(list.getSelectedIndex()).useServer);
 		buttonPush.setEnabled(list.getSelectedIndex()>=0 && setups.get(list.getSelectedIndex()).useServer);
+
+		/* Pull / Push für alle */
+		boolean hasServerSetups=false;
+		for (GitSetup setup: setups) if (setup.useServer) {hasServerSetups=true; break;}
+		buttonPullAll.setVisible(setups.size()>=2 && hasServerSetups);
+		buttonPushAll.setVisible(setups.size()>=2 && hasServerSetups);
 	}
 
 	/**
@@ -371,6 +397,34 @@ public class GitListDialog extends BaseDialog {
 		} else {
 			MsgBox.error(this,Language.tr("Git.List.Push"),String.format(Language.tr("Git.List.Push.Error"),setup.localFolder,setup.serverURL,error));
 		}
+	}
+
+	/**
+	 * Befehl: Pull vom Git-Server für alle Repositories ausführen
+	 */
+	private void commandPullAll() {
+		int countSuccess=0;
+		int countError=0;
+
+		for (GitSetup setup: setups) if (setup.useServer) {
+			if (GitDialogProcessMonitor.run(this,Language.tr("Git.List.Pull"),progressMonitor->setup.doPull(progressMonitor))==null) countSuccess++; else countError++;
+		}
+
+		MsgBox.info(this,Language.tr("Git.List.PullAll"),"<html><body>"+String.format(Language.tr("Git.List.PullAll.Info")+"</body></html>",countSuccess,countError));
+	}
+
+	/**
+	 * Befehl: Push auf den Git-Server für alle Repositories ausführen
+	 */
+	private void commandPushAll() {
+		int countSuccess=0;
+		int countError=0;
+
+		for (GitSetup setup: setups) if (setup.useServer && setup.hasCommitsToPush()) {
+			if (GitDialogProcessMonitor.run(this,Language.tr("Git.List.Push"),progressMonitor->setup.doPushOnly(progressMonitor))==null) countSuccess++; else countError++;
+		}
+
+		MsgBox.info(this,Language.tr("Git.List.PushAll"),"<html><body>"+String.format(Language.tr("Git.List.PushAll.Info")+"</body></html>",countSuccess,countError));
 	}
 
 	@Override
