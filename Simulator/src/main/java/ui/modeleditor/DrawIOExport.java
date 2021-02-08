@@ -22,6 +22,7 @@ import ui.modeleditor.elements.ModelElementLine;
 import ui.modeleditor.elements.ModelElementRectangle;
 import ui.modeleditor.elements.ModelElementText;
 import ui.modeleditor.elements.ModelElementVertex;
+import ui.modeleditor.fastpaint.Shapes;
 import xml.XMLTools;
 
 /**
@@ -220,25 +221,36 @@ public class DrawIOExport {
 		style.put("fillColor",getColor(element.getDrawBackgroundColor()));
 		style.put("shadow","1");
 		style.put("gradientColor","#ffffff");
-		style.put("gradientDirection","north");
+		style.put("gradientDirection","east");
 
-		switch (element.getShape().shapeType) {
+		Shapes.ShapeType drawShapeType=element.getShape().shapeType;
+		if (element.isFlipShape() && drawShapeType.flippedName!=null) drawShapeType=drawShapeType.getFlipped();
+
+		switch (drawShapeType) {
 		case SHAPE_ARROW_LEFT:
 			style.put("shape","offPageConnector");
 			style.put("direction","south");
 			style.put("size","0.1");
-			style.put("gradientDirection","west");
+			style.put("gradientDirection","north");
 			break;
 		case SHAPE_ARROW_RIGHT:
 			style.put("shape","offPageConnector");
 			style.put("direction","north");
 			style.put("size","0.1");
-			style.put("gradientDirection","east");
+			style.put("gradientDirection","south");
 			break;
 		case SHAPE_ARROW_RIGHT_DOUBLE:
 			style.put("shape","step");
 			style.put("perimeter","stepPerimeter");
 			style.put("size","0.1");
+			style.put("gradientDirection","east");
+			break;
+		case SHAPE_ARROW_LEFT_DOUBLE:
+			style.put("shape","step");
+			style.put("perimeter","stepPerimeter");
+			style.put("size","0.1");
+			style.put("direction","west");
+			style.put("gradientDirection","west");
 			break;
 		case SHAPE_BUTTON:
 			break;
@@ -282,13 +294,13 @@ public class DrawIOExport {
 			style.put("shape","trapezoid");
 			style.put("perimeter","trapezoidPerimeter");
 			style.put("direction","north");
-			style.put("gradientDirection","east");
+			style.put("gradientDirection","south");
 			break;
 		case SHAPE_WEDGE_ARROW_RIGHT:
 			style.put("shape","trapezoid");
 			style.put("perimeter","trapezoidPerimeter");
 			style.put("direction","south");
-			style.put("gradientDirection","west");
+			style.put("gradientDirection","north");
 			break;
 		}
 

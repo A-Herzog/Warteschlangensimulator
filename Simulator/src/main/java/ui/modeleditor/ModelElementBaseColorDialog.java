@@ -28,6 +28,7 @@ import java.io.Serializable;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -59,6 +60,8 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 	private final JRadioButton optionUserImage;
 	/** Auswahl der benutzerdefinierten Farbe */
 	private final SmallColorChooser colorChooser;
+	/** Station gespiegelt zeichnen */
+	private final JCheckBox checkboxFlipped;
 	/** Auswahl des benutzerdefinierten Bildes */
 	private final ImageChooser imageChooser;
 
@@ -69,9 +72,11 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 	 * @param defaultColor	Vorgabefarbe für das Element (zur Anzeige neben dem Vorgabe-Radiobutton)
 	 * @param userColor	Bisher gewählte benutzerdefinierte Farbe oder <code>null</code>, wenn die Farbe automatisch festgelegt werden soll
 	 * @param userImage	Bisher gewähltes benutzerdefiniertes Stationsbild oder <code>null</code>, wenn die Standardform verwendet werden soll
+	 * @param flipable	Kann die Form gespiegelt werden?
+	 * @param flipped	Wird die Form momentan gespiegelt gezeichnet?
 	 * @param modelImages	Objekt, welches die verfügbaren allgemeinen Modell-Animationsbilder enthält
 	 */
-	public ModelElementBaseColorDialog(final Component owner, final Runnable help, final Color defaultColor, final Color userColor, final BufferedImage userImage, final ModelAnimationImages modelImages) {
+	public ModelElementBaseColorDialog(final Component owner, final Runnable help, final Color defaultColor, final Color userColor, final BufferedImage userImage, final boolean flipable, final boolean flipped, final ModelAnimationImages modelImages) {
 		super(owner,Language.tr("Editor.ColorChooser.Title"));
 		final JPanel contentOuter=createGUI(help);
 		contentOuter.setLayout(new BorderLayout());
@@ -99,6 +104,14 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(colorChooser=new SmallColorChooser(userColor));
 		colorChooser.addClickListener(e->optionUserColor.setSelected(true));
+
+		/* Spiegeln */
+		if (flipable) {
+			content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(checkboxFlipped=new JCheckBox(Language.tr("Editor.ColorChooser.Flipped"),flipped));
+		} else {
+			checkboxFlipped=null;
+		}
 
 		/* Benutzerdefiniertes Bild */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -141,6 +154,7 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 		optionDefaultColor=null;
 		optionUserColor=null;
 		optionUserImage=null;
+		checkboxFlipped=null;
 		imageChooser=null;
 
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
@@ -167,5 +181,13 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 	public BufferedImage getUserImage() {
 		if (optionUserImage!=null && optionUserImage.isSelected()) return imageChooser.getImage();
 		return null;
+	}
+
+	/**
+	 * Soll die Form gespiegelt gezeichnet werden?
+	 * @return	Liefert <code>true</code>, wenn die Form gespiegelt gezeichnet werden soll
+	 */
+	public boolean getFlipped() {
+		return (checkboxFlipped!=null) && checkboxFlipped.isSelected();
 	}
 }

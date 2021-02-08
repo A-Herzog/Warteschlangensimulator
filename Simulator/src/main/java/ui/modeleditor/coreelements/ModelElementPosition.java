@@ -80,6 +80,14 @@ public class ModelElementPosition extends ModelElement {
 	protected Shapes shape;
 
 	/**
+	 * Form {@link #shape} gespiegelt zeichnen?
+	 * @see #isFlipable()
+	 * @see #isFlipShape()
+	 * @see #setFlipShape(boolean)
+	 */
+	private boolean flipShape;
+
+	/**
 	 * Soll die Größe bei Vergleichen mit herangezogen werden?
 	 */
 	protected boolean useSizeOnCompare=true;
@@ -95,6 +103,7 @@ public class ModelElementPosition extends ModelElement {
 		super(model,surface);
 		this.size=new Dimension(size);
 		this.shape=new Shapes(shape);
+		flipShape=false;
 		setPosition(new Point(10,10));
 		stationStatisticsActive=true;
 	}
@@ -195,6 +204,7 @@ public class ModelElementPosition extends ModelElement {
 		if (!otherElement.position.equals(position)) return false;
 		if (useSizeOnCompare && !otherElement.size.equals(size)) return false;
 
+		if (flipShape!=otherElement.flipShape) return false;
 		if (!ScaledImageCache.compare(shape.getCustomImage(),otherElement.shape.getCustomImage())) return false;
 
 		if (stationStatisticsActive!=otherElement.stationStatisticsActive) return false;
@@ -214,6 +224,7 @@ public class ModelElementPosition extends ModelElement {
 
 			position=new Point(copySource.position);
 			size=new Dimension(copySource.size);
+			flipShape=copySource.flipShape;
 			shape.setCustomImage(copySource.shape.getCustomImage()); /* Wir verwenden dasselbe Bildobjekt; bei Änderungen wird in shape ein neues Objekt hinterlegt. */
 			stationStatisticsActive=copySource.stationStatisticsActive;
 		}
@@ -336,7 +347,7 @@ public class ModelElementPosition extends ModelElement {
 	 * @param stage	Gibt an, ob nur der Hintergrund (stage=1) oder nur der Rahmen (stage=2) gezeichnet werden soll
 	 */
 	protected void drawElementShape(final Graphics graphics, final Rectangle drawRect, final Rectangle objectRect, final Color borderColor, final int borderWidth, final Color fillColor, final double zoom, final int stage) {
-		shape.draw(graphics,drawRect,objectRect,borderColor,borderWidth,fillColor,zoom,stage);
+		shape.draw(graphics,drawRect,objectRect,borderColor,borderWidth,fillColor,zoom,flipShape,stage);
 	}
 
 	/**
@@ -708,6 +719,7 @@ public class ModelElementPosition extends ModelElement {
 		super.addPropertiesDataToXML(doc,node);
 
 		if (!stationStatisticsActive) node.setAttribute(Language.trPrimary("Surface.XML.Element.StationStatisticsActive"),"0");
+		if (flipShape) node.setAttribute(Language.trPrimary("Surface.XML.Element.FlipShape"),"1");
 
 		final Element sub=doc.createElement(Language.trPrimary("Surface.XML.Element.Size"));
 		node.appendChild(sub);
@@ -724,9 +736,13 @@ public class ModelElementPosition extends ModelElement {
 	 */
 	@Override
 	protected String loadPropertiesFromMainNode(final Element node) {
+		String value;
 
-		final String value=Language.trAllAttribute("Surface.XML.Element.StationStatisticsActive",node);
+		value=Language.trAllAttribute("Surface.XML.Element.StationStatisticsActive",node);
 		if (value.equals("0")) stationStatisticsActive=false;
+
+		value=Language.trAllAttribute("Surface.XML.Element.FlipShape",node);
+		if (value.equals("1")) flipShape=true;
 
 		return null;
 	}
@@ -805,7 +821,7 @@ public class ModelElementPosition extends ModelElement {
 	 * @param fillColor	Füllfarbe (oder <code>null</code>, wenn die Box transparent sein soll)
 	 */
 	protected void specialOutputShape(final SpecialOutputBuilder outputBuilder, final Color borderColor, final int borderWidth, final Color fillColor) {
-		shape.specialOutput(outputBuilder,getRect(1.0),borderColor,borderWidth,fillColor);
+		shape.specialOutput(outputBuilder,getRect(1.0),borderColor,borderWidth,fillColor,flipShape);
 	}
 
 	/**
@@ -815,6 +831,36 @@ public class ModelElementPosition extends ModelElement {
 	 */
 	public Shapes getShape() {
 		return shape;
+	}
+
+	/**
+	 * Kann die Form des Elements gespiegelt werden?
+	 * @return	Liefert <code>true</code>, wenn die Form des Elements gespiegelt werden kann
+	 * @see #isFlipShape()
+	 * @see #setFlipShape(boolean)
+	 */
+	public boolean isFlipable() {
+		return shape.shapeType.flippedName!=null;
+	}
+
+	/**
+	 * Soll die Form gespiegelt gezeichnet werden?
+	 * @return	Liefert <code>true</code>, wenn die Form gespiegelt gezeichnet werden soll
+	 * @see #setFlipShape(boolean)
+	 */
+	public boolean isFlipShape() {
+		return flipShape;
+	}
+
+	/**
+	 * Soll die Form gespiegelt gezeichnet werden?
+	 * @param flipShape	Soll die Form gespiegelt gezeichnet werden?
+	 * @see #isFlipShape()
+	 */
+	public void setFlipShape(final boolean flipShape) {
+		if (this.flipShape==flipShape) return;
+		this.flipShape=flipShape;
+		fireChanged();
 	}
 
 	/**

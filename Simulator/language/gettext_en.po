@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-07 00:33+0100\n"
+"POT-Creation-Date: 2021-02-08 00:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2559,6 +2559,9 @@ msgstr "Closes the sidebar"
 
 msgid "Editor.ColorChooser.Default"
 msgstr "Use default color"
+
+msgid "Editor.ColorChooser.Flipped"
+msgstr "Display station symbol mirrored"
 
 msgid "Editor.ColorChooser.Title"
 msgstr "Select color for element"
@@ -27064,6 +27067,9 @@ msgstr "For element %s the line width %s is invalid. A positive integer number h
 
 msgid "Surface.XML.Element.DeleteProtection"
 msgstr "protected"
+
+msgid "Surface.XML.Element.FlipShape"
+msgstr "MirrorSymbol"
 
 msgid "Surface.XML.Element.Name"
 msgstr "ModelElementName"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-07 00:33+0100\n"
+"POT-Creation-Date: 2021-02-08 00:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2561,6 +2561,9 @@ msgstr "Schließt die Seitenleiste"
 
 msgid "Editor.ColorChooser.Default"
 msgstr "Vorgabefarbe verwenden"
+
+msgid "Editor.ColorChooser.Flipped"
+msgstr "Stationssymbol gespiegelt darstellen"
 
 msgid "Editor.ColorChooser.Title"
 msgstr "Farbe für Element auswählen"
@@ -27080,6 +27083,9 @@ msgstr "Die für Element %s angegebene Linienbreite %s ist ungültig. Es muss ei
 
 msgid "Surface.XML.Element.DeleteProtection"
 msgstr "geschuetzt"
+
+msgid "Surface.XML.Element.FlipShape"
+msgstr "SymbolSpiegeln"
 
 msgid "Surface.XML.Element.Name"
 msgstr "ModellElementName"

@@ -65,6 +65,7 @@ import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.ComplexLine;
 import ui.modeleditor.elements.FontCache;
 import ui.quickaccess.JPlaceholderTextField;
@@ -113,6 +114,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	private Color userColor;
 	/** Benutzerdefiniertes Bild für das Element */
 	private BufferedImage userImage;
+	/** Soll die Form gespiegelt gezeichnet werden? */
+	private boolean flipped;
 	/** Schaltfläche zum Ändern der ID des Elements */
 	private final JButton idButton;
 	/** Schaltfläche Schriftarten  */
@@ -203,6 +206,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				defaultColor=boxElement.getTypeDefaultBackgroundColor();
 				userColor=boxElement.getUserBackgroundColor();
 				userImage=boxElement.getUserBackgroundImage();
+				flipped=boxElement.isFlipShape();
 				sub.add(colorButton=new JButton());
 				colorButton.setPreferredSize(new Dimension(26,26));
 				colorButton.setToolTipText(Language.tr("Editor.DialogBase.ColorTooltip"));
@@ -213,6 +217,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				defaultColor=null;
 				userColor=null;
 				userImage=null;
+				flipped=false;
 				colorButton=null;
 			}
 			description=element.getDescription();
@@ -660,11 +665,15 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 */
 	private void showColorSelectDialog() {
 		if (readOnly) return;
-		final ModelElementBaseColorDialog dialog=new ModelElementBaseColorDialog(this,helpRunnable,defaultColor,userColor,userImage,element.getModel().animationImages);
+		boolean flipable=false;
+		if (element instanceof ModelElementPosition) flipable=((ModelElementPosition)element).isFlipable();
+
+		final ModelElementBaseColorDialog dialog=new ModelElementBaseColorDialog(this,helpRunnable,defaultColor,userColor,userImage,flipable,flipped,element.getModel().animationImages);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			userColor=dialog.getUserColor();
 			userImage=dialog.getUserImage();
+			if (flipable) flipped=dialog.getFlipped();
 			setupColorButton();
 		}
 	}
@@ -725,6 +734,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			final ModelElementBox boxElement=(ModelElementBox)element;
 			boxElement.setUserBackgroundColor(getElementColor());
 			boxElement.setUserBackgroundImage(getElementImage());
+			if (boxElement.isFlipable()) boxElement.setFlipShape(flipped);
 			boxElement.setFontLarge(fontLarge);
 			boxElement.setFontSmall(fontSmall);
 		}

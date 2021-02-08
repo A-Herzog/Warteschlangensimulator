@@ -73,13 +73,16 @@ public class Shapes {
 		SHAPE_ROUNDED_RECTANGLE("roundedRectangle"),
 
 		/** Pfeil nach rechts */
-		SHAPE_ARROW_RIGHT("arrowRight"),
+		SHAPE_ARROW_RIGHT("arrowRight","arrowLeft"),
 
 		/** Pfeil nach rechts */
-		SHAPE_ARROW_RIGHT_DOUBLE("arrowRightDouble"),
+		SHAPE_ARROW_RIGHT_DOUBLE("arrowRightDouble","arrowLeftDouble"),
 
 		/** Pfeil nach links */
-		SHAPE_ARROW_LEFT("arrowLeft"),
+		SHAPE_ARROW_LEFT_DOUBLE("arrowLeftDouble","arrowRightDouble"),
+
+		/** Pfeil nach links */
+		SHAPE_ARROW_LEFT("arrowLeft","arrowRight"),
 
 		/** Rechteck mit eckig abgerundeten Ecken (Achteck) */
 		SHAPE_OCTAGON("octagon"),
@@ -88,10 +91,10 @@ public class Shapes {
 		SHAPE_OCTAGON_DOUBLE_LINE("octagonDoubleLine"),
 
 		/** Nach rechts zeigender Keil */
-		SHAPE_WEDGE_ARROW_RIGHT("wedgeArrowRight"),
+		SHAPE_WEDGE_ARROW_RIGHT("wedgeArrowRight","wedgeArrowLeft"),
 
 		/** Nach links zeigender Keil */
-		SHAPE_WEDGE_ARROW_LEFT("wedgeArrowLeft"),
+		SHAPE_WEDGE_ARROW_LEFT("wedgeArrowLeft","wedgeArrowRight"),
 
 		/** Rechteck mit Linien links und rechts */
 		SHAPE_RECTANGLE_DOUBLE_LINE("rectangleDoubleLine"),
@@ -123,12 +126,40 @@ public class Shapes {
 		/** Name der Form */
 		public final String name;
 
+		/** Name der Form in gespiegelter Form */
+		public final String flippedName;
+
+		/** Enum-Objekt für die gespiegelte Variante; wird von {@link #getFlipped()} mit Wert belegt */
+		private ShapeType flipped;
+
+		/**
+		 * Konstruktor der Enum
+		 * @param name	Name der Form
+		 * @param flippedName	Optionaler Name für die gespiegelte Variante der Form
+		 */
+		ShapeType(final String name, final String flippedName) {
+			this.name=name;
+			this.flippedName=flippedName;
+		}
+
 		/**
 		 * Konstruktor der Enum
 		 * @param name	Name der Form
 		 */
 		ShapeType(final String name) {
-			this.name=name;
+			this(name,null);
+		}
+
+		/**
+		 * Liefert die gespiegelte Variante der Form
+		 * @return	Gespiegelte Variante der Form
+		 */
+		public ShapeType getFlipped() {
+			if (flippedName==null) return this;
+			if (flipped==null) {
+				for (ShapeType shapeType: values()) if (shapeType.name.equals(flippedName)) {flipped=shapeType; break;}
+			}
+			return flipped;
 		}
 	}
 
@@ -142,6 +173,8 @@ public class Shapes {
 	private IntersectionClipping clipper;
 	/** Cache für Formen */
 	private ShapeCache cache;
+	/** Cache für gespiegelte Formen */
+	private ShapeCache cacheFlipped;
 	/** Cache für Schriftarten */
 	private final FontCache fontCache;
 
@@ -177,6 +210,7 @@ public class Shapes {
 		this.shapeType=shapeType;
 		clipper=null;
 		cache=null;
+		cacheFlipped=null;
 		fontCache=FontCache.getFontCache();
 		fillLevel=-1;
 		lowerFill=null;
@@ -192,8 +226,21 @@ public class Shapes {
 		if (cache!=null) return;
 		if (clipper==null) clipper=new IntersectionClipping();
 		cache=new ShapeCache(clipper) {
-			@Override protected void internFill(final Graphics graphics, final Rectangle rect, final int offsetX, final int offsetY, final boolean isShadow) {Shapes.this.fill(graphics,rect,offsetX,offsetY,isShadow);}
-			@Override protected Polygon getPolygonIntern(Rectangle rect) {return buildShape(rect);}
+			@Override protected void internFill(final Graphics graphics, final Rectangle rect, final int offsetX, final int offsetY, final boolean isShadow) {Shapes.this.fill(graphics,rect,offsetX,offsetY,isShadow,false);}
+			@Override protected Polygon getPolygonIntern(Rectangle rect) {return buildShape(rect,false);}
+		};
+	}
+
+	/**
+	 * Initialisiert den Cache für die gespiegelten Formen.
+	 * @see #cache
+	 */
+	private void initCacheFlipped() {
+		if (cacheFlipped!=null) return;
+		if (clipper==null) clipper=new IntersectionClipping();
+		cacheFlipped=new ShapeCache(clipper) {
+			@Override protected void internFill(final Graphics graphics, final Rectangle rect, final int offsetX, final int offsetY, final boolean isShadow) {Shapes.this.fill(graphics,rect,offsetX,offsetY,isShadow,true);}
+			@Override protected Polygon getPolygonIntern(Rectangle rect) {return buildShape(rect,true);}
 		};
 	}
 
@@ -229,8 +276,9 @@ public class Shapes {
 	 * @param offsetX	Zusätzliche Verschiebung in x-Richtung
 	 * @param offsetY	Zusätzliche Verschiebung in y-Richtung
 	 * @param isShadow	Handelt es sich bei der zu füllenden Fläche um den Schatten der eigentlichen Form?
+	 * @param flipped	Soll die Form gespiegelt gezeichnet werden?
 	 */
-	private void fill(final Graphics graphics, final Rectangle rect, final int offsetX, final int offsetY, final boolean isShadow) {
+	private void fill(final Graphics graphics, final Rectangle rect, final int offsetX, final int offsetY, final boolean isShadow, final boolean flipped) {
 		switch (shapeType) {
 		case SHAPE_RECTANGLE:
 		case SHAPE_RECTANGLE_DOUBLE_LINE:
@@ -278,8 +326,13 @@ public class Shapes {
 			graphics.fillRoundRect(rect.x+offsetX,rect.y+offsetY,rect.width,rect.height,arc,arc);
 			break;
 		default: /* Polygon-Formen */
-			initCache();
-			graphics.fillPolygon(cache.getPolygon(rect,offsetX,offsetY,0));
+			if (flipped) {
+				initCacheFlipped();
+				graphics.fillPolygon(cacheFlipped.getPolygon(rect,offsetX,offsetY,0));
+			} else {
+				initCache();
+				graphics.fillPolygon(cache.getPolygon(rect,offsetX,offsetY,0));
+			}
 			break;
 		}
 	}
@@ -288,19 +341,27 @@ public class Shapes {
 	 * Erstellt die konkrete Polygon-Form für den
 	 * gewählten Formtyp ({@link #shapeType})
 	 * @param rect	Rechteck das den Rahmen für die Form bildet
+	 * @param flipped	Soll die Form gespiegelt gezeichnet werden?
 	 * @return	Polygon-Form
 	 */
-	private Polygon buildShape(final Rectangle rect) {
+	private Polygon buildShape(final Rectangle rect, final boolean flipped) {
 		final int[] xPoints;
 		final int[] yPoints;
 
-		switch (shapeType) {
+		ShapeType drawShapeType=shapeType;
+		if (flipped && shapeType.flippedName!=null) drawShapeType=shapeType.getFlipped();
+
+		switch (drawShapeType) {
 		case SHAPE_ARROW_RIGHT:
 			xPoints=new int[]{rect.x,rect.x+9*(rect.width)/10,rect.x+rect.width,rect.x+9*(rect.width)/10,rect.x};
 			yPoints=new int[]{rect.y,rect.y,rect.y+rect.height/2,rect.y+rect.height,rect.y+rect.height};
 			break;
 		case SHAPE_ARROW_RIGHT_DOUBLE:
 			xPoints=new int[]{rect.x,rect.x+9*(rect.width)/10,rect.x+rect.width,rect.x+9*(rect.width)/10,rect.x,rect.x+1*(rect.width)/10};
+			yPoints=new int[]{rect.y,rect.y,rect.y+rect.height/2,rect.y+rect.height,rect.y+rect.height,rect.y+rect.height/2};
+			break;
+		case SHAPE_ARROW_LEFT_DOUBLE:
+			xPoints=new int[]{rect.x+1*(rect.width)/10,rect.x+rect.width,rect.x+9*(rect.width)/10,rect.x+rect.width,rect.x+1*(rect.width)/10,rect.x};
 			yPoints=new int[]{rect.y,rect.y,rect.y+rect.height/2,rect.y+rect.height,rect.y+rect.height,rect.y+rect.height/2};
 			break;
 		case SHAPE_ARROW_LEFT:
@@ -483,13 +544,17 @@ public class Shapes {
 	 * @param borderColor	Rahmenfarbe
 	 * @param borderWidth	Rahmenbreite
 	 * @param zoom	Zoomfaktor
-	 * @see #draw(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)
+	 * @param flipped	Gespiegelt zeichnen?
+	 * @see #draw(Graphics, Rectangle, Rectangle, Color, int, Color, double, boolean, int)
 	 */
-	private void drawFrame(final Graphics graphics, final Rectangle objectRect, final Color borderColor, final int borderWidth, final double zoom) {
+	private void drawFrame(final Graphics graphics, final Rectangle objectRect, final Color borderColor, final int borderWidth, final double zoom, final boolean flipped) {
 		if (borderColor==null) return;
 		graphics.setColor(borderColor);
 
-		switch (shapeType) {
+		ShapeType drawShapeType=shapeType;
+		if (flipped && shapeType.flippedName!=null) drawShapeType=shapeType.getFlipped();
+
+		switch (drawShapeType) {
 		case SHAPE_RECTANGLE:
 			drawFrameRectangle(graphics,objectRect,borderWidth);
 			break;
@@ -533,8 +598,13 @@ public class Shapes {
 			drawInlinedFrameRectangle(graphics,objectRect,borderWidth);
 			break;
 		default: /* Polygon-Formen */
-			initCache();
-			for (int i=0;i<borderWidth;i++) graphics.drawPolygon(cache.getPolygon(objectRect,0,0,i));
+			if (flipped) {
+				initCacheFlipped();
+				for (int i=0;i<borderWidth;i++) graphics.drawPolygon(cacheFlipped.getPolygon(objectRect,0,0,i));
+			} else {
+				initCache();
+				for (int i=0;i<borderWidth;i++) graphics.drawPolygon(cache.getPolygon(objectRect,0,0,i));
+			}
 			break;
 		}
 	}
@@ -546,7 +616,7 @@ public class Shapes {
 	 * @param borderColor	Rahmenfarbe
 	 * @param borderWidth	Rahmenbreite
 	 * @param zoom	Zoomfaktor
-	 * @see #draw(Graphics, Rectangle, Rectangle, Color, int, Color, double, int)
+	 * @see #draw(Graphics, Rectangle, Rectangle, Color, int, Color, double, boolean, int)
 	 * @see #customImage
 	 */
 	private void drawCustomImage(final Graphics graphics, final Rectangle objectRect, final Color borderColor, final int borderWidth, final double zoom) {
@@ -571,21 +641,27 @@ public class Shapes {
 	 * @param borderWidth	Rahmenbreite (bezogen auf 100% Zoom)
 	 * @param fillColor	Füllfarbe (aus der ggf. ein Farbverlauf berechnet wird)
 	 * @param zoom	Zoomfaktor
+	 * @param flipped	Gespiegelt zeichnen?
 	 * @param stage	Zeichenstufe (Stufe 1: Hintergrund und Schatten, Stufe 2: Rahmen)
 	 */
-	public synchronized void draw(final Graphics graphics, final Rectangle drawRect, final Rectangle objectRect, final Color borderColor, final int borderWidth, final Color fillColor, final double zoom, final int stage) {
+	public synchronized void draw(final Graphics graphics, final Rectangle drawRect, final Rectangle objectRect, final Color borderColor, final int borderWidth, final Color fillColor, final double zoom, final boolean flipped, final int stage) {
 		if (shapeType==ShapeType.SHAPE_NONE) return;
 
 		switch (stage) {
 		case 1:
 			if (customImage==null) {
-				initCache();
-				cache.fill(graphics,drawRect,objectRect,fillColor,zoom);
+				if (flipped) {
+					initCacheFlipped();
+					cacheFlipped.fill(graphics,drawRect,objectRect,fillColor,zoom);
+				} else {
+					initCache();
+					cache.fill(graphics,drawRect,objectRect,fillColor,zoom);
+				}
 			}
 			break;
 		case 2:
 			if (customImage==null) {
-				drawFrame(graphics,objectRect,borderColor,borderWidth,zoom);
+				drawFrame(graphics,objectRect,borderColor,borderWidth,zoom,flipped);
 			} else {
 				drawCustomImage(graphics,objectRect,borderColor,borderWidth,zoom);
 			}
@@ -1038,18 +1114,23 @@ public class Shapes {
 	/**
 	 * Liefert den Namen für die Javascript-Funktion zum Zeichnen der Form
 	 * @return	Name für die Javascript-Funktion zum Zeichnen der Form
-	 * @see #getHTMLShape(HTMLOutputBuilder)
+	 * @param flipped	Soll die Form gespiegelt gezeichnet werden?
+	 * @see #getHTMLShape(HTMLOutputBuilder, boolean)
 	 */
-	private String getHTMLShapeDrawFunctionName() {
-		return "draw"+shapeType.name.substring(0,1).toUpperCase()+shapeType.name.substring(1);
+	private String getHTMLShapeDrawFunctionName(final boolean flipped) {
+		String shapeName=shapeType.name;
+		if (flipped && shapeType.flippedName!=null) shapeName=shapeType.flippedName;
+
+		return "draw"+shapeName.substring(0,1).toUpperCase()+shapeName.substring(1);
 	}
 
 	/**
 	 * Liefert die Javascript-Daten für eine Station zur Ausgabe des Modells als HTML-Datei
 	 * @param outputBuilder	Builder, der die Gesamtdaten aufnehmen soll
+	 * @param flipped	Soll die Form gespiegelt gezeichnet werden?
 	 * @return	Javascript-Daten für die Station
 	 */
-	private String getHTMLShape(final HTMLOutputBuilder outputBuilder) {
+	private String getHTMLShape(final HTMLOutputBuilder outputBuilder, final boolean flipped) {
 		final SetupData setup=SetupData.getSetup();
 		final StringBuilder sb=new StringBuilder();
 
@@ -1057,9 +1138,12 @@ public class Shapes {
 		String name=shapeType.name;
 		name=name.substring(0,1).toUpperCase()+name.substring(1);
 		 */
-		sb.append("function "+getHTMLShapeDrawFunctionName()+"(rect,borderColor,borderWidth,fillColor1,fillColor2,fillLevel) {\n");
+		sb.append("function "+getHTMLShapeDrawFunctionName(flipped)+"(rect,borderColor,borderWidth,fillColor1,fillColor2,fillLevel) {\n");
 
-		switch (shapeType) {
+		Shapes.ShapeType drawShapeType=shapeType;
+		if (flipped && drawShapeType.flippedName!=null) drawShapeType=drawShapeType.getFlipped();
+
+		switch (drawShapeType) {
 		case SHAPE_NONE:
 			/* Nichts zeichnen */
 			break;
@@ -1200,6 +1284,14 @@ public class Shapes {
 			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
+		case SHAPE_ARROW_LEFT_DOUBLE:
+			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowPolygon",builder->getHTMLShadowPolygon(builder));
+			outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
+			sb.append("  var w=Math.round(rect.w/10);\n");
+			sb.append("  var polygon=[{x: rect.x+w,y: rect.y},{x: rect.x+rect.w,y: rect.y},{x: rect.x+rect.w-w,y: rect.y+Math.round(rect.h/2)},{x: rect.x+rect.w,y: rect.y+rect.h},{x: rect.x+w,y: rect.y+rect.h},{x: rect.x,y: rect.y+Math.round(rect.h/2)}];\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
+			break;
 		case SHAPE_WEDGE_ARROW_LEFT:
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowPolygon",builder->getHTMLShadowPolygon(builder));
 			outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
@@ -1262,14 +1354,18 @@ public class Shapes {
 	 * @param borderColor	Rahmenfarbe
 	 * @param borderWidth	Rahmenbreite
 	 * @param fillColor	Füllfarbe (aus der ggf. ein Farbverlauf berechnet wird)
+	 * @param flipped	Soll die Form gespiegelt gezeichnet werden?
 	 */
-	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder, final Rectangle objectRect, final Color borderColor, final int borderWidth, final Color fillColor) {
-		outputBuilder.addJSUserFunction(shapeType.name,builder->getHTMLShape(builder));
+	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder, final Rectangle objectRect, final Color borderColor, final int borderWidth, final Color fillColor, final boolean flipped) {
+		String shapeName=shapeType.name;
+		if (flipped && shapeType.flippedName!=null) shapeName=shapeType.flippedName;
+
+		outputBuilder.addJSUserFunction(shapeName,builder->getHTMLShape(builder,flipped));
 
 		final String rect="{x: "+objectRect.x+", y: "+objectRect.y+", w: "+objectRect.width+", h: "+objectRect.height+"}";
 		final String border="\""+HTMLOutputBuilder.colorToHTML(borderColor)+"\"";
 		if (fillColor==null) {
-			outputBuilder.outputBody.append(getHTMLShapeDrawFunctionName()+"("+rect+","+border+","+borderWidth+");\n");
+			outputBuilder.outputBody.append(getHTMLShapeDrawFunctionName(flipped)+"("+rect+","+border+","+borderWidth+");\n");
 		} else {
 			if (fillLevel>=0) {
 				/* Zweiteilig ausfüllen */
@@ -1279,17 +1375,17 @@ public class Shapes {
 				if (c2==null) c2=new Color(230,230,230);
 				final String fill1="\""+HTMLOutputBuilder.colorToHTML(c1)+"\"";
 				final String fill2="\""+HTMLOutputBuilder.colorToHTML(c2)+"\"";
-				outputBuilder.outputBody.append(getHTMLShapeDrawFunctionName()+"("+rect+","+border+","+borderWidth+","+fill1+","+fill2+","+NumberTools.formatSystemNumber(fillLevel)+");\n");
+				outputBuilder.outputBody.append(getHTMLShapeDrawFunctionName(flipped)+"("+rect+","+border+","+borderWidth+","+fill1+","+fill2+","+NumberTools.formatSystemNumber(fillLevel)+");\n");
 			} else {
 				/* Normal ausfüllen */
 				if (SetupData.getSetup().useGradients) {
 					final String fill1="\""+HTMLOutputBuilder.colorToHTML(fillColor)+"\"";
 					BrighterColor color2=new BrighterColor();
 					final String fill2="\""+HTMLOutputBuilder.colorToHTML(color2.get(fillColor))+"\"";
-					outputBuilder.outputBody.append(getHTMLShapeDrawFunctionName()+"("+rect+","+border+","+borderWidth+","+fill1+","+fill2+");\n");
+					outputBuilder.outputBody.append(getHTMLShapeDrawFunctionName(flipped)+"("+rect+","+border+","+borderWidth+","+fill1+","+fill2+");\n");
 				} else {
 					final String fill="\""+HTMLOutputBuilder.colorToHTML(fillColor)+"\"";
-					outputBuilder.outputBody.append(getHTMLShapeDrawFunctionName()+"("+rect+","+border+","+borderWidth+","+fill+");\n");
+					outputBuilder.outputBody.append(getHTMLShapeDrawFunctionName(flipped)+"("+rect+","+border+","+borderWidth+","+fill+");\n");
 				}
 			}
 		}
@@ -1302,10 +1398,11 @@ public class Shapes {
 	 * @param borderColor	Rahmenfarbe
 	 * @param borderWidth	Rahmenbreite
 	 * @param fillColor	Füllfarbe (aus der ggf. ein Farbverlauf berechnet wird)
+	 * @param flipped	Soll die Form gespiegelt gezeichnet werden?
 	 */
-	public void specialOutput(final SpecialOutputBuilder outputBuilder, final Rectangle objectRect, final Color borderColor, final int borderWidth, final Color fillColor) {
+	public void specialOutput(final SpecialOutputBuilder outputBuilder, final Rectangle objectRect, final Color borderColor, final int borderWidth, final Color fillColor, final boolean flipped) {
 		if (outputBuilder instanceof HTMLOutputBuilder) {
-			specialOutputHTML((HTMLOutputBuilder)outputBuilder,objectRect,borderColor,borderWidth,fillColor);
+			specialOutputHTML((HTMLOutputBuilder)outputBuilder,objectRect,borderColor,borderWidth,fillColor,flipped);
 			return;
 		}
 	}
