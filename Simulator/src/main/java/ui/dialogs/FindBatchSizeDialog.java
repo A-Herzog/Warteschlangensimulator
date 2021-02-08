@@ -17,6 +17,8 @@ package ui.dialogs;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -94,6 +97,12 @@ public class FindBatchSizeDialog extends BaseDialog {
 			radioButtons.add(radioButton);
 			distances.add(distance);
 			radioButton.setSelected(level==DEFAULT_LEVEL);
+			radioButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) close(BaseDialog.CLOSED_BY_OK);
+				}
+			});
 			if (level==DEFAULT_LEVEL) defaultDistance=distance;
 		}
 
