@@ -82,7 +82,7 @@ public abstract class GitDialogProcessMonitor extends JDialog {
 	 * @param title	Dialogtitel
 	 */
 	public GitDialogProcessMonitor(final Component owner, final String title) {
-		super((owner instanceof Window)?((Window)owner):SwingUtilities.windowForComponent(owner),title,Dialog.ModalityType.APPLICATION_MODAL);
+		super((owner instanceof Window)?((Window)owner):SwingUtilities.windowForComponent(owner),title,Dialog.ModalityType.DOCUMENT_MODAL);
 
 		/* GUI vorbereiten */
 		final Container content=getContentPane();

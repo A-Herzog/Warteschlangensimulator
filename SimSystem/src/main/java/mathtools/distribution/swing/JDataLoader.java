@@ -156,7 +156,7 @@ public class JDataLoader extends JDialog {
 	 * @param numbersOnly	Gibt an, ob Zahlen (<code>true</code>) oder beliebige Daten (<code>false</code>) verlangt werden.
 	 */
 	public JDataLoader(final Window owner, final MultiTable data, final int minValues, final int maxValues, final boolean numbersOnly) {
-		super(owner,Title,Dialog.ModalityType.APPLICATION_MODAL);
+		super(owner,Title,Dialog.ModalityType.DOCUMENT_MODAL);
 
 		this.owner=owner;
 		this.data=data;

@@ -157,7 +157,7 @@ public class InfoDialog extends JDialog {
 	 * @param plainMode	Wird <code>true</code> übergeben, so werden die Schaltflächen für Versionsgeschichte und der Sprachschalter <b>nicht</b> angezeigt.
 	 */
 	public InfoDialog(final Window owner, final String version, final boolean plainMode) {
-		super(owner,Language.tr("InfoDialog.Title"),Dialog.ModalityType.APPLICATION_MODAL);
+		super(owner,Language.tr("InfoDialog.Title"),Dialog.ModalityType.DOCUMENT_MODAL);
 		setLayout(new BorderLayout());
 
 		JPanel mainarea,p,p2,p3;

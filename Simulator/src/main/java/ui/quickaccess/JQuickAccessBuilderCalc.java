@@ -21,7 +21,7 @@ import language.Language;
 import mathtools.NumberTools;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
-import ui.calculator.CalculatorDialog;
+import ui.calculator.CalculatorWindow;
 import ui.images.Images;
 
 /**
@@ -29,7 +29,7 @@ import ui.images.Images;
  * und erstellt, wenn dies möglich ist, einen Schnellzugriffeintrag.
  * @author Alexander Herzog
  * @see JQuickAccessBuilder
- * @see CalculatorDialog
+ * @see CalculatorWindow
  */
 public class JQuickAccessBuilderCalc extends JQuickAccessBuilder {
 	/**

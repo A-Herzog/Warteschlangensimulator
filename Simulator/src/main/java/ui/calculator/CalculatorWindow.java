@@ -18,14 +18,18 @@ package ui.calculator;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,12 +40,14 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
@@ -55,6 +61,7 @@ import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
 import systemtools.SmallColorChooser;
+import systemtools.images.SimToolsImages;
 import tools.SetupData;
 import ui.calculator.PlotterPanel.Graph;
 import ui.expressionbuilder.ExpressionBuilder;
@@ -62,6 +69,7 @@ import ui.expressionbuilder.ExpressionBuilderAutoComplete;
 import ui.help.Help;
 import ui.images.Images;
 import ui.scriptrunner.JSModelRunnerPanel;
+import ui.tools.WindowSizeStorage;
 
 /**
  * Zeigt einen Dialog zur Berechnung von mathematischen Ausdrücken an.<br>
@@ -69,12 +77,18 @@ import ui.scriptrunner.JSModelRunnerPanel;
  * @author Alexander Herzog
  * @see ExpressionCalc
  */
-public class CalculatorDialog extends BaseDialog {
+public class CalculatorWindow extends JFrame {
 	/**
 	 * Serialisierungs-ID der Klasse
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = -3883480454772212675L;
+
+	/** Übergeordnetes Fenster */
+	private Window owner;
+
+	/** Tabs für die einzelnen Programmfunktionen */
+	final JTabbedPane tabs;
 
 	/** Eingabezeile */
 	private final JTextField inputEdit;
@@ -95,11 +109,28 @@ public class CalculatorDialog extends BaseDialog {
 	private final JSModelRunnerPanel scriptEditor;
 
 	/**
-	 * Konstruktor der Klasse
-	 * @param owner	Übergeordnetes Element
+	 * Instanz des Rechnerfensters
+	 * @see #show(Component, String, AbstractDistributionWrapper)
+	 * @see #closeWindow()
 	 */
-	public CalculatorDialog(final Component owner) {
-		this(owner,null,null);
+	private static CalculatorWindow instance;
+
+	/**
+	 * Zeigt das Rechnerfenster an.
+	 * (Erstellt entweder ein neues Fenster oder holt das aktuelle in den Vordergrund.)
+	 * @param owner	Übergeordnetes Element
+	 * @param initialExpression	Initial anzuzeigender Ausdruck (kann <code>null</code> sein)
+	 * @param initialDistribution	Initial auszuwählende Verteilung (kann <code>null</code> sein)
+	 */
+	public static void show(final Component owner, final String initialExpression, final AbstractDistributionWrapper initialDistribution) {
+		if (instance==null) {
+			instance=new CalculatorWindow(owner,initialExpression,initialDistribution);
+			instance.setVisible(true);
+		} else {
+			instance.setExpression(initialExpression);
+			instance.setDistribution(initialDistribution);
+			instance.toFront();
+		}
 	}
 
 	/**
@@ -107,16 +138,42 @@ public class CalculatorDialog extends BaseDialog {
 	 * @param owner	Übergeordnetes Element
 	 * @param initialExpression	Initial anzuzeigender Ausdruck (kann <code>null</code> sein)
 	 * @param initialDistribution	Initial auszuwählende Verteilung (kann <code>null</code> sein)
+	 * @see #show(Component, String, AbstractDistributionWrapper)
 	 */
-	public CalculatorDialog(final Component owner, final String initialExpression, final AbstractDistributionWrapper initialDistribution) {
-		super(owner,Language.tr("CalculatorDialog.Title"));
+	private CalculatorWindow(final Component owner, final String initialExpression, final AbstractDistributionWrapper initialDistribution) {
+		super(Language.tr("CalculatorDialog.Title"));
+		setIconImage(Images.EXTRAS_CALCULATOR.getImage());
 
-		showCloseButton=true;
-		final JPanel content=createGUI(()->Help.topicModal(this,"Calculator"));
-		content.setLayout(new BorderLayout());
+		/* Übergeordnetes Fenster */
+		Component o=owner;
+		while (o!=null && !(o instanceof Window)) o=o.getParent();
+		this.owner=(Window)o;
 
-		final JTabbedPane tabs=new JTabbedPane();
-		content.add(tabs,BorderLayout.CENTER);
+		/* Aktionen bei Schließen des Fensters */
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter(){
+			@Override public void windowClosing(WindowEvent e){closeWindow();}
+		});
+
+		/* Gesamter Inhaltsbereich */
+		final Container all=getContentPane();
+		all.setLayout(new BorderLayout());
+		final JPanel content=new JPanel(new BorderLayout());
+		all.add(content,BorderLayout.CENTER);
+
+		/* Fußbereich */
+		final JPanel footer=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		all.add(footer,BorderLayout.SOUTH);
+		final JButton closeButton=new JButton(BaseDialog.buttonTitleClose,SimToolsImages.EXIT.getIcon());
+		getRootPane().setDefaultButton(closeButton);
+		closeButton.addActionListener(e->dispatchEvent(new WindowEvent(CalculatorWindow.this,WindowEvent.WINDOW_CLOSING)));
+		footer.add(closeButton);
+		final JButton helpButton=new JButton(BaseDialog.buttonTitleHelp,SimToolsImages.HELP.getIcon());
+		helpButton.addActionListener(e->Help.topicModal(this,"Calculator"));
+		footer.add(helpButton);
+
+		/* Inhaltsbereich */
+		content.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
 
 		JPanel tab, line;
 		Object[] data;
@@ -157,11 +214,7 @@ public class CalculatorDialog extends BaseDialog {
 		});
 		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(owner,inputEdit.getText(),false,new String[0],null,null,null,false,true,true),inputEdit);
 
-
-		if (initialExpression!=null) {
-			inputEdit.setText(initialExpression);
-			SwingUtilities.invokeLater(()->outputEdit.setText(calc(inputEdit.getText())));
-		}
+		if (initialExpression!=null) setExpression(initialExpression);
 
 		final JButton button=new JButton("");
 		button.setIcon(Images.EDIT_COPY.getIcon());
@@ -222,10 +275,40 @@ public class CalculatorDialog extends BaseDialog {
 
 		/* Dialog vorbereiten */
 		if (initialDistribution!=null) tabs.setSelectedIndex(2);
-		setMinSizeRespectingScreensize(600,400);
-		setSizeRespectingScreensize(800,600);
+		setSize((int)Math.round(800*BaseDialog.windowScaling),(int)Math.round(600*BaseDialog.windowScaling));
+		setMinimumSize(new Dimension((int)Math.round(800*BaseDialog.windowScaling),(int)Math.round(600*BaseDialog.windowScaling)));
 		setResizable(true);
-		setLocationRelativeTo(getOwner());
+		setLocationRelativeTo(this.owner);
+		WindowSizeStorage.window(this,"calculator");
+	}
+
+	/**
+	 * Stellt einen anzuzeigenden Rechenausdruck ein.
+	 * @param expression	Neuer Rechenausdruck
+	 */
+	public void setExpression(final String expression) {
+		if (expression==null || expression.trim().isEmpty()) return;
+
+		inputEdit.setText(expression);
+		SwingUtilities.invokeLater(()->{
+			outputEdit.setText(calc(inputEdit.getText()));
+			tabs.setSelectedIndex(0);
+		});
+	}
+
+	/**
+	 * Stellt die anzuzeigende Verteilung ein.
+	 * @param initialDistribution	Neue Verteilung
+	 */
+	public void setDistribution(final AbstractDistributionWrapper initialDistribution) {
+		if (initialDistribution==null) return;
+		final AbstractRealDistribution distribution=initialDistribution.getDistribution(100,50);
+		if (distribution==null) return;
+		distributionEditor.setDistribution(distribution);
+		updateDistribution();
+		SwingUtilities.invokeLater(()->{
+			tabs.setSelectedIndex(2);
+		});
 	}
 
 	/**
@@ -389,12 +472,13 @@ public class CalculatorDialog extends BaseDialog {
 		popupMenu.show(colorButton,0,colorButton.getHeight());
 	}
 
-	@Override
-	protected boolean closeButtonOK() {
+	/**
+	 * Beim Schließen des Fensters das Skript speichern.
+	 */
+	private void closeWindow() {
 		final SetupData setup=SetupData.getSetup();
 		setup.scriptCalculator=scriptEditor.getScript();
 		setup.saveSetup();
-
-		return true;
+		instance=null;
 	}
 }

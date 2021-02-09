@@ -109,7 +109,7 @@ import tools.ImagePrintable;
 import tools.Notifier;
 import tools.SetupData;
 import tools.UsageStatistics;
-import ui.calculator.CalculatorDialog;
+import ui.calculator.CalculatorWindow;
 import ui.calculator.QueueingCalculatorDialog;
 import ui.commandline.CommandLineSystem;
 import ui.compare.ComparePanel;
@@ -1173,7 +1173,7 @@ public class MainPanel extends MainPanelBase {
 
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.CompareModels"),Images.MODEL_COMPARE.getIcon(),Language.tr("Main.Menu.Extras.CompareModels.Mnemonic"),"ExtrasCompare");
 		menu.addSeparator();
-		createMenuItem(menu,Language.tr("Main.Menu.Extras.Calculator"),Images.EXTRAS_CALCULATOR.getIcon(),Language.tr("Main.Menu.Extras.Calculator.Mnemonic"),"ExtrasCalculator");
+		createMenuItem(menu,Language.tr("Main.Menu.Extras.Calculator"),Images.EXTRAS_CALCULATOR.getIcon(),Language.tr("Main.Menu.Extras.Calculator.Mnemonic"),KeyEvent.VK_F11,"ExtrasCalculator");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.QueueingCalculator"),Images.EXTRAS_QUEUE.getIcon(),Language.tr("Main.Menu.Extras.QueueingCalculator.Mnemonic"),"ExtrasQueueingCalculator");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.FitDistribution"),Images.EXTRAS_FIT_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Extras.FitDistribution.Mnemonic"),"ExtrasFit");
 		menu.addSeparator();
@@ -3085,8 +3085,7 @@ public class MainPanel extends MainPanelBase {
 	 * @param initialDistribution	Initial anzuzeigende Wahrscheinlichkeitsverteilung (kann <code>null</code> sein)
 	 */
 	private void commandExtrasCalculator(final String initialExpression, final AbstractDistributionWrapper initialDistribution) {
-		final CalculatorDialog dialog=new CalculatorDialog(this,initialExpression,initialDistribution);
-		dialog.setVisible(true);
+		CalculatorWindow.show(this,initialExpression,initialDistribution);
 	}
 
 	/**

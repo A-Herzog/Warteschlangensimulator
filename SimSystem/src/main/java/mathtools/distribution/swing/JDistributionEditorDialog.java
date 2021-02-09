@@ -77,7 +77,7 @@ public class JDistributionEditorDialog extends JDialog {
 	 * @param imageSize	Gibt die Größe des Bildes beim Speichern an.
 	 */
 	public JDistributionEditorDialog(final Window owner, final AbstractRealDistribution distribution, final double maxXValue, final int plotType, final boolean allowDistributionTypeChange, final boolean allowOk, final int imageSize) {
-		super(owner,JDistributionEditorPanel.DialogTitle,Dialog.ModalityType.APPLICATION_MODAL);
+		super(owner,JDistributionEditorPanel.DialogTitle,Dialog.ModalityType.DOCUMENT_MODAL);
 		addWindowListener(new WindowAdapter() {@Override
 			public void windowClosing(WindowEvent event) {setVisible(false);}});
 		setResizable(false);

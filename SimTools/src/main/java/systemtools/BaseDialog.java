@@ -193,7 +193,7 @@ public class BaseDialog extends JDialog {
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 */
 	protected BaseDialog(Component owner, String title, boolean readOnly) {
-		super(owner==null?null:SwingUtilities.getWindowAncestor(owner),title,Dialog.ModalityType.APPLICATION_MODAL);
+		super(owner==null?null:((owner instanceof Window)?((Window)owner):SwingUtilities.getWindowAncestor(owner)),title,Dialog.ModalityType.DOCUMENT_MODAL);
 		this.owner=(owner==null)?null:SwingUtilities.getWindowAncestor(owner);
 		this.readOnly=readOnly;
 	}

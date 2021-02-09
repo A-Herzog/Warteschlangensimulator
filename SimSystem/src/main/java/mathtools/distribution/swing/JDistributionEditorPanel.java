@@ -57,7 +57,7 @@ import mathtools.distribution.tools.DistributionTools;
 /**
  * Diese Klasse kapselt einen Verteilungseditor als Panel.
  * @author Alexander Herzog
- * @version 2.0
+ * @version 2.1
  * @see JDistributionEditorDialog
  */
 public class JDistributionEditorPanel extends JPanel {
@@ -284,9 +284,22 @@ public class JDistributionEditorPanel extends JPanel {
 	/**
 	 * Auslesen der momentanen Verteilung
 	 * @return	Aktuelles Verteilungsobjekt
+	 * @see #setDistribution(AbstractRealDistribution)
 	 */
 	public AbstractRealDistribution getDistribution() {
 		return distribution;
+	}
+
+	/**
+	 * Einstellen einer neuen Verteilung
+	 * @param distribution	Neue Verteilung
+	 * @see #getDistribution()
+	 */
+	public void setDistribution(final AbstractRealDistribution distribution) {
+		if (distribution==null) return;
+		this.distribution=distribution;
+
+		setDataFromDistribution();
 	}
 
 	/**

@@ -20,14 +20,14 @@ import java.util.function.Consumer;
 import language.Language;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
-import ui.calculator.CalculatorDialog;
+import ui.calculator.CalculatorWindow;
 import ui.images.Images;
 
 /**
  * Erstellt Schnellzugriffeinträge zur Auswahl einer Verteilung
  * @author Alexander Herzog
  * @see JQuickAccessBuilder
- * @see CalculatorDialog
+ * @see CalculatorWindow
  */
 public class JQuickAccessBuilderDistributions extends JQuickAccessBuilder {
 	/**

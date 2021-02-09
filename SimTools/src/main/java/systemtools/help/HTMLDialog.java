@@ -72,7 +72,7 @@ abstract class HTMLDialog extends JDialog {
 	 * @see #getSpecialLink()
 	 */
 	public HTMLDialog(Window owner, String title, String topic, Runnable specialLinks) {
-		super(owner,title,Dialog.ModalityType.APPLICATION_MODAL);
+		super(owner,title,Dialog.ModalityType.DOCUMENT_MODAL);
 		this.specialLinks=specialLinks;
 
 		/* Fenster-Icon*/

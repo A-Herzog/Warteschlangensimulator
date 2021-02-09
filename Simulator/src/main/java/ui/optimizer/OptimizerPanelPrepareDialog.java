@@ -131,7 +131,7 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 	 * @param mode	Gibt an, für welchen Zweck die Modellvorbereitung durchgeführt werden soll (Anpassung des Dialogtitels)
 	 */
 	public OptimizerPanelPrepareDialog(final Component owner, final EditModel model, final Statistics statistics, final Mode mode) {
-		super(getOwnerWindow(owner),getTitle(mode),Dialog.ModalityType.APPLICATION_MODAL);
+		super(getOwnerWindow(owner),getTitle(mode),Dialog.ModalityType.DOCUMENT_MODAL);
 
 		if (statistics!=null && statistics.editModel.equalsEditModel(model)) {
 			/* Wir haben Glück, wir können die bereits vorhandene Statistik verwenden. */
