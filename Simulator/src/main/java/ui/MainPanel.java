@@ -666,6 +666,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpLiteratureLawKelton",e->commandHelpLiterature(3));
 		addAction("HelpLiteratureWaldmann",e->commandHelpLiterature(4));
 		addAction("HelpLiteratureHedtstueck",e->commandHelpLiterature(5));
+		addAction("HelpLiteratureGutenschwager",e->commandHelpLiterature(6));
 		addAction("HelpSupport",e->commandHelpSupport());
 		addAction("HelpSupportData",e->commandHelpSupportData());
 		addAction("HelpHomepage",e->commandHelpHomepage());
@@ -1209,6 +1210,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.LawKelton"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureLawKelton"),"HelpLiteratureLawKelton");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Waldmann"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureWaldmann"),"HelpLiteratureWaldmann");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Hedtstueck"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureHedtstueck"),"HelpLiteratureHedtstueck");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Gutenschwager"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureGutenschwager"),"HelpLiteratureGutenschwager");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Images.HELP_BUG_REPORT.getIcon(),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
@@ -3269,6 +3271,9 @@ public class MainPanel extends MainPanelBase {
 			break;
 		case 5: /* Hedtstück: "Simulation diskreter Prozesse" */
 			url="https://link.springer.com/book/10.1007/978-3-642-34871-6";
+			break;
+		case 6: /* Gutenschwager, Rabe, Spieckermann, Wenzel: "Simulation in Produktion und Logistik" */
+			url="https://link.springer.com/book/10.1007/978-3-662-55745-7";
 			break;
 		default:
 			return;

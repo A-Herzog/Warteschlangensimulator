@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-09 13:05+0100\n"
+"POT-Creation-Date: 2021-02-11 00:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7822,6 +7822,9 @@ msgstr "Bolch/Greiner/de Meer/Trivedi: \"Queueing Networks and Markov Chains\""
 msgid "Main.Menu.Help.RecommendedLiterature.GrossHarris"
 msgstr "Gross/Harris: \"Fundamentals of Queueing Theory\""
 
+msgid "Main.Menu.Help.RecommendedLiterature.Gutenschwager"
+msgstr "Gutenschwager/Rabe/Spieckermann/Wenzel: \"Simulation in Produktion und Logistik\""
+
 msgid "Main.Menu.Help.RecommendedLiterature.Hedtstueck"
 msgstr "Hedtstück: \"Simulation diskreter Prozesse\""
 
@@ -7833,6 +7836,9 @@ msgstr "Q"
 
 msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureBolch"
 msgstr "M"
+
+msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureGutenschwager"
+msgstr "u"
 
 msgid "Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureHedtstueck"
 msgstr "d"
