@@ -69,6 +69,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
+import swingtools.ImageIOFormatCheck;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
 import systemtools.statistics.PDFWriter;
@@ -285,12 +286,14 @@ public class PlotterPanel extends JPanel {
 		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
 		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
 		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
 		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
 		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
 		fc.addChoosableFileFilter(png);
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		fc.setFileFilter(png);
@@ -305,6 +308,7 @@ public class PlotterPanel extends JPanel {
 			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
 			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 		}
@@ -351,6 +355,8 @@ public class PlotterPanel extends JPanel {
 		if (file.getName().toLowerCase().endsWith(".jpeg")) s="jpg";
 		if (file.getName().toLowerCase().endsWith(".gif")) s="gif";
 		if (file.getName().toLowerCase().endsWith(".bmp")) s="bmp";
+		if (file.getName().toLowerCase().endsWith(".tiff")) s="tiff";
+		if (file.getName().toLowerCase().endsWith(".tif")) s="tiff";
 		if (file.getName().toLowerCase().endsWith(".docx")) s="docx";
 		if (file.getName().toLowerCase().endsWith(".pdf")) s="pdf";
 

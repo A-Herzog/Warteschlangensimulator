@@ -70,6 +70,7 @@ import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
+import swingtools.ImageIOFormatCheck;
 
 /**
  * Zeigt den grafischen Verlauf von Dichte und Verteilungsfunktion einer Verteilung
@@ -121,7 +122,9 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String FileTypePNG="png-Dateien";
 	/** Bezeichner für Dateiformat bmp (im Dateiauswahldialog) */
 	public static String FileTypeBMP="bmp-Dateien";
-	/** Wikipedia-Link für Hilfe zu Verteilungwn */
+	/** Bezeichner für Dateiformat tiff (im Dateiauswahldialog) */
+	public static String FileTypeTIFF="tiff-Dateien";
+	/** Wikipedia-Link für Hilfe zu Verteilungen */
 	public static String DistributionWikipedia="https://de.wikipedia.org/wiki/";
 	/** Überschreibwarnung für Grafiken (Text der Meldung) */
 	public static String GraphicsFileOverwriteWarning="Die Datei %s existiert bereits. Soll die Datei jetzt überschrieben werden?";
@@ -729,14 +732,16 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		CommonVariables.initialDirectoryToJFileChooser(fc);
 		fc.setDialogTitle(StoreGraphicsDialogTitle);
 
-		FileFilter jpg=new FileNameExtensionFilter(FileTypeJPEG+" (*.jpg, *.jpeg)","jpg","jpeg");
-		FileFilter gif=new FileNameExtensionFilter(FileTypeGIF+" (*.gif)","gif");
-		FileFilter png=new FileNameExtensionFilter(FileTypePNG+" (*.png)","png");
-		FileFilter bmp=new FileNameExtensionFilter(FileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter jpg=new FileNameExtensionFilter(FileTypeJPEG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		final FileFilter gif=new FileNameExtensionFilter(FileTypeGIF+" (*.gif)","gif");
+		final FileFilter png=new FileNameExtensionFilter(FileTypePNG+" (*.png)","png");
+		final FileFilter bmp=new FileNameExtensionFilter(FileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(FileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
 		fc.addChoosableFileFilter(png);
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
 		fc.setFileFilter(png);
 		fc.setAcceptAllFileFilterUsed(false);
 
@@ -749,6 +754,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
 			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
 		}
 		return file;
 	}

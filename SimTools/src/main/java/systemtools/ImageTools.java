@@ -44,6 +44,7 @@ import org.jfree.chart.JFreeChart;
 import mathtools.Table;
 import mathtools.TableChart;
 import mathtools.distribution.swing.CommonVariables;
+import swingtools.ImageIOFormatCheck;
 import systemtools.statistics.PDFWriter;
 import systemtools.statistics.StatisticsBasePanel;
 import systemtools.statistics.XWPFDocumentPictureTools;
@@ -122,6 +123,7 @@ public class ImageTools {
 		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
 		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
 		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
 		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
 		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
 		final FileFilter xlsx=allowXLSX?new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx"):null;
@@ -129,6 +131,7 @@ public class ImageTools {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
@@ -144,6 +147,7 @@ public class ImageTools {
 			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
 			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 			if (xlsx!=null && fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
@@ -171,6 +175,8 @@ public class ImageTools {
 		if (file.getName().toLowerCase().endsWith(".jpeg")) s="jpg";
 		if (file.getName().toLowerCase().endsWith(".gif")) s="gif";
 		if (file.getName().toLowerCase().endsWith(".bmp")) s="bmp";
+		if (file.getName().toLowerCase().endsWith(".tiff")) s="tiff";
+		if (file.getName().toLowerCase().endsWith(".tif")) s="tiff";
 		if (file.getName().toLowerCase().endsWith(".docx")) s="docx";
 		if (file.getName().toLowerCase().endsWith(".pdf")) s="pdf";
 		if (file.getName().toLowerCase().endsWith(".xlsx")) s="xlsx";
@@ -217,6 +223,8 @@ public class ImageTools {
 		if (file.getName().toLowerCase().endsWith(".jpeg")) s="jpg";
 		if (file.getName().toLowerCase().endsWith(".gif")) s="gif";
 		if (file.getName().toLowerCase().endsWith(".bmp")) s="bmp";
+		if (file.getName().toLowerCase().endsWith(".tiff")) s="tiff";
+		if (file.getName().toLowerCase().endsWith(".tif")) s="tiff";
 		if (file.getName().toLowerCase().endsWith(".docx")) s="docx";
 		if (file.getName().toLowerCase().endsWith(".pdf")) s="pdf";
 		if (file.getName().toLowerCase().endsWith(".xlsx")) s="xlsx";

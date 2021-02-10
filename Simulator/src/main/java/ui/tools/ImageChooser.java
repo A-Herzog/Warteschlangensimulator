@@ -56,6 +56,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
+import swingtools.ImageIOFormatCheck;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
 import ui.images.Images;
@@ -315,14 +316,16 @@ public class ImageChooser extends JPanel {
 		JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
 		fc.setDialogTitle(Language.tr("Window.SaveImage"));
-		FileFilter jpg=new FileNameExtensionFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
-		FileFilter gif=new FileNameExtensionFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
-		FileFilter png=new FileNameExtensionFilter(Language.tr("FileType.png")+" (*.png)","png");
-		FileFilter bmp=new FileNameExtensionFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		final FileFilter jpg=new FileNameExtensionFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
+		final FileFilter gif=new FileNameExtensionFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
+		final FileFilter png=new FileNameExtensionFilter(Language.tr("FileType.png")+" (*.png)","png");
+		final FileFilter bmp=new FileNameExtensionFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
 		fc.addChoosableFileFilter(png);
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
 		fc.setFileFilter(png);
 		fc.setAcceptAllFileFilterUsed(false);
 
@@ -335,6 +338,7 @@ public class ImageChooser extends JPanel {
 			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
 			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
 		}
 
 		if (file.exists()) {
@@ -347,6 +351,8 @@ public class ImageChooser extends JPanel {
 		if (file.getName().toLowerCase().endsWith(".jpeg")) s="jpg";
 		if (file.getName().toLowerCase().endsWith(".gif")) s="gif";
 		if (file.getName().toLowerCase().endsWith(".bmp")) s="bmp";
+		if (file.getName().toLowerCase().endsWith(".tiff")) s="tiff";
+		if (file.getName().toLowerCase().endsWith(".tif")) s="tiff";
 		try {return ImageIO.write(image,s,file);} catch (IOException e) {return false;}
 	}
 

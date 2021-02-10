@@ -87,6 +87,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsQuotientPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
+import swingtools.ImageIOFormatCheck;
 import systemtools.BaseDialog;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
@@ -1646,6 +1647,7 @@ public final class EditorPanel extends EditorPanelBase {
 		final FileFilter gif=new FileNameExtensionFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
 		final FileFilter png=new FileNameExtensionFilter(Language.tr("FileType.png")+" (*.png)","png");
 		final FileFilter bmp=new FileNameExtensionFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
 		final FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
 		final FileFilter svg=new FileNameExtensionFilter(Language.tr("FileType.svg")+" (*.svg)","svg");
 		final FileFilter eps=new FileNameExtensionFilter(Language.tr("FileType.eps")+" (*.eps)","eps");
@@ -1657,6 +1659,7 @@ public final class EditorPanel extends EditorPanelBase {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(pdf);
 		fc.addChoosableFileFilter(svg);
 		fc.addChoosableFileFilter(eps);
@@ -1676,6 +1679,7 @@ public final class EditorPanel extends EditorPanelBase {
 			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
 			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 			if (fc.getFileFilter()==svg) file=new File(file.getAbsoluteFile()+".svg");
 			if (fc.getFileFilter()==eps) file=new File(file.getAbsoluteFile()+".eps");
@@ -1715,6 +1719,8 @@ public final class EditorPanel extends EditorPanelBase {
 		if (file.getName().toLowerCase().endsWith(".docx")) format="docx";
 		if (file.getName().toLowerCase().endsWith(".pptx")) format="pptx";
 		if (file.getName().toLowerCase().endsWith(".html")) format="html";
+		if (file.getName().toLowerCase().endsWith(".tiff")) format="tiff";
+		if (file.getName().toLowerCase().endsWith(".tif")) format="tiff";
 		if (file.getName().toLowerCase().endsWith(".drawio")) format="drawio";
 
 		if (format.equalsIgnoreCase("html")) {

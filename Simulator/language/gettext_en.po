@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 00:04+0100\n"
+"POT-Creation-Date: 2021-02-09 13:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6167,6 +6167,9 @@ msgstr "Scalable vector graphics files"
 
 msgid "FileType.targz"
 msgstr "GZip Compressed tar files"
+
+msgid "FileType.tiff"
+msgstr "tiff files"
 
 msgid "FileType.xml"
 msgstr "xml files"

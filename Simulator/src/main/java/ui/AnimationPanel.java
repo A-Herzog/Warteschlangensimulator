@@ -93,6 +93,7 @@ import simulator.logging.CallbackLoggerWithJS;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunDataTransporter;
 import simulator.runmodel.SimulationData;
+import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
 import systemtools.SetupBase;
 import tools.ButtonRotator;
@@ -1492,11 +1493,13 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		final FileFilter gif=new FileNameExtensionFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
 		final FileFilter png=new FileNameExtensionFilter(Language.tr("FileType.png")+" (*.png)","png");
 		final FileFilter bmp=new FileNameExtensionFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
 		final FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
 		fc.addChoosableFileFilter(png);
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(pdf);
 
 		fc.setFileFilter(png);
@@ -1511,6 +1514,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
 			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 		}
 
@@ -1534,6 +1538,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (file.getName().toLowerCase().endsWith(".jpeg")) format="jpg";
 		if (file.getName().toLowerCase().endsWith(".gif")) format="gif";
 		if (file.getName().toLowerCase().endsWith(".bmp")) format="bmp";
+		if (file.getName().toLowerCase().endsWith(".tiff")) format="tiff";
+		if (file.getName().toLowerCase().endsWith(".tif")) format="tiff";
 		if (file.getName().toLowerCase().endsWith(".pdf")) format="pdf";
 
 		/* Bild */

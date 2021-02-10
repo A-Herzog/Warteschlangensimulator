@@ -53,6 +53,7 @@ import mathtools.Table;
 import mathtools.TableChart;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.swing.CommonVariables;
+import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
 
 /**
@@ -822,6 +823,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
 		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
 		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
 		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
 		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
 		final FileFilter xlsx=canStoreExcelFile()?new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx"):null;
@@ -830,6 +832,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
@@ -846,6 +849,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
 			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 			if (xlsx!=null && fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");

@@ -297,6 +297,7 @@ public class LanguageStaticLoader {
 		JDistributionPanel.FileTypeGIF=Language.tr("FileType.gif");
 		JDistributionPanel.FileTypePNG=Language.tr("FileType.png");
 		JDistributionPanel.FileTypeBMP=Language.tr("FileType.bmp");
+		JDistributionPanel.FileTypeTIFF=Language.tr("FileType.tiff");
 		JDistributionPanel.DistributionWikipedia=Language.tr("JDistributionEditor.Wikipedia.Link");
 		JDistributionPanel.GraphicsFileOverwriteWarning=Language.tr("Dialog.Overwrite.Info");
 		JDistributionPanel.GraphicsFileOverwriteWarningTitle=Language.tr("Dialog.Title.Warning");
@@ -695,6 +696,7 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.fileTypeGIF=Language.tr("FileType.gif");
 		StatisticsBasePanel.fileTypePNG=Language.tr("FileType.png");
 		StatisticsBasePanel.fileTypeBMP=Language.tr("FileType.bmp");
+		StatisticsBasePanel.fileTypeTIFF=Language.tr("FileType.tiff");
 		StatisticsBasePanel.fileTypeWordWithImage=Language.tr("FileType.WordImage");
 		StatisticsBasePanel.fileTypeSCE=Language.tr("FileType.SciLabScript");
 		StatisticsBasePanel.fileTypeTEX=Language.tr("FileType.LaTeX");

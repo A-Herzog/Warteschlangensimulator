@@ -20,9 +20,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics2D;
+import java.awt.Window;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -31,6 +33,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -43,9 +46,11 @@ import mathtools.TimeTools;
 import mathtools.distribution.swing.CommonVariables;
 import simulator.statistics.Statistics;
 import statistics.StatisticsLongRunPerformanceIndicator;
+import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
 import systemtools.statistics.StatisticViewerBarChart;
 import systemtools.statistics.StatisticsBasePanel;
+import ui.MainFrame;
 import ui.images.Images;
 import ui.mjpeg.MJPEGSystem;
 
@@ -246,6 +251,7 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
 		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
 		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
 		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
 		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
 		final FileFilter xlsx=allowXLSX?new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx"):null;
@@ -254,6 +260,7 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
+		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
@@ -270,6 +277,7 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
 			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
 			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 			if (xlsx!=null && fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
@@ -336,5 +344,12 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		} finally {
 			changeSlider(slider.getValue());
 		}
+	}
+
+	@Override
+	protected void openExternalFile(final File file) throws IOException {
+		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
+		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
+		super.openExternalFile(file);
 	}
 }
