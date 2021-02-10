@@ -15,7 +15,12 @@
  */
 package ui.statistics;
 
+import java.awt.Window;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -24,6 +29,7 @@ import mathtools.NumberTools;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.statistics.StatisticViewerPieChart;
+import ui.MainFrame;
 import ui.help.Help;
 
 /**
@@ -100,5 +106,12 @@ public class StatisticViewerPartsPieChart extends StatisticViewerPieChart {
 			requestClientsChart();
 			break;
 		}
+	}
+
+	@Override
+	protected void openExternalFile(final File file) throws IOException {
+		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
+		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
+		super.openExternalFile(file);
 	}
 }

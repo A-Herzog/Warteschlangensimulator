@@ -15,10 +15,15 @@
  */
 package ui.statistics;
 
+import java.awt.Window;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.Table;
@@ -26,6 +31,7 @@ import mathtools.TimeTools;
 import simulator.statistics.Statistics;
 import statistics.StatisticsLongRunPerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
+import ui.MainFrame;
 import ui.help.Help;
 
 /**
@@ -100,5 +106,12 @@ public class StatisticViewerAdditionalTable extends StatisticViewerTable {
 		addDescription("TableAdditionalStatistics");
 
 		setData(table,cols);
+	}
+
+	@Override
+	protected void openExternalFile(final File file) throws IOException {
+		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
+		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
+		super.openExternalFile(file);
 	}
 }

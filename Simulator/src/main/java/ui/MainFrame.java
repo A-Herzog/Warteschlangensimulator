@@ -66,6 +66,24 @@ public class MainFrame extends MainFrameBase {
 	public static final URL ICON_URL=MainFrame.class.getResource(ICON);
 
 	/**
+	 * Zeitdauer bis zu der der Java15-Fokus-Fix deaktiviert werden soll
+	 * (damit neue externe Fenster wirklich im Vordergrund erscheinen).
+	 * @see MainFrame#MainFrame(File, EditModel)
+	 * @see #pauseFocusFixer(int)
+	 */
+	private long focusFixPause=0;
+
+	/**
+	 * Pausiert die Schutzfunktion, die Drag&amp;Drop unter Java 15 korrigiert,
+	 * zeitweise, damit neue externe Fenster auch sicher im Vordergrund erscheinen.
+	 * @param seconds	Anzahl an Sekunden für die die Schutzfunktion ausgesetzt werden soll
+	 * @see #focusFixPause
+	 */
+	public void pauseFocusFixer(final int seconds) {
+		focusFixPause=Math.max(focusFixPause,System.currentTimeMillis()+seconds*1000);
+	}
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param loadFile	Datei, die beim Start geladen werden soll. Wird <code>null</code> übergeben, so wird nichts weiter geladen.
 	 * @param loadExample	Beispielmodell, das beim Start geladen werden soll. Wird <code>null</code> übergeben, so wird nichts weiter geladen.
@@ -92,6 +110,7 @@ public class MainFrame extends MainFrameBase {
 		 */
 		addWindowFocusListener(new WindowFocusListener() {
 			@Override public void windowLostFocus(WindowEvent e) {
+				if (System.currentTimeMillis()<=focusFixPause) return;
 				if (e.getOppositeWindow()==null) getMainPanel().requestFocus();
 			}
 			@Override public void windowGainedFocus(WindowEvent e) {}

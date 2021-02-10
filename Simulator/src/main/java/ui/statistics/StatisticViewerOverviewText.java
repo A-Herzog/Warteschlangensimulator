@@ -15,6 +15,9 @@
  */
 package ui.statistics;
 
+import java.awt.Window;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +31,7 @@ import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.math3.util.FastMath;
 
@@ -52,6 +56,7 @@ import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticViewerText;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.SetupData;
+import ui.MainFrame;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.ModelResource;
@@ -3124,5 +3129,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		changed=(dialog!=null && dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK);
 		if (changed) owner.recreateViewers();
 		return changed;
+	}
+
+	@Override
+	protected void openExternalFile(final File file) throws IOException {
+		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
+		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
+		super.openExternalFile(file);
 	}
 }

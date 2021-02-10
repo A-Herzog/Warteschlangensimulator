@@ -3141,6 +3141,7 @@ public class MainPanel extends MainPanelBase {
 		if (local.isFile()) {
 			boolean ok=false;
 			try {
+				if (ownerWindow instanceof MainFrame) ((MainFrame)ownerWindow).pauseFocusFixer(5);
 				Desktop.getDesktop().open(local);
 				ok=true;
 			} catch (IOException e) {
@@ -3152,6 +3153,7 @@ public class MainPanel extends MainPanelBase {
 		final String network="https://"+HOME_URL+"/Warteschlangensimulator/"+fileName;
 		try {
 			if (!MsgBox.confirmOpenURL(this,network)) return;
+			if (ownerWindow instanceof MainFrame) ((MainFrame)ownerWindow).pauseFocusFixer(5);
 			Desktop.getDesktop().browse(new URI(network));
 		} catch (IOException | URISyntaxException e1) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),network));
@@ -3274,6 +3276,7 @@ public class MainPanel extends MainPanelBase {
 
 		try {
 			if (!MsgBox.confirmOpenURL(this,url)) return;
+			if (ownerWindow instanceof MainFrame) ((MainFrame)ownerWindow).pauseFocusFixer(5);
 			Desktop.getDesktop().browse(new URI(url));
 		} catch (IOException | URISyntaxException e1) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),url));
@@ -3310,6 +3313,7 @@ public class MainPanel extends MainPanelBase {
 		final String network="https://"+WEB_URL;
 		try {
 			if (!MsgBox.confirmOpenURL(this,network)) return;
+			if (ownerWindow instanceof MainFrame) ((MainFrame)ownerWindow).pauseFocusFixer(5);
 			Desktop.getDesktop().browse(new URI(network));
 		} catch (IOException | URISyntaxException e1) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),network));

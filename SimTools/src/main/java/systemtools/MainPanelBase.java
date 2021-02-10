@@ -211,7 +211,7 @@ public abstract class MainPanelBase extends JPanel {
 	 * Liefert das übergeordnete Fenster zurück (z.B. für die Anzeige von Dialogen von Bedeutung)
 	 * @return	Übergeordnetes Fenster des Panels
 	 */
-	protected final Window getOwnerWindow() {
+	public final Window getOwnerWindow() {
 		Container c=getParent();
 		while (c!=null) {
 			if (c instanceof Window) return (Window)c;

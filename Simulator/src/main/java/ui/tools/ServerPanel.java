@@ -58,6 +58,7 @@ import net.webcalc.CalcWebServer;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.SetupData;
+import ui.MainFrame;
 import ui.MainPanel;
 import ui.ReloadManager;
 import ui.dialogs.ServerPanelTLSDialog;
@@ -76,6 +77,11 @@ public final class ServerPanel extends SpecialPanel {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = 6115906891815733405L;
+
+	/**
+	 * Hauptpanel des Simulators
+	 */
+	private final MainPanel mainPanel;
 
 	/** Objekt für den Simulationsserver */
 	private final SimulationServerGUIConnect serverCalc;
@@ -179,6 +185,7 @@ public final class ServerPanel extends SpecialPanel {
 	 */
 	public ServerPanel(final Runnable doneNotify, final MainPanel mainPanel) {
 		super(doneNotify);
+		this.mainPanel=mainPanel;
 
 		final SetupData setupData=SetupData.getSetup();
 
@@ -764,6 +771,7 @@ public final class ServerPanel extends SpecialPanel {
 		sb.append("/");
 
 		try {
+			if (mainPanel.getOwnerWindow() instanceof MainFrame) ((MainFrame)(mainPanel.getOwnerWindow())).pauseFocusFixer(5);
 			Desktop.getDesktop().browse(new URI(sb.toString()));
 		} catch (IOException | URISyntaxException e1) {
 			MsgBox.error(this,Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),sb.toString()));

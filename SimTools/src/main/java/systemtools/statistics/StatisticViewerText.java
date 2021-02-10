@@ -958,6 +958,15 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	}
 
 	/**
+	 * Wird aufgerufen, um eine externe Datei (mit dem Standardprogramm) zu öffnen.
+	 * @param file	Zu öffnende Datei
+	 * @throws IOException	Kann ausgelöst werden, wenn die Datei nicht geöffnet werden konnte
+	 */
+	protected void openExternalFile(final File file) throws IOException {
+		Desktop.getDesktop().open(file);
+	}
+
+	/**
 	 * Öffnet den Text (über eine temporäre Datei) mit Word
 	 */
 	private void openWord() {
@@ -965,7 +974,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".docx");
 			if (saveDOCX(file)) {
 				file.deleteOnExit();
-				Desktop.getDesktop().open(file);
+				openExternalFile(file);
 			}
 		} catch (IOException e1) {
 			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
@@ -980,7 +989,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".odt");
 			if (saveODT(file)) {
 				file.deleteOnExit();
-				Desktop.getDesktop().open(file);
+				openExternalFile(file);
 			}
 		} catch (IOException e1) {
 			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
@@ -996,7 +1005,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".pdf");
 			if (savePDF(owner,file)) {
 				file.deleteOnExit();
-				Desktop.getDesktop().open(file);
+				openExternalFile(file);
 			}
 		} catch (IOException e1) {
 			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);

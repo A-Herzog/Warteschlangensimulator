@@ -15,12 +15,16 @@
  */
 package ui.statistics;
 
+import java.awt.Window;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -31,6 +35,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
 import tools.SetupData;
+import ui.MainFrame;
 import ui.help.Help;
 import ui.images.Images;
 
@@ -346,5 +351,12 @@ public class StatisticViewerMovementTable extends StatisticViewerTable {
 		}
 
 		return buttons.toArray(new JButton[0]);
+	}
+
+	@Override
+	protected void openExternalFile(final File file) throws IOException {
+		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
+		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
+		super.openExternalFile(file);
 	}
 }

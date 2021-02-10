@@ -491,6 +491,15 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	}
 
 	/**
+	 * Wird aufgerufen, um eine externe Datei (mit dem Standardprogramm) zu öffnen.
+	 * @param file	Zu öffnende Datei
+	 * @throws IOException	Kann ausgelöst werden, wenn die Datei nicht geöffnet werden konnte
+	 */
+	protected void openExternalFile(final File file) throws IOException {
+		Desktop.getDesktop().open(file);
+	}
+
+	/**
 	 * Öffnet das Diagramm (über eine temporäre Datei) mit Excel
 	 */
 	private void openExcel() {
@@ -498,7 +507,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".xlsx");
 			if (ImageTools.storeExcelFile(chart,()->getTableChartFromChart(),file)) {
 				file.deleteOnExit();
-				Desktop.getDesktop().open(file);
+				openExternalFile(file);
 			}
 		} catch (IOException e1) {
 			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
@@ -519,7 +528,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 			if (!pdf.save(file)) return;
 
 			file.deleteOnExit();
-			Desktop.getDesktop().open(file);
+			openExternalFile(file);
 		} catch (IOException e1) {
 			MsgBox.error(getViewer(false),StatisticsBasePanel.viewersToolbarExcelSaveErrorTitle,StatisticsBasePanel.viewersToolbarExcelSaveErrorInfo);
 		}
