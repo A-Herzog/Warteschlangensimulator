@@ -404,7 +404,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		/**
 		 * Elemente, die ein Typ="..."-Attribut zur Unterscheidung verwenden
 		 */
-		private final String[] specialTags=new String[] {
+		private final String[] specialTagsType=new String[] {
 				/* Modelldateien */
 
 				Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.RootName.Model")+",*",
@@ -511,10 +511,20 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.ValueRecording")+","+Language.trPrimary("Statistics.XML.ValueRecordingName")
 		};
 
+		/**
+		 * Elemente, die ein Name="..."-Attribut zur Unterscheidung verwenden
+		 */
+		private final String[] specialTagsName=new String[] {
+				/* Modelldateien */
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Surface.XML.Model.Root")+","+Language.trPrimary("Surface.XML.GlobalVariable"),
+		};
+
 		/** XML-Element auf das sich dieser Wrapper bezieht */
 		public final Element xmlNode;
-		/** Wird eine ID zur Unterscheidung benötigt? */
-		public final boolean needID;
+		/** Wird eine Typ-ID zur Unterscheidung benötigt? */
+		public final boolean needIDType;
+		/** Wird eine Name-ID zur Unterscheidung benötigt? */
+		public final boolean needIDName;
 		/** Wird eine zahlenbasierte ID zur Unterscheidung benötigt? */
 		public final boolean needNrID;
 		/** Wert der Zahlen-ID für dieses Element */
@@ -527,17 +537,23 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		public XMLNodeWrapper(Element xmlNode) {
 			this.xmlNode=xmlNode;
 
-			if (xmlNode==null) {needID=false; needNrID=false; nrID=-1; return;}
+			if (xmlNode==null) {needIDType=false; needIDName=false; needNrID=false; nrID=-1; return;}
 
 			/* Nodes mit Typ="..." Parametern */
 			String s=xmlNode.getNodeName(); Node path=xmlNode.getParentNode();
 			while (path.getParentNode()!=null) {s=path.getNodeName()+","+s; path=path.getParentNode();}
-			boolean b=false;
-			for (int i=0;i<specialTags.length;i++) if (tagPathsEqual(specialTags[i],s)) {b=true; break;}
-			needID=b;
+			boolean b;
+
+			b=false;
+			for (int i=0;i<specialTagsType.length;i++) if (tagPathsEqual(specialTagsType[i],s)) {b=true; break;}
+			needIDType=b;
+
+			b=false;
+			for (int i=0;i<specialTagsName.length;i++) if (tagPathsEqual(specialTagsName[i],s)) {b=true; break;}
+			needIDName=b;
 
 			/* Nodes, die es mehrfach gibt */
-			if (needID) {
+			if (needIDType || needIDName) {
 				needNrID=false; nrID=-1;
 			} else {
 				if (!(xmlNode.getParentNode() instanceof Element)) {
@@ -584,7 +600,18 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		 * @return	ID-Selektor für das XML-Element
 		 */
 		private String getIDSelector() {
-			if (needID) {
+			if (needIDType) {
+				String[] testIDs=new String[]{Language.tr("Surface.XML.Element.id"),Language.tr("Surface.XML.ClientData.Name"),Language.tr("Surface.XML.Connection.Type")};
+
+				for (String testID : testIDs) {
+					String special=xmlNode.getAttribute(testID);
+					if (!special.isEmpty()) return "["+testID+"=\""+special+"\"]";
+				}
+
+				return "["+testIDs[testIDs.length-1]+"=\"\"]";
+			}
+
+			if (needIDName) {
 				String[] testIDs=new String[]{Language.tr("Surface.XML.Element.id"),Language.tr("Surface.XML.ClientData.Name"),Language.tr("Surface.XML.Connection.Type")};
 
 				for (String testID : testIDs) {
@@ -634,7 +661,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				path=path.getParentNode();
 			}
 			if (attribute!=null && !attribute.isEmpty()) {
-				if (needID) s+="->";
+				if (needIDType || needIDName) s+="->";
 				s+="["+attribute+"]";
 			}
 			return s;
@@ -658,7 +685,8 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				path=path.getParentNode();
 			}
 			if (attribute!=null && !attribute.isEmpty()) {
-				if (needID) list.add("["+attribute+"]"); else list.set(list.size()-1,list.get(list.size()-1)+"["+attribute+"]");
+				if (needIDType) list.add("["+attribute+"]"); else list.set(list.size()-1,list.get(list.size()-1)+"["+attribute+"]");
+				if (needIDName) list.add("["+attribute+"]"); else list.set(list.size()-1,list.get(list.size()-1)+"["+attribute+"]");
 			}
 
 			return list.toArray(new String[0]);
