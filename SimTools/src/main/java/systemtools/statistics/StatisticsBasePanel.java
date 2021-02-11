@@ -72,6 +72,7 @@ import mathtools.distribution.tools.FileDropperData;
 import systemtools.commandline.AbstractReportCommandConnect;
 import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticViewer.CanDoAction;
+import systemtools.statistics.StatisticViewer.ViewerType;
 import systemtools.statistics.StatisticViewerReport.FileFormat;
 import systemtools.statistics.StatisticViewerSpecialText.SpecialMode;
 import xml.XMLData;
@@ -709,6 +710,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 				if (dataViewer==null  || dataViewer.length!=1 || dataViewer[0]==null) return;
 				if (!(dataViewer[0] instanceof StatisticViewer)) return;
 				final StatisticViewer viewer=dataViewer[0];
+				if (viewer.getType()==ViewerType.TYPE_TEXT || viewer.getType()==ViewerType.TYPE_SPECIAL) return; /* Die verwenden eigene Kopierroutinen (für Teile des Textes). Hier immer alles zu kopieren, würde erheblich stören. */
 				if (!viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY)) return;
 				viewer.copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
 			}
@@ -1118,7 +1120,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	private StatisticViewer[] getLastViewer(final StatisticNode currentNode) {
 		if (lastRoot==null) return null;
 
-		final List<Integer> path=currentNode.getPath();
+		final String[] path=currentNode.getFullName();
 		if (path==null) return null;
 
 		final StatisticNode lastNode=lastRoot.getChildByPath(path);

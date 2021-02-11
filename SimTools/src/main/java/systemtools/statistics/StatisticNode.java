@@ -268,6 +268,22 @@ public class StatisticNode {
 	}
 
 	/**
+	 * Liefert einen Untereintrag basierend auf einem Pfad
+	 * @param path	Pfad besteht aus den {@link #toString()}-Namen der Kindelemente für den der Untereintrag ermittelt werden soll
+	 * @return	Passender Untereintrag oder <code>null</code>, wenn kein Eintrag ermittelt werden konnte
+	 */
+	public StatisticNode getChildByPath(final String[] path) {
+		if (path==null || path.length==0) return null;
+
+		for (StatisticNode child: children)
+			if (child.toString().equals(path[0])) {
+				if (path.length==1) return child;
+				return child.getChildByPath(Arrays.copyOfRange(path,1,path.length));
+			}
+		return null;
+	}
+
+	/**
 	 * Name des Elemnents
 	 * @see #toString()
 	 */
