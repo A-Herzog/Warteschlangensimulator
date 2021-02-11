@@ -3117,7 +3117,9 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Extras - Kommandozeilenbefehl ausführen
 	 */
 	private void commandExtrasExecuteCommand() {
-		new CommandLineDialog(this,stream->new CommandLineSystem(null,stream),window->Help.topicModal(window,"CommandLineDialog"));
+		final CommandLineDialog dialog=new CommandLineDialog(this,stream->new CommandLineSystem(null,stream),window->Help.topicModal(window,"CommandLineDialog"),setup.commandLineDialogParameters);
+		setup.commandLineDialogParameters=dialog.getParameters();
+		setup.saveSetup();
 	}
 
 	/**

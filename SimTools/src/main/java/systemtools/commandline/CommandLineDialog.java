@@ -123,8 +123,9 @@ public class CommandLineDialog extends BaseDialog {
 	 * @param owner	Übergeordnetes Element
 	 * @param commandLineSystemGetter	Liefert eine neue Instanz des Kommandozeilensystems
 	 * @param helpCallback	Hilfe-Callback
+	 * @param initialParameters	Initial zu verwendende Parameter (kann <code>null</code> sein)
 	 */
-	public CommandLineDialog(final Component owner, final Function<PrintStream,BaseCommandLineSystem> commandLineSystemGetter, final Consumer<Window> helpCallback) {
+	public CommandLineDialog(final Component owner, final Function<PrintStream,BaseCommandLineSystem> commandLineSystemGetter, final Consumer<Window> helpCallback, final String initialParameters) {
 		super(owner,title);
 
 		this.commandLineSystemGetter=commandLineSystemGetter;
@@ -173,6 +174,7 @@ public class CommandLineDialog extends BaseDialog {
 
 		tab.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(parameters=new JTextField(80));
+		if (initialParameters!=null && !initialParameters.trim().isEmpty()) parameters.setText(initialParameters);
 
 		tab.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel(labelResults));
@@ -195,6 +197,16 @@ public class CommandLineDialog extends BaseDialog {
 		pack();
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
+	}
+
+	/**
+	 * Konstruktor der Klasse (macht den Dialog am Ende auch gleich sichtbar)
+	 * @param owner	Übergeordnetes Element
+	 * @param commandLineSystemGetter	Liefert eine neue Instanz des Kommandozeilensystems
+	 * @param helpCallback	Hilfe-Callback
+	 */
+	public CommandLineDialog(final Component owner, final Function<PrintStream,BaseCommandLineSystem> commandLineSystemGetter, final Consumer<Window> helpCallback) {
+		this(owner,commandLineSystemGetter,helpCallback,null);
 	}
 
 	/**
@@ -359,5 +371,13 @@ public class CommandLineDialog extends BaseDialog {
 	@Override
 	protected void userButtonClick(final int nr, final JButton button) {
 		if (thread!=null) thread.setQuit();
+	}
+
+	/**
+	 * Liefert die aktuell eingestellten Parameter.
+	 * @return	Aktueller Wert im Parameter-Eingabefeld
+	 */
+	public String getParameters() {
+		return parameters.getText().trim();
 	}
 }

@@ -535,6 +535,11 @@ public class SetupData extends SetupBase {
 	public String scriptCalculator;
 
 	/**
+	 * Zuletzt im Kommandozeilen-Befehle-Dialog verwendete Parameter
+	 */
+	public String commandLineDialogParameters;
+
+	/**
 	 * Modell im Hintergrund prüfen und in Statuszeile anzeigen, ob Fehler vorliegen.
 	 * @see SetupData.BackgroundProcessingMode#BACKGROUND_NOTHING
 	 * @see SetupData.BackgroundProcessingMode#BACKGROUND_CHECK_ONLY
@@ -1048,6 +1053,7 @@ public class SetupData extends SetupBase {
 		lastFilterMode=0;
 		scriptScriptRunner="";
 		scriptCalculator="";
+		commandLineDialogParameters="";
 		backgroundSimulation=BackgroundProcessingMode.BACKGROUND_SIMULATION;
 		autoConnect=ModelSurfacePanel.ConnectMode.OFF;
 		renameOnCopy=RenameOnCopyMode.SMART;
@@ -1579,6 +1585,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("calculatorscript")) {
 				scriptCalculator=e.getTextContent();
+				continue;
+			}
+
+			if (name.equals("commandlineparameters")) {
+				commandLineDialogParameters=e.getTextContent();
 				continue;
 			}
 
@@ -2172,6 +2183,11 @@ public class SetupData extends SetupBase {
 		if (scriptCalculator!=null && !scriptCalculator.trim().isEmpty()) {
 			root.appendChild(node=doc.createElement("CalculatorScript"));
 			node.setTextContent(scriptCalculator);
+		}
+
+		if (commandLineDialogParameters!=null && !commandLineDialogParameters.trim().isEmpty()) {
+			root.appendChild(node=doc.createElement("CommandLineParameters"));
+			node.setTextContent(commandLineDialogParameters);
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {
