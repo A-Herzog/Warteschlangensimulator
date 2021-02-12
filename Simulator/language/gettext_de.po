@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-11 00:11+0100\n"
+"POT-Creation-Date: 2021-02-11 23:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,6 +694,113 @@ msgstr "Simulationsschritt %d: Simulation des Modells %s"
 
 msgid "Batch.Simulation.UserCancel"
 msgstr "Die Simulation der Parameterreihe wurde vom Nutzer abgebrochen."
+
+msgid "BuildClientSourceTable.ColumnsInfo"
+msgstr "Listenzeile doppelt anklicken, um die Nutzung der jeweiligen Tabellenspalte zu konfigurieren:"
+
+msgid "BuildClientSourceTable.DialogHint"
+msgstr "In diesem Dialog können Tabellen mit Kundenankunftsdaten, bei denen zusätzliche Eigenschaften in den weiteren Spalten angegeben sind, in Tabellen passend für Tabellenquellen umgewandelt werden."
+
+msgid "BuildClientSourceTable.Edit.Column"
+msgstr "Spalte"
+
+msgid "BuildClientSourceTable.Edit.Index"
+msgstr "Index der Zahleneigenschaft"
+
+msgid "BuildClientSourceTable.Edit.Index.Error.Info"
+msgstr ""
+"Der angegebene Index \"%s\" für die Zahleneigenschaft ist ungültig.\n"
+"Es muss eine nichtnegative ganze Zahl angegeben werden."
+
+msgid "BuildClientSourceTable.Edit.Index.Error.Title"
+msgstr "Ungültiger Index für die Zahleneigenschaft"
+
+msgid "BuildClientSourceTable.Edit.Mode"
+msgstr "Interpretation der Werte in der Spalte"
+
+msgid "BuildClientSourceTable.Edit.Mode.Number"
+msgstr "Werte als Zahleneigenschaften importieren"
+
+msgid "BuildClientSourceTable.Edit.Mode.Off"
+msgstr "Werte nicht verwenden"
+
+msgid "BuildClientSourceTable.Edit.Mode.Text"
+msgstr "Werte als Texteigenschaften importieren"
+
+msgid "BuildClientSourceTable.Edit.Name"
+msgstr "Name der Spalte"
+
+msgid "BuildClientSourceTable.Edit.Title"
+msgstr "Verwendung der Tabellenspalte konfigurieren"
+
+msgid "BuildClientSourceTable.InputTable"
+msgstr "Eingabetabelle"
+
+msgid "BuildClientSourceTable.InputTable.Error.DoesNotExist.Info"
+msgstr ""
+"Die angegebene Eingabetabelle\n"
+"%s\n"
+"existiert nicht."
+
+msgid "BuildClientSourceTable.InputTable.Error.DoesNotExist.Title"
+msgstr "Eingabetabelle existiert nicht"
+
+msgid "BuildClientSourceTable.InputTable.Error.NoFile.Info"
+msgstr "Es wurde keine Dateiname für die Eingabetabelle angegeben."
+
+msgid "BuildClientSourceTable.InputTable.Error.NoFile.Title"
+msgstr "Keine Eingabetabelle angegeben"
+
+msgid "BuildClientSourceTable.InputTable.Error.Process.Info"
+msgstr ""
+"Die Eingabetabelle\n"
+"%s\n"
+"kann nicht verarbeitet werden."
+
+msgid "BuildClientSourceTable.InputTable.Error.Process.Title"
+msgstr "Verarbeitung der Tabelle nicht möglich"
+
+msgid "BuildClientSourceTable.InputTable.Select"
+msgstr "Eingabetabelle auswählen"
+
+msgid "BuildClientSourceTable.OutputTable"
+msgstr "Ausgabetabelle"
+
+msgid "BuildClientSourceTable.OutputTable.Error.NoFile.Info"
+msgstr "Es wurde keine Dateiname für die Ausgabetabelle angegeben."
+
+msgid "BuildClientSourceTable.OutputTable.Error.NoFile.Title"
+msgstr "Keine Ausgabetabelle angegeben"
+
+msgid "BuildClientSourceTable.OutputTable.Error.Save.Info"
+msgstr ""
+"Das Speichern der Ausgabetabelle in der Datei\n"
+"%s\n"
+"ist fehlgeschlagen."
+
+msgid "BuildClientSourceTable.OutputTable.Error.Save.Title"
+msgstr "Speichern der Ausgabetabelle fehlgeschlagen"
+
+msgid "BuildClientSourceTable.OutputTable.Select"
+msgstr "Ausgabetabelle auswählen"
+
+msgid "BuildClientSourceTable.Setup.Column"
+msgstr "Spalte"
+
+msgid "BuildClientSourceTable.Setup.ColumnName"
+msgstr "Name"
+
+msgid "BuildClientSourceTable.Setup.Mode.Number"
+msgstr "Als Zahlenwerte laden"
+
+msgid "BuildClientSourceTable.Setup.Mode.Off"
+msgstr "Micht verwenden"
+
+msgid "BuildClientSourceTable.Setup.Mode.Text"
+msgstr "Als Textwerte laden"
+
+msgid "BuildClientSourceTable.Title"
+msgstr "Tabelle für Tabellenquelle aufbereiten"
 
 msgid "CalcWebServer.LoadError"
 msgstr "Die Eingabedaten konnten nicht geladen werden."
@@ -25703,6 +25810,9 @@ msgstr "Es wurde keine Tabellendatei, aus der die Kundenankünfte geladen werden
 
 msgid "Surface.SourceTable.Dialog.Table.ErrorTitle"
 msgstr "Keine Tabellendatei angegeben"
+
+msgid "Surface.SourceTable.Dialog.Table.Process"
+msgstr "Tabellendatei für Tabellenquelle konvertieren"
 
 msgid "Surface.SourceTable.Dialog.Table.Tooltip"
 msgstr "Tabellendatei auswählen"

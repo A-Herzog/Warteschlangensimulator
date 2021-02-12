@@ -45,6 +45,7 @@ import mathtools.distribution.tools.FileDropper;
 import systemtools.MsgBox;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
+import ui.inputprocessor.ClientInputTableDialog;
 import ui.modeleditor.ModelElementBaseDialog;
 
 /**
@@ -130,8 +131,12 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 		tableEdit.setEditable(!readOnly);
-		JButton button=new JButton();
-		((JPanel)data[0]).add(button,BorderLayout.EAST);
+
+		final JPanel tools=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		((JPanel)data[0]).add(tools,BorderLayout.EAST);
+		JButton button;
+
+		tools.add(button=new JButton());
 		button.setToolTipText(Language.tr("Surface.SourceTable.Dialog.Table.Tooltip"));
 		button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 		button.addActionListener(e->{
@@ -141,6 +146,12 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 				checkData(false);
 			}
 		});
+
+		tools.add(button=new JButton());
+		button.setToolTipText(Language.tr("Surface.SourceTable.Dialog.Table.Process"));
+		button.setIcon(Images.GENERAL_TOOLS.getIcon());
+		button.addActionListener(e->	new ClientInputTableDialog(ModelElementSourceTableDialog.this));
+
 		FileDropper.addFileDropper(this,tableEdit);
 
 		/* Radiobuttons für Tabellenspalte 1 */

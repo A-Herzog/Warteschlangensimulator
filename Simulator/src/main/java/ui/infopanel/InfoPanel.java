@@ -167,6 +167,9 @@ public class InfoPanel {
 	/** Info-ID für den "Git-Konfigurationen"-Dialog */
 	public static final String globalGit="Git";
 
+	/** Info-ID für den "Tabelle für Tabellenquelle aufbereiten"-Dialog */
+	public static final String globalProcessClientTable="ProcessClientTable";
+
 	/* Stationen - Eingang/Ausgang */
 
 	/** Info-ID für den "Quelle"-Bearbeiten-Dialog (Gruppe "Eingang/Ausgang") */
@@ -721,6 +724,10 @@ public class InfoPanel {
 		register(globalGit,
 				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("Git.List.Title"),
 				()->Language.tr("Git.List.DialogHint"));
+
+		register(globalProcessClientTable,
+				()->Language.tr("HintsDialog.TreeNodeMoreDialogs")+"|"+Language.tr("BuildClientSourceTable.Title"),
+				()->Language.tr("BuildClientSourceTable.DialogHint"));
 
 		/* Stationen - Eingang/Ausgang */
 

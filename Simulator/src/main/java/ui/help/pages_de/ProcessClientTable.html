@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tabelle für Tabellenquelle aufbereiten</title>
+<link rel="stylesheet" type="text/css" href="styles.css"> 
+</head>
+<body>
+
+<h1>Tabelle für Tabellenquelle aufbereiten</h1>
+
+<p>
+Viele normale Tabellen sind so aufgebaut, dass in der erste Zeile die jeweiligen Spaltenüberschriften
+stehen und in den folgenden Zeilen unterhalb der jeweiligen Überschriften die jeweiligen Werte.
+Beispiel für eine Tabelle mit Kundenankunftszeiten:
+</p>
+
+<table border="1">
+  <tr>
+    <td>Zeitpunkt</td>
+    <td>Kundentyp</td>
+    <td>Kosten</td>    
+    <td>Eigenschaft</td>
+  </tr>
+  <tr><td>10</td><td>Kunden A</td><td>5</td><td>Normal</td></tr>
+  <tr><td>17</td><td>Kunden B</td><td>3</td><td>Normal</td></tr>
+  <tr><td>25</td><td>Kunden A</td><td>11</td><td>Speziell</td></tr>
+</table>
+
+<p>
+Für die Verarbeitung an einer <a href="ModelElementSourceTable.html">Tabellenquelle</a>
+muss eine Tabelle jedoch wie folgt aussehen:
+</p>
+
+<table border="1">
+  <tr><td>10</td><td>Kunden A</td><td>ClientData(1)=5</td><td>ClientData("Eigenschaft")=Normal</tr>
+  <tr><td>17</td><td>Kunden B</td><td>ClientData(1)=3</td><td>ClientData("Eigenschaft")=Normal</tr>
+  <tr><td>25</td><td>Kunden A</td><td>ClientData(1)=11</td><td>ClientData("Eigenschaft")=Speziell</tr>
+</table>
+
+<p>
+Die in diesem Dialog angebotene Funktionalität erlaubt es, Tabellen aus der oben dargestellten
+Form in die unten dargestellte Form zu übersetzen. Es kann dabei gewählt werden, welche der
+zusätzlichen Spalten (im Beispiel "Kosten" und "Eigenschaft") übertragen werden sollen und welche
+Kundendaten-Index numerische Spalten (im Beispiel "Kosten" als "ClientData(1)") erhalten sollen.
+</p>
+  
+</body>
+</html>

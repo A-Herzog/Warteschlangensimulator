@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-11 00:11+0100\n"
+"POT-Creation-Date: 2021-02-11 23:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,6 +694,113 @@ msgstr "Simulation step %d: Simulation of model %s"
 
 msgid "Batch.Simulation.UserCancel"
 msgstr "The simulation of the parameter series was canceled by the user."
+
+msgid "BuildClientSourceTable.ColumnsInfo"
+msgstr "Double-click list record to edit table column usage:"
+
+msgid "BuildClientSourceTable.DialogHint"
+msgstr "In this dialog, tables with client arrival data, where additional properties are specified in the further columns, can be converted into tables suitable for table sources."
+
+msgid "BuildClientSourceTable.Edit.Column"
+msgstr "Column"
+
+msgid "BuildClientSourceTable.Edit.Index"
+msgstr "Index of the number property"
+
+msgid "BuildClientSourceTable.Edit.Index.Error.Info"
+msgstr ""
+"The specified index \"%s\" for the number property is invalid.\n"
+"A non-negative integer must be specified."
+
+msgid "BuildClientSourceTable.Edit.Index.Error.Title"
+msgstr "Invalid index for the number property"
+
+msgid "BuildClientSourceTable.Edit.Mode"
+msgstr "Interpretation of the values in the column"
+
+msgid "BuildClientSourceTable.Edit.Mode.Number"
+msgstr "Import values as number properties"
+
+msgid "BuildClientSourceTable.Edit.Mode.Off"
+msgstr "Do not use values"
+
+msgid "BuildClientSourceTable.Edit.Mode.Text"
+msgstr "Import values as text properties"
+
+msgid "BuildClientSourceTable.Edit.Name"
+msgstr "Name of the column"
+
+msgid "BuildClientSourceTable.Edit.Title"
+msgstr "Configure the use of the table column"
+
+msgid "BuildClientSourceTable.InputTable"
+msgstr "Input table"
+
+msgid "BuildClientSourceTable.InputTable.Error.DoesNotExist.Info"
+msgstr ""
+"The specified input table\n"
+"%s\n"
+"does not exist."
+
+msgid "BuildClientSourceTable.InputTable.Error.DoesNotExist.Title"
+msgstr "Input table does not exist"
+
+msgid "BuildClientSourceTable.InputTable.Error.NoFile.Info"
+msgstr "No file name was specified for the input table."
+
+msgid "BuildClientSourceTable.InputTable.Error.NoFile.Title"
+msgstr "No input table"
+
+msgid "BuildClientSourceTable.InputTable.Error.Process.Info"
+msgstr ""
+"The input table\n"
+"%s\n"
+"cannot be processed."
+
+msgid "BuildClientSourceTable.InputTable.Error.Process.Title"
+msgstr "Table processing not possible"
+
+msgid "BuildClientSourceTable.InputTable.Select"
+msgstr "Select input table"
+
+msgid "BuildClientSourceTable.OutputTable"
+msgstr "Output table"
+
+msgid "BuildClientSourceTable.OutputTable.Error.NoFile.Info"
+msgstr "No file name was specified for the output table."
+
+msgid "BuildClientSourceTable.OutputTable.Error.NoFile.Title"
+msgstr "No output table"
+
+msgid "BuildClientSourceTable.OutputTable.Error.Save.Info"
+msgstr ""
+"Saving the output table to\n"
+"%s\n"
+"failed."
+
+msgid "BuildClientSourceTable.OutputTable.Error.Save.Title"
+msgstr "Saving output table failed"
+
+msgid "BuildClientSourceTable.OutputTable.Select"
+msgstr "Select output table"
+
+msgid "BuildClientSourceTable.Setup.Column"
+msgstr "Column"
+
+msgid "BuildClientSourceTable.Setup.ColumnName"
+msgstr "name"
+
+msgid "BuildClientSourceTable.Setup.Mode.Number"
+msgstr "Use as numbers"
+
+msgid "BuildClientSourceTable.Setup.Mode.Off"
+msgstr "Do not use"
+
+msgid "BuildClientSourceTable.Setup.Mode.Text"
+msgstr "Load as texts"
+
+msgid "BuildClientSourceTable.Title"
+msgstr "Prepare table for table source"
 
 msgid "CalcWebServer.LoadError"
 msgstr "Input data could not be loaded."
@@ -25688,6 +25795,9 @@ msgstr "No table file specified"
 
 msgid "Surface.SourceTable.Dialog.Table.ErrorTitle"
 msgstr "No table file to load the client arrivals from was specified."
+
+msgid "Surface.SourceTable.Dialog.Table.Process"
+msgstr "Convert table for table source"
 
 msgid "Surface.SourceTable.Dialog.Table.Tooltip"
 msgstr "Select table file"
