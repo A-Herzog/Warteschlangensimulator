@@ -655,6 +655,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpAutomaticHelpWindow",e->commandHelpAutomaticHelpWindow());
 		addAction("HelpTurorial",e->commandHelpTutorial());
 		addAction("HelpTurorialSlides",e->commandHelpTutorialSlides());
+		addAction("HelpTurorialVideo",e->commandHelpTutorialVideo());
 		addAction("HelpScriptingReference",e->commandHelpScriptingReference());
 		addAction("HelpElementReference",e->commandHelpElementReference());
 		addAction("HelpCommandLineReference",e->commandHelpCommandLineReference());
@@ -1194,6 +1195,7 @@ public class MainPanel extends MainPanelBase {
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Tutorial"),Images.HELP_TUTORIAL.getIcon(),Language.tr("Main.Menu.Help.Tutorial.Mnemonic"),"HelpTurorial");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.TutorialSlides"),Images.HELP_TUTORIAL.getIcon(),Language.tr("Main.Menu.Help.TutorialSlides.Mnemonic"),"HelpTurorialSlides");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.TutorialVideo"),Images.HELP_TUTORIAL.getIcon(),Language.tr("Main.Menu.Help.TutorialVideo.Mnemonic"),"HelpTurorialVideo");
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.References")));
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.ScriptingReference"),Images.HELP_SCRIPTING.getIcon(),Language.tr("Main.Menu.Help.ScriptingReference.Mnemonic"),"HelpScriptingReference");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.ElementReference"),Images.HELP_STATIONS_INTERACTIVE.getIcon(),Language.tr("Main.Menu.Help.ElementReference.Mnemonic"),"HelpElementReference");
@@ -3165,6 +3167,20 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
+	 * Öffnet eine Webseite
+	 * @param url	URL der aufzurufenden Webseite
+	 */
+	private void openWebpage(final String url) {
+		try {
+			if (!MsgBox.confirmOpenURL(this,url)) return;
+			if (ownerWindow instanceof MainFrame) ((MainFrame)ownerWindow).pauseFocusFixer(5);
+			Desktop.getDesktop().browse(new URI(url));
+		} catch (IOException | URISyntaxException e1) {
+			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),url));
+		}
+	}
+
+	/**
 	 * Befehl: Hilfe - Hilfe
 	 */
 	private void commandHelpHelp() {
@@ -3207,6 +3223,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandHelpTutorialSlides() {
 		openPDF(Language.tr("Main.Menu.Help.TutorialSlides.pdf"));
+	}
+
+	/**
+	 * Befehl: Hilfe - Tutorial Video
+	 */
+	private void commandHelpTutorialVideo() {
+		openWebpage("https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Tutorial.m4v");
 	}
 
 	/**
@@ -3281,13 +3304,7 @@ public class MainPanel extends MainPanelBase {
 			return;
 		}
 
-		try {
-			if (!MsgBox.confirmOpenURL(this,url)) return;
-			if (ownerWindow instanceof MainFrame) ((MainFrame)ownerWindow).pauseFocusFixer(5);
-			Desktop.getDesktop().browse(new URI(url));
-		} catch (IOException | URISyntaxException e1) {
-			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),url));
-		}
+		openWebpage(url);
 	}
 
 	/**
@@ -3317,14 +3334,7 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Hilfe - Homepage
 	 */
 	private void commandHelpHomepage() {
-		final String network="https://"+WEB_URL;
-		try {
-			if (!MsgBox.confirmOpenURL(this,network)) return;
-			if (ownerWindow instanceof MainFrame) ((MainFrame)ownerWindow).pauseFocusFixer(5);
-			Desktop.getDesktop().browse(new URI(network));
-		} catch (IOException | URISyntaxException e1) {
-			MsgBox.error(getOwnerWindow(),Language.tr("Window.Info.NoInternetConnection"),String.format(Language.tr("Window.Info.NoInternetConnection.Address"),network));
-		}
+		openWebpage("https://"+WEB_URL);
 	}
 
 	/**

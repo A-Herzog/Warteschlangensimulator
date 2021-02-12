@@ -122,8 +122,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[251] = "ProcessTime";
     t[252] = "Surface.Action.Dialog.Delete.ConfirmTitle";
     t[253] = "Delete action";
-    t[258] = "Schedule.Number";
-    t[259] = "Number";
+    t[258] = "Main.Menu.Help.TutorialVideo.Mnemonic";
+    t[259] = "V";
     t[262] = "ExpressionBuilder.BasicArithmetics.Modulo.Info";
     t[263] = "<p>Calculates the modulo, e.g. the division reminder when dividing the frist by the second parameter.</p><p>Example: <tt>mod(7;3)</tt> gets 1.</p>";
     t[264] = "BuildClientSourceTable.Edit.Name";
@@ -8082,8 +8082,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19189] = "Keep models.";
     t[19190] = "Surface.Process.Dialog.Tab.ProcessingTimes";
     t[19191] = "Processing times";
-    t[19202] = "Statistic.FastAccess.Template.Format.Local";
-    t[19203] = "Local format";
+    t[19202] = "Schedule.Number";
+    t[19203] = "Number";
     t[19206] = "Simulation.Creator.Action.InvalidAssignValue";
     t[19207] = "The specified expression for variable assignment \"%s\" is invalid at character %d.";
     t[19212] = "Window.Layers.Rename.RenameLayerLabel";
@@ -13042,6 +13042,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30781] = "New name";
     t[30784] = "CalcWebServer.NoModel";
     t[30785] = "No model was submitted that could be parameterized.";
+    t[30792] = "Main.Menu.Help.TutorialVideo";
+    t[30793] = "Tutorial video";
     t[30794] = "Simulation.Creator.TransportSourceResourceReleaseDelayed";
     t[30795] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as delayed resource release time expression (error at character %d).";
     t[30798] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Error.Info";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33381] = "The specified default value \"%s\" is invalid. A number has to be entered.";
     t[33386] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilizationAll.Number";
     t[33387] = "<p>Returns the number of transporters over all transporter groups.</p>";
-    t[33394] = "ParameterCompare.Settings.Output.List.Edit";
-    t[33395] = "Edit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33394] = "ParameterCompare.Settings.Output.List.Edit";
+    t[33395] = "Edit";
     t[33396] = "Simulation.Log.AnalogAssign.InfoRate";
     t[33397] = "Assigning rate at station id=%d: %s";
     t[33406] = "Resources.Group.EditName.Dialog.IconForResource";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38093] = "<do not record>";
     t[38094] = "Statistics.Utilization.NumberOfOperators";
     t[38095] = "Number of operators in the group";
-    t[38098] = "Color.00BFFF";
-    t[38099] = "Deep sky blue  ";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38098] = "Color.00BFFF";
+    t[38099] = "Deep sky blue  ";
     t[38100] = "ParameterCompare.Settings.Input.List.Delete.Confirm.Info";
     t[38101] = "Do you really want to delete the selected input parameter \"%s\"?";
     t[38106] = "Transporters.Group.Edit.Dialog.ErrorNameInUse";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42753] = "All image files";
     t[42758] = "Window.Check.PleaseRerun";
     t[42759] = "Please run the model checker again to test whether the model is also correct with regard to the simulation.";
-    t[42762] = "ModelSecurityCheck.CriticalType.DDEOutput";
-    t[42763] = "Excel DDE output";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42762] = "ModelSecurityCheck.CriticalType.DDEOutput";
+    t[42763] = "Excel DDE output";
     t[42764] = "ModelDescription.SetStatisticsMode.Mode.Off";
     t[42765] = "Switch off";
     t[42766] = "Resources.Group.EditName.Dialog.CostsPerWorkHour";
@@ -18418,6 +18420,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43601] = "ClientPaths";
     t[43604] = "AnalyticModelCompare.Error.Title";
     t[43605] = "Cannot compare to analytic model";
+    t[43612] = "Statistic.FastAccess.Template.Format.Local";
+    t[43613] = "Local format";
     t[43614] = "Optimizer.XML.Kernel.GeneticSetup.PopulationSize";
     t[43615] = "PopulationSize";
     t[43628] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range";

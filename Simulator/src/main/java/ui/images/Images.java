@@ -837,6 +837,9 @@ public enum Images {
 	/** Symbol "Tutorial (pdf)" */
 	HELP_TUTORIAL("book.png"),
 
+	/** Symbol "Tutorial Video" */
+	HELP_TUTORIAL_VIDEO("film.png"),
+
 	/** Symbol "Interaktives Tutorial" */
 	HELP_TUTORIAL_INTERACTIVE("cursor.png"),
 

@@ -122,8 +122,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[251] = "Bedienzeit";
     t[252] = "Surface.Action.Dialog.Delete.ConfirmTitle";
     t[253] = "Aktion l\u00f6schen";
-    t[258] = "Schedule.Number";
-    t[259] = "Anzahl";
+    t[258] = "Main.Menu.Help.TutorialVideo.Mnemonic";
+    t[259] = "V";
     t[262] = "ExpressionBuilder.BasicArithmetics.Modulo.Info";
     t[263] = "<p>Berechnet den Modulo, d.h. den Divisionsrest bei Division des ersten durch den zweiten Parameter.</p><p>Beispiel: <tt>mod(7;3)</tt> liefert 1.</p>";
     t[264] = "BuildClientSourceTable.Edit.Name";
@@ -8082,8 +8082,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19189] = "Modelle beibehalten.";
     t[19190] = "Surface.Process.Dialog.Tab.ProcessingTimes";
     t[19191] = "Bedienzeiten";
-    t[19202] = "Statistic.FastAccess.Template.Format.Local";
-    t[19203] = "Lokale Notation";
+    t[19202] = "Schedule.Number";
+    t[19203] = "Anzahl";
     t[19206] = "Simulation.Creator.Action.InvalidAssignValue";
     t[19207] = "Der angegebene Ausdruck f\u00fcr die Variablenzuweisung \"%s\" ist ab Zeichen %d ung\u00fcltig.";
     t[19212] = "Window.Layers.Rename.RenameLayerLabel";
@@ -13042,6 +13042,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30781] = "Neuer Name";
     t[30784] = "CalcWebServer.NoModel";
     t[30785] = "Es wurde kein Modell \u00fcbergeben, das parametrisiert werden k\u00f6nnte.";
+    t[30792] = "Main.Menu.Help.TutorialVideo";
+    t[30793] = "Tutorial Video";
     t[30794] = "Simulation.Creator.TransportSourceResourceReleaseDelayed";
     t[30795] = "F\u00fcr Element id=%d wurde f\u00fcr Kundentyp \"%s\" der ung\u00fcltige Wert \"%s\" als Ausdruck f\u00fcr die verz\u00f6gerte Ressourcenfreigabe (Fehler an Zeichen %d) angegeben.";
     t[30798] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Error.Info";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33381] = "Der angegebene Vorgabewert \"%s\" ist ung\u00fcltig. Es muss eine Zahl angegeben werden.";
     t[33386] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilizationAll.Number";
     t[33387] = "<p>Liefert die Anzahl an Transportern in allen Transportergruppen zusammen.</p>";
-    t[33394] = "ParameterCompare.Settings.Output.List.Edit";
-    t[33395] = "Bearbeiten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33394] = "ParameterCompare.Settings.Output.List.Edit";
+    t[33395] = "Bearbeiten";
     t[33396] = "Simulation.Log.AnalogAssign.InfoRate";
     t[33397] = "Zuweisung von Rate an Station id=%d: %s";
     t[33406] = "Resources.Group.EditName.Dialog.IconForResource";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38093] = "<nicht erfassen>";
     t[38094] = "Statistics.Utilization.NumberOfOperators";
     t[38095] = "Anzahl an Bedienern in der Gruppe";
-    t[38098] = "Color.00BFFF";
-    t[38099] = "Tiefes Himmelsblau";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38098] = "Color.00BFFF";
+    t[38099] = "Tiefes Himmelsblau";
     t[38100] = "ParameterCompare.Settings.Input.List.Delete.Confirm.Info";
     t[38101] = "Soll der gew\u00e4hlte Eingabeparameter \"%s\" wirklich gel\u00f6scht werden?";
     t[38106] = "Transporters.Group.Edit.Dialog.ErrorNameInUse";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42753] = "Alle Bilddateien";
     t[42758] = "Window.Check.PleaseRerun";
     t[42759] = "Bitte f\u00fchren Sie die Modellpr\u00fcfung noch einmal durch, um zu pr\u00fcfen, ob das Modell auch in Bezug auf die Simulation in Ordnung ist.";
-    t[42762] = "ModelSecurityCheck.CriticalType.DDEOutput";
-    t[42763] = "Excel-DDE-Ausgabe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[42762] = "ModelSecurityCheck.CriticalType.DDEOutput";
+    t[42763] = "Excel-DDE-Ausgabe";
     t[42764] = "ModelDescription.SetStatisticsMode.Mode.Off";
     t[42765] = "Ausschalten";
     t[42766] = "Resources.Group.EditName.Dialog.CostsPerWorkHour";
@@ -18418,6 +18420,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43601] = "Kundenpfade";
     t[43604] = "AnalyticModelCompare.Error.Title";
     t[43605] = "Vergleich mit analytischem Modell nicht m\u00f6glich";
+    t[43612] = "Statistic.FastAccess.Template.Format.Local";
+    t[43613] = "Lokale Notation";
     t[43614] = "Optimizer.XML.Kernel.GeneticSetup.PopulationSize";
     t[43615] = "Populationsgroesse";
     t[43628] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range";
