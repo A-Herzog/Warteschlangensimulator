@@ -92,13 +92,14 @@ public class EditorPanelRepair {
 		for (ModelElement element: model.surface.getElements()) if (element instanceof ModelElementProcess) {
 			process.add((ModelElementProcess)element);
 		}
+		if (process.isEmpty()) return RepairState.NOT_CHANGED;
 
 		RepairState state=RepairState.NOT_CHANGED;
 
 		for (ModelElementProcess p: process) {
 
-			if (process.isEmpty()) return RepairState.NOT_CHANGED;
-			final String processName=(p.getName().trim().isEmpty())?("id="+p.getId()):("\""+p.getName()+"\" (id="+p.getId()+")");
+			/* Nicht betrachten, wenn gar nicht in Betrieb */
+			if (p.getEdgesIn().length==0) continue;
 
 			/* Keine Bediener? */
 			if (p.getNeededResources().size()!=1) continue;
@@ -107,17 +108,18 @@ public class EditorPanelRepair {
 			/* Name der AutoAdd-Ressource festlegen. */
 			final String resourceName=String.format(Language.tr("Window.Check.AutoFixResources.ResourceName"),p.getId());
 
-			/* Kein AutoAdd, wenn es die Ressource schon gibt. */
-			ModelResource resource=model.resources.getNoAutoAdd(resourceName);
-			if (resource!=null) continue;
-
 			/* Nutzer fragen */
+			final String processName=(p.getName().trim().isEmpty())?("id="+p.getId()):("\""+p.getName()+"\" (id="+p.getId()+")");
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixResources.Title"),String.format(Language.tr("Window.Check.AutoFixResources.Info"),processName),Language.tr("Window.Check.AutoFixResources.YesInfo"),Language.tr("Window.Check.AutoFixResources.NoInfo"))) return RepairState.USER_CANCELED;
 
-			/* Ressource anlegen */
-			resource=model.resources.get(resourceName);
-			resource.clear();
-			resource.setName(resourceName);
+			/* Kein AutoAdd, wenn es die Ressource schon gibt. */
+			ModelResource resource=model.resources.getNoAutoAdd(resourceName);
+			if (resource==null) {
+				/* Ressource anlegen */
+				resource=model.resources.get(resourceName);
+				resource.clear();
+				resource.setName(resourceName);
+			}
 
 			/* Ressource in Station eintragen */
 			p.getNeededResources().get(0).put(resourceName,1);
@@ -264,7 +266,7 @@ public class EditorPanelRepair {
 		}
 
 		/* Verzögerungstation hat keinen Ausgang? */
-		for (ModelElementDelay d: delay) if (d.getEdgeOut()==null) {
+		for (ModelElementDelay d: delay) if (d.getEdgesIn().length>0 && d.getEdgeOut()==null) {
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoDelayDispose"),d.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
 			if (dispose.size()>0) {
 				final ModelElementEdge edge=new ModelElementEdge(model,model.surface,d,dispose.get(0));
@@ -281,7 +283,7 @@ public class EditorPanelRepair {
 		}
 
 		/* Bedienstation hat keinen Ausgang? */
-		for (ModelElementProcess p: process) if (p.getEdgeOutSuccess()==null) {
+		for (ModelElementProcess p: process) if (p.getEdgesIn().length>0 && p.getEdgeOutSuccess()==null) {
 			if (!MsgBox.confirm(editorPanel.getTopLevelAncestor(),Language.tr("Window.Check.AutoFixConnection.Title"),String.format(Language.tr("Window.Check.AutoFixConnection.InfoProcessDispose"),p.getId()),Language.tr("Window.Check.AutoFixConnection.YesInfo"),Language.tr("Window.Check.AutoFixConnection.NoInfo"))) return RepairState.USER_CANCELED;
 			if (dispose.size()>0) {
 				final ModelElementEdge edge=new ModelElementEdge(model,model.surface,p,dispose.get(0));
@@ -308,9 +310,9 @@ public class EditorPanelRepair {
 		final EditModel model=editorPanel.getModel();
 
 		final List<Function<EditModel,RepairState>> fixFunctions=new ArrayList<>();
-		fixFunctions.add(m->fixResources(m));
 		fixFunctions.add(m->fixRepeatCount(m));
 		fixFunctions.add(m->fixConnections(m));
+		fixFunctions.add(m->fixResources(m));
 
 		boolean fixed=false;
 		for (Function<EditModel,RepairState> func: fixFunctions) {
