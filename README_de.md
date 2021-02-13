@@ -38,6 +38,7 @@ Im Simulator können Warteschlangenmodelle in Form von Fließbildern modelliert 
 
 Die Windows-Version kann sowohl mit als auch ohne Admin-Rechte installiert werden. Die zip-Datei-Variante kann auf jeder Plattform ohne Installation verwendet werden.
 
+* [Versionshinweise](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Release-notes "Versionshinweise und Pläne für die nächsten Versionen im GitHub-Wiki")
 * Systemvoraussetzung: [Java 8 oder höher](https://adoptopenjdk.net/ "Java von adoptopenjdk.net herunterladen")
 * Lizenz: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0) (für den Warteschlangensimulator, die verwendeten Bibliotheken unterliegen zum Teil abweichenden Opensource-Lizenzen)
 
