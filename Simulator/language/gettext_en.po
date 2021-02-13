@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-13 00:08+0100\n"
+"POT-Creation-Date: 2021-02-13 00:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19534,6 +19534,9 @@ msgstr "Number of histogram bars"
 msgid "Surface.AnimationBarChart.HistogramWizard.Count.ErrorInfo"
 msgstr "The specified number of histogram bars \"%s\" is invalid. A positive integer number has to be specified."
 
+msgid "Surface.AnimationBarChart.HistogramWizard.Count.ErrorInfo2"
+msgstr "The specified number of histogram bars \"%s\" is invalid. An integer number larger or equal 2 has to be specified."
+
 msgid "Surface.AnimationBarChart.HistogramWizard.Count.ErrorTitle"
 msgstr "Invalid number of histogram bars"
 
@@ -23865,6 +23868,9 @@ msgstr "Current total number of waiting clients in the system"
 msgid "Surface.Popup.AddVisualization.CurrentValue"
 msgstr "Current value"
 
+msgid "Surface.Popup.AddVisualization.CurrentValueHistogram"
+msgstr "Current value (histogram)"
+
 msgid "Surface.Popup.AddVisualization.CurrentValueWaiting"
 msgstr "Current value (waiting)"
 
@@ -23876,6 +23882,9 @@ msgstr "Current value (waiting in queue 2)"
 
 msgid "Surface.Popup.AddVisualization.CurrentValueWaiting3"
 msgstr "Current value (waiting in queue 3)"
+
+msgid "Surface.Popup.AddVisualization.CurrentValueWaitingHistogram"
+msgstr "Current value (waiting, histogramm)"
 
 msgid "Surface.Popup.AddVisualization.CurrentWIPTotal"
 msgstr "Current total number of clients in the system"

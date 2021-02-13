@@ -506,6 +506,8 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.BAR_WIP_AVERAGE);
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.CHART_NQ);
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.CHART_WIP);
+		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.HISTOGRAM_NQ);
+		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.HISTOGRAM_WIP);
 	}
 
 	/**

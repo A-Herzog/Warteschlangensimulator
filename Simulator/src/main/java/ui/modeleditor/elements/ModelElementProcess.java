@@ -998,6 +998,8 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.BAR_WIP_AVERAGE);
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.CHART_NQ);
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.CHART_WIP);
+		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.HISTOGRAM_NQ);
+		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.HISTOGRAM_WIP);
 	}
 
 	/**

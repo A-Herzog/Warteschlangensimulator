@@ -47,6 +47,7 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.SimulationData;
+import systemtools.BaseDialog;
 import tools.SetupData;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelClientData;
@@ -59,6 +60,7 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementAnimationBar;
+import ui.modeleditor.elements.ModelElementAnimationBarChart;
 import ui.modeleditor.elements.ModelElementAnimationLCD;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementAnimationPointerMeasuring;
@@ -1558,6 +1560,16 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		CHART_ANALOG_VALUE,
 
 		/**
+		 * Anzahl an Kunden an der Station als Histogramm
+		 */
+		HISTOGRAM_WIP,
+
+		/**
+		 * Anzahl an wartenden Kunden an der Station als Histogramm
+		 */
+		HISTOGRAM_NQ,
+
+		/**
 		 * Anzeige der Werte eines Datenaufzeichnung-Elements
 		 */
 		RECORD
@@ -1571,7 +1583,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	 * @return	Neuer Menüpunkt (schon in <code>parentMenu</code> eingefügt)
 	 * @see ModelElementBox.VisualizationType
 	 */
-	protected final JMenuItem addVisualizationMenuItem(final JMenu parentMenu, final Consumer<ModelElementPosition> addElement, final VisualizationType type) {
+	protected final JMenuItem addVisualizationMenuItem(final JMenu parentMenu, Consumer<ModelElementPosition> addElement, final VisualizationType type) {
 		final String referenceName=getNameForReference();
 		String addonInfo=null;
 		ModelElementPosition element=null;
@@ -1905,6 +1917,64 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			((ModelElementAnimationLineDiagram)element).setTimeArea(3600);
 			((ModelElementAnimationLineDiagram)element).setSize(new Dimension(400,200));
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
+			break;
+		case HISTOGRAM_WIP:
+			element=new ModelElementAnimationBarChart(null,null);
+			((ModelElementAnimationBarChart)element).setMinValue(0.0);
+			((ModelElementAnimationBarChart)element).setMaxValue(1.0);
+			((ModelElementAnimationBarChart)element).setSize(new Dimension(400,200));
+			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueHistogram");
+			final Consumer<ModelElementPosition> addElementOrigHistWIP=addElement;
+			addElement=newElement->{
+				final ModelElementBoxHistogramDialog histogramDialog=new ModelElementBoxHistogramDialog(parentMenu);
+				if (histogramDialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+				final int bars=histogramDialog.getBarCount();
+				final int valuesPerBar=histogramDialog.getValuesPerBar();
+
+				final List<Object[]> histData=new ArrayList<>();
+				for (int i=0;i<bars-1;i++) {
+					if (valuesPerBar==1) {
+						histData.add(new Object[]{"WIP_hist("+getId()+";"+i+")",(i==0)?Color.GREEN:Color.BLUE});
+					} else {
+						final int i1=i*valuesPerBar;
+						final int i2=(i+1)*valuesPerBar-1;
+						histData.add(new Object[]{"WIP_hist("+getId()+";"+i1+";"+i2+")",Color.BLUE});
+					}
+				}
+				histData.add(new Object[]{"WIP_hist("+getId()+";"+((bars-1)*valuesPerBar)+";10000)",Color.RED});
+				((ModelElementAnimationBarChart)newElement).setExpressionData(histData);
+
+				addElementOrigHistWIP.accept(newElement);
+			};
+			break;
+		case HISTOGRAM_NQ:
+			element=new ModelElementAnimationBarChart(null,null);
+			((ModelElementAnimationBarChart)element).setMinValue(0.0);
+			((ModelElementAnimationBarChart)element).setMaxValue(1.0);
+			((ModelElementAnimationBarChart)element).setSize(new Dimension(400,200));
+			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaitingHistogram");
+			final Consumer<ModelElementPosition> addElementOrigHistNQ=addElement;
+			addElement=newElement->{
+				final ModelElementBoxHistogramDialog histogramDialog=new ModelElementBoxHistogramDialog(parentMenu);
+				if (histogramDialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+				final int bars=histogramDialog.getBarCount();
+				final int valuesPerBar=histogramDialog.getValuesPerBar();
+
+				final List<Object[]> histData=new ArrayList<>();
+				for (int i=0;i<bars-1;i++) {
+					if (valuesPerBar==1) {
+						histData.add(new Object[]{"NQ_hist("+getId()+";"+i+")",(i==0)?Color.GREEN:Color.BLUE});
+					} else {
+						final int i1=i*valuesPerBar;
+						final int i2=(i+1)*valuesPerBar-1;
+						histData.add(new Object[]{"NQ_hist("+getId()+";"+i1+";"+i2+")",Color.BLUE});
+					}
+				}
+				histData.add(new Object[]{"NQ_hist("+getId()+";"+((bars-1)*valuesPerBar)+";10000)",Color.RED});
+				((ModelElementAnimationBarChart)newElement).setExpressionData(histData);
+
+				addElementOrigHistNQ.accept(newElement);
+			};
 			break;
 		case RECORD:
 			element=new ModelElementAnimationRecord(null,null);

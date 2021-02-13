@@ -505,6 +505,7 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.BAR_WIP_CURRENT);
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.BAR_WIP_AVERAGE);
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.CHART_WIP);
+		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.HISTOGRAM_WIP);
 	}
 
 	/**

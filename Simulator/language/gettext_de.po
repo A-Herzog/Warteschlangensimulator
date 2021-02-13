@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-13 00:08+0100\n"
+"POT-Creation-Date: 2021-02-13 00:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19542,6 +19542,9 @@ msgstr "Anzahl an Histogrammbalken"
 msgid "Surface.AnimationBarChart.HistogramWizard.Count.ErrorInfo"
 msgstr "Die angegebene Anzahl an Histogrammbalken \"%s\" ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
 
+msgid "Surface.AnimationBarChart.HistogramWizard.Count.ErrorInfo2"
+msgstr "Die angegebene Anzahl an Histogrammbalken \"%s\" ist ungültig. Es muss eine Ganzzahl größer oder gleich 2 angegeben werden."
+
 msgid "Surface.AnimationBarChart.HistogramWizard.Count.ErrorTitle"
 msgstr "Ungültige Anzahl an Histogrammbalken"
 
@@ -23879,6 +23882,9 @@ msgstr "Aktuelle Gesamtanzahl an wartenden Kunden im System"
 msgid "Surface.Popup.AddVisualization.CurrentValue"
 msgstr "Aktueller Wert"
 
+msgid "Surface.Popup.AddVisualization.CurrentValueHistogram"
+msgstr "Aktueller Wert (Histogramm)"
+
 msgid "Surface.Popup.AddVisualization.CurrentValueWaiting"
 msgstr "Aktueller Wert (wartend)"
 
@@ -23890,6 +23896,9 @@ msgstr "Aktueller Wert (in Warteschlange 2)"
 
 msgid "Surface.Popup.AddVisualization.CurrentValueWaiting3"
 msgstr "Aktueller Wert (in Warteschlange 3)"
+
+msgid "Surface.Popup.AddVisualization.CurrentValueWaitingHistogram"
+msgstr "Aktueller Wert (wartend, Histogramm)"
 
 msgid "Surface.Popup.AddVisualization.CurrentWIPTotal"
 msgstr "Aktuelle Gesamtanzahl an Kunden im System"

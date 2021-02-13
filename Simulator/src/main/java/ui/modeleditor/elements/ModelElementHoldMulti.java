@@ -309,6 +309,7 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.BAR_WIP_CURRENT);
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.BAR_WIP_AVERAGE);
 		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.CHART_WIP);
+		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.HISTOGRAM_WIP);
 		if (connectionsOut!=null) for (ModelElementEdge connection: connectionsOut) {
 			final String condition=conditions.get(connection.getId());
 			addVisualizationTrafficLightsMenuItem("!("+condition+")",parentMenu,addElement,"\""+condition+"\"");
