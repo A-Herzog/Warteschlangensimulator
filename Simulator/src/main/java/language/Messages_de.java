@@ -12055,7 +12055,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28454] = "Optimizer.Tab.ControlVariables.Edit";
     t[28455] = "Bearbeiten";
     t[28456] = "Animation.GlassHint";
-    t[28457] = "F6 = Start / Pause der Animation<br>F7 = Einzelschritt";
+    t[28457] = "F6 = Start / Pause der Animation<br>F7 = Einzelschritt<br>Strg + \"+\" / \"-\" = Animation schneller / langsamer";
     t[28460] = "Statistics.FailureTime.Maximum.Transporters";
     t[28461] = "Maximale Anzahl an Transportern in Pausezeit";
     t[28464] = "Statistics.ErlangCompare.Priority.LIFO";

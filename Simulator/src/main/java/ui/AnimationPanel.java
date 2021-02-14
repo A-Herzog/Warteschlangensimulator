@@ -440,6 +440,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0),"keyF5");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F6,0),"keyF6");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_F7,0),"keyF7");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS,InputEvent.CTRL_DOWN_MASK),"ctrlPlus");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK),"ctrlPlus");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS,InputEvent.CTRL_DOWN_MASK),"ctrlMinus");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK),"ctrlMinus");
 		addAction("keyEscape",e->{
 			if (buttonAbort.isEnabled()) {
 				closeRequest(); buttonAbort.setEnabled(false);
@@ -448,6 +452,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		addAction("keyF5",e->finishAsSimulation());
 		addAction("keyF6",e->playPause());
 		addAction("keyF7",e->step(false));
+		addAction("ctrlPlus",e->speed(1));
+		addAction("ctrlMinus",e->speed(-1));
 	}
 
 	/**
@@ -1423,6 +1429,17 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (!multiCore) break;
 		}
 		if (finalize) finalizeSimulation(true);
+	}
+
+	/**
+	 * Verändert die Geschwindigkeit der Animation.
+	 * @param delta	"+1" für schneller und "-1" für lansgamer
+	 */
+	private void speed(final int delta) {
+		int value=FastMath.min(11,FastMath.max(0,11-delay/10+delta));
+		delay=(11-value)*10;
+		delayInt=delay;
+		animationDelayChanged();
 	}
 
 	/**
