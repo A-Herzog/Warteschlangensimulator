@@ -771,6 +771,12 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			root.addChild(new StatisticNode(Language.tr("Statistics.ErlangCCompare"),viewer));
 		}
 
+		if (StatisticViewerRemarksText.test(statistics) && setup.showRemarks) {
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerRemarksText(statistic));
+			root.addChild(new StatisticNode(Language.tr("Statistics.ModelRemarks"),viewer));
+		}
+
 		root.addChild(group=new StatisticNode(Language.tr("Statistics.ModelOverview"),!setup.expandAllStatistics));
 
 		viewer=new ArrayList<>();

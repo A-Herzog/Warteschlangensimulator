@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Hinweise zu den Ergebnissen</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+Auf dieser Seite werden Hinweise zu Kenngrößen, die außerhalb des normal üblichen liegen, aufgeführt.
+Diesen Kenngrößen sollte dann bei der Suche nach Flaschenhälsen oder Unstimmigkeiten im Modell ein
+besonderes Augenmerk gewidmet werden.
+</p>
+
+<p>
+Auf dieser Seite können (je nach konkretem Wert der jeweiligen Größe) folgen Informationen ausgegeben werden:
+</p>
+
+<h3>Hinweise auf Fehler oder Warnungen</h3>
+<p>
+Wurde die Simulation aufgrund eines Fehlers abgebrochen oder sind während der Simulation Probleme aufgetreten,
+die zwar nicht unmittelbar zu einem Abbruch der Simulation führten, aber als Warnung erfasst wurden, so werden
+diese hier ausgegeben. Da Probleme während der Simulation häufig zu nicht verwendbaren bzw. nicht validen
+Ergebnissen führen, sollte die Ursache für diese Meldungen auf jeden Fall behoben werden.
+</p>
+
+<h3>Viele Kunden im System</h3>
+<p>
+Befinden sich sehr viele Kunden an einer Station oder im System, so deutet dies auf eine Überlastsituation
+an der betreffenden Station bzw. insgesamt hin.
+Außerdem wird die mittlere Anzahl an Kunden an einer Station zu dem Durchschnitt über die mittleren Anzahlen
+an Kunden an den anderen Stationen in Relation gesetzt. Befinden sich im Mittel an einer Station besonders viele
+Kunden im Vergleich zu den anderen Stationen, so ist auch dies ein Indiz für eine mögliche Fehlkonfiguration dieser Station.
+</p>
+
+<h3>Lange Wartezeiten</h3>
+<p>
+Sind die mittleren Wartezeiten an einer Station im Vergleich zu dem Durchschnitt über die mittleren Wartezeiten
+an den anderen Stationen sehr hoch, so kann dies bedeuten, dass diese Station einen Flaschenhals darstellt.
+</p>
+
+<h3>Hohe Flussgrad</h3>
+<p>
+Der Flussgrad ist der Quotient aus Verweilzeit zu Bedienzeit an einer Station. Ein Flussgrad von 1 bedeutet, dass
+keine Wartezeiten entstanden sind. Je höher der Flussgrad ist, desto mehr Wartezeiten sind (relativ zur Bedienzeit)
+aufgetreten. Hohe Flussgrade sind daher ein Indiz für ein schlecht dimensioniertes System. Es wird sowohl auf absolut
+gesehen hohe Flußssrade hingewiesen als auch darauf, wenn der Flussgrad an einer Station deutlich nach oben von dem
+Durchschnitt der Flussgrade über alle Stationen abweicht.
+</p>
+
+<h3>Hohe Variationskoeffizienten der Verweilzeiten</h3>
+<p>
+Hohe Variationskoeffizienten der Verweilzeiten bedeuten, dass die Durchlaufzeiten der Kunden durch das System nur
+sehr schlecht prognostiziert werden können. Daher wird bei realen Systemen meist versucht, hohe
+Variationskoeffizienten der Verweilzeiten zu vermeiden. Treten solche Werte in der Simulation insgesamt, an einer
+Station oder für einen Kundentyp auf, so gibt der Simulator eine entsprechende Warnung aus.
+</p>
+
+<h3>Hohe Auslastungen der Bediener</h3>
+<p>
+Zu hohe Auslastungen der Bediener führen in der Regel zu langen Wartezeiten der Kunden und sollten daher vermieden
+werden. Ist die Auslastung einer Bedienergruppe absolut gesehen besonders hoch oder ist die Auslastung einer Bedienergruppe
+im Verhältnis zu den Auslastungen der anderen Bedienergruppen besonders hoch, so wird eine entsprechende Warnung ausgegeben.
+</p>
+  
+</body></html>

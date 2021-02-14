@@ -161,6 +161,14 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		indentLevel.clear();
 	}
 
+	/**
+	 * Wurden bereits Ausgabezeilen erzeugt?
+	 * @return	Liefert <code>true</code>, wenn noch keinerlei Ausgaben angelegt wurden
+	 */
+	protected final boolean isEmpty() {
+		return lines.size()==0;
+	}
+
 	@Override
 	public ViewerType getType() {
 		return ViewerType.TYPE_TEXT;

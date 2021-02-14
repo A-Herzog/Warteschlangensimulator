@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-13 00:18+0100\n"
+"POT-Creation-Date: 2021-02-14 17:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13477,6 +13477,9 @@ msgstr "Simulationen auf entferntem Server durchführen"
 msgid "SettingsDialog.Tabs.Simulation.ShowErlangC"
 msgstr "Erlang-C-Vergleich anzeigen"
 
+msgid "SettingsDialog.Tabs.Simulation.ShowRemarks"
+msgstr "Hinweis zu den Statistikwerten anzeigen"
+
 msgid "SettingsDialog.Tabs.Simulation.ShowSingleStepLogData"
 msgstr "Logging-Daten im Einzelschrittmodus anzeigen"
 
@@ -17784,6 +17787,90 @@ msgstr "Stationenbeschreibungen"
 
 msgid "Statistics.ModelOverview"
 msgstr "Modellüberblick"
+
+msgid "Statistics.ModelRemarks"
+msgstr "Hinweise zu den Ergebnissen"
+
+msgid "Statistics.ModelRemarks.LargeCVV"
+msgstr "Hoher Variationskoeffizienten der Verweilzeiten"
+
+msgid "Statistics.ModelRemarks.LargeCVV.ClientType"
+msgstr "Hoher Variationskoeffizienten der Verweilzeiten für Kunden vom Typ \"%s\": CV[V]=%s"
+
+msgid "Statistics.ModelRemarks.LargeCVV.Station"
+msgstr "Hoher Variationskoeffizienten der Verweilzeiten an Station \"%s\": CV[V]=%s"
+
+msgid "Statistics.ModelRemarks.LargeCVV.System"
+msgstr "Hoher Variationskoeffizienten der Verweilzeiten im System: CV[V]=%s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactor"
+msgstr "Hoher Flussgrad"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactor.ClientType"
+msgstr "Hoher Flussgrad für Kunden vom Typ \"%s\": %s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactor.Station"
+msgstr "Hoher Flussgrad an Station \"%s\": %s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactor.System"
+msgstr "Hoher Flussgrad im System: %s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactorRelative"
+msgstr "Hoher Flussgrad"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactorRelative.ClientType"
+msgstr "Hoher Flussgrad für Kunden vom Typ \"%s\" (relativ zu den anderen Kundentypen): %s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactorRelative.Station"
+msgstr "Hoher Flussgrad an Station \"%s\" (relative zu den anderen Stationen): %s"
+
+msgid "Statistics.ModelRemarks.LargeN"
+msgstr "Hohe mittlere Anzahl an Kunden"
+
+msgid "Statistics.ModelRemarks.LargeN.ClientType"
+msgstr "Mittlere Anzahl an Kunden vom Typ \"%s\" im System: E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeN.Station"
+msgstr "Mittlere Anzahl an Kunden an Station \"%s\": E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeN.System"
+msgstr "Mittlere Anzahl an Kunden im System E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeNRelative"
+msgstr "Hohe mittlere Anzahl an Kunden"
+
+msgid "Statistics.ModelRemarks.LargeNRelative.ClientType"
+msgstr "Hohe mittlere Anzahl an Kunden vom Typ \"%s\" im System (relativ zu den anderen Kundentypen): E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeNRelative.Station"
+msgstr "Hohe mittlere Anzahl an Kunden an Station \"%s\" (relativ zu den anderen Stationen): E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeRho"
+msgstr "Hohe Auslastung der Bediener"
+
+msgid "Statistics.ModelRemarks.LargeRho.Group"
+msgstr "Hohe Auslastung der Bedienergruppe \"%s\": rho=%s"
+
+msgid "Statistics.ModelRemarks.LargeRhoRelative"
+msgstr "Hohe Auslastung der Bediener"
+
+msgid "Statistics.ModelRemarks.LargeRhoRelative.Group"
+msgstr "Hohe Auslastung der Bedienergruppe \"%s\" (relativ zu den anderen Bedienergruppen): rho=%s"
+
+msgid "Statistics.ModelRemarks.LargeWRelative"
+msgstr "Lange Wartezeiten"
+
+msgid "Statistics.ModelRemarks.LargeWRelative.ClientType"
+msgstr "Lange Wartezeiten für Kunden vom Typ \"%s\" (relativ zu den anderen Kundentypen): E[W]=%s"
+
+msgid "Statistics.ModelRemarks.LargeWRelative.Station"
+msgstr "Lange Wartezeiten an Station \"%s\" (relativ zu den anderen Stationen): E[W]=%s"
+
+msgid "Statistics.ModelRemarks.NoRemarks"
+msgstr "Es liegen keine Hinweise zu den Statistikdaten vor."
+
+msgid "Statistics.ModelRemarks.RemarkInfo"
+msgstr "Die oben aufgelisteten Hinweise sollen dabei helfen, Flaschenhälse oder Unstimmigkeiten im Modell zu identifizieren."
 
 msgid "Statistics.NoWaitingTransferProcessingTimes"
 msgstr "Es liegen weder Warte- noch Transfer- noch Bedien- noch Verweilzeiten vor."

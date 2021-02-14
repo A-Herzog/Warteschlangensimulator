@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-13 00:18+0100\n"
+"POT-Creation-Date: 2021-02-14 17:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13474,6 +13474,9 @@ msgstr "Run simulations on remote server"
 msgid "SettingsDialog.Tabs.Simulation.ShowErlangC"
 msgstr "Show Erlang C comparison"
 
+msgid "SettingsDialog.Tabs.Simulation.ShowRemarks"
+msgstr "Show remarks about statistic results"
+
 msgid "SettingsDialog.Tabs.Simulation.ShowSingleStepLogData"
 msgstr "Show logging information in single step mode"
 
@@ -17776,6 +17779,90 @@ msgstr "Station descriptions"
 
 msgid "Statistics.ModelOverview"
 msgstr "Model overview"
+
+msgid "Statistics.ModelRemarks"
+msgstr "Notes on the results"
+
+msgid "Statistics.ModelRemarks.LargeCVV"
+msgstr "High coefficient of variation of the residence times"
+
+msgid "Statistics.ModelRemarks.LargeCVV.ClientType"
+msgstr "High coefficient of variation of the residence times of clients of type \"%s\": CV[V]=%s"
+
+msgid "Statistics.ModelRemarks.LargeCVV.Station"
+msgstr "High coefficient of variation of the residence times at station \"%s\": CV[V]=%s"
+
+msgid "Statistics.ModelRemarks.LargeCVV.System"
+msgstr "High coefficient of variation of the residence times in the system: CV[V]=%s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactor"
+msgstr "High flow factor"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactor.ClientType"
+msgstr "High flow factor for clients of type \"%s\": %s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactor.Station"
+msgstr "High flow factor at station \"%s\": %s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactor.System"
+msgstr "High flow factor in the system: %s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactorRelative"
+msgstr "High flow factor"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactorRelative.ClientType"
+msgstr "High flow factor for clients of type \"%s\" (relative to other client types): %s"
+
+msgid "Statistics.ModelRemarks.LargeFlowFactorRelative.Station"
+msgstr "High flow factor at station \"%s\" (relative to other stations): %s"
+
+msgid "Statistics.ModelRemarks.LargeN"
+msgstr "High average number of clients"
+
+msgid "Statistics.ModelRemarks.LargeN.ClientType"
+msgstr "Average number of clients of type \"%s\" in system: E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeN.Station"
+msgstr "Average number of clients at station \"%s\": E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeN.System"
+msgstr "Average number of clients in the system E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeNRelative"
+msgstr "High average number of clients"
+
+msgid "Statistics.ModelRemarks.LargeNRelative.ClientType"
+msgstr "Average number of clients of type \"%s\" in system (relative to the other client types): E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeNRelative.Station"
+msgstr "Highaverage number of clients at station \"%s\" (relative to the other stations): E[N]=%s"
+
+msgid "Statistics.ModelRemarks.LargeRho"
+msgstr "High utilization of the operators"
+
+msgid "Statistics.ModelRemarks.LargeRho.Group"
+msgstr "High utilization of the operators group \"%s\": rho=%s"
+
+msgid "Statistics.ModelRemarks.LargeRhoRelative"
+msgstr "High utilization of the operators"
+
+msgid "Statistics.ModelRemarks.LargeRhoRelative.Group"
+msgstr "High utilization of the operators group \"%s\" (relative to the other operator groups): rho=%s"
+
+msgid "Statistics.ModelRemarks.LargeWRelative"
+msgstr "Long waiting times"
+
+msgid "Statistics.ModelRemarks.LargeWRelative.ClientType"
+msgstr "Long waiting times for clients of type \"%s\" (relative to other client types): E[W]=%s"
+
+msgid "Statistics.ModelRemarks.LargeWRelative.Station"
+msgstr "Long waiting times at station \"%s\" (relative to other stations): E[W]=%s"
+
+msgid "Statistics.ModelRemarks.NoRemarks"
+msgstr "There are no comments on the statistical data."
+
+msgid "Statistics.ModelRemarks.RemarkInfo"
+msgstr "The remarks listed above are intended to help identify bottle necks or inconsistencies in the model."
 
 msgid "Statistics.NoWaitingTransferProcessingTimes"
 msgstr "There are no waiting or transfer or processing or residence times."

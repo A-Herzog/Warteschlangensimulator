@@ -822,6 +822,11 @@ public class SetupData extends SetupBase {
 	public boolean showErlangC;
 
 	/**
+	 * Ergebnishinweiseseite in der Statistikansicht anzeigen
+	 */
+	public boolean showRemarks;
+
+	/**
 	 * Immer alle Kategorien in der Baumstruktur der Statistikansicht ausklappen?
 	 */
 	public boolean expandAllStatistics;
@@ -1105,6 +1110,7 @@ public class SetupData extends SetupBase {
 		autoRestore=false;
 		showQuantils=true;
 		showErlangC=true;
+		showRemarks=true;
 		expandAllStatistics=false;
 		defaultSaveFormatModels=XMLTools.DefaultSaveFormat.XML;
 		defaultSaveFormatStatistics=XMLTools.DefaultSaveFormat.XML;
@@ -1781,8 +1787,13 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
-			if (name.equals("statisticsshowerlange")) {
+			if (name.equals("statisticsshowerlangc")) {
 				showErlangC=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("statisticsshowremarks")) {
+				showRemarks=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -2380,6 +2391,11 @@ public class SetupData extends SetupBase {
 
 		if (!showErlangC) {
 			root.appendChild(node=doc.createElement("StatisticsShowErlangC"));
+			node.setTextContent("0");
+		}
+
+		if (!showRemarks) {
+			root.appendChild(node=doc.createElement("StatisticsShowRemarks"));
 			node.setTextContent("0");
 		}
 

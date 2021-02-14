@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Notes on the results</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<p>
+This page lists remarks on parameters that are outside the normal range. These parameters should
+then be given special attention when looking for bottle necks or inconsistencies in the model.
+</p>
+
+<p>
+On this page, the following information can be output (depending on the specific value of each parameter):
+</p>
+
+<h3>Notices about errors or warnings</h3>.
+<p>
+If the simulation was aborted due to an error or if problems occurred during the simulation
+that did not directly lead to an abortion of the simulation but were recorded as a warning,
+these are output here. Since problems during the simulation often lead to unusable or invalid
+results, the cause of these messages should be corrected in any case.
+</p>
+
+<h3>Many clients in the system</h3>
+<p>
+If there are very many clients at a station or in the system, this indicates an overload situation at the station or overall.
+In addition, the mean number of clients at a station is set in relation to the average of the mean numbers of clients at the
+other stations. If there are a particularly large number of clients on average at one station compared to the other stations,
+this is also an indication of a possible misconfiguration of this station.
+</p>
+
+<h3>Long waiting times</h3>
+<p>
+If the mean wait times at one station are very high compared to the average over the mean wait times at the other stations,
+this may mean that this station is a bottleneck.
+</p>
+
+<h3>High flow factors</h3>
+<p>
+The flow factor is the quotient of the residence time to service time at a station.
+A flow factor of 1 means that no waiting times occurred. The higher the flow factor,
+the more waiting times have occurred (relative to the service time).
+High flow factors are therefore an indication of a poorly dimensioned system.
+Both high flow factors in absolute terms and when the flow factor at one station deviates
+significantly upward from the average of flow factors over all stations are indicated.
+</p>
+
+<h3>High coefficients of variation of the residence times</h3>
+<p>
+High coefficients of variation of the residence times mean that it is very difficult to predict
+the throughput times of clients by the system. Therefore, in real systems one usually tries to
+avoid high coefficients of variation of the residence times. If such values occur in the
+simulation as a whole, at a station, or for a client type, the simulator shows a warning.
+</p>
+
+<h3>High operator utilization</h3>
+<p>
+Very high operator workloads usually result in long client waiting times and should therefore be avoided.
+If the workload of an operator group is particularly high in absolute terms, or if the workload of an
+operator group is particularly high in relation to the workloads of the other operator groups,
+a corresponding warning is issued.
+</p>
+
+</body></html>

@@ -219,6 +219,8 @@ public final class SetupDialog extends BaseDialog {
 	private final JCheckBox showQuantils;
 	/** Erlang-C-Vergleichswerte in der Statistik ausgeben */
 	private final JCheckBox showErlangC;
+	/** Ergebnishinweiseseite in der Statistik ausgeben */
+	private final JCheckBox showRemarks;
 	/** Statistikbaum immer sofort vollständig ausklappen */
 	private final JCheckBox expandAllStatistics;
 	/** Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Zahlen */
@@ -679,6 +681,9 @@ public final class SetupDialog extends BaseDialog {
 		p.add(showErlangC=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ShowErlangC")));
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(showRemarks=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ShowRemarks")));
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(expandAllStatistics=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ExpandAllStatistics")));
 
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -1103,6 +1108,7 @@ public final class SetupDialog extends BaseDialog {
 
 		showQuantils.setSelected(setup.showQuantils);
 		showErlangC.setSelected(setup.showErlangC);
+		showRemarks.setSelected(setup.showRemarks);
 		expandAllStatistics.setSelected(setup.expandAllStatistics);
 		statisticsNumberDigits.setValue(setup.statisticsNumberDigits);
 		statisticsPercentDigits.setValue(setup.statisticsPercentDigits);
@@ -1351,6 +1357,7 @@ public final class SetupDialog extends BaseDialog {
 
 		setup.showQuantils=showQuantils.isSelected();
 		setup.showErlangC=showErlangC.isSelected();
+		setup.showRemarks=showRemarks.isSelected();
 		setup.expandAllStatistics=expandAllStatistics.isSelected();
 		setup.statisticsNumberDigits=((Integer)statisticsNumberDigits.getValue()).intValue();
 		setup.statisticsPercentDigits=((Integer)statisticsPercentDigits.getValue()).intValue();
@@ -1550,6 +1557,7 @@ public final class SetupDialog extends BaseDialog {
 		case 3: /* Seite: Statistik */
 			showQuantils.setSelected(true);
 			showErlangC.setSelected(true);
+			showRemarks.setSelected(true);
 			expandAllStatistics.setSelected(false);
 			statisticsNumberDigits.setValue(1);
 			statisticsPercentDigits.setValue(1);
