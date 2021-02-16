@@ -1467,7 +1467,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		}
 
 		/* Prioritäten */
-		final List<String> clientTypes=descriptionBuilder.getModel().surface.getClientTypes();
+		final String[] clientTypes=descriptionBuilder.getClientTypes();
 		boolean needPrioInfo=false;
 		for (String clientType: clientTypes) {
 			final String prio=priority.get(clientType);

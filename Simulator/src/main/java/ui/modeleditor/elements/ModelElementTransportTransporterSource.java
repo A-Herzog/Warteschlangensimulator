@@ -793,7 +793,7 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportTransporterSource.WaitingPriority"),waitingPriority,5000);
 
 		/* Prioritäten */
-		for (String clientTypeName: descriptionBuilder.getModel().surface.getClientTypes()) {
+		for (String clientTypeName: descriptionBuilder.getClientTypes()) {
 			String priority=clientPriority.get(clientTypeName);
 			if (priority==null || priority.trim().isEmpty()) priority=DEFAULT_CLIENT_PRIORITY;
 			descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.TransportTransporterSource.ClientPriority"),clientTypeName),priority,6000);

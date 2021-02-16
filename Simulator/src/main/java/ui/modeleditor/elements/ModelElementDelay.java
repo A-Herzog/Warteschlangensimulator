@@ -736,7 +736,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		}
 
 		/* Daten pro Kundentyp */
-		for (String clientType: descriptionBuilder.getModel().surface.getClientTypes()) {
+		for (String clientType: descriptionBuilder.getClientTypes()) {
 			final AbstractRealDistribution distribution=distributionByType.get(clientType);
 			if (distribution!=null) {
 				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Delay.Distribution.ClientType"),clientType),ModelDescriptionBuilder.getDistributionInfo(distribution),2000);

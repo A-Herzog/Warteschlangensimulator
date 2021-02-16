@@ -442,7 +442,7 @@ public final class DistributionSystem implements Cloneable {
 	public void buildDescriptionProperty(final ModelDescriptionBuilder descriptionBuilder, final String labelClient, final String labelGeneralCase, final int position) {
 		Object obj;
 
-		for (final String clientTypeName: descriptionBuilder.getModel().surface.getClientTypes()) {
+		for (final String clientTypeName: descriptionBuilder.getClientTypes()) {
 			obj=get(clientTypeName);
 			if (obj instanceof AbstractRealDistribution) descriptionBuilder.addProperty(String.format(labelClient,clientTypeName),ModelDescriptionBuilder.getDistributionInfo((AbstractRealDistribution)obj),position);
 			if (obj instanceof String) descriptionBuilder.addProperty(String.format(labelClient,clientTypeName),Language.tr("ModelDescription.Expression")+": "+(String)obj,position);

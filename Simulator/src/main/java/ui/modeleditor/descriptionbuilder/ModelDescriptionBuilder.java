@@ -17,8 +17,10 @@ package ui.modeleditor.descriptionbuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
@@ -51,9 +53,16 @@ public abstract class ModelDescriptionBuilder {
 	private final EditModel model;
 
 	/**
+	 * Cache der Liste der Kundentypen<br>
+	 * (Wird bei Bedarf dynamisch erstellt.)
+	 * @see #getClientTypes()
+	 */
+	private String[] clientTypes;
+
+	/**
 	 * Liste der Elemente, die berücksichtigt werden sollen (kann <code>null</code> sein, dann werden alle Elemente verarbeitet)
 	 */
-	private final List<Integer> elementIDs;
+	private final Set<Integer> elementIDs;
 
 	/**
 	 * Aktuell in Bearbeitung befindliche Station
@@ -93,7 +102,7 @@ public abstract class ModelDescriptionBuilder {
 		if (elements==null) {
 			elementIDs=null;
 		} else {
-			elementIDs=elements.stream().map(element->Integer.valueOf(element.getId())).collect(Collectors.toList());
+			elementIDs=elements.stream().map(element->Integer.valueOf(element.getId())).collect(Collectors.toSet());
 		}
 	}
 
@@ -103,6 +112,18 @@ public abstract class ModelDescriptionBuilder {
 	 */
 	public EditModel getModel() {
 		return model;
+	}
+
+	/**
+	 * Liefert eine Auflistung der Kundentypen in dem Modell
+	 * (und cacht diese dabei für weitere Aufrufe).
+	 * @return	Auflistung der Kundentypen in dem Modell
+	 */
+	public String[] getClientTypes() {
+		if (clientTypes==null) {
+			clientTypes=model.surface.getClientTypes().toArray(new String[0]);
+		}
+		return clientTypes;
 	}
 
 	/**
@@ -342,7 +363,7 @@ public abstract class ModelDescriptionBuilder {
 	 * Modell (inkl. Untermodellen).
 	 * @return	Nach IDs sortierte Liste aller Box-Stationen
 	 */
-	private List<ModelElementBox> getBoxStations() {
+	private Set<ModelElementBox> getBoxStations() {
 		final Map<Integer,ModelElementBox> map=new HashMap<>();
 
 		/* Liste aller Elemente */
@@ -360,7 +381,7 @@ public abstract class ModelDescriptionBuilder {
 		final int[] ids=map.keySet().stream().mapToInt(I->I.intValue()).sorted().toArray();
 
 		/* Sortierte Liste der Elemente */
-		List<ModelElementBox> list=new ArrayList<>();
+		Set<ModelElementBox> list=new HashSet<>();
 		for (int id: ids) list.add(map.get(id));
 
 		return list;
@@ -372,7 +393,7 @@ public abstract class ModelDescriptionBuilder {
 	 * @param stations	Liste der Stationen
 	 * @return	Kundenquell-Station oder <code>null</code>, wenn es keine solche gibt.
 	 */
-	private ModelElementBox getNextSource(final List<ModelElementBox> stations) {
+	private ModelElementBox getNextSource(final Set<ModelElementBox> stations) {
 		for (ModelElementBox element: stations) {
 			if (element instanceof ModelElementSource) return element;
 			if (element instanceof ModelElementSourceMulti) return element;
@@ -388,12 +409,17 @@ public abstract class ModelDescriptionBuilder {
 	 */
 	public void run() {
 		/* Stationen */
-		final List<ModelElementBox> stations=getBoxStations();
+		final Set<ModelElementBox> stations=getBoxStations();
+
+		boolean testSources=true;
 		while (!stations.isEmpty()) {
 			ModelElementBox station=getNextElementSuggestion();
 			if (station!=null && !stations.contains(station)) station=null;
-			if (station==null) station=getNextSource(stations);
-			if (station==null) station=stations.get(0);
+			if (station==null) {
+				if (testSources) station=getNextSource(stations);
+				if (station==null) testSources=false; /* Alle Quellen aufgebraucht, brauchen wir nicht noch mal prüfen */
+			}
+			if (station==null) station=stations.iterator().next();
 			stations.remove(station);
 			station.buildDescription(this);
 		}
