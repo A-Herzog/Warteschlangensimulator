@@ -579,7 +579,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 
 	@Override
 	public String[] getNewClientTypes() {
-		return subSurface.getClientTypes().toArray(new String[0]);
+		return subSurface.getClientTypesThisSurfaceOnly().toArray(new String[0]);
 	}
 
 	@Override
@@ -632,11 +632,21 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	}
 
 	/**
-	 * Liefert das aktuell verwendete Untermodell zurück
+	 * Liefert das aktuell verwendete Untermodell (als Kopie) zurück.
 	 * @return	Untermodell
 	 */
 	public ModelSurface getSubSurface() {
 		return subSurface.clone(false,null,null,surface,getModel());
+	}
+
+	/**
+	 * Liefert das aktuell verwendete Untermodell (im Original) zurück.<br>
+	 * Diese Fassung sollten nur verwendet werden, wenn ausschließlich lesen auf die Daten zugegriffen wird
+	 * (z.B. im Run-Modell-Builder).
+	 * @return	Untermodell
+	 */
+	public ModelSurface getSubSurfaceReadOnly() {
+		return subSurface;
 	}
 
 	/**

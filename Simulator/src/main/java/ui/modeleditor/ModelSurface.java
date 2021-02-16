@@ -1081,9 +1081,26 @@ public final class ModelSurface {
 
 		final Set<String> clientTypes=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
 
-		for (ModelElement element : elements) {
-			String[] names=null;
-			if (element instanceof ElementWithNewClientNames) names=((ElementWithNewClientNames)element).getNewClientTypes();
+		for (ModelElement element : elements) if (element instanceof ElementWithNewClientNames) {
+			final String[] names=((ElementWithNewClientNames)element).getNewClientTypes();
+			if (names!=null) for (String name: names) if (name!=null && !name.isEmpty()) clientTypes.add(name);
+		}
+		return new ArrayList<>(clientTypes);
+	}
+
+	/**
+	 * Liefert eine Liste aller nicht-leeren Kundentypnamen, die von <code>ModelElementSource</code>- oder
+	 * <code>ModelElementAssign</code>-Elementen generiert werden. Namen, die sich nur in der Groﬂ- und Kleinschreibung
+	 * unterscheiden, werden dabei zusammengefasst.<br>
+	 * Es werden dabei nur die Kundentypen aufgelistet, die innerhalb diese Surface-Elements erzeugt werden.
+	 * @return	Liste mit allen Kundentypnamen
+	 * @see #getClientTypes()
+	 */
+	public List<String> getClientTypesThisSurfaceOnly() {
+		final Set<String> clientTypes=new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+
+		for (ModelElement element : elements) if (element instanceof ElementWithNewClientNames) {
+			final String[] names=((ElementWithNewClientNames)element).getNewClientTypes();
 			if (names!=null) for (String name: names) if (name!=null && !name.isEmpty()) clientTypes.add(name);
 		}
 		return new ArrayList<>(clientTypes);

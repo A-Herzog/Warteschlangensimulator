@@ -602,7 +602,9 @@ public class RunModel {
 		boolean allSourcesLimited=true;
 		for (ModelElement element : editModel.surface.getElements()) {
 			if (element instanceof ModelElementBox) {
-				if (!((ModelElementBox)element).inputConnected()) continue; /* Keine Einlaufende Ecke in Element -> kann ignoriert werden */
+				final ModelElementBox boxElement=(ModelElementBox)element;
+				if (!boxElement.inputConnected()) continue; /* Keine einlaufende Ecke in Element -> kann ignoriert werden */
+
 				if (element instanceof ModelElementSource) {
 					hasSource=true;
 					allSourcesLimited=allSourcesLimited && isLimitedSource(((ModelElementSource)element).getRecord());
@@ -617,11 +619,16 @@ public class RunModel {
 				if (element instanceof ModelElementSourceDDE) hasSource=true;
 				if (element instanceof ModelElementDispose) hasDispose=true;
 				if (element instanceof ModelElementDisposeWithTable) hasDispose=true;
-				String error=creator.addElement((ModelElementBox)element);
+				String error=creator.addElement(boxElement);
 				if (error!=null) return error;
-				if (element instanceof ModelElementSub) for (ModelElement subElement : ((ModelElementSub)element).getSubSurface().getElements()) if (subElement instanceof ModelElementBox) {
-					error=creator.addElement((ModelElementBox)subElement,(ModelElementSub)element);
-					if (error!=null) return error;
+
+				if (element instanceof ModelElementSub) {
+					final ModelElementSub sub=(ModelElementSub)element;
+					final List<ModelElement> subElements=sub.getSubSurfaceReadOnly().getElements();
+					for (ModelElement subElement: subElements) if (subElement instanceof ModelElementBox) {
+						error=creator.addElement((ModelElementBox)subElement,sub);
+						if (error!=null) return error;
+					}
 				}
 			} else {
 				if ((element instanceof InteractiveElement) && (element instanceof ModelElementPosition)) {
