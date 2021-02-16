@@ -243,7 +243,11 @@ public class WaitPanel extends JPanel {
 			double gesamt=(time-startTime)/(((double)day)/days);
 			gesamt-=(time-startTime);
 			if (gesamt/1000<lastGesamt) lastGesamt=(int) Math.round(gesamt/1000);
-			info2.setText(String.format(Language.tr("Wait.Info.Day"),NumberTools.formatLong((time-startTime)/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+			if (lastGesamt<86400) {
+				info2.setText(String.format(Language.tr("Wait.Info.Day"),NumberTools.formatLong((time-startTime)/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+			} else {
+				info2.setText("");
+			}
 		}
 		if (events<1_000_000) {
 			if (wip==0) {
@@ -298,7 +302,11 @@ public class WaitPanel extends JPanel {
 				double gesamt=delta*100.0/timeProgressPercent;
 				gesamt-=delta;
 				if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
-				info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+				if (lastGesamt<86400) {
+					info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+				} else {
+					info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
+				}
 			} else {
 				info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
 			}
@@ -345,7 +353,11 @@ public class WaitPanel extends JPanel {
 				double gesamt=delta/(((double)current)/sum);
 				gesamt-=delta;
 				if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
-				info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+				if (lastGesamt<86400) {
+					info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+				} else {
+					info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
+				}
 			}
 			final long events=simulator.getEventCount();
 			final String currentClientsKString=NumberTools.formatLong(current/1000);
