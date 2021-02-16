@@ -41,6 +41,8 @@ public class RunElementSetJS extends RunElementPassThrough {
 	private String script;
 	/** Skriptsprache des Skriptes in {@link #script} */
 	private ModelElementSetJS.ScriptMode mode;
+	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner */
+	private DynamicRunner jRunner;
 
 	/**
 	 * Konstruktor der Klasse
@@ -66,8 +68,9 @@ public class RunElementSetJS extends RunElementPassThrough {
 		set.mode=setElement.getMode();
 
 		if (set.mode==ModelElementSetJS.ScriptMode.Java && !testOnly) {
-			final String scriptError=DynamicFactory.getFactory().test(set.script,true);
-			if (scriptError!=null) return scriptError;
+			final Object runner=DynamicFactory.getFactory().test(set.script,true);
+			if (runner instanceof String) return runner;
+			set.jRunner=(DynamicRunner)runner;
 		}
 
 		return set;
@@ -90,7 +93,7 @@ public class RunElementSetJS extends RunElementPassThrough {
 		RunElementSetJSData data;
 		data=(RunElementSetJSData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementSetJSData(this,script,mode,simData);
+			data=new RunElementSetJSData(this,script,mode,jRunner,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

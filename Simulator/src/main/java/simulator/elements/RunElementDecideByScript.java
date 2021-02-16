@@ -22,6 +22,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import scripting.java.DynamicFactory;
+import scripting.java.DynamicRunner;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -48,6 +49,8 @@ public class RunElementDecideByScript extends RunElement {
 	private String script;
 	/** Skriptspache für {@link #script} */
 	private ModelElementDecideJS.ScriptMode mode;
+	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner */
+	private DynamicRunner jRunner;
 
 	/**
 	 * Konstruktor der Klasse
@@ -78,8 +81,9 @@ public class RunElementDecideByScript extends RunElement {
 		decide.mode=decideElement.getMode();
 
 		if (decide.mode==ModelElementDecideJS.ScriptMode.Java && !testOnly) {
-			final String scriptError=DynamicFactory.getFactory().test(decide.script,true);
-			if (scriptError!=null) return scriptError;
+			final Object runner=DynamicFactory.getFactory().test(decide.script,true);
+			if (runner instanceof String) return runner;
+			decide.jRunner=(DynamicRunner)runner;
 		}
 
 		return decide;
@@ -115,7 +119,7 @@ public class RunElementDecideByScript extends RunElement {
 		RunElementDecideByScriptData data;
 		data=(RunElementDecideByScriptData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDecideByScriptData(this,script,mode,simData);
+			data=new RunElementDecideByScriptData(this,script,mode,jRunner,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

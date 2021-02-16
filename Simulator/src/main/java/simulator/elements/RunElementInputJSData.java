@@ -58,9 +58,10 @@ public class RunElementInputJSData extends RunElementData {
 	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementInputJS</code>-Element
 	 * @param script	Auszuführendes Skript
 	 * @param mode	Skriptsprache
+	 * @param jRunner	Im Falle von Java als Sprache kann hier optional ein bereits vorbereiteter Runner, der dann kopiert wird, angegeben werden
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementInputJSData(final RunElement station, final String script, final ModelElementInputJS.ScriptMode mode, final SimulationData simData) {
+	public RunElementInputJSData(final RunElement station, final String script, final ModelElementInputJS.ScriptMode mode, final DynamicRunner jRunner, final SimulationData simData) {
 		super(station);
 		this.script=script;
 
@@ -69,7 +70,11 @@ public class RunElementInputJSData extends RunElementData {
 		switch (mode) {
 		case Java:
 			jsRunner=null;
-			javaRunner=DynamicFactory.getFactory().load(script);
+			if (jRunner==null) {
+				javaRunner=DynamicFactory.getFactory().load(script);
+			} else {
+				javaRunner=DynamicFactory.getFactory().load(jRunner);
+			}
 			javaRunner.parameter.system=new SystemImpl(simData,station.id);
 			javaRunner.parameter.client=new ClientImpl(simData);
 			javaRunner.parameter.inputValue=new InputValueImpl();

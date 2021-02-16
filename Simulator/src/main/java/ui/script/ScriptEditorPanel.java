@@ -575,10 +575,13 @@ public class ScriptEditorPanel extends JPanel {
 			return true;
 		case 1: /* Java */
 			if (!DynamicFactory.isWindows() && !DynamicFactory.isInMemoryProcessing()) return true;
-			final String error=DynamicFactory.getFactory().test(scriptEditJava.getText(),false);
-			if (error==null) return true;
-			MsgBox.error(this,Language.tr("Surface.HoldJS.Dialog.Language.JavaError"),error);
-			return false;
+			final Object error=DynamicFactory.getFactory().test(scriptEditJava.getText(),false);
+			if (error instanceof String) {
+				MsgBox.error(this,Language.tr("Surface.HoldJS.Dialog.Language.JavaError"),(String)error);
+				return false;
+			} else {
+				return true;
+			}
 		default:
 			return true;
 		}

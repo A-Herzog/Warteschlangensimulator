@@ -66,6 +66,11 @@ public class RunElementInputJS extends RunElementPassThrough {
 	private ModelElementInputJS.ScriptMode modeScript;
 
 	/**
+	 * Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner
+	 */
+	private DynamicRunner jRunner;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param element	Zugehöriges Editor-Element
 	 */
@@ -101,8 +106,9 @@ public class RunElementInputJS extends RunElementPassThrough {
 		input.modeScript=inputElement.getMode();
 
 		if (input.modeScript==ModelElementInputJS.ScriptMode.Java && !testOnly) {
-			final String scriptError=DynamicFactory.getFactory().test(input.script,true);
-			if (scriptError!=null) return scriptError;
+			final Object runner=DynamicFactory.getFactory().test(input.script,true);
+			if (runner instanceof String) return runner;
+			input.jRunner=(DynamicRunner)runner;
 		}
 
 		return input;
@@ -128,7 +134,7 @@ public class RunElementInputJS extends RunElementPassThrough {
 		RunElementInputJSData data;
 		data=(RunElementInputJSData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementInputJSData(this,script,modeScript,simData);
+			data=new RunElementInputJSData(this,script,modeScript,jRunner,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

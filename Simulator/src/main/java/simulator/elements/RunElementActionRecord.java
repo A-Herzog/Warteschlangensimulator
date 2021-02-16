@@ -220,8 +220,9 @@ public class RunElementActionRecord {
 			script=editRecord.getScript();
 			scriptMode=editRecord.getScriptMode();
 			if (scriptMode==ModelElementActionRecord.ScriptMode.Java && !testOnly) {
-				final String scriptError=DynamicFactory.getFactory().test(script,true);
-				if (scriptError!=null) return scriptError;
+				final Object runner=DynamicFactory.getFactory().test(script,true);
+				if (runner instanceof String) return (String)runner;
+				javaRunner=(DynamicRunner)runner;
 			}
 			break;
 		case ACTION_SIGNAL:
@@ -321,7 +322,11 @@ public class RunElementActionRecord {
 				jsRunner.compile(script);
 				break;
 			case Java:
-				javaRunner=DynamicFactory.getFactory().load(script);
+				if (javaRunner==null) {
+					javaRunner=DynamicFactory.getFactory().load(script);
+				} else {
+					javaRunner=DynamicFactory.getFactory().load(javaRunner);
+				}
 				javaRunner.parameter.system=new SystemImpl(simData,stationID);
 				break;
 			}

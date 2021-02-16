@@ -72,12 +72,19 @@ public final class DynamicFactory {
 	/**
 	 * Prüft ein Skript auf Korrektheit.
 	 * @param script	Zu prüfendes Skript
+	 * @param loadMethod	Nur Testen (<code>false</code>) oder im Erfolgsfall Methode auch laden (<code>true</code>)
 	 * @return	Ergebnis der Prüfung als {@link DynamicRunner}-Objekt
 	 */
-	public DynamicRunner test(final String script) {
+	private DynamicRunner testIntern(final String script, final boolean loadMethod) {
 		final DynamicMethod dynamicMethod=new DynamicMethod(setup,script);
-		final DynamicStatus status=dynamicMethod.test();
-		return new DynamicRunner(script,status,dynamicMethod.getError());
+		if (loadMethod) {
+			final DynamicStatus status=dynamicMethod.load();
+			if (status!=DynamicStatus.OK) return new DynamicRunner(script,status,dynamicMethod.getError());
+			return new DynamicRunner(dynamicMethod);
+		} else {
+			final DynamicStatus status=dynamicMethod.test();
+			return new DynamicRunner(script,status,dynamicMethod.getError());
+		}
 	}
 
 	/**
@@ -86,9 +93,9 @@ public final class DynamicFactory {
 	 * @param longMessage	Im Falle eines Fehlers die Zeile "Java-Fehler" als erstes mit ausgeben.
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public String test(final String script, final boolean longMessage) {
-		final DynamicRunner runner=test(script);
-		if (runner.getStatus()==DynamicStatus.OK) return null;
+	public Object test(final String script, final boolean longMessage) {
+		final DynamicRunner runner=testIntern(script,true);
+		if (runner.getStatus()==DynamicStatus.OK) return runner;
 
 		final StringBuilder sb=new StringBuilder();
 		if (longMessage) sb.append(Language.tr("Simulation.Java.Error")+"\n");
@@ -109,6 +116,15 @@ public final class DynamicFactory {
 		final DynamicStatus status=dynamicMethod.load();
 		if (status!=DynamicStatus.OK) return new DynamicRunner(script,status,dynamicMethod.getError());
 		return new DynamicRunner(dynamicMethod);
+	}
+
+	/**
+	 * Erstellt eine Kopie eines vorhandenen Runners (mit neuem Parameter-Set)
+	 * @param prototypeRunner	Vorhandener Runner, vom dem die Methode übernommen werden soll
+	 * @return	Kopie des Runners
+	 */
+	public DynamicRunner load(final DynamicRunner prototypeRunner) {
+		return new DynamicRunner(prototypeRunner);
 	}
 
 	/**
@@ -168,13 +184,22 @@ public final class DynamicFactory {
 	}
 
 	/**
+	 * Ist ein Java-Compiler verfügbar?
+	 * (Um in {@link #hasCompiler()} nicht immer wieder danach suchen zu müssen.)
+	 * @see #hasCompiler()
+	 */
+	private static boolean hasCompiler=false;
+
+	/**
 	 * Gibt an, ob ein Java-Compiler verfügbar ist.
 	 * @return	Java-Compiler verfügbar?
 	 */
 	public static boolean hasCompiler() {
+		if (hasCompiler) return hasCompiler;
 		try {
 			Class.forName("javax.tools.ToolProvider");
 		} catch (ClassNotFoundException e) {
+			hasCompiler=true;
 			return false;
 		}
 
@@ -187,6 +212,7 @@ public final class DynamicFactory {
 		}
 		 */
 
+		hasCompiler=true;
 		return true;
 	}
 }

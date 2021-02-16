@@ -66,16 +66,21 @@ public class RunElementDecideByScriptData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param script	Bei der Verzweigung von Kunden auszuführendes Skript
 	 * @param mode	Skriptsprache
+	 * @param jRunner	Im Falle von Java als Sprache kann hier optional ein bereits vorbereiteter Runner, der dann kopiert wird, angegeben werden
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementDecideByScriptData(final RunElementDecideByScript station, final String script, final ModelElementDecideJS.ScriptMode mode, final SimulationData simData) {
+	public RunElementDecideByScriptData(final RunElementDecideByScript station, final String script, final ModelElementDecideJS.ScriptMode mode, final DynamicRunner jRunner, final SimulationData simData) {
 		super(station);
 		this.script=script;
 
 		switch (mode) {
 		case Java:
 			jsRunner=null;
-			javaRunner=DynamicFactory.getFactory().load(script);
+			if (jRunner==null) {
+				javaRunner=DynamicFactory.getFactory().load(script);
+			} else {
+				javaRunner=DynamicFactory.getFactory().load(jRunner);
+			}
 			javaRunner.parameter.client=new ClientImpl(simData);
 			javaRunner.parameter.system=new SystemImpl(simData,station.id);
 			output=new StringBuilder();

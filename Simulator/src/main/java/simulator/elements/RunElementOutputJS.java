@@ -49,6 +49,8 @@ public class RunElementOutputJS extends RunElementPassThrough {
 	private ModelElementOutputJS.ScriptMode mode;
 	/** System zur gepufferten Dateiausgabe ({@link RunData#getOutputWriter(File)}) */
 	private RunDataOutputWriter outputWriter;
+	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner */
+	private DynamicRunner jRunner;
 
 	/**
 	 * Konstruktor der Klasse
@@ -78,8 +80,9 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		output.mode=outputElement.getMode();
 
 		if (output.mode==ModelElementOutputJS.ScriptMode.Java && !testOnly) {
-			final String scriptError=DynamicFactory.getFactory().test(output.script,true);
-			if (scriptError!=null) return scriptError;
+			final Object runner=DynamicFactory.getFactory().test(output.script,true);
+			if (runner instanceof String) return runner;
+			output.jRunner=(DynamicRunner)runner;
 		}
 
 		return output;
@@ -105,7 +108,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		RunElementOutputJSData data;
 		data=(RunElementOutputJSData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementOutputJSData(this,script,mode,simData);
+			data=new RunElementOutputJSData(this,script,mode,jRunner,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

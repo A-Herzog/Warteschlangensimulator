@@ -46,6 +46,8 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 	private ModelElementHoldJS.ScriptMode mode;
 	/** Regelmäßige Prüfung der Bedingung? */
 	private boolean useTimedChecks;
+	/** Bereits in {@link #build(EditModel, RunModel, ModelElement, ModelElementSub, boolean)} vorbereiteter (optionale) Java-Runner */
+	private DynamicRunner jRunner;
 
 	/**
 	 * Konstruktor der Klasse
@@ -81,8 +83,9 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		hold.mode=holdElement.getMode();
 
 		if (hold.mode==ModelElementHoldJS.ScriptMode.Java && !testOnly) {
-			final String scriptError=DynamicFactory.getFactory().test(hold.script,true);
-			if (scriptError!=null) return scriptError;
+			final Object runner=DynamicFactory.getFactory().test(hold.script,true);
+			if (runner instanceof String) return runner;
+			hold.jRunner=(DynamicRunner)runner;
 		}
 
 		/* Zeitabhängige Checks */
@@ -108,7 +111,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		RunElementHoldJSData data;
 		data=(RunElementHoldJSData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementHoldJSData(this,condition,script,mode,simData);
+			data=new RunElementHoldJSData(this,condition,script,mode,jRunner,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
