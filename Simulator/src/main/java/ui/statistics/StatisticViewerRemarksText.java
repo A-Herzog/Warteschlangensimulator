@@ -15,13 +15,8 @@
  */
 package ui.statistics;
 
-import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
-
-import javax.swing.SwingUtilities;
 
 import language.Language;
 import simulator.statistics.Statistics;
@@ -31,7 +26,6 @@ import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerText;
-import ui.MainFrame;
 import ui.help.Help;
 
 /**
@@ -592,13 +586,6 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerOverviewText.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 
 	/**

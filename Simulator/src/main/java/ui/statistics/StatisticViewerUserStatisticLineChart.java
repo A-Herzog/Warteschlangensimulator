@@ -16,19 +16,13 @@
 package ui.statistics;
 
 import java.awt.Color;
-import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-
-import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.statistics.StatisticViewerLineChart;
-import ui.MainFrame;
 import ui.help.Help;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementUserStatistic;
@@ -119,12 +113,5 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 
 		/* Infotext  */
 		addDescription("PlotUser");
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 }

@@ -16,13 +16,8 @@
 package ui.statistics;
 
 import java.awt.Color;
-import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
-
-import javax.swing.SwingUtilities;
 
 import language.Language;
 import simulator.statistics.Statistics;
@@ -30,7 +25,6 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerBarChart;
-import ui.MainFrame;
 import ui.help.Help;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelTransporter;
@@ -405,12 +399,5 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			addDescription("PlotBarCompareUtilizationTransporters");
 			break;
 		}
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 }

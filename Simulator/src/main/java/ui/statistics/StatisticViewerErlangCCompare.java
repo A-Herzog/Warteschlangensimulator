@@ -15,19 +15,13 @@
  */
 package ui.statistics;
 
-import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-
-import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.TimeTools;
 import simulator.statistics.Statistics;
 import systemtools.statistics.StatisticViewerText;
 import systemtools.statistics.StatisticsBasePanel;
-import ui.MainFrame;
 import ui.help.Help;
 import ui.statistics.analyticcompare.AnalyticInfo;
 
@@ -200,12 +194,5 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 	@Override
 	public boolean hasOwnFileDropListener() {
 		return false;
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 }

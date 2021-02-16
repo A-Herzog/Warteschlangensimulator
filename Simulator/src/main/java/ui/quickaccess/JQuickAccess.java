@@ -20,6 +20,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.im.InputContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ import javax.swing.SwingUtilities;
 
 import language.Language;
 import tools.SetupData;
+import ui.tools.InputContextFix;
 
 /**
  * Zusammenstellung der Schnellzugriffs-Funktionen
@@ -151,6 +153,11 @@ public class JQuickAccess {
 			@Override
 			public List<JQuickAccessRecord> getQuickAccessRecords(final String quickAccessText) {
 				return quickAccessProcessor.apply(quickAccessText);
+			}
+
+			@Override
+			public InputContext getInputContext() {
+				return new InputContextFix(super.getInputContext());
 			}
 		};
 		quickAccessTextField.addMouseListener(new MouseAdapter() {

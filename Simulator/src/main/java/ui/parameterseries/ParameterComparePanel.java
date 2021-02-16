@@ -582,7 +582,6 @@ public class ParameterComparePanel extends SpecialPanel {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".xlsx");
 			if (table.save(file)) {
 				file.deleteOnExit();
-				if (owner instanceof MainFrame) ((MainFrame)owner).pauseFocusFixer(5);
 				Desktop.getDesktop().open(file);
 			}
 		} catch (IOException e1) {
@@ -599,7 +598,6 @@ public class ParameterComparePanel extends SpecialPanel {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".ods");
 			if (table.save(file)) {
 				file.deleteOnExit();
-				if (owner instanceof MainFrame) ((MainFrame)owner).pauseFocusFixer(5);
 				Desktop.getDesktop().open(file);
 			}
 		} catch (IOException e1) {

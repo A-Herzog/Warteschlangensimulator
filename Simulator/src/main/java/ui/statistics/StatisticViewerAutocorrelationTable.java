@@ -15,16 +15,11 @@
  */
 package ui.statistics;
 
-import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -32,7 +27,6 @@ import mathtools.Table;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
-import ui.MainFrame;
 import ui.help.Help;
 
 /**
@@ -227,12 +221,5 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerTable {
 		case MODE_DEFAULT: buildDefaultTable(); break;
 		case MODE_DETAILS: buildDetailsTable(); break;
 		}
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 }

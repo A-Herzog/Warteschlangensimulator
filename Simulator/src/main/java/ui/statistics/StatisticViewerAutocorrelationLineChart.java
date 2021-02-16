@@ -16,12 +16,7 @@
 package ui.statistics;
 
 import java.awt.Color;
-import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
 import java.util.Map;
-
-import javax.swing.SwingUtilities;
 
 import org.jfree.data.xy.XYSeries;
 
@@ -29,7 +24,6 @@ import language.Language;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.statistics.StatisticViewerLineChart;
-import ui.MainFrame;
 
 /**
  * Dieser Viewer zeigt die Autokorrelation der Wartezeiten als Liniendiagramm an.
@@ -131,12 +125,5 @@ public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLine
 
 		smartZoom(1);
 		initTooltips();
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 }

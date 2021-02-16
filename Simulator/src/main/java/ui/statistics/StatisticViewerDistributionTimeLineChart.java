@@ -16,13 +16,8 @@
 package ui.statistics;
 
 import java.awt.Color;
-import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
-
-import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.distribution.DataDistributionImpl;
@@ -35,7 +30,6 @@ import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerLineChart;
-import ui.MainFrame;
 import ui.help.Help;
 
 /**
@@ -450,12 +444,5 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		}
 
 		initTooltips();
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 }

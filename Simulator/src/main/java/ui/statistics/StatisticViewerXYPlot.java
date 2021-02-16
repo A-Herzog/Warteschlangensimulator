@@ -15,12 +15,7 @@
  */
 package ui.statistics;
 
-import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-
-import javax.swing.SwingUtilities;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.XYPlot;
@@ -32,7 +27,6 @@ import mathtools.Table;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataCollector;
 import systemtools.statistics.StatisticViewerJFreeChart;
-import ui.MainFrame;
 import ui.help.Help;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
@@ -134,12 +128,5 @@ public class StatisticViewerXYPlot extends StatisticViewerJFreeChart {
 
 		/* Infotext  */
 		addDescription("PlotXY");
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 }

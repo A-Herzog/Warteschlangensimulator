@@ -20,11 +20,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics2D;
-import java.awt.Window;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -33,7 +31,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -50,7 +47,6 @@ import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
 import systemtools.statistics.StatisticViewerBarChart;
 import systemtools.statistics.StatisticsBasePanel;
-import ui.MainFrame;
 import ui.images.Images;
 import ui.mjpeg.MJPEGSystem;
 
@@ -344,12 +340,5 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		} finally {
 			changeSlider(slider.getValue());
 		}
-	}
-
-	@Override
-	protected void openExternalFile(final File file) throws IOException {
-		final Window window=SwingUtilities.getWindowAncestor(getViewer(false));
-		if (window instanceof MainFrame) ((MainFrame)window).pauseFocusFixer(5);
-		super.openExternalFile(file);
 	}
 }

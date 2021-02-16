@@ -32,6 +32,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.im.InputContext;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -128,6 +129,7 @@ import ui.parameterseries.ParameterCompareTemplatesDialog;
 import ui.quickaccess.JPlaceholderTextField;
 import ui.speedup.BackgroundSystem;
 import ui.statistics.StatisticTools;
+import ui.tools.InputContextFix;
 
 /**
  * Diese Klasse kapselt einen vollständigen Editor für ein <code>EditModel</code>-Objekt
@@ -909,7 +911,18 @@ public final class EditorPanel extends EditorPanelBase {
 		if (setup.showQuickFilter) {
 			/* Das Schnellfilter-Eingabefeld darf erst nach dem Konstruktor (nach dem Abarbeiten von initialen Ereignissen) angelegt werden, weil sonst initiale Darg-Over-Ereignisse evtl. das ganze Programm blockieren können. */
 			SwingUtilities.invokeLater(()->{
-				sub.add(leftAreaQuickFilter=new JPlaceholderTextField(),BorderLayout.CENTER);
+				sub.add(leftAreaQuickFilter=new JPlaceholderTextField() {
+					/**
+					 * Serialisierungs-ID der Klasse
+					 * @see Serializable
+					 */
+					private static final long serialVersionUID=-3979636659600375850L;
+
+					@Override
+					public InputContext getInputContext() {
+						return new InputContextFix(super.getInputContext());
+					}
+				},BorderLayout.CENTER);
 				leftAreaQuickFilter.setPlaceholder(Language.tr("Editor.QuickFilter"));
 				leftAreaQuickFilter.setToolTipText(Language.tr("Editor.QuickFilter.Tooltip"));
 				leftAreaQuickFilter.addKeyListener(new KeyListener() {
