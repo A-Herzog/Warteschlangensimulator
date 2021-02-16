@@ -4781,7 +4781,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11282] = "ExpressionBuilder.ClientsAtQueue.MaximalNumber";
     t[11283] = "<p>Liefert die maximale Anzahl an Kunden in der Warteschlange an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ kann auch die ID einer Kundenquelle angegeben werden, dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps.</p>";
     t[11288] = "ModelDescription.TransportTargetSystem.DefaultRouting";
-    t[11289] = "Stndardziel (wenn keine andere Bedingung zutrifft)";
+    t[11289] = "Standardziel (wenn keine andere Bedingung zutrifft)";
     t[11290] = "Surface.InputDDE.Infotext";
     t[11291] = "Passiert ein Kunde diese Station, so wird ein Wert \u00fcber eine DDE-Verbindung aus einer laufenden Excel-Instanz geladen und einer Variable zugewiesen.";
     t[11294] = "Surface.XML.FlowData.Destination";

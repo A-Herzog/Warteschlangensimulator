@@ -176,7 +176,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * Konstruktor der Klasse <code>Simulator</code>
 	 * @param multiCore	Wird hier <code>true</code> übergeben, so wird auf allen verfügbaren CPU-Kernen gerechnet. (Ausnahme: Wird in <code>logFile</code> ein Wert ungleich <code>null</code> übergeben, so wird stets nur ein Kern verwendet.)
 	 * @param editModel	Editor-Modell
-	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
