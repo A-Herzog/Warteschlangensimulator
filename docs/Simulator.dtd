@@ -126,7 +126,8 @@
 
 <!ELEMENT ModellHintergrundBild (#PCDATA)>
 <!ATTLIST ModellHintergrundBild
-  Skalierung	CDATA	#IMPLIED
+  Skalierung		CDATA	#IMPLIED
+  InUntermodellen	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellFertigungsplaene (ModellFertigungsplan)*>
@@ -2282,7 +2283,8 @@
 
 <!ELEMENT ModelBackgroundImage (#PCDATA)*>
 <!ATTLIST ModelBackgroundImage
-  Scale	CDATA	#IMPLIED
+  Scale			CDATA	#IMPLIED
+  InSubModels	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelSequences (ModelSequence)*>

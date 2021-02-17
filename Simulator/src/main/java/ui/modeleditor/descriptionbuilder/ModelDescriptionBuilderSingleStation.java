@@ -73,6 +73,6 @@ public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilde
 	 * @return	Beschreibung der Station als html-Code
 	 */
 	public String getDescription() {
-		return "<p>\n"+description.toString()+"\n</p>";
+		return "<p>\n"+description.toString()+"\n<br>&nbsp;</p>";
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 00:02+0100\n"
+"POT-Creation-Date: 2021-02-17 18:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21133,6 +21133,12 @@ msgstr "Abgerundet abgewinkelt"
 msgid "Surface.Connection.Name"
 msgstr "Verbindung"
 
+msgid "Surface.Connection.Tooltip.From"
+msgstr "Von"
+
+msgid "Surface.Connection.Tooltip.To"
+msgstr "Zu"
+
 msgid "Surface.Conveyor.Dialog.Animation"
 msgstr "Animation"
 
@@ -27668,6 +27674,9 @@ msgstr "ModellBeiRechenfehlerAbbrechen"
 msgid "Surface.XML.SurfaceBackgroundImage"
 msgstr "ModellHintergrundBild"
 
+msgid "Surface.XML.SurfaceBackgroundImage.InSubModels"
+msgstr "InUntermodellen"
+
 msgid "Surface.XML.SurfaceBackgroundImage.Scale"
 msgstr "Skalierung"
 
@@ -28474,6 +28483,9 @@ msgstr "Das Programm muss sich im Modell-Editor- oder im Statistikanzeige-Modus 
 
 msgid "WebServer.Upload.Success"
 msgstr "Das Modell wurde geladen."
+
+msgid "Window.BackgroundColor.ImageInSubModels"
+msgstr "Hintergrundbild auch auf Untermodell-Zeichenflächen anzeigen"
 
 msgid "Window.BackgroundColor.ImageScale"
 msgstr "Skalierungsfaktor"

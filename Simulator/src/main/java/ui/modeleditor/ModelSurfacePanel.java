@@ -265,10 +265,12 @@ public final class ModelSurfacePanel extends JPanel {
 	private Color[] colors=new Color[]{ModelSurface.DEFAULT_BACKGROUND_COLOR,ModelSurface.DEFAULT_RASTER_COLOR};
 	/** Optionales Hintergrundbild */
 	private BufferedImage backgroundImage;
-	/** Hashwert des Hintergrundbildes {@link #backgroundImage} (wird automatisch in {@link #setBackgroundImage(BufferedImage, double)} gesetzt */
+	/** Hashwert des Hintergrundbildes {@link #backgroundImage} (wird automatisch in {@link #setBackgroundImage(BufferedImage, double, boolean)} gesetzt */
 	private String backgroundImageHash;
 	/** Skalierungsfaktor für das optionale Hintergrundbild */
 	private double backgroundImageScale;
+	/** Soll das Hintergrundbild, sofern {@link #backgroundImage} ungleich <code>null</code> ist, überhaupt gezeichnet werden? */
+	private boolean backgroundImageUse;
 	/** Mausposition beim Start einer Drag&amp;drop-Operation */
 	private Point dragStartMousePosition=null;
 	/** Per Drag&amp;drop zu verschiebendes Element */
@@ -1362,7 +1364,7 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 
 		/* Elemente zeichnen */
-		paintElements(g,viewArea,true,true,raster,colors,backgroundImage,backgroundImageHash,backgroundImageScale,true);
+		paintElements(g,viewArea,true,true,raster,colors,backgroundImageUse?backgroundImage:null,backgroundImageHash,backgroundImageScale,true);
 
 		/* Ggf. Hinweis zu Steuerelementen einzeichnen */
 		if (viewArea.x==0 && viewArea.y==0 && surface.count()==0 && useInfoPaint) {
@@ -2355,8 +2357,9 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Stellt das aktuelle Hintergrundbild ein.
 	 * @param image	Hintergrundbild (kann <code>null</code> sein)
 	 * @param scale	Skalierung für das Hintergrundbild (muss größer als 0 sein)
+	 * @param useImage	Soll das Hintergrundbild, sofern der <code>image</code>-Parameter ungleich <code>null</code> ist, überhaupt gezeichnet werden?
 	 */
-	public void setBackgroundImage(final BufferedImage image, final double scale) {
+	public void setBackgroundImage(final BufferedImage image, final double scale, final boolean useImage) {
 		if (image==null) {
 			backgroundImage=null;
 			backgroundImageHash=null;
@@ -2364,13 +2367,14 @@ public final class ModelSurfacePanel extends JPanel {
 			backgroundImage=ScaledImageCache.copyImage(image);
 			backgroundImageHash=ScaledImageCache.getHash(backgroundImage);
 		}
+		backgroundImageUse=useImage;
 		backgroundImageScale=Math.max(0.1,scale);
 	}
 
 	/**
 	 * Liefert das aktuell eingestellte Hintergrundbild.
 	 * @return	Aktuell eingestelltes Hintergrundbild (kann <code>null</code> sein)
-	 * @see #setBackgroundImage(BufferedImage, double)
+	 * @see #setBackgroundImage(BufferedImage, double, boolean)
 	 * @see #getBackgroundImageScale()
 	 */
 	public BufferedImage getBackgroundImage() {
@@ -2381,7 +2385,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * Liefert den Hash-Wert des aktuellen Hintergrundbildes
 	 * (kann <code>null</code> sein, wenn kein Hintergrundbild eingestellt ist)
 	 * @return	Hash-Wert des aktuellen Hintergrundbildes
-	 * @see #setBackgroundImage(BufferedImage, double)
+	 * @see #setBackgroundImage(BufferedImage, double, boolean)
 	 */
 	public String getBackgroundImageHash() {
 		return backgroundImageHash;
@@ -2390,7 +2394,7 @@ public final class ModelSurfacePanel extends JPanel {
 	/**
 	 * Liefert die aktuelle Skalierung für das Hintergrundbild.
 	 * @return	Aktuelle Skalierung für das Hintergrundbild
-	 * @see #setBackgroundImage(BufferedImage, double)
+	 * @see #setBackgroundImage(BufferedImage, double, boolean)
 	 * @see #getBackgroundImage()
 	 */
 	public double getBackgroundImageScale() {
@@ -2970,6 +2974,38 @@ public final class ModelSurfacePanel extends JPanel {
 						description=getTooltipDescription((ModelElementBox)element);
 						if (description==null) description="";
 						if (!description.isEmpty()) description="<hr>"+description;
+					}
+					if (element instanceof ModelElementEdge) {
+						ModelElement el;
+						final ModelElementEdge edge=(ModelElementEdge)element;
+						final StringBuilder descriptionBuilder=new StringBuilder();
+						descriptionBuilder.append("<hr>\n<p>");
+						descriptionBuilder.append(Language.tr("Surface.Connection.Tooltip.From"));
+						descriptionBuilder.append(": ");
+						el=edge.getConnectionStart();
+						descriptionBuilder.append(el.getContextMenuElementName());
+						if (!el.getName().isEmpty()) {
+							descriptionBuilder.append(" (");
+							descriptionBuilder.append(el.getName());
+							descriptionBuilder.append(")");
+						}
+						descriptionBuilder.append(", id=");
+						descriptionBuilder.append(el.getId());
+
+						descriptionBuilder.append("\n<br>");
+						descriptionBuilder.append(Language.tr("Surface.Connection.Tooltip.To"));
+						descriptionBuilder.append(": ");
+						el=edge.getConnectionEnd();
+						descriptionBuilder.append(el.getContextMenuElementName());
+						if (!el.getName().isEmpty()) {
+							descriptionBuilder.append(" (");
+							descriptionBuilder.append(el.getName());
+							descriptionBuilder.append(")");
+						}
+						descriptionBuilder.append(", id=");
+						descriptionBuilder.append(el.getId());
+						descriptionBuilder.append("<br>&nbsp;\n</p>");
+						description=descriptionBuilder.toString();
 					}
 					setToolTipText("<html>"+tooltip+"<br><b>id="+element.getId()+"</b>"+description+"</html>");
 					final int borderPoint=element.getBorderPointNr(new Point((int)Math.round(e.getPoint().x/zoom),(int)Math.round(e.getPoint().y/zoom)));

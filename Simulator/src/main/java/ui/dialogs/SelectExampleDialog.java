@@ -76,7 +76,7 @@ public final class SelectExampleDialog extends BaseDialog {
 		content.add(main,BorderLayout.CENTER);
 
 		/* Vorschau rechts */
-		main.setRightComponent(viewer=new EditorPanel(this,null,true,false,false));
+		main.setRightComponent(viewer=new EditorPanel(this,null,true,true,false,false));
 		viewer.setSavedViewsButtonVisible(false);
 		viewer.setMinimumSize(new Dimension(400,0));
 

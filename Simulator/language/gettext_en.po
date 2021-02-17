@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 00:02+0100\n"
+"POT-Creation-Date: 2021-02-17 18:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21125,6 +21125,12 @@ msgstr "Angled around"
 msgid "Surface.Connection.Name"
 msgstr "Connection"
 
+msgid "Surface.Connection.Tooltip.From"
+msgstr "From"
+
+msgid "Surface.Connection.Tooltip.To"
+msgstr "To"
+
 msgid "Surface.Conveyor.Dialog.Animation"
 msgstr "Animation"
 
@@ -27652,6 +27658,9 @@ msgstr "ModelStoppOnCalcError"
 msgid "Surface.XML.SurfaceBackgroundImage"
 msgstr "ModelBackgroundImage"
 
+msgid "Surface.XML.SurfaceBackgroundImage.InSubModels"
+msgstr "InSubModels"
+
 msgid "Surface.XML.SurfaceBackgroundImage.Scale"
 msgstr "Scale"
 
@@ -28458,6 +28467,9 @@ msgstr "The program has to be in model editor or statistics viewer mode for a mo
 
 msgid "WebServer.Upload.Success"
 msgstr "The model was uploaded."
+
+msgid "Window.BackgroundColor.ImageInSubModels"
+msgstr "Show background image also on submodel drawing surfaces"
 
 msgid "Window.BackgroundColor.ImageScale"
 msgstr "Scale factor"

@@ -641,7 +641,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		zoomChanged();
 		surfacePanel.setRaster(raster);
 		surfacePanel.setColors(model.surfaceColors);
-		surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale);
+		surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,true);
 		setSurfacePosition(position);
 
 		final Timer positionTimer=new Timer("AnimationPanelLayoutTimer",false);

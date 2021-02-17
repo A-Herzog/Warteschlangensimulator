@@ -127,6 +127,11 @@ public abstract class EditorPanelBase extends JPanel {
 	protected EditModel model;
 
 	/**
+	 * Handelt es sich um die Haupt-Zeichenfläche?
+	 */
+	protected final boolean isMainSurface;
+
+	/**
 	 * Gibt an, ob die Daten nur angezeigt (<code>true</code>) oder auch zum Bearbeiten freigegeben werden sollen (<code>false</code>)
 	 */
 	protected final boolean readOnly;
@@ -172,12 +177,14 @@ public abstract class EditorPanelBase extends JPanel {
 	/**
 	 * Konstruktor der Klasse <code>EditorPanelBase</code>
 	 * @param model	Initial zu verwendendes Modell (kann <code>null</code> sein). Ist <code>model!=null</code>, so wird eine Kopie erstellt und diese verwendet.
+	 * @param isMainSurface	Handelt es sich um die Haupt-Zeichenfläche?
 	 * @param readOnly	Gibt an, ob die Daten nur angezeigt (<code>true</code>) oder auch bearbeitet werden können (<code>false</code>)
 	 */
-	public EditorPanelBase(final EditModel model, final boolean readOnly) {
+	public EditorPanelBase(final EditModel model, final boolean isMainSurface, final boolean readOnly) {
 		super();
 		isGUIReady=false;
 
+		this.isMainSurface=isMainSurface;
 		setModel(model);
 		this.readOnly=readOnly;
 
@@ -191,7 +198,7 @@ public abstract class EditorPanelBase extends JPanel {
 	 * Konstruktor der Klasse <code>EditorPanelBase</code>
 	 */
 	public EditorPanelBase() {
-		this(null,false);
+		this(null,true,false);
 	}
 
 	/**

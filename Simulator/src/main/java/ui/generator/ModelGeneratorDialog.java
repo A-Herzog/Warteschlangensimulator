@@ -63,7 +63,7 @@ public class ModelGeneratorDialog extends BaseDialog {
 		final JPanel left=new JPanel();
 		main.add(left,BorderLayout.WEST);
 		left.add(setup=new ModelGeneratorPanel(),BorderLayout.NORTH);
-		main.add(viewer=new EditorPanel(this,setup.getModel(),true,false,false));
+		main.add(viewer=new EditorPanel(this,setup.getModel(),true,true,false,false));
 		viewer.setSavedViewsButtonVisible(false);
 		setup.addModelChangeListener(()->{viewer.setModel(setup.getModel());});
 

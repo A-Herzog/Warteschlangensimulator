@@ -70,6 +70,8 @@ public class BackgroundColorDialog extends BaseDialog {
 	private final ImageChooser backgroundImage;
 	/** Skalierung für Hintergrundbild */
 	private final JTextField backgroundImageScale;
+	/** Hintergrundbild auch in Untermodellen anzeigen? */
+	private final JCheckBox optionImageInSubModels;
 
 	/**
 	 * Konstruktor der Klasse
@@ -77,9 +79,10 @@ public class BackgroundColorDialog extends BaseDialog {
 	 * @param colors	Bisherige Farben (2-elementiges Array aus Hintergrund- und Rasterfarbe)
 	 * @param image	Hintergrundbild (kann <code>null</code> sein)
 	 * @param scale	Skalierung für das Hintergrundbild (muss größer als 0 sein)
+	 * @param useImageInSubModels	Hintergrundbild auch in Untermodellen anzeigen?
 	 * @param readOnly	Gibt an, ob die Einstellungen verändert werden dürfen
 	 */
-	public BackgroundColorDialog(final Component owner, final Color[] colors, final BufferedImage image, final double scale, final boolean readOnly) {
+	public BackgroundColorDialog(final Component owner, final Color[] colors, final BufferedImage image, final double scale, final boolean useImageInSubModels, final boolean readOnly) {
 		super(owner,Language.tr("Window.BackgroundColor.Title"),readOnly);
 
 		final JPanel content=createGUI(()->Help.topicModal(BackgroundColorDialog.this,"EditorColorDialog"));
@@ -141,6 +144,9 @@ public class BackgroundColorDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionImageInSubModels=new JCheckBox(Language.tr("Window.BackgroundColor.ImageInSubModels"),useImageInSubModels));
 
 		/* Icons auf Tabs */
 		tabs.setIconAt(0,Images.EDIT_BACKGROUND_COLOR.getIcon());
@@ -205,5 +211,13 @@ public class BackgroundColorDialog extends BaseDialog {
 	 */
 	public double getScale() {
 		return NumberTools.getPositiveDouble(backgroundImageScale,true);
+	}
+
+	/**
+	 * Ist die Option "Hintergrundbild auch in Untermodellen anzeigen" ausgewählt?
+	 * @return	Option "Hintergrundbild auch in Untermodellen anzeigen" ausgewählt
+	 */
+	public boolean isImageInSubModels() {
+		return optionImageInSubModels.isSelected();
 	}
 }

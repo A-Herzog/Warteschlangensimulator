@@ -296,6 +296,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public double surfaceBackgroundImageScale;
 
 	/**
+	 * Soll das Hintergrundbild auch in Untermodellen dargestellt werden?
+	 */
+	public boolean surfaceBackgroundImageInSubModels=false;
+
+	/**
 	 * Liste der Pfadsegmente für den Wegstrecken-Editor
 	 */
 	public final ModelPaths pathSegments;
@@ -462,6 +467,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		for (int i=0;i<surfaceColors.length;i++) surfaceColors[i]=DEFAULT_COLORS[i];
 		surfaceBackgroundImage=null;
 		surfaceBackgroundImageScale=1.0;
+		surfaceBackgroundImageInSubModels=false;
 		sequences.clear();
 		transporters.clear();
 		pathSegments.clear();
@@ -520,6 +526,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		for (int i=0;i<surfaceColors.length;i++) clone.surfaceColors[i]=surfaceColors[i];
 		clone.surfaceBackgroundImage=surfaceBackgroundImage; /* Bild wird wenn immer neu zugewiesen, ist quasi immutable, daher reicht eine Referenz statt ScaledImageCache.copyImage(surfaceBackgroundImage); */
 		clone.surfaceBackgroundImageScale=surfaceBackgroundImageScale;
+		clone.surfaceBackgroundImageInSubModels=surfaceBackgroundImageInSubModels;
 		clone.sequences.setDataFrom(sequences);
 		clone.transporters.setDataFrom(transporters);
 		clone.pathSegments.setDataFrom(pathSegments);
@@ -595,6 +602,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		for (int i=0;i<surfaceColors.length;i++) if (!Objects.equals(surfaceColors[i],otherModel.surfaceColors[i])) return false;
 		if (!ScaledImageCache.compare(surfaceBackgroundImage,otherModel.surfaceBackgroundImage)) return false;
 		if (surfaceBackgroundImageScale!=otherModel.surfaceBackgroundImageScale) return false;
+		if (surfaceBackgroundImageInSubModels!=otherModel.surfaceBackgroundImageInSubModels) return false;
 		if (!sequences.equalsModelSequences(otherModel.sequences)) return false;
 		if (!transporters.equalsModelTransporters(otherModel.transporters)) return false;
 		if (!pathSegments.equalsModelPaths(otherModel.pathSegments)) return false;
@@ -817,6 +825,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (Language.trAll("Surface.XML.SurfaceBackgroundImage",name)) {
 			final Double D=NumberTools.getPositiveDouble(Language.trAllAttribute("Surface.XML.SurfaceBackgroundImage.Scale",node));
 			if (D!=null) surfaceBackgroundImageScale=D.doubleValue();
+			final String inSubModels=Language.trAllAttribute("Surface.XML.SurfaceBackgroundImage.InSubModels",node);
+			if (!inSubModels.isEmpty() && !inSubModels.equals("0")) surfaceBackgroundImageInSubModels=true;
 			if (!text.isEmpty()) {
 				try {
 					final ByteArrayInputStream stream=new ByteArrayInputStream(Base64.getDecoder().decode(text));
@@ -1032,9 +1042,10 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (surfaceColors[2]!=null) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceColor.Background2"),saveColor(surfaceColors[2]));
 		}
 
-		if (surfaceBackgroundImage!=null || surfaceBackgroundImageScale!=1.0) {
+		if (surfaceBackgroundImage!=null || surfaceBackgroundImageScale!=1.0 || surfaceBackgroundImageInSubModels) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.SurfaceBackgroundImage")));
 			if (surfaceBackgroundImageScale!=1.0) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceBackgroundImage.Scale"),NumberTools.formatSystemNumber(surfaceBackgroundImageScale));
+			if (surfaceBackgroundImageInSubModels) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceBackgroundImage.InSubModels"),"1");
 			if (surfaceBackgroundImage!=null) {
 				try {
 					final ByteArrayOutputStream stream=new ByteArrayOutputStream();

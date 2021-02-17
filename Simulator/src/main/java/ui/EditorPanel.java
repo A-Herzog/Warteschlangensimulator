@@ -301,12 +301,13 @@ public final class EditorPanel extends EditorPanelBase {
 	 * Konstruktor der Klasse <code>EditorPanel</code>
 	 * @param owner	Übergeordnetes Element
 	 * @param model	Anzuzeigendes Modell
+	 * @param isMainSurface	Handelt es sich um die Haupt-Zeichenfläche?
 	 * @param readOnly	Wird hier <code>true</code> angegeben, so kann das Modell nicht verändert werden.
 	 * @param showEditModelProperties	Gibt an, ob die Schaltfläche zum Bearbeiten der Modelleigenschaften sichtbar sein soll
 	 * @param canUndo	Gibt an, ob das Undo/Redo-System für dieses EditorPanel aktiv sein soll (bei Unterelementen sollte es deaktiviert werden)
 	 */
-	public EditorPanel(final Component owner, final EditModel model, final boolean readOnly, final boolean showEditModelProperties, final boolean canUndo) {
-		super(model,readOnly);
+	public EditorPanel(final Component owner, final EditModel model, final boolean isMainSurface, final boolean readOnly, final boolean showEditModelProperties, final boolean canUndo) {
+		super(model,isMainSurface,readOnly);
 		this.owner=(owner==null)?this:owner;
 		buttonProperties.setVisible(showEditModelProperties);
 		surfacePanel.setShowEditModelProperties(showEditModelProperties);
@@ -1180,7 +1181,7 @@ public final class EditorPanel extends EditorPanelBase {
 		surfacePanel.setRaster(SetupData.getSetup().grid);
 		if (model!=null) {
 			surfacePanel.setColors(model.surfaceColors);
-			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale);
+			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,isMainSurface || model.surfaceBackgroundImageInSubModels);
 		}
 		rulerPanel=new RulerPanel(surfacePanel,SetupData.getSetup().showRulers);
 		surfacePanel.addStateChangeListener(e->updateStatusBar());
@@ -1488,7 +1489,7 @@ public final class EditorPanel extends EditorPanelBase {
 		warmUpTime=model.warmUpTime;
 		if (surfacePanel!=null) {
 			surfacePanel.setColors(model.surfaceColors); /* Reihenfolge ist wichtig. setSurface würde bedingt durch fireNotify Farbe von Modell aus surfacePanel überschreiben, daher erst Farbe aus Modell in surfacePanel übertragen. */
-			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale);
+			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,isMainSurface || model.surfaceBackgroundImageInSubModels);
 			surfacePanel.setSurface(model,model.surface.clone(false,model.resources.clone(),model.schedules.clone(),model.surface.getParentSurface(),model),model.clientData,model.sequences);
 		}
 		if (model.surface.getElementCount()>0) setupInfoLabels(true);
@@ -1564,7 +1565,7 @@ public final class EditorPanel extends EditorPanelBase {
 	public void showBackgroundColorDialog() {
 		final EditModel model=getModel();
 
-		final BackgroundColorDialog dialog=new BackgroundColorDialog(owner,model.surfaceColors,model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,readOnly);
+		final BackgroundColorDialog dialog=new BackgroundColorDialog(owner,model.surfaceColors,model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageInSubModels,readOnly);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		final Color[] colors=dialog.getColors();
@@ -1584,6 +1585,11 @@ public final class EditorPanel extends EditorPanelBase {
 		final double newScale=dialog.getScale();
 		if (newScale!=model.surfaceBackgroundImageScale) {
 			model.surfaceBackgroundImageScale=newScale;
+			needUpdate=true;
+		}
+		final boolean newImageInSubModel=dialog.isImageInSubModels();
+		if (newImageInSubModel!=	model.surfaceBackgroundImageInSubModels) {
+			model.surfaceBackgroundImageInSubModels=newImageInSubModel;
 			needUpdate=true;
 		}
 		if (needUpdate) {

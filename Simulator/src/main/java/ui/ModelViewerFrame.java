@@ -126,7 +126,7 @@ public class ModelViewerFrame extends JDialog {
 			buttonLoadToNewEditor=null;
 		}
 
-		editorPanel=new EditorPanel(this,model,true,true,false);
+		editorPanel=new EditorPanel(this,model,true,true,true,false);
 		content.add(editorPanel,BorderLayout.CENTER);
 
 		if (statistics!=null) {

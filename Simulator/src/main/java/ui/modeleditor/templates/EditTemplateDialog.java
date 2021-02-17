@@ -157,7 +157,7 @@ public class EditTemplateDialog extends BaseDialog {
 
 		/* Zeichenfläche */
 
-		content.add(editor=new EditorPanel(this,model,true,false,true));
+		content.add(editor=new EditorPanel(this,model,true,true,false,true));
 		editor.setSavedViewsButtonVisible(false);
 		editor.setStatusBarVisible(false);
 		editor.allowEditorDialogs();
