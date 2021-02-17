@@ -329,7 +329,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		default: mode=ScriptEditorPanel.ScriptMode.Javascript; break;
 		}
 		tabOuter.add(scriptEdit=new ScriptEditorPanel(record.getScript(),mode,false,null,model,help,ScriptEditorPanel.featuresPlainStation),BorderLayout.CENTER);
-		scriptEdit.addKeyActionListener(()->actionScript.setSelected(true));
+		scriptEdit.addKeyActionListener(()->{actionScript.setSelected(true); checkData(false);});
 
 		switch (record.getActionType()) {
 		case ACTION_ASSIGN: actionAssign.setSelected(true); break;
