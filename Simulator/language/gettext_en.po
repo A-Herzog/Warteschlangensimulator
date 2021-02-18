@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 18:53+0100\n"
+"POT-Creation-Date: 2021-02-18 12:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24218,11 +24218,92 @@ msgstr "Error saaving data"
 msgid "Surface.PopupMenu.SimulationStatisticsData.SaveHint"
 msgstr "Saves the data as a text file"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.Data"
+msgstr "Data"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.Diagram"
 msgstr "Diagram"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.Table"
 msgstr "Table"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients"
+msgstr "Waiting clients"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ClientType"
+msgstr "Client type"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs"
+msgstr "Costs"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process"
+msgstr "Process time costs"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Transfer"
+msgstr "Transfer time costs"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting"
+msgstr "Waiting time costs"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Number"
+msgstr "Numeric client data fields"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Number.Short"
+msgstr "Numeric data fields"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text"
+msgstr "text-based client data fields"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text.Short"
+msgstr "Text-based data fields"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General"
+msgstr "General"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.BatchSize"
+msgstr "Number of clients in the batch"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.InStatistics"
+msgstr "Record client to statistics"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.IsWarmUp"
+msgstr "Client was created during warm-up phase"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Icon"
+msgstr "Icon"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"
+msgstr "on arrival at station"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.RunningNumber"
+msgstr "Running number"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Table.Index"
+msgstr "Index"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Table.Key"
+msgstr "Key"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Table.Value"
+msgstr "Value"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times"
+msgstr "Times"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process"
+msgstr "Previous process time"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence"
+msgstr "Previous residence time"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer"
+msgstr "Previous transfer time"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting"
+msgstr "Previous waiting time"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Title"
+msgstr "Client data"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Unzoom"
 msgstr "Default zoom"

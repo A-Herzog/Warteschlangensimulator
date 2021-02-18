@@ -30,7 +30,7 @@ import simulator.simparser.ExpressionMultiEval;
  * @see RunElementHold
  * @see RunElementData
  */
-public class RunElementHoldData extends RunElementData {
+public class RunElementHoldData extends RunElementData implements RunElementDataWithWaitingClients {
 	/**
 	 * Zu prüfende Bedingung
 	 */
@@ -68,5 +68,10 @@ public class RunElementHoldData extends RunElementData {
 			this.condition=new ExpressionMultiEval(variableNames);
 			this.condition.parse(condition);
 		}
+	}
+
+	@Override
+	public List<RunDataClient> getWaitingClients() {
+		return waitingClients;
 	}
 }

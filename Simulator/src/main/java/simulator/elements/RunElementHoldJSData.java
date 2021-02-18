@@ -36,7 +36,7 @@ import ui.modeleditor.elements.ModelElementHoldJS;
  * @see RunElementHoldJS
  * @see RunElementData
  */
-public class RunElementHoldJSData extends RunElementData {
+public class RunElementHoldJSData extends RunElementData implements RunElementDataWithWaitingClients {
 	/**
 	 * Optionale vorab zu prüfende Bedingung. Nur wenn diese Erfüllt ist, startet die Skriptausführung.
 	 */
@@ -120,5 +120,10 @@ public class RunElementHoldJSData extends RunElementData {
 			jsRunner=null;
 			javaRunner=null;
 		}
+	}
+
+	@Override
+	public List<RunDataClient> getWaitingClients() {
+		return waitingClients;
 	}
 }

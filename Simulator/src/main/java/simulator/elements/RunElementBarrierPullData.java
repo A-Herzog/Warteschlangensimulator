@@ -33,7 +33,7 @@ import simulator.simparser.ExpressionCalc;
  * @see RunElementBarrierPull
  * @see RunElementData
  */
-public class RunElementBarrierPullData extends RunElementData {
+public class RunElementBarrierPullData extends RunElementData implements RunElementDataWithWaitingClients {
 	/**
 	 * Liste der wartenden Kunden
 	 */
@@ -175,5 +175,10 @@ public class RunElementBarrierPullData extends RunElementData {
 
 		/* Dürfen wir noch Kunden freigeben? */
 		return (sum<maxClients);
+	}
+
+	@Override
+	public List<RunDataClient> getWaitingClients() {
+		return waitingClients;
 	}
 }

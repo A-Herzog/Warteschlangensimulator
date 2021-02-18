@@ -28,7 +28,7 @@ import simulator.runmodel.RunDataClient;
  * @see RunElementBarrier
  * @see RunElementData
  */
-public class RunElementBarrierData extends RunElementData {
+public class RunElementBarrierData extends RunElementData implements RunElementDataWithWaitingClients {
 	/**
 	 * Anzahl an Kunden, die das Element noch direkt durchqueren dürfen (ein Wert jeweils pro Signal-Listener)
 	 */
@@ -58,5 +58,10 @@ public class RunElementBarrierData extends RunElementData {
 		queueLockedForPickUp=false;
 		this.initialClients=Arrays.copyOf(initialClients,initialClients.length);
 		waitingClients=new ArrayList<>();
+	}
+
+	@Override
+	public List<RunDataClient> getWaitingClients() {
+		return waitingClients;
 	}
 }

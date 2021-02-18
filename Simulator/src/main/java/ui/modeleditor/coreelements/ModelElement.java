@@ -31,6 +31,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -53,7 +54,12 @@ import org.w3c.dom.NodeList;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
+import simulator.coreelements.RunElement;
+import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
+import simulator.elements.RunElementDataWithWaitingClients;
+import simulator.runmodel.RunDataClient;
+import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsLongRunPerformanceIndicator;
 import systemtools.MsgBox;
@@ -65,6 +71,7 @@ import ui.modeleditor.ModelLongRunStatisticsElement;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.modeleditor.coreelements.ModelElementAnimationInfoDialog.ClientInfo;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.elements.SimDataBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
@@ -516,7 +523,7 @@ public class ModelElement {
 	 * @param simData	Simulationsdaten (Ist immer <code>!=null</code> bzw. wird nicht aufgerufen, wenn keine Simulationsdaten vorhanden sind)
 	 * @return	Statistikdaten (kann <code>null</code> sein, wenn für das Element keine Statistikdaten angezeigt werden sollen)
 	 */
-	protected synchronized String getAnimationRunTimeStatisticsData(SimulationData simData) {
+	protected synchronized String getAnimationRunTimeStatisticsData(final SimulationData simData) {
 		final SimDataBuilder builder=new SimDataBuilder(simData,getId());
 		if (builder.results!=null) {
 			addInformationToAnimationRunTimeData(builder);
@@ -524,6 +531,17 @@ public class ModelElement {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Stellt Statistikdaten über die an der Station wartenden Kunden zusammen
+	 * @param model	Statische Simulationsmodelldaten
+	 * @param data	Datenobjekt für die aktuelle Station
+	 * @return	Liste der wartenden Kunden
+	 */
+	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeClientData(final RunModel model, final RunElementDataWithWaitingClients data) {
+		final List<RunDataClient> clients=data.getWaitingClients();
+		return ModelElementAnimationInfoDialog.ClientInfo.getList(this.model.animationImages,model,clients);
 	}
 
 	/**
@@ -801,7 +819,16 @@ public class ModelElement {
 	 */
 	public void showElementAnimationStatisticsData(final Component owner, final SimulationData simData) {
 		if (simData==null) return;
-		new ModelElementAnimationInfoDialog(owner,getContextMenuElementName()+" (id="+getId()+")",()->getAnimationRunTimeStatisticsData(simData));
+		final int id=getId();
+
+		Supplier<List<ClientInfo>> clientInfo=null;
+		final RunElement element=simData.runModel.elements.get(id);
+		if (element!=null) {
+			final RunElementData data=element.getData(simData);
+			if (data instanceof RunElementDataWithWaitingClients) clientInfo=()->getAnimationRunTimeClientData(simData.runModel,(RunElementDataWithWaitingClients)data);
+		}
+
+		new ModelElementAnimationInfoDialog(owner,getContextMenuElementName()+" (id="+id+")",()->getAnimationRunTimeStatisticsData(simData),clientInfo);
 	}
 
 	/**

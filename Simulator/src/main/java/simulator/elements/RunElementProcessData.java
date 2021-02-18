@@ -37,7 +37,7 @@ import simulator.simparser.ExpressionCalc;
  * @see RunElementProcess
  * @see RunElementData
  */
-public class RunElementProcessData extends RunElementData {
+public class RunElementProcessData extends RunElementData implements RunElementDataWithWaitingClients {
 	/**
 	 * Anfängliche Größe für die Listen zur Speicherung
 	 * der wartenden Kunden
@@ -394,5 +394,10 @@ public class RunElementProcessData extends RunElementData {
 				return 0;
 			}
 		}
+	}
+
+	@Override
+	public List<RunDataClient> getWaitingClients() {
+		return waitingClients;
 	}
 }

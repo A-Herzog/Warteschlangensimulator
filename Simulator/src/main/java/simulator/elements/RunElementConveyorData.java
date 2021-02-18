@@ -34,7 +34,7 @@ import simulator.simparser.ExpressionCalc;
  * @see RunElementConveyor
  * @see RunElementData
  */
-public class RunElementConveyorData extends RunElementData {
+public class RunElementConveyorData extends RunElementData implements RunElementDataWithWaitingClients {
 	/**
 	 * Initiale Größe für {@link #waitingClients}
 	 */
@@ -189,5 +189,10 @@ public class RunElementConveyorData extends RunElementData {
 		event.conveyorData=this;
 		simData.eventManager.addEvent(event);
 		notifyTriggered=true;
+	}
+
+	@Override
+	public List<RunDataClient> getWaitingClients() {
+		return waitingClients;
 	}
 }
