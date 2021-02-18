@@ -130,6 +130,7 @@ import ui.quickaccess.JPlaceholderTextField;
 import ui.speedup.BackgroundSystem;
 import ui.statistics.StatisticTools;
 import ui.tools.InputContextFix;
+import ui.tools.PanelSlider;
 
 /**
  * Diese Klasse kapselt einen vollständigen Editor für ein <code>EditModel</code>-Objekt
@@ -651,24 +652,25 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * Stellt ein, ob die Elemente-hinzufüge-Leiste angezeigt werden soll
 	 * @param templatesVisible	Elemente-hinzufüge-Leiste anzeigen
+	 * @param fast	Schnell (d.h. ohne Animation) ein- oder ausblenden?
 	 */
-	public void setTemplatesVisible(final boolean templatesVisible) {
-		leftAreaTemplates.setVisible(templatesVisible);
-		leftArea.setVisible(false);
-		leftArea.setVisible(true);
-
-		if (!readOnly) {
-			final SetupData setup=SetupData.getSetup();
-			final boolean isTemplatesVisible=isTemplatesVisible();
-			if (setup.showTemplates!=isTemplatesVisible) {
-				setup.showTemplates=isTemplatesVisible;
-				setup.saveSetup();
+	public void setTemplatesVisible(final boolean templatesVisible, final boolean fast) {
+		final Runnable whenDone=()->{
+			if (!readOnly) {
+				final SetupData setup=SetupData.getSetup();
+				final boolean isTemplatesVisible=isTemplatesVisible();
+				if (setup.showTemplates!=isTemplatesVisible) {
+					setup.showTemplates=isTemplatesVisible;
+					setup.saveSetup();
+				}
 			}
-		}
 
-		setupInfoLabels(templatesVisible);
+			setupInfoLabels(templatesVisible);
 
-		fireTemplatesVisibleChanged();
+			fireTemplatesVisibleChanged();
+		};
+
+		new PanelSlider(leftAreaTemplates,templatesVisible,fast || !SetupData.getSetup().useAnimations,whenDone);
 	}
 
 	/**
@@ -680,7 +682,7 @@ public final class EditorPanel extends EditorPanelBase {
 	private boolean selectTemplateInListDirect(final ModelElementPosition element) {
 		if (element==null) return true;
 		final String className=element.getClass().getName();
-		setTemplatesVisible(true);
+		setTemplatesVisible(true,false);
 		final ListModel<ModelElementPosition> model=templates.getModel();
 		final int count=model.getSize();
 		boolean groupOpen=true;
@@ -724,7 +726,7 @@ public final class EditorPanel extends EditorPanelBase {
 		model=templates.getModel();
 		templates.setModel(new DefaultListModel<>());
 		templates.setModel(model);
-		setTemplatesVisible(isTemplatesVisible());
+		setTemplatesVisible(isTemplatesVisible(),false);
 	}
 
 	/**
@@ -774,10 +776,10 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * Stellt ein, ob die Navigator-Leiste angezeigt werden soll
 	 * @param navigatorVisible	Navigator-Leiste anzeigen
+	 * @param fast	Schnell (d.h. ohne Animation) ein- oder ausblenden?
 	 */
-	public void setNavigatorVisible(final boolean navigatorVisible) {
-		rightArea.setVisible(navigatorVisible);
-		fireNavigatorVisibleChanged();
+	public void setNavigatorVisible(final boolean navigatorVisible, final boolean fast) {
+		new PanelSlider(rightArea,navigatorVisible,fast || !SetupData.getSetup().useAnimations,()->fireNavigatorVisibleChanged());
 	}
 
 	/**
@@ -898,7 +900,7 @@ public final class EditorPanel extends EditorPanelBase {
 					ListModel<ModelElementPosition> model=templates.getModel();
 					templates.setModel(new DefaultListModel<>());
 					templates.setModel(model);
-					setTemplatesVisible(isTemplatesVisible());
+					setTemplatesVisible(isTemplatesVisible(),false);
 				}
 			}
 		});
@@ -907,7 +909,7 @@ public final class EditorPanel extends EditorPanelBase {
 		leftAreaTemplates=new JPanel(new BorderLayout());
 		final JPanel sub=new JPanel(new BorderLayout());
 		leftAreaTemplates.add(sub,BorderLayout.NORTH);
-		sub.add(getTopInfoPanel(Language.tr("Editor.Templates"),Images.ELEMENTTEMPLATES.getIcon(),e->setTemplatesVisible(false),null,"F2"),BorderLayout.NORTH);
+		sub.add(getTopInfoPanel(Language.tr("Editor.Templates"),Images.ELEMENTTEMPLATES.getIcon(),e->setTemplatesVisible(false,false),null,"F2"),BorderLayout.NORTH);
 
 		if (setup.showQuickFilter) {
 			/* Das Schnellfilter-Eingabefeld darf erst nach dem Konstruktor (nach dem Abarbeiten von initialen Ereignissen) angelegt werden, weil sonst initiale Darg-Over-Ereignisse evtl. das ganze Programm blockieren können. */
@@ -943,7 +945,7 @@ public final class EditorPanel extends EditorPanelBase {
 		leftArea.add(leftAreaTemplates,BorderLayout.CENTER);
 		leftAreaTemplatesFilterButton.addActionListener(e->showFilterTemplatesPopup());
 
-		if (!readOnly) setTemplatesVisible(setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_VISIBLE || (setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_LASTSTATE && setup.showTemplates)); else setTemplatesVisible(false);
+		if (!readOnly) setTemplatesVisible(setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_VISIBLE || (setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_LASTSTATE && setup.showTemplates),true); else setTemplatesVisible(false,true);
 
 		leftToolbar.add(Box.createVerticalGlue());
 		buttonExplorer=createRotatedToolbarButton(leftToolbar,Language.tr("Editor.ModelOverview.Short"),Language.tr("Editor.ModelOverview.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK))+")",Images.GENERAL_FIND.getIcon());
@@ -975,7 +977,7 @@ public final class EditorPanel extends EditorPanelBase {
 		});
 
 		rightArea=new JPanel(new BorderLayout());
-		rightArea.add(getTopInfoPanel(Language.tr("Editor.Navigator"),Images.NAVIGATOR.getIcon(),null,e->setNavigatorVisible(false),"F12"),BorderLayout.NORTH);
+		rightArea.add(getTopInfoPanel(Language.tr("Editor.Navigator"),Images.NAVIGATOR.getIcon(),null,e->setNavigatorVisible(false,false),"F12"),BorderLayout.NORTH);
 
 		rightArea.add(new JScrollPane(navigator),BorderLayout.CENTER);
 		rightArea.setVisible(false);
@@ -1094,7 +1096,7 @@ public final class EditorPanel extends EditorPanelBase {
 		final String visibleGroups=setup.visibleTemplateGroups;
 		final String openGroups=setup.openTemplateGroups;
 		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,filter,getModel().surface.getParentSurface()!=null));
-		setTemplatesVisible(isTemplatesVisible());
+		setTemplatesVisible(isTemplatesVisible(),false);
 	}
 
 	/**
@@ -1223,9 +1225,9 @@ public final class EditorPanel extends EditorPanelBase {
 		templatesRenderer.setZoom(surfacePanel.getZoom());
 		surfacePanel.addBuildParameterSeriesListener(template->fireBuildParameterSeries(template));
 		surfacePanel.addSetElementTemplatesVisibilityListener(visibility->{switch (visibility) {
-		case HIDE: setTemplatesVisible(false); break;
-		case SHOW: setTemplatesVisible(true); break;
-		case TOGGLE: setTemplatesVisible(!isTemplatesVisible()); break;
+		case HIDE: setTemplatesVisible(false,false); break;
+		case SHOW: setTemplatesVisible(true,false); break;
+		case TOGGLE: setTemplatesVisible(!isTemplatesVisible(),false); break;
 		}});
 		main.add(rulerPanel,BorderLayout.CENTER);
 
@@ -1631,7 +1633,7 @@ public final class EditorPanel extends EditorPanelBase {
 			final Object source=e.getSource();
 
 			if (source==buttonProperties) {setupInfoLabels(true); repaint(); showModelPropertiesDialog(null); return;}
-			if (source==buttonTemplates) {setTemplatesVisible(!isTemplatesVisible()); return;}
+			if (source==buttonTemplates) {setTemplatesVisible(!isTemplatesVisible(),false); return;}
 			if (source==buttonAddEdge) {
 				setupInfoLabels(true);
 				if (surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP1 || surfacePanel.getMode()==ModelSurfacePanel.ClickMode.MODE_ADD_EDGE_STEP2) {
@@ -2015,7 +2017,7 @@ public final class EditorPanel extends EditorPanelBase {
 			toolbar.add(button=new JButton(Language.tr("Editor.ModelOverview.Navigator")));
 			button.setToolTipText(Language.tr("Editor.ModelOverview.Navigator.Hint"));
 			final JButton showNavigator=button;
-			button.addActionListener(e->{setNavigatorVisible(true); showNavigator.setVisible(false);});
+			button.addActionListener(e->{setNavigatorVisible(true,false); showNavigator.setVisible(false);});
 			button.setIcon(Images.NAVIGATOR.getIcon());
 		}
 		toolbar.add(button=new JButton(Language.tr("Editor.ModelOverview.Search")));

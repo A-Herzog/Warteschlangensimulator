@@ -177,6 +177,8 @@ public final class SetupDialog extends BaseDialog {
 
 	/** Hintergrundverarbeitung (Modelle prüfen oder auch simulieren) */
 	private final JComboBox<String> backgroundProcessing;
+	/** Animationen in der grafischen Oberfläche verwenden */
+	private final JCheckBox useGUIAnimations;
 	/** Mehrkernunterstützung für Simulationen verwenden? */
 	private final JCheckBox useMultiCoreSimulation;
 	/** Mehrkernunterstützung für Animationen verwenden? */
@@ -518,6 +520,13 @@ public final class SetupDialog extends BaseDialog {
 				Images.SIMULATION
 		}));
 		label.setLabelFor(backgroundProcessing);
+
+		mainarea.add(Box.createVerticalStrut(15));
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(new JLabel("<html><body><b>"+Language.tr("SettingsDialog.Tabs.Performance.GUI")+"</b></body></html>"));
+
+		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(useGUIAnimations=new JCheckBox(Language.tr("SettingsDialog.Tabs.Performance.GUIAnimations")));
 
 		mainarea.add(Box.createVerticalStrut(15));
 		mainarea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -1059,6 +1068,8 @@ public final class SetupDialog extends BaseDialog {
 		case BACKGROUND_SIMULATION_ALWAYS: backgroundProcessing.setSelectedIndex(3); break;
 		}
 
+		useGUIAnimations.setSelected(setup.useAnimations);
+
 		useMultiCoreSimulation.setSelected(setup.useMultiCoreSimulation);
 		useMultiCoreAnimation.setSelected(setup.useMultiCoreAnimation);
 		highPriority.setSelected(setup.highPriority);
@@ -1311,6 +1322,8 @@ public final class SetupDialog extends BaseDialog {
 		case 3: setup.backgroundSimulation=SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION_ALWAYS; break;
 		}
 
+		setup.useAnimations=useGUIAnimations.isSelected();
+
 		setup.useMultiCoreSimulation=useMultiCoreSimulation.isSelected();
 		setup.useMultiCoreAnimation=useMultiCoreAnimation.isSelected();
 		setup.highPriority=highPriority.isSelected();
@@ -1537,6 +1550,7 @@ public final class SetupDialog extends BaseDialog {
 			break;
 		case 1: /* Seite: Leistung */
 			backgroundProcessing.setSelectedIndex(2);
+			useGUIAnimations.setSelected(true);
 			useMultiCoreSimulation.setSelected(true);
 			useMultiCoreAnimation.setSelected(true);
 			highPriority.setSelected(false);

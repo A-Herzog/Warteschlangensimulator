@@ -640,6 +640,12 @@ public class SetupData extends SetupBase {
 	public boolean showQuickFilter;
 
 	/**
+	 * Soll das Ein- und Ausklappen von Elementenvorlagenleiste
+	 * und Navigator über eine Slide-Animation erfolgen?
+	 */
+	public boolean useAnimations;
+
+	/**
 	 * Zugangsdaten für die Simulation auf einem Server.<br>
 	 * Entweder <code>Host:Port</code> oder <code>Host:Port:Passwort</code>
 	 */
@@ -1075,6 +1081,7 @@ public class SetupData extends SetupBase {
 		showFeedbackButton=true;
 		showQuickAccess=true;
 		showQuickFilter=true;
+		useAnimations=true;
 		serverData="localhost:8183";
 		serverUse=false;
 		simulationServerAutoStart=false;
@@ -1672,6 +1679,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("quickfilter")) {
 				showQuickFilter=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("guianimations")) {
+				useAnimations=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -2276,6 +2288,11 @@ public class SetupData extends SetupBase {
 
 		if (!showQuickFilter	) {
 			root.appendChild(node=doc.createElement("QuickFilter"));
+			node.setTextContent("0");
+		}
+
+		if (!useAnimations) {
+			root.appendChild(node=doc.createElement("GUIAnimations"));
 			node.setTextContent("0");
 		}
 

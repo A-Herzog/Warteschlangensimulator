@@ -577,8 +577,8 @@ public class MainPanel extends MainPanelBase {
 		/* Ansicht */
 		addAction("ViewEditor",e->setCurrentPanel(editorPanel));
 		addAction("ViewStatistics",e->setCurrentPanel(statisticsPanel));
-		addAction("ViewTemplatesBar",e->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible()));
-		addAction("ViewNavigator",e->editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible()));
+		addAction("ViewTemplatesBar",e->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible(),false));
+		addAction("ViewNavigator",e->editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible(),false));
 		addAction("ViewExplorer",e->editorPanel.showExplorer());
 		addAction("ViewRulers",e->commandViewRulers());
 		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Grid.OFF));
@@ -2375,7 +2375,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Versucht ein {@link StartAnySimulator}-Objekt basierend auf einem Editor-Modell zu erstellen.
 	 * @param editModel	Ausgangs-Editor-Modell
-	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 * @return	Liefert im Erfolgsfall den noch nicht gestarteten Simulator, sonst <code>null</code>
@@ -2405,7 +2405,7 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Simulation - Animation starten
 	 * @param recordFile	Datei für Videoaufzeichnung (kann <code>null</code> sein)
 	 * @param externalConnect Wird die Animation im Pausemodus gestartet, so wird direkt der erste Schritt ausgeführt. Über diese Funktion kann angegeben werden, dass dieser Schritt im vollständigen Erfassungsmodus durchgeführt werden soll.
-	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
@@ -2594,7 +2594,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Befehl: Simulation - Simulation starten
 	 * @param simModel	Ausgangs-Editor-Modell
-	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; anonsten erfolgt nur die normale Aufzeichnung in der Statistik
+	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 * @param whenDone	Callback, das nach Abschluss der Simulation aufgerufen wird
@@ -3422,7 +3422,7 @@ public class MainPanel extends MainPanelBase {
 
 		editorPanel.setModel((EditModel)data[0]);
 		editorPanel.setModelChanged((Boolean)data[1]);
-		editorPanel.setTemplatesVisible((Boolean)data[2]);
+		editorPanel.setTemplatesVisible((Boolean)data[2],true);
 		editorPanel.setLastFile((File)data[3]); if (data[3]!=null) setAdditionalTitle(((File)data[3]).getName());
 		statisticsPanel.setStatistics((Statistics)data[4]);
 		if ((Integer)data[5]==1) setCurrentPanel(statisticsPanel); else setCurrentPanel(editorPanel);
