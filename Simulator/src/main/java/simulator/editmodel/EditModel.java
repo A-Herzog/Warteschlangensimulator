@@ -298,7 +298,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	/**
 	 * Soll das Hintergrundbild auch in Untermodellen dargestellt werden?
 	 */
-	public boolean surfaceBackgroundImageInSubModels=false;
+	public boolean surfaceBackgroundImageInSubModels;
+
+	/**
+	 * Soll das Hintergrundbild vor oder hinter dem Raster gezeichnet werden?
+	 */
+	public ModelSurface.BackgroundImageMode surfaceBackgroundImageMode;
 
 	/**
 	 * Liste der Pfadsegmente für den Wegstrecken-Editor
@@ -468,6 +473,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		surfaceBackgroundImage=null;
 		surfaceBackgroundImageScale=1.0;
 		surfaceBackgroundImageInSubModels=false;
+		surfaceBackgroundImageMode=ModelSurface.BackgroundImageMode.BEHIND_RASTER;
 		sequences.clear();
 		transporters.clear();
 		pathSegments.clear();
@@ -527,6 +533,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.surfaceBackgroundImage=surfaceBackgroundImage; /* Bild wird wenn immer neu zugewiesen, ist quasi immutable, daher reicht eine Referenz statt ScaledImageCache.copyImage(surfaceBackgroundImage); */
 		clone.surfaceBackgroundImageScale=surfaceBackgroundImageScale;
 		clone.surfaceBackgroundImageInSubModels=surfaceBackgroundImageInSubModels;
+		clone.surfaceBackgroundImageMode=surfaceBackgroundImageMode;
 		clone.sequences.setDataFrom(sequences);
 		clone.transporters.setDataFrom(transporters);
 		clone.pathSegments.setDataFrom(pathSegments);
@@ -603,6 +610,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!ScaledImageCache.compare(surfaceBackgroundImage,otherModel.surfaceBackgroundImage)) return false;
 		if (surfaceBackgroundImageScale!=otherModel.surfaceBackgroundImageScale) return false;
 		if (surfaceBackgroundImageInSubModels!=otherModel.surfaceBackgroundImageInSubModels) return false;
+		if (surfaceBackgroundImageMode!=otherModel.surfaceBackgroundImageMode) return false;
 		if (!sequences.equalsModelSequences(otherModel.sequences)) return false;
 		if (!transporters.equalsModelTransporters(otherModel.transporters)) return false;
 		if (!pathSegments.equalsModelPaths(otherModel.pathSegments)) return false;
@@ -827,6 +835,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (D!=null) surfaceBackgroundImageScale=D.doubleValue();
 			final String inSubModels=Language.trAllAttribute("Surface.XML.SurfaceBackgroundImage.InSubModels",node);
 			if (!inSubModels.isEmpty() && !inSubModels.equals("0")) surfaceBackgroundImageInSubModels=true;
+			final String inFrontOfRaster=Language.trAllAttribute("Surface.XML.SurfaceBackgroundImage.InFrontOfRaster",node);
+			if (!inFrontOfRaster.isEmpty() && !inFrontOfRaster.equals("0")) surfaceBackgroundImageMode=ModelSurface.BackgroundImageMode.IN_FRONT_OF_RASTER;
 			if (!text.isEmpty()) {
 				try {
 					final ByteArrayInputStream stream=new ByteArrayInputStream(Base64.getDecoder().decode(text));
@@ -1042,10 +1052,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (surfaceColors[2]!=null) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceColor.Background2"),saveColor(surfaceColors[2]));
 		}
 
-		if (surfaceBackgroundImage!=null || surfaceBackgroundImageScale!=1.0 || surfaceBackgroundImageInSubModels) {
+		if (surfaceBackgroundImage!=null || surfaceBackgroundImageScale!=1.0 || surfaceBackgroundImageInSubModels || surfaceBackgroundImageMode==ModelSurface.BackgroundImageMode.IN_FRONT_OF_RASTER) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.SurfaceBackgroundImage")));
 			if (surfaceBackgroundImageScale!=1.0) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceBackgroundImage.Scale"),NumberTools.formatSystemNumber(surfaceBackgroundImageScale));
 			if (surfaceBackgroundImageInSubModels) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceBackgroundImage.InSubModels"),"1");
+			if (surfaceBackgroundImageMode==ModelSurface.BackgroundImageMode.IN_FRONT_OF_RASTER) sub.setAttribute(Language.trPrimary("Surface.XML.SurfaceBackgroundImage.InFrontOfRaster"),"1");
 			if (surfaceBackgroundImage!=null) {
 				try {
 					final ByteArrayOutputStream stream=new ByteArrayOutputStream();

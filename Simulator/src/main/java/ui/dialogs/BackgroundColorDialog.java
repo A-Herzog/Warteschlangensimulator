@@ -27,6 +27,8 @@ import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -72,6 +74,8 @@ public class BackgroundColorDialog extends BaseDialog {
 	private final JTextField backgroundImageScale;
 	/** Hintergrundbild auch in Untermodellen anzeigen? */
 	private final JCheckBox optionImageInSubModels;
+	/** Reihenfolge von Raster und Hintergrundbild */
+	private final JComboBox<String> orderComboBox;
 
 	/**
 	 * Konstruktor der Klasse
@@ -80,9 +84,10 @@ public class BackgroundColorDialog extends BaseDialog {
 	 * @param image	Hintergrundbild (kann <code>null</code> sein)
 	 * @param scale	Skalierung für das Hintergrundbild (muss größer als 0 sein)
 	 * @param useImageInSubModels	Hintergrundbild auch in Untermodellen anzeigen?
+	 * @param mode	Reihenfolge von Raster und Hintergrundbild
 	 * @param readOnly	Gibt an, ob die Einstellungen verändert werden dürfen
 	 */
-	public BackgroundColorDialog(final Component owner, final Color[] colors, final BufferedImage image, final double scale, final boolean useImageInSubModels, final boolean readOnly) {
+	public BackgroundColorDialog(final Component owner, final Color[] colors, final BufferedImage image, final double scale, final boolean useImageInSubModels, final ModelSurface.BackgroundImageMode mode, final boolean readOnly) {
 		super(owner,Language.tr("Window.BackgroundColor.Title"),readOnly);
 
 		final JPanel content=createGUI(()->Help.topicModal(BackgroundColorDialog.this,"EditorColorDialog"));
@@ -93,6 +98,7 @@ public class BackgroundColorDialog extends BaseDialog {
 		JPanel tabOuter;
 		JPanel tab;
 		JPanel line, cell;
+		JLabel label;
 
 		/* Tab "Farben" */
 		tabs.addTab(Language.tr("Window.BackgroundColor.Tab.Color"),tabOuter=new JPanel(new BorderLayout()));
@@ -135,6 +141,7 @@ public class BackgroundColorDialog extends BaseDialog {
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 		tab.add(backgroundImage=new ImageChooser(image,null));
 		backgroundImage.setPreferredSize(new Dimension(0,500));
+		backgroundImage.setEnabled(!readOnly);
 
 		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Window.BackgroundColor.ImageScale")+":",NumberTools.formatNumberMax(scale),7);
 		tab.add((JPanel)data[0]);
@@ -144,9 +151,25 @@ public class BackgroundColorDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+		backgroundImageScale.setEditable(!readOnly);
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionImageInSubModels=new JCheckBox(Language.tr("Window.BackgroundColor.ImageInSubModels"),useImageInSubModels));
+		optionImageInSubModels.setEnabled(!readOnly);
+
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Window.BackgroundColor.ImageRasterOrder")+":"));
+		line.add(orderComboBox=new JComboBox<>(new String[] {
+				Language.tr("Window.BackgroundColor.ImageRasterOrder.RasterInFrontOfImage"),
+				Language.tr("Window.BackgroundColor.ImageRasterOrder.ImageInFrontOfRaster")
+		}));
+		orderComboBox.setEnabled(!readOnly);
+		label.setLabelFor(orderComboBox);
+		switch (mode) {
+		case BEHIND_RASTER: orderComboBox.setSelectedIndex(0); break;
+		case IN_FRONT_OF_RASTER: orderComboBox.setSelectedIndex(1); break;
+		default: orderComboBox.setSelectedIndex(0); break;
+		}
 
 		/* Icons auf Tabs */
 		tabs.setIconAt(0,Images.EDIT_BACKGROUND_COLOR.getIcon());
@@ -219,5 +242,13 @@ public class BackgroundColorDialog extends BaseDialog {
 	 */
 	public boolean isImageInSubModels() {
 		return optionImageInSubModels.isSelected();
+	}
+
+	/**
+	 * Liefert die Reihenfolge von Raster und Hintergrundbild.
+	 * @return	Reihenfolge von Raster und Hintergrundbild
+	 */
+	public ModelSurface.BackgroundImageMode getMode() {
+		if (orderComboBox.getSelectedIndex()==0) return ModelSurface.BackgroundImageMode.BEHIND_RASTER; else return ModelSurface.BackgroundImageMode.IN_FRONT_OF_RASTER;
 	}
 }

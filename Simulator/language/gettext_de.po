@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-19 00:03+0100\n"
+"POT-Creation-Date: 2021-02-19 14:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27761,6 +27761,9 @@ msgstr "ModellBeiRechenfehlerAbbrechen"
 msgid "Surface.XML.SurfaceBackgroundImage"
 msgstr "ModellHintergrundBild"
 
+msgid "Surface.XML.SurfaceBackgroundImage.InFrontOfRaster"
+msgstr "VorRaster"
+
 msgid "Surface.XML.SurfaceBackgroundImage.InSubModels"
 msgstr "InUntermodellen"
 
@@ -28573,6 +28576,15 @@ msgstr "Das Modell wurde geladen."
 
 msgid "Window.BackgroundColor.ImageInSubModels"
 msgstr "Hintergrundbild auch auf Untermodell-Zeichenflächen anzeigen"
+
+msgid "Window.BackgroundColor.ImageRasterOrder"
+msgstr "Reihenfolge von Raster und Bild"
+
+msgid "Window.BackgroundColor.ImageRasterOrder.ImageInFrontOfRaster"
+msgstr "Hintergrundbild vor Raster"
+
+msgid "Window.BackgroundColor.ImageRasterOrder.RasterInFrontOfImage"
+msgstr "Raster vor Hintergrundbild"
 
 msgid "Window.BackgroundColor.ImageScale"
 msgstr "Skalierungsfaktor"

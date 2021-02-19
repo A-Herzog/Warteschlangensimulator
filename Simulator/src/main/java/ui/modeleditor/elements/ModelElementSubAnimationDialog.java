@@ -88,7 +88,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		content.add(new JScrollPane(surfacePanel=new ModelSurfacePanel(true,false)),BorderLayout.CENTER);
 
 		surfacePanel.setSurface(model,subSurface,model.clientData,model.sequences);
-		surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageInSubModels);
+		surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageInSubModels?model.surfaceBackgroundImageMode:ModelSurface.BackgroundImageMode.OFF);
 		final SetupData setup=SetupData.getSetup();
 		surfaceAnimator=new ModelSurfaceAnimator(null,surfacePanel,model.animationImages,ModelSurfaceAnimator.AnimationMoveMode.MODE_MULTI,setup.useMultiCoreAnimation,setup.animateResources);
 		surfaceAnimator.calcSurfaceSize();

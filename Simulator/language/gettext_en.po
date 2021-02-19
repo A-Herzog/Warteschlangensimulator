@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-19 00:03+0100\n"
+"POT-Creation-Date: 2021-02-19 14:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27745,6 +27745,9 @@ msgstr "ModelStoppOnCalcError"
 msgid "Surface.XML.SurfaceBackgroundImage"
 msgstr "ModelBackgroundImage"
 
+msgid "Surface.XML.SurfaceBackgroundImage.InFrontOfRaster"
+msgstr "InFrontOfGrid"
+
 msgid "Surface.XML.SurfaceBackgroundImage.InSubModels"
 msgstr "InSubModels"
 
@@ -28557,6 +28560,15 @@ msgstr "The model was uploaded."
 
 msgid "Window.BackgroundColor.ImageInSubModels"
 msgstr "Show background image also on submodel drawing surfaces"
+
+msgid "Window.BackgroundColor.ImageRasterOrder"
+msgstr "Order of grid and image"
+
+msgid "Window.BackgroundColor.ImageRasterOrder.ImageInFrontOfRaster"
+msgstr "Image in front of grid"
+
+msgid "Window.BackgroundColor.ImageRasterOrder.RasterInFrontOfImage"
+msgstr "Grid in front of image"
 
 msgid "Window.BackgroundColor.ImageScale"
 msgstr "Scale factor"

@@ -1183,7 +1183,7 @@ public final class EditorPanel extends EditorPanelBase {
 		surfacePanel.setRaster(SetupData.getSetup().grid);
 		if (model!=null) {
 			surfacePanel.setColors(model.surfaceColors);
-			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,isMainSurface || model.surfaceBackgroundImageInSubModels);
+			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,(isMainSurface || model.surfaceBackgroundImageInSubModels)?model.surfaceBackgroundImageMode:ModelSurface.BackgroundImageMode.OFF);
 		}
 		rulerPanel=new RulerPanel(surfacePanel,SetupData.getSetup().showRulers);
 		surfacePanel.addStateChangeListener(e->updateStatusBar());
@@ -1491,7 +1491,7 @@ public final class EditorPanel extends EditorPanelBase {
 		warmUpTime=model.warmUpTime;
 		if (surfacePanel!=null) {
 			surfacePanel.setColors(model.surfaceColors); /* Reihenfolge ist wichtig. setSurface würde bedingt durch fireNotify Farbe von Modell aus surfacePanel überschreiben, daher erst Farbe aus Modell in surfacePanel übertragen. */
-			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,isMainSurface || model.surfaceBackgroundImageInSubModels);
+			surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,(isMainSurface || model.surfaceBackgroundImageInSubModels)?model.surfaceBackgroundImageMode:ModelSurface.BackgroundImageMode.OFF);
 			surfacePanel.setSurface(model,model.surface.clone(false,model.resources.clone(),model.schedules.clone(),model.surface.getParentSurface(),model),model.clientData,model.sequences);
 		}
 		if (model.surface.getElementCount()>0) setupInfoLabels(true);
@@ -1567,7 +1567,7 @@ public final class EditorPanel extends EditorPanelBase {
 	public void showBackgroundColorDialog() {
 		final EditModel model=getModel();
 
-		final BackgroundColorDialog dialog=new BackgroundColorDialog(owner,model.surfaceColors,model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageInSubModels,readOnly);
+		final BackgroundColorDialog dialog=new BackgroundColorDialog(owner,model.surfaceColors,model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageInSubModels,model.surfaceBackgroundImageMode,readOnly);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		final Color[] colors=dialog.getColors();
@@ -1594,6 +1594,12 @@ public final class EditorPanel extends EditorPanelBase {
 			model.surfaceBackgroundImageInSubModels=newImageInSubModel;
 			needUpdate=true;
 		}
+		final ModelSurface.BackgroundImageMode newMode=dialog.getMode();
+		if (newMode!=model.surfaceBackgroundImageMode) {
+			model.surfaceBackgroundImageMode=newMode;
+			needUpdate=true;
+		}
+
 		if (needUpdate) {
 			final File file=getLastFile();
 			setModel(model);

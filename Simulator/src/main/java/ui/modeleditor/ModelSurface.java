@@ -83,7 +83,6 @@ public final class ModelSurface {
 
 	/**
 	 * Zeitbasis für Bedien-, Transport-, Verzögerungs- usw. Zeiten.
-	 * @author Alexander Herzog
 	 */
 	public enum TimeBase {
 		/** Zeitbasis: Sekunden */
@@ -133,8 +132,7 @@ public final class ModelSurface {
 
 	/**
 	 * Rasteranzeige auf der Zeichenfläche
-	 * @author Alexander Herzog
-	 * @see ModelSurface#drawToGraphics(Graphics, Rectangle, double, boolean, boolean, Grid, Color[], BufferedImage, String, double, boolean)
+	 * @see ModelSurface#drawToGraphics(Graphics, Rectangle, double, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double, boolean)
 	 */
 	public enum Grid {
 		/** Keine Rasteranzeige */
@@ -154,6 +152,18 @@ public final class ModelSurface {
 		Grid(final String id) {
 			this.id=id;
 		}
+	}
+
+	/**
+	 * Wie soll das Hintergrundbild gezeichnet werden?
+	 */
+	public enum BackgroundImageMode {
+		/** Hintergrundbild nicht zeichnen */
+		OFF,
+		/** Hintergrundbild vor dem Raster zeichnen */
+		IN_FRONT_OF_RASTER,
+		/** Hintergrundbild hinter dem Raster zeichnen */
+		BEHIND_RASTER
 	}
 
 	/**
@@ -557,7 +567,7 @@ public final class ModelSurface {
 
 	/**
 	 * Objekt für den die Darstellung des Farbverlaufs im Hintergrund
-	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, boolean, boolean, Grid, Color[], BufferedImage, String, double)
+	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double)
 	 */
 	private final GradientFill gradient=new GradientFill();
 
@@ -573,9 +583,9 @@ public final class ModelSurface {
 	 * @param backgroundImage	Optionales Hintergrundbild
 	 * @param backgroundImageHash	Optionaler zusätzliches Hash-Wert des optionales Hintergrundbildes (siehe {@link ScaledImageCache#getHash(java.awt.Image)}
 	 * @param backgroundImageScale	Skalierungsfaktor für das optionale Hintergrundbild
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean, boolean, Grid, Color[], BufferedImage, String, double, boolean)
+	 * @see #drawToGraphics(Graphics, Rectangle, double, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double, boolean)
 	 */
-	private void drawBackgroundToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale) {
+	private void drawBackgroundToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final BackgroundImageMode showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale) {
 		Color backgroundColor=DEFAULT_BACKGROUND_COLOR;
 		Color backgroundColorGradient=null;
 		Color rasterColor=DEFAULT_RASTER_COLOR;
@@ -585,21 +595,16 @@ public final class ModelSurface {
 			if (colors.length==3) backgroundColorGradient=colors[2];
 		}
 
-		/* Hintergrund */
-		if (showBackground) {
-			final boolean useHighContrasts=SetupData.getSetup().useHighContrasts;
+		final boolean useHighContrasts=SetupData.getSetup().useHighContrasts;
 
+		/* Hintergrund */
+		if (showBackground!=BackgroundImageMode.OFF) {
 			if (backgroundColorGradient==null || useHighContrasts) {
 				graphics.setColor(backgroundColor);
 			} else {
 				gradient.set(graphics,drawRect,backgroundColor,backgroundColorGradient,true);
 			}
 			graphics.fillRect(drawRect.x,drawRect.y,drawRect.width,drawRect.height);
-
-			if (backgroundImage!=null && !useHighContrasts) {
-				final BufferedImage scaledImage=ScaledImageCache.getScaledImageCache().getScaledImage(backgroundImageHash,backgroundImage,backgroundImageScale*zoom);
-				graphics.drawImage(scaledImage,0,0,null);
-			}
 		} else {
 			if (showBoundingBox) {
 				graphics.setColor(Color.WHITE);
@@ -607,7 +612,34 @@ public final class ModelSurface {
 			}
 		}
 
-		/* Raster */
+		/* Erst Raster zeichnen, dann Bild darüber */
+		if (showBackground==BackgroundImageMode.IN_FRONT_OF_RASTER) {
+			drawRasterToGraphics(graphics,drawRect,zoom,raster,rasterColor);
+		}
+
+		/* Hintergrundbild */
+		if (showBackground!=BackgroundImageMode.OFF) {
+			if (backgroundImage!=null && !useHighContrasts) {
+				final BufferedImage scaledImage=ScaledImageCache.getScaledImageCache().getScaledImage(backgroundImageHash,backgroundImage,backgroundImageScale*zoom);
+				graphics.drawImage(scaledImage,0,0,null);
+			}
+		}
+
+		/* Erst Bild zeichnen, dann Raster darüber */
+		if (showBackground!=BackgroundImageMode.IN_FRONT_OF_RASTER) {
+			drawRasterToGraphics(graphics,drawRect,zoom,raster,rasterColor);
+		}
+	}
+
+	/**
+	 * Zeichnet das Raster auf die Zeichenfläche
+	 * @param graphics	<code>Graphics</code>-Objekt, in das die Elemente gezeichnet werden sollen
+	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param zoom	Zoomfaktor
+	 * @param raster	Raster anzeigen?
+	 * @param rasterColor	Farbe für das Raster
+	 */
+	private void drawRasterToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final Grid raster, final Color rasterColor) {
 		graphics.setColor(rasterColor);
 		final int step=(int)FastMath.round(50*zoom);
 		final int pointSize=(int)FastMath.round(3*zoom);
@@ -715,7 +747,7 @@ public final class ModelSurface {
 	 * @param backgroundImageScale	Skalierungsfaktor für das optionale Hintergrundbild
 	 * @param showSelectionFrames	Rahmen anzeigen, wenn etwas ausgewählt ist
 	 */
-	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale, final boolean showSelectionFrames) {
+	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final BackgroundImageMode showBackground, final boolean showBoundingBox, final Grid raster, final Color[] colors, final BufferedImage backgroundImage, final String backgroundImageHash, final double backgroundImageScale, final boolean showSelectionFrames) {
 		if (graphics==null) return;
 
 		delayFireStateChangeListener=true;
@@ -1311,7 +1343,7 @@ public final class ModelSurface {
 		Graphics g=image.getGraphics();
 		g.setClip(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-		drawToGraphics(g,new Rectangle(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y),1.0,false,true,Grid.OFF,null,null,null,1.0,false);
+		drawToGraphics(g,new Rectangle(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y),1.0,BackgroundImageMode.OFF,true,Grid.OFF,null,null,null,1.0,false);
 
 		return image.getSubimage(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
 	}
