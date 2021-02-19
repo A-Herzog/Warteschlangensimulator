@@ -1645,7 +1645,7 @@ public class MainPanel extends MainPanelBase {
 		if (setup.languageWasAutomaticallySet()) {
 			final JPanel infoPanel=setMessagePanel("",Language.tr("Window.LanguageAutomatic"),MessagePanelIcon.INFO);
 			infoPanel.setBackground(new Color(255,255,240));
-			new Timer().schedule(new TimerTask() {@Override public void run() {
+			new Timer("HideLanguageInfoPanel").schedule(new TimerTask() {@Override public void run() {
 				setMessagePanel(null,null,null);
 				infoPanel.setBackground(new Color(255,240,0));
 			}},7500);
@@ -1656,7 +1656,7 @@ public class MainPanel extends MainPanelBase {
 				if (update.isNewVersionAvailable()==UpdateSystem.NewVersionAvailableStatus.NEW_VERSION_AVAILABLE) {
 					final JPanel panel=setMessagePanel(Language.tr("Dialog.Title.Info"),update.getInfoString(),"https://"+WEB_URL,MessagePanelIcon.INFO);
 					panel.setBackground(Color.GREEN);
-					new Timer().schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
+					new Timer("HideUpdateInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
 				}
 			} else {
 				if (!setup.testJavaVersion) return;
@@ -1672,7 +1672,7 @@ public class MainPanel extends MainPanelBase {
 				if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
 				if (ok) return;
 				setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),Language.tr("Window.JavaSecurityWarnung.Link"),MessagePanelIcon.WARNING);
-				new Timer().schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
+				new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
 			}
 		}
 	}

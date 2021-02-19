@@ -342,7 +342,7 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		buttonAutoUpdate.setSelected(!buttonAutoUpdate.isSelected());
 
 		if (buttonAutoUpdate.isSelected()) {
-			timer=new Timer();
+			timer=new Timer("SimulationDataUpdate");
 			timer.schedule(new TimerTask() {
 				@Override public synchronized void run() {if (buttonAutoUpdate.isSelected()) commandUpdate();}
 			},100,250);

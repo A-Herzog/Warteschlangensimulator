@@ -82,7 +82,7 @@ public class SimulationDDEServer extends DDEServerSystem {
 	 * @see #timer
 	 */
 	private void startTimer() {
-		timer=new Timer();
+		timer=new Timer("DDEDataUpdateCheck");
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override public void run() {updateTest();}
 		},500,500);

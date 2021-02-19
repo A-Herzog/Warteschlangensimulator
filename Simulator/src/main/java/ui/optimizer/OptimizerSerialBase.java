@@ -104,7 +104,7 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 			done(false);
 		} else {
 			simulator=starter.start();
-			timer=new Timer();
+			timer=new Timer("OptimizeProgressCheck");
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {

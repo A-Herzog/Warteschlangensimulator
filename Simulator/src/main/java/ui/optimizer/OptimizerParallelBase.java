@@ -21,9 +21,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -180,7 +180,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 			}
 		}
 
-		timer=new Timer();
+		timer=new Timer("OptimizeProgressCheck");
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
@@ -241,7 +241,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 			}
 		}
 
-		timer=new Timer();
+		timer=new Timer("OptimizeProgressCheck");
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
@@ -307,7 +307,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		final boolean[] emergencyShutDown=new boolean[statistics.length];
 
 		/* Paralleles Erstellen der XML-Dokumente */
-		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(0,10,2,TimeUnit.SECONDS,new ArrayBlockingQueue<>(1));
+		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(0,10,2,TimeUnit.SECONDS,new SynchronousQueue<>());
 		final List<Future<Document>> documents=new ArrayList<>();
 		for (int i=0;i<statistics.length;i++) if (statistics[i]==null) {
 			documents.add(null);

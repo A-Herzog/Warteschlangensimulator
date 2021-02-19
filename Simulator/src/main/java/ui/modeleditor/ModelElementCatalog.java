@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -141,7 +141,7 @@ public final class ModelElementCatalog {
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 */
 	private boolean initCatalog() {
-		final ExecutorService executor=new ThreadPoolExecutor(0,Runtime.getRuntime().availableProcessors(),5000,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+		final ExecutorService executor=new ThreadPoolExecutor(0,Runtime.getRuntime().availableProcessors(),5,TimeUnit.SECONDS,new SynchronousQueue<>(),new ThreadFactory() {
 			private final AtomicInteger threadNumber=new AtomicInteger(1);
 			@Override
 			public Thread newThread(Runnable r) {

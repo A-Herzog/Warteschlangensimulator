@@ -103,8 +103,13 @@ public class Notifier {
 			tray.add(icon);
 
 			icon.displayMessage(MainFrame.PROGRAM_NAME,text,MessageType.INFO);
-			new Timer().schedule(new TimerTask() {
-				@Override public void run() {tray.remove(icon);}
+			final Timer timer=new Timer("SystemNotifier");
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					tray.remove(icon);
+					timer.cancel();
+				}
 			},15000);
 			icon.addActionListener(e->tray.remove(icon));
 			lastIcon=icon;

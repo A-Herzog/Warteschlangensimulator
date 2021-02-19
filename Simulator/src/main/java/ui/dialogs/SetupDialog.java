@@ -1231,7 +1231,7 @@ public final class SetupDialog extends BaseDialog {
 		new Thread(()->{
 			updateSystem.checkUpdateNow(true);
 			updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
-			final Timer timer=new Timer();
+			final Timer timer=new Timer("UpdateCheckProgress");
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
@@ -1513,7 +1513,7 @@ public final class SetupDialog extends BaseDialog {
 			updateSystem.downloadUpdateToFolder(file);
 			updateInfo.setText("<html><b>"+updateSystem.getInfoString()+"</b></html>");
 			manualUpdateButton.setVisible(false);
-			final Timer timer=new Timer();
+			final Timer timer=new Timer("DownloadProgressCheck");
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
