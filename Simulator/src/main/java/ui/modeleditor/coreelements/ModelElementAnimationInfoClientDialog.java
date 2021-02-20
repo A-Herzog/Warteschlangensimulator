@@ -18,8 +18,11 @@ package ui.modeleditor.coreelements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.FontMetrics;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -27,15 +30,23 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
+import simulator.coreelements.RunElement;
+import simulator.runmodel.RunModel;
 import systemtools.BaseDialog;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
@@ -55,9 +66,11 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
+	 * @param model	Simulationsmodell mit Informationen zu den Stationen usw.
 	 * @param clientInfo	Daten zu dem anzuzeigenden Kunden
+	 * @param isWaitingClientsList	Handelt es sich um einen noch wartenden Kunden?
 	 */
-	public ModelElementAnimationInfoClientDialog(final Component owner, final ModelElementAnimationInfoDialog.ClientInfo clientInfo) {
+	public ModelElementAnimationInfoClientDialog(final Component owner, final RunModel model, final ModelElementAnimationInfoDialog.ClientInfo clientInfo, final boolean isWaitingClientsList) {
 		super(owner,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Title"));
 
 		/* GUI */
@@ -78,6 +91,20 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.RunningNumber"),""+clientInfo.number);
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ClientType"),""+clientInfo.typeName,"id="+clientInfo.typeId);
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Icon"),clientInfo.getIcon(new AnimationImageSource()));
+
+		if (clientInfo.currentPosition>=0 && clientInfo.currentPosition<model.elementsFast.length) {
+			final RunElement station=model.elementsFast[clientInfo.currentPosition];
+			if (station!=null) {
+				final StringBuilder position=new StringBuilder();
+				if (station.parentId>=0) {
+					position.append(model.elementsFast[station.parentId].name);
+					position.append(" - ");
+				}
+				position.append(station.name);
+				addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.CurrentStation"),position.toString());
+			}
+		}
+
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.IsWarmUp"),clientInfo.isWarmUp);
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.InStatistics"),!clientInfo.isWarmUp && clientInfo.inStatistics);
 		if (clientInfo.batch>0) addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.BatchSize"),""+clientInfo.batch);
@@ -86,10 +113,11 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 		tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times"),tabOuter=new JPanel(new BorderLayout()));
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
-		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting"),TimeTools.formatExactTime(clientInfo.waitingTime),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"));
-		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer"),TimeTools.formatExactTime(clientInfo.transferTime),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"));
-		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process"),TimeTools.formatExactTime(clientInfo.processTime),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"));
-		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence"),TimeTools.formatExactTime(clientInfo.residenceTime),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"));
+		final String info=(isWaitingClientsList)?Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"):null;
+		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting"),TimeTools.formatExactTime(clientInfo.waitingTime),info);
+		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer"),TimeTools.formatExactTime(clientInfo.transferTime),info);
+		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process"),TimeTools.formatExactTime(clientInfo.processTime),info);
+		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence"),TimeTools.formatExactTime(clientInfo.residenceTime),info);
 
 		/* Tab "Kosten" */
 		if (clientInfo.waitingCosts!=0.0 || clientInfo.transferCosts!=0.0 || clientInfo.processCosts!=0.0) {
@@ -106,6 +134,10 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Number.Short"),tabOuter=new JPanel(new BorderLayout()));
 			tabOuter.add(new JScrollPane(table=new JTable(new DefaultTableModel(processClientNumbers(clientInfo.clientData),new Vector<>(Arrays.asList(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Table.Index"),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Table.Value")))))));
 			table.setEnabled(false);
+			table.getTableHeader().setReorderingAllowed(false);
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			autoSizeColumn(table,0,true);
+			autoSizeColumn(table,1,true);
 		}
 
 		/* Tab "Textbasierte Datenfelder" */
@@ -113,6 +145,24 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text.Short"),tabOuter=new JPanel(new BorderLayout()));
 			tabOuter.add(new JScrollPane(table=new JTable(new DefaultTableModel(processClientTexts(clientInfo.clientTextData),new Vector<>(Arrays.asList(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Table.Key"),Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Table.Value")))))));
 			table.setEnabled(false);
+			table.getTableHeader().setReorderingAllowed(false);
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			autoSizeColumn(table,0,true);
+			autoSizeColumn(table,1,true);
+		}
+
+		/* Tab "Pfad" */
+		if (clientInfo.path!=null && clientInfo.path.length>0) {
+			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path"),tabOuter=new JPanel(new BorderLayout()));
+			final List<String> path=new ArrayList<>();
+			for (int id: clientInfo.path) {
+				if (model.elementsFast[id].parentId>=0) {
+					path.add(model.elementsFast[model.elementsFast[id].parentId].name+" - "+model.elementsFast[id].name);
+				} else {
+					path.add(model.elementsFast[id].name);
+				}
+			}
+			tabOuter.add(new JScrollPane(new JList<>(path.toArray(new String[0]))));
 		}
 
 		/* Icons auf den Tabs */
@@ -122,6 +172,7 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 		if (clientInfo.waitingCosts!=0.0 || clientInfo.transferCosts!=0.0 || clientInfo.processCosts!=0.0) tabs.setIconAt(nr++,Images.MODELEDITOR_ELEMENT_COSTS.getIcon());
 		if (clientInfo.clientData.size()>0) tabs.setIconAt(nr++,Images.GENERAL_NUMBERS.getIcon());
 		if (clientInfo.clientTextData.size()>0) tabs.setIconAt(nr++,Images.GENERAL_FONT.getIcon());
+		if (clientInfo.path!=null && clientInfo.path.length>0) tabs.setIconAt(nr++,Images.MODELPROPERTIES_PATH_RECORDING.getIcon());
 
 		/* Dialog starten */
 		pack();
@@ -148,12 +199,16 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 	 * @param parent	Übergeordnetes Element in das die neue Zeile eingefügt werden soll
 	 * @param name	Name des Datenfeldes
 	 * @param value	Wert des Datenfeldes
-	 * @param info	Zusätzliche Informationen zur Anzeige hinter dem Wert
+	 * @param info	Zusätzliche Informationen zur Anzeige hinter dem Wert (kann leer oder <code>null</code> sein)
 	 */
 	private void addInfo(final JPanel parent, final String name, final String value, final String info) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		parent.add(line);
-		line.add(new JLabel("<html><body>"+name+": <b>"+value+"</b> ("+info+")</body></html>"));
+		if (info!=null && !info.trim().isEmpty()) {
+			line.add(new JLabel("<html><body>"+name+": <b>"+value+"</b> ("+info+")</body></html>"));
+		} else {
+			line.add(new JLabel("<html><body>"+name+": <b>"+value+"</b></body></html>"));
+		}
 	}
 
 	/**
@@ -224,5 +279,60 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 		}
 
 		return list;
+	}
+
+	/**
+	 * Stellt die Breite einer Spalte basierend auf dem Inhalt der Spalte ein.
+	 * @param table	Tabelle bei der die Breite einer Spalte eingestellt werden soll.
+	 * @param columnIndex	0-basierter Spaltenindex
+	 * @param includeHeader	Nur den Inhalt der Spalte (<code>false</code>) oder auch die Spaltenüberschrift (<code>true</code>) in die Berechnung der benötigten Breite mit einbeziehen.
+	 */
+	private void autoSizeColumn(final JTable table, final int columnIndex, final boolean includeHeader) {
+		/* Spaltenbreite */
+		int widthContent=0;
+		final TableModel model=table.getModel();
+		final FontMetrics fontMetrics=table.getFontMetrics(table.getFont());
+		final int rowCount=table.getRowCount();
+		for (int i=0;i<rowCount;i++) {
+			widthContent=Math.max(widthContent,SwingUtilities.computeStringWidth(fontMetrics,(String)model.getValueAt(i,columnIndex)));
+		}
+
+		/* Überschriftenbreite */
+		int widthHeader=0;
+		if (includeHeader) {
+			final JTableHeader header=table.getTableHeader();
+			final String title=table.getColumnName(columnIndex);
+			widthHeader=SwingUtilities.computeStringWidth(header.getFontMetrics(header.getFont()),title);
+		}
+
+		/* Neue Breite einstellen */
+		setColWidth(table,columnIndex,Math.max(widthContent,widthHeader));
+	}
+
+	/**
+	 * Liefert die Spaltenabstände.
+	 * @param table	Tabelle von der die Spaltenabstände berechnet werden sollen.
+	 * @return	Spaltenabstände
+	 */
+	private int getSpacing(final JTable table) {
+		return table.getIntercellSpacing().width+5; /* "+5"=Border+Inset */
+	}
+
+	/**
+	 * Stellt die Spalte einer Breite ein.
+	 * @param table	Tabelle bei der die Breite einer Spalte eingestellt werden soll.
+	 * @param columnIndex	0-basierter Spaltenindex
+	 * @param width	Neue Spaltenbreite
+	 */
+	private void setColWidth(final JTable table, final int columnIndex, final int width) {
+		/* Abstände zwischen den Zellen */
+		final int spacing=getSpacing(table);
+
+		/* Neue Breite einstellen */
+		final TableColumnModel columnModel=table.getColumnModel();
+		final TableColumn column=columnModel.getColumn(columnIndex);
+		column.setMinWidth(30);
+		column.setPreferredWidth(width+2*spacing);
+		column.setWidth(width+2*spacing);
 	}
 }

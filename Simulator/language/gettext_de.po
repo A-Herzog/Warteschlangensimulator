@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-19 14:57+0100\n"
+"POT-Creation-Date: 2021-02-20 19:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24239,6 +24239,15 @@ msgstr "Fehler beim Speichern"
 msgid "Surface.PopupMenu.SimulationStatisticsData.SaveHint"
 msgstr "Speichert die Daten als Textdatei"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients"
+msgstr "Alle Kunden"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info"
+msgstr ""
+"Da für eine Aktualisierung der Liste der Kunden an der Station die gesamte Liste<br>\n"
+"der Kunden im System durchlaufen werden muss, wird diese Liste nicht automatisch<br>\n"
+"mit den anderen Daten aktualisiert, sondern muss manuell aktualisiert werden."
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.Data"
 msgstr "Daten"
 
@@ -24266,11 +24275,17 @@ msgstr "Transferzeitkosten"
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting"
 msgstr "Wartezeitkosten"
 
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.CurrentStation"
+msgstr "Aktuelle Station"
+
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Number"
 msgstr "Numerische Kundendatenfelder"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Number.Short"
 msgstr "Numerische Datenfelder"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Path"
+msgstr "Pfad"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Text"
 msgstr "textbasierte Kundendatenfelder"
@@ -24334,6 +24349,12 @@ msgstr "Stellt den Standardzoomfaktor wieder her."
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.Update"
 msgstr "Aktualisieren"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.UpdateClients"
+msgstr "Kunden aktualisieren"
+
+msgid "Surface.PopupMenu.SimulationStatisticsData.UpdateClientsHint"
+msgstr "Aktualisiert die Kundenliste gemäß dem aktuellen Simulationsfortschritt"
 
 msgid "Surface.PopupMenu.SimulationStatisticsData.UpdateHint"
 msgstr "Aktualisiert die Daten gemäß dem aktuellen Simulationsfortschritt"

@@ -58,7 +58,9 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
 import simulator.elements.RunElementDataWithWaitingClients;
+import simulator.elements.RunElementSub;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.RunDataClients;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsLongRunPerformanceIndicator;
@@ -534,14 +536,49 @@ public class ModelElement {
 	}
 
 	/**
-	 * Stellt Statistikdaten über die an der Station wartenden Kunden zusammen
+	 * Stellt Statistikdaten über die an der Station wartenden Kunden zusammen.
 	 * @param model	Statische Simulationsmodelldaten
 	 * @param data	Datenobjekt für die aktuelle Station
 	 * @return	Liste der wartenden Kunden
 	 */
-	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeClientData(final RunModel model, final RunElementDataWithWaitingClients data) {
+	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeWaitingClientData(final RunModel model, final RunElementDataWithWaitingClients data) {
 		final List<RunDataClient> clients=data.getWaitingClients();
 		return ModelElementAnimationInfoDialog.ClientInfo.getList(this.model.animationImages,model,clients);
+	}
+
+	/**
+	 * Stellt Statistikdaten über die an der Station befindlichen Kunden zusammen.
+	 * @param model	Statische Simulationsmodelldaten
+	 * @param clients	Datenobjekt, welche die Liste aller Kunden vorhält
+	 * @param id	Stations-ID der Station für die die Kundenliste ermittelt werden soll
+	 * @return	Liste der Kunden
+	 */
+	private synchronized List<ModelElementAnimationInfoDialog.ClientInfo> getAnimationRunTimeAllClientData(final RunModel model, final RunDataClients clients, final int id) {
+		final List<ModelElementAnimationInfoDialog.ClientInfo> list=new ArrayList<>();
+
+		final boolean searchInSub=(model.elementsFast[id] instanceof RunElementSub);
+
+		final List<RunDataClient> clientsList=clients.requestClientsInUseList();
+		final int size=clientsList.size();
+		for (int i=0;i<size;i++) {
+			final RunDataClient client=clientsList.get(i);
+			final int clientPosition=client.nextStationID;
+			/* Kunde an Station */
+			if (clientPosition==id) {
+				list.add(new ModelElementAnimationInfoDialog.ClientInfo(this.model.animationImages,model,client));
+				continue;
+			}
+			/* Kunde an Station, die in dem betrachteten Untermodell liegt */
+			if (searchInSub && clientPosition>=0 && clientPosition<model.elementsFast.length) {
+				final RunElement station=model.elementsFast[clientPosition];
+				if (station!=null && station.parentId==id) {
+					list.add(new ModelElementAnimationInfoDialog.ClientInfo(this.model.animationImages,model,client));
+					continue;
+				}
+			}
+		}
+
+		return list;
 	}
 
 	/**
@@ -821,14 +858,20 @@ public class ModelElement {
 		if (simData==null) return;
 		final int id=getId();
 
-		Supplier<List<ClientInfo>> clientInfo=null;
+		Supplier<List<ClientInfo>> clientWaitingInfo=null;
+		Supplier<List<ClientInfo>> clientAllInfo=null;
 		final RunElement element=simData.runModel.elements.get(id);
+
 		if (element!=null) {
+			/* Liste der wartenden Kunden */
 			final RunElementData data=element.getData(simData);
-			if (data instanceof RunElementDataWithWaitingClients) clientInfo=()->getAnimationRunTimeClientData(simData.runModel,(RunElementDataWithWaitingClients)data);
+			if (data instanceof RunElementDataWithWaitingClients) clientWaitingInfo=()->getAnimationRunTimeWaitingClientData(simData.runModel,(RunElementDataWithWaitingClients)data);
+
+			/* Liste aller Kunden */
+			clientAllInfo=()->getAnimationRunTimeAllClientData(simData.runModel,simData.runData.clients,id);
 		}
 
-		new ModelElementAnimationInfoDialog(owner,getContextMenuElementName()+" (id="+id+")",()->getAnimationRunTimeStatisticsData(simData),clientInfo);
+		new ModelElementAnimationInfoDialog(owner,getContextMenuElementName()+" (id="+id+")",simData.runModel,()->getAnimationRunTimeStatisticsData(simData),clientWaitingInfo,clientAllInfo);
 	}
 
 	/**

@@ -775,6 +775,15 @@ public class RunDataClient {
 	}
 
 	/**
+	 * Liefert die IDs der Stationen, die der Kunde durchlaufen hat
+	 * @return	IDs des Pfades (kann <code>null</code> sein, wenn es keinen Pfad gibt)
+	 */
+	public int[] getPath() {
+		if (pathRecording==null || pathRecordingUsed==0) return null;
+		return Arrays.copyOf(pathRecording,pathRecordingUsed);
+	}
+
+	/**
 	 * Schreibt den evtl. erfassten Pfad für den Kunden in die Statistik.
 	 * Muss am Ende des Lebenszyklus des Kundenobjektes aufgerufen werden.
 	 * @param simData	Simulationsdatenobjekt

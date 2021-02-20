@@ -17,6 +17,7 @@ package ui.modeleditor.coreelements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -84,13 +85,19 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 
 	/** Timer für automatische Aktualisierungen */
 	private Timer timer=null;
+	/** Simulationsmodell mit Informationen zu den Stationen usw. */
+	private final RunModel model;
 	/** Anzuzeigender Text im Content-Bereich */
 	private final Supplier<String> info;
-	/** Liste mit an der Station wartenden Kunden (kann <code>null</code> sein) */
+	/** Liste mit an der Station wartenden Kunden abrufen (kann <code>null</code> sein) */
+	private final Supplier<List<ClientInfo>> clientWaitingInfo;
+	/** Liste mit an der Station befindlichen Kunden abrufen (kann <code>null</code> sein) */
 	private final Supplier<List<ClientInfo>> clientInfo;
 
 	/** Schaltfläche zum Umschalten zwischen automatischer und manueller Aktualisierung */
 	private final JButton buttonAutoUpdate;
+	/** Schaltfläche zum Aktualisierung der Kundenliste */
+	private final JButton buttonUpdateClients;
 
 	/** Objekt welches die Icons für die Animation vorhält */
 	private final AnimationImageSource images;
@@ -98,25 +105,37 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	/** Text-Ausgabebereich */
 	private final JTextArea textArea;
 
-	/** Liste mit den wartenden Kunden */
-	private final JList<JLabel> list;
-	/** Datenmodell für die Liste mit den wartenden Kunden */
-	private final DefaultListModel<JLabel> listModel;
+	/** Liste der wartenden Kunden */
+	private final JList<JLabel> listWaiting;
+	/** Datenmodell für die Liste der wartenden Kunden */
+	private final DefaultListModel<JLabel> listWaitingModel;
 	/** Liste der Datensätze der wartenden Kunden */
-	private List<ClientInfo> listData;
+	private List<ClientInfo> listWaitingData;
+
+	/** Liste der Kunden */
+	private final JList<JLabel> listAll;
+	/** Datenmodell für die Liste der Kunden */
+	private final DefaultListModel<JLabel> listAllModel;
+	/** Liste der Datensätze der Kunden */
+	private List<ClientInfo> listAllData;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationInfoDialog</code>
 	 * @param owner	Übergeordnetes Fenster
 	 * @param title	Anzuzeigender Titel
+	 * @param model	Simulationsmodell mit Informationen zu den Stationen usw.
 	 * @param info	Anzuzeigender Text im Content-Bereich
-	 * @param clientInfo	Optionale Liste mit an der Station wartenden Kunden (kann <code>null</code> sein)
+	 * @param clientWaitingInfo	Optionale Liste mit an der Station wartenden Kunden (kann <code>null</code> sein)
+	 * @param clientInfo	Optionale Liste mit an der Station befindlichen Kunden (kann <code>null</code> sein)
 	 */
-	public ModelElementAnimationInfoDialog(final Component owner, final String title, final Supplier<String> info, final Supplier<List<ClientInfo>> clientInfo) {
+	public ModelElementAnimationInfoDialog(final Component owner, final String title, final RunModel model, final Supplier<String> info, final Supplier<List<ClientInfo>> clientWaitingInfo, final Supplier<List<ClientInfo>> clientInfo) {
 		super(owner,title);
+		this.model=model;
 		this.info=info;
+		this.clientWaitingInfo=clientWaitingInfo;
 		this.clientInfo=clientInfo;
 
+		images=new AnimationImageSource();
 		timer=null;
 
 		showCloseButton=true;
@@ -132,37 +151,66 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		toolbar.addSeparator();
 		addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Update"),Images.ANIMATION_DATA_UPDATE.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateHint"),e->commandUpdate());
 		buttonAutoUpdate=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdate"),Images.ANIMATION_DATA_UPDATE_AUTO.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.AutoUpdateHint"),e->commandAutoUpdate());
+		buttonUpdateClients=addButton(toolbar,Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateClients"),Images.MODELPROPERTIES_CLIENTS.getIcon(),Language.tr("Surface.PopupMenu.SimulationStatisticsData.UpdateClientsHint"),e->commandUpdateClientList());
+		buttonUpdateClients.setVisible(false);
 
-		images=new AnimationImageSource();
+		/* Tabs */
+		final JTabbedPane tabs=new JTabbedPane();
+		content.add(tabs,BorderLayout.CENTER);
 
-		if (clientInfo==null) {
-			/* Nur Text-Datenfeld */
-			textArea=new JTextArea(info.get());
-			content.add(new JScrollPane(textArea),BorderLayout.CENTER);
-			textArea.setEditable(false);
-			list=null;
-			listModel=null;
+		JPanel tab;
+		JPanel line;
+
+		/* Text-Datenfeld */
+		tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.Data"),tab=new JPanel(new BorderLayout()));
+		textArea=new JTextArea(info.get());
+		tab.add(new JScrollPane(textArea),BorderLayout.CENTER);
+		textArea.setEditable(false);
+
+		/* Warteschlange */
+		if (clientWaitingInfo==null) {
+			listWaiting=null;
+			listWaitingModel=null;
 		} else {
-			/* Text-Datenfeld und Kundenliste */
-			final JTabbedPane tabs=new JTabbedPane();
-			content.add(tabs,BorderLayout.CENTER);
-			JPanel tab;
-
-			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.Data"),tab=new JPanel(new BorderLayout()));
-			textArea=new JTextArea(info.get());
-			tab.add(new JScrollPane(textArea),BorderLayout.CENTER);
-			textArea.setEditable(false);
-
 			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients"),tab=new JPanel(new BorderLayout()));
-			tab.add(new JScrollPane(list=new JList<>(listModel=new DefaultListModel<>())),BorderLayout.CENTER);
-			list.setCellRenderer(new JLabelRender());
-			list.addMouseListener(new MouseAdapter() {
+			tab.add(new JScrollPane(listWaiting=new JList<>(listWaitingModel=new DefaultListModel<>())),BorderLayout.CENTER);
+			listWaiting.setCellRenderer(new JLabelRender());
+			listWaiting.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) commandShowWaitingClientData();
+				}
+			});
+			listWaiting.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(final KeyEvent e) {
+					if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+						commandShowWaitingClientData();
+						e.consume();
+						return;
+					}
+				}
+			});
+			commandUpdateWaitingClientListOnly();
+		}
+
+		/* Allgemeine Kundenliste */
+		if (clientInfo==null) {
+			listAll=null;
+			listAllModel=null;
+		} else {
+			tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients"),tab=new JPanel(new BorderLayout()));
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
+			line.add(new JLabel("<html><body>"+Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info")+"</body></html>"));
+			tab.add(new JScrollPane(listAll=new JList<>(listAllModel=new DefaultListModel<>())),BorderLayout.CENTER);
+			listAll.setCellRenderer(new JLabelRender());
+			listAll.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) commandShowClientData();
 				}
 			});
-			list.addKeyListener(new KeyAdapter() {
+			listAll.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(final KeyEvent e) {
 					if (e.getKeyCode()==KeyEvent.VK_ENTER) {
@@ -172,13 +220,16 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 					}
 				}
 			});
-			commandUpdateClientListOnly();
-
-			tabs.setIconAt(0,Images.GENERAL_TABLE.getIcon());
-			tabs.setIconAt(1,Images.MODELPROPERTIES_CLIENTS.getIcon());
 		}
 
+		/* Icons auf den Tabs */
+		int nr=0;
+		tabs.setIconAt(nr++,Images.GENERAL_TABLE.getIcon());
+		if (clientWaitingInfo!=null) tabs.setIconAt(nr++,Images.EXTRAS_QUEUE.getIcon());
+		if (clientInfo!=null) tabs.setIconAt(nr++,Images.MODELPROPERTIES_CLIENTS.getIcon());
+
 		/* Dialog starten */
+		tabs.addChangeListener(e->buttonUpdateClients.setVisible(this.clientInfo!=null && tabs.getSelectedIndex()==tabs.getTabCount()-1));
 		setMinSizeRespectingScreensize(600,400);
 		setSizeRespectingScreensize(800,600);
 		setLocationRelativeTo(this.owner);
@@ -262,18 +313,29 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		textArea.setSelectionEnd(0);
 
 		/* Kundenliste */
-		commandUpdateClientListOnly();
+		commandUpdateWaitingClientListOnly();
 	}
 
 	/**
 	 * Befehl: Liste der wartenden Kunden aktualisieren
 	 */
-	private void commandUpdateClientListOnly() {
+	private void commandUpdateWaitingClientListOnly() {
+		if (clientWaitingInfo==null) return;
+
+		listWaitingData=clientWaitingInfo.get();
+		listWaitingModel.clear();
+		if (listWaitingData!=null) listWaitingData.stream().map(clientInfo->clientInfo.buildLabel(images,true)).forEach(listWaitingModel::addElement);
+	}
+
+	/**
+	 * Befehl: Liste der Kunden aktualisieren
+	 */
+	private void commandUpdateClientList() {
 		if (clientInfo==null) return;
 
-		listData=clientInfo.get();
-		listModel.clear();
-		if (listData!=null) listData.stream().map(clientInfo->clientInfo.buildLabel(images)).forEach(listModel::addElement);
+		listAllData=clientInfo.get();
+		listAllModel.clear();
+		if (listAllData!=null) listAllData.stream().map(clientInfo->clientInfo.buildLabel(images,false)).forEach(listAllModel::addElement);
 	}
 
 	/**
@@ -295,13 +357,24 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	/**
 	 * Befehl: Daten zu dem gewählten wartenden Kunden anzeigen
 	 */
-	private void commandShowClientData() {
-		final int index=list.getSelectedIndex();
+	private void commandShowWaitingClientData() {
+		final int index=listWaiting.getSelectedIndex();
 		if (index<0) return;
 		if (buttonAutoUpdate.isSelected()) commandAutoUpdate();
 
-		final ClientInfo clientInfo=listData.get(index);
-		new ModelElementAnimationInfoClientDialog(this,clientInfo);
+		final ClientInfo clientInfo=listWaitingData.get(index);
+		new ModelElementAnimationInfoClientDialog(this,model,clientInfo,true);
+	}
+
+	/**
+	 * Befehl: Daten zu dem gewählten Kunden anzeigen
+	 */
+	private void commandShowClientData() {
+		final int index=listAll.getSelectedIndex();
+		if (index<0) return;
+
+		final ClientInfo clientInfo=listAllData.get(index);
+		new ModelElementAnimationInfoClientDialog(this,model,clientInfo,false);
 	}
 
 	@Override
@@ -331,6 +404,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		public boolean inStatistics;
 		/** Anzahl an Kunden in dem Batch (0, wenn dieser Kunde kein temporärer Batch ist) */
 		public final int batch;
+		/** ID der Station an der sich der Kunde momentan befindet */
+		public final int currentPosition;
 		/** Bisherige Wartezeit des Kunden */
 		public final double waitingTime;
 		/** Bisherige Transferzeit des Kunden */
@@ -349,6 +424,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		public final Map<Integer,Double> clientData;
 		/** Text-basierte Kundendatenfelder */
 		public final Map<String,String> clientTextData;
+		/** Aufgezeichneter Pfad (kann <code>null</code> sein, wenn kein Pfad aufgezeichnet wurde) */
+		public final int[] path;
 
 		/**
 		 * Konstruktor der Klasse
@@ -371,6 +448,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 			final List<RunDataClient> batchClients=client.getBatchData();
 			if (batchClients==null) batch=0; else batch=batchClients.size();
 
+			currentPosition=client.nextStationID;
+
 			waitingTime=client.waitingTime;
 			transferTime=client.transferTime;
 			processTime=client.processTime;
@@ -388,14 +467,17 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 
 			clientTextData=new HashMap<>();
 			for (String key: client.getUserDataStringKeys()) clientTextData.put(key,client.getUserDataString(key));
+
+			path=client.getPath();
 		}
 
 		/**
 		 * Erzeugt ein Label zur Anzeige in der Liste zu diesem Kundeninfo-Datensatz
 		 * @param images	Objekt welches die Icons für die Animation vorhält
+		 * @param isWaitingClientsList	Handelt es sich um einen noch wartenden Kunden?
 		 * @return	Label zur Anzeige in der Liste
 		 */
-		public JLabel buildLabel(final AnimationImageSource images) {
+		public JLabel buildLabel(final AnimationImageSource images, final boolean isWaitingClientsList) {
 			final StringBuilder text=new StringBuilder();
 			text.append("<html><body>");
 
@@ -417,9 +499,12 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 			text.append(TimeTools.formatExactTime(processTime));
 			text.append(", v=");
 			text.append(TimeTools.formatExactTime(residenceTime));
-			text.append(" (");
-			text.append(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"));
-			text.append(")<br>");
+			if (isWaitingClientsList) {
+				text.append(" (");
+				text.append(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.OnArrivalAtStation"));
+				text.append(")");
+			}
+			text.append("<br>");
 
 			text.append(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Field.Number")+": ");
 			text.append(clientData.size());
